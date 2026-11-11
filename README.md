@@ -13,9 +13,9 @@ Refonte du site d'Imagine (magazine, coopérative de presse) : WordPress + WooCo
 |---|---|---|
 | `docs/` | Claude (avec Ced) | Cahier des charges, synthèse, décisions, registre des écarts. |
 | `doctrine/` | Claude (avec Ced) | Règles de production et leur pourquoi. Source unique. |
-| `briefs/` | Claude (avec Ced) | Un fichier par lot de travail. File d'attente d'Hermès. |
+| `briefs/` | Claude (avec Ced) | Un fichier par lot de travail, préfixé par son chantier : **A** l'existant, **B** le thème, **C** le code sur mesure. File d'attente d'Hermès. |
 | `prompts/` | Claude | Consigne permanente et grands prompts datés. |
-| `wp/` | Hermès | Le code livrable : `plugins/`, `themes/`, `tests/`. |
+| `wp/` | Hermès | Le code livrable : `plugins/`, `themes/`, `tests/`, et `outils/` (scripts rejouables sur l'existant). |
 | `production/<lot>/` | Hermès | Ce qui n'est pas du code : études, notes de conception, `PRET`. |
 | `relectures/<lot>/` | Claude Code, Codex | `claude.md` et `codex.md`, écrits séparément. |
 | `corrections/<lot>.md` | Claude Code | Fusion des deux relectures + « À arbitrer par Ced ». |

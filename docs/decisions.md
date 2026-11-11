@@ -12,16 +12,19 @@ Ce qui est tranché par Ced, daté. Ce fichier précise ou corrige le cahier des
 | 11/11/2026 | Le dépôt de code est `Media2001/imagine`. |
 | 11/11/2026 | On commence par le socle, sans attendre les maquettes. |
 | 11/11/2026 | Le développement et les tests se font dans un staging Docker sur le NUC, décrit dans le dépôt. Rien ne s'installe sur la machine. |
+| 11/11/2026 | **On repart de la production.** Le site actuel est copié, mis à niveau (Memberships et ce qui en dépend), puis reçoit le nouveau thème et le code sur mesure. Les abonnés en ligne, leurs mots de passe et leurs moyens de paiement ne sont donc pas migrés : ils restent en place. Seuls les abonnés hors ligne (base Access) sont importés. |
+| 11/11/2026 | Trois chantiers indépendants : A l'existant, B le thème, C le code sur mesure. |
+| 11/11/2026 | Toute transformation de l'existant est un script rejouable : elle sera refaite sur une copie fraîche le jour de la bascule. |
 | 11/11/2026 | Architecture de production : Claude (briefs, arbitrages), Hermès (production), Codex et Claude Code (relecture), Git comme file de travail. |
 
 ## Ouvert — à trancher par Ced
 
 1. **Frontière du référencement.** Hypothèse de travail : le référenceur spécifie (balisage, redirections), Ced implémente dans le thème et le serveur. À confirmer.
 2. **Pilotage.** La gestion de projet, le document d'interface avec Odoo et les deux sessions de formation sont-ils chez Ced ?
-3. **Données réelles.** La règle n°3 du dépôt (aucune donnée réelle dans Git ni chez les agents) est appliquée par défaut. À confirmer, et à préciser pour la migration : où et par qui l'export Access est-il traité ?
+3. **Données réelles.** Appliqué par défaut : la copie de production vit sur le NUC hors du dépôt ; Ced lance lui-même l'import, qui la neutralise et l'anonymise (lot A-01) ; les agents ne travaillent que sur la copie anonymisée. À confirmer, et à préciser pour l'export Access : où et par qui est-il traité ?
 4. **Environnements.** Hébergeur et préproduction (le staging local Docker est tranché).
 5. **Licences.** Subscriptions, Memberships, ACF Pro, Rank Math Pro, Event Tickets Plus : disponibles pour le développement ?
-6. **Site actuel.** Accès administrateur et copie de la base, pour étudier la reprise des abonnés et des mandats Stripe.
+6. **Site actuel.** Sauvegarde complète (export SQL et `wp-content`) à récupérer chez l'hébergeur actuel.
 7. **Connecteur.** n8n hébergé à part ou intégré au site (§4.1).
 8. **Numéro d'entreprise.** Recherche de la dénomination en ligne (cahier des charges) ou simple contrôle de format (décision d'octobre) ?
 9. **Rythme d'Hermès sur ce dépôt.** Mêmes passages que TUM, ou un passage de nuit seulement ?

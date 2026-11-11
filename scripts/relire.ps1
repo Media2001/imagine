@@ -1,5 +1,5 @@
 # IMAGINE - relecture independante d'un lot (ou de tous ceux qui sont PRET)
-# Usage manuel :  powershell -ExecutionPolicy Bypass -File scripts\relire.ps1 -Lot lot-01
+# Usage manuel :  powershell -ExecutionPolicy Bypass -File scripts\relire.ps1 -Lot C-01
 # Sans -Lot : traite tous les dossiers production\<lot> qui ont PRET et pas encore de relecture.
 # Ordre : installation des dependances de test (dans Docker) -> Codex relit -> Claude Code relit -> Claude Code fusionne.
 # Si Hermes redepose PRET apres les corrections : passe de verification par Claude (2e et dernier tour).

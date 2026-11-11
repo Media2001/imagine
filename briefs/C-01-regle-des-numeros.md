@@ -1,8 +1,8 @@
-# Lot 01 — Moteur de la règle des numéros
+# Lot C-01 — Moteur de la règle des numéros
 
 **Nature** : code PHP pur et tests. Aucune dépendance à WordPress ni à WooCommerce.
 **Emplacement** : `wp/plugins/imagine-pilotage/src/Numeros/` et `wp/plugins/imagine-pilotage/tests/Numeros/`.
-**Livrables** : le code, ses tests, `production/lot-01/notes.md`, puis `production/lot-01/PRET`.
+**Livrables** : le code, ses tests, `production/C-01/notes.md`, puis `production/C-01/PRET`.
 
 ## Pourquoi
 

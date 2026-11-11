@@ -1,7 +1,7 @@
-# Lot 00 — Étude de couverture des extensions
+# Lot A-00 — Étude de couverture des extensions
 
 **Nature** : étude, sans code, sans installation, sans achat.
-**Livrable** : `production/lot-00/couverture-extensions.md`, puis `production/lot-00/PRET`.
+**Livrable** : `production/A-00/couverture-extensions.md`, puis `production/A-00/PRET`.
 
 ## Pourquoi
 

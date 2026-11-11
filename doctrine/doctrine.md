@@ -1,6 +1,6 @@
 # Doctrine — projet Imagine
 
-Révision : **11/11/2026** (création ; staging Docker).
+Révision : **11/11/2026, 18 h 30** (on repart de la production ; trois chantiers).
 
 Ces règles s'appliquent à tous les agents. En cas de contradiction entre une consigne et la doctrine, la doctrine l'emporte : l'agent le signale dans son rapport au lieu de trancher.
 
@@ -19,7 +19,7 @@ Ced réalise toute la production technique. Le **design** (maquettes) et le **r�
 ## 3. Interdits
 
 - **Secrets** : aucun mot de passe, clé, token ou fichier de configuration dans le dépôt.
-- **Données réelles** : aucun abonné, aucun export Access, aucun contact Brevo, aucun client Stripe, ni dans le dépôt ni dans un prompt. Les tests utilisent des jeux fictifs (`wp/tests/fixtures/`), avec des noms manifestement inventés et des adresses en `@example.org`.
+- **Données réelles** : aucun abonné, aucun export Access, aucun contact Brevo, aucun client Stripe, ni dans le dépôt ni dans un prompt. La copie de production vit sur le NUC, hors du dépôt ; seul Ced lance son import, qui la neutralise et l'anonymise. Un agent ne lit, n'ouvre ni ne copie jamais la sauvegarde d'origine ; il ne travaille que sur la copie anonymisée. Les tests utilisent des jeux fictifs (`wp/tests/fixtures/`), avec des noms manifestement inventés et des adresses en `@example.org`.
 - **Comptes réels** : aucun accès au site actuel, à Stripe, PayPal, Brevo, Odoo ou CoopHub sans GO écrit de Ced nommant la tâche. Stripe et PayPal : mode test uniquement.
 - **Achats** : aucune licence, aucun service payant.
 - **Déploiement** : rien en préproduction ni en production sans GO écrit.
@@ -33,6 +33,8 @@ Ced réalise toute la production technique. Le **design** (maquettes) et le **r�
 - **La logique métier hors de WordPress.** Les règles (numéros, échéances, droits) sont écrites en PHP pur, testables sans base ni WordPress ; une couche fine les branche sur WooCommerce.
 - **Paywall côté serveur.** Le texte réservé n'est jamais dans la réponse envoyée à un visiteur non autorisé : page, REST, flux, oEmbed, recherche, aperçus. Un test d'étanchéité le vérifie.
 - **Pas de constructeur de pages.** Thème sur mesure, HTML sémantique, aucun script superflu : les seuils du chapitre 5 (Lighthouse mobile, WCAG 2.1 AA) sont des obligations de résultat.
+- **Rejouable.** On repart de la production, qui continue de vivre pendant le projet. Toute transformation de l'existant (mise à jour, nettoyage, réglage, changement de forme des contenus) est un script versionné, relançable sur une copie fraîche, et qui donne le même résultat. Rien ne se fait à la main dans l'administration sans être reporté dans un script.
+- **Non-régression.** Avant de modifier l'existant, on écrit le test qui prouve qu'il fonctionne ; on le rejoue après.
 - **Idempotence.** Tout ce qui part vers Odoo passe par une file d'attente ; un événement rejoué ne crée pas de doublon.
 
 ## 5. Conventions de code
