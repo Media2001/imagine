@@ -20,7 +20,8 @@ Refonte du site d'Imagine (magazine, coopérative de presse) : WordPress + WooCo
 | `relectures/<lot>/` | Claude Code, Codex | `claude.md` et `codex.md`, écrits séparément. |
 | `corrections/<lot>.md` | Claude Code | Fusion des deux relectures + « À arbitrer par Ced ». |
 | `files/rapports/` | Hermès | Rapports de passage. |
-| `scripts/` | Claude | Synchronisation Git du NUC. |
+| `scripts/` | Claude | Synchronisation Git du NUC, relecture. |
+| `docker-compose.yml`, `docker/` | Claude | Staging local sur le NUC : WordPress, base fictive, WP-CLI, PHP et Composer pour les tests. |
 | `relecteurs/` | — | Fichiers de rôle des relecteurs (`CLAUDE.md`, `AGENTS.md`). |
 
 ## Le circuit

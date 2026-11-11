@@ -10,7 +10,7 @@ Consigne permanente : `prompts/consigne-permanente.md`. Doctrine : `doctrine/doc
 
 **1. `briefs/lot-00-couverture-extensions.md`** — étude : ce que les extensions retenues font nativement, sources officielles à l'appui. Aucune installation, aucun achat.
 
-**2. `briefs/lot-01-regle-des-numeros.md`** — moteur de la règle des numéros en PHP pur, avec ses tests.
+**2. `briefs/lot-01-regle-des-numeros.md`** — moteur de la règle des numéros en PHP pur, avec ses tests. Tout s'exécute dans Docker (`docker-compose.yml`), rien sur la machine.
 
 ## En attente (ne pas commencer)
 

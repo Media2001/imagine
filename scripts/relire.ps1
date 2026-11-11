@@ -1,7 +1,7 @@
 # IMAGINE - relecture independante d'un lot (ou de tous ceux qui sont PRET)
 # Usage manuel :  powershell -ExecutionPolicy Bypass -File scripts\relire.ps1 -Lot lot-01
 # Sans -Lot : traite tous les dossiers production\<lot> qui ont PRET et pas encore de relecture.
-# Ordre : installation des dependances de test -> Codex relit -> Claude Code relit -> Claude Code fusionne.
+# Ordre : installation des dependances de test (dans Docker) -> Codex relit -> Claude Code relit -> Claude Code fusionne.
 # Si Hermes redepose PRET apres les corrections : passe de verification par Claude (2e et dernier tour).
 # Au-dela : rien d'automatique, le lot remonte a Ced.
 # Chaque relecteur lit son fichier de role dans relecteurs\ et n'ecrit que son rapport.
@@ -21,7 +21,7 @@ $CodexExtra = @('-c', 'model_reasoning_effort="high"', '-c', 'web_search="live"'
 # Modele Claude des relecteurs
 $ClaudeModel = 'opus'
 # Outils communs des relecteurs Claude : lecture, recherche, lancement des tests. Aucune ecriture hors rapport.
-$ClaudeRead = @('Read', 'Glob', 'Grep', 'WebSearch', 'WebFetch', 'Bash(composer test:*)')
+$ClaudeRead = @('Read', 'Glob', 'Grep', 'WebSearch', 'WebFetch', 'Bash(docker compose run --rm:*)')
 
 $lock = Join-Path $repo '.relire.lock'
 if (Test-Path $lock) {
@@ -36,14 +36,14 @@ try {
     if ($Lot) { $lots = @($Lot) }
     else { $lots = Get-ChildItem $prodRoot -Directory | Where-Object { Test-Path (Join-Path $_.FullName 'PRET') } | ForEach-Object { $_.Name } }
 
-    # 0. Dependances de test (vendor/ n'est pas versionne) : une fois par extension qui a un composer.json
-    if ($lots -and (Get-Command composer -ErrorAction SilentlyContinue)) {
+    # 0. Dependances de test (vendor/ n'est pas versionne) : dans le conteneur php, une fois par extension qui a un composer.json
+    if ($lots -and (Get-Command docker -ErrorAction SilentlyContinue)) {
         Get-ChildItem (Join-Path $repo 'wp\plugins') -Directory -ErrorAction SilentlyContinue | Where-Object { Test-Path (Join-Path $_.FullName 'composer.json') } | ForEach-Object {
-            & composer install --working-dir=$($_.FullName) --no-interaction --quiet 2>&1 | Out-File -Encoding utf8 (Join-Path $logDir "composer-$($_.Name).txt")
+            & docker compose run --rm -w "/app/$($_.Name)" php composer install --no-interaction --quiet 2>&1 | Out-File -Encoding utf8 (Join-Path $logDir "composer-$($_.Name).txt")
             if ($LASTEXITCODE -ne 0) { Write-Log "ERREUR composer install dans $($_.Name) (voir composer-$($_.Name).txt)" }
         }
     }
-    elseif ($lots) { Write-Log 'composer introuvable : les relecteurs ne pourront pas lancer les tests' }
+    elseif ($lots) { Write-Log 'docker introuvable : les relecteurs ne pourront pas lancer les tests' }
 
     foreach ($s in $lots) {
         $prod = "production/$s"
@@ -66,7 +66,7 @@ try {
         # 2. Claude Code
         if (-not (Test-Path (Join-Path $repo "$rel/claude.md"))) {
             Write-Log "$s : relecture Claude..."
-            $p = "Tu es le relecteur Claude independant. Lis relecteurs/CLAUDE.md et applique-le strictement au lot $s : brief $brief, production dans $prod et dans wp/. Lance les tests du lot si le brief en prevoit (composer test --working-dir=<dossier de l'extension>) et deroule a la main les cas du cahier des charges. Ecris ton rapport UNIQUEMENT dans $rel/claude.md, au format de doctrine/grille-relecture.md. N'ouvre PAS $rel/codex.md. Ne fais pas encore la fusion."
+            $p = "Tu es le relecteur Claude independant. Lis relecteurs/CLAUDE.md et applique-le strictement au lot $s : brief $brief, production dans $prod et dans wp/. Lance les tests du lot si le brief en prevoit (docker compose run --rm -w /app/<extension> php composer test) et deroule a la main les cas du cahier des charges. Ecris ton rapport UNIQUEMENT dans $rel/claude.md, au format de doctrine/grille-relecture.md. N'ouvre PAS $rel/codex.md. Ne fais pas encore la fusion."
             & claude -p $p --model $ClaudeModel --allowedTools @ClaudeRead "Write(/relectures/**)" "Edit(/relectures/**)" 2>&1 | Out-File -Encoding utf8 (Join-Path $logDir "claude-$s.txt")
             if (Test-Path (Join-Path $repo "$rel/claude.md")) { Write-Log "$s : claude.md ecrit" } else { Write-Log "$s : ERREUR claude.md absent (voir claude-$s.txt)" }
         }

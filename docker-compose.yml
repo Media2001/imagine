@@ -1,0 +1,87 @@
+# IMAGINE - environnement de developpement et de test (staging local, sur le NUC)
+# Base FICTIVE uniquement. Les identifiants ci-dessous ne valent que pour ce staging local :
+# ils ne doivent jamais servir ailleurs. Aucun secret reel dans ce fichier.
+#
+#   Demarrer le site :      docker compose up -d            -> http://localhost:8080
+#   Arreter :               docker compose down
+#   Tout effacer (base) :   docker compose down -v
+#   Tests d'une extension : docker compose run --rm -w /app/imagine-pilotage php composer test
+#   WP-CLI :                docker compose run --rm wpcli plugin list
+
+name: imagine
+
+services:
+  db:
+    image: mariadb:11
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: imagine
+      MARIADB_USER: imagine
+      MARIADB_PASSWORD: imagine_local
+      MARIADB_ROOT_PASSWORD: imagine_local_root
+    volumes:
+      - db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  wordpress:
+    image: wordpress:php8.3-apache
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: imagine
+      WORDPRESS_DB_USER: imagine
+      WORDPRESS_DB_PASSWORD: imagine_local
+      WORDPRESS_DEBUG: "1"
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_ENVIRONMENT_TYPE', 'local');
+        define('WP_DEBUG_LOG', true);
+        define('WP_DEBUG_DISPLAY', false);
+        define('DISALLOW_FILE_EDIT', true);
+    volumes:
+      - wordpress:/var/www/html
+      # Code sur mesure du depot : une ligne par extension ou theme
+      - ./wp/plugins/imagine-pilotage:/var/www/html/wp-content/plugins/imagine-pilotage
+      - ./wp/themes/imagine:/var/www/html/wp-content/themes/imagine
+
+  # WP-CLI : lance a la demande (docker compose run --rm wpcli ...)
+  wpcli:
+    image: wordpress:cli-php8.3
+    profiles: ["outils"]
+    user: "33:33"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: imagine
+      WORDPRESS_DB_USER: imagine
+      WORDPRESS_DB_PASSWORD: imagine_local
+    volumes:
+      - wordpress:/var/www/html
+      - ./wp/plugins/imagine-pilotage:/var/www/html/wp-content/plugins/imagine-pilotage
+      - ./wp/themes/imagine:/var/www/html/wp-content/themes/imagine
+
+  # PHP + Composer pour les tests : lance a la demande, sans WordPress ni base
+  php:
+    build: ./docker/php
+    profiles: ["outils"]
+    working_dir: /app
+    volumes:
+      - ./wp/plugins:/app
+      - composer-cache:/tmp/composer-cache
+    environment:
+      COMPOSER_CACHE_DIR: /tmp/composer-cache
+
+volumes:
+  db:
+  wordpress:
+  composer-cache:

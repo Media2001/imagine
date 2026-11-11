@@ -1,6 +1,6 @@
 # Doctrine — projet Imagine
 
-Révision : **11/11/2026** (création).
+Révision : **11/11/2026** (création ; staging Docker).
 
 Ces règles s'appliquent à tous les agents. En cas de contradiction entre une consigne et la doctrine, la doctrine l'emporte : l'agent le signale dans son rapport au lieu de trancher.
 
@@ -24,6 +24,7 @@ Ced réalise toute la production technique. Le **design** (maquettes) et le **r�
 - **Achats** : aucune licence, aucun service payant.
 - **Déploiement** : rien en préproduction ni en production sans GO écrit.
 - **Git** : un worker ne fait jamais d'opération Git. Seule la tâche de synchronisation en fait.
+- **Machine** : rien ne s'installe ni ne s'exécute sur le NUC lui-même. PHP, Composer, WordPress et la base vivent dans le staging Docker du dépôt (`docker-compose.yml`), avec une base fictive. C'est le seul endroit où un agent installe ou exécute quelque chose.
 
 ## 4. Comment on construit
 

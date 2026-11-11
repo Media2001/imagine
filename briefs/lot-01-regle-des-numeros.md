@@ -48,6 +48,6 @@ Ces points ne sont pas tranchés par le cahier des charges. Implémente l'interp
 
 - PHP 8.2, `declare(strict_types=1)`, PSR-12, espace de noms `Imagine\Pilotage\Numeros`.
 - Objets immuables, dates en `DateTimeImmutable`, fuseau `Europe/Brussels`. Aucune lecture de l'horloge dans le moteur : la date du jour est toujours passée en argument.
-- PHPUnit, lancé par `composer test` depuis `wp/plugins/imagine-pilotage/`.
-- `README.md` de l'extension : comment installer les dépendances et lancer les tests.
-- Si PHP ou Composer ne sont pas disponibles sur la machine : ne rien installer, le signaler dans le rapport.
+- PHPUnit, lancé par `composer test`. **Tout s'exécute dans Docker**, jamais sur la machine : `docker compose run --rm -w /app/imagine-pilotage php composer install`, puis `docker compose run --rm -w /app/imagine-pilotage php composer test` (voir `docker-compose.yml`).
+- `README.md` de l'extension : comment installer les dépendances et lancer les tests (commandes Docker).
+- Si Docker n'est pas disponible ou si l'image ne se construit pas : ne rien installer sur la machine, le signaler dans le rapport.
