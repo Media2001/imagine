@@ -1,0 +1,1831 @@
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+IMAGINE — Refonte du site internet : cahier
+des charges fonctionnel et technique, version
+3.1
+  ​Nov 10, 2026       ·   ​@Mike
+
+Version 3.1 du 26 octobre 2026, qui remplace la version 3.0 du 9 octobre 2026. Document
+de travail pour l'équipe de production.
+
+
+Ce qui change dans la version 3.1
+Les réunions des 12 et 15 octobre avec Imagine ont tranché des points laissés ouverts le 9
+octobre et ajouté des fonctions au périmètre. Tout ce qui est nouveau ou modifié depuis la
+version 3.0 porte la mention [v3.1]. La mention [Nouveau] des versions précédentes est
+conservée.
+
+
+  Sujet                                          Arrêté depuis le 9 octobre                      Voir
+
+  Périmètre                                      Les anciennes options « facture dans le         §3.4, §3.7, §3.11,
+                                                 compte », « statut des virements depuis         §9.2
+                                                 Odoo », « recalcul du port », « événements et
+                                                 billetterie » et « abonnements groupés » font
+                                                 partie du périmètre. Les deux premières
+                                                 dépendent des données que Step met à
+                                                 disposition.
+
+  Domiciliation                                  Deux circuits coexistent : mandat en ligne      §3.6, §3.13
+                                                 prélevé par Stripe pour les nouveaux
+                                                 abonnés ; mandat papier maintenu pour les
+                                                 abonnés existants, géré depuis le back-
+                                                 office, fichier bancaire préparé par
+                                                 l'administration comme aujourd'hui.
+
+  PayPal                                         Ajouté comme moyen de paiement, pour le         §3.6
+                                                 premier paiement et les renouvellements.
+
+  Abonnement offert                              Une seule commande, avec les coordonnées        §3.4
+                                                 du destinataire ; l'acheteur choisit
+                                                 explicitement si le cadeau se renouvelle.
+
+
+
+
+                                                                                                               Page 1 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+  Sujet                                          Arrêté depuis le 9 octobre                        Voir
+
+  Segmentation                                   WordPress est la seule base des abonnés. Un       §3.7, §3.10, §3.13
+                                                 formulaire facultatif de personnalisation
+                                                 pose des étiquettes de persona sur le
+                                                 compte, transmises à Brevo. Odoo ne reçoit
+                                                 que les données de facturation.
+
+  Mode lecture                                   Chaque article propose une vue de lecture         §3.3
+                                                 sans distraction ; le gabarit est compatible
+                                                 avec le mode lecture des navigateurs.
+
+  Paywall et                                     Le texte complet n'est servi qu'aux abonnés       §3.9, §4.4, §5
+  référencement                                  connectés et aux robots d'indexation
+                                                 vérifiés. Tout autre visiteur reçoit l'extrait,
+                                                 dans la page comme dans l'API, les flux et les
+                                                 aperçus. Remplace la règle « texte intégral
+                                                 masqué à l'affichage ».
+
+  CoopHub                                        Intégration au niveau le plus poussé que          §3.12
+                                                 l'outil permet : interface de programmation,
+                                                 fenêtre intégrée ou lien. Niveau arrêté
+                                                 pendant l'étude, sur documentation.
+
+  Liseuse                                        Le mode lecture des articles est dans le          §3.3, §9.2
+                                                 périmètre. La liseuse du numéro complet
+                                                 (feuilletage page par page) reste une option,
+                                                 hors périmètre à ce jour.
+
+  Tests et réception                             La réception porte sur les critères               §5, §10
+                                                 mesurables avant la mise en ligne ; le critère
+                                                 de référencement, mesuré 30 jours après la
+                                                 bascule, relève de la garantie.
+
+  Calendrier                                     Étude en novembre et décembre 2026 ;              §10
+                                                 production à partir de novembre ; mise en
+                                                 ligne estimée fin janvier 2027, au plus tard en
+                                                 février. Les dates sont des estimations.
+
+  Exploitation                                   Toutes les licences sont portées par              §11
+                                                 UPARTNER dans la maintenance ; une heure
+                                                 de dépannage par mois, réservée aux
+                                                 corrections ; pas d'infogérance du serveur.
+
+
+Rappel des décisions du 9 octobre. Le site vend, gère les abonnés et leur écrit ; Odoo
+facture. Tout passe par le site et Brevo pour les emails ; Odoo n'envoie que la facture. Les
+abonnés actuels sont importés dans le site et transmis à Odoo à leur premier
+
+
+
+                                                                                                                Page 2 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+renouvellement. L'abonnement est annuel, le paiement en quatre fois est une facilité. La
+liste d'envoi sort du site. Le numéro d'entreprise des clients professionnels est contrôlé à
+la commande. Le tableau de bord est développé sur mesure. Les automatisations du
+connecteur sont documentées et remises à Imagine.
+
+Décisions encore ouvertes. La grille tarifaire de l'abonnement, les règles du tarif solidaire
+et la forme de l'accès découverte (chapitre 7). Tant qu'elles restent ouvertes, le tunnel
+d'abonnement ne peut pas être finalisé sur maquette.
+
+
+1 Contexte et objectifs
+
+1.1 Ce que le site doit servir
+Imagine est une coopérative de presse indépendante fondée en 1996. Elle édite un
+magazine trimestriel papier, tiré à environ 7 000 exemplaires et diffusé dans 500 points de
+vente en Belgique francophone, complété par un hors-série annuel.
+
+La Vision 2030, adoptée par l'Assemblée générale du 30 juin 2026, fixe le cap : le papier
+reste le cœur du projet, le digital le soutient et convertit. Le site conduit le lecteur
+occasionnel vers l'abonnement, puis vers la coopérative.
+
+La Vision 2030 nomme deux prérequis à tout le reste : le déblocage de l'outil de gestion
+(ERP Odoo, mission confiée à Step) et la refonte du site. Ce cahier des charges couvre le
+second et organise son articulation avec le premier.
+
+
+1.2 Objectifs mesurables
+       Convertir. Abonnement en quelques clics, sur mobile, avec reconduction tacite et
+       paiement en ligne. Indicateurs : taux de conversion visite → abonnement, coût par
+       abonnement acquis.
+       Retenir. Renouvellement automatique, traitement des impayés, question de sortie en
+       cas de non-renouvellement. Indicateur : taux de rétention, que personne ne peut
+       calculer aujourd'hui.
+       Piloter. Nombre d'abonnés actifs, entrées, sorties et échéances lisibles chaque mois
+       sans retraitement manuel. [Nouveau]
+       Lire. [v3.1] Un article se lit comme une page de journal sur tout écran, sans lecteur
+       PDF.
+       Élargir la base. Inscription à la newsletter visible à trois endroits, accès découverte
+       contre création d'un compte. Indicateurs : inscriptions par mois, passage de la
+       découverte à l'abonnement.
+       Servir les personas prioritaires. Émilie (fidélisation), Clémence (acquisition, mobile
+       d'abord), Julien (crédibilité, achat à la pièce). Le site actuel est conçu pour Philippe.
+
+
+
+                                                                                                Page 3 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+       Ne rien perdre au passage. Aucune perte de référencement à la bascule, aucun
+       abonné actif privé d'accès.
+       Mesurer dès maintenant. Le site actuel n'a pas d'outil de mesure d'audience. Il est
+       installé dès la phase de conception, pour disposer d'une référence avant la bascule.
+
+
+1.3 Ce que le site ne couvre pas
+       Un espace de lecture qui précède le papier : le flux éditorial va du papier vers le digital
+       (fiche Magazine / Digital / Kiosque, décision 1.2).
+       Un média audio : les podcasts sont diffusés hors site, les vidéos sont intégrées sans
+       être hébergées.
+       Une boutique de produits dérivés : un abonnement unique, la vente de numéros à
+       l'unité et de packs, le don.
+
+
+2 Principe d'architecture
+Règle unique, confirmée le 9 octobre. Le site est la seule source de vérité pour l'abonné,
+son statut et ses droits d'accès. Il vend, il gère les abonnés et il leur écrit. Odoo facture.
+Les données vont du site vers Odoo, jamais dans l'autre sens, sauf deux retours décrits au
+§2.2.
+
+Le montage envisagé avant septembre (contenus et paywall sur WordPress, comptes et
+droits dans Odoo) créait deux sources de vérité et des synchronisations dans les deux
+sens. Les trois parties l'ont écarté : moins il y a d'allers-retours entre les deux systèmes,
+moins il y a de pannes silencieuses.
+
+Schéma : lecteur → site Imagine (WordPress, source de vérité, relié à Stripe, PayPal et
+Brevo) → connecteur → Odoo (facturation, en aval). Retours : statut des virements, facture
+consultable dans le compte, si Step met les données à disposition.
+
+
+2.1 Répartition des rôles entre systèmes
+
+  Le site (WordPress, avec Stripe, PayPal et                                          Odoo (périmètre de Step)
+  Brevo)
+
+  Compte unique : lecteur, abonné,                                                    Réception des contacts et des commandes
+  coopérateur                                                                         au moment où une facture doit exister
+
+  Abonnements, renouvellements, relances,                                             Facturation légale, comptabilité, notes de
+  non-renouvellement                                                                  crédit
+
+
+
+
+                                                                                                                              Page 4 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+  Le site (WordPress, avec Stripe, PayPal et                                          Odoo (périmètre de Step)
+  Brevo)
+
+  Boutique : abonnement, numéros à l'unité,                                           Envoi de la facture par email, seul message
+  packs, don, abonnements groupés,                                                    d'Odoo à l'abonné
+  billetterie [v3.1]
+
+  Paiement en ligne : carte, Bancontact,                                              Rapprochement bancaire, lettrage des
+  domiciliation par Stripe ; PayPal [v3.1]                                            virements
+
+  Contenus éditoriaux, paywall, droits d'accès,                                       Aucun contenu éditorial, aucun accès des
+  mode lecture [v3.1]                                                                 abonnés
+
+  Emails aux abonnés et newsletters, par                                              Aucune newsletter, aucune campagne,
+  Brevo ; étiquettes de persona [v3.1]                                                aucune donnée de segmentation [v3.1]
+
+  Liste d'envoi de chaque numéro, tableau de                                          Statistiques de chiffre d'affaires
+  bord, extractions [v3.1]
+
+
+
+2.2 Le flux entre le site et Odoo
+À chaque événement qui appelle une facture ou une écriture (commande payée,
+abonnement créé ou renouvelé, remboursement), le site déclenche un connecteur. Ce
+connecteur crée ou met à jour dans Odoo le contact et la commande. Odoo génère la
+facture et l'envoie par email.
+
+Les abonnés n'ont jamais accès à Odoo. Un seul compte, un seul mot de passe, sur le site.
+
+Ce qu'Odoo reçoit. [v3.1] Les données nécessaires à la facture : identité, adresses,
+numéro d'entreprise, produit, tarif, mode de paiement, montants, références de paiement.
+Les étiquettes de persona, les préférences et les réponses au formulaire de
+personnalisation ne sont pas transmises, sauf demande motivée de Step consignée dans
+le document d'interface.
+
+Deux retours d'Odoo vers le site [v3.1], désormais dans le périmètre, à condition que Step
+mette les données à disposition avant la fin de la production :
+
+       Le statut de paiement des virements, lu chaque nuit dans Odoo ou dans un fichier
+       d'échange, pour ouvrir l'accès sans intervention. Tant que ce retour n'existe pas, le
+       référent administratif valide le paiement dans le site.
+       La facture consultable dans le compte client, avec un stockage protégé : un fichier
+       déposé dans le dossier de médias de WordPress est accessible à qui en connaît
+       l'adresse.
+
+
+
+
+                                                                                                                             Page 5 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+Conséquence pour le périmètre de Step. L'espace digital des abonnés, la mise en place
+du site web, l'intégration des paiements, les newsletters et les événements sortent du
+périmètre d'Odoo. Step adresse à Imagine un périmètre adapté.
+
+
+2.3 Une seule porte d'entrée
+Condition non négociable. Tout abonnement, quel que soit le canal (en ligne, virement,
+domiciliation papier, téléphone, salon), est créé dans le site. Un abonnement encodé
+directement dans Odoo n'ouvre aucun droit d'accès, n'est pas relancé et n'apparaît pas
+dans la liste d'envoi.
+
+Reprise des abonnés actuels. [Nouveau] Les abonnés en ligne et les quelque 1 500
+abonnés par domiciliation ou par virement, aujourd'hui dans la base Access, sont importés
+dans le site. Ils ne sont pas transmis à Odoo à l'import : ils le sont à leur premier
+renouvellement, quand une facture doit être émise. Si Imagine le souhaite, Step importe
+dans Odoo l'historique des factures. Un identifiant commun évite alors qu'un même
+abonné existe deux fois (chapitre 8).
+
+
+2.4 Découplage des plannings
+Le site peut être mis en production sans attendre Odoo. Tant que l'interface d'Odoo n'est
+pas disponible, le connecteur écrit un export quotidien que Step reprend. Pour les tests,
+Step crée à la demande un environnement d'essai d'Odoo, dont les emails sont neutralisés
+et dont la durée de vie est de deux semaines.
+
+
+2.5 Protection du flux
+       Le connecteur contrôle chaque donnée avant de l'écrire dans Odoo. Une anomalie est
+       mise en quarantaine et signalée, elle n'atteint pas la comptabilité.
+       Les événements sont mis en file d'attente et rejoués automatiquement si Odoo est
+       indisponible. Un même événement rejoué ne crée pas de doublon.
+       Sauvegarde quotidienne des deux côtés : le site par UPARTNER, la base Odoo par
+       Step.
+
+
+3 Périmètre fonctionnel
+Les éléments ci-dessous viennent des fiches décisionnelles (22 et 23 avril, 26 mai), de la
+note « Site internet » du 15 juillet, du cadrage du 6 août et des réunions des 8, 9, 12 et 15
+octobre.
+
+
+
+
+                                                                                                Page 6 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+3.1 Structure et navigation
+
+  Zone                            Contenu                                                       Accès
+
+  1 · Accès libre                 Un reportage à haute valeur                                   Public
+                                  ajoutée par numéro, renouvelé à
+                                  chaque sortie ; articles ouverts
+                                  pendant l'accès découverte ;
+                                  archives libres
+
+  2 · Abonnés                     Les 5 à 10 derniers numéros :                                 Abonné actif, acheteur du numéro
+                                  sommaire, articles complets,
+                                  sommaire audio, PDF du numéro ;
+                                  numéros achetés à l'unité
+
+  3·                              Newsletters, événements, page «                               Public, avec des sections réservées
+  Communauté                      Soutenir Imagine », onglet « Notre                            aux coopérateurs
+                                  coopérative », espace
+                                  coopérateurs, partenaires
+
+
+Double entrée dans les contenus. [Nouveau] Par numéro, pour découvrir, acheter et
+s'abonner. Par thématique, pour lire, comme sur un site de presse : chaque article
+appartient à un numéro et à une thématique. La liste des thématiques est fournie par la
+rédaction.
+
+Menu principal. Nos numéros · Thématiques · Nos newsletters · Nos événements · Notre
+coopérative · Soutenir · S'abonner · Connexion. Pas d'onglet « Espace digital » (décision du
+15 juillet). Un menu étendu présente les thématiques avec, pour chacune, une sélection
+d'articles illustrés. Sa forme (panneau latéral ou grand menu déroulant) est arbitrée sur
+maquette.
+
+
+3.2 Page d'accueil et direction de design
+       Bandeau d'ouverture : le numéro en cours. La couverture est une image fixe, chargée
+       en priorité ; l'animation des pages intérieures démarre après le chargement. Ni vidéo
+       ni carrousel au premier écran (chapitre 5).
+       Bloc de conversion sous le résumé du numéro : « Découvrir le numéro », « Acheter ce
+       numéro », « S'abonner ».
+       Reportage en accès libre du numéro en cours.
+       Bloc newsletter en position prioritaire.
+       Sections suivantes : entrée par thématiques, événements à venir, Soutenir Imagine,
+       coopérative, partenaire du mois (§3.12).
+
+
+
+
+                                                                                                                             Page 7 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+       Pied de page identique sur toutes les pages : abonnement, newsletter, numéro en
+       cours, point de vente le plus proche, mentions.
+
+Direction de design. [Nouveau] La lisibilité passe en premier. L'identité graphique
+d'Imagine reste présente sur les couvertures et à quelques endroits choisis ; les pages de
+lecture et de vente sont sobres. Les photographies sont affichées sans filtre de couleur,
+avec un recadrage par point focal réglable par la rédaction. La typographie de lecture est
+choisie pour son confort sur mobile. Les maquettes sont soumises à la validation
+d'Imagine avant tout développement des gabarits ; le socle technique (connecteur,
+migration, back-office) peut démarrer avant.
+
+
+3.3 Numéros, articles et thématiques
+       Index des numéros : tous les numéros, du plus récent au plus ancien, avec couverture,
+       titre du dossier et date.
+       Page numéro : présentation, sommaire détaillé, article en accès libre, sommaire audio,
+       bouton « Acheter ce numéro », accès aux articles complets et au PDF pour les ayants
+       droit.
+       Page thématique : [Nouveau] les articles de la thématique, tous numéros confondus,
+       avec leur statut d'accès visible.
+       Page article : lecture longue adaptée au mobile, résumé et mots-clés en tête (fiche du
+       23 avril), signature du journaliste, numéro d'origine, appel à l'abonnement en fin
+       d'article et dans le paywall.
+       Packs thématiques d'anciens numéros, vendus comme produits groupés.
+
+Mode lecture. [v3.1] Chaque article propose un bouton « Lire l'article » qui bascule la page
+en vue de lecture : le menu, les colonnes et les appels à l'abonnement disparaissent, le
+texte s'affiche seul, en grands caractères, sur une colonne de 65 à 75 signes. L'abonné
+règle la taille du texte et choisit un fond clair, sépia ou sombre ; sa position de lecture et
+ses réglages sont mémorisés dans le navigateur (stockage local, pas de compte requis).
+Un temps de lecture estimé et une barre de progression accompagnent la lecture.
+
+       Technique : le gabarit d'article est en HTML sémantique (balise article, titres
+       hiérarchisés, paragraphes, figures légendées), sans contenu parasite dans le flux du
+       texte ; la vue de lecture est une feuille de style dédiée activée par une classe sur la
+       racine, plus un script léger pour les réglages et la mémorisation. Aucun lecteur PDF,
+       aucune extension payante.
+       Le même gabarit fait que l'article s'ouvre correctement dans le mode lecture de Safari,
+       Firefox, Edge et Chrome pour l'abonné connecté. Pour un visiteur non abonné, la page
+       ne contient que l'extrait (§3.9) : le mode lecture du navigateur n'affiche rien de plus.
+       La vue de lecture respecte le paywall : pour un non-abonné, elle montre l'extrait puis
+       le bloc d'abonnement.
+
+
+
+                                                                                                Page 8 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+3.4 Offre d'abonnement
+       Un produit unique, papier et numérique (fiche du 23 avril, décision 2.2).
+       Annuel, et seulement annuel. [Nouveau] L'abonnement engage pour un an et se
+       reconduit tacitement. Il n'existe pas d'abonnement à durée libre.
+       Deux façons de payer. En une fois, ou en quatre fois, un prélèvement par parution. Le
+       paiement en quatre fois est une facilité de paiement : les quatre échéances de l'année
+       sont dues.
+       Non-renouvellement en un clic. L'abonné désactive le renouvellement depuis son
+       compte. L'abonnement va alors à son terme. Après une reconduction tacite, la loi lui
+       permet de résilier à tout moment, avec un préavis (§3.8).
+       Trois tarifs. Le tarif normal, un tarif de soutien et un tarif solidaire accordé sur
+       justificatif à des catégories définies. Les appellations, les montants et les catégories
+       sont arrêtés par Imagine (chapitre 7). [Nouveau]
+       Une grille modifiable sans développement. Le site porte un seul produit, décliné par
+       tarif et par mode de paiement. Imagine change les montants, le tarif présélectionné et
+       les catégories depuis le back-office.
+       Livraison à l'étranger : supplément de port selon le pays, affiché avant le paiement.
+
+Tarif solidaire. [Nouveau] L'abonné choisit sa catégorie et dépose son justificatif, depuis
+son téléphone ou son ordinateur. L'accès est ouvert tout de suite ; le référent administratif
+valide ou refuse le justificatif depuis une file d'attente. Le statut a une date de fin. Avant
+l'échéance, l'abonné est invité à le confirmer.
+
+Clients professionnels et institutions. [Nouveau] Bibliothèques, écoles et entreprises
+s'abonnent au tarif normal ou de soutien. À la commande, le site demande le numéro
+d'entreprise, en vérifie la cohérence et affiche la dénomination trouvée pour
+confirmation. Odoo reçoit ainsi des données exploitables pour la facturation électronique,
+obligatoire entre entreprises belges assujetties à la TVA depuis le 1er janvier 2026
+(source).
+
+Abonnements groupés. [v3.1] Une entreprise ou une institution achète un lot
+d'abonnements en une commande et une facture. Le gestionnaire du lot attribue chaque
+abonnement à un bénéficiaire (nom, adresse postale, email) depuis son compte, peut
+remplacer un bénéficiaire en cours d'année, et reçoit l'appel à renouvellement du lot.
+Chaque bénéficiaire a son propre compte et ses propres droits d'accès ; il n'est pas
+prélevé. La liste d'envoi reprend les adresses des bénéficiaires.
+
+Abonnement offert. [v3.1] Arrêté le 12 octobre : une seule commande. L'acheteur saisit le
+nom, l'adresse postale et l'adresse email du destinataire, et peut prendre un abonnement
+pour lui-même dans le même panier. Il choisit explicitement, à la commande, si le cadeau
+se renouvelle chaque année à sa charge. Sans ce choix, l'abonnement offert s'arrête après
+
+
+
+
+                                                                                                Page 9 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+un an ; à l'échéance, la proposition de poursuivre est adressée au destinataire et celle
+d'offrir une année de plus à l'acheteur. Le destinataire n'est prévenu par email que si
+l'acheteur le souhaite ; sinon le magazine arrive chez lui sans autre démarche. Le
+destinataire reçoit un compte, rattaché à l'abonnement offert, pour l'accès numérique.
+L'acheteur n'est jamais prélevé une seconde fois sans l'avoir demandé. Le mécanisme du
+bon cadeau à activer soi-même est abandonné.
+
+Codes de réduction. [Nouveau] Le site actuel ne sait créer que des codes appliqués à
+tous les renouvellements. Le nouveau site en distingue deux types :
+
+       Offre de bienvenue ou de reconquête : appliquée à la première année seulement. Au
+       renouvellement, l'abonné revient au tarif normal.
+       Code lié à une campagne ou à un partenaire : suivi, limité dans le temps, pour
+       mesurer ce que rapporte chaque canal.
+
+
+3.5 La règle des numéros [Nouveau]
+Un abonnement donne droit à quatre numéros et à un hors-série. Le site enregistre pour
+chaque abonnement son premier et son dernier numéro. La liste d'envoi et l'étalement
+comptable en découlent. L'accès numérique, lui, court de date à date.
+
+Pourquoi compter en numéros. Avec une durée de date à date, un abonné inscrit juste
+après une parution et dont l'échéance tombe juste avant une autre ne reçoit que trois
+numéros au lieu de quatre.
+
+       Premier numéro papier : le prochain numéro dont la liste d'envoi n'est pas clôturée à
+       la date de la commande.
+       Accès numérique : ouvert dès le paiement ou l'acceptation du mandat, numéro en
+       cours compris.
+       Hors-série : un par année d'abonnement, réservé aux abonnés. Il n'est pas joint à
+       l'achat d'un numéro à l'unité. Imagine s'engage à le publier à date fixe, chaque été.
+       Calendrier de parution : la rédaction tient à jour dans le back-office, pour chaque
+       numéro à venir, sa date de sortie et la date de clôture de sa liste d'envoi. Le site calcule
+       les droits à partir de ce calendrier.
+       Paiement en quatre fois : chaque prélèvement est lancé avant la clôture de la liste
+       d'envoi du numéro qu'il paie, avec une marge qui couvre le délai de confirmation du
+       prélèvement (§3.6). Cette marge est fixée en phase de conception avec
+       l'administration.
+
+
+
+
+                                                                                                Page 10 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+  Exemple                                                                             Ce que l'abonné reçoit
+
+  Commande le 8 octobre 2026, après la sortie                                         Accès numérique immédiat, n° 170 compris.
+  du n° 170                                                                           Numéros papier 171, 172, 173 et 174, et le
+                                                                                      hors-série de l'été 2027.
+
+  Renouvellement en octobre 2027                                                      Numéros 175 à 178 et le hors-série de l'été
+                                                                                      2028.
+
+
+
+3.6 Moyens de paiement
+Trois moyens de paiement automatiques dans le tunnel, deux circuits en dehors, réservés
+à l'administration. Proposer le virement dans le tunnel détournerait une grande partie des
+abonnés du renouvellement automatique.
+
+
+  Moyen                                              Fonctionnement                                 Renouvellement
+
+  Carte et Bancontact                                Paiement immédiat par Stripe.                  Automatique
+                                                     Bancontact ne sert qu'au
+                                                     premier paiement : l'abonné
+                                                     accepte en même temps un
+                                                     mandat de prélèvement pour
+                                                     les échéances suivantes,
+                                                     affiché en clair.
+
+  Domiciliation en ligne                             L'abonné saisit son IBAN et                    Automatique
+                                                     accepte le mandat par une
+                                                     case à cocher. L'accès
+                                                     numérique s'ouvre aussitôt.
+                                                     Stripe prélève à chaque
+                                                     échéance, en une ou en
+                                                     quatre fois. Rien à imprimer,
+                                                     rien à renvoyer, aucun fichier
+                                                     à déposer à la banque.
+
+
+
+
+                                                                                                                              Page 11 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+  Moyen                                              Fonctionnement                             Renouvellement
+
+  PayPal [v3.1]                                      Sur le compte PayPal                       Automatique
+                                                     professionnel d'Imagine.
+                                                     Premier paiement et
+                                                     renouvellements par accord
+                                                     de facturation PayPal. Le
+                                                     paiement fractionné de PayPal
+                                                     est activé s'il est proposé aux
+                                                     acheteurs belges au moment
+                                                     de la mise en ligne ; le
+                                                     paiement en quatre fois par
+                                                     domiciliation reste disponible
+                                                     dans tous les cas.
+
+  Virement sur facture                               Hors tunnel : page «                       Appel à renouvellement,
+                                                     Abonnement sur facture » ou                paiement manuel
+                                                     demande à l'administration.
+                                                     Annuel, en une fois. L'accès
+                                                     numérique s'ouvre quand le
+                                                     paiement est validé, et la page
+                                                     le dit. Maintenu, arrêté le 15
+                                                     octobre. [v3.1]
+
+
+
+
+                                                                                                                      Page 12 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+  Moyen                                              Fonctionnement                             Renouvellement
+
+  Domiciliation bancaire sur                         Réservée aux abonnés qui ont               Appel à renouvellement,
+  mandat papier [v3.1]                               signé un mandat papier avec                prélèvement lancé par
+                                                     Imagine. Mode de paiement «                l'administration
+                                                     domiciliation bancaire »,
+                                                     invisible dans le tunnel, posé
+                                                     par l'administration. À chaque
+                                                     échéance, l'écran des
+                                                     échéances (§3.13) liste les
+                                                     prélèvements à lancer ;
+                                                     l'administration prépare le
+                                                     fichier pour sa banque
+                                                     comme aujourd'hui, puis
+                                                     valide le paiement dans le
+                                                     site, ce qui ouvre l'accès et
+                                                     garde l'abonné dans la liste
+                                                     d'envoi. Le site ne stocke
+                                                     aucun IBAN : ceux de ces
+                                                     mandats restent dans l'outil
+                                                     bancaire d'Imagine. Ce mode
+                                                     reste disponible aussi
+                                                     longtemps qu'Imagine le
+                                                     souhaite.
+
+
+Virement : qui fait quoi. Odoo émet la facture avec sa communication structurée et
+rapproche le paiement à la réception de l'extrait bancaire. Le référent administratif valide
+ensuite le paiement dans le site, depuis l'écran des échéances (§3.13), ce qui ouvre l'accès
+; quand le retour du statut des virements depuis Odoo est en place (§2.2), cette validation
+devient automatique.
+
+Ce que le prélèvement Stripe implique.
+
+       Le résultat d'un prélèvement est connu jusqu'à 14 jours ouvrés après son lancement, 7
+       à 8 en moyenne. L'accès est donc ouvert dès l'acceptation du mandat et retiré en cas
+       de rejet.
+       L'abonné peut demander le remboursement d'un prélèvement à sa banque pendant
+       huit semaines, sans justification.
+       Chaque prélèvement est annoncé à l'abonné (§3.8).
+       Stripe applique des frais aux prélèvements échoués et aux contestations, selon sa
+       grille publiée.
+
+
+
+
+                                                                                                                      Page 13 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+Mandats existants. [v3.1] Les domiciliations actuelles qui passent déjà par Stripe sont
+reprises telles quelles. Les mandats bancaires signés sur papier restent valables et
+continuent d'être prélevés par fichier bancaire, préparé par l'administration à partir de
+l'écran des échéances. Ces abonnés sont créés dans le site avec le mode « domiciliation
+bancaire ». Un abonné à mandat papier peut passer à la domiciliation en ligne depuis son
+compte, en signant un mandat Stripe ; l'administration clôture alors l'ancien mandat
+auprès de la banque.
+
+Vérification préalable : la prise en charge du prélèvement récurrent et de PayPal par les
+extensions de paiement du site est contrôlée en phase de conception, avant tout
+développement. Source des délais : documentation Stripe (références en fin de §3.8).
+
+
+3.7 Tunnel d'abonnement et compte client
+Tunnel.
+
+       Une seule page : choix du tarif et du mode de paiement, coordonnées, paiement. Pré-
+       remplissage pour les comptes existants.
+       Clause de reconduction tacite affichée en gras, dans un encadré, avant le paiement,
+       avec la date limite d'opposition et la façon de s'opposer.
+       Création du compte dans le même geste, avec vérification de l'adresse email. Un seul
+       compte par adresse. [Nouveau]
+       Confirmation immédiate et ouverture de l'accès numérique.
+       Question « Comment nous avez-vous connus ? » après le paiement.
+       Page d'offre de bienvenue accessible par QR code (affiches, magazine, événements),
+       avec un code suivi.
+       Rien de plus que le nécessaire avant le paiement. [v3.1] Le tunnel ne pose aucune
+       question de profil. La personnalisation vient après (ci-dessous).
+
+Formulaire de personnalisation. [v3.1] Après l'inscription ou l'achat, le site propose un
+court formulaire facultatif : « Personnalisez ce que vous recevez ». Ses questions
+(profession ou situation, centres d'intérêt, tranche d'âge, localité) sont arrêtées pendant
+l'étude à partir des cinq personas d'Imagine. Les réponses deviennent des étiquettes sur
+le compte, modifiables par le lecteur, transmises à Brevo avec son consentement (§3.10).
+Le formulaire est aussi accessible depuis le compte et peut être rappelé une fois par
+email. Un lecteur qui ne répond pas n'est jamais bloqué.
+
+Compte client.
+
+       Statut de l'abonnement, numéros restant à recevoir, date d'échéance, tarif et mode de
+       paiement.
+       Moyen de paiement, modifiable par l'abonné. Une mise à jour après un échec relance
+       le paiement. Passage d'un mandat papier à la domiciliation en ligne (§3.6). [v3.1]
+
+
+
+                                                                                                Page 14 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+       Adresses, abonnements offerts, abonnements groupés gérés (§3.4), statut de
+       coopérateur, préférences newsletter, étiquettes de personnalisation. [v3.1]
+       Gestion du renouvellement : désactivation en un clic, confirmée par email, avec la date
+       de fin et les numéros encore dus.
+       Fonction de rétractation en ligne, en deux étapes, disponible pendant le délai légal.
+       [Nouveau]
+       Tarif solidaire : statut, date de fin, dépôt d'un nouveau justificatif. [Nouveau]
+       Factures. [v3.1] Envoyées par email par Odoo. Consultables dans le compte, avec
+       stockage protégé, dès que Step met les fichiers ou leur adresse à disposition (§2.2).
+
+Changement d'adresse. [v3.1] Un changement de pays en cours d'abonnement recalcule
+automatiquement le supplément de port des numéros restants et le montant du
+renouvellement, et prévient le référent administratif. Le recalcul automatique fait partie
+du périmètre.
+
+Achat d'un numéro. L'achat du papier peut se faire sans compte, avec une case de
+consentement pour être recontacté. La création d'un compte est proposée après l'achat :
+elle ouvre l'accès numérique aux articles du numéro acheté. La règle reste à confirmer par
+Imagine (chapitre 7).
+
+
+3.8 Cycle de vie et emails [Nouveau]
+Tous les emails partent du site, par Brevo, au nom d'Imagine, en français. Les emails
+automatiques de Stripe, aujourd'hui envoyés en anglais sous l'ancien nom d'Imagine, sont
+désactivés ; ceux de PayPal sont réduits au minimum que PayPal impose. Odoo n'envoie
+qu'un message : la facture.
+
+
+  N°          Email                                    Déclencheur                              Contenu
+
+  1           Confirmation                             Paiement reçu ou mandat                  Numéros couverts,
+              d'abonnement                             accepté                                  calendrier des prélèvements,
+                                                                                                clause de reconduction, lien
+                                                                                                vers le compte
+
+  2           Avis de prélèvement                      Avant chaque prélèvement                 Montant, date, numéro
+                                                                                                concerné
+
+  3           Rappel de                                Avant l'échéance annuelle, au            Date et montant du
+              reconduction                             plus tard 15 jours avant la              renouvellement, lien de
+                                                       date limite d'opposition                 gestion de l'abonnement
+
+  4           Échec de paiement                        Prélèvement rejeté ou carte              Lien de mise à jour du moyen
+                                                       refusée                                  de paiement. Copie interne
+                                                                                                au référent administratif
+
+
+
+                                                                                                                        Page 15 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+  N°          Email                                    Déclencheur                              Contenu
+
+  5           Non-                                     Renouvellement désactivé                 Date de fin, numéros encore
+              renouvellement                           ou résiliation                           dus, question de sortie à
+                                                                                                choix multiples avec champ
+                                                                                                libre
+
+
+S'y ajoutent l'appel à renouvellement des abonnés par virement et par mandat papier, la
+demande de confirmation du statut solidaire, l'invitation à activer son compte envoyée
+lors de la migration (§4.3), le rappel du formulaire de personnalisation (§3.7) et, pour
+l'abonnement offert, le message au destinataire quand l'acheteur l'a demandé (§3.4).
+[v3.1]
+
+Le contenu est imposé, le ton est libre. Ces emails remercient, annoncent le prochain
+numéro et rappellent ce que l'abonnement finance. Le lien de gestion de l'abonnement y
+figure, sans mise en avant. Le masquer exposerait Imagine à des remboursements forcés
+par les banques pendant huit semaines.
+
+Impayés. Un paiement échoué n'exclut pas l'abonné. Il ouvre un délai de grâce, dont la
+durée est fixée avec l'administration : email à l'abonné, alerte interne, nouvel essai
+automatique dès que le moyen de paiement est mis à jour. Au terme du délai, l'accès est
+suspendu et l'abonné sort de la liste d'envoi ; l'abonnement reste réactivable.
+
+Cadre légal belge, à faire valider par le conseil juridique d'Imagine.
+
+       Reconduction tacite (Code de droit économique, art. VI.91). La clause figure en gras
+       et dans un encadré. Après reconduction, le consommateur peut résilier à tout
+       moment, avec un préavis de deux mois au plus. À partir du 1er mai 2027 (loi du 20 avril
+       2026), l'entreprise le prévient sur support durable au moins 15 jours avant la date
+       limite d'opposition. Analyse du cabinet Altius.
+       Rétractation en ligne (loi du 19 juillet 2026, en vigueur depuis le 14 août 2026). Tout
+       site qui vend à distance offre une fonction de rétractation en deux étapes.
+       Présentation sur droitbelge.be.
+       Prélèvement SEPA. Notification avant chaque prélèvement, remboursement possible
+       pendant huit semaines. Documentation Stripe.
+
+Deux points à faire confirmer : l'application de l'article VI.91 à une offre qui associe un
+magazine papier et un accès numérique, et les modalités du droit de rétractation quand
+l'accès numérique est ouvert immédiatement.
+
+
+3.9 Paywall et droits d'accès
+       Abonné actif : articles et PDF des numéros de la zone 2 pendant la durée de
+       l'abonnement.
+
+
+
+                                                                                                                      Page 16 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+       Acheteur d'un numéro : articles et PDF de ce numéro, sans limite de durée. L'achat
+       n'ouvre pas les numéros antérieurs.
+       Coopérateur : attribut du compte. Il n'ouvre pas les articles (réunion du 10 septembre)
+       ; il ouvre l'espace coopérateurs. Il est posé automatiquement depuis CoopHub si
+       l'intégration par interface de programmation est possible (§3.12), sinon par
+       l'administration. [v3.1]
+       Bénéficiaire d'un abonnement groupé ou offert : mêmes droits qu'un abonné actif,
+       sans prélèvement. [v3.1]
+       Accès découverte : [Nouveau] un compte vérifié (nom, prénom, adresse email
+       confirmée) ouvre un accès de découverte, une seule fois par personne. Il ne se
+       renouvelle pas : une fois consommé, la suite passe par l'abonnement ou l'achat d'un
+       numéro. Sa forme (une durée ou un nombre d'articles) et son étendue restent à
+       arrêter par Imagine (chapitre 7) ; les deux sont réglables dans le back-office. Les
+       adresses email jetables sont refusées à l'inscription.
+       Référencement du contenu payant. [v3.1] Arrêté le 15 octobre, remplace la règle de la
+       version 3.0. Le texte complet d'un article réservé n'est rendu par le serveur que pour
+       deux publics : l'abonné connecté dont les droits sont valides, et les robots
+       d'indexation vérifiés. Tout autre visiteur reçoit l'extrait (les premiers paragraphes,
+       longueur réglable) suivi du bloc d'abonnement ; le texte complet n'est pas dans le
+       HTML, ni masqué par une feuille de style, ni chargé après coup. Les pages portent le
+       balisage de contenu payant de Google (NewsArticle, isAccessibleForFree à faux,
+       hasPart avec cssSelector sur la section réservée), qui distingue cette pratique du
+       camouflage interdit. Mise en œuvre détaillée au §4.4.
+       Étanchéité. [v3.1] Le texte des contenus réservés est absent des flux RSS, de
+       l'interface de programmation de WordPress (REST), de l'oEmbed, de la recherche
+       interne et des aperçus de partage, pour un visiteur non autorisé. Les fichiers PDF ne
+       sont accessibles qu'après contrôle du droit à chaque téléchargement.
+
+
+3.10 Newsletters et segmentation
+       Brevo reste l'outil d'envoi d'Imagine. [Nouveau] Les contacts vont du site vers Brevo,
+       avec leur statut (abonné, non-abonné, coopérateur, tarif) tenu à jour par le site. La
+       double confirmation d'inscription et la désinscription sont gérées par Brevo et
+       répercutées sur le site.
+       Étiquettes de persona. [v3.1] Les réponses au formulaire de personnalisation (§3.7)
+       sont transmises à Brevo comme attributs du contact, uniquement si le lecteur a
+       consenti à recevoir des envois. Brevo sert à segmenter les campagnes ; le site reste la
+       référence des étiquettes. Odoo n'en reçoit aucune.
+       Trois points d'inscription : bouton permanent en en-tête, bloc en pied de page,
+       création d'un compte.
+
+
+
+                                                                                                Page 17 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+       Page « Nos newsletters » : présentation des envois, inscription, gestion des
+       préférences.
+       Centre de préférences : choix des newsletters, inscription par défaut à la newsletter
+       principale. Il accueille sans développement la newsletter des coopérateurs prévue en
+       2027 et d'éventuelles newsletters thématiques.
+
+
+3.11 Événements et billetterie
+       Agenda : sorties de numéro et rencontres gratuites avec inscription simple,
+       événements partenaires par lien externe, balisage pour les moteurs de recherche.
+       Billetterie. [v3.1] Dans le périmètre, livrée avec le site. Extension spécialisée (Event
+       Tickets Plus), dont la licence est acquise et renouvelée par UPARTNER dans le cadre
+       de la maintenance. Billets payés en ligne par les mêmes moyens que l'abonnement,
+       envoyés par email avec QR code, tarif réduit automatique pour les abonnés
+       connectés, quotas de places, liste des inscrits exportable. Le calendrier des
+       masterclass est fourni par Imagine quand il est arrêté ; la fonction est prête avant.
+
+
+3.12 Soutenir, coopérative et partenaires
+       Page « Soutenir » : abonnement, don ponctuel ou récurrent (configuré, activé en 2027
+       selon la Vision 2030), bénévolat, prise de parts.
+       Prise de parts et CoopHub. [v3.1] CoopHub est l'outil des coopérateurs d'Imagine
+       (registre, souscription, assemblées). Il indique disposer d'une intégration avec Odoo,
+       donc vraisemblablement d'une interface de programmation. Le site intègre CoopHub
+       au niveau le plus poussé que l'outil permet, dans cet ordre : par interface de
+       programmation, le site pose l'attribut « coopérateur » sur le compte (rapprochement
+       par adresse email, synchronisation quotidienne) et affiche les compteurs des
+       campagnes de souscription ; par fenêtre intégrée, le formulaire de prise de parts de
+       CoopHub s'affiche dans une page du site, CoopHub traitant la souscription et le
+       paiement ; par lien, le site renvoie vers CoopHub. Imagine demande à CoopHub la
+       documentation et un accès de test ; le niveau est arrêté pendant l'étude. Sans
+       documentation ni accès avant la fin de l'étude, l'intégration se fait par lien. Le site
+       n'écrit jamais de données dans CoopHub et ne traite jamais lui-même la souscription
+       de parts.
+       Onglet « Notre coopérative » : projet éditorial et manifeste, charte d'indépendance,
+       charte IA, baromètre égalité-diversité, équipe, gouvernance, Imagine COOP.
+       Espace coopérateurs (accès réservé) : appels à bénévolat, lettre de missions,
+       cadastre des compétences, relais des événements.
+       Formulaire « Proposer un sujet », sans mise en avant (Vision 2030).
+
+
+
+
+                                                                                                Page 18 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+       Partenaires : [Nouveau] un bloc « partenaire du mois » en page d'accueil et une page «
+       Nos partenaires ». Les deux sont étiquetés « Partenariat » et visuellement distincts
+       des contenus de la rédaction. Les liens vers les partenaires sont déclarés comme liens
+       commerciaux auprès des moteurs de recherche. Les règles d'acceptation d'un
+       partenaire relèvent de la rédaction.
+
+
+3.13 Back-office de l'administration
+Le site est la caisse enregistreuse d'Imagine et sa seule base d'abonnés. Un abonné par
+virement ou par mandat papier a les mêmes droits, les mêmes relances et la même place
+dans les statistiques qu'un abonné en ligne.
+
+       Commande pour le compte d'un client : abonnement, numéro à l'unité, pack, don,
+       abonnement offert, abonnement groupé. Trois écrans au plus, avec recherche du
+       compte existant ou création immédiate.
+       Encodage sans email : [Nouveau] création d'un compte sans vérification d'adresse,
+       réservée à l'administration. Pour un abonné sans adresse électronique, le site génère
+       une adresse technique interne, marque le compte « sans email » et l'exclut de tous les
+       envois.
+       Écran des échéances : [v3.1] abonnements qui arrivent à échéance, paiements en
+       attente, virements à valider, prélèvements sur mandat papier à lancer (liste
+       exportable : abonné, montant, référence du mandat, échéance), paiements échoués.
+       Le référent administratif coche les paiements reçus à partir de son extrait bancaire.
+       Un paiement non validé à la date prévue referme l'accès.
+       Justificatifs du tarif solidaire : [Nouveau] file d'attente, validation ou refus en un clic,
+       date de fin du statut. Le fichier est supprimé dès la décision.
+       Liste d'envoi : [Nouveau] pour chaque numéro, export des adresses de livraison des
+       abonnés qui y ont droit, bénéficiaires des abonnements offerts et groupés compris,
+       figé à la date de clôture. Il remplace l'extraction faite aujourd'hui dans Access.
+       Renouvellement des abonnés hors ligne : à l'échéance, le site envoie l'appel à
+       renouvellement avec un lien de paiement en ligne et, à défaut, les coordonnées de
+       virement.
+       Ventes sans identité : un achat au comptoir sans coordonnées est encodé sur un
+       compte générique « vente directe ».
+       Extractions. [v3.1] Un outil d'extraction sur mesure, dans le back-office, produit les
+       listes dont la direction a besoin (par exemple : abonnés par tranche d'âge, par localité,
+       par étiquette, par mode de paiement, par date d'échéance), au format tableur. Les
+       rapports disponibles sont définis pendant l'étude ; tout champ présent en base est
+       extractible.
+
+
+
+
+                                                                                                Page 19 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+Tableau de bord. [Nouveau] Développé sur mesure, il remplace le comptage manuel. Son
+contenu est arrêté lors d'un atelier avec la direction, l'administration et le suivi financier.
+Base de départ :
+
+       abonnés actifs, par tarif, par mode de paiement et par moyen de paiement ;
+       entrées et sorties du mois, taux de rétention annuel ;
+       abonnements arrivant à échéance à un, trois et six mois ;
+       non-renouvellements et motifs déclarés, paiements échoués ;
+       passages de l'accès découverte à l'abonnement ; part du tarif solidaire et du tarif de
+       soutien ;
+       répartition des étiquettes de persona. [v3.1]
+
+
+3.14 Autres pages et fonctions
+       Carte des points de vente avec recherche par localité, à partir de la base fournie par
+       Imagine ou ses diffuseurs.
+       FAQ du service client : accès numérique, abonnement, facturation, livraison.
+       Pages légales, conditions générales de vente, politique de confidentialité, gestion des
+       cookies.
+       Vidéos externes intégrées par numéro et sur les pages article ; liens vers les podcasts.
+       Formulaire de contact.
+       Suivi : codes suivis, adresses de campagne, événements de conversion.
+
+
+4 Périmètre technique
+
+4.1 Composants
+
+  Composant                            Choix                                                    Rôle
+
+  Gestion de                           WordPress, thème sur mesure,                             Contenus, gabarits, mode lecture,
+  contenu                              sans constructeur de pages                               performance
+
+  Commerce                             WooCommerce                                              Produits, panier, commandes,
+                                                                                                abonnements groupés
+
+  Abonnements                          WooCommerce Subscriptions                                Reconduction, paiement en une
+                                                                                                ou quatre fois, relances
+
+  Droits d'accès                       WooCommerce Memberships                                  Paywall par abonnement et par
+                                                                                                numéro acheté, accès découverte,
+                                                                                                protection des fichiers
+
+
+
+
+                                                                                                                           Page 20 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+  Composant                            Choix                                                    Rôle
+
+  Paiement                             Stripe (compte existant                                  Carte, Bancontact, prélèvement
+                                       d'Imagine) ; PayPal (compte                              SEPA ; PayPal et paiement
+                                       professionnel d'Imagine) [v3.1]                          fractionné
+
+  Modèle éditorial                     Champs et types de contenu sur                           Numéro, article, thématique,
+                                       mesure (ACF Pro)                                         événement, partenaire
+
+  Pilotage                             Extension développée sur mesure                          Tableau de bord, écran des
+                                                                                                échéances, liste d'envoi,
+                                                                                                justificatifs, extractions,
+                                                                                                formulaire de personnalisation
+                                                                                                [v3.1]
+
+  Référencement                        Rank Math Pro                                            Métadonnées, balisage, plan du
+                                                                                                site, redirections
+
+  Emails                               Brevo (compte existant)                                  Newsletters, emails du cycle de
+                                                                                                vie, synchronisation des contacts
+                                                                                                et des étiquettes
+
+  Connecteur                           Automatisations vers Odoo (n8n                           Flux vers Odoo, file d'attente,
+                                       ou équivalent) [v3.1]                                    alertes. Le choix entre un outil
+                                                                                                hébergé à part et une intégration
+                                                                                                dans le site est arrêté pendant
+                                                                                                l'étude ; un outil hébergé à part
+                                                                                                fait l'objet d'une décision séparée
+                                                                                                d'Imagine.
+
+  Coopérateurs                         CoopHub, intégration selon §3.12                         Attribut coopérateur, compteurs
+                                       [v3.1]                                                   de campagne, prise de parts
+
+  Billetterie                          Event Tickets Plus, licence portée                       Billets, QR codes, quotas
+                                       par UPARTNER [v3.1]
+
+  Sécurité                             Extension de sécurité premium,                           Pare-feu applicatif, analyse des
+                                       anti-spam, authentification                              fichiers, protection des
+                                       renforcée des administrateurs                            formulaires
+                                       [v3.1]
+
+  Hébergement                          WordPress géré, au nom d'Imagine                         Production et préproduction
+                                       (§6.1)
+
+
+
+4.2 Modèle de données
+       Numéro : titre, date de sortie, date de clôture de la liste d'envoi, couverture, dossier,
+       sommaire, PDF, sommaire audio, articles liés, produit associé.
+
+
+                                                                                                                             Page 21 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+       Article : numéro, thématique, journaliste, résumé, mots-clés, statut d'accès (libre,
+       ouvert en découverte, réservé), longueur de l'extrait public, temps de lecture, médias.
+       [v3.1]
+       Abonnement : tarif, mode de paiement, moyen de paiement (carte, Bancontact,
+       domiciliation en ligne, PayPal, virement, domiciliation bancaire sur mandat papier),
+       référence du mandat, premier et dernier numéro, hors-série dû, date d'échéance,
+       code de réduction, abonnement offert et son acheteur, choix de renouvellement du
+       cadeau, lot d'appartenance et gestionnaire du lot. [v3.1]
+       Compte : rôle, abonnements, achats, statut de coopérateur et source de ce statut,
+       catégorie solidaire et date de fin, numéro d'entreprise pour les professionnels,
+       préférences newsletter, étiquettes de persona et consentement, source d'acquisition,
+       marqueur « sans email ». [v3.1]
+       Événement : type, date, lieu, description, inscription, billets, quota, tarif abonné. [v3.1]
+
+
+4.3 Migration
+       Contenus : les dix derniers numéros (sommaires, articles, médias, PDF) repris du site
+       actuel, chaque article rattaché à son numéro et à sa thématique. Les archives
+       antérieures sont conservées hors ligne.
+       Abonnés en ligne actuels : comptes, abonnements, moyens de paiement et historique
+       repris du site actuel. Les abonnés gardent leur identifiant et, sauf impossibilité
+       constatée en conception, leur mot de passe.
+       Abonnés hors ligne : [Nouveau] import depuis un export de la base Access fourni par
+       Imagine (contact, type d'abonnement, numéros dus, échéance, statut de coopérateur,
+       mode de paiement, référence du mandat papier). Contrôle des doublons et des
+       échéances, rapport des rejets, boucle de correction avec l'administration. Ces
+       abonnés ne sont pas transmis à Odoo avant leur renouvellement (§2.3). Aucun IBAN
+       n'est importé. [v3.1]
+       Abonnés sans email : [Nouveau] créés selon la règle du §3.13. Aucune adresse
+       inventée ou partagée, qui produirait des retours d'erreur et dégraderait la réputation
+       d'envoi d'Imagine.
+       Codes de réduction : [Nouveau] inventaire complet des codes actifs et des abonnés
+       rattachés avant la migration. Chaque code est reclassé ou supprimé.
+       Activation des comptes : les comptes importés sont créés sans mot de passe.
+       L'invitation à activer son compte part en une seule fois, au moment choisi par Imagine.
+       Newsletter : rapprochement des contacts Brevo avec les comptes, attribution du
+       statut.
+       Redirections : inventaire des adresses référencées et des pages qui reçoivent des
+       liens, plan de redirections validé avant la bascule, test automatisé après.
+
+
+
+                                                                                                Page 22 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+4.4 Sécurité et conformité
+       Connexion chiffrée, limitation des tentatives de connexion, authentification à deux
+       facteurs pour les comptes administrateurs, sauvegardes quotidiennes conservées 30
+       jours (trois copies : serveur, hébergeur, stockage externe dans l'Union européenne),
+       préproduction séparée. [v3.1]
+       Fichiers PDF protégés : adresses non devinables, contrôle du droit à chaque
+       téléchargement.
+       Paywall côté serveur. [v3.1] Le rendu de l'article dépend de l'utilisateur : droits valides
+       → texte complet ; sinon → extrait et bloc d'abonnement. Les robots d'indexation
+       reçoivent le texte complet après vérification de leur identité : agent utilisateur et
+       résolution inverse de l'adresse IP (Google, Bing) ou plages d'adresses publiées. Un
+       agent utilisateur seul ne suffit pas. La même règle s'applique à l'interface REST, aux
+       flux, à l'oEmbed et à la recherche interne. Le cache de pages distingue les visiteurs
+       connectés des anonymes : une page complète servie à un abonné n'est jamais mise en
+       cache pour un anonyme. Un test automatisé vérifie, à chaque livraison, qu'un visiteur
+       anonyme ne peut obtenir le texte réservé par aucune de ces voies.
+       RGPD : consentement explicite pour la newsletter et pour toute relance commerciale,
+       consentement distinct pour les étiquettes de personnalisation, registre des
+       traitements fourni, gestion des cookies conforme, export et suppression de compte
+       depuis le back-office. [v3.1]
+       Justificatifs du tarif solidaire : [Nouveau] stockés hors du dossier public, supprimés
+       dès leur validation. Le site ne conserve que la catégorie et la date de fin. L'abonné est
+       invité à masquer son numéro de registre national.
+       Aucune donnée de paiement stockée sur le site : cartes et IBAN des mandats en ligne
+       restent chez Stripe ; les IBAN des mandats papier restent dans l'outil bancaire
+       d'Imagine. [v3.1]
+       Connecteur : identifiant technique dédié dans Odoo, aux droits limités à ce que le flux
+       exige.
+
+
+4.5 Si Odoo est indisponible
+Le connecteur met les événements en file d'attente et les rejoue. Le lecteur ne s'aperçoit
+de rien. Un échec persistant déclenche une alerte (chapitre 11).
+
+
+5 Exigences de qualité et critères de réception
+La réception se prononce sur des mesures. Les seuils ci-dessous sont des obligations de
+résultat. Ils sont mesurés sur mobile, sur la page d'accueil, une page numéro, une page
+article (vue normale et vue de lecture) et le tunnel d'abonnement.
+
+
+
+
+                                                                                                Page 23 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+  Domaine                          Critère                                                      Seuil
+
+  Performance                      Signaux web essentiels, mesure                               LCP < 2,5 s · INP < 200 ms · CLS < 0,1
+                                   de laboratoire
+
+  Performance                      Lighthouse mobile                                            Performance ≥ 90 · SEO ≥ 95 ·
+                                                                                                Accessibilité ≥ 95 · Bonnes pratiques
+                                                                                                ≥ 95
+
+  Référencement                    Trafic naturel 30 jours après la                             Aucune perte imputable à la
+                                   bascule                                                      migration ; toutes les adresses
+                                                                                                historiques redirigées ou
+                                                                                                conservées. Mesuré après la mise en
+                                                                                                ligne, au titre de la garantie. [v3.1]
+
+  Référencement                    Balisage structuré                                           Organisation, article de presse avec
+                                                                                                indication d'accès payant, produit,
+                                                                                                événement, FAQ, fil d'Ariane ; plan du
+                                                                                                site ; fichier llms.txt ; aperçus de
+                                                                                                partage sur tous les gabarits
+
+  Référencement                    Contenu payant [v3.1]                                        Texte complet servi aux robots
+                                                                                                vérifiés et aux abonnés connectés
+                                                                                                uniquement ; extrait seul pour un
+                                                                                                anonyme, dans la page, l'interface
+                                                                                                REST, les flux, l'oEmbed et la
+                                                                                                recherche ; balisage
+                                                                                                isAccessibleForFree conforme,
+                                                                                                validé par l'outil de test des résultats
+                                                                                                enrichis de Google
+
+  Lecture                          Mode lecture [v3.1]                                          Vue de lecture fonctionnelle sur
+                                                                                                mobile et bureau, réglages
+                                                                                                mémorisés ; pour un abonné
+                                                                                                connecté, l'article s'ouvre complet
+                                                                                                dans le mode lecture de Safari,
+                                                                                                Firefox, Edge et Chrome ; pour un
+                                                                                                anonyme, ces mêmes modes
+                                                                                                n'affichent que l'extrait
+
+  Images                           Formats et chargement                                        Formats récents, dimensions
+                                                                                                déclarées, chargement différé hors
+                                                                                                premier écran. Aucun filtre de
+                                                                                                couleur, recadrage par point focal
+
+
+
+
+                                                                                                                                 Page 24 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+  Domaine                          Critère                                                      Seuil
+
+  Accessibilité                    WCAG 2.1 niveau AA                                           Contrastes, navigation au clavier,
+                                                                                                libellés de formulaires, textes
+                                                                                                alternatifs, vue de lecture comprise
+
+  Parcours                         Tests de bout en bout, jusqu'à                               Abonnement en une et en quatre
+                                   l'arrivée dans Odoo                                          fois, par carte, Bancontact,
+                                                                                                domiciliation en ligne et PayPal ;
+                                                                                                prélèvement rejeté ; délai de grâce ;
+                                                                                                virement validé à la main ;
+                                                                                                prélèvement sur mandat papier listé
+                                                                                                puis validé ; non-renouvellement ;
+                                                                                                rétractation ; tarif solidaire et
+                                                                                                justificatif ; abonnement offert avec
+                                                                                                et sans renouvellement ;
+                                                                                                abonnement groupé et attribution ;
+                                                                                                commande d'un professionnel ; achat
+                                                                                                d'un numéro ; accès découverte ;
+                                                                                                changement de pays ; achat d'un
+                                                                                                billet ; formulaire de personnalisation
+                                                                                                et étiquette dans Brevo ; attribut
+                                                                                                coopérateur selon le niveau
+                                                                                                d'intégration retenu [v3.1]
+
+  Échéances                        Cas qui ne se voient pas à l'écran                           Renouvellement, relance, suspension
+                                                                                                et réactivation vérifiés sur des
+                                                                                                abonnements de test avant la
+                                                                                                bascule, pour éviter les pannes
+                                                                                                silencieuses [Nouveau]
+
+  Emails                           Les cinq emails du §3.8                                      Envoyés au bon moment, au nom
+                                                                                                d'Imagine, en français ; aucun email
+                                                                                                de Stripe ; d'Odoo, la facture
+                                                                                                seulement
+
+  Mobile                           Compatibilité                                                Safari sur iOS et Chrome sur Android,
+                                                                                                deux dernières versions majeures,
+                                                                                                sans défilement horizontal
+
+  Code                             Maintenabilité                                               Dépôt de code chez UPARTNER,
+                                                                                                documentation du thème, des
+                                                                                                extensions sur mesure, du
+                                                                                                connecteur et des réglages ; aucune
+                                                                                                dépendance à un compte personnel
+
+
+
+
+                                                                                                                                Page 25 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+Recette en deux temps. [Nouveau] UPARTNER teste d'abord chaque fonction et chaque
+parcours. Imagine mène ensuite sa propre recette sur le site de préproduction, avec ses
+cas réels, avant toute mise en ligne. [v3.1] La réception est l'accord écrit d'Imagine, donné
+quand sa recette est passée et que les critères mesurables avant la mise en ligne sont
+atteints ; la mise en ligne la suit. Le critère de référencement à 30 jours est vérifié ensuite,
+au titre de la garantie.
+
+
+6 Rôles, propriété et fonctionnement du projet
+
+  Acteur                               Périmètre                                                Engagements
+
+  UPARTNER ·                           Cadrage, parcours des trois zones,                       Ce cahier des charges, les
+  conception                           maquettes, prototype du tunnel et                        maquettes et le prototype, le
+                                       du paywall, architecture,                                document d'interface, les plans
+                                       document d'interface avec Odoo,                          de migration et de redirection
+                                       niveau d'intégration de CoopHub,
+                                       questions du formulaire de
+                                       personnalisation, définition des
+                                       indicateurs et des extractions,
+                                       plan de référencement, plan de
+                                       migration, critères de réception
+
+  UPARTNER ·                           Gestion de projet, planning                              Planning avec jalons, réunions de
+  pilotage                             partagé, interlocuteur d'Imagine                         suivi, comptes rendus, procès-
+                                       et de Step, recette, mise en ligne                       verbal de réception
+
+  UPARTNER ·                           Thème et mode lecture,                                   Site conforme aux chapitres 3, 4
+  production                           commerce et abonnements,                                 et 5 ; dépôt de code ;
+                                       abonnements groupés et offerts,                          documentation ; correctifs
+                                       paiements, paywall côté serveur,                         garantis trois mois après la mise
+                                       back-office, tableau de bord et                          en ligne
+                                       extractions, billetterie, intégration
+                                       CoopHub, migration,
+                                       référencement et performance,
+                                       connecteur, correctifs de recette
+
+  Step                                 Odoo : facturation, comptabilité,                        Périmètre adapté remis à Imagine
+                                       rapprochement des paiements,                             ; environnements de test à la
+                                       envoi des factures ; mise à                              demande ; réponses aux points
+                                       disposition du statut des                                du chapitre 8 ; validation du
+                                       virements et des factures (§2.2)                         document d'interface
+
+
+
+
+                                                                                                                            Page 26 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+  Acteur                               Périmètre                                                Engagements
+
+  Imagine                              Contenus, décisions du chapitre 7,                       Export de la base Access ;
+                                       données, hébergement, comptes                            inventaire des codes de réduction
+                                       tiers, recette                                           ; base des points de vente ; accès
+                                                                                                Stripe, PayPal, Brevo, CoopHub
+                                                                                                (documentation et accès de test),
+                                                                                                noms de domaine et site actuel ;
+                                                                                                grille tarifaire ; liste des
+                                                                                                thématiques ; calendrier de
+                                                                                                parution ; textes des pages
+                                                                                                institutionnelles ; un référent
+                                                                                                administratif et un référent
+                                                                                                éditorial
+
+
+
+6.1 Hébergement
+Le contrat d'hébergement est au nom d'Imagine. UPARTNER en assure la gestion
+technique dans le cadre de la maintenance : configuration, préproduction, sauvegardes,
+noms de domaine, certificats, relation avec l'hébergeur. Exigences minimales : WordPress
+géré, PHP 8.2 ou supérieur, certificat SSL, sauvegardes quotidiennes automatiques,
+environnement de préproduction, cache de pages capable de distinguer les visiteurs
+connectés (§4.4). [v3.1]
+
+
+6.2 Propriété et réversibilité
+Le site, le code du thème et des extensions sur mesure, les réglages, les contenus et les
+données appartiennent à Imagine dès le premier jour. [v3.1] Le site est construit sur
+WordPress, logiciel libre, sans composant propriétaire d'UPARTNER. Le dépôt de code est
+hébergé par UPARTNER ; Imagine en reçoit une copie à la réception, puis à chaque
+évolution majeure. Les licences des extensions sont souscrites par UPARTNER pour le
+compte d'Imagine pendant le contrat de maintenance, et transférables. L'hébergement,
+Stripe, PayPal, Brevo, CoopHub et les noms de domaine sont au nom d'Imagine.
+
+Automatisations. [Nouveau] Les scénarios du connecteur appartiennent à Imagine. Ils
+sont documentés (ce que chacun fait, quand il se déclenche, quelles données il transmet)
+et remis sous une forme exportable, réinstallable sur une autre instance. Si la
+collaboration s'arrête, Imagine et Step peuvent reprendre le flux sans le reconstruire.
+
+
+
+
+                                                                                                                            Page 27 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+6.3 Formation
+Deux sessions à la livraison. Pour le référent administratif : encoder un abonnement hors
+ligne, créer un compte sans email, valider un virement et un justificatif, lancer et valider
+les prélèvements sur mandat papier, suivre les échéances et les impayés, sortir la liste
+d'envoi, lire le tableau de bord, produire une extraction, gérer un abonnement groupé.
+Pour le référent éditorial : publier un numéro et un article, régler les accès, l'extrait public
+et l'accès découverte, tenir le calendrier de parution, gérer l'agenda, la billetterie et le bloc
+partenaire. Un guide d'exploitation est remis. [v3.1]
+
+
+6.4 Fonctionnement du projet [Nouveau]
+
+  Sujet                                       Règle convenue le 9 octobre
+
+  Interlocuteurs                              Chez Imagine, la direction arbitre ; le référent
+                                              administratif et le référent éditorial répondent aux
+                                              questions de détail. Chez Step, un interlocuteur
+                                              technique unique pour Odoo. Chez UPARTNER, un
+                                              pilote de projet et un responsable technique.
+
+  Planning                                    Un planning commun avec jalons, tenu par
+                                              UPARTNER dans son outil de gestion de projet et
+                                              partagé avec Imagine et Step.
+
+  Réunions de suivi                           Fixées à l'avance, à chaque jalon. Elles sont
+                                              avancées si un point bloque, supprimées si elles
+                                              n'ont plus d'objet.
+
+  Mémoire du projet                           Les réunions sont enregistrées et font l'objet d'un
+                                              compte rendu. Les échanges techniques entre
+                                              UPARTNER et Step y sont versés.
+
+  Document d'interface                        Le document qui décrit, champ par champ, ce que
+                                              le site envoie à Odoo, à quel moment, et ce qui se
+                                              passe en cas d'erreur. UPARTNER le rédige, Step le
+                                              valide. Il sert de référence aux deux équipes
+                                              pendant le développement et après.
+
+  Décisions                                   Une décision prise est consignée et ne se rouvre
+                                              pas sans raison nouvelle. Chaque changement en
+                                              cours de route allonge le délai.
+
+
+
+
+                                                                                                     Page 28 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+7 Décisions à prendre par Imagine
+État au 26 octobre 2026. Les décisions closes restent listées pour mémoire, avec ce qui a
+été arrêté.
+
+
+  N°          Décision                                                   État                   Arrêté, ou recommandation
+                                                                                                d'UPARTNER
+
+  1           Domiciliation des nouveaux                                 Close                  Mandat en ligne et prélèvement
+              abonnés                                                                           par Stripe pour les nouveaux
+                                                                                                abonnés ; mandats papier
+                                                                                                existants maintenus et gérés
+                                                                                                depuis le back-office (§3.6). [v3.1]
+
+  2           Maintien du virement                                       Close                  Maintenu, hors tunnel et sur
+                                                                                                facture (§3.6). [v3.1]
+
+  3           Grille tarifaire de                                        Ouverte,               Les trois tarifs en une et en quatre
+              l'abonnement                                               prioritaire            fois, le tarif du numéro à l'unité, le
+                                                                                                supplément de port par pays.
+                                                                                                Sans ces montants, ni le tunnel ni
+                                                                                                les emails ne peuvent être
+                                                                                                finalisés. À arrêter avant la fin de
+                                                                                                2026, pour annoncer la nouvelle
+                                                                                                grille deux mois avant les premiers
+                                                                                                renouvellements.
+
+  4           Tarif solidaire                                            Ouverte,               Accordé sur justificatif à une liste
+                                                                         prioritaire            fermée de catégories, valable un
+                                                                                                an, confirmé chaque année, sauf
+                                                                                                pour les seniors.
+
+  5           Accès découverte                                           Ouverte,               Sept jours, une seule fois par
+                                                                         prioritaire            personne, sur le numéro en cours,
+                                                                                                sans téléchargement du PDF.
+                                                                                                Quinze jours sur tout le site
+                                                                                                laisseraient lire un trimestriel
+                                                                                                entier sans l'acheter.
+
+  6           Abonnement offert                                          Close                  Une seule commande, choix
+                                                                                                explicite du renouvellement par
+                                                                                                l'acheteur, arrêt après un an par
+                                                                                                défaut (§3.4). [v3.1]
+
+
+
+
+                                                                                                                               Page 29 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+  N°          Décision                                                   État                   Arrêté, ou recommandation
+                                                                                                d'UPARTNER
+
+  7           Achat d'un numéro sans                                     Ouverte                L'autoriser pour le papier, avec
+              compte                                                                            une case de consentement, et
+                                                                                                proposer la création du compte
+                                                                                                après l'achat pour ouvrir l'accès
+                                                                                                numérique.
+
+  8           Paiement en quatre fois                                    Ouverte                Suspension de l'accès et des
+              interrompu                                                                        envois, sans procédure de
+                                                                                                recouvrement. La règle figure
+                                                                                                dans les conditions générales.
+
+  9           Abonnés actuels et nouvelle                                Ouverte                Une seule annonce, nouveau site
+              grille                                                                            et nouvelle grille ensemble. Aucun
+                                                                                                prélèvement à un nouveau
+                                                                                                montant sans annonce préalable.
+
+  10          Abonnés « numérique seul »                                 Ouverte                Appliquer la fiche du 23 avril : un
+                                                                                                seul abonnement, papier et
+                                                                                                numérique. Décider du sort des
+                                                                                                abonnés « numérique seul »
+                                                                                                actuels à leur échéance.
+
+  11          Billetterie des masterclass                                Close                  Dans le périmètre, livrée avec le
+                                                                                                site ; le calendrier des masterclass
+                                                                                                peut venir après (§3.11). [v3.1]
+
+  12          Délai de grâce des impayés                                 Ouverte                Quatorze jours, pour laisser le
+                                                                                                temps à l'abonné de mettre à jour
+                                                                                                son moyen de paiement.
+
+  13          Règles d'acceptation des                                   Ouverte                Une note courte de la rédaction :
+              partenaires                                                                       qui peut apparaître, sous quelle
+                                                                                                étiquette, pour combien de
+                                                                                                temps.
+
+  14          Référents                                                  Ouverte                Un référent administratif, un
+                                                                                                référent éditorial, et la personne
+                                                                                                qui porte la communication de
+                                                                                                bascule auprès des abonnés.
+
+  15          Baseline et titre                                          Ouverte                Communiquer le résultat du vote
+                                                                                                de l'Assemblée générale avant les
+                                                                                                maquettes.
+
+
+
+
+                                                                                                                              Page 30 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+  N°          Décision                                                   État                   Arrêté, ou recommandation
+                                                                                                d'UPARTNER
+
+  16          Liseuse                                                    Close                  Mode lecture article par article
+                                                                                                dans le périmètre, PDF
+                                                                                                téléchargeable derrière le paywall
+                                                                                                ; la liseuse du numéro complet
+                                                                                                reste une option (§9.2). [v3.1]
+
+  17          Articles ouverts                                           Ouverte                Un reportage libre par numéro. La
+                                                                                                rédaction désigne les articles
+                                                                                                ouverts en découverte. Le reste
+                                                                                                est réservé.
+
+  18          Référencement du contenu                                   Close                  Texte complet servi aux seuls
+              payant                                                                            abonnés connectés et robots
+                                                                                                vérifiés ; extrait pour les autres
+                                                                                                (§3.9, §4.4). Remplace la règle de
+                                                                                                la version 3.0. [v3.1]
+
+  19          Questions du formulaire de                                 Ouverte [v3.1]         Quatre à six questions au plus,
+              personnalisation                                                                  dérivées des cinq personas,
+                                                                                                toutes facultatives. Proposition
+                                                                                                d'UPARTNER pendant l'étude,
+                                                                                                validation par la direction.
+
+  20          Longueur de l'extrait public                               Ouverte [v3.1]         Les deux premiers paragraphes,
+                                                                                                réglable par article par la
+                                                                                                rédaction.
+
+  21          CoopHub                                                    Ouverte [v3.1]         Imagine demande à CoopHub la
+                                                                                                documentation de son interface
+                                                                                                et un accès de test, avant la fin de
+                                                                                                l'étude. Sans réponse, intégration
+                                                                                                par lien.
+
+  22          Compte PayPal professionnel                                Ouverte [v3.1]         Imagine ouvre ou réactive son
+                                                                                                compte PayPal professionnel et en
+                                                                                                donne l'accès pendant l'étude.
+
+
+
+
+8 Points à régler avec Step
+La frontière est fixée. Restent des points d'exécution, à consigner dans le document
+d'interface (§6.4). Les quatre premiers conditionnent la conception.
+
+
+
+
+                                                                                                                              Page 31 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+  N°          Point                                                      Ce qu'il faut arrêter
+
+  1           Données attendues par Odoo                                 Les champs obligatoires d'un contact, d'une
+                                                                         commande et d'un abonnement, pour un
+                                                                         particulier, pour un professionnel et pour un lot
+                                                                         d'abonnements. [v3.1]
+
+  2           Mandats bancaires existants                                Réglé le 15 octobre : l'administration d'Imagine
+                                                                         continue de produire le fichier de prélèvement à
+                                                                         partir de l'écran des échéances du site ; Odoo
+                                                                         n'intervient pas. [v3.1]
+
+  3           Liste d'envoi                                              Confirmer qu'elle sort du site (§3.13) et qu'Odoo
+                                                                         n'en a pas besoin.
+
+  4           Email de facture                                           Expéditeur, modèle au nom d'Imagine, moment
+                                                                         d'envoi, pour qu'il s'accorde avec l'email de
+                                                                         confirmation du site.
+
+  5           Historique et doublons                                     Si l'historique des factures est importé dans Odoo,
+                                                                         l'identifiant qui rattache ces contacts aux abonnés
+                                                                         transmis plus tard par le site.
+
+  6           Étalement comptable                                        Règle d'étalement d'un abonnement sur ses
+                                                                         numéros, accès numérique immédiat compris.
+                                                                         Champs que le site doit transmettre.
+
+  7           TVA                                                        Taux de l'offre papier et numérique, traitement du
+                                                                         tarif de soutien, du don et des billets, abonnés hors
+                                                                         de Belgique. [v3.1]
+
+  8           Versements Stripe et PayPal                                Les deux versent des montants groupés, nets de
+                                                                         frais. Données à transmettre par commande pour
+                                                                         le rapprochement bancaire. [v3.1]
+
+  9           Notes de crédit                                            Prélèvement rejeté, rétractation, remboursement :
+                                                                         événement attendu du site, émission de la note de
+                                                                         crédit par Odoo.
+
+  10          Statut des virements                                       Lecture nocturne dans Odoo ou fichier d'échange,
+                                                                         et format. Nécessaire pour la validation
+                                                                         automatique (§2.2). [v3.1]
+
+  11          Factures dans le compte client                             Fichier PDF ou adresse signée, mode de mise à
+                                                                         disposition, délai après émission. [v3.1]
+
+
+
+
+                                                                                                                         Page 32 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+  N°          Point                                                      Ce qu'il faut arrêter
+
+  12          Ce qui reste dans Odoo                                     Les quelques fonctions hors facturation prévues à
+                                                                         l'origine : à garder ou à retirer, une par une. Aucune
+                                                                         donnée de segmentation n'est attendue dans
+                                                                         Odoo. [v3.1]
+
+  13          Sauvegardes et incidents                                   Sauvegarde quotidienne de la base Odoo, délai de
+                                                                         restauration, personne à joindre.
+
+
+
+
+9 Hors périmètre et options
+
+9.1 Hors périmètre
+       Configuration d'Odoo, facturation légale, comptabilité : Step.
+       Production vidéo, animation graphique, enregistrement des sommaires audio.
+       Rédaction de contenus, traduction, prises de vue.
+       Nettoyage de la base Access et de la base Brevo au-delà du rapprochement décrit au
+       §4.3.
+       Communication de bascule auprès des abonnés et campagnes dans Brevo : elles
+       relèvent de l'accompagnement en communication.
+       Hébergement de podcasts, boutique de produits dérivés.
+       Traitement de la souscription de parts par le site lui-même, écriture de données dans
+       CoopHub. [v3.1]
+       Administration du serveur (système, réseau, matériel) : l'hébergeur. [v3.1]
+
+
+9.2 Options, hors périmètre à ce jour
+       Liseuse du numéro complet. [v3.1] Le magazine tel qu'il est imprimé, à feuilleter page
+       par page dans le navigateur. Approche retenue si l'option est activée : extension
+       installée dans le site (Real3D FlipBook ou équivalent), sans service externe ; à chaque
+       parution, le PDF déposé dans le back-office est converti en pages images, le PDF
+       source n'est pas exposé aux visiteurs ; feuilletage, zoom, recherche, page simple sur
+       mobile ; numéro complet derrière le paywall, premières pages en aperçu pour les
+       visiteurs. Les services externes de type Calaméo ou Issuu sont écartés : hébergement
+       chez un tiers, liens de lecture partageables hors paywall.
+       Newsletter des coopérateurs automatisée, espace podcasts et portfolio des
+       photographes (2027).
+       Outil d'automatisation hébergé à part pour le connecteur, si l'étude conclut qu'il est
+       nécessaire (§4.1).
+
+
+
+                                                                                                                          Page 33 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+9.3 Écarté
+       Abonnement à durée libre, résiliable à chaque parution. Il rend les recettes
+       imprévisibles et prive l'abonné du hors-série.
+       Accès gratuit qui se renouvelle chaque mois. Un lecteur pourrait lire indéfiniment
+       sans s'abonner.
+       Accès des abonnés à Odoo. Il recréerait le double compte que l'architecture
+       supprime.
+       Virement dans le tunnel d'abonnement. Voir §3.6.
+       Bon cadeau à activer par le destinataire. Remplacé par l'abonnement offert en une
+       commande (§3.4). [v3.1]
+       Texte réservé présent dans la page et masqué par la feuille de style. Remplacé par le
+       paywall côté serveur (§3.9). [v3.1]
+       Lecteur PDF pour les articles. L'article est une page du site ; le PDF reste un
+       téléchargement. [v3.1]
+
+
+10 Planning
+Trois phases, pour une mise en ligne estimée fin janvier 2027 et au plus tard en février,
+entre deux parutions. [v3.1] Ces dates sont des estimations : elles dépendent des
+validations administratives, des retours d'Imagine et de tiers (Step, hébergeur, CoopHub).
+La campagne de fin d'année 2026 et le numéro de janvier sont portés par le site actuel ; le
+nouveau site est mis en avant avec le numéro de printemps.
+
+
+  Phase                          Période estimée                  Contenu                       Dépend de
+
+  1 · Étude et                   Novembre –                       Diagnostic, parcours par      Décisions 3 à 5 du
+  conception                     décembre 2026                    persona, maquettes et         chapitre 7 ; points 1 à 4 du
+                                                                  prototype, architecture et    chapitre 8 ; accès au site
+                                                                  document d'interface,         actuel, à Stripe, PayPal,
+                                                                  niveau d'intégration de       Brevo et CoopHub ;
+                                                                  CoopHub, questions du         extrait de la base Access
+                                                                  formulaire de
+                                                                  personnalisation,
+                                                                  définition des indicateurs
+                                                                  et des extractions, cahier
+                                                                  des charges finalisé, plans
+                                                                  de migration et de
+                                                                  référencement
+
+
+
+
+                                                                                                                     Page 34 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+  Phase                          Période estimée                  Contenu                         Dépend de
+
+  2 · Production                 Novembre 2026                    Socle technique d'abord         Hébergement souscrit ;
+                                 – janvier 2027                   (connecteur, migration,         export Access et
+                                                                  back-office), gabarits          inventaire des codes
+                                                                  après validation des            reçus ; autres décisions
+                                                                  maquettes ; commerce et         du chapitre 7 ;
+                                                                  abonnements, paiements,         environnement de test
+                                                                  paywall, mode lecture,          Odoo, ou mode export
+                                                                  emails, billetterie,
+                                                                  abonnements groupés,
+                                                                  référencement et
+                                                                  performance
+
+  3 · Recette et                 Janvier – février                Tests d'UPARTNER, puis          Disponibilité des
+  bascule                        2027                             recette d'Imagine en            référents pour la recette ;
+                                                                  préproduction ; formation       Odoo en production, ou
+                                                                  des référents ; réception ;     mode export
+                                                                  bascule ; invitation des
+                                                                  abonnés ; surveillance du
+                                                                  référencement pendant 30
+                                                                  jours au titre de la garantie
+
+
+Jalons et réunions de suivi. Lancement du projet (fait) · décisions prioritaires arrêtées ·
+maquettes validées · site complet en préproduction · recette d'Imagine terminée ·
+réception · bascule. Une réunion entre Imagine, Step et UPARTNER est fixée à chacun.
+
+Ce qui déplace la date. Chaque semaine de retard sur les décisions prioritaires, sur
+l'export Access ou sur les points à régler avec Step décale la bascule d'autant. Une
+bascule sur un numéro en cours d'envoi est exclue : la date suivante possible se situe
+après la parution suivante. Le projet se termine à la mise en ligne ; l'accompagnement
+après la mise en ligne n'en fait pas partie.
+
+
+
+11 Exploitation et maintenance
+Sur un site à abonnements, une mise à jour qui casse interrompt des prélèvements ou
+ouvre le paywall. Après la mise en ligne, la maintenance couvre : [v3.1]
+
+       Les mises à jour de WordPress, du thème et des extensions, testées en préproduction
+       avant la production, avec sauvegarde préalable.
+       Un test mensuel du tunnel : commande d'essai, renouvellement forcé sur un
+       abonnement de test, arrivée de la commande dans Odoo, téléchargement d'un PDF.
+       La surveillance du connecteur : alerte en cas d'échec ou de file d'attente non vidée
+       sous 24 heures, puis rejeu.
+
+
+                                                                                                                      Page 35 of 36
+IMAGINE — Refonte du site internet : cahier des charges fonctionnel et technique, version 3.1
+
+
+
+
+       La surveillance de la disponibilité et de la performance, avec alerte en cas d'incident.
+       La sécurité : extension de sécurité premium, anti-spam, authentification renforcée
+       des administrateurs, veille et correctifs de sécurité.
+       Les sauvegardes : trois copies quotidiennes (serveur, hébergeur, stockage externe
+       dans l'Union européenne), conservées 30 jours ; une restauration testée une fois par
+       an.
+       Toutes les licences, acquises et renouvelées par UPARTNER : WooCommerce
+       Subscriptions et Memberships, Event Tickets Plus, Rank Math Pro, ACF Pro, sécurité,
+       anti-spam, outil de gestion des maintenances, stockage des sauvegardes.
+       La gestion technique de l'hébergement (§6.1).
+       Une heure de dépannage par mois, réservée à la correction d'un dysfonctionnement :
+       bug dans le code sur mesure, dans une extension développée par UPARTNER ou dans
+       l'intégration des extensions. Elle ne couvre ni les évolutions, ni les ajustements de
+       fonctions, ni les nouvelles demandes ; elle n'est pas reportable.
+       Le support du back-office par email et par ticket, avec une réponse sous deux jours
+       ouvrés.
+
+Garantie. Pendant les trois mois qui suivent la mise en ligne, les défauts constatés sont
+corrigés sans limite d'heures, en plus de la maintenance.
+
+Ce que la maintenance n'est pas. Ce n'est pas de l'infogérance : UPARTNER entretient le
+site, pas le serveur. Le système, le réseau, le matériel et la disponibilité de la machine
+relèvent de l'hébergeur et de son contrat. Il n'y a ni permanence 24 h sur 24, ni délai
+d'intervention garanti hors jours ouvrés. Les évolutions fonctionnelles, les nouveaux
+gabarits, les campagnes et les contenus sont traités hors maintenance. Si le connecteur
+requiert un outil d'automatisation hébergé à part, son hébergement fait l'objet d'une
+décision séparée d'Imagine (§4.1).
+
+
+
+
+                                                                                                Page 36 of 36
+

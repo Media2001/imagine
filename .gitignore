@@ -1,0 +1,51 @@
+# Secrets — ne jamais versionner
+.env
+.env.*
+*.env
+wp-config.php
+.htaccess
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+*secret*
+*credentials*
+*token*
+auth.json
+
+# Bases et sauvegardes
+*.sql
+*.sql.gz
+*.dump
+*.zip
+*.tar
+*.tar.gz
+backups/
+
+# Système et éditeurs
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.tmp
+*.log
+_a_supprimer/
+
+# Verrou du script de synchronisation
+.sync.lock
+.relire.lock
+
+# Donnees reelles - jamais dans le depot (abonnes, exports Access, Brevo, Stripe)
+*.mdb
+*.accdb
+*.xlsx
+*.xls
+donnees-reelles/
+exports/
+uploads/
+
+# Dependances et artefacts
+vendor/
+node_modules/
+.phpunit.result.cache
