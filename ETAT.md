@@ -8,7 +8,7 @@
 | Hermès sur ce dépôt | Démarré le 19/11 | Premier rapport dans `files/rapports/` | Hermès |
 | Synchronisation Git | Tâche planifiée « IMAGINE - synchro » créée le 19/11, toutes les 5 min | — | — |
 | Circuit de relecture | `scripts/relire.ps1` adapté aux lots ; se lance sans erreur, **pas encore testé sur un lot** | Lancer à la main sur le premier lot `PRET`, puis planifier « IMAGINE - relecture » | Ced |
-| Staging | Pas de Docker sur le NUC : on utilise l'outil de staging de Ced, avec Novamira pour l'accès des agents. Étape « site à abonnements » à ajouter à l'outil (`prompts/2026-11-19-staging-imagine.md`). Le `docker-compose.yml` du dépôt n'est plus utilisé | Donner le prompt à Claude Code ; puis retirer Docker du dépôt | Ced, puis Claude |
+| Staging | Pas de Docker sur le NUC : on utilise l'outil de staging de Ced, avec Novamira pour l'accès des agents. Étape « site à abonnements » à ajouter à l'outil (`prompts/2026-11-19-staging-imagine.md`). Le `docker-compose.yml` du dépôt n'est plus utilisé | Hermès ajoute l'étape ; puis retirer Docker du dépôt | Hermès, puis Claude |
 | Exécution des tests PHP | Non fixée : via le staging, ou PHP dans WSL | À trancher | Ced |
 
 ## A · L'existant
@@ -18,7 +18,8 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 | Lot | État | Prochaine étape | Qui |
 |---|---|---|---|
 | Sauvegarde de production | Pas encore récupérée | Export SQL + `wp-content`, déposés sur le NUC **hors du dépôt** | Ced |
-| A-01 Import neutralisé | Repris par Claude Code dans l'outil de staging ; prompt écrit | Lancer le prompt | Ced |
+| A-01 Import neutralisé | Audit de l'outil rendu par Hermès le 19/11 (rien n'est neutralisé aujourd'hui) ; accord de Ced donné | Scripts, tests sur site jetable, `production/A-01/notes.md` | Hermès |
+| Staging Imagine existant | Copie de production non neutralisée, au statut « running » | L'arrêter ou vérifier le mode staging de Subscriptions ; le détruire quand le nouveau parcours est validé | Ced |
 | A-00 Couverture des extensions | Brief écrit | Production | Hermès |
 | A-02 à A-06 | En attente | Voir `A-FAIRE.md` | — |
 

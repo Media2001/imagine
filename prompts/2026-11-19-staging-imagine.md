@@ -1,6 +1,6 @@
 # Prompt — staging d'Imagine dans l'outil de staging (19/11/2026)
 
-À donner à Claude Code, sur la machine où tourne l'outil de staging de Ced.
+À donner à Hermès, qui gère l'outil de staging de Ced.
 
 ---
 

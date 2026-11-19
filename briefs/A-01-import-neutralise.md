@@ -1,6 +1,6 @@
 # Lot A-01 — Import neutralisé et anonymisé de la production
 
-> **19/11/2026 — ce lot n'est plus dans la file d'Hermès.** Il est réalisé par Claude Code dans l'outil de staging de Ced, selon `prompts/2026-11-19-staging-imagine.md`, qui remplace ce brief (plus de Docker ; scripts dans `wp/outils/staging/` et `wp/outils/bascule/`). Ce fichier reste pour la relecture du lot.
+> **19/11/2026 — ce brief est remplacé.** Le lot est réalisé par Hermès dans l'outil de staging de Ced, selon `prompts/2026-11-19-staging-imagine.md`, qui remplace ce brief (plus de Docker ; scripts dans `wp/outils/staging/` et `wp/outils/bascule/`). Ce fichier reste pour la relecture du lot.
 
 **Chantier** : A · l'existant.
 **Nature** : scripts et tests. **Tu ne touches jamais à la sauvegarde réelle** : tu écris l'outil, Ced le lance.
