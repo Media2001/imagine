@@ -15,6 +15,8 @@ Ce qui est tranché par Ced, daté. Ce fichier précise ou corrige le cahier des
 | 11/11/2026 | **On repart de la production.** Le site actuel est copié, mis à niveau (Memberships et ce qui en dépend), puis reçoit le nouveau thème et le code sur mesure. Les abonnés en ligne, leurs mots de passe et leurs moyens de paiement ne sont donc pas migrés : ils restent en place. Seuls les abonnés hors ligne (base Access) sont importés. |
 | 11/11/2026 | Trois chantiers indépendants : A l'existant, B le thème, C le code sur mesure. |
 | 11/11/2026 | Toute transformation de l'existant est un script rejouable : elle sera refaite sur une copie fraîche le jour de la bascule. |
+| 19/11/2026 | Le staging passe par l'outil de staging de Ced, pas par Docker. Les agents y accèdent par le MCP Novamira, uniquement après neutralisation, anonymisation et vérification de la copie. |
+| 19/11/2026 | Mise en ligne : on ne pousse jamais le staging vers la production. Le jour J : gel de l'ancien site, copie fraîche sur le nouveau serveur, scripts de bascule seuls, tests, puis changement de DNS. L'ancien site reste en secours. Une répétition générale la semaine précédente. |
 | 11/11/2026 | Architecture de production : Claude (briefs, arbitrages), Hermès (production), Codex et Claude Code (relecture), Git comme file de travail. |
 
 ## Ouvert — à trancher par Ced

@@ -1,6 +1,6 @@
 # Doctrine — projet Imagine
 
-Révision : **11/11/2026, 18 h 30** (on repart de la production ; trois chantiers).
+Révision : **19/11/2026** (outil de staging de Ced et Novamira à la place de Docker ; scripts de staging et scripts de bascule).
 
 Ces règles s'appliquent à tous les agents. En cas de contradiction entre une consigne et la doctrine, la doctrine l'emporte : l'agent le signale dans son rapport au lieu de trancher.
 
@@ -24,7 +24,9 @@ Ced réalise toute la production technique. Le **design** (maquettes) et le **r�
 - **Achats** : aucune licence, aucun service payant.
 - **Déploiement** : rien en préproduction ni en production sans GO écrit.
 - **Git** : un worker ne fait jamais d'opération Git. Seule la tâche de synchronisation en fait.
-- **Machine** : rien ne s'installe ni ne s'exécute sur le NUC lui-même. PHP, Composer, WordPress et la base vivent dans le staging Docker du dépôt (`docker-compose.yml`), avec une base fictive. C'est le seul endroit où un agent installe ou exécute quelque chose.
+- **Staging** : le site tourne dans l'outil de staging de Ced, à partir d'une copie de la production. Cette copie est neutralisée, anonymisée et vérifiée par des scripts (`wp/outils/staging/`) **avant** son premier démarrage et avant qu'un agent y accède. Un agent ne se connecte jamais à un staging dont la vérification n'a pas réussi.
+- **Novamira** : réservé au staging vérifié. Jamais en production, dans aucun script de bascule. Il sert à explorer, diagnostiquer et tester. **Un changement fait directement dans le staging n'existe pas** : tout ce qui doit durer est un fichier ou un script du dépôt.
+- **Machine** : rien ne s'installe sur le NUC lui-même sans l'accord de Ced.
 
 ## 4. Comment on construit
 
@@ -33,6 +35,7 @@ Ced réalise toute la production technique. Le **design** (maquettes) et le **r�
 - **La logique métier hors de WordPress.** Les règles (numéros, échéances, droits) sont écrites en PHP pur, testables sans base ni WordPress ; une couche fine les branche sur WooCommerce.
 - **Paywall côté serveur.** Le texte réservé n'est jamais dans la réponse envoyée à un visiteur non autorisé : page, REST, flux, oEmbed, recherche, aperçus. Un test d'étanchéité le vérifie.
 - **Pas de constructeur de pages.** Thème sur mesure, HTML sémantique, aucun script superflu : les seuils du chapitre 5 (Lighthouse mobile, WCAG 2.1 AA) sont des obligations de résultat.
+- **Deux familles de scripts.** `wp/outils/staging/` ne tourne que sur une copie de travail (neutraliser, anonymiser, vérifier) et refuse de s'exécuter en production. `wp/outils/bascule/` contient les scripts numérotés qui transforment l'existant ; ils sont rejoués sur chaque staging, puis une dernière fois sur la vraie base le jour de la mise en ligne.
 - **Rejouable.** On repart de la production, qui continue de vivre pendant le projet. Toute transformation de l'existant (mise à jour, nettoyage, réglage, changement de forme des contenus) est un script versionné, relançable sur une copie fraîche, et qui donne le même résultat. Rien ne se fait à la main dans l'administration sans être reporté dans un script.
 - **Non-régression.** Avant de modifier l'existant, on écrit le test qui prouve qu'il fonctionne ; on le rejoue après.
 - **Idempotence.** Tout ce qui part vers Odoo passe par une file d'attente ; un événement rejoué ne crée pas de doublon.

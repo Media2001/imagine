@@ -2,19 +2,21 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 11 novembre 2026, 18 h 30.
+Mis à jour le 19 novembre 2026, 20 h.
 
-Consigne permanente : `prompts/consigne-permanente.md`. Doctrine : `doctrine/doctrine.md` (dernière révision : **11/11/2026, 18 h 30 — on repart de la production ; trois chantiers**).
+Consigne permanente : `prompts/consigne-permanente.md`. Doctrine : `doctrine/doctrine.md` (dernière révision : **19/11/2026 — outil de staging et Novamira à la place de Docker**).
 
 Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantier : **A** l'existant, **B** le thème, **C** le code sur mesure. Les lots actifs de chantiers différents peuvent avancer en parallèle.
 
 ## Consignes actives, par ordre de priorité
 
-**1. `briefs/A-01-import-neutralise.md`** — chantier A. Outil d'import de la production dans Docker, neutralisé et anonymisé, testé sur une base fictive. Tu écris l'outil ; tu ne touches jamais à la sauvegarde réelle.
+**1. `briefs/C-01-regle-des-numeros.md`** — chantier C. Moteur de la règle des numéros en PHP pur, avec ses tests. Le brief a changé le 19/11 (plus de Docker) : relis-le.
 
-**2. `briefs/C-01-regle-des-numeros.md`** — chantier C. Moteur de la règle des numéros en PHP pur, avec ses tests. Tout s'exécute dans Docker, rien sur la machine.
+**2. `briefs/A-00-couverture-extensions.md`** — chantier A. Étude : ce que les extensions retenues font nativement, sources officielles à l'appui. Aucune installation, aucun achat.
 
-**3. `briefs/A-00-couverture-extensions.md`** — chantier A. Étude : ce que les extensions retenues font nativement, sources officielles à l'appui. Aucune installation, aucun achat.
+**Retiré de ta file : A-01.** L'import neutralisé et anonymisé est repris par Claude Code dans l'outil de staging de Ced (`prompts/2026-11-19-staging-imagine.md`). Ne produis rien dans `wp/outils/`. Si tu avais commencé, laisse en l'état et dis-le dans ton rapport.
+
+**Tu n'as accès à aucun staging pour l'instant.** Tu y accéderas par Novamira quand Ced l'écrira ici.
 
 ## En attente (ne pas commencer)
 
@@ -22,7 +24,8 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 
 | Lot | Contenu | Attend |
 |---|---|---|
-| A-02 Audit | Versions de WordPress, PHP, WooCommerce, Subscriptions, Memberships, passerelles ; extensions et thème actifs ; taille de la base ; ce qui doit être retiré | A-01 validé, puis import lancé par Ced |
+| A-01 Import neutralisé | Scripts `wp/outils/staging/` et lanceur `wp/outils/bascule/`, intégrés à l'outil de staging | Claude Code (hors file d'Hermès) |
+| A-02 Audit | Versions de WordPress, PHP, WooCommerce, Subscriptions, Memberships, passerelles ; extensions et thème actifs ; taille de la base ; ce qui doit être retiré | Staging créé et vérifié |
 | A-03 Tests de non-régression | Avant toute mise à jour : un abonné accède à ses contenus, un non-abonné non, un renouvellement de test passe | A-02 |
 | A-04 Mise à jour | Memberships et ce qui en dépend, par script rejouable ; A-03 rejoué après | A-03, licences |
 | A-05 Nettoyage | Retrait des extensions et réglages inutiles, par script rejouable | A-02 |
