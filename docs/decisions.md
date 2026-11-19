@@ -18,6 +18,7 @@ Ce qui est tranché par Ced, daté. Ce fichier précise ou corrige le cahier des
 | 19/11/2026 | Le staging passe par l'outil de staging de Ced, pas par Docker. Les agents y accèdent par le MCP Novamira, uniquement après neutralisation, anonymisation et vérification de la copie. |
 | 19/11/2026 | Mise en ligne : on ne pousse jamais le staging vers la production. Le jour J : gel de l'ancien site, copie fraîche sur le nouveau serveur, scripts de bascule seuls, tests, puis changement de DNS. L'ancien site reste en secours. Une répétition générale la semaine précédente. |
 | 19/11/2026 | Hermès travaille en continu sur ce dépôt (pas de passages à heures fixes), et s'arrête quand la file est vide. |
+| 19/11/2026 | Parution : un numéro par trimestre civil (n° 167 = janvier-mars 2026) et un hors-série, sans raison de décaler. Les échéances du paiement en quatre fois sont donc communes à tous les abonnés et régulières ; un changement de calendrier est une action exceptionnelle. |
 | 11/11/2026 | Architecture de production : Claude (briefs, arbitrages), Hermès (production), Codex et Claude Code (relecture), Git comme file de travail. |
 
 ## Ouvert — à trancher par Ced

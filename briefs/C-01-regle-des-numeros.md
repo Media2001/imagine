@@ -25,7 +25,9 @@ Un abonnement papier se compte en numéros, pas en jours (§3.5). La liste d'env
 - Commande le 8 octobre 2026, après la sortie du n° 170 : numéros papier 171, 172, 173 et 174, et le hors-série de l'été 2027.
 - Renouvellement en octobre 2027 : numéros 175 à 178 et le hors-série de l'été 2028.
 
-Les dates de sortie et de clôture réelles ne sont pas connues : construire un calendrier fictif plausible (trimestriel, hors-série en été) dans `tests/Numeros/fixtures/`.
+Imagine paraît une fois par trimestre civil : le n° 166 couvre octobre-décembre 2025, le n° 167 janvier-mars 2026, donc le n° 170 octobre-décembre 2026 et le n° 171 janvier-mars 2027, ce qui concorde avec l'exemple ci-dessus. Les dates exactes de sortie et de clôture ne sont pas connues : construis dans `tests/Numeros/fixtures/` un calendrier fictif sur ce rythme (un numéro par trimestre civil, numérotation réelle à partir de 166, hors-série en été), avec des dates de sortie et de clôture plausibles.
+
+Le rythme étant régulier, un changement de date dans le calendrier est un cas rare : le moteur doit le supporter, sans qu'il soit nécessaire d'optimiser ce cas.
 
 ## Cas limites à tester
 

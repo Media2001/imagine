@@ -14,7 +14,7 @@ Pour chaque ligne ci-dessous : ce que l'extension fait nativement, ce qui demand
 | N° | Besoin | Référence | Extension à examiner |
 |---|---|---|---|
 | 1 | Abonnement annuel à reconduction tacite, payé en une fois | §3.4 | Subscriptions |
-| 2 | Même abonnement payé en quatre fois, les quatre échéances étant dues, à des dates **irrégulières** fixées par un calendrier de parution | §3.4, §3.5 | Subscriptions : peut-on fixer ou déplacer par code la date de chaque prochain paiement ? |
+| 2 | Même abonnement payé en quatre fois, les quatre échéances étant dues. Imagine paraît **une fois par trimestre civil** (n° 167 = janvier-mars 2026) : après un premier paiement à la commande, les trois suivants tombent à des dates **communes à tous les abonnés**, une par trimestre, avant la clôture de la liste d'envoi. Le premier intervalle est donc variable, les suivants fixes | §3.4, §3.5 | Subscriptions. **À examiner en premier : la synchronisation des renouvellements** — couvre-t-elle un rythme trimestriel aligné sur des dates fixes de l'année, avec un premier paiement immédiat non proratisé ? Sinon : peut-on fixer ou déplacer par code la date de chaque prochain paiement ? Comment limiter l'abonnement à quatre paiements par an tout en gardant la reconduction annuelle ? |
 | 3 | Carte et Bancontact au premier paiement, puis prélèvement SEPA pour les suivants | §3.6 | Passerelle Stripe officielle pour WooCommerce |
 | 4 | Domiciliation en ligne (SEPA) avec mandat accepté par case à cocher | §3.6 | Idem |
 | 5 | PayPal : premier paiement et renouvellements automatiques ; conditions côté compte PayPal | §3.6 | WooCommerce PayPal Payments |
