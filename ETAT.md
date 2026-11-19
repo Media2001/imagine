@@ -29,7 +29,7 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 | Lot | État | Prochaine étape | Qui |
 |---|---|---|---|
 | Page d'accueil | En cours de maquette | Validation par Imagine | Design |
-| Déclinaison complète | Prompt prêt pour Claude Design (`prompts/2026-11-19-design-complet.md`) : système de design chiffré et tous les écrans avec leurs états | À lancer dès que l'accueil est validé ; maquettes et système de design remis ensuite à Hermès | Design, puis Ced |
+| Déclinaison complète | Note pour le designer prête (`prompts/2026-11-19-design-complet.md`) : le système de design avec ses valeurs et une page par point. Le design reste son domaine | À transmettre quand l'accueil est validé ; maquettes et système de design remis ensuite à Hermès | Ced, puis Design |
 | Gabarits | En attente des maquettes | — | — |
 
 ## C · Le code sur mesure
