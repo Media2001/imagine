@@ -11,7 +11,7 @@ Refonte du site d'Imagine (magazine, coopérative de presse) : WordPress + WooCo
 
 | Dossier | Qui écrit | Contenu |
 |---|---|---|
-| `docs/` | Claude (avec Ced) | Cahier des charges, synthèse, décisions, registre des écarts. |
+| `docs/` | Claude (avec Ced) | Cahier des charges, synthèse, décisions, registre des écarts, et `recette/` (profils de test et cas d'acceptance). |
 | `doctrine/` | Claude (avec Ced) | Règles de production et leur pourquoi. Source unique. |
 | `briefs/` | Claude (avec Ced) | Un fichier par lot de travail, préfixé par son chantier : **A** l'existant, **B** le thème, **C** le code sur mesure. File d'attente d'Hermès. |
 | `prompts/` | Claude | Consigne permanente et grands prompts datés. |

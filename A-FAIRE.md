@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 19 novembre 2026, 20 h 30.
+Mis à jour le 19 novembre 2026, 21 h.
 
 Consigne permanente : `prompts/consigne-permanente.md`. Doctrine : `doctrine/doctrine.md` (dernière révision : **19/11/2026 — outil de staging et Novamira à la place de Docker**).
 
@@ -15,6 +15,18 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 **2. `briefs/C-01-regle-des-numeros.md`** — chantier C. Moteur de la règle des numéros en PHP pur, avec ses tests. Le brief a changé le 19/11 (plus de Docker) : relis-le.
 
 **3. `briefs/A-00-couverture-extensions.md`** — chantier A. Étude : ce que les extensions retenues font nativement, sources officielles à l'appui. Aucune installation, aucun achat.
+
+**4. `briefs/C-04-file-connecteur.md`** — chantier C. Cœur de la file d'attente du connecteur : idempotence, quarantaine, rejeu, export quotidien. PHP pur, sans Odoo.
+
+**5. `briefs/C-03-verification-robots.md`** — chantier C. Décider si une requête vient d'un robot d'indexation vérifié. PHP pur, résolution DNS simulée dans les tests.
+
+**6. `briefs/C-02-numero-entreprise.md`** — chantier C. Normalisation et contrôle du numéro d'entreprise belge. PHP pur. Aucune recherche en ligne.
+
+Les lots C-01 à C-04 sont indépendants entre eux et ne dépendent ni du staging ni des licences.
+
+**Où lancer les tests PHP.** Rien ne s'installe sur Windows. Tu peux lancer `composer install` et `composer test` dans un conteneur jetable de l'outil de staging, sans base et sans lien avec le staging d'Imagine. Si ce n'est pas possible, écris le code et les tests, dis qu'ils n'ont pas été lancés, et ne dépose pas `PRET`.
+
+**Cas d'acceptance.** `docs/recette/` contient les profils de test et le catalogue des cas (proposition du 19/11, pas encore validée). Chaque brief cite les cas qu'il sert. Ne les automatise pas encore et ne les modifie jamais : si un cas te semble faux ou incomplet, dis-le dans ton rapport.
 
 **Staging et Novamira.** Tu n'utilises Novamira que sur un staging au statut « vérifié ». La connexion établie avant le 19/11 sur le staging non neutralisé ne doit plus servir.
 
@@ -44,7 +56,8 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 |---|---|---|
 | Paywall serveur et test d'étanchéité | §3.9, §4.4 | A-00, A-04 |
 | Abonnement et échéances | Branchement de C-01 sur Subscriptions | A-00, C-01, licences |
-| Connecteur en mode export | File, rejeu, quarantaine, export quotidien (§2.4, §2.5) | Choix n8n ou intégré ; champs attendus par Step |
+| Connecteur : branchement | Branchement de C-04 sur WooCommerce et sur Odoo ou n8n | C-04 ; choix n8n ou intégré ; champs attendus par Step |
+| Profils de test | Script de création des profils de `docs/recette/profils.md` sur le staging | Validation des profils par Ced ; staging vérifié |
 | Back-office | Échéances, justificatifs, liste d'envoi, extractions (§3.13) | Lots précédents |
 | Tunnel et emails | §3.7, §3.8 | Décisions 3 à 5 d'Imagine |
 

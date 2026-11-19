@@ -50,4 +50,5 @@ Ces points ne sont pas tranchés par le cahier des charges. Implémente l'interp
 - Objets immuables, dates en `DateTimeImmutable`, fuseau `Europe/Brussels`. Aucune lecture de l'horloge dans le moteur : la date du jour est toujours passée en argument.
 - PHPUnit, lancé par `composer test` depuis `wp/plugins/imagine-pilotage/`.
 - `README.md` de l'extension : comment installer les dépendances et lancer les tests.
-- L'endroit où PHP s'exécute n'est pas encore fixé (19/11). N'installe rien sur la machine. Si tu n'as aucun PHP à disposition, écris le code et les tests, dis dans le rapport qu'ils n'ont pas été lancés, et ne dépose pas `PRET`.
+- Où lancer les tests : voir `A-FAIRE.md` (conteneur jetable de l'outil de staging ; rien sur Windows). Sans PHP disponible, écris le code et les tests, dis dans le rapport qu'ils n'ont pas été lancés, et ne dépose pas `PRET`.
+- Cas d'acceptance concernés : R-02, R-16, R-20, R-32, R-34 (`docs/recette/cas.md`).

@@ -9,7 +9,8 @@
 | Synchronisation Git | Tâche planifiée « IMAGINE - synchro » créée le 19/11, toutes les 5 min | — | — |
 | Circuit de relecture | `scripts/relire.ps1` adapté aux lots ; se lance sans erreur, **pas encore testé sur un lot** | Lancer à la main sur le premier lot `PRET`, puis planifier « IMAGINE - relecture » | Ced |
 | Staging | Pas de Docker sur le NUC : on utilise l'outil de staging de Ced, avec Novamira pour l'accès des agents. Étape « site à abonnements » à ajouter à l'outil (`prompts/2026-11-19-staging-imagine.md`). Le `docker-compose.yml` du dépôt n'est plus utilisé | Hermès ajoute l'étape ; puis retirer Docker du dépôt | Hermès, puis Claude |
-| Exécution des tests PHP | Non fixée : via le staging, ou PHP dans WSL | À trancher | Ced |
+| Exécution des tests PHP | Consigne donnée à Hermès : conteneur jetable de l'outil de staging, rien sur Windows | Confirmer dans son premier rapport que ça fonctionne | Hermès |
+| Recette | Profils de test et 41 cas d'acceptance proposés dans `docs/recette/` | Relecture par Ced, puis validation par le pilote du projet | Ced |
 
 ## A · L'existant
 
@@ -35,6 +36,9 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 | Lot | État | Prochaine étape | Qui |
 |---|---|---|---|
 | C-01 Règle des numéros | Brief écrit | Production | Hermès |
+| C-04 File du connecteur | Brief écrit | Production | Hermès |
+| C-03 Vérification des robots | Brief écrit | Production | Hermès |
+| C-02 Numéro d'entreprise | Brief écrit | Production | Hermès |
 | Suite | En attente | Voir `A-FAIRE.md` | — |
 
 ## En attente de tiers
