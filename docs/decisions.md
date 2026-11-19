@@ -17,6 +17,7 @@ Ce qui est tranché par Ced, daté. Ce fichier précise ou corrige le cahier des
 | 11/11/2026 | Toute transformation de l'existant est un script rejouable : elle sera refaite sur une copie fraîche le jour de la bascule. |
 | 19/11/2026 | Le staging passe par l'outil de staging de Ced, pas par Docker. Les agents y accèdent par le MCP Novamira, uniquement après neutralisation, anonymisation et vérification de la copie. |
 | 19/11/2026 | Mise en ligne : on ne pousse jamais le staging vers la production. Le jour J : gel de l'ancien site, copie fraîche sur le nouveau serveur, scripts de bascule seuls, tests, puis changement de DNS. L'ancien site reste en secours. Une répétition générale la semaine précédente. |
+| 19/11/2026 | Hermès travaille en continu sur ce dépôt (pas de passages à heures fixes), et s'arrête quand la file est vide. |
 | 11/11/2026 | Architecture de production : Claude (briefs, arbitrages), Hermès (production), Codex et Claude Code (relecture), Git comme file de travail. |
 
 ## Ouvert — à trancher par Ced
@@ -29,7 +30,7 @@ Ce qui est tranché par Ced, daté. Ce fichier précise ou corrige le cahier des
 6. **Site actuel.** Sauvegarde complète (export SQL et `wp-content`) à récupérer chez l'hébergeur actuel.
 7. **Connecteur.** n8n hébergé à part ou intégré au site (§4.1).
 8. **Numéro d'entreprise.** Recherche de la dénomination en ligne (cahier des charges) ou simple contrôle de format (décision d'octobre) ?
-9. **Rythme d'Hermès sur ce dépôt.** Mêmes passages que TUM, ou un passage de nuit seulement ?
+9. ~~Rythme d'Hermès~~ — tranché le 19/11 : Hermès travaille en continu sur ce dépôt.
 
 ## Ouvert — chez Imagine (chapitre 7 du cahier des charges)
 
