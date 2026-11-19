@@ -28,7 +28,8 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 
 | Lot | État | Prochaine étape | Qui |
 |---|---|---|---|
-| Maquettes | Attendues | Livraison, mobile d'abord, avec le choix des polices | Design |
+| Page d'accueil | En cours de maquette | Validation par Imagine | Design |
+| Déclinaison complète | Prompt prêt pour Claude Design (`prompts/2026-11-19-design-complet.md`) : système de design chiffré et tous les écrans avec leurs états | À lancer dès que l'accueil est validé ; maquettes et système de design remis ensuite à Hermès | Design, puis Ced |
 | Gabarits | En attente des maquettes | — | — |
 
 ## C · Le code sur mesure
