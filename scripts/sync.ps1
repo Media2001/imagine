@@ -29,7 +29,11 @@ try {
     git add -- wp production relectures corrections files 2>$null
     git diff --cached --quiet
     if ($LASTEXITCODE -ne 0) {
-        git commit -q -m "NUC : synchro $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
+        $sortie = git commit -q -m "NUC : synchro $(Get-Date -Format 'yyyy-MM-dd HH:mm')" 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            Write-Log "ERREUR : commit refuse par Git -> $(($sortie | Out-String).Trim() -replace '\s+', ' ')"
+            exit 1
+        }
         Write-Log 'commit local cree'
     }
 
