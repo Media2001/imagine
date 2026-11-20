@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="3" assertions="27" errors="0" failures="0" skipped="0" time="0.002126">
+    <testsuite name="Numeros" tests="3" assertions="27" errors="0" failures="0" skipped="0" time="0.002126">
+      <testsuite name="Imagine\Pilotage\Tests\Numeros\MoteurTest" file="/work/tests/Numeros/MoteurTest.php" tests="3" assertions="27" errors="0" failures="0" skipped="0" time="0.002126">
+        <testcase name="testAccesAttendPaiementOuMandatEtExpireALAnniversaire" file="/work/tests/Numeros/MoteurTest.php" line="31" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="12" time="0.001588"/>
+        <testcase name="testRenouvellementEtDetteSansInventerUnNumero" file="/work/tests/Numeros/MoteurTest.php" line="47" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="11" time="0.000348"/>
+        <testcase name="testExempleDuCahierDesCharges" file="/work/tests/Numeros/MoteurTest.php" line="71" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="4" time="0.000190"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

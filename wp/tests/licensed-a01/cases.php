@@ -39,7 +39,7 @@ if ($phase==='seed-subscriptions') {
         $s->set_payment_method('bacs');$s->set_requires_manual_renewal(true);$s->set_currency('EUR');
         $s->add_product($product,$i%3+1);$s->calculate_totals();
         $s->update_dates(['next_payment'=>gmdate('Y-m-d H:i:s',time()+86400*35),'end'=>gmdate('Y-m-d H:i:s',time()+86400*370)]);
-        $s->save();$s->update_status($status);$f['subs'][]=$s->get_id();
+        $s->save();$s->update_status('active');if($status!=='active')$s->update_status($status);$f['subs'][]=$s->get_id();
     }
     update_option('a01_paid_fixture',$f);
     output_a01(['created'=>count($f['subs'])]);return;
@@ -48,7 +48,7 @@ if ($phase==='rights') {
     $rights=[]; $shortcodes=[];
     foreach (array_merge(['guest'=>0],$f['users']) as $status=>$uid) {
         wp_set_current_user($uid);
-        $rights[$status]=['private'=>(bool)wc_memberships_user_can($uid,'view',['post'=>$f['post']]),'public'=>(bool)wc_memberships_user_can($uid,'view',['post'=>$f['public']])];
+        $rights[$status]=['private'=>(bool)wc_memberships_user_can($uid,'view',['post'=>$f['post']]),'public'=>!wc_memberships_is_post_content_restricted($f['public'])];
         $text=do_shortcode('[wcm_restrict plans="a01-fiction-plan"]A01_PRIVATE_CANARY[/wcm_restrict]');
         $shortcodes[$status]=str_contains($text,'A01_PRIVATE_CANARY');
     }
@@ -82,7 +82,7 @@ if ($phase==='renewal') {
     $calls=0;add_action('woocommerce_scheduled_subscription_payment',function()use(&$calls){$calls++;},PHP_INT_MIN);
     $action=as_schedule_single_action(time()-5,'woocommerce_scheduled_subscription_payment',['subscription_id'=>$sub->get_id()],'a01-synthetic-renewal');
     ActionScheduler::runner()->process_action($action,'A01-disposable-only');
-    $after=count(wcs_get_renewal_orders(wcs_get_subscription($sub->get_id())));
+    $after=count(wcs_get_subscription($sub->get_id())->get_related_orders('ids','renewal'));
     output_a01(['action_id'=>$action,'status'=>ActionScheduler::store()->get_status($action),'callback_calls'=>$calls,'renewals_before'=>$before,'renewals_after'=>$after,'duplicate_site'=>WCS_Staging::is_duplicate_site(),'manual_renewal'=>$sub->is_manual(),'cron_empty'=>wp_get_ready_cron_jobs()===[],'async_disabled'=>apply_filters('action_scheduler_allow_async_request_runner',true)===false,'runner_removed'=>has_action('action_scheduler_run_queue')===false]);return;
 }
 throw new RuntimeException('UNKNOWN_A01_PHASE');

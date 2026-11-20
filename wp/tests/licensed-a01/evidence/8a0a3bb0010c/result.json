@@ -1,0 +1,180 @@
+{
+  "suite": "A01-actual-commercial-behavior",
+  "checks": [
+    {
+      "check": "inside_network_interfaces",
+      "status": "PASS",
+      "detail": "Only loopback exists"
+    },
+    {
+      "check": "no_tcp_listener:tcp",
+      "status": "PASS",
+      "detail": "No TCP socket listening, including MariaDB"
+    },
+    {
+      "check": "no_tcp_listener:tcp6",
+      "status": "PASS",
+      "detail": "No TCP socket listening, including MariaDB"
+    },
+    {
+      "check": "classic:activate:woocommerce-memberships",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "output_sha256": "85ed1dc4cf1f03e5a9f94a53fd744b21cd3822a8bfef3e7f98746fdcc5fc9895"
+      }
+    },
+    {
+      "check": "classic:activate:woocommerce-subscriptions",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "output_sha256": "958f3d00f4c929e1d47ab77a651fb5df5c6b9bdad1da0c3e207fc63ac4548cf0"
+      }
+    },
+    {
+      "check": "classic:memberships_seed",
+      "status": "PASS",
+      "detail": {
+        "memberships_seeded": 4,
+        "subscriptions_available": true
+      }
+    },
+    {
+      "check": "classic:before:restriction_real",
+      "status": "PASS",
+      "detail": {
+        "restricted": true
+      }
+    },
+    {
+      "check": "classic:before:rights:guest",
+      "status": "FAIL",
+      "detail": {
+        "private": false,
+        "public": false,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:exception",
+      "status": "FAIL",
+      "detail": {
+        "class": "RuntimeError",
+        "message": "classic:before:rights:guest",
+        "frames": [
+          {
+            "file": "inside-commercial.py",
+            "line": 115,
+            "function": "main"
+          },
+          {
+            "file": "inside-commercial.py",
+            "line": 61,
+            "function": "run_storage"
+          },
+          {
+            "file": "inside-commercial.py",
+            "line": 12,
+            "function": "rights"
+          },
+          {
+            "file": "inside.py",
+            "line": 74,
+            "function": "assert_true"
+          }
+        ]
+      }
+    },
+    {
+      "check": "hpos:activate:woocommerce-memberships",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "output_sha256": "85ed1dc4cf1f03e5a9f94a53fd744b21cd3822a8bfef3e7f98746fdcc5fc9895"
+      }
+    },
+    {
+      "check": "hpos:activate:woocommerce-subscriptions",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "output_sha256": "958f3d00f4c929e1d47ab77a651fb5df5c6b9bdad1da0c3e207fc63ac4548cf0"
+      }
+    },
+    {
+      "check": "hpos:memberships_seed",
+      "status": "PASS",
+      "detail": {
+        "memberships_seeded": 4,
+        "subscriptions_available": true
+      }
+    },
+    {
+      "check": "hpos:before:restriction_real",
+      "status": "PASS",
+      "detail": {
+        "restricted": true
+      }
+    },
+    {
+      "check": "hpos:before:rights:guest",
+      "status": "FAIL",
+      "detail": {
+        "private": false,
+        "public": false,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:exception",
+      "status": "FAIL",
+      "detail": {
+        "class": "RuntimeError",
+        "message": "hpos:before:rights:guest",
+        "frames": [
+          {
+            "file": "inside-commercial.py",
+            "line": 115,
+            "function": "main"
+          },
+          {
+            "file": "inside-commercial.py",
+            "line": 61,
+            "function": "run_storage"
+          },
+          {
+            "file": "inside-commercial.py",
+            "line": 12,
+            "function": "rights"
+          },
+          {
+            "file": "inside.py",
+            "line": 74,
+            "function": "assert_true"
+          }
+        ]
+      }
+    },
+    {
+      "check": "inside_network_interfaces",
+      "status": "PASS",
+      "detail": "Only loopback exists"
+    },
+    {
+      "check": "no_tcp_listener:tcp",
+      "status": "PASS",
+      "detail": "No TCP socket listening, including MariaDB"
+    },
+    {
+      "check": "no_tcp_listener:tcp6",
+      "status": "PASS",
+      "detail": "No TCP socket listening, including MariaDB"
+    }
+  ],
+  "exit_code": 1,
+  "no_real_data": true,
+  "no_license_or_account_connection": true,
+  "operator_import_ready": false,
+  "files_import_fidelity_tested": false
+}

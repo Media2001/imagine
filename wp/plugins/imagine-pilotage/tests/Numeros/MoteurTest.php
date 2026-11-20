@@ -28,6 +28,46 @@ final class MoteurTest extends TestCase
         return array_map(static fn (Numero $numero): string => $numero->id, $numeros);
     }
 
+    public function testAccesAttendPaiementOuMandatEtExpireALAnniversaire(): void
+    {
+        $moteur = new Moteur($this->calendrier());
+        $commande = $moteur->ouvrir($this->date('2026-10-08 12:00'));
+        self::assertFalse($moteur->accesNumerique($commande, $this->date('2026-10-09')));
+        foreach (\Imagine\Pilotage\Numeros\Activation::cases() as $motif) {
+            $active = $commande->activer($this->date('2026-10-10 14:30'), $motif);
+            self::assertFalse($moteur->accesNumerique($active, $this->date('2026-10-10 14:29:59')));
+            self::assertTrue($moteur->accesNumerique($active, $this->date('2026-10-10 14:30')));
+            self::assertTrue($moteur->accesNumerique($active, $this->date('2027-10-10 14:29:59')));
+            self::assertFalse($moteur->accesNumerique($active, $this->date('2027-10-10 14:30')));
+            self::assertSame('Europe/Brussels', $active->ouverture?->getTimezone()->getName());
+        }
+        self::assertNull($commande->ouverture);
+    }
+
+    public function testRenouvellementEtDetteSansInventerUnNumero(): void
+    {
+        $moteur = new Moteur($this->calendrier());
+        $annee = $moteur->ouvrir($this->date('2026-10-08'));
+        $suite = $moteur->renouveler($annee, $this->date('2027-10-08'));
+        self::assertSame(['175', '176', '177', '178'], $this->ids($moteur->numeros($suite)));
+        self::assertSame('HS-2028', $moteur->horsSerie($suite)?->id);
+
+        $partiel = new Moteur(new Calendrier(array_filter(
+            $this->calendrier()->numeros,
+            static fn (Numero $numero): bool => $numero->sortie < new DateTimeImmutable('2027-04-01')
+        )));
+        self::assertSame(['171'], $this->ids($partiel->numeros($annee)));
+        self::assertNull($partiel->dernier($annee));
+        self::assertSame(3, $partiel->nonResolus($annee));
+        self::assertNull($partiel->horsSerie($annee));
+        $suiteInconnue = $partiel->renouveler($annee, $this->date('2027-10-08'));
+        self::assertSame([], $partiel->numeros($suiteInconnue));
+        self::assertSame(4, $partiel->nonResolus($suiteInconnue));
+        self::assertSame(['175', '176', '177', '178'], $this->ids($moteur->numeros($suiteInconnue)));
+        self::assertSame(0, $moteur->nonResolus($annee));
+        self::assertNull((new Moteur(new Calendrier([])))->premier($annee));
+    }
+
     public function testExempleDuCahierDesCharges(): void
     {
         $moteur = new Moteur($this->calendrier());

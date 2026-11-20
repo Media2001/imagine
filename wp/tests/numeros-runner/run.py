@@ -67,16 +67,15 @@ def main():
     if args.action == 'prepare':
         assert not STATE.exists(), 'Close the preceding owned runner first'
         name = 'imagine-c01-' + uuid.uuid4().hex[:12]
-        # Reuse the existing PHP 8.2 image, never pull or alter a service.
-        image = json.loads(call(['image', 'inspect', 'php:8.2-cli']).stdout)[0]['Id']
+        # Reuse the existing synthetic PHP 8.2 image (unzip included).
+        # Override its entrypoint: no WordPress or database process starts.
+        image = json.loads(call(['image', 'inspect', 'imagine-staging-e2e-public:644662e9cc4f']).stdout)[0]['Id']
         call(['create', '--name', name, '--label', LABEL + '=true', '--network', 'bridge',
               '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--pids-limit', '128',
               '--memory', '512m', '--cpus', '1', '--entrypoint', 'sleep', image, 'infinity'])
         STATE.write_text(json.dumps({'container': name, 'image': image}), encoding='utf-8')
         call(['start', name])
         info(name)
-        packages = call(['exec', name, 'sh', '-c', 'apt-get update -qq && apt-get install -y --no-install-recommends unzip'])
-        (OUT / 'runner-packages.log').write_bytes(packages.stdout + packages.stderr)
         phar = urllib.request.urlopen('https://getcomposer.org/composer-stable.phar', timeout=90).read()
         sha = urllib.request.urlopen('https://getcomposer.org/composer-stable.phar.sha256sum', timeout=90).read().decode().split()[0]
         assert hashlib.sha256(phar).hexdigest() == sha

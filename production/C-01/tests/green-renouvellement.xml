@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="2" assertions="15" errors="0" failures="0" skipped="0" time="0.001731">
+    <testsuite name="Numeros" tests="2" assertions="15" errors="0" failures="0" skipped="0" time="0.001731">
+      <testsuite name="Imagine\Pilotage\Tests\Numeros\MoteurTest" file="/work/tests/Numeros/MoteurTest.php" tests="2" assertions="15" errors="0" failures="0" skipped="0" time="0.001731">
+        <testcase name="testRenouvellementEtDetteSansInventerUnNumero" file="/work/tests/Numeros/MoteurTest.php" line="31" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="11" time="0.001511"/>
+        <testcase name="testExempleDuCahierDesCharges" file="/work/tests/Numeros/MoteurTest.php" line="55" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="4" time="0.000220"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,290 @@
+{
+  "suite": "A01-actual-commercial-behavior",
+  "checks": [
+    {
+      "check": "inside_network_interfaces",
+      "status": "PASS",
+      "detail": "Only loopback exists"
+    },
+    {
+      "check": "no_tcp_listener:tcp",
+      "status": "PASS",
+      "detail": "No TCP socket listening, including MariaDB"
+    },
+    {
+      "check": "no_tcp_listener:tcp6",
+      "status": "PASS",
+      "detail": "No TCP socket listening, including MariaDB"
+    },
+    {
+      "check": "classic:activate:woocommerce-memberships",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "output_sha256": "85ed1dc4cf1f03e5a9f94a53fd744b21cd3822a8bfef3e7f98746fdcc5fc9895"
+      }
+    },
+    {
+      "check": "classic:activate:woocommerce-subscriptions",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "output_sha256": "958f3d00f4c929e1d47ab77a651fb5df5c6b9bdad1da0c3e207fc63ac4548cf0"
+      }
+    },
+    {
+      "check": "classic:memberships_seed",
+      "status": "PASS",
+      "detail": {
+        "memberships_seeded": 4,
+        "subscriptions_available": true
+      }
+    },
+    {
+      "check": "classic:before:restriction_real",
+      "status": "PASS",
+      "detail": {
+        "restricted": true
+      }
+    },
+    {
+      "check": "classic:before:rights:guest",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:before:rights:active",
+      "status": "PASS",
+      "detail": {
+        "private": true,
+        "public": true,
+        "shortcode_contains_private": true
+      }
+    },
+    {
+      "check": "classic:before:rights:expired",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:before:rights:cancelled",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:before:rights:paused",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:before:rights:none",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:exception",
+      "status": "FAIL",
+      "detail": {
+        "class": "RuntimeError",
+        "message": "Command failed (wp): p-cli/wp-cli/php/WP_CLI/Runner.php(470): WP_CLI\\Dispatcher\\Subcommand->invoke()\n#8 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(493): WP_CLI\\Runner->run_command()\n#9 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(136): WP_CLI\\Runner->run_command_and_exit()\n#10 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(1228): WP_CLI\\Runner->do_early_invoke()\n#11 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Bootstrap/LaunchRunner.php(28): WP_CLI\\Runner->start()\n#12 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/bootstrap.php(84): WP_CLI\\Bootstrap\\LaunchRunner->process()\n#13 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/wp-cli.php(35): WP_CLI\\bootstrap()\n#14 phar:///usr/local/bin/wp/php/boot-phar.php(20): include('...')\n#15 /usr/local/bin/wp(4): include('...')\n#16 {main}\n  thrown in /scratch/paid-classic/wp-content/plugins/woocommerce-subscriptions/includes/core/class-wc-subscription.php on line 507\nFatal error: Uncaught Exception: Unable to change subscription status to \"on-hold\". in /scratch/paid-classic/wp-content/plugins/woocommerce-subscriptions/includes/core/class-wc-subscription.php:507\nStack trace:\n#0 /opt/e2e/cases.php(42): WC_Subscription->update_status()\n#1 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(73): include('...')\n#2 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(59): EvalFile_Command::execute_eval()\n#3 [internal function]: EvalFile_Command->__invoke()\n#4 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/CommandFactory.php(100): call_user_func()\n#5 [internal function]: WP_CLI\\Dispatcher\\CommandFactory::WP_CLI\\Dispatcher\\{closure}()\n#6 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/Subcommand.php(497): call_user_func()\n#7 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(470): WP_CLI\\Dispatcher\\Subcommand->invoke()\n#8 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(493): WP_CLI\\Runner->run_command()\n#9 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(136): WP_CLI\\Runner->run_command_and_exit()\n#10 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(1228): WP_CLI\\Runner->do_early_invoke()\n#11 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Bootstrap/LaunchRunner.php(28): WP_CLI\\Runner->start()\n#12 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/bootstrap.php(84): WP_CLI\\Bootstrap\\LaunchRunner->process()\n#13 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/wp-cli.php(35): WP_CLI\\bootstrap()\n#14 phar:///usr/local/bin/wp/php/boot-phar.php(20): include('...')\n#15 /usr/local/bin/wp(4): include('...')\n#16 {main}\n  thrown in /scratch/paid-classic/wp-content/plugins/woocommerce-subscriptions/includes/core/class-wc-subscription.php on line 507\nError: There has been a critical error on this website.Learn more about troubleshooting WordPress. There has been a critical error on this website.\n",
+        "frames": [
+          {
+            "file": "inside-commercial.py",
+            "line": 115,
+            "function": "main"
+          },
+          {
+            "file": "inside-commercial.py",
+            "line": 64,
+            "function": "run_storage"
+          },
+          {
+            "file": "inside-commercial.py",
+            "line": 6,
+            "function": "case"
+          },
+          {
+            "file": "inside.py",
+            "line": 53,
+            "function": "wp_json"
+          },
+          {
+            "file": "inside.py",
+            "line": 49,
+            "function": "wp"
+          },
+          {
+            "file": "inside.py",
+            "line": 42,
+            "function": "command"
+          }
+        ]
+      }
+    },
+    {
+      "check": "hpos:activate:woocommerce-memberships",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "output_sha256": "85ed1dc4cf1f03e5a9f94a53fd744b21cd3822a8bfef3e7f98746fdcc5fc9895"
+      }
+    },
+    {
+      "check": "hpos:activate:woocommerce-subscriptions",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "output_sha256": "958f3d00f4c929e1d47ab77a651fb5df5c6b9bdad1da0c3e207fc63ac4548cf0"
+      }
+    },
+    {
+      "check": "hpos:memberships_seed",
+      "status": "PASS",
+      "detail": {
+        "memberships_seeded": 4,
+        "subscriptions_available": true
+      }
+    },
+    {
+      "check": "hpos:before:restriction_real",
+      "status": "PASS",
+      "detail": {
+        "restricted": true
+      }
+    },
+    {
+      "check": "hpos:before:rights:guest",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:before:rights:active",
+      "status": "PASS",
+      "detail": {
+        "private": true,
+        "public": true,
+        "shortcode_contains_private": true
+      }
+    },
+    {
+      "check": "hpos:before:rights:expired",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:before:rights:cancelled",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:before:rights:paused",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:before:rights:none",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:exception",
+      "status": "FAIL",
+      "detail": {
+        "class": "RuntimeError",
+        "message": "Command failed (wp): /vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(470): WP_CLI\\Dispatcher\\Subcommand->invoke()\n#8 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(493): WP_CLI\\Runner->run_command()\n#9 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(136): WP_CLI\\Runner->run_command_and_exit()\n#10 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(1228): WP_CLI\\Runner->do_early_invoke()\n#11 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Bootstrap/LaunchRunner.php(28): WP_CLI\\Runner->start()\n#12 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/bootstrap.php(84): WP_CLI\\Bootstrap\\LaunchRunner->process()\n#13 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/wp-cli.php(35): WP_CLI\\bootstrap()\n#14 phar:///usr/local/bin/wp/php/boot-phar.php(20): include('...')\n#15 /usr/local/bin/wp(4): include('...')\n#16 {main}\n  thrown in /scratch/paid-hpos/wp-content/plugins/woocommerce-subscriptions/includes/core/class-wc-subscription.php on line 507\nFatal error: Uncaught Exception: Unable to change subscription status to \"on-hold\". in /scratch/paid-hpos/wp-content/plugins/woocommerce-subscriptions/includes/core/class-wc-subscription.php:507\nStack trace:\n#0 /opt/e2e/cases.php(42): WC_Subscription->update_status()\n#1 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(73): include('...')\n#2 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(59): EvalFile_Command::execute_eval()\n#3 [internal function]: EvalFile_Command->__invoke()\n#4 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/CommandFactory.php(100): call_user_func()\n#5 [internal function]: WP_CLI\\Dispatcher\\CommandFactory::WP_CLI\\Dispatcher\\{closure}()\n#6 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/Subcommand.php(497): call_user_func()\n#7 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(470): WP_CLI\\Dispatcher\\Subcommand->invoke()\n#8 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(493): WP_CLI\\Runner->run_command()\n#9 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(136): WP_CLI\\Runner->run_command_and_exit()\n#10 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(1228): WP_CLI\\Runner->do_early_invoke()\n#11 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Bootstrap/LaunchRunner.php(28): WP_CLI\\Runner->start()\n#12 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/bootstrap.php(84): WP_CLI\\Bootstrap\\LaunchRunner->process()\n#13 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/wp-cli.php(35): WP_CLI\\bootstrap()\n#14 phar:///usr/local/bin/wp/php/boot-phar.php(20): include('...')\n#15 /usr/local/bin/wp(4): include('...')\n#16 {main}\n  thrown in /scratch/paid-hpos/wp-content/plugins/woocommerce-subscriptions/includes/core/class-wc-subscription.php on line 507\nError: There has been a critical error on this website.Learn more about troubleshooting WordPress. There has been a critical error on this website.\n",
+        "frames": [
+          {
+            "file": "inside-commercial.py",
+            "line": 115,
+            "function": "main"
+          },
+          {
+            "file": "inside-commercial.py",
+            "line": 64,
+            "function": "run_storage"
+          },
+          {
+            "file": "inside-commercial.py",
+            "line": 6,
+            "function": "case"
+          },
+          {
+            "file": "inside.py",
+            "line": 53,
+            "function": "wp_json"
+          },
+          {
+            "file": "inside.py",
+            "line": 49,
+            "function": "wp"
+          },
+          {
+            "file": "inside.py",
+            "line": 42,
+            "function": "command"
+          }
+        ]
+      }
+    },
+    {
+      "check": "inside_network_interfaces",
+      "status": "PASS",
+      "detail": "Only loopback exists"
+    },
+    {
+      "check": "no_tcp_listener:tcp",
+      "status": "PASS",
+      "detail": "No TCP socket listening, including MariaDB"
+    },
+    {
+      "check": "no_tcp_listener:tcp6",
+      "status": "PASS",
+      "detail": "No TCP socket listening, including MariaDB"
+    }
+  ],
+  "exit_code": 1,
+  "no_real_data": true,
+  "no_license_or_account_connection": true,
+  "operator_import_ready": false,
+  "files_import_fidelity_tested": false
+}
