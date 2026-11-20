@@ -114,6 +114,10 @@ class CompatibilityTests(unittest.TestCase):
         self.assertEqual(report.get('unknown_tables', [])[0]['columns'], ['id', 'email'])
         self.assertNotIn('DO-NOT-EXPOSE', json.dumps(report))
 
+    def test_schema_metadata_is_not_silently_truncated(self):
+        tables = [dict(name='wp_synthetic_' + str(i), columns=['id'], rows=0, personal_columns=[]) for i in range(201)]
+        self.assertEqual(len(subscriptions.safe_diagnostics({'unknown_tables': tables})['unknown_tables']), len(tables))
+
     def test_operator_decisions_reach_the_worker_unchanged(self):
         decisions = {'wp_synthetic': {'action': 'anonymiser', 'columns': ['email']}}
         self.run_import(table_decisions=decisions)

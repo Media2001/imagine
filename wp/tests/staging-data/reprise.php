@@ -173,4 +173,12 @@ $faithfulEngine->anonymiser('SYNTHETIC-test-password-2026');
 repriseCheck(end($faithful->tables['x_posts'])['post_content'] === 'Formulaire contact@outside.invalid'
     && unserialize(end($faithful->tables['x_postmeta'])['meta_value']) === ['first_name'=>'Label fictif','to'=>'contact@outside.invalid'], 'CPT et métadonnées fonctionnels de formulaire intacts');
 repriseCheck($faithful->tables['x_custom_meta'][0]['meta_value'] === 'SYNTHETIC KEEP', 'schéma metadata inconnu gardé sans décision inventée');
+$itemTrap = clone $store;
+$itemTrap->columns['x_woocommerce_order_itemmeta'] = ['meta_id','order_item_id','meta_key','meta_value'];
+$itemTrap->tables['x_woocommerce_order_itemmeta'] = [['meta_id'=>1,'order_item_id'=>1,'meta_key'=>'gift_email','meta_value'=>'gift@outside.invalid']];
+repriseCheck(in_array('EMAIL_EXTERNE', (new Imagine\Staging\Engine($itemTrap, $context, 'x_'))->verifier($proof)['issues'], true), 'email ligne de commande refusé');
+$noteTrap = clone $store;
+$noteTrap->tables['x_comments'][0]['comment_post_ID'] = 1;
+$noteTrap->tables['x_comments'][0]['comment_content'] = 'Note commande gift@outside.invalid';
+repriseCheck(in_array('EMAIL_EXTERNE', (new Imagine\Staging\Engine($noteTrap, $context, 'x_'))->verifier($proof)['issues'], true), 'email note de commande refusé');
 print("OK $assertions assertions reprise\n");

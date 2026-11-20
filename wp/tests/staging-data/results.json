@@ -1,9 +1,9 @@
 {
-  "generated_utc": "2026-11-20T13:06:21.501913+00:00",
+  "generated_utc": "2026-11-20T13:12:05.854614+00:00",
   "synthetic_only": true,
   "ok": true,
   "cases": 9,
-  "assertions": 322,
+  "assertions": 326,
   "results": [
     {
       "name": "data-classic-hpos-memory",
@@ -17,8 +17,8 @@
       "name": "reprise-preservation-traps-decisions",
       "ok": true,
       "exit_code": 0,
-      "assertions": 45,
-      "stdout": "OK 45 assertions reprise",
+      "assertions": 49,
+      "stdout": "OK 49 assertions reprise",
       "stderr": ""
     },
     {
@@ -139,8 +139,8 @@
   "sha256": {
     "wp/outils/staging/command.php": "fb5589cf23024a50cbf188a158fc5d92f5a8389297468f07e984601a58a06305",
     "wp/outils/staging/files.php": "2209ead54c5fb1405d9d4cd06749328349ee3be981f831c9cbafcd5ccb80125e",
-    "wp/outils/staging/HANDOFF-A-01.md": "0fa54b1a3adcaa8bca6838bbb8feb2a203ac2dfe2049ccd6dff07ca8160a5f7d",
-    "wp/outils/staging/lib.php": "4e93518735b40a62ca2f9b116b03e4635569f932fd62cd604c2c9fc8658a24d1",
+    "wp/outils/staging/HANDOFF-A-01.md": "0d6fc8433242c9ce9a379b6ef260cc5ed43b83d7c4d6dda4b8bec901af328261",
+    "wp/outils/staging/lib.php": "43489bed664125878a68ceb2a3951a17a5805839ac51a6794923595f168c1bf9",
     "wp/outils/staging/mu-plugins/000-imagine-staging-safety.php": "c16f048f3fd2587ba719924eec53b07651ea3b6a495a8125746a157582f5474f",
     "wp/outils/staging/pdo-store.php": "3984aea62a1405534c2c8e73fe948e6605e6e0795d6a1d9a331b33b8464b61eb",
     "wp/outils/staging/policy.php": "d37e5a2c87da63a66280479eea01f3d3ad0ea4671cb8ba82e079cfd9c84e4401",
@@ -153,7 +153,7 @@
     "wp/tests/staging-data/mu-plugin.php": "c010f5df1f7ea62697ca68a55998e117e43fef1178d3c8fc4f25531ef790b79f",
     "wp/tests/staging-data/pdo-contract.php": "262f15008c067246aa40877494a7f8345e4bd34a3bc63bd434725a4a37bf0c24",
     "wp/tests/staging-data/README.md": "b16c22792bd55e7ed3a4601b373fdd92c69268a485318e800942ac49d6d56ba0",
-    "wp/tests/staging-data/reprise.php": "0311414b6545a37d83533a2d78f895dd8aa34bd82f7e7825982cd7c2ff9dbe54",
+    "wp/tests/staging-data/reprise.php": "835d947da530feda81feee6b366f8e8b9664e579846306d84bc3149e3ad02e94",
     "wp/tests/staging-data/run.php": "053fc010774a6e659dc8128e24a81db4ed1fec9cec941a49c6146d1751158a0e",
     "wp/tests/staging-data/runtime.php": "bbb2697295c5f1dd42e4546f6ed3d5077370f8d69391eee63793626a073f4e2b",
     "wp/tests/staging-data/verify.py": "aebe393027f4a30c0ab98c815f462ac3860a4cd2ec5075ed09d2f3ef6334b89e"

@@ -293,10 +293,22 @@ final class Engine
         return (bool) preg_match('/(?:^|_)(first_name|last_name|full_name|billing_name|shipping_name|company|address_?[12]?|city|postcode|state|phone|vat|tax_id|company_number|business_number|siret|iban|bic|nickname|ip_address|user_agent|customer_note|order_key|cart_hash|shipping_packages)(?:$|_)/i', $key);
     }
 
+    private function personalPostIds(): array
+    {
+        $ids = [];
+        foreach ($this->store->rows($this->prefix . 'posts') as $post) {
+            if (in_array($post['post_type'] ?? '', ['shop_order', 'shop_order_placehold', 'shop_subscription', 'shop_order_refund', 'wc_user_membership'], true)) {
+                $ids[(int) $post['ID']] = true;
+            }
+        }
+        return $ids;
+    }
+
     private function transform(bool $privacy): void
     {
         $disabled = self::decode($this->options()['imagine_staging_disabled_plugins'] ?? serialize([]));
         $disabled = is_array($disabled) ? array_values(array_intersect($disabled, $this->disabledPlugins())) : [];
+        $personalPosts = $this->personalPostIds();
         foreach ($this->inventory as $table => $_) {
             if ($this->readOnly($table)) {
                 continue; // Une vue est inventoriée et inspectée, pas réécrite.
@@ -323,6 +335,12 @@ final class Engine
                 }
                 $next = $row;
                 $id = (int) ($row['ID'] ?? $row['user_id'] ?? $row['order_id'] ?? $row['id'] ?? $row['comment_ID'] ?? 0);
+                $personal = $privacy && !isset($this->unknownTables[$table])
+                    && (in_array($kind, ['users', 'usermeta', 'comments', 'wc_orders', 'wc_orders_meta', 'wc_order_addresses',
+                        'wc_customer_lookup', 'wc_order_operational_data', 'woocommerce_downloadable_product_permissions',
+                        'woocommerce_order_items', 'woocommerce_order_itemmeta'], true)
+                        || ($kind === 'posts' && isset($personalPosts[(int) ($row['ID'] ?? 0)]))
+                        || ($kind === 'postmeta' && isset($personalPosts[(int) ($row['post_id'] ?? 0)])));
                 foreach ($next as $key => $value) {
                     if ($kind === 'actionscheduler_actions' && in_array($key, ['schedule', 'args', 'extended_args'], true)) {
                         $next[$key] = match ($key) {
@@ -332,13 +350,11 @@ final class Engine
                     }
                     // Les réglages d'extensions et tables inconnues ne sont pas une
                     // liste blanche : seules les zones personnelles connues changent.
-                    $personal = $privacy && !isset($this->unknownTables[$table])
-                        && !in_array($kind, ['options', 'terms', 'termmeta', 'term_taxonomy', 'term_relationships', 'links'], true);
                     $next[$key] = self::scrub($value, $personal, $id);
                     if (self::sensitiveKey((string) $key) && $key !== 'option_name' && $key !== 'meta_key') {
                         $next[$key] = '';
                     }
-                    if ($privacy && ((in_array($kind, ['wc_order_addresses', 'wc_orders', 'wc_customer_lookup', 'wc_order_operational_data'], true) && self::piiKey($key)) || ($key === 'meta_value' && self::piiKey($row['meta_key'] ?? '')))) {
+                    if ($personal && ((in_array($kind, ['wc_order_addresses', 'wc_orders', 'wc_customer_lookup', 'wc_order_operational_data'], true) && self::piiKey($key)) || ($key === 'meta_value' && self::piiKey($row['meta_key'] ?? '')))) {
                         $next[$key] = '';
                     }
                 }
@@ -552,13 +568,8 @@ final class Engine
         if (is_array($plugins) && array_intersect($plugins, $this->disabledPlugins())) {
             $warnings[] = 'EXTENSION_A_DESACTIVER';
         }
-        $transactionPosts = [];
+        $transactionPosts = $this->personalPostIds();
         $admins = 0;
-        foreach ($this->store->rows($this->prefix . 'posts') as $post) {
-            if (in_array($post['post_type'] ?? '', ['shop_order', 'shop_subscription', 'shop_order_refund', 'wc_user_membership'], true)) {
-                $transactionPosts[] = (int) $post['ID'];
-            }
-        }
         foreach ($this->inventory as $table => $columns) {
             $kind = str_starts_with($table, $this->prefix) ? substr($table, strlen($this->prefix)) : '';
             $rows = $this->store->rows($table);
@@ -576,9 +587,11 @@ final class Engine
                 $warnings[] = 'TABLE_A_VIDER';
             }
             foreach ($rows as $row) {
-                $emailScope = in_array($kind, ['users', 'usermeta', 'wc_orders', 'wc_order_addresses', 'wc_orders_meta', 'wc_customer_lookup', 'woocommerce_downloadable_product_permissions'], true)
-                    || ($kind === 'posts' && in_array((int) ($row['ID'] ?? 0), $transactionPosts, true))
-                    || ($kind === 'postmeta' && in_array((int) ($row['post_id'] ?? 0), $transactionPosts, true));
+                $emailScope = in_array($kind, ['users', 'usermeta', 'wc_orders', 'wc_order_addresses', 'wc_orders_meta', 'wc_customer_lookup',
+                    'woocommerce_downloadable_product_permissions', 'woocommerce_order_items', 'woocommerce_order_itemmeta'], true)
+                    || ($kind === 'posts' && isset($transactionPosts[(int) ($row['ID'] ?? 0)]))
+                    || ($kind === 'comments' && isset($transactionPosts[(int) ($row['comment_post_ID'] ?? 0)]))
+                    || ($kind === 'postmeta' && isset($transactionPosts[(int) ($row['post_id'] ?? 0)]));
                 foreach ($row as $key => $value) {
                     if (!is_string($value)) {
                         continue;

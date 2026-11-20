@@ -1,0 +1,88 @@
+{
+  "mode": "isolated-linux-integration-contract-tests",
+  "not_real_orchestrator_e2e": true,
+  "runs": [
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "/opt/check/test_compatibility.py"
+      ],
+      "exit_code": 0,
+      "tests_run": 7,
+      "stdout": "",
+      "stderr": "test_failed_operator_prints_its_own_filtered_report (__main__.CompatibilityTests.test_failed_operator_prints_its_own_filtered_report) ... ok\ntest_generated_requests_pass_the_actual_worker_validator (__main__.CompatibilityTests.test_generated_requests_pass_the_actual_worker_validator) ... ok\ntest_operator_decisions_reach_the_worker_unchanged (__main__.CompatibilityTests.test_operator_decisions_reach_the_worker_unchanged) ... ok\ntest_safe_schema_report_reaches_operator_without_row_values (__main__.CompatibilityTests.test_safe_schema_report_reaches_operator_without_row_values) ... ok\ntest_schema_metadata_is_not_silently_truncated (__main__.CompatibilityTests.test_schema_metadata_is_not_silently_truncated) ... ok\ntest_unknown_tables_check_is_mandatory_for_publication (__main__.CompatibilityTests.test_unknown_tables_check_is_mandatory_for_publication) ... ok\ntest_worker_does_not_require_a_missing_subscriptions_plugin (__main__.CompatibilityTests.test_worker_does_not_require_a_missing_subscriptions_plugin) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.032s\n\nOK\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "/opt/check/worker/test_worker.py"
+      ],
+      "exit_code": 0,
+      "tests_run": 6,
+      "stdout": "",
+      "stderr": "......\n----------------------------------------------------------------------\nRan 6 tests in 0.007s\n\nOK\n"
+    },
+    {
+      "file": "worker/bridge-common.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in /opt/check/worker/bridge-common.php\n",
+      "stderr": ""
+    },
+    {
+      "file": "worker/worker-bridge.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in /opt/check/worker/worker-bridge.php\n",
+      "stderr": ""
+    },
+    {
+      "file": "worker/runtime-probe-worker.php",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in /opt/check/worker/runtime-probe-worker.php\n",
+      "stderr": ""
+    }
+  ],
+  "sources": {
+    "test_compatibility.py": "305714e57eb4540a8da6244a4d8a3c20efd07b13436289c09a074c0441156824",
+    "worker/worker.py": "9ae8474ef90221ca0c7a9619eb1c320547b27f13227b79d574e1e574daf63961",
+    "worker/runtime.py": "d97104ee5525330b0cc48eb99612f7e255c1d2556a616c54bde99fa8af478266",
+    "worker/test_worker.py": "f835f887f9fc582a1dee2bb40bd57bdfb828683126fb082e9971021dbee2aaf3",
+    "worker/bridge-common.php": "fef67800df8ce49a641ce2d4565a3acbb60348dbd162c5c3eec52bfd49f8040b",
+    "worker/worker-bridge.php": "e86d35bf7cc8f7e6dac57c27e34398e79a3c927a95ecbe846dfbc98aebccbce1",
+    "worker/runtime-probe-worker.php": "ed07032c5481856c8f51813fda06cac73e9061dbc9d8b2d018e332a90710a968",
+    "overlay/api/subscriptions.py": "d5d281f7f678cdcca8ef60de263b4fbea0b3a198a8e3e327394910bc71c5d3f4",
+    "overlay/api/subscription_runtime.py": "82f263b00e5a2cff2461cde2612ba35d0fd58c15d70621ceb778d7b4177896bd",
+    "overlay/api/subscription_operator.py": "3159a0c6ba42633f4038acb0c29a8bc2191a9986974ea73b3bce0a191e8a809a"
+  },
+  "exit_code": 0,
+  "run_id": "905db63c580e",
+  "checks": [
+    {
+      "check": "isolation_before_test",
+      "status": "PASS",
+      "detail": {
+        "network": "none",
+        "ports": [],
+        "mounts": []
+      }
+    },
+    {
+      "check": "isolation_after_test",
+      "status": "PASS",
+      "detail": {
+        "network": "none",
+        "ports": [],
+        "mounts": []
+      }
+    },
+    {
+      "check": "container_cleanup",
+      "status": "PASS",
+      "detail": {
+        "container": "imagine-staging-e2e-905db63c580e",
+        "absent_after_removal": true
+      }
+    }
+  ]
+}

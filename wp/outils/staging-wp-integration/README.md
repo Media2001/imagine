@@ -1,5 +1,15 @@
 # Intégration « site à abonnements » dans l'outil de staging
 
+> **Reprise du 20 novembre 2026 : non `PRET`, non déployée. Lire `OPERATEUR-A01.md`.**
+> La commande ci-dessous est un contrat réservé, pas un GO d'import réel.
+> Les requêtes ont été alignées sur le worker natif (base suffixée staging,
+> compte de test, hôtes de production, adaptateurs image, décisions et rapport filtré).
+> La recette courante est liée dans `../../tests/staging-e2e/results/reprise-integration-final.json` :
+> tests de contrats/doubles, pas recette du service partagé. Le reste de ce README
+> conserve le constat et les résultats historiques ; ses 22 tests n'ont pas été rejoués ici.
+> Le prototype d'import ne conserve pas les fichiers du site, Novamira n'est pas
+> implémenté et les prérequis du ZIP Subscriptions fourni dépassent le runtime préparé.
+
 **Livraison : patch applicable, testé en copie isolée. Non déployé. Aucun staging réel créé.**
 
 ## Constat préalable sur les seuls sources de l'outil

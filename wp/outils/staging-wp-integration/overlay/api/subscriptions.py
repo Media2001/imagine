@@ -71,11 +71,11 @@ def safe_diagnostics(report):
     out = {}
     for key in ('issues', 'warnings'):
         values = report.get(key, [])
-        out[key] = [v for v in values[:200] if isinstance(v, str) and re.fullmatch(r'[A-Z_]{1,100}', v)] if isinstance(values, list) else []
+        out[key] = [v for v in values if isinstance(v, str) and re.fullmatch(r'[A-Z_]{1,100}', v)] if isinstance(values, list) else []
     tables = report.get('unknown_tables', [])
     out['unknown_tables'] = []
-    for table in tables[:200] if isinstance(tables, list) else []:
-        if not isinstance(table, dict) or not re.fullmatch(r'[A-Za-z0-9_]{1,128}', table.get('name', '')):
+    for table in tables if isinstance(tables, list) else []:
+        if not isinstance(table, dict) or not isinstance(table.get('name'), str) or not re.fullmatch(r'[A-Za-z0-9_]{1,128}', table['name']):
             continue
         columns = table.get('columns', [])
         if not isinstance(columns, list) or any(not isinstance(c, str) or not re.fullmatch(r'[A-Za-z0-9_]{1,128}', c) for c in columns):
@@ -94,7 +94,7 @@ def safe_diagnostics(report):
         out['unknown_tables'].append(safe)
     for key in ('unknown_post_types', 'disabled_plugins'):
         values = report.get(key, [])
-        out[key] = [v for v in values[:500] if isinstance(v, str) and re.fullmatch(r'[A-Za-z0-9_./-]{1,200}', v)] if isinstance(values, list) else []
+        out[key] = [v for v in values if isinstance(v, str) and re.fullmatch(r'[A-Za-z0-9_./-]{1,200}', v)] if isinstance(values, list) else []
     return out
 
 

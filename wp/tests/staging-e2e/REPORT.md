@@ -1,4 +1,43 @@
-# Rapport du site synthétique — 19 novembre 2026
+# Rapport du site synthétique — reprise du 20 novembre 2026
+
+**Résultat : acceptance non validée. Aucun `PRET`, aucune ouverture ni opération réelle.**
+
+## Reçus courants
+
+| Contrôle | Exécution exacte | Résultat |
+|---|---|---|
+| Sécurité du harness | `safety-ea3ab1ab37b7` | 17 tests réussis ; `results/reprise-host-safety.json` |
+| Fixtures + oracles + référence gratuite avant traitement | `b425004823b0` | sortie 0 ; 75 PASS, 2 NOT_TESTED ; `results/reprise-fixture-selftest.json` |
+| Vrais scripts, classique + HPOS enrichis | `1e34902aea35` | sortie 2 ; 15 PASS, 4 FAIL, 18 NOT_TESTED ; `results/reprise-acceptance.json` |
+| Deux ZIP payants nommés par Ced | `73dd48355408` | sortie 2 ; 9 PASS, 2 FAIL, 20 NOT_TESTED ; `results/reprise-licensed-acceptance.json` |
+| Contrats orchestration/worker dans Linux sans réseau | `905db63c580e` | suites de 7 et 6 tests réussies, 3 fichiers PHP lintés ; `results/reprise-integration-final.json` |
+
+Les chiffres de PASS concernent des assertions journalisées, pas autant de tests métier indépendants. Les suites d'intégration utilisent des doubles de transport/stockage : elles ne qualifient pas un import `.wpress` ou le service partagé. Chaque conteneur nommé ci-dessus a été supprimé et son absence relue dans son reçu. L'image publique réutilisable est conservée, pas les sites/bases.
+
+### Premier blocage des vrais scripts
+
+En classique et HPOS : création des 30 comptes/30 commandes, bootstrap des trois extensions gratuites et préflight passent ; **`neutraliser` renvoie 78**. Le diagnostic séparé dans le conteneur synthétique confirme `PDOException`, **SQLSTATE `23000`, errno `1062`**, métadonnée mentionnée `wp_options.option_name`, dans `pdo-store.php:117` (`execute → replace → transform → neutraliser`). Aucun message PDO ni valeur de ligne n'est exporté. Une collision de nom d'option est observée, sans édition du script sujet pour la contourner.
+
+Contact Form 7 **6.1.4**, Yoast SEO **26.5** et Meta Box **5.10.7** restent effectivement actifs dans la référence avant nettoyage ; formulaire rendu et champs simples/clonés lus. Leurs réglages sont empreintés. **La comparaison post-nettoyage n'a pas été atteinte**, de même que `anonymiser`, le vrai `verifier`, les décisions de tables, les refus de résidus et l'idempotence. Aucun de ces contrôles n'est annoncé réussi.
+
+Les scripts sujets sont travaillés simultanément par le pair : les empreintes exactes sont conservées, ainsi que la liste d'éventuelles dérives au moment de l'emballage. Ces reçus décrivent leur snapshot, pas une attestation de toute révision ultérieure.
+
+### Paquets payants : présence distincte de la réussite
+
+Les seuls fichiers autorisés, `/home/ced/staging-wp/plugins/woocommerce-subscriptions.zip` et `woocommerce-memberships.zip`, ont été lus comme entrées, copiés directement dans les conteneurs neufs puis détruits avec eux. Aucun paquet/code payant dans le dépôt, aucun téléchargement de remplacement ni activation de licence.
+
+- Subscriptions **9.4.1**, SHA-256 `ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083` : activation effectivement refusée sur WordPress **6.9**, car **7.0** requis. Le header impose aussi WooCommerce **11.1**, au-delà du **10.4.3** préparé.
+- Memberships **1.30.3**, SHA-256 `d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285` : activation constatée dans les deux tentatives, mais ni droits d'accès ni fidélité après nettoyage qualifiés.
+
+Versions, tailles, headers et résultats : `results/reprise-licensed-inputs.json`. La création d'abonnements synthétiques par API n'a pas été atteinte ; le mode staging réel, son piège inverse et les renouvellements restent non testés. Ne pas supprimer les gardes de version pour obtenir du vert.
+
+### Intégration corrigée, limites maintenues
+
+Contrats alignés sur `wordpress_staging`, `imagine-test-admin`, `production_hosts` et les adaptateurs image `/opt/staging/<phase>`. Fichier de décisions transmis au worker et à son contexte, verrou de résolution des tables, diagnostics filtrés visibles dans le rapport opérateur même en échec, absence de licence ne remplaçant plus le verdict du vérificateur natif. Ces changements ne sont **pas déployés**.
+
+L'importeur prototype élimine encore les fichiers de l'archive au lieu de préserver l'ensemble extensions/thème/MU/médias ; l'étape Novamira n'est pas réalisée ; le réseau runtime reste `none`, donc les mises à jour externes ne sont pas qualifiées. L'image worker réelle, le serveur partagé/API/MCP, l'import d'archive et la publication n'ont pas été exercés. Voir `../../outils/staging-wp-integration/OPERATEUR-A01.md` : la commande opérateur est documentée mais **pas autorisée pour un import réel dans cet état**.
+
+## Rapport historique du 19 novembre 2026 — conservé pour traçabilité
 
 **Résultat : fixtures et isolation exécutées ; acceptance des scripts de staging en échec. Aucun staging réel créé et aucun jalon de livraison globale déclaré.**
 

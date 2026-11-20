@@ -1,6 +1,6 @@
 # Contrat `staging-offline-v1`
 
-Ce contrat est une **interface à implémenter par le worker et les scripts de données**. Le patch d'orchestration ne fournit ni extracteur `.wpress`, ni image de confiance, ni traitement des données : leur absence bloque l'import, sans repli vers `wp ai1wm restore`.
+Ce contrat est l'interface entre l'orchestrateur, les adaptateurs image et les scripts natifs. **La reprise A-01 n'est pas qualifiée pour un import réel** : le prototype ne conserve pas tous les fichiers du site et l'étape Novamira reste refusée. Voir `OPERATEUR-A01.md`. Aucun repli vers `wp ai1wm restore`.
 
 ## Frontière de confiance
 
@@ -18,13 +18,13 @@ Un processus CLI isolé neuf par étape, arrêté à la première erreur :
 | Étape | Exécutable absolu dans le worker |
 |---|---|
 | import | `/opt/staging/importer --request-stdin` |
-| neutralisation | `/workflow/wp/outils/staging/neutraliser --request-stdin` |
-| anonymisation | `/workflow/wp/outils/staging/anonymiser --request-stdin` |
-| vérification | `/workflow/wp/outils/staging/verifier --request-stdin` |
-| bascule | `/workflow/wp/outils/bascule/lancer --request-stdin` |
+| neutralisation | `/opt/staging/neutraliser --request-stdin` |
+| anonymisation | `/opt/staging/anonymiser --request-stdin` |
+| vérification | `/opt/staging/verifier --request-stdin` |
+| bascule | `/opt/staging/bascule --request-stdin` |
 | Novamira neuf | `/opt/staging/novamira --request-stdin` |
 
-Les quatre exécutables issus du dépôt doivent donc être exécutables sous Linux et avoir un shebang CLI approuvé. Un adaptateur fin peut traduire ce protocole vers leur interface propre ; il ne doit pas amorcer le WordPress importé avant nettoyage. Les scripts de bascule restent indépendants de Novamira.
+Les adaptateurs appartiennent à l'image de confiance. Pour les trois scripts de données, ils appellent PHP sur `/workflow/wp/outils/staging/<phase> --worker-bridge /opt/staging/worker-bridge.php` : les lanceurs PHP natifs ne prennent pas `--request-stdin`. La requête passe par pipe anonyme ; seul le mot de passe administrateur utilise stdin de `anonymiser`. Aucun bootstrap du WordPress importé avant nettoyage. La bascule reste indépendante de Novamira.
 
 Chaque invocation reçoit **un objet JSON sur stdin**, aucune commande shell construite, aucune donnée sensible dans les arguments ou l'environnement :
 
@@ -35,17 +35,19 @@ Chaque invocation reçoit **un objet JSON sur stdin**, aucune commande shell con
   "slug": "fixture-synthetique",
   "environment": "staging",
   "production_url": "https://production.invalid",
+  "production_hosts": ["production.invalid"],
+  "table_decisions": {},
   "staging_url": "http://staging.invalid:8099",
   "wordpress_path": "/var/www/html",
   "archive": "/input/source.wpress",
   "database": {
     "host": "localhost",
     "socket": "/run/mysqld/mysqld.sock",
-    "name": "wordpress",
+    "name": "wordpress_staging",
     "user": "wp",
     "password": "<fourni-en-memoire>"
   },
-  "admin": {"login": "staging-admin", "password": "<fourni-en-memoire>"}
+  "admin": {"login": "imagine-test-admin", "password": "<fourni-en-memoire>"}
 }
 ```
 
@@ -92,13 +94,13 @@ Une vérification doit aussi renvoyer une version stable WordPress strictement n
   "wordpress_version":"6.9.1",
   "checks": {
     "emails":true, "service_keys":true, "payment_ids":true,
-    "mail_blocked":true, "subscriptions_staging":true,
+    "mail_blocked":true, "subscriptions_staging":true, "unknown_tables_resolved":true,
     "production_refused":true, "imported_code_not_loaded":true
   }
 }
 ```
 
-`imported_code_not_loaded` atteste que le contrôle lui-même n'a pas exécuté le bootstrap non approuvé de la copie. `mail_blocked` nécessite un test effectif du blocage dans un harness de confiance, et `subscriptions_staging` un contrôle effectif des conditions de staging, pas seulement la présence d'une option arbitraire. Une version inférieure à 6.9, inconnue ou pré-release bloque Novamira et la publication ; aucune mise à niveau implicite.
+`imported_code_not_loaded` atteste que le contrôle lui-même n'a pas exécuté le bootstrap non approuvé de la copie. `mail_blocked` nécessite un test effectif. Le vérificateur natif décide si Subscriptions est présent ; son absence n'est pas un échec de mode staging, ni une preuve d'acceptance du produit payant. S'il est présent, un contrôle effectif du mode est obligatoire. Les tables personnelles inconnues doivent être tranchées. Une version WordPress inférieure à 6.9, inconnue ou pré-release bloque la suite ; les minima effectifs des plugins sont également requis, sans mise à niveau implicite. Le ZIP Subscriptions 9.4.1 fourni exige WP 7.0 et WooCommerce 11.1.
 
 L'installateur Novamira doit supprimer/remplacer, **dans la seule copie**, tout code Novamira/Pro importé par les archives neuves approuvées de l'image, puis activer et contrôler ces nouvelles copies, sans réutiliser l'identité MCP ni un mot de passe applicatif importé. Il renvoie :
 
@@ -106,9 +108,9 @@ L'installateur Novamira doit supprimer/remplacer, **dans la seule copie**, tout 
 {"protocol":"staging-offline-v1","stage":"novamira","ok":true,"fresh":true,"active":true}
 ```
 
-Ces attestations doivent être implémentées et testées par le worker ; ce ne sont pas des résultats réels que l'orchestrateur prétend avoir produits. Le script `verifier` doit couvrir aussi les identités MCP héritées s'il veut garantir leur suppression. Un échec : code non nul ou `ok:false`. Un rapport de vérification négatif peut fournir les mêmes `checks` avec des booléens faux. Les autres champs sont ignorés et ne sont jamais exposés. stderr et stdout bruts ne sont pas journalisés ; en cas de sortie non nulle le détail brut est volontairement abandonné. Pour un diagnostic sûr détaillé, renvoyer un JSON négatif conforme avec code zéro ; il est tout de même traité comme un échec.
+Ces attestations doivent être implémentées et testées par le worker ; ce ne sont pas des résultats réels que l'orchestrateur prétend avoir produits. Le script `verifier` doit couvrir aussi les identités MCP héritées s'il veut garantir leur suppression. Un échec : code non nul ou `ok:false`. Le wrapper natif peut recueillir le JSON négatif d'un vérificateur non nul ; il le traduit en réponse de protocole `ok:false`, sans créditer la phase. Seuls les booléens, tags et métadonnées de schéma validées sont exposés. stderr et messages SQL bruts sont abandonnés. Aucun `ok:false` ne devient un succès parce que l'adaptateur a pu fournir un objet JSON valide.
 
-L'orchestrateur conserve des rapports **filtrés**, hors dépôt, et `failure.json` (étape, raison fixe, booléens). Le GET metadata du site inclut `verification_report`; les routes de logs/export/admin et toute route future restent verrouillées tant que l'état persistant n'est pas `verified`.
+L'orchestrateur conserve des rapports **filtrés**, hors dépôt, et `failure.json` : étape, raison fixe, booléens, tags et métadonnées de schéma sans valeurs. La liste des tables contient nom, colonnes, nombre de lignes, colonnes personnelles et décision ; elle n'est pas tronquée silencieusement. Les autres données restent exclues. Le GET metadata et le CLI incluent `verification_report`, même lors d'un échec après création de leur propre copie ; logs/export/admin et routes futures restent verrouillés avant `verified`. Le transport refuse au-delà de 16 Kio, sans transformer ce refus en succès.
 
 ## Serveur post-vérification
 

@@ -1,5 +1,11 @@
 # Site WordPress + WooCommerce jetable et synthétique
 
+> **Reprise du 20 novembre 2026 : lire d'abord `REPRISE.md` et `REPORT.md`.**
+> Les sections ci-dessous documentent le passage historique du 19 novembre.
+> Les versions gratuites, le chemin optionnel des deux ZIP payants autorisés,
+> les reçus `reprise-*` et les nouveaux blocages sont décrits dans `REPRISE.md`.
+> Ne pas confondre référence de fidélité avant traitement et preuve après nettoyage.
+
 Ce dossier ne crée **aucun vrai staging**. Il fabrique, teste et détruit des sites entièrement inventés dans un nouveau conteneur Docker privé de réseau. Il ne lit aucune sauvegarde de site et ne monte aucun volume. Le code de `wp/outils/staging/` est uniquement copié pour être testé ; il n'est jamais édité par ce harness.
 
 ## Exécution
