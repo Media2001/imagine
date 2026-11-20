@@ -106,6 +106,14 @@ def run_storage(storage):
     assert_true(rights(site,storage,'after')==rights_before,storage+':rights_unchanged_after_subject','Fresh plugin bootstrap; API + restrict shortcode')
     runtime=case(site,'runtime')
     assert_true(all(v is True for v in runtime.values()),storage+':actual_runtime_staging_and_locks',runtime)
+    sanitized=base.export(database,'sanitized-subscriptions')
+    inserted=case(site,'subscription-email-residue')
+    assert_true(inserted['external_email_written'],storage+':actual_subscription_email_residue_inserted',inserted)
+    command(['php','-r',"require '/subject/files.php'; (new Imagine\\Staging\\Files($argv[1]))->purge();",str(site)])
+    p=base.subject_command(site,'verifier',password,context);v=json.loads(p.stdout)
+    assert_true(p.returncode==1 and 'EMAIL_EXTERNE' in v.get('issues',[]),storage+':actual_subscription_email_residue_rejected',{'exit':p.returncode,'issues':v.get('issues',[])})
+    base.restore(database,sanitized)
+    assert_true(case(site,'snapshot')['business']==after['business'],storage+':subscription_residue_restore','Same-container sanitized SQL restored; subscription business fields unchanged')
     canary=site/'wp-content/mu-plugins/zzz-a01-nonstaging-canary.php'
     try:
         # Preserve exact subject MU bytes: its file-integrity guard must remain valid.
@@ -119,16 +127,19 @@ def run_storage(storage):
         d=command(['php','/opt/e2e/diagnostic.php'],env={'E2E_CONTEXT':str(context),'WP_ENVIRONMENT_TYPE':'staging','A01_DIAGNOSTIC_ENGINE_ONLY':'1'})
         engine=json.loads(next(l[9:]for l in d.stdout.splitlines()if l.startswith('E2E_JSON=')))
         assert_true('SUBSCRIPTIONS_NON_STAGING' in engine.get('issues',[]),storage+':engine_refuses_actual_nonstaging',engine)
-        assert_true(p.returncode!=0,storage+':cli_refuses_nonstaging_copy',{'exit':p.returncode,'issues':v.get('issues',[]),'exact_subscription_tag_from_engine_only':True})
+        assert_true(p.returncode==1 and 'SUBSCRIPTIONS_NON_STAGING' in v.get('issues',[]),storage+':cli_refuses_actual_nonstaging',{'exit':p.returncode,'issues':v.get('issues',[]),'exact_subscription_tag_in_cli':True})
     finally:canary.unlink(missing_ok=True)
     # Purge only synthetic files using the unchanged subject's real file treatment.
     command(['php','-r',"require '/subject/files.php'; (new Imagine\\Staging\\Files($argv[1]))->purge();",str(site)])
     record(storage+':purge_generated_fixture_logs','OBSERVED','Unchanged subject Files::purge replayed after deliberate nonstaging mutation; no source/data changes')
     p=base.subject_command(site,'verifier',password,context);v=json.loads(p.stdout)
-    assert_true(p.returncode==0,storage+':final_verifier',{'exit':p.returncode,'issues':v.get('issues',[])})
+    assert_true(p.returncode==0,storage+':restored_verifier_before_scheduler_attempt',{'exit':p.returncode,'issues':v.get('issues',[])})
     blocked=case(site,'renewal')
     assert_true(blocked['callback_calls']==0 and blocked['renewals_after']==blocked['renewals_before'] and blocked['status']=='failed' and blocked['cron_empty'] and blocked['async_disabled'] and blocked['runner_removed'],storage+':renewal_scheduler_blocked',blocked)
     record(storage+':post_deliberate_scheduler_attempt_files','OBSERVED',{'generated_logs':[str(p.relative_to(site))for p in site.rglob('*.log')]})
+    command(['php','-r',"require '/subject/files.php'; (new Imagine\\Staging\\Files($argv[1]))->purge();",str(site)])
+    p=base.subject_command(site,'verifier',password,context);v=json.loads(p.stdout)
+    assert_true(p.returncode==0,storage+':final_verifier_after_explicit_fixture_log_purge',{'exit':p.returncode,'issues':v.get('issues',[]),'file_purge_replayed_after_direct_scheduler_test':True})
 
 def main():
     process=None

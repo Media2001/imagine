@@ -1,0 +1,54 @@
+{
+  "suite": "synthetic-staging-e2e",
+  "run_id": "bba4d33a36e2",
+  "recorded_at_utc": "2026-11-20T14:31:42.361121+00:00",
+  "checks": [
+    {
+      "check": "isolation_before_input",
+      "status": "PASS",
+      "detail": {
+        "network": "none",
+        "ports": [],
+        "mounts": [],
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2"
+      }
+    },
+    {
+      "check": "isolation_after_execution",
+      "status": "PASS",
+      "detail": {
+        "network": "none",
+        "ports": [],
+        "mounts": [],
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2"
+      }
+    },
+    {
+      "check": "actual_result_readback",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0,
+        "counts": {
+          "PASS": 104,
+          "OBSERVED": 4
+        }
+      }
+    },
+    {
+      "check": "container_cleanup",
+      "status": "PASS",
+      "detail": {
+        "container": "imagine-staging-e2e-bba4d33a36e2",
+        "absent_after_removal": true
+      }
+    }
+  ]
+}

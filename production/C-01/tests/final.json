@@ -1,0 +1,33 @@
+{
+  "time_utc": "2026-11-20T14:28:39.994455+00:00",
+  "php": "8.2.36",
+  "command": "composer test",
+  "exit_code": 0,
+  "psr12_exit_code": 0,
+  "syntax_exit_code": 0,
+  "composer_validate_exit_code": 0,
+  "processes_before_suite": [
+    "sleep"
+  ],
+  "source_sha256": {
+    "composer.json": "1477fe78ed255c28ba16db350919fbd8ae8a7297d37ca043375c843d247a7652",
+    "composer.lock": "37ac1c2ae798927d7a951b3778691d106d03e631f57a0c5687357384165ab124",
+    "phpunit.xml": "72b16aabc7082502fd2ae8c3083e6d9966aab2fc7278553c66b4d4537574f749",
+    "README.md": "fe1b11520090f5b0f21540fd45c5923e3edc2a52bae1aa1cefdf1691f9638c63",
+    "src/Numeros/Activation.php": "2f6fbd78d6f3b02de285bdf042a551b1da03f36b95cae71dc9c4af158acf2f8d",
+    "src/Numeros/Annee.php": "6986b22847576f2832748ea8e0b612ec3a90bc036b4c4bbbdd1e577a916199f0",
+    "src/Numeros/Calendrier.php": "e37c5378146d7d583278a688b81ce87a55ccaa0bd117d9066c7dd172de8831a9",
+    "src/Numeros/Echeance.php": "937fa4c3e42958e6c78f31a600b696b7864960b7cf1ee3f44e1a4a0b47214f4c",
+    "src/Numeros/Moteur.php": "b1df8e6936d7b4adab58be3b7ab84a9bda2e7a27f871b1a4c55c9b24c77c2a57",
+    "src/Numeros/Numero.php": "bed445350622664da13b2c859a6037e970a41375f98927bb8cd5ce36a8918a11",
+    "src/Numeros/TypeNumero.php": "00959ba220ae38b22f77d6bb5e0e42f851b6b693d6470b95b1fdf678fc3f30a1",
+    "tests/Numeros/fixtures/calendrier.php": "34aed4a50ac0c2806406057f44c4ed632354603856edf59931714754dad61c2c",
+    "tests/Numeros/InvariantsTest.php": "bf789889748bbcf3ea02547253d4a2b76847f995ef5e7688603f449c33d317c5",
+    "tests/Numeros/MoteurTest.php": "b603f34a5b07b742c613c3291e0361a80aee7c242df57f6dbcfc80ef1effc626"
+  },
+  "container_source_verified": true,
+  "runner_sha256": "2a69f9a1d03e14ef4adda48a98f6a81d8f4db0703465f23586b2f8c1d4ce03b4",
+  "network_disconnected": true,
+  "no_mounts": true,
+  "no_ports": true
+}

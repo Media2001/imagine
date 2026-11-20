@@ -1,7 +1,7 @@
 {
-  "prepared_at_utc": "2026-11-20T14:05:45.001941+00:00",
+  "prepared_at_utc": "2026-11-20T14:30:18.091723+00:00",
   "base_image_id": "sha256:b2ffa6ad01ffacc6d31b176232c8d0779c0320daba381e05cbbd80f56d5327a0",
-  "image_id": "sha256:ea311683c11e8aefbc9be5325c46614cdb43db47e944fde9998290d39b6dcc08",
+  "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
   "artifacts": {
     "wordpress.zip": {
       "url": "https://wordpress.org/wordpress-7.0.9.zip",

@@ -1,0 +1,12 @@
+{
+  "run.py": "252df8e66cd6e001191130967f788efb65a0ce87acee048d5e2962dca4d7eb12",
+  "inside-commercial.py": "b92b1c2bf64ec301672663a361535636a025340177cfdd5560d223c89beb23ca",
+  "cases.php": "f718a926aeed8f3a98e369ecd198aca86895d357442fb1983bdfd3c46582d422",
+  "diagnostic.php": "17311e49d277376f49b4065366a3c8c2a3790fe83c66eacfbd85371688983459",
+  "prepare.py": "452675943e01b4f3ef09d63cd0c5dd0b5d21fed0c2ae67c639b41bb06176b8d1",
+  "compatible.lock.json": "417233a41a2597966107c32eb6144fda9007aa8ce5761d469cc5d0663d65290b",
+  "baseline:inside.py": "6f3b745290d33c65fe05f91997e244091d1ff6ff5d913054b723258010bd65ff",
+  "baseline:worker-bridge.php": "c440b849b554c24f062441afd65811d74ac5112e9fce0a7961ed89d7e58d6fb7",
+  "baseline:subject-adapter.json": "ace78fbb6c0b1a2b81911f6287efb3c9c3cdddf00b10c64c42cf0acb170b75aa",
+  "baseline:harness.py": "3d7af593be2355afabb954f46625f67932c68e8ba446fe85c36f7de14b261f49"
+}

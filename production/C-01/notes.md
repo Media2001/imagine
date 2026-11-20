@@ -15,7 +15,7 @@ historisées, droits à la clôture, restants et échéances à marge obligatoir
 Le README de la bibliothèque documente l'API et ses préconditions.
 
 Le calendrier de test est fictif : rythme trimestriel civil, n° 166 en
- octobre-décembre 2025, 170 en octobre-décembre 2026, 171 en janvier-mars 2027 ;
+octobre-décembre 2025, 170 en octobre-décembre 2026, 171 en janvier-mars 2027 ;
 hors-série d'été. Les jours de sortie/clôture ne viennent pas d'Imagine.
 Les deux exemples du cahier des charges sont testés : commande du 8 octobre 2026
 → 171–174 + HS-2027 ; renouvellement d'octobre 2027 → 175–178 + HS-2028.

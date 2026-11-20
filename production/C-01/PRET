@@ -1,0 +1,15 @@
+C-01 — PRÊT À RELIRE, PAS VALIDÉ / PAS GO
+
+Moteur PHP pur et tests livrés localement.
+Passage final neuf : 39 tests réussis, 101 assertions, 0 échec/erreur/ignoré.
+PHP 8.2.36 ; composer test, PSR-12, syntaxe PHP et validation Composer : code 0.
+Sources locales identiques aux sources réellement testées dans le conteneur isolé.
+Conteneur supprimé et absence relue ; aucun site ni base démarré.
+
+Preuves : production/C-01/tests/final.json, final.xml, final.log,
+final-lint.log, final-composer-validate.log, preparation.json et cleanup.json.
+SHA-256 du reçu final : 3d2d83130c30edc917b78b9e9d8d92e79bee87e982976e4e2f8e9a820aa874c9
+Bilan : production/C-01/tests/rapport.md.
+Arbitrages conservés ouverts : production/C-01/notes.md.
+Aucune relecture indépendante ni validation de Ced revendiquée.
+Aucun déploiement autorisé par ce marqueur.

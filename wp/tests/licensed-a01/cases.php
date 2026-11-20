@@ -65,6 +65,10 @@ if ($phase==='snapshot') {
     $membership=[]; foreach($f['members'] as $k=>$id){$m=wc_memberships_get_user_membership($id);$membership[$k]=['id'=>$id,'user'=>$m->get_user_id(),'plan'=>$m->get_plan_id(),'status'=>$m->get_status(),'start'=>$m->get_start_date(),'end'=>$m->get_end_date()];}
     output_a01(['business'=>$business,'personal'=>$personal,'membership'=>$membership,'rules_sha256'=>hash('sha256',serialize(get_option('wc_memberships_rules'))),'versions'=>['wp'=>get_bloginfo('version'),'woo'=>WC()->version,'subscriptions'=>class_exists('WC_Subscriptions')?WC_Subscriptions::$version:null,'memberships'=>wc_memberships()->get_version(),'hpos'=>Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled()]]);return;
 }
+if ($phase==='subscription-email-residue') {
+    $s=wcs_get_subscription($f['subs'][0]);$s->set_billing_email('a01-residue@invented.invalid');$s->save();
+    output_a01(['subscription_id'=>$s->get_id(),'external_email_written'=>str_ends_with(wcs_get_subscription($s->get_id())->get_billing_email(),'@invented.invalid')]);return;
+}
 if ($phase==='runtime') {
     require_once '/subject/runtime-probe.php';output_a01(Imagine\Staging\runtimeProbe());return;
 }

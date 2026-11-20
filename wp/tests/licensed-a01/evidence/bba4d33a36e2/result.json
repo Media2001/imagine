@@ -1,0 +1,1058 @@
+{
+  "suite": "A01-actual-commercial-behavior",
+  "checks": [
+    {
+      "check": "inside_network_interfaces",
+      "status": "PASS",
+      "detail": "Only loopback exists"
+    },
+    {
+      "check": "no_tcp_listener:tcp",
+      "status": "PASS",
+      "detail": "No TCP socket listening, including MariaDB"
+    },
+    {
+      "check": "no_tcp_listener:tcp6",
+      "status": "PASS",
+      "detail": "No TCP socket listening, including MariaDB"
+    },
+    {
+      "check": "classic:activate:woocommerce-memberships",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "output_sha256": "85ed1dc4cf1f03e5a9f94a53fd744b21cd3822a8bfef3e7f98746fdcc5fc9895"
+      }
+    },
+    {
+      "check": "classic:activate:woocommerce-subscriptions",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "output_sha256": "958f3d00f4c929e1d47ab77a651fb5df5c6b9bdad1da0c3e207fc63ac4548cf0"
+      }
+    },
+    {
+      "check": "classic:memberships_seed",
+      "status": "PASS",
+      "detail": {
+        "memberships_seeded": 4,
+        "subscriptions_available": true
+      }
+    },
+    {
+      "check": "classic:before:restriction_real",
+      "status": "PASS",
+      "detail": {
+        "restricted": true
+      }
+    },
+    {
+      "check": "classic:before:rights:guest",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:before:rights:active",
+      "status": "PASS",
+      "detail": {
+        "private": true,
+        "public": true,
+        "shortcode_contains_private": true
+      }
+    },
+    {
+      "check": "classic:before:rights:expired",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:before:rights:cancelled",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:before:rights:paused",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:before:rights:none",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:subscriptions_seed",
+      "status": "PASS",
+      "detail": {
+        "created": 6
+      }
+    },
+    {
+      "check": "classic:actual_versions",
+      "status": "PASS",
+      "detail": {
+        "wp": "7.0.9",
+        "woo": "11.1.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3",
+        "hpos": false
+      }
+    },
+    {
+      "check": "classic:actual_authoritative_store",
+      "status": "PASS",
+      "detail": {
+        "wp": "7.0.9",
+        "woo": "11.1.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3",
+        "hpos": false
+      }
+    },
+    {
+      "check": "classic:personal_oracle_sensitive",
+      "status": "PASS",
+      "detail": {
+        "outside_domain": 6
+      }
+    },
+    {
+      "check": "classic:direct_sql_subscription_rows",
+      "status": "PASS",
+      "detail": {
+        "table": "wp_posts",
+        "rows": 6
+      }
+    },
+    {
+      "check": "classic:native_subscription_scheduler_seeded",
+      "status": "PASS",
+      "detail": {
+        "canceled": 16,
+        "pending": 14
+      }
+    },
+    {
+      "check": "classic:real_renewal_positive_control",
+      "status": "PASS",
+      "detail": {
+        "action_id": 47,
+        "status": "complete",
+        "callback_calls": 1,
+        "renewals_before": 0,
+        "renewals_after": 1,
+        "duplicate_site": true,
+        "manual_renewal": true,
+        "cron_empty": false,
+        "async_disabled": false,
+        "runner_removed": false
+      }
+    },
+    {
+      "check": "classic:renewal_control_rollback",
+      "status": "PASS",
+      "detail": "Fixture SQL restored; original subscription business state retained"
+    },
+    {
+      "check": "classic:subject:neutraliser",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stdout_sha256": "9ed1fec97c0b6b84fbda7338759a0640065081efa7fab702bf6c726c83454726",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "check": "classic:subject:anonymiser",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stdout_sha256": "9ed1fec97c0b6b84fbda7338759a0640065081efa7fab702bf6c726c83454726",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "check": "classic:new_woo_table_requires_decision",
+      "status": "PASS",
+      "detail": {
+        "issues": [
+          "TABLE_PERSONNELLE_A_TRANCHER"
+        ],
+        "pending": {
+          "wp_wc_email_unsubscribes": [
+            "email_hash",
+            "email_kind"
+          ]
+        }
+      }
+    },
+    {
+      "check": "classic:synthetic_woo_table_decision",
+      "status": "PASS",
+      "detail": {
+        "table": "wp_wc_email_unsubscribes",
+        "action": "garder",
+        "decision_is_synthetic_not_Ced_approval": true
+      }
+    },
+    {
+      "check": "classic:subject:verifier",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stdout_sha256": "7dabe63d43e95ea9ed08e578ce78b1b8c48801262792f8711a2a60a74d6a25e7",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "issues": [],
+        "unknown_personal_tables": []
+      }
+    },
+    {
+      "check": "classic:native_subscription_actions_neutralized",
+      "status": "PASS",
+      "detail": {
+        "before": {
+          "canceled": 16,
+          "pending": 14
+        },
+        "after": {
+          "canceled": 30
+        }
+      }
+    },
+    {
+      "check": "classic:preserve:business",
+      "status": "PASS",
+      "detail": {
+        "before_sha256": "b7eae39c8bd09035e3648ef5e6426b6cb3a350da95f2734867b38bed1d23f418",
+        "after_sha256": "b7eae39c8bd09035e3648ef5e6426b6cb3a350da95f2734867b38bed1d23f418"
+      }
+    },
+    {
+      "check": "classic:preserve:membership",
+      "status": "PASS",
+      "detail": {
+        "before_sha256": "4d74fc02399f152d26d4a50333f543ca6062e7e2a7a4018934e6f1a6f440625c",
+        "after_sha256": "4d74fc02399f152d26d4a50333f543ca6062e7e2a7a4018934e6f1a6f440625c"
+      }
+    },
+    {
+      "check": "classic:preserve:rules_sha256",
+      "status": "PASS",
+      "detail": {
+        "before_sha256": "f93b02ffa0d7dca8e9340040d29ac8438e92c07eb18a46277a4ed7bc1ff3e2f4",
+        "after_sha256": "f93b02ffa0d7dca8e9340040d29ac8438e92c07eb18a46277a4ed7bc1ff3e2f4"
+      }
+    },
+    {
+      "check": "classic:actual_subscription_personal_cleanup",
+      "status": "PASS",
+      "detail": {
+        "subscriptions": 6,
+        "checks": [
+          {
+            "id": 19,
+            "email_safe": true,
+            "first_clean": true,
+            "address_clean": true,
+            "phone_clean": true
+          },
+          {
+            "id": 20,
+            "email_safe": true,
+            "first_clean": true,
+            "address_clean": true,
+            "phone_clean": true
+          },
+          {
+            "id": 21,
+            "email_safe": true,
+            "first_clean": true,
+            "address_clean": true,
+            "phone_clean": true
+          },
+          {
+            "id": 22,
+            "email_safe": true,
+            "first_clean": true,
+            "address_clean": true,
+            "phone_clean": true
+          },
+          {
+            "id": 23,
+            "email_safe": true,
+            "first_clean": true,
+            "address_clean": true,
+            "phone_clean": true
+          },
+          {
+            "id": 24,
+            "email_safe": true,
+            "first_clean": true,
+            "address_clean": true,
+            "phone_clean": true
+          }
+        ]
+      }
+    },
+    {
+      "check": "classic:direct_sql_subscription_rows",
+      "status": "PASS",
+      "detail": {
+        "table": "wp_posts",
+        "rows": 6
+      }
+    },
+    {
+      "check": "classic:sql_address_coordinates_preserved",
+      "status": "PASS",
+      "detail": {
+        "hpos": false
+      }
+    },
+    {
+      "check": "classic:after:restriction_real",
+      "status": "PASS",
+      "detail": {
+        "restricted": true
+      }
+    },
+    {
+      "check": "classic:after:rights:guest",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:after:rights:active",
+      "status": "PASS",
+      "detail": {
+        "private": true,
+        "public": true,
+        "shortcode_contains_private": true
+      }
+    },
+    {
+      "check": "classic:after:rights:expired",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:after:rights:cancelled",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:after:rights:paused",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:after:rights:none",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:rights_unchanged_after_subject",
+      "status": "PASS",
+      "detail": "Fresh plugin bootstrap; API + restrict shortcode"
+    },
+    {
+      "check": "classic:actual_runtime_staging_and_locks",
+      "status": "PASS",
+      "detail": {
+        "mail_blocked": true,
+        "http_blocked": true,
+        "subscriptions_present": true,
+        "subscriptions_staging": true,
+        "environment_staging": true,
+        "cron_disabled": true,
+        "as_async_disabled": true,
+        "as_runner_disabled": true,
+        "gateways_disabled": true
+      }
+    },
+    {
+      "check": "classic:actual_subscription_email_residue_inserted",
+      "status": "PASS",
+      "detail": {
+        "subscription_id": 19,
+        "external_email_written": true
+      }
+    },
+    {
+      "check": "classic:actual_subscription_email_residue_rejected",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "issues": [
+          "EMAIL_EXTERNE"
+        ]
+      }
+    },
+    {
+      "check": "classic:subscription_residue_restore",
+      "status": "PASS",
+      "detail": "Same-container sanitized SQL restored; subscription business fields unchanged"
+    },
+    {
+      "check": "classic:real_nonstaging_canary",
+      "status": "PASS",
+      "detail": {
+        "mail_blocked": true,
+        "http_blocked": true,
+        "subscriptions_present": true,
+        "subscriptions_staging": false,
+        "environment_staging": true,
+        "cron_disabled": true,
+        "as_async_disabled": true,
+        "as_runner_disabled": true,
+        "gateways_disabled": true
+      }
+    },
+    {
+      "check": "classic:engine_refuses_actual_nonstaging",
+      "status": "PASS",
+      "detail": {
+        "stage": "engine",
+        "scope": "actual_engine_and_runtime_not_files",
+        "issues": [
+          "SUBSCRIPTIONS_NON_STAGING"
+        ]
+      }
+    },
+    {
+      "check": "classic:cli_refuses_nonstaging_copy",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "issues": [
+          "SUBSCRIPTIONS_NON_STAGING"
+        ],
+        "exact_subscription_tag_from_engine_only": true
+      }
+    },
+    {
+      "check": "classic:purge_generated_fixture_logs",
+      "status": "OBSERVED",
+      "detail": "Unchanged subject Files::purge replayed after deliberate nonstaging mutation; no source/data changes"
+    },
+    {
+      "check": "classic:restored_verifier_before_scheduler_attempt",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "issues": []
+      }
+    },
+    {
+      "check": "classic:renewal_scheduler_blocked",
+      "status": "PASS",
+      "detail": {
+        "action_id": 50,
+        "status": "failed",
+        "callback_calls": 0,
+        "renewals_before": 0,
+        "renewals_after": 0,
+        "duplicate_site": true,
+        "manual_renewal": true,
+        "cron_empty": true,
+        "async_disabled": true,
+        "runner_removed": true
+      }
+    },
+    {
+      "check": "classic:post_deliberate_scheduler_attempt_files",
+      "status": "OBSERVED",
+      "detail": {
+        "generated_logs": [
+          "wp-content/uploads/wc-logs/failed-scheduled-actions-2026-11-20-4cd55dedadddff4d9a41a81a531648bc.log"
+        ]
+      }
+    },
+    {
+      "check": "classic:final_verifier_after_explicit_fixture_log_purge",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "issues": [],
+        "file_purge_replayed_after_direct_scheduler_test": true
+      }
+    },
+    {
+      "check": "hpos:activate:woocommerce-memberships",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "output_sha256": "85ed1dc4cf1f03e5a9f94a53fd744b21cd3822a8bfef3e7f98746fdcc5fc9895"
+      }
+    },
+    {
+      "check": "hpos:activate:woocommerce-subscriptions",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "output_sha256": "958f3d00f4c929e1d47ab77a651fb5df5c6b9bdad1da0c3e207fc63ac4548cf0"
+      }
+    },
+    {
+      "check": "hpos:memberships_seed",
+      "status": "PASS",
+      "detail": {
+        "memberships_seeded": 4,
+        "subscriptions_available": true
+      }
+    },
+    {
+      "check": "hpos:before:restriction_real",
+      "status": "PASS",
+      "detail": {
+        "restricted": true
+      }
+    },
+    {
+      "check": "hpos:before:rights:guest",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:before:rights:active",
+      "status": "PASS",
+      "detail": {
+        "private": true,
+        "public": true,
+        "shortcode_contains_private": true
+      }
+    },
+    {
+      "check": "hpos:before:rights:expired",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:before:rights:cancelled",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:before:rights:paused",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:before:rights:none",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:subscriptions_seed",
+      "status": "PASS",
+      "detail": {
+        "created": 6
+      }
+    },
+    {
+      "check": "hpos:actual_versions",
+      "status": "PASS",
+      "detail": {
+        "wp": "7.0.9",
+        "woo": "11.1.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3",
+        "hpos": true
+      }
+    },
+    {
+      "check": "hpos:actual_authoritative_store",
+      "status": "PASS",
+      "detail": {
+        "wp": "7.0.9",
+        "woo": "11.1.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3",
+        "hpos": true
+      }
+    },
+    {
+      "check": "hpos:personal_oracle_sensitive",
+      "status": "PASS",
+      "detail": {
+        "outside_domain": 6
+      }
+    },
+    {
+      "check": "hpos:direct_sql_subscription_rows",
+      "status": "PASS",
+      "detail": {
+        "table": "wp_wc_orders",
+        "rows": 6
+      }
+    },
+    {
+      "check": "hpos:direct_sql_address_rows",
+      "status": "PASS",
+      "detail": {
+        "rows": 12
+      }
+    },
+    {
+      "check": "hpos:native_subscription_scheduler_seeded",
+      "status": "PASS",
+      "detail": {
+        "canceled": 16,
+        "pending": 14
+      }
+    },
+    {
+      "check": "hpos:real_renewal_positive_control",
+      "status": "PASS",
+      "detail": {
+        "action_id": 47,
+        "status": "complete",
+        "callback_calls": 1,
+        "renewals_before": 0,
+        "renewals_after": 1,
+        "duplicate_site": true,
+        "manual_renewal": true,
+        "cron_empty": false,
+        "async_disabled": false,
+        "runner_removed": false
+      }
+    },
+    {
+      "check": "hpos:renewal_control_rollback",
+      "status": "PASS",
+      "detail": "Fixture SQL restored; original subscription business state retained"
+    },
+    {
+      "check": "hpos:subject:neutraliser",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stdout_sha256": "9ed1fec97c0b6b84fbda7338759a0640065081efa7fab702bf6c726c83454726",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "check": "hpos:subject:anonymiser",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stdout_sha256": "9ed1fec97c0b6b84fbda7338759a0640065081efa7fab702bf6c726c83454726",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "check": "hpos:new_woo_table_requires_decision",
+      "status": "PASS",
+      "detail": {
+        "issues": [
+          "TABLE_PERSONNELLE_A_TRANCHER"
+        ],
+        "pending": {
+          "wp_wc_email_unsubscribes": [
+            "email_hash",
+            "email_kind"
+          ]
+        }
+      }
+    },
+    {
+      "check": "hpos:synthetic_woo_table_decision",
+      "status": "PASS",
+      "detail": {
+        "table": "wp_wc_email_unsubscribes",
+        "action": "garder",
+        "decision_is_synthetic_not_Ced_approval": true
+      }
+    },
+    {
+      "check": "hpos:subject:verifier",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stdout_sha256": "a44d3e0d3bcc8003e37b8ba6e2424917ae79d6dcf4fb104b1468d10cfdd9a67a",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "issues": [],
+        "unknown_personal_tables": []
+      }
+    },
+    {
+      "check": "hpos:native_subscription_actions_neutralized",
+      "status": "PASS",
+      "detail": {
+        "before": {
+          "canceled": 16,
+          "pending": 14
+        },
+        "after": {
+          "canceled": 30
+        }
+      }
+    },
+    {
+      "check": "hpos:preserve:business",
+      "status": "PASS",
+      "detail": {
+        "before_sha256": "ab216771d1a1a244cf127180df7f5c218b105ed4b26870d5ea4846bd13f4c9a2",
+        "after_sha256": "ab216771d1a1a244cf127180df7f5c218b105ed4b26870d5ea4846bd13f4c9a2"
+      }
+    },
+    {
+      "check": "hpos:preserve:membership",
+      "status": "PASS",
+      "detail": {
+        "before_sha256": "cc1d2f88305206e7a849aafc90ed4a7bf900c47381788366b7a78ea37c56ae49",
+        "after_sha256": "cc1d2f88305206e7a849aafc90ed4a7bf900c47381788366b7a78ea37c56ae49"
+      }
+    },
+    {
+      "check": "hpos:preserve:rules_sha256",
+      "status": "PASS",
+      "detail": {
+        "before_sha256": "9dfcf59d15422be38131cf819f0aacb5bb1cf5b44f13f0f0d91493720099e03a",
+        "after_sha256": "9dfcf59d15422be38131cf819f0aacb5bb1cf5b44f13f0f0d91493720099e03a"
+      }
+    },
+    {
+      "check": "hpos:actual_subscription_personal_cleanup",
+      "status": "PASS",
+      "detail": {
+        "subscriptions": 6,
+        "checks": [
+          {
+            "id": 19,
+            "email_safe": true,
+            "first_clean": true,
+            "address_clean": true,
+            "phone_clean": true
+          },
+          {
+            "id": 20,
+            "email_safe": true,
+            "first_clean": true,
+            "address_clean": true,
+            "phone_clean": true
+          },
+          {
+            "id": 21,
+            "email_safe": true,
+            "first_clean": true,
+            "address_clean": true,
+            "phone_clean": true
+          },
+          {
+            "id": 22,
+            "email_safe": true,
+            "first_clean": true,
+            "address_clean": true,
+            "phone_clean": true
+          },
+          {
+            "id": 23,
+            "email_safe": true,
+            "first_clean": true,
+            "address_clean": true,
+            "phone_clean": true
+          },
+          {
+            "id": 24,
+            "email_safe": true,
+            "first_clean": true,
+            "address_clean": true,
+            "phone_clean": true
+          }
+        ]
+      }
+    },
+    {
+      "check": "hpos:direct_sql_subscription_rows",
+      "status": "PASS",
+      "detail": {
+        "table": "wp_wc_orders",
+        "rows": 6
+      }
+    },
+    {
+      "check": "hpos:direct_sql_address_rows",
+      "status": "PASS",
+      "detail": {
+        "rows": 12
+      }
+    },
+    {
+      "check": "hpos:sql_address_coordinates_preserved",
+      "status": "PASS",
+      "detail": {
+        "hpos": true
+      }
+    },
+    {
+      "check": "hpos:after:restriction_real",
+      "status": "PASS",
+      "detail": {
+        "restricted": true
+      }
+    },
+    {
+      "check": "hpos:after:rights:guest",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:after:rights:active",
+      "status": "PASS",
+      "detail": {
+        "private": true,
+        "public": true,
+        "shortcode_contains_private": true
+      }
+    },
+    {
+      "check": "hpos:after:rights:expired",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:after:rights:cancelled",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:after:rights:paused",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:after:rights:none",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:rights_unchanged_after_subject",
+      "status": "PASS",
+      "detail": "Fresh plugin bootstrap; API + restrict shortcode"
+    },
+    {
+      "check": "hpos:actual_runtime_staging_and_locks",
+      "status": "PASS",
+      "detail": {
+        "mail_blocked": true,
+        "http_blocked": true,
+        "subscriptions_present": true,
+        "subscriptions_staging": true,
+        "environment_staging": true,
+        "cron_disabled": true,
+        "as_async_disabled": true,
+        "as_runner_disabled": true,
+        "gateways_disabled": true
+      }
+    },
+    {
+      "check": "hpos:actual_subscription_email_residue_inserted",
+      "status": "PASS",
+      "detail": {
+        "subscription_id": 19,
+        "external_email_written": true
+      }
+    },
+    {
+      "check": "hpos:actual_subscription_email_residue_rejected",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "issues": [
+          "EMAIL_EXTERNE"
+        ]
+      }
+    },
+    {
+      "check": "hpos:subscription_residue_restore",
+      "status": "PASS",
+      "detail": "Same-container sanitized SQL restored; subscription business fields unchanged"
+    },
+    {
+      "check": "hpos:real_nonstaging_canary",
+      "status": "PASS",
+      "detail": {
+        "mail_blocked": true,
+        "http_blocked": true,
+        "subscriptions_present": true,
+        "subscriptions_staging": false,
+        "environment_staging": true,
+        "cron_disabled": true,
+        "as_async_disabled": true,
+        "as_runner_disabled": true,
+        "gateways_disabled": true
+      }
+    },
+    {
+      "check": "hpos:engine_refuses_actual_nonstaging",
+      "status": "PASS",
+      "detail": {
+        "stage": "engine",
+        "scope": "actual_engine_and_runtime_not_files",
+        "issues": [
+          "SUBSCRIPTIONS_NON_STAGING"
+        ]
+      }
+    },
+    {
+      "check": "hpos:cli_refuses_nonstaging_copy",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "issues": [
+          "SUBSCRIPTIONS_NON_STAGING"
+        ],
+        "exact_subscription_tag_from_engine_only": true
+      }
+    },
+    {
+      "check": "hpos:purge_generated_fixture_logs",
+      "status": "OBSERVED",
+      "detail": "Unchanged subject Files::purge replayed after deliberate nonstaging mutation; no source/data changes"
+    },
+    {
+      "check": "hpos:restored_verifier_before_scheduler_attempt",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "issues": []
+      }
+    },
+    {
+      "check": "hpos:renewal_scheduler_blocked",
+      "status": "PASS",
+      "detail": {
+        "action_id": 50,
+        "status": "failed",
+        "callback_calls": 0,
+        "renewals_before": 0,
+        "renewals_after": 0,
+        "duplicate_site": true,
+        "manual_renewal": true,
+        "cron_empty": true,
+        "async_disabled": true,
+        "runner_removed": true
+      }
+    },
+    {
+      "check": "hpos:post_deliberate_scheduler_attempt_files",
+      "status": "OBSERVED",
+      "detail": {
+        "generated_logs": [
+          "wp-content/uploads/wc-logs/failed-scheduled-actions-2026-11-20-4cd55dedadddff4d9a41a81a531648bc.log"
+        ]
+      }
+    },
+    {
+      "check": "hpos:final_verifier_after_explicit_fixture_log_purge",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "issues": [],
+        "file_purge_replayed_after_direct_scheduler_test": true
+      }
+    },
+    {
+      "check": "inside_network_interfaces",
+      "status": "PASS",
+      "detail": "Only loopback exists"
+    },
+    {
+      "check": "no_tcp_listener:tcp",
+      "status": "PASS",
+      "detail": "No TCP socket listening, including MariaDB"
+    },
+    {
+      "check": "no_tcp_listener:tcp6",
+      "status": "PASS",
+      "detail": "No TCP socket listening, including MariaDB"
+    }
+  ],
+  "exit_code": 0,
+  "no_real_data": true,
+  "no_license_or_account_connection": true,
+  "operator_import_ready": false,
+  "files_import_fidelity_tested": false
+}

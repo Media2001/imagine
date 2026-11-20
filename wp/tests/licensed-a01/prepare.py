@@ -3,6 +3,7 @@ import concurrent.futures, datetime, hashlib, json, os, pathlib, subprocess, url
 ROOT = pathlib.Path(__file__).resolve().parent
 BASE = 'sha256:b2ffa6ad01ffacc6d31b176232c8d0779c0320daba381e05cbbd80f56d5327a0'
 URLS = {'wordpress.zip': 'https://wordpress.org/wordpress-7.0.9.zip', 'woocommerce.zip': 'https://downloads.wordpress.org/plugin/woocommerce.11.1.1.zip'}
+EXPECTED={'wordpress.zip':('5a46f3c0443a321afa1f511ec3007fc636fdbd2e7598871020351edeffa1e1a0',31438844),'woocommerce.zip':('c5748c60a28c5d4b439109def3955c5a629f7cd66b919ae5aefa588bcaace710',18002436)}
 work = pathlib.Path(os.environ['TMPDIR']) / 'imagine-a01-public-20261120'
 work.mkdir(exist_ok=True)
 def fetch(item):
@@ -11,7 +12,9 @@ def fetch(item):
         with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'Imagine-offline-fixture/1.0'}),timeout=180) as r: path.write_bytes(r.read())
     with zipfile.ZipFile(path) as z:
         if z.testzip(): raise RuntimeError('ZIP corruption')
-    return name, {'url':url,'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'bytes':path.stat().st_size}
+    digest=hashlib.sha256(path.read_bytes()).hexdigest();size=path.stat().st_size
+    assert (digest,size)==EXPECTED[name],'Pinned public artifact mismatch: '+name
+    return name, {'url':url,'sha256':digest,'bytes':size}
 artifacts=dict(concurrent.futures.ThreadPoolExecutor(2).map(fetch,URLS.items()))
 (work/'SHA256SUMS').write_text(''.join(v['sha256']+'  '+k+'\n' for k,v in artifacts.items()))
 (work/'Dockerfile').write_text('FROM '+BASE+'\nLABEL org.imagine.synthetic-e2e="true"\nCOPY wordpress.zip woocommerce.zip SHA256SUMS /opt/compatible-public/\nRUN cd /opt/compatible-public && sha256sum -c SHA256SUMS && rm -rf /opt/wordpress /opt/woocommerce && mkdir /opt/wordpress /opt/woocommerce && unzip -q wordpress.zip -d /opt/wordpress && unzip -q woocommerce.zip -d /opt/woocommerce\nCMD ["sleep", "infinity"]\n')

@@ -9,6 +9,7 @@ import hashlib
 import io
 import json
 import pathlib
+import re
 import subprocess
 import tarfile
 import urllib.request
@@ -63,6 +64,8 @@ def main():
     parser.add_argument('--name', default='green')
     parser.add_argument('--filter')
     args = parser.parse_args()
+    if not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,63}', args.name):
+        parser.error('--name must be a simple lowercase local evidence name')
     OUT.mkdir(parents=True, exist_ok=True)
     if args.action == 'prepare':
         assert not STATE.exists(), 'Close the preceding owned runner first'

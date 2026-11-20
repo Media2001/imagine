@@ -2,6 +2,7 @@
 import collections,datetime,hashlib,json,pathlib,sys,uuid
 ROOT=pathlib.Path(__file__).resolve().parent
 BASE=ROOT.parent/'staging-e2e'
+sys.dont_write_bytecode=True
 sys.path.insert(0,str(BASE))
 from harness import Harness,validate_inspection,SUBJECT_FILES,LABEL
 class Target(Harness):
@@ -16,9 +17,10 @@ def main():
     prior=json.loads((BASE/'evidence/f36c72f4d187/subject-source.json').read_text())
     assert manifest==prior,'Existing stabilized subject baseline drifted'
     (h.evidence/'subject-source.json').write_text(json.dumps(manifest,indent=2)+'\n')
-    names=['run.py','inside-commercial.py','cases.php','prepare.py','compatible.lock.json']
+    names=['run.py','inside-commercial.py','cases.php','diagnostic.php','prepare.py','compatible.lock.json']
     sources={n:hashlib.sha256((ROOT/n).read_bytes()).hexdigest()for n in names}
-    sources['baseline:inside.py']=hashlib.sha256((BASE/'inside.py').read_bytes()).hexdigest()
+    for n in ['inside.py','worker-bridge.php','subject-adapter.json','harness.py']:
+        sources['baseline:'+n]=hashlib.sha256((BASE/n).read_bytes()).hexdigest()
     (h.evidence/'driver-source.json').write_text(json.dumps(sources,indent=2)+'\n')
     lock=json.loads((ROOT/'compatible.lock.json').read_text());image=lock['image_id']
     info=json.loads(h.call(['image','inspect',image]).stdout)[0]
