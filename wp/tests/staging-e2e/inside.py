@@ -344,6 +344,11 @@ def acceptance(site, database, storage, before):
     assert_true(clean_oracle(value, after=True), storage + ':independent_clean_and_mail_blocked', value)
     assert_true(after['orders'] == before_raw['orders'], storage + ':preserved_business_fields',
                 'Statuses, dates, amounts, products, quantities, countries and payment methods unchanged')
+    assert_true(after['address_structure'] == before_raw['address_structure']
+                and (storage != 'hpos' or len(after['address_structure']) == 60),
+                storage + ':hpos_address_discriminators_preserved',
+                {'rows': len(after['address_structure']),
+                 'proof': 'PDO equality of id/order_id/address_type/country; billing/shipping unique key retained'})
     old_users = {int(u['id']): u for u in before_raw['users']}
     new_users = {int(u['id']): u for u in after['users']}
     assert_true(all(uid in new_users and old['pass_hash'] != new_users[uid]['pass_hash'] for uid, old in old_users.items()),
@@ -359,8 +364,11 @@ def acceptance(site, database, storage, before):
         assert_true(not clean_oracle(raw_db(database, storage)), storage + ':residue_actually_inserted:' + case,
                     'Independent PDO oracle saw the residue before invoking the verifier')
         result = subject_command(site, 'verifier', password, context)
-        assert_true(result.returncode != 0, storage + ':subject_rejects_residue:' + case,
-                    {'exit_code': result.returncode, 'verification_only': True,
+        residue_report = json.loads(result.stdout)
+        expected_issue = 'EMAIL_EXTERNE' if case in ('user-email', 'order-email', 'note-email') else 'SECRET_OU_IDENTIFIANT'
+        assert_true(result.returncode == 1 and expected_issue in residue_report.get('issues', []),
+                    storage + ':subject_rejects_residue:' + case,
+                    {'exit_code': result.returncode, 'issues': residue_report.get('issues'), 'verification_only': True,
                      'start_gate': 'NOT_TESTED: no server is started by this harness'})
     record(storage + ':residue_refusals', 'PASS', 'All enumerated residue verifier refusals completed')
     restore(database, sanitized)
@@ -392,10 +400,10 @@ def acceptance(site, database, storage, before):
         for action in ('garder', 'vider', 'anonymiser'):
             raw_db(database, storage, 'table-fixtures', {'E2E_TABLE_ACTION': 'drop-personal'})
             restore(database, sanitized)
-            raw_db(database, storage, 'table-fixtures', {'E2E_TABLE_ACTION': 'personal'})
+            personal_before = raw_db(database, storage, 'table-fixtures', {'E2E_TABLE_ACTION': 'personal'})
             decision = {'action': action}
             if action == 'anonymiser':
-                decision['columns'] = ['email']
+                decision['columns'] = ['email', 'telephone']
             context.write_text(json.dumps(dict(base_context, table_decisions={
                 **base_context.get('table_decisions', {}), 'wp_imagine_e2e_personal': decision})))
             for phase in ('neutraliser', 'anonymiser', 'verifier'):
@@ -403,7 +411,14 @@ def acceptance(site, database, storage, before):
                 assert_true(result.returncode == 0, storage + ':synthetic_decision:' + action + ':' + phase,
                             {'exit_code': result.returncode, 'decision_is_synthetic_not_Ced_approval': True})
             status = raw_db(database, storage, 'table-fixtures', {'E2E_TABLE_ACTION': 'status'})
-            assert_true(status['personal_rows'] == (0 if action == 'vider' else 1) and status['personal_email_safe'],
+            effect = status['personal_rows'] == (0 if action == 'vider' else 1)
+            if action == 'garder':
+                effect = effect and status['personal_digest'] == personal_before['personal_digest']
+                effect = effect and not status['personal_email_safe'] and not status['personal_telephone_empty']
+            elif action == 'anonymiser':
+                effect = effect and status['personal_email_safe'] and status['personal_telephone_empty']
+                effect = effect and status['personal_digest'] != personal_before['personal_digest']
+            assert_true(effect and status['personal_layout_preserved'],
                         storage + ':synthetic_decision_effect:' + action, status)
     finally:
         context.write_text(json.dumps(base_context))

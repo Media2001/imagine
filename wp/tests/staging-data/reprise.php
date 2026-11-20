@@ -214,4 +214,19 @@ $beforeNoId = $noId->rows('x_contacts_no_id');
 repriseCheck(count(array_unique(array_column($beforeNoId, 'email'))) === 2, 'emails anonymes distincts sans id conventionnel');
 $noIdEngine->anonymiser('SYNTHETIC-test-password-2026');
 repriseCheck($noId->rows('x_contacts_no_id') === $beforeNoId, 'pseudonymes inconnus sans id stables à la relance');
+// Regression: the HPOS billing/shipping discriminator is not an address value.
+$addressFixture = fixture();
+$addressFixture->columns['x_wc_order_addresses'][] = 'address_type';
+$addressFixture->tables['x_wc_order_addresses'][0]['address_type'] = 'billing';
+$addressFixture->tables['x_wc_order_addresses'][1] = array_replace($addressFixture->tables['x_wc_order_addresses'][0],
+    ['id'=>2, 'address_type'=>'shipping']);
+$addressEngine = new Imagine\Staging\Engine($addressFixture, $context, 'x_');
+$addressEngine->neutraliser();
+$addressEngine->anonymiser('SYNTHETIC-test-password-2026');
+repriseCheck(array_column(array_slice($addressFixture->rows('x_wc_order_addresses'), 0, 2), 'address_type')
+    === ['billing','shipping'], 'HPOS discriminateurs billing/shipping intacts');
+repriseCheck($addressFixture->rows('x_wc_order_addresses')[0]['first_name'] === ''
+    && $addressFixture->rows('x_wc_order_addresses')[0]['address_1'] === ''
+    && $addressFixture->rows('x_wc_order_addresses')[0]['phone'] === ''
+    && $addressFixture->rows('x_wc_order_addresses')[0]['country'] === 'BE', 'HPOS identité retirée sans perdre pays ni structure');
 print("OK $assertions assertions reprise\n");

@@ -147,7 +147,8 @@ if ($mode === 'snapshot') {
         }
     }
     unset($user);
-    echo 'E2E_JSON=' . json_encode(['orders' => $orders, 'users' => $users], JSON_THROW_ON_ERROR) . "\n";
+    echo 'E2E_JSON=' . json_encode(['orders' => $orders, 'users' => $users,
+        'address_structure' => $rows('SELECT id,order_id,address_type,country FROM wp_wc_order_addresses ORDER BY id')], JSON_THROW_ON_ERROR) . "\n";
     return;
 }
 
