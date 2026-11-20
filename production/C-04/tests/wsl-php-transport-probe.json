@@ -1,0 +1,6 @@
+{
+  "argument_exit": 255,
+  "argument_output": "PHP Parse error:  syntax error, unexpected token \"=\", expecting end of file in Command line code on line 1\n",
+  "stdin_exit": 0,
+  "stdin_output": "17"
+}

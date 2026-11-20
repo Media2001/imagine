@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="22" assertions="161" errors="0" failures="0" skipped="0" time="0.155100">
+    <testsuite name="Connecteur" tests="22" assertions="161" errors="0" failures="0" skipped="0" time="0.155100">
+      <testsuite name="Imagine\Connecteur\Tests\EventTest" file="/work/tests/EventTest.php" tests="4" assertions="43" errors="0" failures="0" skipped="0" time="0.008790">
+        <testcase name="testDeterministicIdentityAndDeduplicatedInsertion" file="/work/tests/EventTest.php" line="32" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="8" time="0.006991"/>
+        <testcase name="testTransitionTableExhaustive" file="/work/tests/EventTest.php" line="48" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="29" time="0.001162"/>
+        <testcase name="testPrivacyWhitelistRejectsUnknownFieldsAtEveryLevel" file="/work/tests/EventTest.php" line="74" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="4" time="0.000551"/>
+        <testcase name="testRenewalsRequireDistinctSourceObjectsNotJustSubscriptionId" file="/work/tests/EventTest.php" line="94" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="2" time="0.000086"/>
+      </testsuite>
+      <testsuite name="Imagine\Connecteur\Tests\ExportTest" file="/work/tests/ExportTest.php" tests="7" assertions="31" errors="0" failures="0" skipped="0" time="0.143960">
+        <testcase name="testPersistentIdempotentExportRebuildsIdenticallyAndCatchesUpSkippedDays" file="/work/tests/ExportTest.php" line="71" class="Imagine\Connecteur\Tests\ExportTest" classname="Imagine.Connecteur.Tests.ExportTest" assertions="9" time="0.039448"/>
+        <testcase name="testSpringAndAutumnLocalDaysDoNotAssumeTwentyFourHours" file="/work/tests/ExportTest.php" line="99" class="Imagine\Connecteur\Tests\ExportTest" classname="Imagine.Connecteur.Tests.ExportTest" assertions="10" time="0.055155"/>
+        <testcase name="testQueueValidatesBeforeCsvAndRepeatedWorkerRunDoesNotAppend" file="/work/tests/ExportTest.php" line="126" class="Imagine\Connecteur\Tests\ExportTest" classname="Imagine.Connecteur.Tests.ExportTest" assertions="2" time="0.012595"/>
+        <testcase name="testLateEventUsesNextOpenBatchWithoutChangingAnAlreadyPublishedDay" file="/work/tests/ExportTest.php" line="156" class="Imagine\Connecteur\Tests\ExportTest" classname="Imagine.Connecteur.Tests.ExportTest" assertions="5" time="0.023032"/>
+        <testcase name="testSymlinkCannotRedirectAnExportOutsideItsExplicitDirectory" file="/work/tests/ExportTest.php" line="176" class="Imagine\Connecteur\Tests\ExportTest" classname="Imagine.Connecteur.Tests.ExportTest" assertions="1" time="0.000930"/>
+        <testcase name="testCorruptJournalFailsClosedInsteadOfProducingAnIncompleteCsv" file="/work/tests/ExportTest.php" line="192" class="Imagine\Connecteur\Tests\ExportTest" classname="Imagine.Connecteur.Tests.ExportTest" assertions="2" time="0.007111"/>
+        <testcase name="testEmptyDayStillHasStableColumns" file="/work/tests/ExportTest.php" line="206" class="Imagine\Connecteur\Tests\ExportTest" classname="Imagine.Connecteur.Tests.ExportTest" assertions="2" time="0.005689"/>
+      </testsuite>
+      <testsuite name="Imagine\Connecteur\Tests\ValidationTest" file="/work/tests/ValidationTest.php" tests="2" assertions="22" errors="0" failures="0" skipped="0" time="0.000587">
+        <testcase name="testBillingRulesIdentifyEachAnomalyWithoutLeakingValues" file="/work/tests/ValidationTest.php" line="14" class="Imagine\Connecteur\Tests\ValidationTest" classname="Imagine.Connecteur.Tests.ValidationTest" assertions="19" time="0.000472"/>
+        <testcase name="testEnterpriseValidatorAndNewRulesAreInjectedWithoutChangingEngine" file="/work/tests/ValidationTest.php" line="41" class="Imagine\Connecteur\Tests\ValidationTest" classname="Imagine.Connecteur.Tests.ValidationTest" assertions="3" time="0.000115"/>
+      </testsuite>
+      <testsuite name="Imagine\Connecteur\Tests\WorkerTest" file="/work/tests/WorkerTest.php" tests="9" assertions="65" errors="0" failures="0" skipped="0" time="0.001763">
+        <testcase name="testThreeFailuresThenRecoverySendsOnlyOnceAndHonoursBackoff" file="/work/tests/WorkerTest.php" line="40" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="21" time="0.000337"/>
+        <testcase name="testLateAcknowledgementUsesDestinationIdempotency" file="/work/tests/WorkerTest.php" line="64" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="5" time="0.000129"/>
+        <testcase name="testQuarantineBlocksOnlyItsOwnSubscriptionAndNamesTheRule" file="/work/tests/WorkerTest.php" line="79" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="8" time="0.000178"/>
+        <testcase name="testPermanentRefusalQuarantinesWithoutRetry" file="/work/tests/WorkerTest.php" line="111" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="5" time="0.000152"/>
+        <testcase name="testAttemptLimitAlertsOnceAndRetainsEvent" file="/work/tests/WorkerTest.php" line="125" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="8" time="0.000514"/>
+        <testcase name="testRetryDelayStartsAfterFailureNotBeforeSlowSend" file="/work/tests/WorkerTest.php" line="144" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="1" time="0.000109"/>
+        <testcase name="testExpiredProcessingLeaseCanRecoverAfterWorkerCrash" file="/work/tests/WorkerTest.php" line="173" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="6" time="0.000114"/>
+        <testcase name="testFutureEventsWaitAndSlowDestinationDoesNotLoseTheEvent" file="/work/tests/WorkerTest.php" line="191" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="6" time="0.000107"/>
+        <testcase name="testSubscriptionEventsRunChronologicallyNotInsertionOrder" file="/work/tests/WorkerTest.php" line="207" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="5" time="0.000123"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

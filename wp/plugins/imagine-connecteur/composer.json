@@ -11,7 +11,7 @@
     "autoload-dev": {"psr-4": {"Imagine\\Connecteur\\Tests\\": "tests/"}},
     "scripts": {
         "test": "phpunit --fail-on-warning --fail-on-risky --fail-on-deprecation",
-        "lint": "phpcs --standard=PSR12 src tests"
+        "lint": "phpcs --standard=PSR12 src tests examples"
     },
     "config": {"allow-plugins": false, "sort-packages": true},
     "license": "proprietary"

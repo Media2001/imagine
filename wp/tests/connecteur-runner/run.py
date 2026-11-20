@@ -1,5 +1,8 @@
 """Reuse the C-01 isolated bench without modifying its sources or evidence."""
 import importlib.util
+import sys
+
+sys.dont_write_bytecode = True
 import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
