@@ -205,4 +205,13 @@ $invalidDecision = false;
 try { new Imagine\Staging\Engine($private, $context, 'x_', ['other_contacts'=>['action'=>'garder','reason'=>'SYNTHETIC VALUE MUST NOT LEAK']]); }
 catch (RuntimeException) { $invalidDecision = true; }
 repriseCheck($invalidDecision, 'décision à champs inconnus refusée sans divulgation');
+$noId = clone $store;
+$noId->columns['x_contacts_no_id'] = ['contact_ref', 'email'];
+$noId->tables['x_contacts_no_id'] = [['contact_ref'=>'one','email'=>'one@outside.invalid'], ['contact_ref'=>'two','email'=>'two@outside.invalid']];
+$noIdEngine = new Imagine\Staging\Engine($noId, $context, 'x_', ['x_contacts_no_id'=>['action'=>'anonymiser','columns'=>['email']]]);
+$noIdEngine->anonymiser('SYNTHETIC-test-password-2026');
+$beforeNoId = $noId->rows('x_contacts_no_id');
+repriseCheck(count(array_unique(array_column($beforeNoId, 'email'))) === 2, 'emails anonymes distincts sans id conventionnel');
+$noIdEngine->anonymiser('SYNTHETIC-test-password-2026');
+repriseCheck($noId->rows('x_contacts_no_id') === $beforeNoId, 'pseudonymes inconnus sans id stables à la relance');
 print("OK $assertions assertions reprise\n");

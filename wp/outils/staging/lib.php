@@ -52,9 +52,13 @@ final class Engine
         }
         foreach ($this->decisions as $table => $decision) {
             if (!isset($this->unknownTables[$table]) || !is_array($decision)
+                || array_diff(array_keys($decision), ['action', 'columns'])
                 || !in_array($decision['action'] ?? '', ['garder', 'vider', 'anonymiser'], true)
+                || (($decision['action'] ?? '') !== 'anonymiser' && array_key_exists('columns', $decision))
                 || (($decision['action'] ?? '') === 'anonymiser'
                     && (empty($decision['columns']) || !is_array($decision['columns'])
+                        || !array_is_list($decision['columns'])
+                        || count(array_filter($decision['columns'], 'is_string')) !== count($decision['columns'])
                         || array_diff($decision['columns'], $this->unknownTables[$table])))) {
                 throw new RuntimeException('DECISION_INVALIDE');
             }
@@ -395,7 +399,14 @@ final class Engine
                 }
                 if ($privacy && isset($this->unknownTables[$table]) && ($this->decisions[$table]['action'] ?? '') === 'anonymiser') {
                     foreach ($this->decisions[$table]['columns'] as $column) {
-                        $next[$column] = preg_match('/email|e_mail/i', $column) ? "abonne-$id@example.org" : '';
+                        if (preg_match('/email|e_mail/i', $column)) {
+                            $rowId = (int) ($row['ID'] ?? $row['id'] ?? 0);
+                            $next[$column] = $rowId !== 0 ? "abonne-$rowId@example.org"
+                                : (preg_match('/^abonne-[a-f0-9]{32}@example\.org$/D', (string) $row[$column])
+                                    ? $row[$column] : 'abonne-' . bin2hex(random_bytes(16)) . '@example.org');
+                        } else {
+                            $next[$column] = is_int($row[$column]) || is_float($row[$column]) ? 0 : '';
+                        }
                     }
                 }
                 if ($kind === 'wc_webhooks') {
