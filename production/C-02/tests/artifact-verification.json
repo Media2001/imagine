@@ -1,0 +1,43 @@
+{
+  "time_utc": "2026-11-20T16:24:54.992961+00:00",
+  "status": "VERIFIED_LOCAL",
+  "verification_kind": "deterministic artifact check after final writes",
+  "suites": {
+    "C-01": {
+      "tests": 39,
+      "assertions": 101
+    },
+    "C-02": {
+      "tests": 41,
+      "assertions": 19560
+    },
+    "C-03": {
+      "tests": 89,
+      "assertions": 199
+    },
+    "C-04": {
+      "tests": 22,
+      "assertions": 161
+    }
+  },
+  "total": {
+    "tests": 191,
+    "assertions": 20021
+  },
+  "protected_initial_files": 377,
+  "protected_unchanged_nonshared_files": 375,
+  "protected_inventory_and_hashes_unchanged": true,
+  "shared_original_bytes_reconstructed": true,
+  "final_tested_source_inventory_and_hashes_match": true,
+  "readme_php_example_executed": true,
+  "application_network_calls": "none",
+  "registry_research": "none; documentation leads unverified",
+  "owned_runner_removed_and_absence_read_back": true,
+  "independent_review": false,
+  "go": false,
+  "deployed": false,
+  "decision_8": "open",
+  "manifest_files": 85,
+  "manifest_sha256": "8a226247f1bb436730cf3b8a7df1910aab1d44e8f925753e4f3ad943e6100379",
+  "checker_sha256": "8dcd00eb9b8c044f08ea3b1ce234983bde57ecf43d455a4019a946894e691d94"
+}
