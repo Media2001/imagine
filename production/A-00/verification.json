@@ -1,0 +1,1475 @@
+{
+  "lot": "A-00",
+  "nature": "Vérification documentaire et cohérence des artefacts ; aucune recette fonctionnelle des extensions",
+  "execute_le": "2026-11-20T16:01:36.010377+01:00",
+  "resultat": "REUSSI",
+  "controles_executes": 253,
+  "reussis": 253,
+  "echoues": 0,
+  "tests_fonctionnels_extensions_executes": 0,
+  "sources_officielles": 38,
+  "besoins": 19,
+  "checks": [
+    {
+      "controle": "19 sections numérotées dans l’ordre",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "19 lignes de synthèse sans doublon",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Chaque besoin comporte une citation de documentation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "38 sources distinctes",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Identifiants source contigus",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Rubrique : Modules complémentaires nécessaires et éditeurs",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Rubrique : Ce qui reste à développer ou à raccorder",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Rubrique : À arbitrer par Ced",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Rubrique : Ce qui a réellement été testé dans A-01",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Questions fermées explicites",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Doutes et limites de recette explicites",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 1 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/subscriptions/billing-date-alignment/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 1 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 1 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 1 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 1 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 1 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 2 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/subscriptions/billing-date-alignment/creating-an-aligned-subscription-product/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 2 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 2 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 2 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 2 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 2 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 3 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/subscriptions/develop/functions/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 3 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 3 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 3 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 3 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 3 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 4 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/subscriptions/creating-subscription-products/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 4 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 4 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 4 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 4 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 4 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 5 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/subscriptions/payment-gateways/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 5 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 5 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 5 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 5 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 5 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 6 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/stripe/setup-and-configuration/settings-guide/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 6 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 6 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 6 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 6 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 6 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 7 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/stripe/setup-and-configuration/additional-payment-methods/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 7 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 7 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 7 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 7 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 7 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 8 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://docs.stripe.com/payments/sepa-debit",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 8 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 8 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 8 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 8 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 8 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 9 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://docs.stripe.com/payments/sepa-debit/accept-a-payment",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 9 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 9 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 9 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 9 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 9 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 10 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://docs.stripe.com/receipts",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 10 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 10 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 10 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 10 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 10 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 11 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/woocommerce-paypal-payments/subscriptions/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 11 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 11 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 11 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 11 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 11 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 12 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/woocommerce-paypal-payments/save-payment-methods/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 12 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 12 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 12 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 12 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 12 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 13 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/subscriptions/renewal-process/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 13 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 13 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 13 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 13 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 13 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 14 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/subscriptions/add-or-modify-a-subscription/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 14 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 14 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 14 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 14 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 14 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 15 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/subscriptions-gifting/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 15 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 15 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 15 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 15 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 15 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 16 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/subscriptions/customers-view/gifting-a-subscription/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 16 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 16 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 16 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 16 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 16 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 17 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/teams-woocommerce-memberships/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 17 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 17 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 17 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 17 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 17 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 18 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/subscriptions/subscriptions-coupons/limited-payment-coupon-guide/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 18 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 18 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 18 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 18 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 18 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 19 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/subscriptions/subscriptions-coupons/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 19 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 19 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 19 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 19 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 19 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 20 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/coupon-management/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 20 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 20 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 20 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 20 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 20 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 21 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/woocommerce-memberships-plans/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 21 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 21 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 21 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 21 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 21 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 22 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/woocommerce-memberships-subscriptions-integration/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 22 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 22 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 22 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 22 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 22 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 23 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/woocommerce-memberships-settings/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 23 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 23 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 23 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 23 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 23 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 24 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/woocommerce-memberships-faq/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 24 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 24 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 24 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 24 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 24 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 25 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/digital-downloadable-product-handling/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 25 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 25 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 25 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 25 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 25 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 26 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/subscriptions/failed-payment-retry/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 26 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 26 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 26 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 26 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 26 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 27 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/subscriptions/develop/failed-payment-retry/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 27 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 27 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 27 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 27 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 27 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 28 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/setting-up-shipping-zones/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 28 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 28 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 28 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 28 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 28 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 29 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/subscriptions/customers-view/update-address/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 29 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 29 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 29 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 29 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 29 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 30 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/subscriptions/add-or-modify-a-subscription/update-an-existing-subscription/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 30 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 30 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 30 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 30 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 30 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 31 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://docs.nexcess.com/software/the-events-calendar/setting-up-event-tickets/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 31 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 31 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 31 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 31 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 31 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 32 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://docs.nexcess.com/software/the-events-calendar/create-tickets/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 32 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 32 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 32 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 32 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 32 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 33 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://docs.nexcess.com/software/the-events-calendar/ticket-qr-codes/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 33 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 33 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 33 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 33 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 33 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 34 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://docs.nexcess.com/software/the-events-calendar/woocommerce-extensions/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 34 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 34 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 34 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 34 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 34 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 35 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://woocommerce.com/document/subscriptions/migrating-subscribers-woocommerce-subscriptions/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 35 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 35 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 35 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 35 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 35 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 36 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://rankmath.com/kb/schema-generator/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 36 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 36 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 36 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 36 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 36 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 37 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://rankmath.com/kb/article-schema/",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 37 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 37 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 37 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 37 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 37 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 38 : domaine et statut HTTP",
+      "statut": "REUSSI",
+      "detail": {
+        "url": "https://developers.google.com/search/docs/appearance/structured-data/paywalled-content",
+        "http_status": 200
+      }
+    },
+    {
+      "controle": "Source 38 : chemin documentaire",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 38 : registre cohérent",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 38 : extraits courts",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 38 : extraits retrouvés littéralement",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Source 38 : date de consultation",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Vérificateur de citations strict avec preuves",
+      "statut": "REUSSI",
+      "detail": "info: stats: 297 prose sentence(s), 84 with declared provenance (28%) — 84 cited, 0 marked [unverified] (a sentence may be both); 38 distinct source(s) cited, 38 in ledger (38 with evidence quotes)\ncitations OK\n"
+    },
+    {
+      "controle": "A-01 : empreinte du reçu identique au rapport",
+      "statut": "REUSSI",
+      "detail": "c5da74dabc717773098edb08603d8695cbdd0c297183821a5f70ef858c5efc56"
+    },
+    {
+      "controle": "A-01 : décomptes relus",
+      "statut": "REUSSI",
+      "detail": {
+        "PASS": 104,
+        "OBSERVED": 4
+      }
+    },
+    {
+      "controle": "A-01 : détail des contrôles identique",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "A-01 : pas de prêt import opérateur",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Contre-exemple : cinq charges avant anniversaire",
+      "statut": "REUSSI",
+      "detail": [
+        "2027-02-20",
+        "2027-04-10",
+        "2027-07-10",
+        "2027-10-10",
+        "2028-01-10"
+      ]
+    },
+    {
+      "controle": "Contre-exemple : tous les intervalles communs font trois mois",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Contre-exemple officiel : prochain mois distinct du trimestre cible",
+      "statut": "REUSSI",
+      "detail": {
+        "source": 2,
+        "annee_fictive": 2027,
+        "inscription": "6 avril",
+        "premier_alignement_documente": "1er mai",
+        "cible_civile_du_contre_exemple": "1er juillet"
+      }
+    },
+    {
+      "controle": "couverture-extensions.md : aucun marqueur de brouillon",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "couverture-extensions.md : aucun secret-type",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "RELECTURE.md : aucun marqueur de brouillon",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "RELECTURE.md : aucun secret-type",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Aucun code de production ajouté au lot",
+      "statut": "REUSSI",
+      "detail": null
+    },
+    {
+      "controle": "Aucun GO créé dans le lot",
+      "statut": "REUSSI",
+      "detail": null
+    }
+  ],
+  "tentatives_collecte": {
+    "total": 54,
+    "statuts": {
+      "200": 44,
+      "HTTP Error 404: Not Found": 8,
+      "HTTP Error 403: Forbidden": 2
+    }
+  },
+  "a01": {
+    "mode": "lecture de preuve préexistante, sans rejeu",
+    "recu": "e49f54c5e931",
+    "compteurs": {
+      "PASS": 104,
+      "OBSERVED": 4
+    },
+    "sha256": "c5da74dabc717773098edb08603d8695cbdd0c297183821a5f70ef858c5efc56",
+    "import_operateur_pret": false
+  },
+  "exemple_calendrier": {
+    "nature": "Hypothèse fictive de décompte, pas calendrier Imagine ni test Subscriptions",
+    "debut": "2027-02-20",
+    "anniversaire": "2028-02-20",
+    "charges": [
+      "2027-02-20",
+      "2027-04-10",
+      "2027-07-10",
+      "2027-10-10",
+      "2028-01-10"
+    ],
+    "nombre": 5
+  },
+  "artefacts": {
+    "couverture-extensions.md": {
+      "sha256": "7ca81bdf9d5e34f49d25b9608cd274cf94fe50f5e836f106352028683d755c00",
+      "octets": 58793
+    },
+    "RELECTURE.md": {
+      "sha256": "d4f3d2c83ba18fda6447f055463d53b69016d8b3c4a06d2bd4fe95f8f04c2bb7",
+      "octets": 3899
+    },
+    "sources-officielles.json": {
+      "sha256": "a5de6a8d771d6b997e6d948736665c92916d178f89450c4888152cd7f9135fde",
+      "octets": 21536
+    },
+    "registre-citations.json": {
+      "sha256": "d7945bddb5cecff0771ecedd11494ced96360f7e1a261eedafff258fd40f0b8f",
+      "octets": 18075
+    },
+    "sources-collectees.json": {
+      "sha256": "b466265a8cd953edc9ca95d2c6f24f7f6e0922217b06e5dfde97ebf2c3a05d79",
+      "octets": 25391
+    }
+  },
+  "verificateur_citations": {
+    "commande": [
+      "C:\\Users\\Ced\\AppData\\Local\\hermes\\skills\\research\\grounded-citations\\scripts\\sources.py",
+      "--ledger",
+      "production/A-00/registre-citations.json",
+      "verify",
+      "production/A-00/couverture-extensions.md",
+      "--strict",
+      "--evidence"
+    ],
+    "code_sortie": 0,
+    "sortie": "info: stats: 297 prose sentence(s), 84 with declared provenance (28%) — 84 cited, 0 marked [unverified] (a sentence may be both); 38 distinct source(s) cited, 38 in ledger (38 with evidence quotes)\ncitations OK\n"
+  },
+  "decision": "Prêt à relire comme étude seulement. Aucun arbitrage financier ou d’accès, aucune validation de passerelle, aucun GO de déploiement."
+}

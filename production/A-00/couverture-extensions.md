@@ -77,7 +77,9 @@ Les deux pages ne décrivent pas exactement les mêmes choix pour les derniers j
 
 ### Peut-on déplacer chaque prochaine échéance ?
 
-Oui, l'API documentaire expose `WC_Subscription::update_dates( $dates, $timezone )`, avec la clé `next_payment`, et `can_date_be_updated( $date_type )`. Extraits : « Set the dates on the subscription. » et « Check if a given date type can be updated for this subscription. »[3] Les dates sont interdépendantes ; le fuseau par défaut est GMT. La possibilité effective dépend également des fonctionnalités de la passerelle.[3][5][30] Une mise à jour directe d'une métadonnée n'est pas l'interface documentée ici.
+Oui, l'API documentaire expose `WC_Subscription::update_dates( $dates, $timezone )`, avec la clé `next_payment`, et `can_date_be_updated( $date_type )`. Extraits : « Set the dates on the subscription. » et « Check if a given date type can be updated for this subscription. »[3]
+Les dates sont interdépendantes ; le fuseau par défaut est GMT. La possibilité effective dépend également des fonctionnalités de la passerelle.[3][5][30]
+Une mise à jour directe d'une métadonnée n'est pas l'interface documentée ici.
 
 **Raccord à prévoir, après arbitrage :** faire calculer la prochaine date par le calendrier métier et la transmettre par ces API, sans recréer l'encaissement Woo. Les contraintes de dates, le repositionnement après chaque résultat de paiement et la compatibilité passerelle/ordonnanceur seront des tests du branchement futur ; aucune preuve A-01 ne les couvre.[3][5]
 
@@ -95,9 +97,13 @@ Il faut donc distinguer **année d'engagement, quatre créances/échéances, num
 
 **Référence : §3.6. Verdict : distinguer les deux parcours.**
 
-Pour la **carte**, la matrice officielle dit : « The Stripe extension can support automatic renewals via normal card payments ».[5] Elle documente donc une récurrence par carte, pas une transformation systématique carte → mandat SEPA.[5] **Doute :** aucun parcours Woo officiel consulté ne prouve cette transformation automatique. Si le cahier des charges exige SEPA après une première carte, collecter et rattacher un mandat SEPA explicite dans ce parcours est un travail à concevoir ; une carte enregistrée n'est pas une preuve d'acceptation de ce mandat.[5][8]
+Pour la **carte**, la matrice officielle dit : « The Stripe extension can support automatic renewals via normal card payments ».[5]
+Elle documente donc une récurrence par carte, pas une transformation systématique carte → mandat SEPA.[5]
+**Doute :** aucun parcours Woo officiel consulté ne prouve cette transformation automatique. Si le cahier des charges exige SEPA après une première carte, collecter et rattacher un mandat SEPA explicite dans ce parcours est un travail à concevoir ; une carte enregistrée n'est pas une preuve d'acceptation de ce mandat.[5][8]
 
-Pour **Bancontact**, la matrice inclut les méthodes qui tokenisent via SEPA ; le guide Stripe du plugin précise, à propos des paiements iDEAL enregistrés, « They are saved as SEPA Direct Debit tokens. », puis que le réglage Bancontact « does the same, but for Bancontact payments. »[5][6] La chaîne Bancontact initial → SEPA ultérieur est donc **documentée**, sans module de conversion supplémentaire identifié.[5][6] Bancontact exige notamment EUR : « For example, Bancontact requires that payments be in euros (EUR). »[7]
+Pour **Bancontact**, la matrice inclut les méthodes qui tokenisent via SEPA ; le guide Stripe du plugin précise, à propos des paiements iDEAL enregistrés, « They are saved as SEPA Direct Debit tokens. », puis que le réglage Bancontact « does the same, but for Bancontact payments. »[5][6]
+La chaîne Bancontact initial → SEPA ultérieur est donc **documentée**, sans module de conversion supplémentaire identifié.[5][6]
+Bancontact exige notamment EUR : « For example, Bancontact requires that payments be in euros (EUR). »[7]
 
 **Reste à vérifier :** texte de consentement visible, identification du mandat, preuve d'acceptation, cas compte existant/nouveau et parcours réellement choisi au checkout. Ne pas confondre le réglage de sauvegarde pour achats ultérieurs et les prérequis exacts des abonnements : le guide précise que la sauvegarde générale des moyens n'a pas à être activée pour traiter Subscriptions.[6]
 
@@ -187,7 +193,9 @@ Les coupons de panier/produit ordinaires ne touchent que le premier paiement : �
 
 Pour l'annuel payé en une fois, limiter la remise au paiement initial/à un paiement est donc une base standard. Pour un plan trimestriel régulier, une limite à quatre paiements est la base à examiner pour les quatre premières fractions, paiement initial compris.[18][19] **Doute d'équivalence contractuelle :** une limite en paiements ne garantit pas la remise sur exactement la première année si le calendrier n°2, les remboursements ou les paiements exceptionnels divergent ; ne pas figer le réglage avant ce raccord.[18]
 
-Les campagnes peuvent s'appuyer sur les restrictions, plafonds d'utilisation et expiration Woo ; la date d'expiration rend le code inutilisable à la date fixée : « Coupons expire/cannot be used on the date that is set. »[20] Cela ne signifie pas qu'une remise déjà attachée à un abonnement cesse le même jour : la durée de la remise suit sa propre règle Subscriptions.[18][20] La documentation signale aussi qu'abaisser la limite d'un coupon existant n'a pas un effet immédiat sur tous ses abonnements : un renouvellement supplémentaire peut encore être remisé.[18]
+Les campagnes peuvent s'appuyer sur les restrictions, plafonds d'utilisation et expiration Woo ; la date d'expiration rend le code inutilisable à la date fixée : « Coupons expire/cannot be used on the date that is set. »[20]
+Cela ne signifie pas qu'une remise déjà attachée à un abonnement cesse le même jour : la durée de la remise suit sa propre règle Subscriptions.[18][20]
+La documentation signale aussi qu'abaisser la limite d'un coupon existant n'a pas un effet immédiat sur tous ses abonnements : un renouvellement supplémentaire peut encore être remisé.[18]
 
 **Sur mesure limité :** suivi métier de source/campagne et extractions si le standard ne fournit pas les indicateurs arrêtés ; aucune nouvelle extension d'affiliation décidée. **Test :** aucun coupon exercé.
 
@@ -257,7 +265,9 @@ Subscriptions possède un système de reprises automatiques activable, avec « f
 
 **Conséquence déduite :** activer les reprises ne suffit pas à assurer la grâce Imagine qui maintient l'accès avant suspension. Un passage immédiat `on-hold` peut suspendre les droits liés ; la combinaison des deux paramètres doit être conçue et testée.[22][26] Les sept jours du système par défaut ne sont pas une durée de grâce décidée par Imagine.[26]
 
-Le guide développeur expose l'ajustement des règles ; « Status of the subscription is updated according to the rule: ».[27] Réutiliser les reprises existantes et adapter, après arbitrage, la politique d'accès temporaire, les alertes, la fin de grâce, les envois papier et la mise à jour du moyen de paiement ; ne pas recréer un ordonnanceur de prélèvements.[26][27] La prise en charge dépend de la passerelle et du mode utilisé, notamment côté PayPal où le plan PayPal et Vaulting ne pilotent pas les échecs de la même manière.[11][26]
+Le guide développeur expose l'ajustement des règles ; « Status of the subscription is updated according to the rule: ».[27]
+Réutiliser les reprises existantes et adapter, après arbitrage, la politique d'accès temporaire, les alertes, la fin de grâce, les envois papier et la mise à jour du moyen de paiement ; ne pas recréer un ordonnanceur de prélèvements.[26][27]
+La prise en charge dépend de la passerelle et du mode utilisé, notamment côté PayPal où le plan PayPal et Vaulting ne pilotent pas les échecs de la même manière.[11][26]
 
 **Doute :** déclenchement « immédiatement après mise à jour du moyen de paiement » garanti sur tous les parcours retenus ; à exercer, sans promettre une double tentative concurrente. **Test :** aucun rejet bancaire, retry réel ou maintien de droit en grâce testé dans A-01.
 
@@ -279,7 +289,10 @@ Le guide d'édition permet de modifier les totaux récurrents, dont le port : «
 
 La documentation de l'éditeur, accessible via les anciennes URL The Events Calendar redirigées vers son portail Nexcess, indique : « Event Tickets Plus adds attendee registration forms, Apple Wallet and PDF tickets, QR check-in, and WooCommerce ticketing. »[31] Event Tickets est le socle gratuit ; Plus ajoute notamment le moteur Woo ; The Events Calendar est optionnel pour attacher la billetterie à son calendrier.[31]
 
-La capacité est native, y compris partagée : « As tickets sell, the remaining stock drops for every ticket that shares it. »[32] Les billets ont un contrôle QR individuel : « Event Tickets Plus uses QR codes to embed unique check-in URLs for each ticket in your order database ».[33] Le guide d'intégration Woo décrit des réglages « to provide an exclusive discount to members. »[34] Memberships peut également définir des remises sur des produits ou catégories.[21]
+La capacité est native, y compris partagée : « As tickets sell, the remaining stock drops for every ticket that shares it. »[32]
+Les billets ont un contrôle QR individuel : « Event Tickets Plus uses QR codes to embed unique check-in URLs for each ticket in your order database ».[33]
+Le guide d'intégration Woo décrit des réglages « to provide an exclusive discount to members. »[34]
+Memberships peut également définir des remises sur des produits ou catégories.[21]
 
 **Configuration à examiner :** Event Tickets + Plus avec WooCommerce comme moteur de vente, produits billets et remise Memberships conditionnée à l'abonné connecté. Ne pas supposer que le moteur autonome Tickets Commerce réutilise les passerelles Woo ou les règles Memberships.[31][34] Les documents permettent d'éviter d'emblée une nouvelle extension de promotion ; le montant du tarif abonné reste à fournir par Imagine.
 
@@ -307,7 +320,9 @@ Le guide officiel sépare clairement données d'abonnement et moyens de paiement
 
 Le Custom Schema Builder de Rank Math PRO permet d'ajouter des propriétés/groupes : « The Custom Schema Builder allows you to create new fields by adding properties and property groups. »[36] Le guide comporte explicitement « Subscription and Paywalled Content », avec `isAccessibleForFree` et `cssSelector` ; un modèle peut être réutilisé.[36] Le type presse existe : « If your post is an article on a News website, then you can set the type as News Article. »[37]
 
-Google fournit l'exemple de référence : « Here's an example of NewsArticle structured data with paywalled content. »[38] Son exemple emploie `isAccessibleForFree: false`, `hasPart` et un `WebPageElement` portant un `cssSelector` sur la section réservée.[38] **Conclusion :** commencer par un modèle Rank Math PRO correctement paramétré ; ne pas écrire un second générateur JSON-LD avant d'avoir qualifié ce modèle.[36][37][38]
+Google fournit l'exemple de référence : « Here's an example of NewsArticle structured data with paywalled content. »[38]
+Son exemple emploie `isAccessibleForFree: false`, `hasPart` et un `WebPageElement` portant un `cssSelector` sur la section réservée.[38]
+**Conclusion :** commencer par un modèle Rank Math PRO correctement paramétré ; ne pas écrire un second générateur JSON-LD avant d'avoir qualifié ce modèle.[36][37][38]
 
 **Reste :** relier le statut éditorial « libre/réservé/découverte », le sélecteur réel du thème et les données de l'article au schéma ; éviter les doublons et tester le résultat selon la spécification du référenceur. Le balisage décrit un accès payant, il ne réalise pas le contrôle de droit ni la vérification des robots prévue au §4.4.[36][38]
 
@@ -325,20 +340,26 @@ Cette liste distingue une **dépendance documentaire à prévoir** d'un achat au
 | Event Tickets + Event Tickets Plus | The Events Calendar | Socle et complément billetterie ; choix du moteur Woo pour le scénario étudié[31][34] |
 | WooCommerce Subscriptions + Memberships ; Rank Math PRO | WooCommerce / SkyVerge ; Rank Math | Composants déjà retenus, pas de doublon à ajouter[4][21][36] |
 
-**À ne pas ajouter par défaut :** ancien Gifting autonome retiré (fonction intégrée), module de coupons limités (fonction native), gestionnaire de paywall au compteur ou de fichiers, importeur CSV ou Subscription Downloads. Ces derniers ne deviennent pertinents qu'après besoin confirmé et qualification ; ils ne sont pas nécessaires par simple lecture du brief.[15][18][24][35]
+**À ne pas ajouter par défaut :** ancien Gifting autonome retiré (fonction intégrée) et module de coupons limités (fonction native).[15][18]
+Subscription Downloads ou un gestionnaire de fichiers restent des options à qualifier, pas des dépendances établies.[24]
+Un importeur CSV n'est pas nécessaire au scénario de copie décidé.[35]
+Aucun gestionnaire de paywall au compteur n'est sélectionné : le besoin n°12 reste à arbitrer.
 
 ## Ce qui reste à développer ou à raccorder
 
 Les postes ci-dessous sont un **périmètre d'adaptation proposé**, pas du code produit ni un GO financier. Une absence de preuve signalée comme doute doit être levée en recette avant de réimplémenter une fonction native.
 
-1. **Année et quatre échéances** (§3.4–3.5) : engagement/reconduction distincts de la fréquence, quota par année, première charge entière, dates communes et conservation des créances ; utiliser le calendrier et les API Subscriptions, ne pas réécrire l'encaissement (besoins 1–2).[1][2][3][4]
-2. **Mandats et accès anticipé** (§3.6) : parcours carte → SEPA si confirmé, case de consentement si absente, ouverture dès mandat, retrait sur rejet ; conserver Stripe comme dépositaire des informations bancaires (besoins 3–4).[5][6][8][9]
-3. **Paiements hors ligne et messages métier** (§3.6, §3.8, §3.13) : mode papier interne, échéancier/export bancaire sans IBAN, validation administrateur, prénotifications autorisées et modèles Brevo ; respecter les messages prestataires incompressibles (besoins 6–7).[8][10][13][14]
+1. **Année et quatre échéances** (§3.4–3.5) : engagement/reconduction distincts de la fréquence, quota par année, première charge entière, dates communes et conservation des créances ; utiliser le calendrier et les API Subscriptions, ne pas réécrire l'encaissement (besoins 1–2).[1][2][3]
+2. **Mandats et accès anticipé** (§3.6) : parcours carte → SEPA si confirmé, case de consentement si absente, ouverture dès mandat, retrait sur rejet ; conserver Stripe comme dépositaire des informations bancaires (besoins 3–4).[5][6][8]
+3. **Paiements hors ligne et messages métier** (§3.6, §3.8, §3.13) : mode papier interne, échéancier/export bancaire sans IBAN, validation administrateur et modèles Brevo (besoin 6).[13][14]
+Respecter aussi les messages prestataires incompressibles et qualifier les prénotifications propres (besoin 7).[8][10]
 4. **Cadeaux et groupes** (§3.4) : coordonnées papier des bénéficiaires, surprise sans email si choisie, consentement de reconduction absent par défaut, double proposition à l'échéance et liste d'envoi ; réutiliser les identités et relations natives (besoins 8–9).[16][17]
 5. **Droits éditoriaux et découverte** (§3.9) : rattachement aux numéros, permanence des achats, marqueur de découverte, vérification du compte et compteur éventuel ; la décision « une personne » reste à préciser (besoins 11–12).[21][22]
 6. **Étanchéité serveur et fichiers** (§3.9, §4.4) : politique cohérente HTML/REST/flux/oEmbed/recherche/partages, robots vérifiés, cache, droit PDF courant à chaque demande et distribution privée ; tester les protections natives avant de les remplacer (besoins 13–14).[23][24][25]
-7. **Grâce et port** (§3.7–3.8) : conserver les droits durant la grâce décidée, suspendre ensuite ; recalcul pays/reliquat/renouvellement et alerte ; garder retries et commandes Woo natifs (besoins 15–16).[22][26][27][28][29][30]
-8. **Raccords de configuration** : suivi de campagne, remise sur billets, modèle de schéma payant. Pas de nouveau moteur de coupon, QR ou JSON-LD justifié à ce stade (besoins 10, 17, 19).[18][20][31][33][34][36][38]
+7. **Grâce et port** (§3.7–3.8) : conserver les droits durant la grâce décidée, suspendre ensuite ; garder les retries natifs (besoin 15).[22][26][27]
+Recalcul pays/reliquat/renouvellement et alerte, en réutilisant les totaux et commandes Woo (besoin 16).[28][29][30]
+8. **Raccords de configuration** : suivi de campagne et remise sur billets, sans nouveau moteur de coupon ou de QR justifié à ce stade (besoins 10 et 17).[18][33][34]
+Modèle de schéma payant, sans second générateur JSON-LD (besoin 19).[36][38]
 
 Aucun nouveau chantier d'import des abonnés en ligne n'est ouvert (besoin 18). Le branchement financier, le paywall et les intégrations restent soumis aux dépendances et GO de la file projet.
 
