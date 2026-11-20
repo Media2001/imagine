@@ -80,7 +80,8 @@ for p in (PLUGIN / 'src/Robots').glob('*.php'):
 counts = {'C-01': junit(OUT / 'final.xml', 'Numeros'), 'C-03': junit(OUT / 'final.xml', 'Robots'),
           'C-04': junit(OUT / 'c04-regression.xml')}
 totals = {key: sum(value[key] for value in counts.values()) for key in ('tests', 'assertions')}
-records = []
+records = [ROOT / 'files/rapports/2026-11-20-17h07.md']
+assert records[0].is_file(), 'Missing French delivery report'
 for base in ['production/C-03', 'wp/tests/robots-runner']:
     records += [p for p in (ROOT / base).rglob('*') if p.is_file()]
 records += [PLUGIN / 'README.md', PLUGIN / 'phpunit.xml', PLUGIN / 'config/robots.php']

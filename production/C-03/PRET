@@ -1,0 +1,8 @@
+C-03 — prêt à relire, 20 novembre 2026.
+
+C-03 : 89 tests / 199 assertions ; C-01 : 39 / 101 ; C-04 : 22 / 161.
+Toutes les suites et les vérifications finales passent ; preuves dans tests/.
+Sources officielles : sources-officielles.json. Arbitrages et limites : notes.md.
+Rapport : files/rapports/2026-11-20-17h07.md.
+
+Aucun GO, site, déploiement, DNS de test réel ou branchement paywall.

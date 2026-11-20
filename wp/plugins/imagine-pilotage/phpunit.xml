@@ -3,5 +3,6 @@
     <testsuites>
         <testsuite name="Numeros"><directory>tests/Numeros</directory></testsuite>
         <testsuite name="Robots"><directory>tests/Robots</directory></testsuite>
+        <testsuite name="Entreprise"><directory>tests/Entreprise</directory></testsuite>
     </testsuites>
 </phpunit>

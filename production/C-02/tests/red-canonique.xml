@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="0.002904">
+    <testsuite name="Entreprise" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="0.002904">
+      <testsuite name="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="0.002904">
+        <testcase name="testAccepteDixChiffresEtExposeAffichage" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="18" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="0" time="0.002904">
+          <error type="Error">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testAccepteDixChiffresEtExposeAffichage
+Error: Class "Imagine\Pilotage\Entreprise\NumeroEntreprise" not found
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:21</error>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

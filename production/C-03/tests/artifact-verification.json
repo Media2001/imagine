@@ -1,5 +1,5 @@
 {
-  "time_utc": "2026-11-20T16:06:05.022761+00:00",
+  "time_utc": "2026-11-20T16:08:28.784385+00:00",
   "status": "PASS",
   "suites": {
     "C-01": {
@@ -26,7 +26,7 @@
   "network_test_calls": "none; injected fake DNS only",
   "configuration_psr12_syntax_ok": true,
   "owned_runner_cleanup_verified": true,
-  "manifest_files": 126,
-  "manifest_sha256": "66d87d0f4a974dabdd1975b7e0675cc685caf96302f371785d8c1126be484cc2",
-  "checker_sha256": "5fdc34850c8b1184f7b98f43b33a9df90f82d1e678ace3b2ef071c07d792b86e"
+  "manifest_files": 129,
+  "manifest_sha256": "36d8a485aaa75211f45977489a963c099f0c02a44e165c2146814a12b2d6230f",
+  "checker_sha256": "9e9aaf0075d4749435b5c8695e408f5014aa60ff7440376956e1dc0c58774e45"
 }
