@@ -19,6 +19,9 @@ ARTIFACTS = {
     'wordpress.zip': 'https://wordpress.org/wordpress-6.9.zip',
     'woocommerce.zip': 'https://downloads.wordpress.org/plugin/woocommerce.10.4.3.zip',
     'wp-cli.phar': 'https://github.com/wp-cli/wp-cli/releases/download/v2.12.0/wp-cli-2.12.0.phar',
+    'contact-form-7.zip': 'https://downloads.wordpress.org/plugin/contact-form-7.6.1.4.zip',
+    'wordpress-seo.zip': 'https://downloads.wordpress.org/plugin/wordpress-seo.26.5.zip',
+    'meta-box.zip': 'https://downloads.wordpress.org/plugin/meta-box.5.10.7.zip',
 }
 LOCK = ROOT / 'dependencies.lock.json'
 SUBJECT_FILES = ('neutraliser', 'anonymiser', 'verifier', 'command.php', 'lib.php', 'schema.php',

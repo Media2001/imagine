@@ -104,7 +104,15 @@ class HarnessSafetyTests(unittest.TestCase):
     def test_only_public_artifacts_are_downloadable(self):
         for url in module.ARTIFACTS.values():
             self.assertTrue(url.startswith('https://'))
-        self.assertEqual(3, len(module.ARTIFACTS))
+        self.assertEqual(6, len(module.ARTIFACTS))
+        self.assertIn('contact-form-7.zip', module.ARTIFACTS)
+        self.assertIn('wordpress-seo.zip', module.ARTIFACTS)
+        self.assertIn('meta-box.zip', module.ARTIFACTS)
+
+    def test_acceptance_cannot_claim_success_without_both_fidelity_proofs(self):
+        value = {'mode': 'acceptance', 'exit_code': 0, 'checks': [{'check': 'actual', 'status': 'PASS'}]}
+        with self.assertRaises(module.SafetyError):
+            module.validate_result(value, 'acceptance')
 
     def test_windows_paths_translate_without_shell(self):
         self.assertEqual('/mnt/c/synthetic fixture', module.wsl_path('C:/synthetic fixture'))

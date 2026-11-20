@@ -8,9 +8,12 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
     && rm -rf /var/lib/apt/lists/*
 COPY public/ /opt/public/
 RUN cd /opt/public && sha256sum -c SHA256SUMS \
-    && mkdir -p /opt/wordpress /opt/woocommerce /opt/e2e /report /run/mysqld \
+    && mkdir -p /opt/wordpress /opt/woocommerce /opt/free-plugins /opt/e2e /report /run/mysqld \
     && unzip -q wordpress.zip -d /opt/wordpress \
     && unzip -q woocommerce.zip -d /opt/woocommerce \
+    && unzip -q contact-form-7.zip -d /opt/free-plugins \
+    && unzip -q wordpress-seo.zip -d /opt/free-plugins \
+    && unzip -q meta-box.zip -d /opt/free-plugins \
     && cp wp-cli.phar /usr/local/bin/wp && chmod 755 /usr/local/bin/wp \
     && php -v > /opt/public/php-version.txt \
     && dpkg-query -W > /opt/public/packages.tsv

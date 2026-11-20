@@ -16,6 +16,21 @@
       "url": "https://github.com/wp-cli/wp-cli/releases/download/v2.12.0/wp-cli-2.12.0.phar",
       "sha256": "ce34ddd838f7351d6759068d09793f26755463b4a4610a5a5c0a97b68220d85c",
       "bytes": 7142777
+    },
+    "contact-form-7.zip": {
+      "url": "https://downloads.wordpress.org/plugin/contact-form-7.6.1.4.zip",
+      "sha256": "13bf2a4a1e5618b605b38be48008e6b21abcc37acd3efc0a745ab9187e0afa5f",
+      "bytes": 297123
+    },
+    "wordpress-seo.zip": {
+      "url": "https://downloads.wordpress.org/plugin/wordpress-seo.26.5.zip",
+      "sha256": "3595ffdc4072e73d97832cb6977531ad2000faa1b3a9c361f7497798af1c64ab",
+      "bytes": 4848470
+    },
+    "meta-box.zip": {
+      "url": "https://downloads.wordpress.org/plugin/meta-box.5.10.7.zip",
+      "sha256": "3922c57b21684bab9189b8b6488cc5d033dee069164d43099585487a001a0cb5",
+      "bytes": 1107369
     }
   }
 }

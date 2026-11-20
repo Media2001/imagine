@@ -24,19 +24,39 @@ final class Engine
 {
     private string $target;
     private array $inventory;
-    public function __construct(private Store $store, private array $context, private string $prefix)
+    private array $unknownTables = [];
+    private array $unknownColumns = [];
+    private array $unknownTypes = [];
+    private array $decisions;
+    private array $policy;
+    public function __construct(private Store $store, private array $context, private string $prefix, array $decisions = [])
     {
         $this->target = Guard::context($context);
         if (!preg_match('/^[a-zA-Z0-9_]+_$/D', $prefix) || $store->database() !== $context['database']) {
             throw new RuntimeException('BASE_REFUSEE');
         }
         $catalogue = require __DIR__ . '/schema.php';
+        $this->policy = require __DIR__ . '/policy.php';
+        $this->decisions = $decisions ?: ($context['table_decisions'] ?? []);
+        if (!is_array($this->decisions)) {
+            throw new RuntimeException('DECISIONS_INVALIDES');
+        }
         $this->inventory = $store->schema();
         foreach ($this->inventory as $table => $columns) {
             $name = str_starts_with($table, $prefix) ? substr($table, strlen($prefix)) : '';
-            if (!isset($catalogue[$name]) || !$columns
-                || array_diff($columns, explode(' ', $catalogue[$name]))) {
-                throw new RuntimeException('SCHEMA_INCONNU');
+            if (!isset($catalogue[$name])) {
+                $this->unknownTables[$table] = $columns;
+            } elseif ($extra = array_values(array_diff($columns, explode(' ', $catalogue[$name])))) {
+                $this->unknownColumns[$table] = $extra;
+            }
+        }
+        foreach ($this->decisions as $table => $decision) {
+            if (!isset($this->unknownTables[$table]) || !is_array($decision)
+                || !in_array($decision['action'] ?? '', ['garder', 'vider', 'anonymiser'], true)
+                || (($decision['action'] ?? '') === 'anonymiser'
+                    && (empty($decision['columns']) || !is_array($decision['columns'])
+                        || array_diff($decision['columns'], $this->unknownTables[$table])))) {
+                throw new RuntimeException('DECISION_INVALIDE');
             }
         }
         foreach (['options', 'users', 'usermeta', 'posts', 'postmeta', 'comments'] as $required) {
@@ -54,7 +74,7 @@ final class Engine
         }
         foreach ($store->rows($prefix . 'posts') as $post) {
             if (!in_array($post['post_type'] ?? '', ['post', 'page', 'attachment', 'revision', 'nav_menu_item', 'custom_css', 'customize_changeset', 'oembed_cache', 'wp_block', 'wp_template', 'wp_template_part', 'wp_global_styles', 'wp_navigation', 'wp_font_family', 'wp_font_face', 'shop_order', 'shop_order_placehold', 'shop_order_refund', 'shop_subscription', 'shop_coupon', 'product', 'product_variation', 'wc_membership_plan', 'wc_user_membership'], true)) {
-                throw new RuntimeException('TYPE_CONTENU_INCONNU');
+                $this->unknownTypes[] = (string) ($post['post_type'] ?? '');
             }
         }
     }
