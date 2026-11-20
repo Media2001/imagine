@@ -66,14 +66,13 @@ def run_storage(storage):
     assert_true(before['versions']['hpos']==(storage=='hpos'),storage+':actual_authoritative_store',before['versions'])
     assert_true(not any(p['email_safe'] for p in before['personal']),storage+':personal_oracle_sensitive',{'outside_domain':6})
     sql_before=raw(storage,database)
+    pristine=base.export(database,'before-renewal-control')
     # Real WCS/Action Scheduler callback creates a manual renewal while isolated.
     control=case(site,'renewal')
-    assert_true(control['callback_calls']==1 and control['status']=='complete' and control['renewals_after']==control['renewals_before']+1,storage+':real_renewal_positive_control',control)
-    # Restore only SQL created by this very fixture to avoid business-data changes from control.
-    # Snapshot after renewal as the subject input and compare exact transactional fields.
-    before=case(site,'snapshot')
-    dump=base.export(database,'commercial')
-    base.restore(database,dump)
+    assert_true(control['duplicate_site'] and control['callback_calls']==1 and control['status']=='complete' and control['renewals_after']==control['renewals_before']+1,storage+':real_renewal_positive_control',control)
+    # Reimport only SQL generated in this same container, restoring original statuses.
+    base.restore(database,pristine)
+    assert_true(case(site,'snapshot')['business']==before['business'],storage+':renewal_control_rollback','Fixture SQL restored; original subscription business state retained')
     (site/'.imagine-staging-offline').write_text('OFFLINE_COPY\n')
     context=base.SCRATCH/('context-'+storage+'.json')
     context.write_text(json.dumps({'environment':'staging','isolated':True,'restored':True,'database':database,'production_hosts':['production.synthetic.invalid'],'target_url':'https://fixture.synthetic.test','wp_path':str(site)}))
@@ -99,8 +98,6 @@ def run_storage(storage):
     assert_true(rights(site,storage,'after')==rights_before,storage+':rights_unchanged_after_subject','Fresh plugin bootstrap; API + restrict shortcode')
     runtime=case(site,'runtime')
     assert_true(all(v is True for v in runtime.values()),storage+':actual_runtime_staging_and_locks',runtime)
-    blocked=case(site,'renewal')
-    assert_true(blocked['callback_calls']==0 and blocked['renewals_after']==blocked['renewals_before'] and blocked['status']=='failed' and blocked['cron_empty'] and blocked['async_disabled'] and blocked['runner_removed'],storage+':renewal_scheduler_blocked',blocked)
     canary=site/'wp-content/mu-plugins/zzz-a01-nonstaging-canary.php'
     try:
         # Preserve exact subject MU bytes: its file-integrity guard must remain valid.
@@ -108,10 +105,16 @@ def run_storage(storage):
         mutation=case(site,'runtime')
         assert_true(mutation['subscriptions_staging'] is False,storage+':real_nonstaging_canary',mutation)
         p=base.subject_command(site,'verifier',password,context);v=json.loads(p.stdout)
+        if p.returncode!=1:
+            d=command(['php','/opt/e2e/diagnostic.php'],env={'E2E_CONTEXT':str(context),'WP_ENVIRONMENT_TYPE':'staging'})
+            record(storage+':negative_diagnostic','OBSERVED',json.loads(next(l[9:]for l in d.stdout.splitlines()if l.startswith('E2E_JSON='))))
         assert_true(p.returncode==1 and 'SUBSCRIPTIONS_NON_STAGING' in v.get('issues',[]),storage+':verifier_refuses_actual_nonstaging',{'exit':p.returncode,'issues':v.get('issues',[])})
     finally:canary.unlink(missing_ok=True)
     p=base.subject_command(site,'verifier',password,context);v=json.loads(p.stdout)
     assert_true(p.returncode==0,storage+':final_verifier',{'exit':p.returncode,'issues':v.get('issues',[])})
+    blocked=case(site,'renewal')
+    assert_true(blocked['callback_calls']==0 and blocked['renewals_after']==blocked['renewals_before'] and blocked['status']=='failed' and blocked['cron_empty'] and blocked['async_disabled'] and blocked['runner_removed'],storage+':renewal_scheduler_blocked',blocked)
+    record(storage+':post_deliberate_scheduler_attempt_files','OBSERVED',{'generated_logs':[str(p.relative_to(site))for p in site.rglob('*.log')]})
 
 def main():
     process=None

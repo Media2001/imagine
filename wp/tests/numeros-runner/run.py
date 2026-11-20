@@ -115,15 +115,26 @@ def main():
     i = info(name)
     assert not i['NetworkSettings']['Networks'], 'Tests require network disconnected'
     tar, files = payload()
+    call(['exec', name, 'rm', '-rf', '/work/src', '/work/tests'])
     call(['exec', '-i', name, 'tar', '-xf', '-', '-C', '/work'], tar)
-    command = ['exec', '-w', '/work', name, 'php', '/tmp/composer.phar', 'test', '--',
-               '--log-junit', '/tmp/result.xml']
+    hash_code = '''$files = []; foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator('/work', FilesystemIterator::SKIP_DOTS)) as $f) { $rel = substr($f->getPathname(), 6); if ($f->isFile() && !str_starts_with($rel, 'vendor/')) { $files[$rel] = hash_file('sha256', $f->getPathname()); } } echo json_encode($files);'''
+    copied = json.loads(call(['exec', name, 'php', '-r', hash_code]).stdout)
+    assert all(copied.get(path) == digest for path, digest in files.items()), 'Container source drift'
+    assert {p for p in copied if p.startswith(('src/', 'tests/'))} == {p for p in files if p.startswith(('src/', 'tests/'))}
+    processes = call(['top', name, '-eo', 'comm']).stdout.decode().splitlines()
+    assert processes[1:] == ['sleep'], 'Unexpected background service in test runner'
+    command = ['exec', '-w', '/work', '-e', 'COMPOSER_ROOT_VERSION=dev-main', name,
+               'php', '/tmp/composer.phar', 'test', '--', '--log-junit', '/tmp/result.xml']
     if args.filter:
         command += ['--filter', args.filter]
     p = call(command, check=False)
-    lint = call(['exec', '-w', '/work', name, 'php', '/tmp/composer.phar', 'lint'], check=False)
+    lint = call(['exec', '-w', '/work', '-e', 'COMPOSER_ROOT_VERSION=dev-main', name,
+                 'php', '/tmp/composer.phar', 'lint'], check=False)
     syntax = call(['exec', '-w', '/work', name, 'sh', '-c',
-                   'find src tests -name "*.php" -exec php -l {} \\;'], check=False)
+                   'find src tests -name "*.php" -print0 | xargs -0 -n 1 php -l'], check=False)
+    validate = call(['exec', '-w', '/work', '-e', 'COMPOSER_ROOT_VERSION=dev-main', name,
+                     'php', '/tmp/composer.phar', 'validate', '--strict', '--no-check-publish'], check=False)
+    (OUT / (args.name + '-composer-validate.log')).write_bytes(validate.stdout + validate.stderr)
     version = call(['exec', name, 'php', '-r', 'echo PHP_VERSION;']).stdout.decode()
     xml = call(['exec', name, 'cat', '/tmp/result.xml'], check=False)
     (OUT / (args.name + '.log')).write_bytes(p.stdout + p.stderr)
@@ -133,12 +144,16 @@ def main():
     receipt = {'time_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(), 'php': version,
                'command': 'composer test' + (' -- --filter ' + args.filter if args.filter else ''),
                'exit_code': p.returncode, 'psr12_exit_code': lint.returncode, 'syntax_exit_code': syntax.returncode,
-               'source_sha256': files, 'network_disconnected': True, 'no_mounts': True, 'no_ports': True}
+               'composer_validate_exit_code': validate.returncode, 'processes_before_suite': processes,
+               'source_sha256': files, 'container_source_verified': True,
+               'runner_sha256': hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),
+               'network_disconnected': True, 'no_mounts': True, 'no_ports': True}
     (OUT / (args.name + '.json')).write_text(json.dumps(receipt, indent=2), encoding='utf-8')
     print(p.stdout.decode(errors='replace') + p.stderr.decode(errors='replace'))
     print(lint.stdout.decode(errors='replace') + lint.stderr.decode(errors='replace'))
     print(json.dumps({k: v for k, v in receipt.items() if k != 'source_sha256'}))
-    raise SystemExit(p.returncode or lint.returncode or syntax.returncode)
+    print(validate.stdout.decode(errors='replace') + validate.stderr.decode(errors='replace'))
+    raise SystemExit(p.returncode or lint.returncode or syntax.returncode or validate.returncode)
 
 
 if __name__ == '__main__':

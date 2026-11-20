@@ -56,7 +56,7 @@ final readonly class Moteur
         foreach ($numeros as $numero) {
             if ($numero->id === $id) {
                 // Après clôture : état historique, jamais l'état courant réactivé.
-                $reference = $numero->estCloture($date) ? $numero->cloture : $date;
+                $reference = $numero->estCloture($date) ? $numero->cloture->modify('-1 microsecond') : $date;
                 return $annee->estActive($reference);
             }
         }

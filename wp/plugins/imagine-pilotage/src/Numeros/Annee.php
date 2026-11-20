@@ -13,12 +13,14 @@ final readonly class Annee
 
     public ?DateTimeImmutable $ouverture;
 
+    private array $transitions;
+
     public function __construct(
         DateTimeImmutable $debut,
         public ?self $precedente = null,
         ?DateTimeImmutable $ouverture = null,
         public ?Activation $motif = null,
-        private array $transitions = []
+        array $transitions = []
     ) {
         $zone = new DateTimeZone('Europe/Brussels');
         $this->debut = $debut->setTimezone($zone);
@@ -26,6 +28,19 @@ final readonly class Annee
         if (($ouverture === null) !== ($motif === null) || ($ouverture !== null && $ouverture < $debut)) {
             throw new \InvalidArgumentException('Activation sans motif ou antérieure à la commande.');
         }
+        if ($precedente !== null && $debut <= $precedente->debut) {
+            throw new \InvalidArgumentException('Le renouvellement doit suivre le début précédent.');
+        }
+        $derniere = $ouverture;
+        $normalisees = [];
+        foreach ($transitions as $transition) {
+            if (!$transition instanceof DateTimeImmutable || $derniere === null || $transition <= $derniere) {
+                throw new \InvalidArgumentException('Historique de suspension invalide.');
+            }
+            $normalisees[] = $transition->setTimezone($zone);
+            $derniere = $transition;
+        }
+        $this->transitions = $normalisees;
     }
 
     public function activer(DateTimeImmutable $date, Activation $motif): self

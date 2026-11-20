@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="17" assertions="71" errors="0" failures="1" skipped="0" time="0.008288">
+    <testsuite name="Numeros" tests="17" assertions="71" errors="0" failures="1" skipped="0" time="0.008288">
+      <testsuite name="Imagine\Pilotage\Tests\Numeros\MoteurTest" file="/work/tests/Numeros/MoteurTest.php" tests="17" assertions="71" errors="0" failures="1" skipped="0" time="0.008288">
+        <testsuite name="Imagine\Pilotage\Tests\Numeros\MoteurTest::testCommandesAuxBornes" tests="10" assertions="10" errors="0" failures="0" skipped="0" time="0.003428">
+          <testcase name="testCommandesAuxBornes with data set &quot;veille&quot;" file="/work/tests/Numeros/MoteurTest.php" line="48" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="1" time="0.001562"/>
+          <testcase name="testCommandesAuxBornes with data set &quot;jour inclus&quot;" file="/work/tests/Numeros/MoteurTest.php" line="48" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="1" time="0.000188"/>
+          <testcase name="testCommandesAuxBornes with data set &quot;fin du jour inclus&quot;" file="/work/tests/Numeros/MoteurTest.php" line="48" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="1" time="0.000208"/>
+          <testcase name="testCommandesAuxBornes with data set &quot;lendemain&quot;" file="/work/tests/Numeros/MoteurTest.php" line="48" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="1" time="0.000223"/>
+          <testcase name="testCommandesAuxBornes with data set &quot;entre cloture et sortie&quot;" file="/work/tests/Numeros/MoteurTest.php" line="48" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="1" time="0.000202"/>
+          <testcase name="testCommandesAuxBornes with data set &quot;veille en decembre&quot;" file="/work/tests/Numeros/MoteurTest.php" line="48" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="1" time="0.000238"/>
+          <testcase name="testCommandesAuxBornes with data set &quot;cloture en decembre&quot;" file="/work/tests/Numeros/MoteurTest.php" line="48" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="1" time="0.000224"/>
+          <testcase name="testCommandesAuxBornes with data set &quot;passage annee&quot;" file="/work/tests/Numeros/MoteurTest.php" line="48" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="1" time="0.000204"/>
+          <testcase name="testCommandesAuxBornes with data set &quot;UTC avant minuit Bruxelles&quot;" file="/work/tests/Numeros/MoteurTest.php" line="48" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="1" time="0.000201"/>
+          <testcase name="testCommandesAuxBornes with data set &quot;UTC minuit Bruxelles&quot;" file="/work/tests/Numeros/MoteurTest.php" line="48" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="1" time="0.000178"/>
+        </testsuite>
+        <testcase name="testActivationOuReactivationALaClotureEstTropTard" file="/work/tests/Numeros/MoteurTest.php" line="54" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="1" time="0.002830">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Numeros\MoteurTest::testActivationOuReactivationALaClotureEstTropTard
+Failed asserting that true is false.
+
+/work/tests/Numeros/MoteurTest.php:59</failure>
+        </testcase>
+        <testcase name="testModificationFutureRecalculeSansToucherUneCloturePassee" file="/work/tests/Numeros/MoteurTest.php" line="67" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="8" time="0.000377"/>
+        <testcase name="testEcheancesParNumeroAvecMargeEnJoursCivilsEtRestants" file="/work/tests/Numeros/MoteurTest.php" line="99" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="10" time="0.000547"/>
+        <testcase name="testSuspensionEtReactivationNeRattrapentPasUneListeCloturee" file="/work/tests/Numeros/MoteurTest.php" line="131" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="15" time="0.000371"/>
+        <testcase name="testAccesAttendPaiementOuMandatEtExpireALAnniversaire" file="/work/tests/Numeros/MoteurTest.php" line="162" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="12" time="0.000227"/>
+        <testcase name="testRenouvellementEtDetteSansInventerUnNumero" file="/work/tests/Numeros/MoteurTest.php" line="178" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="11" time="0.000339"/>
+        <testcase name="testExempleDuCahierDesCharges" file="/work/tests/Numeros/MoteurTest.php" line="202" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="4" time="0.000169"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

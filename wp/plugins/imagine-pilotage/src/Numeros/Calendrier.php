@@ -24,6 +24,16 @@ final readonly class Calendrier
             if ($ancien->type !== $nouveau->type) {
                 throw new InvalidArgumentException('Le type d’un numéro ne peut pas changer.');
             }
+            foreach ($this->numeros as $fige) {
+                if ($fige->type !== $ancien->type || !$fige->estCloture($date)) {
+                    continue;
+                }
+                $avant = $ancien->sortie <=> $fige->sortie ?: strcmp($ancien->id, $fige->id);
+                $apres = $nouveau->sortie <=> $fige->sortie ?: strcmp($nouveau->id, $fige->id);
+                if (($avant < 0) !== ($apres < 0)) {
+                    throw new \LogicException('Le déplacement changerait le rang d’un numéro déjà clôturé.');
+                }
+            }
             $numeros[$index] = $nouveau;
             return new self($numeros);
         }

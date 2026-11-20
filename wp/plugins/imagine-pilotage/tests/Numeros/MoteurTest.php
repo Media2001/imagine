@@ -28,6 +28,42 @@ final class MoteurTest extends TestCase
         return array_map(static fn (Numero $numero): string => $numero->id, $numeros);
     }
 
+    public static function commandesAuxBornes(): array
+    {
+        return [
+            'veille' => ['2026-09-19 23:59:59', '170'],
+            'jour inclus' => ['2026-09-20 00:00:00', '171'],
+            'fin du jour inclus' => ['2026-09-20 23:59:59', '171'],
+            'lendemain' => ['2026-09-21', '171'],
+            'entre cloture et sortie' => ['2026-09-25', '171'],
+            'veille en decembre' => ['2026-12-19', '171'],
+            'cloture en decembre' => ['2026-12-20', '172'],
+            'passage annee' => ['2027-01-01', '172'],
+            'UTC avant minuit Bruxelles' => ['2026-09-19T21:59:59Z', '170'],
+            'UTC minuit Bruxelles' => ['2026-09-19T22:00:00Z', '171'],
+        ];
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('commandesAuxBornes')]
+    public function testCommandesAuxBornes(string $date, string $attendu): void
+    {
+        $moteur = new Moteur($this->calendrier());
+        self::assertSame($attendu, $moteur->premier($moteur->ouvrir($this->date($date)))?->id);
+    }
+
+    public function testActivationOuReactivationALaClotureEstTropTard(): void
+    {
+        $moteur = new Moteur($this->calendrier());
+        $annee = $moteur->ouvrir($this->date('2026-10-08'));
+        $active = $annee->activer($this->date('2026-12-20'), \Imagine\Pilotage\Numeros\Activation::Paiement);
+        self::assertFalse($moteur->aDroit($active, '171', $this->date('2026-12-20')));
+        $avant = $annee->activer($this->date('2026-12-19 23:59:59'), \Imagine\Pilotage\Numeros\Activation::Mandat);
+        self::assertTrue($moteur->aDroit($avant, '171', $this->date('2026-12-20')));
+        $suspendue = $avant->suspendre($this->date('2027-02-01'));
+        $reactivee = $suspendue->reactiver($this->date('2027-03-20'));
+        self::assertFalse($moteur->aDroit($reactivee, '172', $this->date('2027-03-21')));
+    }
+
     public function testModificationFutureRecalculeSansToucherUneCloturePassee(): void
     {
         $calendrier = $this->calendrier();
