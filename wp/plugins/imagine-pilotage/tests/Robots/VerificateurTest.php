@@ -171,6 +171,47 @@ final class VerificateurTest extends TestCase
         self::assertSame([], $dns->appels);
     }
 
+    public function testEntetesServeurNeRemplacentJamaisIpArgument(): void
+    {
+        $avant = $_SERVER;
+        try {
+            $_SERVER['HTTP_X_FORWARDED_FOR'] = '192.0.2.1';
+            $_SERVER['REMOTE_ADDR'] = '192.0.2.1';
+            $dns = new DnsFictif();
+            $decision = $this->moteur($dns)->verifier('Googlebot/2.1', '192.0.2.99', $this->date());
+            self::assertFalse($decision->estVerifie());
+            self::assertSame('192.0.2.99', $dns->appels[0][1]);
+        } finally {
+            $_SERVER = $avant;
+        }
+    }
+
+    public function testPanneDirecteEtTimeoutExpliciteRestentFermes(): void
+    {
+        $dns = new DnsFictif();
+        $dns->panneDirecte = new \RuntimeException('Panne fictive A/AAAA');
+        self::assertSame('dns_impossible', $this->moteur($dns)->verifier(
+            'Googlebot/2.1',
+            '192.0.2.1',
+            $this->date(),
+        )->motif->value);
+        $dns->panneDirecte = new \Imagine\Pilotage\Robots\DelaiDnsDepasse();
+        self::assertSame('delai_depasse', $this->moteur($dns)->verifier(
+            'Googlebot/2.1',
+            '192.0.2.1',
+            $this->date(),
+        )->motif->value);
+    }
+
+    public function testPlusieursPtrEtAdressesDirectes(): void
+    {
+        $dns = new DnsFictif();
+        $dns->noms = ['fictif.example.net', 'crawl-fictif.googlebot.com'];
+        $dns->adresses = ['invalide', '192.0.2.99', '192.0.2.1'];
+        self::assertTrue($this->moteur($dns)->verifier('Googlebot/2.1', '192.0.2.1', $this->date())->estVerifie());
+        self::assertCount(2, $dns->appels);
+    }
+
     private function moteur(DnsFictif $dns): Verificateur
     {
         return new Verificateur(new Configuration([

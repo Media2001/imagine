@@ -1,0 +1,84 @@
+{
+  "lot": "C-03",
+  "date_consultation": "2026-11-20",
+  "methode": "Lecture des pages officielles dans le navigateur ; aucun outil de vérification d'IP soumis, aucune résolution DNS de test. L'extracteur automatique était indisponible, puis le navigateur a permis la lecture.",
+  "sources": [
+    {
+      "id": "G1",
+      "titre": "Validation des requêtes des robots d'exploration et des extracteurs Google",
+      "url": "https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests?hl=fr",
+      "ancienne_url_redirigee": "https://developers.google.com/search/docs/crawling-indexing/verifying-googlebot",
+      "citation": "Vérifiez qu'il s'agit de la même adresse IP que celle utilisée dans vos journaux.",
+      "constat": "Validation inverse, contrôle du domaine, puis résolution directe concordante ; catégories distinctes : communs, spéciaux, déclenchés par l'utilisateur. Le lien des communs désigne common-crawlers.json.",
+      "source_plages": "https://developers.google.com/static/crawling/ipranges/common-crawlers.json",
+      "date_page_affichee": "2026-03-25"
+    },
+    {
+      "id": "G2",
+      "titre": "Robots d'exploration courants de Google",
+      "url": "https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers?hl=fr",
+      "citation": "Attention : La chaîne user-agent peut être falsifiée.",
+      "constat": "Les communs utilisent googlebot.com, y compris geo.googlebot.com. Googlebot, Googlebot-Image et Googlebot-Video ont des agents HTTP distincts ; le contrôle HTTP ne reprend pas aveuglément les alias robots.txt. La configuration initiale ne retient que Googlebot."
+    },
+    {
+      "id": "B1",
+      "titre": "How to Verify Bingbot",
+      "url": "https://www.bing.com/webmasters/help/how-to-verify-bingbot-3905dc26",
+      "citation": "Refresh this list daily as we can change this list any time.",
+      "constat": "PTR sous search.msn.com puis résolution directe de la même IP ; alternative : liste Bingbot publiée, actualisation quotidienne demandée.",
+      "source_plages": "https://www.bing.com/toolbox/bingbot.json"
+    },
+    {
+      "id": "W1",
+      "titre": "WooCommerce Memberships Settings",
+      "url": "https://woocommerce.com/document/woocommerce-memberships-settings/",
+      "citation": "excerpts to both visitors and search engines",
+      "constat": "Restriction par adhésion et modes d'affichage ; cette page ne fournit pas un contrat de vérification FCrDNS/CIDR Google/Bing. Le lot conserve ces restrictions et ne branche rien sur le paywall."
+    },
+    {
+      "id": "N1",
+      "titre": "Module ngx_http_realip_module",
+      "url": "https://nginx.org/en/docs/http/ngx_http_realip_module.html",
+      "citation": "Defines trusted addresses that are known to send correct replacement addresses.",
+      "constat": "set_real_ip_from définit les proxies de confiance ; real_ip_header choisit l'en-tête ; real_ip_recursive règle la recherche d'une adresse non approuvée dans la chaîne. À configurer par l'hébergeur, hors de C-03."
+    },
+    {
+      "id": "D1",
+      "titre": "What is DuckDuckBot and what does it do?",
+      "url": "https://duckduckgo.com/duckduckgo-help-pages/results/duckduckbot",
+      "citation": "The full list of IP addresses is available at https://duckduckgo.com/duckduckbot.json",
+      "constat": "Liste d'IP publiée ; robot non activé dans C-03.",
+      "source_plages": "https://duckduckgo.com/duckduckbot.json"
+    },
+    {
+      "id": "A1",
+      "titre": "About Applebot",
+      "url": "https://support.apple.com/en-us/119829",
+      "citation": "Another way is to match the IP address with a CIDR prefix",
+      "constat": "Identité via applebot.apple.com et correspondance d'IP, ou liste CIDR Applebot. Robot non activé ; son éventuelle admission ne décide pas les usages IA.",
+      "source_plages": "https://search.developer.apple.com/applebot.json"
+    },
+    {
+      "id": "Y1",
+      "titre": "How to check that a robot belongs to Yandex",
+      "url": "https://yandex.com/support/webmaster/en/robot-workings/check-yandex-robots",
+      "citation": "If the IP addresses do not match, it means that the host name is fake.",
+      "constat": "Inverse, suffixes yandex.ru/yandex.net/yandex.com puis directe concordante. Robot non activé."
+    },
+    {
+      "id": "P1",
+      "titre": "PHP gethostbyaddr",
+      "url": "https://www.php.net/manual/en/function.gethostbyaddr.php",
+      "citation": "function gethostbyaddr(string $ip): string|false",
+      "constat": "La signature documentée ne propose pas de délai par appel ; non utilisé par ce lot."
+    },
+    {
+      "id": "P2",
+      "titre": "PHP dns_get_record",
+      "url": "https://www.php.net/manual/en/function.dns-get-record.php",
+      "citation": "Fetch DNS Resource Records associated with a hostname.",
+      "constat": "La signature documentée ne propose pas de délai par appel ; ne constitue donc pas seule l'adaptateur DNS borné requis. Non utilisé par ce lot."
+    }
+  ],
+  "limites": "Les fichiers de plages réelles ne sont ni téléchargés ni intégrés aux tests. Les URLs sont les sources liées par les pages officielles consultées, pas une preuve de fraîcheur de leur contenu. L'URL Google /crawling/docs/verifying-googlebot essayée initialement retournait 404 ; la redirection de l'ancienne URL officielle a permis de trouver la page actuelle."
+}

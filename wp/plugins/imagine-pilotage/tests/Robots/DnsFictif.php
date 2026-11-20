@@ -13,6 +13,7 @@ final class DnsFictif implements Dns
     public array $adresses = ['192.0.2.1'];
     public array $appels = [];
     public ?Throwable $panne = null;
+    public ?Throwable $panneDirecte = null;
     public int $latence = 0;
 
     public function __construct(public HorlogeFictive $horloge = new HorlogeFictive())
@@ -33,6 +34,9 @@ final class DnsFictif implements Dns
     {
         $this->appels[] = ['directe', $nom, $delaiMs];
         $this->horloge->temps += $this->latence;
+        if ($this->panneDirecte !== null) {
+            throw $this->panneDirecte;
+        }
         if ($this->panne !== null) {
             throw $this->panne;
         }

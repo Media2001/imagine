@@ -8,6 +8,7 @@ final readonly class Robot
 {
     /** @var list<Plage> */
     public array $reseaux;
+    public ?\DateTimeImmutable $expirationPlages;
 
     /** @param list<string> $agents @param list<string> $domaines @param list<string> $plages */
     public function __construct(
@@ -16,7 +17,7 @@ final readonly class Robot
         public Methode $methode,
         public array $domaines = [],
         public array $plages = [],
-        public ?\DateTimeImmutable $expirationPlages = null,
+        ?\DateTimeImmutable $expirationPlages = null,
     ) {
         if (preg_match('/\A[a-z][a-z0-9_-]{0,63}\z/D', $identifiant) !== 1 || $agents === []) {
             throw new \InvalidArgumentException('Identifiant ou agents manquants.');
@@ -52,5 +53,6 @@ final readonly class Robot
             $reseaux[] = new Plage($cidr);
         }
         $this->reseaux = $reseaux;
+        $this->expirationPlages = $expirationPlages?->setTimezone(new \DateTimeZone('Europe/Brussels'));
     }
 }

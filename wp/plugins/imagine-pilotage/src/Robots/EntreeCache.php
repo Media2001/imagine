@@ -8,10 +8,16 @@ use DateTimeImmutable;
 
 final readonly class EntreeCache
 {
+    public DateTimeImmutable $creation;
+    public DateTimeImmutable $expiration;
+
     public function __construct(
         public Decision $decision,
-        public DateTimeImmutable $creation,
-        public DateTimeImmutable $expiration,
+        DateTimeImmutable $creation,
+        DateTimeImmutable $expiration,
     ) {
+        $zone = new \DateTimeZone('Europe/Brussels');
+        $this->creation = $creation->setTimezone($zone);
+        $this->expiration = $expiration->setTimezone($zone);
     }
 }

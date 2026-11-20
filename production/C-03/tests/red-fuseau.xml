@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.009401">
+    <testsuite name="Robots" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.009401">
+      <testsuite name="Imagine\Pilotage\Tests\Robots\ConfigurationTest" file="/work/tests/Robots/ConfigurationTest.php" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.009401">
+        <testcase name="testDatesNormaliseesBruxelles" file="/work/tests/Robots/ConfigurationTest.php" line="84" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.009401">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testDatesNormaliseesBruxelles
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'Europe/Brussels'
++'Z'
+
+/work/tests/Robots/ConfigurationTest.php:92</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

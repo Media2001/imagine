@@ -81,6 +81,22 @@ final class ConfigurationTest extends TestCase
         new Decision(Motif::AgentInconnu, 'google');
     }
 
+    public function testDatesNormaliseesBruxelles(): void
+    {
+        $date = new DateTimeImmutable('2026-11-20T12:00:00Z');
+        $entree = new \Imagine\Pilotage\Robots\EntreeCache(
+            new Decision(Motif::AgentInconnu),
+            $date,
+            $date->modify('+60 seconds'),
+        );
+        self::assertSame('Europe/Brussels', $entree->creation->getTimezone()->getName());
+        self::assertSame('Europe/Brussels', $entree->expiration->getTimezone()->getName());
+        self::assertSame($date->getTimestamp(), $entree->creation->getTimestamp());
+        $robot = new Robot('fictif', ['FictifBot'], Methode::Plages, expirationPlages: $date);
+        self::assertSame('Europe/Brussels', $robot->expirationPlages->getTimezone()->getName());
+        self::assertSame($date->getTimestamp(), $robot->expirationPlages->getTimestamp());
+    }
+
     public function testConfigurationInitialeGoogleBingSeulementEtAucunDnsAuChargement(): void
     {
         $chemin = dirname(__DIR__, 2) . '/config/robots.php';
