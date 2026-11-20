@@ -25,7 +25,7 @@ Table inconnue ordinaire conservée ; table personnelle sans décision bloquée 
 
 **Résultat historique à ce stade : acceptance non validée. Aucun `PRET`, aucune ouverture ni opération réelle.**
 
-## Reçus courants
+### Reçus de cette première reprise (historiques)
 
 | Contrôle | Exécution exacte | Résultat |
 |---|---|---|
