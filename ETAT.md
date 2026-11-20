@@ -1,4 +1,4 @@
-# État des chantiers — mis à jour le 20 novembre 2026, 9 h
+# État des chantiers — mis à jour le 21 novembre 2026, 0 h 45
 
 ## Mise en route
 
@@ -19,11 +19,11 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 | Lot | État | Prochaine étape | Qui |
 |---|---|---|---|
 | Sauvegarde de production | Pas encore récupérée | Export SQL + `wp-content`, déposés sur le NUC **hors du dépôt** | Ced |
-| A-01 Import neutralisé | Première version rendue le 20/11 : rigoureuse mais trop fermée (3 extensions gardées, 23 options, refus des tables inconnues), et pas encore au vert sur ses sites jetables. **Reprise demandée** : staging fidèle, on ne retire que le dangereux (`briefs/A-01-reprise.md`) | Chaîne au vert, preuve qu'un site garde ses extensions et réglages, `PRET` | Hermès |
+| A-01 Import neutralisé | Chaîne validée le 20/11 sur sites jetables avec les vrais Subscriptions et Memberships (classique et HPOS). Pas de `PRET` : le branchement dans l'outil de staging manque | Commande unique par le chemin le plus court (`briefs/A-01-chemin-court.md`) | Hermès |
 | A-07 Exposition de l'outil de staging | Fait le 20/11. Test depuis l'extérieur en IPv4 : le tableau de bord n'est pas joignable. Non vérifié : redirections, DMZ et pare-feu IPv6 dans l'administration de la box | Coup d'œil à la box quand possible ; retirer l'autorisation du port 7000 en profil public du pare-feu Windows | Ced |
 | Licences WooCommerce | Obtenues le 20/11 | Déposer les archives Subscriptions et Memberships dans le dossier des extensions premium de l'outil de staging, hors dépôt | Ced |
 | Staging Imagine existant | Arrêté par Hermès le 19/11, non supprimé ; la révocation du mot de passe applicatif dans WordPress n'est pas attestée | Ne pas le redémarrer ; le détruire quand le nouveau parcours est validé | Ced |
-| A-00 Couverture des extensions | Brief écrit | Production | Hermès |
+| A-00 Couverture des extensions | Rendu le 20/11 : 19 besoins, 38 sources officielles ; relu : à corriger, sans bloquant | Corrections ; 13 questions à trancher, dont une partie pour Imagine | Hermès, Ced |
 | A-02 à A-06 | En attente | Voir `A-FAIRE.md` | — |
 
 ## B · Le thème
@@ -38,10 +38,10 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 
 | Lot | État | Prochaine étape | Qui |
 |---|---|---|---|
-| C-01 Règle des numéros | Brief écrit | Production | Hermès |
-| C-04 File du connecteur | Brief écrit | Production | Hermès |
-| C-03 Vérification des robots | Brief écrit | Production | Hermès |
-| C-02 Numéro d'entreprise | Brief écrit | Production | Hermès |
+| C-01 Règle des numéros | Rendu le 20/11, 39 tests ; relu : à corriger, deux défauts hors du cas nominal | Corrections sans arbitrage en cours ; arbitrages de Ced attendus | Hermès, Ced |
+| C-04 File du connecteur | Rendu le 20/11, 22 tests ; relu : à corriger | Corrections sans arbitrage en cours ; arbitrages de Ced attendus | Hermès, Ced |
+| C-03 Vérification des robots | Rendu le 20/11, 89 tests ; relu : à corriger, **un bloquant** (clé de cache) | Corrections sans arbitrage en cours ; arbitrages de Ced attendus | Hermès, Ced |
+| C-02 Numéro d'entreprise | Rendu le 20/11, 41 tests ; relu : à corriger, aucun défaut fonctionnel | Corrections sans arbitrage en cours ; arbitrages de Ced attendus | Hermès, Ced |
 | Suite | En attente | Voir `A-FAIRE.md` | — |
 
 ## En attente de tiers
