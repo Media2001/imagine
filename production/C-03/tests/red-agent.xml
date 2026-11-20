@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.003603">
+    <testsuite name="Robots" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.003603">
+      <testsuite name="Imagine\Pilotage\Tests\Robots\VerificateurTest" file="/work/tests/Robots/VerificateurTest.php" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.003603">
+        <testcase name="testAgentInconnuSansDns" file="/work/tests/Robots/VerificateurTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="1" time="0.003603">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testAgentInconnuSansDns
+Le moteur C-03 doit exister.
+Failed asserting that false is true.
+
+/work/tests/Robots/VerificateurTest.php:22</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

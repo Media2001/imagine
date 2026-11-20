@@ -2,5 +2,6 @@
 <phpunit bootstrap="vendor/autoload.php" colors="false" cacheDirectory="/tmp/imagine-phpunit-cache">
     <testsuites>
         <testsuite name="Numeros"><directory>tests/Numeros</directory></testsuite>
+        <testsuite name="Robots"><directory>tests/Robots</directory></testsuite>
     </testsuites>
 </phpunit>
