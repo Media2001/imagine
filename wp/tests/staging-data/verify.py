@@ -34,7 +34,9 @@ def main() -> int:
         ('runtime-absent-contract', [php, '-n', str(tests / 'runtime.php')], {}),
         ('runtime-present-contract', [php, '-n', str(tests / 'runtime.php')], {'IMAGINE_SYNTHETIC_SUBSCRIPTIONS': 'yes'}),
         ('runtime-installed-class-missing-contract', [php, '-n', str(tests / 'runtime.php')], {'IMAGINE_SYNTHETIC_PACKAGE': 'yes'}),
-        ('pdo-inventory-contract', [php, '-n', str(tests / 'pdo-contract.php')], {}),
+        # PDO may be a shared module loaded by the prepared runtime's php.ini.
+        # This case is a transport double, but still requires the real PDO classes.
+        ('pdo-inventory-contract', [php, str(tests / 'pdo-contract.php')], {}),
         ('commands-persistent-memory', [sys.executable, str(tests / 'commands.py')], {}),
     ]
     results = []

@@ -1,6 +1,29 @@
-# Rapport du site synthétique — reprise du 20 novembre 2026
+# Rapport A-01 — synthétique stabilisé, 20 novembre 2026
 
-**Résultat : acceptance non validée. Aucun `PRET`, aucune ouverture ni opération réelle.**
+**Acceptance classique et HPOS : PASS**, reçu exact `evidence/f36c72f4d187/result.json`, sortie 0, **131 PASS / 2 NOT_TESTED**. Le journal extérieur confirme isolation avant/après et suppression relue du conteneur exact. Pas d'import réel, pas de GO production ni `PRET` dans ce sous-lot.
+
+| Contrôle actuel | Reçu exact | Résultat |
+|---|---|---|
+| Sécurité du banc | `evidence/safety-22eece7f2ddf/result.json` | 17 tests réussis |
+| Oracles/fixtures, classique + HPOS | `evidence/c1186257ca0c/result.json` | sortie 0, 75 PASS / 2 NOT_TESTED |
+| Vrais scripts + fidélité après nettoyage + pièges + relance | `evidence/f36c72f4d187/result.json` | sortie 0, 131 PASS / 2 NOT_TESTED |
+| Contrats data/MU/CLI et régression structure HPOS | `evidence/2ea8c8781c6c/data-result.json` et `journal.json` | 9 cas, 337 assertions ; ancien `lib.php` fait échouer la nouvelle régression |
+
+Départ : `6cb3c90a73b0`, toutes les empreintes sujets identiques à la reprise. Le refus personnel classique concerne `wp_yoast_primary_term.taxonomy` (table vide, détection conservatrice `nom`). Aucun changement au classificateur : refus prouvé avant décision, puis `garder` uniquement dans le contexte fictif du banc, jamais comme choix de Ced.
+
+HPOS : reçu diagnostic `ff179a0b7caf` = `SQLSTATE 23000 / 1062`, colonnes modifiées de `wp_wc_order_addresses`, dont `address_type`. Le nettoyage confondait ce discriminateur billing/shipping avec une adresse personnelle et faisait collision sur la clé unique. Correction limitée à cette seule coordonnée ; valeurs dangereuses toujours nettoyées, vérificateur inchangé. Les 60 lignes HPOS gardent id/order_id/type/pays et les identités sont retirées.
+
+Fidélité prouvée **après** nettoyage : vrai bootstrap WordPress/Woo/CF7/Yoast/Meta Box, formulaire rendu, champs simples/clonés lus, réglages/article/MU identiques par empreinte. Invariants métier et mots de passe remplacés vérifiés par PDO indépendant. Douze résidus distincts par stockage sont réinsérés puis refusés avec le tag attendu (clés de service imbriquées, identifiants de paiement, emails compte/commande/note liée). Retrait du verrou mail : espion mémoire sensible et refus. L'email d'un commentaire sans lien transactionnel reste un avertissement. Le test historique attendait à tort cet avertissement sur une note de commande ; aucun affaiblissement du sujet pour le satisfaire.
+
+Table inconnue ordinaire conservée ; table personnelle sans décision bloquée ; actions synthétiques `garder`/`vider`/`anonymiser` exercées sur email externe et téléphone fictifs, empreintes et présentation contrôlées. La chaîne complète passe aussi en relance. Le test PDO unitaire charge désormais l'ini normal nécessaire à son module PDO partagé Linux ; l'échec initial `PDOStatement` absent reste dans `evidence/bb87e0db2ac4/`.
+
+**Limites inchangées :** paquets payants non relancés ; Subscriptions 9.4.1 incompatible avec le runtime 6.9/10.4.3, exigences 7.0/11.1 jamais contournées ; mode staging réel/abonnements/droits Memberships non qualifiés. Import complet de fichiers, service partagé/API, ouverture web, mises à jour réseau, Novamira et bascule non exercés. L'intégration opérateur n'a pas été modifiée ; son texte de blocage data antérieur est désormais historique, pas ses autres réserves. Détails : `../../../production/A-01/notes.md`.
+
+## Rapports antérieurs — conservés, remplacés par le point ci-dessus
+
+### Rapport du site synthétique — première reprise du 20 novembre 2026
+
+**Résultat historique à ce stade : acceptance non validée. Aucun `PRET`, aucune ouverture ni opération réelle.**
 
 ## Reçus courants
 

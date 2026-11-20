@@ -1,6 +1,6 @@
 # Reprise A-01 — exécution synthétique et limites
 
-**20 novembre 2026. Référence courante ; remplace les indications historiques incompatibles du README. Acceptance non validée ; aucun `PRET`.**
+**20 novembre 2026. Référence courante ; remplace les indications historiques incompatibles du README. Acceptance synthétique stabilisée validée (`f36c72f4d187`) ; pas de qualification de l'import réel, aucun `PRET`.**
 
 ## Commandes
 
@@ -38,15 +38,19 @@ sha256:b2ffa6ad01ffacc6d31b176232c8d0779c0320daba381e05cbbd80f56d5327a0
 
 Le build ne crée/importera aucun site en base. `.dockerignore` exclut le reste du dépôt du contexte. Inventaire Linux : `results/reprise-public-packages.tsv`. Une reconstruction Debian n'est pas annoncée reproductible bit-à-bit.
 
-## Fidélité : référence exécutée, preuve post-nettoyage bloquée
+## Fidélité et pièges : preuve après nettoyage désormais exécutée
 
-Chaque stockage contient 30 comptes et 30 commandes inventées, les trois extensions gratuites actives, un formulaire CF7 réel, des options Yoast réelles, un article, et des champs simples/clonés Meta Box configurés par un MU-plugin synthétique.
+Chaque stockage contient 30 comptes et 30 commandes inventés, les trois extensions gratuites actives, un formulaire CF7 réel, des options Yoast réelles, un article, et des champs simples/clonés Meta Box configurés par un MU-plugin synthétique.
 
-`fidelity.php` exige un nouveau bootstrap WordPress, le rendu réel du formulaire, les lectures des champs, l'état actif des extensions et les empreintes exactes des réglages, article et MU-plugin. La référence **avant** traitement fonctionne en classique et HPOS. La preuve **après** traitement est implémentée, mais **non atteinte** : dans le reçu livré, `neutraliser` échoue avec `SQLSTATE 23000`, erreur **1062**, sur `wp_options.option_name`.
+`fidelity.php` exige un nouveau bootstrap WordPress, le rendu réel du formulaire, les lectures des champs, l'état actif des extensions et les empreintes exactes des réglages, article et MU-plugin. **Avant et après traitement : PASS classique et HPOS**, reçu `evidence/f36c72f4d187/result.json` (sortie 0 ; 131 PASS, 2 NOT_TESTED). Les montants/statuts/dates/articles/quantités/pays/moyens de paiement restent identiques ; les 60 lignes d'adresses HPOS gardent leurs discriminateurs billing/shipping.
 
-Après le cas propre, le harness prévoit les clés connues imbriquées, identifiants Stripe/PayPal, emails compte/commande, retrait du verrou mail avec espion mémoire, table inconnue non personnelle conservée, table personnelle refusée sans décision, puis décisions synthétiques `garder`, `vider`, `anonymiser`. Les décisions de fixtures ne sont jamais présentées comme des arbitrages de Ced. Un email de note réintroduit doit être un avertissement, pas un sixième motif bloquant. Aucun refus de résidu n'est crédité avant une vraie vérification positive.
+Reprise depuis `6cb3c90a73b0`, sources sujets identiques au départ. Le refus classique vient de `wp_yoast_primary_term.taxonomy` (motif conservateur `nom`, table vide comprise). Le banc prouve d'abord le refus sans décision, puis applique **uniquement dans son contexte fictif** une décision nommée `garder`. Aucun défaut de production ni arbitrage de Ced n'est ajouté. Le refus HPOS 78 est isolé comme `SQLSTATE 23000 / 1062` : `address_type`, clé structurelle unique billing/shipping, était vidé comme une adresse personnelle. La correction garde cette seule colonne de cette seule table, sans dispenser les valeurs du nettoyage des motifs dangereux ni retirer de contrôle au vérificateur.
 
-Les sources de données évoluent en parallèle. Chaque reçu indique les sources **exactement copiées** ; les tests doivent être rejoués après stabilisation. Un éventuel écart avec le fichier courant est consigné à l'emballage, pas masqué.
+Après le cas propre : clés connues imbriquées, identifiants Stripe/PayPal, emails compte/commande/**note de commande** refusés avec le tag attendu ; retrait du verrou mail détecté et espion mémoire sensible ; table inconnue non personnelle conservée ; table personnelle refusée sans décision ; décisions synthétiques `garder`, `vider`, `anonymiser` prouvées sur email externe et téléphone inventés, sans perte du champ de présentation. Un email dans un commentaire **sans lien transactionnel** est un avertissement, pas un sixième motif bloquant. Le vieux test qui attendait un avertissement pour une note rattachée à une commande était erroné ; le vérificateur n'a pas été affaibli pour le satisfaire.
+
+Oracles rejoués : `evidence/c1186257ca0c/result.json`, 75 PASS et 2 NOT_TESTED. Contrats data/MU/CLI : `evidence/2ea8c8781c6c/data-result.json`, 9 cas, 337 assertions ; sa régression billing/shipping échoue contre l'ancien `lib.php` conservé. Le contrat PDO emploie le chargement normal de PHP : sous Linux, `-n` supprimait son module PDO partagé. Diagnostics et erreur pré-correction conservés, sans SQL/valeurs bruts.
+
+Les reçus historiques restent immuables. Chaque nouveau reçu indique les sources **exactement copiées** ; les empreintes du reçu stabilisé ont été rapprochées des fichiers courants. Détails et limites : `../../../production/A-01/notes.md`.
 
 ## Garde-fous et reçus
 
