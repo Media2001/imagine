@@ -291,6 +291,25 @@ def acceptance(site, database, storage, before):
     preflight_value = json.loads(next(line[len('E2E_JSON='):] for line in preflight.stdout.splitlines() if line.startswith('E2E_JSON=')))
     record(storage + ':subject_guard_preflight', 'PASS' if preflight_value['guard_ok'] else 'FAIL', preflight_value)
     for name in ('neutraliser', 'anonymiser', 'verifier'):
+        if name == 'verifier':
+            undecided = subject_command(site, name, password, context)
+            undecided_report = json.loads(undecided.stdout)
+            pending = {table['name']: table['personal_columns']
+                       for table in undecided_report.get('unknown_tables', [])
+                       if table.get('personal_columns') and table.get('decision') is None}
+            assert_true(undecided.returncode == 1
+                        and undecided_report.get('issues') == ['TABLE_PERSONNELLE_A_TRANCHER']
+                        and pending == {'wp_yoast_primary_term': ['taxonomy']},
+                        storage + ':fixture_yoast_requires_explicit_decision',
+                        {'issues': undecided_report.get('issues'), 'personal_tables': pending})
+            # Named decision only for this generated fixture, never a production default
+            # or an automatic decision based on the verifier's inventory.
+            fixture_context = json.loads(context.read_text())
+            fixture_context['table_decisions'] = {'wp_yoast_primary_term': {'action': 'garder'}}
+            context.write_text(json.dumps(fixture_context))
+            record(storage + ':fixture_yoast_decision', 'PASS',
+                   {'table': 'wp_yoast_primary_term', 'action': 'garder',
+                    'decision_is_synthetic_not_Ced_approval': True})
         result = subject_command(site, name, password, context)
         # Never persist subjects' raw output: report only hashes, status, non-sensitive error tags.
         detail = {'exit_code': result.returncode, 'stdout_sha256': hashlib.sha256(result.stdout.encode()).hexdigest(),
@@ -376,7 +395,8 @@ def acceptance(site, database, storage, before):
             decision = {'action': action}
             if action == 'anonymiser':
                 decision['columns'] = ['email']
-            context.write_text(json.dumps(dict(base_context, table_decisions={'wp_imagine_e2e_personal': decision})))
+            context.write_text(json.dumps(dict(base_context, table_decisions={
+                **base_context.get('table_decisions', {}), 'wp_imagine_e2e_personal': decision})))
             for phase in ('neutraliser', 'anonymiser', 'verifier'):
                 result = subject_command(site, phase, password, context)
                 assert_true(result.returncode == 0, storage + ':synthetic_decision:' + action + ':' + phase,

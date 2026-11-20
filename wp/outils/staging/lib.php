@@ -358,7 +358,11 @@ final class Engine
                     if (self::sensitiveKey((string) $key) && $key !== 'option_name' && $key !== 'meta_key') {
                         $next[$key] = '';
                     }
-                    if ($personal && ((in_array($kind, ['wc_order_addresses', 'wc_orders', 'wc_customer_lookup', 'wc_order_operational_data'], true) && self::piiKey($key)) || ($key === 'meta_value' && self::piiKey($row['meta_key'] ?? '')))) {
+                    // HPOS address_type is the billing/shipping discriminator of a unique key,
+                    // not a person's address. Keep its structure; still scrub dangerous values above.
+                    if ($personal && ((in_array($kind, ['wc_order_addresses', 'wc_orders', 'wc_customer_lookup', 'wc_order_operational_data'], true)
+                        && !($kind === 'wc_order_addresses' && $key === 'address_type') && self::piiKey($key))
+                        || ($key === 'meta_value' && self::piiKey($row['meta_key'] ?? '')))) {
                         $next[$key] = '';
                     }
                 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Imagine\E2E;
 
+// Diagnostics stay inside an owned fictitious DB; arguments never leave this script.
+ini_set('zend.exception_ignore_args', '0');
 require '/subject/lib.php';
 require '/subject/pdo-store.php';
 require '/subject/files.php';
@@ -77,7 +79,8 @@ try {
             }
         }
     }
-    $result = ['guard_ok' => false, 'metadata_mentions' => array_keys($metadataMentions), 'schema_mismatches' => $mismatches,
+    $result = ['guard_ok' => false, 'metadata_mentions' => array_keys($metadataMentions),
+        'changed_columns' => $changedColumns, 'schema_mismatches' => $mismatches,
         'refusal_tag' => preg_match('/^[A-Z_]+$/D', $code) ? $code : 'REDACTED_REFUSAL',
         'exception_class' => get_class($exception),
         'sqlstate' => $exception instanceof \PDOException ? ($exception->errorInfo[0] ?? null) : null,
