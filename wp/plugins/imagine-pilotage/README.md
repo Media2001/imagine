@@ -95,3 +95,41 @@ Les arbitrages du brief et les limites d'intégration figurent dans
 `production/C-01/notes.md`. En particulier, l'anniversaire du 29 février refuse
 un résultat arbitraire et demande un arbitrage. Pas de validation juridique,
 pas de recouvrement, pas d'adaptateur WooCommerce dans ce lot.
+
+## C-03 — identité des robots, indépendante du paywall
+
+`src/Robots/` vérifie une identité candidate à partir d'un UA et d'une IP explicite :
+DNS inverse + domaine autorisé + directe concordante, **ou** appartenance CIDR
+IPv4/IPv6, au choix pour chaque robot. `config/robots.php` propose Googlebot et
+Bingbot en DNS et cite les pages et sources de plages officielles. Aucun robot
+supplémentaire n'est activé et aucun appel réseau n'est fourni par ce lot.
+
+`Verificateur` reçoit `Configuration`, `Dns`, `Cache`, `HorlogeMonotone` ; sa méthode
+`verifier(agent, ip, DateTimeImmutable)` rend une `Decision` avec `estVerifie()`,
+`robot` (null au refus) et `motif`. Le DNS et le temps sont simulés dans
+`tests/Robots/`. Aucun en-tête IP n'est lu et aucun contenu n'est servi.
+
+```sh
+# Depuis ce répertoire, uniquement dans le conteneur jetable autorisé :
+composer test                         # suites Numeros et Robots
+composer test -- --testsuite Robots
+composer lint
+vendor/bin/phpcs --standard=PSR12 config
+php -l config/robots.php
+```
+
+Le lanceur réutilisable propre à C-03 et ses commandes sont documentés dans
+`wp/tests/robots-runner/README.md`, depuis la racine du dépôt. Les runners et les
+preuves C-01/C-04 sont conservés. Rien ne s'installe sur l'hôte.
+
+Les durées proposées sont 3 600 s (positif), 60 s (négatif), 200 ms (séquence DNS).
+Le cache est séparé par IP canonique, robot et configuration. Un instantané CIDR
+exige une expiration et son cache positif ne la dépasse pas. Le cache mémoire
+livré est un exemple local, pas une persistance serveur.
+
+Le futur adaptateur DNS devra garantir un **délai dur** : le moteur refuse une
+réponse tardive mais ne peut pas interrompre une implémentation qui ne revient
+jamais. Les DNS natifs PHP ne sont volontairement pas branchés. Voir
+`production/C-03/notes.md` pour les sources, limites, proxies de confiance et
+arbitrages ; `production/C-03/tests/rapport.md` pour les exécutions réelles.
+

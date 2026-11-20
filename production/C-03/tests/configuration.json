@@ -1,0 +1,11 @@
+{
+  "time_utc": "2026-11-20T16:05:54.596807+00:00",
+  "psr12_exit_code": 0,
+  "syntax_exit_code": 0,
+  "config_sha256": "09ecdbe49cf05b86dbb8008502b52ee11a8f194ae5a90da1b300dd6f490ba15d",
+  "container_source_verified": true,
+  "network_disconnected": true,
+  "no_mounts": true,
+  "no_ports": true,
+  "runner_sha256": "3ef940a7c75d6b814a241ba18a2dc9d6924fcd8b5d2a393141549edeeb81cf6c"
+}
