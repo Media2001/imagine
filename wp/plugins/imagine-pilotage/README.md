@@ -133,3 +133,43 @@ jamais. Les DNS natifs PHP ne sont volontairement pas branchés. Voir
 `production/C-03/notes.md` pour les sources, limites, proxies de confiance et
 arbitrages ; `production/C-03/tests/rapport.md` pour les exécutions réelles.
 
+## C-02 — numéro d’entreprise belge, contrôle local uniquement
+
+`Entreprise\NumeroEntreprise::depuisSaisie(string)` retourne un objet immuable :
+`estValide()`, `normalise` (dix chiffres ou null), `affichage()` (`0123.456.749`
+pour l’exemple calculé ci-dessous, ou null), `motif` (enum ou null) et
+`message(?callable $traduire = null)` en français. La clé et le premier chiffre
+sont contrôlés après normalisation ; aucune preuve d’existence ou de TVA.
+
+```php
+use Imagine\Pilotage\Entreprise\NumeroEntreprise;
+use Imagine\Pilotage\Entreprise\RechercheDenominationIndisponible;
+
+// Fixture calculée, sans entreprise interrogée ni numéro réel repris.
+$base = '01234567';
+$saisie = 'BE ' . $base . sprintf('%02d', 97 - ((int) $base % 97));
+$numero = NumeroEntreprise::depuisSaisie($saisie);
+if ($numero->estValide()) {
+    $recherche = new RechercheDenominationIndisponible();
+    $denomination = $recherche->rechercher($numero); // indisponible, jamais « inexistante »
+}
+```
+
+Pas de réglage, stockage, hooks, écran de commande ou transport réseau. Le
+futur adaptateur d’interface doit injecter sa fonction de traduction dans
+`message()`, fournir les entrées du catalogue et échapper la sortie. Dans
+WordPress : `fn (string $texte): string => __($texte, 'imagine-pilotage')`.
+Les motifs sont des identifiants stables, pas des messages techniques à afficher.
+
+```sh
+# Dans le conteneur PHP jetable autorisé, depuis ce répertoire :
+composer test                       # Numeros, Robots et Entreprise
+composer test -- --testsuite Entreprise
+composer lint
+```
+
+Le lanceur propre à C-02 est décrit dans `wp/tests/entreprise-runner/README.md`.
+`production/C-02/notes.md` précise les saisies acceptées, limites et pistes
+documentaires non consultées ; la décision 8 reste ouverte. R-06 n’est couvert
+qu’au niveau de la bibliothèque, pas du parcours WooCommerce/Odoo.
+

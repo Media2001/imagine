@@ -1,0 +1,17 @@
+{
+  "time_utc": "2026-11-20T16:21:43.473695+00:00",
+  "exit_code": 0,
+  "result": {
+    "valide": true,
+    "normalise": "0123456749",
+    "affichage": "0123.456.749",
+    "denomination": null,
+    "recherche_disponible": false,
+    "message": "La recherche de dénomination n’est pas disponible."
+  },
+  "readme_sha256": "7305070b156a8c31a086c303899e2d09a81c86078a8f8b6a9bf2b90a5d619f1c",
+  "runner_sha256": "8d9cbca5588904de6347d1d1726d81e693ce3bf4212dbaf910ee44029c0959ce",
+  "network_disconnected": true,
+  "no_mounts": true,
+  "no_ports": true
+}

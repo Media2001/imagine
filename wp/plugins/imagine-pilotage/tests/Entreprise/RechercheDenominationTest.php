@@ -45,9 +45,18 @@ final class RechercheDenominationTest extends TestCase
         self::assertTrue((new \ReflectionClass($r))->isReadOnly());
     }
 
-    public function testUneDenominationVideNeSimulePasUnSucces(): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('denominationsInvalides')]
+    public function testUneDenominationVideNeSimulePasUnSucces(string $texte): void
     {
         $this->expectException(InvalidArgumentException::class);
-        new ResultatRecherche('   ');
+        new ResultatRecherche($texte);
+    }
+
+    public static function denominationsInvalides(): iterable
+    {
+        yield 'vide' => [''];
+        yield 'espaces' => ['   '];
+        yield 'espaces unicode' => ["\u{00A0}\u{202F}"];
+        yield 'utf8 invalide' => ["\xFF"];
     }
 }
