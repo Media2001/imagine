@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendor/autoload.php" colors="false" cacheDirectory="/tmp/imagine-phpunit-cache">
+    <testsuites>
+        <testsuite name="Numeros"><directory>tests/Numeros</directory></testsuite>
+    </testsuites>
+</phpunit>

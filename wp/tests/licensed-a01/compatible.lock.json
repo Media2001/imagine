@@ -1,0 +1,20 @@
+{
+  "prepared_at_utc": "2026-11-20T14:05:45.001941+00:00",
+  "base_image_id": "sha256:b2ffa6ad01ffacc6d31b176232c8d0779c0320daba381e05cbbd80f56d5327a0",
+  "image_id": "sha256:ea311683c11e8aefbc9be5325c46614cdb43db47e944fde9998290d39b6dcc08",
+  "artifacts": {
+    "wordpress.zip": {
+      "url": "https://wordpress.org/wordpress-7.0.9.zip",
+      "sha256": "5a46f3c0443a321afa1f511ec3007fc636fdbd2e7598871020351edeffa1e1a0",
+      "bytes": 31438844
+    },
+    "woocommerce.zip": {
+      "url": "https://downloads.wordpress.org/plugin/woocommerce.11.1.1.zip",
+      "sha256": "c5748c60a28c5d4b439109def3955c5a629f7cd66b919ae5aefa588bcaace710",
+      "bytes": 18002436
+    }
+  },
+  "public_only": true,
+  "no_site_created_during_prepare": true,
+  "runtime_downloads": false
+}
