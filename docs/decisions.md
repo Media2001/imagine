@@ -30,7 +30,7 @@ Ce qui est tranché par Ced, daté. Ce fichier précise ou corrige le cahier des
 2. **Pilotage.** La gestion de projet, le document d'interface avec Odoo et les deux sessions de formation sont-ils chez Ced ?
 3. **Données réelles.** Appliqué par défaut : la copie de production vit sur le NUC hors du dépôt ; Ced lance lui-même l'import, qui la neutralise et l'anonymise (lot A-01) ; les agents ne travaillent que sur la copie anonymisée. À confirmer, et à préciser pour l'export Access : où et par qui est-il traité ?
 4. **Environnements.** Hébergeur et préproduction (le staging local Docker est tranché).
-5. **Licences.** Subscriptions, Memberships, ACF Pro, Rank Math Pro, Event Tickets Plus : disponibles pour le développement ?
+5. **Licences.** WooCommerce (Subscriptions, Memberships) : obtenues le 20/11. Restent à confirmer : ACF Pro, Rank Math Pro, Event Tickets Plus, et Teams for Memberships si l'étude A-00 le retient.
 6. **Site actuel.** Sauvegarde complète (export SQL et `wp-content`) à récupérer chez l'hébergeur actuel.
 7. **Connecteur.** n8n hébergé à part ou intégré au site (§4.1).
 8. **Numéro d'entreprise.** Recherche de la dénomination en ligne (cahier des charges) ou simple contrôle de format (décision d'octobre) ?
