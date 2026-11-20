@@ -22,6 +22,8 @@ Sur ce dépôt, tu n'as pas de passages à heures fixes : tu enchaînes les lots
 - Tu ne commences jamais un lot de la section « En attente ».
 - Tu ne construis pas sur un lot qui n'a pas encore son `GO.md`, sauf si le brief le dit. Les lots actifs sont choisis pour être indépendants : s'il t'en faut un autre, signale-le.
 - Si tu es bloqué sur un lot, tu ne tournes pas en rond : tu écris pourquoi dans le rapport et tu passes au suivant.
+- **Un lot a un délai.** Celui du brief, ou une demi-journée de travail par défaut. Au-delà, sans `PRET` : tu écris un rapport (ce qui marche, ce qui ne marche pas, ce qu'il faudrait), tu laisses le lot en l'état et tu prends le suivant. Tu y reviendras sur consigne.
+- **La proportion.** Un lot répond à son brief, pas plus. Si la solution demande beaucoup plus de code ou de couches que le besoin ne le laisse attendre, arrête-toi et pose la question dans ton rapport avant de continuer.
 - **Quand la file est vide, tu t'arrêtes.** Tu l'écris dans ton rapport (« file vide ») et tu attends. Tu n'inventes pas de travail : pas de refonte, pas d'amélioration, pas de lot que personne n'a demandé, pas de reprise d'un lot `PRET`.
 
 ## Où tu écris
@@ -44,7 +46,7 @@ Une ambiguïté n'est pas un blocage : choisis l'interprétation la plus proche 
 
 ## Rapport
 
-Un rapport à chaque lot terminé ou bloqué, et au moins un par tranche de six heures de travail : `files/rapports/AAAA-MM-JJ-HHhMM.md`. En tête, cinq lignes en langage simple :
+Un rapport à chaque lot terminé ou bloqué, et au moins un par tranche de **trois** heures de travail : `files/rapports/AAAA-MM-JJ-HHhMM.md`. En tête, cinq lignes en langage simple :
 
 1. **Fait** : ce qui est terminé.
 2. **Prêt à relire** : les lots passés à `PRET`.

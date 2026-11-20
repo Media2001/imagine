@@ -1,4 +1,4 @@
-# État des chantiers — mis à jour le 19 novembre 2026, 20 h
+# État des chantiers — mis à jour le 20 novembre 2026, 9 h
 
 ## Mise en route
 
@@ -6,7 +6,7 @@
 |---|---|---|---|
 | Dépôt | Créé ; cloné sur le NUC (`C:\Users\Ced\imagine`, alias SSH `github-imagine`) | — | — |
 | Hermès sur ce dépôt | Démarré le 19/11 | Premier rapport dans `files/rapports/` | Hermès |
-| Synchronisation Git | Tâche planifiée « IMAGINE - synchro » créée le 19/11, toutes les 5 min | — | — |
+| Synchronisation Git | En service depuis le 20/11, 8 h 55. La nuit du 19 a été perdue : Git refusait les commits faute d'identité, et le script ne le signalait pas (corrigé) | — | — |
 | Circuit de relecture | `scripts/relire.ps1` adapté aux lots ; se lance sans erreur, **pas encore testé sur un lot** | Lancer à la main sur le premier lot `PRET`, puis planifier « IMAGINE - relecture » | Ced |
 | Staging | Pas de Docker sur le NUC : on utilise l'outil de staging de Ced, avec Novamira pour l'accès des agents. Étape « site à abonnements » à ajouter à l'outil (`prompts/2026-11-19-staging-imagine.md`). Le `docker-compose.yml` du dépôt n'est plus utilisé | Hermès ajoute l'étape ; puis retirer Docker du dépôt | Hermès, puis Claude |
 | Exécution des tests PHP | Consigne donnée à Hermès : conteneur jetable de l'outil de staging, rien sur Windows | Confirmer dans son premier rapport que ça fonctionne | Hermès |
@@ -19,8 +19,9 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 | Lot | État | Prochaine étape | Qui |
 |---|---|---|---|
 | Sauvegarde de production | Pas encore récupérée | Export SQL + `wp-content`, déposés sur le NUC **hors du dépôt** | Ced |
-| A-01 Import neutralisé | Audit de l'outil rendu par Hermès le 19/11 (rien n'est neutralisé aujourd'hui) ; accord de Ced donné | Scripts, tests sur site jetable, `production/A-01/notes.md` | Hermès |
-| Staging Imagine existant | Copie de production non neutralisée, au statut « running » | L'arrêter ou vérifier le mode staging de Subscriptions ; le détruire quand le nouveau parcours est validé | Ced |
+| A-01 Import neutralisé | Première version rendue le 20/11 : rigoureuse mais trop fermée (3 extensions gardées, 23 options, refus des tables inconnues), et pas encore au vert sur ses sites jetables. **Reprise demandée** : staging fidèle, on ne retire que le dangereux (`briefs/A-01-reprise.md`) | Chaîne au vert, preuve qu'un site garde ses extensions et réglages, `PRET` | Hermès |
+| A-07 Exposition de l'outil de staging | Brief écrit | Contrôle en lecture seule | Hermès |
+| Staging Imagine existant | Arrêté par Hermès le 19/11, non supprimé ; la révocation du mot de passe applicatif dans WordPress n'est pas attestée | Ne pas le redémarrer ; le détruire quand le nouveau parcours est validé | Ced |
 | A-00 Couverture des extensions | Brief écrit | Production | Hermès |
 | A-02 à A-06 | En attente | Voir `A-FAIRE.md` | — |
 
