@@ -295,14 +295,18 @@ def acceptance(site, database, storage, before):
         # Never persist subjects' raw output: report only hashes, status, non-sensitive error tags.
         detail = {'exit_code': result.returncode, 'stdout_sha256': hashlib.sha256(result.stdout.encode()).hexdigest(),
                   'stderr_sha256': hashlib.sha256(result.stderr.encode()).hexdigest()}
-        if name == 'neutraliser' and result.returncode:
+        if name in ('neutraliser', 'anonymiser') and result.returncode:
             diagnostic = command(['php', str(ROOT / 'subject-preflight.php')],
                 env={'E2E_CONTEXT': str(context), 'WP_ENVIRONMENT_TYPE': 'staging',
-                     'E2E_PREFLIGHT_PHASE': 'neutraliser-diagnostic'})
+                     'E2E_PREFLIGHT_PHASE': name + '-diagnostic'})
             detail['retry_diagnostic'] = json.loads(next(line[len('E2E_JSON='):] for line in diagnostic.stdout.splitlines() if line.startswith('E2E_JSON=')))
         if name == 'verifier':
             report = json.loads(result.stdout)
             detail['issues'] = [tag for tag in report.get('issues', []) if isinstance(tag, str) and tag.isupper() and tag.replace('_', '').isalpha()]
+            detail['unresolved_personal_tables'] = [
+                {'name': table['name'], 'columns': table['personal_columns'], 'rows': table['rows']}
+                for table in report.get('unknown_tables', [])
+                if table.get('personal_columns') and table.get('decision') is None]
         assert_true(result.returncode == 0, storage + ':subject_positive:' + name, detail)
     listed = {table['name']: table for table in report.get('unknown_tables', [])}
     assert_true('wp_imagine_e2e_public' in listed and listed['wp_imagine_e2e_public']['rows'] == 1,

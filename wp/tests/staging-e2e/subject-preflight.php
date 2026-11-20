@@ -29,6 +29,11 @@ try {
         $engine->neutraliser();
         $result['diagnostic_retry'] = 'completed';
     }
+    if (getenv('E2E_PREFLIGHT_PHASE') === 'anonymiser-diagnostic') {
+        $files->verify();
+        $engine->anonymiser(bin2hex(random_bytes(24))); // Synthetic retry only; never print/store the password.
+        $result['diagnostic_retry'] = 'completed';
+    }
     if (getenv('E2E_PREFLIGHT_PHASE') === 'data') {
         $result['data_report'] = $engine->verifier(null); // Deliberately no runtime proof.
         $scrub = new \ReflectionMethod($engine, 'scrub');
@@ -48,6 +53,19 @@ try {
 } catch (\Throwable $exception) {
     $code = $exception->getMessage();
     $metadataMentions = [];
+    $changedColumns = [];
+    // Trace arguments stay in memory. Emit only schema-validated table/column identifiers.
+    foreach ($exception->getTrace() as $frame) {
+        if (($frame['function'] ?? '') !== 'replace') { continue; }
+        [$table, $before, $after] = ($frame['args'] ?? []) + [null, null, null];
+        if (is_string($table) && isset($schema[$table]) && is_array($before) && is_array($after)) {
+            foreach ($schema[$table] as $column) {
+                if (($before[$column] ?? null) !== ($after[$column] ?? null)) {
+                    $changedColumns[] = $table . '.' . $column;
+                }
+            }
+        }
+    }
     if ($exception instanceof \PDOException) {
         $privateMessage = (string) ($exception->errorInfo[2] ?? '');
         foreach ($schema as $table => $columns) {
