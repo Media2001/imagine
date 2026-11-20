@@ -54,6 +54,10 @@ def raw(storage,database):
         return hashlib.sha256(coords.encode()).hexdigest()
     return None
 
+def scheduled(database):
+    p=command(['mariadb','--socket='+base.SOCKET,'--user=root','--skip-column-names',database,'-e',"SELECT status,COUNT(*) FROM wp_actionscheduler_actions WHERE hook LIKE 'woocommerce_scheduled_subscription_%' GROUP BY status ORDER BY status"])
+    return {row.split('\t')[0]:int(row.split('\t')[1])for row in p.stdout.splitlines()}
+
 def run_storage(storage):
     site,database,available=install(storage)
     if not available['woocommerce-memberships']: return
@@ -66,6 +70,8 @@ def run_storage(storage):
     assert_true(before['versions']['hpos']==(storage=='hpos'),storage+':actual_authoritative_store',before['versions'])
     assert_true(not any(p['email_safe'] for p in before['personal']),storage+':personal_oracle_sensitive',{'outside_domain':6})
     sql_before=raw(storage,database)
+    native_before=scheduled(database)
+    assert_true(native_before.get('pending',0)>0,storage+':native_subscription_scheduler_seeded',native_before)
     pristine=base.export(database,'before-renewal-control')
     # Real WCS/Action Scheduler callback creates a manual renewal while isolated.
     control=case(site,'renewal')
@@ -90,6 +96,8 @@ def run_storage(storage):
         if name=='verifier':
             v=json.loads(p.stdout);detail['issues']=v.get('issues',[]);detail['unknown_personal_tables']=[{'name':t['name'],'columns':t['personal_columns']}for t in v.get('unknown_tables',[])if t.get('personal_columns') and t.get('decision') is None]
         assert_true(p.returncode==0,storage+':subject:'+name,detail)
+    native_after=scheduled(database)
+    assert_true(native_after.get('pending',0)==0 and native_after.get('in-progress',0)==0 and native_after.get('canceled',0)>=native_before.get('pending',0),storage+':native_subscription_actions_neutralized',{'before':native_before,'after':native_after})
     after=case(site,'snapshot')
     for field in ['business','membership','rules_sha256']:
         assert_true(before[field]==after[field],storage+':preserve:'+field,{'before_sha256':hashlib.sha256(json.dumps(before[field],sort_keys=True).encode()).hexdigest(),'after_sha256':hashlib.sha256(json.dumps(after[field],sort_keys=True).encode()).hexdigest()})
@@ -108,8 +116,14 @@ def run_storage(storage):
         if p.returncode!=1:
             d=command(['php','/opt/e2e/diagnostic.php'],env={'E2E_CONTEXT':str(context),'WP_ENVIRONMENT_TYPE':'staging'})
             record(storage+':negative_diagnostic','OBSERVED',json.loads(next(l[9:]for l in d.stdout.splitlines()if l.startswith('E2E_JSON='))))
-        assert_true(p.returncode==1 and 'SUBSCRIPTIONS_NON_STAGING' in v.get('issues',[]),storage+':verifier_refuses_actual_nonstaging',{'exit':p.returncode,'issues':v.get('issues',[])})
+        d=command(['php','/opt/e2e/diagnostic.php'],env={'E2E_CONTEXT':str(context),'WP_ENVIRONMENT_TYPE':'staging','A01_DIAGNOSTIC_ENGINE_ONLY':'1'})
+        engine=json.loads(next(l[9:]for l in d.stdout.splitlines()if l.startswith('E2E_JSON=')))
+        assert_true('SUBSCRIPTIONS_NON_STAGING' in engine.get('issues',[]),storage+':engine_refuses_actual_nonstaging',engine)
+        assert_true(p.returncode!=0,storage+':cli_refuses_nonstaging_copy',{'exit':p.returncode,'issues':v.get('issues',[]),'exact_subscription_tag_from_engine_only':True})
     finally:canary.unlink(missing_ok=True)
+    # Purge only synthetic files using the unchanged subject's real file treatment.
+    command(['php','-r',"require '/subject/files.php'; (new Imagine\\Staging\\Files($argv[1]))->purge();",str(site)])
+    record(storage+':purge_generated_fixture_logs','OBSERVED','Unchanged subject Files::purge replayed after deliberate nonstaging mutation; no source/data changes')
     p=base.subject_command(site,'verifier',password,context);v=json.loads(p.stdout)
     assert_true(p.returncode==0,storage+':final_verifier',{'exit':p.returncode,'issues':v.get('issues',[])})
     blocked=case(site,'renewal')

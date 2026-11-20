@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.004471">
+    <testsuite name="Numeros" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.004471">
+      <testsuite name="Imagine\Pilotage\Tests\Numeros\InvariantsTest" file="/work/tests/Numeros/InvariantsTest.php" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.004471">
+        <testcase name="testEcheanceNormaliseAussiLaDateInjectee" file="/work/tests/Numeros/InvariantsTest.php" line="143" class="Imagine\Pilotage\Tests\Numeros\InvariantsTest" classname="Imagine.Pilotage.Tests.Numeros.InvariantsTest" assertions="1" time="0.004471">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Numeros\InvariantsTest::testEcheanceNormaliseAussiLaDateInjectee
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'2026-12-13 00:00:00 Europe/Brussels'
++'2026-12-12 23:00:00 Z'
+
+/work/tests/Numeros/InvariantsTest.php:149</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

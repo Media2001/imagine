@@ -140,6 +140,15 @@ final class InvariantsTest extends TestCase
         }
     }
 
+    public function testEcheanceNormaliseAussiLaDateInjectee(): void
+    {
+        $echeance = new \Imagine\Pilotage\Numeros\Echeance(
+            $this->numero(),
+            new DateTimeImmutable('2026-12-12T23:00:00Z')
+        );
+        self::assertSame('2026-12-13 00:00:00 Europe/Brussels', $echeance->lancement->format('Y-m-d H:i:s e'));
+    }
+
     public function testMargeTraverseHeureDEteEnJoursEtNonEnSecondes(): void
     {
         $moteur = new Moteur(new Calendrier([$this->numero('172', '2027-04-05', '2027-03-30')]));

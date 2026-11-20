@@ -5,7 +5,11 @@ $result=['stage'=>'start'];
 try {
  $result['stage']='bridge';$w=require '/opt/e2e/worker-bridge.php';
  $result['stage']='construct';$e=new Imagine\Staging\Engine($w['store'],$w['context'],$w['prefix'],$w['context']['table_decisions']??[]);
- $result['stage']='files-before';$files=new Imagine\Staging\Files($w['root']);$files->verify();
+ if(getenv('A01_DIAGNOSTIC_ENGINE_ONLY')==='1'){$result['scope']='actual_engine_and_runtime_not_files';$result['stage']='engine';$r=$e->verifier($w['probe']);$result['issues']=$r['issues'];echo 'E2E_JSON='.json_encode($result,JSON_THROW_ON_ERROR)."\n";return;}
+ $result['stage']='files-before';$files=new Imagine\Staging\Files($w['root']);
+ $method=new ReflectionMethod($files,'forbidden');$result['forbidden_paths']=[];
+ foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($w['root'],FilesystemIterator::SKIP_DOTS))as$entry){$rel=substr($entry->getPathname(),strlen($w['root'])+1);if($method->invoke(null,$rel))$result['forbidden_paths'][]=$rel;}
+ $files->verify();
  $result['stage']='engine';$r=$e->verifier($w['probe']);$result['issues']=$r['issues'];
  $result['stage']='files-after';$files->verify();$result['stage']='complete';
 } catch(Throwable $e) {

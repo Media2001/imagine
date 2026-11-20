@@ -83,7 +83,8 @@ def main():
         call(['exec', name, 'mkdir', '-p', '/work'])
         tar, files = payload()
         call(['exec', '-i', name, 'tar', '-xf', '-', '-C', '/work'], tar)
-        p = call(['exec', '-w', '/work', '-e', 'COMPOSER_ALLOW_SUPERUSER=1', name, 'php', '/tmp/composer.phar',
+        p = call(['exec', '-w', '/work', '-e', 'COMPOSER_ALLOW_SUPERUSER=1',
+                  '-e', 'COMPOSER_ROOT_VERSION=dev-main', name, 'php', '/tmp/composer.phar',
                   'install', '--no-interaction', '--no-progress', '--prefer-dist', '--no-scripts', '--no-plugins'], check=False)
         (OUT / 'composer-install.log').write_bytes(p.stdout + p.stderr)
         if p.returncode:
@@ -118,11 +119,12 @@ def main():
     call(['exec', name, 'rm', '-rf', '/work/src', '/work/tests'])
     call(['exec', '-i', name, 'tar', '-xf', '-', '-C', '/work'], tar)
     hash_code = '''$files = []; foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator('/work', FilesystemIterator::SKIP_DOTS)) as $f) { $rel = substr($f->getPathname(), 6); if ($f->isFile() && !str_starts_with($rel, 'vendor/')) { $files[$rel] = hash_file('sha256', $f->getPathname()); } } echo json_encode($files);'''
-    copied = json.loads(call(['exec', name, 'php', '-r', hash_code]).stdout)
+    copied = json.loads(call(['exec', '-i', name, 'php'], ('<?php ' + hash_code).encode()).stdout)
     assert all(copied.get(path) == digest for path, digest in files.items()), 'Container source drift'
     assert {p for p in copied if p.startswith(('src/', 'tests/'))} == {p for p in files if p.startswith(('src/', 'tests/'))}
-    processes = call(['top', name, '-eo', 'comm']).stdout.decode().splitlines()
-    assert processes[1:] == ['sleep'], 'Unexpected background service in test runner'
+    process_rows = call(['top', name, '-eo', 'pid,comm']).stdout.decode().splitlines()
+    processes = [row.split()[-1] for row in process_rows[1:]]
+    assert processes == ['sleep'], 'Unexpected background service in test runner'
     command = ['exec', '-w', '/work', '-e', 'COMPOSER_ROOT_VERSION=dev-main', name,
                'php', '/tmp/composer.phar', 'test', '--', '--log-junit', '/tmp/result.xml']
     if args.filter:

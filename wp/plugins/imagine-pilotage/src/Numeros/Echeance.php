@@ -8,8 +8,11 @@ use DateTimeImmutable;
 
 final readonly class Echeance
 {
-    public function __construct(public Numero $numero, public DateTimeImmutable $lancement)
+    public DateTimeImmutable $lancement;
+
+    public function __construct(public Numero $numero, DateTimeImmutable $lancement)
     {
+        $this->lancement = $lancement->setTimezone(new \DateTimeZone('Europe/Brussels'));
     }
 
     public function estPassee(DateTimeImmutable $reference): bool
