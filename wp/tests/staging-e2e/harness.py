@@ -23,12 +23,16 @@ ARTIFACTS = {
     'wordpress-seo.zip': 'https://downloads.wordpress.org/plugin/wordpress-seo.26.5.zip',
     'meta-box.zip': 'https://downloads.wordpress.org/plugin/meta-box.5.10.7.zip',
 }
+LICENSED = {
+    'woocommerce-subscriptions.zip': 'ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083',
+    'woocommerce-memberships.zip': 'd3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285',
+}
 LOCK = ROOT / 'dependencies.lock.json'
 SUBJECT_FILES = ('neutraliser', 'anonymiser', 'verifier', 'command.php', 'lib.php', 'schema.php',
                  'files.php', 'pdo-store.php', 'runtime-probe.php', 'policy.php', 'mu-plugins/000-imagine-staging-safety.php')
 EXECUTION_FILES = ('harness.py', 'inside.py', 'fixture.php', 'snapshot.php', 'oracle.php', 'mutate.php',
                    'db-probe.php', 'mail-probe.php', 'worker-bridge.php', 'subject-preflight.php',
-                   'subject-adapter.json', 'public-dependencies.json', 'Dockerfile', 'fidelity.php', 'fidelity-mu.php')
+                   'subject-adapter.json', 'public-dependencies.json', 'Dockerfile', 'fidelity.php', 'fidelity-mu.php', 'licensed-fixture.php')
 
 
 class SafetyError(RuntimeError):
@@ -169,7 +173,7 @@ class Harness:
         LOCK.write_text(json.dumps(lock, indent=2) + '\n', encoding='utf-8')
         self.record('public_dependencies', 'PASS', {'image_tag': image_tag, 'image_id': image['Id'], 'artifacts': artifacts})
 
-    def run(self, mode, subject_dir=None):
+    def run(self, mode, subject_dir=None, licensed_packages=False):
         if not LOCK.exists():
             raise SafetyError('DEPENDENCY_NOT_READY: run prepare first; run never pulls or downloads')
         lock = json.loads(LOCK.read_text(encoding='utf-8'))
@@ -198,8 +202,14 @@ class Harness:
         self.record('isolation_before_import', 'PASS', {
             'container': self.container, 'network': 'none', 'ports': [], 'mounts': [],
             'cap_drop': inspect['HostConfig']['CapDrop'], 'image_id': image['Id']})
-        for name in ('inside.py', 'fixture.php', 'snapshot.php', 'oracle.php', 'mutate.php', 'db-probe.php', 'mail-probe.php', 'worker-bridge.php', 'subject-preflight.php', 'fidelity.php', 'fidelity-mu.php'):
+        for name in ('inside.py', 'fixture.php', 'snapshot.php', 'oracle.php', 'mutate.php', 'db-probe.php', 'mail-probe.php', 'worker-bridge.php', 'subject-preflight.php', 'fidelity.php', 'fidelity-mu.php', 'licensed-fixture.php'):
             self.call(['cp', self.local_path(ROOT / name), self.container + ':/opt/e2e/' + name])
+        if licensed_packages:
+            if not self.use_wsl:
+                raise SafetyError('Approved licensed inputs are named WSL files only; no alternate path/download accepted')
+            for name in LICENSED:
+                self.call(['cp', '/home/ced/staging-wp/plugins/' + name, self.container + ':/opt/e2e/' + name])
+            self.record('licensed_inputs', 'PASS', {'source': 'Two explicitly approved WSL ZIP files; read-only inputs, never copied into checkout', 'sha256_expected': LICENSED})
         if (ROOT / 'subject-adapter.json').exists():
             self.call(['cp', self.local_path(ROOT / 'subject-adapter.json'), self.container + ':/opt/e2e/subject-adapter.json'])
         if mode == 'acceptance':
@@ -207,6 +217,7 @@ class Harness:
             stage = self.evidence / 'subject-source'
             stage.mkdir()
             manifest = {}
+            batch_before = {name: hashlib.sha256((subject / name).read_bytes()).hexdigest() for name in SUBJECT_FILES}
             for name in SUBJECT_FILES:
                 original = subject / name
                 destination = stage / name
@@ -217,13 +228,17 @@ class Harness:
                 if before_hash != copied_hash or hashlib.sha256(original.read_bytes()).hexdigest() != copied_hash:
                     raise SafetyError('Subject source changed while copied; refuse an inconsistent test')
                 manifest[name] = copied_hash
+            batch_after = {name: hashlib.sha256((subject / name).read_bytes()).hexdigest() for name in SUBJECT_FILES}
+            if manifest != batch_before or batch_after != batch_before:
+                raise SafetyError('Subject source changed during the source batch; no import started')
             (self.evidence / 'subject-source.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
             self.call(['cp', self.local_path(stage), self.container + ':/subject'])
         current_manifest = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in EXECUTION_FILES}
         if current_manifest != source_manifest:
             raise SafetyError('Harness source changed while copying; no import started')
         self.call(['start', self.container])
-        result = self.call(['exec', self.container, 'python3', '/opt/e2e/inside.py', mode], timeout=1800, check=False)
+        result = self.call(['exec', self.container, 'python3', '/opt/e2e/inside.py', mode] +
+                           (['--licensed-packages'] if licensed_packages else []), timeout=1800, check=False)
         (self.evidence / 'execution.log').write_text(result.stdout + result.stderr, encoding='utf-8')
         print(result.stdout, end='')
         if result.stderr:
@@ -257,6 +272,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('mode', choices=('prepare', 'fixture-selftest', 'acceptance'))
     parser.add_argument('--subject-dir', help='Directory with the three existing subject launchers; copied read-only from the host point of view')
+    parser.add_argument('--licensed-packages', action='store_true', help='Use only the two explicitly approved operator WSL ZIP files, no downloads')
     args = parser.parse_args()
     harness = None
     status = 0
@@ -265,7 +281,7 @@ def main():
         if args.mode == 'prepare':
             harness.prepare()
         else:
-            harness.run(args.mode, args.subject_dir)
+            harness.run(args.mode, args.subject_dir, args.licensed_packages)
     except (SafetyError, subprocess.SubprocessError, OSError, ValueError) as exc:
         status = 2
         if harness:

@@ -9,6 +9,8 @@ import shutil
 import subprocess
 import sys
 import time
+import re
+import zipfile
 
 ROOT = pathlib.Path('/opt/e2e')
 SCRATCH = pathlib.Path('/scratch')
@@ -17,6 +19,11 @@ SOCKET = '/scratch/mariadb.sock'
 CHECKS = []
 SUBJECT = pathlib.Path('/subject')
 FIDELITY = {}
+LICENSED_ENABLED = '--licensed-packages' in sys.argv[2:]
+LICENSED = {
+    'woocommerce-subscriptions.zip': 'ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083',
+    'woocommerce-memberships.zip': 'd3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285',
+}
 
 
 def record(name, status, detail):
@@ -103,6 +110,26 @@ def install(storage):
     site = SCRATCH / ('site-' + storage)
     shutil.copytree('/opt/wordpress/wordpress', site)
     shutil.copytree('/opt/woocommerce/woocommerce', site / 'wp-content/plugins/woocommerce')
+    if LICENSED_ENABLED:
+        for name, expected in LICENSED.items():
+            package = ROOT / name
+            if hashlib.sha256(package.read_bytes()).hexdigest() != expected:
+                raise RuntimeError('Approved licensed ZIP checksum changed; no substitute/download allowed')
+            slug = name[:-4]
+            with zipfile.ZipFile(package) as z:
+                entries = z.infolist()
+                if len(entries) > 30000 or sum(e.file_size for e in entries) > 512 * 1024 * 1024:
+                    raise RuntimeError('Licensed archive expansion limit')
+                for entry in entries:
+                    parts = pathlib.PurePosixPath(entry.filename).parts
+                    if (not parts or parts[0] != slug or '..' in parts or '\\' in entry.filename
+                            or ':' in entry.filename or entry.external_attr >> 16 & 0o170000 not in (0, 0o040000, 0o100000)):
+                        raise RuntimeError('Unsafe licensed archive entry')
+                header = z.read(slug + '/' + slug + '.php').decode('utf-8')
+                version = re.search(r'Version:\s*([^\r\n]+)', header).group(1).strip()
+                z.extractall(site / 'wp-content/plugins')
+            record(storage + ':licensed_package_present:' + slug, 'PASS',
+                   {'version': version, 'sha256': expected, 'presence_is_not_acceptance': True})
     config = """<?php
     define('DB_NAME', '%s');
     define('DB_USER', 'root');
@@ -125,9 +152,15 @@ def install(storage):
               '--admin_user=fictif-admin', '--admin_email=fictif-admin@example.org', '--skip-email', '--prompt=admin_password'],
        input_text=secrets.token_urlsafe(40) + '\n')
     wp(site, ['plugin', 'activate', 'woocommerce'], timeout=240)
+    if LICENSED_ENABLED:
+        wp(site, ['plugin', 'activate', 'woocommerce-subscriptions', 'woocommerce-memberships'], timeout=240)
     wp(site, ['option', 'update', 'woocommerce_custom_orders_table_data_sync_enabled', 'no'])
     wp(site, ['option', 'update', 'woocommerce_custom_orders_table_enabled', 'yes' if storage == 'hpos' else 'no'])
     wp(site, ['eval-file', str(ROOT / 'fixture.php')], timeout=240)
+    if LICENSED_ENABLED:
+        licensed = wp_json(site, 'licensed-fixture.php')
+        assert_true(licensed['subscriptions_created'] == 6 and licensed['memberships_active'],
+                    storage + ':licensed_fixture_seed', licensed)
     for plugin in ('contact-form-7', 'wordpress-seo', 'meta-box'):
         shutil.copytree('/opt/free-plugins/' + plugin, site / 'wp-content/plugins' / plugin)
     (site / 'wp-content/mu-plugins').mkdir(exist_ok=True)
@@ -374,8 +407,11 @@ def main():
             except Exception as exc:
                 record(mode + ':' + storage, 'BLOCKED' if 'DEPENDENCY_NOT_READY' in str(exc) else 'FAIL', str(exc))
                 status = 2
-        record('paid_plugins', 'NOT_TESTED', {'subscriptions': 'Not installed; no licensed code available',
-            'memberships': 'Not installed; no licensed code available', 'not_simulated_as_passed': True})
+        record('paid_plugins_scope', 'NOT_TESTED', {
+            'packages_enabled': LICENSED_ENABLED,
+            'subscriptions': 'Only actual named checks are credited; renewal/payment behavior not tested',
+            'memberships': 'Plugin activation/bootstrap only; protected-content rights not tested',
+            'no_network_license_activation': True, 'not_simulated_as_passed': True})
         record('real_staging_and_start_gate', 'NOT_TESTED', 'No real staging, HTTP start, orchestration tool, Novamira, bascule or third-party service used')
     except Exception as exc:
         record(mode, 'BLOCKED' if 'DEPENDENCY_NOT_READY' in str(exc) else 'FAIL', str(exc))

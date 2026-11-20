@@ -345,7 +345,7 @@ final class Engine
                     if (self::sensitiveKey($row['option_name'])) {
                         $next['option_value'] = '';
                     }
-                    if (preg_match('/^woocommerce_.*(?:stripe|paypal|ppcp).*_settings$/i', $row['option_name'])) {
+                    if (preg_match('/^woocommerce[_-].*(?:stripe|paypal|ppcp).*[_-]settings$/i', $row['option_name'])) {
                         $gateway = self::decode($next['option_value']);
                         if (is_array($gateway)) {
                             $gateway['testmode'] = 'yes';
@@ -354,6 +354,9 @@ final class Engine
                             }
                             if (array_key_exists('test_mode', $gateway)) {
                                 $gateway['test_mode'] = 'yes';
+                            }
+                            if (array_key_exists('sandbox_on', $gateway)) {
+                                $gateway['sandbox_on'] = true;
                             }
                             $next['option_value'] = serialize($gateway);
                         }

@@ -63,6 +63,17 @@ class RequestTests(unittest.TestCase):
                     staging_url='http://staging.invalid:8099', wordpress_path='/var/www/html',
                     database=dict(host='localhost', socket='/run/mysqld/mysqld.sock', name='wordpress_staging', user='wp', password='synthetic'))
 
+    def test_decisions_accept_only_actions_and_column_identifiers(self):
+        from runtime import validate
+        r = self.request()
+        validate(dict(r, table_decisions={'wp_synthetic': {'action': 'anonymiser', 'columns': ['email']}}), 'verifier')
+        for value in ([], {'wp_synthetic': {'action': 'keep'}},
+                      {'wp_synthetic': {'action': 'garder', 'private_value': 'not-allowed'}},
+                      {'wp_synthetic': {'action': 'anonymiser', 'columns': ['email; DROP TABLE x']}},
+                      {'../site': {'action': 'garder'}}):
+            with self.subTest(value=value), self.assertRaises(worker.Refusal):
+                validate(dict(r, table_decisions=value), 'verifier')
+
     def test_native_contract_validation_rejects_unsafe_database_target_and_admin(self):
         self.assertIsNotNone(worker)
         from runtime import validate

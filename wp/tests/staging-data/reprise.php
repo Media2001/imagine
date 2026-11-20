@@ -127,4 +127,19 @@ repriseCheck(!$engine->verifier(function () use ($store, $proof) {
     return $proof();
 })['ok'], 'secret apparu pendant bootstrap détecté après');
 $store->tables['x_extension_catalogue'][0]['setting'] = 'SYNTHETIC layout';
+// Configurations connues : retirer les champs secrets, jamais tout le réglage.
+$providers = clone $store;
+$providers->tables['x_options'][] = ['option_id'=>60,'option_name'=>'woocommerce-ppcp-settings','option_value'=>serialize([
+    'sandbox_on'=>false, 'client_id'=>'SYNTHETIC_OPAQUE_CLIENT', 'client_secret'=>'SYNTHETIC_OPAQUE_SECRET',
+    'title'=>'PayPal fictif', 'smart_button_locations'=>['checkout']])];
+$providers->tables['x_options'][] = ['option_id'=>61,'option_name'=>'synthetic_mailin','option_value'=>serialize([
+    'api-key'=>'SYNTHETIC_OPAQUE_KEY', 'list_id'=>17, 'enabled'=>true])];
+$providerEngine = new Imagine\Staging\Engine($providers, $context, 'x_');
+$providerEngine->neutraliser();
+$providerOptions = array_column($providers->rows('x_options'), 'option_value', 'option_name');
+$paypal = unserialize($providerOptions['woocommerce-ppcp-settings']);
+repriseCheck($paypal['sandbox_on'] === true && $paypal['client_id'] === '' && $paypal['client_secret'] === ''
+    && $paypal['title'] === 'PayPal fictif' && $paypal['smart_button_locations'] === ['checkout'], 'PayPal PPCP sandbox sans credentials, fonctionnel intact');
+$mailin = unserialize($providerOptions['synthetic_mailin']);
+repriseCheck($mailin['api-key'] === '' && $mailin['list_id'] === 17 && $mailin['enabled'] === true, 'clé Brevo opaque retirée seule');
 print("OK $assertions assertions reprise\n");

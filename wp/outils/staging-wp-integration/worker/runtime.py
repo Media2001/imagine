@@ -39,6 +39,18 @@ def validate(r, stage):
             or any(not isinstance(h, str) or not re.fullmatch(r'[a-z0-9.-]+', h) for h in hosts)
             or prod.hostname not in hosts or target.hostname in hosts):
         raise Refusal('REQUEST_TARGET')
+    decisions = r.get('table_decisions', {})
+    if not isinstance(decisions, dict) or len(json.dumps(decisions)) > 4096:
+        raise Refusal('REQUEST_DECISIONS')
+    for table, decision in decisions.items():
+        if (not isinstance(table, str) or not re.fullmatch(r'[A-Za-z0-9_]{1,128}', table)
+                or not isinstance(decision, dict) or set(decision) - {'action', 'columns'}
+                or decision.get('action') not in ('garder', 'vider', 'anonymiser')):
+            raise Refusal('REQUEST_DECISIONS')
+        columns = decision.get('columns', [])
+        if (not isinstance(columns, list) or any(not isinstance(c, str) or not re.fullmatch(r'[A-Za-z0-9_]{1,128}', c) for c in columns)
+                or (decision['action'] == 'anonymiser' and not columns)):
+            raise Refusal('REQUEST_DECISIONS')
     if stage == 'importer' and r.get('archive') != '/input/source.wpress':
         raise Refusal('REQUEST_ARCHIVE')
     if stage == 'anonymiser':
