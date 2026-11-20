@@ -32,6 +32,29 @@ $orderRows = $storage === 'hpos'
     : $rows("SELECT ID id,post_status status,post_date_gmt date_created_gmt FROM wp_posts WHERE post_type='shop_order' ORDER BY ID");
 $users = $rows('SELECT ID id,user_pass pass_hash,user_login login,user_email email,display_name FROM wp_users ORDER BY ID');
 
+if ($mode === 'table-fixtures') {
+    $action = getenv('E2E_TABLE_ACTION');
+    if ($action === 'public') {
+        $db->exec('CREATE TABLE wp_imagine_e2e_public (id INT PRIMARY KEY, metric INT NOT NULL, payload TEXT NOT NULL)');
+        $put('wp_imagine_e2e_public', ['id' => 1, 'metric' => 42, 'payload' => 'Contenu éditorial inventé']);
+    } elseif ($action === 'personal') {
+        $db->exec('CREATE TABLE wp_imagine_e2e_personal (id INT PRIMARY KEY, email VARCHAR(191) NOT NULL)');
+        $put('wp_imagine_e2e_personal', ['id' => 1, 'email' => 'invente@example.org']);
+    } elseif ($action === 'drop-personal') {
+        $db->exec('DROP TABLE IF EXISTS wp_imagine_e2e_personal');
+    } elseif ($action !== 'status') {
+        throw new \RuntimeException('Unknown explicit synthetic table action');
+    }
+    $personal = $scalar("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=DATABASE() AND table_name='wp_imagine_e2e_personal'") > 0;
+    echo 'E2E_JSON=' . json_encode([
+        'public_rows' => (int) $scalar('SELECT COUNT(*) FROM wp_imagine_e2e_public'),
+        'public_digest' => hash('sha256', json_encode($rows('SELECT * FROM wp_imagine_e2e_public ORDER BY id'))),
+        'personal_rows' => $personal ? (int) $scalar('SELECT COUNT(*) FROM wp_imagine_e2e_personal') : null,
+        'personal_email_safe' => $personal ? (int) $scalar("SELECT COUNT(*) FROM wp_imagine_e2e_personal WHERE email<>'' AND email NOT LIKE '%@example.org'") === 0 : null,
+    ], JSON_THROW_ON_ERROR) . "\n";
+    return;
+}
+
 if ($mode === 'mutate') {
     $case = getenv('E2E_RESIDUE_CASE');
     $userId = (int) $users[1]['id'];

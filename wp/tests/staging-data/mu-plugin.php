@@ -40,6 +40,9 @@ class WP_Error
     {
     }
 }
+if (getenv('IMAGINE_SYNTHETIC_VERIFIED') === 'yes') {
+    define('IMAGINE_STAGING_VERIFIED', true);
+}
 require __DIR__ . '/../../outils/staging/mu-plugins/000-imagine-staging-safety.php';
 $checks = [
     apply_filters('pre_wp_mail', null, []) === false,
@@ -51,7 +54,20 @@ $checks = [
     apply_filters('woocommerce_available_payment_gateways', ['stripe' => 'invented']) === [],
     defined('DISABLE_WP_CRON') && DISABLE_WP_CRON === true,
     defined('WP_ENVIRONMENT_TYPE') && WP_ENVIRONMENT_TYPE === 'staging',
+    WP_HTTP_BLOCK_EXTERNAL === true,
+    defined('WP_ACCESSIBLE_HOSTS') && WP_ACCESSIBLE_HOSTS === (defined('IMAGINE_STAGING_VERIFIED') ? '*.wordpress.org,*.woocommerce.com' : ''),
 ];
+$verified = defined('IMAGINE_STAGING_VERIFIED');
+foreach (['https://api.wordpress.org/core/version-check/1.7/', 'https://downloads.wordpress.org/plugin/synthetic.zip', 'https://updates.woocommerce.com/'] as $url) {
+    $checks[] = (apply_filters('pre_http_request', false, [], $url) === false) === $verified;
+}
+foreach (['https://wordpress.org.evil.invalid/', 'https://api.wordpress.org.evil.invalid/',
+    'https://evilwordpress.org/', 'https://outside.invalid/', 'https://127.0.0.1/',
+    'https://api.wordpress.org:8443/', 'http://api.wordpress.org/',
+    'https://user:password@api.wordpress.org/', 'https://api.wordpress.org./',
+    'https://api.wordpress.org\\@outside.invalid/', 'ftp://api.wordpress.org/'] as $url) {
+    $checks[] = apply_filters('pre_http_request', false, [], $url) instanceof WP_Error;
+}
 if (in_array(false, $checks, true)) {
     throw new RuntimeException('MU filtre manquant');
 }

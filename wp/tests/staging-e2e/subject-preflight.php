@@ -22,8 +22,13 @@ foreach ($schema as $table => $columns) {
 }
 try {
     $engine = new \Imagine\Staging\Engine($store, $worker['context'], $worker['prefix']);
-    new \Imagine\Staging\Files($worker['root']);
+    $files = new \Imagine\Staging\Files($worker['root']);
     $result = ['guard_ok' => true, 'schema_mismatches' => $mismatches];
+    if (getenv('E2E_PREFLIGHT_PHASE') === 'neutraliser-diagnostic') {
+        $files->purge();
+        $engine->neutraliser();
+        $result['diagnostic_retry'] = 'completed';
+    }
     if (getenv('E2E_PREFLIGHT_PHASE') === 'data') {
         $result['data_report'] = $engine->verifier(null); // Deliberately no runtime proof.
         $scrub = new \ReflectionMethod($engine, 'scrub');
@@ -43,6 +48,13 @@ try {
 } catch (\Throwable $exception) {
     $code = $exception->getMessage();
     $result = ['guard_ok' => false, 'schema_mismatches' => $mismatches,
-        'refusal_tag' => preg_match('/^[A-Z_]+$/D', $code) ? $code : 'REDACTED_REFUSAL'];
+        'refusal_tag' => preg_match('/^[A-Z_]+$/D', $code) ? $code : 'REDACTED_REFUSAL',
+        'exception_class' => get_class($exception),
+        'sqlstate' => $exception instanceof \PDOException ? ($exception->errorInfo[0] ?? null) : null,
+        'driver_errno' => $exception instanceof \PDOException ? ($exception->errorInfo[1] ?? null) : null,
+        'source_file' => basename($exception->getFile()),
+        'source_line' => $exception->getLine(),
+        'functions' => array_values(array_filter(array_column($exception->getTrace(), 'function'),
+            static fn (string $function): bool => (bool) preg_match('/^[A-Za-z_][A-Za-z0-9_]*$/D', $function)))];
 }
 echo 'E2E_JSON=' . json_encode($result, JSON_THROW_ON_ERROR) . "\n";

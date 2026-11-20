@@ -18,11 +18,12 @@ function runtimeProbe(): array
     return [
         'mail_blocked' => $mailBlocked,
         'http_blocked' => $httpBlocked,
-        'subscriptions_staging' => class_exists('WCS_Staging') && \WCS_Staging::is_duplicate_site() === true,
+        'subscriptions_present' => class_exists('WCS_Staging'),
+        'subscriptions_staging' => class_exists('WCS_Staging') ? \WCS_Staging::is_duplicate_site() === true : null,
         'environment_staging' => wp_get_environment_type() === 'staging' && defined('WP_ENVIRONMENT_TYPE') && WP_ENVIRONMENT_TYPE === 'staging',
         'cron_disabled' => defined('DISABLE_WP_CRON') && DISABLE_WP_CRON === true && wp_get_ready_cron_jobs() === [],
         'as_async_disabled' => apply_filters('action_scheduler_allow_async_request_runner', true) === false,
         'as_runner_disabled' => has_action('action_scheduler_run_queue') === false,
-        'gateways_disabled' => function_exists('WC') && WC()->payment_gateways()->get_available_payment_gateways() === [],
+        'gateways_disabled' => !function_exists('WC') || WC()->payment_gateways()->get_available_payment_gateways() === [],
     ];
 }

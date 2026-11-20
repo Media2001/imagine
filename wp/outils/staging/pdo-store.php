@@ -105,17 +105,17 @@ final class PdoStore implements Store
         $where = implode(' AND ', array_map(static fn (string $c): string => 'BINARY ' . self::quote($c) . ' <=> ?', array_keys($before)));
         $values = array_values($before);
         if ($after === null) {
-            $sql = 'DELETE FROM ' . $this->table($table) . ' WHERE ' . $where;
+            $sql = 'DELETE FROM ' . $this->table($table) . ' WHERE ' . $where . ' LIMIT 1';
         } else {
             if (array_keys($before) !== array_keys($after)) {
                 throw new RuntimeException('CAS_COLONNES');
             }
-            $sql = 'UPDATE ' . $this->table($table) . ' SET ' . implode(', ', array_map(static fn (string $c): string => self::quote($c) . ' = ?', array_keys($after))) . ' WHERE ' . $where;
+            $sql = 'UPDATE ' . $this->table($table) . ' SET ' . implode(', ', array_map(static fn (string $c): string => self::quote($c) . ' = ?', array_keys($after))) . ' WHERE ' . $where . ' LIMIT 1';
             $values = array_merge(array_values($after), $values);
         }
         $statement = $this->pdo->prepare($sql);
         $statement->execute($values);
-        if ($statement->rowCount() < 1) {
+        if ($statement->rowCount() !== 1) {
             throw new RuntimeException('CAS_ECHOUE');
         }
     }

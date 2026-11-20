@@ -238,13 +238,15 @@ final class Engine
     private static function sensitiveKey(string $key): bool
     {
         // Ne pas confondre un tableau de réglages Stripe/SMTP et ses champs secrets.
-        return (bool) preg_match('/(?:^|_)(?:secret(?:_key)?|api_?key|(?:test_|live_)?(?:secret|publishable|public|private|access)_?key|password|pass|smtp_pass|token|access_token|refresh_token|nonce|session_tokens|application_passwords|consumer_key|consumer_secret|webhook_secret|client_secret|client_id|authorization|merchant_id|payer_id|transaction_id|billing_agreement_id|payment_method_id|source_id|intent_id|mandate_id)$/i', $key)
-            || (bool) preg_match('/(?:stripe|paypal|brevo|sendinblue).*(?:customer|source|payment_method|token|key|secret|payer|agreement|intent|mandate)(?:_id)?$/i', $key);
+        $key = str_replace('-', '_', $key);
+        return (bool) preg_match('/(?:^|_)(?:secret(?:_key)?|api_?key|api_username|api_signature|(?:test_|live_)?(?:secret|publishable|public|private|access)_?key|password|pass|smtp_pass|token|access_token|refresh_token|nonce|session_tokens|application_passwords|consumer_key|consumer_secret|webhook_secret|webhook_url|client_secret|client_id|authorization|merchant_id|payer_id|transaction_id|billing_agreement_id|payment_method_id|source_id|intent_id|mandate_id)$/i', $key)
+            || self::paymentIdentityKey($key)
+            || (bool) preg_match('/(?:stripe|paypal|brevo|sendinblue).*(?:key|secret)$/i', $key);
     }
 
     private static function personalColumn(string $key): bool
     {
-        return self::piiKey($key) || (bool) preg_match('/email|e_mail|phone|telephone|mobile|(?:^|_)(?:name|nom|prenom|surname|givenname|firstname|lastname|address|adresse|ip)(?:$|_)|ip_address/i', $key);
+        return self::piiKey($key) || (bool) preg_match('/email|e_mail|phone|telephone|mobile|name|nom|address|adresse|(?:^|_)ip(?:$|_)|ip_address/i', $key);
     }
 
     private function readOnly(string $table): bool
@@ -284,7 +286,7 @@ final class Engine
             if ($this->readOnly($table)) {
                 continue; // Une vue est inventoriée et inspectée, pas réécrite.
             }
-            $kind = substr($table, strlen($this->prefix));
+            $kind = str_starts_with($table, $this->prefix) ? substr($table, strlen($this->prefix)) : '';
             foreach ($this->store->rows($table) as $row) {
                 if (isset($this->unknownTables[$table]) && ($this->decisions[$table]['action'] ?? '') === 'vider') {
                     $this->store->replace($table, $row, null);
@@ -445,10 +447,6 @@ final class Engine
         $this->checkUrls(); // Lecture après COMMIT aussi, obligatoire.
     }
 
-    private function allowedOption(string $key): bool
-    {
-        return $key === $this->prefix . 'user_roles' || in_array($key, ['home', 'siteurl', 'blog_public', 'cron', 'active_plugins', 'template', 'stylesheet', 'blogname', 'blogdescription', 'timezone_string', 'gmt_offset', 'date_format', 'time_format', 'start_of_week', 'permalink_structure', 'WPLANG', 'db_version', 'initial_db_version', 'woocommerce_currency', 'woocommerce_default_country', 'woocommerce_price_num_decimals', 'woocommerce_calc_taxes', 'woocommerce_prices_include_tax'], true);
-    }
 
     public function anonymiser(string $password): void
     {

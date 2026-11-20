@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-// Catalogue fermé : toute colonne/table supplémentaire exige une revue et un test.
+// Catalogue des traitements connus. Les tables/colonnes supplémentaires sont conservées et signalées.
 return [
     'options' => 'option_id option_name option_value autoload',
     'users' => 'ID user_login user_pass user_nicename user_email user_url user_registered user_activation_key user_status display_name',

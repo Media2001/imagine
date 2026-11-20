@@ -32,7 +32,7 @@ final class Command
                 throw new \RuntimeException('REFUS');
             }
             Guard::context($worker['context'] ?? []);
-            $engine = new Engine($worker['store'], $worker['context'], $worker['prefix'] ?? '');
+            $engine = new Engine($worker['store'], $worker['context'], $worker['prefix'] ?? '', $worker['table_decisions'] ?? []);
             $files = new Files($worker['root'] ?? '');
             switch ($phase) {
                 case 'neutraliser':
@@ -56,6 +56,8 @@ final class Command
                     $files->verify();
                     $report = $engine->verifier($worker['probe'] ?? null);
                     $files->verify();
+                    $report['files'] = $files->inventory();
+                    $report['warnings'] = array_values(array_unique(array_merge($report['warnings'], $report['files']['warnings'])));
                     print(json_encode($report, JSON_THROW_ON_ERROR) . "\n");
                     return $report['ok'] ? 0 : 1;
                 default:

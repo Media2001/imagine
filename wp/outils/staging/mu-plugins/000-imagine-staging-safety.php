@@ -32,12 +32,49 @@ if (!defined('DISABLE_WP_CRON')) {
 if (!defined('WP_HTTP_BLOCK_EXTERNAL')) {
     define('WP_HTTP_BLOCK_EXTERNAL', true);
 }
+$imagine_hosts = defined('IMAGINE_STAGING_VERIFIED') && IMAGINE_STAGING_VERIFIED === true
+    ? '*.wordpress.org,*.woocommerce.com' : '';
+if (!defined('WP_ACCESSIBLE_HOSTS')) {
+    define('WP_ACCESSIBLE_HOSTS', $imagine_hosts);
+}
+if (WP_HTTP_BLOCK_EXTERNAL !== true || WP_ACCESSIBLE_HOSTS !== $imagine_hosts) {
+    http_response_code(503);
+    exit(78); // Configuration contradictoire : aucun élargissement silencieux.
+}
+unset($imagine_hosts);
 if (!defined('DISALLOW_FILE_EDIT')) {
     define('DISALLOW_FILE_EDIT', true);
 }
 
 add_filter('pre_wp_mail', static fn (): bool => false, PHP_INT_MAX);
-add_filter('pre_http_request', static fn (): \WP_Error => new \WP_Error('imagine_staging_offline', 'Sortie réseau interdite sur cette copie.'), PHP_INT_MAX);
+
+function imagineUpdateUrlAllowed(string $url): bool
+{
+    if (!defined('IMAGINE_STAGING_VERIFIED') || IMAGINE_STAGING_VERIFIED !== true
+        || preg_match('/[\\\\\x00-\x20\x7f]/', $url)) {
+        return false;
+    }
+    $parts = parse_url($url);
+    if (!is_array($parts) || ($parts['scheme'] ?? '') !== 'https'
+        || isset($parts['user']) || isset($parts['pass'])
+        || (isset($parts['port']) && $parts['port'] !== 443)) {
+        return false;
+    }
+    $host = strtolower($parts['host'] ?? '');
+    return (bool) preg_match('/^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:wordpress\.org|woocommerce\.com)$/D', $host);
+}
+
+add_filter('pre_http_request', static function (mixed $pre, array $args, string $url): mixed {
+    return imagineUpdateUrlAllowed($url) ? $pre
+        : new \WP_Error('imagine_staging_offline', 'Sortie réseau interdite sur cette copie.');
+}, PHP_INT_MAX, 3);
+// Le transport Requests suit ses redirections sans repasser par pre_http_request.
+// Refuser ce détour plutôt que laisser un hôte autorisé rediriger vers n'importe où.
+add_filter('http_request_args', static function (array $args): array {
+    $args['redirection'] = 0;
+    return $args;
+}, PHP_INT_MAX);
+add_filter('block_local_requests', static fn (): bool => true, PHP_INT_MAX);
 add_filter('pre_option_blog_public', static fn (): string => '0', PHP_INT_MAX);
 add_filter('wp_robots', static fn (): array => ['noindex' => true, 'nofollow' => true], PHP_INT_MAX);
 add_filter('woocommerce_subscriptions_is_duplicate_site', static fn (): bool => true, PHP_INT_MAX);

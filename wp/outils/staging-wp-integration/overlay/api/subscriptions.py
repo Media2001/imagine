@@ -66,6 +66,38 @@ def _valid_report(report, stage):
         raise QuarantineError('Installation neuve et activation Novamira non vérifiées')
 
 
+def safe_diagnostics(report):
+    """Metadata only: never forward arbitrary nesting, row values or messages."""
+    out = {}
+    for key in ('issues', 'warnings'):
+        values = report.get(key, [])
+        out[key] = [v for v in values[:200] if isinstance(v, str) and re.fullmatch(r'[A-Z_]{1,100}', v)] if isinstance(values, list) else []
+    tables = report.get('unknown_tables', [])
+    out['unknown_tables'] = []
+    for table in tables[:200] if isinstance(tables, list) else []:
+        if not isinstance(table, dict) or not re.fullmatch(r'[A-Za-z0-9_]{1,128}', table.get('name', '')):
+            continue
+        columns = table.get('columns', [])
+        if not isinstance(columns, list) or any(not isinstance(c, str) or not re.fullmatch(r'[A-Za-z0-9_]{1,128}', c) for c in columns):
+            continue
+        rows = table.get('rows')
+        if type(rows) is not int or rows < 0:
+            continue
+        personal = table.get('personal_columns', [])
+        safe = dict(name=table['name'], columns=columns, rows=rows,
+                    personal_columns=[c for c in personal if c in columns] if isinstance(personal, list) else [])
+        decision = table.get('decision')
+        if isinstance(decision, dict) and decision.get('action') in ('garder', 'vider', 'anonymiser'):
+            safe['decision'] = dict(action=decision['action'])
+            if isinstance(decision.get('columns'), list):
+                safe['decision']['columns'] = [c for c in decision['columns'] if c in columns]
+        out['unknown_tables'].append(safe)
+    for key in ('unknown_post_types', 'disabled_plugins'):
+        values = report.get(key, [])
+        out[key] = [v for v in values[:500] if isinstance(v, str) and re.fullmatch(r'[A-Za-z0-9_./-]{1,200}', v)] if isinstance(values, list) else []
+    return out
+
+
 def create_offline(*, name, archive, workflow, production_url, staging_url, port,
                    worker_image, db_image, nginx_image, admin_password, engine=None):
     from . import orchestrator
@@ -143,6 +175,7 @@ def create_offline(*, name, archive, workflow, production_url, staging_url, port
             if stage == 'verifier':
                 safe.update(wordpress_version=report['wordpress_version'],
                             checks={k: True for k in REQUIRED_CHECKS})
+                safe.update(safe_diagnostics(report))
             if stage == 'novamira':
                 safe.update(fresh=True, active=True)
             _private_json(root / f'report-{index:02d}-{stage}.json', safe)
@@ -170,6 +203,8 @@ def create_offline(*, name, archive, workflow, production_url, staging_url, port
         safe_failure = dict(protocol=PROTOCOL, stage=stage, ok=False, reason=reason,
                             checks={k: checks[k] for k in REQUIRED_CHECKS
                                     if isinstance(checks, dict) and type(checks.get(k)) is bool})
+        if isinstance(report, dict):
+            safe_failure.update(safe_diagnostics(report))
         try:
             _private_json(root / 'failure.json', safe_failure)
         except OSError:
@@ -192,7 +227,7 @@ def public_report(site):
         stage = report.get('stage')
         if stage not in set(SCRIPTS) | {'database', 'importer', 'novamira'}:
             return None
-        return {'stage': stage, 'ok': report.get('ok') is True,
+        return {'stage': stage, 'ok': report.get('ok') is True, **safe_diagnostics(report),
                 'checks': {k: checks[k] for k in REQUIRED_CHECKS
                            if isinstance(checks, dict) and type(checks.get(k)) is bool}}
     except (OSError, ValueError, AttributeError):
