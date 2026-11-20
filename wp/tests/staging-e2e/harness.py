@@ -28,7 +28,7 @@ SUBJECT_FILES = ('neutraliser', 'anonymiser', 'verifier', 'command.php', 'lib.ph
                  'files.php', 'pdo-store.php', 'runtime-probe.php', 'mu-plugins/000-imagine-staging-safety.php')
 EXECUTION_FILES = ('harness.py', 'inside.py', 'fixture.php', 'snapshot.php', 'oracle.php', 'mutate.php',
                    'db-probe.php', 'mail-probe.php', 'worker-bridge.php', 'subject-preflight.php',
-                   'subject-adapter.json', 'public-dependencies.json', 'Dockerfile')
+                   'subject-adapter.json', 'public-dependencies.json', 'Dockerfile', 'fidelity.php', 'fidelity-mu.php')
 
 
 class SafetyError(RuntimeError):
@@ -77,6 +77,14 @@ def validate_result(result, mode):
         raise SafetyError('No executed assertions in inner receipt')
     if any(c.get('status') not in ('PASS', 'NOT_TESTED') for c in checks):
         raise SafetyError('Inner receipt contains failure, blocked or unknown status')
+    if mode == 'acceptance':
+        passed = {c.get('check') for c in checks if c.get('status') == 'PASS'}
+        required = {storage + ':' + stage for storage in ('classic', 'hpos')
+                    for stage in ('subject_positive:neutraliser', 'subject_positive:anonymiser',
+                                  'subject_positive:verifier', 'post_clean_fidelity',
+                                  'preserved_business_fields', 'rerun:verifier')}
+        if not required <= passed:
+            raise SafetyError('Acceptance is incomplete: both stores and post-clean fidelity are mandatory')
 
 
 class Harness:
@@ -190,7 +198,7 @@ class Harness:
         self.record('isolation_before_import', 'PASS', {
             'container': self.container, 'network': 'none', 'ports': [], 'mounts': [],
             'cap_drop': inspect['HostConfig']['CapDrop'], 'image_id': image['Id']})
-        for name in ('inside.py', 'fixture.php', 'snapshot.php', 'oracle.php', 'mutate.php', 'db-probe.php', 'mail-probe.php', 'worker-bridge.php', 'subject-preflight.php'):
+        for name in ('inside.py', 'fixture.php', 'snapshot.php', 'oracle.php', 'mutate.php', 'db-probe.php', 'mail-probe.php', 'worker-bridge.php', 'subject-preflight.php', 'fidelity.php', 'fidelity-mu.php'):
             self.call(['cp', self.local_path(ROOT / name), self.container + ':/opt/e2e/' + name])
         if (ROOT / 'subject-adapter.json').exists():
             self.call(['cp', self.local_path(ROOT / 'subject-adapter.json'), self.container + ':/opt/e2e/subject-adapter.json'])

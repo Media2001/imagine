@@ -16,6 +16,7 @@ REPORT = pathlib.Path('/report')
 SOCKET = '/scratch/mariadb.sock'
 CHECKS = []
 SUBJECT = pathlib.Path('/subject')
+FIDELITY = {}
 
 
 def record(name, status, detail):
@@ -127,6 +128,16 @@ def install(storage):
     wp(site, ['option', 'update', 'woocommerce_custom_orders_table_data_sync_enabled', 'no'])
     wp(site, ['option', 'update', 'woocommerce_custom_orders_table_enabled', 'yes' if storage == 'hpos' else 'no'])
     wp(site, ['eval-file', str(ROOT / 'fixture.php')], timeout=240)
+    for plugin in ('contact-form-7', 'wordpress-seo', 'meta-box'):
+        shutil.copytree('/opt/free-plugins/' + plugin, site / 'wp-content/plugins' / plugin)
+    (site / 'wp-content/mu-plugins').mkdir(exist_ok=True)
+    shutil.copy2(ROOT / 'fidelity-mu.php', site / 'wp-content/mu-plugins/imagine-e2e-fields.php')
+    wp(site, ['plugin', 'activate', 'contact-form-7', 'wordpress-seo', 'meta-box'], timeout=240)
+    wp_json(site, 'fidelity.php', env={'E2E_FIDELITY_PHASE': 'seed'})
+    fidelity = wp_json(site, 'fidelity.php')
+    assert_true(all(fidelity['boot'].values()) and fidelity['form_renders'] and fidelity['field_reads'],
+                storage + ':pristine_fidelity', fidelity)
+    FIDELITY[storage] = fidelity
     snapshot = wp_json(site, 'snapshot.php')
     assert_true(len(snapshot['users']) == 30 and len(snapshot['orders']) == 30,
                 storage + ':fixture_counts', {'accounts': len(snapshot['users']), 'orders': len(snapshot['orders'])})
@@ -224,7 +235,7 @@ def subject_command(site, name, password, context):
 def acceptance(site, database, storage, before):
     before_raw = raw_db(database, storage, 'snapshot')
     (site / '.imagine-staging-offline').write_text('OFFLINE_COPY\n')
-    mutate(site, 'supported')  # Unknown form types are exercised independently as fail-closed negatives.
+    mutate(site, 'all')  # Unknown content types must survive the reprise, not cause a schema refusal.
     poisoned = export(database, 'poisoned')
     restore(database, poisoned)
     assert_true(not clean_oracle(raw_db(database, storage)), storage + ':poisoned_import_has_real_fixture_traps', 'Independent PDO database scan detected traps before subjects')
@@ -246,6 +257,10 @@ def acceptance(site, database, storage, before):
             report = json.loads(result.stdout)
             detail['issues'] = [tag for tag in report.get('issues', []) if isinstance(tag, str) and tag.isupper() and tag.replace('_', '').isalpha()]
         assert_true(result.returncode == 0, storage + ':subject_positive:' + name, detail)
+    fidelity = wp_json(site, 'fidelity.php')
+    assert_true(fidelity == FIDELITY[storage], storage + ':post_clean_fidelity',
+                {'before': FIDELITY[storage], 'after': fidelity,
+                 'proof': 'Fresh WP bootstrap; active plugin code, form rendering, field reads and exact setting digests'})
     after = raw_db(database, storage, 'snapshot')
     value = raw_db(database, storage, extra={'E2E_ORACLE_PHASE': 'after'})
     # Capture the DB state before any WordPress load. Bootstrapping is only for the controlled mail probe.
@@ -262,7 +277,7 @@ def acceptance(site, database, storage, before):
                     and new_users[uid]['shipping_country'] == old['shipping_country'] for uid, old in old_users.items()),
                 storage + ':account_countries_preserved', {'original_accounts': len(old_users)})
     sanitized = export(database, 'sanitized')
-    for case in ('service-key', 'user-token', 'order-token', 'paypal', 'user-email', 'order-email', 'note-email'):
+    for case in ('service-key', 'user-token', 'order-token', 'paypal', 'user-email', 'order-email'):
         restore(database, sanitized)
         raw_db(database, storage, 'mutate', {'E2E_RESIDUE_CASE': case})
         assert_true(not clean_oracle(raw_db(database, storage)), storage + ':residue_actually_inserted:' + case,

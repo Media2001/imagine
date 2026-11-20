@@ -140,13 +140,25 @@ final class Engine
         if (!is_string($value)) {
             return $value;
         }
-        $decoded = self::decode($value);
+        // Les formats opaques restent intacts, sans jamais instancier d'objet PHP.
+        // Les motifs de service connus restent supprimés même dans ces formats.
+        try {
+            $decoded = self::decode($value);
+        } catch (\Throwable) {
+            return self::dangerous($value) ? '' : $value;
+        }
         if ($decoded !== $value) {
-            return serialize(self::scrub($decoded, $privacy, $id, $depth + 1));
+            $clean = self::scrub($decoded, $privacy, $id, $depth + 1);
+            return $clean === $decoded ? $value : serialize($clean);
         }
         if (str_starts_with($value, '{') || str_starts_with($value, '[')) {
-            $json = json_decode($value, false, 32, JSON_THROW_ON_ERROR);
-            return json_encode(self::scrubJson($json, $privacy, $id, $depth + 1), JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            try {
+                $json = json_decode($value, false, 32, JSON_THROW_ON_ERROR);
+                $clean = self::scrubJson($json, $privacy, $id, $depth + 1);
+                return $clean == $json ? $value : json_encode($clean, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            } catch (\Throwable) {
+                return self::dangerous($value) ? '' : $value;
+            }
         }
         if (self::dangerous($value)) {
             return '';
@@ -180,7 +192,38 @@ final class Engine
 
     private static function sensitiveKey(string $key): bool
     {
-        return (bool) preg_match('/secret|api.?key|(?:access|private|public)_?key|password|token|nonce|session|application_password|stripe|paypal|brevo|sendinblue|smtp|webhook|merchant|mandate|transaction_id|billing_agreement|payer_id|client_id|authorization|payment_method_id|source_id|intent_id/i', $key);
+        // Ne pas confondre un tableau de réglages Stripe/SMTP et ses champs secrets.
+        return (bool) preg_match('/(?:^|_)(?:secret(?:_key)?|api_?key|(?:test_|live_)?(?:secret|publishable|public|private|access)_?key|password|pass|smtp_pass|token|access_token|refresh_token|nonce|session_tokens|application_passwords|consumer_key|consumer_secret|webhook_secret|client_secret|client_id|authorization|merchant_id|payer_id|transaction_id|billing_agreement_id|payment_method_id|source_id|intent_id|mandate_id)$/i', $key)
+            || (bool) preg_match('/(?:stripe|paypal|brevo|sendinblue).*(?:customer|source|payment_method|token|key|secret|payer|agreement|intent|mandate)(?:_id)?$/i', $key);
+    }
+
+    private static function personalColumn(string $key): bool
+    {
+        return self::piiKey($key) || (bool) preg_match('/email|e_mail|phone|telephone|mobile|(?:^|_)(?:name|nom|prenom|surname|givenname|firstname|lastname|address|adresse|ip)(?:$|_)|ip_address/i', $key);
+    }
+
+    private function readOnly(string $table): bool
+    {
+        return method_exists($this->store, 'details') && (($this->store->details()['tables'][$table]['type'] ?? '') === 'VIEW');
+    }
+
+    private function disabledPlugins(): array
+    {
+        return array_merge(...array_values($this->policy));
+    }
+
+    private function setOption(string $key, string $value): void
+    {
+        foreach ($this->store->rows($this->prefix . 'options') as $row) {
+            if ($row['option_name'] === $key) {
+                $next = array_replace($row, ['option_value' => $value]);
+                if ($next !== $row) {
+                    $this->store->replace($this->prefix . 'options', $row, $next);
+                }
+                return;
+            }
+        }
+        $this->store->insert($this->prefix . 'options', ['option_name' => $key, 'option_value' => $value, 'autoload' => 'no']);
     }
 
     private static function piiKey(string $key): bool
@@ -190,9 +233,18 @@ final class Engine
 
     private function transform(bool $privacy): void
     {
+        $disabled = self::decode($this->options()['imagine_staging_disabled_plugins'] ?? serialize([]));
+        $disabled = is_array($disabled) ? $disabled : [];
         foreach ($this->inventory as $table => $_) {
+            if ($this->readOnly($table)) {
+                continue; // Une vue est inventoriée et inspectée, pas réécrite.
+            }
             $kind = substr($table, strlen($this->prefix));
             foreach ($this->store->rows($table) as $row) {
+                if (isset($this->unknownTables[$table]) && ($this->decisions[$table]['action'] ?? '') === 'vider') {
+                    $this->store->replace($table, $row, null);
+                    continue;
+                }
                 if ($kind === 'actionscheduler_actions' && in_array($row['status'], ['complete', 'failed'], true)) {
                     $this->store->replace($table, $row, null);
                     continue;
@@ -202,13 +254,7 @@ final class Engine
                     $this->store->replace($table, $row, null);
                     continue;
                 }
-                if ($kind === 'options') {
-                    $key = $row['option_name'];
-                    if (!$this->allowedOption($key)) {
-                        $this->store->replace($table, $row, null);
-                        continue;
-                    }
-                }
+
                 if (isset($row['meta_key']) && self::sensitiveKey($row['meta_key'])) {
                     $this->store->replace($table, $row, null);
                     continue;
@@ -222,18 +268,54 @@ final class Engine
                         };
                         continue; // Charges opaques destinées à être détruites, jamais désérialisées.
                     }
-                    $next[$key] = self::scrub($value, $privacy, $id);
+                    // Les réglages d'extensions et tables inconnues ne sont pas une
+                    // liste blanche : seules les zones personnelles connues changent.
+                    $personal = $privacy && !isset($this->unknownTables[$table])
+                        && !in_array($kind, ['options', 'terms', 'termmeta', 'term_taxonomy', 'term_relationships', 'links'], true);
+                    $next[$key] = self::scrub($value, $personal, $id);
+                    if (self::sensitiveKey((string) $key) && $key !== 'option_name' && $key !== 'meta_key') {
+                        $next[$key] = '';
+                    }
                     if ($privacy && ((in_array($kind, ['wc_order_addresses', 'wc_orders', 'wc_customer_lookup', 'wc_order_operational_data'], true) && self::piiKey($key)) || ($key === 'meta_value' && self::piiKey($row['meta_key'] ?? '')))) {
                         $next[$key] = '';
                     }
                 }
                 if ($kind === 'options') {
+                    if (in_array($row['option_name'], ['active_plugins', 'active_sitewide_plugins'], true)) {
+                        $active = self::decode($row['option_value']);
+                        if (is_array($active)) {
+                            $names = $row['option_name'] === 'active_plugins' ? $active : array_keys($active);
+                            $disabled = array_values(array_unique(array_merge($disabled, array_intersect($names, $this->disabledPlugins()))));
+                        }
+                    }
                     $next['option_value'] = match ($row['option_name']) {
                         'home', 'siteurl' => $this->target,
                         'blog_public' => '0', 'cron' => serialize([]),
-                        'active_plugins' => serialize(array_values(array_intersect((array) self::decode($row['option_value']), ['woocommerce/woocommerce.php', 'woocommerce-subscriptions/woocommerce-subscriptions.php', 'woocommerce-memberships/woocommerce-memberships.php']))),
+                        'active_plugins' => serialize(array_values(array_diff((array) self::decode($row['option_value']), $this->disabledPlugins()))),
+                        'active_sitewide_plugins' => serialize(array_diff_key((array) self::decode($row['option_value']), array_flip($this->disabledPlugins()))),
                         default => $next['option_value'],
                     };
+                    if (self::sensitiveKey($row['option_name'])) {
+                        $next['option_value'] = '';
+                    }
+                    if (preg_match('/^woocommerce_.*(?:stripe|paypal|ppcp).*_settings$/i', $row['option_name'])) {
+                        $gateway = self::decode($next['option_value']);
+                        if (is_array($gateway)) {
+                            $gateway['testmode'] = 'yes';
+                            if (array_key_exists('sandbox', $gateway)) {
+                                $gateway['sandbox'] = 'yes';
+                            }
+                            if (array_key_exists('test_mode', $gateway)) {
+                                $gateway['test_mode'] = 'yes';
+                            }
+                            $next['option_value'] = serialize($gateway);
+                        }
+                    }
+                }
+                if ($privacy && isset($this->unknownTables[$table]) && ($this->decisions[$table]['action'] ?? '') === 'anonymiser') {
+                    foreach ($this->decisions[$table]['columns'] as $column) {
+                        $next[$column] = preg_match('/email|e_mail/i', $column) ? "abonne-$id@example.org" : '';
+                    }
                 }
                 if ($kind === 'wc_webhooks') {
                     $next['status'] = 'disabled';
@@ -295,6 +377,7 @@ final class Engine
                 }
             }
         }
+        $this->setOption('imagine_staging_disabled_plugins', serialize($disabled));
         $options = $this->options();
         foreach (['blog_public' => '0', 'cron' => serialize([]), 'active_plugins' => serialize([])] as $key => $value) {
             if (!isset($options[$key])) {
@@ -389,100 +472,127 @@ final class Engine
         }
     }
 
-    /** Rapport sans valeurs, identifiants, chemins ou messages SQL. */
+    /** Cinq blocages de données/runtime + décision personnelle, sans aucune valeur. */
     public function verifier(?callable $probe): array
     {
         $issues = [];
-        try {
-            new self($this->store, $this->context, $this->prefix); // Ré-inventaire, aucune confiance dans l'étape précédente.
-            $this->checkUrls();
-            $options = $this->options();
-            if (($options['blog_public'] ?? null) !== '0' || ($options['cron'] ?? null) !== serialize([])) {
-                $issues[] = 'CRON_OU_INDEXATION';
+        $warnings = [];
+        $unknown = [];
+        $fresh = new self($this->store, $this->context, $this->prefix, $this->decisions);
+        $this->inventory = $fresh->inventory;
+        $this->unknownTables = $fresh->unknownTables;
+        $this->unknownColumns = $fresh->unknownColumns;
+        $this->unknownTypes = $fresh->unknownTypes;
+        $this->checkUrls(); // Barrière de cible, jamais transformée en avertissement.
+        $options = $this->options();
+        $plugins = self::decode($options['active_plugins'] ?? serialize([]));
+        $subscriptionsExpected = is_array($plugins)
+            && in_array('woocommerce-subscriptions/woocommerce-subscriptions.php', $plugins, true);
+        if (($options['blog_public'] ?? null) !== '0' || ($options['cron'] ?? null) !== serialize([])) {
+            $warnings[] = 'CRON_OU_INDEXATION';
+        }
+        if (is_array($plugins) && array_intersect($plugins, $this->disabledPlugins())) {
+            $warnings[] = 'EXTENSION_A_DESACTIVER';
+        }
+        $transactionPosts = [];
+        foreach ($this->store->rows($this->prefix . 'posts') as $post) {
+            if (in_array($post['post_type'] ?? '', ['shop_order', 'shop_subscription', 'shop_order_refund', 'wc_user_membership'], true)) {
+                $transactionPosts[] = (int) $post['ID'];
             }
-            foreach ($options as $key => $value) {
-                if (!$this->allowedOption($key)) {
-                    $issues[] = 'OPTION_NON_APPROUVEE';
+        }
+        foreach ($this->inventory as $table => $columns) {
+            $kind = str_starts_with($table, $this->prefix) ? substr($table, strlen($this->prefix)) : '';
+            $rows = $this->store->rows($table);
+            if (isset($this->unknownTables[$table])) {
+                $personal = array_values(array_filter($columns, self::personalColumn(...)));
+                $decision = $this->decisions[$table] ?? null;
+                $unknown[] = ['name' => $table, 'columns' => array_values($columns), 'rows' => count($rows),
+                    'personal_columns' => $personal, 'decision' => $decision];
+                if ($personal && $decision === null) {
+                    $issues[] = 'TABLE_PERSONNELLE_A_TRANCHER';
                 }
+                $warnings[] = 'TABLE_INCONNUE_CONSERVEE';
             }
-            $plugins = self::decode($options['active_plugins'] ?? '');
-            if (!is_array($plugins) || array_diff($plugins, ['woocommerce/woocommerce.php', 'woocommerce-subscriptions/woocommerce-subscriptions.php', 'woocommerce-memberships/woocommerce-memberships.php'])) {
-                $issues[] = 'EXTENSION_NON_APPROUVEE';
+            if (in_array($kind, ['woocommerce_payment_tokens', 'woocommerce_payment_tokenmeta', 'woocommerce_sessions', 'woocommerce_api_keys', 'actionscheduler_logs', 'actionscheduler_claims', 'woocommerce_log', 'wc_download_log', 'wc_rate_limits', 'commentmeta'], true) && $rows) {
+                $warnings[] = 'TABLE_A_VIDER';
             }
-            $admins = 0;
-            foreach ($this->store->schema() as $table => $_) {
-                $kind = substr($table, strlen($this->prefix));
-                $rows = $this->store->rows($table);
-                if (in_array($kind, ['woocommerce_payment_tokens', 'woocommerce_payment_tokenmeta', 'woocommerce_sessions', 'woocommerce_api_keys', 'actionscheduler_logs', 'actionscheduler_claims', 'woocommerce_log', 'wc_download_log', 'wc_rate_limits', 'commentmeta'], true) && $rows) {
-                    $issues[] = 'TABLE_A_VIDER';
-                }
-                foreach ($rows as $row) {
-                    foreach ($row as $key => $value) {
-                        if (!is_string($value)) {
-                            continue;
-                        }
-                        if (self::dangerous($value) || self::scrub($value, false, 0) !== $value) {
-                            $issues[] = 'SECRET_OU_IDENTIFIANT';
-                        }
-                        preg_match_all('/[A-Z0-9.!#$%&\x27*+\/=?^_`{|}~-]+@([A-Z0-9.-]+\.[A-Z]{2,})/i', $value, $emails);
+            foreach ($rows as $row) {
+                $emailScope = in_array($kind, ['users', 'usermeta', 'wc_orders', 'wc_order_addresses', 'wc_orders_meta', 'wc_customer_lookup', 'woocommerce_downloadable_product_permissions'], true)
+                    || ($kind === 'posts' && in_array((int) ($row['ID'] ?? 0), $transactionPosts, true))
+                    || ($kind === 'postmeta' && in_array((int) ($row['post_id'] ?? 0), $transactionPosts, true));
+                foreach ($row as $key => $value) {
+                    if (!is_string($value)) {
+                        continue;
+                    }
+                    if (self::dangerous($value)) {
+                        $issues[] = 'SECRET_OU_IDENTIFIANT';
+                    }
+                    // Une clé opaque connue résiduelle est signalée, pas inventée comme
+                    // un sixième motif de service. La neutralisation sait la vider.
+                    if (self::sensitiveKey((string) $key) && $value !== '') {
+                        $warnings[] = 'CHAMP_SECRET_CONNU_RESIDUEL';
+                    }
+                    if (self::scrub($value, false, 0) !== $value) {
+                        $warnings[] = 'REGLAGE_SECRET_RESIDUEL';
+                    }
+                    if (preg_match_all('/[A-Z0-9.!#$%&\x27*+\/=?^_`{|}~-]+@([A-Z0-9.-]+\.[A-Z]{2,})/i', $value, $emails)) {
                         foreach ($emails[1] as $domain) {
                             if (strtolower($domain) !== 'example.org') {
-                                $issues[] = 'EMAIL_EXTERNE';
+                                if ($emailScope) {
+                                    $issues[] = 'EMAIL_EXTERNE';
+                                } else {
+                                    $warnings[] = 'EMAIL_HORS_PERIMETRE_COMPTES_COMMANDES';
+                                }
                             }
                         }
-                        preg_match_all('/(?<![0-9a-f:.])[0-9a-f:.]*[.:][0-9a-f:.]+(?![0-9a-f:.])/i', $value, $ips);
-                        foreach ($ips[0] as $ip) {
-                            if (filter_var($ip, FILTER_VALIDATE_IP) !== false) {
-                                $issues[] = 'IP_RESIDUELLE';
-                            }
-                        }
-                        if (in_array($kind, ['wc_order_addresses', 'wc_orders', 'wc_customer_lookup', 'wc_order_operational_data'], true) && self::piiKey($key) && $value !== '') {
-                            $issues[] = 'IDENTITE_RESIDUELLE';
-                        }
                     }
-                    if (isset($row['meta_key']) && (self::sensitiveKey($row['meta_key']) || (self::piiKey($row['meta_key']) && $row['meta_value'] !== ''))) {
-                        $issues[] = 'META_RESIDUELLE';
+                    if (in_array($kind, ['wc_order_addresses', 'wc_orders', 'wc_customer_lookup', 'wc_order_operational_data'], true) && self::piiKey((string) $key) && $value !== '') {
+                        $warnings[] = 'IDENTITE_RESIDUELLE';
                     }
-                    if ($kind === 'users') {
-                        $id = (int) $row['ID'];
-                        $isAdmin = $row['user_login'] === 'imagine-test-admin';
-                        if ($isAdmin) {
-                            ++$admins;
-                            $this->checkAdmin($row);
-                        }
-                        if ((!$isAdmin && ($row['user_login'] !== "abonne-$id" || $row['user_email'] !== "abonne-$id@example.org"))
-                            || !$row['user_pass'] || (password_get_info($row['user_pass'])['algo'] ?? null) === null
-                            || ($row['user_url'] ?? '') !== '' || ($row['user_activation_key'] ?? '') !== '') {
-                            $issues[] = 'COMPTE_NON_ANONYME';
-                        }
-                    }
-                    if ($kind === 'comments' && (($row['comment_content'] ?? '') !== '' || ($row['comment_author_IP'] ?? '') !== '')) {
-                        $issues[] = 'COMMENTAIRE_RESIDUEL';
-                    }
-                    if ($kind === 'actionscheduler_actions' && in_array($row['status'], ['pending', 'in-progress'], true)) {
-                        $issues[] = 'ACTION_EN_ATTENTE';
-                    }
-                    if ($kind === 'wc_webhooks' && ($row['status'] !== 'disabled' || $row['delivery_url'] !== '' || $row['secret'] !== '')) {
-                        $issues[] = 'WEBHOOK_ACTIF';
+                    try {
+                        self::decode($value);
+                    } catch (\Throwable) {
+                        $warnings[] = 'FORMAT_OPAQUE_CONSERVE';
                     }
                 }
+                if (isset($row['meta_key']) && (self::sensitiveKey($row['meta_key']) || (self::piiKey($row['meta_key']) && $row['meta_value'] !== ''))) {
+                    $warnings[] = 'META_RESIDUELLE';
+                }
+                if ($kind === 'actionscheduler_actions' && in_array($row['status'], ['pending', 'in-progress'], true)) {
+                    $warnings[] = 'ACTION_EN_ATTENTE';
+                }
+                if ($kind === 'wc_webhooks' && ($row['status'] !== 'disabled' || $row['delivery_url'] !== '' || $row['secret'] !== '')) {
+                    $warnings[] = 'WEBHOOK_ACTIF';
+                }
             }
-            if ($admins !== 1) {
-                $issues[] = 'ADMIN_TEST_ABSENT_OU_DUPLIQUE';
-            }
-        } catch (\Throwable) {
-            $issues[] = 'CONTROLE_DONNEES_ECHOUE';
+        }
+        if ($this->unknownColumns) {
+            $warnings[] = 'COLONNES_INCONNUES_CONSERVEES';
+        }
+        if ($this->unknownTypes) {
+            $warnings[] = 'TYPES_CONTENU_INCONNUS_CONSERVES';
+        }
+        $schemaDetails = method_exists($this->store, 'details') ? $this->store->details() : [];
+        foreach ($schemaDetails['warnings'] ?? [] as $warning) {
+            $warnings[] = $warning;
         }
         if ($issues) {
-            $issues[] = 'SONDE_NON_EXECUTEE_DONNEES_REFUSEES';
+            $warnings[] = 'SONDE_NON_EXECUTEE_DONNEES_REFUSEES';
         } elseif ($probe === null) {
             $issues[] = 'PREUVE_RUNTIME_ABSENTE';
         } else {
             try {
                 $proof = $probe();
-                foreach (['mail_blocked', 'http_blocked', 'subscriptions_staging', 'environment_staging', 'cron_disabled', 'as_async_disabled', 'as_runner_disabled', 'gateways_disabled'] as $required) {
-                    if (($proof[$required] ?? null) !== true) {
-                        $issues[] = 'PREUVE_RUNTIME_INCOMPLETE';
+                if (($proof['mail_blocked'] ?? null) !== true) {
+                    $issues[] = 'EMAIL_NON_COUPE';
+                }
+                $subscriptionsPresent = $subscriptionsExpected || ($proof['subscriptions_present'] ?? true) !== false;
+                if ($subscriptionsPresent && ($proof['subscriptions_staging'] ?? null) !== true) {
+                    $issues[] = 'SUBSCRIPTIONS_NON_STAGING';
+                }
+                foreach (['http_blocked', 'environment_staging', 'cron_disabled', 'as_async_disabled', 'as_runner_disabled', 'gateways_disabled'] as $check) {
+                    if (($proof[$check] ?? null) !== true) {
+                        $warnings[] = 'RUNTIME_' . strtoupper($check);
                     }
                 }
             } catch (\Throwable) {
@@ -490,10 +600,19 @@ final class Engine
             }
         }
         if ($probe !== null && !$issues) {
-            $after = $this->verifier(null); // Relecture APRÈS le bootstrap de sonde.
+            $after = $this->verifier(null); // Données relues après bootstrap ; pas de seconde sonde.
             $issues = array_values(array_diff($after['issues'], ['PREUVE_RUNTIME_ABSENTE']));
+            $warnings = array_merge($warnings, $after['warnings']);
+            $unknown = $after['unknown_tables'];
         }
-        return ['ok' => !$issues, 'issues' => array_values(array_unique($issues)), 'scope' => 'offline-data-only'];
+        $disabled = self::decode($this->options()['imagine_staging_disabled_plugins'] ?? serialize([]));
+        return ['ok' => !$issues, 'issues' => array_values(array_unique($issues)),
+            'warnings' => array_values(array_unique($warnings)), 'unknown_tables' => $unknown,
+            'unknown_columns' => $this->unknownColumns,
+            'unknown_post_types' => array_values(array_unique($this->unknownTypes)),
+            'disabled_plugins' => is_array($disabled) ? array_values($disabled) : [],
+            'active_plugins' => is_array($plugins) ? array_values($plugins) : [],
+            'schema_details' => $schemaDetails, 'scope' => 'offline-data-only'];
     }
 
     private function checkUrls(): void

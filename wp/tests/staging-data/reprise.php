@@ -45,4 +45,43 @@ repriseCheck($report['ok'], 'inconnus sans PII non bloquants');
 repriseCheck(in_array('wp-mail-smtp/wp_mail_smtp.php', $report['disabled_plugins'], true), 'désactivation nommée dans rapport');
 repriseCheck($report['unknown_tables'][0]['name'] === 'x_extension_catalogue' && $report['unknown_tables'][0]['rows'] === 1, 'inventaire sans valeurs');
 repriseCheck(!str_contains(json_encode($report), 'SYNTHETIC layout'), 'aucune valeur de table rapportée');
+$private = fixture();
+$private->columns['other_contacts'] = ['id', 'email', 'telephone', 'layout'];
+$private->tables['other_contacts'] = [['id'=>1,'email'=>'synthetic@outside.invalid','telephone'=>'SYNTHETIC','layout'=>'wide']];
+$privateEngine = new Imagine\Staging\Engine($private, $context, 'x_');
+$privateEngine->neutraliser();
+$privateEngine->anonymiser('SYNTHETIC-test-password-2026');
+repriseCheck(in_array('TABLE_PERSONNELLE_A_TRANCHER', $privateEngine->verifier($proof)['issues'], true), 'table personnelle en attente de Ced');
+repriseCheck($private->rows('other_contacts')[0]['email'] === 'synthetic@outside.invalid', 'pas de décision fabriquée');
+foreach (['garder', 'vider', 'anonymiser'] as $action) {
+    $copy = clone $private;
+    $decision = ['other_contacts'=>['action'=>$action]];
+    if ($action === 'anonymiser') {
+        $decision['other_contacts']['columns'] = ['email','telephone'];
+    }
+    $decided = new Imagine\Staging\Engine($copy, $context, 'x_', $decision);
+    $decided->neutraliser();
+    $decided->anonymiser('SYNTHETIC-test-password-2026');
+    repriseCheck($decided->verifier($proof)['ok'], 'décision synthétique '.$action.' acceptée');
+    if ($action === 'garder') {
+        repriseCheck($copy->rows('other_contacts') === $private->rows('other_contacts'), 'garder personnel intact');
+    } elseif ($action === 'vider') {
+        repriseCheck($copy->rows('other_contacts') === [], 'vider appliqué');
+    } else {
+        repriseCheck($copy->rows('other_contacts')[0]['email'] === 'abonne-1@example.org'
+            && $copy->rows('other_contacts')[0]['telephone'] === ''
+            && $copy->rows('other_contacts')[0]['layout'] === 'wide', 'colonnes décidées seules anonymisées');
+    }
+}
+foreach (['sk_live_SYNTHETIC_ONLY', 'pk_live_SYNTHETIC_ONLY', 'rk_live_SYNTHETIC_ONLY', 'whsec_SYNTHETIC_ONLY', 'xkeysib-SYNTHETIC_ONLY', 'cus_SYNTHETIC_ONLY', 'pm_SYNTHETIC_ONLY', 'B-SYNTHETICONLY'] as $trap) {
+    $store->tables['x_extension_catalogue'][0]['setting'] = $trap;
+    repriseCheck(!$engine->verifier($proof)['ok'], 'motif connu partout refusé');
+}
+$store->tables['x_extension_catalogue'][0]['setting'] = 'SYNTHETIC layout';
+$store->tables['x_extension_catalogue'][0]['setting'] = '{"nested":"sk\\u005flive\\u005fSYNTHETIC"}';
+repriseCheck(!$engine->verifier($proof)['ok'], 'motif connu JSON échappé refusé');
+$store->tables['x_extension_catalogue'][0]['setting'] = 'SYNTHETIC layout';
+$store->tables['x_postmeta'][] = ['meta_id'=>999,'post_id'=>1,'meta_key'=>'_paypal_payer_id','meta_value'=>'SYNTHETICOPAQUEID'];
+repriseCheck(!$engine->verifier($proof)['ok'], 'identifiant PayPal de champ connu refusé sans préfixe');
+array_pop($store->tables['x_postmeta']);
 print("OK $assertions assertions reprise\n");
