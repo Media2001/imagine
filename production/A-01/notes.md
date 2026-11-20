@@ -1,4 +1,62 @@
-# A-01 — reprise synthétique stabilisée
+# A-01 — compléments commerciaux réels, import opérateur toujours non prêt
+
+**20 novembre 2026, 15 h 34 CET — PASS ciblé classique et HPOS.** Reçu final `wp/tests/licensed-a01/evidence/e49f54c5e931/result.json`, sortie **0**, **104 checks PASS et 4 observations**, zéro échec ; ce ne sont pas 104 tests métier indépendants. Classique : 48 PASS + 2 observations ; HPOS : 50 PASS + 2 observations ; six PASS d'isolation interne. Journal hôte : quatre PASS, dont suppression relue du conteneur exact. Résultat SHA-256 `c5da74dabc717773098edb08603d8695cbdd0c297183821a5f70ef858c5efc56`.
+
+**Pas d'import réel, pas de déploiement, pas de `PRET`.** La fidélité des fichiers de l'importeur opérateur reste non démontrée : l'import reste **NON PRÊT**, indépendamment du succès des données/extensions. La baseline non commerciale `f36c72f4d187` n'a pas été rejouée ; les onze sources sujets sont identiques à son manifest. Le nouveau banc est séparé dans `wp/tests/licensed-a01/`, sans modification des scripts de production ni du banc précédent.
+
+## Résultats réels par cas
+
+| Cas | Classique | HPOS |
+|---|---|---|
+| Memberships **1.30.3** puis Subscriptions **9.4.1**, activations indépendantes | PASS / PASS | PASS / PASS |
+| Article protégé réellement reconnu ; témoin public non restreint | PASS | PASS |
+| Membre actif : accès `wc_memberships_user_can` et présence du contenu `wcm_restrict`, avant/après nettoyage | autorisé / autorisé | autorisé / autorisé |
+| Invité : mêmes contrôles avant/après | refusé / refusé | refusé / refusé |
+| Non-membre : mêmes contrôles avant/après | refusé / refusé | refusé / refusé |
+| Membre expiré : mêmes contrôles avant/après | refusé / refusé | refusé / refusé |
+| Membre annulé : mêmes contrôles avant/après | refusé / refusé | refusé / refusé |
+| Membre en pause : mêmes contrôles avant/après | refusé / refusé | refusé / refusé |
+| Adhésions : IDs, liens utilisateur/plan, statuts, dates ; règles de restriction | égalité exacte avant/après | égalité exacte avant/après |
+| Six abonnements, états actif/suspendu/en attente d'annulation, créés par vraies API | six lignes `wp_posts` | six lignes `wp_wc_orders` |
+| Identifiants/clients, états, début/prochain paiement/fin, période/intervalle, EUR/montants, produits/quantités/taxes, pays, paiement | égalité exacte avant/après | égalité exacte avant/après |
+| Email, prénom, adresse et téléphone fictifs des six abonnements | nettoyés | nettoyés ; 12 coordonnées billing/shipping/pays inchangées par SQL direct |
+| Email externe réinjecté par API dans un vrai abonnement | refus CLI 1 `EMAIL_EXTERNE` | refus CLI 1 `EMAIL_EXTERNE` |
+| Chaîne `neutraliser → anonymiser → verifier` | 0 → 0 → 0 après décision fictive nommée | idem |
+| Table inconnue personnelle `wp_wc_email_unsubscribes` sans décision | refus 1 `TABLE_PERSONNELLE_A_TRANCHER` | idem |
+| Même table après `garder` explicite uniquement dans le contexte fictif | acceptée, aucun défaut de production changé | idem |
+| Mode réel `WCS_Staging::is_duplicate_site()` après traitement | true | true |
+| Mutation non-staging, MU sujet intact ; probe réel, moteur et CLI complète | false ; refus 1 `SUBSCRIPTIONS_NON_STAGING` | idem |
+| Actions natives de Subscriptions | 14 pending + 16 canceled → 30 canceled | idem |
+| Témoin AS avant verrou, un seul vrai hook de renouvellement, sans passerelle ni email réel | complete, 1 appel, 1 commande de renouvellement manuel | idem |
+| Même type d'action AS sous verrou | failed, 0 appel, 0 renouvellement ; cron/runner/async coupés | idem |
+| Runtime réel après nettoyage | mail/HTTP/cron/AS/passerelles coupés ; staging confirmé | idem |
+| Dernier vérificateur après purge explicite des journaux de tests | sortie 0 | sortie 0 |
+
+Le témoin positif de renouvellement est annulé par restauration du SQL produit **dans ce même conteneur**, avant le traitement sujet ; égalité du snapshot métier relue. Les contrôles des emails sont sensibles avant nettoyage et à la réinjection. Aucune preuve commerciale n'est remplacée par une doublure.
+
+## Runtime et limites de cette recette
+
+- WordPress **7.0.9**, WooCommerce **11.1.1**, PHP **8.2.36**, MariaDB **10.11.19**, WP-CLI **2.12.0** ; versions épinglées compatibles, pas annoncées comme les plus récentes. L'ancien blocage 6.9/10.4.3 est levé **dans cette image distincte**, pas par modification de la baseline. Dépendances publiques préparées séparément avant création/import ; URLs/SHA-256/image exacte dans `wp/tests/licensed-a01/compatible.lock.json`. Image finale : `sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2`.
+- Paquets commerciaux opérateur lus hors dépôt, empreintes attendues vérifiées lors de l'extraction, copiés uniquement dans le conteneur neuf. Aucun paquet commercial dans le dépôt ou l'image publique, aucun téléchargement commercial, achat, activation de licence ou connexion WooCommerce.com.
+- Droits d'adhésions **autonomes** : pas de liaison automatique Memberships↔achat/abonnement, pas de dripping, expiration simulée par attente ou renouvellement d'adhésion. API et shortcode réels sous CLI ; **pas une recette HTTP/thème/cache/REST ni une preuve d'étanchéité complète du paywall**.
+- Renouvellement **manuel sans paiement** : création native de commande vérifiée, pas de débit, passerelle réelle, retry, remboursement ni échéancier réel de production. Les trois protections cron/runner/async et le garde avant exécution AS sont réellement actifs après nettoyage.
+- Woo 11.1.1 introduit `wp_wc_email_unsubscribes` avec `email_hash`/`email_kind` : inventaire et refus prouvés ; décision `garder` exclusivement fictive, **pas un arbitrage de Ced**.
+- Des journaux Woo `wcs-batch-processing` régénérés masquaient le tag non-staging dans des tentatives intermédiaires par un refus fichiers 78 ; les reçus sont conservés. Le reçu final obtient **bien le refus 1 et le tag précis par la CLI complète**, ainsi que par le moteur avec probe réel.
+- Une exécution AS forcée sous verrou produit un journal `failed-scheduled-actions`. La purge fichiers réelle du sujet est donc rejouée **explicitement** après les manipulations avant le dernier contrôle. Ce n'est pas la preuve d'une absence perpétuelle de journaux après démarrage. Aucun garde n'est retiré, aucune donnée métier n'est supprimée pour blanchir la recette.
+- Isolation inspectée avant/après : `network=none`, aucun port/montage/volume, capacités retirées, no-new-privileges, loopback seule, aucun listener TCP/IPv6 ; MariaDB sur socket Unix. Conteneur exact supprimé et absence relue. Aucun vrai site/compte/archive, Novamira, service partagé modifié, Git, installation hôte, déploiement ou ouverture web.
+- La conservation des fichiers production, l'importeur complet, l'orchestration opérateur/API/MCP, la bascule et le réseau autorisé après vérification restent **non qualifiés**. Les succès commerciaux ne lèvent pas ces réserves.
+
+## Preuves et rejeu commercial ciblé
+
+- Sources et reçu : `wp/tests/licensed-a01/evidence/e49f54c5e931/{result,journal,driver-source,subject-source}.json`, `execution.log`, `packages.tsv`. Sources finales relues par empreinte après exécution ; onze sujets toujours identiques à `f36c72f4d187`.
+- Cas complets recopiés depuis le vrai reçu : `files/rapports/2026-11-20-A-01-commercial-cases.json` ; rapport lisible : `files/rapports/2026-11-20-15h35-A-01-commercial.md`.
+- Commande **synthétique seulement**, depuis `C:/Users/Ced/imagine` : `python wp/tests/licensed-a01/run.py`. Image locale exacte requise ; aucun pull/téléchargement runtime. Voir `wp/tests/licensed-a01/REPLAY.md`. Ce n'est pas la commande d'import réel.
+- Diagnostics intermédiaires conservés : oracle de contenu public inadéquat (`wc_memberships_user_can` exige déjà une adhésion active), transition pending→on-hold invalide (désormais pending→active→on-hold), bridge absent puis chemins fictifs non conformes au bridge, table personnelle à trancher, et garde fichiers prioritaire. Corrections limitées au nouveau banc ; aucune source sujet changée.
+
+---
+
+## Baseline non commerciale stabilisée — point antérieur conservé
+
 
 **20 novembre 2026 — PASS classique et HPOS sur données inventées.** Reçu exact : `wp/tests/staging-e2e/evidence/f36c72f4d187/result.json`, sortie **0**, **131 checks PASS, 2 NOT_TESTED**. Le journal du même répertoire confirme isolation avant/après et suppression relue du conteneur exact. Ces checks ne sont pas autant de tests métier indépendants.
 
