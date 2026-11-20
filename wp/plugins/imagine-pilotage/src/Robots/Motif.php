@@ -14,4 +14,7 @@ enum Motif: string
     case AgentAmbigu = 'agent_ambigu';
     case DnsImpossible = 'dns_impossible';
     case DelaiDepasse = 'delai_depasse';
+    case VerifiePlage = 'verifie_plage';
+    case PlageAbsente = 'plage_absente';
+    case PlagesExpirees = 'plages_expirees';
 }

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="31" assertions="34" errors="0" failures="31" skipped="0" time="0.009092">
+    <testsuite name="Robots" tests="31" assertions="34" errors="0" failures="31" skipped="0" time="0.009092">
+      <testsuite name="Imagine\Pilotage\Tests\Robots\PlagesTest" file="/work/tests/Robots/PlagesTest.php" tests="31" assertions="34" errors="0" failures="31" skipped="0" time="0.009092">
+        <testsuite name="Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrBinaire" tests="16" assertions="16" errors="0" failures="16" skipped="0" time="0.005064">
+          <testcase name="testCidrBinaire with data set #0" file="/work/tests/Robots/PlagesTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.003539">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrBinaire with data set #0
+Le contrôle CIDR C-03 doit exister.
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:22</failure>
+          </testcase>
+          <testcase name="testCidrBinaire with data set #1" file="/work/tests/Robots/PlagesTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000103">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrBinaire with data set #1
+Le contrôle CIDR C-03 doit exister.
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:22</failure>
+          </testcase>
+          <testcase name="testCidrBinaire with data set #2" file="/work/tests/Robots/PlagesTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000094">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrBinaire with data set #2
+Le contrôle CIDR C-03 doit exister.
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:22</failure>
+          </testcase>
+          <testcase name="testCidrBinaire with data set #3" file="/work/tests/Robots/PlagesTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000090">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrBinaire with data set #3
+Le contrôle CIDR C-03 doit exister.
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:22</failure>
+          </testcase>
+          <testcase name="testCidrBinaire with data set #4" file="/work/tests/Robots/PlagesTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000081">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrBinaire with data set #4
+Le contrôle CIDR C-03 doit exister.
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:22</failure>
+          </testcase>
+          <testcase name="testCidrBinaire with data set #5" file="/work/tests/Robots/PlagesTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000107">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrBinaire with data set #5
+Le contrôle CIDR C-03 doit exister.
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:22</failure>
+          </testcase>
+          <testcase name="testCidrBinaire with data set #6" file="/work/tests/Robots/PlagesTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000209">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrBinaire with data set #6
+Le contrôle CIDR C-03 doit exister.
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:22</failure>
+          </testcase>
+          <testcase name="testCidrBinaire with data set #7" file="/work/tests/Robots/PlagesTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000118">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrBinaire with data set #7
+Le contrôle CIDR C-03 doit exister.
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:22</failure>
+          </testcase>
+          <testcase name="testCidrBinaire with data set #8" file="/work/tests/Robots/PlagesTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000093">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrBinaire with data set #8
+Le contrôle CIDR C-03 doit exister.
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:22</failure>
+          </testcase>
+          <testcase name="testCidrBinaire with data set #9" file="/work/tests/Robots/PlagesTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000091">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrBinaire with data set #9
+Le contrôle CIDR C-03 doit exister.
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:22</failure>
+          </testcase>
+          <testcase name="testCidrBinaire with data set #10" file="/work/tests/Robots/PlagesTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000107">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrBinaire with data set #10
+Le contrôle CIDR C-03 doit exister.
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:22</failure>
+          </testcase>
+          <testcase name="testCidrBinaire with data set #11" file="/work/tests/Robots/PlagesTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000086">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrBinaire with data set #11
+Le contrôle CIDR C-03 doit exister.
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:22</failure>
+          </testcase>
+          <testcase name="testCidrBinaire with data set #12" file="/work/tests/Robots/PlagesTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000091">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrBinaire with data set #12
+Le contrôle CIDR C-03 doit exister.
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:22</failure>
+          </testcase>
+          <testcase name="testCidrBinaire with data set #13" file="/work/tests/Robots/PlagesTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000086">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrBinaire with data set #13
+Le contrôle CIDR C-03 doit exister.
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:22</failure>
+          </testcase>
+          <testcase name="testCidrBinaire with data set #14" file="/work/tests/Robots/PlagesTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000084">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrBinaire with data set #14
+Le contrôle CIDR C-03 doit exister.
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:22</failure>
+          </testcase>
+          <testcase name="testCidrBinaire with data set #15" file="/work/tests/Robots/PlagesTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000085">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrBinaire with data set #15
+Le contrôle CIDR C-03 doit exister.
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:22</failure>
+          </testcase>
+        </testsuite>
+        <testsuite name="Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrMalformeRefuse" tests="10" assertions="10" errors="0" failures="10" skipped="0" time="0.000939">
+          <testcase name="testCidrMalformeRefuse with data set #0" file="/work/tests/Robots/PlagesTest.php" line="49" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000087">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrMalformeRefuse with data set #0
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:51</failure>
+          </testcase>
+          <testcase name="testCidrMalformeRefuse with data set #1" file="/work/tests/Robots/PlagesTest.php" line="49" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000086">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrMalformeRefuse with data set #1
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:51</failure>
+          </testcase>
+          <testcase name="testCidrMalformeRefuse with data set #2" file="/work/tests/Robots/PlagesTest.php" line="49" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000084">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrMalformeRefuse with data set #2
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:51</failure>
+          </testcase>
+          <testcase name="testCidrMalformeRefuse with data set #3" file="/work/tests/Robots/PlagesTest.php" line="49" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000095">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrMalformeRefuse with data set #3
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:51</failure>
+          </testcase>
+          <testcase name="testCidrMalformeRefuse with data set #4" file="/work/tests/Robots/PlagesTest.php" line="49" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000085">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrMalformeRefuse with data set #4
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:51</failure>
+          </testcase>
+          <testcase name="testCidrMalformeRefuse with data set #5" file="/work/tests/Robots/PlagesTest.php" line="49" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000101">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrMalformeRefuse with data set #5
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:51</failure>
+          </testcase>
+          <testcase name="testCidrMalformeRefuse with data set #6" file="/work/tests/Robots/PlagesTest.php" line="49" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000083">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrMalformeRefuse with data set #6
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:51</failure>
+          </testcase>
+          <testcase name="testCidrMalformeRefuse with data set #7" file="/work/tests/Robots/PlagesTest.php" line="49" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000083">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrMalformeRefuse with data set #7
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:51</failure>
+          </testcase>
+          <testcase name="testCidrMalformeRefuse with data set #8" file="/work/tests/Robots/PlagesTest.php" line="49" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000082">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrMalformeRefuse with data set #8
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:51</failure>
+          </testcase>
+          <testcase name="testCidrMalformeRefuse with data set #9" file="/work/tests/Robots/PlagesTest.php" line="49" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000154">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testCidrMalformeRefuse with data set #9
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:51</failure>
+          </testcase>
+        </testsuite>
+        <testsuite name="Imagine\Pilotage\Tests\Robots\PlagesTest::testPlagesSansDns" tests="3" assertions="4" errors="0" failures="3" skipped="0" time="0.002698">
+          <testcase name="testPlagesSansDns with data set #0" file="/work/tests/Robots/PlagesTest.php" line="66" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000765">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testPlagesSansDns with data set #0
+Failed asserting that false is identical to true.
+
+/work/tests/Robots/PlagesTest.php:78</failure>
+          </testcase>
+          <testcase name="testPlagesSansDns with data set #1" file="/work/tests/Robots/PlagesTest.php" line="66" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000123">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testPlagesSansDns with data set #1
+Failed asserting that false is identical to true.
+
+/work/tests/Robots/PlagesTest.php:78</failure>
+          </testcase>
+          <testcase name="testPlagesSansDns with data set #2" file="/work/tests/Robots/PlagesTest.php" line="66" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="2" time="0.001810">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testPlagesSansDns with data set #2
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'plage_absente'
++'domaine_refuse'
+
+/work/tests/Robots/PlagesTest.php:79</failure>
+          </testcase>
+        </testsuite>
+        <testcase name="testPlagesAbsentesEtExpireesRestentFermees" file="/work/tests/Robots/PlagesTest.php" line="89" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="3" time="0.000278">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testPlagesAbsentesEtExpireesRestentFermees
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+-Array &amp;0 []
++Array &amp;0 [
++    0 =&gt; Array &amp;1 [
++        0 =&gt; 'inverse',
++        1 =&gt; '192.0.2.1',
++        2 =&gt; 200,
++    ],
++    1 =&gt; Array &amp;2 [
++        0 =&gt; 'inverse',
++        1 =&gt; '192.0.2.1',
++        2 =&gt; 200,
++    ],
++]
+
+/work/tests/Robots/PlagesTest.php:97</failure>
+        </testcase>
+        <testcase name="testPositifEnCacheNeDepassePasLaValiditeDesPlages" file="/work/tests/Robots/PlagesTest.php" line="100" class="Imagine\Pilotage\Tests\Robots\PlagesTest" classname="Imagine.Pilotage.Tests.Robots.PlagesTest" assertions="1" time="0.000113">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\PlagesTest::testPositifEnCacheNeDepassePasLaValiditeDesPlages
+Failed asserting that false is true.
+
+/work/tests/Robots/PlagesTest.php:109</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -48,7 +48,9 @@ final readonly class Verificateur
             return $entree->decision;
         }
         try {
-            $decision = $this->verifierDns($robot, $ip);
+            $decision = $robot->methode === Methode::Dns
+                ? $this->verifierDns($robot, $ip)
+                : $this->verifierPlages($robot, $ip, $maintenant);
         } catch (DelaiDnsDepasse) {
             $decision = new Decision(Motif::DelaiDepasse);
         } catch (\Throwable) {
@@ -56,8 +58,24 @@ final readonly class Verificateur
         }
         $ttl = $decision->estVerifie() ? $this->configuration->ttlPositif : $this->configuration->ttlNegatif;
         $expiration = $maintenant->modify('+' . $ttl . ' seconds');
+        if ($decision->estVerifie() && $robot->methode === Methode::Plages) {
+            $expiration = min($expiration, $robot->expirationPlages);
+        }
         $this->cache->ecrire($cle, new EntreeCache($decision, $maintenant, $expiration));
         return $decision;
+    }
+
+    private function verifierPlages(Robot $robot, string $ip, DateTimeImmutable $maintenant): Decision
+    {
+        if ($robot->expirationPlages === null || $maintenant >= $robot->expirationPlages) {
+            return new Decision(Motif::PlagesExpirees);
+        }
+        foreach ($robot->plages as $cidr) {
+            if ((new Plage($cidr))->contient($ip)) {
+                return new Decision(Motif::VerifiePlage, $robot->identifiant);
+            }
+        }
+        return new Decision(Motif::PlageAbsente);
     }
 
     private function verifierDns(Robot $robot, string $ip): Decision

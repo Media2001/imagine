@@ -12,6 +12,8 @@ final readonly class Robot
         public array $agents,
         public Methode $methode,
         public array $domaines = [],
+        public array $plages = [],
+        public ?\DateTimeImmutable $expirationPlages = null,
     ) {
     }
 }

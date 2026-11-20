@@ -12,6 +12,6 @@ final readonly class Decision
 
     public function estVerifie(): bool
     {
-        return $this->motif === Motif::VerifieDns && $this->robot !== null;
+        return in_array($this->motif, [Motif::VerifieDns, Motif::VerifiePlage], true) && $this->robot !== null;
     }
 }
