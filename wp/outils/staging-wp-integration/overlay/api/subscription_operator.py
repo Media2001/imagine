@@ -35,16 +35,22 @@ def main(argv=None):
     parser.add_argument('--db-image', required=True)
     parser.add_argument('--nginx-image', required=True)
     parser.add_argument('--password-fd', type=int, help='read one line from a private file descriptor')
+    parser.add_argument('--table-decisions', type=Path, help='Ced-approved JSON: table names, action, optional column names only')
     parser.add_argument('--start', action='store_true', help='publish web ONLY after successful verification')
     args = parser.parse_args(argv)
     try:
+        decisions = None
+        if args.table_decisions:
+            if args.table_decisions.is_symlink() or args.table_decisions.stat().st_size > 4096:
+                raise subscriptions.QuarantineError('Fichier de décisions invalide')
+            decisions = json.loads(args.table_decisions.read_text(encoding='utf-8'))
         password = read_password(args.password_fd)
         models.init_db()
         site = subscriptions.create_offline(
             name=args.name, archive=args.archive, workflow=args.workflow,
             production_url=args.production_url, staging_url=f'http://{config.NAS_HOST}:{args.port}',
             port=args.port, worker_image=args.worker_image, db_image=args.db_image,
-            nginx_image=args.nginx_image, admin_password=password)
+            nginx_image=args.nginx_image, admin_password=password, table_decisions=decisions)
         del password
         if args.start:
             try:
@@ -56,7 +62,8 @@ def main(argv=None):
                 except subscriptions.QuarantineError:
                     pass
                 raise subscriptions.QuarantineError('Copie vérifiée ; publication échouée, arrêt ciblé demandé') from None
-        print(json.dumps({key: site[key] for key in ('slug', 'status', 'verification_state')}, ensure_ascii=False))
+        print(json.dumps({**{key: site[key] for key in ('slug', 'status', 'verification_state')},
+                          'verification_report': subscriptions.public_report(site)}, ensure_ascii=False))
         return 0
     except subscriptions.QuarantineError as exc:
         print(str(exc), file=sys.stderr)

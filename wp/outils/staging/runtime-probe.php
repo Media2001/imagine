@@ -15,11 +15,14 @@ function runtimeProbe(): array
     // Pas même un essai si le court-circuit n'est pas déjà installé.
     $mailBlocked = $mailFilter === false && wp_mail('sonde@example.org', 'Sonde fictive', 'Sonde fictive') === false;
     $httpBlocked = $httpFilter instanceof \WP_Error && is_wp_error(wp_remote_get('https://probe.invalid'));
+    $subscriptionsClass = class_exists('WCS_Staging');
+    $subscriptionsPresent = $subscriptionsClass
+        || (defined('WP_PLUGIN_DIR') && is_file(WP_PLUGIN_DIR . '/woocommerce-subscriptions/woocommerce-subscriptions.php'));
     return [
         'mail_blocked' => $mailBlocked,
         'http_blocked' => $httpBlocked,
-        'subscriptions_present' => class_exists('WCS_Staging'),
-        'subscriptions_staging' => class_exists('WCS_Staging') ? \WCS_Staging::is_duplicate_site() === true : null,
+        'subscriptions_present' => $subscriptionsPresent,
+        'subscriptions_staging' => $subscriptionsClass ? \WCS_Staging::is_duplicate_site() === true : ($subscriptionsPresent ? false : null),
         'environment_staging' => wp_get_environment_type() === 'staging' && defined('WP_ENVIRONMENT_TYPE') && WP_ENVIRONMENT_TYPE === 'staging',
         'cron_disabled' => defined('DISABLE_WP_CRON') && DISABLE_WP_CRON === true && wp_get_ready_cron_jobs() === [],
         'as_async_disabled' => apply_filters('action_scheduler_allow_async_request_runner', true) === false,

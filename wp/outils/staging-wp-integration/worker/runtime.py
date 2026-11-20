@@ -64,7 +64,7 @@ def digest(p):
 
 
 def signature(r):
-    return hashlib.sha256(json.dumps({k: r[k] for k in ('slug', 'staging_url', 'production_hosts')}, sort_keys=True).encode()).hexdigest()
+    return hashlib.sha256(json.dumps({k: r.get(k) for k in ('slug', 'staging_url', 'production_hosts', 'table_decisions')}, sort_keys=True).encode()).hexdigest()
 
 
 def inventory():

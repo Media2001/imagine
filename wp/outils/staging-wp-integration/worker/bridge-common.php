@@ -17,7 +17,7 @@ function workerRequest(): array {
 function workerContext(array $r): array {
     return ['environment'=>'staging', 'isolated'=>true, 'restored'=>true,
             'database'=>$r['database']['name'], 'target_url'=>$r['staging_url'],
-            'production_hosts'=>$r['production_hosts']];
+            'production_hosts'=>$r['production_hosts'], 'table_decisions'=>$r['table_decisions'] ?? []];
 }
 function workerPdo(array $r): PDO {
     $db = $r['database'];

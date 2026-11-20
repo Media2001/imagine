@@ -17,8 +17,9 @@ final class Command
         ini_set('log_errors', '0'); // Les exceptions SQL peuvent contenir des valeurs : jamais de journal brut.
         try {
             if (PHP_SAPI !== 'cli' || getenv('WP_ENVIRONMENT_TYPE') !== 'staging'
-                || count($args) !== 3 || $args[1] !== '--worker-bridge'
-                || !is_file($args[2]) || is_link($args[2])) {
+                || !in_array(count($args), [3, 5], true) || $args[1] !== '--worker-bridge'
+                || !is_file($args[2]) || is_link($args[2])
+                || (count($args) === 5 && ($args[3] !== '--table-decisions' || !is_file($args[4]) || is_link($args[4])))) {
                 throw new \RuntimeException('REFUS');
             }
             // Code de confiance fourni par le worker, pas un wp-config et pas des données importées.
@@ -32,7 +33,17 @@ final class Command
                 throw new \RuntimeException('REFUS');
             }
             Guard::context($worker['context'] ?? []);
-            $engine = new Engine($worker['store'], $worker['context'], $worker['prefix'] ?? '', $worker['table_decisions'] ?? []);
+            $decisions = $worker['table_decisions'] ?? [];
+            if (count($args) === 5) {
+                if ($decisions || !empty($worker['context']['table_decisions'])) {
+                    throw new \RuntimeException('DECISIONS_AMBIGUES');
+                }
+                $decisions = json_decode(file_get_contents($args[4]), true, 32, JSON_THROW_ON_ERROR);
+                if (!is_array($decisions)) {
+                    throw new \RuntimeException('DECISIONS_INVALIDES');
+                }
+            }
+            $engine = new Engine($worker['store'], $worker['context'], $worker['prefix'] ?? '', $decisions);
             $files = new Files($worker['root'] ?? '');
             switch ($phase) {
                 case 'neutraliser':

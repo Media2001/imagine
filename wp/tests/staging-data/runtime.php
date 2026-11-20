@@ -31,13 +31,23 @@ if (getenv('IMAGINE_SYNTHETIC_SUBSCRIPTIONS') === 'yes') {
         public static function is_duplicate_site(): bool { return apply_filters('woocommerce_subscriptions_is_duplicate_site', false); }
     }
 }
+$packageRoot = null;
+if (getenv('IMAGINE_SYNTHETIC_PACKAGE') === 'yes') {
+    $scratch = getenv('IMAGINE_TEST_SCRATCH');
+    if (!$scratch || !is_dir($scratch)) { throw new RuntimeException('SCRATCH_SYNTHETIQUE_REQUIS'); }
+    $packageRoot = $scratch . '/imagine-synthetic-package-' . bin2hex(random_bytes(6));
+    mkdir($packageRoot . '/woocommerce-subscriptions', 0700, true);
+    file_put_contents($packageRoot . '/woocommerce-subscriptions/woocommerce-subscriptions.php', '<?php // SYNTHETIC PACKAGE, NOT LICENSED CODE');
+    define('WP_PLUGIN_DIR', $packageRoot);
+}
 $proof = Imagine\Staging\runtimeProbe();
-$present = getenv('IMAGINE_SYNTHETIC_SUBSCRIPTIONS') === 'yes';
+$classPresent = getenv('IMAGINE_SYNTHETIC_SUBSCRIPTIONS') === 'yes';
+$present = $classPresent || $packageRoot !== null;
 $checks = [
     $proof['mail_blocked'] === true,
     $mailCalls === 1 && $transports === 0,
     $proof['subscriptions_present'] === $present,
-    $proof['subscriptions_staging'] === ($present ? true : null),
+    $proof['subscriptions_staging'] === ($classPresent ? true : ($present ? false : null)),
     $proof['http_blocked'] === true,
     $proof['environment_staging'] === true,
     $proof['cron_disabled'] === true,
@@ -51,5 +61,10 @@ $checks[] = $proof['mail_blocked'] === false;
 $checks[] = $mailCalls === 1 && $transports === 0; // Jamais d'essai si le filtre manque.
 if (in_array(false, $checks, true)) {
     throw new RuntimeException('Contrat sonde runtime incomplet');
+}
+if ($packageRoot !== null) {
+    unlink($packageRoot . '/woocommerce-subscriptions/woocommerce-subscriptions.php');
+    rmdir($packageRoot . '/woocommerce-subscriptions');
+    rmdir($packageRoot);
 }
 print('OK '.count($checks)." assertions runtime contract\n");

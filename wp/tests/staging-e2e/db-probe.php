@@ -61,9 +61,20 @@ if ($mode === 'mutate') {
     $orderId = (int) $orderRows[0]['id'];
     $orderMeta = $storage === 'hpos' ? 'wp_wc_orders_meta' : 'wp_postmeta';
     $orderKey = $storage === 'hpos' ? 'order_id' : 'post_id';
+    $prefixes = ['publishable-key' => 'pk_live_', 'restricted-key' => 'rk_live_',
+        'webhook-key' => 'whsec_', 'brevo-key' => 'xkeysib-'];
+    if (isset($prefixes[$case])) {
+        $put('wp_options', ['option_name' => 'imagine_e2e_residue',
+            'option_value' => json_encode(['nested' => ['value' => $prefixes[$case] . 'SYNTHETIC_NOT_A_KEY']]), 'autoload' => 'no']);
+        echo 'E2E_JSON=' . json_encode(['mutation_applied' => $case]) . "\n";
+        return;
+    }
     switch ($case) {
         case 'service-key':
             $put('wp_options', ['option_name' => 'imagine_e2e_residue', 'option_value' => 'sk_live_SYNTHETIC_E2E_NOT_A_KEY_00000000', 'autoload' => 'no']);
+            break;
+        case 'unknown-table-key':
+            $db->exec("UPDATE wp_imagine_e2e_public SET payload='sk_live_SYNTHETIC_NOT_A_KEY'");
             break;
         case 'user-token':
             $put('wp_usermeta', ['user_id' => $userId, 'meta_key' => '_stripe_customer_id', 'meta_value' => 'cus_SYNTHETICE2ERESIDUE']);

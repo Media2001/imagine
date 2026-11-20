@@ -99,9 +99,12 @@ def safe_diagnostics(report):
 
 
 def create_offline(*, name, archive, workflow, production_url, staging_url, port,
-                   worker_image, db_image, nginx_image, admin_password, engine=None):
+                   worker_image, db_image, nginx_image, admin_password, engine=None, table_decisions=None):
     from . import orchestrator
     engine = engine or Engine()
+    table_decisions = {} if table_decisions is None else table_decisions
+    if not isinstance(table_decisions, dict) or len(json.dumps(table_decisions)) > 4096:
+        raise QuarantineError('Fichier de décisions invalide ou trop volumineux')
     # Only metadata: the archive is never opened by the orchestrator.
     archive, workflow = Path(archive).resolve(), Path(workflow).resolve()
     if not archive.is_file() or not workflow.is_dir():
@@ -146,6 +149,7 @@ def create_offline(*, name, archive, workflow, production_url, staging_url, port
     _private_json(root / 'offline-compose.json', offline)
     request = dict(protocol=PROTOCOL, slug=slug, production_url=production_url,
                    production_hosts=[prod.hostname],
+                   table_decisions=table_decisions,
                    staging_url=staging_url, environment='staging', wordpress_path='/var/www/html',
                    database={'host': 'localhost', 'socket': '/run/mysqld/mysqld.sock',
                              'name': 'wordpress_staging', 'user': 'wp', 'password': site['db_password']},

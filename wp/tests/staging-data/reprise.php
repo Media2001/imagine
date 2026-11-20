@@ -84,4 +84,47 @@ $store->tables['x_extension_catalogue'][0]['setting'] = 'SYNTHETIC layout';
 $store->tables['x_postmeta'][] = ['meta_id'=>999,'post_id'=>1,'meta_key'=>'_paypal_payer_id','meta_value'=>'SYNTHETICOPAQUEID'];
 repriseCheck(!$engine->verifier($proof)['ok'], 'identifiant PayPal de champ connu refusé sans préfixe');
 array_pop($store->tables['x_postmeta']);
+foreach (['mail_blocked'=>'EMAIL_NON_COUPE', 'subscriptions_staging'=>'SUBSCRIPTIONS_NON_STAGING'] as $field=>$issue) {
+    $badProof = $proof();
+    $badProof['subscriptions_present'] = true;
+    $badProof[$field] = false;
+    repriseCheck(in_array($issue, $engine->verifier(static fn () => $badProof)['issues'], true), 'preuve refusée : '.$field);
+}
+$absent = $proof();
+$absent['subscriptions_staging'] = null;
+repriseCheck($engine->verifier(static fn () => $absent)['ok'], 'Subscriptions absent non bloquant');
+$activeSubs = clone $store;
+foreach ($activeSubs->tables['x_options'] as &$option) {
+    if ($option['option_name'] === 'active_plugins') {
+        $option['option_value'] = serialize(['woocommerce-subscriptions/woocommerce-subscriptions.php']);
+    }
+}
+unset($option);
+repriseCheck(!(new Imagine\Staging\Engine($activeSubs, $context, 'x_'))->verifier(static fn () => $absent)['ok'], 'plugin Subscriptions actif mais classe absente refusé');
+foreach (['x_users'=>'user_email', 'x_wc_orders'=>'billing_email', 'x_wc_order_addresses'=>'email'] as $table=>$column) {
+    $original = $store->tables[$table][0][$column];
+    $store->tables[$table][0][$column] = 'trap@outside.invalid';
+    repriseCheck(in_array('EMAIL_EXTERNE', $engine->verifier($proof)['issues'], true), 'piège email '.$table);
+    $store->tables[$table][0][$column] = $original;
+}
+$store->tables['x_postmeta'][] = ['meta_id'=>998,'post_id'=>2,'meta_key'=>'custom_details','meta_value'=>'{"email":"trap\\u0040outside.invalid"}'];
+repriseCheck(in_array('EMAIL_EXTERNE', $engine->verifier($proof)['issues'], true), 'email encodé abonnement classique refusé');
+array_pop($store->tables['x_postmeta']);
+$store->tables['x_options'][] = ['option_id'=>52,'option_name'=>'synthetic_contact_settings','option_value'=>serialize(['email'=>'contact@outside.invalid', 'font'=>'serif'])];
+repriseCheck($engine->verifier($proof)['ok'], 'email option hors comptes commandes : avertissement seulement');
+repriseCheck(in_array('EMAIL_HORS_PERIMETRE_COMPTES_COMMANDES', $engine->verifier($proof)['warnings'], true), 'email hors périmètre signalé');
+$failedDecision = false;
+try { new Imagine\Staging\Engine($private, $context, 'x_', ['other_contacts'=>['action'=>'invented']]); }
+catch (RuntimeException) { $failedDecision = true; }
+repriseCheck($failedDecision, 'décision invalide refusée, pas normalisée');
+$called = false;
+$store->tables['x_extension_catalogue'][0]['setting'] = 'sk_live_SYNTHETIC_ONLY';
+$engine->verifier(function () use (&$called, $proof) { $called = true; return $proof(); });
+repriseCheck(!$called, 'aucune sonde avant blocages offline');
+$store->tables['x_extension_catalogue'][0]['setting'] = 'SYNTHETIC layout';
+repriseCheck(!$engine->verifier(function () use ($store, $proof) {
+    $store->tables['x_extension_catalogue'][0]['setting'] = 'sk_live_SYNTHETIC_ONLY';
+    return $proof();
+})['ok'], 'secret apparu pendant bootstrap détecté après');
+$store->tables['x_extension_catalogue'][0]['setting'] = 'SYNTHETIC layout';
 print("OK $assertions assertions reprise\n");

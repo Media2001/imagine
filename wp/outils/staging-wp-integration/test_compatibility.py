@@ -78,11 +78,11 @@ class CompatibilityTests(unittest.TestCase):
                 return r
         self.engine = Engine()
 
-    def run_import(self):
+    def run_import(self, **kwargs):
         return subscriptions.create_offline(name='Synthetic', archive=self.archive, workflow=self.workflow,
             production_url='https://production.invalid', staging_url='http://staging.invalid:8099', port=8099,
             worker_image='sha256:' + '1' * 64, db_image='sha256:' + '2' * 64,
-            nginx_image='sha256:' + '3' * 64, admin_password='SYNTHETIC-EPHEMERAL-NOT-REAL', engine=self.engine)
+            nginx_image='sha256:' + '3' * 64, admin_password='SYNTHETIC-EPHEMERAL-NOT-REAL', engine=self.engine, **kwargs)
 
     def test_generated_requests_pass_the_actual_worker_validator(self):
         site = self.run_import()
@@ -110,6 +110,13 @@ class CompatibilityTests(unittest.TestCase):
         self.assertEqual(report.get('warnings'), ['TABLE_INCONNUE_CONSERVEE'])
         self.assertEqual(report.get('unknown_tables', [])[0]['columns'], ['id', 'email'])
         self.assertNotIn('DO-NOT-EXPOSE', json.dumps(report))
+
+    def test_operator_decisions_reach_the_worker_unchanged(self):
+        decisions = {'wp_synthetic': {'action': 'anonymiser', 'columns': ['email']}}
+        self.run_import(table_decisions=decisions)
+        for event in self.events:
+            if event[0] == 'worker':
+                self.assertEqual(event[2]['table_decisions'], decisions)
 
     def test_worker_does_not_require_a_missing_subscriptions_plugin(self):
         with tempfile.TemporaryDirectory() as tmp:

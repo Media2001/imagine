@@ -234,6 +234,7 @@ def subject_command(site, name, password, context):
 
 def acceptance(site, database, storage, before):
     before_raw = raw_db(database, storage, 'snapshot')
+    public_before = raw_db(database, storage, 'table-fixtures', {'E2E_TABLE_ACTION': 'public'})
     (site / '.imagine-staging-offline').write_text('OFFLINE_COPY\n')
     mutate(site, 'all')  # Unknown content types must survive the reprise, not cause a schema refusal.
     poisoned = export(database, 'poisoned')
@@ -262,6 +263,11 @@ def acceptance(site, database, storage, before):
             report = json.loads(result.stdout)
             detail['issues'] = [tag for tag in report.get('issues', []) if isinstance(tag, str) and tag.isupper() and tag.replace('_', '').isalpha()]
         assert_true(result.returncode == 0, storage + ':subject_positive:' + name, detail)
+    listed = {table['name']: table for table in report.get('unknown_tables', [])}
+    assert_true('wp_imagine_e2e_public' in listed and listed['wp_imagine_e2e_public']['rows'] == 1,
+                storage + ':unknown_public_table_reported', listed.get('wp_imagine_e2e_public'))
+    assert_true(raw_db(database, storage, 'table-fixtures', {'E2E_TABLE_ACTION': 'status'}) == public_before,
+                storage + ':unknown_public_table_preserved', public_before)
     fidelity = wp_json(site, 'fidelity.php')
     assert_true(fidelity == FIDELITY[storage], storage + ':post_clean_fidelity',
                 {'before': FIDELITY[storage], 'after': fidelity,
@@ -282,7 +288,8 @@ def acceptance(site, database, storage, before):
                     and new_users[uid]['shipping_country'] == old['shipping_country'] for uid, old in old_users.items()),
                 storage + ':account_countries_preserved', {'original_accounts': len(old_users)})
     sanitized = export(database, 'sanitized')
-    for case in ('service-key', 'user-token', 'order-token', 'paypal', 'user-email', 'order-email'):
+    for case in ('service-key', 'publishable-key', 'restricted-key', 'webhook-key', 'brevo-key',
+                 'unknown-table-key', 'user-token', 'order-token', 'paypal', 'user-email', 'order-email'):
         restore(database, sanitized)
         raw_db(database, storage, 'mutate', {'E2E_RESIDUE_CASE': case})
         assert_true(not clean_oracle(raw_db(database, storage)), storage + ':residue_actually_inserted:' + case,
@@ -291,6 +298,49 @@ def acceptance(site, database, storage, before):
         assert_true(result.returncode != 0, storage + ':subject_rejects_residue:' + case,
                     {'exit_code': result.returncode, 'verification_only': True,
                      'start_gate': 'NOT_TESTED: no server is started by this harness'})
+    restore(database, sanitized)
+    raw_db(database, storage, 'mutate', {'E2E_RESIDUE_CASE': 'note-email'})
+    result = subject_command(site, 'verifier', password, context)
+    note_report = json.loads(result.stdout)
+    assert_true(result.returncode == 0 and 'EMAIL_HORS_PERIMETRE_COMPTES_COMMANDES' in note_report.get('warnings', []),
+                storage + ':note_email_is_warning_not_sixth_blocker', {'exit_code': result.returncode})
+    restore(database, sanitized)
+    safety = site / 'wp-content/mu-plugins/000-imagine-staging-safety.php'
+    safety_bytes = safety.read_bytes()
+    try:
+        safety.unlink()
+        mail = wp_json(site, 'mail-probe.php')
+        assert_true(mail['mail_dispatch_calls'] == 1, storage + ':missing_mail_lock_reaches_memory_spy', mail)
+        result = subject_command(site, 'verifier', password, context)
+        assert_true(result.returncode != 0, storage + ':subject_rejects_missing_mail_lock', {'exit_code': result.returncode})
+    finally:
+        safety.write_bytes(safety_bytes)
+    restore(database, sanitized)
+    raw_db(database, storage, 'table-fixtures', {'E2E_TABLE_ACTION': 'personal'})
+    result = subject_command(site, 'verifier', password, context)
+    private_report = json.loads(result.stdout)
+    assert_true(result.returncode != 0 and 'TABLE_PERSONNELLE_A_TRANCHER' in private_report.get('issues', []),
+                storage + ':unknown_personal_table_requires_decision', {'issues': private_report.get('issues')})
+    base_context = json.loads(context.read_text())
+    try:
+        for action in ('garder', 'vider', 'anonymiser'):
+            raw_db(database, storage, 'table-fixtures', {'E2E_TABLE_ACTION': 'drop-personal'})
+            restore(database, sanitized)
+            raw_db(database, storage, 'table-fixtures', {'E2E_TABLE_ACTION': 'personal'})
+            decision = {'action': action}
+            if action == 'anonymiser':
+                decision['columns'] = ['email']
+            context.write_text(json.dumps(dict(base_context, table_decisions={'wp_imagine_e2e_personal': decision})))
+            for phase in ('neutraliser', 'anonymiser', 'verifier'):
+                result = subject_command(site, phase, password, context)
+                assert_true(result.returncode == 0, storage + ':synthetic_decision:' + action + ':' + phase,
+                            {'exit_code': result.returncode, 'decision_is_synthetic_not_Ced_approval': True})
+            status = raw_db(database, storage, 'table-fixtures', {'E2E_TABLE_ACTION': 'status'})
+            assert_true(status['personal_rows'] == (0 if action == 'vider' else 1) and status['personal_email_safe'],
+                        storage + ':synthetic_decision_effect:' + action, status)
+    finally:
+        context.write_text(json.dumps(base_context))
+        raw_db(database, storage, 'table-fixtures', {'E2E_TABLE_ACTION': 'drop-personal'})
     restore(database, sanitized)
     for name in ('neutraliser', 'anonymiser', 'verifier'):
         result = subject_command(site, name, password, context)

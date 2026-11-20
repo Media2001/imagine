@@ -47,7 +47,19 @@ try {
     }
 } catch (\Throwable $exception) {
     $code = $exception->getMessage();
-    $result = ['guard_ok' => false, 'schema_mismatches' => $mismatches,
+    $metadataMentions = [];
+    if ($exception instanceof \PDOException) {
+        $privateMessage = (string) ($exception->errorInfo[2] ?? '');
+        foreach ($schema as $table => $columns) {
+            foreach ($columns as $column) {
+                if (str_contains($privateMessage, '`' . $table . '`')
+                    || str_contains($privateMessage, "'" . $column . "'")) {
+                    $metadataMentions[$table . '.' . $column] = true;
+                }
+            }
+        }
+    }
+    $result = ['guard_ok' => false, 'metadata_mentions' => array_keys($metadataMentions), 'schema_mismatches' => $mismatches,
         'refusal_tag' => preg_match('/^[A-Z_]+$/D', $code) ? $code : 'REDACTED_REFUSAL',
         'exception_class' => get_class($exception),
         'sqlstate' => $exception instanceof \PDOException ? ($exception->errorInfo[0] ?? null) : null,
