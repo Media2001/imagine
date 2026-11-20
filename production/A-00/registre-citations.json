@@ -1,0 +1,533 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "id": 1,
+      "url": "https://woocommerce.com/document/subscriptions/billing-date-alignment",
+      "title": "Guide to Billing Date Alignment Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "Customers are charged the full recurring amount when they subscribe.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "url": "https://woocommerce.com/document/subscriptions/billing-date-alignment/creating-an-aligned-subscription-product",
+      "title": "Creating an Aligned Subscription Product Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "It always uses the next occurring alignment date, regardless of the billing interval.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "url": "https://woocommerce.com/document/subscriptions/develop/functions",
+      "title": "Subscription Function & Property Reference Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "Set the dates on the subscription.",
+          "added": "2026-11-20"
+        },
+        {
+          "text": "Check if a given date type can be updated for this subscription.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "url": "https://woocommerce.com/document/subscriptions/creating-subscription-products",
+      "title": "Creating a Subscription Product Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "By default, subscriptions renew indefinitely until the subscriber or store manager cancels them.",
+          "added": "2026-11-20"
+        },
+        {
+          "text": "After the 12th payment, the subscription expires.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "url": "https://woocommerce.com/document/subscriptions/payment-gateways",
+      "title": "Subscriptions Payment Methods & Gateways Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "The Stripe extension can support automatic renewals via normal card payments",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "url": "https://woocommerce.com/document/stripe/setup-and-configuration/settings-guide",
+      "title": "Settings Guide Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "They are saved as SEPA Direct Debit tokens.",
+          "added": "2026-11-20"
+        },
+        {
+          "text": "does the same, but for Bancontact payments.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "url": "https://woocommerce.com/document/stripe/setup-and-configuration/additional-payment-methods",
+      "title": "Additional payment methods Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "For example, Bancontact requires that payments be in euros (EUR).",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "url": "https://docs.stripe.com/payments/sepa-debit",
+      "title": "SEPA Direct Debit payments | Stripe Documentation",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "The customer must accept a mandate that authorizes the debit.",
+          "added": "2026-11-20"
+        },
+        {
+          "text": "If you use the Stripe Creditor ID",
+          "added": "2026-11-20"
+        },
+        {
+          "text": "Stripe always sends the notifications.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "url": "https://docs.stripe.com/payments/sepa-debit/accept-a-payment",
+      "title": "Accept a SEPA Direct Debit payment | Stripe Documentation",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "The Payment Element automatically validates the IBAN and displays the mandate when you enter one of these test values.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "url": "https://docs.stripe.com/receipts",
+      "title": "Receipts and paid invoices | Stripe Documentation",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "Stripe doesn’t email every receipt it creates.",
+          "added": "2026-11-20"
+        },
+        {
+          "text": "even if Successful payments is turned off.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "url": "https://woocommerce.com/document/woocommerce-paypal-payments/subscriptions",
+      "title": "Subscriptions Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "Business accounts only",
+          "added": "2026-11-20"
+        },
+        {
+          "text": "Requires Vault approval (Reference Transactions)",
+          "added": "2026-11-20"
+        },
+        {
+          "text": "Synchronized or prorated payments",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "url": "https://woocommerce.com/document/woocommerce-paypal-payments/save-payment-methods",
+      "title": "Save Payment Methods (Vaulting) Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "Vaulting requires your PayPal business account to be approved for Reference Transactions",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "url": "https://woocommerce.com/document/subscriptions/renewal-process",
+      "title": "Subscription Renewal Process Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "The same shipping method is used for all renewal payments",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "url": "https://woocommerce.com/document/subscriptions/add-or-modify-a-subscription",
+      "title": "Manually Add or Import a Subscription Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "WooCommerce Subscriptions also gives store managers the ability to create subscriptions manually.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "url": "https://woocommerce.com/document/subscriptions-gifting",
+      "title": "Gifting for WooCommerce Subscriptions Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "The Gifting feature has been merged into the core",
+          "added": "2026-11-20"
+        },
+        {
+          "text": "the Gifting for WooCommerce Subscriptions extension has been retired.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "url": "https://woocommerce.com/document/subscriptions/customers-view/gifting-a-subscription",
+      "title": "Gifting a Subscription Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "only needs to enter the recipient’s email address.",
+          "added": "2026-11-20"
+        },
+        {
+          "text": "an account will be created for them.",
+          "added": "2026-11-20"
+        },
+        {
+          "text": "sent to the recipient via email.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "url": "https://woocommerce.com/document/teams-woocommerce-memberships",
+      "title": "Teams for WooCommerce Memberships Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "Check to let team owners and managers remove members from their teams.",
+          "added": "2026-11-20"
+        },
+        {
+          "text": "adding members and managing billing",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "url": "https://woocommerce.com/document/subscriptions/subscriptions-coupons/limited-payment-coupon-guide",
+      "title": "Limited Subscription Payment Coupons Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "The term “payments” in this document can also include the initial payment for a subscription in addition to renewal payments.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "url": "https://woocommerce.com/document/subscriptions/subscriptions-coupons",
+      "title": "Subscriptions Coupons Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "However, these coupons apply only to the first payment of a subscription.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "url": "https://woocommerce.com/document/coupon-management",
+      "title": "Managing Coupons in WooCommerce Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "Coupons expire/cannot be used on the date that is set.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "url": "https://woocommerce.com/document/woocommerce-memberships-plans",
+      "title": "WooCommerce Memberships Plans Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "Select whether the membership is unlimited (never expires) or specify a length.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "url": "https://woocommerce.com/document/woocommerce-memberships-subscriptions-integration",
+      "title": "WooCommerce Memberships Subscriptions Integration Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "the membership will be valid so long as the subscription is active.",
+          "added": "2026-11-20"
+        },
+        {
+          "text": "Access will resume when the subscription is reactivated.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "url": "https://woocommerce.com/document/woocommerce-memberships-settings",
+      "title": "WooCommerce Memberships Settings Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "it's technically possible for a non-member to extract content that's been restricted under this mode.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "url": "https://woocommerce.com/document/woocommerce-memberships-faq",
+      "title": "WooCommerce Memberships FAQ Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "Memberships does not restrict downloadable file URLs specifically",
+          "added": "2026-11-20"
+        },
+        {
+          "text": "Any content that is restricted will be removed from your site’s RSS feeds",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "url": "https://woocommerce.com/document/digital-downloadable-product-handling",
+      "title": "Digital/Downloadable Product Guide Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "Anyone with the URL can access the file, even if they are not logged in.",
+          "added": "2026-11-20"
+        },
+        {
+          "text": "Downloads require login",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "url": "https://woocommerce.com/document/subscriptions/failed-payment-retry",
+      "title": "Failed Recurring Payment Retry System Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "five (5) default retry rules to retry failed payments over 7 days by default.",
+          "added": "2026-11-20"
+        },
+        {
+          "text": "Subscription’s status is set to On-hold",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "url": "https://woocommerce.com/document/subscriptions/develop/failed-payment-retry",
+      "title": "Developer Guide to Failed Recurring Payment Retry System Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "Status of the subscription is updated according to the rule:",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "url": "https://woocommerce.com/document/setting-up-shipping-zones",
+      "title": "Setting up Shipping Zones Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "Customers only see the methods available for their address and its corresponding shipping zone.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "url": "https://woocommerce.com/document/subscriptions/customers-view/update-address",
+      "title": "Change Address on Subscriptions Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "This process updates the shipping address for that subscription only.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "url": "https://woocommerce.com/document/subscriptions/add-or-modify-a-subscription/update-an-existing-subscription",
+      "title": "Edit an Existing Subscription Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "There are a few different recurring totals that you can edit in an active subscription: product pricing/qty, shipping prices, fees, and taxes.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "url": "https://docs.nexcess.com/software/the-events-calendar/setting-up-event-tickets",
+      "title": "Setting up Event Tickets - Nexcess Documentation",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "Event Tickets Plus adds attendee registration forms, Apple Wallet and PDF tickets, QR check-in, and WooCommerce ticketing.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "url": "https://docs.nexcess.com/software/the-events-calendar/create-tickets",
+      "title": "Creating Event Tickets - Nexcess Documentation",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "As tickets sell, the remaining stock drops for every ticket that shares it.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "url": "https://docs.nexcess.com/software/the-events-calendar/ticket-qr-codes",
+      "title": "Check In Attendees with QR Codes and the Event Tickets Plus App - Nexcess Documentation",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "Event Tickets Plus uses QR codes to embed unique check-in URLs for each ticket in your order database",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "url": "https://docs.nexcess.com/software/the-events-calendar/woocommerce-extensions",
+      "title": "Using WooCommerce Extensions with Event Tickets - Nexcess Documentation",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "there are additional settings",
+          "added": "2026-11-20"
+        },
+        {
+          "text": "to provide an exclusive discount to members.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "url": "https://woocommerce.com/document/subscriptions/migrating-subscribers-woocommerce-subscriptions",
+      "title": "Migrating Subscribers to WooCommerce Subscriptions Documentation - WooCommerce",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "Moving subscription records and moving the payment methods used for renewals are separate parts of a migration.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "url": "https://rankmath.com/kb/schema-generator",
+      "title": "How to Use Rank Math’s Custom Schema Generator » Rank Math",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "The Custom Schema Builder allows you to create new fields by adding properties and property groups.",
+          "added": "2026-11-20"
+        },
+        {
+          "text": "Subscription and Paywalled Content",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "url": "https://rankmath.com/kb/article-schema",
+      "title": "Article Schema Type » Rank Math",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "If your post is an article on a News website, then you can set the type as News Article.",
+          "added": "2026-11-20"
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/paywalled-content",
+      "title": "Subscription and Paywalled Content Markup | Google Search Central  |  Documentation  |  Google for Developers",
+      "accessed": "2026-11-20",
+      "quotes": [
+        {
+          "text": "Here's an example of NewsArticle structured data with paywalled content.",
+          "added": "2026-11-20"
+        }
+      ]
+    }
+  ]
+}

@@ -1,58 +1,479 @@
 {
-  "https://woocommerce.com/document/subscriptions/billing-date-alignment/": {
-    "success": false,
-    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
-  },
-  "https://woocommerce.com/document/subscriptions/develop/functions/": {
-    "success": false,
-    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
-  },
-  "https://woocommerce.com/document/subscriptions/store-manager-guide/": {
-    "success": false,
-    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
-  },
-  "https://woocommerce.com/document/subscriptions/renewal-process/": {
-    "success": false,
-    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
-  },
-  "https://woocommerce.com/document/woocommerce-paypal-payments/subscriptions/": {
-    "success": false,
-    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
-  },
-  "https://woocommerce.com/document/woocommerce-paypal-payments/save-payment-methods/": {
-    "success": false,
-    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
-  },
-  "https://woocommerce.com/document/subscriptions/payment-gateways/": {
-    "success": false,
-    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
-  },
-  "https://woocommerce.com/document/subscriptions-gifting/": {
-    "success": false,
-    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
-  },
-  "https://woocommerce.com/document/teams-woocommerce-memberships/": {
-    "success": false,
-    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
-  },
-  "https://woocommerce.com/document/subscriptions/subscriptions-coupons/limited-payment-coupon-guide/": {
-    "success": false,
-    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
-  },
-  "https://woocommerce.com/document/woocommerce-memberships-plans/": {
-    "success": false,
-    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
-  },
-  "https://woocommerce.com/document/woocommerce-memberships-restrict-content/": {
-    "success": false,
-    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
-  },
-  "https://woocommerce.com/document/woocommerce-memberships-settings/": {
-    "success": false,
-    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
-  },
-  "https://woocommerce.com/document/woocommerce-memberships-faq/": {
-    "success": false,
-    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
-  }
+  "nature": "Documentation officielle, pas de recette fonctionnelle",
+  "sources": [
+    {
+      "id": 1,
+      "url": "https://woocommerce.com/document/subscriptions/billing-date-alignment/",
+      "requested_url": "https://woocommerce.com/document/subscriptions/billing-date-alignment/",
+      "title": "Guide to Billing Date Alignment Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:42:14.197719+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "Customers are charged the full recurring amount when they subscribe."
+      ],
+      "mots_cites": 10
+    },
+    {
+      "id": 2,
+      "url": "https://woocommerce.com/document/subscriptions/billing-date-alignment/creating-an-aligned-subscription-product/",
+      "requested_url": "https://woocommerce.com/document/subscriptions/billing-date-alignment/creating-an-aligned-subscription-product/",
+      "title": "Creating an Aligned Subscription Product Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:44:19.092339+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "It always uses the next occurring alignment date, regardless of the billing interval."
+      ],
+      "mots_cites": 13
+    },
+    {
+      "id": 3,
+      "url": "https://woocommerce.com/document/subscriptions/develop/functions/",
+      "requested_url": "https://woocommerce.com/document/subscriptions/develop/functions/",
+      "title": "Subscription Function & Property Reference Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:42:13.925782+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "Set the dates on the subscription.",
+        "Check if a given date type can be updated for this subscription."
+      ],
+      "mots_cites": 18
+    },
+    {
+      "id": 4,
+      "url": "https://woocommerce.com/document/subscriptions/creating-subscription-products/",
+      "requested_url": "https://woocommerce.com/document/subscriptions/creating-subscription-products/",
+      "title": "Creating a Subscription Product Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:44:19.296738+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "By default, subscriptions renew indefinitely until the subscriber or store manager cancels them.",
+        "After the 12th payment, the subscription expires."
+      ],
+      "mots_cites": 20
+    },
+    {
+      "id": 5,
+      "url": "https://woocommerce.com/document/subscriptions/payment-gateways/",
+      "requested_url": "https://woocommerce.com/document/subscriptions/payment-gateways/",
+      "title": "Subscriptions Payment Methods & Gateways Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:42:14.738532+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "The Stripe extension can support automatic renewals via normal card payments"
+      ],
+      "mots_cites": 11
+    },
+    {
+      "id": 6,
+      "url": "https://woocommerce.com/document/stripe/setup-and-configuration/settings-guide/",
+      "requested_url": "https://woocommerce.com/document/stripe/setup-and-configuration/settings-guide/",
+      "title": "Settings Guide Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:44:19.252020+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "They are saved as SEPA Direct Debit tokens.",
+        "does the same, but for Bancontact payments."
+      ],
+      "mots_cites": 15
+    },
+    {
+      "id": 7,
+      "url": "https://woocommerce.com/document/stripe/setup-and-configuration/additional-payment-methods/",
+      "requested_url": "https://woocommerce.com/document/stripe/setup-and-configuration/additional-payment-methods/",
+      "title": "Additional payment methods Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:42:16.533171+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "For example, Bancontact requires that payments be in euros (EUR)."
+      ],
+      "mots_cites": 10
+    },
+    {
+      "id": 8,
+      "url": "https://docs.stripe.com/payments/sepa-debit",
+      "requested_url": "https://docs.stripe.com/payments/sepa-debit",
+      "title": "SEPA Direct Debit payments | Stripe Documentation",
+      "retrieved_at": "2026-11-20T15:42:16.228524+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "The customer must accept a mandate that authorizes the debit.",
+        "If you use the Stripe Creditor ID",
+        "Stripe always sends the notifications."
+      ],
+      "mots_cites": 22
+    },
+    {
+      "id": 9,
+      "url": "https://docs.stripe.com/payments/sepa-debit/accept-a-payment",
+      "requested_url": "https://docs.stripe.com/payments/sepa-debit/accept-a-payment",
+      "title": "Accept a SEPA Direct Debit payment | Stripe Documentation",
+      "retrieved_at": "2026-11-20T15:42:16.307174+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "The Payment Element automatically validates the IBAN and displays the mandate when you enter one of these test values."
+      ],
+      "mots_cites": 19
+    },
+    {
+      "id": 10,
+      "url": "https://docs.stripe.com/receipts",
+      "requested_url": "https://docs.stripe.com/receipts",
+      "title": "Receipts and paid invoices | Stripe Documentation",
+      "retrieved_at": "2026-11-20T15:42:16.448898+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "Stripe doesn’t email every receipt it creates.",
+        "even if Successful payments is turned off."
+      ],
+      "mots_cites": 14
+    },
+    {
+      "id": 11,
+      "url": "https://woocommerce.com/document/woocommerce-paypal-payments/subscriptions/",
+      "requested_url": "https://woocommerce.com/document/woocommerce-paypal-payments/subscriptions/",
+      "title": "Subscriptions Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:42:13.871671+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "Business accounts only",
+        "Requires Vault approval (Reference Transactions)",
+        "Synchronized or prorated payments"
+      ],
+      "mots_cites": 12
+    },
+    {
+      "id": 12,
+      "url": "https://woocommerce.com/document/woocommerce-paypal-payments/save-payment-methods/",
+      "requested_url": "https://woocommerce.com/document/woocommerce-paypal-payments/save-payment-methods/",
+      "title": "Save Payment Methods (Vaulting) Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:42:14.897085+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "Vaulting requires your PayPal business account to be approved for Reference Transactions"
+      ],
+      "mots_cites": 12
+    },
+    {
+      "id": 13,
+      "url": "https://woocommerce.com/document/subscriptions/renewal-process/",
+      "requested_url": "https://woocommerce.com/document/subscriptions/renewal-process/",
+      "title": "Subscription Renewal Process Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:42:13.942318+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "The same shipping method is used for all renewal payments"
+      ],
+      "mots_cites": 10
+    },
+    {
+      "id": 14,
+      "url": "https://woocommerce.com/document/subscriptions/add-or-modify-a-subscription/",
+      "requested_url": "https://woocommerce.com/document/subscriptions/add-or-modify-a-subscription/",
+      "title": "Manually Add or Import a Subscription Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:44:19.845594+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "WooCommerce Subscriptions also gives store managers the ability to create subscriptions manually."
+      ],
+      "mots_cites": 12
+    },
+    {
+      "id": 15,
+      "url": "https://woocommerce.com/document/subscriptions-gifting/",
+      "requested_url": "https://woocommerce.com/document/subscriptions-gifting/",
+      "title": "Gifting for WooCommerce Subscriptions Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:42:15.127012+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "The Gifting feature has been merged into the core",
+        "the Gifting for WooCommerce Subscriptions extension has been retired."
+      ],
+      "mots_cites": 18
+    },
+    {
+      "id": 16,
+      "url": "https://woocommerce.com/document/subscriptions/customers-view/gifting-a-subscription/",
+      "requested_url": "https://woocommerce.com/document/subscriptions/customers-view/gifting-a-subscription/",
+      "title": "Gifting a Subscription Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:47:02.252127+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "only needs to enter the recipient’s email address.",
+        "an account will be created for them.",
+        "sent to the recipient via email."
+      ],
+      "mots_cites": 21
+    },
+    {
+      "id": 17,
+      "url": "https://woocommerce.com/document/teams-woocommerce-memberships/",
+      "requested_url": "https://woocommerce.com/document/teams-woocommerce-memberships/",
+      "title": "Teams for WooCommerce Memberships Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:42:14.859717+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "Check to let team owners and managers remove members from their teams.",
+        "adding members and managing billing"
+      ],
+      "mots_cites": 17
+    },
+    {
+      "id": 18,
+      "url": "https://woocommerce.com/document/subscriptions/subscriptions-coupons/limited-payment-coupon-guide/",
+      "requested_url": "https://woocommerce.com/document/subscriptions/subscriptions-coupons/limited-payment-coupon-guide/",
+      "title": "Limited Subscription Payment Coupons Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:42:14.452618+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "The term “payments” in this document can also include the initial payment for a subscription in addition to renewal payments."
+      ],
+      "mots_cites": 20
+    },
+    {
+      "id": 19,
+      "url": "https://woocommerce.com/document/subscriptions/subscriptions-coupons/",
+      "requested_url": "https://woocommerce.com/document/subscriptions/subscriptions-coupons/",
+      "title": "Subscriptions Coupons Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:44:19.764574+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "However, these coupons apply only to the first payment of a subscription."
+      ],
+      "mots_cites": 12
+    },
+    {
+      "id": 20,
+      "url": "https://woocommerce.com/document/coupon-management/",
+      "requested_url": "https://woocommerce.com/document/coupon-management/",
+      "title": "Managing Coupons in WooCommerce Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:45:59.607132+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "Coupons expire/cannot be used on the date that is set."
+      ],
+      "mots_cites": 10
+    },
+    {
+      "id": 21,
+      "url": "https://woocommerce.com/document/woocommerce-memberships-plans/",
+      "requested_url": "https://woocommerce.com/document/woocommerce-memberships-plans/",
+      "title": "WooCommerce Memberships Plans Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:42:14.781529+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "Select whether the membership is unlimited (never expires) or specify a length."
+      ],
+      "mots_cites": 12
+    },
+    {
+      "id": 22,
+      "url": "https://woocommerce.com/document/woocommerce-memberships-subscriptions-integration/",
+      "requested_url": "https://woocommerce.com/document/woocommerce-memberships-subscriptions-integration/",
+      "title": "WooCommerce Memberships Subscriptions Integration Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:44:19.376961+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "the membership will be valid so long as the subscription is active.",
+        "Access will resume when the subscription is reactivated."
+      ],
+      "mots_cites": 20
+    },
+    {
+      "id": 23,
+      "url": "https://woocommerce.com/document/woocommerce-memberships-settings/",
+      "requested_url": "https://woocommerce.com/document/woocommerce-memberships-settings/",
+      "title": "WooCommerce Memberships Settings Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:42:15.378525+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "it's technically possible for a non-member to extract content that's been restricted under this mode."
+      ],
+      "mots_cites": 15
+    },
+    {
+      "id": 24,
+      "url": "https://woocommerce.com/document/woocommerce-memberships-faq/",
+      "requested_url": "https://woocommerce.com/document/woocommerce-memberships-faq/",
+      "title": "WooCommerce Memberships FAQ Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:42:15.470796+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "Memberships does not restrict downloadable file URLs specifically",
+        "Any content that is restricted will be removed from your site’s RSS feeds"
+      ],
+      "mots_cites": 21
+    },
+    {
+      "id": 25,
+      "url": "https://woocommerce.com/document/digital-downloadable-product-handling/",
+      "requested_url": "https://woocommerce.com/document/digital-downloadable-product-handling/",
+      "title": "Digital/Downloadable Product Guide Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:42:15.482974+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "Anyone with the URL can access the file, even if they are not logged in.",
+        "Downloads require login"
+      ],
+      "mots_cites": 18
+    },
+    {
+      "id": 26,
+      "url": "https://woocommerce.com/document/subscriptions/failed-payment-retry/",
+      "requested_url": "https://woocommerce.com/document/subscriptions/failed-payment-retry/",
+      "title": "Failed Recurring Payment Retry System Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:42:15.704328+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "five (5) default retry rules to retry failed payments over 7 days by default.",
+        "Subscription’s status is set to On-hold"
+      ],
+      "mots_cites": 20
+    },
+    {
+      "id": 27,
+      "url": "https://woocommerce.com/document/subscriptions/develop/failed-payment-retry/",
+      "requested_url": "https://woocommerce.com/document/subscriptions/develop/failed-payment-retry/",
+      "title": "Developer Guide to Failed Recurring Payment Retry System Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:47:02.441519+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "Status of the subscription is updated according to the rule:"
+      ],
+      "mots_cites": 10
+    },
+    {
+      "id": 28,
+      "url": "https://woocommerce.com/document/setting-up-shipping-zones/",
+      "requested_url": "https://woocommerce.com/document/setting-up-shipping-zones/",
+      "title": "Setting up Shipping Zones Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:46:00.018922+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "Customers only see the methods available for their address and its corresponding shipping zone."
+      ],
+      "mots_cites": 14
+    },
+    {
+      "id": 29,
+      "url": "https://woocommerce.com/document/subscriptions/customers-view/update-address/",
+      "requested_url": "https://woocommerce.com/document/subscriptions/customers-view/update-address/",
+      "title": "Change Address on Subscriptions Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:44:18.992071+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "This process updates the shipping address for that subscription only."
+      ],
+      "mots_cites": 10
+    },
+    {
+      "id": 30,
+      "url": "https://woocommerce.com/document/subscriptions/add-or-modify-a-subscription/update-an-existing-subscription/",
+      "requested_url": "https://woocommerce.com/document/subscriptions/add-or-modify-a-subscription/update-an-existing-subscription/",
+      "title": "Edit an Existing Subscription Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:47:02.220841+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "There are a few different recurring totals that you can edit in an active subscription: product pricing/qty, shipping prices, fees, and taxes."
+      ],
+      "mots_cites": 22
+    },
+    {
+      "id": 31,
+      "url": "https://docs.nexcess.com/software/the-events-calendar/setting-up-event-tickets/",
+      "requested_url": "https://theeventscalendar.com/knowledgebase/new-user-primer-event-tickets-event-tickets-plus/",
+      "title": "Setting up Event Tickets - Nexcess Documentation",
+      "retrieved_at": "2026-11-20T15:46:00.048986+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "Event Tickets Plus adds attendee registration forms, Apple Wallet and PDF tickets, QR check-in, and WooCommerce ticketing."
+      ],
+      "mots_cites": 17
+    },
+    {
+      "id": 32,
+      "url": "https://docs.nexcess.com/software/the-events-calendar/create-tickets/",
+      "requested_url": "https://theeventscalendar.com/knowledgebase/making-tickets/",
+      "title": "Creating Event Tickets - Nexcess Documentation",
+      "retrieved_at": "2026-11-20T15:44:20.204963+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "As tickets sell, the remaining stock drops for every ticket that shares it."
+      ],
+      "mots_cites": 13
+    },
+    {
+      "id": 33,
+      "url": "https://docs.nexcess.com/software/the-events-calendar/ticket-qr-codes/",
+      "requested_url": "https://theeventscalendar.com/knowledgebase/ticket-qr-codes/",
+      "title": "Check In Attendees with QR Codes and the Event Tickets Plus App - Nexcess Documentation",
+      "retrieved_at": "2026-11-20T15:46:00.626882+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "Event Tickets Plus uses QR codes to embed unique check-in URLs for each ticket in your order database"
+      ],
+      "mots_cites": 18
+    },
+    {
+      "id": 34,
+      "url": "https://docs.nexcess.com/software/the-events-calendar/woocommerce-extensions/",
+      "requested_url": "https://theeventscalendar.com/knowledgebase/compatibility-with-woocommerce-extensions/",
+      "title": "Using WooCommerce Extensions with Event Tickets - Nexcess Documentation",
+      "retrieved_at": "2026-11-20T15:44:20.236503+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "there are additional settings",
+        "to provide an exclusive discount to members."
+      ],
+      "mots_cites": 11
+    },
+    {
+      "id": 35,
+      "url": "https://woocommerce.com/document/subscriptions/migrating-subscribers-woocommerce-subscriptions/",
+      "requested_url": "https://woocommerce.com/document/subscriptions/migrating-subscribers-woocommerce-subscriptions/",
+      "title": "Migrating Subscribers to WooCommerce Subscriptions Documentation - WooCommerce",
+      "retrieved_at": "2026-11-20T15:44:19.536463+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "Moving subscription records and moving the payment methods used for renewals are separate parts of a migration."
+      ],
+      "mots_cites": 17
+    },
+    {
+      "id": 36,
+      "url": "https://rankmath.com/kb/schema-generator/",
+      "requested_url": "https://rankmath.com/kb/schema-generator/",
+      "title": "How to Use Rank Math’s Custom Schema Generator » Rank Math",
+      "retrieved_at": "2026-11-20T15:44:19.743444+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "The Custom Schema Builder allows you to create new fields by adding properties and property groups.",
+        "Subscription and Paywalled Content"
+      ],
+      "mots_cites": 20
+    },
+    {
+      "id": 37,
+      "url": "https://rankmath.com/kb/article-schema/",
+      "requested_url": "https://rankmath.com/kb/article-schema/",
+      "title": "Article Schema Type » Rank Math",
+      "retrieved_at": "2026-11-20T15:44:19.886110+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "If your post is an article on a News website, then you can set the type as News Article."
+      ],
+      "mots_cites": 19
+    },
+    {
+      "id": 38,
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/paywalled-content",
+      "requested_url": "https://developers.google.com/search/docs/appearance/structured-data/paywalled-content",
+      "title": "Subscription and Paywalled Content Markup | Google Search Central  |  Documentation  |  Google for Developers",
+      "retrieved_at": "2026-11-20T15:44:20.424398+01:00",
+      "http_status": 200,
+      "extraits_exacts": [
+        "Here's an example of NewsArticle structured data with paywalled content."
+      ],
+      "mots_cites": 10
+    }
+  ]
 }
