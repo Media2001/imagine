@@ -13,9 +13,9 @@ def rights(site,storage,phase):
     return v
 
 def install(storage):
-    database='imagine_paid_'+storage
+    database='imagine_e2e_'+storage+'_test'
     command(['mariadb','--socket='+base.SOCKET,'--user=root','-e','CREATE DATABASE '+database])
-    site=base.SCRATCH/('paid-'+storage);shutil.copytree('/opt/wordpress/wordpress',site)
+    site=base.SCRATCH/('site-'+storage);shutil.copytree('/opt/wordpress/wordpress',site)
     shutil.copytree('/opt/woocommerce/woocommerce',site/'wp-content/plugins/woocommerce')
     config="""<?php
     define('DB_NAME', '%s');define('DB_USER','root');define('DB_PASSWORD','');define('DB_HOST','localhost:/scratch/mariadb.sock');define('DB_CHARSET','utf8mb4');define('DB_COLLATE','');define('WP_ENVIRONMENT_TYPE','staging');define('WP_HTTP_BLOCK_EXTERNAL',true);define('DISABLE_WP_CRON',true);define('AUTOMATIC_UPDATER_DISABLED',true);define('WP_AUTO_UPDATE_CORE',false);define('WP_DEBUG',false);$table_prefix='wp_';define('ABSPATH',__DIR__.'/');require_once ABSPATH.'wp-settings.php';
@@ -80,6 +80,13 @@ def run_storage(storage):
     password=secrets.token_urlsafe(40)
     for name in ['neutraliser','anonymiser','verifier']:
         p=base.subject_command(site,name,password,context)
+        if name=='verifier':
+            refusal=json.loads(p.stdout)
+            pending={t['name']:t['personal_columns']for t in refusal.get('unknown_tables',[])if t.get('personal_columns') and t.get('decision') is None}
+            assert_true(p.returncode==1 and refusal.get('issues')==['TABLE_PERSONNELLE_A_TRANCHER'] and pending=={'wp_wc_email_unsubscribes':['email_hash','email_kind']},storage+':new_woo_table_requires_decision',{'issues':refusal.get('issues'),'pending':pending})
+            c=json.loads(context.read_text());c['table_decisions']={'wp_wc_email_unsubscribes':{'action':'garder'}};context.write_text(json.dumps(c))
+            record(storage+':synthetic_woo_table_decision','PASS',{'table':'wp_wc_email_unsubscribes','action':'garder','decision_is_synthetic_not_Ced_approval':True})
+            p=base.subject_command(site,name,password,context)
         detail={'exit':p.returncode,'stdout_sha256':hashlib.sha256(p.stdout.encode()).hexdigest(),'stderr_sha256':hashlib.sha256(p.stderr.encode()).hexdigest()}
         if name=='verifier':
             v=json.loads(p.stdout);detail['issues']=v.get('issues',[]);detail['unknown_personal_tables']=[{'name':t['name'],'columns':t['personal_columns']}for t in v.get('unknown_tables',[])if t.get('personal_columns') and t.get('decision') is None]
@@ -94,14 +101,15 @@ def run_storage(storage):
     assert_true(all(v is True for v in runtime.values()),storage+':actual_runtime_staging_and_locks',runtime)
     blocked=case(site,'renewal')
     assert_true(blocked['callback_calls']==0 and blocked['renewals_after']==blocked['renewals_before'] and blocked['status']=='failed' and blocked['cron_empty'] and blocked['async_disabled'] and blocked['runner_removed'],storage+':renewal_scheduler_blocked',blocked)
-    safety=site/'wp-content/mu-plugins/000-imagine-staging-safety.php';b=safety.read_bytes()
+    canary=site/'wp-content/mu-plugins/zzz-a01-nonstaging-canary.php'
     try:
-        safety.write_bytes(b.replace(b"add_filter('woocommerce_subscriptions_is_duplicate_site', static fn (): bool => true, PHP_INT_MAX);",b''))
-        mutation=case(site,'live-mode-mutation')
+        # Preserve exact subject MU bytes: its file-integrity guard must remain valid.
+        canary.write_text("<?php add_action('plugins_loaded', static function (): void { remove_all_filters('woocommerce_subscriptions_is_duplicate_site'); update_option('wc_subscriptions_siteurl', '_[wc_subscriptions_siteurl]_' . get_option('siteurl')); }, PHP_INT_MAX);\n")
+        mutation=case(site,'runtime')
         assert_true(mutation['subscriptions_staging'] is False,storage+':real_nonstaging_canary',mutation)
         p=base.subject_command(site,'verifier',password,context);v=json.loads(p.stdout)
         assert_true(p.returncode==1 and 'SUBSCRIPTIONS_NON_STAGING' in v.get('issues',[]),storage+':verifier_refuses_actual_nonstaging',{'exit':p.returncode,'issues':v.get('issues',[])})
-    finally:safety.write_bytes(b)
+    finally:canary.unlink(missing_ok=True)
     p=base.subject_command(site,'verifier',password,context);v=json.loads(p.stdout)
     assert_true(p.returncode==0,storage+':final_verifier',{'exit':p.returncode,'issues':v.get('issues',[])})
 

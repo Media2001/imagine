@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="0.003741">
+    <testsuite name="Numeros" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="0.003741">
+      <testsuite name="Imagine\Pilotage\Tests\Numeros\MoteurTest" file="/work/tests/Numeros/MoteurTest.php" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="0.003741">
+        <testcase name="testSuspensionEtReactivationNeRattrapentPasUneListeCloturee" file="/work/tests/Numeros/MoteurTest.php" line="31" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="0" time="0.003741">
+          <error type="Error">Imagine\Pilotage\Tests\Numeros\MoteurTest::testSuspensionEtReactivationNeRattrapentPasUneListeCloturee
+Error: Call to undefined method Imagine\Pilotage\Numeros\Annee::suspendre()
+
+/work/tests/Numeros/MoteurTest.php:38</error>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

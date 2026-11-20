@@ -1,0 +1,465 @@
+{
+  "suite": "A01-actual-commercial-behavior",
+  "checks": [
+    {
+      "check": "inside_network_interfaces",
+      "status": "PASS",
+      "detail": "Only loopback exists"
+    },
+    {
+      "check": "no_tcp_listener:tcp",
+      "status": "PASS",
+      "detail": "No TCP socket listening, including MariaDB"
+    },
+    {
+      "check": "no_tcp_listener:tcp6",
+      "status": "PASS",
+      "detail": "No TCP socket listening, including MariaDB"
+    },
+    {
+      "check": "classic:activate:woocommerce-memberships",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "output_sha256": "85ed1dc4cf1f03e5a9f94a53fd744b21cd3822a8bfef3e7f98746fdcc5fc9895"
+      }
+    },
+    {
+      "check": "classic:activate:woocommerce-subscriptions",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "output_sha256": "958f3d00f4c929e1d47ab77a651fb5df5c6b9bdad1da0c3e207fc63ac4548cf0"
+      }
+    },
+    {
+      "check": "classic:memberships_seed",
+      "status": "PASS",
+      "detail": {
+        "memberships_seeded": 4,
+        "subscriptions_available": true
+      }
+    },
+    {
+      "check": "classic:before:restriction_real",
+      "status": "PASS",
+      "detail": {
+        "restricted": true
+      }
+    },
+    {
+      "check": "classic:before:rights:guest",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:before:rights:active",
+      "status": "PASS",
+      "detail": {
+        "private": true,
+        "public": true,
+        "shortcode_contains_private": true
+      }
+    },
+    {
+      "check": "classic:before:rights:expired",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:before:rights:cancelled",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:before:rights:paused",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:before:rights:none",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "classic:subscriptions_seed",
+      "status": "PASS",
+      "detail": {
+        "created": 6
+      }
+    },
+    {
+      "check": "classic:actual_versions",
+      "status": "PASS",
+      "detail": {
+        "wp": "7.0.9",
+        "woo": "11.1.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3",
+        "hpos": false
+      }
+    },
+    {
+      "check": "classic:actual_authoritative_store",
+      "status": "PASS",
+      "detail": {
+        "wp": "7.0.9",
+        "woo": "11.1.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3",
+        "hpos": false
+      }
+    },
+    {
+      "check": "classic:personal_oracle_sensitive",
+      "status": "PASS",
+      "detail": {
+        "outside_domain": 6
+      }
+    },
+    {
+      "check": "classic:direct_sql_subscription_rows",
+      "status": "PASS",
+      "detail": {
+        "table": "wp_posts",
+        "rows": 6
+      }
+    },
+    {
+      "check": "classic:real_renewal_positive_control",
+      "status": "PASS",
+      "detail": {
+        "action_id": 47,
+        "status": "complete",
+        "callback_calls": 1,
+        "renewals_before": 0,
+        "renewals_after": 1,
+        "duplicate_site": true,
+        "manual_renewal": true,
+        "cron_empty": false,
+        "async_disabled": false,
+        "runner_removed": false
+      }
+    },
+    {
+      "check": "classic:subject:neutraliser",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stdout_sha256": "9ed1fec97c0b6b84fbda7338759a0640065081efa7fab702bf6c726c83454726",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "check": "classic:subject:anonymiser",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stdout_sha256": "9ed1fec97c0b6b84fbda7338759a0640065081efa7fab702bf6c726c83454726",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "check": "classic:subject:verifier",
+      "status": "FAIL",
+      "detail": {
+        "exit": 1,
+        "stdout_sha256": "79c25756ab169f3b083dcc10dd4fdb5a844be8c3a80cdf84ad25e8083b6ee19d",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "issues": [
+          "TABLE_PERSONNELLE_A_TRANCHER"
+        ],
+        "unknown_personal_tables": [
+          {
+            "name": "wp_wc_email_unsubscribes",
+            "columns": [
+              "email_hash",
+              "email_kind"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "check": "classic:exception",
+      "status": "FAIL",
+      "detail": {
+        "class": "RuntimeError",
+        "message": "classic:subject:verifier",
+        "frames": [
+          {
+            "file": "inside-commercial.py",
+            "line": 115,
+            "function": "main"
+          },
+          {
+            "file": "inside-commercial.py",
+            "line": 86,
+            "function": "run_storage"
+          },
+          {
+            "file": "inside.py",
+            "line": 74,
+            "function": "assert_true"
+          }
+        ]
+      }
+    },
+    {
+      "check": "hpos:activate:woocommerce-memberships",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "output_sha256": "85ed1dc4cf1f03e5a9f94a53fd744b21cd3822a8bfef3e7f98746fdcc5fc9895"
+      }
+    },
+    {
+      "check": "hpos:activate:woocommerce-subscriptions",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "output_sha256": "958f3d00f4c929e1d47ab77a651fb5df5c6b9bdad1da0c3e207fc63ac4548cf0"
+      }
+    },
+    {
+      "check": "hpos:memberships_seed",
+      "status": "PASS",
+      "detail": {
+        "memberships_seeded": 4,
+        "subscriptions_available": true
+      }
+    },
+    {
+      "check": "hpos:before:restriction_real",
+      "status": "PASS",
+      "detail": {
+        "restricted": true
+      }
+    },
+    {
+      "check": "hpos:before:rights:guest",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:before:rights:active",
+      "status": "PASS",
+      "detail": {
+        "private": true,
+        "public": true,
+        "shortcode_contains_private": true
+      }
+    },
+    {
+      "check": "hpos:before:rights:expired",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:before:rights:cancelled",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:before:rights:paused",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:before:rights:none",
+      "status": "PASS",
+      "detail": {
+        "private": false,
+        "public": true,
+        "shortcode_contains_private": false
+      }
+    },
+    {
+      "check": "hpos:subscriptions_seed",
+      "status": "PASS",
+      "detail": {
+        "created": 6
+      }
+    },
+    {
+      "check": "hpos:actual_versions",
+      "status": "PASS",
+      "detail": {
+        "wp": "7.0.9",
+        "woo": "11.1.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3",
+        "hpos": true
+      }
+    },
+    {
+      "check": "hpos:actual_authoritative_store",
+      "status": "PASS",
+      "detail": {
+        "wp": "7.0.9",
+        "woo": "11.1.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3",
+        "hpos": true
+      }
+    },
+    {
+      "check": "hpos:personal_oracle_sensitive",
+      "status": "PASS",
+      "detail": {
+        "outside_domain": 6
+      }
+    },
+    {
+      "check": "hpos:direct_sql_subscription_rows",
+      "status": "PASS",
+      "detail": {
+        "table": "wp_wc_orders",
+        "rows": 6
+      }
+    },
+    {
+      "check": "hpos:direct_sql_address_rows",
+      "status": "PASS",
+      "detail": {
+        "rows": 12
+      }
+    },
+    {
+      "check": "hpos:real_renewal_positive_control",
+      "status": "PASS",
+      "detail": {
+        "action_id": 47,
+        "status": "complete",
+        "callback_calls": 1,
+        "renewals_before": 0,
+        "renewals_after": 1,
+        "duplicate_site": true,
+        "manual_renewal": true,
+        "cron_empty": false,
+        "async_disabled": false,
+        "runner_removed": false
+      }
+    },
+    {
+      "check": "hpos:subject:neutraliser",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stdout_sha256": "9ed1fec97c0b6b84fbda7338759a0640065081efa7fab702bf6c726c83454726",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "check": "hpos:subject:anonymiser",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stdout_sha256": "9ed1fec97c0b6b84fbda7338759a0640065081efa7fab702bf6c726c83454726",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "check": "hpos:subject:verifier",
+      "status": "FAIL",
+      "detail": {
+        "exit": 1,
+        "stdout_sha256": "49ec726488960bbfd1c3b934d229e5a2bff394b31dff77161954f0c011842ed2",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "issues": [
+          "TABLE_PERSONNELLE_A_TRANCHER"
+        ],
+        "unknown_personal_tables": [
+          {
+            "name": "wp_wc_email_unsubscribes",
+            "columns": [
+              "email_hash",
+              "email_kind"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "check": "hpos:exception",
+      "status": "FAIL",
+      "detail": {
+        "class": "RuntimeError",
+        "message": "hpos:subject:verifier",
+        "frames": [
+          {
+            "file": "inside-commercial.py",
+            "line": 115,
+            "function": "main"
+          },
+          {
+            "file": "inside-commercial.py",
+            "line": 86,
+            "function": "run_storage"
+          },
+          {
+            "file": "inside.py",
+            "line": 74,
+            "function": "assert_true"
+          }
+        ]
+      }
+    },
+    {
+      "check": "inside_network_interfaces",
+      "status": "PASS",
+      "detail": "Only loopback exists"
+    },
+    {
+      "check": "no_tcp_listener:tcp",
+      "status": "PASS",
+      "detail": "No TCP socket listening, including MariaDB"
+    },
+    {
+      "check": "no_tcp_listener:tcp6",
+      "status": "PASS",
+      "detail": "No TCP socket listening, including MariaDB"
+    }
+  ],
+  "exit_code": 1,
+  "no_real_data": true,
+  "no_license_or_account_connection": true,
+  "operator_import_ready": false,
+  "files_import_fidelity_tested": false
+}

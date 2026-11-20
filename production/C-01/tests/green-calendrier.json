@@ -1,0 +1,25 @@
+{
+  "time_utc": "2026-11-20T14:17:41.862770+00:00",
+  "php": "8.2.36",
+  "command": "composer test",
+  "exit_code": 0,
+  "psr12_exit_code": 0,
+  "syntax_exit_code": 0,
+  "source_sha256": {
+    "composer.json": "1477fe78ed255c28ba16db350919fbd8ae8a7297d37ca043375c843d247a7652",
+    "composer.lock": "37ac1c2ae798927d7a951b3778691d106d03e631f57a0c5687357384165ab124",
+    "phpunit.xml": "72b16aabc7082502fd2ae8c3083e6d9966aab2fc7278553c66b4d4537574f749",
+    "src/Numeros/Activation.php": "2f6fbd78d6f3b02de285bdf042a551b1da03f36b95cae71dc9c4af158acf2f8d",
+    "src/Numeros/Annee.php": "c93f66ec723f576b3f115e439208dc74b0d6efb4893657c9083ee67565d95699",
+    "src/Numeros/Calendrier.php": "ba693b29042e16c45669f3438c66dfd11f2d4f359c5a92ed26e8f7abcbcc585d",
+    "src/Numeros/Echeance.php": "dfeca1c6580bda6680ae9cb0106a65625d1af6c55bdbca4245d530e0010cd31a",
+    "src/Numeros/Moteur.php": "38e8af3107d2065f8af0adcffd73b0b1d984677c79542b6753c3d7927498c039",
+    "src/Numeros/Numero.php": "bed445350622664da13b2c859a6037e970a41375f98927bb8cd5ce36a8918a11",
+    "src/Numeros/TypeNumero.php": "00959ba220ae38b22f77d6bb5e0e42f851b6b693d6470b95b1fdf678fc3f30a1",
+    "tests/Numeros/fixtures/calendrier.php": "34aed4a50ac0c2806406057f44c4ed632354603856edf59931714754dad61c2c",
+    "tests/Numeros/MoteurTest.php": "b2b5d65bfe09c665f1d4a2c144efd328238f49a406275612969b9d2cfc306cdb"
+  },
+  "network_disconnected": true,
+  "no_mounts": true,
+  "no_ports": true
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="6" assertions="60" errors="0" failures="0" skipped="0" time="0.003518">
+    <testsuite name="Numeros" tests="6" assertions="60" errors="0" failures="0" skipped="0" time="0.003518">
+      <testsuite name="Imagine\Pilotage\Tests\Numeros\MoteurTest" file="/work/tests/Numeros/MoteurTest.php" tests="6" assertions="60" errors="0" failures="0" skipped="0" time="0.003518">
+        <testcase name="testModificationFutureRecalculeSansToucherUneCloturePassee" file="/work/tests/Numeros/MoteurTest.php" line="31" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="8" time="0.001761"/>
+        <testcase name="testEcheancesParNumeroAvecMargeEnJoursCivilsEtRestants" file="/work/tests/Numeros/MoteurTest.php" line="63" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="10" time="0.000617"/>
+        <testcase name="testSuspensionEtReactivationNeRattrapentPasUneListeCloturee" file="/work/tests/Numeros/MoteurTest.php" line="95" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="15" time="0.000409"/>
+        <testcase name="testAccesAttendPaiementOuMandatEtExpireALAnniversaire" file="/work/tests/Numeros/MoteurTest.php" line="126" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="12" time="0.000225"/>
+        <testcase name="testRenouvellementEtDetteSansInventerUnNumero" file="/work/tests/Numeros/MoteurTest.php" line="142" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="11" time="0.000339"/>
+        <testcase name="testExempleDuCahierDesCharges" file="/work/tests/Numeros/MoteurTest.php" line="166" class="Imagine\Pilotage\Tests\Numeros\MoteurTest" classname="Imagine.Pilotage.Tests.Numeros.MoteurTest" assertions="4" time="0.000168"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -22,6 +22,47 @@ final readonly class Moteur
         return $annee->estActive($date) && $date < $annee->finNumerique();
     }
 
+    /** @return list<Echeance> Dates théoriques seulement, aucun prélèvement exécuté. */
+    public function echeances(Annee $annee, int $margeJours): array
+    {
+        if ($margeJours < 1) {
+            throw new \InvalidArgumentException('La marge avant clôture doit être strictement positive.');
+        }
+        return array_map(
+            static fn (Numero $numero): Echeance => new Echeance(
+                $numero,
+                $numero->cloture->sub(new \DateInterval('P' . $margeJours . 'D'))
+            ),
+            $this->numeros($annee)
+        );
+    }
+
+    /** @return list<Numero> Numéros éligibles non encore sortis, hors-série compris. */
+    public function restants(Annee $annee, DateTimeImmutable $date): array
+    {
+        return array_values(array_filter(
+            $this->calendrier->numeros,
+            fn (Numero $numero): bool => $numero->sortie > $date && $this->aDroit($annee, $numero->id, $date)
+        ));
+    }
+
+    public function aDroit(Annee $annee, string $id, DateTimeImmutable $date): bool
+    {
+        $numeros = $this->numeros($annee);
+        $horsSerie = $this->horsSerie($annee);
+        if ($horsSerie !== null) {
+            $numeros[] = $horsSerie;
+        }
+        foreach ($numeros as $numero) {
+            if ($numero->id === $id) {
+                // Après clôture : état historique, jamais l'état courant réactivé.
+                $reference = $numero->estCloture($date) ? $numero->cloture : $date;
+                return $annee->estActive($reference);
+            }
+        }
+        return false;
+    }
+
     public function renouveler(Annee $precedente, DateTimeImmutable $debut): Annee
     {
         if ($debut <= $precedente->debut) {

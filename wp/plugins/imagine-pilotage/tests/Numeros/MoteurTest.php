@@ -28,6 +28,101 @@ final class MoteurTest extends TestCase
         return array_map(static fn (Numero $numero): string => $numero->id, $numeros);
     }
 
+    public function testModificationFutureRecalculeSansToucherUneCloturePassee(): void
+    {
+        $calendrier = $this->calendrier();
+        $ancien = new Moteur($calendrier);
+        $commande = $ancien->ouvrir($this->date('2026-12-22'));
+        self::assertSame('172', $ancien->premier($commande)?->id);
+        $modifie = $calendrier->modifier(new Numero(
+            '171',
+            \Imagine\Pilotage\Numeros\TypeNumero::Regulier,
+            $this->date('2027-01-08'),
+            $this->date('2026-12-27')
+        ), $this->date('2026-12-10'));
+        $nouveau = new Moteur($modifie);
+        self::assertSame('171', $nouveau->premier($commande)?->id);
+        self::assertSame('2026-12-20', $nouveau->echeances($commande, 7)[0]->lancement->format('Y-m-d'));
+        self::assertSame('172', $ancien->premier($commande)?->id);
+        $active = $ancien->ouvrir($this->date('2026-10-08'))->activer(
+            $this->date('2026-10-08'),
+            \Imagine\Pilotage\Numeros\Activation::Paiement
+        );
+        self::assertSame('2027-01-08', $nouveau->premier($active)?->sortie->format('Y-m-d'));
+        self::assertSame('2027-01-05', $ancien->premier($active)?->sortie->format('Y-m-d'));
+        self::assertTrue($nouveau->aDroit($active, '171', $this->date('2026-12-22')));
+        $this->expectException(\LogicException::class);
+        $modifie->modifier(new Numero(
+            '170',
+            \Imagine\Pilotage\Numeros\TypeNumero::Regulier,
+            $this->date('2026-10-10'),
+            $this->date('2026-10-01')
+        ), $this->date('2026-12-10'));
+    }
+
+    public function testEcheancesParNumeroAvecMargeEnJoursCivilsEtRestants(): void
+    {
+        $moteur = new Moteur($this->calendrier());
+        $annee = $moteur->ouvrir($this->date('2026-10-08'))->activer(
+            $this->date('2026-10-08'),
+            \Imagine\Pilotage\Numeros\Activation::Mandat
+        );
+        $echeances = $moteur->echeances($annee, 7);
+        self::assertSame(['171', '172', '173', '174'], array_map(
+            static fn ($echeance): string => $echeance->numero->id,
+            $echeances
+        ));
+        self::assertSame(['2026-12-13', '2027-03-13', '2027-06-13', '2027-09-13'], array_map(
+            static fn ($echeance): string => $echeance->lancement->format('Y-m-d'),
+            $echeances
+        ));
+        self::assertSame('2026-12-17', $moteur->echeances($annee, 3)[0]->lancement->format('Y-m-d'));
+        self::assertSame(['171', '172', '173', 'HS-2027', '174'], $this->ids(
+            $moteur->restants($annee, $this->date('2026-10-08'))
+        ));
+        self::assertSame(['173', 'HS-2027', '174'], $this->ids(
+            $moteur->restants($annee, $this->date('2027-04-05'))
+        ));
+        self::assertSame([], $moteur->restants($annee, $this->date('2028-01-01')));
+        self::assertSame([], $moteur->restants($annee, $this->date('2026-10-07')));
+        self::assertTrue($echeances[0]->estPassee($this->date('2026-12-14')));
+        self::assertFalse($echeances[0]->estPassee($this->date('2026-12-12')));
+        $suspendue = $annee->suspendre($this->date('2027-01-10'));
+        $reactivee = $suspendue->reactiver($this->date('2027-03-25'));
+        self::assertNotContains('172', $this->ids($moteur->restants($reactivee, $this->date('2027-03-25'))));
+    }
+
+    public function testSuspensionEtReactivationNeRattrapentPasUneListeCloturee(): void
+    {
+        $moteur = new Moteur($this->calendrier());
+        $active = $moteur->ouvrir($this->date('2026-10-08'))->activer(
+            $this->date('2026-10-08'),
+            \Imagine\Pilotage\Numeros\Activation::Paiement
+        );
+        $suspendue = $active->suspendre($this->date('2027-01-10'));
+        $reactivee = $suspendue->reactiver($this->date('2027-04-01'));
+        self::assertTrue($moteur->aDroit($active, '172', $this->date('2027-03-19')));
+        self::assertFalse($moteur->aDroit($suspendue, '172', $this->date('2027-03-19')));
+        self::assertFalse($moteur->aDroit($reactivee, '172', $this->date('2027-04-02')));
+        self::assertTrue($moteur->aDroit($reactivee, '171', $this->date('2027-04-02')));
+        self::assertTrue($moteur->aDroit($reactivee, '173', $this->date('2027-04-02')));
+        self::assertTrue($moteur->aDroit($reactivee, 'HS-2027', $this->date('2027-07-20')));
+        self::assertFalse($moteur->aDroit($reactivee, '170', $this->date('2027-04-02')));
+        self::assertFalse($moteur->aDroit($reactivee, 'inconnu', $this->date('2027-04-02')));
+        self::assertFalse($moteur->accesNumerique($reactivee, $this->date('2027-02-01')));
+        self::assertTrue($moteur->accesNumerique($reactivee, $this->date('2027-04-01')));
+        self::assertEquals($active->finNumerique(), $reactivee->finNumerique());
+        $deuxiemeSuspension = $reactivee->suspendre($this->date('2027-06-10'));
+        self::assertFalse($moteur->aDroit($deuxiemeSuspension, 'HS-2027', $this->date('2027-07-20')));
+        self::assertTrue($moteur->aDroit($deuxiemeSuspension, '171', $this->date('2027-07-20')));
+        $paiementTardif = $moteur->ouvrir($this->date('2026-10-08'))->activer(
+            $this->date('2027-01-10'),
+            \Imagine\Pilotage\Numeros\Activation::Paiement
+        );
+        self::assertFalse($moteur->aDroit($paiementTardif, '171', $this->date('2027-01-11')));
+        self::assertTrue($moteur->aDroit($paiementTardif, '172', $this->date('2027-01-11')));
+    }
+
     public function testAccesAttendPaiementOuMandatEtExpireALAnniversaire(): void
     {
         $moteur = new Moteur($this->calendrier());

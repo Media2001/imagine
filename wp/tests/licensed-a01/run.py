@@ -31,7 +31,7 @@ def main():
             v=json.loads(h.call(['inspect',h.container]).stdout)[0];validate_inspection(v)
             h.record(tag,'PASS',{'network':'none','ports':[],'mounts':[],'cap_drop':v['HostConfig']['CapDrop'],'no_new_privileges':True,'image_id':v['Image']})
         inspection('isolation_before_input')
-        for name,path in [('inside.py',BASE/'inside.py'),('inside-commercial.py',ROOT/'inside-commercial.py'),('cases.php',ROOT/'cases.php'),('subject-adapter.json',BASE/'subject-adapter.json')]:
+        for name,path in [('inside.py',BASE/'inside.py'),('inside-commercial.py',ROOT/'inside-commercial.py'),('cases.php',ROOT/'cases.php'),('subject-adapter.json',BASE/'subject-adapter.json'),('worker-bridge.php',BASE/'worker-bridge.php')]:
             h.call(['cp',h.local_path(path),h.container+':/opt/e2e/'+name])
         for slug in ['woocommerce-memberships','woocommerce-subscriptions']:
             h.call(['cp','/home/ced/staging-wp/plugins/'+slug+'.zip',h.container+':/opt/e2e/'+slug+'.zip'])
