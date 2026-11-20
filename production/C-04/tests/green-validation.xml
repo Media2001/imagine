@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="6" assertions="65" errors="0" failures="0" skipped="0" time="0.002733">
+    <testsuite name="Connecteur" tests="6" assertions="65" errors="0" failures="0" skipped="0" time="0.002733">
+      <testsuite name="Imagine\Connecteur\Tests\EventTest" file="/work/tests/EventTest.php" tests="4" assertions="43" errors="0" failures="0" skipped="0" time="0.002144">
+        <testcase name="testDeterministicIdentityAndDeduplicatedInsertion" file="/work/tests/EventTest.php" line="32" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="8" time="0.001628"/>
+        <testcase name="testTransitionTableExhaustive" file="/work/tests/EventTest.php" line="48" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="29" time="0.000223"/>
+        <testcase name="testPrivacyWhitelistRejectsUnknownFieldsAtEveryLevel" file="/work/tests/EventTest.php" line="74" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="4" time="0.000217"/>
+        <testcase name="testRenewalsRequireDistinctSourceObjectsNotJustSubscriptionId" file="/work/tests/EventTest.php" line="94" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="2" time="0.000076"/>
+      </testsuite>
+      <testsuite name="Imagine\Connecteur\Tests\ValidationTest" file="/work/tests/ValidationTest.php" tests="2" assertions="22" errors="0" failures="0" skipped="0" time="0.000589">
+        <testcase name="testBillingRulesIdentifyEachAnomalyWithoutLeakingValues" file="/work/tests/ValidationTest.php" line="14" class="Imagine\Connecteur\Tests\ValidationTest" classname="Imagine.Connecteur.Tests.ValidationTest" assertions="19" time="0.000504"/>
+        <testcase name="testEnterpriseValidatorAndNewRulesAreInjectedWithoutChangingEngine" file="/work/tests/ValidationTest.php" line="41" class="Imagine\Connecteur\Tests\ValidationTest" classname="Imagine.Connecteur.Tests.ValidationTest" assertions="3" time="0.000085"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

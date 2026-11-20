@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="12" assertions="117" errors="0" failures="0" skipped="0" time="0.005208">
+    <testsuite name="Connecteur" tests="12" assertions="117" errors="0" failures="0" skipped="0" time="0.005208">
+      <testsuite name="Imagine\Connecteur\Tests\EventTest" file="/work/tests/EventTest.php" tests="4" assertions="43" errors="0" failures="0" skipped="0" time="0.002895">
+        <testcase name="testDeterministicIdentityAndDeduplicatedInsertion" file="/work/tests/EventTest.php" line="32" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="8" time="0.002369"/>
+        <testcase name="testTransitionTableExhaustive" file="/work/tests/EventTest.php" line="48" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="29" time="0.000216"/>
+        <testcase name="testPrivacyWhitelistRejectsUnknownFieldsAtEveryLevel" file="/work/tests/EventTest.php" line="74" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="4" time="0.000234"/>
+        <testcase name="testRenewalsRequireDistinctSourceObjectsNotJustSubscriptionId" file="/work/tests/EventTest.php" line="94" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="2" time="0.000076"/>
+      </testsuite>
+      <testsuite name="Imagine\Connecteur\Tests\ValidationTest" file="/work/tests/ValidationTest.php" tests="2" assertions="22" errors="0" failures="0" skipped="0" time="0.000745">
+        <testcase name="testBillingRulesIdentifyEachAnomalyWithoutLeakingValues" file="/work/tests/ValidationTest.php" line="14" class="Imagine\Connecteur\Tests\ValidationTest" classname="Imagine.Connecteur.Tests.ValidationTest" assertions="19" time="0.000656"/>
+        <testcase name="testEnterpriseValidatorAndNewRulesAreInjectedWithoutChangingEngine" file="/work/tests/ValidationTest.php" line="41" class="Imagine\Connecteur\Tests\ValidationTest" classname="Imagine.Connecteur.Tests.ValidationTest" assertions="3" time="0.000089"/>
+      </testsuite>
+      <testsuite name="Imagine\Connecteur\Tests\WorkerTest" file="/work/tests/WorkerTest.php" tests="6" assertions="52" errors="0" failures="0" skipped="0" time="0.001568">
+        <testcase name="testThreeFailuresThenRecoverySendsOnlyOnceAndHonoursBackoff" file="/work/tests/WorkerTest.php" line="40" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="21" time="0.000542"/>
+        <testcase name="testLateAcknowledgementUsesDestinationIdempotency" file="/work/tests/WorkerTest.php" line="64" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="5" time="0.000100"/>
+        <testcase name="testQuarantineBlocksOnlyItsOwnSubscriptionAndNamesTheRule" file="/work/tests/WorkerTest.php" line="79" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="8" time="0.000119"/>
+        <testcase name="testPermanentRefusalQuarantinesWithoutRetry" file="/work/tests/WorkerTest.php" line="111" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="5" time="0.000134"/>
+        <testcase name="testAttemptLimitAlertsOnceAndRetainsEvent" file="/work/tests/WorkerTest.php" line="125" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="8" time="0.000543"/>
+        <testcase name="testSubscriptionEventsRunChronologicallyNotInsertionOrder" file="/work/tests/WorkerTest.php" line="144" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="5" time="0.000130"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

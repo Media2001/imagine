@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="12" assertions="65" errors="6" failures="0" skipped="0" time="0.006059">
+    <testsuite name="Connecteur" tests="12" assertions="65" errors="6" failures="0" skipped="0" time="0.006059">
+      <testsuite name="Imagine\Connecteur\Tests\EventTest" file="/work/tests/EventTest.php" tests="4" assertions="43" errors="0" failures="0" skipped="0" time="0.002259">
+        <testcase name="testDeterministicIdentityAndDeduplicatedInsertion" file="/work/tests/EventTest.php" line="32" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="8" time="0.001702"/>
+        <testcase name="testTransitionTableExhaustive" file="/work/tests/EventTest.php" line="48" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="29" time="0.000215"/>
+        <testcase name="testPrivacyWhitelistRejectsUnknownFieldsAtEveryLevel" file="/work/tests/EventTest.php" line="74" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="4" time="0.000230"/>
+        <testcase name="testRenewalsRequireDistinctSourceObjectsNotJustSubscriptionId" file="/work/tests/EventTest.php" line="94" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="2" time="0.000112"/>
+      </testsuite>
+      <testsuite name="Imagine\Connecteur\Tests\ValidationTest" file="/work/tests/ValidationTest.php" tests="2" assertions="22" errors="0" failures="0" skipped="0" time="0.000656">
+        <testcase name="testBillingRulesIdentifyEachAnomalyWithoutLeakingValues" file="/work/tests/ValidationTest.php" line="14" class="Imagine\Connecteur\Tests\ValidationTest" classname="Imagine.Connecteur.Tests.ValidationTest" assertions="19" time="0.000566"/>
+        <testcase name="testEnterpriseValidatorAndNewRulesAreInjectedWithoutChangingEngine" file="/work/tests/ValidationTest.php" line="41" class="Imagine\Connecteur\Tests\ValidationTest" classname="Imagine.Connecteur.Tests.ValidationTest" assertions="3" time="0.000090"/>
+      </testsuite>
+      <testsuite name="Imagine\Connecteur\Tests\WorkerTest" file="/work/tests/WorkerTest.php" tests="6" assertions="0" errors="6" failures="0" skipped="0" time="0.003143">
+        <testcase name="testThreeFailuresThenRecoverySendsOnlyOnceAndHonoursBackoff" file="/work/tests/WorkerTest.php" line="40" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="0" time="0.002674">
+          <error type="Error">Imagine\Connecteur\Tests\WorkerTest::testThreeFailuresThenRecoverySendsOnlyOnceAndHonoursBackoff
+Error: Class "Imagine\Connecteur\FrozenClock" not found
+
+/work/tests/WorkerTest.php:25
+/work/tests/WorkerTest.php:42</error>
+        </testcase>
+        <testcase name="testLateAcknowledgementUsesDestinationIdempotency" file="/work/tests/WorkerTest.php" line="64" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="0" time="0.000093">
+          <error type="Error">Imagine\Connecteur\Tests\WorkerTest::testLateAcknowledgementUsesDestinationIdempotency
+Error: Class "Imagine\Connecteur\FrozenClock" not found
+
+/work/tests/WorkerTest.php:25
+/work/tests/WorkerTest.php:66</error>
+        </testcase>
+        <testcase name="testQuarantineBlocksOnlyItsOwnSubscriptionAndNamesTheRule" file="/work/tests/WorkerTest.php" line="79" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="0" time="0.000098">
+          <error type="Error">Imagine\Connecteur\Tests\WorkerTest::testQuarantineBlocksOnlyItsOwnSubscriptionAndNamesTheRule
+Error: Class "Imagine\Connecteur\FrozenClock" not found
+
+/work/tests/WorkerTest.php:25
+/work/tests/WorkerTest.php:81</error>
+        </testcase>
+        <testcase name="testPermanentRefusalQuarantinesWithoutRetry" file="/work/tests/WorkerTest.php" line="111" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="0" time="0.000100">
+          <error type="Error">Imagine\Connecteur\Tests\WorkerTest::testPermanentRefusalQuarantinesWithoutRetry
+Error: Class "Imagine\Connecteur\FrozenClock" not found
+
+/work/tests/WorkerTest.php:25
+/work/tests/WorkerTest.php:113</error>
+        </testcase>
+        <testcase name="testAttemptLimitAlertsOnceAndRetainsEvent" file="/work/tests/WorkerTest.php" line="125" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="0" time="0.000081">
+          <error type="Error">Imagine\Connecteur\Tests\WorkerTest::testAttemptLimitAlertsOnceAndRetainsEvent
+Error: Class "Imagine\Connecteur\FrozenClock" not found
+
+/work/tests/WorkerTest.php:25
+/work/tests/WorkerTest.php:127</error>
+        </testcase>
+        <testcase name="testSubscriptionEventsRunChronologicallyNotInsertionOrder" file="/work/tests/WorkerTest.php" line="144" class="Imagine\Connecteur\Tests\WorkerTest" classname="Imagine.Connecteur.Tests.WorkerTest" assertions="0" time="0.000098">
+          <error type="Error">Imagine\Connecteur\Tests\WorkerTest::testSubscriptionEventsRunChronologicallyNotInsertionOrder
+Error: Class "Imagine\Connecteur\FrozenClock" not found
+
+/work/tests/WorkerTest.php:25
+/work/tests/WorkerTest.php:146</error>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

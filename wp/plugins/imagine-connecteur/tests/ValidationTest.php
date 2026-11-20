@@ -45,7 +45,10 @@ final class ValidationTest extends TestCase
         $event = new Event($event->type, $event->sourceId, $event->occurredAt, $content);
         $validator = Validator::billing(['fiction'], static fn (string $number): bool => $number === 'fiction-valid');
         self::assertSame([], $validator->validate($event));
-        $extended = $validator->with(new NamedRule('step_extra', static fn (Event $event): ?string => 'Contrôle fictif.'));
+        $extended = $validator->with(new NamedRule(
+            'step_extra',
+            static fn (Event $event): ?string => 'Contrôle fictif.'
+        ));
         self::assertSame('step_extra', $extended->validate($event)[0]->rule);
         self::assertSame([], $validator->validate($event), 'The original rule set stays immutable.');
     }
