@@ -15,7 +15,8 @@ final readonly class Entry
         public int $attempts = 0,
         public ?DateTimeImmutable $retryAt = null,
         public ?string $rule = null,
-        public ?string $message = null
+        public ?string $message = null,
+        public ?DateTimeImmutable $leaseUntil = null
     ) {
     }
 
@@ -23,7 +24,8 @@ final readonly class Entry
         State $next,
         ?DateTimeImmutable $retryAt = null,
         ?string $rule = null,
-        ?string $message = null
+        ?string $message = null,
+        ?DateTimeImmutable $leaseUntil = null
     ): self {
         if (!$this->state->allows($next)) {
             throw new LogicException('Transition de file interdite.');
@@ -34,7 +36,8 @@ final readonly class Entry
             $this->attempts + ($next === State::Processing ? 1 : 0),
             $retryAt,
             $rule,
-            $message
+            $message,
+            $leaseUntil
         );
     }
 }

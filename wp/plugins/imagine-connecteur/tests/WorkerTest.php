@@ -141,6 +141,53 @@ final class WorkerTest extends TestCase
         self::assertSame(2, $destination->calls());
     }
 
+    public function testRetryDelayStartsAfterFailureNotBeforeSlowSend(): void
+    {
+        [$queue, $clock, $alerts] = $this->bench();
+        $destination = new class ($clock) implements \Imagine\Connecteur\Destination {
+            public function __construct(private FrozenClock $clock)
+            {
+            }
+
+            public function send(Event $event, int $timeoutSeconds): void
+            {
+                $this->clock->advance(6);
+                throw new \Imagine\Connecteur\TemporaryFailure('Délai fictif dépassé.');
+            }
+        };
+        $worker = new Worker(
+            $queue,
+            $destination,
+            $clock,
+            $alerts,
+            Validator::billing(['fiction']),
+            new RetryPolicy(3, 10, 2, 100),
+            5
+        );
+        $event = EventTest::event();
+        $queue->add($event);
+        $worker->run();
+        self::assertSame($clock->now()->getTimestamp() + 10, $queue->get($event->key())->retryAt->getTimestamp());
+    }
+
+    public function testExpiredProcessingLeaseCanRecoverAfterWorkerCrash(): void
+    {
+        [$queue, $clock, , $destination, $worker] = $this->bench();
+        $event = EventTest::event();
+        $queue->add($event);
+        $entry = $queue->get($event->key());
+        $processing = $entry->transition(State::Processing, leaseUntil: $clock->now()->modify('+5 seconds'));
+        $queue->replace($entry, $processing);
+        self::assertSame(0, $worker->run());
+        $clock->advance(5);
+        self::assertSame(0, $worker->run());
+        self::assertSame(State::TemporaryFailure, $queue->get($event->key())->state);
+        $clock->advance(10);
+        self::assertSame(1, $worker->run());
+        self::assertSame(State::Sent, $queue->get($event->key())->state);
+        self::assertCount(1, $destination->accepted());
+    }
+
     public function testSubscriptionEventsRunChronologicallyNotInsertionOrder(): void
     {
         [$queue, $clock, , $destination, $worker] = $this->bench(['down']);

@@ -37,13 +37,23 @@ final readonly class Worker
         $entry = $this->storage->get($key);
         $now = $this->clock->now();
         if (
+            $entry !== null && $entry->state === State::Processing
+            && $entry->leaseUntil !== null && $entry->leaseUntil <= $now
+        ) {
+            $this->temporaryFailure($entry);
+            return false;
+        }
+        if (
             $entry === null || !in_array($entry->state, [State::Pending, State::TemporaryFailure], true)
             || $entry->attempts >= $this->retry->maxAttempts || $entry->event->occurredAt > $now
             || ($entry->retryAt !== null && $entry->retryAt > $now) || $this->blocked($entry)
         ) {
             return false;
         }
-        $processing = $entry->transition(State::Processing);
+        $processing = $entry->transition(
+            State::Processing,
+            leaseUntil: $now->setTimestamp($now->getTimestamp() + $this->timeoutSeconds)
+        );
         if (!$this->storage->replace($entry, $processing)) {
             return false;
         }
@@ -59,23 +69,33 @@ final readonly class Worker
             return true;
         } catch (Throwable $exception) {
             // Never persist raw remote errors: they may contain personal data or credentials.
-            $exhausted = $processing->attempts >= $this->retry->maxAttempts;
-            $retryAt = $exhausted ? null : $now->setTimestamp(
-                $now->getTimestamp() + $this->retry->delay($processing->attempts)
-            );
-            $failed = $processing->transition(
-                State::TemporaryFailure,
-                $retryAt,
-                'transport',
-                'Envoi non confirmé ; événement conservé dans la file.'
-            );
-            if ($this->storage->replace($processing, $failed) && $exhausted) {
-                $this->alerts->notify($key, 'attempts_exhausted', 'Limite d’essais atteinte ; intervention requise.');
-            }
+            $this->temporaryFailure($processing);
             return true;
         }
         $this->storage->replace($processing, $processing->transition(State::Sent));
         return true;
+    }
+
+    private function temporaryFailure(Entry $entry): void
+    {
+        $now = $this->clock->now();
+        $exhausted = $entry->attempts >= $this->retry->maxAttempts;
+        $retryAt = $exhausted ? null : $now->setTimestamp(
+            $now->getTimestamp() + $this->retry->delay($entry->attempts)
+        );
+        $failed = $entry->transition(
+            State::TemporaryFailure,
+            $retryAt,
+            'transport',
+            'Envoi non confirmé ; événement conservé dans la file.'
+        );
+        if ($this->storage->replace($entry, $failed) && $exhausted) {
+            $this->alerts->notify(
+                $entry->event->key(),
+                'attempts_exhausted',
+                'Limite d’essais atteinte ; intervention requise.'
+            );
+        }
     }
 
     private function quarantine(Entry $entry, string $rule, string $message): void
