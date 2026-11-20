@@ -93,7 +93,7 @@ final class Engine
 
     public static function dangerous(string $value): bool
     {
-        return (bool) preg_match('/[spr]k_(?:live|test)_|whsec_|xkeysib[-_]|(?:cus|pm|src|seti|pi|ch|tok|ba)_[a-z0-9_-]+|(?<![a-z0-9])[BI]-[A-Z0-9]{6,}/i', $value);
+        return (bool) preg_match('/[spr]k_(?:live|test)_|whsec_|xkeysib[-_]|(?<![a-z0-9])(?:cus|pm|src|seti|pi|ch|tok|ba)_[a-z0-9_-]+|(?<![a-z0-9])[BI]-[A-Z0-9]{6,}/i', $value);
     }
 
     private static function paymentIdentityKey(string $key): bool
@@ -578,8 +578,11 @@ final class Engine
                 $decision = $this->decisions[$table] ?? null;
                 $unknown[] = ['name' => $table, 'columns' => array_values($columns), 'rows' => count($rows),
                     'personal_columns' => $personal, 'decision' => $decision];
-                if ($personal && $decision === null) {
+                if ($personal && $decision === null && !$this->readOnly($table)) {
                     $issues[] = 'TABLE_PERSONNELLE_A_TRANCHER';
+                }
+                if ($this->readOnly($table) && $decision !== null && ($decision['action'] ?? '') !== 'garder') {
+                    $warnings[] = 'DECISION_VUE_A_APPLIQUER_SUR_TABLE_SOURCE';
                 }
                 $warnings[] = 'TABLE_INCONNUE_CONSERVEE';
             }

@@ -9,6 +9,7 @@ final class MemoryStore implements Store
     public array $tables;
     public bool $ignoreUrlWrites = false;
     public array $columns;
+    public array $schemaDetails = [];
     private array $saved = [];
     public function __construct(array $tables, array $columns)
     {
@@ -22,6 +23,10 @@ final class MemoryStore implements Store
     public function schema(): array
     {
         return $this->columns;
+    }
+    public function details(): array
+    {
+        return $this->schemaDetails;
     }
     public function rows(string $table): array
     {

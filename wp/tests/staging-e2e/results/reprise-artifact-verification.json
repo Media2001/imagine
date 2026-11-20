@@ -1,0 +1,82 @@
+{
+  "recorded_at_utc": "2026-11-20T13:13:03.449532+00:00",
+  "status": "BLOCKED_NO_PRET",
+  "receipt_counts_recomputed": true,
+  "harness_source_bindings_match_current": {
+    "reprise-fixture-selftest.json": true,
+    "reprise-acceptance.json": true,
+    "reprise-licensed-acceptance.json": true
+  },
+  "final_integration_source_binding_matches_current": true,
+  "subject_current_drift_from_frozen_acceptance": [
+    "lib.php"
+  ],
+  "docker_server_version": "29.6.2",
+  "owned_containers_absent_readback": {
+    "imagine-staging-e2e-b425004823b0": true,
+    "imagine-staging-e2e-1e34902aea35": true,
+    "imagine-staging-e2e-73dd48355408": true,
+    "imagine-staging-e2e-905db63c580e": true,
+    "imagine-staging-e2e-1a2d28c681f4": true
+  },
+  "operator_docs_checked_against_receipts": true,
+  "licensed_packages_in_repository": false,
+  "artifacts": {
+    "wp/tests/staging-e2e/results/reprise-host-safety.json": {
+      "sha256": "d78b65993a3251f7841ca592321f254de02ed9b0bf451079d2aa440af49bef4d",
+      "bytes": 384
+    },
+    "wp/tests/staging-e2e/results/reprise-fixture-selftest.json": {
+      "sha256": "af4c1f69379452dde8075bce59e8073df2155c07d941ae6d6673a866a8643575",
+      "bytes": 28975
+    },
+    "wp/tests/staging-e2e/results/reprise-acceptance.json": {
+      "sha256": "b067dc23a9d8dbdb2385dd43b92e80844a5ce78dff8e65e1d1ff1027f73658f4",
+      "bytes": 17980
+    },
+    "wp/tests/staging-e2e/results/reprise-licensed-acceptance.json": {
+      "sha256": "f67cc320037970bbe7c6eb40eb03b02ab4ad7f2ffa164c699cbb160fb50ca7ca",
+      "bytes": 11109
+    },
+    "wp/tests/staging-e2e/results/reprise-licensed-inputs.json": {
+      "sha256": "155ff23933fd83cb6345f7e94cd9214616b6954d958520a5a1d3cbbaec39a8fd",
+      "bytes": 1495
+    },
+    "wp/tests/staging-e2e/results/reprise-integration-final.json": {
+      "sha256": "8e74b49d252543fd05ce90f02d3930d2256a32045a15064f2d053ec449e7e195",
+      "bytes": 4027
+    },
+    "wp/tests/staging-e2e/results/reprise-dependencies.json": {
+      "sha256": "d0557dc0a49a92dd921396978446880930c166fceb1844142e8d1b82e7db521a",
+      "bytes": 1686
+    },
+    "wp/tests/staging-e2e/README.md": {
+      "sha256": "9e85ef28f5203236fe6e9ad2b572f6940242fa5d24845907e2940961ce4ba503",
+      "bytes": 9094
+    },
+    "wp/tests/staging-e2e/REPRISE.md": {
+      "sha256": "def614fff7e7058eeccdb96b6773ce2ac4c709a5ca1c730c3f0f156aa83ff72e",
+      "bytes": 5947
+    },
+    "wp/tests/staging-e2e/REPORT.md": {
+      "sha256": "c465ca3ac22db89360bf6d439379985bdca24c239cc34ec2bb0210c27dcd17a1",
+      "bytes": 8911
+    },
+    "wp/outils/staging-wp-integration/README.md": {
+      "sha256": "3463a301d188db30ef3dce9523b9a952b17cfd1fb43c635464c5b63ffb0181eb",
+      "bytes": 10320
+    },
+    "wp/outils/staging-wp-integration/CONTRAT-HORS-LIGNE.md": {
+      "sha256": "288fcf086c6a87ce3d9ad5b12e39e707e25c60505f8664b3a65ebd96e428e966",
+      "bytes": 11523
+    },
+    "wp/outils/staging-wp-integration/OPERATEUR-A01.md": {
+      "sha256": "4670cd61e7af35edd0bc8ce9e133ef02d717df7c148b29b823e0bb90be6d9fd2",
+      "bytes": 7024
+    },
+    "wp/tests/staging-e2e/results/reprise-public-packages.tsv": {
+      "sha256": "7b45e04c9be38c006a53af8476f22a140f50c1215a66c4505cfdbe8a7daeb248",
+      "bytes": 6100
+    }
+  }
+}

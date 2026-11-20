@@ -20,7 +20,7 @@ En classique et HPOS : création des 30 comptes/30 commandes, bootstrap des troi
 
 Contact Form 7 **6.1.4**, Yoast SEO **26.5** et Meta Box **5.10.7** restent effectivement actifs dans la référence avant nettoyage ; formulaire rendu et champs simples/clonés lus. Leurs réglages sont empreintés. **La comparaison post-nettoyage n'a pas été atteinte**, de même que `anonymiser`, le vrai `verifier`, les décisions de tables, les refus de résidus et l'idempotence. Aucun de ces contrôles n'est annoncé réussi.
 
-Les scripts sujets sont travaillés simultanément par le pair : les empreintes exactes sont conservées, ainsi que la liste d'éventuelles dérives au moment de l'emballage. Ces reçus décrivent leur snapshot, pas une attestation de toute révision ultérieure.
+Les scripts sujets sont travaillés simultanément par le pair : les empreintes exactes sont conservées, ainsi que la liste d'éventuelles dérives au moment de l'emballage. Ces reçus décrivent leur snapshot, pas une attestation de toute révision ultérieure. Un dernier rejeu `e4289add048e` (`results/reprise-acceptance-replay.json`) reproduit la même collision, sortie 2, 15 PASS / 4 FAIL / 18 NOT_TESTED ; `lib.php` a encore évolué ensuite. Ne pas prétendre que ce reçu qualifie le fichier courant : rejouer après stabilisation du pair.
 
 ### Paquets payants : présence distincte de la réussite
 

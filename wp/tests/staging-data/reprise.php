@@ -181,4 +181,28 @@ $noteTrap = clone $store;
 $noteTrap->tables['x_comments'][0]['comment_post_ID'] = 1;
 $noteTrap->tables['x_comments'][0]['comment_content'] = 'Note commande gift@outside.invalid';
 repriseCheck(in_array('EMAIL_EXTERNE', (new Imagine\Staging\Engine($noteTrap, $context, 'x_'))->verifier($proof)['issues'], true), 'email note de commande refusé');
+$optionTrap = clone $store;
+$optionTrap->tables['x_options'][] = ['option_id'=>70,'option_name'=>'mailin_api_key','option_value'=>'SYNTHETIC_OPAQUE_KEY'];
+$optionEngine = new Imagine\Staging\Engine($optionTrap, $context, 'x_');
+$optionEngine->neutraliser();
+$optionValues = array_column($optionTrap->rows('x_options'), 'option_value', 'option_name');
+repriseCheck(array_key_exists('mailin_api_key', $optionValues) && $optionValues['mailin_api_key'] === '', 'nom option API conservé, valeur seule vidée');
+repriseCheck($optionEngine->verifier($proof)['ok'], 'api_key et touch_event ne sont pas des identifiants Stripe');
+$view = clone $store;
+$view->columns['x_contact_view'] = ['email'];
+$view->tables['x_contact_view'] = [['email'=>'view@example.org']];
+$view->schemaDetails = ['tables'=>['x_contact_view'=>['type'=>'VIEW','engine'=>'']], 'warnings'=>['VUE_CONSERVEE']];
+$viewEngine = new Imagine\Staging\Engine($view, $context, 'x_');
+$viewEngine->neutraliser();
+repriseCheck($viewEngine->verifier($proof)['ok'], 'vue signalée, pas refusée pour sa seule colonne personnelle');
+repriseCheck($view->tables['x_contact_view'] === [['email'=>'view@example.org']], 'vue jamais réécrite');
+$view->tables['x_contact_view'][0]['email'] = 'sk_live_SYNTHETIC_ONLY';
+repriseCheck(!$viewEngine->verifier($proof)['ok'], 'clé de service dans vue bloque comme partout');
+$emptyPersonal = clone $private;
+$emptyPersonal->tables['other_contacts'] = [];
+repriseCheck(in_array('TABLE_PERSONNELLE_A_TRANCHER', (new Imagine\Staging\Engine($emptyPersonal, $context, 'x_'))->verifier($proof)['issues'], true), 'table personnelle même vide attend Ced');
+$invalidDecision = false;
+try { new Imagine\Staging\Engine($private, $context, 'x_', ['other_contacts'=>['action'=>'garder','reason'=>'SYNTHETIC VALUE MUST NOT LEAK']]); }
+catch (RuntimeException) { $invalidDecision = true; }
+repriseCheck($invalidDecision, 'décision à champs inconnus refusée sans divulgation');
 print("OK $assertions assertions reprise\n");
