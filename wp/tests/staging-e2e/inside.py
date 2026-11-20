@@ -353,7 +353,7 @@ def acceptance(site, database, storage, before):
                 storage + ':account_countries_preserved', {'original_accounts': len(old_users)})
     sanitized = export(database, 'sanitized')
     for case in ('service-key', 'publishable-key', 'restricted-key', 'webhook-key', 'brevo-key',
-                 'unknown-table-key', 'user-token', 'order-token', 'paypal', 'user-email', 'order-email'):
+                 'unknown-table-key', 'user-token', 'order-token', 'paypal', 'user-email', 'order-email', 'note-email'):
         restore(database, sanitized)
         raw_db(database, storage, 'mutate', {'E2E_RESIDUE_CASE': case})
         assert_true(not clean_oracle(raw_db(database, storage)), storage + ':residue_actually_inserted:' + case,
@@ -364,11 +364,12 @@ def acceptance(site, database, storage, before):
                      'start_gate': 'NOT_TESTED: no server is started by this harness'})
     record(storage + ':residue_refusals', 'PASS', 'All enumerated residue verifier refusals completed')
     restore(database, sanitized)
-    raw_db(database, storage, 'mutate', {'E2E_RESIDUE_CASE': 'note-email'})
+    raw_db(database, storage, 'mutate', {'E2E_RESIDUE_CASE': 'editorial-comment-email'})
     result = subject_command(site, 'verifier', password, context)
     note_report = json.loads(result.stdout)
     assert_true(result.returncode == 0 and 'EMAIL_HORS_PERIMETRE_COMPTES_COMMANDES' in note_report.get('warnings', []),
-                storage + ':note_email_is_warning_not_sixth_blocker', {'exit_code': result.returncode})
+                storage + ':editorial_comment_email_is_warning_not_sixth_blocker', {'exit_code': result.returncode,
+                    'order_notes_remain_blocking': True})
     restore(database, sanitized)
     safety = site / 'wp-content/mu-plugins/000-imagine-staging-safety.php'
     safety_bytes = safety.read_bytes()

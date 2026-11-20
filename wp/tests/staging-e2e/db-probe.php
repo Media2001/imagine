@@ -97,7 +97,8 @@ if ($mode === 'mutate') {
             }
             break;
         case 'note-email':
-            $put('wp_comments', ['comment_post_ID' => $orderId, 'comment_author' => 'Fictif',
+        case 'editorial-comment-email':
+            $put('wp_comments', ['comment_post_ID' => $case === 'note-email' ? $orderId : 0, 'comment_author' => 'Fictif',
                 'comment_author_email' => 'note-fictive@invalid.example', 'comment_author_url' => '', 'comment_author_IP' => '192.0.2.123',
                 'comment_date' => '2026-11-19 00:00:00', 'comment_date_gmt' => '2026-11-19 00:00:00',
                 'comment_content' => 'Note inventée note-fictive@invalid.example', 'comment_approved' => '1',
