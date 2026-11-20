@@ -111,6 +111,11 @@ final class Engine
         }
         if (is_array($value) || $value instanceof \stdClass) {
             foreach ((array) $value as $key => $child) {
+                if (is_string($key)) {
+                    foreach (self::inspect($key, $depth + 1) as $flag => $found) {
+                        $flags[$flag] = $flags[$flag] || $found;
+                    }
+                }
                 if (is_string($key) && self::paymentIdentityKey($key) && $child !== '' && $child !== null && $child !== []) {
                     $flags['danger'] = true;
                 }
@@ -178,6 +183,9 @@ final class Engine
         if (is_array($value)) {
             $clean = [];
             foreach ($value as $key => $child) {
+                if (is_string($key) && self::dangerous($key)) {
+                    continue;
+                }
                 if (is_string($key) && (self::sensitiveKey($key) || ($privacy && self::piiKey($key)))) {
                     $clean[$key] = '';
                     continue;
@@ -228,6 +236,9 @@ final class Engine
         if ($value instanceof \stdClass) {
             $clean = new \stdClass();
             foreach (get_object_vars($value) as $key => $child) {
+                if (self::dangerous((string) $key)) {
+                    continue;
+                }
                 $clean->{$key} = self::sensitiveKey((string) $key) || ($privacy && self::piiKey((string) $key))
                     ? '' : self::scrubJson($child, $privacy, $id, $depth + 1);
             }
@@ -377,9 +388,6 @@ final class Engine
                     $next['secret'] = '';
                 }
                 if ($kind === 'actionscheduler_actions') {
-                    if (!in_array($row['status'], ['pending', 'in-progress', 'complete', 'failed', 'canceled'], true)) {
-                        throw new RuntimeException('STATUT_AS_INCONNU');
-                    }
                     $next['status'] = in_array($row['status'], ['pending', 'in-progress'], true) ? 'canceled' : $row['status'];
                     $next['args'] = '[]';
                     if (isset($next['extended_args'])) {
@@ -629,6 +637,9 @@ final class Engine
                 }
                 if ($kind === 'actionscheduler_actions' && in_array($row['status'], ['pending', 'in-progress'], true)) {
                     $warnings[] = 'ACTION_EN_ATTENTE';
+                }
+                if ($kind === 'actionscheduler_actions' && !in_array($row['status'], ['pending', 'in-progress', 'complete', 'failed', 'canceled'], true)) {
+                    $warnings[] = 'STATUT_AS_INCONNU';
                 }
                 if ($kind === 'wc_webhooks' && ($row['status'] !== 'disabled' || $row['delivery_url'] !== '' || $row['secret'] !== '')) {
                     $warnings[] = 'WEBHOOK_ACTIF';

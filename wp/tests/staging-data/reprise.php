@@ -156,4 +156,10 @@ $keyEngine = new Imagine\Staging\Engine($keyTrap, $context, 'x_');
 repriseCheck(!$keyEngine->verifier($proof)['ok'], 'motif dans clé JSON échappée refusé');
 $keyEngine->neutraliser();
 repriseCheck($keyEngine->verifier($proof)['ok'] && json_decode($keyTrap->tables['x_extension_catalogue'][0]['setting'], true) === ['layout'=>'wide'], 'clé dangereuse seule retirée de structure');
+$unknownAs = clone $store;
+$unknownAs->tables['x_actionscheduler_actions'][0]['status'] = 'synthetic-new-state';
+$unknownAsEngine = new Imagine\Staging\Engine($unknownAs, $context, 'x_');
+$unknownAsEngine->neutraliser();
+repriseCheck($unknownAsEngine->verifier($proof)['ok']
+    && in_array('STATUT_AS_INCONNU', $unknownAsEngine->verifier($proof)['warnings'], true), 'état AS inconnu averti, pas sixième blocage');
 print("OK $assertions assertions reprise\n");
