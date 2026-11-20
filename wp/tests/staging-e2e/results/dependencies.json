@@ -1,0 +1,23 @@
+{
+  "base_image": "debian@sha256:734a72b3d6142a71993b4bc580ca01d8ca687f77a2c422d96a961d3376b179bc",
+  "image_id": "sha256:2760ef49cd6150b82053286bbf13db835b515b9f3a9424b43fe8ec7b629e5d98",
+  "image_tag": "imagine-staging-e2e-public:259dd072f37c",
+  "artifacts": {
+    "wordpress.zip": {
+      "url": "https://wordpress.org/wordpress-6.9.zip",
+      "sha256": "3e95777a3acb3b05d5cdbd31b16fc1e9b71122ebe3c1f18c6f53dee3eab0d111",
+      "bytes": 28678124
+    },
+    "woocommerce.zip": {
+      "url": "https://downloads.wordpress.org/plugin/woocommerce.10.4.3.zip",
+      "sha256": "3b1bbe109a0ab653863a6c8b4ccbdf75c519fd5ebf51151c54b8ca37b325f242",
+      "bytes": 19454895
+    },
+    "wp-cli.phar": {
+      "url": "https://github.com/wp-cli/wp-cli/releases/download/v2.12.0/wp-cli-2.12.0.phar",
+      "sha256": "ce34ddd838f7351d6759068d09793f26755463b4a4610a5a5c0a97b68220d85c",
+      "bytes": 7142777
+    }
+  },
+  "notice": "Public dependencies only. No site or import was started during prepare."
+}

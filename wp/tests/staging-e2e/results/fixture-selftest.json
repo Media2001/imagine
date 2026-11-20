@@ -1,0 +1,778 @@
+{
+  "run_id": "8cb0b564484d",
+  "result": {
+    "mode": "fixture-selftest",
+    "exit_code": 0,
+    "checks": [
+      {
+        "check": "inside_network_interfaces",
+        "status": "PASS",
+        "detail": "Only loopback exists"
+      },
+      {
+        "check": "no_tcp_listener:tcp",
+        "status": "PASS",
+        "detail": "No TCP socket listening, including MariaDB"
+      },
+      {
+        "check": "no_tcp_listener:tcp6",
+        "status": "PASS",
+        "detail": "No TCP socket listening, including MariaDB"
+      },
+      {
+        "check": "runtime_versions",
+        "status": "PASS",
+        "detail": {
+          "php": "8.2.36",
+          "mariadb": "10.11.19-MariaDB-0+deb12u1",
+          "wp_cli": "WP-CLI 2.12.0"
+        }
+      },
+      {
+        "check": "php_fixture_syntax",
+        "status": "PASS",
+        "detail": "All copied PHP fixtures passed php -l"
+      },
+      {
+        "check": "classic:fixture_counts",
+        "status": "PASS",
+        "detail": {
+          "accounts": 30,
+          "orders": 30
+        }
+      },
+      {
+        "check": "classic:authoritative_storage",
+        "status": "PASS",
+        "detail": {
+          "wordpress": "6.9",
+          "woocommerce": "10.4.3",
+          "hpos": false,
+          "subscriptions_installed": false,
+          "memberships_installed": false
+        }
+      },
+      {
+        "check": "classic:offline_import_preserves_orders",
+        "status": "PASS",
+        "detail": {
+          "generated_in_same_container": true,
+          "sql_sha256": "9418a08bc91ea2d1e0f89121819e0e6e936196dfaf3f4c30da3112f598c3e23f"
+        }
+      },
+      {
+        "check": "classic:oracle_positive_pristine",
+        "status": "PASS",
+        "detail": {
+          "residue_hits": [],
+          "bad_user_emails": 0,
+          "bad_order_emails": 0,
+          "pending_outbound": 0,
+          "cron_outbound": 0,
+          "active_webhooks": 0,
+          "payment_tokens": 0,
+          "user_count": 30,
+          "order_count": 30,
+          "sessions": 29,
+          "blog_public": "0",
+          "environment": "staging",
+          "home": "https://fixture.synthetic.test",
+          "siteurl": "https://fixture.synthetic.test"
+        }
+      },
+      {
+        "check": "classic:mail_probe_detects_unblocked_dispatch",
+        "status": "PASS",
+        "detail": {
+          "dispatch_calls": 1,
+          "real_sends": 0
+        }
+      },
+      {
+        "check": "classic:independent_snapshot_counts",
+        "status": "PASS",
+        "detail": {
+          "orders": 30,
+          "users": 30
+        }
+      },
+      {
+        "check": "classic:raw_oracle_positive_pristine",
+        "status": "PASS",
+        "detail": "PDO oracle agrees without loading WordPress"
+      },
+      {
+        "check": "classic:raw_oracle_rejects_api_mutation:service-key",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_options.option_value:invented-offdomain-email",
+            "wp_options.option_value:service-key"
+          ]
+        }
+      },
+      {
+        "check": "classic:oracle_rejects:service-key",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_options.option_value:invented-offdomain-email",
+            "wp_options.option_value:service-key"
+          ],
+          "bad_user_emails": 0,
+          "bad_order_emails": 0,
+          "pending_outbound": 0,
+          "cron_outbound": 0,
+          "active_webhooks": 0
+        }
+      },
+      {
+        "check": "classic:raw_oracle_rejects_api_mutation:user-token",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_usermeta.meta_value:payment-identifier",
+            "wp_woocommerce_payment_tokens.token:payment-identifier"
+          ]
+        }
+      },
+      {
+        "check": "classic:oracle_rejects:user-token",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_usermeta.meta_value:payment-identifier",
+            "wp_woocommerce_payment_tokens.token:payment-identifier"
+          ],
+          "bad_user_emails": 0,
+          "bad_order_emails": 0,
+          "pending_outbound": 0,
+          "cron_outbound": 0,
+          "active_webhooks": 0
+        }
+      },
+      {
+        "check": "classic:raw_oracle_rejects_api_mutation:order-token",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_postmeta.meta_value:payment-identifier"
+          ]
+        }
+      },
+      {
+        "check": "classic:oracle_rejects:order-token",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_postmeta.meta_value:payment-identifier"
+          ],
+          "bad_user_emails": 0,
+          "bad_order_emails": 0,
+          "pending_outbound": 0,
+          "cron_outbound": 0,
+          "active_webhooks": 0
+        }
+      },
+      {
+        "check": "classic:raw_oracle_rejects_api_mutation:paypal",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_postmeta.meta_value:paypal-identifier",
+            "wp_usermeta.meta_value:paypal-identifier"
+          ]
+        }
+      },
+      {
+        "check": "classic:oracle_rejects:paypal",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_postmeta.meta_value:paypal-identifier",
+            "wp_usermeta.meta_value:paypal-identifier"
+          ],
+          "bad_user_emails": 0,
+          "bad_order_emails": 0,
+          "pending_outbound": 0,
+          "cron_outbound": 0,
+          "active_webhooks": 0
+        }
+      },
+      {
+        "check": "classic:raw_oracle_rejects_api_mutation:user-email",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_users.user_email:invented-offdomain-email",
+            "wp_wc_customer_lookup.email:invented-offdomain-email"
+          ]
+        }
+      },
+      {
+        "check": "classic:oracle_rejects:user-email",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_users.user_email:invented-offdomain-email",
+            "wp_wc_customer_lookup.email:invented-offdomain-email"
+          ],
+          "bad_user_emails": 1,
+          "bad_order_emails": 0,
+          "pending_outbound": 0,
+          "cron_outbound": 0,
+          "active_webhooks": 0
+        }
+      },
+      {
+        "check": "classic:raw_oracle_rejects_api_mutation:order-email",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_postmeta.meta_value:invented-offdomain-email"
+          ]
+        }
+      },
+      {
+        "check": "classic:oracle_rejects:order-email",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_postmeta.meta_value:invented-offdomain-email"
+          ],
+          "bad_user_emails": 0,
+          "bad_order_emails": 1,
+          "pending_outbound": 0,
+          "cron_outbound": 0,
+          "active_webhooks": 0
+        }
+      },
+      {
+        "check": "classic:raw_oracle_rejects_api_mutation:note-email",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_comments.comment_content:invented-offdomain-email"
+          ]
+        }
+      },
+      {
+        "check": "classic:oracle_rejects:note-email",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_comments.comment_content:invented-offdomain-email"
+          ],
+          "bad_user_emails": 0,
+          "bad_order_emails": 0,
+          "pending_outbound": 0,
+          "cron_outbound": 0,
+          "active_webhooks": 0
+        }
+      },
+      {
+        "check": "classic:raw_oracle_rejects_api_mutation:form-email",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_posts.post_content:invented-offdomain-email"
+          ]
+        }
+      },
+      {
+        "check": "classic:oracle_rejects:form-email",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_posts.post_content:invented-offdomain-email"
+          ],
+          "bad_user_emails": 0,
+          "bad_order_emails": 0,
+          "pending_outbound": 0,
+          "cron_outbound": 0,
+          "active_webhooks": 0
+        }
+      },
+      {
+        "check": "classic:raw_oracle_rejects_api_mutation:scheduled-outbound",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_actionscheduler_actions.args:invented-offdomain-email",
+            "wp_options.option_value:invented-offdomain-email"
+          ]
+        }
+      },
+      {
+        "check": "classic:oracle_rejects:scheduled-outbound",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_actionscheduler_actions.args:invented-offdomain-email",
+            "wp_options.option_value:invented-offdomain-email"
+          ],
+          "bad_user_emails": 0,
+          "bad_order_emails": 0,
+          "pending_outbound": 1,
+          "cron_outbound": 1,
+          "active_webhooks": 1
+        }
+      },
+      {
+        "check": "classic:raw_oracle_rejects_direct_residue:service-key",
+        "status": "PASS",
+        "detail": "Independent residue insertion detected without WordPress/bootstrap side effects"
+      },
+      {
+        "check": "classic:raw_oracle_rejects_direct_residue:user-token",
+        "status": "PASS",
+        "detail": "Independent residue insertion detected without WordPress/bootstrap side effects"
+      },
+      {
+        "check": "classic:raw_oracle_rejects_direct_residue:order-token",
+        "status": "PASS",
+        "detail": "Independent residue insertion detected without WordPress/bootstrap side effects"
+      },
+      {
+        "check": "classic:raw_oracle_rejects_direct_residue:paypal",
+        "status": "PASS",
+        "detail": "Independent residue insertion detected without WordPress/bootstrap side effects"
+      },
+      {
+        "check": "classic:raw_oracle_rejects_direct_residue:user-email",
+        "status": "PASS",
+        "detail": "Independent residue insertion detected without WordPress/bootstrap side effects"
+      },
+      {
+        "check": "classic:raw_oracle_rejects_direct_residue:order-email",
+        "status": "PASS",
+        "detail": "Independent residue insertion detected without WordPress/bootstrap side effects"
+      },
+      {
+        "check": "classic:raw_oracle_rejects_direct_residue:note-email",
+        "status": "PASS",
+        "detail": "Independent residue insertion detected without WordPress/bootstrap side effects"
+      },
+      {
+        "check": "classic:raw_snapshot_reproducibility",
+        "status": "PASS",
+        "detail": "Same independent snapshot after repeat import"
+      },
+      {
+        "check": "classic:oracle_positive_after_restore",
+        "status": "PASS",
+        "detail": "Fresh synthetic copy is clean again"
+      },
+      {
+        "check": "hpos:fixture_counts",
+        "status": "PASS",
+        "detail": {
+          "accounts": 30,
+          "orders": 30
+        }
+      },
+      {
+        "check": "hpos:authoritative_storage",
+        "status": "PASS",
+        "detail": {
+          "wordpress": "6.9",
+          "woocommerce": "10.4.3",
+          "hpos": true,
+          "subscriptions_installed": false,
+          "memberships_installed": false
+        }
+      },
+      {
+        "check": "hpos:offline_import_preserves_orders",
+        "status": "PASS",
+        "detail": {
+          "generated_in_same_container": true,
+          "sql_sha256": "a6de5584da6bc73e6478fc42feceeb52467c91473cc44d42aa07c5b4c6603084"
+        }
+      },
+      {
+        "check": "hpos:oracle_positive_pristine",
+        "status": "PASS",
+        "detail": {
+          "residue_hits": [],
+          "bad_user_emails": 0,
+          "bad_order_emails": 0,
+          "pending_outbound": 0,
+          "cron_outbound": 0,
+          "active_webhooks": 0,
+          "payment_tokens": 0,
+          "user_count": 30,
+          "order_count": 30,
+          "sessions": 29,
+          "blog_public": "0",
+          "environment": "staging",
+          "home": "https://fixture.synthetic.test",
+          "siteurl": "https://fixture.synthetic.test"
+        }
+      },
+      {
+        "check": "hpos:mail_probe_detects_unblocked_dispatch",
+        "status": "PASS",
+        "detail": {
+          "dispatch_calls": 1,
+          "real_sends": 0
+        }
+      },
+      {
+        "check": "hpos:independent_snapshot_counts",
+        "status": "PASS",
+        "detail": {
+          "orders": 30,
+          "users": 30
+        }
+      },
+      {
+        "check": "hpos:raw_oracle_positive_pristine",
+        "status": "PASS",
+        "detail": "PDO oracle agrees without loading WordPress"
+      },
+      {
+        "check": "hpos:raw_oracle_rejects_api_mutation:service-key",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_options.option_value:invented-offdomain-email",
+            "wp_options.option_value:service-key"
+          ]
+        }
+      },
+      {
+        "check": "hpos:oracle_rejects:service-key",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_options.option_value:invented-offdomain-email",
+            "wp_options.option_value:service-key"
+          ],
+          "bad_user_emails": 0,
+          "bad_order_emails": 0,
+          "pending_outbound": 0,
+          "cron_outbound": 0,
+          "active_webhooks": 0
+        }
+      },
+      {
+        "check": "hpos:raw_oracle_rejects_api_mutation:user-token",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_usermeta.meta_value:payment-identifier",
+            "wp_woocommerce_payment_tokens.token:payment-identifier"
+          ]
+        }
+      },
+      {
+        "check": "hpos:oracle_rejects:user-token",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_usermeta.meta_value:payment-identifier",
+            "wp_woocommerce_payment_tokens.token:payment-identifier"
+          ],
+          "bad_user_emails": 0,
+          "bad_order_emails": 0,
+          "pending_outbound": 0,
+          "cron_outbound": 0,
+          "active_webhooks": 0
+        }
+      },
+      {
+        "check": "hpos:raw_oracle_rejects_api_mutation:order-token",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_wc_orders_meta.meta_value:payment-identifier"
+          ]
+        }
+      },
+      {
+        "check": "hpos:oracle_rejects:order-token",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_wc_orders_meta.meta_value:payment-identifier"
+          ],
+          "bad_user_emails": 0,
+          "bad_order_emails": 0,
+          "pending_outbound": 0,
+          "cron_outbound": 0,
+          "active_webhooks": 0
+        }
+      },
+      {
+        "check": "hpos:raw_oracle_rejects_api_mutation:paypal",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_usermeta.meta_value:paypal-identifier",
+            "wp_wc_orders_meta.meta_value:paypal-identifier"
+          ]
+        }
+      },
+      {
+        "check": "hpos:oracle_rejects:paypal",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_usermeta.meta_value:paypal-identifier",
+            "wp_wc_orders_meta.meta_value:paypal-identifier"
+          ],
+          "bad_user_emails": 0,
+          "bad_order_emails": 0,
+          "pending_outbound": 0,
+          "cron_outbound": 0,
+          "active_webhooks": 0
+        }
+      },
+      {
+        "check": "hpos:raw_oracle_rejects_api_mutation:user-email",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_users.user_email:invented-offdomain-email",
+            "wp_wc_customer_lookup.email:invented-offdomain-email"
+          ]
+        }
+      },
+      {
+        "check": "hpos:oracle_rejects:user-email",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_users.user_email:invented-offdomain-email",
+            "wp_wc_customer_lookup.email:invented-offdomain-email"
+          ],
+          "bad_user_emails": 1,
+          "bad_order_emails": 0,
+          "pending_outbound": 0,
+          "cron_outbound": 0,
+          "active_webhooks": 0
+        }
+      },
+      {
+        "check": "hpos:raw_oracle_rejects_api_mutation:order-email",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_wc_order_addresses.email:invented-offdomain-email",
+            "wp_wc_orders.billing_email:invented-offdomain-email",
+            "wp_wc_orders_meta.meta_value:invented-offdomain-email"
+          ]
+        }
+      },
+      {
+        "check": "hpos:oracle_rejects:order-email",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_wc_order_addresses.email:invented-offdomain-email",
+            "wp_wc_orders.billing_email:invented-offdomain-email",
+            "wp_wc_orders_meta.meta_value:invented-offdomain-email"
+          ],
+          "bad_user_emails": 0,
+          "bad_order_emails": 1,
+          "pending_outbound": 0,
+          "cron_outbound": 0,
+          "active_webhooks": 0
+        }
+      },
+      {
+        "check": "hpos:raw_oracle_rejects_api_mutation:note-email",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_comments.comment_content:invented-offdomain-email"
+          ]
+        }
+      },
+      {
+        "check": "hpos:oracle_rejects:note-email",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_comments.comment_content:invented-offdomain-email"
+          ],
+          "bad_user_emails": 0,
+          "bad_order_emails": 0,
+          "pending_outbound": 0,
+          "cron_outbound": 0,
+          "active_webhooks": 0
+        }
+      },
+      {
+        "check": "hpos:raw_oracle_rejects_api_mutation:form-email",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_posts.post_content:invented-offdomain-email"
+          ]
+        }
+      },
+      {
+        "check": "hpos:oracle_rejects:form-email",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_posts.post_content:invented-offdomain-email"
+          ],
+          "bad_user_emails": 0,
+          "bad_order_emails": 0,
+          "pending_outbound": 0,
+          "cron_outbound": 0,
+          "active_webhooks": 0
+        }
+      },
+      {
+        "check": "hpos:raw_oracle_rejects_api_mutation:scheduled-outbound",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_actionscheduler_actions.args:invented-offdomain-email",
+            "wp_options.option_value:invented-offdomain-email"
+          ]
+        }
+      },
+      {
+        "check": "hpos:oracle_rejects:scheduled-outbound",
+        "status": "PASS",
+        "detail": {
+          "residue_columns": [
+            "wp_actionscheduler_actions.args:invented-offdomain-email",
+            "wp_options.option_value:invented-offdomain-email"
+          ],
+          "bad_user_emails": 0,
+          "bad_order_emails": 0,
+          "pending_outbound": 1,
+          "cron_outbound": 1,
+          "active_webhooks": 1
+        }
+      },
+      {
+        "check": "hpos:raw_oracle_rejects_direct_residue:service-key",
+        "status": "PASS",
+        "detail": "Independent residue insertion detected without WordPress/bootstrap side effects"
+      },
+      {
+        "check": "hpos:raw_oracle_rejects_direct_residue:user-token",
+        "status": "PASS",
+        "detail": "Independent residue insertion detected without WordPress/bootstrap side effects"
+      },
+      {
+        "check": "hpos:raw_oracle_rejects_direct_residue:order-token",
+        "status": "PASS",
+        "detail": "Independent residue insertion detected without WordPress/bootstrap side effects"
+      },
+      {
+        "check": "hpos:raw_oracle_rejects_direct_residue:paypal",
+        "status": "PASS",
+        "detail": "Independent residue insertion detected without WordPress/bootstrap side effects"
+      },
+      {
+        "check": "hpos:raw_oracle_rejects_direct_residue:user-email",
+        "status": "PASS",
+        "detail": "Independent residue insertion detected without WordPress/bootstrap side effects"
+      },
+      {
+        "check": "hpos:raw_oracle_rejects_direct_residue:order-email",
+        "status": "PASS",
+        "detail": "Independent residue insertion detected without WordPress/bootstrap side effects"
+      },
+      {
+        "check": "hpos:raw_oracle_rejects_direct_residue:note-email",
+        "status": "PASS",
+        "detail": "Independent residue insertion detected without WordPress/bootstrap side effects"
+      },
+      {
+        "check": "hpos:raw_snapshot_reproducibility",
+        "status": "PASS",
+        "detail": "Same independent snapshot after repeat import"
+      },
+      {
+        "check": "hpos:oracle_positive_after_restore",
+        "status": "PASS",
+        "detail": "Fresh synthetic copy is clean again"
+      },
+      {
+        "check": "paid_plugins",
+        "status": "NOT_TESTED",
+        "detail": {
+          "subscriptions": "Not installed; no licensed code available",
+          "memberships": "Not installed; no licensed code available",
+          "not_simulated_as_passed": true
+        }
+      },
+      {
+        "check": "real_staging_and_start_gate",
+        "status": "NOT_TESTED",
+        "detail": "No real staging, HTTP start, orchestration tool, Novamira, bascule or third-party service used"
+      }
+    ]
+  },
+  "journal": {
+    "suite": "synthetic-staging-e2e",
+    "run_id": "8cb0b564484d",
+    "recorded_at_utc": "2026-11-19T19:55:44.336831+00:00",
+    "checks": [
+      {
+        "check": "isolation_before_import",
+        "status": "PASS",
+        "detail": {
+          "container": "imagine-staging-e2e-8cb0b564484d",
+          "network": "none",
+          "ports": [],
+          "mounts": [],
+          "cap_drop": [
+            "ALL"
+          ],
+          "image_id": "sha256:2760ef49cd6150b82053286bbf13db835b515b9f3a9424b43fe8ec7b629e5d98"
+        }
+      },
+      {
+        "check": "isolation_after_execution",
+        "status": "PASS",
+        "detail": {
+          "network": "none",
+          "ports": [],
+          "mounts": []
+        }
+      },
+      {
+        "check": "fixture-selftest",
+        "status": "PASS",
+        "detail": "See result.json for actual assertions; paid extensions are not installed or simulated as validated"
+      },
+      {
+        "check": "container_cleanup",
+        "status": "PASS",
+        "detail": {
+          "container": "imagine-staging-e2e-8cb0b564484d",
+          "absent_after_removal": true
+        }
+      }
+    ]
+  },
+  "harness-source": {
+    "harness.py": "a41fb9cce637b5b9e3e7233a01470afdcd79272bf88189cee067fe3a222c7cf6",
+    "inside.py": "f2210f55f03bac7530e2e50618b35ff39f25692ff632ed563cef0c77ae8885e8",
+    "fixture.php": "01275f816c6f26c34f05cc67ab522fdff917acd445d5370a7185c4c9371ec45a",
+    "snapshot.php": "ca87758706b4d673a42971d6964cde6972a4c2aba8873f534e7b32669df52b76",
+    "oracle.php": "b10744669aeae305adfb4fc0c2fbf73897d97c26d0e09b8143cdec0ce424f685",
+    "mutate.php": "0a961bb194c2f947606cdf6dfd954a55b32a7f203f040c94ca18e428b20ee8a8",
+    "db-probe.php": "590b105c4f2d8ac466f02a58ddfd36ae38b85bfc535c4019584c920a82377fea",
+    "mail-probe.php": "693f212827b5283d38babc7a0719e8bd9a4fc81b752a4d5912fe39161062b2b0",
+    "worker-bridge.php": "c440b849b554c24f062441afd65811d74ac5112e9fce0a7961ed89d7e58d6fb7",
+    "subject-preflight.php": "559fb3f669a55a2ffd36604dece74ff0175aed83b03271078886123cdd9eab27",
+    "subject-adapter.json": "ace78fbb6c0b1a2b81911f6287efb3c9c3cdddf00b10c64c42cf0acb170b75aa",
+    "public-dependencies.json": "e4b7269b5c18dbd800d93b4c7d35a149b5963a2fa172346f7205dd03b6cdc721",
+    "Dockerfile": "8ca6c0f0bdf240829bf03345c9b0bb6e33b128981c79e2c330250a299a0684d5"
+  },
+  "counts": {
+    "PASS": 73,
+    "NOT_TESTED": 2
+  }
+}

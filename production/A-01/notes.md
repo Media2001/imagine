@@ -1,0 +1,11 @@
+# A-01 — profil « site à abonnements » : point de recette
+
+**Décision de recette : ne pas lancer l’import réel.** L’outil partagé n’a pas été modifié. L’ancien site a été arrêté sans suppression ; la liaison agent est désactivée dans l’outil, mais la révocation du mot de passe applicatif dans WordPress n’est pas attestée. Ne pas redémarrer cette copie.
+
+**Fait.** Les trois traitements hors ligne, les protections persistantes, le lanceur de bascule et le banc de test existent. Sur deux sites jetables (classique et HPOS), chacun avec 30 comptes et 30 commandes inventés, le banc a contrôlé l’absence de réseau et de port ouvert. Les tests propres au banc ne valent pas validation de la chaîne.
+
+**Échec initial à conserver.** Dans les deux stockages, la neutralisation s’est arrêtée avant nettoyage sur quatre tables WooCommerce non reconnues. Les scripts n’ont donc pas encore démontré, ensemble, la réussite sur une copie propre puis le refus d’une copie contenant un résidu. L’intégration opérateur doit aussi être reliée aux scripts réels et exercée sans doublure Docker avant qualification. Voir `wp/tests/staging-e2e/REPORT.md` et `wp/tests/staging-e2e/results/acceptance.json`.
+
+**Reprise du 20 novembre 2026.** Les quatre tables ne bloquent plus le précontrôle. Après correction de la prise en charge du type `shop_order_placehold` (champs texte anonymisés comme les commandes), la recette `wp/tests/staging-e2e/evidence/4bfcf5ac22d1/` passe la neutralisation dans les deux stockages. En classique, l’anonymiseur termine mais le vérificateur signale `SECRET_OU_IDENTIFIANT` ; en HPOS, l’anonymiseur refuse (78), cause exacte à isoler. Les 16 tests du banc passent ; conteneur jetable supprimé. Le paquet d’intégration et les sources du worker sont présents dans le dépôt, sans qualification bout en bout. Prochain diagnostic : localiser la table et la colonne sans afficher les valeurs ; identifier l’opération refusée en HPOS. Aucun import réel.
+
+**À arbitrer par Ced :** des paquets de test autorisés pour Subscriptions et Memberships sont-ils disponibles pour le site jetable (oui/non) ? À défaut, les contrôles de ces extensions restent non validés ; pas de contournement du contrôle Subscriptions, ni d’achat.

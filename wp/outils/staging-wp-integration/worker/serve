@@ -1,0 +1,17 @@
+#!/usr/bin/python3
+"""No server until the COMPLETE receipt sequence exists and the copy is unchanged."""
+import json
+import os
+import sys
+from runtime import STATE, inventory, confined
+
+try:
+    confined()
+    state = json.loads(STATE.read_text())
+    expected = ['importer','neutraliser','anonymiser','verifier','bascule','verifier','novamira','verifier']
+    if sys.argv[1:] or state.get('phases') != expected or state.get('files') != inventory():
+        raise ValueError()
+    os.execv('/usr/sbin/php-fpm8.2', ['php-fpm8.2','--nodaemonize','--fpm-config','/opt/staging/php-fpm.conf'])
+except Exception:
+    print('{"ok":false,"reason":"SERVE_NOT_VERIFIED"}')
+    raise SystemExit(78)

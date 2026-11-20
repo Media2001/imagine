@@ -1,0 +1,22 @@
+{
+  "all_execution_hashes_match": true,
+  "host_test_hashes_match": true,
+  "python_ast_parsed": [
+    "harness.py",
+    "inside.py",
+    "test_harness.py"
+  ],
+  "fixture_counts": {
+    "PASS": 73,
+    "NOT_TESTED": 2
+  },
+  "acceptance_counts": {
+    "PASS": 11,
+    "FAIL": 6,
+    "NOT_TESTED": 2
+  },
+  "host_tests": 16,
+  "no_delivery_marker": true,
+  "owned_containers_remaining": 0,
+  "dependency_receipts_agree": true
+}

@@ -1,0 +1,5 @@
+__pycache__/
+public/
+# Local public downloads and build receipts are not deliverables.
+evidence/
+dependencies.lock.json

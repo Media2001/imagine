@@ -1,0 +1,12 @@
+{
+  "tests_run": 22,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "source_files_unchanged": true,
+  "real_docker_exercised": false,
+  "real_wordpress_exercised": false,
+  "host_installations": false,
+  "shared_restart": false,
+  "source_only_patch_applied": true
+}

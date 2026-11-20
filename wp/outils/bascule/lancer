@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+export LC_ALL=C
+cd -- "$(dirname -- "$0")"
+shopt -s nullglob
+last=''
+steps=([0-9][0-9][0-9]-*)
+for f in "${steps[@]}"; do
+  if [[ ! $f =~ ^[0-9]{3}-[A-Za-z0-9][A-Za-z0-9._-]*$ || ! -f $f || -L $f || ! -x $f || ${f:0:3} == "$last" ]]; then printf '%s\n' 'ECHEC manifeste de bascule' >&2; exit 65; fi
+  last=${f:0:3}
+done
+for f in "${steps[@]}"; do
+  printf 'DEBUT %s\n' "$f" >&2
+  if "./$f" >/dev/null 2>&1; then printf 'OK %s\n' "$f" >&2; else rc=$?; printf 'ECHEC %s %d\n' "$f" "$rc" >&2; exit "$rc"; fi
+done
+printf 'TERMINE %d\n' "${#steps[@]}" >&2

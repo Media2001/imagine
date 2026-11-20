@@ -1,0 +1,8 @@
+{
+  "interface": "Imagine\\Staging\\Command::run, --worker-bridge, anonymiser password on stdin",
+  "commands": {
+    "neutraliser": ["php", "{subject}/neutraliser", "--worker-bridge", "/opt/e2e/worker-bridge.php"],
+    "anonymiser": ["php", "{subject}/anonymiser", "--worker-bridge", "/opt/e2e/worker-bridge.php"],
+    "verifier": ["php", "{subject}/verifier", "--worker-bridge", "/opt/e2e/worker-bridge.php"]
+  }
+}

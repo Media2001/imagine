@@ -1,0 +1,17 @@
+{
+  "run_id": "safety-fc0402b825fd",
+  "result": {
+    "mode": "host-safety",
+    "recorded_at_utc": "2026-11-19T19:51:57.379591+00:00",
+    "tests_run": 16,
+    "successful": true,
+    "failures": [],
+    "errors": [],
+    "skips": [],
+    "sources": {
+      "test_harness.py": "7df2778ca80294ed8b029b370cbd2d65733fd316036ecf94ed2af888b3dbe7a5",
+      "harness.py": "a41fb9cce637b5b9e3e7233a01470afdcd79272bf88189cee067fe3a222c7cf6"
+    }
+  },
+  "counts": {}
+}

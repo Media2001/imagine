@@ -1,0 +1,8 @@
+{
+  "old_public_image_tag": "imagine-staging-e2e-public:bb453dfea971",
+  "old_public_image_tag_absent": true,
+  "remaining_owned_containers": [],
+  "retained_public_image_tag": "imagine-staging-e2e-public:259dd072f37c",
+  "retained_public_image_id": "sha256:2760ef49cd6150b82053286bbf13db835b515b9f3a9424b43fe8ec7b629e5d98",
+  "retained_image_label": "true"
+}

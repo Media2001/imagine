@@ -1,0 +1,7 @@
+*
+!Dockerfile
+!public/
+!public/wordpress.zip
+!public/woocommerce.zip
+!public/wp-cli.phar
+!public/SHA256SUMS

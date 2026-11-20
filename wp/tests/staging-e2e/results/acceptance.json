@@ -1,0 +1,247 @@
+{
+  "run_id": "110c4c2018f2",
+  "result": {
+    "mode": "acceptance",
+    "exit_code": 2,
+    "checks": [
+      {
+        "check": "inside_network_interfaces",
+        "status": "PASS",
+        "detail": "Only loopback exists"
+      },
+      {
+        "check": "no_tcp_listener:tcp",
+        "status": "PASS",
+        "detail": "No TCP socket listening, including MariaDB"
+      },
+      {
+        "check": "no_tcp_listener:tcp6",
+        "status": "PASS",
+        "detail": "No TCP socket listening, including MariaDB"
+      },
+      {
+        "check": "runtime_versions",
+        "status": "PASS",
+        "detail": {
+          "php": "8.2.36",
+          "mariadb": "10.11.19-MariaDB-0+deb12u1",
+          "wp_cli": "WP-CLI 2.12.0"
+        }
+      },
+      {
+        "check": "php_fixture_syntax",
+        "status": "PASS",
+        "detail": "All copied PHP fixtures passed php -l"
+      },
+      {
+        "check": "classic:fixture_counts",
+        "status": "PASS",
+        "detail": {
+          "accounts": 30,
+          "orders": 30
+        }
+      },
+      {
+        "check": "classic:authoritative_storage",
+        "status": "PASS",
+        "detail": {
+          "wordpress": "6.9",
+          "woocommerce": "10.4.3",
+          "hpos": false,
+          "subscriptions_installed": false,
+          "memberships_installed": false
+        }
+      },
+      {
+        "check": "classic:poisoned_import_has_real_fixture_traps",
+        "status": "PASS",
+        "detail": "Independent PDO database scan detected traps before subjects"
+      },
+      {
+        "check": "classic:subject_guard_preflight",
+        "status": "FAIL",
+        "detail": {
+          "guard_ok": false,
+          "schema_mismatches": {
+            "wp_wc_admin_note_actions": {
+              "unknown_table": true
+            },
+            "wp_wc_admin_notes": {
+              "unknown_table": true
+            },
+            "wp_wc_product_download_directories": {
+              "unknown_table": true
+            },
+            "wp_wc_tax_rate_classes": {
+              "unknown_table": true
+            }
+          },
+          "refusal_tag": "SCHEMA_INCONNU"
+        }
+      },
+      {
+        "check": "classic:subject_positive:neutraliser",
+        "status": "FAIL",
+        "detail": {
+          "exit_code": 78,
+          "stdout_sha256": "41b8a75e3dd2d67f3268fe462ba63496b254ae5477863d87e9de52bf74c65bb7",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "check": "acceptance:classic",
+        "status": "FAIL",
+        "detail": "classic:subject_positive:neutraliser"
+      },
+      {
+        "check": "hpos:fixture_counts",
+        "status": "PASS",
+        "detail": {
+          "accounts": 30,
+          "orders": 30
+        }
+      },
+      {
+        "check": "hpos:authoritative_storage",
+        "status": "PASS",
+        "detail": {
+          "wordpress": "6.9",
+          "woocommerce": "10.4.3",
+          "hpos": true,
+          "subscriptions_installed": false,
+          "memberships_installed": false
+        }
+      },
+      {
+        "check": "hpos:poisoned_import_has_real_fixture_traps",
+        "status": "PASS",
+        "detail": "Independent PDO database scan detected traps before subjects"
+      },
+      {
+        "check": "hpos:subject_guard_preflight",
+        "status": "FAIL",
+        "detail": {
+          "guard_ok": false,
+          "schema_mismatches": {
+            "wp_wc_admin_note_actions": {
+              "unknown_table": true
+            },
+            "wp_wc_admin_notes": {
+              "unknown_table": true
+            },
+            "wp_wc_product_download_directories": {
+              "unknown_table": true
+            },
+            "wp_wc_tax_rate_classes": {
+              "unknown_table": true
+            }
+          },
+          "refusal_tag": "SCHEMA_INCONNU"
+        }
+      },
+      {
+        "check": "hpos:subject_positive:neutraliser",
+        "status": "FAIL",
+        "detail": {
+          "exit_code": 78,
+          "stdout_sha256": "41b8a75e3dd2d67f3268fe462ba63496b254ae5477863d87e9de52bf74c65bb7",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "check": "acceptance:hpos",
+        "status": "FAIL",
+        "detail": "hpos:subject_positive:neutraliser"
+      },
+      {
+        "check": "paid_plugins",
+        "status": "NOT_TESTED",
+        "detail": {
+          "subscriptions": "Not installed; no licensed code available",
+          "memberships": "Not installed; no licensed code available",
+          "not_simulated_as_passed": true
+        }
+      },
+      {
+        "check": "real_staging_and_start_gate",
+        "status": "NOT_TESTED",
+        "detail": "No real staging, HTTP start, orchestration tool, Novamira, bascule or third-party service used"
+      }
+    ]
+  },
+  "journal": {
+    "suite": "synthetic-staging-e2e",
+    "run_id": "110c4c2018f2",
+    "recorded_at_utc": "2026-11-19T19:56:48.732917+00:00",
+    "checks": [
+      {
+        "check": "isolation_before_import",
+        "status": "PASS",
+        "detail": {
+          "container": "imagine-staging-e2e-110c4c2018f2",
+          "network": "none",
+          "ports": [],
+          "mounts": [],
+          "cap_drop": [
+            "ALL"
+          ],
+          "image_id": "sha256:2760ef49cd6150b82053286bbf13db835b515b9f3a9424b43fe8ec7b629e5d98"
+        }
+      },
+      {
+        "check": "isolation_after_execution",
+        "status": "PASS",
+        "detail": {
+          "network": "none",
+          "ports": [],
+          "mounts": []
+        }
+      },
+      {
+        "check": "acceptance",
+        "status": "FAIL",
+        "detail": "acceptance failed with exit code 2; see execution.log/result.json; no success claim"
+      },
+      {
+        "check": "container_cleanup",
+        "status": "PASS",
+        "detail": {
+          "container": "imagine-staging-e2e-110c4c2018f2",
+          "absent_after_removal": true
+        }
+      }
+    ]
+  },
+  "harness-source": {
+    "harness.py": "a41fb9cce637b5b9e3e7233a01470afdcd79272bf88189cee067fe3a222c7cf6",
+    "inside.py": "f2210f55f03bac7530e2e50618b35ff39f25692ff632ed563cef0c77ae8885e8",
+    "fixture.php": "01275f816c6f26c34f05cc67ab522fdff917acd445d5370a7185c4c9371ec45a",
+    "snapshot.php": "ca87758706b4d673a42971d6964cde6972a4c2aba8873f534e7b32669df52b76",
+    "oracle.php": "b10744669aeae305adfb4fc0c2fbf73897d97c26d0e09b8143cdec0ce424f685",
+    "mutate.php": "0a961bb194c2f947606cdf6dfd954a55b32a7f203f040c94ca18e428b20ee8a8",
+    "db-probe.php": "590b105c4f2d8ac466f02a58ddfd36ae38b85bfc535c4019584c920a82377fea",
+    "mail-probe.php": "693f212827b5283d38babc7a0719e8bd9a4fc81b752a4d5912fe39161062b2b0",
+    "worker-bridge.php": "c440b849b554c24f062441afd65811d74ac5112e9fce0a7961ed89d7e58d6fb7",
+    "subject-preflight.php": "559fb3f669a55a2ffd36604dece74ff0175aed83b03271078886123cdd9eab27",
+    "subject-adapter.json": "ace78fbb6c0b1a2b81911f6287efb3c9c3cdddf00b10c64c42cf0acb170b75aa",
+    "public-dependencies.json": "e4b7269b5c18dbd800d93b4c7d35a149b5963a2fa172346f7205dd03b6cdc721",
+    "Dockerfile": "8ca6c0f0bdf240829bf03345c9b0bb6e33b128981c79e2c330250a299a0684d5"
+  },
+  "subject-source": {
+    "neutraliser": "3bd131154ce850d2427d164ec3d33f12fa372fe65b3f2888ff926c779100ff2d",
+    "anonymiser": "2d8ee8c6afc3b586b49393db1c99bfb5049f568ed6d506fc1ad29db38eb0de1d",
+    "verifier": "d0f3e5728411faa22e20109636d684f551fe937600eebb5839382d205c42b9d6",
+    "command.php": "929ea687552bb97273950ee5f92356f60b288677f5b79a2891b16a8945f948ee",
+    "lib.php": "2d829d0f15e036992dbb396b2a64196e9e5f1c44d5623fec158a7b7ec017ebe8",
+    "schema.php": "808b62c45112e46db448a334908c23331978c34154a335f721e958c717a5ba5e",
+    "files.php": "03dd7d479c4e75c2cd130ff02dfb2bc5480535ecf303d4f289ac45a1c1b39785",
+    "pdo-store.php": "b9272c2cb6f4ea83defc1ab7e4448592dc2d8baa4668c2d31ec1dcd9e065bda6",
+    "runtime-probe.php": "576678f0e1b9f71552f3f8e3480b98e3e84530150bc391cd32d3897bed78ad49",
+    "mu-plugins/000-imagine-staging-safety.php": "43aa1d057d73226c7967a3b9e088778507c1f248cdcad96346e3ede3a458c173"
+  },
+  "counts": {
+    "PASS": 11,
+    "FAIL": 6,
+    "NOT_TESTED": 2
+  }
+}
