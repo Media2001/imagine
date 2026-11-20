@@ -1,0 +1,58 @@
+{
+  "https://woocommerce.com/document/subscriptions/billing-date-alignment/": {
+    "success": false,
+    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
+  },
+  "https://woocommerce.com/document/subscriptions/develop/functions/": {
+    "success": false,
+    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
+  },
+  "https://woocommerce.com/document/subscriptions/store-manager-guide/": {
+    "success": false,
+    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
+  },
+  "https://woocommerce.com/document/subscriptions/renewal-process/": {
+    "success": false,
+    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
+  },
+  "https://woocommerce.com/document/woocommerce-paypal-payments/subscriptions/": {
+    "success": false,
+    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
+  },
+  "https://woocommerce.com/document/woocommerce-paypal-payments/save-payment-methods/": {
+    "success": false,
+    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
+  },
+  "https://woocommerce.com/document/subscriptions/payment-gateways/": {
+    "success": false,
+    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
+  },
+  "https://woocommerce.com/document/subscriptions-gifting/": {
+    "success": false,
+    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
+  },
+  "https://woocommerce.com/document/teams-woocommerce-memberships/": {
+    "success": false,
+    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
+  },
+  "https://woocommerce.com/document/subscriptions/subscriptions-coupons/limited-payment-coupon-guide/": {
+    "success": false,
+    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
+  },
+  "https://woocommerce.com/document/woocommerce-memberships-plans/": {
+    "success": false,
+    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
+  },
+  "https://woocommerce.com/document/woocommerce-memberships-restrict-content/": {
+    "success": false,
+    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
+  },
+  "https://woocommerce.com/document/woocommerce-memberships-settings/": {
+    "success": false,
+    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
+  },
+  "https://woocommerce.com/document/woocommerce-memberships-faq/": {
+    "success": false,
+    "error": "OpenAI Native Web Search (Codex Responses) is a search-only backend and cannot extract URL content. Set web.extract_backend to firecrawl, tavily, keenable, exa, or parallel."
+  }
+}
