@@ -188,6 +188,22 @@ final class WorkerTest extends TestCase
         self::assertCount(1, $destination->accepted());
     }
 
+    public function testFutureEventsWaitAndSlowDestinationDoesNotLoseTheEvent(): void
+    {
+        [$queue, $clock, , $destination, $worker] = $this->bench(['slow', 'ok']);
+        $sample = EventTest::event();
+        $future = new Event($sample->type, 'fiction-future', $clock->now()->modify('+1 second'), $sample->content);
+        $queue->add($future);
+        self::assertSame(0, $worker->run());
+        $clock->advance(1);
+        self::assertSame(1, $worker->run());
+        self::assertSame(State::TemporaryFailure, $queue->get($future->key())->state);
+        self::assertCount(0, $destination->accepted());
+        $clock->advance(10);
+        self::assertSame(1, $worker->run());
+        self::assertCount(1, $destination->accepted());
+    }
+
     public function testSubscriptionEventsRunChronologicallyNotInsertionOrder(): void
     {
         [$queue, $clock, , $destination, $worker] = $this->bench(['down']);

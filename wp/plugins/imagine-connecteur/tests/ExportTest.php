@@ -48,6 +48,14 @@ final class ExportTest extends TestCase
         return new Event(EventType::OrderPaid, $id, new DateTimeImmutable($date), $sample->content);
     }
 
+    private function destination(): DailyCsvDestination
+    {
+        return new DailyCsvDestination(
+            $this->directory,
+            new FrozenClock(new DateTimeImmutable('2026-11-20T12:00:00+01:00'))
+        );
+    }
+
     private function rows(string $day): array
     {
         $handle = fopen($this->directory . '/' . $day . '.csv', 'rb');
@@ -62,7 +70,7 @@ final class ExportTest extends TestCase
 
     public function testPersistentIdempotentExportRebuildsIdenticallyAndCatchesUpSkippedDays(): void
     {
-        $destination = new DailyCsvDestination($this->directory);
+        $destination = $this->destination();
         $one = $this->event('fiction-one', '2026-11-18T22:59:59Z');
         $two = $this->event('fiction-two', '2026-11-18T23:00:00Z');
         $today = $this->event('fiction-today', '2026-11-19T23:00:00Z');
@@ -75,7 +83,7 @@ final class ExportTest extends TestCase
         self::assertCount(1, $this->rows('2026-11-19'));
         self::assertFileDoesNotExist($this->directory . '/2026-11-20.csv');
         $before = file_get_contents($this->directory . '/2026-11-19.csv');
-        $restarted = new DailyCsvDestination($this->directory);
+        $restarted = $this->destination();
         $restarted->send($two, 5);
         $restarted->exportPreviousDay($now);
         self::assertSame($before, file_get_contents($this->directory . '/2026-11-19.csv'));
@@ -90,7 +98,7 @@ final class ExportTest extends TestCase
 
     public function testSpringAndAutumnLocalDaysDoNotAssumeTwentyFourHours(): void
     {
-        $destination = new DailyCsvDestination($this->directory);
+        $destination = $this->destination();
         $cases = [
             '2026-03-29' => [
                 '2026-03-28T23:00:00Z', '2026-03-29T00:59:59Z',
@@ -118,7 +126,7 @@ final class ExportTest extends TestCase
     public function testQueueValidatesBeforeCsvAndRepeatedWorkerRunDoesNotAppend(): void
     {
         $queue = new InMemoryQueue();
-        $destination = new DailyCsvDestination($this->directory);
+        $destination = $this->destination();
         $clock = new FrozenClock(new DateTimeImmutable('2026-11-20T12:00:00+01:00'));
         $worker = new Worker(
             $queue,
@@ -145,9 +153,59 @@ final class ExportTest extends TestCase
         self::assertSame(State::Quarantine, $queue->get($invalid->key())->state);
     }
 
+    public function testLateEventUsesNextOpenBatchWithoutChangingAnAlreadyPublishedDay(): void
+    {
+        $destination = $this->destination();
+        $now = new DateTimeImmutable('2026-11-20T12:00:00+01:00');
+        $one = $this->event('fiction-one', '2026-11-19T11:00:00+01:00');
+        $late = $this->event('fiction-late', '2026-11-19T12:00:00+01:00');
+        $destination->send($one, 5);
+        $destination->exportPreviousDay($now);
+        $bytes = file_get_contents($this->directory . '/2026-11-19.csv');
+        $destination->send($late, 5);
+        $destination->send($late, 5);
+        $destination->exportPreviousDay($now->modify('+1 day'));
+        self::assertCount(1, $this->rows('2026-11-19'));
+        self::assertCount(1, $this->rows('2026-11-20'));
+        self::assertSame($late->key(), $this->rows('2026-11-20')[0]['idempotency_key']);
+        self::assertStringStartsWith('2026-11-19', $this->rows('2026-11-20')[0]['occurred_at']);
+        $destination->exportPreviousDay($now->modify('+1 day'));
+        self::assertSame($bytes, file_get_contents($this->directory . '/2026-11-19.csv'));
+    }
+
+    public function testSymlinkCannotRedirectAnExportOutsideItsExplicitDirectory(): void
+    {
+        $outside = dirname($this->directory) . '/fiction-outside-' . bin2hex(random_bytes(8));
+        file_put_contents($outside, 'unchanged-fiction');
+        symlink($outside, $this->directory . '/2026-11-19.csv');
+        try {
+            $destination = $this->destination();
+            $destination->exportPreviousDay(new DateTimeImmutable('2026-11-20T12:00:00+01:00'));
+            self::fail('Le lien symbolique devait être refusé.');
+        } catch (\Imagine\Connecteur\TemporaryFailure $exception) {
+            self::assertSame('unchanged-fiction', file_get_contents($outside));
+        } finally {
+            unlink($outside);
+        }
+    }
+
+    public function testCorruptJournalFailsClosedInsteadOfProducingAnIncompleteCsv(): void
+    {
+        $destination = $this->destination();
+        $event = EventTest::event();
+        $destination->send($event, 5);
+        file_put_contents($this->directory . '/' . $event->key() . '.event.json', '{broken-fiction');
+        $this->expectException(\JsonException::class);
+        try {
+            $destination->exportPreviousDay(new DateTimeImmutable('2026-11-20T12:00:00+01:00'));
+        } finally {
+            self::assertFileDoesNotExist($this->directory . '/2026-11-19.csv');
+        }
+    }
+
     public function testEmptyDayStillHasStableColumns(): void
     {
-        $destination = new DailyCsvDestination($this->directory);
+        $destination = $this->destination();
         $destination->exportPreviousDay(new DateTimeImmutable('2026-11-20T12:00:00+01:00'));
         self::assertSame([], $this->rows('2026-11-19'));
         $header = str_getcsv(trim(file_get_contents($this->directory . '/2026-11-19.csv')), escape: '');

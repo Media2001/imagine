@@ -7,20 +7,19 @@ namespace Imagine\Connecteur;
 use DateTimeImmutable;
 use DateTimeZone;
 use InvalidArgumentException;
-use Throwable;
 
 final readonly class DailyCsvDestination implements Destination
 {
     public const COLUMNS = [
         'idempotency_key', 'type', 'source_id', 'occurred_at', 'subscription_id',
         'name', 'email', 'street', 'postal_code', 'city', 'country', 'enterprise_number',
-        'currency', 'payment_method', 'payment_reference', 'total_minor', 'lines_json',
+        'currency', 'payment_method', 'payment_reference', 'total_minor', 'lines_json', 'batch_day',
     ];
 
     private string $directory;
 
     /** The existing directory must be private, trusted, writable and backed up. */
-    public function __construct(string $directory)
+    public function __construct(string $directory, private Clock $clock)
     {
         $real = realpath($directory);
         if ($real === false || !is_dir($real) || !is_writable($real)) {
@@ -44,6 +43,7 @@ final readonly class DailyCsvDestination implements Destination
                 'idempotency_key' => $event->key(), 'type' => $event->type->value,
                 'source_id' => $event->sourceId, 'occurred_at' => $event->occurredAt->format('Y-m-d\TH:i:s.uP'),
                 'subscription_id' => $event->subscriptionId, 'content' => $event->content,
+                'batch_day' => $this->openBatch($event),
             ];
             $this->atomic($file, json_encode($record, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE));
         }, $timeoutSeconds);
@@ -51,8 +51,8 @@ final readonly class DailyCsvDestination implements Destination
 
     /**
      * Export the preceding Brussels calendar day and catch up earlier journal days.
-     * Identical journal => identical files; no append, no event changes partition.
-     * Late arrivals rebuild their original day instead of disappearing or moving days.
+     * Published files are sealed; no append, no event changes its assigned partition.
+     * Late arrivals join an open batch, retaining their original occurrence timestamp.
      *
      * @return array<string, string> day => absolute path
      */
@@ -66,7 +66,7 @@ final readonly class DailyCsvDestination implements Destination
                 $this->path(basename($file));
                 $record = json_decode($this->read($file), true, flags: JSON_THROW_ON_ERROR);
                 $this->checkRecord($record, basename($file));
-                $day = substr($record['occurred_at'], 0, 10);
+                $day = $record['batch_day'];
                 if ($day <= $yesterday) {
                     $days[$day][] = $record;
                 }
@@ -82,7 +82,11 @@ final readonly class DailyCsvDestination implements Destination
                 });
                 $file = $this->path($day . '.csv');
                 $bytes = $this->csv($records);
-                if (!is_file($file) || $this->read($file) !== $bytes) {
+                if (is_file($file)) {
+                    if ($this->read($file) !== $bytes) {
+                        throw new TemporaryFailure('Un export scellé diffère du journal ; intervention requise.');
+                    }
+                } else {
                     $this->atomic($file, $bytes);
                 }
                 $paths[$day] = $file;
@@ -91,10 +95,26 @@ final readonly class DailyCsvDestination implements Destination
         }, $timeoutSeconds);
     }
 
+    private function openBatch(Event $event): string
+    {
+        $day = $event->occurredAt->format('Y-m-d');
+        if (is_file($this->path($day . '.csv'))) {
+            $local = $this->clock->now()->setTimezone(new DateTimeZone('Europe/Brussels'))->setTime(0, 0);
+            while (is_file($this->path($local->format('Y-m-d') . '.csv'))) {
+                $local = $local->modify('+1 day');
+            }
+            $day = $local->format('Y-m-d');
+        }
+        return $day;
+    }
+
     private function checkRecord(mixed $record, string $filename): void
     {
         if (
-            !is_array($record) || !isset($record['idempotency_key'], $record['occurred_at'], $record['content'])
+            !is_array($record)
+            || !isset($record['idempotency_key'], $record['occurred_at'], $record['content'], $record['batch_day'])
+            || !is_string($record['batch_day'])
+            || preg_match('/^\d{4}-\d{2}-\d{2}$/D', $record['batch_day']) !== 1
             || !is_string($record['idempotency_key'])
             || $filename !== $record['idempotency_key'] . '.event.json'
             || preg_match('/^[0-9a-f]{64}$/D', $record['idempotency_key']) !== 1
@@ -133,6 +153,7 @@ final readonly class DailyCsvDestination implements Destination
                 $content['payment_method'] ?? '', $content['payment_reference'] ?? '',
                 $content['total_minor'] ?? '',
                 json_encode($content['lines'] ?? [], JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE),
+                $record['batch_day'],
             ];
             fputcsv($stream, $row, escape: '', eol: "\n");
         }
