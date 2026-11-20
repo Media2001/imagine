@@ -66,6 +66,12 @@ def main(argv=None):
                           'verification_report': subscriptions.public_report(site)}, ensure_ascii=False))
         return 0
     except subscriptions.QuarantineError as exc:
+        slug = getattr(exc, 'site_slug', None)
+        if slug is not None:
+            site = models.get_site(slug)
+            if site and site.get('profile') == subscriptions.PROFILE:
+                print(json.dumps({**{key: site[key] for key in ('slug', 'status', 'verification_state')},
+                                  'verification_report': subscriptions.public_report(site)}, ensure_ascii=False))
         print(str(exc), file=sys.stderr)
         return 1
     except Exception:

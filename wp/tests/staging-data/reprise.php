@@ -142,4 +142,18 @@ repriseCheck($paypal['sandbox_on'] === true && $paypal['client_id'] === '' && $p
     && $paypal['title'] === 'PayPal fictif' && $paypal['smart_button_locations'] === ['checkout'], 'PayPal PPCP sandbox sans credentials, fonctionnel intact');
 $mailin = unserialize($providerOptions['synthetic_mailin']);
 repriseCheck($mailin['api-key'] === '' && $mailin['list_id'] === 17 && $mailin['enabled'] === true, 'clé Brevo opaque retirée seule');
+$reportTrap = clone $store;
+foreach ($reportTrap->tables['x_options'] as &$option) {
+    if ($option['option_name'] === 'imagine_staging_disabled_plugins') {
+        $option['option_value'] = serialize(['wp-mail-smtp/wp_mail_smtp.php', 'sk_live_SYNTHETIC_REPORT_TRAP']);
+    }
+}
+unset($option);
+repriseCheck(!str_contains(json_encode((new Imagine\Staging\Engine($reportTrap, $context, 'x_'))->verifier($proof)), 'sk_live_SYNTHETIC_REPORT_TRAP'), 'journal désactivation ne divulgue pas une valeur injectée');
+$keyTrap = clone $store;
+$keyTrap->tables['x_extension_catalogue'][0]['setting'] = '{"sk\\u005flive\\u005fSYNTHETIC":"opaque","layout":"wide"}';
+$keyEngine = new Imagine\Staging\Engine($keyTrap, $context, 'x_');
+repriseCheck(!$keyEngine->verifier($proof)['ok'], 'motif dans clé JSON échappée refusé');
+$keyEngine->neutraliser();
+repriseCheck($keyEngine->verifier($proof)['ok'] && json_decode($keyTrap->tables['x_extension_catalogue'][0]['setting'], true) === ['layout'=>'wide'], 'clé dangereuse seule retirée de structure');
 print("OK $assertions assertions reprise\n");

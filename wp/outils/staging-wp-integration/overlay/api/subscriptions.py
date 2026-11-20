@@ -214,7 +214,9 @@ def create_offline(*, name, archive, workflow, production_url, staging_url, port
         except OSError:
             pass
         models.log_site(slug, 'error', f'Échec {stage} : {reason}')
-        raise QuarantineError(f'Échec {stage} : {reason}') from None
+        failure = QuarantineError(f'Échec {stage} : {reason}')
+        failure.site_slug = slug  # Exact newly created target, never a guessed/pre-existing site.
+        raise failure from None
     return models.get_site(slug)
 
 

@@ -3,6 +3,8 @@
 The transport and dashboard storage below are test doubles, NOT an E2E receipt.
 """
 import importlib.util
+import contextlib
+import io
 import json
 from pathlib import Path
 import sys
@@ -43,6 +45,7 @@ class CompatibilityTests(unittest.TestCase):
         config.NAS_HOST = 'staging.invalid'
         self.records = {}
         models.get_site = lambda slug: self.records.get(slug)
+        models.init_db = lambda: None
         models.used_ports = lambda: []
         models.now_iso = lambda: '2026-11-20T00:00:00+00:00'
         models.insert_site = lambda site: self.records.update({site['slug']: dict(site)})
@@ -117,6 +120,26 @@ class CompatibilityTests(unittest.TestCase):
         for event in self.events:
             if event[0] == 'worker':
                 self.assertEqual(event[2]['table_decisions'], decisions)
+
+    def test_failed_operator_prints_its_own_filtered_report(self):
+        operator = load(PKG + '.subscription_operator', HERE / 'overlay/api/subscription_operator.py')
+        error = subscriptions.QuarantineError('Échec synthétique')
+        error.site_slug = 'synthetic-contract'
+        self.records[error.site_slug] = dict(slug=error.site_slug, status='imported',
+            verification_state='imported', profile='subscriptions')
+        report = dict(stage='verifier', ok=False, issues=['TABLE_PERSONNELLE_A_TRANCHER'], unknown_tables=[])
+        out, err = io.StringIO(), io.StringIO()
+        with patch.object(operator, 'read_password', return_value='SYNTHETIC-PRIVATE-PASSWORD'), \
+             patch.object(subscriptions, 'create_offline', side_effect=error), \
+             patch.object(subscriptions, 'public_report', return_value=report), \
+             contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
+            code = operator.main(['--name', 'Synthetic', '--archive', str(self.archive), '--workflow', str(self.workflow),
+                '--production-url', 'https://production.invalid', '--port', '8099',
+                '--worker-image', 'sha256:' + '1' * 64, '--db-image', 'sha256:' + '2' * 64,
+                '--nginx-image', 'sha256:' + '3' * 64])
+        self.assertEqual(code, 1)
+        self.assertEqual(json.loads(out.getvalue())['verification_report'], report)
+        self.assertNotIn('SYNTHETIC-PRIVATE-PASSWORD', out.getvalue() + err.getvalue())
 
     def test_worker_does_not_require_a_missing_subscriptions_plugin(self):
         with tempfile.TemporaryDirectory() as tmp:

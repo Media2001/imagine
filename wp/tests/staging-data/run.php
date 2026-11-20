@@ -189,11 +189,13 @@ $noRoleEngine = new Imagine\Staging\Engine($noRole, $context, 'x_');
 $noRoleEngine->neutraliser();
 $noRoleEngine->anonymiser('SYNTHETIC-test-password-2026');
 $noRole->tables['x_usermeta'] = array_values(array_filter($noRole->tables['x_usermeta'], fn ($m) => $m['meta_key'] !== 'x_capabilities'));
-check($noRoleEngine->verifier($probe)['ok'] === true, 'rôle absent ne crée pas de sixième blocage');
+check($noRoleEngine->verifier($probe)['ok'] === true
+    && in_array('ADMIN_TEST_NON_CONFORME', $noRoleEngine->verifier($probe)['warnings'], true), 'rôle absent averti sans sixième blocage');
 require __DIR__ . '/../../outils/staging/runtime-probe.php';
 check(Imagine\Staging\runtimeProbe() === [], 'absence de WP ne simule pas une sonde réussie');
 $store->tables['x_postmeta'][] = ['meta_id' => 997, 'post_id' => 1, 'meta_key' => 'invented_ip', 'meta_value' => '2001:db8::1'];
-check($engine->verifier($probe)['ok'] === true, 'IPv6 seule ne crée pas de sixième blocage');
+check($engine->verifier($probe)['ok'] === true
+    && in_array('IP_RESIDUELLE', $engine->verifier($probe)['warnings'], true), 'IPv6 avertie sans sixième blocage');
 array_pop($store->tables['x_postmeta']);
 check($store->rows('x_wc_customer_lookup')[0]['username'] === 'abonne-1', 'identifiant lookup anonymisé');
 $classic = array_values(array_filter($store->rows('x_postmeta'), fn ($m) => $m['post_id'] === 1));

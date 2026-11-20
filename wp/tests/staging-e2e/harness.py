@@ -86,7 +86,14 @@ def validate_result(result, mode):
         required = {storage + ':' + stage for storage in ('classic', 'hpos')
                     for stage in ('subject_positive:neutraliser', 'subject_positive:anonymiser',
                                   'subject_positive:verifier', 'post_clean_fidelity',
-                                  'preserved_business_fields', 'rerun:verifier')}
+                                  'preserved_business_fields', 'rerun:verifier',
+                                  'subject_rejects_missing_mail_lock', 'unknown_public_table_preserved',
+                                  'unknown_personal_table_requires_decision',
+                                  'synthetic_decision_effect:garder', 'synthetic_decision_effect:vider',
+                                  'synthetic_decision_effect:anonymiser')}
+        required |= {storage + ':subject_rejects_residue:' + case for storage in ('classic', 'hpos')
+                     for case in ('service-key', 'publishable-key', 'restricted-key', 'webhook-key', 'brevo-key',
+                                  'unknown-table-key', 'user-token', 'order-token', 'paypal', 'user-email', 'order-email')}
         if not required <= passed:
             raise SafetyError('Acceptance is incomplete: both stores and post-clean fidelity are mandatory')
 

@@ -194,7 +194,15 @@ def restore(database, target):
 
 
 def clean_oracle(value, *, after=False):
-    good = (not value['residue_hits'] and value['bad_user_emails'] == 0 and value['bad_order_emails'] == 0
+    hits = value['residue_hits']
+    if after:
+        # Reprise: arbitrary retained settings/CPT emails are warnings, not a sixth
+        # blocker. Still require cleanup of the fixture's known identity locations.
+        hits = {key: count for key, count in hits.items() if
+                not key.endswith((':invented-offdomain-email', ':invented-documentation-ip'))
+                or key.startswith(('wp_users.', 'wp_usermeta.', 'wp_wc_orders.',
+                    'wp_wc_order_addresses.', 'wp_wc_orders_meta.', 'wp_wc_customer_lookup.', 'wp_comments.'))}
+    good = (not hits and value['bad_user_emails'] == 0 and value['bad_order_emails'] == 0
             and value['pending_outbound'] == 0 and value['cron_outbound'] == 0
             and value['active_webhooks'] == 0 and value['payment_tokens'] == 0)
     if after:
@@ -301,13 +309,13 @@ def acceptance(site, database, storage, before):
                 storage + ':unknown_public_table_reported', listed.get('wp_imagine_e2e_public'))
     assert_true(raw_db(database, storage, 'table-fixtures', {'E2E_TABLE_ACTION': 'status'}) == public_before,
                 storage + ':unknown_public_table_preserved', public_before)
+    after = raw_db(database, storage, 'snapshot')
+    value = raw_db(database, storage, extra={'E2E_ORACLE_PHASE': 'after'})
+    # Capture the DB state before any independent post-clean WordPress load.
     fidelity = wp_json(site, 'fidelity.php')
     assert_true(fidelity == FIDELITY[storage], storage + ':post_clean_fidelity',
                 {'before': FIDELITY[storage], 'after': fidelity,
                  'proof': 'Fresh WP bootstrap; active plugin code, form rendering, field reads and exact setting digests'})
-    after = raw_db(database, storage, 'snapshot')
-    value = raw_db(database, storage, extra={'E2E_ORACLE_PHASE': 'after'})
-    # Capture the DB state before any WordPress load. Bootstrapping is only for the controlled mail probe.
     mail = wp_json(site, 'mail-probe.php')
     value.update(mail)
     assert_true(clean_oracle(value, after=True), storage + ':independent_clean_and_mail_blocked', value)
@@ -331,6 +339,7 @@ def acceptance(site, database, storage, before):
         assert_true(result.returncode != 0, storage + ':subject_rejects_residue:' + case,
                     {'exit_code': result.returncode, 'verification_only': True,
                      'start_gate': 'NOT_TESTED: no server is started by this harness'})
+    record(storage + ':residue_refusals', 'PASS', 'All enumerated residue verifier refusals completed')
     restore(database, sanitized)
     raw_db(database, storage, 'mutate', {'E2E_RESIDUE_CASE': 'note-email'})
     result = subject_command(site, 'verifier', password, context)
@@ -406,6 +415,13 @@ def main():
                     raise RuntimeError('Unknown mode')
             except Exception as exc:
                 record(mode + ':' + storage, 'BLOCKED' if 'DEPENDENCY_NOT_READY' in str(exc) else 'FAIL', str(exc))
+                if mode == 'acceptance':
+                    exercised = {entry['check'] for entry in CHECKS}
+                    for dependent in ('subject_positive:neutraliser', 'subject_positive:anonymiser', 'subject_positive:verifier',
+                                      'post_clean_fidelity', 'preserved_business_fields', 'subject_rejects_missing_mail_lock',
+                                      'unknown_personal_table_requires_decision', 'residue_refusals', 'rerun:verifier'):
+                        if storage + ':' + dependent not in exercised:
+                            record(storage + ':' + dependent, 'NOT_TESTED', 'Prerequisite failed; no acceptance credit')
                 status = 2
         record('paid_plugins_scope', 'NOT_TESTED', {
             'packages_enabled': LICENSED_ENABLED,

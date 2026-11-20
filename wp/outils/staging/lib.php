@@ -104,7 +104,7 @@ final class Engine
     /** Inspecte aussi les chaînes décodées JSON/PHP, sans classe ni donnée au rapport. */
     private static function inspect(mixed $value, int $depth = 0): array
     {
-        $flags = ['danger' => false, 'external_email' => false, 'opaque' => false];
+        $flags = ['danger' => false, 'external_email' => false, 'opaque' => false, 'ip' => false];
         if ($depth > 32) {
             $flags['opaque'] = true;
             return $flags;
@@ -123,6 +123,10 @@ final class Engine
             preg_match_all('/[A-Z0-9.!#$%&\x27*+\/=?^_`{|}~-]+@([A-Z0-9.-]+\.[A-Z]{2,})/i', $value, $matches);
             foreach ($matches[1] as $domain) {
                 $flags['external_email'] = $flags['external_email'] || strtolower($domain) !== 'example.org';
+            }
+            preg_match_all('/(?<![0-9a-f:.])[0-9a-f:.]*[.:][0-9a-f:.]+(?![0-9a-f:.])/i', $value, $ips);
+            foreach ($ips[0] as $ip) {
+                $flags['ip'] = $flags['ip'] || filter_var($ip, FILTER_VALIDATE_IP) !== false;
             }
             try {
                 $decoded = self::decode($value);
@@ -281,7 +285,7 @@ final class Engine
     private function transform(bool $privacy): void
     {
         $disabled = self::decode($this->options()['imagine_staging_disabled_plugins'] ?? serialize([]));
-        $disabled = is_array($disabled) ? $disabled : [];
+        $disabled = is_array($disabled) ? array_values(array_intersect($disabled, $this->disabledPlugins())) : [];
         foreach ($this->inventory as $table => $_) {
             if ($this->readOnly($table)) {
                 continue; // Une vue est inventoriée et inspectée, pas réécrite.
@@ -541,6 +545,7 @@ final class Engine
             $warnings[] = 'EXTENSION_A_DESACTIVER';
         }
         $transactionPosts = [];
+        $admins = 0;
         foreach ($this->store->rows($this->prefix . 'posts') as $post) {
             if (in_array($post['post_type'] ?? '', ['shop_order', 'shop_subscription', 'shop_order_refund', 'wc_user_membership'], true)) {
                 $transactionPosts[] = (int) $post['ID'];
@@ -595,6 +600,26 @@ final class Engine
                     if ($flags['opaque']) {
                         $warnings[] = 'FORMAT_OPAQUE_CONSERVE';
                     }
+                    if ($flags['ip']) {
+                        $warnings[] = 'IP_RESIDUELLE';
+                    }
+                }
+                if ($kind === 'users') {
+                    if (($row['user_login'] ?? '') === 'imagine-test-admin') {
+                        ++$admins;
+                        try {
+                            $this->checkAdmin($row);
+                        } catch (\Throwable) {
+                            $warnings[] = 'ADMIN_TEST_NON_CONFORME';
+                        }
+                    }
+                    if ((password_get_info($row['user_pass'] ?? '')['algo'] ?? null) === null
+                        || ($row['user_url'] ?? '') !== '' || ($row['user_activation_key'] ?? '') !== '') {
+                        $warnings[] = 'COMPTE_NON_ANONYME';
+                    }
+                }
+                if ($kind === 'comments' && (($row['comment_content'] ?? '') !== '' || ($row['comment_author_IP'] ?? '') !== '')) {
+                    $warnings[] = 'COMMENTAIRE_RESIDUEL';
                 }
                 if (isset($row['meta_key']) && self::paymentIdentityKey($row['meta_key']) && ($row['meta_value'] ?? '') !== '') {
                     $issues[] = 'SECRET_OU_IDENTIFIANT';
@@ -613,6 +638,10 @@ final class Engine
         if ($this->unknownColumns) {
             $warnings[] = 'COLONNES_INCONNUES_CONSERVEES';
         }
+        if ($admins !== 1) {
+            $warnings[] = 'ADMIN_TEST_ABSENT_OU_DUPLIQUE';
+        }
+        $warnings[] = 'OPTIONS_HORS_CATALOGUE_CONSERVEES';
         if ($this->unknownTypes) {
             $warnings[] = 'TYPES_CONTENU_INCONNUS_CONSERVES';
         }
@@ -654,8 +683,10 @@ final class Engine
             'warnings' => array_values(array_unique($warnings)), 'unknown_tables' => $unknown,
             'unknown_columns' => $this->unknownColumns,
             'unknown_post_types' => array_values(array_unique($this->unknownTypes)),
-            'disabled_plugins' => is_array($disabled) ? array_values($disabled) : [],
-            'active_plugins' => is_array($plugins) ? array_values($plugins) : [],
+            'disabled_plugins' => is_array($disabled) ? array_values(array_intersect($disabled, $this->disabledPlugins())) : [],
+            'active_plugins' => is_array($plugins) ? array_values(array_filter($plugins, static fn (mixed $plugin): bool => is_string($plugin)
+                && !self::dangerous($plugin) && !str_contains($plugin, '@')
+                && (bool) preg_match('~^[a-zA-Z0-9_./-]+\.php$~D', $plugin))) : [],
             'schema_details' => $schemaDetails, 'scope' => 'offline-data-only'];
     }
 
