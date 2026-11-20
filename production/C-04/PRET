@@ -1,0 +1,17 @@
+C-04 — PRÊT À RELIRE — 20 novembre 2026
+
+Cœur PHP pur livré conformément au brief courant : déduplication, états contrôlés,
+quarantaine, rejeu ordonné, interfaces/doubles, export quotidien CSV dédupliqué.
+
+C-04 : 22 tests, 161 assertions ; C-01 : 39 tests, 101 assertions.
+Tous réussis ; lint PSR-12, syntaxe et validation Composer strict réussis.
+Sources testées = livrées ; C-01 inchangé ; runner isolé supprimé et absence relue.
+
+Preuves : tests/final.json, tests/final.xml, tests/c01-regression.json,
+tests/demo-result.json, tests/cleanup.json, tests/artifact-verification.json.
+Bilan : tests/rapport.md. Conception, transitions et arbitrages : notes.md.
+Rapport de passage : files/rapports/2026-11-20-16h31.md.
+
+PRET signifie prêt à la relecture, pas GO, validation de recette, déploiement ni
+branchement à WordPress/Odoo/n8n. Les conditions de destination réelle et questions
+avant branchement sont explicites dans notes.md ; aucun acte financier effectué.

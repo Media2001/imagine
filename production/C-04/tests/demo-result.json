@@ -1,0 +1,8 @@
+{
+    "queue_entries": 1,
+    "state": "sent",
+    "replay_sent": false,
+    "alerts": [],
+    "export_sha256": "b10b8a75af235b4a832f0ad649026da998bc485a63c1f96329fefe2504b28128",
+    "identical_after_rerun": true
+}

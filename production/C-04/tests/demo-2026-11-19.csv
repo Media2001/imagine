@@ -1,0 +1,2 @@
+idempotency_key,type,source_id,occurred_at,subscription_id,name,email,street,postal_code,city,country,enterprise_number,currency,payment_method,payment_reference,total_minor,lines_json,batch_day
+7a72a729f4d7bb4d69d184b0275b268de1cd669c8918d5aa5b8cd8ee37e7c7c3,order_paid,commande-fictive-demo,2026-11-19T12:00:00.000000+01:00,,"Personnage Fictif",fiction@example.org,"1 rue Imaginaire",0000,"Ville Fictive",BE,,EUR,fiction,,1200,"[{""product"":""Produit fictif"",""amount_minor"":1200}]",2026-11-19

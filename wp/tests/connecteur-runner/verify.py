@@ -25,7 +25,9 @@ def main():
     info = bench.info(name)
     assert not info['NetworkSettings']['Networks']
     before = json.loads((OUT / 'c01-before.json').read_text(encoding='utf-8'))
-    after = {p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest() for p in before}
+    after = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
+             for folder in ['wp/plugins/imagine-pilotage', 'wp/tests/numeros-runner']
+             for p in (ROOT / folder).rglob('*') if p.is_file()}
     assert before == after, 'Protected C-01 sources changed'
     bench.PLUGIN = ROOT / 'wp/plugins/imagine-pilotage'
     payload, hashes = bench.payload()
