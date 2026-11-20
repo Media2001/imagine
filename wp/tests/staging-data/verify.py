@@ -23,8 +23,9 @@ def main() -> int:
     if not scratch.is_dir() or scratch == tests or tests in scratch.parents:
         raise RuntimeError('An authorized, isolated synthetic scratch directory is required')
     env = dict(os.environ)
-    for key in ('IMAGINE_SYNTHETIC_ENV', 'IMAGINE_SYNTHETIC_VERIFIED', 'IMAGINE_SYNTHETIC_SUBSCRIPTIONS', 'IMAGINE_SYNTHETIC_PACKAGE'):
-        env.pop(key, None)
+    for key in list(env):
+        if key.startswith('IMAGINE_SYNTHETIC_'):
+            env.pop(key)
     cases = [
         ('data-classic-hpos-memory', [php, '-n', str(tests / 'run.php')], {}),
         ('reprise-preservation-traps-decisions', [php, '-n', str(tests / 'reprise.php')], {}),

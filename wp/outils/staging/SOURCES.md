@@ -1,6 +1,6 @@
 # Références officielles
 
-Références consultées pour le code de ce lot ; elles documentent les mécanismes standard, pas une certification des versions payantes non installées. Les traitements de données et les tests restent entièrement offline.
+Références des mécanismes standard ; elles ne certifient pas les versions installées. Les traitements/tests de staging-data sont offline et synthétiques. L’opérateur a confirmé les packages Subscriptions/Memberships dans la bibliothèque de l’outil ; leur E2E réel synthétique relève du pair.
 
 | Sujet | Source officielle | Usage / limite |
 |---|---|---|
@@ -19,4 +19,4 @@ Références consultées pour le code de ce lot ; elles documentent les mécanis
 | AS exécution, source | https://github.com/woocommerce/action-scheduler/blob/trunk/classes/abstracts/ActionScheduler_Abstract_QueueRunner.php | `action_scheduler_before_execute` interrompt également les exécutions manuelles. |
 | Passerelles | https://woocommerce.github.io/code-reference/classes/WC-Payment-Gateways.html | Filtre `woocommerce_available_payment_gateways`; la valeur historique du moyen de paiement reste en commande. |
 
-Le catalogue de tables/colonnes et les versions d’extensions réelles ne sont pas déduits de ces pages. Tout schéma divergent reste bloquant jusqu’à l’ajout d’un adaptateur documenté et testé sur données fictives.
+Depuis A-01 reprise, le catalogue décrit les traitements connus : les divergences de tables/colonnes/CPT sont conservées et signalées, pas refusées par défaut. Seule une table inconnue à colonne personnelle attend la décision de Ced, en plus des cinq blocages du brief. Les réglages opaques inconnus restent avec avertissement. Le contrat et les limites de preuve sont dans README.md ; les doubles unitaires ne remplacent pas les vrais E2E WordPress et les packages opérateur.

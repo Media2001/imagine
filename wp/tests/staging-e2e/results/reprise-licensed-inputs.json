@@ -1,0 +1,28 @@
+{
+  "scope": "Only the two exact operator-approved WSL ZIP paths, read-only inputs",
+  "packages_copied_into_repository": false,
+  "license_activation_or_download": false,
+  "packages": [
+    {
+      "source_path_wsl": "/home/ced/staging-wp/plugins/woocommerce-subscriptions.zip",
+      "version": "9.4.1",
+      "bytes": 3617898,
+      "sha256": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083",
+      "headers": {"Requires at least": "7.0", "Requires PHP": "7.4", "WC requires at least": "11.1", "WC tested up to": "11.2"},
+      "actual_result": "WordPress 6.9 refused activation in classic and HPOS synthetic attempts; WordPress 7.0 required. The packaged WooCommerce minimum 11.1 also exceeds prepared WooCommerce 10.4.3.",
+      "presence_is_not_pass": true
+    },
+    {
+      "source_path_wsl": "/home/ced/staging-wp/plugins/woocommerce-memberships.zip",
+      "version": "1.30.3",
+      "bytes": 3053562,
+      "sha256": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285",
+      "headers": {"WC requires at least": "3.9.4", "WC tested up to": "11.3.0"},
+      "actual_result": "Plugin activated in both disposable attempts. The coupled activation command exited nonzero because Subscriptions was refused; no memberships access-rights acceptance is claimed.",
+      "presence_is_not_pass": true
+    }
+  ],
+  "execution_receipt": "reprise-licensed-acceptance.json",
+  "run_id": "73dd48355408",
+  "runtime": {"wordpress": "6.9", "woocommerce": "10.4.3"}
+}

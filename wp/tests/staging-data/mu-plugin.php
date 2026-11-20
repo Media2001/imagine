@@ -43,6 +43,15 @@ class WP_Error
 if (getenv('IMAGINE_SYNTHETIC_VERIFIED') === 'yes') {
     define('IMAGINE_STAGING_VERIFIED', true);
 }
+if (getenv('IMAGINE_SYNTHETIC_OPEN_HOSTS') === 'yes') {
+    define('WP_ACCESSIBLE_HOSTS', '*');
+}
+if (getenv('IMAGINE_SYNTHETIC_OPEN_HTTP') === 'yes') {
+    define('WP_HTTP_BLOCK_EXTERNAL', false);
+}
+if (getenv('IMAGINE_SYNTHETIC_CRON') === 'yes') {
+    define('DOING_CRON', true);
+}
 require __DIR__ . '/../../outils/staging/mu-plugins/000-imagine-staging-safety.php';
 $checks = [
     apply_filters('pre_wp_mail', null, []) === false,
@@ -56,6 +65,8 @@ $checks = [
     defined('WP_ENVIRONMENT_TYPE') && WP_ENVIRONMENT_TYPE === 'staging',
     WP_HTTP_BLOCK_EXTERNAL === true,
     defined('WP_ACCESSIBLE_HOSTS') && WP_ACCESSIBLE_HOSTS === (defined('IMAGINE_STAGING_VERIFIED') ? '*.wordpress.org,*.woocommerce.com' : ''),
+    apply_filters('http_request_args', ['redirection'=>5])['redirection'] === 0,
+    apply_filters('block_local_requests', false) === true,
 ];
 $verified = defined('IMAGINE_STAGING_VERIFIED');
 foreach (['https://api.wordpress.org/core/version-check/1.7/', 'https://downloads.wordpress.org/plugin/synthetic.zip', 'https://updates.woocommerce.com/'] as $url) {

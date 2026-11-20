@@ -53,6 +53,10 @@ return ['context'=>$context, 'store'=>fixture(), 'prefix'=>'x_', 'root'=>%s];
     r = subprocess.run([php, '-n', str(tests / 'mu-plugin.php')], capture_output=True,
                        env=dict(os.environ, IMAGINE_SYNTHETIC_ENV='production'))
     assert r.returncode == 78
+    for refusal in ('IMAGINE_SYNTHETIC_OPEN_HOSTS', 'IMAGINE_SYNTHETIC_OPEN_HTTP', 'IMAGINE_SYNTHETIC_CRON'):
+        r = subprocess.run([php, '-n', str(tests / 'mu-plugin.php')], capture_output=True,
+                           env=dict(os.environ, **{refusal: 'yes'}))
+        assert r.returncode == 78, refusal
     # Vraie chaîne de processus CLI, état synthétique persistant, aucune base réelle.
     state = root / 'synthetic-state.json'
     bridge.write_text("""<?php
@@ -93,5 +97,5 @@ return ['context'=>$context, 'store'=>$store, 'prefix'=>'x_', 'root'=>%s, 'probe
     assert 'trap@outside.invalid' not in r.stdout
     decisions.write_text('{invalid', encoding='utf-8')
     assert invoke('neutraliser', with_decisions, env).returncode == 78
-count = sum(isinstance(n, ast.Assert) for n in ast.walk(ast.parse(Path(__file__).read_text(encoding='utf-8'))))
+count = sum(isinstance(n, ast.Assert) for n in ast.walk(ast.parse(Path(__file__).read_text(encoding='utf-8')))) + 2  # three executions of loop assertion
 print(f'OK {count} assertions CLI')

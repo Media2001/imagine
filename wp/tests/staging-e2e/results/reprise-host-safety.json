@@ -1,0 +1,13 @@
+{
+  "mode": "host-safety",
+  "recorded_at_utc": "2026-11-20T13:02:32.164356+00:00",
+  "tests_run": 17,
+  "successful": true,
+  "failures": [],
+  "errors": [],
+  "skips": [],
+  "sources": {
+    "test_harness.py": "d41a8502f9ff2f52d479d73d466c3d939b3987293dba214759e080de5d73c563",
+    "harness.py": "6ad8484a223c9fff5898fadbef500ac15b3a098112000b04a5270c4564aa9295"
+  }
+}

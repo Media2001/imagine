@@ -162,4 +162,15 @@ $unknownAsEngine = new Imagine\Staging\Engine($unknownAs, $context, 'x_');
 $unknownAsEngine->neutraliser();
 repriseCheck($unknownAsEngine->verifier($proof)['ok']
     && in_array('STATUT_AS_INCONNU', $unknownAsEngine->verifier($proof)['warnings'], true), 'état AS inconnu averti, pas sixième blocage');
+$faithful = fixture();
+$faithful->tables['x_posts'][] = ['ID'=>100,'post_type'=>'wpcf7_contact_form','post_content'=>'Formulaire contact@outside.invalid'];
+$faithful->tables['x_postmeta'][] = ['meta_id'=>200,'post_id'=>100,'meta_key'=>'_mail', 'meta_value'=>serialize(['first_name'=>'Label fictif','to'=>'contact@outside.invalid'])];
+$faithful->columns['x_custom_meta'] = ['id','meta_key','meta_value'];
+$faithful->tables['x_custom_meta'] = [['id'=>1,'meta_key'=>'first_name','meta_value'=>'SYNTHETIC KEEP']];
+$faithfulEngine = new Imagine\Staging\Engine($faithful, $context, 'x_');
+$faithfulEngine->neutraliser();
+$faithfulEngine->anonymiser('SYNTHETIC-test-password-2026');
+repriseCheck(end($faithful->tables['x_posts'])['post_content'] === 'Formulaire contact@outside.invalid'
+    && unserialize(end($faithful->tables['x_postmeta'])['meta_value']) === ['first_name'=>'Label fictif','to'=>'contact@outside.invalid'], 'CPT et métadonnées fonctionnels de formulaire intacts');
+repriseCheck($faithful->tables['x_custom_meta'][0]['meta_value'] === 'SYNTHETIC KEEP', 'schéma metadata inconnu gardé sans décision inventée');
 print("OK $assertions assertions reprise\n");
