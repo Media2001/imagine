@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="4" assertions="0" errors="4" failures="0" skipped="0" time="0.004001">
+    <testsuite name="Connecteur" tests="4" assertions="0" errors="4" failures="0" skipped="0" time="0.004001">
+      <testsuite name="Imagine\Connecteur\Tests\EventTest" file="/work/tests/EventTest.php" tests="4" assertions="0" errors="4" failures="0" skipped="0" time="0.004001">
+        <testcase name="testDeterministicIdentityAndDeduplicatedInsertion" file="/work/tests/EventTest.php" line="32" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="0" time="0.003765">
+          <error type="Error">Imagine\Connecteur\Tests\EventTest::testDeterministicIdentityAndDeduplicatedInsertion
+Error: Class "Imagine\Connecteur\Event" not found
+
+/work/tests/EventTest.php:20
+/work/tests/EventTest.php:34</error>
+        </testcase>
+        <testcase name="testTransitionTableExhaustive" file="/work/tests/EventTest.php" line="48" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="0" time="0.000089">
+          <error type="Error">Imagine\Connecteur\Tests\EventTest::testTransitionTableExhaustive
+Error: Class "Imagine\Connecteur\State" not found
+
+/work/tests/EventTest.php:57</error>
+        </testcase>
+        <testcase name="testPrivacyWhitelistRejectsUnknownFieldsAtEveryLevel" file="/work/tests/EventTest.php" line="74" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="0" time="0.000063">
+          <error type="Error">Imagine\Connecteur\Tests\EventTest::testPrivacyWhitelistRejectsUnknownFieldsAtEveryLevel
+Error: Class "Imagine\Connecteur\Event" not found
+
+/work/tests/EventTest.php:20
+/work/tests/EventTest.php:77</error>
+        </testcase>
+        <testcase name="testRenewalsRequireDistinctSourceObjectsNotJustSubscriptionId" file="/work/tests/EventTest.php" line="94" class="Imagine\Connecteur\Tests\EventTest" classname="Imagine.Connecteur.Tests.EventTest" assertions="0" time="0.000085">
+          <error type="Error">Imagine\Connecteur\Tests\EventTest::testRenewalsRequireDistinctSourceObjectsNotJustSubscriptionId
+Error: Class "Imagine\Connecteur\Event" not found
+
+/work/tests/EventTest.php:20
+/work/tests/EventTest.php:96</error>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

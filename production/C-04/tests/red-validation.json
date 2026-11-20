@@ -1,0 +1,30 @@
+{
+  "time_utc": "2026-11-20T15:07:54.425147+00:00",
+  "php": "8.2.36",
+  "command": "composer test",
+  "exit_code": 2,
+  "psr12_exit_code": 1,
+  "syntax_exit_code": 0,
+  "composer_validate_exit_code": 0,
+  "processes_before_suite": [
+    "sleep"
+  ],
+  "source_sha256": {
+    "composer.json": "449c64b6f665e29bb0b697ceadf5bae0114b5ae7360ba43a4caf6b1d48ecbaba",
+    "composer.lock": "b5e9055f7bd849e56efe0c125767037364e9a856d60721418533c956f73e5b2d",
+    "phpunit.xml": "d2972db202763fbc03740f749de07d4b9eca3acb9d3ef630c7cb2a410ddba0a3",
+    "src/Entry.php": "1abe558b3fd3848b689bd646ef79e152dde399302b22ccd1292e2670b2fc5361",
+    "src/Event.php": "9ca5258bb158ecfffe04942953f1761a3a226caa910bac2c4095e7c6ff66c96c",
+    "src/EventType.php": "016cdade34461b261a4fef20aef48ef437eb80d0bf0181ad5465574954f44ad1",
+    "src/InMemoryQueue.php": "8c1d83348cb8fc621faf2bfc2be91216297a6639dabec880e25a813fc6f6cde6",
+    "src/QueueStorage.php": "1a53a25a27e5256e191da7f50b19f9fd46d167dfe3a501719109167a7cea80f8",
+    "src/State.php": "faf1a16b6a205815480489e0238b7829addd7b312d91c859c1893bdfa5f13635",
+    "tests/EventTest.php": "29fd0c964e7c6232a665726a9df31901f36c14456e0f265180a174ba6ac71b10",
+    "tests/ValidationTest.php": "61ab31d5aa3bac980bd5d62a78d89c93261226131dcec26e9c4b5a7516c4fdae"
+  },
+  "container_source_verified": true,
+  "runner_sha256": "2a69f9a1d03e14ef4adda48a98f6a81d8f4db0703465f23586b2f8c1d4ce03b4",
+  "network_disconnected": true,
+  "no_mounts": true,
+  "no_ports": true
+}
