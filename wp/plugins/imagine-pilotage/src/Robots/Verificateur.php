@@ -12,7 +12,7 @@ final readonly class Verificateur
     public function __construct(
         private Configuration $configuration,
         private Dns $dns,
-        private CacheMemoire $cache,
+        private Cache $cache,
         private HorlogeMonotone $horloge,
     ) {
     }
@@ -34,28 +34,62 @@ final readonly class Verificateur
         if ($candidats === []) {
             return new Decision(Motif::AgentInconnu);
         }
+        if (count($candidats) !== 1) {
+            return new Decision(Motif::AgentAmbigu);
+        }
         if (filter_var($ip, FILTER_VALIDATE_IP) === false) {
             return new Decision(Motif::IpInvalide);
         }
-        return $this->verifierDns($candidats[0], $ip);
+        $robot = $candidats[0];
+        $ip = inet_ntop(inet_pton($ip));
+        $cle = hash('sha256', 'c03-v1' . serialize($this->configuration) . $robot->identifiant . $ip);
+        $entree = $this->cache->lire($cle);
+        if ($entree !== null && $entree->creation <= $maintenant && $maintenant < $entree->expiration) {
+            return $entree->decision;
+        }
+        try {
+            $decision = $this->verifierDns($robot, $ip);
+        } catch (DelaiDnsDepasse) {
+            $decision = new Decision(Motif::DelaiDepasse);
+        } catch (\Throwable) {
+            $decision = new Decision(Motif::DnsImpossible);
+        }
+        $ttl = $decision->estVerifie() ? $this->configuration->ttlPositif : $this->configuration->ttlNegatif;
+        $expiration = $maintenant->modify('+' . $ttl . ' seconds');
+        $this->cache->ecrire($cle, new EntreeCache($decision, $maintenant, $expiration));
+        return $decision;
     }
 
     private function verifierDns(Robot $robot, string $ip): Decision
     {
         $domaineAdmis = false;
-        foreach ($this->dns->inverse($ip, 200) as $nom) {
+        $debut = $this->horloge->millisecondes();
+        $noms = $this->dns->inverse($ip, $this->reste($debut));
+        $this->reste($debut);
+        foreach ($noms as $nom) {
             $nom = strtolower(str_ends_with($nom, '.') ? substr($nom, 0, -1) : $nom);
             if (!$this->domaineAdmis($nom, $robot)) {
                 continue;
             }
             $domaineAdmis = true;
-            foreach ($this->dns->directe($nom, 200) as $adresse) {
+            $adresses = $this->dns->directe($nom, $this->reste($debut));
+            $this->reste($debut);
+            foreach ($adresses as $adresse) {
                 if (filter_var($adresse, FILTER_VALIDATE_IP) !== false && inet_pton($adresse) === inet_pton($ip)) {
                     return new Decision(Motif::VerifieDns, $robot->identifiant);
                 }
             }
         }
         return new Decision($domaineAdmis ? Motif::AdresseDifferente : Motif::DomaineRefuse);
+    }
+
+    private function reste(int $debut): int
+    {
+        $ecoule = $this->horloge->millisecondes() - $debut;
+        if ($ecoule < 0 || $ecoule >= $this->configuration->delaiDnsMs) {
+            throw new DelaiDnsDepasse();
+        }
+        return $this->configuration->delaiDnsMs - $ecoule;
     }
 
     private function domaineAdmis(string $nom, Robot $robot): bool

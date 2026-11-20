@@ -113,7 +113,9 @@ final class VerificateurTest extends TestCase
         $dns = new DnsFictif();
         $dns->panne = new \RuntimeException('Échec fictif du résolveur');
         self::assertSame('dns_impossible', $this->moteur($dns)->verifier(
-            'Googlebot/2.1', '192.0.2.1', $this->date(),
+            'Googlebot/2.1',
+            '192.0.2.1',
+            $this->date(),
         )->motif->value);
     }
 
@@ -122,7 +124,9 @@ final class VerificateurTest extends TestCase
         $dns = new DnsFictif();
         $dns->latence = 200;
         self::assertSame('delai_depasse', $this->moteur($dns)->verifier(
-            'Googlebot/2.1', '192.0.2.1', $this->date(),
+            'Googlebot/2.1',
+            '192.0.2.1',
+            $this->date(),
         )->motif->value);
         self::assertCount(1, $dns->appels);
     }
@@ -132,7 +136,9 @@ final class VerificateurTest extends TestCase
         $dns = new DnsFictif();
         $dns->latence = 101;
         self::assertSame('delai_depasse', $this->moteur($dns)->verifier(
-            'Googlebot/2.1', '192.0.2.1', $this->date(),
+            'Googlebot/2.1',
+            '192.0.2.1',
+            $this->date(),
         )->motif->value);
         self::assertSame([200, 99], array_column($dns->appels, 2));
     }
@@ -158,7 +164,9 @@ final class VerificateurTest extends TestCase
         ]);
         $moteur = new Verificateur($configuration, $dns, new CacheMemoire(), $dns->horloge);
         self::assertSame('agent_ambigu', $moteur->verifier(
-            'Googlebot/2.1 bingbot/2.0', '192.0.2.1', $this->date(),
+            'Googlebot/2.1 bingbot/2.0',
+            '192.0.2.1',
+            $this->date(),
         )->motif->value);
         self::assertSame([], $dns->appels);
     }

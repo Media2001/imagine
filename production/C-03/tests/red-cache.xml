@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="7" assertions="20" errors="0" failures="5" skipped="0" time="0.009929">
+    <testsuite name="Robots" tests="7" assertions="20" errors="0" failures="5" skipped="0" time="0.009929">
+      <testsuite name="Imagine\Pilotage\Tests\Robots\CacheTest" file="/work/tests/Robots/CacheTest.php" tests="7" assertions="20" errors="0" failures="5" skipped="0" time="0.009929">
+        <testcase name="testPositifExpireExactementEtNeProlongePasSaVie" file="/work/tests/Robots/CacheTest.php" line="30" class="Imagine\Pilotage\Tests\Robots\CacheTest" classname="Imagine.Pilotage.Tests.Robots.CacheTest" assertions="2" time="0.008833">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\CacheTest::testPositifExpireExactementEtNeProlongePasSaVie
+Failed asserting that false is true.
+
+/work/tests/Robots/CacheTest.php:36</failure>
+        </testcase>
+        <testcase name="testNegatifExpirePlusVite" file="/work/tests/Robots/CacheTest.php" line="42" class="Imagine\Pilotage\Tests\Robots\CacheTest" classname="Imagine.Pilotage.Tests.Robots.CacheTest" assertions="2" time="0.000150">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\CacheTest::testNegatifExpirePlusVite
+Failed asserting that true is false.
+
+/work/tests/Robots/CacheTest.php:49</failure>
+        </testcase>
+        <testcase name="testTimeoutNegatifMisEnCache" file="/work/tests/Robots/CacheTest.php" line="55" class="Imagine\Pilotage\Tests\Robots\CacheTest" classname="Imagine.Pilotage.Tests.Robots.CacheTest" assertions="2" time="0.000277">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\CacheTest::testTimeoutNegatifMisEnCache
+Failed asserting that true is false.
+
+/work/tests/Robots/CacheTest.php:62</failure>
+        </testcase>
+        <testcase name="testCacheNeTransferePasGoogleVersBingNiNavigateurNiAutreIp" file="/work/tests/Robots/CacheTest.php" line="67" class="Imagine\Pilotage\Tests\Robots\CacheTest" classname="Imagine.Pilotage.Tests.Robots.CacheTest" assertions="6" time="0.000349"/>
+        <testcase name="testCacheIpv6Canonique" file="/work/tests/Robots/CacheTest.php" line="79" class="Imagine\Pilotage\Tests\Robots\CacheTest" classname="Imagine.Pilotage.Tests.Robots.CacheTest" assertions="3" time="0.000101">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\CacheTest::testCacheIpv6Canonique
+Failed asserting that actual size 4 matches expected size 2.
+
+/work/tests/Robots/CacheTest.php:86</failure>
+        </testcase>
+        <testcase name="testChangementConfigurationInvalideCacheEtDureesParametrables" file="/work/tests/Robots/CacheTest.php" line="89" class="Imagine\Pilotage\Tests\Robots\CacheTest" classname="Imagine.Pilotage.Tests.Robots.CacheTest" assertions="2" time="0.000150">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\CacheTest::testChangementConfigurationInvalideCacheEtDureesParametrables
+Failed asserting that false is true.
+
+/work/tests/Robots/CacheTest.php:97</failure>
+        </testcase>
+        <testcase name="testReculDateNeReutilisePasUneDecisionFuture" file="/work/tests/Robots/CacheTest.php" line="107" class="Imagine\Pilotage\Tests\Robots\CacheTest" classname="Imagine.Pilotage.Tests.Robots.CacheTest" assertions="3" time="0.000069"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -11,4 +11,7 @@ enum Motif: string
     case DomaineRefuse = 'domaine_refuse';
     case AdresseDifferente = 'adresse_differente';
     case IpInvalide = 'ip_invalide';
+    case AgentAmbigu = 'agent_ambigu';
+    case DnsImpossible = 'dns_impossible';
+    case DelaiDepasse = 'delai_depasse';
 }
