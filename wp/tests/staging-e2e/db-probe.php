@@ -38,8 +38,9 @@ if ($mode === 'table-fixtures') {
         $db->exec('CREATE TABLE wp_imagine_e2e_public (id INT PRIMARY KEY, metric INT NOT NULL, payload TEXT NOT NULL)');
         $put('wp_imagine_e2e_public', ['id' => 1, 'metric' => 42, 'payload' => 'Contenu éditorial inventé']);
     } elseif ($action === 'personal') {
-        $db->exec('CREATE TABLE wp_imagine_e2e_personal (id INT PRIMARY KEY, email VARCHAR(191) NOT NULL)');
-        $put('wp_imagine_e2e_personal', ['id' => 1, 'email' => 'invente@example.org']);
+        $db->exec('CREATE TABLE wp_imagine_e2e_personal (id INT PRIMARY KEY, email VARCHAR(191) NOT NULL, telephone VARCHAR(80) NOT NULL, layout VARCHAR(80) NOT NULL)');
+        $put('wp_imagine_e2e_personal', ['id' => 1, 'email' => 'contact-fictif@invalid.example',
+            'telephone' => 'SYNTHETIC-TELEPHONE', 'layout' => 'wide']);
     } elseif ($action === 'drop-personal') {
         $db->exec('DROP TABLE IF EXISTS wp_imagine_e2e_personal');
     } elseif ($action !== 'status') {
@@ -51,6 +52,9 @@ if ($mode === 'table-fixtures') {
         'public_digest' => hash('sha256', json_encode($rows('SELECT * FROM wp_imagine_e2e_public ORDER BY id'))),
         'personal_rows' => $personal ? (int) $scalar('SELECT COUNT(*) FROM wp_imagine_e2e_personal') : null,
         'personal_email_safe' => $personal ? (int) $scalar("SELECT COUNT(*) FROM wp_imagine_e2e_personal WHERE email<>'' AND email NOT LIKE '%@example.org'") === 0 : null,
+        'personal_telephone_empty' => $personal ? (int) $scalar("SELECT COUNT(*) FROM wp_imagine_e2e_personal WHERE telephone<>''") === 0 : null,
+        'personal_digest' => $personal ? hash('sha256', json_encode($rows('SELECT * FROM wp_imagine_e2e_personal ORDER BY id'))) : null,
+        'personal_layout_preserved' => $personal ? (int) $scalar("SELECT COUNT(*) FROM wp_imagine_e2e_personal WHERE layout<>'wide'") === 0 : null,
     ], JSON_THROW_ON_ERROR) . "\n";
     return;
 }
