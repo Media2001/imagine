@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 20 novembre 2026, 9 h.
+Mis à jour le 20 novembre 2026, 13 h 40.
 
 Consigne permanente : `prompts/consigne-permanente.md`. Doctrine : `doctrine/doctrine.md` (dernière révision : **19/11/2026 — outil de staging et Novamira à la place de Docker**).
 
@@ -13,6 +13,8 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 **0. `briefs/A-07-exposition-outil-staging.md`** — contrôle en lecture seule : l'outil de staging est-il joignable depuis Internet ? Une heure, aucune modification. À faire en premier.
 
 **1. `briefs/A-01-reprise.md`** — chantier A, lot A-01. **Changement de principe, décidé le 20/11 après lecture de ton rapport** : le staging doit rester fidèle à la production. On garde les extensions, les réglages et les tables ; on ne retire que ce qui est dangereux ; on signale ce qu'on ne connaît pas. Cinq points seulement bloquent le statut « vérifié ». Lis le brief en entier avant de reprendre : il remplace les listes fermées de la version actuelle. Délai : une demi-journée, puis tu passes à la suite.
+
+**Licences WooCommerce (20/11).** Ced dispose des licences. Il dépose les archives de WooCommerce Subscriptions et de WooCommerce Memberships dans le dossier des extensions premium de l'outil de staging (`plugins`), hors du dépôt. Dès qu'elles y sont : installe-les sur tes sites jetables et teste réellement ce qui ne l'était pas dans A-01 (mode staging de Subscriptions, abonnements en stockage classique et HPOS, adhésions Memberships, actions planifiées de renouvellement). Règles : aucune archive, aucune clé de licence et aucun identifiant du compte WooCommerce.com dans le dépôt ni dans un rapport ; ne connecte aucun site au compte WooCommerce.com ; si les archives ne sont pas encore là, continue sans elles et dis-le.
 
 **2. `briefs/C-01-regle-des-numeros.md`** — chantier C. Moteur de la règle des numéros en PHP pur, avec ses tests. Le brief a changé le 19/11 (plus de Docker) : relis-le.
 

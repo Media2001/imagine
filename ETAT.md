@@ -20,7 +20,8 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 |---|---|---|---|
 | Sauvegarde de production | Pas encore récupérée | Export SQL + `wp-content`, déposés sur le NUC **hors du dépôt** | Ced |
 | A-01 Import neutralisé | Première version rendue le 20/11 : rigoureuse mais trop fermée (3 extensions gardées, 23 options, refus des tables inconnues), et pas encore au vert sur ses sites jetables. **Reprise demandée** : staging fidèle, on ne retire que le dangereux (`briefs/A-01-reprise.md`) | Chaîne au vert, preuve qu'un site garde ses extensions et réglages, `PRET` | Hermès |
-| A-07 Exposition de l'outil de staging | Brief écrit | Contrôle en lecture seule | Hermès |
+| A-07 Exposition de l'outil de staging | Fait le 20/11. Test depuis l'extérieur en IPv4 : le tableau de bord n'est pas joignable. Non vérifié : redirections, DMZ et pare-feu IPv6 dans l'administration de la box | Coup d'œil à la box quand possible ; retirer l'autorisation du port 7000 en profil public du pare-feu Windows | Ced |
+| Licences WooCommerce | Obtenues le 20/11 | Déposer les archives Subscriptions et Memberships dans le dossier des extensions premium de l'outil de staging, hors dépôt | Ced |
 | Staging Imagine existant | Arrêté par Hermès le 19/11, non supprimé ; la révocation du mot de passe applicatif dans WordPress n'est pas attestée | Ne pas le redémarrer ; le détruire quand le nouveau parcours est validé | Ced |
 | A-00 Couverture des extensions | Brief écrit | Production | Hermès |
 | A-02 à A-06 | En attente | Voir `A-FAIRE.md` | — |
