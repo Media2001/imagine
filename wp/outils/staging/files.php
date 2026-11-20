@@ -45,8 +45,7 @@ final class Files
         $archive = (bool) preg_match('~\.(?:sql|sqlite|sqlite3|db|dump|zip|tar|gz|gzip|tgz|bz2|xz|zst|lz4|7z|rar|wpress|wpstg|bak|old|log)(?:\.[^/]*)?$~i', $relative);
         $data = !$code && (bool) preg_match('~(?:^|/)[^/]*(?:backup|back-up|dump|archive|import|export|updraft|ai1wm|wpvivid|duplicator|wflogs|wc-logs|cache)[^/]*(?:/|$)|\.(?:csv|tsv|xls|xlsx|ods|xml|jsonl|vcf|ics)(?:\.[^/]*)?$~i', $relative);
         return $archive || $data
-            || in_array($relative, ['wp-content/advanced-cache.php', 'wp-content/object-cache.php', 'wp-content/db.php', 'wp-content/sunrise.php'], true)
-            || (str_starts_with($relative, 'wp-content/mu-plugins/') && $relative !== self::PLUGIN);
+            || in_array($relative, ['wp-content/advanced-cache.php', 'wp-content/object-cache.php'], true);
     }
     public function purge(): void
     {
@@ -81,5 +80,26 @@ final class Files
         if (!is_file($installed) || !hash_equals(hash_file('sha256', __DIR__ . '/mu-plugins/000-imagine-staging-safety.php'), hash_file('sha256', $installed))) {
             throw new RuntimeException('MU_ABSENT_OU_MODIFIE');
         }
+    }
+
+    /** Noms relatifs seulement : aucune lecture de source ou valeur importée. */
+    public function inventory(): array
+    {
+        $mu = [];
+        $dropins = [];
+        foreach ($this->entries() as [$_, $relative, $directory]) {
+            if (!$directory && str_starts_with($relative, 'wp-content/mu-plugins/') && $relative !== self::PLUGIN) {
+                $mu[] = substr($relative, strlen('wp-content/mu-plugins/'));
+            }
+            if (in_array($relative, ['wp-content/db.php', 'wp-content/sunrise.php', 'wp-content/db-error.php',
+                'wp-content/install.php', 'wp-content/maintenance.php', 'wp-content/fatal-error-handler.php',
+                'wp-content/php-error.php'], true)) {
+                $dropins[] = basename($relative);
+            }
+        }
+        sort($mu);
+        sort($dropins);
+        return ['mu_plugins' => $mu, 'drop_ins' => $dropins,
+            'warnings' => array_merge($mu ? ['MU_PRODUCTION_CONSERVES'] : [], $dropins ? ['DROPINS_NON_CACHE_CONSERVES'] : [])];
     }
 }

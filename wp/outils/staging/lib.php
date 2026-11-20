@@ -93,7 +93,52 @@ final class Engine
 
     public static function dangerous(string $value): bool
     {
-        return (bool) preg_match('/(?:[spr]k_live|whsec|xkeysib|cus|pm|src|seti|pi|ch|tok|ba)_[a-z0-9_-]+|B-[A-Z0-9]{6,}/i', $value);
+        return (bool) preg_match('/[spr]k_(?:live|test)_|whsec_|xkeysib[-_]|(?:cus|pm|src|seti|pi|ch|tok|ba)_[a-z0-9_-]+|(?<![a-z0-9])[BI]-[A-Z0-9]{6,}/i', $value);
+    }
+
+    private static function paymentIdentityKey(string $key): bool
+    {
+        return (bool) preg_match('/(?:stripe|paypal).*(?:customer|source|payment_method|token|payer|agreement|intent|mandate|subscription)(?:_id)?$|(?:^|_)(?:payer_id|billing_agreement_id|payment_method_id)$/i', $key);
+    }
+
+    /** Inspecte aussi les chaînes décodées JSON/PHP, sans classe ni donnée au rapport. */
+    private static function inspect(mixed $value, int $depth = 0): array
+    {
+        $flags = ['danger' => false, 'external_email' => false, 'opaque' => false];
+        if ($depth > 32) {
+            $flags['opaque'] = true;
+            return $flags;
+        }
+        if (is_array($value) || $value instanceof \stdClass) {
+            foreach ((array) $value as $key => $child) {
+                if (is_string($key) && self::paymentIdentityKey($key) && $child !== '' && $child !== null && $child !== []) {
+                    $flags['danger'] = true;
+                }
+                foreach (self::inspect($child, $depth + 1) as $flag => $found) {
+                    $flags[$flag] = $flags[$flag] || $found;
+                }
+            }
+        } elseif (is_string($value)) {
+            $flags['danger'] = self::dangerous($value);
+            preg_match_all('/[A-Z0-9.!#$%&\x27*+\/=?^_`{|}~-]+@([A-Z0-9.-]+\.[A-Z]{2,})/i', $value, $matches);
+            foreach ($matches[1] as $domain) {
+                $flags['external_email'] = $flags['external_email'] || strtolower($domain) !== 'example.org';
+            }
+            try {
+                $decoded = self::decode($value);
+                if ($decoded === $value && (str_starts_with($value, '{') || str_starts_with($value, '['))) {
+                    $decoded = json_decode($value, false, 32, JSON_THROW_ON_ERROR);
+                }
+                if ($decoded !== $value) {
+                    foreach (self::inspect($decoded, $depth + 1) as $flag => $found) {
+                        $flags[$flag] = $flags[$flag] || $found;
+                    }
+                }
+            } catch (\Throwable) {
+                $flags['opaque'] = true;
+            }
+        }
+        return $flags;
     }
 
     private static function decode(string $value): mixed
@@ -524,7 +569,8 @@ final class Engine
                     if (!is_string($value)) {
                         continue;
                     }
-                    if (self::dangerous($value)) {
+                    $flags = self::inspect($value);
+                    if ($flags['danger'] || (self::paymentIdentityKey((string) $key) && $value !== '')) {
                         $issues[] = 'SECRET_OU_IDENTIFIANT';
                     }
                     // Une clé opaque connue résiduelle est signalée, pas inventée comme
@@ -535,25 +581,22 @@ final class Engine
                     if (self::scrub($value, false, 0) !== $value) {
                         $warnings[] = 'REGLAGE_SECRET_RESIDUEL';
                     }
-                    if (preg_match_all('/[A-Z0-9.!#$%&\x27*+\/=?^_`{|}~-]+@([A-Z0-9.-]+\.[A-Z]{2,})/i', $value, $emails)) {
-                        foreach ($emails[1] as $domain) {
-                            if (strtolower($domain) !== 'example.org') {
-                                if ($emailScope) {
-                                    $issues[] = 'EMAIL_EXTERNE';
-                                } else {
-                                    $warnings[] = 'EMAIL_HORS_PERIMETRE_COMPTES_COMMANDES';
-                                }
-                            }
+                    if ($flags['external_email']) {
+                        if ($emailScope) {
+                            $issues[] = 'EMAIL_EXTERNE';
+                        } else {
+                            $warnings[] = 'EMAIL_HORS_PERIMETRE_COMPTES_COMMANDES';
                         }
                     }
                     if (in_array($kind, ['wc_order_addresses', 'wc_orders', 'wc_customer_lookup', 'wc_order_operational_data'], true) && self::piiKey((string) $key) && $value !== '') {
                         $warnings[] = 'IDENTITE_RESIDUELLE';
                     }
-                    try {
-                        self::decode($value);
-                    } catch (\Throwable) {
+                    if ($flags['opaque']) {
                         $warnings[] = 'FORMAT_OPAQUE_CONSERVE';
                     }
+                }
+                if (isset($row['meta_key']) && self::paymentIdentityKey($row['meta_key']) && ($row['meta_value'] ?? '') !== '') {
+                    $issues[] = 'SECRET_OU_IDENTIFIANT';
                 }
                 if (isset($row['meta_key']) && (self::sensitiveKey($row['meta_key']) || (self::piiKey($row['meta_key']) && $row['meta_value'] !== ''))) {
                     $warnings[] = 'META_RESIDUELLE';

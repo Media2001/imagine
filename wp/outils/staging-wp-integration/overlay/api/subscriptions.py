@@ -34,7 +34,8 @@ SCRIPTS = {
     'bascule': 'wp/outils/bascule/lancer',
 }
 REQUIRED_CHECKS = ('emails', 'service_keys', 'payment_ids', 'mail_blocked',
-                   'subscriptions_staging', 'production_refused', 'imported_code_not_loaded')
+                   'subscriptions_staging', 'unknown_tables_resolved',
+                   'production_refused', 'imported_code_not_loaded')
 from .subscription_runtime import Engine, IMAGE_RE, documents
 
 
@@ -103,7 +104,7 @@ def create_offline(*, name, archive, workflow, production_url, staging_url, port
         os.chmod(root / folder, 0o777)
     site = dict(slug=slug, name=name, profile=PROFILE, template_slug=None,
                 client_name=None, target_domain=None, port=port, php_version='8.3',
-                status='importing', notes='', wp_admin_user='staging-admin', wp_admin_password='',
+                status='importing', notes='', wp_admin_user='imagine-test-admin', wp_admin_password='',
                 db_password=secrets.token_urlsafe(24), db_root_password=secrets.token_urlsafe(32),
                 created_at=models.now_iso())
     models.insert_site(site)
@@ -112,10 +113,11 @@ def create_offline(*, name, archive, workflow, production_url, staging_url, port
     offline, runtime = documents(site, worker_image, db_image, nginx_image, host)
     _private_json(root / 'offline-compose.json', offline)
     request = dict(protocol=PROTOCOL, slug=slug, production_url=production_url,
+                   production_hosts=[prod.hostname],
                    staging_url=staging_url, environment='staging', wordpress_path='/var/www/html',
                    database={'host': 'localhost', 'socket': '/run/mysqld/mysqld.sock',
-                             'name': 'wordpress', 'user': 'wp', 'password': site['db_password']},
-                   admin={'login': 'staging-admin', 'password': admin_password},
+                             'name': 'wordpress_staging', 'user': 'wp', 'password': site['db_password']},
+                   admin={'login': 'imagine-test-admin', 'password': admin_password},
                    archive='/input/source.wpress')
     base_mounts = [(host / 'html', '/var/www/html', False),
                    (host / 'mysql-socket', '/run/mysqld', False),
@@ -128,7 +130,9 @@ def create_offline(*, name, archive, workflow, production_url, staging_url, port
         engine.compose(root / 'offline-compose.json', 'up', '-d', '--wait', '--pull', 'never', 'db')
         for index, stage in enumerate(('importer', 'neutraliser', 'anonymiser', 'verifier',
                                        'bascule', 'verifier', 'novamira', 'verifier')):
-            executable = ('/workflow/' + SCRIPTS[stage]) if stage in SCRIPTS else '/opt/staging/' + stage
+            # Native PHP launchers take --worker-bridge, not --request-stdin.
+            # The image-owned adapter translates stdin JSON without bootstrapping the copy.
+            executable = '/opt/staging/' + stage
             mounts = base_mounts + ([(archive, '/input/source.wpress', True)] if stage == 'importer' else [])
             stage_request = dict(request, stage=stage)
             if stage != 'anonymiser':

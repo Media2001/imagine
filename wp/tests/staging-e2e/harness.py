@@ -25,7 +25,7 @@ ARTIFACTS = {
 }
 LOCK = ROOT / 'dependencies.lock.json'
 SUBJECT_FILES = ('neutraliser', 'anonymiser', 'verifier', 'command.php', 'lib.php', 'schema.php',
-                 'files.php', 'pdo-store.php', 'runtime-probe.php', 'mu-plugins/000-imagine-staging-safety.php')
+                 'files.php', 'pdo-store.php', 'runtime-probe.php', 'policy.php', 'mu-plugins/000-imagine-staging-safety.php')
 EXECUTION_FILES = ('harness.py', 'inside.py', 'fixture.php', 'snapshot.php', 'oracle.php', 'mutate.php',
                    'db-probe.php', 'mail-probe.php', 'worker-bridge.php', 'subject-preflight.php',
                    'subject-adapter.json', 'public-dependencies.json', 'Dockerfile', 'fidelity.php', 'fidelity-mu.php')

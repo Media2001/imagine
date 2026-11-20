@@ -74,7 +74,7 @@ def documents(site, image, db_image, nginx_image, host):
     db = {'image': db_image, 'pull_policy': 'never', 'container_name': 'db-' + site['slug'],
           'network_mode': 'none', 'restart': 'no',
           'command': ['--skip-networking', '--socket=/run/mysqld/mysqld.sock'],
-          'environment': {'MARIADB_DATABASE': 'wordpress', 'MARIADB_USER': 'wp',
+          'environment': {'MARIADB_DATABASE': 'wordpress_staging', 'MARIADB_USER': 'wp',
                           'MARIADB_PASSWORD': site['db_password'],
                           'MARIADB_ROOT_PASSWORD': site['db_root_password']},
           'volumes': [str(host / 'db') + ':/var/lib/mysql',

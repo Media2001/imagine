@@ -14,7 +14,7 @@ from worker import PROTOCOL, ROOT, SOCKET, WORKFLOW, TRUSTED, Refusal, read_arch
 
 STATE = ROOT / '.staging-worker.json'
 CHECKS = ('emails', 'service_keys', 'payment_ids', 'mail_blocked', 'subscriptions_staging',
-          'production_refused', 'imported_code_not_loaded')
+          'unknown_tables_resolved', 'production_refused', 'imported_code_not_loaded')
 
 
 def validate(r, stage):
@@ -91,7 +91,7 @@ def load(r):
     return s
 
 
-def run_php(script, r, *, stdin=None, args=()):
+def run_php(script, r, *, stdin=None, args=(), negative_report=False):
     payload = json.dumps(r).encode()
     if len(payload) > 8192:
         raise Refusal('REQUEST_LIMIT')
@@ -110,6 +110,9 @@ def run_php(script, r, *, stdin=None, args=()):
             report = json.loads(p.stdout)
         except (ValueError, UnicodeError):
             raise Refusal('DATA_REPORT_INVALID') from None
+        if negative_report and isinstance(report, dict) and type(report.get('ok')) is bool:
+            if p.returncode == 0 or report['ok'] is False:
+                return report
         if p.returncode or report.get('ok') is not True:
             raise Refusal('DATA_REFUSED')
         return report
@@ -213,12 +216,12 @@ def adapt(r):
         raise Refusal('STAGE_ORDER')
     request = dict(r, prefix=s['prefix'])
     if stage in ('neutraliser', 'anonymiser', 'verifier'):
-        # A real subscriptions package is mandatory for the deferred runtime proof.
-        if stage == 'verifier' and 'subscriptions' not in assets():
-            raise Refusal('LICENSE_SUBSCRIPTIONS_MISSING')
-        run_php(WORKFLOW / 'staging' / stage, request,
+        # The native probe determines whether Subscriptions is PRESENT. Absence is
+        # not a failed staging mode, nor a claim of licensed-plugin acceptance.
+        native_report = run_php(WORKFLOW / 'staging' / stage, request,
                 stdin=(r['admin']['password'] + '\n').encode() if stage == 'anonymiser' else b'',
-                args=('--worker-bridge', str(TRUSTED / 'worker-bridge.php')))
+                args=('--worker-bridge', str(TRUSTED / 'worker-bridge.php')),
+                negative_report=stage == 'verifier')
         # Native data scripts only add/replace the single reviewed safety MU plugin.
         expected = dict(s['files'])
         expected['wp-content/mu-plugins/000-imagine-staging-safety.php'] = digest(WORKFLOW / 'staging/mu-plugins/000-imagine-staging-safety.php')
@@ -241,14 +244,20 @@ def adapt(r):
         # The current native verifier rejects non-Woo active_plugins and unknown options.
         # Do not weaken its catalogue or issue a fake activation receipt.
         raise Refusal('NOVAMIRA_NATIVE_VERIFIER_CONTRACT_BLOCKED')
-    s['phases'].append(stage)
-    save(s)
+    if stage != 'verifier' or native_report.get('ok') is True:
+        s['phases'].append(stage)
+        save(s)
     if stage == 'verifier':
         version_text = (ROOT / 'wp-includes/version.php').read_text()
         match = re.search(r"\$wp_version\s*=\s*'([0-9]+\.[0-9]+(?:\.[0-9]+)?)';", version_text)
         if not match or tuple(map(int, match[1].split('.')[:2])) < (6, 9):
             raise Refusal('WORDPRESS_VERSION')
-        return dict(wordpress_version=match[1], checks={k: True for k in CHECKS})
+        ok = native_report.get('ok') is True
+        # An all-true map is issued only after the real native verifier succeeded,
+        # including its deferred runtime callback and post-bootstrap rescan.
+        return dict(ok=ok, wordpress_version=match[1], checks={k: ok for k in CHECKS},
+                    **{k: native_report[k] for k in ('issues', 'warnings', 'unknown_tables',
+                        'unknown_post_types', 'disabled_plugins') if k in native_report})
     return {}
 
 
@@ -263,7 +272,9 @@ def main(stage):
         validate(r, stage)
         confined()
         detail = importer(r) if stage == 'importer' else adapt(r)
-        print(json.dumps(dict(protocol=PROTOCOL, stage=stage, ok=True, **detail)))
+        response = dict(protocol=PROTOCOL, stage=stage, **detail)
+        response.setdefault('ok', True)
+        print(json.dumps(response))
         return 0
     except Refusal as e:
         reason = str(e)

@@ -11,6 +11,7 @@ use RuntimeException;
 final class PdoStore implements Store
 {
     private array $tables = [];
+    private array $details = [];
     public function __construct(private PDO $pdo, array $context)
     {
         Guard::context($context);
@@ -26,34 +27,47 @@ final class PdoStore implements Store
     }
     private static function quote(string $identifier): string
     {
-        if (!preg_match('/^[a-zA-Z0-9_]+$/D', $identifier)) {
+        if ($identifier === '' || str_contains($identifier, "\0")) {
             throw new RuntimeException('IDENTIFIANT_SQL_REFUSE');
         }
-        return '`' . $identifier . '`';
+        return '`' . str_replace('`', '``', $identifier) . '`';
     }
     public function schema(): array
     {
         $out = [];
+        $this->details = ['tables' => [], 'triggers' => [], 'events' => [], 'warnings' => []];
         foreach ($this->pdo->query('SHOW FULL TABLES')->fetchAll(PDO::FETCH_NUM) as [$name, $type]) {
-            if ($type !== 'BASE TABLE') {
-                throw new RuntimeException('VUE_REFUSEE');
-            }
             $statement = $this->pdo->prepare('SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ?');
             $statement->execute([$name]);
-            if (strtoupper((string) $statement->fetchColumn()) !== 'INNODB') {
-                throw new RuntimeException('MOTEUR_NON_TRANSACTIONNEL');
+            $engine = (string) $statement->fetchColumn();
+            $this->details['tables'][$name] = ['type' => $type, 'engine' => $engine];
+            if ($type !== 'BASE TABLE') {
+                $this->details['warnings'][] = 'VUE_CONSERVEE';
+            } elseif (strtoupper($engine) !== 'INNODB') {
+                $this->details['warnings'][] = 'MOTEUR_NON_TRANSACTIONNEL';
             }
             $out[$name] = array_column($this->pdo->query('SHOW COLUMNS FROM ' . self::quote($name))->fetchAll(PDO::FETCH_ASSOC), 'Field');
         }
-        // Les triggers peuvent recopier les données hors des tables traitées.
-        if ($this->pdo->query('SHOW TRIGGERS')->fetch()) {
-            throw new RuntimeException('TRIGGER_REFUSE');
+        // Ne jamais rapporter la définition SQL, susceptible de contenir des valeurs.
+        foreach ($this->pdo->query('SHOW TRIGGERS')->fetchAll(PDO::FETCH_ASSOC) as $trigger) {
+            $this->details['triggers'][] = $trigger['Trigger'];
         }
-        if ($this->pdo->query('SHOW EVENTS')->fetch()) {
-            throw new RuntimeException('EVENT_SQL_REFUSE');
+        foreach ($this->pdo->query('SHOW EVENTS')->fetchAll(PDO::FETCH_ASSOC) as $event) {
+            $this->details['events'][] = $event['Name'];
         }
+        if ($this->details['triggers']) {
+            $this->details['warnings'][] = 'TRIGGERS_CONSERVES';
+        }
+        if ($this->details['events']) {
+            $this->details['warnings'][] = 'EVENTS_SQL_CONSERVES';
+        }
+        $this->details['warnings'] = array_values(array_unique($this->details['warnings']));
         $this->tables = $out;
         return $out;
+    }
+    public function details(): array
+    {
+        return $this->details;
     }
     private function table(string $name): string
     {
@@ -101,7 +115,7 @@ final class PdoStore implements Store
         }
         $statement = $this->pdo->prepare($sql);
         $statement->execute($values);
-        if ($statement->rowCount() !== 1) {
+        if ($statement->rowCount() < 1) {
             throw new RuntimeException('CAS_ECHOUE');
         }
     }
