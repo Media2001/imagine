@@ -7,7 +7,7 @@ namespace Imagine\Pilotage\Robots;
 final readonly class Configuration
 {
     /** @param list<Robot> $robots */
-    public function __construct(public array $robots)
+    public function __construct(public array $robots, public int $delaiDnsMs = 200)
     {
     }
 }

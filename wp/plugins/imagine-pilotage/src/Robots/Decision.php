@@ -12,6 +12,6 @@ final readonly class Decision
 
     public function estVerifie(): bool
     {
-        return false;
+        return $this->motif === Motif::VerifieDns && $this->robot !== null;
     }
 }

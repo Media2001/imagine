@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="1" assertions="4" errors="0" failures="0" skipped="0" time="0.002043">
+    <testsuite name="Robots" tests="1" assertions="4" errors="0" failures="0" skipped="0" time="0.002043">
+      <testsuite name="Imagine\Pilotage\Tests\Robots\VerificateurTest" file="/work/tests/Robots/VerificateurTest.php" tests="1" assertions="4" errors="0" failures="0" skipped="0" time="0.002043">
+        <testcase name="testAgentInconnuSansDns" file="/work/tests/Robots/VerificateurTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="4" time="0.002043"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

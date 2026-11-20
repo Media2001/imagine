@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="25" assertions="49" errors="1" failures="4" skipped="0" time="0.011049">
+    <testsuite name="Robots" tests="25" assertions="49" errors="1" failures="4" skipped="0" time="0.011049">
+      <testsuite name="Imagine\Pilotage\Tests\Robots\VerificateurTest" file="/work/tests/Robots/VerificateurTest.php" tests="25" assertions="49" errors="1" failures="4" skipped="0" time="0.011049">
+        <testcase name="testDnsInverseEtDirecteConcordent" file="/work/tests/Robots/VerificateurTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="4" time="0.001457"/>
+        <testcase name="testAdresseQuelconqueNeSuffitPas" file="/work/tests/Robots/VerificateurTest.php" line="30" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="3" time="0.000169"/>
+        <testcase name="testInverseFalsifieRefuse" file="/work/tests/Robots/VerificateurTest.php" line="40" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="1" time="0.000084"/>
+        <testsuite name="Imagine\Pilotage\Tests\Robots\VerificateurTest::testDomaineTrompeurSansResolutionDirecte" tests="10" assertions="20" errors="0" failures="0" skipped="0" time="0.000754">
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #0" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000129"/>
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #1" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000077"/>
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #2" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000072"/>
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #3" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000083"/>
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #4" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000056"/>
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #5" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000066"/>
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #6" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000061"/>
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #7" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000075"/>
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #8" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000065"/>
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #9" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000070"/>
+        </testsuite>
+        <testcase name="testIpv6CanoniqueEtPointFinalDns" file="/work/tests/Robots/VerificateurTest.php" line="73" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000059"/>
+        <testsuite name="Imagine\Pilotage\Tests\Robots\VerificateurTest::testJetonAgentExactSansDns" tests="4" assertions="8" errors="0" failures="0" skipped="0" time="0.000241">
+          <testcase name="testJetonAgentExactSansDns with data set #0" file="/work/tests/Robots/VerificateurTest.php" line="84" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000062"/>
+          <testcase name="testJetonAgentExactSansDns with data set #1" file="/work/tests/Robots/VerificateurTest.php" line="84" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000061"/>
+          <testcase name="testJetonAgentExactSansDns with data set #2" file="/work/tests/Robots/VerificateurTest.php" line="84" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000060"/>
+          <testcase name="testJetonAgentExactSansDns with data set #3" file="/work/tests/Robots/VerificateurTest.php" line="84" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000059"/>
+        </testsuite>
+        <testcase name="testIpInvalideSansDns" file="/work/tests/Robots/VerificateurTest.php" line="100" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000051"/>
+        <testcase name="testPanneDnsFermee" file="/work/tests/Robots/VerificateurTest.php" line="111" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="0" time="0.006645">
+          <error type="RuntimeException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testPanneDnsFermee
+RuntimeException: Échec fictif du résolveur
+
+/work/tests/Robots/VerificateurTest.php:114</error>
+        </testcase>
+        <testcase name="testReponseInverseTropLenteRefuseeSansDirecte" file="/work/tests/Robots/VerificateurTest.php" line="120" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="1" time="0.001008">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testReponseInverseTropLenteRefuseeSansDirecte
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'delai_depasse'
++'verifie_dns'
+
+/work/tests/Robots/VerificateurTest.php:124</failure>
+        </testcase>
+        <testcase name="testBudgetTotalNonRenouvelePourDirecte" file="/work/tests/Robots/VerificateurTest.php" line="130" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="1" time="0.000148">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testBudgetTotalNonRenouvelePourDirecte
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'delai_depasse'
++'verifie_dns'
+
+/work/tests/Robots/VerificateurTest.php:134</failure>
+        </testcase>
+        <testcase name="testBudgetDnsConfigurable" file="/work/tests/Robots/VerificateurTest.php" line="140" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000135">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testBudgetDnsConfigurable
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+ Array &amp;0 [
+-    0 =&gt; 500,
+-    1 =&gt; 450,
++    0 =&gt; 200,
++    1 =&gt; 200,
+ ]
+
+/work/tests/Robots/VerificateurTest.php:149</failure>
+        </testcase>
+        <testcase name="testAgentAmbiguSansDns" file="/work/tests/Robots/VerificateurTest.php" line="152" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="1" time="0.000143">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testAgentAmbiguSansDns
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'agent_ambigu'
++'verifie_dns'
+
+/work/tests/Robots/VerificateurTest.php:160</failure>
+        </testcase>
+        <testcase name="testAgentInconnuSansDns" file="/work/tests/Robots/VerificateurTest.php" line="178" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="4" time="0.000155"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

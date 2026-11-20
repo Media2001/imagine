@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="20" assertions="28" errors="0" failures="15" skipped="0" time="0.008213">
+    <testsuite name="Robots" tests="20" assertions="28" errors="0" failures="15" skipped="0" time="0.008213">
+      <testsuite name="Imagine\Pilotage\Tests\Robots\VerificateurTest" file="/work/tests/Robots/VerificateurTest.php" tests="20" assertions="28" errors="0" failures="15" skipped="0" time="0.008213">
+        <testcase name="testDnsInverseEtDirecteConcordent" file="/work/tests/Robots/VerificateurTest.php" line="20" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="1" time="0.003414">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testDnsInverseEtDirecteConcordent
+Failed asserting that false is true.
+
+/work/tests/Robots/VerificateurTest.php:24</failure>
+        </testcase>
+        <testcase name="testAdresseQuelconqueNeSuffitPas" file="/work/tests/Robots/VerificateurTest.php" line="30" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.002570">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testAdresseQuelconqueNeSuffitPas
+Failed asserting that two variables reference the same object.
+--- Expected
++++ Actual
+@@ @@
+-Imagine\Pilotage\Robots\Motif Enum #493 (DomaineRefuse, 'domaine_refuse')
++Imagine\Pilotage\Robots\Motif Enum #495 (AgentInconnu, 'agent_inconnu')
+
+/work/tests/Robots/VerificateurTest.php:36</failure>
+        </testcase>
+        <testcase name="testInverseFalsifieRefuse" file="/work/tests/Robots/VerificateurTest.php" line="40" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="1" time="0.000285">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testInverseFalsifieRefuse
+Failed asserting that two variables reference the same object.
+--- Expected
++++ Actual
+@@ @@
+-Imagine\Pilotage\Robots\Motif Enum #492 (AdresseDifferente, 'adresse_differente')
++Imagine\Pilotage\Robots\Motif Enum #495 (AgentInconnu, 'agent_inconnu')
+
+/work/tests/Robots/VerificateurTest.php:44</failure>
+        </testcase>
+        <testsuite name="Imagine\Pilotage\Tests\Robots\VerificateurTest::testDomaineTrompeurSansResolutionDirecte" tests="10" assertions="10" errors="0" failures="10" skipped="0" time="0.001322">
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #0" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="1" time="0.000168">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testDomaineTrompeurSansResolutionDirecte with data set #0
+Failed asserting that two variables reference the same object.
+--- Expected
++++ Actual
+@@ @@
+-Imagine\Pilotage\Robots\Motif Enum #493 (DomaineRefuse, 'domaine_refuse')
++Imagine\Pilotage\Robots\Motif Enum #495 (AgentInconnu, 'agent_inconnu')
+
+/work/tests/Robots/VerificateurTest.php:56</failure>
+          </testcase>
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #1" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="1" time="0.000130">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testDomaineTrompeurSansResolutionDirecte with data set #1
+Failed asserting that two variables reference the same object.
+--- Expected
++++ Actual
+@@ @@
+-Imagine\Pilotage\Robots\Motif Enum #493 (DomaineRefuse, 'domaine_refuse')
++Imagine\Pilotage\Robots\Motif Enum #495 (AgentInconnu, 'agent_inconnu')
+
+/work/tests/Robots/VerificateurTest.php:56</failure>
+          </testcase>
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #2" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="1" time="0.000134">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testDomaineTrompeurSansResolutionDirecte with data set #2
+Failed asserting that two variables reference the same object.
+--- Expected
++++ Actual
+@@ @@
+-Imagine\Pilotage\Robots\Motif Enum #493 (DomaineRefuse, 'domaine_refuse')
++Imagine\Pilotage\Robots\Motif Enum #495 (AgentInconnu, 'agent_inconnu')
+
+/work/tests/Robots/VerificateurTest.php:56</failure>
+          </testcase>
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #3" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="1" time="0.000124">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testDomaineTrompeurSansResolutionDirecte with data set #3
+Failed asserting that two variables reference the same object.
+--- Expected
++++ Actual
+@@ @@
+-Imagine\Pilotage\Robots\Motif Enum #493 (DomaineRefuse, 'domaine_refuse')
++Imagine\Pilotage\Robots\Motif Enum #495 (AgentInconnu, 'agent_inconnu')
+
+/work/tests/Robots/VerificateurTest.php:56</failure>
+          </testcase>
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #4" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="1" time="0.000127">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testDomaineTrompeurSansResolutionDirecte with data set #4
+Failed asserting that two variables reference the same object.
+--- Expected
++++ Actual
+@@ @@
+-Imagine\Pilotage\Robots\Motif Enum #493 (DomaineRefuse, 'domaine_refuse')
++Imagine\Pilotage\Robots\Motif Enum #495 (AgentInconnu, 'agent_inconnu')
+
+/work/tests/Robots/VerificateurTest.php:56</failure>
+          </testcase>
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #5" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="1" time="0.000131">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testDomaineTrompeurSansResolutionDirecte with data set #5
+Failed asserting that two variables reference the same object.
+--- Expected
++++ Actual
+@@ @@
+-Imagine\Pilotage\Robots\Motif Enum #493 (DomaineRefuse, 'domaine_refuse')
++Imagine\Pilotage\Robots\Motif Enum #495 (AgentInconnu, 'agent_inconnu')
+
+/work/tests/Robots/VerificateurTest.php:56</failure>
+          </testcase>
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #6" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="1" time="0.000148">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testDomaineTrompeurSansResolutionDirecte with data set #6
+Failed asserting that two variables reference the same object.
+--- Expected
++++ Actual
+@@ @@
+-Imagine\Pilotage\Robots\Motif Enum #493 (DomaineRefuse, 'domaine_refuse')
++Imagine\Pilotage\Robots\Motif Enum #495 (AgentInconnu, 'agent_inconnu')
+
+/work/tests/Robots/VerificateurTest.php:56</failure>
+          </testcase>
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #7" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="1" time="0.000120">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testDomaineTrompeurSansResolutionDirecte with data set #7
+Failed asserting that two variables reference the same object.
+--- Expected
++++ Actual
+@@ @@
+-Imagine\Pilotage\Robots\Motif Enum #493 (DomaineRefuse, 'domaine_refuse')
++Imagine\Pilotage\Robots\Motif Enum #495 (AgentInconnu, 'agent_inconnu')
+
+/work/tests/Robots/VerificateurTest.php:56</failure>
+          </testcase>
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #8" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="1" time="0.000124">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testDomaineTrompeurSansResolutionDirecte with data set #8
+Failed asserting that two variables reference the same object.
+--- Expected
++++ Actual
+@@ @@
+-Imagine\Pilotage\Robots\Motif Enum #493 (DomaineRefuse, 'domaine_refuse')
++Imagine\Pilotage\Robots\Motif Enum #495 (AgentInconnu, 'agent_inconnu')
+
+/work/tests/Robots/VerificateurTest.php:56</failure>
+          </testcase>
+          <testcase name="testDomaineTrompeurSansResolutionDirecte with data set #9" file="/work/tests/Robots/VerificateurTest.php" line="52" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="1" time="0.000118">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testDomaineTrompeurSansResolutionDirecte with data set #9
+Failed asserting that two variables reference the same object.
+--- Expected
++++ Actual
+@@ @@
+-Imagine\Pilotage\Robots\Motif Enum #493 (DomaineRefuse, 'domaine_refuse')
++Imagine\Pilotage\Robots\Motif Enum #495 (AgentInconnu, 'agent_inconnu')
+
+/work/tests/Robots/VerificateurTest.php:56</failure>
+          </testcase>
+        </testsuite>
+        <testcase name="testIpv6CanoniqueEtPointFinalDns" file="/work/tests/Robots/VerificateurTest.php" line="73" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="1" time="0.000094">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testIpv6CanoniqueEtPointFinalDns
+Failed asserting that false is true.
+
+/work/tests/Robots/VerificateurTest.php:79</failure>
+        </testcase>
+        <testsuite name="Imagine\Pilotage\Tests\Robots\VerificateurTest::testJetonAgentExactSansDns" tests="4" assertions="8" errors="0" failures="0" skipped="0" time="0.000287">
+          <testcase name="testJetonAgentExactSansDns with data set #0" file="/work/tests/Robots/VerificateurTest.php" line="84" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000107"/>
+          <testcase name="testJetonAgentExactSansDns with data set #1" file="/work/tests/Robots/VerificateurTest.php" line="84" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000062"/>
+          <testcase name="testJetonAgentExactSansDns with data set #2" file="/work/tests/Robots/VerificateurTest.php" line="84" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000060"/>
+          <testcase name="testJetonAgentExactSansDns with data set #3" file="/work/tests/Robots/VerificateurTest.php" line="84" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="2" time="0.000059"/>
+        </testsuite>
+        <testcase name="testIpInvalideSansDns" file="/work/tests/Robots/VerificateurTest.php" line="100" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="1" time="0.000111">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\VerificateurTest::testIpInvalideSansDns
+Failed asserting that two variables reference the same object.
+--- Expected
++++ Actual
+@@ @@
+-Imagine\Pilotage\Robots\Motif Enum #491 (IpInvalide, 'ip_invalide')
++Imagine\Pilotage\Robots\Motif Enum #495 (AgentInconnu, 'agent_inconnu')
+
+/work/tests/Robots/VerificateurTest.php:103</failure>
+        </testcase>
+        <testcase name="testAgentInconnuSansDns" file="/work/tests/Robots/VerificateurTest.php" line="123" class="Imagine\Pilotage\Tests\Robots\VerificateurTest" classname="Imagine.Pilotage.Tests.Robots.VerificateurTest" assertions="4" time="0.000130"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>
