@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="20" assertions="20" errors="0" failures="20" skipped="0" time="0.012038">
+    <testsuite name="Robots" tests="20" assertions="20" errors="0" failures="20" skipped="0" time="0.012038">
+      <testsuite name="Imagine\Pilotage\Tests\Robots\ConfigurationTest" file="/work/tests/Robots/ConfigurationTest.php" tests="20" assertions="20" errors="0" failures="20" skipped="0" time="0.012038">
+        <testsuite name="Imagine\Pilotage\Tests\Robots\ConfigurationTest::testReglagesInvalidesRefuses" tests="6" assertions="6" errors="0" failures="6" skipped="0" time="0.010029">
+          <testcase name="testReglagesInvalidesRefuses with data set #0" file="/work/tests/Robots/ConfigurationTest.php" line="21" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.009436">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testReglagesInvalidesRefuses with data set #0
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+          </testcase>
+          <testcase name="testReglagesInvalidesRefuses with data set #1" file="/work/tests/Robots/ConfigurationTest.php" line="21" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.000148">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testReglagesInvalidesRefuses with data set #1
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+          </testcase>
+          <testcase name="testReglagesInvalidesRefuses with data set #2" file="/work/tests/Robots/ConfigurationTest.php" line="21" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.000108">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testReglagesInvalidesRefuses with data set #2
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+          </testcase>
+          <testcase name="testReglagesInvalidesRefuses with data set #3" file="/work/tests/Robots/ConfigurationTest.php" line="21" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.000157">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testReglagesInvalidesRefuses with data set #3
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+          </testcase>
+          <testcase name="testReglagesInvalidesRefuses with data set #4" file="/work/tests/Robots/ConfigurationTest.php" line="21" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.000095">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testReglagesInvalidesRefuses with data set #4
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+          </testcase>
+          <testcase name="testReglagesInvalidesRefuses with data set #5" file="/work/tests/Robots/ConfigurationTest.php" line="21" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.000085">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testReglagesInvalidesRefuses with data set #5
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+          </testcase>
+        </testsuite>
+        <testsuite name="Imagine\Pilotage\Tests\Robots\ConfigurationTest::testRobotMalConfigureRefuse" tests="9" assertions="9" errors="0" failures="9" skipped="0" time="0.000975">
+          <testcase name="testRobotMalConfigureRefuse with data set #0" file="/work/tests/Robots/ConfigurationTest.php" line="33" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.000191">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testRobotMalConfigureRefuse with data set #0
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+          </testcase>
+          <testcase name="testRobotMalConfigureRefuse with data set #1" file="/work/tests/Robots/ConfigurationTest.php" line="33" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.000090">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testRobotMalConfigureRefuse with data set #1
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+          </testcase>
+          <testcase name="testRobotMalConfigureRefuse with data set #2" file="/work/tests/Robots/ConfigurationTest.php" line="33" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.000161">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testRobotMalConfigureRefuse with data set #2
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+          </testcase>
+          <testcase name="testRobotMalConfigureRefuse with data set #3" file="/work/tests/Robots/ConfigurationTest.php" line="33" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.000116">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testRobotMalConfigureRefuse with data set #3
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+          </testcase>
+          <testcase name="testRobotMalConfigureRefuse with data set #4" file="/work/tests/Robots/ConfigurationTest.php" line="33" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.000088">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testRobotMalConfigureRefuse with data set #4
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+          </testcase>
+          <testcase name="testRobotMalConfigureRefuse with data set #5" file="/work/tests/Robots/ConfigurationTest.php" line="33" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.000073">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testRobotMalConfigureRefuse with data set #5
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+          </testcase>
+          <testcase name="testRobotMalConfigureRefuse with data set #6" file="/work/tests/Robots/ConfigurationTest.php" line="33" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.000085">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testRobotMalConfigureRefuse with data set #6
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+          </testcase>
+          <testcase name="testRobotMalConfigureRefuse with data set #7" file="/work/tests/Robots/ConfigurationTest.php" line="33" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.000085">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testRobotMalConfigureRefuse with data set #7
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+          </testcase>
+          <testcase name="testRobotMalConfigureRefuse with data set #8" file="/work/tests/Robots/ConfigurationTest.php" line="33" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.000085">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testRobotMalConfigureRefuse with data set #8
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+          </testcase>
+        </testsuite>
+        <testcase name="testIdentifiantsDupliquesRefuses" file="/work/tests/Robots/ConfigurationTest.php" line="54" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.000073">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testIdentifiantsDupliquesRefuses
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+        </testcase>
+        <testcase name="testJetonsPartagesRefuses" file="/work/tests/Robots/ConfigurationTest.php" line="63" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.000070">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testJetonsPartagesRefuses
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+        </testcase>
+        <testcase name="testDecisionIncoherenteRefusee" file="/work/tests/Robots/ConfigurationTest.php" line="72" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.000194">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testDecisionIncoherenteRefusee
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+        </testcase>
+        <testcase name="testRefusNePortePasIdentiteVerifiee" file="/work/tests/Robots/ConfigurationTest.php" line="78" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.000140">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testRefusNePortePasIdentiteVerifiee
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+        </testcase>
+        <testcase name="testConfigurationInitialeGoogleBingSeulementEtAucunDnsAuChargement" file="/work/tests/Robots/ConfigurationTest.php" line="84" class="Imagine\Pilotage\Tests\Robots\ConfigurationTest" classname="Imagine.Pilotage.Tests.Robots.ConfigurationTest" assertions="1" time="0.000556">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Robots\ConfigurationTest::testConfigurationInitialeGoogleBingSeulementEtAucunDnsAuChargement
+Configuration initiale Google/Bing requise.
+Failed asserting that file "/work/config/robots.php" exists.
+
+/work/tests/Robots/ConfigurationTest.php:87</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -104,6 +104,40 @@ final class CacheTest extends TestCase
         self::assertFalse($moteur->verifier('Googlebot/2.1', '192.0.2.1', $this->date('+13 seconds'))->estVerifie());
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('pannesCache')]
+    public function testPanneCacheFermee(bool $lecture): void
+    {
+        $dns = new DnsFictif();
+        $cache = new class ($lecture) implements \Imagine\Pilotage\Robots\Cache {
+            public function __construct(private bool $lecture)
+            {
+            }
+
+            public function lire(string $cle): ?\Imagine\Pilotage\Robots\EntreeCache
+            {
+                if ($this->lecture) {
+                    throw new \RuntimeException('Panne fictive de lecture.');
+                }
+                return null;
+            }
+
+            public function ecrire(string $cle, \Imagine\Pilotage\Robots\EntreeCache $entree): void
+            {
+                throw new \RuntimeException('Panne fictive d’écriture.');
+            }
+        };
+        $moteur = new Verificateur($this->configuration(), $dns, $cache, $dns->horloge);
+        $decision = $moteur->verifier('Googlebot/2.1', '192.0.2.1', $this->date());
+        self::assertFalse($decision->estVerifie());
+        self::assertSame('cache_indisponible', $decision->motif->value);
+        self::assertCount($lecture ? 0 : 2, $dns->appels);
+    }
+
+    public static function pannesCache(): array
+    {
+        return [[true], [false]];
+    }
+
     public function testReculDateNeReutilisePasUneDecisionFuture(): void
     {
         $dns = new DnsFictif();

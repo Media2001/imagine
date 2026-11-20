@@ -43,7 +43,11 @@ final readonly class Verificateur
         $robot = $candidats[0];
         $ip = inet_ntop(inet_pton($ip));
         $cle = hash('sha256', 'c03-v1' . serialize($this->configuration) . $robot->identifiant . $ip);
-        $entree = $this->cache->lire($cle);
+        try {
+            $entree = $this->cache->lire($cle);
+        } catch (\Throwable) {
+            return new Decision(Motif::CacheIndisponible);
+        }
         if ($entree !== null && $entree->creation <= $maintenant && $maintenant < $entree->expiration) {
             return $entree->decision;
         }
@@ -61,7 +65,11 @@ final readonly class Verificateur
         if ($decision->estVerifie() && $robot->methode === Methode::Plages) {
             $expiration = min($expiration, $robot->expirationPlages);
         }
-        $this->cache->ecrire($cle, new EntreeCache($decision, $maintenant, $expiration));
+        try {
+            $this->cache->ecrire($cle, new EntreeCache($decision, $maintenant, $expiration));
+        } catch (\Throwable) {
+            return new Decision(Motif::CacheIndisponible);
+        }
         return $decision;
     }
 
@@ -70,8 +78,8 @@ final readonly class Verificateur
         if ($robot->expirationPlages === null || $maintenant >= $robot->expirationPlages) {
             return new Decision(Motif::PlagesExpirees);
         }
-        foreach ($robot->plages as $cidr) {
-            if ((new Plage($cidr))->contient($ip)) {
+        foreach ($robot->reseaux as $plage) {
+            if ($plage->contient($ip)) {
                 return new Decision(Motif::VerifiePlage, $robot->identifiant);
             }
         }

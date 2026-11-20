@@ -60,4 +60,15 @@ if __name__ == '__main__':
     if sys.argv[1:] == ['prepare']:
         prepare()
     else:
+        if '--filter' in sys.argv:
+            import re
+            value = sys.argv[sys.argv.index('--filter') + 1]
+            if re.fullmatch(r'[A-Za-z0-9_]+', value) is None:
+                raise SystemExit('Use only a simple class/method name as --filter (WSL transport).')
+        if sys.argv[1:2] == ['run']:
+            state = json.loads(bench.STATE.read_text(encoding='utf-8'))
+            name = state['container']
+            info = bench.info(name)
+            assert not info['NetworkSettings']['Networks']
+            bench.call(['exec', name, 'rm', '-f', '/tmp/result.xml'])
         bench.main()

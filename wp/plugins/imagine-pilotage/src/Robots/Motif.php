@@ -17,4 +17,5 @@ enum Motif: string
     case VerifiePlage = 'verifie_plage';
     case PlageAbsente = 'plage_absente';
     case PlagesExpirees = 'plages_expirees';
+    case CacheIndisponible = 'cache_indisponible';
 }
