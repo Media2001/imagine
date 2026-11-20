@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="11" assertions="26" errors="0" failures="10" skipped="0" time="0.005914">
+    <testsuite name="Entreprise" tests="11" assertions="26" errors="0" failures="10" skipped="0" time="0.005914">
+      <testsuite name="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" tests="11" assertions="26" errors="0" failures="10" skipped="0" time="0.005914">
+        <testsuite name="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testNormaliseLesFormesDeSaisie" tests="10" assertions="21" errors="0" failures="10" skipped="0" time="0.005496">
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;prefixe&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="2" time="0.004226">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testNormaliseLesFormesDeSaisie with data set "prefixe"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'0123456749'
++'BE0123456749'
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:23</failure>
+          </testcase>
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;points&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="2" time="0.000160">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testNormaliseLesFormesDeSaisie with data set "points"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'0123456749'
++'0123.456.749'
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:23</failure>
+          </testcase>
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;espaces&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="2" time="0.000128">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testNormaliseLesFormesDeSaisie with data set "espaces"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'0123456749'
++'  BE 0123 456 749 '
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:23</failure>
+          </testcase>
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;tirets&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="2" time="0.000155">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testNormaliseLesFormesDeSaisie with data set "tirets"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'0123456749'
++'0123-456-749'
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:23</failure>
+          </testcase>
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;minuscules&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="2" time="0.000145">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testNormaliseLesFormesDeSaisie with data set "minuscules"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'0123456749'
++'be 0123.456.749'
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:23</failure>
+          </testcase>
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;espaces insécables&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="2" time="0.000168">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testNormaliseLesFormesDeSaisie with data set "espaces insécables"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'0123456749'
++' BE 0123.456.749 '
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:23</failure>
+          </testcase>
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;neuf chiffres&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="2" time="0.000118">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testNormaliseLesFormesDeSaisie with data set "neuf chiffres"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'0123456749'
++'123456749'
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:23</failure>
+          </testcase>
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;ancien format préfixé&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="2" time="0.000131">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testNormaliseLesFormesDeSaisie with data set "ancien format préfixé"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'0123456749'
++'BE 123.456.749'
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:23</failure>
+          </testcase>
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;separateurs mixtes&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="2" time="0.000116">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testNormaliseLesFormesDeSaisie with data set "separateurs mixtes"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'0123456749'
++'BE 0123 - 456 - 749'
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:23</failure>
+          </testcase>
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;premier chiffre un&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="3" time="0.000151">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testNormaliseLesFormesDeSaisie with data set "premier chiffre un"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'1234567894'
++'1234.567.894'
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:24</failure>
+          </testcase>
+        </testsuite>
+        <testcase name="testAccepteDixChiffresEtExposeAffichage" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="43" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="5" time="0.000419"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="11" assertions="35" errors="0" failures="0" skipped="0" time="0.001952">
+    <testsuite name="Entreprise" tests="11" assertions="35" errors="0" failures="0" skipped="0" time="0.001952">
+      <testsuite name="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" tests="11" assertions="35" errors="0" failures="0" skipped="0" time="0.001952">
+        <testsuite name="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testNormaliseLesFormesDeSaisie" tests="10" assertions="30" errors="0" failures="0" skipped="0" time="0.001846">
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;prefixe&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="3" time="0.001145"/>
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;points&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="3" time="0.000078"/>
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;espaces&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="3" time="0.000076"/>
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;tirets&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="3" time="0.000068"/>
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;minuscules&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="3" time="0.000069"/>
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;espaces insécables&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="3" time="0.000057"/>
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;neuf chiffres&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="3" time="0.000057"/>
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;ancien format préfixé&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="3" time="0.000102"/>
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;separateurs mixtes&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="3" time="0.000112"/>
+          <testcase name="testNormaliseLesFormesDeSaisie with data set &quot;premier chiffre un&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="19" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="3" time="0.000083"/>
+        </testsuite>
+        <testcase name="testAccepteDixChiffresEtExposeAffichage" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="43" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="5" time="0.000106"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

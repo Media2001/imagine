@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="21" assertions="21" errors="0" failures="21" skipped="0" time="0.005154">
+    <testsuite name="Entreprise" tests="21" assertions="21" errors="0" failures="21" skipped="0" time="0.005154">
+      <testsuite name="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" tests="21" assertions="21" errors="0" failures="21" skipped="0" time="0.005154">
+        <testsuite name="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais" tests="21" assertions="21" errors="0" failures="21" skipped="0" time="0.005154">
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;vide&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.003059">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "vide"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;espaces seuls&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000140">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "espaces seuls"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;prefixe seul&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000133">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "prefixe seul"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;separateurs seuls&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000108">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "separateurs seuls"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;huit chiffres&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000082">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "huit chiffres"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;onze chiffres&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000100">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "onze chiffres"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;lettres&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000098">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "lettres"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;autre pays&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000097">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "autre pays"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;prefixe repete&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000099">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "prefixe repete"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;prefixe coupe&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000096">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "prefixe coupe"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;premier chiffre deux&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000108">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "premier chiffre deux"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;cle fausse&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000109">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "cle fausse"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;ancien format cle fausse&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000075">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "ancien format cle fausse"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;lettres avant longueur&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000168">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "lettres avant longueur"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;signe plus&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000108">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "signe plus"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;barre oblique&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000095">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "barre oblique"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;chiffres unicode&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000100">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "chiffres unicode"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;tabulation&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000092">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "tabulation"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;saut de ligne&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000093">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "saut de ligne"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;octet nul&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000093">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "octet nul"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+          <testcase name="testRefuseAvecMotifFrancais with data set &quot;utf8 mal forme&quot;" file="/work/tests/Entreprise/NumeroEntrepriseTest.php" line="44" class="Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest" classname="Imagine.Pilotage.Tests.Entreprise.NumeroEntrepriseTest" assertions="1" time="0.000101">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\NumeroEntrepriseTest::testRefuseAvecMotifFrancais with data set "utf8 mal forme"
+Failed asserting that true is false.
+
+/work/tests/Entreprise/NumeroEntrepriseTest.php:47</failure>
+          </testcase>
+        </testsuite>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

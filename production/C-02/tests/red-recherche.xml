@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="3" assertions="1" errors="2" failures="1" skipped="0" time="0.003379">
+    <testsuite name="Entreprise" tests="3" assertions="1" errors="2" failures="1" skipped="0" time="0.003379">
+      <testsuite name="Imagine\Pilotage\Tests\Entreprise\RechercheDenominationTest" file="/work/tests/Entreprise/RechercheDenominationTest.php" tests="3" assertions="1" errors="2" failures="1" skipped="0" time="0.003379">
+        <testcase name="testImplementationVideSignaleIndisponibiliteSansDenomination" file="/work/tests/Entreprise/RechercheDenominationTest.php" line="16" class="Imagine\Pilotage\Tests\Entreprise\RechercheDenominationTest" classname="Imagine.Pilotage.Tests.Entreprise.RechercheDenominationTest" assertions="0" time="0.002703">
+          <error type="Error">Imagine\Pilotage\Tests\Entreprise\RechercheDenominationTest::testImplementationVideSignaleIndisponibiliteSansDenomination
+Error: Class "Imagine\Pilotage\Entreprise\RechercheDenominationIndisponible" not found
+
+/work/tests/Entreprise/RechercheDenominationTest.php:18</error>
+        </testcase>
+        <testcase name="testInterfaceInjectableAvecDoubleStrictementFictif" file="/work/tests/Entreprise/RechercheDenominationTest.php" line="30" class="Imagine\Pilotage\Tests\Entreprise\RechercheDenominationTest" classname="Imagine.Pilotage.Tests.Entreprise.RechercheDenominationTest" assertions="0" time="0.000103">
+          <error type="Error">Imagine\Pilotage\Tests\Entreprise\RechercheDenominationTest::testInterfaceInjectableAvecDoubleStrictementFictif
+Error: Interface "Imagine\Pilotage\Entreprise\RechercheDenomination" not found
+
+/work/tests/Entreprise/RechercheDenominationTest.php:32</error>
+        </testcase>
+        <testcase name="testUneDenominationVideNeSimulePasUnSucces" file="/work/tests/Entreprise/RechercheDenominationTest.php" line="46" class="Imagine\Pilotage\Tests\Entreprise\RechercheDenominationTest" classname="Imagine.Pilotage.Tests.Entreprise.RechercheDenominationTest" assertions="1" time="0.000573">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Entreprise\RechercheDenominationTest::testUneDenominationVideNeSimulePasUnSucces
+Failed asserting that exception of type "Error" matches expected exception "InvalidArgumentException". Message was: "Class "Imagine\Pilotage\Entreprise\ResultatRecherche" not found" at
+/work/tests/Entreprise/RechercheDenominationTest.php:49
+.</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>
