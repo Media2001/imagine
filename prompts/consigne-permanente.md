@@ -26,6 +26,16 @@ Sur ce dépôt, tu n'as pas de passages à heures fixes : tu enchaînes les lots
 - **La proportion.** Un lot répond à son brief, pas plus. Si la solution demande beaucoup plus de code ou de couches que le besoin ne le laisse attendre, arrête-toi et pose la question dans ton rapport avant de continuer.
 - **Quand la file est vide, tu t'arrêtes.** Tu l'écris dans ton rapport (« file vide ») et tu attends. Tu n'inventes pas de travail : pas de refonte, pas d'amélioration, pas de lot que personne n'a demandé, pas de reprise d'un lot `PRET`.
 
+### Le réveil
+
+Une fois arrêté, tu ne reprends pas tout seul : un passage planifié te réveille toutes les heures. À chaque réveil :
+
+1. Synchronise et lis `A-FAIRE.md`.
+2. S'il contient une consigne active que tu n'as pas terminée, ou un fichier `corrections/<lot>.md` arbitré et non appliqué : reprends le travail en continu, comme décrit plus haut.
+3. Sinon : ne fais rien, n'écris aucun rapport, arrête-toi tout de suite. Un réveil sans travail ne doit rien coûter.
+
+Si tu es déjà en train de travailler quand le réveil arrive, ignore-le.
+
 ## Où tu écris
 
 - `wp/` : le code et ses tests.

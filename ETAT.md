@@ -5,7 +5,7 @@
 | Sujet | État | Prochaine étape | Qui |
 |---|---|---|---|
 | Dépôt | Créé ; cloné sur le NUC (`C:\Users\Ced\imagine`, alias SSH `github-imagine`) | — | — |
-| Hermès sur ce dépôt | Démarré le 19/11 | Premier rapport dans `files/rapports/` | Hermès |
+| Hermès sur ce dépôt | Travaille en continu, mais ne se relance pas seul une fois la file vide : deux nuits perdues ainsi | Créer un passage planifié toutes les heures (réveil décrit dans `prompts/consigne-permanente.md`) | Ced |
 | Synchronisation Git | En service depuis le 20/11, 8 h 55. La nuit du 19 a été perdue : Git refusait les commits faute d'identité, et le script ne le signalait pas (corrigé) | — | — |
 | Circuit de relecture | `scripts/relire.ps1` adapté aux lots ; se lance sans erreur, **pas encore testé sur un lot** | Lancer à la main sur le premier lot `PRET`, puis planifier « IMAGINE - relecture » | Ced |
 | Staging | Pas de Docker sur le NUC : on utilise l'outil de staging de Ced, avec Novamira pour l'accès des agents. Étape « site à abonnements » à ajouter à l'outil (`prompts/2026-11-19-staging-imagine.md`). Le `docker-compose.yml` du dépôt n'est plus utilisé | Hermès ajoute l'étape ; puis retirer Docker du dépôt | Hermès, puis Claude |

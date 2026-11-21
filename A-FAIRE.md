@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 21 novembre 2026, 0 h 45.
+Mis à jour le 21 novembre 2026, 10 h 25.
 
 Consigne permanente : `prompts/consigne-permanente.md`. Doctrine : `doctrine/doctrine.md` (dernière révision : **19/11/2026 — outil de staging et Novamira à la place de Docker**).
 
@@ -24,7 +24,7 @@ Pour chaque lot : rejoue toute la suite de tests, mets `notes.md` à jour avec c
 
 **2. `briefs/A-01-chemin-court.md`** — finir A-01 par le chemin le plus court : une commande unique pour Ced. Une demi-journée.
 
-Les arbitrages de Ced sur les fusions arriveront ici dès qu'il les aura donnés.
+**3. `docs/arbitrages-2026-11-21.md`** — Ced a tranché le 21/11. Applique ses réponses lot par lot, dans le même ordre (C-03, C-01, C-04, C-02, A-00), avec les tests qui les prouvent. Si tu n'as pas encore commencé la consigne 1 pour un lot, traite ses corrections et ses arbitrages en une seule passe. Une question absente de ce fichier n'est pas tranchée : n'y touche pas. Redépose `PRET` par lot.
 
 **Où lancer les tests PHP.** Dans un conteneur jetable, comme tu l'as fait le 20/11. Rien sur Windows.
 
