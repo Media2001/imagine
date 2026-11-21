@@ -1,5 +1,28 @@
 # C-03 — vérification défensive de l’identité des robots
 
+## État courant — corrections et arbitrages réunis le 21 novembre 2026
+
+Sur instruction directe de Ced, reprise du correctif c03-v2 existant, sans réécrire le premier PRET : celui-ci concernait uniquement les corrections 1 à 4 avant application des arbitrages. Reçus initiaux conservés dans tests-21nov/premier-pret-avant-arbitrages/ ; rapport initial 2026-11-21-C-03-corrections.md conservé.
+
+Décisions écrites de docs/arbitrages-2026-11-21.md appliquées : DNS 1 000 ms pour toute la séquence ; cache positif 3 600 s ; négatif 60 s uniquement pour DomaineRefuse, AdresseDifferente ou PlageAbsente. Panne inverse/directe, timeout explicite, budget total atteint, plages expirées ou autre doute sont refusés sans écriture de cache ; la requête suivante retente immédiatement. Les trois valeurs restent dans config/robots.php et Configuration, sans temporisation hôte. Le cache reste injecté, et ses pannes ferment toujours la décision.
+
+Clé c03-v2 : tuple sérialisé version/configuration/identifiant/IP canonique, identité et configuration approuvées explicitement par Ced. Les tests défensifs s'exécutent uniquement sur ce code corrigé, jamais sur l'ancienne vulnérabilité, sans contenu payant ni accès indu. Calcul des échéances en UTC conservé après le constat DST réel du premier passage (preuves avant-utc historiques).
+
+Configuration livrée : Googlebot et Bingbot seulement ; aucun Google Image/Video/Other, Applebot ou autre agent activé. Confirmation du référenceur encore attendue. Les robots fictifs de tests n'étendent pas cette liste.
+
+Prérequis hébergeur conservé avant tout branchement : inventorier les proxies/CDN autorisés, empêcher l'origine directe d'imposer une IP, normaliser une seule IP de confiance à la couche serveur. Le moteur n'utilise aucun en-tête. Adaptateur DNS à délai dur, cache persistant et intégration paywall non livrés ; aucun staging ou accès Novamira.
+
+Validation complète isolée : 184 tests / 19 980 assertions, dont Robots 101 / 298, Numeros 42 / 121, Entreprise 41 / 19 561. Zéro échec, erreur ou ignoré ; PHPCS, syntaxe, Composer strict et contrôles config PASS. Conteneur jetable supprimé, absence vérifiée ; manifeste C-03 ciblé PASS. Preuves courantes tests-21nov/final.*, configuration-arbitrages.json et artifact-verification.json.
+
+Preuves C-01/C-04/C-02 acquises revérifiées sans rejeu inutile : empreintes des sources propres aux lots et vrais C-02 chargés par C-04 inchangés ; JUnit verts et nettoyage cohérents. Reçu files/rapports/2026-11-21-preuves-acquises.json. README partagé actualisé et couvert par ce dernier reçu C-03.
+
+Restent ouverts : confirmation référenceur, prérequis hébergeur et choix/contrats d'intégration non décidés. Instruction 5 conditionnelle différée, liste non élargie. Aucun GO déduit d'un arbitrage ni de PRET.
+
+## Notes historiques de la livraison du 20/11 et de la première correction
+
+Les propositions et questions ouvertes ci-dessous décrivent ces étapes ; l'état courant ci-dessus les remplace uniquement sur les points expressément décidés.
+
+
 **Livraison à relire, sans GO ni branchement sur un site.** Référence :
 `briefs/C-03-verification-robots.md`, cahier des charges §3.9 et §4.4.
 Aucune règle d’abonnement ou de restitution de contenu n’est ajoutée.

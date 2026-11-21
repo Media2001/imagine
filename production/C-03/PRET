@@ -1,3 +1,7 @@
+C-03 — PRET ACTUALISÉ le 21 novembre 2026, corrections et arbitrages réunis. Suite complète 184 tests / 19 980 assertions, Robots 101 / 298, contrôles et cleanup PASS. Preuves tests-21nov/final.*, configuration-arbitrages.json, artifact-verification.json ; rapport files/rapports/2026-11-21-C-03-arbitrages.md. Pas de GO.
+
+Historique exact : le premier PRET de correction ci-dessous précédait l'application des arbitrages. Sa copie et ses reçus sont dans tests-21nov/premier-pret-avant-arbitrages/.
+
 C-03 — redéposé le 21 novembre 2026 après vérification PASS (tests-21nov/artifact-verification.json). Suite complète : 172 tests / 19 891 assertions. Rapport files/rapports/2026-11-21-C-03-corrections.md. Arbitrages ouverts ; aucun GO.
 
 Historique du 20 novembre, distinct du rejeu courant :

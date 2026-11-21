@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "lots": [
+    {
+      "lot": "C-01",
+      "unchanged_scoped_sources": 14,
+      "tests": 42,
+      "assertions": 121,
+      "status": "PASS"
+    },
+    {
+      "lot": "C-04",
+      "unchanged_scoped_sources": 32,
+      "tests": 37,
+      "assertions": 224,
+      "status": "PASS"
+    },
+    {
+      "lot": "C-02",
+      "unchanged_scoped_sources": 10,
+      "tests": 41,
+      "assertions": 19561,
+      "status": "PASS"
+    }
+  ],
+  "no_test_rerun": true,
+  "shared_README_currently_covered_by": "C-03/tests-21nov/final.json",
+  "C04_real_C02_composition_unchanged": true
+}

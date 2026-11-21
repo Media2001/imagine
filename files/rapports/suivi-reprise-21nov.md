@@ -12,5 +12,8 @@ Réception immédiate de l'instruction directe de Ced : priorité C-03, applique
 - C-01 terminé : construction/modification à clôtures inversées refusées, ouverture 29/02 et fin 28/02 selon décision écrite ; Numeros 42/121 puis suite complète 175/19 911, contrôles et nettoyage PASS, PRET redéposé.
 - C-04 terminé : CSV monotone, instantané détaché, alertes rejouables, vraie composition C-02, formules neutralisées et divergence alertée selon décisions écrites. Suite 37/224 et contrôles PASS, cleanup vérifié, PRET redéposé. Écriture docs/ecarts interdite différée au tenant.
 - C-02 terminé : assertion littérale, comparaison standard d'abord, report BCE/VIES selon décision Ced ; 175/19 912 dont Entreprise 41/19 561, contrôles et cleanup PASS, PRET redéposé.
-- En cours : A-00 après relecture de la file.
+- Priorité directe traitée : C-03 corrections + arbitrages réunis, DNS 1 000 ms / positif 3 600 s / refus établi 60 s, panne/délai sans cache et retente immédiate ; suite 184/19 980 (Robots 101/298), lint config/manifest/nettoyage PASS ; PRET actualisé. Premier PRET et rapport initial conservés sans réécriture.
+- Preuves acquises C-01/C-04/C-02 revérifiées sans rejouer les suites inchangées : PASS, reçu 2026-11-21-preuves-acquises.json.
+- A-00 terminé : corrections et arbitrages écrits 1/10 réunis, PayPal/découverte en doute documentaire, grâce non décidée ; 281/281 contrôles hors réseau et non-régression acquise, PRET redéposé. Registre docs/ecarts laissé à son tenant.
+- En cours : A-01 chemin court, début après 10 h 53 locale ; demi-journée maximum, aucune archive réelle/dérivée ni accès hors checkout/site/service partagé. Relecture de la file entre lots.
 - Historique départ : lecture du brief C-03, inventaire du code et découverte du banc disponible. Arbitrages de corrections/C-03.md laissés ouverts ; instruction 5 conditionnelle différée.

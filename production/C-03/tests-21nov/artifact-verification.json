@@ -3,18 +3,18 @@
   "lot": "C-03",
   "scope": "Robots",
   "suite_complete": {
-    "tests": 172,
-    "assertions": 19891
+    "tests": 184,
+    "assertions": 19980
   },
   "sha256": {
-    "README.md": "3581befcf4fa9c766f7993b6c02bd3d691e740f09ceb5d03911a9e2bd81d0097",
+    "README.md": "b8bc9af28f57a9187f4fe8210ef859e88e6c080342c25b7d4fa6f39f00557a8a",
     "composer.json": "1477fe78ed255c28ba16db350919fbd8ae8a7297d37ca043375c843d247a7652",
     "composer.lock": "37ac1c2ae798927d7a951b3778691d106d03e631f57a0c5687357384165ab124",
-    "config/robots.php": "09ecdbe49cf05b86dbb8008502b52ee11a8f194ae5a90da1b300dd6f490ba15d",
+    "config/robots.php": "c42a9988f7a0a27170a299aaba1f605cce0cc806f5e8bc7003143cc2e5fdc78b",
     "phpunit.xml": "5b5111b822deaa1a88eeae406d4ec0f11100d16a86d2015c2bf81c71dcbe4d2f",
     "src/Robots/Cache.php": "72bb90a525256496ec0bc936186048518e399644787c3f0ea7c7ce59c828c61e",
     "src/Robots/CacheMemoire.php": "812b964aedece63f13d61f2170f80daf6bbc19b11686ead059e153ff8c80e1b3",
-    "src/Robots/Configuration.php": "4007b0e6261ec3e8e05e698a17723abb235e51873a6beaa11fe78cbb0439692f",
+    "src/Robots/Configuration.php": "ceb6150ff358c4af68b77f56466a4c6055a5a21498fdd8ba922f1026812f2fdf",
     "src/Robots/Decision.php": "8e7478b7f16f3fff1aaec44f7a2347be5b59ae39f530bb8ba8f68e2d87cbae34",
     "src/Robots/DelaiDnsDepasse.php": "eb8cb6a39eb7341d7bb84c738356c995bb7adb243e26c6e4120640faea04ec75",
     "src/Robots/Dns.php": "37563404ade85287e352bfcf7d6b7869d5f4871e7582a1b22ef4613c928d734e",
@@ -24,13 +24,13 @@
     "src/Robots/Motif.php": "8a8e5a51f6841235c329fc0b21c0fa3eff1b507059517fd99f7c25ec40348f71",
     "src/Robots/Plage.php": "f4cbf2952d580dad65e84749816a36798eda57a2c09788000cbcf629d4f78ab0",
     "src/Robots/Robot.php": "a21acf3b9600509479c78152dc378d6c2ca33fdf60e9ecaf4e24d35b9764c3f7",
-    "src/Robots/Verificateur.php": "634305f0d1e3c439f1d496898e46695c18751034ef7b6d8db87f43427ffef5a4",
-    "tests/Robots/CacheDefensifTest.php": "9d0d6b50b955c4f7d217f719f7dd57e811d235bc9685e02b92a3bedcfb213752",
-    "tests/Robots/CacheTest.php": "fbe5bce6b18cc69a6f364a9aff905d13463808506ff6122fc112424ae8f98b7d",
-    "tests/Robots/ConfigurationTest.php": "8a2b4b88f7f9470aead5809463b0c8aef0bfff6756ea63df6a2f9887428908b5",
+    "src/Robots/Verificateur.php": "953988746e4338951dcaee186dde2aff4c3b0d76f21df7d9f463d4ec7b06e88c",
+    "tests/Robots/CacheDefensifTest.php": "fbaa902791d59c1a6aadc1140c59e660033660ae95101ab92b5e8d56bffbca03",
+    "tests/Robots/CacheTest.php": "e036b1247a0fab349dd235cb9686c95356bc2ea34c1e0c1e4abb8013b5c55e92",
+    "tests/Robots/ConfigurationTest.php": "524b273c4424f9d20a147af63c698f70844487913f5e057593b1a9de297e9d62",
     "tests/Robots/DnsFictif.php": "7c196f5b43f5b26910ee9f8d4c830fc9210fbb921c19b5d5528a1153e03adc61",
     "tests/Robots/HorlogeFictive.php": "98966ca6be1bd480d2b0700ee877829fd842319da1d1e55dff0583a1b37326f2",
     "tests/Robots/PlagesTest.php": "7c994e5829cbee558775d223022c524da0f012154ce6089ea3168e4eb953d06a",
-    "tests/Robots/VerificateurTest.php": "ffaba77f852d07a9e7b2ca17202c2a4dadb0a22d4b6c26d825855e18353be146"
+    "tests/Robots/VerificateurTest.php": "278d8d5f7d5eaa4f38c6f57d89371b8972540f56daacb2b94a2d9fb350e7371d"
   }
 }
