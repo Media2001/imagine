@@ -1,0 +1,1081 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "classic:unknown_table_refused_before_decision",
+      "pass": true,
+      "detail": [
+        "TABLE_PERSONNELLE_A_TRANCHER"
+      ]
+    },
+    {
+      "name": "classic:all_files_restored_exactly",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "classic:native_three_phases_pass",
+      "pass": true,
+      "detail": [
+        {
+          "phase": "neutraliser",
+          "exit": 0
+        },
+        {
+          "phase": "anonymiser",
+          "exit": 0
+        },
+        {
+          "phase": "verifier",
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "name": "classic:only_expected_purge_differences",
+      "pass": true,
+      "detail": {
+        "removed": [
+          "advanced-cache.php",
+          "ai1wm-backups/fiction.wpress",
+          "object-cache.php"
+        ],
+        "added": [
+          "mu-plugins/000-imagine-staging-safety.php"
+        ],
+        "changed": []
+      }
+    },
+    {
+      "name": "classic:active_plugins_unchanged",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "classic:active_theme_unchanged",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "classic:post_restore_form_seo_fields_intact",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "classic:business_orders_unchanged",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "hpos:unknown_table_refused_before_decision",
+      "pass": true,
+      "detail": [
+        "TABLE_PERSONNELLE_A_TRANCHER"
+      ]
+    },
+    {
+      "name": "hpos:all_files_restored_exactly",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "hpos:native_three_phases_pass",
+      "pass": true,
+      "detail": [
+        {
+          "phase": "neutraliser",
+          "exit": 0
+        },
+        {
+          "phase": "anonymiser",
+          "exit": 0
+        },
+        {
+          "phase": "verifier",
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "name": "hpos:only_expected_purge_differences",
+      "pass": true,
+      "detail": {
+        "removed": [
+          "advanced-cache.php",
+          "ai1wm-backups/fiction.wpress",
+          "object-cache.php"
+        ],
+        "added": [
+          "mu-plugins/000-imagine-staging-safety.php"
+        ],
+        "changed": []
+      }
+    },
+    {
+      "name": "hpos:active_plugins_unchanged",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "hpos:active_theme_unchanged",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "hpos:post_restore_form_seo_fields_intact",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "hpos:business_orders_unchanged",
+      "pass": true,
+      "detail": null
+    }
+  ],
+  "runs": [
+    {
+      "storage": "classic",
+      "archive_created_in_same_container": true,
+      "archive_never_exported": true,
+      "archive_sha256": "9e289d3df7d53e0fd5b839ada6430b219f05b303b133417d3a3106d7cf0c81c8",
+      "status": "verified-offline",
+      "phases": [
+        {
+          "phase": "neutraliser",
+          "exit": 0,
+          "report": {
+            "ok": true,
+            "scope": "offline-data-only"
+          }
+        },
+        {
+          "phase": "anonymiser",
+          "exit": 0,
+          "report": {
+            "ok": true,
+            "scope": "offline-data-only"
+          }
+        },
+        {
+          "phase": "verifier",
+          "exit": 0,
+          "report": {
+            "ok": true,
+            "issues": [],
+            "warnings": [
+              "EMAIL_HORS_PERIMETRE_COMPTES_COMMANDES",
+              "FORMAT_OPAQUE_CONSERVE",
+              "CHAMP_SECRET_CONNU_RESIDUEL",
+              "TABLE_INCONNUE_CONSERVEE",
+              "OPTIONS_HORS_CATALOGUE_CONSERVEES",
+              "TYPES_CONTENU_INCONNUS_CONSERVES",
+              "CRON_OU_INDEXATION",
+              "ACTION_EN_ATTENTE",
+              "TABLE_A_VIDER",
+              "MU_PRODUCTION_CONSERVES"
+            ],
+            "unknown_tables": [
+              {
+                "name": "wp_yoast_indexable",
+                "columns": [
+                  "id",
+                  "permalink",
+                  "permalink_hash",
+                  "object_id",
+                  "object_type",
+                  "object_sub_type",
+                  "author_id",
+                  "post_parent",
+                  "title",
+                  "description",
+                  "breadcrumb_title",
+                  "post_status",
+                  "is_public",
+                  "is_protected",
+                  "has_public_posts",
+                  "number_of_pages",
+                  "canonical",
+                  "primary_focus_keyword",
+                  "primary_focus_keyword_score",
+                  "readability_score",
+                  "is_cornerstone",
+                  "is_robots_noindex",
+                  "is_robots_nofollow",
+                  "is_robots_noarchive",
+                  "is_robots_noimageindex",
+                  "is_robots_nosnippet",
+                  "twitter_title",
+                  "twitter_image",
+                  "twitter_description",
+                  "twitter_image_id",
+                  "twitter_image_source",
+                  "open_graph_title",
+                  "open_graph_description",
+                  "open_graph_image",
+                  "open_graph_image_id",
+                  "open_graph_image_source",
+                  "open_graph_image_meta",
+                  "link_count",
+                  "incoming_link_count",
+                  "prominent_words_version",
+                  "created_at",
+                  "updated_at",
+                  "blog_id",
+                  "language",
+                  "region",
+                  "schema_page_type",
+                  "schema_article_type",
+                  "has_ancestors",
+                  "estimated_reading_time_minutes",
+                  "version",
+                  "object_last_modified",
+                  "object_published_at",
+                  "inclusive_language_score"
+                ],
+                "rows": 0,
+                "personal_columns": [],
+                "decision": null
+              },
+              {
+                "name": "wp_yoast_indexable_hierarchy",
+                "columns": [
+                  "indexable_id",
+                  "ancestor_id",
+                  "depth",
+                  "blog_id"
+                ],
+                "rows": 0,
+                "personal_columns": [],
+                "decision": null
+              },
+              {
+                "name": "wp_yoast_migrations",
+                "columns": [
+                  "id",
+                  "version"
+                ],
+                "rows": 24,
+                "personal_columns": [],
+                "decision": null
+              },
+              {
+                "name": "wp_yoast_primary_term",
+                "columns": [
+                  "id",
+                  "post_id",
+                  "term_id",
+                  "taxonomy",
+                  "created_at",
+                  "updated_at",
+                  "blog_id"
+                ],
+                "rows": 0,
+                "personal_columns": [
+                  "taxonomy"
+                ],
+                "decision": {
+                  "action": "garder"
+                }
+              },
+              {
+                "name": "wp_yoast_seo_links",
+                "columns": [
+                  "id",
+                  "url",
+                  "post_id",
+                  "target_post_id",
+                  "type",
+                  "indexable_id",
+                  "target_indexable_id",
+                  "height",
+                  "width",
+                  "size",
+                  "language",
+                  "region"
+                ],
+                "rows": 0,
+                "personal_columns": [],
+                "decision": null
+              }
+            ],
+            "unknown_columns": [],
+            "unknown_post_types": [
+              "wpcf7_contact_form"
+            ],
+            "disabled_plugins": [],
+            "active_plugins": [
+              "contact-form-7/wp-contact-form-7.php",
+              "meta-box/meta-box.php",
+              "woocommerce/woocommerce.php",
+              "wordpress-seo/wp-seo.php"
+            ],
+            "schema_details": {
+              "tables": {
+                "wp_actionscheduler_actions": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_actionscheduler_claims": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_actionscheduler_groups": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_actionscheduler_logs": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_commentmeta": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_comments": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_links": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_options": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_postmeta": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_posts": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_term_relationships": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_term_taxonomy": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_termmeta": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_terms": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_usermeta": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_users": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_admin_note_actions": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_admin_notes": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_category_lookup": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_customer_lookup": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_download_log": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_order_addresses": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_order_coupon_lookup": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_order_operational_data": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_order_product_lookup": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_order_stats": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_order_tax_lookup": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_orders": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_orders_meta": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_product_attributes_lookup": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_product_download_directories": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_product_meta_lookup": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_rate_limits": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_reserved_stock": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_tax_rate_classes": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_webhooks": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_api_keys": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_attribute_taxonomies": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_downloadable_product_permissions": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_log": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_order_itemmeta": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_order_items": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_payment_tokenmeta": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_payment_tokens": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_sessions": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_shipping_zone_locations": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_shipping_zone_methods": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_shipping_zones": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_tax_rate_locations": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_tax_rates": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_yoast_indexable": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_yoast_indexable_hierarchy": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_yoast_migrations": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_yoast_primary_term": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_yoast_seo_links": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                }
+              },
+              "triggers": [],
+              "events": [],
+              "warnings": []
+            },
+            "scope": "offline-data-only",
+            "files": {
+              "mu_plugins": [
+                "fixture-court.php",
+                "imagine-e2e-fields.php"
+              ],
+              "drop_ins": [],
+              "warnings": [
+                "MU_PRODUCTION_CONSERVES"
+              ]
+            }
+          }
+        }
+      ],
+      "file_counts": {
+        "plugins": {
+          "before": 7704,
+          "after": 7704
+        },
+        "themes": {
+          "before": 396,
+          "after": 396
+        },
+        "uploads": {
+          "before": 9,
+          "after": 9
+        },
+        "mu-plugins": {
+          "before": 2,
+          "after": 3
+        }
+      },
+      "retained_sha256": {
+        "themes/fixture-court/style.css": "f456ff5e73254796f77e5cd43c619e7e8115bdaa4bdcf440946dab12e27454a3",
+        "uploads/fixture-court.txt": "d1f1906be1cc18f7617624d6590dad15a35437c9118e81fbb8abf22c622736b6",
+        "mu-plugins/fixture-court.php": "c51746a00f18b6c08c8819849f2cc243641593c5c6b544f7927ea8196bd18d68",
+        "plugins/contact-form-7/wp-contact-form-7.php": "615187b0908e9ab8d05904cc917f8295c74888c68080a4eca5e2f7601aa9c757"
+      },
+      "purged": [
+        "advanced-cache.php",
+        "ai1wm-backups/fiction.wpress",
+        "object-cache.php"
+      ],
+      "active_theme": "fixture-court",
+      "active_plugins": [
+        "contact-form-7/wp-contact-form-7.php",
+        "meta-box/meta-box.php",
+        "woocommerce/woocommerce.php",
+        "wordpress-seo/wp-seo.php"
+      ],
+      "settings_sha256": {
+        "form_properties": "ba02e390c8c0ab13a8786e4356b8a0c4c785ea853c1432e19d539ccaf86939fb",
+        "form_title": "29923c94277b861694098f096da0fd77006edaa58619e8a62e84e24629ca7bf7",
+        "seo_options": "7ab722e4c1ef27c6b787348d7b6320934c1a74453cd4b26ba44c39547c5fb635",
+        "seo_post_title": "f35d5cf70a589bf69ee07ee3defad38c0e55b0dca629ed90c16ee8c89e5164fc",
+        "field_value": "f5c04818827e8ad692d21a32474b8b3f8b0efb8939373cab891b655c53772772",
+        "clone_values": "5e68f452c0abdbe5b4210b71b52389edc1e8bda0db50327ca997f2dd0938096e",
+        "field_configuration": "ce157f34be63f9edba5c611c9fd16af8edc5eecacb401276f4b31af627928ae2",
+        "nested_settings": "3c2e5f125457cacfde2aa92ec5c6412764d58c6f3358625105178ac09942bced",
+        "article": "c22ba74059d57bf105928b2ad6e38b4872923aa1c74286b83f25a706b2f1e910"
+      },
+      "publication": "NOT_IMPLEMENTED: no port or egress is opened; site remains stopped"
+    },
+    {
+      "storage": "hpos",
+      "archive_created_in_same_container": true,
+      "archive_never_exported": true,
+      "archive_sha256": "374bafd2af884c28f0090fa4c6eb6259afd4fa36bd9e19df42b956697a4ab839",
+      "status": "verified-offline",
+      "phases": [
+        {
+          "phase": "neutraliser",
+          "exit": 0,
+          "report": {
+            "ok": true,
+            "scope": "offline-data-only"
+          }
+        },
+        {
+          "phase": "anonymiser",
+          "exit": 0,
+          "report": {
+            "ok": true,
+            "scope": "offline-data-only"
+          }
+        },
+        {
+          "phase": "verifier",
+          "exit": 0,
+          "report": {
+            "ok": true,
+            "issues": [],
+            "warnings": [
+              "EMAIL_HORS_PERIMETRE_COMPTES_COMMANDES",
+              "FORMAT_OPAQUE_CONSERVE",
+              "CHAMP_SECRET_CONNU_RESIDUEL",
+              "IDENTITE_RESIDUELLE",
+              "TABLE_INCONNUE_CONSERVEE",
+              "OPTIONS_HORS_CATALOGUE_CONSERVEES",
+              "TYPES_CONTENU_INCONNUS_CONSERVES",
+              "CRON_OU_INDEXATION",
+              "ACTION_EN_ATTENTE",
+              "TABLE_A_VIDER",
+              "MU_PRODUCTION_CONSERVES"
+            ],
+            "unknown_tables": [
+              {
+                "name": "wp_yoast_indexable",
+                "columns": [
+                  "id",
+                  "permalink",
+                  "permalink_hash",
+                  "object_id",
+                  "object_type",
+                  "object_sub_type",
+                  "author_id",
+                  "post_parent",
+                  "title",
+                  "description",
+                  "breadcrumb_title",
+                  "post_status",
+                  "is_public",
+                  "is_protected",
+                  "has_public_posts",
+                  "number_of_pages",
+                  "canonical",
+                  "primary_focus_keyword",
+                  "primary_focus_keyword_score",
+                  "readability_score",
+                  "is_cornerstone",
+                  "is_robots_noindex",
+                  "is_robots_nofollow",
+                  "is_robots_noarchive",
+                  "is_robots_noimageindex",
+                  "is_robots_nosnippet",
+                  "twitter_title",
+                  "twitter_image",
+                  "twitter_description",
+                  "twitter_image_id",
+                  "twitter_image_source",
+                  "open_graph_title",
+                  "open_graph_description",
+                  "open_graph_image",
+                  "open_graph_image_id",
+                  "open_graph_image_source",
+                  "open_graph_image_meta",
+                  "link_count",
+                  "incoming_link_count",
+                  "prominent_words_version",
+                  "created_at",
+                  "updated_at",
+                  "blog_id",
+                  "language",
+                  "region",
+                  "schema_page_type",
+                  "schema_article_type",
+                  "has_ancestors",
+                  "estimated_reading_time_minutes",
+                  "version",
+                  "object_last_modified",
+                  "object_published_at",
+                  "inclusive_language_score"
+                ],
+                "rows": 0,
+                "personal_columns": [],
+                "decision": null
+              },
+              {
+                "name": "wp_yoast_indexable_hierarchy",
+                "columns": [
+                  "indexable_id",
+                  "ancestor_id",
+                  "depth",
+                  "blog_id"
+                ],
+                "rows": 0,
+                "personal_columns": [],
+                "decision": null
+              },
+              {
+                "name": "wp_yoast_migrations",
+                "columns": [
+                  "id",
+                  "version"
+                ],
+                "rows": 24,
+                "personal_columns": [],
+                "decision": null
+              },
+              {
+                "name": "wp_yoast_primary_term",
+                "columns": [
+                  "id",
+                  "post_id",
+                  "term_id",
+                  "taxonomy",
+                  "created_at",
+                  "updated_at",
+                  "blog_id"
+                ],
+                "rows": 0,
+                "personal_columns": [
+                  "taxonomy"
+                ],
+                "decision": {
+                  "action": "garder"
+                }
+              },
+              {
+                "name": "wp_yoast_seo_links",
+                "columns": [
+                  "id",
+                  "url",
+                  "post_id",
+                  "target_post_id",
+                  "type",
+                  "indexable_id",
+                  "target_indexable_id",
+                  "height",
+                  "width",
+                  "size",
+                  "language",
+                  "region"
+                ],
+                "rows": 0,
+                "personal_columns": [],
+                "decision": null
+              }
+            ],
+            "unknown_columns": [],
+            "unknown_post_types": [
+              "wpcf7_contact_form"
+            ],
+            "disabled_plugins": [],
+            "active_plugins": [
+              "contact-form-7/wp-contact-form-7.php",
+              "meta-box/meta-box.php",
+              "woocommerce/woocommerce.php",
+              "wordpress-seo/wp-seo.php"
+            ],
+            "schema_details": {
+              "tables": {
+                "wp_actionscheduler_actions": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_actionscheduler_claims": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_actionscheduler_groups": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_actionscheduler_logs": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_commentmeta": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_comments": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_links": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_options": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_postmeta": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_posts": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_term_relationships": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_term_taxonomy": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_termmeta": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_terms": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_usermeta": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_users": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_admin_note_actions": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_admin_notes": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_category_lookup": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_customer_lookup": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_download_log": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_order_addresses": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_order_coupon_lookup": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_order_operational_data": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_order_product_lookup": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_order_stats": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_order_tax_lookup": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_orders": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_orders_meta": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_product_attributes_lookup": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_product_download_directories": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_product_meta_lookup": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_rate_limits": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_reserved_stock": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_tax_rate_classes": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_wc_webhooks": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_api_keys": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_attribute_taxonomies": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_downloadable_product_permissions": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_log": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_order_itemmeta": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_order_items": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_payment_tokenmeta": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_payment_tokens": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_sessions": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_shipping_zone_locations": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_shipping_zone_methods": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_shipping_zones": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_tax_rate_locations": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_woocommerce_tax_rates": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_yoast_indexable": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_yoast_indexable_hierarchy": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_yoast_migrations": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_yoast_primary_term": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                },
+                "wp_yoast_seo_links": {
+                  "type": "BASE TABLE",
+                  "engine": "InnoDB"
+                }
+              },
+              "triggers": [],
+              "events": [],
+              "warnings": []
+            },
+            "scope": "offline-data-only",
+            "files": {
+              "mu_plugins": [
+                "fixture-court.php",
+                "imagine-e2e-fields.php"
+              ],
+              "drop_ins": [],
+              "warnings": [
+                "MU_PRODUCTION_CONSERVES"
+              ]
+            }
+          }
+        }
+      ],
+      "file_counts": {
+        "plugins": {
+          "before": 7704,
+          "after": 7704
+        },
+        "themes": {
+          "before": 396,
+          "after": 396
+        },
+        "uploads": {
+          "before": 9,
+          "after": 9
+        },
+        "mu-plugins": {
+          "before": 2,
+          "after": 3
+        }
+      },
+      "retained_sha256": {
+        "themes/fixture-court/style.css": "f456ff5e73254796f77e5cd43c619e7e8115bdaa4bdcf440946dab12e27454a3",
+        "uploads/fixture-court.txt": "d1f1906be1cc18f7617624d6590dad15a35437c9118e81fbb8abf22c622736b6",
+        "mu-plugins/fixture-court.php": "c51746a00f18b6c08c8819849f2cc243641593c5c6b544f7927ea8196bd18d68",
+        "plugins/contact-form-7/wp-contact-form-7.php": "615187b0908e9ab8d05904cc917f8295c74888c68080a4eca5e2f7601aa9c757"
+      },
+      "purged": [
+        "advanced-cache.php",
+        "ai1wm-backups/fiction.wpress",
+        "object-cache.php"
+      ],
+      "active_theme": "fixture-court",
+      "active_plugins": [
+        "contact-form-7/wp-contact-form-7.php",
+        "meta-box/meta-box.php",
+        "woocommerce/woocommerce.php",
+        "wordpress-seo/wp-seo.php"
+      ],
+      "settings_sha256": {
+        "form_properties": "ba02e390c8c0ab13a8786e4356b8a0c4c785ea853c1432e19d539ccaf86939fb",
+        "form_title": "29923c94277b861694098f096da0fd77006edaa58619e8a62e84e24629ca7bf7",
+        "seo_options": "462fde02372ed45abd2c2b488953abf277162e5f8eeadc212f1bf53aa1c307af",
+        "seo_post_title": "f35d5cf70a589bf69ee07ee3defad38c0e55b0dca629ed90c16ee8c89e5164fc",
+        "field_value": "f5c04818827e8ad692d21a32474b8b3f8b0efb8939373cab891b655c53772772",
+        "clone_values": "5e68f452c0abdbe5b4210b71b52389edc1e8bda0db50327ca997f2dd0938096e",
+        "field_configuration": "ce157f34be63f9edba5c611c9fd16af8edc5eecacb401276f4b31af627928ae2",
+        "nested_settings": "3c2e5f125457cacfde2aa92ec5c6412764d58c6f3358625105178ac09942bced",
+        "article": "c22ba74059d57bf105928b2ad6e38b4872923aa1c74286b83f25a706b2f1e910"
+      },
+      "publication": "NOT_IMPLEMENTED: no port or egress is opened; site remains stopped"
+    }
+  ],
+  "passed": 16,
+  "failed": 0,
+  "full_staging_ready": false,
+  "reason": "PUBLICATION_AND_UPDATE_EGRESS_NOT_IMPLEMENTED",
+  "no_real_archive": true,
+  "no_sites_accessed": true,
+  "image_id": "sha256:b2ffa6ad01ffacc6d31b176232c8d0779c0320daba381e05cbbd80f56d5327a0",
+  "source_manifest_verified": true,
+  "no_ports_no_mounts_network_none": true,
+  "owned_container_removed": true,
+  "recorded_utc": "2026-11-21T10:10:48.440456+00:00"
+}

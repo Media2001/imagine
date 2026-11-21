@@ -89,13 +89,34 @@ def restore_and_verify(archive, request):
     with Path(archive).open('rb') as stream:
         sql, package, count = restore(stream, SITE / 'wp-content')
     before = manifest(SITE / 'wp-content')
-    # SHOW CREATE places AUTO_INCREMENT before charset; the existing closed parser
-    # expects it last. Reorder only this exact safe DDL suffix, never row literals.
-    sql = re.sub(
-        rb'(\) ENGINE=InnoDB) AUTO_INCREMENT=([0-9]+) (DEFAULT CHARSET=[a-z0-9_]+(?: COLLATE=[a-z0-9_]+)?)',
-        rb'\1 \3 AUTO_INCREMENT=\2',
-        sql
-    )
+    # Canonicalize only CREATE TABLE token groups. INSERT string literals are untouched.
+    from legacy_importer import TOKEN
+    text = sql.decode('utf-8')
+    position = 0
+    groups = []
+    group = []
+    while position < len(text):
+        match = TOKEN.match(text, position)
+        if not match:
+            raise Refusal('SQL_GRAMMAR')
+        position = match.end()
+        if match.lastgroup in ('space', 'comment'):
+            continue
+        if match.group() == ';':
+            statement = ' '.join(group)
+            if statement.startswith('CREATE TABLE '):
+                statement = re.sub(
+                    r'(\) ENGINE = INNODB) AUTO_INCREMENT = ([0-9]+) '
+                    r'(DEFAULT CHARSET = [A-Z0-9_]+(?: COLLATE = [A-Z0-9_]+)?)$',
+                    r'\1 \3 AUTO_INCREMENT = \2', statement
+                )
+            groups.append(statement)
+            group = []
+        else:
+            group.append(match.group().upper() if match.lastgroup == 'word' else match.group())
+    if group:
+        raise Refusal('SQL_TERMINATOR')
+    sql = (';\n'.join(groups) + ';\n').encode()
     try:
         plan = sql_plan(sql)
     except Exception:
