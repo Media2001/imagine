@@ -25,4 +25,9 @@ enum Motif: string
     case AchatPasCommence = 'achat_pas_commence';
     case AutreNumero = 'autre_numero';
     case CooperateurSansAbonnement = 'cooperateur_sans_abonnement';
+    case DecouverteDuree = 'decouverte_duree';
+    case DecouverteEpuisee = 'decouverte_epuisee';
+    case DecouvertePasCommencee = 'decouverte_pas_commencee';
+    case DecouverteHorsPerimetre = 'decouverte_hors_perimetre';
+    case CompteNonVerifie = 'compte_non_verifie';
 }

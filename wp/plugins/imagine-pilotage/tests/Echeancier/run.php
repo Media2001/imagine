@@ -145,6 +145,82 @@ $tests['borne_contractuelle_invalide_refusee'] = static function (): void {
     );
 };
 
+$tests['marge_obligatoire_et_parametrable'] = static function (): void {
+    $annee = c05Annee('2027-02-20 12:00:00');
+    $planner = new Planificateur(new Moteur(c05Calendrier()));
+    foreach ([0, -1] as $marge) {
+        c05Refuse(static fn () => $planner->planifier($annee, $annee->finNumerique(), $marge), 'marge');
+    }
+    foreach ([1, 3, 7] as $marge) {
+        $plan = $planner->planifier($annee, $annee->finNumerique(), $marge);
+        c05Assert($plan[1]->date->format('Y-m-d') === sprintf('2027-07-%02d', 10 - $marge), 'Marge injectée');
+        c05Assert($plan[0]->date == $annee->debut, 'Initial indépendant de la marge');
+    }
+};
+$tests['jour_cloture_et_lendemain_passent_au_numero_suivant'] = static function (): void {
+    $source = new Moteur(c05Calendrier());
+    foreach (['2027-04-10 00:00:00', '2027-04-10 12:00:00', '2027-04-11 12:00:00'] as $date) {
+        $a = c05Annee($date);
+        $plan = (new Planificateur($source))->planifier($a, $a->finNumerique(), 7);
+        c05Assert($plan[0]->numero->id === 'REG-2027-07', 'Clôture incluse C01');
+        $b = $source->renouveler($a, $a->finNumerique());
+        $suite = (new Planificateur($source))->planifier($b, c05Date($date)->modify('+2 years'), 7);
+        c05Assert($suite[0]->numero->id === 'REG-2028-07', 'Suivant sans doublon');
+    }
+};
+$tests['fuseau_dst_et_29_fevrier_sont_ceux_de_c01'] = static function (): void {
+    $source = new Moteur(c05Calendrier());
+    $a = c05Annee('2028-02-29 10:30:00');
+    c05Assert($a->finNumerique()->format('Y-m-d H:i:s') === '2029-02-28 10:30:00', 'Anniversaire C01');
+    $plan = (new Planificateur($source))->planifier($a, $a->finNumerique(), 7);
+    c05Assert($plan[1]->date->format('P') === '+02:00', 'Été C01');
+    c05Assert($plan[3]->date->format('P') === '+01:00', 'Hiver C01');
+    $utc = $a->debut->setTimezone(new DateTimeZone('UTC'));
+    $other = c05Annee($utc->format(DATE_ATOM));
+    c05Assert((new Planificateur($source))->planifier($other, $other->finNumerique(), 7)[0]->date == $plan[0]->date, 'Instant absolu');
+};
+$tests['contre_exemple_a00_cinq_dates_naives_quatre_positions'] = static function (): void {
+    $source = new Moteur(c05Calendrier());
+    $a = c05Annee('2027-02-20 12:00:00');
+    $naives = [$a->debut];
+    foreach ($source->calendrier->numeros as $n) {
+        if ($n->type === TypeNumero::Regulier && $n->cloture > $a->debut && $n->cloture < $a->finNumerique()) {
+            $naives[] = $n->cloture;
+        }
+    }
+    c05Assert(count($naives) === 5, 'Cinq dates si on ajoute toutes les clôtures');
+    c05Assert(count((new Planificateur($source))->planifier($a, $a->finNumerique(), 7)) === 4, 'Le premier numéro est payé à la commande');
+};
+$tests['reconduction_inconnue_si_precedente_incomplete'] = static function (): void {
+    $source = new Moteur(new Calendrier(array_slice(c05Calendrier()->numeros, 0, 2)));
+    $a = c05Annee('2026-01-01');
+    $b = $source->renouveler($a, $a->finNumerique());
+    c05Refuse(static fn () => (new Planificateur($source))->planifier($b, c05Date('2028-01-01'), 7), 'CALENDRIER_INCOMPLET');
+};
+
+// One test for every day, not only three hand-picked successful dates.
+for ($jour = c05Date('2027-01-01 12:00:00'); $jour < c05Date('2028-01-01'); $jour = $jour->modify('+1 day')) {
+    $date = $jour->format('Y-m-d H:i:s');
+    $tests['annee_complete_' . $jour->format('Y-m-d')] = static function () use ($date): void {
+        $source = new Moteur(c05Calendrier());
+        $a = c05Annee($date);
+        $planner = new Planificateur($source);
+        $p = $planner->planifier($a, $a->finNumerique(), 7);
+        c05Assert(count($p) === 4, 'Quatre initial compris');
+        c05Assert(array_map(static fn ($v) => $v->numero->id, $p) === array_map(static fn ($n) => $n->id, $source->numeros($a)), 'C01 seul sélectionne');
+        $b = $source->renouveler($a, $a->finNumerique())->activer($a->finNumerique(), Activation::Paiement);
+        $premiereCommune = $source->echeances($b, 7)[0]->lancement;
+        if ($premiereCommune < $b->debut) {
+            c05Refuse(static fn () => $planner->planifier($b, $b->finNumerique(), 7), 'HORS_ENGAGEMENT');
+        } else {
+            $suite = $planner->planifier($b, $b->finNumerique(), 7);
+            c05Assert(count($suite) === 4, 'Reconduction quatre');
+            $dates = array_map(static fn ($v) => $v->date, [...$p, ...$suite]);
+            c05Assert(count(array_filter($dates, static fn ($d) => $d >= $a->debut && $d < $a->finNumerique())) === 4, 'Pas de cinquième avant anniversaire');
+        }
+    };
+}
+
 $results = [];
 foreach ($tests as $name => $test) {
     try {

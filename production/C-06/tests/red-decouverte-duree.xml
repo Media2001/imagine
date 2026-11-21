@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/tests/Acces/phpunit.xml" tests="3" assertions="3" errors="0" failures="3" skipped="0" time="0.003166">
+    <testsuite name="Acces" tests="3" assertions="3" errors="0" failures="3" skipped="0" time="0.003166">
+      <testsuite name="Imagine\Pilotage\Tests\Acces\DecouverteTest" file="/work/tests/Acces/DecouverteTest.php" tests="3" assertions="3" errors="0" failures="3" skipped="0" time="0.003166">
+        <testcase name="testVarianteDureeReglableSansValeurParDefautEtBornesSecondes" file="/work/tests/Acces/DecouverteTest.php" line="22" class="Imagine\Pilotage\Tests\Acces\DecouverteTest" classname="Imagine.Pilotage.Tests.Acces.DecouverteTest" assertions="1" time="0.003001">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\DecouverteTest::testVarianteDureeReglableSansValeurParDefautEtBornesSecondes
+Failed asserting that false is true.
+
+/work/tests/Acces/DecouverteTest.php:24</failure>
+        </testcase>
+        <testcase name="testDureeEstEnSecondesEcouleesAuxDeuxChangementsHeure" file="/work/tests/Acces/DecouverteTest.php" line="48" class="Imagine\Pilotage\Tests\Acces\DecouverteTest" classname="Imagine.Pilotage.Tests.Acces.DecouverteTest" assertions="1" time="0.000096">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\DecouverteTest::testDureeEstEnSecondesEcouleesAuxDeuxChangementsHeure
+Failed asserting that false is true.
+
+/work/tests/Acces/DecouverteTest.php:50</failure>
+        </testcase>
+        <testcase name="testPerimetreEditorialNumerosPdfEtCompteVerifieSontExplicites" file="/work/tests/Acces/DecouverteTest.php" line="67" class="Imagine\Pilotage\Tests\Acces\DecouverteTest" classname="Imagine.Pilotage.Tests.Acces.DecouverteTest" assertions="1" time="0.000069">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\DecouverteTest::testPerimetreEditorialNumerosPdfEtCompteVerifieSontExplicites
+Failed asserting that false is true.
+
+/work/tests/Acces/DecouverteTest.php:69</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

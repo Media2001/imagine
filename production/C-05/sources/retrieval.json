@@ -1,0 +1,50 @@
+[
+  {
+    "requested_url": "https://woocommerce.com/document/subscriptions/develop/functions/",
+    "url": "https://woocommerce.com/document/subscriptions/develop/functions/",
+    "status": 200,
+    "consulted_at": "2026-11-21T12:47:04.214201+00:00",
+    "sha256_html": "b231ecd158fb1eb2dccb4c34a989a35d22bbaecbc9ab79d4ebbf144dbf0f4386",
+    "ledger_receipt": "[1] https://woocommerce.com/document/subscriptions/develop/functions"
+  },
+  {
+    "requested_url": "https://woocommerce.com/document/subscriptions/renewal-process/",
+    "url": "https://woocommerce.com/document/subscriptions/renewal-process/",
+    "status": 200,
+    "consulted_at": "2026-11-21T12:47:04.726158+00:00",
+    "sha256_html": "116b99eb3958abec5cd6b6f21b6aca5d94f60b280ec3a9f761f55319bd5199bf",
+    "ledger_receipt": "[2] https://woocommerce.com/document/subscriptions/renewal-process"
+  },
+  {
+    "requested_url": "https://woocommerce.com/document/subscriptions/creating-subscription-products/",
+    "url": "https://woocommerce.com/document/subscriptions/creating-subscription-products/",
+    "status": 200,
+    "consulted_at": "2026-11-21T12:47:04.195687+00:00",
+    "sha256_html": "b6aae476cce10b446fb22af6a024128b7a3881e86a6edebb44c86ba4c59f9ac7",
+    "ledger_receipt": "[3] https://woocommerce.com/document/subscriptions/creating-subscription-products"
+  },
+  {
+    "requested_url": "https://woocommerce.com/document/subscriptions/develop/action-reference/",
+    "url": "https://woocommerce.com/document/subscriptions/develop/action-reference/",
+    "status": 200,
+    "consulted_at": "2026-11-21T12:47:04.739890+00:00",
+    "sha256_html": "9f25682acf4d59c4070c924c33eb4c5c590b724e985ea7e84fda1a688d2f5611",
+    "ledger_receipt": "[4] https://woocommerce.com/document/subscriptions/develop/action-reference"
+  },
+  {
+    "requested_url": "https://woocommerce.com/document/subscriptions/billing-date-alignment/creating-an-aligned-subscription-product/",
+    "url": "https://woocommerce.com/document/subscriptions/billing-date-alignment/creating-an-aligned-subscription-product/",
+    "status": 200,
+    "consulted_at": "2026-11-21T12:47:04.782202+00:00",
+    "sha256_html": "445b23d242e2d8bf93d76bbf1811b8f18cea4f832a4c85b69854bf993bcfcecf",
+    "ledger_receipt": "[5] https://woocommerce.com/document/subscriptions/billing-date-alignment/creating-an-aligned-subscription-product"
+  },
+  {
+    "requested_url": "https://woocommerce.com/document/subscriptions/failed-payment-retry/",
+    "url": "https://woocommerce.com/document/subscriptions/failed-payment-retry/",
+    "status": 200,
+    "consulted_at": "2026-11-21T12:47:04.204691+00:00",
+    "sha256_html": "2ef8473094e9e152f457ec7b41ecdd2ae5935ec15d26799baab6524ce935b8c3",
+    "ledger_receipt": "[6] https://woocommerce.com/document/subscriptions/failed-payment-retry"
+  }
+]

@@ -10,4 +10,5 @@ enum Bloc: string
     case Abonnement = 'abonnement';
     case Connexion = 'connexion';
     case Regularisation = 'regularisation';
+    case DecouverteEpuisee = 'decouverte_epuisee';
 }

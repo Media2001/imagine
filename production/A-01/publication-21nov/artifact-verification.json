@@ -1,0 +1,28 @@
+{
+  "status": "BLOCKED_NO_PRET",
+  "verified_utc": "2026-11-21T12:43:14.075429+00:00",
+  "new_tests_passed": 7,
+  "selftest_checks_passed": 18,
+  "selftest_checks_failed": 0,
+  "selftest_payload_unchanged_from_previous_receipt": true,
+  "runner_unchanged": true,
+  "current_source_hashes_match": true,
+  "owned_disposable_container_absent": true,
+  "missing_object_message": "error: no such object: imagine-a01-court-30953141a691",
+  "no_sites_created": true,
+  "publication_acceptance_exercised": false,
+  "licensed_publication_positive_and_negative_exercised": false,
+  "full_staging_ready": false,
+  "pret_absent": true,
+  "sha256": {
+    "wp/outils/staging-court/publication_preflight.py": "cd4dfeb3ef170ea83ba503c3e2b193e4f3dbc11ee8a1053c01d2efc122fee313",
+    "wp/tests/a01-court/test_publication_preflight.py": "1f6dbf6400fab95b3a617cbd25a39de19e29ecb0d4ef621084007c5d9c93937b",
+    "production/A-01/notes.md": "f26cb1f02fb1a456c4132f3764436df3875191bb1696370f46e04de233867279",
+    "production/A-01/publication-21nov/preflight-live.json": "25d7d7c2bf5b96c85bd7c3b0cad3f628a0dbb465529d1951a6dea020c6ab43b9",
+    "production/A-01/publication-21nov/preflight-red.log": "69ec50adbdd7751296533f947c0dc32b3f525bd3b9b27c9ac8e47fd83e7cc30c",
+    "production/A-01/publication-21nov/preflight-green.log": "f082564f8e723ad7da12af41076434a74a9231799817c623bc9a1f3a8a9d141e",
+    "production/A-01/publication-21nov/preflight-final-tests.log": "257e6a67570b95d68db80b341cf332f2abe43487b57fd0c94481416bf69788c2",
+    "production/A-01/tests-21nov/30953141a691/result.json": "8e93f4d972efdea8e3e03265bba15cc012967111dec385ebe964e5195691d520",
+    "production/A-01/tests-21nov/30953141a691/sources.json": "baaf1bda37966c712a179383ad8da4a8d7675260c6ae0e0a794f1e9bec3b9a7c"
+  }
+}

@@ -13,10 +13,12 @@ final class Moteur
         mixed $visiteur = null,
         mixed $robot = null,
         mixed $instant = null,
+        mixed $decouverte = null,
     ): Decision {
         if (
             !is_array($contenu) || !is_array($visiteur) || !$robot instanceof DecisionRobot
             || !$instant instanceof \DateTimeImmutable
+            || ($decouverte !== null && (!$decouverte instanceof Decouverte || !$decouverte->estValide()))
             || !$this->cles($contenu, ['reserve', 'numero', 'type', 'sortie', 'decouverte'])
             || !is_bool($contenu['reserve']) || !is_bool($contenu['decouverte'])
             || !is_string($contenu['numero']) || trim($contenu['numero']) === ''
@@ -30,7 +32,7 @@ final class Moteur
             return new Decision(false, Motif::EntreeInvalide, Bloc::Abonnement);
         }
         foreach ($visiteur['droits'] as $droit) {
-            if (!$this->droitValide($droit)) {
+            if (!$this->droitValide($droit) || ($droit['type'] === 'decouverte' && $decouverte === null)) {
                 return new Decision(false, Motif::EntreeInvalide, Bloc::Abonnement);
             }
         }
@@ -48,6 +50,7 @@ final class Moteur
                 'equipe' => new Decision(true, Motif::Equipe, Bloc::Aucun),
                 'cooperateur' => new Decision(false, Motif::CooperateurSansAbonnement, Bloc::Abonnement),
                 'achat' => $this->achat($droit, $contenu, $instant),
+                'decouverte' => $this->decouverte($decouverte, $droit, $contenu, $instant),
                 default => $this->abonnement($droit, $contenu, $instant),
             };
             if ($this->priorite($candidate) > $this->priorite($decision)) {
@@ -80,6 +83,25 @@ final class Moteur
             : new Decision(true, Motif::from($droit['type'] . '_actif'), Bloc::Aucun);
     }
 
+    private function decouverte(
+        Decouverte $reglage,
+        array $droit,
+        array $contenu,
+        \DateTimeImmutable $instant,
+    ): Decision {
+        $motif = $reglage->evaluer($contenu, $droit, $instant);
+        return new Decision(
+            $motif === Motif::DecouverteDuree,
+            $motif,
+            match ($motif) {
+                Motif::DecouverteDuree => Bloc::Aucun,
+                Motif::DecouverteEpuisee => Bloc::DecouverteEpuisee,
+                Motif::CompteNonVerifie => Bloc::Connexion,
+                default => Bloc::Abonnement,
+            },
+        );
+    }
+
     private function achat(array $droit, array $contenu, \DateTimeImmutable $instant): Decision
     {
         if ($droit['numero'] !== $contenu['numero']) {
@@ -94,6 +116,11 @@ final class Moteur
     {
         if (!is_array($droit) || !isset($droit['type'])) {
             return false;
+        }
+        if ($droit['type'] === 'decouverte') {
+            return $this->cles($droit, ['type', 'debut', 'compte_verifie', 'consommes'])
+                && $droit['debut'] instanceof \DateTimeImmutable && is_bool($droit['compte_verifie'])
+                && is_int($droit['consommes']) && $droit['consommes'] >= 0;
         }
         if ($droit['type'] === 'equipe') {
             return $this->cles($droit, ['type', 'role'])
@@ -123,6 +150,11 @@ final class Moteur
             Motif::OffertActif => 99,
             Motif::GroupeActif => 98,
             Motif::DelaiGrace => 80,
+            Motif::DecouverteDuree => 90,
+            Motif::DecouverteEpuisee => 23,
+            Motif::DecouvertePasCommencee => 22,
+            Motif::DecouverteHorsPerimetre => 21,
+            Motif::CompteNonVerifie => 20,
             Motif::Suspendu => 30,
             Motif::VirementNonValide => 29,
             Motif::Expire => 28,

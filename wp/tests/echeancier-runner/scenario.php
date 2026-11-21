@@ -48,7 +48,10 @@ try {
         $plan1 = $planner->planifier($first, $first->finNumerique(), 7);
         $plan2 = $planner->planifier($second, $second->finNumerique(), 7);
         $all = [...$plan1, ...$plan2];
-        $parent = wc_create_order(['status' => 'pending', 'created_via' => 'imagine_c05_fixture']);
+        $parent = wc_create_order([
+            'status' => 'pending', 'created_via' => 'imagine_c05_fixture',
+            'customer_id' => (int) get_user_by('login', 'c05-fiction')->ID,
+        ]);
         $parent->add_product($product, 1);
         $parent->set_billing_email('c05-fiction@example.org');
         $parent->set_currency('EUR');
@@ -57,6 +60,7 @@ try {
         $parent->save();
         $subscription = wcs_create_subscription([
             'order_id' => $parent->get_id(), 'status' => 'pending',
+            'date_created' => gmdate('Y-m-d H:i:s', time() - 60),
             'billing_period' => 'month', 'billing_interval' => 3,
             'start_date' => $first->debut->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d H:i:s'),
         ]);
@@ -69,7 +73,6 @@ try {
         $subscription->calculate_totals();
         $subscription->update_meta_data('imagine_c05_fixture', 'yes');
         $subscription->save();
-        $parent->set_date_paid($all[0]->date);
         $parent->save();
         $parent->payment_complete(); // Woo transition only: no payment gateway call.
         $subscription = wcs_get_subscription($subscription->get_id());
@@ -111,14 +114,13 @@ try {
             $renewal->update_meta_data('imagine_c05_rang', $v->rang);
             $renewal->update_meta_data('imagine_c05_numero', $v->numero->id);
             $renewal->update_meta_data('imagine_c05_date', $v->date->format(DATE_ATOM));
-            $renewal->set_date_created($v->date);
-            $renewal->set_date_paid($v->date);
             $renewal->save();
             $renewal->payment_complete(); // Local fixture acceptance, not a financial transaction.
             $renewal = wc_get_order($renewal->get_id());
             $subscription = wcs_get_subscription($subscription->get_id());
             c05Check('synthetic_validation_paid_and_active', $renewal->is_paid() && $subscription->has_status('active'));
-            c05Check('paid_date_exact', $renewal->get_date_paid()->getTimestamp() === $v->date->getTimestamp());
+            c05Check('confirmation_has_real_wc_paid_date', $renewal->get_date_paid() !== null);
+            // Validation executes now in accelerated mode; actual paid timestamp is not forged as a due date.
             // Reprocessing an already completed action is NOT done; cursor identity is order+cycle+rank.
             $rows[] = [
                 'cycle' => $cycle, 'rang' => $v->rang, 'initial' => false, 'numero' => $v->numero->id,

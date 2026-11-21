@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/tests/Acces/phpunit.xml" tests="3" assertions="3" errors="0" failures="3" skipped="0" time="0.003147">
+    <testsuite name="Acces" tests="3" assertions="3" errors="0" failures="3" skipped="0" time="0.003147">
+      <testsuite name="Imagine\Pilotage\Tests\Acces\QuotaTest" file="/work/tests/Acces/QuotaTest.php" tests="3" assertions="3" errors="0" failures="3" skipped="0" time="0.003147">
+        <testcase name="testVarianteNombreArticlesReglableCompteInstantaneSansConsommer" file="/work/tests/Acces/QuotaTest.php" line="15" class="Imagine\Pilotage\Tests\Acces\QuotaTest" classname="Imagine.Pilotage.Tests.Acces.QuotaTest" assertions="1" time="0.002930">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\QuotaTest::testVarianteNombreArticlesReglableCompteInstantaneSansConsommer
+Failed asserting that false is true.
+
+/work/tests/Acces/QuotaTest.php:17</failure>
+        </testcase>
+        <testcase name="testQuotaRespecteDebutVerificationEtPerimetreCommeDuree" file="/work/tests/Acces/QuotaTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\QuotaTest" classname="Imagine.Pilotage.Tests.Acces.QuotaTest" assertions="1" time="0.000098">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\QuotaTest::testQuotaRespecteDebutVerificationEtPerimetreCommeDuree
+Failed asserting that false is true.
+
+/work/tests/Acces/QuotaTest.php:47</failure>
+        </testcase>
+        <testcase name="testDecouverteNeFermeJamaisUnAchatOuAbonnementIndependant" file="/work/tests/Acces/QuotaTest.php" line="71" class="Imagine\Pilotage\Tests\Acces\QuotaTest" classname="Imagine.Pilotage.Tests.Acces.QuotaTest" assertions="1" time="0.000119">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\QuotaTest::testDecouverteNeFermeJamaisUnAchatOuAbonnementIndependant
+Failed asserting that false is true.
+
+/work/tests/Acces/QuotaTest.php:73</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

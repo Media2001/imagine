@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "id": 1,
+      "url": "https://woocommerce.com/document/subscriptions/develop/functions",
+      "title": "",
+      "accessed": "2026-11-21"
+    },
+    {
+      "id": 2,
+      "url": "https://woocommerce.com/document/subscriptions/renewal-process",
+      "title": "",
+      "accessed": "2026-11-21"
+    },
+    {
+      "id": 3,
+      "url": "https://woocommerce.com/document/subscriptions/creating-subscription-products",
+      "title": "",
+      "accessed": "2026-11-21"
+    },
+    {
+      "id": 4,
+      "url": "https://woocommerce.com/document/subscriptions/develop/action-reference",
+      "title": "",
+      "accessed": "2026-11-21"
+    },
+    {
+      "id": 5,
+      "url": "https://woocommerce.com/document/subscriptions/billing-date-alignment/creating-an-aligned-subscription-product",
+      "title": "",
+      "accessed": "2026-11-21"
+    },
+    {
+      "id": 6,
+      "url": "https://woocommerce.com/document/subscriptions/failed-payment-retry",
+      "title": "",
+      "accessed": "2026-11-21"
+    }
+  ]
+}
