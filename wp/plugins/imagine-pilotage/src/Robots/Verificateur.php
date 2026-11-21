@@ -42,7 +42,7 @@ final readonly class Verificateur
         }
         $robot = $candidats[0];
         $ip = inet_ntop(inet_pton($ip));
-        $cle = hash('sha256', 'c03-v1' . serialize($this->configuration) . $robot->identifiant . $ip);
+        $cle = hash('sha256', serialize(['c03-v2', $this->configuration, $robot->identifiant, $ip]));
         try {
             $entree = $this->cache->lire($cle);
         } catch (\Throwable) {
