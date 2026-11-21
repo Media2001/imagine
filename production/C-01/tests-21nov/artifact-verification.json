@@ -7,7 +7,7 @@
     "assertions": 19911
   },
   "sha256": {
-    "README.md": "3581befcf4fa9c766f7993b6c02bd3d691e740f09ceb5d03911a9e2bd81d0097",
+    "README.md": "b8bc9af28f57a9187f4fe8210ef859e88e6c080342c25b7d4fa6f39f00557a8a",
     "composer.json": "1477fe78ed255c28ba16db350919fbd8ae8a7297d37ca043375c843d247a7652",
     "composer.lock": "37ac1c2ae798927d7a951b3778691d106d03e631f57a0c5687357384165ab124",
     "phpunit.xml": "5b5111b822deaa1a88eeae406d4ec0f11100d16a86d2015c2bf81c71dcbe4d2f",
@@ -22,5 +22,11 @@
     "tests/Numeros/InvariantsTest.php": "c35d502fdcc80275a38e4318aaf4c046cf3fe956908232b0db497ba8ff45a419",
     "tests/Numeros/MoteurTest.php": "b603f34a5b07b742c613c3291e0361a80aee7c242df57f6dbcfc80ef1effc626",
     "tests/Numeros/fixtures/calendrier.php": "30f3c5eb735a8eefd4dc1c95f60001c63854d10d1f2087c13fb88858e5866ab0"
-  }
+  },
+  "shared_evolution": [
+    {
+      "file": "README.md",
+      "covered_by": "C-03/tests-21nov/final.json"
+    }
+  ]
 }

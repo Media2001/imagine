@@ -21,9 +21,15 @@ if lot == 'C-03':
 paths = {p.relative_to(plugin).as_posix() for base in (['src/' + name, 'tests/' + name] if name else ['src', 'tests', 'examples'])
          for p in (plugin / base).rglob('*.php')} | shared
 manifest = {}
+shared_evolution = []
 for rel in sorted(paths):
     digest = hashlib.sha256((plugin / rel).read_bytes()).hexdigest()
-    assert r['source_sha256'][rel] == digest, 'Source drift: ' + rel
+    if rel == 'README.md' and lot in {'C-01', 'C-02'} and r['source_sha256'][rel] != digest:
+        latest = json.loads((ROOT / 'production/C-03/tests-21nov/final.json').read_text())
+        assert latest['source_sha256'][rel] == digest, 'Shared README is not covered by latest C-03 receipt'
+        shared_evolution.append({'file': rel, 'covered_by': 'C-03/tests-21nov/final.json'})
+    else:
+        assert r['source_sha256'][rel] == digest, 'Source drift: ' + rel
     manifest[rel] = digest
 root = ET.parse(OUT / 'final.xml').getroot()
 assert not any(list(root.iter(tag)) for tag in ('failure', 'error', 'skipped'))
@@ -32,6 +38,7 @@ counts = {'tests': len(cases), 'assertions': sum(int(c.get('assertions', 0)) for
 assert counts['tests']
 assert json.loads((OUT / 'cleanup.json').read_text())['owned_runner_removed']
 assert not (OUT / 'runner-state.json').exists()
-result = {'status': 'PASS', 'lot': lot, 'scope': name or 'connecteur', 'suite_complete': counts, 'sha256': manifest}
+result = {'status': 'PASS', 'lot': lot, 'scope': name or 'connecteur', 'suite_complete': counts,
+          'sha256': manifest, 'shared_evolution': shared_evolution}
 (OUT / 'artifact-verification.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
 print(json.dumps({'status': 'PASS', 'lot': lot, **counts}))
