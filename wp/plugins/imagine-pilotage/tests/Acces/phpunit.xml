@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="../../vendor/autoload.php" colors="false" cacheDirectory="/tmp/imagine-c06-phpunit-cache">
+    <testsuites>
+        <testsuite name="Acces"><directory>.</directory></testsuite>
+        <testsuite name="Numeros"><directory>../Numeros</directory></testsuite>
+        <testsuite name="Robots"><directory>../Robots</directory></testsuite>
+        <testsuite name="Entreprise"><directory>../Entreprise</directory></testsuite>
+    </testsuites>
+</phpunit>
