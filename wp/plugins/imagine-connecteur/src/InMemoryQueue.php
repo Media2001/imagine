@@ -42,7 +42,7 @@ final class InMemoryQueue implements QueueStorage
         if (($this->entries[$key] ?? null) !== $expected || $next->event !== $expected->event) {
             return false;
         }
-        if (!$expected->state->allows($next->state)) {
+        if (!$expected->state->allows($next->state) && !$expected->sameBusinessState($next)) {
             throw new \LogicException('Transition de file interdite.');
         }
         $this->entries[$key] = $next;

@@ -34,6 +34,7 @@ final readonly class Worker
 
     public function replay(string $key): bool
     {
+        $this->flushNotifications($key);
         $entry = $this->storage->get($key);
         $now = $this->clock->now();
         if (
@@ -89,20 +90,38 @@ final readonly class Worker
             'transport',
             'Envoi non confirmé ; événement conservé dans la file.'
         );
+        if ($exhausted) {
+            $failed = $failed->withNotification('attempts_exhausted', 'Limite d’essais atteinte ; intervention requise.');
+        }
         if ($this->storage->replace($entry, $failed) && $exhausted) {
-            $this->alerts->notify(
-                $entry->event->key(),
-                'attempts_exhausted',
-                'Limite d’essais atteinte ; intervention requise.'
-            );
+            $this->flushNotifications($entry->event->key());
         }
     }
 
     private function quarantine(Entry $entry, string $rule, string $message): void
     {
-        $next = $entry->transition(State::Quarantine, rule: $rule, message: $message);
+        $next = $entry->transition(State::Quarantine, rule: $rule, message: $message)
+            ->withNotification('quarantine', $rule . ' : ' . $message);
         if ($this->storage->replace($entry, $next)) {
-            $this->alerts->notify($entry->event->key(), 'quarantine', $rule . ' : ' . $message);
+            $this->flushNotifications($entry->event->key());
+        }
+    }
+
+    private function flushNotifications(string $key): void
+    {
+        $entry = $this->storage->get($key);
+        foreach ($entry?->notifications ?? [] as $code => $message) {
+            try {
+                // Destination of alerts must deduplicate (event key, code), including lost acknowledgements.
+                $this->alerts->notify($key, $code, $message);
+            } catch (Throwable) {
+                continue;
+            }
+            $next = $entry->acknowledge($code);
+            if (!$this->storage->replace($entry, $next)) {
+                return;
+            }
+            $entry = $next;
         }
     }
 

@@ -21,6 +21,26 @@ if lot == 'C-04':
 original_call = bench.call
 
 def call(args, data=None, check=True):
+    if lot == 'C-04' and action == 'prepare' and 'install' in args:
+        import io
+        import tarfile
+        import hashlib
+        import json
+        name = json.loads(bench.STATE.read_text())['container']
+        sources = ROOT / 'wp/plugins/imagine-pilotage/src/Entreprise'
+        archive = io.BytesIO()
+        manifest = {}
+        with tarfile.open(fileobj=archive, mode='w') as tar:
+            for path in sorted(sources.glob('*.php')):
+                content = path.read_bytes()
+                rel = path.name
+                manifest[rel] = hashlib.sha256(content).hexdigest()
+                info = tarfile.TarInfo(rel)
+                info.size = len(content)
+                tar.addfile(info, io.BytesIO(content))
+        original_call(['exec', name, 'mkdir', '-p', '/imagine-pilotage/src/Entreprise'])
+        original_call(['exec', '-i', name, 'tar', '-xf', '-', '-C', '/imagine-pilotage/src/Entreprise'], archive.getvalue())
+        bench.OUT.joinpath('dependency-source.json').write_text(json.dumps(manifest, indent=2))
     if action == 'run' and lot == 'C-01' and not full and 'test' in args and '/tmp/composer.phar' in args:
         args += ['--testsuite', 'Numeros']
     return original_call(args, data, check)
