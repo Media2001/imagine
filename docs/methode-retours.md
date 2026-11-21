@@ -70,3 +70,9 @@ Objectif annoncé par Ced le 21/11 : l'agence partenaire vise deux sites vendus 
 5. **Une vue d'ensemble** : une seule page qui dit, pour tous les sites en cours, ce qui attend Ced. Sans elle, il faut ouvrir quatre dépôts.
 6. **La charge de la machine** : quatre réveils horaires, les tâches planifiées des autres projets et les relectures tournent sur le même poste. Décaler les réveils et surveiller les quotas.
 7. **Une fiche d'entrée type** par site : ce que le commercial doit fournir pour que la production démarre sans aller-retour (contenus, logo, accès, hébergement, nom de domaine, pages attendues).
+
+## Gabarit de site — état au 21/11/2026
+
+Une première version du gabarit est prête, hors de ce dépôt : règles, doctrine avec « qui valide quoi », consigne permanente, rôles des relecteurs, scripts de synchronisation et de relecture, format du système de design, fiche d'entrée, douze lots types, recette type, guide de démarrage et lot « circuit à blanc ». Elle attend son dépôt (`Media2001/gabarit-site`). Pilote retenu par Ced : le site Attache Remorque Coenen, client de media2001.
+
+Point ouvert, constaté sur Imagine : **les relecteurs n'exécutent pas eux-mêmes les tests.** Ils contrôlent la concordance entre le code et les preuves fournies par Hermès. Leur donner un moyen de relancer la suite dans un conteneur jetable rendrait la vérification indépendante.
