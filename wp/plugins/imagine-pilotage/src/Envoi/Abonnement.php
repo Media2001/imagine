@@ -20,6 +20,12 @@ final readonly class Abonnement
         }
         $instants = [];
         foreach ($situations as $situation) {
+            if (!$situation instanceof Situation) {
+                throw new \InvalidArgumentException('Historique invalide.');
+            }
+            if ($origine !== 'groupe' && count($situation->destinataires) > 1) {
+                throw new \InvalidArgumentException('Un abonnement individuel ne possède qu’un destinataire.');
+            }
             $instant = $situation->effet->format('U.u');
             if (isset($instants[$instant])) {
                 throw new \InvalidArgumentException('Deux situations au même instant : historique ambigu.');

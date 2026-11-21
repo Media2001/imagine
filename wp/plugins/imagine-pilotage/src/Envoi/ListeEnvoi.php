@@ -72,6 +72,39 @@ final readonly class ListeEnvoi
                 ];
             }
         }
-        return new self($numero, $cloture, $lignes, []);
+        usort($lignes, static fn (array $a, array $b): int =>
+            strcmp($a['abonnement_id'], $b['abonnement_id'])
+            ?: strcmp($a['destinataire_id'], $b['destinataire_id']));
+        $anomalies = [];
+        $groupes = [];
+        foreach ($lignes as $index => $ligne) {
+            if (
+                trim($ligne['destinataire']) === '' || trim($ligne['rue']) === ''
+                || trim($ligne['code_postal']) === '' || trim($ligne['ville']) === ''
+            ) {
+                $anomalies[] = ['motif' => 'adresse_incomplete', 'ligne' => $index, 'exemplaire' => $ligne];
+            }
+            if (trim($ligne['pays']) === '') {
+                $anomalies[] = ['motif' => 'pays_manquant', 'ligne' => $index, 'exemplaire' => $ligne];
+            }
+            $cle = [];
+            foreach (['destinataire', 'rue', 'complement', 'code_postal', 'ville', 'pays'] as $champ) {
+                $cle[] = strtolower(preg_replace('/\s+/u', ' ', trim($ligne[$champ])));
+            }
+            $groupes[json_encode($cle, JSON_THROW_ON_ERROR)][] = $index;
+        }
+        foreach ($groupes as $indices) {
+            if (count($indices) < 2) {
+                continue;
+            }
+            foreach ($indices as $index) {
+                $anomalies[] = [
+                    'motif' => 'doublon_destinataire_adresse', 'ligne' => $index, 'exemplaire' => $lignes[$index],
+                ];
+            }
+        }
+        usort($anomalies, static fn (array $a, array $b): int =>
+            strcmp($a['motif'], $b['motif']) ?: $a['ligne'] <=> $b['ligne']);
+        return new self($numero, $cloture, $lignes, $anomalies);
     }
 }

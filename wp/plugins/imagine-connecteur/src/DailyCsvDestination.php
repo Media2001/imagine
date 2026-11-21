@@ -168,10 +168,7 @@ final readonly class DailyCsvDestination implements Destination
                 json_encode($content['lines'] ?? [], JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE),
                 $record['batch_day'],
             ];
-            $row = array_map(static function (mixed $value): mixed {
-                return is_string($value) && preg_match('/\\A[\\x00-\\x20]*[=+@-]/', $value) === 1
-                    ? "'" . $value : $value;
-            }, $row);
+            $row = array_map([CsvProtection::class, 'cellule'], $row);
             fputcsv($stream, $row, escape: '', eol: "\n");
         }
         rewind($stream);

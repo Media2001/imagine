@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="33" assertions="59" errors="1" failures="4" skipped="0" time="0.007723">
+    <testsuite name="Envoi" tests="33" assertions="59" errors="1" failures="4" skipped="0" time="0.007723">
+      <testsuite name="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" file="/work/tests/Envoi/ListeEnvoiTest.php" tests="33" assertions="59" errors="1" failures="4" skipped="0" time="0.007723">
+        <testcase name="testAbonneActifRecoitUnExemplaireSansEmail" file="/work/tests/Envoi/ListeEnvoiTest.php" line="72" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="4" time="0.001648"/>
+        <testsuite name="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testProfilsACloture" tests="11" assertions="11" errors="0" failures="0" skipped="0" time="0.001004">
+          <testcase name="testProfilsACloture with data set &quot;A-CARTE&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="99" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000108"/>
+          <testcase name="testProfilsACloture with data set &quot;A-SEPA4&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="99" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000091"/>
+          <testcase name="testProfilsACloture with data set &quot;A-GRACE&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="99" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000090"/>
+          <testcase name="testProfilsACloture with data set &quot;A-SUSP&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="99" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000092"/>
+          <testcase name="testProfilsACloture with data set &quot;A-VIR&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="99" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000090"/>
+          <testcase name="testProfilsACloture with data set &quot;A-PAPIER attente&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="99" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000072"/>
+          <testcase name="testProfilsACloture with data set &quot;A-PAPIER valide&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="99" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000108"/>
+          <testcase name="testProfilsACloture with data set &quot;A-EXPIRE&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="99" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000122"/>
+          <testcase name="testProfilsACloture with data set &quot;A-NONRENOUV&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="99" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000084"/>
+          <testcase name="testProfilsACloture with data set &quot;A-ETRANGER&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="99" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000074"/>
+          <testcase name="testProfilsACloture with data set &quot;A-SANSMAIL&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="99" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000073"/>
+        </testsuite>
+        <testcase name="testPaiementUneSecondeAvantEtApresEtExactementACloture" file="/work/tests/Envoi/ListeEnvoiTest.php" line="105" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000101"/>
+        <testcase name="testAdresseHistoriqueEtRejeuMalgreChangementPosterieur" file="/work/tests/Envoi/ListeEnvoiTest.php" line="116" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="2" time="0.000088"/>
+        <testcase name="testReactivationEtCreationApresClotureNeRattrapentPas" file="/work/tests/Envoi/ListeEnvoiTest.php" line="126" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000079"/>
+        <testcase name="testCorrectionRetrodateeEnregistreeApresClotureIgnoree" file="/work/tests/Envoi/ListeEnvoiTest.php" line="138" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000068"/>
+        <testcase name="testNumeroDuSeulementSansRecalculC01" file="/work/tests/Envoi/ListeEnvoiTest.php" line="147" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="4" time="0.000090"/>
+        <testcase name="testAnomaliesSepareesEtDoublonsConserves" file="/work/tests/Envoi/ListeEnvoiTest.php" line="156" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000082"/>
+        <testcase name="testOrdreDeterministeEtImmutabilite" file="/work/tests/Envoi/ListeEnvoiTest.php" line="171" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000245"/>
+        <testcase name="testFinEffectiveAtteinteMemeSansEvenementExpire" file="/work/tests/Envoi/ListeEnvoiTest.php" line="183" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000068"/>
+        <testcase name="testNumeroEtClotureDoiventCorrespondreAuCalendrier" file="/work/tests/Envoi/ListeEnvoiTest.php" line="197" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000065"/>
+        <testcase name="testClotureDivergenteRefusee" file="/work/tests/Envoi/ListeEnvoiTest.php" line="203" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000069"/>
+        <testcase name="testHistoriqueAmbiguRefuse" file="/work/tests/Envoi/ListeEnvoiTest.php" line="214" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000084"/>
+        <testcase name="testOrigineInconnueRefusee" file="/work/tests/Envoi/ListeEnvoiTest.php" line="220" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000057"/>
+        <testcase name="testAbonnementDupliqueRefuse" file="/work/tests/Envoi/ListeEnvoiTest.php" line="226" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000063"/>
+        <testcase name="testEtatInconnuRefuse" file="/work/tests/Envoi/ListeEnvoiTest.php" line="233" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000054"/>
+        <testcase name="testExportRefuseAnomaliesNonRevues" file="/work/tests/Envoi/ListeEnvoiTest.php" line="239" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.002219">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testExportRefuseAnomaliesNonRevues
+Failed asserting that exception of type "Error" matches expected exception "LogicException". Message was: "Call to undefined method Imagine\Pilotage\Envoi\ExportCsv::liste()" at
+/work/tests/Envoi/ListeEnvoiTest.php:244
+.</failure>
+        </testcase>
+        <testcase name="testExportAnomaliesRevuesEtPaysEtranger" file="/work/tests/Envoi/ListeEnvoiTest.php" line="247" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="0" time="0.000113">
+          <error type="Error">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testExportAnomaliesRevuesEtPaysEtranger
+Error: Call to undefined method Imagine\Pilotage\Envoi\ExportCsv::liste()
+
+/work/tests/Envoi/ListeEnvoiTest.php:252</error>
+        </testcase>
+        <testcase name="testIntegrationC01PremierDernierEtHorsSerie" file="/work/tests/Envoi/ListeEnvoiTest.php" line="258" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="12" time="0.000944"/>
+        <testcase name="testHistoriqueInvalideRefuse" file="/work/tests/Envoi/ListeEnvoiTest.php" line="278" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000252">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testHistoriqueInvalideRefuse
+Failed asserting that exception of type "Error" matches expected exception "InvalidArgumentException". Message was: "Call to a member function format() on null" at
+/work/src/Envoi/Abonnement.php:23
+/work/tests/Envoi/ListeEnvoiTest.php:63
+/work/tests/Envoi/ListeEnvoiTest.php:281
+.</failure>
+        </testcase>
+        <testcase name="testDestinataireRepeteDansUnGroupeRefuse" file="/work/tests/Envoi/ListeEnvoiTest.php" line="284" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000085">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testDestinataireRepeteDansUnGroupeRefuse
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+        </testcase>
+        <testcase name="testAbonnementIndividuelAvecPlusieursDestinatairesRefuse" file="/work/tests/Envoi/ListeEnvoiTest.php" line="290" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000087">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testAbonnementIndividuelAvecPlusieursDestinatairesRefuse
+Failed asserting that exception of type "InvalidArgumentException" is thrown.</failure>
+        </testcase>
+        <testcase name="testOffertGroupeEtCommandeUnitaire" file="/work/tests/Envoi/ListeEnvoiTest.php" line="296" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="4" time="0.000159"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

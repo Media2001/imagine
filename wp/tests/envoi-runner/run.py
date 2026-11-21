@@ -23,9 +23,10 @@ def payload():
     source = ROOT / 'wp/plugins/imagine-connecteur'
     buffer = io.BytesIO(data)
     with tarfile.open(fileobj=buffer, mode='a') as archive:
-        for path in sorted((source / 'src').glob('*.php')):
+        paths = list((source / 'src').glob('*.php')) + list((source / 'tests').glob('*.php'))
+        for path in sorted(paths):
             content = path.read_bytes()
-            name = 'connecteur/' + path.name
+            name = ('connecteur/' if path.parent.name == 'src' else 'connecteur-tests/') + path.name
             item = tarfile.TarInfo(name)
             item.size = len(content)
             item.mode = 0o644

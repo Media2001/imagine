@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="3" assertions="16" errors="0" failures="0" skipped="0" time="0.002092">
+    <testsuite name="Envoi" tests="3" assertions="16" errors="0" failures="0" skipped="0" time="0.002092">
+      <testsuite name="Imagine\Pilotage\Tests\Envoi\ExportCsvTest" file="/work/tests/Envoi/ExportCsvTest.php" tests="3" assertions="16" errors="0" failures="0" skipped="0" time="0.002092">
+        <testcase name="testProtectionC04PartageeSansChangerSonComportement" file="/work/tests/Envoi/ExportCsvTest.php" line="31" class="Imagine\Pilotage\Tests\Envoi\ExportCsvTest" classname="Imagine.Pilotage.Tests.Envoi.ExportCsvTest" assertions="10" time="0.001071"/>
+        <testcase name="testCsvColonnesStablesInjectionEtRoundtrip" file="/work/tests/Envoi/ExportCsvTest.php" line="40" class="Imagine\Pilotage\Tests\Envoi\ExportCsvTest" classname="Imagine.Pilotage.Tests.Envoi.ExportCsvTest" assertions="5" time="0.000881"/>
+        <testcase name="testCsvVideGardeEntete" file="/work/tests/Envoi/ExportCsvTest.php" line="60" class="Imagine\Pilotage\Tests\Envoi\ExportCsvTest" classname="Imagine.Pilotage.Tests.Envoi.ExportCsvTest" assertions="1" time="0.000141"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="3" assertions="0" errors="3" failures="0" skipped="0" time="0.002847">
+    <testsuite name="Envoi" tests="3" assertions="0" errors="3" failures="0" skipped="0" time="0.002847">
+      <testsuite name="Imagine\Pilotage\Tests\Envoi\ExportCsvTest" file="/work/tests/Envoi/ExportCsvTest.php" tests="3" assertions="0" errors="3" failures="0" skipped="0" time="0.002847">
+        <testcase name="testProtectionC04PartageeSansChangerSonComportement" file="/work/tests/Envoi/ExportCsvTest.php" line="31" class="Imagine\Pilotage\Tests\Envoi\ExportCsvTest" classname="Imagine.Pilotage.Tests.Envoi.ExportCsvTest" assertions="0" time="0.002682">
+          <error type="Error">Imagine\Pilotage\Tests\Envoi\ExportCsvTest::testProtectionC04PartageeSansChangerSonComportement
+Error: Class "Imagine\Connecteur\CsvProtection" not found
+
+/work/tests/Envoi/ExportCsvTest.php:36</error>
+        </testcase>
+        <testcase name="testCsvColonnesStablesInjectionEtRoundtrip" file="/work/tests/Envoi/ExportCsvTest.php" line="40" class="Imagine\Pilotage\Tests\Envoi\ExportCsvTest" classname="Imagine.Pilotage.Tests.Envoi.ExportCsvTest" assertions="0" time="0.000104">
+          <error type="Error">Imagine\Pilotage\Tests\Envoi\ExportCsvTest::testCsvColonnesStablesInjectionEtRoundtrip
+Error: Class "Imagine\Pilotage\Envoi\ExportCsv" not found
+
+/work/tests/Envoi/ExportCsvTest.php:47</error>
+        </testcase>
+        <testcase name="testCsvVideGardeEntete" file="/work/tests/Envoi/ExportCsvTest.php" line="60" class="Imagine\Pilotage\Tests\Envoi\ExportCsvTest" classname="Imagine.Pilotage.Tests.Envoi.ExportCsvTest" assertions="0" time="0.000061">
+          <error type="Error">Imagine\Pilotage\Tests\Envoi\ExportCsvTest::testCsvVideGardeEntete
+Error: Class "Imagine\Pilotage\Envoi\ExportCsv" not found
+
+/work/tests/Envoi/ExportCsvTest.php:62</error>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

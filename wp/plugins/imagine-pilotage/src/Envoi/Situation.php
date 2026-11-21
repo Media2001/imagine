@@ -24,5 +24,12 @@ final readonly class Situation
         if (!in_array($etat, ['actif', 'grace', 'suspendu', 'expire', 'attente'], true)) {
             throw new \InvalidArgumentException('État inconnu.');
         }
+        $ids = [];
+        foreach ($destinataires as $destinataire) {
+            if (!$destinataire instanceof Destinataire || isset($ids[$destinataire->id])) {
+                throw new \InvalidArgumentException('Destinataire invalide ou attribué deux fois.');
+            }
+            $ids[$destinataire->id] = true;
+        }
     }
 }

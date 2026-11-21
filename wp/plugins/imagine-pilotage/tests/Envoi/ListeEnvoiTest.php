@@ -17,6 +17,11 @@ use PHPUnit\Framework\TestCase;
 
 final class ListeEnvoiTest extends TestCase
 {
+    public static function setUpBeforeClass(): void
+    {
+        ExportCsvTest::setUpBeforeClass();
+    }
+
     private function date(string $value): DateTimeImmutable
     {
         return new DateTimeImmutable($value, new DateTimeZone('Europe/Brussels'));
@@ -229,6 +234,63 @@ final class ListeEnvoiTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->situation(etat: 'inconnu');
+    }
+
+    public function testExportRefuseAnomaliesNonRevues(): void
+    {
+        $this->expectException(\LogicException::class);
+        $a = $this->abonnement([$this->situation()], 'a');
+        $b = $this->abonnement([$this->situation()], 'b');
+        \Imagine\Pilotage\Envoi\ExportCsv::liste($this->calculer([$a, $b]));
+    }
+
+    public function testExportAnomaliesRevuesEtPaysEtranger(): void
+    {
+        $d = new Destinataire('etranger', 'Fictive Etrangere', '2 rue Imaginaire', '', '00100', 'Ville Fictive', 'FR');
+        $a = $this->abonnement([$this->situation(destinataires: [$d])], 'a');
+        $b = $this->abonnement([$this->situation(destinataires: [$d])], 'b');
+        $csv = \Imagine\Pilotage\Envoi\ExportCsv::liste($this->calculer([$a, $b]), anomaliesRevues: true);
+        self::assertStringContainsString('00100', $csv);
+        self::assertStringContainsString(',FR,', $csv);
+        self::assertSame(3, substr_count($csv, "\n"));
+    }
+
+    public function testIntegrationC01PremierDernierEtHorsSerie(): void
+    {
+        $calendrier = new Calendrier(require dirname(__DIR__) . '/Numeros/fixtures/calendrier.php');
+        $moteur = new \Imagine\Pilotage\Numeros\Moteur($calendrier);
+        $annee = $moteur->ouvrir($this->date('2026-10-08'));
+        $dus = array_map(static fn (Numero $n): string => $n->id, $moteur->numeros($annee));
+        $horsSerie = $moteur->horsSerie($annee);
+        self::assertNotNull($horsSerie);
+        $dus[] = $horsSerie->id;
+        $abo = $this->abonnement([$this->situation(dus: $dus)]);
+        foreach ($calendrier->numeros as $numero) {
+            if ($numero->cloture < $this->date('2026-11-01')) {
+                continue;
+            }
+            $liste = ListeEnvoi::etablir($numero, $calendrier, [$abo], $numero->cloture);
+            self::assertCount(in_array($numero->id, $dus, true) ? 1 : 0, $liste->lignes, $numero->id);
+        }
+        self::assertSame(['171', '172', '173', '174'], array_slice($dus, 0, 4));
+    }
+
+    public function testHistoriqueInvalideRefuse(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->abonnement(['pas une situation']);
+    }
+
+    public function testDestinataireRepeteDansUnGroupeRefuse(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->situation(destinataires: [$this->personne(), $this->personne()]);
+    }
+
+    public function testAbonnementIndividuelAvecPlusieursDestinatairesRefuse(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->abonnement([$this->situation(destinataires: [$this->personne('a'), $this->personne('b')])]);
     }
 
     public function testOffertGroupeEtCommandeUnitaire(): void
