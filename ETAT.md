@@ -1,4 +1,4 @@
-# État des chantiers — mis à jour le 21 novembre 2026, 13 h
+# État des chantiers — mis à jour le 21 novembre 2026, 23 h 20
 
 ## Mise en route
 
@@ -19,7 +19,7 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 | Lot | État | Prochaine étape | Qui |
 |---|---|---|---|
 | Sauvegarde de production | Pas encore récupérée | Export SQL + `wp-content`, déposés sur le NUC **hors du dépôt** | Ced |
-| A-01 Import neutralisé | Import, neutralisation, anonymisation et vérification hors ligne prouvés sur archive fictive (classique et HPOS, fidélité des fichiers et réglages). Reste : publier le site vérifié | `briefs/A-01-publication.md` : passer par l'usage normal de l'outil de staging ; filtrage réseau système non exigé après vérification | Hermès |
+| A-01 Import neutralisé | Import et vérification hors ligne prouvés. Publication bloquée : créer un site dans l'outil de staging active la licence Novamira et l'accès agent, sans option pour l'éviter | Réponse de Ced : autoriser la création normale de sites de test, ou créer lui-même le site vide | Ced |
 | A-07 Exposition de l'outil de staging | Fait le 20/11. Test depuis l'extérieur en IPv4 : le tableau de bord n'est pas joignable. Non vérifié : redirections, DMZ et pare-feu IPv6 dans l'administration de la box | Coup d'œil à la box quand possible ; retirer l'autorisation du port 7000 en profil public du pare-feu Windows | Ced |
 | Licences WooCommerce | Obtenues le 20/11 | Déposer les archives Subscriptions et Memberships dans le dossier des extensions premium de l'outil de staging, hors dépôt | Ced |
 | Staging Imagine existant | Arrêté par Hermès le 19/11, non supprimé ; la révocation du mot de passe applicatif dans WordPress n'est pas attestée | Ne pas le redémarrer ; le détruire quand le nouveau parcours est validé | Ced |
@@ -42,8 +42,9 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 | C-04 File du connecteur | **Clos le 21/11** : corrigé, arbitrages appliqués, vérifié au second tour | Branchement dans un lot ultérieur | — |
 | C-03 Vérification des robots | **Clos le 21/11** : corrigé, arbitrages appliqués, vérifié au second tour | Branchement dans un lot ultérieur | — |
 | C-02 Numéro d'entreprise | **Clos le 21/11** : corrigé, arbitrages appliqués, vérifié au second tour | Branchement dans un lot ultérieur | — |
-| C-06 Décision d'accès | Brief écrit | Production | Hermès |
-| C-05 Échéancier en quatre fois | Brief écrit | Proposition et preuve | Hermès |
+| C-06 Décision d'accès | Rendu, relu, corrigé, vérifié au second tour (50 tests) | Trois questions sur les droits, pour Ced | Ced |
+| C-05 Échéancier en quatre fois | Proposition et prototype sur le vrai Subscriptions. Contradiction trouvée entre « dates communes » et « quatre paiements par année de date à date » | Choix de la règle par Ced (compter par bloc de quatre numéros, recommandé) | Ced |
+| C-07 Liste d'envoi | Brief écrit | Production | Hermès |
 | Suite | En attente | Voir `A-FAIRE.md` | — |
 
 ## En attente de tiers

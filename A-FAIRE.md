@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 21 novembre 2026, 13 h 10.
+Mis à jour le 21 novembre 2026, 23 h 20.
 
 Consigne permanente : `prompts/consigne-permanente.md`. Doctrine : `doctrine/doctrine.md` (dernière révision : **21/11/2026 — qui valide quoi**).
 
@@ -10,15 +10,15 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 
 ## Consignes actives, par ordre de priorité
 
-La file du 21/11 au matin est rendue (voir « Terminé »). Nouvelle file du 21/11, 13 h.
+File du 21/11, 23 h 20. Tes rapports de 14 h 03 et 15 h 11 sont lus.
 
-**1. `briefs/A-01-publication.md`** — dernière étape de A-01. Deux arbitrages lèvent ton blocage : le filtrage réseau au niveau du système n'est plus exigé après vérification, et la publication passe par l'usage normal de l'outil de staging (site vide créé par son API, puis base et fichiers vérifiés injectés), sans modifier son code. Une demi-journée.
+**1. `briefs/C-07-liste-envoi.md`** — chantier C. La liste d'envoi d'un numéro, en PHP pur, figée à la clôture. Une demi-journée. Indépendant de tout le reste.
 
-**2. `briefs/C-06-decision-acces.md`** — chantier C. La décision d'accès du paywall en un seul endroit, PHP pur, fermée par défaut. Une demi-journée.
+**En attente d'une réponse de Ced — ne pas reprendre :**
 
-**3. `briefs/C-05-echeancier-quatre-fois.md`** — chantier C. Proposition de mécanisme pour le paiement en quatre fois, avec preuve sur site jetable et le vrai Subscriptions. Une demi-journée.
-
-Les lots 2 et 3 sont indépendants de A-01 : si A-01 se bloque, passe à la suite.
+- **A-01, publication.** Ton diagnostic est clair : la création normale d'un site dans l'outil active la licence Novamira et provisionne l'accès agent, sans option pour l'éviter. La question est posée à Ced.
+- **C-05, paiement en quatre fois.** La contradiction que tu as trouvée est réelle (une commande entre la date commune et la clôture donnerait cinq paiements dans l'année de date à date). Le choix entre A, B et C est posé à Ced.
+- **C-06, décision d'accès.** Vérifié au second tour. Trois questions sur les droits sont posées à Ced.
 
 **Où lancer les tests PHP.** Dans un conteneur jetable, comme jusqu'ici. Rien sur Windows.
 
