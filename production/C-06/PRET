@@ -1,0 +1,7 @@
+C-06 — PRET A RELIRE, périmètre moteur PHP pur uniquement.
+50 tests Acces / 9536 assertions ; avec non-régression C-01/C-03/C-02 : 234 tests / 29516 assertions.
+PHP 8.2.36 en conteneurs jetables WSL, zéro échec/erreur/ignoré ; PSR-12, syntaxe et Composer strict verts.
+Préparation et rejeu réexécutés dans un second conteneur neuf ; runners supprimés.
+Preuves : production/C-06/tests/final.*, cleanup.json, artifact-verification.json ; replays/autocontrole-rejeu/.
+Questions expressément hors lot du brief : PDF ancien, grâce au-delà du bandeau et longueur d'extrait ; découverte réglable sans variante choisie. Voir notes.md.
+Ni clôture, ni relecture indépendante, ni validation métier, ni branchement WordPress, ni GO réel/production.

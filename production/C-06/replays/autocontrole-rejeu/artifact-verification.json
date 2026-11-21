@@ -1,0 +1,60 @@
+{
+  "time_utc": "2026-11-21T13:01:33.145727+00:00",
+  "status": "PASS",
+  "scope": "C-06 technical evidence only; not independent review or GO",
+  "suites": {
+    "Acces": {
+      "tests": 50,
+      "assertions": 9536
+    },
+    "Numeros": {
+      "tests": 42,
+      "assertions": 121
+    },
+    "Robots": {
+      "tests": 101,
+      "assertions": 298
+    },
+    "Entreprise": {
+      "tests": 41,
+      "assertions": 19561
+    }
+  },
+  "sha256": {
+    "production/C-06/notes.md": "49e70c5f2e7e739c403549fa7ea5843f5c52e7abd3af145e60366f798b611c2f",
+    "production/C-06/PRET": "f415f791f29fe973d844e3593d79bbfdb97ecac585fad73c891e0600e410a717",
+    "production/C-06/replays/autocontrole-rejeu/cleanup.json": "5e17b031df87ec79341ee0fc98e9074d5e88552b2915e9e3ab3fe9fe667e7e61",
+    "production/C-06/replays/autocontrole-rejeu/composer-install.log": "f0f56dab37cb1a947eb8ff495a419ed228c26a55db016b7a7670499bcd6255ff",
+    "production/C-06/replays/autocontrole-rejeu/final-composer-validate.log": "43add299dc97ecbd90ec2dc456ef5a0bd824bb9abdae2a3d7cdb520e21f8e86d",
+    "production/C-06/replays/autocontrole-rejeu/final-lint.log": "3878f13e348b6cfb1b56203991e60acb79d91875b9132dbe3168304b80f302fe",
+    "production/C-06/replays/autocontrole-rejeu/final.json": "19e76a74befbf305535b6082f6dc734f11327920a6b8856d10f770da78ddb1b8",
+    "production/C-06/replays/autocontrole-rejeu/final.log": "d8b991e64fd89c4bc73dc62d7350e0649d15d372e0ac38fe779bba0f40bb02ee",
+    "production/C-06/replays/autocontrole-rejeu/final.xml": "61a8678482dcb119eaa7be40466a6f9179cc764f2c826cfeafad2bdb618b70ff",
+    "production/C-06/replays/autocontrole-rejeu/preparation.json": "f9386175b15e771d830d1353e9eca21ab6b323503f843fbdf5dae403b1376f5a",
+    "production/C-06/replays/autocontrole-rejeu/shared-before.json": "c64b4e51c87a3527673fdc6c667ceccc5cad8dc50ce3690f69b098fdfecc5e3d",
+    "production/C-06/sources-officielles.json": "e82e1636b2dbe5acf828c17f4d3d09006b4f81b58a69d0b1dfe3739116324ac8",
+    "wp/plugins/imagine-pilotage/src/Acces/Bloc.php": "2f83e362d9bdd065dea02ed08391f77e42f633af83da77031138824cf564aa1b",
+    "wp/plugins/imagine-pilotage/src/Acces/Decision.php": "1792764d5edc82792e21e72a339c595575c5a71ceca97f6971d1d88bf24e1c19",
+    "wp/plugins/imagine-pilotage/src/Acces/Decouverte.php": "8ed9d50b89c8344656208f8f7290b2a549ab7d8c07537653c4181059e3db48a6",
+    "wp/plugins/imagine-pilotage/src/Acces/DureeDecouverte.php": "be65953232d334547e69de14bd810b95b2d2a3157dac050214b3a6b726dc77c8",
+    "wp/plugins/imagine-pilotage/src/Acces/Moteur.php": "8de8f0ef6e2384313c1ad567821f563439ae2d64638d2d16431fae7a9098eff8",
+    "wp/plugins/imagine-pilotage/src/Acces/Motif.php": "3315582e06502b8a6cbecc1009af768f20984bc1c3a2b706a4d1cc2ad7d8fc15",
+    "wp/plugins/imagine-pilotage/src/Acces/NombreArticlesDecouverte.php": "0072e9c8d0018e95f599729d4b80dd682590c61edbaa9eadcbcf4ee21a9319c6",
+    "wp/plugins/imagine-pilotage/src/Acces/PerimetreDecouverte.php": "a0c3edfb386719e81faf692f9db21a46c8f1dd64647dd5b859cbebe2f2a2a4b4",
+    "wp/plugins/imagine-pilotage/tests/Acces/AbonnementTest.php": "5d587014c5ced6e55bf2c0cabc129194e432867b1fe307c27ce57ff11e967137",
+    "wp/plugins/imagine-pilotage/tests/Acces/DecisionTest.php": "e99a4eefced4147569cffb53d8373856c9daa92b876c983f2068da4079f201c3",
+    "wp/plugins/imagine-pilotage/tests/Acces/DecouverteTest.php": "9e107615b0494977749c13c4350c2d43c82525f5f0cf2da74793ffc935117cee",
+    "wp/plugins/imagine-pilotage/tests/Acces/DroitsTest.php": "5c80b5fa0b97b9ee4e97fef208658007ebdf2dd2ab158cbd1268162f119c5e57",
+    "wp/plugins/imagine-pilotage/tests/Acces/FermetureTest.php": "f8ae7a05a1b9d49da5f1d820af1361872235e1fb5c898d682bbdb446f0692d26",
+    "wp/plugins/imagine-pilotage/tests/Acces/phpunit.xml": "702311acde3bc6c5b6cf5b9333d3349736da6f3e301746d546dcaaa02a67b89c",
+    "wp/plugins/imagine-pilotage/tests/Acces/QuotaTest.php": "e8464454b797c6aed0d618299ba61e3f117f129be386de2a1b6a769e122406c7",
+    "wp/tests/acces-runner/format.py": "528adb520c9ff831b5adfa5ba995c8f98df3e38c9d7cec23ca03830ddf59e6ae",
+    "wp/tests/acces-runner/run.py": "8743676df3549951ef629f9bc3168f57841934e7e6a59399e25b0b8fbb45fe1f",
+    "wp/tests/acces-runner/verify.py": "7e3ddd47252456cb5f66607d7f27954b070bc5b4777fe1a8dcdf4178958e8f8e"
+  },
+  "protected_shared_files": 46,
+  "container_absence_verified": true,
+  "pure_php_static_guard": true,
+  "reviewer_approval": false,
+  "production_authorized": false
+}

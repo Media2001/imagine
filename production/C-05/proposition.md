@@ -70,3 +70,10 @@ Image synthétique A-01 existante réutilisée par identifiant immuable, aucun t
 4. **Changement de tarif** : **montants figés pour les quatre positions de l’année / nouveau tarif pour les seules positions non encore payées** ? Aucun calcul de montant ni taxe ni port dans le moteur ; les 10 EUR de la fixture ne sont pas un tarif Imagine.
 
 ## Sources
+
+[1] https://woocommerce.com/document/subscriptions/develop/functions
+[2] https://woocommerce.com/document/subscriptions/renewal-process
+[3] https://woocommerce.com/document/subscriptions/creating-subscription-products
+[4] https://woocommerce.com/document/subscriptions/develop/action-reference
+[5] https://woocommerce.com/document/subscriptions/billing-date-alignment/creating-an-aligned-subscription-product
+[6] https://woocommerce.com/document/subscriptions/failed-payment-retry
