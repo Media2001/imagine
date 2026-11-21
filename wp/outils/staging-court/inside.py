@@ -13,7 +13,11 @@ import time
 from urllib.parse import urlsplit
 
 from archive import Refusal, restore
-from legacy_importer import sql_plan
+from legacy_importer import sql_plan, CREATE_WORDS
+
+# Narrow grammar additions required by SHOW CREATE from the existing synthetic baseline.
+# No new statement type, trigger, procedure, executable comment or general SQL fallback.
+CREATE_WORDS.update({'ON', 'UPDATE', 'UTF8MB3_GENERAL_CI'})
 
 BASE = Path('/opt/court')
 SITE = Path('/scratch/a01-site')
@@ -85,7 +89,31 @@ def restore_and_verify(archive, request):
     with Path(archive).open('rb') as stream:
         sql, package, count = restore(stream, SITE / 'wp-content')
     before = manifest(SITE / 'wp-content')
-    plan = sql_plan(sql)
+    # SHOW CREATE places AUTO_INCREMENT before charset; the existing closed parser
+    # expects it last. Reorder only this exact safe DDL suffix, never row literals.
+    sql = re.sub(
+        rb'(\) ENGINE=InnoDB) AUTO_INCREMENT=([0-9]+) (DEFAULT CHARSET=[a-z0-9_]+(?: COLLATE=[a-z0-9_]+)?)',
+        rb'\1 \3 AUTO_INCREMENT=\2',
+        sql
+    )
+    try:
+        plan = sql_plan(sql)
+    except Exception:
+        from legacy_importer import TOKEN, CREATE_WORDS
+        groups = []
+        group = []
+        for match in TOKEN.finditer(sql.decode('utf-8')):
+            if match.lastgroup in ('space', 'comment'):
+                continue
+            if match.group() == ';':
+                if group and [t[1].upper() for t in group[:2]] == ['CREATE', 'TABLE']:
+                    groups.extend(t[1].upper() for t in group[4:] if t[0] == 'word'
+                                  and t[1].upper() not in CREATE_WORDS)
+                group = []
+            else:
+                group.append((match.lastgroup, match.group()))
+        # Schema grammar keywords only, never SQL, rows or literal values.
+        raise Refusal('SQL_DDL_UNSUPPORTED_' + '_'.join(sorted(set(groups)))[:100]) from None
     prefix = plan['prefix']
     command(['mariadb', '--socket=' + SOCKET, '--user=root', '-e', 'CREATE DATABASE ' + DB])
     command(['mariadb', '--socket=' + SOCKET, '--user=root', DB],

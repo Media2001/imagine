@@ -1,0 +1,27 @@
+{
+  "status": "FAIL",
+  "checks": [
+    {
+      "name": "classic:roundtrip",
+      "pass": false,
+      "detail": "Refusal:SQL_DDL_UNSUPPORTED_CHARSET_ENGINE_ON_UPDATE_UTF8MB3_GENERAL_CI"
+    },
+    {
+      "name": "hpos:roundtrip",
+      "pass": false,
+      "detail": "Refusal:SQL_DDL_UNSUPPORTED_CHARSET_ENGINE_ON_UPDATE_UTF8MB3_GENERAL_CI"
+    }
+  ],
+  "runs": [],
+  "passed": 0,
+  "failed": 2,
+  "full_staging_ready": false,
+  "reason": "PUBLICATION_AND_UPDATE_EGRESS_NOT_IMPLEMENTED",
+  "no_real_archive": true,
+  "no_sites_accessed": true,
+  "image_id": "sha256:b2ffa6ad01ffacc6d31b176232c8d0779c0320daba381e05cbbd80f56d5327a0",
+  "source_manifest_verified": true,
+  "no_ports_no_mounts_network_none": true,
+  "owned_container_removed": true,
+  "recorded_utc": "2026-11-21T10:05:25.930538+00:00"
+}

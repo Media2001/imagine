@@ -132,6 +132,10 @@ def main():
             except Exception as exc:
                 CHECKS.append({'name': storage + ':roundtrip', 'pass': False, 'detail': type(exc).__name__ + ':' + str(exc)[:160]})
                 status = 1
+                if SITE.exists():
+                    shutil.rmtree(SITE)
+                command(['mariadb', '--socket=/scratch/mariadb.sock', '--user=root', '-e',
+                         'DROP DATABASE IF EXISTS ' + DB])
     finally:
         if process:
             e2e.command(['mariadb-admin', '--socket=/scratch/mariadb.sock', '--user=root', 'shutdown'], check=False)
