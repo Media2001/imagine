@@ -57,15 +57,19 @@ final class CacheDefensifTest extends TestCase
         $entree = array_values($cache->entrees)[0];
         self::assertSame(3600, $entree->expiration->getTimestamp() - $entree->creation->getTimestamp());
         $dns->noms = [];
-        self::assertTrue($moteur->verifier('Googlebot/2.1', '192.0.2.1', $debut->setTimestamp($debut->getTimestamp() + 3599))->estVerifie());
+        $avant = $debut->setTimestamp($debut->getTimestamp() + 3599);
+        $expiration = $debut->setTimestamp($debut->getTimestamp() + 3600);
+        self::assertTrue($moteur->verifier('Googlebot/2.1', '192.0.2.1', $avant)->estVerifie());
         self::assertCount(2, $dns->appels);
-        self::assertFalse($moteur->verifier('Googlebot/2.1', '192.0.2.1', $debut->setTimestamp($debut->getTimestamp() + 3600))->estVerifie());
+        self::assertFalse($moteur->verifier('Googlebot/2.1', '192.0.2.1', $expiration)->estVerifie());
         self::assertCount(3, $dns->appels);
         $entree = array_values($cache->entrees)[0];
         self::assertSame(60, $entree->expiration->getTimestamp() - $entree->creation->getTimestamp());
         $dns->noms = ['crawl-fictif.googlebot.com'];
-        self::assertFalse($moteur->verifier('Googlebot/2.1', '192.0.2.1', $debut->setTimestamp($debut->getTimestamp() + 3659))->estVerifie());
-        self::assertTrue($moteur->verifier('Googlebot/2.1', '192.0.2.1', $debut->setTimestamp($debut->getTimestamp() + 3660))->estVerifie());
+        $avant = $debut->setTimestamp($debut->getTimestamp() + 3659);
+        $expiration = $debut->setTimestamp($debut->getTimestamp() + 3660);
+        self::assertFalse($moteur->verifier('Googlebot/2.1', '192.0.2.1', $avant)->estVerifie());
+        self::assertTrue($moteur->verifier('Googlebot/2.1', '192.0.2.1', $expiration)->estVerifie());
         self::assertCount(5, $dns->appels);
     }
 

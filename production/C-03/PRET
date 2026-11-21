@@ -1,4 +1,6 @@
-C-03 — prêt à relire, 20 novembre 2026.
+C-03 — redéposé le 21 novembre 2026 après vérification PASS (tests-21nov/artifact-verification.json). Suite complète : 172 tests / 19 891 assertions. Rapport files/rapports/2026-11-21-C-03-corrections.md. Arbitrages ouverts ; aucun GO.
+
+Historique du 20 novembre, distinct du rejeu courant :
 
 C-03 : 89 tests / 199 assertions ; C-01 : 39 / 101 ; C-04 : 22 / 161.
 Toutes les suites et les vérifications finales passent ; preuves dans tests/.

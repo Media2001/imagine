@@ -19,7 +19,7 @@ for ($annee = 2025; $annee <= 2028; $annee++) {
             (string) $id++,
             TypeNumero::Regulier,
             $sortie,
-            $sortie->modify('first day of previous month')->setDate(
+            $sortie->setDate(
                 (int) $sortie->modify('-1 month')->format('Y'),
                 (int) $sortie->modify('-1 month')->format('m'),
                 20

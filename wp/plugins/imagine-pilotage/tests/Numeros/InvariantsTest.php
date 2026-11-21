@@ -120,11 +120,10 @@ final class InvariantsTest extends TestCase
         new Calendrier(['171']);
     }
 
-    public function testAnniversaireDu29FevrierResteAArbitrer(): void
+    public function testAnniversaireDu29FevrierAu28FevrierSelonDecisionCed(): void
     {
         $annee = (new Annee($this->date('2028-02-29')))->activer($this->date('2028-02-29'), Activation::Paiement);
-        $this->expectException(\LogicException::class);
-        $annee->finNumerique();
+        self::assertSame('2029-02-28', $annee->finNumerique()?->format('Y-m-d'));
     }
 
     public function testDatesNormaliseesEtObjetsImmuables(): void

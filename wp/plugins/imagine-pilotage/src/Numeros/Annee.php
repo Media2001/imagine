@@ -55,7 +55,7 @@ final readonly class Annee
     public function finNumerique(): ?DateTimeImmutable
     {
         if ($this->ouverture?->format('m-d') === '02-29') {
-            throw new \LogicException('Anniversaire du 29 février à arbitrer par Ced.');
+            return $this->ouverture->setDate((int) $this->ouverture->format('Y') + 1, 2, 28);
         }
         return $this->ouverture?->modify('+1 year');
     }

@@ -1,4 +1,4 @@
-# Imagine — pilotage (lot C-01)
+# Imagine — pilotage (C-01 à C-04 : bibliothèques métier et composition du connecteur)
 
 Bibliothèque métier PHP 8.2, sans WordPress, WooCommerce, base de données,
 réseau ni lecture de l'horloge dans le moteur. Ce lot n'est **pas** une extension

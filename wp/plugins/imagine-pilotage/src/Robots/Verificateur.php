@@ -61,7 +61,7 @@ final readonly class Verificateur
             $decision = new Decision(Motif::DnsImpossible);
         }
         $ttl = $decision->estVerifie() ? $this->configuration->ttlPositif : $this->configuration->ttlNegatif;
-        $expiration = $maintenant->modify('+' . $ttl . ' seconds');
+        $expiration = $maintenant->setTimezone(new \DateTimeZone('UTC'))->modify('+' . $ttl . ' seconds');
         if ($decision->estVerifie() && $robot->methode === Methode::Plages) {
             $expiration = min($expiration, $robot->expirationPlages);
         }

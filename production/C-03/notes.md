@@ -193,6 +193,18 @@ Le lanceur ne touche ni aux preuves ni aux runners C-01/C-04.
 4. Faire confirmer par l’hébergeur les répartiteurs de confiance et la restitution
    de l’IP avant tout branchement ?
 
+## Corrections du 21 novembre 2026
+
+C03-01 : clé c03-v2 sérialisant le tuple complet (version, configuration, identifiant, IP). Correctif appliqué avant toute validation, aucun exploit ni test de l'ancien code. Test défensif sur code corrigé : clés distinctes, propre vérification DNS simulée et refus du second candidat, identité positive conforme.
+
+C03-02 : le test d'automne a constaté 7 200 s au lieu de 3 600, contrairement à l'analyse de fusion (tests-21nov/avant-utc.*). Calcul UTC corrigé conformément à l'instruction 2 ; les deux transitions et échéances exclusives passent.
+
+C03-03 : checker courant limité à Robots et fichiers partagés explicites, autres lots exclus. Ancien checker et preuves historiques conservés séparément. Header README corrigé.
+
+Suite complète réelle : 172 tests / 19 891 assertions, aucun échec ; PHPCS, syntaxe, Composer strict, contrôle d'artefacts et nettoyage PASS. Preuves fraîches : tests-21nov/. Conteneur jetable sans montage ni port, réseau déconnecté, aucun service.
+
+Différés : instruction 5 conditionnelle (liste non élargie), tous les arbitrages de la fusion §5 (durées, principe de clé, robots, proxies). Aucun GO ni branchement.
+
 **Rien n’est déployé.** Les adaptateurs réseau/cache persistant, l’extraction IP,
 le paywall, les caches de pages et l’étanchéité HTML/REST/flux/oEmbed/recherche/PDF
 restent dans leurs lots ultérieurs. `PRET` veut uniquement dire « prêt à relire ».

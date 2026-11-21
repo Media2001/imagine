@@ -51,6 +51,18 @@ final readonly class Calendrier
             $ids[$numero->id] = true;
         }
         usort($numeros, static fn (Numero $a, Numero $b): int => $a->sortie <=> $b->sortie ?: strcmp($a->id, $b->id));
+        $precedent = null;
+        foreach ($numeros as $numero) {
+            if ($numero->type !== TypeNumero::Regulier) {
+                continue;
+            }
+            if ($precedent !== null && $numero->cloture < $precedent->cloture) {
+                throw new InvalidArgumentException(
+                    'Clôtures inversées : ' . $precedent->id . ' et ' . $numero->id . '.'
+                );
+            }
+            $precedent = $numero;
+        }
         $this->numeros = array_values($numeros);
     }
 }
