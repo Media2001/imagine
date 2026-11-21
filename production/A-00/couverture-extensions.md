@@ -33,7 +33,7 @@ Lecture des preuves **préexistantes**, sans les rejouer ni les modifier : `file
 | 2 | Quatre paiements dus, dates civiles communes — §3.4–3.5 | Natif pour intervalle et première charge entière ; **synchronisation insuffisante** pour une phase trimestrielle civile commune ; raccord métier requis | [1][2][3][4] |
 | 3 | Carte/Bancontact puis SEPA — §3.6 | Module Stripe officiel ; Bancontact → SEPA documenté ; carte → carte documenté ; carte → SEPA systématique : doute, collecte d'un mandat distinct à prévoir | [5][6][7][8] |
 | 4 | SEPA et case de mandat — §3.6 | Module Stripe officiel pour SEPA ; mandat documenté ; case explicite dans le tunnel Woo : doute ; ouverture dès mandat à raccorder | [8][9][22] |
-| 5 | PayPal initial et automatique — §3.6 | Module PayPal Payments ; deux mécanismes ; **Vaulting/Reference Transactions** à privilégier pour dates mobiles, sous approbation PayPal | [11][12] |
+| 5 | PayPal initial et automatique — §3.6 | Module PayPal Payments ; deux mécanismes ; conditions Reference Transactions documentées, compatibilité des dates modifiables/synchronisation par moteur : **doute**, cellules probantes absentes | [11][12] |
 | 6 | Virement/mandat papier administrateur — §3.6, §3.13 | Natif pour abonnement/renouvellement manuels ; circuit papier, écran de validation et Odoo : sur mesure | [13][14] |
 | 7 | Emails Stripe supprimés, PayPal minimisés — §3.8 | Reçus Stripe réglables avec exceptions ; **zéro email Stripe non garanti avec son identifiant créancier** ; PayPal : doute documentaire signalé | [8][10] |
 | 8 | Cadeau, destinataire et choix de reconduction — §3.4 | Cadeau intégré au cœur documenté ; **pas d'achat de l'ancien module Gifting** ; coordonnées immédiates, surprise et consentement de reconduction : adaptation | [15][16] |
@@ -89,7 +89,7 @@ La documentation propose une expiration après un nombre de paiements et précis
 
 **Contre-exemple documentaire indépendant des extensions :** dans un calendrier fictif aux 10 janvier, avril, juillet et octobre, une inscription le 20 février 2027 payant immédiatement puis à chaque date commune donnerait aussi le 10 janvier 2028 avant son anniversaire du 20 février 2028 : **cinq charges**, et non quatre, sur cette première année. Les dates sont des hypothèses de démonstration, jamais le calendrier d'Imagine. Le décompte est vérifié mécaniquement dans `verification.json`.
 
-Il faut donc distinguer **année d'engagement, quatre créances/échéances, numéros papier et validité numérique** (§3.5). La façon de traiter la date commune supplémentaire, la première tranche de l'année reconduite et l'opposition à la reconduction doit être arbitrée, pas déduite d'un réglage « trimestriel ». L'étude n'arrête pas une architecture financière à la place de Ced.
+**Garde-fou contractuel : quatre numéros réguliers par année d'engagement (§3.5)** ; le contre-exemple civil ne substitue pas un décompte de jours ou d'année civile à ce bornage. Il faut donc distinguer **année d'engagement, quatre créances/échéances, numéros papier et validité numérique** (§3.5). La façon de traiter la date commune supplémentaire, la première tranche de l'année reconduite et l'opposition à la reconduction doit être arbitrée, pas déduite d'un réglage « trimestriel ». L'étude n'arrête pas une architecture financière à la place de Ced.
 
 **Tests :** exemples documentaires et décompte de dates seulement ; pas de commande synchronisée, déplacement réel, encaissement ni reconduction en quatre fois testé.
 
@@ -99,7 +99,7 @@ Il faut donc distinguer **année d'engagement, quatre créances/échéances, num
 
 Pour la **carte**, la matrice officielle dit : « The Stripe extension can support automatic renewals via normal card payments ».[5]
 Elle documente donc une récurrence par carte, pas une transformation systématique carte → mandat SEPA.[5]
-**Doute :** aucun parcours Woo officiel consulté ne prouve cette transformation automatique. Si le cahier des charges exige SEPA après une première carte, collecter et rattacher un mandat SEPA explicite dans ce parcours est un travail à concevoir ; une carte enregistrée n'est pas une preuve d'acceptation de ce mandat.[5][8]
+**Divergence brief / cahier (§3.6) :** le cahier exige carte → carte automatique ; seul Bancontact prévoit SEPA pour les échéances suivantes. L'extension à carte → SEPA vient du besoin 3 du brief, pas du §3.6, et n'est pas arbitrée. **Doute :** aucun parcours Woo officiel consulté ne prouve cette transformation automatique. Si l'extension du brief est confirmée par Ced, collecter et rattacher un mandat SEPA explicite sera à concevoir ; une carte enregistrée ne prouve pas l'acceptation de ce mandat.[5][8]
 
 Pour **Bancontact**, la matrice inclut les méthodes qui tokenisent via SEPA ; le guide Stripe du plugin précise, à propos des paiements iDEAL enregistrés, « They are saved as SEPA Direct Debit tokens. », puis que le réglage Bancontact « does the same, but for Bancontact payments. »[5][6]
 La chaîne Bancontact initial → SEPA ultérieur est donc **documentée**, sans module de conversion supplémentaire identifié.[5][6]
@@ -108,6 +108,8 @@ Bancontact exige notamment EUR : « For example, Bancontact requires that paymen
 **Reste à vérifier :** texte de consentement visible, identification du mandat, preuve d'acceptation, cas compte existant/nouveau et parcours réellement choisi au checkout. Ne pas confondre le réglage de sauvegarde pour achats ultérieurs et les prérequis exacts des abonnements : le guide précise que la sauvegarde générale des moyens n'a pas à être activée pour traiter Subscriptions.[6]
 
 **Module :** passerelle Stripe officielle pour WooCommerce (WooCommerce), en plus de Subscriptions. **Test :** aucun paiement Stripe dans A-00 ou le reçu A-01.
+
+**Note d'articulation pour besoins 4, 6 et 15 (priorité à arbitrer par Ced) :** §3.6 vise l'accès anticipé après mandat et son retrait au premier rejet ; §3.8 vise un impayé de renouvellement établi et un délai de grâce. Pour un premier rejet SEPA ou un paiement manuel non validé, la priorité entre retrait immédiat et grâce reste ouverte : cette étude ne la choisit pas. Les reprises natives ne valent pas décision de droits.
 
 ## 4. Domiciliation SEPA et mandat par case à cocher
 
@@ -127,9 +129,9 @@ Le cahier des charges ouvre le numérique dès le mandat accepté et retire l'ac
 
 La documentation PayPal Payments distingue **PayPal Subscriptions** (plan piloté par PayPal) et **PayPal Vaulting** (moyen enregistré réutilisé par l'intégration).[11] La matrice mentionne « Business accounts only » et, pour Vaulting, « Requires Vault approval (Reference Transactions) ».[11] La page dédiée précise : « Vaulting requires your PayPal business account to be approved for Reference Transactions ».[12]
 
-Avec PayPal Subscriptions, la matrice refuse notamment les modifications de date et les paiements synchronisés/proratisés ; avec Vaulting, ces fonctionnalités sont annoncées compatibles. Le tableau comporte précisément la ligne « Synchronized or prorated payments ».[11] Le mécanisme à **privilégier pour étude/recette** est donc Vaulting/Reference Transactions si Imagine maintient les dates pilotées et les modifications de port ; ce choix reste soumis à l'éligibilité effective du compte et à la recette, pas à une approbation présumée.[11][12]
+**Doute documentaire :** les extraits conservés de [11] ne donnent ni cellules et en-têtes de comparaison ni phrases équivalentes prouvant les dates modifiables et la synchronisation/proratisation pour chacun des deux moteurs. Le libellé « Synchronized or prorated payments » ne prouve pas ses valeurs. La compatibilité différenciée de PayPal Subscriptions/Vaulting et la préférence pour Vaulting restent donc à confirmer sur une preuve exacte avant décision ; ne pas déclarer l'un conforme ni l'autre incapable sur cette seule pièce. L'approbation Reference Transactions demeure une condition documentée, pas obtenue.[11][12]
 
-La connexion, les autorisations et les webhooks du compte professionnel devront être vérifiés ultérieurement par un opérateur autorisé ; aucun compte n'a été consulté. L'approbation n'est ni un module payant supplémentaire ni un réglage que nous pouvons déclarer obtenu.[11][12] Si elle manque, le plan PayPal fixe ne constitue pas un repli équivalent au besoin n°2 : arbitrage nécessaire.[11]
+La connexion, les autorisations et les webhooks du compte professionnel devront être vérifiés ultérieurement par un opérateur autorisé ; aucun compte n'a été consulté. L'approbation n'est ni un module payant supplémentaire ni un réglage que nous pouvons déclarer obtenu.[11][12] Si elle manque, ne pas présumer qu'un plan PayPal fixe satisfait le besoin n°2 : compatibilité encore en doute et arbitrage nécessaire.
 
 **Module :** WooCommerce PayPal Payments (WooCommerce/PayPal). Ne pas remplacer cette étude par PayPal Standard, ni confondre une offre Pay Later éventuelle et les quatre échéances d'Imagine. **Doute :** disponibilité de Pay Later pour les acheteurs belges au lancement, non établie ici et non indispensable à la facilité SEPA prévue au cahier des charges.
 
@@ -143,7 +145,7 @@ Subscriptions peut créer des commandes de renouvellement à payer manuellement 
 
 Le socle évite donc de recréer abonnements et commandes. En revanche le mode interne « domiciliation bancaire sur mandat papier », invisible au tunnel, la référence du mandat sans IBAN, l'export des prélèvements à lancer, la sélection des paiements reçus, l'ouverture des droits et la reprise du statut Odoo restent le raccord des §2.2, §3.6 et §3.13. **Doute :** aucune fonction native complète correspondant à cet écran métier n'a été établie.[13][14]
 
-Distinguer « abonnement actif », « commande de renouvellement en attente » et « paiement validé » ; ne jamais marquer une somme payée pour la seule raison qu'un abonnement a été créé. La règle du mandat papier et celle de l'accès dès mandat Stripe ne sont pas interchangeables (cahier des charges, §3.6).
+Distinguer « abonnement actif », « commande de renouvellement en attente » et « paiement validé » ; voir la note commune aux besoins 4/6/15 : premier paiement manuel non validé et renouvellement établi ne sont pas assimilés, priorité retrait/grâce non tranchée ; ne jamais marquer une somme payée pour la seule raison qu'un abonnement a été créé. La règle du mandat papier et celle de l'accès dès mandat Stripe ne sont pas interchangeables (cahier des charges, §3.6).
 
 **Module supplémentaire :** aucun établi au-delà du socle. **Test :** A-01 a créé une commande de renouvellement manuel sans paiement ; ni validation bancaire administrateur ni droits liés à ce paiement n'y sont testés.
 
@@ -215,7 +217,7 @@ Le plan exact (un plan par numéro ou attribution équivalente) et le devenir de
 
 **Référence : §3.9 et décision Imagine n°5 ouverte. Verdict : durée native ; anti-réutilisation et compteur non démontrés.**
 
-Memberships permet une adhésion de durée déterminée, y compris en jours, et une attribution via inscription gratuite ; chaque membre a un compte.[21][24] Cela fournit une base pour une découverte **en durée**, sans imposer un abonnement avec prélèvement ultérieur.[21]
+Memberships permet une adhésion de durée déterminée, y compris en jours : capacité de durée conservée.[21] **Attribution via inscription gratuite : doute**, les extraits conservés de [21][24] n'établissent pas cette méthode d'octroi. La durée native ne prouve ni un déclenchement à l'inscription ni l'absence de prélèvement dans un parcours à construire ; cet octroi doit être documenté avant usage.
 
 **Doute :** le périmètre documentaire consulté ne prouve ni un plafond d'articles consultés, ni l'unicité « une seule fois par personne » contre la recréation de comptes, ni le refus d'adresses jetables ou la vérification obligatoire d'email demandés au §3.9. Prévoir, si retenus, marqueur de consommation, contrôle du compte vérifié, politique anti-abus et éventuellement décompte serveur des lectures. Un compte ou une adresse email unique n'est pas automatiquement une personne unique.
 
@@ -239,7 +241,7 @@ Pour **la recherche interne**, la documentation du mode `Hide content only` sign
 | oEmbed | Pas de contrat de réponse officiel probant trouvé | **Doute**, à tester |
 | Recherche interne | Avertissement explicite pour `Hide content only` | Risque documentaire, pas certification d'étanchéité[23] |
 | Aperçus de partage, Open Graph et descriptions | Pas de garantie exhaustive dans les documents consultés | **Doute**, texte et données structurées à tester |
-| Robot prétendant être Google/Bing | Pas de fonction documentaire établie ici qui réalise la vérification d'identité exigée | Raccord au futur contrôle des robots ; user-agent seul interdit par la doctrine |
+| Robot prétendant être Google/Bing | Pas de fonction documentaire établie ici qui réalise la vérification d'identité exigée | Raccord au futur contrôle des robots ; user-agent seul insuffisant selon le §4.4 du cahier des charges |
 
 **Reste à développer/qualifier :** une politique de rendu serveur commune aux canaux, contrôles des droits effectifs, distinction robots vérifiés, séparation des caches et un test d'étanchéité avec texte sentinelle (§4.4). Ne pas retirer les protections natives déjà utiles ; étendre uniquement les voies que la recette révèle insuffisantes.
 
@@ -266,7 +268,7 @@ Subscriptions possède un système de reprises automatiques activable, avec « f
 **Conséquence déduite :** activer les reprises ne suffit pas à assurer la grâce Imagine qui maintient l'accès avant suspension. Un passage immédiat `on-hold` peut suspendre les droits liés ; la combinaison des deux paramètres doit être conçue et testée.[22][26] Les sept jours du système par défaut ne sont pas une durée de grâce décidée par Imagine.[26]
 
 Le guide développeur expose l'ajustement des règles ; « Status of the subscription is updated according to the rule: ».[27]
-Réutiliser les reprises existantes et adapter, après arbitrage, la politique d'accès temporaire, les alertes, la fin de grâce, les envois papier et la mise à jour du moyen de paiement ; ne pas recréer un ordonnanceur de prélèvements.[26][27]
+Réutiliser les reprises existantes et adapter, après arbitrage, la politique d'accès temporaire, les alertes, la fin de grâce, les envois papier et la mise à jour du moyen de paiement ; ne pas recréer un ordonnanceur de prélèvements.[26][27] Voir la note commune 4/6/15 : cette grâce d'impayé établi n'est pas déclarée prioritaire sur le retrait d'accès anticipé au premier rejet (§3.6).
 La prise en charge dépend de la passerelle et du mode utilisé, notamment côté PayPal où le plan PayPal et Vaulting ne pilotent pas les échecs de la même manière.[11][26]
 
 **Doute :** déclenchement « immédiatement après mise à jour du moyen de paiement » garanti sur tous les parcours retenus ; à exercer, sans promettre une double tentative concurrente. **Test :** aucun rejet bancaire, retry réel ou maintien de droit en grâce testé dans A-01.
@@ -308,7 +310,7 @@ Le scénario décidé copie la production et conserve comptes, mots de passe, ab
 
 Le guide officiel sépare clairement données d'abonnement et moyens de paiement : « Moving subscription records and moving the payment methods used for renewals are separate parts of a migration. »[35] Il présente l'ajout manuel et un importeur CSV en bêta publique, avec limites de support ; cela n'établit ni un export complet, ni le transfert de tokens Stripe entre comptes marchands.[35]
 
-**Hypothèse à confirmer lors de la bascule :** conserver le même compte Stripe, les références client/moyen/mandat et leurs relations, la configuration de passerelle et les notifications adéquates, avec un seul site autorisé à déclencher les prélèvements. Ce sont des conditions de préservation à vérifier, pas une preuve de succès donnée par un CSV.[35] Pour un changement de compte ou de passerelle, obtenir la procédure officielle correspondant aux deux intégrations ; **doute** tant qu'elle n'est pas qualifiée.[35]
+**Scénario confirmé par Ced le 21/11, à vérifier lors de la bascule :** conserver le même compte Stripe, les références client/moyen/mandat et leurs relations, la configuration de passerelle et les notifications adéquates, avec un seul site autorisé à déclencher les prélèvements. Ce sont des conditions de préservation à vérifier, pas une preuve de succès donnée par un CSV.[35] Pour un changement de compte ou de passerelle, obtenir la procédure officielle correspondant aux deux intégrations ; **doute** tant qu'elle n'est pas qualifiée.[35]
 
 **Module nécessaire au scénario décidé :** aucun nouvel importeur pour les abonnés en ligne établi. Un outil CSV reste une option de migration exceptionnelle à qualifier, pas un achat recommandé ni un remplacement de la copie fidèle.
 
@@ -367,7 +369,7 @@ Aucun nouveau chantier d'import des abonnés en ligne n'est ouvert (besoin 18). 
 
 Questions fermées ; aucune réponse n'a été présumée. Les questions touchant aux droits, à l'argent ou aux obligations sont à faire confirmer par Imagine/conseil juridique selon le cas.
 
-1. **Quatre fois** : confirmez-vous qu'il faut exactement quatre paiements, initial compris, par **année d'engagement de date à date**, et non quatre par année civile ? **Oui / non**. Si oui, autorisez-vous à soumettre un mécanisme qui écarte la date commune supplémentaire du contre-exemple n°2 ? **Oui / non**. La règle de la première tranche à la reconduction devra être validée avant branchement.
+1. **Quatre fois — réponse écrite de Ced du 21/11** : exactement quatre paiements, initial compris, par **année d'engagement de date à date**, pas année civile ; bornage associé : quatre numéros réguliers par année d'engagement (§3.5). Autorisation de soumettre seulement un mécanisme écartant la date commune en trop ; aucune mise en œuvre. Proposition à relire : pour chaque année de contrat, conserver quatre positions de paiement dont l'initiale, rattacher les trois suivantes aux numéros réguliers dus via le calendrier ; avant toute planification, contrôler le nombre de positions déjà attribuées à cette année et écarter une cinquième date commune. Ne pas utiliser un remboursement ou un échec comme nouvelle position. Ne pas décider ici des montants, rattrapages ou première tranche de reconduction ; ces points doivent être validés avant branchement.
 2. **Carte → SEPA** : maintient-on le prélèvement SEPA obligatoire après une première carte ? **Oui : parcours avec mandat distinct à qualifier / non : carte récurrente acceptée, Bancontact → SEPA conservé**.
 3. **PayPal** : retient-on Vaulting sous condition d'approbation Reference Transactions pour les échéances pilotées ? **Oui / non**. Si l'approbation n'est pas obtenue, le circuit fixe ne satisfaisant pas le calendrier, faut-il suspendre cette variante PayPal plutôt que l'annoncer conforme ? **Oui / non**.
 4. **Emails Stripe** : si le compte utilise l'identifiant créancier Stripe, accepter l'exception de ses notifications SEPA obligatoires, ou instruire un identifiant propre permettant l'envoi par Imagine ? **Exception admise / étude d'identifiant propre**. La demande « aucun email » ne peut rester une promesse non qualifiée.
@@ -376,7 +378,7 @@ Questions fermées ; aucune réponse n'a été présumée. Les questions touchan
 7. **Découverte** : présenter à Imagine une variante **en durée / au nombre d'articles** ? Et l'unicité technique à faire valider est-elle **par compte vérifié / par personne avec politique anti-abus complémentaire** ? Le seuil et le périmètre restent des données attendues, pas des chiffres inventés.
 8. **Grâce** : confirme-t-on que les droits et l'envoi papier doivent rester ouverts jusqu'au terme du délai arrêté, malgré le défaut `on-hold` des retries ? **Oui / non**. La durée exacte reste à fournir par l'administration avant recette.
 9. **Port déjà payé** : pour une différence de pays au milieu d'une année réglée d'avance, faut-il **un ajustement immédiat / un ajustement à l'échéance suivante** ? La règle doit préciser également les baisses et la notification ; aucun avoir ou débit n'est créé ici.
-10. **Reprise en ligne** : confirmez-vous le scénario conservant le même compte Stripe et les références sur une copie fidèle, sans import CSV des abonnés en ligne ? **Oui / non**. Tout changement de compte impose une qualification distincte.
+10. **Reprise en ligne — réponse écrite de Ced du 21/11** : même compte Stripe, références conservées sur une copie fidèle, sans import CSV des abonnés en ligne. Tout changement de compte sort du scénario décidé et impose une qualification distincte.
 
 ## Limites documentaires et remise à la relecture
 

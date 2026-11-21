@@ -1,0 +1,1148 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "19 sections in order",
+      "pass": true
+    },
+    {
+      "name": "19 summary rows",
+      "pass": true
+    },
+    {
+      "name": "38 sources contiguous",
+      "pass": true
+    },
+    {
+      "name": "register same IDs",
+      "pass": true
+    },
+    {
+      "name": "source 1 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 1 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 1 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 1 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 1 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 1 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 2 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 2 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 2 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 2 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 2 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 2 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 3 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 3 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 3 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 3 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 3 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 3 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 3 archived excerpt 1 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 4 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 4 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 4 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 4 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 4 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 4 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 4 archived excerpt 1 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 5 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 5 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 5 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 5 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 5 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 5 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 6 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 6 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 6 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 6 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 6 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 6 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 6 archived excerpt 1 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 7 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 7 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 7 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 7 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 7 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 7 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 8 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 8 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 8 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 8 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 8 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 8 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 8 archived excerpt 1 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 8 archived excerpt 2 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 9 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 9 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 9 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 9 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 9 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 9 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 10 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 10 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 10 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 10 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 10 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 10 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 10 archived excerpt 1 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 11 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 11 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 11 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 11 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 11 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 11 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 11 archived excerpt 1 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 11 archived excerpt 2 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 12 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 12 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 12 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 12 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 12 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 12 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 13 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 13 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 13 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 13 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 13 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 13 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 14 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 14 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 14 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 14 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 14 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 14 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 15 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 15 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 15 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 15 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 15 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 15 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 15 archived excerpt 1 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 16 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 16 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 16 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 16 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 16 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 16 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 16 archived excerpt 1 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 16 archived excerpt 2 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 17 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 17 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 17 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 17 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 17 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 17 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 17 archived excerpt 1 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 18 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 18 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 18 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 18 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 18 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 18 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 19 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 19 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 19 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 19 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 19 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 19 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 20 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 20 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 20 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 20 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 20 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 20 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 21 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 21 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 21 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 21 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 21 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 21 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 22 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 22 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 22 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 22 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 22 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 22 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 22 archived excerpt 1 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 23 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 23 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 23 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 23 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 23 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 23 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 24 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 24 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 24 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 24 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 24 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 24 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 24 archived excerpt 1 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 25 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 25 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 25 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 25 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 25 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 25 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 25 archived excerpt 1 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 26 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 26 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 26 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 26 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 26 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 26 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 26 archived excerpt 1 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 27 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 27 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 27 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 27 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 27 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 27 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 28 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 28 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 28 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 28 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 28 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 28 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 29 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 29 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 29 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 29 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 29 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 29 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 30 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 30 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 30 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 30 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 30 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 30 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 31 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 31 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 31 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 31 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 31 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 31 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 32 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 32 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 32 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 32 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 32 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 32 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 33 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 33 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 33 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 33 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 33 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 33 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 34 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 34 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 34 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 34 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 34 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 34 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 34 archived excerpt 1 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 35 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 35 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 35 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 35 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 35 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 35 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 36 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 36 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 36 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 36 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 36 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 36 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 36 archived excerpt 1 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 37 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 37 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 37 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 37 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 37 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 37 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "source 38 official domain",
+      "pass": true
+    },
+    {
+      "name": "source 38 historical retrieval date",
+      "pass": true
+    },
+    {
+      "name": "source 38 URL in delivered text",
+      "pass": true
+    },
+    {
+      "name": "source 38 quote register agrees",
+      "pass": true
+    },
+    {
+      "name": "source 38 at least one excerpt cited",
+      "pass": true
+    },
+    {
+      "name": "source 38 archived excerpt 0 nonempty",
+      "pass": true
+    },
+    {
+      "name": "section has source reference",
+      "pass": true
+    },
+    {
+      "name": "section has source reference",
+      "pass": true
+    },
+    {
+      "name": "section has source reference",
+      "pass": true
+    },
+    {
+      "name": "section has source reference",
+      "pass": true
+    },
+    {
+      "name": "section has source reference",
+      "pass": true
+    },
+    {
+      "name": "section has source reference",
+      "pass": true
+    },
+    {
+      "name": "section has source reference",
+      "pass": true
+    },
+    {
+      "name": "section has source reference",
+      "pass": true
+    },
+    {
+      "name": "section has source reference",
+      "pass": true
+    },
+    {
+      "name": "section has source reference",
+      "pass": true
+    },
+    {
+      "name": "section has source reference",
+      "pass": true
+    },
+    {
+      "name": "section has source reference",
+      "pass": true
+    },
+    {
+      "name": "section has source reference",
+      "pass": true
+    },
+    {
+      "name": "section has source reference",
+      "pass": true
+    },
+    {
+      "name": "section has source reference",
+      "pass": true
+    },
+    {
+      "name": "section has source reference",
+      "pass": true
+    },
+    {
+      "name": "section has source reference",
+      "pass": true
+    },
+    {
+      "name": "section has source reference",
+      "pass": true
+    },
+    {
+      "name": "section has source reference",
+      "pass": true
+    },
+    {
+      "name": "correction Divergence brief / cahier",
+      "pass": true
+    },
+    {
+      "name": "correction Attribution via inscription gratuite : doute",
+      "pass": true
+    },
+    {
+      "name": "correction cellules et en-têtes",
+      "pass": true
+    },
+    {
+      "name": "correction quatre numéros réguliers par année",
+      "pass": true
+    },
+    {
+      "name": "correction Note d'articulation pour besoins 4, 6 et 15",
+      "pass": true
+    },
+    {
+      "name": "correction user-agent seul insuffisant selon le §4.4",
+      "pass": true
+    },
+    {
+      "name": "correction sans import CSV des abonnés en ligne",
+      "pass": true
+    },
+    {
+      "name": "correction Proposition à relire",
+      "pass": true
+    },
+    {
+      "name": "correction aucune mise en œuvre",
+      "pass": true
+    },
+    {
+      "name": "old attribution removed",
+      "pass": true
+    },
+    {
+      "name": "unproven discovery removed",
+      "pass": true
+    },
+    {
+      "name": "synthetic counterexample five payments",
+      "pass": true
+    }
+  ],
+  "passed": 281,
+  "total": 281,
+  "failed": 0,
+  "functional_extension_tests": 0,
+  "scope": "offline consistency with archived excerpts, not independent source retrieval",
+  "counterexample_dates": [
+    "2027-02-20",
+    "2027-04-10",
+    "2027-07-10",
+    "2027-10-10",
+    "2028-01-10"
+  ],
+  "input_sha256": {
+    "couverture-extensions.md": "298869d8a5344fbd8237462fc279327d336c1c7f409271745142ef6d9c6b74e5",
+    "sources-officielles.json": "a5de6a8d771d6b997e6d948736665c92916d178f89450c4888152cd7f9135fde",
+    "registre-citations.json": "e1d11b0b15812cd4195311a3ab26543de1c2248e5618bbfdcb430ded05dac12a"
+  },
+  "time_utc": "2026-11-21T09:46:44.783174+00:00",
+  "cleanup_verified": true
+}

@@ -1,5 +1,7 @@
 # Suivi de reprise — 21 novembre 2026
 
+Réception immédiate de l'instruction directe de Ced : priorité C-03, appliquer la clé v2 existante et les arbitrages DNS/cache ensemble, sans réécrire l'historique du premier PRET. Vérifier les preuves C-01/C-04/C-02 acquises sans rejeu inutile, puis reprendre A-00 et A-01 dans le périmètre initial.
+
 ## Départ — 10 h 20 (horloge locale du terminal)
 - Lecture : file du 21/11, README, doctrine du 19/11, consigne permanente.
 - Un seul écrivain : Hermès ; aucune délégation, opération Git, installation hôte, connexion site/Novamira ou donnée réelle.

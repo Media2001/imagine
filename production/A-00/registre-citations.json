@@ -1,5 +1,10 @@
 {
   "version": 1,
+  "qualification_21nov": {
+    "source_11": "Cellules et en-têtes par moteur absents : dates modifiables et synchronisation/proratisation classées en doute, pas de compatibilité déduite du seul libellé.",
+    "sources_21_24": "Durée conservée comme documentée ; octroi à l'inscription gratuite classé en doute faute d'extrait probant.",
+    "collecte_nouvelle": false
+  },
   "sources": [
     {
       "id": 1,
