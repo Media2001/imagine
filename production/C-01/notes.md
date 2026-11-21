@@ -41,9 +41,7 @@ Les **quatre interprétations prescrites par le brief**, non des décisions nouv
 
 Points complémentaires non tranchés, **sans automatisme financier ajouté** :
 
-- **29 février** : anniversaire au 28 février ou au 1er mars ? Le moteur lève
-  explicitement une exception pour cette date plutôt que d'accorder ou retirer
-  un jour de droit sans arbitrage.
+- **29 février** : décision écrite de Ced du 21/11 : fin au 28 février de l'année suivante, à l'heure d'ouverture, borne exclusive ; ouverture immédiate fonctionnelle.
 - **Marge de prélèvement** : valider une marge obligatoire, positive, en jours
   civils : oui/non ? Valeur à fournir par l'administration ; 7 et 3 ne sont que
   des valeurs de tests, aucune marge par défaut n'est décidée.
@@ -54,7 +52,7 @@ Points complémentaires non tranchés, **sans automatisme financier ajouté** :
   postal : oui/non ? Le moteur exclut à partir du jour de sortie, ne prétend pas
   savoir si le colis est livré. Les droits de futurs numéros d'un contrat
   actuellement suspendu sont des projections à son état actuel.
-- **Suspension** : le calendrier contractuel initial de quatre réguliers est
+- **Suspension** : l'accès numérique est coupé via `accesNumerique → estActive`, confirmé par Ced le 21/11 (docs/arbitrages-2026-11-21.md, C-01/1). Le calendrier contractuel initial de quatre réguliers est
   conservé ; aucune substitution, prolongation, remise ou redistribution des
   échéances n'est décidée ici. Faut-il prévoir une compensation des numéros
   exclus dans un autre lot : oui/non ? Le non-rattrapage prescrit est testé.
@@ -81,6 +79,22 @@ Points complémentaires non tranchés, **sans automatisme financier ajouté** :
   Leur catalogue est inchangé et aucun parcours de recette n'est automatisé.
   Les tests présents sont uniquement les tests unitaires métier demandés par
   C-01 ; aucun tunnel, export réel ou back-office n'est prétendu testé.
+
+## Corrections et traçabilité — 21 novembre 2026
+
+Décisions écrites lues après mise à jour de la file à 10 h 25 : clôtures régulières monotones exigées à la construction (donc à modifier), erreur nommant les deux numéros ; fin 29/02 au 28/02 ; suspension numérique conservée. Aucun arbitrage inventé. Tests nouveaux : CorrectionsTest (construction, modification refusée, séquence/dernier/échéances inchangés, paiement et mandat le 29/02, lendemain, suspension, avant/à/après fin). Fixture simplifiée sans changement de dates.
+
+Règle → source → test :
+- Calendrier et modification → brief 1, §3.4/3.5 + décision Ced C-01/3 → InvariantsTest, CorrectionsTest.
+- Ouvrir/activer, accès numérique → brief 5, §3.5 ; suspension §3.8 confirmée C-01/1 ; anniversaire C-01/2 → MoteurTest::testAccesAttendPaiementOuMandatEtExpireALAnniversaire, CorrectionsTest.
+- numeros/premier/dernier/nonResolus → brief 2/3, §3.5 ; dette provisoire prescrite par brief → MoteurTest::testExempleDuCahierDesCharges, testRenouvellementEtDetteSansInventerUnNumero.
+- horsSerie → brief 4, §3.5 ; premier HS ouvert reste interprétation à confirmer → mêmes tests.
+- renouveler → brief 6, §3.5 → testRenouvellementEtDetteSansInventerUnNumero.
+- echeances/estPassee → brief 7, §3.6, marge non fixée → testEcheancesParNumeroAvecMargeEnJoursCivilsEtRestants, InvariantsTest.
+- restants → brief 8, §3.7 ; sortie comme repère provisoire → testEcheancesParNumeroAvecMargeEnJoursCivilsEtRestants.
+- aDroit/suspendre/reactiver/estActive → brief 9 et cas limites, §3.13/3.8 ; clôture incluse prescrite par brief → testSuspensionEtReactivationNeRattrapentPasUneListeCloturee, testActivationOuReactivationALaClotureEstTropTard.
+
+Preuves fraîches tests-21nov/ : Numeros seul 42 tests / 121 assertions (numeros.xml : aucune autre suite), puis suite complète 175 / 19 911 ; PHPUnit, PHPCS, syntaxe, Composer strict et vérificateur ciblé PASS. Conteneurs supprimés. Historiques tests/ conservés. Questions absentes du fichier de décisions toujours ouvertes, aucun branchement/GO.
 
 ## Tests et preuves
 

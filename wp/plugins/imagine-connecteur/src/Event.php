@@ -12,16 +12,19 @@ final readonly class Event
 {
     public DateTimeImmutable $occurredAt;
 
+    public array $content;
+
     public function __construct(
         public EventType $type,
         public string $sourceId,
         DateTimeImmutable $occurredAt,
-        public array $content,
+        array $content,
         public ?string $subscriptionId = null
     ) {
         if (trim($sourceId) === '' || ($subscriptionId !== null && trim($subscriptionId) === '')) {
             throw new InvalidArgumentException('Identifiant d’origine ou d’abonnement vide.');
         }
+        $content = self::snapshot($content);
         $this->occurredAt = $occurredAt->setTimezone(new DateTimeZone('Europe/Brussels'));
         self::whitelist($content, [
             'identity', 'address', 'lines', 'total_minor', 'currency', 'payment_method',
@@ -45,6 +48,22 @@ final readonly class Event
         }
         // Unknown keys and nested values never become part of an event.
         self::scalarsOnly($content);
+        $this->content = $content;
+    }
+
+    private static function snapshot(array $values, int $depth = 0): array
+    {
+        if ($depth > 2) {
+            throw new InvalidArgumentException('Valeur imbriquée non autorisée.');
+        }
+        $copy = [];
+        foreach ($values as $key => $value) {
+            if (!is_array($value) && !is_scalar($value) && $value !== null) {
+                throw new InvalidArgumentException('Valeur non autorisée.');
+            }
+            $copy[$key] = is_array($value) ? self::snapshot($value, $depth + 1) : $value;
+        }
+        return $copy;
     }
 
     public function key(): string

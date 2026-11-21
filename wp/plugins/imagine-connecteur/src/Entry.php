@@ -16,7 +16,8 @@ final readonly class Entry
         public ?DateTimeImmutable $retryAt = null,
         public ?string $rule = null,
         public ?string $message = null,
-        public ?DateTimeImmutable $leaseUntil = null
+        public ?DateTimeImmutable $leaseUntil = null,
+        public array $notifications = []
     ) {
     }
 
@@ -37,7 +38,42 @@ final readonly class Entry
             $retryAt,
             $rule,
             $message,
-            $leaseUntil
+            $leaseUntil,
+            $this->notifications
         );
+    }
+
+    public function withNotification(string $code, string $message): self
+    {
+        return $this->copyNotifications(array_replace($this->notifications, [$code => $message]));
+    }
+
+    public function acknowledge(string $code): self
+    {
+        $notifications = $this->notifications;
+        unset($notifications[$code]);
+        return $this->copyNotifications($notifications);
+    }
+
+    private function copyNotifications(array $notifications): self
+    {
+        return new self(
+            $this->event,
+            $this->state,
+            $this->attempts,
+            $this->retryAt,
+            $this->rule,
+            $this->message,
+            $this->leaseUntil,
+            $notifications
+        );
+    }
+
+    public function sameBusinessState(self $other): bool
+    {
+        return $this->event === $other->event && $this->state === $other->state
+            && $this->attempts === $other->attempts && $this->retryAt === $other->retryAt
+            && $this->rule === $other->rule && $this->message === $other->message
+            && $this->leaseUntil === $other->leaseUntil;
     }
 }

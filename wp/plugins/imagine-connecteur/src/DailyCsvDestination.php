@@ -98,8 +98,21 @@ final readonly class DailyCsvDestination implements Destination
     private function openBatch(Event $event): string
     {
         $day = $event->occurredAt->format('Y-m-d');
+        if ($event->subscriptionId !== null) {
+            foreach (glob($this->directory . '/*.event.json') ?: [] as $file) {
+                $this->path(basename($file));
+                $record = json_decode($this->read($file), true, flags: JSON_THROW_ON_ERROR);
+                $this->checkRecord($record, basename($file));
+                if ($record['subscription_id'] === $event->subscriptionId) {
+                    $day = max($day, $record['batch_day']);
+                }
+            }
+        }
         if (is_file($this->path($day . '.csv'))) {
-            $local = $this->clock->now()->setTimezone(new DateTimeZone('Europe/Brussels'))->setTime(0, 0);
+            $local = max(
+                new DateTimeImmutable($day, new DateTimeZone('Europe/Brussels')),
+                $this->clock->now()->setTimezone(new DateTimeZone('Europe/Brussels'))->setTime(0, 0)
+            );
             while (is_file($this->path($local->format('Y-m-d') . '.csv'))) {
                 $local = $local->modify('+1 day');
             }
@@ -155,6 +168,10 @@ final readonly class DailyCsvDestination implements Destination
                 json_encode($content['lines'] ?? [], JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE),
                 $record['batch_day'],
             ];
+            $row = array_map(static function (mixed $value): mixed {
+                return is_string($value) && preg_match('/\\A[\\x00-\\x20]*[=+@-]/', $value) === 1
+                    ? "'" . $value : $value;
+            }, $row);
             fputcsv($stream, $row, escape: '', eol: "\n");
         }
         rewind($stream);

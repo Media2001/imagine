@@ -9,6 +9,8 @@ spec = importlib.util.spec_from_file_location('robots_bench', ROOT / 'wp/tests/r
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 lot, action, *extra = sys.argv[1:]
+full = '--all' in extra
+extra = [arg for arg in extra if arg != '--all']
 assert lot in {'C-03', 'C-01', 'C-04', 'C-02', 'A-00'}
 bench = module.bench
 bench.OUT = ROOT / 'production' / lot / 'tests-21nov'
@@ -19,7 +21,7 @@ if lot == 'C-04':
 original_call = bench.call
 
 def call(args, data=None, check=True):
-    if action == 'run' and lot == 'C-01' and 'test' in args and '/tmp/composer.phar' in args:
+    if action == 'run' and lot == 'C-01' and not full and 'test' in args and '/tmp/composer.phar' in args:
         args += ['--testsuite', 'Numeros']
     return original_call(args, data, check)
 

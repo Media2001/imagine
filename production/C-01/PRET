@@ -1,4 +1,6 @@
-C-01 — PRÊT À RELIRE, PAS VALIDÉ / PAS GO
+C-01 — REDÉPOSÉ le 21 novembre 2026 après vérification PASS : tests-21nov/artifact-verification.json. Numeros ciblé 42 tests / 121 assertions ; suite complète 175 / 19 911. Rapport files/rapports/2026-11-21-C-01-corrections.md. Pas de GO.
+
+Historique du 20 novembre (preuves distinctes du rejeu courant) :
 
 Moteur PHP pur et tests livrés localement.
 Passage final neuf : 39 tests réussis, 101 assertions, 0 échec/erreur/ignoré.
