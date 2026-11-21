@@ -58,3 +58,15 @@ Le staging neutralisé et anonymisé, les lots métier (numéros, connecteur, ro
 5. **Le passage par l'outil de staging**, en cours de mise au point ici.
 
 Le chantier B d'Imagine (le thème) sera le premier vrai essai des points 2 et 3.
+
+## À l'échelle : quatre sites en parallèle
+
+Objectif annoncé par Ced le 21/11 : l'agence partenaire vise deux sites vendus par mois, soit quatre en cours à tout moment (deux qui démarrent, deux en finition). Ce que ça impose à la méthode :
+
+1. **Le système de design devient le contrat entre le design et la production.** Décision de Ced : il sera fourni systématiquement à partir de maintenant, ce qui n'était pas le cas. Pour qu'Hermès l'applique sans interprétation, il faut **un seul format, le même pour tous les sites** : les valeurs sous forme de variables (couleurs, typographie, espacements, grille, rayons) et la liste des composants avec leurs états. Un espacement faux devient alors une valeur hors système, détectable par un contrôle, au lieu d'un défaut à repérer à l'œil.
+2. **Un socle de thème commun**, piloté par ces variables, et une bibliothèque de blocs. Un site = un jeu de variables, un choix de blocs, des contenus. On ne reconstruit pas le thème à chaque fois.
+3. **Valider des composants, pas des pages.** Avec quatre sites, le temps de validation visuelle de Ced est la ressource rare. Une page catalogue par site, comparée aux maquettes, et Ced ne regarde que les écarts.
+4. **Un dépôt par site**, cloné depuis le gabarit, avec sa file, son verrou et son réveil.
+5. **Une vue d'ensemble** : une seule page qui dit, pour tous les sites en cours, ce qui attend Ced. Sans elle, il faut ouvrir quatre dépôts.
+6. **La charge de la machine** : quatre réveils horaires, les tâches planifiées des autres projets et les relectures tournent sur le même poste. Décaler les réveils et surveiller les quotas.
+7. **Une fiche d'entrée type** par site : ce que le commercial doit fournir pour que la production démarre sans aller-retour (contenus, logo, accès, hébergement, nom de domaine, pages attendues).
