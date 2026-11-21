@@ -52,16 +52,15 @@ final class CacheTest extends TestCase
         self::assertCount(3, $dns->appels);
     }
 
-    public function testTimeoutNegatifMisEnCache(): void
+    public function testTimeoutRefuseSansCacheEtRetenteImmediatement(): void
     {
         $dns = new DnsFictif();
-        $dns->latence = 250;
+        $dns->latence = 1000;
         $moteur = new Verificateur($this->configuration(), $dns, new CacheMemoire(), $dns->horloge);
         self::assertSame('delai_depasse', $moteur->verifier('Googlebot/2.1', '192.0.2.1', $this->date())->motif->value);
         $dns->latence = 0;
-        self::assertFalse($moteur->verifier('Googlebot/2.1', '192.0.2.1', $this->date('+59 seconds'))->estVerifie());
-        self::assertCount(1, $dns->appels);
-        self::assertTrue($moteur->verifier('Googlebot/2.1', '192.0.2.1', $this->date('+60 seconds'))->estVerifie());
+        self::assertTrue($moteur->verifier('Googlebot/2.1', '192.0.2.1', $this->date())->estVerifie());
+        self::assertCount(3, $dns->appels);
     }
 
     public function testCacheNeTransferePasGoogleVersBingNiNavigateurNiAutreIp(): void

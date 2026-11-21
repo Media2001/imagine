@@ -92,8 +92,9 @@ $echeances = $moteur->echeances($annee, 7); // marge d'exemple, non validée
   de modification et ne constitue pas un stockage persistant.
 
 Les arbitrages du brief et les limites d'intégration figurent dans
-`production/C-01/notes.md`. En particulier, l'anniversaire du 29 février refuse
-un résultat arbitraire et demande un arbitrage. Pas de validation juridique,
+`production/C-01/notes.md`. Ced a décidé le 21/11 que l'anniversaire d'une ouverture
+le 29 février est le 28 février suivant, à l'heure d'ouverture, borne exclusive.
+Pas de validation juridique,
 pas de recouvrement, pas d'adaptateur WooCommerce dans ce lot.
 
 ## C-03 — identité des robots, indépendante du paywall
@@ -122,7 +123,12 @@ Le lanceur réutilisable propre à C-03 et ses commandes sont documentés dans
 `wp/tests/robots-runner/README.md`, depuis la racine du dépôt. Les runners et les
 preuves C-01/C-04 sont conservés. Rien ne s'installe sur l'hôte.
 
-Les durées proposées sont 3 600 s (positif), 60 s (négatif), 200 ms (séquence DNS).
+Les durées décidées par Ced le 21/11 sont 3 600 s (positif), 60 s (refus négatif établi
+seulement) et 1 000 ms (séquence DNS totale). Délai dépassé/panne de résolution : refus
+sans cache, la requête suivante retente immédiatement. Domaine refusé, adresse directe
+différente et IP hors plage seulement sont mis en cache négatif. La liste de départ
+reste Googlebot/Bingbot seuls, confirmation référenceur attendue. La clé c03-v2 sérialise
+le tuple complet version/configuration/identité/IP canonique ; calcul du TTL en UTC.
 Le cache est séparé par IP canonique, robot et configuration. Un instantané CIDR
 exige une expiration et son cache positif ne la dépasse pas. Le cache mémoire
 livré est un exemple local, pas une persistance serveur.

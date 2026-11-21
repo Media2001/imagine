@@ -22,7 +22,7 @@ return new Configuration(
         new Robot('google', ['Googlebot'], Methode::Dns, ['googlebot.com']),
         new Robot('bing', ['bingbot'], Methode::Dns, ['search.msn.com']),
     ],
-    delaiDnsMs: 200,
+    delaiDnsMs: 1000,
     ttlPositif: 3600,
     ttlNegatif: 60,
 );

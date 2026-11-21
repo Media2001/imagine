@@ -1,0 +1,23 @@
+[
+  {
+    "command": [
+      "php",
+      "-l",
+      "config/robots.php"
+    ],
+    "exit": 0,
+    "stdout": "No syntax errors detected in config/robots.php\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "php",
+      "vendor/bin/phpcs",
+      "--standard=PSR12",
+      "config"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

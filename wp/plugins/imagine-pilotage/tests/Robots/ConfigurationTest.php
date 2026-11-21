@@ -104,6 +104,11 @@ final class ConfigurationTest extends TestCase
         $configuration = require $chemin;
         self::assertInstanceOf(Configuration::class, $configuration);
         self::assertSame(['google', 'bing'], array_column($configuration->robots, 'identifiant'));
+        self::assertSame([['Googlebot'], ['bingbot']], array_column($configuration->robots, 'agents'));
+        self::assertSame(1000, $configuration->delaiDnsMs);
+        self::assertSame(1000, (new Configuration([]))->delaiDnsMs);
+        self::assertSame(3600, $configuration->ttlPositif);
+        self::assertSame(60, $configuration->ttlNegatif);
         $dns = new DnsFictif();
         $moteur = new Verificateur($configuration, $dns, new CacheMemoire(), $dns->horloge);
         $date = new DateTimeImmutable('2026-11-20Z');

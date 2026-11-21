@@ -60,6 +60,13 @@ final readonly class Verificateur
         } catch (\Throwable) {
             $decision = new Decision(Motif::DnsImpossible);
         }
+        if (
+            !$decision->estVerifie()
+            && !in_array($decision->motif, [Motif::DomaineRefuse, Motif::AdresseDifferente, Motif::PlageAbsente], true)
+        ) {
+            // Une panne ou un doute est refusé sans empoisonner la requête suivante.
+            return $decision;
+        }
         $ttl = $decision->estVerifie() ? $this->configuration->ttlPositif : $this->configuration->ttlNegatif;
         $expiration = $maintenant->setTimezone(new \DateTimeZone('UTC'))->modify('+' . $ttl . ' seconds');
         if ($decision->estVerifie() && $robot->methode === Methode::Plages) {

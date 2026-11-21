@@ -216,7 +216,7 @@ final class VerificateurTest extends TestCase
     {
         return new Verificateur(new Configuration([
             new Robot('google', ['Googlebot'], Methode::Dns, ['googlebot.com']),
-        ]), $dns, new CacheMemoire(), $dns->horloge);
+        ], delaiDnsMs: 200), $dns, new CacheMemoire(), $dns->horloge);
     }
 
     private function date(): DateTimeImmutable
