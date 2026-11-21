@@ -1,0 +1,50 @@
+{
+  "time_utc": "2026-11-21T10:35:20.908449+00:00",
+  "evidence_audit": "PASS",
+  "task_status": "PARTIAL_A01_BLOCKED",
+  "ready_for_review": [
+    "C-03",
+    "C-01",
+    "C-04",
+    "C-02",
+    "A-00"
+  ],
+  "PHP_distinct_suites": [
+    {
+      "lot": "C-03",
+      "tests": 184,
+      "assertions": 19980
+    },
+    {
+      "lot": "C-04",
+      "tests": 37,
+      "assertions": 224
+    }
+  ],
+  "PHP_total": {
+    "tests": 221,
+    "assertions": 20204
+  },
+  "A00_documentary_checks": 281,
+  "A01_roundtrip_checks": 18,
+  "A01_archive_tests": 12,
+  "A01_harness_tests": 17,
+  "A01_data_cases": 9,
+  "A01_data_assertions": 337,
+  "A01_native_e2e": {
+    "PASS": 131,
+    "FAIL": 0,
+    "NOT_TESTED": 2
+  },
+  "first_C03_PRET_history_preserved": true,
+  "owned_labels_empty": [
+    "org.imagine.correction-c-03",
+    "org.imagine.correction-c-01",
+    "org.imagine.correction-c-04",
+    "org.imagine.correction-c-02",
+    "org.imagine.correction-a-00",
+    "org.imagine.a00-documentary",
+    "org.imagine.a01-court"
+  ],
+  "A01_no_false_PRET": true
+}

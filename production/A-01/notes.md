@@ -4,7 +4,7 @@
 
 Commande autonome livrée dans wp/outils/staging-court/run.py, distincte du service partagé. Rejeu exécuté : `python wp/outils/staging-court/run.py --self-test`. Guide et commande réservée à Ced : wp/outils/staging-court/README.md. Aucun import réel n'est autorisé ou exécuté.
 
-Preuve finale production/A-01/tests-21nov/120fc4c09863/result.json : 18 contrôles d'aller-retour et d'entrypoint PASS, 12 tests défensifs du lecteur, 17 tests du banc, 9 cas/337 assertions de données, lint des PHP ajoutés, sources et cleanup PASS. Archives .wpress exclusivement exportées depuis les deux sites fictifs créés dans le même conteneur ; aucune archive réelle/dérivée, aucun fichier d'archive sorti sur l'hôte. Les deux stockages sont exercés et leurs commandes métier conservées.
+Preuve finale production/A-01/tests-21nov/d1cc212680fd/result.json : 18 contrôles d'aller-retour et d'entrypoint PASS, 12 tests défensifs du lecteur, 17 tests du banc, 9 cas/337 assertions de données, lint des PHP ajoutés, sources et cleanup PASS. Archives .wpress exclusivement exportées depuis les deux sites fictifs créés dans le même conteneur ; aucune archive réelle/dérivée, aucun fichier d'archive sorti sur l'hôte. Les deux stockages sont exercés et leurs commandes métier conservées.
 
 Fidélité : restauration complète par empreinte avant nettoyage ; extensions et thème actifs inchangés ; fichiers plugins 7 704→7 704, thèmes 396→396, uploads 9→9, MU 2→3 (ajout de sécurité attendu). Seuls advanced-cache.php, object-cache.php et l'archive fictive ai1wm-backups/fiction.wpress sont retirés. Les empreintes de thème/média/MU/formulaire sont consignées ; bootstrap réel, rendu Contact Form 7, réglages SEO et lectures Meta Box inchangés. Ces nombres décrivent uniquement la fixture, pas Imagine.
 

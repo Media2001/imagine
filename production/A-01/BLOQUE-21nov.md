@@ -3,7 +3,7 @@ A-01 — BLOQUÉ PARTIELLEMENT, 21 novembre 2026
 Sous-lot d'import/vérification hors ligne et fidélité synthétique : PASS.
 Staging complet publiable : NON PRÊT ; aucun PRET ni GO déposé.
 
-Preuve : tests-21nov/120fc4c09863/result.json.
+Preuve : tests-21nov/d1cc212680fd/result.json.
 Suite native fraîche : wp/tests/staging-e2e/evidence/9ff611303d90/.
 Rapport : files/rapports/2026-11-21-A-01-chemin-court.md.
 Guide : wp/outils/staging-court/README.md.

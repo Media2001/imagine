@@ -10,7 +10,7 @@ Depuis la racine du checkout :
 
 Elle crée un conteneur neuf, sans réseau, port, montage, volume ni accès aux autres sites. Les archives .wpress sont créées depuis WordPress/WooCommerce fictifs dans ce conteneur, restaurées dans ce même conteneur, puis détruites avec lui. Aucun fichier d'archive n'est exporté vers l'hôte.
 
-Le dernier reçu est dans production/A-01/tests-21nov/120fc4c09863/result.json : 18 contrôles d'aller-retour PASS en classique/HPOS et du vrai entrypoint opérateur, 12 tests défensifs du lecteur, 17 tests du banc, 9 cas/337 assertions de la suite de données. Syntaxe PHP ajoutée et sources contrôlées. La suite native E2E complète est également rejouée séparément : wp/tests/staging-e2e/evidence/9ff611303d90/ (131 PASS, 2 hors périmètre). Les conteneurs sont supprimés et leur absence vérifiée.
+Le dernier reçu est dans production/A-01/tests-21nov/d1cc212680fd/result.json : 18 contrôles d'aller-retour PASS en classique/HPOS et du vrai entrypoint opérateur, 12 tests défensifs du lecteur, 17 tests du banc, 9 cas/337 assertions de la suite de données. Syntaxe PHP ajoutée et sources contrôlées. La suite native E2E complète est également rejouée séparément : wp/tests/staging-e2e/evidence/9ff611303d90/ (131 PASS, 2 hors périmètre). Les conteneurs sont supprimés et leur absence vérifiée.
 
 ## Commande opérateur prévue pour Ced uniquement — pas encore à utiliser sur du réel
 
