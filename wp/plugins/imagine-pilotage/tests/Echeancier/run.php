@@ -90,6 +90,10 @@ function c05Refuse(callable $action, string $fragment): void
     c05Assert(false, 'Un plan incompatible doit être refusé : ' . $fragment);
 }
 
+if (defined('IMAGINE_C05_FIXTURE')) {
+    return;
+}
+
 $tests['reconduction_commune_et_numeros_suivants'] = static function (): void {
     $source = new Moteur(c05Calendrier());
     $initiale = c05Annee('2027-02-20 12:00:00');

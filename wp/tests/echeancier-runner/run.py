@@ -107,6 +107,7 @@ def main():
         command = ['exec', name, 'php', '/work/wp/plugins/imagine-pilotage/tests/Echeancier/run.php']
     else:
         call(['cp', PACKAGE, name + ':/opt/e2e/woocommerce-subscriptions.zip'])
+        call(['exec', name, 'rm', '-rf', '/scratch', '/report'])
         command = ['exec', name, 'python3', '/work/wp/tests/echeancier-runner/inside.py']
     result = call(command, check=False, timeout=1200)
     (OUT / (a.name + '.log')).write_bytes(result.stdout + result.stderr)

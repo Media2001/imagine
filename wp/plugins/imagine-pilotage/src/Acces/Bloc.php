@@ -9,4 +9,5 @@ enum Bloc: string
     case Aucun = 'aucun';
     case Abonnement = 'abonnement';
     case Connexion = 'connexion';
+    case Regularisation = 'regularisation';
 }

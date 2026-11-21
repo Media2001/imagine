@@ -11,4 +11,18 @@ enum Motif: string
     case RobotVerifie = 'robot_verifie';
     case Anonyme = 'anonyme';
     case SansDroit = 'sans_droit';
+    case AbonnementActif = 'abonnement_actif';
+    case OffertActif = 'offert_actif';
+    case GroupeActif = 'groupe_actif';
+    case DelaiGrace = 'delai_grace';
+    case Suspendu = 'suspendu';
+    case Expire = 'expire';
+    case VirementNonValide = 'virement_non_valide';
+    case AbonnementPasCommence = 'abonnement_pas_commence';
+    case PdfAnterieurAArbitrer = 'pdf_anterieur_a_arbitrer';
+    case Equipe = 'equipe';
+    case NumeroAchete = 'numero_achete';
+    case AchatPasCommence = 'achat_pas_commence';
+    case AutreNumero = 'autre_numero';
+    case CooperateurSansAbonnement = 'cooperateur_sans_abonnement';
 }

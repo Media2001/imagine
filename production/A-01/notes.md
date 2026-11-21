@@ -1,3 +1,51 @@
+# A-01 publication — 21 novembre 2026 : blocage concret de l’API normale, aucun PRET
+
+## État de la passe publication
+
+**BLOQUÉ avant création d’un site.** La limite réseau du brief du 21/11 est acceptée : après vérification, pas de pare-feu système exigé, uniquement `WP_HTTP_BLOCK_EXTERNAL=true`, `WP_ACCESSIBLE_HOSTS=*.wordpress.org,*.woocommerce.com` et le filtre MU existant. L’ancien blocage « sortie système requise » n’est donc plus un motif d’arrêt.
+
+Le prérequis nouveau est attesté sur le **dashboard effectivement déployé**, sans appeler une fonction métier ni lire une valeur secrète : `production/A-01/publication-21nov/preflight-live.json`. Le moteur Docker WSL existant répond ; aucun besoin d’installation hôte ou de téléchargement n’a été constaté.
+
+### Pourquoi ne pas appeler POST /api/sites
+
+- Le template normal `sandbox-wp-minimal` indique bien zéro extension premium dans son JSON. Mais `_provision_site` ajoute systématiquement `_MCP_PLATFORM_ZIPS` (`novamira.zip`, `novamira-pro.zip`) à **tout** template, y compris celui-ci. Les deux fichiers sont présents ; seul leur booléen de présence est lu, pas leur contenu.
+- La variable de licence Novamira est configurée : le diagnostic ne récupère qu’un booléen, jamais sa valeur. La même fonction appelle alors `activate_novamira_pro_license`, puis `provision_mcp` ; cette dernière active les abilities, crée les identifiants applicatifs et valide la connexion. On atteste le **chemin d’appel et la tentative prévue**, pas la validité de la licence ni une activation réussie (non tentée).
+- `CreateSiteRequest` requiert `template_slug` et n’offre aucun champ de création vide sans licence/MCP. `create_site` exige un template reconnu. Le retour anticipé `if not template: return` de `_provision_site` n’est pas atteignable par ce contrat normal de création.
+
+Sources exactes dans le reçu : `/app/api/orchestrator.py`, fonctions `activate_novamira_pro_license` lignes 251–261, `provision_mcp` 271–284, `create_site` 493–525, `_provision_site` 542–623. Le reçu conserve ces extraits de code sans valeurs de configuration, les champs OpenAPI observés et cinq empreintes du code/modèles de l’outil ; leur égalité après diagnostic est vérifiée.
+
+Une création suivie d’un arrêt « assez rapide » serait une course contre l’activation ; elle n’est pas une solution. Supprimer ultérieurement Novamira dans le wp-content remplacé n’annulerait pas un appel de licence déjà parti. Modifier les modèles, vider la licence du service ou insérer directement une ligne de site contournerait l’usage normal demandé. Aucune de ces voies n’a été utilisée. La doctrine §3 (pas de compte réel sans GO) et la limite « Novamira non branché » empêchent de transformer l’autorisation de créer un test en autorisation d’utiliser une licence configurée.
+
+### Seam minimale à décider, non appliquée
+
+L’API normale doit pouvoir créer un **vrai site vide sans plateforme** : une option explicite de création évitant ensemble l’ajout des ZIP Novamira, l’appel d’activation de licence et le provisioning MCP. Garder les comportements par défaut des autres sites. Cela touche le code partagé de l’outil ; le brief impose donc l’arrêt et l’arbitrage de Ced, pas un patch ici.
+
+**Question fermée au parent/Ced : autoriser cette option ciblée dans l’outil partagé, oui/non ?** Autre possibilité à fournir par l’opérateur : un parcours normal déjà existant sans ces effets, non présent dans l’API examinée. Aucune autorisation générale ou activation de licence n’est déduite de cette question.
+
+### Exécuté et preuves de cette passe
+
+- Diagnostic livré : `wp/outils/staging-court/publication_preflight.py` ; lecture seule, aucun import, aucune mutation API, aucun accès à une ligne/site WordPress ou à une archive. Reçu réel `production/A-01/publication-21nov/preflight-live.json` : sortie **78**, `BLOCKED`, trois motifs précis, `full_staging_ready=false`.
+- Test dédié : `wp/tests/a01-court/test_publication_preflight.py` ; **7 tests réussis**. RED préalable de la détection de licence conservé dans `publication-21nov/preflight-red.log`, GREEN complet dans `publication-21nov/preflight-green.log`. Ces tests portent sur le diagnostic, pas sur une publication.
+- Banc PHP existant réutilisé sans modification : `python wp/outils/staging-court/run.py --self-test`. Nouveau reçu `production/A-01/tests-21nov/30953141a691/result.json` : **18 contrôles PASS, zéro FAIL** en classique/HPOS et entrypoint exact hors ligne ; 12 tests archive, 17 tests banc, 9 cas/337 assertions data, lint PHP. Exécution réelle dans un conteneur jetable sans réseau ni montage/port ; archives uniquement fictives créées dans ce même conteneur. Ce banc continue de vérifier honnêtement le refus 78 `DATA_VERIFIED_PUBLICATION_BLOCKED`, pas une publication.
+- Pas de nouveau site créé dans l’outil, donc aucun site de cette passe à supprimer ; pas de GET de la liste des sites ni accès aux autres sites. Le seul conteneur jetable du self-test est supprimé ; contrôle indépendant de son absence enregistré dans `publication-21nov/artifact-verification.json`.
+- **Non exécutés** : commande complète de publication avec les vrais Subscriptions/Memberships, site joignable vérifié, canari secret empêchant la publication. Les preuves commerciales du 20/11 demeurent historiques et ne sont pas revendiquées comme ces acceptances. Aucun faux site positif ni reçu canari fabriqué.
+- `run.py`, l’importeur, les traitements natifs, tous les fichiers partagés et les modèles de l’outil sont inchangés. Aucun `PRET`, Git, rapport `files/rapports`, modification de `.hermes.lock`, archive Imagine, secret, donnée réelle, Novamira connecté par nous, ou installation hôte.
+
+### Revérification sûre par le parent
+
+Depuis `C:/Users/Ced/imagine` (prendre un nom de reçu neuf ; aucun écrasement) :
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python wp/tests/a01-court/test_publication_preflight.py
+PYTHONDONTWRITEBYTECODE=1 python wp/outils/staging-court/publication_preflight.py --output production/A-01/publication-21nov/preflight-parent.json
+```
+
+Attendu : 7 tests OK ; diagnostic seul en lecture seule, **code 78**. Un changement de l’API nécessite une nouvelle qualification, jamais une autorisation implicite. Rejeu synthétique PHP possible séparément : `PYTHONDONTWRITEBYTECODE=1 python wp/outils/staging-court/run.py --self-test`. La commande d’import réel antérieure ci-dessous reste **à ne pas lancer** ; la commande complète pour Ced et sa durée ne sont pas qualifiées tant que le prérequis API n’est pas levé. Sur table à trancher, conserver la procédure explicite de décisions puis copie fraîche, sans décision automatique.
+
+---
+
+## Historique antérieur conservé — remplacé pour les motifs de blocage par le point ci-dessus
+
 # A-01 — chemin court du 21 novembre : fidélité prouvée, publication encore bloquée
 
 ## État courant au 21/11 — sous-lot exécuté, pas de PRET global

@@ -66,14 +66,16 @@ final class AbonnementTest extends TestCase
         foreach (['abonnement', 'offert', 'groupe'] as $type) {
             foreach (['actif', 'grace'] as $etat) {
                 $droit = self::droit(['type' => $type, 'etat' => $etat]);
-                foreach ([
+                foreach (
+                    [
                     ['2026-09-30 23:59:59', false, 'abonnement_pas_commence'],
                     ['2026-10-01 00:00:00', true, $etat === 'grace' ? 'delai_grace' : $type . '_actif'],
                     ['2026-10-01 00:00:01', true, $etat === 'grace' ? 'delai_grace' : $type . '_actif'],
                     ['2026-11-30 23:59:59', true, $etat === 'grace' ? 'delai_grace' : $type . '_actif'],
                     ['2026-12-01 00:00:00', false, 'expire'],
                     ['2026-12-01 00:00:01', false, 'expire'],
-                ] as [$date, $complet, $motif]) {
+                    ] as [$date, $complet, $motif]
+                ) {
                     $decision = (new Moteur())->decider(
                         DecisionTest::contenu(['sortie' => DecisionTest::date('2026-01-01 00:00:00')]),
                         DecisionTest::visiteur([$droit]),

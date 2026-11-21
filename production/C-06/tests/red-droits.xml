@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/tests/Acces/phpunit.xml" tests="4" assertions="10" errors="0" failures="4" skipped="0" time="0.005004">
+    <testsuite name="Acces" tests="4" assertions="10" errors="0" failures="4" skipped="0" time="0.005004">
+      <testsuite name="Imagine\Pilotage\Tests\Acces\DroitsTest" file="/work/tests/Acces/DroitsTest.php" tests="4" assertions="10" errors="0" failures="4" skipped="0" time="0.005004">
+        <testcase name="testAchatNumeroEstPerpetuelMaisExactArticlesEtPdf" file="/work/tests/Acces/DroitsTest.php" line="17" class="Imagine\Pilotage\Tests\Acces\DroitsTest" classname="Imagine.Pilotage.Tests.Acces.DroitsTest" assertions="2" time="0.004477">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\DroitsTest::testAchatNumeroEstPerpetuelMaisExactArticlesEtPdf
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'achat_pas_commence'
++'entree_invalide'
+
+/work/tests/Acces/DroitsTest.php:30</failure>
+        </testcase>
+        <testcase name="testEquipeEtCooperateurSansConfusionDeRole" file="/work/tests/Acces/DroitsTest.php" line="40" class="Imagine\Pilotage\Tests\Acces\DroitsTest" classname="Imagine.Pilotage.Tests.Acces.DroitsTest" assertions="1" time="0.000117">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\DroitsTest::testEquipeEtCooperateurSansConfusionDeRole
+Failed asserting that false is identical to true.
+
+/work/tests/Acces/DroitsTest.php:50</failure>
+        </testcase>
+        <testcase name="testCombinaisonsTousSousEnsemblesEtOrdreInverseFavorisentLeDroitValide" file="/work/tests/Acces/DroitsTest.php" line="56" class="Imagine\Pilotage\Tests\Acces\DroitsTest" classname="Imagine.Pilotage.Tests.Acces.DroitsTest" assertions="6" time="0.000224">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\DroitsTest::testCombinaisonsTousSousEnsemblesEtOrdreInverseFavorisentLeDroitValide
+Sous-ensemble 1
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'cooperateur_sans_abonnement'
++'entree_invalide'
+
+/work/tests/Acces/DroitsTest.php:91</failure>
+        </testcase>
+        <testcase name="testAchatIndependantOuvrePdfAncienMemeAvecGraceOuSuspension" file="/work/tests/Acces/DroitsTest.php" line="96" class="Imagine\Pilotage\Tests\Acces\DroitsTest" classname="Imagine.Pilotage.Tests.Acces.DroitsTest" assertions="1" time="0.000186">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\DroitsTest::testAchatIndependantOuvrePdfAncienMemeAvecGraceOuSuspension
+Failed asserting that false is true.
+
+/work/tests/Acces/DroitsTest.php:108</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

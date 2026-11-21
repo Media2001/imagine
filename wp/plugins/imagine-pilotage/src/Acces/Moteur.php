@@ -24,9 +24,15 @@ final class Moteur
             || !$contenu['sortie'] instanceof \DateTimeImmutable
             || !$this->cles($visiteur, ['identifie', 'droits'])
             || !is_bool($visiteur['identifie']) || !is_array($visiteur['droits'])
-            || !array_is_list($visiteur['droits']) || $visiteur['droits'] !== []
+            || !array_is_list($visiteur['droits'])
+            || (!$visiteur['identifie'] && $visiteur['droits'] !== [])
         ) {
             return new Decision(false, Motif::EntreeInvalide, Bloc::Abonnement);
+        }
+        foreach ($visiteur['droits'] as $droit) {
+            if (!$this->droitValide($droit)) {
+                return new Decision(false, Motif::EntreeInvalide, Bloc::Abonnement);
+            }
         }
         if (!$contenu['reserve']) {
             return new Decision(true, Motif::ContenuOuvert, Bloc::Aucun);
@@ -34,9 +40,99 @@ final class Moteur
         if ($robot->estVerifie()) {
             return new Decision(true, Motif::RobotVerifie, Bloc::Aucun);
         }
-        return $visiteur['identifie']
+        $decision = $visiteur['identifie']
             ? new Decision(false, Motif::SansDroit, Bloc::Abonnement)
             : new Decision(false, Motif::Anonyme, Bloc::Connexion);
+        foreach ($visiteur['droits'] as $droit) {
+            $candidate = match ($droit['type']) {
+                'equipe' => new Decision(true, Motif::Equipe, Bloc::Aucun),
+                'cooperateur' => new Decision(false, Motif::CooperateurSansAbonnement, Bloc::Abonnement),
+                'achat' => $this->achat($droit, $contenu, $instant),
+                default => $this->abonnement($droit, $contenu, $instant),
+            };
+            if ($this->priorite($candidate) > $this->priorite($decision)) {
+                $decision = $candidate;
+            }
+        }
+        return $decision;
+    }
+
+    private function abonnement(array $droit, array $contenu, \DateTimeImmutable $instant): Decision
+    {
+        if (in_array($droit['etat'], ['suspendu', 'expire', 'virement_non_valide'], true)) {
+            return new Decision(
+                false,
+                Motif::from($droit['etat']),
+                $droit['etat'] === 'expire' ? Bloc::Abonnement : Bloc::Regularisation,
+            );
+        }
+        if ($instant < $droit['debut']) {
+            return new Decision(false, Motif::AbonnementPasCommence, Bloc::Abonnement);
+        }
+        if ($instant >= $droit['fin']) {
+            return new Decision(false, Motif::Expire, Bloc::Abonnement);
+        }
+        if ($contenu['type'] === 'pdf' && $contenu['sortie'] < $droit['debut']) {
+            return new Decision(false, Motif::PdfAnterieurAArbitrer, Bloc::Abonnement);
+        }
+        return $droit['etat'] === 'grace'
+            ? new Decision(true, Motif::DelaiGrace, Bloc::Regularisation)
+            : new Decision(true, Motif::from($droit['type'] . '_actif'), Bloc::Aucun);
+    }
+
+    private function achat(array $droit, array $contenu, \DateTimeImmutable $instant): Decision
+    {
+        if ($droit['numero'] !== $contenu['numero']) {
+            return new Decision(false, Motif::AutreNumero, Bloc::Abonnement);
+        }
+        return $instant < $droit['acquis_le']
+            ? new Decision(false, Motif::AchatPasCommence, Bloc::Abonnement)
+            : new Decision(true, Motif::NumeroAchete, Bloc::Aucun);
+    }
+
+    private function droitValide(mixed $droit): bool
+    {
+        if (!is_array($droit) || !isset($droit['type'])) {
+            return false;
+        }
+        if ($droit['type'] === 'equipe') {
+            return $this->cles($droit, ['type', 'role'])
+                && in_array($droit['role'], ['redaction', 'administration'], true);
+        }
+        if ($droit['type'] === 'cooperateur') {
+            return $this->cles($droit, ['type']);
+        }
+        if ($droit['type'] === 'achat') {
+            return $this->cles($droit, ['type', 'numero', 'acquis_le'])
+                && is_string($droit['numero']) && trim($droit['numero']) !== ''
+                && $droit['acquis_le'] instanceof \DateTimeImmutable;
+        }
+        return $this->cles($droit, ['type', 'etat', 'debut', 'fin'])
+            && in_array($droit['type'], ['abonnement', 'offert', 'groupe'], true)
+            && in_array($droit['etat'], ['actif', 'grace', 'suspendu', 'expire', 'virement_non_valide'], true)
+            && $droit['debut'] instanceof \DateTimeImmutable && $droit['fin'] instanceof \DateTimeImmutable
+            && $droit['debut'] < $droit['fin'];
+    }
+
+    private function priorite(Decision $decision): int
+    {
+        return match ($decision->motif) {
+            Motif::Equipe => 120,
+            Motif::NumeroAchete => 110,
+            Motif::AbonnementActif => 100,
+            Motif::OffertActif => 99,
+            Motif::GroupeActif => 98,
+            Motif::DelaiGrace => 80,
+            Motif::Suspendu => 30,
+            Motif::VirementNonValide => 29,
+            Motif::Expire => 28,
+            Motif::AbonnementPasCommence => 27,
+            Motif::PdfAnterieurAArbitrer => 26,
+            Motif::AchatPasCommence => 25,
+            Motif::AutreNumero => 24,
+            Motif::CooperateurSansAbonnement => 1,
+            default => 0,
+        };
     }
 
     private function cles(array $valeur, array $cles): bool
