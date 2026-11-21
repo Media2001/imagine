@@ -5,5 +5,6 @@
         <testsuite name="Robots"><directory>tests/Robots</directory></testsuite>
         <testsuite name="Entreprise"><directory>tests/Entreprise</directory></testsuite>
         <testsuite name="Acces"><directory>tests/Acces</directory></testsuite>
+        <testsuite name="Envoi"><directory>tests/Envoi</directory></testsuite>
     </testsuites>
 </phpunit>
