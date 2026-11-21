@@ -136,6 +136,21 @@ def main():
                     shutil.rmtree(SITE)
                 command(['mariadb', '--socket=/scratch/mariadb.sock', '--user=root', '-e',
                          'DROP DATABASE IF EXISTS ' + DB])
+        # Exercise the exact operator-side entrypoint too, with only our freshly generated archive.
+        if status == 0:
+            e2e.command(['mariadb-admin', '--socket=/scratch/mariadb.sock', '--user=root', 'shutdown'], check=False)
+            process.wait(timeout=30)
+            process = None
+            Path('/input').mkdir(exist_ok=True)
+            shutil.copyfile('/scratch/fixture-classic.wpress', '/input/source.wpress')
+            request = {'target_url': 'https://fixture.synthetic.test', 'production_url': 'https://source.invalid',
+                       'password': secrets.token_urlsafe(32),
+                       'decisions': {'wp_yoast_primary_term': {'action': 'garder'}}}
+            p = command(['python3', '/opt/court/inside.py'], data=json.dumps(request).encode(), check=False)
+            exact = json.loads(Path('/report/court.json').read_text())
+            check('exact_operator_entrypoint_on_generated_archive', p.returncode == 0 and exact['data_verified'],
+                  {'exit': p.returncode, 'status': exact['status'], 'archive_generated_here': True})
+            check('exact_operator_stops_database', not Path('/scratch/court.pid').exists())
     finally:
         if process:
             e2e.command(['mariadb-admin', '--socket=/scratch/mariadb.sock', '--user=root', 'shutdown'], check=False)
