@@ -22,6 +22,7 @@ Ce qui est tranché par Ced, daté. Ce fichier précise ou corrige le cahier des
 | 20/11/2026 | Staging : fidèle à la production. On garde extensions, réglages et tables ; on ne retire que ce qui est dangereux ; cinq points bloquent le statut « vérifié ». Les listes fermées de la première version du lot A-01 sont abandonnées. |
 | 20/11/2026 | Un lot a un délai (une demi-journée par défaut) ; au-delà, Hermès rend compte et passe au suivant. |
 | 20/11/2026 | La production est en WordPress 6.9.1 (compatible Novamira). L'outil de staging tourne dans Docker sous WSL sur le NUC. |
+| 21/11/2026 | Arbitrages sur les lots A-00 et C-01 à C-04 : voir `docs/arbitrages-2026-11-21.md`. Notamment : accès numérique coupé dès la suspension pour impayé ; quatre paiements par année d'engagement de date à date ; même compte Stripe, sans import CSV des abonnés en ligne. |
 | 11/11/2026 | Architecture de production : Claude (briefs, arbitrages), Hermès (production), Codex et Claude Code (relecture), Git comme file de travail. |
 
 ## Ouvert — à trancher par Ced
