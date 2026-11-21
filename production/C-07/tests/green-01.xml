@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="1" assertions="4" errors="0" failures="0" skipped="0" time="0.001878">
+    <testsuite name="Envoi" tests="1" assertions="4" errors="0" failures="0" skipped="0" time="0.001878">
+      <testsuite name="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" file="/work/tests/Envoi/ListeEnvoiTest.php" tests="1" assertions="4" errors="0" failures="0" skipped="0" time="0.001878">
+        <testcase name="testAbonneActifRecoitUnExemplaireSansEmail" file="/work/tests/Envoi/ListeEnvoiTest.php" line="64" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="4" time="0.001878"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

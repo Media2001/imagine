@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="18" assertions="30" errors="0" failures="0" skipped="0" time="0.002613">
+    <testsuite name="Envoi" tests="18" assertions="30" errors="0" failures="0" skipped="0" time="0.002613">
+      <testsuite name="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" file="/work/tests/Envoi/ListeEnvoiTest.php" tests="18" assertions="30" errors="0" failures="0" skipped="0" time="0.002613">
+        <testcase name="testAbonneActifRecoitUnExemplaireSansEmail" file="/work/tests/Envoi/ListeEnvoiTest.php" line="67" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="4" time="0.001430"/>
+        <testsuite name="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testProfilsACloture" tests="11" assertions="11" errors="0" failures="0" skipped="0" time="0.000745">
+          <testcase name="testProfilsACloture with data set &quot;A-CARTE&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000083"/>
+          <testcase name="testProfilsACloture with data set &quot;A-SEPA4&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000077"/>
+          <testcase name="testProfilsACloture with data set &quot;A-GRACE&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000054"/>
+          <testcase name="testProfilsACloture with data set &quot;A-SUSP&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000097"/>
+          <testcase name="testProfilsACloture with data set &quot;A-VIR&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000063"/>
+          <testcase name="testProfilsACloture with data set &quot;A-PAPIER attente&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000046"/>
+          <testcase name="testProfilsACloture with data set &quot;A-PAPIER valide&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000049"/>
+          <testcase name="testProfilsACloture with data set &quot;A-EXPIRE&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000041"/>
+          <testcase name="testProfilsACloture with data set &quot;A-NONRENOUV&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000090"/>
+          <testcase name="testProfilsACloture with data set &quot;A-ETRANGER&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000093"/>
+          <testcase name="testProfilsACloture with data set &quot;A-SANSMAIL&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000052"/>
+        </testsuite>
+        <testcase name="testPaiementUneSecondeAvantEtApresEtExactementACloture" file="/work/tests/Envoi/ListeEnvoiTest.php" line="100" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000077"/>
+        <testcase name="testAdresseHistoriqueEtRejeuMalgreChangementPosterieur" file="/work/tests/Envoi/ListeEnvoiTest.php" line="111" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="2" time="0.000079"/>
+        <testcase name="testReactivationEtCreationApresClotureNeRattrapentPas" file="/work/tests/Envoi/ListeEnvoiTest.php" line="121" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000069"/>
+        <testcase name="testCorrectionRetrodateeEnregistreeApresClotureIgnoree" file="/work/tests/Envoi/ListeEnvoiTest.php" line="133" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000065"/>
+        <testcase name="testNumeroDuSeulementSansRecalculC01" file="/work/tests/Envoi/ListeEnvoiTest.php" line="142" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="4" time="0.000082"/>
+        <testcase name="testOffertGroupeEtCommandeUnitaire" file="/work/tests/Envoi/ListeEnvoiTest.php" line="151" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="4" time="0.000067"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

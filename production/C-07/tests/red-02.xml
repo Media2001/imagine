@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="18" assertions="24" errors="0" failures="10" skipped="0" time="0.006529">
+    <testsuite name="Envoi" tests="18" assertions="24" errors="0" failures="10" skipped="0" time="0.006529">
+      <testsuite name="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" file="/work/tests/Envoi/ListeEnvoiTest.php" tests="18" assertions="24" errors="0" failures="10" skipped="0" time="0.006529">
+        <testcase name="testAbonneActifRecoitUnExemplaireSansEmail" file="/work/tests/Envoi/ListeEnvoiTest.php" line="67" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="4" time="0.001429"/>
+        <testsuite name="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testProfilsACloture" tests="11" assertions="11" errors="0" failures="4" skipped="0" time="0.003612">
+          <testcase name="testProfilsACloture with data set &quot;A-CARTE&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000081"/>
+          <testcase name="testProfilsACloture with data set &quot;A-SEPA4&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000075"/>
+          <testcase name="testProfilsACloture with data set &quot;A-GRACE&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000103"/>
+          <testcase name="testProfilsACloture with data set &quot;A-SUSP&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.002692">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testProfilsACloture with data set "A-SUSP"
+Failed asserting that actual size 1 matches expected size 0.
+
+/work/tests/Envoi/ListeEnvoiTest.php:97</failure>
+          </testcase>
+          <testcase name="testProfilsACloture with data set &quot;A-VIR&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000116">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testProfilsACloture with data set "A-VIR"
+Failed asserting that actual size 1 matches expected size 0.
+
+/work/tests/Envoi/ListeEnvoiTest.php:97</failure>
+          </testcase>
+          <testcase name="testProfilsACloture with data set &quot;A-PAPIER attente&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000111">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testProfilsACloture with data set "A-PAPIER attente"
+Failed asserting that actual size 1 matches expected size 0.
+
+/work/tests/Envoi/ListeEnvoiTest.php:97</failure>
+          </testcase>
+          <testcase name="testProfilsACloture with data set &quot;A-PAPIER valide&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000055"/>
+          <testcase name="testProfilsACloture with data set &quot;A-EXPIRE&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000113">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testProfilsACloture with data set "A-EXPIRE"
+Failed asserting that actual size 1 matches expected size 0.
+
+/work/tests/Envoi/ListeEnvoiTest.php:97</failure>
+          </testcase>
+          <testcase name="testProfilsACloture with data set &quot;A-NONRENOUV&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000091"/>
+          <testcase name="testProfilsACloture with data set &quot;A-ETRANGER&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000062"/>
+          <testcase name="testProfilsACloture with data set &quot;A-SANSMAIL&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="94" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000112"/>
+        </testsuite>
+        <testcase name="testPaiementUneSecondeAvantEtApresEtExactementACloture" file="/work/tests/Envoi/ListeEnvoiTest.php" line="100" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="2" time="0.000115">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testPaiementUneSecondeAvantEtApresEtExactementACloture
+2026-12-20 00:00:00
+Failed asserting that actual size 1 matches expected size 0.
+
+/work/tests/Envoi/ListeEnvoiTest.php:107</failure>
+        </testcase>
+        <testcase name="testAdresseHistoriqueEtRejeuMalgreChangementPosterieur" file="/work/tests/Envoi/ListeEnvoiTest.php" line="111" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000742">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testAdresseHistoriqueEtRejeuMalgreChangementPosterieur
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'2 rue Avant'
++'1 rue Imaginaire'
+
+/work/tests/Envoi/ListeEnvoiTest.php:117</failure>
+        </testcase>
+        <testcase name="testReactivationEtCreationApresClotureNeRattrapentPas" file="/work/tests/Envoi/ListeEnvoiTest.php" line="121" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000224">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testReactivationEtCreationApresClotureNeRattrapentPas
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+-Array &amp;0 []
++Array &amp;0 [
++    0 =&gt; Array &amp;1 [
++        'abonnement_id' =&gt; 'abo-fictif',
++        'destinataire_id' =&gt; 'fictif-1',
++        'destinataire' =&gt; 'Camille Fictive',
++        'rue' =&gt; '1 rue Imaginaire',
++        'complement' =&gt; '',
++        'code_postal' =&gt; '1000',
++        'ville' =&gt; 'Ville Fictive',
++        'pays' =&gt; 'BE',
++        'origine' =&gt; 'abonnement',
++    ],
++    1 =&gt; Array &amp;2 [
++        'abonnement_id' =&gt; 'nouveau',
++        'destinataire_id' =&gt; 'fictif-1',
++        'destinataire' =&gt; 'Camille Fictive',
++        'rue' =&gt; '1 rue Imaginaire',
++        'complement' =&gt; '',
++        'code_postal' =&gt; '1000',
++        'ville' =&gt; 'Ville Fictive',
++        'pays' =&gt; 'BE',
++        'origine' =&gt; 'abonnement',
++    ],
++]
+
+/work/tests/Envoi/ListeEnvoiTest.php:130</failure>
+        </testcase>
+        <testcase name="testCorrectionRetrodateeEnregistreeApresClotureIgnoree" file="/work/tests/Envoi/ListeEnvoiTest.php" line="133" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.000162">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testCorrectionRetrodateeEnregistreeApresClotureIgnoree
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+-Array &amp;0 []
++Array &amp;0 [
++    0 =&gt; Array &amp;1 [
++        'abonnement_id' =&gt; 'abo-fictif',
++        'destinataire_id' =&gt; 'fictif-1',
++        'destinataire' =&gt; 'Camille Fictive',
++        'rue' =&gt; '1 rue Imaginaire',
++        'complement' =&gt; '',
++        'code_postal' =&gt; '1000',
++        'ville' =&gt; 'Ville Fictive',
++        'pays' =&gt; 'BE',
++        'origine' =&gt; 'abonnement',
++    ],
++]
+
+/work/tests/Envoi/ListeEnvoiTest.php:139</failure>
+        </testcase>
+        <testcase name="testNumeroDuSeulementSansRecalculC01" file="/work/tests/Envoi/ListeEnvoiTest.php" line="142" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="2" time="0.000101">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testNumeroDuSeulementSansRecalculC01
+Failed asserting that actual size 1 matches expected size 0.
+
+/work/tests/Envoi/ListeEnvoiTest.php:145</failure>
+        </testcase>
+        <testcase name="testOffertGroupeEtCommandeUnitaire" file="/work/tests/Envoi/ListeEnvoiTest.php" line="151" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="2" time="0.000144">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testOffertGroupeEtCommandeUnitaire
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+ Array &amp;0 [
+     0 =&gt; 'fictif-1',
+-    1 =&gt; 'benef-1',
+-    2 =&gt; 'benef-2',
++    1 =&gt; 'ancien',
++    2 =&gt; 'fictif-1',
+ ]
+
+/work/tests/Envoi/ListeEnvoiTest.php:162</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>
