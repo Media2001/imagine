@@ -2,9 +2,9 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 21 novembre 2026, 13 h.
+Mis à jour le 21 novembre 2026, 13 h 10.
 
-Consigne permanente : `prompts/consigne-permanente.md`. Doctrine : `doctrine/doctrine.md` (dernière révision : **19/11/2026 — outil de staging et Novamira à la place de Docker**).
+Consigne permanente : `prompts/consigne-permanente.md`. Doctrine : `doctrine/doctrine.md` (dernière révision : **21/11/2026 — qui valide quoi**).
 
 Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantier : **A** l'existant, **B** le thème, **C** le code sur mesure. Les lots actifs de chantiers différents peuvent avancer en parallèle.
 
@@ -64,9 +64,9 @@ Les lots 2 et 3 sont indépendants de A-01 : si A-01 se bloque, passe à la suit
 | Lot | Rendu | État au 21/11 |
 |---|---|---|
 | A-07 Exposition de l'outil de staging | 20/11 | Clos |
-| A-00 Couverture des extensions | 20/11, corrigé le 21/11 | Vérifié : prêt pour la validation de Ced |
-| C-01 Règle des numéros | 20/11, corrigé le 21/11 | Vérifié : prêt pour la validation de Ced |
-| C-02 Numéro d'entreprise | 20/11, corrigé le 21/11 | Vérifié : prêt pour la validation de Ced |
-| C-03 Vérification des robots | 20/11, corrigé le 21/11 | Bloquant C03-01 corrigé. Vérifié : prêt pour la validation de Ced |
-| C-04 File du connecteur | 20/11, corrigé le 21/11 | Vérifié : prêt pour la validation de Ced |
+| A-00 Couverture des extensions | 20/11, corrigé le 21/11 | **Clos le 21/11** |
+| C-01 Règle des numéros | 20/11, corrigé le 21/11 | **Clos le 21/11** |
+| C-02 Numéro d'entreprise | 20/11, corrigé le 21/11 | **Clos le 21/11** |
+| C-03 Vérification des robots | 20/11, corrigé le 21/11 | Bloquant C03-01 corrigé. **Clos le 21/11** |
+| C-04 File du connecteur | 20/11, corrigé le 21/11 | **Clos le 21/11** |
 | A-01, import et vérification hors ligne | 21/11 | Fait et prouvé sur données fictives ; publication restante (consigne 1) |

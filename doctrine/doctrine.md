@@ -1,6 +1,6 @@
 # Doctrine — projet Imagine
 
-Révision : **19/11/2026** (outil de staging de Ced et Novamira à la place de Docker ; scripts de staging et scripts de bascule).
+Révision : **21/11/2026** (qui valide quoi : les lots de code se clôturent sur preuves, sans GO de Ced).
 
 Ces règles s'appliquent à tous les agents. En cas de contradiction entre une consigne et la doctrine, la doctrine l'emporte : l'agent le signale dans son rapport au lieu de trancher.
 
@@ -48,6 +48,19 @@ Ced réalise toute la production technique. Le **design** (maquettes) et le **r�
 - Aucune modification du code d'une extension tierce : uniquement des hooks.
 - Chaque extension sur mesure a un `README.md` : ce qu'elle fait, ses réglages, comment lancer ses tests.
 
-## 6. Tracer les écarts
+## 6. Qui valide quoi
+
+L'attention de Ced va au visuel, aux règles métier et à ce qui touche au réel. Le reste se valide par les preuves.
+
+| Nature | Qui clôt | Sur quelle base |
+|---|---|---|
+| Code ou étude, sans rien de visuel | Claude | Tests au vert, deux relectures indépendantes, fusion, vérification du second tour « prêt pour la validation », aucune question ouverte pour Ced dans le lot |
+| Visuel : thème, écrans, emails | Ced | Maquettes et système de design, comparaison de captures |
+| Règle métier à trancher | Ced, ou Imagine | Question fermée posée dans la fusion |
+| Import de la production, ouverture d'un staging aux agents, compte réel, achat, déploiement | Ced, par un GO écrit nommant la tâche | §3 |
+
+Un verdict de relecture ou de vérification n'est toujours pas un GO au sens du §3 : il ne vaut que pour la clôture d'un lot de code.
+
+## 7. Tracer les écarts
 
 Toute demande qui sort du cahier des charges, toute contradiction interne au cahier des charges et tout blocage dû à un tiers (Imagine, Step, CoopHub, hébergeur) est signalé dans le rapport. Claude le reporte dans `docs/ecarts.md` avec sa date.

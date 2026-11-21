@@ -31,7 +31,11 @@ Refonte du site d'Imagine (magazine, coopérative de presse) : WordPress + WooCo
 3. Codex et Claude Code relisent chacun de leur côté (`relectures/<lot>/`).
 4. Claude Code fusionne (`corrections/<lot>.md`).
 5. Ced et Claude arbitrent ; Hermès applique les corrections.
-6. Un lot est **clos** quand ses tests passent et que Ced l'a validé par écrit (`production/<lot>/GO.md`).
+6. La clôture dépend de la nature du lot :
+   - **Lot de code ou d'étude, sans rien de visuel** : il est clos par Claude, sans intervention de Ced, quand ses tests passent, que les deux relectures et la fusion sont faites, que la vérification du second tour conclut « prêt pour la validation » et qu'il ne reste aucune question ouverte pour Ced dans ce lot. Claude l'inscrit comme clos dans `A-FAIRE.md`.
+   - **Lot visuel** (thème, écrans, emails) : Ced le valide lui-même.
+   - **Règles métier** : les questions « à arbitrer » restent tranchées par Ced, ou par Imagine quand elles lui reviennent.
+   - **Tout ce qui touche au réel** (import de la production, staging ouvert aux agents, compte réel, achat, déploiement) : GO écrit de Ced, règle n°4.
 
 Tout se passe sur la branche `main`. Seule la tâche de synchronisation touche à Git (`scripts/sync.ps1`).
 

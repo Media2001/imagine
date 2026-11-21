@@ -23,7 +23,7 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 | A-07 Exposition de l'outil de staging | Fait le 20/11. Test depuis l'extérieur en IPv4 : le tableau de bord n'est pas joignable. Non vérifié : redirections, DMZ et pare-feu IPv6 dans l'administration de la box | Coup d'œil à la box quand possible ; retirer l'autorisation du port 7000 en profil public du pare-feu Windows | Ced |
 | Licences WooCommerce | Obtenues le 20/11 | Déposer les archives Subscriptions et Memberships dans le dossier des extensions premium de l'outil de staging, hors dépôt | Ced |
 | Staging Imagine existant | Arrêté par Hermès le 19/11, non supprimé ; la révocation du mot de passe applicatif dans WordPress n'est pas attestée | Ne pas le redémarrer ; le détruire quand le nouveau parcours est validé | Ced |
-| A-00 Couverture des extensions | Corrigé le 21/11, arbitrages appliqués, vérifié au second tour : « prêt pour la validation de Ced » | GO de Ced | Ced |
+| A-00 Couverture des extensions | **Clos le 21/11** : corrigé, arbitrages appliqués, vérifié au second tour | Branchement dans un lot ultérieur | — |
 | A-02 à A-06 | En attente | Voir `A-FAIRE.md` | — |
 
 ## B · Le thème
@@ -38,10 +38,10 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 
 | Lot | État | Prochaine étape | Qui |
 |---|---|---|---|
-| C-01 Règle des numéros | Corrigé le 21/11, arbitrages appliqués, vérifié au second tour : « prêt pour la validation de Ced » | GO de Ced | Ced |
-| C-04 File du connecteur | Corrigé le 21/11, arbitrages appliqués, vérifié au second tour : « prêt pour la validation de Ced » | GO de Ced | Ced |
-| C-03 Vérification des robots | Corrigé le 21/11, arbitrages appliqués, vérifié au second tour : « prêt pour la validation de Ced » | GO de Ced | Ced |
-| C-02 Numéro d'entreprise | Corrigé le 21/11, arbitrages appliqués, vérifié au second tour : « prêt pour la validation de Ced » | GO de Ced | Ced |
+| C-01 Règle des numéros | **Clos le 21/11** : corrigé, arbitrages appliqués, vérifié au second tour | Branchement dans un lot ultérieur | — |
+| C-04 File du connecteur | **Clos le 21/11** : corrigé, arbitrages appliqués, vérifié au second tour | Branchement dans un lot ultérieur | — |
+| C-03 Vérification des robots | **Clos le 21/11** : corrigé, arbitrages appliqués, vérifié au second tour | Branchement dans un lot ultérieur | — |
+| C-02 Numéro d'entreprise | **Clos le 21/11** : corrigé, arbitrages appliqués, vérifié au second tour | Branchement dans un lot ultérieur | — |
 | C-06 Décision d'accès | Brief écrit | Production | Hermès |
 | C-05 Échéancier en quatre fois | Brief écrit | Proposition et preuve | Hermès |
 | Suite | En attente | Voir `A-FAIRE.md` | — |

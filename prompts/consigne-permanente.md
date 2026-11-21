@@ -20,7 +20,7 @@ Sur ce dépôt, tu n'as pas de passages à heures fixes : tu enchaînes les lots
 ### Ce que tu ne fais pas
 
 - Tu ne commences jamais un lot de la section « En attente ».
-- Tu ne construis pas sur un lot qui n'a pas encore son `GO.md`, sauf si le brief le dit. Les lots actifs sont choisis pour être indépendants : s'il t'en faut un autre, signale-le.
+- Tu ne construis pas sur un lot qui n'est pas **clos**, sauf si le brief le dit. Un lot de code ou d'étude est clos quand il figure comme tel dans la section « Terminé » de `A-FAIRE.md` : c'est Claude qui l'y inscrit, après la vérification du second tour. Les lots visuels et tout ce qui touche au réel demandent en plus la validation de Ced. Les lots actifs sont choisis pour être indépendants : s'il t'en faut un autre, signale-le.
 - Si tu es bloqué sur un lot, tu ne tournes pas en rond : tu écris pourquoi dans le rapport et tu passes au suivant.
 - **Un lot a un délai.** Celui du brief, ou une demi-journée de travail par défaut. Au-delà, sans `PRET` : tu écris un rapport (ce qui marche, ce qui ne marche pas, ce qu'il faudrait), tu laisses le lot en l'état et tu prends le suivant. Tu y reviendras sur consigne.
 - **La proportion.** Un lot répond à son brief, pas plus. Si la solution demande beaucoup plus de code ou de couches que le besoin ne le laisse attendre, arrête-toi et pose la question dans ton rapport avant de continuer.
