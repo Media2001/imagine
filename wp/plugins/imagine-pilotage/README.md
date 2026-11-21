@@ -1,4 +1,4 @@
-# Imagine — pilotage (C-01 à C-04 : bibliothèques métier et composition du connecteur)
+# Imagine — pilotage (bibliothèques métier C-01 à C-06, sans branchement WordPress)
 
 Bibliothèque métier PHP 8.2, sans WordPress, WooCommerce, base de données,
 réseau ni lecture de l'horloge dans le moteur. Ce lot n'est **pas** une extension
@@ -178,4 +178,103 @@ Le lanceur propre à C-02 est décrit dans `wp/tests/entreprise-runner/README.md
 `production/C-02/notes.md` précise les saisies acceptées, limites et pistes
 documentaires non consultées ; la décision 8 reste ouverte. R-06 n’est couvert
 qu’au niveau de la bibliothèque, pas du parcours WooCommerce/Odoo.
+
+## C-06 — décision d'accès pure, sans restitution de contenu
+
+Point d'entrée unique : `Acces\Moteur::decider($contenu, $visiteur, $robot,
+$instant, $decouverte = null): Acces\Decision`. Aucun accès WordPress, base,
+session, horloge ou réseau. Les entrées sont fournies par un futur adaptateur de
+confiance ; ce moteur ne prouve pas l'étanchéité HTTP du paywall ou des PDF.
+
+Les tableaux ont **exactement** les clés suivantes :
+
+- Contenu : `reserve` (bool), `numero` (chaîne non vide, sans espace ASCII ni
+  contrôle), `type` (`article` ou `pdf`), `sortie` (`DateTimeImmutable`),
+  `decouverte` (bool).
+- Visiteur : `identifie` (bool), `droits` (liste de tableaux). Un anonyme n'a
+  aucun droit. Chaque droit suit l'une des formes ci-dessous.
+- Robot : `Imagine\Pilotage\Robots\Decision`, calculée pour la même requête par
+  C-03 ; un booléen d'UA ne suffit pas. L'identité vérifiée doit être `google`
+  ou `bing`. La liste blanche de `src/Acces/Moteur.php` est synchronisée
+  **manuellement** avec `config/robots.php` : tout nouveau robot approuvé impose
+  de modifier **les deux fichiers**, sinon il reste fermé en extrait. Aucun
+  nouveau robot n'est autorisé par cette livraison.
+- Instant : `DateTimeImmutable`. Toutes les dates sont à la seconde entière,
+  début inclus et fin exclue ; dates fractionnaires ou mutables refusées.
+- Découverte : `null` si aucun droit découverte, sinon une des deux politiques
+  réglées explicitement ci-dessous. Aucune variante commerciale n'est choisie.
+
+Formes des droits (clés exactes) :
+
+| Type | Autres clés et valeurs |
+|---|---|
+| `abonnement`, `offert`, `groupe` | `etat` : `actif`, `grace`, `suspendu`, `expire` ou `virement_non_valide` ; `debut`, `fin` : dates immuables, `debut < fin` |
+| `achat` | `numero` : identifiant exact ; `acquis_le` : date immuable |
+| `equipe` | `role` : `redaction` ou `administration` |
+| `cooperateur` | aucune autre clé |
+| `decouverte` | `debut` : date immuable ; `compte_verifie` : bool ; `consommes` : entier positif ou nul ; un seul droit de ce type |
+
+Les identifiants sont opaques : `170` et `0170` restent distincts. Le résultat
+readonly contient seulement `complet` (bool), `motif` (enum `Acces\Motif`) et
+`bloc` (enum `Acces\Bloc` : `aucun`, `abonnement`, `connexion`,
+`regularisation`, `decouverte_epuisee`). Il ne transporte jamais de texte,
+d'HTML ou d'URL PDF. Entrée manquante, inconnue, incohérente ou exception :
+`false / entree_invalide / abonnement`, avant tout cas favorable.
+
+Les droits valides coexistent ; le plus favorable l'emporte, indépendamment
+de leur ordre. La grâce utilise la borne effective `fin` fournie, sans durée
+inventée. Un achat ouvre uniquement son numéro, article et PDF, sans expiration.
+
+Réglages **tous obligatoires**, sans valeur par défaut :
+
+```php
+new Imagine\Pilotage\Acces\DureeDecouverte($secondesPositives, $numeros, $pdfAutorise);
+new Imagine\Pilotage\Acces\NombreArticlesDecouverte($quotaPositif, $numeros, $pdfAutorise);
+```
+
+`$numeros` est une liste d'identifiants exacts ; vide, elle n'ouvre rien.
+`$pdfAutorise` est un booléen explicite ; le contenu doit aussi avoir
+`decouverte=true`. La durée compte les secondes écoulées depuis `debut` ;
+le quota exige `consommes < quota`. Le moteur ne consomme ni ne persiste rien :
+le futur adaptateur devra garantir vérification du compte et décompte atomique.
+
+**Questions non tranchées :** PDF antérieur au début numérique, grâce au-delà du
+bandeau, longueur d'extrait et choix commercial découverte ; la fusion ajoute
+la prévisualisation avant parution et l'accès robot aux PDF. Aujourd'hui une
+sortie future est refusée pour tous ; un robot vérifié ouvre aussi un PDF déjà
+paru ; le PDF ancien reste refusé au seul titre de l'abonnement. Ces comportements
+existants ne sont pas modifiés par les corrections techniques. Voir
+`production/C-06/notes.md` et `corrections/C-06.md` ; aucun branchement autorisé.
+
+### Tests C-06
+
+Uniquement **dans le conteneur jetable autorisé**, depuis ce répertoire :
+
+```sh
+composer test                       # Numeros, Robots, Entreprise ET Acces, XML racine
+composer test -- --testsuite Acces   # ciblage facultatif
+composer lint
+composer validate --strict --no-check-publish
+```
+
+Depuis Git Bash à la racine du dépôt, Python ne fait que piloter le conteneur ;
+aucun PHP ni dépendance ne s'installe sur Windows. Choisir un nom de paquet neuf :
+
+```bash
+export IMAGINE_C06_PACKET=corrections-rejeu-unique
+python -B wp/tests/acces-runner/run.py prepare
+python -B wp/tests/acces-runner/run.py run --name final
+python -B wp/tests/acces-runner/run.py close
+python -B wp/tests/acces-runner/check-standard-suite.py production/C-06/replays/$IMAGINE_C06_PACKET/final.xml
+python -B wp/tests/acces-runner/verify.py seal
+python -B wp/tests/acces-runner/verify.py check
+unset IMAGINE_C06_PACKET
+```
+
+Le lanceur n'injecte plus de configuration PHPUnit particulière : il exerce le
+`composer test` standard et conserve le JUnit, les empreintes et les journaux.
+Le contrôle `check-standard-suite.py` refuse une commande standard qui omet
+Acces. Réseau détaché avant les tests, aucun montage, port, WordPress ou base ;
+le nettoyage vérifie l'absence du seul conteneur possédé. Les anciens paquets
+restent des preuves historiques de leurs sources, pas des preuves des corrections.
 

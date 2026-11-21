@@ -1,7 +1,9 @@
-C-06 — PRET A RELIRE, périmètre moteur PHP pur uniquement.
-50 tests Acces / 9536 assertions ; avec non-régression C-01/C-03/C-02 : 234 tests / 29516 assertions.
-PHP 8.2.36 en conteneurs jetables WSL, zéro échec/erreur/ignoré ; PSR-12, syntaxe et Composer strict verts.
-Préparation et rejeu réexécutés dans un second conteneur neuf ; runners supprimés.
-Preuves : production/C-06/tests/final.*, cleanup.json, artifact-verification.json ; replays/autocontrole-rejeu/.
-Questions expressément hors lot du brief : PDF ancien, grâce au-delà du bandeau et longueur d'extrait ; découverte réglable sans variante choisie. Voir notes.md.
-Ni clôture, ni relecture indépendante, ni validation métier, ni branchement WordPress, ni GO réel/production.
+C-06 — PRET A RELIRE, remise corrective du 21 novembre 2026 ; moteur PHP pur uniquement.
+Corrections 1, 2 et 3 de corrections/C-06.md appliquées : suite Acces dans composer test standard, README complet, couplage robots documenté.
+234 tests / 29516 assertions, dont Acces 50 / 9536 ; zéro échec/erreur/ignoré.
+PHP 8.2.36 en conteneur jetable WSL ; PSR-12, syntaxe et Composer strict : codes 0.
+Preuves actuelles : production/C-06/replays/corrections-21nov-1505/ ; final.*, cleanup.json et artifact-verification.json.
+Garde de couverture reproduit rouge avant correction, puis vert après ; XML racine exercé, sans configuration injectée.
+Conteneurs de reproduction et de rejeu supprimés, absence vérifiée. Anciens paquets conservés comme historiques.
+Questions non tranchées : sortie future, robots/PDF, PDF ancien et réserves du brief ; voir notes.md et fusion.
+Ni clôture, ni second tour indépendant, ni validation métier, ni branchement WordPress, ni GO réel/production.

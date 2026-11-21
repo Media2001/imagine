@@ -29,6 +29,8 @@ final class Moteur
         mixed $instant,
         mixed $decouverte,
     ): Decision {
+        // Liste synchronisée manuellement avec config/robots.php : tout nouveau robot
+        // approuvé doit être ajouté aux deux endroits, sinon accès fermé en extrait.
         if (
             !is_array($contenu) || !is_array($visiteur) || !$robot instanceof DecisionRobot
             || !$this->dateValide($instant)

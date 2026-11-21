@@ -118,7 +118,10 @@ coopérateur, sans droit. Ce départage n'élargit aucun accès.
 
 Seuls les positifs `google`/`bing` de C-03 sont consommés, conformément à
 l'arbitrage C-03/3 ; identité positive inconnue = refus global. Le booléen d'UA
-ne suffit jamais. Pas de nouveau DNS ni cache en C-06 ; C-03 doit être calculé
+ne suffit jamais. La liste `['google', 'bing']` reste synchronisée manuellement
+avec `config/robots.php` : ajout approuvé à reporter aux deux endroits, sinon
+le nouveau robot est fermé en extrait (correction C-06/3, documentée au code et
+au README). Pas de nouveau DNS ni cache en C-06 ; C-03 doit être calculé
 avec la vraie IP normalisée et pour la même requête par le futur adaptateur.
 
 ## Découverte : deux variantes disponibles, aucune choisie
@@ -174,6 +177,12 @@ avec une validation métier. Leur mise en application appartient au lot suivant 
    et l'absence de PDF : **oui/non** ? Les deux variantes sont livrées réglables,
    sans activation ni recommandation codée. Convention de décompte/relecture à
    réserver au futur branchement, pas une décision prise par le moteur.
+5. **Sortie future (fusion C-06)** : doit-elle rester fermée pour tout le monde,
+   équipe et robots compris, sans prévisualisation via cette décision : **oui/non** ?
+   Comportement existant conservé, sans nouvel arbitrage sur les droits.
+6. **Robot et PDF (fusion C-06)** : un robot vérifié reçoit-il `complet` sur un PDF
+   déjà paru comme sur un article : **oui/non** ? Comportement du tableau du brief
+   conservé ; le contrôle par téléchargement appartiendra à l'adaptateur.
 
 ## Tests, preuves et reproduction
 
@@ -203,12 +212,15 @@ L'image synthétique existante a son entrypoint remplacé par `sleep`. Composer 
 les dépendances publiques sont installés seulement dans le conteneur jetable,
 puis le réseau est déconnecté avant PHPUnit, PHPCS et syntaxe. Aucun PHP Windows.
 
-La configuration PHPUnit locale `tests/Acces/phpunit.xml` ajoute Acces aux trois
-suites closes. Le `composer.json`, lock, XML racine, README et sources partagées
-ne sont pas changés. Le simple `composer test` historique n'inclut donc pas encore
-Acces ; le lanceur exécute réellement `composer test -- --configuration
-tests/Acces/phpunit.xml --log-junit /tmp/result.xml`. Cette commande ne doit être
-lancée que dans le conteneur, jamais sur Windows.
+La configuration PHPUnit racine inclut désormais Acces aux côtés des trois
+suites closes. Correction C-06/1 : `composer test` standard exécute les quatre
+suites ; le lanceur n'injecte plus `tests/Acces/phpunit.xml`. La configuration
+locale reste disponible à titre historique/ciblé, mais n'est pas nécessaire.
+Le XML racine et le README ont été modifiés sur instruction de la fusion ;
+Composer, lock et sources des lots clos restent inchangés. Le lanceur exécute
+`composer test -- --log-junit /tmp/result.xml`, dans le conteneur uniquement.
+Le contrôle `check-standard-suite.py` vérifie commande, configuration racine,
+présence des quatre suites et absence d'échec/erreur/ignoré.
 
 Depuis Git Bash, dans `C:/Users/Ced/imagine`, nouveau paquet de preuves sans
 écraser l'original (prendre un nom neuf pour chaque rejeu) :
@@ -258,6 +270,43 @@ exact et le diagnostic Docker de disparition, pas seulement un code d'erreur.
 Les inventaires finaux et les vérifications de sources sont ceux du paquet
 original et du rejeu, chacun dans son `artifact-verification.json`.
 
+## Remise corrective du 21 novembre 2026
+
+Les trois instructions techniques de `corrections/C-06.md` sont appliquées :
+
+1. Acces ajouté au XML racine, sans configuration injectée par le lanceur.
+   Reproduction avant correction : commande standard verte avec seulement
+   **184 tests / 19 980 assertions** ; le nouveau garde de couverture échoue
+   bien sur l'absence d'Acces. Paquet historique conservé :
+   `replays/corrections-21nov-1505-red/standard-before.*`.
+2. README de l'extension complété : entrées exactes, droits, sortie, découverte,
+   réserves et commandes de test isolées.
+3. Couplage de la liste blanche documenté dans le code et le README, sans
+   ouvrir de nouvelle identité ni changer la décision d'accès.
+
+Rejeu après dernières modifications PHP/XML/README et lanceurs :
+`replays/corrections-21nov-1505/final.*`. Commande standard, XML racine :
+**234 tests / 29 516 assertions**, dont **50 / 9 536** Acces, zéro erreur,
+échec ou ignoré ; PSR-12, syntaxe et Composer strict : codes 0. Le garde de
+couverture passe. Les deux conteneurs de ce réveil sont supprimés, leur absence
+vérifiée. Les anciens paquets et sceaux sont historiques et restent inchangés ;
+ils ne certifient pas les sources de cette remise. Le nouveau sceau est produit
+après la mise à jour des notes et de PRET, puis contrôlé.
+
+Les questions métier de la fusion restent ouvertes, sans modification du
+comportement : sortie future, robots/PDF et PDF ancien, ainsi que les réserves
+du brief. La doctrine §6 prime sur la formulation « le GO appartient à Ced »
+en fin de fusion : la clôture technique appartient à Claude après second tour ;
+Ced arbitre les droits et les opérations réelles. Aucune clôture, autorisation
+de branchement ou publication revendiquée.
+
+Les mentions « fichiers partagés inchangés » des paquets initiaux se rapportent
+à la livraison initiale. Cette correction autorise explicitement XML racine et
+README ; les bibliothèques des lots clos, Composer et lock restent protégés
+par le nouvel inventaire. Les sources non métier de C-06 changent seulement
+pour le branchement de la suite et sa preuve ; le seul changement du moteur
+est un commentaire documentaire.
+
 Aucun échec technique restant dans ce périmètre. Les réserves métier ci-dessus
-sont les questions explicitement exclues de la décision par le brief ; le code
-n'est ni une intégration du paywall, ni une clôture indépendante du lot.
+restent à arbitrer ; le code n'est ni une intégration du paywall, ni une clôture
+indépendante du lot.

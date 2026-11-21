@@ -28,6 +28,8 @@ def current_files():
 
 def verify():
     receipt = json.loads((bench.OUT / 'final.json').read_text(encoding='utf-8'))
+    assert receipt['command'] == 'composer test -- --log-junit /tmp/result.xml'
+    assert 'Configuration: /work/phpunit.xml' in (bench.OUT / 'final.log').read_text(encoding='utf-8')
     for key in ['exit_code', 'psr12_exit_code', 'syntax_exit_code', 'composer_validate_exit_code']:
         assert receipt[key] == 0, key
     for key in ['network_disconnected', 'no_mounts', 'no_ports', 'container_source_verified',
