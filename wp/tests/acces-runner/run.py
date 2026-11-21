@@ -3,6 +3,8 @@ import hashlib
 import importlib.util
 import json
 import pathlib
+import os
+import re
 import sys
 
 sys.dont_write_bytecode = True
@@ -12,6 +14,10 @@ c03 = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(c03)
 bench = c03.bench
 bench.OUT = ROOT / 'production/C-06/tests'
+packet = os.environ.get('IMAGINE_C06_PACKET')
+if packet is not None:
+    assert re.fullmatch(r'[a-z0-9][a-z0-9-]{0,63}', packet), 'Unsafe packet name'
+    bench.OUT = ROOT / 'production/C-06/replays' / packet
 bench.STATE = bench.OUT / 'runner-state.json'
 bench.LABEL = 'org.imagine.c06-runner'
 original_call = bench.call

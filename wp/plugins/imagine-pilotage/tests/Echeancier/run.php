@@ -113,6 +113,21 @@ $tests['veille_cloture_refus_cinquieme_dans_annee_de_date_a_date'] = static func
     $source = new Moteur(c05Calendrier());
     $initiale = c05Annee('2027-04-09 12:00:00');
     $suite = $source->renouveler($initiale, $initiale->finNumerique());
+    $dates = array_map(
+        static fn ($v) => $v->date,
+        (new Planificateur($source))->planifier($initiale, $initiale->finNumerique(), 7)
+    );
+    $dates[] = $source->echeances($suite, 7)[0]->lancement;
+    c05Assert(count(array_filter(
+        $dates,
+        static fn ($d) => $d >= $initiale->debut && $d < $initiale->finNumerique()
+    )) === 5, 'Cinq dates effectives si première reconduction commune maintenue');
+    $GLOBALS['imagine_c05_counterexample'] = [
+        'commande' => $initiale->debut->format(DATE_ATOM),
+        'anniversaire' => $initiale->finNumerique()->format(DATE_ATOM),
+        'dates' => array_map(static fn ($d) => $d->format(DATE_ATOM), $dates),
+        'count_in_first_anniversary_window' => 5,
+    ];
     c05Refuse(
         static fn () => (new Planificateur($source))->planifier($suite, c05Date('2029-04-09 12:00:00'), 7),
         'HORS_ENGAGEMENT REG-2028-04'
@@ -234,6 +249,7 @@ foreach ($tests as $name => $test) {
 $failed = count(array_filter($results, static fn (array $r): bool => !$r['pass']));
 echo 'C05_JSON=' . json_encode([
     'tests' => count($results), 'assertions' => $assertions, 'failed' => $failed, 'results' => $results,
+    'counterexample' => $GLOBALS['imagine_c05_counterexample'] ?? null,
     'blocked_renewal_command_dates' => $GLOBALS['imagine_c05_conflicts'] ?? [],
 ], JSON_UNESCAPED_UNICODE) . "\n";
 exit($failed === 0 ? 0 : 1);

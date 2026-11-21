@@ -1,0 +1,25 @@
+{
+  "consulte_le": "2026-11-21",
+  "methode": "Lecture des pages publiques officielles dans le navigateur. L'extracteur web natif ne permettait pas l'extraction de contenu ; aucune connexion à un compte.",
+  "sources": [
+    {
+      "id": "W1",
+      "url": "https://woocommerce.com/document/woocommerce-memberships-settings/",
+      "constat": "Memberships propose plusieurs modes de restriction, des extraits réglables et des messages de restriction. Le mode Hide content only laisse les contenus trouvables par les termes du texte réservé et la documentation avertit du risque d'extraction. Ces réglages ne prouvent pas l'étanchéité multi-canaux demandée par Imagine.",
+      "consequence": "Ne pas refaire les plans, la persistance ou les écrans natifs ; centraliser seulement la décision métier demandée. Aucun mode natif n'est activé par C-06."
+    },
+    {
+      "id": "W2",
+      "url": "https://woocommerce.com/document/woocommerce-memberships-function-reference/",
+      "constat": "La référence documente wc_memberships_user_can avec un instant explicite, wc_memberships_is_user_active_member et wc_memberships_get_user_memberships. Les fonctions d'accès produisent des booléens ou des objets d'adhésion.",
+      "consequence": "Le futur adaptateur pourra lire les droits via ces API. Le moteur pur ne les appelle pas : il combine des instantanés déjà validés, le résultat C-03 et des motifs/blocs Imagine. Pas d'affirmation que Memberships serait incapable de tout contrôle d'accès."
+    },
+    {
+      "id": "W3",
+      "url": "https://woocommerce.com/document/subscriptions/statuses/",
+      "constat": "La documentation distingue On-Hold, Pending-Cancellation, Cancelled et Expired. On-Hold peut venir d'un paiement en attente ou d'une suspension manuelle ; Pending-Cancellation conserve normalement l'accès jusqu'au terme prépayé.",
+      "consequence": "Ne pas assimiler automatiquement un statut natif au délai de grâce Imagine. La traduction des états, les déclencheurs de grâce et les transitions persistantes restent au futur branchement. C-06 reçoit les états métier explicites du brief."
+    }
+  ],
+  "limite": "Consultation documentaire seulement, pas de preuve sur les extensions installées ni de site WordPress démarré. Le cahier des charges et les décisions écrites restent les sources des règles métier."
+}

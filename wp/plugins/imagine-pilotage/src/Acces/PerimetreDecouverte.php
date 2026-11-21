@@ -13,7 +13,10 @@ trait PerimetreDecouverte
         }
         $vus = [];
         foreach ($this->numeros as $numero) {
-            if (!is_string($numero) || trim($numero) === '' || in_array($numero, $vus, true)) {
+            if (
+                !is_string($numero) || $numero === '' || preg_match('/[\x00-\x20\x7f]/', $numero) !== 0
+                || in_array($numero, $vus, true)
+            ) {
                 return false;
             }
             $vus[] = $numero;

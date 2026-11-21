@@ -141,7 +141,7 @@ final class Moteur
         }
         if ($droit['type'] === 'decouverte') {
             return $this->cles($droit, ['type', 'debut', 'compte_verifie', 'consommes'])
-                && $droit['debut'] instanceof \DateTimeImmutable && is_bool($droit['compte_verifie'])
+                && $this->dateValide($droit['debut']) && is_bool($droit['compte_verifie'])
                 && is_int($droit['consommes']) && $droit['consommes'] >= 0;
         }
         if ($droit['type'] === 'equipe') {
@@ -153,13 +153,13 @@ final class Moteur
         }
         if ($droit['type'] === 'achat') {
             return $this->cles($droit, ['type', 'numero', 'acquis_le'])
-                && is_string($droit['numero']) && trim($droit['numero']) !== ''
-                && $droit['acquis_le'] instanceof \DateTimeImmutable;
+                && $this->identifiantValide($droit['numero'])
+                && $this->dateValide($droit['acquis_le']);
         }
         return $this->cles($droit, ['type', 'etat', 'debut', 'fin'])
             && in_array($droit['type'], ['abonnement', 'offert', 'groupe'], true)
             && in_array($droit['etat'], ['actif', 'grace', 'suspendu', 'expire', 'virement_non_valide'], true)
-            && $droit['debut'] instanceof \DateTimeImmutable && $droit['fin'] instanceof \DateTimeImmutable
+            && $this->dateValide($droit['debut']) && $this->dateValide($droit['fin'])
             && $droit['debut'] < $droit['fin'];
     }
 
@@ -187,6 +187,17 @@ final class Moteur
             Motif::CooperateurSansAbonnement => 1,
             default => 0,
         };
+    }
+
+    private function dateValide(mixed $date): bool
+    {
+        return $date instanceof \DateTimeImmutable && $date->format('u') === '000000';
+    }
+
+    private function identifiantValide(mixed $identifiant): bool
+    {
+        return is_string($identifiant) && $identifiant !== ''
+            && preg_match('/[\x00-\x20\x7f]/', $identifiant) === 0;
     }
 
     private function cles(array $valeur, array $cles): bool
