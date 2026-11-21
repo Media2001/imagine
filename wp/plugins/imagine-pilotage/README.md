@@ -1,4 +1,4 @@
-# Imagine — pilotage (bibliothèques métier C-01 à C-06, sans branchement WordPress)
+# Imagine — pilotage (bibliothèques métier C-01 à C-07, sans branchement WordPress)
 
 Bibliothèque métier PHP 8.2, sans WordPress, WooCommerce, base de données,
 réseau ni lecture de l'horloge dans le moteur. Ce lot n'est **pas** une extension
@@ -277,4 +277,76 @@ Le contrôle `check-standard-suite.py` refuse une commande standard qui omet
 Acces. Réseau détaché avant les tests, aucun montage, port, WordPress ou base ;
 le nettoyage vérifie l'absence du seul conteneur possédé. Les anciens paquets
 restent des preuves historiques de leurs sources, pas des preuves des corrections.
+
+## C-07 — liste d'envoi, historique explicite et CSV
+
+`Envoi\ListeEnvoi::etablir($numero, $calendrier, $abonnements, $cloture)` retourne
+un objet readonly (`numero`, `cloture`, `lignes`, `anomalies`). Le numéro et sa
+clôture doivent correspondre au calendrier ; aucun droit n'est recalculé.
+
+- `Abonnement(id, origine, creation, situations)` : origine `abonnement`, `offert`,
+  `groupe` ou `numero_unite` (cette dernière est toujours exclue).
+- `Situation(effet, enregistre, etat, paiementValide, numerosDus, destinataires,
+  fin = null)` est une photographie **complète**, pas un patch : état `actif`,
+  `grace`, `suspendu`, `expire` ou `attente` ; IDs de numéros dus fournis par C-01 ;
+  places attribuées uniquement. `fin` est la borne effective exclusive, y compris
+  la fin du délai si l'état est `grace`. Aucune durée n'est inventée.
+- `Destinataire(id, nom, rue, complement, codePostal, ville, pays)` ne contient
+  pas d'email. Pour un cadeau, fournir le destinataire, jamais l'acheteur ; pour
+  un groupe, chaque bénéficiaire, jamais le gestionnaire. Le lecteur de données
+  WooCommerce viendra dans un autre lot.
+- Les dates sont immuables ; fournir les dates métier en `Europe/Brussels`.
+  L'historique doit être complet et append-only, avec un horodatage d'enregistrement
+  fiable. Sont retenues les situations dont **effet et enregistrement précèdent
+  strictement** la clôture, conformément à C-01. Une arrivée à minuit de clôture
+  est trop tardive. Une correction enregistrée après clôture, même rétrodatée,
+  ne change pas la liste. Deux situations au même instant d'effet sont refusées.
+- Les lignes sont triées par IDs d'abonnement et de destinataire. Le résultat
+  readonly n'est pas un stockage : le futur adaptateur devra archiver le résultat
+  et les historiques de confiance, sans reconstruire une ancienne liste depuis
+  les seules valeurs courantes. Une entrée réécrite rétroactivement n'est pas
+  une archive historique et ce moteur pur ne peut pas en garantir l'intégrité.
+- Les anomalies sont séparées et référencent l'index de ligne et l'exemplaire :
+  `adresse_incomplete`, `pays_manquant`, `doublon_destinataire_adresse`. Les
+  exemplaires restent dans la projection, y compris deux abonnements distincts
+  au même nom/adresse. Détection des doublons : nom et adresse complète,
+  espaces normalisés et casse ASCII ignorée ; pas de rapprochement flou postal.
+
+`Envoi\ExportCsv::liste($liste)` rend les octets CSV et refuse toute anomalie
+non revue. `anomaliesRevues: true` n'est à passer qu'après traitement explicite
+par l'administration ; ce n'est ni une correction ni une autorisation métier.
+`ExportCsv::lignes()` est le sérialiseur bas niveau, pas l'entrée d'expédition.
+Le futur adaptateur écrit les octets dans un fichier privé, puis gère sa remise
+au routeur ; aucun envoi réseau ni stockage de données réelles ici.
+
+Colonnes provisoires : `abonnement_id`, `destinataire_id`, `destinataire`, `rue`,
+`complement`, `code_postal`, `ville`, `pays`, `origine`. Virgule, UTF-8 sans BOM,
+fin de ligne LF ; guillemets CSV standards, antislash sans rôle d'échappement.
+La protection contre les formules est **la même fonction** que C-04 :
+`Imagine\Connecteur\CsvProtection::cellule()`, extraite sans changer sa règle.
+Pour un appel hors tests, charger les autoloaders **pilotage et connecteur**
+(ou enregistrer leurs deux namespaces PSR-4). Les tests C-07 chargent le
+connecteur frère ; aucun `require` de tests n'est à copier dans WordPress.
+
+```sh
+# Dans le conteneur uniquement, XML racine incluant la suite Envoi :
+composer test
+composer test -- --testsuite Envoi
+```
+
+Depuis la racine du dépôt, avec un nom de paquet neuf pour ne pas écraser les preuves :
+
+```bash
+export IMAGINE_C07_PACKET=rejeu-unique
+python -B wp/tests/envoi-runner/run.py prepare
+python -B wp/tests/envoi-runner/run.py run --name final
+python -B wp/tests/envoi-runner/verify.py
+python -B wp/tests/envoi-runner/run.py close
+unset IMAGINE_C07_PACKET
+```
+
+Le `composer lint` global signale actuellement six avertissements préexistants
+dans `tests/Echeancier/run.php` (C-05 en attente). Ils ne sont pas corrigés dans
+C-07 ; `verify.py` contrôle séparément PSR-12 sur tous les fichiers PHP modifiés,
+les tests C-07 et les régressions C-04. Voir `production/C-07/notes.md`.
 
