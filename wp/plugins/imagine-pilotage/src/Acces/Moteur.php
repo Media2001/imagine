@@ -15,15 +15,33 @@ final class Moteur
         mixed $instant = null,
         mixed $decouverte = null,
     ): Decision {
+        try {
+            return $this->evaluer($contenu, $visiteur, $robot, $instant, $decouverte);
+        } catch (\Throwable) {
+            return new Decision(false, Motif::EntreeInvalide, Bloc::Abonnement);
+        }
+    }
+
+    private function evaluer(
+        mixed $contenu,
+        mixed $visiteur,
+        mixed $robot,
+        mixed $instant,
+        mixed $decouverte,
+    ): Decision {
         if (
             !is_array($contenu) || !is_array($visiteur) || !$robot instanceof DecisionRobot
-            || !$instant instanceof \DateTimeImmutable
-            || ($decouverte !== null && (!$decouverte instanceof Decouverte || !$decouverte->estValide()))
+            || !$this->dateValide($instant)
+            || ($robot->estVerifie() && !in_array($robot->robot, ['google', 'bing'], true))
+            || ($decouverte !== null && (
+                (!$decouverte instanceof DureeDecouverte && !$decouverte instanceof NombreArticlesDecouverte)
+                || !$decouverte->estValide()
+            ))
             || !$this->cles($contenu, ['reserve', 'numero', 'type', 'sortie', 'decouverte'])
             || !is_bool($contenu['reserve']) || !is_bool($contenu['decouverte'])
-            || !is_string($contenu['numero']) || trim($contenu['numero']) === ''
+            || !$this->identifiantValide($contenu['numero'])
             || !in_array($contenu['type'], ['article', 'pdf'], true)
-            || !$contenu['sortie'] instanceof \DateTimeImmutable
+            || !$this->dateValide($contenu['sortie']) || $contenu['sortie'] > $instant
             || !$this->cles($visiteur, ['identifie', 'droits'])
             || !is_bool($visiteur['identifie']) || !is_array($visiteur['droits'])
             || !array_is_list($visiteur['droits'])
@@ -31,8 +49,12 @@ final class Moteur
         ) {
             return new Decision(false, Motif::EntreeInvalide, Bloc::Abonnement);
         }
+        $nombreDecouvertes = 0;
         foreach ($visiteur['droits'] as $droit) {
-            if (!$this->droitValide($droit) || ($droit['type'] === 'decouverte' && $decouverte === null)) {
+            if (
+                !$this->droitValide($droit)
+                || ($droit['type'] === 'decouverte' && ($decouverte === null || ++$nombreDecouvertes > 1))
+            ) {
                 return new Decision(false, Motif::EntreeInvalide, Bloc::Abonnement);
             }
         }
@@ -91,10 +113,10 @@ final class Moteur
     ): Decision {
         $motif = $reglage->evaluer($contenu, $droit, $instant);
         return new Decision(
-            $motif === Motif::DecouverteDuree,
+            in_array($motif, [Motif::DecouverteDuree, Motif::DecouverteArticles], true),
             $motif,
             match ($motif) {
-                Motif::DecouverteDuree => Bloc::Aucun,
+                Motif::DecouverteDuree, Motif::DecouverteArticles => Bloc::Aucun,
                 Motif::DecouverteEpuisee => Bloc::DecouverteEpuisee,
                 Motif::CompteNonVerifie => Bloc::Connexion,
                 default => Bloc::Abonnement,
@@ -150,7 +172,7 @@ final class Moteur
             Motif::OffertActif => 99,
             Motif::GroupeActif => 98,
             Motif::DelaiGrace => 80,
-            Motif::DecouverteDuree => 90,
+            Motif::DecouverteDuree, Motif::DecouverteArticles => 90,
             Motif::DecouverteEpuisee => 23,
             Motif::DecouvertePasCommencee => 22,
             Motif::DecouverteHorsPerimetre => 21,

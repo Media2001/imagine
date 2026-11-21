@@ -1,0 +1,1 @@
+Set the billing interval using a number input and a period dropdown (day, week, month, year).

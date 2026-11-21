@@ -1,0 +1,1 @@
+Check if a given date type can be updated for this subscription.

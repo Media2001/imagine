@@ -125,7 +125,12 @@ def main():
          'command': command[2:], 'exit_code': result.returncode, 'syntax_exit': lint.returncode,
          'source_sha256': manifest, 'container_sources_verified': True, 'safety_before': safety,
          'safety_after': inspect(name), 'runner_sha256': hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest()})
-    print(result.stdout.decode(errors='replace') + result.stderr.decode(errors='replace'))
+    if a.action == 'unit' and lines:
+        value = json.loads(lines[-1])
+        print(json.dumps({k: v for k, v in value.items() if k != 'results'}))
+        print(json.dumps([r for r in value['results'] if not r['pass']]))
+    else:
+        print(result.stdout.decode(errors='replace') + result.stderr.decode(errors='replace'))
     raise SystemExit(result.returncode or lint.returncode)
 
 

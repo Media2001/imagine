@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/tests/Acces/phpunit.xml" tests="5" assertions="416" errors="2" failures="3" skipped="0" time="0.005746">
+    <testsuite name="Acces" tests="5" assertions="416" errors="2" failures="3" skipped="0" time="0.005746">
+      <testsuite name="Imagine\Pilotage\Tests\Acces\FermetureTest" file="/work/tests/Acces/FermetureTest.php" tests="5" assertions="416" errors="2" failures="3" skipped="0" time="0.005746">
+        <testcase name="testChaqueChampAbsentInconnuOuMalTypeFermeMemeOuvertEquipeEtRobot" file="/work/tests/Acces/FermetureTest.php" line="26" class="Imagine\Pilotage\Tests\Acces\FermetureTest" classname="Imagine.Pilotage.Tests.Acces.FermetureTest" assertions="175" time="0.003906">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\FermetureTest::testChaqueChampAbsentInconnuOuMalTypeFermeMemeOuvertEquipeEtRobot
+Failed asserting that true is false.
+
+/work/tests/Acces/FermetureTest.php:21
+/work/tests/Acces/FermetureTest.php:59</failure>
+        </testcase>
+        <testcase name="testDroitMalformedOuInconnuNeSeCachePasDerriereUnDroitValide" file="/work/tests/Acces/FermetureTest.php" line="74" class="Imagine\Pilotage\Tests\Acces\FermetureTest" classname="Imagine.Pilotage.Tests.Acces.FermetureTest" assertions="227" time="0.001357">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\FermetureTest::testDroitMalformedOuInconnuNeSeCachePasDerriereUnDroitValide
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'entree_invalide'
++'autre_numero'
+
+/work/tests/Acces/FermetureTest.php:22
+/work/tests/Acces/FermetureTest.php:113</failure>
+        </testcase>
+        <testcase name="testConfigurationDecouverteInvalideAbsenteOuVarianteInconnueFerme" file="/work/tests/Acces/FermetureTest.php" line="128" class="Imagine\Pilotage\Tests\Acces\FermetureTest" classname="Imagine.Pilotage.Tests.Acces.FermetureTest" assertions="12" time="0.000206">
+          <error type="RuntimeException">Imagine\Pilotage\Tests\Acces\FermetureTest::testConfigurationDecouverteInvalideAbsenteOuVarianteInconnueFerme
+RuntimeException: Ne jamais autoriser sur exception.
+
+/work/tests/Acces/FermetureTest.php:133
+/work/src/Acces/Moteur.php:21
+/work/tests/Acces/FermetureTest.php:20
+/work/tests/Acces/FermetureTest.php:154</error>
+        </testcase>
+        <testcase name="testDateFractionnaireFutureEtRobotInconnuFerment" file="/work/tests/Acces/FermetureTest.php" line="165" class="Imagine\Pilotage\Tests\Acces\FermetureTest" classname="Imagine.Pilotage.Tests.Acces.FermetureTest" assertions="2" time="0.000124">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\FermetureTest::testDateFractionnaireFutureEtRobotInconnuFerment
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'entree_invalide'
++'sans_droit'
+
+/work/tests/Acces/FermetureTest.php:22
+/work/tests/Acces/FermetureTest.php:168</failure>
+        </testcase>
+        <testcase name="testExceptionDateInjecteeEstFermeeSansEchapper" file="/work/tests/Acces/FermetureTest.php" line="200" class="Imagine\Pilotage\Tests\Acces\FermetureTest" classname="Imagine.Pilotage.Tests.Acces.FermetureTest" assertions="0" time="0.000153">
+          <error type="RuntimeException">Imagine\Pilotage\Tests\Acces\FermetureTest::testExceptionDateInjecteeEstFermeeSansEchapper
+RuntimeException: Date indisponible
+
+/work/tests/Acces/FermetureTest.php:205
+/work/src/Acces/DureeDecouverte.php:23
+/work/src/Acces/Moteur.php:92
+/work/src/Acces/Moteur.php:53
+/work/tests/Acces/FermetureTest.php:20
+/work/tests/Acces/FermetureTest.php:208</error>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

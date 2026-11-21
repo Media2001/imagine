@@ -5,37 +5,73 @@
       "id": 1,
       "url": "https://woocommerce.com/document/subscriptions/develop/functions",
       "title": "",
-      "accessed": "2026-11-21"
+      "accessed": "2026-11-21",
+      "quotes": [
+        {
+          "text": "Check if a given date type can be updated for this subscription.",
+          "added": "2026-11-21"
+        }
+      ]
     },
     {
       "id": 2,
       "url": "https://woocommerce.com/document/subscriptions/renewal-process",
       "title": "",
-      "accessed": "2026-11-21"
+      "accessed": "2026-11-21",
+      "quotes": [
+        {
+          "text": "Manual renewal – recurring payments require that your customers log into the store and make the payment for each payment interval.",
+          "added": "2026-11-21"
+        }
+      ]
     },
     {
       "id": 3,
       "url": "https://woocommerce.com/document/subscriptions/creating-subscription-products",
       "title": "",
-      "accessed": "2026-11-21"
+      "accessed": "2026-11-21",
+      "quotes": [
+        {
+          "text": "Set the billing interval using a number input and a period dropdown (day, week, month, year).",
+          "added": "2026-11-21"
+        }
+      ]
     },
     {
       "id": 4,
       "url": "https://woocommerce.com/document/subscriptions/develop/action-reference",
       "title": "",
-      "accessed": "2026-11-21"
+      "accessed": "2026-11-21",
+      "quotes": [
+        {
+          "text": "It can also be triggered off-schedule by 3rd party code or store manager actions,",
+          "added": "2026-11-21"
+        }
+      ]
     },
     {
       "id": 5,
       "url": "https://woocommerce.com/document/subscriptions/billing-date-alignment/creating-an-aligned-subscription-product",
       "title": "",
-      "accessed": "2026-11-21"
+      "accessed": "2026-11-21",
+      "quotes": [
+        {
+          "text": "It always uses the next occurring alignment date, regardless of the billing interval.",
+          "added": "2026-11-21"
+        }
+      ]
     },
     {
       "id": 6,
       "url": "https://woocommerce.com/document/subscriptions/failed-payment-retry",
       "title": "",
-      "accessed": "2026-11-21"
+      "accessed": "2026-11-21",
+      "quotes": [
+        {
+          "text": "Subscription must require automatic payments, not manual renewals",
+          "added": "2026-11-21"
+        }
+      ]
     }
   ]
 }

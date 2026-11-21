@@ -71,9 +71,11 @@ final class QuotaTest extends TestCase
     public function testDecouverteNeFermeJamaisUnAchatOuAbonnementIndependant(): void
     {
         self::assertTrue(class_exists(NombreArticlesDecouverte::class));
-        foreach ([new DureeDecouverte(1, ['170'], false), new NombreArticlesDecouverte(1, ['170'], false)] as $reglage) {
+        $reglages = [new DureeDecouverte(1, ['170'], false), new NombreArticlesDecouverte(1, ['170'], false)];
+        $independants = [DroitsTest::achat(), AbonnementTest::droit(), AbonnementTest::droit(['etat' => 'grace'])];
+        foreach ($reglages as $reglage) {
             $decouverte = DecouverteTest::droit(['debut' => DecisionTest::date('2026-01-01'), 'consommes' => 1]);
-            foreach ([DroitsTest::achat(), AbonnementTest::droit(), AbonnementTest::droit(['etat' => 'grace'])] as $droit) {
+            foreach ($independants as $droit) {
                 foreach ([[$decouverte, $droit], [$droit, $decouverte]] as $droits) {
                     $decision = (new Moteur())->decider(
                         DecisionTest::contenu(['decouverte' => true]),

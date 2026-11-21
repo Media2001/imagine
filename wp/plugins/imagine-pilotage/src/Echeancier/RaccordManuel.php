@@ -33,7 +33,11 @@ final class RaccordManuel
 
     private function verifier(WC_Subscription $abonnement): void
     {
-        if (!$abonnement->is_manual() || $abonnement->get_meta('imagine_c05_fixture') !== 'yes') {
+        if (
+            !$abonnement->get_requires_manual_renewal()
+            || $abonnement->get_payment_method() !== ''
+            || $abonnement->get_meta('imagine_c05_fixture') !== 'yes'
+        ) {
             throw new LogicException('Prototype réservé aux abonnements manuels fictifs C05.');
         }
     }

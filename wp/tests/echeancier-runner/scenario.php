@@ -73,6 +73,35 @@ try {
         $subscription->calculate_totals();
         $subscription->update_meta_data('imagine_c05_fixture', 'yes');
         $subscription->save();
+        $initialRefuse = false;
+        try {
+            $adapter->positionner($subscription, $all[0]);
+        } catch (LogicException $e) {
+            $initialRefuse = str_contains($e->getMessage(), 'renouvellement');
+        }
+        c05Check('initial_cannot_be_scheduled_as_renewal', $initialRefuse);
+        $subscription->set_requires_manual_renewal(false);
+        $subscription->save();
+        $automatiqueRefuse = false;
+        try {
+            $adapter->positionner($subscription, $all[1]);
+        } catch (LogicException $e) {
+            $automatiqueRefuse = str_contains($e->getMessage(), 'manuels fictifs');
+        }
+        c05Check('automatic_payment_subscription_refused', $automatiqueRefuse);
+        $subscription->set_requires_manual_renewal(true);
+        $subscription->set_payment_method('imagine_c05_not_a_gateway');
+        $subscription->save();
+        $gatewayRefuse = false;
+        try {
+            $adapter->positionner($subscription, $all[1]);
+        } catch (LogicException $e) {
+            $gatewayRefuse = str_contains($e->getMessage(), 'manuels fictifs');
+        }
+        c05Check('nonempty_gateway_id_refused', $gatewayRefuse);
+        $subscription->set_payment_method('');
+        $subscription->set_requires_manual_renewal(true);
+        $subscription->save();
         $parent->save();
         $parent->payment_complete(); // Woo transition only: no payment gateway call.
         $subscription = wcs_get_subscription($subscription->get_id());
@@ -144,6 +173,22 @@ try {
         }
         // Do not leave a fabricated ninth amount queued after the finite two-year demonstration.
         $adapter->arreterProjection($subscription);
+        $subscription = wcs_get_subscription($subscription->get_id());
+        c05Check('projection_stopped_without_cancelling_contract', $subscription->get_time('next_payment') === 0 && $subscription->has_status('active'));
+        $remaining = as_get_scheduled_actions([
+            'hook' => 'woocommerce_scheduled_subscription_payment',
+            'args' => ['subscription_id' => $subscription->get_id()], 'status' => 'pending',
+        ], 'ids');
+        c05Check('no_ninth_native_action', $remaining === []);
+        $subscription->delete_meta_data('imagine_c05_fixture');
+        $subscription->save();
+        $refused = false;
+        try {
+            $adapter->positionner($subscription, $all[1]);
+        } catch (LogicException $e) {
+            $refused = str_contains($e->getMessage(), 'fictifs C05');
+        }
+        c05Check('non_fixture_refused_without_write', $refused && wcs_get_subscription($subscription->get_id())->get_time('next_payment') === 0);
         $scenarios[] = ['commande' => $dateCommande, 'subscription_id' => $subscription->get_id(),
                          'rows' => $rows, 'renewals' => count(c05Related($subscription))];
     }
@@ -158,5 +203,5 @@ echo 'C05_JSON=' . json_encode([
                   'hpos' => OrderUtil::custom_orders_table_usage_is_enabled()],
     'margin_fixture_only' => 7, 'amount_fixture_only' => '10.00',
     'checks' => $checks, 'scenarios' => $scenarios, 'failed' => $failed, 'error' => $error,
-    'execution' => 'owned future AS actions invoked explicitly; paid dates simulated; no clock or gateway',
+    'execution' => 'owned future AS actions invoked explicitly; scheduled instants verified; local confirmations at real execution time; no clock or gateway',
 ], JSON_UNESCAPED_UNICODE) . "\n";

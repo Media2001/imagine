@@ -1,0 +1,95 @@
+{
+  "scope": "C05 synthetic manual renewals, not bank payments or production integration",
+  "runs": [],
+  "error": {
+    "class": "AssertionError",
+    "message": "classic:scenario",
+    "frames": [
+      {
+        "file": "inside.py",
+        "line": 109
+      },
+      {
+        "file": "inside.py",
+        "line": 84
+      },
+      {
+        "file": "inside.py",
+        "line": 31
+      }
+    ]
+  },
+  "checks": [
+    {
+      "check": "loopback_only",
+      "pass": true,
+      "detail": "network none"
+    },
+    {
+      "check": "no_listener_tcp",
+      "pass": true,
+      "detail": "MariaDB Unix socket only"
+    },
+    {
+      "check": "no_listener_tcp6",
+      "pass": true,
+      "detail": "MariaDB Unix socket only"
+    },
+    {
+      "check": "classic:authorized_package",
+      "pass": true,
+      "detail": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083"
+    },
+    {
+      "check": "classic:scenario",
+      "pass": false,
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "php": "8.2.36",
+          "hpos": false
+        },
+        "margin_fixture_only": 7,
+        "amount_fixture_only": "10.00",
+        "checks": [
+          {
+            "check": "real_subscriptions_loaded",
+            "pass": true,
+            "detail": null
+          },
+          {
+            "check": "mail_and_http_blocked",
+            "pass": true,
+            "detail": null
+          },
+          {
+            "check": "created_subscription",
+            "pass": true,
+            "detail": null
+          },
+          {
+            "check": "initial_cannot_be_scheduled_as_renewal",
+            "pass": true,
+            "detail": null
+          },
+          {
+            "check": "automatic_payment_subscription_refused",
+            "pass": false,
+            "detail": null
+          }
+        ],
+        "scenarios": [],
+        "failed": 2,
+        "error": {
+          "class": "RuntimeException",
+          "message": "automatic_payment_subscription_refused: null",
+          "line": 18
+        },
+        "execution": "owned future AS actions invoked explicitly; paid dates simulated; no clock or gateway"
+      }
+    }
+  ],
+  "exit_code": 1
+}

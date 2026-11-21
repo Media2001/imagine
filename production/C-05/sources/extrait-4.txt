@@ -1,0 +1,1 @@
+It can also be triggered off-schedule by 3rd party code or store manager actions,

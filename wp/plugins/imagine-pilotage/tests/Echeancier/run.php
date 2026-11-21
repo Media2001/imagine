@@ -211,6 +211,7 @@ for ($jour = c05Date('2027-01-01 12:00:00'); $jour < c05Date('2028-01-01'); $jou
         $b = $source->renouveler($a, $a->finNumerique())->activer($a->finNumerique(), Activation::Paiement);
         $premiereCommune = $source->echeances($b, 7)[0]->lancement;
         if ($premiereCommune < $b->debut) {
+            $GLOBALS['imagine_c05_conflicts'][] = $date;
             c05Refuse(static fn () => $planner->planifier($b, $b->finNumerique(), 7), 'HORS_ENGAGEMENT');
         } else {
             $suite = $planner->planifier($b, $b->finNumerique(), 7);
@@ -233,5 +234,6 @@ foreach ($tests as $name => $test) {
 $failed = count(array_filter($results, static fn (array $r): bool => !$r['pass']));
 echo 'C05_JSON=' . json_encode([
     'tests' => count($results), 'assertions' => $assertions, 'failed' => $failed, 'results' => $results,
+    'blocked_renewal_command_dates' => $GLOBALS['imagine_c05_conflicts'] ?? [],
 ], JSON_UNESCAPED_UNICODE) . "\n";
 exit($failed === 0 ? 0 : 1);

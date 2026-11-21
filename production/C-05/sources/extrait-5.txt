@@ -1,0 +1,1 @@
+It always uses the next occurring alignment date, regardless of the billing interval.
