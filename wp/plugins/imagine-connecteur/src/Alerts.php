@@ -6,6 +6,6 @@ namespace Imagine\Connecteur;
 
 interface Alerts
 {
-    /** $key is an idempotency key; messages must not contain the billing payload. */
+    /** Deduplicate persistently by ($key, $code), including lost ACKs; messages contain no billing payload. */
     public function notify(string $key, string $code, string $message): void;
 }

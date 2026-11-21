@@ -14,7 +14,10 @@ final class InMemoryQueue implements QueueStorage
         $key = $event->key();
         if (isset($this->entries[$key])) {
             $entry = $this->entries[$key];
-            if ($entry->event->content !== $event->content || $entry->event->subscriptionId !== $event->subscriptionId) {
+            if (
+                $entry->event->content !== $event->content
+                || $entry->event->subscriptionId !== $event->subscriptionId
+            ) {
                 $this->entries[$key] = $entry->withNotification(
                     'duplicate_content',
                     'Clé déjà connue avec un contenu différent ; premier événement conservé.'

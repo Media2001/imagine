@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "lot": "C-02",
+  "scope": "Entreprise",
+  "suite_complete": {
+    "tests": 175,
+    "assertions": 19912
+  },
+  "sha256": {
+    "README.md": "3581befcf4fa9c766f7993b6c02bd3d691e740f09ceb5d03911a9e2bd81d0097",
+    "composer.json": "1477fe78ed255c28ba16db350919fbd8ae8a7297d37ca043375c843d247a7652",
+    "composer.lock": "37ac1c2ae798927d7a951b3778691d106d03e631f57a0c5687357384165ab124",
+    "phpunit.xml": "5b5111b822deaa1a88eeae406d4ec0f11100d16a86d2015c2bf81c71dcbe4d2f",
+    "src/Entreprise/Motif.php": "34f7a65ff5441c6a924b6530f2ef1bb3d4d9e05503e07bb7f12f59c0c153b1b5",
+    "src/Entreprise/NumeroEntreprise.php": "50a5715b162963356b5d712679df2add5929cee44472a17fd6e6cd6e9d30d96a",
+    "src/Entreprise/RechercheDenomination.php": "af3086bd0820641655fcddbd41bf549f6883c7cd4efbb047d75b368fc3fc2332",
+    "src/Entreprise/RechercheDenominationIndisponible.php": "9e7c100e7b4418bf54e6b1f337fe006480378876ec920a81a61e6389da75ab6e",
+    "src/Entreprise/ResultatRecherche.php": "7a2a4e3d164cf5b988b4f8705dba869c6b0f6e508f1293dfbcca5d6574cf27fd",
+    "tests/Entreprise/NumeroEntrepriseTest.php": "8335abfdaa5dbadb2a5f24e563869d9ac58e42657084998e9baf3c2c91df83c2",
+    "tests/Entreprise/RechercheDenominationTest.php": "c2238577d68793d9d569e032f70eb72ecd141eff59ade7347626cb5f0a144cb5"
+  }
+}

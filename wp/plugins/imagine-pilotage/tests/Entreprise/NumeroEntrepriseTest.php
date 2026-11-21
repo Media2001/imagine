@@ -129,6 +129,7 @@ final class NumeroEntrepriseTest extends TestCase
         self::assertSame($numero, $resultat->normalise);
         $affichage = substr($numero, 0, 4) . '.' . substr($numero, 4, 3) . '.' . substr($numero, 7);
         self::assertSame($affichage, $resultat->affichage());
+        self::assertSame('0123.456.749', $resultat->affichage());
         self::assertNull($resultat->motif);
         self::assertSame('Le numéro d’entreprise est cohérent.', $resultat->message());
     }

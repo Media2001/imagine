@@ -55,10 +55,10 @@ L’identité se matérialise provisoirement par un nom, l’adresse par rue/CP/
 L’email est facultatif (pas d’exclusion des abonnés hors ligne). Les montants sont déjà
 normalisés en unités mineures, total égal à la somme des lignes ; pas de calcul TVA,
 signe de remboursement, conversion de devise ou règle tarifaire inventé. Modes de
-paiement explicitement injectés par l’adaptateur. C-02 n’existait pas dans le checkout
-au début de ce lot ; le callable d’entreprise est une frontière indépendante : si
-absent et numéro renseigné, contrôle indisponible => quarantaine. Aucun appel BCE ni
-contrôle approximatif de numéro n’est substitué au futur C-02.
+paiement explicitement injectés par l’adaptateur. La composition explicite
+`BillingComposition::withEntreprise` charge le vrai C-02 via Composer depuis le dossier frère.
+Le callable reste indépendant ; si absent et numéro renseigné, contrôle indisponible => quarantaine.
+Aucun appel BCE/VIES ni contrôle approximatif n'est substitué au C-02 local.
 
 ## Réponse perdue : exigence à Step, pas promesse impossible
 
@@ -127,6 +127,25 @@ permet de tester la frontière sans connecter un service réel.
 
 Ces questions ne déclenchent aucun acte financier ; ce sont des conditions du futur
 lot de branchement. `PRET` signifie prêt à la relecture, pas GO ni validation de recette.
+
+## Corrections, décisions écrites et traçabilité — 21 novembre 2026
+
+Instructions 1 à 4, 6, 7 corrigées : lot CSV monotone durable par abonnement sous verrou (journal existant), instantané détaché avant validation, notifications dans la révision de file et rejeu indépendant jusqu'à accusé, composition vraie C-02. Décisions Ced du 21/11 lues sur pièces : neutralisation formule CSV dès ce lot, blocage du même abonnement conservé, alerte de doublon divergent sans données de contenu. Aucun choix intégré/n8n ni unicité distante validé.
+
+Le README décrit le chargement Composer du dossier frère et la protection CSV (apostrophe avant préfixes = + - @, y compris espaces/contrôles ASCII initiaux ; montants entiers négatifs inchangés). Les alertes utilisent le couple (clé événement, code) pour déduplication, conservées avec la transition par CAS ; un nouvel appel à run/replay retente une notification échouée sans réenvoi comptable. Le futur stockage durable doit implémenter ce contrat, le stockage mémoire n'est pas présenté comme persistant après perte du processus.
+
+Règle → source → tests :
+- Événement/clé immuable, whitelist détachée → §2.2, brief 1/3 → EventTest, CorrectionsTest::testInstantaneDetacheAvantValidationDepotEtJournal.
+- États/CAS et conservation notification → §2.5/4.5, brief 2/4/6 → EventTest::testTransitionTableExhaustive, WorkerTest, testAlerteSurvitPanneEtRedemarrageSansNouvelEnvoi.
+- Identité/adresse/montants/paiement/C-02 → §2.2/2.4, brief 3 → ValidationTest, testCompositionAvecVraiC02EtQuarantaine.
+- Backoff, limite, panne, accusé perdu → §2.5/4.5, brief 4 → WorkerTest, testRetryPlafondMemeTresGrandNumeroDessai, testRetryRefuseParametresInvalides.
+- Ordre/blocage même abonnement → brief 5 + décision Ced C-04 → WorkerTest, testEpuisementBloqueSonAbonnementMaisPasLesAutres.
+- Export veille/relance/scellement/monotonie → §2.5/4.5, brief 7 → ExportTest, testRattrapageMonotoneDurableEtOrdreDansLeCsv.
+- Formules CSV et doublon divergent → décisions écrites C-04 du 21/11 (protection technique, pas exigence comptable inventée) → testCsvNeutraliseFormulesMaisPasMontantsNumeriques, testDivergenceAlerteeSansRemplacerEvenement.
+
+Différés : instruction 8 demande une écriture dans docs/ecarts.md, interdite par le périmètre. À reporter par son tenant : R-39/40/41 dus au branchement ; i18n au branchement ; payment_reference à confirmer Step. Le schéma, l'unicité transactionnelle distante, le choix intégré/n8n et paramètres d'exploitation restent ouverts. Les interprétations d'identité/email/unité mineure et du rattrapage ci-dessus restent provisoires sauf décisions explicitement citées.
+
+Preuves fraîches tests-21nov/ : suite complète 37 tests / 224 assertions, aucun échec ; PHPCS, syntaxe, Composer strict, exemple C-02 et empreintes des sources réellement chargées passent. Conteneur jetable sans montage/port/service, réseau coupé pendant tests ; nettoyage et manifeste contrôlés. Les anciens reçus tests/ ne sont pas remplacés.
 
 ## Preuves
 

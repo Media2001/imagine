@@ -66,7 +66,13 @@ final class CorrectionsTest extends TestCase
         $clock = new FrozenClock(new DateTimeImmutable('2026-11-18T12:00:00+01:00'));
         $queue = new InMemoryQueue();
         $sample = EventTest::event();
-        $creation = new Event(EventType::SubscriptionCreated, 'fiction-create', $clock->now(), $sample->content, 'sub-f');
+        $creation = new Event(
+            EventType::SubscriptionCreated,
+            'fiction-create',
+            $clock->now(),
+            $sample->content,
+            'sub-f'
+        );
         $queue->add($creation);
         $this->worker($queue, new FakeDestination(['down']), $clock, new InMemoryAlerts(), attempts: 3)->run();
         self::assertSame(State::TemporaryFailure, $queue->get($creation->key())->state);
@@ -236,6 +242,33 @@ final class CorrectionsTest extends TestCase
         $this->worker($queue, new FakeDestination(), $clock, $alerts)->run();
         self::assertSame('duplicate_content', $alerts->all()[0]['code']);
         self::assertStringNotContainsString('fiction-divergente', $alerts->all()[0]['message']);
+    }
+
+    public function testEpuisementBloqueSonAbonnementMaisPasLesAutres(): void
+    {
+        $queue = new InMemoryQueue();
+        $clock = new FrozenClock(new DateTimeImmutable('2026-11-20T12:00:00+01:00'));
+        $sample = EventTest::event();
+        $first = new Event($sample->type, 'fiction-first', $sample->occurredAt, $sample->content, 'sub-f');
+        $next = new Event(
+            EventType::SubscriptionRenewed,
+            'fiction-next',
+            $sample->occurredAt->modify('+1 hour'),
+            $sample->content,
+            'sub-f'
+        );
+        $other = new Event($sample->type, 'fiction-other', $clock->now(), $sample->content, 'sub-other');
+        foreach ([$next, $other, $first] as $event) {
+            $queue->add($event);
+        }
+        $destination = new FakeDestination(['down', 'ok']);
+        $worker = $this->worker($queue, $destination, $clock, new InMemoryAlerts());
+        self::assertSame(2, $worker->run());
+        self::assertSame(State::TemporaryFailure, $queue->get($first->key())->state);
+        self::assertSame(State::Pending, $queue->get($next->key())->state);
+        self::assertSame(State::Sent, $queue->get($other->key())->state);
+        self::assertSame(0, $worker->run());
+        self::assertSame(2, $destination->calls());
     }
 
     public function testRetryPlafondMemeTresGrandNumeroDessai(): void

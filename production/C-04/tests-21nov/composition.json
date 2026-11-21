@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "C02_container_sources_match_checkout": {
+    "Motif.php": "34f7a65ff5441c6a924b6530f2ef1bb3d4d9e05503e07bb7f12f59c0c153b1b5",
+    "NumeroEntreprise.php": "50a5715b162963356b5d712679df2add5929cee44472a17fd6e6cd6e9d30d96a",
+    "RechercheDenomination.php": "af3086bd0820641655fcddbd41bf549f6883c7cd4efbb047d75b368fc3fc2332",
+    "RechercheDenominationIndisponible.php": "9e7c100e7b4418bf54e6b1f337fe006480378876ec920a81a61e6389da75ab6e",
+    "ResultatRecherche.php": "7a2a4e3d164cf5b988b4f8705dba869c6b0f6e508f1293dfbcca5d6574cf27fd"
+  },
+  "example_stdout": "{\"violations\":0}\n",
+  "network_disconnected": true
+}

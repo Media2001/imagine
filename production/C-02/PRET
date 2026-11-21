@@ -1,4 +1,6 @@
-C-02 — prêt pour relecture indépendante le 20 novembre 2026.
+C-02 — redéposé le 21 novembre 2026 après vérification PASS : tests-21nov/artifact-verification.json. Suite complète 175 tests / 19 912 assertions ; Entreprise 41 / 19 561. Rapport files/rapports/2026-11-21-C-02-corrections.md. Aucun GO.
+
+Historique du 20 novembre (ne décrit pas le rejeu courant) :
 Code, tests et preuves locales livrés ; aucun GO ni déploiement.
 Notes : production/C-02/notes.md
 Recette : production/C-02/tests/rapport.md

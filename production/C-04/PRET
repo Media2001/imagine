@@ -1,4 +1,6 @@
-C-04 — PRÊT À RELIRE — 20 novembre 2026
+C-04 — REDÉPOSÉ le 21 novembre 2026 après vérification PASS : tests-21nov/artifact-verification.json et composition.json. Suite complète 37 tests / 224 assertions. Rapport files/rapports/2026-11-21-C-04-corrections.md. Arbitrages restants dans notes.md ; aucun GO.
+
+Historique du 20 novembre (ne décrit pas le rejeu courant) :
 
 Cœur PHP pur livré conformément au brief courant : déduplication, états contrôlés,
 quarantaine, rejeu ordonné, interfaces/doubles, export quotidien CSV dédupliqué.

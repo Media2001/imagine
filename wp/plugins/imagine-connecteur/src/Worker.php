@@ -91,7 +91,10 @@ final readonly class Worker
             'Envoi non confirmé ; événement conservé dans la file.'
         );
         if ($exhausted) {
-            $failed = $failed->withNotification('attempts_exhausted', 'Limite d’essais atteinte ; intervention requise.');
+            $failed = $failed->withNotification(
+                'attempts_exhausted',
+                'Limite d’essais atteinte ; intervention requise.'
+            );
         }
         if ($this->storage->replace($entry, $failed) && $exhausted) {
             $this->flushNotifications($entry->event->key());

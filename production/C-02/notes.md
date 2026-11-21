@@ -107,6 +107,21 @@ transmis. Ne pas appliquer la clé belge à un autre pays ni transformer un num�
   l’affichage, la confirmation et la transmission WooCommerce → Odoo restent ultérieurs.
   Le catalogue des recettes n’est ni modifié ni automatisé.
 
+## Corrections et décisions écrites — 21 novembre 2026
+
+Instruction 3 : assertion littérale indépendante `0123.456.749` ajoutée pour une base calculée, sans reprendre la formule substr du code. Instruction 2 documentaire BCE/VIES explicitement reportée par Ced (docs/arbitrages-2026-11-21.md, C-02/1) ; aucune recherche ni appel à un service. `PremierChiffre` accepté tel quel (C-02/2). Contrôle local seul conservé (C-02/3) ; recherche réelle toujours non autorisée. Instruction 5 cosmétique facultative différée pour préserver les sources C-02 déjà composées et vérifiées par C-04, aucun défaut fonctionnel.
+
+Standard d'abord : comparaison au livrable A-00 local (couverture-extensions.md, tableau et besoins 1/4/9/11/19 ; registre de sources local), pas une nouvelle preuve éditeur :
+- WooCommerce/Subscriptions : commandes, facturation et renouvellements documentés en A-00 ; normalisation belge libre + neuf chiffres + clé modulo97 + motifs français C-02 : doute, aucune preuve locale précise.
+- Memberships/Teams : droits d'adhésion/comptes/places documentés ; même normalisation et contrôle belge : doute, aucune preuve locale.
+- Stripe/PayPal : moyens et mandats de paiement documentés ; ne prouvent pas un contrôle belge de numéro d'entreprise : doute.
+- Rank Math/Event Tickets : schémas/billetterie documentés, ne prouvent pas cette API belge : doute.
+Le besoin autonome de PHP pur est explicitement commandé par le brief ; ce doute justifie ce périmètre isolé, pas une réécriture du tunnel ni l'affirmation d'une incapacité native. Au branchement, confronter le champ professionnel réellement installé et ses hooks au contrat C-02, réutiliser la couverture éventuelle plutôt que la doubler. Aucun achat ou service retenu.
+
+## Résultat frais du 21 novembre 2026
+
+Suite complète en conteneur jetable : 175 tests / 19 912 assertions, zéro échec ; dont Entreprise 41 tests / 19 561 assertions. PHPUnit, PHPCS, syntaxe, Composer strict, concordance de manifeste et nettoyage PASS. Preuves tests-21nov/. Aucun test réel ou dérivé, aucune installation hôte, site ou service externe.
+
 ## Preuves et isolation
 
 Voir `tests/rapport.md`, les journaux RED/GREEN, `final.{json,log,xml}`,

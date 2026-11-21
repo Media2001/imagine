@@ -9,19 +9,21 @@ Ce n’est pas encore une extension activable ni un connecteur comptable de prod
 Depuis la racine du dépôt, avec le Python et le Docker de l’outil déjà présents :
 
 ```sh
-python wp/tests/connecteur-runner/run.py prepare
-python wp/tests/connecteur-runner/run.py run --name final
-python wp/tests/connecteur-runner/verify.py
-python wp/tests/connecteur-runner/run.py close
+python wp/tests/corrections-21nov/run.py C-04 prepare
+python wp/tests/corrections-21nov/run.py C-04 run --name final
+python wp/tests/corrections-21nov/composition.py
+python wp/tests/corrections-21nov/run.py C-04 close
+python wp/tests/corrections-21nov/verify.py C-04
 ```
 
 Le lanceur réutilise **sans le modifier** celui de C-01, avec ses propres chemins,
 état, étiquette et preuves. Le conteneur jetable n’a ni montage, port, base ni service
 WordPress ; seule la préparation Composer a le réseau. `composer test`, `composer lint`,
 la syntaxe PHP et `composer validate --strict --no-check-publish` sont réellement lancés.
-`verify.py` rejoue C-01 dans le même conteneur isolé, sans changer ses fichiers, et
-exécute `examples/export.php` pour produire un vrai CSV fictif et son SHA-256.
-Les preuves sont sous `production/C-04/tests/`. Toujours appeler `close`, même en échec.
+Le contrôleur `composition.py` vérifie les empreintes C-02 réellement copiées et exécute
+`examples/entreprise.php` (zéro violation). Les preuves courantes sont sous
+`production/C-04/tests-21nov/`, les anciennes sous `tests/` sont historiques.
+Toujours appeler `close`, même en échec. Le runner C-01 original n'est pas modifié.
 
 Dans un autre environnement PHP jetable autorisé : `composer install`, `composer test`,
 `composer lint`. Ne rien installer sur Windows. Aucune dépendance d’exécution autre
@@ -54,6 +56,32 @@ présent est bloqué**, jamais accepté sans contrôle. `Validator::with(Rule)` 
 règle sans modifier le moteur. Les messages des règles doivent être en français et
 ne jamais inclure de données personnelles ; aucune fonction de traduction WordPress
 n’est appelée dans ce cœur indépendant.
+
+## Corrections du 21 novembre 2026
+
+`BillingComposition::withEntreprise($knownPayments)` compose explicitement le vrai C-02.
+Composer charge `Imagine\\Pilotage\\Entreprise` depuis le dossier frère
+`../imagine-pilotage/src/Entreprise/` ; conserver les deux bibliothèques côte à côte.
+`php examples/entreprise.php` utilise un numéro calculé fictif et n'appelle aucun service.
+`Validator::billing` reste injectable et indépendant ; sans contrôle injecté, un numéro renseigné est refusé.
+
+`Event` construit un instantané récursif détaché avant validation et stockage (profondeur bornée,
+objets/ressources refusés), même si la saisie contient des références PHP.
+
+L'état de notification est porté par `Entry::notifications` et persiste dans la même révision
+que la quarantaine/l'épuisement. Le worker retente les alertes indépendamment de l'envoi,
+même sur les états terminaux ; il ne retire une notification qu'après accusé par CAS.
+Le stockage durable futur doit conserver ces métadonnées atomiquement ; le double livré reste en mémoire.
+La destination d'alertes déduplique le couple (clé événement, code), y compris après accusé perdu.
+Un doublon à contenu différent est conservé comme notification sans recopier le contenu, le premier événement gagne.
+
+Les lots CSV sont monotones par abonnement, sous verrou, à partir du journal durable existant.
+Un redémarrage ne perd donc pas le minimum de lot. Dates d'événement et comptables non réécrites.
+Par décision Ced du 21/11, les cellules texte commençant par `=`, `+`, `-`, `@`
+(après éventuels espaces/contrôles ASCII initiaux) reçoivent une apostrophe initiale.
+Step doit traiter cette apostrophe comme protection de transport à décoder vers du texte,
+jamais réévaluer les cellules comme formules ; les montants entiers négatifs restent numériques.
+Les événements suivants du même abonnement restent bloqués après quarantaine/épuisement, décision Ced.
 
 ## File et reprise
 
