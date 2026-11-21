@@ -23,6 +23,7 @@ Ce qui est tranché par Ced, daté. Ce fichier précise ou corrige le cahier des
 | 20/11/2026 | Un lot a un délai (une demi-journée par défaut) ; au-delà, Hermès rend compte et passe au suivant. |
 | 20/11/2026 | La production est en WordPress 6.9.1 (compatible Novamira). L'outil de staging tourne dans Docker sous WSL sur le NUC. |
 | 21/11/2026 | Arbitrages sur les lots A-00 et C-01 à C-04 : voir `docs/arbitrages-2026-11-21.md`. Notamment : accès numérique coupé dès la suspension pour impayé ; quatre paiements par année d'engagement de date à date ; même compte Stripe, sans import CSV des abonnés en ligne. |
+| 21/11/2026 | Les questions métier ouvertes se tranchent avec Imagine directement : le designer ne les arbitre pas. |
 | 11/11/2026 | Architecture de production : Claude (briefs, arbitrages), Hermès (production), Codex et Claude Code (relecture), Git comme file de travail. |
 
 ## Ouvert — à trancher par Ced
@@ -37,7 +38,10 @@ Ce qui est tranché par Ced, daté. Ce fichier précise ou corrige le cahier des
 8. **Numéro d'entreprise.** Recherche de la dénomination en ligne (cahier des charges) ou simple contrôle de format (décision d'octobre) ?
 9. ~~Rythme d'Hermès~~ — tranché le 19/11 : Hermès travaille en continu sur ce dépôt.
 
-## Ouvert — chez Imagine (chapitre 7 du cahier des charges)
+## Ouvert — chez Imagine (chapitre 7 du cahier des charges, et questions issues des lots)
+
+Issues des relectures du 20/11 (`docs/arbitrages-2026-11-21.md`, questions non tranchées) : prélèvement SEPA obligatoire après une première carte ; retrait immédiat ou délai de grâce au premier rejet ; licence Teams pour les abonnements groupés ; forme de l'accès découverte ; recalcul du port en cours d'année ; emails SEPA de Stripe ; recherche de la dénomination d'entreprise ; PayPal sous condition d'approbation.
+
 
 Prioritaires : grille tarifaire (3), tarif solidaire (4), accès découverte (5). Tant qu'elles sont ouvertes, le tunnel ne peut pas être finalisé.
 

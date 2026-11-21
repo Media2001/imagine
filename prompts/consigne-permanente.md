@@ -28,13 +28,13 @@ Sur ce dépôt, tu n'as pas de passages à heures fixes : tu enchaînes les lots
 
 ### Le réveil
 
-Une fois arrêté, tu ne reprends pas tout seul : un passage planifié te réveille toutes les heures. À chaque réveil :
+Une fois arrêté, tu ne reprends pas tout seul : une tâche planifiée te réveille toutes les heures, dans une session neuve qui ne se souvient de rien. À chaque réveil :
 
-1. Synchronise et lis `A-FAIRE.md`.
-2. S'il contient une consigne active que tu n'as pas terminée, ou un fichier `corrections/<lot>.md` arbitré et non appliqué : reprends le travail en continu, comme décrit plus haut.
-3. Sinon : ne fais rien, n'écris aucun rapport, arrête-toi tout de suite. Un réveil sans travail ne doit rien coûter.
+1. **Vérifie le verrou** `C:\Users\Ced\imagine\.hermes.lock`. S'il existe et date de moins de quatre heures, une autre session travaille déjà sur ce dépôt : arrête-toi tout de suite, sans rien écrire. S'il date de plus de quatre heures, c'est le reste d'une session interrompue : supprime-le et continue.
+2. Lis `A-FAIRE.md`. S'il ne contient aucune consigne active non terminée et aucune correction arbitrée non appliquée : arrête-toi tout de suite, sans rapport. Un réveil sans travail ne doit rien coûter.
+3. Sinon : crée le verrou (une ligne : date, heure, lot en cours), mets-le à jour à chaque changement de lot, travaille en continu comme décrit plus haut, et **supprime le verrou quand tu t'arrêtes**, que la file soit vide ou que tu sois bloqué.
 
-Si tu es déjà en train de travailler quand le réveil arrive, ignore-le.
+Le verrou n'est pas versionné. Deux sessions ne travaillent jamais en même temps sur ce dépôt. Une session lancée à la main par Ced suit la même règle.
 
 ## Où tu écris
 

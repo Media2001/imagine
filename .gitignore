@@ -35,6 +35,7 @@ _a_supprimer/
 # Verrou du script de synchronisation
 .sync.lock
 .relire.lock
+.hermes.lock
 
 # Donnees reelles - jamais dans le depot (abonnes, exports Access, Brevo, Stripe)
 *.mdb
