@@ -1,0 +1,12 @@
+{
+  "tests": 1,
+  "assertions": 0,
+  "failed": 1,
+  "results": [
+    {
+      "test": "initial_quatre_numeros_c01_sans_cinquieme",
+      "pass": false,
+      "error": "Error: Class \"Imagine\\Pilotage\\Echeancier\\Planificateur\" not found"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/tests/Acces/phpunit.xml" tests="3" assertions="11" errors="0" failures="2" skipped="0" time="0.005239">
+    <testsuite name="Acces" tests="3" assertions="11" errors="0" failures="2" skipped="0" time="0.005239">
+      <testsuite name="Imagine\Pilotage\Tests\Acces\DecisionTest" file="/work/tests/Acces/DecisionTest.php" tests="3" assertions="11" errors="0" failures="2" skipped="0" time="0.005239">
+        <testcase name="testAnonymeEtIdentifieSansDroitOntDesBlocsDistincts" file="/work/tests/Acces/DecisionTest.php" line="39" class="Imagine\Pilotage\Tests\Acces\DecisionTest" classname="Imagine.Pilotage.Tests.Acces.DecisionTest" assertions="2" time="0.004585">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\DecisionTest::testAnonymeEtIdentifieSansDroitOntDesBlocsDistincts
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'anonyme'
++'entree_invalide'
+
+/work/tests/Acces/DecisionTest.php:49</failure>
+        </testcase>
+        <testcase name="testResultatRobotC03EstConsommeSansReverificationNiBooleenLibre" file="/work/tests/Acces/DecisionTest.php" line="54" class="Imagine\Pilotage\Tests\Acces\DecisionTest" classname="Imagine.Pilotage.Tests.Acces.DecisionTest" assertions="2" time="0.000174">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\DecisionTest::testResultatRobotC03EstConsommeSansReverificationNiBooleenLibre
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'anonyme'
++'entree_invalide'
+
+/work/tests/Acces/DecisionTest.php:66</failure>
+        </testcase>
+        <testcase name="testFermeSansArgumentsEtOuvreUniquementUnContenuOuvertValide" file="/work/tests/Acces/DecisionTest.php" line="87" class="Imagine\Pilotage\Tests\Acces\DecisionTest" classname="Imagine.Pilotage.Tests.Acces.DecisionTest" assertions="7" time="0.000480"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

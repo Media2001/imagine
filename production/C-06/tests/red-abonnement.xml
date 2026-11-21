@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/tests/Acces/phpunit.xml" tests="32" assertions="51" errors="0" failures="32" skipped="0" time="0.008337">
+    <testsuite name="Acces" tests="32" assertions="51" errors="0" failures="32" skipped="0" time="0.008337">
+      <testsuite name="Imagine\Pilotage\Tests\Acces\AbonnementTest" file="/work/tests/Acces/AbonnementTest.php" tests="32" assertions="51" errors="0" failures="32" skipped="0" time="0.008337">
+        <testsuite name="Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements" tests="30" assertions="48" errors="0" failures="30" skipped="0" time="0.008120">
+          <testcase name="testTableAbonnements with data set &quot;abonnement-article-actif&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="1" time="0.003773">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "abonnement-article-actif"
+Failed asserting that false is identical to true.
+
+/work/tests/Acces/AbonnementTest.php:59</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;abonnement-article-grace&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="1" time="0.000122">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "abonnement-article-grace"
+Failed asserting that false is identical to true.
+
+/work/tests/Acces/AbonnementTest.php:59</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;abonnement-article-suspendu&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="2" time="0.000846">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "abonnement-article-suspendu"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'suspendu'
++'entree_invalide'
+
+/work/tests/Acces/AbonnementTest.php:60</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;abonnement-article-expire&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="2" time="0.000137">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "abonnement-article-expire"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'expire'
++'entree_invalide'
+
+/work/tests/Acces/AbonnementTest.php:60</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;abonnement-article-virement_non_valide&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="2" time="0.000184">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "abonnement-article-virement_non_valide"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'virement_non_valide'
++'entree_invalide'
+
+/work/tests/Acces/AbonnementTest.php:60</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;abonnement-pdf-actif&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="1" time="0.000149">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "abonnement-pdf-actif"
+Failed asserting that false is identical to true.
+
+/work/tests/Acces/AbonnementTest.php:59</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;abonnement-pdf-grace&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="1" time="0.000121">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "abonnement-pdf-grace"
+Failed asserting that false is identical to true.
+
+/work/tests/Acces/AbonnementTest.php:59</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;abonnement-pdf-suspendu&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="2" time="0.000208">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "abonnement-pdf-suspendu"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'suspendu'
++'entree_invalide'
+
+/work/tests/Acces/AbonnementTest.php:60</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;abonnement-pdf-expire&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="2" time="0.000120">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "abonnement-pdf-expire"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'expire'
++'entree_invalide'
+
+/work/tests/Acces/AbonnementTest.php:60</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;abonnement-pdf-virement_non_valide&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="2" time="0.000165">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "abonnement-pdf-virement_non_valide"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'virement_non_valide'
++'entree_invalide'
+
+/work/tests/Acces/AbonnementTest.php:60</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;offert-article-actif&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="1" time="0.000110">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "offert-article-actif"
+Failed asserting that false is identical to true.
+
+/work/tests/Acces/AbonnementTest.php:59</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;offert-article-grace&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="1" time="0.000102">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "offert-article-grace"
+Failed asserting that false is identical to true.
+
+/work/tests/Acces/AbonnementTest.php:59</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;offert-article-suspendu&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="2" time="0.000133">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "offert-article-suspendu"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'suspendu'
++'entree_invalide'
+
+/work/tests/Acces/AbonnementTest.php:60</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;offert-article-expire&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="2" time="0.000131">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "offert-article-expire"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'expire'
++'entree_invalide'
+
+/work/tests/Acces/AbonnementTest.php:60</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;offert-article-virement_non_valide&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="2" time="0.000120">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "offert-article-virement_non_valide"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'virement_non_valide'
++'entree_invalide'
+
+/work/tests/Acces/AbonnementTest.php:60</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;offert-pdf-actif&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="1" time="0.000098">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "offert-pdf-actif"
+Failed asserting that false is identical to true.
+
+/work/tests/Acces/AbonnementTest.php:59</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;offert-pdf-grace&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="1" time="0.000098">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "offert-pdf-grace"
+Failed asserting that false is identical to true.
+
+/work/tests/Acces/AbonnementTest.php:59</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;offert-pdf-suspendu&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="2" time="0.000118">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "offert-pdf-suspendu"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'suspendu'
++'entree_invalide'
+
+/work/tests/Acces/AbonnementTest.php:60</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;offert-pdf-expire&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="2" time="0.000117">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "offert-pdf-expire"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'expire'
++'entree_invalide'
+
+/work/tests/Acces/AbonnementTest.php:60</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;offert-pdf-virement_non_valide&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="2" time="0.000129">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "offert-pdf-virement_non_valide"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'virement_non_valide'
++'entree_invalide'
+
+/work/tests/Acces/AbonnementTest.php:60</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;groupe-article-actif&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="1" time="0.000097">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "groupe-article-actif"
+Failed asserting that false is identical to true.
+
+/work/tests/Acces/AbonnementTest.php:59</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;groupe-article-grace&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="1" time="0.000097">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "groupe-article-grace"
+Failed asserting that false is identical to true.
+
+/work/tests/Acces/AbonnementTest.php:59</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;groupe-article-suspendu&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="2" time="0.000150">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "groupe-article-suspendu"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'suspendu'
++'entree_invalide'
+
+/work/tests/Acces/AbonnementTest.php:60</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;groupe-article-expire&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="2" time="0.000117">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "groupe-article-expire"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'expire'
++'entree_invalide'
+
+/work/tests/Acces/AbonnementTest.php:60</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;groupe-article-virement_non_valide&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="2" time="0.000123">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "groupe-article-virement_non_valide"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'virement_non_valide'
++'entree_invalide'
+
+/work/tests/Acces/AbonnementTest.php:60</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;groupe-pdf-actif&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="1" time="0.000103">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "groupe-pdf-actif"
+Failed asserting that false is identical to true.
+
+/work/tests/Acces/AbonnementTest.php:59</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;groupe-pdf-grace&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="1" time="0.000098">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "groupe-pdf-grace"
+Failed asserting that false is identical to true.
+
+/work/tests/Acces/AbonnementTest.php:59</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;groupe-pdf-suspendu&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="2" time="0.000117">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "groupe-pdf-suspendu"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'suspendu'
++'entree_invalide'
+
+/work/tests/Acces/AbonnementTest.php:60</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;groupe-pdf-expire&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="2" time="0.000117">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "groupe-pdf-expire"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'expire'
++'entree_invalide'
+
+/work/tests/Acces/AbonnementTest.php:60</failure>
+          </testcase>
+          <testcase name="testTableAbonnements with data set &quot;groupe-pdf-virement_non_valide&quot;" file="/work/tests/Acces/AbonnementTest.php" line="45" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="2" time="0.000119">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testTableAbonnements with data set "groupe-pdf-virement_non_valide"
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'virement_non_valide'
++'entree_invalide'
+
+/work/tests/Acces/AbonnementTest.php:60</failure>
+          </testcase>
+        </testsuite>
+        <testcase name="testDatesDeDateADateAvecBornesInclusivesExclusivesAUneSeconde" file="/work/tests/Acces/AbonnementTest.php" line="64" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="2" time="0.000124">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testDatesDeDateADateAvecBornesInclusivesExclusivesAUneSeconde
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'abonnement_pas_commence'
++'entree_invalide'
+
+/work/tests/Acces/AbonnementTest.php:84</failure>
+        </testcase>
+        <testcase name="testPdfAnterieurAttendArbitrageSansRetirerLesArticles" file="/work/tests/Acces/AbonnementTest.php" line="90" class="Imagine\Pilotage\Tests\Acces\AbonnementTest" classname="Imagine.Pilotage.Tests.Acces.AbonnementTest" assertions="1" time="0.000093">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\AbonnementTest::testPdfAnterieurAttendArbitrageSansRetirerLesArticles
+Failed asserting that false is identical to true.
+
+/work/tests/Acces/AbonnementTest.php:100</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -21,7 +21,30 @@ def shared_inventory():
     files = list(bench.PLUGIN.rglob('*'))
     files += [ROOT / 'wp/tests/numeros-runner/run.py', ROOT / 'wp/tests/robots-runner/run.py']
     return {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
-            for p in sorted(files) if p.is_file() and 'vendor' not in p.parts and 'Acces' not in p.parts}
+            for p in sorted(files) if p.is_file() and 'vendor' not in p.parts
+            and 'Acces' not in p.parts and 'Echeancier' not in p.parts}
+
+
+def payload():
+    import io
+    import tarfile
+    content = io.BytesIO()
+    files = {}
+    with tarfile.open(fileobj=content, mode='w') as archive:
+        for path in sorted(bench.PLUGIN.rglob('*')):
+            if not path.is_file() or 'vendor' in path.parts or 'Echeancier' in path.parts:
+                continue
+            relative = path.relative_to(bench.PLUGIN).as_posix()
+            data = path.read_bytes()
+            files[relative] = hashlib.sha256(data).hexdigest()
+            entry = tarfile.TarInfo(relative)
+            entry.size = len(data)
+            entry.mode = 0o644
+            archive.addfile(entry, io.BytesIO(data))
+    return content.getvalue(), files
+
+
+bench.payload = payload
 
 
 def call(args, data=None, check=True):

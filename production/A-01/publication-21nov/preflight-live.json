@@ -1,0 +1,92 @@
+{
+  "status": "BLOCKED",
+  "issues": [
+    "NORMAL_CREATE_ACTIVATES_CONFIGURED_NOVAMIRA_LICENSE",
+    "NORMAL_CREATE_PROVISIONS_NOVAMIRA_MCP",
+    "CREATE_API_HAS_NO_EMPTY_WITHOUT_MCP_BYPASS"
+  ],
+  "full_staging_ready": false,
+  "publication_executed": false,
+  "system_egress_after_verification_required": false,
+  "accepted_post_verification_policy": "WP_HTTP_BLOCK_EXTERNAL=true; WP_ACCESSIBLE_HOSTS=*.wordpress.org,*.woocommerce.com; unchanged safety MU filter",
+  "minimum_seam_for_Ced": "Normal API option for a genuinely empty site: skip platform premium ZIPs, configured license activation and MCP provisioning; must not change defaults for other sites. Not implemented or authorized here.",
+  "observations": {
+    "functions": {
+      "activate_novamira_pro_license": "def activate_novamira_pro_license(site: dict, license_key: str) -> None:\n    php = (\n        \"if (!function_exists('Novamira\\\\\\\\Pro\\\\\\\\activate_new_license_key')) { \"\n        \"echo 'not applicable'; return; } \"\n        \"$result = \\\\Novamira\\\\Pro\\\\activate_new_license_key(\"\n        + json.dumps(license_key)\n        + \"); if (!$result[0]) { WP_CLI::error($result[1]); }\"\n    )\n    result = _wp(site[\"slug\"], \"eval\", php)\n    status = \"Licence Novamira Pro non applicable\" if \"not applicable\" in (getattr(result, \"stdout\", \"\") or \"\") else \"Licence Novamira Pro activée\"\n    models.log_site(site[\"slug\"], \"info\", status)",
+      "provision_mcp": "def provision_mcp(site: dict) -> None:\n    \"\"\"Configure le MCP sans rendre indisponible un WordPress correctement créé.\"\"\"\n    try:\n        enable_novamira_abilities(site)\n        create_mcp_credentials(site)\n        validate_mcp_connection(site)\n    except Exception as exc:\n        error = format_mcp_error(exc)\n        models.update_mcp_health(site[\"slug\"], status=\"error\", error=error)\n        models.log_site(\n            site[\"slug\"],\n            \"warn\",\n            f\"MCP indisponible : {error}. WordPress reste disponible.\",\n        )",
+      "create_site": "def create_site(name: str, template_slug: str, php_version: str | None = None,\n                client_name: str | None = None,\n                target_domain: str | None = None) -> dict:\n    \"\"\"Crée la ligne DB et renvoie le row. Provisioning lancé en background.\"\"\"\n    template = get_template(template_slug)\n    php_version = php_version or template[\"default_php\"]\n    if php_version not in _php_values():\n        raise ValueError(f\"Version PHP non supportée : {php_version}\")\n\n    slug = slugify(name)\n    if models.get_site(slug):\n        raise ValueError(f\"Un site avec le slug '{slug}' existe déjà\")\n\n    site = {\n        \"slug\": slug,\n        \"name\": name,\n        \"profile\": template[\"category\"],  # sandbox / project (dérivé)\n        \"template_slug\": template_slug,\n        \"client_name\": client_name,\n        \"target_domain\": target_domain,\n        \"port\": alloc_port(),\n        \"php_version\": php_version,\n        \"status\": \"creating\",\n        \"notes\": \"\",\n        \"wp_admin_user\": \"admin\",\n        \"wp_admin_password\": gen_password(12),\n        \"db_password\": gen_password(16),\n        \"db_root_password\": gen_password(20),\n        \"created_at\": models.now_iso(),\n    }\n    models.insert_site(site)\n    models.log_site(slug, \"info\", f\"Site créé en DB · template {template_slug} · port {site['port']} · PHP {php_version}\")\n    return site",
+      "_provision_site": "def _provision_site(site: dict) -> None:\n    slug = site[\"slug\"]\n    template = get_template(site[\"template_slug\"]) if site.get(\"template_slug\") else None\n    _make_site_dirs(slug)\n\n    models.log_site(slug, \"info\", f\"Vérification image WP PHP {site['php_version']}…\")\n    ensure_wp_image_built(site[\"php_version\"])\n    ensure_staging_network()\n\n    _render_compose(site)\n    models.log_site(slug, \"info\", \"docker-compose.yml généré\")\n\n    _compose(slug, \"up\", \"-d\")\n    models.log_site(slug, \"info\", \"Containers démarrés, attente WP…\")\n\n    _wait_for_wp(slug, max_seconds=240)\n    models.log_site(slug, \"info\", \"WP répond, install WordPress…\")\n\n    site_url = f\"http://{config.NAS_HOST}:{site['port']}\"\n    admin_email = f\"admin@{slug}.local\"\n    _wp(slug, \"core\", \"install\",\n        f\"--url={site_url}\",\n        f\"--title={site['name']}\",\n        f\"--admin_user={site['wp_admin_user']}\",\n        f\"--admin_password={site['wp_admin_password']}\",\n        f\"--admin_email={admin_email}\",\n        \"--skip-email\")\n    models.log_site(slug, \"info\", \"WP installé\")\n\n    if not template:\n        return\n\n    # Licence ACF Pro : constante posée AVANT l'install du plugin pour que\n    # l'activation de la licence soit automatique au premier chargement.\n    has_acf = any(\"advanced-custom-fields-pro\" in z for z in template[\"premium_zips\"])\n    if has_acf and config.ACF_PRO_LICENSE:\n        _wp(slug, \"config\", \"set\", \"ACF_PRO_LICENSE\",\n            config.ACF_PRO_LICENSE, \"--type=constant\", check=False)\n        models.log_site(slug, \"info\", \"Constante ACF_PRO_LICENSE posée dans wp-config\")\n    elif has_acf:\n        models.log_site(slug, \"warn\",\n                        \"ACF Pro dans le template mais ACF_PRO_LICENSE absent du .env\")\n\n    # Thème\n    if template.get(\"theme\"):\n        _wp(slug, \"theme\", \"install\", template[\"theme\"], \"--activate\", check=False)\n        models.log_site(slug, \"info\", f\"Thème installé : {template['theme']}\")\n\n    # Plugins free (repo WP)\n    # Un plugin peut être épinglé à une version via la syntaxe \"slug:version\",\n    # utile pour reproduire un bug client sur une version précise ou contourner\n    # une incompatibilité entre un plugin du repo et un zip premium daté.\n    # WP-CLI n'accepte --version que pour un seul plugin à la fois, d'où la\n    # séparation en deux passes.\n    if template[\"free_plugins\"]:\n        unpinned = [p for p in template[\"free_plugins\"] if \":\" not in p]\n        pinned = [p for p in template[\"free_plugins\"] if \":\" in p]\n        if unpinned:\n            _wp(slug, \"plugin\", \"install\", *unpinned, \"--activate\")\n        for spec in pinned:\n            name, version = spec.split(\":\", 1)\n            _wp(slug, \"plugin\", \"install\", name,\n                f\"--version={version}\", \"--force\", \"--activate\")\n        models.log_site(slug, \"info\", f\"Plugins free installés : {template['free_plugins']}\")\n\n    # Plugins premium du template + Novamira, standard sur tous les stagings.\n    premium_zips = list(dict.fromkeys([*template[\"premium_zips\"], *_MCP_PLATFORM_ZIPS]))\n    for zip_name in premium_zips:\n        zip_path = f\"/premium-plugins/{zip_name}\"\n        local_path = config.PLUGINS_DIR / zip_name\n        if not local_path.exists():\n            models.log_site(slug, \"warn\", f\"Plugin premium absent : {zip_name} (skip)\")\n            continue\n        _wp(slug, \"plugin\", \"install\", zip_path, \"--activate\", check=False)\n        models.log_site(slug, \"info\", f\"Plugin premium installé : {zip_name}\")\n\n    if config.NOVAMIRA_PRO_LICENSE:\n        activate_novamira_pro_license(site, config.NOVAMIRA_PRO_LICENSE)\n    else:\n        models.log_site(slug, \"warn\", \"NOVAMIRA_PRO_LICENSE absent du .env\")\n\n    provision_mcp(site)"
+    },
+    "locations": {
+      "activate_novamira_pro_license": {
+        "file": "/app/api/orchestrator.py",
+        "start": 251,
+        "end": 261
+      },
+      "provision_mcp": {
+        "file": "/app/api/orchestrator.py",
+        "start": 271,
+        "end": 284
+      },
+      "create_site": {
+        "file": "/app/api/orchestrator.py",
+        "start": 493,
+        "end": 525
+      },
+      "_provision_site": {
+        "file": "/app/api/orchestrator.py",
+        "start": 542,
+        "end": 623
+      }
+    },
+    "platform_zips": [
+      "novamira.zip",
+      "novamira-pro.zip"
+    ],
+    "tool_source_manifest": {
+      "/app/api/orchestrator.py": "1d73b3d4c4c2825cc4ba68a8aefa2731c401767db8f63916891d70cec49694d1",
+      "/app/api/main.py": "fae065a3d75eabb98266bbe6a47a4446ff8bb3477df6e2a176e3fc86872b9b32",
+      "/app/api/models.py": "44dc74dce43076787910a496091b8b54f19004b26df03678666ada2620584c77",
+      "/app/api/templates/docker-compose.wp.yml.j2": "2098452ae6c10a63cc7b966ea4df441da3b233932176d87d754d6c81a523c9b4",
+      "/app/api/templates/templates.json": "784843aee6afda8dd5037ae029981b1c0d4472c5d1edabf383702edfc19e3637"
+    },
+    "novamira_license_configured": true,
+    "novamira_zip_present": true,
+    "novamira_pro_zip_present": true,
+    "create_fields": [
+      "client_name",
+      "name",
+      "php_version",
+      "target_domain",
+      "template_slug"
+    ],
+    "create_required": [
+      "name",
+      "template_slug"
+    ],
+    "minimal_template": {
+      "slug": "sandbox-wp-minimal",
+      "name": "WP minimal",
+      "category": "sandbox",
+      "icon": "Globe",
+      "description": "WordPress vide. Test rapide d'un plugin ou exploration libre.",
+      "default_php": "8.3",
+      "free_plugins": [],
+      "premium_zips": [],
+      "theme": null
+    },
+    "docker_server_version": "29.6.2"
+  },
+  "tool_sources_unchanged_during_probe": true,
+  "recorded_utc": "2026-11-21T12:37:51.319742+00:00",
+  "started_utc": "2026-11-21T12:37:50.082253+00:00",
+  "created_sites": [],
+  "lifecycle_mutations": 0,
+  "archives_read": 0,
+  "shared_tool_modified": false,
+  "pret": false,
+  "diagnostic_sources": {
+    "wp\\outils\\staging-court\\publication_preflight.py": "cd4dfeb3ef170ea83ba503c3e2b193e4f3dbc11ee8a1053c01d2efc122fee313",
+    "wp\\tests\\a01-court\\test_publication_preflight.py": "1f6dbf6400fab95b3a617cbd25a39de19e29ecb0d4ef621084007c5d9c93937b"
+  }
+}

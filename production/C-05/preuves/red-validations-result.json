@@ -1,0 +1,34 @@
+{
+  "tests": 6,
+  "assertions": 19,
+  "failed": 3,
+  "results": [
+    {
+      "test": "initial_quatre_numeros_c01_sans_cinquieme",
+      "pass": true
+    },
+    {
+      "test": "reconduction_commune_et_numeros_suivants",
+      "pass": true
+    },
+    {
+      "test": "veille_cloture_refus_cinquieme_dans_annee_de_date_a_date",
+      "pass": true
+    },
+    {
+      "test": "calendrier_incomplet_refuse_sans_inventer",
+      "pass": false,
+      "error": "RuntimeException: Un plan incompatible doit être refusé : CALENDRIER_INCOMPLET"
+    },
+    {
+      "test": "clotures_identiques_refusees_sans_deplacer",
+      "pass": false,
+      "error": "RuntimeException: Un plan incompatible doit être refusé : DATES_NON_CROISSANTES"
+    },
+    {
+      "test": "borne_contractuelle_invalide_refusee",
+      "pass": false,
+      "error": "RuntimeException: Refus précis : HORS_ENGAGEMENT REG-2027-04 2027-02-20T00:00:00+01:00"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/tests/Acces/phpunit.xml" tests="3" assertions="9" errors="2" failures="0" skipped="0" time="0.004794">
+    <testsuite name="Acces" tests="3" assertions="9" errors="2" failures="0" skipped="0" time="0.004794">
+      <testsuite name="Imagine\Pilotage\Tests\Acces\DecisionTest" file="/work/tests/Acces/DecisionTest.php" tests="3" assertions="9" errors="2" failures="0" skipped="0" time="0.004794">
+        <testcase name="testAnonymeEtIdentifieSansDroitOntDesBlocsDistincts" file="/work/tests/Acces/DecisionTest.php" line="39" class="Imagine\Pilotage\Tests\Acces\DecisionTest" classname="Imagine.Pilotage.Tests.Acces.DecisionTest" assertions="1" time="0.004183">
+          <error type="Error">Imagine\Pilotage\Tests\Acces\DecisionTest::testAnonymeEtIdentifieSansDroitOntDesBlocsDistincts
+Error: Undefined constant Imagine\Pilotage\Acces\Motif::Anonyme
+
+/work/tests/Acces/DecisionTest.php:46</error>
+        </testcase>
+        <testcase name="testResultatRobotC03EstConsommeSansReverificationNiBooleenLibre" file="/work/tests/Acces/DecisionTest.php" line="51" class="Imagine\Pilotage\Tests\Acces\DecisionTest" classname="Imagine.Pilotage.Tests.Acces.DecisionTest" assertions="1" time="0.000202">
+          <error type="Error">Imagine\Pilotage\Tests\Acces\DecisionTest::testResultatRobotC03EstConsommeSansReverificationNiBooleenLibre
+Error: Undefined constant Imagine\Pilotage\Acces\Motif::Anonyme
+
+/work/tests/Acces/DecisionTest.php:60</error>
+        </testcase>
+        <testcase name="testFermeSansArgumentsEtOuvreUniquementUnContenuOuvertValide" file="/work/tests/Acces/DecisionTest.php" line="76" class="Imagine\Pilotage\Tests\Acces\DecisionTest" classname="Imagine.Pilotage.Tests.Acces.DecisionTest" assertions="7" time="0.000409"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

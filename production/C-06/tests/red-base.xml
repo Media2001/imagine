@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/tests/Acces/phpunit.xml" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="0.003509">
+    <testsuite name="Acces" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="0.003509">
+      <testsuite name="Imagine\Pilotage\Tests\Acces\DecisionTest" file="/work/tests/Acces/DecisionTest.php" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="0.003509">
+        <testcase name="testFermeSansArgumentsEtOuvreUniquementUnContenuOuvertValide" file="/work/tests/Acces/DecisionTest.php" line="39" class="Imagine\Pilotage\Tests\Acces\DecisionTest" classname="Imagine.Pilotage.Tests.Acces.DecisionTest" assertions="0" time="0.003509">
+          <error type="Error">Imagine\Pilotage\Tests\Acces\DecisionTest::testFermeSansArgumentsEtOuvreUniquementUnContenuOuvertValide
+Error: Class "Imagine\Pilotage\Acces\Moteur" not found
+
+/work/tests/Acces/DecisionTest.php:41</error>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

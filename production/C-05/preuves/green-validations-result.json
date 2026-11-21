@@ -1,0 +1,31 @@
+{
+  "tests": 6,
+  "assertions": 19,
+  "failed": 0,
+  "results": [
+    {
+      "test": "initial_quatre_numeros_c01_sans_cinquieme",
+      "pass": true
+    },
+    {
+      "test": "reconduction_commune_et_numeros_suivants",
+      "pass": true
+    },
+    {
+      "test": "veille_cloture_refus_cinquieme_dans_annee_de_date_a_date",
+      "pass": true
+    },
+    {
+      "test": "calendrier_incomplet_refuse_sans_inventer",
+      "pass": true
+    },
+    {
+      "test": "clotures_identiques_refusees_sans_deplacer",
+      "pass": true
+    },
+    {
+      "test": "borne_contractuelle_invalide_refusee",
+      "pass": true
+    }
+  ]
+}

@@ -36,6 +36,54 @@ final class DecisionTest extends TestCase
         return new DecisionRobot(MotifRobot::AgentInconnu);
     }
 
+    public function testAnonymeEtIdentifieSansDroitOntDesBlocsDistincts(): void
+    {
+        foreach ([false, true] as $identifie) {
+            $decision = (new Moteur())->decider(
+                self::contenu(),
+                self::visiteur([], $identifie),
+                self::robot(),
+                self::date(),
+            );
+            self::assertFalse($decision->complet);
+            self::assertSame($identifie ? 'sans_droit' : 'anonyme', $decision->motif->value);
+            self::assertSame($identifie ? 'abonnement' : 'connexion', $decision->bloc->value);
+        }
+    }
+
+    public function testResultatRobotC03EstConsommeSansReverificationNiBooleenLibre(): void
+    {
+        foreach (MotifRobot::cases() as $motif) {
+            $positif = in_array($motif, [MotifRobot::VerifieDns, MotifRobot::VerifiePlage], true);
+            $robot = new DecisionRobot($motif, $positif ? 'google' : null);
+            $decision = (new Moteur())->decider(
+                self::contenu(),
+                self::visiteur([], false),
+                $robot,
+                self::date(),
+            );
+            self::assertSame($positif, $decision->complet, $motif->value);
+            self::assertSame($positif ? 'robot_verifie' : 'anonyme', $decision->motif->value);
+        }
+        foreach ([true, ['verifie' => true], new \stdClass()] as $faux) {
+            $decision = (new Moteur())->decider(
+                self::contenu(),
+                self::visiteur([], false),
+                $faux,
+                self::date(),
+            );
+            self::assertSame(Motif::EntreeInvalide, $decision->motif);
+            self::assertFalse($decision->complet);
+        }
+        $bing = (new Moteur())->decider(
+            self::contenu(),
+            self::visiteur([], false),
+            new DecisionRobot(MotifRobot::VerifiePlage, 'bing'),
+            self::date(),
+        );
+        self::assertTrue($bing->complet);
+    }
+
     public function testFermeSansArgumentsEtOuvreUniquementUnContenuOuvertValide(): void
     {
         $moteur = new Moteur();
