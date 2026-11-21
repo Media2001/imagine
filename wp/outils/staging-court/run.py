@@ -16,7 +16,7 @@ import uuid
 ROOT = Path(__file__).resolve().parents[3]
 LABEL = 'org.imagine.a01-court'
 DOCKER = ['wsl.exe', '-d', 'Ubuntu', '--', 'docker'] if os.name == 'nt' else ['docker']
-DEFAULT_IMAGE = 'imagine-staging-e2e-public:644662e9cc4f'
+DEFAULT_IMAGE = 'sha256:b2ffa6ad01ffacc6d31b176232c8d0779c0320daba381e05cbbd80f56d5327a0'
 SUBJECT = ['neutraliser', 'anonymiser', 'verifier', 'command.php', 'lib.php', 'schema.php',
            'files.php', 'pdo-store.php', 'runtime-probe.php', 'policy.php', 'mu-plugins/000-imagine-staging-safety.php']
 FIXTURE = ['inside.py', 'fixture.php', 'snapshot.php', 'oracle.php', 'mutate.php', 'db-probe.php',

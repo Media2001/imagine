@@ -1,3 +1,27 @@
+# A-01 — chemin court du 21 novembre : fidélité prouvée, publication encore bloquée
+
+## État courant au 21/11 — sous-lot exécuté, pas de PRET global
+
+Commande autonome livrée dans wp/outils/staging-court/run.py, distincte du service partagé. Rejeu exécuté : `python wp/outils/staging-court/run.py --self-test`. Guide et commande réservée à Ced : wp/outils/staging-court/README.md. Aucun import réel n'est autorisé ou exécuté.
+
+Preuve finale production/A-01/tests-21nov/120fc4c09863/result.json : 18 contrôles d'aller-retour et d'entrypoint PASS, 12 tests défensifs du lecteur, 17 tests du banc, 9 cas/337 assertions de données, lint des PHP ajoutés, sources et cleanup PASS. Archives .wpress exclusivement exportées depuis les deux sites fictifs créés dans le même conteneur ; aucune archive réelle/dérivée, aucun fichier d'archive sorti sur l'hôte. Les deux stockages sont exercés et leurs commandes métier conservées.
+
+Fidélité : restauration complète par empreinte avant nettoyage ; extensions et thème actifs inchangés ; fichiers plugins 7 704→7 704, thèmes 396→396, uploads 9→9, MU 2→3 (ajout de sécurité attendu). Seuls advanced-cache.php, object-cache.php et l'archive fictive ai1wm-backups/fiction.wpress sont retirés. Les empreintes de thème/média/MU/formulaire sont consignées ; bootstrap réel, rendu Contact Form 7, réglages SEO et lectures Meta Box inchangés. Ces nombres décrivent uniquement la fixture, pas Imagine.
+
+La première restauration refuse la table wp_yoast_primary_term non tranchée ; le second passage utilise garder uniquement comme décision de fixture clairement nommée, jamais comme autorisation Ced réelle. Le vrai entrypoint opérateur est invoqué avec l'archive générée : code 78, status imported, data_verified true, verification_state DATA_VERIFIED_PUBLICATION_BLOCKED et arrêt de MariaDB constaté. Pas de faux statut global verified.
+
+Suite native complète fraîche : wp/tests/staging-e2e/evidence/9ff611303d90/result.json = 131 PASS / 2 hors périmètre, zéro échec ; journal hôte 4 PASS, dont suppression/absence relue. Cela inclut classique/HPOS, anonymisation, conservation métier, mail réellement bloqué, résidus refusés et tables à trancher. Les paquets commerciaux n'ont pas été recherchés hors checkout ni rejoués : les preuves commerciales du 20/11 restent historiques, et les onze sources natives ont été comparées à leur manifeste, toutes inchangées.
+
+Chemin utilisé : lecteur fidèle du format non compressé (en-têtes 4 377 octets), parseur SQL fermé du worker existant, trois scripts natifs inchangés. Les ajouts de grammaire locaux requis par le SHOW CREATE synthétique et le réordonnancement du suffixe AUTO_INCREMENT concernent seulement CREATE ; pas de modification des littéraux INSERT, pas de SQL arbitraire de repli. Les refus initiaux et corrections sont conservés dans tests-21nov/28c3342a2b5a, 3063981f4044 et 2080a11739f5 ; premiers verts 8adfc0346b0d et aacd8ee179c7. Le reçu final couvre le code après tous les correctifs.
+
+Blocage restant : publication web et confinement système des sorties aux domaines de mise à jour non implémentés. Une whitelist WordPress ne suffit pas à filtrer les sockets d'une extension ; aucun bridge général n'est ouvert pour obtenir artificiellement un succès. Le prototype partagé disponible dans le checkout élimine les fichiers ; un simple enchaînement de celui-ci ne peut pas être fidèle. Il n'a pas été recherché de site/importeur/archive hors checkout, et aucune écriture sur le service partagé n'est faite. Ajouter une nouvelle orchestration frontend/proxy/réseaux dépasserait le chemin court : arrêt de cette extension au titre de la proportion, sans GO inventé. Les exports chiffrés/compressés/multivolumes/multisites, SQL hors sous-ensemble et versions non qualifiées sont refusés ou non qualifiés.
+
+Ce que Ced verrait : rapport daté par exécution, étapes et codes, liste de tables/colonnes/nombres de lignes/décisions sans valeurs, runtime arrêté et motif de non-publication. En table personnelle manquante : fournir un JSON explicite garder/vider/anonymiser telles colonnes, puis nouvelle copie fraîche ; rien n'est choisi automatiquement. Le mot de passe neuf transite par stdin sans journal. Temps : variante exécutée dans la demi-journée ; aucune durée de vrai import annoncée sans vraie archive, réservée à Ced.
+
+Couches non utilisées et laissées en l'état : overlay/API, worker runtime partagé, bascule, Novamira, images déployées et services partagés. Seul le parseur SQL pur est lu. Aucun host install, Git, compte/site réel, réseau de test sortant ou déploiement. Tous les conteneurs possédés par cette passe ont été supprimés et leur absence vérifiée. Aucun PRET A-01 n'est déposé tant que le chemin complet n'est pas qualifié.
+
+## Historique du 20 novembre conservé
+
 # A-01 — compléments commerciaux réels, import opérateur toujours non prêt
 
 **20 novembre 2026, 15 h 34 CET — PASS ciblé classique et HPOS.** Reçu final `wp/tests/licensed-a01/evidence/e49f54c5e931/result.json`, sortie **0**, **104 checks PASS et 4 observations**, zéro échec ; ce ne sont pas 104 tests métier indépendants. Classique : 48 PASS + 2 observations ; HPOS : 50 PASS + 2 observations ; six PASS d'isolation interne. Journal hôte : quatre PASS, dont suppression relue du conteneur exact. Résultat SHA-256 `c5da74dabc717773098edb08603d8695cbdd0c297183821a5f70ef858c5efc56`.
