@@ -148,7 +148,9 @@ def main():
                        'decisions': {'wp_yoast_primary_term': {'action': 'garder'}}}
             p = command(['python3', '/opt/court/inside.py'], data=json.dumps(request).encode(), check=False)
             exact = json.loads(Path('/report/court.json').read_text())
-            check('exact_operator_entrypoint_on_generated_archive', p.returncode == 0 and exact['data_verified'],
+            check('exact_operator_entrypoint_reports_block_instead_of_false_verified',
+                  p.returncode == 78 and exact['data_verified'] and exact['status'] == 'imported'
+                  and exact['verification_state'] == 'DATA_VERIFIED_PUBLICATION_BLOCKED',
                   {'exit': p.returncode, 'status': exact['status'], 'archive_generated_here': True})
             check('exact_operator_stops_database', not Path('/scratch/court.pid').exists())
     finally:

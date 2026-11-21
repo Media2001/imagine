@@ -190,6 +190,12 @@ def main():
             raise Refusal('REQUEST_LIMIT')
         process = database_start()
         output = restore_and_verify('/input/source.wpress', request)
+        if output['data_verified']:
+            # Native data verification is not a fully exposed/usable staging.
+            output['status'] = 'imported'
+            output['verification_state'] = 'DATA_VERIFIED_PUBLICATION_BLOCKED'
+            output['issues'] = ['PUBLICATION_AND_UPDATE_EGRESS_NOT_IMPLEMENTED']
+            output['full_staging_ready'] = False
     except Exception as exc:
         tag = str(exc)
         output['issues'] = [tag if re.fullmatch(r'[A-Z0-9_]{1,80}', tag) else 'IMPORT_REFUSED']
@@ -200,7 +206,7 @@ def main():
         Path('/report').mkdir(exist_ok=True)
         Path('/report/court.json').write_text(json.dumps(output, indent=2))
     print(json.dumps({'status': output['status'], 'data_verified': output['data_verified'], 'runtime': 'stopped'}))
-    return 0 if output['data_verified'] else 1
+    return 78 if output['data_verified'] else 1
 
 
 if __name__ == '__main__':

@@ -48,8 +48,13 @@ def payload(test):
               for f in ['archive.py', 'inside.py', 'bridge.php']]
     pairs.append((ROOT / 'wp/outils/staging-wp-integration/worker/worker.py', 'opt/court/legacy_importer.py'))
     if test:
-        pairs += [(ROOT / 'wp/tests/staging-e2e' / f, 'opt/e2e/' + f) for f in FIXTURE]
-        pairs += [(ROOT / 'wp/tests/a01-court' / f, 'opt/court/' + f) for f in ['roundtrip.py', 'export.php']]
+        pairs += [(ROOT / 'wp/tests/staging-e2e' / f, 'opt/e2e/' + f) for f in FIXTURE + ['harness.py', 'test_harness.py']]
+        pairs += [(ROOT / 'wp/tests/a01-court' / f, 'opt/court/' + f)
+                  for f in ['roundtrip.py', 'export.php', 'test_archive.py']]
+        pairs += [(ROOT / 'wp/outils/staging' / f, 'checkout/wp/outils/staging/' + f) for f in SUBJECT]
+        pairs += [(p, 'checkout/wp/tests/staging-data/' + p.name)
+                  for p in (ROOT / 'wp/tests/staging-data').iterdir()
+                  if p.is_file() and p.suffix in {'.php', '.py'}]
     stream = io.BytesIO()
     manifest = {}
     with tarfile.open(fileobj=stream, mode='w') as tar:
@@ -106,6 +111,26 @@ def main():
         docker(['start', name])
         docker(['exec', '-i', name, 'tar', '-xf', '-', '-C', '/'], tar)
         (out / 'sources.json').write_text(json.dumps(manifest, indent=2))
+        unit_results = {}
+        if args.self_test:
+            docker(['exec', name, 'mkdir', '-p', '/opt/data-scratch'])
+            checks = {
+                'archive': ['python3', '/opt/court/test_archive.py'],
+                'harness': ['python3', '/opt/e2e/test_harness.py'],
+                'data': ['env', 'PHP_BIN=/usr/bin/php', 'IMAGINE_TEST_SCRATCH=/opt/data-scratch',
+                         'python3', '/checkout/wp/tests/staging-data/verify.py', '--output', '/report/data.json'],
+                'new_php_syntax': ['sh', '-c', 'php -l /opt/court/bridge.php && php -l /opt/court/export.php'],
+            }
+            for key, cmd in checks.items():
+                unit = docker(['exec', name] + cmd, check=False)
+                (out / (key + '-tests.log')).write_bytes(unit.stdout + unit.stderr)
+                unit_results[key] = {'exit': unit.returncode}
+                if key == 'harness' and unit.returncode == 0:
+                    unit_results[key]['receipt'] = json.loads(unit.stdout)
+                if unit.returncode:
+                    raise RuntimeError('UNIT_' + key.upper() + '_FAILED')
+            for key, file in [('archive', 'archive-safety.json'), ('data', 'data.json')]:
+                unit_results[key]['receipt'] = json.loads(docker(['exec', name, 'cat', '/report/' + file]).stdout)
         if args.archive:
             docker(['exec', name, 'mkdir', '-p', '/input'])
             # Operator-only execution. No agent uses this path in the synthetic test.
@@ -125,6 +150,8 @@ def main():
             assert hashlib.sha256((ROOT / rel).read_bytes()).hexdigest() == digest
         inspect(name)
         result['image_id'] = image['Id']
+        result['unit_results'] = unit_results
+        result['runner_sha256'] = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
         result['source_manifest_verified'] = True
         result['no_ports_no_mounts_network_none'] = True
     except Exception as exc:
