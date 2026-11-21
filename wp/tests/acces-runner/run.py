@@ -55,9 +55,6 @@ bench.payload = payload
 
 def call(args, data=None, check=True):
     args = list(args)
-    if 'test' in args and '/tmp/composer.phar' in args:
-        index = args.index('test')
-        args[index + 2:index + 2] = ['--configuration', 'tests/Acces/phpunit.xml']
     return original_call(args, data, check)
 
 
@@ -102,7 +99,7 @@ def main():
         receipt_path = bench.OUT / (stage + '.json')
         if receipt_path.exists():
             receipt = json.loads(receipt_path.read_text(encoding='utf-8'))
-            receipt['command'] = 'composer test -- --configuration tests/Acces/phpunit.xml --log-junit /tmp/result.xml'
+            receipt['command'] = 'composer test -- --log-junit /tmp/result.xml'
             if '--filter' in sys.argv:
                 receipt['command'] += ' --filter ' + sys.argv[sys.argv.index('--filter') + 1]
             receipt['wrapper_sha256'] = hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest()
