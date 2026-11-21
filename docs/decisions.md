@@ -24,6 +24,7 @@ Ce qui est tranché par Ced, daté. Ce fichier précise ou corrige le cahier des
 | 20/11/2026 | La production est en WordPress 6.9.1 (compatible Novamira). L'outil de staging tourne dans Docker sous WSL sur le NUC. |
 | 21/11/2026 | Arbitrages sur les lots A-00 et C-01 à C-04 : voir `docs/arbitrages-2026-11-21.md`. Notamment : accès numérique coupé dès la suspension pour impayé ; quatre paiements par année d'engagement de date à date ; même compte Stripe, sans import CSV des abonnés en ligne. |
 | 21/11/2026 | Les questions métier ouvertes se tranchent avec Imagine directement : le designer ne les arbitre pas. |
+| 21/11/2026 | Staging : aucun réseau jusqu'à la vérification ; ensuite le filtrage de WordPress suffit (mises à jour seulement), sans filtrage au niveau du système. La publication passe par l'usage normal de l'outil de staging, sans modifier son code. |
 | 11/11/2026 | Architecture de production : Claude (briefs, arbitrages), Hermès (production), Codex et Claude Code (relecture), Git comme file de travail. |
 
 ## Ouvert — à trancher par Ced

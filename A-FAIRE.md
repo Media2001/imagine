@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 21 novembre 2026, 10 h 25.
+Mis à jour le 21 novembre 2026, 13 h.
 
 Consigne permanente : `prompts/consigne-permanente.md`. Doctrine : `doctrine/doctrine.md` (dernière révision : **19/11/2026 — outil de staging et Novamira à la place de Docker**).
 
@@ -10,27 +10,23 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 
 ## Consignes actives, par ordre de priorité
 
-Les six lots de la première file sont rendus et relus (voir « Terminé »). Nouvelle file du 21/11.
+La file du 21/11 au matin est rendue (voir « Terminé »). Nouvelle file du 21/11, 13 h.
 
-**1. Corrections qui n'attendent aucun arbitrage.** Pour chaque fusion `corrections/<lot>.md`, applique les instructions de la section « Instructions pour Hermès » **qui ne dépendent pas d'une question posée à Ced** dans la section « À arbitrer ». Laisse les autres en l'état et liste-les dans ton rapport. Ordre :
+**1. `briefs/A-01-publication.md`** — dernière étape de A-01. Deux arbitrages lèvent ton blocage : le filtrage réseau au niveau du système n'est plus exigé après vérification, et la publication passe par l'usage normal de l'outil de staging (site vide créé par son API, puis base et fichiers vérifiés injectés), sans modifier son code. Une demi-journée.
 
-1. `corrections/C-03.md` — **le bloquant C03-01 d'abord** (collision de la clé de cache), puis les instructions 2 à 4.
-2. `corrections/C-01.md` — les deux défauts hors du cas nominal (C01-02, C01-03) et le reste.
-3. `corrections/C-04.md`.
-4. `corrections/C-02.md`.
-5. `corrections/A-00.md`.
+**2. `briefs/C-06-decision-acces.md`** — chantier C. La décision d'accès du paywall en un seul endroit, PHP pur, fermée par défaut. Une demi-journée.
 
-Pour chaque lot : rejoue toute la suite de tests, mets `notes.md` à jour avec ce qui est corrigé et ce qui attend, puis **redépose `PRET`** (la passe de vérification se déclenche dessus). Un rapport par lot. Tu ne tranches aucune des questions posées à Ced : en cas de doute sur la dépendance d'une instruction, ne l'applique pas et dis-le.
+**3. `briefs/C-05-echeancier-quatre-fois.md`** — chantier C. Proposition de mécanisme pour le paiement en quatre fois, avec preuve sur site jetable et le vrai Subscriptions. Une demi-journée.
 
-**2. `briefs/A-01-chemin-court.md`** — finir A-01 par le chemin le plus court : une commande unique pour Ced. Une demi-journée.
+Les lots 2 et 3 sont indépendants de A-01 : si A-01 se bloque, passe à la suite.
 
-**3. `docs/arbitrages-2026-11-21.md`** — Ced a tranché le 21/11. Applique ses réponses lot par lot, dans le même ordre (C-03, C-01, C-04, C-02, A-00), avec les tests qui les prouvent. Si tu n'as pas encore commencé la consigne 1 pour un lot, traite ses corrections et ses arbitrages en une seule passe. Une question absente de ce fichier n'est pas tranchée : n'y touche pas. Redépose `PRET` par lot.
-
-**Où lancer les tests PHP.** Dans un conteneur jetable, comme tu l'as fait le 20/11. Rien sur Windows.
+**Où lancer les tests PHP.** Dans un conteneur jetable, comme jusqu'ici. Rien sur Windows.
 
 **Cas d'acceptance.** `docs/recette/` : proposition du 19/11, pas encore validée. Ne les automatise pas, ne les modifie pas.
 
 **Staging et Novamira.** Tu n'utilises Novamira que sur un staging au statut « vérifié ». Il n'en existe pas encore. L'ancienne copie d'Imagine reste arrêtée.
+
+**Registre des écarts.** Tu n'écris pas dans `docs/`. Signale les écarts dans tes notes, comme tu l'as fait : Claude les reporte.
 
 ## En attente (ne pas commencer)
 
@@ -65,11 +61,12 @@ Pour chaque lot : rejoue toute la suite de tests, mets `notes.md` à jour avec c
 
 ## Terminé
 
-| Lot | Rendu | Relecture |
+| Lot | Rendu | État au 21/11 |
 |---|---|---|
 | A-07 Exposition de l'outil de staging | 20/11 | Clos |
-| A-00 Couverture des extensions | 20/11 | À corriger, sans bloquant |
-| C-01 Règle des numéros | 20/11 | À corriger, sans bloquant |
-| C-02 Numéro d'entreprise | 20/11 | À corriger, aucun défaut fonctionnel |
-| C-03 Vérification des robots | 20/11 | À corriger, un bloquant (C03-01) |
-| C-04 File du connecteur | 20/11 | À corriger |
+| A-00 Couverture des extensions | 20/11, corrigé le 21/11 | Vérifié : prêt pour la validation de Ced |
+| C-01 Règle des numéros | 20/11, corrigé le 21/11 | Vérifié : prêt pour la validation de Ced |
+| C-02 Numéro d'entreprise | 20/11, corrigé le 21/11 | Vérifié : prêt pour la validation de Ced |
+| C-03 Vérification des robots | 20/11, corrigé le 21/11 | Bloquant C03-01 corrigé. Vérifié : prêt pour la validation de Ced |
+| C-04 File du connecteur | 20/11, corrigé le 21/11 | Vérifié : prêt pour la validation de Ced |
+| A-01, import et vérification hors ligne | 21/11 | Fait et prouvé sur données fictives ; publication restante (consigne 1) |

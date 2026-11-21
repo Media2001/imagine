@@ -1,11 +1,11 @@
-# État des chantiers — mis à jour le 21 novembre 2026, 0 h 45
+# État des chantiers — mis à jour le 21 novembre 2026, 13 h
 
 ## Mise en route
 
 | Sujet | État | Prochaine étape | Qui |
 |---|---|---|---|
 | Dépôt | Créé ; cloné sur le NUC (`C:\Users\Ced\imagine`, alias SSH `github-imagine`) | — | — |
-| Hermès sur ce dépôt | Travaille en continu ; ne se relance pas seul une fois la file vide | Créer la tâche planifiée horaire dans Hermès (`/cron add`, réveil et verrou décrits dans `prompts/consigne-permanente.md`) | Ced |
+| Hermès sur ce dépôt | Travail en continu, réveil horaire planifié le 21/11 (`/cron`, verrou `.hermes.lock`) | — | — |
 | Synchronisation Git | En service depuis le 20/11, 8 h 55. La nuit du 19 a été perdue : Git refusait les commits faute d'identité, et le script ne le signalait pas (corrigé) | — | — |
 | Circuit de relecture | `scripts/relire.ps1` adapté aux lots ; se lance sans erreur, **pas encore testé sur un lot** | Lancer à la main sur le premier lot `PRET`, puis planifier « IMAGINE - relecture » | Ced |
 | Staging | Pas de Docker sur le NUC : on utilise l'outil de staging de Ced, avec Novamira pour l'accès des agents. Étape « site à abonnements » à ajouter à l'outil (`prompts/2026-11-19-staging-imagine.md`). Le `docker-compose.yml` du dépôt n'est plus utilisé | Hermès ajoute l'étape ; puis retirer Docker du dépôt | Hermès, puis Claude |
@@ -19,11 +19,11 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 | Lot | État | Prochaine étape | Qui |
 |---|---|---|---|
 | Sauvegarde de production | Pas encore récupérée | Export SQL + `wp-content`, déposés sur le NUC **hors du dépôt** | Ced |
-| A-01 Import neutralisé | Chaîne validée le 20/11 sur sites jetables avec les vrais Subscriptions et Memberships (classique et HPOS). Pas de `PRET` : le branchement dans l'outil de staging manque | Commande unique par le chemin le plus court (`briefs/A-01-chemin-court.md`) | Hermès |
+| A-01 Import neutralisé | Import, neutralisation, anonymisation et vérification hors ligne prouvés sur archive fictive (classique et HPOS, fidélité des fichiers et réglages). Reste : publier le site vérifié | `briefs/A-01-publication.md` : passer par l'usage normal de l'outil de staging ; filtrage réseau système non exigé après vérification | Hermès |
 | A-07 Exposition de l'outil de staging | Fait le 20/11. Test depuis l'extérieur en IPv4 : le tableau de bord n'est pas joignable. Non vérifié : redirections, DMZ et pare-feu IPv6 dans l'administration de la box | Coup d'œil à la box quand possible ; retirer l'autorisation du port 7000 en profil public du pare-feu Windows | Ced |
 | Licences WooCommerce | Obtenues le 20/11 | Déposer les archives Subscriptions et Memberships dans le dossier des extensions premium de l'outil de staging, hors dépôt | Ced |
 | Staging Imagine existant | Arrêté par Hermès le 19/11, non supprimé ; la révocation du mot de passe applicatif dans WordPress n'est pas attestée | Ne pas le redémarrer ; le détruire quand le nouveau parcours est validé | Ced |
-| A-00 Couverture des extensions | Rendu le 20/11 : 19 besoins, 38 sources officielles ; relu : à corriger, sans bloquant | Corrections ; 13 questions à trancher, dont une partie pour Imagine | Hermès, Ced |
+| A-00 Couverture des extensions | Corrigé le 21/11, arbitrages appliqués, vérifié au second tour : « prêt pour la validation de Ced » | GO de Ced | Ced |
 | A-02 à A-06 | En attente | Voir `A-FAIRE.md` | — |
 
 ## B · Le thème
@@ -38,10 +38,12 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 
 | Lot | État | Prochaine étape | Qui |
 |---|---|---|---|
-| C-01 Règle des numéros | Rendu le 20/11, 39 tests ; relu : à corriger, deux défauts hors du cas nominal | Corrections sans arbitrage en cours ; arbitrages de Ced attendus | Hermès, Ced |
-| C-04 File du connecteur | Rendu le 20/11, 22 tests ; relu : à corriger | Corrections sans arbitrage en cours ; arbitrages de Ced attendus | Hermès, Ced |
-| C-03 Vérification des robots | Rendu le 20/11, 89 tests ; relu : à corriger, **un bloquant** (clé de cache) | Corrections sans arbitrage en cours ; arbitrages de Ced attendus | Hermès, Ced |
-| C-02 Numéro d'entreprise | Rendu le 20/11, 41 tests ; relu : à corriger, aucun défaut fonctionnel | Corrections sans arbitrage en cours ; arbitrages de Ced attendus | Hermès, Ced |
+| C-01 Règle des numéros | Corrigé le 21/11, arbitrages appliqués, vérifié au second tour : « prêt pour la validation de Ced » | GO de Ced | Ced |
+| C-04 File du connecteur | Corrigé le 21/11, arbitrages appliqués, vérifié au second tour : « prêt pour la validation de Ced » | GO de Ced | Ced |
+| C-03 Vérification des robots | Corrigé le 21/11, arbitrages appliqués, vérifié au second tour : « prêt pour la validation de Ced » | GO de Ced | Ced |
+| C-02 Numéro d'entreprise | Corrigé le 21/11, arbitrages appliqués, vérifié au second tour : « prêt pour la validation de Ced » | GO de Ced | Ced |
+| C-06 Décision d'accès | Brief écrit | Production | Hermès |
+| C-05 Échéancier en quatre fois | Brief écrit | Proposition et preuve | Hermès |
 | Suite | En attente | Voir `A-FAIRE.md` | — |
 
 ## En attente de tiers
