@@ -132,7 +132,7 @@ def restore_and_verify(archive, request):
             statement = ' '.join(group)
             if statement.startswith('CREATE TABLE '):
                 statement = re.sub(
-                    r'(\) ENGINE = INNODB) AUTO_INCREMENT = ([0-9]+) '
+                    r'(\) ENGINE = (?:INNODB|MYISAM|ARIA|MEMORY)) AUTO_INCREMENT = ([0-9]+) '
                     r'(DEFAULT CHARSET = [A-Z0-9_]+(?: COLLATE = [A-Z0-9_]+)?)$',
                     r'\1 \3 AUTO_INCREMENT = \2', statement
                 )
@@ -144,7 +144,7 @@ def restore_and_verify(archive, request):
         raise Refusal('SQL_TERMINATOR')
     sql = (';\n'.join(groups) + ';\n').encode()
     try:
-        plan = sql_plan(sql)
+        plan = sql_plan(sql, table_engines={'INNODB', 'MYISAM', 'ARIA', 'MEMORY'})
     except Exception:
         from legacy_importer import TOKEN, CREATE_WORDS
         groups = []
@@ -165,6 +165,12 @@ def restore_and_verify(archive, request):
     command(['mariadb', '--socket=' + SOCKET, '--user=root', '-e', 'CREATE DATABASE ' + DB])
     command(['mariadb', '--socket=' + SOCKET, '--user=root', DB],
             data=(';\n'.join(plan['statements']) + ';\n').encode())
+    # Independent engine readback: the import must preserve, not convert, engines.
+    engine_rows = command(['mariadb', '--socket=' + SOCKET, '--user=root', '--skip-column-names', '-e',
+                           "SELECT TABLE_NAME,ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA='" + DB + "'"]).stdout.decode().splitlines()
+    engines = {row.split('\t')[0]: row.split('\t')[1].upper() for row in engine_rows}
+    if engines != plan['table_engines']:
+        raise Refusal('TABLE_ENGINE_READBACK_REFUSED')
     # Only target home/siteurl are rewritten before the native context guard. No WP bootstrap yet.
     update = "UPDATE `" + prefix + "options` SET option_value='" + target.replace("'", "''") + "' WHERE option_name IN ('home','siteurl');"
     command(['mariadb', '--socket=' + SOCKET, '--user=root', DB], data=update.encode())
@@ -200,6 +206,9 @@ def restore_and_verify(archive, request):
     verified = len(steps) == 3 and all(step['exit'] == 0 for step in steps)
     result = {'status': 'verified-offline' if verified else 'imported', 'data_verified': verified,
               'core_versions': core_versions,
+              'table_engines': engines,
+              'warnings': [{'code': 'NON_INNODB_TABLE', 'table': table, 'engine': engine}
+                           for table, engine in sorted(engines.items()) if engine != 'INNODB'],
               'steps': steps, 'archive_entries': count, 'restored_files_before_cleanup': before,
               'files_after_cleanup': manifest(SITE / 'wp-content'),
               'publication': 'NOT_IMPLEMENTED: no port or egress is opened; site remains stopped',
@@ -223,7 +232,7 @@ FAILURE_STAGES = {
     **{code: 'request_validation' for code in (
         'FRESH_SITE_REQUIRED', 'TARGET_REFUSED', 'DECISIONS_REFUSED', 'ADMIN_PASSWORD_REFUSED', 'REQUEST_LIMIT')},
     **{code: 'isolation' for code in ('NETWORK_REFUSED', 'LISTENER_REFUSED')},
-    **{code: 'database' for code in ('DATABASE_START_REFUSED', 'DATABASE_START_TIMEOUT', 'COMMAND_REFUSED')},
+    **{code: 'database' for code in ('DATABASE_START_REFUSED', 'DATABASE_START_TIMEOUT', 'COMMAND_REFUSED', 'TABLE_ENGINE_READBACK_REFUSED')},
 }
 
 

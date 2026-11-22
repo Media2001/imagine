@@ -333,17 +333,18 @@ def main():
     parser.add_argument('--production-url')
     parser.add_argument('--table-decisions')
     parser.add_argument('--php-version', default='8.2', choices=['8.2'])
-    parser.add_argument('--case', choices=['classic', 'hpos', 'trap'], help='Rejeu synthétique ciblé, défaut les trois')
+    parser.add_argument('--case', choices=['classic', 'hpos', 'trap', 'personal'], help='Rejeu synthétique ciblé, défaut les quatre')
     args = parser.parse_args()
     if args.archive and not (args.operator_ced and args.name and args.production_url):
         parser.error('--operator-ced, --name imagine-test-… et --production-url requis')
     run_id = uuid.uuid4().hex[:12]
     out = ROOT / 'production/A-01/publication-22nov' / run_id
     out.mkdir(parents=True, exist_ok=False)
-    cases = [('classic', False), ('hpos', False), ('classic', True)] if args.self_test_publication else [('operator', False)]
+    cases = [('classic', None), ('hpos', None), ('classic', 'secret'), ('classic', 'personal')] if args.self_test_publication else [('operator', None)]
     if args.case:
         if not args.self_test_publication: parser.error('--case réservé aux tests fictifs')
-        cases = [('classic' if args.case == 'trap' else args.case, args.case == 'trap')]
+        cases = [('classic' if args.case in ('trap', 'personal') else args.case,
+                  {'trap': 'secret', 'personal': 'personal'}.get(args.case))]
     result = {'status': 'FAIL', 'run_id': run_id, 'cases': [], 'cleanup': [],
               'no_real_archive': args.self_test_publication, 'no_agent_access_used': True,
               'tool_or_templates_modified': False,
@@ -354,10 +355,10 @@ def main():
         before = collect()['tool_source_manifest']
         result['tool_source_manifest'] = before
         for storage, trapped in cases:
-            name = validate_name(args.name or ('imagine-test-a01-' + run_id + '-' + ('trap' if trapped else storage)))
+            name = validate_name(args.name or ('imagine-test-a01-' + run_id + '-' + ({'secret': 'trap', 'personal': 'personal'}.get(trapped, storage))))
             runner = 'imagine-a01-publication-' + uuid.uuid4().hex[:12]
             helpers = []; created = False; runner_created = False
-            receipt = {'name': name, 'storage': storage, 'trapped': trapped, 'status': 'NOT_EXECUTED'}
+            receipt = {'name': name, 'storage': storage, 'trapped': bool(trapped), 'trap_kind': trapped, 'status': 'NOT_EXECUTED'}
             result['cases'].append(receipt)
             try:
                 if api('GET', '/api/sites/' + name)['code'] != 404:
@@ -389,7 +390,7 @@ def main():
                     for slug in ('woocommerce-memberships', 'woocommerce-subscriptions'):
                         call(['cp', '/home/ced/staging-wp/plugins/' + slug + '.zip', runner + ':/opt/e2e/' + slug + '.zip'])
                     p = call(['exec', runner, 'python3', '/opt/court/prepare_publication.py', storage,
-                              'trapped' if trapped else 'clean'], check=False)
+                              {'secret': 'trapped', 'personal': 'personal'}.get(trapped, 'clean')], check=False)
                     receipt['fixture_prepare_exit'] = p.returncode
                     if p.returncode:
                         receipt['fixture_output_sha256'] = hashlib.sha256(p.stdout + p.stderr).hexdigest()
@@ -435,6 +436,9 @@ raise SystemExit(1 if 'failure' in r else 0)
                     receipt['offline_failure'] = offline.get('failure', {'stage': 'offline_restore', 'code': 'OFFLINE_RESTORE_REFUSED'})
                     raise RuntimeError('OFFLINE_RESTORE_REFUSED')
                 if args.self_test_publication:
+                    assert offline['table_engines']['wp_a01_engine_probe'] == 'MYISAM'
+                    assert {'code': 'NON_INNODB_TABLE', 'table': 'wp_a01_engine_probe', 'engine': 'MYISAM'} in offline['warnings']
+                    receipt['myisam_preserved_and_reported'] = True
                     assert offline['restored_files_before_cleanup'] == fixture['source_files']
                     first = offline['restored_files_before_cleanup']; cleaned = offline['files_after_cleanup']
                     removed = sorted(set(first) - set(cleaned))
@@ -449,7 +453,9 @@ raise SystemExit(1 if 'failure' in r else 0)
                                         for folder in ('plugins', 'themes', 'uploads', 'mu-plugins')}}
                 if trapped:
                     issues = offline['steps'][-1]['report'].get('issues', [])
-                    assert not offline['data_verified'] and 'SECRET_OU_IDENTIFIANT' in issues
+                    expected = {'secret': 'SECRET_OU_IDENTIFIANT', 'personal': 'TABLE_PERSONNELLE_A_TRANCHER'}[trapped]
+                    assert not offline['data_verified'] and expected in issues
+                    receipt['expected_blocking_issue'] = expected
                 injection = {}
                 def do_inject():
                     injection.update(inject(name, runner, offline, site['url'], helpers))

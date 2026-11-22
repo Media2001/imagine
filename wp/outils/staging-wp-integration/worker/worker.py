@@ -76,7 +76,11 @@ TOKEN = re.compile(r"(?P<space>\s+)|(?P<comment>--[^\n]*|\#[^\n]*)|(?P<id>`[a-zA
 CREATE_WORDS = set(('TINYINT SMALLINT MEDIUMINT INT INTEGER BIGINT DECIMAL NUMERIC FLOAT DOUBLE REAL BIT BOOL BOOLEAN DATE DATETIME TIMESTAMP TIME YEAR CHAR VARCHAR BINARY VARBINARY TINYBLOB BLOB MEDIUMBLOB LONGBLOB TINYTEXT TEXT MEDIUMTEXT LONGTEXT JSON ENUM SET UNSIGNED SIGNED ZEROFILL NOT NULL DEFAULT AUTO_INCREMENT PRIMARY KEY UNIQUE INDEX FULLTEXT SPATIAL USING BTREE HASH COMMENT COLLATE CHARACTER INNODB UTF8 UTF8MB3 UTF8MB4 LATIN1 UTF8MB4_UNICODE_CI UTF8MB4_UNICODE_520_CI UTF8MB4_GENERAL_CI UTF8_GENERAL_CI LATIN1_SWEDISH_CI CURRENT_TIMESTAMP').split())
 
 
-def sql_plan(payload):
+def sql_plan(payload, *, table_engines=frozenset({'INNODB'})):
+    # Additional local-file engines are opt-in for the standalone faithful importer.
+    # Never accept a dynamic SQL suffix, external-data engine or arbitrary statement.
+    if not set(table_engines) <= {'INNODB', 'MYISAM', 'ARIA', 'MEMORY'}:
+        raise Refusal('SQL_DDL')
     try:
         text = payload.decode('utf-8', 'strict')
     except UnicodeError:
@@ -99,7 +103,7 @@ def sql_plan(payload):
             group.append(token)
     if group:
         raise Refusal('SQL_TERMINATOR')
-    creates, inserts, statements = set(), [], []
+    creates, inserts, statements, engines = set(), [], [], {}
     def ident(t):
         if t[0] != 'id' or len(t[1]) > 66:
             raise Refusal('SQL_IDENTIFIER')
@@ -130,8 +134,10 @@ def sql_plan(payload):
             if end is None or depth != 0:
                 raise Refusal('SQL_DDL')
             tail = ' '.join(v[end + 1:])
-            if not re.fullmatch(r'ENGINE = INNODB(?: (?:DEFAULT )?(?:CHARSET|CHARACTER SET) = (?:UTF8MB4|UTF8|UTF8MB3|LATIN1))?(?: COLLATE = [A-Z0-9_]+)?(?: AUTO_INCREMENT = [0-9]+)?', tail):
+            engine = re.fullmatch(r'ENGINE = (INNODB|MYISAM|ARIA|MEMORY)(?: (?:DEFAULT )?(?:CHARSET|CHARACTER SET) = (?:UTF8MB4|UTF8|UTF8MB3|LATIN1))?(?: COLLATE = [A-Z0-9_]+)?(?: AUTO_INCREMENT = [0-9]+)?', tail)
+            if not engine or engine[1] not in table_engines:
                 raise Refusal('SQL_DDL')
+            engines[table] = engine[1]
             creates.add(table)
         elif v[:2] == ['INSERT', 'INTO'] and len(group) > 5:
             table, i = ident(group[2]), 3
@@ -178,4 +184,4 @@ def sql_plan(payload):
         raise Refusal('SQL_PREFIX')
     if any(t not in creates for t in inserts):
         raise Refusal('SQL_TABLE')
-    return {'prefix': prefixes[0], 'statements': statements}
+    return {'prefix': prefixes[0], 'statements': statements, 'table_engines': engines}

@@ -118,5 +118,22 @@ class SourceCoreVersion(unittest.TestCase):
                     module.validate_core_version(package, version)
 
 
+class TableEngines(unittest.TestCase):
+    def test_myisam_is_preserved_and_reported_without_general_sql_fallback(self):
+        module = load_inside()
+        sql = b'CREATE TABLE `wp_options` (`option_id` bigint) ENGINE=MyISAM;'
+        try:
+            plan = module.sql_plan(sql, table_engines={'INNODB', 'MYISAM'})
+        except Exception as exc:
+            self.fail('MyISAM import rejected instead of reported: ' + type(exc).__name__)
+        self.assertEqual({'wp_options': 'MYISAM'}, plan['table_engines'])
+        self.assertIn('MyISAM', plan['statements'][0])
+        for suffix in (b' DATA DIRECTORY=\'/outside\'', b'; DELETE FROM `wp_options`', b'; CREATE TRIGGER `evil`'):
+            with self.assertRaises(ValueError):
+                module.sql_plan(sql[:-1] + suffix + b';', table_engines={'INNODB', 'MYISAM'})
+        with self.assertRaises(ValueError):
+            module.sql_plan(sql.replace(b'MyISAM', b'BLACKHOLE'), table_engines={'INNODB', 'MYISAM'})
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

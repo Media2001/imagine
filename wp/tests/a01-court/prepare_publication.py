@@ -34,6 +34,7 @@ def write_archive(path, source, sql):
 def main():
     storage = sys.argv[1]
     trapped = sys.argv[2] == 'trapped'
+    personal = sys.argv[2] == 'personal'
     native.isolation()
     process = native.database_start()
     # Existing fixture API behavior, with all newly seeded email addresses @example.org.
@@ -59,11 +60,18 @@ def main():
         mu.mkdir(exist_ok=True)
         canary = "<?php add_action('init', static function (): void { update_option('a01_fiction_residual', '" + 'sk_' + "live_A01_FICTION_NOT_A_CREDENTIAL'); });"
         (mu / 'a01-fiction-persistent-key.php').write_text(canary)
+    # Non-personal unknown table, intentionally MyISAM: preserved, not converted.
+    native.command(['mariadb', '--socket=/scratch/mariadb.sock', '--user=root', database, '-e',
+                    'CREATE TABLE wp_a01_engine_probe (id bigint NOT NULL PRIMARY KEY, flag int) ENGINE=MyISAM; INSERT INTO wp_a01_engine_probe VALUES (1,7);'])
+    if personal:
+        native.command(['mariadb', '--socket=/scratch/mariadb.sock', '--user=root', database, '-e',
+                        "CREATE TABLE wp_a01_unresolved_people (id bigint NOT NULL PRIMARY KEY, email varchar(191)) ENGINE=InnoDB; INSERT INTO wp_a01_unresolved_people VALUES (1,'fiction@example.org');"])
     plugins = json.loads(native.wp(site, ['option', 'get', 'active_plugins', '--format=json']).stdout)
     sql = native.command(['php', '/opt/court/export.php'], env={'E2E_DATABASE': database}).stdout.encode()
     archive = Path('/scratch/fiction.wpress')
     write_archive(archive, site, sql)
     result = {'fixture_only': True, 'storage': storage, 'trapped': trapped,
+              'unresolved_personal_table_canary': personal, 'myisam_table': 'wp_a01_engine_probe',
               'persistent_service_key_canary_in_archived_php': trapped,
               'versions': before['versions'], 'business': before['business'],
               'membership': before['membership'], 'rules_sha256': before['rules_sha256'],
