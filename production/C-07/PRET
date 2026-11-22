@@ -1,0 +1,11 @@
+C-07 — PRET A RELIRE, remise du 22 novembre 2026 ; bibliothèque PHP pure uniquement.
+Reprise de session interrompue : sources conservées, tests rejoués, notes et rapport ajoutés.
+composer test standard : 270 tests / 29594 assertions, dont Envoi 36 / 78 ; zéro échec/erreur/ignoré.
+Régressions C-04 : 37 tests / 224 assertions ; tests stricts C-07 et C-04 : codes 0.
+PSR-12 des PHP modifiés, syntaxe globale et Composer strict : codes 0.
+Réserve : lanceur complet code 1, six avertissements PSR-12 préexistants de tests/Echeancier/run.php (C-05 en attente), non modifié.
+Preuves actuelles : production/C-07/replays/reveil-22nov-0340/ ; JUnit, journaux, empreintes, cleanup.json et handoff-verification.json.
+Exemple CSV fictif réellement généré et rejoué : production/C-07/replays/exemples/liste-171.csv.
+Questions du brief : grâce, doublons, colonnes du routeur ; voir notes.md. Historique de confiance et archivage persistant à fournir par le futur adaptateur.
+Conteneur possédé supprimé, absence vérifiée. Aucun compte réel, staging, branchement WordPress, envoi, déploiement ou opération Git.
+PRET n'est ni une clôture, ni une relecture indépendante, ni une validation métier, ni un GO réel.
