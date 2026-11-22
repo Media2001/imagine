@@ -1,12 +1,12 @@
-C-07 — PRET A RELIRE, remise CORRIGÉE du 22 novembre 2026 ; bibliothèque PHP pure uniquement.
-Instructions 1 à 7 et 9 de corrections/C-07.md appliquées ; instruction 8 réservée à Claude, aucun docs/ modifié.
-composer test standard : 325 tests / 29831 assertions ; Envoi strict : 91 / 315 ; C-04 strict : 37 / 224 ; zéro échec/erreur/ignoré.
-Drapeaux ciblés : --fail-on-warning --fail-on-risky --fail-on-deprecation. Lint global, PSR-12 ciblé, syntaxe globale et Composer strict : codes 0.
-C-05 style autorisé : cinq lignes reformatées et exception ciblée PSR1.Files.SideEffects documentée ; 376 cas / 1473 assertions autonomes, résultats complets identiques avant/après, aucune règle changée.
-C-04 : 34 fichiers, inventaire et SHA-256 inchangés sur hôte et copie conteneur, CsvProtection.php intact.
-Preuves finales : production/C-07/replays/corrections-22nov-final/ ; JUnit, logs, source-seal.json, evidence-seal.json, cleanup.json, handoff-verification.json et sample.csv réellement généré/rejoué.
-TDD et incident de banc conservés : production/C-07/replays/corrections-22nov-1155/ ; cinq RED→GREEN, échec initial C-04 dû au chemin frère C-02 corrigé dans le banc seul ; rejeu neuf final entièrement vert.
-Grâce quel que soit paiement derrière inclureGrace ; borne C-01 inchangée. Individuel/offert sans destinataire signalé ; groupe libre inchangé ; doublons conservés et chacun signalé par ID commun ou nom/adresse Unicode normalisés ; sans email inclus au postal.
-Notes : production/C-07/notes.md et corrections-2026-11-22.md ; rapport : files/rapports/2026-11-22-12h17.md. Maintien/durée de grâce et format du routeur à confirmer par Imagine avant branchement.
-Deux conteneurs possédés supprimés, absence exacte vérifiée ; aucun PHP sur Windows, compte réel, staging, envoi, déploiement ou Git. Verrou parent intact.
-PRET n'est ni une clôture, ni une relecture indépendante, ni une validation métier, ni un GO réel.
+C-07 — PRET A RELIRE, remise FORMAT EXPORT du 22 novembre 2026 (file 13 h 20).
+Colonnes et ordre désormais configurables ; neuf colonnes provisoires inchangées par défaut.
+FormatExport valide la sélection ; ExportCsv::liste conserve la barrière d’anomalies et CsvProtection C-04 inchangée.
+AdministrationFormatExport livre un réglage Settings API sans code pour son utilisation ; adaptateur autonome NON branché au bootstrap partagé, pas de parcours WordPress/HTTP/visuel prouvé.
+composer test : 362 tests / 30770 assertions ; Envoi strict : 115 / 402 ; C-04 strict : 37 / 224 ; zéro erreur, échec ou ignoré.
+--fail-on-warning --fail-on-risky --fail-on-deprecation ; lint global/ciblé, syntaxe et Composer strict : codes 0.
+C-04 : 34 fichiers, inventaire et SHA-256 inchangés sur hôte et copie conteneur ; aucune dépendance à C-05/C-06.
+Preuves finales : production/C-07/replays/format-export-22nov-final/ ; JUnit, logs, format-seal.json, format-verification.json, cleanup.json, sample.csv et format-sample.csv.
+Six RED→GREEN et lint initial non vert conservés dans replays/format-export-22nov/ ; incident d’autoload du seul exemple conservé puis corrigé dans le banc.
+Deux conteneurs possédés supprimés, absence exacte vérifiée. Aucun PHP hôte, Git, compte réel, staging, envoi, déploiement ou modification du verrou parent.
+Notes : production/C-07/notes.md et format-export-2026-11-22.md. Vérification parent : IMAGINE_C07_PACKET=format-export-22nov-final python wp/tests/envoi-runner/format.py check
+PRET bibliothèque/adaptateur seulement : lot non clos, ni relecture indépendante, ni validation métier/visuelle, ni GO réel.

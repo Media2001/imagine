@@ -55,6 +55,13 @@ def check():
                                       or 'no such container' in diagnostic.lower())
     assert not b.STATE.exists()
     counts = {}
+    for relative, digest in seal.get('prior_cleanup_sha256', {}).items():
+        prior = ROOT / relative
+        assert c.digest(prior) == digest
+        previous_name = json.loads(prior.read_text(encoding='utf-8'))['container']
+        previous = b.call(['inspect', previous_name], check=False)
+        message = (previous.stdout + previous.stderr).decode(errors='replace').lower()
+        assert previous.returncode != 0 and ('no such object' in message or 'no such container' in message)
     import xml.etree.ElementTree as ET
     for key in ['final', 'envoi-strict', 'c04-strict']:
         suite = ET.parse(OUT / (key + '.xml')).getroot().find('testsuite')
@@ -66,6 +73,9 @@ def check():
     final = json.loads((OUT / 'final.json').read_text(encoding='utf-8'))
     assert all(final[k] == 0 for k in ['psr12_exit_code', 'syntax_exit_code', 'composer_validate_exit_code'])
     summary = {'time_utc': c.now(), 'counts': counts, 'container_absent': cleanup['container'],
+               'containers_absent': [cleanup['container']] + [
+                   json.loads((ROOT / p).read_text(encoding='utf-8'))['container']
+                   for p in seal.get('prior_cleanup_sha256', {})],
                'owned_files_verified': len(seal['owned_sha256']),
                'c04_files_unchanged': len(seal['c04_sha256']),
                'evidence_files_verified': len(seal['evidence_sha256'])}
@@ -134,9 +144,18 @@ echo $csv;
         print('REMOVED', name, diagnostic)
     elif action == 'seal':
         assert not b.STATE.exists()
+        full = json.loads((OUT / 'final.json').read_text(encoding='utf-8'))
+        assert full['source_sha256'] == c.runner.payload()[1], 'Run final after production/test writes'
+        prior_cleanup = {}
+        for packet in sys.argv[2:]:
+            import re
+            assert re.fullmatch(r'[a-z0-9][a-z0-9-]{0,63}', packet)
+            prior = OUT.parent / packet / 'cleanup.json'
+            prior_cleanup[prior.relative_to(ROOT).as_posix()] = c.digest(prior)
         c04 = c.inventory(ROOT / 'wp/plugins/imagine-connecteur')
         assert c04 == json.loads((OUT / 'c04-before.json').read_text(encoding='utf-8'))
         c.save('format-seal.json', {'time_utc': c.now(), 'owned_sha256': owned_inventory(), 'c04_sha256': c04,
+                                  'prior_cleanup_sha256': prior_cleanup,
                                   'evidence_sha256': {p.name: c.digest(p) for p in sorted(OUT.iterdir())
                                                       if p.is_file() and p.name != 'format-verification.json'}})
         check()
