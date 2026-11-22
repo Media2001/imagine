@@ -75,21 +75,22 @@ final class Moteur
         if (!$contenu['reserve']) {
             return new Decision(true, Motif::ContenuOuvert, Bloc::Aucun);
         }
-        if ($robot->estVerifie()) {
-            return $contenu['type'] === 'pdf' && !$reglages->pdfRobotComplet
-                ? new Decision(false, Motif::PdfRobotExtraitParReglage, Bloc::Abonnement)
-                : new Decision(true, Motif::RobotVerifie, Bloc::Aucun);
+        if ($robot->estVerifie() && ($contenu['type'] !== 'pdf' || $reglages->pdfRobotComplet)) {
+            return new Decision(true, Motif::RobotVerifie, Bloc::Aucun);
         }
         $decision = $visiteur['identifie']
             ? new Decision(false, Motif::SansDroit, Bloc::Abonnement)
             : new Decision(false, Motif::Anonyme, Bloc::Connexion);
+        if ($robot->estVerifie()) {
+            $decision = new Decision(false, Motif::PdfRobotExtraitParReglage, Bloc::Abonnement);
+        }
         foreach ($visiteur['droits'] as $droit) {
             $candidate = match ($droit['type']) {
                 'equipe' => new Decision(true, Motif::Equipe, Bloc::Aucun),
                 'cooperateur' => new Decision(false, Motif::CooperateurSansAbonnement, Bloc::Abonnement),
                 'achat' => $this->achat($droit, $contenu, $instant),
                 'decouverte' => $this->decouverte($decouverte, $droit, $contenu, $instant),
-                default => $this->abonnement($droit, $contenu, $instant),
+                default => $this->abonnement($droit, $contenu, $instant, $reglages),
             };
             if ($this->priorite($candidate) > $this->priorite($decision)) {
                 $decision = $candidate;
@@ -98,8 +99,12 @@ final class Moteur
         return $decision;
     }
 
-    private function abonnement(array $droit, array $contenu, \DateTimeImmutable $instant): Decision
-    {
+    private function abonnement(
+        array $droit,
+        array $contenu,
+        \DateTimeImmutable $instant,
+        Reglages $reglages,
+    ): Decision {
         if (in_array($droit['etat'], ['suspendu', 'expire', 'virement_non_valide'], true)) {
             return new Decision(
                 false,
@@ -113,8 +118,11 @@ final class Moteur
         if ($instant >= $droit['fin']) {
             return new Decision(false, Motif::Expire, Bloc::Abonnement);
         }
-        if ($contenu['type'] === 'pdf' && $contenu['sortie'] < $droit['debut']) {
-            return new Decision(false, Motif::PdfAnterieurAArbitrer, Bloc::Abonnement);
+        if (
+            $contenu['type'] === 'pdf' && $contenu['sortie'] < $droit['debut']
+            && !$reglages->pdfAnterieurAbonnement
+        ) {
+            return new Decision(false, Motif::PdfAnterieurFermeParReglage, Bloc::Abonnement);
         }
         return $droit['etat'] === 'grace'
             ? new Decision(true, Motif::DelaiGrace, Bloc::Regularisation)
@@ -197,7 +205,8 @@ final class Moteur
             Motif::VirementNonValide => 29,
             Motif::Expire => 28,
             Motif::AbonnementPasCommence => 27,
-            Motif::PdfAnterieurAArbitrer => 26,
+            Motif::PdfRobotExtraitParReglage => 26,
+            Motif::PdfAnterieurFermeParReglage => 26,
             Motif::AchatPasCommence => 25,
             Motif::AutreNumero => 24,
             Motif::CooperateurSansAbonnement => 1,

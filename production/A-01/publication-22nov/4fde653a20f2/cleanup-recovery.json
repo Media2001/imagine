@@ -1,0 +1,9 @@
+{
+  "name": "imagine-test-a01-4fde653a20f2-classic-tr",
+  "stopped": {
+    "slug": "imagine-test-a01-4fde653a20f2-classic-tr",
+    "status": "stopped",
+    "all_three_containers_stopped": true
+  },
+  "api_absent": true
+}

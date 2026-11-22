@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/tests/Acces/phpunit.xml" tests="5" assertions="425" errors="0" failures="1" skipped="0" time="0.005959">
+    <testsuite name="Acces" tests="5" assertions="425" errors="0" failures="1" skipped="0" time="0.005959">
+      <testsuite name="Imagine\Pilotage\Tests\Acces\ReglagesTest" file="/work/tests/Acces/ReglagesTest.php" tests="5" assertions="425" errors="0" failures="1" skipped="0" time="0.005959">
+        <testcase name="testPdfRobotDeuxPositionsEtFauxRobotNeRecoitPasDeDroit" file="/work/tests/Acces/ReglagesTest.php" line="15" class="Imagine\Pilotage\Tests\Acces\ReglagesTest" classname="Imagine.Pilotage.Tests.Acces.ReglagesTest" assertions="8" time="0.001774"/>
+        <testcase name="testSortieFutureDeuxPositionsNeBeneficientQuaEquipeValide" file="/work/tests/Acces/ReglagesTest.php" line="36" class="Imagine\Pilotage\Tests\Acces\ReglagesTest" classname="Imagine.Pilotage.Tests.Acces.ReglagesTest" assertions="144" time="0.000339"/>
+        <testcase name="testPdfAnterieurDeuxPositionsRespectentDatesEtEtatsDesTroisAbonnements" file="/work/tests/Acces/ReglagesTest.php" line="74" class="Imagine\Pilotage\Tests\Acces\ReglagesTest" classname="Imagine.Pilotage.Tests.Acces.ReglagesTest" assertions="252" time="0.000818"/>
+        <testcase name="testRobotFermeNeRetirePasUnAchatOuUnDroitEquipeOuAbonnementValide" file="/work/tests/Acces/ReglagesTest.php" line="110" class="Imagine\Pilotage\Tests\Acces\ReglagesTest" classname="Imagine.Pilotage.Tests.Acces.ReglagesTest" assertions="1" time="0.002824">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\ReglagesTest::testRobotFermeNeRetirePasUnAchatOuUnDroitEquipeOuAbonnementValide
+Failed asserting that false is true.
+
+/work/tests/Acces/ReglagesTest.php:119</failure>
+        </testcase>
+        <testcase name="testPdfRobotEstExtraitParDefautSansFermerLesArticles" file="/work/tests/Acces/ReglagesTest.php" line="126" class="Imagine\Pilotage\Tests\Acces\ReglagesTest" classname="Imagine.Pilotage.Tests.Acces.ReglagesTest" assertions="20" time="0.000205"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

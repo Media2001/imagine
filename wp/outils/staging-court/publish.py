@@ -36,9 +36,9 @@ def call(args, data=None, check=True, timeout=600):
 
 
 def wsl_python(code, data=None):
-    # Encode program, not secrets, to avoid Windows/WSL quote/newline rewriting.
-    p = subprocess.run(WSL + ['python3', '-c', 'exec(bytes.fromhex("' + code.encode().hex() + '"))'],
-                       input=data, capture_output=True, timeout=60)
+    # Stdin transport avoids Windows/WSL quote and newline rewriting entirely.
+    program = 'import io,sys\nsys.stdin=io.StringIO(' + repr((data or b'{}').decode()) + ')\n' + code
+    p = subprocess.run(WSL + ['python3', '-'], input=program.encode(), capture_output=True, timeout=60)
     if p.returncode:
         raise RuntimeError('WSL_TRANSPORT_REFUSED')
     return json.loads(p.stdout)
@@ -351,7 +351,8 @@ Path('/report/offline.json').write_text(json.dumps(r))
 print(json.dumps({'data_verified':r['data_verified']}))
 '''
                 request.update(start_database=not args.self_test_publication, archive=archive_path)
-                execution = call(['exec', '-i', runner, 'python3', '-c', 'exec(bytes.fromhex("' + program.encode().hex() + '"))'], json.dumps(request).encode(), check=False)
+                input_program = 'import io,sys\nsys.stdin=io.StringIO(' + repr(json.dumps(request)) + ')\n' + program
+                execution = call(['exec', '-i', runner, 'python3', '-'], input_program.encode(), check=False)
                 del request['password']
                 if execution.returncode:
                     receipt['restore_output_sha256'] = hashlib.sha256(execution.stdout + execution.stderr).hexdigest()

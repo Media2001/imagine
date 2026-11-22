@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/tests/Acces/phpunit.xml" tests="2" assertions="0" errors="2" failures="0" skipped="0" time="0.002956">
+    <testsuite name="Acces" tests="2" assertions="0" errors="2" failures="0" skipped="0" time="0.002956">
+      <testsuite name="Imagine\Pilotage\Tests\Acces\OptionsReglagesTest" file="/work/tests/Acces/OptionsReglagesTest.php" tests="2" assertions="0" errors="2" failures="0" skipped="0" time="0.002956">
+        <testcase name="testHuitCombinaisonsOntUnAllerRetourSansConversionImplicite" file="/work/tests/Acces/OptionsReglagesTest.php" line="13" class="Imagine\Pilotage\Tests\Acces\OptionsReglagesTest" classname="Imagine.Pilotage.Tests.Acces.OptionsReglagesTest" assertions="0" time="0.002858">
+          <error type="Error">Imagine\Pilotage\Tests\Acces\OptionsReglagesTest::testHuitCombinaisonsOntUnAllerRetourSansConversionImplicite
+Error: Call to undefined method Imagine\Pilotage\Acces\Reglages::depuisOptions()
+
+/work/tests/Acces/OptionsReglagesTest.php:22</error>
+        </testcase>
+        <testcase name="testOptionAbsenteCorrompueOuMalTypeeRevientAuDefautPrudent" file="/work/tests/Acces/OptionsReglagesTest.php" line="32" class="Imagine\Pilotage\Tests\Acces\OptionsReglagesTest" classname="Imagine.Pilotage.Tests.Acces.OptionsReglagesTest" assertions="0" time="0.000098">
+          <error type="Error">Imagine\Pilotage\Tests\Acces\OptionsReglagesTest::testOptionAbsenteCorrompueOuMalTypeeRevientAuDefautPrudent
+Error: Call to undefined method Imagine\Pilotage\Acces\Reglages::depuisOptions()
+
+/work/tests/Acces/OptionsReglagesTest.php:37</error>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

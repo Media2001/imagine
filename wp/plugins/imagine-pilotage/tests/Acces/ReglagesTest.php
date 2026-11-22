@@ -76,8 +76,10 @@ final class ReglagesTest extends TestCase
         foreach ([false, true] as $ouvrirPdf) {
             foreach (['abonnement', 'offert', 'groupe'] as $type) {
                 foreach (['actif', 'grace', 'suspendu', 'expire', 'virement_non_valide'] as $etat) {
-                    foreach (['2026-10-31 23:59:59', '2026-11-01 00:00:00', '2026-11-30 23:59:59',
-                        '2026-12-01 00:00:00'] as $date) {
+                    foreach (
+                        ['2026-10-31 23:59:59', '2026-11-01 00:00:00', '2026-11-30 23:59:59',
+                        '2026-12-01 00:00:00'] as $date
+                    ) {
                         $dansDates = $date >= '2026-11-01 00:00:00' && $date < '2026-12-01 00:00:00';
                         $actif = in_array($etat, ['actif', 'grace'], true);
                         $decision = (new Moteur())->decider(
@@ -102,6 +104,23 @@ final class ReglagesTest extends TestCase
                     }
                 }
             }
+        }
+    }
+
+    public function testRobotFermeNeRetirePasUnAchatOuUnDroitEquipeOuAbonnementValide(): void
+    {
+        $droits = [DroitsTest::achat(), ['type' => 'equipe', 'role' => 'redaction'], AbonnementTest::droit()];
+        foreach ($droits as $droit) {
+            $decision = (new Moteur())->decider(
+                DecisionTest::contenu(['type' => 'pdf']),
+                DecisionTest::visiteur([$droit]),
+                new DecisionRobot(MotifRobot::VerifieDns, 'google'),
+                DecisionTest::date(),
+            );
+            self::assertTrue($decision->complet);
+            self::assertSame(match ($droit['type']) {
+                'achat' => 'numero_achete', 'equipe' => 'equipe', default => 'abonnement_actif',
+            }, $decision->motif->value);
         }
     }
 

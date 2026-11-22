@@ -43,7 +43,7 @@ class PublicationContract(unittest.TestCase):
     def test_name_scope_is_enforced_before_any_api(self):
         module = self.module()
         self.assertTrue(hasattr(module, 'validate_name'), 'Named-test scope guard missing')
-        for name in ['imagine', 'imagine-test-', '../imagine-test-a', 'Imagine-test-a', 'imagine-test-a/../x']:
+        for name in ['imagine', 'imagine-test-', '../imagine-test-a', 'Imagine-test-a', 'imagine-test-a/../x', 'imagine-test-' + 'a' * 40, 'imagine-test-a--b', 'imagine-test-a-']:
             with self.assertRaises(ValueError):
                 module.validate_name(name)
         self.assertEqual('imagine-test-a01-22', module.validate_name('imagine-test-a01-22'))
