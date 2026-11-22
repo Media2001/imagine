@@ -280,7 +280,7 @@ os.chown(root,33,33); os.chmod(root,0o755)
             'socket_only_target_db_helper': True, 'no_credentials_copied': True}
 
 
-def runtime_probe(slug, port):
+def runtime_probe(slug, port, target):
     code = (ROOT / 'wp/outils/staging/runtime-probe.php').read_bytes() + b'\n' + (HERE / 'publication_probe.php').read_bytes().split(b'<?php', 1)[1].replace(b'declare(strict_types=1);', b'', 1).replace(b'namespace Imagine\\Staging;', b'', 1)
     result = call(['exec', '-i', 'wp-' + slug, 'php'], code, check=False)
     if result.returncode:
@@ -297,8 +297,18 @@ try:
   b=p.read(4194304);print(json.dumps({'code':p.status,'body_sha256':hashlib.sha256(b).hexdigest(),'fiction_theme_marker':b'A01_FICTION_PUBLICATION_OK' in b,'redirected':p.url!=r.full_url}))
 except Exception as e: print(json.dumps({'code':0,'error_class':type(e).__name__}))
 ''', json.dumps({'port': port}).encode())
+    assigned = wsl_python('''import json,sys,urllib.request,hashlib
+v=json.load(sys.stdin)
+try:
+ r=urllib.request.Request(v['target']+'/',headers={'Cache-Control':'no-cache'})
+ with urllib.request.build_opener(urllib.request.ProxyHandler({})).open(r,timeout=15) as p:
+  b=p.read(4194304);print(json.dumps({'code':p.status,'body_sha256':hashlib.sha256(b).hexdigest(),'fiction_theme_marker':b'A01_FICTION_PUBLICATION_OK' in b,'redirected':p.url!=r.full_url}))
+except Exception as e: print(json.dumps({'code':0,'error_class':type(e).__name__}))
+''', json.dumps({'target': target}).encode())
     proof['http'] = http
-    proof['ok'] = proof.get('ok') is True and http['code'] == 200 and not http.get('redirected', True)
+    proof['assigned_url_http'] = assigned
+    proof['ok'] = (proof.get('ok') is True and http['code'] == 200 and not http.get('redirected', True)
+                   and assigned['code'] == 200 and not assigned.get('redirected', True))
     return proof
 
 
@@ -353,7 +363,7 @@ def main():
                     time.sleep(2)
                 if site['status'] != 'running':
                     raise RuntimeError('NORMAL_SITE_CREATION_REFUSED')
-                receipt['normal_creation'] = {k: site[k] for k in ('slug', 'status', 'port', 'php_version', 'mcp_enabled', 'mcp_status')}
+                receipt['normal_creation'] = {k: site[k] for k in ('slug', 'status', 'url', 'port', 'php_version', 'mcp_enabled', 'mcp_status')}
                 receipt['stopped_before_import'] = stop_site(name)
                 manifest = fresh_runner(runner); runner_created = True
                 receipt['offline_isolation_before'] = offline_isolation(runner)
@@ -417,6 +427,7 @@ print(json.dumps({'data_verified':r['data_verified']}))
                     assert all(p.endswith('.log') or p.startswith(('uploads/wc-logs/', 'cache/', 'ai1wm-backups/')) for p in removed)
                     receipt['archive_fidelity'] = {'all_restored_hashes_equal_source': True,
                         'retained_files_unchanged': True, 'expected_removed': removed,
+                        'added_by_safety_or_Woo_bootstrap': sorted(set(cleaned) - set(first)),
                         'file_counts': {folder: {'before': sum(p.startswith(folder + '/') for p in first),
                                                 'after': sum(p.startswith(folder + '/') for p in cleaned)}
                                         for folder in ('plugins', 'themes', 'uploads', 'mu-plugins')}}
@@ -431,7 +442,7 @@ print(json.dumps({'data_verified':r['data_verified']}))
                     assert api('GET', '/api/sites/' + name)['body']['status'] == 'running'
                     time.sleep(3)
                 published = guarded_publish(offline, do_inject, do_start,
-                                            lambda: runtime_probe(name, site['port']), lambda: stop_site(name))
+                                            lambda: runtime_probe(name, site['port'], site['url']), lambda: stop_site(name))
                 receipt['publication'] = published
                 receipt['injection'] = injection
                 if trapped:
@@ -450,7 +461,9 @@ except Exception as e: print(json.dumps({'reachable':False,'error_class':type(e)
                     assert published['full_staging_ready'] is True
                     if args.self_test_publication:
                         probe = published['probe']
-                        assert probe['http']['fiction_theme_marker']
+                        assert probe['http']['fiction_theme_marker'] and probe['assigned_url_http']['fiction_theme_marker']
+                        assert probe['versions']['hpos'] is (storage == 'hpos')
+                        assert probe['fidelity']['rights'] == {k: v['private'] for k, v in fixture['rights']['rights'].items()}
                         for key in ('business', 'membership', 'rules_sha256', 'plugins', 'theme'):
                             assert probe['fidelity'][key] == fixture[key], 'FIDELITY_' + key.upper()
                     marker = {'status': 'verified', 'run_id': run_id, 'site': name,

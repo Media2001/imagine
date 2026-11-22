@@ -55,12 +55,14 @@ def main():
     if trapped:
         mu = site / 'wp-content/mu-plugins'
         mu.mkdir(exist_ok=True)
-        (mu / 'a01-fiction-persistent-key.php').write_text("<?php add_action('init', static function (): void { update_option('a01_fiction_residual', 'sk_' . 'live_A01_FICTION_NOT_A_CREDENTIAL'); });")
+        canary = "<?php add_action('init', static function (): void { update_option('a01_fiction_residual', '" + 'sk_' + "live_A01_FICTION_NOT_A_CREDENTIAL'); });"
+        (mu / 'a01-fiction-persistent-key.php').write_text(canary)
     plugins = json.loads(native.wp(site, ['option', 'get', 'active_plugins', '--format=json']).stdout)
     sql = native.command(['php', '/opt/court/export.php'], env={'E2E_DATABASE': database}).stdout.encode()
     archive = Path('/scratch/fiction.wpress')
     write_archive(archive, site, sql)
     result = {'fixture_only': True, 'storage': storage, 'trapped': trapped,
+              'persistent_service_key_canary_in_archived_php': trapped,
               'versions': before['versions'], 'business': before['business'],
               'membership': before['membership'], 'rules_sha256': before['rules_sha256'],
               'rights': rights, 'plugins': plugins, 'theme': 'a01-fiction',

@@ -78,6 +78,8 @@ $result = ['ok' => $ok && $allow && $settings && $appPasswords === 0 && !$novami
     'versions' => ['php' => PHP_VERSION, 'wordpress' => get_bloginfo('version'),
         'woocommerce' => function_exists('WC') ? WC()->version : null,
         'subscriptions' => class_exists('WC_Subscriptions') ? \WC_Subscriptions::$version : null,
+        'hpos' => class_exists('Automattic\\WooCommerce\\Utilities\\OrderUtil')
+            ? \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled() : null,
         'memberships' => function_exists('wc_memberships') ? wc_memberships()->get_version() : null],
     'runtime' => $runtime, 'update_filter_allow_deny' => $allow, 'constants_exact' => $settings,
     'scheduler' => $scheduler, 'fidelity' => $fidelity,
