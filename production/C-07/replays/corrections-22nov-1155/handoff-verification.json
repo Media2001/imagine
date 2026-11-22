@@ -1,0 +1,30 @@
+{
+  "time_utc": "2026-11-22T11:18:50.991267+00:00",
+  "source_hashes_verified": 114,
+  "evidence_hashes_verified": 104,
+  "counts": {
+    "final": {
+      "tests": 325,
+      "assertions": 29831,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "envoi-strict": {
+      "tests": 91,
+      "assertions": 315,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "c04-strict-c02": {
+      "tests": 37,
+      "assertions": 224,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "container_absent": "imagine-c03-f5cda3340d08",
+  "runner_state_absent": true
+}
