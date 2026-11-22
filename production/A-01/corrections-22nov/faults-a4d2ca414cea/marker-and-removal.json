@@ -1,0 +1,38 @@
+{
+  "kind": "marker-and-removal",
+  "fault_injected": true,
+  "site": "imagine-test-a01-145eba5ddeaf-classic",
+  "marker_write_attempted": true,
+  "runner": "imagine-a01-publication-d594d6f473cd",
+  "stop_readback_before_removal_failure": {
+    "status": "stopped",
+    "containers_running": {
+      "wp-": false,
+      "db-": false,
+      "nginx-": false
+    }
+  },
+  "runner_recovery": [
+    {
+      "name": "imagine-a01-publication-d594d6f473cd",
+      "absent": true
+    }
+  ],
+  "command_exit": 1,
+  "report": "C:\\Users\\Ced\\imagine\\production\\A-01\\publication-22nov\\145eba5ddeaf\\result.json",
+  "report_sha256": "d25efd2249c68c1cd31b5c55d5b0b3e51d1736ec557f4d3676f64ceb9582fec6",
+  "live_cleanup": {
+    "site": "imagine-test-a01-145eba5ddeaf-classic",
+    "api_absent": true,
+    "containers_absent": {
+      "wp-imagine-test-a01-145eba5ddeaf-classic": true,
+      "db-imagine-test-a01-145eba5ddeaf-classic": true,
+      "nginx-imagine-test-a01-145eba5ddeaf-classic": true
+    },
+    "html_volume_absent": true,
+    "network_absent": true,
+    "directory_absent": true
+  },
+  "runner_absent_readback": true,
+  "status": "PASS"
+}

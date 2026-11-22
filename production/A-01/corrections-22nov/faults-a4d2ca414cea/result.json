@@ -1,0 +1,121 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "kind": "marker-and-removal",
+      "fault_injected": true,
+      "site": "imagine-test-a01-145eba5ddeaf-classic",
+      "marker_write_attempted": true,
+      "runner": "imagine-a01-publication-d594d6f473cd",
+      "stop_readback_before_removal_failure": {
+        "status": "stopped",
+        "containers_running": {
+          "wp-": false,
+          "db-": false,
+          "nginx-": false
+        }
+      },
+      "runner_recovery": [
+        {
+          "name": "imagine-a01-publication-d594d6f473cd",
+          "absent": true
+        }
+      ],
+      "command_exit": 1,
+      "report": "C:\\Users\\Ced\\imagine\\production\\A-01\\publication-22nov\\145eba5ddeaf\\result.json",
+      "report_sha256": "d25efd2249c68c1cd31b5c55d5b0b3e51d1736ec557f4d3676f64ceb9582fec6",
+      "live_cleanup": {
+        "site": "imagine-test-a01-145eba5ddeaf-classic",
+        "api_absent": true,
+        "containers_absent": {
+          "wp-imagine-test-a01-145eba5ddeaf-classic": true,
+          "db-imagine-test-a01-145eba5ddeaf-classic": true,
+          "nginx-imagine-test-a01-145eba5ddeaf-classic": true
+        },
+        "html_volume_absent": true,
+        "network_absent": true,
+        "directory_absent": true
+      },
+      "runner_absent_readback": true,
+      "status": "PASS"
+    },
+    {
+      "kind": "archive-truncated",
+      "fault_injected": true,
+      "site": "imagine-test-a01-5f3bff5fa6e9-classic",
+      "runner": "imagine-a01-publication-f721e708d62c",
+      "import_database_absent_before_cleanup": true,
+      "runner_recovery": [],
+      "command_exit": 1,
+      "report": "C:\\Users\\Ced\\imagine\\production\\A-01\\publication-22nov\\5f3bff5fa6e9\\result.json",
+      "report_sha256": "e5b69995af065cf70e4c611794ded698b8becf47afc263e6dba4fa08644f9d8c",
+      "live_cleanup": {
+        "site": "imagine-test-a01-5f3bff5fa6e9-classic",
+        "api_absent": true,
+        "containers_absent": {
+          "wp-imagine-test-a01-5f3bff5fa6e9-classic": true,
+          "db-imagine-test-a01-5f3bff5fa6e9-classic": true,
+          "nginx-imagine-test-a01-5f3bff5fa6e9-classic": true
+        },
+        "html_volume_absent": true,
+        "network_absent": true,
+        "directory_absent": true
+      },
+      "runner_absent_readback": true,
+      "status": "PASS"
+    },
+    {
+      "kind": "sql-unsupported",
+      "fault_injected": true,
+      "site": "imagine-test-a01-c724767bacaf-classic",
+      "runner": "imagine-a01-publication-47d04fc9b2d5",
+      "import_database_absent_before_cleanup": true,
+      "runner_recovery": [],
+      "command_exit": 1,
+      "report": "C:\\Users\\Ced\\imagine\\production\\A-01\\publication-22nov\\c724767bacaf\\result.json",
+      "report_sha256": "08b5f449aaf61216aefeb588887c8d733aad1535a711b552a5c85677dabe034e",
+      "live_cleanup": {
+        "site": "imagine-test-a01-c724767bacaf-classic",
+        "api_absent": true,
+        "containers_absent": {
+          "wp-imagine-test-a01-c724767bacaf-classic": true,
+          "db-imagine-test-a01-c724767bacaf-classic": true,
+          "nginx-imagine-test-a01-c724767bacaf-classic": true
+        },
+        "html_volume_absent": true,
+        "network_absent": true,
+        "directory_absent": true
+      },
+      "runner_absent_readback": true,
+      "status": "PASS"
+    },
+    {
+      "kind": "core-mismatch",
+      "fault_injected": true,
+      "site": "imagine-test-a01-b7f3dfce832f-classic",
+      "runner": "imagine-a01-publication-b47f8a7b62aa",
+      "import_database_absent_before_cleanup": true,
+      "runner_recovery": [],
+      "command_exit": 1,
+      "report": "C:\\Users\\Ced\\imagine\\production\\A-01\\publication-22nov\\b7f3dfce832f\\result.json",
+      "report_sha256": "50c59c50e31838568e2018671c306b62ccf392909528617d9e3a130e79bbe80a",
+      "live_cleanup": {
+        "site": "imagine-test-a01-b7f3dfce832f-classic",
+        "api_absent": true,
+        "containers_absent": {
+          "wp-imagine-test-a01-b7f3dfce832f-classic": true,
+          "db-imagine-test-a01-b7f3dfce832f-classic": true,
+          "nginx-imagine-test-a01-b7f3dfce832f-classic": true
+        },
+        "html_volume_absent": true,
+        "network_absent": true,
+        "directory_absent": true
+      },
+      "runner_absent_readback": true,
+      "status": "PASS"
+    }
+  ],
+  "no_real_archive": true,
+  "fault_injection_only_on_owned_synthetic_fixtures": true,
+  "driver_sha256": "e6702adcda2a63fcc0385d0ee62787f1322fec84443bb369788849499575a2b5"
+}

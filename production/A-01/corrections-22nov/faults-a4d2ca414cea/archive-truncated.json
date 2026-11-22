@@ -1,0 +1,25 @@
+{
+  "kind": "archive-truncated",
+  "fault_injected": true,
+  "site": "imagine-test-a01-5f3bff5fa6e9-classic",
+  "runner": "imagine-a01-publication-f721e708d62c",
+  "import_database_absent_before_cleanup": true,
+  "runner_recovery": [],
+  "command_exit": 1,
+  "report": "C:\\Users\\Ced\\imagine\\production\\A-01\\publication-22nov\\5f3bff5fa6e9\\result.json",
+  "report_sha256": "e5b69995af065cf70e4c611794ded698b8becf47afc263e6dba4fa08644f9d8c",
+  "live_cleanup": {
+    "site": "imagine-test-a01-5f3bff5fa6e9-classic",
+    "api_absent": true,
+    "containers_absent": {
+      "wp-imagine-test-a01-5f3bff5fa6e9-classic": true,
+      "db-imagine-test-a01-5f3bff5fa6e9-classic": true,
+      "nginx-imagine-test-a01-5f3bff5fa6e9-classic": true
+    },
+    "html_volume_absent": true,
+    "network_absent": true,
+    "directory_absent": true
+  },
+  "runner_absent_readback": true,
+  "status": "PASS"
+}
