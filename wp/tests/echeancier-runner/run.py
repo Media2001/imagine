@@ -66,7 +66,7 @@ def payload():
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument('action', choices=['prepare', 'unit', 'e2e', 'close'])
+    p.add_argument('action', choices=['prepare', 'e2e', 'close'])
     p.add_argument('--name', default='final')
     a = p.parse_args()
     assert re.fullmatch('[a-z0-9-]{1,64}', a.name)
@@ -103,34 +103,20 @@ def main():
     assert json.loads(call(['exec', '-i', name, 'php'], probe).stdout) == manifest
     lint = call(['exec', name, 'sh', '-c', 'find /work -name "*.php" -print0 | xargs -0 -n 1 php -l'], check=False)
     (OUT / (a.name + '-syntax.log')).write_bytes(lint.stdout + lint.stderr)
-    if a.action == 'unit':
-        command = ['exec', name, 'php', '/work/wp/plugins/imagine-pilotage/tests/Echeancier/run.php']
-    else:
-        call(['cp', PACKAGE, name + ':/opt/e2e/woocommerce-subscriptions.zip'])
-        call(['exec', name, 'rm', '-rf', '/scratch', '/report'])
-        command = ['exec', name, 'python3', '/work/wp/tests/echeancier-runner/inside.py']
+    call(['cp', PACKAGE, name + ':/opt/e2e/woocommerce-subscriptions.zip'])
+    call(['exec', name, 'rm', '-rf', '/scratch', '/report'])
+    command = ['exec', name, 'python3', '/work/wp/tests/echeancier-runner/inside.py']
     result = call(command, check=False, timeout=1200)
     (OUT / (a.name + '.log')).write_bytes(result.stdout + result.stderr)
-    if a.action == 'unit':
-        text = result.stdout.decode(errors='replace')
-        lines = [line[9:] for line in text.splitlines() if line.startswith('C05_JSON=')]
-        if lines:
-            save(OUT / (a.name + '-result.json'), json.loads(lines[-1]))
-    else:
-        report = call(['exec', name, 'cat', '/report/c05-result.json'], check=False)
-        if report.returncode == 0:
-            save(OUT / (a.name + '-result.json'), json.loads(report.stdout))
+    report = call(['exec', name, 'cat', '/report/c05-result.json'], check=False)
+    if report.returncode == 0:
+        save(OUT / (a.name + '-result.json'), json.loads(report.stdout))
     assert payload()[1] == manifest, 'Sources changed during execution'
     save(OUT / (a.name + '.json'), {'time_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
          'command': command[2:], 'exit_code': result.returncode, 'syntax_exit': lint.returncode,
          'source_sha256': manifest, 'container_sources_verified': True, 'safety_before': safety,
          'safety_after': inspect(name), 'runner_sha256': hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest()})
-    if a.action == 'unit' and lines:
-        value = json.loads(lines[-1])
-        print(json.dumps({k: v for k, v in value.items() if k != 'results'}))
-        print(json.dumps([r for r in value['results'] if not r['pass']]))
-    else:
-        print(result.stdout.decode(errors='replace') + result.stderr.decode(errors='replace'))
+    print(result.stdout.decode(errors='replace') + result.stderr.decode(errors='replace'))
     raise SystemExit(result.returncode or lint.returncode)
 
 

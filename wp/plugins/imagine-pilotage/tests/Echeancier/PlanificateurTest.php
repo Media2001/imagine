@@ -79,12 +79,7 @@ final class PlanificateurTest extends TestCase
             $dates,
             static fn ($d) => $d >= $initiale->debut && $d < $initiale->finNumerique()
         )) === 5, 'Cinq dates effectives si première reconduction commune maintenue');
-        $GLOBALS['imagine_c05_counterexample'] = [
-            'commande' => $initiale->debut->format(DATE_ATOM),
-            'anniversaire' => $initiale->finNumerique()->format(DATE_ATOM),
-            'dates' => array_map(static fn ($d) => $d->format(DATE_ATOM), $dates),
-            'count_in_first_anniversary_window' => 5,
-        ];
+
         $planSuite = (new Planificateur($source))->planifier($suite, 7);
         self::assertTrue(count($planSuite) === 4, 'Bloc suivant de quatre numéros malgré anniversaire ultérieur');
         self::assertTrue($planSuite[0]->date == $dates[4], 'Date commune inchangée, aucun report anniversaire');
@@ -356,9 +351,22 @@ final class PlanificateurTest extends TestCase
         $dates = array_map(static fn ($v) => $v->date, [...$p, ...$suite]);
         $dansFenetre = count(array_filter($dates, static fn ($d) => $d >= $a->debut && $d < $a->finNumerique()));
         self::assertTrue($dansFenetre === ($premiereCommune < $b->debut ? 5 : 4), 'Comptage fenêtre distinct du bloc');
-        if ($dansFenetre === 5) {
-            $GLOBALS['imagine_c05_five_dates'][] = $date;
+    }
+
+    public function testVingtHuitFenetresACinqDatesSur365Commandes(): void
+    {
+        $moteur = new Moteur(c05Calendrier());
+        $planner = new Planificateur($moteur);
+        $total = 0;
+        foreach (self::jours2027() as [$date]) {
+            $a = c05Annee($date);
+            $b = $moteur->renouveler($a, $a->finNumerique());
+            $positions = [...$planner->planifier($a, 7), ...$planner->planifier($b, 7)];
+            $dates = array_map(static fn ($v) => $v->date, $positions);
+            $nombre = count(array_filter($dates, static fn ($d) => $d >= $a->debut && $d < $a->finNumerique()));
+            $total += (int) ($nombre === 5);
         }
+        self::assertSame(28, $total);
     }
 
     public static function jours2027(): iterable

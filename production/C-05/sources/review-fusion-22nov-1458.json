@@ -1,0 +1,32 @@
+[
+  {
+    "source": "[5]",
+    "issue": "M3",
+    "url": "https://woocommerce.com/document/subscriptions/billing-date-alignment/creating-an-aligned-subscription-product/",
+    "quotes": [
+      "Customer signs up: April 6",
+      "First renewal date: May 1 (not July 1)"
+    ],
+    "context_fr": "Exemple officiel : abonnement tous les trois mois, aligné au premier du mois ; inscription le 6 avril, premier renouvellement le 1er mai, non le 1er juillet.",
+    "final_url": "https://woocommerce.com/document/subscriptions/billing-date-alignment/creating-an-aligned-subscription-product/",
+    "status": 200,
+    "consulted_at_utc": "2026-11-22T14:08:23.465611+00:00",
+    "page_sha256": "445b23d242e2d8bf93d76bbf1811b8f18cea4f832a4c85b69854bf993bcfcecf",
+    "literal_quotes_verified": true
+  },
+  {
+    "source": "[4]",
+    "issue": "C05-02",
+    "url": "https://woocommerce.com/document/subscriptions/develop/action-reference/",
+    "quotes": [
+      "woocommerce_subscription_payment_complete",
+      "subscription date changes related to early renewals are processed differently than other renewals"
+    ],
+    "context_fr": "La section de ce hook avertit de ne pas se fier à cette action pour capturer la prochaine date de paiement : le traitement des dates diffère lors des renouvellements anticipés.",
+    "final_url": "https://woocommerce.com/document/subscriptions/develop/action-reference/",
+    "status": 200,
+    "consulted_at_utc": "2026-11-22T14:08:23.626897+00:00",
+    "page_sha256": "9f25682acf4d59c4070c924c33eb4c5c590b724e985ea7e84fda1a688d2f5611",
+    "literal_quotes_verified": true
+  }
+]

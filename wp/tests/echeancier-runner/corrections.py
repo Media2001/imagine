@@ -113,6 +113,13 @@ def close_standard():
 def verify():
     assert not b.STATE.exists() and not c05.STATE.exists()
     assert protected() == json.loads((OUT / 'protected-before.json').read_text()), 'Protected inventory drift'
+    xml_path = ROOT / 'wp/plugins/imagine-pilotage/phpunit.xml'
+    xml_bytes = xml_path.read_bytes()
+    addition = b'        <testsuite name="Echeancier"><directory>tests/Echeancier</directory></testsuite>\n'
+    assert xml_bytes.count(addition) == 1
+    original_xml = xml_bytes.replace(addition, b'')
+    sibling = json.loads((ROOT / 'production/C-07/replays/format-export-22nov-final/final.json').read_text())
+    assert hashlib.sha256(original_xml).hexdigest() == sibling['source_sha256']['phpunit.xml']
     standard = json.loads((OUT / 'final.json').read_text())
     assert all(standard[k] == 0 for k in ['exit_code', 'psr12_exit_code', 'syntax_exit_code',
                                         'composer_validate_exit_code'])
@@ -122,6 +129,7 @@ def verify():
     counts = {s.attrib['name']: {k: int(s.attrib[k]) for k in
                                ['tests', 'assertions', 'failures', 'errors', 'skipped']} for s in suites}
     assert {'Numeros', 'Robots', 'Entreprise', 'Acces', 'Envoi', 'Echeancier'} <= counts.keys()
+    assert all(s[k] == 0 for s in counts.values() for k in ['failures', 'errors', 'skipped'])
     assert counts['Echeancier']['tests'] >= 380
     cases = [t.attrib['name'] for s in suites if s.attrib['name'] == 'Echeancier' for t in s.iter('testcase')]
     assert any('CloturesEgalesJonction' in n for n in cases)
@@ -130,6 +138,13 @@ def verify():
     assert e2e['exit_code'] == e2e['syntax_exit'] == 0
     assert e2e['source_sha256'] == c05.payload()[1]
     assert e2e['runner_sha256'] == sha(HERE / 'run.py')
+    for phase in ['safety_before', 'safety_after']:
+        safety = e2e[phase]
+        assert safety['network'] == 'none' and safety['mounts'] == safety['ports'] == []
+        assert not safety['privileged'] and safety['no_new_privileges'] and 'ALL' in safety['cap_drop']
+    references = json.loads((ROOT / 'production/C-05/sources/review-fusion-22nov-1458.json').read_text())
+    assert {r['issue'] for r in references} == {'M3', 'C05-02'}
+    assert all(r['literal_quotes_verified'] and r['status'] == 200 for r in references)
     result = json.loads((OUT / 'final-e2e-result.json').read_text())
     assert result['exit_code'] == 0 and 'error' not in result
     assert all(c['pass'] for c in result['checks'])
@@ -169,9 +184,11 @@ def verify():
     summary = {'verified_at_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
                'standard_suites': counts, 'e2e': totals, 'owned_containers_absent': absent,
                'protected_inventory_unchanged': True, 'production_authorized': False,
+               'phpunit_xml_only_echeancier_added': True,
                'bootstrap_wired': False, 'q1_sepa_open': True,
                'source_sha256': payload()[1], 'runner_sha256': sha(pathlib.Path(__file__)),
                'c05_artifact_sha256': {**inventory(ROOT / 'wp/tests/echeancier-runner'),
+                                      **inventory(ROOT / 'production/C-05/sources'),
                                       **{p.relative_to(ROOT).as_posix(): sha(p) for p in
                                          sorted((ROOT / 'production/C-05').glob('*.md'))}}}
     if (OUT / 'verification.json').exists():
