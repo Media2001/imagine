@@ -305,10 +305,21 @@ try:
   b=p.read(4194304);print(json.dumps({'code':p.status,'body_sha256':hashlib.sha256(b).hexdigest(),'fiction_theme_marker':b'A01_FICTION_PUBLICATION_OK' in b,'redirected':p.url!=r.full_url}))
 except Exception as e: print(json.dumps({'code':0,'error_class':type(e).__name__}))
 ''', json.dumps({'target': target}).encode())
+    import urllib.request
+    try:
+        request = urllib.request.Request(target + '/', headers={'Cache-Control': 'no-cache'})
+        with urllib.request.build_opener(urllib.request.ProxyHandler({})).open(request, timeout=15) as response:
+            body = response.read(4194304)
+            assigned_operator = {'code': response.status, 'body_sha256': hashlib.sha256(body).hexdigest(),
+                'fiction_theme_marker': b'A01_FICTION_PUBLICATION_OK' in body,
+                'redirected': response.url != request.full_url, 'transport': 'operator-host'}
+    except Exception as exc:
+        assigned_operator = {'code': 0, 'error_class': type(exc).__name__, 'transport': 'operator-host'}
     proof['http'] = http
-    proof['assigned_url_http'] = assigned
+    proof['assigned_url_wsl_http'] = assigned
+    proof['assigned_url_http'] = assigned_operator
     proof['ok'] = (proof.get('ok') is True and http['code'] == 200 and not http.get('redirected', True)
-                   and assigned['code'] == 200 and not assigned.get('redirected', True))
+                   and assigned_operator['code'] == 200 and not assigned_operator.get('redirected', True))
     return proof
 
 
@@ -484,7 +495,17 @@ except Exception as e: print(json.dumps({'reachable':False,'error_class':type(e)
                                      for f in __import__('traceback').extract_tb(exc.__traceback__)]
             finally:
                 for helper in list(helpers): result['cleanup'].append(remove_owned(helper))
-                if runner_created: result['cleanup'].append(remove_owned(runner))
+                if runner_created:
+                    result['cleanup'].append(remove_owned(runner))
+                else:
+                    candidate = call(['inspect', runner], check=False)
+                    if candidate.returncode == 0:
+                        info = json.loads(candidate.stdout)[0]
+                        if info['Config']['Labels'].get(LABEL) != 'true':
+                            raise RuntimeError('PARTIAL_RUNNER_OWNERSHIP_REFUSED')
+                        result['cleanup'].append(remove_owned(runner))
+                    elif b'no such object' not in candidate.stderr.lower():
+                        raise RuntimeError('PARTIAL_RUNNER_ABSENCE_NOT_PROVEN')
                 if created:
                     if args.self_test_publication:
                         stop_site(name)
