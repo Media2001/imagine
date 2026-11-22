@@ -1,0 +1,23 @@
+{
+  "time_utc": "2026-11-22T11:16:14.488755+00:00",
+  "command": [
+    "php",
+    "vendor/bin/phpunit",
+    "--fail-on-warning",
+    "--fail-on-risky",
+    "--fail-on-deprecation",
+    "--log-junit",
+    "/tmp/c04-strict.xml"
+  ],
+  "workdir": "/c04",
+  "exit_code": 0,
+  "junit": {
+    "name": "/c04/phpunit.xml",
+    "tests": "37",
+    "assertions": "224",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "time": "0.240747"
+  }
+}

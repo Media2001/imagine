@@ -1,0 +1,7 @@
+{
+  "time_utc": "2026-11-22T11:16:16.727913+00:00",
+  "container": "imagine-c03-f6c7f431cc0c",
+  "owned_runner_removed": true,
+  "inspect_exit_code": 1,
+  "inspect_diagnostic": "[]\nerror: no such object: imagine-c03-f6c7f431cc0c\n"
+}

@@ -256,6 +256,9 @@ def seal():
 def check():
     seal_data = json.loads((OUT / 'source-seal.json').read_text(encoding='utf-8'))
     assert all(digest(ROOT / p) == value for p, value in seal_data['source_sha256'].items()), 'Source drift'
+    pilotage_sealed = {p: value for p, value in seal_data['source_sha256'].items()
+                       if p.startswith('wp/plugins/imagine-pilotage/')}
+    assert inventory(ROOT / 'wp/plugins/imagine-pilotage') == pilotage_sealed, 'Pilotage inventory drift'
     evidence = json.loads((OUT / 'evidence-seal.json').read_text(encoding='utf-8'))
     assert all(digest(OUT / p) == value for p, value in evidence['sha256'].items()), 'Evidence drift'
     cleanup = json.loads((OUT / 'cleanup.json').read_text(encoding='utf-8'))
@@ -272,6 +275,9 @@ def check():
         assert counts[key]['failures'] == counts[key]['errors'] == counts[key]['skipped'] == 0
         receipt = json.loads((OUT / (key + '.json')).read_text(encoding='utf-8'))
         assert receipt['exit_code'] == 0
+        if key == 'final':
+            assert all(receipt[field] == 0 for field in [
+                'psr12_exit_code', 'syntax_exit_code', 'composer_validate_exit_code'])
     assert counts['envoi-strict']['tests'] > 36 and counts[c04_key] == {
         'tests': 37, 'assertions': 224, 'failures': 0, 'errors': 0, 'skipped': 0}
     assert inventory(ROOT / 'wp/plugins/imagine-connecteur') == json.loads(

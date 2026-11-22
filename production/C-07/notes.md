@@ -1,6 +1,6 @@
 # C-07 — Liste d'envoi d'un numéro
 
-Remise du 22 novembre 2026. **PHP pur, prêt à relire ; ni clôture du lot, ni branchement, ni envoi réel.** Reprise d'une session interrompue : les sources étaient présentes et testées, mais il manquait les notes, le rapport et `PRET`. Les sources rejouées sont identiques à celles de `tests/final.json` ; les preuves historiques ne sont pas remplacées.
+**Remise corrigée du 22 novembre 2026**, selon la file de 11 h 40 : instructions 1 à 7 et 9 appliquées. **PHP pur, prêt à relire, pas clos** ; ni branchement, ni envoi réel, ni GO. Preuves actuelles : `production/C-07/replays/corrections-22nov-final/`. Les anciens paquets restent historiques, pas la preuve des corrections. Détail : `corrections-2026-11-22.md` dans ce dossier.
 
 ## Périmètre et références
 
@@ -15,7 +15,7 @@ Code : `wp/plugins/imagine-pilotage/src/Envoi/` ; tests : `tests/Envoi/` dans ce
 - `Destinataire(id, nom, rue, complement, codePostal, ville, pays)` : destinataire postal, sans email ni donnée d'acheteur.
 - `Situation(effet, enregistre, etat, paiementValide, numerosDus, destinataires, fin = null)` : **photographie complète**, pas un patch. États `actif`, `grace`, `suspendu`, `expire`, `attente`. Les numéros dus sont fournis par C-01 ; C-07 ne les recalcule jamais. `fin` est la borne effective exclusive, notamment celle de la grâce si applicable ; aucune durée par défaut.
 - `Abonnement(id, origine, creation, situations)` : origine `abonnement`, `offert`, `groupe`, `numero_unite`. Pour un offert, fournir le destinataire et non l'acheteur ; pour un groupe, uniquement les bénéficiaires effectivement attribués. Les places libres ne produisent rien. Les achats à l'unité sont exclus.
-- `ListeEnvoi::etablir($numero, $calendrier, $abonnements, $cloture)` : retourne `numero`, `cloture`, `lignes`, `anomalies`. Le numéro et sa clôture doivent correspondre au calendrier. Un abonnement doit exister avant la clôture, être actif ou en grâce, avoir son paiement validé, ne pas avoir atteint sa fin et devoir ce numéro.
+- `ListeEnvoi::etablir($numero, $calendrier, $abonnements, $cloture, inclureGrace: true)` : retourne `numero`, `cloture`, `lignes`, `anomalies`. Numéro et clôture correspondent au calendrier. L'abonnement existe avant clôture, doit ce numéro et n'a pas atteint sa fin. Un état actif exige un paiement validé ; **la grâce est incluse quel que soit `paiementValide`**. Le réglage unique `inclureGrace` (true par défaut) permet de désactiver toute grâce, même payée. Le futur adaptateur centralisera ce réglage ; aucune durée n'est inventée.
 
 Les erreurs de calendrier, les états/origines inconnus, les abonnements dupliqués, un destinataire répété dans un groupe, plusieurs destinataires pour un abonnement individuel ou deux situations au même instant d'effet sont refusés. Les objets sont des entrées de confiance du futur adaptateur, pas un validateur universel des données WooCommerce.
 
@@ -29,9 +29,13 @@ Une situation n'est retenue que si **son effet et son enregistrement** précède
 
 ## Anomalies et export
 
-Une adresse sans nom, rue, code postal ou ville produit `adresse_incomplete` ; un pays vide, `pays_manquant`. Même nom et même adresse complète produisent `doublon_destinataire_adresse` sur chaque exemplaire concerné. Espaces normalisés, casse ASCII ignorée ; pas de rapprochement flou, ni de normalisation postale internationale. Un code postal est demandé par ce contrat provisoire, même pour un pays dont les usages diffèrent : à ajuster avec le format du routeur si nécessaire.
+Nom, rue, code postal et ville sans contenu produisent `adresse_incomplete` ; pays vide, `pays_manquant`. Le contrôle commun retire les espaces Unicode, dont U+00A0 et U+202F. Les valeurs exportées restent inchangées.
 
-Les exemplaires restent dans la projection et les anomalies figurent séparément avec motif, index et copie de la ligne. **L'export d'expédition `ExportCsv::liste()` refuse par défaut une liste présentant des anomalies.** `anomaliesRevues: true` ne doit être fourni que par un futur parcours de traitement explicite ; ce booléen n'est pas une preuve d'approbation. Le sérialiseur bas niveau `ExportCsv::lignes()` n'est pas le point d'entrée d'expédition.
+Un individuel ou offert **éligible** sans destinataire produit `destinataire_manquant`, avec `abonnement_id`, sans ligne/index inventé. Un groupe sans place attribuée ne produit ni ligne ni anomalie. Un non-éligible sans destinataire ne produit pas de fausse alerte.
+
+Doublons : même adresse complète normalisée et ID de destinataire commun ; à défaut d'ID commun, nom et adresse normalisés. L'ID reste exact, non réécrit ; vide, il ne sert pas de clé commune. Espaces Unicode regroupés et retirés aux bornes, casse UTF-8 abaissée par `mb_strtolower` (**mbstring requis à l'exécution**). Deux exemplaires conservés, chacun signalé **une seule fois**, même si nom et ID se recoupent. Noms différents à même adresse : pas de fusion ; même ID à adresses différentes : pas d'alerte de doublon à même adresse. Pas de rapprochement flou, d'effacement d'accents, de normalisation postale internationale ou canonique NFC. Entrées attendues : UTF-8 de confiance. Le code postal reste obligatoire dans le contrat provisoire, à confirmer avec le routeur.
+
+Les exemplaires restent dans la projection ; les anomalies postales portent motif, index et copie de la ligne. L'anomalie sans destinataire porte seulement motif et identifiant d'abonnement. Tri déterministe par motif, index, puis abonnement pour les anomalies sans ligne. **`ExportCsv::liste()` refuse toute anomalie non revue, même sans ligne.** `anomaliesRevues: true` exige un futur traitement explicite, pas une preuve d'approbation. `ExportCsv::lignes()` reste bas niveau, pas le point d'entrée d'expédition.
 
 Colonnes provisoires et ordre stable : `abonnement_id,destinataire_id,destinataire,rue,complement,code_postal,ville,pays,origine`. Virgule, UTF-8 sans BOM, LF, échappement CSV standard avec doublement des guillemets et sans échappement antislash. Les valeurs postales restent des chaînes, dont les zéros initiaux.
 
@@ -39,16 +43,22 @@ La fonction de protection de C-04 est extraite dans `Imagine\Connecteur\CsvProte
 
 ## À arbitrer par Ced — questions fermées du brief
 
-1. **Grâce :** confirme-t-on qu'un abonné en grâce à la clôture reste dans la liste jusqu'à la fin effective de son délai, oui/non ? Implémentation provisoire isolée dans `ListeEnvoi::ETATS_EN_REGLE` et `Situation::fin`.
-2. **Deux abonnements, même personne/adresse :** confirme-t-on deux exemplaires, conservés et signalés en anomalie, oui/non ? Aucun dédoublonnage supprimant un droit n'est effectué.
+1. **Grâce :** le brief précisé le 22/11 impose l'inclusion, même paiement faux. Imagine doit encore confirmer le maintien et la durée du délai avant branchement ; choix isolé dans `inclureGrace` et `Situation::fin`. **La borne C-01 reste inchangée** : `fin <= cloture` exclut, y compris la grâce, paiement vrai ou faux. Sans fin fournie, aucune expiration n'est inventée.
+2. **Doublons :** la précision du 22/11 impose deux exemplaires conservés et chacun signalé, par ID commun ou à défaut nom/adresse normalisés. Pas de nouvelle décision à prendre ici. **Sans email :** l'exclusion vise les emails, pas la liste postale. La contradiction historique est signalée à Claude ; instruction 8 et registre des écarts lui appartiennent, aucun `docs/` modifié.
 3. **Routeur :** Imagine confirme-t-elle les neuf colonnes, leur ordre et le format CSV décrits ci-dessus, oui/non ? Si non, le format cible doit être fourni avant branchement.
 
 Ces interprétations sont celles explicitement autorisées par le brief, pas des décisions définitives. Aucune nouvelle règle sur l'argent, les droits numériques ou la comptabilité n'a été choisie.
 
 ## Tests et limites de remise
 
-Détail : `production/C-07/tests/rapport.md`. Rejeu du 22/11 dans `production/C-07/replays/reveil-22nov-0340/` : `composer test` standard **270 tests / 29 594 assertions**, dont Envoi **36 / 78** ; régressions connecteur **37 / 224**, zéro échec, erreur ou ignoré. PSR-12 des fichiers PHP modifiés, syntaxe et Composer strict passent.
+Détail actuel : `production/C-07/corrections-2026-11-22.md`. Paquet final `production/C-07/replays/corrections-22nov-final/` : `composer test` **325 tests / 29 831 assertions**, Envoi strict **91 / 315**, C-04 strict **37 / 224**, zéro échec/erreur/ignoré. Les deux suites ciblées utilisent `--fail-on-warning --fail-on-risky --fail-on-deprecation`. Lint global, PSR-12 ciblé, syntaxe PHP globale et Composer strict : codes **0**.
 
-Le lanceur complet retourne toutefois **1**, uniquement à cause de six avertissements PSR-12 préexistants dans `tests/Echeancier/run.php` (C-05 en attente). Cette réserve n'est ni masquée, ni corrigée hors périmètre. Ce n'est pas un lint global vert. Les tests ciblés C-07 sont rejoués en mode strict, ainsi que C-04.
+Les six avertissements C-05 sont traités sur autorisation : cinq lignes reformatées et une **exception ciblée `PSR1.Files.SideEffects`**, expliquée dans le runner autonome servant aussi de fixture. Aucun autre sniff désactivé ; aucune règle changée. **376 cas / 1 473 assertions** autonomes, résultats complets identiques avant/après. Les **34 fichiers C-04** sont identiques, inventaire et SHA-256 comparés sur l'hôte et dans sa copie séparée au conteneur.
+
+Le paquet `corrections-22nov-1155/` conserve les cinq RED→GREEN (grâce, absence de destinataire, champs Unicode, doublons Unicode, ID stable). Les GREEN précoces ont encore un retour global non nul dû au lint C-05 : les reçus ne le masquent pas. L'essai C-04 initial isolé (37 / 222, un échec) manquait du chemin frère C-02 déclaré par Composer ; le lien interne au conteneur vers les vraies sources copiées rétablit ce contrat, puis `c04-strict-c02.*` passe 37 / 224, sans changer C-04. L'échec initial reste conservé ; le paquet final rejoue le banc corrigé depuis un conteneur neuf.
+
+Oracle CSV : 16 couples entrée/sortie **littéraux**, sans prédicat de production, vérifiés dans les neuf cellules réellement exportées. Profils : attendus littéraux, grâce paiement faux, compte sans email (null) et ID postal distinct, étranger FR et zéro postal initial dans le CSV. Pas de preuve d'adaptateur WooCommerce, absent du lot. C-01 : 170 effectivement absent sans filtre de date ; 171–174 + HS-2027 et renouvellement 175–178 + HS-2028 explicitement attendus.
+
+PHP uniquement dans le conteneur jetable possédé, entrée `sleep`, réseau coupé avant tests, aucun montage, port, BDD ou WordPress. `sample.csv` est réellement généré et rejoué à l'identique. `cleanup.json` contient le diagnostic exact d'absence ; `source-seal.json`, `evidence-seal.json`, `handoff-verification.json` vérifient les fichiers finaux après les dernières écritures. Pas de blocage technique restant ; les lots en attente restent inchangés.
 
 Le gel, les paiements aux bornes, l'adresse et les remplacements de bénéficiaires avant/après clôture, les numéros fournis par C-01, les profils concernés, les anomalies et le CSV sont exercés. Les tests restent unitaires et d'intégration entre bibliothèques ; **pas une recette WordPress ni une preuve d'envoi réel**. La clôture par Claude nécessite les relectures indépendantes, la vérification du second tour et le traitement des questions métier. Aucun GO réel n'est déduit de `PRET`.
