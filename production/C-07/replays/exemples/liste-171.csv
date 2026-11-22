@@ -1,0 +1,2 @@
+abonnement_id,destinataire_id,destinataire,rue,complement,code_postal,ville,pays,origine
+abo-fictif,fictive-1,"Camille Fictive","1 rue Imaginaire","Boite Fiction",1000,"Ville Fictive",BE,offert
