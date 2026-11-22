@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.003342">
+    <testsuite name="Echeancier" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.003342">
+      <testsuite name="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.003342">
+        <testcase name="testMargeConfirmationPremierSepaAppliqueeParDefaut" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="12" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="1" time="0.003342">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest::testMargeConfirmationPremierSepaAppliqueeParDefaut
+Failed asserting that null is identical to 'avec_marge'.
+
+/work/tests/Echeancier/ConfirmationPremierSepaTest.php:14</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

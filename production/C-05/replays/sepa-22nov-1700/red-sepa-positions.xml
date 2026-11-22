@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="2" assertions="5" errors="0" failures="1" skipped="0" time="0.004101">
+    <testsuite name="Echeancier" tests="2" assertions="5" errors="0" failures="1" skipped="0" time="0.004101">
+      <testsuite name="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" tests="2" assertions="5" errors="0" failures="1" skipped="0" time="0.004101">
+        <testcase name="testDeuxPositionsDecodeesEtEntreesInvalidesRefusees" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="12" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="2" time="0.003836">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest::testDeuxPositionsDecodeesEtEntreesInvalidesRefusees
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'sans_marge'
++'avec_marge'
+
+/work/tests/Echeancier/ConfirmationPremierSepaTest.php:15</failure>
+        </testcase>
+        <testcase name="testMargeConfirmationPremierSepaAppliqueeParDefaut" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="33" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="3" time="0.000265"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="4" assertions="21" errors="0" failures="1" skipped="0" time="0.004995">
+    <testsuite name="Echeancier" tests="4" assertions="21" errors="0" failures="1" skipped="0" time="0.004995">
+      <testsuite name="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" tests="4" assertions="21" errors="0" failures="1" skipped="0" time="0.004995">
+        <testcase name="testSansMargeRetientConfirmationReellePasCommande" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="12" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="1" time="0.003635">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest::testSansMargeRetientConfirmationReellePasCommande
+Failed asserting that two DateTime objects are equal.
+--- Expected
++++ Actual
+@@ @@
+-2027-04-09T13:00:00.000000+0200
++2027-04-16T12:00:00.000000+0200
+
+/work/tests/Echeancier/ConfirmationPremierSepaTest.php:19</failure>
+        </testcase>
+        <testcase name="testPremierSepaAttendMargeSansDeplacerNumeroNiEcheances" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="24" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="7" time="0.001079"/>
+        <testcase name="testDeuxPositionsDecodeesEtEntreesInvalidesRefusees" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="42" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="10" time="0.000193"/>
+        <testcase name="testMargeConfirmationPremierSepaAppliqueeParDefaut" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="63" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="3" time="0.000088"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

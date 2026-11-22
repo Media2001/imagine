@@ -105,6 +105,21 @@ def fresh_runner(name):
     return manifest
 
 
+def runtime_core_preflight(runner, expected):
+    """Read pinned core as data, before site creation, source access or PHP."""
+    if not re.fullmatch(r'[0-9]+\.[0-9]+(?:\.[0-9]+)?', expected):
+        raise RuntimeError('EXPECTED_CORE_VERSION_REFUSED')
+    program = '''import json,re
+from pathlib import Path
+expected=EXPECTED_VERSION_TOKEN
+matches=re.findall(r"^\\s*\\$wp_version\\s*=\\s*'([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)';",Path('/opt/wordpress/wordpress/wp-includes/version.php').read_text(),re.M)
+pinned=matches[0] if len(matches)==1 else None
+print(json.dumps({'ok':pinned==expected,'stage':'core_preflight','expected':expected,'pinned':pinned,
+ 'code':'CORE_MATCH' if pinned==expected else ('PINNED_CORE_EXPECTED_VERSION_MISMATCH' if pinned else 'PINNED_CORE_VERSION_REFUSED')}))
+'''.replace('EXPECTED_VERSION_TOKEN', repr(expected))
+    return json.loads(call(['exec', '-i', runner, 'python3', '-'], program.encode()).stdout)
+
+
 def offline_isolation(name):
     info = inspect(name)
     assert info['Config']['Labels'].get(LABEL) == 'true'
@@ -333,8 +348,12 @@ def main():
     parser.add_argument('--production-url')
     parser.add_argument('--table-decisions')
     parser.add_argument('--php-version', default='8.2', choices=['8.2'])
+    parser.add_argument('--expected-core-version', default='6.9.1',
+                        help='Version production attendue ; recette commerciale : 7.0.9 explicite, jamais implicite')
     parser.add_argument('--case', choices=['classic', 'hpos', 'trap', 'personal'], help='Rejeu synthétique ciblé, défaut les quatre')
     args = parser.parse_args()
+    if not re.fullmatch(r'[0-9]+\.[0-9]+(?:\.[0-9]+)?', args.expected_core_version):
+        parser.error('--expected-core-version : version numérique stricte requise')
     if args.archive and not (args.operator_ced and args.name and args.production_url):
         parser.error('--operator-ced, --name imagine-test-… et --production-url requis')
     run_id = uuid.uuid4().hex[:12]
@@ -348,6 +367,8 @@ def main():
     result = {'status': 'FAIL', 'run_id': run_id, 'cases': [], 'cleanup': [],
               'no_real_archive': args.self_test_publication, 'no_agent_access_used': True,
               'tool_or_templates_modified': False,
+              'expected_core_version': args.expected_core_version,
+              'update_policy': 'deployment_scripts_only; DISALLOW_FILE_MODS retained; update-host egress retained',
               'post_verified_network_limit': 'WordPress HTTP filtering only; not a system firewall',
               'started_utc': datetime.datetime.now(datetime.timezone.utc).isoformat()}
     try:
@@ -361,6 +382,12 @@ def main():
             receipt = {'name': name, 'storage': storage, 'trapped': bool(trapped), 'trap_kind': trapped, 'status': 'NOT_EXECUTED'}
             result['cases'].append(receipt)
             try:
+                manifest = fresh_runner(runner); runner_created = True
+                receipt['offline_isolation_before'] = offline_isolation(runner)
+                receipt['source_manifest'] = manifest
+                receipt['runtime_core_preflight'] = runtime_core_preflight(runner, args.expected_core_version)
+                if receipt['runtime_core_preflight']['ok'] is not True:
+                    raise RuntimeError(receipt['runtime_core_preflight']['code'])
                 if api('GET', '/api/sites/' + name)['code'] != 404:
                     raise RuntimeError('FRESH_SITE_REQUIRED')
                 # Normal API creation is explicitly authorized, automatic platform activation included.
@@ -377,12 +404,11 @@ def main():
                     raise RuntimeError('NORMAL_SITE_CREATION_REFUSED')
                 receipt['normal_creation'] = {k: site[k] for k in ('slug', 'status', 'url', 'port', 'php_version', 'mcp_enabled', 'mcp_status')}
                 receipt['stopped_before_import'] = stop_site(name)
-                manifest = fresh_runner(runner); runner_created = True
-                receipt['offline_isolation_before'] = offline_isolation(runner)
                 lint = call(['exec', runner, 'php', '-l', '/opt/court/publication_probe.php'])
                 receipt['new_php_lint'] = {'exit': lint.returncode, 'output_sha256': hashlib.sha256(lint.stdout + lint.stderr).hexdigest()}
                 receipt['source_manifest'] = manifest
                 request = {'target_url': 'http://localhost:' + str(site['port']),
+                           'expected_core_version': args.expected_core_version,
                            'production_url': args.production_url or 'https://production.synthetic.invalid',
                            'password': getpass.getpass('Mot de passe neuf du compte test : ') if args.archive else secrets.token_urlsafe(40),
                            'decisions': json.loads(Path(args.table_decisions).read_text()) if args.table_decisions else {}}

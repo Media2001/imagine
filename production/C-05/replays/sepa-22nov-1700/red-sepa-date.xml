@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="3" assertions="13" errors="1" failures="0" skipped="0" time="0.003701">
+    <testsuite name="Echeancier" tests="3" assertions="13" errors="1" failures="0" skipped="0" time="0.003701">
+      <testsuite name="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" tests="3" assertions="13" errors="1" failures="0" skipped="0" time="0.003701">
+        <testcase name="testPremierSepaAttendMargeSansDeplacerNumeroNiEcheances" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="12" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="0" time="0.003027">
+          <error type="Error">Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest::testPremierSepaAttendMargeSansDeplacerNumeroNiEcheances
+Error: Call to undefined method Imagine\Pilotage\Echeancier\Reglages::premierSepaPayeLe()
+
+/work/tests/Echeancier/ConfirmationPremierSepaTest.php:17</error>
+        </testcase>
+        <testcase name="testDeuxPositionsDecodeesEtEntreesInvalidesRefusees" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="30" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="10" time="0.000580"/>
+        <testcase name="testMargeConfirmationPremierSepaAppliqueeParDefaut" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="51" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="3" time="0.000094"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

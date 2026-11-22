@@ -68,7 +68,7 @@ def manifest(root):
     return result
 
 
-def validate_core_version(package, version_file):
+def validate_core_version(package, version_file, expected=None):
     """Read metadata/PHP as data only. No source-core substitution or upgrade."""
     try:
         metadata = json.loads(package)
@@ -84,6 +84,14 @@ def validate_core_version(package, version_file):
     except (OSError, ValueError):
         raise Refusal('PINNED_CORE_VERSION_REFUSED') from None
     versions = {'source': source, 'pinned': matches[0]}
+    if expected is not None:
+        if not isinstance(expected, str) or not re.fullmatch(r'[0-9]+\.[0-9]+(?:\.[0-9]+)?', expected):
+            raise Refusal('EXPECTED_CORE_VERSION_REFUSED')
+        versions['expected'] = expected
+        if matches[0] != expected:
+            error = Refusal('PINNED_CORE_EXPECTED_VERSION_MISMATCH')
+            error.core_versions = versions
+            raise error
     if source != matches[0]:
         error = Refusal('SOURCE_CORE_VERSION_MISMATCH')
         error.core_versions = versions
@@ -113,7 +121,7 @@ def restore_and_verify(archive, request):
     shutil.rmtree(SITE / 'wp-content')
     with Path(archive).open('rb') as stream:
         sql, package, count = restore(stream, SITE / 'wp-content')
-    core_versions = validate_core_version(package, CORE / 'wp-includes/version.php')
+    core_versions = validate_core_version(package, CORE / 'wp-includes/version.php', request.get('expected_core_version'))
     before = manifest(SITE / 'wp-content')
     # Canonicalize only CREATE TABLE token groups. INSERT string literals are untouched.
     from legacy_importer import TOKEN
@@ -224,7 +232,8 @@ FAILURE_STAGES = {
         'ARCHIVE_LIMIT', 'ARCHIVE_LAYOUT_UNSUPPORTED', 'MULTISITE_UNSUPPORTED',
         'FRESH_CONTENT_REQUIRED', 'FILE_TYPE_REFUSED')},
     **{code: 'core_preflight' for code in (
-        'SOURCE_CORE_METADATA_REFUSED', 'PINNED_CORE_VERSION_REFUSED', 'SOURCE_CORE_VERSION_MISMATCH')},
+        'SOURCE_CORE_METADATA_REFUSED', 'PINNED_CORE_VERSION_REFUSED', 'SOURCE_CORE_VERSION_MISMATCH',
+        'EXPECTED_CORE_VERSION_REFUSED', 'PINNED_CORE_EXPECTED_VERSION_MISMATCH')},
     **{code: 'sql_preflight' for code in (
         'SQL_ENCODING', 'SQL_GRAMMAR', 'SQL_TERMINATOR', 'SQL_IDENTIFIER', 'SQL_TABLE',
         'SQL_DDL', 'SQL_DDL_UNSUPPORTED', 'SQL_INSERT', 'SQL_INSERT_LITERAL',
@@ -251,7 +260,7 @@ def execute_offline_request(archive, request, start_database):
             code = 'IMPORT_REFUSED'
         receipt = {'status': 'refused', 'data_verified': False, 'issues': [code],
                    'failure': {'stage': FAILURE_STAGES.get(code, 'offline_restore'), 'code': code}}
-        if code == 'SOURCE_CORE_VERSION_MISMATCH':
+        if code in ('SOURCE_CORE_VERSION_MISMATCH', 'PINNED_CORE_EXPECTED_VERSION_MISMATCH'):
             receipt['core_versions'] = exc.core_versions
         return receipt
 

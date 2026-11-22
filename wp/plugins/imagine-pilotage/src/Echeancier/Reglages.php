@@ -10,7 +10,8 @@ final readonly class Reglages
     public function __construct(
         public ?int $margeJours = null,
         public string $apresRejet = 'restent_dues',
-        public string $tarif = 'fige_bloc'
+        public string $tarif = 'fige_bloc',
+        public string $confirmationPremierSepa = 'avec_marge'
     ) {
         if ($margeJours !== null && $margeJours < 1) {
             throw new \InvalidArgumentException('La marge civile doit être strictement positive.');
@@ -20,6 +21,9 @@ final readonly class Reglages
         }
         if (!in_array($tarif, ['fige_bloc', 'courant_impayes'], true)) {
             throw new \InvalidArgumentException('TARIF_INVALIDE');
+        }
+        if (!in_array($confirmationPremierSepa, ['avec_marge', 'sans_marge'], true)) {
+            throw new \InvalidArgumentException('CONFIRMATION_PREMIER_SEPA_INVALIDE');
         }
     }
 
@@ -50,7 +54,24 @@ final readonly class Reglages
         if (!is_string($tarif)) {
             throw new \InvalidArgumentException('TARIF_INVALIDE');
         }
-        return new self($marge, $rejet, $tarif);
+        $sepa = array_key_exists('confirmation_premier_sepa', $valeur)
+            ? $valeur['confirmation_premier_sepa'] : 'avec_marge';
+        if (!is_string($sepa)) {
+            throw new \InvalidArgumentException('CONFIRMATION_PREMIER_SEPA_INVALIDE');
+        }
+        return new self($marge, $rejet, $tarif, $sepa);
+    }
+
+    /** Date projetée du premier numéro SEPA payé, distincte du lancement à la commande. */
+    public function premierSepaPayeLe(
+        \DateTimeImmutable $commande,
+        \DateTimeImmutable $confirmation
+    ): \DateTimeImmutable {
+        if ($this->confirmationPremierSepa === 'sans_marge') {
+            return $confirmation->setTimezone(new \DateTimeZone('Europe/Brussels'));
+        }
+        return $commande->setTimezone(new \DateTimeZone('Europe/Brussels'))
+            ->add(new \DateInterval('P' . $this->margeJours . 'D'));
     }
 
     /**

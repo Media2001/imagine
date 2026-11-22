@@ -40,6 +40,7 @@ class CleanupOrchestration(unittest.TestCase):
                 events.append('remove'); raise RuntimeError('REMOVAL_NOT_PROVEN')
             with mock.patch.multiple(publish, ROOT=root, HERE=root, api=api, call=call,
                                      fresh_runner=lambda name: {}, offline_isolation=lambda name: {},
+                                     runtime_core_preflight=lambda *args: {'ok': True},
                                      read_json=lambda *args: {'data_verified': True}, stop_site=stop,
                                      remove_owned=remove,
                                      guarded_publish=lambda *args: site.update(status='running') or {'full_staging_ready': True}), \
