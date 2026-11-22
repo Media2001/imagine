@@ -1,3 +1,122 @@
+# A-01 — publication réelle qualifiée sur archives fictives, 22 novembre 2026
+
+**Livraison à relire : commande complète et trois cas réels PASS.** Le GO de Ced du 22/11 à 13 h 11, inscrit dans `A-FAIRE.md`, lève le blocage licence/MCP du 21/11. L'usage de l'accès agent créé reste interdit et n'a jamais été fait. Aucun import d'Imagine, aucune ouverture de son archive, aucun accès à l'ancienne copie.
+
+## Preuves actuelles
+
+- Commande : **`wp/outils/staging-court/publish.py`**.
+- Acceptance finale : **`production/A-01/publication-22nov/3f837c790d4b/result.json`**, sortie **0**, **3 cas PASS** : classique publié/vérifié, HPOS publié/vérifié, archive piégée refusée avant injection/publication.
+- Vérification finale : **`production/A-01/publication-22nov/verification-final.json`** ; synthèse et chemins dans **`production/A-01/publication-22nov/acceptance.json`**.
+- Nouveau sas : **8 tests OK**, `publication-22nov/unit-final.log`. Rouges conservés : refus avant vérification, arrêt sur échec runtime, nom tronquable, booléen seul sans les trois reçus natifs.
+- Non-régression hors ligne rejouée : **`production/A-01/tests-21nov/2a5c8c0fcbb1/result.json`**, **18 contrôles PASS, 0 FAIL** ; 12 tests archive, 17 tests du banc, 9 cas/337 assertions données et lint PHP. Le dossier conserve un nom historique, mais le reçu est daté du 22 novembre.
+
+Les tests ont tous été supprimés après preuve. Le vérificateur relit leur absence par noms exacts : API 404, trois conteneurs, volume HTML, réseau de site et répertoire. Il couvre aussi les passes intermédiaires et le nom tronqué récupéré explicitement. Les cinq empreintes du code/modèles déployés consignées sont identiques avant/après et lors de la revérification. Ni code de l'outil, ni modèle, ni autre site modifié.
+
+## Commande unique pour Ced
+
+Depuis **`C:/Users/Ced/imagine`**, Python, WSL Ubuntu et Docker déjà présents :
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python wp/outils/staging-court/publish.py \
+  --operator-ced \
+  --archive "$ARCHIVE_WPRESS" \
+  --name imagine-test-a01-ced-01 \
+  --production-url "$URL_SOURCE" \
+  --table-decisions "$DECISIONS_CED" \
+  --php-version 8.2
+```
+
+Ced fournit lui-même chemins et URL source. Omettre `--table-decisions` sans décision écrite ; aucune décision synthétique n'est reprise par défaut. Le mot de passe neuf du compte **`imagine-test-admin`** est demandé sans écho, puis passe par stdin, jamais argv/rapport (20 à 72 octets UTF-8). Aucun secret d'accès agent ou de licence de la plateforme n'est récupéré ou réutilisé par la commande ; les valeurs DB de l'environnement du site ne sont pas affichées ni journalisées.
+
+Nom : préfixe `imagine-test-`, minuscules/chiffres et tirets simples entre composants, **40 caractères maximum**. Un nom existant ou qui serait normalisé/tronqué est refusé, pas réparé. PHP **8.2** est la version qualifiée. **Ced seul lance le premier import réel ; son rapport est relu avant tout accès agent.** Le PRET livre du code et des preuves, pas un GO d'import ou d'ouverture aux agents.
+
+### Enchaînement réel
+
+1. Création normale `POST /api/sites`, template `sandbox-wp-minimal` ; licence et provisioning MCP automatiques normaux autorisés par le GO, sans usage de leurs identifiants. Attente de fin, arrêt normal et relecture des trois services arrêtés.
+2. Restauration dans un runner neuf **network=none**, sans port, montage ou volume hôte ; MariaDB sur socket Unix uniquement. Réemploi inchangé de **neutraliser → anonymiser → verifier**. WordPress n'est bootstrapé qu'après le contrôle initial des données/fichiers.
+3. **Les trois reçus natifs réussis sont obligatoires** : un booléen seul ne publie rien. Sur refus, rien n'est injecté dans le site web.
+4. Site toujours arrêté : remplacement du core préparé et de tout `wp-content`, puis de sa seule base WordPress. Helpers jetables sans réseau, exclusivement sur les volumes de ce test, base cible avec sa propre image et socket sans accès réseau. Les comptes système DB de l'outil ne sont pas remplacés ; helpers supprimés avant démarrage.
+5. Comparaison des empreintes de **tous** les fichiers copiés au résultat hors ligne. Configuration de confiance neuve, sans licence/identifiants plateforme, variables DB déjà prévues par le site et salts neufs non journalisés. `home`/`siteurl` sont réglés par SQL vers **l'adresse exacte attribuée par l'outil**, sans démarrer WordPress, comme demandé au brief.
+6. Démarrage API normal, sondes réelles email/HTTP/Subscriptions/cron/AS/passerelles et allowlist. Sur les seules fixtures : vrai renouvellement AS forcé, bloqué avant callback et sans nouvelle commande de renouvellement.
+7. HTTP 200 sans redirection exigé sur le port local **et l'URL exacte depuis la machine opérateur**. Puis écriture et relecture de **`.imagine-staging-verified.json` à la racine du site**, et `verified` dans le rapport.
+
+Le dashboard n'a pas de colonne native A-01 « vérifié » : son état reste `running`. Le statut vérifié est celui du **témoin racine et du rapport**, selon le brief ; aucune colonne inventée ni écriture dans sa base. Ses anciennes métadonnées MCP peuvent rester périmées après remplacement.
+
+### Sortie, table à trancher, reprise fraîche
+
+Sortie finale : `status` et chemin `production/A-01/publication-22nov/<run_id>/result.json`. Succès **0** : site conservé en marche avec témoin `verified`. Refus **1** : étape/tag et site arrêté, jamais faux verified ; helpers/copie de travail détruits. Syntaxe de commande invalide : argparse 2. Le self-test supprime même ses tests refusés, après la preuve d'arrêt ; le mode Ced conserve le site refusé **arrêté**.
+
+Le rapport donne tables/colonnes/nombres de lignes, jamais leurs valeurs. Sur `TABLE_PERSONNELLE_A_TRANCHER`, Ced choisit explicitement `garder`, `vider`, ou `anonymiser` les colonnes désignées. Exemple **de syntaxe fictive, pas une décision de production** :
+
+```json
+{"wp_table_fictive": {"action": "anonymiser", "columns": ["email", "telephone"]}}
+```
+
+Ne pas reprendre le `garder` Woo de la recette comme décision sur Imagine. Après arbitrage : supprimer **le test exact dans l'outil par son usage normal**, contrôler sa disparition, prendre un nouveau nom et relancer la même commande sur copie fraîche. Pas de réparation/écrasement en place.
+
+**Durée mesurée : 258.975339 s pour les trois cas**, archives fictives d'environ 127 Mo, créations et suppressions comprises. Ce n'est pas une prévision pour Imagine : sa taille, sa grammaire SQL et ses tables ne sont pas connues de l'agent. Appels bornés, aucun pull/téléchargement prévu par le runner.
+
+## Acceptance : ce qui a été exécuté
+
+Deux stockages, vrais **Subscriptions 9.4.1 / Memberships 1.30.3**, WooCommerce **11.1.1**, WordPress **7.0.9** ; PHP publié **8.2.32**, worker réutilisé **8.2.36**. Versions exécutées/épinglées, pas annoncées comme les plus récentes. ZIP commerciaux opérateur vérifiés par empreinte, seulement copiés dans le conteneur ; pas d'achat, téléchargement ou activation de licence WooCommerce.
+
+- Six abonnements : IDs, état, client, période/intervalle, dates, devise, montants, produits, quantités, taxes, pays et moyen de paiement inchangés.
+- Quatre adhésions : liens utilisateur/plan, états/dates et empreinte des règles inchangés. Droits API réels identiques avant/après : actif admis ; invité, non-membre, expiré, annulé, en pause refusés.
+- Extensions actives, thème et réglage fictif conservés ; fichiers plugins **7 338→7 338**, thèmes **396→396**. Tous les fichiers restaurés sont d'abord comparés à leur source ; chaque fichier conservé garde son empreinte. Ajouts consignés : MU sécurité et fichiers/journal régénérés dans `uploads/wc-logs` par le bootstrap Woo. Pas une archive de production conservée ; aucune promesse d'absence perpétuelle de nouveaux journaux après bootstrap.
+- Email réellement coupé, HTTP interdit effectivement bloqué, staging WCS réel, allowlist/configuration exactes. Vraie action AS forcée : **0 callback, 0 renouvellement ajouté**, statut `failed`. Aucun email ni paiement réel.
+- Clé entièrement fictive conservée dans un MU de l'archive, réinsérée au bootstrap : relecture native → **`SECRET_OU_IDENTIFIANT`, code 1**. **Aucune injection**, trois conteneurs arrêtés et endpoint HTTP non joignable, aucun témoin verified, puis suppression normale du test.
+
+### Novamira après injection, sans utiliser son accès
+
+Dans les deux copies acceptées : **extension Novamira/Pro absente**, **0 enregistrement non vide de mot de passe applicatif**. Les identifiants applicatifs créés automatiquement ne peuvent donc plus authentifier sur la copie remplacée. Conclusion par absence du mécanisme/enregistrements, **pas essai de connexion** ; aucun secret récupéré, révélé ou réutilisé.
+
+Le diagnostic distingue la présence éventuelle d'une extension provenant de l'archive, sans la supprimer arbitrairement ; la présence seule n'invente pas un sixième blocage de données. Des mots de passe applicatifs résiduels empêchent de certifier l'absence de l'accès créé. Les anciennes métadonnées/identifiants de l'outil peuvent rester chez lui, périmés : ni lus ni réimportés. Pas de révocation/audit du compte de licence distant. Le test piégé n'est pas injecté : site vide arrêté puis supprimé, sans usage agent.
+
+## Limites assumées et incidents conservés
+
+**Avant vérification : aucun réseau/port/sortie système. Après vérification : filtrage des API HTTP WordPress seulement, pas pare-feu système.** `WP_HTTP_BLOCK_EXTERNAL=true`, `WP_ACCESSIBLE_HOSTS=*.wordpress.org,*.woocommerce.com`, MU aligné, redirections interdites. Les sockets PHP directs ne sont pas filtrés par ces constantes : limite expressément arbitrée dans le brief et écrite dans chaque rapport/témoin. Les hôtes de mises à jour sont testés par filtre, pas par téléchargement/installation.
+
+L'IP LAN depuis WSL produit `ConnectionResetError`, mais **l'URL exacte depuis Windows et le port local répondent 200 avec le même marqueur**. Les deux observations restent dans la preuve ; pas de modification réseau/frontal de l'outil ni substitution de réponse. Les échecs antérieurs sont conservés : transport WSL programmes/SQL corrigé par stdin ; droits tar corrigés dans le helper isolé post-vérification ; nom tronqué à 40 récupéré et supprimé (`4fde653a20f2/cleanup-recovery.json`).
+
+Formats qualifiés : `.wpress` non compressé, en-têtes 4 377 octets, SQL du sous-ensemble fermé, simple site. Chiffré/compressé/multivolume/multisite, SQL hors grammaire et autres versions non qualifiés ; refus sans repli arbitraire. Première qualification d'Imagine réservée à Ced. La fidélité formulaire/SEO/champs est aussi rejouée dans le banc hors ligne distinct.
+
+Les scripts natifs et bancs frères restent inchangés. `staging-wp-integration` n'est pas développé/utilisé comme runtime : seul son parseur SQL pur est lu. Aucun Git, installation hôte, accès à l'ancien staging, écriture de rapport parent ou du verrou. L'ancien diagnostic licence du 21/11 et l'ancien `run.py --archive` sont **historiques**, pas la nouvelle commande opérateur.
+
+### Réemploi du standard
+
+Relecture des mécanismes standards réutilisés : `pre_wp_mail`, API HTTP WP, staging natif WCS et API Action Scheduler. Le sur-mesure ajouté enchaîne l'import déjà qualifié, l'API normale et les sondes/témoins. Références officielles vérifiées HTTP 200 et empreintées dans `publication-22nov/standard-docs.json` :
+
+- https://developer.wordpress.org/reference/hooks/pre_wp_mail/
+- https://developer.wordpress.org/apis/making-http-requests/
+- https://woocommerce.com/document/subscriptions-handles-staging-sites/
+- https://actionscheduler.org/api/
+
+## Revérification bornée pour le parent
+
+Depuis la racine, aucune archive/import/connexion agent/mutation de site :
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python wp/tests/a01-court/test_publication.py
+PYTHONDONTWRITEBYTECODE=1 python wp/tests/a01-court/verify_publication.py \
+  --report production/A-01/publication-22nov/3f837c790d4b/result.json --live-cleanup
+```
+
+Bornes outil : **60 s** pour les 8 tests ; **300 s** pour reçus/empreintes puis GET/inspect d'absence par noms exacts et hashes déployés, sans create/start/stop/delete. Ne pas employer `publication_preflight.py` comme gate actuel : son verdict licence historique ne tient pas compte du GO ; la commande complète n'en utilise que la collecte en lecture seule.
+
+Rejeu complet, avec nouveaux tests nommés puis suppression finale :
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python wp/outils/staging-court/publish.py --self-test-publication
+```
+
+Borne outil **600 s**, propriétaire A-01 unique. `--case classic|hpos|trap` ne qualifie qu'un cas ; l'acceptance complète exige les trois. `run.py --self-test` reste la régression **hors ligne**, avec `full_staging_ready=false` attendu : ce n'est pas la commande de publication.
+
+---
+
+# Historique du 21 novembre — remplacé par la livraison du 22 novembre ci-dessus
+
+Les questions/blocages ci-dessous sont conservés pour traçabilité, pas comme consignes encore ouvertes.
+
 # A-01 publication — 21 novembre 2026 : blocage concret de l’API normale, aucun PRET
 
 ## État de la passe publication

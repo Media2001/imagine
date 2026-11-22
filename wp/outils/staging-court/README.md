@@ -1,3 +1,33 @@
+# A-01 — publication qualifiée, 22 novembre 2026
+
+**La commande opérateur est désormais `publish.py`, pas l'ancien `run.py --archive`.** Mode d'emploi complet, mot de passe stdin, décisions de tables, reprise fraîche, limites et preuves : **`production/A-01/notes.md`**. Ced seul lance le premier import réel ; aucun agent n'ouvre l'archive Imagine.
+
+```sh
+# Ced uniquement ; chemins fournis par lui, mot de passe demandé sans écho.
+PYTHONDONTWRITEBYTECODE=1 python wp/outils/staging-court/publish.py \
+  --operator-ced --archive "$ARCHIVE_WPRESS" \
+  --name imagine-test-a01-ced-01 --production-url "$URL_SOURCE" \
+  --table-decisions "$DECISIONS_CED" --php-version 8.2
+
+# Rejeu réel synthétique, nouveaux tests nommés et suppression finale ; borne 600 s.
+PYTHONDONTWRITEBYTECODE=1 python wp/outils/staging-court/publish.py --self-test-publication
+
+# Lecture seule ; bornes outil 60 s et 300 s.
+PYTHONDONTWRITEBYTECODE=1 python wp/tests/a01-court/test_publication.py
+PYTHONDONTWRITEBYTECODE=1 python wp/tests/a01-court/verify_publication.py \
+  --report production/A-01/publication-22nov/3f837c790d4b/result.json --live-cleanup
+```
+
+Omettre `--table-decisions` sans décision écrite. Nom `imagine-test-…` strict, minuscules/chiffres/tirets simples, 40 caractères maximum, nouveau site obligatoire. Restauration et traitements natifs hors ligne avant injection/démarrage ; API normale uniquement pour le cycle du test, aucun nouveau frontal ni modification de l'outil. Les accès agent créés automatiquement ne sont jamais utilisés. Succès : témoin racine `.imagine-staging-verified.json` relu et rapport `verified`, dashboard `running`. Échec : site arrêté et rapport, jamais faux verified.
+
+**Preuve finale : `production/A-01/publication-22nov/3f837c790d4b/result.json`, 3 cas PASS** (classique/HPOS avec vrais Subscriptions/Memberships et HTTP 200 à l'URL exacte ; clé piégée refusée avant injection). Tests supprimés et absence relue. Réseau après vérification : filtrage WordPress seulement, pas pare-feu système, conformément au brief. Formats/versions inconnus non qualifiés ; aucune archive réelle ouverte ni installation hôte/Git.
+
+`run.py --self-test` reste le banc hors ligne, avec `full_staging_ready=false` attendu : rejeu `production/A-01/tests-21nov/2a5c8c0fcbb1/result.json`, 18 contrôles PASS, 12 tests archive, 17 banc, 9 cas/337 assertions données. `publication_preflight.py` garde son verdict historique du 21/11 ; seul son collecteur en lecture seule est réutilisé, pas ce verdict licence obsolète après GO.
+
+---
+
+# Historique du 21 novembre — pas le mode d'emploi actuel
+
 # A-01 — chemin court hors ligne, lot complet encore bloqué
 
 21 novembre 2026. Aucun GO, import réel, publication web ou modification de l'outil partagé.
