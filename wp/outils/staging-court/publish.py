@@ -143,6 +143,24 @@ def stop_site(slug):
     return {'slug': slug, 'status': 'stopped', 'all_three_containers_stopped': True}
 
 
+def deleted_readback(slug):
+    validate_name(slug)
+    missing = api('GET', '/api/sites/' + slug)['code'] == 404
+    containers = {}
+    for prefix in ('wp-', 'db-', 'nginx-'):
+        p = call(['inspect', prefix + slug], check=False)
+        containers[prefix + slug] = p.returncode != 0 and b'no such object' in p.stderr.lower()
+    volume = call(['volume', 'inspect', 'wp-html-' + slug], check=False)
+    network = call(['network', 'inspect', 'site-net-' + slug], check=False)
+    volume_absent = volume.returncode != 0 and b'no such volume' in volume.stderr.lower()
+    network_absent = network.returncode != 0 and (b'not found' in network.stderr.lower() or b'no such network' in network.stderr.lower())
+    program = 'from pathlib import Path\nimport json\nprint(json.dumps({"directory_absent":not Path(' + repr('/app/sites/' + slug) + ').exists()}))\n'
+    directory_absent = json.loads(call(['exec', '-i', 'staging-wp-dashboard', 'python', '-'], program.encode()).stdout)['directory_absent']
+    assert missing and all(containers.values()) and volume_absent and network_absent and directory_absent
+    return {'site': slug, 'api_absent': missing, 'containers_absent': containers,
+            'html_volume_absent': volume_absent, 'network_absent': network_absent, 'directory_absent': directory_absent}
+
+
 def target_info(slug, prefix):
     validate_name(slug)
     info = inspect(prefix + slug)
@@ -458,13 +476,7 @@ except Exception as e: print(json.dumps({'reachable':False,'error_class':type(e)
                     if args.self_test_publication:
                         stop_site(name)
                         api('DELETE', '/api/sites/' + name)
-                        missing = api('GET', '/api/sites/' + name)['code'] == 404
-                        absence = {}
-                        for prefix in ('wp-', 'db-', 'nginx-'):
-                            p = call(['inspect', prefix + name], check=False)
-                            absence[prefix + name] = p.returncode != 0 and b'no such object' in p.stderr.lower()
-                        assert missing and all(absence.values())
-                        result['cleanup'].append({'site': name, 'api_absent': missing, 'containers_absent': absence})
+                        result['cleanup'].append(deleted_readback(name))
                     elif receipt['status'] != 'PASS':
                         receipt['failure_stop_readback'] = stop_site(name)
                 (out / 'result.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
