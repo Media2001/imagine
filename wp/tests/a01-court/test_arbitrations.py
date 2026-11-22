@@ -80,6 +80,18 @@ class ScriptsOnlyCapacity(unittest.TestCase):
 
 
 class ReceiptGates(unittest.TestCase):
+    def test_default_refusal_is_not_counted_as_verified_or_created_site(self):
+        import verify_correction_artifacts
+        self.assertTrue(hasattr(verify_correction_artifacts, 'verify_default_refusal'), 'Default-runtime refusal gate missing')
+        report = TOOLS.parents[2] / 'production/A-01/publication-22nov/a6ca179f2442/result.json'
+        value = json.loads(report.read_bytes())
+        verify_correction_artifacts.verify_default_refusal(value)
+        for mutation in ('normal_creation', 'offline', 'verified_marker_readback'):
+            corrupted = json.loads(json.dumps(value))
+            corrupted['cases'][0][mutation] = {}
+            with self.assertRaises(AssertionError):
+                verify_correction_artifacts.verify_default_refusal(corrupted)
+
     def test_publication_verifier_rejects_different_expected_core(self):
         import verify_publication
         report = TOOLS.parents[2] / 'production/A-01/publication-22nov/79cef0705045/result.json'

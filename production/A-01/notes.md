@@ -1,3 +1,59 @@
+# A-01 — arbitrages synchronisés du 22 novembre : remise de code bornée
+
+**Les réponses intitulées « 17 h » sont appliquées, indépendamment de l'heure de synchronisation. R5 n'attend plus aucun arbitrage.** Le `PRET` redéposé porte sur le code et les preuves ci-dessous, conformément au contrat « staging vérifié **ou rapport de refus** » ; **6.9.1 NON QUALIFIÉ en publication, aucun GO d'import réel ou d'accès agent**. Le refus opérateur par défaut est réel et explicite, pas un succès 6.9.1 inventé.
+
+## Décisions appliquées et sûreté
+
+- **Témoin racine + rapport : oui.** `.imagine-staging-verified.json` relu après sonde réussie ; dashboard `running`, sans modification de son schéma. Version attendue et politique de mise à jour figurent aussi au témoin.
+- **PAR SCRIPTS DE BASCULE SEULEMENT.** `DISALLOW_FILE_MODS=true` et `DISALLOW_FILE_EDIT=true` restent actifs ; `AUTOMATIC_UPDATER_DISABLED=true`, `WP_AUTO_UPDATE_CORE=false`. L'egress `*.wordpress.org,*.woocommerce.com` est **conservé**, conformément au nouvel arbitrage, qui prime l'ancienne alternative R5 de fermeture. Aucun filtre/constante désactivé pour faire passer un updater admin ou WP-CLI.
+- **Version attendue paramétrable :** `--expected-core-version`, défaut opérateur **6.9.1**. Avant création d'un site, lecture en données seules du `$wp_version` du runner ; discordance → `core_preflight / PINNED_CORE_EXPECTED_VERSION_MISMATCH`, rapport et runner supprimé. Ni archive ouverte, ni PHP/bootstrap, ni site/licence inutile sur cette branche. Puis la version déclarée par le package doit aussi être strictement égale au cœur **et** à l'attendu avant import SQL/bootstrap. Changer l'argument n'est pas une procédure de mise à niveau.
+- **Blocage opérationnel authentique :** le runtime livré reste le digest commercial qualifié **7.0.9**, pas un cœur 6.9.1. Le défaut 6.9.1 est donc refusé. Lecture fraîche des ZIP autorisés dans un runner sans réseau : **Subscriptions 9.4.1 exige WordPress 7.0 / WooCommerce 11.1 ; WooCommerce 11.1.1 exige WordPress 7.0.** Ces paquets ne qualifient pas 6.9.1 ; aucun minimum contourné, ZIP remplacé/rétrogradé ou garde retiré. Memberships 1.30.3 : pas de minimum WordPress dans l'en-tête lu, **pas une preuve de compatibilité 6.9.1**. Pour publier 6.9.1 : un lot court devra fournir/qualifier le runtime correspondant et des dépendances compatibles effectivement autorisées. **Ne pas passer 7.0.9 pour forcer l'import d'une archive 6.9.1.**
+- **Refus hors périmètre attendu.** `.wpress` non compressé, site simple, en-têtes 4 377 octets, SQL fermé ; InnoDB/MyISAM acceptés et MyISAM conservé/rapporté en E2E, Aria/Memory grammaire seulement. Autres formats/SQL/moteurs/versions : diagnostic sûr, jamais repli SQL arbitraire. Ced transmet seulement le rapport sans valeurs à un lot de qualification court ; l'agent n'ouvre jamais la sauvegarde originale.
+- R4/R3/R2/R6/R7 de la première passe restent conservés et rejoués : arrêt avant tout nettoyage, erreurs de nettoyage séparées, diagnostics fermés, moteurs signalés, mutation `CREATE_WORDS` **en mémoire locale seulement**, second piège table personnelle non tranchée.
+
+## Preuves finales de cette reprise
+
+- **Publication et capacité retenue :** `publication-22nov/79cef0705045/result.json`, sortie **0 / PASS**, **4 cas** : classique/HPOS avec vrais Subscriptions/Memberships, secret et table personnelle non tranchée refusés avant injection. `--expected-core-version 7.0.9` est explicite. Source/cœur/attendu = 7.0.9. Durée réelle des quatre fixtures : **345.253133 s**, pas une estimation d'Imagine.
+- **R5 réellement testé après publication**, dans les deux copies acceptées et avant écriture du témoin : administrateur sans capacités d'installation/mise à jour/édition, automatic updater désactivé ; vrai téléchargement HTTP 200 de `hello-dolly.1.7.2.zip` via l'API HTTP WordPress, SHA-256 **73847b0868f335d597c77a95aaa8c18eb1656c4b646e492ed1d65752d3236427** ; vrai HTTP 200 sur `developer.woocommerce.com/robots.txt`. Script local : remplacement atomique d'un fichier de plugin **inerte et dédié au test**, relecture, second passage idempotent, rollback empreinté, suppression relue. Le PHP téléchargé n'est **ni activé ni exécuté**. Cela prouve téléchargement + capacité de déploiement par script sous verrou, **pas la recette d'une mise à jour métier A-04, ni un téléchargement commercial/licencié**. Aucun script de bascule partagé modifié.
+- **Défaut 6.9.1 réellement refusé :** `publication-22nov/a6ca179f2442/result.json`, sujet sortie **1 / FAIL attendue**, `PINNED_CORE_EXPECTED_VERSION_MISMATCH`, aucun site créé, aucune archive préparée/importée et aucun bootstrap. Ce reçu n'est pas réécrit en PASS.
+- **Compatibilité bornée par en-têtes réels/ZIP empreintés :** `corrections-22nov/compatibility-1fc2a444c868.json`, sans bootstrap ni site créé. Contrôle de minimum seulement, pas acceptance fonctionnelle.
+- **Quatre scénarios de panne réels :** `corrections-22nov/faults-15bcd5cf2841/result.json`, pilote sortie **0 / PASS** ; les quatre sujets gardent chacun leur vraie sortie **1 / FAIL attendue**. Arrêt relu avant seconde panne de suppression, runner récupéré/supprimé, archive tronquée et SQL hors grammaire distincts, mismatch source/cœur refusé avant import DB.
+- **Régression hors ligne fraîche :** `tests-21nov/899049f5bdbf/result.json`, **18 contrôles PASS / 0 FAIL**, 12 tests archive, 17 banc, 9 cas / 337 assertions données et lint PHP. Ce banc historique reste hors ligne, `full_staging_ready=false`, et ne qualifie pas 6.9.1.
+- **Unitaires hôte : 47 tests verts dans 6 suites**, dont 5 nouveaux tests d'arbitrages ; `corrections-22nov/arbitrations-unit-*-final.log`. RED/GREEN conservés pour paramètre/gate opérateur/capacité et refus des reçus falsifiés. Ces suites recoupent les tests embarqués : ne pas additionner leurs compteurs.
+- **Nettoyage de cette reprise : 8 nouveaux sites**, donc 8 cycles normaux de licence/provisioning automatique couverts par le GO ; tous supprimés avec absence API, trois conteneurs, volume, réseau, répertoire relue. **11 runners** supprimés/absence relue (4 publication, 4 pannes, défaut de version, régression hors ligne, en-têtes de compatibilité). Aucun accès agent/compte distant utilisé ni audit des sièges distants. Outil/modèles déployés inchangés, empreintes relues. Vérification de publication `corrections-22nov/arbitrations-verification-live.json` ; manifest final : **`corrections-22nov/artifact-arbitrages-final.json`**.
+
+## Commande opérateur sûre — Ced seulement, pas un GO
+
+Depuis `C:/Users/Ced/imagine`, sans installation hôte :
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python wp/outils/staging-court/publish.py \
+  --operator-ced --archive "$ARCHIVE_WPRESS" \
+  --name imagine-test-a01-ced-01 --production-url "$URL_SOURCE" \
+  --expected-core-version 6.9.1 --php-version 8.2 \
+  --table-decisions "$DECISIONS_CED"
+```
+
+**État livré : cette commande rend un refus de runtime 6.9.1 avant toute lecture de l'archive.** C'est le blocage précis à qualifier ; aucune permission de substituer une autre version. Omettre `--table-decisions` sans décision écrite. Mot de passe neuf demandé sans écho seulement après prérequis ; stdin uniquement, pas argv/rapport. Noms stricts `imagine-test-…`, 40 caractères maximum, pas de réparation/troncature. En table à trancher : JSON explicite `garder` / `vider` / `anonymiser` telles colonnes, aucune décision de fixture transposée ; supprimer seulement le test exact par l'API normale, absence relue, nouveau nom et copie fraîche. Sur refus d'une copie créée : elle reste arrêtée en mode opérateur ; jamais faux verified.
+
+Après qualification dédiée du bon runtime/dépendances, le parcours normal reste : create/stop → restauration et trois scripts sans réseau → injection arrêtée → start/sondes → témoin + rapport. Les changements durables passent par des scripts versionnés de bascule : sauvegarde et préimage, téléchargement sur hôte autorisé avec version/empreinte fixées, remplacement de fichiers hors updater WP sans lever les constantes, relecture, rejeu idempotent, rollback et non-régression. **La réalisation de la mise à jour A-04 n'est pas incluse dans A-01.** Après vérification, seul le filtrage HTTP WordPress est garanti, **pas un pare-feu système**.
+
+## Relecture sans mutation de site, archive réelle ni connexion agent
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python wp/tests/a01-court/test_arbitrations.py
+PYTHONDONTWRITEBYTECODE=1 python wp/tests/a01-court/test_corrections.py
+PYTHONDONTWRITEBYTECODE=1 python wp/tests/a01-court/test_publication.py
+PYTHONDONTWRITEBYTECODE=1 python wp/tests/a01-court/verify_correction_artifacts.py \
+  --output production/A-01/corrections-22nov/artifact-arbitrages-parent.json
+```
+
+Bornes : 60 s unitaires, 300 s manifest/relecture de nettoyage par noms exacts. Sortie attendue 0 pour le vérificateur. Ne pas réutiliser un nom de reçu existant. Le manifeste contient les SHA-256 exacts, compteurs et noms à relire. L'ancien `artifact-final.json` reste **historique**, avec son état R5 alors non arbitré ; il n'est pas écrasé. Rejeu synthétique complet, seulement sous le même GO de tests : `python wp/outils/staging-court/publish.py --self-test-publication --expected-core-version 7.0.9` (600 s, quatre nouveaux sites puis suppression).
+
+---
+
+# Historique de première passe — remplacé par les arbitrages ci-dessus
+
 # A-01 — corrections fusionnées du 22 novembre : vérifiées, NON PRÊT global
 
 **Le PRET précédent est invalidé et retiré**, conservé uniquement sous `PRET-invalide-22nov-historique.txt`. Les sections antérieures ci-dessous sont historiques. **R5 reste bloqué sur le choix Ced « admin / scripts »** ; aucun nouveau PRET. Aucun import réel, archive Imagine, ancienne copie, accès agent, Git, installation hôte ou modification de l'outil/modèles partagés.

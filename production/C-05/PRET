@@ -1,0 +1,12 @@
+C-05 — ajout SEPA de la file du 22 novembre 2026, 17 h prêt à relire.
+Réglage confirmation_premier_sepa : avec_marge par défaut / sans_marge ; sélection admin Settings API sans changement de code, anciennes options sûres.
+Premier SEPA payé au plus tôt à max(confirmation effective, commande + marge civile) avec marge ; confirmation seule sans marge ; sans confirmation jamais payé. Même durée obligatoire, aucune valeur numérique inventée.
+Aucun numéro, échéance, montant, dette ou droit modifié ; aucun raccord de production. Q1 devient ce réglage et ne bloque plus.
+TDD : replays/sepa-22nov-1700/ ; preuves finales neuves : replays/sepa-22nov-1715-final/.
+Standard réel : 765 tests / 33 143 assertions, dont Echeancier 403 / 2 373 et nouveaux SEPA 19 / 66 ; 0 échec, erreur ou ignoré. Tests, lint PSR-12, syntaxe et Composer strict : exit 0.
+Vrai Subscriptions classique + HPOS : 8 abonnements, 64 commandes dont 56 renouvellements ; 766 contrôles dont 62 SEPA + 12 enveloppe, exit 0.
+Quatre conteneurs possédés supprimés, absence exacte revérifiée ; 647 fichiers protégés inchangés. Aucun Git, verrou, A01, C06/C07 ou fichier protégé modifié.
+Note : sepa-22nov-1700.md ; instructions : wp/tests/echeancier-runner/README-sepa.md ; proposition actualisée, anciennes remises historiques conservées.
+Scellement vérifié : replays/sepa-22nov-1715-final/verification.json, SHA-256 542e7d69d67e031c5c25cb55496f82410e155a49893423ab367effb89759e9db.
+Hash de ce PRET lié séparément dans replays/sepa-22nov-1715-final/remise.json.
+Bibliothèque/prototype non branché, pas de sauvegarde HTTP/validation visuelle, de prélèvement réel ou de file globale. PRET n'est ni clôture indépendante ni GO financier/réel/déploiement.

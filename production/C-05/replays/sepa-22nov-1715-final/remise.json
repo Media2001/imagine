@@ -1,0 +1,13 @@
+{
+  "created_at_utc": "2026-11-22T16:18:23.776172+00:00",
+  "lot": "C-05",
+  "state": "PRET",
+  "pret_sha256": "15df015c84b85241b59edbee38960f93cd82f597f1f589b663a029ef269ab7b0",
+  "verification_sha256": "542e7d69d67e031c5c25cb55496f82410e155a49893423ab367effb89759e9db",
+  "note_sha256": "42df2c20ffbd7116f663157b42c023e2a0202e6eed49f139a90a738d9deaff9e",
+  "production_authorized": false,
+  "bootstrap_wired": false,
+  "total_tests": 765,
+  "total_assertions": 33143,
+  "owned_containers_absent": 4
+}

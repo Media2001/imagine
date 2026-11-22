@@ -1,0 +1,20 @@
+[
+  {
+    "url": "https://developer.wordpress.org/reference/functions/wp_is_file_mod_allowed/",
+    "status": 200,
+    "sha256": "316d7051a1368e914764619f545923e5d0c5255114053b876650cc86d1fe34ea",
+    "bytes": 172982
+  },
+  {
+    "url": "https://developer.wordpress.org/reference/classes/wp_automatic_updater/is_disabled/",
+    "status": 200,
+    "sha256": "68f480b1f16e614d980374ca7d40d3bd557099c91c6cbebed2a23b086afa4078",
+    "bytes": 170984
+  },
+  {
+    "url": "https://developer.wordpress.org/reference/functions/wp_remote_get/",
+    "status": 200,
+    "sha256": "96af63d7c19b4a4f86476722c781b27a728ffbfb5ee7c1f4d6990fabe874ecb5",
+    "bytes": 233427
+  }
+]

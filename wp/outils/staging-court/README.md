@@ -1,3 +1,41 @@
+# A-01 — arbitrages appliqués, remise de code et refus sûr
+
+**R5 résolu : mises à jour PAR SCRIPTS DE BASCULE SEULEMENT, egress conservé.** `DISALLOW_FILE_MODS=true`, édition et mises à jour automatiques bloquées. Le témoin racine + rapport portent `verified`, dashboard `running`. Mode d'emploi actuel et preuves : **`production/A-01/notes.md`**, manifest **`production/A-01/corrections-22nov/artifact-arbitrages-final.json`**. Le `PRET` de code ne qualifie pas la production : **6.9.1 NON QUALIFIÉ en publication, aucun GO d'import réel ou d'accès agent**.
+
+`--expected-core-version` est un paramètre, défaut **6.9.1**. Le runtime local épinglé de la recette commerciale est **7.0.9** : le défaut est refusé avec `core_preflight / PINNED_CORE_EXPECTED_VERSION_MISMATCH`, **avant création de site, lecture d'archive ou bootstrap**. Ce n'est pas une mise à niveau implicite. Les paquets de cette recette ne sont pas compatibles avec 6.9.1 : Subscriptions 9.4.1 exige WP 7.0/Woo 11.1, Woo 11.1.1 exige WP 7.0 ; leurs minima ne sont pas contournés. Une qualification dédiée doit fournir un cœur et des dépendances compatibles ; **ne pas choisir 7.0.9 pour forcer une archive 6.9.1**.
+
+```sh
+# Ced uniquement ; actuellement refus explicite du runtime, sans ouvrir l'archive.
+PYTHONDONTWRITEBYTECODE=1 python wp/outils/staging-court/publish.py \
+  --operator-ced --archive "$ARCHIVE_WPRESS" \
+  --name imagine-test-a01-ced-01 --production-url "$URL_SOURCE" \
+  --expected-core-version 6.9.1 --php-version 8.2 \
+  --table-decisions "$DECISIONS_CED"
+
+# Recette synthétique commerciale 7.0.9 SEULEMENT, quatre tests puis nettoyage ; 600 s.
+PYTHONDONTWRITEBYTECODE=1 python wp/outils/staging-court/publish.py \
+  --self-test-publication --expected-core-version 7.0.9
+
+# Relecture sans mutation de site, archive réelle ou connexion agent ; 300 s.
+PYTHONDONTWRITEBYTECODE=1 python wp/tests/a01-court/test_arbitrations.py
+PYTHONDONTWRITEBYTECODE=1 python wp/tests/a01-court/verify_correction_artifacts.py \
+  --output production/A-01/corrections-22nov/artifact-arbitrages-parent.json
+```
+
+Omettre les décisions sans choix écrit de Ced. Mot de passe neuf par getpass/stdin seulement après les prérequis, aucune valeur de données au rapport. Nom strict `imagine-test-…` ≤40 caractères, site neuf ; en refus, copie arrêtée ; nouvelle tentative sur nouveau nom/copie fraîche après suppression du test exact et relecture d'absence.
+
+**Preuve : `publication-22nov/79cef0705045/result.json`, 4 cas PASS en 7.0.9.** Classique/HPOS publiés HTTP 200, MyISAM conservé, secret/table personnelle non tranchée refusés. R5 après publication : admin et auto-updater bloqués ; vrai ZIP public wordpress.org téléchargé/empreinté ; vrai HTTP 200 sur un sous-domaine WooCommerce ; script remplace un fichier inerte dédié, rejoue à l'identique, rollback et suppression relus. Aucun PHP téléchargé exécuté/activé, **pas un test de téléchargement commercial ni la future mise à jour A-04**. `script_capacity_probe.php` est exclusivement un banc sur fixture, **pas un entrypoint de bascule pour un vrai site**.
+
+Refus par défaut réellement conservé : `publication-22nov/a6ca179f2442/result.json` (**1/FAIL attendu**, zéro site/aucun bootstrap). Pannes : `corrections-22nov/faults-15bcd5cf2841/result.json`, 4 scénarios PASS avec sujets FAIL attendus. Compatibilité : `corrections-22nov/compatibility-1fc2a444c868.json`, en-têtes de ZIP exacts, sans bootstrap. Régression hors ligne : `tests-21nov/899049f5bdbf/result.json`, 18 contrôles PASS, 9 cas/337 assertions. Unitaires hôte : 47 tests dans 6 suites, compteurs non cumulables avec ceux embarqués. Huit nouveaux sites et onze runners de cette reprise supprimés, absence relue ; outil/modèles inchangés.
+
+Format fermé conservé : `.wpress` non compressé, simple site, en-têtes 4 377 octets, SQL fermé, package/source/cœur/attendu identiques avant SQL/bootstrap. Moteurs InnoDB/MyISAM/Aria/Memory, MyISAM seul non-InnoDB qualifié E2E ; autres formats/grammaires/versions refusés avec étape/code sûrs, sans stderr brut ni SQL de repli. `CREATE_WORDS` est enrichi en mémoire dans la seule copie locale importée, pas écrit dans l'outil partagé. Le parseur pur effectif reste `staging-wp-integration/worker/worker.py` ; son runtime/overlay ne sont pas développés ni déployés.
+
+Réseau nul pendant import/vérification. Après vérification : **filtrage des API HTTP WordPress seulement, pas pare-feu système**, `*.wordpress.org,*.woocommerce.com` conservés selon le dernier arbitrage. Procédure scripts : préimage/sauvegarde, paquet versionné/empreinté téléchargé sur hôte autorisé, remplacement filesystem sans lever le verrou ni utiliser l'updater admin/WP-CLI, relecture, idempotence, rollback et non-régression. Aucun script partagé A-04 créé ici.
+
+---
+
+# Historique avant arbitrages — le texte ci-dessous ne décrit plus l'état courant
+
 # A-01 — corrections du 22 novembre, remise globale NON PRÊTE
 
 **Le PRET précédent est invalidé.** R4/R3/R1/R2/R6/R7 corrigés et exécutés ; R5 attend le choix Ced **admin / scripts**. Protections inchangées : `DISALLOW_FILE_MODS=true`, édition et mises à jour automatiques désactivées. Aucun arbitrage implicite. Voir le point courant de `production/A-01/notes.md` et `production/A-01/NON-PRET-22nov.md`.
