@@ -10,7 +10,9 @@ Image réutilisée, sans pull : `sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14
 
 `e2e` réinitialise uniquement `/scratch` et `/report` **dans ce conteneur possédé**, crée ses bases inventées classique et HPOS et active le vrai Subscriptions. MariaDB écoute uniquement sur socket Unix. Aucun serveur HTTP/FPM. Aucune archive de site ni export SQL. Emails et HTTP bloqués ; pas de passerelle de paiement. Chaque date future est vérifiée dans `next_payment` et dans une action native, puis **cette seule action** est exécutée explicitement en accéléré. Les horloges système/PHP ne sont pas modifiées ; les confirmations Woo ont l’heure réelle du banc.
 
-Le raccord est appliqué explicitement entre validations, pas par un branchement automatique de production. Les commandes de renouvellement sont réelles en base ; les validations sont des transitions Woo locales fictives, pas des opérations bancaires. Le compteur d’engagement est une proposition, et ses 28 incompatibilités sur le calendrier fictif sont signalées plutôt que masquées.
+Le raccord est appliqué explicitement entre validations, pas par un branchement automatique de production. Les commandes sont réelles en base ; les validations sont des transitions Woo locales fictives, pas des opérations bancaires. Option A du 22/11 : quatre positions par bloc de quatre numéros ; les 28 fenêtres fictives à cinq dates sont désormais acceptées. Quatre scénarios par stockage : 20 février et 9/10/11 avril 2027, donc veille/jour/lendemain de clôture.
+
+`admin-scenario.php` active l’adaptation dédiée sans toucher au bootstrap partagé : formulaire WP réel (champs, nonce, refus anonyme), enregistrement Settings API sans REST, douze combinaisons persistées/relues par stockage et effets sur moteur/projections. Pas de sauvegarde par requête HTTP ni d’inspection visuelle revendiquée. Marge vide ou option absente : planification refusée, aucun défaut.
 
 `close` inspecte le label et l’isolation, supprime seulement le conteneur possédé, puis exige le diagnostic sémantique exact de son absence. Ni prune, ni arrêt d’une ressource sœur, ni écriture dans `.hermes.lock`.
 
@@ -27,6 +29,6 @@ python wp/tests/echeancier-runner/run.py prepare && (
 python wp/tests/echeancier-runner/verify.py --unit relecture-unit --e2e relecture-e2e
 ```
 
-Éviter de réemployer un nom de reçu que l’on souhaite conserver. `verify.py` sans paramètres vérifie la remise canonique `final-unit-3` / `final-e2e-3`, les empreintes actuelles, les compteurs, les sources C01 inchangées et l’absence de toutes les ressources C05 connues. Il écrit `production/C-05/preuves/verification.json`. Son succès confirme les **preuves techniques**, pas une acceptance métier universelle ; il attend expressément l’absence de `PRET` tant que le contre-exemple subsiste.
+Éviter de réemployer un nom de reçu à conserver. `verify.py` sans paramètres vérifie `reprise-final-unit` / `reprise-final-e2e` : empreintes actuelles, compteurs dérivés, quatre rangs par bloc, cinq dates acceptées, réglages et C01 inchangé, absence exacte de tous les conteneurs C05 connus. Il écrit `production/C-05/preuves/verification.json`, avec l’état de PRET et ses empreintes s’il est présent. Ce n’est ni une clôture par les relecteurs, ni un GO réel.
 
-`sources.py` relit uniquement six pages officielles publiques et produit un registre de citations local C05 avec courts extraits vérifiés. Il n’est pas exécuté par le banc offline. La collecte HTTP hôte est indépendante de la fixture, qui reste sans réseau dès sa création.
+`official-review.py` relit huit pages officielles publiques (six Woo préexistantes, deux Settings API WP) et produit `production/C-05/sources/review-2026-11-22.json`, avec courts extraits horodatés et empreintes. Il n’est jamais appelé par le banc offline. `sources.py` et les reçus du 21/11 restent historiques. La collecte HTTP hôte est indépendante de la fixture, sans réseau dès sa création.

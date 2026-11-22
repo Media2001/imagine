@@ -1,13 +1,16 @@
 {
-  "verified_at_utc": "2026-11-21T13:03:39.358114+00:00",
+  "verified_at_utc": "2026-11-22T12:45:56.953743+00:00",
   "technical_evidence_verified": true,
-  "acceptance_complete": false,
-  "PRET_present": false,
-  "blocker": "Common first renewal may precede anniversary: five payment dates in first date-to-date year",
-  "tests": 376,
-  "assertions": 1473,
+  "acceptance_complete": true,
+  "PRET_present": true,
+  "blockers": [],
+  "production_authorized": false,
+  "shared_bootstrap_wired": false,
+  "parent_seam": "(new Imagine\\Pilotage\\Echeancier\\ReglagesAdministration())->enregistrer();",
+  "tests": 380,
+  "assertions": 2289,
   "failed": 0,
-  "counterexample": {
+  "accepted_five_date_example": {
     "commande": "2027-04-09T12:00:00+02:00",
     "anniversaire": "2028-04-09T12:00:00+02:00",
     "dates": [
@@ -19,18 +22,20 @@
     ],
     "count_in_first_anniversary_window": 5
   },
-  "blocked_daily_commands_of_365": 28,
-  "scenario_checks": 460,
+  "accepted_five_date_daily_commands_of_365": 28,
+  "scenario_checks": 700,
+  "envelope_checks": 12,
   "storage_runs": 2,
-  "subscriptions": 6,
-  "initial_orders": 6,
-  "real_manual_renewal_orders": 42,
-  "total_orders": 48,
+  "subscriptions": 8,
+  "initial_orders": 8,
+  "real_manual_renewal_orders": 56,
+  "total_orders": 64,
   "scenarios": [
     {
       "storage": "classic",
       "commande": "2027-02-20 12:00:00",
       "subscription_id": 12,
+      "first_window_payment_dates": 4,
       "initial_order_id": 11,
       "renewal_order_ids": [
         13,
@@ -44,8 +49,9 @@
     },
     {
       "storage": "classic",
-      "commande": "2027-04-10 12:00:00",
+      "commande": "2027-04-09 12:00:00",
       "subscription_id": 21,
+      "first_window_payment_dates": 5,
       "initial_order_id": 20,
       "renewal_order_ids": [
         22,
@@ -59,8 +65,9 @@
     },
     {
       "storage": "classic",
-      "commande": "2027-10-11 12:00:00",
+      "commande": "2027-04-10 12:00:00",
       "subscription_id": 30,
+      "first_window_payment_dates": 4,
       "initial_order_id": 29,
       "renewal_order_ids": [
         31,
@@ -70,12 +77,29 @@
         35,
         36,
         37
+      ]
+    },
+    {
+      "storage": "classic",
+      "commande": "2027-04-11 12:00:00",
+      "subscription_id": 39,
+      "first_window_payment_dates": 4,
+      "initial_order_id": 38,
+      "renewal_order_ids": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46
       ]
     },
     {
       "storage": "hpos",
       "commande": "2027-02-20 12:00:00",
       "subscription_id": 12,
+      "first_window_payment_dates": 4,
       "initial_order_id": 11,
       "renewal_order_ids": [
         13,
@@ -89,8 +113,9 @@
     },
     {
       "storage": "hpos",
-      "commande": "2027-04-10 12:00:00",
+      "commande": "2027-04-09 12:00:00",
       "subscription_id": 21,
+      "first_window_payment_dates": 5,
       "initial_order_id": 20,
       "renewal_order_ids": [
         22,
@@ -104,8 +129,9 @@
     },
     {
       "storage": "hpos",
-      "commande": "2027-10-11 12:00:00",
+      "commande": "2027-04-10 12:00:00",
       "subscription_id": 30,
+      "first_window_payment_dates": 4,
       "initial_order_id": 29,
       "renewal_order_ids": [
         31,
@@ -115,6 +141,22 @@
         35,
         36,
         37
+      ]
+    },
+    {
+      "storage": "hpos",
+      "commande": "2027-04-11 12:00:00",
+      "subscription_id": 39,
+      "first_window_payment_dates": 4,
+      "initial_order_id": 38,
+      "renewal_order_ids": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46
       ]
     }
   ],
@@ -128,6 +170,11 @@
     "wp/plugins/imagine-pilotage/src/Numeros/TypeNumero.php": "00959ba220ae38b22f77d6bb5e0e42f851b6b693d6470b95b1fdf678fc3f30a1"
   },
   "exact_owned_resources_absent": [
+    {
+      "container": "imagine-c05-158b1b59de0c",
+      "absent": true,
+      "diagnostic": "error: no such object: imagine-c05-158b1b59de0c"
+    },
     {
       "container": "imagine-c05-25aa19c2fcd9",
       "absent": true,
@@ -145,16 +192,17 @@
     }
   ],
   "source_receipts": [
-    "parent-21nov-unit",
-    "parent-21nov-e2e"
+    "reprise-final-unit",
+    "reprise-final-e2e"
   ],
   "artifact_sha256": {
-    "production/C-05/notes.md": "cd75d82429a00143351148e505c8e3485499f00230d0adbf9dc0cd78698127ea",
+    "production/C-05/notes.md": "3cc01c16ddec3b7b6695a0c1714838ed1d83a5cd1f28e9d2175540a3ae9d2030",
+    "production/C-05/PRET": "b9eda8b4eb7c6e394fccf3666e0d9b45d19b7e5380e533c9817df585c8f21b59",
     "production/C-05/preuves/boundaries-result.json": "4870ed157523e211d2b80e4295ff5845bf4a47dcdef62fc9018dde280938814d",
     "production/C-05/preuves/boundaries-syntax.log": "79a9a1914dd83726ec1882463ab88616c626750203f210b2771ac98db366f8b1",
     "production/C-05/preuves/boundaries.json": "c69dbe002199997d7e46c75a77d3e6535e9746a8a634f125fda40c0666f51162",
     "production/C-05/preuves/boundaries.log": "ad56b6f59b26d777a939bf3450b2743811328f84ab4e4e292ce7b6f1598c1754",
-    "production/C-05/preuves/cleanup.json": "964baffbc20d649ee9dc7693fed25f00db737a568e6c30930f2f186550cd1647",
+    "production/C-05/preuves/cleanup.json": "6e393d755f44adb2690773764e334c3985fa9a11e8a83842e835bc16f32cd848",
     "production/C-05/preuves/final-e2e-2-result.json": "f25d0dd1205e640839d9bb25276a897dc86908b8e1cbd5b2ca9c4d0ba255682c",
     "production/C-05/preuves/final-e2e-2-syntax.log": "79a9a1914dd83726ec1882463ab88616c626750203f210b2771ac98db366f8b1",
     "production/C-05/preuves/final-e2e-2.json": "bc80be8051894586f33d5adf412f625e0f814269cc6ddfa27f86ef7cd9c10995",
@@ -203,7 +251,7 @@
     "production/C-05/preuves/parent-21nov-unit-syntax.log": "79a9a1914dd83726ec1882463ab88616c626750203f210b2771ac98db366f8b1",
     "production/C-05/preuves/parent-21nov-unit.json": "24e136de9d985c3be4ffb3a8ed394d22d1b698f5072a6e39cd3a72832608f411",
     "production/C-05/preuves/parent-21nov-unit.log": "aae44bae4c86a87da5210cee5fba594e8ea627158fdc5f6f1e1e3f6394465f1d",
-    "production/C-05/preuves/preparation.json": "a7629c309df3066c5699ad5990edaafefdd76103baecc045b5081461dcb7458f",
+    "production/C-05/preuves/preparation.json": "ba9d6f2f981b57a9517fe23df6cb784a9745f7428d7ca6ddd43ba094e4b3cd43",
     "production/C-05/preuves/raccord-customer-fix-result.json": "c85fbae1277dc60697ad210ebed7df82fa2cebee4903f49e9d850b83359e8e5d",
     "production/C-05/preuves/raccord-customer-fix-syntax.log": "79a9a1914dd83726ec1882463ab88616c626750203f210b2771ac98db366f8b1",
     "production/C-05/preuves/raccord-customer-fix.json": "338e9fb9edf931827a721b162bcba3620cc42efa569a73a91bc475eb82066508",
@@ -228,7 +276,64 @@
     "production/C-05/preuves/red-validations-syntax.log": "279e796316c05ab8a23151e994a3b3a2c90c070ffb30919ec1737224797b79c5",
     "production/C-05/preuves/red-validations.json": "d1c2154db54487ebeea032e9b071f181284be1ec2447036caee282094e51d59b",
     "production/C-05/preuves/red-validations.log": "370fe01c7816974c96b27969d2511bfe56c752eb6bbcde4d4fb3959cfe3efc9f",
-    "production/C-05/proposition.md": "e4dc2a0a6f4adb14752c05abb5c16bd442d939b9caf7e4d391a6dd8d0df5b795",
+    "production/C-05/preuves/reprise-final-e2e-result.json": "e9854141c8c85f3c00096cbe03869adfbdcfebd8f4f0c0dd245ab854496dd2bd",
+    "production/C-05/preuves/reprise-final-e2e-syntax.log": "e6b5798521a8ced0a3643364c0e67814214ab9e99dafceae8e8cd6aca15ba14b",
+    "production/C-05/preuves/reprise-final-e2e.json": "37879e38db5d6037ede38ef2a0346307384593a7b806c9c761c3840874d7018b",
+    "production/C-05/preuves/reprise-final-e2e.log": "cfb55e21eea442a06ca318f00a3910ac4ce8a78e512627653f77362a6128354d",
+    "production/C-05/preuves/reprise-final-unit-result.json": "71ef73b75356f8967763e5eb7b834a25e77da96505882c22383cefb9a3981390",
+    "production/C-05/preuves/reprise-final-unit-syntax.log": "e6b5798521a8ced0a3643364c0e67814214ab9e99dafceae8e8cd6aca15ba14b",
+    "production/C-05/preuves/reprise-final-unit.json": "d681c5066062b0b99fe783d383352ebf3c9ae265b966d792e79c508fffd42473",
+    "production/C-05/preuves/reprise-final-unit.log": "c9d38a09630ea306c4ea47499189de13fa2648894f8e9306cacba4d1c90acf15",
+    "production/C-05/preuves/reprise-green-admin-result.json": "63b15ae6f300cac3f0c3d2e937514ad5247870bf4b91d539e74ab1d498e8d29e",
+    "production/C-05/preuves/reprise-green-admin-syntax.log": "e6b5798521a8ced0a3643364c0e67814214ab9e99dafceae8e8cd6aca15ba14b",
+    "production/C-05/preuves/reprise-green-admin.json": "64e4122df983044566e78fac0d4354bd0cdf9f78a31e0d335bcc27c898b552d6",
+    "production/C-05/preuves/reprise-green-admin.log": "cfb55e21eea442a06ca318f00a3910ac4ce8a78e512627653f77362a6128354d",
+    "production/C-05/preuves/reprise-green-marge-result.json": "ae7a092c78d506dcb6f39259c45fbac85f9a1bd8393f2703e5f3067d2166f1c4",
+    "production/C-05/preuves/reprise-green-marge-syntax.log": "9515b6abb9923546dc2062cc27d8703d0fd81cdc3d91825c25d021032493d844",
+    "production/C-05/preuves/reprise-green-marge.json": "499c35bed2f8eb76fdb69d81d6170ec627cba03377396cfaff98b627e10bb85a",
+    "production/C-05/preuves/reprise-green-marge.log": "0a10bfcd73c51ae3e4047e645cfe8c54fb3ace2b304f09a0e09e8c09bb055721",
+    "production/C-05/preuves/reprise-green-option-a-result.json": "9e04bead4e4c07362de4f986bb62004648224d55326d7dc12536b3e5a31f1496",
+    "production/C-05/preuves/reprise-green-option-a-syntax.log": "79a9a1914dd83726ec1882463ab88616c626750203f210b2771ac98db366f8b1",
+    "production/C-05/preuves/reprise-green-option-a.json": "9a9d8af84e6328b808c30f625b459557afcde84e047c6ae93298b38ea86a1de3",
+    "production/C-05/preuves/reprise-green-option-a.log": "64017cbceeb8db0b84a296e5d23a33dd5061f090056c9dabfe5e50ecbc95883c",
+    "production/C-05/preuves/reprise-green-options-result.json": "71ef73b75356f8967763e5eb7b834a25e77da96505882c22383cefb9a3981390",
+    "production/C-05/preuves/reprise-green-options-syntax.log": "9515b6abb9923546dc2062cc27d8703d0fd81cdc3d91825c25d021032493d844",
+    "production/C-05/preuves/reprise-green-options.json": "63be02a49abe280207a7b74fbf29ba7114b981dd19a1d175fcfba13fd628005a",
+    "production/C-05/preuves/reprise-green-options.log": "c9d38a09630ea306c4ea47499189de13fa2648894f8e9306cacba4d1c90acf15",
+    "production/C-05/preuves/reprise-green-rejet-result.json": "5cf0c290d13727bb563243fed1fdc3e9230c9d5c5dc7ac0d7690234889884b03",
+    "production/C-05/preuves/reprise-green-rejet-syntax.log": "9515b6abb9923546dc2062cc27d8703d0fd81cdc3d91825c25d021032493d844",
+    "production/C-05/preuves/reprise-green-rejet.json": "61f8ca92ef752bd6ad927196b72f5b0ceb5d9dd823f500ebf9e2c94151951e3e",
+    "production/C-05/preuves/reprise-green-rejet.log": "46069b3f234b3e1f591d75f1aa45ccb34130762d7cf04d2ab3321cd18d2672d7",
+    "production/C-05/preuves/reprise-green-tarif-result.json": "9458caa30588735ded7afabddaca64f0d48e56501a3defaa9289780d0762634c",
+    "production/C-05/preuves/reprise-green-tarif-syntax.log": "9515b6abb9923546dc2062cc27d8703d0fd81cdc3d91825c25d021032493d844",
+    "production/C-05/preuves/reprise-green-tarif.json": "d052816e25644ff136b8c228507c55a1ed97aa4f9d5ba05160ac68d781fd0fda",
+    "production/C-05/preuves/reprise-green-tarif.log": "e84e4b7a7e7709b613a34d8c4c37ed79d865b7e666227292db16866a9770b831",
+    "production/C-05/preuves/reprise-red-admin-result.json": "cca88e916889911cbb7fd320cc3454cfd800831f9c2c02bbf99ea53d952ea933",
+    "production/C-05/preuves/reprise-red-admin-syntax.log": "2f7e80d35cec08a876c04cba716f688262b4bb48530151d023355f6fd6aca2b7",
+    "production/C-05/preuves/reprise-red-admin.json": "1c17b7fac4ccb78155f3428d720cbc82b7943293ed9b100173ae9368a191005d",
+    "production/C-05/preuves/reprise-red-admin.log": "71152a6bccfa9c02494b49baaf460141636cd70a96b5867f337e94b4dfee0f72",
+    "production/C-05/preuves/reprise-red-marge-result.json": "865fd76c1dbfe00da45e33cf6a8d47eacf80c52f9f69396a2681a83686a304c9",
+    "production/C-05/preuves/reprise-red-marge-syntax.log": "79a9a1914dd83726ec1882463ab88616c626750203f210b2771ac98db366f8b1",
+    "production/C-05/preuves/reprise-red-marge.json": "2bb0a9934fe90f18eedf66c3d277c6835340e72fb151e93414fd638fb8b35159",
+    "production/C-05/preuves/reprise-red-marge.log": "f5e773556de9f6d3bb937f265f7e0e19a13c1e175283c0deaae85200cd5cba62",
+    "production/C-05/preuves/reprise-red-option-a-result.json": "98f66810c890a61c4bd9abf1a3e9ab8580f61a1fae6cb07aeb5ec20f0dc1fd49",
+    "production/C-05/preuves/reprise-red-option-a-syntax.log": "79a9a1914dd83726ec1882463ab88616c626750203f210b2771ac98db366f8b1",
+    "production/C-05/preuves/reprise-red-option-a.json": "cc8fa8972cb875b7cec6117ae75a80c45d97582b86942acd72dec2eb33c90af8",
+    "production/C-05/preuves/reprise-red-option-a.log": "0ff52a6ef611d06aa0436e858d7ffd759aacf04edf57dd140f1621d204a8f294",
+    "production/C-05/preuves/reprise-red-options-result.json": "5e999438a4ba7105b4835cac55719d82a580be32c7b3bb686839a038de12af02",
+    "production/C-05/preuves/reprise-red-options-syntax.log": "9515b6abb9923546dc2062cc27d8703d0fd81cdc3d91825c25d021032493d844",
+    "production/C-05/preuves/reprise-red-options.json": "55bfda8b60f4ea517c87e7428a03f4258438f9dea2e0aa78cdc9699981df087e",
+    "production/C-05/preuves/reprise-red-options.log": "e6ba94823b41912b152378c0908e54d6b57c8fb9ef0add963ea976a1c28839f6",
+    "production/C-05/preuves/reprise-red-rejet-result.json": "f12a66917b07153d42aebc22c764eec6b44bf47454a17fa4b4f6009747e6bebf",
+    "production/C-05/preuves/reprise-red-rejet-syntax.log": "9515b6abb9923546dc2062cc27d8703d0fd81cdc3d91825c25d021032493d844",
+    "production/C-05/preuves/reprise-red-rejet.json": "64ce9b4ff27e4fb5e0b9e88be8e857fdbdb4a40e9e9d873a180c867d8c1ebcf9",
+    "production/C-05/preuves/reprise-red-rejet.log": "d1017cd48195e2cf60837e1452eb58b6e56ac2036438f9e732b8b0acce49a723",
+    "production/C-05/preuves/reprise-red-tarif-result.json": "a12dbc3725bbac066b82e3f8c3fa1fca3d2a5ee128445368b97619ab1bd81422",
+    "production/C-05/preuves/reprise-red-tarif-syntax.log": "9515b6abb9923546dc2062cc27d8703d0fd81cdc3d91825c25d021032493d844",
+    "production/C-05/preuves/reprise-red-tarif.json": "fee77630bcf1bc765b1bc236ecd062bd8e274ea4ac5e442492ef4940bf23968a",
+    "production/C-05/preuves/reprise-red-tarif.log": "bea399d6130ac50782e9aaf99560335e278c90de9d026ea246985b83365de770",
+    "production/C-05/proposition.md": "a7d753b7989909763b158b6518f77aa83352becd4ebefdff7224d6dac728206d",
+    "production/C-05/reprise.md": "429920c4d831ecbd2b1949c4c72fc2abb9e547f19756d40081e21771d0a3e8ae",
     "production/C-05/sources/extrait-1.txt": "9221f9b008c097f7a66b2f23ede07a4d11336fedd2659e4de4d502c2bc90f760",
     "production/C-05/sources/extrait-2.txt": "75a31a6ce71b425098a5f68224c0e4ff10f3c504ed4eb2033c02c0df5cf2ed4e",
     "production/C-05/sources/extrait-3.txt": "6d27facb7ffe347a2c225d88b8005b6238d90307ccb61d3a67df0fb2781ace1c",
@@ -237,16 +342,21 @@
     "production/C-05/sources/extrait-6.txt": "bfe5b37df9fb5788555a39c800b21a2cb663895e52279f8e7b510068f81a9eb7",
     "production/C-05/sources/ledger.json": "dbe3fd5d39d24af0b8e8f49ac6e31858f5ac8606fb04088657cc5625fa4de30c",
     "production/C-05/sources/retrieval.json": "956088ad01ec05548a6fcb428b1ab657278dca107c3d9edd5a45195f128df038",
-    "wp/plugins/imagine-pilotage/src/Echeancier/Planificateur.php": "7df625362183a61e9e10b3025d57c0fbbd72c2f326fd77cbe60c0534fb093ed1",
+    "production/C-05/sources/review-2026-11-22.json": "201300631820238829e0f269c935f8a36e823f5ad6dcb3c55e5d09a522f42dcd",
+    "wp/plugins/imagine-pilotage/src/Echeancier/Planificateur.php": "5f387589454fc1bdc33c7dace08c4bb44f243a07f18916fca1a4ac6b51e97c8d",
     "wp/plugins/imagine-pilotage/src/Echeancier/RaccordManuel.php": "16857bd4c2edfbe2c596156599f0d88c86012d66eefda20236d23cd144da0046",
-    "wp/plugins/imagine-pilotage/src/Echeancier/README.md": "45955d8e0de25cfce2af6996e718df2edd99349e3378788f5ade9cbf40852e35",
+    "wp/plugins/imagine-pilotage/src/Echeancier/README.md": "a377d2d4003f928ef631c2b50dd1f1e6f33015a36ece2079f29486d3aeff8f02",
+    "wp/plugins/imagine-pilotage/src/Echeancier/Reglages.php": "bb7a985737b00a82195b75258fdd9e98d10c80bc113da777e97bae2a40b7a943",
+    "wp/plugins/imagine-pilotage/src/Echeancier/ReglagesAdministration.php": "dfbc9c11c3798eea9231fd8a8f3a9924c1b7f13a08639b933f7da0ec89d472d8",
     "wp/plugins/imagine-pilotage/src/Echeancier/Versement.php": "03290174d0ee74fddf910335b01da406cecb32df2af1cd4c44a5333fc7141704",
-    "wp/plugins/imagine-pilotage/tests/Echeancier/run.php": "a75f74d66ec61db62cb92fec65659e75b08ba9e9fde65e109486b18ee09a8f3a",
+    "wp/plugins/imagine-pilotage/tests/Echeancier/run.php": "eb4cd10582f85f906b835882f8a88c9be5742932794353999efb155992c17724",
+    "wp/tests/echeancier-runner/admin-scenario.php": "2c097c0eb7b308930c01cade2cb3c65b9ee90646d21ee792ee62b57963cf293e",
     "wp/tests/echeancier-runner/inside.py": "34a17a97359072f2ac74fe87aab15b40b3dc5a5356f75b8d689464edb0fee382",
-    "wp/tests/echeancier-runner/README.md": "9352008aaaae54a3de33efbdb83682f6a77440246f4b8b85b54e7144bb85cebc",
+    "wp/tests/echeancier-runner/official-review.py": "cf95fe5e1e9efededa43163f2f78786e3d177bc1ba484b538d68d60c4ce8916c",
+    "wp/tests/echeancier-runner/README.md": "a9360275a424aa72dfb5c8701907494b2489f4015e9e0cf424497db6499cbd7d",
     "wp/tests/echeancier-runner/run.py": "369d0aa284a81f0c1f64104c3470193fe4b62a12a00b2cb206f928ae32040fc6",
-    "wp/tests/echeancier-runner/scenario.php": "f43eafde5f787f7f295df27ab1892044a2592338d86d015b69def9b1609d80e4",
+    "wp/tests/echeancier-runner/scenario.php": "e7fe6c4ebcd45a913fd882265b8db8d652213dcb42581de45c81816992c57b98",
     "wp/tests/echeancier-runner/sources.py": "adfbd6f71b4117d5a8eae7c4237c308ba3e9b48fab76763d12a5c172ff6b3d83",
-    "wp/tests/echeancier-runner/verify.py": "5e2aa67c07ca754e2e25e3cdcf72aca6e9ed6eae1e8b755ba0bb057681721fe7"
+    "wp/tests/echeancier-runner/verify.py": "0949a57319cf3caf7d95e6272ecf2a04eb629a72b5a9133ace4c90d93d5c644a"
   }
 }

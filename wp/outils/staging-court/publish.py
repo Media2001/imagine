@@ -234,8 +234,8 @@ os.chown(root,33,33)
     assert re.fullmatch(r'http://[a-zA-Z0-9.-]+:[0-9]+', target)
     sql = "UPDATE `" + prefix + "options` SET option_value='" + target + "' WHERE option_name IN ('home','siteurl');"
     call(['exec', '-i', db_helper, 'mariadb', '--socket=/tmp/a01.sock', '--user=root', 'wordpress'], sql.encode())
-    homes = call(['exec', db_helper, 'mariadb', '--socket=/tmp/a01.sock', '--user=root', '--skip-column-names', 'wordpress',
-                  '-e', "SELECT option_value FROM `" + prefix + "options` WHERE option_name IN ('home','siteurl') ORDER BY option_name"]).stdout.decode().splitlines()
+    homes = call(['exec', '-i', db_helper, 'mariadb', '--socket=/tmp/a01.sock', '--user=root', '--skip-column-names', 'wordpress'],
+                 ("SELECT option_value FROM `" + prefix + "options` WHERE option_name IN ('home','siteurl') ORDER BY option_name;").encode()).stdout.decode().splitlines()
     assert homes == [target, target]
     call(['exec', db_helper, 'mariadb-admin', '--socket=/tmp/a01.sock', '--user=root', 'shutdown'])
     remove_owned(db_helper); helpers.remove(db_helper)
@@ -407,7 +407,8 @@ print(json.dumps({'data_verified':r['data_verified']}))
             except Exception as exc:
                 receipt['status'] = 'FAIL'
                 receipt['error'] = str(exc) if re.fullmatch(r'[A-Z0-9_]{1,100}', str(exc)) else type(exc).__name__
-                receipt['frames'] = __import__('traceback').extract_tb(exc.__traceback__)[-1].lineno
+                receipt['frames'] = [{'file': Path(f.filename).name, 'line': f.lineno, 'function': f.name}
+                                     for f in __import__('traceback').extract_tb(exc.__traceback__)]
             finally:
                 for helper in list(helpers): result['cleanup'].append(remove_owned(helper))
                 if runner_created: result['cleanup'].append(remove_owned(runner))

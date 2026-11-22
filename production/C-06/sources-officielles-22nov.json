@@ -1,0 +1,19 @@
+{
+  "consulte_le": "2026-11-22",
+  "methode": "Lecture publique des documentations officielles dans un navigateur distinct. Extracteur natif indisponible. Aucun compte ni site client.",
+  "sources": [
+    {
+      "url": "https://developer.wordpress.org/plugins/settings/settings-api/",
+      "apport": "Le standard WordPress gère les pages, sections, champs et la soumission vers options.php avec contrôle de capacité manage_options. Réutilisé dans l'adaptateur, sans stockage ni gestionnaire POST maison."
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/functions/register_setting/",
+      "apport": "Groupe, option, sanitize_callback, default et show_in_rest. Option déclarée array, avec normalisation stricte explicite, défauts prudents et exposition REST désactivée."
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/functions/settings_fields/",
+      "apport": "settings_fields produit option_page, action et le nonce du groupe. Le formulaire délègue au cœur au lieu d'inventer un mécanisme d'autorisation."
+    }
+  ],
+  "limite": "Les tests d'administration sont des tests PHP de contrat avec doubles des fonctions WordPress ; ils ne constituent ni une exécution du cœur WordPress ni une preuve HTTP/CSRF sur un site. Le raccordement du bootstrap partagé relève du parent/futur branchement."
+}

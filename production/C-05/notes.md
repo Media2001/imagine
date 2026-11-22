@@ -1,4 +1,6 @@
-# C-05 — notes et réception
+# C-05 — notes historiques du 21 novembre, remplacées pour la remise courante
+
+**La reprise du 22/11 est dans `reprise.md`, la proposition courante dans `proposition.md`.** Les résultats et blocages ci-dessous décrivent uniquement l’état antérieur à l’Option A. Les reçus canoniques sont désormais `preuves/reprise-final-*` et `preuves/verification.json`.
 
 **Fait :** proposition comparant deux voies officielles, moteur PHP pur, preuve sur vrai Subscriptions classique/HPOS, nettoyage vérifié.
 **Prêt à relire :** code et preuves partielles ; **aucun PRET** car l’acceptance universelle échoue sur une contradiction métier reproductible.

@@ -74,11 +74,12 @@ def main():
         baseline.write_text(json.dumps(shared_inventory(), indent=2), encoding='utf-8')
         c03.prepare()
         return
-    assert json.loads(baseline.read_text(encoding='utf-8')) == shared_inventory(), 'Shared source drift'
+    shared_unchanged = json.loads(baseline.read_text(encoding='utf-8')) == shared_inventory()
+    if action != 'close':
+        assert shared_unchanged, 'Shared source drift'
     state = json.loads(bench.STATE.read_text(encoding='utf-8'))
     name = state['container']
     info = bench.info(name)
-    assert not info['NetworkSettings']['Networks']
     if action == 'close':
         bench.call(['rm', '-f', name])
         missing = bench.call(['inspect', name], check=False)
@@ -86,11 +87,12 @@ def main():
         assert missing.returncode != 0 and ('no such object' in diagnostic or 'no such container' in diagnostic)
         (bench.OUT / 'cleanup.json').write_text(json.dumps({
             'container': name, 'owned_runner_removed': True, 'absence_diagnostic': diagnostic,
-            'shared_sources_unchanged': True, 'shared_source_count': len(shared_inventory())
+            'shared_sources_unchanged': shared_unchanged, 'shared_source_count': len(shared_inventory())
         }, indent=2), encoding='utf-8')
         bench.STATE.unlink()
         print('CLOSED', name)
         return
+    assert not info['NetworkSettings']['Networks']
     if '--filter' in sys.argv:
         import re
         assert re.fullmatch(r'[A-Za-z0-9_]+', sys.argv[sys.argv.index('--filter') + 1])

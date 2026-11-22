@@ -22,7 +22,8 @@ def current_files():
                       ROOT / 'wp/tests/acces-runner', bench.OUT]:
         files += [p for p in directory.rglob('*') if p.is_file() and '__pycache__' not in p.parts
                   and p.name != 'artifact-verification.json' and p.name != 'runner-state.json']
-    files += [ROOT / 'production/C-06' / name for name in ['notes.md', 'sources-officielles.json', 'PRET']]
+    files += [ROOT / 'production/C-06' / name for name in [
+        'notes.md', 'sources-officielles.json', 'sources-officielles-22nov.json', 'PRET']]
     return {p.relative_to(ROOT).as_posix(): digest(p) for p in sorted(set(files))}
 
 
@@ -53,6 +54,8 @@ def verify():
     top = xml.find('testsuite')
     suites = list(top.findall('testsuite'))
     assert {s.attrib['name'] for s in suites} == {'Acces', 'Numeros', 'Robots', 'Entreprise'}
+    tested_classes = {row.attrib['class'].rsplit('\\', 1)[-1] for row in xml.findall('.//testcase')}
+    assert {'ReglagesTest', 'OptionsReglagesTest', 'AdministrationReglagesTest'} <= tested_classes
     counts = {}
     for suite in suites:
         attributes = suite.attrib

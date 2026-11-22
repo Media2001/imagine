@@ -18,6 +18,8 @@ def check(path):
     bounded = receipt['command'] == ('composer test -- --configuration tests/Acces/phpunit.xml '
                                       '--log-junit /tmp/result.xml')
     assert bounded or receipt['command'] == 'composer test -- --log-junit /tmp/result.xml'
+    if bounded:
+        assert int(suites['Acces'].attrib['tests']) >= 63, 'Settings/admin coverage was truncated'
     assert receipt['exit_code'] == 0
     log = path.with_suffix('.log').read_text(encoding='utf-8')
     configuration = '/work/tests/Acces/phpunit.xml' if bounded else '/work/phpunit.xml'

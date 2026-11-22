@@ -1,0 +1,7 @@
+{
+  "container": "imagine-c06-cleanup-b0d875646c",
+  "owned_runner_removed": true,
+  "absence_diagnostic": "[]\nerror: no such object: imagine-c06-cleanup-b0d875646c\n",
+  "shared_sources_unchanged": false,
+  "shared_source_count": 46
+}
