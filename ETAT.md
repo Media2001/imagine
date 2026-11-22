@@ -19,7 +19,7 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 | Lot | État | Prochaine étape | Qui |
 |---|---|---|---|
 | Sauvegarde de production | Pas encore récupérée | Export SQL + `wp-content`, déposés sur le NUC **hors du dépôt** | Ced |
-| A-01 Import neutralisé | Import et vérification hors ligne prouvés. Publication bloquée : créer un site dans l'outil de staging active la licence Novamira et l'accès agent, sans option pour l'éviter | Réponse de Ced : autoriser la création normale de sites de test, ou créer lui-même le site vide | Ced |
+| A-01 Import neutralisé | Import et vérification hors ligne prouvés. Accord de Ced le 22/11 pour créer des sites de test dans l'outil de staging | Publication sur site de test, commande unique, `PRET` ; puis import réel lancé par Ced | Hermès, puis Ced |
 | A-07 Exposition de l'outil de staging | Fait le 20/11. Test depuis l'extérieur en IPv4 : le tableau de bord n'est pas joignable. Non vérifié : redirections, DMZ et pare-feu IPv6 dans l'administration de la box | Coup d'œil à la box quand possible ; retirer l'autorisation du port 7000 en profil public du pare-feu Windows | Ced |
 | Licences WooCommerce | Obtenues le 20/11 | Déposer les archives Subscriptions et Memberships dans le dossier des extensions premium de l'outil de staging, hors dépôt | Ced |
 | Staging Imagine existant | Arrêté par Hermès le 19/11, non supprimé ; la révocation du mot de passe applicatif dans WordPress n'est pas attestée | Ne pas le redémarrer ; le détruire quand le nouveau parcours est validé | Ced |

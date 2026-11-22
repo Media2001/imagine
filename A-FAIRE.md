@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 22 novembre 2026, 13 h 15.
+Mis à jour le 22 novembre 2026, 13 h 20.
 
 Consigne permanente : `prompts/consigne-permanente.md`. Doctrine : `doctrine/doctrine.md` (dernière révision : **22/11/2026 — une règle ouverte devient un réglage**).
 
@@ -10,17 +10,23 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 
 ## Consignes actives, par ordre de priorité
 
-File du 22/11, 13 h 15. La doctrine a changé (§4 : une règle ouverte devient un réglage) : relis-la.
+File du 22/11, 13 h 20. La doctrine a changé (§4 : une règle ouverte devient un réglage) : relis-la.
 
-**1. C-05, paiement en quatre fois — reprise.** `docs/arbitrages-2026-11-22.md` : option A retenue (quatre échéances par bloc de quatre numéros ; une fenêtre de date à date peut en contenir cinq), et les trois autres questions deviennent des réglages avec leur valeur par défaut. Adapte l'échéancier, ses tests et la proposition, rejoue la preuve sur le vrai Subscriptions, puis dépose `production/C-05/PRET`. Une demi-journée.
+**1. A-01, publication — accord de Ced donné le 22/11 à 13 h 11.** Ced t'autorise à **créer, démarrer, arrêter et supprimer des sites de test dans l'outil de staging par son usage normal**, y compris l'activation automatique de la licence Novamira et de l'accès agent que l'outil effectue à chaque création (« l'outil est là pour ça »). Termine `briefs/A-01-publication.md` :
 
-**2. C-06, décision d'accès — trois réglages.** `docs/arbitrages-2026-11-22.md` : sortie à venir, PDF pour un robot vérifié, PDF antérieur à l'abonnement. Chaque réglage avec sa valeur par défaut et ses tests dans les deux positions ; le motif provisoire disparaît. Deux heures. Redépose `PRET`.
+- sites de test nommés `imagine-test-…` uniquement ; supprime-les à la fin et vérifie leur absence ;
+- tu ne modifies ni le code de l'outil, ni ses modèles, ni les autres sites ;
+- sur un site de test, l'accès agent créé par l'outil ne sert à rien : ne l'utilise pas. Après injection de la base et des fichiers vérifiés, contrôle et écris dans le rapport ce qu'il reste de Novamira sur le site (extension présente ou non, identifiants valides ou non) ;
+- preuve attendue : archive fictive avec Subscriptions et Memberships → site de test joignable, statut « vérifié », extensions et réglages intacts ; puis le cas d'échec avec une clé piégée ;
+- livre la commande unique et son mode d'emploi pour Ced, puis `production/A-01/PRET`.
 
-**3. C-07, liste d'envoi — format d'export en réglage.** Colonnes et ordre configurables, colonnes provisoires par défaut. Une heure, à faire seulement si ce n'est pas déjà le cas. Redépose `PRET` uniquement si tu as modifié quelque chose.
+Tu ne lances toujours aucun import d'Imagine et tu n'ouvres pas son archive : c'est Ced qui lancera la commande. Une demi-journée. **Ce lot passe avant tout le reste.**
 
-**En attente d'une réponse de Ced — ne pas reprendre :**
+**2. C-05, paiement en quatre fois — reprise.** `docs/arbitrages-2026-11-22.md` : option A retenue (quatre échéances par bloc de quatre numéros ; une fenêtre de date à date peut en contenir cinq), et les trois autres questions deviennent des réglages avec leur valeur par défaut. Adapte l'échéancier, ses tests et la proposition, rejoue la preuve sur le vrai Subscriptions, puis dépose `production/C-05/PRET`. Une demi-journée.
 
-- **A-01, publication.** La création d'un site dans l'outil de staging active la licence Novamira : cela touche au réel, donc à son accord. Question posée.
+**3. C-06, décision d'accès — trois réglages.** `docs/arbitrages-2026-11-22.md` : sortie à venir, PDF pour un robot vérifié, PDF antérieur à l'abonnement. Chaque réglage avec sa valeur par défaut et ses tests dans les deux positions ; le motif provisoire disparaît. Deux heures. Redépose `PRET`.
+
+**4. C-07, liste d'envoi — format d'export en réglage.** Colonnes et ordre configurables, colonnes provisoires par défaut. Une heure, à faire seulement si ce n'est pas déjà le cas. Redépose `PRET` uniquement si tu as modifié quelque chose.
 
 **Où lancer les tests PHP.** Dans un conteneur jetable, comme jusqu'ici. Rien sur Windows.
 
