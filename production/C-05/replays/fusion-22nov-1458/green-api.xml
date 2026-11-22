@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="1" assertions="4" errors="0" failures="0" skipped="0" time="0.001656">
+    <testsuite name="Echeancier" tests="1" assertions="4" errors="0" failures="0" skipped="0" time="0.001656">
+      <testsuite name="Imagine\Pilotage\Tests\Echeancier\PlanificateurTest" file="/work/tests/Echeancier/PlanificateurTest.php" tests="1" assertions="4" errors="0" failures="0" skipped="0" time="0.001656">
+        <testcase name="testApiSansFinEngagementEtProjectionAnneeNonActivee" file="/work/tests/Echeancier/PlanificateurTest.php" line="115" class="Imagine\Pilotage\Tests\Echeancier\PlanificateurTest" classname="Imagine.Pilotage.Tests.Echeancier.PlanificateurTest" assertions="4" time="0.001656"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

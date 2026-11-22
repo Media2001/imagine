@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="0.003213">
+    <testsuite name="Echeancier" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="0.003213">
+      <testsuite name="Imagine\Pilotage\Tests\Echeancier\ReglagesAdministrationTest" file="/work/tests/Echeancier/ReglagesAdministrationTest.php" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="0.003213">
+        <testcase name="testRefusAdministrationUtiliseWpDieAvecTraduction" file="/work/tests/Echeancier/ReglagesAdministrationTest.php" line="12" class="Imagine\Pilotage\Tests\Echeancier\ReglagesAdministrationTest" classname="Imagine.Pilotage.Tests.Echeancier.ReglagesAdministrationTest" assertions="0" time="0.003213">
+          <error type="LogicException">Imagine\Pilotage\Tests\Echeancier\ReglagesAdministrationTest::testRefusAdministrationUtiliseWpDieAvecTraduction
+LogicException: AUTORISATION : TRADUIT : Gestion WooCommerce requise.
+
+/work/src/Echeancier/ReglagesAdministration.php:68
+/work/tests/Echeancier/ReglagesAdministrationTest.php:18</error>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

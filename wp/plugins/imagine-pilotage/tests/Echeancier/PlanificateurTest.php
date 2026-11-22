@@ -32,11 +32,11 @@ final class PlanificateurTest extends TestCase
         self::fail('Un plan incompatible doit être refusé : ' . $fragment);
     }
 
-    public function test_initial_quatre_numeros_c01_sans_cinquieme(): void
+    public function testInitialQuatreNumerosC01SansCinquieme(): void
     {
         $source = new Moteur(c05Calendrier());
         $annee = c05Annee('2027-02-20 12:00:00');
-        $plan = (new Planificateur($source))->planifier($annee, $annee->finNumerique(), 7);
+        $plan = (new Planificateur($source))->planifier($annee, 7);
         self::assertTrue(count($plan) === 4, 'Quatre positions initial compris');
         self::assertTrue(array_map(static fn ($v) => $v->numero->id, $plan) === [
             'REG-2027-04', 'REG-2027-07', 'REG-2027-10', 'REG-2028-01',
@@ -48,13 +48,13 @@ final class PlanificateurTest extends TestCase
         self::assertTrue($plan[0]->initial && !$plan[1]->initial, 'Initial marque une seule fois');
     }
 
-    public function test_reconduction_commune_et_numeros_suivants(): void
+    public function testReconductionCommuneEtNumerosSuivants(): void
     {
         $source = new Moteur(c05Calendrier());
         $initiale = c05Annee('2027-02-20 12:00:00');
         $debut = $initiale->finNumerique();
         $suite = $source->renouveler($initiale, $debut)->activer($debut, Activation::Paiement);
-        $plan = (new Planificateur($source))->planifier($suite, $suite->finNumerique(), 7);
+        $plan = (new Planificateur($source))->planifier($suite, 7);
         self::assertTrue(count($plan) === 4, 'Quatre communes à la reconduction');
         self::assertTrue(array_map(static fn ($v) => $v->numero->id, $plan) === [
             'REG-2028-04', 'REG-2028-07', 'REG-2028-10', 'REG-2029-01',
@@ -65,14 +65,14 @@ final class PlanificateurTest extends TestCase
         }
     }
 
-    public function test_option_a_accepte_cinq_dates_dans_fenetre_numerique(): void
+    public function testOptionAAccepteCinqDatesDansFenetreNumerique(): void
     {
         $source = new Moteur(c05Calendrier());
         $initiale = c05Annee('2027-04-09 12:00:00');
         $suite = $source->renouveler($initiale, $initiale->finNumerique());
         $dates = array_map(
             static fn ($v) => $v->date,
-            (new Planificateur($source))->planifier($initiale, $initiale->finNumerique(), 7)
+            (new Planificateur($source))->planifier($initiale, 7)
         );
         $dates[] = $source->echeances($suite, 7)[0]->lancement;
         self::assertTrue(count(array_filter(
@@ -85,75 +85,86 @@ final class PlanificateurTest extends TestCase
             'dates' => array_map(static fn ($d) => $d->format(DATE_ATOM), $dates),
             'count_in_first_anniversary_window' => 5,
         ];
-        $planSuite = (new Planificateur($source))->planifier($suite, c05Date('2029-04-09 12:00:00'), 7);
+        $planSuite = (new Planificateur($source))->planifier($suite, 7);
         self::assertTrue(count($planSuite) === 4, 'Bloc suivant de quatre numéros malgré anniversaire ultérieur');
         self::assertTrue($planSuite[0]->date == $dates[4], 'Date commune inchangée, aucun report anniversaire');
     }
 
-    public function test_calendrier_incomplet_refuse_sans_inventer(): void
+    public function testCalendrierIncompletRefuseSansInventer(): void
     {
         $source = new Moteur(new Calendrier(array_slice(c05Calendrier()->numeros, 0, 2)));
         $annee = c05Annee('2026-01-01');
         self::refuse(
-            static fn () => (new Planificateur($source))->planifier($annee, $annee->finNumerique(), 7),
+            static fn () => (new Planificateur($source))->planifier($annee, 7),
             'CALENDRIER_INCOMPLET'
         );
     }
 
-    public function test_clotures_identiques_refusees_sans_deplacer(): void
+    public function testCloturesIdentiquesRefuseesSansDeplacer(): void
     {
         $n = c05Calendrier()->numeros;
         $n[2] = new Numero($n[2]->id, $n[2]->type, $n[2]->sortie, $n[1]->cloture);
         $source = new Moteur(new Calendrier($n));
         $annee = c05Annee('2026-01-01');
         self::refuse(
-            static fn () => (new Planificateur($source))->planifier($annee, $annee->finNumerique(), 7),
+            static fn () => (new Planificateur($source))->planifier($annee, 7),
             'DATES_NON_CROISSANTES'
         );
     }
 
-    public function test_borne_contractuelle_invalide_refusee(): void
+    public function testApiSansFinEngagementEtProjectionAnneeNonActivee(): void
     {
-        $annee = c05Annee('2027-02-20');
-        self::refuse(
-            static fn () => (new Planificateur(new Moteur(c05Calendrier())))->planifier($annee, $annee->debut, 7),
-            'FIN_ENGAGEMENT'
+        $methode = new \ReflectionMethod(Planificateur::class, 'planifier');
+        self::assertSame(
+            ['annee', 'margeJours'],
+            array_map(static fn (\ReflectionParameter $p): string => $p->getName(), $methode->getParameters())
         );
+        $annee = new \Imagine\Pilotage\Numeros\Annee(c05Date('2027-02-20 12:00:00'));
+        self::assertNull($annee->finNumerique());
+        $plan = (new Planificateur(new Moteur(c05Calendrier())))->planifier($annee, 7);
+        self::assertCount(4, $plan);
+        self::assertEquals($annee->debut, $plan[0]->date);
     }
 
-    public function test_marge_obligatoire_et_parametrable(): void
+    public function testMargeObligatoireEtParametrable(): void
     {
         $annee = c05Annee('2027-02-20 12:00:00');
         $planner = new Planificateur(new Moteur(c05Calendrier()));
         foreach ([0, -1] as $marge) {
-            self::refuse(static fn () => $planner->planifier($annee, $annee->finNumerique(), $marge), 'marge');
+            self::refuse(static fn () => $planner->planifier($annee, $marge), 'marge');
         }
         foreach ([1, 3, 7] as $marge) {
-            $plan = $planner->planifier($annee, $annee->finNumerique(), $marge);
-            self::assertTrue($plan[1]->date->format('Y-m-d') === sprintf('2027-07-%02d', 10 - $marge), 'Marge injectée');
+            $plan = $planner->planifier($annee, $marge);
+            self::assertTrue(
+                $plan[1]->date->format('Y-m-d') === sprintf('2027-07-%02d', 10 - $marge),
+                'Marge injectée'
+            );
             self::assertTrue($plan[0]->date == $annee->debut, 'Initial indépendant de la marge');
         }
     }
 
-    public function test_reglage_marge_sans_defaut_refuse_planification(): void
+    public function testReglageMargeSansDefautRefusePlanification(): void
     {
         $reglages = new Reglages();
         self::assertTrue($reglages->margeJours === null, 'Aucun défaut de marge');
         $a = c05Annee('2027-02-20');
         $planner = new Planificateur(new Moteur(c05Calendrier()));
-        self::refuse(static fn () => $planner->planifier($a, $a->finNumerique(), $reglages->margeJours), 'MARGE_OBLIGATOIRE');
-        self::refuse(static fn () => $planner->planifier($a, $a->finNumerique()), 'MARGE_OBLIGATOIRE');
+        self::refuse(static fn () => $planner->planifier($a, $reglages->margeJours), 'MARGE_OBLIGATOIRE');
+        self::refuse(static fn () => $planner->planifier($a), 'MARGE_OBLIGATOIRE');
         foreach ([0, -1] as $invalid) {
             self::refuse(static fn () => new Reglages($invalid), 'marge');
         }
         foreach ([1, 3, 7, 30] as $marge) {
             $r = new Reglages($marge);
-            $p = $planner->planifier($a, $a->finNumerique(), $r->margeJours);
-            self::assertTrue($p[1]->date == c05Date('2027-07-10')->modify('-' . $marge . ' days'), 'Jours civils configurés');
+            $p = $planner->planifier($a, $r->margeJours);
+            self::assertTrue(
+                $p[1]->date == c05Date('2027-07-10')->modify('-' . $marge . ' days'),
+                'Jours civils configurés'
+            );
         }
     }
 
-    public function test_reglage_rejet_reste_du_defaut_et_abandon_explicite(): void
+    public function testReglageRejetResteDuDefautEtAbandonExplicite(): void
     {
         $defaut = new Reglages(7);
         self::assertTrue($defaut->apresRejet === 'restent_dues', 'Défaut prudent : dette maintenue');
@@ -167,13 +178,16 @@ final class PlanificateurTest extends TestCase
             $autre->montantsRestants(1000, 1000, [1], false) === [2 => 1000, 3 => 1000, 4 => 1000],
             'Sans rejet aucune remise'
         );
-        self::assertTrue($defaut->montantsRestants(1000, 1000, [1, 2, 3, 4], true) === [], 'Aucun rang payé redevient dû');
+        self::assertTrue(
+            $defaut->montantsRestants(1000, 1000, [1, 2, 3, 4], true) === [],
+            'Aucun rang payé redevient dû'
+        );
         self::refuse(static fn () => new Reglages(7, 'inconnu'), 'REJET_INVALIDE');
         self::refuse(static fn () => $defaut->montantsRestants(-1, 1000, [], true), 'MONTANT_INVALIDE');
         self::refuse(static fn () => $defaut->montantsRestants(1000, 1000, [5], true), 'RANG_INVALIDE');
     }
 
-    public function test_reglage_tarif_fige_bloc_defaut_et_courant_seulement_impayes(): void
+    public function testReglageTarifFigeBlocDefautEtCourantSeulementImpayes(): void
     {
         $defaut = new Reglages(7);
         self::assertTrue($defaut->tarif === 'fige_bloc', 'Tarif figé pour les quatre échéances');
@@ -192,7 +206,10 @@ final class PlanificateurTest extends TestCase
                 'Rejet conserve créances au tarif choisi'
             );
             $annulation = new Reglages(7, 'annuler_restantes', 'courant_impayes');
-            self::assertTrue($annulation->montantsRestants(1000, $courant, [1], true) === [], 'Annulation explicite prioritaire');
+            self::assertTrue(
+                $annulation->montantsRestants(1000, $courant, [1], true) === [],
+                'Annulation explicite prioritaire'
+            );
         }
         self::assertTrue(
             $defaut->montantsRestants(1200, 1200, [], false) === [1 => 1200, 2 => 1200, 3 => 1200, 4 => 1200],
@@ -202,10 +219,13 @@ final class PlanificateurTest extends TestCase
         self::refuse(static fn () => $defaut->montantsRestants(1000, -1, [], false), 'MONTANT_INVALIDE');
     }
 
-    public function test_reglages_option_decode_strict_et_matrice_complete(): void
+    public function testReglagesOptionDecodeStrictEtMatriceComplete(): void
     {
         self::assertTrue(Reglages::depuisOption([])->margeJours === null, 'Option absente ne crée pas une marge');
-        self::assertTrue(Reglages::depuisOption(['marge_jours' => ''])->margeJours === null, 'Champ vide désactive planification');
+        self::assertTrue(
+            Reglages::depuisOption(['marge_jours' => ''])->margeJours === null,
+            'Champ vide désactive planification'
+        );
         foreach ([1, 3, 7, 30] as $marge) {
             foreach (['restent_dues', 'annuler_restantes'] as $rejet) {
                 foreach (['fige_bloc', 'courant_impayes'] as $tarif) {
@@ -227,36 +247,36 @@ final class PlanificateurTest extends TestCase
         self::refuse(static fn () => Reglages::depuisOption(['tarif' => false]), 'TARIF_INVALIDE');
     }
 
-    public function test_jour_cloture_et_lendemain_passent_au_numero_suivant(): void
+    public function testJourClotureEtLendemainPassentAuNumeroSuivant(): void
     {
         $source = new Moteur(c05Calendrier());
         foreach (['2027-04-10 00:00:00', '2027-04-10 12:00:00', '2027-04-11 12:00:00'] as $date) {
             $a = c05Annee($date);
-            $plan = (new Planificateur($source))->planifier($a, $a->finNumerique(), 7);
+            $plan = (new Planificateur($source))->planifier($a, 7);
             self::assertTrue($plan[0]->numero->id === 'REG-2027-07', 'Clôture incluse C01');
             $b = $source->renouveler($a, $a->finNumerique());
-            $suite = (new Planificateur($source))->planifier($b, c05Date($date)->modify('+2 years'), 7);
+            $suite = (new Planificateur($source))->planifier($b, 7);
             self::assertTrue($suite[0]->numero->id === 'REG-2028-07', 'Suivant sans doublon');
         }
     }
 
-    public function test_fuseau_dst_et_29_fevrier_sont_ceux_de_c01(): void
+    public function testFuseauDstEt29FevrierSontCeuxDeC01(): void
     {
         $source = new Moteur(c05Calendrier());
         $a = c05Annee('2028-02-29 10:30:00');
         self::assertTrue($a->finNumerique()->format('Y-m-d H:i:s') === '2029-02-28 10:30:00', 'Anniversaire C01');
-        $plan = (new Planificateur($source))->planifier($a, $a->finNumerique(), 7);
+        $plan = (new Planificateur($source))->planifier($a, 7);
         self::assertTrue($plan[1]->date->format('P') === '+02:00', 'Été C01');
         self::assertTrue($plan[3]->date->format('P') === '+01:00', 'Hiver C01');
         $utc = $a->debut->setTimezone(new DateTimeZone('UTC'));
         $other = c05Annee($utc->format(DATE_ATOM));
         self::assertTrue(
-            (new Planificateur($source))->planifier($other, $other->finNumerique(), 7)[0]->date == $plan[0]->date,
+            (new Planificateur($source))->planifier($other, 7)[0]->date == $plan[0]->date,
             'Instant absolu'
         );
     }
 
-    public function test_contre_exemple_a00_cinq_dates_naives_quatre_positions(): void
+    public function testContreExempleA00CinqDatesNaivesQuatrePositions(): void
     {
         $source = new Moteur(c05Calendrier());
         $a = c05Annee('2027-02-20 12:00:00');
@@ -268,18 +288,18 @@ final class PlanificateurTest extends TestCase
         }
         self::assertTrue(count($naives) === 5, 'Cinq dates si on ajoute toutes les clôtures');
         self::assertTrue(
-            count((new Planificateur($source))->planifier($a, $a->finNumerique(), 7)) === 4,
+            count((new Planificateur($source))->planifier($a, 7)) === 4,
             'Le premier numéro est payé à la commande'
         );
     }
 
-    public function test_reconduction_inconnue_si_precedente_incomplete(): void
+    public function testReconductionInconnueSiPrecedenteIncomplete(): void
     {
         $source = new Moteur(new Calendrier(array_slice(c05Calendrier()->numeros, 0, 2)));
         $a = c05Annee('2026-01-01');
         $b = $source->renouveler($a, $a->finNumerique());
         self::refuse(
-            static fn () => (new Planificateur($source))->planifier($b, c05Date('2028-01-01'), 7),
+            static fn () => (new Planificateur($source))->planifier($b, 7),
             'CALENDRIER_INCOMPLET'
         );
     }
@@ -289,12 +309,12 @@ final class PlanificateurTest extends TestCase
         $moteur = new Moteur(c05CalendrierJonctionEgale());
         $initiale = c05Annee('2027-02-20 12:00:00');
         $planner = new Planificateur($moteur);
-        $initial = $planner->planifier($initiale, $initiale->finNumerique(), 7);
+        $initial = $planner->planifier($initiale, 7);
         $suite = $moteur->renouveler($initiale, $initiale->finNumerique());
         self::assertSame('2028-01-03 00:00:00', $initial[3]->date->format('Y-m-d H:i:s'));
         self::assertEquals($initial[3]->date, $moteur->echeances($suite, 7)[0]->lancement);
         self::refuse(
-            static fn () => $planner->planifier($suite, c05Date('2029-02-20 12:00:00'), 7),
+            static fn () => $planner->planifier($suite, 7),
             'DATES_NON_CROISSANTES'
         );
     }
@@ -305,8 +325,8 @@ final class PlanificateurTest extends TestCase
         $a = c05Annee('2027-04-09 12:00:00');
         $b = $moteur->renouveler($a, $a->finNumerique());
         $planner = new Planificateur($moteur);
-        $initial = $planner->planifier($a, $a->finNumerique(), 7);
-        $suite = $planner->planifier($b, c05Date('2029-04-09 12:00:00'), 7);
+        $initial = $planner->planifier($a, 7);
+        $suite = $planner->planifier($b, 7);
         self::assertTrue($initial[3]->date < $suite[0]->date);
         self::assertSame('2028-04-03', $suite[0]->date->format('Y-m-d'));
         self::assertTrue($suite[0]->date < $a->finNumerique());
@@ -320,7 +340,7 @@ final class PlanificateurTest extends TestCase
         $source = new Moteur(c05Calendrier());
         $a = c05Annee($date);
         $planner = new Planificateur($source);
-        $p = $planner->planifier($a, $a->finNumerique(), 7);
+        $p = $planner->planifier($a, 7);
         self::assertTrue(count($p) === 4, 'Quatre initial compris');
         self::assertTrue(
             array_map(static fn ($v) => $v->numero->id, $p)
@@ -329,7 +349,7 @@ final class PlanificateurTest extends TestCase
         );
         $b = $source->renouveler($a, $a->finNumerique())->activer($a->finNumerique(), Activation::Paiement);
         $premiereCommune = $source->echeances($b, 7)[0]->lancement;
-        $suite = $planner->planifier($b, $b->finNumerique(), 7);
+        $suite = $planner->planifier($b, 7);
         self::assertTrue(count($suite) === 4, 'Reconduction quatre par bloc');
         self::assertTrue($suite[0]->date == $premiereCommune, 'Commune sans exception anniversaire');
         self::assertTrue($suite[0]->date > $p[3]->date, 'Chronologie inter-blocs');
@@ -345,7 +365,8 @@ final class PlanificateurTest extends TestCase
     {
         $zone = new DateTimeZone('Europe/Brussels');
         $fin = new \DateTimeImmutable('2028-01-01', $zone);
-        for ($jour = new \DateTimeImmutable('2027-01-01 12:00:00', $zone); $jour < $fin; $jour = $jour->modify('+1 day')) {
+        $debut = new \DateTimeImmutable('2027-01-01 12:00:00', $zone);
+        for ($jour = $debut; $jour < $fin; $jour = $jour->modify('+1 day')) {
             yield $jour->format('Y-m-d') => [$jour->format('Y-m-d H:i:s')];
         }
     }

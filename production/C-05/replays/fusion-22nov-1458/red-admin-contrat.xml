@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.003479">
+    <testsuite name="Echeancier" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.003479">
+      <testsuite name="Imagine\Pilotage\Tests\Echeancier\ReglagesAdministrationTest" file="/work/tests/Echeancier/ReglagesAdministrationTest.php" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.003479">
+        <testcase name="testRefusAdministrationUtiliseWpDieAvecTraduction" file="/work/tests/Echeancier/ReglagesAdministrationTest.php" line="12" class="Imagine\Pilotage\Tests\Echeancier\ReglagesAdministrationTest" classname="Imagine.Pilotage.Tests.Echeancier.ReglagesAdministrationTest" assertions="1" time="0.003479">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Echeancier\ReglagesAdministrationTest::testRefusAdministrationUtiliseWpDieAvecTraduction
+Failed asserting that an instance of class LogicException is an instance of class RuntimeException.
+
+/work/tests/Echeancier/ReglagesAdministrationTest.php:21</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

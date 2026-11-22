@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.010266">
+    <testsuite name="Echeancier" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.010266">
+      <testsuite name="Imagine\Pilotage\Tests\Echeancier\PlanificateurTest" file="/work/tests/Echeancier/PlanificateurTest.php" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.010266">
+        <testcase name="testApiSansFinEngagementEtProjectionAnneeNonActivee" file="/work/tests/Echeancier/PlanificateurTest.php" line="115" class="Imagine\Pilotage\Tests\Echeancier\PlanificateurTest" classname="Imagine.Pilotage.Tests.Echeancier.PlanificateurTest" assertions="1" time="0.010266">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Echeancier\PlanificateurTest::testApiSansFinEngagementEtProjectionAnneeNonActivee
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+ Array &amp;0 [
+     0 =&gt; 'annee',
+-    1 =&gt; 'margeJours',
++    1 =&gt; 'finEngagement',
++    2 =&gt; 'margeJours',
+ ]
+
+/work/tests/Echeancier/PlanificateurTest.php:118</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="1" assertions="6" errors="0" failures="0" skipped="0" time="0.001311">
+    <testsuite name="Echeancier" tests="1" assertions="6" errors="0" failures="0" skipped="0" time="0.001311">
+      <testsuite name="Imagine\Pilotage\Tests\Echeancier\ReglagesAdministrationTest" file="/work/tests/Echeancier/ReglagesAdministrationTest.php" tests="1" assertions="6" errors="0" failures="0" skipped="0" time="0.001311">
+        <testcase name="testRefusAdministrationUtiliseWpDieAvecTraduction" file="/work/tests/Echeancier/ReglagesAdministrationTest.php" line="12" class="Imagine\Pilotage\Tests\Echeancier\ReglagesAdministrationTest" classname="Imagine.Pilotage.Tests.Echeancier.ReglagesAdministrationTest" assertions="6" time="0.001311"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

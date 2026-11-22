@@ -65,7 +65,7 @@ final class ReglagesAdministration
     public function afficher(): void
     {
         if (!current_user_can('manage_woocommerce')) {
-            throw new \LogicException('AUTORISATION : ' . __('Gestion WooCommerce requise.', 'imagine-pilotage'));
+            wp_die(__('Gestion WooCommerce requise.', 'imagine-pilotage'));
         }
         $r = $this->lire();
         echo '<div class="wrap"><h1>' . esc_html__('Échéancier en quatre fois', 'imagine-pilotage') . '</h1>';

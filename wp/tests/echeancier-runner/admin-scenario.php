@@ -22,7 +22,7 @@ function c05AdminScenario(): void
     $planner = new Planificateur(new Moteur(c05Calendrier()));
     $refuse = false;
     try {
-        $planner->planifier($a, $a->finNumerique(), $admin->lire()->margeJours);
+        $planner->planifier($a, $admin->lire()->margeJours);
     } catch (InvalidArgumentException $e) {
         $refuse = str_contains($e->getMessage(), 'MARGE_OBLIGATOIRE');
     }
@@ -35,12 +35,29 @@ function c05AdminScenario(): void
     c05Check('admin_margin_empty_not_seven', str_contains($html, '[marge_jours]') && !str_contains($html, 'value="7"'));
     wp_set_current_user(0);
     $denied = false;
+    $refusWordPress = null;
+    $traduire = static function (string $traduction, string $texte, string $domaine): string {
+        return $texte === 'Gestion WooCommerce requise.' && $domaine === 'imagine-pilotage'
+            ? 'TRADUIT C05 : ' . $traduction : $traduction;
+    };
+    $handler = static function () use (&$refusWordPress): callable {
+        return static function (string $message) use (&$refusWordPress): never {
+            $refusWordPress = $message;
+            throw new RuntimeException('IMAGINE_C05_WP_DIE');
+        };
+    };
+    add_filter('gettext', $traduire, PHP_INT_MAX, 3);
+    add_filter('wp_die_handler', $handler, PHP_INT_MAX);
     try {
         $admin->afficher();
-    } catch (LogicException $e) {
-        $denied = str_contains($e->getMessage(), 'AUTORISATION');
+    } catch (RuntimeException $e) {
+        $denied = $e->getMessage() === 'IMAGINE_C05_WP_DIE';
+    } finally {
+        remove_filter('wp_die_handler', $handler, PHP_INT_MAX);
+        remove_filter('gettext', $traduire, PHP_INT_MAX);
     }
     c05Check('admin_anonymous_form_denied', $denied);
+    c05Check('admin_anonymous_wp_die_translated', $refusWordPress === 'TRADUIT C05 : Gestion WooCommerce requise.');
     foreach ([1, 7, 30] as $margin) {
         foreach (['restent_dues', 'annuler_restantes'] as $rejection) {
             foreach (['fige_bloc', 'courant_impayes'] as $price) {
@@ -48,7 +65,7 @@ function c05AdminScenario(): void
                 update_option(ReglagesAdministration::OPTION, $value, false);
                 $read = $admin->lire();
                 c05Check('admin_option_readback_each_value', $read->margeJours === $margin && $read->apresRejet === $rejection && $read->tarif === $price);
-                $plan = $planner->planifier($a, $a->finNumerique(), $read->margeJours);
+                $plan = $planner->planifier($a, $read->margeJours);
                 c05Check('admin_margin_changes_engine', $plan[1]->date == c05Date('2027-07-10')->modify('-' . $margin . ' days'));
                 $due = $read->montantsRestants(1000, 1200, [1], true);
                 $amount = $price === 'fige_bloc' ? 1000 : 1200;

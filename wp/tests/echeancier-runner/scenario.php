@@ -8,8 +8,17 @@ use Imagine\Pilotage\Numeros\Activation;
 use Imagine\Pilotage\Numeros\Moteur;
 use Automattic\WooCommerce\Utilities\OrderUtil;
 
-define('IMAGINE_C05_FIXTURE', true);
-require '/work/wp/plugins/imagine-pilotage/tests/Echeancier/run.php';
+spl_autoload_register(static function (string $name): void {
+    $prefix = 'Imagine\\Pilotage\\';
+    if (str_starts_with($name, $prefix)) {
+        $path = '/work/wp/plugins/imagine-pilotage/src/' . str_replace('\\', '/', substr($name, strlen($prefix))) . '.php';
+        if (is_file($path)) {
+            require_once $path;
+        }
+    }
+});
+
+require '/work/wp/plugins/imagine-pilotage/tests/Echeancier/Fixture.php';
 
 function c05Check(string $name, bool $pass, mixed $detail = null): void
 {
@@ -35,6 +44,20 @@ try {
     $source = new Moteur(c05Calendrier());
     $planner = new Planificateur($source);
     $adapter = new RaccordManuel();
+    $avantJonction = wc_get_orders(['limit' => -1, 'return' => 'ids']);
+    $sourceEgale = new Moteur(c05CalendrierJonctionEgale());
+    $initialeEgale = c05Annee('2027-02-20 12:00:00');
+    $suiteEgale = $sourceEgale->renouveler($initialeEgale, $initialeEgale->finNumerique());
+    $refusJonction = false;
+    try {
+        (new Planificateur($sourceEgale))->planifier($suiteEgale, 7);
+    } catch (DomainException $e) {
+        $refusJonction = str_contains($e->getMessage(), 'DATES_NON_CROISSANTES');
+    }
+    c05Check(
+        'equal_block_boundary_refused_before_orders',
+        $refusJonction && $avantJonction === wc_get_orders(['limit' => -1, 'return' => 'ids'])
+    );
     $product = new WC_Product_Subscription();
     $product->set_name('FICTION C05 — fraction synthétique');
     $product->set_regular_price('10');
@@ -47,8 +70,8 @@ try {
         $first = c05Annee($dateCommande);
         $startNext = $first->finNumerique();
         $second = $source->renouveler($first, $startNext)->activer($startNext, Activation::Paiement);
-        $plan1 = $planner->planifier($first, $first->finNumerique(), 7);
-        $plan2 = $planner->planifier($second, $second->finNumerique(), 7);
+        $plan1 = $planner->planifier($first, 7);
+        $plan2 = $planner->planifier($second, 7);
         $all = [...$plan1, ...$plan2];
         $parent = wc_create_order([
             'status' => 'pending', 'created_via' => 'imagine_c05_fixture',

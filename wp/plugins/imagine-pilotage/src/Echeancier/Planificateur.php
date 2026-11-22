@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Imagine\Pilotage\Echeancier;
 
-use DateTimeImmutable;
 use Imagine\Pilotage\Numeros\Annee;
 use Imagine\Pilotage\Numeros\Moteur;
 
@@ -17,17 +16,15 @@ final readonly class Planificateur
 
     /**
      * Quatre positions par bloc C01, indépendantes de la fenêtre numérique.
-     * La borne reste un contexte numérique validé, jamais une borne de paiement.
+     * L'activation numérique n'est pas un prérequis d'une projection pure.
      * @return list<Versement>
      */
-    public function planifier(Annee $annee, DateTimeImmutable $finEngagement, ?int $margeJours = null): array
+    public function planifier(Annee $annee, ?int $margeJours = null): array
     {
         if ($margeJours === null) {
             throw new \InvalidArgumentException('MARGE_OBLIGATOIRE : renseigner les jours civils avant planification.');
         }
-        if ($finEngagement <= $annee->debut) {
-            throw new \InvalidArgumentException('FIN_ENGAGEMENT doit suivre le début.');
-        }
+
         $echeances = $this->numeros->echeances($annee, $margeJours);
         if (count($echeances) !== 4) {
             throw new \DomainException('CALENDRIER_INCOMPLET : quatre numéros C01 requis.');
@@ -35,7 +32,7 @@ final readonly class Planificateur
         $resultat = [];
         $precedente = null;
         if ($annee->precedente !== null) {
-            $blocPrecedent = $this->planifier($annee->precedente, $annee->debut, $margeJours);
+            $blocPrecedent = $this->planifier($annee->precedente, $margeJours);
             $precedente = $blocPrecedent[3]->date;
         }
         foreach ($echeances as $index => $echeance) {
