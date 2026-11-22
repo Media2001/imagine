@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="8" assertions="25" errors="2" failures="1" skipped="0" time="0.005598">
+    <testsuite name="Echeancier" tests="8" assertions="25" errors="2" failures="1" skipped="0" time="0.005598">
+      <testsuite name="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" tests="8" assertions="25" errors="2" failures="1" skipped="0" time="0.005598">
+        <testsuite name="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest::testJamaisPayeSansConfirmationOuAvantElle" tests="4" assertions="2" errors="2" failures="1" skipped="0" time="0.004208">
+          <testcase name="testJamaisPayeSansConfirmationOuAvantElle with data set &quot;avec_marge-sans-confirmation&quot;" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="13" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="0" time="0.002797">
+            <error type="TypeError">Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest::testJamaisPayeSansConfirmationOuAvantElle with data set "avec_marge-sans-confirmation"
+TypeError: Imagine\Pilotage\Echeancier\Reglages::premierSepaPayeLe(): Argument #2 ($confirmation) must be of type DateTimeImmutable, null given, called in /work/tests/Echeancier/ConfirmationPremierSepaTest.php on line 18
+
+/work/src/Echeancier/Reglages.php:66
+/work/tests/Echeancier/ConfirmationPremierSepaTest.php:18</error>
+          </testcase>
+          <testcase name="testJamaisPayeSansConfirmationOuAvantElle with data set &quot;avec_marge-confirmation-tardive&quot;" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="13" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="1" time="0.001142">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest::testJamaisPayeSansConfirmationOuAvantElle with data set "avec_marge-confirmation-tardive"
+Failed asserting that two DateTime objects are equal.
+--- Expected
++++ Actual
+@@ @@
+-2027-04-19T14:00:00.000000+0200
++2027-04-16T12:00:00.000000+0200
+
+/work/tests/Echeancier/ConfirmationPremierSepaTest.php:19</failure>
+          </testcase>
+          <testcase name="testJamaisPayeSansConfirmationOuAvantElle with data set &quot;sans_marge-sans-confirmation&quot;" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="13" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="0" time="0.000129">
+            <error type="TypeError">Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest::testJamaisPayeSansConfirmationOuAvantElle with data set "sans_marge-sans-confirmation"
+TypeError: Imagine\Pilotage\Echeancier\Reglages::premierSepaPayeLe(): Argument #2 ($confirmation) must be of type DateTimeImmutable, null given, called in /work/tests/Echeancier/ConfirmationPremierSepaTest.php on line 18
+
+/work/src/Echeancier/Reglages.php:66
+/work/tests/Echeancier/ConfirmationPremierSepaTest.php:18</error>
+          </testcase>
+          <testcase name="testJamaisPayeSansConfirmationOuAvantElle with data set &quot;sans_marge-confirmation-tardive&quot;" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="13" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="1" time="0.000140"/>
+        </testsuite>
+        <testcase name="testSansMargeRetientConfirmationReellePasCommande" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="30" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="3" time="0.000425"/>
+        <testcase name="testPremierSepaAttendMargeSansDeplacerNumeroNiEcheances" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="42" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="7" time="0.000714"/>
+        <testcase name="testDeuxPositionsDecodeesEtEntreesInvalidesRefusees" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="60" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="10" time="0.000181"/>
+        <testcase name="testMargeConfirmationPremierSepaAppliqueeParDefaut" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="81" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="3" time="0.000069"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

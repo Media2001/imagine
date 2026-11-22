@@ -81,4 +81,6 @@ function c05AdminScenario(): void
     c05Check('admin_clear_margin_keeps_unconfigured', $admin->lire()->margeJours === null);
     update_option(ReglagesAdministration::OPTION, ['marge_jours' => '7', 'apres_rejet' => 'restent_dues', 'tarif' => 'fige_bloc'], false);
     c05Check('admin_final_fixture_settings_readback', $admin->lire()->margeJours === 7);
+    require_once __DIR__ . '/sepa-scenario.php';
+    c05SepaScenario($admin);
 }

@@ -90,6 +90,7 @@ def fresh_runner(name):
     call(['exec', '-i', name, 'tar', '-xf', '-', '-C', '/'], data)
     extras = [
         (HERE / 'publication_probe.php', 'opt/court/publication_probe.php'),
+        (HERE / 'script_capacity_probe.php', 'opt/court/script_capacity_probe.php'),
         (ROOT / 'wp/tests/a01-court/prepare_publication.py', 'opt/court/prepare_publication.py'),
         (ROOT / 'wp/tests/licensed-a01/inside-commercial.py', 'opt/e2e/inside_commercial.py'),
         (ROOT / 'wp/tests/licensed-a01/cases.php', 'opt/e2e/cases.php'),
@@ -338,6 +339,28 @@ except Exception as e: print(json.dumps({'code':0,'error_class':type(e).__name__
     return proof
 
 
+def script_capacity_probe(slug):
+    """Synthetic-only post-publication download/deploy/replay/rollback proof."""
+    validate_name(slug)
+    execution = call(['exec', '-i', '-e', 'A01_CAPACITY_SITE=' + slug, 'wp-' + slug, 'php'],
+                     (HERE / 'script_capacity_probe.php').read_bytes(), check=False)
+    lines = [line[13:] for line in execution.stdout.decode().splitlines() if line.startswith('A01_CAPACITY=')]
+    if len(lines) != 1:
+        return {'ok': False, 'failure_code': 'CAPACITY_RECEIPT_REFUSED', 'exit': execution.returncode}
+    try:
+        result = json.loads(lines[0])
+    except ValueError:
+        return {'ok': False, 'failure_code': 'CAPACITY_RECEIPT_REFUSED', 'exit': execution.returncode}
+    required = ('file_mods_locked', 'admin_updates_denied', 'auto_updates_disabled',
+                'script_deploy_readback', 'script_replay_idempotent', 'rollback_readback', 'owned_probe_files_absent')
+    result['ok'] = (execution.returncode == 0 and result.get('ok') is True
+                    and result.get('policy') == 'deployment_scripts_only'
+                    and all(result.get(key) is True for key in required)
+                    and result.get('wordpress_download_http') == result.get('woocommerce_egress_http') == 200
+                    and bool(re.fullmatch(r'[a-f0-9]{64}', result.get('wordpress_download_sha256', ''))))
+    return result
+
+
 def main():
     parser = argparse.ArgumentParser(description='A-01 : archive → vérification hors ligne → publication dans un site imagine-test-…')
     group = parser.add_mutually_exclusive_group(required=True)
@@ -405,6 +428,7 @@ def main():
                 receipt['normal_creation'] = {k: site[k] for k in ('slug', 'status', 'url', 'port', 'php_version', 'mcp_enabled', 'mcp_status')}
                 receipt['stopped_before_import'] = stop_site(name)
                 lint = call(['exec', runner, 'php', '-l', '/opt/court/publication_probe.php'])
+                call(['exec', runner, 'php', '-l', '/opt/court/script_capacity_probe.php'])
                 receipt['new_php_lint'] = {'exit': lint.returncode, 'output_sha256': hashlib.sha256(lint.stdout + lint.stderr).hexdigest()}
                 receipt['source_manifest'] = manifest
                 request = {'target_url': 'http://localhost:' + str(site['port']),
@@ -514,9 +538,14 @@ except Exception as e: print(json.dumps({'reachable':False,'error_class':type(e)
                         assert probe['fidelity']['rights'] == {k: v['private'] for k, v in fixture['rights']['rights'].items()}
                         for key in ('business', 'membership', 'rules_sha256', 'plugins', 'theme'):
                             assert probe['fidelity'][key] == fixture[key], 'FIDELITY_' + key.upper()
+                        receipt['script_update_capacity'] = script_capacity_probe(name)
+                        if receipt['script_update_capacity']['ok'] is not True:
+                            raise RuntimeError('SCRIPT_UPDATE_CAPACITY_REFUSED')
                     marker = {'status': 'verified', 'run_id': run_id, 'site': name,
                               'recorded_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
                               'report': str(out / 'result.json'), 'offline_verified': True, 'runtime_probe_passed': True,
+                              'expected_core_version': args.expected_core_version,
+                              'update_policy': result['update_policy'],
                               'post_verified_network_limit': result['post_verified_network_limit']}
                     call(['exec', '-i', 'wp-' + name, 'tee', '/var/www/html/.imagine-staging-verified.json'], json.dumps(marker).encode())
                     assert read_json('wp-' + name, '/var/www/html/.imagine-staging-verified.json') == marker

@@ -80,7 +80,7 @@ def run_case(kind, output):
     capture = io.StringIO()
     publish.call, publish.remove_owned, publish.api = call, remove, api
     argv = sys.argv
-    sys.argv = ['publish.py', '--self-test-publication', '--case', 'classic']
+    sys.argv = ['publish.py', '--self-test-publication', '--case', 'classic', '--expected-core-version', '7.0.9']
     try:
         with contextlib.redirect_stdout(capture):
             code = publish.main()
@@ -114,7 +114,7 @@ def run_case(kind, output):
         assert observed['import_database_absent_before_cleanup']
         assert 'injection' not in case and 'publication' not in case
         if kind == 'core-mismatch':
-            assert case['offline']['core_versions'] == {'source': '6.9.1', 'pinned': '7.0.9'}
+            assert case['offline']['core_versions'] == {'source': '6.9.1', 'pinned': '7.0.9', 'expected': '7.0.9'}
         assert not value.get('cleanup_errors')
     observed['live_cleanup'] = publish.deleted_readback(case['name'])
     missing = publish.call(['inspect', observed['runner']], check=False)

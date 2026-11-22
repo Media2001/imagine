@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="9" assertions="29" errors="0" failures="0" skipped="0" time="0.002774">
+    <testsuite name="Echeancier" tests="9" assertions="29" errors="0" failures="0" skipped="0" time="0.002774">
+      <testsuite name="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" tests="9" assertions="29" errors="0" failures="0" skipped="0" time="0.002774">
+        <testsuite name="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest::testJamaisPayeSansConfirmationOuAvantElle" tests="4" assertions="4" errors="0" failures="0" skipped="0" time="0.001360">
+          <testcase name="testJamaisPayeSansConfirmationOuAvantElle with data set &quot;avec_marge-sans-confirmation&quot;" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="13" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="1" time="0.001071"/>
+          <testcase name="testJamaisPayeSansConfirmationOuAvantElle with data set &quot;avec_marge-confirmation-tardive&quot;" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="13" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="1" time="0.000139"/>
+          <testcase name="testJamaisPayeSansConfirmationOuAvantElle with data set &quot;sans_marge-sans-confirmation&quot;" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="13" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="1" time="0.000092"/>
+          <testcase name="testJamaisPayeSansConfirmationOuAvantElle with data set &quot;sans_marge-confirmation-tardive&quot;" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="13" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="1" time="0.000058"/>
+        </testsuite>
+        <testcase name="testMargeNonConfigureeRefuseConfirmationSepaParDefaut" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="30" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="2" time="0.000345"/>
+        <testcase name="testSansMargeRetientConfirmationReellePasCommande" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="38" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="3" time="0.000158"/>
+        <testcase name="testPremierSepaAttendMargeSansDeplacerNumeroNiEcheances" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="50" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="7" time="0.000779"/>
+        <testcase name="testDeuxPositionsDecodeesEtEntreesInvalidesRefusees" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="68" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="10" time="0.000075"/>
+        <testcase name="testMargeConfirmationPremierSepaAppliqueeParDefaut" file="/work/tests/Echeancier/ConfirmationPremierSepaTest.php" line="89" class="Imagine\Pilotage\Tests\Echeancier\ConfirmationPremierSepaTest" classname="Imagine.Pilotage.Tests.Echeancier.ConfirmationPremierSepaTest" assertions="3" time="0.000058"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -9,6 +9,48 @@ use PHPUnit\Framework\TestCase;
 
 final class ConfirmationPremierSepaTest extends TestCase
 {
+    #[\PHPUnit\Framework\Attributes\DataProvider('confirmationsReelles')]
+    public function testJamaisPayeSansConfirmationOuAvantElle(string $position, ?string $date): void
+    {
+        require_once __DIR__ . '/Fixture.php';
+        $r = new Reglages(7, 'restent_dues', 'fige_bloc', $position);
+        $confirmation = $date === null ? null : c05Date($date);
+        $payeLe = $r->premierSepaPayeLe(c05Date('2027-04-09 12:00:00'), $confirmation);
+        self::assertEquals($confirmation, $payeLe);
+    }
+
+    public static function confirmationsReelles(): iterable
+    {
+        foreach (['avec_marge', 'sans_marge'] as $position) {
+            yield $position . '-sans-confirmation' => [$position, null];
+            yield $position . '-confirmation-tardive' => [$position, '2027-04-19 14:00:00'];
+        }
+    }
+
+    public function testMargeNonConfigureeRefuseConfirmationSepaParDefaut(): void
+    {
+        require_once __DIR__ . '/Fixture.php';
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('MARGE_OBLIGATOIRE');
+        (new Reglages())->premierSepaPayeLe(c05Date('2027-04-09'), c05Date('2027-04-09 01:00:00'));
+    }
+
+    public function testConfirmationAnterieureCommandeRefuseeDansLesDeuxPositions(): void
+    {
+        require_once __DIR__ . '/Fixture.php';
+        foreach (['avec_marge', 'sans_marge'] as $position) {
+            try {
+                (new Reglages(7, 'restent_dues', 'fige_bloc', $position))->premierSepaPayeLe(
+                    c05Date('2027-04-09 12:00:00'),
+                    c05Date('2027-04-09 11:59:59')
+                );
+                self::fail('Confirmation antérieure à la commande acceptée');
+            } catch (\InvalidArgumentException $error) {
+                self::assertSame('CONFIRMATION_ANTERIEURE_COMMANDE', $error->getMessage());
+            }
+        }
+    }
+
     public function testSansMargeRetientConfirmationReellePasCommande(): void
     {
         require_once __DIR__ . '/Fixture.php';

@@ -65,13 +65,24 @@ final readonly class Reglages
     /** Date projetée du premier numéro SEPA payé, distincte du lancement à la commande. */
     public function premierSepaPayeLe(
         \DateTimeImmutable $commande,
-        \DateTimeImmutable $confirmation
-    ): \DateTimeImmutable {
-        if ($this->confirmationPremierSepa === 'sans_marge') {
-            return $confirmation->setTimezone(new \DateTimeZone('Europe/Brussels'));
+        ?\DateTimeImmutable $confirmation
+    ): ?\DateTimeImmutable {
+        if ($this->confirmationPremierSepa === 'avec_marge' && $this->margeJours === null) {
+            throw new \InvalidArgumentException('MARGE_OBLIGATOIRE : renseigner les jours civils avant confirmation.');
         }
-        return $commande->setTimezone(new \DateTimeZone('Europe/Brussels'))
+        if ($confirmation === null) {
+            return null;
+        }
+        if ($confirmation < $commande) {
+            throw new \InvalidArgumentException('CONFIRMATION_ANTERIEURE_COMMANDE');
+        }
+        $confirmation = $confirmation->setTimezone(new \DateTimeZone('Europe/Brussels'));
+        if ($this->confirmationPremierSepa === 'sans_marge') {
+            return $confirmation;
+        }
+        $disponible = $commande->setTimezone(new \DateTimeZone('Europe/Brussels'))
             ->add(new \DateInterval('P' . $this->margeJours . 'D'));
+        return $confirmation > $disponible ? $confirmation : $disponible;
     }
 
     /**
