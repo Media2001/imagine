@@ -105,7 +105,10 @@ final class AdministrationFormatExport
             add_settings_error(
                 self::OPTION,
                 'imagine_envoi_format_invalide',
-                __('Format invalide : choisir des colonnes connues, sans doublon. Réglage précédent conservé.', 'imagine-pilotage'),
+                __(
+                    'Format invalide : choisir des colonnes connues, sans doublon. Réglage précédent conservé.',
+                    'imagine-pilotage',
+                ),
             );
             return $this->lire()->colonnes;
         }

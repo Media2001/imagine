@@ -1,0 +1,11 @@
+{
+  "command": [
+    "docker",
+    "exec",
+    "-i",
+    "imagine-c03-9b50cf42a289",
+    "php"
+  ],
+  "exit_code": 255,
+  "php_stdin": "<?php\nrequire '/work/vendor/autoload.php';\nrequire '/c04/vendor/autoload.php';\nuse Imagine\\Pilotage\\Envoi\\{ExportCsv, FormatExport};\n$ligne = array_fill_keys(ExportCsv::COLONNES, 'Fictif');\n$ligne['pays'] = 'BE';\n$ligne['code_postal'] = '00100';\n$ligne['destinataire'] = '=Camille Fictive';\n$format = new FormatExport(['pays', 'code_postal', 'destinataire']);\n$csv = ExportCsv::lignes([$ligne], $format);\nif ($csv !== ExportCsv::lignes([$ligne], $format)) {\n    throw new LogicException('Rejeu divergent');\n}\necho $csv;\n"
+}

@@ -1,0 +1,6 @@
+{
+  "container": "imagine-c03-9b50cf42a289",
+  "owned_runner_removed": true,
+  "inspect_exit_code": 1,
+  "inspect_diagnostic": "[]\nerror: no such object: imagine-c03-9b50cf42a289\n"
+}

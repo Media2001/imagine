@@ -85,6 +85,40 @@ if __name__ == '__main__':
         test(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else None)
     elif action == 'strict':
         c.strict()
+    elif action == 'example':
+        name, _ = c.owned()
+        code = rb'''<?php
+require '/work/vendor/autoload.php';
+require '/c04/src/CsvProtection.php';
+use Imagine\Pilotage\Envoi\{ExportCsv, FormatExport};
+$ligne = array_fill_keys(ExportCsv::COLONNES, 'Fictif');
+$ligne['pays'] = 'BE';
+$ligne['code_postal'] = '00100';
+$ligne['destinataire'] = '=Camille Fictive';
+$format = new FormatExport(['pays', 'code_postal', 'destinataire']);
+$csv = ExportCsv::lignes([$ligne], $format);
+if ($csv !== ExportCsv::lignes([$ligne], $format)) {
+    throw new LogicException('Rejeu divergent');
+}
+echo $csv;
+'''
+        attempt = sys.argv[2] if len(sys.argv) > 2 else 'example'
+        assert attempt.isidentifier()
+        result = b.call(['exec', '-i', name, 'php'], code, check=False)
+        (OUT / (attempt + '.log')).write_bytes(result.stdout + result.stderr)
+        c.save(attempt + '.json', {'command': ['docker', 'exec', '-i', name, 'php'],
+                                  'exit_code': result.returncode, 'php_stdin': code.decode('utf-8')})
+        assert result.returncode == 0, result.stderr.decode(errors='replace')
+        import csv
+        import io
+        rows = list(csv.reader(io.StringIO(result.stdout.decode('utf-8'))))
+        assert rows == [['pays', 'code_postal', 'destinataire'], ['BE', '00100', "'=Camille Fictive"]]
+        target = OUT / 'format-sample.csv'
+        assert not target.exists()
+        target.write_bytes(result.stdout)
+        c.save('format-sample.json', {'time_utc': c.now(), 'sha256': c.digest(target),
+                                    'rows_verified': rows, 'replay_identical': True, 'exit_code': result.returncode})
+        print('CONFIGURED CSV VERIFIED', rows)
     elif action == 'close':
         # Ownership checks, but cleanup must remain possible after a preparation failure.
         name = json.loads(b.STATE.read_text(encoding='utf-8'))['container']

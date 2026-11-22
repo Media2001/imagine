@@ -1,0 +1,12 @@
+{
+  "time_utc": "2026-11-22T13:50:53.101635+00:00",
+  "command": [
+    "php",
+    "/tmp/composer.phar",
+    "dump-autoload",
+    "--no-scripts",
+    "--no-plugins"
+  ],
+  "workdir": "/c04",
+  "exit_code": 0
+}
