@@ -1,4 +1,8 @@
-# A-01 — publication qualifiée, 22 novembre 2026
+# A-01 — corrections du 22 novembre, remise globale NON PRÊTE
+
+**Le PRET précédent est invalidé.** R4/R3/R1/R2/R6/R7 corrigés et exécutés ; R5 attend le choix Ced **admin / scripts**. Protections inchangées : `DISALLOW_FILE_MODS=true`, édition et mises à jour automatiques désactivées. Aucun arbitrage implicite. Voir le point courant de `production/A-01/notes.md` et `production/A-01/NON-PRET-22nov.md`.
+
+Contrôle source/cœur strict : `package.json → WordPress.Version` obligatoire et identique au cœur épinglé avant import SQL/bootstrap. La recette commerciale conserve **7.0.9** ; une archive **6.9.1** est refusée avec `SOURCE_CORE_VERSION_MISMATCH`, jamais mise à niveau silencieusement. Le refus conserve étape/code sûrs dans `offline_failure`, sans stderr brut. Le format reste `.wpress` non compressé, site simple, grammaire fermée ; moteurs locaux acceptés sans conversion : InnoDB/MyISAM/Aria/Memory, moteurs non-InnoDB signalés. Seul MyISAM est qualifié ici en E2E.
 
 **La commande opérateur est désormais `publish.py`, pas l'ancien `run.py --archive`.** Mode d'emploi complet, mot de passe stdin, décisions de tables, reprise fraîche, limites et preuves : **`production/A-01/notes.md`**. Ced seul lance le premier import réel ; aucun agent n'ouvre l'archive Imagine.
 
@@ -15,14 +19,14 @@ PYTHONDONTWRITEBYTECODE=1 python wp/outils/staging-court/publish.py --self-test-
 # Lecture seule ; bornes outil 60 s et 300 s.
 PYTHONDONTWRITEBYTECODE=1 python wp/tests/a01-court/test_publication.py
 PYTHONDONTWRITEBYTECODE=1 python wp/tests/a01-court/verify_publication.py \
-  --report production/A-01/publication-22nov/3f837c790d4b/result.json --live-cleanup
+  --report production/A-01/publication-22nov/6d5fac463e61/result.json --live-cleanup
 ```
 
 Omettre `--table-decisions` sans décision écrite. Nom `imagine-test-…` strict, minuscules/chiffres/tirets simples, 40 caractères maximum, nouveau site obligatoire. Restauration et traitements natifs hors ligne avant injection/démarrage ; API normale uniquement pour le cycle du test, aucun nouveau frontal ni modification de l'outil. Les accès agent créés automatiquement ne sont jamais utilisés. Succès : témoin racine `.imagine-staging-verified.json` relu et rapport `verified`, dashboard `running`. Échec : site arrêté et rapport, jamais faux verified.
 
-**Preuve finale : `production/A-01/publication-22nov/3f837c790d4b/result.json`, 3 cas PASS** (classique/HPOS avec vrais Subscriptions/Memberships et HTTP 200 à l'URL exacte ; clé piégée refusée avant injection). Tests supprimés et absence relue. Réseau après vérification : filtrage WordPress seulement, pas pare-feu système, conformément au brief. Formats/versions inconnus non qualifiés ; aucune archive réelle ouverte ni installation hôte/Git.
+**Preuve corrigée : `production/A-01/publication-22nov/6d5fac463e61/result.json`, 4 cas PASS** : classique/HPOS publiés avec vrais Subscriptions/Memberships et MyISAM conservé ; secret et table personnelle non tranchée refusés avant injection. Diagnostics et double panne R4 réellement exercés par `wp/tests/a01-court/exercise_corrections.py` ; reçu `production/A-01/corrections-22nov/faults-a4d2ca414cea/result.json`. Huit nouveaux sites supprimés et absence relue ; runner R4 volontairement refusé puis récupéré/supprimé explicitement. Réseau après vérification : filtrage WordPress seulement, pas pare-feu système.
 
-`run.py --self-test` reste le banc hors ligne, avec `full_staging_ready=false` attendu : rejeu `production/A-01/tests-21nov/2a5c8c0fcbb1/result.json`, 18 contrôles PASS, 12 tests archive, 17 banc, 9 cas/337 assertions données. `publication_preflight.py` garde son verdict historique du 21/11 ; seul son collecteur en lecture seule est réutilisé, pas ce verdict licence obsolète après GO.
+`run.py --self-test` reste le banc hors ligne, avec `full_staging_ready=false` attendu : rejeu `production/A-01/tests-21nov/3c4e0cfbc8c4/result.json`, 18 contrôles PASS, 12 tests archive, 17 banc, 9 cas/337 assertions données. `publication_preflight.py` garde son verdict historique du 21/11 ; seul son collecteur en lecture seule est réutilisé, pas ce verdict licence obsolète après GO.
 
 ---
 

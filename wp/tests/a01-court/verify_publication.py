@@ -78,6 +78,7 @@ def verify(report, live=False):
             assert probe['novamira_residuals']['created_agent_credentials_valid'] is False
             assert case['injection']['all_wp_content_hashes_equal'] is True
             assert probe['versions']['hpos'] is (case['storage'] == 'hpos')
+            assert probe['versions']['wordpress'] == case['offline']['core_versions']['source']
             assert probe['fidelity']['setting_intact'] is True
             for key in ('business', 'membership', 'rules_sha256', 'plugins', 'theme'):
                 assert probe['fidelity'][key] == case['fixture'][key]
