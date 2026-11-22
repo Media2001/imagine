@@ -1,0 +1,31 @@
+{
+  "standard": {
+    "container": "imagine-c03-c1076eca8437",
+    "image": "sha256:b2ffa6ad01ffacc6d31b176232c8d0779c0320daba381e05cbbd80f56d5327a0",
+    "label": "true",
+    "networks": {},
+    "mounts": [],
+    "port_bindings": {},
+    "privileged": false,
+    "cap_drop": [
+      "ALL"
+    ],
+    "security_opt": [
+      "no-new-privileges"
+    ]
+  },
+  "e2e": {
+    "container": "imagine-c05-add4c69efa41",
+    "image": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
+    "network": "none",
+    "mounts": [],
+    "ports": [],
+    "privileged": false,
+    "cap_drop": [
+      "ALL"
+    ],
+    "no_new_privileges": true
+  },
+  "protected_files": 647,
+  "protected_inventory_unchanged": true
+}

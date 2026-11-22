@@ -1,24 +1,37 @@
 # Échéancier — C-05, prototype non branché
 
-- `Planificateur` et `Versement` : PHP pur. Le calendrier, les numéros et les dates communes sont fournis par `Imagine\Pilotage\Numeros\Moteur` (C-01), jamais recalculés ici.
-- `planifier(Annee, DateTimeImmutable $finEngagement, ?int $margeJours = null)` : quatre positions ordonnées **par bloc de quatre numéros**. L’argument historique de fin reste un contexte numérique validé, pas une borne de paiement. La marge absente refuse `MARGE_OBLIGATOIRE`. Aucune lecture d’horloge.
-- Première année : le premier versement prend la date de commande. Reconduction liée par C-01 : tous les versements gardent la date commune.
-- Refus avant résultat exploitable : marge absente ou non positive, calendrier incomplet, fin numérique non postérieure au début, dates non strictement croissantes. Une exception n’est pas un échéancier partiel à exécuter.
-- `RaccordManuel` : adaptateur Woo de démonstration **uniquement** pour une fixture marquée C05, drapeau manuel explicite et passerelle vide. Aucun hook enregistré, aucun automatisme ajouté au plugin. Il ne prouve ni un traitement des rejets ni l’idempotence financière concurrente.
+- `Planificateur` et `Versement` : PHP pur. C-01 fournit calendrier, numéros et communes ; C-05 ne les recalcule pas.
+- `planifier(Annee $annee, ?int $margeJours = null)` : quatre positions par bloc de quatre numéros, jonctions strictement croissantes. Marge absente : `MARGE_OBLIGATOIRE`. Calendrier incomplet ou dates égales/inversées : refus avant retour du plan. Pas de lecture d’horloge.
+- Premier versement à la commande ; reconductions aux communes C-01. Option A : cinq dates dans une fenêtre anniversaire sont possibles, jamais cinq positions dans un bloc.
+- `RaccordManuel` : preuve seulement, marqueur fictif C05 + drapeau manuel explicite + passerelle vide. Aucun hook ni encaisseur de production.
 
-**Option A du 22/11 :** cinq dates dans une fenêtre anniversaire sont acceptées, jamais cinq positions dans un bloc. Toutes les communes et la marge restent intactes. Voir `production/C-05/proposition.md`.
+## Réglages d’administration
 
-- `Reglages` : marge civile positive sans défaut, rejet `restent_dues` (défaut) / `annuler_restantes`, tarif `fige_bloc` (défaut) / `courant_impayes`. Chaque choix et leurs interactions sont testés ; les valeurs numériques représentatives 1/3/7/30 et les entrées invalides aussi. `montantsRestants` projette en centimes les seuls rangs impayés, sans opération financière ni calcul de droits.
-- `ReglagesAdministration` : option `imagine_c05_reglages`, Settings API, capacité `manage_woocommerce`, nonce standard, sorties échappées, pas de REST. Saisie invalide : ancienne option conservée. Option corrompue : lecture fermée. Vide : moteur bloqué.
-- Seam parent après autoload, une fois : `(new Imagine\Pilotage\Echeancier\ReglagesAdministration())->enregistrer();`. Aucun bootstrap commun modifié. Le banc active explicitement l’adaptation. Lire les réglages puis passer `margeJours` au moteur ; fournir à la projection la somme figée du bloc et les rangs confirmés payés.
+`ReglagesAdministration` utilise l’option `imagine_c05_reglages`, la Settings API, `manage_woocommerce`, le nonce WordPress et des sorties échappées. Pas de REST. Saisie invalide : ancienne option conservée. Option corrompue : lecture refusée.
 
-Tests depuis la racine du dépôt, avec Python déjà présent (aucune installation hôte) :
+| Clé | Défaut | Autre valeur |
+|---|---|---|
+| `marge_jours` | null : aucune durée par défaut, planification bloquée | Entier civil strictement positif |
+| `confirmation_premier_sepa` | `avec_marge` | `sans_marge` |
+| `apres_rejet` | `restent_dues` | `annuler_restantes` |
+| `tarif` | `fige_bloc` | `courant_impayes` |
 
-```bash
-python wp/tests/echeancier-runner/run.py prepare
-python wp/tests/echeancier-runner/run.py unit --name relecture-unit
-python wp/tests/echeancier-runner/run.py e2e --name relecture-e2e
-python wp/tests/echeancier-runner/run.py close
-```
+La nouvelle clé absente des anciennes options reçoit `avec_marge`, sans migration destructive ni nouvelle durée. Deux positions dans une liste de sélection, sans changement de code. Les réglages rejet/tarif ne changent pas.
 
-Toujours fermer le conteneur possédé, y compris en cas d’échec. Le banc réutilise une image publique synthétique existante et le ZIP autorisé de Subscriptions en lecture seule, sans accès au staging. Aucun Composer/README partagé modifié. Voir `wp/tests/echeancier-runner/README.md` et les reçus dans `production/C-05/preuves/`.
+`Reglages::premierSepaPayeLe(DateTimeImmutable $commande, ?DateTimeImmutable $confirmation)` concerne **uniquement le premier paiement SEPA** :
+
+- `avec_marge` : maximum de la confirmation effective et de commande + `marge_jours`, en jours civils Europe/Brussels ; durée non renseignée : refus explicite ;
+- `sans_marge` : confirmation effective, sans délai additionnel ;
+- aucune confirmation : null, jamais payé par simple écoulement du temps ; confirmation antérieure à la commande : refus ;
+- l’appelant ne considère le premier numéro payé que si la date retournée est non nulle et atteinte ; pour l’état historique avant clôture, elle doit être strictement antérieure à la clôture C-01 ;
+- ne modifie aucun numéro, échéance, montant, dette, commande Woo, mandat, droit numérique ou liste d’envoi. Les renouvellements et les autres modes de paiement n’appellent pas cette méthode.
+
+Exemple fictif : commande le 09/04/2027 à 12 h, confirmation à 13 h, marge 7. Avec marge : payé au plus tôt le 16/04 à 12 h ; sans marge : le 09/04 à 13 h. Avec marge, ce numéro n’est pas payé avant sa clôture du 10/04. Aucun report automatique de numéro ni prélèvement ajouté.
+
+## Branchement et tests
+
+Seam parent inchangé, après autoload : `(new Imagine\Pilotage\Echeancier\ReglagesAdministration())->enregistrer();`. Le banc l’appelle explicitement ; aucune modification du bootstrap partagé. L’appelant futur lit les réglages, fournit une confirmation effective et utilise la date projetée pour le premier SEPA. `montantsRestants` reste une projection en centimes sans écriture financière.
+
+Depuis la racine du dépôt, **PHP uniquement dans des conteneurs jetables** : instructions `wp/tests/echeancier-runner/README-sepa.md`. Suite canonique dans le conteneur : `composer test` (inclut Echeancier), `composer lint`, `composer validate --strict --no-check-publish`. Tests dédiés : `ConfirmationPremierSepaTest` ; vraie Settings API et Subscriptions classique/HPOS dans le banc séparé. Aucun test de recette `docs/recette/` automatisé.
+
+Remise courante : `production/C-05/sepa-22nov-1700.md`, `replays/sepa-22nov-1700/`. Anciennes preuves conservées, sans prétendre qu’elles correspondent aux nouveaux octets. PRET n’est ni clôture indépendante ni GO réel/financier.

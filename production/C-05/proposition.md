@@ -1,6 +1,6 @@
 # C-05 — proposition d’échéancier, reprise du 22 novembre 2026
 
-**Statut : corrections de fusion 1–5 appliquées ; proposition et prototype à relire.** Quatre échéances par bloc de quatre numéros, pas par fenêtre anniversaire. Aucun branchement sur un site existant, aucun encaissement ni GO financier. Remise courante : `corrections-22nov-1458.md` et `replays/fusion-22nov-1458/`. Les reçus `preuves/` et les notes des remises précédentes sont historiques.
+**Statut : ajout SEPA de la file du 22/11, 17 h appliqué ; proposition et prototype à relire.** Quatre échéances par bloc de quatre numéros, pas par fenêtre anniversaire. Aucun branchement sur un site existant, aucun encaissement ni GO financier. Remise courante : `sepa-22nov-1700.md` et `replays/sepa-22nov-1700/`. Les reçus `preuves/`, `replays/fusion-22nov-1458/` et les notes précédentes sont historiques : ils décrivent les octets de leur remise, pas les nouveaux.
 
 ## 1. Unité d’engagement retenue : quatre numéros
 
@@ -48,7 +48,7 @@ Un futur raccord autonome devra conserver durablement le curseur, verrouiller le
 
 Le renouvellement manuel natif demande normalement une action du client ; il ne constitue pas un prélèvement automatique.[2] Les reprises automatiques ont leurs prérequis et ne sont pas démontrées par ce banc manuel.[6]
 
-## 4. Preuve acquise, sans gonfler sa portée
+## 4. Preuve antérieure à l’ajout SEPA, conservée sans gonfler sa portée
 
 - PHPUnit : la suite `Echeancier` est incluse dans le `composer test` standard du XML racine, avec les cinq suites voisines. Les compteurs réels du nouveau JUnit sont dans `corrections-22nov-1458.md` et `replays/fusion-22nov-1458/final.xml`. Les 365 dates, veille/jour/lendemain, cinq dates acceptées et total de 28 fenêtres, calendriers incomplets, fuseaux/29 février, réglages/entrées restent testés ; s’ajoutent jonction égale refusée, cas 09/04 valide, API sans borne et refus admin traduit. Aucun banc unitaire autonome ne subsiste.
 - Vrais **Subscriptions 9.4.1**, WordPress **7.0.9**, WooCommerce **11.1.1**, PHP **8.2.36** ; quatre commandes pour **chacun** des stockages classique et HPOS : 20 février et 9/10/11 avril 2027 (veille/jour/lendemain de clôture).
@@ -56,19 +56,20 @@ Le renouvellement manuel natif demande normalement une action du client ; il ne 
 - Les dates enregistrées de `next_payment` et des actions natives correspondent exactement aux dates C-01, avec conversions hiver/été. Les actions futures sont exécutées explicitement en accéléré ; les confirmations locales ont l’heure réelle d’exécution. **Ce n’est pas une attente de deux ans, ni une preuve de débit bancaire à une date future.** Les reçus séparent date théorique, date native d’action et date de validation Woo.
 - Le scénario du 9 avril crée réellement les huit positions et vérifie cinq dates dans sa première fenêtre, en classique et HPOS. Douze combinaisons administratives par stockage sont persistées puis relues et exercées sur le moteur et les projections. Le formulaire est rendu par WP (nonce, champs et capacité), sans sauvegarde HTTP ni inspection visuelle revendiquée.
 
-Reçus courants : `replays/fusion-22nov-1458/final.xml`, `final.json`, `final-e2e-result.json`, `final-e2e.json`, journaux et `verification.json`. Les RED, GREEN intermédiaires et historiques sont conservés sans écrasement. Commandes et limites : `corrections-22nov-1458.md`, `wp/tests/echeancier-runner/README-corrections.md`.
+Reçus de cette remise antérieure : `replays/fusion-22nov-1458/final.xml`, `final.json`, `final-e2e-result.json`, `final-e2e.json`, journaux et `verification.json`. Les RED, GREEN intermédiaires et historiques sont conservés sans écrasement. Résultats après ajout SEPA : `sepa-22nov-1700.md` ; commandes actuelles : `wp/tests/echeancier-runner/README-sepa.md`.
 
 ## 5. Isolation et périmètre
 
 Deux conteneurs possédés distincts : PHP/Composer (dépendances publiques verrouillées pendant préparation seulement, réseau détaché avant tests) et e2e (réseau `none` dès création). Images synthétiques existantes, aucun pull. Seul le ZIP Subscriptions autorisé est lu dans la bibliothèque de paquets, avec empreinte vérifiée ; ni ZIP ni licence dans le dépôt. Memberships non utilisé. Aucun montage/volume/port, capacités supprimées ; MariaDB e2e sur socket Unix, aucun serveur web. Emails et HTTP bloqués dans la fixture. Aucune archive de site, aucun compte réel, aucun outil installé sur l’hôte, aucune opération Git ni modification de staging. Les deux suppressions et absences exactes sont vérifiées dans le nouveau paquet. Verrou du parent intact.
 
-## 6. Trois réglages, aucune question bloquante pour le prototype
+## 6. Quatre réglages, aucune question bloquante pour le prototype
 
 `Reglages` est pur PHP. `ReglagesAdministration` fournit la Settings API [7][8], option `imagine_c05_reglages`, sans exposition REST :
 
 | Clé | Défaut | Autre valeur / effet |
 |---|---|---|
 | `marge_jours` | **null, aucun défaut** | Entier positif en jours civils. Vide = non configuré, moteur bloqué. 1/3/7/30 testés, pas recommandés ; 0, négatif, décimal, texte, booléen, tableau et dépassement d’entier refusés. |
+| `confirmation_premier_sepa` | **`avec_marge`** | `sans_marge`. Deux positions de la liste d’administration. Clé absente des anciennes options = marge appliquée ; valeur invalide refusée. Même durée `marge_jours`, aucun nouveau nombre choisi. |
 | `apres_rejet` | `restent_dues` | `annuler_restantes` : ne plus devoir les rangs impayés après rejet, sans effet sur les confirmations payées. Sans rejet, pas de suppression. |
 | `tarif` | `fige_bloc` | `courant_impayes` : tarif courant pour les seuls rangs non payés. Hausse/baisse, nouvelle capture par bloc et interaction avec rejet testées. |
 
@@ -88,6 +89,9 @@ Cela enregistre `admin_init`, le sous-menu Woo et la capacité `manage_woocommer
 $reglages = (new Imagine\Pilotage\Echeancier\ReglagesAdministration())->lire();
 $positions = $planificateur->planifier($anneeC01, $reglages->margeJours);
 $restant = $reglages->montantsRestants($centimesFiges, $centimesCourants, $rangsConfirmes, $rejet);
+// Pour le premier SEPA uniquement, jamais pour les renouvellements/autres modes :
+$payeLe = $reglages->premierSepaPayeLe($commande, $confirmationEffectiveOuNull);
+$premierNumeroPaye = $payeLe !== null && $payeLe <= $dateEvaluation;
 ```
 
 Ce seam est activé explicitement dans la fixture, **pas** dans le bootstrap partagé. Il ne déploie aucun écran sur le vrai site. Aucun choix métier restant ne bloque la remise de code ; une marge effective reste à renseigner avant usage. PRET n’est ni clôture par les deux relecteurs, ni validation visuelle, ni GO réel.
@@ -105,6 +109,10 @@ Ce seam est activé explicitement dans la fixture, **pas** dans le bootstrap par
 
 Huit sources officielles relues le 22/11 : URL finale, HTTP 200, heure, empreinte et court extrait dans `sources/review-2026-11-22.json`. Complément distinct M3/[5] et C05-02/[4] : `sources/review-fusion-22nov-1458.json`. Les collectes antérieures restent historiques, pas réécrites.
 
-## Q1 maintenue pour le futur parcours SEPA
+## 7. Q1 devient le réglage de confirmation du premier SEPA
 
-Faut-il appliquer aussi une marge de confirmation au premier numéro SEPA quand la commande arrive juste avant clôture ? Aucune décision financière nouvelle ni politique SEPA n’est créée ici : le paiement initial du prototype manuel reste à la commande. Q2 n’est pas reposée comme blocage : le défaut `restent_dues` est déjà explicite dans les arbitrages du 22/11. L’item 6 de la fusion est transmis à Claude dans la note dédiée ; aucun fichier `docs/` modifié.
+L’ajout du 22/11, 17 h remplace la question bloquante : **marge appliquée par défaut**, désactivable dans l’administration sans code. J’ai compris « délai avant de considérer le premier numéro comme payé » comme un seuil après la commande, distinct de la date de lancement du premier versement : `max(confirmation effective, commande + marge civile)` avec marge, confirmation effective seule sans marge. Sans confirmation, jamais payé, même lorsque le délai a expiré. Cette projection ne simule pas une confirmation bancaire.
+
+Commande fictive du 09/04/2027 à 12 h, confirmation à 13 h, marge de démonstration 7 : seuil le 16/04 à 12 h avec marge, le 09/04 à 13 h sans marge. Le numéro C01 d’avril reste le premier, mais dans la première position du réglage il n’est pas payé avant sa clôture du 10/04. Une égalité au moment de clôture n’est pas un paiement avant clôture. Ni substitution de numéro, ni débit/remboursement, ni modification de montant/dette, ni modification des droits numériques ou de C07. Les communes et le premier lancement à la commande ne changent pas. Pas de nouvelle durée fixée : `marge_jours` reste obligatoire, sans valeur numérique par défaut.
+
+Le réglage et la projection sont exercés sur vraie Settings API, classique et HPOS, avec conservation de l’option précédente sur valeur invalide. Ce n’est pas une sauvegarde HTTP, une validation visuelle ni un branchement SEPA sur le site ; ce branchement demeure dans les lots en attente. Les preuves SEPA et la non-régression Subscriptions sont rejouées dans le nouveau paquet. Q1 n’est plus ouverte dans cette remise ; Q2 conserve le défaut déjà explicite. L’item 6 de la fusion reste transmis à Claude, sans écriture dans `docs/`.
