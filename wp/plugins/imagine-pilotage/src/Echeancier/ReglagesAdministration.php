@@ -22,7 +22,10 @@ final class ReglagesAdministration
             'type' => 'array',
             'sanitize_callback' => [$this, 'sanitiser'],
             'show_in_rest' => false,
-            'default' => ['marge_jours' => null, 'apres_rejet' => 'restent_dues', 'tarif' => 'fige_bloc'],
+            'default' => [
+                'marge_jours' => null, 'apres_rejet' => 'restent_dues', 'tarif' => 'fige_bloc',
+                'confirmation_premier_sepa' => 'avec_marge',
+            ],
         ]);
     }
 
@@ -36,13 +39,17 @@ final class ReglagesAdministration
     {
         try {
             $r = Reglages::depuisOption($valeur);
-            return ['marge_jours' => $r->margeJours, 'apres_rejet' => $r->apresRejet, 'tarif' => $r->tarif];
+            return [
+                'marge_jours' => $r->margeJours, 'apres_rejet' => $r->apresRejet, 'tarif' => $r->tarif,
+                'confirmation_premier_sepa' => $r->confirmationPremierSepa,
+            ];
         } catch (\InvalidArgumentException $error) {
             add_settings_error(
                 self::OPTION,
                 'imagine_c05_reglages_invalides',
                 __(
-                    'Réglages refusés : marge entière positive ou vide, rejet et tarif parmi les choix proposés.',
+                    'Réglages refusés : marge entière positive ou vide, rejet, tarif et confirmation SEPA '
+                        . 'parmi les choix proposés.',
                     'imagine-pilotage'
                 )
             );
@@ -83,6 +90,21 @@ final class ReglagesAdministration
             . esc_attr((string) $r->margeJours) . '"></p>';
         echo '<p>' . esc_html__(
             'Sans marge renseignée, toute planification est refusée. Aucun défaut ne sera appliqué.',
+            'imagine-pilotage'
+        ) . '</p>';
+        $this->choix(
+            'confirmation_premier_sepa',
+            __('Confirmation du premier paiement SEPA', 'imagine-pilotage'),
+            $r->confirmationPremierSepa,
+            [
+                'avec_marge' => __('Appliquer la marge de confirmation (défaut)', 'imagine-pilotage'),
+                'sans_marge' => __('Ne pas appliquer la marge de confirmation', 'imagine-pilotage'),
+            ]
+        );
+        echo '<p>' . esc_html__(
+            'Pour le premier SEPA seulement, le numéro est considéré payé au plus tôt à la commande '
+                . 'plus la marge en jours civils. Une confirmation effective reste toujours nécessaire. '
+                . 'Sans marge, seule cette confirmation compte. Aucun numéro ni prélèvement n’est déplacé.',
             'imagine-pilotage'
         ) . '</p>';
         $this->choix('apres_rejet', __('Après un rejet', 'imagine-pilotage'), $r->apresRejet, [

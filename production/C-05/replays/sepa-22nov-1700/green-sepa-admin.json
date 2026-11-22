@@ -1,0 +1,59 @@
+{
+  "time_utc": "2026-11-22T16:04:23.557948+00:00",
+  "command": [
+    "python3",
+    "/work/wp/tests/echeancier-runner/inside.py"
+  ],
+  "exit_code": 0,
+  "syntax_exit": 0,
+  "source_sha256": {
+    "wp/plugins/imagine-pilotage/src/Numeros/Activation.php": "2f6fbd78d6f3b02de285bdf042a551b1da03f36b95cae71dc9c4af158acf2f8d",
+    "wp/plugins/imagine-pilotage/src/Numeros/Annee.php": "9331ae76155e6cf3c51ba4890579942652e6f1bb3e7c783f50ffce28096bce98",
+    "wp/plugins/imagine-pilotage/src/Numeros/Calendrier.php": "524be35027b0b2f2f6b89b550e9ee47175bf22c57578e6f3db2f334d33bb6ed3",
+    "wp/plugins/imagine-pilotage/src/Numeros/Echeance.php": "937fa4c3e42958e6c78f31a600b696b7864960b7cf1ee3f44e1a4a0b47214f4c",
+    "wp/plugins/imagine-pilotage/src/Numeros/Moteur.php": "b1df8e6936d7b4adab58be3b7ab84a9bda2e7a27f871b1a4c55c9b24c77c2a57",
+    "wp/plugins/imagine-pilotage/src/Numeros/Numero.php": "bed445350622664da13b2c859a6037e970a41375f98927bb8cd5ce36a8918a11",
+    "wp/plugins/imagine-pilotage/src/Numeros/TypeNumero.php": "00959ba220ae38b22f77d6bb5e0e42f851b6b693d6470b95b1fdf678fc3f30a1",
+    "wp/plugins/imagine-pilotage/src/Echeancier/Planificateur.php": "7f26b0547d2185b5803b33e8221a293b4401bdfa297fe8b96d015aa6d039772a",
+    "wp/plugins/imagine-pilotage/src/Echeancier/RaccordManuel.php": "16857bd4c2edfbe2c596156599f0d88c86012d66eefda20236d23cd144da0046",
+    "wp/plugins/imagine-pilotage/src/Echeancier/Reglages.php": "84a1605273764687ef2aed41d9f9791f6f3d9028051afc29718d21b9d966ccdd",
+    "wp/plugins/imagine-pilotage/src/Echeancier/ReglagesAdministration.php": "0ab7a89640da4532ff954bf0ed09088a5743d4e1de67706b7c366fe3eb222db0",
+    "wp/plugins/imagine-pilotage/src/Echeancier/Versement.php": "03290174d0ee74fddf910335b01da406cecb32df2af1cd4c44a5333fc7141704",
+    "wp/plugins/imagine-pilotage/tests/Echeancier/ConfirmationPremierSepaTest.php": "7430437eb8a5287adbb72f14549222eba870da64c9d987a9901a30c64a4017bb",
+    "wp/plugins/imagine-pilotage/tests/Echeancier/Fixture.php": "897632213053974e45f79148803d4236e7b7e953d5a3c2aac50174a2350f6e1d",
+    "wp/plugins/imagine-pilotage/tests/Echeancier/FonctionsWordPressFictives.php": "a2d611b595e08a0b09679a973d5dac178fa0490f5b6f1d32645163db8c74e68e",
+    "wp/plugins/imagine-pilotage/tests/Echeancier/PlanificateurTest.php": "0fce2350784c31633bc7d0213b6ea0ac564b502878a189270aa1a92e9b0b3177",
+    "wp/plugins/imagine-pilotage/tests/Echeancier/ReglagesAdministrationTest.php": "6a97da3e4fbce8e4ce26624843bb8cce81479244081657be0bc10fbd069ef41e",
+    "wp/plugins/imagine-pilotage/tests/Echeancier/WordPressFictif.php": "704c8397b5e3e9d4e815ed957d4c0e8e885f925195e00ea2cbed834955bb2ee3",
+    "wp/tests/echeancier-runner/admin-scenario.php": "f1d96810667aaf094a6b315a4bd70306fe5fc9197f5f9bf7a64b6c662fcb0c8e",
+    "wp/tests/echeancier-runner/scenario.php": "24938f12aa87d03bec1b1766d2c4cb56a58745399bae3c4892b299b1e67dc806",
+    "wp/tests/echeancier-runner/sepa-scenario.php": "e8c6ab3a1914bd8829ec4fea2c72655f1f78c54129d6c7d205d6b0f236091517",
+    "wp/tests/echeancier-runner/inside.py": "34a17a97359072f2ac74fe87aab15b40b3dc5a5356f75b8d689464edb0fee382"
+  },
+  "container_sources_verified": true,
+  "safety_before": {
+    "container": "imagine-c05-add4c69efa41",
+    "image": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
+    "network": "none",
+    "mounts": [],
+    "ports": [],
+    "privileged": false,
+    "cap_drop": [
+      "ALL"
+    ],
+    "no_new_privileges": true
+  },
+  "safety_after": {
+    "container": "imagine-c05-add4c69efa41",
+    "image": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
+    "network": "none",
+    "mounts": [],
+    "ports": [],
+    "privileged": false,
+    "cap_drop": [
+      "ALL"
+    ],
+    "no_new_privileges": true
+  },
+  "runner_sha256": "008625b9e33d96519ab47bf3e97035c4b46dfe2c2a56e032af3954aa5b251271"
+}

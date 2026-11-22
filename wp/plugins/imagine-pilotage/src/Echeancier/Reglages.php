@@ -62,7 +62,12 @@ final readonly class Reglages
         return new self($marge, $rejet, $tarif, $sepa);
     }
 
-    /** Date projetée du premier numéro SEPA payé, distincte du lancement à la commande. */
+    /**
+     * Premier paiement SEPA seulement : projection, jamais une confirmation bancaire.
+     * Avec marge : max(confirmation effective, commande + marge civile Europe/Brussels).
+     * Sans marge : confirmation effective. Null signifie absence de confirmation.
+     * Ne modifie ni le numéro C01, ni les dates de lancement, ni Woo, ni les droits.
+     */
     public function premierSepaPayeLe(
         \DateTimeImmutable $commande,
         ?\DateTimeImmutable $confirmation

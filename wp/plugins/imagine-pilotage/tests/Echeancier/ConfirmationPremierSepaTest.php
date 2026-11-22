@@ -51,6 +51,50 @@ final class ConfirmationPremierSepaTest extends TestCase
         }
     }
 
+    #[\PHPUnit\Framework\Attributes\DataProvider('datesCiviles')]
+    public function testDatesCivilesEtFrontiereCloture(
+        string $commande,
+        int $marge,
+        string $attendue,
+        string $cloture,
+        bool $avantCloture
+    ): void {
+        require_once __DIR__ . '/Fixture.php';
+        $debut = c05Date($commande);
+        $cloture = c05Date($cloture);
+        $r = new Reglages($marge);
+        $date = $r->premierSepaPayeLe($debut, $debut);
+        self::assertSame($attendue, $date->format(DATE_ATOM));
+        self::assertSame($avantCloture, $date < $cloture);
+        $sans = new Reglages($marge, 'restent_dues', 'fige_bloc', 'sans_marge');
+        self::assertEquals($debut, $sans->premierSepaPayeLe($debut, $debut));
+        self::assertEquals($date, $r->premierSepaPayeLe($debut->setTimezone(new \DateTimeZone('UTC')), $debut));
+    }
+
+    public static function datesCiviles(): iterable
+    {
+        yield 'avant-cloture' => ['2027-04-02 23:59:59', 7, '2027-04-09T23:59:59+02:00', '2027-04-10', true];
+        yield 'egal-cloture' => ['2027-04-03', 7, '2027-04-10T00:00:00+02:00', '2027-04-10', false];
+        yield 'apres-cloture' => ['2027-04-03 00:00:01', 7, '2027-04-10T00:00:01+02:00', '2027-04-10', false];
+        yield 'veille-cloture' => ['2027-04-09 12:00:00', 7, '2027-04-16T12:00:00+02:00', '2027-04-10', false];
+        yield 'commande-jour-cloture' => ['2027-04-10', 7, '2027-04-17T00:00:00+02:00', '2027-07-10', true];
+        yield 'dst-printemps' => ['2027-03-27T11:00:00Z', 1, '2027-03-28T12:00:00+02:00', '2027-04-10', true];
+        yield 'dst-automne' => ['2027-10-30T10:00:00Z', 1, '2027-10-31T12:00:00+01:00', '2028-01-10', true];
+        yield '29-fevrier' => ['2028-02-28 12:00:00', 1, '2028-02-29T12:00:00+01:00', '2028-04-10', true];
+    }
+
+    public function testSansMargeNeRendPasPlanifiableMargeAbsente(): void
+    {
+        require_once __DIR__ . '/Fixture.php';
+        $r = new Reglages(null, 'restent_dues', 'fige_bloc', 'sans_marge');
+        $commande = c05Date('2027-04-09');
+        self::assertEquals($commande, $r->premierSepaPayeLe($commande, $commande));
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('MARGE_OBLIGATOIRE');
+        (new \Imagine\Pilotage\Echeancier\Planificateur(new \Imagine\Pilotage\Numeros\Moteur(c05Calendrier())))
+            ->planifier(c05Annee('2027-04-09'), $r->margeJours);
+    }
+
     public function testSansMargeRetientConfirmationReellePasCommande(): void
     {
         require_once __DIR__ . '/Fixture.php';
