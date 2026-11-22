@@ -1,6 +1,6 @@
 # Doctrine — projet Imagine
 
-Révision : **21/11/2026** (qui valide quoi : les lots de code se clôturent sur preuves, sans GO de Ced).
+Révision : **22/11/2026** (une règle métier ouverte devient un réglage, elle ne bloque pas).
 
 Ces règles s'appliquent à tous les agents. En cas de contradiction entre une consigne et la doctrine, la doctrine l'emporte : l'agent le signale dans son rapport au lieu de trancher.
 
@@ -38,6 +38,7 @@ Ced réalise toute la production technique. Le **design** (maquettes) et le **r�
 - **Deux familles de scripts.** `wp/outils/staging/` ne tourne que sur une copie de travail (neutraliser, anonymiser, vérifier) et refuse de s'exécuter en production. `wp/outils/bascule/` contient les scripts numérotés qui transforment l'existant ; ils sont rejoués sur chaque staging, puis une dernière fois sur la vraie base le jour de la mise en ligne.
 - **Rejouable.** On repart de la production, qui continue de vivre pendant le projet. Toute transformation de l'existant (mise à jour, nettoyage, réglage, changement de forme des contenus) est un script versionné, relançable sur une copie fraîche, et qui donne le même résultat. Rien ne se fait à la main dans l'administration sans être reporté dans un script.
 - **Non-régression.** Avant de modifier l'existant, on écrit le test qui prouve qu'il fonctionne ; on le rejoue après.
+- **Une règle ouverte devient un réglage.** Quand le client n'a pas tranché une règle métier, on ne bloque pas : la règle est isolée derrière un réglage modifiable dans l'administration, avec une valeur par défaut prudente (dans le doute sur un droit d'accès, fermé), et chaque valeur est testée. Le lot se clôt sans attendre la réponse. Cela ne vaut pas pour ce qui touche au réel (§3).
 - **Idempotence.** Tout ce qui part vers Odoo passe par une file d'attente ; un événement rejoué ne crée pas de doublon.
 
 ## 5. Conventions de code

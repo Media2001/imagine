@@ -2,33 +2,25 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 22 novembre 2026, 11 h 40.
+Mis à jour le 22 novembre 2026, 13 h 15.
 
-Consigne permanente : `prompts/consigne-permanente.md`. Doctrine : `doctrine/doctrine.md` (dernière révision : **21/11/2026 — qui valide quoi**).
+Consigne permanente : `prompts/consigne-permanente.md`. Doctrine : `doctrine/doctrine.md` (dernière révision : **22/11/2026 — une règle ouverte devient un réglage**).
 
 Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantier : **A** l'existant, **B** le thème, **C** le code sur mesure. Les lots actifs de chantiers différents peuvent avancer en parallèle.
 
 ## Consignes actives, par ordre de priorité
 
-File du 22/11, 11 h 40. Ton rapport de 3 h 44 est lu.
+File du 22/11, 13 h 15. La doctrine a changé (§4 : une règle ouverte devient un réglage) : relis-la.
 
-**1. Corrections de C-07** — `corrections/C-07.md`, section « Instructions pour Hermès ». Applique les instructions 1 à 7 et 9. L'instruction 8 (registre des écarts) est faite par Claude : n'écris pas dans `docs/`. Délai : deux heures. Puis redépose `PRET`.
+**1. C-05, paiement en quatre fois — reprise.** `docs/arbitrages-2026-11-22.md` : option A retenue (quatre échéances par bloc de quatre numéros ; une fenêtre de date à date peut en contenir cinq), et les trois autres questions deviennent des réglages avec leur valeur par défaut. Adapte l'échéancier, ses tests et la proposition, rejoue la preuve sur le vrai Subscriptions, puis dépose `production/C-05/PRET`. Une demi-journée.
 
-Précisions de Claude sur son propre brief, qui répondent aux questions 1 à 3 de la fusion (ce ne sont pas des arbitrages de Ced, seulement la levée d'ambiguïtés de rédaction) :
+**2. C-06, décision d'accès — trois réglages.** `docs/arbitrages-2026-11-22.md` : sortie à venir, PDF pour un robot vérifié, PDF antérieur à l'abonnement. Chaque réglage avec sa valeur par défaut et ses tests dans les deux positions ; le motif provisoire disparaît. Deux heures. Redépose `PRET`.
 
-- **Grâce.** Un abonné en délai de grâce à la clôture **figure** dans la liste, quel que soit `paiementValide`. C'est l'interprétation du brief ; elle reste soumise à la décision d'Imagine sur le délai de grâce, donc isole-la derrière un réglage unique.
-- **A-SANSMAIL.** « Exclu des envois » voulait dire « par email ». Il **figure** dans la liste postale. `docs/recette/profils.md` est corrigé.
-- **Doublons.** Deux exemplaires conservés, chacun signalé en anomalie. Le rapprochement s'appuie sur `destinataire_id` quand il est commun, et sinon sur le nom et l'adresse normalisés.
-
-Reste ouvert, pour Imagine : l'ordre, les colonnes et le format attendus par le routeur. Colonnes provisoires d'ici là. La borne de fin suit la règle de C-01 : ne la redéfinis pas.
-
-Les six avertissements de style que tu signales dans `tests/Echeancier/run.php` (lot C-05) : corrige-les dans cette passe, ils ne touchent à aucune règle.
+**3. C-07, liste d'envoi — format d'export en réglage.** Colonnes et ordre configurables, colonnes provisoires par défaut. Une heure, à faire seulement si ce n'est pas déjà le cas. Redépose `PRET` uniquement si tu as modifié quelque chose.
 
 **En attente d'une réponse de Ced — ne pas reprendre :**
 
-- **A-01, publication.** Ton diagnostic est clair : la création normale d'un site dans l'outil active la licence Novamira et provisionne l'accès agent, sans option pour l'éviter. La question est posée à Ced.
-- **C-05, paiement en quatre fois.** La contradiction que tu as trouvée est réelle (une commande entre la date commune et la clôture donnerait cinq paiements dans l'année de date à date). Le choix entre A, B et C est posé à Ced.
-- **C-06, décision d'accès.** Vérifié au second tour. Trois questions sur les droits sont posées à Ced.
+- **A-01, publication.** La création d'un site dans l'outil de staging active la licence Novamira : cela touche au réel, donc à son accord. Question posée.
 
 **Où lancer les tests PHP.** Dans un conteneur jetable, comme jusqu'ici. Rien sur Windows.
 

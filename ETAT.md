@@ -1,4 +1,4 @@
-# État des chantiers — mis à jour le 22 novembre 2026, 11 h 40
+# État des chantiers — mis à jour le 22 novembre 2026, 13 h 15
 
 ## Mise en route
 
@@ -42,9 +42,9 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 | C-04 File du connecteur | **Clos le 21/11** : corrigé, arbitrages appliqués, vérifié au second tour | Branchement dans un lot ultérieur | — |
 | C-03 Vérification des robots | **Clos le 21/11** : corrigé, arbitrages appliqués, vérifié au second tour | Branchement dans un lot ultérieur | — |
 | C-02 Numéro d'entreprise | **Clos le 21/11** : corrigé, arbitrages appliqués, vérifié au second tour | Branchement dans un lot ultérieur | — |
-| C-06 Décision d'accès | Rendu, relu, corrigé, vérifié au second tour (50 tests) | Trois questions sur les droits, pour Ced | Ced |
-| C-05 Échéancier en quatre fois | Proposition et prototype sur le vrai Subscriptions. Contradiction trouvée entre « dates communes » et « quatre paiements par année de date à date » | Choix de la règle par Ced (compter par bloc de quatre numéros, recommandé) | Ced |
-| C-07 Liste d'envoi | Rendu dans la nuit du 21 au 22 (36 tests), relu par les deux relecteurs : à corriger, sans bloquant | Corrections, puis vérification du second tour | Hermès |
+| C-06 Décision d'accès | Vérifié au second tour. Les trois questions ouvertes deviennent des réglages (`docs/arbitrages-2026-11-22.md`) | Ajouter les réglages, puis clôture | Hermès |
+| C-05 Échéancier en quatre fois | Prototype prouvé sur le vrai Subscriptions. Règle retenue : quatre échéances par bloc de quatre numéros ; le reste en réglages | Reprise, puis relecture | Hermès |
+| C-07 Liste d'envoi | Rendu, relu, corrigé, vérifié au second tour le 22/11 | Format d'export en réglage, puis clôture | Hermès |
 | Suite | En attente | Voir `A-FAIRE.md` | — |
 
 ## En attente de tiers

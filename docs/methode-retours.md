@@ -48,6 +48,7 @@ Le staging neutralisé et anonymisé, les lots métier (numéros, connecteur, ro
 - **Ordonner par ce que Ced peut voir**, pas seulement par ce qui est indépendant. Des fondations invisibles pendant plusieurs jours entament la confiance, même quand elles sont bonnes.
 - **Ne demander à Ced que ce que lui seul peut donner** : son œil, une règle métier, un accord sur le réel.
 - **Proposer une réponse par défaut à chaque question.** Un « oui à tout » débloque treize points d'un coup.
+- **Une règle que le client n'a pas tranchée devient un réglage**, avec une valeur par défaut prudente. On ne pose à Ced que les questions qui touchent au réel. Remarque de Ced du 22/11, après deux jours où des lots attendaient des réponses qu'il n'avait pas à donner.
 
 ## Ce qui manque encore pour un site vitrine presque autonome
 
