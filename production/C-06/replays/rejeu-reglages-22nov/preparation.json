@@ -1,0 +1,14 @@
+{
+  "image": "sha256:b2ffa6ad01ffacc6d31b176232c8d0779c0320daba381e05cbbd80f56d5327a0",
+  "composer_sha256": "dd158c0afd41d15fac89e1b4e47b5d42911fe316c3687cd5edac98319b25d028",
+  "php": "PHP 8.2.36 (cli) (built: Nov 18 2026 20:02:04) (NTS)\nCopyright (c) The PHP Group\nZend Engine v4.2.36, Copyright (c) Zend Technologies\n    with Zend OPcache v8.2.36, Copyright (c), by Zend Technologies\n",
+  "composer": "Composer version 2.11.2 2026-11-10 10:09:37\n",
+  "no_mounts": true,
+  "no_ports": true,
+  "networks_after_preparation": {},
+  "database": "none",
+  "wordpress": "none",
+  "composer_install_exit": 0,
+  "host_lock_unchanged": true,
+  "label": "org.imagine.c06-runner"
+}

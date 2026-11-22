@@ -1,9 +1,10 @@
-C-06 — PRET A RELIRE, remise corrective du 21 novembre 2026 ; moteur PHP pur uniquement.
-Corrections 1, 2 et 3 de corrections/C-06.md appliquées : suite Acces dans composer test standard, README complet, couplage robots documenté.
-234 tests / 29516 assertions, dont Acces 50 / 9536 ; zéro échec/erreur/ignoré.
-PHP 8.2.36 en conteneur jetable WSL ; PSR-12, syntaxe et Composer strict : codes 0.
-Preuves actuelles : production/C-06/replays/corrections-21nov-1505/ ; final.*, cleanup.json et artifact-verification.json.
-Garde de couverture reproduit rouge avant correction, puis vert après ; XML racine exercé, sans configuration injectée.
-Conteneurs de reproduction et de rejeu supprimés, absence vérifiée. Anciens paquets conservés comme historiques.
-Questions non tranchées : sortie future, robots/PDF, PDF ancien et réserves du brief ; voir notes.md et fusion.
-Ni clôture, ni second tour indépendant, ni validation métier, ni branchement WordPress, ni GO réel/production.
+C-06 — PRET A RELIRE, reprise du 22 novembre 2026 : trois réglages et défauts prudents.
+247 tests / 30368 assertions, dont Acces 63 / 10388 ; zéro échec/erreur/ignoré.
+PHP 8.2.36 / PHPUnit 11.5.58, exclusivement conteneur jetable ; PSR-12, syntaxe et Composer strict : codes 0.
+Preuves actuelles : production/C-06/replays/reglages-22nov/ ; final.*, cleanup.json et artifact-verification.json.
+Règles futures/PDF robot/PDF antérieur testées dans les deux positions et les huit combinaisons ; motif définitif PdfAnterieurFermeParReglage.
+Moteur pur ; adaptateur Settings API optionnel dans src/Acces/AdministrationReglages.php, raccordement bootstrap partagé au parent.
+Administration testée par contrat PHP/doubles, pas par intégration WordPress/HTTP ; aucun site ni déploiement.
+Composition bornée C-06 + lots clos, C-05/C-07 exclus ; aucun fichier partagé modifié.
+Notes actuelles et commandes parent : production/C-06/notes-22nov.md ; notes.md et anciens paquets explicitement historiques.
+PRET ne vaut ni clôture, ni relectures indépendantes, ni recette, ni GO réel.

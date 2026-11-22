@@ -10,7 +10,12 @@ def validate_name(name):
 
 
 def guarded_publish(offline, inject, start, probe, stop=lambda: None):
-    if offline.get('data_verified') is not True:
+    steps = offline.get('steps', [])
+    accepted = (offline.get('data_verified') is True and isinstance(steps, list)
+                and [s.get('phase') for s in steps] == ['neutraliser', 'anonymiser', 'verifier']
+                and all(s.get('exit') == 0 and s.get('report', {}).get('ok') is True
+                        and not s.get('report', {}).get('issues') for s in steps))
+    if not accepted:
         return {'status': 'REFUSED_OFFLINE', 'full_staging_ready': False}
     try:
         inject()

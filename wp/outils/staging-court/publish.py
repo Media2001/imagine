@@ -16,6 +16,8 @@ import time
 import uuid
 
 sys.dont_write_bytecode = True
+if not __debug__:
+    raise SystemExit('PYTHON_OPTIMIZATION_REFUSED')
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import run as offline_runner
@@ -103,6 +105,19 @@ def fresh_runner(name):
     return manifest
 
 
+def offline_isolation(name):
+    info = inspect(name)
+    assert info['Config']['Labels'].get(LABEL) == 'true'
+    assert info['HostConfig']['NetworkMode'] == 'none' and not info['Mounts']
+    assert not info['HostConfig'].get('PortBindings') and not info['HostConfig']['Privileged']
+    assert not info['Config'].get('ExposedPorts') and not info['Config'].get('Volumes')
+    assert 'ALL' in info['HostConfig']['CapDrop']
+    assert any(v.startswith('no-new-privileges') for v in info['HostConfig']['SecurityOpt'])
+    return {'network': 'none', 'mounts': [], 'ports': [], 'privileged': False,
+            'cap_drop': info['HostConfig']['CapDrop'], 'no_new_privileges': True,
+            'image_id': info['Image'], 'name': name}
+
+
 def read_json(runner, path):
     return json.loads(call(['exec', runner, 'cat', path]).stdout)
 
@@ -173,9 +188,8 @@ for p in root.iterdir():
     sender.stdout.close(); sender_error = sender.stderr.read(); sender.wait(timeout=60)
     if sender.returncode or receiver.returncode:
         diagnostic = {'sender_exit': sender.returncode, 'receiver_exit': receiver.returncode,
-                      'sender': sender_error.decode(errors='replace')[-1500:],
-                      'receiver': receiver.stderr.decode(errors='replace')[-1500:]}
-        # Only transport diagnostics for the invented fixture; never SQL/config values.
+                      'sender_stderr_sha256': hashlib.sha256(sender_error).hexdigest(),
+                      'receiver_stderr_sha256': hashlib.sha256(receiver.stderr).hexdigest()}
         print(json.dumps({'file_transfer_diagnostic': diagnostic}))
         raise RuntimeError('FILE_TRANSFER_REFUSED')
     config = '''<?php
@@ -197,6 +211,10 @@ define('ABSPATH',__DIR__.'/'); require_once ABSPATH.'wp-settings.php';
     prefix = read_json(runner, '/scratch/a01-context.json')['prefix']
     assert re.fullmatch(r'[a-zA-Z0-9_]+_', prefix)
     config = config.replace('PREFIX', repr(prefix))
+    salts = ''.join("define('" + key + "','" + secrets.token_hex(48) + "');\n"
+                    for key in ('AUTH_KEY', 'SECURE_AUTH_KEY', 'LOGGED_IN_KEY', 'NONCE_KEY',
+                                'AUTH_SALT', 'SECURE_AUTH_SALT', 'LOGGED_IN_SALT', 'NONCE_SALT'))
+    config = config.replace("define('ABSPATH'", salts + "define('ABSPATH'")
     call(['exec', '-i', file_helper, 'tee', '/target/wp-config.php'], config.encode())
     verify = '''import pathlib,hashlib,json,os
 root=pathlib.Path('/target')
@@ -206,7 +224,7 @@ print(json.dumps(files))
 for p in root.rglob('*'):
  if p.is_symlink(): raise RuntimeError('SYMLINK_REFUSED')
  os.chown(p,33,33); os.chmod(p,0o755 if p.is_dir() else 0o644)
-os.chown(root,33,33)
+os.chown(root,33,33); os.chmod(root,0o755)
 '''
     copied = json.loads(call(['exec', '-i', file_helper, 'python3', '-'], verify.encode()).stdout)
     assert copied == offline['files_after_cleanup']
@@ -320,6 +338,9 @@ def main():
                 receipt['normal_creation'] = {k: site[k] for k in ('slug', 'status', 'port', 'php_version', 'mcp_enabled', 'mcp_status')}
                 receipt['stopped_before_import'] = stop_site(name)
                 manifest = fresh_runner(runner); runner_created = True
+                receipt['offline_isolation_before'] = offline_isolation(runner)
+                lint = call(['exec', runner, 'php', '-l', '/opt/court/publication_probe.php'])
+                receipt['new_php_lint'] = {'exit': lint.returncode, 'output_sha256': hashlib.sha256(lint.stdout + lint.stderr).hexdigest()}
                 receipt['source_manifest'] = manifest
                 request = {'target_url': 'http://localhost:' + str(site['port']),
                            'production_url': args.production_url or 'https://production.synthetic.invalid',
@@ -367,7 +388,20 @@ print(json.dumps({'data_verified':r['data_verified']}))
                     receipt['restore_output_sha256'] = hashlib.sha256(execution.stdout + execution.stderr).hexdigest()
                     raise RuntimeError('OFFLINE_RESTORE_REFUSED')
                 offline = read_json(runner, '/report/offline.json')
+                receipt['offline_isolation_after'] = offline_isolation(runner)
                 receipt['offline'] = offline
+                if args.self_test_publication:
+                    assert offline['restored_files_before_cleanup'] == fixture['source_files']
+                    first = offline['restored_files_before_cleanup']; cleaned = offline['files_after_cleanup']
+                    removed = sorted(set(first) - set(cleaned))
+                    changed = [p for p in set(first) & set(cleaned) if first[p] != cleaned[p]]
+                    assert not changed
+                    assert all(p.endswith('.log') or p.startswith(('uploads/wc-logs/', 'cache/', 'ai1wm-backups/')) for p in removed)
+                    receipt['archive_fidelity'] = {'all_restored_hashes_equal_source': True,
+                        'retained_files_unchanged': True, 'expected_removed': removed,
+                        'file_counts': {folder: {'before': sum(p.startswith(folder + '/') for p in first),
+                                                'after': sum(p.startswith(folder + '/') for p in cleaned)}
+                                        for folder in ('plugins', 'themes', 'uploads', 'mu-plugins')}}
                 if trapped:
                     issues = offline['steps'][-1]['report'].get('issues', [])
                     assert not offline['data_verified'] and 'SECRET_OU_IDENTIFIANT' in issues
@@ -385,6 +419,14 @@ print(json.dumps({'data_verified':r['data_verified']}))
                 if trapped:
                     assert published['status'] == 'REFUSED_OFFLINE' and not injection
                     receipt['refusal_stop_readback'] = stop_site(name)
+                    stopped_http = wsl_python('''import json,sys,urllib.request
+v=json.load(sys.stdin)
+try:
+ with urllib.request.build_opener(urllib.request.ProxyHandler({})).open('http://127.0.0.1:'+str(v['port'])+'/',timeout=5) as p: print(json.dumps({'reachable':True,'code':p.status}))
+except Exception as e: print(json.dumps({'reachable':False,'error_class':type(e).__name__}))
+''', json.dumps({'port': site['port']}).encode())
+                    assert stopped_http['reachable'] is False
+                    receipt['refused_http_readback'] = stopped_http
                     receipt['status'] = 'PASS'
                 else:
                     assert published['full_staging_ready'] is True

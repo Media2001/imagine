@@ -1,0 +1,76 @@
+{
+  "time_utc": "2026-11-22T12:50:41.015345+00:00",
+  "status": "PASS",
+  "scope": "C-06 technical evidence only; not independent review or GO",
+  "suites": {
+    "Acces": {
+      "tests": 63,
+      "assertions": 10388
+    },
+    "Numeros": {
+      "tests": 42,
+      "assertions": 121
+    },
+    "Robots": {
+      "tests": 101,
+      "assertions": 298
+    },
+    "Entreprise": {
+      "tests": 41,
+      "assertions": 19561
+    }
+  },
+  "sha256": {
+    "production/C-06/notes-22nov.md": "8fbb3087cea9b59262290be6e38439ebe5dbbde7ed1989e3610ee2532f39e22a",
+    "production/C-06/notes.md": "89f226f7ced443d1fa2870c4678b6ac1b26a4690a29046bd25f2e4397a8921fe",
+    "production/C-06/PRET": "8754f9f1a2ddd92f86df4e3de714f9c93f94415653a1bb88d88a13e3811f3b4a",
+    "production/C-06/replays/rejeu-reglages-22nov/cleanup.json": "d7cc58c665a772286e9b92712c7ee4bfbad94abdc04688b198307d09540e437b",
+    "production/C-06/replays/rejeu-reglages-22nov/composer-install.log": "f0f56dab37cb1a947eb8ff495a419ed228c26a55db016b7a7670499bcd6255ff",
+    "production/C-06/replays/rejeu-reglages-22nov/final-composer-validate.log": "43add299dc97ecbd90ec2dc456ef5a0bd824bb9abdae2a3d7cdb520e21f8e86d",
+    "production/C-06/replays/rejeu-reglages-22nov/final-lint.log": "eb180617c9f3733330e1da6b116c737762b033329ee1c2316e5df67dad6276e3",
+    "production/C-06/replays/rejeu-reglages-22nov/final.json": "5f5fc66e679d34c3ee996b39ce20efd383035291eb66d866629a44583d548fb0",
+    "production/C-06/replays/rejeu-reglages-22nov/final.log": "aeee20bcf38817ad707458549edc8ab7f0b1bd53c347a0faf2e5a3f4eb428ba3",
+    "production/C-06/replays/rejeu-reglages-22nov/final.xml": "45bf3b7c9bf2f8a21f22775d2ad94b3a4a6d2fb491b804d530110ff1b928c46b",
+    "production/C-06/replays/rejeu-reglages-22nov/preparation.json": "f9386175b15e771d830d1353e9eca21ab6b323503f843fbdf5dae403b1376f5a",
+    "production/C-06/replays/rejeu-reglages-22nov/shared-before.json": "bdfcfb56cac933b815cbc84dd0cb20679678b6723a2601ddda8d33449f97086a",
+    "production/C-06/sources-officielles-22nov.json": "f176f3ae197d385b28e8b109aeedd7a3754315ab59bfdd1a0a0fa3ec24a5b01a",
+    "production/C-06/sources-officielles.json": "e82e1636b2dbe5acf828c17f4d3d09006b4f81b58a69d0b1dfe3739116324ac8",
+    "wp/plugins/imagine-pilotage/src/Acces/AdministrationReglages.php": "14753c28e43daad991ae5477db43415dceb01a2148d4e602087e105c7fd2a71a",
+    "wp/plugins/imagine-pilotage/src/Acces/Bloc.php": "2f83e362d9bdd065dea02ed08391f77e42f633af83da77031138824cf564aa1b",
+    "wp/plugins/imagine-pilotage/src/Acces/Decision.php": "1792764d5edc82792e21e72a339c595575c5a71ceca97f6971d1d88bf24e1c19",
+    "wp/plugins/imagine-pilotage/src/Acces/Decouverte.php": "8ed9d50b89c8344656208f8f7290b2a549ab7d8c07537653c4181059e3db48a6",
+    "wp/plugins/imagine-pilotage/src/Acces/DureeDecouverte.php": "be65953232d334547e69de14bd810b95b2d2a3157dac050214b3a6b726dc77c8",
+    "wp/plugins/imagine-pilotage/src/Acces/Moteur.php": "a8167e1d9598bc0cde651bfd3e3f1950754a4e1633c8657bfc35574dcd5ea718",
+    "wp/plugins/imagine-pilotage/src/Acces/Motif.php": "e121c29dbf63850f8fff5ff247c933c9f9cd79529711db50be41dfcceb335fc6",
+    "wp/plugins/imagine-pilotage/src/Acces/NombreArticlesDecouverte.php": "0072e9c8d0018e95f599729d4b80dd682590c61edbaa9eadcbcf4ee21a9319c6",
+    "wp/plugins/imagine-pilotage/src/Acces/PerimetreDecouverte.php": "a0c3edfb386719e81faf692f9db21a46c8f1dd64647dd5b859cbebe2f2a2a4b4",
+    "wp/plugins/imagine-pilotage/src/Acces/Reglages.php": "3e106616c2791d6d9365f65bdc0018547cfd3335b9e207a6a1168a41077c8f78",
+    "wp/plugins/imagine-pilotage/tests/Acces/AbonnementTest.php": "a6f432c9e8c736337f201065849c9c855d350a3855ac83d5cb2bfedd46f6cc45",
+    "wp/plugins/imagine-pilotage/tests/Acces/AdministrationReglagesTest.php": "eb9cf48f9e41637c6b8bd1b253c30a8772661345678d07efb45448622f3c2aa7",
+    "wp/plugins/imagine-pilotage/tests/Acces/DecisionTest.php": "e99a4eefced4147569cffb53d8373856c9daa92b876c983f2068da4079f201c3",
+    "wp/plugins/imagine-pilotage/tests/Acces/DecouverteTest.php": "9e107615b0494977749c13c4350c2d43c82525f5f0cf2da74793ffc935117cee",
+    "wp/plugins/imagine-pilotage/tests/Acces/DroitsTest.php": "5c80b5fa0b97b9ee4e97fef208658007ebdf2dd2ab158cbd1268162f119c5e57",
+    "wp/plugins/imagine-pilotage/tests/Acces/FermetureTest.php": "c61931ecbedd818f3d33a0800ed1eceec666c57eeb4ec7d2bab393513aa312c2",
+    "wp/plugins/imagine-pilotage/tests/Acces/OptionsReglagesTest.php": "4af63dbd6fc18d91e784e4610c4bfb1e4816f80b4eefd01cb2099ffdae02df86",
+    "wp/plugins/imagine-pilotage/tests/Acces/phpunit.xml": "702311acde3bc6c5b6cf5b9333d3349736da6f3e301746d546dcaaa02a67b89c",
+    "wp/plugins/imagine-pilotage/tests/Acces/QuotaTest.php": "e8464454b797c6aed0d618299ba61e3f117f129be386de2a1b6a769e122406c7",
+    "wp/plugins/imagine-pilotage/tests/Acces/ReglagesTest.php": "1e1a29207f791002642006760b592f32be14d0c02097d89e2aa470eb0df917cd",
+    "wp/plugins/imagine-pilotage/tests/Acces/WordPressFictif.php": "0ade1d8ec40484a0c27c64bb7209fd304d925bd9fa9f660630e1919949b89d2b",
+    "wp/tests/acces-runner/check-standard-suite.py": "d06528c5592864538eef93e12038056ee04476164cab0de01379b23cd6c38c34",
+    "wp/tests/acces-runner/format.py": "528adb520c9ff831b5adfa5ba995c8f98df3e38c9d7cec23ca03830ddf59e6ae",
+    "wp/tests/acces-runner/replay.py": "5634b936e45579aa143c438f508ad6f8421040d41985289d232968e8861f50e7",
+    "wp/tests/acces-runner/run.py": "daa3373b8a090ae869d7cc8766242d324d62b2a78fe24af50c1b1cf533ef2dfc",
+    "wp/tests/acces-runner/verify.py": "64b6b910ba2ed199a529283575fdc31b788c534cdca6e8ae63ea6a8a9fe61539"
+  },
+  "protected_shared_files": 46,
+  "container_absence_verified": true,
+  "pure_php_static_guard": true,
+  "pure_php_guard_scope": "src/Acces except the explicit AdministrationReglages.php WordPress seam",
+  "admin_test_scope": "PHP contract doubles, not a live WordPress integration or deployment",
+  "excluded_unclosed_lots": [
+    "C-05 Echeancier",
+    "C-07 Envoi"
+  ],
+  "reviewer_approval": false,
+  "production_authorized": false
+}

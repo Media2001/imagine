@@ -1,4 +1,11 @@
-# C-06 — décision d'accès, livraison prête à relire
+# C-06 — historique de la livraison et correction du 21 novembre 2026
+
+> **Livraison actuelle : [notes-22nov.md](notes-22nov.md)**, arbitrages du 22/11,
+> trois réglages prudents, 247 tests / 30 368 assertions.
+> Les comportements, réserves, commandes et comptes rendus ci-dessous sont ceux
+> du 21/11 : ils restent historiques, pas des instructions actuelles.
+> Les contrats d'entrée inchangés restent utiles ; le sixième argument et
+> l'adaptateur d'administration sont décrits dans les notes actuelles.
 
 ## Périmètre et sources
 

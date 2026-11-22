@@ -75,6 +75,10 @@ if (is_array($fixture)) {
         && $fidelity['setting_intact'];
 }
 $result = ['ok' => $ok && $allow && $settings && $appPasswords === 0 && !$novamira,
+    'versions' => ['php' => PHP_VERSION, 'wordpress' => get_bloginfo('version'),
+        'woocommerce' => function_exists('WC') ? WC()->version : null,
+        'subscriptions' => class_exists('WC_Subscriptions') ? \WC_Subscriptions::$version : null,
+        'memberships' => function_exists('wc_memberships') ? wc_memberships()->get_version() : null],
     'runtime' => $runtime, 'update_filter_allow_deny' => $allow, 'constants_exact' => $settings,
     'scheduler' => $scheduler, 'fidelity' => $fidelity,
     'novamira_residuals' => ['plugin_present' => $novamira, 'nonempty_application_password_records' => $appPasswords,
