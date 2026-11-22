@@ -57,5 +57,66 @@ class CleanupOrchestration(unittest.TestCase):
             self.assertEqual('FAIL', report['status'])
 
 
+def load_inside():
+    spec = importlib.util.spec_from_file_location('legacy_importer', TOOLS.parent / 'staging-wp-integration/worker/worker.py')
+    legacy = importlib.util.module_from_spec(spec)
+    sys.modules['legacy_importer'] = legacy
+    spec.loader.exec_module(legacy)
+    spec = importlib.util.spec_from_file_location('inside_correction', TOOLS / 'inside.py')
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+class OfflineDiagnostics(unittest.TestCase):
+    def test_truncated_archive_and_unsupported_sql_have_distinct_safe_receipts(self):
+        module = load_inside()
+        self.assertTrue(hasattr(module, 'execute_offline_request'), 'Structured offline failure receipt missing')
+        import struct
+        with tempfile.TemporaryDirectory(dir=Path.home() / 'AppData/Local/hermes/cache/scratch') as directory:
+            root = Path(directory)
+            request = {'target_url': 'http://localhost:1234', 'production_url': 'https://production.invalid',
+                       'password': 'fiction-only-password-0123456789', 'decisions': {}}
+            core_path = root / 'core'
+            (core_path / 'wp-content').mkdir(parents=True)
+            (core_path / 'wp-includes').mkdir()
+            (core_path / 'wp-includes/version.php').write_text("<?php\n$wp_version = '7.0.9';\n")
+            results = []
+            for name, payload in [('truncated', b'fiction'), ('sql', b'DELETE FROM `wp_options`;')]:
+                archive = root / (name + '.wpress')
+                if name == 'sql':
+                    package = b'{"WordPress":{"Version":"7.0.9"}}'
+                    payload = (struct.pack('255s14s12s4096s', b'database.sql', str(len(payload)).encode(), b'0', b'') + payload
+                               + struct.pack('255s14s12s4096s', b'package.json', str(len(package)).encode(), b'0', b'') + package + bytes(4377))
+                archive.write_bytes(payload)
+                site = root / name
+                with mock.patch.multiple(module, SITE=site, CORE=core_path, isolation=lambda: None), \
+                     mock.patch.object(module, 'command', side_effect=AssertionError('Database/bootstrap must not run')):
+                    results.append(module.execute_offline_request(str(archive), request, False))
+            self.assertEqual(['ARCHIVE_TRUNCATED', 'SQL_DDL_UNSUPPORTED'], [r['failure']['code'] for r in results])
+            self.assertEqual(['archive_restore', 'sql_preflight'], [r['failure']['stage'] for r in results])
+            for result in results:
+                self.assertFalse(result['data_verified'])
+                self.assertNotIn('stderr', json.dumps(result))
+                self.assertNotIn('DELETE', json.dumps(result))
+
+
+class SourceCoreVersion(unittest.TestCase):
+    def test_source_core_version_must_match_exactly_before_bootstrap(self):
+        module = load_inside()
+        self.assertTrue(hasattr(module, 'validate_core_version'), 'Strict source/core gate missing')
+        with tempfile.TemporaryDirectory(dir=Path.home() / 'AppData/Local/hermes/cache/scratch') as directory:
+            version = Path(directory) / 'version.php'
+            version.write_text("<?php\n$wp_version = '7.0.9';\n")
+            with self.assertRaisesRegex(module.Refusal, '^SOURCE_CORE_VERSION_MISMATCH$'):
+                module.validate_core_version(b'{"WordPress":{"Version":"6.9.1"}}', version)
+            self.assertEqual({'source': '7.0.9', 'pinned': '7.0.9'}, module.validate_core_version(
+                b'{"WordPress":{"Version":"7.0.9"}}', version))
+            for package in (None, b'{}', b'{"WordPress":{"Version":709}}',
+                            b'{"WordPress":{"Version":"7.0.9\\nSECRET"}}', b'not-json'):
+                with self.assertRaises(module.Refusal):
+                    module.validate_core_version(package, version)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

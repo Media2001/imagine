@@ -411,24 +411,29 @@ def main():
                     archive_path = '/input/source.wpress'
                 program = '''import json,sys
 sys.path.insert(0,'/opt/court')
-from inside import restore_and_verify, database_start
+from inside import execute_offline_request
 request=json.load(sys.stdin)
-if request.pop('start_database'): database_start()
-r=restore_and_verify(request.pop('archive'),request)
+r=execute_offline_request(request.pop('archive'),request,request.pop('start_database'))
 from pathlib import Path
 Path('/report/offline.json').write_text(json.dumps(r))
 print(json.dumps({'data_verified':r['data_verified']}))
+raise SystemExit(1 if 'failure' in r else 0)
 '''
                 request.update(start_database=not args.self_test_publication, archive=archive_path)
                 input_program = 'import io,sys\nsys.stdin=io.StringIO(' + repr(json.dumps(request)) + ')\n' + program
                 execution = call(['exec', '-i', runner, 'python3', '-'], input_program.encode(), check=False)
                 del request['password']
-                if execution.returncode:
+                try:
+                    offline = read_json(runner, '/report/offline.json')
+                except Exception:
                     receipt['restore_output_sha256'] = hashlib.sha256(execution.stdout + execution.stderr).hexdigest()
-                    raise RuntimeError('OFFLINE_RESTORE_REFUSED')
-                offline = read_json(runner, '/report/offline.json')
+                    receipt['offline_failure'] = {'stage': 'offline_restore', 'code': 'OFFLINE_RECEIPT_UNAVAILABLE'}
+                    raise RuntimeError('OFFLINE_RECEIPT_UNAVAILABLE') from None
                 receipt['offline_isolation_after'] = offline_isolation(runner)
                 receipt['offline'] = offline
+                if execution.returncode or 'failure' in offline:
+                    receipt['offline_failure'] = offline.get('failure', {'stage': 'offline_restore', 'code': 'OFFLINE_RESTORE_REFUSED'})
+                    raise RuntimeError('OFFLINE_RESTORE_REFUSED')
                 if args.self_test_publication:
                     assert offline['restored_files_before_cleanup'] == fixture['source_files']
                     first = offline['restored_files_before_cleanup']; cleaned = offline['files_after_cleanup']
@@ -494,30 +499,48 @@ except Exception as e: print(json.dumps({'reachable':False,'error_class':type(e)
                 receipt['frames'] = [{'file': Path(f.filename).name, 'line': f.lineno, 'function': f.name}
                                      for f in __import__('traceback').extract_tb(exc.__traceback__)]
             finally:
-                for helper in list(helpers): result['cleanup'].append(remove_owned(helper))
-                if runner_created:
-                    result['cleanup'].append(remove_owned(runner))
-                else:
+                # Safety stop must precede every fallible cleanup operation.
+                # Retain primary failure and every cleanup error independently.
+                def cleanup_attempt(phase, action):
+                    try:
+                        return action()
+                    except Exception as exc:
+                        tag = str(exc)
+                        result.setdefault('cleanup_errors', []).append({
+                            'site': name, 'phase': phase,
+                            'code': tag if re.fullmatch(r'[A-Z0-9_]{1,100}', tag) else 'CLEANUP_REFUSED'})
+                        return None
+                if created and (args.self_test_publication or receipt['status'] != 'PASS'):
+                    stopped = cleanup_attempt('failure_stop', lambda: stop_site(name))
+                    if stopped is not None:
+                        receipt['failure_stop_readback'] = stopped
+                for helper in list(helpers):
+                    removed = cleanup_attempt('helper_removal', lambda: remove_owned(helper))
+                    if removed is not None: result['cleanup'].append(removed)
+                def remove_runner():
+                    if runner_created:
+                        return remove_owned(runner)
                     candidate = call(['inspect', runner], check=False)
                     if candidate.returncode == 0:
                         info = json.loads(candidate.stdout)[0]
                         if info['Config']['Labels'].get(LABEL) != 'true':
                             raise RuntimeError('PARTIAL_RUNNER_OWNERSHIP_REFUSED')
-                        result['cleanup'].append(remove_owned(runner))
-                    elif b'no such object' not in candidate.stderr.lower():
+                        return remove_owned(runner)
+                    if b'no such object' not in candidate.stderr.lower():
                         raise RuntimeError('PARTIAL_RUNNER_ABSENCE_NOT_PROVEN')
-                if created:
-                    if args.self_test_publication:
-                        stop_site(name)
+                removed = cleanup_attempt('runner_removal', remove_runner)
+                if removed is not None: result['cleanup'].append(removed)
+                if created and args.self_test_publication:
+                    def delete_test():
                         api('DELETE', '/api/sites/' + name)
-                        result['cleanup'].append(deleted_readback(name))
-                    elif receipt['status'] != 'PASS':
-                        receipt['failure_stop_readback'] = stop_site(name)
+                        return deleted_readback(name)
+                    deleted = cleanup_attempt('site_deletion', delete_test)
+                    if deleted is not None: result['cleanup'].append(deleted)
                 (out / 'result.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
         after = collect()['tool_source_manifest']
         result['tool_sources_unchanged'] = before == after
         assert before == after
-        result['status'] = 'PASS' if all(c['status'] == 'PASS' for c in result['cases']) else 'FAIL'
+        result['status'] = 'PASS' if all(c['status'] == 'PASS' for c in result['cases']) and not result.get('cleanup_errors') else 'FAIL'
     except Exception as exc:
         result['blocker'] = str(exc) if re.fullmatch(r'[A-Z0-9_]{1,100}', str(exc)) else type(exc).__name__
     finally:

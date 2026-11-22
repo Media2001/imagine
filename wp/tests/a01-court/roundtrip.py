@@ -37,7 +37,8 @@ def write_archive(path, source, sql):
         stream.write(value)
     with path.open('xb') as stream:
         entry(stream, 'database.sql', sql)
-        entry(stream, 'package.json', json.dumps({'SyntheticFixtureOnly': True}).encode())
+        version = re.search(r"^\$wp_version\s*=\s*'([^']+)';", (source / 'wp-includes/version.php').read_text(), re.M)[1]
+        entry(stream, 'package.json', json.dumps({'SyntheticFixtureOnly': True, 'WordPress': {'Version': version}}).encode())
         for p in sorted((source / 'wp-content').rglob('*')):
             if p.is_file():
                 entry(stream, p.relative_to(source / 'wp-content').as_posix(), p.read_bytes())

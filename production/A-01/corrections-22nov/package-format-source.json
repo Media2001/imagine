@@ -1,0 +1,12 @@
+{
+  "url": "https://plugins.svn.wordpress.org/all-in-one-wp-migration/trunk/lib/model/export/class-ai1wm-export-config.php",
+  "sha256": "e464db1a60dab9f47a4b1833d522ad7542ddf35447a6347d54c8aef62b9462e4",
+  "relevant_lines": [
+    "\t\tglobal $table_prefix, $wp_version;",
+    "\t\t$config['Plugin'] = array( 'Version' => AI1WM_VERSION );",
+    "\t\t// Set WordPress version and content",
+    "\t\t$config['WordPress'] = array( 'Version' => $wp_version, 'Absolute' => ABSPATH, 'Content' => WP_CONTENT_DIR, 'Plugins' => ai1wm_get_plugins_dir(), 'Themes' => ai1wm_get_themes_dirs(), 'Uploads' => ai1wm_get_uploads_dir(), 'UploadsURL' => ai1wm_get_uploads_url() );",
+    "\t\t\t'Version' => $db_client->server_info(),",
+    "\t\t$config['PHP'] = array( 'Version' => PHP_VERSION, 'System' => PHP_OS, 'Integer' => PHP_INT_SIZE );"
+  ]
+}

@@ -20,6 +20,7 @@ from legacy_importer import sql_plan, CREATE_WORDS
 CREATE_WORDS.update({'ON', 'UPDATE', 'UTF8MB3_GENERAL_CI'})
 
 BASE = Path('/opt/court')
+CORE = Path('/opt/wordpress/wordpress')
 SITE = Path('/scratch/a01-site')
 DB = 'imagine_a01_staging'
 SOCKET = '/scratch/mariadb.sock'
@@ -67,6 +68,29 @@ def manifest(root):
     return result
 
 
+def validate_core_version(package, version_file):
+    """Read metadata/PHP as data only. No source-core substitution or upgrade."""
+    try:
+        metadata = json.loads(package)
+        source = metadata['WordPress']['Version']
+        if not isinstance(source, str) or not re.fullmatch(r'[0-9]+\.[0-9]+(?:\.[0-9]+)?', source):
+            raise ValueError
+    except (TypeError, ValueError, KeyError):
+        raise Refusal('SOURCE_CORE_METADATA_REFUSED') from None
+    try:
+        matches = re.findall(r"^\s*\$wp_version\s*=\s*'([0-9]+\.[0-9]+(?:\.[0-9]+)?)';", version_file.read_text(), re.M)
+        if len(matches) != 1:
+            raise ValueError
+    except (OSError, ValueError):
+        raise Refusal('PINNED_CORE_VERSION_REFUSED') from None
+    versions = {'source': source, 'pinned': matches[0]}
+    if source != matches[0]:
+        error = Refusal('SOURCE_CORE_VERSION_MISMATCH')
+        error.core_versions = versions
+        raise error
+    return versions
+
+
 def restore_and_verify(archive, request):
     isolation()
     if SITE.exists():
@@ -83,11 +107,13 @@ def restore_and_verify(archive, request):
     password = request['password']
     if not isinstance(password, str) or not 20 <= len(password.encode()) <= 72 or any(c in password for c in '\r\n\0'):
         raise Refusal('ADMIN_PASSWORD_REFUSED')
-    # Restore the pinned core, but preserve ALL imported wp-content bytes until native cleanup.
-    shutil.copytree('/opt/wordpress/wordpress', SITE)
+    # Pinned core is usable only after an exact package/core comparison below.
+    # No PHP or database import executes before that gate.
+    shutil.copytree(CORE, SITE)
     shutil.rmtree(SITE / 'wp-content')
     with Path(archive).open('rb') as stream:
         sql, package, count = restore(stream, SITE / 'wp-content')
+    core_versions = validate_core_version(package, CORE / 'wp-includes/version.php')
     before = manifest(SITE / 'wp-content')
     # Canonicalize only CREATE TABLE token groups. INSERT string literals are untouched.
     from legacy_importer import TOKEN
@@ -173,11 +199,52 @@ def restore_and_verify(archive, request):
             break
     verified = len(steps) == 3 and all(step['exit'] == 0 for step in steps)
     result = {'status': 'verified-offline' if verified else 'imported', 'data_verified': verified,
+              'core_versions': core_versions,
               'steps': steps, 'archive_entries': count, 'restored_files_before_cleanup': before,
               'files_after_cleanup': manifest(SITE / 'wp-content'),
               'publication': 'NOT_IMPLEMENTED: no port or egress is opened; site remains stopped',
               'shared_tool_modified': False, 'no_Novamira': True}
     return result
+
+
+# Closed diagnostics: imported text, SQL identifiers and exception messages are
+# never copied to the publication report, even if they look like uppercase tags.
+FAILURE_STAGES = {
+    **{code: 'archive_restore' for code in (
+        'ARCHIVE_TRUNCATED', 'ARCHIVE_INVALID', 'ARCHIVE_HEADER', 'ARCHIVE_PATH',
+        'ARCHIVE_LIMIT', 'ARCHIVE_LAYOUT_UNSUPPORTED', 'MULTISITE_UNSUPPORTED',
+        'FRESH_CONTENT_REQUIRED', 'FILE_TYPE_REFUSED')},
+    **{code: 'core_preflight' for code in (
+        'SOURCE_CORE_METADATA_REFUSED', 'PINNED_CORE_VERSION_REFUSED', 'SOURCE_CORE_VERSION_MISMATCH')},
+    **{code: 'sql_preflight' for code in (
+        'SQL_ENCODING', 'SQL_GRAMMAR', 'SQL_TERMINATOR', 'SQL_IDENTIFIER', 'SQL_TABLE',
+        'SQL_DDL', 'SQL_DDL_UNSUPPORTED', 'SQL_INSERT', 'SQL_INSERT_LITERAL',
+        'SQL_STATEMENT', 'SQL_PREFIX')},
+    **{code: 'request_validation' for code in (
+        'FRESH_SITE_REQUIRED', 'TARGET_REFUSED', 'DECISIONS_REFUSED', 'ADMIN_PASSWORD_REFUSED', 'REQUEST_LIMIT')},
+    **{code: 'isolation' for code in ('NETWORK_REFUSED', 'LISTENER_REFUSED')},
+    **{code: 'database' for code in ('DATABASE_START_REFUSED', 'DATABASE_START_TIMEOUT', 'COMMAND_REFUSED')},
+}
+
+
+def execute_offline_request(archive, request, start_database):
+    """Always return a safe receipt, including failures before native cleanup."""
+    try:
+        if start_database:
+            database_start()
+        return restore_and_verify(archive, request)
+    except Exception as exc:
+        from legacy_importer import Refusal as SQLRefusal
+        code = str(exc) if isinstance(exc, (Refusal, SQLRefusal)) else 'IMPORT_REFUSED'
+        if code.startswith('SQL_DDL_UNSUPPORTED_'):
+            code = 'SQL_DDL_UNSUPPORTED'
+        if code not in FAILURE_STAGES:
+            code = 'IMPORT_REFUSED'
+        receipt = {'status': 'refused', 'data_verified': False, 'issues': [code],
+                   'failure': {'stage': FAILURE_STAGES.get(code, 'offline_restore'), 'code': code}}
+        if code == 'SOURCE_CORE_VERSION_MISMATCH':
+            receipt['core_versions'] = exc.core_versions
+        return receipt
 
 
 def main():
