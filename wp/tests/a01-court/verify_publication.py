@@ -17,7 +17,8 @@ def verify(report, live=False):
     assert report.is_relative_to(ROOT / 'production/A-01/publication-22nov')
     raw = report.read_bytes()
     value = json.loads(raw)
-    assert value['status'] == 'PASS' and len(value['cases']) == 3
+    assert value['status'] == 'PASS' and len(value['cases']) == 4
+    assert not value.get('cleanup_errors')
     assert value['no_real_archive'] is True and value['no_agent_access_used'] is True
     assert value['tool_sources_unchanged'] is True and value['tool_or_templates_modified'] is False
     current = {}
@@ -26,7 +27,7 @@ def verify(report, live=False):
         assert path.is_relative_to(TOOLS)
         assert hashlib.sha256(path.read_bytes()).hexdigest() == digest, 'COMMAND_SOURCE_DRIFT:' + rel
         current[rel] = digest
-    assert [(c['storage'], c['trapped']) for c in value['cases']] == [('classic', False), ('hpos', False), ('classic', True)]
+    assert [(c['storage'], c['trap_kind']) for c in value['cases']] == [('classic', None), ('hpos', None), ('classic', 'secret'), ('classic', 'personal')]
     summaries = []
     for case in value['cases']:
         assert case['status'] == 'PASS'
@@ -42,12 +43,18 @@ def verify(report, live=False):
         assert case['archive_fidelity']['all_restored_hashes_equal_source'] is True
         assert case['archive_fidelity']['retained_files_unchanged'] is True
         assert case['offline']['restored_files_before_cleanup'] == case['fixture']['source_files']
+        assert case['offline']['core_versions']['source'] == case['offline']['core_versions']['pinned']
+        assert case['offline']['table_engines']['wp_a01_engine_probe'] == 'MYISAM'
+        assert {'code': 'NON_INNODB_TABLE', 'table': 'wp_a01_engine_probe', 'engine': 'MYISAM'} in case['offline']['warnings']
         if case['trapped']:
-            assert case['fixture']['persistent_service_key_canary_in_archived_php'] is True
+            kind = case['trap_kind']
+            expected = {'secret': 'SECRET_OU_IDENTIFIANT', 'personal': 'TABLE_PERSONNELLE_A_TRANCHER'}[kind]
+            if kind == 'secret': assert case['fixture']['persistent_service_key_canary_in_archived_php'] is True
+            else: assert case['fixture']['unresolved_personal_table_canary'] is True
             assert case['offline']['data_verified'] is False
             last = case['offline']['steps'][-1]
             assert last['phase'] == 'verifier' and last['exit'] == 1
-            assert 'SECRET_OU_IDENTIFIANT' in last['report']['issues']
+            assert expected in last['report']['issues']
             assert case['publication']['status'] == 'REFUSED_OFFLINE' and case['injection'] == {}
             assert case['refusal_stop_readback']['all_three_containers_stopped'] is True
             assert case['refused_http_readback']['reachable'] is False
@@ -81,7 +88,7 @@ def verify(report, live=False):
         summaries.append({'name': case['name'], 'storage': case['storage'], 'trapped': case['trapped'],
                           'publication': case['publication']['status'], 'status': 'PASS'})
     deleted = [c for c in value['cleanup'] if 'site' in c]
-    assert len(deleted) == 3 and {c['site'] for c in deleted} == {c['name'] for c in value['cases']}
+    assert len(deleted) == 4 and {c['site'] for c in deleted} == {c['name'] for c in value['cases']}
     for check in deleted:
         assert check['api_absent'] and all(check['containers_absent'].values())
         assert check['html_volume_absent'] and check['network_absent'] and check['directory_absent']
