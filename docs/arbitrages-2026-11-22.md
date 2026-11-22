@@ -42,3 +42,20 @@ Les trois autres questions de la proposition deviennent des réglages :
 ## C-07 — Liste d'envoi
 
 Le format attendu par le routeur (ordre et colonnes) devient un réglage d'export. Colonnes provisoires d'ici la réponse d'Imagine.
+
+## A-01 — Import et publication (ajout du 22/11, 17 h)
+
+Réponses de Claude aux quatre questions de la fusion `corrections/A-01.md`. Ce sont des choix techniques, pris selon la règle « qui valide quoi ».
+
+| Question de la fusion | Réponse |
+|---|---|
+| 1. Statut « vérifié » porté par un fichier témoin à la racine du site et par le rapport, le tableau de bord restant `running` | **Oui.** Les lots suivants lisent le témoin, pas le tableau de bord. |
+| 2. Mises à jour depuis l'administration, ou par scripts seulement | **Par scripts de bascule seulement** (doctrine : tout changement durable est un script rejouable). `DISALLOW_FILE_MODS` reste actif. La sortie vers `*.wordpress.org` et `*.woocommerce.com` est conservée, parce que ces scripts en ont besoin pour télécharger. |
+| 3. Cœur épinglé à la version de la production (6.9.1), toute archive d'une autre version étant refusée avec rapport | **Oui**, tant que le chantier de mise à niveau n'a pas tourné. La version attendue est un paramètre de la commande, pas une constante. |
+| 4. Un premier essai sur l'archive réelle peut être refusé pour une raison de format, de grammaire SQL, de moteur de table ou de version | **Oui, c'est attendu** : ce premier essai sert de test. Un refus déclenche un lot de qualification court (une demi-journée), sur le motif exact du refus, sans jamais ouvrir l'archive : seul le rapport de la commande, qui ne contient aucune valeur, sert de base. |
+
+Sur l'effet de bord signalé par la relecture : chaque site de test active puis libère une licence Novamira. C'est couvert par l'accord de Ced du 22/11. Limite-toi au nombre de sites nécessaire à la preuve, et indique ce nombre dans ton rapport.
+
+## C-05 — ajout du 22/11, 17 h
+
+La marge de confirmation pour un premier paiement par SEPA (délai avant de considérer le premier numéro comme payé) devient un **réglage**. Valeur par défaut : la marge s'applique.
