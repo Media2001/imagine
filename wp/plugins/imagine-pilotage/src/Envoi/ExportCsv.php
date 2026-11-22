@@ -13,12 +13,15 @@ final class ExportCsv
         'code_postal', 'ville', 'pays', 'origine',
     ];
 
-    public static function liste(ListeEnvoi $liste, bool $anomaliesRevues = false): string
-    {
+    public static function liste(
+        ListeEnvoi $liste,
+        bool $anomaliesRevues = false,
+        ?FormatExport $format = null
+    ): string {
         if ($liste->anomalies !== [] && !$anomaliesRevues) {
             throw new \LogicException('Anomalies à traiter avant de transmettre la liste au routeur.');
         }
-        return self::lignes($liste->lignes);
+        return self::lignes($liste->lignes, $format);
     }
 
     /** @param list<array<string, string>> $lignes */

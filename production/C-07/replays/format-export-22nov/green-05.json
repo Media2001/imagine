@@ -1,0 +1,27 @@
+{
+  "time_utc": "2026-11-22T13:46:02.158258+00:00",
+  "command": [
+    "php",
+    "vendor/bin/phpunit",
+    "--fail-on-warning",
+    "--fail-on-risky",
+    "--fail-on-deprecation",
+    "--testsuite",
+    "Envoi",
+    "--log-junit",
+    "/tmp/c07-format.xml",
+    "--filter",
+    "AdministrationFormatExportTest"
+  ],
+  "workdir": "/work",
+  "exit_code": 0,
+  "junit": {
+    "name": "/work/phpunit.xml",
+    "tests": "11",
+    "assertions": "37",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "time": "0.001900"
+  }
+}

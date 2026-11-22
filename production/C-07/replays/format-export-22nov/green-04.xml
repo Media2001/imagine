@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="1" assertions="5" errors="0" failures="0" skipped="0" time="0.001069">
+    <testsuite name="Envoi" tests="1" assertions="5" errors="0" failures="0" skipped="0" time="0.001069">
+      <testsuite name="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" file="/work/tests/Envoi/AdministrationFormatExportTest.php" tests="1" assertions="5" errors="0" failures="0" skipped="0" time="0.001069">
+        <testcase name="testReglageTexteSansCodeNormaliseEtReluDansOrdreChoisi" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="46" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="5" time="0.001069"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="11" assertions="5" errors="10" failures="0" skipped="0" time="0.004553">
+    <testsuite name="Envoi" tests="11" assertions="5" errors="10" failures="0" skipped="0" time="0.004553">
+      <testsuite name="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" file="/work/tests/Envoi/AdministrationFormatExportTest.php" tests="11" assertions="5" errors="10" failures="0" skipped="0" time="0.004553">
+        <testsuite name="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest::testSaisieInvalideConserveDernierReglageEtSignaleErreur" tests="9" assertions="0" errors="9" failures="0" skipped="0" time="0.004170">
+          <testcase name="testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #0" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="55" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="0" time="0.003038">
+            <error type="InvalidArgumentException">Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest::testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #0
+InvalidArgumentException: Colonne inconnue ou répétée dans le format d’export.
+
+/work/src/Envoi/FormatExport.php:19
+/work/src/Envoi/AdministrationFormatExport.php:24
+/work/tests/Envoi/AdministrationFormatExportTest.php:59</error>
+          </testcase>
+          <testcase name="testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #1" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="55" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="0" time="0.000153">
+            <error type="InvalidArgumentException">Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest::testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #1
+InvalidArgumentException: Colonne inconnue ou répétée dans le format d’export.
+
+/work/src/Envoi/FormatExport.php:19
+/work/src/Envoi/AdministrationFormatExport.php:24
+/work/tests/Envoi/AdministrationFormatExportTest.php:59</error>
+          </testcase>
+          <testcase name="testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #2" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="55" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="0" time="0.000134">
+            <error type="InvalidArgumentException">Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest::testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #2
+InvalidArgumentException: Colonne inconnue ou répétée dans le format d’export.
+
+/work/src/Envoi/FormatExport.php:19
+/work/src/Envoi/AdministrationFormatExport.php:24
+/work/tests/Envoi/AdministrationFormatExportTest.php:59</error>
+          </testcase>
+          <testcase name="testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #3" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="55" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="0" time="0.000139">
+            <error type="InvalidArgumentException">Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest::testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #3
+InvalidArgumentException: Colonne inconnue ou répétée dans le format d’export.
+
+/work/src/Envoi/FormatExport.php:19
+/work/src/Envoi/AdministrationFormatExport.php:24
+/work/tests/Envoi/AdministrationFormatExportTest.php:59</error>
+          </testcase>
+          <testcase name="testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #4" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="55" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="0" time="0.000147">
+            <error type="TypeError">Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest::testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #4
+TypeError: Imagine\Pilotage\Envoi\FormatExport::__construct(): Argument #1 ($colonnes) must be of type array, bool given, called in /work/src/Envoi/AdministrationFormatExport.php on line 24
+
+/work/src/Envoi/FormatExport.php:11
+/work/src/Envoi/AdministrationFormatExport.php:24
+/work/tests/Envoi/AdministrationFormatExportTest.php:59</error>
+          </testcase>
+          <testcase name="testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #5" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="55" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="0" time="0.000179">
+            <error type="TypeError">Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest::testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #5
+TypeError: Imagine\Pilotage\Envoi\FormatExport::__construct(): Argument #1 ($colonnes) must be of type array, null given, called in /work/src/Envoi/AdministrationFormatExport.php on line 24
+
+/work/src/Envoi/FormatExport.php:11
+/work/src/Envoi/AdministrationFormatExport.php:24
+/work/tests/Envoi/AdministrationFormatExportTest.php:59</error>
+          </testcase>
+          <testcase name="testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #6" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="55" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="0" time="0.000134">
+            <error type="TypeError">Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest::testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #6
+TypeError: Imagine\Pilotage\Envoi\FormatExport::__construct(): Argument #1 ($colonnes) must be of type array, int given, called in /work/src/Envoi/AdministrationFormatExport.php on line 24
+
+/work/src/Envoi/FormatExport.php:11
+/work/src/Envoi/AdministrationFormatExport.php:24
+/work/tests/Envoi/AdministrationFormatExportTest.php:59</error>
+          </testcase>
+          <testcase name="testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #7" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="55" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="0" time="0.000122">
+            <error type="InvalidArgumentException">Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest::testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #7
+InvalidArgumentException: Colonne inconnue ou répétée dans le format d’export.
+
+/work/src/Envoi/FormatExport.php:19
+/work/src/Envoi/AdministrationFormatExport.php:24
+/work/tests/Envoi/AdministrationFormatExportTest.php:59</error>
+          </testcase>
+          <testcase name="testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #8" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="55" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="0" time="0.000124">
+            <error type="InvalidArgumentException">Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest::testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #8
+InvalidArgumentException: Colonne inconnue ou répétée dans le format d’export.
+
+/work/src/Envoi/FormatExport.php:19
+/work/src/Envoi/AdministrationFormatExport.php:24
+/work/tests/Envoi/AdministrationFormatExportTest.php:59</error>
+          </testcase>
+        </testsuite>
+        <testcase name="testOptionCorrompueRevientAuxColonnesProvisoires" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="64" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="0" time="0.000115">
+          <error type="TypeError">Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest::testOptionCorrompueRevientAuxColonnesProvisoires
+TypeError: Imagine\Pilotage\Envoi\FormatExport::__construct(): Argument #1 ($colonnes) must be of type array, bool given, called in /work/src/Envoi/AdministrationFormatExport.php on line 15
+
+/work/src/Envoi/FormatExport.php:11
+/work/src/Envoi/AdministrationFormatExport.php:15
+/work/tests/Envoi/AdministrationFormatExportTest.php:69</error>
+        </testcase>
+        <testcase name="testReglageTexteSansCodeNormaliseEtReluDansOrdreChoisi" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="73" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="5" time="0.000268"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="11" assertions="37" errors="0" failures="0" skipped="0" time="0.001900">
+    <testsuite name="Envoi" tests="11" assertions="37" errors="0" failures="0" skipped="0" time="0.001900">
+      <testsuite name="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" file="/work/tests/Envoi/AdministrationFormatExportTest.php" tests="11" assertions="37" errors="0" failures="0" skipped="0" time="0.001900">
+        <testsuite name="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest::testSaisieInvalideConserveDernierReglageEtSignaleErreur" tests="9" assertions="27" errors="0" failures="0" skipped="0" time="0.001750">
+          <testcase name="testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #0" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="55" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="3" time="0.001107"/>
+          <testcase name="testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #1" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="55" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="3" time="0.000121"/>
+          <testcase name="testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #2" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="55" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="3" time="0.000082"/>
+          <testcase name="testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #3" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="55" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="3" time="0.000081"/>
+          <testcase name="testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #4" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="55" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="3" time="0.000086"/>
+          <testcase name="testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #5" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="55" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="3" time="0.000057"/>
+          <testcase name="testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #6" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="55" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="3" time="0.000082"/>
+          <testcase name="testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #7" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="55" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="3" time="0.000058"/>
+          <testcase name="testSaisieInvalideConserveDernierReglageEtSignaleErreur with data set #8" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="55" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="3" time="0.000077"/>
+        </testsuite>
+        <testcase name="testOptionCorrompueRevientAuxColonnesProvisoires" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="64" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="5" time="0.000081"/>
+        <testcase name="testReglageTexteSansCodeNormaliseEtReluDansOrdreChoisi" file="/work/tests/Envoi/AdministrationFormatExportTest.php" line="73" class="Imagine\Pilotage\Tests\Envoi\AdministrationFormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.AdministrationFormatExportTest" assertions="5" time="0.000069"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>
