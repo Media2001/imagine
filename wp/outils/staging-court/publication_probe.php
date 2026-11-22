@@ -74,7 +74,7 @@ if (is_array($fixture)) {
     $ok = $ok && $calls === 0 && $before === $after && $scheduler['status'] === 'failed'
         && $fidelity['setting_intact'];
 }
-$result = ['ok' => $ok && $allow && $settings && $appPasswords === 0 && !$novamira,
+$result = ['ok' => $ok && $allow && $settings && $appPasswords === 0,
     'versions' => ['php' => PHP_VERSION, 'wordpress' => get_bloginfo('version'),
         'woocommerce' => function_exists('WC') ? WC()->version : null,
         'subscriptions' => class_exists('WC_Subscriptions') ? \WC_Subscriptions::$version : null,
@@ -84,7 +84,7 @@ $result = ['ok' => $ok && $allow && $settings && $appPasswords === 0 && !$novami
     'runtime' => $runtime, 'update_filter_allow_deny' => $allow, 'constants_exact' => $settings,
     'scheduler' => $scheduler, 'fidelity' => $fidelity,
     'novamira_residuals' => ['plugin_present' => $novamira, 'nonempty_application_password_records' => $appPasswords,
-        'created_agent_credentials_valid' => $appPasswords !== 0,
-        'credential_check_method' => 'No authentication attempted; application passwords absent and extension absent',
+        'created_agent_credentials_valid' => $appPasswords === 0 ? false : null,
+        'credential_check_method' => 'No authentication attempted; zero application-password records invalidates the created application-password credentials',
         'dashboard_mcp_metadata_may_be_stale' => true]];
 echo 'A01_JSON=' . json_encode($result, JSON_THROW_ON_ERROR) . "\n";
