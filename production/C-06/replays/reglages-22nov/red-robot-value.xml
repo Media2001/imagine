@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/tests/Acces/phpunit.xml" tests="2" assertions="25" errors="0" failures="1" skipped="0" time="0.003999">
+    <testsuite name="Acces" tests="2" assertions="25" errors="0" failures="1" skipped="0" time="0.003999">
+      <testsuite name="Imagine\Pilotage\Tests\Acces\ReglagesTest" file="/work/tests/Acces/ReglagesTest.php" tests="2" assertions="25" errors="0" failures="1" skipped="0" time="0.003999">
+        <testcase name="testPdfRobotDeuxPositionsEtFauxRobotNeRecoitPasDeDroit" file="/work/tests/Acces/ReglagesTest.php" line="15" class="Imagine\Pilotage\Tests\Acces\ReglagesTest" classname="Imagine.Pilotage.Tests.Acces.ReglagesTest" assertions="5" time="0.003494">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\ReglagesTest::testPdfRobotDeuxPositionsEtFauxRobotNeRecoitPasDeDroit
+Failed asserting that false is identical to true.
+
+/work/tests/Acces/ReglagesTest.php:27</failure>
+        </testcase>
+        <testcase name="testPdfRobotEstExtraitParDefautSansFermerLesArticles" file="/work/tests/Acces/ReglagesTest.php" line="36" class="Imagine\Pilotage\Tests\Acces\ReglagesTest" classname="Imagine.Pilotage.Tests.Acces.ReglagesTest" assertions="20" time="0.000505"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

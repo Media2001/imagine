@@ -8,6 +8,8 @@ enum Motif: string
 {
     case EntreeInvalide = 'entree_invalide';
     case ContenuOuvert = 'contenu_ouvert';
+    case ContenuFuturFermeParReglage = 'contenu_futur_ferme_par_reglage';
+    case ContenuFuturEquipeParReglage = 'contenu_futur_equipe_par_reglage';
     case RobotVerifie = 'robot_verifie';
     case PdfRobotExtraitParReglage = 'pdf_robot_extrait_par_reglage';
     case Anonyme = 'anonyme';
@@ -20,7 +22,7 @@ enum Motif: string
     case Expire = 'expire';
     case VirementNonValide = 'virement_non_valide';
     case AbonnementPasCommence = 'abonnement_pas_commence';
-    case PdfAnterieurAArbitrer = 'pdf_anterieur_a_arbitrer';
+    case PdfAnterieurFermeParReglage = 'pdf_anterieur_ferme_par_reglage';
     case Equipe = 'equipe';
     case NumeroAchete = 'numero_achete';
     case AchatPasCommence = 'achat_pas_commence';

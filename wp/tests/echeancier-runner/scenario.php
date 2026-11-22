@@ -30,6 +30,8 @@ $error = null;
 try {
     c05Check('real_subscriptions_loaded', class_exists('WC_Subscriptions_Manager'));
     c05Check('mail_and_http_blocked', apply_filters('pre_wp_mail', null, []) === false);
+    require __DIR__ . '/admin-scenario.php';
+    c05AdminScenario();
     $source = new Moteur(c05Calendrier());
     $planner = new Planificateur($source);
     $adapter = new RaccordManuel();
@@ -41,7 +43,7 @@ try {
     $product->update_meta_data('_subscription_period_interval', '3');
     $product->update_meta_data('_subscription_length', '0');
     $product->save();
-    foreach (['2027-02-20 12:00:00', '2027-04-10 12:00:00', '2027-10-11 12:00:00'] as $dateCommande) {
+    foreach (['2027-02-20 12:00:00', '2027-04-09 12:00:00', '2027-04-10 12:00:00', '2027-04-11 12:00:00'] as $dateCommande) {
         $first = c05Annee($dateCommande);
         $startNext = $first->finNumerique();
         $second = $source->renouveler($first, $startNext)->activer($startNext, Activation::Paiement);
@@ -166,10 +168,14 @@ try {
             c05Check('four_positions_cycle_' . $cycle, count($subset) === 4);
             $left = $cycle === 1 ? $first->debut : $second->debut;
             $right = $cycle === 1 ? $first->finNumerique() : $second->finNumerique();
-            c05Check('four_in_anniversary_window_' . $cycle, count(array_filter(
-                $rows,
-                static fn (array $r): bool => c05Date($r['date']) >= $left && c05Date($r['date']) < $right
-            )) === 4);
+            // Date-to-date is a numeric access window, not the counting unit of the paper block.
+            if ($cycle === 1) {
+                $countWindow = count(array_filter(
+                    $rows,
+                    static fn (array $r): bool => c05Date($r['date']) >= $left && c05Date($r['date']) < $right
+                ));
+                c05Check('option_a_anniversary_window', $countWindow === ($dateCommande === '2027-04-09 12:00:00' ? 5 : 4), $countWindow);
+            }
         }
         // Do not leave a fabricated ninth amount queued after the finite two-year demonstration.
         $adapter->arreterProjection($subscription);
@@ -190,7 +196,8 @@ try {
         }
         c05Check('non_fixture_refused_without_write', $refused && wcs_get_subscription($subscription->get_id())->get_time('next_payment') === 0);
         $scenarios[] = ['commande' => $dateCommande, 'subscription_id' => $subscription->get_id(),
-                         'rows' => $rows, 'renewals' => count(c05Related($subscription))];
+                         'rows' => $rows, 'renewals' => count(c05Related($subscription)),
+                         'first_window_payment_dates' => $countWindow];
     }
 } catch (Throwable $e) {
     $error = ['class' => $e::class, 'message' => $e->getMessage(), 'line' => $e->getLine()];

@@ -203,6 +203,39 @@ $tests['reglage_rejet_reste_du_defaut_et_abandon_explicite'] = static function (
     c05Refuse(static fn () => $defaut->montantsRestants(-1, 1000, [], true), 'MONTANT_INVALIDE');
     c05Refuse(static fn () => $defaut->montantsRestants(1000, 1000, [5], true), 'RANG_INVALIDE');
 };
+$tests['reglage_tarif_fige_bloc_defaut_et_courant_seulement_impayes'] = static function (): void {
+    $defaut = new Reglages(7);
+    c05Assert($defaut->tarif === 'fige_bloc', 'Tarif figé pour les quatre échéances');
+    foreach ([800, 1200] as $courant) {
+        c05Assert($defaut->montantsRestants(1000, $courant, [1], false) === [2 => 1000, 3 => 1000, 4 => 1000], 'Hausse/baisse sans effet bloc');
+        $autre = new Reglages(7, 'restent_dues', 'courant_impayes');
+        c05Assert($autre->montantsRestants(1000, $courant, [1, 2], false) === [3 => $courant, 4 => $courant], 'Seuls rangs impayés au tarif courant');
+        c05Assert($autre->montantsRestants(1000, $courant, [1, 2], true) === [3 => $courant, 4 => $courant], 'Rejet conserve créances au tarif choisi');
+        $annulation = new Reglages(7, 'annuler_restantes', 'courant_impayes');
+        c05Assert($annulation->montantsRestants(1000, $courant, [1], true) === [], 'Annulation explicite prioritaire');
+    }
+    c05Assert($defaut->montantsRestants(1200, 1200, [], false) === [1 => 1200, 2 => 1200, 3 => 1200, 4 => 1200], 'Bloc reconduit capture nouveau tarif');
+    c05Refuse(static fn () => new Reglages(7, 'restent_dues', 'inconnu'), 'TARIF_INVALIDE');
+    c05Refuse(static fn () => $defaut->montantsRestants(1000, -1, [], false), 'MONTANT_INVALIDE');
+};
+$tests['reglages_option_decode_strict_et_matrice_complete'] = static function (): void {
+    c05Assert(Reglages::depuisOption([])->margeJours === null, 'Option absente ne crée pas une marge');
+    c05Assert(Reglages::depuisOption(['marge_jours' => ''])->margeJours === null, 'Champ vide désactive planification');
+    foreach ([1, 3, 7, 30] as $marge) {
+        foreach (['restent_dues', 'annuler_restantes'] as $rejet) {
+            foreach (['fige_bloc', 'courant_impayes'] as $tarif) {
+                $r = Reglages::depuisOption(['marge_jours' => (string) $marge, 'apres_rejet' => $rejet, 'tarif' => $tarif]);
+                c05Assert($r->margeJours === $marge && $r->apresRejet === $rejet && $r->tarif === $tarif, 'Toutes combinaisons réglages');
+            }
+        }
+    }
+    foreach (['0', '-1', '7.5', '7 jours', true, [], '99999999999999999999999999999'] as $invalid) {
+        c05Refuse(static fn () => Reglages::depuisOption(['marge_jours' => $invalid]), 'MARGE_INVALIDE');
+    }
+    c05Refuse(static fn () => Reglages::depuisOption('corrompu'), 'REGLAGES_INVALIDES');
+    c05Refuse(static fn () => Reglages::depuisOption(['apres_rejet' => []]), 'REJET_INVALIDE');
+    c05Refuse(static fn () => Reglages::depuisOption(['tarif' => false]), 'TARIF_INVALIDE');
+};
 $tests['jour_cloture_et_lendemain_passent_au_numero_suivant'] = static function (): void {
     $source = new Moteur(c05Calendrier());
     foreach (['2027-04-10 00:00:00', '2027-04-10 12:00:00', '2027-04-11 12:00:00'] as $date) {

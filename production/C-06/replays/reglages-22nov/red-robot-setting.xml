@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/tests/Acces/phpunit.xml" tests="2" assertions="20" errors="1" failures="0" skipped="0" time="0.003709">
+    <testsuite name="Acces" tests="2" assertions="20" errors="1" failures="0" skipped="0" time="0.003709">
+      <testsuite name="Imagine\Pilotage\Tests\Acces\ReglagesTest" file="/work/tests/Acces/ReglagesTest.php" tests="2" assertions="20" errors="1" failures="0" skipped="0" time="0.003709">
+        <testcase name="testPdfRobotDeuxPositionsEtFauxRobotNeRecoitPasDeDroit" file="/work/tests/Acces/ReglagesTest.php" line="15" class="Imagine\Pilotage\Tests\Acces\ReglagesTest" classname="Imagine.Pilotage.Tests.Acces.ReglagesTest" assertions="0" time="0.003113">
+          <error type="Error">Imagine\Pilotage\Tests\Acces\ReglagesTest::testPdfRobotDeuxPositionsEtFauxRobotNeRecoitPasDeDroit
+Error: Class "Imagine\Pilotage\Acces\Reglages" not found
+
+/work/tests/Acces/ReglagesTest.php:25</error>
+        </testcase>
+        <testcase name="testPdfRobotEstExtraitParDefautSansFermerLesArticles" file="/work/tests/Acces/ReglagesTest.php" line="36" class="Imagine\Pilotage\Tests\Acces\ReglagesTest" classname="Imagine.Pilotage.Tests.Acces.ReglagesTest" assertions="20" time="0.000596"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

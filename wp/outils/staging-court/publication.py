@@ -1,4 +1,11 @@
 """A-01 publication gate. Shared staging code and templates stay untouched."""
+import re
+
+
+def validate_name(name):
+    if not isinstance(name, str) or not re.fullmatch(r'imagine-test-[a-z0-9][a-z0-9-]{0,55}', name):
+        raise ValueError('TEST_SITE_NAME_REQUIRED')
+    return name
 
 
 def guarded_publish(offline, inject, start, probe, stop=lambda: None):

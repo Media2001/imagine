@@ -89,7 +89,7 @@ final class AbonnementTest extends TestCase
         }
     }
 
-    public function testPdfAnterieurAttendArbitrageSansRetirerLesArticles(): void
+    public function testPdfAnterieurFermeParDefautSansRetirerLesArticles(): void
     {
         foreach (['actif', 'grace'] as $etat) {
             foreach (['article', 'pdf'] as $type) {
@@ -101,7 +101,7 @@ final class AbonnementTest extends TestCase
                 );
                 self::assertSame($type === 'article', $decision->complet);
                 if ($type === 'pdf') {
-                    self::assertSame('pdf_anterieur_a_arbitrer', $decision->motif->value);
+                    self::assertSame('pdf_anterieur_ferme_par_reglage', $decision->motif->value);
                     self::assertSame('abonnement', $decision->bloc->value);
                 }
             }

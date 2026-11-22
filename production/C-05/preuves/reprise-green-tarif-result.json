@@ -1,0 +1,1565 @@
+{
+  "tests": 379,
+  "assertions": 2261,
+  "failed": 0,
+  "results": [
+    {
+      "test": "initial_quatre_numeros_c01_sans_cinquieme",
+      "pass": true
+    },
+    {
+      "test": "reconduction_commune_et_numeros_suivants",
+      "pass": true
+    },
+    {
+      "test": "option_a_accepte_cinq_dates_dans_fenetre_numerique",
+      "pass": true
+    },
+    {
+      "test": "calendrier_incomplet_refuse_sans_inventer",
+      "pass": true
+    },
+    {
+      "test": "clotures_identiques_refusees_sans_deplacer",
+      "pass": true
+    },
+    {
+      "test": "borne_contractuelle_invalide_refusee",
+      "pass": true
+    },
+    {
+      "test": "marge_obligatoire_et_parametrable",
+      "pass": true
+    },
+    {
+      "test": "reglage_marge_sans_defaut_refuse_planification",
+      "pass": true
+    },
+    {
+      "test": "reglage_rejet_reste_du_defaut_et_abandon_explicite",
+      "pass": true
+    },
+    {
+      "test": "reglage_tarif_fige_bloc_defaut_et_courant_seulement_impayes",
+      "pass": true
+    },
+    {
+      "test": "jour_cloture_et_lendemain_passent_au_numero_suivant",
+      "pass": true
+    },
+    {
+      "test": "fuseau_dst_et_29_fevrier_sont_ceux_de_c01",
+      "pass": true
+    },
+    {
+      "test": "contre_exemple_a00_cinq_dates_naives_quatre_positions",
+      "pass": true
+    },
+    {
+      "test": "reconduction_inconnue_si_precedente_incomplete",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-01",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-02",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-03",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-04",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-05",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-06",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-07",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-08",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-09",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-10",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-11",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-12",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-13",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-14",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-15",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-16",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-17",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-18",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-19",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-20",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-21",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-22",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-23",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-24",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-25",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-26",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-27",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-28",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-29",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-30",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-01-31",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-01",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-02",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-03",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-04",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-05",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-06",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-07",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-08",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-09",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-10",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-11",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-12",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-13",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-14",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-15",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-16",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-17",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-18",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-19",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-20",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-21",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-22",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-23",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-24",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-25",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-26",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-27",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-02-28",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-01",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-02",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-03",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-04",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-05",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-06",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-07",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-08",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-09",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-10",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-11",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-12",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-13",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-14",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-15",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-16",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-17",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-18",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-19",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-20",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-21",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-22",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-23",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-24",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-25",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-26",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-27",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-28",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-29",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-30",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-03-31",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-01",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-02",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-03",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-04",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-05",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-06",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-07",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-08",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-09",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-10",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-11",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-12",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-13",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-14",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-15",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-16",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-17",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-18",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-19",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-20",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-21",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-22",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-23",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-24",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-25",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-26",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-27",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-28",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-29",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-04-30",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-01",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-02",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-03",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-04",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-05",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-06",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-07",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-08",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-09",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-10",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-11",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-12",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-13",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-14",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-15",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-16",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-17",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-18",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-19",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-20",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-21",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-22",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-23",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-24",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-25",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-26",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-27",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-28",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-29",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-30",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-05-31",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-01",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-02",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-03",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-04",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-05",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-06",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-07",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-08",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-09",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-10",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-11",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-12",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-13",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-14",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-15",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-16",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-17",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-18",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-19",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-20",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-21",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-22",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-23",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-24",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-25",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-26",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-27",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-28",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-29",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-06-30",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-01",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-02",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-03",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-04",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-05",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-06",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-07",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-08",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-09",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-10",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-11",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-12",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-13",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-14",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-15",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-16",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-17",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-18",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-19",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-20",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-21",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-22",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-23",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-24",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-25",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-26",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-27",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-28",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-29",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-30",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-07-31",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-01",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-02",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-03",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-04",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-05",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-06",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-07",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-08",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-09",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-10",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-11",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-12",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-13",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-14",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-15",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-16",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-17",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-18",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-19",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-20",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-21",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-22",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-23",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-24",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-25",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-26",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-27",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-28",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-29",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-30",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-08-31",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-01",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-02",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-03",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-04",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-05",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-06",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-07",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-08",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-09",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-10",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-11",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-12",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-13",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-14",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-15",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-16",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-17",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-18",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-19",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-20",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-21",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-22",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-23",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-24",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-25",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-26",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-27",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-28",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-29",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-09-30",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-01",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-02",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-03",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-04",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-05",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-06",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-07",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-08",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-09",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-10",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-11",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-12",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-13",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-14",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-15",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-16",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-17",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-18",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-19",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-20",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-21",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-22",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-23",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-24",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-25",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-26",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-27",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-28",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-29",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-30",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-10-31",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-01",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-02",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-03",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-04",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-05",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-06",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-07",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-08",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-09",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-10",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-11",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-12",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-13",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-14",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-15",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-16",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-17",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-18",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-19",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-20",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-21",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-22",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-23",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-24",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-25",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-26",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-27",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-28",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-29",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-11-30",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-01",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-02",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-03",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-04",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-05",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-06",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-07",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-08",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-09",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-10",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-11",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-12",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-13",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-14",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-15",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-16",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-17",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-18",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-19",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-20",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-21",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-22",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-23",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-24",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-25",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-26",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-27",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-28",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-29",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-30",
+      "pass": true
+    },
+    {
+      "test": "annee_complete_2027-12-31",
+      "pass": true
+    }
+  ],
+  "counterexample": {
+    "commande": "2027-04-09T12:00:00+02:00",
+    "anniversaire": "2028-04-09T12:00:00+02:00",
+    "dates": [
+      "2027-04-09T12:00:00+02:00",
+      "2027-07-03T00:00:00+02:00",
+      "2027-10-03T00:00:00+02:00",
+      "2028-01-03T00:00:00+01:00",
+      "2028-04-03T00:00:00+02:00"
+    ],
+    "count_in_first_anniversary_window": 5
+  },
+  "accepted_five_date_command_dates": [
+    "2027-01-03 12:00:00",
+    "2027-01-04 12:00:00",
+    "2027-01-05 12:00:00",
+    "2027-01-06 12:00:00",
+    "2027-01-07 12:00:00",
+    "2027-01-08 12:00:00",
+    "2027-01-09 12:00:00",
+    "2027-04-03 12:00:00",
+    "2027-04-04 12:00:00",
+    "2027-04-05 12:00:00",
+    "2027-04-06 12:00:00",
+    "2027-04-07 12:00:00",
+    "2027-04-08 12:00:00",
+    "2027-04-09 12:00:00",
+    "2027-07-03 12:00:00",
+    "2027-07-04 12:00:00",
+    "2027-07-05 12:00:00",
+    "2027-07-06 12:00:00",
+    "2027-07-07 12:00:00",
+    "2027-07-08 12:00:00",
+    "2027-07-09 12:00:00",
+    "2027-10-03 12:00:00",
+    "2027-10-04 12:00:00",
+    "2027-10-05 12:00:00",
+    "2027-10-06 12:00:00",
+    "2027-10-07 12:00:00",
+    "2027-10-08 12:00:00",
+    "2027-10-09 12:00:00"
+  ]
+}

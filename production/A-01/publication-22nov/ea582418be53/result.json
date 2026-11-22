@@ -1,0 +1,55 @@
+{
+  "status": "FAIL",
+  "run_id": "ea582418be53",
+  "cases": [
+    {
+      "name": "imagine-test-a01-ea582418be53-classic",
+      "storage": "classic",
+      "trapped": false,
+      "status": "FAIL",
+      "error": "WSL_TRANSPORT_REFUSED",
+      "frames": 43
+    },
+    {
+      "name": "imagine-test-a01-ea582418be53-hpos",
+      "storage": "hpos",
+      "trapped": false,
+      "status": "FAIL",
+      "error": "WSL_TRANSPORT_REFUSED",
+      "frames": 43
+    },
+    {
+      "name": "imagine-test-a01-ea582418be53-classic-trap",
+      "storage": "classic",
+      "trapped": true,
+      "status": "FAIL",
+      "error": "WSL_TRANSPORT_REFUSED",
+      "frames": 43
+    }
+  ],
+  "cleanup": [],
+  "no_real_archive": true,
+  "no_agent_access_used": true,
+  "tool_or_templates_modified": false,
+  "post_verified_network_limit": "WordPress HTTP filtering only; not a system firewall",
+  "started_utc": "2026-11-22T12:32:57.587464+00:00",
+  "tool_source_manifest": {
+    "/app/api/orchestrator.py": "1d73b3d4c4c2825cc4ba68a8aefa2731c401767db8f63916891d70cec49694d1",
+    "/app/api/main.py": "fae065a3d75eabb98266bbe6a47a4446ff8bb3477df6e2a176e3fc86872b9b32",
+    "/app/api/models.py": "44dc74dce43076787910a496091b8b54f19004b26df03678666ada2620584c77",
+    "/app/api/templates/docker-compose.wp.yml.j2": "2098452ae6c10a63cc7b966ea4df441da3b233932176d87d754d6c81a523c9b4",
+    "/app/api/templates/templates.json": "784843aee6afda8dd5037ae029981b1c0d4472c5d1edabf383702edfc19e3637"
+  },
+  "tool_sources_unchanged": true,
+  "finished_utc": "2026-11-22T12:32:59.178936+00:00",
+  "command_sources": {
+    "wp/outils/staging-court/archive.py": "1dac4067747284437d326f15dbc1fb81987ce5110df09f5ca42f66290f618164",
+    "wp/outils/staging-court/inside.py": "6df7f05c8f09ee2ebe776cc68e58c93975951967c7bc321e12b781279f8adbac",
+    "wp/outils/staging-court/publication.py": "2f8965bbef6e8e09b5e5885b2cfe61656014f6b2131b8be5b2b805608727964c",
+    "wp/outils/staging-court/publication_preflight.py": "cd4dfeb3ef170ea83ba503c3e2b193e4f3dbc11ee8a1053c01d2efc122fee313",
+    "wp/outils/staging-court/publish.py": "3de0d046b04fd5e1a257b41a5edd6dcb06e0a6789db9ede18b622cd5b7c5f6b6",
+    "wp/outils/staging-court/run.py": "60f3548778be3a8fda9f83c0290e0eaec368b4b7decb652fd7ddf011aa8cf607",
+    "wp/outils/staging-court/bridge.php": "5c13515a5ca50d3e2991a7d595a2499d53cd29b75ce95880c5291f69046d0a22",
+    "wp/outils/staging-court/publication_probe.php": "b62115477a86d17b62221891494f50488128222ed89fb5b19c1f21445938e63b"
+  }
+}

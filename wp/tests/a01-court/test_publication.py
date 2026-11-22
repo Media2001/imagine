@@ -40,5 +40,14 @@ class PublicationContract(unittest.TestCase):
         self.assertEqual('REFUSED_RUNTIME', result['status'])
 
 
+    def test_name_scope_is_enforced_before_any_api(self):
+        module = self.module()
+        self.assertTrue(hasattr(module, 'validate_name'), 'Named-test scope guard missing')
+        for name in ['imagine', 'imagine-test-', '../imagine-test-a', 'Imagine-test-a', 'imagine-test-a/../x']:
+            with self.assertRaises(ValueError):
+                module.validate_name(name)
+        self.assertEqual('imagine-test-a01-22', module.validate_name('imagine-test-a01-22'))
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

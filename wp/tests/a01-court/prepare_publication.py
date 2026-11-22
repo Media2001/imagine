@@ -11,7 +11,22 @@ sys.path.insert(0, '/opt/court')
 sys.path.insert(0, '/opt/e2e')
 import inside as native
 import inside_commercial as commercial
-from roundtrip import write_archive
+import struct
+
+
+def write_archive(path, source, sql):
+    def entry(stream, relative, value):
+        parts = relative.rsplit('/', 1)
+        prefix, name = parts if len(parts) == 2 else ('', parts[0])
+        stream.write(struct.pack('255s14s12s4096s', name.encode(), str(len(value)).encode(), b'0', prefix.encode()))
+        stream.write(value)
+    with path.open('xb') as stream:
+        entry(stream, 'database.sql', sql)
+        entry(stream, 'package.json', b'{"SyntheticFixtureOnly":true}')
+        for p in sorted((source / 'wp-content').rglob('*')):
+            if p.is_file():
+                entry(stream, p.relative_to(source / 'wp-content').as_posix(), p.read_bytes())
+        stream.write(bytes(4377))
 
 
 def main():

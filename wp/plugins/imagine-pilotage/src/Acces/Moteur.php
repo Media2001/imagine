@@ -14,9 +14,10 @@ final class Moteur
         mixed $robot = null,
         mixed $instant = null,
         mixed $decouverte = null,
+        mixed $reglages = null,
     ): Decision {
         try {
-            return $this->evaluer($contenu, $visiteur, $robot, $instant, $decouverte);
+            return $this->evaluer($contenu, $visiteur, $robot, $instant, $decouverte, $reglages);
         } catch (\Throwable) {
             return new Decision(false, Motif::EntreeInvalide, Bloc::Abonnement);
         }
@@ -28,11 +29,14 @@ final class Moteur
         mixed $robot,
         mixed $instant,
         mixed $decouverte,
+        mixed $reglages,
     ): Decision {
+        $reglages ??= new Reglages();
         // Liste synchronisée manuellement avec config/robots.php : tout nouveau robot
         // approuvé doit être ajouté aux deux endroits, sinon accès fermé en extrait.
         if (
             !is_array($contenu) || !is_array($visiteur) || !$robot instanceof DecisionRobot
+            || !$reglages instanceof Reglages
             || !$this->dateValide($instant)
             || ($robot->estVerifie() && !in_array($robot->robot, ['google', 'bing'], true))
             || ($decouverte !== null && (
@@ -43,7 +47,7 @@ final class Moteur
             || !is_bool($contenu['reserve']) || !is_bool($contenu['decouverte'])
             || !$this->identifiantValide($contenu['numero'])
             || !in_array($contenu['type'], ['article', 'pdf'], true)
-            || !$this->dateValide($contenu['sortie']) || $contenu['sortie'] > $instant
+            || !$this->dateValide($contenu['sortie'])
             || !$this->cles($visiteur, ['identifie', 'droits'])
             || !is_bool($visiteur['identifie']) || !is_array($visiteur['droits'])
             || !array_is_list($visiteur['droits'])
@@ -60,11 +64,19 @@ final class Moteur
                 return new Decision(false, Motif::EntreeInvalide, Bloc::Abonnement);
             }
         }
+        if ($contenu['sortie'] > $instant) {
+            foreach ($visiteur['droits'] as $droit) {
+                if ($reglages->contenuFuturEquipe && $droit['type'] === 'equipe') {
+                    return new Decision(true, Motif::ContenuFuturEquipeParReglage, Bloc::Aucun);
+                }
+            }
+            return new Decision(false, Motif::ContenuFuturFermeParReglage, Bloc::Abonnement);
+        }
         if (!$contenu['reserve']) {
             return new Decision(true, Motif::ContenuOuvert, Bloc::Aucun);
         }
         if ($robot->estVerifie()) {
-            return $contenu['type'] === 'pdf'
+            return $contenu['type'] === 'pdf' && !$reglages->pdfRobotComplet
                 ? new Decision(false, Motif::PdfRobotExtraitParReglage, Bloc::Abonnement)
                 : new Decision(true, Motif::RobotVerifie, Bloc::Aucun);
         }

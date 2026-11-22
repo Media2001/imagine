@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/tests/Acces/phpunit.xml" tests="3" assertions="30" errors="0" failures="1" skipped="0" time="0.004776">
+    <testsuite name="Acces" tests="3" assertions="30" errors="0" failures="1" skipped="0" time="0.004776">
+      <testsuite name="Imagine\Pilotage\Tests\Acces\ReglagesTest" file="/work/tests/Acces/ReglagesTest.php" tests="3" assertions="30" errors="0" failures="1" skipped="0" time="0.004776">
+        <testcase name="testPdfRobotDeuxPositionsEtFauxRobotNeRecoitPasDeDroit" file="/work/tests/Acces/ReglagesTest.php" line="15" class="Imagine\Pilotage\Tests\Acces\ReglagesTest" classname="Imagine.Pilotage.Tests.Acces.ReglagesTest" assertions="8" time="0.001654"/>
+        <testcase name="testSortieFutureDeuxPositionsNeBeneficientQuaEquipeValide" file="/work/tests/Acces/ReglagesTest.php" line="36" class="Imagine\Pilotage\Tests\Acces\ReglagesTest" classname="Imagine.Pilotage.Tests.Acces.ReglagesTest" assertions="2" time="0.002895">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\ReglagesTest::testSortieFutureDeuxPositionsNeBeneficientQuaEquipeValide
+Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'contenu_futur_ferme_par_reglage'
++'entree_invalide'
+
+/work/tests/Acces/ReglagesTest.php:63</failure>
+        </testcase>
+        <testcase name="testPdfRobotEstExtraitParDefautSansFermerLesArticles" file="/work/tests/Acces/ReglagesTest.php" line="74" class="Imagine\Pilotage\Tests\Acces\ReglagesTest" classname="Imagine.Pilotage.Tests.Acces.ReglagesTest" assertions="20" time="0.000227"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

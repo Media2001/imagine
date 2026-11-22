@@ -165,7 +165,7 @@ final class FermetureTest extends TestCase
         ]);
     }
 
-    public function testDateFractionnaireFutureEtRobotInconnuFerment(): void
+    public function testDateFractionnaireEtRobotInconnuFerment(): void
     {
         foreach ([' 170', '170 ', "170\n"] as $numero) {
             $this->ferme([
@@ -177,10 +177,7 @@ final class FermetureTest extends TestCase
             DecisionTest::contenu(), DecisionTest::visiteur(),
             new DecisionRobot(MotifRobot::VerifieDns, 'robot_inconnu'), DecisionTest::date(),
         ]);
-        $this->ferme([
-            DecisionTest::contenu(['sortie' => DecisionTest::date('2026-11-21 12:00:01')]),
-            DecisionTest::visiteur([DroitsTest::achat()]), DecisionTest::robot(), DecisionTest::date(),
-        ]);
+
         $fraction = DecisionTest::date('2026-11-21 12:00:00.500000');
         $this->ferme([
             DecisionTest::contenu(), DecisionTest::visiteur([DroitsTest::achat()]), DecisionTest::robot(), $fraction,

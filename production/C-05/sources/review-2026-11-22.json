@@ -1,0 +1,66 @@
+[
+  {
+    "url": "https://woocommerce.com/document/subscriptions/develop/functions/",
+    "status": 200,
+    "consulted_at_utc": "2026-11-22T12:32:47.948845+00:00",
+    "page_sha256": "c2845f3836f95ba7e311567f88b6d9ddd129c9e78b28f4b8c909f8d203b943fc",
+    "term": "can_date_be_updated",
+    "quote": "can_date_be_updated() ↑ Back to top Check if a given date type can be updated for this subscription. Usage <?php WC_Subscription::can_date_be_updated( $date_type ) ?>"
+  },
+  {
+    "url": "https://woocommerce.com/document/subscriptions/renewal-process/",
+    "status": 200,
+    "consulted_at_utc": "2026-11-22T12:32:47.693954+00:00",
+    "page_sha256": "dfd0bc40374662363a2df0586c56ec5cc9f5582314a07a6bda26125016f14c04",
+    "term": "Manual renewal",
+    "quote": "Manual renewal – recurring payments require that your customers log into the store and make the payment for each payment interval. Manual vs."
+  },
+  {
+    "url": "https://woocommerce.com/document/subscriptions/creating-subscription-products/",
+    "status": 200,
+    "consulted_at_utc": "2026-11-22T12:32:47.513116+00:00",
+    "page_sha256": "30ba2c03bc1261b3be8976616d8f9ef5b69caf8e78a31f4e7765f5fe9a2da571",
+    "term": "billing interval",
+    "quote": "billing interval using a number input and a period dropdown (day, week, month, year). For example, “three months” means the customer is billed"
+  },
+  {
+    "url": "https://woocommerce.com/document/subscriptions/develop/action-reference/",
+    "status": 200,
+    "consulted_at_utc": "2026-11-22T12:32:47.981572+00:00",
+    "page_sha256": "7d17bb0321b447c86297b9f5ef316e2c80959d8623d21edb5142ba871976d251",
+    "term": "woocommerce_scheduled_subscription_payment",
+    "quote": "woocommerce_scheduled_subscription_payment' Parameters: $subscription_id Integer The ID of the subscription that will soon have a payment processed. Description: Fired once when a subscription renewal"
+  },
+  {
+    "url": "https://woocommerce.com/document/subscriptions/billing-date-alignment/creating-an-aligned-subscription-product/",
+    "status": 200,
+    "consulted_at_utc": "2026-11-22T12:32:47.837722+00:00",
+    "page_sha256": "d8ce3847c08b7fc941da7c7fb3680687b3498b703875795e15ae37d9e6718248",
+    "term": "regardless of the billing interval",
+    "quote": "regardless of the billing interval. Here’s an example: Subscription: $30 every three months, aligned to the 1st of the month Customer signs up:"
+  },
+  {
+    "url": "https://woocommerce.com/document/subscriptions/failed-payment-retry/",
+    "status": 200,
+    "consulted_at_utc": "2026-11-22T12:32:47.713594+00:00",
+    "page_sha256": "af31c8b49b46127fcbe2d6e62203122d57633e6093d44b561e1dc305257bbaf9",
+    "term": "manual renewals",
+    "quote": "manual renewals Order status must be Pending or Failed , or the status set by the last retry rule Manual Customer Payment during"
+  },
+  {
+    "url": "https://developer.wordpress.org/plugins/settings/settings-api/",
+    "status": 200,
+    "consulted_at_utc": "2026-11-22T12:32:47.904114+00:00",
+    "page_sha256": "0c872fd619a57b7647bc691e3690c5a609c9b78567ced6a191ebc9178e5612ab",
+    "term": "options.php",
+    "quote": "options.php which provides fairly strict capabilities checking. Users will need the manage_options capability (and in Multisite will have to be a Super Admin)"
+  },
+  {
+    "url": "https://developer.wordpress.org/reference/functions/register_setting/",
+    "status": 200,
+    "consulted_at_utc": "2026-11-22T12:32:47.998753+00:00",
+    "page_sha256": "f0d7b8d7e4957db1f36590238d5a9b6088ab050d84536003df87919fd8cae48b",
+    "term": "sanitize_callback",
+    "quote": "sanitize_callback callable A callback function that sanitizes the option’s value. show_in_rest bool|array Whether data associated with this setting should be included in the"
+  }
+]
