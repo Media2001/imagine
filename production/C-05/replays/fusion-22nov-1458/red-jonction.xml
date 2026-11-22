@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="1" assertions="3" errors="0" failures="1" skipped="0" time="0.004361">
+    <testsuite name="Echeancier" tests="1" assertions="3" errors="0" failures="1" skipped="0" time="0.004361">
+      <testsuite name="Imagine\Pilotage\Tests\Echeancier\PlanificateurTest" file="/work/tests/Echeancier/PlanificateurTest.php" tests="1" assertions="3" errors="0" failures="1" skipped="0" time="0.004361">
+        <testcase name="testCloturesEgalesJonctionRang4Rang1RefuseesExplicitement" file="/work/tests/Echeancier/PlanificateurTest.php" line="287" class="Imagine\Pilotage\Tests\Echeancier\PlanificateurTest" classname="Imagine.Pilotage.Tests.Echeancier.PlanificateurTest" assertions="3" time="0.004361">
+          <failure type="PHPUnit\Framework\AssertionFailedError">Imagine\Pilotage\Tests\Echeancier\PlanificateurTest::testCloturesEgalesJonctionRang4Rang1RefuseesExplicitement
+Un plan incompatible doit être refusé : DATES_NON_CROISSANTES
+
+/work/tests/Echeancier/PlanificateurTest.php:32
+/work/tests/Echeancier/PlanificateurTest.php:296</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

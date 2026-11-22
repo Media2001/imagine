@@ -34,6 +34,10 @@ final readonly class Planificateur
         }
         $resultat = [];
         $precedente = null;
+        if ($annee->precedente !== null) {
+            $blocPrecedent = $this->planifier($annee->precedente, $annee->debut, $margeJours);
+            $precedente = $blocPrecedent[3]->date;
+        }
         foreach ($echeances as $index => $echeance) {
             $initial = $index === 0 && $annee->precedente === null;
             $date = $initial ? $annee->debut : $echeance->lancement;

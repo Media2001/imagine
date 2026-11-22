@@ -6,5 +6,6 @@
         <testsuite name="Entreprise"><directory>tests/Entreprise</directory></testsuite>
         <testsuite name="Acces"><directory>tests/Acces</directory></testsuite>
         <testsuite name="Envoi"><directory>tests/Envoi</directory></testsuite>
+        <testsuite name="Echeancier"><directory>tests/Echeancier</directory></testsuite>
     </testsuites>
 </phpunit>
