@@ -1,4 +1,6 @@
-# Banc C05 dédié
+# Banc C05 dédié — historique avant corrections de fusion
+
+**Instructions courantes : `README-corrections.md`.** Le banc unitaire autonome ci-dessous a été porté en PHPUnit et son fichier `tests/Echeancier/run.php` supprimé. Les commandes `unit` et l'ancien `verify.py` ne valident plus le code courant. Ce document conserve le contexte historique ; pour tout rejeu utiliser `corrections.py` et un paquet neuf, jamais les destinations `preuves/` ci-dessous.
 
 Toutes les écritures de ce banc sont dans ses répertoires C05 et dans un nouveau conteneur possédé. Il ne charge ni les scripts d’import A01 ni les tests de découverte du dépôt. Python hôte sert seulement au transport Docker et à la lecture des reçus ; **tous les PHP, tests et WordPress tournent dans le conteneur**.
 

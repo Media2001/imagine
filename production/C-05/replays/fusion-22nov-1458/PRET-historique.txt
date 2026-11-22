@@ -1,0 +1,8 @@
+C-05 — reprise du 22 novembre 2026 prête à relire.
+Option A : quatre échéances par bloc de quatre numéros ; fenêtre anniversaire à cinq dates acceptée.
+Réglages : marge civile obligatoire sans défaut ; rejet reste dû et tarif figé par bloc par défaut, alternatives testées.
+Preuves : preuves/reprise-final-unit-result.json, preuves/reprise-final-e2e-result.json, preuves/verification.json.
+380 tests / 2 289 assertions / 0 échec ; 8 abonnements, 64 commandes dont 56 renouvellements réels, 700 contrôles + 12 enveloppe.
+Conteneur possédé supprimé et absence exacte vérifiée avant cette remise.
+Adaptation admin dédiée fournie ; bootstrap partagé volontairement non modifié, seam documenté dans proposition.md §6 et reprise.md.
+Prototype manuel fictif seulement. Ni clôture par les relecteurs, ni validation visuelle, ni GO compte réel/import/installation/déploiement.

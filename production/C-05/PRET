@@ -1,8 +1,10 @@
-C-05 — reprise du 22 novembre 2026 prête à relire.
-Option A : quatre échéances par bloc de quatre numéros ; fenêtre anniversaire à cinq dates acceptée.
-Réglages : marge civile obligatoire sans défaut ; rejet reste dû et tarif figé par bloc par défaut, alternatives testées.
-Preuves : preuves/reprise-final-unit-result.json, preuves/reprise-final-e2e-result.json, preuves/verification.json.
-380 tests / 2 289 assertions / 0 échec ; 8 abonnements, 64 commandes dont 56 renouvellements réels, 700 contrôles + 12 enveloppe.
-Conteneur possédé supprimé et absence exacte vérifiée avant cette remise.
-Adaptation admin dédiée fournie ; bootstrap partagé volontairement non modifié, seam documenté dans proposition.md §6 et reprise.md.
-Prototype manuel fictif seulement. Ni clôture par les relecteurs, ni validation visuelle, ni GO compte réel/import/installation/déploiement.
+C-05 — corrections de fusion 1–5 du 22 novembre 2026 prêtes à relire.
+Jonction des blocs strictement croissante : clôtures égales rang 4/rang 1 refusées explicitement ; 09/04 valide, cinq dates admises par Option A.
+Tests PHPUnit *Test.php portés et suite Echeancier ajoutée au XML standard ; paramètre finEngagement retiré ; refus admin par wp_die traduit ; deux citations officielles distinctes complétées.
+Preuves neuves : replays/fusion-22nov-1458/final.xml, final.json, final-e2e-result.json et verification.json.
+Standard complet : 746 tests / 33 077 assertions ; dont Echeancier 384 / 2 307 ; 0 échec, 0 erreur, 0 skipped. Tests, lint, syntaxe et Composer strict exit 0.
+Vrai Subscriptions classique + HPOS : 8 abonnements, 64 commandes dont 56 renouvellements ; 704 contrôles + 12 enveloppe ; exit 0.
+Les deux conteneurs possédés sont supprimés et leur absence exacte revérifiée avant ce dépôt. 647 fichiers protégés inchangés ; XML partagé modifié uniquement pour Echeancier ; README partagé et Composer inchangés.
+Q1 marge du premier SEPA maintenue ouverte, aucun choix financier nouveau ; Q2 déjà explicite dans les arbitrages du 22/11, pas de nouveau blocage.
+Item 6 transmis à Claude dans corrections-22nov-1458.md, aucun docs/ ni verrou ni rapport global modifié. Preuves historiques et C06/C07 intactes.
+Aucun raccord admin/bootstrap effectué ; bibliothèque non installable, prototype manuel fictif seulement. Ni clôture indépendante, ni GO réel/financier/installation/déploiement.

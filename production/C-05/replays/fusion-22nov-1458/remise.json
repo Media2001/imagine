@@ -1,0 +1,16 @@
+{
+  "verified_at_utc": "2026-11-22T14:17:43.887932+00:00",
+  "PRET_after_gates": true,
+  "PRET_sha256": "bfac5d11a77f60b99cd902180d8d2a1856ee4ca67e59703b67eaa786b569dc4f",
+  "verification_sha256": "79d5f32dcd5982b332ece4142012d586ede6fad90e3effa0101733fb2759b228",
+  "standard_tests": 746,
+  "standard_assertions": 33077,
+  "e2e": {
+    "subscriptions": 8,
+    "initial_orders": 8,
+    "renewal_orders": 56,
+    "scenario_checks": 704,
+    "envelope_checks": 12
+  },
+  "containers_absent": true
+}
