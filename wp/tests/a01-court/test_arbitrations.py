@@ -79,5 +79,31 @@ class ScriptsOnlyCapacity(unittest.TestCase):
             self.assertFalse(publish.script_capacity_probe('imagine-test-a01-unit')['ok'])
 
 
+class ReceiptGates(unittest.TestCase):
+    def test_publication_verifier_rejects_different_expected_core(self):
+        import verify_publication
+        report = TOOLS.parents[2] / 'production/A-01/publication-22nov/79cef0705045/result.json'
+        value = json.loads(report.read_bytes())
+        value['expected_core_version'] = '6.9.1'
+        original = Path.read_bytes
+        def read(path):
+            return json.dumps(value).encode() if path == report else original(path)
+        with mock.patch.object(Path, 'read_bytes', read):
+            with self.assertRaises(AssertionError):
+                verify_publication.verify(report)
+
+    def test_publication_verifier_rejects_false_script_capacity(self):
+        import verify_publication
+        report = TOOLS.parents[2] / 'production/A-01/publication-22nov/79cef0705045/result.json'
+        value = json.loads(report.read_bytes())
+        value['cases'][0]['script_update_capacity']['script_replay_idempotent'] = False
+        original = Path.read_bytes
+        def read(path):
+            return json.dumps(value).encode() if path == report else original(path)
+        with mock.patch.object(Path, 'read_bytes', read):
+            with self.assertRaises(AssertionError):
+                verify_publication.verify(report)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

@@ -34,4 +34,4 @@ Seam parent inchangé, après autoload : `(new Imagine\Pilotage\Echeancier\Regla
 
 Depuis la racine du dépôt, **PHP uniquement dans des conteneurs jetables** : instructions `wp/tests/echeancier-runner/README-sepa.md`. Suite canonique dans le conteneur : `composer test` (inclut Echeancier), `composer lint`, `composer validate --strict --no-check-publish`. Tests dédiés : `ConfirmationPremierSepaTest` ; vraie Settings API et Subscriptions classique/HPOS dans le banc séparé. Aucun test de recette `docs/recette/` automatisé.
 
-Remise courante : `production/C-05/sepa-22nov-1700.md`, `replays/sepa-22nov-1700/`. Anciennes preuves conservées, sans prétendre qu’elles correspondent aux nouveaux octets. PRET n’est ni clôture indépendante ni GO réel/financier.
+Remise courante : `production/C-05/sepa-22nov-1700.md`, `replays/sepa-22nov-1715-final/`. Anciennes preuves conservées, sans prétendre qu’elles correspondent aux nouveaux octets. PRET n’est ni clôture indépendante ni GO réel/financier.

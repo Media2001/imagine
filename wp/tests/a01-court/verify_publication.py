@@ -43,7 +43,11 @@ def verify(report, live=False):
         assert case['archive_fidelity']['all_restored_hashes_equal_source'] is True
         assert case['archive_fidelity']['retained_files_unchanged'] is True
         assert case['offline']['restored_files_before_cleanup'] == case['fixture']['source_files']
-        assert case['offline']['core_versions']['source'] == case['offline']['core_versions']['pinned']
+        versions = case['offline']['core_versions']
+        assert versions['source'] == versions['pinned'] == versions['expected'] == value['expected_core_version']
+        runtime_core = case['runtime_core_preflight']
+        assert runtime_core['ok'] is True and runtime_core['code'] == 'CORE_MATCH'
+        assert runtime_core['pinned'] == runtime_core['expected'] == value['expected_core_version']
         assert case['offline']['table_engines']['wp_a01_engine_probe'] == 'MYISAM'
         assert {'code': 'NON_INNODB_TABLE', 'table': 'wp_a01_engine_probe', 'engine': 'MYISAM'} in case['offline']['warnings']
         if case['trapped']:
@@ -70,6 +74,15 @@ def verify(report, live=False):
             assert probe['assigned_url_http']['fiction_theme_marker'] is True
             assert probe['assigned_url_http']['redirected'] is False
             assert probe['update_filter_allow_deny'] is True and probe['constants_exact'] is True
+            capacity = case['script_update_capacity']
+            assert capacity['ok'] is True and capacity['policy'] == 'deployment_scripts_only'
+            for key in ('file_mods_locked', 'admin_updates_denied', 'auto_updates_disabled',
+                        'script_deploy_readback', 'script_replay_idempotent', 'rollback_readback',
+                        'owned_probe_files_absent', 'downloaded_plugin_never_activated_or_executed',
+                        'commercial_download_not_tested'):
+                assert capacity[key] is True, 'CAPACITY:' + key
+            assert capacity['wordpress_download_http'] == capacity['woocommerce_egress_http'] == 200
+            assert capacity['wordpress_download_sha256'] == '73847b0868f335d597c77a95aaa8c18eb1656c4b646e492ed1d65752d3236427'
             assert probe['scheduler']['tested'] is True and probe['scheduler']['callback_calls'] == 0
             assert probe['scheduler']['renewals_before'] == probe['scheduler']['renewals_after']
             assert probe['scheduler']['status'] == 'failed'
@@ -85,6 +98,8 @@ def verify(report, live=False):
             assert probe['fidelity']['rights'] == {k: v['private'] for k, v in case['fixture']['rights']['rights'].items()}
             marker = case['verified_marker_readback']
             assert marker['status'] == 'verified' and marker['site'] == case['name']
+            assert marker['expected_core_version'] == value['expected_core_version']
+            assert marker['update_policy'] == value['update_policy']
             assert marker['run_id'] == value['run_id'] and marker['offline_verified'] is marker['runtime_probe_passed'] is True
         summaries.append({'name': case['name'], 'storage': case['storage'], 'trapped': case['trapped'],
                           'publication': case['publication']['status'], 'status': 'PASS'})

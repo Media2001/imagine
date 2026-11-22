@@ -1,6 +1,6 @@
 # C-05 — proposition d’échéancier, reprise du 22 novembre 2026
 
-**Statut : ajout SEPA de la file du 22/11, 17 h appliqué ; proposition et prototype à relire.** Quatre échéances par bloc de quatre numéros, pas par fenêtre anniversaire. Aucun branchement sur un site existant, aucun encaissement ni GO financier. Remise courante : `sepa-22nov-1700.md` et `replays/sepa-22nov-1700/`. Les reçus `preuves/`, `replays/fusion-22nov-1458/` et les notes précédentes sont historiques : ils décrivent les octets de leur remise, pas les nouveaux.
+**Statut : ajout SEPA de la file du 22/11, 17 h appliqué ; proposition et prototype à relire.** Quatre échéances par bloc de quatre numéros, pas par fenêtre anniversaire. Aucun branchement sur un site existant, aucun encaissement ni GO financier. Remise courante : `sepa-22nov-1700.md` et `replays/sepa-22nov-1715-final/`. Les reçus `preuves/`, `replays/fusion-22nov-1458/` et les notes précédentes sont historiques : ils décrivent les octets de leur remise, pas les nouveaux.
 
 ## 1. Unité d’engagement retenue : quatre numéros
 

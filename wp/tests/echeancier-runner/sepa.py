@@ -4,6 +4,7 @@ import datetime
 import hashlib
 import importlib.util
 import json
+import os
 import pathlib
 import sys
 import xml.etree.ElementTree as ET
@@ -14,6 +15,7 @@ spec = importlib.util.spec_from_file_location('c05_sepa_base', HERE / 'correctio
 c = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(c)
 ROOT, OUT = c.ROOT, c.OUT
+TDD = ROOT / 'production/C-05/replays' / os.environ.get('IMAGINE_C05_TDD_PACKET', 'sepa-22nov-1700')
 
 
 def read(name):
@@ -29,6 +31,11 @@ def verify():
         assert standard[key] == 0, key
     assert standard['source_sha256'] == c.payload()[1], 'Final standard sources stale'
     assert standard['network_disconnected'] and standard['no_mounts'] and standard['no_ports']
+    preparation = read('standard-preparation.json')
+    assert preparation['composer_install_exit'] == 0 and preparation['host_lock_unchanged']
+    assert preparation['label'] == 'org.imagine.c05-standard-runner'
+    assert preparation['no_mounts'] and preparation['no_ports'] and not preparation['networks_after_preparation']
+    assert read('e2e-preparation.json')['network'] == 'none'
     old = json.loads((ROOT / 'production/C-05/replays/fusion-22nov-1458/final.json').read_text())['source_sha256']
     current = standard['source_sha256']
     changed = sorted(p for p in old.keys() | current.keys() if old.get(p) != current.get(p))
@@ -95,21 +102,23 @@ def verify():
     red = {}
     for suffix in ['defaut', 'positions', 'date', 'sans-marge', 'confirmation', 'marge-obligatoire', 'chronologie']:
         key = 'red-sepa-' + suffix
-        red[key] = read(key + '.json')['exit_code']
+        red[key] = json.loads((TDD / (key + '.json')).read_text())['exit_code']
         assert red[key] != 0
-    red['red-sepa-admin'] = read('red-sepa-admin.json')['exit_code']
+    red['red-sepa-admin'] = json.loads((TDD / 'red-sepa-admin.json').read_text())['exit_code']
     assert red['red-sepa-admin'] != 0
-    refused = read('red-sepa-admin-result.json')['checks']
+    refused = json.loads((TDD / 'red-sepa-admin-result.json').read_text())['checks']
     assert any(x['check'] == 'classic:scenario' and not x['pass'] and
                x['detail']['error']['message'].startswith('sepa_admin_field_present:') for x in refused)
     absent = []
-    for file in ['standard-cleanup.json', 'cleanup.json']:
-        cleanup = read(file)
-        assert cleanup['owned_removed']
-        probe = c.b.call(['inspect', cleanup['container']], check=False)
-        diagnostic = probe.stderr.decode().strip()
-        assert probe.returncode and 'no such object' in diagnostic.lower()
-        absent.append({'container': cleanup['container'], 'absent': True, 'diagnostic': diagnostic})
+    for directory in dict.fromkeys([TDD, OUT]):
+        for file in ['standard-cleanup.json', 'cleanup.json']:
+            cleanup = json.loads((directory / file).read_text())
+            assert cleanup['owned_removed']
+            probe = c.b.call(['inspect', cleanup['container']], check=False)
+            diagnostic = probe.stderr.decode().strip()
+            assert probe.returncode and 'no such object' in diagnostic.lower()
+            absent.append({'packet': directory.name, 'container': cleanup['container'],
+                           'absent': True, 'diagnostic': diagnostic})
     summary = {
         'verified_at_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
         'standard_suites': counts,
@@ -125,6 +134,8 @@ def verify():
                              for p in sorted((ROOT / 'production/C-05').glob('*.md'))}},
         'proof_sha256': {p.name: c.sha(p) for p in sorted(OUT.iterdir()) if p.is_file()
                          and p.name not in ['verification.json', 'remise.json']},
+        'tdd_evidence_sha256': {p.relative_to(ROOT).as_posix(): c.sha(p) for p in sorted(TDD.iterdir())
+                                if p.is_file() and p.name.startswith(('red-', 'green-'))},
     }
     target = OUT / 'verification.json'
     if target.exists():
@@ -134,11 +145,21 @@ def verify():
     else:
         c.save('verification.json', summary)
     print(json.dumps({k: v for k, v in summary.items() if k not in
-                      ['source_sha256', 'artifacts_sha256', 'proof_sha256']}, indent=2))
+                      ['source_sha256', 'artifacts_sha256', 'proof_sha256', 'tdd_evidence_sha256']}, indent=2))
     print('verification.json SHA-256:', c.sha(target))
 
 
 if __name__ == '__main__':
     assert c.PACKET != 'fusion-22nov-1458', 'Select a new IMAGINE_C05_PACKET'
     c.verify = verify
-    c.main()
+    action = sys.argv[1] if len(sys.argv) > 1 else ''
+    if action in ['prepare', 'e2e-prepare']:
+        # The inherited wrappers share preparation.json. Move each exact receipt
+        # immediately so that the next stage cannot overwrite the previous one.
+        assert not (OUT / 'preparation.json').exists(), 'Unarchived preparation receipt'
+        c.main()
+        target = OUT / ('standard-preparation.json' if action == 'prepare' else 'e2e-preparation.json')
+        assert not target.exists()
+        (OUT / 'preparation.json').replace(target)
+    else:
+        c.main()
