@@ -1,0 +1,85 @@
+{
+  "lot": "A-01-publication",
+  "date": "2026-11-22",
+  "status": "PASS",
+  "ready_for_review": true,
+  "blockers": [],
+  "proofs": {
+    "real_publication": "C:/Users/Ced/imagine/production/A-01/publication-22nov/3f837c790d4b/result.json",
+    "verification": "C:/Users/Ced/imagine/production/A-01/publication-22nov/verification-final.json",
+    "baseline": "C:/Users/Ced/imagine/production/A-01/tests-21nov/2a5c8c0fcbb1/result.json",
+    "baseline_readback": "C:/Users/Ced/imagine/production/A-01/publication-22nov/baseline-readback.json",
+    "publication_unit_tests": "C:/Users/Ced/imagine/production/A-01/publication-22nov/unit-final.log",
+    "official_documentation_receipt": "C:/Users/Ced/imagine/production/A-01/publication-22nov/standard-docs.json"
+  },
+  "command": "wp/outils/staging-court/publish.py",
+  "operator_guide": "C:/Users/Ced/imagine/production/A-01/notes.md",
+  "pret_path": "C:/Users/Ced/imagine/production/A-01/PRET",
+  "real_acceptance_cases": [
+    {"site": "imagine-test-a01-3f837c790d4b-classic", "storage": "classic", "publication": "verified", "assigned_operator_url_http": 200, "witness_readback": true},
+    {"site": "imagine-test-a01-3f837c790d4b-hpos", "storage": "hpos", "publication": "verified", "assigned_operator_url_http": 200, "witness_readback": true},
+    {"site": "imagine-test-a01-3f837c790d4b-trap", "storage": "classic", "publication": "REFUSED_OFFLINE", "verifier_exit": 1, "issue": "SECRET_OU_IDENTIFIANT", "injected": false, "all_services_stopped": true, "http_reachable": false}
+  ],
+  "real_cases_passed": 3,
+  "duration_seconds": 258.975339,
+  "publication_unit_tests_passed": 8,
+  "baseline_checks_passed": 18,
+  "baseline_checks_failed": 0,
+  "baseline_archive_tests": 12,
+  "baseline_harness_tests": 17,
+  "baseline_data_cases": 9,
+  "baseline_data_assertions": 337,
+  "cleanup": {
+    "all_sites_from_all_recorded_passes_absent": true,
+    "live_site_absence_readbacks": 20,
+    "api_containers_html_volume_network_directory_checked": true,
+    "owned_publication_runners_remaining": 0,
+    "baseline_runner_absence_independently_checked": true
+  },
+  "novamira_after_accepted_injection": {
+    "plugin_present": false,
+    "nonempty_application_password_records": 0,
+    "created_application_password_credentials_valid": false,
+    "agent_authentication_attempted": false,
+    "secrets_disclosed": false,
+    "dashboard_metadata_may_be_stale": true,
+    "remote_license_account_inspected_or_revoked": false
+  },
+  "scope": {
+    "tool_or_templates_modified": false,
+    "other_sites_accessed_or_modified": false,
+    "imagine_archive_opened": false,
+    "real_import_executed": false,
+    "old_imagine_copy_accessed_or_restarted": false,
+    "git_used": false,
+    "host_installation": false,
+    "php_tests_host_execution": false,
+    "parent_lock_or_reports_modified": false
+  },
+  "new_source_files": [
+    "wp/outils/staging-court/publication.py",
+    "wp/outils/staging-court/publish.py",
+    "wp/outils/staging-court/publication_probe.php",
+    "wp/tests/a01-court/test_publication.py",
+    "wp/tests/a01-court/prepare_publication.py",
+    "wp/tests/a01-court/verify_publication.py"
+  ],
+  "updated_guides": ["wp/outils/staging-court/README.md", "production/A-01/notes.md"],
+  "limits": [
+    "No system firewall after verification: WordPress HTTP filtering only, per approved brief.",
+    "Dashboard runtime status is running; verified is the root witness and report status.",
+    "Exact assigned URL is HTTP 200 from the operator Windows host; WSL LAN hairpin resets are separately retained.",
+    "Only the pinned tested versions, simple-site uncompressed wpress format and existing closed SQL grammar are qualified.",
+    "The first real Imagine import remains reserved to Ced, with report review before agent access.",
+    "A Woo log may be regenerated after bootstrap; absence of all future runtime logs is not claimed."
+  ],
+  "parent_reverification": [
+    {"command": "PYTHONDONTWRITEBYTECODE=1 python wp/tests/a01-court/test_publication.py", "tool_timeout_seconds": 60, "site_mutations": false},
+    {"command": "PYTHONDONTWRITEBYTECODE=1 python wp/tests/a01-court/verify_publication.py --report production/A-01/publication-22nov/3f837c790d4b/result.json --live-cleanup", "tool_timeout_seconds": 300, "site_mutations": false}
+  ],
+  "optional_complete_replay": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python wp/outils/staging-court/publish.py --self-test-publication",
+    "tool_timeout_seconds": 600,
+    "site_mutations": "Creates only new named imagine-test sites through the normal API; deletes and verifies absence at the end."
+  }
+}

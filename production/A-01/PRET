@@ -1,0 +1,15 @@
+A-01 publication — prêt à relire, 22 novembre 2026.
+
+Commande : wp/outils/staging-court/publish.py
+Mode d'emploi : production/A-01/notes.md
+Synthèse : production/A-01/publication-22nov/acceptance.json
+Preuve réelle : production/A-01/publication-22nov/3f837c790d4b/result.json
+Revérification : production/A-01/publication-22nov/verification-final.json
+
+Trois cas PASS : classique et HPOS publiés HTTP 200 à l'URL exacte,
+témoins verified relus ; archive piégée refusée avant injection, test arrêté.
+Huit tests du sas et régression hors ligne verte. Tous les tests supprimés,
+absence API/conteneurs/volumes/réseaux/répertoires relue, aucun accès agent.
+
+Ce PRET ne vaut pas GO d'import réel ni d'ouverture aux agents.
+Ced seul lance le premier import Imagine ; rapport relu avant tout accès agent.

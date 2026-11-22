@@ -1,0 +1,286 @@
+{
+  "status": "PASS",
+  "recorded_utc": "2026-11-22T13:33:29.316876+00:00",
+  "report": "C:\\Users\\Ced\\imagine\\production\\A-01\\publication-22nov\\3f837c790d4b\\result.json",
+  "report_sha256": "2387862a1925856f34de1fb8559a52c9e575c9f917d7db0ef17e80ed00333334",
+  "cases_verified": 3,
+  "cases": [
+    {
+      "name": "imagine-test-a01-3f837c790d4b-classic",
+      "storage": "classic",
+      "trapped": false,
+      "publication": "verified",
+      "status": "PASS"
+    },
+    {
+      "name": "imagine-test-a01-3f837c790d4b-hpos",
+      "storage": "hpos",
+      "trapped": false,
+      "publication": "verified",
+      "status": "PASS"
+    },
+    {
+      "name": "imagine-test-a01-3f837c790d4b-trap",
+      "storage": "classic",
+      "trapped": true,
+      "publication": "REFUSED_OFFLINE",
+      "status": "PASS"
+    }
+  ],
+  "command_sources": {
+    "wp/outils/staging-court/archive.py": "1dac4067747284437d326f15dbc1fb81987ce5110df09f5ca42f66290f618164",
+    "wp/outils/staging-court/inside.py": "6df7f05c8f09ee2ebe776cc68e58c93975951967c7bc321e12b781279f8adbac",
+    "wp/outils/staging-court/publication.py": "ac8031f2e9352e694d03a07226fa19e3982f75a696107d9ff6ae41d914a1f244",
+    "wp/outils/staging-court/publication_preflight.py": "cd4dfeb3ef170ea83ba503c3e2b193e4f3dbc11ee8a1053c01d2efc122fee313",
+    "wp/outils/staging-court/publish.py": "4f79379c6c48a66f9ae97217a4f1a270439abd8378c9643259aa583ba6935b28",
+    "wp/outils/staging-court/run.py": "60f3548778be3a8fda9f83c0290e0eaec368b4b7decb652fd7ddf011aa8cf607",
+    "wp/outils/staging-court/bridge.php": "5c13515a5ca50d3e2991a7d595a2499d53cd29b75ce95880c5291f69046d0a22",
+    "wp/outils/staging-court/publication_probe.php": "8a6f85fb07772cd6296203fd5c8a116feb55c1a706f1ccb71858ca90741f018e"
+  },
+  "source_payloads_match_current_files": true,
+  "live_cleanup": [
+    {
+      "site": "imagine-test-a01-02de4304ca11-classic",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-02de4304ca11-classic": true,
+        "db-imagine-test-a01-02de4304ca11-classic": true,
+        "nginx-imagine-test-a01-02de4304ca11-classic": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-17d22e7ff3a6-classic",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-17d22e7ff3a6-classic": true,
+        "db-imagine-test-a01-17d22e7ff3a6-classic": true,
+        "nginx-imagine-test-a01-17d22e7ff3a6-classic": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-17fc825578ff-classic",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-17fc825578ff-classic": true,
+        "db-imagine-test-a01-17fc825578ff-classic": true,
+        "nginx-imagine-test-a01-17fc825578ff-classic": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-3d0770883d52-classic",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-3d0770883d52-classic": true,
+        "db-imagine-test-a01-3d0770883d52-classic": true,
+        "nginx-imagine-test-a01-3d0770883d52-classic": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-3d0770883d52-hpos",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-3d0770883d52-hpos": true,
+        "db-imagine-test-a01-3d0770883d52-hpos": true,
+        "nginx-imagine-test-a01-3d0770883d52-hpos": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-3d0770883d52-trap",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-3d0770883d52-trap": true,
+        "db-imagine-test-a01-3d0770883d52-trap": true,
+        "nginx-imagine-test-a01-3d0770883d52-trap": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-3f837c790d4b-classic",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-3f837c790d4b-classic": true,
+        "db-imagine-test-a01-3f837c790d4b-classic": true,
+        "nginx-imagine-test-a01-3f837c790d4b-classic": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-3f837c790d4b-hpos",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-3f837c790d4b-hpos": true,
+        "db-imagine-test-a01-3f837c790d4b-hpos": true,
+        "nginx-imagine-test-a01-3f837c790d4b-hpos": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-3f837c790d4b-trap",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-3f837c790d4b-trap": true,
+        "db-imagine-test-a01-3f837c790d4b-trap": true,
+        "nginx-imagine-test-a01-3f837c790d4b-trap": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-4b8c65c48974-classic",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-4b8c65c48974-classic": true,
+        "db-imagine-test-a01-4b8c65c48974-classic": true,
+        "nginx-imagine-test-a01-4b8c65c48974-classic": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-4eae0eb638be-classic",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-4eae0eb638be-classic": true,
+        "db-imagine-test-a01-4eae0eb638be-classic": true,
+        "nginx-imagine-test-a01-4eae0eb638be-classic": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-4eae0eb638be-hpos",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-4eae0eb638be-hpos": true,
+        "db-imagine-test-a01-4eae0eb638be-hpos": true,
+        "nginx-imagine-test-a01-4eae0eb638be-hpos": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-4eae0eb638be-trap",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-4eae0eb638be-trap": true,
+        "db-imagine-test-a01-4eae0eb638be-trap": true,
+        "nginx-imagine-test-a01-4eae0eb638be-trap": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-4fde653a20f2-classic",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-4fde653a20f2-classic": true,
+        "db-imagine-test-a01-4fde653a20f2-classic": true,
+        "nginx-imagine-test-a01-4fde653a20f2-classic": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-4fde653a20f2-classic-tr",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-4fde653a20f2-classic-tr": true,
+        "db-imagine-test-a01-4fde653a20f2-classic-tr": true,
+        "nginx-imagine-test-a01-4fde653a20f2-classic-tr": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-4fde653a20f2-hpos",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-4fde653a20f2-hpos": true,
+        "db-imagine-test-a01-4fde653a20f2-hpos": true,
+        "nginx-imagine-test-a01-4fde653a20f2-hpos": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-a86787f09bdf-classic",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-a86787f09bdf-classic": true,
+        "db-imagine-test-a01-a86787f09bdf-classic": true,
+        "nginx-imagine-test-a01-a86787f09bdf-classic": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-c97b485d6ac7-classic",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-c97b485d6ac7-classic": true,
+        "db-imagine-test-a01-c97b485d6ac7-classic": true,
+        "nginx-imagine-test-a01-c97b485d6ac7-classic": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-c97b485d6ac7-hpos",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-c97b485d6ac7-hpos": true,
+        "db-imagine-test-a01-c97b485d6ac7-hpos": true,
+        "nginx-imagine-test-a01-c97b485d6ac7-hpos": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-c97b485d6ac7-trap",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-c97b485d6ac7-trap": true,
+        "db-imagine-test-a01-c97b485d6ac7-trap": true,
+        "nginx-imagine-test-a01-c97b485d6ac7-trap": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    }
+  ],
+  "live_cleanup_count": 20,
+  "no_agent_authentication": true,
+  "shared_tool_source_hashes_match_live": true
+}

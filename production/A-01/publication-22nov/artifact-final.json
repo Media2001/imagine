@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "acceptance_json_consistent": true,
+  "pret_exists": true,
+  "all_proof_targets_exist": true,
+  "source_code_compiles": true,
+  "cli_help_exit": 0,
+  "owned_scopes_contain_no_archive_or_zip": true,
+  "artifacts_after_final_writes": {
+    "wp/outils/staging-court/publication.py": {
+      "bytes": 1217,
+      "sha256": "ac8031f2e9352e694d03a07226fa19e3982f75a696107d9ff6ae41d914a1f244"
+    },
+    "wp/outils/staging-court/publish.py": {
+      "bytes": 32580,
+      "sha256": "4f79379c6c48a66f9ae97217a4f1a270439abd8378c9643259aa583ba6935b28"
+    },
+    "wp/outils/staging-court/publication_probe.php": {
+      "bytes": 5706,
+      "sha256": "8a6f85fb07772cd6296203fd5c8a116feb55c1a706f1ccb71858ca90741f018e"
+    },
+    "wp/tests/a01-court/test_publication.py": {
+      "bytes": 4924,
+      "sha256": "8b191786aefa5a13e9fbf347a33968a41993103f3aa870b1bb1ebc0a9c620f31"
+    },
+    "wp/tests/a01-court/prepare_publication.py": {
+      "bytes": 3951,
+      "sha256": "6ca08b60f076e3cb6b94a5a421712aae8de43eadf5e30a201c4ed029d561414a"
+    },
+    "wp/tests/a01-court/verify_publication.py": {
+      "bytes": 8148,
+      "sha256": "6c033c9518b5a56ee564158dc9b786a8cca33d165e015e7aef718802471bf76d"
+    },
+    "wp/outils/staging-court/README.md": {
+      "bytes": 7662,
+      "sha256": "d61295bfda1d91f9e4f3d2d19781695f1310245a6813ee03320d0d2627837a07"
+    },
+    "production/A-01/notes.md": {
+      "bytes": 44481,
+      "sha256": "ad05096d6a20b9765d76cc1fbfc12f12517b846e9c2840ef6078332e20496eb7"
+    },
+    "production/A-01/PRET": {
+      "bytes": 818,
+      "sha256": "ca2dbbdc67ac2a2b9dcfa1bee8135c3917c6d4c29523ca248907b05573c969cb"
+    },
+    "production/A-01/publication-22nov/acceptance.json": {
+      "bytes": 4620,
+      "sha256": "c38d74ca8b26cf84e19deed73ed782f58af2ee2464828ef40c735f3d352cb948"
+    },
+    "production/A-01/publication-22nov/verification-final.json": {
+      "bytes": 10195,
+      "sha256": "81e23485afc1a72ed3d7877e36dbe937f59ad8470052773fced9ee0664cda240"
+    }
+  },
+  "report_sha256": "2387862a1925856f34de1fb8559a52c9e575c9f917d7db0ef17e80ed00333334",
+  "live_cleanup_count": 20
+}
