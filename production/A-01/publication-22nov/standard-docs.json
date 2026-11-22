@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://developer.wordpress.org/reference/hooks/pre_wp_mail/",
+    "http": 200,
+    "sha256": "8658e5a09c4b2e09005cfd006e3f4b173b62691342bff3c62166cdfbcfc5d337",
+    "title": [
+      "pre_wp_mail \u2013 Hook | Developer.WordPress.org"
+    ],
+    "pre_wp_mail": true,
+    "staging": false,
+    "as_schedule_single_action": false
+  },
+  {
+    "url": "https://developer.wordpress.org/apis/making-http-requests/",
+    "http": 200,
+    "sha256": "d064379ac63e3e56c5954ce31cee01ea58751c4b999dc5e6c930a89c9f54df36",
+    "title": [
+      "Making HTTP requests \u2013 Common APIs Handbook | Developer.WordPress.org"
+    ],
+    "pre_wp_mail": false,
+    "staging": false,
+    "as_schedule_single_action": false
+  },
+  {
+    "url": "https://woocommerce.com/document/subscriptions-handles-staging-sites/",
+    "http": 200,
+    "sha256": "f49afc86304ee3b003177bfb8c9cd50509bfbb9bceeccea01da903e8ef830d12",
+    "title": [
+      "How Subscriptions Handles Staging Sites and Migrations Documentation - WooCommerce"
+    ],
+    "pre_wp_mail": false,
+    "staging": true,
+    "as_schedule_single_action": false
+  },
+  {
+    "url": "https://actionscheduler.org/api/",
+    "http": 200,
+    "sha256": "e0964bb2f2ff802cd19b065ad9c45845dd3f2913118b07670c6a16e2ebc9ddd0",
+    "title": [
+      "API Reference | Action Scheduler - Job Queue for WordPress"
+    ],
+    "pre_wp_mail": false,
+    "staging": false,
+    "as_schedule_single_action": true
+  }
+]
