@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="3" assertions="9" errors="0" failures="0" skipped="0" time="0.001763">
+    <testsuite name="Envoi" tests="3" assertions="9" errors="0" failures="0" skipped="0" time="0.001763">
+      <testsuite name="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" file="/work/tests/Envoi/ListeEnvoiTest.php" tests="3" assertions="9" errors="0" failures="0" skipped="0" time="0.001763">
+        <testsuite name="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testSansDestinataireNeDisparaitPasEnSilence" tests="3" assertions="9" errors="0" failures="0" skipped="0" time="0.001763">
+          <testcase name="testSansDestinataireNeDisparaitPasEnSilence with data set &quot;individuel&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="115" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.001526"/>
+          <testcase name="testSansDestinataireNeDisparaitPasEnSilence with data set &quot;offert&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="115" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000097"/>
+          <testcase name="testSansDestinataireNeDisparaitPasEnSilence with data set &quot;groupe libre&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="115" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000140"/>
+        </testsuite>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

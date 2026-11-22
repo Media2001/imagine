@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="2" assertions="9" errors="0" failures="0" skipped="0" time="0.001841">
+    <testsuite name="Envoi" tests="2" assertions="9" errors="0" failures="0" skipped="0" time="0.001841">
+      <testsuite name="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" file="/work/tests/Envoi/ListeEnvoiTest.php" tests="2" assertions="9" errors="0" failures="0" skipped="0" time="0.001841">
+        <testcase name="testDoublonNomAdresseCasseAccentueeEtEspacesUnicode" file="/work/tests/Envoi/ListeEnvoiTest.php" line="270" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="6" time="0.001741"/>
+        <testcase name="testDoublonIdentiteStableMemeAdresseMalgreNomDifferent" file="/work/tests/Envoi/ListeEnvoiTest.php" line="290" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000100"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

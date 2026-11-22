@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="30" assertions="80" errors="0" failures="10" skipped="0" time="0.007920">
+    <testsuite name="Envoi" tests="30" assertions="80" errors="0" failures="10" skipped="0" time="0.007920">
+      <testsuite name="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" file="/work/tests/Envoi/ListeEnvoiTest.php" tests="30" assertions="80" errors="0" failures="10" skipped="0" time="0.007920">
+        <testsuite name="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testPresencePostaleUnicode" tests="30" assertions="80" errors="0" failures="10" skipped="0" time="0.007920">
+          <testcase name="testPresencePostaleUnicode with data set &quot;nom vide ordinaire&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.001513"/>
+          <testcase name="testPresencePostaleUnicode with data set &quot;nom entoure ordinaire&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000507"/>
+          <testcase name="testPresencePostaleUnicode with data set &quot;nom vide insecable&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="2" time="0.002713">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testPresencePostaleUnicode with data set "nom vide insecable"
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+-Array &amp;0 [
+-    0 =&gt; 'adresse_incomplete',
+-]
++Array &amp;0 []
+
+/work/tests/Envoi/ListeEnvoiTest.php:245</failure>
+          </testcase>
+          <testcase name="testPresencePostaleUnicode with data set &quot;nom entoure insecable&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000103"/>
+          <testcase name="testPresencePostaleUnicode with data set &quot;nom vide fine&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="2" time="0.000166">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testPresencePostaleUnicode with data set "nom vide fine"
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+-Array &amp;0 [
+-    0 =&gt; 'adresse_incomplete',
+-]
++Array &amp;0 []
+
+/work/tests/Envoi/ListeEnvoiTest.php:245</failure>
+          </testcase>
+          <testcase name="testPresencePostaleUnicode with data set &quot;nom entoure fine&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000101"/>
+          <testcase name="testPresencePostaleUnicode with data set &quot;rue vide ordinaire&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000071"/>
+          <testcase name="testPresencePostaleUnicode with data set &quot;rue entoure ordinaire&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000090"/>
+          <testcase name="testPresencePostaleUnicode with data set &quot;rue vide insecable&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="2" time="0.000162">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testPresencePostaleUnicode with data set "rue vide insecable"
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+-Array &amp;0 [
+-    0 =&gt; 'adresse_incomplete',
+-]
++Array &amp;0 []
+
+/work/tests/Envoi/ListeEnvoiTest.php:245</failure>
+          </testcase>
+          <testcase name="testPresencePostaleUnicode with data set &quot;rue entoure insecable&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000218"/>
+          <testcase name="testPresencePostaleUnicode with data set &quot;rue vide fine&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="2" time="0.000189">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testPresencePostaleUnicode with data set "rue vide fine"
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+-Array &amp;0 [
+-    0 =&gt; 'adresse_incomplete',
+-]
++Array &amp;0 []
+
+/work/tests/Envoi/ListeEnvoiTest.php:245</failure>
+          </testcase>
+          <testcase name="testPresencePostaleUnicode with data set &quot;rue entoure fine&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000090"/>
+          <testcase name="testPresencePostaleUnicode with data set &quot;codePostal vide ordinaire&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000147"/>
+          <testcase name="testPresencePostaleUnicode with data set &quot;codePostal entoure ordinaire&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000094"/>
+          <testcase name="testPresencePostaleUnicode with data set &quot;codePostal vide insecable&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="2" time="0.000149">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testPresencePostaleUnicode with data set "codePostal vide insecable"
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+-Array &amp;0 [
+-    0 =&gt; 'adresse_incomplete',
+-]
++Array &amp;0 []
+
+/work/tests/Envoi/ListeEnvoiTest.php:245</failure>
+          </testcase>
+          <testcase name="testPresencePostaleUnicode with data set &quot;codePostal entoure insecable&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000088"/>
+          <testcase name="testPresencePostaleUnicode with data set &quot;codePostal vide fine&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="2" time="0.000142">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testPresencePostaleUnicode with data set "codePostal vide fine"
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+-Array &amp;0 [
+-    0 =&gt; 'adresse_incomplete',
+-]
++Array &amp;0 []
+
+/work/tests/Envoi/ListeEnvoiTest.php:245</failure>
+          </testcase>
+          <testcase name="testPresencePostaleUnicode with data set &quot;codePostal entoure fine&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000087"/>
+          <testcase name="testPresencePostaleUnicode with data set &quot;ville vide ordinaire&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000083"/>
+          <testcase name="testPresencePostaleUnicode with data set &quot;ville entoure ordinaire&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000090"/>
+          <testcase name="testPresencePostaleUnicode with data set &quot;ville vide insecable&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="2" time="0.000140">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testPresencePostaleUnicode with data set "ville vide insecable"
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+-Array &amp;0 [
+-    0 =&gt; 'adresse_incomplete',
+-]
++Array &amp;0 []
+
+/work/tests/Envoi/ListeEnvoiTest.php:245</failure>
+          </testcase>
+          <testcase name="testPresencePostaleUnicode with data set &quot;ville entoure insecable&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000086"/>
+          <testcase name="testPresencePostaleUnicode with data set &quot;ville vide fine&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="2" time="0.000185">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testPresencePostaleUnicode with data set "ville vide fine"
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+-Array &amp;0 [
+-    0 =&gt; 'adresse_incomplete',
+-]
++Array &amp;0 []
+
+/work/tests/Envoi/ListeEnvoiTest.php:245</failure>
+          </testcase>
+          <testcase name="testPresencePostaleUnicode with data set &quot;ville entoure fine&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000087"/>
+          <testcase name="testPresencePostaleUnicode with data set &quot;pays vide ordinaire&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000084"/>
+          <testcase name="testPresencePostaleUnicode with data set &quot;pays entoure ordinaire&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000086"/>
+          <testcase name="testPresencePostaleUnicode with data set &quot;pays vide insecable&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="2" time="0.000140">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testPresencePostaleUnicode with data set "pays vide insecable"
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+-Array &amp;0 [
+-    0 =&gt; 'pays_manquant',
+-]
++Array &amp;0 []
+
+/work/tests/Envoi/ListeEnvoiTest.php:245</failure>
+          </testcase>
+          <testcase name="testPresencePostaleUnicode with data set &quot;pays entoure insecable&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000086"/>
+          <testcase name="testPresencePostaleUnicode with data set &quot;pays vide fine&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="2" time="0.000139">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testPresencePostaleUnicode with data set "pays vide fine"
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+-Array &amp;0 [
+-    0 =&gt; 'pays_manquant',
+-]
++Array &amp;0 []
+
+/work/tests/Envoi/ListeEnvoiTest.php:245</failure>
+          </testcase>
+          <testcase name="testPresencePostaleUnicode with data set &quot;pays entoure fine&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="234" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000086"/>
+        </testsuite>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -218,6 +218,40 @@ final class ListeEnvoiTest extends TestCase
         }
     }
 
+    public static function champsPostaux(): array
+    {
+        $cas = [];
+        foreach (['nom', 'rue', 'codePostal', 'ville', 'pays'] as $champ) {
+            foreach (['ordinaire' => ' ', 'insecable' => "\u{00A0}", 'fine' => "\u{202F}"] as $type => $espace) {
+                $cas[$champ . ' vide ' . $type] = [$champ, $espace, false];
+                $cas[$champ . ' entoure ' . $type] = [$champ, $espace . 'Fictif' . $espace, true];
+            }
+        }
+        return $cas;
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('champsPostaux')]
+    public function testPresencePostaleUnicode(string $champ, string $valeur, bool $present): void
+    {
+        $champs = [
+            'id' => 'fictif', 'nom' => 'Camille Fictive', 'rue' => '1 rue Imaginaire',
+            'complement' => '', 'codePostal' => '1000', 'ville' => 'Ville Fictive', 'pays' => 'BE',
+        ];
+        $champs[$champ] = $valeur;
+        $liste = $this->calculer([
+            $this->abonnement([$this->situation(destinataires: [new Destinataire(...$champs)])]),
+        ]);
+        self::assertCount(1, $liste->lignes);
+        self::assertSame(
+            $present ? [] : [$champ === 'pays' ? 'pays_manquant' : 'adresse_incomplete'],
+            array_column($liste->anomalies, 'motif')
+        );
+        if (!$present) {
+            $this->expectException(\LogicException::class);
+        }
+        self::assertNotEmpty(\Imagine\Pilotage\Envoi\ExportCsv::liste($liste));
+    }
+
     public function testAnomaliesSepareesEtDoublonsConserves(): void
     {
         $incomplet = new Destinataire('incomplet', 'Fictive SansRue', '', '', '1000', 'Ville Fictive', '');
@@ -231,6 +265,64 @@ final class ListeEnvoiTest extends TestCase
             ['adresse_incomplete', 'doublon_destinataire_adresse', 'doublon_destinataire_adresse', 'pays_manquant'],
             array_column($liste->anomalies, 'motif')
         );
+    }
+
+    public function testDoublonNomAdresseCasseAccentueeEtEspacesUnicode(): void
+    {
+        $a = new Destinataire('a', "\u{00A0}ÉLODIE  FICTIVE\u{202F}", '1 RUE IMAGINAIRE', '', '1000', 'CITÉ FICTIVE', 'BE');
+        $b = new Destinataire('b', 'élodie fictive', '1 rue imaginaire', '', '1000', 'cité fictive', 'be');
+        $liste = $this->calculer([
+            $this->abonnement([$this->situation(destinataires: [$a])], 'a'),
+            $this->abonnement([$this->situation(destinataires: [$b])], 'b'),
+        ]);
+        self::assertCount(2, $liste->lignes);
+        self::assertSame(['a', 'b'], array_column($liste->lignes, 'destinataire_id'));
+        self::assertSame(
+            ['doublon_destinataire_adresse', 'doublon_destinataire_adresse'],
+            array_column($liste->anomalies, 'motif')
+        );
+        self::assertSame([0, 1], array_column($liste->anomalies, 'ligne'));
+        self::assertSame($liste->lignes, array_column($liste->anomalies, 'exemplaire'));
+        $this->expectException(\LogicException::class);
+        \Imagine\Pilotage\Envoi\ExportCsv::liste($liste);
+    }
+
+    public function testDoublonIdentiteStableMemeAdresseMalgreNomDifferent(): void
+    {
+        $a = new Destinataire('commun', 'Élodie Fictive', '1 rue Imaginaire', '', '1000', 'Ville Fictive', 'BE');
+        $b = new Destinataire('commun', 'Nom Fictif Modifie', '1 rue Imaginaire', '', '1000', 'Ville Fictive', 'BE');
+        $liste = $this->calculer([
+            $this->abonnement([$this->situation(destinataires: [$a])], 'a'),
+            $this->abonnement([$this->situation(destinataires: [$b])], 'b'),
+        ]);
+        self::assertCount(2, $liste->lignes);
+        self::assertSame([0, 1], array_column($liste->anomalies, 'ligne'));
+        self::assertSame(
+            ['doublon_destinataire_adresse', 'doublon_destinataire_adresse'],
+            array_column($liste->anomalies, 'motif')
+        );
+    }
+
+    public function testMemeIdentiteStableMaisAdresseDifferenteSansDoublon(): void
+    {
+        $liste = $this->calculer([
+            $this->abonnement([$this->situation(destinataires: [$this->personne('commun')])], 'a'),
+            $this->abonnement([$this->situation(destinataires: [$this->personne('commun', '2 rue Autre')])], 'b'),
+        ]);
+        self::assertCount(2, $liste->lignes);
+        self::assertSame([], $liste->anomalies);
+    }
+
+    public function testDestinatairesDistinctsMemeAdresseNeSontPasFusionnes(): void
+    {
+        $a = $this->personne('a');
+        $b = new Destinataire('b', 'Autre Fictive', $a->rue, '', '1000', 'Ville Fictive', 'BE');
+        $liste = $this->calculer([
+            $this->abonnement([$this->situation(destinataires: [$a])], 'a'),
+            $this->abonnement([$this->situation(destinataires: [$b])], 'b'),
+        ]);
+        self::assertCount(2, $liste->lignes);
+        self::assertSame([], $liste->anomalies);
     }
 
     public function testOrdreDeterministeEtImmutabilite(): void

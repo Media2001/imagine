@@ -10,7 +10,6 @@ use Imagine\Pilotage\Numeros\Numero;
 
 final readonly class ListeEnvoi
 {
-
     private function __construct(
         public Numero $numero,
         public DateTimeImmutable $cloture,
@@ -42,6 +41,7 @@ final readonly class ListeEnvoi
             $ids[$abonnement->id] = true;
         }
         $lignes = [];
+        $anomalies = [];
         foreach ($abonnements as $abonnement) {
             if ($abonnement->creation >= $cloture || $abonnement->origine === 'numero_unite') {
                 continue;
@@ -63,6 +63,9 @@ final readonly class ListeEnvoi
             ) {
                 continue;
             }
+            if ($situation->destinataires === [] && $abonnement->origine !== 'groupe') {
+                $anomalies[] = ['motif' => 'destinataire_manquant', 'abonnement_id' => $abonnement->id];
+            }
             foreach ($situation->destinataires as $destinataire) {
                 $lignes[] = [
                     'abonnement_id' => $abonnement->id,
@@ -80,36 +83,52 @@ final readonly class ListeEnvoi
         usort($lignes, static fn (array $a, array $b): int =>
             strcmp($a['abonnement_id'], $b['abonnement_id'])
             ?: strcmp($a['destinataire_id'], $b['destinataire_id']));
-        $anomalies = [];
         $groupes = [];
         foreach ($lignes as $index => $ligne) {
             if (
-                trim($ligne['destinataire']) === '' || trim($ligne['rue']) === ''
-                || trim($ligne['code_postal']) === '' || trim($ligne['ville']) === ''
+                self::normaliserEspaces($ligne['destinataire']) === ''
+                || self::normaliserEspaces($ligne['rue']) === ''
+                || self::normaliserEspaces($ligne['code_postal']) === ''
+                || self::normaliserEspaces($ligne['ville']) === ''
             ) {
                 $anomalies[] = ['motif' => 'adresse_incomplete', 'ligne' => $index, 'exemplaire' => $ligne];
             }
-            if (trim($ligne['pays']) === '') {
+            if (self::normaliserEspaces($ligne['pays']) === '') {
                 $anomalies[] = ['motif' => 'pays_manquant', 'ligne' => $index, 'exemplaire' => $ligne];
             }
             $cle = [];
             foreach (['destinataire', 'rue', 'complement', 'code_postal', 'ville', 'pays'] as $champ) {
-                $cle[] = strtolower(preg_replace('/\s+/u', ' ', trim($ligne[$champ])));
+                $cle[] = mb_strtolower(self::normaliserEspaces($ligne[$champ]), 'UTF-8');
             }
-            $groupes[json_encode($cle, JSON_THROW_ON_ERROR)][] = $index;
+            $groupes[json_encode(['nom', $cle], JSON_THROW_ON_ERROR)][] = $index;
+            if ($ligne['destinataire_id'] !== '') {
+                $identite = ['id', $ligne['destinataire_id'], array_slice($cle, 1)];
+                $groupes[json_encode($identite, JSON_THROW_ON_ERROR)][] = $index;
+            }
         }
+        $doublons = [];
         foreach ($groupes as $indices) {
             if (count($indices) < 2) {
                 continue;
             }
             foreach ($indices as $index) {
-                $anomalies[] = [
-                    'motif' => 'doublon_destinataire_adresse', 'ligne' => $index, 'exemplaire' => $lignes[$index],
-                ];
+                $doublons[$index] = true;
             }
         }
+        foreach (array_keys($doublons) as $index) {
+            $anomalies[] = [
+                'motif' => 'doublon_destinataire_adresse', 'ligne' => $index, 'exemplaire' => $lignes[$index],
+            ];
+        }
         usort($anomalies, static fn (array $a, array $b): int =>
-            strcmp($a['motif'], $b['motif']) ?: $a['ligne'] <=> $b['ligne']);
+            strcmp($a['motif'], $b['motif'])
+            ?: ($a['ligne'] ?? -1) <=> ($b['ligne'] ?? -1)
+            ?: strcmp($a['abonnement_id'] ?? '', $b['abonnement_id'] ?? ''));
         return new self($numero, $cloture, $lignes, $anomalies);
+    }
+
+    private static function normaliserEspaces(string $valeur): string
+    {
+        return trim(preg_replace('/[\s\p{Z}]+/u', ' ', $valeur));
     }
 }

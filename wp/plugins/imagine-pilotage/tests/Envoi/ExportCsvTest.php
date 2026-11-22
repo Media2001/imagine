@@ -28,13 +28,44 @@ final class ExportCsvTest extends TestCase
         });
     }
 
-    public function testProtectionC04PartageeSansChangerSonComportement(): void
+    public static function cellulesCsv(): array
     {
-        foreach (['=1', '+1', '-1', '@x', "\t=1", "\r\n +1", "\x00@x", 'normal', '00100', ''] as $cellule) {
-            $attendu = preg_match('/\\A[\\x00-\\x20]*[=+@-]/', $cellule) === 1
-                ? "'" . $cellule : $cellule;
-            self::assertSame($attendu, CsvProtection::cellule($cellule));
-        }
+        return [
+            'egal' => ['=1', "'=1"],
+            'plus' => ['+1', "'+1"],
+            'moins' => ['-1', "'-1"],
+            'arobase' => ['@x', "'@x"],
+            'tabulation' => ["\t=1", "'\t=1"],
+            'retours et espace' => ["\r\n +1", "'\r\n +1"],
+            'nul' => ["\x00@x", "'\x00@x"],
+            'controle' => ["\x1F-1", "'\x1F-1"],
+            'espace' => [' =1', "' =1"],
+            'normal' => ['normal', 'normal'],
+            'zero initial' => ['00100', '00100'],
+            'vide' => ['', ''],
+            'formule non initiale' => ['texte=1', 'texte=1'],
+            'apostrophe existante' => ["'=1", "'=1"],
+            'ponctuation' => ['Fictive, "Camille"', 'Fictive, "Camille"'],
+            'controle sans formule' => ["\tnormal", "\tnormal"],
+        ];
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('cellulesCsv')]
+    public function testProtectionC04PartageeSansChangerSonComportement(string $cellule, string $attendu): void
+    {
+        self::assertSame($attendu, CsvProtection::cellule($cellule));
+        $colonnes = [
+            'abonnement_id', 'destinataire_id', 'destinataire', 'rue', 'complement',
+            'code_postal', 'ville', 'pays', 'origine',
+        ];
+        $csv = ExportCsv::lignes([array_fill_keys($colonnes, $cellule)]);
+        $stream = fopen('php://memory', 'w+b');
+        fwrite($stream, $csv);
+        rewind($stream);
+        self::assertSame($colonnes, fgetcsv($stream, escape: ''));
+        self::assertSame(array_fill(0, 9, $attendu), fgetcsv($stream, escape: ''));
+        self::assertFalse(fgetcsv($stream, escape: ''));
+        fclose($stream);
     }
 
     public function testCsvColonnesStablesInjectionEtRoundtrip(): void

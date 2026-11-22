@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="1" assertions="3" errors="0" failures="1" skipped="0" time="0.004601">
+    <testsuite name="Envoi" tests="1" assertions="3" errors="0" failures="1" skipped="0" time="0.004601">
+      <testsuite name="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" file="/work/tests/Envoi/ListeEnvoiTest.php" tests="1" assertions="3" errors="0" failures="1" skipped="0" time="0.004601">
+        <testcase name="testDoublonNomAdresseCasseAccentueeEtEspacesUnicode" file="/work/tests/Envoi/ListeEnvoiTest.php" line="270" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.004601">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testDoublonNomAdresseCasseAccentueeEtEspacesUnicode
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+-Array &amp;0 [
+-    0 =&gt; 'doublon_destinataire_adresse',
+-    1 =&gt; 'doublon_destinataire_adresse',
+-]
++Array &amp;0 []
+
+/work/tests/Envoi/ListeEnvoiTest.php:280</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>
