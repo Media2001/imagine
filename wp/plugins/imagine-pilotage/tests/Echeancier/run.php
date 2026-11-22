@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+// Banc autonome et fixture partagée : déclarations et exécution sont intentionnellement réunies.
+// phpcs:disable PSR1.Files.SideEffects
+
 use Imagine\Pilotage\Echeancier\Planificateur;
 use Imagine\Pilotage\Numeros\Activation;
 use Imagine\Pilotage\Numeros\Annee;
@@ -192,7 +195,10 @@ $tests['fuseau_dst_et_29_fevrier_sont_ceux_de_c01'] = static function (): void {
     c05Assert($plan[3]->date->format('P') === '+01:00', 'Hiver C01');
     $utc = $a->debut->setTimezone(new DateTimeZone('UTC'));
     $other = c05Annee($utc->format(DATE_ATOM));
-    c05Assert((new Planificateur($source))->planifier($other, $other->finNumerique(), 7)[0]->date == $plan[0]->date, 'Instant absolu');
+    c05Assert(
+        (new Planificateur($source))->planifier($other, $other->finNumerique(), 7)[0]->date == $plan[0]->date,
+        'Instant absolu'
+    );
 };
 $tests['contre_exemple_a00_cinq_dates_naives_quatre_positions'] = static function (): void {
     $source = new Moteur(c05Calendrier());
@@ -204,13 +210,19 @@ $tests['contre_exemple_a00_cinq_dates_naives_quatre_positions'] = static functio
         }
     }
     c05Assert(count($naives) === 5, 'Cinq dates si on ajoute toutes les clôtures');
-    c05Assert(count((new Planificateur($source))->planifier($a, $a->finNumerique(), 7)) === 4, 'Le premier numéro est payé à la commande');
+    c05Assert(
+        count((new Planificateur($source))->planifier($a, $a->finNumerique(), 7)) === 4,
+        'Le premier numéro est payé à la commande'
+    );
 };
 $tests['reconduction_inconnue_si_precedente_incomplete'] = static function (): void {
     $source = new Moteur(new Calendrier(array_slice(c05Calendrier()->numeros, 0, 2)));
     $a = c05Annee('2026-01-01');
     $b = $source->renouveler($a, $a->finNumerique());
-    c05Refuse(static fn () => (new Planificateur($source))->planifier($b, c05Date('2028-01-01'), 7), 'CALENDRIER_INCOMPLET');
+    c05Refuse(
+        static fn () => (new Planificateur($source))->planifier($b, c05Date('2028-01-01'), 7),
+        'CALENDRIER_INCOMPLET'
+    );
 };
 
 // One test for every day, not only three hand-picked successful dates.
@@ -222,7 +234,11 @@ for ($jour = c05Date('2027-01-01 12:00:00'); $jour < c05Date('2028-01-01'); $jou
         $planner = new Planificateur($source);
         $p = $planner->planifier($a, $a->finNumerique(), 7);
         c05Assert(count($p) === 4, 'Quatre initial compris');
-        c05Assert(array_map(static fn ($v) => $v->numero->id, $p) === array_map(static fn ($n) => $n->id, $source->numeros($a)), 'C01 seul sélectionne');
+        c05Assert(
+            array_map(static fn ($v) => $v->numero->id, $p)
+                === array_map(static fn ($n) => $n->id, $source->numeros($a)),
+            'C01 seul sélectionne'
+        );
         $b = $source->renouveler($a, $a->finNumerique())->activer($a->finNumerique(), Activation::Paiement);
         $premiereCommune = $source->echeances($b, 7)[0]->lancement;
         if ($premiereCommune < $b->debut) {
@@ -232,7 +248,10 @@ for ($jour = c05Date('2027-01-01 12:00:00'); $jour < c05Date('2028-01-01'); $jou
             $suite = $planner->planifier($b, $b->finNumerique(), 7);
             c05Assert(count($suite) === 4, 'Reconduction quatre');
             $dates = array_map(static fn ($v) => $v->date, [...$p, ...$suite]);
-            c05Assert(count(array_filter($dates, static fn ($d) => $d >= $a->debut && $d < $a->finNumerique())) === 4, 'Pas de cinquième avant anniversaire');
+            c05Assert(
+                count(array_filter($dates, static fn ($d) => $d >= $a->debut && $d < $a->finNumerique())) === 4,
+                'Pas de cinquième avant anniversaire'
+            );
         }
     };
 }

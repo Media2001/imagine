@@ -81,25 +81,54 @@ final class ListeEnvoiTest extends TestCase
     public static function profils(): array
     {
         return [
-            'A-CARTE' => ['actif', true, true],
-            'A-SEPA4' => ['actif', true, true],
-            'A-GRACE' => ['grace', true, true],
-            'A-SUSP' => ['suspendu', true, false],
-            'A-VIR' => ['actif', false, false],
-            'A-PAPIER attente' => ['actif', false, false],
-            'A-PAPIER valide' => ['actif', true, true],
-            'A-EXPIRE' => ['expire', true, false],
-            'A-NONRENOUV' => ['actif', true, true],
-            'A-ETRANGER' => ['actif', true, true],
-            'A-SANSMAIL' => ['actif', true, true],
+            'A-CARTE' => ['actif', true, 'BE', 'carte@example.org', 'carte-fictive', ['carte-fictive']],
+            'A-SEPA4' => ['actif', true, 'BE', 'sepa@example.org', 'sepa-fictive', ['sepa-fictive']],
+            'A-GRACE' => ['grace', false, 'BE', 'grace@example.org', 'grace-fictive', ['grace-fictive']],
+            'A-SUSP' => ['suspendu', true, 'BE', 'suspendue@example.org', 'suspendue-fictive', []],
+            'A-VIR' => ['actif', false, 'BE', 'virement@example.org', 'virement-fictif', []],
+            'A-PAPIER attente' => ['actif', false, 'BE', 'papier.attente@example.org', 'papier-attente', []],
+            'A-PAPIER valide' => ['actif', true, 'BE', 'papier@example.org', 'papier-fictif', ['papier-fictif']],
+            'A-EXPIRE' => ['expire', true, 'BE', 'expiree@example.org', 'expiree-fictive', []],
+            'A-NONRENOUV' => ['actif', true, 'BE', 'nonrenouv@example.org', 'nonrenouv-fictive', ['nonrenouv-fictive']],
+            'A-ETRANGER' => ['actif', true, 'FR', 'etrangere@example.org', 'etrangere-fictive', ['etrangere-fictive']],
+            'A-SANSMAIL' => ['actif', true, 'BE', null, 'horsligne-fictive', ['horsligne-fictive']],
         ];
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('profils')]
-    public function testProfilsACloture(string $etat, bool $paiement, bool $attendu): void
-    {
-        $liste = $this->calculer([$this->abonnement([$this->situation(etat: $etat, paiement: $paiement)])]);
-        self::assertCount($attendu ? 1 : 0, $liste->lignes);
+    public function testProfilsACloture(
+        string $etat,
+        bool $paiement,
+        string $pays,
+        ?string $emailCompte,
+        string $idDestinataire,
+        array $idsAttendus
+    ): void {
+        // L'email reste une donnée du compte fictif, jamais une entrée du moteur postal.
+        $compte = ['email' => $emailCompte, 'destinataire_id' => $idDestinataire];
+        $destinataire = new Destinataire(
+            $compte['destinataire_id'],
+            'Profil Fictif',
+            '1 rue Imaginaire',
+            '',
+            '00100',
+            'Ville Fictive',
+            $pays
+        );
+        $liste = $this->calculer([$this->abonnement([
+            $this->situation(etat: $etat, paiement: $paiement, destinataires: [$destinataire]),
+        ])]);
+        self::assertSame($idsAttendus, array_column($liste->lignes, 'destinataire_id'));
+        self::assertSame([], $liste->anomalies);
+        if ($idsAttendus !== []) {
+            self::assertSame($pays, $liste->lignes[0]['pays']);
+            self::assertSame('00100', $liste->lignes[0]['code_postal']);
+            self::assertArrayNotHasKey('email', $liste->lignes[0]);
+            self::assertStringContainsString(
+                ',' . $pays . ',',
+                \Imagine\Pilotage\Envoi\ExportCsv::liste($liste)
+            );
+        }
     }
 
     public static function originesSansDestinataire(): array
@@ -416,20 +445,36 @@ final class ListeEnvoiTest extends TestCase
     {
         $calendrier = new Calendrier(require dirname(__DIR__) . '/Numeros/fixtures/calendrier.php');
         $moteur = new \Imagine\Pilotage\Numeros\Moteur($calendrier);
-        $annee = $moteur->ouvrir($this->date('2026-10-08'));
-        $dus = array_map(static fn (Numero $n): string => $n->id, $moteur->numeros($annee));
-        $horsSerie = $moteur->horsSerie($annee);
-        self::assertNotNull($horsSerie);
-        $dus[] = $horsSerie->id;
-        $abo = $this->abonnement([$this->situation(dus: $dus)]);
+        $initiale = $moteur->ouvrir($this->date('2026-10-08'));
+        $renouvellement = $moteur->renouveler($initiale, $this->date('2027-10-08'));
+        $cas = [
+            [$initiale, ['171', '172', '173', '174', 'HS-2027'], [
+                '170' => 0, '171' => 1, '172' => 1, '173' => 1, '174' => 1, '175' => 0,
+                'HS-2026' => 0, 'HS-2027' => 1, 'HS-2028' => 0,
+            ]],
+            [$renouvellement, ['175', '176', '177', '178', 'HS-2028'], [
+                '174' => 0, '175' => 1, '176' => 1, '177' => 1, '178' => 1, 'HS-2027' => 0, 'HS-2028' => 1,
+            ]],
+        ];
+        $parId = [];
         foreach ($calendrier->numeros as $numero) {
-            if ($numero->cloture < $this->date('2026-11-01')) {
-                continue;
-            }
-            $liste = ListeEnvoi::etablir($numero, $calendrier, [$abo], $numero->cloture);
-            self::assertCount(in_array($numero->id, $dus, true) ? 1 : 0, $liste->lignes, $numero->id);
+            $parId[$numero->id] = $numero;
         }
-        self::assertSame(['171', '172', '173', '174'], array_slice($dus, 0, 4));
+        foreach ($cas as [$annee, $dusAttendus, $exemplairesAttendus]) {
+            $dus = array_map(static fn (Numero $n): string => $n->id, $moteur->numeros($annee));
+            $horsSerie = $moteur->horsSerie($annee);
+            self::assertNotNull($horsSerie);
+            $dus[] = $horsSerie->id;
+            self::assertSame($dusAttendus, $dus);
+            $situation = new Situation($annee->debut, $annee->debut, 'actif', true, $dus, [$this->personne()]);
+            $abo = new Abonnement('abonnement-fictif', 'abonnement', $annee->debut, [$situation]);
+            foreach ($exemplairesAttendus as $id => $attendu) {
+                $numero = $parId[$id];
+                $liste = ListeEnvoi::etablir($numero, $calendrier, [$abo], $numero->cloture);
+                self::assertCount($attendu, $liste->lignes, (string) $id);
+                self::assertSame([], $liste->anomalies, (string) $id);
+            }
+        }
     }
 
     public function testHistoriqueInvalideRefuse(): void
