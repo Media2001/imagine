@@ -102,6 +102,71 @@ final class ListeEnvoiTest extends TestCase
         self::assertCount($attendu ? 1 : 0, $liste->lignes);
     }
 
+    public static function originesSansDestinataire(): array
+    {
+        return [
+            'individuel' => ['abonnement', [['motif' => 'destinataire_manquant', 'abonnement_id' => 'sans-personne']]],
+            'offert' => ['offert', [['motif' => 'destinataire_manquant', 'abonnement_id' => 'sans-personne']]],
+            'groupe libre' => ['groupe', []],
+        ];
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('originesSansDestinataire')]
+    public function testSansDestinataireNeDisparaitPasEnSilence(string $origine, array $anomalies): void
+    {
+        $liste = $this->calculer([
+            $this->abonnement([$this->situation(destinataires: [])], 'sans-personne', $origine),
+        ]);
+        self::assertSame([], $liste->lignes);
+        self::assertSame($anomalies, $liste->anomalies);
+        if ($origine !== 'groupe') {
+            $this->expectException(\LogicException::class);
+        }
+        self::assertSame(
+            implode(',', \Imagine\Pilotage\Envoi\ExportCsv::COLONNES) . "\n",
+            \Imagine\Pilotage\Envoi\ExportCsv::liste($liste)
+        );
+    }
+
+    public function testAbsenceDestinataireNonEligibleSansAnomalie(): void
+    {
+        $liste = $this->calculer([
+            $this->abonnement([$this->situation(paiement: false, destinataires: [])]),
+        ]);
+        self::assertSame([], $liste->lignes);
+        self::assertSame([], $liste->anomalies);
+    }
+
+    public function testGraceSansPaiementIncluseParReglageUnique(): void
+    {
+        $abo = $this->abonnement([$this->situation(etat: 'grace', paiement: false)]);
+        self::assertCount(1, $this->calculer([$abo])->lignes);
+        $numero = $this->numero();
+        self::assertSame([], ListeEnvoi::etablir(
+            $numero,
+            new Calendrier([$numero]),
+            [$abo],
+            $numero->cloture,
+            inclureGrace: false
+        )->lignes);
+    }
+
+    public function testGraceAvecFinAtteinteAbsenteQuelQueSoitLePaiement(): void
+    {
+        foreach ([false, true] as $paiement) {
+            $situation = new Situation(
+                $this->date('2026-11-01'),
+                $this->date('2026-11-01'),
+                'grace',
+                $paiement,
+                ['171'],
+                [$this->personne()],
+                $this->numero()->cloture
+            );
+            self::assertSame([], $this->calculer([$this->abonnement([$situation])])->lignes);
+        }
+    }
+
     public function testPaiementUneSecondeAvantEtApresEtExactementACloture(): void
     {
         foreach (['2026-12-19 23:59:59' => 1, '2026-12-20 00:00:00' => 0, '2026-12-20 00:00:01' => 0] as $at => $n) {

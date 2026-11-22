@@ -10,8 +10,6 @@ use Imagine\Pilotage\Numeros\Numero;
 
 final readonly class ListeEnvoi
 {
-    // Interprétation C-07, à confirmer : la grâce conserve l'envoi papier.
-    private const ETATS_EN_REGLE = ['actif', 'grace'];
 
     private function __construct(
         public Numero $numero,
@@ -26,7 +24,8 @@ final readonly class ListeEnvoi
         Numero $numero,
         Calendrier $calendrier,
         array $abonnements,
-        DateTimeImmutable $cloture
+        DateTimeImmutable $cloture,
+        bool $inclureGrace = true
     ): self {
         $reference = array_values(array_filter(
             $calendrier->numeros,
@@ -54,9 +53,12 @@ final readonly class ListeEnvoi
             usort($historique, static fn (Situation $a, Situation $b): int => $a->effet <=> $b->effet);
             $situation = $historique === [] ? null : $historique[array_key_last($historique)];
             if (
-                $situation === null || !$situation->paiementValide
+                $situation === null
                 || ($situation->fin !== null && $situation->fin <= $cloture)
-                || !in_array($situation->etat, self::ETATS_EN_REGLE, true)
+                || !(
+                    ($situation->etat === 'actif' && $situation->paiementValide)
+                    || ($situation->etat === 'grace' && $inclureGrace)
+                )
                 || !in_array($numero->id, $situation->numerosDus, true)
             ) {
                 continue;

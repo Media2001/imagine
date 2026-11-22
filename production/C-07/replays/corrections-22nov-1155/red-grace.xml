@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.005033">
+    <testsuite name="Envoi" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.005033">
+      <testsuite name="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" file="/work/tests/Envoi/ListeEnvoiTest.php" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.005033">
+        <testcase name="testGraceSansPaiementIncluseParReglageUnique" file="/work/tests/Envoi/ListeEnvoiTest.php" line="105" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="1" time="0.005033">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testGraceSansPaiementIncluseParReglageUnique
+Failed asserting that actual size 0 matches expected size 1.
+
+/work/tests/Envoi/ListeEnvoiTest.php:108</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

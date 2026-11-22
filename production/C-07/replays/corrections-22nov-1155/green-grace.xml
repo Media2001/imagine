@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="2" assertions="4" errors="0" failures="0" skipped="0" time="0.001594">
+    <testsuite name="Envoi" tests="2" assertions="4" errors="0" failures="0" skipped="0" time="0.001594">
+      <testsuite name="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" file="/work/tests/Envoi/ListeEnvoiTest.php" tests="2" assertions="4" errors="0" failures="0" skipped="0" time="0.001594">
+        <testcase name="testGraceSansPaiementIncluseParReglageUnique" file="/work/tests/Envoi/ListeEnvoiTest.php" line="105" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="2" time="0.001502"/>
+        <testcase name="testGraceAvecFinAtteinteAbsenteQuelQueSoitLePaiement" file="/work/tests/Envoi/ListeEnvoiTest.php" line="119" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="2" time="0.000091"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

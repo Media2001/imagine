@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="3" assertions="7" errors="0" failures="2" skipped="0" time="0.004346">
+    <testsuite name="Envoi" tests="3" assertions="7" errors="0" failures="2" skipped="0" time="0.004346">
+      <testsuite name="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" file="/work/tests/Envoi/ListeEnvoiTest.php" tests="3" assertions="7" errors="0" failures="2" skipped="0" time="0.004346">
+        <testsuite name="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testSansDestinataireNeDisparaitPasEnSilence" tests="3" assertions="7" errors="0" failures="2" skipped="0" time="0.004346">
+          <testcase name="testSansDestinataireNeDisparaitPasEnSilence with data set &quot;individuel&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="115" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="2" time="0.003892">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testSansDestinataireNeDisparaitPasEnSilence with data set "individuel"
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+-Array &amp;0 [
+-    0 =&gt; Array &amp;1 [
+-        'motif' =&gt; 'destinataire_manquant',
+-        'abonnement_id' =&gt; 'sans-personne',
+-    ],
+-]
++Array &amp;0 []
+
+/work/tests/Envoi/ListeEnvoiTest.php:121</failure>
+          </testcase>
+          <testcase name="testSansDestinataireNeDisparaitPasEnSilence with data set &quot;offert&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="115" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="2" time="0.000186">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest::testSansDestinataireNeDisparaitPasEnSilence with data set "offert"
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+-Array &amp;0 [
+-    0 =&gt; Array &amp;1 [
+-        'motif' =&gt; 'destinataire_manquant',
+-        'abonnement_id' =&gt; 'sans-personne',
+-    ],
+-]
++Array &amp;0 []
+
+/work/tests/Envoi/ListeEnvoiTest.php:121</failure>
+          </testcase>
+          <testcase name="testSansDestinataireNeDisparaitPasEnSilence with data set &quot;groupe libre&quot;" file="/work/tests/Envoi/ListeEnvoiTest.php" line="115" class="Imagine\Pilotage\Tests\Envoi\ListeEnvoiTest" classname="Imagine.Pilotage.Tests.Envoi.ListeEnvoiTest" assertions="3" time="0.000268"/>
+        </testsuite>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>
