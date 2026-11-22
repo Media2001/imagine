@@ -2,8 +2,8 @@
 # Usage manuel :  powershell -ExecutionPolicy Bypass -File scripts\relire.ps1 -Lot C-01
 # Sans -Lot : traite tous les dossiers production\<lot> qui ont PRET et pas encore de relecture.
 # Ordre : installation des dependances de test (dans Docker) -> Codex relit -> Claude Code relit -> Claude Code fusionne.
-# Si Hermes redepose PRET apres les corrections : passe de verification par Claude (2e et dernier tour).
-# Au-dela : rien d'automatique, le lot remonte a Ced.
+# Si Hermes redepose PRET apres les corrections : passe de verification par Claude.
+# Si le lot est encore modifie ensuite : verifications complementaires, quatre au plus, puis il remonte a Ced.
 # Chaque relecteur lit son fichier de role dans relecteurs\ et n'ecrit que son rapport.
 # Journal : %LOCALAPPDATA%\IMAGINE\relire.log
 
@@ -88,8 +88,24 @@ try {
                 & claude -p $p --model $ClaudeModel --allowedTools @ClaudeRead "Bash(git log:*)" "Bash(git diff:*)" "Bash(git show:*)" "Write(/relectures/**)" "Edit(/relectures/**)" 2>&1 | Out-File -Encoding utf8 (Join-Path $logDir "verification-$s.txt")
                 if (Test-Path $verF) { Write-Log "$s : verification ecrite" } else { Write-Log "$s : ERREUR verification absente (voir verification-$s.txt)" }
             }
-            elseif ((Get-Item $pretF).LastWriteTime -gt (Get-Item $verF).LastWriteTime) {
-                Write-Log "$s : 3e tour demande -> pas de nouvelle relecture automatique, remonte a Ced"
+            else {
+                # Verifications complementaires : le lot a ete modifie apres sa derniere verification
+                # (nouvelle consigne, arbitrages, reglages). Quatre verifications au plus, puis on remonte a Ced.
+                $vers = @(Get-ChildItem (Join-Path $repo $rel) -Filter 'verification*.md' | Sort-Object LastWriteTime)
+                $derniere = $vers[-1]
+                if ((Get-Item $pretF).LastWriteTime -gt $derniere.LastWriteTime) {
+                    if ($vers.Count -ge 4) {
+                        Write-Log "$s : quatre verifications deja faites -> pas de nouvelle verification automatique, remonte a Ced"
+                    }
+                    else {
+                        $n = $vers.Count + 1
+                        $verN = "$rel/verification-$n.md"
+                        Write-Log "$s : verification complementaire n $n..."
+                        $p = "Tu es le verificateur. Le lot $s a ete modifie par Hermes apres sa derniere verification ($rel/$($derniere.Name)). Lis relecteurs/CLAUDE.md, doctrine/doctrine.md, A-FAIRE.md et les notes les plus recentes de $prod pour savoir quelle consigne ou quel arbitrage (docs/arbitrages-*.md) justifiait ces modifications. Utilise git log et git diff sur wp/ et sur $prod pour voir exactement ce qui a change depuis la derniere verification. Relance les tests si tu en as le moyen, sinon dis-le. Ecris UNIQUEMENT $verN avec : (1) chaque consigne ou arbitrage concerne : Applique / Non applique / Partiellement, avec le fichier et la ligne ; (2) le resultat des tests ; (3) toute regression ou modification non demandee ; (4) verdict : 'Pret pour la cloture' ou 'Remonte a Ced' (probleme de fond restant). Ne refais pas une relecture complete."
+                        & claude -p $p --model $ClaudeModel --allowedTools @ClaudeRead "Bash(git log:*)" "Bash(git diff:*)" "Bash(git show:*)" "Write(/relectures/**)" "Edit(/relectures/**)" 2>&1 | Out-File -Encoding utf8 (Join-Path $logDir "verification-$s-$n.txt")
+                        if (Test-Path (Join-Path $repo $verN)) { Write-Log "$s : verification complementaire ecrite" } else { Write-Log "$s : ERREUR verification complementaire absente (voir verification-$s-$n.txt)" }
+                    }
+                }
             }
         }
     }
