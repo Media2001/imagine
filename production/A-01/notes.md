@@ -1,3 +1,46 @@
+# A-01 — corrections fusionnées du 22 novembre : vérifiées, NON PRÊT global
+
+**Le PRET précédent est invalidé et retiré**, conservé uniquement sous `PRET-invalide-22nov-historique.txt`. Les sections antérieures ci-dessous sont historiques. **R5 reste bloqué sur le choix Ced « admin / scripts »** ; aucun nouveau PRET. Aucun import réel, archive Imagine, ancienne copie, accès agent, Git, installation hôte ou modification de l'outil/modèles partagés.
+
+## Résultat courant, dans l'ordre de la fusion
+
+- **R4 — corrigé en premier.** Sur refus/échec, arrêt du site et relecture des trois conteneurs **avant** suppression des helpers/runner. Chaque erreur de nettoyage est conservée séparément dans `cleanup_errors` sans masquer l'erreur primaire ; les autres nettoyages sont tout de même tentés. Test réel : site effectivement démarré, écriture du témoin volontairement refusée, puis suppression runner volontairement refusée ; relecture API `stopped` et trois services non tournants avant cette seconde panne. Le runner restant est ensuite récupéré/supprimé explicitement, absence relue.
+- **R3 — corrigé.** Le programme hors ligne écrit maintenant un reçu même en exception ; le parent le relit **avant** destruction. `offline_failure` porte une étape et un code d'une liste fermée, jamais le stderr/SQL/texte d'exception brut. Réels et distincts : `archive_restore / ARCHIVE_TRUNCATED`, `sql_preflight / SQL_DDL_UNSUPPORTED`. Une cause inconnue devient `offline_restore / IMPORT_REFUSED` ; reçu impossible à récupérer : `OFFLINE_RECEIPT_UNAVAILABLE`, pas un faux détail. Les codes sont destinés au diagnostic, pas une autorisation de poursuivre.
+- **R1 — corrigé sans changement de baseline.** Lecture en données seules de `package.json → WordPress.Version` et de `$wp_version` du cœur épinglé : égalité textuelle stricte obligatoire **avant import SQL et tout bootstrap**. Métadonnée absente/invalide : `SOURCE_CORE_METADATA_REFUSED`. Discordance : `SOURCE_CORE_VERSION_MISMATCH`, avec les deux versions numériques au reçu. Test réel **source 6.9.1 / cœur 7.0.9** refusé, base d'import encore absente à la relecture. La recette commerciale reste 7.0.9 ; elle ne qualifie pas 6.9.1 et ne met plus à niveau implicitement une archive 6.9.1. Sélection/qualification d'un cœur de production correspondant : à arbitrer séparément, sans contourner les minima des ZIP commerciaux.
+- **R2 — corrigé.** Le parseur pur réellement utilisé est **`wp/outils/staging-wp-integration/worker/worker.py`**, chargé comme `legacy_importer.py` par `run.py`. Le chemin autonome choisit explicitement les seuls moteurs locaux InnoDB/MyISAM/Aria/Memory ; les autres appels gardent le défaut InnoDB. Aucun suffixe SQL arbitraire, moteur externe, procédure, déclencheur ou repli SQL ouvert. Les moteurs sont relus dans `information_schema` après import, sans conversion ; les non-InnoDB figurent dans `warnings` avec noms/engine, sans valeurs. **MyISAM réellement importé et publication réussie en classique/HPOS**, non bloquant. Aria/Memory : grammaire seulement, non qualifiés par cette recette E2E.
+- **R5 — non choisi, protection conservée.** `DISALLOW_FILE_MODS=true`, `DISALLOW_FILE_EDIT=true`, `AUTOMATIC_UPDATER_DISABLED=true`, `WP_AUTO_UPDATE_CORE=false` et allowlist HTTP existante restent inchangés. L'incohérence de capacité de mise à jour reste ouverte : **Ced choisit « admin » ou « scripts »** avant une remise complète. Ce n'est ni une permission de mise à jour admin, ni une décision de fermer l'egress à sa place.
+- **R6 — documentation explicite.** `inside.py` mute **en mémoire seulement**, dans sa copie locale du parseur importé, `CREATE_WORDS.update({'ON', 'UPDATE', 'UTF8MB3_GENERAL_CI'})` ; cela n'écrit ni la bibliothèque déployée ni l'outil partagé. La canonicalisation porte seulement sur les groupes CREATE (ordre du suffixe AUTO_INCREMENT), pas les littéraux INSERT. L'extension de moteurs R2 est un paramètre explicite de `sql_plan`, pas une ouverture générale de cette grammaire.
+- **R7 — exécuté.** Le self-test comporte désormais quatre cas : classique, HPOS, secret résiduel, **table personnelle non tranchée**. Les deux refus traversent l'archive, les trois scripts natifs, le sas et la relecture d'arrêt/HTTP ; aucun `inject`/`start` ni témoin verified sur ces branches. `--case personal` permet le rejeu ciblé ; le défaut exerce les quatre.
+
+## Preuves finales et tests réellement exécutés
+
+- **Publication complète :** `publication-22nov/6d5fac463e61/result.json`, sortie **0**, **4 cas PASS**, dont deux publications HTTP 200 à l'URL exacte avec vrais Subscriptions 9.4.1/Memberships 1.30.3, et deux refus `SECRET_OU_IDENTIFIANT` / `TABLE_PERSONNELLE_A_TRANCHER`. Source/cœur 7.0.9 égaux, table MyISAM conservée et signalée. Durée observée **330.988372 s** pour ces quatre fixtures seulement.
+- **Pannes/diagnostics réels :** `corrections-22nov/faults-a4d2ca414cea/result.json`, pilote `wp/tests/a01-court/exercise_corrections.py`, sortie **0**, **4 scénarios PASS**. Chacune des quatre exécutions sujet conserve honnêtement sa sortie **1 / FAIL attendue** : double panne R4, archive tronquée, SQL non pris en charge, mismatch de cœur. Rien n'a été converti artificiellement en succès dans les reçus sujets.
+- **Régression hors ligne :** `tests-21nov/3c4e0cfbc8c4/result.json`, sortie **0**, **18 contrôles PASS / 0 FAIL**, 12 tests archive, 17 tests banc, 9 cas données / 337 assertions, lint PHP. Le `full_staging_ready=false` de cet ancien entrypoint reste attendu ; ce n'est pas une publication.
+- **Unitaires hôte sans PHP :** 4 corrections, 8 sas publication, 7 diagnostic preflight, 6 parseur, 17 banc, tous verts ; journaux `corrections-22nov/unit-*-final.log`. Ils se recoupent avec les suites embarquées : **ne pas additionner ces compteurs**. RED puis GREEN conservés séparément pour R4/R3/R1/R2/R7.
+- **Nettoyage :** huit nouveaux sites de cette passe supprimés et absence API/conteneurs/volume/réseau/répertoire relue. Huit runners de publication absents, dont celui récupéré après panne simulée, plus le runner hors ligne supprimé. `corrections-22nov/verification-live.json` vérifie aussi les anciens noms de tests historiques, tous absents, et les empreintes de l'outil déployé inchangées. Aucun compte/licence distant audité ni accès agent utilisé ; effets automatiques de provisioning uniquement dans le GO du 22/11.
+
+## Périmètre qualifié / refus attendus
+
+`.wpress` **non compressé**, site simple, en-têtes de **4 377 octets**, SQL du sous-ensemble fermé et version déclarée obligatoire égale au cœur de l'image. Chiffré/compressé/multivolume/multisite, syntaxe SQL hors sous-ensemble (y compris vues/déclencheurs non qualifiés), moteurs hors ensemble local et versions différentes sont refusés avec diagnostic, **pas exécutés par un SQL de repli**. Les vues/déclencheurs restent une limite de format/grammaire, pas une suppression silencieuse. Le champ de version est celui de l'exporteur officiel AI1WM ; URL et empreinte de la source lue dans `corrections-22nov/package-format-source.json`.
+
+Le réseau reste coupé pendant import/vérification. Après vérification : filtrage HTTP WordPress seulement, pas un pare-feu système. **La mise à jour d'extensions n'est pas qualifiée**, précisément à cause de R5. La fixture ne qualifie ni l'archive réelle d'Imagine ni une restauration de production ; Ced seul lance un éventuel premier import, avec rapport relu avant accès agent.
+
+## Commandes de revue sans mutation de site
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python wp/tests/a01-court/test_corrections.py
+PYTHONDONTWRITEBYTECODE=1 python wp/tests/a01-court/test_publication.py
+PYTHONDONTWRITEBYTECODE=1 python wp/tests/a01-court/verify_publication.py \
+  --report production/A-01/publication-22nov/6d5fac463e61/result.json --live-cleanup
+```
+
+Les commandes opérateur, mot de passe stdin, JSON de décisions et reprise sur nouveau nom documentés dans la section historique suivante restent leur interface ; **elles ne valent pas GO de lancement**. Sur table à trancher : aucune décision fictive par défaut ; JSON Ced puis copie fraîche. Sur mismatch de cœur : arrêter, pas modifier le package pour le faire correspondre. Les ZIP commerciaux n'ont pas été rétrogradés et leurs gardes ne sont pas contournés.
+
+---
+
+# Historique — livraison précédente invalidée par les corrections fusionnées
+
 # A-01 — publication réelle qualifiée sur archives fictives, 22 novembre 2026
 
 **Livraison à relire : commande complète et trois cas réels PASS.** Le GO de Ced du 22/11 à 13 h 11, inscrit dans `A-FAIRE.md`, lève le blocage licence/MCP du 21/11. L'usage de l'accès agent créé reste interdit et n'a jamais été fait. Aucun import d'Imagine, aucune ouverture de son archive, aucun accès à l'ancienne copie.

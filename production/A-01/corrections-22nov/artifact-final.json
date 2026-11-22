@@ -1,0 +1,193 @@
+{
+  "status": "SCOPED_CORRECTIONS_VERIFIED_GLOBAL_HANDOFF_BLOCKED",
+  "recorded_utc": "2026-11-22T15:50:16.574975+00:00",
+  "ready_for_review_global": false,
+  "pret_present": false,
+  "corrected": [
+    "R4",
+    "R3",
+    "R1",
+    "R2",
+    "R6",
+    "R7"
+  ],
+  "blockers": [
+    "R5_CED_ADMIN_OR_SCRIPTS_REQUIRED",
+    "PRODUCTION_CORE_6_9_1_NOT_QUALIFIED_BY_COMMERCIAL_7_0_9_BASELINE"
+  ],
+  "modified_file_sha256": {
+    "wp/outils/staging-court/publish.py": "1bbd169e4c646ce9e7aa619dc943cf5f2696bffb8e3ab7eeb54c17fe40a40c24",
+    "wp/outils/staging-court/inside.py": "ba9f2400007a803b97a0adaeea004ebca8aa95ea332ab16af9a67b19fd347b1b",
+    "wp/outils/staging-court/README.md": "a181e63deef7704573431278a7645c56594e3b605bf0a2293cc3e31277057ad9",
+    "wp/outils/staging-wp-integration/worker/worker.py": "1cdb5f85db2d2c0e3aecba4828785794e03c1a3a383b4c3a67075b1426e4f293",
+    "wp/tests/a01-court/prepare_publication.py": "0de080db749183b4338831ccb13c72cf652ebc84cfd80e097753a671293c9439",
+    "wp/tests/a01-court/roundtrip.py": "a07c5997421f40bd893af082dc4600c79c2d3740521a95f3fa7e763e628d1db8",
+    "wp/tests/a01-court/verify_publication.py": "30a4c441c220c7773233e1472fc336d49556f1bdbe40e9ac90b402260f841aa4",
+    "wp/tests/a01-court/test_corrections.py": "742c42fa6cdbf706cd289da9375afba0d90753f46ac8d240cfcb533e1a5bc452",
+    "wp/tests/a01-court/exercise_corrections.py": "e6702adcda2a63fcc0385d0ee62787f1322fec84443bb369788849499575a2b5",
+    "wp/tests/a01-court/verify_correction_artifacts.py": "0fa9593a6992de37a953a17cdf1c5a2e2f9a6d5de5a6c2e8b030edabc60e7400",
+    "production/A-01/notes.md": "fa2467e93e2ac7c823cd6905180943541ba4bb02438ad80b408230bd320655e9",
+    "production/A-01/NON-PRET-22nov.md": "2aee2c65970cb382c53a411a06ad5292b0dba1e47d3cd4c1b9e36cea3434e6ae",
+    "production/A-01/PRET-invalide-22nov-historique.txt": "ca2dbbdc67ac2a2b9dcfa1bee8135c3917c6d4c29523ca248907b05573c969cb"
+  },
+  "evidence_sha256": {
+    "production/A-01/publication-22nov/6d5fac463e61/result.json": "f966c027cbe8f4a462db984941cf8ae62bc4dfdd994565f71c118ad0afb743a1",
+    "production/A-01/corrections-22nov/faults-a4d2ca414cea/result.json": "63e7cf8116e845e19a04ab2c1c8bb37f2ecd590d0dee79b70e7300ff8a7a8e09",
+    "production/A-01/tests-21nov/3c4e0cfbc8c4/result.json": "c8aa8c35b52db298d07143e5a8da97649e1e6e9780c57f25c04562abd485441d",
+    "production/A-01/corrections-22nov/verification-live-final.json": "e5868cf4a58a02e0bc9778457f9d2e8fff73e2e7fdad12e7b6b95c16886af819",
+    "production/A-01/corrections-22nov/package-format-source.json": "e7e952c702079348996ec12186f955656ad0357bf2d0790007b48cbc4cfa7ff0"
+  },
+  "unit_suites": [
+    {
+      "log": "production/A-01/corrections-22nov/unit-corrections-final.log",
+      "tests": 4,
+      "sha256": "7f5554bc17648bbff129701c87be130d053fced88bdb234cc5c93f5c7e1bd572"
+    },
+    {
+      "log": "production/A-01/corrections-22nov/unit-harness-final.log",
+      "tests": 17,
+      "sha256": "80184bcb20fb64dad95114c835473ff88e5883161abcc77c911246a4c26c5ceb"
+    },
+    {
+      "log": "production/A-01/corrections-22nov/unit-parser-final.log",
+      "tests": 6,
+      "sha256": "e1936176d1302be627fcf3d0dd34188030a90fc8a0c0347d68716eb5320ece0e"
+    },
+    {
+      "log": "production/A-01/corrections-22nov/unit-preflight-final.log",
+      "tests": 7,
+      "sha256": "257e6a67570b95d68db80b341cf332f2abe43487b57fd0c94481416bf69788c2"
+    },
+    {
+      "log": "production/A-01/corrections-22nov/unit-publication-final.log",
+      "tests": 8,
+      "sha256": "bd264bddc0945a083cab79d32d13d38a230bbff310a9021517447996babf6864"
+    }
+  ],
+  "unit_tests_passed": 42,
+  "publication_cases_passed": 4,
+  "real_fault_scenarios_passed": 4,
+  "expected_subject_failures": [
+    1,
+    1,
+    1,
+    1
+  ],
+  "offline_checks_passed": 18,
+  "offline_data_cases": 9,
+  "offline_data_assertions": 337,
+  "source_receipts_match_current_files": true,
+  "new_sites_absent_count": 8,
+  "site_cleanup": [
+    {
+      "site": "imagine-test-a01-145eba5ddeaf-classic",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-145eba5ddeaf-classic": true,
+        "db-imagine-test-a01-145eba5ddeaf-classic": true,
+        "nginx-imagine-test-a01-145eba5ddeaf-classic": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-5f3bff5fa6e9-classic",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-5f3bff5fa6e9-classic": true,
+        "db-imagine-test-a01-5f3bff5fa6e9-classic": true,
+        "nginx-imagine-test-a01-5f3bff5fa6e9-classic": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-6d5fac463e61-classic",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-6d5fac463e61-classic": true,
+        "db-imagine-test-a01-6d5fac463e61-classic": true,
+        "nginx-imagine-test-a01-6d5fac463e61-classic": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-6d5fac463e61-hpos",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-6d5fac463e61-hpos": true,
+        "db-imagine-test-a01-6d5fac463e61-hpos": true,
+        "nginx-imagine-test-a01-6d5fac463e61-hpos": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-6d5fac463e61-personal",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-6d5fac463e61-personal": true,
+        "db-imagine-test-a01-6d5fac463e61-personal": true,
+        "nginx-imagine-test-a01-6d5fac463e61-personal": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-6d5fac463e61-trap",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-6d5fac463e61-trap": true,
+        "db-imagine-test-a01-6d5fac463e61-trap": true,
+        "nginx-imagine-test-a01-6d5fac463e61-trap": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-b7f3dfce832f-classic",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-b7f3dfce832f-classic": true,
+        "db-imagine-test-a01-b7f3dfce832f-classic": true,
+        "nginx-imagine-test-a01-b7f3dfce832f-classic": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-c724767bacaf-classic",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-c724767bacaf-classic": true,
+        "db-imagine-test-a01-c724767bacaf-classic": true,
+        "nginx-imagine-test-a01-c724767bacaf-classic": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    }
+  ],
+  "owned_runner_absence_names": [
+    "imagine-a01-court-3c4e0cfbc8c4",
+    "imagine-a01-publication-3765832202c8",
+    "imagine-a01-publication-47d04fc9b2d5",
+    "imagine-a01-publication-a0706c2abee0",
+    "imagine-a01-publication-ad36338e1ad8",
+    "imagine-a01-publication-b47f8a7b62aa",
+    "imagine-a01-publication-d594d6f473cd",
+    "imagine-a01-publication-f721e708d62c",
+    "imagine-a01-publication-fdabca7862f8"
+  ],
+  "correction_source_sha256": "9c0fb0732856a8eb1e31270e30e3b5b761f360d9f621013a15de5b06369b929e",
+  "no_real_archive_no_agent_access_no_shared_tool_changes": true,
+  "not_a_production_import_authorization": true
+}
