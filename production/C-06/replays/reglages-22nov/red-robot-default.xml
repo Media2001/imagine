@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/tests/Acces/phpunit.xml" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.003617">
+    <testsuite name="Acces" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.003617">
+      <testsuite name="Imagine\Pilotage\Tests\Acces\ReglagesTest" file="/work/tests/Acces/ReglagesTest.php" tests="1" assertions="1" errors="0" failures="1" skipped="0" time="0.003617">
+        <testcase name="testPdfRobotEstExtraitParDefautSansFermerLesArticles" file="/work/tests/Acces/ReglagesTest.php" line="14" class="Imagine\Pilotage\Tests\Acces\ReglagesTest" classname="Imagine.Pilotage.Tests.Acces.ReglagesTest" assertions="1" time="0.003617">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Acces\ReglagesTest::testPdfRobotEstExtraitParDefautSansFermerLesArticles
+Failed asserting that true is false.
+
+/work/tests/Acces/ReglagesTest.php:25</failure>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

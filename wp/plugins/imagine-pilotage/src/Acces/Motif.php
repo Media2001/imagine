@@ -9,6 +9,7 @@ enum Motif: string
     case EntreeInvalide = 'entree_invalide';
     case ContenuOuvert = 'contenu_ouvert';
     case RobotVerifie = 'robot_verifie';
+    case PdfRobotExtraitParReglage = 'pdf_robot_extrait_par_reglage';
     case Anonyme = 'anonyme';
     case SansDroit = 'sans_droit';
     case AbonnementActif = 'abonnement_actif';

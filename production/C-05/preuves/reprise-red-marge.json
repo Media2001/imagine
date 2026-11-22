@@ -1,0 +1,50 @@
+{
+  "time_utc": "2026-11-22T12:26:27.116394+00:00",
+  "command": [
+    "php",
+    "/work/wp/plugins/imagine-pilotage/tests/Echeancier/run.php"
+  ],
+  "exit_code": 1,
+  "syntax_exit": 0,
+  "source_sha256": {
+    "wp/plugins/imagine-pilotage/src/Numeros/Activation.php": "2f6fbd78d6f3b02de285bdf042a551b1da03f36b95cae71dc9c4af158acf2f8d",
+    "wp/plugins/imagine-pilotage/src/Numeros/Annee.php": "9331ae76155e6cf3c51ba4890579942652e6f1bb3e7c783f50ffce28096bce98",
+    "wp/plugins/imagine-pilotage/src/Numeros/Calendrier.php": "524be35027b0b2f2f6b89b550e9ee47175bf22c57578e6f3db2f334d33bb6ed3",
+    "wp/plugins/imagine-pilotage/src/Numeros/Echeance.php": "937fa4c3e42958e6c78f31a600b696b7864960b7cf1ee3f44e1a4a0b47214f4c",
+    "wp/plugins/imagine-pilotage/src/Numeros/Moteur.php": "b1df8e6936d7b4adab58be3b7ab84a9bda2e7a27f871b1a4c55c9b24c77c2a57",
+    "wp/plugins/imagine-pilotage/src/Numeros/Numero.php": "bed445350622664da13b2c859a6037e970a41375f98927bb8cd5ce36a8918a11",
+    "wp/plugins/imagine-pilotage/src/Numeros/TypeNumero.php": "00959ba220ae38b22f77d6bb5e0e42f851b6b693d6470b95b1fdf678fc3f30a1",
+    "wp/plugins/imagine-pilotage/src/Echeancier/Planificateur.php": "5fcf8e0901ceefc39170e0b672628df40475f77c3209f5ea087d668f72902127",
+    "wp/plugins/imagine-pilotage/src/Echeancier/RaccordManuel.php": "16857bd4c2edfbe2c596156599f0d88c86012d66eefda20236d23cd144da0046",
+    "wp/plugins/imagine-pilotage/src/Echeancier/Versement.php": "03290174d0ee74fddf910335b01da406cecb32df2af1cd4c44a5333fc7141704",
+    "wp/plugins/imagine-pilotage/tests/Echeancier/run.php": "32701e4164dfd30b6d213a497d675758f26566607048b240dc65015aa27d100b",
+    "wp/tests/echeancier-runner/scenario.php": "f43eafde5f787f7f295df27ab1892044a2592338d86d015b69def9b1609d80e4",
+    "wp/tests/echeancier-runner/inside.py": "34a17a97359072f2ac74fe87aab15b40b3dc5a5356f75b8d689464edb0fee382"
+  },
+  "container_sources_verified": true,
+  "safety_before": {
+    "container": "imagine-c05-158b1b59de0c",
+    "image": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
+    "network": "none",
+    "mounts": [],
+    "ports": [],
+    "privileged": false,
+    "cap_drop": [
+      "ALL"
+    ],
+    "no_new_privileges": true
+  },
+  "safety_after": {
+    "container": "imagine-c05-158b1b59de0c",
+    "image": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
+    "network": "none",
+    "mounts": [],
+    "ports": [],
+    "privileged": false,
+    "cap_drop": [
+      "ALL"
+    ],
+    "no_new_privileges": true
+  },
+  "runner_sha256": "369d0aa284a81f0c1f64104c3470193fe4b62a12a00b2cb206f928ae32040fc6"
+}

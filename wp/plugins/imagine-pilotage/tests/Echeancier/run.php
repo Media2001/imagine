@@ -6,6 +6,7 @@ declare(strict_types=1);
 // phpcs:disable PSR1.Files.SideEffects
 
 use Imagine\Pilotage\Echeancier\Planificateur;
+use Imagine\Pilotage\Echeancier\Reglages;
 use Imagine\Pilotage\Numeros\Activation;
 use Imagine\Pilotage\Numeros\Annee;
 use Imagine\Pilotage\Numeros\Calendrier;
@@ -112,7 +113,7 @@ $tests['reconduction_commune_et_numeros_suivants'] = static function (): void {
         c05Assert($v->date == $source->echeances($suite, 7)[$index]->lancement, 'Date C01 exacte');
     }
 };
-$tests['veille_cloture_refus_cinquieme_dans_annee_de_date_a_date'] = static function (): void {
+$tests['option_a_accepte_cinq_dates_dans_fenetre_numerique'] = static function (): void {
     $source = new Moteur(c05Calendrier());
     $initiale = c05Annee('2027-04-09 12:00:00');
     $suite = $source->renouveler($initiale, $initiale->finNumerique());
@@ -131,10 +132,9 @@ $tests['veille_cloture_refus_cinquieme_dans_annee_de_date_a_date'] = static func
         'dates' => array_map(static fn ($d) => $d->format(DATE_ATOM), $dates),
         'count_in_first_anniversary_window' => 5,
     ];
-    c05Refuse(
-        static fn () => (new Planificateur($source))->planifier($suite, c05Date('2029-04-09 12:00:00'), 7),
-        'HORS_ENGAGEMENT REG-2028-04'
-    );
+    $planSuite = (new Planificateur($source))->planifier($suite, c05Date('2029-04-09 12:00:00'), 7);
+    c05Assert(count($planSuite) === 4, 'Bloc suivant de quatre numéros malgré anniversaire ultérieur');
+    c05Assert($planSuite[0]->date == $dates[4], 'Date commune inchangée, aucun report anniversaire');
 };
 
 $tests['calendrier_incomplet_refuse_sans_inventer'] = static function (): void {
@@ -174,6 +174,34 @@ $tests['marge_obligatoire_et_parametrable'] = static function (): void {
         c05Assert($plan[1]->date->format('Y-m-d') === sprintf('2027-07-%02d', 10 - $marge), 'Marge injectée');
         c05Assert($plan[0]->date == $annee->debut, 'Initial indépendant de la marge');
     }
+};
+$tests['reglage_marge_sans_defaut_refuse_planification'] = static function (): void {
+    $reglages = new Reglages();
+    c05Assert($reglages->margeJours === null, 'Aucun défaut de marge');
+    $a = c05Annee('2027-02-20');
+    $planner = new Planificateur(new Moteur(c05Calendrier()));
+    c05Refuse(static fn () => $planner->planifier($a, $a->finNumerique(), $reglages->margeJours), 'MARGE_OBLIGATOIRE');
+    c05Refuse(static fn () => $planner->planifier($a, $a->finNumerique()), 'MARGE_OBLIGATOIRE');
+    foreach ([0, -1] as $invalid) {
+        c05Refuse(static fn () => new Reglages($invalid), 'marge');
+    }
+    foreach ([1, 3, 7, 30] as $marge) {
+        $r = new Reglages($marge);
+        $p = $planner->planifier($a, $a->finNumerique(), $r->margeJours);
+        c05Assert($p[1]->date == c05Date('2027-07-10')->modify('-' . $marge . ' days'), 'Jours civils configurés');
+    }
+};
+$tests['reglage_rejet_reste_du_defaut_et_abandon_explicite'] = static function (): void {
+    $defaut = new Reglages(7);
+    c05Assert($defaut->apresRejet === 'restent_dues', 'Défaut prudent : dette maintenue');
+    c05Assert($defaut->montantsRestants(1000, 1000, [1], true) === [2 => 1000, 3 => 1000, 4 => 1000], 'Rejet ne remet aucune dette');
+    $autre = new Reglages(7, 'annuler_restantes');
+    c05Assert($autre->montantsRestants(1000, 1000, [1], true) === [], 'Alternative explicite après rejet');
+    c05Assert($autre->montantsRestants(1000, 1000, [1], false) === [2 => 1000, 3 => 1000, 4 => 1000], 'Sans rejet aucune remise');
+    c05Assert($defaut->montantsRestants(1000, 1000, [1, 2, 3, 4], true) === [], 'Aucun rang payé redevient dû');
+    c05Refuse(static fn () => new Reglages(7, 'inconnu'), 'REJET_INVALIDE');
+    c05Refuse(static fn () => $defaut->montantsRestants(-1, 1000, [], true), 'MONTANT_INVALIDE');
+    c05Refuse(static fn () => $defaut->montantsRestants(1000, 1000, [5], true), 'RANG_INVALIDE');
 };
 $tests['jour_cloture_et_lendemain_passent_au_numero_suivant'] = static function (): void {
     $source = new Moteur(c05Calendrier());
@@ -241,17 +269,15 @@ for ($jour = c05Date('2027-01-01 12:00:00'); $jour < c05Date('2028-01-01'); $jou
         );
         $b = $source->renouveler($a, $a->finNumerique())->activer($a->finNumerique(), Activation::Paiement);
         $premiereCommune = $source->echeances($b, 7)[0]->lancement;
-        if ($premiereCommune < $b->debut) {
-            $GLOBALS['imagine_c05_conflicts'][] = $date;
-            c05Refuse(static fn () => $planner->planifier($b, $b->finNumerique(), 7), 'HORS_ENGAGEMENT');
-        } else {
-            $suite = $planner->planifier($b, $b->finNumerique(), 7);
-            c05Assert(count($suite) === 4, 'Reconduction quatre');
-            $dates = array_map(static fn ($v) => $v->date, [...$p, ...$suite]);
-            c05Assert(
-                count(array_filter($dates, static fn ($d) => $d >= $a->debut && $d < $a->finNumerique())) === 4,
-                'Pas de cinquième avant anniversaire'
-            );
+        $suite = $planner->planifier($b, $b->finNumerique(), 7);
+        c05Assert(count($suite) === 4, 'Reconduction quatre par bloc');
+        c05Assert($suite[0]->date == $premiereCommune, 'Commune sans exception anniversaire');
+        c05Assert($suite[0]->date > $p[3]->date, 'Chronologie inter-blocs');
+        $dates = array_map(static fn ($v) => $v->date, [...$p, ...$suite]);
+        $dansFenetre = count(array_filter($dates, static fn ($d) => $d >= $a->debut && $d < $a->finNumerique()));
+        c05Assert($dansFenetre === ($premiereCommune < $b->debut ? 5 : 4), 'Comptage fenêtre distinct du bloc');
+        if ($dansFenetre === 5) {
+            $GLOBALS['imagine_c05_five_dates'][] = $date;
         }
     };
 }
@@ -269,6 +295,6 @@ $failed = count(array_filter($results, static fn (array $r): bool => !$r['pass']
 echo 'C05_JSON=' . json_encode([
     'tests' => count($results), 'assertions' => $assertions, 'failed' => $failed, 'results' => $results,
     'counterexample' => $GLOBALS['imagine_c05_counterexample'] ?? null,
-    'blocked_renewal_command_dates' => $GLOBALS['imagine_c05_conflicts'] ?? [],
+    'accepted_five_date_command_dates' => $GLOBALS['imagine_c05_five_dates'] ?? [],
 ], JSON_UNESCAPED_UNICODE) . "\n";
 exit($failed === 0 ? 0 : 1);

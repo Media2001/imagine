@@ -28,7 +28,7 @@ def shared_inventory():
     files += [ROOT / 'wp/tests/numeros-runner/run.py', ROOT / 'wp/tests/robots-runner/run.py']
     return {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
             for p in sorted(files) if p.is_file() and 'vendor' not in p.parts
-            and 'Acces' not in p.parts and 'Echeancier' not in p.parts}
+            and 'Acces' not in p.parts and 'Echeancier' not in p.parts and 'Envoi' not in p.parts}
 
 
 def payload():
@@ -38,7 +38,7 @@ def payload():
     files = {}
     with tarfile.open(fileobj=content, mode='w') as archive:
         for path in sorted(bench.PLUGIN.rglob('*')):
-            if not path.is_file() or 'vendor' in path.parts or 'Echeancier' in path.parts:
+            if not path.is_file() or any(part in path.parts for part in ['vendor', 'Echeancier', 'Envoi']):
                 continue
             relative = path.relative_to(bench.PLUGIN).as_posix()
             data = path.read_bytes()
@@ -55,6 +55,10 @@ bench.payload = payload
 
 def call(args, data=None, check=True):
     args = list(args)
+    if 'test' in args and '/tmp/composer.phar' in args:
+        # C-07 is not closed: use the owned suite containing only C-06 and closed lots.
+        index = args.index('--') + 1
+        args[index:index] = ['--configuration', 'tests/Acces/phpunit.xml']
     return original_call(args, data, check)
 
 
@@ -99,7 +103,8 @@ def main():
         receipt_path = bench.OUT / (stage + '.json')
         if receipt_path.exists():
             receipt = json.loads(receipt_path.read_text(encoding='utf-8'))
-            receipt['command'] = 'composer test -- --log-junit /tmp/result.xml'
+            receipt['command'] = ('composer test -- --configuration tests/Acces/phpunit.xml '
+                                  '--log-junit /tmp/result.xml')
             if '--filter' in sys.argv:
                 receipt['command'] += ' --filter ' + sys.argv[sys.argv.index('--filter') + 1]
             receipt['wrapper_sha256'] = hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest()

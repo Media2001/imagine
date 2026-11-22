@@ -64,7 +64,9 @@ final class Moteur
             return new Decision(true, Motif::ContenuOuvert, Bloc::Aucun);
         }
         if ($robot->estVerifie()) {
-            return new Decision(true, Motif::RobotVerifie, Bloc::Aucun);
+            return $contenu['type'] === 'pdf'
+                ? new Decision(false, Motif::PdfRobotExtraitParReglage, Bloc::Abonnement)
+                : new Decision(true, Motif::RobotVerifie, Bloc::Aucun);
         }
         $decision = $visiteur['identifie']
             ? new Decision(false, Motif::SansDroit, Bloc::Abonnement)

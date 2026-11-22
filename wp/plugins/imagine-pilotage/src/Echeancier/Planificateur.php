@@ -15,9 +15,16 @@ final readonly class Planificateur
     {
     }
 
-    /** @return list<Versement> */
-    public function planifier(Annee $annee, DateTimeImmutable $finEngagement, int $margeJours): array
+    /**
+     * Quatre positions par bloc C01, indépendantes de la fenêtre numérique.
+     * La borne reste un contexte numérique validé, jamais une borne de paiement.
+     * @return list<Versement>
+     */
+    public function planifier(Annee $annee, DateTimeImmutable $finEngagement, ?int $margeJours = null): array
     {
+        if ($margeJours === null) {
+            throw new \InvalidArgumentException('MARGE_OBLIGATOIRE : renseigner les jours civils avant planification.');
+        }
         if ($finEngagement <= $annee->debut) {
             throw new \InvalidArgumentException('FIN_ENGAGEMENT doit suivre le début.');
         }
@@ -30,11 +37,7 @@ final readonly class Planificateur
         foreach ($echeances as $index => $echeance) {
             $initial = $index === 0 && $annee->precedente === null;
             $date = $initial ? $annee->debut : $echeance->lancement;
-            if ($date < $annee->debut || $date >= $finEngagement) {
-                throw new \DomainException(
-                    'HORS_ENGAGEMENT ' . $echeance->numero->id . ' ' . $date->format(DATE_ATOM)
-                );
-            }
+
             if ($precedente !== null && $date <= $precedente) {
                 throw new \DomainException('DATES_NON_CROISSANTES ' . $echeance->numero->id);
             }
