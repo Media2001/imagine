@@ -1,4 +1,4 @@
-"""Regression guard: standard composer test must include the access suite."""
+"""Coverage guard for C-06 + closed lots (explicit owned config during parallel work)."""
 import json
 import pathlib
 import sys
@@ -15,11 +15,15 @@ def check(path):
         for key in ('errors', 'failures', 'skipped'):
             assert int(suite.attrib[key]) == 0, (suite.attrib['name'], key)
     receipt = json.loads(path.with_suffix('.json').read_text(encoding='utf-8'))
-    assert receipt['command'] == 'composer test -- --log-junit /tmp/result.xml'
+    bounded = receipt['command'] == ('composer test -- --configuration tests/Acces/phpunit.xml '
+                                      '--log-junit /tmp/result.xml')
+    assert bounded or receipt['command'] == 'composer test -- --log-junit /tmp/result.xml'
     assert receipt['exit_code'] == 0
     log = path.with_suffix('.log').read_text(encoding='utf-8')
-    assert 'Configuration: /work/phpunit.xml' in log
-    print(json.dumps({'standard_composer_test': True, 'root_configuration': True,
+    configuration = '/work/tests/Acces/phpunit.xml' if bounded else '/work/phpunit.xml'
+    assert 'Configuration: ' + configuration in log
+    print(json.dumps({'composer_test': True, 'root_configuration': not bounded,
+                      'bounded_closed_lots': bounded,
                       'suites': {name: {key: int(suite.attrib[key]) for key in ('tests', 'assertions')}
                                  for name, suite in suites.items()}}, indent=2))
 

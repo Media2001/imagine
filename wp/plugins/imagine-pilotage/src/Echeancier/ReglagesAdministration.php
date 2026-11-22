@@ -42,7 +42,7 @@ final class ReglagesAdministration
                 self::OPTION,
                 'imagine_c05_reglages_invalides',
                 __(
-                    'Réglages refusés : marge civile positive entière ou vide, rejet et tarif parmi les choix proposés.',
+                    'Réglages refusés : marge entière positive ou vide, rejet et tarif parmi les choix proposés.',
                     'imagine-pilotage'
                 )
             );

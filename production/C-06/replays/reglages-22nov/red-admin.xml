@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/tests/Acces/phpunit.xml" tests="4" assertions="0" errors="4" failures="0" skipped="0" time="0.003238">
+    <testsuite name="Acces" tests="4" assertions="0" errors="4" failures="0" skipped="0" time="0.003238">
+      <testsuite name="Imagine\Pilotage\Tests\Acces\AdministrationReglagesTest" file="/work/tests/Acces/AdministrationReglagesTest.php" tests="4" assertions="0" errors="4" failures="0" skipped="0" time="0.003238">
+        <testcase name="testAdaptateurExposeTroisChampsViaSettingsApiSansEffetAuChargement" file="/work/tests/Acces/AdministrationReglagesTest.php" line="21" class="Imagine\Pilotage\Tests\Acces\AdministrationReglagesTest" classname="Imagine.Pilotage.Tests.Acces.AdministrationReglagesTest" assertions="0" time="0.002928">
+          <error type="Error">Imagine\Pilotage\Tests\Acces\AdministrationReglagesTest::testAdaptateurExposeTroisChampsViaSettingsApiSansEffetAuChargement
+Error: Class "Imagine\Pilotage\Acces\AdministrationReglages" not found
+
+/work/tests/Acces/AdministrationReglagesTest.php:23</error>
+        </testcase>
+        <testcase name="testEnregistrementRelectureEtMoteurPrennentChaquePositionSansModifierLeCode" file="/work/tests/Acces/AdministrationReglagesTest.php" line="46" class="Imagine\Pilotage\Tests\Acces\AdministrationReglagesTest" classname="Imagine.Pilotage.Tests.Acces.AdministrationReglagesTest" assertions="0" time="0.000117">
+          <error type="Error">Imagine\Pilotage\Tests\Acces\AdministrationReglagesTest::testEnregistrementRelectureEtMoteurPrennentChaquePositionSansModifierLeCode
+Error: Class "Imagine\Pilotage\Acces\AdministrationReglages" not found
+
+/work/tests/Acces/AdministrationReglagesTest.php:48</error>
+        </testcase>
+        <testcase name="testStockageAbsentInvalideEtPanneRestentPrudents" file="/work/tests/Acces/AdministrationReglagesTest.php" line="85" class="Imagine\Pilotage\Tests\Acces\AdministrationReglagesTest" classname="Imagine.Pilotage.Tests.Acces.AdministrationReglagesTest" assertions="0" time="0.000097">
+          <error type="Error">Imagine\Pilotage\Tests\Acces\AdministrationReglagesTest::testStockageAbsentInvalideEtPanneRestentPrudents
+Error: Class "Imagine\Pilotage\Acces\AdministrationReglages" not found
+
+/work/tests/Acces/AdministrationReglagesTest.php:87</error>
+        </testcase>
+        <testcase name="testPageAdminDeuxChoixParChampEtDelegationNonceAuCoeur" file="/work/tests/Acces/AdministrationReglagesTest.php" line="97" class="Imagine\Pilotage\Tests\Acces\AdministrationReglagesTest" classname="Imagine.Pilotage.Tests.Acces.AdministrationReglagesTest" assertions="0" time="0.000096">
+          <error type="Error">Imagine\Pilotage\Tests\Acces\AdministrationReglagesTest::testPageAdminDeuxChoixParChampEtDelegationNonceAuCoeur
+Error: Class "Imagine\Pilotage\Acces\AdministrationReglages" not found
+
+/work/tests/Acces/AdministrationReglagesTest.php:99</error>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

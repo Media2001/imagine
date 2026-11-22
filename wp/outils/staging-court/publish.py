@@ -149,7 +149,7 @@ def inject(slug, runner, offline, target, helpers):
     assert db['Source'].endswith('/' + slug + '/db')
     file_helper = slug + '-files'
     call(['create', '--pull', 'never', '--name', file_helper, '--label', LABEL + '=true',
-          '--network', 'none', '--cap-drop', 'ALL', '--cap-add', 'CHOWN', '--cap-add', 'DAC_OVERRIDE',
+          '--network', 'none', '--cap-drop', 'ALL', '--cap-add', 'CHOWN', '--cap-add', 'DAC_OVERRIDE', '--cap-add', 'FOWNER',
           '--security-opt', 'no-new-privileges', '--log-driver', 'none', '--entrypoint', 'sleep',
           '--mount', 'type=volume,source=' + html['Name'] + ',target=/target',
           '--mount', 'type=bind,source=' + content['Source'] + ',target=/target/wp-content', IMAGE, 'infinity'])
@@ -168,10 +168,15 @@ for p in root.iterdir():
     call(['exec', '-i', file_helper, 'python3', '-'], cleanup.encode())
     # Pipe the exact offline tree; neither SQL nor archives are written to the host.
     sender = subprocess.Popen(DOCKER + ['cp', runner + ':/scratch/a01-site/.', '-'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    receiver = subprocess.run(DOCKER + ['exec', '-i', file_helper, 'tar', '--no-same-owner', '-xf', '-', '-C', '/target'],
+    receiver = subprocess.run(DOCKER + ['exec', '-i', file_helper, 'tar', '--no-same-owner', '--no-overwrite-dir', '--touch', '-xf', '-', '-C', '/target'],
                               stdin=sender.stdout, capture_output=True, timeout=600)
-    sender.stdout.close(); sender.wait(timeout=60)
+    sender.stdout.close(); sender_error = sender.stderr.read(); sender.wait(timeout=60)
     if sender.returncode or receiver.returncode:
+        diagnostic = {'sender_exit': sender.returncode, 'receiver_exit': receiver.returncode,
+                      'sender': sender_error.decode(errors='replace')[-1500:],
+                      'receiver': receiver.stderr.decode(errors='replace')[-1500:]}
+        # Only transport diagnostics for the invented fixture; never SQL/config values.
+        print(json.dumps({'file_transfer_diagnostic': diagnostic}))
         raise RuntimeError('FILE_TRANSFER_REFUSED')
     config = '''<?php
 declare(strict_types=1);
@@ -271,6 +276,7 @@ def main():
     parser.add_argument('--production-url')
     parser.add_argument('--table-decisions')
     parser.add_argument('--php-version', default='8.2', choices=['8.2'])
+    parser.add_argument('--case', choices=['classic', 'hpos', 'trap'], help='Rejeu synthétique ciblé, défaut les trois')
     args = parser.parse_args()
     if args.archive and not (args.operator_ced and args.name and args.production_url):
         parser.error('--operator-ced, --name imagine-test-… et --production-url requis')
@@ -278,6 +284,9 @@ def main():
     out = ROOT / 'production/A-01/publication-22nov' / run_id
     out.mkdir(parents=True, exist_ok=False)
     cases = [('classic', False), ('hpos', False), ('classic', True)] if args.self_test_publication else [('operator', False)]
+    if args.case:
+        if not args.self_test_publication: parser.error('--case réservé aux tests fictifs')
+        cases = [('classic' if args.case == 'trap' else args.case, args.case == 'trap')]
     result = {'status': 'FAIL', 'run_id': run_id, 'cases': [], 'cleanup': [],
               'no_real_archive': args.self_test_publication, 'no_agent_access_used': True,
               'tool_or_templates_modified': False,
@@ -288,7 +297,7 @@ def main():
         before = collect()['tool_source_manifest']
         result['tool_source_manifest'] = before
         for storage, trapped in cases:
-            name = validate_name(args.name or ('imagine-test-a01-' + run_id + '-' + storage + ('-trap' if trapped else '')))
+            name = validate_name(args.name or ('imagine-test-a01-' + run_id + '-' + ('trap' if trapped else storage)))
             runner = 'imagine-a01-publication-' + uuid.uuid4().hex[:12]
             helpers = []; created = False; runner_created = False
             receipt = {'name': name, 'storage': storage, 'trapped': trapped, 'status': 'NOT_EXECUTED'}

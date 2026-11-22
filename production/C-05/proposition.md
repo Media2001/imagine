@@ -1,21 +1,21 @@
-# C-05 — proposition d’échéancier (21 novembre 2026)
+# C-05 — proposition d’échéancier, reprise du 22 novembre 2026
 
-**Statut : BLOQUÉ pour l’acceptance intégrale ; proposition et prototype vérifiés, sans PRET.** Aucun branchement sur un site existant, aucune décision financière, aucun encaissement. Voir le contre-exemple ci-dessous avant toute utilisation.
+**Statut : Option A appliquée ; proposition et prototype à relire.** Quatre échéances par bloc de quatre numéros, pas par fenêtre anniversaire. Aucun branchement sur un site existant, aucun encaissement ni GO financier. Reçus canoniques : `preuves/reprise-final-*` ; les preuves du 21/11 restent historiques.
 
-## 1. Le point qui empêche de promettre « tous les jours de commande »
+## 1. Unité d’engagement retenue : quatre numéros
 
-Les règles suivantes ne sont pas simultanément satisfaisables pour toutes les commandes : premier numéro encore ouvert selon C-01 ; initial à la commande ; quatre paiements dans chaque année de date à date ; premier numéro de reconduction suivant le quatrième ; échéances reconduites toutes communes à clôture moins une marge positive.
+L’arbitrage du 22/11 corrige expressément celui du 21/11 : le papier se compte par blocs de quatre numéros (§3.5), une fraction par numéro (§3.4), tandis que le numérique conserve sa fenêtre de date à date. L’anniversaire numérique ne déplace ni n’ajoute un paiement.
 
 **Contre-exemple entièrement fictif, issu du calendrier de test de C-01 :** clôtures régulières les 10 janvier, avril, juillet et octobre, sorties les 20 ; marge de démonstration 7 jours civils, donc dates communes les 3.
 
 - Commande le **9 avril 2027 à 12 h Bruxelles** : C-01 attribue avril, juillet, octobre 2027 et janvier 2028.
 - Année initiale : 9 avril 2027, 3 juillet 2027, 3 octobre 2027, 3 janvier 2028. Le premier numéro est payé à la commande ; on ne rajoute pas le 3 avril passé.
-- Reconduction anniversaire le **9 avril 2028 à 12 h** : C-01 attribue ensuite avril, juillet, octobre 2028 et janvier 2029.
-- La date commune du premier de ces numéros est le **3 avril 2028**, soit **avant** cet anniversaire. L’appliquer donne un cinquième paiement dans la première fenêtre de date à date. La supprimer laisse le premier numéro reconduit impayé. La déplacer ne respecte plus la date commune et la marge.
+- Bloc suivant C-01 : avril, juillet, octobre 2028 et janvier 2029, tous aux communes des 3.
+- La première commune reconduite est le **3 avril 2028**, avant l’anniversaire du 9 avril. La fenêtre initiale contient **cinq dates**, mais chaque bloc conserve exactement quatre créances. C’est désormais accepté, sans exception de date ni de marge.
 
-Ce n’est ni une limitation de WooCommerce ni une raison de modifier C-01. Pour toute marge positive, une commande entre la date commune du premier numéro et sa clôture peut produire ce conflit au cycle suivant. Le balayage quotidien fictif de 2027 détecte **28 dates à midi sur 365**, refusées à la reconduction ; ce nombre dépend du calendrier et de la marge, pas des tarifs.
+Le balayage des 365 jours fictifs accepte les **28 commandes** dont la première fenêtre contient cinq dates avec marge 7. Ce n’est pas une cinquième position dans un bloc. Aucun numéro substitué, aucune modification de C-01.
 
-**Position du prototype : refus explicite `HORS_ENGAGEMENT`, avant toute écriture Woo.** Aucun numéro n’est supprimé ou substitué, aucune date n’est reportée et aucune cinquième position n’est créée. Ce garde-fou est testé ; il ne résout pas le besoin « quel que soit le jour ». Arbitrage fermé en §6.
+Le refus `HORS_ENGAGEMENT` est supprimé : il imposait l’ancienne unité de comptage. Le moteur conserve ses refus de calendrier incomplet et de dates non croissantes. Les valeurs de réglage non décidées par le client ne bloquent plus ce prototype (§6).
 
 ## 2. Standard examiné avant le sur-mesure
 
@@ -29,16 +29,16 @@ Les fonctions documentées `update_dates`, `can_date_be_updated` et les relation
 |---|---|---|
 | Support Woo | Abonnement sans expiration automatique, période technique de trois mois ; chaque prochain paiement est remplacé par la date du plan C-01, via l’API de dates. La cadence n’est pas la durée d’engagement.[1][3] | Abonnement de période annuelle ; trois actions supplémentaires doivent créer des commandes reliées, ou appeler explicitement le cycle de renouvellement. Ces actions hors calendrier sont possibles, mais leur combinaison n’est pas un fractionnement annuel natif documenté.[3][4] |
 | Ce que verrait l’abonné | Prochaine date et commandes natives ; le libellé technique trimestriel ne doit pas laisser croire à une résiliation trimestrielle. Un récapitulatif des quatre positions et de l’anniversaire reste à raccorder. Le compte rendu visuel n’est pas implémenté ici.[2] | L’annuel est plus proche du contrat affiché, mais les trois sommes complémentaires et leur lien à la dette annuelle exigent aussi un récapitulatif spécifique. Ne pas afficher une charge annuelle entière en plus de trois fractions. |
-| Paiement échoué | Une position reste la même créance ; pas de rang supplémentaire sur un échec ou une reprise. Le comportement natif peut laisser l’abonnement en attente ; droits, grâce et maintien de l’engagement ne sont pas décidés ici.[2][6] | Même prudence pour la position concernée ; les commandes complémentaires doivent être incluses dans le traitement des échecs, faute de quoi elles divergent du support annuel. Ce raccord n’a pas été exercé. |
-| Reconduction | Anniversaire = changement de bloc d’engagement, **pas** un débit supplémentaire. Les quatre positions suivantes viennent de C-01 ; la première commune doit encore appartenir à la nouvelle fenêtre contractuelle. Le conflit du §1 reste bloquant. | Le renouvellement annuel natif ne coïncide généralement pas avec la première date commune. Il faut donc le déplacer, ou séparer renouvellement du contrat et première fraction ; cela retire l’avantage de simplicité. Même conflit du §1. |
+| Paiement échoué | Pas de rang confirmé ni paiement supplémentaire sur échec. Les créances restantes suivent le réglage du §6 ; droits et grâce restent séparés. Les retries automatiques ont leurs prérequis.[2][6] | Même politique à appliquer aussi aux commandes complémentaires, faute de quoi elles divergent du support annuel. Ce raccord n’a pas été exercé. |
+| Reconduction | Quatre numéros C-01 suivants, toutes les dates communes, même avant l’anniversaire numérique. Pas de débit supplémentaire pour l’anniversaire. | L’annuel natif ne coïncide généralement pas avec la première commune. Il faut déplacer l’appel ou séparer contrat et première fraction ; complexité supplémentaire. |
 | Comptage d’engagement | Quatre identités `(abonnement, cycle, rang)` attachées à quatre numéros, dont l’initial au cycle 1. Anniversaire et opposition à reconduction sont indépendants de l’intervalle technique. | Même compteur nécessaire ; le nombre de commandes de renouvellement ne suffit pas à distinguer appel annuel et fraction. |
 | Côté Odoo | Proposition : chaque commande porte cycle, rang, numéro et date théorique ; paiement validé et engagement annuel sont des événements distincts, à passer ensuite par la file C-04. Aucun événement Odoo n’est émis ici ; champs, facturation et étalement restent à confirmer par Step. | Même données, avec en plus une distinction stricte entre support annuel et appels complémentaires pour éviter de compter cinq créances ou de facturer deux fois la somme annuelle. Aucun connecteur n’est ajouté. |
 
-**Recommandation conditionnelle : voie A.** Elle conserve un seul flux natif de commandes de renouvellement et une seule prochaine action. B ajoute trois circuits sans résoudre le conflit contractuel. La recommandation reste une proposition à relire et ne vaut ni arbitrage financier ni GO.
+**Voie A recommandée.** Un seul flux natif de renouvellements et une seule prochaine action ; B multiplie les circuits sans bénéfice pour le compteur de numéros. Cette recommandation reste un prototype à relire, pas un encaisseur de production ni un GO.
 
 ## 3. Mécanisme limité et exercice réel
 
-`Planificateur` reçoit un `Numeros\Moteur`, une `Annee`, la borne exclusive de l’engagement et une marge explicitement fournie. Il ne lit ni horloge ni WordPress. Il appelle **uniquement C-01** pour sélectionner les quatre numéros et calculer leurs dates communes. Il remplace la première date du premier cycle par la commande. Il refuse calendrier incomplet, dates non croissantes et date hors fenêtre. La borne est fournie séparément : la validité numérique après activation n’est pas assimilée silencieusement à l’engagement après commande. Dans la fixture, activation immédiate et anniversaire proviennent de C-01, y compris le 29 février.
+`Planificateur` reçoit un `Numeros\Moteur`, une `Annee` C01 et une marge explicite. Aucun calendrier, horloge ou WordPress recalculé : **seul C01** choisit les quatre numéros et leurs communes. Première position du bloc initial à la commande ; toutes les autres communes. Calendrier incomplet et dates non croissantes refusés. L’argument historique `finEngagement` est conservé pour compatibilité positionnelle : contexte numérique validé postérieur au début, **plus une borne de paiement**. Activation numérique et bloc papier ne sont pas fusionnés implicitement. La marge absente refuse `MARGE_OBLIGATOIRE` avant tout résultat.
 
 `RaccordManuel` ne contient aucune logique de calendrier et ne s’enregistre sur aucun hook. Il utilise l’API officielle de dates en UTC, après vérification de modifiabilité.[1] Il refuse tout abonnement sans marqueur fictif C05, sans drapeau explicite de renouvellement manuel ou avec identifiant de passerelle non vide. Aucun booléen de mode staging n’est employé pour autoriser un paiement.
 
@@ -50,24 +50,47 @@ Le renouvellement manuel natif demande normalement une action du client ; il ne 
 
 ## 4. Preuve acquise, sans gonfler sa portée
 
-- PHP pur : **376 tests, 1 473 assertions, 0 échec** ; 365 jours de commande, clôture veille/jour/lendemain, marges 1/3/7 et refus 0/-1, calendrier incomplet, fuseaux et 29 février, contre-exemple A-00 et refus de la cinquième charge.
-- Vrais **Subscriptions 9.4.1**, WordPress **7.0.9**, WooCommerce **11.1.1**, PHP **8.2.36** ; trois commandes pour **chacun** des stockages classique et HPOS : 20 février, 10 avril et 11 octobre 2027.
-- **6 abonnements, 6 commandes initiales et 42 vraies commandes de renouvellement** : quatre positions initial comprises puis quatre reconduites par scénario, **48 commandes au total**. **230 contrôles de scénario par stockage**, tous réussis. Ces contrôles ne sont pas 460 parcours financiers indépendants.
+- PHP pur : **380 tests, 2 289 assertions, 0 échec** ; 365 jours, veille/jour/lendemain de clôture, cinq dates acceptées, calendrier incomplet, fuseaux et 29 février, chaque réglage et validation des entrées. Suite autonome PHP, pas PHPUnit.
+- Vrais **Subscriptions 9.4.1**, WordPress **7.0.9**, WooCommerce **11.1.1**, PHP **8.2.36** ; quatre commandes pour **chacun** des stockages classique et HPOS : 20 février et 9/10/11 avril 2027 (veille/jour/lendemain de clôture).
+- **8 abonnements, 8 initiales, 56 vraies commandes de renouvellement, 64 commandes au total**. Deux blocs de quatre positions par scénario. **350 contrôles par stockage, 700 au total**, dont les réglages administratifs, distincts des 12 contrôles d’enveloppe Python. Ce ne sont pas 700 parcours financiers indépendants.
 - Les dates enregistrées de `next_payment` et des actions natives correspondent exactement aux dates C-01, avec conversions hiver/été. Les actions futures sont exécutées explicitement en accéléré ; les confirmations locales ont l’heure réelle d’exécution. **Ce n’est pas une attente de deux ans, ni une preuve de débit bancaire à une date future.** Les reçus séparent date théorique, date native d’action et date de validation Woo.
-- Les trois dates positives ne masquent pas les 28 contre-exemples de la suite pure. Elles ne prouvent donc pas l’acceptance universelle.
+- Le scénario du 9 avril crée réellement les huit positions et vérifie cinq dates dans sa première fenêtre, en classique et HPOS. Douze combinaisons administratives par stockage sont persistées puis relues et exercées sur le moteur et les projections. Le formulaire est rendu par WP (nonce, champs et capacité), sans sauvegarde HTTP ni inspection visuelle revendiquée.
 
-Reçus : `preuves/final-unit-3-result.json`, `preuves/final-e2e-3-result.json`, manifests et syntaxe associés ; RED/GREEN conservés. Commandes de reprise et limites dans `notes.md`.
+Reçus : `preuves/reprise-final-unit-result.json`, `preuves/reprise-final-e2e-result.json`, manifests et syntaxe associés ; RED/GREEN de reprise conservés. `preuves/verification.json` agrège les totaux, empreintes actuelles et nettoyage. Commandes et limites dans `notes.md`.
 
 ## 5. Isolation et périmètre
 
 Image synthétique A-01 existante réutilisée par identifiant immuable, aucun téléchargement dans le banc. Seul le ZIP Subscriptions autorisé est lu dans la bibliothèque de paquets, avec empreinte vérifiée ; ni ZIP ni licence ne sont copiés dans le dépôt. Memberships n’est pas utilisé. Nouveau conteneur possédé C05, réseau `none`, aucun montage/volume/port, capacités supprimées ; MariaDB uniquement sur socket Unix, aucun serveur web. Emails et HTTP bloqués dans la fixture. Aucune archive de site, aucun compte réel, aucun outil installé sur l’hôte, aucune opération Git ni modification de staging. Ressource C05 supprimée et absence vérifiée (`preuves/cleanup.json`). Le verrou du parent est laissé intact.
 
-## 6. À arbitrer par Ced / Imagine — aucune réponse appliquée
+## 6. Trois réglages, aucune question bloquante pour le prototype
 
-1. **Conflit du §1 : quelle règle amender ?** A — compter quatre créances par bloc de numéros, en acceptant qu’une fenêtre anniversaire contienne cinq dates ; B — autoriser une exception à la date commune **et à la marge** pour la première position reconduite ; C — revoir le premier numéro attribué dans la fenêtre entre lancement commun et clôture. **Choisir A / B / C**, ou demander une nouvelle règle explicite ; aucune de ces dérogations n’est codée. C impliquerait un nouveau brief C-01, pas une correction furtive.
-2. **Marge** : une valeur positive explicite fournie par l’administration, en jours civils, sans valeur par défaut : **oui / non** ? La valeur métier reste à fournir ; 7 n’est qu’une valeur de démonstration.
-3. **Rejet en cours d’année** (décisions Imagine 8 et 12) : les quatre créances restent-elles intégralement dues malgré le rejet : **oui / non** ? Et la priorité d’accès est-elle **retrait immédiat / délai de grâce** ? Ni remise, ni report, ni abandon, ni règle de droits n’est ajouté.
-4. **Changement de tarif** : **montants figés pour les quatre positions de l’année / nouveau tarif pour les seules positions non encore payées** ? Aucun calcul de montant ni taxe ni port dans le moteur ; les 10 EUR de la fixture ne sont pas un tarif Imagine.
+`Reglages` est pur PHP. `ReglagesAdministration` fournit la Settings API [7][8], option `imagine_c05_reglages`, sans exposition REST :
+
+| Clé | Défaut | Autre valeur / effet |
+|---|---|---|
+| `marge_jours` | **null, aucun défaut** | Entier positif en jours civils. Vide = non configuré, moteur bloqué. 1/3/7/30 testés, pas recommandés ; 0, négatif, décimal, texte, booléen, tableau et dépassement d’entier refusés. |
+| `apres_rejet` | `restent_dues` | `annuler_restantes` : ne plus devoir les rangs impayés après rejet, sans effet sur les confirmations payées. Sans rejet, pas de suppression. |
+| `tarif` | `fige_bloc` | `courant_impayes` : tarif courant pour les seuls rangs non payés. Hausse/baisse, nouvelle capture par bloc et interaction avec rejet testées. |
+
+`montantsRestants` renvoie une **projection** en centimes par rang. L’appelant fournit la somme par échéance figée à l’ouverture du bloc, le tarif courant et les seuls rangs confirmés payés. Pas de division d’un annuel, taxe, port, remboursement ou remise Woo exécutée. Le nouveau bloc capture sa propre somme. Aucun changement de réglage ne réécrit une commande payée. L’accès suit séparément le délai de grâce, sans nouveau choix C05.
+
+### Seam parent, sans modifier le bootstrap commun
+
+Après l’autoload, le parent pourra appeler une fois :
+
+```php
+(new Imagine\Pilotage\Echeancier\ReglagesAdministration())->enregistrer();
+```
+
+Cela enregistre `admin_init`, le sous-menu Woo et la capacité `manage_woocommerce` du groupe. Formulaire `options.php`, nonce et contrôles de capacité standards WP [7], sorties échappées, libellés traduisibles. Une saisie invalide conserve intégralement l’option précédente avec erreur ; une option persistée corrompue échoue fermée à la lecture. La marge peut rester vide mais interdit toute planification.
+
+```php
+$reglages = (new Imagine\Pilotage\Echeancier\ReglagesAdministration())->lire();
+$positions = $planificateur->planifier($anneeC01, $finNumeriqueC01, $reglages->margeJours);
+$restant = $reglages->montantsRestants($centimesFiges, $centimesCourants, $rangsConfirmes, $rejet);
+```
+
+Ce seam est activé explicitement dans la fixture, **pas** dans le bootstrap partagé. Il ne déploie aucun écran sur le vrai site. Aucun choix métier restant ne bloque la remise de code ; une marge effective reste à renseigner avant usage. PRET n’est ni clôture par les deux relecteurs, ni validation visuelle, ni GO réel.
 
 ## Sources
 
@@ -77,3 +100,7 @@ Image synthétique A-01 existante réutilisée par identifiant immuable, aucun t
 [4] https://woocommerce.com/document/subscriptions/develop/action-reference
 [5] https://woocommerce.com/document/subscriptions/billing-date-alignment/creating-an-aligned-subscription-product
 [6] https://woocommerce.com/document/subscriptions/failed-payment-retry
+[7] https://developer.wordpress.org/plugins/settings/settings-api/
+[8] https://developer.wordpress.org/reference/functions/register_setting/
+
+Huit sources officielles relues le 22/11 : URL finale, HTTP 200, heure, empreinte et court extrait dans `sources/review-2026-11-22.json`. Les sources et reçus du 21/11 sont conservés comme historiques.

@@ -124,6 +124,69 @@ final class ReglagesTest extends TestCase
         }
     }
 
+    public function testValidationPrecedeMemeLesTroisReglagesOuverts(): void
+    {
+        foreach ([false, 1, [], new \stdClass()] as $reglages) {
+            $decision = (new Moteur())->decider(
+                DecisionTest::contenu(['reserve' => false]),
+                DecisionTest::visiteur([['type' => 'equipe', 'role' => 'administration']]),
+                new DecisionRobot(MotifRobot::VerifieDns, 'google'),
+                DecisionTest::date(),
+                null,
+                $reglages,
+            );
+            self::assertFalse($decision->complet);
+            self::assertSame('entree_invalide', $decision->motif->value);
+        }
+        foreach ([['type' => 'inconnu'], ['type' => 'equipe', 'role' => 'cooperateur']] as $invalide) {
+            $decision = (new Moteur())->decider(
+                DecisionTest::contenu(['reserve' => false, 'sortie' => DecisionTest::date('2026-11-22')]),
+                DecisionTest::visiteur([['type' => 'equipe', 'role' => 'redaction'], $invalide]),
+                new DecisionRobot(MotifRobot::VerifieDns, 'google'),
+                DecisionTest::date(),
+                null,
+                new Reglages(true, true, true),
+            );
+            self::assertFalse($decision->complet);
+            self::assertSame('entree_invalide', $decision->motif->value);
+        }
+    }
+
+    public function testSortieFuturePrioritaireDansLesHuitCombinaisonsEtBorneAUneSeconde(): void
+    {
+        foreach ([false, true] as $robotComplet) {
+            foreach ([false, true] as $futurEquipe) {
+                foreach ([false, true] as $pdfAnterieur) {
+                    $reglages = new Reglages($robotComplet, $futurEquipe, $pdfAnterieur);
+                    foreach ([false, true] as $equipe) {
+                        foreach ([false, true] as $reserve) {
+                            foreach (
+                                ['2026-11-21 11:59:59', '2026-11-21 12:00:00',
+                                '2026-11-21 12:00:01'] as $sortie
+                            ) {
+                                $decision = (new Moteur())->decider(
+                                    DecisionTest::contenu([
+                                        'reserve' => $reserve, 'sortie' => DecisionTest::date($sortie),
+                                    ]),
+                                    DecisionTest::visiteur($equipe
+                                        ? [['type' => 'equipe', 'role' => 'redaction']] : []),
+                                    new DecisionRobot(MotifRobot::VerifieDns, 'google'),
+                                    DecisionTest::date(),
+                                    null,
+                                    $reglages,
+                                );
+                                self::assertSame(
+                                    $sortie <= '2026-11-21 12:00:00' || ($equipe && $futurEquipe),
+                                    $decision->complet,
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public function testPdfRobotEstExtraitParDefautSansFermerLesArticles(): void
     {
         foreach (['google', 'bing'] as $identite) {

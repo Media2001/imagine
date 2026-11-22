@@ -110,6 +110,7 @@ def main():
             receipt['wrapper_sha256'] = hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest()
             receipt['shared_sources_unchanged'] = shared_inventory() == json.loads(baseline.read_text(encoding='utf-8'))
             receipt_path.write_text(json.dumps(receipt, indent=2), encoding='utf-8')
+            print('C06_COMMAND', receipt['command'])
 
 
 if __name__ == '__main__':
