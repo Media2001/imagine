@@ -27,7 +27,7 @@ Comptes fictifs, créés par script sur le staging. Noms manifestement inventés
 | A-EXPIRE | Ancien abonné | Abonnement arrivé à terme sans renouvellement |
 | A-NONRENOUV | Abonné qui a désactivé le renouvellement | Actif jusqu'au terme, 1 numéro restant |
 | A-ETRANGER | Abonné livré hors de Belgique | Actif, supplément de port appliqué |
-| A-SANSMAIL | Abonné sans adresse électronique | Créé par l'administration, adresse technique interne, exclu des envois |
+| A-SANSMAIL | Abonné sans adresse électronique | Créé par l'administration, adresse technique interne. Exclu des envois **par email** ; il reçoit le magazine et figure dans la liste d'envoi postale |
 | A-ECHEANCE | Abonné à 30 jours de son échéance annuelle | Actif, renouvellement activé, rappel de reconduction pas encore envoyé |
 
 ## Cas particuliers

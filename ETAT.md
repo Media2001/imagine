@@ -1,4 +1,4 @@
-# État des chantiers — mis à jour le 21 novembre 2026, 23 h 20
+# État des chantiers — mis à jour le 22 novembre 2026, 11 h 40
 
 ## Mise en route
 
@@ -44,7 +44,7 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 | C-02 Numéro d'entreprise | **Clos le 21/11** : corrigé, arbitrages appliqués, vérifié au second tour | Branchement dans un lot ultérieur | — |
 | C-06 Décision d'accès | Rendu, relu, corrigé, vérifié au second tour (50 tests) | Trois questions sur les droits, pour Ced | Ced |
 | C-05 Échéancier en quatre fois | Proposition et prototype sur le vrai Subscriptions. Contradiction trouvée entre « dates communes » et « quatre paiements par année de date à date » | Choix de la règle par Ced (compter par bloc de quatre numéros, recommandé) | Ced |
-| C-07 Liste d'envoi | Brief écrit | Production | Hermès |
+| C-07 Liste d'envoi | Rendu dans la nuit du 21 au 22 (36 tests), relu par les deux relecteurs : à corriger, sans bloquant | Corrections, puis vérification du second tour | Hermès |
 | Suite | En attente | Voir `A-FAIRE.md` | — |
 
 ## En attente de tiers

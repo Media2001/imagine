@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 21 novembre 2026, 23 h 20.
+Mis à jour le 22 novembre 2026, 11 h 40.
 
 Consigne permanente : `prompts/consigne-permanente.md`. Doctrine : `doctrine/doctrine.md` (dernière révision : **21/11/2026 — qui valide quoi**).
 
@@ -10,9 +10,19 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 
 ## Consignes actives, par ordre de priorité
 
-File du 21/11, 23 h 20. Tes rapports de 14 h 03 et 15 h 11 sont lus.
+File du 22/11, 11 h 40. Ton rapport de 3 h 44 est lu.
 
-**1. `briefs/C-07-liste-envoi.md`** — chantier C. La liste d'envoi d'un numéro, en PHP pur, figée à la clôture. Une demi-journée. Indépendant de tout le reste.
+**1. Corrections de C-07** — `corrections/C-07.md`, section « Instructions pour Hermès ». Applique les instructions 1 à 7 et 9. L'instruction 8 (registre des écarts) est faite par Claude : n'écris pas dans `docs/`. Délai : deux heures. Puis redépose `PRET`.
+
+Précisions de Claude sur son propre brief, qui répondent aux questions 1 à 3 de la fusion (ce ne sont pas des arbitrages de Ced, seulement la levée d'ambiguïtés de rédaction) :
+
+- **Grâce.** Un abonné en délai de grâce à la clôture **figure** dans la liste, quel que soit `paiementValide`. C'est l'interprétation du brief ; elle reste soumise à la décision d'Imagine sur le délai de grâce, donc isole-la derrière un réglage unique.
+- **A-SANSMAIL.** « Exclu des envois » voulait dire « par email ». Il **figure** dans la liste postale. `docs/recette/profils.md` est corrigé.
+- **Doublons.** Deux exemplaires conservés, chacun signalé en anomalie. Le rapprochement s'appuie sur `destinataire_id` quand il est commun, et sinon sur le nom et l'adresse normalisés.
+
+Reste ouvert, pour Imagine : l'ordre, les colonnes et le format attendus par le routeur. Colonnes provisoires d'ici là. La borne de fin suit la règle de C-01 : ne la redéfinis pas.
+
+Les six avertissements de style que tu signales dans `tests/Echeancier/run.php` (lot C-05) : corrige-les dans cette passe, ils ne touchent à aucune règle.
 
 **En attente d'une réponse de Ced — ne pas reprendre :**
 
