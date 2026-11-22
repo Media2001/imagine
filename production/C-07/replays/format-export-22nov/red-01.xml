@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="0.003127">
+    <testsuite name="Envoi" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="0.003127">
+      <testsuite name="Imagine\Pilotage\Tests\Envoi\FormatExportTest" file="/work/tests/Envoi/FormatExportTest.php" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="0.003127">
+        <testcase name="testSelectionEtOrdreDesColonnesSansChangerLesValeurs" file="/work/tests/Envoi/FormatExportTest.php" line="13" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="0" time="0.003127">
+          <error type="Error">Imagine\Pilotage\Tests\Envoi\FormatExportTest::testSelectionEtOrdreDesColonnesSansChangerLesValeurs
+Error: Class "Imagine\Pilotage\Envoi\FormatExport" not found
+
+/work/tests/Envoi/FormatExportTest.php:20</error>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

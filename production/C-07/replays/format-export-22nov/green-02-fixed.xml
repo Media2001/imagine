@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="10" assertions="20" errors="0" failures="0" skipped="0" time="0.001903">
+    <testsuite name="Envoi" tests="10" assertions="20" errors="0" failures="0" skipped="0" time="0.001903">
+      <testsuite name="Imagine\Pilotage\Tests\Envoi\FormatExportTest" file="/work/tests/Envoi/FormatExportTest.php" tests="10" assertions="20" errors="0" failures="0" skipped="0" time="0.001903">
+        <testsuite name="Imagine\Pilotage\Tests\Envoi\FormatExportTest::testFormatInvalideRefuseSansCorrectionSilencieuse" tests="8" assertions="8" errors="0" failures="0" skipped="0" time="0.001595">
+          <testcase name="testFormatInvalideRefuseSansCorrectionSilencieuse with data set &quot;vide&quot;" file="/work/tests/Envoi/FormatExportTest.php" line="33" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="1" time="0.000985"/>
+          <testcase name="testFormatInvalideRefuseSansCorrectionSilencieuse with data set &quot;champ inconnu&quot;" file="/work/tests/Envoi/FormatExportTest.php" line="33" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="1" time="0.000153"/>
+          <testcase name="testFormatInvalideRefuseSansCorrectionSilencieuse with data set &quot;formule en entete&quot;" file="/work/tests/Envoi/FormatExportTest.php" line="33" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="1" time="0.000085"/>
+          <testcase name="testFormatInvalideRefuseSansCorrectionSilencieuse with data set &quot;repetition&quot;" file="/work/tests/Envoi/FormatExportTest.php" line="33" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="1" time="0.000056"/>
+          <testcase name="testFormatInvalideRefuseSansCorrectionSilencieuse with data set &quot;indice troue&quot;" file="/work/tests/Envoi/FormatExportTest.php" line="33" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="1" time="0.000078"/>
+          <testcase name="testFormatInvalideRefuseSansCorrectionSilencieuse with data set &quot;associatif&quot;" file="/work/tests/Envoi/FormatExportTest.php" line="33" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="1" time="0.000115"/>
+          <testcase name="testFormatInvalideRefuseSansCorrectionSilencieuse with data set &quot;non texte&quot;" file="/work/tests/Envoi/FormatExportTest.php" line="33" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="1" time="0.000056"/>
+          <testcase name="testFormatInvalideRefuseSansCorrectionSilencieuse with data set &quot;espace non normalise&quot;" file="/work/tests/Envoi/FormatExportTest.php" line="33" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="1" time="0.000068"/>
+        </testsuite>
+        <testcase name="testChaqueColonnePeutEtreSelectionneeSeule" file="/work/tests/Envoi/FormatExportTest.php" line="39" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="9" time="0.000210"/>
+        <testcase name="testSelectionEtOrdreDesColonnesSansChangerLesValeurs" file="/work/tests/Envoi/FormatExportTest.php" line="50" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="3" time="0.000097"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

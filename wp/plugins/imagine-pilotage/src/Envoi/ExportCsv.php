@@ -22,13 +22,14 @@ final class ExportCsv
     }
 
     /** @param list<array<string, string>> $lignes */
-    public static function lignes(array $lignes): string
+    public static function lignes(array $lignes, ?FormatExport $format = null): string
     {
+        $colonnes = ($format ?? new FormatExport())->colonnes;
         $stream = fopen('php://memory', 'w+b');
-        fputcsv($stream, self::COLONNES, escape: '', eol: "\n");
+        fputcsv($stream, $colonnes, escape: '', eol: "\n");
         foreach ($lignes as $ligne) {
             $valeurs = [];
-            foreach (self::COLONNES as $colonne) {
+            foreach ($colonnes as $colonne) {
                 $valeurs[] = CsvProtection::cellule($ligne[$colonne]);
             }
             fputcsv($stream, $valeurs, escape: '', eol: "\n");

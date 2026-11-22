@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/work/phpunit.xml" tests="10" assertions="11" errors="1" failures="0" skipped="0" time="0.004285">
+    <testsuite name="Envoi" tests="10" assertions="11" errors="1" failures="0" skipped="0" time="0.004285">
+      <testsuite name="Imagine\Pilotage\Tests\Envoi\FormatExportTest" file="/work/tests/Envoi/FormatExportTest.php" tests="10" assertions="11" errors="1" failures="0" skipped="0" time="0.004285">
+        <testsuite name="Imagine\Pilotage\Tests\Envoi\FormatExportTest::testFormatInvalideRefuseSansCorrectionSilencieuse" tests="8" assertions="8" errors="0" failures="0" skipped="0" time="0.001678">
+          <testcase name="testFormatInvalideRefuseSansCorrectionSilencieuse with data set &quot;vide&quot;" file="/work/tests/Envoi/FormatExportTest.php" line="28" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="1" time="0.001036"/>
+          <testcase name="testFormatInvalideRefuseSansCorrectionSilencieuse with data set &quot;champ inconnu&quot;" file="/work/tests/Envoi/FormatExportTest.php" line="28" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="1" time="0.000135"/>
+          <testcase name="testFormatInvalideRefuseSansCorrectionSilencieuse with data set &quot;formule en entete&quot;" file="/work/tests/Envoi/FormatExportTest.php" line="28" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="1" time="0.000116"/>
+          <testcase name="testFormatInvalideRefuseSansCorrectionSilencieuse with data set &quot;repetition&quot;" file="/work/tests/Envoi/FormatExportTest.php" line="28" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="1" time="0.000073"/>
+          <testcase name="testFormatInvalideRefuseSansCorrectionSilencieuse with data set &quot;indice troue&quot;" file="/work/tests/Envoi/FormatExportTest.php" line="28" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="1" time="0.000091"/>
+          <testcase name="testFormatInvalideRefuseSansCorrectionSilencieuse with data set &quot;associatif&quot;" file="/work/tests/Envoi/FormatExportTest.php" line="28" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="1" time="0.000069"/>
+          <testcase name="testFormatInvalideRefuseSansCorrectionSilencieuse with data set &quot;non texte&quot;" file="/work/tests/Envoi/FormatExportTest.php" line="28" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="1" time="0.000076"/>
+          <testcase name="testFormatInvalideRefuseSansCorrectionSilencieuse with data set &quot;espace non normalise&quot;" file="/work/tests/Envoi/FormatExportTest.php" line="28" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="1" time="0.000081"/>
+        </testsuite>
+        <testcase name="testChaqueColonnePeutEtreSelectionneeSeule" file="/work/tests/Envoi/FormatExportTest.php" line="34" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="0" time="0.002390">
+          <error type="Error">Imagine\Pilotage\Tests\Envoi\FormatExportTest::testChaqueColonnePeutEtreSelectionneeSeule
+Error: Class "Imagine\Connecteur\CsvProtection" not found
+
+/work/src/Envoi/ExportCsv.php:33
+/work/tests/Envoi/FormatExportTest.php:40</error>
+        </testcase>
+        <testcase name="testSelectionEtOrdreDesColonnesSansChangerLesValeurs" file="/work/tests/Envoi/FormatExportTest.php" line="45" class="Imagine\Pilotage\Tests\Envoi\FormatExportTest" classname="Imagine.Pilotage.Tests.Envoi.FormatExportTest" assertions="3" time="0.000217"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>
