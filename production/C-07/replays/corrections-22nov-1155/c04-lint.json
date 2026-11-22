@@ -1,0 +1,10 @@
+{
+  "time_utc": "2026-11-22T11:12:10.224097+00:00",
+  "command": [
+    "php",
+    "/tmp/composer.phar",
+    "lint"
+  ],
+  "workdir": "/c04",
+  "exit_code": 0
+}

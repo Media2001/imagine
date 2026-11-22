@@ -280,7 +280,7 @@ restent des preuves historiques de leurs sources, pas des preuves des correction
 
 ## C-07 — liste d'envoi, historique explicite et CSV
 
-`Envoi\ListeEnvoi::etablir($numero, $calendrier, $abonnements, $cloture)` retourne
+`Envoi\ListeEnvoi::etablir($numero, $calendrier, $abonnements, $cloture, inclureGrace: true)` retourne
 un objet readonly (`numero`, `cloture`, `lignes`, `anomalies`). Le numéro et sa
 clôture doivent correspondre au calendrier ; aucun droit n'est recalculé.
 
@@ -291,6 +291,11 @@ clôture doivent correspondre au calendrier ; aucun droit n'est recalculé.
   `grace`, `suspendu`, `expire` ou `attente` ; IDs de numéros dus fournis par C-01 ;
   places attribuées uniquement. `fin` est la borne effective exclusive, y compris
   la fin du délai si l'état est `grace`. Aucune durée n'est inventée.
+- Un état `actif` exige `paiementValide = true`. L'état `grace` conserve l'envoi
+  **quel que soit** `paiementValide`, jusqu'à `fin` si elle est fournie. Le seul
+  réglage de cette interprétation est `inclureGrace` (true par défaut) ; false
+  exclut toute grâce, même payée. Le futur adaptateur le fournit depuis une
+  configuration unique, après décision d'Imagine ; aucune durée n'est calculée.
 - `Destinataire(id, nom, rue, complement, codePostal, ville, pays)` ne contient
   pas d'email. Pour un cadeau, fournir le destinataire, jamais l'acheteur ; pour
   un groupe, chaque bénéficiaire, jamais le gestionnaire. Le lecteur de données
@@ -306,11 +311,19 @@ clôture doivent correspondre au calendrier ; aucun droit n'est recalculé.
   et les historiques de confiance, sans reconstruire une ancienne liste depuis
   les seules valeurs courantes. Une entrée réécrite rétroactivement n'est pas
   une archive historique et ce moteur pur ne peut pas en garantir l'intégrité.
-- Les anomalies sont séparées et référencent l'index de ligne et l'exemplaire :
-  `adresse_incomplete`, `pays_manquant`, `doublon_destinataire_adresse`. Les
-  exemplaires restent dans la projection, y compris deux abonnements distincts
-  au même nom/adresse. Détection des doublons : nom et adresse complète,
-  espaces normalisés et casse ASCII ignorée ; pas de rapprochement flou postal.
+- Les anomalies postales référencent l'index de ligne et l'exemplaire :
+  `adresse_incomplete`, `pays_manquant`, `doublon_destinataire_adresse`. La présence
+  du nom, de la rue, du code postal, de la ville et du pays ignore les espaces
+  Unicode, dont U+00A0 et U+202F. Les valeurs exportées ne sont pas réécrites.
+- Un individuel ou un offert éligible sans destinataire produit une anomalie
+  `destinataire_manquant` avec `abonnement_id`, sans inventer de ligne/index.
+  Un groupe sans place attribuée ne produit ni ligne ni anomalie.
+- Les deux exemplaires d'un doublon restent présents et chacun est signalé
+  **une seule fois**. Comparaison : adresse complète normalisée + ID de
+  destinataire commun (exact, non vide), sinon nom normalisé ; casse UTF-8
+  abaissée par `mb_strtolower`, espaces Unicode regroupés et retirés aux bornes.
+  `mbstring` est donc nécessaire aussi en exécution, pas seulement pour PHPUnit.
+  Pas de rapprochement flou ni de normalisation postale/canonique NFC.
 
 `Envoi\ExportCsv::liste($liste)` rend les octets CSV et refuse toute anomalie
 non revue. `anomaliesRevues: true` n'est à passer qu'après traitement explicite
@@ -338,15 +351,27 @@ Depuis la racine du dépôt, avec un nom de paquet neuf pour ne pas écraser les
 
 ```bash
 export IMAGINE_C07_PACKET=rejeu-unique
-python -B wp/tests/envoi-runner/run.py prepare
+python -B wp/tests/envoi-runner/corrections.py prepare
 python -B wp/tests/envoi-runner/run.py run --name final
-python -B wp/tests/envoi-runner/verify.py
-python -B wp/tests/envoi-runner/run.py close
+python -B wp/tests/envoi-runner/corrections.py strict
+python -B wp/tests/envoi-runner/corrections.py close
+python -B wp/tests/envoi-runner/corrections.py seal
+python -B wp/tests/envoi-runner/corrections.py check
 unset IMAGINE_C07_PACKET
 ```
 
-Le `composer lint` global signale actuellement six avertissements préexistants
-dans `tests/Echeancier/run.php` (C-05 en attente). Ils ne sont pas corrigés dans
-C-07 ; `verify.py` contrôle séparément PSR-12 sur tous les fichiers PHP modifiés,
-les tests C-07 et les régressions C-04. Voir `production/C-07/notes.md`.
+Le paquet de corrections du 22/11 est `corrections-22nov-1155`. Les tests stricts
+Envoi et C-04, le `composer test` standard, le lint global, la syntaxe et Composer
+strict y sont réellement rejoués. C-04 est copié séparément dans le conteneur,
+avec inventaire et empreintes intacts. Les cinq lignes longues de C-05 autorisées
+sont reformatées ; une exception **ciblée** `PSR1.Files.SideEffects` documente son
+runner autonome, qui expose aussi des fonctions de fixture. Aucun autre sniff
+n'est désactivé, aucune règle C-05 n'est changée. Les 376 cas autonomes et leurs
+résultats complets sont identiques avant/après. Voir `production/C-07/notes.md`.
+
+`strict` produit JUnit, reçus et CSV fictif dans le paquet choisi ; `close` retire
+seulement le runner possédé et exige le diagnostic Docker « no such object ».
+`seal` lie les empreintes finales aux preuves, puis `check` les relit et vérifie
+l'absence effective du runner. Les anciens paquets restent historiques. Ces
+contrôles techniques ne constituent ni une recette, ni une clôture, ni un GO.
 

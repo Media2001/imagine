@@ -1,0 +1,23 @@
+{
+  "time_utc": "2026-11-22T11:11:16.818500+00:00",
+  "container": "imagine-c03-f5cda3340d08",
+  "image": "sha256:b2ffa6ad01ffacc6d31b176232c8d0779c0320daba381e05cbbd80f56d5327a0",
+  "label": "org.imagine.c07-runner",
+  "labels": {
+    "org.imagine.c07-runner": "true",
+    "org.imagine.synthetic-e2e": "true"
+  },
+  "mounts": [],
+  "binds": null,
+  "ports": {},
+  "exposed_ports": null,
+  "privileged": false,
+  "cap_drop": [
+    "ALL"
+  ],
+  "security_options": [
+    "no-new-privileges"
+  ],
+  "networks": {},
+  "processes": "PID                 COMMAND\n3728983             sleep\n"
+}

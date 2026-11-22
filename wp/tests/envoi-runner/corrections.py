@@ -49,6 +49,18 @@ def owned():
     return name, info
 
 
+def prepare():
+    assert not OUT.exists(), 'Choose a fresh packet'
+    OUT.mkdir(parents=True)
+    save('c04-before.json', inventory(ROOT / 'wp/plugins/imagine-connecteur'))
+    paths = [ROOT / p for p in ['A-FAIRE.md', 'ETAT.md', 'JOURNAL.md', 'README.md', '.hermes.lock']]
+    paths += [p for directory in ['docs', 'doctrine', 'briefs', 'prompts', 'relecteurs', 'scripts']
+              for p in (ROOT / directory).rglob('*') if p.is_file()]
+    save('protected-before.json', {p.relative_to(ROOT).as_posix(): digest(p)
+                                   for p in sorted(paths) if p.is_file()})
+    runner.c03.prepare()
+
+
 def command(key, args, work='/work', junit=None):
     name, _ = owned()
     assert not (OUT / (key + '.json')).exists(), 'Immutable command receipt'
@@ -138,13 +150,37 @@ echo json_encode($files);
     assert current == copied, 'C04 container complete inventory/hash drift'
     save('c04-integrity.json', {'time_utc': now(), 'host_unchanged': True, 'container_matches': True,
                                'file_count': len(current), 'before': before, 'after': current, 'container': copied})
-    command('c04-strict', ['php', 'vendor/bin/phpunit', '--fail-on-warning', '--fail-on-risky',
+    finish_c04()
+
+
+def finish_c04(key='c04-strict'):
+    name, _ = owned()
+    assert json.loads((OUT / 'final.json').read_text(encoding='utf-8'))['source_sha256'] == runner.payload()[1]
+    current = inventory(ROOT / 'wp/plugins/imagine-connecteur')
+    assert current == json.loads((OUT / 'c04-before.json').read_text(encoding='utf-8'))
+    # C04's own PSR-4 map explicitly requires this sibling C02 path.
+    # This is an internal symlink, not a host mount or a change to C04 sources.
+    b.call(['exec', name, 'ln', '-s', '/work', '/imagine-pilotage'])
+    command(key, ['php', 'vendor/bin/phpunit', '--fail-on-warning', '--fail-on-risky',
                           '--fail-on-deprecation', '--log-junit', '/tmp/c04-strict.xml'],
             '/c04', '/tmp/c04-strict.xml')
     command('c04-lint', ['php', '/tmp/composer.phar', 'lint'], '/c04')
+    code = b'''<?php
+$files = [];
+foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator('/c04', FilesystemIterator::SKIP_DOTS)) as $file) {
+    $relative = substr($file->getPathname(), 5);
+    if ($file->isFile() && !str_starts_with($relative, 'vendor/')) {
+        $files['wp/plugins/imagine-connecteur/' . $relative] = hash_file('sha256', $file->getPathname());
+    }
+}
+echo json_encode($files);
+'''
+    after_tests = json.loads(b.call(['exec', '-i', name, 'php'], code).stdout)
+    assert after_tests == current, 'C04 source changed during regression tests'
+    save('c04-after-tests.json', {'time_utc': now(), 'inventory_unchanged': True, 'sha256': after_tests})
     command('psr12-owned', ['php', 'vendor/bin/phpcs', '--standard=PSR12', 'src/Envoi',
                            'tests/Envoi', 'tests/Echeancier/run.php'])
-    sample = b'''<?php
+    sample = rb'''<?php
 require '/work/vendor/autoload.php';
 spl_autoload_register(static function (string $class): void {
     $prefix = 'Imagine\\Connecteur\\';
@@ -204,6 +240,11 @@ def seal():
     source = inventory(ROOT / 'wp/plugins/imagine-pilotage')
     source.update(c04)
     source.update({p.relative_to(ROOT).as_posix(): digest(p) for p in paths})
+    delivery_paths = [ROOT / 'production/C-07/notes.md', ROOT / 'production/C-07/PRET']
+    delivery_paths += list((ROOT / 'production/C-07').glob('corrections-*.md'))
+    if (OUT / 'delivery-paths.json').exists():
+        delivery_paths += [ROOT / p for p in json.loads((OUT / 'delivery-paths.json').read_text(encoding='utf-8'))]
+    source.update({p.relative_to(ROOT).as_posix(): digest(p) for p in delivery_paths if p.is_file()})
     save('source-seal.json', {'time_utc': now(), 'source_sha256': source,
                              'protected_unchanged': True, 'c04_complete_inventory_unchanged': True})
     evidence = {p.name: digest(p) for p in sorted(OUT.iterdir()) if p.is_file()
@@ -223,15 +264,18 @@ def check():
     assert result.returncode != 0 and ('no such object' in diagnostic.lower() or 'no such container' in diagnostic.lower())
     assert not b.STATE.exists()
     counts = {}
-    for key in ['final', 'envoi-strict', 'c04-strict']:
+    c04_key = 'c04-strict-c02' if (OUT / 'c04-strict-c02.json').exists() else 'c04-strict'
+    for key in ['final', 'envoi-strict', c04_key]:
         tree = ET.parse(OUT / (key + '.xml')).getroot()
         suite = tree.find('testsuite') if tree.tag == 'testsuites' else tree
         counts[key] = {k: int(suite.attrib[k]) for k in ['tests', 'assertions', 'failures', 'errors', 'skipped']}
         assert counts[key]['failures'] == counts[key]['errors'] == counts[key]['skipped'] == 0
         receipt = json.loads((OUT / (key + '.json')).read_text(encoding='utf-8'))
         assert receipt['exit_code'] == 0
-    assert counts['envoi-strict']['tests'] > 36 and counts['c04-strict'] == {
+    assert counts['envoi-strict']['tests'] > 36 and counts[c04_key] == {
         'tests': 37, 'assertions': 224, 'failures': 0, 'errors': 0, 'skipped': 0}
+    assert inventory(ROOT / 'wp/plugins/imagine-connecteur') == json.loads(
+        (OUT / 'c04-before.json').read_text(encoding='utf-8'))
     result = {'time_utc': now(), 'source_hashes_verified': len(seal_data['source_sha256']),
               'evidence_hashes_verified': len(evidence['sha256']), 'counts': counts,
               'container_absent': cleanup['container'], 'runner_state_absent': True}
@@ -242,10 +286,15 @@ def check():
 
 if __name__ == '__main__':
     action = sys.argv[1] if len(sys.argv) > 1 else 'check'
-    if action in ['c05-before', 'c05-after']:
+    if action == 'prepare':
+        prepare()
+    elif action in ['c05-before', 'c05-after']:
         c05(action)
     elif action == 'strict':
         strict()
+    elif action == 'resume-c04':
+        assert json.loads((OUT / 'c04-strict.json').read_text(encoding='utf-8'))['exit_code'] != 0
+        finish_c04('c04-strict-c02')
     elif action == 'close':
         close()
     elif action == 'seal':
@@ -253,4 +302,4 @@ if __name__ == '__main__':
     elif action == 'check':
         check()
     else:
-        raise SystemExit('Expected c05-before, c05-after, strict, close, seal or check')
+        raise SystemExit('Expected prepare, c05-before, c05-after, strict, resume-c04, close, seal or check')

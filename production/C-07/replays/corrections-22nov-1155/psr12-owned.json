@@ -1,0 +1,13 @@
+{
+  "time_utc": "2026-11-22T11:12:10.732842+00:00",
+  "command": [
+    "php",
+    "vendor/bin/phpcs",
+    "--standard=PSR12",
+    "src/Envoi",
+    "tests/Envoi",
+    "tests/Echeancier/run.php"
+  ],
+  "workdir": "/work",
+  "exit_code": 0
+}

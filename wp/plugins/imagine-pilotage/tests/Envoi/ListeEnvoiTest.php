@@ -168,16 +168,18 @@ final class ListeEnvoiTest extends TestCase
 
     public function testGraceSansPaiementIncluseParReglageUnique(): void
     {
-        $abo = $this->abonnement([$this->situation(etat: 'grace', paiement: false)]);
-        self::assertCount(1, $this->calculer([$abo])->lignes);
         $numero = $this->numero();
-        self::assertSame([], ListeEnvoi::etablir(
-            $numero,
-            new Calendrier([$numero]),
-            [$abo],
-            $numero->cloture,
-            inclureGrace: false
-        )->lignes);
+        foreach ([false, true] as $paiement) {
+            $abo = $this->abonnement([$this->situation(etat: 'grace', paiement: $paiement)]);
+            self::assertCount(1, $this->calculer([$abo])->lignes);
+            self::assertSame([], ListeEnvoi::etablir(
+                $numero,
+                new Calendrier([$numero]),
+                [$abo],
+                $numero->cloture,
+                inclureGrace: false
+            )->lignes);
+        }
     }
 
     public function testGraceAvecFinAtteinteAbsenteQuelQueSoitLePaiement(): void
@@ -298,7 +300,15 @@ final class ListeEnvoiTest extends TestCase
 
     public function testDoublonNomAdresseCasseAccentueeEtEspacesUnicode(): void
     {
-        $a = new Destinataire('a', "\u{00A0}ÉLODIE  FICTIVE\u{202F}", '1 RUE IMAGINAIRE', '', '1000', 'CITÉ FICTIVE', 'BE');
+        $a = new Destinataire(
+            'a',
+            "\u{00A0}ÉLODIE  FICTIVE\u{202F}",
+            '1 RUE IMAGINAIRE',
+            '',
+            '1000',
+            'CITÉ FICTIVE',
+            'BE'
+        );
         $b = new Destinataire('b', 'élodie fictive', '1 rue imaginaire', '', '1000', 'cité fictive', 'be');
         $liste = $this->calculer([
             $this->abonnement([$this->situation(destinataires: [$a])], 'a'),
