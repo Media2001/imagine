@@ -1,0 +1,31 @@
+A-01 — PRET DE CODE POUR RELECTURE, arbitrages du 22 novembre 2026 appliqués.
+
+Contrat vérifié : publication de la fixture qualifiée OU rapport de refus explicite.
+R4/R3/R1/R2/R5/R6/R7 corrigés et rejoués. R5 : scripts de bascule seulement,
+DISALLOW_FILE_MODS maintenu, auto-updates désactivées, egress de mise à jour conservé.
+Version attendue paramétrable (--expected-core-version), défaut opérateur 6.9.1.
+
+6.9.1 NON QUALIFIÉ en publication. Le runtime commercial livré est 7.0.9 :
+le défaut 6.9.1 est réellement refusé AVANT site, archive ou bootstrap.
+Subscriptions 9.4.1 et WooCommerce 11.1.1 exigent WP 7.0 : aucun minimum contourné.
+Ce PRET ne dit pas que la production 6.9.1 fonctionne sur la baseline commerciale.
+Blocage opérationnel à qualifier séparément avec un cœur et des paquets compatibles.
+
+Preuve publication : production/A-01/publication-22nov/79cef0705045/result.json
+Quatre cas PASS, dont classique/HPOS avec vrais plugins, secret/table personnelle refusés.
+R5 après publication : vrai téléchargement public + egress Woo public, script de fichier
+inerte dédié, rejeu idempotent, rollback et suppression relus ; aucune activation/exécution
+du plugin téléchargé, pas de téléchargement commercial ni recette de mise à jour A-04.
+Refus par défaut : production/A-01/publication-22nov/a6ca179f2442/result.json (1/FAIL attendu).
+Pannes : production/A-01/corrections-22nov/faults-15bcd5cf2841/result.json (4 scénarios PASS).
+Compatibilité : production/A-01/corrections-22nov/compatibility-1fc2a444c868.json (en-têtes seulement).
+Régression : production/A-01/tests-21nov/899049f5bdbf/result.json (18 contrôles PASS).
+48 tests hôte verts, 6 suites ; compteurs non cumulables avec les suites embarquées.
+8 nouveaux sites et 11 runners supprimés, absences relues ; outil/modèles inchangés.
+
+Commande et limites : wp/outils/staging-court/publish.py ; production/A-01/notes.md.
+SHA-256/relecture exacte : production/A-01/corrections-22nov/artifact-arbitrages-final.json.
+
+Ce PRET n'est pas GO d'import d'Imagine, de publication 6.9.1 ou d'accès agent.
+Aucune archive réelle ouverte ; Ced seul lance un éventuel premier import réel,
+et son rapport sera relu avant toute ouverture aux agents. Aucun verrou modifié.

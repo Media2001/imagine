@@ -14,11 +14,15 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'wp/outils/staging-court'))
 import publish
 
-PUBLICATION = ROOT / 'production/A-01/publication-22nov/6d5fac463e61/result.json'
-FAULTS = ROOT / 'production/A-01/corrections-22nov/faults-a4d2ca414cea/result.json'
-BASELINE = ROOT / 'production/A-01/tests-21nov/3c4e0cfbc8c4/result.json'
+PUBLICATION = ROOT / 'production/A-01/publication-22nov/79cef0705045/result.json'
+FAULTS = ROOT / 'production/A-01/corrections-22nov/faults-15bcd5cf2841/result.json'
+BASELINE = ROOT / 'production/A-01/tests-21nov/899049f5bdbf/result.json'
+DEFAULT_REFUSAL = ROOT / 'production/A-01/publication-22nov/a6ca179f2442/result.json'
+COMPATIBILITY = ROOT / 'production/A-01/corrections-22nov/compatibility-1fc2a444c868.json'
 MODIFIED = [
     'wp/outils/staging-court/publish.py', 'wp/outils/staging-court/inside.py',
+    'wp/outils/staging-court/script_capacity_probe.php',
+    'wp/tests/a01-court/test_arbitrations.py', 'wp/tests/a01-court/probe_compatibility.py',
     'wp/outils/staging-court/README.md', 'wp/outils/staging-wp-integration/worker/worker.py',
     'wp/tests/a01-court/prepare_publication.py', 'wp/tests/a01-court/roundtrip.py',
     'wp/tests/a01-court/verify_publication.py', 'wp/tests/a01-court/test_corrections.py',
@@ -42,6 +46,20 @@ def sources(manifest):
         assert source.is_relative_to(ROOT / 'wp') and digest(source) == expected, relative
 
 
+def verify_default_refusal(value):
+    assert value['status'] == 'FAIL' and len(value['cases']) == 1
+    assert value['expected_core_version'] == '6.9.1' and not value.get('cleanup_errors')
+    case = value['cases'][0]
+    assert case['status'] == 'FAIL' and case['error'] == 'PINNED_CORE_EXPECTED_VERSION_MISMATCH'
+    assert case['runtime_core_preflight'] == {
+        'ok': False, 'stage': 'core_preflight', 'expected': '6.9.1', 'pinned': '7.0.9',
+        'code': 'PINNED_CORE_EXPECTED_VERSION_MISMATCH'}
+    assert not any(key in case for key in ('normal_creation', 'offline', 'fixture',
+                                          'injection', 'publication', 'verified_marker_readback'))
+    assert len(value['cleanup']) == 1 and value['cleanup'][0]['absent'] is True
+    assert value['cleanup'][0]['name'] == case['offline_isolation_before']['name']
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', required=True)
@@ -50,6 +68,24 @@ def main():
     assert output.is_relative_to(ROOT / 'production/A-01') and not output.exists()
     publication, faults, baseline = load(PUBLICATION), load(FAULTS), load(BASELINE)
     assert publication['status'] == faults['status'] == baseline['status'] == 'PASS'
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from verify_publication import verify
+    publication_verification = verify(PUBLICATION)
+    default, compatibility = load(DEFAULT_REFUSAL), load(COMPATIBILITY)
+    verify_default_refusal(default)
+    sources(default['command_sources']); sources(default['cases'][0]['source_manifest'])
+    assert compatibility['status'] == 'HEADER_CHECK_COMPLETED_NOT_COMPATIBILITY_ACCEPTANCE'
+    assert compatibility['no_sites_created'] and compatibility['no_php_or_plugin_bootstrap']
+    assert compatibility['expected_production_core'] == '6.9.1' and compatibility['runtime_core'] == '7.0.9'
+    assert compatibility['driver_sha256'] == digest(ROOT / 'wp/tests/a01-court/probe_compatibility.py')
+    sources(compatibility['source_manifest'])
+    plugins = {row['slug']: row for row in compatibility['plugins']}
+    assert plugins['woocommerce-subscriptions']['requires_wordpress'] == '7.0'
+    assert plugins['woocommerce-subscriptions']['requires_woocommerce'] == '11.1'
+    assert plugins['woocommerce']['requires_wordpress'] == '7.0'
+    assert plugins['woocommerce-subscriptions']['compatible_with_expected_core'] is False
+    assert plugins['woocommerce']['compatible_with_expected_core'] is False
+    assert plugins['woocommerce-memberships']['compatible_with_expected_core'] is None
     assert len(publication['cases']) == len(faults['cases']) == 4
     assert baseline['passed'] == 18 and baseline['failed'] == 0
     assert baseline['owned_container_removed'] and baseline['source_manifest_verified']
@@ -72,42 +108,66 @@ def main():
     assert len(sites) == len(runners) == 8
     cleanup = [publish.deleted_readback(site) for site in sorted(sites)]
     runners.add('imagine-a01-court-' + BASELINE.parent.name)
+    runners.update([default['cleanup'][0]['name'], compatibility['cleanup']['name']])
+    assert len(runners) == 11 and compatibility['cleanup']['absent'] is True
     for runner in sorted(runners):
         result = publish.call(['inspect', runner], check=False)
         assert result.returncode and b'no such object' in result.stderr.lower(), runner
-    assert not (ROOT / 'production/A-01/PRET').exists()
-    assert 'NON PRÊT' in (ROOT / 'production/A-01/notes.md').read_text(encoding='utf-8')
-    assert "define('DISALLOW_FILE_MODS',true)" in (ROOT / 'wp/outils/staging-court/publish.py').read_text()
+    for path, expected in publication['tool_source_manifest'].items():
+        program = ('import json,hashlib\nfrom pathlib import Path\nprint(json.dumps({"sha256":hashlib.sha256(Path('
+                   + repr(path) + ').read_bytes()).hexdigest()}))')
+        actual = json.loads(publish.call(['exec', '-i', 'staging-wp-dashboard', 'python', '-'], program.encode()).stdout)
+        assert actual['sha256'] == expected, 'LIVE_TOOL_SOURCE_DRIFT'
+    notes = (ROOT / 'production/A-01/notes.md').read_text(encoding='utf-8').split('# Historique de première passe')[0]
+    assert '6.9.1 NON QUALIFIÉ' in notes and 'PAR SCRIPTS DE BASCULE SEULEMENT' in notes
+    assert '--expected-core-version 6.9.1' in notes
+    config = (ROOT / 'wp/outils/staging-court/publish.py').read_text()
+    for value in ("define('DISALLOW_FILE_MODS',true)", "define('DISALLOW_FILE_EDIT',true)",
+                  "define('AUTOMATIC_UPDATER_DISABLED',true)", "define('WP_AUTO_UPDATE_CORE',false)",
+                  "define('WP_ACCESSIBLE_HOSTS','*.wordpress.org,*.woocommerce.com')"):
+        assert value in config
+    pret = ROOT / 'production/A-01/PRET'
+    if pret.exists():
+        assert '6.9.1 NON QUALIFIÉ' in pret.read_text(encoding='utf-8') and 'pas GO' in pret.read_text(encoding='utf-8')
     tests = []
     folder = ROOT / 'production/A-01/corrections-22nov'
-    for log in sorted(folder.glob('unit-*-final.log')):
+    for log in sorted(folder.glob('arbitrations-unit-*-final.log')):
         text = log.read_text()
         count = re.search(r'Ran ([0-9]+) tests?', text)
         if not count and log.name == 'unit-harness-final.log':
             count = re.search(r'"tests_run": ([0-9]+)', text)
         assert count and ('\nOK' in text or '"successful": true' in text), log.name
         tests.append({'log': log.relative_to(ROOT).as_posix(), 'tests': int(count[1]), 'sha256': digest(log)})
-    assert len(tests) == 5
-    evidence = [PUBLICATION, FAULTS, BASELINE, folder / 'verification-live-final.json', folder / 'package-format-source.json']
-    final_verification = load(folder / 'verification-live-final.json')
+    assert len(tests) == 6 and sum(row['tests'] for row in tests) == 48
+    evidence = [PUBLICATION, FAULTS, BASELINE, DEFAULT_REFUSAL, COMPATIBILITY,
+                folder / 'arbitrations-verification-live.json', folder / 'arbitrations-standard-docs.json']
+    final_verification = load(folder / 'arbitrations-verification-live.json')
     assert final_verification['status'] == 'PASS' and final_verification['cases_verified'] == 4
     result = {
-        'status': 'SCOPED_CORRECTIONS_VERIFIED_GLOBAL_HANDOFF_BLOCKED',
+        'status': 'ARBITRATIONS_CODE_VERIFIED_PRODUCTION_6_9_1_EXPLICITLY_REFUSED',
         'recorded_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
-        'ready_for_review_global': False, 'pret_present': False,
-        'corrected': ['R4', 'R3', 'R1', 'R2', 'R6', 'R7'],
-        'blockers': ['R5_CED_ADMIN_OR_SCRIPTS_REQUIRED', 'PRODUCTION_CORE_6_9_1_NOT_QUALIFIED_BY_COMMERCIAL_7_0_9_BASELINE'],
-        'modified_file_sha256': {relative: digest(ROOT / relative) for relative in MODIFIED},
+        'ready_for_code_review': True, 'pret_present': pret.exists(),
+        'corrected': ['R4', 'R3', 'R1', 'R2', 'R5', 'R6', 'R7'],
+        'open_arbitrations': [], 'production_6_9_1_publication_qualified': False,
+        'operator_default_expected_core': '6.9.1', 'commercial_test_core': '7.0.9',
+        'operator_default_outcome': 'PINNED_CORE_EXPECTED_VERSION_MISMATCH_BEFORE_SITE_ARCHIVE_OR_BOOTSTRAP',
+        'operational_blockers': ['MATCHING_6_9_1_RUNTIME_NOT_QUALIFIED',
+                                 'COMMERCIAL_SUBSCRIPTIONS_9_4_1_AND_WOO_11_1_1_REQUIRE_WORDPRESS_7_0'],
+        'modified_file_sha256': {relative: digest(ROOT / relative) for relative in MODIFIED + (['production/A-01/PRET'] if pret.exists() else [])},
         'evidence_sha256': {path.relative_to(ROOT).as_posix(): digest(path) for path in evidence},
         'unit_suites': tests, 'unit_tests_passed': sum(test['tests'] for test in tests),
         'publication_cases_passed': len(publication['cases']), 'real_fault_scenarios_passed': len(faults['cases']),
+        'script_capacity_cases_passed': 2, 'default_runtime_expected_refusal_exit': 1,
         'expected_subject_failures': [case['command_exit'] for case in faults['cases']],
         'offline_checks_passed': baseline['passed'], 'offline_data_cases': baseline['unit_results']['data']['receipt']['cases'],
         'offline_data_assertions': baseline['unit_results']['data']['receipt']['assertions'],
         'source_receipts_match_current_files': True,
+        'publication_verification': publication_verification,
         'new_sites_absent_count': len(cleanup), 'site_cleanup': cleanup,
         'owned_runner_absence_names': sorted(runners),
         'correction_source_sha256': digest(ROOT / 'corrections/A-01.md'),
+        'arbitration_source_sha256': digest(ROOT / 'docs/arbitrages-2026-11-22.md'),
+        'shared_tool_sources_match_live': True,
         'no_real_archive_no_agent_access_no_shared_tool_changes': True,
         'not_a_production_import_authorization': True,
     }
