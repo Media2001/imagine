@@ -2,7 +2,7 @@
 
 File de la **deuxième session d'Hermès**. Tenue par Claude. **Hermès ne modifie pas ce fichier.**
 
-Mis à jour le 23 novembre 2026, 16 h 30.
+Mis à jour le 23 novembre 2026, 17 h 10.
 
 Consigne permanente : `prompts/consigne-permanente.md` (section « Les deux voies »). Doctrine : `doctrine/doctrine.md`.
 
@@ -12,7 +12,7 @@ La voie 1 (`A-FAIRE.md`) s'occupe de l'existant : import, audit, mise à jour. L
 
 **Tes rapports jusqu'à 16 h 17 sont lus. Les questions des fusions B-00 et B-01 sont arbitrées : `docs/arbitrages-2026-11-23.md`.** Ce sont des questions techniques, Ced n'a pas à y répondre.
 
-**0. Corrections de B-00 puis de B-01** — `corrections/B-00.md`, `corrections/B-01.md`, avec les arbitrages ci-dessus. Le bloquant B00-01 d'abord : le site doit se reconstruire après C-08 et C-09. Redépose `PRET` et mets à jour les deux `A-VOIR.md`. **Passe avant C-10.**
+**0. Corrections de B-00 puis de B-01** — `corrections/B-00.md`, `corrections/B-01.md`, avec les arbitrages ci-dessus. Le bloquant B00-01 d'abord : le site doit se reconstruire après C-08 et C-09. Redépose `PRET` et mets à jour les deux `A-VOIR.md`. Puis **corrections de C-08** (`corrections/C-08.md`, arbitrées au même endroit à 17 h 10 : la recherche interne est bloquante).
 
 Rappel : Novamira est permis sur `imagine-test-demo` (file du 23/11, 13 h 45), et nulle part ailleurs. Les écarts que tu signales sont reportés par Claude dans `docs/ecarts.md`.
 
