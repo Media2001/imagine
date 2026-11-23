@@ -1,0 +1,8 @@
+{
+  "wp/tests/a02-audit/fingerprint.php": "7967895421d3e4181a19e8e905fe4597a5618159560fa2648c7b30a846203d12",
+  "wp/tests/a02-audit/inside.py": "c37578071da9a2229e443e28f0305c3badbe56b268fe2154f06e4c42d04fed4f",
+  "wp/tests/a02-audit/run.py": "af04606e7a4414520ebb6d49a1af87b978784cc5f74d2408ac880fa741095e0e",
+  "wp/tests/a02-audit/seed.php": "030e2143576674366560e569e1a74a92ceb2e18833459375f5fb6151d6eaa34a",
+  "wp/tests/a02-audit/unit.php": "fee11d5384d80d36a680cdeb4f236e327c92e80970c9f4449feda4b7e75a6621",
+  "wp/outils/bascule/audit": "1ff908ecd1204b69e6c4ea5fff73b14d20c852a2097f4db7e8c1506b04527f5f"
+}

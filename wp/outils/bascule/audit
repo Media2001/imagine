@@ -19,7 +19,24 @@ final class Audit
             throw new \RuntimeException('A02_SERIALIZED_TOO_LARGE');
         }
         $decoded = @unserialize($value, ['allowed_classes' => false, 'max_depth' => 32]);
-        // No class is loaded or instantiated; cached stdClass records are projected later.
+        $decoded = @unserialize($value, ['allowed_classes' => false, 'max_depth' => 32]);
+        // Never load plugin classes or magic methods, including nested cache stdClass.
+        $walk = static function ($node, int $depth = 0) use (&$walk): mixed {
+            if ($depth > 32) {
+                return null;
+            }
+            if (is_object($node)) {
+                $node = (array) $node;
+                unset($node['__PHP_Incomplete_Class_Name']);
+            }
+            if (is_array($node)) {
+                foreach ($node as $key => $item) {
+                    $node[$key] = $walk($item, $depth + 1);
+                }
+            }
+            return $node;
+        };
+        $decoded = $walk($decoded);
         return is_array($decoded) ? $decoded : [];
     }
 
