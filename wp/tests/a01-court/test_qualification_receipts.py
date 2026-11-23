@@ -28,7 +28,7 @@ class QualificationReceipts(unittest.TestCase):
             return json.dumps(self.value).encode() if path == REPORT else original(path)
         with mock.patch.object(Path, 'read_bytes', read):
             with self.assertRaises(AssertionError):
-                verify_publication.verify(REPORT)
+                verify_publication.verify(REPORT, historical_schema_only=True)
 
     def test_complete_baseline(self):
         self.assertEqual(4, len(self.value['cases']))

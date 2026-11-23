@@ -48,14 +48,18 @@ def sql_diagnosis(payload, findings, decisions):
         match = module.TOKEN.match(text, position)
         if match is None:
             findings.add('SQL_GRAMMAR')
-            # Broken grammar cannot authorise anything. Continue only at the
-            # next explicit delimiter, and report that SQL coverage is partial.
             findings.add('SQL_ANALYSIS_PARTIAL', blocking=False)
-            end = text.find(';', position)
-            if end < 0:
+            # Never split on an arbitrary semicolon: it may be inside a
+            # personal literal. Preserve lexer context or stop explicitly.
+            if text.startswith('/*', position):
+                end = text.find('*/', position + 2)
+                if end < 0:
+                    break
+                position = end + 2
+            elif text[position] in "'\"`":
                 break
-            position = end + 1
-            group = []
+            else:
+                position += 1
             continue
         position = match.end()
         if match.lastgroup in ('space', 'comment'):
@@ -77,11 +81,14 @@ def sql_diagnosis(payload, findings, decisions):
         if values[:2] == ['CREATE', 'TABLE']:
             statement = re.sub(r'(\) ENGINE = (?:INNODB|MYISAM|ARIA|MEMORY)) AUTO_INCREMENT = ([0-9]+) (DEFAULT CHARSET = [A-Z0-9_]+(?: COLLATE = [A-Z0-9_]+)?)$', r'\1 \3 AUTO_INCREMENT = \2', statement)
         canonical.append(statement)
+        table_at = 1 if values and values[0] == 'UPDATE' else 2
+        error_schema = ({'table': tokens[table_at][1][1:-1], 'columns': []}
+                        if len(tokens) > table_at and tokens[table_at][0] == 'id' else {})
         try:
             module.sql_plan((statement + ';').encode(), table_engines={'INNODB', 'MYISAM', 'ARIA', 'MEMORY'})
         except module.Refusal as error:
             if str(error) not in ('SQL_PREFIX', 'SQL_TABLE'):
-                findings.add(str(error))
+                findings.add(str(error), **error_schema)
                 bad_statement = True
         except (IndexError, ValueError):
             findings.add('SQL_GRAMMAR')
@@ -231,11 +238,11 @@ def diagnose(stream, expected='6.9.1', decisions=None, php='8.2'):
     try:
         version = select_version(scan['package'])
         if expected_valid and version != expected:
-            findings.add('SOURCE_EXPECTED_CORE_VERSION_MISMATCH')
+            findings.add('SOURCE_EXPECTED_CORE_VERSION_MISMATCH', 'package.json')
     except Refusal as error:
-        findings.add(str(error))
+        findings.add(str(error), 'package.json')
     except (AttributeError, IndexError, RecursionError):
-        findings.add('SOURCE_CORE_METADATA_REFUSED')
+        findings.add('SOURCE_CORE_METADATA_REFUSED', 'package.json')
     if scan['package'] is not None:
         try:
             metadata = json.loads(scan['package'])

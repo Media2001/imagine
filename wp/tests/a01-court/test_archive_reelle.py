@@ -304,6 +304,10 @@ runpy.run_path(SCRIPT,run_name='__main__')
         self.assertTrue(report['complete'])
         self.assertTrue({'ARCHIVE_HEADER','ARCHIVE_PATH_PARENT','SOURCE_CORE_METADATA_REFUSED','MULTISITE_UNSUPPORTED','SQL_STATEMENT'} <= set(report['blockers']))
         self.assertNotIn('ALICE', json.dumps(report))
+        rules = {r['code']:r for r in report['rules']}
+        self.assertEqual('uploads/2026',rules['ARCHIVE_HEADER']['locations'][0]['zone'])
+        self.assertEqual('.json',rules['SOURCE_CORE_METADATA_REFUSED']['locations'][0]['extension'])
+        self.assertEqual('wp_options',rules['SQL_STATEMENT']['locations'][0]['table'])
     def test_valid_archive_cli_exits_zero_with_warnings_only(self):
         import subprocess
         if os.name == 'nt':
@@ -396,6 +400,22 @@ runpy.run_path(SCRIPT,run_name='__main__')
         self.assertIn('SQL_STATEMENT',report['blockers'])
         self.assertIn('ARCHIVE_PATH_BACKSLASH',report['blockers'])
         self.assertNotIn('ALICE',json.dumps(report))
+    def test_case_probe_uses_destination_directory_itself(self):
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory(dir=os.environ.get('TMPDIR')) as tmp:
+            before = sorted(Path(tmp).iterdir())
+            with patch.object(archive.tempfile, 'TemporaryDirectory', side_effect=AssertionError('Child is not the exact target')):
+                result = archive.probe_case_sensitive(tmp)
+            self.assertIsInstance(result,bool)
+            self.assertEqual(before,sorted(Path(tmp).iterdir()))
+    def test_sql_resynchronisation_never_exports_identifiers_inside_values(self):
+        import diagnosis
+        sql = b"\x00'FIRST;CREATE TABLE `ALICE_VALUE` (`email` text) ENGINE=InnoDB;';"
+        raw = fixture([('package.json',b'{}'),('database.sql',sql)])
+        report = diagnosis.diagnose(io.BytesIO(raw))
+        self.assertIn('SQL_GRAMMAR',report['blockers'])
+        self.assertNotIn('ALICE',json.dumps(report))
+        self.assertIn('SQL_ANALYSIS_PARTIAL',report['warnings'])
 
 
 if __name__ == '__main__':

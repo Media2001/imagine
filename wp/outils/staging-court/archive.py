@@ -1,5 +1,6 @@
 """Strict uncompressed .wpress reader, preserving wp-content files offline."""
 import pathlib
+import os
 import re
 import struct
 import tempfile
@@ -101,7 +102,7 @@ def audit(stream, max_bytes=1024*1024*1024, max_entries=150000, retain_sql=False
             if stream.read(1):
                 findings.add('ARCHIVE_TRAILING_DATA')
             if 'database.sql' not in seen:
-                findings.add('ARCHIVE_DATABASE_MISSING')
+                findings.add('ARCHIVE_DATABASE_MISSING', 'database.sql')
             break
         entries += 1
         raw_fields = struct.unpack('255s14s12s4096s', header)
@@ -116,12 +117,12 @@ def audit(stream, max_bytes=1024*1024*1024, max_entries=150000, retain_sql=False
                 bad = True
             bad |= bool(padding.strip(b'\0'))
         name, size, stamp, prefix = fields
-        if bad or not name or '/' in name or not re.fullmatch(r'[0-9]{1,12}', stamp):
-            findings.add('ARCHIVE_HEADER')
-        if not re.fullmatch(r'[0-9]{1,14}', size):
-            findings.add('ARCHIVE_SIZE_INVALID')
-            break
         relative = prefix + '/' + name if prefix else name
+        if bad or not name or '/' in name or not re.fullmatch(r'[0-9]{1,12}', stamp):
+            findings.add('ARCHIVE_HEADER', relative)
+        if not re.fullmatch(r'[0-9]{1,14}', size):
+            findings.add('ARCHIVE_SIZE_INVALID', relative)
+            break
         for code in path_rules(relative, seen, folded, directories):
             findings.add(code, relative, blocking=code not in ('ARCHIVE_PATH_COLON', 'ARCHIVE_PATH_CASE_ONLY'))
         length = int(size)
@@ -171,16 +172,24 @@ def probe_case_sensitive(root):
     root = pathlib.Path(root)
     if root.is_symlink() or not root.is_dir():
         raise Refusal('ARCHIVE_TARGET_SYMLINK')
-    with tempfile.TemporaryDirectory(prefix='.a01-case-', dir=root) as folder:
-        first = pathlib.Path(folder) / 'Probe'
-        second = pathlib.Path(folder) / 'probe'
-        first.write_bytes(b'A')
+    fd, name = tempfile.mkstemp(prefix='.a01-CaseProbe-', dir=root)
+    first = pathlib.Path(name)
+    second = first.with_name(first.name.swapcase())
+    second_created = False
+    try:
+        with os.fdopen(fd, 'wb') as handle:
+            handle.write(b'A')
         try:
             with second.open('xb') as handle:
+                second_created = True
                 handle.write(b'B')
         except FileExistsError:
             return False
         return first.read_bytes() == b'A' and second.read_bytes() == b'B' and not first.samefile(second)
+    finally:
+        if second_created:
+            second.unlink()
+        first.unlink()
 
 
 def restore(stream, content, max_bytes=1024*1024*1024, max_entries=150000, metadata_only=False, case_probe_root=None, report=None):

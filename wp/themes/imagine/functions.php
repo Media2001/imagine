@@ -44,7 +44,7 @@ function imagine_article_body(): void
         }
         echo '</div>';
         if (in_array($decision['bloc'], ['abonnement', 'connexion', 'regularisation', 'decouverte_epuisee'], true)) {
-            get_template_part('parts/paywall', $decision['bloc']);
+            get_template_part('parts/paywall', $decision['bloc'], $decision);
         }
         return;
     }

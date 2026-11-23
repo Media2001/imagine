@@ -51,9 +51,9 @@ class ArchiveSafety(unittest.TestCase):
         with self.assertRaises(Refusal):
             self.parse(entry('C:/fiction') + bytes(4377))
 
-    def test_rejects_case_insensitive_duplicate(self):
-        with self.assertRaises(Refusal):
-            self.parse(entry('plugins/Fiction.php') + entry('plugins/fiction.php') + bytes(4377))
+    def test_rejects_identical_duplicate(self):
+        with self.assertRaisesRegex(Refusal, '^ARCHIVE_PATH_DUPLICATE$'):
+            self.parse(entry('plugins/fiction.php') + entry('plugins/fiction.php') + entry('database.sql') + bytes(4377))
 
     def test_rejects_truncated_payload(self):
         with self.assertRaises(Refusal):

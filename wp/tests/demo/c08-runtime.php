@@ -35,7 +35,8 @@ if ($checks['adaptateur_present']) {
     $checks['filtre_flux_direct'] = !str_contains(apply_filters('the_content_feed', $original), $witness);
     $automatic = get_post($fixture['automatique']);
     $checks['extrait_automatique_ne_lit_pas_corps'] = !str_contains(get_the_excerpt($automatic), $witness)
-        && get_the_excerpt($automatic) === 'Cet article est réservé aux abonnés.';
+        && !str_contains(get_the_excerpt($automatic), 'La place imaginaire');
+    $checks['extrait_vide_repli_neutre'] = \Imagine\Site\Paywall::excerpt($automatic) === 'Cet article est réservé aux abonnés.';
     $checks['ancien_mot_de_passe_pas_un_droit'] = post_password_required($post);
     $response = new \WP_REST_Response(['content' => ['raw' => $original, 'rendered' => $original],
         'excerpt' => ['raw' => $original, 'rendered' => $original], 'password' => 'test-fictif']);
@@ -81,6 +82,10 @@ if ($checks['adaptateur_present']) {
     add_filter('pre_option_imagine_acces_plans', $closed);
     $checks['grace_plan_revoque_fermee'] = !\Imagine\Site\Paywall::decision($post)['complet'];
     remove_filter('pre_option_imagine_acces_plans', $closed);
+    ob_start();
+    get_template_part('parts/paywall', 'regularisation', ['complet' => false]);
+    $blockedNotice = ob_get_clean();
+    $checks['bloc_suspendu_ne_promet_pas_lecture'] = !str_contains($blockedNotice, 'la lecture reste disponible');
     $checks['xmlrpc_sans_methode_contenu'] = apply_filters('xmlrpc_methods', ['wp.getPost' => 'test', 'metaWeblog.getPost' => 'test']) === [];
     $checks['mail_reste_coupe'] = wp_mail('c08@example.org', 'Fictif', 'Fictif') === false;
     $checks['http_reste_coupe'] = is_wp_error(wp_remote_get('https://example.org'));
