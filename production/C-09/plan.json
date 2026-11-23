@@ -1,0 +1,5 @@
+{
+  "code": 0,
+  "stdout": "{\"total\":4,\"checks\":{\"plan_altere_reellement\":true,\"plan_restaure_api_native\":true,\"decision_apres_reset\":true,\"nettoyage_temporaire_relu\":true},\"failures\":[]}",
+  "stderr": ""
+}

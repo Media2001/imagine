@@ -14,14 +14,14 @@ $checks = [];
 try {
     wc_memberships_create_user_membership(['user_membership_id' => $id, 'user_id' => $f['users']['A-CARTE'], 'plan_id' => $temp]);
     $checks['plan_altere_reellement'] = wc_memberships_get_user_membership($id)->get_plan_id() === $temp;
-    ob_start(); require WP_CONTENT_DIR . '/imagine-demo-build/c09-seed.php'; ob_end_clean();
+    ob_start(); (static function (): void { require WP_CONTENT_DIR . '/imagine-demo-build/c09-seed.php'; })(); ob_end_clean();
     $checks['plan_restaure_api_native'] = wc_memberships_get_user_membership($id)->get_plan_id() === $f['plan'];
     wp_set_current_user($f['users']['A-CARTE']);
     $d = \Imagine\Site\Paywall::decision(get_post(get_option('imagine_c08_fixture')['article']));
     $checks['decision_apres_reset'] = $d['complet'] && $d['motif'] === 'abonnement_actif';
 } finally {
     wc_memberships_create_user_membership(['user_membership_id' => $id, 'user_id' => $f['users']['A-CARTE'], 'plan_id' => $f['plan']]);
-    ob_start(); require WP_CONTENT_DIR . '/imagine-demo-build/c09-seed.php'; ob_end_clean();
+    ob_start(); (static function (): void { require WP_CONTENT_DIR . '/imagine-demo-build/c09-seed.php'; })(); ob_end_clean();
     if (get_post_meta($temp, '_imagine_c09_fixture', true) === 'reset-plan') { wp_delete_post($temp, true); }
     wp_set_current_user(0);
 }

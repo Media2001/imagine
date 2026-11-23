@@ -14,7 +14,7 @@ def catalogue():
 
 
 def validate_target(slug):
-    if not isinstance(slug, str) or not slug.startswith('imagine-test-') or slug != 'imagine-test-demo':
+    if not isinstance(slug, str) or slug != 'imagine-test-demo':
         raise ValueError('Voie 2 : seul imagine-test-demo est autorisé')
 
 
@@ -61,6 +61,7 @@ def run(slug='imagine-test-demo', label='installation', readback_only=False):
     proof_dir.mkdir(parents=True, exist_ok=True)
     before = preserve()
     files = {'imagine-demo-build/c09-runtime.php': b00.ROOT / 'wp/tests/demo/c09-runtime.php',
+             'imagine-demo-build/c09-calendar.php': Path(__file__).with_name('c09-calendar.php'),
              'imagine-demo-build/c09-profils.json': Path(__file__).with_name('c09-profils.json')}
     if not readback_only:
         path = b00.validate_credentials_path(Path.home() / '.imagine-demo/identifiants.json')

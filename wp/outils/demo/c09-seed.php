@@ -39,6 +39,15 @@ require_once __DIR__ . '/c09-calendar.php';
 $now = now();
 $date = static fn (string $offset): string => $now->modify($offset)->format('Y-m-d H:i:s');
 $owned = '_imagine_c09_fixture';
+$tariffs = [];
+// Données synthétiques autorisées par la correction : jamais des prix Imagine.
+foreach (['normal' => 120, 'solidaire' => 60, 'soutien' => 240] as $tarif => $annual) {
+    foreach ([1, 4] as $times) {
+        $tariffs[$tarif . '-' . $times] = ['price' => (string) ($annual / $times),
+            'period' => $times === 1 ? 'year' : 'month', 'interval' => $times === 1 ? 1 : 3,
+            'length' => $times === 1 ? 1 : 12];
+    }
+}
 // Prévol complet avant mutation : jamais adopter un compte/plan/produit étranger.
 foreach ($rows as $row) {
     if (!$row['compte']) { continue; }
@@ -65,6 +74,24 @@ foreach (['wc_membership_plan' => 'c09-lecture-fictive', 'product' => 'c09-abonn
     if ($existing && get_post_meta($existing->ID, $owned, true) !== 'shared') { throw new \RuntimeException('Collision catalogue C09.'); }
 }
 $planPost = get_page_by_path('c09-lecture-fictive', OBJECT, 'wc_membership_plan');
+$roleName = 'imagine_referent_abonnements';
+if (get_role($roleName) && get_option('imagine_c09_role_owned') !== true) {
+    throw new \RuntimeException('Collision rôle C09.');
+}
+foreach ($tariffs as $key => $spec) {
+    $existing = get_page_by_path('c09-tarif-fictif-' . $key, OBJECT, 'product');
+    if ($existing && get_post_meta($existing->ID, $owned, true) !== 'shared') { throw new \RuntimeException('Collision tarif C09.'); }
+}
+// Rôle natif persistant : seulement commandes et opérations §3.13, jamais shop_manager.
+$caps = array_fill_keys(['read', 'edit_shop_orders', 'edit_others_shop_orders', 'read_private_shop_orders',
+    'edit_private_shop_orders', 'edit_published_shop_orders', 'publish_shop_orders',
+    'imagine_creer_compte_client', 'imagine_gerer_echeances', 'imagine_traiter_justificatifs',
+    'imagine_exporter_liste_envoi', 'imagine_extraire_abonnes'], true);
+if (!get_role($roleName)) { add_role($roleName, 'Référent abonnements', $caps); }
+$role = get_role($roleName);
+foreach (array_keys($role->capabilities) as $cap) { if (!isset($caps[$cap])) { $role->remove_cap($cap); } }
+foreach ($caps as $cap => $value) { $role->add_cap($cap, $value); }
+update_option('imagine_c09_role_owned', true);
 $planId = wp_insert_post(['ID' => $planPost->ID ?? 0, 'post_type' => 'wc_membership_plan', 'post_status' => 'publish',
     'post_title' => 'C09 — Lecture fictive, hors ligne', 'post_name' => 'c09-lecture-fictive',
     'meta_input' => [$owned => 'shared', '_access_method' => 'manual-only']], true);
@@ -88,6 +115,23 @@ $product->update_meta_data('_subscription_period', 'year');
 $product->update_meta_data('_subscription_period_interval', '1');
 $product->update_meta_data('_subscription_length', '1');
 $product->save();
+$defaultProduct = $product;
+$tariffProducts = [];
+foreach ($tariffs as $key => $spec) {
+    $existing = get_page_by_path('c09-tarif-fictif-' . $key, OBJECT, 'product');
+    $p = new \WC_Product_Subscription($existing->ID ?? 0);
+    $p->set_name('C09 FICTIF — ' . $key . ' — pas une offre Imagine');
+    $p->set_slug('c09-tarif-fictif-' . $key);
+    $p->set_status('private'); $p->set_catalog_visibility('hidden'); $p->set_virtual(true);
+    $p->set_regular_price($spec['price']); $p->set_price($spec['price']); $p->set_tax_status('none');
+    $p->update_meta_data($owned, 'shared');
+    $p->update_meta_data('_subscription_price', $spec['price']);
+    $p->update_meta_data('_subscription_period', $spec['period']);
+    $p->update_meta_data('_subscription_period_interval', (string) $spec['interval']);
+    $p->update_meta_data('_subscription_length', (string) $spec['length']);
+    $p->save();
+    $tariffProducts[$key] = $p;
+}
 // Sélection stable ; seules les copies explicitement possédées sont supprimées.
 $one = static function (array $objects) {
     usort($objects, static fn ($a, $b) => $a->get_id() <=> $b->get_id());
@@ -96,9 +140,12 @@ $one = static function (array $objects) {
     return $first;
 };
 $manifest = ['plan' => (int) $planId, 'product' => $product->get_id(), 'users' => [], 'orders' => [], 'subscriptions' => [], 'memberships' => []];
+$manifest['tariffs'] = array_map(static fn ($p) => $p->get_id(), $tariffProducts);
 foreach ($rows as $row) {
     if (!$row['compte']) { continue; }
     $key = $row['code'];
+    $product = isset($row['tarif']) ? $tariffProducts[$row['tarif']] : $defaultProduct;
+    $fixtureAmount = isset($row['tarif']) ? $product->get_price() : '0';
     $login = strtolower($key);
     $account = $secret['c09_accounts'][$key];
     $user = get_user_by('login', $login);
@@ -166,7 +213,7 @@ foreach ($rows as $row) {
             $item->set_subtotal('0');
             $order->add_item($item);
         } else {
-            $order->add_product($product, 1, ['subtotal' => 0, 'total' => 0]);
+            $order->add_product($product, 1, ['subtotal' => $fixtureAmount, 'total' => $fixtureAmount]);
         }
         if ($key === 'A-ETRANGER') {
             $shipping = new \WC_Order_Item_Shipping();
@@ -188,8 +235,8 @@ foreach ($rows as $row) {
         if (is_wp_error($sub)) { throw new \RuntimeException('Souscription C09 impossible.'); }
         $sub->set_customer_id($id);
         $sub->set_parent_id($order->get_id());
-        $sub->set_billing_period('year');
-        $sub->set_billing_interval(1);
+        $sub->set_billing_period(isset($row['tarif']) ? $tariffs[$row['tarif']]['period'] : 'year');
+        $sub->set_billing_interval(isset($row['tarif']) ? $tariffs[$row['tarif']]['interval'] : 1);
         $sub->set_requires_manual_renewal(true);
         $sub->set_payment_method('');
         $sub->set_payment_method_title('Fixture C09 — renouvellement manuel de sécurité');
@@ -200,7 +247,7 @@ foreach ($rows as $row) {
         $sub->set_address($address, 'shipping');
         $sub->update_meta_data($owned, $key);
         $sub->remove_order_items();
-        $sub->add_product($product, 1, ['subtotal' => 0, 'total' => 0]);
+        $sub->add_product($product, 1, ['subtotal' => $fixtureAmount, 'total' => $fixtureAmount]);
         $sub->calculate_totals(false);
         $start = $date('-335 days');
         $end = $date('+365 days');
@@ -225,8 +272,10 @@ foreach ($rows as $row) {
         usort($members, static fn ($a, $b) => $a->get_id() <=> $b->get_id());
         $member = array_shift($members);
         foreach ($members as $extra) { wp_delete_post($extra->get_id(), true); }
-        if (!$member) { $member = wc_memberships_create_user_membership(['plan_id' => $planId, 'user_id' => $id,
-            'order_id' => $order ? $order->get_id() : 0, 'product_id' => $order ? $product->get_id() : 0]); }
+        // L'API Memberships accepte aussi un ID existant et remet post_parent/plan.
+        $member = wc_memberships_create_user_membership(['user_membership_id' => $member ? $member->get_id() : 0,
+            'plan_id' => $planId, 'user_id' => $id,
+            'order_id' => $order ? $order->get_id() : 0, 'product_id' => $order ? $product->get_id() : 0]);
         if (is_wp_error($member)) { throw new \RuntimeException('Adhésion C09 impossible.'); }
         $member->set_order_id($order ? $order->get_id() : 0);
         $member->set_product_id($order ? $product->get_id() : 0);
