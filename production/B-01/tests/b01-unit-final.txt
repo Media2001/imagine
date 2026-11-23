@@ -4,6 +4,6 @@ test_b01_shell_contract (__main__.B01Theme.test_b01_shell_contract) ... ok
 test_b01_targeted_installation_refuses_other_site (__main__.B01Theme.test_b01_targeted_installation_refuses_other_site) ... ok
 
 ----------------------------------------------------------------------
-Ran 4 tests in 0.216s
+Ran 4 tests in 0.224s
 
 OK

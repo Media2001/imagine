@@ -1,0 +1,34 @@
+[
+  {
+    "name": "premier Tab : lien évitement",
+    "ok": true,
+    "observation": {
+      "tag": "A",
+      "href": "#imagine-main"
+    }
+  },
+  {
+    "name": "Entrée : focus main",
+    "ok": true,
+    "observation": {
+      "id": "imagine-main",
+      "hash": "#imagine-main",
+      "scroll": 358,
+      "fullText": true,
+      "main": 0.34375
+    }
+  },
+  {
+    "name": "article ouvert : texte complet",
+    "ok": true
+  },
+  {
+    "name": "recherche native GET : état vide",
+    "ok": false,
+    "observation": {
+      "url": "http://192.168.129.32:8085/",
+      "h1": "Imagine — démonstration fictive",
+      "empty": false
+    }
+  }
+]

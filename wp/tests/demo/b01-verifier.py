@@ -96,7 +96,7 @@ def run():
         elif case['kind'] == 'thematique':
             actual = {int(e['data-imagine-id']) for e in soup.select('main li[data-imagine-id]')}
             expected = {a['id'] for a in row['articles']}
-            check(key + ' : articles uniquement de cette thématique', bool(actual) and actual <= expected)
+            check(key + ' : articles exacts de cette thématique fictive', actual == expected, sorted(actual))
         elif case['kind'] == 'recherche-vide':
             check(key + ' : état vide explicite', 'Aucun contenu pour le moment.' in text)
         pages.append({k: v for k, v in case.items() if k != 'data'} | {

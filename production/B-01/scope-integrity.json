@@ -1,0 +1,52 @@
+{
+  "protected_b00_sources": [
+    {
+      "file": "wp/outils/demo/b00-seed.php",
+      "sha256": "0d33a7751401171be40776510629ea28470262f172d298946670e88148df898b",
+      "unchanged": true
+    },
+    {
+      "file": "wp/outils/demo/b00_fixtures.py",
+      "sha256": "7a9151973046381cdc263a3b39630e1eb4056be90089bb5324fd5e0e9593971a",
+      "unchanged": true
+    },
+    {
+      "file": "wp/outils/demo/b00_remote.py",
+      "sha256": "56430246c39ecc30704bafe74209e69d843fe4080bc30d45aa074a3240f5ba55",
+      "unchanged": true
+    },
+    {
+      "file": "wp/outils/demo/imagine-demo-offline.php",
+      "sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9",
+      "unchanged": true
+    },
+    {
+      "file": "wp/tests/demo/b00-recette.php",
+      "sha256": "f9a09ef13fc1f184390d2eaf60feb85f54b953af3e9ef18030a3c22265bbcb4d",
+      "unchanged": true
+    },
+    {
+      "file": "wp/tests/demo/b00-snapshot.php",
+      "sha256": "4d6d859af83d4b82e0565f90ad598f97d7186bdffac28d7f2e483e0076be0995",
+      "unchanged": true
+    },
+    {
+      "file": "wp/tests/demo/b00-verifier.py",
+      "sha256": "5b1b93d2491a9150a5c37c96c1444540644851b448e1c0dab68e7750fb1495b0",
+      "unchanged": true
+    },
+    {
+      "file": "wp/tests/demo/test_b00_construction.py",
+      "sha256": "b0f0917c54e533aadc610aab6629d3d3c178ae84bd58b6a1fb21185665f7d063",
+      "unchanged": true
+    },
+    {
+      "file": "wp/plugins/imagine-site/imagine-site.php",
+      "sha256": "ebefa98fac055955ff51bcf7d71f6b4401b3c2fd1d831fc69f920b504666adf0",
+      "unchanged": true
+    }
+  ],
+  "theme_sources_match_installed_hashes": true,
+  "builder_only_allowed_b00_change": "wp/outils/demo/construire.py",
+  "all_protected_unchanged": true
+}

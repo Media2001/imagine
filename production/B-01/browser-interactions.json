@@ -1,0 +1,35 @@
+[
+  {
+    "name": "premier Tab : lien évitement",
+    "ok": true,
+    "observation": {
+      "tag": "A",
+      "href": "#imagine-main"
+    }
+  },
+  {
+    "name": "Entrée : focus main",
+    "ok": true,
+    "observation": {
+      "id": "imagine-main",
+      "hash": "#imagine-main",
+      "scroll": 358,
+      "fullText": true,
+      "main": 0.34375
+    }
+  },
+  {
+    "name": "article ouvert : texte complet",
+    "ok": true
+  },
+  {
+    "name": "soumission formulaire de recherche GET (requestSubmit natif)",
+    "ok": true,
+    "observation": {
+      "url": "http://192.168.129.32:8085/?s=b01-aucun-resultat-xyz",
+      "h1": "Recherche : b01-aucun-resultat-xyz",
+      "empty": true
+    },
+    "qualification": "La première lecture était prématurée : l’URL de résultats était déjà présente au début du contrôle suivant, avant requestSubmit. Le bouton natif puis requestSubmit ont été exercés ; preuve initiale conservée dans tests/05-browser-first-attempt.json. Le raccourci Entrée du champ n’est pas certifié isolément par cette preuve."
+  }
+]
