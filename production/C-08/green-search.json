@@ -1,0 +1,5 @@
+{
+  "code": 0,
+  "stdout": "{\n    \"checks\": {\n        \"fixture_sans_mot_de_passe_natif\": true,\n        \"anonyme_phrase_corps_non_appariee\": true,\n        \"anonyme_titre_public_apparie\": true,\n        \"anonyme_extrait_public_apparie\": true,\n        \"abonne_phrase_corps_appariee\": true\n    },\n    \"total\": 5,\n    \"failures\": []\n}",
+  "stderr": ""
+}

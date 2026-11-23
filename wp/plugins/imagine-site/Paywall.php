@@ -28,7 +28,9 @@ final class Paywall
             $flag = get_post_meta($post->ID, 'imagine_reserve', true);
             $number = (int) get_post_meta($post->ID, 'imagine_numero_id', true);
             $issue = get_post($number);
-            if (!in_array($flag, ['0', '1'], true) || !$issue || $issue->post_type !== 'imagine_numero') {
+            if (!metadata_exists('post', $post->ID, 'imagine_reserve')
+                || !in_array($flag, ['', '0', '1', false, true, 0, 1], true)
+                || !$issue || $issue->post_type !== 'imagine_numero') {
                 throw new \RuntimeException('Métadonnées de contenu invalides.');
             }
             $date = (string) get_post_meta($number, 'imagine_sortie', true);
@@ -239,6 +241,41 @@ final class Paywall
         }
     }
 
+    /** Masque le corps SQL avant appariement ET classement, pas seulement au rendu. */
+    public static function searchSql(string $sql, \WP_Query $query): string
+    {
+        global $wpdb;
+        if ($sql === '' || (string) $query->get('s') === '') {
+            return $sql;
+        }
+        $allowed = [];
+        try {
+            // Pas de WP_Query récursif, pas de liste persistante de droits.
+            $ids = $wpdb->get_col("SELECT ID FROM {$wpdb->posts} WHERE post_type = 'post'");
+            if ($wpdb->last_error !== '') {
+                throw new \RuntimeException('Inventaire de recherche indisponible.');
+            }
+            foreach ($ids as $id) {
+                $post = get_post((int) $id);
+                if ($post instanceof WP_Post && self::decision($post)['complet']) {
+                    $allowed[] = (int) $id;
+                }
+            }
+        } catch (\Throwable) {
+            $allowed = []; // Tout corps d'article fermé si la préparation échoue.
+        }
+        $column = $wpdb->posts . '.post_content';
+        $grant = $allowed ? ' OR ' . $wpdb->posts . '.ID IN (' . implode(',', $allowed) . ')' : '';
+        $safe = '(CASE WHEN ' . $wpdb->posts . ".post_type <> 'post'" . $grant
+            . ' THEN ' . $column . " ELSE '' END)";
+        // Ne jamais remplacer un identifiant ressemblant dans une chaîne SQL citée
+        // (le terme utilisateur est déjà échappé par WP_Query / wpdb::prepare).
+        $pattern = "~'(?:[^'\\\\\\\\]|\\\\\\\\.|'')*'|(?<![a-zA-Z0-9_])"
+            . preg_quote($column, '~') . "\\b~s";
+        return preg_replace_callback($pattern, static fn (array $m): string =>
+            $m[0][0] === "'" ? $m[0] : $safe, $sql) ?? ' AND 1=0 ';
+    }
+
     public static function register(): void
     {
         if (!defined('DONOTCACHEPAGE')) {
@@ -246,6 +283,8 @@ final class Paywall
         }
         // Évite qu'un flux se termine en 304 avant l'émission des en-têtes privés.
         unset($_SERVER['HTTP_IF_MODIFIED_SINCE'], $_SERVER['HTTP_IF_NONE_MATCH']);
+        add_filter('posts_search', [self::class, 'searchSql'], PHP_INT_MAX, 2);
+        add_filter('posts_orderby', [self::class, 'searchSql'], PHP_INT_MAX, 2);
         add_filter('wp_headers', [self::class, 'cacheHeaders'], PHP_INT_MAX);
         add_filter('rest_post_dispatch', static function ($response) {
             $response->set_headers(self::cacheHeaders($response->get_headers()));
