@@ -296,17 +296,162 @@ final class Audit
 
     public static function gatewayIds(string $source): array
     {
-        if (!preg_match('/\bclass\s+[A-Za-z_][A-Za-z0-9_]*\s+extends\s+\\\\?WC_Payment_Gateway(?:_CC|_eCheck)?\b/', $source)) {
-            return [];
+        return self::gatewayInventory(['source.php' => $source])['ids'];
+    }
+
+    public static function gatewayInventory(array $sources): array
+    {
+        $classes = [];
+        foreach ($sources as $source) {
+            $tokens = array_values(array_filter(token_get_all($source), static function ($token): bool {
+                return !is_array($token) || !in_array($token[0], [T_COMMENT, T_DOC_COMMENT, T_WHITESPACE], true);
+            }));
+            $namespace = '';
+            $aliases = [];
+            $resolve = static function (string $name) use (&$namespace, &$aliases): string {
+                if (str_starts_with($name, '\\')) {
+                    return strtolower(ltrim($name, '\\'));
+                }
+                $parts = explode('\\', $name);
+                $first = strtolower($parts[0]);
+                if (isset($aliases[$first])) {
+                    array_shift($parts);
+                    return strtolower($aliases[$first] . ($parts ? '\\' . implode('\\', $parts) : ''));
+                }
+                return strtolower(($namespace !== '' ? $namespace . '\\' : '') . $name);
+            };
+            for ($i = 0, $count = count($tokens); $i < $count; $i++) {
+                $token = $tokens[$i];
+                if (!is_array($token)) {
+                    continue;
+                }
+                if ($token[0] === T_NAMESPACE) {
+                    $namespace = is_array($tokens[$i + 1] ?? null) ? $tokens[$i + 1][1] : '';
+                    $aliases = [];
+                }
+                if ($token[0] === T_USE && is_array($tokens[$i + 1] ?? null)) {
+                    $target = $tokens[$i + 1][1];
+                    $alias = basename(str_replace('\\', '/', $target));
+                    if (is_array($tokens[$i + 2] ?? null) && $tokens[$i + 2][0] === T_AS) {
+                        $alias = $tokens[$i + 3][1];
+                    }
+                    $aliases[strtolower($alias)] = ltrim($target, '\\');
+                }
+                if ($token[0] !== T_CLASS || !is_array($tokens[$i + 1] ?? null)
+                    || $tokens[$i + 1][0] !== T_STRING) {
+                    continue;
+                }
+                $name = $resolve($tokens[++$i][1]);
+                $parent = '';
+                while (++$i < $count && $tokens[$i] !== '{') {
+                    if (is_array($tokens[$i]) && $tokens[$i][0] === T_EXTENDS) {
+                        $parent = $resolve($tokens[++$i][1]);
+                    }
+                }
+                $body = '';
+                $depth = 1;
+                while (++$i < $count && $depth > 0) {
+                    $part = $tokens[$i];
+                    if ($part === '{') {
+                        $depth++;
+                    } elseif ($part === '}') {
+                        $depth--;
+                    }
+                    $body .= is_array($part) ? $part[1] : $part;
+                }
+                // Separators are unnecessary for assignments; preserve const boundaries below.
+                $constants = [];
+                preg_match_all('/const([A-Za-z_][A-Za-z0-9_]*)=[\'\"]([A-Za-z0-9_-]+)[\'\"]/', $body, $matches, PREG_SET_ORDER);
+                foreach ($matches as $match) {
+                    $constants[$match[1]] = $match[2];
+                }
+                $classes[$name] = ['parent' => $parent, 'body' => $body, 'constants' => $constants];
+                $i--;
+            }
         }
         $ids = [];
-        if (preg_match_all('/\$this->id\s*=\s*[\'\"]([A-Za-z0-9_-]+)[\'\"]/', $source, $matches)) {
-            $ids = $matches[1];
+        $unresolved = [];
+        foreach ($classes as $name => $class) {
+            $chain = [];
+            $cursor = $name;
+            $resolved = false;
+            while ($cursor !== '' && !isset($chain[$cursor])) {
+                if (in_array($cursor, ['wc_payment_gateway', 'wc_payment_gateway_cc', 'wc_payment_gateway_echeck'], true)) {
+                    $resolved = true;
+                    break;
+                }
+                if (!isset($classes[$cursor])) {
+                    break;
+                }
+                $chain[$cursor] = $classes[$cursor];
+                $cursor = $classes[$cursor]['parent'];
+            }
+            $body = implode('', array_column($chain, 'body'));
+            if (!$resolved) {
+                if ($cursor !== '' && str_contains($body, '$this->id=')) {
+                    $unresolved[] = ['class' => self::identifier($name), 'reason' => 'ancestry_unresolved'];
+                }
+                continue;
+            }
+            $found = [];
+            $constants = [];
+            foreach (array_reverse($chain) as $ancestor) {
+                $constants = array_merge($constants, $ancestor['constants']);
+            }
+            preg_match_all('/\$this->id=[\'\"]([A-Za-z0-9_-]+)[\'\"]/', $body, $matches);
+            $found = $matches[1];
+            preg_match_all('/\$this->id=(?:self|static)::([A-Za-z_][A-Za-z0-9_]*);/', $body, $matches);
+            foreach ($matches[1] as $constant) {
+                if (isset($constants[$constant])) {
+                    $found[] = $constants[$constant];
+                }
+            }
+            if (!$found && str_contains($body, '$this->id=')) {
+                $unresolved[] = ['class' => self::identifier($name), 'reason' => 'id_unresolved'];
+            }
+            $ids = array_merge($ids, $found);
         }
-        if (preg_match('/\$this->id\s*=\s*self::ID\s*;/', $source) && preg_match('/\bconst\s+ID\s*=\s*[\'\"]([A-Za-z0-9_-]+)[\'\"]/', $source, $match)) {
-            $ids[] = $match[1];
+        $ids = array_values(array_unique($ids));
+        sort($ids);
+        return ['ids' => $ids, 'unresolved' => $unresolved];
+    }
+
+    private function subscriptionCounts(bool $hpos): array
+    {
+        $orders = $this->table($hpos ? 'wc_orders' : 'posts');
+        $meta = $this->table($hpos ? 'wc_orders_meta' : 'postmeta');
+        $owner = $hpos ? 'order_id' : 'post_id';
+        $metaId = $hpos ? 'id' : 'meta_id';
+        $id = $hpos ? 'id' : 'ID';
+        $type = $hpos ? 'type' : 'post_type';
+        $status = $hpos ? 'status' : 'post_status';
+        // One selected row per key/owner BEFORE the joins, never COUNT(DISTINCT) after fan-out.
+        $one = static function (string $key) use ($meta, $owner, $metaId): string {
+            return "(SELECT m.$owner,m.meta_value FROM $meta m JOIN "
+                . "(SELECT $owner,MIN($metaId) AS first_id FROM $meta WHERE meta_key='$key' GROUP BY $owner) s "
+                . "ON m.$metaId=s.first_id)";
+        };
+        $period = $one('_billing_period');
+        $interval = $one('_billing_interval');
+        $subs = $this->query("SELECT o.$status AS status,p.meta_value AS period,i.meta_value AS billing_interval,"
+            . "COUNT(*) AS count FROM $orders o LEFT JOIN $period p ON p.$owner=o.$id "
+            . "LEFT JOIN $interval i ON i.$owner=o.$id WHERE o.$type='shop_subscription' "
+            . "GROUP BY o.$status,p.meta_value,i.meta_value ORDER BY o.$status,p.meta_value,i.meta_value");
+        $rows = $this->query("SELECT a.meta_key,SUM(a.n>1) AS duplicates,SUM(a.n-1) AS extra_rows,"
+            . "SUM(a.distinct_values>1) AS conflicts FROM "
+            . "(SELECT m.$owner,m.meta_key,COUNT(*) AS n,"
+            . "COUNT(DISTINCT BINARY m.meta_value)+MAX(m.meta_value IS NULL) AS distinct_values "
+            . "FROM $meta m JOIN $orders o ON o.$id=m.$owner WHERE o.$type='shop_subscription' "
+            . "AND m.meta_key IN ('_billing_period','_billing_interval') GROUP BY m.$owner,m.meta_key) a "
+            . "GROUP BY a.meta_key ORDER BY a.meta_key");
+        $anomalies = [];
+        foreach ($rows as $row) {
+            $anomalies[] = ['key' => $row['meta_key'],
+                'subscriptions_with_duplicates' => (int) $row['duplicates'],
+                'extra_rows' => (int) $row['extra_rows'],
+                'subscriptions_with_conflicts' => (int) $row['conflicts']];
         }
-        return array_values(array_unique(array_map([self::class, 'identifier'], $ids)));
+        return [$subs, $anomalies];
     }
 
     private function commerce(array $versions): array
@@ -348,6 +493,7 @@ final class Audit
         }
         // Static class IDs from active sources: never instantiate gateways or read settings.
         $gateways = [];
+        $gatewayUnresolved = [];
         foreach ($versions['plugins'] as $plugin) {
             if (!$plugin['active'] || $plugin['kind'] !== 'plugin' || $plugin['name'] === '[masque]') {
                 continue;
@@ -355,21 +501,24 @@ final class Audit
             $name = $plugin['name'];
             $root = $this->site . '/wp-content/plugins/' . (str_contains($name, '/') ? dirname($name) : $name);
             $files = is_dir($root) ? self::tree($root, '.php') : [$root];
+            $sources = [];
             foreach ($files as $file) {
                 if (preg_match('~/(?:vendor|tests?|fixtures|node_modules)/~i', $file)) {
                     continue;
                 }
-                $text = self::read($file, 16777216);
-                if (!str_contains($text, 'WC_Payment_Gateway')) {
-                    continue;
-                }
-                $gateways = array_merge($gateways, self::gatewayIds($text));
+                $sources[$file] = self::read($file, 16777216);
+            }
+            $inventory = self::gatewayInventory($sources);
+            $gateways = array_merge($gateways, $inventory['ids']);
+            foreach ($inventory['unresolved'] as $notice) {
+                $gatewayUnresolved[] = ['plugin' => $name] + $notice;
             }
         }
         $gateways = array_values(array_unique($gateways));
         sort($gateways);
         return ['order_storage' => $hpos ? 'hpos' : 'classic', 'order_year_basis' => 'UTC_creation',
             'gateways' => $gateways, 'gateway_detection' => 'static_active_source_ids_not_enabled_status_dynamic_ids_unknown',
+            'gateway_unresolved' => $gatewayUnresolved,
             'subscriptions' => $subscriptions, 'memberships' => $memberships,
             'orders_by_year' => array_map(static fn(array $r): array => ['year' => (int) $r['year'], 'count' => (int) $r['count']], $years),
             'subscription_products' => $products];

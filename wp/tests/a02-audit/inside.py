@@ -75,6 +75,9 @@ $table_prefix = 'wp_'; define('ABSPATH', __DIR__.'/'); require_once ABSPATH.'wp-
     builder = site / 'wp-content/plugins/fixture-builder'
     builder.mkdir()
     (builder / 'fixture-builder.php').write_text('<?php\n/* Plugin Name: Fixture builder\nVersion: 1.0.0\nRequires at least: 6.0\nRequires PHP: 8.2\n*/\n')
+    (builder / 'base.php').write_text('<?php abstract class A02_Base extends WC_Payment_Gateway {}')
+    (builder / 'concrete.php').write_text('<?php class A02_Concrete extends A02_Base { function x() { $this->id = "a02_indirect"; } } class A02_Unrelated { function x() { $this->id = "a02_not_gateway"; } }')
+    (builder / 'unknown.php').write_text('<?php class A02_Dynamic extends WC_Payment_Gateway { function x() { $this->id = getenv("A02_NO_EXECUTE"); } } class A02_Missing extends A02_NotPresent { function x() { $this->id = "a02_uncertain"; } }')
     inactive = site / 'wp-content/plugins/inactive-fixture'
     inactive.mkdir()
     (inactive / 'inactive-fixture.php').write_text('<?php\n/* Plugin Name: Inactive fixture\nVersion: 0.5.0\n*/\n')
@@ -104,6 +107,10 @@ def audit(site, out):
 
 def run_storage(storage):
     site, db, seed = install(storage)
+    meta_table, owner = ('wp_wc_orders_meta', 'order_id') if storage == 'hpos' else ('wp_postmeta', 'post_id')
+    first, second = seed['subscription_ids'][:2]
+    # Deliberate corruption AFTER the real API seed; the auditor must not repair it.
+    sql(db, f"INSERT INTO {meta_table} ({owner},meta_key,meta_value) VALUES ({first},'_billing_period','month'),({second},'_billing_period','month'),({second},'_billing_period','year'),({second},'_billing_interval','9')")
     before = fingerprint(db)
     (OUT / (storage + '-db-before.json')).write_text(json.dumps(before, indent=2) + '\n')
     file_before = files(site)
@@ -124,9 +131,20 @@ def run_storage(storage):
     commerce = data['sections']['commerce']
     check(storage + ':authoritative_storage', commerce['order_storage'] == storage)
     check(storage + ':subscription_aggregates', sum(v['count'] for v in commerce['subscriptions']) == 3 and {v['status'] for v in commerce['subscriptions']} == {'wc-active', 'wc-on-hold', 'wc-pending-cancel'} and {v['period'] for v in commerce['subscriptions']} == {'month', 'year'})
+    check(storage + ':subscription_first_meta_deterministic', commerce['subscriptions'] == [
+        {'status': 'wc-active', 'period': 'month', 'interval': 1, 'count': 1},
+        {'status': 'wc-on-hold', 'period': 'month', 'interval': 2, 'count': 1},
+        {'status': 'wc-pending-cancel', 'period': 'year', 'interval': 3, 'count': 1},
+    ])
+    check(storage + ':subscription_duplicate_conflict_notices', commerce.get('subscription_meta_anomalies') == [
+        {'key': '_billing_interval', 'subscriptions_with_duplicates': 1, 'extra_rows': 1, 'subscriptions_with_conflicts': 1},
+        {'key': '_billing_period', 'subscriptions_with_duplicates': 2, 'extra_rows': 3, 'subscriptions_with_conflicts': 1},
+    ])
     check(storage + ':membership_aggregates', sum(v['count'] for v in commerce['memberships']) == 3 and {v['status'] for v in commerce['memberships']} == {'wcm-active', 'wcm-expired', 'wcm-cancelled'})
     check(storage + ':order_years', {str(v['year']): v['count'] for v in commerce['orders_by_year']} == {'2023': 1, '2025': 2})
     check(storage + ':gateways_present', {'bacs', 'cheque', 'cod'}.issubset(set(commerce['gateways'])))
+    check(storage + ':gateway_cross_file', 'a02_indirect' in commerce['gateways'] and 'a02_not_gateway' not in commerce['gateways'])
+    check(storage + ':gateway_unresolved', {v['class'] for v in commerce.get('gateway_unresolved', []) if v['plugin'] == 'fixture-builder/fixture-builder.php'} == {'a02_dynamic', 'a02_missing'})
     product = next(v for v in commerce['subscription_products'] if v['id'] == seed['product_id'])
     check(storage + ':product_safe_settings', product['period'] == 'month' and product['interval'] == 2 and product['trial_length'] == 7 and product['sign_up_fee'] == '4.50' and product['sync'] == 15)
     memberships = data['sections']['memberships']

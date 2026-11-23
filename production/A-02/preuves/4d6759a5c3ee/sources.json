@@ -1,0 +1,13 @@
+{
+  "wp/tests/a02-audit/documentation.py": "d103b96213fffccffbcd49ecd4f743d6aef6a63e954dc93d90ee69a477af73ef",
+  "wp/tests/a02-audit/fingerprint.php": "7967895421d3e4181a19e8e905fe4597a5618159560fa2648c7b30a846203d12",
+  "wp/tests/a02-audit/inside.py": "00a86a377125003ae86d7e902219b9391406a4ca7ebfe239380e96a89bd0cc7c",
+  "wp/tests/a02-audit/README.md": "917dca7848b3cda1c563c3fa4cfd1911c6d2bc9ad8835db2edf3edec677945f4",
+  "wp/tests/a02-audit/readonly-probe.php": "3d1b83bee17cf37b9ea9e154fbebb269405f74514ff9be7013ce84a3fde74901",
+  "wp/tests/a02-audit/run.py": "a058397668da8a971e00ae15faf283fef6188825d9fffd0c99d2b2c2e3a1823f",
+  "wp/tests/a02-audit/seed.php": "b7ef1c5cec33b82a956d6d3ba1ffd842822fea1f6a8567921edc0d4c6dfc87c0",
+  "wp/tests/a02-audit/style.py": "af26a28c6571b4dc2f9012bff295042384133d04b82af356f76fd54f1db9d54c",
+  "wp/tests/a02-audit/unit.php": "77dc70064684260cc60a6b71b2bfb9fa8d70feac123d240f42d4e59a5227bc30",
+  "wp/tests/a02-audit/verify.py": "5349dd005f49baf464d2f1c623da8fa6e145043ae2c74e3e342854a1152a145b",
+  "wp/outils/bascule/audit": "492cf43897ae8ab9c171f76d4ac6880e11ba99eacd4b8710858127a2b011b6f3"
+}

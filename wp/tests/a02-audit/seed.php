@@ -76,6 +76,6 @@ echo 'A02_JSON=' . json_encode([
     'plan_id' => $plan, 'product_id' => $product->get_id(),
     'versions' => ['wordpress' => get_bloginfo('version'), 'woocommerce' => WC()->version, 'subscriptions' => WC_Subscriptions::$version, 'memberships' => wc_memberships()->get_version()],
     'hpos' => Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled(),
-    'subscriptions' => count($subs), 'rules' => count($rules), 'restriction_real' => wc_memberships_is_post_content_restricted($posts[0]),
+    'subscriptions' => count($subs), 'subscription_ids' => $subs, 'rules' => count($rules), 'restriction_real' => wc_memberships_is_post_content_restricted($posts[0]),
     'gateway_ids' => array_keys(WC()->payment_gateways()->payment_gateways()),
 ]) . "\n";

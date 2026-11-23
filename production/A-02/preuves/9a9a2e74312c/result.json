@@ -1,0 +1,231 @@
+{
+  "suite": "A02-real-commercial-fixture",
+  "checks": [
+    {
+      "check": "lint:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:seed.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:fingerprint.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:unit.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:readonly-probe.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "plan_id": 13,
+        "product_id": 17,
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": false,
+        "subscriptions": 3,
+        "subscription_ids": [
+          18,
+          19,
+          20
+        ],
+        "rules": 2,
+        "restriction_real": true,
+        "gateway_ids": [
+          "bacs",
+          "cheque",
+          "cod"
+        ]
+      }
+    },
+    {
+      "check": "classic:cli_success",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stdout_sha256": "155abfb842212f5d540722c2b9a187099d9ff9bb6f667fcf01d863b6745c6b66",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "check": "classic:seven_sections",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:runtime_versions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plugins_inactive_mu",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:cached_update_and_requirements",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:commercial_requirements_constants",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:unknown_latest_not_invented",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:theme_inventory",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:authoritative_storage",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subscription_aggregates",
+      "status": "FAIL",
+      "detail": null
+    },
+    {
+      "check": "classic:exception",
+      "status": "FAIL",
+      "detail": {
+        "class": "AssertionError",
+        "code": "classic:subscription_aggregates"
+      }
+    },
+    {
+      "check": "hpos:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "plan_id": 13,
+        "product_id": 17,
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": true,
+        "subscriptions": 3,
+        "subscription_ids": [
+          18,
+          19,
+          20
+        ],
+        "rules": 2,
+        "restriction_real": true,
+        "gateway_ids": [
+          "bacs",
+          "cheque",
+          "cod"
+        ]
+      }
+    },
+    {
+      "check": "hpos:cli_success",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stdout_sha256": "155abfb842212f5d540722c2b9a187099d9ff9bb6f667fcf01d863b6745c6b66",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "check": "hpos:seven_sections",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:runtime_versions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plugins_inactive_mu",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:cached_update_and_requirements",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:commercial_requirements_constants",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:unknown_latest_not_invented",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:theme_inventory",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:authoritative_storage",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subscription_aggregates",
+      "status": "FAIL",
+      "detail": null
+    },
+    {
+      "check": "hpos:exception",
+      "status": "FAIL",
+      "detail": {
+        "class": "AssertionError",
+        "code": "hpos:subscription_aggregates"
+      }
+    },
+    {
+      "check": "network_interfaces",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp6",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 1,
+  "licensed_sha256": {
+    "woocommerce-subscriptions.zip": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083",
+    "woocommerce-memberships.zip": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285"
+  },
+  "no_real_site": true
+}

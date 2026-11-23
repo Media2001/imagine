@@ -1,0 +1,595 @@
+{
+  "suite": "A02-real-commercial-fixture",
+  "checks": [
+    {
+      "check": "lint:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:seed.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:fingerprint.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:unit.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:readonly-probe.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "plan_id": 13,
+        "product_id": 17,
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": false,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true,
+        "gateway_ids": [
+          "bacs",
+          "cheque",
+          "cod"
+        ]
+      }
+    },
+    {
+      "check": "classic:cli_success",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stdout_sha256": "155abfb842212f5d540722c2b9a187099d9ff9bb6f667fcf01d863b6745c6b66",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "check": "classic:seven_sections",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:runtime_versions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plugins_inactive_mu",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:cached_update_and_requirements",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:commercial_requirements_constants",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:unknown_latest_not_invented",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:theme_inventory",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:authoritative_storage",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subscription_aggregates",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:membership_aggregates",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:order_years",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:gateways_present",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:gateway_cross_file",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:gateway_unresolved",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:product_safe_settings",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:membership_plan_and_rules",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:restriction_taxonomy_drip",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:content_counts",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:empty_core_types_and_taxonomies",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_fixture_specific_builder_detection",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:yearly_articles_fields",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_tables_counts_sizes",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:orphan_candidate",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:commercial_tables_not_orphaned",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:heavy_autoload_names_sizes",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:action_counts",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:cron_no_arguments",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:update_gap_stale_plugin",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:outdated_override",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:deprecated_only_function",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:five_priorities",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_private_values",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:existing_output_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:output_inside_site_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:replay_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:db_identical",
+      "status": "PASS",
+      "detail": {
+        "before": "96cbc422e57a90d3993cf87c7222db05ae7b16bc8fc5423a9fbbe63144643ba1",
+        "after": "96cbc422e57a90d3993cf87c7222db05ae7b16bc8fc5423a9fbbe63144643ba1",
+        "tables": 55
+      }
+    },
+    {
+      "check": "classic:site_files_identical",
+      "status": "PASS",
+      "detail": {
+        "before": "3948094e15919e51f0b87f144c5134ce2a863e3d73ad9f8ceb3a894c2ee07e64",
+        "after": "3948094e15919e51f0b87f144c5134ce2a863e3d73ad9f8ceb3a894c2ee07e64"
+      }
+    },
+    {
+      "check": "classic:never_bootstrap",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:transaction_blocks_even_root",
+      "status": "PASS",
+      "detail": {
+        "transaction_write_blocked": true,
+        "query_non_select_blocked": true
+      }
+    },
+    {
+      "check": "classic:dynamic_config_safe_refusal",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:symlink_parent_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:negative_probes_no_database_change",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:negative_probes_files_restored",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_cache_audit_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:missing_knowledge_explicit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_cache_database_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "plan_id": 13,
+        "product_id": 17,
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": true,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true,
+        "gateway_ids": [
+          "bacs",
+          "cheque",
+          "cod"
+        ]
+      }
+    },
+    {
+      "check": "hpos:cli_success",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stdout_sha256": "155abfb842212f5d540722c2b9a187099d9ff9bb6f667fcf01d863b6745c6b66",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "check": "hpos:seven_sections",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:runtime_versions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plugins_inactive_mu",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:cached_update_and_requirements",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:commercial_requirements_constants",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:unknown_latest_not_invented",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:theme_inventory",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:authoritative_storage",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subscription_aggregates",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:membership_aggregates",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:order_years",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:gateways_present",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:gateway_cross_file",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:gateway_unresolved",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:product_safe_settings",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:membership_plan_and_rules",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:restriction_taxonomy_drip",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:content_counts",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:empty_core_types_and_taxonomies",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_fixture_specific_builder_detection",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:yearly_articles_fields",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_tables_counts_sizes",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:orphan_candidate",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:commercial_tables_not_orphaned",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:heavy_autoload_names_sizes",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:action_counts",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:cron_no_arguments",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:update_gap_stale_plugin",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:outdated_override",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:deprecated_only_function",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:five_priorities",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_private_values",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:existing_output_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:output_inside_site_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:replay_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:db_identical",
+      "status": "PASS",
+      "detail": {
+        "before": "428e76c6535a750996dcaf6d7310a2d621f461d5c5f1557e1083f028264028e4",
+        "after": "428e76c6535a750996dcaf6d7310a2d621f461d5c5f1557e1083f028264028e4",
+        "tables": 55
+      }
+    },
+    {
+      "check": "hpos:site_files_identical",
+      "status": "PASS",
+      "detail": {
+        "before": "73a538d4630825f1b1cf5aab78b3b32ca4b1a4cf79168ac3e806213265df9ca9",
+        "after": "73a538d4630825f1b1cf5aab78b3b32ca4b1a4cf79168ac3e806213265df9ca9"
+      }
+    },
+    {
+      "check": "hpos:never_bootstrap",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:transaction_blocks_even_root",
+      "status": "PASS",
+      "detail": {
+        "transaction_write_blocked": true,
+        "query_non_select_blocked": true
+      }
+    },
+    {
+      "check": "hpos:dynamic_config_safe_refusal",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:symlink_parent_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:negative_probes_no_database_change",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:negative_probes_files_restored",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_cache_audit_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:missing_knowledge_explicit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_cache_database_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "network_interfaces",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp6",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 0,
+  "licensed_sha256": {
+    "woocommerce-subscriptions.zip": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083",
+    "woocommerce-memberships.zip": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285"
+  },
+  "no_real_site": true
+}
