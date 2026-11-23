@@ -75,7 +75,7 @@ foreach (['wc_membership_plan' => 'c09-lecture-fictive', 'product' => 'c09-abonn
 }
 $planPost = get_page_by_path('c09-lecture-fictive', OBJECT, 'wc_membership_plan');
 $roleName = 'imagine_referent_abonnements';
-if (get_role($roleName) && get_option('imagine_c09_role_owned') !== true) {
+if (get_role($roleName) && get_option('imagine_c09_role_owned') !== 'c09') {
     throw new \RuntimeException('Collision rôle C09.');
 }
 foreach ($tariffs as $key => $spec) {
@@ -91,7 +91,7 @@ if (!get_role($roleName)) { add_role($roleName, 'Référent abonnements', $caps)
 $role = get_role($roleName);
 foreach (array_keys($role->capabilities) as $cap) { if (!isset($caps[$cap])) { $role->remove_cap($cap); } }
 foreach ($caps as $cap => $value) { $role->add_cap($cap, $value); }
-update_option('imagine_c09_role_owned', true);
+update_option('imagine_c09_role_owned', 'c09');
 $planId = wp_insert_post(['ID' => $planPost->ID ?? 0, 'post_type' => 'wc_membership_plan', 'post_status' => 'publish',
     'post_title' => 'C09 — Lecture fictive, hors ligne', 'post_name' => 'c09-lecture-fictive',
     'meta_input' => [$owned => 'shared', '_access_method' => 'manual-only']], true);
@@ -289,4 +289,5 @@ foreach ($rows as $row) {
     }
 }
 update_option('imagine_c09_fixture', $manifest);
+update_option('imagine_c09_seeded_at', $now->format('Y-m-d H:i:s'));
 echo wp_json_encode($manifest, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);

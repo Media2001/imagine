@@ -1,0 +1,106 @@
+{
+  "total": 41,
+  "checks": {
+    "normal-1:produit_subscription_fictif_prive": true,
+    "normal-1:prix_fictif_et_periodicite": true,
+    "normal-4:produit_subscription_fictif_prive": true,
+    "normal-4:prix_fictif_et_periodicite": true,
+    "solidaire-1:produit_subscription_fictif_prive": true,
+    "solidaire-1:prix_fictif_et_periodicite": true,
+    "solidaire-4:produit_subscription_fictif_prive": true,
+    "solidaire-4:prix_fictif_et_periodicite": true,
+    "soutien-1:produit_subscription_fictif_prive": true,
+    "soutien-1:prix_fictif_et_periodicite": true,
+    "soutien-4:produit_subscription_fictif_prive": true,
+    "soutien-4:prix_fictif_et_periodicite": true,
+    "six_combinaisons_uniques": true,
+    "A-CARTE:raccord_tarif_natif": true,
+    "A-CARTE:montants_fictifs_sans_paiement": true,
+    "A-SEPA4:raccord_tarif_natif": true,
+    "A-SEPA4:montants_fictifs_sans_paiement": true,
+    "A-PAYPAL:raccord_tarif_natif": true,
+    "A-PAYPAL:montants_fictifs_sans_paiement": true,
+    "A-PAPIER:raccord_tarif_natif": true,
+    "A-PAPIER:montants_fictifs_sans_paiement": true,
+    "E-REDAC:capacite_reelle_calendrier_absente": true,
+    "E-REDAC:partiel_strict": true,
+    "V-INSCRIT:partiel_strict": true,
+    "E-ABO:matrice_limitee_exacte": true,
+    "E-ABO:nom_role_et_attribution": true,
+    "E-ABO:interdit:edit_posts": true,
+    "E-ABO:interdit:edit_pages": true,
+    "E-ABO:interdit:publish_posts": true,
+    "E-ABO:interdit:upload_files": true,
+    "E-ABO:interdit:manage_options": true,
+    "E-ABO:interdit:manage_woocommerce": true,
+    "E-ABO:interdit:edit_products": true,
+    "E-ABO:interdit:edit_users": true,
+    "E-ABO:interdit:create_users": true,
+    "E-ABO:interdit:delete_users": true,
+    "E-ABO:interdit:promote_users": true,
+    "E-ABO:interdit:delete_shop_orders": true,
+    "E-ABO:lecture_equipe": true,
+    "A-VIR:arbitrage_virement_non_valide": true,
+    "calendrier_15_parutions_complet": true
+  },
+  "failures": [],
+  "tariffs": {
+    "normal-1": {
+      "id": 192,
+      "price": "120",
+      "period": "year",
+      "interval": "1",
+      "length": "1"
+    },
+    "normal-4": {
+      "id": 193,
+      "price": "30",
+      "period": "month",
+      "interval": "3",
+      "length": "12"
+    },
+    "solidaire-1": {
+      "id": 194,
+      "price": "60",
+      "period": "year",
+      "interval": "1",
+      "length": "1"
+    },
+    "solidaire-4": {
+      "id": 195,
+      "price": "15",
+      "period": "month",
+      "interval": "3",
+      "length": "12"
+    },
+    "soutien-1": {
+      "id": 196,
+      "price": "240",
+      "period": "year",
+      "interval": "1",
+      "length": "1"
+    },
+    "soutien-4": {
+      "id": 197,
+      "price": "60",
+      "period": "month",
+      "interval": "3",
+      "length": "12"
+    }
+  },
+  "calendar_capability": "manage_options",
+  "role_capabilities": {
+    "read": true,
+    "edit_shop_orders": true,
+    "edit_others_shop_orders": true,
+    "read_private_shop_orders": true,
+    "edit_private_shop_orders": true,
+    "edit_published_shop_orders": true,
+    "publish_shop_orders": true,
+    "imagine_creer_compte_client": true,
+    "imagine_gerer_echeances": true,
+    "imagine_traiter_justificatifs": true,
+    "imagine_exporter_liste_envoi": true,
+    "imagine_extraire_abonnes": true
+  }
+}

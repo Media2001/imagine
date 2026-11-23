@@ -68,6 +68,7 @@ $foreignMember = static function ($value, $postId, $key) use ($memberId) {
 add_filter('get_post_metadata', $foreignMember, 10, 3);
 $checks['adhesion_non_possedee_refusee'] = $denied('Adhésion étrangère sur profil C09');
 remove_filter('get_post_metadata', $foreignMember, 10);
+$checks['aucun_transport_pendant_toute_la_garde'] = $transports === ['mail' => 0, 'http' => 0];
 $failures = array_keys(array_filter($checks, static fn ($ok) => !$ok));
 echo wp_json_encode(['total' => count($checks), 'checks' => $checks, 'failures' => $failures], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 if ($failures) { \WP_CLI::halt(1); }

@@ -15,8 +15,8 @@ foreach (['normal' => 120, 'solidaire' => 60, 'soutien' => 240] as $tarif => $an
         $checks[$key . ':produit_subscription_fictif_prive'] = $p instanceof \WC_Product_Subscription
             && $p->get_status() === 'private' && $p->get_catalog_visibility() === 'hidden'
             && str_contains($p->get_name(), 'FICTIF') && $p->get_meta('_imagine_c09_fixture') === 'shared';
-        $checks[$key . ':prix_fictif_et_periodicite'] = $p && (float) $p->get_price() === $annual / $times
-            && (float) $p->get_meta('_subscription_price') === $annual / $times
+        $checks[$key . ':prix_fictif_et_periodicite'] = $p && (float) $p->get_price() === (float) ($annual / $times)
+            && (float) $p->get_meta('_subscription_price') === (float) ($annual / $times)
             && $p->get_meta('_subscription_period') === ($times === 1 ? 'year' : 'month')
             && (int) $p->get_meta('_subscription_period_interval') === ($times === 1 ? 1 : 3)
             && (int) $p->get_meta('_subscription_length') === ($times === 1 ? 1 : 12);

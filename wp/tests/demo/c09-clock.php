@@ -18,7 +18,7 @@ if ($checks['horloge_injectable_disponible']) {
         foreach ($cases as $instant => $due) {
             $GLOBALS['imagine_c09_now'] = new \DateTimeImmutable($instant, new \DateTimeZone('UTC'));
             $checks[$instant . ':calcul_exact'] = \Imagine\Demo\C09\papierDue(\Imagine\Demo\C09\now()) === $due;
-            ob_start(); require $seed; ob_end_clean();
+            ob_start(); (static function ($path): void { require $path; })($seed); ob_end_clean();
             $f = get_option('imagine_c09_fixture');
             $s = wcs_get_subscription($f['subscriptions']['A-PAPIER']);
             $proof[$instant] = ['next_payment' => $s->get_date('next_payment'), 'manual' => $s->is_manual()];
@@ -28,7 +28,7 @@ if ($checks['horloge_injectable_disponible']) {
         }
     } finally {
         unset($GLOBALS['imagine_c09_now']);
-        ob_start(); require $seed; ob_end_clean();
+        ob_start(); (static function ($path): void { require $path; })($seed); ob_end_clean();
     }
     $f = get_option('imagine_c09_fixture');
     $restored = wcs_get_subscription($f['subscriptions']['A-PAPIER']);

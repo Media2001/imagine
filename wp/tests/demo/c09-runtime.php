@@ -8,6 +8,7 @@ if (!defined('WP_CLI') || !WP_CLI || wp_get_environment_type() !== 'local'
 }
 $checks = [];
 $fixture = get_option('imagine_c09_fixture', []);
+$seededAt = strtotime(get_option('imagine_c09_seeded_at', gmdate('Y-m-d H:i:s')) . ' UTC');
 $rows = json_decode(file_get_contents(WP_CONTENT_DIR . '/imagine-demo-build/c09-profils.json'), true, 512, JSON_THROW_ON_ERROR);
 $checks['catalogue_30'] = count($rows) === 30;
 $checks['fixture_installee'] = isset($fixture['users']) && count($fixture['users']) === 27;
@@ -46,7 +47,9 @@ if ($checks['fixture_installee']) {
                 'customer_id' => $order->get_customer_id(), 'item_count' => $order->get_item_count(), 'date_paid' => $order->get_date_paid(),
                 'gateway' => $order->get_payment_method(), 'transaction_id' => $order->get_transaction_id(), 'shipping_country' => $order->get_shipping_country()];
             $checks[$key . ':commande_sans_paiement'] = !$order->get_date_paid() && !$order->get_transaction_id()
-                && $order->get_payment_method() === '' && (float) $order->get_total() === 0.0 && $order->get_status() === 'on-hold';
+                && $order->get_payment_method() === '' && $order->get_status() === 'on-hold';
+            $amount = isset($row['tarif']) ? (float) wc_get_product($fixture['tariffs'][$row['tarif']])->get_price() : 0.0;
+            $checks[$key . ':montant_fixture_explicite'] = (float) $order->get_total() === $amount;
             $checks[$key . ':produit_commande'] = $order->get_item_count() === 1;
         }
         foreach ($subs as $sub) {
@@ -63,7 +66,8 @@ if ($checks['fixture_installee']) {
             $checks[$key . ':adhesion_lien_natif'] = count($linked) === 1 && $linked[0]->get_user_id() === $id;
             $checks[$key . ':produit_abonnement'] = $sub->get_item_count() === 1;
             $next = $sub->get_time('next_payment');
-            $checks[$key . ':prochain_paiement'] = in_array($row['native'], ['expired', 'pending-cancel'], true) ? !$next : $next > time();
+            $checks[$key . ':prochain_paiement'] = in_array($row['native'], ['expired', 'pending-cancel'], true) ? !$next
+                : ($key === 'A-PAPIER' ? $next >= $seededAt : $next > time());
             if ($key === 'A-GRACE' || $key === 'A-SUSP') {
                 $from = $sub->get_meta('_imagine_acces_grace_debut');
                 $until = $sub->get_meta('_imagine_acces_grace_fin');
@@ -74,7 +78,7 @@ if ($checks['fixture_installee']) {
                 $checks[$key . ':terme_30_jours'] = abs($sub->get_time('end') - (time() + 30 * DAY_IN_SECONDS)) < 300;
             }
             if ($key === 'A-PAPIER') {
-                $checks[$key . ':echeance_ce_mois'] = gmdate('Y-m', $next) === gmdate('Y-m');
+                $checks[$key . ':echeance_ce_mois'] = gmdate('Y-m', $next) === gmdate('Y-m', $seededAt);
             }
         }
         foreach ($members as $member) {
@@ -92,16 +96,18 @@ if ($checks['fixture_installee']) {
             $checks[$key . ':port_natif_fictif'] = $orders[0]->get_shipping_country() === 'FR' && count($orders[0]->get_items('shipping')) === 1;
         }
         if ($key === 'E-REDAC') {
+            $calendarCap = apply_filters('option_page_capability_options', 'manage_options');
+            $entry['calendar_edit'] = ['capability' => $calendarCap, 'allowed' => user_can($id, $calendarCap)];
             $checks[$key . ':contenus_calendrier'] = user_can($id, 'edit_posts') && user_can($id, get_post_type_object('imagine_numero')->cap->edit_posts)
-                && !user_can($id, 'manage_options');
+                && !user_can($id, $calendarCap) && $row['etat'] === 'partiel';
         }
         if ($key === 'E-ABO') { $checks[$key . ':gestion_commandes'] = user_can($id, 'edit_shop_orders') && !user_can($id, 'manage_options'); }
         $proof[$key] = $entry;
     }
     $checks['aucun_compte_visiteur_robot'] = !get_user_by('login', 'v-robot');
     $checks['numero_entreprise_coherent_non_atteste'] = \Imagine\Pilotage\Entreprise\NumeroEntreprise::depuisSaisie('0000000097')->estValide();
-    $checks['mail_coupe'] = wp_mail('c09@example.org', 'Fictif C09', 'Fictif') === false;
-    $checks['http_coupe'] = is_wp_error(wp_remote_get('https://example.org'));
+    $checks['mail_coupe_filtre_passif'] = has_filter('pre_wp_mail') && apply_filters('pre_wp_mail', null, []) === false;
+    $checks['http_coupe_filtre_passif'] = has_filter('pre_http_request') && is_wp_error(apply_filters('pre_http_request', false, [], 'https://example.org'));
     $checks['passerelles_coupees'] = WC()->payment_gateways()->get_available_payment_gateways() === [];
     $checks['catalogue_plan_droits'] = (get_option('imagine_acces_plans')[$fixture['plan']] ?? null) === 'abonnement';
     $ownedUsers = get_users(['meta_key' => '_imagine_c09_fixture', 'fields' => 'ID']);
@@ -122,7 +128,10 @@ if ($checks['fixture_installee']) {
         $scheduled = as_next_scheduled_action('woocommerce_scheduled_subscription_payment', ['subscription_id' => $id]);
         $checks[$key . ':action_native_planifiee_ou_absente_selon_statut'] = $sub->has_status('active')
             ? $scheduled === $sub->get_time('next_payment') : $scheduled === false;
-        $checks[$key . ':periodicite_reinitialisee'] = $sub->get_billing_period() === 'year' && (int) $sub->get_billing_interval() === 1;
+        $row = array_values(array_filter($rows, static fn ($r) => $r['code'] === $key))[0];
+        $four = isset($row['tarif']) && str_ends_with($row['tarif'], '-4');
+        $checks[$key . ':periodicite_reinitialisee'] = $sub->get_billing_period() === ($four ? 'month' : 'year')
+            && (int) $sub->get_billing_interval() === ($four ? 3 : 1);
         $proof[$key]['subscriptions'][0]['scheduled_payment_action'] = $scheduled;
     }
     wp_set_current_user(0);
