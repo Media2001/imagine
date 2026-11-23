@@ -1,3 +1,49 @@
+# A-01 — mode d’emploi Ced : WordPress 6.9.1 qualifié sur archives fictives
+
+**23 novembre 2026. Code à relire, pas un GO d’import réel ni d’accès agent.** Ced seul lance le premier import d’Imagine ; son rapport est relu avant toute ouverture.
+
+## À fournir
+
+Depuis le checkout : l’archive `.wpress` originale, **fournie et ouverte par Ced seulement**, l’URL de production et un nom neuf `imagine-test-…` (minuscules/chiffres/tirets simples, 40 caractères maximum). Python, WSL Ubuntu et Docker doivent déjà être présents. Internet sert à télécharger le cœur public exact depuis wordpress.org **avant l’injection**, jamais à installer les extensions de l’archive. Le mot de passe neuf du compte test est demandé sans écho ; aucun secret dans les arguments ou le dépôt.
+
+## Commande exacte en PowerShell
+
+```powershell
+Set-Location 'C:\Users\Ced\imagine'
+$env:PYTHONDONTWRITEBYTECODE = '1'
+python .\wp\outils\staging-court\publish.py --operator-ced --archive $ARCHIVE_WPRESS --name imagine-test-a01-ced-01 --production-url $URL_SOURCE --expected-core-version 6.9.1 --php-version 8.2
+```
+
+Ced renseigne `$ARCHIVE_WPRESS` et `$URL_SOURCE` lui-même. Ajouter `--table-decisions $DECISIONS_CED` seulement s’il a fourni ses décisions écrites ; sinon omettre cet argument. Aucun choix fictif n’est repris pour Imagine.
+
+## Résultat, durée et refus
+
+Le manifeste choisit le cœur ; `--expected-core-version` contrôle ce choix, sans le remplacer. Le cœur est relu en **6.9.1 sur cible vide avant les fichiers et la base de l’archive**, puis contrôlé à nouveau au runtime. Les extensions proviennent uniquement de l’archive et restent inchangées. Un minimum WordPress/PHP supérieur déclaré dans leur en-tête produit un **avertissement non bloquant**, pas une installation ou mise à jour.
+
+La sortie donne `PASS`/`FAIL` et `production/A-01/publication-23nov/<id>/result.json`. Succès : témoin racine `.imagine-staging-verified.json` relu, statut `verified` au rapport et site `running` dans l’outil. Refus : sortie 1, rapport avec étape/code et site arrêté, ou aucun site créé si le manifeste est refusé. Transmettre ce rapport sans données ; corriger la cause, supprimer le seul test exact par l’outil, vérifier sa disparition et repartir sur un **nouveau nom/copie fraîche**. Ne pas changer l’attendu en 7.0.9 pour forcer une archive 6.9.1. Un échec effectif au bootstrap reste un refus de sécurité.
+
+**Durée mesurée : 469.181883 s pour quatre parcours fictifs d’environ 99 Mo chacun**, préparation et nettoyage compris ; aucune durée d’Imagine n’est prédite. Les mises à jour restent réservées aux scripts de bascule ; verrou admin/automatique conservé. Après vérification : filtrage HTTP WordPress, **pas un pare-feu système**.
+
+**Limite explicite : Subscriptions n’est pas qualifié en 6.9.1.** Le seul ZIP disponible, 9.4.1, exige WP 7.0/Woo 11.1 ; aucun garde contourné. Sa qualification antérieure en 7.0.9 est conservée. Le premier import réel de Ced fera foi pour sa version d’Imagine, rapport relu avant ouverture. **Memberships 1.30.3 est réellement exercé en 6.9.1**, indépendamment de Subscriptions.
+
+---
+
+# Historique et preuves — qualification du 23 novembre 2026
+
+- **Aller-retour et publication :** `publication-23nov/a47d8512821b/result.json`, sortie 0, **quatre cas PASS** : classique et HPOS publiés/vérifiés HTTP 200 ; secret persistant et table personnelle non tranchée refusés avant injection. Les trois scripts natifs restent inchangés. Relecture sources/sondes/nettoyage : `qualification-23nov-publication-verification.json`.
+- **Dépendances publiques réellement lues :** WordPress 6.9.1, SHA-256 `1c6ba9fc3ca6d5eb847666d82c0958c15878552387143ed61724ee81350fb120` ; WooCommerce **11.0.1**, SHA-256 `da189b6616c610d15a2106f93151dab81b78f83e075bcefce221ac0d00b4fa21`. C’est la dernière version publique compatible trouvée le 23/11 dans l’API wordpress.org : les huit versions stables supérieures lues exigent WP 7.0 ; leurs URL/en-têtes/empreintes figurent au reçu. Le ZIP Woo sert seulement à fabriquer les fixtures, jamais au chemin d’import opérateur. Le `wp-content` embarqué par le ZIP du cœur est exclu.
+- **Fidélité :** 30 commandes réelles Woo par stockage ; identifiants, statuts, dates, montants, devises, produits, quantités, taxes, pays et moyens de paiement identiques. Tous les fichiers restaurés comparés à l’archive fictive, puis conservation exacte des fichiers retenus : **6 537 fichiers plugins avant/après**, thème et média témoin intacts ; seules purges attendues de journaux/MU de sécurité consignées. MyISAM conservé et signalé. Réglage et extensions actives inchangés.
+- **Memberships autonome :** 1.30.3 activé avec Woo 11.0.1 en WP 6.9.1 ; API et shortcode avant/après : actif autorisé, invité/non-membre/expiré/annulé/en pause refusés ; témoin public non restreint, adhésions/règles intactes. Pas une qualification HTTP/thème/cache du futur paywall. Abonnements/renouvellements Subscriptions en 6.9.1 explicitement non testés, jamais remplacés par une doublure.
+- **Avertissements éprouvés :** extension fictive inerte déclarant WP/PHP 99.0 conservée à l’identique ; deux avertissements `blocking=false`, sans empêcher les deux publications propres. Les versions PHP comparées sont celles de la cible réelle (8.2.32), pas uniquement « 8.2 ».
+- **Régression hors ligne :** `tests-21nov/620035d3d7f6/result.json`, **18 contrôles PASS, 0 FAIL**, 12 tests archive, 17 banc, suite données et lint PHP verts. Cette baseline distincte ne prétend toujours pas être publiée (`full_staging_ready=false`). **Unitaires hôte : 49 tests verts**, dont refus des reçus incomplets/altérés ; `qualification-23nov-units-verified.log`. Ne pas additionner les compteurs qui se recoupent.
+- **Incident conservé :** un appel d’outil au premier rejeu complet a été interrompu par son watchdog de 420 s ; son reçu `publication-23nov/040686b78372/result.json` reste incomplet/FAIL, jamais blanchi. Le quatrième site arrêté et son runner ont été supprimés explicitement avec absence relue : `040686b78372/interrupted-cleanup.json`. Le rejeu complet final a été exécuté en processus suivi, jusqu’à son vrai code 0.
+- **Formats bornés :** `.wpress` non compressé, simple site, en-têtes de 4 377 octets et SQL du parseur fermé existant ; pas de repli SQL arbitraire. Compression/chiffrement/multivolume/multisite ou grammaire hors sous-ensemble : refus sûr. La sélection dynamique du cœur ne qualifie pas par anticipation toutes les versions/extensions/archives ; la preuve de ce lot est 6.9.1. Les onze fichiers natifs du sujet ont aussi été comparés à la baseline précédente, tous identiques.
+- **Inventaire autorisé :** `qualification-23nov-compatibility.json` ; le dossier contient aussi Product Add-ons, **non ouvert et hors périmètre**. Aucun ZIP commercial mis dans le dépôt ou une image publique, achat, compte fournisseur, archive Imagine, accès agent ou installation PHP sur Windows. Source partagée de l’outil et modèles inchangés. Références officielles du standard : `qualification-23nov-standard-docs.json`.
+
+---
+
+# Historique jusqu’au 22 novembre — remplacé par le mode d’emploi ci-dessus
+
 # A-01 — arbitrages synchronisés du 22 novembre : remise de code bornée
 
 **Les réponses intitulées « 17 h » sont appliquées, indépendamment de l'heure de synchronisation. R5 n'attend plus aucun arbitrage.** Le `PRET` redéposé porte sur le code et les preuves ci-dessous, conformément au contrat « staging vérifié **ou rapport de refus** » ; **6.9.1 NON QUALIFIÉ en publication, aucun GO d'import réel ou d'accès agent**. Le refus opérateur par défaut est réel et explicite, pas un succès 6.9.1 inventé.

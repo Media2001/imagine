@@ -1,3 +1,22 @@
+# A-01 — qualification 6.9.1 du 23 novembre
+
+**Le blocage 6.9.1 est levé sur archives entièrement fictives.** Le mode d’emploi courant (PowerShell, entrées Ced, refus, limites) est en tête de `production/A-01/notes.md`. Le cœur est choisi depuis le manifeste, téléchargé à sa version exacte depuis wordpress.org et relu sur cible vide avant injection. `--expected-core-version` reste un refus strict si l’archive diffère. Aucun `wp-content` du paquet core n’est installé ; l’import n’installe ni ne met à jour d’extension. Minima WP/PHP des extensions : avertissements seulement.
+
+```powershell
+# Recette synthétique seulement : quatre nouveaux sites, puis suppression vérifiée.
+python .\wp\outils\staging-court\publish.py --self-test-publication
+# Relecture pure des preuves, avec GET/inspect d’absence, sans création/import.
+python .\wp\tests\a01-court\verify_publication.py --report production/A-01/publication-23nov/a47d8512821b/result.json --live-cleanup
+```
+
+Preuve : `production/A-01/publication-23nov/a47d8512821b/result.json`, **4 PASS**, WordPress **6.9.1**, Woo **11.0.1** (dernière version publique compatible trouvée à cette date), Memberships **1.30.3** réellement testé. Classique/HPOS publiés HTTP 200 ; clé fictive persistante et table personnelle non tranchée refusées avant injection. Durée des quatre cas : **469.181883 s** ; pour un appel d’outil borné à 420 s, utiliser un processus suivi en arrière-plan et attendre sa vraie fin, pas un reçu intermédiaire.
+
+**Limite : Subscriptions n’est pas qualifié en 6.9.1** ; seul ZIP disponible **9.4.1**, minima WP **7.0** / Woo **11.1**, aucun contournement. La qualification antérieure en **7.0.9** reste la preuve de ce traitement ; Ced seul lance le premier import réel, rapport relu avant toute ouverture. Aucun accès agent, archive Imagine ou GO implicite. Après vérification : filtre HTTP WordPress, pas pare-feu système ; mises à jour par scripts de bascule seulement, verrous admin/auto conservés.
+
+---
+
+# Historique jusqu’au 22 novembre — ne décrit plus le comportement courant
+
 # A-01 — arbitrages appliqués, remise de code et refus sûr
 
 **R5 résolu : mises à jour PAR SCRIPTS DE BASCULE SEULEMENT, egress conservé.** `DISALLOW_FILE_MODS=true`, édition et mises à jour automatiques bloquées. Le témoin racine + rapport portent `verified`, dashboard `running`. Mode d'emploi actuel et preuves : **`production/A-01/notes.md`**, manifest **`production/A-01/corrections-22nov/artifact-arbitrages-final.json`**. Le `PRET` de code ne qualifie pas la production : **6.9.1 NON QUALIFIÉ en publication, aucun GO d'import réel ou d'accès agent**.

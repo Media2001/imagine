@@ -109,6 +109,10 @@ def main():
     assert data['owned_container_removed'] is data['no_ports_no_mounts_network_none'] is True
     assert all(unit['exit'] == 0 for unit in data['unit_results'].values())
     sources_match(json.loads((offline.parent / 'sources.json').read_bytes()))
+    previous = json.loads((ROOT / 'production/A-01/tests-21nov/899049f5bdbf/sources.json').read_bytes())
+    native = {rel: digest for rel, digest in previous.items() if rel.startswith('wp/outils/staging/')}
+    assert len(native) == 11
+    sources_match(native)
     assert data['runner_sha256'] == sha(ROOT / 'wp/outils/staging-court/run.py')
     if args.live_cleanup:
         name = 'imagine-a01-court-' + offline.parent.name
@@ -130,14 +134,15 @@ def main():
     assert count and b'\nOK' in transcript and b'skipped=' not in transcript
     paths = sorted((ROOT / 'wp/outils/staging-court').glob('*')) + sorted((ROOT / 'wp/tests/a01-court').glob('*.py'))
     paths += [ROOT / 'production/A-01/notes.md', ROOT / 'production/A-01/PRET']
-    delivery = {p.relative_to(ROOT).as_posix(): sha(p) for p in paths if p.is_file() and p.suffix in ('.py', '.php', '.md') or p.name == 'PRET'}
+    delivery = {p.relative_to(ROOT).as_posix(): sha(p) for p in paths
+                if p.is_file() and (p.suffix in ('.py', '.php', '.md') or p.name == 'PRET')}
     result = {'status': 'PASS', 'recorded_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
               'publication': {'path': publication.relative_to(ROOT).as_posix(), 'sha256': sha(publication), 'cases': proof['cases_verified']},
               'operator': {'path': operator.relative_to(ROOT).as_posix(), 'sha256': sha(operator), 'cases': operator_cases},
               'offline': {'path': offline.relative_to(ROOT).as_posix(), 'sha256': sha(offline), 'checks': 18},
               'unit_tests': int(count[1]), 'unit_exit': units.returncode, 'unit_transcript_sha256': hashlib.sha256(transcript).hexdigest(),
               'live_cleanup_checked': args.live_cleanup, 'payloads_match_current': True,
-              'delivery_sources': delivery, 'no_archive_or_agent_io': True,
+              'delivery_sources': delivery, 'no_real_archive_or_agent_io': True,
               'subscriptions_691': 'NOT_TESTED; prior 7.0.9 qualification retained; first Ced real-import report reviewed before opening',
               'memberships_691': '1.30.3 actually activated and rights/shortcodes preserved'}
     if args.output:
