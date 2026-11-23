@@ -449,6 +449,7 @@ def main():
     group.add_argument('--self-test-publication', action='store_true')
     group.add_argument('--archive')
     parser.add_argument('--operator-ced', action='store_true')
+    parser.add_argument('--diagnose', action='store_true', help='Lecture seule intégrale : aucun site, extraction ou téléchargement')
     parser.add_argument('--password-stdin', action='store_true',
                         help='Automatisation Ced : mot de passe neuf par pipe stdin seulement, jamais argv')
     parser.add_argument('--name')
@@ -459,6 +460,13 @@ def main():
                         help='Version attendue de l’archive ; cœur public préparé à sa version avant injection')
     parser.add_argument('--case', choices=['classic', 'hpos', 'trap', 'personal'], help='Rejeu synthétique ciblé, défaut les quatre')
     args = parser.parse_args()
+    if args.diagnose:
+        if not args.operator_ced or not args.archive or args.password_stdin or args.case:
+            parser.error('--diagnose exige --operator-ced --archive, sans mot de passe ni self-test')
+        from diagnosis import diagnose_path
+        report = diagnose_path(args.archive, args.expected_core_version, args.table_decisions, args.php_version)
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 1 if report['blockers'] else 0
     if not re.fullmatch(r'[0-9]+\.[0-9]+(?:\.[0-9]+)?', args.expected_core_version):
         parser.error('--expected-core-version : version numérique stricte requise')
     if args.archive and not (args.operator_ced and args.name and args.production_url):

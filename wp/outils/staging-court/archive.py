@@ -79,7 +79,7 @@ def path_rules(relative, seen, folded):
     return rules
 
 
-def audit(stream, max_bytes=1024*1024*1024, max_entries=150000, retain_sql=False):
+def audit(stream, max_bytes=1024*1024*1024, max_entries=150000, retain_sql=False, on_chunk=None):
     """One bounded streaming pass, inert bytes only, no filesystem writes.
 
     Broken framing/unsafe length cannot be resynchronised: record incomplete
@@ -137,9 +137,13 @@ def audit(stream, max_bytes=1024*1024*1024, max_entries=150000, retain_sql=False
             if not data:
                 findings.add('ARCHIVE_TRUNCATED', relative)
                 return {'report': findings.report(entries, False), 'package': package, 'sql': sql}
+            if on_chunk is not None:
+                on_chunk(relative, data, False)
             if not limited and (relative == 'package.json' or (retain_sql and relative == 'database.sql')):
                 chunks.append(data)
             remaining -= len(data)
+        if on_chunk is not None:
+            on_chunk(relative, b'', True)
         if relative == 'package.json' and not limited:
             package = b''.join(chunks)
         elif relative == 'database.sql' and retain_sql and not limited:
@@ -150,19 +154,59 @@ def audit(stream, max_bytes=1024*1024*1024, max_entries=150000, retain_sql=False
 
 
 class Refusal(ValueError):
-    pass
+    def __init__(self, code, detail=None):
+        super().__init__(code)
+        self.detail = detail
 
 
-def restore(stream, content, max_bytes=1024 * 1024 * 1024, max_entries=150000, metadata_only=False):
+def probe_case_sensitive(root):
+    """Create/read two distinct names on the actual target, then remove both."""
+    root = pathlib.Path(root)
+    if root.is_symlink() or not root.is_dir():
+        raise Refusal('ARCHIVE_TARGET_SYMLINK')
+    with tempfile.TemporaryDirectory(prefix='.a01-case-', dir=root) as folder:
+        first = pathlib.Path(folder) / 'Probe'
+        second = pathlib.Path(folder) / 'probe'
+        first.write_bytes(b'A')
+        try:
+            with second.open('xb') as handle:
+                handle.write(b'B')
+        except FileExistsError:
+            return False
+        return first.read_bytes() == b'A' and second.read_bytes() == b'B' and not first.samefile(second)
+
+
+def restore(stream, content, max_bytes=1024*1024*1024, max_entries=150000, metadata_only=False, case_probe_root=None):
+    start = stream.tell()
+    scan = audit(stream, max_bytes, max_entries)
+    for rule in scan['report']['rules']:
+        if rule['blocking']:
+            raise Refusal(rule['code'], rule)
+    content = pathlib.Path(content) if content is not None else None
+    if content is not None and any(p.is_symlink() for p in (content, *content.parents)):
+        raise Refusal('ARCHIVE_TARGET_SYMLINK')
+    if not metadata_only:
+        if content is None or content.exists():
+            raise Refusal('FRESH_CONTENT_REQUIRED')
+        content.mkdir(parents=True)
+    case_rule = next((r for r in scan['report']['rules'] if r['code'] == 'ARCHIVE_PATH_CASE_ONLY'), None)
+    if case_rule:
+        root = case_probe_root if metadata_only else content
+        if root is None:
+            raise Refusal('ARCHIVE_CASE_SENSITIVITY_UNVERIFIED', dict(case_rule, code='ARCHIVE_CASE_SENSITIVITY_UNVERIFIED', blocking=True))
+        if not probe_case_sensitive(root):
+            raise Refusal('ARCHIVE_CASE_INSENSITIVE_TARGET', dict(case_rule, code='ARCHIVE_CASE_INSENSITIVE_TARGET', blocking=True))
+    stream.seek(start)
+    return _restore_payload(stream, content, max_bytes, max_entries, metadata_only)
+
+
+def _restore_payload(stream, content, max_bytes=1024 * 1024 * 1024, max_entries=150000, metadata_only=False):
     seen = set()
     total = 0
     sql = None
     package = None
     content = pathlib.Path(content) if content is not None else None
-    if not metadata_only:
-        if content.exists():
-            raise Refusal('FRESH_CONTENT_REQUIRED')
-        content.mkdir(parents=True)
+    # The full read-only audit completed before any payload is restored.
     for _ in range(max_entries + 1):
         header = stream.read(4377)
         if len(header) != 4377:
@@ -187,10 +231,7 @@ def restore(stream, content, max_bytes=1024 * 1024 * 1024, max_entries=150000, m
             raise Refusal('ARCHIVE_HEADER')
         relative = prefix + '/' + name if prefix else name
         parts = relative.split('/')
-        if (relative.startswith('/') or any(p in ('', '.', '..') for p in parts)
-                or any(ord(c) < 32 or c in '\\:' for c in relative) or relative.casefold() in seen):
-            raise Refusal('ARCHIVE_PATH')
-        seen.add(relative.casefold())
+        seen.add(relative)
         length = int(size)
         total += length
         if len(seen) > max_entries or total > max_bytes or (relative == 'database.sql' and length > 128*1024*1024):
