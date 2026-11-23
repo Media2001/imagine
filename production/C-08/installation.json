@@ -1,13 +1,13 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-23T17:16:37.154916+00:00",
+  "at": "2026-11-23T17:26:38.663932+00:00",
   "url": "http://192.168.129.32:8085",
   "credentials_file": "C:\\Users\\Ced\\.imagine-demo\\c08-identifiants.json",
   "files_sha256": {
     "plugins/imagine-site/imagine-site.php": "f45a0ed4b7ac6c4747637112c98d866d23720f508a04ff7d693e24ef83f61068",
     "plugins/imagine-site/NumeroPublication.php": "c84eeca3a678347ef0396b07f56cdd7f69691294e73b4069e5ba52fdab9616fb",
-    "plugins/imagine-site/Paywall.php": "0bd0b0d4eddfe7a3ef1ffd3229dd416aef6e63fafa3bea0dda02e21d29f14ba0",
-    "themes/imagine/functions.php": "20317e14727e7cfa23415f068d5f54e2cc0722b49cca618b1aac629e9591e77d",
+    "plugins/imagine-site/Paywall.php": "745ee32718373d66a7d75dd33eae4a624d4812c9e47cb23982d5c9866761f46d",
+    "themes/imagine/functions.php": "1a13d669b2c9e9d08b08c18b7d9ed22bff39387409be2b923454878d4bf9e2f2",
     "themes/imagine/parts/paywall-abonnement.php": "c4a7d59d415d56b7e9f98a6cc0c5bd307936aece34715cdcbc2fef2d198f7438",
     "themes/imagine/parts/paywall-connexion.php": "2cd97c05b828b7440907f196aef47a2b079d3e93a02b23934faf4843447b4d5a",
     "themes/imagine/parts/paywall-decouverte_epuisee.php": "00194346c2a38f648cc4a0106e39743d3d7dd9b5e8ddca0086b515e6e77912d5",

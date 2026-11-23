@@ -1,0 +1,18 @@
+{
+  "code": 0,
+  "stdout": "{\"checks\":{\"woocommerce_reellement_absent\":true,\"bloc_sans_woo_sans_exception\":true,\"bloc_sans_woo_lien_connexion\":true,\"bloc_sans_woo_pas_promesse_lecture\":true,\"corps_sans_adaptateur_ferme_sans_password\":true,\"corps_sans_adaptateur_extrait_public\":true,\"droits_sans_woo_fermes\":true},\"total\":7,\"failures\":[]}",
+  "stderr": "",
+  "data": {
+    "checks": {
+      "woocommerce_reellement_absent": true,
+      "bloc_sans_woo_sans_exception": true,
+      "bloc_sans_woo_lien_connexion": true,
+      "bloc_sans_woo_pas_promesse_lecture": true,
+      "corps_sans_adaptateur_ferme_sans_password": true,
+      "corps_sans_adaptateur_extrait_public": true,
+      "droits_sans_woo_fermes": true
+    },
+    "total": 7,
+    "failures": []
+  }
+}

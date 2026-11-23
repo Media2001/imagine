@@ -96,6 +96,10 @@ def run():
     checks['preservation:identifiants_prives_octets'] = all(digest(p) == private_before[str(p)] for p in private_paths)
     # B01 : ni le garde de publication ni ses nouveaux requires ne disparaissent.
     b01_before = json.loads((c08.ROOT/'production/B-01/plugin-installation.json').read_text(encoding='utf-8'))
+    checks['preservation:b01_bootstrap_et_garde_octets'] = all(digest(c08.ROOT/'wp/plugins/imagine-site'/name) == value for name,value in b01_before['expected'].items())
+    b01_sources = json.loads((c08.ROOT/'production/B-01/b01-final-verification.json').read_text(encoding='utf-8'))['sources_sha256']
+    allowed_theme = {'wp/themes/imagine/functions.php', 'wp/themes/imagine/parts/paywall-regularisation.php'}
+    checks['preservation:b01_sources_hors_raccord_c08'] = all(digest(c08.ROOT/name) == value for name,value in b01_sources.items() if name not in allowed_theme)
     # Le readback général ci-dessous lie également ces deux sources aux octets actuels.
     bootstrap = (c08.ROOT/'wp/plugins/imagine-site/imagine-site.php').read_text(encoding='utf-8')
     checks['preservation:b01_numero_require_register'] = "require_once __DIR__ . '/NumeroPublication.php';" in bootstrap and 'NumeroPublication::register();' in bootstrap
@@ -146,7 +150,7 @@ def run():
               'c09_counts_preserved': after['c09']['counts'], 'c08_fixture_counts': load('idempotence.json')['after']['counts'],
               'closed_library_php_files_verified': load('regression.json')['library_php_files'],
               'no_private_password_in_deliverables': not leaked, 'leak_files': leaked,
-              'baseline': 'preservation-before.json', 'c08_native_technical_timestamp_changes':
+              'baseline': 'preservation-before.json', 'c08_full_native_projection_changes':
               [k for k in baseline['c08'] if baseline['c08'][k] != after['c08'][k]]}
     save('verification-finale.json', record)
     print(json.dumps({k:record[k] for k in ['status','tests','total_checks','failures','deployed_php_files','http_responses','home_ids']}, ensure_ascii=False, indent=2))

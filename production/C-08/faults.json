@@ -1,7 +1,7 @@
 {
   "scope": "imagine-test-demo",
-  "total": 29,
-  "passed": 29,
+  "total": 41,
+  "passed": 41,
   "failures": [],
   "checks": {
     "configuration:readback_invalide": true,
@@ -17,6 +17,12 @@
     "configuration-invalide:oembed:200": true,
     "configuration-invalide:oembed:ferme": true,
     "configuration-invalide:oembed:prive": true,
+    "configuration-invalide:search-posts:200": true,
+    "configuration-invalide:search-posts:article_absent": true,
+    "configuration-invalide:search-posts:fragment_absent": true,
+    "configuration-invalide:search-search:200": true,
+    "configuration-invalide:search-search:article_absent": true,
+    "configuration-invalide:search-search:fragment_absent": true,
     "configuration:readback_restaure": true,
     "contenu:readback_numero_invalide": true,
     "numero-invalide:page:200": true,
@@ -31,6 +37,12 @@
     "numero-invalide:oembed:200": true,
     "numero-invalide:oembed:ferme": true,
     "numero-invalide:oembed:prive": true,
+    "numero-invalide:search-posts:200": true,
+    "numero-invalide:search-posts:article_absent": true,
+    "numero-invalide:search-posts:fragment_absent": true,
+    "numero-invalide:search-search:200": true,
+    "numero-invalide:search-search:article_absent": true,
+    "numero-invalide:search-search:fragment_absent": true,
     "restauration_finale_exacte": true,
     "restauration_abonne_complet": true
   },
@@ -53,7 +65,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 2279,
-      "body_sha256": "1232ca66ac96770b8aa10b5f6781d10f11e5ec6270c4f20aecf0735ae5c9ef96"
+      "body_sha256": "d170e914da62c87770aa6eadc3772b5610c4645db398e1f490e3b10d2f901818"
     },
     "configuration-invalide:flux": {
       "status": 200,
@@ -63,7 +75,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 8345,
-      "body_sha256": "b35af81d8dc9b414e47f8b35c6a03b5bc76891a228a6711625282248dba20545"
+      "body_sha256": "cc5a4f63c8edc209498c9a34e060b443ab82193140f1750dafe089831301ac93"
     },
     "configuration-invalide:oembed": {
       "status": 200,
@@ -74,6 +86,26 @@
       },
       "bytes": 632,
       "body_sha256": "87602d413a0aeb3f8e0465e7544fdc4036e1484ae732e01be8ac299822331267"
+    },
+    "configuration-invalide:search-posts": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 2,
+      "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "configuration-invalide:search-search": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 2,
+      "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
     },
     "numero-invalide:page": {
       "status": 200,
@@ -93,7 +125,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 2278,
-      "body_sha256": "3acc8e22668a26650e6cdb74a63dfa85190f9d398c0a785ad92fcfb15c7b7b8d"
+      "body_sha256": "823148a909a0210eaa034720fa64fa2b8a0a5dedc0c95f4560bbbc4042f23fce"
     },
     "numero-invalide:flux": {
       "status": 200,
@@ -103,7 +135,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 32293,
-      "body_sha256": "dfe6e36850f98d9b70d64db9484271ed51a1374868952e61f94aa5e01534b831"
+      "body_sha256": "2bb6b2ee95214e35d008564a9e3af3c90227486d8aacd255f346d8733c640db5"
     },
     "numero-invalide:oembed": {
       "status": 200,
@@ -114,6 +146,26 @@
       },
       "bytes": 632,
       "body_sha256": "87602d413a0aeb3f8e0465e7544fdc4036e1484ae732e01be8ac299822331267"
+    },
+    "numero-invalide:search-posts": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 2,
+      "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "numero-invalide:search-search": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 2,
+      "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
     }
   },
   "restoration_exact": true
