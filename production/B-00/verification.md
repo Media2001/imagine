@@ -1,52 +1,66 @@
-# B-00 — vérification et limites
+# B00 — corrections arbitrées du 23 novembre 2026, 16 h 30
 
-## Livré
+## Résultat actuel
 
-`imagine-test-demo` a été créé par la voie normale de l’outil, puis construit et rejoué sans destruction. URL : **http://192.168.129.32:8085** ; registre relu : **`running`**. Aucune intervention sur les autres sites, la voie 1, les verrous, les rapports globaux ou Git.
+Site unique `imagine-test-demo`, http://192.168.129.32:8085, état `running`. Thème `imagine`, locale `fr_FR`, WordPress 7.0.9, PHP 8.3.32, WooCommerce 11.2.2, Subscriptions 9.4.1 et Memberships 1.30.3 relus réellement. Aucune reconstruction destructive, aucun autre site, Git, verrou, rapport global ou fichier de `docs/` touché.
 
-- WordPress **7.0.9**, PHP **8.3**, WooCommerce **11.2.2**, Subscriptions **9.4.1**, Memberships **1.30.3**, plugin `imagine-site` actif. Les classes et fonctions des deux extensions premium sont réellement chargées, pas seulement inscrites dans une liste.
-- Les ZIP déposés par Ced imposent notamment WP 7.0 et WooCommerce 11.1 pour Subscriptions. WooCommerce 11.2.2 a été choisi dans sa plage testée déclarée 11.2 ; le dernier WooCommerce public observé était 11.3.1, volontairement non choisi. Aucune dépendance n’a été abaissée ni aucun contrôle de version contourné. Les en-têtes, minima internes Memberships et SHA-256 des ZIP sont dans `b00-reconstruction.json` ; les métadonnées officielles sont dans `versions-sources.json`.
-- Quatre numéros trimestriels fictifs et un hors-série d’été 2026 ; chacun possède trois articles réservés, un ouvert, une couverture PNG générée (aplat et numéro) et un PDF factice généré. Trois thématiques, deux événements, deux partenaires, accueil et calendrier. Aucun média web, archive Imagine ou contenu réel.
-- Calendrier déterministe **2026–2028** : sorties le 15 janvier, avril, juillet et octobre, hors-série le 15 août, clôture dix jours avant. **J’ai compris que ces dates devaient être des fixtures, non des dates métier validées**, car « Données communes » demande trois ans mais ne donne pas de jours précis.
-- Les bibliothèques closes `imagine-pilotage` et `imagine-connecteur` n’ont pas de fichier plugin WordPress et ne peuvent donc pas être « activées ». Leurs `src/` sont copiés sans modification et leurs classes sont chargées par `imagine-site`, vérifiées en PHP. Rien n’a été écrit dans ces bibliothèques.
-- Le modèle et l’association `imagine_numero_id` sont déclarés en code, sans ACF. Le thème `imagine` de B-01 n’existe pas encore : Twenty Twenty-Five reste actif, conformément au brief.
+Le vrai CLI `construire.py --preuve reconstruction` a réussi sur le site déjà enrichi C08+C09+C10, puis **après le vrai seed C08**. `b00-integre.py --rejouer` appelle la fonction inchangée `c08.run(seed=True)` correspondant à `c08.py --seed`, en redirigeant uniquement son dossier de preuves vers B00, puis lance effectivement le CLI B00 en sous-processus. Les sources/rapports des autres lots ne sont pas réécrits.
 
-## Sécurité du démonstrateur
+## Corrections
 
-La création normale autorisée installe Novamira/licence/MCP sans contournement ; c’est l’exception écrite de la révision du 23 novembre à 13 h 45. Immédiatement après cette création, la garde MU est posée **avant les extensions Woo et le seed** : `pre_wp_mail` renvoie `false`, `pre_http_request` renvoie `imagine_demo_offline`, toutes les passerelles disponibles sont filtrées à vide et le suivi Woo est désactivé. Le site est non indexable. Aucun compte WooCommerce.com, aucune activation de licence commerciale, aucune connexion Stripe/PayPal/Brevo/Odoo/CoopHub.
+- Cardinalités des articles et événements/partenaires limitées aux objets portant `imagine_demo_key`. Les deux articles C08 rattachés au numéro T1 restent en place : six articles dans son sommaire, dont quatre B00 ; la recette B00 n'en exige que ses quatre.
+- Retrait de la protection native par mot de passe quand C08 est actif. Migration des anciennes valeurs en base sans changer les corps, IDs ou droits ; filtre ciblé `wp_insert_post_data` dans `Paywall.php` empêchant leur réintroduction, notamment par le seed C08 inchangé. Pages non concernées. Aucune assertion « mot de passe → corps » restante : ancien cookie sans droit, compte fictif C08 actif avec lecture positive.
+- Locale `fr_FR` avec paquet officiel 7.0.9 téléchargé par l'outil hôte, SHA et fichiers relus. Le garde hors ligne du site n'est pas désactivé pour installer cette langue. Les extensions premium n'ont pas reçu de paquet de traduction : certains libellés tiers peuvent rester anglais.
+- Purge limitée aux IDs/signatures d'installation : article 1 `hello-world`/`Hello world!`, page 2 `sample-page`/`Sample Page`, commentaire WordPress d'installation. Aucun filtre d'accueil B01 ajouté, aucun contenu des autres lots supprimé.
+- Une politique de reprise par transport, sans enrobages imbriqués : toute mutation refusée pour occupation est reprise trois fois à 300 secondes ; lectures jusqu'à douze reprises à cinq secondes, puis arrêt explicite. Pas de forçage. GET initial, GET de suivi, lecture durablement refusée, mutation et épuisement sont testés ; les attentes sont doublées dans les tests, aucun refus réel de concurrence n'est revendiqué.
 
-Cette garde vise les API email/HTTP de WordPress ; elle n’est pas présentée comme un pare-feu Docker ou une preuve d’isolation réseau du conteneur. Les téléchargements explicites des logiciels publics par le constructeur et le provisionnement standard de Novamira sont distingués du fonctionnement hors ligne du site. Aucun transport de paiement ni commande/abonnement réel n’a été créé.
+## Résultats de la dernière passe
 
-Les secrets de test sont générés hors dépôt : `C:\Users\Ced\.imagine-demo\identifiants.json`. Leur copie de travail côté conteneur est dans `/var/www/.imagine-demo/seed-secret.json`, hors racine web, dossier 0700 et fichier 0600. Ils ne sont jamais affichés ni placés dans les preuves. Les comptes utilisent `@example.org`. Aucun cookie ou nonce d’administration authentifiée n’est sauvegardé.
+| Suite | Réussis / exécutés |
+|---|---:|
+| Tests locaux B00+C08+C09+C10, sans test ignoré | 27 / 27 |
+| Recette native B00 | 81 / 81 |
+| Arbitrages B00 natifs (langue, purge, mot de passe, intégration) | 10 / 10 |
+| Recette native C08 | 30 / 30 |
+| Recette native C10 | 13 / 13 |
+| Recette native C09, horloge de fixture explicitée ci-dessous | 364 / 364 |
+| HTTP B00 et disponibilité de tous ses objets/médias | 68 / 68 |
+| Étanchéité HTTP du propriétaire C08 | 229 / 229 |
+| Non-régression C08/B00/B01, 71 fichiers métier relus | 120 / 120 |
+| 27 connexions HTTP C09, corps/blocs comparés aux décisions natives | 108 / 108 |
+| HTTP C10 en lecture seule, autorisations et huit champs | 9 / 9 |
 
-Pour ne pas rendre les textes réservés publics en attendant C-08, **j’ai utilisé provisoirement la protection par mot de passe native WordPress**, avec extrait public et corps complet conservé dans `post_content`. Les réponses anonymes page/REST/flux/recherche/oEmbed ne livrent pas le marqueur du texte réservé ; un accès avec le secret fictif hors dépôt restitue le corps complet. **Cela ne remplace pas C-08, ne branche pas le moteur de droits et ne valide aucun accès abonné.**
+**1 059 tests/assertions de suites, zéro échec**, plus **21 gardes finales** au vert dans `b00-final-verification.json`. Ce sont des assertions de recettes et 27 tests unittest, pas 1 059 méthodes unittest distinctes. B00 représente 11 des 27 tests locaux.
 
-## Exécutions et preuves
+Les preuves RED sont conservées : cardinalités intégrées rouges (`quatre_articles_11`, `trois_reserves_11`), six contrôles d'arbitrage rouges, reprises non gérées, migration de snapshot et anciennes attentes HTTP rouges. Elles ne sont pas des reçus verts actuels.
 
-- Création normale : `b00-creation-normale.txt`, registre `created_at=2026-11-23T13:03:15+00:00`. La fonction `ensure_site()` du script a créé le site alors absent ; les premières exécutions complètes ont ensuite repris ce même site. Pas de fausse réponse HTTP 201 fabriquée : la sortie réelle de la création est conservée, mais son paquet HTTP brut initial n’avait pas été archivé.
-- Première construction complète, mises à jour et installations réelles : `b00-construction.json` (copie aussi dans `tests/b00-premiere-construction.json`).
-- Relances complètes du constructeur : `b00-reconstruction.json`. Comparaison exacte du snapshot initial et final : mêmes IDs, slugs, URL, empreintes des textes et fichiers, métadonnées et compte de test. **41 objets WordPress tagués**, plus trois termes et un utilisateur fictif dans le manifeste de **45 entrées** ; inventaire indépendant égal au manifeste, zéro doublon. `tests/b00-snapshot-initial.json` conserve la référence avant relance.
-- Tests Python : **4 réussis** ; refus d’autre slug et de secrets dans le dépôt, création normale/reprise par l’API, concurrence avec trois attentes de 300 secondes, fixtures/assets déterministes. Les attentes de concurrence sont testées sans immobiliser réellement l’outil ; aucun refus de concurrence n’a eu lieu pendant cette exécution.
-- Recette réelle dans WordPress : **81 contrôles réussis**, zéro échec, stderr vide. Types, calendriers, articles, couvertures/PDF, bibliothèques, versions et blocages email/HTTP/paiement.
-- HTTP et idempotence : **81 assertions réussies**, zéro échec. Les six URL de `A-VOIR.md` sont toutes observées : accueil/numéro/réservé/ouvert/calendrier HTTP **200** ; `/wp-admin/` HTTP **302** vers la connexion, formulaire et session administrateur fictif HTTP **200**. Les autres objets et les dix fichiers médias ont également été visités. `b00-verification-http-idempotence.json`, réponses publiques dans `http/`.
-- Syntaxe PHP : **5 fichiers B-00 sans erreur** ; comparaison des secrets générés aux artefacts du périmètre : aucune occurrence. `tests/b00-syntaxe-secrets.json`.
+## Conservation et snapshots
 
-La preuve RED des quatre types encore absents avant implémentation est `tests/b00-red-runtime.json`. Pendant la mise au point, `eval-file` a refusé `strict_types` (corrigé par inclusion réelle via `wp eval`), et le dossier privé des secrets était initialement non inscriptible (création ciblée du dossier et droits corrigés). Ces incidents ont été retestés, ils ne constituent plus des blocages.
+- B00 : **41 objets tagués**, manifeste de **45 entrées** (41 objets, trois termes, un compte), zéro doublon. La première migration ne change que les 15 indicateurs `protected` des articles réservés. IDs, slugs, URL, empreintes des textes/médias, métadonnées et calendrier sont égaux à l'ancien snapshot après cette unique normalisation autorisée. La référence pré-migration est conservée ; les reconstructions suivantes et la référence intégrée sont **strictement égales**, sans normalisation.
+- C09 : **27 comptes, 13 commandes, 12 souscriptions, 14 adhésions**, tous IDs, états, dates, relations et décisions conservés. Aucun seed/reset C09 : les mots de passe et rôles existants sont vérifiés nativement, puis les 27 connexions sont exercées. Fichier privé B00 enrichi strictement égal à sa sauvegarde, avec ses 27 comptes C09, jamais recopié dans le dépôt.
+- C10 : bootstrap `imagine-pilotage/imagine-reglages.php` toujours actif, PHP des bibliothèques et adaptateurs relu identique ; **options et toutes les entrées du journal strictement identiques**. Les tests HTTP n'enregistrent aucun réglage. Pas de restauration des anciens wrappers B00 à la place de C10.
+- Les snapshots avant/après chaque reconstruction complète sont strictement égaux pour les autres lots. Le seed C08 peut, légitimement, réécrire ses propres hashages de connexion/dates techniques ; ses IDs, états et décisions sont revérifiés. Il ne modifie pas les objets C09/C10.
+- Une première passe HTTP a révélé des métadonnées d'activité/télémétrie UI natives (`wc_last_active`, identifiant Tracks, messages d'administration), sans changement d'identité, mot de passe, rôle ni droit. L'ancien hachage global de toutes les métadonnées utilisateur n'est donc **pas présenté comme identique depuis le tout premier prévol**. Les reçus rouges et le diagnostic restent disponibles. Les passes finales prennent une référence privée en mémoire et restaurent uniquement ces champs UI testés ; leurs snapshots avant/après sont exacts. Les jetons de session et `last_update`, exclus dès le premier snapshot, ne sont ni exportés ni révoqués arbitrairement.
 
-## Standard utilisé et sources primaires
+## Limite explicite de la recette C09
 
-Le code s’appuie sur les mécanismes WordPress existants, plutôt que d’inventer un système de contenu ou de diffusion :
+La recette C09 brute affirme que deux échéances restent à J+30/J+45 du **moment du test**, avec une tolérance de 300 secondes. Plus d'une heure après son seed original, elle renvoie deux échecs attendus : `A-ECHEANCE:terme_30_jours` et `P-SOL-OK:fin_45_jours` (`tests/b00-c09-runtime-brut.json`). Les corriger en reseedant C09 aurait déplacé les échéances et violé la conservation demandée.
 
-- `register_post_type()` : https://developer.wordpress.org/reference/functions/register_post_type/
-- `register_post_meta()` : https://developer.wordpress.org/reference/functions/register_post_meta/
-- protection native : https://developer.wordpress.org/reference/functions/post_password_required/
-- court-circuit email : https://developer.wordpress.org/reference/hooks/pre_wp_mail/
-- court-circuit HTTP : https://developer.wordpress.org/reference/hooks/pre_http_request/
-- Subscriptions : https://woocommerce.com/document/subscriptions/
-- Memberships : https://woocommerce.com/document/woocommerce-memberships/
+La passe intégrée utilise donc **uniquement dans l'espace de noms du test C09** une horloge calée sur son reçu original `production/C-09/reset.json`, daté `2026-11-23T15:14:33.186101+00:00`. Les 364 assertions sont réellement exécutées ; aucune n'est ignorée ni déclarée réussie sans exécution. L'horloge de WordPress/Woo/C08, leurs droits à l'heure réelle et toutes les données restent inchangés. La comparaison exacte des objets/dates au prévol et les parcours HTTP à l'heure réelle sont indépendants de cette adaptation. Cela ne constitue pas une correction de C09 ; son oracle temporel est à améliorer dans son propre lot si sa recette brute doit se rejouer tardivement.
 
-Les pages primaires ont répondu HTTP 200, consignées dans `sources-standard.json`. Les versions imposées par les ZIP locaux sont fondées sur **leurs propres en-têtes et constantes**, non extrapolées de la documentation publique. Aucun achat ou compte commercial nécessaire.
+## Calendrier : clarification sans changement métier
 
-## Reste à valider
+B00 fournit bien le **calendrier brut complet de 15 lignes sur 2026–2028**, dans `imagine_demo_calendrier`, affiché par `/calendrier-fictif/`, et contrôlé nativement/en HTTP. Seuls les cinq numéros de **2026** sont matérialisés avec leurs articles/PDF. La remarque C09 disant que « le calendrier sur trois ans n'est pas complet » est donc trop large : le calendrier brut existe ; les numéros éditoriaux sur trois ans et la grille commerciale trois tarifs × une/quatre fois ne sont pas créés. Aucun prix, date métier ou durée de droit n'a été inventé pour combler ces autres limites.
 
-Aucun blocage technique B-00 restant. `PRET` signifie prêt à relire ; la clôture et les validations de Ced restent celles de la doctrine. Les gabarits B-01, le paywall C-08 et les trente profils C-09 **ne sont ni réalisés ni revendiqués par B-00**. Les constats de blocage du brief ancien sont conservés sous `historique/` et remplacés par le diagnostic actuel.
+## Preuves, historique et sécurité
+
+- Actuelles : `b00-reconstruction.json`, `b00-final-verification.json`, `b00-verification-http-idempotence.json`, `tests/b00-integre-actuel.txt`, `tests/*-actuel.json`, `tests/b00-c09-horloge-fixture.json`, snapshots `tests/b00-integre-*.json`, `regression-c08/` et réponses anonymes `http/`.
+- Historiques exclusivement : `historique/avant-corrections-23nov-16h30/` contient les premiers PRET, rapport, construction, captures TT25 et HTTP « 81/81 ». L'ancien rapport et le reçu de construction ont quitté la racine pour éviter de les confondre avec le rejeu courant. Les versions/minima initiaux restent tracés mais ne remplacent pas le readback actuel.
+- Motifs de sécurité : email `false`, HTTP WordPress extérieur refusé, passerelles vides ; pas de licence commerciale, de paiement, d'archive réelle ou de compte réel. Novamira normal autorisé sur cette démo seulement. La garde MU n'est pas un pare-feu Docker : aucune isolation réseau de bas niveau n'est revendiquée.
+- Aucun mot de passe, cookie, nonce ou HTML authentifié sauvegardé dans les preuves. Paquet de langue public et mécanismes standards documentés dans `sources-corrections.json` ; fichiers relus et secrets comparés aux artefacts de livraison.
+
+## Écart à reporter par le parent / Claude
+
+`imagine-site` réunit le modèle provisoire B00 et le moteur de droits C08 : B00 ne se certifie plus isolément. C'est assumé pour le site intégré ; C08 possède entièrement l'étanchéité. La correction demandant d'écrire dans `docs/ecarts.md` est transmise au parent/Claude, conformément à la file et à la doctrine §7 : **aucun fichier docs n'a été modifié**. La clarification du calendrier ci-dessus et l'oracle temporel C09 sont aussi à reporter sans changer le métier.
+
+`PRET` signifie prêt à relire techniquement ; ce n'est ni une validation visuelle de Ced ni un GO de production.

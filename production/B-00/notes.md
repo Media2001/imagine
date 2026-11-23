@@ -1,5 +1,5 @@
-1. Depuis PowerShell : `Set-Location C:\Users\Ced\imagine` ; prérequis : Python, WSL/Docker et outil de staging déjà présents ; aucune installation sur l’hôte.
-2. Construire : `python wp/outils/demo/construire.py` ; seule cible `imagine-test-demo`, création normale autorisée avec Novamira puis garde MU sans email/HTTP/paiement, aucun compte ni licence commerciale.
-3. Rejouer : `python wp/outils/demo/construire.py --preuve reconstruction` ; mêmes IDs, slugs, URL, contenus et médias vérifiés, aucun autre site ni outil modifié.
-4. Tests : `python -m unittest discover -s wp/tests/demo -p "test_b00*.py" -v` puis `python wp/tests/demo/b00-verifier.py` ; identifiants générés dans `C:\Users\Ced\.imagine-demo\identifiants.json`, hors dépôt.
-5. Ouvrir `production/B-00/A-VOIR.md` ; preuves JSON/HTTP ici ; interprétations, versions, sécurité et ancien blocage levé dans `production/B-00/verification.md`.
+1. PowerShell : `Set-Location C:\Users\Ced\imagine` ; Python, WSL/Docker et outil de staging déjà présents ; seule cible `imagine-test-demo`, aucun autre site ni outil modifié.
+2. Rejouer B00 : `python wp/outils/demo/construire.py --preuve reconstruction` ; IDs/URL/textes/médias conservés, recette limitée aux clés B00, `fr_FR`, purge précise d’installation, C08 propriétaire des accès sans mot de passe d’article.
+3. Rejeu intégré complet : `python wp/tests/demo/b00-integre.py --rejouer` ; exécute le vrai seed C08 puis le CLI B00 ; reçus redirigés uniquement sous `production/B-00`, sans reset C09 ni enregistrement de réglages C10.
+4. Contrôler sans reseed : `python wp/tests/demo/b00-integre.py` ; identifiants enrichis conservés dans `C:\Users\Ced\.imagine-demo\identifiants.json`, hors dépôt ; sauvegarde privée `identifiants-b00-avant-corrections.json`, aucun secret affiché.
+5. Ouvrir `production/B-00/A-VOIR.md` ; chiffres courants, horloge de recette C09 explicitée et historique dans `verification.md` ; mutations refusées : 3 reprises à 300 s, lectures : 12 reprises à 5 s puis arrêt propre, jamais de forçage.
