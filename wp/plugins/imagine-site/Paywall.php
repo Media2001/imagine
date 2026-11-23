@@ -248,11 +248,7 @@ final class Paywall
         unset($_SERVER['HTTP_IF_MODIFIED_SINCE'], $_SERVER['HTTP_IF_NONE_MATCH']);
         add_filter('wp_headers', [self::class, 'cacheHeaders'], PHP_INT_MAX);
         add_filter('rest_post_dispatch', static function ($response) {
-            foreach (self::cacheHeaders([]) as $name => $value) {
-                $response->header($name, $value);
-            }
-            $response->remove_header('ETag');
-            $response->remove_header('Last-Modified');
+            $response->set_headers(self::cacheHeaders($response->get_headers()));
             return $response;
         }, PHP_INT_MAX);
         add_filter('the_posts', static function (array $posts): array {

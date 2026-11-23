@@ -21,9 +21,15 @@ update_option('imagine_acces_plans', $plans);
 $manifest = ['plan' => $planId, 'users' => [], 'memberships' => [], 'subscriptions' => []];
 foreach ($secret['c08_accounts'] as $key => $account) {
     $user = get_user_by('login', $account['login']);
-    $id = wp_insert_user(['ID' => $user ? $user->ID : 0, 'user_login' => $account['login'],
+    $userData = ['user_login' => $account['login'],
         'user_email' => $account['login'] . '@example.org', 'user_pass' => $account['password'],
-        'role' => 'subscriber', 'display_name' => 'Personnage Fictif C08 ' . $key]);
+        'role' => 'subscriber', 'display_name' => 'Personnage Fictif C08 ' . $key];
+    if ($user) {
+        $userData['ID'] = $user->ID;
+        $id = wp_update_user($userData);
+    } else {
+        $id = wp_insert_user($userData);
+    }
     if (is_wp_error($id)) { throw new \RuntimeException('Compte C08 non créé.'); }
     $manifest['users'][$key] = $id;
     if ($key === 'sans-droit') { continue; }

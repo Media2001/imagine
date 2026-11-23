@@ -4,7 +4,6 @@ import re
 import struct
 import tempfile
 import unicodedata
-from collections import Counter
 
 
 EXTENSIONS = frozenset('php css js jpg jpeg png gif webp avif svg ico txt md json sql xml html htm pdf zip gz wpress log csv ttf woff woff2 eot mp3 mp4 ogg wav bin'.split())
@@ -46,7 +45,7 @@ class Findings:
                 'warnings': [r['code'] for r in rules if not r['blocking']]}
 
 
-def path_rules(relative, seen, folded):
+def path_rules(relative, seen, folded, directories):
     parts = relative.split('/')
     rules = []
     if relative.startswith('/'):
@@ -68,8 +67,10 @@ def path_rules(relative, seen, folded):
     if parts[0].casefold() in ('wp-config.php', 'wp-admin', 'wp-includes', 'wp-content'):
         rules.append('ARCHIVE_LAYOUT_UNSUPPORTED')
     # A regular file cannot also be the ancestor of another file.
-    if any('/'.join(parts[:i]) in seen for i in range(1, len(parts))) or any(p.startswith(relative + '/') for p in seen):
+    ancestors = ['/'.join(parts[:i]) for i in range(1, len(parts))]
+    if any(parent in seen for parent in ancestors) or relative in directories:
         rules.append('ARCHIVE_PATH_FILE_DIRECTORY_COLLISION')
+    directories.update(ancestors)
     if ':' in relative and 'ARCHIVE_PATH_DRIVE' not in rules:
         rules.append('ARCHIVE_PATH_COLON')
     if relative not in seen and relative.casefold() in folded:
@@ -86,7 +87,7 @@ def audit(stream, max_bytes=1024*1024*1024, max_entries=150000, retain_sql=False
     explicitly, never interpret guessed payload boundaries as another header.
     """
     findings = Findings()
-    seen, folded = set(), set()
+    seen, folded, directories = set(), set(), set()
     total = entries = 0
     package = sql = None
     complete = False
@@ -121,7 +122,7 @@ def audit(stream, max_bytes=1024*1024*1024, max_entries=150000, retain_sql=False
             findings.add('ARCHIVE_SIZE_INVALID')
             break
         relative = prefix + '/' + name if prefix else name
-        for code in path_rules(relative, seen, folded):
+        for code in path_rules(relative, seen, folded, directories):
             findings.add(code, relative, blocking=code not in ('ARCHIVE_PATH_COLON', 'ARCHIVE_PATH_CASE_ONLY'))
         length = int(size)
         total += length
@@ -205,11 +206,11 @@ def restore(stream, content, max_bytes=1024*1024*1024, max_entries=150000, metad
         if not sensitive:
             raise Refusal('ARCHIVE_CASE_INSENSITIVE_TARGET', dict(case_rule, code='ARCHIVE_CASE_INSENSITIVE_TARGET', blocking=True))
     stream.seek(start)
-    return _restore_payload(stream, content, max_bytes, max_entries, metadata_only)
+    return _restore_payload(stream, content, max_bytes, max_entries, metadata_only, case_verified=bool(case_rule), case_probe_root=case_probe_root)
 
 
-def _restore_payload(stream, content, max_bytes=1024 * 1024 * 1024, max_entries=150000, metadata_only=False):
-    seen = set()
+def _restore_payload(stream, content, max_bytes=1024 * 1024 * 1024, max_entries=150000, metadata_only=False, case_verified=False, case_probe_root=None):
+    seen, folded, directories = set(), set(), set()
     total = 0
     sql = None
     package = None
@@ -239,7 +240,16 @@ def _restore_payload(stream, content, max_bytes=1024 * 1024 * 1024, max_entries=
             raise Refusal('ARCHIVE_HEADER')
         relative = prefix + '/' + name if prefix else name
         parts = relative.split('/')
-        seen.add(relative)
+        for code in path_rules(relative, seen, folded, directories):
+            if code == 'ARCHIVE_PATH_CASE_ONLY' and not case_verified:
+                root = case_probe_root if metadata_only else content
+                if root is None:
+                    raise Refusal('ARCHIVE_CASE_SENSITIVITY_UNVERIFIED')
+                if not probe_case_sensitive(root):
+                    raise Refusal('ARCHIVE_CASE_INSENSITIVE_TARGET')
+                case_verified = True
+            if code not in ('ARCHIVE_PATH_COLON', 'ARCHIVE_PATH_CASE_ONLY'):
+                raise Refusal(code, {'code': code, 'count': 1, 'blocking': True, 'locations': [dict(location(relative), count=1)]})
         length = int(size)
         total += length
         if len(seen) > max_entries or total > max_bytes or (relative == 'database.sql' and length > 128*1024*1024):
@@ -252,6 +262,8 @@ def _restore_payload(stream, content, max_bytes=1024 * 1024 * 1024, max_entries=
             raise Refusal('ARCHIVE_LIMIT')
         target = content.joinpath(*parts) if content is not None else None
         if not metadata and not metadata_only:
+            if any(p.is_symlink() for p in (target, *target.parents)):
+                raise Refusal('ARCHIVE_TARGET_SYMLINK', {'code': 'ARCHIVE_TARGET_SYMLINK', 'count': 1, 'blocking': True, 'locations': [dict(location(relative), count=1)]})
             target.parent.mkdir(parents=True, exist_ok=True)
             handle = target.open('xb')
         else:

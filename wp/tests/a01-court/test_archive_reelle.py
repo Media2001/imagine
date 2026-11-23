@@ -264,6 +264,101 @@ runpy.run_path(SCRIPT,run_name='__main__')
             self.assertIn('ARCHIVE_PATH_CASE_ONLY', report['warnings'])
             self.assertTrue(report['read_only'])
             self.assertEqual(before, {p.relative_to(tmp).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in Path(tmp).rglob('*') if p.is_file()})
+    def test_changed_stream_cannot_bypass_preflight(self):
+        good = fixture([('uploads/2026/fiction.jpg', b'A'), ('database.sql', b'x')])
+        bad = fixture([('uploads/../../ALICE.bin', b'A'), ('database.sql', b'x')])
+        class Changed(io.BytesIO):
+            def seek(self, offset, whence=0):
+                self.truncate(0)
+                super().seek(0)
+                self.write(bad)
+                return super().seek(0)
+        with tempfile.TemporaryDirectory(dir=os.environ.get('TMPDIR')) as tmp:
+            with self.assertRaisesRegex(archive.Refusal, '^ARCHIVE_PATH_PARENT$'):
+                archive.restore(Changed(good), Path(tmp) / 'content')
+            self.assertFalse((Path(tmp) / 'ALICE.bin').exists())
+
+    def test_inserted_parent_symlink_cannot_escape_restoration(self):
+        if os.name == 'nt':
+            self.skipTest('Lien Unix réel')
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            outside = root / 'outside'
+            outside.mkdir()
+            target = root / 'content'
+            class Linked(io.BytesIO):
+                def seek(self, offset, whence=0):
+                    (target / 'plugins').symlink_to(outside, target_is_directory=True)
+                    return super().seek(offset, whence)
+            raw = fixture([('plugins/fiction/ALICE.php', b'x'), ('database.sql', b'x')])
+            with self.assertRaisesRegex(archive.Refusal, '^ARCHIVE_TARGET_SYMLINK$'):
+                archive.restore(Linked(raw), target)
+            self.assertEqual([], list(outside.iterdir()))
+
+    def test_header_damage_keeps_later_discoverable_issues(self):
+        import diagnosis
+        broken_stamp = struct.pack('255s14s12s4096s', b'ALICE.jpg', b'1', b'bad', b'uploads/2026') + b'x'
+        raw = broken_stamp + fixture([('plugins/fiction/../../ALICE.php', b'x'), ('database.sql', b'DELETE FROM `wp_options`;'),
+                                      ('package.json', b'{}'), ('multisite.json', b'{}')])
+        report = diagnosis.diagnose(io.BytesIO(raw))
+        self.assertTrue(report['complete'])
+        self.assertTrue({'ARCHIVE_HEADER','ARCHIVE_PATH_PARENT','SOURCE_CORE_METADATA_REFUSED','MULTISITE_UNSUPPORTED','SQL_STATEMENT'} <= set(report['blockers']))
+        self.assertNotIn('ALICE', json.dumps(report))
+    def test_valid_archive_cli_exits_zero_with_warnings_only(self):
+        import subprocess
+        if os.name == 'nt':
+            self.skipTest('CLI exact Linux')
+        sql = (b'CREATE TABLE `wp_options` (`option_name` varchar(100),`option_value` text) ENGINE=InnoDB;'
+               b'INSERT INTO `wp_options` VALUES (\'home\',\'https://fiction.invalid\'),(\'siteurl\',\'https://fiction.invalid\');')
+        sql += b''.join(('CREATE TABLE `wp_' + table + '` (`id` bigint) ENGINE=InnoDB;').encode()
+                        for table in ('users', 'usermeta', 'posts', 'postmeta', 'comments'))
+        raw = fixture([('database.sql', sql), ('package.json', b'{"WordPress":{"Version":"6.9.1"}}'),
+                       ('uploads/2026/Photo.jpg', b'A'), ('uploads/2026/photo.jpg', b'B'),
+                       ('uploads/2026/fiction:photo.jpg', b'C')])
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'fiction.wpress'
+            path.write_bytes(raw)
+            before = sorted(str(p) for p in Path(tmp).rglob('*'))
+            p = subprocess.run([sys.executable, str(TOOLS / 'publish.py'), '--diagnose', '--operator-ced', '--archive', str(path)], capture_output=True)
+            self.assertEqual(0, p.returncode, p.stderr.decode())
+            report = json.loads(p.stdout)
+            self.assertEqual([], report['blockers'])
+            self.assertEqual({'ARCHIVE_PATH_CASE_ONLY','ARCHIVE_PATH_COLON','COLONNES_INCONNUES_CONSERVEES'}, set(report['warnings']))
+            self.assertEqual('NO_STATIC_BLOCKER', report['status'])
+            self.assertFalse(report['full_staging_ready'])
+            self.assertEqual(raw, path.read_bytes())
+            self.assertEqual(before, sorted(str(p) for p in Path(tmp).rglob('*')))
+
+    def test_all_attack_neighbors_remain_blocking(self):
+        cases = [('plugins/a/../../ALICE.php', 'ARCHIVE_PATH_PARENT'),
+                 ('C:/ALICE.php', 'ARCHIVE_PATH_DRIVE'), ('c:ALICE.php','ARCHIVE_PATH_DRIVE'),
+                 ('plugins/fiction/./ALICE.php','ARCHIVE_PATH_DOT'),
+                 ('plugins/fiction//ALICE.php','ARCHIVE_PATH_EMPTY'),
+                 ('plugins/fiction/ALICE\\x.php','ARCHIVE_PATH_BACKSLASH'),
+                 ('plugins/fiction/ALICE\x01.php','ARCHIVE_PATH_CONTROL'),
+                 ('plugins/fiction/ALICE\x85.php','ARCHIVE_PATH_CONTROL'),
+                 ('/plugins/ALICE.php','ARCHIVE_PATH_ABSOLUTE'),
+                 ('wp-config.php','ARCHIVE_LAYOUT_UNSUPPORTED'),
+                 ('wp-includes/ALICE.php','ARCHIVE_LAYOUT_UNSUPPORTED'),
+                 ('WP-ADMIN/ALICE.php','ARCHIVE_LAYOUT_UNSUPPORTED')]
+        for path, code in cases:
+            with self.subTest(code=code):
+                report = archive.audit(io.BytesIO(fixture([(path,b'x'),('database.sql',b'x')])))['report']
+                self.assertIn(code, report['blockers'])
+                self.assertNotIn('ALICE', json.dumps(report))
+        for paths in [('plugins/fiction','plugins/fiction/ALICE.php'), ('plugins/fiction/ALICE.php','plugins/fiction')]:
+            report = archive.audit(io.BytesIO(fixture([(p,b'x') for p in paths]+[('database.sql',b'x')])))['report']
+            self.assertIn('ARCHIVE_PATH_FILE_DIRECTORY_COLLISION',report['blockers'])
+
+    def test_unrecoverable_framing_is_explicitly_incomplete(self):
+        import diagnosis
+        raw = struct.pack('255s14s12s4096s',b'ALICE.jpg',b'not-a-size',b'0',b'uploads/2026')
+        report = diagnosis.diagnose(io.BytesIO(raw))
+        self.assertFalse(report['complete'])
+        self.assertIn('ARCHIVE_SIZE_INVALID',report['blockers'])
+        self.assertIn('SQL_UNAVAILABLE',report['blockers'])
+        self.assertIn('SOURCE_CORE_METADATA_REFUSED',report['blockers'])
+        self.assertNotIn('ALICE',json.dumps(report))
 
 
 if __name__ == '__main__':

@@ -162,13 +162,40 @@ def sql_diagnosis(payload, findings, decisions):
             valid = 'columns' not in decision
         if not valid:
             findings.add('DECISION_INVALIDE')
+    option_names = set()
     for table, columns, tokens in inserts:
         if table not in schemas:
             findings.add('SQL_TABLE', table=table, columns=columns)
+        active_columns = columns or schemas.get(table, [])
+        # Parse only literal rows already admitted by the closed grammar.
+        values_at = next((i for i, token in enumerate(tokens) if token[0] == 'word' and token[1].upper() == 'VALUES'), len(tokens))
+        row = None
+        for kind, value in tokens[values_at + 1:]:
+            if value == '(':
+                row = []
+            elif value == ')' and row is not None:
+                if len(row) != len(active_columns):
+                    findings.add('SQL_INSERT_COLUMN_COUNT', table=table, columns=active_columns)
+                if prefix and table == prefix + 'options' and 'option_name' in active_columns:
+                    index = active_columns.index('option_name')
+                    if index < len(row):
+                        key = row[index]
+                        if key in option_names:
+                            findings.add('OPTION_DUPLIQUEE', table=table, columns=['option_name'])
+                        option_names.add(key)
+                row = None
+            elif row is not None and kind in ('string', 'number', 'word'):
+                if kind == 'string':
+                    value = re.sub(r'\\\\(.)', lambda m: {'n':'\n', 'r':'\r', 't':'\t', '0':'\0', 'b':'\b', 'Z':'\x1a'}.get(m[1], m[1]), value[1:-1].replace("''", "'"), flags=re.S)
+                row.append(value)
         # Count source literals, never emit them. Table/column schema only.
         for kind, value in tokens:
             if kind == 'string' and DANGER.search(value.encode()):
                 findings.add('SOURCE_SECRET_NEUTRALISABLE', blocking=False, table=table, columns=columns or schemas.get(table, []))
+    if prefix and prefix + 'options' in schemas:
+        for name in ('home', 'siteurl'):
+            if name not in option_names:
+                findings.add('URL_ABSENTE', table=prefix + 'options', columns=['option_name', 'option_value'])
 
 
 def diagnose(stream, expected='6.9.1', decisions=None, php='8.2'):
@@ -198,8 +225,11 @@ def diagnose(stream, expected='6.9.1', decisions=None, php='8.2'):
     archive_rules = scan['report']['rules']
     findings.rules = {**{r['code']: r for r in archive_rules}, **findings.rules}
     version = None
+    expected_valid = isinstance(expected, str) and re.fullmatch(r'[0-9]+\.[0-9]+(?:\.[0-9]+)?', expected)
+    if not expected_valid:
+        findings.add('EXPECTED_CORE_VERSION_REFUSED')
     try:
-        version = select_version(scan['package'], expected)
+        version = select_version(scan['package'], expected if expected_valid else None)
     except Refusal as error:
         findings.add(str(error))
     except (AttributeError, IndexError):
