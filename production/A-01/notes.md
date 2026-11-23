@@ -1,3 +1,58 @@
+# A-01 archive-reelle — commande de diagnostic pour Ced
+
+```powershell
+Set-Location 'C:\Users\Ced\imagine'
+$env:PYTHONDONTWRITEBYTECODE = '1'
+python .\wp\outils\staging-court\publish.py --diagnose --operator-ced --archive $ARCHIVE_WPRESS --expected-core-version 6.9.1
+```
+
+**Ced seul renseigne `$ARCHIVE_WPRESS` et ouvre l’archive réelle.** Aucun nom de site, URL, mot de passe ou prérequis de publication n’est demandé. La commande écrit son JSON sur stdout : aucun fichier de rapport, site, extraction, téléchargement, base ni bootstrap. Ced peut conserver cette sortie lui-même dans un nouveau reçu. Une décision écrite peut être fournie par `--table-decisions $DECISIONS_CED` ; aucun choix fictif n’est repris par défaut.
+
+## Lire le résultat
+
+- `rules` : code, `count`, caractère bloquant et localisations agrégées. Fichiers : zone de répertoire et extension connue seulement, jamais basename ; les zones/extensions non sûres sont masquées. Tables : noms de tables/colonnes, jamais valeurs, URL, clé, contenu SQL ou texte d’exception.
+- `blockers` / `warnings` : synthèse finale. Sortie **1** si des blocages statiques sont trouvés ; **0 / NO_STATIC_BLOCKER** sinon ; **2** pour une syntaxe CLI invalide. **Un diagnostic vert ne signifie jamais staging vérifié** : `full_staging_ready=false` et `deferred_checks` nomment les contrôles nécessitant la future copie de Ced.
+- Une lecture physique de l’archive, avec analyse de **chaque occurrence** du manifeste et du SQL, y compris après un chemin refusé ou avec des métadonnées dupliquées. En-têtes, limites, disposition, multisite, manifeste/version, grammaire SQL, schéma incomplet, options dupliquées/URL manquantes, tables personnelles/décisions, secrets et minima d’extensions sont inventoriés ensemble.
+- `complete` concerne le parcours physique de l’archive. En cadrage/taille illisible, troncature ou plafond d’entrées : diagnostic explicitement incomplet, jamais reprise à une frontière inventée. `SQL_ANALYSIS_PARTIAL` signale une analyse SQL limitée ; aucune recherche naïve du prochain `;` susceptible de transformer une valeur personnelle en faux nom de table.
+- Les secrets reconnus dans les littéraux SQL d’origine sont signalés `SOURCE_SECRET_NEUTRALISABLE` en avertissement : leur présence initiale ne prouve pas un résidu après anonymisation. Les motifs secrets présents dans les fichiers sont signalés conservativement `SECRET_OU_IDENTIFIANT` ; leur revue reste nécessaire. Aucun décodage/exécution de PHP, charge chiffrée ou code arbitraire n’est prétendu. Les résidus effectifs et le runtime restent contrôlés par les trois scripts natifs inchangés lors de la copie future.
+
+## Chemins : assouplissements bornés et refus maintenus
+
+- `:` dans un nom relatif légitime : conservé octet pour octet, avertissement `ARCHIVE_PATH_COLON`. `C:/…` et les chemins de lecteur relatifs restent refusés (`ARCHIVE_PATH_DRIVE`).
+- Deux chemins distincts uniquement par la casse : avertissement compté `ARCHIVE_PATH_CASE_ONLY`, conservation des deux fichiers **après une vraie sonde**. Deux fichiers témoins aux noms différant seulement par la casse sont créés/lus/supprimés dans le **répertoire cible lui-même**, pas un répertoire voisin ni une hypothèse Linux. Sonde du runner au prévol, du dossier restauré, puis du vrai `wp-content` monté avant transfert. Cible insensible ou non éprouvée : refus. Le diagnostic strictement en lecture seule ne fait pas cette écriture : il annonce le contrôle différé, sans autoriser une restauration.
+- Restent bloquants et comptés : doublon strictement identique, absolu, segments vide/`.`/`..`, antislash, contrôle C0/DEL/C1, collision fichier/répertoire, configuration/cœur à la racine et multisite. Le format plat `.wpress` ne porte pas d’attribut de lien : aucun contenu n’est interprété comme lien. Archive source liée et cible/ancêtres liés sont refusés ; un lien introduit entre prévol et écriture est encore rejeté.
+- Le refus ordinaire affiche désormais directement `refusals` : code précis, nombre, première zone et extension ; le reçu garde aussi le détail complet, sans nom de média.
+
+**Recommandation pour antislashs et contrôles — trois lignes :**
+Conserver le refus des antislashs : leur interprétation comme séparateur varie selon le système et les bibliothèques.
+Conserver le refus des contrôles C0/DEL/C1 : ils rendent les chemins invisibles et peuvent tromper journaux et terminaux.
+Compter et localiser ces cas dans le diagnostic, puis décider sur le rapport ; aucune réécriture silencieuse du chemin.
+
+## Preuves de cette correction — 23 novembre 2026
+
+- **29 nouveaux tests** dans `wp/tests/a01-court/test_archive_reelle.py`. RED/GREEN conservés sous `production/A-01/archive-reelle*` : dénombrement, restauration/sonde, commande inerte, prévol précis, métadonnées/SQL/secrets, confidentialité, métadonnées dupliquées et résumé console.
+- **Hôte : 85 tests, 77 exécutés verts et 8 branches Linux différées**, `archive-reelle-unitaires-remise.log`. La branche négative est éprouvée sur le vrai dossier Windows insensible à la casse.
+- **Linux réel : 41 tests, 40 exécutés verts et 1 branche Windows différée**, `archive-reelle/946da1e537e3/result.json`. Runner jetable possédé : `network=none`, zéro port/montage, capacités retirées, no-new-privileges ; absence relue. La CLI exacte est exécutée positivement et négativement ; un audit Python interdit toute écriture, sous-processus et socket dans le diagnostic. Les octets/arborescences synthétiques restent inchangés. Ces compteurs se recoupent : ne pas les additionner.
+- **Refus opérateur complet, sujet réellement hors ligne :** `archive-reelle/refusal-c4473bce2038/result.json`, pilote sortie 0 ; sujet sortie **1 / FAIL attendue**, reçu `publication-23nov/2196d0dea030/result.json`. `ARCHIVE_PATH_BACKSLASH`, **2 cas**, première zone `uploads/2026`, `.jpg`, jusque dans la console. API de site, téléchargement et mot de passe munis de gardes d’interdiction, jamais atteints ; vrai runner/copie/prévol/nettoyage exercés. Aucun site créé ; archive fictive/répertoire temporaire supprimés et absence relue.
+- **Régression native hors ligne fraîche :** `tests-21nov/c6a70d1458cb/result.json`, sortie 0, **18 contrôles PASS / 0 FAIL**, classique et HPOS ; 12 tests lecteur, 17 banc, 9 cas/337 assertions données et lint PHP verts. Fichiers restaurés exacts, traitements et données métier conservés, runner supprimé. `full_staging_ready=false` reste attendu. PHP n’a tourné que dans Docker. La passe intermédiaire `tests-21nov/c35323231a8f/result.json` demeure BLOCKED, jamais blanchie.
+- **Historique préservé, pas requalifié artificiellement :** ancien PRET déplacé intact vers `PRET-qualification-23nov-historique-avant-archive-reelle.txt`. Les reçus de publication antérieurs ne qualifient plus les nouvelles empreintes. Les tests structurels de ces reçus utilisent désormais le mode interne `HISTORICAL_SCHEMA_ONLY`, sans statut PASS ni qualification courante ; le vérificateur par défaut conserve ses refus de dérive de source et ce garde a son test. Aucun reçu historique modifié. Le nouveau PRET porte uniquement sur ce brief de correction/diagnostic, pas une nouvelle publication commerciale.
+- Manifeste de remise et relecture des sources/reçus/nettoyages : **`production/A-01/archive-reelle-final.json`**. Aucun fichier de l’outil partagé, traitement natif, autre voie, verrou, file, doctrine ou brief modifié ; aucun Git, compte commercial, téléchargement ou archive Imagine utilisé.
+
+### Rejouer sans archive réelle ni site
+
+```powershell
+python -m unittest discover -s wp/tests/a01-court -p 'test_*.py' -v
+python wp/tests/a01-court/exercise_archive_reelle.py 'test_archive*.py'
+python wp/tests/a01-court/exercise_archive_refusal.py
+python wp/outils/staging-court/run.py --self-test
+```
+
+Les pilotes créent des reçus neufs et nettoient seulement leurs propres ressources. Le dernier réalise uniquement les imports de fixtures inventées dans un conteneur sans réseau, jamais un import d’Imagine. La commande opérateur ordinaire historique ci-dessous n’est **pas** à lancer par un agent : Ced commence par le diagnostic en tête de cette page. Aucun PRET n’est un GO d’import réel, de compte ou d’ouverture aux agents.
+
+---
+
+# Historique antérieur intégral — commandes et qualifications ci-dessous non courantes pour archive-reelle
+
 # A-01 — mode d’emploi Ced : WordPress 6.9.1 qualifié sur archives fictives
 
 **23 novembre 2026. Code à relire, pas un GO d’import réel ni d’accès agent.** Ced seul lance le premier import d’Imagine ; son rapport est relu avant toute ouverture.

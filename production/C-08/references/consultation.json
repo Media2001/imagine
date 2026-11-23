@@ -2,41 +2,57 @@
   {
     "url": "https://woocommerce.com/document/woocommerce-memberships-function-reference/",
     "bytes": 317989,
-    "file": "production\\C-08\\references\\0.html"
+    "file": "production\\C-08\\references\\0.html",
+    "sha256": "65d9e8f456d45cb12c42d2794260b3dac2e633928b2906ab580aabedaa043838",
+    "snapshot_removed_after_check": true
   },
   {
     "url": "https://woocommerce.com/document/woocommerce-memberships-user-memberships/",
     "bytes": 367327,
-    "file": "production\\C-08\\references\\1.html"
+    "file": "production\\C-08\\references\\1.html",
+    "sha256": "8befc901316a8cbd437a39f4568e15f2f4a2eb603eb201109479c72318b37d70",
+    "snapshot_removed_after_check": true
   },
   {
     "url": "https://woocommerce.com/document/subscriptions/develop/functions/",
     "bytes": 262708,
-    "file": "production\\C-08\\references\\2.html"
+    "file": "production\\C-08\\references\\2.html",
+    "sha256": "c2845f3836f95ba7e311567f88b6d9ddd129c9e78b28f4b8c909f8d203b943fc",
+    "snapshot_removed_after_check": true
   },
   {
     "url": "https://developer.wordpress.org/reference/hooks/the_posts/",
     "bytes": 169623,
-    "file": "production\\C-08\\references\\3.html"
+    "file": "production\\C-08\\references\\3.html",
+    "sha256": "624dc1f33587e1eac999d907246311841e5347dc3e99c4f06c45f37214fbd888",
+    "snapshot_removed_after_check": true
   },
   {
     "url": "https://developer.wordpress.org/reference/hooks/rest_prepare_this-post_type/",
     "bytes": 171044,
-    "file": "production\\C-08\\references\\4.html"
+    "file": "production\\C-08\\references\\4.html",
+    "sha256": "54a5b036975b89aafeb6a385ea0a5b7257a4b20f99a6af9c6f3d58660ec3221e",
+    "snapshot_removed_after_check": true
   },
   {
     "url": "https://developer.wordpress.org/reference/hooks/oembed_response_data/",
     "bytes": 169644,
-    "file": "production\\C-08\\references\\5.html"
+    "file": "production\\C-08\\references\\5.html",
+    "sha256": "fd7eaca703ab71517396d91fcc3cb68485fc2f32861987988b861278b81dc66b",
+    "snapshot_removed_after_check": true
   },
   {
     "url": "https://developer.wordpress.org/reference/functions/wp_get_nocache_headers/",
     "bytes": 171152,
-    "file": "production\\C-08\\references\\6.html"
+    "file": "production\\C-08\\references\\6.html",
+    "sha256": "cb9a6d8e802919a3ecb47cc5ac9ac4f415e3aeb37aa96e767e2c23fa53679290",
+    "snapshot_removed_after_check": true
   },
   {
     "url": "https://developers.google.com/search/docs/appearance/structured-data/paywalled-content",
     "bytes": 203769,
-    "file": "production\\C-08\\references\\7.html"
+    "file": "production\\C-08\\references\\7.html",
+    "sha256": "ebb57e6ca2d0ea0f75b2e0ff5a2929318f0849ce733a45ec89703285a1f0e110",
+    "snapshot_removed_after_check": true
   }
 ]

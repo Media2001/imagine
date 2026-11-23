@@ -2,11 +2,9 @@
   "scope": "imagine-test-demo",
   "url": "http://192.168.129.32:8085",
   "total": 229,
-  "passed": 228,
-  "failed": 1,
-  "failures": [
-    "recherche:fixture_effectivement_presente"
-  ],
+  "passed": 229,
+  "failed": 0,
+  "failures": [],
   "checks": {
     "anonyme-page:status": true,
     "anonyme-page:temoin": true,
@@ -90,7 +88,7 @@
     "recherche:sans_erreur_php": true,
     "recherche:cache_prive": true,
     "recherche:sans_validateur_partage": true,
-    "recherche:fixture_effectivement_presente": false,
+    "recherche:reponse_recherche_valide": true,
     "extrait-automatique:status": true,
     "extrait-automatique:temoin": true,
     "extrait-automatique:autre_temoin_absent": true,
@@ -259,7 +257,7 @@
         "vary": "Origin"
       },
       "bytes": 2279,
-      "body_sha256": "b7b1e3ef261886d146f1fd4dbcbdd20ae41444a9152cf872c0132d3a769183ef"
+      "body_sha256": "1429d812d50aff6410ba360ad4c535568ef4a44d52fa1ea79f07661a2de0b8d7"
     },
     "rest-collection": {
       "path": "/wp-json/wp/v2/posts?include=81%2C82&_embed=1",
@@ -270,7 +268,7 @@
         "vary": "Origin"
       },
       "bytes": 6051,
-      "body_sha256": "3b4e5e89edd993cef76a735de473ec564f47bb86299b002ca79458e3e0d28b52"
+      "body_sha256": "8a7e99b3bbf6fa5ef5e0cace677ac28caac92d859d41c49f232bd8a77c3e286a"
     },
     "rest-champs": {
       "path": "/wp-json/wp/v2/posts/81?_fields=content,excerpt",
@@ -303,7 +301,7 @@
         "vary": "Origin"
       },
       "bytes": 2279,
-      "body_sha256": "b7b1e3ef261886d146f1fd4dbcbdd20ae41444a9152cf872c0132d3a769183ef"
+      "body_sha256": "1429d812d50aff6410ba360ad4c535568ef4a44d52fa1ea79f07661a2de0b8d7"
     },
     "rest-recherche": {
       "path": "/wp-json/wp/v2/search?search=C08",
@@ -325,7 +323,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 13379,
-      "body_sha256": "574cf3417f81b7aef8c1667c0fedcb9ea0e2606cd5792b7a70f56fc73516a992"
+      "body_sha256": "3652201d3ec2bc4cfa938cc1c1da13e9ce6130763db12a25a320e96356c9b552"
     },
     "rss": {
       "path": "/?feed=rss",
@@ -336,7 +334,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 3176,
-      "body_sha256": "876e1745e21d6a782a2f914572ecccd8d1e37713c5a4f4ec923188a2695370f4"
+      "body_sha256": "0aa2872495afcac7bee96181046b3f4ada92a2c839f5505419256468f80e4e55"
     },
     "atom": {
       "path": "/?feed=atom",
@@ -347,7 +345,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 14652,
-      "body_sha256": "66ee87070c69b6cdf60dd242cfd8a142b85e5d72cc8551c1079e033d7cd5a32c"
+      "body_sha256": "d14dff360f8a3ed5afd22cd61a4e3489cb32d39517f0b8eaf6aa47f6590b2f00"
     },
     "rdf": {
       "path": "/?feed=rdf",
@@ -358,7 +356,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 13373,
-      "body_sha256": "623270467f196db0d630f5e05e2034f7606181caca157a985f0c46cd2c9ea649"
+      "body_sha256": "43298d5c810fe35521871a269992ca4c180265df816228b7567cee555adf4c23"
     },
     "recherche": {
       "path": "/?s=C08",
@@ -391,7 +389,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 20242,
-      "body_sha256": "6b6e7104e650ee8848d74491eab33548e4cfa95e4356f58726e2514ba8890980"
+      "body_sha256": "e2eeba61441d76c8f8cd413deffcf9d5d802d41c12f7899964f6456f7cc6b55f"
     },
     "apercu": {
       "path": "/?p=81&preview=true",
@@ -501,7 +499,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 13379,
-      "body_sha256": "574cf3417f81b7aef8c1667c0fedcb9ea0e2606cd5792b7a70f56fc73516a992"
+      "body_sha256": "3652201d3ec2bc4cfa938cc1c1da13e9ce6130763db12a25a320e96356c9b552"
     },
     "actif-page": {
       "path": "/c08-article-reserve-article/",
@@ -523,7 +521,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 3764,
-      "body_sha256": "b7eb3c85da66e59a393ac6906922e09553e7eb6ea63b30e65c32139b21bf63c3"
+      "body_sha256": "2c82a44b2ce462f398b369d6a77b859c54c07ecc29cf759f67f8df0407d08c70"
     },
     "anonyme-apres-actif": {
       "path": "/c08-article-reserve-article/",
@@ -556,7 +554,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 3764,
-      "body_sha256": "b7eb3c85da66e59a393ac6906922e09553e7eb6ea63b30e65c32139b21bf63c3"
+      "body_sha256": "2c82a44b2ce462f398b369d6a77b859c54c07ecc29cf759f67f8df0407d08c70"
     },
     "anonyme-apres-grace": {
       "path": "/c08-article-reserve-article/",
@@ -589,7 +587,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 2279,
-      "body_sha256": "b7b1e3ef261886d146f1fd4dbcbdd20ae41444a9152cf872c0132d3a769183ef"
+      "body_sha256": "1429d812d50aff6410ba360ad4c535568ef4a44d52fa1ea79f07661a2de0b8d7"
     },
     "anonyme-apres-sans-droit": {
       "path": "/c08-article-reserve-article/",
