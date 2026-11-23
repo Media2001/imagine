@@ -3,25 +3,17 @@
     "url": "https://developer.wordpress.org/reference/functions/get_plugins/",
     "final_url": "https://developer.wordpress.org/reference/functions/get_plugins/",
     "status": 200,
-    "sha256": "0f77f00eb086d432a01b84959a6ba28445b2168b293f2bf98542d57040c765e3",
+    "sha256": "63f5c9f1610f0baccc34120255c660a26ad6346d0720f6185a90666c178760e5",
     "topic": "get_plugins",
-    "excerpts": [
-      "all plugins installed on your site (not just activated ones). <?php // Check if get_plugins() function exists. This is required on the front end of the // site, since it is in a file that is normally only loaded in the admin. if ( ! function_exists( 'get_plugins' ) ) { require_once ABSPATH . 'wp-admin/includes/plugin.php'; } $all_plugins = get_plugins(); // Save the data to the error log so you can see what the array format is like. error_log( print_r( $all_plugins, true ) ); Example output: Array ( [hello-dolly/hello.php] => Array ( [Name] => Hello Dolly [PluginURI] => https://wordpress.org/extend/plugins/hello-dolly/ [Version] => 1.6 [Description] => This is not just a plugin, it symbolizes the hope and enthusiasm of an entire generation summed up in two words sung mo",
-      "s in a file that is normally only loaded in the admin. if ( ! function_exists( 'get_plugins' ) ) { require_once ABSPATH . 'wp-admin/includes/plugin.php'; } $all_plugins = get_plugins(); // Save the data to the error log so you can see what the array format is like. error_log( print_r( $all_plugins, true ) ); Example output: Array ( [hello-dolly/hello.php] => Array ( [Name] => Hello Dolly [PluginURI] => https://wordpress.org/extend/plugins/hello-dolly/ [Version] => 1.6 [Description] => This is not just a plugin, it symbolizes the hope and enthusiasm of an entire generation summed up in two words sung most famously by Louis Armstrong: Hello, Dolly. When activated you will randomly see a lyric from <cite>Hello, Dolly</cite> in the upper right of your admin screen on every ",
-      "' ) ) { require_once ABSPATH . 'wp-admin/includes/plugin.php'; } $all_plugins = get_plugins(); // Save the data to the error log so you can see what the array format is like. error_log( print_r( $all_plugins, true ) ); Example output: Array ( [hello-dolly/hello.php] => Array ( [Name] => Hello Dolly [PluginURI] => https://wordpress.org/extend/plugins/hello-dolly/ [Version] => 1.6 [Description] => This is not just a plugin, it symbolizes the hope and enthusiasm of an entire generation summed up in two words sung most famously by Louis Armstrong: Hello, Dolly. When activated you will randomly see a lyric from <cite>Hello, Dolly</cite> in the upper right of your admin screen on every page. [Author] => Matt Mullenweg [AuthorURI] => http://ma.tt/ [TextDomain] => [DomainPath] "
-    ]
+    "topic_occurrences": 10
   },
   {
     "url": "https://developer.wordpress.org/reference/functions/wp_update_plugins/",
     "final_url": "https://developer.wordpress.org/reference/functions/wp_update_plugins/",
     "status": 200,
-    "sha256": "dc04149547210668637e0c2e84de57d8587de6420ffd6f9ed9dbb31de2bc9d77",
+    "sha256": "54394eae5750244cb6c0bc56706d67ecfa31fad8b81ec90a3b247533a44340bc",
     "topic": "update_plugins",
-    "excerpts": [
-      "k( $updates->no_update, $sanitize_plugin_update_payload ); set_site_transient( 'update_plugins', $updates ); } View all references View on Trac View on GitHub Hooks apply_filters ( ‘plugins_update_check_locales’, string[] $locales ) Filters the locales requested for plugin translations. apply_filters ( “update_plugins_{$hostname}”, array|false $update , array $plugin_data , string $plugin_file , string[] $locales ) Filters the update response for a given plugin hostname. Related Uses Description wp_get_wp_version() wp-includes/functions.php Returns the current WordPress version. wp_trigger_error() wp-includes/functions.php Generates a user-level error/warning/notice/deprecation message. wp_doing_cron() wp-includes/load.php Determines whether the current request is a Wor",
-      "cales ) Filters the locales requested for plugin translations. apply_filters ( “update_plugins_{$hostname}”, array|false $update , array $plugin_data , string $plugin_file , string[] $locales ) Filters the update response for a given plugin hostname. Related Uses Description wp_get_wp_version() wp-includes/functions.php Returns the current WordPress version. wp_trigger_error() wp-includes/functions.php Generates a user-level error/warning/notice/deprecation message. wp_doing_cron() wp-includes/load.php Determines whether the current request is a WordPress cron request. wp_installing() wp-includes/load.php Checks or sets whether WordPress is in “installation” mode. wp_parse_url() wp-includes/http.php A wrapper for PHP’s parse_url() function that handles consistency in th",
-      "des/plugin-install.php Determines the status we can perform on a plugin. _maybe_update_plugins() wp-includes/update.php Checks the last time plugins were run before checking plugin versions. Changelog Version Description 2.3.0 Introduced. User Contributed Notes You must log in before being able to contribute a note or feedback. About News Hosting Privacy Showcase Themes Plugins Patterns Learn Documentation Developers WordPress.tv ↗ Get Involved Events Donate ↗ Swag ↗ WordPress.com ↗ Matt ↗ bbPress ↗ BuddyPress ↗ WordPress.org The WordPress® trademark is the intellectual property of the WordPress Foundation. Visit our X (formerly Twitter) account Visit our Bluesky account Visit our Mastodon account Visit our Threads account Visit our Facebook page Visit our Instagram acc"
-    ]
+    "topic_occurrences": 11
   },
   {
     "url": "https://developer.woocommerce.com/docs/features/high-performance-order-storage/",
@@ -29,19 +21,15 @@
     "status": 200,
     "sha256": "592a84d2249abc9cd081874e6fa1f4c934cab70656fd47025bb81013601ef91b",
     "topic": "authoritative",
-    "excerpts": [
-      "created with the same ID and that's it. However, when the new orders tables are authoritative there's a problem: the posts table is used to store multiple types of data, not only orders; and by the time synchronization needs to happen, a non-order post could already exist having the same ID as the order to synchronize. To solve this, placeholder records are used. Whenever the new orders tables are authoritative and immediate synchronization is disabled, creating a new order will cause a record with post type shop_order_placehold and the same ID as the order to be created in the posts table; this effectively \"reserves\" the order ID in the posts table. Then, at synchronization time, the record is filled appropriately and its post type is changed to shop_order . Order Data",
-      "To solve this, placeholder records are used. Whenever the new orders tables are authoritative and immediate synchronization is disabled, creating a new order will cause a record with post type shop_order_placehold and the same ID as the order to be created in the posts table; this effectively \"reserves\" the order ID in the posts table. Then, at synchronization time, the record is filled appropriately and its post type is changed to shop_order . Order Data Storage ​ You can switch between data stores freely to sync the data between the tables. If you select \"WordPress Post Tables\" , the system will save the order data within _post and _postmeta tables. The order tables are not utilized in this scenario. If you select \"High-Performance Order Storage\" , the system will sav",
-      "lability Reliability Simplicity Background Enabling the feature Database tables Authoritative tables Synchronization Immediate synchronization Manual synchronization Scheduled synchronization Deletion synchronization Placeholder records Order Data Storage Incompatible Plugins Disabling HPOS COMMUNITY GitHub Discussions Community Slack Community Forum Code of Conduct Community Participation Guide GROW WITH WOO WooCommerce Marketplace Become a Woo agency partner Become a Marketplace partner Contribute to WooCommerce MORE Woo Developer Blog WooCommerce Monorepo WooCommerce Code Reference Woo Storybook Merchant Documentation GitHub Copyright © 2026 Built with Docusaurus. Documentation is licensed under GPLv3 and can be modified in the WooCommerce Monorepo . An Creation Use "
-    ]
+    "topic_occurrences": 19
   },
   {
     "url": "https://woocommerce.com/document/woocommerce-memberships-restrict-content/",
     "final_url": "https://woocommerce.com/document/woocommerce-memberships-restrict-content/",
     "status": 200,
-    "sha256": "d8a6cda20040022bbdea8c23d601e22241edcaab67dde3e3f6342855a105ee1c",
-    "topic": "drip",
-    "excerpts": []
+    "sha256": "bae74c99dbf70cf44556e1e954daa311bea3e57b48bec77e6b62f0ed0bd28e29",
+    "topic": "delay",
+    "topic_occurrences": 19
   },
   {
     "url": "https://woocommerce.com/document/fix-outdated-templates-woocommerce/",
@@ -49,10 +37,6 @@
     "status": 200,
     "sha256": "7242079b26feab67a6d10174ddca63ad68556847a45b909d329ff595fd5018ee",
     "topic": "version",
-    "excerpts": [
-      "rent WooCommerce installation is up to date. Find the templates per WooCommerce version in our Template Structure documentation . Download the latest version from the WordPress.org plugin page . Download the latest release from the GitHub repository . Why don't you make a button to click and update everything? ​ It is impossible to make a video or a one-click update. Why? Because there are thousands of themes, and every theme is coded differently. One size does not fit all. Edit this page Previous Conditional tags Next Image sizing Template Updates and Changes How to Update Outdated Templates FAQ Where can I find the latest version of WooCommerce? Why don't you make a button to click and update everything? COMMUNITY GitHub Discussions Community Slack Community Forum Cod",
-      "oCommerce version in our Template Structure documentation . Download the latest version from the WordPress.org plugin page . Download the latest release from the GitHub repository . Why don't you make a button to click and update everything? ​ It is impossible to make a video or a one-click update. Why? Because there are thousands of themes, and every theme is coded differently. One size does not fit all. Edit this page Previous Conditional tags Next Image sizing Template Updates and Changes How to Update Outdated Templates FAQ Where can I find the latest version of WooCommerce? Why don't you make a button to click and update everything? COMMUNITY GitHub Discussions Community Slack Community Forum Code of Conduct Community Participation Guide GROW WITH WOO WooCommerce M",
-      "es and Changes How to Update Outdated Templates FAQ Where can I find the latest version of WooCommerce? Why don't you make a button to click and update everything? COMMUNITY GitHub Discussions Community Slack Community Forum Code of Conduct Community Participation Guide GROW WITH WOO WooCommerce Marketplace Become a Woo agency partner Become a Marketplace partner Contribute to WooCommerce MORE Woo Developer Blog WooCommerce Monorepo WooCommerce Code Reference Woo Storybook Merchant Documentation GitHub Copyright © 2026 Built with Docusaurus. Documentation is licensed under GPLv3 and can be modified in the WooCommerce Monorepo . An Creation Use of your personal data We and our partners process your personal data (such as browsing data, IP Addresses, cookie information, a"
-    ]
+    "topic_occurrences": 9
   }
 ]

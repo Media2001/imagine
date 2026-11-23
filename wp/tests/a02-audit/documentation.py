@@ -12,7 +12,7 @@ URLS = [
     ('https://developer.wordpress.org/reference/functions/get_plugins/', 'get_plugins'),
     ('https://developer.wordpress.org/reference/functions/wp_update_plugins/', 'update_plugins'),
     ('https://developer.woocommerce.com/docs/features/high-performance-order-storage/', 'authoritative'),
-    ('https://woocommerce.com/document/woocommerce-memberships-restrict-content/', 'drip'),
+    ('https://woocommerce.com/document/woocommerce-memberships-restrict-content/', 'delay'),
     ('https://woocommerce.com/document/fix-outdated-templates-woocommerce/', 'version'),
 ]
 
@@ -26,8 +26,7 @@ def fetch(item):
     text = re.sub(r'<(script|style)\b[^>]*>.*?</\1>', '', text, flags=re.S | re.I)
     text = re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', text)))
     hits = [m.start() for m in re.finditer(re.escape(term), text, re.I)]
-    excerpts = [text[max(0, p - 80):p + 700] for p in hits[-3:]]
-    return {'url': url, 'final_url': final, 'status': status, 'sha256': hashlib.sha256(raw).hexdigest(), 'topic': term, 'excerpts': excerpts}
+    return {'url': url, 'final_url': final, 'status': status, 'sha256': hashlib.sha256(raw).hexdigest(), 'topic': term, 'topic_occurrences': len(hits)}
 
 if __name__ == '__main__':
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:

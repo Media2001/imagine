@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "evidence": "C:\\Users\\Ced\\imagine\\production\\A-02\\preuves\\211ac0849094",
+  "counts": {
+    "unit": 15,
+    "integration": 100,
+    "runner": 7
+  },
+  "total_assertions": 122,
+  "current_source_hashes_match": true,
+  "container_absent": true,
+  "database_fingerprints_equal": [
+    "classic",
+    "hpos"
+  ]
+}
