@@ -1,0 +1,50 @@
+Snapshot exact except approved password retirement; current baseline saved
+Arbitrages 0 {'total': 10, 'checks': {'locale_fr_FR': True, 'theme_imagine': True, 'c08_present': True, 'password_article_supprime_des_enregistrement': True, 'password_page_non_modifie': True, 'articles_sans_password_en_base': True, 'installation_hello_world_absent': True, 'installation_sample_page_absente': True, 'installation_commentaire_absent': True, 'c08_deux_articles_sur_numero_b00': True}, 'failures': []}
+Executing unmodified c08.run(seed=True), equivalent c08.py --seed, proofs restricted to B00
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-23T16:01:01.934231+00:00",
+  "url": "http://192.168.129.32:8085",
+  "credentials_file": "C:\\Users\\Ced\\.imagine-demo\\c08-identifiants.json",
+  "files_sha256": {
+    "plugins/imagine-site/imagine-site.php": "ebfecf90834e0d30348a8e8bfd65884fc1a8397dfb8e6824491848f0e265a6c9",
+    "plugins/imagine-site/Paywall.php": "1b0a1b10058997d2eca102e6bd5a1ec0d427d4f3403ced9a17943b7127a3c3c3",
+    "themes/imagine/functions.php": "43f653338d144260991780b5f89f795b3d0bc712623dbec0abd8f0b1200da917",
+    "themes/imagine/parts/paywall-abonnement.php": "c4a7d59d415d56b7e9f98a6cc0c5bd307936aece34715cdcbc2fef2d198f7438",
+    "themes/imagine/parts/paywall-connexion.php": "2cd97c05b828b7440907f196aef47a2b079d3e93a02b23934faf4843447b4d5a",
+    "themes/imagine/parts/paywall-decouverte_epuisee.php": "00194346c2a38f648cc4a0106e39743d3d7dd9b5e8ddca0086b515e6e77912d5",
+    "themes/imagine/parts/paywall-regularisation.php": "a3557bd40a761cbe6ac0307879cf1c95871e419b19ad6140a1b03e162e957937",
+    "imagine-demo-build/c08-runtime.php": "a31c6b2787b89f31a40b3594f340ff8b9606cd22094a9aec2d9f92ad00fd708e",
+    "imagine-demo-build/c08-seed.php": "d63d706e2d4eb872746a147781a67277fb77aa2f1e72f844632c94fada0f9771"
+  },
+  "file_count": 9,
+  "fixture": {
+    "plan": 76,
+    "users": {
+      "actif": 3,
+      "grace": 4,
+      "sans-droit": 5
+    },
+    "memberships": {
+      "actif": 78,
+      "grace": 80
+    },
+    "subscriptions": {
+      "actif": 77,
+      "grace": 79
+    },
+    "article": 81,
+    "automatique": 82,
+    "urls": {
+      "article": "http://192.168.129.32:8085/c08-article-reserve-article/",
+      "automatique": "http://192.168.129.32:8085/c08-article-reserve-automatique/"
+    }
+  },
+  "runtime": {
+    "code": 0,
+    "stdout": "{\n    \"checks\": {\n        \"adaptateur_present\": true,\n        \"anonyme_extrait_connexion\": true,\n        \"actif_natif_complet\": true,\n        \"grace_native_bandeau\": true,\n        \"connecte_sans_droit_ferme\": true,\n        \"article_sans_metadonnees_garde_ferme\": true,\n        \"objet_retourne_expurge\": true,\n        \"cache_objet_source_non_mute\": true,\n        \"filtre_contenu_direct\": true,\n        \"filtre_flux_direct\": true,\n        \"extrait_automatique_ne_lit_pas_corps\": true,\n        \"extrait_vide_repli_neutre\": true,\n        \"ancien_mot_de_passe_pas_un_droit\": true,\n        \"rest_brut_et_mot_de_passe_expurges\": true,\n        \"cache_valideurs_supprimes\": true,\n        \"cache_directives_privees\": true,\n        \"cache_apres_anonyme_complet\": true,\n        \"abonne_pas_de_mot_de_passe\": true,\n        \"configuration_invalide_fermee\": true,\n        \"exception_adaptateur_fermee\": true,\n        \"exception_adaptateur_filtre_corps_ferme\": true,\n        \"plan_non_designe_ferme\": true,\n        \"date_numero_invalide_fermee\": true,\n        \"onhold_sans_grace_ferme\": true,\n        \"grace_plan_revoque_fermee\": true,\n        \"bloc_suspendu_ne_promet_pas_lecture\": true,\n        \"xmlrpc_sans_methode_contenu\": true,\n        \"mail_reste_coupe\": true,\n        \"http_reste_coupe\": true,\n        \"passerelles_reste_coupees\": true\n    },\n    \"total\": 30,\n    \"failures\": []\n}",
+    "stderr": ""
+  },
+  "b00_manifest_unchanged": true,
+  "status": "VERIFIED"
+}

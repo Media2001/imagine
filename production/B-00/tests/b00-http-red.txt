@@ -1,0 +1,1 @@
+{"url": "http://192.168.129.32:8085", "registry_status": "running", "total": 81, "failures": ["same_ids_slugs_urls_content_and_assets", "accueil_http", "numero_http", "reserved_body_not_sent", "article_complet_avec_secret_fictif"]}

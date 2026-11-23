@@ -1,0 +1,10 @@
+# T-01 — corrections prêtes à relire
+
+Vérification complète du 23 novembre 2026 : `preuves/final-verification.json`, `ready: true`.
+SHA-256 du reçu : `726bf6a3076cee5a846a2f40d3275df825a3ebed03408443fea35c6cadcb1bf4`.
+
+802 tests PHP, 33 367 assertions, 0 échec, 0 erreur, 0 ignoré — PASS.
+Contrats 18/18, corrections PHP 32/32, découverte préparation 2/2 ; isolation et interruption forcée PASS. Six commandes, codes 0 ; sources testées inchangées pendant les vérifications, aucun conteneur T01 restant.
+
+Corrections appliquées selon `corrections/T-01.md` et `docs/arbitrages-2026-11-23.md`. Détails : `notes.md`.
+Prêt à relire, pas clos ; aucun GO d’import, d’accès au réel ou de déploiement.

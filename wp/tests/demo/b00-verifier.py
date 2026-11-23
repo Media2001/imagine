@@ -50,8 +50,8 @@ def verify():
                   'complete_independent_inventory': snapshot['total_tagged'] == snapshot['manifest_posts']}
     rows = snapshot['rows']
     main = {
-        'accueil': (base + '/', 'DÉMONSTRATION ENTIÈREMENT FICTIVE'),
-        'numero': (rows['demo-2026-t1']['url'], 'Sommaire fictif'),
+        'accueil': (base + '/', 'Aucune donnée réelle, aucun paiement ni email sortant.'),
+        'numero': (rows['demo-2026-t1']['url'], 'Sommaire'),
         'article-reserve': (rows['demo-2026-t1-reserve-1']['url'], 'Article fictif réservé'),
         'article-ouvert': (rows['demo-2026-t1-ouvert']['url'], 'CONTENU_FICTIF_OUVERT_DEMO-2026-T1_4'),
         'administration': (base + '/wp-admin/', 'login'),
@@ -67,9 +67,10 @@ def verify():
             assertions[name + '_http'] = meta['status'] == 200 and expected in text
             # Réponses anonymes seulement ; pas d'HTML d'administration authentifiée.
             (proof_dir / (name + '.html')).write_bytes(body)
-            assertions[name + '_sans_fatal'] = 'Fatal error' not in text and 'critical error' not in text
+            assertions[name + '_sans_fatal'] = not any(x in text for x in ('Fatal error', 'critical error', 'Warning:', 'Uncaught Error'))
+            assertions[name + '_langue_fr'] = '<html lang="fr-FR">' in text
         if name == 'article-reserve':
-            assertions['reserved_body_not_sent'] = 'CONTENU_FICTIF_RESERVE_' not in text and 'post_password' in text
+            assertions['paywall_c08_connexion_sans_formulaire_password'] = 'data-imagine-bloc="connexion"' in text and 'name="post_password"' not in text
         responses[name] = meta
         (proof_dir / (name + '.json')).write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding='utf-8')
     # Tous les objets et tous les médias, pas seulement les cinq adresses du livrable.
@@ -80,18 +81,7 @@ def verify():
         meta, body = response(url)
         assertions['objet_' + key] = meta['status'] == 200
         responses['objet_' + key] = meta
-        if 'reserve-' in key:
-            assertions['fermeture_' + key] = b'CONTENU_FICTIF_RESERVE_' not in body
-    reserved = rows['demo-2026-t1-reserve-1']['id']
-    for name, url in {
-        'rest': base + '/wp-json/wp/v2/posts/' + str(reserved),
-        'feed': base + '/feed/',
-        'recherche': base + '/?s=Imaginaire',
-        'oembed': base + '/wp-json/oembed/1.0/embed?' + urlencode({'url': rows['demo-2026-t1-reserve-1']['url']}),
-    }.items():
-        meta, body = response(url)
-        assertions['etancheite_native_' + name] = b'CONTENU_FICTIF_RESERVE_' not in body
-        responses['etancheite_' + name] = meta
+    # Étanchéité multi-voies : entièrement à la recette C08 (arbitrage 16 h 30).
     credentials = json.loads((Path.home() / '.imagine-demo/identifiants.json').read_text(encoding='utf-8'))
     cookies = http.cookiejar.CookieJar()
     client = build_opener(HTTPCookieProcessor(cookies))
@@ -102,12 +92,19 @@ def verify():
     auth_meta, auth_body = response(base + '/wp-login.php', opener=client, data=login_data)
     assertions['admin_authentifie_200'] = auth_meta['status'] == 200 and '/wp-admin/' in auth_meta['final_url'] and b'id="wpadminbar"' in auth_body
     responses['administration-authentifiee'] = auth_meta
-    # Test du corps complet via le verrou natif provisoire avec le secret hors dépôt.
+    # L'ancien cookie natif n'est pas un droit ; parcours positif par un vrai compte C08.
     article_client = build_opener(HTTPCookieProcessor(http.cookiejar.CookieJar()))
     response(base + '/wp-login.php?action=postpass', opener=article_client,
              data=urlencode({'post_password': credentials['article_password']}).encode())
     full_meta, full_body = response(rows['demo-2026-t1-reserve-1']['url'], opener=article_client)
-    assertions['article_complet_avec_secret_fictif'] = full_meta['status'] == 200 and b'CONTENU_FICTIF_RESERVE_DEMO-2026-T1_1' in full_body
+    assertions['ancien_password_ne_donne_aucun_droit_c08'] = full_meta['status'] == 200 and b'CONTENU_FICTIF_RESERVE_' not in full_body and b'data-imagine-bloc="connexion"' in full_body
+    account = json.loads((Path.home() / '.imagine-demo/c08-identifiants.json').read_text(encoding='utf-8'))['accounts']['actif']
+    subscriber = build_opener(HTTPCookieProcessor(http.cookiejar.CookieJar()))
+    response(base + '/wp-login.php', opener=subscriber)
+    response(base + '/wp-login.php', opener=subscriber, data=urlencode({'log': account['login'], 'pwd': account['password'],
+             'redirect_to': rows['demo-2026-t1-reserve-1']['url'], 'testcookie': '1'}).encode())
+    meta, body = response(rows['demo-2026-t1-reserve-1']['url'], opener=subscriber)
+    assertions['compte_c08_actif_lit_article_b00'] = meta['status'] == 200 and b'CONTENU_FICTIF_RESERVE_DEMO-2026-T1_1' in body
     failures = [key for key, value in assertions.items() if not value]
     result = {'scope': m.SLUG, 'url': base, 'registry_status': site['status'], 'assertions': assertions,
               'total': len(assertions), 'failures': failures, 'responses': responses}

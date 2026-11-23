@@ -1,0 +1,5 @@
+{
+  "code": 0,
+  "stdout": "{\"total\":10,\"checks\":{\"locale_fr_FR\":true,\"theme_imagine\":true,\"c08_present\":true,\"password_article_supprime_des_enregistrement\":true,\"password_page_non_modifie\":true,\"articles_sans_password_en_base\":true,\"installation_hello_world_absent\":true,\"installation_sample_page_absente\":true,\"installation_commentaire_absent\":true,\"c08_deux_articles_sur_numero_b00\":true},\"failures\":[]}",
+  "stderr": ""
+}
