@@ -22,8 +22,12 @@ $manifest = ['plan' => $planId, 'users' => [], 'memberships' => [], 'subscriptio
 foreach ($secret['c08_accounts'] as $key => $account) {
     $user = get_user_by('login', $account['login']);
     $userData = ['user_login' => $account['login'],
-        'user_email' => $account['login'] . '@example.org', 'user_pass' => $account['password'],
+        'user_email' => $account['login'] . '@example.org',
         'role' => 'subscriber', 'display_name' => 'Personnage Fictif C08 ' . $key];
+    // Un rejeu ne rehash pas un secret déjà correct et conserve les identités.
+    if (!$user || !wp_check_password($account['password'], $user->user_pass, $user->ID)) {
+        $userData['user_pass'] = $account['password'];
+    }
     if ($user) {
         $userData['ID'] = $user->ID;
         $id = wp_update_user($userData);
@@ -86,7 +90,7 @@ foreach (['article' => 'Extrait public C08 : une histoire entièrement fictive, 
         'post_title' => 'C08 — Article réservé fictif ' . $key, 'post_name' => 'c08-article-reserve-' . $key,
         'post_date' => '2026-01-01 12:00:00', 'post_date_gmt' => '2026-01-01 11:00:00',
         'post_content' => $key === 'automatique' ? str_replace($witness, 'Les lanternes argentées de C08 composent un autre récit fictif.', $body) : $body,
-        'post_excerpt' => $excerpt, 'post_password' => $secret['article_password'],
+        'post_excerpt' => $excerpt, 'post_password' => '',
         'comment_status' => 'closed', 'ping_status' => 'closed', 'meta_input' => [
             'imagine_numero_id' => $number, 'imagine_reserve' => '1', 'imagine_c08_fixture' => $key]], true);
     if (is_wp_error($id)) { throw new \RuntimeException('Article C08 non créé.'); }

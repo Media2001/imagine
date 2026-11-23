@@ -19,7 +19,8 @@ def run():
     c08.b00.upload('imagine-demo-build/b00-snapshot.php', Path(__file__).with_name('b00-snapshot.php').read_bytes())
     snapshot = json.loads(c08.b00.wp('eval', 'require ABSPATH . "wp-content/imagine-demo-build/b00-snapshot.php";')['stdout'])
     initial = json.loads((c08.ROOT / 'production/B-00/tests/b00-snapshot-initial.json').read_text(encoding='utf-8'))
-    checks['snapshot_b00_exact_ids_slugs_textes_medias'] = snapshot == initial
+    # B00 a retiré les mots de passe natifs sous C08 (arbitrage 16 h 30).
+    checks['snapshot_b00_exact_ids_slugs_textes_medias'] = c08.b00.same_snapshot_after_password_retirement(initial, snapshot)
     checks['b00_sans_doublon'] = snapshot['duplicates'] == []
     checks['b00_manifeste_complet'] = snapshot['total_tagged'] == snapshot['manifest_posts']
     libraries = {}

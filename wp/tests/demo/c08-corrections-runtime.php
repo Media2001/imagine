@@ -93,6 +93,23 @@ ob_start();
 $sharing = ob_get_clean();
 $checks['schema_newsarticle'] = str_contains($sharing, '"@type":"NewsArticle"');
 wp_reset_query();
+// Mutation native d'option dans le MÊME processus : aucune décision ouverte réutilisée.
+$plans = get_option('imagine_acces_plans');
+wp_set_current_user($f['users']['actif']);
+try {
+    $checks['memo_option_avant_mutation_ouvert'] = \Imagine\Site\Paywall::decision($article)['complet'];
+    update_option('imagine_acces_plans', []);
+    $checks['memo_option_revoquee_ferme_immediat'] = !\Imagine\Site\Paywall::decision($article)['complet'];
+} finally {
+    update_option('imagine_acces_plans', $plans);
+}
+$checks['memo_option_restauree_ouvert_immediat'] = \Imagine\Site\Paywall::decision($article)['complet'];
+$checks['memo_apres_invalidation_meme_instant'] = $reflection->hasProperty('requestInstant')
+    && $reflection->getProperty('requestInstant')->getValue() === $instant;
+wp_set_current_user(0);
+$checks['recherche_exclusion_ne_sonde_pas_corps'] = in_array($article->ID, $search('C08 -lucioles'), true);
+$checks['recherche_terme_ressemblant_identifiant_sql'] = !in_array($article->ID, $search('wp_posts.post_content LIKE'), true);
+$checks['recherche_apostrophe_sql_sans_erreur'] = is_array($search("lucioles' OR 1=1 --"));
 $failures = array_keys(array_filter($checks, static fn ($ok) => !$ok));
 echo wp_json_encode(['checks' => $checks, 'total' => count($checks), 'failures' => $failures], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 if ($failures) { \WP_CLI::halt(1); }

@@ -3,6 +3,7 @@ from pathlib import Path
 import hashlib
 import http.cookiejar
 import json
+import re
 import sys
 from html.parser import HTMLParser
 from urllib.error import HTTPError
@@ -93,7 +94,7 @@ def verify(label='http'):
     checks['partage:temoin_absent'] = WITNESS not in json.dumps(share.descriptions) + ''.join(share.schema)
     try:
         schema = json.loads(''.join(share.schema))
-        checks['partage:balisage_payant'] = schema['isAccessibleForFree'] is False and schema['hasPart']['cssSelector'] == '.imagine-paywall-body' and 'articleBody' not in schema
+        checks['partage:balisage_payant'] = schema['@type'] == 'NewsArticle' and schema['isAccessibleForFree'] is False and schema['hasPart']['cssSelector'] == '.imagine-paywall-body' and 'articleBody' not in schema
     except (ValueError, KeyError, TypeError):
         checks['partage:balisage_payant'] = False
     paths = {
@@ -125,6 +126,31 @@ def verify(label='http'):
     # Des validateurs arbitraires ne doivent jamais provoquer un 304 réutilisable.
     check_response('conditionnelle-anonyme', article, headers={'If-None-Match': '"c08"', 'If-Modified-Since': 'Tue, 01 Jan 2030 00:00:00 GMT'})
     check_response('conditionnelle-flux', '/?feed=rss2', headers={'If-Modified-Since': 'Tue, 01 Jan 2030 00:00:00 GMT'})
+    def check_search(name, term, expected_id, client=None, nonce=None):
+        for route, path in {
+            'html': '/?' + urlencode({'s': term}),
+            'rest-posts': '/wp-json/wp/v2/posts?' + urlencode({'search': term, 'per_page': 100}),
+            'rest-search': '/wp-json/wp/v2/search?' + urlencode({'search': term, 'per_page': 100}),
+        }.items():
+            meta, body = fetch(base, path, client, {'X-WP-Nonce': nonce} if nonce else {})
+            key = name + ':' + route
+            responses[key] = {'path': path, **meta}
+            checks[key + ':200'] = meta['status'] == 200
+            ids = ([int(x) for x in re.findall(r'data-imagine-id="(\d+)"', body)]
+                   if route == 'html' else [row['id'] for row in json.loads(body)])
+            checks[key + ':appariement_exact'] = (int(aid) in ids) == expected_id
+            checks[key + ':cache_prive'] = all(x in meta['headers'].get('cache-control', '') for x in ['private', 'no-store'])
+            # Le formulaire/titre HTML réaffiche légitimement la recherche saisie.
+            # C'est l'ID et les cartes de résultat, pas cette réflexion, qui font oracle.
+            if route != 'html' and not expected_id:
+                checks[key + ':sans_fragment_corps'] = WITNESS not in body
+
+    checks['fixture:aucun_password_natif'] = json.loads(c08.b00.wp('eval',
+        'echo wp_json_encode(get_post(' + aid + ')->post_password === "");')['stdout']) is True
+    check_search('anonyme-phrase-temoin', '"' + WITNESS + '"', False)
+    check_search('anonyme-titre-public', '"Article réservé fictif article"', True)
+    check_search('anonyme-extrait-public', '"Extrait public C08"', True)
+    check_search('anonyme-mots-corps', 'lucioles violettes', False)
     credentials = json.loads((Path.home() / '.imagine-demo/c08-identifiants.json').read_text(encoding='utf-8'))
     for key in ['actif', 'grace', 'sans-droit']:
         client = login(base, credentials['accounts'][key])
@@ -134,6 +160,7 @@ def verify(label='http'):
         # Readback natif d'un nonce REST lié à la vraie session; aucune valeur conservée.
         nonce_meta, nonce = fetch(base, '/wp-admin/admin-ajax.php?action=rest-nonce', client)
         checks[key + ':nonce_natif'] = nonce_meta['status'] == 200 and len(nonce.strip()) == 10
+        check_search(key + '-phrase-temoin', '"' + WITNESS + '"', key != 'sans-droit', client, nonce.strip())
         check_response(key + '-rest', '/wp-json/wp/v2/posts/' + aid, client, headers={'X-WP-Nonce': nonce.strip()}, full=key != 'sans-droit')
         check_response('anonyme-apres-' + key, article)
     # Un cookie natif B00 de mot de passe n'accorde plus le droit C08.
