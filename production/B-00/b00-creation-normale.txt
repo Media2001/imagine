@@ -1,0 +1,16 @@
+B-00 — création normale réellement exécutée, 23 novembre 2026
+
+Le parent avait vérifié l’absence du seul slug imagine-test-demo à 13 h 55 CET.
+Le constructeur a ensuite été exécuté par son point d’entrée ensure_site(), avant ajout du seed et de la recette complète :
+
+python -c "import runpy,json; m=runpy.run_path('wp/outils/demo/construire.py'); d=m['ensure_site'](); print(json.dumps({k:d.get(k) for k in ['slug','status','url','port']},ensure_ascii=False))"
+
+Sortie réellement retournée :
+{"slug": "imagine-test-demo", "status": "running", "url": "http://192.168.129.32:8085", "port": 8085}
+
+La branche ensure_site utilise uniquement GET /api/sites/imagine-test-demo ; si 404, POST /api/sites avec :
+{"name":"imagine-test-demo","template_slug":"sandbox-wp-minimal","php_version":"8.3","client_name":null,"target_domain":null}
+
+Le registre relu donne created_at=2026-11-23T13:03:15+00:00. Pas de contournement de Novamira/licence/MCP ; aucune modification de l’outil.
+La réponse HTTP initiale 201 n’a pas été archivée sur disque à cet instant : cette preuve conserve la vraie sortie du script, pas un faux dump HTTP reconstruit.
+La construction complète après création est dans b00-construction.json (installation réelle des versions et seed) ; les relances sans destruction sont dans b00-reconstruction.json et tests/b00-snapshot-initial.json.

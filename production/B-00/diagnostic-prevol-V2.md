@@ -1,41 +1,13 @@
-# B-00 — prévol refusé, voie 2
+# B-00 — ancien blocage levé, voie 2
 
-Contrôle du 23 novembre 2026, entre 12 h 50 et 12 h 53 CET. Aucun site créé ; aucun appel de création lancé.
+État actuel : **site construit et reconstruit, vérifications réussies**. L’interdiction de création provenait du brief antérieur ; la révision du 23 novembre 2026 à 13 h 45 autorise explicitement la création normale de `imagine-test-demo`, Novamira, sa licence et le MCP fournis par l’outil.
 
-## Blocage vérifié
+- Création normale réelle par `POST /api/sites`, via `ensure_site()` du constructeur, à partir du modèle `sandbox-wp-minimal`, PHP 8.3 ; l’outil a enregistré la création le 23 novembre 2026 à 13:03:15 UTC (14:03:15 CET).
+- Aucune modification de l’outil, des modèles ou de sa configuration ; aucune écriture directe dans sa base. Aucun autre site, lot, voie, verrou ou rapport global touché.
+- Après la création normale, installation de la garde MU avant WooCommerce, les extensions premium et les fixtures. API HTTP WordPress bloquée, email court-circuité avec résultat `false`, aucune passerelle disponible ; pas de compte WooCommerce.com ni activation de licence commerciale.
+- Site : `http://192.168.129.32:8085` ; statut de l’API : `running`. Les six adresses d’`A-VOIR.md` sont observées : cinq HTTP 200 ; administration HTTP 302 vers la connexion, puis formulaire et administration authentifiée HTTP 200.
+- Les deux erreurs de mise au point (inclusion `strict_types` via `eval-file`, permissions du dossier privé des secrets) ont été corrigées puis retestées. La preuve RED des quatre types absents est conservée ; aucune preuve d’échec n’est présentée comme un succès.
 
-Le brief B-00 interdit Novamira sur `imagine-test-demo` (§ règles propres, ligne 27), toute licence activée et toute connexion extérieure (ligne 14). L'usage normal de l'outil ajoute pourtant Novamira même au modèle « WP minimal » :
+Les anciens constats du brief précédent restent sous `production/B-00/historique/`. Ils ne décrivent pas l’état actuel.
 
-- `/app/api/orchestrator.py:94` : `_MCP_PLATFORM_ZIPS = ("novamira.zip", "novamira-pro.zip")`.
-- `:607-615` : union systématique des extensions du modèle avec cette liste ; installation et activation.
-- `:618-623` : appel à l'activation de licence si configurée, puis `provision_mcp(site)`.
-- `/app/api/main.py:37-42,150-165` : la création n'accepte que `name`, `template_slug`, `php_version`, `client_name`, `target_domain` ; pas d'option pour désactiver ces opérations.
-- `/app/api/templates/templates.json:5-13` : le modèle `sandbox-wp-minimal` a bien une liste premium vide ; cela n'empêche pas l'ajout global ci-dessus.
-
-Ces fichiers ont été lus depuis le montage en lecture seule du conteneur existant `staging-wp-dashboard`. La configuration a été contrôlée uniquement sous forme booléenne : une licence Novamira est configurée ; sa valeur n'a été ni affichée ni copiée.
-
-La décision générale du 22 novembre (`docs/decisions.md:31`) autorise l'usage normal des sites de test avec activation Novamira. Le brief particulier B-00 demande explicitement l'inverse pour ce site : je n'ai ni ignoré cette restriction, ni modifié l'outil, ni écrit directement dans sa base pour contourner son API.
-
-## Résultats réellement retournés
-
-Lecture SQLite de la seule cible, connexion `mode=ro`, `PRAGMA query_only=ON` :
-
-```json
-{"scope":"imagine-test-demo","site":null,"db_mode":"read-only/query-only","api_create_fields":["name","template_slug","php_version","client_name","target_domain"],"provision_references":{"platform_zips":true,"novamira_license":true,"mcp":true},"novamira_license_configured":true,"commercial_packages":["woocommerce-memberships.zip","woocommerce-product-addons.zip","woocommerce-subscriptions.zip"]}
-```
-
-La présence des ZIP est un inventaire de fichiers, pas une preuve d'activation ni de compatibilité. Aucun ZIP commercial n'a été installé ou exécuté.
-
-Empreintes SHA-256 des sources effectivement montées :
-
-| Fichier | SHA-256 |
-|---|---|
-| `main.py` | `fae065a3d75eabb98266bbe6a47a4446ff8bb3477df6e2a176e3fc86872b9b32` |
-| `orchestrator.py` | `1d73b3d4c4c2825cc4ba68a8aefa2731c401767db8f63916891d70cec49694d1` |
-| `models.py` | `44dc74dce43076787910a496091b8b54f19004b26df03678666ada2620584c77` |
-
-## Suite nécessaire
-
-**Question fermée : faut-il lever, pour B-00 seulement, l'interdiction de Novamira et de son activation automatique de licence lors de la création normale du site (oui/non) ?** Cela implique l'exception à l'absence de connexion extérieure pour cette activation. Si non : l'outil doit proposer une voie normale de création sans Novamira, sans activation de licence et sans configuration MCP, fournie par son mainteneur ; le worker ne la modifie pas.
-
-B-00 n'est pas `PRET`. Aucun script de construction incomplet n'est présenté comme livré. Aucun `A-VOIR.md` ni URL de démonstration ne sont inventés. Les tests de construction, d'idempotence et HTTP n'ont pas été exécutés, faute de création conforme. B-01, C-08, C-09 et C-10 restent bloqués par leurs dépendances explicites à B-00/B-01.
+Preuves actuelles : `b00-creation-normale.txt`, `b00-construction.json`, `b00-reconstruction.json`, `b00-verification-http-idempotence.json`, `tests/b00-syntaxe-secrets.json`. Résultat détaillé et limites : `verification.md`.

@@ -1,31 +1,24 @@
 {
-  "checked_at": "2026-11-23T10:49:20.186025+00:00",
-  "scope": "imagine-test-demo only; read-only preflight; no create call",
-  "verdict": "BLOCKED",
-  "reason": "Normal provisioning mandates Novamira installation, configured license activation and MCP provisioning; B-00 forbids these effects. No bypass parameter exists on CreateSiteRequest.",
-  "source_sha256": {
-    "main.py": "fae065a3d75eabb98266bbe6a47a4446ff8bb3477df6e2a176e3fc86872b9b32",
-    "orchestrator.py": "1d73b3d4c4c2825cc4ba68a8aefa2731c401767db8f63916891d70cec49694d1"
+  "scope": "imagine-test-demo only",
+  "verdict": "UNBLOCKED_AND_VERIFIED",
+  "authorization": "A-FAIRE-2.md and B-00 revision 2026-11-23 13:45 CET: normal provisioning including Novamira, configured license and MCP is allowed for this fictional site",
+  "previous_preflight": "historique/preflight-V2.json",
+  "site": {
+    "slug": "imagine-test-demo",
+    "template_slug": "sandbox-wp-minimal",
+    "url": "http://192.168.129.32:8085",
+    "status": "running",
+    "php_version": "8.3",
+    "created_at": "2026-11-23T13:03:15+00:00"
   },
-  "demo_rows": [],
-  "license_configured": true,
-  "platform_packages_present": {
-    "novamira.zip": true,
-    "novamira-pro.zip": true,
-    "woocommerce-subscriptions.zip": true,
-    "woocommerce-memberships.zip": true
-  },
-  "references": {
-    "request": "main.py:37-43",
-    "mandatory_platform_zips": "orchestrator.py:94,606-616",
-    "license_and_mcp": "orchestrator.py:618-624"
-  },
-  "create_request_fields": [
-    "name",
-    "template_slug",
-    "php_version",
-    "client_name",
-    "target_domain"
+  "evidence": [
+    "b00-creation-normale.txt",
+    "b00-construction.json",
+    "b00-reconstruction.json",
+    "b00-verification-http-idempotence.json"
   ],
-  "side_effect_operations_executed": []
+  "tool_templates_configuration_modified": false,
+  "other_sites_modified": false,
+  "commercial_licenses_activated": false,
+  "real_data_used": false
 }
