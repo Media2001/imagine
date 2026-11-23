@@ -1,0 +1,17 @@
+{
+  "total": 4,
+  "checks": {
+    "alterations_detectees": true,
+    "ids_principaux_conserves": true,
+    "preservation_c08_b00": true,
+    "aucun_doublon": true
+  },
+  "failures": [],
+  "mutation": {
+    "duplicate_order": 131,
+    "duplicate_subscription": 132,
+    "duplicate_membership": 133,
+    "unexpected_owned_order": 134
+  },
+  "red_failure_count": 157
+}

@@ -106,6 +106,17 @@ foreach ($rows as $row) {
     $customer->set_billing_phone('');
     $customer->save();
     $manifest['users'][$key] = $id;
+    // Revenir aussi à l'absence initiale : ne conserver aucun objet C09 additionnel.
+    // Le prévol ci-dessus a déjà refusé tout objet non possédé.
+    if (!isset($row['native'])) {
+        foreach (wcs_get_users_subscriptions($id) as $extra) { $extra->delete(true); }
+    }
+    if (!isset($row['native']) && !isset($row['membership'])) {
+        foreach (wc_memberships_get_user_memberships($id, ['status' => 'any']) ?? [] as $extra) { wp_delete_post($extra->get_id(), true); }
+    }
+    if (!isset($row['native']) && empty($row['order_only'])) {
+        foreach (wc_get_orders(['customer_id' => $id, 'type' => 'shop_order', 'limit' => -1]) as $extra) { $extra->delete(true); }
+    }
     $order = null;
     if (isset($row['native']) || !empty($row['order_only'])) {
         $order = $one(wc_get_orders(['customer_id' => $id, 'type' => 'shop_order', 'limit' => -1]));

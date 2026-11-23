@@ -1,0 +1,3547 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-23T14:59:55.221951+00:00",
+  "url": "http://192.168.129.32:8085",
+  "files_sha256": {
+    "imagine-demo-build/c09-runtime.php": "a4dd2451f63b676349c7029f753efdcce9ba40b291173d42cfab193781e4ebd0",
+    "imagine-demo-build/c09-profils.json": "cebc9fb24236214eb2e6c2e466926fd4749c02a51cea0741c7c4c7926bf9e6e3",
+    "imagine-demo-build/c09-seed.php": "20898314e66301ebd9658e93002575e362d204f4e5971050a9877a44a9c51499"
+  },
+  "before": {
+    "b00": {
+      "demo-2026-hs": 32,
+      "demo-2026-hs-couverture": 33,
+      "demo-2026-hs-ouvert": 38,
+      "demo-2026-hs-pdf": 34,
+      "demo-2026-hs-reserve-1": 35,
+      "demo-2026-hs-reserve-2": 36,
+      "demo-2026-hs-reserve-3": 37,
+      "demo-2026-t1": 11,
+      "demo-2026-t1-couverture": 12,
+      "demo-2026-t1-ouvert": 17,
+      "demo-2026-t1-pdf": 13,
+      "demo-2026-t1-reserve-1": 14,
+      "demo-2026-t1-reserve-2": 15,
+      "demo-2026-t1-reserve-3": 16,
+      "demo-2026-t2": 18,
+      "demo-2026-t2-couverture": 19,
+      "demo-2026-t2-ouvert": 24,
+      "demo-2026-t2-pdf": 20,
+      "demo-2026-t2-reserve-1": 21,
+      "demo-2026-t2-reserve-2": 22,
+      "demo-2026-t2-reserve-3": 23,
+      "demo-2026-t3": 25,
+      "demo-2026-t3-couverture": 26,
+      "demo-2026-t3-ouvert": 31,
+      "demo-2026-t3-pdf": 27,
+      "demo-2026-t3-reserve-1": 28,
+      "demo-2026-t3-reserve-2": 29,
+      "demo-2026-t3-reserve-3": 30,
+      "demo-2026-t4": 39,
+      "demo-2026-t4-couverture": 40,
+      "demo-2026-t4-ouvert": 45,
+      "demo-2026-t4-pdf": 41,
+      "demo-2026-t4-reserve-1": 42,
+      "demo-2026-t4-reserve-2": 43,
+      "demo-2026-t4-reserve-3": 44,
+      "demo-accueil": 51,
+      "demo-calendrier": 50,
+      "demo-events-1": 46,
+      "demo-events-2": 47,
+      "demo-partners-1": 48,
+      "demo-partners-2": 49,
+      "term:demo-thematique-1": 18,
+      "term:demo-thematique-2": 19,
+      "term:demo-thematique-3": 20,
+      "user:redaction": 2
+    },
+    "c08": {
+      "plan": 76,
+      "users": {
+        "actif": 3,
+        "grace": 4,
+        "sans-droit": 5
+      },
+      "memberships": {
+        "actif": 78,
+        "grace": 80
+      },
+      "subscriptions": {
+        "actif": 77,
+        "grace": 79
+      },
+      "article": 81,
+      "automatique": 82
+    },
+    "users": {
+      "actif": [
+        3,
+        "imagine-c08-actif",
+        "imagine-c08-actif@example.org",
+        [
+          "subscriber"
+        ]
+      ],
+      "grace": [
+        4,
+        "imagine-c08-grace",
+        "imagine-c08-grace@example.org",
+        [
+          "subscriber"
+        ]
+      ],
+      "sans-droit": [
+        5,
+        "imagine-c08-sans-droit",
+        "imagine-c08-sans-droit@example.org",
+        [
+          "subscriber"
+        ]
+      ]
+    },
+    "subs": {
+      "actif": [
+        77,
+        "active",
+        3,
+        "2026-01-01 00:00:00",
+        "2030-01-01 00:00:00",
+        "2027-01-01 00:00:00",
+        "",
+        ""
+      ],
+      "grace": [
+        79,
+        "on-hold",
+        4,
+        "2026-01-01 00:00:00",
+        "2030-01-01 00:00:00",
+        "2027-01-01 00:00:00",
+        "2026-01-01 00:00:00",
+        "2030-01-01 00:00:00"
+      ]
+    },
+    "members": {
+      "actif": [
+        78,
+        "active",
+        3,
+        76,
+        "2026-01-01 00:00:00",
+        "2030-01-01 00:00:00",
+        "77"
+      ],
+      "grace": [
+        80,
+        "paused",
+        4,
+        76,
+        "2026-01-01 00:00:00",
+        "2030-01-01 00:00:00",
+        "79"
+      ]
+    },
+    "snapshot_b00": {
+      "rows": {
+        "demo-2026-hs": {
+          "id": 32,
+          "type": "imagine_numero",
+          "slug": "demo-2026-hs",
+          "title": "Hors-série fictif — été 2026",
+          "content_sha256": "588b75783041972a98681e8a4913b85cdc884490da68399a78eef7ba5f50e40b",
+          "excerpt_sha256": "9992a07ceb37095912c2d677a6bc4d573dc2d29efd8ce1bdb55a5ba0ee93a25c",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/numeros/demo-2026-hs/",
+          "meta": {
+            "_thumbnail_id": [
+              "33"
+            ],
+            "imagine_cloture": [
+              "2026-08-05"
+            ],
+            "imagine_code": [
+              "DEMO-2026-HS"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-hs"
+            ],
+            "imagine_pdf_id": [
+              "34"
+            ],
+            "imagine_sortie": [
+              "2026-08-15"
+            ],
+            "imagine_type": [
+              "hors-serie"
+            ]
+          }
+        },
+        "demo-2026-hs-couverture": {
+          "id": 33,
+          "type": "attachment",
+          "slug": "demo-2026-hs-couverture",
+          "title": "Hors-série fictif — été 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-couverture/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-hs.png"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-hs-couverture"
+            ]
+          },
+          "file_sha256": "7c758c87634319e2b5c78dd7dc0794c31fb27d090fd99fb9eb72fb7c809e12c5",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-hs.png"
+        },
+        "demo-2026-hs-ouvert": {
+          "id": 38,
+          "type": "post",
+          "slug": "demo-2026-hs-ouvert",
+          "title": "Reportage fictif en accès libre — DEMO-2026-HS",
+          "content_sha256": "f38b2f6a92bc0ef93ff9c7adf56a08d4cc057e58caa035c056443ad26ebb6edd",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-ouvert/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-hs-ouvert"
+            ],
+            "imagine_numero_id": [
+              "32"
+            ],
+            "imagine_reserve": [
+              "0"
+            ]
+          }
+        },
+        "demo-2026-hs-pdf": {
+          "id": 34,
+          "type": "attachment",
+          "slug": "demo-2026-hs-pdf",
+          "title": "PDF factice — Hors-série fictif — été 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-pdf/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-hs.pdf"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-hs-pdf"
+            ]
+          },
+          "file_sha256": "8c43b4ce454696908d600b7a2726a76129b1bbd4ffba6ad00f3abfd8b8076700",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-hs.pdf"
+        },
+        "demo-2026-hs-reserve-1": {
+          "id": 35,
+          "type": "post",
+          "slug": "demo-2026-hs-reserve-1",
+          "title": "Article fictif réservé 1 — DEMO-2026-HS",
+          "content_sha256": "954627eb91458f46899ba16e29dd556214d187a1bf3046ab84e52dac0b1e3ee1",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-1/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-hs-reserve-1"
+            ],
+            "imagine_numero_id": [
+              "32"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-hs-reserve-2": {
+          "id": 36,
+          "type": "post",
+          "slug": "demo-2026-hs-reserve-2",
+          "title": "Article fictif réservé 2 — DEMO-2026-HS",
+          "content_sha256": "6e4cbd18ed828ee3f4a1539ccb0c459ef95cd44b2bbba49fac6cfd17efea1e52",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-2/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-hs-reserve-2"
+            ],
+            "imagine_numero_id": [
+              "32"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-hs-reserve-3": {
+          "id": 37,
+          "type": "post",
+          "slug": "demo-2026-hs-reserve-3",
+          "title": "Article fictif réservé 3 — DEMO-2026-HS",
+          "content_sha256": "6bf6c4ed7cd12e7b5e402b2aa3270d28a9f4f81658f8a1d00a88ee199ba2a8b2",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-3/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-hs-reserve-3"
+            ],
+            "imagine_numero_id": [
+              "32"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t1": {
+          "id": 11,
+          "type": "imagine_numero",
+          "slug": "demo-2026-t1",
+          "title": "Numéro fictif 1 — 2026",
+          "content_sha256": "f5374802dfa1e50246a0a271080fa8eda73fcbcd84e8c5c4c5b7d2b68d2ce192",
+          "excerpt_sha256": "9992a07ceb37095912c2d677a6bc4d573dc2d29efd8ce1bdb55a5ba0ee93a25c",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/numeros/demo-2026-t1/",
+          "meta": {
+            "_thumbnail_id": [
+              "12"
+            ],
+            "imagine_cloture": [
+              "2026-01-05"
+            ],
+            "imagine_code": [
+              "DEMO-2026-T1"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t1"
+            ],
+            "imagine_pdf_id": [
+              "13"
+            ],
+            "imagine_sortie": [
+              "2026-01-15"
+            ],
+            "imagine_type": [
+              "regulier"
+            ]
+          }
+        },
+        "demo-2026-t1-couverture": {
+          "id": 12,
+          "type": "attachment",
+          "slug": "demo-2026-t1-couverture",
+          "title": "Numéro fictif 1 — 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-couverture/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-t1.png"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t1-couverture"
+            ]
+          },
+          "file_sha256": "a0b390101cf7940f456662663709741e273ca89bbd6db147bcbcf7fd1b7183c2",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t1.png"
+        },
+        "demo-2026-t1-ouvert": {
+          "id": 17,
+          "type": "post",
+          "slug": "demo-2026-t1-ouvert",
+          "title": "Reportage fictif en accès libre — DEMO-2026-T1",
+          "content_sha256": "e76bf9bd5e4b4eae4e1426c69f2f7a421840b6d628e59e09d98c160fccfbb284",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-ouvert/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t1-ouvert"
+            ],
+            "imagine_numero_id": [
+              "11"
+            ],
+            "imagine_reserve": [
+              "0"
+            ]
+          }
+        },
+        "demo-2026-t1-pdf": {
+          "id": 13,
+          "type": "attachment",
+          "slug": "demo-2026-t1-pdf",
+          "title": "PDF factice — Numéro fictif 1 — 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-pdf/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-t1.pdf"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t1-pdf"
+            ]
+          },
+          "file_sha256": "665395b60dafff2b32b1c3989166a9b17bb6028c592aa46e9d03fbe62140902e",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t1.pdf"
+        },
+        "demo-2026-t1-reserve-1": {
+          "id": 14,
+          "type": "post",
+          "slug": "demo-2026-t1-reserve-1",
+          "title": "Article fictif réservé 1 — DEMO-2026-T1",
+          "content_sha256": "0a7de92e777ae421bd0ebbf21442c568d9f45ada8aca3f98564f3981e674e187",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t1-reserve-1"
+            ],
+            "imagine_numero_id": [
+              "11"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t1-reserve-2": {
+          "id": 15,
+          "type": "post",
+          "slug": "demo-2026-t1-reserve-2",
+          "title": "Article fictif réservé 2 — DEMO-2026-T1",
+          "content_sha256": "7ce9ea72723f9a0225df4fbb374a05084d76b83749ad720672167b06e173da19",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-2/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t1-reserve-2"
+            ],
+            "imagine_numero_id": [
+              "11"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t1-reserve-3": {
+          "id": 16,
+          "type": "post",
+          "slug": "demo-2026-t1-reserve-3",
+          "title": "Article fictif réservé 3 — DEMO-2026-T1",
+          "content_sha256": "c8b2d35f700961ae351aa8d3986b3df5ea9fe1c0e0c434f64192d1e0aed395cb",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-3/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t1-reserve-3"
+            ],
+            "imagine_numero_id": [
+              "11"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t2": {
+          "id": 18,
+          "type": "imagine_numero",
+          "slug": "demo-2026-t2",
+          "title": "Numéro fictif 2 — 2026",
+          "content_sha256": "c30dae24b445f1998b3b3a347111c195aed942ae65aba90781c3950d77df1658",
+          "excerpt_sha256": "9992a07ceb37095912c2d677a6bc4d573dc2d29efd8ce1bdb55a5ba0ee93a25c",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/numeros/demo-2026-t2/",
+          "meta": {
+            "_thumbnail_id": [
+              "19"
+            ],
+            "imagine_cloture": [
+              "2026-04-05"
+            ],
+            "imagine_code": [
+              "DEMO-2026-T2"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t2"
+            ],
+            "imagine_pdf_id": [
+              "20"
+            ],
+            "imagine_sortie": [
+              "2026-04-15"
+            ],
+            "imagine_type": [
+              "regulier"
+            ]
+          }
+        },
+        "demo-2026-t2-couverture": {
+          "id": 19,
+          "type": "attachment",
+          "slug": "demo-2026-t2-couverture",
+          "title": "Numéro fictif 2 — 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-couverture/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-t2.png"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t2-couverture"
+            ]
+          },
+          "file_sha256": "f180fc821f9ade47cd233f57d3beb9167af83e4eb31d5f97e1a8bf07a08e8c6d",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t2.png"
+        },
+        "demo-2026-t2-ouvert": {
+          "id": 24,
+          "type": "post",
+          "slug": "demo-2026-t2-ouvert",
+          "title": "Reportage fictif en accès libre — DEMO-2026-T2",
+          "content_sha256": "f8f0c63c0577d25c40ba027ee2919006be78961356c79ffcb236c5af6f82dfe2",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-ouvert/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t2-ouvert"
+            ],
+            "imagine_numero_id": [
+              "18"
+            ],
+            "imagine_reserve": [
+              "0"
+            ]
+          }
+        },
+        "demo-2026-t2-pdf": {
+          "id": 20,
+          "type": "attachment",
+          "slug": "demo-2026-t2-pdf",
+          "title": "PDF factice — Numéro fictif 2 — 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-pdf/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-t2.pdf"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t2-pdf"
+            ]
+          },
+          "file_sha256": "e167c40428d2557c933c34d82545c833612b482d02a964248baba619d45f92d3",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t2.pdf"
+        },
+        "demo-2026-t2-reserve-1": {
+          "id": 21,
+          "type": "post",
+          "slug": "demo-2026-t2-reserve-1",
+          "title": "Article fictif réservé 1 — DEMO-2026-T2",
+          "content_sha256": "a81a1d1f0928cf808fdd334cf09c0eec01710c3ffaf647bd67d9596184c0cba2",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-1/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t2-reserve-1"
+            ],
+            "imagine_numero_id": [
+              "18"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t2-reserve-2": {
+          "id": 22,
+          "type": "post",
+          "slug": "demo-2026-t2-reserve-2",
+          "title": "Article fictif réservé 2 — DEMO-2026-T2",
+          "content_sha256": "33dae034a367d45d050c57c0f9c2eefc62fd3c9c38369fab0840a4c3ef4ae0aa",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-2/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t2-reserve-2"
+            ],
+            "imagine_numero_id": [
+              "18"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t2-reserve-3": {
+          "id": 23,
+          "type": "post",
+          "slug": "demo-2026-t2-reserve-3",
+          "title": "Article fictif réservé 3 — DEMO-2026-T2",
+          "content_sha256": "3915d7ad314dc66753dfa679192c29d71f594d8eb49ae76c5fc397cf13725aff",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-3/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t2-reserve-3"
+            ],
+            "imagine_numero_id": [
+              "18"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t3": {
+          "id": 25,
+          "type": "imagine_numero",
+          "slug": "demo-2026-t3",
+          "title": "Numéro fictif 3 — 2026",
+          "content_sha256": "d297b4a732dfd98df9456a2fb7049b283dbcaf63f4ad678a9b8d1f7881da35b1",
+          "excerpt_sha256": "9992a07ceb37095912c2d677a6bc4d573dc2d29efd8ce1bdb55a5ba0ee93a25c",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/numeros/demo-2026-t3/",
+          "meta": {
+            "_thumbnail_id": [
+              "26"
+            ],
+            "imagine_cloture": [
+              "2026-07-05"
+            ],
+            "imagine_code": [
+              "DEMO-2026-T3"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t3"
+            ],
+            "imagine_pdf_id": [
+              "27"
+            ],
+            "imagine_sortie": [
+              "2026-07-15"
+            ],
+            "imagine_type": [
+              "regulier"
+            ]
+          }
+        },
+        "demo-2026-t3-couverture": {
+          "id": 26,
+          "type": "attachment",
+          "slug": "demo-2026-t3-couverture",
+          "title": "Numéro fictif 3 — 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-couverture/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-t3.png"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t3-couverture"
+            ]
+          },
+          "file_sha256": "4829308601c839e988618f8f3c39cf7bc5d66695beb7cc0cc6c97a60eb06b399",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t3.png"
+        },
+        "demo-2026-t3-ouvert": {
+          "id": 31,
+          "type": "post",
+          "slug": "demo-2026-t3-ouvert",
+          "title": "Reportage fictif en accès libre — DEMO-2026-T3",
+          "content_sha256": "7a013919be4bfc5d1c0321a9c7a7aa90d833f3277624d5870e12f0fe24dd21a0",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-ouvert/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t3-ouvert"
+            ],
+            "imagine_numero_id": [
+              "25"
+            ],
+            "imagine_reserve": [
+              "0"
+            ]
+          }
+        },
+        "demo-2026-t3-pdf": {
+          "id": 27,
+          "type": "attachment",
+          "slug": "demo-2026-t3-pdf",
+          "title": "PDF factice — Numéro fictif 3 — 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-pdf/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-t3.pdf"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t3-pdf"
+            ]
+          },
+          "file_sha256": "88c7e76f7bd7249af59bf79e6739d658590e29f945eea99f7e2d42980d615fa5",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t3.pdf"
+        },
+        "demo-2026-t3-reserve-1": {
+          "id": 28,
+          "type": "post",
+          "slug": "demo-2026-t3-reserve-1",
+          "title": "Article fictif réservé 1 — DEMO-2026-T3",
+          "content_sha256": "0a914cd46cce6195b616eb92e019f65b264827d79f39bdb99ac752a052f58b4d",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-1/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t3-reserve-1"
+            ],
+            "imagine_numero_id": [
+              "25"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t3-reserve-2": {
+          "id": 29,
+          "type": "post",
+          "slug": "demo-2026-t3-reserve-2",
+          "title": "Article fictif réservé 2 — DEMO-2026-T3",
+          "content_sha256": "5ed247c3f2be457f45f8b0eac333dabf49ff876ed3f0e8a9903fd5a9601ab85a",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-2/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t3-reserve-2"
+            ],
+            "imagine_numero_id": [
+              "25"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t3-reserve-3": {
+          "id": 30,
+          "type": "post",
+          "slug": "demo-2026-t3-reserve-3",
+          "title": "Article fictif réservé 3 — DEMO-2026-T3",
+          "content_sha256": "fd4a29841b97cdf8993e88daae39282781a4b41f6f62a2f11c5d5d7d1eb2a200",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-3/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t3-reserve-3"
+            ],
+            "imagine_numero_id": [
+              "25"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t4": {
+          "id": 39,
+          "type": "imagine_numero",
+          "slug": "demo-2026-t4",
+          "title": "Numéro fictif 4 — 2026",
+          "content_sha256": "895b5eb234caa7b34f9c8d377fcfa483715eafb39850777d0bd02560fc5d3ef9",
+          "excerpt_sha256": "9992a07ceb37095912c2d677a6bc4d573dc2d29efd8ce1bdb55a5ba0ee93a25c",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/numeros/demo-2026-t4/",
+          "meta": {
+            "_thumbnail_id": [
+              "40"
+            ],
+            "imagine_cloture": [
+              "2026-10-05"
+            ],
+            "imagine_code": [
+              "DEMO-2026-T4"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t4"
+            ],
+            "imagine_pdf_id": [
+              "41"
+            ],
+            "imagine_sortie": [
+              "2026-10-15"
+            ],
+            "imagine_type": [
+              "regulier"
+            ]
+          }
+        },
+        "demo-2026-t4-couverture": {
+          "id": 40,
+          "type": "attachment",
+          "slug": "demo-2026-t4-couverture",
+          "title": "Numéro fictif 4 — 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-couverture/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-t4.png"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t4-couverture"
+            ]
+          },
+          "file_sha256": "64a77fcb3c20f001f53684f9ba5cabb0915dc4f1a8da3fb1f3546986f2f985b2",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t4.png"
+        },
+        "demo-2026-t4-ouvert": {
+          "id": 45,
+          "type": "post",
+          "slug": "demo-2026-t4-ouvert",
+          "title": "Reportage fictif en accès libre — DEMO-2026-T4",
+          "content_sha256": "e25f59bc4c932810108b8fe3a20a85d369654a0bbeeff7ca0f37656419986b36",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-ouvert/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t4-ouvert"
+            ],
+            "imagine_numero_id": [
+              "39"
+            ],
+            "imagine_reserve": [
+              "0"
+            ]
+          }
+        },
+        "demo-2026-t4-pdf": {
+          "id": 41,
+          "type": "attachment",
+          "slug": "demo-2026-t4-pdf",
+          "title": "PDF factice — Numéro fictif 4 — 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-pdf/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-t4.pdf"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t4-pdf"
+            ]
+          },
+          "file_sha256": "2446e6975b2d0d9b6067e0c2b0cbbd44939d5dcccf600c10519cce84ab0f742f",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t4.pdf"
+        },
+        "demo-2026-t4-reserve-1": {
+          "id": 42,
+          "type": "post",
+          "slug": "demo-2026-t4-reserve-1",
+          "title": "Article fictif réservé 1 — DEMO-2026-T4",
+          "content_sha256": "41a5fa7545baf7438005a57abd7ddf67f4cef6a51410129b954697f08ff86294",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-1/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t4-reserve-1"
+            ],
+            "imagine_numero_id": [
+              "39"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t4-reserve-2": {
+          "id": 43,
+          "type": "post",
+          "slug": "demo-2026-t4-reserve-2",
+          "title": "Article fictif réservé 2 — DEMO-2026-T4",
+          "content_sha256": "5a2183d70521f7de1ee97148edd4a579ed2a465e8c78dbc81ce8bf034025a839",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-2/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t4-reserve-2"
+            ],
+            "imagine_numero_id": [
+              "39"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t4-reserve-3": {
+          "id": 44,
+          "type": "post",
+          "slug": "demo-2026-t4-reserve-3",
+          "title": "Article fictif réservé 3 — DEMO-2026-T4",
+          "content_sha256": "2bd08f303aee732a13c6e9a52b7ba45066ad51bb1b26c2d3dd0bc34da82a9001",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-3/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t4-reserve-3"
+            ],
+            "imagine_numero_id": [
+              "39"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-accueil": {
+          "id": 51,
+          "type": "page",
+          "slug": "accueil-fictif",
+          "title": "Imagine — site de démonstration fictif",
+          "content_sha256": "2755e303a3c2fdbe701bed8ffd8227e94b140eb38a97b128ef384b3be5b68ff0",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-accueil"
+            ]
+          }
+        },
+        "demo-calendrier": {
+          "id": 50,
+          "type": "page",
+          "slug": "calendrier-fictif",
+          "title": "Calendrier de parution fictif — 2026 à 2028",
+          "content_sha256": "ce52a8c47ff5a9d3ae1c1c2b2973c1307a37a08cb74776a63ef2d34370b520c7",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/calendrier-fictif/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-calendrier"
+            ]
+          }
+        },
+        "demo-events-1": {
+          "id": 46,
+          "type": "imagine_evenement",
+          "slug": "demo-events-1",
+          "title": "Rencontre au village Imaginaire",
+          "content_sha256": "1feee9872a5a6385eaae1fc65dfb8141bc86ad19356c29bb7ec93fb4643ea170",
+          "excerpt_sha256": "9992a07ceb37095912c2d677a6bc4d573dc2d29efd8ce1bdb55a5ba0ee93a25c",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/evenements/demo-events-1/",
+          "meta": {
+            "imagine_date": [
+              "2026-12-10"
+            ],
+            "imagine_demo_key": [
+              "demo-events-1"
+            ]
+          }
+        },
+        "demo-events-2": {
+          "id": 47,
+          "type": "imagine_evenement",
+          "slug": "demo-events-2",
+          "title": "Atelier des possibles inventés",
+          "content_sha256": "1feee9872a5a6385eaae1fc65dfb8141bc86ad19356c29bb7ec93fb4643ea170",
+          "excerpt_sha256": "9992a07ceb37095912c2d677a6bc4d573dc2d29efd8ce1bdb55a5ba0ee93a25c",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/evenements/demo-events-2/",
+          "meta": {
+            "imagine_date": [
+              "2026-12-11"
+            ],
+            "imagine_demo_key": [
+              "demo-events-2"
+            ]
+          }
+        },
+        "demo-partners-1": {
+          "id": 48,
+          "type": "imagine_partenaire",
+          "slug": "demo-partners-1",
+          "title": "Association des Nuages fictifs",
+          "content_sha256": "1feee9872a5a6385eaae1fc65dfb8141bc86ad19356c29bb7ec93fb4643ea170",
+          "excerpt_sha256": "9992a07ceb37095912c2d677a6bc4d573dc2d29efd8ce1bdb55a5ba0ee93a25c",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/partenaires/demo-partners-1/",
+          "meta": {
+            "imagine_date": [
+              ""
+            ],
+            "imagine_demo_key": [
+              "demo-partners-1"
+            ]
+          }
+        },
+        "demo-partners-2": {
+          "id": 49,
+          "type": "imagine_partenaire",
+          "slug": "demo-partners-2",
+          "title": "Coopérative des Horizons inventés",
+          "content_sha256": "1feee9872a5a6385eaae1fc65dfb8141bc86ad19356c29bb7ec93fb4643ea170",
+          "excerpt_sha256": "9992a07ceb37095912c2d677a6bc4d573dc2d29efd8ce1bdb55a5ba0ee93a25c",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/partenaires/demo-partners-2/",
+          "meta": {
+            "imagine_date": [
+              ""
+            ],
+            "imagine_demo_key": [
+              "demo-partners-2"
+            ]
+          }
+        },
+        "term:demo-thematique-1": {
+          "id": 18,
+          "slug": "demo-thematique-1",
+          "name": "Terres imaginaires",
+          "url": "http://192.168.129.32:8085/thematiques/demo-thematique-1/"
+        },
+        "term:demo-thematique-2": {
+          "id": 19,
+          "slug": "demo-thematique-2",
+          "name": "Solidarités inventées",
+          "url": "http://192.168.129.32:8085/thematiques/demo-thematique-2/"
+        },
+        "term:demo-thematique-3": {
+          "id": 20,
+          "slug": "demo-thematique-3",
+          "name": "Futurs fictifs",
+          "url": "http://192.168.129.32:8085/thematiques/demo-thematique-3/"
+        },
+        "user:redaction": {
+          "id": 2,
+          "login": "imagine-demo-redaction",
+          "email": "redaction-demo@example.org",
+          "roles": [
+            "editor"
+          ]
+        }
+      },
+      "calendar": [
+        {
+          "code": "DEMO-2026-T1",
+          "type": "regulier",
+          "sortie": "2026-01-15",
+          "cloture": "2026-01-05"
+        },
+        {
+          "code": "DEMO-2026-T2",
+          "type": "regulier",
+          "sortie": "2026-04-15",
+          "cloture": "2026-04-05"
+        },
+        {
+          "code": "DEMO-2026-T3",
+          "type": "regulier",
+          "sortie": "2026-07-15",
+          "cloture": "2026-07-05"
+        },
+        {
+          "code": "DEMO-2026-HS",
+          "type": "hors-serie",
+          "sortie": "2026-08-15",
+          "cloture": "2026-08-05"
+        },
+        {
+          "code": "DEMO-2026-T4",
+          "type": "regulier",
+          "sortie": "2026-10-15",
+          "cloture": "2026-10-05"
+        },
+        {
+          "code": "DEMO-2027-T1",
+          "type": "regulier",
+          "sortie": "2027-01-15",
+          "cloture": "2027-01-05"
+        },
+        {
+          "code": "DEMO-2027-T2",
+          "type": "regulier",
+          "sortie": "2027-04-15",
+          "cloture": "2027-04-05"
+        },
+        {
+          "code": "DEMO-2027-T3",
+          "type": "regulier",
+          "sortie": "2027-07-15",
+          "cloture": "2027-07-05"
+        },
+        {
+          "code": "DEMO-2027-HS",
+          "type": "hors-serie",
+          "sortie": "2027-08-15",
+          "cloture": "2027-08-05"
+        },
+        {
+          "code": "DEMO-2027-T4",
+          "type": "regulier",
+          "sortie": "2027-10-15",
+          "cloture": "2027-10-05"
+        },
+        {
+          "code": "DEMO-2028-T1",
+          "type": "regulier",
+          "sortie": "2028-01-15",
+          "cloture": "2028-01-05"
+        },
+        {
+          "code": "DEMO-2028-T2",
+          "type": "regulier",
+          "sortie": "2028-04-15",
+          "cloture": "2028-04-05"
+        },
+        {
+          "code": "DEMO-2028-T3",
+          "type": "regulier",
+          "sortie": "2028-07-15",
+          "cloture": "2028-07-05"
+        },
+        {
+          "code": "DEMO-2028-HS",
+          "type": "hors-serie",
+          "sortie": "2028-08-15",
+          "cloture": "2028-08-05"
+        },
+        {
+          "code": "DEMO-2028-T4",
+          "type": "regulier",
+          "sortie": "2028-10-15",
+          "cloture": "2028-10-05"
+        }
+      ],
+      "duplicates": [],
+      "total_tagged": 41,
+      "manifest_posts": 41
+    }
+  },
+  "after": {
+    "b00": {
+      "demo-2026-hs": 32,
+      "demo-2026-hs-couverture": 33,
+      "demo-2026-hs-ouvert": 38,
+      "demo-2026-hs-pdf": 34,
+      "demo-2026-hs-reserve-1": 35,
+      "demo-2026-hs-reserve-2": 36,
+      "demo-2026-hs-reserve-3": 37,
+      "demo-2026-t1": 11,
+      "demo-2026-t1-couverture": 12,
+      "demo-2026-t1-ouvert": 17,
+      "demo-2026-t1-pdf": 13,
+      "demo-2026-t1-reserve-1": 14,
+      "demo-2026-t1-reserve-2": 15,
+      "demo-2026-t1-reserve-3": 16,
+      "demo-2026-t2": 18,
+      "demo-2026-t2-couverture": 19,
+      "demo-2026-t2-ouvert": 24,
+      "demo-2026-t2-pdf": 20,
+      "demo-2026-t2-reserve-1": 21,
+      "demo-2026-t2-reserve-2": 22,
+      "demo-2026-t2-reserve-3": 23,
+      "demo-2026-t3": 25,
+      "demo-2026-t3-couverture": 26,
+      "demo-2026-t3-ouvert": 31,
+      "demo-2026-t3-pdf": 27,
+      "demo-2026-t3-reserve-1": 28,
+      "demo-2026-t3-reserve-2": 29,
+      "demo-2026-t3-reserve-3": 30,
+      "demo-2026-t4": 39,
+      "demo-2026-t4-couverture": 40,
+      "demo-2026-t4-ouvert": 45,
+      "demo-2026-t4-pdf": 41,
+      "demo-2026-t4-reserve-1": 42,
+      "demo-2026-t4-reserve-2": 43,
+      "demo-2026-t4-reserve-3": 44,
+      "demo-accueil": 51,
+      "demo-calendrier": 50,
+      "demo-events-1": 46,
+      "demo-events-2": 47,
+      "demo-partners-1": 48,
+      "demo-partners-2": 49,
+      "term:demo-thematique-1": 18,
+      "term:demo-thematique-2": 19,
+      "term:demo-thematique-3": 20,
+      "user:redaction": 2
+    },
+    "c08": {
+      "plan": 76,
+      "users": {
+        "actif": 3,
+        "grace": 4,
+        "sans-droit": 5
+      },
+      "memberships": {
+        "actif": 78,
+        "grace": 80
+      },
+      "subscriptions": {
+        "actif": 77,
+        "grace": 79
+      },
+      "article": 81,
+      "automatique": 82
+    },
+    "users": {
+      "actif": [
+        3,
+        "imagine-c08-actif",
+        "imagine-c08-actif@example.org",
+        [
+          "subscriber"
+        ]
+      ],
+      "grace": [
+        4,
+        "imagine-c08-grace",
+        "imagine-c08-grace@example.org",
+        [
+          "subscriber"
+        ]
+      ],
+      "sans-droit": [
+        5,
+        "imagine-c08-sans-droit",
+        "imagine-c08-sans-droit@example.org",
+        [
+          "subscriber"
+        ]
+      ]
+    },
+    "subs": {
+      "actif": [
+        77,
+        "active",
+        3,
+        "2026-01-01 00:00:00",
+        "2030-01-01 00:00:00",
+        "2027-01-01 00:00:00",
+        "",
+        ""
+      ],
+      "grace": [
+        79,
+        "on-hold",
+        4,
+        "2026-01-01 00:00:00",
+        "2030-01-01 00:00:00",
+        "2027-01-01 00:00:00",
+        "2026-01-01 00:00:00",
+        "2030-01-01 00:00:00"
+      ]
+    },
+    "members": {
+      "actif": [
+        78,
+        "active",
+        3,
+        76,
+        "2026-01-01 00:00:00",
+        "2030-01-01 00:00:00",
+        "77"
+      ],
+      "grace": [
+        80,
+        "paused",
+        4,
+        76,
+        "2026-01-01 00:00:00",
+        "2030-01-01 00:00:00",
+        "79"
+      ]
+    },
+    "snapshot_b00": {
+      "rows": {
+        "demo-2026-hs": {
+          "id": 32,
+          "type": "imagine_numero",
+          "slug": "demo-2026-hs",
+          "title": "Hors-série fictif — été 2026",
+          "content_sha256": "588b75783041972a98681e8a4913b85cdc884490da68399a78eef7ba5f50e40b",
+          "excerpt_sha256": "9992a07ceb37095912c2d677a6bc4d573dc2d29efd8ce1bdb55a5ba0ee93a25c",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/numeros/demo-2026-hs/",
+          "meta": {
+            "_thumbnail_id": [
+              "33"
+            ],
+            "imagine_cloture": [
+              "2026-08-05"
+            ],
+            "imagine_code": [
+              "DEMO-2026-HS"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-hs"
+            ],
+            "imagine_pdf_id": [
+              "34"
+            ],
+            "imagine_sortie": [
+              "2026-08-15"
+            ],
+            "imagine_type": [
+              "hors-serie"
+            ]
+          }
+        },
+        "demo-2026-hs-couverture": {
+          "id": 33,
+          "type": "attachment",
+          "slug": "demo-2026-hs-couverture",
+          "title": "Hors-série fictif — été 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-couverture/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-hs.png"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-hs-couverture"
+            ]
+          },
+          "file_sha256": "7c758c87634319e2b5c78dd7dc0794c31fb27d090fd99fb9eb72fb7c809e12c5",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-hs.png"
+        },
+        "demo-2026-hs-ouvert": {
+          "id": 38,
+          "type": "post",
+          "slug": "demo-2026-hs-ouvert",
+          "title": "Reportage fictif en accès libre — DEMO-2026-HS",
+          "content_sha256": "f38b2f6a92bc0ef93ff9c7adf56a08d4cc057e58caa035c056443ad26ebb6edd",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-ouvert/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-hs-ouvert"
+            ],
+            "imagine_numero_id": [
+              "32"
+            ],
+            "imagine_reserve": [
+              "0"
+            ]
+          }
+        },
+        "demo-2026-hs-pdf": {
+          "id": 34,
+          "type": "attachment",
+          "slug": "demo-2026-hs-pdf",
+          "title": "PDF factice — Hors-série fictif — été 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-pdf/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-hs.pdf"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-hs-pdf"
+            ]
+          },
+          "file_sha256": "8c43b4ce454696908d600b7a2726a76129b1bbd4ffba6ad00f3abfd8b8076700",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-hs.pdf"
+        },
+        "demo-2026-hs-reserve-1": {
+          "id": 35,
+          "type": "post",
+          "slug": "demo-2026-hs-reserve-1",
+          "title": "Article fictif réservé 1 — DEMO-2026-HS",
+          "content_sha256": "954627eb91458f46899ba16e29dd556214d187a1bf3046ab84e52dac0b1e3ee1",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-1/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-hs-reserve-1"
+            ],
+            "imagine_numero_id": [
+              "32"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-hs-reserve-2": {
+          "id": 36,
+          "type": "post",
+          "slug": "demo-2026-hs-reserve-2",
+          "title": "Article fictif réservé 2 — DEMO-2026-HS",
+          "content_sha256": "6e4cbd18ed828ee3f4a1539ccb0c459ef95cd44b2bbba49fac6cfd17efea1e52",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-2/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-hs-reserve-2"
+            ],
+            "imagine_numero_id": [
+              "32"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-hs-reserve-3": {
+          "id": 37,
+          "type": "post",
+          "slug": "demo-2026-hs-reserve-3",
+          "title": "Article fictif réservé 3 — DEMO-2026-HS",
+          "content_sha256": "6bf6c4ed7cd12e7b5e402b2aa3270d28a9f4f81658f8a1d00a88ee199ba2a8b2",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-3/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-hs-reserve-3"
+            ],
+            "imagine_numero_id": [
+              "32"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t1": {
+          "id": 11,
+          "type": "imagine_numero",
+          "slug": "demo-2026-t1",
+          "title": "Numéro fictif 1 — 2026",
+          "content_sha256": "f5374802dfa1e50246a0a271080fa8eda73fcbcd84e8c5c4c5b7d2b68d2ce192",
+          "excerpt_sha256": "9992a07ceb37095912c2d677a6bc4d573dc2d29efd8ce1bdb55a5ba0ee93a25c",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/numeros/demo-2026-t1/",
+          "meta": {
+            "_thumbnail_id": [
+              "12"
+            ],
+            "imagine_cloture": [
+              "2026-01-05"
+            ],
+            "imagine_code": [
+              "DEMO-2026-T1"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t1"
+            ],
+            "imagine_pdf_id": [
+              "13"
+            ],
+            "imagine_sortie": [
+              "2026-01-15"
+            ],
+            "imagine_type": [
+              "regulier"
+            ]
+          }
+        },
+        "demo-2026-t1-couverture": {
+          "id": 12,
+          "type": "attachment",
+          "slug": "demo-2026-t1-couverture",
+          "title": "Numéro fictif 1 — 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-couverture/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-t1.png"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t1-couverture"
+            ]
+          },
+          "file_sha256": "a0b390101cf7940f456662663709741e273ca89bbd6db147bcbcf7fd1b7183c2",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t1.png"
+        },
+        "demo-2026-t1-ouvert": {
+          "id": 17,
+          "type": "post",
+          "slug": "demo-2026-t1-ouvert",
+          "title": "Reportage fictif en accès libre — DEMO-2026-T1",
+          "content_sha256": "e76bf9bd5e4b4eae4e1426c69f2f7a421840b6d628e59e09d98c160fccfbb284",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-ouvert/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t1-ouvert"
+            ],
+            "imagine_numero_id": [
+              "11"
+            ],
+            "imagine_reserve": [
+              "0"
+            ]
+          }
+        },
+        "demo-2026-t1-pdf": {
+          "id": 13,
+          "type": "attachment",
+          "slug": "demo-2026-t1-pdf",
+          "title": "PDF factice — Numéro fictif 1 — 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-pdf/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-t1.pdf"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t1-pdf"
+            ]
+          },
+          "file_sha256": "665395b60dafff2b32b1c3989166a9b17bb6028c592aa46e9d03fbe62140902e",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t1.pdf"
+        },
+        "demo-2026-t1-reserve-1": {
+          "id": 14,
+          "type": "post",
+          "slug": "demo-2026-t1-reserve-1",
+          "title": "Article fictif réservé 1 — DEMO-2026-T1",
+          "content_sha256": "0a7de92e777ae421bd0ebbf21442c568d9f45ada8aca3f98564f3981e674e187",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t1-reserve-1"
+            ],
+            "imagine_numero_id": [
+              "11"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t1-reserve-2": {
+          "id": 15,
+          "type": "post",
+          "slug": "demo-2026-t1-reserve-2",
+          "title": "Article fictif réservé 2 — DEMO-2026-T1",
+          "content_sha256": "7ce9ea72723f9a0225df4fbb374a05084d76b83749ad720672167b06e173da19",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-2/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t1-reserve-2"
+            ],
+            "imagine_numero_id": [
+              "11"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t1-reserve-3": {
+          "id": 16,
+          "type": "post",
+          "slug": "demo-2026-t1-reserve-3",
+          "title": "Article fictif réservé 3 — DEMO-2026-T1",
+          "content_sha256": "c8b2d35f700961ae351aa8d3986b3df5ea9fe1c0e0c434f64192d1e0aed395cb",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-3/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t1-reserve-3"
+            ],
+            "imagine_numero_id": [
+              "11"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t2": {
+          "id": 18,
+          "type": "imagine_numero",
+          "slug": "demo-2026-t2",
+          "title": "Numéro fictif 2 — 2026",
+          "content_sha256": "c30dae24b445f1998b3b3a347111c195aed942ae65aba90781c3950d77df1658",
+          "excerpt_sha256": "9992a07ceb37095912c2d677a6bc4d573dc2d29efd8ce1bdb55a5ba0ee93a25c",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/numeros/demo-2026-t2/",
+          "meta": {
+            "_thumbnail_id": [
+              "19"
+            ],
+            "imagine_cloture": [
+              "2026-04-05"
+            ],
+            "imagine_code": [
+              "DEMO-2026-T2"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t2"
+            ],
+            "imagine_pdf_id": [
+              "20"
+            ],
+            "imagine_sortie": [
+              "2026-04-15"
+            ],
+            "imagine_type": [
+              "regulier"
+            ]
+          }
+        },
+        "demo-2026-t2-couverture": {
+          "id": 19,
+          "type": "attachment",
+          "slug": "demo-2026-t2-couverture",
+          "title": "Numéro fictif 2 — 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-couverture/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-t2.png"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t2-couverture"
+            ]
+          },
+          "file_sha256": "f180fc821f9ade47cd233f57d3beb9167af83e4eb31d5f97e1a8bf07a08e8c6d",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t2.png"
+        },
+        "demo-2026-t2-ouvert": {
+          "id": 24,
+          "type": "post",
+          "slug": "demo-2026-t2-ouvert",
+          "title": "Reportage fictif en accès libre — DEMO-2026-T2",
+          "content_sha256": "f8f0c63c0577d25c40ba027ee2919006be78961356c79ffcb236c5af6f82dfe2",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-ouvert/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t2-ouvert"
+            ],
+            "imagine_numero_id": [
+              "18"
+            ],
+            "imagine_reserve": [
+              "0"
+            ]
+          }
+        },
+        "demo-2026-t2-pdf": {
+          "id": 20,
+          "type": "attachment",
+          "slug": "demo-2026-t2-pdf",
+          "title": "PDF factice — Numéro fictif 2 — 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-pdf/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-t2.pdf"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t2-pdf"
+            ]
+          },
+          "file_sha256": "e167c40428d2557c933c34d82545c833612b482d02a964248baba619d45f92d3",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t2.pdf"
+        },
+        "demo-2026-t2-reserve-1": {
+          "id": 21,
+          "type": "post",
+          "slug": "demo-2026-t2-reserve-1",
+          "title": "Article fictif réservé 1 — DEMO-2026-T2",
+          "content_sha256": "a81a1d1f0928cf808fdd334cf09c0eec01710c3ffaf647bd67d9596184c0cba2",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-1/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t2-reserve-1"
+            ],
+            "imagine_numero_id": [
+              "18"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t2-reserve-2": {
+          "id": 22,
+          "type": "post",
+          "slug": "demo-2026-t2-reserve-2",
+          "title": "Article fictif réservé 2 — DEMO-2026-T2",
+          "content_sha256": "33dae034a367d45d050c57c0f9c2eefc62fd3c9c38369fab0840a4c3ef4ae0aa",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-2/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t2-reserve-2"
+            ],
+            "imagine_numero_id": [
+              "18"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t2-reserve-3": {
+          "id": 23,
+          "type": "post",
+          "slug": "demo-2026-t2-reserve-3",
+          "title": "Article fictif réservé 3 — DEMO-2026-T2",
+          "content_sha256": "3915d7ad314dc66753dfa679192c29d71f594d8eb49ae76c5fc397cf13725aff",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-3/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t2-reserve-3"
+            ],
+            "imagine_numero_id": [
+              "18"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t3": {
+          "id": 25,
+          "type": "imagine_numero",
+          "slug": "demo-2026-t3",
+          "title": "Numéro fictif 3 — 2026",
+          "content_sha256": "d297b4a732dfd98df9456a2fb7049b283dbcaf63f4ad678a9b8d1f7881da35b1",
+          "excerpt_sha256": "9992a07ceb37095912c2d677a6bc4d573dc2d29efd8ce1bdb55a5ba0ee93a25c",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/numeros/demo-2026-t3/",
+          "meta": {
+            "_thumbnail_id": [
+              "26"
+            ],
+            "imagine_cloture": [
+              "2026-07-05"
+            ],
+            "imagine_code": [
+              "DEMO-2026-T3"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t3"
+            ],
+            "imagine_pdf_id": [
+              "27"
+            ],
+            "imagine_sortie": [
+              "2026-07-15"
+            ],
+            "imagine_type": [
+              "regulier"
+            ]
+          }
+        },
+        "demo-2026-t3-couverture": {
+          "id": 26,
+          "type": "attachment",
+          "slug": "demo-2026-t3-couverture",
+          "title": "Numéro fictif 3 — 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-couverture/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-t3.png"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t3-couverture"
+            ]
+          },
+          "file_sha256": "4829308601c839e988618f8f3c39cf7bc5d66695beb7cc0cc6c97a60eb06b399",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t3.png"
+        },
+        "demo-2026-t3-ouvert": {
+          "id": 31,
+          "type": "post",
+          "slug": "demo-2026-t3-ouvert",
+          "title": "Reportage fictif en accès libre — DEMO-2026-T3",
+          "content_sha256": "7a013919be4bfc5d1c0321a9c7a7aa90d833f3277624d5870e12f0fe24dd21a0",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-ouvert/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t3-ouvert"
+            ],
+            "imagine_numero_id": [
+              "25"
+            ],
+            "imagine_reserve": [
+              "0"
+            ]
+          }
+        },
+        "demo-2026-t3-pdf": {
+          "id": 27,
+          "type": "attachment",
+          "slug": "demo-2026-t3-pdf",
+          "title": "PDF factice — Numéro fictif 3 — 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-pdf/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-t3.pdf"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t3-pdf"
+            ]
+          },
+          "file_sha256": "88c7e76f7bd7249af59bf79e6739d658590e29f945eea99f7e2d42980d615fa5",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t3.pdf"
+        },
+        "demo-2026-t3-reserve-1": {
+          "id": 28,
+          "type": "post",
+          "slug": "demo-2026-t3-reserve-1",
+          "title": "Article fictif réservé 1 — DEMO-2026-T3",
+          "content_sha256": "0a914cd46cce6195b616eb92e019f65b264827d79f39bdb99ac752a052f58b4d",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-1/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t3-reserve-1"
+            ],
+            "imagine_numero_id": [
+              "25"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t3-reserve-2": {
+          "id": 29,
+          "type": "post",
+          "slug": "demo-2026-t3-reserve-2",
+          "title": "Article fictif réservé 2 — DEMO-2026-T3",
+          "content_sha256": "5ed247c3f2be457f45f8b0eac333dabf49ff876ed3f0e8a9903fd5a9601ab85a",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-2/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t3-reserve-2"
+            ],
+            "imagine_numero_id": [
+              "25"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t3-reserve-3": {
+          "id": 30,
+          "type": "post",
+          "slug": "demo-2026-t3-reserve-3",
+          "title": "Article fictif réservé 3 — DEMO-2026-T3",
+          "content_sha256": "fd4a29841b97cdf8993e88daae39282781a4b41f6f62a2f11c5d5d7d1eb2a200",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-3/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t3-reserve-3"
+            ],
+            "imagine_numero_id": [
+              "25"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t4": {
+          "id": 39,
+          "type": "imagine_numero",
+          "slug": "demo-2026-t4",
+          "title": "Numéro fictif 4 — 2026",
+          "content_sha256": "895b5eb234caa7b34f9c8d377fcfa483715eafb39850777d0bd02560fc5d3ef9",
+          "excerpt_sha256": "9992a07ceb37095912c2d677a6bc4d573dc2d29efd8ce1bdb55a5ba0ee93a25c",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/numeros/demo-2026-t4/",
+          "meta": {
+            "_thumbnail_id": [
+              "40"
+            ],
+            "imagine_cloture": [
+              "2026-10-05"
+            ],
+            "imagine_code": [
+              "DEMO-2026-T4"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t4"
+            ],
+            "imagine_pdf_id": [
+              "41"
+            ],
+            "imagine_sortie": [
+              "2026-10-15"
+            ],
+            "imagine_type": [
+              "regulier"
+            ]
+          }
+        },
+        "demo-2026-t4-couverture": {
+          "id": 40,
+          "type": "attachment",
+          "slug": "demo-2026-t4-couverture",
+          "title": "Numéro fictif 4 — 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-couverture/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-t4.png"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t4-couverture"
+            ]
+          },
+          "file_sha256": "64a77fcb3c20f001f53684f9ba5cabb0915dc4f1a8da3fb1f3546986f2f985b2",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t4.png"
+        },
+        "demo-2026-t4-ouvert": {
+          "id": 45,
+          "type": "post",
+          "slug": "demo-2026-t4-ouvert",
+          "title": "Reportage fictif en accès libre — DEMO-2026-T4",
+          "content_sha256": "e25f59bc4c932810108b8fe3a20a85d369654a0bbeeff7ca0f37656419986b36",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-ouvert/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t4-ouvert"
+            ],
+            "imagine_numero_id": [
+              "39"
+            ],
+            "imagine_reserve": [
+              "0"
+            ]
+          }
+        },
+        "demo-2026-t4-pdf": {
+          "id": 41,
+          "type": "attachment",
+          "slug": "demo-2026-t4-pdf",
+          "title": "PDF factice — Numéro fictif 4 — 2026",
+          "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-pdf/",
+          "meta": {
+            "_wp_attached_file": [
+              "imagine-demo/demo-2026-t4.pdf"
+            ],
+            "imagine_demo_key": [
+              "demo-2026-t4-pdf"
+            ]
+          },
+          "file_sha256": "2446e6975b2d0d9b6067e0c2b0cbbd44939d5dcccf600c10519cce84ab0f742f",
+          "file_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t4.pdf"
+        },
+        "demo-2026-t4-reserve-1": {
+          "id": 42,
+          "type": "post",
+          "slug": "demo-2026-t4-reserve-1",
+          "title": "Article fictif réservé 1 — DEMO-2026-T4",
+          "content_sha256": "41a5fa7545baf7438005a57abd7ddf67f4cef6a51410129b954697f08ff86294",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-1/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t4-reserve-1"
+            ],
+            "imagine_numero_id": [
+              "39"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t4-reserve-2": {
+          "id": 43,
+          "type": "post",
+          "slug": "demo-2026-t4-reserve-2",
+          "title": "Article fictif réservé 2 — DEMO-2026-T4",
+          "content_sha256": "5a2183d70521f7de1ee97148edd4a579ed2a465e8c78dbc81ce8bf034025a839",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-2/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t4-reserve-2"
+            ],
+            "imagine_numero_id": [
+              "39"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-2026-t4-reserve-3": {
+          "id": 44,
+          "type": "post",
+          "slug": "demo-2026-t4-reserve-3",
+          "title": "Article fictif réservé 3 — DEMO-2026-T4",
+          "content_sha256": "2bd08f303aee732a13c6e9a52b7ba45066ad51bb1b26c2d3dd0bc34da82a9001",
+          "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
+          "protected": true,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-3/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-2026-t4-reserve-3"
+            ],
+            "imagine_numero_id": [
+              "39"
+            ],
+            "imagine_reserve": [
+              "1"
+            ]
+          }
+        },
+        "demo-accueil": {
+          "id": 51,
+          "type": "page",
+          "slug": "accueil-fictif",
+          "title": "Imagine — site de démonstration fictif",
+          "content_sha256": "2755e303a3c2fdbe701bed8ffd8227e94b140eb38a97b128ef384b3be5b68ff0",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-accueil"
+            ]
+          }
+        },
+        "demo-calendrier": {
+          "id": 50,
+          "type": "page",
+          "slug": "calendrier-fictif",
+          "title": "Calendrier de parution fictif — 2026 à 2028",
+          "content_sha256": "ce52a8c47ff5a9d3ae1c1c2b2973c1307a37a08cb74776a63ef2d34370b520c7",
+          "excerpt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/calendrier-fictif/",
+          "meta": {
+            "imagine_demo_key": [
+              "demo-calendrier"
+            ]
+          }
+        },
+        "demo-events-1": {
+          "id": 46,
+          "type": "imagine_evenement",
+          "slug": "demo-events-1",
+          "title": "Rencontre au village Imaginaire",
+          "content_sha256": "1feee9872a5a6385eaae1fc65dfb8141bc86ad19356c29bb7ec93fb4643ea170",
+          "excerpt_sha256": "9992a07ceb37095912c2d677a6bc4d573dc2d29efd8ce1bdb55a5ba0ee93a25c",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/evenements/demo-events-1/",
+          "meta": {
+            "imagine_date": [
+              "2026-12-10"
+            ],
+            "imagine_demo_key": [
+              "demo-events-1"
+            ]
+          }
+        },
+        "demo-events-2": {
+          "id": 47,
+          "type": "imagine_evenement",
+          "slug": "demo-events-2",
+          "title": "Atelier des possibles inventés",
+          "content_sha256": "1feee9872a5a6385eaae1fc65dfb8141bc86ad19356c29bb7ec93fb4643ea170",
+          "excerpt_sha256": "9992a07ceb37095912c2d677a6bc4d573dc2d29efd8ce1bdb55a5ba0ee93a25c",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/evenements/demo-events-2/",
+          "meta": {
+            "imagine_date": [
+              "2026-12-11"
+            ],
+            "imagine_demo_key": [
+              "demo-events-2"
+            ]
+          }
+        },
+        "demo-partners-1": {
+          "id": 48,
+          "type": "imagine_partenaire",
+          "slug": "demo-partners-1",
+          "title": "Association des Nuages fictifs",
+          "content_sha256": "1feee9872a5a6385eaae1fc65dfb8141bc86ad19356c29bb7ec93fb4643ea170",
+          "excerpt_sha256": "9992a07ceb37095912c2d677a6bc4d573dc2d29efd8ce1bdb55a5ba0ee93a25c",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/partenaires/demo-partners-1/",
+          "meta": {
+            "imagine_date": [
+              ""
+            ],
+            "imagine_demo_key": [
+              "demo-partners-1"
+            ]
+          }
+        },
+        "demo-partners-2": {
+          "id": 49,
+          "type": "imagine_partenaire",
+          "slug": "demo-partners-2",
+          "title": "Coopérative des Horizons inventés",
+          "content_sha256": "1feee9872a5a6385eaae1fc65dfb8141bc86ad19356c29bb7ec93fb4643ea170",
+          "excerpt_sha256": "9992a07ceb37095912c2d677a6bc4d573dc2d29efd8ce1bdb55a5ba0ee93a25c",
+          "protected": false,
+          "url": "http://192.168.129.32:8085/partenaires/demo-partners-2/",
+          "meta": {
+            "imagine_date": [
+              ""
+            ],
+            "imagine_demo_key": [
+              "demo-partners-2"
+            ]
+          }
+        },
+        "term:demo-thematique-1": {
+          "id": 18,
+          "slug": "demo-thematique-1",
+          "name": "Terres imaginaires",
+          "url": "http://192.168.129.32:8085/thematiques/demo-thematique-1/"
+        },
+        "term:demo-thematique-2": {
+          "id": 19,
+          "slug": "demo-thematique-2",
+          "name": "Solidarités inventées",
+          "url": "http://192.168.129.32:8085/thematiques/demo-thematique-2/"
+        },
+        "term:demo-thematique-3": {
+          "id": 20,
+          "slug": "demo-thematique-3",
+          "name": "Futurs fictifs",
+          "url": "http://192.168.129.32:8085/thematiques/demo-thematique-3/"
+        },
+        "user:redaction": {
+          "id": 2,
+          "login": "imagine-demo-redaction",
+          "email": "redaction-demo@example.org",
+          "roles": [
+            "editor"
+          ]
+        }
+      },
+      "calendar": [
+        {
+          "code": "DEMO-2026-T1",
+          "type": "regulier",
+          "sortie": "2026-01-15",
+          "cloture": "2026-01-05"
+        },
+        {
+          "code": "DEMO-2026-T2",
+          "type": "regulier",
+          "sortie": "2026-04-15",
+          "cloture": "2026-04-05"
+        },
+        {
+          "code": "DEMO-2026-T3",
+          "type": "regulier",
+          "sortie": "2026-07-15",
+          "cloture": "2026-07-05"
+        },
+        {
+          "code": "DEMO-2026-HS",
+          "type": "hors-serie",
+          "sortie": "2026-08-15",
+          "cloture": "2026-08-05"
+        },
+        {
+          "code": "DEMO-2026-T4",
+          "type": "regulier",
+          "sortie": "2026-10-15",
+          "cloture": "2026-10-05"
+        },
+        {
+          "code": "DEMO-2027-T1",
+          "type": "regulier",
+          "sortie": "2027-01-15",
+          "cloture": "2027-01-05"
+        },
+        {
+          "code": "DEMO-2027-T2",
+          "type": "regulier",
+          "sortie": "2027-04-15",
+          "cloture": "2027-04-05"
+        },
+        {
+          "code": "DEMO-2027-T3",
+          "type": "regulier",
+          "sortie": "2027-07-15",
+          "cloture": "2027-07-05"
+        },
+        {
+          "code": "DEMO-2027-HS",
+          "type": "hors-serie",
+          "sortie": "2027-08-15",
+          "cloture": "2027-08-05"
+        },
+        {
+          "code": "DEMO-2027-T4",
+          "type": "regulier",
+          "sortie": "2027-10-15",
+          "cloture": "2027-10-05"
+        },
+        {
+          "code": "DEMO-2028-T1",
+          "type": "regulier",
+          "sortie": "2028-01-15",
+          "cloture": "2028-01-05"
+        },
+        {
+          "code": "DEMO-2028-T2",
+          "type": "regulier",
+          "sortie": "2028-04-15",
+          "cloture": "2028-04-05"
+        },
+        {
+          "code": "DEMO-2028-T3",
+          "type": "regulier",
+          "sortie": "2028-07-15",
+          "cloture": "2028-07-05"
+        },
+        {
+          "code": "DEMO-2028-HS",
+          "type": "hors-serie",
+          "sortie": "2028-08-15",
+          "cloture": "2028-08-05"
+        },
+        {
+          "code": "DEMO-2028-T4",
+          "type": "regulier",
+          "sortie": "2028-10-15",
+          "cloture": "2028-10-05"
+        }
+      ],
+      "duplicates": [],
+      "total_tagged": 41,
+      "manifest_posts": 41
+    }
+  },
+  "preserved_b00_c08": true,
+  "native": {
+    "total": 335,
+    "failures": [],
+    "checks": {
+      "catalogue_30": true,
+      "fixture_installee": true,
+      "V-ANON:motif": true,
+      "V-ANON:sans_compte": true,
+      "V-FAUX:motif": true,
+      "V-FAUX:sans_compte": true,
+      "V-DEC:motif": true,
+      "V-DEC:login_email": true,
+      "V-DEC:password": true,
+      "V-DEC:role": true,
+      "V-DEC:nombre_commandes": true,
+      "V-DEC:nombre_abonnements": true,
+      "V-DEC:nombre_adhesions": true,
+      "V-DEC-FIN:motif": true,
+      "V-DEC-FIN:login_email": true,
+      "V-DEC-FIN:password": true,
+      "V-DEC-FIN:role": true,
+      "V-DEC-FIN:nombre_commandes": true,
+      "V-DEC-FIN:nombre_abonnements": true,
+      "V-DEC-FIN:nombre_adhesions": true,
+      "V-INSCRIT:motif": true,
+      "V-INSCRIT:login_email": true,
+      "V-INSCRIT:password": true,
+      "V-INSCRIT:role": true,
+      "V-INSCRIT:nombre_commandes": true,
+      "V-INSCRIT:nombre_abonnements": true,
+      "V-INSCRIT:nombre_adhesions": true,
+      "A-CARTE:motif": true,
+      "A-CARTE:login_email": true,
+      "A-CARTE:password": true,
+      "A-CARTE:role": true,
+      "A-CARTE:nombre_commandes": true,
+      "A-CARTE:nombre_abonnements": true,
+      "A-CARTE:nombre_adhesions": true,
+      "A-CARTE:commande_sans_paiement": true,
+      "A-CARTE:produit_commande": true,
+      "A-CARTE:etat_abonnement": true,
+      "A-CARTE:aucun_paiement_automatique": true,
+      "A-CARTE:parent_natif": true,
+      "A-CARTE:adhesion_lien_natif": true,
+      "A-CARTE:produit_abonnement": true,
+      "A-CARTE:prochain_paiement": true,
+      "A-CARTE:etat_adhesion": true,
+      "A-CARTE:plan_adhesion": true,
+      "A-SEPA4:motif": true,
+      "A-SEPA4:login_email": true,
+      "A-SEPA4:password": true,
+      "A-SEPA4:role": true,
+      "A-SEPA4:nombre_commandes": true,
+      "A-SEPA4:nombre_abonnements": true,
+      "A-SEPA4:nombre_adhesions": true,
+      "A-SEPA4:commande_sans_paiement": true,
+      "A-SEPA4:produit_commande": true,
+      "A-SEPA4:etat_abonnement": true,
+      "A-SEPA4:aucun_paiement_automatique": true,
+      "A-SEPA4:parent_natif": true,
+      "A-SEPA4:adhesion_lien_natif": true,
+      "A-SEPA4:produit_abonnement": true,
+      "A-SEPA4:prochain_paiement": true,
+      "A-SEPA4:etat_adhesion": true,
+      "A-SEPA4:plan_adhesion": true,
+      "A-PAYPAL:motif": true,
+      "A-PAYPAL:login_email": true,
+      "A-PAYPAL:password": true,
+      "A-PAYPAL:role": true,
+      "A-PAYPAL:nombre_commandes": true,
+      "A-PAYPAL:nombre_abonnements": true,
+      "A-PAYPAL:nombre_adhesions": true,
+      "A-PAYPAL:commande_sans_paiement": true,
+      "A-PAYPAL:produit_commande": true,
+      "A-PAYPAL:etat_abonnement": true,
+      "A-PAYPAL:aucun_paiement_automatique": true,
+      "A-PAYPAL:parent_natif": true,
+      "A-PAYPAL:adhesion_lien_natif": true,
+      "A-PAYPAL:produit_abonnement": true,
+      "A-PAYPAL:prochain_paiement": true,
+      "A-PAYPAL:etat_adhesion": true,
+      "A-PAYPAL:plan_adhesion": true,
+      "A-VIR:motif": true,
+      "A-VIR:login_email": true,
+      "A-VIR:password": true,
+      "A-VIR:role": true,
+      "A-VIR:nombre_commandes": true,
+      "A-VIR:nombre_abonnements": true,
+      "A-VIR:nombre_adhesions": true,
+      "A-VIR:commande_sans_paiement": true,
+      "A-VIR:produit_commande": true,
+      "A-VIR:etat_abonnement": true,
+      "A-VIR:aucun_paiement_automatique": true,
+      "A-VIR:parent_natif": true,
+      "A-VIR:adhesion_lien_natif": true,
+      "A-VIR:produit_abonnement": true,
+      "A-VIR:prochain_paiement": true,
+      "A-VIR:etat_adhesion": true,
+      "A-VIR:plan_adhesion": true,
+      "A-PAPIER:motif": true,
+      "A-PAPIER:login_email": true,
+      "A-PAPIER:password": true,
+      "A-PAPIER:role": true,
+      "A-PAPIER:nombre_commandes": true,
+      "A-PAPIER:nombre_abonnements": true,
+      "A-PAPIER:nombre_adhesions": true,
+      "A-PAPIER:commande_sans_paiement": true,
+      "A-PAPIER:produit_commande": true,
+      "A-PAPIER:etat_abonnement": true,
+      "A-PAPIER:aucun_paiement_automatique": true,
+      "A-PAPIER:parent_natif": true,
+      "A-PAPIER:adhesion_lien_natif": true,
+      "A-PAPIER:produit_abonnement": true,
+      "A-PAPIER:prochain_paiement": true,
+      "A-PAPIER:echeance_ce_mois": true,
+      "A-PAPIER:etat_adhesion": true,
+      "A-PAPIER:plan_adhesion": true,
+      "A-GRACE:motif": true,
+      "A-GRACE:login_email": true,
+      "A-GRACE:password": true,
+      "A-GRACE:role": true,
+      "A-GRACE:nombre_commandes": true,
+      "A-GRACE:nombre_abonnements": true,
+      "A-GRACE:nombre_adhesions": true,
+      "A-GRACE:commande_sans_paiement": true,
+      "A-GRACE:produit_commande": true,
+      "A-GRACE:etat_abonnement": true,
+      "A-GRACE:aucun_paiement_automatique": true,
+      "A-GRACE:parent_natif": true,
+      "A-GRACE:adhesion_lien_natif": true,
+      "A-GRACE:produit_abonnement": true,
+      "A-GRACE:prochain_paiement": true,
+      "A-GRACE:fenetre_grace": true,
+      "A-GRACE:etat_adhesion": true,
+      "A-GRACE:plan_adhesion": true,
+      "A-SUSP:motif": true,
+      "A-SUSP:login_email": true,
+      "A-SUSP:password": true,
+      "A-SUSP:role": true,
+      "A-SUSP:nombre_commandes": true,
+      "A-SUSP:nombre_abonnements": true,
+      "A-SUSP:nombre_adhesions": true,
+      "A-SUSP:commande_sans_paiement": true,
+      "A-SUSP:produit_commande": true,
+      "A-SUSP:etat_abonnement": true,
+      "A-SUSP:aucun_paiement_automatique": true,
+      "A-SUSP:parent_natif": true,
+      "A-SUSP:adhesion_lien_natif": true,
+      "A-SUSP:produit_abonnement": true,
+      "A-SUSP:prochain_paiement": true,
+      "A-SUSP:fenetre_grace": true,
+      "A-SUSP:etat_adhesion": true,
+      "A-SUSP:plan_adhesion": true,
+      "A-EXPIRE:motif": true,
+      "A-EXPIRE:login_email": true,
+      "A-EXPIRE:password": true,
+      "A-EXPIRE:role": true,
+      "A-EXPIRE:nombre_commandes": true,
+      "A-EXPIRE:nombre_abonnements": true,
+      "A-EXPIRE:nombre_adhesions": true,
+      "A-EXPIRE:commande_sans_paiement": true,
+      "A-EXPIRE:produit_commande": true,
+      "A-EXPIRE:etat_abonnement": true,
+      "A-EXPIRE:aucun_paiement_automatique": true,
+      "A-EXPIRE:parent_natif": true,
+      "A-EXPIRE:adhesion_lien_natif": true,
+      "A-EXPIRE:produit_abonnement": true,
+      "A-EXPIRE:prochain_paiement": true,
+      "A-EXPIRE:etat_adhesion": true,
+      "A-EXPIRE:plan_adhesion": true,
+      "A-NONRENOUV:motif": true,
+      "A-NONRENOUV:login_email": true,
+      "A-NONRENOUV:password": true,
+      "A-NONRENOUV:role": true,
+      "A-NONRENOUV:nombre_commandes": true,
+      "A-NONRENOUV:nombre_abonnements": true,
+      "A-NONRENOUV:nombre_adhesions": true,
+      "A-NONRENOUV:commande_sans_paiement": true,
+      "A-NONRENOUV:produit_commande": true,
+      "A-NONRENOUV:etat_abonnement": true,
+      "A-NONRENOUV:aucun_paiement_automatique": true,
+      "A-NONRENOUV:parent_natif": true,
+      "A-NONRENOUV:adhesion_lien_natif": true,
+      "A-NONRENOUV:produit_abonnement": true,
+      "A-NONRENOUV:prochain_paiement": true,
+      "A-NONRENOUV:etat_adhesion": true,
+      "A-NONRENOUV:plan_adhesion": true,
+      "A-ETRANGER:motif": true,
+      "A-ETRANGER:login_email": true,
+      "A-ETRANGER:password": true,
+      "A-ETRANGER:role": true,
+      "A-ETRANGER:nombre_commandes": true,
+      "A-ETRANGER:nombre_abonnements": true,
+      "A-ETRANGER:nombre_adhesions": true,
+      "A-ETRANGER:commande_sans_paiement": true,
+      "A-ETRANGER:produit_commande": true,
+      "A-ETRANGER:etat_abonnement": true,
+      "A-ETRANGER:aucun_paiement_automatique": true,
+      "A-ETRANGER:parent_natif": true,
+      "A-ETRANGER:adhesion_lien_natif": true,
+      "A-ETRANGER:produit_abonnement": true,
+      "A-ETRANGER:prochain_paiement": true,
+      "A-ETRANGER:etat_adhesion": true,
+      "A-ETRANGER:plan_adhesion": true,
+      "A-ETRANGER:port_natif_fictif": true,
+      "A-SANSMAIL:motif": true,
+      "A-SANSMAIL:login_email": true,
+      "A-SANSMAIL:password": true,
+      "A-SANSMAIL:role": true,
+      "A-SANSMAIL:nombre_commandes": true,
+      "A-SANSMAIL:nombre_abonnements": true,
+      "A-SANSMAIL:nombre_adhesions": true,
+      "A-SANSMAIL:commande_sans_paiement": true,
+      "A-SANSMAIL:produit_commande": true,
+      "A-SANSMAIL:etat_abonnement": true,
+      "A-SANSMAIL:aucun_paiement_automatique": true,
+      "A-SANSMAIL:parent_natif": true,
+      "A-SANSMAIL:adhesion_lien_natif": true,
+      "A-SANSMAIL:produit_abonnement": true,
+      "A-SANSMAIL:prochain_paiement": true,
+      "A-SANSMAIL:etat_adhesion": true,
+      "A-SANSMAIL:plan_adhesion": true,
+      "A-ECHEANCE:motif": true,
+      "A-ECHEANCE:login_email": true,
+      "A-ECHEANCE:password": true,
+      "A-ECHEANCE:role": true,
+      "A-ECHEANCE:nombre_commandes": true,
+      "A-ECHEANCE:nombre_abonnements": true,
+      "A-ECHEANCE:nombre_adhesions": true,
+      "A-ECHEANCE:commande_sans_paiement": true,
+      "A-ECHEANCE:produit_commande": true,
+      "A-ECHEANCE:etat_abonnement": true,
+      "A-ECHEANCE:aucun_paiement_automatique": true,
+      "A-ECHEANCE:parent_natif": true,
+      "A-ECHEANCE:adhesion_lien_natif": true,
+      "A-ECHEANCE:produit_abonnement": true,
+      "A-ECHEANCE:prochain_paiement": true,
+      "A-ECHEANCE:terme_30_jours": true,
+      "A-ECHEANCE:etat_adhesion": true,
+      "A-ECHEANCE:plan_adhesion": true,
+      "P-OFFRANT:motif": true,
+      "P-OFFRANT:login_email": true,
+      "P-OFFRANT:password": true,
+      "P-OFFRANT:role": true,
+      "P-OFFRANT:nombre_commandes": true,
+      "P-OFFRANT:nombre_abonnements": true,
+      "P-OFFRANT:nombre_adhesions": true,
+      "P-OFFERT:motif": true,
+      "P-OFFERT:login_email": true,
+      "P-OFFERT:password": true,
+      "P-OFFERT:role": true,
+      "P-OFFERT:nombre_commandes": true,
+      "P-OFFERT:nombre_abonnements": true,
+      "P-OFFERT:nombre_adhesions": true,
+      "P-GEST:motif": true,
+      "P-GEST:login_email": true,
+      "P-GEST:password": true,
+      "P-GEST:role": true,
+      "P-GEST:nombre_commandes": true,
+      "P-GEST:nombre_abonnements": true,
+      "P-GEST:nombre_adhesions": true,
+      "P-BENEF:motif": true,
+      "P-BENEF:login_email": true,
+      "P-BENEF:password": true,
+      "P-BENEF:role": true,
+      "P-BENEF:nombre_commandes": true,
+      "P-BENEF:nombre_abonnements": true,
+      "P-BENEF:nombre_adhesions": true,
+      "P-PRO:motif": true,
+      "P-PRO:login_email": true,
+      "P-PRO:password": true,
+      "P-PRO:role": true,
+      "P-PRO:nombre_commandes": true,
+      "P-PRO:nombre_abonnements": true,
+      "P-PRO:nombre_adhesions": true,
+      "P-SOL-ATT:motif": true,
+      "P-SOL-ATT:login_email": true,
+      "P-SOL-ATT:password": true,
+      "P-SOL-ATT:role": true,
+      "P-SOL-ATT:nombre_commandes": true,
+      "P-SOL-ATT:nombre_abonnements": true,
+      "P-SOL-ATT:nombre_adhesions": true,
+      "P-SOL-ATT:etat_adhesion": true,
+      "P-SOL-ATT:plan_adhesion": true,
+      "P-SOL-OK:motif": true,
+      "P-SOL-OK:login_email": true,
+      "P-SOL-OK:password": true,
+      "P-SOL-OK:role": true,
+      "P-SOL-OK:nombre_commandes": true,
+      "P-SOL-OK:nombre_abonnements": true,
+      "P-SOL-OK:nombre_adhesions": true,
+      "P-SOL-OK:etat_adhesion": true,
+      "P-SOL-OK:plan_adhesion": true,
+      "P-SOL-OK:fin_45_jours": true,
+      "P-NUMERO:motif": true,
+      "P-NUMERO:login_email": true,
+      "P-NUMERO:password": true,
+      "P-NUMERO:role": true,
+      "P-NUMERO:nombre_commandes": true,
+      "P-NUMERO:nombre_abonnements": true,
+      "P-NUMERO:nombre_adhesions": true,
+      "P-NUMERO:commande_sans_paiement": true,
+      "P-NUMERO:produit_commande": true,
+      "P-COOP:motif": true,
+      "P-COOP:login_email": true,
+      "P-COOP:password": true,
+      "P-COOP:role": true,
+      "P-COOP:nombre_commandes": true,
+      "P-COOP:nombre_abonnements": true,
+      "P-COOP:nombre_adhesions": true,
+      "E-ADMIN:motif": true,
+      "E-ADMIN:login_email": true,
+      "E-ADMIN:password": true,
+      "E-ADMIN:role": true,
+      "E-ADMIN:nombre_commandes": true,
+      "E-ADMIN:nombre_abonnements": true,
+      "E-ADMIN:nombre_adhesions": true,
+      "E-REDAC:motif": true,
+      "E-REDAC:login_email": true,
+      "E-REDAC:password": true,
+      "E-REDAC:role": true,
+      "E-REDAC:nombre_commandes": true,
+      "E-REDAC:nombre_abonnements": true,
+      "E-REDAC:nombre_adhesions": true,
+      "E-REDAC:contenus_calendrier": true,
+      "E-ABO:motif": true,
+      "E-ABO:login_email": true,
+      "E-ABO:password": true,
+      "E-ABO:role": true,
+      "E-ABO:nombre_commandes": true,
+      "E-ABO:nombre_abonnements": true,
+      "E-ABO:nombre_adhesions": true,
+      "E-ABO:gestion_commandes": true,
+      "aucun_compte_visiteur_robot": true,
+      "numero_entreprise_coherent_non_atteste": true,
+      "mail_coupe": true,
+      "http_coupe": true,
+      "passerelles_coupees": true,
+      "catalogue_plan_droits": true
+    },
+    "proof": {
+      "V-ANON": {
+        "user_id": 0,
+        "decision": {
+          "complet": false,
+          "motif": "anonyme",
+          "bloc": "connexion"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "V-FAUX": {
+        "user_id": 0,
+        "decision": {
+          "complet": false,
+          "motif": "anonyme",
+          "bloc": "connexion"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "V-DEC": {
+        "user_id": 6,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "V-DEC-FIN": {
+        "user_id": 7,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "V-INSCRIT": {
+        "user_id": 8,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "A-CARTE": {
+        "user_id": 9,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [
+          {
+            "id": 88,
+            "status": "on-hold",
+            "total": "0.00",
+            "customer_id": 9,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 89,
+            "parent_id": 88,
+            "customer_id": 9,
+            "status": "active",
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-11-23 14:59:41",
+            "next_payment": "2026-12-23 14:59:41",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 90,
+            "user_id": 9,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": 88,
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-11-23 14:59:41"
+          }
+        ]
+      },
+      "A-SEPA4": {
+        "user_id": 10,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [
+          {
+            "id": 91,
+            "status": "on-hold",
+            "total": "0.00",
+            "customer_id": 10,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 92,
+            "parent_id": 91,
+            "customer_id": 10,
+            "status": "active",
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-11-23 14:59:41",
+            "next_payment": "2026-12-23 14:59:41",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 93,
+            "user_id": 10,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": 91,
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-11-23 14:59:41"
+          }
+        ]
+      },
+      "A-PAYPAL": {
+        "user_id": 11,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [
+          {
+            "id": 94,
+            "status": "on-hold",
+            "total": "0.00",
+            "customer_id": 11,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 95,
+            "parent_id": 94,
+            "customer_id": 11,
+            "status": "active",
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-11-23 14:59:41",
+            "next_payment": "2026-12-23 14:59:41",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 96,
+            "user_id": 11,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": 94,
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-11-23 14:59:41"
+          }
+        ]
+      },
+      "A-VIR": {
+        "user_id": 12,
+        "decision": {
+          "complet": false,
+          "motif": "suspendu",
+          "bloc": "regularisation"
+        },
+        "orders": [
+          {
+            "id": 97,
+            "status": "on-hold",
+            "total": "0.00",
+            "customer_id": 12,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 98,
+            "parent_id": 97,
+            "customer_id": 12,
+            "status": "pending",
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-11-23 14:59:41",
+            "next_payment": "2026-12-23 14:59:41",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 99,
+            "user_id": 12,
+            "plan_id": 86,
+            "status": "pending",
+            "order_id": 97,
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-11-23 14:59:41"
+          }
+        ]
+      },
+      "A-PAPIER": {
+        "user_id": 13,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [
+          {
+            "id": 100,
+            "status": "on-hold",
+            "total": "0.00",
+            "customer_id": 13,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 101,
+            "parent_id": 100,
+            "customer_id": 13,
+            "status": "active",
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-11-23 14:59:41",
+            "next_payment": "2026-11-23 15:59:41",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 102,
+            "user_id": 13,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": 100,
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-11-23 14:59:41"
+          }
+        ]
+      },
+      "A-GRACE": {
+        "user_id": 14,
+        "decision": {
+          "complet": true,
+          "motif": "delai_grace",
+          "bloc": "regularisation"
+        },
+        "orders": [
+          {
+            "id": 103,
+            "status": "on-hold",
+            "total": "0.00",
+            "customer_id": 14,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 104,
+            "parent_id": 103,
+            "customer_id": 14,
+            "status": "on-hold",
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-11-23 14:59:41",
+            "next_payment": "2026-12-23 14:59:41",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "2026-11-22 14:59:41",
+            "grace_end": "2026-11-25 14:59:41"
+          }
+        ],
+        "memberships": [
+          {
+            "id": 105,
+            "user_id": 14,
+            "plan_id": 86,
+            "status": "paused",
+            "order_id": 103,
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-11-23 14:59:41"
+          }
+        ]
+      },
+      "A-SUSP": {
+        "user_id": 15,
+        "decision": {
+          "complet": false,
+          "motif": "suspendu",
+          "bloc": "regularisation"
+        },
+        "orders": [
+          {
+            "id": 106,
+            "status": "on-hold",
+            "total": "0.00",
+            "customer_id": 15,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 107,
+            "parent_id": 106,
+            "customer_id": 15,
+            "status": "on-hold",
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-11-23 14:59:41",
+            "next_payment": "2026-12-23 14:59:41",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "2026-11-19 14:59:41",
+            "grace_end": "2026-11-22 14:59:41"
+          }
+        ],
+        "memberships": [
+          {
+            "id": 108,
+            "user_id": 15,
+            "plan_id": 86,
+            "status": "paused",
+            "order_id": 106,
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-11-23 14:59:41"
+          }
+        ]
+      },
+      "A-EXPIRE": {
+        "user_id": 16,
+        "decision": {
+          "complet": false,
+          "motif": "expire",
+          "bloc": "abonnement"
+        },
+        "orders": [
+          {
+            "id": 109,
+            "status": "on-hold",
+            "total": "0.00",
+            "customer_id": 16,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 110,
+            "parent_id": 109,
+            "customer_id": 16,
+            "status": "expired",
+            "start": "2025-12-23 14:59:41",
+            "end": "2026-11-22 14:59:41",
+            "next_payment": 0,
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 111,
+            "user_id": 16,
+            "plan_id": 86,
+            "status": "expired",
+            "order_id": 109,
+            "start": "2025-12-23 14:59:41",
+            "end": "2026-11-22 14:59:41"
+          }
+        ]
+      },
+      "A-NONRENOUV": {
+        "user_id": 17,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [
+          {
+            "id": 112,
+            "status": "on-hold",
+            "total": "0.00",
+            "customer_id": 17,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 113,
+            "parent_id": 112,
+            "customer_id": 17,
+            "status": "pending-cancel",
+            "start": "2025-12-23 14:59:41",
+            "end": "2026-12-23 14:59:41",
+            "next_payment": 0,
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 114,
+            "user_id": 17,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": 112,
+            "start": "2025-12-23 14:59:41",
+            "end": "2026-12-23 14:59:41"
+          }
+        ]
+      },
+      "A-ETRANGER": {
+        "user_id": 18,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [
+          {
+            "id": 115,
+            "status": "on-hold",
+            "total": "0.00",
+            "customer_id": 18,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "FR"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 116,
+            "parent_id": 115,
+            "customer_id": 18,
+            "status": "active",
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-11-23 14:59:41",
+            "next_payment": "2026-12-23 14:59:41",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 117,
+            "user_id": 18,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": 115,
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-11-23 14:59:41"
+          }
+        ]
+      },
+      "A-SANSMAIL": {
+        "user_id": 19,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [
+          {
+            "id": 118,
+            "status": "on-hold",
+            "total": "0.00",
+            "customer_id": 19,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 119,
+            "parent_id": 118,
+            "customer_id": 19,
+            "status": "active",
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-11-23 14:59:41",
+            "next_payment": "2026-12-23 14:59:41",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 120,
+            "user_id": 19,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": 118,
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-11-23 14:59:41"
+          }
+        ]
+      },
+      "A-ECHEANCE": {
+        "user_id": 20,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [
+          {
+            "id": 121,
+            "status": "on-hold",
+            "total": "0.00",
+            "customer_id": 20,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 122,
+            "parent_id": 121,
+            "customer_id": 20,
+            "status": "active",
+            "start": "2025-12-23 14:59:41",
+            "end": "2026-12-23 14:59:41",
+            "next_payment": "2026-12-22 14:59:41",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 123,
+            "user_id": 20,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": 121,
+            "start": "2025-12-23 14:59:41",
+            "end": "2026-12-23 14:59:41"
+          }
+        ]
+      },
+      "P-OFFRANT": {
+        "user_id": 21,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "P-OFFERT": {
+        "user_id": 22,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "P-GEST": {
+        "user_id": 23,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "P-BENEF": {
+        "user_id": 24,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "P-PRO": {
+        "user_id": 25,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "P-SOL-ATT": {
+        "user_id": 26,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": [
+          {
+            "id": 124,
+            "user_id": 26,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": null,
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-11-23 14:59:41"
+          }
+        ]
+      },
+      "P-SOL-OK": {
+        "user_id": 27,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": [
+          {
+            "id": 125,
+            "user_id": 27,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": null,
+            "start": "2025-12-23 14:59:41",
+            "end": "2027-01-07 14:59:41"
+          }
+        ]
+      },
+      "P-NUMERO": {
+        "user_id": 28,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [
+          {
+            "id": 126,
+            "status": "on-hold",
+            "total": "0.00",
+            "customer_id": 28,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "P-COOP": {
+        "user_id": 29,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "E-ADMIN": {
+        "user_id": 30,
+        "decision": {
+          "complet": true,
+          "motif": "equipe",
+          "bloc": "aucun"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "E-REDAC": {
+        "user_id": 31,
+        "decision": {
+          "complet": true,
+          "motif": "equipe",
+          "bloc": "aucun"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "E-ABO": {
+        "user_id": 32,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      }
+    },
+    "fixture": {
+      "plan": 86,
+      "product": 87,
+      "users": {
+        "V-DEC": 6,
+        "V-DEC-FIN": 7,
+        "V-INSCRIT": 8,
+        "A-CARTE": 9,
+        "A-SEPA4": 10,
+        "A-PAYPAL": 11,
+        "A-VIR": 12,
+        "A-PAPIER": 13,
+        "A-GRACE": 14,
+        "A-SUSP": 15,
+        "A-EXPIRE": 16,
+        "A-NONRENOUV": 17,
+        "A-ETRANGER": 18,
+        "A-SANSMAIL": 19,
+        "A-ECHEANCE": 20,
+        "P-OFFRANT": 21,
+        "P-OFFERT": 22,
+        "P-GEST": 23,
+        "P-BENEF": 24,
+        "P-PRO": 25,
+        "P-SOL-ATT": 26,
+        "P-SOL-OK": 27,
+        "P-NUMERO": 28,
+        "P-COOP": 29,
+        "E-ADMIN": 30,
+        "E-REDAC": 31,
+        "E-ABO": 32
+      },
+      "orders": {
+        "A-CARTE": 88,
+        "A-SEPA4": 91,
+        "A-PAYPAL": 94,
+        "A-VIR": 97,
+        "A-PAPIER": 100,
+        "A-GRACE": 103,
+        "A-SUSP": 106,
+        "A-EXPIRE": 109,
+        "A-NONRENOUV": 112,
+        "A-ETRANGER": 115,
+        "A-SANSMAIL": 118,
+        "A-ECHEANCE": 121,
+        "P-NUMERO": 126
+      },
+      "subscriptions": {
+        "A-CARTE": 89,
+        "A-SEPA4": 92,
+        "A-PAYPAL": 95,
+        "A-VIR": 98,
+        "A-PAPIER": 101,
+        "A-GRACE": 104,
+        "A-SUSP": 107,
+        "A-EXPIRE": 110,
+        "A-NONRENOUV": 113,
+        "A-ETRANGER": 116,
+        "A-SANSMAIL": 119,
+        "A-ECHEANCE": 122
+      },
+      "memberships": {
+        "A-CARTE": 90,
+        "A-SEPA4": 93,
+        "A-PAYPAL": 96,
+        "A-VIR": 99,
+        "A-PAPIER": 102,
+        "A-GRACE": 105,
+        "A-SUSP": 108,
+        "A-EXPIRE": 111,
+        "A-NONRENOUV": 114,
+        "A-ETRANGER": 117,
+        "A-SANSMAIL": 120,
+        "A-ECHEANCE": 123,
+        "P-SOL-ATT": 124,
+        "P-SOL-OK": 125
+      }
+    }
+  },
+  "c08_regression": {
+    "checks": {
+      "adaptateur_present": true,
+      "anonyme_extrait_connexion": true,
+      "actif_natif_complet": true,
+      "grace_native_bandeau": true,
+      "connecte_sans_droit_ferme": true,
+      "article_sans_metadonnees_garde_ferme": true,
+      "objet_retourne_expurge": true,
+      "cache_objet_source_non_mute": true,
+      "filtre_contenu_direct": true,
+      "filtre_flux_direct": true,
+      "extrait_automatique_ne_lit_pas_corps": true,
+      "extrait_vide_repli_neutre": true,
+      "ancien_mot_de_passe_pas_un_droit": true,
+      "rest_brut_et_mot_de_passe_expurges": true,
+      "cache_valideurs_supprimes": true,
+      "cache_directives_privees": true,
+      "cache_apres_anonyme_complet": true,
+      "abonne_pas_de_mot_de_passe": true,
+      "configuration_invalide_fermee": true,
+      "exception_adaptateur_fermee": true,
+      "exception_adaptateur_filtre_corps_ferme": true,
+      "plan_non_designe_ferme": true,
+      "date_numero_invalide_fermee": true,
+      "onhold_sans_grace_ferme": true,
+      "grace_plan_revoque_fermee": true,
+      "bloc_suspendu_ne_promet_pas_lecture": true,
+      "xmlrpc_sans_methode_contenu": true,
+      "mail_reste_coupe": true,
+      "http_reste_coupe": true,
+      "passerelles_reste_coupees": true
+    },
+    "total": 30,
+    "failures": []
+  },
+  "native_exit": 0,
+  "status": "VERIFIED"
+}

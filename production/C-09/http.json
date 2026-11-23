@@ -1,0 +1,554 @@
+{
+  "scope": "imagine-test-demo",
+  "accounts_c09": 27,
+  "scenarios_c09": 29,
+  "accounts_c08": 3,
+  "total": 192,
+  "failures": [],
+  "evidence": {
+    "V-ANON": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_nomme": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27865,
+        "sha256": "3611679507c06b32fb129bbeb6ed37a831cd7e9820db0f99cd431d841b52102f",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": false
+    },
+    "V-FAUX": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_nomme": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27865,
+        "sha256": "3611679507c06b32fb129bbeb6ed37a831cd7e9820db0f99cd431d841b52102f",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": false
+    },
+    "V-DEC": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_nomme": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27279,
+        "sha256": "e2097aff43657db971c465692db4afdfd875349258d6dae8955491e7858d806e",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": false
+    },
+    "V-DEC-FIN": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_nomme": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27279,
+        "sha256": "e2097aff43657db971c465692db4afdfd875349258d6dae8955491e7858d806e",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": false
+    },
+    "V-INSCRIT": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_nomme": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27279,
+        "sha256": "e2097aff43657db971c465692db4afdfd875349258d6dae8955491e7858d806e",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": false
+    },
+    "A-CARTE": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_absent": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28347,
+        "sha256": "48feb0b0d476834998a91697181831c515c4c7c1e60337cfda424fd590ec7dd7",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": true
+    },
+    "A-SEPA4": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_absent": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28347,
+        "sha256": "48feb0b0d476834998a91697181831c515c4c7c1e60337cfda424fd590ec7dd7",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": true
+    },
+    "A-PAYPAL": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_absent": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28347,
+        "sha256": "48feb0b0d476834998a91697181831c515c4c7c1e60337cfda424fd590ec7dd7",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": true
+    },
+    "A-VIR": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_nomme": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27270,
+        "sha256": "7d34812e8c1ff042ed5eb1c30f48783826d805ee3d8328a2f8d606cd1d92eb4b",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": false
+    },
+    "A-PAPIER": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_absent": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28347,
+        "sha256": "48feb0b0d476834998a91697181831c515c4c7c1e60337cfda424fd590ec7dd7",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": true
+    },
+    "A-GRACE": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_nomme": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28660,
+        "sha256": "47555f027c325cb5608b8328e7a05a039267751f66a8bd1c93c21f110bf4ef37",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": true
+    },
+    "A-SUSP": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_nomme": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27270,
+        "sha256": "7d34812e8c1ff042ed5eb1c30f48783826d805ee3d8328a2f8d606cd1d92eb4b",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": false
+    },
+    "A-EXPIRE": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_nomme": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27296,
+        "sha256": "df09c73e678a5dc33bf50a810b70213292053775fc20c32b7e2169774572b43b",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": false
+    },
+    "A-NONRENOUV": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_absent": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28347,
+        "sha256": "48feb0b0d476834998a91697181831c515c4c7c1e60337cfda424fd590ec7dd7",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": true
+    },
+    "A-ETRANGER": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_absent": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28347,
+        "sha256": "48feb0b0d476834998a91697181831c515c4c7c1e60337cfda424fd590ec7dd7",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": true
+    },
+    "A-SANSMAIL": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_absent": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28347,
+        "sha256": "48feb0b0d476834998a91697181831c515c4c7c1e60337cfda424fd590ec7dd7",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": true
+    },
+    "A-ECHEANCE": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_absent": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28347,
+        "sha256": "48feb0b0d476834998a91697181831c515c4c7c1e60337cfda424fd590ec7dd7",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": true
+    },
+    "P-OFFRANT": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_nomme": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27279,
+        "sha256": "e2097aff43657db971c465692db4afdfd875349258d6dae8955491e7858d806e",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": false
+    },
+    "P-OFFERT": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_nomme": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27279,
+        "sha256": "e2097aff43657db971c465692db4afdfd875349258d6dae8955491e7858d806e",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": false
+    },
+    "P-GEST": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_nomme": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27279,
+        "sha256": "e2097aff43657db971c465692db4afdfd875349258d6dae8955491e7858d806e",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": false
+    },
+    "P-BENEF": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_nomme": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27279,
+        "sha256": "e2097aff43657db971c465692db4afdfd875349258d6dae8955491e7858d806e",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": false
+    },
+    "P-PRO": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_nomme": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27279,
+        "sha256": "e2097aff43657db971c465692db4afdfd875349258d6dae8955491e7858d806e",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": false
+    },
+    "P-SOL-ATT": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_absent": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28347,
+        "sha256": "48feb0b0d476834998a91697181831c515c4c7c1e60337cfda424fd590ec7dd7",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": true
+    },
+    "P-SOL-OK": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_absent": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28347,
+        "sha256": "48feb0b0d476834998a91697181831c515c4c7c1e60337cfda424fd590ec7dd7",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": true
+    },
+    "P-NUMERO": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_nomme": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27279,
+        "sha256": "e2097aff43657db971c465692db4afdfd875349258d6dae8955491e7858d806e",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": false
+    },
+    "P-COOP": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_nomme": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27279,
+        "sha256": "e2097aff43657db971c465692db4afdfd875349258d6dae8955491e7858d806e",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": false
+    },
+    "E-ADMIN": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_absent": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 41005,
+        "sha256": "a35e122d5bd5e9443d38005fd9f31367ea75017fe0696113a9a9478640640c0b",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": true
+    },
+    "E-REDAC": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_absent": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 35955,
+        "sha256": "d079a13587a0fb41719d076d6d65758d95130269f01bbeedbe4308aa0a4739c4",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": true
+    },
+    "E-ABO": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_nomme": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 39368,
+        "sha256": "3aa54ec49318953d6e4aff1268e960fb0de483269314a789bff3dad115a2f895",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": false
+    },
+    "C08-actif": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_absent": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28347,
+        "sha256": "48feb0b0d476834998a91697181831c515c4c7c1e60337cfda424fd590ec7dd7",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": true
+    },
+    "C08-grace": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_nomme": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28660,
+        "sha256": "47555f027c325cb5608b8328e7a05a039267751f66a8bd1c93c21f110bf4ef37",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": true
+    },
+    "C08-sans-droit": {
+      "checks": {
+        "http200": true,
+        "connexion_native": true,
+        "temoin_selon_decision": true,
+        "sans_erreur_php": true,
+        "cache_prive": true,
+        "bloc_nomme": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27279,
+        "sha256": "e2097aff43657db971c465692db4afdfd875349258d6dae8955491e7858d806e",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      },
+      "full": false
+    }
+  }
+}

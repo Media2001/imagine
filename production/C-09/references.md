@@ -1,6 +1,6 @@
 # Références officielles consultées avant l'implémentation native C09
 
-23 novembre 2026. Pages effectivement ouvertes par l'outil de recherche.
+23 novembre 2026. Pages effectivement consultées par HTTP. L'extracteur a refusé son backend search-only ; récupération directe des six pages officielles (HTTP 200), puis lecture des passages ciblés, enregistrées sous `references/`.
 
 - WooCommerce CRUD : https://developer.woocommerce.com/docs/best-practices/data-management/crud-objects/ — objets, setters et save(), abstraction du stockage HPOS. Aucun SQL d'écriture de commande.
 - Subscriptions : https://woocommerce.com/document/subscriptions/develop/functions/ — get_date(), update_dates() en GMT, dates interdépendantes, modes de renouvellement.

@@ -34,6 +34,31 @@ class C09Scope(unittest.TestCase):
             self.assertEqual(code.lower(), account['login'])
             self.assertGreaterEqual(len(account['password']), 24)
 
+    def test_fusion_refuse_identifiants_corrompus_sans_reparation(self):
+        import profils
+        for account in [{'login': 'AUTRE', 'password': 'x' * 32}, {'login': 'a-carte', 'password': 'court'}]:
+            with self.subTest(account=account['login']), self.assertRaises(ValueError):
+                profils.merge_credentials({'c09_accounts': {'A-CARTE': account}})
+
+    def test_refus_cible_avant_tout_transport(self):
+        import profils
+        from unittest.mock import patch
+        with patch.object(profils.b00, 'request_api', side_effect=AssertionError('Transport interdit')) as transport:
+            for target in ['imagine-test-autre', 'production', None, 'imagine-test-demo/../autre']:
+                with self.assertRaises(ValueError):
+                    profils.run(slug=target)
+            transport.assert_not_called()
+
+    def test_http_interdit_redirections_hors_demo(self):
+        spec = importlib.util.spec_from_file_location('http_c09', Path(__file__).with_name('c09-http.py'))
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        for url in ['https://example.org', 'http://192.168.129.32:8086/', 'http://localhost:7000/', 'https://192.168.129.32:8085/']:
+            with self.subTest(url=url), self.assertRaises(ValueError):
+                module.OnlyDemoRedirect().redirect_request(None, None, 302, '', {}, url)
+        with self.assertRaises(ValueError):
+            module.fetch(None, '//example.org/')
+
     def test_identifiants_dans_depot_refuses(self):
         import profils
         with self.assertRaises(ValueError):
