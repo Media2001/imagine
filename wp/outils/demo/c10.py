@@ -1,0 +1,61 @@
+"""C10 : déploiement ciblé des adaptateurs, jamais de reconstruction B00."""
+from pathlib import Path
+import argparse
+import hashlib
+import json
+from datetime import datetime, timezone
+import c08
+import construire as b00
+
+ROOT = b00.ROOT
+PROOF = ROOT / 'production/C-10'
+FILES = [
+    'plugins/imagine-pilotage/imagine-reglages.php',
+    'plugins/imagine-pilotage/src/Administration/Reglages.php',
+    'plugins/imagine-pilotage/src/Acces/AdministrationReglages.php',
+    'plugins/imagine-pilotage/src/Echeancier/ReglagesAdministration.php',
+    'plugins/imagine-pilotage/src/Envoi/AdministrationFormatExport.php',
+]
+
+
+def snapshot():
+    code = '''$out=[];foreach(['imagine_c08_fixture','imagine_c09_fixture','imagine_demo_manifest','imagine_acces_plans'] as $k){$out[$k]=get_option($k);}global $wpdb;$out['users']=$wpdb->get_results("SELECT ID,user_login,user_pass FROM {$wpdb->users} ORDER BY ID",ARRAY_A);$out['posts']=$wpdb->get_results("SELECT ID,post_type,post_status,post_content,post_password FROM {$wpdb->posts} ORDER BY ID",ARRAY_A);$out['safety']=hash_file('sha256',WPMU_PLUGIN_DIR . '/imagine-demo-offline.php');$out['site']=hash_file('sha256',WP_PLUGIN_DIR . '/imagine-site/imagine-site.php');$out['paywall']=hash_file('sha256',WP_PLUGIN_DIR . '/imagine-site/Paywall.php');$closed=[];foreach(['imagine-pilotage','imagine-connecteur'] as $dir){foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator(WP_PLUGIN_DIR . '/' . $dir . '/src',FilesystemIterator::SKIP_DOTS)) as $f){$p=$f->getPathname();if(str_contains($p,'/Administration/')||in_array($f->getFilename(),['AdministrationReglages.php','ReglagesAdministration.php','AdministrationFormatExport.php'],true)){continue;}$closed[$p]=hash_file('sha256',$p);}}ksort($closed);$out['closed']=$closed;echo hash('sha256',wp_json_encode($out));'''
+    return b00.wp('eval', code)['stdout'].strip()
+
+
+def run(tests_only=False):
+    site, before = c08.guard()
+    PROOF.mkdir(parents=True, exist_ok=True)
+    protected = snapshot()
+    files = {} if tests_only else {rel: ROOT / 'wp' / rel for rel in FILES}
+    files['imagine-demo-build/c10-runtime.php'] = ROOT / 'wp/tests/demo/c10-runtime.php'
+    hashes = {}
+    for rel, source in files.items():
+        data = source.read_bytes()
+        hashes[rel] = hashlib.sha256(data).hexdigest()
+        b00.upload(rel, data)
+    code = '$files=json_decode(' + json.dumps(json.dumps(list(files))) + ',true);$out=[];foreach($files as $f){$p=WP_CONTENT_DIR . "/" . $f;token_get_all(file_get_contents($p),TOKEN_PARSE);$out[$f]=hash_file("sha256",$p);}echo wp_json_encode($out);'
+    actual = json.loads(b00.wp('eval', code)['stdout'])
+    if hashes != actual:
+        raise RuntimeError('Readback divergent.')
+    if not tests_only:
+        b00.wp('plugin', 'activate', 'imagine-pilotage/imagine-reglages.php')
+        active = json.loads(b00.wp('eval', 'echo wp_json_encode(is_plugin_active("imagine-pilotage/imagine-reglages.php"));')['stdout'])
+        if not active:
+            raise RuntimeError('Activation non relue.')
+    runtime = b00.wp('eval', 'require WP_CONTENT_DIR . "/imagine-demo-build/c10-runtime.php";', check=False)
+    record = {'scope': site['slug'], 'at': datetime.now(timezone.utc).isoformat(), 'url': site['url'],
+              'files_sha256': actual, 'file_count': len(actual), 'runtime': runtime,
+              'protected_before': protected, 'protected_after': snapshot(),
+              'manifest_unchanged': before == c08.guard()[1]}
+    record['status'] = 'VERIFIED' if runtime['code'] == 0 and record['protected_before'] == record['protected_after'] and record['manifest_unchanged'] else 'RED' if tests_only else 'FAILED'
+    (PROOF / ('red-runtime.json' if tests_only else 'installation.json')).write_text(json.dumps(record, ensure_ascii=False, indent=2), encoding='utf-8')
+    print(json.dumps(record, ensure_ascii=False, indent=2))
+    if record['status'] != 'VERIFIED':
+        raise SystemExit(1)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--tests-only', action='store_true')
+    run(parser.parse_args().tests_only)
