@@ -51,6 +51,15 @@ if (is_file($subject)) {
         $gateway = '<?php class Gateway extends WC_Payment_Gateway { const ID = "bacs"; function x() { $this->id = self::ID; } }';
         check('gateway_literal_constant', \Imagine\Audit\Audit::gatewayIds($gateway) === ['bacs']);
         check('nongateway_id_ignored', \Imagine\Audit\Audit::gatewayIds('<?php class Hook { function x(WC_Payment_Gateway $g) { $this->id = "not_a_gateway"; } }') === []);
+        $gatewaySources = [
+            'base.php' => '<?php namespace A02; abstract class Base extends \\WC_Payment_Gateway { const ID = "indirect"; }',
+            'child.php' => '<?php namespace A02; class Concrete extends Base { function x() { $this->id = self::ID; } } class Unrelated { function x() { $this->id = "not_gateway"; } }',
+            'dynamic.php' => '<?php class DynamicGateway extends WC_Payment_Gateway { function x() { $this->id = getenv("NO_EXECUTE"); } } class MissingGateway extends MissingBase { function x() { $this->id = "uncertain"; } }',
+        ];
+        $inventory = method_exists(\Imagine\Audit\Audit::class, 'gatewayInventory')
+            ? \Imagine\Audit\Audit::gatewayInventory($gatewaySources) : ['ids' => [], 'unresolved' => []];
+        check('gateway_indirect_cross_file_inherited_constant', $inventory['ids'] === ['indirect']);
+        check('gateway_unresolved_explicit', count($inventory['unresolved']) === 2);
         \Imagine\Audit\Audit::decode(serialize(['nested' => new WakeCanary()]));
         check('nested_object_magic_not_called', WakeCanary::$woke === false);
         check('malformed_serialization_empty', \Imagine\Audit\Audit::decode('not serialized') === []);
