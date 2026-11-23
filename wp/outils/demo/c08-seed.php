@@ -85,7 +85,8 @@ foreach (['article' => 'Extrait public C08 : une histoire entièrement fictive, 
     $id = wp_insert_post(['ID' => (int) ($old[$key] ?? 0), 'post_type' => 'post', 'post_status' => 'publish',
         'post_title' => 'C08 — Article réservé fictif ' . $key, 'post_name' => 'c08-article-reserve-' . $key,
         'post_date' => '2026-01-01 12:00:00', 'post_date_gmt' => '2026-01-01 11:00:00',
-        'post_content' => $body, 'post_excerpt' => $excerpt, 'post_password' => $secret['article_password'],
+        'post_content' => $key === 'automatique' ? str_replace($witness, 'Les lanternes argentées de C08 composent un autre récit fictif.', $body) : $body,
+        'post_excerpt' => $excerpt, 'post_password' => $secret['article_password'],
         'comment_status' => 'closed', 'ping_status' => 'closed', 'meta_input' => [
             'imagine_numero_id' => $number, 'imagine_reserve' => '1', 'imagine_c08_fixture' => $key]], true);
     if (is_wp_error($id)) { throw new \RuntimeException('Article C08 non créé.'); }

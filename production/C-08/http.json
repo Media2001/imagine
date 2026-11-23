@@ -1,13 +1,16 @@
 {
   "scope": "imagine-test-demo",
   "url": "http://192.168.129.32:8085",
-  "total": 187,
-  "passed": 187,
-  "failed": 0,
-  "failures": [],
+  "total": 229,
+  "passed": 228,
+  "failed": 1,
+  "failures": [
+    "recherche:fixture_effectivement_presente"
+  ],
   "checks": {
     "anonyme-page:status": true,
     "anonyme-page:temoin": true,
+    "anonyme-page:autre_temoin_absent": true,
     "anonyme-page:sans_erreur_php": true,
     "anonyme-page:cache_prive": true,
     "anonyme-page:sans_validateur_partage": true,
@@ -18,121 +21,152 @@
     "partage:balisage_payant": true,
     "rest-item:status": true,
     "rest-item:temoin": true,
+    "rest-item:autre_temoin_absent": true,
     "rest-item:sans_erreur_php": true,
     "rest-item:cache_prive": true,
     "rest-item:sans_validateur_partage": true,
     "rest-collection:status": true,
     "rest-collection:temoin": true,
+    "rest-collection:autre_temoin_absent": true,
     "rest-collection:sans_erreur_php": true,
     "rest-collection:cache_prive": true,
     "rest-collection:sans_validateur_partage": true,
+    "rest-collection:fixture_effectivement_presente": true,
     "rest-champs:status": true,
     "rest-champs:temoin": true,
+    "rest-champs:autre_temoin_absent": true,
     "rest-champs:sans_erreur_php": true,
     "rest-champs:cache_prive": true,
     "rest-champs:sans_validateur_partage": true,
     "rest-embed:status": true,
     "rest-embed:temoin": true,
+    "rest-embed:autre_temoin_absent": true,
     "rest-embed:sans_erreur_php": true,
     "rest-embed:cache_prive": true,
     "rest-embed:sans_validateur_partage": true,
     "rest-route-alternative:status": true,
     "rest-route-alternative:temoin": true,
+    "rest-route-alternative:autre_temoin_absent": true,
     "rest-route-alternative:sans_erreur_php": true,
     "rest-route-alternative:cache_prive": true,
     "rest-route-alternative:sans_validateur_partage": true,
     "rest-recherche:status": true,
     "rest-recherche:temoin": true,
+    "rest-recherche:autre_temoin_absent": true,
     "rest-recherche:sans_erreur_php": true,
     "rest-recherche:cache_prive": true,
     "rest-recherche:sans_validateur_partage": true,
     "rss2:status": true,
     "rss2:temoin": true,
+    "rss2:autre_temoin_absent": true,
     "rss2:sans_erreur_php": true,
     "rss2:cache_prive": true,
     "rss2:sans_validateur_partage": true,
+    "rss2:fixture_effectivement_presente": true,
     "rss:status": true,
     "rss:temoin": true,
+    "rss:autre_temoin_absent": true,
     "rss:sans_erreur_php": true,
     "rss:cache_prive": true,
     "rss:sans_validateur_partage": true,
+    "rss:fixture_effectivement_presente": true,
     "atom:status": true,
     "atom:temoin": true,
+    "atom:autre_temoin_absent": true,
     "atom:sans_erreur_php": true,
     "atom:cache_prive": true,
     "atom:sans_validateur_partage": true,
+    "atom:fixture_effectivement_presente": true,
     "rdf:status": true,
     "rdf:temoin": true,
+    "rdf:autre_temoin_absent": true,
     "rdf:sans_erreur_php": true,
     "rdf:cache_prive": true,
     "rdf:sans_validateur_partage": true,
+    "rdf:fixture_effectivement_presente": true,
     "recherche:status": true,
     "recherche:temoin": true,
+    "recherche:autre_temoin_absent": true,
     "recherche:sans_erreur_php": true,
     "recherche:cache_prive": true,
     "recherche:sans_validateur_partage": true,
+    "recherche:fixture_effectivement_presente": false,
     "extrait-automatique:status": true,
     "extrait-automatique:temoin": true,
+    "extrait-automatique:autre_temoin_absent": true,
     "extrait-automatique:sans_erreur_php": true,
     "extrait-automatique:cache_prive": true,
     "extrait-automatique:sans_validateur_partage": true,
+    "extrait-automatique:repli_neutre": true,
     "embed-page:status": true,
     "embed-page:temoin": true,
+    "embed-page:autre_temoin_absent": true,
     "embed-page:sans_erreur_php": true,
     "embed-page:cache_prive": true,
     "embed-page:sans_validateur_partage": true,
     "apercu:status": true,
     "apercu:temoin": true,
+    "apercu:autre_temoin_absent": true,
     "apercu:sans_erreur_php": true,
     "apercu:cache_prive": true,
     "apercu:sans_validateur_partage": true,
     "page-multipage:status": true,
     "page-multipage:temoin": true,
+    "page-multipage:autre_temoin_absent": true,
     "page-multipage:sans_erreur_php": true,
     "page-multipage:cache_prive": true,
     "page-multipage:sans_validateur_partage": true,
     "page-amp-inactif:status": true,
     "page-amp-inactif:temoin": true,
+    "page-amp-inactif:autre_temoin_absent": true,
     "page-amp-inactif:sans_erreur_php": true,
     "page-amp-inactif:cache_prive": true,
     "page-amp-inactif:sans_validateur_partage": true,
     "oembed:status": true,
     "oembed:temoin": true,
+    "oembed:autre_temoin_absent": true,
     "oembed:sans_erreur_php": true,
     "oembed:cache_prive": true,
     "oembed:sans_validateur_partage": true,
     "rest-contexte-edition-interdit:status": true,
     "rest-contexte-edition-interdit:temoin": true,
+    "rest-contexte-edition-interdit:autre_temoin_absent": true,
     "rest-contexte-edition-interdit:sans_erreur_php": true,
     "rest-contexte-edition-interdit:cache_prive": true,
     "rest-contexte-edition-interdit:sans_validateur_partage": true,
     "rest-revisions-interdites:status": true,
     "rest-revisions-interdites:temoin": true,
+    "rest-revisions-interdites:autre_temoin_absent": true,
     "rest-revisions-interdites:sans_erreur_php": true,
     "rest-revisions-interdites:cache_prive": true,
     "rest-revisions-interdites:sans_validateur_partage": true,
     "faux-googlebot:status": true,
     "faux-googlebot:temoin": true,
+    "faux-googlebot:autre_temoin_absent": true,
     "faux-googlebot:sans_erreur_php": true,
     "faux-googlebot:cache_prive": true,
     "faux-googlebot:sans_validateur_partage": true,
     "faux-bingbot:status": true,
     "faux-bingbot:temoin": true,
+    "faux-bingbot:autre_temoin_absent": true,
     "faux-bingbot:sans_erreur_php": true,
     "faux-bingbot:cache_prive": true,
     "faux-bingbot:sans_validateur_partage": true,
     "conditionnelle-anonyme:status": true,
     "conditionnelle-anonyme:temoin": true,
+    "conditionnelle-anonyme:autre_temoin_absent": true,
     "conditionnelle-anonyme:sans_erreur_php": true,
     "conditionnelle-anonyme:cache_prive": true,
     "conditionnelle-anonyme:sans_validateur_partage": true,
     "conditionnelle-flux:status": true,
     "conditionnelle-flux:temoin": true,
+    "conditionnelle-flux:autre_temoin_absent": true,
     "conditionnelle-flux:sans_erreur_php": true,
     "conditionnelle-flux:cache_prive": true,
     "conditionnelle-flux:sans_validateur_partage": true,
     "actif-page:status": true,
     "actif-page:temoin": true,
+    "actif-page:autre_temoin_absent": true,
     "actif-page:sans_erreur_php": true,
     "actif-page:cache_prive": true,
     "actif-page:sans_validateur_partage": true,
@@ -140,16 +174,19 @@
     "actif:nonce_natif": true,
     "actif-rest:status": true,
     "actif-rest:temoin": true,
+    "actif-rest:autre_temoin_absent": true,
     "actif-rest:sans_erreur_php": true,
     "actif-rest:cache_prive": true,
     "actif-rest:sans_validateur_partage": true,
     "anonyme-apres-actif:status": true,
     "anonyme-apres-actif:temoin": true,
+    "anonyme-apres-actif:autre_temoin_absent": true,
     "anonyme-apres-actif:sans_erreur_php": true,
     "anonyme-apres-actif:cache_prive": true,
     "anonyme-apres-actif:sans_validateur_partage": true,
     "grace-page:status": true,
     "grace-page:temoin": true,
+    "grace-page:autre_temoin_absent": true,
     "grace-page:sans_erreur_php": true,
     "grace-page:cache_prive": true,
     "grace-page:sans_validateur_partage": true,
@@ -157,16 +194,19 @@
     "grace:nonce_natif": true,
     "grace-rest:status": true,
     "grace-rest:temoin": true,
+    "grace-rest:autre_temoin_absent": true,
     "grace-rest:sans_erreur_php": true,
     "grace-rest:cache_prive": true,
     "grace-rest:sans_validateur_partage": true,
     "anonyme-apres-grace:status": true,
     "anonyme-apres-grace:temoin": true,
+    "anonyme-apres-grace:autre_temoin_absent": true,
     "anonyme-apres-grace:sans_erreur_php": true,
     "anonyme-apres-grace:cache_prive": true,
     "anonyme-apres-grace:sans_validateur_partage": true,
     "sans-droit-page:status": true,
     "sans-droit-page:temoin": true,
+    "sans-droit-page:autre_temoin_absent": true,
     "sans-droit-page:sans_erreur_php": true,
     "sans-droit-page:cache_prive": true,
     "sans-droit-page:sans_validateur_partage": true,
@@ -174,21 +214,25 @@
     "sans-droit:nonce_natif": true,
     "sans-droit-rest:status": true,
     "sans-droit-rest:temoin": true,
+    "sans-droit-rest:autre_temoin_absent": true,
     "sans-droit-rest:sans_erreur_php": true,
     "sans-droit-rest:cache_prive": true,
     "sans-droit-rest:sans_validateur_partage": true,
     "anonyme-apres-sans-droit:status": true,
     "anonyme-apres-sans-droit:temoin": true,
+    "anonyme-apres-sans-droit:autre_temoin_absent": true,
     "anonyme-apres-sans-droit:sans_erreur_php": true,
     "anonyme-apres-sans-droit:cache_prive": true,
     "anonyme-apres-sans-droit:sans_validateur_partage": true,
     "cookie-mot-de-passe-non-droit:status": true,
     "cookie-mot-de-passe-non-droit:temoin": true,
+    "cookie-mot-de-passe-non-droit:autre_temoin_absent": true,
     "cookie-mot-de-passe-non-droit:sans_erreur_php": true,
     "cookie-mot-de-passe-non-droit:cache_prive": true,
     "cookie-mot-de-passe-non-droit:sans_validateur_partage": true,
     "article-ouvert:status": true,
     "article-ouvert:temoin": true,
+    "article-ouvert:autre_temoin_absent": true,
     "article-ouvert:sans_erreur_php": true,
     "article-ouvert:cache_prive": true,
     "article-ouvert:sans_validateur_partage": true,
@@ -215,7 +259,7 @@
         "vary": "Origin"
       },
       "bytes": 2279,
-      "body_sha256": "327d6aa394c33953cd2dc9e31277d9c21bafc1447acabcbc3cf9ca0e16c3986f"
+      "body_sha256": "b7b1e3ef261886d146f1fd4dbcbdd20ae41444a9152cf872c0132d3a769183ef"
     },
     "rest-collection": {
       "path": "/wp-json/wp/v2/posts?include=81%2C82&_embed=1",
@@ -226,7 +270,7 @@
         "vary": "Origin"
       },
       "bytes": 6051,
-      "body_sha256": "6b0984acb3a496c64220008671dd789d4c64487873cf0066199fceb2942eb108"
+      "body_sha256": "3b4e5e89edd993cef76a735de473ec564f47bb86299b002ca79458e3e0d28b52"
     },
     "rest-champs": {
       "path": "/wp-json/wp/v2/posts/81?_fields=content,excerpt",
@@ -259,7 +303,7 @@
         "vary": "Origin"
       },
       "bytes": 2279,
-      "body_sha256": "327d6aa394c33953cd2dc9e31277d9c21bafc1447acabcbc3cf9ca0e16c3986f"
+      "body_sha256": "b7b1e3ef261886d146f1fd4dbcbdd20ae41444a9152cf872c0132d3a769183ef"
     },
     "rest-recherche": {
       "path": "/wp-json/wp/v2/search?search=C08",
@@ -281,7 +325,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 13379,
-      "body_sha256": "379a1c18dcf7984ba98d78e878a1b3bf5cef383077ce15a0197b846f8f9552a3"
+      "body_sha256": "574cf3417f81b7aef8c1667c0fedcb9ea0e2606cd5792b7a70f56fc73516a992"
     },
     "rss": {
       "path": "/?feed=rss",
@@ -292,7 +336,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 3176,
-      "body_sha256": "546cf6e18782a749571c77529cd2bafb5223c5eee6902888c189f39b3211b62f"
+      "body_sha256": "876e1745e21d6a782a2f914572ecccd8d1e37713c5a4f4ec923188a2695370f4"
     },
     "atom": {
       "path": "/?feed=atom",
@@ -303,7 +347,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 14652,
-      "body_sha256": "815cf89c365238d9a7d01156a5a2681b3938533e511b395daff4327d82b1509e"
+      "body_sha256": "66ee87070c69b6cdf60dd242cfd8a142b85e5d72cc8551c1079e033d7cd5a32c"
     },
     "rdf": {
       "path": "/?feed=rdf",
@@ -314,7 +358,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 13373,
-      "body_sha256": "15dbd5e7be019d826fd4ec63e2e2e1afcd24ba9ec0196f51d421f16a93ab5694"
+      "body_sha256": "623270467f196db0d630f5e05e2034f7606181caca157a985f0c46cd2c9ea649"
     },
     "recherche": {
       "path": "/?s=C08",
@@ -347,7 +391,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 20242,
-      "body_sha256": "8a03f978b6abdbb14c1c4d33edc7d832c9479cb9088840034d586ca577f06088"
+      "body_sha256": "6b6e7104e650ee8848d74491eab33548e4cfa95e4356f58726e2514ba8890980"
     },
     "apercu": {
       "path": "/?p=81&preview=true",
@@ -457,7 +501,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 13379,
-      "body_sha256": "379a1c18dcf7984ba98d78e878a1b3bf5cef383077ce15a0197b846f8f9552a3"
+      "body_sha256": "574cf3417f81b7aef8c1667c0fedcb9ea0e2606cd5792b7a70f56fc73516a992"
     },
     "actif-page": {
       "path": "/c08-article-reserve-article/",
@@ -479,7 +523,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 3764,
-      "body_sha256": "dd34e1093d31a561c96bfa93e69a8a122762a448ede2467697cf5179ac01f904"
+      "body_sha256": "b7eb3c85da66e59a393ac6906922e09553e7eb6ea63b30e65c32139b21bf63c3"
     },
     "anonyme-apres-actif": {
       "path": "/c08-article-reserve-article/",
@@ -512,7 +556,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 3764,
-      "body_sha256": "dd34e1093d31a561c96bfa93e69a8a122762a448ede2467697cf5179ac01f904"
+      "body_sha256": "b7eb3c85da66e59a393ac6906922e09553e7eb6ea63b30e65c32139b21bf63c3"
     },
     "anonyme-apres-grace": {
       "path": "/c08-article-reserve-article/",
@@ -545,7 +589,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 2279,
-      "body_sha256": "327d6aa394c33953cd2dc9e31277d9c21bafc1447acabcbc3cf9ca0e16c3986f"
+      "body_sha256": "b7b1e3ef261886d146f1fd4dbcbdd20ae41444a9152cf872c0132d3a769183ef"
     },
     "anonyme-apres-sans-droit": {
       "path": "/c08-article-reserve-article/",

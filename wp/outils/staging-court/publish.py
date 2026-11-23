@@ -450,6 +450,22 @@ def read_admin_password(from_stdin):
         raise RuntimeError('ADMIN_PASSWORD_REFUSED') from None
 
 
+def refusal_summary(result):
+    """Closed console summary: never use raw exception text or archive names."""
+    values = []
+    for case in result.get('cases', []):
+        gate = case.get('archive_core_preflight', {})
+        detail = gate.get('detail') if gate.get('ok') is False else None
+        if detail is None:
+            detail = case.get('offline_failure', {}).get('detail')
+        if detail:
+            first = next(iter(detail.get('locations', [])), {})
+            values.append({'code': detail['code'], 'count': detail['count'],
+                           'first_zone': first.get('zone', '(indeterminee)'),
+                           'extension': first.get('extension', '(autre)')})
+    return values
+
+
 def main():
     parser = argparse.ArgumentParser(description='A-01 : archive → vérification hors ligne → publication dans un site imagine-test-…')
     group = parser.add_mutually_exclusive_group(required=True)
@@ -752,7 +768,8 @@ except Exception as e: print(json.dumps({'reachable':False,'error_class':type(e)
         result['command_sources'] = {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
                                       for p in sorted(HERE.glob('*.py')) + sorted(HERE.glob('*.php'))}
         (out / 'result.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
-    print(json.dumps({'status': result['status'], 'report': str(out / 'result.json')}))
+    print(json.dumps({'status': result['status'], 'report': str(out / 'result.json'),
+                      'refusals': refusal_summary(result)}))
     return 0 if result['status'] == 'PASS' else 1
 
 

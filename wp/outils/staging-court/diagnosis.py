@@ -227,30 +227,44 @@ def diagnose(stream, expected='6.9.1', decisions=None, php='8.2'):
         if relative.startswith('plugins/') and relative.endswith('.php'):
             plugins.append((relative, head.decode('utf-8', 'replace').replace('\r', '\n')))
         tail, head, dangerous = b'', b'', False
-    scan = audit(stream, retain_sql=True, on_chunk=observe)
-    # Preserve traversal order and precise original counts from the archive pass.
-    archive_rules = scan['report']['rules']
-    findings.rules = {**{r['code']: r for r in archive_rules}, **findings.rules}
     version = None
+    manifest_count = sql_count = 0
     expected_valid = isinstance(expected, str) and re.fullmatch(r'[0-9]+\.[0-9]+(?:\.[0-9]+)?', expected)
     if not expected_valid:
         findings.add('EXPECTED_CORE_VERSION_REFUSED')
-    try:
-        version = select_version(scan['package'])
-        if expected_valid and version != expected:
-            findings.add('SOURCE_EXPECTED_CORE_VERSION_MISMATCH', 'package.json')
-    except Refusal as error:
-        findings.add(str(error), 'package.json')
-    except (AttributeError, IndexError, RecursionError):
-        findings.add('SOURCE_CORE_METADATA_REFUSED', 'package.json')
-    if scan['package'] is not None:
+
+    def metadata_entry(relative, payload):
+        nonlocal version, manifest_count, sql_count
+        if relative == 'database.sql':
+            sql_count += 1
+            sql_diagnosis(payload, findings, decisions)
+            return
+        manifest_count += 1
         try:
-            metadata = json.loads(scan['package'])
+            source_version = select_version(payload)
+            if version is None:
+                version = source_version
+            if expected_valid and source_version != expected:
+                findings.add('SOURCE_EXPECTED_CORE_VERSION_MISMATCH', 'package.json')
+        except Refusal as error:
+            findings.add(str(error), 'package.json')
+        except (AttributeError, IndexError, RecursionError):
+            findings.add('SOURCE_CORE_METADATA_REFUSED', 'package.json')
+        try:
+            metadata = json.loads(payload)
             if isinstance(metadata, dict) and any(key in metadata for key in ('Multisite', 'Network')):
                 findings.add('MULTISITE_METADATA_REVIEW_REQUIRED', blocking=False)
         except (ValueError, TypeError, RecursionError):
             pass
-    sql_diagnosis(scan['sql'], findings, decisions)
+
+    scan = audit(stream, retain_sql=True, on_chunk=observe, on_metadata=metadata_entry)
+    # Preserve traversal order and precise original counts from the archive pass.
+    archive_rules = scan['report']['rules']
+    findings.rules = {**{r['code']: r for r in archive_rules}, **findings.rules}
+    if not manifest_count:
+        findings.add('SOURCE_CORE_METADATA_REFUSED', 'package.json')
+    if not sql_count:
+        sql_diagnosis(None, findings, decisions)
     for relative, header in plugins:
         prefix = r'^(?:[ \t]*<\?php)?[ \t\/*#@]*'
         if not re.search(prefix + 'Plugin Name:', header, re.M | re.I):

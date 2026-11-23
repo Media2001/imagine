@@ -416,6 +416,22 @@ runpy.run_path(SCRIPT,run_name='__main__')
         self.assertIn('SQL_GRAMMAR',report['blockers'])
         self.assertNotIn('ALICE',json.dumps(report))
         self.assertIn('SQL_ANALYSIS_PARTIAL',report['warnings'])
+    def test_duplicate_metadata_does_not_hide_first_payload_findings(self):
+        import diagnosis
+        sql_one = b'CREATE TABLE `wp_options` (`id` bigint) ENGINE=InnoDB;CREATE TABLE `wp_fiction_one` (`email` text) ENGINE=InnoDB;'
+        sql_two = b'CREATE TABLE `wp_options` (`id` bigint) ENGINE=InnoDB;CREATE TABLE `wp_fiction_two` (`phone` text) ENGINE=InnoDB;'
+        report = diagnosis.diagnose(io.BytesIO(fixture([('package.json',b'{}'),('database.sql',sql_one),('package.json',b'{}'),('database.sql',sql_two)])))
+        rules = {r['code']:r for r in report['rules']}
+        self.assertEqual(2,rules['ARCHIVE_PATH_DUPLICATE']['count'])
+        self.assertEqual(2,rules['SOURCE_CORE_METADATA_REFUSED']['count'])
+        self.assertEqual(2,rules['TABLE_PERSONNELLE_A_TRANCHER']['count'])
+        self.assertEqual({'wp_fiction_one','wp_fiction_two'},{loc['table'] for loc in rules['TABLE_PERSONNELLE_A_TRANCHER']['locations']})
+    def test_ordinary_console_names_rule_count_and_first_zone(self):
+        import publish
+        self.assertTrue(hasattr(publish,'refusal_summary'),'Résumé exploitable du refus console manquant')
+        detail = {'code':'ARCHIVE_PATH_BACKSLASH','count':2,'locations':[{'zone':'uploads/2026','extension':'.jpg','count':2}]}
+        result = {'cases':[{'archive_core_preflight':{'ok':False,'code':'ARCHIVE_PATH_BACKSLASH','detail':detail}}]}
+        self.assertEqual([{'code':'ARCHIVE_PATH_BACKSLASH','count':2,'first_zone':'uploads/2026','extension':'.jpg'}], publish.refusal_summary(result))
 
 
 if __name__ == '__main__':

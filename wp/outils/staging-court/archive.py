@@ -81,7 +81,7 @@ def path_rules(relative, seen, folded, directories):
     return rules
 
 
-def audit(stream, max_bytes=1024*1024*1024, max_entries=150000, retain_sql=False, on_chunk=None):
+def audit(stream, max_bytes=1024*1024*1024, max_entries=150000, retain_sql=False, on_chunk=None, on_metadata=None):
     """One bounded streaming pass, inert bytes only, no filesystem writes.
 
     Broken framing/unsafe length cannot be resynchronised: record incomplete
@@ -150,9 +150,15 @@ def audit(stream, max_bytes=1024*1024*1024, max_entries=150000, retain_sql=False
         if on_chunk is not None:
             on_chunk(relative, b'', True)
         if relative == 'package.json' and not metadata_limited:
-            package = b''.join(chunks)
+            if on_metadata is not None:
+                on_metadata(relative, b''.join(chunks))
+            else:
+                package = b''.join(chunks)
         elif relative == 'database.sql' and retain_sql and not metadata_limited:
-            sql = b''.join(chunks)
+            if on_metadata is not None:
+                on_metadata(relative, b''.join(chunks))
+            else:
+                sql = b''.join(chunks)
         if entries > max_entries:
             break
     return {'report': findings.report(entries, complete), 'package': package, 'sql': sql}

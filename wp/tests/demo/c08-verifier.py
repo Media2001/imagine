@@ -12,6 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'outils/demo'))
 import c08
 
 WITNESS = 'Les lucioles violettes de C08 gardent le secret du village fictif.'
+AUTO_WITNESS = 'Les lanternes argentées de C08 composent un autre récit fictif.'
 
 
 class Sharing(HTMLParser):
@@ -74,6 +75,7 @@ def verify(label='http'):
         responses[name] = {'path': path, **meta}
         checks[name + ':status'] = meta['status'] in expected
         checks[name + ':temoin'] = (WITNESS in text) == full
+        checks[name + ':autre_temoin_absent'] = AUTO_WITNESS not in text
         checks[name + ':sans_erreur_php'] = not any(x in text for x in ['Fatal error', 'critical error', 'Warning:', 'Uncaught Error'])
         cc = meta['headers'].get('cache-control', '').lower()
         checks[name + ':cache_prive'] = 'private' in cc and 'no-store' in cc and 'no-cache' in cc
@@ -107,7 +109,13 @@ def verify(label='http'):
         'page-multipage': article + '?page=2', 'page-amp-inactif': article + '?amp=1',
     }
     for name, path in paths.items():
-        check_response(name, path, save=True)
+        body = check_response(name, path, save=True)
+        if name in ['rss2', 'rss', 'atom', 'rdf', 'rest-collection']:
+            checks[name + ':fixture_effectivement_presente'] = 'c08-article-reserve-article' in body
+        if name == 'recherche':
+            checks[name + ':reponse_recherche_valide'] = '<h1' in body and ('data-imagine-id=' in body or 'Aucun contenu pour le moment.' in body)
+        if name == 'extrait-automatique':
+            checks[name + ':repli_neutre'] = 'Cet article est réservé aux abonnés.' in body
     oembed = '/wp-json/oembed/1.0/embed?' + urlencode({'url': base + article})
     check_response('oembed', oembed, expected=(200, 401, 404), save=True)
     check_response('rest-contexte-edition-interdit', '/wp-json/wp/v2/posts/' + aid + '?context=edit', expected=(401, 403))

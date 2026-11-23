@@ -3,7 +3,7 @@
  * MODÈLE PROVISOIRE B-00 : types et champs de démonstration, pas le futur modèle éditorial.
  * Plugin Name: Imagine — site
  * Description: Contenus fictifs provisoires, calendrier et chargement des bibliothèques métier.
- * Version: 0.1.0
+ * Version: 0.2.0
  * Requires at least: 7.0
  * Requires PHP: 8.2
  * Text Domain: imagine-site
@@ -66,7 +66,7 @@ add_action('init', static function (): void {
     ]);
 });
 
-// Protection native provisoire ; C-08 remplacera ce verrou par la décision d'accès.
+// Repli natif B-00 conservé si le raccord C-08 n'est pas disponible.
 add_filter('the_password_form', static function (string $form): string {
     $post = get_post();
     if (!$post || !get_post_meta($post->ID, 'imagine_reserve', true)) {

@@ -1,4 +1,4 @@
-# C-08 — standard consulté avant code
+# C-08 — sources officielles vérifiées
 
 Consultation 23/11/2026. Sources officielles (lecture en ligne et inspection ciblée du code installé, sans modifier les tiers).
 

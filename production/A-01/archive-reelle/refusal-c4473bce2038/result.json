@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "synthetic_only": true,
+  "site_api_guarded": true,
+  "downloads_guarded": true,
+  "subject_exit": 1,
+  "subject_report": "production\\A-01\\publication-23nov\\2196d0dea030\\result.json",
+  "console_refusals": [
+    {
+      "code": "ARCHIVE_PATH_BACKSLASH",
+      "count": 2,
+      "first_zone": "uploads/2026",
+      "extension": ".jpg"
+    }
+  ],
+  "no_site_created": true,
+  "no_core_download": true,
+  "source_archive_sha256": "858e6343d82373f2bb00bc55b41ae35fb94f535f38ec1f5e59913e2c4419fbb7",
+  "cleanup": [
+    {
+      "name": "imagine-a01-publication-4949e9700ff1",
+      "absent": true
+    }
+  ],
+  "tool_sources_unchanged": true,
+  "synthetic_archive_removed": true,
+  "scratch_directory_removed": true
+}

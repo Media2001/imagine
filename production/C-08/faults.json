@@ -1,0 +1,120 @@
+{
+  "scope": "imagine-test-demo",
+  "total": 29,
+  "passed": 29,
+  "failures": [],
+  "checks": {
+    "configuration:readback_invalide": true,
+    "configuration-invalide:page:200": true,
+    "configuration-invalide:page:ferme": true,
+    "configuration-invalide:page:prive": true,
+    "configuration-invalide:rest:200": true,
+    "configuration-invalide:rest:ferme": true,
+    "configuration-invalide:rest:prive": true,
+    "configuration-invalide:flux:200": true,
+    "configuration-invalide:flux:ferme": true,
+    "configuration-invalide:flux:prive": true,
+    "configuration-invalide:oembed:200": true,
+    "configuration-invalide:oembed:ferme": true,
+    "configuration-invalide:oembed:prive": true,
+    "configuration:readback_restaure": true,
+    "contenu:readback_numero_invalide": true,
+    "numero-invalide:page:200": true,
+    "numero-invalide:page:ferme": true,
+    "numero-invalide:page:prive": true,
+    "numero-invalide:rest:200": true,
+    "numero-invalide:rest:ferme": true,
+    "numero-invalide:rest:prive": true,
+    "numero-invalide:flux:200": true,
+    "numero-invalide:flux:ferme": true,
+    "numero-invalide:flux:prive": true,
+    "numero-invalide:oembed:200": true,
+    "numero-invalide:oembed:ferme": true,
+    "numero-invalide:oembed:prive": true,
+    "restauration_finale_exacte": true,
+    "restauration_abonne_complet": true
+  },
+  "responses": {
+    "configuration-invalide:page": {
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 27296,
+      "body_sha256": "df09c73e678a5dc33bf50a810b70213292053775fc20c32b7e2169774572b43b"
+    },
+    "configuration-invalide:rest": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 2279,
+      "body_sha256": "b7b1e3ef261886d146f1fd4dbcbdd20ae41444a9152cf872c0132d3a769183ef"
+    },
+    "configuration-invalide:flux": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/rss+xml; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 8426,
+      "body_sha256": "7477bcd9de78ab6aa576cc67476729c47dc4e96dbaded688df89867be7d1f65d"
+    },
+    "configuration-invalide:oembed": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 654,
+      "body_sha256": "08a693d6a57d7dd7fa8a05b8b2d713bef5463848369aed209bfafd488b39c394"
+    },
+    "numero-invalide:page": {
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 27153,
+      "body_sha256": "b24d416461fd3dd7813ab044a48edcb94244a438efefe57bc1d3cb56d613f880"
+    },
+    "numero-invalide:rest": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 2278,
+      "body_sha256": "8a65b7b158592f4cb9830136c53f96fce4588b5d2bab560c295445caa4fd9534"
+    },
+    "numero-invalide:flux": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/rss+xml; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 29971,
+      "body_sha256": "437759eb5e55f6241b162f27fc23e80de4d8bdfadbd3c7f5ebe24685baacc91a"
+    },
+    "numero-invalide:oembed": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 654,
+      "body_sha256": "08a693d6a57d7dd7fa8a05b8b2d713bef5463848369aed209bfafd488b39c394"
+    }
+  },
+  "restoration_exact": true
+}
