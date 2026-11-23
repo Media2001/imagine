@@ -1,31 +1,40 @@
-A-01 — PRET DE CODE POUR RELECTURE, arbitrages du 22 novembre 2026 appliqués.
+A-01 — PRET DE CODE POUR RELECTURE — qualification 6.9.1 du 23 novembre 2026.
 
-Contrat vérifié : publication de la fixture qualifiée OU rapport de refus explicite.
-R4/R3/R1/R2/R5/R6/R7 corrigés et rejoués. R5 : scripts de bascule seulement,
-DISALLOW_FILE_MODS maintenu, auto-updates désactivées, egress de mise à jour conservé.
-Version attendue paramétrable (--expected-core-version), défaut opérateur 6.9.1.
+Le cœur suit maintenant le manifeste de l’archive : téléchargement public de la
+version exacte, installation/relecture sur cible vide avant injection, puis égalité
+stricte source/cœur/attendu/runtime. --expected-core-version reste un garde-fou.
+L’import n’installe ni ne met à jour aucune extension ; les minima WP/PHP déclarés
+par les extensions sont des avertissements non bloquants, éprouvés sur la fixture.
 
-6.9.1 NON QUALIFIÉ en publication. Le runtime commercial livré est 7.0.9 :
-le défaut 6.9.1 est réellement refusé AVANT site, archive ou bootstrap.
-Subscriptions 9.4.1 et WooCommerce 11.1.1 exigent WP 7.0 : aucun minimum contourné.
-Ce PRET ne dit pas que la production 6.9.1 fonctionne sur la baseline commerciale.
-Blocage opérationnel à qualifier séparément avec un cœur et des paquets compatibles.
+Preuve principale : production/A-01/publication-23nov/52170a14f7a7/result.json
+Quatre cas PASS : classique/HPOS réellement publiés et vérifiés en WordPress 6.9.1,
+secret persistant et table personnelle non tranchée réellement refusés avant injection.
+WooCommerce 11.0.1 : dernière version publique compatible trouvée le 23/11.
+Memberships 1.30.3 : activation et droits API/shortcodes réellement exercés en 6.9.1.
 
-Preuve publication : production/A-01/publication-22nov/79cef0705045/result.json
-Quatre cas PASS, dont classique/HPOS avec vrais plugins, secret/table personnelle refusés.
-R5 après publication : vrai téléchargement public + egress Woo public, script de fichier
-inerte dédié, rejeu idempotent, rollback et suppression relus ; aucune activation/exécution
-du plugin téléchargé, pas de téléchargement commercial ni recette de mise à jour A-04.
-Refus par défaut : production/A-01/publication-22nov/a6ca179f2442/result.json (1/FAIL attendu).
-Pannes : production/A-01/corrections-22nov/faults-15bcd5cf2841/result.json (4 scénarios PASS).
-Compatibilité : production/A-01/corrections-22nov/compatibility-1fc2a444c868.json (en-têtes seulement).
-Régression : production/A-01/tests-21nov/899049f5bdbf/result.json (18 contrôles PASS).
-48 tests hôte verts, 6 suites ; compteurs non cumulables avec les suites embarquées.
-8 nouveaux sites et 11 runners supprimés, absences relues ; outil/modèles inchangés.
+CLI opérateur exact sur archives inventées :
+production/A-01/qualification-23nov/operator-e45e9cc3c582/result.json
+Deux cas PASS : sujet propre sortie 0 ; sujet piégé sortie 1 conservée.
+Garde attendu 7.0.9 / archive 6.9.1 : refus 1 avant site/téléchargement/bootstrap.
+Les décisions de ce banc ne valent JAMAIS décision de Ced pour Imagine.
 
-Commande et limites : wp/outils/staging-court/publish.py ; production/A-01/notes.md.
-SHA-256/relecture exacte : production/A-01/corrections-22nov/artifact-arbitrages-final.json.
+Régression : production/A-01/tests-21nov/620035d3d7f6/result.json
+18 contrôles PASS, 0 FAIL ; suites embarquées vertes ; 54 tests unitaires hôte verts.
+Les onze fichiers natifs du sujet sont inchangés ; outil partagé/modèles inchangés.
+Tous les sites/runners de test sont supprimés et les absences relues ; reprises
+après interruption consignées séparément, aucun ancien reçu FAIL blanchi.
 
-Ce PRET n'est pas GO d'import d'Imagine, de publication 6.9.1 ou d'accès agent.
-Aucune archive réelle ouverte ; Ced seul lance un éventuel premier import réel,
-et son rapport sera relu avant toute ouverture aux agents. Aucun verrou modifié.
+LIMITE : Subscriptions n’est PAS qualifié en 6.9.1. Seul ZIP disponible 9.4.1,
+minima WP 7.0 / Woo 11.1, non contournés. Sa qualification antérieure en 7.0.9 est
+conservée conformément au brief. Premier import réel par Ced, rapport relu AVANT
+ouverture. Memberships a été testé indépendamment de cette indisponibilité.
+
+Mode d’emploi PowerShell en une page : production/A-01/notes.md (historique dessous).
+Vérification source/receipts/nettoyage : wp/tests/a01-court/verify_qualification_69.py
+Manifeste de remise : production/A-01/qualification-23nov-final.json
+
+Ce PRET n’est PAS un GO d’import d’Imagine, de publication réelle ou d’accès agent.
+Aucune archive Imagine ouverte, aucun Git, aucune installation PHP sur Windows,
+aucune modification de l’outil partagé, des lots C ou du verrou du parent.
+Mises à jour par scripts de bascule seulement ; filtre HTTP WordPress après
+vérification, pas pare-feu système. Formats/grammaire bornés et limites dans les notes.

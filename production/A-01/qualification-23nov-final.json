@@ -1,0 +1,73 @@
+{
+  "status": "PASS",
+  "recorded_utc": "2026-11-23T09:10:35.225909+00:00",
+  "publication": {
+    "path": "production/A-01/publication-23nov/52170a14f7a7/result.json",
+    "sha256": "8ba3ec0d4ab967d54703c6c8bd0577fb336a31eda1252fc4315ab677c55e5da2",
+    "cases": 4
+  },
+  "operator": {
+    "path": "production/A-01/qualification-23nov/operator-e45e9cc3c582/result.json",
+    "sha256": "23c7c218533c68c31185db57483cf84fea9966670a6341787436a042b3eceeec",
+    "cases": [
+      {
+        "kind": "clean",
+        "site": "imagine-test-a01-e45e9cc3c582-clean",
+        "subject_exit": 0,
+        "status": "PASS"
+      },
+      {
+        "kind": "secret",
+        "site": "imagine-test-a01-e45e9cc3c582-secret",
+        "subject_exit": 1,
+        "status": "PASS"
+      }
+    ]
+  },
+  "offline": {
+    "path": "production/A-01/tests-21nov/620035d3d7f6/result.json",
+    "sha256": "ac214d7a794f7e683b34b728d3657bc76d230b7553639c2ed6b03cad3cd60084",
+    "checks": 18
+  },
+  "unit_tests": 54,
+  "unit_exit": 0,
+  "unit_transcript_sha256": "452a3d803a1409c4f014f5c2b01dfe9814651d0d43c72ca704a5f08f4063c552",
+  "live_cleanup_checked": true,
+  "payloads_match_current": true,
+  "owned_runner_labels_empty": true,
+  "delivery_sources": {
+    "wp/outils/staging-court/archive.py": "ef489212c21575b266e661d46afbed78c33feacbc16ef1c1faf44b93f43829ef",
+    "wp/outils/staging-court/bridge.php": "5c13515a5ca50d3e2991a7d595a2499d53cd29b75ce95880c5291f69046d0a22",
+    "wp/outils/staging-court/core_source.py": "e8bdd546a791852a9d6dc22b01b61b77777fdf6f9e98acfd58fdebd7867265ab",
+    "wp/outils/staging-court/inside.py": "3493d1d55a3959f644a4bbc9109addcae6f822e559a4e46a97a02ef1840761ed",
+    "wp/outils/staging-court/publication.py": "ac8031f2e9352e694d03a07226fa19e3982f75a696107d9ff6ae41d914a1f244",
+    "wp/outils/staging-court/publication_preflight.py": "cd4dfeb3ef170ea83ba503c3e2b193e4f3dbc11ee8a1053c01d2efc122fee313",
+    "wp/outils/staging-court/publication_probe.php": "2d22f3cf6131144669695f4b0bb221e04876735d642d0b472a95466a864f440a",
+    "wp/outils/staging-court/publish.py": "c8b7efe2997893a2b5dd935612dad23935b532733b3d270a2e5b2b31c5f48577",
+    "wp/outils/staging-court/README.md": "ffbd1facc6f3eb976dcf8d559fe15936e00a721b4c8143ff79de10fc06affecc",
+    "wp/outils/staging-court/run.py": "0fd43f04786cf59a7451cc2d701965b625e3de7babd7c1ddb6f339bc4a874b4c",
+    "wp/outils/staging-court/script_capacity_probe.php": "701751e2b8560688cd5574b08a0d04d762097f59505a8cac1c629292d373a355",
+    "wp/tests/a01-court/exercise_corrections.py": "c72f6828a3d0144875d832ca60f937b1025f6e6614d59737e4ab561b562b97bd",
+    "wp/tests/a01-court/exercise_operator_69.py": "667cba29bbe12ba0dbbaa463660b62567a6bb344c74cf493a1bd242f73b8405b",
+    "wp/tests/a01-court/prepare_publication.py": "612bd0e96377697593a61e49111cfdab15b865448d1cbee17be3eb443166b112",
+    "wp/tests/a01-court/probe_compatibility.py": "5bbecfaa92daf7187b801a480e00bbe66cfd7235cdaeba2d7ff27e182a63f17a",
+    "wp/tests/a01-court/qualification_69.py": "3ee097358e76a8464365cbd9463cc3b21479d8ec8335ce1c61c3302b5ca2f5e6",
+    "wp/tests/a01-court/roundtrip.py": "a07c5997421f40bd893af082dc4600c79c2d3740521a95f3fa7e763e628d1db8",
+    "wp/tests/a01-court/test_arbitrations.py": "aa8c06f5c0128a8551bad673b9268d5f0b95dcbefda06f51e19852ea23f772cf",
+    "wp/tests/a01-court/test_archive.py": "26b8f92bd8d71989d6f65db927a5c5da95be5d8b8082d129eada42dc8183c3ec",
+    "wp/tests/a01-court/test_core_selection.py": "60a9022f34e0d398cb736da5b4e63530309706d21ba3d66af73184a9334c94b4",
+    "wp/tests/a01-court/test_corrections.py": "0f4789850ced87736f1b5fb89cfbf1cbad822ccfa66cf68946ee044ac55b64bc",
+    "wp/tests/a01-court/test_password_stdin.py": "6eb13df4aa353244e1fbc0b1c7c416a73de3fbb08ab14eed92b9908af1ec4046",
+    "wp/tests/a01-court/test_publication.py": "8b191786aefa5a13e9fbf347a33968a41993103f3aa870b1bb1ebc0a9c620f31",
+    "wp/tests/a01-court/test_publication_preflight.py": "1f6dbf6400fab95b3a617cbd25a39de19e29ecb0d4ef621084007c5d9c93937b",
+    "wp/tests/a01-court/test_qualification_receipts.py": "8493d99a0a875ffd6a306d13e996989d135daf13a54f010cece54f85dcaaa4c6",
+    "wp/tests/a01-court/verify_correction_artifacts.py": "c8d82e1833d6610bf57a14e51439f69696bc5751edea01e5fea4e31338d70b49",
+    "wp/tests/a01-court/verify_publication.py": "c773819b8369ce9df8d971beb6b334848fcb042e31ffc9a13fe7435cba64678c",
+    "wp/tests/a01-court/verify_qualification_69.py": "08e745479fbc6c30e625096f15c89cb99f194eebedabcab4ef207b486fd4e659",
+    "production/A-01/notes.md": "57fe72bceac3504f2e147e59b9ba98c75d5b2dffde476a161cebab6611c06a36",
+    "production/A-01/PRET": "a549fa69d1c24575aeff7d42656ebb29be70a823adb7ffb8e2e48126fb881ca8"
+  },
+  "no_real_archive_or_agent_io": true,
+  "subscriptions_691": "NOT_TESTED; prior 7.0.9 qualification retained; first Ced real-import report reviewed before opening",
+  "memberships_691": "1.30.3 actually activated and rights/shortcodes preserved"
+}
