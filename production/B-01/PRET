@@ -1,0 +1,7 @@
+B-01 — PRET à relire (squelette, pas validation du futur design).
+Site unique : imagine-test-demo — http://192.168.129.32:8085/
+Thème Imagine installé et actif par construire.py --theme-only ; empreintes relues.
+4 tests B-01 + 4 tests B-00 existants réussis ; 500 assertions runtime/HTTP réussies, 0 échec.
+41 pages HTML validées structurellement, 7 ressources HTTP ; 19 captures navigateur, 4 contrôles d’interaction réussis.
+Entrée : A-VOIR.md ; qualification exhaustive, limites et écart de méthode initial : notes.md.
+Aucun blocage technique restant. Aucun Git, autre site, verrou, rapport global ou plugin modifié.
