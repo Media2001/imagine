@@ -5,6 +5,7 @@ namespace Imagine\Demo\C09;
 
 if (!defined('WP_CLI') || !WP_CLI || wp_get_environment_type() !== 'local'
     || get_option('imagine_demo_site') !== 'imagine-test-demo'
+    || home_url() !== 'http://192.168.129.32:8085'
     || basename(dirname(WP_CONTENT_DIR)) === 'production') {
     throw new \RuntimeException('C09 refuse cette cible.');
 }

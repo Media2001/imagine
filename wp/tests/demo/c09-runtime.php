@@ -104,6 +104,27 @@ if ($checks['fixture_installee']) {
     $checks['http_coupe'] = is_wp_error(wp_remote_get('https://example.org'));
     $checks['passerelles_coupees'] = WC()->payment_gateways()->get_available_payment_gateways() === [];
     $checks['catalogue_plan_droits'] = (get_option('imagine_acces_plans')[$fixture['plan']] ?? null) === 'abonnement';
+    $ownedUsers = get_users(['meta_key' => '_imagine_c09_fixture', 'fields' => 'ID']);
+    $checks['inventaire_total_27_comptes'] = count($ownedUsers) === 27;
+    foreach (['shop_order' => 13, 'shop_subscription' => 12] as $type => $expected) {
+        $objects = wc_get_orders(['type' => $type, 'status' => array_keys($type === 'shop_subscription' ? wcs_get_subscription_statuses() : wc_get_order_statuses()),
+            'limit' => -1, 'meta_query' => [['key' => '_imagine_c09_fixture', 'compare' => 'EXISTS']]]);
+        $checks['inventaire_total_' . $type] = count($objects) === $expected;
+    }
+    $allMembers = get_posts(['post_type' => 'wc_user_membership', 'post_status' => array_keys(get_post_stati()),
+        'posts_per_page' => -1, 'meta_key' => '_imagine_c09_fixture']);
+    $checks['inventaire_total_14_adhesions'] = count($allMembers) === 14;
+    $product = wc_get_product($fixture['product']);
+    $checks['produit_natif_subscription_prive_zero'] = $product instanceof \WC_Product_Subscription
+        && $product->get_status() === 'private' && $product->get_catalog_visibility() === 'hidden' && (float) $product->get_price() === 0.0;
+    foreach ($fixture['subscriptions'] as $key => $id) {
+        $sub = wcs_get_subscription($id);
+        $scheduled = as_next_scheduled_action('woocommerce_scheduled_subscription_payment', ['subscription_id' => $id]);
+        $checks[$key . ':action_native_planifiee_ou_absente_selon_statut'] = $sub->has_status('active')
+            ? $scheduled === $sub->get_time('next_payment') : $scheduled === false;
+        $checks[$key . ':periodicite_reinitialisee'] = $sub->get_billing_period() === 'year' && (int) $sub->get_billing_interval() === 1;
+        $proof[$key]['subscriptions'][0]['scheduled_payment_action'] = $scheduled;
+    }
     wp_set_current_user(0);
 }
 $failures = array_keys(array_filter($checks, static fn ($ok) => !$ok));

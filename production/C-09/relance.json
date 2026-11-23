@@ -1,11 +1,11 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-23T14:57:09.598771+00:00",
+  "at": "2026-11-23T15:07:33.988937+00:00",
   "url": "http://192.168.129.32:8085",
   "files_sha256": {
-    "imagine-demo-build/c09-runtime.php": "a4dd2451f63b676349c7029f753efdcce9ba40b291173d42cfab193781e4ebd0",
+    "imagine-demo-build/c09-runtime.php": "c2b00642bef851a0f0932afdf872a3fb428dd8611f7e2a310cb4765d57c29c2d",
     "imagine-demo-build/c09-profils.json": "cebc9fb24236214eb2e6c2e466926fd4749c02a51cea0741c7c4c7926bf9e6e3",
-    "imagine-demo-build/c09-seed.php": "6ea71822f8e20364e61d3911c3e77b3a8f50c010cea2c66b8a8cc88d27b1a394"
+    "imagine-demo-build/c09-seed.php": "c9ef9b7777c394260023bff409324f666b13e4c55f18e58a3d0ad009e53d8149"
   },
   "before": {
     "b00": {
@@ -2303,7 +2303,7 @@
   },
   "preserved_b00_c08": true,
   "native": {
-    "total": 335,
+    "total": 364,
     "failures": [],
     "checks": {
       "catalogue_30": true,
@@ -2640,7 +2640,36 @@
       "mail_coupe": true,
       "http_coupe": true,
       "passerelles_coupees": true,
-      "catalogue_plan_droits": true
+      "catalogue_plan_droits": true,
+      "inventaire_total_27_comptes": true,
+      "inventaire_total_shop_order": true,
+      "inventaire_total_shop_subscription": true,
+      "inventaire_total_14_adhesions": true,
+      "produit_natif_subscription_prive_zero": true,
+      "A-CARTE:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-CARTE:periodicite_reinitialisee": true,
+      "A-SEPA4:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-SEPA4:periodicite_reinitialisee": true,
+      "A-PAYPAL:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-PAYPAL:periodicite_reinitialisee": true,
+      "A-VIR:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-VIR:periodicite_reinitialisee": true,
+      "A-PAPIER:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-PAPIER:periodicite_reinitialisee": true,
+      "A-GRACE:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-GRACE:periodicite_reinitialisee": true,
+      "A-SUSP:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-SUSP:periodicite_reinitialisee": true,
+      "A-EXPIRE:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-EXPIRE:periodicite_reinitialisee": true,
+      "A-NONRENOUV:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-NONRENOUV:periodicite_reinitialisee": true,
+      "A-ETRANGER:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-ETRANGER:periodicite_reinitialisee": true,
+      "A-SANSMAIL:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-SANSMAIL:periodicite_reinitialisee": true,
+      "A-ECHEANCE:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-ECHEANCE:periodicite_reinitialisee": true
     },
     "proof": {
       "V-ANON": {
@@ -2724,13 +2753,14 @@
             "parent_id": 88,
             "customer_id": 9,
             "status": "active",
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-11-23 14:56:58",
-            "next_payment": "2026-12-23 14:56:58",
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-11-23 15:07:22",
+            "next_payment": "2026-12-23 15:07:22",
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
-            "grace_end": ""
+            "grace_end": "",
+            "scheduled_payment_action": 1798038442
           }
         ],
         "memberships": [
@@ -2740,8 +2770,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 88,
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-11-23 14:56:58"
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-11-23 15:07:22"
           }
         ]
       },
@@ -2771,13 +2801,14 @@
             "parent_id": 91,
             "customer_id": 10,
             "status": "active",
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-11-23 14:56:58",
-            "next_payment": "2026-12-23 14:56:58",
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-11-23 15:07:22",
+            "next_payment": "2026-12-23 15:07:22",
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
-            "grace_end": ""
+            "grace_end": "",
+            "scheduled_payment_action": 1798038442
           }
         ],
         "memberships": [
@@ -2787,8 +2818,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 91,
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-11-23 14:56:58"
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-11-23 15:07:22"
           }
         ]
       },
@@ -2818,13 +2849,14 @@
             "parent_id": 94,
             "customer_id": 11,
             "status": "active",
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-11-23 14:56:58",
-            "next_payment": "2026-12-23 14:56:58",
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-11-23 15:07:22",
+            "next_payment": "2026-12-23 15:07:22",
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
-            "grace_end": ""
+            "grace_end": "",
+            "scheduled_payment_action": 1798038442
           }
         ],
         "memberships": [
@@ -2834,8 +2866,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 94,
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-11-23 14:56:58"
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-11-23 15:07:22"
           }
         ]
       },
@@ -2865,13 +2897,14 @@
             "parent_id": 97,
             "customer_id": 12,
             "status": "pending",
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-11-23 14:56:58",
-            "next_payment": "2026-12-23 14:56:58",
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-11-23 15:07:22",
+            "next_payment": "2026-12-23 15:07:22",
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
-            "grace_end": ""
+            "grace_end": "",
+            "scheduled_payment_action": false
           }
         ],
         "memberships": [
@@ -2881,8 +2914,8 @@
             "plan_id": 86,
             "status": "pending",
             "order_id": 97,
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-11-23 14:56:58"
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-11-23 15:07:22"
           }
         ]
       },
@@ -2912,13 +2945,14 @@
             "parent_id": 100,
             "customer_id": 13,
             "status": "active",
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-11-23 14:56:58",
-            "next_payment": "2026-11-23 15:56:58",
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-11-23 15:07:22",
+            "next_payment": "2026-11-23 16:07:22",
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
-            "grace_end": ""
+            "grace_end": "",
+            "scheduled_payment_action": 1795450042
           }
         ],
         "memberships": [
@@ -2928,8 +2962,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 100,
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-11-23 14:56:58"
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-11-23 15:07:22"
           }
         ]
       },
@@ -2959,13 +2993,14 @@
             "parent_id": 103,
             "customer_id": 14,
             "status": "on-hold",
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-11-23 14:56:58",
-            "next_payment": "2026-12-23 14:56:58",
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-11-23 15:07:22",
+            "next_payment": "2026-12-23 15:07:22",
             "manual": true,
             "payment_count": 0,
-            "grace_start": "2026-11-22 14:56:58",
-            "grace_end": "2026-11-25 14:56:58"
+            "grace_start": "2026-11-22 15:07:22",
+            "grace_end": "2026-11-25 15:07:22",
+            "scheduled_payment_action": false
           }
         ],
         "memberships": [
@@ -2975,8 +3010,8 @@
             "plan_id": 86,
             "status": "paused",
             "order_id": 103,
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-11-23 14:56:58"
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-11-23 15:07:22"
           }
         ]
       },
@@ -3006,13 +3041,14 @@
             "parent_id": 106,
             "customer_id": 15,
             "status": "on-hold",
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-11-23 14:56:58",
-            "next_payment": "2026-12-23 14:56:58",
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-11-23 15:07:22",
+            "next_payment": "2026-12-23 15:07:22",
             "manual": true,
             "payment_count": 0,
-            "grace_start": "2026-11-19 14:56:58",
-            "grace_end": "2026-11-22 14:56:58"
+            "grace_start": "2026-11-19 15:07:22",
+            "grace_end": "2026-11-22 15:07:22",
+            "scheduled_payment_action": false
           }
         ],
         "memberships": [
@@ -3022,8 +3058,8 @@
             "plan_id": 86,
             "status": "paused",
             "order_id": 106,
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-11-23 14:56:58"
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-11-23 15:07:22"
           }
         ]
       },
@@ -3053,13 +3089,14 @@
             "parent_id": 109,
             "customer_id": 16,
             "status": "expired",
-            "start": "2025-12-23 14:56:58",
-            "end": "2026-11-22 14:56:58",
+            "start": "2025-12-23 15:07:22",
+            "end": "2026-11-22 15:07:22",
             "next_payment": 0,
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
-            "grace_end": ""
+            "grace_end": "",
+            "scheduled_payment_action": false
           }
         ],
         "memberships": [
@@ -3069,8 +3106,8 @@
             "plan_id": 86,
             "status": "expired",
             "order_id": 109,
-            "start": "2025-12-23 14:56:58",
-            "end": "2026-11-22 14:56:58"
+            "start": "2025-12-23 15:07:22",
+            "end": "2026-11-22 15:07:22"
           }
         ]
       },
@@ -3100,13 +3137,14 @@
             "parent_id": 112,
             "customer_id": 17,
             "status": "pending-cancel",
-            "start": "2025-12-23 14:56:58",
-            "end": "2026-12-23 14:56:58",
+            "start": "2025-12-23 15:07:22",
+            "end": "2026-12-23 15:07:22",
             "next_payment": 0,
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
-            "grace_end": ""
+            "grace_end": "",
+            "scheduled_payment_action": false
           }
         ],
         "memberships": [
@@ -3116,8 +3154,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 112,
-            "start": "2025-12-23 14:56:58",
-            "end": "2026-12-23 14:56:58"
+            "start": "2025-12-23 15:07:22",
+            "end": "2026-12-23 15:07:22"
           }
         ]
       },
@@ -3147,13 +3185,14 @@
             "parent_id": 115,
             "customer_id": 18,
             "status": "active",
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-11-23 14:56:58",
-            "next_payment": "2026-12-23 14:56:58",
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-11-23 15:07:22",
+            "next_payment": "2026-12-23 15:07:22",
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
-            "grace_end": ""
+            "grace_end": "",
+            "scheduled_payment_action": 1798038442
           }
         ],
         "memberships": [
@@ -3163,8 +3202,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 115,
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-11-23 14:56:58"
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-11-23 15:07:22"
           }
         ]
       },
@@ -3194,13 +3233,14 @@
             "parent_id": 118,
             "customer_id": 19,
             "status": "active",
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-11-23 14:56:58",
-            "next_payment": "2026-12-23 14:56:58",
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-11-23 15:07:22",
+            "next_payment": "2026-12-23 15:07:22",
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
-            "grace_end": ""
+            "grace_end": "",
+            "scheduled_payment_action": 1798038442
           }
         ],
         "memberships": [
@@ -3210,8 +3250,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 118,
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-11-23 14:56:58"
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-11-23 15:07:22"
           }
         ]
       },
@@ -3241,13 +3281,14 @@
             "parent_id": 121,
             "customer_id": 20,
             "status": "active",
-            "start": "2025-12-23 14:56:58",
-            "end": "2026-12-23 14:56:58",
-            "next_payment": "2026-12-22 14:56:58",
+            "start": "2025-12-23 15:07:22",
+            "end": "2026-12-23 15:07:22",
+            "next_payment": "2026-12-22 15:07:22",
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
-            "grace_end": ""
+            "grace_end": "",
+            "scheduled_payment_action": 1797952042
           }
         ],
         "memberships": [
@@ -3257,8 +3298,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 121,
-            "start": "2025-12-23 14:56:58",
-            "end": "2026-12-23 14:56:58"
+            "start": "2025-12-23 15:07:22",
+            "end": "2026-12-23 15:07:22"
           }
         ]
       },
@@ -3333,8 +3374,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": null,
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-11-23 14:56:58"
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-11-23 15:07:22"
           }
         ]
       },
@@ -3354,8 +3395,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": null,
-            "start": "2025-12-23 14:56:58",
-            "end": "2027-01-07 14:56:58"
+            "start": "2025-12-23 15:07:22",
+            "end": "2027-01-07 15:07:22"
           }
         ]
       },
