@@ -1,7 +1,7 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-23T16:16:18.727258+00:00",
-  "status": "FAILED",
+  "at": "2026-11-23T16:22:54.903394+00:00",
+  "status": "VERIFIED",
   "checks": {
     "unitaires_sans_ignore": true,
     "b00-recette": true,
@@ -21,14 +21,12 @@
     "c10_options_journal_exacts": true,
     "c10_bootstrap_actif_preserve": true,
     "sources_c09_c10_closes_exactes": true,
-    "recette_ne_modifie_pas_droits_et_options": false,
+    "recette_ne_modifie_pas_droits_et_options": true,
     "reconstruction_post_c08_reelle_identique": true,
     "aucun_secret_dans_livraison": true
   },
   "total": 21,
-  "failures": [
-    "recette_ne_modifie_pas_droits_et_options"
-  ],
+  "failures": [],
   "suites": {
     "unitaires": 27,
     "b00-recette": 81,
@@ -58,7 +56,7 @@
     "wp/plugins/imagine-site/Paywall.php": "1b0a1b10058997d2eca102e6bd5a1ec0d427d4f3403ced9a17943b7127a3c3c3",
     "wp/tests/demo/b00-corrections-runtime.php": "a6b0575e78d055e425ed608a4bfd2fa4c73b31facf1ebae37540d9f4d00d7b14",
     "wp/tests/demo/b00-integre-snapshot.php": "185df689b52572f5721b8f6ab5301c6bbfb4e996ae9c3d6f28c4adfde633f0f2",
-    "wp/tests/demo/b00-integre.py": "b873e7116515d3aeb729fbe5e2f05b11a44a3714ffbb37ed9410eb4a629bf2f8",
+    "wp/tests/demo/b00-integre.py": "5a1d837d31b274fb2c2029867290d027ba7b07e9b1b2d86166f8a25ddfdb44e4",
     "wp/tests/demo/b00-recette.php": "11b8bec309bda9cc3b7a83b16126ba4ee4c330b98a11dbf453396658f18211cc",
     "wp/tests/demo/b00-snapshot.php": "4d6d859af83d4b82e0565f90ad598f97d7186bdffac28d7f2e483e0076be0995",
     "wp/tests/demo/b00-ui-meta-diagnostic.py": "b11e62c1eb354ead3685d9838534cc39460dfbd83a7b026bb14874ba741341d7",
@@ -67,7 +65,7 @@
     "wp/tests/demo/test_b00_corrections.py": "28073423d452c55ffd08fdb65bd025fc23274fac54a3cb28b74eb3e5fc7cfe29"
   },
   "secret_scan": {
-    "files_checked": 120,
+    "files_checked": 121,
     "matches": []
   },
   "c09_clock_note": "Horloge du test calée sur reset original ; 2 assertions relatives impossibles en horloge murale tardive, aucun reset ni modification métier."

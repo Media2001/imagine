@@ -246,7 +246,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 27843,
-      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+      "body_sha256": "6dc2c9aad8ad3382104de44415e9c2e08a15ffd67070b96de53d5605789650e3"
     },
     "rest-item": {
       "path": "/wp-json/wp/v2/posts/81",
@@ -257,7 +257,7 @@
         "vary": "Origin"
       },
       "bytes": 2279,
-      "body_sha256": "b038f599441cf314b818a723edfd06475a9965c4afebd526469fbbb1006caae4"
+      "body_sha256": "1232ca66ac96770b8aa10b5f6781d10f11e5ec6270c4f20aecf0735ae5c9ef96"
     },
     "rest-collection": {
       "path": "/wp-json/wp/v2/posts?include=81%2C82&_embed=1",
@@ -268,7 +268,7 @@
         "vary": "Origin"
       },
       "bytes": 6157,
-      "body_sha256": "e6456cdbc67cb3a46463a1294ac987f8277aae0db0e8fc41d8b1ccbab5b188c5"
+      "body_sha256": "cd241e6ef0cab9c28561f8c8575af0296dae7de4dc390daafb9a508cc611ff84"
     },
     "rest-champs": {
       "path": "/wp-json/wp/v2/posts/81?_fields=content,excerpt",
@@ -301,7 +301,7 @@
         "vary": "Origin"
       },
       "bytes": 2279,
-      "body_sha256": "b038f599441cf314b818a723edfd06475a9965c4afebd526469fbbb1006caae4"
+      "body_sha256": "1232ca66ac96770b8aa10b5f6781d10f11e5ec6270c4f20aecf0735ae5c9ef96"
     },
     "rest-recherche": {
       "path": "/wp-json/wp/v2/search?search=C08",
@@ -323,7 +323,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 13274,
-      "body_sha256": "fda2227f053485a9a4c7474c0d1c9ef7e8304dae0513d58e835b282fe923069c"
+      "body_sha256": "14a9a6a771c6e41c02dbbcda86206cdf2f949022faa48dd03a33b413fd10c12a"
     },
     "rss": {
       "path": "/?feed=rss",
@@ -334,7 +334,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 3205,
-      "body_sha256": "e3004a6c191605cae9ff17593f494a7de72ff076c29d4667711485a281b417c4"
+      "body_sha256": "f853064b728b998e83b662a9ec515ef46abeca0091bbd2ecc51f8b4bedbf8ee3"
     },
     "atom": {
       "path": "/?feed=atom",
@@ -345,7 +345,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 14440,
-      "body_sha256": "cb575cc091bc59419b5ceb62b4392f3fa647e01259a5342db066501d67cc28a3"
+      "body_sha256": "f96840212cea02a74ce1027656480f2d7c6ec756b29afaa011d484302e57652b"
     },
     "rdf": {
       "path": "/?feed=rdf",
@@ -356,7 +356,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 13467,
-      "body_sha256": "6e8f6bdd88c1b83bdd2bbf64f73e812f28b86a25824c500d07501b4291fe2205"
+      "body_sha256": "f6062f108da0459b44f6d806995075117d7f101cc2166bbb8509f5aad65f0e58"
     },
     "recherche": {
       "path": "/?s=C08",
@@ -367,7 +367,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 26187,
-      "body_sha256": "62e2a46753e8f86b4fe2c5c8eec1f03d739ec787de3c3e1dde9d9eeca330429e"
+      "body_sha256": "49bb0b8dcf8070d86bb1276fd1895d275b409d278bae736d6667dff88bfb94a8"
     },
     "extrait-automatique": {
       "path": "/c08-article-reserve-automatique/",
@@ -378,7 +378,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 27538,
-      "body_sha256": "05124c15e6b513634067359ef557d16bebf8fcf865f54ebc081b2221bc6f87b9"
+      "body_sha256": "d6680eb59052a6f7abf5bd58da4c017ebc6b3bde271f39ed87278d05adba2fcc"
     },
     "embed-page": {
       "path": "/c08-article-reserve-article/embed/",
@@ -388,8 +388,8 @@
         "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
         "vary": "Cookie, Authorization, User-Agent"
       },
-      "bytes": 20263,
-      "body_sha256": "17c5b1f96d34632dacbbbbd3718765f6b282428373b411078438afdc4f12f4b3"
+      "bytes": 20271,
+      "body_sha256": "b9dbf487fe334a7f3e38a0e4e100d564250778fbc7d5799cb3d5ae410b9caa77"
     },
     "apercu": {
       "path": "/?p=81&preview=true",
@@ -400,7 +400,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 27843,
-      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+      "body_sha256": "6dc2c9aad8ad3382104de44415e9c2e08a15ffd67070b96de53d5605789650e3"
     },
     "page-multipage": {
       "path": "/c08-article-reserve-article/?page=2",
@@ -411,7 +411,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 27843,
-      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+      "body_sha256": "6dc2c9aad8ad3382104de44415e9c2e08a15ffd67070b96de53d5605789650e3"
     },
     "page-amp-inactif": {
       "path": "/c08-article-reserve-article/?amp=1",
@@ -422,7 +422,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 27843,
-      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+      "body_sha256": "6dc2c9aad8ad3382104de44415e9c2e08a15ffd67070b96de53d5605789650e3"
     },
     "oembed": {
       "path": "/wp-json/oembed/1.0/embed?url=http%3A%2F%2F192.168.129.32%3A8085%2Fc08-article-reserve-article%2F",
@@ -466,7 +466,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 27843,
-      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+      "body_sha256": "6dc2c9aad8ad3382104de44415e9c2e08a15ffd67070b96de53d5605789650e3"
     },
     "faux-bingbot": {
       "path": "/c08-article-reserve-article/",
@@ -477,7 +477,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 27843,
-      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+      "body_sha256": "6dc2c9aad8ad3382104de44415e9c2e08a15ffd67070b96de53d5605789650e3"
     },
     "conditionnelle-anonyme": {
       "path": "/c08-article-reserve-article/",
@@ -488,7 +488,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 27843,
-      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+      "body_sha256": "6dc2c9aad8ad3382104de44415e9c2e08a15ffd67070b96de53d5605789650e3"
     },
     "conditionnelle-flux": {
       "path": "/?feed=rss2",
@@ -499,7 +499,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 13274,
-      "body_sha256": "fda2227f053485a9a4c7474c0d1c9ef7e8304dae0513d58e835b282fe923069c"
+      "body_sha256": "14a9a6a771c6e41c02dbbcda86206cdf2f949022faa48dd03a33b413fd10c12a"
     },
     "actif-page": {
       "path": "/c08-article-reserve-article/",
@@ -510,7 +510,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 28325,
-      "body_sha256": "91cdaa3ed67aa24224f78dc92125efb25c4cc5fa95d9c00fbeb4001c8d29d13f"
+      "body_sha256": "b3fb4e1ceced20085455b3ec89eb29e616c352a87ac3058acdc8d1e9bb61e4de"
     },
     "actif-rest": {
       "path": "/wp-json/wp/v2/posts/81",
@@ -521,7 +521,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 3740,
-      "body_sha256": "08f7e7e4c920250bcba196f3841951fa68d3626e14a4bbc1a58a6b22c930b81e"
+      "body_sha256": "fa4d616a6580c949ca6f2e48791288a5e74ea21ac79f05382e55662fc08de5c6"
     },
     "anonyme-apres-actif": {
       "path": "/c08-article-reserve-article/",
@@ -532,7 +532,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 27843,
-      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+      "body_sha256": "6dc2c9aad8ad3382104de44415e9c2e08a15ffd67070b96de53d5605789650e3"
     },
     "grace-page": {
       "path": "/c08-article-reserve-article/",
@@ -543,7 +543,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 28638,
-      "body_sha256": "b907726abacff2a95d7b2ec5b3599c3816bca548dbfee7c36a6111dbff2ecc96"
+      "body_sha256": "c54e40f051e9d9dbd5075ccc62445d825ee45febed8a5ed820dd942c495da462"
     },
     "grace-rest": {
       "path": "/wp-json/wp/v2/posts/81",
@@ -554,7 +554,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 3740,
-      "body_sha256": "08f7e7e4c920250bcba196f3841951fa68d3626e14a4bbc1a58a6b22c930b81e"
+      "body_sha256": "fa4d616a6580c949ca6f2e48791288a5e74ea21ac79f05382e55662fc08de5c6"
     },
     "anonyme-apres-grace": {
       "path": "/c08-article-reserve-article/",
@@ -565,7 +565,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 27843,
-      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+      "body_sha256": "6dc2c9aad8ad3382104de44415e9c2e08a15ffd67070b96de53d5605789650e3"
     },
     "sans-droit-page": {
       "path": "/c08-article-reserve-article/",
@@ -576,7 +576,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 27257,
-      "body_sha256": "7a65112759770ae7bb2671272276bf96330aeb1ce184233da6897fa8ed411c78"
+      "body_sha256": "15489896a43b25891e0c2b2b319cbe1938f392efd08e6a3be1a29d3681e53e9a"
     },
     "sans-droit-rest": {
       "path": "/wp-json/wp/v2/posts/81",
@@ -587,7 +587,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 2279,
-      "body_sha256": "b038f599441cf314b818a723edfd06475a9965c4afebd526469fbbb1006caae4"
+      "body_sha256": "1232ca66ac96770b8aa10b5f6781d10f11e5ec6270c4f20aecf0735ae5c9ef96"
     },
     "anonyme-apres-sans-droit": {
       "path": "/c08-article-reserve-article/",
@@ -598,7 +598,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 27843,
-      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+      "body_sha256": "6dc2c9aad8ad3382104de44415e9c2e08a15ffd67070b96de53d5605789650e3"
     },
     "cookie-mot-de-passe-non-droit": {
       "path": "/c08-article-reserve-article/",
@@ -609,7 +609,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 27843,
-      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+      "body_sha256": "6dc2c9aad8ad3382104de44415e9c2e08a15ffd67070b96de53d5605789650e3"
     },
     "article-ouvert": {
       "path": "/demo-2026-t1-ouvert/",
@@ -620,7 +620,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 29915,
-      "body_sha256": "5523038fd7d7d7a536eb790b09a840593ee9bf5570e8801130cbeb57deaf229a"
+      "body_sha256": "14a0c671a48aa4bb44b171c06367ff2760e51998b00440e803ab071e084f1514"
     }
   }
 }
