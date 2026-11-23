@@ -1,0 +1,8 @@
+B-00-site-de-demonstration — PRET À RELIRE
+Vérification finale : 2026-11-23T13:28:08.815599+00:00
+Site : http://192.168.129.32:8085 — statut API running
+4 tests Python, 81 contrôles WordPress et 81 assertions HTTP/idempotence réussis ; zéro échec.
+41 objets tagués, manifeste de 45 entrées, mêmes IDs/slugs/URL/textes/médias après reconstruction, zéro doublon.
+Preuves : b00-final-verification.json ; b00-construction.json ; b00-reconstruction.json ; b00-verification-http-idempotence.json ; tests/b00-syntaxe-secrets.json ; http/.
+À ouvrir : A-VOIR.md. Mode d’emploi : notes.md. Interprétations et limites : verification.md.
+Prêt à relire ne vaut ni clôture ni validation visuelle de Ced. B-01, C-08 et C-09 ne sont pas revendiqués.
