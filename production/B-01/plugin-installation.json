@@ -1,0 +1,11 @@
+{
+  "expected": {
+    "NumeroPublication.php": "c84eeca3a678347ef0396b07f56cdd7f69691294e73b4069e5ba52fdab9616fb",
+    "imagine-site.php": "f45a0ed4b7ac6c4747637112c98d866d23720f508a04ff7d693e24ef83f61068"
+  },
+  "actual": {
+    "NumeroPublication.php": "c84eeca3a678347ef0396b07f56cdd7f69691294e73b4069e5ba52fdab9616fb",
+    "imagine-site.php": "f45a0ed4b7ac6c4747637112c98d866d23720f508a04ff7d693e24ef83f61068"
+  },
+  "exact": true
+}

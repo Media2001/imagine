@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'wp/outils/demo'))
 from construire import request_api, wp, upload, SLUG
 from b01_html import validate_html, BeautifulSoup
+from b01_expectations import latest_article_ids, home_matches
 
 PROOF = ROOT / 'production/B-01'
 
@@ -25,6 +26,8 @@ def run():
     inventory = json.loads(runtime['stdout'])
     inventory['exit_code'] = runtime['code']
     inventory['stderr'] = runtime['stderr']
+    expected_home = latest_article_ids(inventory['manifest'], inventory['articles'], inventory['c08_fixture'])
+    inventory['expected_home_ids_from_independent_fixtures'] = expected_home
     (PROOF / 'runtime.json').write_text(json.dumps(inventory, ensure_ascii=False, indent=2), encoding='utf-8')
     base = inventory['base'].rstrip('/')
     if urlparse(base).netloc != urlparse(site['url']).netloc:
@@ -85,8 +88,8 @@ def run():
             check(key + ' : lien au numéro', bool(soup.find('a', href=next(i['url'] for i in inventory['issues'] if i['id'] == row['issue']))))
             for term in row['terms']:
                 check(key + ' : lien thématique ' + str(term), bool(soup.find('a', href=next(t['url'] for t in inventory['themes'] if t['id'] == term))))
-            check(key + ' : corps ouvert complet ou verrou natif réservé',
-                  ('post_password' in str(body[0]) and 'CONTENU_FICTIF_RESERVE_' not in str(body[0])) if row['reserved']
+            check(key + ' : rendu courant C08 sans corps réservé (pas oracle recherche)',
+                  ('imagine-paywall-body' in str(body[0]) and 'CONTENU_FICTIF_RESERVE_' not in str(body[0]) and 'Scène fictive 5.' not in str(body[0])) if row['reserved']
                   else 'CONTENU_FICTIF_OUVERT_' in str(body[0]) and 'Scène fictive 5.' in str(body[0]))
         elif case['kind'] == 'numero':
             check(key + ' : couverture avec texte alternatif', bool(soup.select('main .imagine-cover img[alt]')))
@@ -98,7 +101,14 @@ def run():
             expected = {a['id'] for a in row['articles']}
             check(key + ' : articles exacts de cette thématique fictive', actual == expected, sorted(actual))
         elif case['kind'] == 'recherche-vide':
-            check(key + ' : état vide explicite', 'Aucun contenu pour le moment.' in text)
+            check(key + ' : état vide spécifique recherche', 'Aucun résultat pour votre recherche.' in text and 'Aucun contenu pour le moment.' not in text)
+        if case['kind'] in ['evenement', 'numero', 'agenda', 'kiosque']:
+            times = soup.select('main time[datetime]')
+            check(key + ' : dates localisées et datetime ISO conservé', bool(times) and all(t.get_text(strip=True) != t['datetime'] for t in times))
+        if case['kind'] == 'partenaires':
+            check(key + ' : étiquette Partenariat et déclaration', 'Partenariat' in soup.main.get_text() and 'liens sponsorisés' in soup.main.get_text())
+            links = soup.select('main li[data-imagine-id] a')
+            check(key + ' : liens partenaires sponsorisés', len(links) == len(inventory['partners']) and all('sponsored' in a.get('rel', []) for a in links))
         pages.append({k: v for k, v in case.items() if k != 'data'} | {
             'http': response.code, 'content_type': response.headers.get('Content-Type'),
             'html_file': file, 'sha256': hashlib.sha256(raw).hexdigest(), 'html_errors': errors,
@@ -108,7 +118,12 @@ def run():
     check('kiosque : hors-série inclus', any(x['type'] == 'hors-serie' and x['id'] in kiosk_ids for x in inventory['issues']))
     home_ids = [int(e['data-imagine-id']) for e in soups['accueil'].select('main li[data-imagine-id]')]
     check('accueil : dernier numéro réel en premier', home_ids[0] == inventory['issues'][0]['id'])
-    check('accueil : cinq derniers articles', len(home_ids) == 6)
+    home_articles = [int(e['data-imagine-id']) for e in soups['accueil'].select('section[aria-labelledby="imagine-latest-posts"] li[data-imagine-id]')]
+    check('accueil : cinq derniers articles ID et ordre indépendants B00/C08', home_matches(home_articles, expected_home), {'actual': home_articles, 'expected': expected_home})
+    intrusion = [1] + home_articles[1:]
+    permutation = [home_articles[1], home_articles[0]] + home_articles[2:]
+    check('accueil : oracle refuse intrusion ID1', not home_matches(intrusion, expected_home))
+    check('accueil : oracle refuse permutation', not home_matches(permutation, expected_home))
     for anchor in ['imagine-thematiques', 'imagine-agenda', 'imagine-abonnement']:
         check('accueil : entrée ' + anchor, bool(soups['accueil'].find(id=anchor)))
     for group, key in [('events', 'agenda'), ('partners', 'partenaires')]:

@@ -1,0 +1,951 @@
+{
+  "scope": "imagine-test-demo",
+  "base": "http://192.168.129.32:8085/",
+  "checks": [
+    {
+      "name": "thème Imagine actif",
+      "ok": true
+    },
+    {
+      "name": "sortie unique chargeable",
+      "ok": true
+    },
+    {
+      "name": "locale française déjà réglée B00",
+      "ok": true
+    },
+    {
+      "name": "pile réelle WordPress 7",
+      "ok": true
+    },
+    {
+      "name": "contenu installation déjà purgé B00",
+      "ok": true
+    },
+    {
+      "name": "quatre articles B00 du numéro 11",
+      "ok": true
+    },
+    {
+      "name": "numéro publié avec date valide 11",
+      "ok": true
+    },
+    {
+      "name": "quatre articles B00 du numéro 18",
+      "ok": true
+    },
+    {
+      "name": "numéro publié avec date valide 18",
+      "ok": true
+    },
+    {
+      "name": "quatre articles B00 du numéro 25",
+      "ok": true
+    },
+    {
+      "name": "numéro publié avec date valide 25",
+      "ok": true
+    },
+    {
+      "name": "quatre articles B00 du numéro 32",
+      "ok": true
+    },
+    {
+      "name": "numéro publié avec date valide 32",
+      "ok": true
+    },
+    {
+      "name": "quatre articles B00 du numéro 39",
+      "ok": true
+    },
+    {
+      "name": "numéro publié avec date valide 39",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 14",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 14",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 15",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 15",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 16",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 16",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 17",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 17",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 21",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 21",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 22",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 22",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 23",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 23",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 24",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 24",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 28",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 28",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 29",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 29",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 30",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 30",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 31",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 31",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 35",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 35",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 36",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 36",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 37",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 37",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 38",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 38",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 42",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 42",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 43",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 43",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 44",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 44",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 45",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 45",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 81",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 81",
+      "ok": true
+    },
+    {
+      "name": "sortie anonyme article 82",
+      "ok": true
+    },
+    {
+      "name": "mot de passe natif retiré B00 82",
+      "ok": true
+    },
+    {
+      "name": "garde emails sans envoi",
+      "ok": true
+    },
+    {
+      "name": "garde HTTP sans requête distante",
+      "ok": true
+    },
+    {
+      "name": "indexation refusée",
+      "ok": true
+    }
+  ],
+  "wordpress": "7.0.9",
+  "locale": "fr_FR",
+  "manifest": {
+    "demo-2026-hs": 32,
+    "demo-2026-hs-couverture": 33,
+    "demo-2026-hs-ouvert": 38,
+    "demo-2026-hs-pdf": 34,
+    "demo-2026-hs-reserve-1": 35,
+    "demo-2026-hs-reserve-2": 36,
+    "demo-2026-hs-reserve-3": 37,
+    "demo-2026-t1": 11,
+    "demo-2026-t1-couverture": 12,
+    "demo-2026-t1-ouvert": 17,
+    "demo-2026-t1-pdf": 13,
+    "demo-2026-t1-reserve-1": 14,
+    "demo-2026-t1-reserve-2": 15,
+    "demo-2026-t1-reserve-3": 16,
+    "demo-2026-t2": 18,
+    "demo-2026-t2-couverture": 19,
+    "demo-2026-t2-ouvert": 24,
+    "demo-2026-t2-pdf": 20,
+    "demo-2026-t2-reserve-1": 21,
+    "demo-2026-t2-reserve-2": 22,
+    "demo-2026-t2-reserve-3": 23,
+    "demo-2026-t3": 25,
+    "demo-2026-t3-couverture": 26,
+    "demo-2026-t3-ouvert": 31,
+    "demo-2026-t3-pdf": 27,
+    "demo-2026-t3-reserve-1": 28,
+    "demo-2026-t3-reserve-2": 29,
+    "demo-2026-t3-reserve-3": 30,
+    "demo-2026-t4": 39,
+    "demo-2026-t4-couverture": 40,
+    "demo-2026-t4-ouvert": 45,
+    "demo-2026-t4-pdf": 41,
+    "demo-2026-t4-reserve-1": 42,
+    "demo-2026-t4-reserve-2": 43,
+    "demo-2026-t4-reserve-3": 44,
+    "demo-accueil": 51,
+    "demo-calendrier": 50,
+    "demo-events-1": 46,
+    "demo-events-2": 47,
+    "demo-partners-1": 48,
+    "demo-partners-2": 49,
+    "term:demo-thematique-1": 18,
+    "term:demo-thematique-2": 19,
+    "term:demo-thematique-3": 20,
+    "user:redaction": 2
+  },
+  "c08_fixture": {
+    "plan": 76,
+    "users": {
+      "actif": 3,
+      "grace": 4,
+      "sans-droit": 5
+    },
+    "memberships": {
+      "actif": 78,
+      "grace": 80
+    },
+    "subscriptions": {
+      "actif": 77,
+      "grace": 79
+    },
+    "article": 81,
+    "automatique": 82
+  },
+  "issues": [
+    {
+      "id": 39,
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-t4/",
+      "title": "Numéro fictif 4 — 2026",
+      "date": "2026-10-15",
+      "type": "regulier",
+      "articles": [
+        {
+          "id": 42,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-1/",
+          "title": "Article fictif réservé 1 — DEMO-2026-T4"
+        },
+        {
+          "id": 43,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-2/",
+          "title": "Article fictif réservé 2 — DEMO-2026-T4"
+        },
+        {
+          "id": 44,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-3/",
+          "title": "Article fictif réservé 3 — DEMO-2026-T4"
+        },
+        {
+          "id": 45,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-ouvert/",
+          "title": "Reportage fictif en accès libre — DEMO-2026-T4"
+        }
+      ],
+      "pdf": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t4.pdf"
+    },
+    {
+      "id": 32,
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-hs/",
+      "title": "Hors-série fictif — été 2026",
+      "date": "2026-08-15",
+      "type": "hors-serie",
+      "articles": [
+        {
+          "id": 35,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-1/",
+          "title": "Article fictif réservé 1 — DEMO-2026-HS"
+        },
+        {
+          "id": 36,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-2/",
+          "title": "Article fictif réservé 2 — DEMO-2026-HS"
+        },
+        {
+          "id": 37,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-3/",
+          "title": "Article fictif réservé 3 — DEMO-2026-HS"
+        },
+        {
+          "id": 38,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-ouvert/",
+          "title": "Reportage fictif en accès libre — DEMO-2026-HS"
+        }
+      ],
+      "pdf": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-hs.pdf"
+    },
+    {
+      "id": 25,
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-t3/",
+      "title": "Numéro fictif 3 — 2026",
+      "date": "2026-07-15",
+      "type": "regulier",
+      "articles": [
+        {
+          "id": 28,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-1/",
+          "title": "Article fictif réservé 1 — DEMO-2026-T3"
+        },
+        {
+          "id": 29,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-2/",
+          "title": "Article fictif réservé 2 — DEMO-2026-T3"
+        },
+        {
+          "id": 30,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-3/",
+          "title": "Article fictif réservé 3 — DEMO-2026-T3"
+        },
+        {
+          "id": 31,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-ouvert/",
+          "title": "Reportage fictif en accès libre — DEMO-2026-T3"
+        }
+      ],
+      "pdf": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t3.pdf"
+    },
+    {
+      "id": 18,
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-t2/",
+      "title": "Numéro fictif 2 — 2026",
+      "date": "2026-04-15",
+      "type": "regulier",
+      "articles": [
+        {
+          "id": 21,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-1/",
+          "title": "Article fictif réservé 1 — DEMO-2026-T2"
+        },
+        {
+          "id": 22,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-2/",
+          "title": "Article fictif réservé 2 — DEMO-2026-T2"
+        },
+        {
+          "id": 23,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-3/",
+          "title": "Article fictif réservé 3 — DEMO-2026-T2"
+        },
+        {
+          "id": 24,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-ouvert/",
+          "title": "Reportage fictif en accès libre — DEMO-2026-T2"
+        }
+      ],
+      "pdf": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t2.pdf"
+    },
+    {
+      "id": 11,
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-t1/",
+      "title": "Numéro fictif 1 — 2026",
+      "date": "2026-01-15",
+      "type": "regulier",
+      "articles": [
+        {
+          "id": 14,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
+          "title": "Article fictif réservé 1 — DEMO-2026-T1"
+        },
+        {
+          "id": 15,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-2/",
+          "title": "Article fictif réservé 2 — DEMO-2026-T1"
+        },
+        {
+          "id": 16,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-3/",
+          "title": "Article fictif réservé 3 — DEMO-2026-T1"
+        },
+        {
+          "id": 17,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-ouvert/",
+          "title": "Reportage fictif en accès libre — DEMO-2026-T1"
+        },
+        {
+          "id": 81,
+          "url": "http://192.168.129.32:8085/c08-article-reserve-article/",
+          "title": "C08 — Article réservé fictif article"
+        },
+        {
+          "id": 82,
+          "url": "http://192.168.129.32:8085/c08-article-reserve-automatique/",
+          "title": "C08 — Article réservé fictif automatique"
+        }
+      ],
+      "pdf": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t1.pdf"
+    }
+  ],
+  "articles": [
+    {
+      "id": 14,
+      "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
+      "title": "Article fictif réservé 1 — DEMO-2026-T1",
+      "issue": 11,
+      "reserved": true,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t1-reserve-1",
+      "terms": [
+        18
+      ]
+    },
+    {
+      "id": 15,
+      "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-2/",
+      "title": "Article fictif réservé 2 — DEMO-2026-T1",
+      "issue": 11,
+      "reserved": true,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t1-reserve-2",
+      "terms": [
+        19
+      ]
+    },
+    {
+      "id": 16,
+      "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-3/",
+      "title": "Article fictif réservé 3 — DEMO-2026-T1",
+      "issue": 11,
+      "reserved": true,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t1-reserve-3",
+      "terms": [
+        20
+      ]
+    },
+    {
+      "id": 17,
+      "url": "http://192.168.129.32:8085/demo-2026-t1-ouvert/",
+      "title": "Reportage fictif en accès libre — DEMO-2026-T1",
+      "issue": 11,
+      "reserved": false,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t1-ouvert",
+      "terms": [
+        18
+      ]
+    },
+    {
+      "id": 21,
+      "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-1/",
+      "title": "Article fictif réservé 1 — DEMO-2026-T2",
+      "issue": 18,
+      "reserved": true,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t2-reserve-1",
+      "terms": [
+        18
+      ]
+    },
+    {
+      "id": 22,
+      "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-2/",
+      "title": "Article fictif réservé 2 — DEMO-2026-T2",
+      "issue": 18,
+      "reserved": true,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t2-reserve-2",
+      "terms": [
+        19
+      ]
+    },
+    {
+      "id": 23,
+      "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-3/",
+      "title": "Article fictif réservé 3 — DEMO-2026-T2",
+      "issue": 18,
+      "reserved": true,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t2-reserve-3",
+      "terms": [
+        20
+      ]
+    },
+    {
+      "id": 24,
+      "url": "http://192.168.129.32:8085/demo-2026-t2-ouvert/",
+      "title": "Reportage fictif en accès libre — DEMO-2026-T2",
+      "issue": 18,
+      "reserved": false,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t2-ouvert",
+      "terms": [
+        18
+      ]
+    },
+    {
+      "id": 28,
+      "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-1/",
+      "title": "Article fictif réservé 1 — DEMO-2026-T3",
+      "issue": 25,
+      "reserved": true,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t3-reserve-1",
+      "terms": [
+        18
+      ]
+    },
+    {
+      "id": 29,
+      "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-2/",
+      "title": "Article fictif réservé 2 — DEMO-2026-T3",
+      "issue": 25,
+      "reserved": true,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t3-reserve-2",
+      "terms": [
+        19
+      ]
+    },
+    {
+      "id": 30,
+      "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-3/",
+      "title": "Article fictif réservé 3 — DEMO-2026-T3",
+      "issue": 25,
+      "reserved": true,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t3-reserve-3",
+      "terms": [
+        20
+      ]
+    },
+    {
+      "id": 31,
+      "url": "http://192.168.129.32:8085/demo-2026-t3-ouvert/",
+      "title": "Reportage fictif en accès libre — DEMO-2026-T3",
+      "issue": 25,
+      "reserved": false,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t3-ouvert",
+      "terms": [
+        18
+      ]
+    },
+    {
+      "id": 35,
+      "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-1/",
+      "title": "Article fictif réservé 1 — DEMO-2026-HS",
+      "issue": 32,
+      "reserved": true,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-hs-reserve-1",
+      "terms": [
+        18
+      ]
+    },
+    {
+      "id": 36,
+      "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-2/",
+      "title": "Article fictif réservé 2 — DEMO-2026-HS",
+      "issue": 32,
+      "reserved": true,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-hs-reserve-2",
+      "terms": [
+        19
+      ]
+    },
+    {
+      "id": 37,
+      "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-3/",
+      "title": "Article fictif réservé 3 — DEMO-2026-HS",
+      "issue": 32,
+      "reserved": true,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-hs-reserve-3",
+      "terms": [
+        20
+      ]
+    },
+    {
+      "id": 38,
+      "url": "http://192.168.129.32:8085/demo-2026-hs-ouvert/",
+      "title": "Reportage fictif en accès libre — DEMO-2026-HS",
+      "issue": 32,
+      "reserved": false,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-hs-ouvert",
+      "terms": [
+        18
+      ]
+    },
+    {
+      "id": 42,
+      "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-1/",
+      "title": "Article fictif réservé 1 — DEMO-2026-T4",
+      "issue": 39,
+      "reserved": true,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t4-reserve-1",
+      "terms": [
+        18
+      ]
+    },
+    {
+      "id": 43,
+      "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-2/",
+      "title": "Article fictif réservé 2 — DEMO-2026-T4",
+      "issue": 39,
+      "reserved": true,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t4-reserve-2",
+      "terms": [
+        19
+      ]
+    },
+    {
+      "id": 44,
+      "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-3/",
+      "title": "Article fictif réservé 3 — DEMO-2026-T4",
+      "issue": 39,
+      "reserved": true,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t4-reserve-3",
+      "terms": [
+        20
+      ]
+    },
+    {
+      "id": 45,
+      "url": "http://192.168.129.32:8085/demo-2026-t4-ouvert/",
+      "title": "Reportage fictif en accès libre — DEMO-2026-T4",
+      "issue": 39,
+      "reserved": false,
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture.",
+      "author": "Rédaction Fictive Imagine",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t4-ouvert",
+      "terms": [
+        18
+      ]
+    },
+    {
+      "id": 81,
+      "url": "http://192.168.129.32:8085/c08-article-reserve-article/",
+      "title": "C08 — Article réservé fictif article",
+      "issue": 11,
+      "reserved": true,
+      "excerpt": "Extrait public C08 : une histoire entièrement fictive, réservée aux tests de lecture.",
+      "author": "",
+      "date": "2026-01-01 12:00:00",
+      "key": "",
+      "terms": []
+    },
+    {
+      "id": 82,
+      "url": "http://192.168.129.32:8085/c08-article-reserve-automatique/",
+      "title": "C08 — Article réservé fictif automatique",
+      "issue": 11,
+      "reserved": true,
+      "excerpt": "",
+      "author": "",
+      "date": "2026-01-01 12:00:00",
+      "key": "",
+      "terms": []
+    }
+  ],
+  "themes": [
+    {
+      "id": 20,
+      "url": "http://192.168.129.32:8085/thematiques/demo-thematique-3/",
+      "title": "Futurs fictifs",
+      "articles": [
+        {
+          "id": 16,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-3/",
+          "title": "Article fictif réservé 3 — DEMO-2026-T1"
+        },
+        {
+          "id": 23,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-3/",
+          "title": "Article fictif réservé 3 — DEMO-2026-T2"
+        },
+        {
+          "id": 30,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-3/",
+          "title": "Article fictif réservé 3 — DEMO-2026-T3"
+        },
+        {
+          "id": 37,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-3/",
+          "title": "Article fictif réservé 3 — DEMO-2026-HS"
+        },
+        {
+          "id": 44,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-3/",
+          "title": "Article fictif réservé 3 — DEMO-2026-T4"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "url": "http://192.168.129.32:8085/thematiques/demo-thematique-2/",
+      "title": "Solidarités inventées",
+      "articles": [
+        {
+          "id": 15,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-2/",
+          "title": "Article fictif réservé 2 — DEMO-2026-T1"
+        },
+        {
+          "id": 22,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-2/",
+          "title": "Article fictif réservé 2 — DEMO-2026-T2"
+        },
+        {
+          "id": 29,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-2/",
+          "title": "Article fictif réservé 2 — DEMO-2026-T3"
+        },
+        {
+          "id": 36,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-2/",
+          "title": "Article fictif réservé 2 — DEMO-2026-HS"
+        },
+        {
+          "id": 43,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-2/",
+          "title": "Article fictif réservé 2 — DEMO-2026-T4"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "url": "http://192.168.129.32:8085/thematiques/demo-thematique-1/",
+      "title": "Terres imaginaires",
+      "articles": [
+        {
+          "id": 14,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
+          "title": "Article fictif réservé 1 — DEMO-2026-T1"
+        },
+        {
+          "id": 17,
+          "url": "http://192.168.129.32:8085/demo-2026-t1-ouvert/",
+          "title": "Reportage fictif en accès libre — DEMO-2026-T1"
+        },
+        {
+          "id": 21,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-1/",
+          "title": "Article fictif réservé 1 — DEMO-2026-T2"
+        },
+        {
+          "id": 24,
+          "url": "http://192.168.129.32:8085/demo-2026-t2-ouvert/",
+          "title": "Reportage fictif en accès libre — DEMO-2026-T2"
+        },
+        {
+          "id": 28,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-1/",
+          "title": "Article fictif réservé 1 — DEMO-2026-T3"
+        },
+        {
+          "id": 31,
+          "url": "http://192.168.129.32:8085/demo-2026-t3-ouvert/",
+          "title": "Reportage fictif en accès libre — DEMO-2026-T3"
+        },
+        {
+          "id": 35,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-1/",
+          "title": "Article fictif réservé 1 — DEMO-2026-HS"
+        },
+        {
+          "id": 38,
+          "url": "http://192.168.129.32:8085/demo-2026-hs-ouvert/",
+          "title": "Reportage fictif en accès libre — DEMO-2026-HS"
+        },
+        {
+          "id": 42,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-1/",
+          "title": "Article fictif réservé 1 — DEMO-2026-T4"
+        },
+        {
+          "id": 45,
+          "url": "http://192.168.129.32:8085/demo-2026-t4-ouvert/",
+          "title": "Reportage fictif en accès libre — DEMO-2026-T4"
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": 47,
+      "url": "http://192.168.129.32:8085/evenements/demo-events-2/",
+      "title": "Atelier des possibles inventés"
+    },
+    {
+      "id": 46,
+      "url": "http://192.168.129.32:8085/evenements/demo-events-1/",
+      "title": "Rencontre au village Imaginaire"
+    }
+  ],
+  "partners": [
+    {
+      "id": 49,
+      "url": "http://192.168.129.32:8085/partenaires/demo-partners-2/",
+      "title": "Coopérative des Horizons inventés"
+    },
+    {
+      "id": 48,
+      "url": "http://192.168.129.32:8085/partenaires/demo-partners-1/",
+      "title": "Association des Nuages fictifs"
+    }
+  ],
+  "page": "http://192.168.129.32:8085/calendrier-fictif/",
+  "archives": [
+    "http://192.168.129.32:8085/numeros/",
+    "http://192.168.129.32:8085/evenements/",
+    "http://192.168.129.32:8085/partenaires/"
+  ],
+  "exit_code": 0,
+  "stderr": "",
+  "expected_home_ids_from_independent_fixtures": [
+    82,
+    81,
+    45,
+    44,
+    43
+  ]
+}

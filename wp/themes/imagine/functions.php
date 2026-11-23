@@ -120,6 +120,26 @@ function imagine_date(string $key): void
     }
 }
 
+/** Sponsored outbound links only in partner-authored content; never editorial posts. */
+function imagine_partner_content(string $content): string
+{
+    if (get_post_type() !== 'imagine_partenaire') {
+        return $content;
+    }
+    $tags = new \WP_HTML_Tag_Processor($content);
+    while ($tags->next_tag('A')) {
+        $host = wp_parse_url((string) $tags->get_attribute('href'), PHP_URL_HOST);
+        if (!$host || $host === wp_parse_url(home_url('/'), PHP_URL_HOST)) {
+            continue;
+        }
+        $rel = preg_split('/\s+/', trim((string) $tags->get_attribute('rel')), -1, PREG_SPLIT_NO_EMPTY);
+        $rel[] = 'sponsored';
+        $tags->set_attribute('rel', implode(' ', array_unique($rel)));
+    }
+    return $tags->get_updated_html();
+}
+add_filter('the_content', __NAMESPACE__ . '\\imagine_partner_content', 20);
+
 function imagine_navigation(): void
 {
     $links = [

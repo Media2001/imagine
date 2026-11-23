@@ -1,0 +1,7 @@
+test_home_exact_fixture_ids_and_order_reject_intruder_and_permutation (__main__.Corrections.test_home_exact_fixture_ids_and_order_reject_intruder_and_permutation) ... ok
+test_semantics_localization_and_stable_navigation_source (__main__.Corrections.test_semantics_localization_and_stable_navigation_source) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.002s
+
+OK

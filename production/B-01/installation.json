@@ -1,0 +1,40 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-23T16:47:23.622294+00:00",
+  "url": "http://192.168.129.32:8085",
+  "active_theme": "imagine",
+  "activation": {
+    "code": 0,
+    "stdout": "",
+    "stderr": "Warning: The 'Imagine' theme is already active.\n"
+  },
+  "files_sha256": {
+    "404.php": "d85c7b3c6a8f139849c3521797f359e777bf4d3abcaabc432d1fd9b517fae9b2",
+    "archive-imagine_evenement.php": "f7ef9c5fcf966c6860b8eed51e4bbd7add50ecbfe3abd76b82778d530dd712df",
+    "archive-imagine_numero.php": "64235c2d457714a53d785ea8c4a91f37bd43aca625f91a7a213a9647d50fb721",
+    "archive-imagine_partenaire.php": "0dbdc899111ca70b07a4ade724be3d075bdef50aa2d1d311f7568c10172f60d9",
+    "assets/tokens.css": "189df2806d80babf869dc2e9183298fccb7523b4ebb9faaf03c9d2fee3322923",
+    "footer.php": "2e9d86e5c6dbdc839447d45d0e6c9b02b3f436ce8417c70f8041c28d6727979d",
+    "front-page.php": "9b47c94a640c68cd47c62c3247ae594679652f3c0461ce49a1347750e2c8bb16",
+    "functions.php": "20317e14727e7cfa23415f068d5f54e2cc0722b49cca618b1aac629e9591e77d",
+    "header.php": "0571a7d4c640dcf6b7da839e1b28ead3b96946f89ac2b906416b12609300a3a8",
+    "index.php": "f941eee5897b86a1d276619e769e4dd34115087bfc343669dae276bb319fa654",
+    "page.php": "3832d2f2d4b98dcbe1c76e0b2c40862dfba31df925906987df9fbab8090b61ae",
+    "parts/paywall-abonnement.php": "c4a7d59d415d56b7e9f98a6cc0c5bd307936aece34715cdcbc2fef2d198f7438",
+    "parts/paywall-connexion.php": "2cd97c05b828b7440907f196aef47a2b079d3e93a02b23934faf4843447b4d5a",
+    "parts/paywall-decouverte_epuisee.php": "00194346c2a38f648cc4a0106e39743d3d7dd9b5e8ddca0086b515e6e77912d5",
+    "parts/paywall-regularisation.php": "a3557bd40a761cbe6ac0307879cf1c95871e419b19ad6140a1b03e162e957937",
+    "search.php": "fe28618081d7dcdd4cb97b3aaecfae87d425999518ac1e04bfa7f95dda952f07",
+    "searchform.php": "b9fff0cd0cebafe7044ad4022669e95d5c088b8f2cf9fd64e3639ac29d6d1912",
+    "single-imagine_evenement.php": "8ef20f88e6feaca38e1f7d0c85fb7cdff30bfb120e99a67d501b1bf106067c7b",
+    "single-imagine_numero.php": "9427b95411593a1b904d255097089c07d10e33ac2fb4e71af1ce2e4953a57dba",
+    "single-imagine_partenaire.php": "832e427a9680c42deebe9810a9dd2f5597f67558dba8dacc252b6b9593e0b365",
+    "single.php": "90e6e10171c80ab7337629ad2570802aa48615d4e6f2aca2ede8853d85eeed0e",
+    "style.css": "09caf53988b73a4da92238b7d95aebaeb840c3c445440d698340cf4773718cb6",
+    "taxonomy-imagine_thematique.php": "4bcfce91262f2f298ca7e1cff8666ca8de72bf2574d0f3035f4bcc2252536af5"
+  },
+  "php_parsed": 21,
+  "b00_manifest_unchanged": true,
+  "file_count": 23,
+  "status": "VERIFIED"
+}

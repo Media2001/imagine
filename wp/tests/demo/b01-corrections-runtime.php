@@ -6,6 +6,9 @@ if (!defined('WP_CLI') || !WP_CLI || wp_get_environment_type() !== 'local' || ge
     throw new \RuntimeException('B01 fixed local demo only.');
 }
 $checks=[];
+$GLOBALS['post']=get_post(get_option('imagine_demo_manifest')['demo-partners-1']);
+$partnerHtml=apply_filters('the_content','<p><a href="https://partenaire.example.org" rel="noopener">Partenaire fictif</a></p>');
+$checks[]=['name'=>'authored partner external link sponsored preserving rel', 'ok'=>str_contains($partnerHtml,'sponsored') && str_contains($partnerHtml,'noopener')];
 $check=static function(string $name,bool $ok) use (&$checks):void {$checks[]=['name'=>$name,'ok'=>$ok];};
 $collision=static fn($url,$type)=>home_url('/');
 add_filter('post_type_archive_link',$collision,10,2);
@@ -44,6 +47,23 @@ try {
     $request->set_param('status','publish');
     $result=apply_filters('rest_pre_insert_imagine_numero',$prepared,$request);
     $check('REST publication without date returns explicit 400',is_wp_error($result) && ($result->get_error_data()['status']??null)===400);
+    $future=wp_insert_post(['post_type'=>'imagine_numero','post_status'=>'future','post_date'=>'2028-01-01 12:00:00','post_title'=>'B01 TEMP scheduled without release date'],true);
+    if (!is_wp_error($future)) {$ids[]=$future;}
+    $check('scheduled issue without editorial release date refused',is_wp_error($future) || get_post_status($future)==='draft');
+    wp_set_current_user(1);
+    $rest=new \WP_REST_Request('POST','/wp/v2/imagine_numero');
+    $rest->set_body_params(['title'=>'B01 TEMP REST dated','status'=>'publish','meta'=>['imagine_sortie'=>'2026-12-11']]);
+    $response=rest_do_request($rest);
+    $restId=(int)($response->get_data()['id']??0);
+    if ($restId) {$ids[]=$restId;}
+    $check('real REST dated publication succeeds', $response->get_status()===201 && get_post_status($restId)==='publish' && get_post_meta($restId,'imagine_sortie',true)==='2026-12-11');
+    $restMissing=new \WP_REST_Request('POST','/wp/v2/imagine_numero');
+    $restMissing->set_body_params(['title'=>'B01 TEMP REST no date','status'=>'publish']);
+    $responseMissing=rest_do_request($restMissing);
+    $extra=(int)($responseMissing->get_data()['id']??0);
+    if ($extra) {$ids[]=$extra;}
+    $check('real REST missing date returns explicit 400 without insertion',$responseMissing->get_status()===400 && !$extra);
+    wp_set_current_user(0);
 } finally {
     foreach($ids as $id) {wp_delete_post($id,true);}
     wp_reset_postdata();
