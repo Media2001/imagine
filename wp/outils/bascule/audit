@@ -80,11 +80,579 @@ final class Audit
         return $values;
     }
 
+    private \PDO $db;
+    private string $prefix;
+    private string $site;
+    private array $tableNames = [];
+    private array $limitations = [];
+
+    public function __construct(string $site)
+    {
+        $this->site = $site;
+        $config = self::config(self::read($site . '/wp-config.php', 1048576));
+        $this->prefix = $config['table_prefix'];
+        $host = $config['DB_HOST'];
+        if (preg_match('~\Alocalhost:(/[^;\x00-\x1f]+)\z~D', $host, $match)) {
+            $dsn = 'mysql:unix_socket=' . $match[1];
+        } elseif (preg_match('/\A([A-Za-z0-9_.-]+)(?::([0-9]{1,5}))?\z/D', $host, $match)) {
+            $dsn = 'mysql:host=' . $match[1] . ';port=' . ($match[2] ?? '3306');
+        } else {
+            throw new \RuntimeException('A02_DB_HOST_UNSUPPORTED');
+        }
+        if (!preg_match('/\A[A-Za-z0-9_-]+\z/D', $config['DB_NAME'])) {
+            throw new \RuntimeException('A02_DB_NAME_UNSUPPORTED');
+        }
+        $this->db = new \PDO($dsn . ';dbname=' . $config['DB_NAME'] . ';charset=utf8mb4', $config['DB_USER'], $config['DB_PASSWORD'], [
+            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+            \PDO::ATTR_EMULATE_PREPARES => false,
+            \PDO::MYSQL_ATTR_MULTI_STATEMENTS => false,
+            \PDO::ATTR_TIMEOUT => 10,
+        ]);
+        unset($config);
+        $this->db->exec('SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ');
+        $this->db->exec('SET SESSION TRANSACTION READ ONLY');
+        $this->db->beginTransaction();
+        foreach ($this->query('SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_TYPE = \'BASE TABLE\' ORDER BY TABLE_NAME') as $table) {
+            $this->tableNames[] = $table['TABLE_NAME'];
+        }
+    }
+
+    public function __destruct()
+    {
+        if (isset($this->db) && $this->db->inTransaction()) {
+            $this->db->rollBack();
+        }
+    }
+
+    private static function read(string $file, int $limit = 4194304): string
+    {
+        if (is_link($file) || !is_file($file) || filesize($file) > $limit) {
+            throw new \RuntimeException('A02_FILE_UNREADABLE_OR_TOO_LARGE');
+        }
+        $value = file_get_contents($file);
+        if ($value === false) {
+            throw new \RuntimeException('A02_FILE_UNREADABLE_OR_TOO_LARGE');
+        }
+        return $value;
+    }
+
+    private function query(string $sql, array $params = []): array
+    {
+        if (!str_starts_with($sql, 'SELECT ')) {
+            throw new \RuntimeException('A02_NON_SELECT_FORBIDDEN');
+        }
+        $statement = $this->db->prepare($sql);
+        $statement->execute($params);
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    private function table(string $suffix): string
+    {
+        $name = $this->prefix . $suffix;
+        if (!in_array($name, $this->tableNames, true) || !preg_match('/\A[A-Za-z0-9_]+\z/D', $name)) {
+            throw new \RuntimeException('A02_EXPECTED_TABLE_MISSING');
+        }
+        return '`' . $name . '`';
+    }
+
+    private function option(string $name): string
+    {
+        $rows = $this->query('SELECT option_value FROM ' . $this->table('options') . ' WHERE option_name = ?', [$name]);
+        return $rows[0]['option_value'] ?? '';
+    }
+
+    private static function header(string $text, string $label): ?string
+    {
+        return preg_match('/^[ \t\/*#@]*' . preg_quote($label, '/') . ':\s*([^\r\n]*)/mi', $text, $match) ? trim(preg_replace('~\s*\*/.*$~', '', $match[1])) : null;
+    }
+
+    private static function tree(string $root, string $extension): array
+    {
+        if (!is_dir($root) || is_link($root)) {
+            return [];
+        }
+        $files = [];
+        $walk = static function (string $dir, int $depth) use (&$walk, &$files, $extension): void {
+            if ($depth > 20 || count($files) > 50000) {
+                throw new \RuntimeException('A02_FILE_TREE_LIMIT');
+            }
+            foreach (new \FilesystemIterator($dir) as $file) {
+                if ($file->isLink()) {
+                    throw new \RuntimeException('A02_SYMLINK_UNSUPPORTED');
+                }
+                if ($file->isDir()) {
+                    $walk($file->getPathname(), $depth + 1);
+                } elseif ($file->isFile() && str_ends_with($file->getFilename(), $extension)) {
+                    $files[] = $file->getPathname();
+                }
+            }
+        };
+        $walk($root, 0);
+        sort($files);
+        return $files;
+    }
+
+    private function inventory(): array
+    {
+        $active = self::decode($this->option('active_plugins'));
+        $network = self::decode($this->option('active_sitewide_plugins'));
+        $cachePlugins = self::decode($this->option('_site_transient_update_plugins'));
+        $cacheThemes = self::decode($this->option('_site_transient_update_themes'));
+        $plugins = [];
+        foreach (['plugins' => false, 'mu-plugins' => true] as $folder => $mu) {
+            $root = $this->site . '/wp-content/' . $folder;
+            $candidates = glob($root . '/*.php') ?: [];
+            if (!$mu) {
+                $candidates = array_merge($candidates, glob($root . '/*/*.php') ?: []);
+            }
+            sort($candidates);
+            foreach ($candidates as $file) {
+                $text = self::read($file, 16777216);
+                if (!self::header(substr($text, 0, 8192), 'Plugin Name')) {
+                    continue;
+                }
+                $key = substr($file, strlen($root) + 1);
+                $cached = $cachePlugins['response'][$key] ?? $cachePlugins['no_update'][$key] ?? [];
+                $plugins[] = [
+                    'name' => self::identifier(($mu ? 'mu/' : '') . $key),
+                    'version' => self::version(self::header($text, 'Version')),
+                    'active' => $mu || in_array($key, $active, true) || array_key_exists($key, $network),
+                    'kind' => $mu ? 'mu' : 'plugin',
+                    'latest' => self::version($cached['new_version'] ?? null),
+                    'requires_wp' => self::version(self::header($text, 'Requires at least')),
+                    'requires_php' => self::version(self::header($text, 'Requires PHP')),
+                    'latest_requires_wp' => self::version($cached['requires'] ?? null),
+                    'latest_requires_php' => self::version($cached['requires_php'] ?? null),
+                    'last_updated' => self::date($cached['last_updated'] ?? null),
+                ];
+            }
+        }
+        $themes = [];
+        $stylesheet = $this->option('stylesheet');
+        $template = $this->option('template');
+        foreach (glob($this->site . '/wp-content/themes/*/style.css') ?: [] as $file) {
+            $text = self::read($file);
+            $name = basename(dirname($file));
+            $cached = $cacheThemes['response'][$name] ?? $cacheThemes['no_update'][$name] ?? [];
+            $themes[] = [
+                'name' => self::identifier($name), 'version' => self::version(self::header($text, 'Version')),
+                'active' => $name === $stylesheet || $name === $template,
+                'latest' => self::version($cached['new_version'] ?? null),
+                'requires_wp' => self::version(self::header($text, 'Requires at least')),
+                'requires_php' => self::version(self::header($text, 'Requires PHP')),
+                'latest_requires_wp' => self::version($cached['requires'] ?? null),
+                'latest_requires_php' => self::version($cached['requires_php'] ?? null),
+            ];
+        }
+        $wp = self::read($this->site . '/wp-includes/version.php');
+        preg_match('/\$wp_version\s*=\s*[\'\"]([^\'\"]+)[\'\"]/', $wp, $match);
+        $dbVersion = $this->query('SELECT VERSION() AS version')[0]['version'];
+        preg_match('/^[0-9]+(?:\.[0-9]+){1,2}/', $dbVersion, $dbMatch);
+        return ['wordpress' => self::version($match[1] ?? null), 'php' => PHP_VERSION,
+            'database' => $dbMatch[0] ?? null, 'database_family' => str_contains($dbVersion, 'MariaDB') ? 'MariaDB' : 'MySQL',
+            'plugins' => $plugins, 'themes' => $themes,
+            'update_source' => 'local_cache_only_not_a_live_check',
+            'plugin_cache_checked_epoch' => self::number($cachePlugins['last_checked'] ?? null),
+            'theme_cache_checked_epoch' => self::number($cacheThemes['last_checked'] ?? null)];
+    }
+
+    private static function date(mixed $value): ?string
+    {
+        return is_string($value) && preg_match('/\A[0-9]{4}-[0-9]{2}-[0-9]{2}(?: [0-9:]{8})?\z/D', $value) ? substr($value, 0, 10) : null;
+    }
+
+    private static function number(mixed $value): ?int
+    {
+        return (is_int($value) || is_string($value)) && preg_match('/\A[0-9]{1,12}\z/D', (string) $value) ? (int) $value : null;
+    }
+
+    private static function period(mixed $value): ?string
+    {
+        return in_array($value, ['day', 'week', 'month', 'year'], true) ? $value : null;
+    }
+
+    private function meta(int $id, string $key): string
+    {
+        $rows = $this->query('SELECT meta_value FROM ' . $this->table('postmeta') . ' WHERE post_id = ? AND meta_key = ? ORDER BY meta_id LIMIT 1', [$id, $key]);
+        return $rows[0]['meta_value'] ?? '';
+    }
+
+    public static function gatewayIds(string $source): array
+    {
+        $ids = [];
+        if (preg_match_all('/\$this->id\s*=\s*[\'\"]([A-Za-z0-9_-]+)[\'\"]/', $source, $matches)) {
+            $ids = $matches[1];
+        }
+        if (preg_match('/\$this->id\s*=\s*self::ID\s*;/', $source) && preg_match('/\bconst\s+ID\s*=\s*[\'\"]([A-Za-z0-9_-]+)[\'\"]/', $source, $match)) {
+            $ids[] = $match[1];
+        }
+        return array_values(array_unique(array_map([self::class, 'identifier'], $ids)));
+    }
+
+    private function commerce(array $versions): array
+    {
+        $hpos = $this->option('woocommerce_custom_orders_table_enabled') === 'yes';
+        $post = $this->table('posts');
+        $meta = $this->table('postmeta');
+        if ($hpos) {
+            $orders = $this->table('wc_orders');
+            $ometa = $this->table('wc_orders_meta');
+            $subs = $this->query("SELECT o.status, p.meta_value AS period, i.meta_value AS billing_interval, COUNT(*) AS count FROM $orders o LEFT JOIN $ometa p ON p.order_id=o.id AND p.meta_key='_billing_period' LEFT JOIN $ometa i ON i.order_id=o.id AND i.meta_key='_billing_interval' WHERE o.type='shop_subscription' GROUP BY o.status,p.meta_value,i.meta_value ORDER BY o.status,p.meta_value,i.meta_value");
+            $years = $this->query("SELECT YEAR(date_created_gmt) AS year, COUNT(*) AS count FROM $orders WHERE type='shop_order' GROUP BY YEAR(date_created_gmt) ORDER BY year");
+        } else {
+            $subs = $this->query("SELECT o.post_status AS status,p.meta_value AS period,i.meta_value AS billing_interval,COUNT(*) AS count FROM $post o LEFT JOIN $meta p ON p.post_id=o.ID AND p.meta_key='_billing_period' LEFT JOIN $meta i ON i.post_id=o.ID AND i.meta_key='_billing_interval' WHERE o.post_type='shop_subscription' GROUP BY o.post_status,p.meta_value,i.meta_value ORDER BY o.post_status,p.meta_value,i.meta_value");
+            $years = $this->query("SELECT YEAR(post_date_gmt) AS year,COUNT(*) AS count FROM $post WHERE post_type='shop_order' GROUP BY YEAR(post_date_gmt) ORDER BY year");
+        }
+        $subscriptions = [];
+        foreach ($subs as $row) {
+            $subscriptions[] = ['status' => self::identifier($row['status']), 'period' => self::period($row['period']), 'interval' => self::number($row['billing_interval']), 'count' => (int) $row['count']];
+        }
+        $memberships = [];
+        foreach ($this->query("SELECT post_parent AS plan_id,post_status AS status,COUNT(*) AS count FROM $post WHERE post_type='wc_user_membership' GROUP BY post_parent,post_status ORDER BY post_parent,post_status") as $row) {
+            $memberships[] = ['plan_id' => (int) $row['plan_id'], 'status' => self::identifier($row['status']), 'count' => (int) $row['count']];
+        }
+        $products = [];
+        $ids = $this->query("SELECT DISTINCT p.ID FROM $post p JOIN $meta m ON m.post_id=p.ID WHERE p.post_type IN ('product','product_variation') AND m.meta_key='_subscription_period' ORDER BY p.ID");
+        foreach ($ids as $row) {
+            $id = (int) $row['ID'];
+            $sync = $this->meta($id, '_subscription_payment_sync_date');
+            $syncArray = self::decode($sync);
+            $fee = $this->meta($id, '_subscription_sign_up_fee');
+            $products[] = ['id' => $id, 'period' => self::period($this->meta($id, '_subscription_period')),
+                'interval' => self::number($this->meta($id, '_subscription_period_interval')),
+                'length' => self::number($this->meta($id, '_subscription_length')),
+                'trial_period' => self::period($this->meta($id, '_subscription_trial_period')),
+                'trial_length' => self::number($this->meta($id, '_subscription_trial_length')),
+                'sign_up_fee' => preg_match('/\A[0-9]{1,10}(?:\.[0-9]{1,4})?\z/D', $fee) ? $fee : null,
+                'sync' => $syncArray ? ['day' => self::number($syncArray['day'] ?? null), 'month' => self::number($syncArray['month'] ?? null)] : self::number($sync)];
+        }
+        // Static class IDs from active sources: never instantiate gateways or read settings.
+        $gateways = [];
+        foreach ($versions['plugins'] as $plugin) {
+            if (!$plugin['active'] || $plugin['kind'] !== 'plugin' || $plugin['name'] === '[masque]') {
+                continue;
+            }
+            $name = $plugin['name'];
+            $root = $this->site . '/wp-content/plugins/' . (str_contains($name, '/') ? dirname($name) : $name);
+            $files = is_dir($root) ? self::tree($root, '.php') : [$root];
+            foreach ($files as $file) {
+                $text = self::read($file, 16777216);
+                if (!str_contains($text, 'WC_Payment_Gateway')) {
+                    continue;
+                }
+                $gateways = array_merge($gateways, self::gatewayIds($text));
+            }
+        }
+        $gateways = array_values(array_unique($gateways));
+        sort($gateways);
+        return ['order_storage' => $hpos ? 'hpos' : 'classic', 'order_year_basis' => 'UTC_creation',
+            'gateways' => $gateways, 'gateway_detection' => 'static_active_source_ids_not_enabled_status_dynamic_ids_unknown',
+            'subscriptions' => $subscriptions, 'memberships' => $memberships,
+            'orders_by_year' => array_map(static fn(array $r): array => ['year' => (int) $r['year'], 'count' => (int) $r['count']], $years),
+            'subscription_products' => $products];
+    }
+
+    private function memberships(): array
+    {
+        $plans = [];
+        foreach ($this->query('SELECT ID,post_status FROM ' . $this->table('posts') . " WHERE post_type='wc_membership_plan' ORDER BY ID") as $row) {
+            $plans[] = ['id' => (int) $row['ID'], 'status' => self::identifier($row['post_status'])];
+        }
+        $rules = [];
+        foreach (self::decode($this->option('wc_memberships_rules')) as $rule) {
+            if (!is_array($rule) || ($rule['rule_type'] ?? null) !== 'content_restriction') {
+                continue;
+            }
+            $schedule = $rule['access_schedule'] ?? null;
+            $ids = array_values(array_filter(array_map([self::class, 'number'], (array) ($rule['object_ids'] ?? [])), static fn($v): bool => $v !== null));
+            $rules[] = ['plan_id' => self::number($rule['membership_plan_id'] ?? null),
+                'active' => ($rule['active'] ?? null) === 'yes',
+                'content_type' => self::identifier($rule['content_type'] ?? ''),
+                'content_type_name' => self::identifier($rule['content_type_name'] ?? ''),
+                'object_ids' => $ids, 'all_objects' => !$ids,
+                'access_schedule' => in_array($schedule, ['immediate', 'specific', 'fixed'], true) ? $schedule : null,
+                'drip' => $schedule !== 'immediate',
+                'amount' => self::number($rule['access_schedule_amount'] ?? null),
+                'period' => self::period($rule['access_schedule_period'] ?? null)];
+        }
+        return ['plans' => $plans, 'rules' => $rules,
+            'interpretation' => 'raw_saved_rules_not_runtime_effective_access; ids_only_no_titles_or_user_ids'];
+    }
+
+    private function content(array $versions): array
+    {
+        $post = $this->table('posts');
+        $types = $this->query("SELECT post_type AS name, COUNT(*) AS count FROM $post GROUP BY post_type ORDER BY post_type");
+        $taxonomies = $this->query('SELECT taxonomy AS name,COUNT(*) AS count FROM ' . $this->table('term_taxonomy') . ' GROUP BY taxonomy ORDER BY taxonomy');
+        $fields = $this->query('SELECT meta_key AS name,COUNT(*) AS count FROM ' . $this->table('postmeta') . ' GROUP BY meta_key ORDER BY count DESC,meta_key LIMIT 50');
+        $pairs = static fn(array $rows): array => array_map(static fn(array $r): array => ['name' => self::identifier($r['name']), 'count' => (int) $r['count']], $rows);
+        $builders = [];
+        foreach ($versions['plugins'] as $plugin) {
+            if ($plugin['active'] && preg_match('~(?:elementor|js_composer|beaver-builder|brizy|oxygen|divi|fixture-builder)~i', $plugin['name'])) {
+                $builders[] = $plugin['name'];
+            }
+        }
+        foreach ($versions['themes'] as $theme) {
+            if ($theme['active'] && preg_match('/divi|avada/i', $theme['name'])) {
+                $builders[] = $theme['name'];
+            }
+        }
+        $years = $this->query("SELECT YEAR(post_date) AS year,COUNT(*) AS count FROM $post WHERE post_type='post' GROUP BY YEAR(post_date) ORDER BY year");
+        return ['post_types' => $pairs($types), 'taxonomies' => $pairs($taxonomies), 'custom_fields' => $pairs($fields),
+            'posts_by_year' => array_map(static fn(array $r): array => ['year' => (int) $r['year'], 'count' => (int) $r['count']], $years),
+            'page_builders' => $builders, 'coverage' => 'stored_types_and_taxonomies_including_empty_core_types_not_runtime_registry; top_50_post_meta_keys'];
+    }
+
+    private function database(array $versions): array
+    {
+        $wooActive = false;
+        $asActive = false;
+        foreach ($versions['plugins'] as $plugin) {
+            if ($plugin['active'] && $plugin['name'] === 'woocommerce/woocommerce.php') {
+                $wooActive = true;
+            }
+            if ($plugin['active'] && (str_starts_with($plugin['name'], 'woocommerce') || str_starts_with($plugin['name'], 'action-scheduler/'))) {
+                $asActive = true;
+            }
+        }
+        $core = ['posts','postmeta','options','users','usermeta','terms','termmeta','term_taxonomy','term_relationships','comments','commentmeta','links','blogs','blogmeta','site','sitemeta','signups','registration_log'];
+        $woo = ['woocommerce_api_keys','woocommerce_attribute_taxonomies','woocommerce_downloadable_product_permissions','woocommerce_order_itemmeta','woocommerce_order_items','woocommerce_payment_tokenmeta','woocommerce_payment_tokens','woocommerce_sessions','woocommerce_shipping_zone_locations','woocommerce_shipping_zone_methods','woocommerce_shipping_zones','woocommerce_tax_rate_locations','woocommerce_tax_rates','woocommerce_log','wc_admin_notes','wc_admin_note_actions','wc_category_lookup','wc_customer_lookup','wc_download_log','wc_order_coupon_lookup','wc_order_product_lookup','wc_order_stats','wc_order_tax_lookup','wc_product_attributes_lookup','wc_product_download_directories','wc_product_meta_lookup','wc_rate_limits','wc_reserved_stock','wc_tax_rate_classes','wc_webhooks','wc_orders','wc_orders_meta','wc_order_addresses','wc_order_operational_data','wc_email_unsubscribes'];
+        $tables = [];
+        foreach ($this->query('SELECT TABLE_NAME,COALESCE(DATA_LENGTH,0)+COALESCE(INDEX_LENGTH,0) AS bytes,ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_TYPE=\'BASE TABLE\' ORDER BY TABLE_NAME') as $row) {
+            $raw = $row['TABLE_NAME'];
+            if (!preg_match('/\A[A-Za-z0-9_]+\z/D', $raw)) {
+                throw new \RuntimeException('A02_TABLE_IDENTIFIER_UNSUPPORTED');
+            }
+            $suffix = str_starts_with($raw, $this->prefix) ? substr($raw, strlen($this->prefix)) : '';
+            $owner = 'unattributed_candidate';
+            if (in_array($suffix, $core, true)) {
+                $owner = 'wordpress';
+            } elseif ($wooActive && in_array($suffix, $woo, true)) {
+                $owner = 'active_woocommerce';
+            } elseif ($asActive && in_array($suffix, ['actionscheduler_actions','actionscheduler_claims','actionscheduler_groups','actionscheduler_logs'], true)) {
+                $owner = 'active_action_scheduler';
+            }
+            if ($row['ENGINE'] !== 'InnoDB') {
+                $this->limitations[] = 'NON_TRANSACTIONAL_TABLE_SNAPSHOT_NOT_GUARANTEED';
+            }
+            $tables[] = ['name' => self::identifier($raw), 'bytes' => (int) $row['bytes'],
+                'rows' => (int) $this->query('SELECT COUNT(*) AS count FROM `' . $raw . '`')[0]['count'],
+                'ownership' => $owner];
+        }
+        $autoload = $this->query('SELECT option_name AS name,OCTET_LENGTH(option_value) AS bytes FROM ' . $this->table('options') . " WHERE autoload IN ('yes','on','auto-on','auto') ORDER BY bytes DESC,option_name LIMIT 20");
+        return ['tables' => $tables, 'total_bytes' => array_sum(array_column($tables, 'bytes')),
+            'largest_autoload' => array_map(static fn(array $r): array => ['name' => self::identifier($r['name']), 'bytes' => (int) $r['bytes']], $autoload),
+            'ownership_policy' => 'conservative_core_woo_as_registry; unknown_is_not_proof_of_orphan_never_delete',
+            'size_basis' => 'information_schema_data_plus_indexes_estimate; exact_select_row_counts'];
+    }
+
+    private function scheduling(): array
+    {
+        $actions = [];
+        $available = in_array($this->prefix . 'actionscheduler_actions', $this->tableNames, true);
+        if ($available) {
+            foreach ($this->query('SELECT hook,status,COUNT(*) AS count FROM ' . $this->table('actionscheduler_actions') . ' GROUP BY hook,status ORDER BY hook,status') as $row) {
+                $actions[] = ['hook' => self::identifier($row['hook']), 'status' => self::identifier($row['status']), 'count' => (int) $row['count']];
+            }
+        }
+        $groups = [];
+        foreach (self::decode($this->option('cron')) as $timestamp => $hooks) {
+            if (!ctype_digit((string) $timestamp) || !is_array($hooks)) {
+                continue;
+            }
+            foreach ($hooks as $hook => $events) {
+                foreach ((array) $events as $event) {
+                    if (!is_array($event)) {
+                        continue;
+                    }
+                    $schedule = ($event['schedule'] ?? false) === false ? 'single' : self::identifier($event['schedule']);
+                    $key = self::identifier($hook) . ':' . $schedule;
+                    if (!isset($groups[$key])) {
+                        $groups[$key] = ['hook' => self::identifier($hook), 'schedule' => $schedule, 'count' => 0, 'next_epoch' => (int) $timestamp];
+                    }
+                    $groups[$key]['count']++;
+                    $groups[$key]['next_epoch'] = min($groups[$key]['next_epoch'], (int) $timestamp);
+                }
+            }
+        }
+        ksort($groups);
+        return ['actions_available' => $available, 'actions' => $actions, 'cron' => array_values($groups), 'arguments_excluded' => true];
+    }
+
+    private function risks(array $versions): array
+    {
+        $updates = [];
+        foreach ($versions['plugins'] as $plugin) {
+            $known = $plugin['latest'] !== null && $plugin['version'] !== null;
+            $old = $plugin['last_updated'];
+            $updates[] = ['name' => $plugin['name'], 'installed' => $plugin['version'], 'latest' => $plugin['latest'],
+                'update_available' => $known ? version_compare($plugin['latest'], $plugin['version'], '>') : null,
+                'comparison' => $known ? (version_compare($plugin['latest'], $plugin['version'], '>') ? 'behind_cached_latest' : 'not_behind_cached_latest') : 'unknown',
+                'last_updated' => $old, 'older_than_two_years' => $old === null ? null : $old < gmdate('Y-m-d', strtotime('-2 years'))];
+        }
+        $overrides = [];
+        foreach ($versions['themes'] as $theme) {
+            if (!$theme['active'] || $theme['name'] === '[masque]') {
+                continue;
+            }
+            $root = $this->site . '/wp-content/themes/' . $theme['name'] . '/woocommerce';
+            foreach (self::tree($root, '.php') as $file) {
+                $relative = substr($file, strlen($root) + 1);
+                $upstream = $this->site . '/wp-content/plugins/woocommerce/templates/' . $relative;
+                preg_match('/@version\s+([0-9][0-9A-Za-z.+-]*)/', self::read($file), $local);
+                $current = [];
+                if (is_file($upstream)) {
+                    preg_match('/@version\s+([0-9][0-9A-Za-z.+-]*)/', self::read($upstream), $current);
+                }
+                $a = self::version($local[1] ?? null);
+                $b = self::version($current[1] ?? null);
+                $overrides[] = ['theme' => $theme['name'], 'file' => self::identifier($relative), 'override_version' => $a, 'installed_woo_template_version' => $b,
+                    'outdated' => $a !== null && $b !== null ? version_compare($a, $b, '<') : null];
+            }
+        }
+        $functions = [];
+        $log = $this->site . '/wp-content/debug.log';
+        $logState = 'absent';
+        if (is_file($log)) {
+            if (is_link($log)) {
+                throw new \RuntimeException('A02_SYMLINK_UNSUPPORTED');
+            }
+            $handle = fopen($log, 'rb');
+            if ($handle === false) {
+                throw new \RuntimeException('A02_LOG_UNREADABLE');
+            }
+            $size = filesize($log);
+            fseek($handle, max(0, $size - 4194304));
+            $text = stream_get_contents($handle, 4194304);
+            fclose($handle);
+            $logState = $size > 4194304 ? 'tail_4MiB_only' : 'complete';
+            if (preg_match_all('/(?:PHP Deprecated:.*?Function|PHP Deprecated:.*?Method)\s+([A-Za-z_\\\\][A-Za-z0-9_\\\\:]*)\b/i', $text, $matches)) {
+                foreach ($matches[1] as $function) {
+                    $safe = preg_match('/\A[A-Za-z_][A-Za-z0-9_\\\\:]{0,159}\z/D', $function) ? $function : '[masque]';
+                    $functions[$safe] = ($functions[$safe] ?? 0) + 1;
+                }
+            }
+        }
+        ksort($functions);
+        $deprecated = [];
+        foreach ($functions as $function => $count) {
+            $deprecated[] = ['function' => $function, 'count' => $count];
+        }
+        return ['plugin_updates' => $updates, 'woocommerce_templates' => $overrides,
+            'deprecated_functions' => $deprecated, 'debug_log_coverage' => $logState,
+            'deprecated_detection' => 'PHP Deprecated Function_or_Method_only_no_raw_lines',
+            'staleness_unknown_when_no_cached_last_updated' => true];
+    }
+
+    public function collect(): array
+    {
+        if ($this->option('ms_files_rewriting') !== '' || in_array($this->prefix . 'blogs', $this->tableNames, true)) {
+            throw new \RuntimeException('A02_MULTISITE_UNSUPPORTED');
+        }
+        $versions = $this->inventory();
+        $sections = ['versions' => $versions, 'commerce' => $this->commerce($versions),
+            'memberships' => $this->memberships(), 'content' => $this->content($versions),
+            'database' => $this->database($versions), 'scheduling' => $this->scheduling(), 'risks' => $this->risks($versions)];
+        $unknown = count(array_filter($sections['database']['tables'], static fn(array $t): bool => $t['ownership'] === 'unattributed_candidate'));
+        $updateCount = count(array_filter($sections['risks']['plugin_updates'], static fn(array $p): bool => $p['update_available'] === true));
+        $outdated = count(array_filter($sections['risks']['woocommerce_templates'], static fn(array $t): bool => $t['outdated'] === true));
+        return ['schema' => 'imagine-a02-audit-v1', 'generated_at_utc' => gmdate('c'), 'read_only' => true,
+            'privacy' => 'structural_identifiers_versions_numeric_counts_only; no_titles_contacts_settings_arguments_or_raw_logs',
+            'sections' => $sections, 'limitations' => array_values(array_unique(array_merge($this->limitations, [
+                'Aucun reseau de mise a jour. Cache absent ou ancien ne prouve pas la derniere version ni la maintenance.',
+                'Aucun bootstrap WordPress: types/taxonomies sans donnees et passerelles dynamiques non inferables; sources actives et base seulement.',
+                'Regles Memberships enregistrees, pas une preuve des droits effectifs; verifier les parcours avant mise a niveau.',
+                'Tables non attribuees: candidates a examiner, pas autorisation de supprimer; registre volontairement conservateur.',
+                'Structure wp-content standard, configuration litterale et site simple requis; refuser plutot qu executer un fichier de configuration.',
+            ]))),
+            'priorities' => [
+                '1. Verifier les compatibilites WordPress/PHP/Woo des extensions: ' . $updateCount . ' mise(s) a jour connue(s) en cache; inconnues a confirmer hors audit.',
+                '2. Rejouer les droits Memberships et le goutte-a-goutte avant changement; plans et regles sont inventories sans utilisateurs.',
+                '3. Tester renouvellements manuels et commandes dans le stockage faisant autorite (' . $sections['commerce']['order_storage'] . '); controler passerelles et planification sans executer de tache.',
+                '4. Relire les surcharges WooCommerce: ' . $outdated . ' perimee(s) par rapport au Woo installe; traiter les fonctions depreciees extraites.',
+                '5. Qualifier ' . $unknown . ' table(s) non attribuee(s) et les options autoload lourdes avant tout nettoyage; ne rien supprimer sur cette seule indication.',
+            ]];
+    }
+
+    public static function markdown(array $report): string
+    {
+        $text = "# Audit de l existant — lecture seule\n\nAucune valeur personnelle ou de reglage sensible. Inconnue signifie non observable sans reseau ou bootstrap.\n\n";
+        $titles = ['versions' => '1. Versions', 'commerce' => '2. Commerce', 'memberships' => '3. Memberships', 'content' => '4. Contenu', 'database' => '5. Base', 'scheduling' => '6. Planification', 'risks' => '7. Risques de mise a niveau'];
+        foreach ($titles as $key => $title) {
+            $text .= '## ' . $title . "\n\n```json\n" . json_encode($report['sections'][$key], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n```\n\n";
+        }
+        $text .= "## Limites\n\n";
+        foreach ($report['limitations'] as $line) {
+            $text .= '- ' . $line . "\n";
+        }
+        return $text . "\n## Synthese — cinq points a regarder en premier\n\n" . implode("\n\n", $report['priorities']) . "\n";
+    }
+
+    public static function main(array $args): int
+    {
+        $options = [];
+        foreach (array_slice($args, 1) as $arg) {
+            if (!preg_match('/\A--(wp-path|output)=(.+)\z/D', $arg, $match) || isset($options[$match[1]])) {
+                throw new \RuntimeException('A02_USAGE');
+            }
+            $options[$match[1]] = $match[2];
+        }
+        if (count($options) !== 2 || PHP_SAPI !== 'cli') {
+            throw new \RuntimeException('A02_USAGE');
+        }
+        $site = realpath($options['wp-path']);
+        $parent = realpath(dirname($options['output']));
+        $base = basename($options['output']);
+        if (!$site || !$parent || !is_dir($site) || !is_dir($parent) || !preg_match('/\A[A-Za-z0-9_-]+\z/D', $base)) {
+            throw new \RuntimeException('A02_PATH_INVALID');
+        }
+        $output = $parent . '/' . $base;
+        if ($parent === $site || str_starts_with($parent . '/', $site . '/') || file_exists($output) || is_link($output)) {
+            throw new \RuntimeException('A02_OUTPUT_UNSAFE_OR_EXISTS');
+        }
+        // Collect everything before creating any output. No WordPress file is required.
+        $report = (new self($site))->collect();
+        $json = json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n";
+        $md = self::markdown($report);
+        if (!mkdir($output, 0700)) {
+            throw new \RuntimeException('A02_OUTPUT_CREATE_FAILED');
+        }
+        foreach (['audit.json' => $json, 'audit.md' => $md] as $file => $content) {
+            $handle = fopen($output . '/' . $file, 'xb');
+            if ($handle === false || fwrite($handle, $content) !== strlen($content)) {
+                throw new \RuntimeException('A02_OUTPUT_WRITE_FAILED');
+            }
+            fclose($handle);
+            chmod($output . '/' . $file, 0600);
+        }
+        fwrite(STDOUT, "A02_OK audit.md audit.json\n");
+        return 0;
+    }
+
     public static function identifier(mixed $value): string
     {
         return is_string($value)
             && preg_match('~\A[A-Za-z0-9_./\\-]{1,160}\z~D', $value)
             && !preg_match('/(?:sk_|pk_|rk_|whsec_|xkeysib-|[a-f0-9]{40})/i', $value)
             ? $value : '[masque]';
+    }
+}
+
+if (!defined('IMAGINE_AUDIT_LIBRARY_ONLY')) {
+    ini_set('display_errors', '0');
+    ini_set('log_errors', '0');
+    set_error_handler(static function (int $severity): bool {
+        if (error_reporting() & $severity) {
+            throw new \RuntimeException('A02_RUNTIME_WARNING');
+        }
+        return true;
+    });
+    try {
+        exit(Audit::main($argv));
+    } catch (\Throwable $error) {
+        $code = $error instanceof \RuntimeException && preg_match('/\AA02_[A-Z_]+\z/D', $error->getMessage())
+            ? $error->getMessage() : 'A02_AUDIT_FAILED';
+        fwrite(STDERR, $code . "\n");
+        exit(1);
     }
 }
