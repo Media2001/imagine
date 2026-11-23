@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-23T13:46:28.600861+00:00",
+  "scope": "imagine-test-demo",
+  "status": "VERIFIED",
+  "validator": "html5lib 1.1 (algorithme HTML5) + contrôles sémantiques B-01, validation locale, pas certification W3C ou WCAG",
+  "http_pages": 41,
+  "http_resources": 7,
+  "assertions": 500,
+  "passed": 500,
+  "failed": 0
+}

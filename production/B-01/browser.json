@@ -1,0 +1,344 @@
+[
+  {
+    "kind": "accueil",
+    "url": "http://192.168.129.32:8085/",
+    "file": "captures/accueil-desktop.png",
+    "sha256": "31388f6d072e9f9315dcf9c23f762c854e31617b64ca6a4fe4d4c77a58799fdb",
+    "metrics": {
+      "url": "http://192.168.129.32:8085/",
+      "h1": 1,
+      "width": 1280,
+      "scrollWidth": 1265,
+      "height": 2478,
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "font": "system-ui, sans-serif",
+      "notice": true,
+      "bodyCount": 0
+    }
+  },
+  {
+    "kind": "kiosque",
+    "url": "http://192.168.129.32:8085/numeros/",
+    "file": "captures/kiosque-desktop.png",
+    "sha256": "84fdfd71831e8dd4637ccfe305f546e37a18702cf9210f1a3ba5177db1f57ae9",
+    "metrics": {
+      "url": "http://192.168.129.32:8085/numeros/",
+      "h1": 1,
+      "width": 1280,
+      "scrollWidth": 1265,
+      "height": 3207,
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "font": "system-ui, sans-serif",
+      "notice": true,
+      "bodyCount": 0
+    }
+  },
+  {
+    "kind": "agenda",
+    "url": "http://192.168.129.32:8085/evenements/",
+    "file": "captures/agenda-desktop.png",
+    "sha256": "a86778b5b4997a6647233349539aca7e40a5d9f91126164e252d803a0764f947",
+    "metrics": {
+      "url": "http://192.168.129.32:8085/evenements/",
+      "h1": 1,
+      "width": 1280,
+      "scrollWidth": 1265,
+      "height": 1152,
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "font": "system-ui, sans-serif",
+      "notice": true,
+      "bodyCount": 0
+    }
+  },
+  {
+    "kind": "partenaires",
+    "url": "http://192.168.129.32:8085/partenaires/",
+    "file": "captures/partenaires-desktop.png",
+    "sha256": "20d123dcedf8393098b9bab52111d42fc0d40e2490470d0b4c95b2616c4b3f1b",
+    "metrics": {
+      "url": "http://192.168.129.32:8085/partenaires/",
+      "h1": 1,
+      "width": 1280,
+      "scrollWidth": 1265,
+      "height": 1069,
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "font": "system-ui, sans-serif",
+      "notice": true,
+      "bodyCount": 0
+    }
+  },
+  {
+    "kind": "numero",
+    "url": "http://192.168.129.32:8085/numeros/demo-2026-t4/",
+    "file": "captures/numero-desktop.png",
+    "sha256": "2d3096ff32ed16d94be390c693f22d2d420cdc1a9bbee226e069ebd2cb10549d",
+    "metrics": {
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-t4/",
+      "h1": 1,
+      "width": 1280,
+      "scrollWidth": 1265,
+      "height": 1667,
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "font": "system-ui, sans-serif",
+      "notice": true,
+      "bodyCount": 0
+    }
+  },
+  {
+    "kind": "article",
+    "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
+    "file": "captures/article-desktop.png",
+    "sha256": "c4e55928cf5bdc870a583f79e9d3f00657ca0e3b979dd7c08a9ae596df2988dc",
+    "metrics": {
+      "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
+      "h1": 1,
+      "width": 1280,
+      "scrollWidth": 1265,
+      "height": 1153,
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "font": "system-ui, sans-serif",
+      "notice": true,
+      "bodyCount": 1
+    }
+  },
+  {
+    "kind": "thematique",
+    "url": "http://192.168.129.32:8085/thematiques/demo-thematique-3/",
+    "file": "captures/thematique-desktop.png",
+    "sha256": "396d280db589aa22ebf0e01903fa0fca54f338e7bfada50f637d57a05780a6b0",
+    "metrics": {
+      "url": "http://192.168.129.32:8085/thematiques/demo-thematique-3/",
+      "h1": 1,
+      "width": 1280,
+      "scrollWidth": 1265,
+      "height": 1366,
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "font": "system-ui, sans-serif",
+      "notice": true,
+      "bodyCount": 0
+    }
+  },
+  {
+    "kind": "evenement-desktop",
+    "url": "http://192.168.129.32:8085/evenements/demo-events-2/",
+    "file": "captures/evenement-desktop.png",
+    "sha256": "d4c0e1e5965e214e046e51891e5d467b7f69b6be83da20749ae8fc0303c94fd2",
+    "metrics": {
+      "url": "http://192.168.129.32:8085/evenements/demo-events-2/",
+      "h1": 1,
+      "width": 1280,
+      "scrollWidth": 1265,
+      "height": 1056,
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "font": "system-ui, sans-serif",
+      "notice": true,
+      "bodyCount": 0
+    }
+  },
+  {
+    "kind": "partenaire-desktop",
+    "url": "http://192.168.129.32:8085/partenaires/demo-partners-2/",
+    "file": "captures/partenaire-desktop.png",
+    "sha256": "0555d2dbd0f7655bb1603931dd5b19a94b33b54216d18d26a754b1c1f7d6adce",
+    "metrics": {
+      "url": "http://192.168.129.32:8085/partenaires/demo-partners-2/",
+      "h1": 1,
+      "width": 1280,
+      "scrollWidth": 1265,
+      "height": 1014,
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "font": "system-ui, sans-serif",
+      "notice": true,
+      "bodyCount": 0
+    }
+  },
+  {
+    "kind": "page-desktop",
+    "url": "http://192.168.129.32:8085/calendrier-fictif/",
+    "file": "captures/page-desktop.png",
+    "sha256": "dbe32c7c202239de19b53e2950cddeb98808425e16b66a0733e351447556a810",
+    "metrics": {
+      "url": "http://192.168.129.32:8085/calendrier-fictif/",
+      "h1": 1,
+      "width": 1280,
+      "scrollWidth": 1265,
+      "height": 1501,
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "font": "system-ui, sans-serif",
+      "notice": true,
+      "bodyCount": 0
+    }
+  },
+  {
+    "kind": "recherche-desktop",
+    "url": "http://192.168.129.32:8085/?s=fictif",
+    "file": "captures/recherche-desktop.png",
+    "sha256": "a272ae93d78052f71ff13ace4c08d39c7fb50e8f5933c145340c8aac71fb9bb5",
+    "metrics": {
+      "url": "http://192.168.129.32:8085/?s=fictif",
+      "h1": 1,
+      "width": 1280,
+      "scrollWidth": 1265,
+      "height": 2663,
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "font": "system-ui, sans-serif",
+      "notice": true,
+      "bodyCount": 0
+    }
+  },
+  {
+    "kind": "recherche-vide-desktop",
+    "url": "http://192.168.129.32:8085/?s=b01-aucun-resultat-xyz",
+    "file": "captures/recherche-vide-desktop.png",
+    "sha256": "301f7ada8d18b95399facb26b122266075c260bb786f5170aa95909e72c82ae8",
+    "metrics": {
+      "url": "http://192.168.129.32:8085/?s=b01-aucun-resultat-xyz",
+      "h1": 1,
+      "width": 1280,
+      "scrollWidth": 1280,
+      "height": 900,
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "font": "system-ui, sans-serif",
+      "notice": true,
+      "bodyCount": 0
+    }
+  },
+  {
+    "kind": "404-desktop",
+    "url": "http://192.168.129.32:8085/b01-page-inexistante-xyz/",
+    "file": "captures/404-desktop.png",
+    "sha256": "95a0b25d534b3f80a18afef8d23dcad95b2aec4d82a2527c7f7262d3b6e63da5",
+    "metrics": {
+      "url": "http://192.168.129.32:8085/b01-page-inexistante-xyz/",
+      "h1": 1,
+      "width": 1280,
+      "scrollWidth": 1280,
+      "height": 900,
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "font": "system-ui, sans-serif",
+      "notice": true,
+      "bodyCount": 0
+    }
+  },
+  {
+    "kind": "index-desktop",
+    "url": "http://192.168.129.32:8085/?post_type=post",
+    "file": "captures/index-desktop.png",
+    "sha256": "8faf0c672043a48c95a8ad1fc1352e5adbd3b65d7cc863b1200b4d8a5cb7d373",
+    "metrics": {
+      "url": "http://192.168.129.32:8085/?post_type=post",
+      "h1": 1,
+      "width": 1280,
+      "scrollWidth": 1265,
+      "height": 1533,
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "font": "system-ui, sans-serif",
+      "notice": true,
+      "bodyCount": 0
+    }
+  },
+  {
+    "kind": "article-ouvert-desktop",
+    "url": "http://192.168.129.32:8085/demo-2026-t1-ouvert/",
+    "file": "captures/article-ouvert-desktop.png",
+    "sha256": "efe58d94cb9c94b9ec04054bcbfb5498f9d34fa289640a8e5f3a3084a61c1545",
+    "metrics": {
+      "url": "http://192.168.129.32:8085/demo-2026-t1-ouvert/",
+      "h1": 1,
+      "width": 1280,
+      "scrollWidth": 1265,
+      "height": 1923,
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "font": "system-ui, sans-serif",
+      "notice": true,
+      "bodyCount": 1
+    }
+  },
+  {
+    "kind": "accueil-mobile",
+    "url": "http://192.168.129.32:8085/",
+    "file": "captures/accueil-mobile.png",
+    "sha256": "a1cf8ed878a555402d6b914369fa1d01d5b3c4ba53faf73dbb160c5fbdbee19f",
+    "metrics": {
+      "url": "http://192.168.129.32:8085/",
+      "h1": 1,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 2839,
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "font": "system-ui, sans-serif",
+      "notice": true,
+      "bodyCount": 0
+    }
+  },
+  {
+    "kind": "article-ouvert-mobile",
+    "url": "http://192.168.129.32:8085/demo-2026-t1-ouvert/",
+    "file": "captures/article-ouvert-mobile.png",
+    "sha256": "51db5c57f40f8c76dfa5f66c54feca24eef2dd8c7df493c2f4d2c4f16901386b",
+    "metrics": {
+      "url": "http://192.168.129.32:8085/demo-2026-t1-ouvert/",
+      "h1": 1,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 2598,
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "font": "system-ui, sans-serif",
+      "notice": true,
+      "bodyCount": 1
+    }
+  },
+  {
+    "kind": "article-reserve-mobile",
+    "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
+    "file": "captures/article-reserve-mobile.png",
+    "sha256": "d2468a139f01aeaac9a0953c857face96e50bb7b9d94c8b168381892eab11f36",
+    "metrics": {
+      "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
+      "h1": 1,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 1367,
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "font": "system-ui, sans-serif",
+      "notice": true,
+      "bodyCount": 1
+    }
+  },
+  {
+    "kind": "page-mobile",
+    "url": "http://192.168.129.32:8085/calendrier-fictif/",
+    "file": "captures/page-mobile.png",
+    "sha256": "92bcbe1bea416bc1e37e764257ea610b3ed5e22d8e4562bdf4907a33b2135175",
+    "metrics": {
+      "url": "http://192.168.129.32:8085/calendrier-fictif/",
+      "h1": 1,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 1548,
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(0, 0, 0)",
+      "font": "system-ui, sans-serif",
+      "notice": true,
+      "bodyCount": 0
+    }
+  }
+]

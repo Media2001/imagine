@@ -1,12 +1,12 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-23T13:39:59.770613+00:00",
+  "at": "2026-11-23T13:45:34.091344+00:00",
   "url": "http://192.168.129.32:8085",
   "active_theme": "imagine",
   "activation": {
     "code": 0,
-    "stdout": "Success: Switched to 'Imagine' theme.\n",
-    "stderr": ""
+    "stdout": "",
+    "stderr": "Warning: The 'Imagine' theme is already active.\n"
   },
   "files_sha256": {
     "404.php": "d85c7b3c6a8f139849c3521797f359e777bf4d3abcaabc432d1fd9b517fae9b2",
@@ -16,7 +16,7 @@
     "assets/tokens.css": "189df2806d80babf869dc2e9183298fccb7523b4ebb9faaf03c9d2fee3322923",
     "footer.php": "2e9d86e5c6dbdc839447d45d0e6c9b02b3f436ce8417c70f8041c28d6727979d",
     "front-page.php": "9b47c94a640c68cd47c62c3247ae594679652f3c0461ce49a1347750e2c8bb16",
-    "functions.php": "d9de409b1f82ea11af867dd6f6afad8f1a09cf9fe898592b47d6f0456f6c63b8",
+    "functions.php": "586be8788f6520fba3e8cce0dec1a667b3760ac2bdd9aec55d1ec6289c8f4331",
     "header.php": "0571a7d4c640dcf6b7da839e1b28ead3b96946f89ac2b906416b12609300a3a8",
     "index.php": "f941eee5897b86a1d276619e769e4dd34115087bfc343669dae276bb319fa654",
     "page.php": "3832d2f2d4b98dcbe1c76e0b2c40862dfba31df925906987df9fbab8090b61ae",

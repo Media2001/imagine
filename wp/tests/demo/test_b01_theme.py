@@ -83,6 +83,19 @@ class B01Theme(unittest.TestCase):
                 builder.activate_theme()
             upload.assert_not_called()
 
+    def test_b01_html_validator_rejects_structural_regressions(self):
+        import sys
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from b01_html import validate_html
+        valid = '<!doctype html><html lang="fr"><head><title>Fictif</title></head><body><a href="#imagine-main">Contenu</a><header><nav aria-label="Menu"><a href="/">Accueil</a></nav></header><main id="imagine-main"><h1>Fictif</h1><p>Texte</p></main><footer>squelette, sans habillage</footer></body></html>'
+        self.assertEqual(validate_html(valid), [])
+        for bad in [valid.replace('<p>Texte</p>', '<p><div>Texte</p></div>'),
+                    valid.replace('<h1>Fictif</h1>', '<h1>Fictif</h1><h1>Double</h1>'),
+                    valid.replace('<p>Texte</p>', '<h3>Saut</h3>'),
+                    valid.replace('<p>Texte</p>', '<img src="/fictif.png">'),
+                    valid.replace('<p>Texte</p>', '<p id="imagine-main">Doublon</p>')]:
+            self.assertTrue(validate_html(bad), bad)
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

@@ -33,7 +33,12 @@ add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\imagine_styles');
 /** Unique sortie du corps des articles. C-08 modifiera ce point, pas les gabarits. */
 function imagine_article_body(): void
 {
-    // the_content conserve notamment le verrou natif provisoire B-00.
+    // Le formulaire natif est déjà du HTML : ne pas le repasser dans wpautop.
+    // Le verrou B-00 et son filtre the_password_form restent intacts.
+    if (post_password_required()) {
+        echo get_the_password_form();
+        return;
+    }
     the_content();
 }
 

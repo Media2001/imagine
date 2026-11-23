@@ -1,0 +1,3034 @@
+{
+  "at": "2026-11-23T13:46:28.600861+00:00",
+  "scope": "imagine-test-demo",
+  "status": "VERIFIED",
+  "validator": "html5lib 1.1 (algorithme HTML5) + contrôles sémantiques B-01, validation locale, pas certification W3C ou WCAG",
+  "http_pages": 41,
+  "http_resources": 7,
+  "assertions": 500,
+  "passed": 500,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "runtime sortie sans erreur",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "runtime : thème Imagine actif",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie unique chargeable",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : quatre articles du numéro 39",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : quatre articles du numéro 32",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : quatre articles du numéro 25",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : quatre articles du numéro 18",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : quatre articles du numéro 11",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 14",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie native autorisée complète 14",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 15",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie native autorisée complète 15",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 16",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie native autorisée complète 16",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 17",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 21",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie native autorisée complète 21",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 22",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie native autorisée complète 22",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 23",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie native autorisée complète 23",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 24",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 28",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie native autorisée complète 28",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 29",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie native autorisée complète 29",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 30",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie native autorisée complète 30",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 31",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 35",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie native autorisée complète 35",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 36",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie native autorisée complète 36",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 37",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie native autorisée complète 37",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 38",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 42",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie native autorisée complète 42",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 43",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie native autorisée complète 43",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 44",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie native autorisée complète 44",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : sortie anonyme article 45",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : emails sortants bloqués",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : HTTP distant bloqué",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "runtime : indexation refusée",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "accueil : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "accueil : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "accueil : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "accueil : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "accueil : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "accueil : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "accueil : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "kiosque : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "kiosque : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "kiosque : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "kiosque : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "kiosque : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "kiosque : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "kiosque : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "agenda : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "agenda : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "agenda : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "agenda : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "agenda : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "agenda : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "agenda : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "partenaires : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "partenaires : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "partenaires : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "partenaires : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "partenaires : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "partenaires : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "partenaires : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-39 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "numero-39 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-39 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "numero-39 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-39 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-39 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-39 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-39 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-39 : couverture avec texte alternatif",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-39 : sommaire exact du numéro",
+      "ok": true,
+      "detail": [
+        42,
+        43,
+        44,
+        45
+      ]
+    },
+    {
+      "name": "numero-39 : PDF réel associé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-32 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "numero-32 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-32 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "numero-32 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-32 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-32 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-32 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-32 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-32 : couverture avec texte alternatif",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-32 : sommaire exact du numéro",
+      "ok": true,
+      "detail": [
+        35,
+        36,
+        37,
+        38
+      ]
+    },
+    {
+      "name": "numero-32 : PDF réel associé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-25 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "numero-25 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-25 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "numero-25 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-25 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-25 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-25 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-25 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-25 : couverture avec texte alternatif",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-25 : sommaire exact du numéro",
+      "ok": true,
+      "detail": [
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "name": "numero-25 : PDF réel associé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-18 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "numero-18 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-18 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "numero-18 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-18 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-18 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-18 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-18 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-18 : couverture avec texte alternatif",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-18 : sommaire exact du numéro",
+      "ok": true,
+      "detail": [
+        21,
+        22,
+        23,
+        24
+      ]
+    },
+    {
+      "name": "numero-18 : PDF réel associé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-11 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "numero-11 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-11 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "numero-11 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-11 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-11 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-11 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-11 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-11 : couverture avec texte alternatif",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "numero-11 : sommaire exact du numéro",
+      "ok": true,
+      "detail": [
+        14,
+        15,
+        16,
+        17
+      ]
+    },
+    {
+      "name": "numero-11 : PDF réel associé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-14 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-14 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-14 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-14 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-14 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-14 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-14 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-14 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-14 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-14 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-14 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-14 : lien thématique 18",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-14 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-15 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-15 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-15 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-15 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-15 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-15 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-15 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-15 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-15 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-15 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-15 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-15 : lien thématique 19",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-15 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-16 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-16 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-16 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-16 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-16 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-16 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-16 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-16 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-16 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-16 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-16 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-16 : lien thématique 20",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-16 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-17 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-17 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-17 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-17 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-17 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-17 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-17 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-17 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-17 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-17 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-17 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-17 : lien thématique 18",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-17 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-21 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-21 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-21 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-21 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-21 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-21 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-21 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-21 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-21 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-21 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-21 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-21 : lien thématique 18",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-21 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-22 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-22 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-22 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-22 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-22 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-22 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-22 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-22 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-22 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-22 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-22 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-22 : lien thématique 19",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-22 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-23 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-23 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-23 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-23 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-23 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-23 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-23 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-23 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-23 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-23 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-23 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-23 : lien thématique 20",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-23 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-24 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-24 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-24 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-24 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-24 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-24 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-24 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-24 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-24 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-24 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-24 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-24 : lien thématique 18",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-24 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-28 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-28 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-28 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-28 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-28 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-28 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-28 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-28 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-28 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-28 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-28 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-28 : lien thématique 18",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-28 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-29 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-29 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-29 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-29 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-29 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-29 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-29 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-29 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-29 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-29 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-29 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-29 : lien thématique 19",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-29 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-30 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-30 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-30 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-30 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-30 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-30 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-30 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-30 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-30 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-30 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-30 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-30 : lien thématique 20",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-30 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-31 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-31 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-31 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-31 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-31 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-31 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-31 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-31 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-31 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-31 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-31 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-31 : lien thématique 18",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-31 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-35 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-35 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-35 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-35 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-35 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-35 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-35 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-35 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-35 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-35 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-35 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-35 : lien thématique 18",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-35 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-36 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-36 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-36 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-36 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-36 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-36 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-36 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-36 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-36 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-36 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-36 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-36 : lien thématique 19",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-36 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-37 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-37 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-37 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-37 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-37 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-37 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-37 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-37 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-37 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-37 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-37 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-37 : lien thématique 20",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-37 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-38 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-38 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-38 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-38 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-38 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-38 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-38 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-38 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-38 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-38 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-38 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-38 : lien thématique 18",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-38 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-42 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-42 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-42 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-42 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-42 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-42 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-42 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-42 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-42 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-42 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-42 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-42 : lien thématique 18",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-42 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-43 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-43 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-43 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-43 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-43 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-43 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-43 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-43 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-43 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-43 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-43 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-43 : lien thématique 19",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-43 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-44 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-44 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-44 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-44 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-44 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-44 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-44 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-44 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-44 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-44 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-44 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-44 : lien thématique 20",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-44 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-45 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "article-45 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-45 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "article-45 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-45 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-45 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-45 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-45 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-45 : point de sortie du corps unique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-45 : auteur et chapô",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-45 : lien au numéro",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-45 : lien thématique 18",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "article-45 : corps ouvert complet ou verrou natif réservé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-20 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "thematique-20 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-20 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "thematique-20 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-20 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-20 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-20 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-20 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-20 : articles uniquement de cette thématique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-19 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "thematique-19 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-19 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "thematique-19 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-19 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-19 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-19 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-19 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-19 : articles uniquement de cette thématique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-18 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "thematique-18 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-18 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "thematique-18 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-18 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-18 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-18 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-18 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "thematique-18 : articles uniquement de cette thématique",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "evenement-47 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "evenement-47 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "evenement-47 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "evenement-47 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "evenement-47 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "evenement-47 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "evenement-47 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "evenement-47 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "evenement-46 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "evenement-46 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "evenement-46 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "evenement-46 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "evenement-46 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "evenement-46 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "evenement-46 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "evenement-46 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "partenaire-49 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "partenaire-49 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "partenaire-49 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "partenaire-49 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "partenaire-49 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "partenaire-49 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "partenaire-49 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "partenaire-49 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "partenaire-48 : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "partenaire-48 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "partenaire-48 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "partenaire-48 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "partenaire-48 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "partenaire-48 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "partenaire-48 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "partenaire-48 : titre propre au contenu",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "page-simple : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "page-simple : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "page-simple : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "page-simple : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "page-simple : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "page-simple : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "page-simple : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "recherche : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "recherche : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "recherche : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "recherche : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "recherche : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "recherche : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "recherche : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "recherche-vide : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "recherche-vide : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "recherche-vide : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "recherche-vide : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "recherche-vide : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "recherche-vide : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "recherche-vide : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "recherche-vide : état vide explicite",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "404 : HTTP attendu",
+      "ok": true,
+      "detail": 404
+    },
+    {
+      "name": "404 : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "404 : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "404 : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "404 : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "404 : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "404 : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "index : HTTP attendu",
+      "ok": true,
+      "detail": 200
+    },
+    {
+      "name": "index : contenu HTML",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "index : HTML5 et sémantique sans erreur",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "index : aucun diagnostic PHP",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "index : texte réservé absent anonymement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "index : CSS du thème chargé",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "index : pas de police externe du thème",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "kiosque : tous les numéros triés par sortie décroissante",
+      "ok": true,
+      "detail": [
+        39,
+        32,
+        25,
+        18,
+        11
+      ]
+    },
+    {
+      "name": "kiosque : hors-série inclus",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "accueil : dernier numéro réel en premier",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "accueil : cinq derniers articles",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "accueil : entrée imagine-thematiques",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "accueil : entrée imagine-agenda",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "accueil : entrée imagine-abonnement",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "agenda : liste exacte",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "partenaires : liste exacte",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "PDF numéro 39",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "PDF numéro 32",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "PDF numéro 25",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "PDF numéro 18",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "PDF numéro 11",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "CSS source exacte style.css",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "CSS source exacte assets/tokens.css",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "pages": [
+    {
+      "key": "accueil",
+      "url": "http://192.168.129.32:8085/",
+      "kind": "accueil",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/accueil.html",
+      "sha256": "0a65e4bd57a5dc4379a71947a107553921171bb02039bcd07cfbbee57b451ab5",
+      "html_errors": []
+    },
+    {
+      "key": "kiosque",
+      "url": "http://192.168.129.32:8085/numeros/",
+      "kind": "kiosque",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/kiosque.html",
+      "sha256": "92bbba1bda43b40e241419650fcf8d7fc106677b4275ca1301e94a64d0c14a84",
+      "html_errors": []
+    },
+    {
+      "key": "agenda",
+      "url": "http://192.168.129.32:8085/evenements/",
+      "kind": "agenda",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/agenda.html",
+      "sha256": "908752572c3c499f36650154e5690f09d0d0025dfa748419043d242e8be94b36",
+      "html_errors": []
+    },
+    {
+      "key": "partenaires",
+      "url": "http://192.168.129.32:8085/partenaires/",
+      "kind": "partenaires",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/partenaires.html",
+      "sha256": "156db3eccc67c284e47b7c3754c3f70ce0cf6600c8717c5d2368ee091236b3fd",
+      "html_errors": []
+    },
+    {
+      "key": "numero-39",
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-t4/",
+      "kind": "numero",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/numero-39.html",
+      "sha256": "25df45da0399e63688ad1b2e4d86425660c84dfa92ba9601e2466165af451fc5",
+      "html_errors": []
+    },
+    {
+      "key": "numero-32",
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-hs/",
+      "kind": "numero",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/numero-32.html",
+      "sha256": "dff4e2d2d110f5392f8606aeac4e653a05035f42636baa4d3546056b68d9b98d",
+      "html_errors": []
+    },
+    {
+      "key": "numero-25",
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-t3/",
+      "kind": "numero",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/numero-25.html",
+      "sha256": "b07b540f3338d75c8ac78ec039ec8b4c1337151a0a526db380a8bb89679d47e7",
+      "html_errors": []
+    },
+    {
+      "key": "numero-18",
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-t2/",
+      "kind": "numero",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/numero-18.html",
+      "sha256": "e92f0d36464d577558ec94b2fe941cb0abc0665f86b63bde777cded6014cd00b",
+      "html_errors": []
+    },
+    {
+      "key": "numero-11",
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-t1/",
+      "kind": "numero",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/numero-11.html",
+      "sha256": "3685d2247a5435495d69ffdc08fab8ac0b108f15aed07f7aeeb2482656b16f0a",
+      "html_errors": []
+    },
+    {
+      "key": "article-14",
+      "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-14.html",
+      "sha256": "501f5dd575aaad2f7bdbda301c19a71384fe684a413d0cb33fdb12f5f2dcfef4",
+      "html_errors": []
+    },
+    {
+      "key": "article-15",
+      "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-2/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-15.html",
+      "sha256": "df67efa93281cfcee400dbfd291b73650cbc76466cf5315c6f8d99f5696bbaa8",
+      "html_errors": []
+    },
+    {
+      "key": "article-16",
+      "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-3/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-16.html",
+      "sha256": "28cce6697e72a65d98063b4470454c1dd175eadc5a68038eaae670562b33067c",
+      "html_errors": []
+    },
+    {
+      "key": "article-17",
+      "url": "http://192.168.129.32:8085/demo-2026-t1-ouvert/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-17.html",
+      "sha256": "6fd44bb330d6fb0d90fdcfbb6c663406ccb771915d5c4f36652357212c710d7d",
+      "html_errors": []
+    },
+    {
+      "key": "article-21",
+      "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-1/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-21.html",
+      "sha256": "c07a0aa254f892dd7b8925e9efaefd003900e7967825536e3c024aa476d9bca1",
+      "html_errors": []
+    },
+    {
+      "key": "article-22",
+      "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-2/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-22.html",
+      "sha256": "25d71c9e88ed963dcffe9df5d7e027c40edc150b2a22a1ae51e8fae37672f4df",
+      "html_errors": []
+    },
+    {
+      "key": "article-23",
+      "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-3/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-23.html",
+      "sha256": "28040e41e7e72cee183d73962773e6bf561c4e2384b6e323d37d2e5a52ed794d",
+      "html_errors": []
+    },
+    {
+      "key": "article-24",
+      "url": "http://192.168.129.32:8085/demo-2026-t2-ouvert/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-24.html",
+      "sha256": "7c8c2dde3a1fb3785a53dd953b0fda6975935e0772eb9a9653fa3f497e86c7ec",
+      "html_errors": []
+    },
+    {
+      "key": "article-28",
+      "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-1/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-28.html",
+      "sha256": "6b73c23437dbef14381858da1c3c1311f1563983e8927713ed12f663d3660103",
+      "html_errors": []
+    },
+    {
+      "key": "article-29",
+      "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-2/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-29.html",
+      "sha256": "961bb384179b93f2eb35ab627e97bd914ed5bdee11931af21656f795470cacf5",
+      "html_errors": []
+    },
+    {
+      "key": "article-30",
+      "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-3/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-30.html",
+      "sha256": "8c0479d4926c18fbffe598ad4b7b83fcca9d8b7610880ed9ee9d74b3e4cad480",
+      "html_errors": []
+    },
+    {
+      "key": "article-31",
+      "url": "http://192.168.129.32:8085/demo-2026-t3-ouvert/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-31.html",
+      "sha256": "b413a44162259cfa953e2413054656ca99f24ce746ab345fddb58ee7ac7bca5e",
+      "html_errors": []
+    },
+    {
+      "key": "article-35",
+      "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-1/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-35.html",
+      "sha256": "943e3bfde0a27bb1ff594fa1218673590f93e75d8f38b3faa5708248aacab53e",
+      "html_errors": []
+    },
+    {
+      "key": "article-36",
+      "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-2/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-36.html",
+      "sha256": "3c11d8beb945c57416576b23ddbc0521978bb7d21b3d2229d1a65032c870d805",
+      "html_errors": []
+    },
+    {
+      "key": "article-37",
+      "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-3/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-37.html",
+      "sha256": "dd4204caf91984844d8bc8743b0a1becced17da84615d0b2b54bc9faa727e5e6",
+      "html_errors": []
+    },
+    {
+      "key": "article-38",
+      "url": "http://192.168.129.32:8085/demo-2026-hs-ouvert/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-38.html",
+      "sha256": "b52303c747870b1d3bdf88f201c4f86e7dd0954fd5c5e4196428e7367d0fc39c",
+      "html_errors": []
+    },
+    {
+      "key": "article-42",
+      "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-1/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-42.html",
+      "sha256": "c7cf3cc527449301f310f92cc7f06866189532c414d6c7157d0d8fb4d7a91920",
+      "html_errors": []
+    },
+    {
+      "key": "article-43",
+      "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-2/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-43.html",
+      "sha256": "4f52050f27ff13defdd00f6070037cbd33bc283e0a759f04c7843c607f261c41",
+      "html_errors": []
+    },
+    {
+      "key": "article-44",
+      "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-3/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-44.html",
+      "sha256": "8c1b531ee5aa47a37bbb51e0b4f46e7d7b34120b60f7be6101c32cec3b41a851",
+      "html_errors": []
+    },
+    {
+      "key": "article-45",
+      "url": "http://192.168.129.32:8085/demo-2026-t4-ouvert/",
+      "kind": "article",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/article-45.html",
+      "sha256": "625df58fcedb245a680858979403965176ad1a9f29da07135b882eaebee1388f",
+      "html_errors": []
+    },
+    {
+      "key": "thematique-20",
+      "url": "http://192.168.129.32:8085/thematiques/demo-thematique-3/",
+      "kind": "thematique",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/thematique-20.html",
+      "sha256": "de07abf33385a1b2285c20994413572a690a3dc940c556c2ff2570bc9dda3139",
+      "html_errors": []
+    },
+    {
+      "key": "thematique-19",
+      "url": "http://192.168.129.32:8085/thematiques/demo-thematique-2/",
+      "kind": "thematique",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/thematique-19.html",
+      "sha256": "453049c36278e64c4fc2a1113695f9d4195e2c2890c27021cadabf027692c81c",
+      "html_errors": []
+    },
+    {
+      "key": "thematique-18",
+      "url": "http://192.168.129.32:8085/thematiques/demo-thematique-1/",
+      "kind": "thematique",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/thematique-18.html",
+      "sha256": "e2bbc9deb431b5fa66768f88bbcfb53001512607e2ba4781a9042fcbc6c6b848",
+      "html_errors": []
+    },
+    {
+      "key": "evenement-47",
+      "url": "http://192.168.129.32:8085/evenements/demo-events-2/",
+      "kind": "evenement",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/evenement-47.html",
+      "sha256": "2121044418c7d85eed98053b52899383b6b7610ec9b997728c4802d4d6d1337e",
+      "html_errors": []
+    },
+    {
+      "key": "evenement-46",
+      "url": "http://192.168.129.32:8085/evenements/demo-events-1/",
+      "kind": "evenement",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/evenement-46.html",
+      "sha256": "85fe435a087feea57d3be4b4f29bb244ff6bb1f17bb1a8df598d7cd184e2ac44",
+      "html_errors": []
+    },
+    {
+      "key": "partenaire-49",
+      "url": "http://192.168.129.32:8085/partenaires/demo-partners-2/",
+      "kind": "partenaire",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/partenaire-49.html",
+      "sha256": "a09ecd7856ab2e9d2fb340bde6167f4316e9ec84cde166dee460ee240fa6e9c6",
+      "html_errors": []
+    },
+    {
+      "key": "partenaire-48",
+      "url": "http://192.168.129.32:8085/partenaires/demo-partners-1/",
+      "kind": "partenaire",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/partenaire-48.html",
+      "sha256": "4d5d8a0519bbf0a71f97e84e503e5db5ad177c5f46fe03fa529567ee2c6c943a",
+      "html_errors": []
+    },
+    {
+      "key": "page-simple",
+      "url": "http://192.168.129.32:8085/calendrier-fictif/",
+      "kind": "page",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/page-simple.html",
+      "sha256": "9daed4b385b0cffbd2ce729f12a2d67bfd4dfd2cf1c06f0a62e258aab4b51c77",
+      "html_errors": []
+    },
+    {
+      "key": "recherche",
+      "url": "http://192.168.129.32:8085/?s=fictif",
+      "kind": "recherche",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/recherche.html",
+      "sha256": "200d4d032af0b36b2b5fa0d99b30248b3be0bf6fea126d3fbf3b1396e5d10331",
+      "html_errors": []
+    },
+    {
+      "key": "recherche-vide",
+      "url": "http://192.168.129.32:8085/?s=b01-aucun-resultat-xyz",
+      "kind": "recherche-vide",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/recherche-vide.html",
+      "sha256": "b21246ac59f6c90c5ab0b0b5bf20b9c28e6b6a1a34a34be693c1a80f07276d9b",
+      "html_errors": []
+    },
+    {
+      "key": "404",
+      "url": "http://192.168.129.32:8085/b01-page-inexistante-xyz/",
+      "kind": "404",
+      "expected": 404,
+      "http": 404,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/404.html",
+      "sha256": "f9b75b935e5fd0cf296e374135e18cf21e37d3300bf4fe9ac4ae52663f9d0833",
+      "html_errors": []
+    },
+    {
+      "key": "index",
+      "url": "http://192.168.129.32:8085/?post_type=post",
+      "kind": "index",
+      "expected": 200,
+      "http": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "html_file": "http/index.html",
+      "sha256": "1bcde678fa39615f12f3a6c0311f45b8f4a81656304b21a542d18de5d2b09406",
+      "html_errors": []
+    }
+  ],
+  "resources": [
+    {
+      "url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t4.pdf",
+      "status": 200,
+      "sha256": "2446e6975b2d0d9b6067e0c2b0cbbd44939d5dcccf600c10519cce84ab0f742f"
+    },
+    {
+      "url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-hs.pdf",
+      "status": 200,
+      "sha256": "8c43b4ce454696908d600b7a2726a76129b1bbd4ffba6ad00f3abfd8b8076700"
+    },
+    {
+      "url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t3.pdf",
+      "status": 200,
+      "sha256": "88c7e76f7bd7249af59bf79e6739d658590e29f945eea99f7e2d42980d615fa5"
+    },
+    {
+      "url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t2.pdf",
+      "status": 200,
+      "sha256": "e167c40428d2557c933c34d82545c833612b482d02a964248baba619d45f92d3"
+    },
+    {
+      "url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t1.pdf",
+      "status": 200,
+      "sha256": "665395b60dafff2b32b1c3989166a9b17bb6028c592aa46e9d03fbe62140902e"
+    },
+    {
+      "url": "http://192.168.129.32:8085/wp-content/themes/imagine/style.css",
+      "status": 200,
+      "sha256": "09caf53988b73a4da92238b7d95aebaeb840c3c445440d698340cf4773718cb6"
+    },
+    {
+      "url": "http://192.168.129.32:8085/wp-content/themes/imagine/assets/tokens.css",
+      "status": 200,
+      "sha256": "189df2806d80babf869dc2e9183298fccb7523b4ebb9faaf03c9d2fee3322923"
+    }
+  ]
+}
