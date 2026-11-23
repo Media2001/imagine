@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 23 novembre 2026, 14 h 25.
+Mis à jour le 23 novembre 2026, 16 h 30.
 
 **Deux voies depuis le 23/11.** Ce fichier est la file de la voie 1. Une deuxième session d'Hermès suit `A-FAIRE-2.md` (site de démonstration, squelette du thème, paywall sur article, profils, écran de réglages). Lis la section « Les deux voies » de la consigne permanente. Ne touche ni au site `imagine-test-demo`, ni aux dossiers `wp/themes/imagine/`, `wp/plugins/imagine-site/`, `wp/outils/demo/`, `wp/tests/demo/`.
 
@@ -12,15 +12,11 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 
 ## Consignes actives, par ordre de priorité
 
-File du 23/11, 13 h 45. Tes rapports de 10 h 11, 10 h 31, 11 h 16, 11 h 20 et 12 h 48 sont lus, ainsi que les vérifications d'A-01 et d'A-02.
+File du 23/11, 16 h 30. Ton rapport de 15 h 36 est lu.
 
-**0. `briefs/A-01-archive-reelle.md`** — le premier import réel a été refusé au prévol (`ARCHIVE_PATH`), sans dire pourquoi. Un mode diagnostic en une passe, et des règles de chemin moins aveugles. Deux heures. **Passe avant tout : Ced attend pour relancer.**
+**1. Corrections de T-01** — `corrections/T-01.md`, arbitrées dans `docs/arbitrages-2026-11-23.md`. Applique-les, rejoue, redépose `PRET`. Une heure.
 
-**1. `briefs/T-01-commande-de-rejeu.md`** — **débloqué : tu prépares l'image toi-même.** Lance `wp/tests/preparer-image.ps1` (dépendances publiques verrouillées, aucun secret, aucun compte : il n'y a pas de raison de le réserver à Ced). Puis le vrai rejeu, la preuve, et `production/T-01/PRET`. Une heure.
-
-**2. A-02, deux réponses, sans reprise du lot.** `requires_woo` : **conservé**. Registre des tables : **on garde le registre prudent** ; l'audit réel listera les tables non attribuées, et on l'étendra sur pièces. Les 98 avertissements de style sont acceptés. Rien à refaire : ces réponses sont pour mémoire.
-
-Ensuite la file est vide : l'audit réel (A-02 sur le staging d'Imagine) attend l'import lancé par Ced et la relecture de son rapport.
+A-01 (archive réelle) : rendu, en attente de relecture ; Ced lance le diagnostic. Ensuite la file est vide jusqu'à l'import.
 
 **Les écrans de réglages.** Dans C-05, C-06 et C-07, tu as livré des adaptateurs d'administration (pages de réglages WordPress). Ils ne font pas partie des lots clos : laisse-les en l'état. Ils sont repris par la voie 2 (lot C-10).
 
