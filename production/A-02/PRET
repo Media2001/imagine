@@ -1,7 +1,11 @@
-A-02 — script d'audit prêt à relire, 23/11/2026.
-Portée : outil uniquement ; aucun audit d'Imagine, aucun GO réel.
-Preuve finale : production/A-02/preuves/211ac0849094/
-122 assertions réussies, 0 échouée ; vérification indépendante PASS.
-Deux fixtures réelles Woo/Subscriptions/Memberships, classique et HPOS ; empreintes des 55 tables et fichiers inchangées ; cleanup vérifié.
-Script SHA-256 : 68aadda51ca1ed07310d4852dd8a5a7f1696442e78f883d0a8eecc4fd6798e07
-Limites et contrôle de style supplémentaire (0 erreur / 99 avertissements, retour 1) explicités dans notes.md.
+A-02 — corrections C1/C2/C3 prêtes à relire, 23/11/2026.
+Portée : outil et banc fictif uniquement ; aucun audit d'Imagine, aucun GO réel.
+Preuve finale courante : production/A-02/preuves/5d09a26acfb8/
+144 assertions nommées réussies, 0 échouée (17 unité, 120 intégration, 7 runner).
+run.py et verify.py réellement exécutés : retours 0 ; vérification parent indépendante encore attendue.
+Deux fixtures réelles Woo/Subscriptions/Memberships, classique et HPOS ; 55 tables par base et fichiers inchangés ; conteneur exact absent.
+Script SHA-256 : 7eb2b4bfa450e37d3f4265e3055cdba61a877b056f4feb0bfce06f681659c6dc
+PHP lint : 5 retours 0 ; documentaire : 1 unittest retour 0, six sources officielles.
+PHPCS : 0 erreur / 98 avertissements, retour 1, non présenté comme vert.
+Détails, trace TDD, limites statiques, choix Ced ouverts et écart d'archivage du premier contrôle de style : notes-corrections.md.
+Commande parent : python wp/tests/a02-audit/verify.py production/A-02/preuves/5d09a26acfb8

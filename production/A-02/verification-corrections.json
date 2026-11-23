@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "command": "python wp/tests/a02-audit/verify.py production/A-02/preuves/5d09a26acfb8",
+  "exit_code": 0,
+  "evidence": "production/A-02/preuves/5d09a26acfb8",
+  "counts": {"unit": 17, "integration": 120, "runner": 7},
+  "total_assertions": 144,
+  "current_source_hashes_match": true,
+  "container_absent": true,
+  "database_fingerprints_equal": ["classic", "hpos"],
+  "audit_sha256": "7eb2b4bfa450e37d3f4265e3055cdba61a877b056f4feb0bfce06f681659c6dc",
+  "documentation": {"command": "python wp/tests/a02-audit/test_documentation.py", "exit_code": 0, "unittest_methods": 1, "official_sources": 6},
+  "style": {"evidence": "production/A-02/style/imagine-a02-audit-style-1d583482fa9a", "exit_code": 1, "errors": 0, "warnings": 98, "container_absent": true, "same_sources_as_fixture": true},
+  "scope": "Synthetic tool proof only; not an Imagine site audit, deployment permission or owner arbitration"
+}

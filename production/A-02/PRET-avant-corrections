@@ -1,0 +1,7 @@
+A-02 — script d'audit prêt à relire, 23/11/2026.
+Portée : outil uniquement ; aucun audit d'Imagine, aucun GO réel.
+Preuve finale : production/A-02/preuves/211ac0849094/
+122 assertions réussies, 0 échouée ; vérification indépendante PASS.
+Deux fixtures réelles Woo/Subscriptions/Memberships, classique et HPOS ; empreintes des 55 tables et fichiers inchangées ; cleanup vérifié.
+Script SHA-256 : 68aadda51ca1ed07310d4852dd8a5a7f1696442e78f883d0a8eecc4fd6798e07
+Limites et contrôle de style supplémentaire (0 erreur / 99 avertissements, retour 1) explicités dans notes.md.

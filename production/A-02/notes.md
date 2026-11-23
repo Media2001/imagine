@@ -1,5 +1,7 @@
 # A-02 — livraison du script d'audit
 
+> **Livraison courante après corrections : `notes-corrections.md`, paquet `preuves/5d09a26acfb8/`, 144 assertions vertes et vérificateur retour 0.** Le texte ci-dessous est le bilan historique initial, conservé ; son ancien paquet ne correspond plus aux sources courantes.
+
 **Statut : prêt à relire sur preuves synthétiques. Aucun audit d'Imagine effectué.** Le marqueur PRET concerne uniquement l'outil et son banc, pas le staging d'Imagine ni une autorisation d'y accéder.
 
 ## Résultat vérifié
