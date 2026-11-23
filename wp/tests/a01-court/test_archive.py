@@ -1,6 +1,7 @@
 """Defensive archive unit tests: only fabricated in-memory payloads."""
 import io
 import json
+import os
 from pathlib import Path
 import struct
 import tempfile
@@ -17,7 +18,7 @@ def entry(path, data=b'x'):
 
 class ArchiveSafety(unittest.TestCase):
     def setUp(self):
-        base = Path('/opt/court/test-scratch')
+        base = Path(os.environ.get('TMPDIR', '/opt/court/test-scratch'))
         base.mkdir(exist_ok=True)
         self.temp = tempfile.TemporaryDirectory(dir=base)
         self.target = Path(self.temp.name) / 'content'

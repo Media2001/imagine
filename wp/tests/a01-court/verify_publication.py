@@ -24,6 +24,7 @@ def verify(report, live=False):
     assert value['tool_sources_unchanged'] is True and value['tool_or_templates_modified'] is False
     public69 = value['expected_core_version'] == '6.9.1'
     if public69:
+        assert all(key in value for key in ('public_core', 'public_fixture_woocommerce', 'subscriptions_691_limit'))
         core = value['public_core']
         assert core['version'] == '6.9.1' and core['url'] == 'https://wordpress.org/wordpress-6.9.1.zip'
         assert core['sha256'] == '1c6ba9fc3ca6d5eb847666d82c0958c15878552387143ed61724ee81350fb120'

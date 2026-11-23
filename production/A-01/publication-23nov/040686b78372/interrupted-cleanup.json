@@ -1,0 +1,24 @@
+{
+  "reason": "foreground tool watchdog 420 seconds; command process no longer exists; original incomplete FAIL unchanged",
+  "stopped": {
+    "slug": "imagine-test-a01-040686b78372-personal",
+    "status": "stopped",
+    "all_three_containers_stopped": true
+  },
+  "deleted": {
+    "site": "imagine-test-a01-040686b78372-personal",
+    "api_absent": true,
+    "containers_absent": {
+      "wp-imagine-test-a01-040686b78372-personal": true,
+      "db-imagine-test-a01-040686b78372-personal": true,
+      "nginx-imagine-test-a01-040686b78372-personal": true
+    },
+    "html_volume_absent": true,
+    "network_absent": true,
+    "directory_absent": true
+  },
+  "runner": {
+    "name": "imagine-a01-publication-a4ea3b208bec",
+    "absent": true
+  }
+}
