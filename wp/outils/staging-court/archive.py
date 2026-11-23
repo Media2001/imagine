@@ -8,21 +8,22 @@ class Refusal(ValueError):
     pass
 
 
-def restore(stream, content, max_bytes=1024 * 1024 * 1024, max_entries=150000):
+def restore(stream, content, max_bytes=1024 * 1024 * 1024, max_entries=150000, metadata_only=False):
     seen = set()
     total = 0
     sql = None
     package = None
-    content = pathlib.Path(content)
-    if content.exists():
-        raise Refusal('FRESH_CONTENT_REQUIRED')
-    content.mkdir(parents=True)
+    content = pathlib.Path(content) if content is not None else None
+    if not metadata_only:
+        if content.exists():
+            raise Refusal('FRESH_CONTENT_REQUIRED')
+        content.mkdir(parents=True)
     for _ in range(max_entries + 1):
         header = stream.read(4377)
         if len(header) != 4377:
             raise Refusal('ARCHIVE_TRUNCATED')
         if header == bytes(4377):
-            if stream.read(1) or sql is None:
+            if stream.read(1) or 'database.sql' not in seen:
                 raise Refusal('ARCHIVE_INVALID')
             return sql, package, len(seen)
         fields = struct.unpack('255s14s12s4096s', header)
@@ -53,8 +54,10 @@ def restore(stream, content, max_bytes=1024 * 1024 * 1024, max_entries=150000):
         metadata = relative in ('database.sql', 'package.json', 'multisite.json')
         if not metadata and parts[0] in ('wp-config.php', 'wp-admin', 'wp-includes', 'wp-content'):
             raise Refusal('ARCHIVE_LAYOUT_UNSUPPORTED')
-        target = content.joinpath(*parts)
-        if not metadata:
+        if relative == 'package.json' and length > 1024 * 1024:
+            raise Refusal('ARCHIVE_LIMIT')
+        target = content.joinpath(*parts) if content is not None else None
+        if not metadata and not metadata_only:
             target.parent.mkdir(parents=True, exist_ok=True)
             handle = target.open('xb')
         else:
@@ -68,13 +71,13 @@ def restore(stream, content, max_bytes=1024 * 1024 * 1024, max_entries=150000):
                     raise Refusal('ARCHIVE_TRUNCATED')
                 if handle:
                     handle.write(data)
-                elif relative in ('database.sql', 'package.json'):
+                elif relative == 'package.json' or (relative == 'database.sql' and not metadata_only):
                     chunks.append(data)
                 remaining -= len(data)
         finally:
             if handle:
                 handle.close()
-        if relative == 'database.sql':
+        if relative == 'database.sql' and not metadata_only:
             sql = b''.join(chunks)
         elif relative == 'package.json':
             package = b''.join(chunks)
