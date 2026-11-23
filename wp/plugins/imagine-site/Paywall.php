@@ -75,7 +75,7 @@ final class Paywall
             }
             $userId = get_current_user_id();
             $visitor = ['identifie' => $userId > 0, 'droits' => $userId ? self::rights($userId, $now) : []];
-            $decision = (new Moteur())->decider(
+            $decision = self::deciderContenu(
                 ['reserve' => in_array($flag, ['1', true, 1], true), 'numero' => (string) $number, 'type' => 'article',
                     'sortie' => $release, 'decouverte' => false],
                 $visitor,
@@ -90,6 +90,23 @@ final class Paywall
             }
             return $closed;
         }
+    }
+
+    /** Point de décision commun articles/PDF ; aucun droit PDF n'est inventé par le raccord. */
+    public static function deciderContenu(
+        array $contenu,
+        array $visiteur,
+        Robots\Decision $robot,
+        DateTimeImmutable $instant
+    ): \Imagine\Pilotage\Acces\Decision {
+        return (new Moteur())->decider(
+            $contenu,
+            $visiteur,
+            $robot,
+            $instant,
+            null,
+            (new \Imagine\Pilotage\Acces\AdministrationReglages())->lire()
+        );
     }
 
     private static function date(mixed $value, bool $unlimited = false): DateTimeImmutable
@@ -114,7 +131,7 @@ final class Paywall
         }
         $rights = [];
         $user = get_userdata($userId);
-        if ($user && array_intersect(['administrator', 'editor'], $user->roles)) {
+        if ($user && array_intersect(['administrator', 'editor', 'imagine_referent_abonnements'], $user->roles)) {
             $rights[] = ['type' => 'equipe', 'role' => in_array('administrator', $user->roles, true) ? 'administration' : 'redaction'];
         }
         $plans = get_option('imagine_acces_plans', []);
@@ -165,6 +182,10 @@ final class Paywall
                     } else {
                         $state = 'suspendu';
                     }
+                } elseif ($subStatus === 'pending'
+                    || ($subStatus === 'on-hold' && in_array($status, ['pending', 'delayed'], true))) {
+                    // Première commande en attente : pas une suspension d'un abonnement actif.
+                    $state = 'virement_non_valide';
                 } elseif (!in_array($subStatus, ['active', 'pending-cancel'], true)) {
                     $state = in_array($subStatus, ['expired', 'cancelled'], true) ? 'expire' : 'suspendu';
                 }

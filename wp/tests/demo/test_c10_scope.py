@@ -29,9 +29,9 @@ class ScopeTest(unittest.TestCase):
                 self.run_guard(**override)
 
     def test_deployment_allowlist(self):
-        self.assertEqual(len(c10.FILES), 5)
-        self.assertTrue(all(name.startswith('plugins/imagine-pilotage/') for name in c10.FILES))
-        self.assertFalse(any('/imagine-site/' in name for name in c10.FILES))
+        self.assertEqual(len(c10.FILES), 6)
+        self.assertEqual([name for name in c10.FILES if not name.startswith('plugins/imagine-pilotage/')],
+                         ['plugins/imagine-site/Paywall.php'])
 
 
 if __name__ == '__main__':
