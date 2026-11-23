@@ -1,5 +1,6 @@
-# T-01 contract tests. No PHP is executed on Windows.
+﻿# T-01 contract tests. No PHP is executed on Windows.
 $ErrorActionPreference = 'Stop'
+[Console]::OutputEncoding = New-Object Text.UTF8Encoding($false)
 $root = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..'))
 $scriptFile = Join-Path $root 'wp/tests/rejouer.ps1'
 if (-not (Test-Path $scriptFile)) { throw 'RED: wp/tests/rejouer.ps1 is missing' }
