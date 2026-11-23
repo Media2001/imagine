@@ -37,25 +37,73 @@ function testFiles(string $path): array
     return $files;
 }
 
+require_once __DIR__ . '/discovery.php';
+
 function verifyCoverage(string $package): void
 {
-    $config = simplexml_load_file($package . '/phpunit.xml');
-    if ($config === false || (string) $config['bootstrap'] !== 'vendor/autoload.php') {
+    $package = realpath($package) ?: throw new RuntimeException('Missing library: ' . $package);
+    $filename = phpunitConfiguration($package);
+    $document = new DOMDocument();
+    $previous = libxml_use_internal_errors(true);
+    try {
+        $valid = $filename !== null && $document->load($package . '/' . $filename, LIBXML_NONET);
+    } finally {
+        libxml_clear_errors();
+        libxml_use_internal_errors($previous);
+    }
+    $root = $document->documentElement;
+    if (!$valid || $document->doctype !== null || $root === null || $root->tagName !== 'phpunit'
+        || $root->getAttribute('bootstrap') !== 'vendor/autoload.php') {
         throw new RuntimeException('Unsupported PHPUnit configuration: ' . $package);
+    }
+    // Fail closed: only this fully understood, unfiltered selection grammar is accepted.
+    // An ignored unknown node/attribute can otherwise make PHPUnit run a partial suite.
+    $children = ['phpunit' => ['testsuites'], 'testsuites' => ['testsuite'], 'testsuite' => ['directory', 'file'], 'directory' => [], 'file' => []];
+    $attributes = ['phpunit' => ['bootstrap', 'colors', 'cacheDirectory'], 'testsuites' => [], 'testsuite' => ['name'], 'directory' => ['suffix'], 'file' => []];
+    foreach ($document->getElementsByTagName('*') as $element) {
+        $name = $element->tagName;
+        if ($element->namespaceURI !== null || !isset($children[$name])) {
+            throw new RuntimeException('Unsupported PHPUnit selection element: ' . $name);
+        }
+        foreach ($element->attributes as $attribute) {
+            // PHPUnit's standard schema declaration does not change test selection.
+            if ($element === $root && $attribute->namespaceURI === 'http://www.w3.org/2001/XMLSchema-instance'
+                && $attribute->localName === 'noNamespaceSchemaLocation') {
+                continue;
+            }
+            if (!in_array($attribute->name, $attributes[$name], true)
+                || ($name === 'directory' && $attribute->value !== 'Test.php')) {
+                throw new RuntimeException('Unsupported PHPUnit selection attribute: ' . $name . '/@' . $attribute->name);
+            }
+        }
+        foreach ($element->childNodes as $child) {
+            if ($child instanceof DOMElement && !in_array($child->tagName, $children[$name], true)) {
+                throw new RuntimeException('Unsupported PHPUnit selection element: ' . $child->tagName);
+            }
+        }
+    }
+    $config = simplexml_import_dom($root);
+    $testsRoot = realpath($package . '/tests');
+    if ($testsRoot === false || !is_dir($testsRoot) || $testsRoot !== $package . '/tests') {
+        throw new RuntimeException('Missing or symbolic tests root: ' . $package);
     }
     $selected = [];
     foreach ($config->xpath('/phpunit/testsuites/testsuite/directory') as $directory) {
-        $path = realpath($package . '/' . (string) $directory);
-        if ($path === false || !str_starts_with($path, $package . '/tests')) {
+        $path = realpath($package . '/' . trim((string) $directory));
+        if ($path === false || !is_dir($path) || ($path !== $testsRoot && !str_starts_with($path, $testsRoot . '/'))) {
             throw new RuntimeException('Test directory outside library: ' . $directory);
         }
         $selected = array_merge($selected, testFiles($path));
     }
     foreach ($config->xpath('/phpunit/testsuites/testsuite/file') as $file) {
-        $selected[] = realpath($package . '/' . (string) $file);
+        $path = realpath($package . '/' . trim((string) $file));
+        if ($path === false || !is_file($path) || !str_starts_with($path, $testsRoot . '/') || !str_ends_with($path, 'Test.php')) {
+            throw new RuntimeException('Test file outside library: ' . $file);
+        }
+        $selected[] = $path;
     }
     sort($selected);
-    if ($selected !== testFiles($package . '/tests') || $selected === []) {
+    if ($selected !== testFiles($testsRoot) || $selected === []) {
         throw new RuntimeException('PHPUnit configuration does not cover every *Test.php exactly once: ' . $package);
     }
     echo 'T01 COVERAGE : ' . basename($package) . ' ; ' . count($selected) . " test files; full root configuration\n";
@@ -69,18 +117,23 @@ try {
     if (!extension_loaded('dom') || !extension_loaded('SimpleXML') || !extension_loaded('mbstring')) {
         throw new RuntimeException('Image T01 incomplete: DOM, SimpleXML and mbstring required; run preparer-image.ps1.');
     }
-    $manifests = glob('/repo/wp/plugins/*/composer.json');
-    sort($manifests);
-    if ($manifests === []) {
+    $discovery = discoverT01Packages('/repo/wp');
+    foreach ($discovery['warnings'] as $warning) {
+        echo 'T01 WARNING : ' . $warning['relative'] . ' ; ' . $warning['reason'] . "\n";
+    }
+    if ($discovery['packages'] === []) {
         throw new RuntimeException('No custom library was discovered.');
     }
     $packages = [];
-    foreach ($manifests as $manifest) {
-        $source = dirname($manifest);
-        $name = basename($source);
-        $cache = '/opt/t01/' . $name;
-        $destination = '/tmp/t01/plugins/' . $name;
+    foreach ($discovery['packages'] as $discovered) {
+        $source = '/repo/wp/' . $discovered['relative'];
+        $name = $discovered['relative'];
+        $cache = '/opt/t01/' . $discovered['cacheKey'];
+        $destination = '/tmp/t01/' . $discovered['relative'];
         foreach (['composer.json', 'composer.lock'] as $file) {
+            if (!is_file($source . '/' . $file) || is_link($source . '/' . $file)) {
+                throw new RuntimeException('Custom PHPUnit package requires ' . $name . '/' . $file . '; run preparer-image.ps1 after preparing its manifests.');
+            }
             if (!is_file($cache . '/' . $file) || hash_file('sha256', $source . '/' . $file) !== hash_file('sha256', $cache . '/' . $file)) {
                 throw new RuntimeException('Image dependencies stale or absent for ' . $name . '/' . $file . '; Ced must run preparer-image.ps1.');
             }
@@ -101,7 +154,7 @@ try {
         echo "\nT01 LIBRARY : " . basename($package) . "\n";
         $junit = '/tmp/t01/junit-' . $index . '.xml';
         // Every run starts in a fresh container, so stale XML cannot be recycled.
-        $command = ['php', 'vendor/bin/phpunit', '--configuration', 'phpunit.xml', '--fail-on-warning', '--fail-on-risky', '--fail-on-deprecation', '--do-not-cache-result', '--colors=never', '--log-junit', $junit];
+        $command = ['php', 'vendor/bin/phpunit', '--configuration', phpunitConfiguration($package), '--fail-on-warning', '--fail-on-risky', '--fail-on-deprecation', '--fail-on-skipped', '--fail-on-incomplete', '--do-not-cache-result', '--colors=never', '--log-junit', $junit];
         echo 'T01 COMMAND : ' . implode(' ', $command) . "\n";
         $process = proc_open($command, [0 => ['file', '/dev/null', 'r'], 1 => STDOUT, 2 => STDERR], $pipes, $package);
         if (!is_resource($process)) {
@@ -136,6 +189,6 @@ try {
     $totals['errors']++;
     $pass = false;
 }
-$pass = $pass && $totals['tests'] > 0 && $totals['failures'] === 0 && $totals['errors'] === 0;
+$pass = $pass && $totals['tests'] > 0 && $totals['failures'] === 0 && $totals['errors'] === 0 && $totals['skipped'] === 0;
 echo 'T01_RESULT ' . json_encode($totals + ['pass' => $pass], JSON_THROW_ON_ERROR) . "\n";
 exit($pass ? 0 : 1);

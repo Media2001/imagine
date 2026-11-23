@@ -1,0 +1,7 @@
+C-10 — PRÊT À RELIRE SUR IMAGINE-TEST-DEMO
+Écran natif Imagine > Réglages installé et relu exactement.
+96 assertions C10, 30 contrôles C08 et 13 contrôles d’intégrité réussis.
+3 domaines, 8 champs ; 23 saisies invalides vérifiées ; defaults restaurés.
+Voir A-VOIR.md, notes.md et verification-finale.json.
+Effet réel démontré : format CSV C07 ; C08/C09 et bibliothèques préservés.
+Validation visuelle Ced attendue ; limites de raccordement, coffre navigateur et séquencement documentaire décrites dans notes.md.

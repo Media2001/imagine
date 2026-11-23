@@ -102,5 +102,86 @@ correction('xml takes precedence over xml.dist', static function (): void {
     rejected(static fn () => verifyCoverage($path), 'Excluded active phpunit.xml was bypassed by dist');
 });
 
+function fixtureReplay(string $methodBody, string $configuration = 'phpunit.xml', string $kind = 'plugins'): array
+{
+    $root = '/tmp/t01-replay-' . bin2hex(random_bytes(6));
+    $package = $root . '/wp/' . $kind . '/imagine-pilotage';
+    mkdir($package . '/tests', 0777, true);
+    mkdir($root . '/wp/plugins/untested', 0777, true);
+    mkdir($root . '/cache', 0777, true);
+    $cacheKey = $kind === 'plugins' ? 'imagine-pilotage' : $kind . '--imagine-pilotage';
+    symlink('/opt/t01/imagine-pilotage', $root . '/cache/' . $cacheKey);
+    foreach (['composer.json', 'composer.lock'] as $file) {
+        copy('/opt/t01/imagine-pilotage/' . $file, $package . '/' . $file);
+    }
+    file_put_contents($package . '/' . $configuration, '<phpunit bootstrap="vendor/autoload.php"><testsuites><testsuite name="Synthetic"><directory>tests</directory></testsuite></testsuites></phpunit>');
+    file_put_contents($package . '/tests/SyntheticTest.php', '<?php final class SyntheticTest extends \\PHPUnit\\Framework\\TestCase { public function testSynthetic(): void { ' . $methodBody . ' } }');
+    // Relocate only hard-coded input/output roots; selection and verdict code are unchanged.
+    $code = str_replace(['/repo/wp', '/tmp/t01/', '/opt/t01/'], [$root . '/wp', $root . '/work/', $root . '/cache/'], file_get_contents(__DIR__ . '/executer.php'));
+    file_put_contents($root . '/executer.php', $code);
+    if (is_file(__DIR__ . '/discovery.php')) {
+        copy(__DIR__ . '/discovery.php', $root . '/discovery.php');
+    }
+    [$status, $output] = childPhp('require ' . var_export($root . '/executer.php', true) . ';');
+    check(preg_match('/^T01_RESULT (.+)$/m', $output, $matches) === 1, 'Replay result missing: ' . $output);
+    return [$status, json_decode($matches[1], true, 512, JSON_THROW_ON_ERROR), $output];
+}
+
+correction('real PHPUnit positive replay passes', static function (): void {
+    [$status, $result, $output] = fixtureReplay('$this->assertTrue(true);');
+    check($status === 0 && $result['pass'] && $result['tests'] === 1 && $result['assertions'] === 1, $output);
+});
+
+foreach (['markTestSkipped', 'markTestIncomplete'] as $method) {
+    correction('real PHPUnit ' . $method . ' fails replay', static function () use ($method): void {
+        [$status, $result, $output] = fixtureReplay('$this->' . $method . '("synthetic correction witness");');
+        check($result['tests'] === 1 && $result['skipped'] === 1, 'Actual skipped/incomplete counter missing: ' . $output);
+        check($status === 1 && $result['pass'] === false, 'Skipped/incomplete replay passed: ' . $output);
+    });
+}
+
+correction('real PHPUnit xml.dist replay passes', static function (): void {
+    [$status, $result, $output] = fixtureReplay('$this->assertTrue(true);', 'phpunit.xml.dist');
+    check($status === 0 && $result['pass'], $output);
+});
+
+correction('discovery scans package roots, not wp/tests fixtures', static function (): void {
+    check(function_exists('discoverT01Packages'), 'Shared custom package discovery is missing');
+    $root = '/tmp/t01-discovery-' . bin2hex(random_bytes(6));
+    foreach (['plugins/same', 'mu-plugins/same', 'themes/same', 'tests/fixture'] as $relative) {
+        mkdir($root . '/' . $relative, 0777, true);
+        file_put_contents($root . '/' . $relative . '/phpunit.xml.dist', '<phpunit/>');
+    }
+    mkdir($root . '/plugins/without-tests', 0777, true);
+    file_put_contents($root . '/mu-plugins/standalone.php', '<?php');
+    $discovery = discoverT01Packages($root);
+    check(array_column($discovery['packages'], 'relative') === ['mu-plugins/same', 'plugins/same', 'themes/same'], 'Wrong discovered package inventory');
+    check(array_column($discovery['packages'], 'cacheKey') === ['mu-plugins--same', 'same', 'themes--same'], 'Cache topology is not collision-safe/compatible');
+    check(array_column($discovery['packages'], 'config') === ['phpunit.xml.dist', 'phpunit.xml.dist', 'phpunit.xml.dist'], 'Dist configs missing');
+    check(array_column($discovery['warnings'], 'relative') === ['mu-plugins/standalone.php', 'plugins/without-tests'], 'Untested custom packages were not warned');
+});
+
+correction('repository discovery keeps existing plugin caches and warns site/theme', static function (): void {
+    check(function_exists('discoverT01Packages'), 'Shared custom package discovery is missing');
+    $discovery = discoverT01Packages('/repo/wp');
+    check(array_column($discovery['packages'], 'relative') === ['plugins/imagine-connecteur', 'plugins/imagine-pilotage'], 'Current repository package inventory changed');
+    check(array_column($discovery['packages'], 'cacheKey') === ['imagine-connecteur', 'imagine-pilotage'], 'Existing prepared cache topology changed');
+    check(array_column($discovery['warnings'], 'relative') === ['plugins/imagine-site', 'themes/imagine'], 'Current untested custom packages are not warned');
+});
+
+foreach (['mu-plugins', 'themes'] as $kind) {
+    correction('real replay discovers ' . $kind . ' config and correct prepared cache', static function () use ($kind): void {
+        [$status, $result, $output] = fixtureReplay('$this->assertTrue(true);', 'phpunit.xml.dist', $kind);
+        check($status === 0 && $result['pass'] && $result['tests'] === 1, $output);
+        check(str_contains($output, '/work/' . $kind . '/imagine-pilotage/phpunit.xml.dist'), 'Disposable package topology changed: ' . $output);
+    });
+}
+
+correction('real replay warns untested custom packages', static function (): void {
+    [$status, $result, $output] = fixtureReplay('$this->assertTrue(true);');
+    check($status === 0 && $result['pass'], $output);
+    check(str_contains($output, 'T01 WARNING : plugins/untested'), 'Untested custom package was silently ignored: ' . $output);
+});
+
 echo "T01 CORRECTIONS : $tests tests, $failures failures\n";
 exit($failures === 0 ? 0 : 1);
