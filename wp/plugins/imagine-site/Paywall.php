@@ -13,6 +13,31 @@ use WP_Post;
 /** Adaptateur WordPress uniquement : aucune table de droits métier dupliquée. */
 final class Paywall
 {
+    /** Mémoire PHP de cette requête seulement, jamais de transient/cache partagé. */
+    private static array $decisions = [];
+    private static ?DateTimeImmutable $requestInstant = null;
+    private static string $readContext = '';
+
+    public static function invalidate(): void
+    {
+        self::$decisions = [];
+        // L'instant reste identique même si un droit est révoqué dans la requête.
+    }
+
+    private static function context(): string
+    {
+        global $wp_filter;
+        $hooks = [];
+        foreach ($wp_filter as $name => $hook) {
+            if (preg_match('/^(get_(post|user)_metadata|(?:pre_)?option_imagine_acces_|woocommerce_subscription_get_|wc_memberships_user_membership_get_)/', $name)) {
+                foreach ($hook->callbacks as $priority => $callbacks) {
+                    $hooks[$name][$priority] = array_map(static fn (array $callback): int => $callback['accepted_args'], $callbacks);
+                }
+            }
+        }
+        return hash('sha256', serialize([$hooks, $_SERVER['HTTP_USER_AGENT'] ?? '', $_SERVER['REMOTE_ADDR'] ?? '']));
+    }
+
     public static function managed(?WP_Post $post): bool
     {
         // Tous les articles natifs sont gouvernés : absence des deux métadonnées
@@ -24,7 +49,17 @@ final class Paywall
     public static function decision(WP_Post $post): array
     {
         try {
-            $now = new DateTimeImmutable(gmdate('Y-m-d H:i:s'), new DateTimeZone('UTC'));
+            $now = self::$requestInstant ??= new DateTimeImmutable(gmdate('Y-m-d H:i:s'), new DateTimeZone('UTC'));
+            $context = self::context();
+            if ($context !== self::$readContext) {
+                self::invalidate();
+                self::$readContext = $context;
+            }
+            $userId = get_current_user_id();
+            $key = get_current_blog_id() . ':' . $post->ID . ':' . $userId;
+            if (isset(self::$decisions[$key])) {
+                return self::$decisions[$key];
+            }
             $flag = get_post_meta($post->ID, 'imagine_reserve', true);
             $number = (int) get_post_meta($post->ID, 'imagine_numero_id', true);
             $issue = get_post($number);
@@ -41,13 +76,13 @@ final class Paywall
             $userId = get_current_user_id();
             $visitor = ['identifie' => $userId > 0, 'droits' => $userId ? self::rights($userId, $now) : []];
             $decision = (new Moteur())->decider(
-                ['reserve' => $flag === '1', 'numero' => (string) $number, 'type' => 'article',
+                ['reserve' => in_array($flag, ['1', true, 1], true), 'numero' => (string) $number, 'type' => 'article',
                     'sortie' => $release, 'decouverte' => false],
                 $visitor,
                 self::robot($now),
                 $now
             );
-            return ['complet' => $decision->complet, 'motif' => $decision->motif->value, 'bloc' => $decision->bloc->value];
+            return self::$decisions[$key] = ['complet' => $decision->complet, 'motif' => $decision->motif->value, 'bloc' => $decision->bloc->value];
         } catch (\Throwable) {
             return ['complet' => false, 'motif' => 'adaptateur_indisponible', 'bloc' => 'abonnement'];
         }
@@ -233,8 +268,9 @@ final class Paywall
         echo '<meta name="description" content="' . esc_attr($text) . '">' . "\n";
         echo '<meta property="og:description" content="' . esc_attr($text) . '">' . "\n";
         echo '<meta name="twitter:description" content="' . esc_attr($text) . '">' . "\n";
-        if (get_post_meta($post->ID, 'imagine_reserve', true) !== '0') {
-            $schema = ['@context' => 'https://schema.org', '@type' => 'Article', 'headline' => get_the_title($post),
+        if (!metadata_exists('post', $post->ID, 'imagine_reserve')
+            || !in_array(get_post_meta($post->ID, 'imagine_reserve', true), ['', '0', false, 0], true)) {
+            $schema = ['@context' => 'https://schema.org', '@type' => 'NewsArticle', 'headline' => get_the_title($post),
                 'description' => $text, 'isAccessibleForFree' => false,
                 'hasPart' => ['@type' => 'WebPageElement', 'isAccessibleForFree' => false, 'cssSelector' => '.imagine-paywall-body']];
             echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) . '</script>' . "\n";
@@ -278,6 +314,14 @@ final class Paywall
 
     public static function register(): void
     {
+        foreach (['added_post_meta', 'updated_post_meta', 'deleted_post_meta',
+            'added_user_meta', 'updated_user_meta', 'deleted_user_meta',
+            'added_option', 'updated_option', 'deleted_option', 'clean_post_cache',
+            'clean_user_cache', 'switch_blog', 'set_user_role', 'add_user_role', 'remove_user_role',
+            'woocommerce_after_order_object_save', 'woocommerce_subscription_status_updated',
+            'wc_memberships_user_membership_status_changed'] as $hook) {
+            add_action($hook, [self::class, 'invalidate'], PHP_INT_MAX, 0);
+        }
         if (!defined('DONOTCACHEPAGE')) {
             define('DONOTCACHEPAGE', true);
         }

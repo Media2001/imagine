@@ -1,0 +1,5 @@
+{
+  "code": 1,
+  "stdout": "{\"checks\":{\"woocommerce_reellement_absent\":true,\"bloc_sans_woo_sans_exception\":false,\"droits_sans_woo_fermes\":true},\"total\":3,\"failures\":[\"bloc_sans_woo_sans_exception\"]}",
+  "stderr": ""
+}

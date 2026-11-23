@@ -64,6 +64,35 @@ try {
     wp_set_current_user(0);
 }
 $checks['canari_article_supprime'] = get_post($temp) === null;
+wp_set_current_user($f['users']['actif']);
+$reads = 0;
+$count = static function ($value, $id, $key) use (&$reads, $article) {
+    if ($id === $article->ID && $key === 'imagine_reserve') { $reads++; }
+    return $value;
+};
+add_filter('get_post_metadata', $count, 10, 3);
+\Imagine\Site\Paywall::decision($article);
+$firstReads = $reads;
+\Imagine\Site\Paywall::decision($article);
+$checks['memo_meme_post_user_aucune_relecture'] = $firstReads > 0 && $reads === $firstReads;
+remove_filter('get_post_metadata', $count, 10);
+// Le contrôleur REST et les filtres de sortie doivent partager le même instant.
+$reflection = new \ReflectionClass(\Imagine\Site\Paywall::class);
+$checks['memo_instant_unique_requete'] = false;
+if ($reflection->hasProperty('requestInstant')) {
+    $instant = $reflection->getProperty('requestInstant')->getValue();
+    sleep(1);
+    \Imagine\Site\Paywall::decision($article);
+    $checks['memo_instant_unique_requete'] = $instant instanceof \DateTimeImmutable
+        && $reflection->getProperty('requestInstant')->getValue() === $instant;
+}
+wp_set_current_user(0);
+$GLOBALS['wp_query'] = new \WP_Query(['p' => $article->ID]);
+ob_start();
+\Imagine\Site\Paywall::share();
+$sharing = ob_get_clean();
+$checks['schema_newsarticle'] = str_contains($sharing, '"@type":"NewsArticle"');
+wp_reset_query();
 $failures = array_keys(array_filter($checks, static fn ($ok) => !$ok));
 echo wp_json_encode(['checks' => $checks, 'total' => count($checks), 'failures' => $failures], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 if ($failures) { \WP_CLI::halt(1); }

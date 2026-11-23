@@ -1,0 +1,5 @@
+{
+  "code": 0,
+  "stdout": "{\n    \"checks\": {\n        \"fixture_sans_mot_de_passe_natif\": true,\n        \"anonyme_phrase_corps_non_appariee\": true,\n        \"anonyme_titre_public_apparie\": true,\n        \"anonyme_extrait_public_apparie\": true,\n        \"abonne_phrase_corps_appariee\": true,\n        \"booleen_natif_false_stocke_vide\": true,\n        \"booleen_natif_false_ouvert\": true,\n        \"booleen_natif_true_ferme\": true,\n        \"booleen_absent_ferme\": true,\n        \"booleen_invalide_ferme\": true,\n        \"chaine_legacy_0\": true,\n        \"chaine_legacy_1\": true,\n        \"rest_ecriture_0\": true,\n        \"rest_ecriture_effet_anonyme_0\": true,\n        \"rest_ecriture_1\": true,\n        \"rest_ecriture_effet_anonyme_1\": true,\n        \"rest_ecriture_anonyme_interdite\": true,\n        \"canari_article_supprime\": true\n    },\n    \"total\": 18,\n    \"failures\": []\n}",
+  "stderr": ""
+}

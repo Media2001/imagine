@@ -5,5 +5,5 @@ namespace Imagine\Theme;
 ?>
 <aside class="imagine-paywall-bloc" data-imagine-bloc="regularisation" aria-label="<?php esc_attr_e('Régularisation', 'imagine'); ?>">
     <p><?php esc_html_e('Votre abonnement demande une régularisation.', 'imagine'); ?><?php if (!empty($args['complet'])) : ?> <?php esc_html_e('Pendant votre délai de grâce, la lecture reste disponible.', 'imagine'); ?><?php endif; ?></p>
-    <p><a href="<?php echo esc_url(wc_get_page_permalink('myaccount') ?: wp_login_url()); ?>"><?php esc_html_e('Consulter mon compte', 'imagine'); ?></a></p>
+    <p><a href="<?php echo esc_url(function_exists('wc_get_page_permalink') ? (wc_get_page_permalink('myaccount') ?: wp_login_url()) : wp_login_url()); ?>"><?php esc_html_e('Consulter mon compte', 'imagine'); ?></a></p>
 </aside>
