@@ -109,7 +109,7 @@ def plugin_warnings(content, wordpress, php):
     """WordPress-style header scan as inert text; requirements are warnings, never gates."""
     warnings = []
     for path in sorted(content.glob('plugins/*/*.php')) + sorted(content.glob('plugins/*.php')):
-        header = path.read_bytes()[:8192].decode('utf-8', 'replace')
+        header = path.read_bytes()[:8192].decode('utf-8', 'replace').replace('\r', '\n')
         prefix = r'^(?:[ \t]*<\?php)?[ \t\/*#@]*'
         if not re.search(prefix + r'Plugin Name:', header, re.M | re.I):
             continue

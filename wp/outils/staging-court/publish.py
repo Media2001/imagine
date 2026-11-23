@@ -435,7 +435,7 @@ def main():
     parser.add_argument('--table-decisions')
     parser.add_argument('--php-version', default='8.2', choices=['8.2'])
     parser.add_argument('--expected-core-version', default='6.9.1',
-                        help='Version production attendue ; recette commerciale : 7.0.9 explicite, jamais implicite')
+                        help='Version attendue de l’archive ; cœur public préparé à sa version avant injection')
     parser.add_argument('--case', choices=['classic', 'hpos', 'trap', 'personal'], help='Rejeu synthétique ciblé, défaut les quatre')
     args = parser.parse_args()
     if not re.fullmatch(r'[0-9]+\.[0-9]+(?:\.[0-9]+)?', args.expected_core_version):
@@ -517,6 +517,10 @@ def main():
                 if site['status'] != 'running':
                     raise RuntimeError('NORMAL_SITE_CREATION_REFUSED')
                 receipt['normal_creation'] = {k: site[k] for k in ('slug', 'status', 'url', 'port', 'php_version', 'mcp_enabled', 'mcp_status')}
+                php_runtime = call(['exec', 'wp-' + name, 'php', '-r', 'echo PHP_VERSION;']).stdout.decode().strip()
+                if not re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+', php_runtime):
+                    raise RuntimeError('TARGET_PHP_VERSION_REFUSED')
+                receipt['target_php_runtime'] = php_runtime
                 receipt['stopped_before_import'] = stop_site(name)
                 lint = call(['exec', runner, 'php', '-l', '/opt/court/publication_probe.php'])
                 call(['exec', runner, 'php', '-l', '/opt/court/script_capacity_probe.php'])
@@ -524,7 +528,7 @@ def main():
                 receipt['source_manifest'] = manifest
                 request = {'target_url': 'http://localhost:' + str(site['port']),
                            'expected_core_version': args.expected_core_version,
-                           'php_version': args.php_version,
+                           'php_version': php_runtime,
                            'production_url': args.production_url or 'https://production.synthetic.invalid',
                            'password': getpass.getpass('Mot de passe neuf du compte test : ') if args.archive else secrets.token_urlsafe(40),
                            'decisions': json.loads(Path(args.table_decisions).read_text()) if args.table_decisions else {}}

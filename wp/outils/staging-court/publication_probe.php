@@ -62,18 +62,18 @@ if (is_array($fixture)) {
     $fidelity['rights'] = $rights;
     $fidelity['setting_intact'] = get_option('imagine_publication_setting') === ['layout' => 'fiction', 'quantity' => 7];
     if (!empty($fixture['subs'])) {
-    $sub = wcs_get_subscription($fixture['subs'][0]);
-    $before = count($sub->get_related_orders('ids', 'renewal'));
-    $calls = 0;
-    add_action('woocommerce_scheduled_subscription_payment', static function () use (&$calls): void { ++$calls; }, PHP_INT_MIN);
-    $id = as_schedule_single_action(time() - 5, 'woocommerce_scheduled_subscription_payment',
-        ['subscription_id' => $sub->get_id()], 'imagine-a01-publication-synthetic-only');
-    \ActionScheduler::runner()->process_action($id, 'A01-disposable-only');
-    $after = count(wcs_get_subscription($sub->get_id())->get_related_orders('ids', 'renewal'));
-    $scheduler = ['tested' => true, 'callback_calls' => $calls,
-        'status' => \ActionScheduler::store()->get_status($id), 'renewals_before' => $before, 'renewals_after' => $after];
-    $ok = $ok && $calls === 0 && $before === $after && $scheduler['status'] === 'failed'
-        && $fidelity['setting_intact'];
+        $sub = wcs_get_subscription($fixture['subs'][0]);
+        $before = count($sub->get_related_orders('ids', 'renewal'));
+        $calls = 0;
+        add_action('woocommerce_scheduled_subscription_payment', static function () use (&$calls): void { ++$calls; }, PHP_INT_MIN);
+        $id = as_schedule_single_action(time() - 5, 'woocommerce_scheduled_subscription_payment',
+            ['subscription_id' => $sub->get_id()], 'imagine-a01-publication-synthetic-only');
+        \ActionScheduler::runner()->process_action($id, 'A01-disposable-only');
+        $after = count(wcs_get_subscription($sub->get_id())->get_related_orders('ids', 'renewal'));
+        $scheduler = ['tested' => true, 'callback_calls' => $calls,
+            'status' => \ActionScheduler::store()->get_status($id), 'renewals_before' => $before, 'renewals_after' => $after];
+        $ok = $ok && $calls === 0 && $before === $after && $scheduler['status'] === 'failed'
+            && $fidelity['setting_intact'];
     } else {
         $scheduler = ['tested' => false, 'reason' => 'Subscriptions absent; 6.9.1 not qualified for this extension'];
         $ok = $ok && $fidelity['setting_intact'];

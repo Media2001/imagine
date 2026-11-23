@@ -30,6 +30,8 @@ class CleanupOrchestration(unittest.TestCase):
                     events.append('lookup'); return {'code': 404}
                 return {'code': 200, 'body': site}
             def call(args, *values, **kwargs):
+                if 'echo PHP_VERSION;' in args:
+                    return subprocess.CompletedProcess(args, 0, b'8.2.32', b'')
                 if '/var/www/html/.imagine-staging-verified.json' in args:
                     events.append('marker'); raise RuntimeError('MARKER_WRITE_REFUSED')
                 return subprocess.CompletedProcess(args, 0, b'', b'')
