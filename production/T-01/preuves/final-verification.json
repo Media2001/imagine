@@ -1,5 +1,5 @@
 {
-  "time_utc": "2026-11-23T12:51:45.843519+00:00",
+  "time_utc": "2026-11-23T15:57:06.472802+00:00",
   "ready": true,
   "immutable_libraries_and_runner_unchanged": true,
   "source_sha256": {
@@ -41,6 +41,7 @@
     "wp/plugins/imagine-pilotage/composer.json": "1477fe78ed255c28ba16db350919fbd8ae8a7297d37ca043375c843d247a7652",
     "wp/plugins/imagine-pilotage/composer.lock": "37ac1c2ae798927d7a951b3778691d106d03e631f57a0c5687357384165ab124",
     "wp/plugins/imagine-pilotage/config/robots.php": "c42a9988f7a0a27170a299aaba1f605cce0cc806f5e8bc7003143cc2e5fdc78b",
+    "wp/plugins/imagine-pilotage/imagine-reglages.php": "72e89bec95331ea1091e9462473c5ff7d984fc25ba384c0dbaead659fe827312",
     "wp/plugins/imagine-pilotage/phpunit.xml": "d75ef9f4a9cb84083e3de6b5ea839ef1c36e3259cacf0ab19438eb96a681ba2a",
     "wp/plugins/imagine-pilotage/README.md": "235d5a055feb2dd6c771e2df269ba894692aba73f2fd6598711106b0282eef10",
     "wp/plugins/imagine-pilotage/src/Acces/AdministrationReglages.php": "14753c28e43daad991ae5477db43415dceb01a2148d4e602087e105c7fd2a71a",
@@ -53,6 +54,8 @@
     "wp/plugins/imagine-pilotage/src/Acces/NombreArticlesDecouverte.php": "0072e9c8d0018e95f599729d4b80dd682590c61edbaa9eadcbcf4ee21a9319c6",
     "wp/plugins/imagine-pilotage/src/Acces/PerimetreDecouverte.php": "a0c3edfb386719e81faf692f9db21a46c8f1dd64647dd5b859cbebe2f2a2a4b4",
     "wp/plugins/imagine-pilotage/src/Acces/Reglages.php": "3e106616c2791d6d9365f65bdc0018547cfd3335b9e207a6a1168a41077c8f78",
+    "wp/plugins/imagine-pilotage/src/Administration/README.md": "e0e847d39b2d6e86cc3063d5b38e7edd93741572a48eeeba8ba103ffc392b2c1",
+    "wp/plugins/imagine-pilotage/src/Administration/Reglages.php": "6c752d8f0d082f7f9eb0e99c977faea5ce2e217414256d5a6837ce5c4c9fe362",
     "wp/plugins/imagine-pilotage/src/Echeancier/Planificateur.php": "7f26b0547d2185b5803b33e8221a293b4401bdfa297fe8b96d015aa6d039772a",
     "wp/plugins/imagine-pilotage/src/Echeancier/RaccordManuel.php": "16857bd4c2edfbe2c596156599f0d88c86012d66eefda20236d23cd144da0046",
     "wp/plugins/imagine-pilotage/src/Echeancier/README.md": "978558c69fa6ae30ae00cc04cc31ae654c214cd087c262cd4509a67f128f9e92",
@@ -126,17 +129,22 @@
     "wp/plugins/imagine-pilotage/tests/Robots/HorlogeFictive.php": "98966ca6be1bd480d2b0700ee877829fd842319da1d1e55dff0583a1b37326f2",
     "wp/plugins/imagine-pilotage/tests/Robots/PlagesTest.php": "7c994e5829cbee558775d223022c524da0f012154ce6089ea3168e4eb953d06a",
     "wp/plugins/imagine-pilotage/tests/Robots/VerificateurTest.php": "278d8d5f7d5eaa4f38c6f57d89371b8972540f56daacb2b94a2d9fb350e7371d",
-    "wp/tests/preparer-image.ps1": "387ccf893b335de8cb84271cf632196301834df7dab6c22a44336c06fc6fe0d1",
-    "wp/tests/rejouer.ps1": "83e60061489c52dc41f74f56b499816139856d31294ca2dad9a11f6bbf46c5a8",
-    "wp/tests/t01/commun.ps1": "1346b14a1a4858c57bc5d985bfc3a454570957c3529d22b87ca3cf4046aeabb1",
+    "wp/tests/preparer-image.ps1": "3b1b8e2baf0f8388a9bffa8c44836b9d91bddc6736a10adb46fa7ef0298ae3dc",
+    "wp/tests/rejouer.ps1": "8d86f0f9fa625b3ed39e4e70be49ab61b8c6c25c0192b24b06786b931c6ec919",
+    "wp/tests/t01/commun.ps1": "d9a446150be482b7eae0d642c7a27716a20b6ba60b04ce0e91ee2c5dd64465bd",
+    "wp/tests/t01/corrections-php.php": "d629095e447c0af8a3f490843a82545ee981b39099e00530dd5ec83769e3ef4f",
+    "wp/tests/t01/discovery.php": "49a853a2342adea1f1f199f38e6827d0c0e36957831bf257a87eeadf3de33bae",
     "wp/tests/t01/Dockerfile": "71840714fe2652cba840ebcc212487daf4b80d209efe60b57d2f15836a9cdf06",
-    "wp/tests/t01/executer.php": "e12d50a6adc6a27422d749a49917affbeb923bee746ae6acc3ceb547fa1d7096",
-    "wp/tests/t01/mock-wsl.ps1": "78fa47727d78e60742c810a292f85bec0fba0e8dfe166ab8ade9daaad213ddce",
+    "wp/tests/t01/executer.php": "24a1d30bcde355fa6ac7fae03c928ddc2f85cb1505d7f71b6ae19e5b7e4c19f1",
+    "wp/tests/t01/mock-wsl.ps1": "32f5c22b9e618427816165eb67fef272dcf45f8e93697d31002b5fdfbc014970",
     "wp/tests/t01/probe-isolation.php": "3039783e76cc37b1c0eb02a44cef70f45a75ca0cd5852a0acaa63eef4049c557",
-    "wp/tests/t01/test-isolation.ps1": "59e51439263f392c4b9e7a9f491d1b63ae86271c12e5db6a1ff36d7f2e716b43",
-    "wp/tests/t01/test-rejeu.ps1": "970b12618df4940b7f0792efc104d51fd2784a0398b2948ee5bc33c83ca30eb4",
+    "wp/tests/t01/test-discovery.ps1": "e49d14906d215bef0acd595ecb981c3d51d1672874c4a5e1f7a5ff7c455a6e97",
+    "wp/tests/t01/test-interruption.ps1": "328c802b0ff0cf8d5573cf148eb2360a6d2b7e3155e47e4bc666621edf307259",
+    "wp/tests/t01/test-isolation.ps1": "8749599676231d3b43b00de3c817c8bedcf79790ff7cd89406016f279f167c19",
+    "wp/tests/t01/test-php-corrections.ps1": "a35cc5777fbe4d72a7c53b38b49ef57be39c3af018dbb7c81c906b303ee9bc52",
+    "wp/tests/t01/test-rejeu.ps1": "b7026bfc31ef4b30efb6d778452d039bff61ee275d39aba8910f632d648725c1",
     "wp/tests/t01/verifier-image.php": "6dff3b5e6c7ff864b4c03daef21f0abd65f2149f5e20a5e1e16a45239748de8d",
-    "wp/tests/t01/verifier-t01.py": "afd601688d2a24f49a3cd5290031d9a651b95c4c4f45bc145dcb0d12567da620"
+    "wp/tests/t01/verifier-t01.py": "d73407cdfab0b9356e1371058845251e7984d23b722a78162c7b65e3775d8738"
   },
   "results": {
     "contrat": {
@@ -149,7 +157,7 @@
         "wp/tests/t01/test-rejeu.ps1"
       ],
       "exit_code": 0,
-      "stdout_sha256": "a2f8f9b846932f0f4c2774a638d012fce6bdc63246fea4318984325a4a7b8899",
+      "stdout_sha256": "f698574beb695708d3fd1d5f1c9ae46b421e27a71a386e5d3d54b3c0d0ac2282",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "isolation": {
@@ -162,7 +170,46 @@
         "wp/tests/t01/test-isolation.ps1"
       ],
       "exit_code": 0,
-      "stdout_sha256": "34bcde4923c953329913c9ea99efa82472747098bc7e5f11208fb93c597d252c",
+      "stdout_sha256": "6386d4dd087144ac574c81ac2a7cf2c6f0b457a8651f4dd22f6fd8b9c4f8fdb5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "discovery": {
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "wp/tests/t01/test-discovery.ps1"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "616f6b9780d310c2cb78dec88a1cecf0872e122094627df299b96c776ac5cbd9",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "php-corrections": {
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "wp/tests/t01/test-php-corrections.ps1"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "4f65947f1077b983d85cafd84e7ecc86d8cbdcbf8d339a2359b255cdaacf7a33",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "interruption": {
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "wp/tests/t01/test-interruption.ps1"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "d8abde156305dd4be527c3b797f579adbc18fbf71f0763534aac3d38ab66122d",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "rejeu": {
@@ -175,12 +222,14 @@
         "wp/tests/rejouer.ps1"
       ],
       "exit_code": 0,
-      "stdout_sha256": "4cbbe6980b236af404420244af57cefa597410addd689c12ef08fe06cb4c7f7a",
+      "stdout_sha256": "f28017545257557ec18bb1e6764753c5a205ffbe3fc6629cbdcbe42b4ab4eedc",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "last_line": "REJEU : 802 tests, 33367 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS",
       "summary_valid": true
     }
   },
   "preparation_executed": false,
+  "owned_containers_remaining": [],
+  "cleanup_verified": true,
   "limitations": []
 }

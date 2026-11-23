@@ -63,6 +63,17 @@ class B00Corrections(unittest.TestCase):
             self.assertEqual(run.call_count, 4)
             self.assertEqual([c.args[0] for c in sleep.call_args_list], [300, 300, 300])
 
+    def test_snapshot_migration_only_removes_native_password_flag(self):
+        m = builder()
+        before = {'rows': {'a': {'id': 11, 'protected': True, 'content_sha256': 'same'}}, 'calendar': []}
+        after = {'rows': {'a': {'id': 11, 'protected': False, 'content_sha256': 'same'}}, 'calendar': []}
+        self.assertTrue(m.same_snapshot_after_password_retirement(before, after))
+        after['rows']['a']['content_sha256'] = 'different'
+        self.assertFalse(m.same_snapshot_after_password_retirement(before, after))
+        after['rows']['a']['content_sha256'] = 'same'
+        after['rows']['a']['id'] = 12
+        self.assertFalse(m.same_snapshot_after_password_retirement(before, after))
+
     def test_remote_mutation_exhaustion_is_exactly_four_attempts(self):
         m = builder()
         busy = subprocess.CompletedProcess([], 0, json.dumps({'busy': True}), '')

@@ -12,10 +12,10 @@ try {
     [void](New-Item -ItemType Directory -Path $context -Force)
     Copy-Item (Join-Path $PSScriptRoot 't01/Dockerfile') (Join-Path $context 'Dockerfile')
     Copy-Item (Join-Path $PSScriptRoot 't01/verifier-image.php') (Join-Path $context 'verifier-image.php')
-    $manifests = @(Get-ChildItem (Join-Path $script:T01Root 'wp/plugins') -Directory | Where-Object { Test-Path (Join-Path $_.FullName 'composer.json') })
+    $manifests = @(Get-T01Packages (Join-Path $script:T01Root 'wp'))
     if ($manifests.Count -eq 0) { throw 'Aucune bibliotheque PHP trouvee.' }
     foreach ($package in $manifests) {
-        $destination = Join-Path $context ('packages/' + $package.Name)
+        $destination = Join-Path $context ('packages/' + $package.CacheKey)
         [void](New-Item -ItemType Directory -Path $destination -Force)
         foreach ($file in @('composer.json', 'composer.lock')) {
             Copy-Item (Join-Path $package.FullName $file) (Join-Path $destination $file)

@@ -13,7 +13,7 @@ payload = json.load(sys.stdin)
 action = payload['action']
 if action == 'write':
     rel = Path(payload['path'])
-    if rel.is_absolute() or '..' in rel.parts or rel.parts[0] not in ('mu-plugins', 'plugins', 'themes', 'imagine-demo-build'):
+    if rel.is_absolute() or '..' in rel.parts or rel.parts[0] not in ('mu-plugins', 'plugins', 'themes', 'languages', 'imagine-demo-build'):
         raise ValueError('Écriture hors périmètre')
     path = CONTENT / rel
     path.parent.mkdir(parents=True, exist_ok=True)

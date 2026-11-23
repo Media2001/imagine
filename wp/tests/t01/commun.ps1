@@ -2,6 +2,28 @@
 $script:T01Image = 'imagine-tests-t01:1'
 $script:T01Root = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..'))
 $script:T01Label = 'org.imagine.t01'
+function Get-T01Packages {
+    param([string]$WpRoot)
+    $keys = @{}
+    foreach ($kind in @('plugins', 'mu-plugins', 'themes')) {
+        $directory = Join-Path $WpRoot $kind
+        if (-not (Test-Path -LiteralPath $directory)) { continue }
+        foreach ($package in @(Get-ChildItem -LiteralPath $directory -Directory | Sort-Object Name)) {
+            if ($package.Attributes -band [IO.FileAttributes]::ReparsePoint) { throw 'Symbolic package path refused.' }
+            $config = 'phpunit.xml'
+            if (-not (Test-Path (Join-Path $package.FullName $config))) { $config = 'phpunit.xml.dist' }
+            if (-not (Test-Path (Join-Path $package.FullName $config))) { Write-Warning ('T01 sans tests : ' + $kind + '/' + $package.Name); continue }
+            foreach ($file in @('composer.json','composer.lock')) {
+                if (-not (Test-Path (Join-Path $package.FullName $file) -PathType Leaf)) { throw ('Configured library missing ' + $file + ': ' + $kind + '/' + $package.Name) }
+            }
+            $key = if ($kind -eq 'plugins') { $package.Name } else { $kind + '--' + $package.Name }
+            if ($keys.ContainsKey($key)) { throw ('Duplicate cache key: ' + $key) }
+            $keys[$key] = $true
+            [pscustomobject]@{ FullName = $package.FullName; CacheKey = $key; Relative = $kind + '/' + $package.Name; Config = $config }
+        }
+        if ($kind -eq 'mu-plugins') { Get-ChildItem -LiteralPath $directory -File -Filter '*.php' | ForEach-Object { Write-Warning ('T01 standalone MU sans configuration : ' + $_.Name) } }
+    }
+}
 function Invoke-T01Docker {
     param([string[]]$Arguments)
     $previous = $ErrorActionPreference
@@ -41,6 +63,19 @@ function Remove-T01Container {
         throw ('Absence du conteneur non prouvee : ' + $missing.Text)
     }
     Write-Output ('T01 CLEANUP : absence verifiee de ' + $Name)
+}
+function Remove-T01Orphans {
+    # The per-lane host lock excludes a concurrent replay. Never touch other labels.
+    $listed = Assert-T01Success (Invoke-T01Docker @('ps', '-aq', '--filter', ('label=' + $script:T01Label))) 'Inventaire des orphelins T01 impossible.'
+    foreach ($id in @($listed -split "`n" | Where-Object { $_.Trim() })) {
+        $id = $id.Trim()
+        if ($id -notmatch '^[a-f0-9]{12,64}$') { throw 'Identifiant Docker orphelin invalide.' }
+        $info = Get-T01Inspect $id
+        $owner = [string]$info.Config.Labels.'org.imagine.t01'
+        if ([string]::IsNullOrWhiteSpace($owner)) { throw 'Etiquette T01 absente : refus du balayage.' }
+        Remove-T01Container $id $owner
+    }
+    Write-Output 'T01 ORPHANS : sweep complete (label org.imagine.t01 only).'
 }
 function Assert-T01Isolation {
     param($Info, [string]$Owner, [string]$ImageId, [string]$Source)

@@ -15,15 +15,15 @@ function Get-LibrarySnapshot {
 $before = Get-LibrarySnapshot
 try {
     [void](Assert-T01Success (Invoke-T01Docker @('image', 'inspect', $imageId)) 'Public synthetic PHP image absent; no pull allowed.')
-    $source = (@(& wsl.exe -d Ubuntu -- wslpath -a -u $script:T01Root.Replace('\', '/')) -join "`n").Trim()
+    $source = (@(& wsl.exe -d Ubuntu -- wslpath -a -u (Join-Path $script:T01Root 'wp').Replace('\', '/')) -join "`n").Trim()
     if ($LASTEXITCODE -ne 0) { throw 'WSL path conversion failed.' }
     $attempted = $true
-    [void](Assert-T01Success (Invoke-T01Docker @('create', '--name', $name, '--label', ($script:T01Label + '=' + $owner), '--pull', 'never', '--network', 'none', '--read-only', '--mount', ('type=bind,source=' + $source + ',target=/repo,readonly'), '--tmpfs', '/tmp:rw,nosuid,nodev,size=512m,mode=1777', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--user', '65534:65534', '--pids-limit', '128', '--memory', '768m', '--cpus', '2', '--no-healthcheck', '--log-driver', 'none', '--entrypoint', 'sleep', $imageId, 'infinity')) 'Create failed.')
+    [void](Assert-T01Success (Invoke-T01Docker @('create', '--name', $name, '--label', ($script:T01Label + '=' + $owner), '--pull', 'never', '--network', 'none', '--read-only', '--mount', ('type=bind,source=' + $source + ',target=/repo/wp,readonly'), '--tmpfs', '/tmp:rw,nosuid,nodev,size=512m,mode=1777', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--user', '65534:65534', '--pids-limit', '128', '--memory', '768m', '--cpus', '2', '--no-healthcheck', '--log-driver', 'none', '--entrypoint', 'sleep', $imageId, 'infinity')) 'Create failed.')
     [void](Assert-T01Success (Invoke-T01Docker @('start', $name)) 'Start failed.')
     $info = Get-T01Inspect $name
     Assert-T01Isolation $info $owner $imageId $source
     Write-Output ($info | ConvertTo-Json -Depth 12)
-    foreach ($file in @('executer.php', 'verifier-image.php', 'probe-isolation.php')) {
+    foreach ($file in @('executer.php', 'verifier-image.php', 'probe-isolation.php', 'discovery.php', 'corrections-php.php')) {
         Write-Output (Assert-T01Success (Invoke-T01Docker @('exec', $name, 'php', '-l', ('/repo/wp/tests/t01/' + $file))) 'PHP syntax failed.')
     }
     Write-Output (Assert-T01Success (Invoke-T01Docker @('exec', $name, 'php', '/repo/wp/tests/t01/probe-isolation.php')) 'Real read-only/network test failed.')
@@ -43,5 +43,5 @@ try {
     }
 }
 if ($failed) { Write-Output 'T01 REAL ISOLATION : FAIL'; exit 1 }
-Write-Output 'T01 REAL ISOLATION : PASS (PHP library suite NOT executed; prepared image absent)'
+Write-Output 'T01 REAL ISOLATION : PASS (separate synthetic image; library suite not executed by this check)'
 exit 0

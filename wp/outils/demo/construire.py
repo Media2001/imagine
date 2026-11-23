@@ -175,6 +175,15 @@ def run_theme_only():
     return result
 
 
+def same_snapshot_after_password_retirement(before, after):
+    import copy
+    expected = copy.deepcopy(before)
+    for row in expected.get('rows', {}).values():
+        if row.get('type', 'post') == 'post' and 'protected' in row:
+            row['protected'] = False
+    return expected == after
+
+
 def run_build(label='construction'):
     from datetime import datetime, timezone
     import hashlib
@@ -203,6 +212,14 @@ def run_build(label='construction'):
         tools = Path(__file__).resolve().parent
         upload('mu-plugins/imagine-demo-offline.php', (tools / 'imagine-demo-offline.php').read_bytes())
         step('garde-hors-ligne-avant-extensions', wp('eval', 'echo json_encode(["mail" => wp_mail("demo@example.org", "test fictif", "test"), "http" => is_wp_error(wp_remote_get("https://example.org"))]);'))
+        integrated = json.loads(wp('eval', 'echo wp_json_encode((bool) get_option("imagine_c09_fixture"));')['stdout'])
+        protected_before = None
+        if integrated:
+            upload('imagine-demo-build/b00-integre-snapshot.php', (ROOT / 'wp/tests/demo/b00-integre-snapshot.php').read_bytes())
+            protected_before = json.loads(wp('eval', 'require WP_CONTENT_DIR . "/imagine-demo-build/b00-integre-snapshot.php";')['stdout'])
+            step('autres-lots-avant', protected_before)
+        from b00_locale import install as install_locale
+        step('langue-francaise', install_locale(sys.modules[__name__]))
         credentials_path = validate_credentials_path(Path.home() / '.imagine-demo/identifiants.json')
         credentials_path.parent.mkdir(parents=True, exist_ok=True)
         credentials = json.loads(credentials_path.read_text(encoding='utf-8')) if credentials_path.exists() else {}
@@ -280,9 +297,17 @@ def run_build(label='construction'):
         step('snapshot-identifiants-contenus-medias', snapshot)
         if snapshot['duplicates'] or snapshot['total_tagged'] != snapshot['manifest_posts']:
             raise RuntimeError('Inventaire divergent ou doublons')
-        if previous_snapshot['rows'] and previous_snapshot != snapshot:
+        password_retirement = same_snapshot_after_password_retirement(previous_snapshot, snapshot)
+        if previous_snapshot['rows'] and previous_snapshot != snapshot and not password_retirement:
             raise RuntimeError('Reconstruction non identique : identifiants, contenus ou adresses modifiés')
-        step('idempotence-interne', {'compared_to_existing': bool(previous_snapshot['rows']), 'identical': previous_snapshot == snapshot if previous_snapshot['rows'] else None})
+        step('idempotence-interne', {'compared_to_existing': bool(previous_snapshot['rows']), 'identical': previous_snapshot == snapshot if previous_snapshot['rows'] else None,
+                                   'only_native_article_password_retired': previous_snapshot != snapshot and password_retirement})
+        if protected_before is not None:
+            protected_after = json.loads(wp('eval', 'require WP_CONTENT_DIR . "/imagine-demo-build/b00-integre-snapshot.php";')['stdout'])
+            step('autres-lots-apres', protected_after)
+            if protected_before != protected_after:
+                raise RuntimeError('La reconstruction a modifié des comptes, droits, IDs, options ou sources C08/C09/C10')
+            step('conservation-c08-c09-c10', {'exact': True})
         record['status'] = 'VERIFIED_RUNTIME'
         record['finished_at'] = datetime.now(timezone.utc).isoformat()
         save()
@@ -303,4 +328,8 @@ if __name__ == '__main__':
     if args.theme_only:
         run_theme_only()
     else:
-        run_build(args.preuve)
+        try:
+            run_build(args.preuve)
+        except (StagingBusy, RuntimeError, HTTPError, TimeoutError) as error:
+            print('B00 interrompu sans forçage : ' + str(error), file=sys.stderr)
+            raise SystemExit(1) from None

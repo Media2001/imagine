@@ -50,7 +50,7 @@ foreach ($issues as $issue) {
 }
 check('un_hors_serie', $hs === 1);
 foreach (['imagine_evenement' => 2, 'imagine_partenaire' => 2] as $type => $count) {
-    check($type . '_count', count(get_posts(['post_type' => $type, 'numberposts' => -1])) === $count);
+    check($type . '_count', count(get_posts(['post_type' => $type, 'numberposts' => -1, 'meta_key' => 'imagine_demo_key'])) === $count);
 }
 check('trois_thematiques', count(get_terms(['taxonomy' => 'imagine_thematique', 'hide_empty' => false])) === 3);
 check('woocommerce_charge', class_exists('WooCommerce'));

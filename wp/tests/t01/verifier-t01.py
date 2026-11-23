@@ -3,7 +3,7 @@
 This command writes only production/T-01/preuves. It never prepares an image.
 Exit 0 means the real PHP suite and all tooling checks passed; 1 means NOT READY.
 """
-from concurrent.futures import ThreadPoolExecutor
+
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -20,6 +20,17 @@ OUT = ROOT / "production/T-01/preuves"
 def hashes(paths):
     return {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
             for p in sorted(paths) if p.is_file()}
+
+
+def library_files():
+    files = []
+    for kind in ('plugins', 'mu-plugins', 'themes'):
+        directory = ROOT / 'wp' / kind
+        if directory.is_dir():
+            for package in directory.iterdir():
+                if package.is_dir() and any((package / config).is_file() for config in ('phpunit.xml', 'phpunit.xml.dist')):
+                    files.extend(package.rglob('*'))
+    return files
 
 
 def run(item):
@@ -43,21 +54,27 @@ def run(item):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    library_files = list((ROOT / "wp/plugins").rglob("*"))
     source_files = list((ROOT / "wp/tests/t01").rglob("*")) + [ROOT / "wp/tests/rejouer.ps1", ROOT / "wp/tests/preparer-image.ps1"]
-    before = hashes(library_files + source_files)
+    before = hashes(library_files() + source_files)
     items = [("contrat", "wp/tests/t01/test-rejeu.ps1"),
              ("isolation", "wp/tests/t01/test-isolation.ps1"),
+             ("discovery", "wp/tests/t01/test-discovery.ps1"),
+             ("php-corrections", "wp/tests/t01/test-php-corrections.ps1"),
+             ("interruption", "wp/tests/t01/test-interruption.ps1"),
              ("rejeu", "wp/tests/rejouer.ps1")]
-    with ThreadPoolExecutor(max_workers=3) as pool:
-        results = dict(pool.map(run, items))
-    after_files = list((ROOT / "wp/plugins").rglob("*")) + list((ROOT / "wp/tests/t01").rglob("*")) + [ROOT / "wp/tests/rejouer.ps1", ROOT / "wp/tests/preparer-image.ps1"]
+    # Sequential: the next-run sweep must never remove a live sibling proof runner.
+    results = dict(run(item) for item in items)
+    after_files = library_files() + list((ROOT / "wp/tests/t01").rglob("*")) + [ROOT / "wp/tests/rejouer.ps1", ROOT / "wp/tests/preparer-image.ps1"]
     unchanged = before == hashes(after_files)
-    ready = unchanged and all(r["exit_code"] == 0 for r in results.values()) and results["rejeu"]["summary_valid"]
+    cleanup = subprocess.run(['wsl.exe', '-d', 'Ubuntu', '--', 'docker', 'ps', '-aq', '--filter', 'label=org.imagine.t01'], capture_output=True, timeout=30)
+    clean = cleanup.returncode == 0 and not cleanup.stdout.strip()
+    ready = unchanged and clean and all(r["exit_code"] == 0 for r in results.values()) and results["rejeu"]["summary_valid"]
     receipt = {"time_utc": datetime.now(timezone.utc).isoformat(), "ready": ready,
                "immutable_libraries_and_runner_unchanged": unchanged,
                "source_sha256": before, "results": results,
                "preparation_executed": False,
+               "owned_containers_remaining": cleanup.stdout.decode('utf-8', errors='replace').split(),
+               "cleanup_verified": clean,
                "limitations": [] if ready else ["See final-rejeu.log: the real suite must PASS; boundary doubles and isolation checks do not replace it."]}
     (OUT / "final-verification.json").write_text(json.dumps(receipt, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     for name, result in results.items():

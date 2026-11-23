@@ -15,6 +15,35 @@ $data = json_decode((string) file_get_contents(__DIR__ . '/b00-fixture.json'), t
 $secret = json_decode((string) file_get_contents('/var/www/.imagine-demo/seed-secret.json'), true, 512, JSON_THROW_ON_ERROR);
 $manifest = [];
 
+// Purge uniquement les identités et signatures d'installation, jamais un contenu
+// simplement intitulé comme un exemple ou ajouté par un autre lot.
+$purged = [];
+foreach ([1 => ['post', 'hello-world', 'Hello world!'], 2 => ['page', 'sample-page', 'Sample Page']] as $id => [$type, $slug, $title]) {
+    $post = get_post($id);
+    if ($post && $post->post_type === $type && $post->post_name === $slug
+        && $post->post_title === $title && !get_post_meta($id, 'imagine_demo_key', true)) {
+        wp_delete_post($id, true);
+        $purged[] = $id;
+    }
+}
+$comment = get_comment(1);
+if ($comment && $comment->comment_author === 'A WordPress Commenter'
+    && $comment->comment_author_email === 'wapuu@wordpress.example'
+    && $comment->comment_author_url === 'https://wordpress.org/') {
+    wp_delete_comment(1, true);
+}
+// Migration ciblée du second verrou obsolète : aucun ID, corps ou droit changé.
+$passwordsRemoved = [];
+if (class_exists('Imagine\\Site\\Paywall')) {
+    global $wpdb;
+    $passwordsRemoved = $wpdb->get_col("SELECT ID FROM {$wpdb->posts} WHERE post_type='post' AND post_password<>''");
+    foreach ($passwordsRemoved as $id) {
+        $wpdb->update($wpdb->posts, ['post_password' => ''], ['ID' => (int) $id], ['%s'], ['%d']);
+        clean_post_cache((int) $id);
+    }
+}
+update_option('WPLANG', 'fr_FR');
+
 function upsert(string $key, array $post): int
 {
     $existing = get_posts(['post_type' => $post['post_type'], 'post_status' => ['publish', 'private', 'draft', 'inherit', 'pending', 'future', 'trash'], 'numberposts' => 2,
@@ -176,4 +205,4 @@ update_option('page_on_front', $homeId);
 ksort($manifest);
 update_option('imagine_demo_manifest', $manifest);
 flush_rewrite_rules();
-echo wp_json_encode(['manifest' => $manifest, 'url' => home_url('/'), 'calendar_count' => count($data['calendar'])], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . "\n";
+echo wp_json_encode(['manifest' => $manifest, 'installation_posts_purged' => $purged, 'article_password_ids_retired' => array_map('intval', $passwordsRemoved), 'locale' => get_locale(), 'url' => home_url('/'), 'calendar_count' => count($data['calendar'])], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . "\n";

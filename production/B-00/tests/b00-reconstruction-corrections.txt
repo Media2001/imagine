@@ -1,0 +1,19 @@
+creation-normale-ou-reprise : OK
+garde-hors-ligne-avant-extensions : OK
+autres-lots-avant : OK
+langue-francaise : OK
+Identifiants de test hors dépôt : C:\Users\Ced\.imagine-demo\identifiants.json
+versions-et-minima-zip-ced : OK
+woocommerce-actif : OK
+woocommerce-subscriptions-actif : OK
+woocommerce-memberships-actif : OK
+imagine-site-actif : OK
+adresses-lisibles : OK
+contenus-fictifs-reconstruits : OK
+theme-imagine : OK
+recette-runtime : OK
+pile-finale : OK
+snapshot-identifiants-contenus-medias : OK
+idempotence-interne : OK
+autres-lots-apres : OK
+conservation-c08-c09-c10 : OK

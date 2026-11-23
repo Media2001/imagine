@@ -11,6 +11,7 @@ $result = @{ tests = 0; assertions = 0; failures = 0; errors = 0; skipped = 0 }
 try {
     if ($args.Count) { throw 'Cette commande ne prend aucun argument.' }
     [void](Assert-T01Success (Invoke-T01Docker @('info', '--format', '{{.ServerVersion}}')) 'Docker indisponible : demarrer Docker dans WSL Ubuntu ; aucune installation automatique.')
+    Remove-T01Orphans
     $imageProbe = Invoke-T01Docker @('image', 'inspect', $script:T01Image)
     if ($imageProbe.Code -ne 0) { throw ('Image T01 absente. Ced doit lancer .\wp\tests\preparer-image.ps1 une fois (reseau autorise uniquement pendant cette preparation), puis rejouer. Aucun telechargement effectue.' + "`n" + $imageProbe.Text) }
     $image = @($imageProbe.Text | ConvertFrom-Json)[0]
