@@ -125,7 +125,7 @@ final class Audit
 
     private static function read(string $file, int $limit = 4194304): string
     {
-        if (is_link($file) || !is_file($file) || filesize($file) > $limit) {
+        if (is_link($file) || realpath($file) !== $file || !is_file($file) || filesize($file) > $limit) {
             throw new \RuntimeException('A02_FILE_UNREADABLE_OR_TOO_LARGE');
         }
         $value = file_get_contents($file);
@@ -403,11 +403,23 @@ final class Audit
         $post = $this->table('posts');
         $types = $this->query("SELECT post_type AS name, COUNT(*) AS count FROM $post GROUP BY post_type ORDER BY post_type");
         $taxonomies = $this->query('SELECT taxonomy AS name,COUNT(*) AS count FROM ' . $this->table('term_taxonomy') . ' GROUP BY taxonomy ORDER BY taxonomy');
+        foreach (['post', 'page', 'attachment', 'revision', 'nav_menu_item'] as $name) {
+            if (!in_array($name, array_column($types, 'name'), true)) {
+                $types[] = ['name' => $name, 'count' => 0];
+            }
+        }
+        foreach (['category', 'post_tag', 'nav_menu', 'link_category', 'post_format'] as $name) {
+            if (!in_array($name, array_column($taxonomies, 'name'), true)) {
+                $taxonomies[] = ['name' => $name, 'count' => 0];
+            }
+        }
+        usort($types, static fn(array $a, array $b): int => strcmp($a['name'], $b['name']));
+        usort($taxonomies, static fn(array $a, array $b): int => strcmp($a['name'], $b['name']));
         $fields = $this->query('SELECT meta_key AS name,COUNT(*) AS count FROM ' . $this->table('postmeta') . ' GROUP BY meta_key ORDER BY count DESC,meta_key LIMIT 50');
         $pairs = static fn(array $rows): array => array_map(static fn(array $r): array => ['name' => self::identifier($r['name']), 'count' => (int) $r['count']], $rows);
         $builders = [];
         foreach ($versions['plugins'] as $plugin) {
-            if ($plugin['active'] && preg_match('~(?:elementor|js_composer|beaver-builder|brizy|oxygen|divi|fixture-builder)~i', $plugin['name'])) {
+            if ($plugin['active'] && preg_match('~(?:elementor|js_composer|beaver-builder|brizy|oxygen|divi)~i', $plugin['name'])) {
                 $builders[] = $plugin['name'];
             }
         }

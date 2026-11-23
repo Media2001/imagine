@@ -134,6 +134,8 @@ def run_storage(storage):
     check(storage + ':restriction_taxonomy_drip', any(v['content_type_name'] == 'category' and v['drip'] and v['amount'] == 7 and v['period'] == 'day' for v in memberships['rules']))
     content = data['sections']['content']
     check(storage + ':content_counts', next(v['count'] for v in content['post_types'] if v['name'] == 'post') >= 3 and any(v['name'] == 'category' for v in content['taxonomies']))
+    check(storage + ':empty_core_types_and_taxonomies', any(v['name'] == 'revision' and v['count'] == 0 for v in content['post_types']) and any(v['name'] == 'post_tag' and v['count'] == 0 for v in content['taxonomies']))
+    check(storage + ':no_fixture_specific_builder_detection', content['page_builders'] == [])
     check(storage + ':yearly_articles_fields', any(v['year'] == 2025 and v['count'] == 2 for v in content['posts_by_year']) and any(v['name'] == 'a02_editorial_field' and v['count'] == 3 for v in content['custom_fields']))
     dbs = data['sections']['database']
     check(storage + ':all_tables_counts_sizes', len(dbs['tables']) == len(before['tables']) and all(v['rows'] == before['tables'][v['name']]['rows'] and v['bytes'] >= 0 for v in dbs['tables']))
