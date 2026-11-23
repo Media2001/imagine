@@ -98,6 +98,59 @@ def wp(*args, check=True):
     return result
 
 
+def activate_theme():
+    """Branchement B-01 seul : aucun reseed ni installation d'extension B-00."""
+    import hashlib
+    site = request_api('GET', '/api/sites/' + SLUG)
+    validate_target(site['slug'])
+    if site['status'] != 'running':
+        raise RuntimeError('Le site fictif doit déjà être démarré ; aucune création B-01')
+    guard_code = 'echo wp_json_encode(["environment"=>wp_get_environment_type(),"demo"=>get_option("imagine_demo_site"),"manifest"=>get_option("imagine_demo_manifest")]);'
+    before = json.loads(wp('eval', guard_code)['stdout'])
+    if before.get('environment') != 'local' or before.get('demo') != SLUG:
+        raise RuntimeError('La garde fictive locale B-00 manque ; aucune écriture du thème')
+    theme = ROOT / 'wp/themes/imagine'
+    if not (theme / 'style.css').is_file() or not (theme / 'index.php').is_file():
+        raise RuntimeError('Le thème B-01 est incomplet')
+    hashes = {}
+    for source in sorted(theme.rglob('*')):
+        if source.is_file() and source.suffix in ('.php', '.css', '.js', '.json', '.html', '.svg', '.png', '.woff2'):
+            rel = source.relative_to(theme).as_posix()
+            content = source.read_bytes()
+            hashes[rel] = hashlib.sha256(content).hexdigest()
+            upload('themes/imagine/' + rel, content)
+    # Parse chaque fichier PHP avant activation, puis relis les octets exacts.
+    verify_code = '$files=json_decode(' + json.dumps(json.dumps(list(hashes))) + ',true);$out=[];foreach($files as $f){$p=WP_CONTENT_DIR . "/themes/imagine/" . $f;if(str_ends_with($f,".php")){token_get_all(file_get_contents($p),TOKEN_PARSE);}$out[$f]=hash_file("sha256",$p);}echo wp_json_encode($out);'
+    actual = json.loads(wp('eval', verify_code)['stdout'])
+    if hashes != actual:
+        raise RuntimeError('Le thème téléversé diffère de la source')
+    activated = wp('theme', 'activate', 'imagine')
+    after = json.loads(wp('eval', guard_code)['stdout'])
+    active = wp('eval', 'echo get_stylesheet();')['stdout'].strip()
+    if active != 'imagine' or before != after:
+        raise RuntimeError('Activation non relue ou manifeste B-00 modifié')
+    return {'scope': SLUG, 'url': site.get('url'), 'active_theme': active, 'activation': activated,
+            'files_sha256': actual, 'php_parsed': sum(name.endswith('.php') for name in hashes),
+            'b00_manifest_unchanged': True, 'file_count': len(hashes)}
+
+
+def run_theme_only():
+    from datetime import datetime, timezone
+    proof = ROOT / 'production/B-01'
+    proof.mkdir(parents=True, exist_ok=True)
+    result = {'scope': SLUG, 'at': datetime.now(timezone.utc).isoformat()}
+    try:
+        result.update(activate_theme())
+        result['status'] = 'VERIFIED'
+    except Exception as error:
+        result.update(status='BLOCKED', error=str(error))
+        raise
+    finally:
+        (proof / 'installation.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return result
+
+
 def run_build(label='construction'):
     from datetime import datetime, timezone
     import hashlib
@@ -174,14 +227,6 @@ def run_build(label='construction'):
         for source in sorted(plugin.rglob('*.php')):
             upload('plugins/imagine-site/' + source.relative_to(plugin).as_posix(), source.read_bytes())
         step('imagine-site-actif', wp('plugin', 'activate', 'imagine-site'))
-        theme = ROOT / 'wp/themes/imagine'
-        if (theme / 'style.css').is_file():
-            for source in sorted(theme.rglob('*')):
-                if source.is_file() and source.suffix in ('.php', '.css', '.js', '.json', '.html', '.svg', '.png', '.woff2'):
-                    upload('themes/imagine/' + source.relative_to(theme).as_posix(), source.read_bytes())
-            step('theme-imagine', wp('theme', 'activate', 'imagine'))
-        else:
-            step('theme-par-defaut-en-attente-de-B01', wp('theme', 'list', '--status=active', '--format=json'))
         data = fixture_data()
         snapshot_source = ROOT / 'wp/tests/demo/b00-snapshot.php'
         upload('imagine-demo-build/b00-snapshot.php', snapshot_source.read_bytes())
@@ -194,6 +239,12 @@ def run_build(label='construction'):
         step('adresses-lisibles', wp('rewrite', 'structure', '/%postname%/'))
         seeded = wp('eval', 'require ABSPATH . "wp-content/imagine-demo-build/b00-seed.php";')
         step('contenus-fictifs-reconstruits', json.loads(seeded['stdout']))
+        # Après le seed : la garde fictive existe aussi lors d'une construction neuve.
+        theme = ROOT / 'wp/themes/imagine'
+        if (theme / 'style.css').is_file():
+            step('theme-imagine', activate_theme())
+        else:
+            step('theme-par-defaut-en-attente-de-B01', wp('theme', 'list', '--status=active', '--format=json'))
         upload('imagine-demo-build/b00-recette.php', (ROOT / 'wp/tests/demo/b00-recette.php').read_bytes())
         tested = wp('eval', 'require ABSPATH . "wp-content/imagine-demo-build/b00-recette.php";', check=False)
         step('recette-runtime', tested)
@@ -223,5 +274,9 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='B-00 — imagine-test-demo seulement, sans destruction')
     parser.add_argument('--preuve', choices=['construction', 'reconstruction'], default='construction')
+    parser.add_argument('--theme-only', action='store_true', help='B-01 seul, site existant, preuves dans production/B-01')
     args = parser.parse_args()
-    run_build(args.preuve)
+    if args.theme_only:
+        run_theme_only()
+    else:
+        run_build(args.preuve)

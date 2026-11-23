@@ -1,0 +1,7 @@
+test_b01_editorial_templates_and_body_seam (__main__.B01Theme.test_b01_editorial_templates_and_body_seam) ... ok
+test_b01_shell_contract (__main__.B01Theme.test_b01_shell_contract) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.005s
+
+OK

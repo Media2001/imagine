@@ -64,6 +64,25 @@ class B01Theme(unittest.TestCase):
         for anchor in ['imagine-thematiques', 'imagine-abonnement']:
             self.assertIn('id="' + anchor + '"', home)
 
+    def test_b01_targeted_installation_refuses_other_site(self):
+        import importlib.util
+        from unittest.mock import patch
+        spec = importlib.util.spec_from_file_location('b01_builder', ROOT / 'wp/outils/demo/construire.py')
+        builder = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(builder)
+        self.assertTrue(hasattr(builder, 'activate_theme'), 'Branchement ciblé B-01 absent')
+        for site in [{'slug': 'autre-site', 'status': 'running'}, {'slug': 'imagine-test-demo', 'status': 'stopped'}]:
+            with patch.object(builder, 'request_api', return_value=site), patch.object(builder, 'upload') as upload:
+                with self.assertRaises((ValueError, RuntimeError)):
+                    builder.activate_theme()
+                upload.assert_not_called()
+        with patch.object(builder, 'request_api', return_value={'slug': 'imagine-test-demo', 'status': 'running'}), \
+             patch.object(builder, 'wp', return_value={'stdout': '{"environment":"production","demo":"imagine-test-demo"}'}), \
+             patch.object(builder, 'upload') as upload:
+            with self.assertRaises(RuntimeError):
+                builder.activate_theme()
+            upload.assert_not_called()
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

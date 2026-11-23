@@ -1,0 +1,16 @@
+test_b01_editorial_templates_and_body_seam (__main__.B01Theme.test_b01_editorial_templates_and_body_seam) ... ok
+test_b01_shell_contract (__main__.B01Theme.test_b01_shell_contract) ... ok
+test_b01_targeted_installation_refuses_other_site (__main__.B01Theme.test_b01_targeted_installation_refuses_other_site) ... FAIL
+
+======================================================================
+FAIL: test_b01_targeted_installation_refuses_other_site (__main__.B01Theme.test_b01_targeted_installation_refuses_other_site)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\test_b01_theme.py", line 73, in test_b01_targeted_installation_refuses_other_site
+    self.assertTrue(hasattr(builder, 'activate_theme'), 'Branchement ciblé B-01 absent')
+AssertionError: False is not true : Branchement ciblé B-01 absent
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.077s
+
+FAILED (failures=1)
