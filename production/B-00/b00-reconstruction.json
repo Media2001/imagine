@@ -1,5 +1,5 @@
 {
-  "started_at": "2026-11-23T13:16:26.884089+00:00",
+  "started_at": "2026-11-23T13:21:44.887400+00:00",
   "scope": "imagine-test-demo",
   "label": "reconstruction",
   "steps": [
@@ -34,6 +34,7 @@
             "WC requires at least": "11.1",
             "WC tested up to": "11.2"
           },
+          "minimum_constants": {},
           "sha256": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083"
         },
         "woocommerce-memberships": {
@@ -43,6 +44,11 @@
             "Requires PHP": null,
             "WC requires at least": "3.9.4",
             "WC tested up to": "11.3.0"
+          },
+          "minimum_constants": {
+            "PHP": "7.4",
+            "WP": "5.6",
+            "WC": "3.9.4"
           },
           "sha256": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285"
         }
@@ -1263,5 +1269,5 @@
   ],
   "credentials_file": "C:\\Users\\Ced\\.imagine-demo\\identifiants.json",
   "status": "VERIFIED_RUNTIME",
-  "finished_at": "2026-11-23T13:17:36.886021+00:00"
+  "finished_at": "2026-11-23T13:22:54.772840+00:00"
 }

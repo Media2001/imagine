@@ -1,0 +1,10 @@
+{
+  "url": "http://192.168.129.32:8085/calendrier-fictif/",
+  "status": 200,
+  "final_url": "http://192.168.129.32:8085/calendrier-fictif/",
+  "headers": {
+    "Content-Type": "text/html; charset=UTF-8"
+  },
+  "body_sha256": "32ec1cbbb942e5b06ce9db226097a40091bc620b56c725d43d591ebccaaf0fa1",
+  "body_bytes": 73607
+}

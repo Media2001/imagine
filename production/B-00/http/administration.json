@@ -1,0 +1,11 @@
+{
+  "url": "http://192.168.129.32:8085/wp-admin/",
+  "status": 302,
+  "final_url": "http://192.168.129.32:8085/wp-admin/",
+  "headers": {
+    "Content-Type": "text/html; charset=UTF-8",
+    "Location": "http://192.168.129.32:8085/wp-login.php?redirect_to=http%3A%2F%2F192.168.129.32%3A8085%2Fwp-admin%2F&reauth=1"
+  },
+  "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "body_bytes": 0
+}

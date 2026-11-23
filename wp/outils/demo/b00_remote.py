@@ -41,7 +41,12 @@ elif action == 'requirements':
         header_lines = [line.strip().lstrip('*').strip().partition(':') for line in header.splitlines()[:45]]
         headers = {key: value.strip() for key, colon, value in header_lines if colon}
         values = {label: headers.get(label) for label in ('Version', 'Requires at least', 'Requires PHP', 'WC requires at least', 'WC tested up to')}
-        result[name] = {'headers': values, 'sha256': hashlib.sha256(source.read_bytes()).hexdigest()}
+        minima = {}
+        for key in ('PHP', 'WP', 'WC'):
+            match = re.search("const MINIMUM_" + key + "_VERSION = '([^']+)'", header)
+            if match:
+                minima[key] = match.group(1)
+        result[name] = {'headers': values, 'minimum_constants': minima, 'sha256': hashlib.sha256(source.read_bytes()).hexdigest()}
     print(json.dumps(result))
 elif action == 'credentials':
     import api.models as models

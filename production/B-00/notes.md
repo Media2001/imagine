@@ -1,7 +1,5 @@
-# B-00 — précontrôle bloqué, voie 2
-
-1. Aucun site créé : `imagine-test-demo` est absent du registre de l'outil au précontrôle du 23 novembre 2026.
-2. L'usage normal de l'outil installe Novamira et Novamira Pro, même avec le modèle `sandbox-wp-minimal`.
-3. Il active ensuite la licence configurée et provisionne le MCP ; la requête de création n'offre aucun paramètre de désactivation.
-4. B-00 interdit Novamira et toute activation de licence ; l'agent ne modifie donc ni l'outil ni ses modèles et ne lance pas la création.
-5. Preuve : `production/B-00/preflight-V2.json` ; script de reconstruction, adresses HTTP et `PRET` non livrés tant que ce préalable n'est pas résolu.
+1. Depuis PowerShell : `Set-Location C:\Users\Ced\imagine` ; prérequis : Python, WSL/Docker et outil de staging déjà présents ; aucune installation sur l’hôte.
+2. Construire : `python wp/outils/demo/construire.py` ; seule cible `imagine-test-demo`, création normale autorisée avec Novamira puis garde MU sans email/HTTP/paiement, aucun compte ni licence commerciale.
+3. Rejouer : `python wp/outils/demo/construire.py --preuve reconstruction` ; mêmes IDs, slugs, URL, contenus et médias vérifiés, aucun autre site ni outil modifié.
+4. Tests : `python -m unittest discover -s wp/tests/demo -p "test_b00*.py" -v` puis `python wp/tests/demo/b00-verifier.py` ; identifiants générés dans `C:\Users\Ced\.imagine-demo\identifiants.json`, hors dépôt.
+5. Ouvrir `production/B-00/A-VOIR.md` ; preuves JSON/HTTP ici ; interprétations, versions, sécurité et ancien blocage levé dans `production/B-00/verification.md`.

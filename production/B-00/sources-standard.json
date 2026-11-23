@@ -1,0 +1,40 @@
+{
+  "checked_at": "2026-11-23T13:21:42.380282+00:00",
+  "sources": [
+    {
+      "url": "https://developer.wordpress.org/reference/functions/register_post_type/",
+      "status": 200,
+      "title": "register_post_type() – Function | Developer.WordPress.org"
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/functions/register_post_meta/",
+      "status": 200,
+      "title": "register_post_meta() – Function | Developer.WordPress.org"
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/functions/post_password_required/",
+      "status": 200,
+      "title": "post_password_required() – Function | Developer.WordPress.org"
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/hooks/pre_wp_mail/",
+      "status": 200,
+      "title": "pre_wp_mail – Hook | Developer.WordPress.org"
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/hooks/pre_http_request/",
+      "status": 200,
+      "title": "pre_http_request – Hook | Developer.WordPress.org"
+    },
+    {
+      "url": "https://woocommerce.com/document/subscriptions/requirements/",
+      "status": 200,
+      "title": "How to test if WP-Cron is working Documentation - WooCommerce"
+    },
+    {
+      "url": "https://woocommerce.com/document/woocommerce-memberships/",
+      "status": 200,
+      "title": "WooCommerce Memberships Documentation - WooCommerce"
+    }
+  ]
+}
