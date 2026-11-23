@@ -10,7 +10,7 @@ foreach ($file in @($scriptFile, (Join-Path $root 'wp/tests/preparer-image.ps1')
     if ($parseErrors.Count) { throw ($parseErrors | Out-String) }
 }
 # The child process executes the real scripts, with only the external WSL boundary mocked.
-$cases = @('missing-docker', 'missing-image', 'pass', 'fail', 'malformed', 'start-error', 'cleanup-error', 'unsafe-image', 'unsafe-mount')
+$cases = @('missing-docker', 'missing-image', 'pass', 'fail', 'malformed', 'start-error', 'create-error', 'cleanup-error', 'unsafe-image', 'unsafe-mount')
 foreach ($case in $cases) {
     $env:T01_TEST_CASE = $case
     $env:T01_TEST_ROOT = $root
@@ -22,10 +22,13 @@ foreach ($case in $cases) {
     } else {
         if ($rc -ne 1 -or $last -notmatch '^REJEU : [0-9]+ tests, [0-9]+ assertions, [0-9]+ échecs, [1-9][0-9]* erreurs, [0-9]+ ignorés — FAIL$') { throw "$case : rc=$rc $($out -join "`n")" }
     }
+    if ($case -in @('pass', 'fail', 'malformed', 'start-error', 'create-error', 'unsafe-mount') -and ($out -join "`n") -notmatch 'T01 CLEANUP : absence verifiee') { throw "$case : cleanup was not verified" }
+    if ($case -eq 'missing-image' -and ($out -join "`n") -notmatch 'preparer-image.ps1') { throw 'Missing image remediation was not printed.' }
     Write-Output "PASS boundary/$case : exit=$rc ; $last"
 }
 Remove-Item Env:T01_TEST_CASE, Env:T01_TEST_ROOT
-foreach ($case in @('prepare-pass', 'prepare-build-error', 'prepare-probe-error')) {
+$preparationCases = @('prepare-pass', 'prepare-build-error', 'prepare-probe-error')
+foreach ($case in $preparationCases) {
     $env:T01_TEST_CASE = $case; $env:T01_TEST_ROOT = $root
     $out = @(& powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'mock-wsl.ps1') 2>&1)
     $rc = $LASTEXITCODE
@@ -34,4 +37,5 @@ foreach ($case in @('prepare-pass', 'prepare-build-error', 'prepare-probe-error'
     Write-Output "PASS boundary/$case : exit=$rc ; minimal manifest-only context removed"
 }
 Remove-Item Env:T01_TEST_CASE, Env:T01_TEST_ROOT
-Write-Output 'T01 CONTRACT : 12/12 PASS (external Docker boundary mocked; not a PHP-suite receipt)'
+$count = $cases.Count + $preparationCases.Count
+Write-Output ('T01 CONTRACT : {0}/{0} PASS (external Docker boundary mocked; not a PHP-suite receipt)' -f $count)

@@ -37,6 +37,7 @@ function global:wsl.exe {
             $label = $d[[Array]::IndexOf($d, '--label') + 1]
             $global:T01Mockowner = $label.Substring('org.imagine.t01='.Length)
             $global:T01Mockcreated = $true
+            if ($global:T01Mockcase -eq 'create-error') { $global:LASTEXITCODE = 1; return 'Create failed after object creation (test double)' }
             return 'fixture-container-id'
         }
         'inspect' {
