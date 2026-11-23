@@ -1,6 +1,6 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-23T21:19:19.371044+00:00",
+  "at": "2026-11-23T22:00:05.886095+00:00",
   "checks": {
     "local_green": true,
     "composer_test_lint_green": true,
@@ -134,7 +134,7 @@
     "imagine-demo-build/c10-fixture.php": "28c2910a40969e9486b8b3ff011b1a76d6ac18ade6f1d8203dfc7280a31a1fd4"
   },
   "file_count": 8,
-  "protected_sha256": "b9f4d41bda3d07b5adcad40b86b7f8cfb78af534c80efdeabce7c6098b6e85dc",
+  "protected_sha256": "2a6a8dd9d8235d6eabc31690ad374c5814f6cee1b0e4d3c302d98e847067e346",
   "secret_scan": {
     "files_checked": 28,
     "matches": []
