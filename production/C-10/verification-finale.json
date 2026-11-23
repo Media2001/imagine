@@ -1,8 +1,10 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-23T21:12:26.753655+00:00",
+  "at": "2026-11-23T21:16:48.999846+00:00",
   "checks": {
     "local_green": true,
+    "composer_test_lint_green": true,
+    "phpunit_facade_discovered": true,
     "runtime_green": true,
     "http_green": true,
     "deployed_sources_exact": true,
@@ -16,15 +18,29 @@
     "a_voir_present": true,
     "no_known_secret_leak": true
   },
-  "total": 13,
+  "total": 15,
   "failures": [],
   "suites": {
+    "phpunit": {
+      "total": 775,
+      "facade_tests": 10,
+      "receipt": {
+        "command": "composer test -- --log-junit /tmp/c10/result.xml",
+        "test_exit": 0,
+        "lint_command": "composer lint",
+        "lint_exit": 0,
+        "image": "imagine-tests-t01:1",
+        "network": "none",
+        "mounts": [],
+        "ports": {}
+      }
+    },
     "local": {
       "total": 4,
       "failures": 0,
       "errors": 0,
       "skipped": 0,
-      "output": "test_denials (test_c10_scope.ScopeTest.test_denials) ... ok\ntest_deployment_allowlist (test_c10_scope.ScopeTest.test_deployment_allowlist) ... ok\ntest_expected_target (test_c10_scope.ScopeTest.test_expected_target) ... ok\ntest_guard_exists (test_c10_scope.ScopeTest.test_guard_exists) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.001s\n\nOK\n"
+      "output": "test_denials (test_c10_scope.ScopeTest.test_denials) ... ok\ntest_deployment_allowlist (test_c10_scope.ScopeTest.test_deployment_allowlist) ... ok\ntest_expected_target (test_c10_scope.ScopeTest.test_expected_target) ... ok\ntest_guard_exists (test_c10_scope.ScopeTest.test_guard_exists) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.002s\n\nOK\n"
     },
     "c10_runtime": {
       "checks": {
@@ -120,7 +136,7 @@
   "file_count": 8,
   "protected_sha256": "b9f4d41bda3d07b5adcad40b86b7f8cfb78af534c80efdeabce7c6098b6e85dc",
   "secret_scan": {
-    "files_checked": 36,
+    "files_checked": 28,
     "matches": []
   },
   "browser_admin": "Non ouvert : aucun login enregistré dans le coffre ; HTTP réel vérifié par sessions WP éphémères détruites.",
