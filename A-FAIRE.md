@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 23 novembre 2026, 16 h 30.
+Mis à jour le 23 novembre 2026, 17 h 10.
 
 **Deux voies depuis le 23/11.** Ce fichier est la file de la voie 1. Une deuxième session d'Hermès suit `A-FAIRE-2.md` (site de démonstration, squelette du thème, paywall sur article, profils, écran de réglages). Lis la section « Les deux voies » de la consigne permanente. Ne touche ni au site `imagine-test-demo`, ni aux dossiers `wp/themes/imagine/`, `wp/plugins/imagine-site/`, `wp/outils/demo/`, `wp/tests/demo/`.
 
@@ -16,7 +16,7 @@ File du 23/11, 16 h 30. Ton rapport de 15 h 36 est lu.
 
 **1. Corrections de T-01** — `corrections/T-01.md`, arbitrées dans `docs/arbitrages-2026-11-23.md`. Applique-les, rejoue, redépose `PRET`. Une heure.
 
-A-01 (archive réelle) : rendu, en attente de relecture ; Ced lance le diagnostic. Ensuite la file est vide jusqu'à l'import.
+A-01 (archive réelle) : **clos le 23/11 à 17 h 10** après vérification ; Ced lance le diagnostic. Ensuite la file est vide jusqu'à l'import.
 
 **Les écrans de réglages.** Dans C-05, C-06 et C-07, tu as livré des adaptateurs d'administration (pages de réglages WordPress). Ils ne font pas partie des lots clos : laisse-les en l'état. Ils sont repris par la voie 2 (lot C-10).
 
@@ -72,5 +72,5 @@ A-01 (archive réelle) : rendu, en attente de relecture ; Ced lance le diagnosti
 | C-05 Échéancier en quatre fois | 22/11 | **Clos le 23/11** (bibliothèque et preuve sur le vrai Subscriptions ; écran de réglages exclu) |
 | C-06 Décision d'accès | 21 et 22/11 | **Clos le 23/11** (bibliothèque ; écran de réglages exclu) |
 | C-07 Liste d'envoi | 22/11 | **Clos le 23/11** (bibliothèque ; écran de réglages exclu) |
-| A-01, import, vérification et publication | 22 et 23/11 | Clos le 23/11 puis **rouvert à 14 h 25** (consigne 0) : qualifié en 6.9.1 sur archives fictives, mais refus `ARCHIVE_PATH` sur l'archive réelle. Limite : Subscriptions non testable en 6.9.1, le premier import réel fera foi. Ce n'est pas un accord d'import |
+| A-01, import, vérification et publication | 22 et 23/11 | **Clos le 23/11** (mode diagnostic et règles de chemin vérifiés à 16 h 33) : qualifié en 6.9.1 sur archives fictives, mais refus `ARCHIVE_PATH` sur l'archive réelle. Limite : Subscriptions non testable en 6.9.1, le premier import réel fera foi. Ce n'est pas un accord d'import |
 | A-02 Script d'audit | 23/11, corrigé le 23/11 | **Clos le 23/11** (outil et banc fictif). L'audit réel reste à lancer |

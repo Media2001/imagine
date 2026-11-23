@@ -28,3 +28,12 @@ Questions techniques posées par les fusions de relecture. Aucune n'est visuelle
 ## Report
 
 Le garde manquant sur `wc_get_page_permalink` est à traiter dans la relecture de C-08.
+
+## C-08 — paywall sur article (`corrections/C-08.md` §5), 17 h 10
+
+1. **Recherche interne : oui, bloquant.** Le §3.9 l'exige côté serveur. Pour un visiteur sans droit, la recherche ne porte pas sur le corps des articles réservés (titre et extrait public seulement) et n'en renvoie aucun fragment. Test : chercher la phrase témoin en anonyme ne renvoie rien ; en abonné, l'article sort. L'étanchéité ne repose plus sur le mot de passe natif.
+2. **JSON-LD : `NewsArticle`, maintenant.**
+3. **Mémoïsation : dans ce lot, à l'échelle d'une requête seulement.** Rien de persistant : le cache entre requêtes relève du lot cache et performance.
+4. **C08-01 : aligner sur le booléen déclaré.**
+5. Le garde `function_exists` sur `wc_get_page_permalink` est à ajouter (repli sur la page de connexion).
+
