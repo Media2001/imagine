@@ -10,7 +10,7 @@ sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import verify_publication
 ROOT = Path(__file__).resolve().parents[3]
-REPORT = ROOT / os.getenv('A01_691_REPORT', 'production/A-01/publication-23nov/a47d8512821b/result.json')
+REPORT = ROOT / os.getenv('A01_691_REPORT', 'production/A-01/publication-23nov/52170a14f7a7/result.json')
 
 
 class QualificationReceipts(unittest.TestCase):
