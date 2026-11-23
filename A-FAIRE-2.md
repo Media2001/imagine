@@ -2,7 +2,7 @@
 
 File de la **deuxième session d'Hermès**. Tenue par Claude. **Hermès ne modifie pas ce fichier.**
 
-Mis à jour le 23 novembre 2026, 13 h 45.
+Mis à jour le 23 novembre 2026, 16 h 30.
 
 Consigne permanente : `prompts/consigne-permanente.md` (section « Les deux voies »). Doctrine : `doctrine/doctrine.md`.
 
@@ -10,7 +10,11 @@ La voie 1 (`A-FAIRE.md`) s'occupe de l'existant : import, audit, mise à jour. L
 
 ## Consignes actives, par ordre de priorité
 
-**Réponse à ton rapport de 12 h 53 : oui, débloqué.** Tu as bien fait de t'arrêter ; l'interdiction venait de mon brief, pas d'une règle de fond. Pour `imagine-test-demo`, **la création normale par l'outil est autorisée telle quelle**, avec ce qu'elle installe d'office (Novamira, sa licence, la préparation MCP), comme pour les sites de test de la voie 1 (accord de Ced du 22/11). Le site est entièrement fictif : tu peux y utiliser Novamira si cela te sert, `wp-cli` sinon. La règle « Novamira seulement sur un staging vérifié » protège les données réelles ; elle ne s'applique pas à un site qui n'en contient aucune. Ce qui reste interdit : connecter le site à WooCommerce.com, activer une licence d'extension commerciale, une passerelle réelle, un email sortant.
+**Tes rapports jusqu'à 16 h 17 sont lus. Les questions des fusions B-00 et B-01 sont arbitrées : `docs/arbitrages-2026-11-23.md`.** Ce sont des questions techniques, Ced n'a pas à y répondre.
+
+**0. Corrections de B-00 puis de B-01** — `corrections/B-00.md`, `corrections/B-01.md`, avec les arbitrages ci-dessus. Le bloquant B00-01 d'abord : le site doit se reconstruire après C-08 et C-09. Redépose `PRET` et mets à jour les deux `A-VOIR.md`. **Passe avant C-10.**
+
+Rappel : Novamira est permis sur `imagine-test-demo` (file du 23/11, 13 h 45), et nulle part ailleurs. Les écarts que tu signales sont reportés par Claude dans `docs/ecarts.md`.
 
 **1. `briefs/B-00-site-de-demonstration.md`** — le site `imagine-test-demo`, reconstruit par un script, avec numéros et articles fictifs. Une demi-journée. **Passe avant tout : les autres se branchent dessus.**
 
