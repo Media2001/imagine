@@ -1,0 +1,79 @@
+{
+  "status": "PRET",
+  "scope": "imagine-test-demo",
+  "at": "2026-11-23T15:15:30.064551+00:00",
+  "categories": {
+    "créé": [
+      "V-ANON",
+      "V-FAUX",
+      "A-EXPIRE",
+      "E-ADMIN",
+      "E-REDAC"
+    ],
+    "partiel": [
+      "V-DEC",
+      "V-DEC-FIN",
+      "V-INSCRIT",
+      "A-CARTE",
+      "A-SEPA4",
+      "A-PAYPAL",
+      "A-VIR",
+      "A-PAPIER",
+      "A-GRACE",
+      "A-SUSP",
+      "A-NONRENOUV",
+      "A-ETRANGER",
+      "A-SANSMAIL",
+      "A-ECHEANCE",
+      "P-OFFRANT",
+      "P-OFFERT",
+      "P-GEST",
+      "P-BENEF",
+      "P-PRO",
+      "P-SOL-ATT",
+      "P-SOL-OK",
+      "P-NUMERO",
+      "P-COOP",
+      "E-ABO"
+    ],
+    "impossible": [
+      "V-ROBOT"
+    ]
+  },
+  "counts": {
+    "users": 27,
+    "orders": 13,
+    "subscriptions": 12,
+    "memberships": 14
+  },
+  "totals": {
+    "unitaires": 7,
+    "natifs": 364,
+    "http": 192,
+    "securite": 5,
+    "reset": 4,
+    "regression_c08": 30,
+    "integrite": 8
+  },
+  "total_checks": 610,
+  "table_rows": 30,
+  "decision_count": 29,
+  "secret_scan": {
+    "files_checked": 26,
+    "matches": []
+  },
+  "source_sha256": {
+    "wp/outils/demo/profils.py": "f61e8173b8b6f72b33a906b1801f5d911356a46375a5e9ba90a62d03ef336f1e",
+    "wp/outils/demo/c09-profils.json": "c75a4e3ee753b9df24f1b3cc56591942d760d408de1bfcf48a00134f0222e461",
+    "wp/outils/demo/c09-seed.php": "c9ef9b7777c394260023bff409324f666b13e4c55f18e58a3d0ad009e53d8149",
+    "wp/tests/demo/c09-http.py": "232354db30246f92946994767fbfd37b18993bf89c7ade88f7a3334d2e6e4c31",
+    "wp/tests/demo/c09-reset.py": "b2a3853b4879d3a83507539eddc15e6e54f5e723b3546445d7e49ab0b85fb4e3",
+    "wp/tests/demo/c09-runtime.php": "c2b00642bef851a0f0932afdf872a3fb428dd8611f7e2a310cb4765d57c29c2d",
+    "wp/tests/demo/c09-safety.php": "c594ac21233bf7be841045530191766a20b99d450aa18a94c72243ad6b22322a",
+    "wp/tests/demo/c09-verifier.py": "ab9053cc02de7bb697214177ade13084db49328625e30d6b6b305a6c89dd12c2",
+    "wp/tests/demo/test_c09_profils.py": "68abbe67b8113bfa12eeed02570577169c2c7d68f3e6b192481238eb3d56c052"
+  },
+  "limitations_accepted_by_brief": true,
+  "closed_libraries_and_theme_unchanged": true,
+  "b00_c08_preserved": true
+}

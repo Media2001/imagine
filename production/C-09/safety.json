@@ -1,5 +1,11 @@
 {
-  "code": 0,
-  "stdout": "{\n    \"total\": 5,\n    \"checks\": {\n        \"mauvais_nom_refuse\": true,\n        \"mauvaise_url_refusee_avant_toute_action\": true,\n        \"mail_non_coupe_refuse_sans_envoyer\": true,\n        \"compte_non_possede_refuse\": true,\n        \"adhesion_non_possedee_refusee\": true\n    },\n    \"failures\": []\n}",
-  "stderr": ""
+  "total": 5,
+  "checks": {
+    "mauvais_nom_refuse": true,
+    "mauvaise_url_refusee_avant_toute_action": true,
+    "mail_non_coupe_refuse_sans_envoyer": true,
+    "compte_non_possede_refuse": true,
+    "adhesion_non_possedee_refusee": true
+  },
+  "failures": []
 }
