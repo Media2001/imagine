@@ -19,6 +19,15 @@ try {
     if (ob_get_level()) { ob_end_clean(); }
     $checks['bloc_sans_woo_sans_exception'] = false;
 }
+require_once WP_CONTENT_DIR . '/themes/imagine/functions.php';
+$f = get_option('imagine_c08_fixture');
+$GLOBALS['post'] = get_post($f['article']);
+setup_postdata($GLOBALS['post']);
+ob_start();
+\Imagine\Theme\imagine_article_body();
+$withoutAdapter = ob_get_clean();
+$checks['corps_sans_adaptateur_ferme_sans_password'] = !str_contains($withoutAdapter, 'Les lucioles violettes de C08 gardent le secret du village fictif.');
+$checks['corps_sans_adaptateur_extrait_public'] = str_contains($withoutAdapter, 'Extrait public C08');
 require_once WP_CONTENT_DIR . '/plugins/imagine-site/Paywall.php';
 $f = get_option('imagine_c08_fixture');
 wp_set_current_user($f['users']['actif']);

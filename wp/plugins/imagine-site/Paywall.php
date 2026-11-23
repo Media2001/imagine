@@ -84,7 +84,11 @@ final class Paywall
             );
             return self::$decisions[$key] = ['complet' => $decision->complet, 'motif' => $decision->motif->value, 'bloc' => $decision->bloc->value];
         } catch (\Throwable) {
-            return ['complet' => false, 'motif' => 'adaptateur_indisponible', 'bloc' => 'abonnement'];
+            $closed = ['complet' => false, 'motif' => 'adaptateur_indisponible', 'bloc' => 'abonnement'];
+            if (isset($key)) {
+                self::$decisions[$key] = $closed;
+            }
+            return $closed;
         }
     }
 

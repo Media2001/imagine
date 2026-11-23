@@ -48,7 +48,15 @@ function imagine_article_body(): void
         }
         return;
     }
-    // Repli B00 si le plugin C08 n'est pas chargé : verrou natif conservé en base.
+    // Les mots de passe natifs ont disparu sous C08 : absence d'adaptateur
+    // ne doit jamais devenir une autorisation de rendre un corps d'article.
+    if ($post && $post->post_type === 'post') {
+        $excerpt = mb_substr(trim(wp_strip_all_tags(strip_shortcodes($post->post_excerpt))), 0, 320);
+        echo '<div class="imagine-paywall-body"><p>' . esc_html($excerpt !== ''
+            ? $excerpt : __('Cet article est réservé aux abonnés.', 'imagine')) . '</p></div>';
+        get_template_part('parts/paywall', 'abonnement', ['complet' => false]);
+        return;
+    }
     if (post_password_required()) {
         echo get_the_password_form();
         return;

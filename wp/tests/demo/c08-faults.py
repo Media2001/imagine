@@ -1,5 +1,6 @@
 """Pannes réelles C08 : écritures locales bornées, restauration et readback dans finally."""
 from pathlib import Path
+from urllib.parse import urlencode
 import importlib.util
 import json
 import sys
@@ -30,6 +31,12 @@ def run():
             checks[label + ':' + name + ':200'] = meta['status'] == 200
             checks[label + ':' + name + ':ferme'] = http.WITNESS not in body
             checks[label + ':' + name + ':prive'] = 'private' in meta['headers'].get('cache-control', '') and 'no-store' in meta['headers'].get('cache-control', '')
+        for route in ['posts', 'search']:
+            meta, body = http.fetch(base, '/wp-json/wp/v2/' + route + '?' + urlencode({'search': '"' + http.WITNESS + '"'}), client, headers={'X-WP-Nonce': nonce.strip()})
+            responses[label + ':search-' + route] = meta
+            checks[label + ':search-' + route + ':200'] = meta['status'] == 200
+            checks[label + ':search-' + route + ':article_absent'] = aid not in [row['id'] for row in json.loads(body)]
+            checks[label + ':search-' + route + ':fragment_absent'] = http.WITNESS not in body
     try:
         changed = json.loads(c08.b00.wp('eval', 'update_option("imagine_acces_plans","invalide-c08");echo wp_json_encode(get_option("imagine_acces_plans"));')['stdout'])
         checks['configuration:readback_invalide'] = changed == 'invalide-c08'
