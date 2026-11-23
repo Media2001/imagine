@@ -40,6 +40,12 @@ if (is_file($subject)) {
         } catch (\RuntimeException $e) {
             check('config_dynamic_refused', $e->getMessage() === 'A02_CONFIG_NON_LITERAL');
         }
+        try {
+            \Imagine\Audit\Audit::config(str_replace("define('DB_NAME'", "if (false) define('DB_NAME'", $literal));
+            check('config_conditional_refused', false);
+        } catch (\RuntimeException $e) {
+            check('config_conditional_refused', $e->getMessage() === 'A02_CONFIG_NON_LITERAL');
+        }
         check('serialized_object_never_instantiated', \Imagine\Audit\Audit::decode('O:8:"stdClass":0:{}') === []);
         check('version_only', \Imagine\Audit\Audit::version('11.1.1') === '11.1.1' && \Imagine\Audit\Audit::version('private@example.org') === null);
         $gateway = '<?php class Gateway extends WC_Payment_Gateway { const ID = "bacs"; function x() { $this->id = self::ID; } }';

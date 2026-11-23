@@ -140,6 +140,7 @@ def run_storage(storage):
     dbs = data['sections']['database']
     check(storage + ':all_tables_counts_sizes', len(dbs['tables']) == len(before['tables']) and all(v['rows'] == before['tables'][v['name']]['rows'] and v['bytes'] >= 0 for v in dbs['tables']))
     check(storage + ':orphan_candidate', any(v['name'] == 'wp_orphan_fixture' and v['ownership'] == 'unattributed_candidate' for v in dbs['tables']))
+    check(storage + ':commercial_tables_not_orphaned', all(v['ownership'] == 'active_subscriptions' for v in dbs['tables'] if v['name'] in {'wp_wcs_health_check_candidates', 'wp_wcs_health_check_runs', 'wp_woocommerce_subscription_downloads'}))
     check(storage + ':heavy_autoload_names_sizes', any(v['name'] == 'a02_heavy_secret_setting' and v['bytes'] > 100000 for v in dbs['largest_autoload']))
     schedule = data['sections']['scheduling']
     check(storage + ':action_counts', any(v['hook'] == 'a02_fixture_action' and v['status'] == 'pending' and v['count'] == 1 for v in schedule['actions']) and any(v['hook'] == 'a02_fixture_failed' and v['status'] == 'failed' for v in schedule['actions']))

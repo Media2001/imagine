@@ -52,7 +52,13 @@ final class Audit
             return $token[1][0] === "'" ? str_replace(["\\\\", "\\'"], ["\\", "'"], $raw) : stripcslashes($raw);
         };
         $values = [];
+        $depth = 0;
         foreach ($tokens as $i => $token) {
+            if ($token === '{') {
+                $depth++;
+            } elseif ($token === '}') {
+                $depth--;
+            }
             if (is_array($token) && $token[0] === T_STRING && strtolower($token[1]) === 'define' && ($tokens[$i + 1] ?? null) === '(') {
                 $keyToken = $tokens[$i + 2] ?? null;
                 if (!is_array($keyToken) || $keyToken[0] !== T_CONSTANT_ENCAPSED_STRING) {
@@ -60,14 +66,14 @@ final class Audit
                 }
                 $key = $literal($keyToken);
                 if (in_array($key, ['DB_NAME', 'DB_USER', 'DB_PASSWORD', 'DB_HOST'], true)) {
-                    if (isset($values[$key]) || ($tokens[$i + 3] ?? null) !== ',' || ($tokens[$i + 5] ?? null) !== ')') {
+                    if ($depth !== 0 || ($i > 0 && $tokens[$i - 1] !== ';') || isset($values[$key]) || ($tokens[$i + 3] ?? null) !== ',' || ($tokens[$i + 5] ?? null) !== ')') {
                         throw new \RuntimeException('A02_CONFIG_NON_LITERAL');
                     }
                     $values[$key] = $literal($tokens[$i + 4] ?? null);
                 }
             }
             if (is_array($token) && $token[0] === T_VARIABLE && $token[1] === '$table_prefix') {
-                if (isset($values['table_prefix']) || ($tokens[$i + 1] ?? null) !== '=' || ($tokens[$i + 3] ?? null) !== ';') {
+                if ($depth !== 0 || ($i > 0 && $tokens[$i - 1] !== ';') || isset($values['table_prefix']) || ($tokens[$i + 1] ?? null) !== '=' || ($tokens[$i + 3] ?? null) !== ';') {
                     throw new \RuntimeException('A02_CONFIG_NON_LITERAL');
                 }
                 $values['table_prefix'] = $literal($tokens[$i + 2] ?? null);
@@ -259,7 +265,7 @@ final class Audit
         preg_match('/\$wp_version\s*=\s*[\'\"]([^\'\"]+)[\'\"]/', $wp, $match);
         $dbVersion = $this->query('SELECT VERSION() AS version')[0]['version'];
         preg_match('/^[0-9]+(?:\.[0-9]+){1,2}/', $dbVersion, $dbMatch);
-        return ['wordpress' => self::version($match[1] ?? null), 'php' => PHP_VERSION,
+        return ['wordpress' => self::version($match[1] ?? null), 'php' => PHP_VERSION, 'php_sapi' => PHP_SAPI,
             'database' => $dbMatch[0] ?? null, 'database_family' => str_contains($dbVersion, 'MariaDB') ? 'MariaDB' : 'MySQL',
             'plugins' => $plugins, 'themes' => $themes,
             'update_source' => 'local_cache_only_not_a_live_check',
@@ -431,16 +437,20 @@ final class Audit
         $years = $this->query("SELECT YEAR(post_date) AS year,COUNT(*) AS count FROM $post WHERE post_type='post' GROUP BY YEAR(post_date) ORDER BY year");
         return ['post_types' => $pairs($types), 'taxonomies' => $pairs($taxonomies), 'custom_fields' => $pairs($fields),
             'posts_by_year' => array_map(static fn(array $r): array => ['year' => (int) $r['year'], 'count' => (int) $r['count']], $years),
-            'page_builders' => $builders, 'coverage' => 'stored_types_and_taxonomies_including_empty_core_types_not_runtime_registry; top_50_post_meta_keys'];
+            'page_builders' => $builders, 'page_builder_detection' => 'known_active_plugin_or_theme_names_only_not_exhaustive', 'coverage' => 'stored_types_and_taxonomies_including_empty_core_types_not_runtime_registry; top_50_post_meta_keys'];
     }
 
     private function database(array $versions): array
     {
         $wooActive = false;
+        $subscriptionsActive = false;
         $asActive = false;
         foreach ($versions['plugins'] as $plugin) {
             if ($plugin['active'] && $plugin['name'] === 'woocommerce/woocommerce.php') {
                 $wooActive = true;
+            }
+            if ($plugin['active'] && $plugin['name'] === 'woocommerce-subscriptions/woocommerce-subscriptions.php') {
+                $subscriptionsActive = true;
             }
             if ($plugin['active'] && (str_starts_with($plugin['name'], 'woocommerce') || str_starts_with($plugin['name'], 'action-scheduler/'))) {
                 $asActive = true;
@@ -460,6 +470,8 @@ final class Audit
                 $owner = 'wordpress';
             } elseif ($wooActive && in_array($suffix, $woo, true)) {
                 $owner = 'active_woocommerce';
+            } elseif ($subscriptionsActive && in_array($suffix, ['woocommerce_subscription_downloads', 'wcs_health_check_candidates', 'wcs_health_check_runs'], true)) {
+                $owner = 'active_subscriptions';
             } elseif ($asActive && in_array($suffix, ['actionscheduler_actions','actionscheduler_claims','actionscheduler_groups','actionscheduler_logs'], true)) {
                 $owner = 'active_action_scheduler';
             }
@@ -473,7 +485,7 @@ final class Audit
         $autoload = $this->query('SELECT option_name AS name,OCTET_LENGTH(option_value) AS bytes FROM ' . $this->table('options') . " WHERE autoload IN ('yes','on','auto-on','auto') ORDER BY bytes DESC,option_name LIMIT 20");
         return ['tables' => $tables, 'total_bytes' => array_sum(array_column($tables, 'bytes')),
             'largest_autoload' => array_map(static fn(array $r): array => ['name' => self::identifier($r['name']), 'bytes' => (int) $r['bytes']], $autoload),
-            'ownership_policy' => 'conservative_core_woo_as_registry; unknown_is_not_proof_of_orphan_never_delete',
+            'ownership_policy' => 'conservative_core_woo_wcs_as_registry; unknown_is_not_proof_of_orphan_never_delete',
             'size_basis' => 'information_schema_data_plus_indexes_estimate; exact_select_row_counts'];
     }
 
