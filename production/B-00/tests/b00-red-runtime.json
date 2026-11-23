@@ -1,0 +1,5 @@
+{
+  "code": 1,
+  "stdout": "{\"checks\":{\"modele_numero\":false,\"modele_evenement\":false,\"modele_partenaire\":false,\"modele_thematique\":false},\"total\":4,\"failures\":[\"modele_numero\",\"modele_evenement\",\"modele_partenaire\",\"modele_thematique\"]}\n",
+  "stderr": ""
+}

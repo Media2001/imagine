@@ -2,6 +2,8 @@
 from pathlib import Path
 import time
 import json
+import base64
+import subprocess
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
@@ -70,3 +72,24 @@ def validate_credentials_path(path):
     if path == ROOT or ROOT in path.parents:
         raise ValueError('Les identifiants doivent rester hors dépôt')
     return path
+
+
+def remote(action, **payload):
+    code = Path(__file__).with_name('b00_remote.py').read_text(encoding='utf-8')
+    result = subprocess.run(['wsl.exe', 'docker', 'exec', '-i', 'staging-wp-dashboard', 'python', '-c', code],
+                            input=json.dumps({'action': action, **payload}), capture_output=True,
+                            text=True, encoding='utf-8', timeout=900)
+    if result.returncode:
+        raise RuntimeError('Échec du transport ciblé B-00 (code %d)' % result.returncode)
+    return json.loads(result.stdout)
+
+
+def upload(path, content):
+    return remote('write', path=path, data=base64.b64encode(content).decode())
+
+
+def wp(*args, check=True):
+    result = remote('wp', args=list(args))
+    if check and result['code']:
+        raise RuntimeError('WP-CLI : ' + result['stderr'][-2500:])
+    return result

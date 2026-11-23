@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Imagine\Tests\Demo;
 
+global $checks;
 $checks = [];
 function check(string $name, bool $ok): void
 {
@@ -15,6 +16,10 @@ check('modele_numero', post_type_exists('imagine_numero'));
 check('modele_evenement', post_type_exists('imagine_evenement'));
 check('modele_partenaire', post_type_exists('imagine_partenaire'));
 check('modele_thematique', taxonomy_exists('imagine_thematique'));
+if (in_array(false, $checks, true)) {
+    echo wp_json_encode(['checks' => $checks, 'total' => count($checks), 'failures' => array_keys(array_filter($checks, fn ($ok) => !$ok))]) . "\n";
+    \WP_CLI::halt(1);
+}
 $manifest = get_option('imagine_demo_manifest', []);
 check('manifeste_present', count($manifest) > 0);
 $calendar = get_option('imagine_demo_calendrier', []);
@@ -66,5 +71,5 @@ check('woo_11_1_min', defined('WC_VERSION') && version_compare(WC_VERSION, '11.1
 $failures = array_keys(array_filter($checks, fn ($ok) => !$ok));
 echo wp_json_encode(['checks' => $checks, 'total' => count($checks), 'failures' => $failures], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . "\n";
 if ($failures !== []) {
-    WP_CLI::halt(1);
+    \WP_CLI::halt(1);
 }

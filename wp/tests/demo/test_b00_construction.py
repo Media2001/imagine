@@ -58,6 +58,19 @@ class B00Scope(unittest.TestCase):
         m.ensure_site(existing, lambda _: None)
         self.assertEqual(calls, [('GET', '/api/sites/imagine-test-demo')])
 
+    def test_b00_fixture_calendar_and_generated_assets(self):
+        m = builder()
+        self.assertTrue(hasattr(m, 'fixture_data'), 'Fixture B-00 reproductible obligatoire')
+        data = m.fixture_data()
+        self.assertEqual(data, m.fixture_data())
+        self.assertEqual(len(data['calendar']), 15)
+        self.assertEqual(len(data['issues']), 5)
+        self.assertEqual([sum(row['sortie'].startswith(str(year)) for row in data['calendar']) for year in [2026, 2027, 2028]], [5, 5, 5])
+        self.assertTrue(all(row['cloture'] < row['sortie'] for row in data['calendar']))
+        self.assertEqual(m.cover_png('1', '#336699'), m.cover_png('1', '#336699'))
+        self.assertTrue(m.cover_png('1', '#336699').startswith(b'\x89PNG\r\n\x1a\n'))
+        self.assertTrue(m.dummy_pdf('1').startswith(b'%PDF-1.4'))
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
