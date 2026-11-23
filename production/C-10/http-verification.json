@@ -1,0 +1,156 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-23T15:30:05.441433+00:00",
+  "url": "http://192.168.129.32:8085",
+  "effect": {
+    "setting": "imagine_envoi_colonnes_export",
+    "changed_columns": [
+      "ville",
+      "destinataire",
+      "pays"
+    ],
+    "csv_after": "ville,destinataire,pays\n\"Ville Fictive\",\"Lectrice Fictive C10\",BE\n",
+    "source": "ExportCsv::lignes avec AdministrationFormatExport::lire, rendu dans la vraie page admin"
+  },
+  "audit_evidence": [
+    {
+      "quand_utc": "2026-11-23T15:30:48Z",
+      "qui_id": 30,
+      "qui_login": "e-admin",
+      "option": "imagine_envoi_colonnes_export",
+      "avant": [
+        "abonnement_id",
+        "destinataire_id",
+        "destinataire",
+        "rue",
+        "complement",
+        "code_postal",
+        "ville",
+        "pays",
+        "origine"
+      ],
+      "apres": [
+        "ville",
+        "destinataire",
+        "pays"
+      ]
+    },
+    {
+      "quand_utc": "2026-11-23T15:30:48Z",
+      "qui_id": 30,
+      "qui_login": "e-admin",
+      "option": "imagine_c05_reglages",
+      "avant": {
+        "marge_jours": null,
+        "apres_rejet": "restent_dues",
+        "tarif": "fige_bloc",
+        "confirmation_premier_sepa": "avec_marge"
+      },
+      "apres": {
+        "marge_jours": 3,
+        "apres_rejet": "annuler_restantes",
+        "tarif": "courant_impayes",
+        "confirmation_premier_sepa": "sans_marge"
+      }
+    },
+    {
+      "quand_utc": "2026-11-23T15:30:48Z",
+      "qui_id": 30,
+      "qui_login": "e-admin",
+      "option": "imagine_acces_reglages",
+      "avant": {
+        "contenu_futur": "ferme_tous",
+        "pdf_robot": "extrait",
+        "pdf_anterieur_abonnement": "ferme"
+      },
+      "apres": {
+        "contenu_futur": "equipe",
+        "pdf_robot": "complet",
+        "pdf_anterieur_abonnement": "ouvert"
+      }
+    }
+  ],
+  "audit_count_before": 0,
+  "audit_count_after": 6,
+  "invalid_cases": 20,
+  "checks": {
+    "admin_page_200": true,
+    "menu_imagine_reglages": false,
+    "huit_champs_documentes": true,
+    "aucun_menu_legacy": true,
+    "redacteur_page_403": true,
+    "redacteur_post_nonce_valide_403": true,
+    "redacteur_sans_mutation": true,
+    "abonne_page_403": true,
+    "abonne_post_nonce_valide_403": false,
+    "abonne_sans_mutation": true,
+    "anonyme_post_refuse": true,
+    "nonce_absent_403": true,
+    "nonce_absent_aucune_ecriture": true,
+    "nonce_invalide_403": true,
+    "nonce_invalide_aucune_ecriture": true,
+    "nonce_autre_session_403": true,
+    "nonce_autre_session_aucune_ecriture": true,
+    "post_valide_200": true,
+    "readback_defauts": true,
+    "noop_aucun_journal": true,
+    "acces_contenu_futur_refuse": true,
+    "acces_contenu_futur_ancien_conserve": true,
+    "acces_pdf_robot_refuse": true,
+    "acces_pdf_robot_ancien_conserve": true,
+    "acces_pdf_anterieur_abonnement_refuse": true,
+    "acces_pdf_anterieur_abonnement_ancien_conserve": true,
+    "paiement_marge_jours_-1_refuse": true,
+    "paiement_marge_jours_-1_ancien_conserve": true,
+    "paiement_marge_jours_1.5_refuse": true,
+    "paiement_marge_jours_1.5_ancien_conserve": true,
+    "paiement_marge_jours_0_refuse": true,
+    "paiement_marge_jours_0_ancien_conserve": true,
+    "paiement_marge_jours_999999999999999999999999999999999999_refuse": true,
+    "paiement_marge_jours_999999999999999999999999999999999999_ancien_conserve": true,
+    "paiement_apres_rejet_inconnu_refuse": true,
+    "paiement_apres_rejet_inconnu_ancien_conserve": true,
+    "paiement_tarif_inconnu_refuse": true,
+    "paiement_tarif_inconnu_ancien_conserve": true,
+    "paiement_confirmation_premier_sepa_inconnu_refuse": true,
+    "paiement_confirmation_premier_sepa_inconnu_ancien_conserve": true,
+    "export_10_refuse": true,
+    "export_10_ancien_conserve": true,
+    "export_11_refuse": true,
+    "export_11_ancien_conserve": true,
+    "export_12_refuse": true,
+    "export_12_ancien_conserve": true,
+    "export_13_refuse": true,
+    "export_13_ancien_conserve": true,
+    "forme_14_refuse": true,
+    "forme_14_ancien_conserve": true,
+    "forme_15_refuse": true,
+    "forme_15_ancien_conserve": true,
+    "forme_16_refuse": true,
+    "forme_16_ancien_conserve": true,
+    "forme_17_refuse": true,
+    "forme_17_ancien_conserve": true,
+    "forme_18_refuse": true,
+    "forme_18_ancien_conserve": true,
+    "forme_19_refuse": true,
+    "forme_19_ancien_conserve": true,
+    "valeurs_alternatives_lues_exactes": true,
+    "trois_changements_trois_journaux": true,
+    "audit_qui_quand": true,
+    "audit_avant_apres_exacts": true,
+    "effet_export_C07_reel": true,
+    "second_enregistrement_sans_faux_audit": true,
+    "retour_defauts_exact": true,
+    "retour_journalise": true,
+    "session_detruite_30": true,
+    "session_detruite_31": true,
+    "session_detruite_5": true,
+    "C08_C09_contenus_comptes_bibliotheques_preserves": true
+  },
+  "total": 72,
+  "failures": [
+    "menu_imagine_reglages",
+    "abonne_post_nonce_valide_403"
+  ],
+  "status": "FAILED"
+}

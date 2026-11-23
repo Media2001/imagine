@@ -42,10 +42,12 @@ final class Reglages
 
     public function menu(): void
     {
-        add_menu_page(self::t('Réglages Imagine'), self::t('Imagine'), 'manage_options', self::PAGE,
+        add_menu_page(self::t('Réglages Imagine'), self::t('Imagine'), 'manage_options', 'imagine',
             [$this, 'page'], 'dashicons-admin-settings');
-        add_submenu_page(self::PAGE, self::t('Réglages Imagine'), self::t('Réglages'),
+        add_submenu_page('imagine', self::t('Réglages Imagine'), self::t('Réglages'),
             'manage_options', self::PAGE, [$this, 'page']);
+        // Slugs distincts : WordPress conserve le sous-menu unique « Réglages ».
+        remove_submenu_page('imagine', 'imagine');
     }
 
     public function enregistrer(): void
