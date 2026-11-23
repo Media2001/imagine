@@ -1,3 +1,11 @@
 {
-  "runtime_exact": true
+  "runtime_exact": true,
+  "protected_local_delta": [
+    "wp/plugins/imagine-site/imagine-site.php"
+  ],
+  "allowed_delta": [
+    "wp/plugins/imagine-site/imagine-site.php"
+  ],
+  "c08_body_seam_exact": true,
+  "readback_exact": true
 }

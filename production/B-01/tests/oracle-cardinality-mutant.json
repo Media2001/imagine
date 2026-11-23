@@ -1,0 +1,8 @@
+{
+  "mutant": "cardinality only: len(actual) == 5",
+  "tests": 1,
+  "failures": 1,
+  "errors": 0,
+  "killed": true,
+  "output": "test_home_exact_fixture_ids_and_order_reject_intruder_and_permutation (b01_corrections.Corrections.test_home_exact_fixture_ids_and_order_reject_intruder_and_permutation) ... FAIL\n\n======================================================================\nFAIL: test_home_exact_fixture_ids_and_order_reject_intruder_and_permutation (b01_corrections.Corrections.test_home_exact_fixture_ids_and_order_reject_intruder_and_permutation)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Ced\\imagine\\wp\\tests\\demo\\b01-corrections.py\", line 23, in test_home_exact_fixture_ids_and_order_reject_intruder_and_permutation\n    self.assertFalse(home_matches([1,44,43,42,38], expected))\nAssertionError: True is not false\n\n----------------------------------------------------------------------\nRan 1 test in 0.003s\n\nFAILED (failures=1)\n"
+}

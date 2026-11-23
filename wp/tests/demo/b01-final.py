@@ -42,7 +42,7 @@ c08code=json.loads(wp('eval',"$o=[];foreach([WP_PLUGIN_DIR.'/imagine-site/Paywal
 protected['c08_code']=c08code
 (P/'scope-after-runtime.json').write_text(json.dumps(protected,ensure_ascii=False,indent=2),encoding='utf-8')
 check('C08/C09/C10 sources and semantic data exact',protected==load('scope-before-runtime.json'))
-sourcefiles={f.relative_to(ROOT).as_posix():digest(f) for f in (ROOT/'wp/themes/imagine').rglob('*') if f.is_file()}
+sourcefiles={f.relative_to(ROOT).as_posix():digest(f) for f in (ROOT/'wp/themes/imagine').rglob('*') if f.is_file() and f.suffix in ('.php','.css','.js','.json','.html','.svg','.png','.woff2')}
 for name in ['imagine-site.php','NumeroPublication.php']:
  f=ROOT/'wp/plugins/imagine-site'/name;sourcefiles[f.relative_to(ROOT).as_posix()]=digest(f)
 paths={key:key.removeprefix('wp/') for key in sourcefiles}
@@ -63,6 +63,7 @@ report={'checked_at':datetime.now(timezone.utc).isoformat(),'scope':'imagine-tes
 (P/'b01-final-verification.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
 print(json.dumps({k:v for k,v in report.items() if k not in ['sources_sha256','evidence_sha256','readback','checks']},ensure_ascii=False,indent=2))
 if failures:
+ (P/'PRET').unlink(missing_ok=True)
  print(json.dumps(failures,ensure_ascii=False,indent=2));raise SystemExit(1)
 (P/'PRET').write_text('B01 prêt au second tour technique — '+report['checked_at']+'\nPreuve : b01-final-verification.json\nSHA256 : '+digest(P/'b01-final-verification.json')+'\nC08 recherche/paywall hors verdict B01 ; pas de GO visuel.\n',encoding='utf-8')
 print('PRET redéposé avec empreinte de la preuve actuelle.')
