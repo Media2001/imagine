@@ -1,5 +1,31 @@
 {
-  "code": 0,
-  "stdout": "{\"total\":11,\"checks\":{\"horloge_injectable_disponible\":true,\"2026-11-30 23:59:59:calcul_exact\":true,\"2026-11-30 23:59:59:objet_natif_exact\":true,\"2026-11-30 23:59:59:ce_mois_inclus_derniere_seconde\":true,\"2026-12-31 23:59:59:calcul_exact\":true,\"2026-12-31 23:59:59:objet_natif_exact\":true,\"2026-12-31 23:59:59:ce_mois_inclus_derniere_seconde\":true,\"2027-01-01 00:00:00:calcul_exact\":true,\"2027-01-01 00:00:00:objet_natif_exact\":true,\"2027-01-01 00:00:00:ce_mois_inclus_derniere_seconde\":true,\"horloge_reelle_restauree_et_relue\":true},\"failures\":[],\"proof\":{\"2026-11-30 23:59:59\":{\"next_payment\":\"2026-11-30 23:59:59\",\"manual\":true},\"2026-12-31 23:59:59\":{\"next_payment\":\"2026-12-31 23:59:59\",\"manual\":true},\"2027-01-01 00:00:00\":{\"next_payment\":\"2027-01-01 01:00:00\",\"manual\":true}}}",
-  "stderr": ""
+  "total": 11,
+  "checks": {
+    "horloge_injectable_disponible": true,
+    "2026-11-30 23:59:59:calcul_exact": true,
+    "2026-11-30 23:59:59:objet_natif_exact": true,
+    "2026-11-30 23:59:59:ce_mois_inclus_derniere_seconde": true,
+    "2026-12-31 23:59:59:calcul_exact": true,
+    "2026-12-31 23:59:59:objet_natif_exact": true,
+    "2026-12-31 23:59:59:ce_mois_inclus_derniere_seconde": true,
+    "2027-01-01 00:00:00:calcul_exact": true,
+    "2027-01-01 00:00:00:objet_natif_exact": true,
+    "2027-01-01 00:00:00:ce_mois_inclus_derniere_seconde": true,
+    "horloge_reelle_restauree_et_relue": true
+  },
+  "failures": [],
+  "proof": {
+    "2026-11-30 23:59:59": {
+      "next_payment": "2026-11-30 23:59:59",
+      "manual": true
+    },
+    "2026-12-31 23:59:59": {
+      "next_payment": "2026-12-31 23:59:59",
+      "manual": true
+    },
+    "2027-01-01 00:00:00": {
+      "next_payment": "2027-01-01 01:00:00",
+      "manual": true
+    }
+  }
 }

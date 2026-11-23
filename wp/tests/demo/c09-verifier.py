@@ -1,6 +1,6 @@
 """C09 : vérification finale ciblée, rapports et PRET seulement après preuves réelles."""
 from pathlib import Path
-import collections
+
 from datetime import datetime, timezone
 import hashlib
 import importlib.util
@@ -163,7 +163,7 @@ def run():
         'Matrice persistante exacte du rôle `imagine_referent_abonnements` (Référent abonnements) : ' + ', '.join('`' + k + '`' for k in corrections['role_capabilities']) + '.', '',
         '## Preuves et rejeu', '',
         '- `installation.json`, `relance.json`, `reset.json` et `readback.json` : contrôles de la dernière recette complète après les sources finales. Les ID principaux restent identiques.',
-        '- `readback.json` : objets natifs et décisions nominatives ; `http.json` : connexions, témoin de contenu et blocs, sans cookie/nonce/mot de passe enregistré.',
+        '- `readback.json` : objets natifs et décisions nominatives ; `http.json` : 27 connexions, témoin de contenu et blocs ; E-ABO ouvre les écrans natifs liste/création de commande (200), mais pas éditorial/réglages (403). E-REDAC ne peut ouvrir le parcours natif de réglages (403). Aucun cookie/nonce/mot de passe enregistré.',
         '- `red-runtime.json`, `red-safety.json`, `red-reset.json` : échecs réellement observés avant installation/correction ou après altérations ; `reset-preuve.json` : restauration après altérations et ajout de doublons possédés.',
         '- `corrections.json` : six tarifs et raccords natifs, classement strict, capacité réelle E-REDAC, matrice E-ABO, lecture équipe et motif A-VIR indépendants du catalogue.',
         '- `clock.json` : générateur réellement exécuté aux 30/11/2026 23:59:59, 31/12/2026 23:59:59 et 01/01/2027 00:00:00 UTC ; échéance dans le mois, puis restauration à l’horloge réelle relue.',
@@ -209,10 +209,9 @@ Les trois V-ANON/V-FAUX/V-ROBOT ne sont pas des comptes. Les 27 comptes existant
 ## Limites et incidents résolus
 
 - Le dossier littéral « C:\\Users\\Ced\\imagine voie2 » n’existe pas. La consigne permanente définit voie 2 dans C:\\Users\\Ced\\imagine ; aucune lecture de la file voie 1.
-- L’extracteur officiel était indisponible (backend search-only). Les six pages officielles ont été récupérées par HTTP 200 et leurs passages ciblés lus avant l’implémentation native.
-- Premier état expiré refusé par WCS : son alias historique last_payment reflétait la création de commande, même sans paiement. Dates administratives de création de fixture remises avant le terme ; aucune date_paid ni transaction ajoutée.
-- Une première recette de reset a révélé un objet possédé supplémentaire sur un profil sans commande attendue : suppression ciblée ajoutée et vérifiée. Un test natif a aussi révélé l’absence de garde URL directe PHP : corrigée avant le feu vert.
-- Les inventaires natifs utilisent les statuts explicites propres à Subscriptions (les statuts Woo par défaut omettaient les actifs) et le type natif string de billing_interval est interprété comme entier. Aucun objet n’a été inventé pour adapter les nombres aux tests.
+- Les échecs de garde passive, de plan et de grille/rôle/classement ont été observés avant leur correction. Les tests de transports utilisent des sentinelles qui interdisent l’acte même sur le code fautif : aucun transport réel déclenché.
+- Les prix synthétiques ont été relus avec leurs types PHP ; les assertions comparent explicitement des float. Aucun objet inventé pour adapter les nombres aux tests.
+- Lecture et création administrative de commande réellement ouvertes pour E-ABO (HTTP 200) ; éditorial/réglages refusés (403). E-REDAC est également refusé par le parcours natif de réglages (403), en plus du contrôle de sa capacité réelle.
 
 Une première recette PHP incluait le seed dans sa portée et son $id local a été écrasé : le numéro fictif B00 ID32 a subi une mutation transitoire. Restauration ciblée immédiate, snapshot B00 relu exactement égal au snapshot initial ; seed désormais isolé dans une fermeture dans les tests plan/horloge. Aucun compte ni donnée réel. Incident signalé, pas masqué par un reseed général.
 

@@ -1,17 +1,21 @@
 {
-  "total": 4,
+  "total": 6,
   "checks": {
     "alterations_detectees": true,
     "ids_principaux_conserves": true,
     "preservation_c08_b00": true,
-    "aucun_doublon": true
+    "aucun_doublon": true,
+    "plan_altere_et_detecte": true,
+    "plan_et_decision_restaures": true
   },
   "failures": [],
   "mutation": {
-    "duplicate_order": 139,
-    "duplicate_subscription": 140,
-    "duplicate_membership": 141,
-    "unexpected_owned_order": 142
+    "changed_plan": 199,
+    "plan_alteration_readback": true,
+    "duplicate_order": 200,
+    "duplicate_subscription": 201,
+    "duplicate_membership": 202,
+    "unexpected_owned_order": 203
   },
-  "red_failure_count": 172
+  "red_failure_count": 174
 }

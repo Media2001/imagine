@@ -72,6 +72,18 @@ def run():
             checks['bloc_nomme'] = 'data-imagine-bloc="' + decision['bloc'] + '"' in text
         else:
             checks['bloc_absent'] = 'data-imagine-bloc=' not in text
+        if key == 'E-ABO':
+            # Parcours natifs réels : liste/création de commande, mais pas éditorial/réglages.
+            for label, path, expected in [
+                ('commandes_accessibles', '/wp-admin/admin.php?page=wc-orders', 200),
+                ('creation_commande_accessible', '/wp-admin/admin.php?page=wc-orders&action=new', 200),
+                ('editorial_refuse', '/wp-admin/edit.php', 403),
+                ('reglages_refuses', '/wp-admin/options-general.php', 403),
+            ]:
+                checks[label] = fetch(client, path)[0]['status'] == expected
+        if key == 'E-REDAC':
+            # Le calendrier est une option ; le parcours natif de réglages est réellement refusé.
+            checks['parcours_option_calendrier_refuse'] = fetch(client, '/wp-admin/options-general.php')[0]['status'] == 403
         return key, {'checks': checks, 'response': meta, 'full': decision['complet']}
 
     evidence = dict(concurrent.futures.ThreadPoolExecutor(max_workers=4).map(verify, jobs))

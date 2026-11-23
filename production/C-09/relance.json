@@ -1,11 +1,12 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-23T15:13:25.260429+00:00",
+  "at": "2026-11-23T21:43:19.174587+00:00",
   "url": "http://192.168.129.32:8085",
   "files_sha256": {
-    "imagine-demo-build/c09-runtime.php": "c2b00642bef851a0f0932afdf872a3fb428dd8611f7e2a310cb4765d57c29c2d",
-    "imagine-demo-build/c09-profils.json": "c75a4e3ee753b9df24f1b3cc56591942d760d408de1bfcf48a00134f0222e461",
-    "imagine-demo-build/c09-seed.php": "c9ef9b7777c394260023bff409324f666b13e4c55f18e58a3d0ad009e53d8149"
+    "imagine-demo-build/c09-runtime.php": "23b0e0e7a0d0a4358f43a6c2cb78346536ecba404c3e1f91b74cd333ba15423a",
+    "imagine-demo-build/c09-calendar.php": "7d2a00ec285572d7dd71678444332a1267e6e112b99f4fea1517a188d9dbbb73",
+    "imagine-demo-build/c09-profils.json": "2250a72df496282e8d183565b8fefa0504cdaff1d4dd7113f164bf14ca505372",
+    "imagine-demo-build/c09-seed.php": "d863568bcf679749524794fe13cd66d9f236b10055de79ca057ca0d8566bebd3"
   },
   "before": {
     "b00": {
@@ -244,7 +245,7 @@
           "title": "Article fictif réservé 1 — DEMO-2026-HS",
           "content_sha256": "954627eb91458f46899ba16e29dd556214d187a1bf3046ab84e52dac0b1e3ee1",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-1/",
           "meta": {
             "imagine_demo_key": [
@@ -265,7 +266,7 @@
           "title": "Article fictif réservé 2 — DEMO-2026-HS",
           "content_sha256": "6e4cbd18ed828ee3f4a1539ccb0c459ef95cd44b2bbba49fac6cfd17efea1e52",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-2/",
           "meta": {
             "imagine_demo_key": [
@@ -286,7 +287,7 @@
           "title": "Article fictif réservé 3 — DEMO-2026-HS",
           "content_sha256": "6bf6c4ed7cd12e7b5e402b2aa3270d28a9f4f81658f8a1d00a88ee199ba2a8b2",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-3/",
           "meta": {
             "imagine_demo_key": [
@@ -401,7 +402,7 @@
           "title": "Article fictif réservé 1 — DEMO-2026-T1",
           "content_sha256": "0a7de92e777ae421bd0ebbf21442c568d9f45ada8aca3f98564f3981e674e187",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
           "meta": {
             "imagine_demo_key": [
@@ -422,7 +423,7 @@
           "title": "Article fictif réservé 2 — DEMO-2026-T1",
           "content_sha256": "7ce9ea72723f9a0225df4fbb374a05084d76b83749ad720672167b06e173da19",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-2/",
           "meta": {
             "imagine_demo_key": [
@@ -443,7 +444,7 @@
           "title": "Article fictif réservé 3 — DEMO-2026-T1",
           "content_sha256": "c8b2d35f700961ae351aa8d3986b3df5ea9fe1c0e0c434f64192d1e0aed395cb",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-3/",
           "meta": {
             "imagine_demo_key": [
@@ -558,7 +559,7 @@
           "title": "Article fictif réservé 1 — DEMO-2026-T2",
           "content_sha256": "a81a1d1f0928cf808fdd334cf09c0eec01710c3ffaf647bd67d9596184c0cba2",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-1/",
           "meta": {
             "imagine_demo_key": [
@@ -579,7 +580,7 @@
           "title": "Article fictif réservé 2 — DEMO-2026-T2",
           "content_sha256": "33dae034a367d45d050c57c0f9c2eefc62fd3c9c38369fab0840a4c3ef4ae0aa",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-2/",
           "meta": {
             "imagine_demo_key": [
@@ -600,7 +601,7 @@
           "title": "Article fictif réservé 3 — DEMO-2026-T2",
           "content_sha256": "3915d7ad314dc66753dfa679192c29d71f594d8eb49ae76c5fc397cf13725aff",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-3/",
           "meta": {
             "imagine_demo_key": [
@@ -715,7 +716,7 @@
           "title": "Article fictif réservé 1 — DEMO-2026-T3",
           "content_sha256": "0a914cd46cce6195b616eb92e019f65b264827d79f39bdb99ac752a052f58b4d",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-1/",
           "meta": {
             "imagine_demo_key": [
@@ -736,7 +737,7 @@
           "title": "Article fictif réservé 2 — DEMO-2026-T3",
           "content_sha256": "5ed247c3f2be457f45f8b0eac333dabf49ff876ed3f0e8a9903fd5a9601ab85a",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-2/",
           "meta": {
             "imagine_demo_key": [
@@ -757,7 +758,7 @@
           "title": "Article fictif réservé 3 — DEMO-2026-T3",
           "content_sha256": "fd4a29841b97cdf8993e88daae39282781a4b41f6f62a2f11c5d5d7d1eb2a200",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-3/",
           "meta": {
             "imagine_demo_key": [
@@ -872,7 +873,7 @@
           "title": "Article fictif réservé 1 — DEMO-2026-T4",
           "content_sha256": "41a5fa7545baf7438005a57abd7ddf67f4cef6a51410129b954697f08ff86294",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-1/",
           "meta": {
             "imagine_demo_key": [
@@ -893,7 +894,7 @@
           "title": "Article fictif réservé 2 — DEMO-2026-T4",
           "content_sha256": "5a2183d70521f7de1ee97148edd4a579ed2a465e8c78dbc81ce8bf034025a839",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-2/",
           "meta": {
             "imagine_demo_key": [
@@ -914,7 +915,7 @@
           "title": "Article fictif réservé 3 — DEMO-2026-T4",
           "content_sha256": "2bd08f303aee732a13c6e9a52b7ba45066ad51bb1b26c2d3dd0bc34da82a9001",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-3/",
           "meta": {
             "imagine_demo_key": [
@@ -1391,7 +1392,7 @@
           "title": "Article fictif réservé 1 — DEMO-2026-HS",
           "content_sha256": "954627eb91458f46899ba16e29dd556214d187a1bf3046ab84e52dac0b1e3ee1",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-1/",
           "meta": {
             "imagine_demo_key": [
@@ -1412,7 +1413,7 @@
           "title": "Article fictif réservé 2 — DEMO-2026-HS",
           "content_sha256": "6e4cbd18ed828ee3f4a1539ccb0c459ef95cd44b2bbba49fac6cfd17efea1e52",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-2/",
           "meta": {
             "imagine_demo_key": [
@@ -1433,7 +1434,7 @@
           "title": "Article fictif réservé 3 — DEMO-2026-HS",
           "content_sha256": "6bf6c4ed7cd12e7b5e402b2aa3270d28a9f4f81658f8a1d00a88ee199ba2a8b2",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-3/",
           "meta": {
             "imagine_demo_key": [
@@ -1548,7 +1549,7 @@
           "title": "Article fictif réservé 1 — DEMO-2026-T1",
           "content_sha256": "0a7de92e777ae421bd0ebbf21442c568d9f45ada8aca3f98564f3981e674e187",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
           "meta": {
             "imagine_demo_key": [
@@ -1569,7 +1570,7 @@
           "title": "Article fictif réservé 2 — DEMO-2026-T1",
           "content_sha256": "7ce9ea72723f9a0225df4fbb374a05084d76b83749ad720672167b06e173da19",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-2/",
           "meta": {
             "imagine_demo_key": [
@@ -1590,7 +1591,7 @@
           "title": "Article fictif réservé 3 — DEMO-2026-T1",
           "content_sha256": "c8b2d35f700961ae351aa8d3986b3df5ea9fe1c0e0c434f64192d1e0aed395cb",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-3/",
           "meta": {
             "imagine_demo_key": [
@@ -1705,7 +1706,7 @@
           "title": "Article fictif réservé 1 — DEMO-2026-T2",
           "content_sha256": "a81a1d1f0928cf808fdd334cf09c0eec01710c3ffaf647bd67d9596184c0cba2",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-1/",
           "meta": {
             "imagine_demo_key": [
@@ -1726,7 +1727,7 @@
           "title": "Article fictif réservé 2 — DEMO-2026-T2",
           "content_sha256": "33dae034a367d45d050c57c0f9c2eefc62fd3c9c38369fab0840a4c3ef4ae0aa",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-2/",
           "meta": {
             "imagine_demo_key": [
@@ -1747,7 +1748,7 @@
           "title": "Article fictif réservé 3 — DEMO-2026-T2",
           "content_sha256": "3915d7ad314dc66753dfa679192c29d71f594d8eb49ae76c5fc397cf13725aff",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-3/",
           "meta": {
             "imagine_demo_key": [
@@ -1862,7 +1863,7 @@
           "title": "Article fictif réservé 1 — DEMO-2026-T3",
           "content_sha256": "0a914cd46cce6195b616eb92e019f65b264827d79f39bdb99ac752a052f58b4d",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-1/",
           "meta": {
             "imagine_demo_key": [
@@ -1883,7 +1884,7 @@
           "title": "Article fictif réservé 2 — DEMO-2026-T3",
           "content_sha256": "5ed247c3f2be457f45f8b0eac333dabf49ff876ed3f0e8a9903fd5a9601ab85a",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-2/",
           "meta": {
             "imagine_demo_key": [
@@ -1904,7 +1905,7 @@
           "title": "Article fictif réservé 3 — DEMO-2026-T3",
           "content_sha256": "fd4a29841b97cdf8993e88daae39282781a4b41f6f62a2f11c5d5d7d1eb2a200",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-3/",
           "meta": {
             "imagine_demo_key": [
@@ -2019,7 +2020,7 @@
           "title": "Article fictif réservé 1 — DEMO-2026-T4",
           "content_sha256": "41a5fa7545baf7438005a57abd7ddf67f4cef6a51410129b954697f08ff86294",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-1/",
           "meta": {
             "imagine_demo_key": [
@@ -2040,7 +2041,7 @@
           "title": "Article fictif réservé 2 — DEMO-2026-T4",
           "content_sha256": "5a2183d70521f7de1ee97148edd4a579ed2a465e8c78dbc81ce8bf034025a839",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-2/",
           "meta": {
             "imagine_demo_key": [
@@ -2061,7 +2062,7 @@
           "title": "Article fictif réservé 3 — DEMO-2026-T4",
           "content_sha256": "2bd08f303aee732a13c6e9a52b7ba45066ad51bb1b26c2d3dd0bc34da82a9001",
           "excerpt_sha256": "e4944e8beb11ea2194d106a9f8c32f0beefa28d42ab4ca6dafa7cdf6e9367192",
-          "protected": true,
+          "protected": false,
           "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-3/",
           "meta": {
             "imagine_demo_key": [
@@ -2303,7 +2304,7 @@
   },
   "preserved_b00_c08": true,
   "native": {
-    "total": 364,
+    "total": 377,
     "failures": [],
     "checks": {
       "catalogue_30": true,
@@ -2341,6 +2342,7 @@
       "A-CARTE:nombre_abonnements": true,
       "A-CARTE:nombre_adhesions": true,
       "A-CARTE:commande_sans_paiement": true,
+      "A-CARTE:montant_fixture_explicite": true,
       "A-CARTE:produit_commande": true,
       "A-CARTE:etat_abonnement": true,
       "A-CARTE:aucun_paiement_automatique": true,
@@ -2358,6 +2360,7 @@
       "A-SEPA4:nombre_abonnements": true,
       "A-SEPA4:nombre_adhesions": true,
       "A-SEPA4:commande_sans_paiement": true,
+      "A-SEPA4:montant_fixture_explicite": true,
       "A-SEPA4:produit_commande": true,
       "A-SEPA4:etat_abonnement": true,
       "A-SEPA4:aucun_paiement_automatique": true,
@@ -2375,6 +2378,7 @@
       "A-PAYPAL:nombre_abonnements": true,
       "A-PAYPAL:nombre_adhesions": true,
       "A-PAYPAL:commande_sans_paiement": true,
+      "A-PAYPAL:montant_fixture_explicite": true,
       "A-PAYPAL:produit_commande": true,
       "A-PAYPAL:etat_abonnement": true,
       "A-PAYPAL:aucun_paiement_automatique": true,
@@ -2392,6 +2396,7 @@
       "A-VIR:nombre_abonnements": true,
       "A-VIR:nombre_adhesions": true,
       "A-VIR:commande_sans_paiement": true,
+      "A-VIR:montant_fixture_explicite": true,
       "A-VIR:produit_commande": true,
       "A-VIR:etat_abonnement": true,
       "A-VIR:aucun_paiement_automatique": true,
@@ -2409,6 +2414,7 @@
       "A-PAPIER:nombre_abonnements": true,
       "A-PAPIER:nombre_adhesions": true,
       "A-PAPIER:commande_sans_paiement": true,
+      "A-PAPIER:montant_fixture_explicite": true,
       "A-PAPIER:produit_commande": true,
       "A-PAPIER:etat_abonnement": true,
       "A-PAPIER:aucun_paiement_automatique": true,
@@ -2427,6 +2433,7 @@
       "A-GRACE:nombre_abonnements": true,
       "A-GRACE:nombre_adhesions": true,
       "A-GRACE:commande_sans_paiement": true,
+      "A-GRACE:montant_fixture_explicite": true,
       "A-GRACE:produit_commande": true,
       "A-GRACE:etat_abonnement": true,
       "A-GRACE:aucun_paiement_automatique": true,
@@ -2445,6 +2452,7 @@
       "A-SUSP:nombre_abonnements": true,
       "A-SUSP:nombre_adhesions": true,
       "A-SUSP:commande_sans_paiement": true,
+      "A-SUSP:montant_fixture_explicite": true,
       "A-SUSP:produit_commande": true,
       "A-SUSP:etat_abonnement": true,
       "A-SUSP:aucun_paiement_automatique": true,
@@ -2463,6 +2471,7 @@
       "A-EXPIRE:nombre_abonnements": true,
       "A-EXPIRE:nombre_adhesions": true,
       "A-EXPIRE:commande_sans_paiement": true,
+      "A-EXPIRE:montant_fixture_explicite": true,
       "A-EXPIRE:produit_commande": true,
       "A-EXPIRE:etat_abonnement": true,
       "A-EXPIRE:aucun_paiement_automatique": true,
@@ -2480,6 +2489,7 @@
       "A-NONRENOUV:nombre_abonnements": true,
       "A-NONRENOUV:nombre_adhesions": true,
       "A-NONRENOUV:commande_sans_paiement": true,
+      "A-NONRENOUV:montant_fixture_explicite": true,
       "A-NONRENOUV:produit_commande": true,
       "A-NONRENOUV:etat_abonnement": true,
       "A-NONRENOUV:aucun_paiement_automatique": true,
@@ -2497,6 +2507,7 @@
       "A-ETRANGER:nombre_abonnements": true,
       "A-ETRANGER:nombre_adhesions": true,
       "A-ETRANGER:commande_sans_paiement": true,
+      "A-ETRANGER:montant_fixture_explicite": true,
       "A-ETRANGER:produit_commande": true,
       "A-ETRANGER:etat_abonnement": true,
       "A-ETRANGER:aucun_paiement_automatique": true,
@@ -2515,6 +2526,7 @@
       "A-SANSMAIL:nombre_abonnements": true,
       "A-SANSMAIL:nombre_adhesions": true,
       "A-SANSMAIL:commande_sans_paiement": true,
+      "A-SANSMAIL:montant_fixture_explicite": true,
       "A-SANSMAIL:produit_commande": true,
       "A-SANSMAIL:etat_abonnement": true,
       "A-SANSMAIL:aucun_paiement_automatique": true,
@@ -2532,6 +2544,7 @@
       "A-ECHEANCE:nombre_abonnements": true,
       "A-ECHEANCE:nombre_adhesions": true,
       "A-ECHEANCE:commande_sans_paiement": true,
+      "A-ECHEANCE:montant_fixture_explicite": true,
       "A-ECHEANCE:produit_commande": true,
       "A-ECHEANCE:etat_abonnement": true,
       "A-ECHEANCE:aucun_paiement_automatique": true,
@@ -2604,6 +2617,7 @@
       "P-NUMERO:nombre_abonnements": true,
       "P-NUMERO:nombre_adhesions": true,
       "P-NUMERO:commande_sans_paiement": true,
+      "P-NUMERO:montant_fixture_explicite": true,
       "P-NUMERO:produit_commande": true,
       "P-COOP:motif": true,
       "P-COOP:login_email": true,
@@ -2637,8 +2651,8 @@
       "E-ABO:gestion_commandes": true,
       "aucun_compte_visiteur_robot": true,
       "numero_entreprise_coherent_non_atteste": true,
-      "mail_coupe": true,
-      "http_coupe": true,
+      "mail_coupe_filtre_passif": true,
+      "http_coupe_filtre_passif": true,
       "passerelles_coupees": true,
       "catalogue_plan_droits": true,
       "inventaire_total_27_comptes": true,
@@ -2738,7 +2752,7 @@
           {
             "id": 88,
             "status": "on-hold",
-            "total": "0.00",
+            "total": "120.00",
             "customer_id": 9,
             "item_count": 1,
             "date_paid": null,
@@ -2753,14 +2767,14 @@
             "parent_id": 88,
             "customer_id": 9,
             "status": "active",
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-11-23 15:13:13",
-            "next_payment": "2026-12-23 15:13:13",
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-11-23 21:43:06",
+            "next_payment": "2026-12-23 21:43:06",
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
             "grace_end": "",
-            "scheduled_payment_action": 1798038793
+            "scheduled_payment_action": 1798062186
           }
         ],
         "memberships": [
@@ -2770,8 +2784,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 88,
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-11-23 15:13:13"
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-11-23 21:43:06"
           }
         ]
       },
@@ -2786,7 +2800,7 @@
           {
             "id": 91,
             "status": "on-hold",
-            "total": "0.00",
+            "total": "30.00",
             "customer_id": 10,
             "item_count": 1,
             "date_paid": null,
@@ -2801,14 +2815,14 @@
             "parent_id": 91,
             "customer_id": 10,
             "status": "active",
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-11-23 15:13:13",
-            "next_payment": "2026-12-23 15:13:13",
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-11-23 21:43:06",
+            "next_payment": "2026-12-23 21:43:06",
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
             "grace_end": "",
-            "scheduled_payment_action": 1798038793
+            "scheduled_payment_action": 1798062186
           }
         ],
         "memberships": [
@@ -2818,8 +2832,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 91,
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-11-23 15:13:13"
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-11-23 21:43:06"
           }
         ]
       },
@@ -2834,7 +2848,7 @@
           {
             "id": 94,
             "status": "on-hold",
-            "total": "0.00",
+            "total": "120.00",
             "customer_id": 11,
             "item_count": 1,
             "date_paid": null,
@@ -2849,14 +2863,14 @@
             "parent_id": 94,
             "customer_id": 11,
             "status": "active",
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-11-23 15:13:13",
-            "next_payment": "2026-12-23 15:13:13",
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-11-23 21:43:06",
+            "next_payment": "2026-12-23 21:43:06",
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
             "grace_end": "",
-            "scheduled_payment_action": 1798038793
+            "scheduled_payment_action": 1798062186
           }
         ],
         "memberships": [
@@ -2866,8 +2880,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 94,
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-11-23 15:13:13"
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-11-23 21:43:06"
           }
         ]
       },
@@ -2875,7 +2889,7 @@
         "user_id": 12,
         "decision": {
           "complet": false,
-          "motif": "suspendu",
+          "motif": "virement_non_valide",
           "bloc": "regularisation"
         },
         "orders": [
@@ -2897,9 +2911,9 @@
             "parent_id": 97,
             "customer_id": 12,
             "status": "pending",
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-11-23 15:13:13",
-            "next_payment": "2026-12-23 15:13:13",
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-11-23 21:43:06",
+            "next_payment": "2026-12-23 21:43:06",
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
@@ -2914,8 +2928,8 @@
             "plan_id": 86,
             "status": "pending",
             "order_id": 97,
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-11-23 15:13:13"
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-11-23 21:43:06"
           }
         ]
       },
@@ -2930,7 +2944,7 @@
           {
             "id": 100,
             "status": "on-hold",
-            "total": "0.00",
+            "total": "30.00",
             "customer_id": 13,
             "item_count": 1,
             "date_paid": null,
@@ -2945,14 +2959,14 @@
             "parent_id": 100,
             "customer_id": 13,
             "status": "active",
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-11-23 15:13:13",
-            "next_payment": "2026-11-23 16:13:13",
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-11-23 21:43:06",
+            "next_payment": "2026-11-23 22:43:06",
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
             "grace_end": "",
-            "scheduled_payment_action": 1795450393
+            "scheduled_payment_action": 1795473786
           }
         ],
         "memberships": [
@@ -2962,8 +2976,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 100,
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-11-23 15:13:13"
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-11-23 21:43:06"
           }
         ]
       },
@@ -2993,13 +3007,13 @@
             "parent_id": 103,
             "customer_id": 14,
             "status": "on-hold",
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-11-23 15:13:13",
-            "next_payment": "2026-12-23 15:13:13",
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-11-23 21:43:06",
+            "next_payment": "2026-12-23 21:43:06",
             "manual": true,
             "payment_count": 0,
-            "grace_start": "2026-11-22 15:13:13",
-            "grace_end": "2026-11-25 15:13:13",
+            "grace_start": "2026-11-22 21:43:06",
+            "grace_end": "2026-11-25 21:43:06",
             "scheduled_payment_action": false
           }
         ],
@@ -3010,8 +3024,8 @@
             "plan_id": 86,
             "status": "paused",
             "order_id": 103,
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-11-23 15:13:13"
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-11-23 21:43:06"
           }
         ]
       },
@@ -3041,13 +3055,13 @@
             "parent_id": 106,
             "customer_id": 15,
             "status": "on-hold",
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-11-23 15:13:13",
-            "next_payment": "2026-12-23 15:13:13",
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-11-23 21:43:06",
+            "next_payment": "2026-12-23 21:43:06",
             "manual": true,
             "payment_count": 0,
-            "grace_start": "2026-11-19 15:13:13",
-            "grace_end": "2026-11-22 15:13:13",
+            "grace_start": "2026-11-19 21:43:06",
+            "grace_end": "2026-11-22 21:43:06",
             "scheduled_payment_action": false
           }
         ],
@@ -3058,8 +3072,8 @@
             "plan_id": 86,
             "status": "paused",
             "order_id": 106,
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-11-23 15:13:13"
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-11-23 21:43:06"
           }
         ]
       },
@@ -3089,8 +3103,8 @@
             "parent_id": 109,
             "customer_id": 16,
             "status": "expired",
-            "start": "2025-12-23 15:13:13",
-            "end": "2026-11-22 15:13:13",
+            "start": "2025-12-23 21:43:06",
+            "end": "2026-11-22 21:43:06",
             "next_payment": 0,
             "manual": true,
             "payment_count": 0,
@@ -3106,8 +3120,8 @@
             "plan_id": 86,
             "status": "expired",
             "order_id": 109,
-            "start": "2025-12-23 15:13:13",
-            "end": "2026-11-22 15:13:13"
+            "start": "2025-12-23 21:43:06",
+            "end": "2026-11-22 21:43:06"
           }
         ]
       },
@@ -3137,8 +3151,8 @@
             "parent_id": 112,
             "customer_id": 17,
             "status": "pending-cancel",
-            "start": "2025-12-23 15:13:13",
-            "end": "2026-12-23 15:13:13",
+            "start": "2025-12-23 21:43:06",
+            "end": "2026-12-23 21:43:06",
             "next_payment": 0,
             "manual": true,
             "payment_count": 0,
@@ -3154,8 +3168,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 112,
-            "start": "2025-12-23 15:13:13",
-            "end": "2026-12-23 15:13:13"
+            "start": "2025-12-23 21:43:06",
+            "end": "2026-12-23 21:43:06"
           }
         ]
       },
@@ -3185,14 +3199,14 @@
             "parent_id": 115,
             "customer_id": 18,
             "status": "active",
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-11-23 15:13:13",
-            "next_payment": "2026-12-23 15:13:13",
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-11-23 21:43:06",
+            "next_payment": "2026-12-23 21:43:06",
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
             "grace_end": "",
-            "scheduled_payment_action": 1798038793
+            "scheduled_payment_action": 1798062186
           }
         ],
         "memberships": [
@@ -3202,8 +3216,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 115,
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-11-23 15:13:13"
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-11-23 21:43:06"
           }
         ]
       },
@@ -3233,14 +3247,14 @@
             "parent_id": 118,
             "customer_id": 19,
             "status": "active",
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-11-23 15:13:13",
-            "next_payment": "2026-12-23 15:13:13",
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-11-23 21:43:06",
+            "next_payment": "2026-12-23 21:43:06",
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
             "grace_end": "",
-            "scheduled_payment_action": 1798038793
+            "scheduled_payment_action": 1798062186
           }
         ],
         "memberships": [
@@ -3250,8 +3264,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 118,
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-11-23 15:13:13"
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-11-23 21:43:06"
           }
         ]
       },
@@ -3281,14 +3295,14 @@
             "parent_id": 121,
             "customer_id": 20,
             "status": "active",
-            "start": "2025-12-23 15:13:13",
-            "end": "2026-12-23 15:13:13",
-            "next_payment": "2026-12-22 15:13:13",
+            "start": "2025-12-23 21:43:06",
+            "end": "2026-12-23 21:43:06",
+            "next_payment": "2026-12-22 21:43:06",
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
             "grace_end": "",
-            "scheduled_payment_action": 1797952393
+            "scheduled_payment_action": 1797975786
           }
         ],
         "memberships": [
@@ -3298,8 +3312,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 121,
-            "start": "2025-12-23 15:13:13",
-            "end": "2026-12-23 15:13:13"
+            "start": "2025-12-23 21:43:06",
+            "end": "2026-12-23 21:43:06"
           }
         ]
       },
@@ -3374,8 +3388,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": null,
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-11-23 15:13:13"
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-11-23 21:43:06"
           }
         ]
       },
@@ -3395,8 +3409,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": null,
-            "start": "2025-12-23 15:13:13",
-            "end": "2027-01-07 15:13:13"
+            "start": "2025-12-23 21:43:06",
+            "end": "2027-01-07 21:43:06"
           }
         ]
       },
@@ -3454,14 +3468,18 @@
         },
         "orders": [],
         "subscriptions": [],
-        "memberships": []
+        "memberships": [],
+        "calendar_edit": {
+          "capability": "manage_options",
+          "allowed": false
+        }
       },
       "E-ABO": {
         "user_id": 32,
         "decision": {
-          "complet": false,
-          "motif": "sans_droit",
-          "bloc": "abonnement"
+          "complet": true,
+          "motif": "equipe",
+          "bloc": "aucun"
         },
         "orders": [],
         "subscriptions": [],
@@ -3544,6 +3562,14 @@
         "A-ECHEANCE": 123,
         "P-SOL-ATT": 124,
         "P-SOL-OK": 125
+      },
+      "tariffs": {
+        "normal-1": 192,
+        "normal-4": 193,
+        "solidaire-1": 194,
+        "solidaire-4": 195,
+        "soutien-1": 196,
+        "soutien-4": 197
       }
     }
   },

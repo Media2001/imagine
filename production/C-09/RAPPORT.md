@@ -8,8 +8,8 @@
 
 ## Catégories
 
-- **créé (5)** : V-ANON, V-FAUX, A-EXPIRE, E-ADMIN, E-REDAC.
-- **partiel (24)** : V-DEC, V-DEC-FIN, V-INSCRIT, A-CARTE, A-SEPA4, A-PAYPAL, A-VIR, A-PAPIER, A-GRACE, A-SUSP, A-NONRENOUV, A-ETRANGER, A-SANSMAIL, A-ECHEANCE, P-OFFRANT, P-OFFERT, P-GEST, P-BENEF, P-PRO, P-SOL-ATT, P-SOL-OK, P-NUMERO, P-COOP, E-ABO.
+- **créé (4)** : V-ANON, V-FAUX, A-EXPIRE, E-ADMIN.
+- **partiel (25)** : V-DEC, V-DEC-FIN, V-INSCRIT, A-CARTE, A-SEPA4, A-PAYPAL, A-VIR, A-PAPIER, A-GRACE, A-SUSP, A-NONRENOUV, A-ETRANGER, A-SANSMAIL, A-ECHEANCE, P-OFFRANT, P-OFFERT, P-GEST, P-BENEF, P-PRO, P-SOL-ATT, P-SOL-OK, P-NUMERO, P-COOP, E-REDAC, E-ABO.
 - **impossible (1)** : V-ROBOT.
 
 Les trois V-ANON/V-FAUX/V-ROBOT ne sont pas des comptes. Les 27 comptes existants sont tous testés par authentification et par la décision native ; deux scénarios sans compte complètent les 29 décisions. V-ROBOT n’a aucune preuve positive inventée.
@@ -17,15 +17,18 @@ Les trois V-ANON/V-FAUX/V-ROBOT ne sont pas des comptes. Les 27 comptes existant
 ## Résultats après les sources finales
 
 - unitaires : **7/7**.
-- natifs : **364/364**.
+- natifs : **377/377**.
 - http : **192/192**.
-- securite : **5/5**.
-- reset : **4/4**.
+- securite : **10/10**.
+- reset : **6/6**.
 - regression_c08 : **30/30**.
 - integrite : **8/8**.
-- Total de la dernière passe, sans compter les répétitions : **610 contrôles/tests réussis, 0 échec** (7 tests unittest et assertions de recettes pour les autres catégories).
+- corrections : **41/41**.
+- horloge : **11/11**.
+- plan : **4/4**.
+- Total de la dernière passe, sans compter les répétitions : **686 contrôles/tests réussis, 0 échec** (7 tests unittest et assertions de recettes pour les autres catégories).
 - Installation, relance, altérations puis reset réel : ID principaux inchangés. Les altérations sont bien détectées avant restauration ; doublons natifs possédés supprimés, objet supplémentaire sur V-INSCRIT retiré.
-- B00 conservé par comparaison avec le snapshot initial ; trois comptes C08, abonnements, adhésions, articles et manifestes conservés. Les fichiers PHP des bibliothèques closes et le thème installé correspondent aux sources (93 fichiers vérifiés).
+- B00 conservé par comparaison exacte avec son snapshot initial ; trois comptes C08, abonnements, adhésions, articles et manifestes conservés. Aucune nouvelle collecte d’empreintes des bibliothèques closes ou du thème.
 
 ## Limites et incidents résolus
 
@@ -35,4 +38,6 @@ Les trois V-ANON/V-FAUX/V-ROBOT ne sont pas des comptes. Les 27 comptes existant
 - Une première recette de reset a révélé un objet possédé supplémentaire sur un profil sans commande attendue : suppression ciblée ajoutée et vérifiée. Un test natif a aussi révélé l’absence de garde URL directe PHP : corrigée avant le feu vert.
 - Les inventaires natifs utilisent les statuts explicites propres à Subscriptions (les statuts Woo par défaut omettaient les actifs) et le type natif string de billing_interval est interprété comme entier. Aucun objet n’a été inventé pour adapter les nombres aux tests.
 
-Voir A-VOIR.md pour la vue profil par profil et readback.json/http.json pour les preuves nominatives. Le calendrier trois ans et la grille trois tarifs × une/quatre fois sont explicitement incomplets ; le zéro de fixture n’est pas un prix réel.
+Une première recette PHP incluait le seed dans sa portée et son $id local a été écrasé : le numéro fictif B00 ID32 a subi une mutation transitoire. Restauration ciblée immédiate, snapshot B00 relu exactement égal au snapshot initial ; seed désormais isolé dans une fermeture dans les tests plan/horloge. Aucun compte ni donnée réel. Incident signalé, pas masqué par un reseed général.
+
+Le calendrier trois ans et les six produits tarifaires fictifs sont complets ; cinq numéros sont matérialisés, raccords métier toujours distincts. E-REDAC partiel, E-ABO rôle dédié sans éditorial et lecture équipe ; renouvellement activé explicitement non démontrable accepté à 21h10. Inventaire C10 27/13/12/14 inchangé ; six produits ajoutés, pas six commandes. Aucun cron ajouté, aucun C10/Paywall.php, verrou ou rapport central modifié. Voir A-VOIR.md, corrections.json, clock.json, plan.json, safety.json et readback.json.

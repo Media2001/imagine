@@ -1,5 +1,5 @@
 {
-  "total": 9,
+  "total": 10,
   "checks": {
     "mauvais_nom_refuse": true,
     "mauvaise_url_refusee_avant_toute_action": true,
@@ -9,7 +9,8 @@
     "pre_http_request:sentinelles_non_appelees": true,
     "filtre_mail_neutralise_refuse_sans_envoyer": true,
     "compte_non_possede_refuse": true,
-    "adhesion_non_possedee_refusee": true
+    "adhesion_non_possedee_refusee": true,
+    "aucun_transport_pendant_toute_la_garde": true
   },
   "failures": []
 }
