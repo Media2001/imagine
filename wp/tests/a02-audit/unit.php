@@ -4,6 +4,16 @@ declare(strict_types=1);
 
 namespace Imagine\Audit\Tests;
 
+final class WakeCanary
+{
+    public static bool $woke = false;
+
+    public function __wakeup(): void
+    {
+        self::$woke = true;
+    }
+}
+
 $subject = '/subject/audit';
 $checks = [];
 function check(string $name, bool $ok): void
@@ -31,6 +41,12 @@ if (is_file($subject)) {
         }
         check('serialized_object_never_instantiated', \Imagine\Audit\Audit::decode('O:8:"stdClass":0:{}') === []);
         check('version_only', \Imagine\Audit\Audit::version('11.1.1') === '11.1.1' && \Imagine\Audit\Audit::version('private@example.org') === null);
+        $gateway = '<?php class Gateway extends WC_Payment_Gateway { const ID = "bacs"; function x() { $this->id = self::ID; } }';
+        check('gateway_literal_constant', \Imagine\Audit\Audit::gatewayIds($gateway) === ['bacs']);
+        check('nongateway_id_ignored', \Imagine\Audit\Audit::gatewayIds('<?php class Hook { function x(WC_Payment_Gateway $g) { $this->id = "not_a_gateway"; } }') === []);
+        \Imagine\Audit\Audit::decode(serialize(['nested' => new WakeCanary()]));
+        check('nested_object_magic_not_called', WakeCanary::$woke === false);
+        check('malformed_serialization_empty', \Imagine\Audit\Audit::decode('not serialized') === []);
     } else {
         check('config_literal_without_execution', false);
     }

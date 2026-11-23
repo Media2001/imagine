@@ -19,7 +19,6 @@ final class Audit
             throw new \RuntimeException('A02_SERIALIZED_TOO_LARGE');
         }
         $decoded = @unserialize($value, ['allowed_classes' => false, 'max_depth' => 32]);
-        $decoded = @unserialize($value, ['allowed_classes' => false, 'max_depth' => 32]);
         // Never load plugin classes or magic methods, including nested cache stdClass.
         $walk = static function ($node, int $depth = 0) use (&$walk): mixed {
             if ($depth > 32) {
@@ -364,16 +363,18 @@ final class Audit
                 continue;
             }
             $schedule = $rule['access_schedule'] ?? null;
+            $dripMatch = [];
+            $timed = is_string($schedule) && preg_match('/\A([0-9]{1,6}) (day|week|month|year)s?\z/D', $schedule, $dripMatch);
             $ids = array_values(array_filter(array_map([self::class, 'number'], (array) ($rule['object_ids'] ?? [])), static fn($v): bool => $v !== null));
             $rules[] = ['plan_id' => self::number($rule['membership_plan_id'] ?? null),
                 'active' => ($rule['active'] ?? null) === 'yes',
                 'content_type' => self::identifier($rule['content_type'] ?? ''),
                 'content_type_name' => self::identifier($rule['content_type_name'] ?? ''),
                 'object_ids' => $ids, 'all_objects' => !$ids,
-                'access_schedule' => in_array($schedule, ['immediate', 'specific', 'fixed'], true) ? $schedule : null,
+                'access_schedule' => $schedule === 'immediate' ? 'immediate' : ($timed ? 'after_membership_start' : null),
                 'drip' => $schedule !== 'immediate',
-                'amount' => self::number($rule['access_schedule_amount'] ?? null),
-                'period' => self::period($rule['access_schedule_period'] ?? null)];
+                'amount' => $timed ? (int) $dripMatch[1] : null,
+                'period' => $timed ? $dripMatch[2] : null];
         }
         return ['plans' => $plans, 'rules' => $rules,
             'interpretation' => 'raw_saved_rules_not_runtime_effective_access; ids_only_no_titles_or_user_ids'];

@@ -130,7 +130,7 @@ def run_storage(storage):
     check(storage + ':product_safe_settings', product['period'] == 'month' and product['interval'] == 2 and product['trial_length'] == 7 and product['sign_up_fee'] == '4.50' and product['sync'] == 15)
     memberships = data['sections']['memberships']
     check(storage + ':membership_plan_and_rules', seed['plan_id'] in [v['id'] for v in memberships['plans']] and len(memberships['rules']) == 2)
-    check(storage + ':restriction_taxonomy_drip', any(v['content_type_name'] == 'category' and v['drip'] for v in memberships['rules']))
+    check(storage + ':restriction_taxonomy_drip', any(v['content_type_name'] == 'category' and v['drip'] and v['amount'] == 7 and v['period'] == 'day' for v in memberships['rules']))
     content = data['sections']['content']
     check(storage + ':content_counts', next(v['count'] for v in content['post_types'] if v['name'] == 'post') >= 3 and any(v['name'] == 'category' for v in content['taxonomies']))
     check(storage + ':yearly_articles_fields', any(v['year'] == 2025 and v['count'] == 2 for v in content['posts_by_year']) and any(v['name'] == 'a02_editorial_field' and v['count'] == 3 for v in content['custom_fields']))

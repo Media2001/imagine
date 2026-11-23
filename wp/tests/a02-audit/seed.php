@@ -18,7 +18,7 @@ update_post_meta($plan, '_access_method', 'manual-only');
 update_post_meta($plan, '_access_length', 'unlimited');
 wc_memberships()->get_rules_instance()->set_rules(['add' => [
     ['membership_plan_id' => $plan, 'active' => 'yes', 'rule_type' => 'content_restriction', 'content_type' => 'post_type', 'content_type_name' => 'post', 'object_ids' => [$posts[0]], 'access_schedule' => 'immediate'],
-    ['membership_plan_id' => $plan, 'active' => 'yes', 'rule_type' => 'content_restriction', 'content_type' => 'taxonomy', 'content_type_name' => 'category', 'object_ids' => [$term['term_id']], 'access_schedule' => 'specific', 'access_schedule_amount' => '7', 'access_schedule_period' => 'day'],
+    ['membership_plan_id' => $plan, 'active' => 'yes', 'rule_type' => 'content_restriction', 'content_type' => 'taxonomy', 'content_type_name' => 'category', 'object_ids' => [$term['term_id']], 'access_schedule' => '7 days'],
 ]]);
 foreach (['active', 'expired', 'cancelled'] as $i => $state) {
     $u = $i === 0 ? $uid : wp_insert_user(['user_login' => 'a02-fictif-' . $i, 'user_email' => 'fiction-a02-' . $i . '@example.org', 'user_pass' => wp_generate_password(40)]);
