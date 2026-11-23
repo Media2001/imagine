@@ -1,0 +1,384 @@
+{
+  "total": 108,
+  "failures": [],
+  "accounts": {
+    "V-DEC": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27257,
+        "sha256": "7a65112759770ae7bb2671272276bf96330aeb1ce184233da6897fa8ed411c78",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "V-DEC-FIN": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27257,
+        "sha256": "7a65112759770ae7bb2671272276bf96330aeb1ce184233da6897fa8ed411c78",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "V-INSCRIT": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27257,
+        "sha256": "7a65112759770ae7bb2671272276bf96330aeb1ce184233da6897fa8ed411c78",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "A-CARTE": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28325,
+        "sha256": "91cdaa3ed67aa24224f78dc92125efb25c4cc5fa95d9c00fbeb4001c8d29d13f",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "A-SEPA4": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28325,
+        "sha256": "91cdaa3ed67aa24224f78dc92125efb25c4cc5fa95d9c00fbeb4001c8d29d13f",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "A-PAYPAL": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28325,
+        "sha256": "91cdaa3ed67aa24224f78dc92125efb25c4cc5fa95d9c00fbeb4001c8d29d13f",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "A-VIR": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27248,
+        "sha256": "734c1d0aa4cadf64e1f428698ba2a3e4a3dfa7ad33bdf39ed6ac7127a8818ac9",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "A-PAPIER": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28325,
+        "sha256": "91cdaa3ed67aa24224f78dc92125efb25c4cc5fa95d9c00fbeb4001c8d29d13f",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "A-GRACE": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28638,
+        "sha256": "b907726abacff2a95d7b2ec5b3599c3816bca548dbfee7c36a6111dbff2ecc96",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "A-SUSP": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27248,
+        "sha256": "734c1d0aa4cadf64e1f428698ba2a3e4a3dfa7ad33bdf39ed6ac7127a8818ac9",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "A-EXPIRE": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27274,
+        "sha256": "d613052fbd4670d3ce147405ac35cfe4084da70159da9cd47c23fcf7ce2ac524",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "A-NONRENOUV": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28325,
+        "sha256": "91cdaa3ed67aa24224f78dc92125efb25c4cc5fa95d9c00fbeb4001c8d29d13f",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "A-ETRANGER": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28325,
+        "sha256": "91cdaa3ed67aa24224f78dc92125efb25c4cc5fa95d9c00fbeb4001c8d29d13f",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "A-SANSMAIL": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28325,
+        "sha256": "91cdaa3ed67aa24224f78dc92125efb25c4cc5fa95d9c00fbeb4001c8d29d13f",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "A-ECHEANCE": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28325,
+        "sha256": "91cdaa3ed67aa24224f78dc92125efb25c4cc5fa95d9c00fbeb4001c8d29d13f",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "P-OFFRANT": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27257,
+        "sha256": "7a65112759770ae7bb2671272276bf96330aeb1ce184233da6897fa8ed411c78",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "P-OFFERT": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27257,
+        "sha256": "7a65112759770ae7bb2671272276bf96330aeb1ce184233da6897fa8ed411c78",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "P-GEST": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27257,
+        "sha256": "7a65112759770ae7bb2671272276bf96330aeb1ce184233da6897fa8ed411c78",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "P-BENEF": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27257,
+        "sha256": "7a65112759770ae7bb2671272276bf96330aeb1ce184233da6897fa8ed411c78",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "P-PRO": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27257,
+        "sha256": "7a65112759770ae7bb2671272276bf96330aeb1ce184233da6897fa8ed411c78",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "P-SOL-ATT": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28325,
+        "sha256": "91cdaa3ed67aa24224f78dc92125efb25c4cc5fa95d9c00fbeb4001c8d29d13f",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "P-SOL-OK": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 28325,
+        "sha256": "91cdaa3ed67aa24224f78dc92125efb25c4cc5fa95d9c00fbeb4001c8d29d13f",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "P-NUMERO": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27257,
+        "sha256": "7a65112759770ae7bb2671272276bf96330aeb1ce184233da6897fa8ed411c78",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "P-COOP": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 27257,
+        "sha256": "7a65112759770ae7bb2671272276bf96330aeb1ce184233da6897fa8ed411c78",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "E-ADMIN": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 41104,
+        "sha256": "4303334ef3fb7b66b3bef13180899933d1387414678063e665e02459fac50855",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "E-REDAC": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 36044,
+        "sha256": "d6e61739a86bf00d23c81f0af533a01f5802a4323ffbe9fee713c308ba893cbc",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    },
+    "E-ABO": {
+      "checks": {
+        "connexion_et_http200": true,
+        "corps_selon_droit_natif": true,
+        "bloc_selon_droit_natif": true,
+        "sans_erreur_php": true
+      },
+      "response": {
+        "status": 200,
+        "bytes": 39461,
+        "sha256": "380fc1a0bac664316a5cf1567820f0a702d9a2525059cc01af7f89effda0ef50",
+        "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+      }
+    }
+  }
+}

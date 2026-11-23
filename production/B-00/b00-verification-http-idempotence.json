@@ -553,7 +553,7 @@
       "headers": {
         "Content-Type": "text/html; charset=UTF-8"
       },
-      "body_sha256": "0aa4e3eef946b975c19791f05e7f6a2f851beee72b28cf7b8fbc1f1f32bfdf1f",
+      "body_sha256": "bc3dda3a9f54308226514c363dee36149c69418024e84c01a0174299a3b2155b",
       "body_bytes": 28303
     },
     "objet_term:demo-thematique-2": {
@@ -583,8 +583,8 @@
       "headers": {
         "Content-Type": "text/html; charset=UTF-8"
       },
-      "body_sha256": "0fde44c1ff57e090bea1c3ef16f31c24d9dd07c1f9ed5d2d400abdc232664277",
-      "body_bytes": 304332
+      "body_sha256": "686a04d525caad2a093cdd2a02a4d92faf1b30322732f7c5300e634c0967aef2",
+      "body_bytes": 304338
     }
   }
 }

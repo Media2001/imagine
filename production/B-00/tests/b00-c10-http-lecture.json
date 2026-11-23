@@ -1,0 +1,15 @@
+{
+  "total": 9,
+  "checks": {
+    "E-ADMIN:autorisation": true,
+    "rendu:Journal des modifications": true,
+    "rendu:À confirmer par Imagine": true,
+    "rendu:Accès": true,
+    "rendu:Liste d’envoi": true,
+    "huit_champs": true,
+    "E-REDAC:autorisation": true,
+    "E-ABO:autorisation": true,
+    "V-INSCRIT:autorisation": true
+  },
+  "failures": []
+}

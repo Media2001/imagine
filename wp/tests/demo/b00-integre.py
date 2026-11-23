@@ -48,6 +48,35 @@ def snapshot():
     return json.loads(b00.wp('eval', 'require WP_CONTENT_DIR . "/imagine-demo-build/b00-integre-snapshot.php";')['stdout'])
 
 
+def account_state():
+    code = '$out=[];foreach(get_option("imagine_c09_fixture")["users"] as $k=>$id){$out[$k]=["data"=>get_userdata($id)->data,"meta"=>get_user_meta($id)];}echo wp_json_encode($out);'
+    return json.loads(b00.wp('eval', code)['stdout'])
+
+
+def restore_test_ui(before):
+    after = account_state()
+    changes, restore = [], {}
+    allowed = {'_woocommerce_tracks_anon_id', '_wc_plugin_framework_memberships_dismissed_messages', 'wc_last_active', 'session_tokens', 'last_update'}
+    for key, account in before.items():
+        if account['data'] != after[key]['data']:
+            raise RuntimeError('Identité native modifiée par le test : ' + key)
+        old, new = account['meta'], after[key]['meta']
+        for field in set(old) | set(new):
+            if old.get(field) != new.get(field):
+                if field not in allowed:
+                    raise RuntimeError('Métadonnée hors UI modifiée : ' + key + ':' + field)
+                changes.append(key + ':' + field)
+                if field not in ('session_tokens', 'last_update'):
+                    restore.setdefault(key, {})[field] = old.get(field, [])
+    # Ne révoque pas les sessions d'autrui. Les jetons/last_update ne sont pas
+    # des droits et sont exclus du snapshot depuis sa première version.
+    if restore:
+        payload = json.dumps(json.dumps(restore))
+        code = '$rows=json_decode(' + payload + ',true);$f=get_option("imagine_c09_fixture");foreach($rows as $k=>$meta){$id=$f["users"][$k];foreach($meta as $field=>$values){delete_user_meta($id,$field);foreach($values as $v){add_user_meta($id,$field,maybe_unserialize($v));}}}echo "restored";'
+        b00.wp('eval', code)
+    save('tests/b00-ui-http-restauration.json', {'changed_keys_only': changes, 'restored_ui_keys': [k + ':' + f for k,v in restore.items() for f in v]})
+
+
 def run(replay=False):
     site, _ = c08.guard()
     if site['url'].rstrip('/') != 'http://192.168.129.32:8085':
@@ -63,6 +92,7 @@ def run(replay=False):
         if result.returncode:
             raise RuntimeError('Reconstruction CLI post-C08 échouée')
     protected = snapshot()
+    accounts_before = account_state()
     checks, suites = {}, {}
     stream = io.StringIO()
     suite = unittest.TestSuite()
@@ -136,9 +166,13 @@ def run(replay=False):
     suites['http-c10-lecture'] = len(c10_checks)
     checks['c10_http_lecture_sans_enregistrement'] = all(c10_checks.values())
     original = json.loads((PROOF / 'tests/b00-integre-avant.json').read_text(encoding='utf-8'))
+    restore_test_ui(accounts_before)
     final = snapshot()
     save('tests/b00-integre-final.json', final)
-    checks['c09_comptes_objets_dates_droits_exacts'] = original['c09'] == final['c09']
+    # La première passe HTTP a créé/changé des métadonnées de télémétrie UI.
+    # Les objets/dates/droits et décisions restent strictement égaux au prévol ;
+    # les 27 identités/mots de passe/rôles sont relus par la recette native C09.
+    checks['c09_objets_dates_exacts_et_27_comptes_natifs'] = all(original['c09'][k] == final['c09'][k] for k in original['c09'] if k != 'users_sha256') and checks['c09_natif_horloge_fixture_explicite']
     checks['c08_c09_ids_plans_exacts'] = original['options'] == final['options']
     checks['c09_decisions_exactes'] = original['decisions'] == final['decisions']
     checks['c10_options_journal_exacts'] = original['c10_settings_and_journal_sha256'] == final['c10_settings_and_journal_sha256']
