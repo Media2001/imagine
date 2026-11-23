@@ -1,16 +1,61 @@
 [
   {
-    "package": "html5lib",
-    "version": "1.1",
-    "url": "https://files.pythonhosted.org/packages/6c/dd/a834df6482147d48e225a49515aabc28974ad5a4ca3215c18a882565b028/html5lib-1.1-py2.py3-none-any.whl",
-    "sha256": "0d78f8fde1c230e99fe37986a60526d7049ed4bf8a9fadbad5f00e22e58e041d",
-    "file": "html5lib-1.1-py2.py3-none-any.whl"
+    "file": "beautifulsoup4-4.14.3-py3-none-any.whl",
+    "name": "beautifulsoup4",
+    "version": "4.14.3",
+    "sha256": "0918bfe44902e6ad8d57732ba310582e98da931428d231a5ecb9e7c703a735bb",
+    "requires_dist": [
+      "soupsieve>=1.6.1",
+      "typing-extensions>=4.0.0",
+      "cchardet; extra == 'cchardet'",
+      "chardet; extra == 'chardet'",
+      "charset-normalizer; extra == 'charset-normalizer'",
+      "html5lib; extra == 'html5lib'",
+      "lxml; extra == 'lxml'"
+    ]
   },
   {
-    "package": "webencodings",
+    "file": "html5lib-1.1-py2.py3-none-any.whl",
+    "name": "html5lib",
+    "version": "1.1",
+    "sha256": "0d78f8fde1c230e99fe37986a60526d7049ed4bf8a9fadbad5f00e22e58e041d",
+    "requires_dist": [
+      "six (>=1.9)",
+      "webencodings",
+      "genshi ; extra == 'all'",
+      "chardet (>=2.2) ; extra == 'all'",
+      "lxml ; (platform_python_implementation == 'CPython') and extra == 'all'",
+      "chardet (>=2.2) ; extra == 'chardet'",
+      "genshi ; extra == 'genshi'",
+      "lxml ; (platform_python_implementation == 'CPython') and extra == 'lxml'"
+    ]
+  },
+  {
+    "file": "six-1.17.0-py2.py3-none-any.whl",
+    "name": "six",
+    "version": "1.17.0",
+    "sha256": "4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274",
+    "requires_dist": []
+  },
+  {
+    "file": "soupsieve-2.8.3-py3-none-any.whl",
+    "name": "soupsieve",
+    "version": "2.8.3",
+    "sha256": "ed64f2ba4eebeab06cc4962affce381647455978ffc1e36bb79a545b91f45a95",
+    "requires_dist": []
+  },
+  {
+    "file": "typing_extensions-4.15.0-py3-none-any.whl",
+    "name": "typing_extensions",
+    "version": "4.15.0",
+    "sha256": "f0fa19c6845758ab08074a0cfa8b7aecb71c999ca73d62883bc25cc018c4e548",
+    "requires_dist": []
+  },
+  {
+    "file": "webencodings-0.5.1-py2.py3-none-any.whl",
+    "name": "webencodings",
     "version": "0.5.1",
-    "url": "https://files.pythonhosted.org/packages/f4/24/2a3e3df732393fed8b3ebf2ec078f05546de641fe1b667ee316ec1dcf3b7/webencodings-0.5.1-py2.py3-none-any.whl",
     "sha256": "a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78",
-    "file": "webencodings-0.5.1-py2.py3-none-any.whl"
+    "requires_dist": []
   }
 ]

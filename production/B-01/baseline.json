@@ -1,0 +1,204 @@
+{
+  "url": "http://192.168.129.32:8085",
+  "wp": "7.0.9",
+  "locale": "fr_FR",
+  "manifest": {
+    "demo-2026-hs": 32,
+    "demo-2026-hs-couverture": 33,
+    "demo-2026-hs-ouvert": 38,
+    "demo-2026-hs-pdf": 34,
+    "demo-2026-hs-reserve-1": 35,
+    "demo-2026-hs-reserve-2": 36,
+    "demo-2026-hs-reserve-3": 37,
+    "demo-2026-t1": 11,
+    "demo-2026-t1-couverture": 12,
+    "demo-2026-t1-ouvert": 17,
+    "demo-2026-t1-pdf": 13,
+    "demo-2026-t1-reserve-1": 14,
+    "demo-2026-t1-reserve-2": 15,
+    "demo-2026-t1-reserve-3": 16,
+    "demo-2026-t2": 18,
+    "demo-2026-t2-couverture": 19,
+    "demo-2026-t2-ouvert": 24,
+    "demo-2026-t2-pdf": 20,
+    "demo-2026-t2-reserve-1": 21,
+    "demo-2026-t2-reserve-2": 22,
+    "demo-2026-t2-reserve-3": 23,
+    "demo-2026-t3": 25,
+    "demo-2026-t3-couverture": 26,
+    "demo-2026-t3-ouvert": 31,
+    "demo-2026-t3-pdf": 27,
+    "demo-2026-t3-reserve-1": 28,
+    "demo-2026-t3-reserve-2": 29,
+    "demo-2026-t3-reserve-3": 30,
+    "demo-2026-t4": 39,
+    "demo-2026-t4-couverture": 40,
+    "demo-2026-t4-ouvert": 45,
+    "demo-2026-t4-pdf": 41,
+    "demo-2026-t4-reserve-1": 42,
+    "demo-2026-t4-reserve-2": 43,
+    "demo-2026-t4-reserve-3": 44,
+    "demo-accueil": 51,
+    "demo-calendrier": 50,
+    "demo-events-1": 46,
+    "demo-events-2": 47,
+    "demo-partners-1": 48,
+    "demo-partners-2": 49,
+    "term:demo-thematique-1": 18,
+    "term:demo-thematique-2": 19,
+    "term:demo-thematique-3": 20,
+    "user:redaction": 2
+  },
+  "c08": {
+    "plan": 76,
+    "users": {
+      "actif": 3,
+      "grace": 4,
+      "sans-droit": 5
+    },
+    "memberships": {
+      "actif": 78,
+      "grace": 80
+    },
+    "subscriptions": {
+      "actif": 77,
+      "grace": 79
+    },
+    "article": 81,
+    "automatique": 82
+  },
+  "posts": [
+    {
+      "id": 82,
+      "slug": "c08-article-reserve-automatique",
+      "date": "2026-01-01 12:00:00",
+      "key": ""
+    },
+    {
+      "id": 81,
+      "slug": "c08-article-reserve-article",
+      "date": "2026-01-01 12:00:00",
+      "key": ""
+    },
+    {
+      "id": 45,
+      "slug": "demo-2026-t4-ouvert",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t4-ouvert"
+    },
+    {
+      "id": 44,
+      "slug": "demo-2026-t4-reserve-3",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t4-reserve-3"
+    },
+    {
+      "id": 43,
+      "slug": "demo-2026-t4-reserve-2",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t4-reserve-2"
+    },
+    {
+      "id": 42,
+      "slug": "demo-2026-t4-reserve-1",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t4-reserve-1"
+    },
+    {
+      "id": 38,
+      "slug": "demo-2026-hs-ouvert",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-hs-ouvert"
+    },
+    {
+      "id": 37,
+      "slug": "demo-2026-hs-reserve-3",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-hs-reserve-3"
+    },
+    {
+      "id": 36,
+      "slug": "demo-2026-hs-reserve-2",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-hs-reserve-2"
+    },
+    {
+      "id": 35,
+      "slug": "demo-2026-hs-reserve-1",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-hs-reserve-1"
+    },
+    {
+      "id": 31,
+      "slug": "demo-2026-t3-ouvert",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t3-ouvert"
+    },
+    {
+      "id": 30,
+      "slug": "demo-2026-t3-reserve-3",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t3-reserve-3"
+    },
+    {
+      "id": 29,
+      "slug": "demo-2026-t3-reserve-2",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t3-reserve-2"
+    },
+    {
+      "id": 28,
+      "slug": "demo-2026-t3-reserve-1",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t3-reserve-1"
+    },
+    {
+      "id": 24,
+      "slug": "demo-2026-t2-ouvert",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t2-ouvert"
+    },
+    {
+      "id": 23,
+      "slug": "demo-2026-t2-reserve-3",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t2-reserve-3"
+    },
+    {
+      "id": 22,
+      "slug": "demo-2026-t2-reserve-2",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t2-reserve-2"
+    },
+    {
+      "id": 21,
+      "slug": "demo-2026-t2-reserve-1",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t2-reserve-1"
+    },
+    {
+      "id": 17,
+      "slug": "demo-2026-t1-ouvert",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t1-ouvert"
+    },
+    {
+      "id": 16,
+      "slug": "demo-2026-t1-reserve-3",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t1-reserve-3"
+    },
+    {
+      "id": 15,
+      "slug": "demo-2026-t1-reserve-2",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t1-reserve-2"
+    },
+    {
+      "id": 14,
+      "slug": "demo-2026-t1-reserve-1",
+      "date": "2026-01-01 12:00:00",
+      "key": "demo-2026-t1-reserve-1"
+    }
+  ]
+}

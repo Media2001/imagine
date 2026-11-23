@@ -1,0 +1,157 @@
+pre_get_posts – Hook | Developer.WordPress.org Skip to content WordPress.org Showcase Plugins Themes Hosting News Resources Learn WordPress Documentation Education Forums Developers Blocks Patterns Photos Openverse ↗ ︎ WordPress.tv ↗ ︎ About About WordPress Make WordPress Events Five for the Future Enterprise Gutenberg ↗ ︎ Job Board ↗ ︎ Swag ↗ ︎ Get WordPress Search in WordPress.org Get WordPress WordPress.org WordPress Developer Resources pre_get_posts Developer Blog Code Reference WP-CLI Commands Developer Blog Code Reference WP-CLI Commands Home Reference Hooks WP_Query::get_posts pre_get_posts Search do_action_ref_array ( ‘pre_get_posts’, WP_Query $query ) In this article Table of Contents Description Parameters More Information Targeting the right query Default main query arguments A Warning About Conditional Functions Offsets & Pagination Basic Examples Source Related Changelog User Contributed Notes Copy page View as Markdown Back to top Fires after the query variable object is created, but before the actual query is run. Description Note: If using conditional tags, use the method versions within the passed instance (e.g. $query->is_main_query() instead of is_main_query() ). This is because the functions like is_main_query() test against the global $wp_query instance, not the passed one. Parameters $query WP_Query The WP_Query instance (passed by reference). More Information Targeting the right query Be aware of the queries you are changing when using the pre_get_posts action. Make use of conditional tags to target the right query. For example, its recommended to use the the is_admin() conditional to not change queries in the admin screens. With the $query->is_main_query() conditional from the query object you can target the main query of a page request. The main query is used by the primary post loop that displays the main content for a post, page or archive. Without these conditionals you could unintentionally be changing the query for custom loops in sidebars, footers, or elsewhere. Example targeting the main query for category archives: function target_main_category_query_with_conditional_tags( $query ) {
+if ( ! is_admin() && $query->is_main_query() ) {
+// Not a query for an admin page.
+// It's the main query for a front end page of your site.
+
+if ( is_category() ) {
+// It's the main query for a category archive.
+
+// Let's change the query for category archives.
+$query->set( 'posts_per_page', 15 );
+}
+}
+}
+add_action( 'pre_get_posts', 'target_main_category_query_with_conditional_tags' ); Default main query arguments The main query (object) already has some default properties set depending on the page request. For example, for single posts the $query->is_single property is set to true. This means you can’t simply change a single post or page query into an archive of posts query (or the other way around). To achieve this you’ll have to reset these properties in the query object itself. Unless you are intimately familiar with these settings and are willing to coordinate them yourself, it’s suggested that you replace the main query by using WP_Query in the page.php or single.php (child) theme template files . A Warning About Conditional Functions pre_get_posts runs before WP_Query has been set up. Some template tags and conditional functions that rely on WP_Query will not work. For example, is_front_page() will not work, although is_home() will work. In such cases, you will need to work directly with the query vars, which are passed to the pre_get_posts hook as an argument ( $query in examples on this page). Offsets & Pagination Using the offset argument in any WordPress query can break pagination. If you need to use offset and preserve pagination, please keep in mind that you will need to handle pagination manually. Read the codex article Making Custom Queries using Offset and Pagination for more information. Basic Examples Exclude Single Posts by ID From Home Page function exclude_single_posts_home($query) {
+if ( $query->is_home() && $query->is_main_query() ) {
+$query->set( 'post__not_in', array( 7, 11 ) );
+}
+}
+add_action( 'pre_get_posts', 'exclude_single_posts_home' ); Exclude Pages from Search Results function search_filter($query) {
+if ( ! is_admin() && $query->is_main_query() ) {
+if ( $query->is_search ) {
+$query->set( 'post_type', 'post' );
+}
+}
+}
+add_action( 'pre_get_posts', 'search_filter' ); Only Display Search Results After Specific Date function date_search_filter($query) {
+if ( ! is_admin() && $query->is_main_query() ) {
+if ( $query->is_search ) {
+$query->set( 'date_query', array(
+array(
+'after' => 'May 17, 2019',
+)
+) );
+}
+}
+}
+add_action( 'pre_get_posts', 'date_search_filter' ); Change the number of posts per page by post type function hwl_home_pagesize( $query ) {
+if ( ! is_admin() && $query->is_main_query() && is_post_type_archive( 'movie' ) ) {
+// Display 50 posts for a custom post type called 'movie'
+$query->set( 'posts_per_page', 50 );
+return;
+}
+}
+add_action( 'pre_get_posts', 'hwl_home_pagesize', 1 ); Source do_action_ref_array( 'pre_get_posts', array( &$this ) ); View all references View on Trac View on GitHub Related Used by Description WP_Query::get_posts() wp-includes/class-wp-query.php Retrieves an array of posts based on query variables. Changelog Version Description 2.0.0 Introduced. User Contributed Notes Skip to note 8 content saddamcrr7 9 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 8 You must log in to vote on the helpfulness of this note Example for how to universally adjust queries for an ‘event’ post type: function university_adjust_queries($query){
+   if ( ! is_admin() && is_post_type_archive( 'event' ) && $query->is_main_query() ) {
+        $query->set( 'meta_key', 'event_date' );
+        $query->set( 'orderby', 'meta_value_num' );
+        $query->set( 'order', 'ASC');
+        $query->set( 'meta_query', array(
+            array(
+                'key'     => 'event_date',
+                'compare' => '>=',
+                'value'   => date('Ymd'),
+                'type'    => 'numeric',
+            )
+        ) );
+   }
+}
+add_action( 'pre_get_posts', 'university_adjust_queries' ); Log in to add feedback Skip to note 9 content seabluetom 10 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 6 You must log in to vote on the helpfulness of this note /**
+ *
+ *	The Code below will modify the main WordPress loop, before the queries fired,
+ *	to only show posts in the halloween category on the home page.
+ *
+ */
+	function wpdocs_exclude_category( $query ) {
+		if ( $query->is_home() && $query->is_main_query() && ! is_admin() ) {
+			$query->set( 'category_name', 'halloween' );
+		}
+	}
+	add_action( 'pre_get_posts', 'wpdocs_exclude_category' ); Log in to add feedback Skip to note 10 content johnjullies 7 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 3 You must log in to vote on the helpfulness of this note Include Custom Post Types in the homepage function add_custom_pt( $query ) {
+  if ( !is_admin() && $query->is_main_query() ) {
+    $query->set( 'post_type', array( 'post', 'the_custom_pt' ) );
+  }
+}
+add_action( 'pre_get_posts', 'add_custom_pt' ); Include in Search Results function add_custom_pt( $query ) {
+  if ( !is_admin() && $query->is_main_query() ) {
+    if ( $query->is_search ) {
+      $query->set( 'post_type', array( 'post', 'the_custom_pt' ) );
+    }
+  }
+}
+add_action( 'pre_get_posts', 'add_custom_pt' ); Replace ‘the_custom_pt’ with the name of your custom post type. Log in to add feedback Skip to note 11 content capbussat 5 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 0 You must log in to vote on the helpfulness of this note You can filter posts or pages from ‘Recent Posts’ or other widgets that do not contain a meta key. In this example ‘transk_lang’ is a language meta key assigned to posts and pages. add_action( 'pre_get_posts', 'wpdocs_pre_get_posts' );
+
+function wpdocs_pre_get_posts( $query ) {   
+    // avoid main query
+    if ( $query->is_main_query() ) {
+        return;
+    }
+
+    // avoid filtering menu items
+    if ( 'nav_menu_item' === $query->query_vars['post_type'] ) {
+        return;
+    }
+    
+    // add meta query
+    $meta_query = $query->get( 'meta_query' );
+    if ( ! is_array( $meta_query ) ) {
+        $meta_query = array();
+    }
+       
+    $meta_query[] = array(
+        'key'     => 'transk_lang',
+        'value'   => get_user_locale(),
+        'compare' => '==',
+    );
+
+    $query->set( 'meta_query', $meta_query );
+} Log in to add feedback Skip to note 12 content Joseph Harburg 4 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 0 You must log in to vote on the helpfulness of this note If you want to use URL parameters to alter the search query and search for custom meta that returns a single item: e.g. https://site.com/?s=searchTerm&single_custom_meta=value add_action( 'pre_get_posts', 'wpdocs_url_search_modifications' );
+
+function wpdocs_url_search_modifications( $query ) {
+  if ( $query->is_search && ! is_admin() ) {
+    if ( isset($_GET['single_custom_meta'] ) ) {
+      $query->set( 'meta_key', 'single_custom_meta' );
+      $query->set( 'meta_value', sanitize_text_field( $_GET['single_custom_meta'] ) );
+    }
+  }
+
+  return $query;
+} If you need to use a comma-delineated list of terms to search for multiple terms with custom meta that returns an array. e.g. https://site.com/?s=searchTerm&multiple_custom_meta=valueone,valuetwo add_action( 'pre_get_posts', 'wpdocs_url_search_modifications' );
+
+function wpdocs_url_search_modifications( $query ) {
+  if ( $query->is_search && ! is_admin() ) {
+    if ( isset( $_GET['multiple_custom_meta'] ) ) {
+      // Make our query string an array
+      $multiple_custom_meta_values = explode( ',', sanitize_text_field( $_GET['multiple_custom_meta'] ) );
+
+      // Generate the meta query array you can change this to your liking
+      $meta_query_array = array( 'relation' => 'OR' );
+
+      // Add a query for each item in our list
+      foreach ( $multiple_custom_meta_values as $key => $value ) {
+        $meta_query_array[] = array(
+          'key' => 'multiple_custom_meta',
+          'value' => $value,
+          'compare' => 'LIKE'
+        );
+      }
+
+      //set the meta query
+      $query->set( 'meta_query', $meta_query_array );
+    }
+  };
+    
+  return $query;
+} Log in to add feedback Skip to note 13 content Chigozie Orunta 4 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 0 You must log in to vote on the helpfulness of this note This example helps you to exclude specific categories using their IDs. You can replace the IDs 1, 2, & 3 with the specific category IDs you want to exclude. add_action( 'pre_get_posts', 'wpdocs_exclude_categories' );
+
+function wpdocs_exclude_categories( $query ) {
+	if ( is_admin() ) {
+		return;
+	}
+
+	if ( ! $query->is_home() || ! $query->is_main_query() ) {
+		return;
+	}
+
+	$query->set( 'cat', '-1,-2,-3' );
+} Log in to add feedback Skip to note 14 content Jaydip 2 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 0 You must log in to vote on the helpfulness of this note /** * Exclude all sticky posts from the archive. * * @param \ WP_Query $query Query. */ function wpdocs_exclude_sticky_posts_from_archive( $query ) { if ( $query->is_main_query() && ! is_admin() && $query->is_archive() ) { $sticky_posts = get_option( ‘sticky_posts’ ); if ( ! empty( $sticky_posts ) ) { $query->set( ‘post__not_in’, $sticky_posts ); } } } add_action( ‘pre_get_posts’, ‘wpdocs_exclude_sticky_posts_from_archive’ ); Log in to add feedback You must log in before being able to contribute a note or feedback. About News Hosting Privacy Showcase Themes Plugins Patterns Learn Documentation Developers WordPress.tv ↗ Get Involved Events Donate ↗ Swag ↗ WordPress.com ↗ Matt ↗ bbPress ↗ BuddyPress ↗ WordPress.org The WordPress® trademark is the intellectual property of the WordPress Foundation. Visit our X (formerly Twitter) account Visit our Bluesky account Visit our Mastodon account Visit our Threads account Visit our Facebook page Visit our Instagram account Visit our LinkedIn account Visit our TikTok account Visit our YouTube channel Visit our Tumblr account Code is Poetry

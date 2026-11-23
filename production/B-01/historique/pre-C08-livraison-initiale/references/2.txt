@@ -1,0 +1,39 @@
+the_content() – Function | Developer.WordPress.org Skip to content WordPress.org Showcase Plugins Themes Hosting News Resources Learn WordPress Documentation Education Forums Developers Blocks Patterns Photos Openverse ↗ ︎ WordPress.tv ↗ ︎ About About WordPress Make WordPress Events Five for the Future Enterprise Gutenberg ↗ ︎ Job Board ↗ ︎ Swag ↗ ︎ Get WordPress Search in WordPress.org Get WordPress WordPress.org WordPress Developer Resources the_content() Developer Blog Code Reference WP-CLI Commands Developer Blog Code Reference WP-CLI Commands Home Reference Functions the_content() Search the_content( string $more_link_text = null , bool $strip_teaser = false ) In this article Table of Contents Parameters More Information Source Hooks Related Changelog User Contributed Notes Copy page View as Markdown Back to top Displays the post content. Parameters $more_link_text string optional Content for when there is more text. Default: null $strip_teaser bool optional Strip teaser content before the more text. Default: false More Information If the quicktag <!--more--> is used in a post to designate the “cut-off” point for the post to be excerpted, the_content() tag will only show the excerpt up to the <!--more--> quicktag point on non-single/non- permalink post pages. By design, the_content() tag includes a parameter for formatting the <!--more--> content and look, which creates a link to “continue reading” the full post. Notes about <!--more--> : No whitespaces are allowed before the “more” in the <!--more--> quicktag. In other words <!-- more --> will not work! The <!--more--> quicktag will not operate and is ignored in Templates where just one post is displayed, such as single.php . Read Customizing the Read More for more details. Source function the_content( $more_link_text = null, $strip_teaser = false ) {
+	$content = get_the_content( $more_link_text, $strip_teaser );
+
+	/**
+	 * Filters the post content.
+	 *
+	 * @since 0.71
+	 *
+	 * @param string $content Content of the current post.
+	 */
+	$content = apply_filters( 'the_content', $content );
+	$content = str_replace( ']]>', ']]&gt;', $content );
+	echo $content;
+} View all references View on Trac View on GitHub Hooks apply_filters ( ‘the_content’, string $content ) Filters the post content. Related Uses Description get_the_content() wp-includes/post-template.php Retrieves the post content. apply_filters() wp-includes/plugin.php Calls the callback functions that have been added to a filter hook. Changelog Version Description 0.71 Introduced. User Contributed Notes Skip to note 6 content Codex 11 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 13 You must log in to vote on the helpfulness of this note Overriding Archive/Single Page Behavior If the_content() isn’t working as you desire (displaying the entire story when you only want the content above the <!--more--> Quicktag, for example) you can override the behavior with global $more. // Declare global $more (before the loop).
+global $more;
+
+// Set (inside the loop) to display content above the more tag.
+$more = 0;
+
+the_content( 'More ...' );
+?> If you need to display all of the content: // Declare global $more (before the loop).
+global $more;
+
+// Set (inside the loop) to display all content, including text below more.
+$more = 1;
+
+the_content(); Log in to add feedback Skip to note 7 content Codex 11 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 3 You must log in to vote on the helpfulness of this note Ignore the “More” on a Sticky Post This will ignore the more tag in a sticky post–meaning it will display the full content even if there is a <!--more--> in the content, but for all other posts it will display a more link. // Declare global $more (before the loop).
+global $more;
+
+if ( is_sticky() ) {
+	// Set (inside the loop) to display all content, including text below more.
+	$more = 1;
+
+	the_content();
+} else {
+	$more = 0;
+
+	the_content( __( 'Read the rest of this entry »', 'textdomain' ) );
+} Log in to add feedback Skip to note 8 content Codex 11 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 1 You must log in to vote on the helpfulness of this note Include Title in “More” Show “Continue reading ACTUAL POST TITLE” when the Quicktag is used. <?php the_content( 'Continue reading ' . get_the_title() ); ?> Log in to add feedback Skip to note 9 content nicoeg 10 years ago You must log in to vote on the helpfulness of this note Vote results for this note: -1 You must log in to vote on the helpfulness of this note If the content you want to display does not belong to the post declared globally you can use get_extended() which accepts the content as first parameter. get_extended($content) Reference: https://codex.wordpress.org/Function_Reference/get_extended Log in to add feedback Skip to note 10 content Codex 11 years ago You must log in to vote on the helpfulness of this note Vote results for this note: -5 You must log in to vote on the helpfulness of this note Designating the “More” Text Displays the content of the post and uses “Read more …” for the more link text when the Quicktag is used. <?php the_content( 'Read more ...' ); ?> Log in to add feedback You must log in before being able to contribute a note or feedback. About News Hosting Privacy Showcase Themes Plugins Patterns Learn Documentation Developers WordPress.tv ↗ Get Involved Events Donate ↗ Swag ↗ WordPress.com ↗ Matt ↗ bbPress ↗ BuddyPress ↗ WordPress.org The WordPress® trademark is the intellectual property of the WordPress Foundation. Visit our X (formerly Twitter) account Visit our Bluesky account Visit our Mastodon account Visit our Threads account Visit our Facebook page Visit our Instagram account Visit our LinkedIn account Visit our TikTok account Visit our YouTube channel Visit our Tumblr account Code is Poetry
