@@ -1,0 +1,173 @@
+{
+  "status": "PASS",
+  "scope": "A-01 archive-reelle : correction/diagnostic, archives inventées uniquement, aucun GO réel",
+  "recorded_utc": "2026-11-23T14:36:49.015149+00:00",
+  "host": {
+    "run": 85,
+    "skipped_platform_branches": 8,
+    "executed_passed": 77,
+    "failures": 0,
+    "errors": 0
+  },
+  "linux": {
+    "run": 41,
+    "skipped_platform_branches": 1,
+    "executed_passed": 40,
+    "failures": 0,
+    "errors": 0
+  },
+  "new_test_methods": 29,
+  "new_methods_covered_across_both_real_filesystems": 29,
+  "linux_receipt": "production/A-01/archive-reelle/946da1e537e3/result.json",
+  "ordinary_refusal_receipt": "production/A-01/archive-reelle/refusal-c4473bce2038/result.json",
+  "ordinary_subject_exit": 1,
+  "ordinary_console": [
+    {
+      "code": "ARCHIVE_PATH_BACKSLASH",
+      "count": 2,
+      "first_zone": "uploads/2026",
+      "extension": ".jpg"
+    }
+  ],
+  "offline_receipt": "production/A-01/tests-21nov/c6a70d1458cb/result.json",
+  "offline_checks": 18,
+  "offline_passed": 18,
+  "offline_full_staging_ready": false,
+  "native_unit_tests": {
+    "archive": 12,
+    "harness": 17,
+    "data_cases": 9,
+    "data_assertions": 337
+  },
+  "all_named_owned_containers_rechecked_absent": [
+    "imagine-a01-court-c35323231a8f",
+    "imagine-a01-court-c6a70d1458cb",
+    "imagine-a01-diag-test-15d38e5b67a8",
+    "imagine-a01-diag-test-1b986dd2c879",
+    "imagine-a01-diag-test-2856a34cf787",
+    "imagine-a01-diag-test-32b02f1ad63c",
+    "imagine-a01-diag-test-503e7c5348ad",
+    "imagine-a01-diag-test-51dc3188f3d9",
+    "imagine-a01-diag-test-6156a6d55449",
+    "imagine-a01-diag-test-6661f7ee2ef0",
+    "imagine-a01-diag-test-8e3da220fe40",
+    "imagine-a01-diag-test-8f1343cd78dc",
+    "imagine-a01-diag-test-b1cb9728efa3",
+    "imagine-a01-diag-test-bfde904f85bc",
+    "imagine-a01-diag-test-c680c6097562",
+    "imagine-a01-diag-test-d1e2fc86b69a",
+    "imagine-a01-diag-test-d6223d5f704f",
+    "imagine-a01-publication-4949e9700ff1"
+  ],
+  "owned_containers_count": 18,
+  "historical_current_source_status": "STALE_SOURCE_REFUSED",
+  "historical_pret_preserved": {
+    "path": "production/A-01/PRET-qualification-23nov-historique-avant-archive-reelle.txt",
+    "sha256": "a549fa69d1c24575aeff7d42656ebb29be70a823adb7ffb8e2e48126fb881ca8"
+  },
+  "command_sources": {
+    "wp/outils/staging-court/archive.py": "c5b6dab4c10dc01fe24ee11d91d33dfdea8592cdadfdabacb498ce4a05e61ea7",
+    "wp/outils/staging-court/diagnosis.py": "f1f635985fd65910a364d21ddb8dad6052c29ed9e57f922db9b5bb616dbaedbf",
+    "wp/outils/staging-court/inside.py": "e0d66939e77cc6ea04f40fe1d3e1964bd0ad1c6e9a3c2b2b62179c759cb538b9",
+    "wp/outils/staging-court/publish.py": "64c9771fc6bf29fdab9a1329244e8c6308660fa2f22b87b829cb084dce3a8c6d",
+    "wp/tests/a01-court/test_archive.py": "0c75ffb3ea53cc1f82f510d714d19690a1529da13873ebd7c8e331aa1af6e490",
+    "wp/tests/a01-court/test_archive_reelle.py": "e9bd12a88d7ff7bb0c560f16ace386cac44b3c656b5f788247cdf28aec8c0fe7",
+    "wp/tests/a01-court/exercise_archive_reelle.py": "9d3916e62e72e918b9f604d5e60a54fea748a5b5190dac05a77774e17780e78c",
+    "wp/tests/a01-court/exercise_archive_refusal.py": "c9928904f4737324ccb95f0575646dc2d254a9f80dca11ba7cd62657086ed48f",
+    "wp/tests/a01-court/test_qualification_receipts.py": "28f8463615274f832d16e86057c24063f2ac30e16e354360548f0db0c255bf3a",
+    "wp/tests/a01-court/verify_publication.py": "f6df2f39bfe47c16f3d699410fafa7cc64b22d72a71df96ac20528294c83a5a5",
+    "wp/tests/a01-court/verify_archive_reelle.py": "85e8962301050cd39afed3e44dd672fa885aff219c881c5bd589b5249d3ddc6c",
+    "production/A-01/notes.md": "194b28bcfd94b238367a6796ab567e181605fb4446bce21765a417c6578e719b",
+    "production/A-01/PRET": "8266bc1fd89dc178721d7564f45dacbf180f4fc78b062c655afa07b609064752"
+  },
+  "receipts_preserved": [
+    {
+      "path": "production/A-01/archive-reelle/0c47a028202d/result.json",
+      "status": "FAIL",
+      "sha256": "1ac7eb6263f4f664232c92efc56a91a6a1a602e4e9af17433f4dd4965b068b90"
+    },
+    {
+      "path": "production/A-01/archive-reelle/4593d86bfeb3/result.json",
+      "status": "FAIL",
+      "sha256": "6ae0d917f5d5a1d68158e7fe3b5fe5cb4489f563c91a97639362dce89d9dac99"
+    },
+    {
+      "path": "production/A-01/archive-reelle/5c786a51a083/result.json",
+      "status": "PASS",
+      "sha256": "a7f41ab58a7de1f2eddfc5c1a91acffb82092d9ecc7161124e90bb33d23bf9e0"
+    },
+    {
+      "path": "production/A-01/archive-reelle/603fe672de4f/result.json",
+      "status": "FAIL",
+      "sha256": "17d8a830aa94c1ae6efd228c4086b2ab779677bb8fd62aa309d5ef73688d723f"
+    },
+    {
+      "path": "production/A-01/archive-reelle/645e7ddc2b61/result.json",
+      "status": "PASS",
+      "sha256": "1c2f83ec0065bb74955cbf407f7be3c191972a3916251d951c2eabf9a39ffa15"
+    },
+    {
+      "path": "production/A-01/archive-reelle/7e1a73c102e6/result.json",
+      "status": "PASS",
+      "sha256": "61f52c56c40b4a3c3045f053939e36224615e2d65a430bbc0ed786ee0d374971"
+    },
+    {
+      "path": "production/A-01/archive-reelle/7fb7940073da/result.json",
+      "status": "FAIL",
+      "sha256": "276307ed6d72edd77680d70afd12e6abbf13b5306e9ee52551273f1ce3f139fb"
+    },
+    {
+      "path": "production/A-01/archive-reelle/8aca48d43912/result.json",
+      "status": "PASS",
+      "sha256": "335672c4fb9163f8f30152adad5bae35e91e7eb9da8341b6f3739db316958131"
+    },
+    {
+      "path": "production/A-01/archive-reelle/946da1e537e3/result.json",
+      "status": "PASS",
+      "sha256": "beaa6b0280c3427771a6c9f81b4875513185a2c41b3b2ebd220d79b1a4c332f3"
+    },
+    {
+      "path": "production/A-01/archive-reelle/bb4d0440c102/result.json",
+      "status": "FAIL",
+      "sha256": "dc4bce51bafba4e2a3485212b5922d6487a5b06a3e4ced6a0160ce7668342bd2"
+    },
+    {
+      "path": "production/A-01/archive-reelle/c5060eeabd30/result.json",
+      "status": "PASS",
+      "sha256": "0a194b9a07d6fbf51e86501e902a17fffa25f7243cd0ee961cfb011d8f248c69"
+    },
+    {
+      "path": "production/A-01/archive-reelle/cb6472b32778/result.json",
+      "status": "PASS",
+      "sha256": "6a79be1cdbfc38fb3c8000e29a9bfb7a4719ca1ff004cb597b958a690ce53f16"
+    },
+    {
+      "path": "production/A-01/archive-reelle/fb7fc3046543/result.json",
+      "status": "PASS",
+      "sha256": "a444919e34ed57d41a96b24404adee16f0fb2fb427371eff2c306a1485ae54f7"
+    },
+    {
+      "path": "production/A-01/archive-reelle/fc497dc99fd0/result.json",
+      "status": "FAIL",
+      "sha256": "b71404a4a18109103913eb925f3f17686f7246dc9636e42a5ed2fcaed43cff00"
+    },
+    {
+      "path": "production/A-01/archive-reelle/fd34bb5c4089/result.json",
+      "status": "FAIL",
+      "sha256": "24dc4af73c29a01e13c525c5d4489c00938fb656f070bb5e5adf45f13547021e"
+    },
+    {
+      "path": "production/A-01/archive-reelle/refusal-c4473bce2038/result.json",
+      "status": "PASS",
+      "sha256": "b26d09d4e0b3877498ae90d3d14b3020cbee9191305a1dc5eb7f2d732a9f8aaa"
+    }
+  ],
+  "no_real_archive": true,
+  "no_real_import": true,
+  "no_site_created": true,
+  "no_commercial_account_used": true,
+  "no_downloads": true,
+  "no_host_php": true,
+  "new_full_publication_executed": false,
+  "scope_boundaries": "Aucun fichier partagé/voie2/verrou/file/rapport parent modifié; aucun Git."
+}

@@ -53,7 +53,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 2279,
-      "body_sha256": "b7b1e3ef261886d146f1fd4dbcbdd20ae41444a9152cf872c0132d3a769183ef"
+      "body_sha256": "3416fedeef7ea1e918b55bb1874b54d2a401b4e98b6017040e45f04edea4a5f5"
     },
     "configuration-invalide:flux": {
       "status": 200,
@@ -62,8 +62,8 @@
         "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
         "vary": "Cookie, Authorization, User-Agent"
       },
-      "bytes": 8426,
-      "body_sha256": "7477bcd9de78ab6aa576cc67476729c47dc4e96dbaded688df89867be7d1f65d"
+      "bytes": 8319,
+      "body_sha256": "5ebd074605251c568144a86ce6e4300c04ca5f2cd2f55ee263fe46eb84583956"
     },
     "configuration-invalide:oembed": {
       "status": 200,
@@ -93,7 +93,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 2278,
-      "body_sha256": "8a65b7b158592f4cb9830136c53f96fce4588b5d2bab560c295445caa4fd9534"
+      "body_sha256": "a8068122038eb90946d4c2f2b7cfec7afbec9ea5dd8fc9776acd4e460350ce5b"
     },
     "numero-invalide:flux": {
       "status": 200,
@@ -102,8 +102,8 @@
         "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
         "vary": "Cookie, Authorization, User-Agent"
       },
-      "bytes": 29971,
-      "body_sha256": "437759eb5e55f6241b162f27fc23e80de4d8bdfadbd3c7f5ebe24685baacc91a"
+      "bytes": 29864,
+      "body_sha256": "5435297e50089335de69b9d0628201bdd1fcb766018f20605eb281c1e6cac983"
     },
     "numero-invalide:oembed": {
       "status": 200,

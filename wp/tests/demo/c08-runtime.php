@@ -22,6 +22,9 @@ if ($checks['adaptateur_present']) {
     $checks['grace_native_bandeau'] = $grace['complet'] && $grace['bloc'] === 'regularisation';
     wp_set_current_user($fixture['users']['sans-droit']);
     $checks['connecte_sans_droit_ferme'] = !\Imagine\Site\Paywall::decision($post)['complet'];
+    $orphan = new \WP_Post((object) ['ID' => 0, 'post_type' => 'post', 'post_content' => 'Texte fictif sans métadonnées', 'post_excerpt' => '']);
+    $checks['article_sans_metadonnees_garde_ferme'] = \Imagine\Site\Paywall::managed($orphan)
+        && !\Imagine\Site\Paywall::decision($orphan)['complet'];
     $witness = 'Les lucioles violettes de C08 gardent le secret du village fictif.';
     $original = $post->post_content;
     wp_set_current_user(0);

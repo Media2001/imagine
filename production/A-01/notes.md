@@ -38,6 +38,8 @@ Compter et localiser ces cas dans le diagnostic, puis décider sur le rapport ; 
 - **Historique préservé, pas requalifié artificiellement :** ancien PRET déplacé intact vers `PRET-qualification-23nov-historique-avant-archive-reelle.txt`. Les reçus de publication antérieurs ne qualifient plus les nouvelles empreintes. Les tests structurels de ces reçus utilisent désormais le mode interne `HISTORICAL_SCHEMA_ONLY`, sans statut PASS ni qualification courante ; le vérificateur par défaut conserve ses refus de dérive de source et ce garde a son test. Aucun reçu historique modifié. Le nouveau PRET porte uniquement sur ce brief de correction/diagnostic, pas une nouvelle publication commerciale.
 - Manifeste de remise et relecture des sources/reçus/nettoyages : **`production/A-01/archive-reelle-final.json`**. Aucun fichier de l’outil partagé, traitement natif, autre voie, verrou, file, doctrine ou brief modifié ; aucun Git, compte commercial, téléchargement ou archive Imagine utilisé.
 
+La revérification parent se lance sans archive ni site : `python wp/tests/a01-court/verify_archive_reelle.py --output production/A-01/archive-reelle-parent-neuf.json` (nom de reçu inexistant obligatoire). Elle relit les empreintes courantes, les compteurs, les preuves des deux vrais systèmes de fichiers et l’absence des seuls conteneurs possédés, puis constate que l’ancienne publication refuse bien les nouvelles sources.
+
 ### Rejouer sans archive réelle ni site
 
 ```powershell

@@ -257,7 +257,7 @@
         "vary": "Origin"
       },
       "bytes": 2279,
-      "body_sha256": "1429d812d50aff6410ba360ad4c535568ef4a44d52fa1ea79f07661a2de0b8d7"
+      "body_sha256": "3416fedeef7ea1e918b55bb1874b54d2a401b4e98b6017040e45f04edea4a5f5"
     },
     "rest-collection": {
       "path": "/wp-json/wp/v2/posts?include=81%2C82&_embed=1",
@@ -268,7 +268,7 @@
         "vary": "Origin"
       },
       "bytes": 6051,
-      "body_sha256": "8a7e99b3bbf6fa5ef5e0cace677ac28caac92d859d41c49f232bd8a77c3e286a"
+      "body_sha256": "31194b02a7755e951f92847a9914d50c8b58f5f7fc0cece4f25196b548ff71f5"
     },
     "rest-champs": {
       "path": "/wp-json/wp/v2/posts/81?_fields=content,excerpt",
@@ -301,7 +301,7 @@
         "vary": "Origin"
       },
       "bytes": 2279,
-      "body_sha256": "1429d812d50aff6410ba360ad4c535568ef4a44d52fa1ea79f07661a2de0b8d7"
+      "body_sha256": "3416fedeef7ea1e918b55bb1874b54d2a401b4e98b6017040e45f04edea4a5f5"
     },
     "rest-recherche": {
       "path": "/wp-json/wp/v2/search?search=C08",
@@ -322,8 +322,8 @@
         "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
         "vary": "Cookie, Authorization, User-Agent"
       },
-      "bytes": 13379,
-      "body_sha256": "3652201d3ec2bc4cfa938cc1c1da13e9ce6130763db12a25a320e96356c9b552"
+      "bytes": 13272,
+      "body_sha256": "9330a69fd3de42315da66f743d5ad518963a64ffae9793749dcbeee71eef9af8"
     },
     "rss": {
       "path": "/?feed=rss",
@@ -333,8 +333,8 @@
         "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
         "vary": "Cookie, Authorization, User-Agent"
       },
-      "bytes": 3176,
-      "body_sha256": "0aa2872495afcac7bee96181046b3f4ada92a2c839f5505419256468f80e4e55"
+      "bytes": 3144,
+      "body_sha256": "262b8a1ba0ed3622f251b433f64ace61d9715ab987a109ce41623ba8fc12e31d"
     },
     "atom": {
       "path": "/?feed=atom",
@@ -344,8 +344,8 @@
         "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
         "vary": "Cookie, Authorization, User-Agent"
       },
-      "bytes": 14652,
-      "body_sha256": "d14dff360f8a3ed5afd22cd61a4e3489cb32d39517f0b8eaf6aa47f6590b2f00"
+      "bytes": 14545,
+      "body_sha256": "127b693e58f2a21efd3f2324187a07f459f1086f1ca6ec34d08d5138d4ae4a95"
     },
     "rdf": {
       "path": "/?feed=rdf",
@@ -355,8 +355,8 @@
         "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
         "vary": "Cookie, Authorization, User-Agent"
       },
-      "bytes": 13373,
-      "body_sha256": "43298d5c810fe35521871a269992ca4c180265df816228b7567cee555adf4c23"
+      "bytes": 13266,
+      "body_sha256": "f3e2e89cb08a6a06335ccba257a04dab7a23de41cec7f7a96bb7f637d292a55c"
     },
     "recherche": {
       "path": "/?s=C08",
@@ -389,7 +389,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 20242,
-      "body_sha256": "e2eeba61441d76c8f8cd413deffcf9d5d802d41c12f7899964f6456f7cc6b55f"
+      "body_sha256": "957f5d10bbc3ab335e0a8aff9c48b8b48d56266091f3fb17edf7b5c261e09503"
     },
     "apercu": {
       "path": "/?p=81&preview=true",
@@ -498,8 +498,8 @@
         "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
         "vary": "Cookie, Authorization, User-Agent"
       },
-      "bytes": 13379,
-      "body_sha256": "3652201d3ec2bc4cfa938cc1c1da13e9ce6130763db12a25a320e96356c9b552"
+      "bytes": 13272,
+      "body_sha256": "9330a69fd3de42315da66f743d5ad518963a64ffae9793749dcbeee71eef9af8"
     },
     "actif-page": {
       "path": "/c08-article-reserve-article/",
@@ -521,7 +521,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 3764,
-      "body_sha256": "2c82a44b2ce462f398b369d6a77b859c54c07ecc29cf759f67f8df0407d08c70"
+      "body_sha256": "0c7b2340cbb6199873c9c7d897741f7da0c0bd83296db187bd5db13eb1ce2767"
     },
     "anonyme-apres-actif": {
       "path": "/c08-article-reserve-article/",
@@ -554,7 +554,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 3764,
-      "body_sha256": "2c82a44b2ce462f398b369d6a77b859c54c07ecc29cf759f67f8df0407d08c70"
+      "body_sha256": "0c7b2340cbb6199873c9c7d897741f7da0c0bd83296db187bd5db13eb1ce2767"
     },
     "anonyme-apres-grace": {
       "path": "/c08-article-reserve-article/",
@@ -587,7 +587,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 2279,
-      "body_sha256": "1429d812d50aff6410ba360ad4c535568ef4a44d52fa1ea79f07661a2de0b8d7"
+      "body_sha256": "3416fedeef7ea1e918b55bb1874b54d2a401b4e98b6017040e45f04edea4a5f5"
     },
     "anonyme-apres-sans-droit": {
       "path": "/c08-article-reserve-article/",

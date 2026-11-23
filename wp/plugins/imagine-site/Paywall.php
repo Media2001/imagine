@@ -15,9 +15,9 @@ final class Paywall
 {
     public static function managed(?WP_Post $post): bool
     {
-        return $post && $post->post_type === 'post'
-            && (metadata_exists('post', $post->ID, 'imagine_reserve')
-                || metadata_exists('post', $post->ID, 'imagine_numero_id'));
+        // Tous les articles natifs sont gouvernés : absence des deux métadonnées
+        // n'est jamais assimilée à « ouvert ». L'ouverture doit être explicite.
+        return $post && $post->post_type === 'post';
     }
 
     /** Aucun droit n'est inféré d'un cookie de mot de passe, UA ou en-tête de proxy. */
