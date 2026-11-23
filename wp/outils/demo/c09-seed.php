@@ -9,15 +9,34 @@ if (!defined('WP_CLI') || !WP_CLI || wp_get_environment_type() !== 'local'
     || basename(dirname(WP_CONTENT_DIR)) === 'production') {
     throw new \RuntimeException('C09 refuse cette cible.');
 }
-if (!is_file(WPMU_PLUGIN_DIR . '/imagine-demo-offline.php')
-    || wp_mail('c09@example.org', 'C09', 'Fixture') !== false
-    || !is_wp_error(wp_remote_get('https://example.org'))
-    || WC()->payment_gateways()->get_available_payment_gateways() !== []) {
+// Inspection passive : jamais wp_mail()/wp_remote_*() pour prouver une interdiction.
+$mu = realpath(WPMU_PLUGIN_DIR . '/imagine-demo-offline.php');
+$loaded = $mu && in_array($mu, array_map('realpath', get_included_files()), true);
+$intercepted = $loaded;
+foreach (['pre_wp_mail', 'pre_http_request', 'woocommerce_available_payment_gateways'] as $hook) {
+    $nativeGuard = false;
+    if (has_filter($hook)) {
+        foreach (($GLOBALS['wp_filter'][$hook]->callbacks[PHP_INT_MAX] ?? []) as $callback) {
+            if ($callback['function'] instanceof \Closure
+                && realpath((new \ReflectionFunction($callback['function']))->getFileName()) === $mu) {
+                $nativeGuard = true;
+            }
+        }
+    }
+    $intercepted = $intercepted && $nativeGuard;
+}
+if (!$intercepted) { throw new \RuntimeException('Garde hors ligne C09 absente.'); }
+// Exercer seulement les filtres, jamais leurs transports.
+$mailClosed = apply_filters('pre_wp_mail', null, ['to' => 'c09@example.org', 'subject' => 'Sentinelle passive', 'message' => '', 'headers' => [], 'attachments' => []]);
+$httpClosed = apply_filters('pre_http_request', false, [], 'https://example.org');
+if ($mailClosed !== false || !is_wp_error($httpClosed) || $httpClosed->get_error_code() !== 'imagine_demo_offline'
+    || apply_filters('woocommerce_available_payment_gateways', []) !== []) {
     throw new \RuntimeException('Garde hors ligne C09 absente.');
 }
 $secret = json_decode(file_get_contents('/var/www/.imagine-demo/seed-secret.json'), true, 512, JSON_THROW_ON_ERROR);
 $rows = json_decode(file_get_contents(WP_CONTENT_DIR . '/imagine-demo-build/c09-profils.json'), true, 512, JSON_THROW_ON_ERROR);
-$now = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+require_once __DIR__ . '/c09-calendar.php';
+$now = now();
 $date = static fn (string $offset): string => $now->modify($offset)->format('Y-m-d H:i:s');
 $owned = '_imagine_c09_fixture';
 // Prévol complet avant mutation : jamais adopter un compte/plan/produit étranger.
@@ -190,8 +209,7 @@ foreach ($rows as $row) {
         if ($row['native'] === 'pending-cancel') { $end = $date('+30 days'); $next = 0; }
         if ($row['native'] === 'expired') { $end = $date('-1 day'); $next = 0; }
         if ($key === 'A-PAPIER') {
-            $last = $now->modify('last day of this month')->setTime(23, 59, 59);
-            $next = min($now->modify('+1 hour'), $last)->format('Y-m-d H:i:s');
+            $next = papierDue($now);
         }
         $sub->update_dates(['start' => $start, 'trial_end' => 0, 'next_payment' => $next, 'end' => $end, 'cancelled' => 0], 'gmt');
         $sub->update_meta_data('_imagine_acces_grace_debut', $row['native'] === 'grace' ? $date('-1 day') : ($row['native'] === 'suspended' ? $date('-4 days') : ''));
