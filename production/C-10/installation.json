@@ -1,10 +1,10 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-23T15:26:54.431066+00:00",
+  "at": "2026-11-23T15:32:54.518942+00:00",
   "url": "http://192.168.129.32:8085",
   "files_sha256": {
     "plugins/imagine-pilotage/imagine-reglages.php": "72e89bec95331ea1091e9462473c5ff7d984fc25ba384c0dbaead659fe827312",
-    "plugins/imagine-pilotage/src/Administration/Reglages.php": "e7b9ac277b5cd3d6e2d5afc96fe5377e6c42ab37eeb53f27f402d0e754d7563e",
+    "plugins/imagine-pilotage/src/Administration/Reglages.php": "6c752d8f0d082f7f9eb0e99c977faea5ce2e217414256d5a6837ce5c4c9fe362",
     "plugins/imagine-pilotage/src/Acces/AdministrationReglages.php": "14753c28e43daad991ae5477db43415dceb01a2148d4e602087e105c7fd2a71a",
     "plugins/imagine-pilotage/src/Echeancier/ReglagesAdministration.php": "0ab7a89640da4532ff954bf0ed09088a5743d4e1de67706b7c366fe3eb222db0",
     "plugins/imagine-pilotage/src/Envoi/AdministrationFormatExport.php": "ac59e9b8b1486441ede29346362fabd1b721d0a238c55492c63b88ab4bdb9927",

@@ -19,12 +19,19 @@ FILES = [
 
 
 def snapshot():
-    code = '''$out=[];foreach(['imagine_c08_fixture','imagine_c09_fixture','imagine_demo_manifest','imagine_acces_plans'] as $k){$out[$k]=get_option($k);}global $wpdb;$out['users']=$wpdb->get_results("SELECT ID,user_login,user_pass FROM {$wpdb->users} ORDER BY ID",ARRAY_A);$out['posts']=$wpdb->get_results("SELECT ID,post_type,post_status,post_content,post_password FROM {$wpdb->posts} ORDER BY ID",ARRAY_A);$out['safety']=hash_file('sha256',WPMU_PLUGIN_DIR . '/imagine-demo-offline.php');$out['site']=hash_file('sha256',WP_PLUGIN_DIR . '/imagine-site/imagine-site.php');$out['paywall']=hash_file('sha256',WP_PLUGIN_DIR . '/imagine-site/Paywall.php');$closed=[];foreach(['imagine-pilotage','imagine-connecteur'] as $dir){foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator(WP_PLUGIN_DIR . '/' . $dir . '/src',FilesystemIterator::SKIP_DOTS)) as $f){$p=$f->getPathname();if(str_contains($p,'/Administration/')||in_array($f->getFilename(),['AdministrationReglages.php','ReglagesAdministration.php','AdministrationFormatExport.php'],true)){continue;}$closed[$p]=hash_file('sha256',$p);}}ksort($closed);$out['closed']=$closed;echo hash('sha256',wp_json_encode($out));'''
+    code = '''$out=[];foreach(['imagine_c08_fixture','imagine_c09_fixture','imagine_demo_manifest','imagine_acces_plans'] as $k){$out[$k]=get_option($k);}global $wpdb;$out['users']=$wpdb->get_results("SELECT ID,user_login,user_pass FROM {$wpdb->users} ORDER BY ID",ARRAY_A);$out['postmeta']=$wpdb->get_results("SELECT * FROM {$wpdb->postmeta} ORDER BY meta_id",ARRAY_A);$out['rights_meta']=$wpdb->get_results("SELECT * FROM {$wpdb->usermeta} WHERE meta_key LIKE '%capabilities' OR meta_key LIKE '_imagine_%' ORDER BY umeta_id",ARRAY_A);foreach(['wc_orders','wc_order_addresses','wc_order_operational_data','wc_orders_meta','woocommerce_order_items','woocommerce_order_itemmeta'] as $suffix){$table=$wpdb->prefix.$suffix;if($wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s',$wpdb->esc_like($table)))===$table){$rows=$wpdb->get_results("SELECT * FROM `{$table}`",ARRAY_A);usort($rows,static fn($a,$b)=>strcmp(wp_json_encode($a),wp_json_encode($b)));$out[$suffix]=$rows;}}$out['posts']=$wpdb->get_results("SELECT ID,post_type,post_status,post_content,post_password FROM {$wpdb->posts} ORDER BY ID",ARRAY_A);$out['safety']=hash_file('sha256',WPMU_PLUGIN_DIR . '/imagine-demo-offline.php');$out['site']=hash_file('sha256',WP_PLUGIN_DIR . '/imagine-site/imagine-site.php');$out['paywall']=hash_file('sha256',WP_PLUGIN_DIR . '/imagine-site/Paywall.php');$closed=[];foreach(['imagine-pilotage','imagine-connecteur'] as $dir){foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator(WP_PLUGIN_DIR . '/' . $dir . '/src',FilesystemIterator::SKIP_DOTS)) as $f){$p=$f->getPathname();if(str_contains($p,'/Administration/')||in_array($f->getFilename(),['AdministrationReglages.php','ReglagesAdministration.php','AdministrationFormatExport.php'],true)){continue;}$closed[$p]=hash_file('sha256',$p);}}ksort($closed);$out['closed']=$closed;echo hash('sha256',wp_json_encode($out));'''
     return b00.wp('eval', code)['stdout'].strip()
 
 
+def guard():
+    site, state = c08.guard()
+    if site['url'].rstrip('/') != 'http://192.168.129.32:8085':
+        raise RuntimeError('C10 refuse une URL différente de la démonstration autorisée.')
+    return site, state
+
+
 def run(tests_only=False):
-    site, before = c08.guard()
+    site, before = guard()
     PROOF.mkdir(parents=True, exist_ok=True)
     protected = snapshot()
     files = {} if tests_only else {rel: ROOT / 'wp' / rel for rel in FILES}

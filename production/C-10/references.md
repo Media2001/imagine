@@ -1,4 +1,4 @@
-# C-10 — documentation officielle consultée avant code
+# C-10 — documentation officielle et choix de raccordement
 
 23 novembre 2026. Standard retenu : Settings API WordPress, formulaire vers `options.php`, groupe commun et trois options existantes. `options.php` assure capacité et nonce ; le nonce n'accorde aucun droit. Pas de moteur, bancaire ou de renouvellement maison.
 
@@ -10,4 +10,4 @@
 - https://developer.wordpress.org/apis/security/nonces/ : nonce distinct du contrôle des droits.
 - https://woocommerce.com/document/subscriptions/renewal-process/ : renouvellements natifs ; C10 ne lance ni paiement ni email ni modification de contrat.
 
-Les trois adaptateurs existants sont réutilisés pour validation/lecture ; leurs anciens menus ne sont pas branchés. Les bibliothèques PHP closes restent inchangées. Une nouvelle façade administrative les réunit et journalise les trois options. Le branchement C08 doit transmettre explicitement les réglages à son moteur pour rendre le réglage de contenu futur effectif.
+Les trois adaptateurs existants sont réutilisés pour validation/lecture ; leurs anciens menus ne sont pas branchés. Les bibliothèques PHP closes restent inchangées. Une nouvelle façade administrative les réunit et journalise les trois options. L’effet réel choisi pour C10 est l’export CSV C07 : colonnes et ordre réellement produits par `ExportCsv`, affichés dans l’administration fictive. Aucun raccord C08 n’est modifié : le paywall article continue de passer les défauts du moteur C06 ; les options PDF ne sont pas une nouvelle livraison de PDF protégés.

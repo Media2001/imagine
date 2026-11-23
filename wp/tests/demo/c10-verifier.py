@@ -84,7 +84,7 @@ def fields(values):
 
 
 def verify():
-    site, _ = c10.c08.guard()
+    site, _ = c10.guard()
     base = site['url'].rstrip('/')
     protected = c10.snapshot()
     before = state()
@@ -115,18 +115,20 @@ def verify():
         sessions.append(editor_secret)
         subscriber, sub_secret = session('imagine-c08-sans-droit', base)
         sessions.append(sub_secret)
+        manager, manager_secret = session('e-abo', base)
+        sessions.append(manager_secret)
         code, page = fetch(base, PAGE, admin)
         check('admin_page_200', code == 200 and 'Réglages Imagine' in page)
         check('menu_imagine_reglages', 'toplevel_page_imagine' in page and '>Réglages</a>' in page)
         check('huit_champs_documentes', page.count('class="imagine-reglage"') == 8 and page.count('À confirmer par Imagine') == 8 and page.count('Défaut :') == 8)
         check('aucun_menu_legacy', not any('page=' + slug + '"' in page for slug in ['imagine-acces', 'imagine-c05', 'imagine-envoi-export']))
-        for label, client, nonce in [('redacteur', editor, editor_secret['nonce']), ('abonne', subscriber, sub_secret['nonce'])]:
+        for label, client, nonce in [('redacteur', editor, editor_secret['nonce']), ('gestionnaire_woocommerce', manager, manager_secret['nonce']), ('abonne', subscriber, sub_secret['nonce'])]:
             code, _ = fetch(base, PAGE, client)
             check(label + '_page_403', code == 403)
             prior = state()
             code, denied = post(client, original, nonce=nonce)
             # WooCommerce redirige les abonnés hors de l’administration avant options.php.
-            refused = code == 403 if label == 'redacteur' else (code == 200 and 'My account' in denied and 'imagine-reglage' not in denied)
+            refused = code == 403 if label != 'abonne' else (code == 200 and 'My account' in denied and 'imagine-reglage' not in denied)
             check(label + '_post_nonce_valide_refuse', refused)
             responses[label] = {'status': code, 'refus': 'WordPress 403' if code == 403 else 'Redirection WooCommerce vers Mon compte'}
             check(label + '_sans_mutation', prior == state())
@@ -188,13 +190,25 @@ def verify():
         code, _ = post(admin, alternate)
         check('second_enregistrement_sans_faux_audit', state() == after)
         record['audit_evidence'] = recent
+        # Prouver que « conserver l’ancienne » ne veut pas dire « revenir aux défauts ».
+        for option in [A, P, E]:
+            invalid = json.loads(json.dumps(alternate))
+            if option == A:
+                invalid[A]['pdf_robot'] = 'refuse-c10'
+            elif option == P:
+                invalid[P]['marge_jours'] = '-2'
+            else:
+                invalid[E] = 'ville\nville'
+            code, rejected = post(admin, invalid)
+            check('invalide_conserve_non_defaut_' + option, code == 200 and state() == after
+                and any(word in html.unescape(rejected) for word in ['refusé', 'refusés', 'invalide']))
         # Restauration par le même parcours : événements de retour conservés.
         code, _ = post(admin, original)
         check('retour_defauts_exact', code == 200 and state()['values'] == original)
         check('retour_journalise', state()['audit_count'] == after['audit_count'] + 3)
         record['audit_count_before'] = before['audit_count']
         record['audit_count_after'] = state()['audit_count']
-        record['invalid_cases'] = len(bad)
+        record['invalid_cases'] = len(bad) + 3
     finally:
         # Si un test s'interrompt, tenter la restauration sans effacer la piste d'audit.
         if sessions and state()['values'] != original:

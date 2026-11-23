@@ -1,6 +1,6 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-23T15:30:05.441433+00:00",
+  "at": "2026-11-23T15:33:41.438978+00:00",
   "url": "http://192.168.129.32:8085",
   "effect": {
     "setting": "imagine_envoi_colonnes_export",
@@ -14,7 +14,7 @@
   },
   "audit_evidence": [
     {
-      "quand_utc": "2026-11-23T15:30:48Z",
+      "quand_utc": "2026-11-23T15:34:24Z",
       "qui_id": 30,
       "qui_login": "e-admin",
       "option": "imagine_envoi_colonnes_export",
@@ -36,7 +36,7 @@
       ]
     },
     {
-      "quand_utc": "2026-11-23T15:30:48Z",
+      "quand_utc": "2026-11-23T15:34:24Z",
       "qui_id": 30,
       "qui_login": "e-admin",
       "option": "imagine_c05_reglages",
@@ -54,7 +54,7 @@
       }
     },
     {
-      "quand_utc": "2026-11-23T15:30:48Z",
+      "quand_utc": "2026-11-23T15:34:24Z",
       "qui_id": 30,
       "qui_login": "e-admin",
       "option": "imagine_acces_reglages",
@@ -70,19 +70,19 @@
       }
     }
   ],
-  "audit_count_before": 0,
-  "audit_count_after": 6,
+  "audit_count_before": 6,
+  "audit_count_after": 12,
   "invalid_cases": 20,
   "checks": {
     "admin_page_200": true,
-    "menu_imagine_reglages": false,
+    "menu_imagine_reglages": true,
     "huit_champs_documentes": true,
     "aucun_menu_legacy": true,
     "redacteur_page_403": true,
-    "redacteur_post_nonce_valide_403": true,
+    "redacteur_post_nonce_valide_refuse": true,
     "redacteur_sans_mutation": true,
     "abonne_page_403": true,
-    "abonne_post_nonce_valide_403": false,
+    "abonne_post_nonce_valide_refuse": true,
     "abonne_sans_mutation": true,
     "anonyme_post_refuse": true,
     "nonce_absent_403": true,
@@ -148,9 +148,16 @@
     "C08_C09_contenus_comptes_bibliotheques_preserves": true
   },
   "total": 72,
-  "failures": [
-    "menu_imagine_reglages",
-    "abonne_post_nonce_valide_403"
-  ],
-  "status": "FAILED"
+  "responses": {
+    "redacteur": {
+      "status": 403,
+      "refus": "WordPress 403"
+    },
+    "abonne": {
+      "status": 200,
+      "refus": "Redirection WooCommerce vers Mon compte"
+    }
+  },
+  "failures": [],
+  "status": "VERIFIED"
 }

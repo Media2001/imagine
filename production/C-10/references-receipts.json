@@ -1,0 +1,44 @@
+[
+  {
+    "source_file": "1.html",
+    "title": "Settings API – Plugin Handbook | Developer.WordPress.org",
+    "bytes": 192720,
+    "sha256": "accbc5af8f34af4e6ceecb88c0c4a249d3ee2b34704a65a68dc1aaebf6514d75",
+    "consulted_at_utc": "2026-11-23T15:37:36.128716+00:00"
+  },
+  {
+    "source_file": "2.html",
+    "title": "register_setting() – Function | Developer.WordPress.org",
+    "bytes": 226280,
+    "sha256": "7f34f3edf1b8d6fbdb498cb94cbc1802f95bc2f1471bf3d0f03f6afab9d23377",
+    "consulted_at_utc": "2026-11-23T15:37:36.128716+00:00"
+  },
+  {
+    "source_file": "3.html",
+    "title": "updated_option – Hook | Developer.WordPress.org",
+    "bytes": 169330,
+    "sha256": "df87ea5db89cf70d9b93fb0a04819cd04dd23183ef61f8600a7d9904d0c307cc",
+    "consulted_at_utc": "2026-11-23T15:37:36.128716+00:00"
+  },
+  {
+    "source_file": "4.html",
+    "title": "added_option – Hook | Developer.WordPress.org",
+    "bytes": 168917,
+    "sha256": "ac8fcab410d39c7b20085b258bb7fcdb9a5884493edbfbebc1193dee1049b091",
+    "consulted_at_utc": "2026-11-23T15:37:36.128716+00:00"
+  },
+  {
+    "source_file": "5.html",
+    "title": "Nonces – Common APIs Handbook | Developer.WordPress.org",
+    "bytes": 200638,
+    "sha256": "a9cfa6e221e6444a72e8ded3180b9061b9db8c56d0f02c733b938860f6fcc2c7",
+    "consulted_at_utc": "2026-11-23T15:37:36.128716+00:00"
+  },
+  {
+    "source_file": "6.html",
+    "title": "Subscription Renewal Process Documentation - WooCommerce",
+    "bytes": 274830,
+    "sha256": "783df39bd210271f155791f6f266fc33051710d5f784e8c759c97b41af27889c",
+    "consulted_at_utc": "2026-11-23T15:37:36.128716+00:00"
+  }
+]
