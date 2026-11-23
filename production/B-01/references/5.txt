@@ -1,0 +1,174 @@
+get_search_form() – Function | Developer.WordPress.org Skip to content WordPress.org Showcase Plugins Themes Hosting News Resources Learn WordPress Documentation Education Forums Developers Blocks Patterns Photos Openverse ↗ ︎ WordPress.tv ↗ ︎ About About WordPress Make WordPress Events Five for the Future Enterprise Gutenberg ↗ ︎ Job Board ↗ ︎ Swag ↗ ︎ Get WordPress Search in WordPress.org Get WordPress WordPress.org WordPress Developer Resources get_search_form() Developer Blog Code Reference WP-CLI Commands Developer Blog Code Reference WP-CLI Commands Home Reference Functions get_search_form() Search get_search_form( array $args = array() ): void|string In this article Table of Contents Description Parameters Return More Information Usage Source Hooks Related Changelog User Contributed Notes Copy page View as Markdown Back to top Displays search form. Description Will first attempt to locate the searchform.php file in either the child or the parent, then load it. If it doesn’t exist, then the default search form will be displayed. The default search form is HTML, which will be displayed. There is a filter applied to the search form HTML in order to edit or replace it. The filter is ‘get_search_form’ . This function is primarily used by themes which want to hardcode the search form into the sidebar and also by the search widget in WordPress. There is also an action that is called whenever the function is run called, ‘pre_get_search_form’ . This can be useful for outputting JavaScript that the search relies on or various formatting that applies to the beginning of the search. To give a few examples of what it can be used for. Parameters $args array optional Array of display arguments. echo bool Whether to echo or return the form. Default true. aria_label string ARIA label for the search form. Useful to distinguish multiple search forms on the same page and improve accessibility. Default: array() Return void|string Void if 'echo' argument is true, search form HTML if 'echo' is false. More Information Usage get_search_form( $echo ); Source function get_search_form( $args = array() ) {
+	/**
+	 * Fires before the search form is retrieved, at the start of get_search_form().
+	 *
+	 * @since 2.7.0 as 'get_search_form' action.
+	 * @since 3.6.0
+	 * @since 5.5.0 The `$args` parameter was added.
+	 *
+	 * @link https://core.trac.wordpress.org/ticket/19321
+	 *
+	 * @param array $args The array of arguments for building the search form.
+	 *                    See get_search_form() for information on accepted arguments.
+	 */
+	do_action( 'pre_get_search_form', $args );
+
+	$echo = true;
+
+	if ( ! is_array( $args ) ) {
+		/*
+		 * Back compat: to ensure previous uses of get_search_form() continue to
+		 * function as expected, we handle a value for the boolean $echo param removed
+		 * in 5.2.0. Then we deal with the $args array and cast its defaults.
+		 */
+		$echo = (bool) $args;
+
+		// Set an empty array and allow default arguments to take over.
+		$args = array();
+	}
+
+	// Defaults are to echo and to output no custom label on the form.
+	$defaults = array(
+		'echo'       => $echo,
+		'aria_label' => '',
+	);
+
+	$args = wp_parse_args( $args, $defaults );
+
+	/**
+	 * Filters the array of arguments used when generating the search form.
+	 *
+	 * @since 5.2.0
+	 *
+	 * @param array $args The array of arguments for building the search form.
+	 *                    See get_search_form() for information on accepted arguments.
+	 */
+	$args = apply_filters( 'search_form_args', $args );
+
+	// Ensure that the filtered arguments contain all required default values.
+	$args = array_merge( $defaults, $args );
+
+	$format = current_theme_supports( 'html5', 'search-form' ) ? 'html5' : 'xhtml';
+
+	/**
+	 * Filters the HTML format of the search form.
+	 *
+	 * @since 3.6.0
+	 * @since 5.5.0 The `$args` parameter was added.
+	 *
+	 * @param string $format The type of markup to use in the search form.
+	 *                       Accepts 'html5', 'xhtml'.
+	 * @param array  $args   The array of arguments for building the search form.
+	 *                       See get_search_form() for information on accepted arguments.
+	 */
+	$format = apply_filters( 'search_form_format', $format, $args );
+
+	$search_form_template = locate_template( 'searchform.php' );
+
+	if ( '' !== $search_form_template ) {
+		ob_start();
+		require $search_form_template;
+		$form = ob_get_clean();
+	} else {
+		// Build a string containing an aria-label to use for the search form.
+		if ( $args['aria_label'] ) {
+			$aria_label = 'aria-label="' . esc_attr( $args['aria_label'] ) . '" ';
+		} else {
+			/*
+			 * If there's no custom aria-label, we can set a default here. At the
+			 * moment it's empty as there's uncertainty about what the default should be.
+			 */
+			$aria_label = '';
+		}
+
+		if ( 'html5' === $format ) {
+			$form = '<form role="search" ' . $aria_label . 'method="get" class="search-form" action="' . esc_url( home_url( '/' ) ) . '">
+				<label>
+					<span class="screen-reader-text">' .
+					/* translators: Hidden accessibility text. */
+					_x( 'Search for:', 'label' ) .
+					'</span>
+					<input type="search" class="search-field" placeholder="' . esc_attr_x( 'Search &hellip;', 'placeholder' ) . '" value="' . get_search_query() . '" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="' . esc_attr_x( 'Search', 'submit button' ) . '" />
+			</form>';
+		} else {
+			$form = '<form role="search" ' . $aria_label . 'method="get" id="searchform" class="searchform" action="' . esc_url( home_url( '/' ) ) . '">
+				<div>
+					<label class="screen-reader-text" for="s">' .
+					/* translators: Hidden accessibility text. */
+					_x( 'Search for:', 'label' ) .
+					'</label>
+					<input type="text" value="' . get_search_query() . '" name="s" id="s" />
+					<input type="submit" id="searchsubmit" value="' . esc_attr_x( 'Search', 'submit button' ) . '" />
+				</div>
+			</form>';
+		}
+	}
+
+	/**
+	 * Filters the HTML output of the search form.
+	 *
+	 * @since 2.7.0
+	 * @since 5.5.0 The `$args` parameter was added.
+	 *
+	 * @param string $form The search form HTML output.
+	 * @param array  $args The array of arguments for building the search form.
+	 *                     See get_search_form() for information on accepted arguments.
+	 */
+	$result = apply_filters( 'get_search_form', $form, $args );
+
+	if ( null === $result ) {
+		$result = $form;
+	}
+
+	if ( $args['echo'] ) {
+		echo $result;
+	} else {
+		return $result;
+	}
+} View all references View on Trac View on GitHub Hooks apply_filters ( ‘get_search_form’, string $form , array $args ) Filters the HTML output of the search form. do_action ( ‘pre_get_search_form’, array $args ) Fires before the search form is retrieved, at the start of get_search_form() . apply_filters ( ‘search_form_args’, array $args ) Filters the array of arguments used when generating the search form. apply_filters ( ‘search_form_format’, string $format , array $args ) Filters the HTML format of the search form. Related Uses Description esc_attr_x() wp-includes/l10n.php Translates string with gettext context, and escapes it for safe use in an attribute. get_search_query() wp-includes/general-template.php Retrieves the contents of the search WordPress query variable. locate_template() wp-includes/template.php Retrieves the name of the highest priority template file that exists. current_theme_supports() wp-includes/theme.php Checks a theme’s support for a given feature. _x() wp-includes/l10n.php Retrieves translated string with gettext context. esc_attr() wp-includes/formatting.php Escaping for HTML attributes. esc_url() wp-includes/formatting.php Checks and cleans a URL. wp_parse_args() wp-includes/functions.php Merges user defined arguments into defaults array. home_url() wp-includes/link-template.php Retrieves the URL for the current site where the front end is accessible. do_action() wp-includes/plugin.php Calls the callback functions that have been added to an action hook. apply_filters() wp-includes/plugin.php Calls the callback functions that have been added to a filter hook. Show 8 more Show less Used by Description WP_Widget_Search::widget() wp-includes/widgets/class-wp-widget-search.php Outputs the content for the current Search widget instance. Changelog Version Description 5.2.0 The $args array parameter was added in place of an $echo boolean flag. 2.7.0 Introduced. User Contributed Notes Skip to note 5 content Codex 11 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 31 You must log in to vote on the helpfulness of this note Theme Form If you do have searchform.php in your theme, it will be used instead. Keep in mind that the search form should do a GET to the homepage of your blog. The input text field should be named s and you should always include a label like in the examples above. Example of a custom searchform.php : <form action="/" method="get">
+	<label for="search">Search in <?php echo home_url( '/' ); ?></label>
+	<input type="text" name="s" id="search" value="<?php the_search_query(); ?>" />
+	<input type="image" alt="Search" src="<?php bloginfo( 'template_url' ); ?>/images/search.png" />
+</form> The only parameter here that will be submitted is s with the value of the current search query. However, you can refine it in many ways. For example by only showing posts in the search results. This can be done with the next addition to the form above: <input type="hidden" value="post" name="post_type" id="post_type" /> Here we submit the value post. The default value is any, meaning, posts, pages and custom post types. With the input above added to the form it will now only search in posts with the post_type post. There are many additions like this. With a var_dump of the object $wp_query you can see all the default values of the search variables. With a var_dump of $wp_query->query you can see the current query. A last option is to write a custom function (in your functions.php file) and hook that function to the get_search_form action hook. /**
+ * Generate custom search form
+ *
+ * @param string $form Form HTML.
+ * @return string Modified form HTML.
+ */
+function wpdocs_my_search_form( $form ) {
+	$form = '<form role="search" method="get" id="searchform" class="searchform" action="' . home_url( '/' ) . '" >
+	<div><label class="screen-reader-text" for="s">' . __( 'Search for:' ) . '</label>
+	<input type="text" value="' . get_search_query() . '" name="s" id="s" />
+	<input type="submit" id="searchsubmit" value="'. esc_attr__( 'Search' ) .'" />
+	</div>
+	</form>';
+
+	return $form;
+}
+add_filter( 'get_search_form', 'wpdocs_my_search_form' ); Log in to add feedback Skip to note 6 content Codex 11 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 6 You must log in to vote on the helpfulness of this note Default HTML5 Form Since WordPress 3.6, If your theme supports HTML5 Markup, which happens if it uses: /**
+ * Add HTML5 theme support.
+ */
+function wpdocs_after_setup_theme() {
+	add_theme_support( 'html5', array( 'search-form' ) );
+}
+add_action( 'after_setup_theme', 'wpdocs_after_setup_theme' ); WordPress will render its built-in HTML5 search form: <form role="search" method="get" class="search-form" action="<?php echo home_url( '/' ); ?>">
+	<label>
+		<span class="screen-reader-text"><?php echo _x( 'Search for:', 'label' ) ?></span>
+		<input type="search" class="search-field"
+			placeholder="<?php echo esc_attr_x( 'Search …', 'placeholder' ) ?>"
+			value="<?php echo get_search_query() ?>" name="s"
+			title="<?php echo esc_attr_x( 'Search for:', 'label' ) ?>" />
+	</label>
+	<input type="submit" class="search-submit"
+		value="<?php echo esc_attr_x( 'Search', 'submit button' ) ?>" />
+</form> Among the changes is that the form has a class="search-form" . Also, the input is type="search" and not type="text" . Furthermore there is a placeholder, which displays text when appropriate, which means you don’t need JavaScript to display the placeholder. There are no elements with an id anymore, so you can have multiple searchforms in a valid document. Log in to add feedback Skip to note 7 content Codex 11 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 3 You must log in to vote on the helpfulness of this note Default HTML4 Form If you don’t have searchform.php in your theme, WordPress will render its built-in search form: <form role="search" method="get" id="searchform"
+	class="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+	<div>
+		<label class="screen-reader-text" for="s"><?php _x( 'Search for:', 'label' ); ?></label>
+		<input type="text" value="<?php echo get_search_query(); ?>" name="s" id="s" />
+		<input type="submit" id="searchsubmit"
+			value="<?php echo esc_attr_x( 'Search', 'submit button' ); ?>" />
+	</div>
+</form> The above form is used on HTML4 websites. Log in to add feedback Skip to note 8 content Deafinitive 9 years ago You must log in to vote on the helpfulness of this note Vote results for this note: -3 You must log in to vote on the helpfulness of this note [html] <form role="search" [/html] This is incorrect as it overrides the native semantics of the element. Place role="search" before or after the <form element [html] <form method="get" id="searchform" class="searchform" … <div role="search" [/html] or [html] <div role="search" <form method="get" id="searchform" class="searchform" … [/html] Log in to add feedback You must log in before being able to contribute a note or feedback. About News Hosting Privacy Showcase Themes Plugins Patterns Learn Documentation Developers WordPress.tv ↗ Get Involved Events Donate ↗ Swag ↗ WordPress.com ↗ Matt ↗ bbPress ↗ BuddyPress ↗ WordPress.org The WordPress® trademark is the intellectual property of the WordPress Foundation. Visit our X (formerly Twitter) account Visit our Bluesky account Visit our Mastodon account Visit our Threads account Visit our Facebook page Visit our Instagram account Visit our LinkedIn account Visit our TikTok account Visit our YouTube channel Visit our Tumblr account Code is Poetry

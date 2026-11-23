@@ -1,0 +1,83 @@
+/*
+Theme Name: Imagine
+Description: Squelette B-01 neutre, sans habillage ; modèle éditorial provisoire B-00.
+Version: 0.1.0
+Requires at least: 7.0
+Requires PHP: 8.2
+Text Domain: imagine
+*/
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: var(--imagine-zero);
+    background: var(--imagine-paper);
+    color: var(--imagine-ink);
+    font-family: var(--imagine-font);
+    font-size: var(--imagine-size);
+    line-height: var(--imagine-leading);
+    font-weight: var(--imagine-weight);
+    overflow-wrap: anywhere;
+}
+.imagine-shell {
+    max-width: var(--imagine-column);
+    margin-inline: auto;
+    padding: var(--imagine-space);
+}
+a, a:visited {
+    color: var(--imagine-ink);
+}
+a:focus-visible, input:focus-visible, button:focus-visible, main:focus {
+    outline: var(--imagine-focus) solid var(--imagine-ink);
+    outline-offset: var(--imagine-focus);
+}
+h1, h2, h3 {
+    line-height: var(--imagine-normal-leading);
+    font-weight: var(--imagine-bold);
+    margin-block: var(--imagine-large-space) var(--imagine-space);
+}
+h1 {
+    font-size: var(--imagine-h1);
+}
+h2 {
+    font-size: var(--imagine-h2);
+}
+h3 {
+    font-size: var(--imagine-h3);
+}
+p, ul, ol, form {
+    margin-block: var(--imagine-space);
+}
+ul, ol {
+    padding-inline-start: var(--imagine-large-space);
+}
+li + li {
+    margin-block-start: var(--imagine-small-space);
+}
+img {
+    max-width: var(--imagine-full);
+    height: auto;
+}
+.imagine-cover img {
+    width: var(--imagine-cover);
+}
+.imagine-notice {
+    font-size: var(--imagine-small);
+}
+input, button {
+    font: inherit;
+    color: var(--imagine-ink);
+    background: var(--imagine-paper);
+    max-width: var(--imagine-full);
+    padding: var(--imagine-small-space);
+}
+table {
+    width: var(--imagine-full);
+    border-collapse: collapse;
+    font-size: var(--imagine-small);
+}
+th, td {
+    text-align: start;
+    padding: var(--imagine-small-space);
+    border-bottom: var(--imagine-focus) solid var(--imagine-ink);
+}

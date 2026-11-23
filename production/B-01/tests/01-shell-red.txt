@@ -1,0 +1,14 @@
+test_b01_shell_contract (__main__.B01Theme.test_b01_shell_contract) ... FAIL
+
+======================================================================
+FAIL: test_b01_shell_contract (__main__.B01Theme.test_b01_shell_contract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\test_b01_theme.py", line 13, in test_b01_shell_contract
+    self.assertTrue((THEME / name).is_file(), name + ' doit exister')
+AssertionError: False is not true : style.css doit exister
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)

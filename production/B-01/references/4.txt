@@ -1,0 +1,125 @@
+wp_enqueue_style() – Function | Developer.WordPress.org Skip to content WordPress.org Showcase Plugins Themes Hosting News Resources Learn WordPress Documentation Education Forums Developers Blocks Patterns Photos Openverse ↗ ︎ WordPress.tv ↗ ︎ About About WordPress Make WordPress Events Five for the Future Enterprise Gutenberg ↗ ︎ Job Board ↗ ︎ Swag ↗ ︎ Get WordPress Search in WordPress.org Get WordPress WordPress.org WordPress Developer Resources wp_enqueue_style() Developer Blog Code Reference WP-CLI Commands Developer Blog Code Reference WP-CLI Commands Home Reference Functions wp_enqueue_style() Search wp_enqueue_style( string $handle , string $src = '' , string[] $deps = array() , string|bool|null $ver = false , string $media = 'all' ) In this article Table of Contents Description See also Parameters More Information Usage Notes Source Related Changelog User Contributed Notes Copy page View as Markdown Back to top Enqueues a CSS stylesheet. Description Registers the style if source provided (does NOT overwrite) and enqueues. See also WP_Dependencies::add() WP_Dependencies::enqueue() Parameters $handle string required Name of the stylesheet. Should be unique. $src string optional Full URL of the stylesheet, or path of the stylesheet relative to the WordPress root directory. Default: '' $deps string[] optional An array of registered stylesheet handles this stylesheet depends on. Default: array() $ver string|bool|null optional String specifying stylesheet version number, if it has one, which is added to the URL                                 as a query string for cache busting purposes. If version is set to false, a version                                 number is automatically added equal to current installed WordPress version. If set to null, no version is added. Default: false $media string optional The media for which this stylesheet has been defined. Accepts media types like 'all' , 'print' and 'screen' , or media queries like                                 ‘(orientation: portrait)’ and ‘(max-width: 640px)’. Default: 'all' More Information Usage A safe way to add/enqueue a stylesheet file to the WordPress generated page. wp_enqueue_style( $handle, $src, $deps, $ver, $media ); Notes If you are going to use some jQuery UI features you might have to provide your own CSS file: WordPress core does not have a full jQuery UI theme! Default styles that are loaded via WordPress Core can be discerned via the source code on the default styles page. Source function wp_enqueue_style( $handle, $src = '', $deps = array(), $ver = false, $media = 'all' ) {
+	_wp_scripts_maybe_doing_it_wrong( __FUNCTION__, $handle );
+
+	$wp_styles = wp_styles();
+
+	if ( $src ) {
+		$_handle = explode( '?', $handle );
+		$wp_styles->add( $_handle[0], $src, $deps, $ver, $media );
+	}
+
+	$wp_styles->enqueue( $handle );
+} View all references View on Trac View on GitHub Related Uses Description wp_styles() wp-includes/functions.wp-styles.php Initializes $wp_styles if it has not been set. Used by Description wp_enqueue_view_transitions_admin_css() wp-includes/view-transitions.php Enqueues View Transitions CSS for the admin. wp_options_connectors_wp_admin_enqueue_scripts() wp-includes/build/pages/options-connectors/page-wp-admin.php Enqueue scripts and styles for the options-connectors-wp-admin page. wp_options_connectors_render_page() wp-includes/build/pages/options-connectors/page.php Render the options-connectors page. wp_font_library_render_page() wp-includes/build/pages/font-library/page.php Render the font-library page. wp_font_library_wp_admin_enqueue_scripts() wp-includes/build/pages/font-library/page-wp-admin.php Enqueue scripts and styles for the font-library-wp-admin page. wp_enqueue_command_palette_assets() wp-includes/script-loader.php Enqueues the assets required for the Command Palette. wp_render_empty_block_template_warning() wp-includes/block-template.php Renders a warning screen for empty block templates. WP_Interactivity_API::data_wp_router_region_processor() wp-includes/interactivity-api/class-wp-interactivity-api.php Processes the data-wp-router-region directive. wp_enqueue_emoji_styles() wp-includes/formatting.php Enqueues the important emoji-related styles. wp_enqueue_embed_styles() wp-includes/embed.php Enqueues the CSS in the embed iframe header. wp_enqueue_block_template_skip_link() wp-includes/theme-templates.php Enqueues the skip-link styles. WP_Duotone::output_footer_assets() wp-includes/class-wp-duotone.php Outputs all necessary SVG for duotone filters, CSS for classic themes. wp_enqueue_classic_theme_styles() wp-includes/script-loader.php Loads classic theme styles when the current theme lacks a theme.json file. wp_enqueue_stored_styles() wp-includes/script-loader.php Fetches, processes and compiles stored core styles, then combines and renders them to the page. _wp_get_iframed_editor_assets() wp-includes/block-editor.php Collect the block editor assets that need to be loaded into the editor’s iframe. _wp_theme_json_webfonts_handler() wp-includes/deprecated.php Runs the theme.json webfonts handler. wp_enqueue_global_styles_css_custom_properties() wp-includes/script-loader.php Function that enqueues the CSS Custom Properties coming from theme.json. wp_enqueue_block_style() wp-includes/script-loader.php Enqueues a stylesheet for a specific block. wp_enqueue_editor_format_library_assets() wp-includes/script-loader.php Enqueues the assets required for the format library within the block editor. wp_enqueue_global_styles() wp-includes/script-loader.php Enqueues the global styles defined via theme.json. WP_Block::render() wp-includes/class-wp-block.php Generates the render output for the block. wp_enqueue_editor_block_directory_assets() wp-includes/script-loader.php Enqueues the assets required for the block directory within the block editor. enqueue_block_styles_assets() wp-includes/script-loader.php Function responsible for enqueuing the styles required for block styles functionality on the editor and on the frontend. wp_common_block_scripts_and_styles() wp-includes/script-loader.php Handles the enqueueing of block scripts and styles that are common to both the editor and the front-end. wp_enqueue_registered_block_scripts_and_styles() wp-includes/script-loader.php Enqueues registered block scripts and styles, depending on current rendered context (only enqueuing editor scripts while in context of the editor). register_and_do_post_meta_boxes() wp-admin/includes/meta-boxes.php Registers the default post meta boxes, and runs the do_meta_boxes actions. wp_enqueue_code_editor() wp-includes/general-template.php Enqueues assets needed by the code editor for the given settings. _WP_Editors::enqueue_default_editor() wp-includes/class-wp-editor.php Enqueue all editor scripts. WP_Widget_Media_Audio::enqueue_admin_scripts() wp-includes/widgets/class-wp-widget-media-audio.php Loads the required media files for the media manager and scripts for media widgets. WP_Widget_Media_Audio::enqueue_preview_scripts() wp-includes/widgets/class-wp-widget-media-audio.php Enqueue preview scripts. WP_Widget_Media_Video::enqueue_preview_scripts() wp-includes/widgets/class-wp-widget-media-video.php Enqueue preview scripts. WP_Customize_Nav_Menus::enqueue_scripts() wp-includes/class-wp-customize-nav-menus.php Enqueues scripts and styles for Customizer pane. login_header() wp-login.php Outputs the login page header. wp_dashboard_setup() wp-admin/includes/dashboard.php Registers dashboard widgets. WP_Internal_Pointers::enqueue_scripts() wp-admin/includes/class-wp-internal-pointers.php Initializes the new feature pointers. iframe_header() wp-admin/includes/template.php Generic Iframe header for use with Thickbox. wp_iframe() wp-admin/includes/media.php Outputs the iframe to display the media upload page. Custom_Image_Header::css_includes() wp-admin/includes/class-custom-image-header.php Sets up the enqueue for the CSS files. Custom_Background::admin_load() wp-admin/includes/class-custom-background.php Sets up the enqueue for the CSS & JavaScript files. WP_Customize_Manager::customize_preview_init() wp-includes/class-wp-customize-manager.php Prints JavaScript settings. add_thickbox() wp-includes/general-template.php Enqueues the default ThickBox js and css. wp_admin_css() wp-includes/general-template.php Enqueues or directly prints a stylesheet link to the specified CSS file. wp_auth_check_load() wp-includes/functions.php Loads the auth check for monitoring whether the user is still logged in. WP_Admin_Bar::initialize() wp-includes/class-wp-admin-bar.php Initializes the admin bar. get_the_password_form() wp-includes/post-template.php Retrieves protected post password form content. wp_enqueue_media() wp-includes/media.php Enqueues all scripts, styles, settings, and templates necessary to use all media JS APIs. wp_video_shortcode() wp-includes/media.php Builds the Video shortcode output. wp_playlist_scripts() wp-includes/media.php Outputs and enqueues default scripts and styles for playlists. wp_audio_shortcode() wp-includes/media.php Builds the Audio shortcode output. WP_Customize_Color_Control::enqueue() wp-includes/customize/class-wp-customize-color-control.php Enqueue scripts/styles for the color picker. WP_Customize_Widgets::enqueue_scripts() wp-includes/class-wp-customize-widgets.php Enqueues scripts and styles for Customizer panel and export data to JavaScript. _WP_Editors::enqueue_scripts() wp-includes/class-wp-editor.php Show 47 more Show less Changelog Version Description 2.6.0 Introduced. User Contributed Notes Skip to note 18 content Rob W 10 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 21 You must log in to vote on the helpfulness of this note For proper versioning based on the file’s last modified time, you can use something similar to: wp_enqueue_style('main-styles', get_template_directory_uri() . '/css/style.css', array(), filemtime(get_template_directory() . '/css/style.css'), false); When the style.css file is updated on the server, WP will append the appropriate timestamp. Note: You shouldn’t ever use time() as the 4th parameter or append it to the file, as this will break caching in almost all cases. Shouldn’t the last parameter be set to “true” Otherwise it uses the wordpress current version instead of the file’s date Squidy McSquid 7 years ago The last parameter (false) is wrong, no boolean value accepted, it’s the “string $media” parameter, so either leave it out completely or define it properly. Jan Prazak 2 years ago Log in to add feedback Skip to note 19 content Codex 11 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 17 You must log in to vote on the helpfulness of this note Using a Hook Scripts and styles from a single action hook /**
+ * Proper way to enqueue scripts and styles
+ */
+function wpdocs_theme_name_scripts() {
+	wp_enqueue_style( 'style-name', get_stylesheet_uri() );
+	wp_enqueue_script( 'script-name', get_template_directory_uri() . '/js/example.js', array(), '1.0.0', true );
+}
+add_action( 'wp_enqueue_scripts', 'wpdocs_theme_name_scripts' ); Log in to add feedback Skip to note 20 content Codex 11 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 11 You must log in to vote on the helpfulness of this note Load stylesheet only on a plugin’s options page: /**
+ * This example will work at least on WordPress 2.6.3, 
+ * but maybe on older versions too.
+ */
+add_action( 'admin_init', 'wpdocs_plugin_admin_init' );
+add_action( 'admin_menu', 'wpdocs_plugin_admin_menu' );
+   
+/**
+ * Register our stylesheet.
+ */
+function wpdocs_plugin_admin_init() {
+	wp_register_style( 'wpdocsPluginStylesheet', plugins_url( 'stylesheet.css', __FILE__ ) );
+}
+
+/**
+ * Register our plugin page and hook stylesheet loading.
+ */
+function wpdocs_plugin_admin_menu() {
+	$page = add_submenu_page( 'edit.php', 
+		__( 'Wpdocs Plugin', 'textdomain' ), 
+		__( 'Wpdocs Plugin', 'textdomain' ),
+		'administrator',
+		__FILE__, 
+		'wpdocs_plugin_manage_menu' );
+  
+	add_action( "admin_print_styles-{$page}", 'wpdocs_plugin_admin_styles' );
+}
+
+/**
+ * Enqueue our stylesheet.
+ */
+function wpdocs_plugin_admin_styles() {
+	wp_enqueue_style( 'wpdocsPluginStylesheet' );
+}
+
+/**
+ * Output our admin page.
+ */
+function wpdocs_plugin_manage_menu() {
+	 // ...
+} Log in to add feedback Skip to note 21 content gerardas 10 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 7 You must log in to vote on the helpfulness of this note Override all stylesheets in queue /* adds stylesheet file to the end of the queue */
+function wpdocs_override_stylesheets()
+{
+    $dir = plugin_dir_url(__FILE__);
+    wp_enqueue_style('theme-override', $dir . '/theme-overrides.css', array(), '0.1.0', 'all');
+}
+add_action('wp_enqueue_scripts', 'wpdocs_override_stylesheets', PHP_INT_MAX); Brilliant – in hindsight it seems obvious, of course. But this is a very useful way of making sure that your plugin’s CSS can succesfully override any theme’s CSS, without having to resort to labeling your entire CSS ‘ !important ‘. One thing to consider though is that a value lower than PHP_INT_MAX would most likely suffice, leaving a possiblity for other plugins to in turn override your CSS. Bart Kuijper 7 years ago Log in to add feedback Skip to note 22 content pawanwp 8 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 6 You must log in to vote on the helpfulness of this note Using this method you can enqueue a child theme’s style.css. function my_theme_enqueue_styles() {
+
+    $parent_style = 'jobcareertheme';
+
+    wp_enqueue_style( $parent_style, get_template_directory_uri() . '/style.css' );
+    wp_enqueue_style( 'child-style',
+        get_stylesheet_directory_uri() . '/style.css',
+        array( $parent_style ),
+        wp_get_theme()->get('1.0.0')
+    );
+}
+add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' ); Log in to add feedback Skip to note 23 content alucard001 11 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 5 You must log in to vote on the helpfulness of this note How to remove ver in URL? If you want to remove the ver parameter in URL (for example, to intentionally cache the file), you pass in null instead of false to remove that.  For example: wp_enqueue_script('oxfam_js_cookie', 'https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.0/js.cookie.min.js', array(), null, true); By doing that, you will get: <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.0/js.cookie.min.js'></script> Log in to add feedback Skip to note 24 content Juhi Saxena 11 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 5 You must log in to vote on the helpfulness of this note Enqueues should not be protocol specific, remove https. I have update code as below wp_enqueue_script('oxfam_js_cookie', '//cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.0/js.cookie.min.js', array(), null, true); Log in to add feedback Skip to note 25 content crstauf 5 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 5 You must log in to vote on the helpfulness of this note Note that Google Fonts has changed their URLs, so when embedding multiple font families only one will be loaded. The change is “fundamentally incompatible with how the rest of the world uses query variables and thus PHP itself”. The fix is to set null on the $version parameter, which prevents the URL from being parsed and the additional font families lost. Trac ticket: https://core.trac.wordpress.org/ticket/49742 This helped me out of a jam, though if I can refine this answer a bit, this seems to only apply to the Google Fonts CSS v2 API update (i.e. //fonts.googleapis.com/css2?). Google Fonts loaded with the previous API (//fonts.googleapis.com/css?) will still work with a $version parameter other than null . John Sundberg 2 years ago Log in to add feedback Skip to note 26 content alordiel 11 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 2 You must log in to vote on the helpfulness of this note This is a conditional loading of css file by page template (css will be loaded on on the pages with tamplate-name.php). You can change the condition by another one. The code should be used in your theme’s function.php. Notice : The code works for child themes. If you want to use it in a parent theme replace get_stylesheet_directory_uri() with get_stylesheet_uri() . $handle = 'wpdocs';
+wp_register_style( $handle, get_stylesheet_directory_uri().'/relative/path/to/stylesheet.css', array(), '', true );
+if ( is_page_template( 'template-name.php' ) ) {
+	wp_enqueue_style( $handle );
+} Log in to add feedback Skip to note 27 content Anthony Hortin 10 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 2 You must log in to vote on the helpfulness of this note See Also: wp_enqueue_script Log in to add feedback Skip to note 28 content hongpong 7 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 2 You must log in to vote on the helpfulness of this note There are functions that can remove the version numbers after they are added appropriately. look for remove_query_arg which can remove them and script_loader_src The hook that is often used to run this. A common symptom will be version numbers missing on all attached scripts and stylesheets. For more info see https://stackoverflow.com/questions/36805009/wordpress-css-and-js-version-numbers-not-working Log in to add feedback Skip to note 29 content montrealist 11 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 1 You must log in to vote on the helpfulness of this note Load an IE-specific stylesheet: add_action( 'wp_enqueue_scripts', 'enqueue_my_styles' );
+function enqueue_my_styles() {
+    
+    global $wp_styles;
+    
+    // Load the main stylesheet
+    wp_enqueue_style( 'my-theme', get_stylesheet_uri() );
+    
+    /**
+     * Load our IE-only stylesheet for all versions of IE:
+     * <!--[if IE]> ... <![endif]-->
+     * 
+     * NOTE: It is also possible to just check and see if the $is_IE global in WordPress is set to true before 
+     * calling the wp_enqueue_style() function.  If you are trying to load a stylesheet for all browsers 
+     * EXCEPT for IE, then you would HAVE to check the $is_IE global since WordPress doesn't have a way to 
+     * properly handle non-IE conditional comments.
+     */
+    wp_enqueue_style( 'my-theme-ie', get_stylesheet_directory_uri() . "/css/ie.css", array( 'my-theme' )  );
+    $wp_styles->add_data( 'my-theme-ie', 'conditional', 'IE' );
+} Found here (more code samples for version-specific IE stylesheets): https://gist.github.com/wpscholar/4947518#file-functions-php Log in to add feedback Skip to note 30 content Khoi Pro 5 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 1 You must log in to vote on the helpfulness of this note If you wish to load small screen css only, using last parameter: wp_enqueue_style( 'example-small-css', get_template_directory_uri() . '/assets/css/small.min.css', array(), '1.0.0', '(max-width: 480px)' ); Log in to add feedback Skip to note 31 content Peter Hardy-vanDoorn 4 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 1 You must log in to vote on the helpfulness of this note When enqueueing your theme stylesheet, use wp_get_theme()->get( 'Version' ) to get the latest version number from your style.css file. Great for cache busting when you make changes to your styles. eg: wp_enqueue_style( 'my=theme', get_template_directory_uri() . '/style.css', array(), wp_get_theme()->get( 'Version' ), 'all' ); Log in to add feedback Skip to note 32 content Md Yousuf 4 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 0 You must log in to vote on the helpfulness of this note If you use this code it automatic clear your cache, it will change the automatic version in the steel sheet //if you want to see on your screen
+print_r( filemtime( get_template_directory() . '/style.css' ) );
+wp_die(); function wpdocs_scripts() {
+    wp_enqueue_style( 'stylesheet', get_stylesheet_uri(), array(), filemtime( get_template_directory() . '/style.css' ) );
+}
+
+add_action( 'wp_enqueue_scripts', 'wpdocs_scripts' ); Log in to add feedback Skip to note 33 content KJ Roelke 3 years ago You must log in to vote on the helpfulness of this note Vote results for this note: 0 You must log in to vote on the helpfulness of this note To make use of file.asset.php generated by `@wordpress/scripts` build command, you can use the following: // assuming you're using a modified 3rd-party CSS framework like bootstrap, call bootstrap's built dependencies file
+$bootstrap = require_once get_template_directory_uri() . '/build/bootstrap.asset.php';
+
+// Call your global CSS file (perhaps you're also writing CSS per page that you'll enqueue later)
+$global_dependencies = require_once get_template_directory_uri() . '/build/global.asset.php';
+
+// Load "bootstrap" css with
+wp_enqueue_style(
+	'bootstrap',
+	get_template_directory_uri() . '/build/bootstrap.css',
+	array(),
+	$bootstrap['version']
+);
+
+// Load your global css after 'bootstrap' css with the dependencies array (since that doesn't get popualted by build script)
+wp_enqueue_style(
+	'global',
+	get_template_directory_uri() . '/build/global.css',
+	array( 'bootstrap' ),
+	$global['version']
+); Log in to add feedback Skip to note 34 content Joynal Abedin 3 years ago You must log in to vote on the helpfulness of this note Vote results for this note: -1 You must log in to vote on the helpfulness of this note TO avoid caching issue in version parameter put it time() function. wp_enqueue_style( 'handle-name', get_template_directory_uri() . 'path/css.css', array(), time(), 'all' ); Log in to add feedback You must log in before being able to contribute a note or feedback. About News Hosting Privacy Showcase Themes Plugins Patterns Learn Documentation Developers WordPress.tv ↗ Get Involved Events Donate ↗ Swag ↗ WordPress.com ↗ Matt ↗ bbPress ↗ BuddyPress ↗ WordPress.org The WordPress® trademark is the intellectual property of the WordPress Foundation. Visit our X (formerly Twitter) account Visit our Bluesky account Visit our Mastodon account Visit our Threads account Visit our Facebook page Visit our Instagram account Visit our LinkedIn account Visit our TikTok account Visit our YouTube channel Visit our Tumblr account Code is Poetry

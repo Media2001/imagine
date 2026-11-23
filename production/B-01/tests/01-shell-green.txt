@@ -1,0 +1,6 @@
+test_b01_shell_contract (__main__.B01Theme.test_b01_shell_contract) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK

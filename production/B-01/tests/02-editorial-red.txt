@@ -1,0 +1,15 @@
+test_b01_editorial_templates_and_body_seam (__main__.B01Theme.test_b01_editorial_templates_and_body_seam) ... FAIL
+test_b01_shell_contract (__main__.B01Theme.test_b01_shell_contract) ... ok
+
+======================================================================
+FAIL: test_b01_editorial_templates_and_body_seam (__main__.B01Theme.test_b01_editorial_templates_and_body_seam)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\test_b01_theme.py", line 41, in test_b01_editorial_templates_and_body_seam
+    self.assertTrue((THEME / name).is_file(), name + ' doit exister')
+AssertionError: False is not true : front-page.php doit exister
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.002s
+
+FAILED (failures=1)
