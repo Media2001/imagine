@@ -190,6 +190,19 @@ def run_storage(storage):
     link.unlink()
     check(storage + ':negative_probes_no_database_change', before == fingerprint(db))
     check(storage + ':negative_probes_files_restored', file_before == files(site))
+    # A separate, explicit synthetic variant removes local knowledge, not site data.
+    sql(db, "DELETE FROM wp_options WHERE option_name IN ('_site_transient_update_plugins','_site_transient_update_themes')")
+    (site / 'wp-content/debug.log').unlink()
+    variant_before = fingerprint(db)
+    (OUT / (storage + '-no-cache-db-before.json')).write_text(json.dumps(variant_before, indent=2) + '\n')
+    no_cache = OUT / (storage + '-no-cache')
+    unknown = audit(site, no_cache)
+    check(storage + ':no_cache_audit_success', unknown.returncode == 0)
+    unknown_report = json.loads((no_cache / 'audit.json').read_text())
+    check(storage + ':missing_knowledge_explicit', all(p['latest'] is None for p in unknown_report['sections']['versions']['plugins']) and all(p['older_than_two_years'] is None for p in unknown_report['sections']['risks']['plugin_updates']) and unknown_report['sections']['risks']['debug_log_coverage'] == 'absent')
+    variant_after = fingerprint(db)
+    (OUT / (storage + '-no-cache-db-after.json')).write_text(json.dumps(variant_after, indent=2) + '\n')
+    check(storage + ':no_cache_database_unchanged', variant_before == variant_after)
 
 def main():
     SCRATCH.mkdir()
@@ -200,7 +213,7 @@ def main():
             if cmd(['mariadb-admin', '--socket=' + SOCKET, '-uroot', 'ping'], check=False, timeout=5).returncode == 0:
                 break
             time.sleep(.2)
-        for file in ['/subject/audit', '/opt/a02/seed.php', '/opt/a02/fingerprint.php', '/opt/a02/unit.php']:
+        for file in ['/subject/audit', '/opt/a02/seed.php', '/opt/a02/fingerprint.php', '/opt/a02/unit.php', '/opt/a02/readonly-probe.php']:
             p = cmd(['php', '-l', file], check=False)
             check('lint:' + pathlib.Path(file).name, p.returncode == 0)
         for storage in ['classic', 'hpos']:

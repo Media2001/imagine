@@ -1,0 +1,19 @@
+{
+  "plan_id": 13,
+  "product_id": 17,
+  "versions": {
+    "wordpress": "7.0.9",
+    "woocommerce": "11.1.1",
+    "subscriptions": "9.4.1",
+    "memberships": "1.30.3"
+  },
+  "hpos": true,
+  "subscriptions": 3,
+  "rules": 2,
+  "restriction_real": true,
+  "gateway_ids": [
+    "bacs",
+    "cheque",
+    "cod"
+  ]
+}
