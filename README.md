@@ -41,7 +41,8 @@ Tout se passe sur la branche `main`. Seule la tâche de synchronisation touche �
 
 ## Points de reprise
 
-- `A-FAIRE.md` : file des consignes actives pour Hermès (tenue par Claude, lue par Hermès à chaque cycle).
+- `A-FAIRE.md` : file de la voie 1, l'existant (tenue par Claude, lue par Hermès à chaque cycle).
+- `A-FAIRE-2.md` : file de la voie 2, ce qui se voit (site de démonstration fictif), suivie par une deuxième session d'Hermès.
 - `ETAT.md` : où en est chaque chantier.
 - `JOURNAL.md` : une ligne par jour.
 - `docs/decisions.md` : ce qui est tranché, ce qui reste ouvert.

@@ -1,8 +1,10 @@
-# À faire — file des consignes actives pour Hermès
+# À faire — voie 1 : l'existant
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 23 novembre 2026, 8 h.
+Mis à jour le 23 novembre 2026, 11 h.
+
+**Deux voies depuis le 23/11.** Ce fichier est la file de la voie 1. Une deuxième session d'Hermès suit `A-FAIRE-2.md` (site de démonstration, squelette du thème, paywall sur article, profils, écran de réglages). Lis la section « Les deux voies » de la consigne permanente. Ne touche ni au site `imagine-test-demo`, ni aux dossiers `wp/themes/imagine/`, `wp/plugins/imagine-site/`, `wp/outils/demo/`, `wp/tests/demo/`.
 
 Consigne permanente : `prompts/consigne-permanente.md`. Doctrine : `doctrine/doctrine.md` (dernière révision : **22/11/2026 — une règle ouverte devient un réglage**).
 
@@ -18,7 +20,7 @@ File du 23/11, 8 h. Ton rapport du 22/11 à 17 h 28 est lu, ainsi que les quatre
 
 **3. `briefs/A-02-audit.md`** — le script d'audit de l'existant, préparé et prouvé sur site fictif, pour être lancé dès que le staging d'Imagine existe. Une demi-journée.
 
-**Les écrans de réglages.** Dans C-05, C-06 et C-07, tu as livré des adaptateurs d'administration (pages de réglages WordPress). Ils ne font pas partie des lots clos : laisse-les en l'état, ne les développe pas davantage. Ils seront repris, relus et montrés à Ced dans le lot de branchement.
+**Les écrans de réglages.** Dans C-05, C-06 et C-07, tu as livré des adaptateurs d'administration (pages de réglages WordPress). Ils ne font pas partie des lots clos : laisse-les en l'état. Ils sont repris par la voie 2 (lot C-10).
 
 **Où lancer les tests PHP.** Dans un conteneur jetable, comme jusqu'ici. Rien sur Windows.
 
