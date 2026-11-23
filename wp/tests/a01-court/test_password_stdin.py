@@ -1,8 +1,11 @@
 """Windows operator automation must consume a pipe, never console getwch."""
 import io
+import json
 from pathlib import Path
 import sys
 import unittest
+import tempfile
+import subprocess
 from unittest import mock
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'outils/staging-court'))
@@ -10,6 +13,26 @@ import publish
 
 
 class StdinPassword(unittest.TestCase):
+    def test_pipe_is_captured_before_wsl_can_drain_it(self):
+        events = []
+        with tempfile.TemporaryDirectory(dir=Path.home() / 'AppData/Local/hermes/cache/scratch') as folder:
+            root = Path(folder)
+            archive = root / 'fiction.wpress'
+            archive.write_bytes(b'Fictitious metadata seam only')
+            with mock.patch.multiple(publish, ROOT=root, HERE=root,
+                    read_admin_password=lambda flag: events.append('password') or 'entierement-fictif-0123456789',
+                    fresh_runner=lambda name: {}, offline_isolation=lambda name: {},
+                    call=lambda *a, **k: subprocess.CompletedProcess([], 0, b'', b''),
+                    archive_core_preflight=lambda *a: {'ok': False, 'code': 'SOURCE_EXPECTED_CORE_VERSION_MISMATCH'},
+                    remove_owned=lambda name: {'name': name, 'absent': True}), \
+                 mock.patch('publication_preflight.collect', side_effect=lambda: events.append('collect') or {'tool_source_manifest': {}}), \
+                 mock.patch.object(sys, 'argv', ['publish.py', '--operator-ced', '--archive', str(archive),
+                    '--name', 'imagine-test-a01-pipe', '--production-url', 'https://source.invalid', '--password-stdin']):
+                self.assertEqual(1, publish.main())
+            self.assertEqual('password', events[0], 'WSL consumes inherited stdin, capture the pipe first')
+            report = next(root.rglob('result.json')).read_text()
+            self.assertNotIn('entierement-fictif-0123456789', report)
+
     def test_explicit_pipe_reads_new_password_without_getpass(self):
         value = 'entierement-fictif-0123456789'
         stream = io.TextIOWrapper(io.BytesIO((value + '\r\n').encode()))

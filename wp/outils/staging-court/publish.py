@@ -481,6 +481,10 @@ def main():
               'post_verified_network_limit': 'WordPress HTTP filtering only; not a system firewall',
               'started_utc': datetime.datetime.now(datetime.timezone.utc).isoformat()}
     try:
+        # WSL.exe consumes inherited stdin even for read-only Docker calls.
+        # Capture an explicitly supplied pipe before ANY WSL subprocess.
+        # Interactive Ced prompting remains after the ordinary prerequisites.
+        piped_password = read_admin_password(True) if args.password_stdin else None
         from publication_preflight import collect
         before = collect()['tool_source_manifest']
         result['tool_source_manifest'] = before
@@ -553,7 +557,7 @@ def main():
                            'expected_core_version': args.expected_core_version,
                            'php_version': php_runtime,
                            'production_url': args.production_url or 'https://production.synthetic.invalid',
-                           'password': read_admin_password(args.password_stdin) if args.archive else secrets.token_urlsafe(40),
+                           'password': (piped_password if args.password_stdin else read_admin_password(False)) if args.archive else secrets.token_urlsafe(40),
                            'decisions': json.loads(Path(args.table_decisions).read_text()) if args.table_decisions else {}}
                 if args.self_test_publication:
                     for slug in (('woocommerce-memberships',) if qualified_69 else ('woocommerce-memberships', 'woocommerce-subscriptions')):
