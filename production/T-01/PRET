@@ -1,0 +1,4 @@
+T-01 prêt à relire le 23 novembre 2026.
+Préparation réelle de l’image puis rejeu réel : 802 tests, 33367 assertions, 0 échec, 0 erreur, 0 ignoré — PASS.
+Contrats : 13/13 PASS ; isolation réelle PASS ; preuves dans preuves/final-* et preuves/preparation-20261123-1350.log.
+Ne vaut ni clôture du lot ni autorisation d’accès au réel.

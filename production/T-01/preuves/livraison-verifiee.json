@@ -1,11 +1,14 @@
 {
+  "time": "2026-11-23T13:52:25.895668+01:00",
   "source_hashes_still_match": true,
   "notes_lines": 5,
-  "PRET_exists": false,
+  "PRET_exists": true,
   "owned_containers_remaining": [],
   "docker_query_exit": 0,
-  "real_php_suite_exit": 1,
+  "real_php_suite_exit": 0,
   "contract_exit": 0,
   "isolation_exit": 0,
-  "ready": false
+  "preparation_executed": true,
+  "preparation_log": "preparation-20261123-1350.log",
+  "ready": true
 }

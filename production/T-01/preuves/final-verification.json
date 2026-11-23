@@ -1,6 +1,6 @@
 {
-  "time_utc": "2026-11-23T09:33:22.225862+00:00",
-  "ready": false,
+  "time_utc": "2026-11-23T12:51:45.843519+00:00",
+  "ready": true,
   "immutable_libraries_and_runner_unchanged": true,
   "source_sha256": {
     "wp/plugins/imagine-connecteur/composer.json": "3f20376eed544db963edec4b388c663d51a91d6d085c30e1ba743be0c8903af4",
@@ -126,7 +126,7 @@
     "wp/plugins/imagine-pilotage/tests/Robots/HorlogeFictive.php": "98966ca6be1bd480d2b0700ee877829fd842319da1d1e55dff0583a1b37326f2",
     "wp/plugins/imagine-pilotage/tests/Robots/PlagesTest.php": "7c994e5829cbee558775d223022c524da0f012154ce6089ea3168e4eb953d06a",
     "wp/plugins/imagine-pilotage/tests/Robots/VerificateurTest.php": "278d8d5f7d5eaa4f38c6f57d89371b8972540f56daacb2b94a2d9fb350e7371d",
-    "wp/tests/preparer-image.ps1": "cb5b74cc317fcc4dec8c0b4c6044dc158f82e6a62593c6b407ffe53d15b9fbd9",
+    "wp/tests/preparer-image.ps1": "387ccf893b335de8cb84271cf632196301834df7dab6c22a44336c06fc6fe0d1",
     "wp/tests/rejouer.ps1": "83e60061489c52dc41f74f56b499816139856d31294ca2dad9a11f6bbf46c5a8",
     "wp/tests/t01/commun.ps1": "1346b14a1a4858c57bc5d985bfc3a454570957c3529d22b87ca3cf4046aeabb1",
     "wp/tests/t01/Dockerfile": "71840714fe2652cba840ebcc212487daf4b80d209efe60b57d2f15836a9cdf06",
@@ -162,7 +162,7 @@
         "wp/tests/t01/test-isolation.ps1"
       ],
       "exit_code": 0,
-      "stdout_sha256": "6985d3f809148e133640b03d72aac7a0b3f3cc852ae6a18b4f1bd4c1fe23be9e",
+      "stdout_sha256": "34bcde4923c953329913c9ea99efa82472747098bc7e5f11208fb93c597d252c",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "rejeu": {
@@ -174,15 +174,13 @@
         "-File",
         "wp/tests/rejouer.ps1"
       ],
-      "exit_code": 1,
-      "stdout_sha256": "9b2117007c3b099993d52e5fa5bf26cb0ccc1571d4ce38b3c94dff0afdb7d10a",
+      "exit_code": 0,
+      "stdout_sha256": "4cbbe6980b236af404420244af57cefa597410addd689c12ef08fe06cb4c7f7a",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "last_line": "REJEU : 0 tests, 0 assertions, 0 échecs, 1 erreurs, 0 ignorés — FAIL",
+      "last_line": "REJEU : 802 tests, 33367 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS",
       "summary_valid": true
     }
   },
   "preparation_executed": false,
-  "limitations": [
-    "See final-rejeu.log: the real suite must PASS; boundary doubles and isolation checks do not replace it."
-  ]
+  "limitations": []
 }

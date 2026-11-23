@@ -1,4 +1,4 @@
-# Ced-only, explicit online preparation. Replay never invokes this file.
+# Explicit online preparation authorized by T-01. Replay never invokes this file.
 $ErrorActionPreference = 'Stop'
 [Console]::OutputEncoding = New-Object Text.UTF8Encoding($false)
 . (Join-Path $PSScriptRoot 't01/commun.ps1')
