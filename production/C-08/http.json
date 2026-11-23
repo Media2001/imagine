@@ -1,0 +1,927 @@
+{
+  "scope": "imagine-test-demo",
+  "url": "http://192.168.129.32:8085",
+  "total": 299,
+  "passed": 299,
+  "failed": 0,
+  "failures": [],
+  "checks": {
+    "anonyme-page:status": true,
+    "anonyme-page:temoin": true,
+    "anonyme-page:autre_temoin_absent": true,
+    "anonyme-page:sans_erreur_php": true,
+    "anonyme-page:cache_prive": true,
+    "anonyme-page:sans_validateur_partage": true,
+    "anonyme:bloc_connexion": true,
+    "anonyme:extrait_public": true,
+    "partage:trois_balises": true,
+    "partage:temoin_absent": true,
+    "partage:balisage_payant": true,
+    "rest-item:status": true,
+    "rest-item:temoin": true,
+    "rest-item:autre_temoin_absent": true,
+    "rest-item:sans_erreur_php": true,
+    "rest-item:cache_prive": true,
+    "rest-item:sans_validateur_partage": true,
+    "rest-collection:status": true,
+    "rest-collection:temoin": true,
+    "rest-collection:autre_temoin_absent": true,
+    "rest-collection:sans_erreur_php": true,
+    "rest-collection:cache_prive": true,
+    "rest-collection:sans_validateur_partage": true,
+    "rest-collection:fixture_effectivement_presente": true,
+    "rest-champs:status": true,
+    "rest-champs:temoin": true,
+    "rest-champs:autre_temoin_absent": true,
+    "rest-champs:sans_erreur_php": true,
+    "rest-champs:cache_prive": true,
+    "rest-champs:sans_validateur_partage": true,
+    "rest-embed:status": true,
+    "rest-embed:temoin": true,
+    "rest-embed:autre_temoin_absent": true,
+    "rest-embed:sans_erreur_php": true,
+    "rest-embed:cache_prive": true,
+    "rest-embed:sans_validateur_partage": true,
+    "rest-route-alternative:status": true,
+    "rest-route-alternative:temoin": true,
+    "rest-route-alternative:autre_temoin_absent": true,
+    "rest-route-alternative:sans_erreur_php": true,
+    "rest-route-alternative:cache_prive": true,
+    "rest-route-alternative:sans_validateur_partage": true,
+    "rest-recherche:status": true,
+    "rest-recherche:temoin": true,
+    "rest-recherche:autre_temoin_absent": true,
+    "rest-recherche:sans_erreur_php": true,
+    "rest-recherche:cache_prive": true,
+    "rest-recherche:sans_validateur_partage": true,
+    "rss2:status": true,
+    "rss2:temoin": true,
+    "rss2:autre_temoin_absent": true,
+    "rss2:sans_erreur_php": true,
+    "rss2:cache_prive": true,
+    "rss2:sans_validateur_partage": true,
+    "rss2:fixture_effectivement_presente": true,
+    "rss:status": true,
+    "rss:temoin": true,
+    "rss:autre_temoin_absent": true,
+    "rss:sans_erreur_php": true,
+    "rss:cache_prive": true,
+    "rss:sans_validateur_partage": true,
+    "rss:fixture_effectivement_presente": true,
+    "atom:status": true,
+    "atom:temoin": true,
+    "atom:autre_temoin_absent": true,
+    "atom:sans_erreur_php": true,
+    "atom:cache_prive": true,
+    "atom:sans_validateur_partage": true,
+    "atom:fixture_effectivement_presente": true,
+    "rdf:status": true,
+    "rdf:temoin": true,
+    "rdf:autre_temoin_absent": true,
+    "rdf:sans_erreur_php": true,
+    "rdf:cache_prive": true,
+    "rdf:sans_validateur_partage": true,
+    "rdf:fixture_effectivement_presente": true,
+    "recherche:status": true,
+    "recherche:temoin": true,
+    "recherche:autre_temoin_absent": true,
+    "recherche:sans_erreur_php": true,
+    "recherche:cache_prive": true,
+    "recherche:sans_validateur_partage": true,
+    "recherche:reponse_recherche_valide": true,
+    "extrait-automatique:status": true,
+    "extrait-automatique:temoin": true,
+    "extrait-automatique:autre_temoin_absent": true,
+    "extrait-automatique:sans_erreur_php": true,
+    "extrait-automatique:cache_prive": true,
+    "extrait-automatique:sans_validateur_partage": true,
+    "extrait-automatique:repli_neutre": true,
+    "embed-page:status": true,
+    "embed-page:temoin": true,
+    "embed-page:autre_temoin_absent": true,
+    "embed-page:sans_erreur_php": true,
+    "embed-page:cache_prive": true,
+    "embed-page:sans_validateur_partage": true,
+    "apercu:status": true,
+    "apercu:temoin": true,
+    "apercu:autre_temoin_absent": true,
+    "apercu:sans_erreur_php": true,
+    "apercu:cache_prive": true,
+    "apercu:sans_validateur_partage": true,
+    "page-multipage:status": true,
+    "page-multipage:temoin": true,
+    "page-multipage:autre_temoin_absent": true,
+    "page-multipage:sans_erreur_php": true,
+    "page-multipage:cache_prive": true,
+    "page-multipage:sans_validateur_partage": true,
+    "page-amp-inactif:status": true,
+    "page-amp-inactif:temoin": true,
+    "page-amp-inactif:autre_temoin_absent": true,
+    "page-amp-inactif:sans_erreur_php": true,
+    "page-amp-inactif:cache_prive": true,
+    "page-amp-inactif:sans_validateur_partage": true,
+    "oembed:status": true,
+    "oembed:temoin": true,
+    "oembed:autre_temoin_absent": true,
+    "oembed:sans_erreur_php": true,
+    "oembed:cache_prive": true,
+    "oembed:sans_validateur_partage": true,
+    "rest-contexte-edition-interdit:status": true,
+    "rest-contexte-edition-interdit:temoin": true,
+    "rest-contexte-edition-interdit:autre_temoin_absent": true,
+    "rest-contexte-edition-interdit:sans_erreur_php": true,
+    "rest-contexte-edition-interdit:cache_prive": true,
+    "rest-contexte-edition-interdit:sans_validateur_partage": true,
+    "rest-revisions-interdites:status": true,
+    "rest-revisions-interdites:temoin": true,
+    "rest-revisions-interdites:autre_temoin_absent": true,
+    "rest-revisions-interdites:sans_erreur_php": true,
+    "rest-revisions-interdites:cache_prive": true,
+    "rest-revisions-interdites:sans_validateur_partage": true,
+    "faux-googlebot:status": true,
+    "faux-googlebot:temoin": true,
+    "faux-googlebot:autre_temoin_absent": true,
+    "faux-googlebot:sans_erreur_php": true,
+    "faux-googlebot:cache_prive": true,
+    "faux-googlebot:sans_validateur_partage": true,
+    "faux-bingbot:status": true,
+    "faux-bingbot:temoin": true,
+    "faux-bingbot:autre_temoin_absent": true,
+    "faux-bingbot:sans_erreur_php": true,
+    "faux-bingbot:cache_prive": true,
+    "faux-bingbot:sans_validateur_partage": true,
+    "conditionnelle-anonyme:status": true,
+    "conditionnelle-anonyme:temoin": true,
+    "conditionnelle-anonyme:autre_temoin_absent": true,
+    "conditionnelle-anonyme:sans_erreur_php": true,
+    "conditionnelle-anonyme:cache_prive": true,
+    "conditionnelle-anonyme:sans_validateur_partage": true,
+    "conditionnelle-flux:status": true,
+    "conditionnelle-flux:temoin": true,
+    "conditionnelle-flux:autre_temoin_absent": true,
+    "conditionnelle-flux:sans_erreur_php": true,
+    "conditionnelle-flux:cache_prive": true,
+    "conditionnelle-flux:sans_validateur_partage": true,
+    "fixture:aucun_password_natif": true,
+    "anonyme-phrase-temoin:html:200": true,
+    "anonyme-phrase-temoin:html:appariement_exact": true,
+    "anonyme-phrase-temoin:html:cache_prive": true,
+    "anonyme-phrase-temoin:rest-posts:200": true,
+    "anonyme-phrase-temoin:rest-posts:appariement_exact": true,
+    "anonyme-phrase-temoin:rest-posts:cache_prive": true,
+    "anonyme-phrase-temoin:rest-posts:sans_fragment_corps": true,
+    "anonyme-phrase-temoin:rest-search:200": true,
+    "anonyme-phrase-temoin:rest-search:appariement_exact": true,
+    "anonyme-phrase-temoin:rest-search:cache_prive": true,
+    "anonyme-phrase-temoin:rest-search:sans_fragment_corps": true,
+    "anonyme-titre-public:html:200": true,
+    "anonyme-titre-public:html:appariement_exact": true,
+    "anonyme-titre-public:html:cache_prive": true,
+    "anonyme-titre-public:rest-posts:200": true,
+    "anonyme-titre-public:rest-posts:appariement_exact": true,
+    "anonyme-titre-public:rest-posts:cache_prive": true,
+    "anonyme-titre-public:rest-search:200": true,
+    "anonyme-titre-public:rest-search:appariement_exact": true,
+    "anonyme-titre-public:rest-search:cache_prive": true,
+    "anonyme-extrait-public:html:200": true,
+    "anonyme-extrait-public:html:appariement_exact": true,
+    "anonyme-extrait-public:html:cache_prive": true,
+    "anonyme-extrait-public:rest-posts:200": true,
+    "anonyme-extrait-public:rest-posts:appariement_exact": true,
+    "anonyme-extrait-public:rest-posts:cache_prive": true,
+    "anonyme-extrait-public:rest-search:200": true,
+    "anonyme-extrait-public:rest-search:appariement_exact": true,
+    "anonyme-extrait-public:rest-search:cache_prive": true,
+    "anonyme-mots-corps:html:200": true,
+    "anonyme-mots-corps:html:appariement_exact": true,
+    "anonyme-mots-corps:html:cache_prive": true,
+    "anonyme-mots-corps:rest-posts:200": true,
+    "anonyme-mots-corps:rest-posts:appariement_exact": true,
+    "anonyme-mots-corps:rest-posts:cache_prive": true,
+    "anonyme-mots-corps:rest-posts:sans_fragment_corps": true,
+    "anonyme-mots-corps:rest-search:200": true,
+    "anonyme-mots-corps:rest-search:appariement_exact": true,
+    "anonyme-mots-corps:rest-search:cache_prive": true,
+    "anonyme-mots-corps:rest-search:sans_fragment_corps": true,
+    "actif-page:status": true,
+    "actif-page:temoin": true,
+    "actif-page:autre_temoin_absent": true,
+    "actif-page:sans_erreur_php": true,
+    "actif-page:cache_prive": true,
+    "actif-page:sans_validateur_partage": true,
+    "actif:bloc": true,
+    "actif:nonce_natif": true,
+    "actif-phrase-temoin:html:200": true,
+    "actif-phrase-temoin:html:appariement_exact": true,
+    "actif-phrase-temoin:html:cache_prive": true,
+    "actif-phrase-temoin:rest-posts:200": true,
+    "actif-phrase-temoin:rest-posts:appariement_exact": true,
+    "actif-phrase-temoin:rest-posts:cache_prive": true,
+    "actif-phrase-temoin:rest-search:200": true,
+    "actif-phrase-temoin:rest-search:appariement_exact": true,
+    "actif-phrase-temoin:rest-search:cache_prive": true,
+    "actif-rest:status": true,
+    "actif-rest:temoin": true,
+    "actif-rest:autre_temoin_absent": true,
+    "actif-rest:sans_erreur_php": true,
+    "actif-rest:cache_prive": true,
+    "actif-rest:sans_validateur_partage": true,
+    "anonyme-apres-actif:status": true,
+    "anonyme-apres-actif:temoin": true,
+    "anonyme-apres-actif:autre_temoin_absent": true,
+    "anonyme-apres-actif:sans_erreur_php": true,
+    "anonyme-apres-actif:cache_prive": true,
+    "anonyme-apres-actif:sans_validateur_partage": true,
+    "grace-page:status": true,
+    "grace-page:temoin": true,
+    "grace-page:autre_temoin_absent": true,
+    "grace-page:sans_erreur_php": true,
+    "grace-page:cache_prive": true,
+    "grace-page:sans_validateur_partage": true,
+    "grace:bloc": true,
+    "grace:nonce_natif": true,
+    "grace-phrase-temoin:html:200": true,
+    "grace-phrase-temoin:html:appariement_exact": true,
+    "grace-phrase-temoin:html:cache_prive": true,
+    "grace-phrase-temoin:rest-posts:200": true,
+    "grace-phrase-temoin:rest-posts:appariement_exact": true,
+    "grace-phrase-temoin:rest-posts:cache_prive": true,
+    "grace-phrase-temoin:rest-search:200": true,
+    "grace-phrase-temoin:rest-search:appariement_exact": true,
+    "grace-phrase-temoin:rest-search:cache_prive": true,
+    "grace-rest:status": true,
+    "grace-rest:temoin": true,
+    "grace-rest:autre_temoin_absent": true,
+    "grace-rest:sans_erreur_php": true,
+    "grace-rest:cache_prive": true,
+    "grace-rest:sans_validateur_partage": true,
+    "anonyme-apres-grace:status": true,
+    "anonyme-apres-grace:temoin": true,
+    "anonyme-apres-grace:autre_temoin_absent": true,
+    "anonyme-apres-grace:sans_erreur_php": true,
+    "anonyme-apres-grace:cache_prive": true,
+    "anonyme-apres-grace:sans_validateur_partage": true,
+    "sans-droit-page:status": true,
+    "sans-droit-page:temoin": true,
+    "sans-droit-page:autre_temoin_absent": true,
+    "sans-droit-page:sans_erreur_php": true,
+    "sans-droit-page:cache_prive": true,
+    "sans-droit-page:sans_validateur_partage": true,
+    "sans-droit:bloc": true,
+    "sans-droit:nonce_natif": true,
+    "sans-droit-phrase-temoin:html:200": true,
+    "sans-droit-phrase-temoin:html:appariement_exact": true,
+    "sans-droit-phrase-temoin:html:cache_prive": true,
+    "sans-droit-phrase-temoin:rest-posts:200": true,
+    "sans-droit-phrase-temoin:rest-posts:appariement_exact": true,
+    "sans-droit-phrase-temoin:rest-posts:cache_prive": true,
+    "sans-droit-phrase-temoin:rest-posts:sans_fragment_corps": true,
+    "sans-droit-phrase-temoin:rest-search:200": true,
+    "sans-droit-phrase-temoin:rest-search:appariement_exact": true,
+    "sans-droit-phrase-temoin:rest-search:cache_prive": true,
+    "sans-droit-phrase-temoin:rest-search:sans_fragment_corps": true,
+    "sans-droit-rest:status": true,
+    "sans-droit-rest:temoin": true,
+    "sans-droit-rest:autre_temoin_absent": true,
+    "sans-droit-rest:sans_erreur_php": true,
+    "sans-droit-rest:cache_prive": true,
+    "sans-droit-rest:sans_validateur_partage": true,
+    "anonyme-apres-sans-droit:status": true,
+    "anonyme-apres-sans-droit:temoin": true,
+    "anonyme-apres-sans-droit:autre_temoin_absent": true,
+    "anonyme-apres-sans-droit:sans_erreur_php": true,
+    "anonyme-apres-sans-droit:cache_prive": true,
+    "anonyme-apres-sans-droit:sans_validateur_partage": true,
+    "cookie-mot-de-passe-non-droit:status": true,
+    "cookie-mot-de-passe-non-droit:temoin": true,
+    "cookie-mot-de-passe-non-droit:autre_temoin_absent": true,
+    "cookie-mot-de-passe-non-droit:sans_erreur_php": true,
+    "cookie-mot-de-passe-non-droit:cache_prive": true,
+    "cookie-mot-de-passe-non-droit:sans_validateur_partage": true,
+    "article-ouvert:status": true,
+    "article-ouvert:temoin": true,
+    "article-ouvert:autre_temoin_absent": true,
+    "article-ouvert:sans_erreur_php": true,
+    "article-ouvert:cache_prive": true,
+    "article-ouvert:sans_validateur_partage": true,
+    "article_ouvert:complet": true
+  },
+  "responses": {
+    "anonyme-page": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 28243,
+      "body_sha256": "7b091b66d4995cc68fc12c69c88e7bfc5e14aa2a26b35ce89a1436aa2ef2402c"
+    },
+    "rest-item": {
+      "path": "/wp-json/wp/v2/posts/81",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 2279,
+      "body_sha256": "1232ca66ac96770b8aa10b5f6781d10f11e5ec6270c4f20aecf0735ae5c9ef96"
+    },
+    "rest-collection": {
+      "path": "/wp-json/wp/v2/posts?include=81%2C82&_embed=1",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 6157,
+      "body_sha256": "cd241e6ef0cab9c28561f8c8575af0296dae7de4dc390daafb9a508cc611ff84"
+    },
+    "rest-champs": {
+      "path": "/wp-json/wp/v2/posts/81?_fields=content,excerpt",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 303,
+      "body_sha256": "e1392a4853f55d570b69a9fa33eddc0579ecf08376e9ea1c6a880e37b12036f2"
+    },
+    "rest-embed": {
+      "path": "/wp-json/wp/v2/posts/81?context=embed",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 1567,
+      "body_sha256": "3cc64071373fbd1e408b66207558b3fc0061c244a001146684760e859a32bbfd"
+    },
+    "rest-route-alternative": {
+      "path": "/?rest_route=/wp/v2/posts/81",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 2279,
+      "body_sha256": "1232ca66ac96770b8aa10b5f6781d10f11e5ec6270c4f20aecf0735ae5c9ef96"
+    },
+    "rest-recherche": {
+      "path": "/wp-json/wp/v2/search?search=C08",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 947,
+      "body_sha256": "5f2dda7770d2b6aba1a3304f4e8df5504a8a1ff03853f8f51ed5852dbe3079bc"
+    },
+    "rss2": {
+      "path": "/?feed=rss2",
+      "status": 200,
+      "headers": {
+        "content-type": "application/rss+xml; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 13274,
+      "body_sha256": "14a9a6a771c6e41c02dbbcda86206cdf2f949022faa48dd03a33b413fd10c12a"
+    },
+    "rss": {
+      "path": "/?feed=rss",
+      "status": 200,
+      "headers": {
+        "content-type": "application/rss+xml; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 3205,
+      "body_sha256": "f853064b728b998e83b662a9ec515ef46abeca0091bbd2ecc51f8b4bedbf8ee3"
+    },
+    "atom": {
+      "path": "/?feed=atom",
+      "status": 200,
+      "headers": {
+        "content-type": "application/atom+xml; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 14440,
+      "body_sha256": "f96840212cea02a74ce1027656480f2d7c6ec756b29afaa011d484302e57652b"
+    },
+    "rdf": {
+      "path": "/?feed=rdf",
+      "status": 200,
+      "headers": {
+        "content-type": "application/rdf+xml; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 13467,
+      "body_sha256": "f6062f108da0459b44f6d806995075117d7f101cc2166bbb8509f5aad65f0e58"
+    },
+    "recherche": {
+      "path": "/?s=C08",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 26583,
+      "body_sha256": "3d7697e5e320f1b7bb70ed0a258e9fce81d40dac7abbf524a005b36fa60f35bf"
+    },
+    "extrait-automatique": {
+      "path": "/c08-article-reserve-automatique/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 27938,
+      "body_sha256": "35452f353b1521138a394c82f4604c4db5c3419b3051956f8b94d8c6d0d3b730"
+    },
+    "embed-page": {
+      "path": "/c08-article-reserve-article/embed/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 20271,
+      "body_sha256": "57aadd214c9b34dfaa744601a1963eccf91a981c3c8b004b9822f97a01e4c2d6"
+    },
+    "apercu": {
+      "path": "/?p=81&preview=true",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 28243,
+      "body_sha256": "7b091b66d4995cc68fc12c69c88e7bfc5e14aa2a26b35ce89a1436aa2ef2402c"
+    },
+    "page-multipage": {
+      "path": "/c08-article-reserve-article/?page=2",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 28243,
+      "body_sha256": "7b091b66d4995cc68fc12c69c88e7bfc5e14aa2a26b35ce89a1436aa2ef2402c"
+    },
+    "page-amp-inactif": {
+      "path": "/c08-article-reserve-article/?amp=1",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 28243,
+      "body_sha256": "7b091b66d4995cc68fc12c69c88e7bfc5e14aa2a26b35ce89a1436aa2ef2402c"
+    },
+    "oembed": {
+      "path": "/wp-json/oembed/1.0/embed?url=http%3A%2F%2F192.168.129.32%3A8085%2Fc08-article-reserve-article%2F",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 632,
+      "body_sha256": "87602d413a0aeb3f8e0465e7544fdc4036e1484ae732e01be8ac299822331267"
+    },
+    "rest-contexte-edition-interdit": {
+      "path": "/wp-json/wp/v2/posts/81?context=edit",
+      "status": 401,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 151,
+      "body_sha256": "67cc54dbad8110b6f3b3179bd429862bafda68b9d5fd14d80b5c2f24b71a94b9"
+    },
+    "rest-revisions-interdites": {
+      "path": "/wp-json/wp/v2/posts/81/revisions",
+      "status": 401,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 169,
+      "body_sha256": "2112ed283ae0facda9170947b36278e896b47997a6ef933ad1f68f825c59d711"
+    },
+    "faux-googlebot": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 28243,
+      "body_sha256": "7b091b66d4995cc68fc12c69c88e7bfc5e14aa2a26b35ce89a1436aa2ef2402c"
+    },
+    "faux-bingbot": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 28243,
+      "body_sha256": "7b091b66d4995cc68fc12c69c88e7bfc5e14aa2a26b35ce89a1436aa2ef2402c"
+    },
+    "conditionnelle-anonyme": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 28243,
+      "body_sha256": "7b091b66d4995cc68fc12c69c88e7bfc5e14aa2a26b35ce89a1436aa2ef2402c"
+    },
+    "conditionnelle-flux": {
+      "path": "/?feed=rss2",
+      "status": 200,
+      "headers": {
+        "content-type": "application/rss+xml; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 13274,
+      "body_sha256": "14a9a6a771c6e41c02dbbcda86206cdf2f949022faa48dd03a33b413fd10c12a"
+    },
+    "anonyme-phrase-temoin:html": {
+      "path": "/?s=%22Les+lucioles+violettes+de+C08+gardent+le+secret+du+village+fictif.%22",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 26519,
+      "body_sha256": "c8e8a817839a1812caa5de9ea9a81cd42af1628d3a4cc22d0883a925166917de"
+    },
+    "anonyme-phrase-temoin:rest-posts": {
+      "path": "/wp-json/wp/v2/posts?search=%22Les+lucioles+violettes+de+C08+gardent+le+secret+du+village+fictif.%22&per_page=100",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 2,
+      "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "anonyme-phrase-temoin:rest-search": {
+      "path": "/wp-json/wp/v2/search?search=%22Les+lucioles+violettes+de+C08+gardent+le+secret+du+village+fictif.%22&per_page=100",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 2,
+      "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "anonyme-titre-public:html": {
+      "path": "/?s=%22Article+r%C3%A9serv%C3%A9+fictif+article%22",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 26561,
+      "body_sha256": "28cff1a884edff5be7c08df7429ad5588023da81cca3c3d1e702e57f6818e981"
+    },
+    "anonyme-titre-public:rest-posts": {
+      "path": "/wp-json/wp/v2/posts?search=%22Article+r%C3%A9serv%C3%A9+fictif+article%22&per_page=100",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 2281,
+      "body_sha256": "889bcc53da815cf63a6a368f99ca6a280bfad08fc2a05da53c2abaf6f31fa2dd"
+    },
+    "anonyme-titre-public:rest-search": {
+      "path": "/wp-json/wp/v2/search?search=%22Article+r%C3%A9serv%C3%A9+fictif+article%22&per_page=100",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 470,
+      "body_sha256": "9b0849dd1c02f5e5ee4a5b2c66852aee257b3ba4a4a6e04f2b852fe0bcbbef6f"
+    },
+    "anonyme-extrait-public:html": {
+      "path": "/?s=%22Extrait+public+C08%22",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 26483,
+      "body_sha256": "f90b643e3b6e57c64cf5649b6f332910e884261ee5d1924579a35f2414c35a36"
+    },
+    "anonyme-extrait-public:rest-posts": {
+      "path": "/wp-json/wp/v2/posts?search=%22Extrait+public+C08%22&per_page=100",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 2281,
+      "body_sha256": "889bcc53da815cf63a6a368f99ca6a280bfad08fc2a05da53c2abaf6f31fa2dd"
+    },
+    "anonyme-extrait-public:rest-search": {
+      "path": "/wp-json/wp/v2/search?search=%22Extrait+public+C08%22&per_page=100",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 470,
+      "body_sha256": "9b0849dd1c02f5e5ee4a5b2c66852aee257b3ba4a4a6e04f2b852fe0bcbbef6f"
+    },
+    "anonyme-mots-corps:html": {
+      "path": "/?s=lucioles+violettes",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 26225,
+      "body_sha256": "f5f80a2313a8271889333e240bf65c7ec8c4d457f1784f1da2b66de1726bedba"
+    },
+    "anonyme-mots-corps:rest-posts": {
+      "path": "/wp-json/wp/v2/posts?search=lucioles+violettes&per_page=100",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 2,
+      "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "anonyme-mots-corps:rest-search": {
+      "path": "/wp-json/wp/v2/search?search=lucioles+violettes&per_page=100",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 2,
+      "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "actif-page": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 28725,
+      "body_sha256": "10c98b074c2289510572aa03cb28e3e8f52fb49d6faedff70b10ab90b344f805"
+    },
+    "actif-phrase-temoin:html": {
+      "path": "/?s=%22Les+lucioles+violettes+de+C08+gardent+le+secret+du+village+fictif.%22",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 26354,
+      "body_sha256": "e3ee89ae9743923d769dd06739e7d90367b8427619b6faf90c32a790b01279ed"
+    },
+    "actif-phrase-temoin:rest-posts": {
+      "path": "/wp-json/wp/v2/posts?search=%22Les+lucioles+violettes+de+C08+gardent+le+secret+du+village+fictif.%22&per_page=100",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 3742,
+      "body_sha256": "40f6a27daeb9e23ad77c5b9ea43cf0c3dc88f9f5acef5ed4b61b3684c6a2af8b"
+    },
+    "actif-phrase-temoin:rest-search": {
+      "path": "/wp-json/wp/v2/search?search=%22Les+lucioles+violettes+de+C08+gardent+le+secret+du+village+fictif.%22&per_page=100",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 470,
+      "body_sha256": "9b0849dd1c02f5e5ee4a5b2c66852aee257b3ba4a4a6e04f2b852fe0bcbbef6f"
+    },
+    "actif-rest": {
+      "path": "/wp-json/wp/v2/posts/81",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 3740,
+      "body_sha256": "fa4d616a6580c949ca6f2e48791288a5e74ea21ac79f05382e55662fc08de5c6"
+    },
+    "anonyme-apres-actif": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 28243,
+      "body_sha256": "7b091b66d4995cc68fc12c69c88e7bfc5e14aa2a26b35ce89a1436aa2ef2402c"
+    },
+    "grace-page": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 29038,
+      "body_sha256": "c6125e7cc8e5fb3fcfddcc4ddc667b35cdeb4f915fe732527f1ec47e5779c7da"
+    },
+    "grace-phrase-temoin:html": {
+      "path": "/?s=%22Les+lucioles+violettes+de+C08+gardent+le+secret+du+village+fictif.%22",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 26354,
+      "body_sha256": "e3ee89ae9743923d769dd06739e7d90367b8427619b6faf90c32a790b01279ed"
+    },
+    "grace-phrase-temoin:rest-posts": {
+      "path": "/wp-json/wp/v2/posts?search=%22Les+lucioles+violettes+de+C08+gardent+le+secret+du+village+fictif.%22&per_page=100",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 3742,
+      "body_sha256": "40f6a27daeb9e23ad77c5b9ea43cf0c3dc88f9f5acef5ed4b61b3684c6a2af8b"
+    },
+    "grace-phrase-temoin:rest-search": {
+      "path": "/wp-json/wp/v2/search?search=%22Les+lucioles+violettes+de+C08+gardent+le+secret+du+village+fictif.%22&per_page=100",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 470,
+      "body_sha256": "9b0849dd1c02f5e5ee4a5b2c66852aee257b3ba4a4a6e04f2b852fe0bcbbef6f"
+    },
+    "grace-rest": {
+      "path": "/wp-json/wp/v2/posts/81",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 3740,
+      "body_sha256": "fa4d616a6580c949ca6f2e48791288a5e74ea21ac79f05382e55662fc08de5c6"
+    },
+    "anonyme-apres-grace": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 28243,
+      "body_sha256": "7b091b66d4995cc68fc12c69c88e7bfc5e14aa2a26b35ce89a1436aa2ef2402c"
+    },
+    "sans-droit-page": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 27657,
+      "body_sha256": "590531e6f0fe5c1ff0cca73f07ed84c404530c1755133894fa38a09747948e3c"
+    },
+    "sans-droit-phrase-temoin:html": {
+      "path": "/?s=%22Les+lucioles+violettes+de+C08+gardent+le+secret+du+village+fictif.%22",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 26110,
+      "body_sha256": "4b72dd809fdc7b5beb10c4e1a085d435bafae42c5c93d51d8fbc81b8addeb544"
+    },
+    "sans-droit-phrase-temoin:rest-posts": {
+      "path": "/wp-json/wp/v2/posts?search=%22Les+lucioles+violettes+de+C08+gardent+le+secret+du+village+fictif.%22&per_page=100",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 2,
+      "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "sans-droit-phrase-temoin:rest-search": {
+      "path": "/wp-json/wp/v2/search?search=%22Les+lucioles+violettes+de+C08+gardent+le+secret+du+village+fictif.%22&per_page=100",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 2,
+      "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "sans-droit-rest": {
+      "path": "/wp-json/wp/v2/posts/81",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 2279,
+      "body_sha256": "1232ca66ac96770b8aa10b5f6781d10f11e5ec6270c4f20aecf0735ae5c9ef96"
+    },
+    "anonyme-apres-sans-droit": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 28243,
+      "body_sha256": "7b091b66d4995cc68fc12c69c88e7bfc5e14aa2a26b35ce89a1436aa2ef2402c"
+    },
+    "cookie-mot-de-passe-non-droit": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 28243,
+      "body_sha256": "7b091b66d4995cc68fc12c69c88e7bfc5e14aa2a26b35ce89a1436aa2ef2402c"
+    },
+    "article-ouvert": {
+      "path": "/demo-2026-t1-ouvert/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 30311,
+      "body_sha256": "bc629fc953cbf70036cad65427f26266e1f524faffc774564c58aefe6a6c91ca"
+    }
+  }
+}

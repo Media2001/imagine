@@ -1,0 +1,113 @@
+{
+  "scope": "imagine-test-demo",
+  "checks": {
+    "creation_rest_http_201": true,
+    "false:ecriture_http_200": true,
+    "false:stockage_natif_exact": true,
+    "false:lecture_anonyme_http": true,
+    "false:cache_prive": true,
+    "false:recherche_droit_identique": true,
+    "true:ecriture_http_200": true,
+    "true:stockage_natif_exact": true,
+    "true:lecture_anonyme_http": true,
+    "true:cache_prive": true,
+    "true:recherche_droit_identique": true,
+    "absent:ecriture_http_200": true,
+    "absent:stockage_natif_exact": true,
+    "absent:lecture_anonyme_http": true,
+    "absent:cache_prive": true,
+    "absent:recherche_droit_identique": true,
+    "false_retabli:ecriture_http_200": true,
+    "false_retabli:stockage_natif_exact": true,
+    "false_retabli:lecture_anonyme_http": true,
+    "false_retabli:cache_prive": true,
+    "false_retabli:recherche_droit_identique": true,
+    "ecriture_anonyme_http_interdite": true,
+    "article_temporaire_supprime_readback": true
+  },
+  "total": 23,
+  "passed": 23,
+  "failures": [],
+  "responses": {
+    "false:write": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 3683,
+      "body_sha256": "8012f1271560c6863678c3a38e1cb89a4ca5a98b0edb984572948c564b89dc98"
+    },
+    "false:anonymous": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 2195,
+      "body_sha256": "008ead7fef26d4ce5dce1ba1dd964cc724cf41039d20b38216a8b131db5b2a5a"
+    },
+    "true:write": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 3682,
+      "body_sha256": "66f501713486189e7eabdd75e82a1fb52dff60deb9928d7475a072496c904118"
+    },
+    "true:anonymous": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 2218,
+      "body_sha256": "9b1b119ec83681b444c3a1a80c51ab89cdebeb13a4ca931e462721c26186c1ab"
+    },
+    "absent:write": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 3610,
+      "body_sha256": "3a3e1ac635f127bd73817bcca92d9ca5d12aadf5949be5a8bfaef0ad0e99d138"
+    },
+    "absent:anonymous": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 2219,
+      "body_sha256": "28b43124f441d9d629ab4821c32d86703651ce9019f1847f60f89044d51b8535"
+    },
+    "false_retabli:write": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 3683,
+      "body_sha256": "b1acae58d7c9504ed79efec1f0e4f33952b095748a84aba8fea25bf191de825d"
+    },
+    "false_retabli:anonymous": {
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 2195,
+      "body_sha256": "0cc1dd745c16eb169d0160f44e2674a87f79effa415adb1f4bed21b0c16904e3"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "code": 0,
+  "stdout": "{\"checks\":{\"actif:mappage_exact\":true,\"actif:decision_moteur\":true,\"suspendu:mappage_exact\":true,\"suspendu:decision_moteur\":true,\"expire:mappage_exact\":true,\"expire:decision_moteur\":true,\"virement_non_valide:mappage_exact\":true,\"virement_non_valide:decision_moteur\":true,\"onhold_sans_fenetre:mappage_exact\":true,\"onhold_sans_fenetre:decision_moteur\":true,\"paused_sans_abonnement:mappage_exact\":true,\"paused_sans_abonnement:decision_moteur\":true,\"equipe_administration:mappage_exact\":true,\"equipe_administration:decision_moteur\":true,\"equipe_administration:motif_equipe\":true,\"equipe_redaction:mappage_exact\":true,\"equipe_redaction:decision_moteur\":true,\"equipe_redaction:motif_equipe\":true,\"proprietaire_incoherent_ferme\":true},\"total\":19,\"failures\":[]}",
+  "stderr": ""
+}

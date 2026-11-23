@@ -1,7 +1,8 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-23T17:12:35.146414+00:00",
+  "at": "2026-11-23T17:16:37.154916+00:00",
   "url": "http://192.168.129.32:8085",
+  "credentials_file": "C:\\Users\\Ced\\.imagine-demo\\c08-identifiants.json",
   "files_sha256": {
     "plugins/imagine-site/imagine-site.php": "f45a0ed4b7ac6c4747637112c98d866d23720f508a04ff7d693e24ef83f61068",
     "plugins/imagine-site/NumeroPublication.php": "c84eeca3a678347ef0396b07f56cdd7f69691294e73b4069e5ba52fdab9616fb",
@@ -11,9 +12,32 @@
     "themes/imagine/parts/paywall-connexion.php": "2cd97c05b828b7440907f196aef47a2b079d3e93a02b23934faf4843447b4d5a",
     "themes/imagine/parts/paywall-decouverte_epuisee.php": "00194346c2a38f648cc4a0106e39743d3d7dd9b5e8ddca0086b515e6e77912d5",
     "themes/imagine/parts/paywall-regularisation.php": "bc59f9d16ba8e79deb3e9b34d30a1fc95fa76af486c712ec0eb22537c6e67300",
-    "imagine-demo-build/c08-runtime.php": "a31c6b2787b89f31a40b3594f340ff8b9606cd22094a9aec2d9f92ad00fd708e"
+    "imagine-demo-build/c08-runtime.php": "a31c6b2787b89f31a40b3594f340ff8b9606cd22094a9aec2d9f92ad00fd708e",
+    "imagine-demo-build/c08-seed.php": "26ec0d8f798329316754e8585422aaeb223a3e4f1f216469e81004bccfd9dfdf"
   },
-  "file_count": 9,
+  "file_count": 10,
+  "fixture": {
+    "plan": 76,
+    "users": {
+      "actif": 3,
+      "grace": 4,
+      "sans-droit": 5
+    },
+    "memberships": {
+      "actif": 78,
+      "grace": 80
+    },
+    "subscriptions": {
+      "actif": 77,
+      "grace": 79
+    },
+    "article": 81,
+    "automatique": 82,
+    "urls": {
+      "article": "http://192.168.129.32:8085/c08-article-reserve-article/",
+      "automatique": "http://192.168.129.32:8085/c08-article-reserve-automatique/"
+    }
+  },
   "runtime": {
     "code": 0,
     "stdout": "{\n    \"checks\": {\n        \"adaptateur_present\": true,\n        \"anonyme_extrait_connexion\": true,\n        \"actif_natif_complet\": true,\n        \"grace_native_bandeau\": true,\n        \"connecte_sans_droit_ferme\": true,\n        \"article_sans_metadonnees_garde_ferme\": true,\n        \"objet_retourne_expurge\": true,\n        \"cache_objet_source_non_mute\": true,\n        \"filtre_contenu_direct\": true,\n        \"filtre_flux_direct\": true,\n        \"extrait_automatique_ne_lit_pas_corps\": true,\n        \"extrait_vide_repli_neutre\": true,\n        \"ancien_mot_de_passe_pas_un_droit\": true,\n        \"rest_brut_et_mot_de_passe_expurges\": true,\n        \"cache_valideurs_supprimes\": true,\n        \"cache_directives_privees\": true,\n        \"cache_apres_anonyme_complet\": true,\n        \"abonne_pas_de_mot_de_passe\": true,\n        \"configuration_invalide_fermee\": true,\n        \"exception_adaptateur_fermee\": true,\n        \"exception_adaptateur_filtre_corps_ferme\": true,\n        \"plan_non_designe_ferme\": true,\n        \"date_numero_invalide_fermee\": true,\n        \"onhold_sans_grace_ferme\": true,\n        \"grace_plan_revoque_fermee\": true,\n        \"bloc_suspendu_ne_promet_pas_lecture\": true,\n        \"xmlrpc_sans_methode_contenu\": true,\n        \"mail_reste_coupe\": true,\n        \"http_reste_coupe\": true,\n        \"passerelles_reste_coupees\": true\n    },\n    \"total\": 30,\n    \"failures\": []\n}",

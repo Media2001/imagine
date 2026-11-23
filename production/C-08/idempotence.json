@@ -1,0 +1,134 @@
+{
+  "scope": "imagine-test-demo",
+  "total": 4,
+  "passed": 4,
+  "failures": [],
+  "checks": {
+    "same_native_state_after_replay": true,
+    "exact_counts_no_duplicates": true,
+    "no_gateway": true,
+    "only_manual_subscriptions": true
+  },
+  "before": {
+    "fixture": {
+      "plan": 76,
+      "users": {
+        "actif": 3,
+        "grace": 4,
+        "sans-droit": 5
+      },
+      "memberships": {
+        "actif": 78,
+        "grace": 80
+      },
+      "subscriptions": {
+        "actif": 77,
+        "grace": 79
+      },
+      "article": 81,
+      "automatique": 82
+    },
+    "articles": {
+      "article": {
+        "id": 81,
+        "hash": "acb328380dd2dafbd30a4072f1a063537c4429f12ee20478a28163e0b94ae1e1",
+        "numero": "11"
+      },
+      "automatique": {
+        "id": 82,
+        "hash": "332af1c42bba851e1ff9fe6eb0692fa0d6a700ae0b1b74ac47a1c5ea8df8a231",
+        "numero": "11"
+      }
+    },
+    "subscriptions": {
+      "actif": {
+        "id": 77,
+        "user": 3,
+        "status": "active",
+        "start": "2026-01-01 00:00:00",
+        "end": "2030-01-01 00:00:00",
+        "manual": true,
+        "gateway": "",
+        "grace": ""
+      },
+      "grace": {
+        "id": 79,
+        "user": 4,
+        "status": "on-hold",
+        "start": "2026-01-01 00:00:00",
+        "end": "2030-01-01 00:00:00",
+        "manual": true,
+        "gateway": "",
+        "grace": "2030-01-01 00:00:00"
+      }
+    },
+    "counts": {
+      "articles": 2,
+      "plans": 1,
+      "users": 3,
+      "memberships": 2,
+      "subscriptions": 2
+    }
+  },
+  "after": {
+    "fixture": {
+      "plan": 76,
+      "users": {
+        "actif": 3,
+        "grace": 4,
+        "sans-droit": 5
+      },
+      "memberships": {
+        "actif": 78,
+        "grace": 80
+      },
+      "subscriptions": {
+        "actif": 77,
+        "grace": 79
+      },
+      "article": 81,
+      "automatique": 82
+    },
+    "articles": {
+      "article": {
+        "id": 81,
+        "hash": "acb328380dd2dafbd30a4072f1a063537c4429f12ee20478a28163e0b94ae1e1",
+        "numero": "11"
+      },
+      "automatique": {
+        "id": 82,
+        "hash": "332af1c42bba851e1ff9fe6eb0692fa0d6a700ae0b1b74ac47a1c5ea8df8a231",
+        "numero": "11"
+      }
+    },
+    "subscriptions": {
+      "actif": {
+        "id": 77,
+        "user": 3,
+        "status": "active",
+        "start": "2026-01-01 00:00:00",
+        "end": "2030-01-01 00:00:00",
+        "manual": true,
+        "gateway": "",
+        "grace": ""
+      },
+      "grace": {
+        "id": 79,
+        "user": 4,
+        "status": "on-hold",
+        "start": "2026-01-01 00:00:00",
+        "end": "2030-01-01 00:00:00",
+        "manual": true,
+        "gateway": "",
+        "grace": "2030-01-01 00:00:00"
+      }
+    },
+    "counts": {
+      "articles": 2,
+      "plans": 1,
+      "users": 3,
+      "memberships": 2,
+      "subscriptions": 2
+    }
+  }
+}
