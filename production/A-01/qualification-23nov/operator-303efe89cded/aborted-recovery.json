@@ -1,0 +1,41 @@
+{
+  "status": "RECOVERED_NOT_QUALIFIED",
+  "reason": "Windows getpass msvcrt ignores redirected stdin; original FAIL retained, job stopped; owned leftover runners recovered after stopping sites",
+  "sites_absent": [
+    {
+      "site": "imagine-test-a01-303efe89cded-clean",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-303efe89cded-clean": true,
+        "db-imagine-test-a01-303efe89cded-clean": true,
+        "nginx-imagine-test-a01-303efe89cded-clean": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    },
+    {
+      "site": "imagine-test-a01-303efe89cded-secret",
+      "api_absent": true,
+      "containers_absent": {
+        "wp-imagine-test-a01-303efe89cded-secret": true,
+        "db-imagine-test-a01-303efe89cded-secret": true,
+        "nginx-imagine-test-a01-303efe89cded-secret": true
+      },
+      "html_volume_absent": true,
+      "network_absent": true,
+      "directory_absent": true
+    }
+  ],
+  "runners_removed": [
+    {
+      "name": "imagine-a01-publication-5bf115e21ef5",
+      "absent": true
+    },
+    {
+      "name": "imagine-a01-publication-9d5e317f69b8",
+      "absent": true
+    }
+  ],
+  "temporary_synthetic_archive_directory_absent": true
+}

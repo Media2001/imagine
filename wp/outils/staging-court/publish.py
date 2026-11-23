@@ -424,12 +424,33 @@ def script_capacity_probe(slug):
     return result
 
 
+def read_admin_password(from_stdin):
+    if not from_stdin:
+        return getpass.getpass('Mot de passe neuf du compte test : ')
+    if sys.stdin.isatty():
+        raise RuntimeError('PASSWORD_STDIN_PIPE_REQUIRED')
+    try:
+        raw = sys.stdin.buffer.readline(75)
+        if raw.endswith(b'\r\n'):
+            raw = raw[:-2]
+        elif raw.endswith(b'\n'):
+            raw = raw[:-1]
+        value = raw.decode('utf-8', 'strict')
+        if not 20 <= len(raw) <= 72 or any(c in value for c in '\r\n\0'):
+            raise ValueError
+        return value
+    except (UnicodeError, ValueError):
+        raise RuntimeError('ADMIN_PASSWORD_REFUSED') from None
+
+
 def main():
     parser = argparse.ArgumentParser(description='A-01 : archive → vérification hors ligne → publication dans un site imagine-test-…')
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('--self-test-publication', action='store_true')
     group.add_argument('--archive')
     parser.add_argument('--operator-ced', action='store_true')
+    parser.add_argument('--password-stdin', action='store_true',
+                        help='Automatisation Ced : mot de passe neuf par pipe stdin seulement, jamais argv')
     parser.add_argument('--name')
     parser.add_argument('--production-url')
     parser.add_argument('--table-decisions')
@@ -442,6 +463,8 @@ def main():
         parser.error('--expected-core-version : version numérique stricte requise')
     if args.archive and not (args.operator_ced and args.name and args.production_url):
         parser.error('--operator-ced, --name imagine-test-… et --production-url requis')
+    if args.password_stdin and not args.archive:
+        parser.error('--password-stdin réservé au mode opérateur')
     run_id = uuid.uuid4().hex[:12]
     out = ROOT / 'production/A-01/publication-23nov' / run_id
     out.mkdir(parents=True, exist_ok=False)
@@ -530,7 +553,7 @@ def main():
                            'expected_core_version': args.expected_core_version,
                            'php_version': php_runtime,
                            'production_url': args.production_url or 'https://production.synthetic.invalid',
-                           'password': getpass.getpass('Mot de passe neuf du compte test : ') if args.archive else secrets.token_urlsafe(40),
+                           'password': read_admin_password(args.password_stdin) if args.archive else secrets.token_urlsafe(40),
                            'decisions': json.loads(Path(args.table_decisions).read_text()) if args.table_decisions else {}}
                 if args.self_test_publication:
                     for slug in (('woocommerce-memberships',) if qualified_69 else ('woocommerce-memberships', 'woocommerce-subscriptions')):

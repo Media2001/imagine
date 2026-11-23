@@ -53,14 +53,15 @@ def run():
                 publish.call(['exec', source, 'python3', '/opt/court/qualification_69.py', 'hpos', kind])
                 fixture = publish.read_json(source, '/report/fixture.json')
                 item['fixture'] = fixture
-                with tempfile.TemporaryDirectory(prefix='a01-fiction-only-', dir=os.getenv('TMPDIR')) as folder:
+                scratch = Path.home() / 'AppData/Local/hermes/cache/scratch' if os.name == 'nt' else Path(os.environ['TMPDIR'])
+                with tempfile.TemporaryDirectory(prefix='a01-fiction-only-', dir=scratch) as folder:
                     archive = Path(folder) / 'fiction-generated-here.wpress'
                     publish.call(['cp', source + ':/scratch/fiction.wpress', host_to_wsl(archive)])
                     assert hashlib.sha256(archive.read_bytes()).hexdigest() == fixture['archive_sha256']
                     cmd = [sys.executable, str(ROOT / 'wp/outils/staging-court/publish.py'),
                            '--operator-ced', '--archive', str(archive), '--name', name,
                            '--production-url', 'https://production.synthetic.invalid',
-                           '--expected-core-version', '6.9.1', '--php-version', '8.2']
+                           '--expected-core-version', '6.9.1', '--php-version', '8.2', '--password-stdin']
                     if kind == 'clean':
                         mismatched = cmd.copy()
                         mismatched[mismatched.index('--expected-core-version') + 1] = '7.0.9'

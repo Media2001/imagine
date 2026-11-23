@@ -10,6 +10,7 @@ import unittest
 
 sys.dont_write_bytecode = True
 TOOLS = Path(__file__).resolve().parents[2] / 'outils/staging-court'
+SCRATCH = Path.home() / 'AppData/Local/hermes/cache/scratch' if os.name == 'nt' else os.environ.get('TMPDIR')
 sys.path.insert(0, str(TOOLS))
 from archive import restore, Refusal
 
@@ -27,7 +28,7 @@ def archive_bytes(package):
 class CoreSelection(unittest.TestCase):
     def test_wordpress_header_comment_prefixes_are_recognized(self):
         import core_source
-        with tempfile.TemporaryDirectory(dir=os.getenv('TMPDIR')) as folder:
+        with tempfile.TemporaryDirectory(dir=SCRATCH) as folder:
             root = Path(folder)
             plugin = root / 'plugins/fiction.php'
             plugin.parent.mkdir()
@@ -36,7 +37,7 @@ class CoreSelection(unittest.TestCase):
 
     def test_plugin_minima_only_warn_and_never_change_files(self):
         import core_source
-        with tempfile.TemporaryDirectory(dir=os.getenv('TMPDIR')) as folder:
+        with tempfile.TemporaryDirectory(dir=SCRATCH) as folder:
             content = Path(folder)
             plugin = content / 'plugins/fiction/fiction.php'
             plugin.parent.mkdir(parents=True)
@@ -58,7 +59,7 @@ class CoreSelection(unittest.TestCase):
 
     def test_metadata_scan_never_restores_files_or_sql(self):
         package = b'{"WordPress":{"Version":"6.9.1"}}'
-        with tempfile.TemporaryDirectory(dir=os.getenv('TMPDIR')) as folder:
+        with tempfile.TemporaryDirectory(dir=SCRATCH) as folder:
             target = Path(folder) / 'must-not-exist'
             sql, found, count = restore(io.BytesIO(archive_bytes(package)), target, metadata_only=True)
             self.assertFalse(target.exists())

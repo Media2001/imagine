@@ -123,9 +123,19 @@ def main():
         publish.deleted_readback(recovered['deleted']['site'])
         absent = publish.call(['inspect', recovered['runner']['name']], check=False)
         assert absent.returncode and b'no such object' in absent.stderr.lower()
+        recovery = ROOT / 'production/A-01/qualification-23nov/operator-303efe89cded/aborted-recovery.json'
+        recovered = json.loads(recovery.read_bytes())
+        assert recovered['status'] == 'RECOVERED_NOT_QUALIFIED'
+        assert recovered['temporary_synthetic_archive_directory_absent'] is True
+        for site in recovered['sites_absent']:
+            publish.deleted_readback(site['site'])
+        for runner in recovered['runners_removed']:
+            absent = publish.call(['inspect', runner['name']], check=False)
+            assert absent.returncode and b'no such object' in absent.stderr.lower()
     units = subprocess.run([sys.executable, '-m', 'unittest', 'discover', '-s', 'wp/tests/a01-court', '-p', 'test_*.py', '-v'],
                            cwd=ROOT, capture_output=True, timeout=90,
                            env={**os.environ, 'PYTHONDONTWRITEBYTECODE': '1',
+                                'TMPDIR': str(Path.home() / 'AppData/Local/hermes/cache/scratch') if os.name == 'nt' else os.environ.get('TMPDIR', '/opt/court/test-scratch'),
                                 'PYTHONPATH': str(ROOT / 'wp/outils/staging-court'),
                                 'A01_691_REPORT': publication.relative_to(ROOT).as_posix()})
     transcript = units.stdout + units.stderr
