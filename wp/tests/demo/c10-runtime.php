@@ -30,4 +30,4 @@ if ($checks['ecran_present']) {
 }
 $failures = array_keys(array_filter($checks, static fn ($ok) => !$ok));
 echo wp_json_encode(['checks' => $checks, 'total' => count($checks), 'failures' => $failures], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-if ($failures) { WP_CLI::halt(1); }
+if ($failures) { \WP_CLI::halt(1); }

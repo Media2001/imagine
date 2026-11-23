@@ -1,0 +1,18 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-23T15:24:12.338558+00:00",
+  "url": "http://192.168.129.32:8085",
+  "files_sha256": {
+    "imagine-demo-build/c10-runtime.php": "8775478f60b73454d4840eff5e39ff705e90b5f23851e880468e8cd3cd283074"
+  },
+  "file_count": 1,
+  "runtime": {
+    "code": 1,
+    "stdout": "{\n    \"checks\": {\n        \"ecran_present\": false\n    },\n    \"total\": 1,\n    \"failures\": [\n        \"ecran_present\"\n    ]\n}",
+    "stderr": ""
+  },
+  "protected_before": "a7ffe0b0351e65727c60297d6962e9979c4b13395d1494812ff2e357249e05f3",
+  "protected_after": "a7ffe0b0351e65727c60297d6962e9979c4b13395d1494812ff2e357249e05f3",
+  "manifest_unchanged": true,
+  "status": "RED"
+}
