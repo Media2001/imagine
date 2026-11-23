@@ -127,19 +127,20 @@ def archive_core_preflight(runner, archive, expected):
     """Read the validated manifest without restoring files, SQL or bootstrap."""
     program = '''import json,sys
 sys.path.insert(0,'/opt/court')
-from archive import restore,Refusal
+from archive import restore,Refusal,ARCHIVE_REFUSALS
 from core_source import select_version
+archive_report={}
 try:
  with open(ARCHIVE_TOKEN,'rb') as stream:
-  sql,package,count=restore(stream,None,metadata_only=True)
+  sql,package,count=restore(stream,None,metadata_only=True,case_probe_root='/scratch',report=archive_report)
  version=select_version(package,EXPECTED_TOKEN)
- print(json.dumps({'ok':True,'source':version,'expected':EXPECTED_TOKEN,'entries':count,'metadata_only':True}))
+ print(json.dumps({'ok':True,'source':version,'expected':EXPECTED_TOKEN,'entries':count,'metadata_only':True,'archive_report':archive_report}))
 except Refusal as error:
  code=str(error)
- allowed={'SOURCE_CORE_METADATA_REFUSED','SOURCE_EXPECTED_CORE_VERSION_MISMATCH','EXPECTED_CORE_VERSION_REFUSED',
- 'ARCHIVE_TRUNCATED','ARCHIVE_INVALID','ARCHIVE_HEADER','ARCHIVE_PATH','ARCHIVE_LIMIT','ARCHIVE_LAYOUT_UNSUPPORTED','MULTISITE_UNSUPPORTED'}
+ allowed=ARCHIVE_REFUSALS | {'SOURCE_CORE_METADATA_REFUSED','SOURCE_EXPECTED_CORE_VERSION_MISMATCH','EXPECTED_CORE_VERSION_REFUSED'}
  print(json.dumps({'ok':False,'stage':'archive_core_preflight','code':code if code in allowed else 'ARCHIVE_REFUSED',
- 'core_versions':getattr(error,'core_versions',None),'metadata_only':True}))
+ 'detail':getattr(error,'detail',None) or {'code':code if code in allowed else 'ARCHIVE_REFUSED','count':1,'locations':[{'zone':'(metadonnees)','extension':'.json','count':1}]},
+ 'archive_report':archive_report,'core_versions':getattr(error,'core_versions',None),'metadata_only':True}))
 '''.replace('ARCHIVE_TOKEN', repr(archive)).replace('EXPECTED_TOKEN', repr(expected))
     return json.loads(call(['exec', '-i', runner, 'python3', '-'], program.encode()).stdout)
 
@@ -256,6 +257,11 @@ for p in root.iterdir():
  else: p.unlink()
 '''
     call(['exec', '-i', file_helper, 'python3', '-'], cleanup.encode())
+    # Probe the actual mounted destination, not the runner or assumed OS.
+    probe = (HERE / 'archive.py').read_bytes() + b"\nimport json\nprint(json.dumps({'case_sensitive':probe_case_sensitive('/target/wp-content')}))\n"
+    target_case_sensitive = json.loads(call(['exec', '-i', file_helper, 'python3', '-'], probe).stdout)['case_sensitive']
+    if not target_case_sensitive and 'ARCHIVE_PATH_CASE_ONLY' in offline.get('archive_report', {}).get('warnings', []):
+        raise RuntimeError('ARCHIVE_CASE_INSENSITIVE_TARGET')
     # Install/read back the archive-selected core while target content is EMPTY.
     # Only after this receipt do the archived files and database enter this site.
     sender = subprocess.Popen(DOCKER + ['exec', runner, 'tar', '-cf', '-', '--exclude=./wp-content',
@@ -355,6 +361,7 @@ os.chown(root,33,33); os.chmod(root,0o755)
     remove_owned(db_helper); helpers.remove(db_helper)
     remove_owned(file_helper); helpers.remove(file_helper)
     return {'all_wp_content_hashes_equal': True, 'files': len(copied), 'home_siteurl_rewritten_offline': True,
+            'target_case_sensitive': target_case_sensitive,
             'socket_only_target_db_helper': True, 'no_credentials_copied': True,
             'empty_target_core_before_archive_injection': empty_core}
 

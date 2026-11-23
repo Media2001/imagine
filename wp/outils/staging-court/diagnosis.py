@@ -8,6 +8,7 @@ from core_source import select_version, numeric
 
 HERE = Path(__file__).resolve().parent
 DANGER = re.compile(rb'[spr]k_(?:live|test)_|whsec_|xkeysib[-_]|(?<![a-z0-9])(?:cus|pm|src|seti|pi|ch|tok|ba)_[a-z0-9_-]+|(?<![a-z0-9])[BI]-[A-Z0-9]{6,}', re.I)
+SENSITIVE_VALUE = re.compile(rb'''(?:secret(?:_key)?|api_?key|password|smtp_pass|access_token|refresh_token|client_secret|consumer_secret|authorization)[\s'"]*(?:=>|[:=,])[\s]*['"][^'"\r\n]+''', re.I)
 PERSONAL = re.compile(r'email|e_mail|phone|telephone|mobile|name|nom|address|adresse|(?:^|_)ip(?:$|_)|ip_address|(?:^|_)(?:company|city|postcode|state|vat|tax_id|company_number|business_number|siret|iban|bic|nickname|user_agent|customer_note|order_key|cart_hash|shipping_packages)(?:$|_)', re.I)
 
 
@@ -183,7 +184,7 @@ def diagnose(stream, expected='6.9.1', decisions=None, php='8.2'):
     def observe(relative, data, final):
         nonlocal tail, head, dangerous
         if not final:
-            dangerous |= bool(DANGER.search(tail + data))
+            dangerous |= bool(DANGER.search(tail + data) or SENSITIVE_VALUE.search(tail + data))
             tail = (tail + data)[-256:]
             head = (head + data[:8192])[:8192]
             return

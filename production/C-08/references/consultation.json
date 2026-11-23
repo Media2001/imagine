@@ -1,0 +1,42 @@
+[
+  {
+    "url": "https://woocommerce.com/document/woocommerce-memberships-function-reference/",
+    "bytes": 317989,
+    "file": "production\\C-08\\references\\0.html"
+  },
+  {
+    "url": "https://woocommerce.com/document/woocommerce-memberships-user-memberships/",
+    "bytes": 367327,
+    "file": "production\\C-08\\references\\1.html"
+  },
+  {
+    "url": "https://woocommerce.com/document/subscriptions/develop/functions/",
+    "bytes": 262708,
+    "file": "production\\C-08\\references\\2.html"
+  },
+  {
+    "url": "https://developer.wordpress.org/reference/hooks/the_posts/",
+    "bytes": 169623,
+    "file": "production\\C-08\\references\\3.html"
+  },
+  {
+    "url": "https://developer.wordpress.org/reference/hooks/rest_prepare_this-post_type/",
+    "bytes": 171044,
+    "file": "production\\C-08\\references\\4.html"
+  },
+  {
+    "url": "https://developer.wordpress.org/reference/hooks/oembed_response_data/",
+    "bytes": 169644,
+    "file": "production\\C-08\\references\\5.html"
+  },
+  {
+    "url": "https://developer.wordpress.org/reference/functions/wp_get_nocache_headers/",
+    "bytes": 171152,
+    "file": "production\\C-08\\references\\6.html"
+  },
+  {
+    "url": "https://developers.google.com/search/docs/appearance/structured-data/paywalled-content",
+    "bytes": 203769,
+    "file": "production\\C-08\\references\\7.html"
+  }
+]

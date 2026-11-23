@@ -12,7 +12,7 @@ import sys
 import time
 from urllib.parse import urlsplit
 
-from archive import Refusal, restore
+from archive import Refusal, restore, ARCHIVE_REFUSALS
 from core_source import plugin_warnings
 from legacy_importer import sql_plan, CREATE_WORDS
 
@@ -120,8 +120,9 @@ def restore_and_verify(archive, request):
     # No PHP or database import executes before that gate.
     shutil.copytree(CORE, SITE)
     shutil.rmtree(SITE / 'wp-content')
+    archive_report = {}
     with Path(archive).open('rb') as stream:
-        sql, package, count = restore(stream, SITE / 'wp-content')
+        sql, package, count = restore(stream, SITE / 'wp-content', report=archive_report)
     core_versions = validate_core_version(package, CORE / 'wp-includes/version.php', request.get('expected_core_version'))
     before = manifest(SITE / 'wp-content')
     # Canonicalize only CREATE TABLE token groups. INSERT string literals are untouched.
@@ -214,7 +215,7 @@ def restore_and_verify(archive, request):
             break
     verified = len(steps) == 3 and all(step['exit'] == 0 for step in steps)
     result = {'status': 'verified-offline' if verified else 'imported', 'data_verified': verified,
-              'core_versions': core_versions,
+              'core_versions': core_versions, 'archive_report': archive_report,
               'table_engines': engines,
               'warnings': ([{'code': 'NON_INNODB_TABLE', 'table': table, 'engine': engine}
                            for table, engine in sorted(engines.items()) if engine != 'INNODB']
@@ -230,6 +231,7 @@ def restore_and_verify(archive, request):
 # Closed diagnostics: imported text, SQL identifiers and exception messages are
 # never copied to the publication report, even if they look like uppercase tags.
 FAILURE_STAGES = {
+    **{code: 'archive_restore' for code in ARCHIVE_REFUSALS},
     **{code: 'archive_restore' for code in (
         'ARCHIVE_TRUNCATED', 'ARCHIVE_INVALID', 'ARCHIVE_HEADER', 'ARCHIVE_PATH',
         'ARCHIVE_LIMIT', 'ARCHIVE_LAYOUT_UNSUPPORTED', 'MULTISITE_UNSUPPORTED',
@@ -263,6 +265,8 @@ def execute_offline_request(archive, request, start_database):
             code = 'IMPORT_REFUSED'
         receipt = {'status': 'refused', 'data_verified': False, 'issues': [code],
                    'failure': {'stage': FAILURE_STAGES.get(code, 'offline_restore'), 'code': code}}
+        if code in ARCHIVE_REFUSALS and isinstance(exc, Refusal) and exc.detail is not None:
+            receipt['failure']['detail'] = exc.detail
         if code in ('SOURCE_CORE_VERSION_MISMATCH', 'PINNED_CORE_EXPECTED_VERSION_MISMATCH'):
             receipt['core_versions'] = exc.core_versions
         return receipt

@@ -47,6 +47,9 @@ foreach ($secret['c08_accounts'] as $key => $account) {
     $sub->update_meta_data('_imagine_acces_grace_debut', $key === 'grace' ? '2026-01-01 00:00:00' : '');
     $sub->update_meta_data('_imagine_acces_grace_fin', $key === 'grace' ? '2030-01-01 00:00:00' : '');
     $sub->save();
+    if ($sub->has_status('pending')) {
+        $sub->update_status('active', 'Activation initiale fictive C08 sans paiement.');
+    }
     $sub->update_status($key === 'grace' ? 'on-hold' : 'active', 'Fixture C08 hors ligne, aucun paiement.');
     $member = wc_memberships_get_user_membership($id, $planId);
     if (!$member) {

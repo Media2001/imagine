@@ -153,6 +153,9 @@ def audit(stream, max_bytes=1024*1024*1024, max_entries=150000, retain_sql=False
     return {'report': findings.report(entries, complete), 'package': package, 'sql': sql}
 
 
+ARCHIVE_REFUSALS = frozenset('ARCHIVE_TRUNCATED ARCHIVE_INVALID ARCHIVE_HEADER ARCHIVE_PATH ARCHIVE_LIMIT ARCHIVE_LAYOUT_UNSUPPORTED MULTISITE_UNSUPPORTED ARCHIVE_TRAILING_DATA ARCHIVE_DATABASE_MISSING ARCHIVE_SIZE_INVALID ARCHIVE_PATH_ABSOLUTE ARCHIVE_PATH_DRIVE ARCHIVE_PATH_EMPTY ARCHIVE_PATH_DOT ARCHIVE_PATH_PARENT ARCHIVE_PATH_BACKSLASH ARCHIVE_PATH_CONTROL ARCHIVE_PATH_DUPLICATE ARCHIVE_PATH_FILE_DIRECTORY_COLLISION ARCHIVE_TARGET_SYMLINK ARCHIVE_CASE_SENSITIVITY_UNVERIFIED ARCHIVE_CASE_INSENSITIVE_TARGET FRESH_CONTENT_REQUIRED'.split())
+
+
 class Refusal(ValueError):
     def __init__(self, code, detail=None):
         super().__init__(code)
@@ -176,9 +179,11 @@ def probe_case_sensitive(root):
         return first.read_bytes() == b'A' and second.read_bytes() == b'B' and not first.samefile(second)
 
 
-def restore(stream, content, max_bytes=1024*1024*1024, max_entries=150000, metadata_only=False, case_probe_root=None):
+def restore(stream, content, max_bytes=1024*1024*1024, max_entries=150000, metadata_only=False, case_probe_root=None, report=None):
     start = stream.tell()
     scan = audit(stream, max_bytes, max_entries)
+    if report is not None:
+        report.update(scan['report'])
     for rule in scan['report']['rules']:
         if rule['blocking']:
             raise Refusal(rule['code'], rule)
@@ -194,7 +199,10 @@ def restore(stream, content, max_bytes=1024*1024*1024, max_entries=150000, metad
         root = case_probe_root if metadata_only else content
         if root is None:
             raise Refusal('ARCHIVE_CASE_SENSITIVITY_UNVERIFIED', dict(case_rule, code='ARCHIVE_CASE_SENSITIVITY_UNVERIFIED', blocking=True))
-        if not probe_case_sensitive(root):
+        sensitive = probe_case_sensitive(root)
+        if report is not None:
+            report['target_case_sensitive'] = sensitive
+        if not sensitive:
             raise Refusal('ARCHIVE_CASE_INSENSITIVE_TARGET', dict(case_rule, code='ARCHIVE_CASE_INSENSITIVE_TARGET', blocking=True))
     stream.seek(start)
     return _restore_payload(stream, content, max_bytes, max_entries, metadata_only)

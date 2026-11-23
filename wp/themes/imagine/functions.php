@@ -33,8 +33,22 @@ add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\imagine_styles');
 /** Unique sortie du corps des articles. C-08 modifiera ce point, pas les gabarits. */
 function imagine_article_body(): void
 {
-    // Le formulaire natif est déjà du HTML : ne pas le repasser dans wpautop.
-    // Le verrou B-00 et son filtre the_password_form restent intacts.
+    $post = get_post();
+    if ($post && class_exists('Imagine\\Site\\Paywall') && \Imagine\Site\Paywall::managed($post)) {
+        $decision = \Imagine\Site\Paywall::decision($post);
+        echo '<div class="imagine-paywall-body">';
+        if ($decision['complet']) {
+            the_content();
+        } else {
+            echo '<p>' . esc_html(\Imagine\Site\Paywall::excerpt($post)) . '</p>';
+        }
+        echo '</div>';
+        if (in_array($decision['bloc'], ['abonnement', 'connexion', 'regularisation', 'decouverte_epuisee'], true)) {
+            get_template_part('parts/paywall', $decision['bloc']);
+        }
+        return;
+    }
+    // Repli B00 si le plugin C08 n'est pas chargé : verrou natif conservé en base.
     if (post_password_required()) {
         echo get_the_password_form();
         return;

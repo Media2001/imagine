@@ -30,6 +30,9 @@ spl_autoload_register(static function (string $class): void {
     }
 });
 
+require_once __DIR__ . '/Paywall.php';
+Paywall::register();
+
 add_action('init', static function (): void {
     foreach ([
         'imagine_numero' => [__('Numéros fictifs', 'imagine-site'), 'numeros'],

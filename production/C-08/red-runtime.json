@@ -1,0 +1,40 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-23T14:03:46.980961+00:00",
+  "url": "http://192.168.129.32:8085",
+  "credentials_file": "C:\\Users\\Ced\\.imagine-demo\\c08-identifiants.json",
+  "files_sha256": {
+    "imagine-demo-build/c08-runtime.php": "f1e77a1bc2937969f1e1687c5d2a74916f3733c72b8e3074b2c8c6f17c7a127c",
+    "imagine-demo-build/c08-seed.php": "de338489ca4dc05bf917bdf2652826a019909bbc0340ba3615271a57ea0e14f6"
+  },
+  "file_count": 2,
+  "fixture": {
+    "plan": 76,
+    "users": {
+      "actif": 3,
+      "grace": 4,
+      "sans-droit": 5
+    },
+    "memberships": {
+      "actif": 78,
+      "grace": 80
+    },
+    "subscriptions": {
+      "actif": 77,
+      "grace": 79
+    },
+    "article": 81,
+    "automatique": 82,
+    "urls": {
+      "article": "http://192.168.129.32:8085/c08-article-reserve-article/",
+      "automatique": "http://192.168.129.32:8085/c08-article-reserve-automatique/"
+    }
+  },
+  "runtime": {
+    "code": 1,
+    "stdout": "{\n    \"checks\": {\n        \"adaptateur_present\": false\n    },\n    \"total\": 1,\n    \"failures\": [\n        \"adaptateur_present\"\n    ]\n}",
+    "stderr": ""
+  },
+  "b00_manifest_unchanged": true,
+  "status": "RED"
+}

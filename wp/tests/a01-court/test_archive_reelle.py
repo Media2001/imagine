@@ -139,6 +139,131 @@ class ArchiveReelle(unittest.TestCase):
         self.assertNotIn('FICTION_SECRET', json.dumps(report))
         self.assertIn('ARCHIVE_PATH_BACKSLASH', report['blockers'])
         self.assertIn('NON_INNODB_TABLE', report['warnings'])
+    def test_ordinary_preflight_keeps_precise_rule_count(self):
+        import publish
+        import subprocess
+        from unittest.mock import patch
+        if os.name == 'nt':
+            self.skipTest('Programme prévol Linux exécuté dans le runner')
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / 'fiction.wpress'
+            source.write_bytes(fixture([('uploads/2026/ALICE\\1.jpg', b'x'), ('uploads/2026/ALICE\\2.jpg', b'x'),
+                                        ('database.sql', b'x'), ('package.json', b'{"WordPress":{"Version":"6.9.1"}}')]))
+            def local(args, data=None, **kwargs):
+                # Execute the exact injected preflight as real Python, offline.
+                return subprocess.run([sys.executable, '-'], input=data, capture_output=True, check=True)
+            with patch.object(publish, 'call', side_effect=local):
+                result = publish.archive_core_preflight('owned-test', str(source), '6.9.1')
+            self.assertEqual('ARCHIVE_PATH_BACKSLASH', result['code'])
+            self.assertEqual(2, result['detail']['count'])
+            self.assertEqual('uploads/2026', result['detail']['locations'][0]['zone'])
+            self.assertNotIn('ALICE', json.dumps(result))
+
+    def test_injection_probes_actual_content_target_before_transfer(self):
+        import inspect
+        import publish
+        source = inspect.getsource(publish.inject)
+        self.assertIn('probe_case_sensitive', source)
+        self.assertLess(source.index('probe_case_sensitive'), source.index('# Install/read back'))
+
+    def test_case_sensitive_metadata_preflight_and_warning(self):
+        import publish
+        import subprocess
+        from unittest.mock import patch
+        if os.name == 'nt':
+            self.skipTest('Prévol Linux')
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / 'fiction.wpress'
+            source.write_bytes(fixture([('uploads/2026/Photo.jpg', b'A'), ('uploads/2026/photo.jpg', b'B'),
+                                        ('uploads/2026/colon:fiction.jpg', b'C'),
+                                        ('database.sql', b'x'), ('package.json', b'{"WordPress":{"Version":"6.9.1"}}')]))
+            def local(args, data=None, **kwargs):
+                return subprocess.run([sys.executable, '-'], input=data, capture_output=True, check=True)
+            with patch.object(publish, 'call', side_effect=local):
+                result = publish.archive_core_preflight('owned-test', str(source), '6.9.1')
+            self.assertTrue(result['ok'])
+            self.assertIn('ARCHIVE_PATH_CASE_ONLY', result['archive_report']['warnings'])
+            self.assertIn('ARCHIVE_PATH_COLON', result['archive_report']['warnings'])
+            self.assertTrue(result['archive_report']['target_case_sensitive'])
+
+    def test_real_case_insensitive_host_refuses_case_only(self):
+        if os.name != 'nt':
+            self.skipTest('Branche négative exécutée sur NTFS hôte réel')
+        with tempfile.TemporaryDirectory(dir=os.environ.get('TMPDIR')) as tmp:
+            if archive.probe_case_sensitive(tmp):
+                self.skipTest('Ce dossier Windows est réellement sensible à la casse')
+            raw = fixture([('uploads/2026/Photo.jpg', b'A'), ('uploads/2026/photo.jpg', b'B'), ('database.sql', b'x')])
+            with self.assertRaisesRegex(archive.Refusal, '^ARCHIVE_CASE_INSENSITIVE_TARGET$'):
+                archive.restore(io.BytesIO(raw), Path(tmp) / 'content')
+
+    def test_symlink_case_neighbor_is_refused_before_writes(self):
+        if os.name == 'nt':
+            self.skipTest('Lien Unix réel dans le runner')
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'actual').mkdir()
+            (root / 'link').symlink_to(root / 'actual', target_is_directory=True)
+            raw = fixture([('uploads/2026/Photo.jpg', b'A'), ('uploads/2026/photo.jpg', b'B'), ('database.sql', b'x')])
+            with self.assertRaisesRegex(archive.Refusal, '^ARCHIVE_TARGET_SYMLINK$'):
+                archive.restore(io.BytesIO(raw), root / 'link/content')
+            self.assertEqual([], list((root / 'actual').iterdir()))
+    def test_sql_options_and_decisions_inventory_without_values(self):
+        import diagnosis
+        sql = (b'CREATE TABLE `wp_options` (`option_name` varchar(100),`option_value` text) ENGINE=InnoDB;'
+               b'CREATE TABLE `wp_fiction` (`id` bigint,`email` text) ENGINE=InnoDB;'
+               b'INSERT INTO `wp_options` VALUES (\'home\',\'https://ALICE.invalid\'),(\'home\',\'https://ALICE.invalid\');')
+        report = diagnosis.diagnose(io.BytesIO(fixture([('database.sql', sql), ('package.json', b'{"WordPress":{"Version":"6.9.1"}}')])),
+                                    decisions={'wp_fiction': {'action': 'garder'}})
+        rules = {r['code']: r for r in report['rules']}
+        self.assertEqual(1, rules['OPTION_DUPLIQUEE']['count'])
+        self.assertEqual(1, rules['URL_ABSENTE']['count'])
+        self.assertNotIn('TABLE_PERSONNELLE_A_TRANCHER', rules)
+        self.assertNotIn('ALICE', json.dumps(report))
+
+    def test_all_metadata_errors_and_file_secret_assignments_are_counted(self):
+        import diagnosis
+        raw = fixture([('package.json', b'{"WordPress":{"Version":"INVALID_ALICE"}}'),
+                       ('database.sql', b'DELETE FROM `wp_options`;'),
+                       ('plugins/fiction/ALICE.php', b"<?php define('API_KEY', 'ALICE_OPAQUE');"),
+                       ('uploads/2026/ALICE.json', b'{"password":"ALICE_OPAQUE"}')])
+        report = diagnosis.diagnose(io.BytesIO(raw), expected='INVALID_ALICE')
+        self.assertIn('SOURCE_CORE_METADATA_REFUSED', report['blockers'])
+        self.assertIn('EXPECTED_CORE_VERSION_REFUSED', report['blockers'])
+        self.assertEqual(2, next(r for r in report['rules'] if r['code'] == 'SECRET_OU_IDENTIFIANT')['count'])
+        self.assertNotIn('ALICE', json.dumps(report))
+
+    def test_real_cli_no_writes_and_no_network_even_on_valid_source(self):
+        import subprocess
+        import hashlib
+        if os.name == 'nt':
+            self.skipTest('CLI exact avec audit système Linux dans runner network=none')
+        sql = b''.join(('CREATE TABLE `wp_' + table + '` (`id` bigint) ENGINE=InnoDB;').encode()
+                       for table in ('options', 'users', 'usermeta', 'posts', 'postmeta', 'comments'))
+        # URL gate is deliberately absent, so exit=1 remains a legitimate diagnostic.
+        raw = fixture([('database.sql', sql), ('package.json', b'{"WordPress":{"Version":"6.9.1"}}'),
+                       ('uploads/2026/Photo.jpg', b'A'), ('uploads/2026/photo.jpg', b'B')])
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'fiction.wpress'
+            path.write_bytes(raw)
+            before = {p.relative_to(tmp).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in Path(tmp).rglob('*') if p.is_file()}
+            program = '''import sys,runpy
+forbidden={'open','os.mkdir','os.remove','os.rmdir','os.rename','subprocess.Popen','socket.connect','socket.__new__'}
+def hook(event,args):
+ if event=='open':
+  mode=args[1];flags=args[2]
+  if (isinstance(mode,str) and any(c in mode for c in 'wax+')) or (isinstance(flags,int) and flags & 0x643): raise AssertionError('FILE_WRITE_FORBIDDEN')
+ elif event in forbidden: raise AssertionError('SIDE_EFFECT_FORBIDDEN')
+sys.dont_write_bytecode=True
+sys.addaudithook(hook)
+sys.argv=ARGV
+runpy.run_path(SCRIPT,run_name='__main__')
+'''.replace('ARGV', repr(['publish.py', '--diagnose', '--operator-ced', '--archive', str(path)])).replace('SCRIPT', repr(str(TOOLS / 'publish.py')))
+            p = subprocess.run([sys.executable, '-c', program], capture_output=True)
+            self.assertEqual(1, p.returncode, p.stderr.decode())
+            report = json.loads(p.stdout)
+            self.assertIn('ARCHIVE_PATH_CASE_ONLY', report['warnings'])
+            self.assertTrue(report['read_only'])
+            self.assertEqual(before, {p.relative_to(tmp).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in Path(tmp).rglob('*') if p.is_file()})
 
 
 if __name__ == '__main__':

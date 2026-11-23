@@ -1,0 +1,23 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-23T14:07:14.195110+00:00",
+  "url": "http://192.168.129.32:8085",
+  "files_sha256": {
+    "plugins/imagine-site/imagine-site.php": "3d5bba04153990ba09487b6b40f31e7b66b979c3ef6fe2bd92ee9645fe9d5751",
+    "plugins/imagine-site/Paywall.php": "2086f7ef5309e58f34130bfa69d43ca28f6622e1253e92a3b795c3debb92fec3",
+    "themes/imagine/functions.php": "bfd6a863d2e90224805307e42a13b47aa0b0f816e30e405c3c5bb5b8b177ec5e",
+    "themes/imagine/parts/paywall-abonnement.php": "c4a7d59d415d56b7e9f98a6cc0c5bd307936aece34715cdcbc2fef2d198f7438",
+    "themes/imagine/parts/paywall-connexion.php": "2cd97c05b828b7440907f196aef47a2b079d3e93a02b23934faf4843447b4d5a",
+    "themes/imagine/parts/paywall-decouverte_epuisee.php": "00194346c2a38f648cc4a0106e39743d3d7dd9b5e8ddca0086b515e6e77912d5",
+    "themes/imagine/parts/paywall-regularisation.php": "accbc02fee2ea35e7e406f1bccfaa48b153a445d99820339734e33a54dade126",
+    "imagine-demo-build/c08-runtime.php": "f1e77a1bc2937969f1e1687c5d2a74916f3733c72b8e3074b2c8c6f17c7a127c"
+  },
+  "file_count": 8,
+  "runtime": {
+    "code": 0,
+    "stdout": "{\n    \"checks\": {\n        \"adaptateur_present\": true,\n        \"anonyme_extrait_connexion\": true,\n        \"actif_natif_complet\": true,\n        \"grace_native_bandeau\": true,\n        \"connecte_sans_droit_ferme\": true\n    },\n    \"total\": 5,\n    \"failures\": []\n}",
+    "stderr": ""
+  },
+  "b00_manifest_unchanged": true,
+  "status": "VERIFIED"
+}
