@@ -22,9 +22,36 @@ add_filter('pre_wp_mail', $sentinel, 0);
 $checks['mauvaise_url_refusee_avant_toute_action'] = $denied('C09 refuse cette cible');
 remove_filter('pre_option_home', $wrongHome);
 remove_filter('pre_wp_mail', $sentinel, 0);
+// Aucun transport réel, y compris quand le fichier MU est présent mais ses filtres sont morts.
+$transports = ['mail' => 0, 'http' => 0];
+$sentinelles = [];
+foreach (['pre_wp_mail' => 'mail', 'pre_http_request' => 'http'] as $hook => $kind) {
+    $sentinelles[$hook] = static function ($value) use (&$transports, $kind) {
+        foreach (debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS) as $frame) {
+            if (($frame['function'] ?? '') === 'wp_mail' || ($frame['class'] ?? '') === 'WP_Http') {
+                $transports[$kind]++;
+                throw new \RuntimeException('TRANSPORT_SENTINELLE_INTERDIT');
+            }
+        }
+        return $value;
+    };
+    add_filter($hook, $sentinelles[$hook], PHP_INT_MIN);
+}
+foreach (['pre_wp_mail', 'pre_http_request'] as $deadHook) {
+    $saved = clone $GLOBALS['wp_filter'][$deadHook];
+    try {
+        remove_all_filters($deadHook);
+        add_filter($deadHook, $sentinelles[$deadHook], PHP_INT_MIN);
+        $checks[$deadHook . ':fichier_present_filtres_morts_refuses'] = $denied('Garde hors ligne C09 absente');
+        $checks[$deadHook . ':sentinelles_non_appelees'] = $transports === ['mail' => 0, 'http' => 0];
+    } finally {
+        $GLOBALS['wp_filter'][$deadHook] = $saved;
+    }
+}
+// Une interception étrangère ne remplace pas la garde MU attendue.
 $allowMail = static fn () => true;
 add_filter('pre_wp_mail', $allowMail, PHP_INT_MAX);
-$checks['mail_non_coupe_refuse_sans_envoyer'] = $denied('Garde hors ligne C09 absente');
+$checks['filtre_mail_neutralise_refuse_sans_envoyer'] = $denied('Garde hors ligne C09 absente');
 remove_filter('pre_wp_mail', $allowMail, PHP_INT_MAX);
 $fixture = get_option('imagine_c09_fixture');
 $id = $fixture['users']['V-DEC'];

@@ -1,6 +1,6 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-23T21:16:48.999846+00:00",
+  "at": "2026-11-23T21:19:19.371044+00:00",
   "checks": {
     "local_green": true,
     "composer_test_lint_green": true,
@@ -40,7 +40,7 @@
       "failures": 0,
       "errors": 0,
       "skipped": 0,
-      "output": "test_denials (test_c10_scope.ScopeTest.test_denials) ... ok\ntest_deployment_allowlist (test_c10_scope.ScopeTest.test_deployment_allowlist) ... ok\ntest_expected_target (test_c10_scope.ScopeTest.test_expected_target) ... ok\ntest_guard_exists (test_c10_scope.ScopeTest.test_guard_exists) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.002s\n\nOK\n"
+      "output": "test_denials (test_c10_scope.ScopeTest.test_denials) ... ok\ntest_deployment_allowlist (test_c10_scope.ScopeTest.test_deployment_allowlist) ... ok\ntest_expected_target (test_c10_scope.ScopeTest.test_expected_target) ... ok\ntest_guard_exists (test_c10_scope.ScopeTest.test_guard_exists) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.001s\n\nOK\n"
     },
     "c10_runtime": {
       "checks": {
