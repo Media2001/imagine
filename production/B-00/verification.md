@@ -30,7 +30,7 @@ Le vrai CLI `construire.py --preuve reconstruction` a réussi sur le site déjà
 | 27 connexions HTTP C09, corps/blocs comparés aux décisions natives | 108 / 108 |
 | HTTP C10 en lecture seule, autorisations et huit champs | 9 / 9 |
 
-**1 059 tests/assertions de suites, zéro échec**, plus **21 gardes finales** au vert dans `b00-final-verification.json`. Ce sont des assertions de recettes et 27 tests unittest, pas 1 059 méthodes unittest distinctes. B00 représente 11 des 27 tests locaux.
+**1 059 tests/assertions de suites, zéro échec**, plus **21 gardes finales** au vert dans `b00-final-verification.json` et **12 contrôles de livraison**, dont huit fichiers PHP déployés relus/parsés, dans `b00-livraison-verifiee.json`. Ce sont des assertions de recettes et 27 tests unittest, pas 1 059 méthodes unittest distinctes. B00 représente 11 des 27 tests locaux.
 
 Les preuves RED sont conservées : cardinalités intégrées rouges (`quatre_articles_11`, `trois_reserves_11`), six contrôles d'arbitrage rouges, reprises non gérées, migration de snapshot et anciennes attentes HTTP rouges. Elles ne sont pas des reçus verts actuels.
 

@@ -1,0 +1,38 @@
+{"url": "http://192.168.129.32:8085", "registry_status": "running", "total": 68, "failures": []}
+{
+  "scope": "imagine-test-demo",
+  "total": 229,
+  "passed": 229,
+  "failed": 0,
+  "failures": []
+}
+{"scope": "imagine-test-demo", "total": 120, "passed": 120, "failures": [], "library_php_files": 71, "baseline_tagged_objects": 41}
+{
+  "status": "VERIFIED",
+  "total": 21,
+  "failures": [],
+  "suites": {
+    "unitaires": 27,
+    "b00-recette": 81,
+    "b00-corrections-runtime": 10,
+    "c08-runtime": 30,
+    "c10-runtime": 13,
+    "c09-runtime-horloge-fixture": 364,
+    "http-b00": 68,
+    "http-c08": 229,
+    "regression-c08-b00": 120,
+    "http-c09-27-comptes": 108,
+    "http-c10-lecture": 9
+  },
+  "suite_assertions": 1059,
+  "c09_counts": {
+    "users": 27,
+    "orders": 13,
+    "subscriptions": 12,
+    "memberships": 14
+  },
+  "secret_scan": {
+    "files_checked": 121,
+    "matches": []
+  }
+}

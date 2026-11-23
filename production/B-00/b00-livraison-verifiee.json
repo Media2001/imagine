@@ -1,0 +1,34 @@
+{
+  "at": "2026-11-23T16:32:14.713546+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "suites_vertes": true,
+    "total_suites_calcule": true,
+    "tous_gardes_vertes": true,
+    "source_hashes_actuels": true,
+    "php_syntaxe_et_octets_deployes": true,
+    "snapshot_b00_final_exact": true,
+    "migration_limitee_15_indicateurs_password": true,
+    "readback_integre_final_exact": true,
+    "c10_defauts_conserves": true,
+    "notes_cinq_lignes": true,
+    "a_voir_etat_reel": true,
+    "six_url_http_actuelles": true
+  },
+  "total": 12,
+  "failures": [],
+  "deployed_php_files": 8,
+  "deployed_sha256": {
+    "plugins/imagine-site/Paywall.php": "1b0a1b10058997d2eca102e6bd5a1ec0d427d4f3403ced9a17943b7127a3c3c3",
+    "plugins/imagine-site/imagine-site.php": "ebfecf90834e0d30348a8e8bfd65884fc1a8397dfb8e6824491848f0e265a6c9",
+    "mu-plugins/imagine-demo-offline.php": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9",
+    "imagine-demo-build/b00-seed.php": "e85bc533249d2365b54c6d2a06d1ef5a099d253ba0a45c2377ab379ce4dcbd48",
+    "imagine-demo-build/b00-recette.php": "11b8bec309bda9cc3b7a83b16126ba4ee4c330b98a11dbf453396658f18211cc",
+    "imagine-demo-build/b00-snapshot.php": "4d6d859af83d4b82e0565f90ad598f97d7186bdffac28d7f2e483e0076be0995",
+    "imagine-demo-build/b00-corrections-runtime.php": "a6b0575e78d055e425ed608a4bfd2fa4c73b31facf1ebae37540d9f4d00d7b14",
+    "imagine-demo-build/b00-integre-snapshot.php": "185df689b52572f5721b8f6ab5301c6bbfb4e996ae9c3d6f28c4adfde633f0f2"
+  },
+  "suite_assertions": 1059,
+  "integrated_guards": 21,
+  "status": "VERIFIED"
+}

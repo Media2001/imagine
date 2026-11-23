@@ -1,0 +1,8 @@
+B00 — PRÊT À RELIRE, corrections arbitrées du 23/11/2026 16 h 30 appliquées.
+Site intégré imagine-test-demo seulement, thème imagine, fr_FR, sans mot de passe d’article sous C08.
+Vrai seed C08 puis vrai CLI construire.py --preuve reconstruction réussis ; snapshot B00 exact après migration ciblée des 15 indicateurs natifs historiques.
+Dernière passe : 1 059 tests/assertions de suites (dont 27 tests unittest), 21 gardes intégrées et 12 contrôles de livraison, zéro échec, aucun test ignoré.
+C09 : 27 comptes, 13 commandes, 12 souscriptions, 14 adhésions conservés ; credentials enrichis conservés. Options/journal/bootstrap C10 conservés.
+La recette C09 est exécutée avec son horloge de fixture explicitement ancrée au reçu original ; les deux assertions relatives en horloge murale tardive sont documentées, aucun reseed C09.
+Voir A-VOIR.md, verification.md, b00-final-verification.json, b00-livraison-verifiee.json et tests/b00-integre-actuel.txt.
+Les anciennes preuves pré-B01/C08 sont historiques, non présentées comme actuelles. Ce PRET n’est ni une clôture visuelle ni un GO de production.

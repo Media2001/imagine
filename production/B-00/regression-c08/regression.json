@@ -549,7 +549,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 28303,
-      "body_sha256": "f696559e57d7b8adfd65f356652f90b019b95ce52bcc7c26011846cdd210fe48"
+      "body_sha256": "3f704b9e44efe08640fe1b0cfe423396b363ccddc293f41285df44166e34775b"
     },
     "term:demo-thematique-2": {
       "status": 200,

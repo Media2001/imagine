@@ -1,6 +1,6 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-23T16:22:54.903394+00:00",
+  "at": "2026-11-23T16:29:22.488562+00:00",
   "status": "VERIFIED",
   "checks": {
     "unitaires_sans_ignore": true,
@@ -57,6 +57,7 @@
     "wp/tests/demo/b00-corrections-runtime.php": "a6b0575e78d055e425ed608a4bfd2fa4c73b31facf1ebae37540d9f4d00d7b14",
     "wp/tests/demo/b00-integre-snapshot.php": "185df689b52572f5721b8f6ab5301c6bbfb4e996ae9c3d6f28c4adfde633f0f2",
     "wp/tests/demo/b00-integre.py": "5a1d837d31b274fb2c2029867290d027ba7b07e9b1b2d86166f8a25ddfdb44e4",
+    "wp/tests/demo/b00-livraison.py": "b02cbe8e7c71327697dcf46a5ae8746a1f9c4a17c0354458c50766c57662e0b9",
     "wp/tests/demo/b00-recette.php": "11b8bec309bda9cc3b7a83b16126ba4ee4c330b98a11dbf453396658f18211cc",
     "wp/tests/demo/b00-snapshot.php": "4d6d859af83d4b82e0565f90ad598f97d7186bdffac28d7f2e483e0076be0995",
     "wp/tests/demo/b00-ui-meta-diagnostic.py": "b11e62c1eb354ead3685d9838534cc39460dfbd83a7b026bb14874ba741341d7",

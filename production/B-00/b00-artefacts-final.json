@@ -1,0 +1,21 @@
+{
+  "status": "VERIFIED",
+  "at": "2026-11-23T16:31:18.784705+00:00",
+  "scope": "imagine-test-demo",
+  "secrets_files_checked": 124,
+  "secret_matches": [],
+  "suite_assertions": 1059,
+  "integrated_guards": 21,
+  "delivery_checks": 12,
+  "files_sha256": {
+    "A-VOIR.md": "3f257a0f9d232e948de65237e75c101125af8bd7e7be501d21c2bc88df4737d5",
+    "notes.md": "ca4bcf973edf32d25e499e76cd48bdccec45bfcad3dae9db86c93ff5d9934180",
+    "verification.md": "af46fc869610a20c581f92ea67037a4dab6a1f5f1f1f01c4874f71ab2896d36b",
+    "PRET": "ca8b534c43b8e866df53dd866c1634842194ad92aaf1ff35a1e054c820b56d55",
+    "b00-final-verification.json": "a6516583b10d39152dde30a7a29fe0dba36c2da9e94c20160a7807dddfc893f1",
+    "b00-livraison-verifiee.json": "bcc0a77bae9beb67a1e2add2c27409c4e6456898553bc6013444afbe3e14ad64",
+    "b00-reconstruction.json": "6e1e9302d97ec8bd160a105b10fdb41e9d6e066eafd72979ebe1e9e518ebdee4",
+    "b00-verification-http-idempotence.json": "c3b0b5e2ccb7fdde0e4a912755640ee55fac3502a20690ac2a300a2477bc5932"
+  },
+  "pret_present": true
+}

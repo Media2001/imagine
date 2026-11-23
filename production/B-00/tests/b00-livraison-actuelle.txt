@@ -1,0 +1,8 @@
+{
+  "status": "VERIFIED",
+  "total": 12,
+  "failures": [],
+  "deployed_php_files": 8,
+  "suite_assertions": 1059,
+  "integrated_guards": 21
+}
