@@ -549,7 +549,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 28699,
-      "body_sha256": "dd5c2b1b6f1608e2f71d3e19bdea63180d4e501fc6b66efc6e88886b36d3c81d"
+      "body_sha256": "ac46d7d7705133e008eee3b8e0af58f91f68d4e7a8d68d832f30bb957d4cf523"
     },
     "term:demo-thematique-2": {
       "status": 200,
@@ -559,7 +559,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 27129,
-      "body_sha256": "7fbe534f9ab238ea86dc53b14abe8e3091b8cb2722df07822fa28d790bb6ad56"
+      "body_sha256": "0db74f4d2f1affc1ccbc16584584354c576f2f10ea660d438f43cadcd432cd17"
     },
     "term:demo-thematique-3": {
       "status": 200,
@@ -569,7 +569,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 27102,
-      "body_sha256": "1df10baffa05c8d9f1c125f70856efcc462306124d7bcbc8978c6641df0e24b0"
+      "body_sha256": "70dcad75958fbc45995b091781c952a94fb6cbbe7e1d367944a05c17059cff80"
     },
     "accueil": {
       "status": 200,

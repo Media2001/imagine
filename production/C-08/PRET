@@ -1,0 +1,18 @@
+C-08 — PRÊT POUR RELECTURE TECHNIQUE
+Corrections/arbitrages du 23 novembre 2026, section C08 17 h 10.
+Cible unique : imagine-test-demo.
+
+Recette canonique : 621 contrôles/cas réussis, zéro échec, zéro test ignoré.
+Clôture après documentation : 9 vérifications réussies, zéro échec.
+Readback exact : 13 fichiers PHP déployés ; 22 sources liées par empreintes.
+Reçu : verification-finale.json
+SHA-256 : b01ce0ea6c5237e6ca11a0dcef2c9867e75e2a660266126ba7e5f65e1ab741cd
+Clôture : cloture.json
+Parcours et limites : A-VOIR.md ; détails : RAPPORT.md.
+
+Anonyme : recherche dans titre/extrait publics seulement ; phrase de corps non appariée.
+Abonné actif : phrase témoin trouvée, sans post_password natif.
+Booléens natifs/REST, NewsArticle, mémoïsation de requête et invalidations, droits et absence Woo vérifiés.
+B00/B01/C09/C10 préservés selon les projections et limites du rapport.
+
+Ceci n'est ni une validation graphique, ni un GO de déploiement en production.

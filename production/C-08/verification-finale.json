@@ -1,7 +1,7 @@
 {
-  "at": "2026-11-23T17:28:09.044539+00:00",
+  "at": "2026-11-23T17:33:06.429684+00:00",
   "scope": "imagine-test-demo",
-  "status": "FAILED",
+  "status": "VERIFIED",
   "tests": {
     "runtime_php": 30,
     "c08-corrections-runtime": 28,
@@ -16,9 +16,7 @@
     "final_checks": 17
   },
   "total_checks": 621,
-  "failures": [
-    "preservation:accueil_ids_ordre_apres_nettoyage"
-  ],
+  "failures": [],
   "checks": {
     "preservation:options": true,
     "preservation:c10_settings_and_journal_sha256": true,
@@ -33,7 +31,7 @@
     "preservation:b01_bootstrap_et_garde_octets": true,
     "preservation:b01_sources_hors_raccord_c08": true,
     "preservation:b01_numero_require_register": true,
-    "preservation:accueil_ids_ordre_apres_nettoyage": false,
+    "preservation:accueil_ids_ordre_apres_nettoyage": true,
     "preservation:aucun_canari_article_restant": true,
     "readback_final_php_exact": true,
     "aucun_secret_prive_dans_livrables": true
@@ -68,7 +66,7 @@
     "wp/themes/imagine/parts/paywall-regularisation.php": "bc59f9d16ba8e79deb3e9b34d30a1fc95fa76af486c712ec0eb22537c6e67300",
     "wp/tests/demo/c08-corrections-runtime.php": "736febf81231a761f22de74b7da95c582a86217c6133991efb7b4d5e62f9ac3f",
     "wp/tests/demo/c08-faults.py": "f23210c23fb79f76e1a8152a34b8922a46293591c9efe03a93e914b55de11b23",
-    "wp/tests/demo/c08-final.py": "53ce4603f0a43dcedfc55a3c4fa156eb7667cc3aa84750aaa390d0825474d6d3",
+    "wp/tests/demo/c08-final.py": "f7a8d6a352ae491ac36eee4a033c7625b804c3279d8452bf445f07e807d521dd",
     "wp/tests/demo/c08-idempotence.py": "04763f85e20a0b9a7e3dd6ed4e451cf79d235aa3305627411215b6c04ac385d5",
     "wp/tests/demo/c08-no-woo.php": "51949c692a9c2e9ecb0375ae1477a461fc1c9f463c33ab3f3d08d78f98ac32cd",
     "wp/tests/demo/c08-regression.py": "4d5d2d36e7fa342c0da211d1b30ef69144d2e7abad4d2059493db992844d78f1",
@@ -82,7 +80,6 @@
   },
   "http_responses": 56,
   "home_ids": [
-    39,
     82,
     81,
     45,
