@@ -183,6 +183,9 @@ def run_build(label='construction'):
         else:
             step('theme-par-defaut-en-attente-de-B01', wp('theme', 'list', '--status=active', '--format=json'))
         data = fixture_data()
+        snapshot_source = ROOT / 'wp/tests/demo/b00-snapshot.php'
+        upload('imagine-demo-build/b00-snapshot.php', snapshot_source.read_bytes())
+        previous_snapshot = json.loads(wp('eval', 'require ABSPATH . "wp-content/imagine-demo-build/b00-snapshot.php";')['stdout'])
         upload('imagine-demo-build/b00-fixture.json', json.dumps(data, ensure_ascii=False).encode())
         for issue in data['issues']:
             upload('imagine-demo-build/assets/' + issue['slug'] + '.png', cover_png(issue['label'], issue['color']))
@@ -198,6 +201,13 @@ def run_build(label='construction'):
             raise RuntimeError('La recette réelle échoue ; voir la preuve, aucun PRET')
         step('pile-finale', {'wordpress': wp('core', 'version')['stdout'].strip(),
                             'plugins': json.loads(wp('plugin', 'list', '--format=json')['stdout'])})
+        snapshot = json.loads(wp('eval', 'require ABSPATH . "wp-content/imagine-demo-build/b00-snapshot.php";')['stdout'])
+        step('snapshot-identifiants-contenus-medias', snapshot)
+        if snapshot['duplicates'] or snapshot['total_tagged'] != snapshot['manifest_posts']:
+            raise RuntimeError('Inventaire divergent ou doublons')
+        if previous_snapshot['rows'] and previous_snapshot != snapshot:
+            raise RuntimeError('Reconstruction non identique : identifiants, contenus ou adresses modifiés')
+        step('idempotence-interne', {'compared_to_existing': bool(previous_snapshot['rows']), 'identical': previous_snapshot == snapshot if previous_snapshot['rows'] else None})
         record['status'] = 'VERIFIED_RUNTIME'
         record['finished_at'] = datetime.now(timezone.utc).isoformat()
         save()

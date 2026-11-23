@@ -1,0 +1,268 @@
+{
+  "started_at": "2026-11-23T13:13:34.250027+00:00",
+  "scope": "imagine-test-demo",
+  "label": "construction",
+  "steps": [
+    {
+      "name": "creation-normale-ou-reprise",
+      "result": {
+        "slug": "imagine-test-demo",
+        "status": "running",
+        "url": "http://192.168.129.32:8085",
+        "port": 8085,
+        "template_slug": "sandbox-wp-minimal",
+        "created_at": "2026-11-23T13:03:15+00:00",
+        "already_present": true
+      }
+    },
+    {
+      "name": "garde-hors-ligne-avant-extensions",
+      "result": {
+        "code": 0,
+        "stdout": "{\"mail\":false,\"http\":true}",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "versions-et-minima-zip-ced",
+      "result": {
+        "woocommerce-subscriptions": {
+          "headers": {
+            "Version": "9.4.1",
+            "Requires at least": "7.0",
+            "Requires PHP": "7.4",
+            "WC requires at least": "11.1",
+            "WC tested up to": "11.2"
+          },
+          "sha256": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083"
+        },
+        "woocommerce-memberships": {
+          "headers": {
+            "Version": "1.30.3",
+            "Requires at least": null,
+            "Requires PHP": null,
+            "WC requires at least": "3.9.4",
+            "WC tested up to": "11.3.0"
+          },
+          "sha256": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285"
+        }
+      }
+    },
+    {
+      "name": "wordpress-7.0.9",
+      "result": {
+        "code": 0,
+        "stdout": "Updating to version 7.0.9 (en_US)...\nDownloading update from https://wordpress.org/wordpress-7.0.9.zip...\nUnpacking the update...\nSuccess: WordPress updated successfully.\n",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "wordpress-base",
+      "result": {
+        "code": 0,
+        "stdout": "Success: WordPress database already at latest db version 61833.\n",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "woocommerce-source-primaire",
+      "result": {
+        "source": "https://downloads.wordpress.org/plugin/woocommerce.11.2.2.zip",
+        "sha256": "a4746183efd951de5837396aad119f7cf508f06cb699ccb590a01cada4c44932"
+      }
+    },
+    {
+      "name": "woocommerce-installation",
+      "result": {
+        "code": 0,
+        "stdout": "Unpacking the package...\nInstalling the plugin...\nRemoving the old version of the plugin...\nPlugin updated successfully.\nActivating 'woocommerce'...\nPlugin 'woocommerce' activated.\nSuccess: Installed 1 of 1 plugins.\n",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "woocommerce-subscriptions-installation",
+      "result": {
+        "code": 0,
+        "stdout": "Unpacking the package...\nInstalling the plugin...\nRemoving the old version of the plugin...\nPlugin updated successfully.\nActivating 'woocommerce-subscriptions'...\nPlugin 'woocommerce-subscriptions' activated.\nSuccess: Installed 1 of 1 plugins.\n",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "woocommerce-memberships-installation",
+      "result": {
+        "code": 0,
+        "stdout": "Unpacking the package...\nInstalling the plugin...\nRemoving the old version of the plugin...\nPlugin updated successfully.\nActivating 'woocommerce-memberships'...\nPlugin 'woocommerce-memberships' activated.\nSuccess: Installed 1 of 1 plugins.\n",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "imagine-site-actif",
+      "result": {
+        "code": 0,
+        "stdout": "Plugin 'imagine-site' activated.\nSuccess: Activated 1 of 1 plugins.\n",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "theme-par-defaut-en-attente-de-B01",
+      "result": {
+        "code": 0,
+        "stdout": "[{\"name\":\"twentytwentyfive\",\"status\":\"active\",\"update\":\"none\",\"version\":\"1.5\",\"update_version\":\"\",\"auto_update\":\"off\"}]",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "adresses-lisibles",
+      "result": {
+        "code": 0,
+        "stdout": "Success: Rewrite structure set.\nSuccess: Rewrite rules flushed.\n",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "contenus-fictifs-reconstruits",
+      "result": {
+        "manifest": {
+          "demo-2026-hs": 32,
+          "demo-2026-hs-couverture": 33,
+          "demo-2026-hs-ouvert": 38,
+          "demo-2026-hs-pdf": 34,
+          "demo-2026-hs-reserve-1": 35,
+          "demo-2026-hs-reserve-2": 36,
+          "demo-2026-hs-reserve-3": 37,
+          "demo-2026-t1": 11,
+          "demo-2026-t1-couverture": 12,
+          "demo-2026-t1-ouvert": 17,
+          "demo-2026-t1-pdf": 13,
+          "demo-2026-t1-reserve-1": 14,
+          "demo-2026-t1-reserve-2": 15,
+          "demo-2026-t1-reserve-3": 16,
+          "demo-2026-t2": 18,
+          "demo-2026-t2-couverture": 19,
+          "demo-2026-t2-ouvert": 24,
+          "demo-2026-t2-pdf": 20,
+          "demo-2026-t2-reserve-1": 21,
+          "demo-2026-t2-reserve-2": 22,
+          "demo-2026-t2-reserve-3": 23,
+          "demo-2026-t3": 25,
+          "demo-2026-t3-couverture": 26,
+          "demo-2026-t3-ouvert": 31,
+          "demo-2026-t3-pdf": 27,
+          "demo-2026-t3-reserve-1": 28,
+          "demo-2026-t3-reserve-2": 29,
+          "demo-2026-t3-reserve-3": 30,
+          "demo-2026-t4": 39,
+          "demo-2026-t4-couverture": 40,
+          "demo-2026-t4-ouvert": 45,
+          "demo-2026-t4-pdf": 41,
+          "demo-2026-t4-reserve-1": 42,
+          "demo-2026-t4-reserve-2": 43,
+          "demo-2026-t4-reserve-3": 44,
+          "demo-accueil": 51,
+          "demo-calendrier": 50,
+          "demo-events-1": 46,
+          "demo-events-2": 47,
+          "demo-partners-1": 48,
+          "demo-partners-2": 49,
+          "term:demo-thematique-1": 18,
+          "term:demo-thematique-2": 19,
+          "term:demo-thematique-3": 20,
+          "user:redaction": 2
+        },
+        "url": "http://192.168.129.32:8085/",
+        "calendar_count": 15
+      }
+    },
+    {
+      "name": "recette-runtime",
+      "result": {
+        "code": 0,
+        "stdout": "{\n    \"checks\": {\n        \"modele_numero\": true,\n        \"modele_evenement\": true,\n        \"modele_partenaire\": true,\n        \"modele_thematique\": true,\n        \"manifeste_present\": true,\n        \"calendrier_trois_ans\": true,\n        \"cloture_avant_sortie_DEMO-2026-T1\": true,\n        \"cloture_avant_sortie_DEMO-2026-T2\": true,\n        \"cloture_avant_sortie_DEMO-2026-T3\": true,\n        \"cloture_avant_sortie_DEMO-2026-HS\": true,\n        \"cloture_avant_sortie_DEMO-2026-T4\": true,\n        \"cloture_avant_sortie_DEMO-2027-T1\": true,\n        \"cloture_avant_sortie_DEMO-2027-T2\": true,\n        \"cloture_avant_sortie_DEMO-2027-T3\": true,\n        \"cloture_avant_sortie_DEMO-2027-HS\": true,\n        \"cloture_avant_sortie_DEMO-2027-T4\": true,\n        \"cloture_avant_sortie_DEMO-2028-T1\": true,\n        \"cloture_avant_sortie_DEMO-2028-T2\": true,\n        \"cloture_avant_sortie_DEMO-2028-T3\": true,\n        \"cloture_avant_sortie_DEMO-2028-HS\": true,\n        \"cloture_avant_sortie_DEMO-2028-T4\": true,\n        \"cinq_parutions_par_an\": true,\n        \"cinq_numeros\": true,\n        \"quatre_articles_11\": true,\n        \"trois_reserves_11\": true,\n        \"texte_long_14\": true,\n        \"texte_long_15\": true,\n        \"texte_long_16\": true,\n        \"texte_long_17\": true,\n        \"couverture_png_11\": true,\n        \"pdf_factice_11\": true,\n        \"quatre_articles_18\": true,\n        \"trois_reserves_18\": true,\n        \"texte_long_21\": true,\n        \"texte_long_22\": true,\n        \"texte_long_23\": true,\n        \"texte_long_24\": true,\n        \"couverture_png_18\": true,\n        \"pdf_factice_18\": true,\n        \"quatre_articles_25\": true,\n        \"trois_reserves_25\": true,\n        \"texte_long_28\": true,\n        \"texte_long_29\": true,\n        \"texte_long_30\": true,\n        \"texte_long_31\": true,\n        \"couverture_png_25\": true,\n        \"pdf_factice_25\": true,\n        \"quatre_articles_32\": true,\n        \"trois_reserves_32\": true,\n        \"texte_long_35\": true,\n        \"texte_long_36\": true,\n        \"texte_long_37\": true,\n        \"texte_long_38\": true,\n        \"couverture_png_32\": true,\n        \"pdf_factice_32\": true,\n        \"quatre_articles_39\": true,\n        \"trois_reserves_39\": true,\n        \"texte_long_42\": true,\n        \"texte_long_43\": true,\n        \"texte_long_44\": true,\n        \"texte_long_45\": true,\n        \"couverture_png_39\": true,\n        \"pdf_factice_39\": true,\n        \"un_hors_serie\": true,\n        \"imagine_evenement_count\": true,\n        \"imagine_partenaire_count\": true,\n        \"trois_thematiques\": true,\n        \"woocommerce_charge\": true,\n        \"subscriptions_charge\": true,\n        \"memberships_charge\": true,\n        \"bibliotheque_pilotage\": true,\n        \"bibliotheque_connecteur\": true,\n        \"email_coupe\": true,\n        \"http_externe_coupe\": true,\n        \"aucune_passerelle\": true,\n        \"pas_de_compte_woo\": true,\n        \"pas_indexable\": true,\n        \"accueil_statique\": true,\n        \"compte_fictif\": true,\n        \"wp_7_0_x\": true,\n        \"woo_11_1_min\": true\n    },\n    \"total\": 81,\n    \"failures\": []\n}\n",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "pile-finale",
+      "result": {
+        "wordpress": "7.0.9",
+        "plugins": [
+          {
+            "name": "akismet",
+            "status": "inactive",
+            "update": "none",
+            "version": "5.7",
+            "update_version": "",
+            "auto_update": "off"
+          },
+          {
+            "name": "hello",
+            "status": "inactive",
+            "update": "none",
+            "version": "1.7.2",
+            "update_version": "",
+            "auto_update": "off"
+          },
+          {
+            "name": "imagine-site",
+            "status": "active",
+            "update": "none",
+            "version": "0.1.0",
+            "update_version": "",
+            "auto_update": "off"
+          },
+          {
+            "name": "novamira",
+            "status": "active",
+            "update": "none",
+            "version": "1.1.2",
+            "update_version": "",
+            "auto_update": "off"
+          },
+          {
+            "name": "novamira-pro",
+            "status": "active",
+            "update": "none",
+            "version": "1.1.1",
+            "update_version": "",
+            "auto_update": "off"
+          },
+          {
+            "name": "woocommerce",
+            "status": "active",
+            "update": "none",
+            "version": "11.2.2",
+            "update_version": "",
+            "auto_update": "off"
+          },
+          {
+            "name": "woocommerce-memberships",
+            "status": "active",
+            "update": "none",
+            "version": "1.30.3",
+            "update_version": "",
+            "auto_update": "off"
+          },
+          {
+            "name": "woocommerce-subscriptions",
+            "status": "active",
+            "update": "none",
+            "version": "9.4.1",
+            "update_version": "",
+            "auto_update": "off"
+          },
+          {
+            "name": "imagine-demo-offline",
+            "status": "must-use",
+            "update": false,
+            "version": "",
+            "update_version": "",
+            "auto_update": "off"
+          }
+        ]
+      }
+    }
+  ],
+  "credentials_file": "C:\\Users\\Ced\\.imagine-demo\\identifiants.json",
+  "status": "VERIFIED_RUNTIME",
+  "finished_at": "2026-11-23T13:14:59.112362+00:00"
+}

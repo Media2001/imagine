@@ -49,8 +49,10 @@ elif action == 'credentials':
     # Les secrets ne sortent que sur le pipe privé du constructeur, jamais dans un rapport.
     print(json.dumps({'admin_user': site['wp_admin_user'], 'admin_password': site['wp_admin_password']}))
 elif action == 'seed-secret':
+    subprocess.run(['docker', 'exec', '--user', 'root', WP, 'sh', '-c',
+        'mkdir -p /var/www/.imagine-demo && chown www-data:www-data /var/www/.imagine-demo && chmod 700 /var/www/.imagine-demo'], check=True, capture_output=True)
     r = subprocess.run(['docker', 'exec', '-i', '--user', 'www-data', WP, 'sh', '-c',
-        'umask 077; mkdir -p /var/www/.imagine-demo; cat > /var/www/.imagine-demo/seed-secret.json'],
+        'umask 077; cat > /var/www/.imagine-demo/seed-secret.json'],
         input=json.dumps(payload['secret']), capture_output=True, text=True)
     print(json.dumps({'code': r.returncode}))
 else:
