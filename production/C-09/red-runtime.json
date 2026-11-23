@@ -1,0 +1,5 @@
+{
+  "code": 1,
+  "stdout": "{\n    \"total\": 2,\n    \"failures\": [\n        \"fixture_installee\"\n    ],\n    \"checks\": {\n        \"catalogue_30\": true,\n        \"fixture_installee\": false\n    },\n    \"proof\": [],\n    \"fixture\": []\n}",
+  "stderr": ""
+}

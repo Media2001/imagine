@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://woocommerce.com/document/subscriptions/develop/functions/",
+    "status": 200,
+    "chars": 181113,
+    "title": [
+      "Subscription Function &amp; Property Reference Documentation - WooCommerce"
+    ]
+  },
+  {
+    "url": "https://woocommerce.com/document/woocommerce-memberships-function-reference/",
+    "status": 200,
+    "chars": 201503,
+    "title": [
+      "WooCommerce Memberships Function Reference Documentation - WooCommerce"
+    ]
+  },
+  {
+    "url": "https://developer.woocommerce.com/docs/best-practices/data-management/crud-objects/",
+    "status": 200,
+    "chars": 10712,
+    "title": []
+  },
+  {
+    "url": "https://developer.wordpress.org/reference/functions/wp_insert_user/",
+    "status": 200,
+    "chars": 126227,
+    "title": [
+      "wp_insert_user() \u2013 Function | Developer.WordPress.org",
+      "WordPress.org",
+      "WordPress.org",
+      "WordPress.org",
+      "Code is Poetry"
+    ]
+  },
+  {
+    "url": "https://developer.wordpress.org/reference/classes/wp_user/set_role/",
+    "status": 200,
+    "chars": 95183,
+    "title": [
+      "WP_User::set_role() \u2013 Method | Developer.WordPress.org",
+      "WordPress.org",
+      "WordPress.org",
+      "WordPress.org",
+      "Code is Poetry"
+    ]
+  },
+  {
+    "url": "https://woocommerce.com/document/subscriptions/develop/data-structure/",
+    "status": 200,
+    "chars": 181476,
+    "title": [
+      "Subscriptions Data Structures &amp; Storage Documentation - WooCommerce"
+    ]
+  }
+]
