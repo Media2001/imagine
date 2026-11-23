@@ -11,7 +11,7 @@ Ced n'a encore rien vu. Tout ce qui est construit (numéros, décision d'accès,
 Un site permanent dans l'outil de staging, nommé **`imagine-test-demo`**, reconstruit par un seul script : `wp/outils/demo/construire.ps1` (ou `.py`, comme tu préfères, lancé depuis PowerShell).
 
 - **Pile cible** : la version de WordPress exigée par les extensions déposées par Ced (7.0.x), WooCommerce, Subscriptions et Memberships dans les versions du dossier des extensions premium. Extensions sur mesure du dépôt activées. Thème `imagine` activé dès que B-01 existe ; d'ici là, un thème par défaut.
-- **Aucune connexion extérieure** : pas de compte WooCommerce.com, pas de clé de licence activée, pas de passerelle de paiement réelle (modes de test ou passerelle fictive), aucun email sortant (capturés ou désactivés).
+- **Aucune connexion extérieure** : pas de compte WooCommerce.com, pas de clé de licence d'extension commerciale activée, pas de passerelle de paiement réelle (modes de test ou passerelle fictive), aucun email sortant (capturés ou désactivés).
 - **Contenu fictif**, créé par le script, manifestement inventé :
   - le calendrier de parution fictif de `docs/recette/profils.md` (« Données communes ») ;
   - quatre numéros et un hors-série, chacun avec une couverture de remplacement (aplat de couleur et numéro, générée, aucune image prise sur le web), trois articles réservés, un article ouvert, un PDF factice ;
@@ -24,7 +24,7 @@ Un site permanent dans l'outil de staging, nommé **`imagine-test-demo`**, recon
 
 - Le site s'appelle `imagine-test-demo` et rien d'autre. La voie 1 crée et détruit ses propres sites de test : tu n'y touches pas, elle ne touche pas au tien.
 - Si l'outil refuse une opération parce qu'une autre est en cours, tu attends et tu réessaies (trois fois, à cinq minutes). Tu ne forces rien.
-- Pas de Novamira sur ce site : `wp-cli` dans le conteneur suffit.
+- Le site est créé par la création normale de l'outil, avec ce qu'elle installe d'office (Novamira et sa licence). Révision du 23/11, 13 h 45 : c'est autorisé pour ce site fictif, et tu peux t'en servir.
 - Aucun mot de passe dans le dépôt. Le script écrit les identifiants de test dans un fichier **hors dépôt** et affiche son chemin.
 
 ## Livrables

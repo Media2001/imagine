@@ -1,4 +1,4 @@
-# État des chantiers — mis à jour le 23 novembre 2026, 11 h
+# État des chantiers — mis à jour le 23 novembre 2026, 13 h 45
 
 ## Mise en route
 
@@ -6,7 +6,7 @@
 |---|---|---|---|
 | Dépôt | Créé ; cloné sur le NUC (`C:\Users\Ced\imagine`, alias SSH `github-imagine`) | — | — |
 | Hermès sur ce dépôt | Travail en continu, réveil horaire planifié le 21/11 (`/cron`, verrou `.hermes.lock`) | — | — |
-| Voie 2 (ce qui se voit) | Ouverte le 23/11 : file `A-FAIRE-2.md`, verrou `.hermes-2.lock`, site fictif `imagine-test-demo`. Cinq lots en file (B-00, B-01, C-08, C-09, C-10) | Lancer la deuxième session d'Hermès et son réveil horaire | Ced |
+| Voie 2 (ce qui se voit) | Ouverte le 23/11 : file `A-FAIRE-2.md`, verrou `.hermes-2.lock`, site fictif `imagine-test-demo`. Cinq lots en file (B-00, B-01, C-08, C-09, C-10) | Session lancée le 23/11 ; B-00 s'était arrêté sur l'interdiction de Novamira, levée à 13 h 45 | Hermès |
 | Synchronisation Git | En service depuis le 20/11, 8 h 55. La nuit du 19 a été perdue : Git refusait les commits faute d'identité, et le script ne le signalait pas (corrigé) | — | — |
 | Circuit de relecture | `scripts/relire.ps1` adapté aux lots ; se lance sans erreur, **pas encore testé sur un lot** | Lancer à la main sur le premier lot `PRET`, puis planifier « IMAGINE - relecture » | Ced |
 | Staging | Pas de Docker sur le NUC : on utilise l'outil de staging de Ced, avec Novamira pour l'accès des agents. Étape « site à abonnements » à ajouter à l'outil (`prompts/2026-11-19-staging-imagine.md`). Le `docker-compose.yml` du dépôt n'est plus utilisé | Hermès ajoute l'étape ; puis retirer Docker du dépôt | Hermès, puis Claude |
@@ -21,12 +21,12 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 | Lot | État | Prochaine étape | Qui |
 |---|---|---|---|
 | Sauvegarde de production | Pas encore récupérée | Export SQL + `wp-content`, déposés sur le NUC **hors du dépôt** | Ced |
-| A-01 Import neutralisé | Commande corrigée et vérifiée (sept corrections, dont le point de sûreté). Qualifiée en 6.9.1 sur archives fictives le 23/11 à 10 h 11 (Subscriptions non testable en 6.9.1 : limite déclarée) | Relecture, clôture, puis import réel lancé par Ced | Relecteurs, Claude, puis Ced |
+| A-01 Import neutralisé | Commande corrigée et vérifiée (sept corrections, dont le point de sûreté). Qualifiée en 6.9.1 sur archives fictives le 23/11 à 10 h 11 (Subscriptions non testable en 6.9.1 : limite déclarée) | **Clos le 23/11.** Import réel à lancer par Ced, puis relecture du rapport avant ouverture aux agents | Ced |
 | A-07 Exposition de l'outil de staging | Fait le 20/11. Test depuis l'extérieur en IPv4 : le tableau de bord n'est pas joignable. Non vérifié : redirections, DMZ et pare-feu IPv6 dans l'administration de la box | Coup d'œil à la box quand possible ; retirer l'autorisation du port 7000 en profil public du pare-feu Windows | Ced |
 | Licences WooCommerce | Obtenues le 20/11 | Déposer les archives Subscriptions et Memberships dans le dossier des extensions premium de l'outil de staging, hors dépôt | Ced |
 | Staging Imagine existant | Arrêté par Hermès le 19/11, non supprimé ; la révocation du mot de passe applicatif dans WordPress n'est pas attestée | Ne pas le redémarrer ; le détruire quand le nouveau parcours est validé | Ced |
 | A-00 Couverture des extensions | **Clos le 21/11** : corrigé, arbitrages appliqués, vérifié au second tour | Branchement dans un lot ultérieur | — |
-| A-02 Audit | Brief écrit : script préparé sur site fictif, à lancer dès que le staging existe | Production | Hermès |
+| A-02 Audit | **Clos le 23/11** (script prouvé sur site fictif, classique et HPOS) | Audit réel dès que le staging d'Imagine est vérifié | Hermès |
 | A-03 à A-06 | En attente | Voir `A-FAIRE.md` | — |
 
 ## B · Le thème

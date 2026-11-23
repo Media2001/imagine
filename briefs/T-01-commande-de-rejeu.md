@@ -17,7 +17,7 @@ Un script `wp/tests/rejouer.ps1`, lancé depuis la racine du dépôt, sans argum
 
 Il ne lance ni les bancs avec extensions commerciales, ni rien qui crée un site dans l'outil de staging : seulement les tests de bibliothèque.
 
-Si l'image doit être construite une fois avec le réseau, fournis à part `wp/tests/preparer-image.ps1`, que Ced lancera lui-même.
+Si l'image doit être construite une fois avec le réseau, fournis à part `wp/tests/preparer-image.ps1`, que tu lances toi-même (révision du 23/11 : dépendances publiques, aucun secret).
 
 ## Livrables
 
