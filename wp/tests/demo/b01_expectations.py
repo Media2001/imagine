@@ -6,9 +6,14 @@ FIXTURE_POST_DATE = '2026-01-01 12:00:00'
 
 
 def latest_article_ids(manifest, rows, c08=None):
-    expected = {int(id) for key,id in manifest.items()
-                if key.startswith('demo-2026-') and
-                (key.endswith('-ouvert') or '-reserve-' in key)}
+    # Enumerate authored fixture keys, never all keys merely matching a prefix.
+    from pathlib import Path
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parents[3] / 'wp/outils/demo'))
+    from b00_fixtures import fixture_data
+    keys = [issue['slug'] + suffix for issue in fixture_data()['issues']
+            for suffix in ('-reserve-1', '-reserve-2', '-reserve-3', '-ouvert')]
+    expected = {int(manifest[key]) for key in keys}
     if c08:
         expected.update(int(c08[key]) for key in ('article','automatique'))
     actual = [int(row['id']) for row in rows]

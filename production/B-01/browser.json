@@ -1,0 +1,336 @@
+{
+  "at": "2026-11-23T16:48:43.492Z",
+  "scope": "imagine-test-demo",
+  "browser": "149.0.7827.55",
+  "playwright": "1.61.1",
+  "blockedOrigins": [],
+  "records": [
+    {
+      "name": "accueil-desktop",
+      "url": "http://192.168.129.32:8085/",
+      "status": 200,
+      "metrics": {
+        "h1": 1,
+        "mention": true,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(0, 0, 0)",
+        "locale": "fr-FR"
+      },
+      "file": "captures/accueil-desktop.png",
+      "ok": true
+    },
+    {
+      "name": "kiosque-desktop",
+      "url": "http://192.168.129.32:8085/numeros/",
+      "status": 200,
+      "metrics": {
+        "h1": 1,
+        "mention": true,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(0, 0, 0)",
+        "locale": "fr-FR"
+      },
+      "file": "captures/kiosque-desktop.png",
+      "ok": true
+    },
+    {
+      "name": "numero-desktop",
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-t4/",
+      "status": 200,
+      "metrics": {
+        "h1": 1,
+        "mention": true,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(0, 0, 0)",
+        "locale": "fr-FR"
+      },
+      "file": "captures/numero-desktop.png",
+      "ok": true
+    },
+    {
+      "name": "article-ouvert-desktop",
+      "url": "http://192.168.129.32:8085/demo-2026-t1-ouvert/",
+      "status": 200,
+      "metrics": {
+        "h1": 1,
+        "mention": true,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(0, 0, 0)",
+        "locale": "fr-FR"
+      },
+      "file": "captures/article-ouvert-desktop.png",
+      "ok": true
+    },
+    {
+      "name": "article-reserve-desktop",
+      "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
+      "status": 200,
+      "metrics": {
+        "h1": 1,
+        "mention": true,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(0, 0, 0)",
+        "locale": "fr-FR"
+      },
+      "file": "captures/article-reserve-desktop.png",
+      "ok": true
+    },
+    {
+      "name": "thematique-desktop",
+      "url": "http://192.168.129.32:8085/thematiques/demo-thematique-3/",
+      "status": 200,
+      "metrics": {
+        "h1": 1,
+        "mention": true,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(0, 0, 0)",
+        "locale": "fr-FR"
+      },
+      "file": "captures/thematique-desktop.png",
+      "ok": true
+    },
+    {
+      "name": "agenda-desktop",
+      "url": "http://192.168.129.32:8085/evenements/",
+      "status": 200,
+      "metrics": {
+        "h1": 1,
+        "mention": true,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(0, 0, 0)",
+        "locale": "fr-FR"
+      },
+      "file": "captures/agenda-desktop.png",
+      "ok": true
+    },
+    {
+      "name": "evenement-desktop",
+      "url": "http://192.168.129.32:8085/evenements/demo-events-2/",
+      "status": 200,
+      "metrics": {
+        "h1": 1,
+        "mention": true,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(0, 0, 0)",
+        "locale": "fr-FR"
+      },
+      "file": "captures/evenement-desktop.png",
+      "ok": true
+    },
+    {
+      "name": "partenaires-desktop",
+      "url": "http://192.168.129.32:8085/partenaires/",
+      "status": 200,
+      "metrics": {
+        "h1": 1,
+        "mention": true,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(0, 0, 0)",
+        "locale": "fr-FR"
+      },
+      "file": "captures/partenaires-desktop.png",
+      "ok": true
+    },
+    {
+      "name": "partenaire-desktop",
+      "url": "http://192.168.129.32:8085/partenaires/demo-partners-2/",
+      "status": 200,
+      "metrics": {
+        "h1": 1,
+        "mention": true,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(0, 0, 0)",
+        "locale": "fr-FR"
+      },
+      "file": "captures/partenaire-desktop.png",
+      "ok": true
+    },
+    {
+      "name": "page-desktop",
+      "url": "http://192.168.129.32:8085/calendrier-fictif/",
+      "status": 200,
+      "metrics": {
+        "h1": 1,
+        "mention": true,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(0, 0, 0)",
+        "locale": "fr-FR"
+      },
+      "file": "captures/page-desktop.png",
+      "ok": true
+    },
+    {
+      "name": "recherche-desktop",
+      "url": "http://192.168.129.32:8085/?s=fictif",
+      "status": 200,
+      "metrics": {
+        "h1": 1,
+        "mention": true,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(0, 0, 0)",
+        "locale": "fr-FR"
+      },
+      "file": "captures/recherche-desktop.png",
+      "ok": true
+    },
+    {
+      "name": "recherche-vide-desktop",
+      "url": "http://192.168.129.32:8085/?s=b01-aucun-resultat-xyz",
+      "status": 200,
+      "metrics": {
+        "h1": 1,
+        "mention": true,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(0, 0, 0)",
+        "locale": "fr-FR"
+      },
+      "file": "captures/recherche-vide-desktop.png",
+      "ok": true
+    },
+    {
+      "name": "404-desktop",
+      "url": "http://192.168.129.32:8085/b01-page-inexistante-xyz/",
+      "status": 404,
+      "metrics": {
+        "h1": 1,
+        "mention": true,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(0, 0, 0)",
+        "locale": "fr-FR"
+      },
+      "file": "captures/404-desktop.png",
+      "ok": true
+    },
+    {
+      "name": "index-desktop",
+      "url": "http://192.168.129.32:8085/?post_type=post",
+      "status": 200,
+      "metrics": {
+        "h1": 1,
+        "mention": true,
+        "width": 1440,
+        "scrollWidth": 1440,
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(0, 0, 0)",
+        "locale": "fr-FR"
+      },
+      "file": "captures/index-desktop.png",
+      "ok": true
+    },
+    {
+      "name": "accueil-mobile",
+      "url": "http://192.168.129.32:8085/",
+      "status": 200,
+      "metrics": {
+        "h1": 1,
+        "mention": true,
+        "width": 390,
+        "scrollWidth": 390,
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(0, 0, 0)",
+        "locale": "fr-FR"
+      },
+      "file": "captures/accueil-mobile.png",
+      "ok": true
+    },
+    {
+      "name": "article-ouvert-mobile",
+      "url": "http://192.168.129.32:8085/demo-2026-t1-ouvert/",
+      "status": 200,
+      "metrics": {
+        "h1": 1,
+        "mention": true,
+        "width": 390,
+        "scrollWidth": 390,
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(0, 0, 0)",
+        "locale": "fr-FR"
+      },
+      "file": "captures/article-ouvert-mobile.png",
+      "ok": true
+    },
+    {
+      "name": "article-reserve-mobile",
+      "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
+      "status": 200,
+      "metrics": {
+        "h1": 1,
+        "mention": true,
+        "width": 390,
+        "scrollWidth": 390,
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(0, 0, 0)",
+        "locale": "fr-FR"
+      },
+      "file": "captures/article-reserve-mobile.png",
+      "ok": true
+    },
+    {
+      "name": "page-mobile",
+      "url": "http://192.168.129.32:8085/calendrier-fictif/",
+      "status": 200,
+      "metrics": {
+        "h1": 1,
+        "mention": true,
+        "width": 390,
+        "scrollWidth": 390,
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(0, 0, 0)",
+        "locale": "fr-FR"
+      },
+      "file": "captures/page-mobile.png",
+      "ok": true
+    }
+  ],
+  "checks": [
+    {
+      "name": "skip link first keyboard target",
+      "ok": true
+    },
+    {
+      "name": "skip link focuses main",
+      "ok": true
+    },
+    {
+      "name": "open full article",
+      "ok": true
+    },
+    {
+      "name": "current reserved response no body",
+      "ok": true
+    },
+    {
+      "name": "native GET search and precise empty message",
+      "ok": true
+    }
+  ],
+  "passed": true
+}

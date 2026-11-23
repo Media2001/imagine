@@ -1,0 +1,80 @@
+{
+  "environment": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\imagine-b01-uoore6nh",
+  "commands": [
+    {
+      "command": [
+        "uv",
+        "venv",
+        "--python",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\imagine-b01-uoore6nh"
+      ],
+      "code": 0,
+      "stdout": "",
+      "stderr": "Using CPython 3.11.15 interpreter at: AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe\nCreating virtual environment at: AppData\\Local\\hermes\\cache\\scratch\\imagine-b01-uoore6nh\nActivate with: AppData\\Local\\hermes\\cache\\scratch\\imagine-b01-uoore6nh\\Scripts\\activate\n"
+    },
+    {
+      "command": [
+        "uv",
+        "pip",
+        "install",
+        "--python",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\imagine-b01-uoore6nh\\Scripts\\python.exe",
+        "--no-index",
+        "--find-links",
+        "C:\\Users\\Ced\\imagine\\production\\B-01\\validation",
+        "--require-hashes",
+        "-r",
+        "C:\\Users\\Ced\\imagine\\production\\B-01\\validation\\requirements.lock"
+      ],
+      "code": 0,
+      "stdout": "",
+      "stderr": "Using Python 3.11.15 environment at: AppData\\Local\\hermes\\cache\\scratch\\imagine-b01-uoore6nh\nResolved 6 packages in 2ms\nInstalled 6 packages in 14ms\n + beautifulsoup4==4.14.3\n + html5lib==1.1\n + six==1.17.0\n + soupsieve==2.8.3\n + typing-extensions==4.15.0\n + webencodings==0.5.1\n"
+    },
+    {
+      "command": [
+        "uv",
+        "pip",
+        "check",
+        "--python",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\imagine-b01-uoore6nh\\Scripts\\python.exe"
+      ],
+      "code": 0,
+      "stdout": "",
+      "stderr": "Using Python 3.11.15 environment at: AppData\\Local\\hermes\\cache\\scratch\\imagine-b01-uoore6nh\nChecked 6 packages in 1ms\nAll installed packages are compatible\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\imagine-b01-uoore6nh\\Scripts\\python.exe",
+        "-I",
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\demo\\test_b01_theme.py"
+      ],
+      "code": 0,
+      "stdout": "",
+      "stderr": "test_b01_editorial_templates_and_body_seam (__main__.B01Theme.test_b01_editorial_templates_and_body_seam) ... ok\ntest_b01_html_validator_rejects_structural_regressions (__main__.B01Theme.test_b01_html_validator_rejects_structural_regressions) ... ok\ntest_b01_shell_contract (__main__.B01Theme.test_b01_shell_contract) ... ok\ntest_b01_targeted_installation_refuses_other_site (__main__.B01Theme.test_b01_targeted_installation_refuses_other_site) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.259s\n\nOK\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\imagine-b01-uoore6nh\\Scripts\\python.exe",
+        "-I",
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\demo\\b01-corrections.py"
+      ],
+      "code": 0,
+      "stdout": "",
+      "stderr": "test_home_exact_fixture_ids_and_order_reject_intruder_and_permutation (__main__.Corrections.test_home_exact_fixture_ids_and_order_reject_intruder_and_permutation) ... ok\ntest_semantics_localization_and_stable_navigation_source (__main__.Corrections.test_semantics_localization_and_stable_navigation_source) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.001s\n\nOK\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\imagine-b01-uoore6nh\\Scripts\\python.exe",
+        "-I",
+        "-c",
+        "import sys,json,importlib.metadata as m\nfrom pathlib import Path\nsys.path.insert(0,sys.argv[1])\nfrom b01_html import validate_html\nimport html5lib,bs4,six,soupsieve,typing_extensions,webencodings\nmodules=[html5lib,bs4,six,soupsieve,typing_extensions,webencodings]\nassert sys.prefix!=sys.base_prefix\nassert all(Path(sys.prefix).resolve() in Path(x.__file__).resolve().parents for x in modules)\nfiles=sorted(Path(sys.argv[2]).glob('*.html'))\nerrors={f.name:validate_html(f.read_text(encoding='utf-8')) for f in files}\nassert files and not any(errors.values()),errors\nprint(json.dumps({'python':sys.version,'prefix':sys.prefix,'base_prefix':sys.base_prefix,'system_packages':False,'packages':{x.__name__:x.__file__ for x in modules},'versions':{n:m.version(n) for n in ['beautifulsoup4','html5lib','six','soupsieve','typing_extensions','webencodings']},'html_pages':len(files),'html_errors':sum(map(len,errors.values()))},indent=2))\n",
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\demo",
+        "C:\\Users\\Ced\\imagine\\production\\B-01\\http"
+      ],
+      "code": 0,
+      "stdout": "{\n  \"python\": \"3.11.15 (main, Jun 23 2026, 15:20:37) [MSC v.1944 64 bit (AMD64)]\",\n  \"prefix\": \"C:\\\\Users\\\\Ced\\\\AppData\\\\Local\\\\hermes\\\\cache\\\\scratch\\\\imagine-b01-uoore6nh\",\n  \"base_prefix\": \"C:\\\\Users\\\\Ced\\\\AppData\\\\Roaming\\\\uv\\\\python\\\\cpython-3.11-windows-x86_64-none\",\n  \"system_packages\": false,\n  \"packages\": {\n    \"html5lib\": \"C:\\\\Users\\\\Ced\\\\AppData\\\\Local\\\\hermes\\\\cache\\\\scratch\\\\imagine-b01-uoore6nh\\\\Lib\\\\site-packages\\\\html5lib\\\\__init__.py\",\n    \"bs4\": \"C:\\\\Users\\\\Ced\\\\AppData\\\\Local\\\\hermes\\\\cache\\\\scratch\\\\imagine-b01-uoore6nh\\\\Lib\\\\site-packages\\\\bs4\\\\__init__.py\",\n    \"six\": \"C:\\\\Users\\\\Ced\\\\AppData\\\\Local\\\\hermes\\\\cache\\\\scratch\\\\imagine-b01-uoore6nh\\\\Lib\\\\site-packages\\\\six.py\",\n    \"soupsieve\": \"C:\\\\Users\\\\Ced\\\\AppData\\\\Local\\\\hermes\\\\cache\\\\scratch\\\\imagine-b01-uoore6nh\\\\Lib\\\\site-packages\\\\soupsieve\\\\__init__.py\",\n    \"typing_extensions\": \"C:\\\\Users\\\\Ced\\\\AppData\\\\Local\\\\hermes\\\\cache\\\\scratch\\\\imagine-b01-uoore6nh\\\\Lib\\\\site-packages\\\\typing_extensions.py\",\n    \"webencodings\": \"C:\\\\Users\\\\Ced\\\\AppData\\\\Local\\\\hermes\\\\cache\\\\scratch\\\\imagine-b01-uoore6nh\\\\Lib\\\\site-packages\\\\webencodings\\\\__init__.py\"\n  },\n  \"versions\": {\n    \"beautifulsoup4\": \"4.14.3\",\n    \"html5lib\": \"1.1\",\n    \"six\": \"1.17.0\",\n    \"soupsieve\": \"2.8.3\",\n    \"typing_extensions\": \"4.15.0\",\n    \"webencodings\": \"0.5.1\"\n  },\n  \"html_pages\": 43,\n  \"html_errors\": 0\n}\n",
+      "stderr": ""
+    }
+  ]
+}

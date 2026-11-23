@@ -5,7 +5,9 @@ from pathlib import Path
 import sys, subprocess, tempfile, json, os
 ROOT=Path(__file__).resolve().parents[2]
 PROOF=ROOT/'production/B-01'
-envdir=Path(tempfile.mkdtemp(prefix='imagine-b01-',dir=os.environ['TMPDIR']))
+scratch=Path.home()/'AppData/Local/hermes/cache/scratch' if os.name=='nt' else Path(os.environ['TMPDIR'])
+scratch.mkdir(parents=True,exist_ok=True)
+envdir=Path(tempfile.mkdtemp(prefix='imagine-b01-',dir=scratch))
 envpython=envdir/('Scripts/python.exe' if os.name=='nt' else 'bin/python')
 commands=[]
 env=os.environ.copy();env.pop('PYTHONPATH',None);env['PYTHONNOUSERSITE']='1'

@@ -11,9 +11,11 @@ sys.path.insert(0, str(HERE))
 class Corrections(unittest.TestCase):
     def test_home_exact_fixture_ids_and_order_reject_intruder_and_permutation(self):
         from b01_expectations import latest_article_ids, home_matches
-        manifest = {'demo-2026-t4-ouvert': 45, 'demo-2026-t4-reserve-3': 44,
-                    'demo-2026-t4-reserve-2': 43, 'demo-2026-t4-reserve-1': 42,
-                    'demo-2026-hs-ouvert': 38}
+        sys.path.insert(0, str(ROOT/'wp/outils/demo'))
+        from b00_fixtures import fixture_data
+        manifest = {issue['slug'] + suffix: 14 + 7*i + j
+                    for i,issue in enumerate(fixture_data()['issues'])
+                    for j,suffix in enumerate(('-reserve-1','-reserve-2','-reserve-3','-ouvert'))}
         fixture = [dict(id=id, key=key, date='2026-01-01 12:00:00') for key,id in manifest.items()]
         expected = latest_article_ids(manifest, fixture)
         self.assertEqual(expected, [45,44,43,42,38])
