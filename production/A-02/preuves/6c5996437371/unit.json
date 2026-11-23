@@ -1,0 +1,72 @@
+{
+    "checks": [
+        {
+            "check": "audit_entrypoint_exists",
+            "status": "PASS"
+        },
+        {
+            "check": "identifier_preserved",
+            "status": "PASS"
+        },
+        {
+            "check": "identifier_email_redacted",
+            "status": "PASS"
+        },
+        {
+            "check": "identifier_markup_redacted",
+            "status": "PASS"
+        },
+        {
+            "check": "identifier_traversal_redacted",
+            "status": "PASS"
+        },
+        {
+            "check": "identifier_token_redacted",
+            "status": "PASS"
+        },
+        {
+            "check": "config_literal_without_execution",
+            "status": "PASS"
+        },
+        {
+            "check": "config_dynamic_refused",
+            "status": "PASS"
+        },
+        {
+            "check": "config_conditional_refused",
+            "status": "PASS"
+        },
+        {
+            "check": "serialized_object_never_instantiated",
+            "status": "PASS"
+        },
+        {
+            "check": "version_only",
+            "status": "PASS"
+        },
+        {
+            "check": "gateway_literal_constant",
+            "status": "PASS"
+        },
+        {
+            "check": "nongateway_id_ignored",
+            "status": "PASS"
+        },
+        {
+            "check": "gateway_indirect_cross_file_inherited_constant",
+            "status": "PASS"
+        },
+        {
+            "check": "gateway_unresolved_explicit",
+            "status": "FAIL"
+        },
+        {
+            "check": "nested_object_magic_not_called",
+            "status": "PASS"
+        },
+        {
+            "check": "malformed_serialization_empty",
+            "status": "PASS"
+        }
+    ]
+}

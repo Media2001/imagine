@@ -344,6 +344,7 @@ final class Audit
                     || $tokens[$i + 1][0] !== T_STRING) {
                     continue;
                 }
+                $abstract = is_array($tokens[$i - 1] ?? null) && $tokens[$i - 1][0] === T_ABSTRACT;
                 $name = $resolve($tokens[++$i][1]);
                 $parent = '';
                 while (++$i < $count && $tokens[$i] !== '{') {
@@ -368,7 +369,8 @@ final class Audit
                 foreach ($matches as $match) {
                     $constants[$match[1]] = $match[2];
                 }
-                $classes[$name] = ['parent' => $parent, 'body' => $body, 'constants' => $constants];
+                $classes[$name] = ['parent' => $parent, 'body' => $body,
+                    'constants' => $constants, 'abstract' => $abstract];
                 $i--;
             }
         }
@@ -409,7 +411,7 @@ final class Audit
                     $found[] = $constants[$constant];
                 }
             }
-            if (!$found && str_contains($body, '$this->id=')) {
+            if (!$found && !$class['abstract']) {
                 $unresolved[] = ['class' => self::identifier($name), 'reason' => 'id_unresolved'];
             }
             $ids = array_merge($ids, $found);
@@ -586,8 +588,9 @@ final class Audit
                 $builders[] = $theme['name'];
             }
         }
-        $years = $this->query("SELECT YEAR(post_date) AS year,COUNT(*) AS count FROM $post WHERE post_type='post' GROUP BY YEAR(post_date) ORDER BY year");
+        $years = $this->query("SELECT YEAR(post_date_gmt) AS year,COUNT(*) AS count FROM $post WHERE post_type='post' GROUP BY YEAR(post_date_gmt) ORDER BY year");
         return ['post_types' => $pairs($types), 'taxonomies' => $pairs($taxonomies), 'custom_fields' => $pairs($fields),
+            'post_year_basis' => 'UTC_creation',
             'posts_by_year' => array_map(static fn(array $r): array => ['year' => (int) $r['year'], 'count' => (int) $r['count']], $years),
             'page_builders' => $builders, 'page_builder_detection' => 'known_active_plugin_or_theme_names_only_not_exhaustive', 'coverage' => 'stored_types_and_taxonomies_including_empty_core_types_not_runtime_registry; top_50_post_meta_keys'];
     }
