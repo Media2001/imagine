@@ -49,7 +49,7 @@ function Assert-T01Isolation {
     if ($Info.Image -ne $ImageId -or $h.NetworkMode -ne 'none' -or -not $h.ReadonlyRootfs -or $h.Privileged -or ($h.PortBindings -and @($h.PortBindings.PSObject.Properties).Count -gt 0) -or ($Info.Config.ExposedPorts -and @($Info.Config.ExposedPorts.PSObject.Properties).Count -gt 0) -or $h.CapDrop -notcontains 'ALL' -or $h.SecurityOpt -notcontains 'no-new-privileges') { throw ('Isolation du conteneur refusee : image=' + $Info.Image + '; expected=' + $ImageId + '; host=' + ($h | ConvertTo-Json -Compress -Depth 8)) }
     if (@($Info.Mounts).Count -ne 1) { throw 'Un seul montage du depot est permis.' }
     $m = @($Info.Mounts)[0]
-    if ($m.Type -ne 'bind' -or $m.Destination -ne '/repo' -or $m.RW -or $m.Source -ne $Source) { throw 'Montage du depot non conforme (lecture seule obligatoire).' }
+    if ($m.Type -ne 'bind' -or $m.Destination -ne '/repo/wp' -or $m.RW -or $m.Source -ne $Source) { throw 'Montage de wp non conforme (lecture seule obligatoire).' }
     if ($Info.NetworkSettings.Networks -and @($Info.NetworkSettings.Networks.PSObject.Properties.Name | Where-Object { $_ -ne 'none' }).Count) { throw 'Reseau externe detecte.' }
-    Write-Output ('T01 ISOLATION : network=none ; rootfs=ro ; mount=' + $m.Source + ':/repo:ro ; ports=none ; cap-drop=ALL ; no-new-privileges')
+    Write-Output ('T01 ISOLATION : network=none ; rootfs=ro ; mount=' + $m.Source + ':/repo/wp:ro ; ports=none ; cap-drop=ALL ; no-new-privileges')
 }

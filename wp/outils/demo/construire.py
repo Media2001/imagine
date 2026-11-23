@@ -14,6 +14,10 @@ API = 'http://localhost:7000'
 
 
 def request_api(method, path, payload=None):
+    return retry_busy(lambda: _request_api(method, path, payload), mutation=method != 'GET')
+
+
+def _request_api(method, path, payload=None):
     if path not in ('/api/sites', '/api/sites/imagine-test-demo'):
         raise ValueError('Route hors périmètre')
     request = Request(API + path, data=json.dumps(payload).encode() if payload is not None else None,
@@ -27,15 +31,20 @@ def request_api(method, path, payload=None):
         raise
 
 
-def ensure_site(api=request_api, sleep=time.sleep):
+def ensure_site(api=None, sleep=None):
+    sleep = sleep or time.sleep
+    # Une seule boucle de reprise par appel, y compris avec un transport injecté.
+    raw_api = api or _request_api
+    def call(method, path, payload=None):
+        return retry_busy(lambda: raw_api(method, path, payload), sleep, mutation=method != 'GET')
     try:
-        site = api('GET', '/api/sites/' + SLUG)
+        site = call('GET', '/api/sites/' + SLUG)
     except HTTPError as error:
         if error.code != 404:
             raise
-        site = retry_busy(lambda: api('POST', '/api/sites', {
+        site = call('POST', '/api/sites', {
             'name': SLUG, 'template_slug': 'sandbox-wp-minimal', 'php_version': '8.3',
-            'client_name': None, 'target_domain': None}), sleep)
+            'client_name': None, 'target_domain': None})
     validate_target(site['slug'])
     for _ in range(180):
         if site['status'] == 'running':
@@ -43,7 +52,7 @@ def ensure_site(api=request_api, sleep=time.sleep):
         if site['status'] not in ('creating', 'starting', 'provisioning'):
             raise RuntimeError('Site non opérationnel : ' + site['status'])
         sleep(5)
-        site = api('GET', '/api/sites/' + SLUG)
+        site = call('GET', '/api/sites/' + SLUG)
     raise TimeoutError('Création normale non terminée après 15 minutes')
 
 
@@ -51,14 +60,22 @@ class StagingBusy(RuntimeError):
     pass
 
 
-def retry_busy(operation, sleep=time.sleep):
-    for attempt in range(4):
+def retry_busy(operation, sleep=None, mutation=True):
+    """Mutations : 3 reprises à 5 min ; lectures : jusqu'à 12 reprises à 5 s.
+
+    Une lecture durablement refusée s'arrête proprement, sans boucle infinie.
+    Aucun appelant n'enveloppe une seconde fois ce transport.
+    """
+    sleep = sleep or time.sleep
+    retries, delay = (3, 300) if mutation else (12, 5)
+    for attempt in range(retries + 1):
         try:
             return operation()
         except StagingBusy:
-            if attempt == 3:
-                raise
-            sleep(300)
+            if attempt == retries:
+                kind = 'mutation (trois reprises à cinq minutes)' if mutation else 'lecture (douze reprises à cinq secondes)'
+                raise StagingBusy('Outil occupé : ' + kind + ' épuisées ; aucune opération forcée') from None
+            sleep(delay)
 
 
 SLUG = 'imagine-test-demo'
@@ -78,13 +95,20 @@ def validate_credentials_path(path):
 
 
 def remote(action, **payload):
+    return retry_busy(lambda: _remote(action, **payload), mutation=action not in ('credentials', 'requirements'))
+
+
+def _remote(action, **payload):
     code = Path(__file__).with_name('b00_remote.py').read_text(encoding='utf-8')
     result = subprocess.run(['wsl.exe', 'docker', 'exec', '-i', 'staging-wp-dashboard', 'python', '-c', code],
                             input=json.dumps({'action': action, **payload}), capture_output=True,
                             text=True, encoding='utf-8', timeout=900)
     if result.returncode:
         raise RuntimeError('Échec du transport ciblé B-00 (code %d)' % result.returncode)
-    return json.loads(result.stdout)
+    data = json.loads(result.stdout)
+    if data.get('busy') is True or data.get('status_code') in (409, 423) or data.get('code') in (409, 423):
+        raise StagingBusy('Transport ciblé occupé')
+    return data
 
 
 def upload(path, content):

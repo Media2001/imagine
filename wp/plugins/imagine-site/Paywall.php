@@ -254,8 +254,15 @@ final class Paywall
         add_filter('the_posts', static function (array $posts): array {
             return is_admin() || (defined('WP_CLI') && WP_CLI) ? $posts : self::sanitizePosts($posts);
         }, PHP_INT_MAX);
+        // Arbitrage B00 du 23/11 : aucun second verrou natif sur les articles C08.
+        add_filter('wp_insert_post_data', static function (array $data): array {
+            if (($data['post_type'] ?? '') === 'post') {
+                $data['post_password'] = '';
+            }
+            return $data;
+        }, PHP_INT_MAX);
         add_filter('post_password_required', static function (bool $required, WP_Post $post): bool {
-            // Le verrou natif B00 reste en base et de repli si C08 est désactivé.
+            // Le résultat dépend exclusivement de la décision C08, jamais d'un secret natif.
             return self::managed($post) ? !self::decision($post)['complet'] : $required;
         }, PHP_INT_MAX, 2);
         foreach (['the_content', 'the_content_feed'] as $hook) {

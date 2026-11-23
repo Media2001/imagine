@@ -136,7 +136,7 @@ foreach ($data['issues'] as $issue) {
         $body .= '<p>' . ($reserved ? 'CONTENU_FICTIF_RESERVE_' : 'CONTENU_FICTIF_OUVERT_') . $issue['code'] . '_' . $i . '</p>';
         $article = upsert($articleSlug, ['post_type' => 'post', 'post_status' => 'publish',
             'post_name' => $articleSlug, 'post_title' => $articleTitle, 'post_content' => $body, 'post_excerpt' => $excerpt,
-            'post_author' => (int) $editorId, 'post_password' => $reserved ? $secret['article_password'] : '',
+            'post_author' => (int) $editorId, 'post_password' => $reserved && !class_exists('Imagine\\Site\\Paywall') ? $secret['article_password'] : '',
             'meta_input' => ['imagine_numero_id' => $id, 'imagine_reserve' => $reserved ? '1' : '0']]);
         wp_set_object_terms($article, [$terms[($i - 1) % count($terms)]], 'imagine_thematique', false);
         $manifest[$articleSlug] = $article;

@@ -102,7 +102,7 @@ correction('xml takes precedence over xml.dist', static function (): void {
     rejected(static fn () => verifyCoverage($path), 'Excluded active phpunit.xml was bypassed by dist');
 });
 
-function fixtureReplay(string $methodBody, string $configuration = 'phpunit.xml', string $kind = 'plugins'): array
+function fixtureReplay(string $methodBody, string $configuration = 'phpunit.xml', string $kind = 'plugins', string $selection = '<directory>tests</directory>', bool $manifests = true): array
 {
     $root = '/tmp/t01-replay-' . bin2hex(random_bytes(6));
     $package = $root . '/wp/' . $kind . '/imagine-pilotage';
@@ -112,9 +112,11 @@ function fixtureReplay(string $methodBody, string $configuration = 'phpunit.xml'
     $cacheKey = $kind === 'plugins' ? 'imagine-pilotage' : $kind . '--imagine-pilotage';
     symlink('/opt/t01/imagine-pilotage', $root . '/cache/' . $cacheKey);
     foreach (['composer.json', 'composer.lock'] as $file) {
-        copy('/opt/t01/imagine-pilotage/' . $file, $package . '/' . $file);
+        if ($manifests) {
+            copy('/opt/t01/imagine-pilotage/' . $file, $package . '/' . $file);
+        }
     }
-    file_put_contents($package . '/' . $configuration, '<phpunit bootstrap="vendor/autoload.php"><testsuites><testsuite name="Synthetic"><directory>tests</directory></testsuite></testsuites></phpunit>');
+    file_put_contents($package . '/' . $configuration, '<phpunit bootstrap="vendor/autoload.php"><testsuites><testsuite name="Synthetic">' . $selection . '</testsuite></testsuites></phpunit>');
     file_put_contents($package . '/tests/SyntheticTest.php', '<?php final class SyntheticTest extends \\PHPUnit\\Framework\\TestCase { public function testSynthetic(): void { ' . $methodBody . ' } }');
     // Relocate only hard-coded input/output roots; selection and verdict code are unchanged.
     $code = str_replace(['/repo/wp', '/tmp/t01/', '/opt/t01/'], [$root . '/wp', $root . '/work/', $root . '/cache/'], file_get_contents(__DIR__ . '/executer.php'));
@@ -181,6 +183,55 @@ correction('real replay warns untested custom packages', static function (): voi
     [$status, $result, $output] = fixtureReplay('$this->assertTrue(true);');
     check($status === 0 && $result['pass'], $output);
     check(str_contains($output, 'T01 WARNING : plugins/untested'), 'Untested custom package was silently ignored: ' . $output);
+});
+
+correction('explicit full suffix is accepted', static function (): void {
+    verifyCoverage(packageFixture('<directory suffix="Test.php">tests</directory>'));
+});
+
+correction('complete explicit file list is accepted', static function (): void {
+    verifyCoverage(packageFixture('<file>tests/AlphaTest.php</file><file>tests/nested/BetaTest.php</file>'));
+});
+
+correction('standard schema declaration is accepted', static function (): void {
+    verifyCoverage(packageFixture('<directory>tests</directory>', 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"'));
+});
+
+foreach ([
+    'missing test file' => '<file>tests/AlphaTest.php</file>',
+    'duplicate file' => '<directory>tests</directory><file>tests/AlphaTest.php</file>',
+    'empty selection' => '',
+] as $name => $selection) {
+    correction('refuses ' . $name, static function () use ($selection): void {
+        rejected(static fn () => verifyCoverage(packageFixture($selection)), 'Non-exhaustive selection accepted');
+    });
+}
+
+correction('real replay with exclude fails before PHPUnit', static function (): void {
+    [$status, $result, $output] = fixtureReplay('$this->assertTrue(true);', 'phpunit.xml', 'plugins', '<directory>tests</directory><exclude>tests/SyntheticTest.php</exclude>');
+    check($status === 1 && !$result['pass'] && $result['errors'] === 1 && $result['tests'] === 0, $output);
+    check(str_contains($output, 'Unsupported PHPUnit selection element: exclude') && !str_contains($output, 'T01 COMMAND'), $output);
+});
+
+correction('configured package without Composer is refused, not silently omitted', static function (): void {
+    [$status, $result, $output] = fixtureReplay('$this->assertTrue(true);', 'phpunit.xml', 'themes', '<directory>tests</directory>', false);
+    check($status === 1 && !$result['pass'] && str_contains($output, 'requires themes/imagine-pilotage/composer.json'), $output);
+});
+
+correction('discovery refuses symbolic custom packages', static function (): void {
+    $root = '/tmp/t01-symlink-' . bin2hex(random_bytes(6));
+    mkdir($root . '/plugins', 0777, true);
+    symlink('/opt/t01/imagine-pilotage', $root . '/plugins/linked');
+    rejected(static fn () => discoverT01Packages($root), 'Symbolic custom package accepted');
+});
+
+correction('discovery refuses conflicting prepared cache keys', static function (): void {
+    $root = '/tmp/t01-collision-' . bin2hex(random_bytes(6));
+    foreach (['plugins/themes--same', 'themes/same'] as $relative) {
+        mkdir($root . '/' . $relative, 0777, true);
+        file_put_contents($root . '/' . $relative . '/phpunit.xml', '<phpunit/>');
+    }
+    rejected(static fn () => discoverT01Packages($root), 'Conflicting prepared cache keys accepted');
 });
 
 echo "T01 CORRECTIONS : $tests tests, $failures failures\n";

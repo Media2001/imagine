@@ -10,7 +10,7 @@ foreach ($file in @($scriptFile, (Join-Path $root 'wp/tests/preparer-image.ps1')
     if ($parseErrors.Count) { throw ($parseErrors | Out-String) }
 }
 # The child process executes the real scripts, with only the external WSL boundary mocked.
-$cases = @('missing-docker', 'missing-image', 'pass', 'fail', 'malformed', 'start-error', 'create-error', 'cleanup-error', 'unsafe-image', 'unsafe-mount')
+$cases = @('missing-docker', 'missing-image', 'pass', 'fail', 'malformed', 'start-error', 'create-error', 'cleanup-error', 'unsafe-image', 'unsafe-mount', 'argument', 'unsafe-path', 'unsafe-ports', 'unsafe-label', 'skipped')
 foreach ($case in $cases) {
     $env:T01_TEST_CASE = $case
     $env:T01_TEST_ROOT = $root

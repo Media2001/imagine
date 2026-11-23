@@ -1,0 +1,10 @@
+{
+  "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
+  "status": 200,
+  "final_url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
+  "headers": {
+    "Content-Type": "text/html; charset=UTF-8"
+  },
+  "body_sha256": "0a36bf5dd553932ff75ba2ea60fe1beebbe663a8d8aabbe1c06798b4e04dba18",
+  "body_bytes": 92788
+}

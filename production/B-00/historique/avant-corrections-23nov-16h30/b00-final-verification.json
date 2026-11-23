@@ -1,0 +1,40 @@
+{
+  "checked_at": "2026-11-23T13:28:08.815599+00:00",
+  "scope": "imagine-test-demo",
+  "status": "VERIFIED",
+  "url": "http://192.168.129.32:8085",
+  "registry_status": "running",
+  "runtime_versions": {
+    "php": "8.3.32",
+    "wordpress": "7.0.9",
+    "woocommerce": "11.2.2",
+    "subscriptions": "9.4.1",
+    "memberships": "1.30.3",
+    "theme": "Twenty Twenty-Five"
+  },
+  "tests": {
+    "python": 4,
+    "runtime_assertions": 81,
+    "http_assertions": 81,
+    "failures": 0
+  },
+  "a_voir_urls_verified": 6,
+  "mode_emploi_lines": 5,
+  "manifest_entries": 45,
+  "tagged_posts": 41,
+  "duplicates": [],
+  "same_snapshot_after_reconstruction": true,
+  "secret_occurrences": 0,
+  "source_sha256": {
+    "wp/outils/demo/b00-seed.php": "0d33a7751401171be40776510629ea28470262f172d298946670e88148df898b",
+    "wp/outils/demo/b00_fixtures.py": "7a9151973046381cdc263a3b39630e1eb4056be90089bb5324fd5e0e9593971a",
+    "wp/outils/demo/b00_remote.py": "56430246c39ecc30704bafe74209e69d843fe4080bc30d45aa074a3240f5ba55",
+    "wp/outils/demo/construire.py": "decfa6a1a1d0196c7bd93dfc6cccd48eef30401a289aecf4d1198fb540407bd8",
+    "wp/outils/demo/imagine-demo-offline.php": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9",
+    "wp/tests/demo/b00-recette.php": "f9a09ef13fc1f184390d2eaf60feb85f54b953af3e9ef18030a3c22265bbcb4d",
+    "wp/tests/demo/b00-snapshot.php": "4d6d859af83d4b82e0565f90ad598f97d7186bdffac28d7f2e483e0076be0995",
+    "wp/tests/demo/b00-verifier.py": "5b1b93d2491a9150a5c37c96c1444540644851b448e1c0dab68e7750fb1495b0",
+    "wp/tests/demo/test_b00_construction.py": "b0f0917c54e533aadc610aab6629d3d3c178ae84bd58b6a1fb21185665f7d063",
+    "wp/plugins/imagine-site/imagine-site.php": "ebefa98fac055955ff51bcf7d71f6b4401b3c2fd1d831fc69f920b504666adf0"
+  }
+}

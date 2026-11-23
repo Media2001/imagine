@@ -36,7 +36,7 @@ check('cinq_numeros', count($issues) === 5);
 $hs = 0;
 foreach ($issues as $issue) {
     $hs += (int) (get_post_meta($issue->ID, 'imagine_type', true) === 'hors-serie');
-    $articles = get_posts(['post_type' => 'post', 'numberposts' => -1, 'meta_key' => 'imagine_numero_id', 'meta_value' => $issue->ID]);
+    $articles = get_posts(['post_type' => 'post', 'numberposts' => -1, 'meta_query' => [['key' => 'imagine_numero_id', 'value' => $issue->ID], ['key' => 'imagine_demo_key', 'compare' => 'EXISTS']]]);
     check('quatre_articles_' . $issue->ID, count($articles) === 4);
     $reserved = array_filter($articles, fn ($p) => get_post_meta($p->ID, 'imagine_reserve', true) === '1');
     check('trois_reserves_' . $issue->ID, count($reserved) === 3);

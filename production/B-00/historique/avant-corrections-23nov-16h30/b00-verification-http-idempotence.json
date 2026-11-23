@@ -1,0 +1,645 @@
+{
+  "scope": "imagine-test-demo",
+  "url": "http://192.168.129.32:8085",
+  "registry_status": "running",
+  "assertions": {
+    "same_ids_slugs_urls_content_and_assets": true,
+    "no_duplicate": true,
+    "complete_independent_inventory": true,
+    "accueil_http": true,
+    "accueil_sans_fatal": true,
+    "numero_http": true,
+    "numero_sans_fatal": true,
+    "article-reserve_http": true,
+    "article-reserve_sans_fatal": true,
+    "reserved_body_not_sent": true,
+    "article-ouvert_http": true,
+    "article-ouvert_sans_fatal": true,
+    "administration_http": true,
+    "calendrier_http": true,
+    "calendrier_sans_fatal": true,
+    "objet_demo-2026-hs": true,
+    "objet_demo-2026-hs-couverture": true,
+    "objet_demo-2026-hs-ouvert": true,
+    "objet_demo-2026-hs-pdf": true,
+    "objet_demo-2026-hs-reserve-1": true,
+    "fermeture_demo-2026-hs-reserve-1": true,
+    "objet_demo-2026-hs-reserve-2": true,
+    "fermeture_demo-2026-hs-reserve-2": true,
+    "objet_demo-2026-hs-reserve-3": true,
+    "fermeture_demo-2026-hs-reserve-3": true,
+    "objet_demo-2026-t1": true,
+    "objet_demo-2026-t1-couverture": true,
+    "objet_demo-2026-t1-ouvert": true,
+    "objet_demo-2026-t1-pdf": true,
+    "objet_demo-2026-t1-reserve-1": true,
+    "fermeture_demo-2026-t1-reserve-1": true,
+    "objet_demo-2026-t1-reserve-2": true,
+    "fermeture_demo-2026-t1-reserve-2": true,
+    "objet_demo-2026-t1-reserve-3": true,
+    "fermeture_demo-2026-t1-reserve-3": true,
+    "objet_demo-2026-t2": true,
+    "objet_demo-2026-t2-couverture": true,
+    "objet_demo-2026-t2-ouvert": true,
+    "objet_demo-2026-t2-pdf": true,
+    "objet_demo-2026-t2-reserve-1": true,
+    "fermeture_demo-2026-t2-reserve-1": true,
+    "objet_demo-2026-t2-reserve-2": true,
+    "fermeture_demo-2026-t2-reserve-2": true,
+    "objet_demo-2026-t2-reserve-3": true,
+    "fermeture_demo-2026-t2-reserve-3": true,
+    "objet_demo-2026-t3": true,
+    "objet_demo-2026-t3-couverture": true,
+    "objet_demo-2026-t3-ouvert": true,
+    "objet_demo-2026-t3-pdf": true,
+    "objet_demo-2026-t3-reserve-1": true,
+    "fermeture_demo-2026-t3-reserve-1": true,
+    "objet_demo-2026-t3-reserve-2": true,
+    "fermeture_demo-2026-t3-reserve-2": true,
+    "objet_demo-2026-t3-reserve-3": true,
+    "fermeture_demo-2026-t3-reserve-3": true,
+    "objet_demo-2026-t4": true,
+    "objet_demo-2026-t4-couverture": true,
+    "objet_demo-2026-t4-ouvert": true,
+    "objet_demo-2026-t4-pdf": true,
+    "objet_demo-2026-t4-reserve-1": true,
+    "fermeture_demo-2026-t4-reserve-1": true,
+    "objet_demo-2026-t4-reserve-2": true,
+    "fermeture_demo-2026-t4-reserve-2": true,
+    "objet_demo-2026-t4-reserve-3": true,
+    "fermeture_demo-2026-t4-reserve-3": true,
+    "objet_demo-accueil": true,
+    "objet_demo-calendrier": true,
+    "objet_demo-events-1": true,
+    "objet_demo-events-2": true,
+    "objet_demo-partners-1": true,
+    "objet_demo-partners-2": true,
+    "objet_term:demo-thematique-1": true,
+    "objet_term:demo-thematique-2": true,
+    "objet_term:demo-thematique-3": true,
+    "etancheite_native_rest": true,
+    "etancheite_native_feed": true,
+    "etancheite_native_recherche": true,
+    "etancheite_native_oembed": true,
+    "connexion_formulaire": true,
+    "admin_authentifie_200": true,
+    "article_complet_avec_secret_fictif": true
+  },
+  "total": 81,
+  "failures": [],
+  "responses": {
+    "accueil": {
+      "url": "http://192.168.129.32:8085/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "6d687c6e38356d812ab5cea86b267d6dceeec3d22e3d49f2f8be202a07171ac0",
+      "body_bytes": 82035
+    },
+    "numero": {
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-t1/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/numeros/demo-2026-t1/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "ea86225ad00323b833ba1d9bc2c4a591c69baeec1d83fae9c3c831e4e17293f9",
+      "body_bytes": 74368
+    },
+    "article-reserve": {
+      "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "0a36bf5dd553932ff75ba2ea60fe1beebbe663a8d8aabbe1c06798b4e04dba18",
+      "body_bytes": 92788
+    },
+    "article-ouvert": {
+      "url": "http://192.168.129.32:8085/demo-2026-t1-ouvert/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-t1-ouvert/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "1abdd1a53e28248f5028e6a467a0f2366afbbd02dfc03a9711cf1e13312b5bf1",
+      "body_bytes": 94824
+    },
+    "administration": {
+      "url": "http://192.168.129.32:8085/wp-admin/",
+      "status": 302,
+      "final_url": "http://192.168.129.32:8085/wp-admin/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8",
+        "Location": "http://192.168.129.32:8085/wp-login.php?redirect_to=http%3A%2F%2F192.168.129.32%3A8085%2Fwp-admin%2F&reauth=1"
+      },
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_bytes": 0
+    },
+    "calendrier": {
+      "url": "http://192.168.129.32:8085/calendrier-fictif/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/calendrier-fictif/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "028a3e4d0e105137a47f84a5b3b94835d0fe6374973151df335c50720d9dbde7",
+      "body_bytes": 81764
+    },
+    "objet_demo-2026-hs": {
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-hs/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/numeros/demo-2026-hs/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "c427fa063ac29f286fe185d6d868391f6d64c9072fef98642d1a5ae649394853",
+      "body_bytes": 74603
+    },
+    "objet_demo-2026-hs-couverture": {
+      "url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-hs.png",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-hs.png",
+      "headers": {
+        "Content-Type": "image/png"
+      },
+      "body_sha256": "7c758c87634319e2b5c78dd7dc0794c31fb27d090fd99fb9eb72fb7c809e12c5",
+      "body_bytes": 2563
+    },
+    "objet_demo-2026-hs-ouvert": {
+      "url": "http://192.168.129.32:8085/demo-2026-hs-ouvert/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-hs-ouvert/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "2d1127ffa2bb74e703f2cd1dc476b87541aee31ce8d1d68533fd82e1f855a7ed",
+      "body_bytes": 94824
+    },
+    "objet_demo-2026-hs-pdf": {
+      "url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-hs.pdf",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-hs.pdf",
+      "headers": {
+        "Content-Type": "application/pdf"
+      },
+      "body_sha256": "8c43b4ce454696908d600b7a2726a76129b1bbd4ffba6ad00f3abfd8b8076700",
+      "body_bytes": 664
+    },
+    "objet_demo-2026-hs-reserve-1": {
+      "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-1/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-hs-reserve-1/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "2d652c458f8fc48bafdd910260580fcde5df3d13b2aaa5c295a0fb0502957b03",
+      "body_bytes": 93014
+    },
+    "objet_demo-2026-hs-reserve-2": {
+      "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-2/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-hs-reserve-2/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "404dcea4b49a6d9fc515c7669039cfc2eba11ae3bb95c6914aa33dd1fc1769b1",
+      "body_bytes": 93011
+    },
+    "objet_demo-2026-hs-reserve-3": {
+      "url": "http://192.168.129.32:8085/demo-2026-hs-reserve-3/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-hs-reserve-3/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "9f3476e0f3df7c8818bfca25dbd27f4a4e520fd4edbbf35400e2f0341c184176",
+      "body_bytes": 93014
+    },
+    "objet_demo-2026-t1": {
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-t1/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/numeros/demo-2026-t1/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "ea86225ad00323b833ba1d9bc2c4a591c69baeec1d83fae9c3c831e4e17293f9",
+      "body_bytes": 74368
+    },
+    "objet_demo-2026-t1-couverture": {
+      "url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t1.png",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t1.png",
+      "headers": {
+        "Content-Type": "image/png"
+      },
+      "body_sha256": "a0b390101cf7940f456662663709741e273ca89bbd6db147bcbcf7fd1b7183c2",
+      "body_bytes": 2098
+    },
+    "objet_demo-2026-t1-ouvert": {
+      "url": "http://192.168.129.32:8085/demo-2026-t1-ouvert/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-t1-ouvert/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "1abdd1a53e28248f5028e6a467a0f2366afbbd02dfc03a9711cf1e13312b5bf1",
+      "body_bytes": 94824
+    },
+    "objet_demo-2026-t1-pdf": {
+      "url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t1.pdf",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t1.pdf",
+      "headers": {
+        "Content-Type": "application/pdf"
+      },
+      "body_sha256": "665395b60dafff2b32b1c3989166a9b17bb6028c592aa46e9d03fbe62140902e",
+      "body_bytes": 663
+    },
+    "objet_demo-2026-t1-reserve-1": {
+      "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-t1-reserve-1/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "0a36bf5dd553932ff75ba2ea60fe1beebbe663a8d8aabbe1c06798b4e04dba18",
+      "body_bytes": 92788
+    },
+    "objet_demo-2026-t1-reserve-2": {
+      "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-2/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-t1-reserve-2/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "756a71d90b822969a23faae7b207524c25ce9ee6e4391042c7b83476cb7a6ff5",
+      "body_bytes": 93011
+    },
+    "objet_demo-2026-t1-reserve-3": {
+      "url": "http://192.168.129.32:8085/demo-2026-t1-reserve-3/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-t1-reserve-3/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "8887d0c7eb111fa1c7c720b1de184beb3a6bf6d9578b811481b52240f831211b",
+      "body_bytes": 93014
+    },
+    "objet_demo-2026-t2": {
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-t2/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/numeros/demo-2026-t2/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "d187f0850fdb30c0a57f08542bb01c94c1460ced84f0428a23393673aa7c15fa",
+      "body_bytes": 74571
+    },
+    "objet_demo-2026-t2-couverture": {
+      "url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t2.png",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t2.png",
+      "headers": {
+        "Content-Type": "image/png"
+      },
+      "body_sha256": "f180fc821f9ade47cd233f57d3beb9167af83e4eb31d5f97e1a8bf07a08e8c6d",
+      "body_bytes": 2142
+    },
+    "objet_demo-2026-t2-ouvert": {
+      "url": "http://192.168.129.32:8085/demo-2026-t2-ouvert/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-t2-ouvert/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "4dc5389940029bc4a247b6da21992cf89bdedcdb56687fadcb8c42417a517b65",
+      "body_bytes": 94824
+    },
+    "objet_demo-2026-t2-pdf": {
+      "url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t2.pdf",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t2.pdf",
+      "headers": {
+        "Content-Type": "application/pdf"
+      },
+      "body_sha256": "e167c40428d2557c933c34d82545c833612b482d02a964248baba619d45f92d3",
+      "body_bytes": 663
+    },
+    "objet_demo-2026-t2-reserve-1": {
+      "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-1/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-t2-reserve-1/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "f53527156e486d25516632fc9de3f326c2118ac3c6d09915282aeef8065ccfe3",
+      "body_bytes": 93014
+    },
+    "objet_demo-2026-t2-reserve-2": {
+      "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-2/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-t2-reserve-2/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "ec3e48ed22c8678c9869ae0dd282494f475a625579fdff2d31280bf5559a2bb7",
+      "body_bytes": 93011
+    },
+    "objet_demo-2026-t2-reserve-3": {
+      "url": "http://192.168.129.32:8085/demo-2026-t2-reserve-3/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-t2-reserve-3/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "091ac2bff503996252a571b176d2904e12199f042e5f7c33741f1fdad72f2557",
+      "body_bytes": 93014
+    },
+    "objet_demo-2026-t3": {
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-t3/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/numeros/demo-2026-t3/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "f10536339b8425bf5be4d53fb2238c7dbae2edb51a5a300e44d09ab5dca4cb01",
+      "body_bytes": 74579
+    },
+    "objet_demo-2026-t3-couverture": {
+      "url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t3.png",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t3.png",
+      "headers": {
+        "Content-Type": "image/png"
+      },
+      "body_sha256": "4829308601c839e988618f8f3c39cf7bc5d66695beb7cc0cc6c97a60eb06b399",
+      "body_bytes": 2136
+    },
+    "objet_demo-2026-t3-ouvert": {
+      "url": "http://192.168.129.32:8085/demo-2026-t3-ouvert/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-t3-ouvert/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "9322617912bfbfdac9b5dd3f4cf4198bd9e9c768eea3d95f38e3bbe005a731e4",
+      "body_bytes": 94824
+    },
+    "objet_demo-2026-t3-pdf": {
+      "url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t3.pdf",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t3.pdf",
+      "headers": {
+        "Content-Type": "application/pdf"
+      },
+      "body_sha256": "88c7e76f7bd7249af59bf79e6739d658590e29f945eea99f7e2d42980d615fa5",
+      "body_bytes": 663
+    },
+    "objet_demo-2026-t3-reserve-1": {
+      "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-1/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-t3-reserve-1/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "f0bf4f9a809a24af35a80d7c9891223d882aeeefd70f1e831c1581ba172ccd31",
+      "body_bytes": 93014
+    },
+    "objet_demo-2026-t3-reserve-2": {
+      "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-2/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-t3-reserve-2/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "c976ded486db04d95ea3434fec0a1aa6eaf6f06140a1c9d90a1cb792da044d79",
+      "body_bytes": 93011
+    },
+    "objet_demo-2026-t3-reserve-3": {
+      "url": "http://192.168.129.32:8085/demo-2026-t3-reserve-3/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-t3-reserve-3/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "09d69f678e7ee1919f5c9d82a8a96428b2c6e764f8cebcb075dcb31f67423202",
+      "body_bytes": 93014
+    },
+    "objet_demo-2026-t4": {
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-t4/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/numeros/demo-2026-t4/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "0768f502abc5779c3787d1f253613b7aad2891c15c694dc9036e12944d4b8822",
+      "body_bytes": 74380
+    },
+    "objet_demo-2026-t4-couverture": {
+      "url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t4.png",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t4.png",
+      "headers": {
+        "Content-Type": "image/png"
+      },
+      "body_sha256": "64a77fcb3c20f001f53684f9ba5cabb0915dc4f1a8da3fb1f3546986f2f985b2",
+      "body_bytes": 2148
+    },
+    "objet_demo-2026-t4-ouvert": {
+      "url": "http://192.168.129.32:8085/demo-2026-t4-ouvert/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-t4-ouvert/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "9da3d5c00477d90a8e53719ee3fc15988584bdd60b193fa21427430b8687a3b7",
+      "body_bytes": 94782
+    },
+    "objet_demo-2026-t4-pdf": {
+      "url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t4.pdf",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/wp-content/uploads/imagine-demo/demo-2026-t4.pdf",
+      "headers": {
+        "Content-Type": "application/pdf"
+      },
+      "body_sha256": "2446e6975b2d0d9b6067e0c2b0cbbd44939d5dcccf600c10519cce84ab0f742f",
+      "body_bytes": 663
+    },
+    "objet_demo-2026-t4-reserve-1": {
+      "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-1/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-t4-reserve-1/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "561b8d01c1eeddb75a464b523d706dfc51e01fae67adbea284e4825fc225aa3b",
+      "body_bytes": 93014
+    },
+    "objet_demo-2026-t4-reserve-2": {
+      "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-2/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-t4-reserve-2/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "6155f3f9bc10dcfbe48c7faaa8d29d7650f59b859ceffb3474f41f6a19b93b6e",
+      "body_bytes": 93011
+    },
+    "objet_demo-2026-t4-reserve-3": {
+      "url": "http://192.168.129.32:8085/demo-2026-t4-reserve-3/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/demo-2026-t4-reserve-3/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "d609b4f36d24c31790ff2199521587c0ad9470425055f65406d74ed34fb4aa7d",
+      "body_bytes": 93014
+    },
+    "objet_demo-accueil": {
+      "url": "http://192.168.129.32:8085/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "6d687c6e38356d812ab5cea86b267d6dceeec3d22e3d49f2f8be202a07171ac0",
+      "body_bytes": 82035
+    },
+    "objet_demo-calendrier": {
+      "url": "http://192.168.129.32:8085/calendrier-fictif/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/calendrier-fictif/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "028a3e4d0e105137a47f84a5b3b94835d0fe6374973151df335c50720d9dbde7",
+      "body_bytes": 81764
+    },
+    "objet_demo-events-1": {
+      "url": "http://192.168.129.32:8085/evenements/demo-events-1/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/evenements/demo-events-1/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "5342ac68bd291748c7b5ac5728102ebbf11c540f8edfe11ebaec6b943819ae6c",
+      "body_bytes": 91701
+    },
+    "objet_demo-events-2": {
+      "url": "http://192.168.129.32:8085/evenements/demo-events-2/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/evenements/demo-events-2/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "6560819ad54dda7a833bc909b68d579aacb9aa8cb51426be308173a46988a84b",
+      "body_bytes": 91705
+    },
+    "objet_demo-partners-1": {
+      "url": "http://192.168.129.32:8085/partenaires/demo-partners-1/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/partenaires/demo-partners-1/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "7b938db11f646f493a7825d605a09b1f2818d5fc51df7191b5801263bfacacdf",
+      "body_bytes": 91718
+    },
+    "objet_demo-partners-2": {
+      "url": "http://192.168.129.32:8085/partenaires/demo-partners-2/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/partenaires/demo-partners-2/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "d17e94fb7d2a0e732408db5b7ded2ba1f5ce55d183a509c5c4f84f28ddec49f2",
+      "body_bytes": 91727
+    },
+    "objet_term:demo-thematique-1": {
+      "url": "http://192.168.129.32:8085/thematiques/demo-thematique-1/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/thematiques/demo-thematique-1/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "85946249db6b9007df7e8bb985c5196f454752a6cd7ab857b448831c19179140",
+      "body_bytes": 108075
+    },
+    "objet_term:demo-thematique-2": {
+      "url": "http://192.168.129.32:8085/thematiques/demo-thematique-2/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/thematiques/demo-thematique-2/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "dfad58a9e228d61199005052a14da681502fdf305948739f1f5b3edbd75b997a",
+      "body_bytes": 89671
+    },
+    "objet_term:demo-thematique-3": {
+      "url": "http://192.168.129.32:8085/thematiques/demo-thematique-3/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/thematiques/demo-thematique-3/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "3cdee8bd6fe113b92abe8b9cf31d9371b2bc3355205604ea26b61841bd32a4be",
+      "body_bytes": 89644
+    },
+    "etancheite_rest": {
+      "url": "http://192.168.129.32:8085/wp-json/wp/v2/posts/14",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/wp-json/wp/v2/posts/14",
+      "headers": {
+        "Content-Type": "application/json; charset=UTF-8",
+        "X-Robots-Tag": "noindex"
+      },
+      "body_sha256": "e082461986668ef6a413a64801e0e87935e5258006e753b96d73cf1b314a25fd",
+      "body_bytes": 2188
+    },
+    "etancheite_feed": {
+      "url": "http://192.168.129.32:8085/feed/",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/feed/",
+      "headers": {
+        "Content-Type": "application/rss+xml; charset=UTF-8"
+      },
+      "body_sha256": "fb31a5ed47c0ab4da34e756453c52cba5dcdee12f2c244be393353e68208fef2",
+      "body_bytes": 19668
+    },
+    "etancheite_recherche": {
+      "url": "http://192.168.129.32:8085/?s=Imaginaire",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/?s=Imaginaire",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "b58def924be9a2d3aad77379548688e53e6c7f69fbd13ec546fa4b6c58b72313",
+      "body_bytes": 105890
+    },
+    "etancheite_oembed": {
+      "url": "http://192.168.129.32:8085/wp-json/oembed/1.0/embed?url=http%3A%2F%2F192.168.129.32%3A8085%2Fdemo-2026-t1-reserve-1%2F",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/wp-json/oembed/1.0/embed?url=http%3A%2F%2F192.168.129.32%3A8085%2Fdemo-2026-t1-reserve-1%2F",
+      "headers": {
+        "Content-Type": "application/json; charset=UTF-8",
+        "X-Robots-Tag": "noindex"
+      },
+      "body_sha256": "9ea4f53439390ea78196f41f8da7c66f715b629dfd7672b451635c35742f43df",
+      "body_bytes": 2480
+    },
+    "administration-authentifiee": {
+      "url": "http://192.168.129.32:8085/wp-login.php",
+      "status": 200,
+      "final_url": "http://192.168.129.32:8085/wp-admin/",
+      "headers": {
+        "Content-Type": "text/html; charset=UTF-8"
+      },
+      "body_sha256": "67a52ff5e30118d8eab0c76a046a96d694640cece3692478f7f9a0f72f508e5a",
+      "body_bytes": 257713
+    }
+  }
+}

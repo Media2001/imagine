@@ -1,0 +1,10 @@
+{
+  "url": "http://192.168.129.32:8085/demo-2026-t1-ouvert/",
+  "status": 200,
+  "final_url": "http://192.168.129.32:8085/demo-2026-t1-ouvert/",
+  "headers": {
+    "Content-Type": "text/html; charset=UTF-8"
+  },
+  "body_sha256": "1abdd1a53e28248f5028e6a467a0f2366afbbd02dfc03a9711cf1e13312b5bf1",
+  "body_bytes": 94824
+}

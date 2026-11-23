@@ -1,0 +1,10 @@
+{
+  "url": "http://192.168.129.32:8085/",
+  "status": 200,
+  "final_url": "http://192.168.129.32:8085/",
+  "headers": {
+    "Content-Type": "text/html; charset=UTF-8"
+  },
+  "body_sha256": "6d687c6e38356d812ab5cea86b267d6dceeec3d22e3d49f2f8be202a07171ac0",
+  "body_bytes": 82035
+}

@@ -1,0 +1,15 @@
+test_b00_busy_retries_three_times_five_minutes (test_b00_construction.B00Scope.test_b00_busy_retries_three_times_five_minutes) ... ok
+test_b00_creation_uses_normal_api_and_reuses_exact_target (test_b00_construction.B00Scope.test_b00_creation_uses_normal_api_and_reuses_exact_target) ... ok
+test_b00_fixed_target_and_outside_credentials (test_b00_construction.B00Scope.test_b00_fixed_target_and_outside_credentials) ... ok
+test_b00_fixture_calendar_and_generated_assets (test_b00_construction.B00Scope.test_b00_fixture_calendar_and_generated_assets) ... ok
+test_api_read_busy_retries_at_transport_boundary (test_b00_corrections.B00Corrections.test_api_read_busy_retries_at_transport_boundary) ... ok
+test_exhausted_read_is_bounded_and_handled (test_b00_corrections.B00Corrections.test_exhausted_read_is_bounded_and_handled) ... ok
+test_followup_get_busy_does_not_repeat_creation (test_b00_corrections.B00Corrections.test_followup_get_busy_does_not_repeat_creation) ... ok
+test_initial_get_busy_is_retried (test_b00_corrections.B00Corrections.test_initial_get_busy_is_retried) ... ok
+test_remote_mutation_exhaustion_is_exactly_four_attempts (test_b00_corrections.B00Corrections.test_remote_mutation_exhaustion_is_exactly_four_attempts) ... ok
+test_remote_mutations_retry_three_times_not_nested (test_b00_corrections.B00Corrections.test_remote_mutations_retry_three_times_not_nested) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.053s
+
+OK

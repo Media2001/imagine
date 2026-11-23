@@ -1,0 +1,84 @@
+test_b00_busy_retries_three_times_five_minutes (test_b00_construction.B00Scope.test_b00_busy_retries_three_times_five_minutes) ... ok
+test_b00_creation_uses_normal_api_and_reuses_exact_target (test_b00_construction.B00Scope.test_b00_creation_uses_normal_api_and_reuses_exact_target) ... ok
+test_b00_fixed_target_and_outside_credentials (test_b00_construction.B00Scope.test_b00_fixed_target_and_outside_credentials) ... ok
+test_b00_fixture_calendar_and_generated_assets (test_b00_construction.B00Scope.test_b00_fixture_calendar_and_generated_assets) ... ok
+test_api_read_busy_retries_at_transport_boundary (test_b00_corrections.B00Corrections.test_api_read_busy_retries_at_transport_boundary) ... ERROR
+test_exhausted_read_is_bounded_and_handled (test_b00_corrections.B00Corrections.test_exhausted_read_is_bounded_and_handled) ... FAIL
+test_followup_get_busy_does_not_repeat_creation (test_b00_corrections.B00Corrections.test_followup_get_busy_does_not_repeat_creation) ... ERROR
+test_initial_get_busy_is_retried (test_b00_corrections.B00Corrections.test_initial_get_busy_is_retried) ... ERROR
+test_remote_mutation_exhaustion_is_exactly_four_attempts (test_b00_corrections.B00Corrections.test_remote_mutation_exhaustion_is_exactly_four_attempts) ... ERROR
+test_remote_mutations_retry_three_times_not_nested (test_b00_corrections.B00Corrections.test_remote_mutations_retry_three_times_not_nested) ... FAIL
+
+======================================================================
+ERROR: test_api_read_busy_retries_at_transport_boundary (test_b00_corrections.B00Corrections.test_api_read_busy_retries_at_transport_boundary)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\test_b00_corrections.py", line 43, in test_api_read_busy_retries_at_transport_boundary
+    m.request_api('GET', '/api/sites/' + m.SLUG)
+  File "C:\Users\Ced\imagine\wp\outils\demo\construire.py", line 26, in request_api
+    raise StagingBusy('Outil occupé') from None
+b00_builder.StagingBusy: Outil occupé
+
+======================================================================
+ERROR: test_followup_get_busy_does_not_repeat_creation (test_b00_corrections.B00Corrections.test_followup_get_busy_does_not_repeat_creation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\test_b00_corrections.py", line 35, in test_followup_get_busy_does_not_repeat_creation
+    self.assertEqual(m.ensure_site(api, waits.append)['status'], 'running')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ced\imagine\wp\outils\demo\construire.py", line 46, in ensure_site
+    site = api('GET', '/api/sites/' + SLUG)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ced\imagine\wp\tests\demo\test_b00_corrections.py", line 33, in api
+    raise m.StagingBusy('occupé')
+b00_builder.StagingBusy: occupé
+
+======================================================================
+ERROR: test_initial_get_busy_is_retried (test_b00_corrections.B00Corrections.test_initial_get_busy_is_retried)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\test_b00_corrections.py", line 19, in test_initial_get_busy_is_retried
+    self.assertEqual(m.ensure_site(api, waits.append)['status'], 'running')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ced\imagine\wp\outils\demo\construire.py", line 32, in ensure_site
+    site = api('GET', '/api/sites/' + SLUG)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ced\imagine\wp\tests\demo\test_b00_corrections.py", line 17, in api
+    raise m.StagingBusy('occupé')
+b00_builder.StagingBusy: occupé
+
+======================================================================
+ERROR: test_remote_mutation_exhaustion_is_exactly_four_attempts (test_b00_corrections.B00Corrections.test_remote_mutation_exhaustion_is_exactly_four_attempts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\test_b00_corrections.py", line 71, in test_remote_mutation_exhaustion_is_exactly_four_attempts
+    m.wp('option', 'update', 'fictive', '1')
+  File "C:\Users\Ced\imagine\wp\outils\demo\construire.py", line 96, in wp
+    if check and result['code']:
+                 ~~~~~~^^^^^^^^
+KeyError: 'code'
+
+======================================================================
+FAIL: test_exhausted_read_is_bounded_and_handled (test_b00_corrections.B00Corrections.test_exhausted_read_is_bounded_and_handled)
+----------------------------------------------------------------------
+b00_builder.StagingBusy: occupé
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\test_b00_corrections.py", line 52, in test_exhausted_read_is_bounded_and_handled
+    with self.assertRaisesRegex(m.StagingBusy, 'lecture'):
+AssertionError: "lecture" does not match "occupé"
+
+======================================================================
+FAIL: test_remote_mutations_retry_three_times_not_nested (test_b00_corrections.B00Corrections.test_remote_mutations_retry_three_times_not_nested)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\test_b00_corrections.py", line 62, in test_remote_mutations_retry_three_times_not_nested
+    self.assertIn('written', m.upload('imagine-demo-build/test', b'x'))
+AssertionError: 'written' not found in {'busy': True}
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.043s
+
+FAILED (failures=2, errors=4)

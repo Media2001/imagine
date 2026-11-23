@@ -1,0 +1,10 @@
+{
+  "url": "http://192.168.129.32:8085/numeros/demo-2026-t1/",
+  "status": 200,
+  "final_url": "http://192.168.129.32:8085/numeros/demo-2026-t1/",
+  "headers": {
+    "Content-Type": "text/html; charset=UTF-8"
+  },
+  "body_sha256": "ea86225ad00323b833ba1d9bc2c4a591c69baeec1d83fae9c3c831e4e17293f9",
+  "body_bytes": 74368
+}

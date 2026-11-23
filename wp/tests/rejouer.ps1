@@ -16,13 +16,14 @@ try {
     $image = @($imageProbe.Text | ConvertFrom-Json)[0]
     if ($image.Config.Labels.'org.imagine.t01-image' -ne '1' -or $image.Config.Volumes -or $image.Config.ExposedPorts) { throw 'Image T01 non conforme : relancer preparer-image.ps1.' }
     # WSL path conversion is read-only and does not inspect any site.
-    $sourceLines = @(& wsl.exe -d Ubuntu -- wslpath -a -u $script:T01Root.Replace('\', '/') 2>&1)
+    $wpRoot = (Join-Path $script:T01Root 'wp').Replace('\', '/')
+    $sourceLines = @(& wsl.exe -d Ubuntu -- wslpath -a -u $wpRoot 2>&1)
     if ($LASTEXITCODE -ne 0) { throw ('Conversion du chemin WSL impossible : ' + ($sourceLines -join "`n")) }
     $source = ($sourceLines -join "`n").Trim()
     if (-not $source.StartsWith('/') -or $source.Contains(',') -or $source.Contains("`n")) { throw 'Chemin de montage WSL refuse.' }
     # Also check ownership/absence if Docker created the object but returned an error.
     $created = $true
-    $create = Invoke-T01Docker @('create', '--name', $name, '--label', ($script:T01Label + '=' + $owner), '--pull', 'never', '--network', 'none', '--read-only', '--mount', ('type=bind,source=' + $source + ',target=/repo,readonly'), '--tmpfs', '/tmp:rw,nosuid,nodev,size=512m,mode=1777', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--user', '65534:65534', '--pids-limit', '128', '--memory', '768m', '--cpus', '2', '--no-healthcheck', '--log-driver', 'none', '--entrypoint', 'timeout', $image.Id, '600', 'php', '/repo/wp/tests/t01/executer.php')
+    $create = Invoke-T01Docker @('create', '--name', $name, '--label', ($script:T01Label + '=' + $owner), '--pull', 'never', '--network', 'none', '--read-only', '--mount', ('type=bind,source=' + $source + ',target=/repo/wp,readonly'), '--tmpfs', '/tmp:rw,nosuid,nodev,size=512m,mode=1777', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--user', '65534:65534', '--pids-limit', '128', '--memory', '768m', '--cpus', '2', '--no-healthcheck', '--log-driver', 'none', '--entrypoint', 'timeout', $image.Id, '600', 'php', '/repo/wp/tests/t01/executer.php')
     [void](Assert-T01Success $create 'Creation du conteneur jetable impossible.')
     Assert-T01Isolation (Get-T01Inspect $name) $owner $image.Id $source
     Write-Output ('T01 IMAGE : ' + $image.Id)
@@ -39,7 +40,7 @@ try {
         if ($null -eq $value -or $value -notmatch '^\d+$' -or [long]$value -gt [int]::MaxValue) { throw 'Bilan PHPUnit invalide.' }
         $result[$key] = [int]$value
     }
-    if ($run.Code -ne 0 -or $after.State.ExitCode -ne 0 -or $data.pass -ne $true -or $result.tests -eq 0 -or $result.failures -gt 0 -or $result.errors -gt 0) { throw 'Suite PHP en echec : consulter la sortie complete ci-dessus.' }
+    if ($run.Code -ne 0 -or $after.State.ExitCode -ne 0 -or $data.pass -ne $true -or $result.tests -eq 0 -or $result.failures -gt 0 -or $result.errors -gt 0 -or $result.skipped -gt 0) { throw 'Suite PHP en echec : consulter la sortie complete ci-dessus.' }
     $exitCode = 0
 } catch {
     Write-Output ('T01 ERREUR : ' + $_.Exception.Message)
