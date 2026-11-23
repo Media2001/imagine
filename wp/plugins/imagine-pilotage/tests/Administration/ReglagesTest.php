@@ -25,6 +25,7 @@ final class ReglagesTest extends TestCase
         $GLOBALS['wpdb'] = new class {
             public string $options = 'options';
 
+            // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- Contrat wpdb natif.
             public function esc_like(string $text): string
             {
                 return $text;
@@ -35,6 +36,7 @@ final class ReglagesTest extends TestCase
                 return $sql;
             }
 
+            // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps -- Contrat wpdb natif.
             public function get_col(string $sql): array
             {
                 return [];

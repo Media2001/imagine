@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/tmp/c10/phpunit.xml" tests="10" assertions="67" errors="0" failures="0" skipped="0" time="0.028453">
+    <testsuite name="Administration" tests="10" assertions="67" errors="0" failures="0" skipped="0" time="0.028453">
+      <testsuite name="Imagine\Pilotage\Tests\Administration\ReglagesTest" file="/tmp/c10/tests/Administration/ReglagesTest.php" tests="10" assertions="67" errors="0" failures="0" skipped="0" time="0.028453">
+        <testcase name="testClesExactesEtChoixStrictsConserventValeursPrecedentes" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="49" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="32" time="0.002805"/>
+        <testcase name="testPremierPaiementInvalideConserveDefautDeclare" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="69" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="2" time="0.002561"/>
+        <testcase name="testJournalUniqueApresPersistancePasSurNoopOuRefus" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="78" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="9" time="0.002677"/>
+        <testcase name="testPremiereCreationJournaliseeUneFois" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="99" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="2" time="0.002569"/>
+        <testcase name="testJournalKoRefuseModificationEtPrevient" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="107" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="3" time="0.002813"/>
+        <testcase name="testJournalKoRefusePremiereCreationSansInventerOption" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="118" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="2" time="0.002793"/>
+        <testcase name="testApercuCsvRelitFormatPersiste" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="126" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="2" time="0.002675"/>
+        <testcase name="testPageDelegueNonceEtLitPaiementNormalise" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="134" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="6" time="0.004640"/>
+        <testcase name="testRefusPageSansManageOptions" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="148" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="2" time="0.002284"/>
+        <testcase name="testOptionsMemeGroupePrive" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="156" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="7" time="0.002636"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

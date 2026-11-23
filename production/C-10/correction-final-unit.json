@@ -1,0 +1,10 @@
+{
+  "command": "test -- --log-junit /tmp/c10/result.xml",
+  "test_exit": 0,
+  "lint_command": "composer lint",
+  "lint_exit": 0,
+  "image": "imagine-tests-t01:1",
+  "network": "none",
+  "mounts": [],
+  "ports": {}
+}

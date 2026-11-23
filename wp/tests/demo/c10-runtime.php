@@ -56,7 +56,9 @@ if ($checks['ecran_present']) {
         $role = 'imagine_referent_abonnements';
         $hadRole = isset($roles->role_objects[$role]);
         $oldRole = $roles->role_objects[$role] ?? null;
+        $oldName = $roles->role_names[$role] ?? null;
         $roles->role_objects[$role] = new \WP_Role($role, ['read' => true]);
+        $roles->role_names[$role] = 'Référent abonnements';
         $capabilities = static function ($value, $id, $key) use ($teamUser, $role) {
             global $wpdb;
             return $id === $teamUser && $key === $wpdb->get_blog_prefix() . 'capabilities'
@@ -70,8 +72,10 @@ if ($checks['ecran_present']) {
             remove_filter('get_user_metadata', $capabilities, 10);
             if ($hadRole) {
                 $roles->role_objects[$role] = $oldRole;
+                $roles->role_names[$role] = $oldName;
             } else {
                 unset($roles->role_objects[$role]);
+                unset($roles->role_names[$role]);
             }
         }
         wp_set_current_user(get_user_by('login', 'e-admin')->ID);

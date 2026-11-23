@@ -53,7 +53,8 @@ def destroy(secret):
 
 
 def fetch(base, path, client=None, data=None):
-    if base != 'http://192.168.129.32:8085' or path not in (PAGE, '/wp-admin/options.php'):
+    if base != 'http://192.168.129.32:8085' or (path not in (PAGE, '/wp-admin/options.php')
+            and not re.fullmatch(r'/\?p=[0-9]+', path)):
         raise ValueError('Cible C10 non autorisée')
     client = client or build_opener()
     request = Request(base + path, data=data, headers={'User-Agent': 'Imagine-C10-tests/1.0'})
@@ -91,6 +92,7 @@ def verify():
     original = before['values']
     checks, responses = {}, {}
     sessions = []
+    issue_restore = None
     record = {'scope': b00.SLUG, 'at': datetime.now(timezone.utc).isoformat(), 'url': base}
 
     def check(name, condition):
@@ -160,7 +162,9 @@ def verify():
             v = json.loads(json.dumps(original)); v[E] = value
             bad.append(('export_' + str(len(bad)), v))
         for option in [A,P]:
-            for value in ['texte-invalide', {}, {'extra':'invalide'}]:
+            extra = {**original[option], 'extra': 'invalide'}
+            missing = dict(original[option]); missing.pop(next(iter(missing)))
+            for value in ['texte-invalide', {}, extra, missing]:
                 v = json.loads(json.dumps(original)); v[option] = value
                 bad.append(('forme_' + str(len(bad)), v))
         for label, values in bad:
@@ -168,6 +172,21 @@ def verify():
             after = state()
             check(label + '_refuse', code == 200 and any(word in html.unescape(page) for word in ['refusé','refusés','invalide']))
             check(label + '_ancien_conserve', after == baseline)
+
+        # Un domaine invalide ne bloque pas un autre changement valide du même POST.
+        mixed = json.loads(json.dumps(original))
+        mixed[A]['pdf_robot'] = 'refuse-c10'
+        mixed[P]['marge_jours'] = 4
+        prior = state()
+        code, rejected = post(admin, mixed)
+        after = state()
+        check('mixte_acces_refuse_paiement_persiste', code == 200
+              and after['values'] == {**original, P: mixed[P]})
+        check('mixte_un_seul_evenement_paiement', after['audit_count'] == prior['audit_count'] + 1
+              and after['journal'][0]['option'] == P
+              and after['journal'][0]['avant'] == original[P]
+              and after['journal'][0]['apres'] == mixed[P])
+        post(admin, original)
 
         # Toutes les positions admises des trois adaptateurs, par vrais POST.
         alternate = {A:{'contenu_futur':'equipe','pdf_robot':'complet','pdf_anterieur_abonnement':'ouvert'},
@@ -206,10 +225,37 @@ def verify():
         code, _ = post(admin, original)
         check('retour_defauts_exact', code == 200 and state()['values'] == original)
         check('retour_journalise', state()['audit_count'] == after['audit_count'] + 3)
+
+        # Effet front réel : même article, même session, option seule changée entre les GET.
+        native = json.loads(b00.wp('eval', '''$f=get_option('imagine_c08_fixture');$p=get_post($f['article']);$n=(int)get_post_meta($p->ID,'imagine_numero_id',true);echo wp_json_encode(['article'=>$p->ID,'issue'=>$n,'date'=>get_post_meta($n,'imagine_sortie',true)]);''')['stdout'])
+        issue_restore = native
+        b00.wp('eval', 'update_post_meta(' + str(native['issue']) + ',"imagine_sortie","2099-01-01");')
+        article_path = '/?p=' + str(native['article'])
+        witness = 'Les lucioles violettes de C08 gardent le secret du village fictif.'
+        code, closed = fetch(base, article_path, admin)
+        check('front_futur_defaut_ferme_equipe', code == 200 and witness not in closed)
+        future = json.loads(json.dumps(original)); future[A]['contenu_futur'] = 'equipe'
+        post(admin, future)
+        code, opened = fetch(base, article_path, admin)
+        check('front_reglage_ouvre_article_equipe', code == 200 and witness in opened)
+        code, anonymous = fetch(base, article_path)
+        check('front_futur_reste_ferme_anonyme', code == 200 and witness not in anonymous)
+        code, no_right = fetch(base, article_path, subscriber)
+        check('front_futur_reste_ferme_sans_droit', code == 200 and witness not in no_right)
+        post(admin, original)
+        code, closed_again = fetch(base, article_path, admin)
+        check('front_retour_defaut_referme_article', code == 200 and witness not in closed_again)
+        b00.wp('eval', 'update_post_meta(' + str(native['issue']) + ',"imagine_sortie",' + json.dumps(native['date']) + ');')
+        issue_restore = None
+        record['front_effect'] = {'article': native['article'], 'option': A,
+            'closed': 'ferme_tous', 'open_for_team_only': 'equipe',
+            'release_restored': native['date'], 'http_checks': 5}
         record['audit_count_before'] = before['audit_count']
         record['audit_count_after'] = state()['audit_count']
         record['invalid_cases'] = len(bad) + 3
     finally:
+        if issue_restore is not None:
+            b00.wp('eval', 'update_post_meta(' + str(issue_restore['issue']) + ',"imagine_sortie",' + json.dumps(issue_restore['date']) + ');')
         # Si un test s'interrompt, tenter la restauration sans effacer la piste d'audit.
         if sessions and state()['values'] != original:
             post(admin, original)

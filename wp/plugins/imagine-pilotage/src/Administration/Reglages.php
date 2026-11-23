@@ -49,10 +49,22 @@ final class Reglages
 
     public function menu(): void
     {
-        add_menu_page(self::t('Réglages Imagine'), self::t('Imagine'), 'manage_options', 'imagine',
-            [$this, 'page'], 'dashicons-admin-settings');
-        add_submenu_page('imagine', self::t('Réglages Imagine'), self::t('Réglages'),
-            'manage_options', self::PAGE, [$this, 'page']);
+        add_menu_page(
+            self::t('Réglages Imagine'),
+            self::t('Imagine'),
+            'manage_options',
+            'imagine',
+            [$this, 'page'],
+            'dashicons-admin-settings'
+        );
+        add_submenu_page(
+            'imagine',
+            self::t('Réglages Imagine'),
+            self::t('Réglages'),
+            'manage_options',
+            self::PAGE,
+            [$this, 'page']
+        );
         // Slugs distincts : WordPress conserve le sous-menu unique « Réglages ».
         remove_submenu_page('imagine', 'imagine');
     }
@@ -105,8 +117,11 @@ final class Reglages
 
     private function refuser(string $option): array
     {
-        add_settings_error($option, 'imagine_valeur_refusee',
-            self::t('Valeur invalide ou champ manquant : réglage refusé, ancienne valeur conservée.'));
+        add_settings_error(
+            $option,
+            'imagine_valeur_refusee',
+            self::t('Valeur invalide ou champ manquant : réglage refusé, ancienne valeur conservée.')
+        );
         return get_option($option, $this->defauts()[$option]);
     }
 
@@ -183,7 +198,8 @@ final class Reglages
                     self::t('Fermé pour tous, équipe comprise'),
                     ['ferme_tous' => self::t('Fermé pour tous'), 'equipe' => self::t('Ouvert à l’équipe uniquement')]],
                 'pdf_robot' => [self::t('PDF pour les moteurs de recherche vérifiés'),
-                    self::t('Détermine si un moteur vérifié reçoit le PDF complet ; ne donne aucun droit à un visiteur ordinaire.'),
+                    self::t('Détermine si un moteur vérifié reçoit le PDF complet ; '
+                        . 'ne donne aucun droit à un visiteur ordinaire.'),
                     self::t('Extrait, sans PDF complet'),
                     ['extrait' => self::t('Extrait seulement'), 'complet' => self::t('PDF complet')]],
                 'pdf_anterieur_abonnement' => [self::t('PDF parus avant l’abonnement'),
@@ -193,24 +209,33 @@ final class Reglages
             ]],
             Paiement::OPTION => [self::t('Paiement en quatre fois'), [
                 'marge_jours' => [self::t('Marge avant clôture (jours civils)'),
-                    self::t('Sans marge renseignée, le moteur refuse de planifier les échéances. Aucune valeur n’est devinée.'),
+                    self::t('Sans marge renseignée, le moteur refuse de planifier les échéances. '
+                        . 'Aucune valeur n’est devinée.'),
                     self::t('Vide : planification refusée'), null],
                 'confirmation_premier_sepa' => [self::t('Confirmation du premier paiement SEPA'),
-                    self::t('Avec marge : le premier numéro n’est considéré payé qu’après la confirmation effective et la marge après commande. Sans marge : seule la confirmation compte. Aucune opération bancaire ici.'),
+                    self::t('Avec marge : le premier numéro n’est considéré payé qu’après la confirmation effective '
+                        . 'et la marge après commande. Sans marge : seule la confirmation compte. '
+                        . 'Aucune opération bancaire ici.'),
                     self::t('Avec marge'),
                     ['avec_marge' => self::t('Appliquer la marge'), 'sans_marge' => self::t('Sans marge')]],
                 'apres_rejet' => [self::t('Échéances restantes après un rejet'),
-                    self::t('Choisit si les autres échéances du bloc restent dues. Ne rétablit pas l’accès suspendu et n’envoie aucun prélèvement.'),
+                    self::t('Choisit si les autres échéances du bloc restent dues. '
+                        . 'Ne rétablit pas l’accès suspendu et n’envoie aucun prélèvement.'),
                     self::t('Les échéances restent dues'),
-                    ['restent_dues' => self::t('Restent dues'), 'annuler_restantes' => self::t('Ne sont plus dues après rejet')]],
+                    ['restent_dues' => self::t('Restent dues'),
+                        'annuler_restantes' => self::t('Ne sont plus dues après rejet')]],
                 'tarif' => [self::t('Tarif des échéances non payées'),
-                    self::t('L’abonné conserve les montants du bloc, ou les échéances non payées suivent le tarif courant. Les paiements déjà reçus ne changent pas.'),
+                    self::t('L’abonné conserve les montants du bloc, '
+                        . 'ou les échéances non payées suivent le tarif courant. '
+                        . 'Les paiements déjà reçus ne changent pas.'),
                     self::t('Montants figés pour le bloc de quatre numéros'),
-                    ['fige_bloc' => self::t('Figé pour le bloc'), 'courant_impayes' => self::t('Tarif courant pour les impayées')]],
+                    ['fige_bloc' => self::t('Figé pour le bloc'),
+                        'courant_impayes' => self::t('Tarif courant pour les impayées')]],
             ]],
             Envoi::OPTION => [self::t('Liste d’envoi'), [
                 'colonnes' => [self::t('Colonnes du fichier postal, dans l’ordre'),
-                    self::t('Choisit les informations et leur ordre dans le CSV envoyé au routeur, sans changer les destinataires ni leurs droits. Une colonne par ligne, sans doublon.'),
+                    self::t('Choisit les informations et leur ordre dans le CSV envoyé au routeur, '
+                        . 'sans changer les destinataires ni leurs droits. Une colonne par ligne, sans doublon.'),
                     implode(', ', ExportCsv::COLONNES), 'textarea'],
             ]],
         ];
@@ -226,14 +251,16 @@ final class Reglages
             Envoi::OPTION => (new Envoi())->lire()->colonnes];
         echo '<div class="wrap"><h1>' . esc_html(self::t('Réglages Imagine')) . '</h1>';
         settings_errors();
-        echo '<p>' . esc_html(self::t('Règles provisoires à valider avec Imagine. Enregistrer ne lance ni paiement, ni email, ni envoi postal.')) . '</p>';
+        echo '<p>' . esc_html(self::t('Règles provisoires à valider avec Imagine. '
+            . 'Enregistrer ne lance ni paiement, ni email, ni envoi postal.')) . '</p>';
         echo '<form method="post" action="options.php">';
         settings_fields(self::GROUPE);
         foreach ($this->champs() as $option => [$title, $fields]) {
             echo '<h2>' . esc_html($title) . '</h2>';
             if ($option === Acces::OPTION) {
                 echo '<p>' . esc_html(self::t(
-                    'Ces trois réglages sont lus par le paywall. Le choix sur les contenus futurs agit sur les articles ; '
+                    'Ces trois réglages sont lus par le paywall. '
+                    . 'Le choix sur les contenus futurs agit sur les articles ; '
                     . 'les deux choix PDF gouvernent la décision PDF, sans livrer ici un téléchargement protégé.'
                 )) . '</p>';
             } elseif ($option === Paiement::OPTION) {
@@ -250,17 +277,21 @@ final class Reglages
                     . esc_html($label) . '</label></th><td>';
                 $name = $option === Envoi::OPTION ? $option : $option . '[' . $key . ']';
                 $value = $option === Envoi::OPTION ? $values[$option] : ($values[$option][$key] ?? '');
-                $attrs = ' id="' . esc_attr($id) . '" name="' . esc_attr($name) . '" aria-describedby="' . esc_attr($description) . '"';
+                $attrs = ' id="' . esc_attr($id) . '" name="' . esc_attr($name)
+                    . '" aria-describedby="' . esc_attr($description) . '"';
                 if ($choices === 'textarea') {
-                    echo '<textarea class="large-text code" rows="9"' . $attrs . '>' . esc_textarea(implode("\n", $value)) . '</textarea>';
+                    echo '<textarea class="large-text code" rows="9"' . $attrs . '>'
+                        . esc_textarea(implode("\n", $value)) . '</textarea>';
                 } elseif (is_array($choices)) {
                     echo '<select' . $attrs . '>';
                     foreach ($choices as $choice => $text) {
-                        echo '<option value="' . esc_attr($choice) . '"' . selected($value, $choice, false) . '>' . esc_html($text) . '</option>';
+                        echo '<option value="' . esc_attr($choice) . '"' . selected($value, $choice, false)
+                            . '>' . esc_html($text) . '</option>';
                     }
                     echo '</select>';
                 } else {
-                    echo '<input type="number" min="1" step="1" class="small-text"' . $attrs . ' value="' . esc_attr((string) $value) . '">';
+                    echo '<input type="number" min="1" step="1" class="small-text"' . $attrs
+                        . ' value="' . esc_attr((string) $value) . '">';
                 }
                 echo '<p class="description" id="' . esc_attr($description) . '">' . esc_html($help)
                     . '<br>' . esc_html(self::t('Défaut : ')) . esc_html($default)
@@ -274,11 +305,13 @@ final class Reglages
         echo '</form>';
         if (wp_get_environment_type() === 'local' && get_option('imagine_demo_site') === 'imagine-test-demo') {
             echo '<h2>' . esc_html(self::t('Aperçu CSV fictif — effet du réglage Liste d’envoi')) . '</h2><p>'
-                . esc_html(self::t('Le véritable exporteur C07 produit cet exemple local après chaque enregistrement. Aucun fichier n’est transmis.')) . '</p><pre id="imagine-csv-apercu">'
+                . esc_html(self::t('Le véritable exporteur C07 produit cet exemple local après chaque enregistrement. '
+                    . 'Aucun fichier n’est transmis.')) . '</p><pre id="imagine-csv-apercu">'
                 . esc_html($this->apercuCsv()) . '</pre>';
         }
         echo '<h2>' . esc_html(self::t('Journal des modifications')) . '</h2><p>'
-            . esc_html(self::t('Les 50 derniers changements sont affichés. Tous les événements sont conservés. Dates en UTC.')) . '</p>';
+            . esc_html(self::t('Les 50 derniers changements sont affichés. '
+                . 'Tous les événements sont conservés. Dates en UTC.')) . '</p>';
         echo '<table class="widefat striped"><thead><tr>';
         foreach (['Quand (UTC)', 'Qui', 'Réglage', 'Avant', 'Après'] as $text) {
             echo '<th scope="col">' . esc_html(self::t($text)) . '</th>';
@@ -286,9 +319,11 @@ final class Reglages
         echo '</tr></thead><tbody>';
         foreach ($this->journal() as $row) {
             echo '<tr>';
-            foreach ([$row['quand_utc'], $row['qui_login'] . ' (#' . $row['qui_id'] . ')',
+            foreach (
+                [$row['quand_utc'], $row['qui_login'] . ' (#' . $row['qui_id'] . ')',
                 $row['option'], wp_json_encode($row['avant'], JSON_UNESCAPED_UNICODE),
-                wp_json_encode($row['apres'], JSON_UNESCAPED_UNICODE)] as $cell) {
+                wp_json_encode($row['apres'], JSON_UNESCAPED_UNICODE)] as $cell
+            ) {
                 echo '<td>' . esc_html((string) $cell) . '</td>';
             }
             echo '</tr>';
