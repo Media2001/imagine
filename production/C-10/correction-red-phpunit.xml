@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/tmp/c10/phpunit.xml" tests="10" assertions="60" errors="0" failures="4" skipped="0" time="0.041507">
+    <testsuite name="Administration" tests="10" assertions="60" errors="0" failures="4" skipped="0" time="0.041507">
+      <testsuite name="Imagine\Pilotage\Tests\Administration\ReglagesTest" file="/tmp/c10/tests/Administration/ReglagesTest.php" tests="10" assertions="60" errors="0" failures="4" skipped="0" time="0.041507">
+        <testcase name="testClesExactesEtChoixStrictsConserventValeursPrecedentes" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="47" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="32" time="0.003133"/>
+        <testcase name="testPremierPaiementInvalideConserveDefautDeclare" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="67" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="1" time="0.007188">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Administration\ReglagesTest::testPremierPaiementInvalideConserveDefautDeclare
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+-Array &amp;0 [
+-    'marge_jours' =&gt; null,
+-    'apres_rejet' =&gt; 'restent_dues',
+-    'tarif' =&gt; 'fige_bloc',
+-    'confirmation_premier_sepa' =&gt; 'avec_marge',
+-]
++Array &amp;0 []
+
+/tmp/c10/tests/Administration/ReglagesTest.php:72</failure>
+        </testcase>
+        <testcase name="testJournalUniqueApresPersistancePasSurNoopOuRefus" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="76" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="9" time="0.003031"/>
+        <testcase name="testPremiereCreationJournaliseeUneFois" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="97" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="2" time="0.002456"/>
+        <testcase name="testJournalKoRefuseModificationEtPrevient" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="105" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="1" time="0.005894">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Administration\ReglagesTest::testJournalKoRefuseModificationEtPrevient
+Failed asserting that two arrays are identical.
+--- Expected
++++ Actual
+@@ @@
+ Array &amp;0 [
+-    'contenu_futur' =&gt; 'ferme_tous',
++    'contenu_futur' =&gt; 'equipe',
+     'pdf_robot' =&gt; 'extrait',
+     'pdf_anterieur_abonnement' =&gt; 'ferme',
+ ]
+
+/tmp/c10/tests/Administration/ReglagesTest.php:111</failure>
+        </testcase>
+        <testcase name="testJournalKoRefusePremiereCreationSansInventerOption" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="116" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="1" time="0.005024">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Administration\ReglagesTest::testJournalKoRefusePremiereCreationSansInventerOption
+Failed asserting that an array does not have the key 'imagine_acces_reglages'.
+
+/tmp/c10/tests/Administration/ReglagesTest.php:120</failure>
+        </testcase>
+        <testcase name="testApercuCsvRelitFormatPersiste" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="124" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="2" time="0.002244"/>
+        <testcase name="testPageDelegueNonceEtLitPaiementNormalise" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="132" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="3" time="0.007641">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Imagine\Pilotage\Tests\Administration\ReglagesTest::testPageDelegueNonceEtLitPaiementNormalise
+Failed asserting that '&lt;div class="wrap"&gt;&lt;h1&gt;Réglages Imagine&lt;/h1&gt;&lt;p&gt;Règles provisoires à valider avec Imagine. Enregistrer ne lance ni paiement, ni email, ni envoi postal.&lt;/p&gt;&lt;form method="post" action="options.php"&gt;&lt;h2&gt;Accès&lt;/h2&gt;&lt;table class="form-table" role="presentation"&gt;&lt;tr class="imagine-reglage"&gt;&lt;th scope="row"&gt;&lt;label for="imagine-contenu_futur"&gt;Contenus pas encore parus&lt;/label&gt;&lt;/th&gt;&lt;td&gt;&lt;select id="imagine-contenu_futur" name="imagine_acces_reglages[contenu_futur]" aria-describedby="imagine-contenu_futur-aide"&gt;&lt;option value="ferme_tous" selected="selected"&gt;Fermé pour tous&lt;/option&gt;&lt;option value="equipe"&gt;Ouvert à l’équipe uniquement&lt;/option&gt;&lt;/select&gt;&lt;p class="description" id="imagine-contenu_futur-aide"&gt;Un abonné ne lit pas un numéro à venir. L’autre choix autorise seulement l’équipe.&lt;br&gt;Défaut : Fermé pour tous, équipe comprise&lt;br&gt;&lt;strong&gt;À confirmer par Imagine&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr class="imagine-reglage"&gt;&lt;th scope="row"&gt;&lt;label for="imagine-pdf_robot"&gt;PDF pour les moteurs de recherche vérifiés&lt;/label&gt;&lt;/th&gt;&lt;td&gt;&lt;select id="imagine-pdf_robot" name="imagine_acces_reglages[pdf_robot]" aria-describedby="imagine-pdf_robot-aide"&gt;&lt;option value="extrait" selected="selected"&gt;Extrait seulement&lt;/option&gt;&lt;option value="complet"&gt;PDF complet&lt;/option&gt;&lt;/select&gt;&lt;p class="description" id="imagine-pdf_robot-aide"&gt;Détermine si un moteur vérifié reçoit le PDF complet ; ne donne aucun droit à un visiteur ordinaire.&lt;br&gt;Défaut : Extrait, sans PDF complet&lt;br&gt;&lt;strong&gt;À confirmer par Imagine&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr class="imagine-reglage"&gt;&lt;th scope="row"&gt;&lt;label for="imagine-pdf_anterieur_abonnement"&gt;PDF parus avant l’abonnement&lt;/label&gt;&lt;/th&gt;&lt;td&gt;&lt;select id="imagine-pdf_anterieur_abonnement" name="imagine_acces_reglages[pdf_anterieur_abonnement]" aria-describedby="imagine-pdf_anterieur_abonnement-aide"&gt;&lt;option value="ferme" selected="selected"&gt;Fermé&lt;/option&gt;&lt;option value="ouvert"&gt;Ouvert&lt;/option&gt;&lt;/select&gt;&lt;p class="description" id="imagine-pdf_anterieur_abonnement-aide"&gt;Un abonné en cours peut, ou non, ouvrir les PDF parus avant le début de son abonnement.&lt;br&gt;Défaut : Fermé au titre de l’abonnement&lt;br&gt;&lt;strong&gt;À confirmer par Imagine&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;h2&gt;Paiement en quatre fois&lt;/h2&gt;&lt;table class="form-table" role="presentation"&gt;&lt;tr class="imagine-reglage"&gt;&lt;th scope="row"&gt;&lt;label for="imagine-marge_jours"&gt;Marge avant clôture (jours civils)&lt;/label&gt;&lt;/th&gt;&lt;td&gt;&lt;input type="number" min="1" step="1" class="small-text" id="imagine-marge_jours" name="imagine_c05_reglages[marge_jours]" aria-describedby="imagine-marge_jours-aide" value=""&gt;&lt;p class="description" id="imagine-marge_jours-aide"&gt;Sans marge renseignée, le moteur refuse de planifier les échéances. Aucune valeur n’est devinée.&lt;br&gt;Défaut : Vide : planification refusée&lt;br&gt;&lt;strong&gt;À confirmer par Imagine&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr class="imagine-reglage"&gt;&lt;th scope="row"&gt;&lt;label for="imagine-confirmation_premier_sepa"&gt;Confirmation du premier paiement SEPA&lt;/label&gt;&lt;/th&gt;&lt;td&gt;&lt;select id="imagine-confirmation_premier_sepa" name="imagine_c05_reglages[confirmation_premier_sepa]" aria-describedby="imagine-confirmation_premier_sepa-aide"&gt;&lt;option value="avec_marge"&gt;Appliquer la marge&lt;/option&gt;&lt;option value="sans_marge"&gt;Sans marge&lt;/option&gt;&lt;/select&gt;&lt;p class="description" id="imagine-confirmation_premier_sepa-aide"&gt;Avec marge : le premier numéro n’est considéré payé qu’après la confirmation effective et la marge après commande. Sans marge : seule la confirmation compte. Aucune opération bancaire ici.&lt;br&gt;Défaut : Avec marge&lt;br&gt;&lt;strong&gt;À confirmer par Imagine&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr class="imagine-reglage"&gt;&lt;th scope="row"&gt;&lt;label for="imagine-apres_rejet"&gt;Échéances restantes après un rejet&lt;/label&gt;&lt;/th&gt;&lt;td&gt;&lt;select id="imagine-apres_rejet" name="imagine_c05_reglages[apres_rejet]" aria-describedby="imagine-apres_rejet-aide"&gt;&lt;option value="restent_dues"&gt;Restent dues&lt;/option&gt;&lt;option value="annuler_restantes"&gt;Ne sont plus dues après rejet&lt;/option&gt;&lt;/select&gt;&lt;p class="description" id="imagine-apres_rejet-aide"&gt;Choisit si les autres échéances du bloc restent dues. Ne rétablit pas l’accès suspendu et n’envoie aucun prélèvement.&lt;br&gt;Défaut : Les échéances restent dues&lt;br&gt;&lt;strong&gt;À confirmer par Imagine&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr class="imagine-reglage"&gt;&lt;th scope="row"&gt;&lt;label for="imagine-tarif"&gt;Tarif des échéances non payées&lt;/label&gt;&lt;/th&gt;&lt;td&gt;&lt;select id="imagine-tarif" name="imagine_c05_reglages[tarif]" aria-describedby="imagine-tarif-aide"&gt;&lt;option value="fige_bloc"&gt;Figé pour le bloc&lt;/option&gt;&lt;option value="courant_impayes"&gt;Tarif courant pour les impayées&lt;/option&gt;&lt;/select&gt;&lt;p class="description" id="imagine-tarif-aide"&gt;L’abonné conserve les montants du bloc, ou les échéances non payées suivent le tarif courant. Les paiements déjà reçus ne changent pas.&lt;br&gt;Défaut : Montants figés pour le bloc de quatre numéros&lt;br&gt;&lt;strong&gt;À confirmer par Imagine&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;h2&gt;Liste d’envoi&lt;/h2&gt;&lt;table class="form-table" role="presentation"&gt;&lt;tr class="imagine-reglage"&gt;&lt;th scope="row"&gt;&lt;label for="imagine-colonnes"&gt;Colonnes du fichier postal, dans l’ordre&lt;/label&gt;&lt;/th&gt;&lt;td&gt;&lt;textarea class="large-text code" rows="9" id="imagine-colonnes" name="imagine_envoi_colonnes_export" aria-describedby="imagine-colonnes-aide"&gt;abonnement_id\n
+destinataire_id\n
+destinataire\n
+rue\n
+complement\n
+code_postal\n
+ville\n
+pays\n
+origine&lt;/textarea&gt;&lt;p class="description" id="imagine-colonnes-aide"&gt;Choisit les informations et leur ordre dans le CSV envoyé au routeur, sans changer les destinataires ni leurs droits. Une colonne par ligne, sans doublon.&lt;br&gt;Défaut : abonnement_id, destinataire_id, destinataire, rue, complement, code_postal, ville, pays, origine&lt;br&gt;&lt;strong&gt;À confirmer par Imagine&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/form&gt;&lt;h2&gt;Journal des modifications&lt;/h2&gt;&lt;p&gt;Les 50 derniers changements sont affichés. Tous les événements sont conservés. Dates en UTC.&lt;/p&gt;&lt;table class="widefat striped"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th scope="col"&gt;Quand (UTC)&lt;/th&gt;&lt;th scope="col"&gt;Qui&lt;/th&gt;&lt;th scope="col"&gt;Réglage&lt;/th&gt;&lt;th scope="col"&gt;Avant&lt;/th&gt;&lt;th scope="col"&gt;Après&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;' [UTF-8](length: 6131) contains "value="avec_marge" selected="selected"" [ASCII](length: 38).
+
+/tmp/c10/tests/Administration/ReglagesTest.php:140</failure>
+        </testcase>
+        <testcase name="testRefusPageSansManageOptions" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="146" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="2" time="0.002367"/>
+        <testcase name="testOptionsMemeGroupePrive" file="/tmp/c10/tests/Administration/ReglagesTest.php" line="154" class="Imagine\Pilotage\Tests\Administration\ReglagesTest" classname="Imagine.Pilotage.Tests.Administration.ReglagesTest" assertions="7" time="0.002528"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

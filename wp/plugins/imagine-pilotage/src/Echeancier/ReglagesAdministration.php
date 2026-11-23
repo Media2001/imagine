@@ -22,11 +22,22 @@ final class ReglagesAdministration
             'type' => 'array',
             'sanitize_callback' => [$this, 'sanitiser'],
             'show_in_rest' => false,
-            'default' => [
-                'marge_jours' => null, 'apres_rejet' => 'restent_dues', 'tarif' => 'fige_bloc',
-                'confirmation_premier_sepa' => 'avec_marge',
-            ],
+            'default' => $this->defauts(),
         ]);
+    }
+
+    public function defauts(): array
+    {
+        return $this->options(new Reglages());
+    }
+
+    public function options(?Reglages $reglages = null): array
+    {
+        $r = $reglages ?? $this->lire();
+        return [
+            'marge_jours' => $r->margeJours, 'apres_rejet' => $r->apresRejet, 'tarif' => $r->tarif,
+            'confirmation_premier_sepa' => $r->confirmationPremierSepa,
+        ];
     }
 
     public function lire(): Reglages
@@ -38,11 +49,7 @@ final class ReglagesAdministration
     public function sanitiser(mixed $valeur): mixed
     {
         try {
-            $r = Reglages::depuisOption($valeur);
-            return [
-                'marge_jours' => $r->margeJours, 'apres_rejet' => $r->apresRejet, 'tarif' => $r->tarif,
-                'confirmation_premier_sepa' => $r->confirmationPremierSepa,
-            ];
+            return $this->options(Reglages::depuisOption($valeur));
         } catch (\InvalidArgumentException $error) {
             add_settings_error(
                 self::OPTION,
@@ -53,7 +60,7 @@ final class ReglagesAdministration
                     'imagine-pilotage'
                 )
             );
-            return get_option(self::OPTION, []);
+            return get_option(self::OPTION, $this->defauts());
         }
     }
 

@@ -21,6 +21,7 @@ final class ReglagesTest extends TestCase
     protected function setUp(): void
     {
         require_once __DIR__ . '/WordPressFictif.php';
+        require_once dirname(__DIR__, 3) . '/imagine-connecteur/src/CsvProtection.php';
         $GLOBALS['wpdb'] = new class {
             public string $options = 'options';
 

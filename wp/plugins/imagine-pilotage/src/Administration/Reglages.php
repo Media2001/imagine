@@ -15,6 +15,14 @@ final class Reglages
     public const GROUPE = 'imagine_reglages';
     public const PAGE = 'imagine-reglages';
     public const JOURNAL = 'imagine_reglages_journal_';
+    private bool $restauration = false;
+
+    /** État éditorial explicite ; passer une clé à false quand Imagine tranche. */
+    private const REGLES_OUVERTES = [
+        'contenu_futur' => true, 'pdf_robot' => true, 'pdf_anterieur_abonnement' => true,
+        'marge_jours' => true, 'confirmation_premier_sepa' => true, 'apres_rejet' => true,
+        'tarif' => true, 'colonnes' => true,
+    ];
 
     public function brancher(): void
     {
@@ -34,8 +42,7 @@ final class Reglages
     {
         return [
             Acces::OPTION => (new \Imagine\Pilotage\Acces\Reglages())->options(),
-            Paiement::OPTION => ['marge_jours' => null, 'apres_rejet' => 'restent_dues',
-                'tarif' => 'fige_bloc', 'confirmation_premier_sepa' => 'avec_marge'],
+            Paiement::OPTION => (new Paiement())->defauts(),
             Envoi::OPTION => ExportCsv::COLONNES,
         ];
     }
@@ -106,23 +113,48 @@ final class Reglages
     public function ajouterAuJournal(string $option, mixed $value): void
     {
         if (in_array($option, $this->options(), true)) {
-            $this->journaliser($option, $this->defauts()[$option], $value);
+            $this->journaliser($option, $this->defauts()[$option], $value, true);
         }
     }
 
     /** Après écriture effective : jamais dans un sanitizer, qui peut être appelé deux fois. */
-    public function journaliser(string $option, mixed $before, mixed $after): void
+    public function journaliser(string $option, mixed $before, mixed $after, bool $creation = false): void
     {
-        if (!in_array($option, $this->options(), true) || $before === $after) {
+        if ($this->restauration || !in_array($option, $this->options(), true) || $before === $after) {
             return;
         }
         $user = wp_get_current_user();
         // Une option distincte par événement évite la perte d'un append concurrent.
-        add_option(self::JOURNAL . str_replace('-', '', wp_generate_uuid4()), [
+        $written = add_option(self::JOURNAL . str_replace('-', '', wp_generate_uuid4()), [
             'quand_utc' => gmdate('Y-m-d\TH:i:s\Z'), 'qui_id' => $user->ID,
             'qui_login' => $user->ID ? $user->user_login : 'systeme',
             'option' => $option, 'avant' => $before, 'apres' => $after,
         ], '', false);
+        if (!$written) {
+            // Après persistance : annuler l'écriture métier, sans journal de restauration.
+            $this->restauration = true;
+            try {
+                if ($creation) {
+                    delete_option($option);
+                } else {
+                    update_option($option, $before);
+                }
+                if (get_option($option, $this->defauts()[$option]) !== $before) {
+                    wp_die(
+                        self::t('Échec du journal et de la restauration : vérifier les réglages.'),
+                        '',
+                        ['response' => 500]
+                    );
+                }
+            } finally {
+                $this->restauration = false;
+            }
+            add_settings_error(
+                $option,
+                'imagine_journal_indisponible',
+                self::t('Modification refusée : le journal est indisponible, ancienne valeur conservée.')
+            );
+        }
     }
 
     public function journal(): array
@@ -190,7 +222,7 @@ final class Reglages
             wp_die(self::t('Accès réservé aux administrateurs.'), '', ['response' => 403]);
         }
         $values = [Acces::OPTION => (new Acces())->lire()->options(),
-            Paiement::OPTION => get_option(Paiement::OPTION, $this->defauts()[Paiement::OPTION]),
+            Paiement::OPTION => (new Paiement())->options((new Paiement())->lire()),
             Envoi::OPTION => (new Envoi())->lire()->colonnes];
         echo '<div class="wrap"><h1>' . esc_html(self::t('Réglages Imagine')) . '</h1>';
         settings_errors();
@@ -198,7 +230,19 @@ final class Reglages
         echo '<form method="post" action="options.php">';
         settings_fields(self::GROUPE);
         foreach ($this->champs() as $option => [$title, $fields]) {
-            echo '<h2>' . esc_html($title) . '</h2><table class="form-table" role="presentation">';
+            echo '<h2>' . esc_html($title) . '</h2>';
+            if ($option === Acces::OPTION) {
+                echo '<p>' . esc_html(self::t(
+                    'Ces trois réglages sont lus par le paywall. Le choix sur les contenus futurs agit sur les articles ; '
+                    . 'les deux choix PDF gouvernent la décision PDF, sans livrer ici un téléchargement protégé.'
+                )) . '</p>';
+            } elseif ($option === Paiement::OPTION) {
+                echo '<p>' . esc_html(self::t(
+                    'Ces valeurs sont conservées pour un branchement futur et ne modifient pas encore le paiement '
+                    . 'du site de démonstration.'
+                )) . '</p>';
+            }
+            echo '<table class="form-table" role="presentation">';
             foreach ($fields as $key => [$label, $help, $default, $choices]) {
                 $id = 'imagine-' . $key;
                 $description = $id . '-aide';
@@ -220,7 +264,9 @@ final class Reglages
                 }
                 echo '<p class="description" id="' . esc_attr($description) . '">' . esc_html($help)
                     . '<br>' . esc_html(self::t('Défaut : ')) . esc_html($default)
-                    . '<br><strong>' . esc_html(self::t('À confirmer par Imagine')) . '</strong></p></td></tr>';
+                    . (self::REGLES_OUVERTES[$key]
+                        ? '<br><strong>' . esc_html(self::t('À confirmer par Imagine')) . '</strong>' : '')
+                    . '</p></td></tr>';
             }
             echo '</table>';
         }
