@@ -1,0 +1,24 @@
+{
+  "recorded_utc": "2026-11-23T08:19:42.158143+00:00",
+  "sources": [
+    {
+      "url": "https://developer.wordpress.org/cli/commands/core/download/",
+      "status": 200,
+      "sha256": "ba8dbb4ac22c3ebc942ae45e1a2f6a072bfd26cb1c417ff8d58a04c3d7671784",
+      "bytes": 175903
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/functions/get_file_data/",
+      "status": 200,
+      "sha256": "d480692f32b71d40e96e06ddcb2169c640f9e0bd0d26680266fb82adcd9c83d7",
+      "bytes": 187630
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/functions/get_plugins/",
+      "status": 200,
+      "sha256": "0f77f00eb086d432a01b84959a6ba28445b2168b293f2bf98542d57040c765e3",
+      "bytes": 195070
+    }
+  ],
+  "reuse": "Official numeric-version core archive; WordPress header parsing convention; no plugin updater or installer in operator import"
+}

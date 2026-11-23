@@ -1,0 +1,58 @@
+"""Reject incomplete or altered qualification evidence, not just truthy flags."""
+import json
+import os
+from pathlib import Path
+import sys
+import unittest
+from unittest import mock
+
+sys.dont_write_bytecode = True
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import verify_publication
+ROOT = Path(__file__).resolve().parents[3]
+REPORT = ROOT / os.getenv('A01_691_REPORT', 'production/A-01/publication-23nov/a47d8512821b/result.json')
+
+
+class QualificationReceipts(unittest.TestCase):
+    def setUp(self):
+        self.assertTrue(REPORT.is_file(), 'Complete 6.9.1 receipt required')
+        self.value = json.loads(REPORT.read_bytes())
+        # Require a passing current-source baseline BEFORE crediting a rejection.
+        self.assertEqual('PASS', verify_publication.verify(REPORT)['status'])
+
+    def reject(self, change):
+        change(self.value)
+        original = Path.read_bytes
+        def read(path):
+            return json.dumps(self.value).encode() if path == REPORT else original(path)
+        with mock.patch.object(Path, 'read_bytes', read):
+            with self.assertRaises(AssertionError):
+                verify_publication.verify(REPORT)
+
+    def test_complete_baseline(self):
+        self.assertEqual(4, len(self.value['cases']))
+
+    def test_wrong_expected_version(self):
+        self.reject(lambda v: v.update(expected_core_version='6.9.2'))
+
+    def test_plugin_update_is_not_import_fidelity(self):
+        self.reject(lambda v: v['cases'][0]['offline'].update(import_installed_or_updated_plugins=True))
+
+    def test_minimum_warning_cannot_be_a_blocker(self):
+        self.reject(lambda v: v['cases'][0]['offline']['warnings'][1].update(blocking=True))
+
+    def test_woo_file_drift(self):
+        self.reject(lambda v: v['cases'][0]['fixture']['source_files'].update({'plugins/woocommerce/woocommerce.php': '0' * 64}))
+
+    def test_missing_subscriptions_cannot_be_claimed_as_tested(self):
+        self.reject(lambda v: v['cases'][0]['publication']['probe']['versions'].update(subscriptions='9.4.1'))
+
+    def test_guest_rights_drift(self):
+        self.reject(lambda v: v['cases'][0]['publication']['probe']['fidelity']['rights'].update(guest=True))
+
+    def test_core_must_precede_archived_content(self):
+        self.reject(lambda v: v['cases'][0]['injection']['empty_target_core_before_archive_injection'].update(archive_content_absent=False))
+
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)
