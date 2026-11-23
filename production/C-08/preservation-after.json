@@ -185,9 +185,9 @@
       "subscriptions": 2,
       "memberships": 2
     },
-    "users_sha256": "5d0a043bc6e9e3ddc2938b08b82a795fc8c50c399f1425983003e3355d55d33c",
+    "users_sha256": "5d333d34456c8cf47cbff4057767f5698baddad05b736fb4fc0a090713dfd4b5",
     "orders_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
-    "subscriptions_sha256": "3e6d6b31d0300e2b8aef10b0181fbfdc4dff09f81f2c6fd4446c848391195e64",
+    "subscriptions_sha256": "e7628d6f0bc3f6d8e507bbfddfdf87401c3882a3f647d0d00bb7effa89a02a5e",
     "memberships_sha256": "f8065ffe1f1b29edbb4fd3adcc3e5b196e38574f5ce40fe5627f5ba6577287ad",
     "articles_sha256": "f4b1c142608f15e1fb5ca9f4dc26d723e8752b35cd3287a213e8b70c7c0f01d0"
   },

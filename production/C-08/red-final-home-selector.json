@@ -1,0 +1,113 @@
+{
+  "at": "2026-11-23T17:28:09.044539+00:00",
+  "scope": "imagine-test-demo",
+  "status": "FAILED",
+  "tests": {
+    "runtime_php": 30,
+    "c08-corrections-runtime": 28,
+    "c08-rights": 19,
+    "c08-no-woo": 7,
+    "local_tests": 33,
+    "c08-rest-write": 23,
+    "c08-faults": 41,
+    "c08-idempotence": 4,
+    "http": 299,
+    "regression": 120,
+    "final_checks": 17
+  },
+  "total_checks": 621,
+  "failures": [
+    "preservation:accueil_ids_ordre_apres_nettoyage"
+  ],
+  "checks": {
+    "preservation:options": true,
+    "preservation:c10_settings_and_journal_sha256": true,
+    "preservation:c10_active": true,
+    "preservation:protected_code": true,
+    "preservation:c09": true,
+    "preservation:decisions": true,
+    "preservation:c09_cardinalites": true,
+    "preservation:c08_ids_comptes_objets": true,
+    "preservation:c08_articles_meta": true,
+    "preservation:identifiants_prives_octets": true,
+    "preservation:b01_bootstrap_et_garde_octets": true,
+    "preservation:b01_sources_hors_raccord_c08": true,
+    "preservation:b01_numero_require_register": true,
+    "preservation:accueil_ids_ordre_apres_nettoyage": false,
+    "preservation:aucun_canari_article_restant": true,
+    "readback_final_php_exact": true,
+    "aucun_secret_prive_dans_livrables": true
+  },
+  "deployed_php_files": 13,
+  "remote_sha256": {
+    "imagine-demo-build/c08-corrections-runtime.php": "736febf81231a761f22de74b7da95c582a86217c6133991efb7b4d5e62f9ac3f",
+    "imagine-demo-build/c08-rights.php": "a7330114e36cb3921918a5a1ee35a29b7460bd112ba904ce3c8a006a331cf375",
+    "imagine-demo-build/c08-no-woo.php": "51949c692a9c2e9ecb0375ae1477a461fc1c9f463c33ab3f3d08d78f98ac32cd",
+    "plugins/imagine-site/imagine-site.php": "f45a0ed4b7ac6c4747637112c98d866d23720f508a04ff7d693e24ef83f61068",
+    "plugins/imagine-site/NumeroPublication.php": "c84eeca3a678347ef0396b07f56cdd7f69691294e73b4069e5ba52fdab9616fb",
+    "plugins/imagine-site/Paywall.php": "745ee32718373d66a7d75dd33eae4a624d4812c9e47cb23982d5c9866761f46d",
+    "themes/imagine/functions.php": "1a13d669b2c9e9d08b08c18b7d9ed22bff39387409be2b923454878d4bf9e2f2",
+    "themes/imagine/parts/paywall-abonnement.php": "c4a7d59d415d56b7e9f98a6cc0c5bd307936aece34715cdcbc2fef2d198f7438",
+    "themes/imagine/parts/paywall-connexion.php": "2cd97c05b828b7440907f196aef47a2b079d3e93a02b23934faf4843447b4d5a",
+    "themes/imagine/parts/paywall-decouverte_epuisee.php": "00194346c2a38f648cc4a0106e39743d3d7dd9b5e8ddca0086b515e6e77912d5",
+    "themes/imagine/parts/paywall-regularisation.php": "bc59f9d16ba8e79deb3e9b34d30a1fc95fa76af486c712ec0eb22537c6e67300",
+    "imagine-demo-build/c08-runtime.php": "a31c6b2787b89f31a40b3594f340ff8b9606cd22094a9aec2d9f92ad00fd708e",
+    "imagine-demo-build/c08-seed.php": "26ec0d8f798329316754e8585422aaeb223a3e4f1f216469e81004bccfd9dfdf"
+  },
+  "exact_remote_readback": true,
+  "source_files": 22,
+  "source_sha256": {
+    "wp/plugins/imagine-site/Paywall.php": "745ee32718373d66a7d75dd33eae4a624d4812c9e47cb23982d5c9866761f46d",
+    "wp/plugins/imagine-site/README.md": "b27c7ba29bad249c580a981eb104e3e8fb0d582baefe758a672f8033f7c929c7",
+    "wp/plugins/imagine-site/imagine-site.php": "f45a0ed4b7ac6c4747637112c98d866d23720f508a04ff7d693e24ef83f61068",
+    "wp/plugins/imagine-site/NumeroPublication.php": "c84eeca3a678347ef0396b07f56cdd7f69691294e73b4069e5ba52fdab9616fb",
+    "wp/themes/imagine/functions.php": "1a13d669b2c9e9d08b08c18b7d9ed22bff39387409be2b923454878d4bf9e2f2",
+    "wp/themes/imagine/parts/paywall-abonnement.php": "c4a7d59d415d56b7e9f98a6cc0c5bd307936aece34715cdcbc2fef2d198f7438",
+    "wp/themes/imagine/parts/paywall-connexion.php": "2cd97c05b828b7440907f196aef47a2b079d3e93a02b23934faf4843447b4d5a",
+    "wp/themes/imagine/parts/paywall-decouverte_epuisee.php": "00194346c2a38f648cc4a0106e39743d3d7dd9b5e8ddca0086b515e6e77912d5",
+    "wp/themes/imagine/parts/paywall-regularisation.php": "bc59f9d16ba8e79deb3e9b34d30a1fc95fa76af486c712ec0eb22537c6e67300",
+    "wp/tests/demo/c08-corrections-runtime.php": "736febf81231a761f22de74b7da95c582a86217c6133991efb7b4d5e62f9ac3f",
+    "wp/tests/demo/c08-faults.py": "f23210c23fb79f76e1a8152a34b8922a46293591c9efe03a93e914b55de11b23",
+    "wp/tests/demo/c08-final.py": "53ce4603f0a43dcedfc55a3c4fa156eb7667cc3aa84750aaa390d0825474d6d3",
+    "wp/tests/demo/c08-idempotence.py": "04763f85e20a0b9a7e3dd6ed4e451cf79d235aa3305627411215b6c04ac385d5",
+    "wp/tests/demo/c08-no-woo.php": "51949c692a9c2e9ecb0375ae1477a461fc1c9f463c33ab3f3d08d78f98ac32cd",
+    "wp/tests/demo/c08-regression.py": "4d5d2d36e7fa342c0da211d1b30ef69144d2e7abad4d2059493db992844d78f1",
+    "wp/tests/demo/c08-rest-write.py": "d97174dc39b95fda5107601e8f2a383f59220492616219b591b9cdb4ebb2a129",
+    "wp/tests/demo/c08-rights.php": "a7330114e36cb3921918a5a1ee35a29b7460bd112ba904ce3c8a006a331cf375",
+    "wp/tests/demo/c08-runtime.php": "a31c6b2787b89f31a40b3594f340ff8b9606cd22094a9aec2d9f92ad00fd708e",
+    "wp/tests/demo/c08-verifier.py": "7ab464d2ce8415d9d75ea50a09db63e81a6abb9593fa6f3da6f2ba27a84a948a",
+    "wp/tests/demo/test_c08_scope.py": "45de3d2d7e5d932423cd3e51ac0129d8ea0aea0592107071ead9fd9989833f75",
+    "wp/outils/demo/c08.py": "134ae2d40ff93f10c1e062b834d9604330a21c602866c047cd19977b3e3d6610",
+    "wp/outils/demo/c08-seed.php": "26ec0d8f798329316754e8585422aaeb223a3e4f1f216469e81004bccfd9dfdf"
+  },
+  "http_responses": 56,
+  "home_ids": [
+    39,
+    82,
+    81,
+    45,
+    44,
+    43
+  ],
+  "c09_counts_preserved": {
+    "users": 27,
+    "orders": 13,
+    "subscriptions": 12,
+    "memberships": 14
+  },
+  "c08_fixture_counts": {
+    "articles": 2,
+    "plans": 1,
+    "users": 3,
+    "memberships": 2,
+    "subscriptions": 2
+  },
+  "closed_library_php_files_verified": 71,
+  "no_private_password_in_deliverables": true,
+  "leak_files": [],
+  "baseline": "preservation-before.json",
+  "c08_full_native_projection_changes": [
+    "users_sha256",
+    "subscriptions_sha256"
+  ]
+}

@@ -106,7 +106,7 @@ def run():
     # L'accueil ne doit garder aucun article temporaire des recettes REST/runtime.
     meta, html = http.fetch(site['url'].rstrip('/'), '/')
     from b01_html import BeautifulSoup
-    actual_home = [int(n['data-imagine-id']) for n in BeautifulSoup(html, 'html.parser').select('main li[data-imagine-id]')]
+    actual_home = [int(n['data-imagine-id']) for n in BeautifulSoup(html, 'html.parser').select('section[aria-labelledby="imagine-latest-posts"] li[data-imagine-id]')]
     checks['preservation:accueil_ids_ordre_apres_nettoyage'] = meta['status'] == 200 and actual_home == [82,81,45,44,43]
     checks['preservation:aucun_canari_article_restant'] = json.loads(c08.b00.wp('eval',
         'global $wpdb;echo wp_json_encode((int)$wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type=\'post\' AND (post_title LIKE \'Canari éphémère C08%\' OR post_title LIKE \'Canari HTTP éphémère C08%\')")===0);')['stdout']) is True

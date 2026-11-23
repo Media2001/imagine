@@ -327,7 +327,7 @@
         "vary": "Origin"
       },
       "bytes": 2279,
-      "body_sha256": "109cbc1b22d77923eba362b03749a1d90a88ddd00a2b1fea237ae445b82bca5f"
+      "body_sha256": "ada922de6005df65ccef34f1cbab1b1a59d45ad14e67b296d5aed813a3845f3e"
     },
     "rest-collection": {
       "path": "/wp-json/wp/v2/posts?include=81%2C82&_embed=1",
@@ -338,7 +338,7 @@
         "vary": "Origin"
       },
       "bytes": 6157,
-      "body_sha256": "f2bd88b2dcb6017e5d57f3cb8dbe6442acfe24c5ef4f4d346c88236970a3c350"
+      "body_sha256": "2c1bfd5bfb9abceb12fa331e8da628daffa4e4f0179c0ecf44d40dee23717458"
     },
     "rest-champs": {
       "path": "/wp-json/wp/v2/posts/81?_fields=content,excerpt",
@@ -371,7 +371,7 @@
         "vary": "Origin"
       },
       "bytes": 2279,
-      "body_sha256": "109cbc1b22d77923eba362b03749a1d90a88ddd00a2b1fea237ae445b82bca5f"
+      "body_sha256": "ada922de6005df65ccef34f1cbab1b1a59d45ad14e67b296d5aed813a3845f3e"
     },
     "rest-recherche": {
       "path": "/wp-json/wp/v2/search?search=C08",
@@ -393,7 +393,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 13274,
-      "body_sha256": "08d39780f4d03f91b2b83a082ae3da4342d06e5422d707f260873fa647c3f160"
+      "body_sha256": "f1d122335caca5602eb89a4b1030549761342b43b6c73fe2114bf0b7c53992ca"
     },
     "rss": {
       "path": "/?feed=rss",
@@ -404,7 +404,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 3205,
-      "body_sha256": "b382755c5f42edcc2b217346a9d80fbcc4f079ac17f7dfab43c521f70f993375"
+      "body_sha256": "ce6b694738da0fd0c8a5dcba42f5cc1f6f8c9fba0331247060ee6fc12014accd"
     },
     "atom": {
       "path": "/?feed=atom",
@@ -415,7 +415,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 14440,
-      "body_sha256": "0eb4a363382a28ee64316820bd4bcc3379c9ff146c23106b7e3407f9efd1ae7a"
+      "body_sha256": "819a433b4625ecb04cb25f8f503fec476abc8f9c9f2994ee58cab03e897708a3"
     },
     "rdf": {
       "path": "/?feed=rdf",
@@ -426,7 +426,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 13467,
-      "body_sha256": "0261cf7d676a7113a09772d25af23477460e52064c59a2f5d69ead28f09be891"
+      "body_sha256": "182c6634562bba9a80a1d7d771445e2d5b0f19ee9a4c706e677dab882ee9c448"
     },
     "recherche": {
       "path": "/?s=C08",
@@ -459,7 +459,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 20271,
-      "body_sha256": "7308992cb501b2feceb258c82bbce4f1c9decab52c8a100f2462615efb9902c0"
+      "body_sha256": "f99208ea0b3efd6c6ec20b0c99fd43938cbe09f8995211b37f022cc2eaf5b0e6"
     },
     "apercu": {
       "path": "/?p=81&preview=true",
@@ -569,7 +569,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 13274,
-      "body_sha256": "08d39780f4d03f91b2b83a082ae3da4342d06e5422d707f260873fa647c3f160"
+      "body_sha256": "f1d122335caca5602eb89a4b1030549761342b43b6c73fe2114bf0b7c53992ca"
     },
     "anonyme-phrase-temoin:html": {
       "path": "/?s=%22Les+lucioles+violettes+de+C08+gardent+le+secret+du+village+fictif.%22",
@@ -624,7 +624,7 @@
         "vary": "Origin"
       },
       "bytes": 2281,
-      "body_sha256": "bbba669f136178fb17262320c3ad96bb45aac00572e29ed9ef8d8ecc96d65368"
+      "body_sha256": "5456984e3d1beb18be2eac3809fbf26a58eb8809e144403a044232a21b96eaf3"
     },
     "anonyme-titre-public:rest-search": {
       "path": "/wp-json/wp/v2/search?search=%22Article+r%C3%A9serv%C3%A9+fictif+article%22&per_page=100",
@@ -657,7 +657,7 @@
         "vary": "Origin"
       },
       "bytes": 2281,
-      "body_sha256": "bbba669f136178fb17262320c3ad96bb45aac00572e29ed9ef8d8ecc96d65368"
+      "body_sha256": "5456984e3d1beb18be2eac3809fbf26a58eb8809e144403a044232a21b96eaf3"
     },
     "anonyme-extrait-public:rest-search": {
       "path": "/wp-json/wp/v2/search?search=%22Extrait+public+C08%22&per_page=100",
@@ -734,7 +734,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 3742,
-      "body_sha256": "9dd9e9939be19707af853da6c708041023ad73e2f64f9c19e98fbc02cdc194ba"
+      "body_sha256": "470859776f0ceff67b54f28226b90001c736111641d1cc3635571cbe9d28b3c1"
     },
     "actif-phrase-temoin:rest-search": {
       "path": "/wp-json/wp/v2/search?search=%22Les+lucioles+violettes+de+C08+gardent+le+secret+du+village+fictif.%22&per_page=100",
@@ -756,7 +756,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 3740,
-      "body_sha256": "1dafce2864ec7412950cff51b7dc223dd4c6d1a3ad8feb9352ccab06b8b22750"
+      "body_sha256": "d1aa158957e790789c618820767ae9c6d577b353fa065c8d489841a8b466ec0a"
     },
     "anonyme-apres-actif": {
       "path": "/c08-article-reserve-article/",
@@ -800,7 +800,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 3742,
-      "body_sha256": "9dd9e9939be19707af853da6c708041023ad73e2f64f9c19e98fbc02cdc194ba"
+      "body_sha256": "470859776f0ceff67b54f28226b90001c736111641d1cc3635571cbe9d28b3c1"
     },
     "grace-phrase-temoin:rest-search": {
       "path": "/wp-json/wp/v2/search?search=%22Les+lucioles+violettes+de+C08+gardent+le+secret+du+village+fictif.%22&per_page=100",
@@ -822,7 +822,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 3740,
-      "body_sha256": "1dafce2864ec7412950cff51b7dc223dd4c6d1a3ad8feb9352ccab06b8b22750"
+      "body_sha256": "d1aa158957e790789c618820767ae9c6d577b353fa065c8d489841a8b466ec0a"
     },
     "anonyme-apres-grace": {
       "path": "/c08-article-reserve-article/",
@@ -888,7 +888,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 2279,
-      "body_sha256": "109cbc1b22d77923eba362b03749a1d90a88ddd00a2b1fea237ae445b82bca5f"
+      "body_sha256": "ada922de6005df65ccef34f1cbab1b1a59d45ad14e67b296d5aed813a3845f3e"
     },
     "anonyme-apres-sans-droit": {
       "path": "/c08-article-reserve-article/",

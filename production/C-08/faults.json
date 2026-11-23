@@ -65,7 +65,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 2279,
-      "body_sha256": "d170e914da62c87770aa6eadc3772b5610c4645db398e1f490e3b10d2f901818"
+      "body_sha256": "109cbc1b22d77923eba362b03749a1d90a88ddd00a2b1fea237ae445b82bca5f"
     },
     "configuration-invalide:flux": {
       "status": 200,
@@ -75,7 +75,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 8345,
-      "body_sha256": "cc5a4f63c8edc209498c9a34e060b443ab82193140f1750dafe089831301ac93"
+      "body_sha256": "e33049377dfd2d7df9c16635f326988045c47a2c2e3d7db82671cfb2c1ff5c8b"
     },
     "configuration-invalide:oembed": {
       "status": 200,
@@ -125,7 +125,7 @@
         "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
       },
       "bytes": 2278,
-      "body_sha256": "823148a909a0210eaa034720fa64fa2b8a0a5dedc0c95f4560bbbc4042f23fce"
+      "body_sha256": "4b250cb1839855b97bb151a7a98d267e4413146bad932749f441b29780515e24"
     },
     "numero-invalide:flux": {
       "status": 200,
@@ -135,7 +135,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 32293,
-      "body_sha256": "2bb6b2ee95214e35d008564a9e3af3c90227486d8aacd255f346d8733c640db5"
+      "body_sha256": "86875a44d0468b5680b06281a84df0508277d191d832518e6e8e478060786d00"
     },
     "numero-invalide:oembed": {
       "status": 200,

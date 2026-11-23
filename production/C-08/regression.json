@@ -549,7 +549,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 28699,
-      "body_sha256": "c3f20fd26181fb69d5e552cbcc1ab9a9208dabefdf0e14632d700b8a07b34306"
+      "body_sha256": "dd5c2b1b6f1608e2f71d3e19bdea63180d4e501fc6b66efc6e88886b36d3c81d"
     },
     "term:demo-thematique-2": {
       "status": 200,
@@ -559,7 +559,7 @@
         "vary": "Cookie, Authorization, User-Agent"
       },
       "bytes": 27129,
-      "body_sha256": "540cfebd3ab4bc6f8d3caa33ca89dacc444236452ecf90923ef1a3802a10078b"
+      "body_sha256": "7fbe534f9ab238ea86dc53b14abe8e3091b8cb2722df07822fa28d790bb6ad56"
     },
     "term:demo-thematique-3": {
       "status": 200,
