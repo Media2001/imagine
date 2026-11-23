@@ -1,0 +1,73 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+namespace Imagine\Audit;
+
+final class Audit
+{
+    public static function version(mixed $value): ?string
+    {
+        return is_string($value) && preg_match('/\A[0-9]+(?:\.[0-9A-Za-z-]+){0,5}(?:[-+][0-9A-Za-z.-]+)?\z/D', $value)
+            ? $value : null;
+    }
+
+    public static function decode(string $value): array
+    {
+        if (strlen($value) > 16777216) {
+            throw new \RuntimeException('A02_SERIALIZED_TOO_LARGE');
+        }
+        $decoded = @unserialize($value, ['allowed_classes' => false, 'max_depth' => 32]);
+        // No class is loaded or instantiated; cached stdClass records are projected later.
+        return is_array($decoded) ? $decoded : [];
+    }
+
+    public static function config(string $source): array
+    {
+        $tokens = array_values(array_filter(token_get_all($source), static function ($token): bool {
+            return !is_array($token) || !in_array($token[0], [T_WHITESPACE, T_COMMENT, T_DOC_COMMENT, T_OPEN_TAG], true);
+        }));
+        $literal = static function ($token): string {
+            if (!is_array($token) || $token[0] !== T_CONSTANT_ENCAPSED_STRING) {
+                throw new \RuntimeException('A02_CONFIG_NON_LITERAL');
+            }
+            $raw = substr($token[1], 1, -1);
+            return $token[1][0] === "'" ? str_replace(["\\\\", "\\'"], ["\\", "'"], $raw) : stripcslashes($raw);
+        };
+        $values = [];
+        foreach ($tokens as $i => $token) {
+            if (is_array($token) && $token[0] === T_STRING && strtolower($token[1]) === 'define' && ($tokens[$i + 1] ?? null) === '(') {
+                $keyToken = $tokens[$i + 2] ?? null;
+                if (!is_array($keyToken) || $keyToken[0] !== T_CONSTANT_ENCAPSED_STRING) {
+                    continue;
+                }
+                $key = $literal($keyToken);
+                if (in_array($key, ['DB_NAME', 'DB_USER', 'DB_PASSWORD', 'DB_HOST'], true)) {
+                    if (isset($values[$key]) || ($tokens[$i + 3] ?? null) !== ',' || ($tokens[$i + 5] ?? null) !== ')') {
+                        throw new \RuntimeException('A02_CONFIG_NON_LITERAL');
+                    }
+                    $values[$key] = $literal($tokens[$i + 4] ?? null);
+                }
+            }
+            if (is_array($token) && $token[0] === T_VARIABLE && $token[1] === '$table_prefix') {
+                if (isset($values['table_prefix']) || ($tokens[$i + 1] ?? null) !== '=' || ($tokens[$i + 3] ?? null) !== ';') {
+                    throw new \RuntimeException('A02_CONFIG_NON_LITERAL');
+                }
+                $values['table_prefix'] = $literal($tokens[$i + 2] ?? null);
+            }
+        }
+        if (count($values) !== 5 || !preg_match('/\A[A-Za-z0-9_]+\z/D', $values['table_prefix'])) {
+            throw new \RuntimeException('A02_CONFIG_NON_LITERAL');
+        }
+        return $values;
+    }
+
+    public static function identifier(mixed $value): string
+    {
+        return is_string($value)
+            && preg_match('~\A[A-Za-z0-9_./\\-]{1,160}\z~D', $value)
+            && !preg_match('/(?:sk_|pk_|rk_|whsec_|xkeysib-|[a-f0-9]{40})/i', $value)
+            ? $value : '[masque]';
+    }
+}

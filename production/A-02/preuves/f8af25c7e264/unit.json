@@ -1,0 +1,24 @@
+{
+    "checks": [
+        {
+            "check": "audit_entrypoint_exists",
+            "status": "PASS"
+        },
+        {
+            "check": "identifier_preserved",
+            "status": "PASS"
+        },
+        {
+            "check": "identifier_email_redacted",
+            "status": "PASS"
+        },
+        {
+            "check": "identifier_markup_redacted",
+            "status": "PASS"
+        },
+        {
+            "check": "identifier_token_redacted",
+            "status": "PASS"
+        }
+    ]
+}

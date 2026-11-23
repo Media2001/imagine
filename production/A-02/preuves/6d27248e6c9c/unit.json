@@ -1,0 +1,8 @@
+{
+    "checks": [
+        {
+            "check": "audit_entrypoint_exists",
+            "status": "FAIL"
+        }
+    ]
+}
