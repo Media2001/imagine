@@ -37,3 +37,21 @@ Le garde manquant sur `wc_get_page_permalink` est à traiter dans la relecture d
 4. **C08-01 : aligner sur le booléen déclaré.**
 5. Le garde `function_exists` sur `wc_get_page_permalink` est à ajouter (repli sur la page de connexion).
 
+## C-09 — profils de test (`corrections/C-09.md` §5), 21 h 10
+
+1. **A-VIR : oui, motif `virement_non_valide`.** Correction à faire dans l'adaptateur de C-08 (une commande en attente de virement n'est pas une suspension), avec son test ; C-09 ne fait que la constater.
+2. **Renouvellement activé : non démontrable sur la démonstration, accepté.** On ne pose pas le drapeau de reconduction sans moyen de paiement : ce serait un état faux.
+3. **E-ABO : oui, un rôle dédié** « Référent abonnements », avec seulement ce que §3.13 lui donne (commandes pour compte de client, échéances, justificatifs, liste d'envoi, extractions). Pas de droits éditoriaux. Reconnu comme équipe pour la lecture des articles.
+4. **« Créé » : lecture stricte.** État de départ entièrement disponible ; sinon « partiel », avec ce qui manque.
+
+## C-10 — écran de réglages (`corrections/C-10.md` §5), 21 h 10
+
+- **A. Non : un réglage doit agir sur le site.** Les trois réglages d'accès sont lus par le paywall de C-08 (aujourd'hui sur ses valeurs par défaut). C'est la raison d'être de l'écran. `A-VOIR.md` montre la manipulation : changer le réglage, recharger l'article.
+- **B. Oui** : journal sans purge, cinquante derniers affichés.
+- **C. Léger** : si le journal ne peut pas être écrit, la modification est refusée et l'administrateur est prévenu. Pas de mécanisme de reprise.
+- La suite PHPUnit manquante signalée par la fusion est à ajouter : T-01 la rejouera.
+
+## Preuves : proportion (voie 2)
+
+Sur le site de démonstration, une correction se prouve par le test qui la couvre et un rejeu de la recette du lot. Pas de régénération de toutes les captures, ni d'archives d'anciennes preuves, ni de reçus d'empreintes à chaque étape : le site est fictif et reconstructible.
+

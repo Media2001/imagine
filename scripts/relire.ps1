@@ -21,7 +21,7 @@ $CodexExtra = @('-c', 'model_reasoning_effort="high"', '-c', 'web_search="live"'
 # Modele Claude des relecteurs
 $ClaudeModel = 'opus'
 # Outils communs des relecteurs Claude : lecture, recherche, lancement des tests. Aucune ecriture hors rapport.
-$ClaudeRead = @('Read', 'Glob', 'Grep', 'WebSearch', 'WebFetch', 'Bash(docker compose run --rm:*)')
+$ClaudeRead = @('Read', 'Glob', 'Grep', 'WebSearch', 'WebFetch', 'Bash(powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\wp\tests\rejouer.ps1)', 'Bash(powershell.exe -NoProfile -ExecutionPolicy Bypass -File ./wp/tests/rejouer.ps1)')
 
 $lock = Join-Path $repo '.relire.lock'
 if (Test-Path $lock) {
@@ -66,7 +66,7 @@ try {
         # 2. Claude Code
         if (-not (Test-Path (Join-Path $repo "$rel/claude.md"))) {
             Write-Log "$s : relecture Claude..."
-            $p = "Tu es le relecteur Claude independant. Lis relecteurs/CLAUDE.md et applique-le strictement au lot $s : brief $brief, production dans $prod et dans wp/. Lance les tests du lot si le brief en prevoit (docker compose run --rm -w /app/<extension> php composer test) et deroule a la main les cas du cahier des charges. Ecris ton rapport UNIQUEMENT dans $rel/claude.md, au format de doctrine/grille-relecture.md. N'ouvre PAS $rel/codex.md. Ne fais pas encore la fusion."
+            $p = "Tu es le relecteur Claude independant. Lis relecteurs/CLAUDE.md et applique-le strictement au lot $s : brief $brief, production dans $prod et dans wp/. Rejoue toute la suite PHP avec la commande autorisee, sans argument : powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\wp\tests\rejouer.ps1 (conteneur jetable, sans reseau, depot en lecture seule ; la derniere ligne commence par REJEU) et reporte cette ligne dans ton rapport et deroule a la main les cas du cahier des charges. Ecris ton rapport UNIQUEMENT dans $rel/claude.md, au format de doctrine/grille-relecture.md. N'ouvre PAS $rel/codex.md. Ne fais pas encore la fusion."
             & claude -p $p --model $ClaudeModel --allowedTools @ClaudeRead "Write(/relectures/**)" "Edit(/relectures/**)" 2>&1 | Out-File -Encoding utf8 (Join-Path $logDir "claude-$s.txt")
             if (Test-Path (Join-Path $repo "$rel/claude.md")) { Write-Log "$s : claude.md ecrit" } else { Write-Log "$s : ERREUR claude.md absent (voir claude-$s.txt)" }
         }
@@ -101,7 +101,7 @@ try {
                         $n = $vers.Count + 1
                         $verN = "$rel/verification-$n.md"
                         Write-Log "$s : verification complementaire n $n..."
-                        $p = "Tu es le verificateur. Le lot $s a ete modifie par Hermes apres sa derniere verification ($rel/$($derniere.Name)). Lis relecteurs/CLAUDE.md, doctrine/doctrine.md, A-FAIRE.md, A-FAIRE-2.md et les notes les plus recentes de $prod pour savoir quelle consigne ou quel arbitrage (docs/arbitrages-*.md) justifiait ces modifications. Utilise git log et git diff sur wp/ et sur $prod pour voir exactement ce qui a change depuis la derniere verification. Relance les tests si tu en as le moyen, sinon dis-le. Ecris UNIQUEMENT $verN avec : (1) chaque consigne ou arbitrage concerne : Applique / Non applique / Partiellement, avec le fichier et la ligne ; (2) le resultat des tests ; (3) toute regression ou modification non demandee ; (4) verdict : 'Pret pour la cloture' ou 'Remonte a Ced' (probleme de fond restant). Ne refais pas une relecture complete."
+                        $p = "Tu es le verificateur. Le lot $s a ete modifie par Hermes apres sa derniere verification ($rel/$($derniere.Name)). Lis relecteurs/CLAUDE.md, doctrine/doctrine.md, A-FAIRE.md, A-FAIRE-2.md et les notes les plus recentes de $prod pour savoir quelle consigne ou quel arbitrage (docs/arbitrages-*.md) justifiait ces modifications. Utilise git log et git diff sur wp/ et sur $prod pour voir exactement ce qui a change depuis la derniere verification. Rejoue la suite PHP avec powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\wp\tests\rejouer.ps1 et reporte sa derniere ligne ; si la commande est refusee, dis-le. Ecris UNIQUEMENT $verN avec : (1) chaque consigne ou arbitrage concerne : Applique / Non applique / Partiellement, avec le fichier et la ligne ; (2) le resultat des tests ; (3) toute regression ou modification non demandee ; (4) verdict : 'Pret pour la cloture' ou 'Remonte a Ced' (probleme de fond restant). Ne refais pas une relecture complete."
                         & claude -p $p --model $ClaudeModel --allowedTools @ClaudeRead "Bash(git log:*)" "Bash(git diff:*)" "Bash(git show:*)" "Write(/relectures/**)" "Edit(/relectures/**)" 2>&1 | Out-File -Encoding utf8 (Join-Path $logDir "verification-$s-$n.txt")
                         if (Test-Path (Join-Path $repo $verN)) { Write-Log "$s : verification complementaire ecrite" } else { Write-Log "$s : ERREUR verification complementaire absente (voir verification-$s-$n.txt)" }
                     }

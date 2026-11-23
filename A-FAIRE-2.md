@@ -2,7 +2,7 @@
 
 File de la **deuxième session d'Hermès**. Tenue par Claude. **Hermès ne modifie pas ce fichier.**
 
-Mis à jour le 23 novembre 2026, 17 h 10.
+Mis à jour le 23 novembre 2026, 21 h 10.
 
 Consigne permanente : `prompts/consigne-permanente.md` (section « Les deux voies »). Doctrine : `doctrine/doctrine.md`.
 
@@ -10,11 +10,13 @@ La voie 1 (`A-FAIRE.md`) s'occupe de l'existant : import, audit, mise à jour. L
 
 ## Consignes actives, par ordre de priorité
 
-**Tes rapports jusqu'à 16 h 17 sont lus. Les questions des fusions B-00 et B-01 sont arbitrées : `docs/arbitrages-2026-11-23.md`.** Ce sont des questions techniques, Ced n'a pas à y répondre.
+**Tes rapports jusqu'à 18 h 38 sont lus.** B-00, B-01 et C-08 : vérifiés, code clos (voir « Terminé »). Les questions de C-09 et C-10 sont arbitrées : `docs/arbitrages-2026-11-23.md`, sections de 21 h 10.
 
-**0. Corrections de B-00 puis de B-01** — `corrections/B-00.md`, `corrections/B-01.md`, avec les arbitrages ci-dessus. Le bloquant B00-01 d'abord : le site doit se reconstruire après C-08 et C-09. Redépose `PRET` et mets à jour les deux `A-VOIR.md`. Puis **corrections de C-08** (`corrections/C-08.md`, arbitrées au même endroit à 17 h 10 : la recherche interne est bloquante).
+**0. Corrections de C-10, puis de C-09** — `corrections/C-10.md`, `corrections/C-09.md`. C-10 d'abord : le paywall lit les réglages d'accès, et `A-VOIR.md` montre l'effet. La correction « A-VIR » se fait dans l'adaptateur de C-08.
 
-Rappel : Novamira est permis sur `imagine-test-demo` (file du 23/11, 13 h 45), et nulle part ailleurs. Les écarts que tu signales sont reportés par Claude dans `docs/ecarts.md`.
+**Proportion des preuves, à partir de maintenant** : lis la dernière section des arbitrages. Sur ce site fictif, une correction se prouve par son test et un rejeu de la recette du lot, rien de plus.
+
+Après ces corrections, la file est vide : arrête-toi. Les lots 1 à 5 ci-dessous sont rendus.
 
 **1. `briefs/B-00-site-de-demonstration.md`** — le site `imagine-test-demo`, reconstruit par un script, avec numéros et articles fictifs. Une demi-journée. **Passe avant tout : les autres se branchent dessus.**
 
@@ -39,4 +41,6 @@ Rappel : Novamira est permis sur `imagine-test-demo` (file du 23/11, 13 h 45), e
 
 | Lot | Rendu | État |
 |---|---|---|
-| — | — | — |
+| B-00 Site de démonstration | 23/11, corrigé le 23/11 | **Code clos le 23/11.** Validation visuelle de Ced attendue |
+| B-01 Squelette du thème | 23/11, corrigé le 23/11 | **Code clos le 23/11.** Validation visuelle de Ced attendue |
+| C-08 Paywall sur article | 23/11, corrigé le 23/11 | **Code clos le 23/11** (recherche interne étanche). Validation visuelle de Ced attendue |
