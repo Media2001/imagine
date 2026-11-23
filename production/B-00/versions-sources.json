@@ -1,0 +1,19 @@
+{
+  "wp": {
+    "source": "https://api.wordpress.org/core/version-check/1.7/",
+    "offers": [
+      {
+        "version": "7.0.9",
+        "download": "https://downloads.w.org/release/wordpress-7.0.9.zip"
+      }
+    ]
+  },
+  "woo": {
+    "source": "https://api.wordpress.org/plugins/info/1.2/?action=plugin_information&request%5Bslug%5D=woocommerce",
+    "version": "11.3.1",
+    "requires": "7.0",
+    "requires_php": "7.4",
+    "download_link": "https://downloads.wordpress.org/plugin/woocommerce.11.3.1.zip",
+    "11.2.2": "https://downloads.wordpress.org/plugin/woocommerce.11.2.2.zip"
+  }
+}

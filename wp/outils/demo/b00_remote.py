@@ -29,6 +29,20 @@ elif action == 'wp':
         raise ValueError('Commande hors périmètre')
     r = subprocess.run(['docker', 'exec', '--user', 'www-data', WP, 'wp', *args], capture_output=True, text=True)
     print(json.dumps({'code': r.returncode, 'stdout': r.stdout, 'stderr': r.stderr}))
+elif action == 'requirements':
+    import hashlib
+    import re
+    import zipfile
+    result = {}
+    for name in ('woocommerce-subscriptions', 'woocommerce-memberships'):
+        source = Path('/app/plugins') / (name + '.zip')
+        with zipfile.ZipFile(source) as archive:
+            header = archive.read(name + '/' + name + '.php').decode('utf-8')
+        header_lines = [line.strip().lstrip('*').strip().partition(':') for line in header.splitlines()[:45]]
+        headers = {key: value.strip() for key, colon, value in header_lines if colon}
+        values = {label: headers.get(label) for label in ('Version', 'Requires at least', 'Requires PHP', 'WC requires at least', 'WC tested up to')}
+        result[name] = {'headers': values, 'sha256': hashlib.sha256(source.read_bytes()).hexdigest()}
+    print(json.dumps(result))
 elif action == 'credentials':
     import api.models as models
     site = models.get_site(SLUG)
