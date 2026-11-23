@@ -61,6 +61,7 @@ if (is_array($fixture)) {
     }
     $fidelity['rights'] = $rights;
     $fidelity['setting_intact'] = get_option('imagine_publication_setting') === ['layout' => 'fiction', 'quantity' => 7];
+    if (!empty($fixture['subs'])) {
     $sub = wcs_get_subscription($fixture['subs'][0]);
     $before = count($sub->get_related_orders('ids', 'renewal'));
     $calls = 0;
@@ -73,6 +74,33 @@ if (is_array($fixture)) {
         'status' => \ActionScheduler::store()->get_status($id), 'renewals_before' => $before, 'renewals_after' => $after];
     $ok = $ok && $calls === 0 && $before === $after && $scheduler['status'] === 'failed'
         && $fidelity['setting_intact'];
+    } else {
+        $scheduler = ['tested' => false, 'reason' => 'Subscriptions absent; 6.9.1 not qualified for this extension'];
+        $ok = $ok && $fidelity['setting_intact'];
+    }
+    if (get_option('imagine_a01_69_fixture') === 'yes') {
+        $orders = [];
+        foreach (wc_get_orders(['limit' => -1, 'orderby' => 'ID', 'order' => 'ASC', 'type' => 'shop_order']) as $order) {
+            $items = [];
+            foreach ($order->get_items() as $item) {
+                $items[] = ['product' => $item->get_product_id(), 'quantity' => $item->get_quantity(),
+                    'total' => $item->get_total(), 'tax' => $item->get_total_tax()];
+            }
+            $orders[] = ['id' => $order->get_id(), 'status' => $order->get_status(),
+                'created' => $order->get_date_created()->getTimestamp(), 'total' => $order->get_total(),
+                'currency' => $order->get_currency(), 'payment_method' => $order->get_payment_method(),
+                'billing_country' => $order->get_billing_country(), 'shipping_country' => $order->get_shipping_country(),
+                'items' => $items];
+        }
+        $fidelity['orders'] = $orders;
+        $fidelity['membership_shortcodes'] = [];
+        foreach (array_merge(['guest' => 0], $fixture['users']) as $status => $uid) {
+            wp_set_current_user($uid);
+            $fidelity['membership_shortcodes'][$status] = str_contains(
+                do_shortcode('[wcm_restrict plans="a01-fiction-plan"]A01_PRIVATE_CANARY[/wcm_restrict]'), 'A01_PRIVATE_CANARY');
+        }
+        $fidelity['public_post_unrestricted'] = !wc_memberships_is_post_content_restricted($fixture['public']);
+    }
 }
 $result = ['ok' => $ok && $allow && $settings && $appPasswords === 0,
     'versions' => ['php' => PHP_VERSION, 'wordpress' => get_bloginfo('version'),

@@ -13,6 +13,7 @@ import time
 from urllib.parse import urlsplit
 
 from archive import Refusal, restore
+from core_source import plugin_warnings
 from legacy_importer import sql_plan, CREATE_WORDS
 
 # Narrow grammar additions required by SHOW CREATE from the existing synthetic baseline.
@@ -215,8 +216,10 @@ def restore_and_verify(archive, request):
     result = {'status': 'verified-offline' if verified else 'imported', 'data_verified': verified,
               'core_versions': core_versions,
               'table_engines': engines,
-              'warnings': [{'code': 'NON_INNODB_TABLE', 'table': table, 'engine': engine}
-                           for table, engine in sorted(engines.items()) if engine != 'INNODB'],
+              'warnings': ([{'code': 'NON_INNODB_TABLE', 'table': table, 'engine': engine}
+                           for table, engine in sorted(engines.items()) if engine != 'INNODB']
+                           + plugin_warnings(SITE / 'wp-content', core_versions['source'], request.get('php_version', '8.2'))),
+              'import_installed_or_updated_plugins': False,
               'steps': steps, 'archive_entries': count, 'restored_files_before_cleanup': before,
               'files_after_cleanup': manifest(SITE / 'wp-content'),
               'publication': 'NOT_IMPLEMENTED: no port or egress is opened; site remains stopped',

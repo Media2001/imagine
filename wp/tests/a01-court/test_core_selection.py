@@ -25,6 +25,19 @@ def archive_bytes(package):
 
 
 class CoreSelection(unittest.TestCase):
+    def test_plugin_minima_only_warn_and_never_change_files(self):
+        import core_source
+        with tempfile.TemporaryDirectory(dir=os.getenv('TMPDIR')) as folder:
+            content = Path(folder)
+            plugin = content / 'plugins/fiction/fiction.php'
+            plugin.parent.mkdir(parents=True)
+            raw = b'<?php /*\nPlugin Name: Fictitious warning\nRequires at least: 99.0\nRequires PHP: 99.0\n*/'
+            plugin.write_bytes(raw)
+            warnings = core_source.plugin_warnings(content, '6.9.1', '8.2')
+            self.assertEqual(['PLUGIN_REQUIRES_NEWER_WORDPRESS', 'PLUGIN_REQUIRES_NEWER_PHP'], [w['code'] for w in warnings])
+            self.assertTrue(all(w['blocking'] is False for w in warnings))
+            self.assertEqual(raw, plugin.read_bytes())
+
     def test_archive_version_selects_core_not_commercial_baseline(self):
         import core_source
         self.assertEqual('6.9.1', core_source.select_version(b'{"WordPress":{"Version":"6.9.1"}}', '6.9.1'))

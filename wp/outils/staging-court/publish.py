@@ -22,6 +22,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import run as offline_runner
 from publication import guarded_publish, validate_name
+from core_source import prepare_core
 
 ROOT = HERE.parents[2]
 IMAGE = 'sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2'
@@ -92,6 +93,7 @@ def fresh_runner(name):
         (HERE / 'publication_probe.php', 'opt/court/publication_probe.php'),
         (HERE / 'script_capacity_probe.php', 'opt/court/script_capacity_probe.php'),
         (ROOT / 'wp/tests/a01-court/prepare_publication.py', 'opt/court/prepare_publication.py'),
+        (ROOT / 'wp/tests/a01-court/qualification_69.py', 'opt/court/qualification_69.py'),
         (ROOT / 'wp/tests/licensed-a01/inside-commercial.py', 'opt/e2e/inside_commercial.py'),
         (ROOT / 'wp/tests/licensed-a01/cases.php', 'opt/e2e/cases.php'),
     ]
@@ -119,6 +121,45 @@ print(json.dumps({'ok':pinned==expected,'stage':'core_preflight','expected':expe
  'code':'CORE_MATCH' if pinned==expected else ('PINNED_CORE_EXPECTED_VERSION_MISMATCH' if pinned else 'PINNED_CORE_VERSION_REFUSED')}))
 '''.replace('EXPECTED_VERSION_TOKEN', repr(expected))
     return json.loads(call(['exec', '-i', runner, 'python3', '-'], program.encode()).stdout)
+
+
+def archive_core_preflight(runner, archive, expected):
+    """Read the validated manifest without restoring files, SQL or bootstrap."""
+    program = '''import json,sys
+sys.path.insert(0,'/opt/court')
+from archive import restore,Refusal
+from core_source import select_version
+try:
+ with open(ARCHIVE_TOKEN,'rb') as stream:
+  sql,package,count=restore(stream,None,metadata_only=True)
+ version=select_version(package,EXPECTED_TOKEN)
+ print(json.dumps({'ok':True,'source':version,'expected':EXPECTED_TOKEN,'entries':count,'metadata_only':True}))
+except Refusal as error:
+ code=str(error)
+ allowed={'SOURCE_CORE_METADATA_REFUSED','SOURCE_EXPECTED_CORE_VERSION_MISMATCH','EXPECTED_CORE_VERSION_REFUSED',
+ 'ARCHIVE_TRUNCATED','ARCHIVE_INVALID','ARCHIVE_HEADER','ARCHIVE_PATH','ARCHIVE_LIMIT','ARCHIVE_LAYOUT_UNSUPPORTED','MULTISITE_UNSUPPORTED'}
+ print(json.dumps({'ok':False,'stage':'archive_core_preflight','code':code if code in allowed else 'ARCHIVE_REFUSED',
+ 'core_versions':getattr(error,'core_versions',None),'metadata_only':True}))
+'''.replace('ARCHIVE_TOKEN', repr(archive)).replace('EXPECTED_TOKEN', repr(expected))
+    return json.loads(call(['exec', '-i', runner, 'python3', '-'], program.encode()).stdout)
+
+
+def set_empty_runner_core(runner, payload, receipt):
+    # No archive file is injected; network remains none throughout.
+    program = "import pathlib,shutil\np=pathlib.Path('/opt/wordpress/wordpress')\nshutil.rmtree(p)\np.mkdir()\n"
+    call(['exec', '-i', runner, 'python3', '-'], program.encode())
+    call(['exec', '-i', runner, 'tar', '-xf', '-', '-C', '/'], payload)
+    program = '''from pathlib import Path
+import hashlib,json
+root=Path('/opt/wordpress/wordpress')
+files={p.relative_to(root).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in root.rglob('*') if p.is_file()}
+print(json.dumps(files))
+'''
+    assert json.loads(call(['exec', '-i', runner, 'python3', '-'], program.encode()).stdout) == receipt['core_files']
+    call(['exec', runner, 'mkdir', '-p', '/opt/wordpress/wordpress/wp-content'])
+    proof = runtime_core_preflight(runner, receipt['version'])
+    assert proof['ok'] is True
+    return proof
 
 
 def offline_isolation(name):
@@ -215,6 +256,27 @@ for p in root.iterdir():
  else: p.unlink()
 '''
     call(['exec', '-i', file_helper, 'python3', '-'], cleanup.encode())
+    # Install/read back the archive-selected core while target content is EMPTY.
+    # Only after this receipt do the archived files and database enter this site.
+    sender = subprocess.Popen(DOCKER + ['exec', runner, 'tar', '-cf', '-', '--exclude=./wp-content',
+                              '--exclude=./wp-config.php', '-C', '/scratch/a01-site', '.'],
+                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    receiver = subprocess.run(DOCKER + ['exec', '-i', file_helper, 'tar', '--no-same-owner', '--touch', '-xf', '-', '-C', '/target'],
+                              stdin=sender.stdout, capture_output=True, timeout=600)
+    sender.stdout.close(); sender.stderr.read(); sender.wait(timeout=60)
+    if sender.returncode or receiver.returncode:
+        raise RuntimeError('EMPTY_TARGET_CORE_TRANSFER_REFUSED')
+    core_check = '''from pathlib import Path
+import json,re
+root=Path('/target')
+text=(root/'wp-includes/version.php').read_text()
+versions=re.findall(r"^\\s*\\$wp_version\\s*=\\s*'([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)';",text,re.M)
+print(json.dumps({'version':versions[0] if len(versions)==1 else None,
+                 'archive_content_absent':not any((root/'wp-content').iterdir())}))
+'''
+    empty_core = json.loads(call(['exec', '-i', file_helper, 'python3', '-'], core_check.encode()).stdout)
+    assert empty_core['archive_content_absent'] is True
+    assert empty_core['version'] == offline['core_versions']['source'] == offline['core_versions']['pinned']
     # Pipe the exact offline tree; neither SQL nor archives are written to the host.
     sender = subprocess.Popen(DOCKER + ['cp', runner + ':/scratch/a01-site/.', '-'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     receiver = subprocess.run(DOCKER + ['exec', '-i', file_helper, 'tar', '--no-same-owner', '--no-overwrite-dir', '--touch', '-xf', '-', '-C', '/target'],
@@ -293,7 +355,8 @@ os.chown(root,33,33); os.chmod(root,0o755)
     remove_owned(db_helper); helpers.remove(db_helper)
     remove_owned(file_helper); helpers.remove(file_helper)
     return {'all_wp_content_hashes_equal': True, 'files': len(copied), 'home_siteurl_rewritten_offline': True,
-            'socket_only_target_db_helper': True, 'no_credentials_copied': True}
+            'socket_only_target_db_helper': True, 'no_credentials_copied': True,
+            'empty_target_core_before_archive_injection': empty_core}
 
 
 def runtime_probe(slug, port, target):
@@ -380,7 +443,7 @@ def main():
     if args.archive and not (args.operator_ced and args.name and args.production_url):
         parser.error('--operator-ced, --name imagine-test-… et --production-url requis')
     run_id = uuid.uuid4().hex[:12]
-    out = ROOT / 'production/A-01/publication-22nov' / run_id
+    out = ROOT / 'production/A-01/publication-23nov' / run_id
     out.mkdir(parents=True, exist_ok=False)
     cases = [('classic', None), ('hpos', None), ('classic', 'secret'), ('classic', 'personal')] if args.self_test_publication else [('operator', None)]
     if args.case:
@@ -398,6 +461,18 @@ def main():
         from publication_preflight import collect
         before = collect()['tool_source_manifest']
         result['tool_source_manifest'] = before
+        prepared_core = None
+        qualified_69 = args.self_test_publication and args.expected_core_version == '6.9.1'
+        if args.self_test_publication:
+            # Public preparation is separate from every offline archive restore.
+            prepared_core = prepare_core(args.expected_core_version)
+            result['public_core'] = prepared_core[1]
+            if qualified_69:
+                sys.path.insert(0, str(ROOT / 'wp/tests/a01-court'))
+                from qualification_69 import public_woo
+                prepared_woo = public_woo(args.expected_core_version)
+                result['public_fixture_woocommerce'] = prepared_woo[1]
+                result['subscriptions_691_limit'] = '9.4.1 requires WP 7.0 / Woo 11.1; only prior 7.0.9 qualification; Ced first real import report must be reviewed before opening'
         for storage, trapped in cases:
             name = validate_name(args.name or ('imagine-test-a01-' + run_id + '-' + ({'secret': 'trap', 'personal': 'personal'}.get(trapped, storage))))
             runner = 'imagine-a01-publication-' + uuid.uuid4().hex[:12]
@@ -408,9 +483,25 @@ def main():
                 manifest = fresh_runner(runner); runner_created = True
                 receipt['offline_isolation_before'] = offline_isolation(runner)
                 receipt['source_manifest'] = manifest
-                receipt['runtime_core_preflight'] = runtime_core_preflight(runner, args.expected_core_version)
-                if receipt['runtime_core_preflight']['ok'] is not True:
-                    raise RuntimeError(receipt['runtime_core_preflight']['code'])
+                if args.archive:
+                    # Operator-only path. Selection precedes any site/API lifecycle or PHP.
+                    archive = Path(args.archive)
+                    if archive.is_symlink() or not archive.is_file() or archive.suffix.lower() != '.wpress':
+                        raise RuntimeError('ARCHIVE_REFUSED')
+                    p = str(archive.resolve())
+                    if os.name == 'nt': p = '/mnt/' + p[0].lower() + p[2:].replace('\\', '/')
+                    call(['exec', runner, 'mkdir', '-p', '/input'])
+                    call(['cp', p, runner + ':/input/source.wpress'])
+                    archive_path = '/input/source.wpress'
+                    receipt['archive_core_preflight'] = archive_core_preflight(runner, archive_path, args.expected_core_version)
+                    if receipt['archive_core_preflight']['ok'] is not True:
+                        raise RuntimeError(receipt['archive_core_preflight']['code'])
+                    prepared_core = prepare_core(receipt['archive_core_preflight']['source'])
+                    result['public_core'] = prepared_core[1]
+                receipt['runtime_core_preflight'] = set_empty_runner_core(runner, *prepared_core)
+                if qualified_69:
+                    call(['exec', '-i', runner, 'python3', '-'], b"import shutil\nshutil.rmtree('/opt/woocommerce/woocommerce')\n")
+                    call(['exec', '-i', runner, 'tar', '-xf', '-', '-C', '/'], prepared_woo[0])
                 if api('GET', '/api/sites/' + name)['code'] != 404:
                     raise RuntimeError('FRESH_SITE_REQUIRED')
                 # Normal API creation is explicitly authorized, automatic platform activation included.
@@ -433,14 +524,15 @@ def main():
                 receipt['source_manifest'] = manifest
                 request = {'target_url': 'http://localhost:' + str(site['port']),
                            'expected_core_version': args.expected_core_version,
+                           'php_version': args.php_version,
                            'production_url': args.production_url or 'https://production.synthetic.invalid',
                            'password': getpass.getpass('Mot de passe neuf du compte test : ') if args.archive else secrets.token_urlsafe(40),
                            'decisions': json.loads(Path(args.table_decisions).read_text()) if args.table_decisions else {}}
                 if args.self_test_publication:
-                    for slug in ('woocommerce-memberships', 'woocommerce-subscriptions'):
+                    for slug in (('woocommerce-memberships',) if qualified_69 else ('woocommerce-memberships', 'woocommerce-subscriptions')):
                         call(['cp', '/home/ced/staging-wp/plugins/' + slug + '.zip', runner + ':/opt/e2e/' + slug + '.zip'])
-                    p = call(['exec', runner, 'python3', '/opt/court/prepare_publication.py', storage,
-                              {'secret': 'trapped', 'personal': 'personal'}.get(trapped, 'clean')], check=False)
+                    p = call(['exec', runner, 'python3', '/opt/court/qualification_69.py' if qualified_69 else '/opt/court/prepare_publication.py', storage,
+                              (trapped or 'clean') if qualified_69 else {'secret': 'trapped', 'personal': 'personal'}.get(trapped, 'clean')], check=False)
                     receipt['fixture_prepare_exit'] = p.returncode
                     if p.returncode:
                         receipt['fixture_output_sha256'] = hashlib.sha256(p.stdout + p.stderr).hexdigest()
@@ -451,15 +543,9 @@ def main():
                     request['decisions'] = {'wp_wc_email_unsubscribes': {'action': 'garder'}}
                     receipt['decisions_are_synthetic_not_Ced_approval'] = True
                     archive_path = '/scratch/fiction.wpress'
-                else:
-                    archive = Path(args.archive).resolve()
-                    if not archive.is_file() or archive.is_symlink() or archive.suffix.lower() != '.wpress':
-                        raise RuntimeError('ARCHIVE_REFUSED')
-                    p = str(archive)
-                    if os.name == 'nt': p = '/mnt/' + p[0].lower() + p[2:].replace('\\', '/')
-                    call(['exec', runner, 'mkdir', '-p', '/input'])
-                    call(['cp', p, runner + ':/input/source.wpress'])
-                    archive_path = '/input/source.wpress'
+                    receipt['archive_core_preflight'] = archive_core_preflight(runner, archive_path, args.expected_core_version)
+                    if receipt['archive_core_preflight']['ok'] is not True:
+                        raise RuntimeError(receipt['archive_core_preflight']['code'])
                 program = '''import json,sys
 sys.path.insert(0,'/opt/court')
 from inside import execute_offline_request
@@ -513,8 +599,13 @@ raise SystemExit(1 if 'failure' in r else 0)
                     api('POST', '/api/sites/' + name + '/start')
                     assert api('GET', '/api/sites/' + name)['body']['status'] == 'running'
                     time.sleep(3)
+                def checked_runtime():
+                    probe = runtime_probe(name, site['port'], site['url'])
+                    if probe.get('versions', {}).get('wordpress') != offline['core_versions']['source']:
+                        probe.update(ok=False, core_version_mismatch=True)
+                    return probe
                 published = guarded_publish(offline, do_inject, do_start,
-                                            lambda: runtime_probe(name, site['port'], site['url']), lambda: stop_site(name))
+                                            checked_runtime, lambda: stop_site(name))
                 receipt['publication'] = published
                 receipt['injection'] = injection
                 if trapped:
@@ -538,6 +629,12 @@ except Exception as e: print(json.dumps({'reachable':False,'error_class':type(e)
                         assert probe['fidelity']['rights'] == {k: v['private'] for k, v in fixture['rights']['rights'].items()}
                         for key in ('business', 'membership', 'rules_sha256', 'plugins', 'theme'):
                             assert probe['fidelity'][key] == fixture[key], 'FIDELITY_' + key.upper()
+                        if qualified_69:
+                            assert probe['fidelity']['orders'] == fixture['orders']
+                            assert probe['fidelity']['membership_shortcodes'] == fixture['rights']['shortcodes']
+                            assert probe['fidelity']['public_post_unrestricted'] is True
+                            assert probe['versions']['subscriptions'] is None
+                            assert probe['scheduler']['tested'] is False
                         receipt['script_update_capacity'] = script_capacity_probe(name)
                         if receipt['script_update_capacity']['ok'] is not True:
                             raise RuntimeError('SCRIPT_UPDATE_CAPACITY_REFUSED')
