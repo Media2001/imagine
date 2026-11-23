@@ -1,6 +1,6 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-23T21:04:09.606943+00:00",
+  "at": "2026-11-23T21:10:50.562674+00:00",
   "url": "http://192.168.129.32:8085",
   "effect": {
     "setting": "imagine_envoi_colonnes_export",
@@ -14,7 +14,7 @@
   },
   "audit_evidence": [
     {
-      "quand_utc": "2026-11-23T21:05:06Z",
+      "quand_utc": "2026-11-23T21:11:42Z",
       "qui_id": 30,
       "qui_login": "e-admin",
       "option": "imagine_envoi_colonnes_export",
@@ -36,7 +36,7 @@
       ]
     },
     {
-      "quand_utc": "2026-11-23T21:05:06Z",
+      "quand_utc": "2026-11-23T21:11:42Z",
       "qui_id": 30,
       "qui_login": "e-admin",
       "option": "imagine_c05_reglages",
@@ -54,7 +54,7 @@
       }
     },
     {
-      "quand_utc": "2026-11-23T21:05:06Z",
+      "quand_utc": "2026-11-23T21:11:42Z",
       "qui_id": 30,
       "qui_login": "e-admin",
       "option": "imagine_acces_reglages",
@@ -71,15 +71,15 @@
     }
   ],
   "front_effect": {
-    "article": 81,
+    "article": 188,
     "option": "imagine_acces_reglages",
     "closed": "ferme_tous",
     "open_for_team_only": "equipe",
-    "release_restored": "2026-01-15",
+    "release_unchanged": "2099-01-01",
     "http_checks": 5
   },
-  "audit_count_before": 36,
-  "audit_count_after": 46,
+  "audit_count_before": 58,
+  "audit_count_after": 68,
   "invalid_cases": 25,
   "checks": {
     "admin_page_200": true,

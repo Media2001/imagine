@@ -1,6 +1,6 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-23T15:45:35.604257+00:00",
+  "at": "2026-11-23T21:12:26.753655+00:00",
   "checks": {
     "local_green": true,
     "runtime_green": true,
@@ -24,11 +24,12 @@
       "failures": 0,
       "errors": 0,
       "skipped": 0,
-      "output": "test_denials (test_c10_scope.ScopeTest.test_denials) ... ok\ntest_deployment_allowlist (test_c10_scope.ScopeTest.test_deployment_allowlist) ... ok\ntest_expected_target (test_c10_scope.ScopeTest.test_expected_target) ... ok\ntest_guard_exists (test_c10_scope.ScopeTest.test_guard_exists) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.002s\n\nOK\n"
+      "output": "test_denials (test_c10_scope.ScopeTest.test_denials) ... ok\ntest_deployment_allowlist (test_c10_scope.ScopeTest.test_deployment_allowlist) ... ok\ntest_expected_target (test_c10_scope.ScopeTest.test_expected_target) ... ok\ntest_guard_exists (test_c10_scope.ScopeTest.test_guard_exists) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.001s\n\nOK\n"
     },
     "c10_runtime": {
       "checks": {
         "ecran_present": true,
+        "temoin_front_permanent": true,
         "trois_options_meme_groupe": true,
         "rendu_Accès": true,
         "rendu_Paiement en quatre fois": true,
@@ -40,15 +41,27 @@
         "rendu__wpnonce": true,
         "huit_champs": true,
         "cap_admin": true,
-        "redacteur_sans_droit": true
+        "redacteur_sans_droit": true,
+        "futur_ferme": true,
+        "futur_equipe_reglage_effectif": true,
+        "A_VIR_virement_non_valide": true,
+        "role_referent_lecture_equipe": true,
+        "pdf_policies_connected": true,
+        "pdf_robot_extrait": true,
+        "pdf_robot_complet": true,
+        "pdf_anterieur_ferme": true,
+        "pdf_anterieur_ouvert": true,
+        "journal_KO_refuse_et_conserve": true,
+        "journal_KO_aucun_evenement": true,
+        "journal_KO_previent": true
       },
-      "total": 13,
+      "total": 26,
       "failures": []
     },
     "c10_http": {
-      "total": 79,
+      "total": 90,
       "failures": [],
-      "invalid_cases": 23
+      "invalid_cases": 25
     },
     "c08_regression": {
       "checks": {
@@ -87,7 +100,7 @@
       "failures": []
     }
   },
-  "c10_assertions": 96,
+  "c10_assertions": 120,
   "c09_inventory": {
     "users": 27,
     "shop_order": 13,
@@ -95,17 +108,19 @@
     "memberships": 14
   },
   "deployed_files_sha256": {
+    "plugins/imagine-site/Paywall.php": "7e2c2c939ebb4b287d9db41b62f98f28e94286faaa3a35676b087852022ead97",
     "plugins/imagine-pilotage/imagine-reglages.php": "72e89bec95331ea1091e9462473c5ff7d984fc25ba384c0dbaead659fe827312",
-    "plugins/imagine-pilotage/src/Administration/Reglages.php": "6c752d8f0d082f7f9eb0e99c977faea5ce2e217414256d5a6837ce5c4c9fe362",
+    "plugins/imagine-pilotage/src/Administration/Reglages.php": "811968e2e48ccb286fb3d236392a30866871470c4aa1120de2b8f0dceaa7c8f2",
     "plugins/imagine-pilotage/src/Acces/AdministrationReglages.php": "14753c28e43daad991ae5477db43415dceb01a2148d4e602087e105c7fd2a71a",
-    "plugins/imagine-pilotage/src/Echeancier/ReglagesAdministration.php": "0ab7a89640da4532ff954bf0ed09088a5743d4e1de67706b7c366fe3eb222db0",
+    "plugins/imagine-pilotage/src/Echeancier/ReglagesAdministration.php": "6c18a5ebbc694e4cea4568c5920dd27bfcda51e40357955807230b494da71182",
     "plugins/imagine-pilotage/src/Envoi/AdministrationFormatExport.php": "ac59e9b8b1486441ede29346362fabd1b721d0a238c55492c63b88ab4bdb9927",
-    "imagine-demo-build/c10-runtime.php": "8775478f60b73454d4840eff5e39ff705e90b5f23851e880468e8cd3cd283074"
+    "imagine-demo-build/c10-runtime.php": "10b6b3820275e3bda27217d58a7de65b6603547027ffbc374825592d4cc63503",
+    "imagine-demo-build/c10-fixture.php": "28c2910a40969e9486b8b3ff011b1a76d6ac18ade6f1d8203dfc7280a31a1fd4"
   },
-  "file_count": 6,
-  "protected_sha256": "6b111dd98fead965ffe221e97413bbbcf8d35b5c9345a33537ab2c742e4f316f",
+  "file_count": 8,
+  "protected_sha256": "b9f4d41bda3d07b5adcad40b86b7f8cfb78af534c80efdeabce7c6098b6e85dc",
   "secret_scan": {
-    "files_checked": 18,
+    "files_checked": 36,
     "matches": []
   },
   "browser_admin": "Non ouvert : aucun login enregistré dans le coffre ; HTTP réel vérifié par sessions WP éphémères détruites.",

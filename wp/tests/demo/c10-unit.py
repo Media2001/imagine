@@ -5,6 +5,7 @@ import json
 import subprocess
 import sys
 import tarfile
+import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[3]
 NAME = 'imagine-c10-correction'
@@ -33,18 +34,22 @@ def run(label, filtered=False):
     assert prep.returncode == 0, prep.stderr
     p = call(['exec', '-i', NAME, 'tar', '-xf', '-', '-C', '/tmp'], payload.getvalue())
     assert p.returncode == 0, p.stderr
-    command = ['exec', '-w', '/tmp/c10', NAME, 'composer', 'test', '--', '--log-junit', '/tmp/c10/result.xml']
+    command = ['exec', '-w', '/tmp/c10', '-e', 'COMPOSER_ROOT_VERSION=dev-main',
+               NAME, 'composer', 'test', '--', '--log-junit', '/tmp/c10/result.xml']
     if filtered:
         command += ['--testsuite', 'Administration']
     result = call(command)
-    lint = call(['exec', '-w', '/tmp/c10', NAME, 'composer', 'lint'])
+    lint = call(['exec', '-w', '/tmp/c10', '-e', 'COMPOSER_ROOT_VERSION=dev-main', NAME, 'composer', 'lint'])
     out = ROOT / 'production/C-10'
     (out / (label + '-phpunit.log')).write_bytes(result.stdout + result.stderr)
     (out / (label + '-lint.log')).write_bytes(lint.stdout + lint.stderr)
     xml = call(['exec', NAME, 'cat', '/tmp/c10/result.xml'])
     if xml.returncode == 0:
         (out / (label + '-phpunit.xml')).write_bytes(xml.stdout)
-    receipt = {'command': ' '.join(command[5:]), 'test_exit': result.returncode,
+        tree = ET.fromstring(xml.stdout)
+        facade = [t for t in tree.iter('testcase') if '\\Administration\\ReglagesTest' in t.attrib.get('class', '')]
+        assert len(facade) == 10, 'La suite façade doit être découverte par Composer'
+    receipt = {'command': 'composer test -- --log-junit /tmp/c10/result.xml' + (' --testsuite Administration' if filtered else ''), 'test_exit': result.returncode,
                'lint_command': 'composer lint', 'lint_exit': lint.returncode,
                'image': info['Config']['Image'], 'network': 'none', 'mounts': [], 'ports': {}}
     (out / (label + '-unit.json')).write_text(json.dumps(receipt, indent=2), encoding='utf-8')

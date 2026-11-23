@@ -1,6 +1,6 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-23T21:03:22.689037+00:00",
+  "at": "2026-11-23T21:10:03.673236+00:00",
   "url": "http://192.168.129.32:8085",
   "files_sha256": {
     "plugins/imagine-site/Paywall.php": "7e2c2c939ebb4b287d9db41b62f98f28e94286faaa3a35676b087852022ead97",
@@ -9,12 +9,18 @@
     "plugins/imagine-pilotage/src/Acces/AdministrationReglages.php": "14753c28e43daad991ae5477db43415dceb01a2148d4e602087e105c7fd2a71a",
     "plugins/imagine-pilotage/src/Echeancier/ReglagesAdministration.php": "6c18a5ebbc694e4cea4568c5920dd27bfcda51e40357955807230b494da71182",
     "plugins/imagine-pilotage/src/Envoi/AdministrationFormatExport.php": "ac59e9b8b1486441ede29346362fabd1b721d0a238c55492c63b88ab4bdb9927",
-    "imagine-demo-build/c10-runtime.php": "9d1a5311385f3ee8768d8a95b80b7bafe98e5780eff79904750c847df2ab19d6"
+    "imagine-demo-build/c10-fixture.php": "28c2910a40969e9486b8b3ff011b1a76d6ac18ade6f1d8203dfc7280a31a1fd4",
+    "imagine-demo-build/c10-runtime.php": "10b6b3820275e3bda27217d58a7de65b6603547027ffbc374825592d4cc63503"
   },
-  "file_count": 7,
+  "file_count": 8,
   "runtime": {
     "code": 0,
-    "stdout": "{\n    \"checks\": {\n        \"ecran_present\": true,\n        \"trois_options_meme_groupe\": true,\n        \"rendu_Accès\": true,\n        \"rendu_Paiement en quatre fois\": true,\n        \"rendu_Liste d’envoi\": true,\n        \"rendu_À confirmer par Imagine\": true,\n        \"rendu_Défaut\": true,\n        \"rendu_Journal des modifications\": true,\n        \"rendu_options.php\": true,\n        \"rendu__wpnonce\": true,\n        \"huit_champs\": true,\n        \"cap_admin\": true,\n        \"redacteur_sans_droit\": true,\n        \"futur_ferme\": true,\n        \"futur_equipe_reglage_effectif\": true,\n        \"A_VIR_virement_non_valide\": true,\n        \"role_referent_lecture_equipe\": true,\n        \"pdf_policies_connected\": true,\n        \"pdf_robot_extrait\": true,\n        \"pdf_robot_complet\": true,\n        \"pdf_anterieur_ferme\": true,\n        \"pdf_anterieur_ouvert\": true,\n        \"journal_KO_refuse_et_conserve\": true,\n        \"journal_KO_aucun_evenement\": true,\n        \"journal_KO_previent\": true\n    },\n    \"total\": 25,\n    \"failures\": []\n}",
+    "stdout": "{\n    \"checks\": {\n        \"ecran_present\": true,\n        \"temoin_front_permanent\": true,\n        \"trois_options_meme_groupe\": true,\n        \"rendu_Accès\": true,\n        \"rendu_Paiement en quatre fois\": true,\n        \"rendu_Liste d’envoi\": true,\n        \"rendu_À confirmer par Imagine\": true,\n        \"rendu_Défaut\": true,\n        \"rendu_Journal des modifications\": true,\n        \"rendu_options.php\": true,\n        \"rendu__wpnonce\": true,\n        \"huit_champs\": true,\n        \"cap_admin\": true,\n        \"redacteur_sans_droit\": true,\n        \"futur_ferme\": true,\n        \"futur_equipe_reglage_effectif\": true,\n        \"A_VIR_virement_non_valide\": true,\n        \"role_referent_lecture_equipe\": true,\n        \"pdf_policies_connected\": true,\n        \"pdf_robot_extrait\": true,\n        \"pdf_robot_complet\": true,\n        \"pdf_anterieur_ferme\": true,\n        \"pdf_anterieur_ouvert\": true,\n        \"journal_KO_refuse_et_conserve\": true,\n        \"journal_KO_aucun_evenement\": true,\n        \"journal_KO_previent\": true\n    },\n    \"total\": 26,\n    \"failures\": []\n}",
+    "stderr": ""
+  },
+  "fixture": {
+    "code": 0,
+    "stdout": "{\"article\":188,\"issue\":187}",
     "stderr": ""
   },
   "protected_before": "b9f4d41bda3d07b5adcad40b86b7f8cfb78af534c80efdeabce7c6098b6e85dc",

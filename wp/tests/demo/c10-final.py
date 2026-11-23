@@ -1,4 +1,4 @@
-"""C10 : vérification finale en lecture, sans relancer B00/C08/C09 ni leurs seeds."""
+"""C10 : recette finale, sans relancer B00/C08/C09 ni leurs seeds."""
 from pathlib import Path
 import hashlib
 import io
@@ -24,6 +24,7 @@ def run():
     http = json.loads((c10.PROOF / 'http-verification.json').read_text(encoding='utf-8'))
     hashes = {name:hashlib.sha256((c10.ROOT / 'wp' / name).read_bytes()).hexdigest() for name in c10.FILES}
     hashes['imagine-demo-build/c10-runtime.php'] = hashlib.sha256((c10.ROOT / 'wp/tests/demo/c10-runtime.php').read_bytes()).hexdigest()
+    hashes['imagine-demo-build/c10-fixture.php'] = hashlib.sha256((c10.ROOT / 'wp/tests/demo/c10-fixture.php').read_bytes()).hexdigest()
     code = '$names=json_decode(' + json.dumps(json.dumps(list(hashes))) + ',true);$out=[];foreach($names as $n){$p=WP_CONTENT_DIR . "/" . $n;token_get_all(file_get_contents($p),TOKEN_PARSE);$out[$n]=hash_file("sha256",$p);}echo wp_json_encode($out);'
     deployed = json.loads(b00.wp('eval',code)['stdout'])
     runtime = b00.wp('eval','require WP_CONTENT_DIR . "/imagine-demo-build/c10-runtime.php";',check=False)
