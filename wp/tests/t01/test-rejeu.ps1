@@ -25,4 +25,13 @@ foreach ($case in $cases) {
     Write-Output "PASS boundary/$case : exit=$rc ; $last"
 }
 Remove-Item Env:T01_TEST_CASE, Env:T01_TEST_ROOT
-Write-Output 'T01 CONTRACT : 9/9 PASS (external Docker boundary mocked; not a PHP-suite receipt)'
+foreach ($case in @('prepare-pass', 'prepare-build-error', 'prepare-probe-error')) {
+    $env:T01_TEST_CASE = $case; $env:T01_TEST_ROOT = $root
+    $out = @(& powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'mock-wsl.ps1') 2>&1)
+    $rc = $LASTEXITCODE
+    $expected = if ($case -eq 'prepare-pass') { 0 } else { 1 }
+    if ($rc -ne $expected -or ($out -join "`n") -notmatch 'T01 PREP CONTEXT : removed') { throw "$case : rc=$rc $($out -join "`n")" }
+    Write-Output "PASS boundary/$case : exit=$rc ; minimal manifest-only context removed"
+}
+Remove-Item Env:T01_TEST_CASE, Env:T01_TEST_ROOT
+Write-Output 'T01 CONTRACT : 12/12 PASS (external Docker boundary mocked; not a PHP-suite receipt)'

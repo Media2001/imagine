@@ -16,13 +16,14 @@ try {
     $image = @($imageProbe.Text | ConvertFrom-Json)[0]
     if ($image.Config.Labels.'org.imagine.t01-image' -ne '1' -or $image.Config.Volumes -or $image.Config.ExposedPorts) { throw 'Image T01 non conforme : relancer preparer-image.ps1.' }
     # WSL path conversion is read-only and does not inspect any site.
-    $sourceLines = @(& wsl.exe -d Ubuntu -- wslpath -a -u $script:T01Root 2>&1)
+    $sourceLines = @(& wsl.exe -d Ubuntu -- wslpath -a -u $script:T01Root.Replace('\', '/') 2>&1)
     if ($LASTEXITCODE -ne 0) { throw ('Conversion du chemin WSL impossible : ' + ($sourceLines -join "`n")) }
     $source = ($sourceLines -join "`n").Trim()
     if (-not $source.StartsWith('/') -or $source.Contains(',') -or $source.Contains("`n")) { throw 'Chemin de montage WSL refuse.' }
+    # Also check ownership/absence if Docker created the object but returned an error.
+    $created = $true
     $create = Invoke-T01Docker @('create', '--name', $name, '--label', ($script:T01Label + '=' + $owner), '--pull', 'never', '--network', 'none', '--read-only', '--mount', ('type=bind,source=' + $source + ',target=/repo,readonly'), '--tmpfs', '/tmp:rw,nosuid,nodev,size=512m,mode=1777', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--user', '65534:65534', '--pids-limit', '128', '--memory', '768m', '--cpus', '2', '--no-healthcheck', '--log-driver', 'none', '--entrypoint', 'timeout', $image.Id, '600', 'php', '/repo/wp/tests/t01/executer.php')
     [void](Assert-T01Success $create 'Creation du conteneur jetable impossible.')
-    $created = $true
     Assert-T01Isolation (Get-T01Inspect $name) $owner $image.Id $source
     Write-Output ('T01 IMAGE : ' + $image.Id)
     $run = Invoke-T01Docker @('start', '-a', $name)
@@ -42,7 +43,7 @@ try {
     $exitCode = 0
 } catch {
     Write-Output ('T01 ERREUR : ' + $_.Exception.Message)
-    if ($result.errors -eq 0) { $result.errors = 1 }
+    if ($result.errors -eq 0 -and $result.failures -eq 0) { $result.errors = 1 }
 } finally {
     if ($created) {
         try { Remove-T01Container $name $owner } catch { Write-Output ('T01 NETTOYAGE EN ECHEC : ' + $_.Exception.Message); $exitCode = 1; $result.errors = [Math]::Max(1, $result.errors) }

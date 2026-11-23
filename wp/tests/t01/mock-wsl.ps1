@@ -11,7 +11,10 @@ function global:wsl.exe {
     $a = @($args)
     $global:LASTEXITCODE = 0
     # PowerShell consumes the -- separator when a function replaces an executable.
-    if (($a[0..2] -join '|') -eq '-d|Ubuntu|wslpath') { return '/fixture/repository' }
+    if (($a[0..2] -join '|') -eq '-d|Ubuntu|wslpath') {
+        if ($global:T01Mockcase -like 'prepare-*') { $global:T01Mockcontext = [string]$a[-1]; return '/fixture/build-context' }
+        return '/fixture/repository'
+    }
     if (($a[0..2] -join '|') -ne '-d|Ubuntu|docker') { throw ('Unexpected executable boundary: ' + ($a | ConvertTo-Json -Compress)) }
     $d = @($a[3..($a.Count - 1)])
     switch ($d[0]) {
@@ -56,8 +59,28 @@ function global:wsl.exe {
             $global:T01Mockremoved = $true
             return 'fixture removed (test double)'
         }
+        'build' {
+            if ($global:T01Mockcase -notlike 'prepare-*') { throw 'Build forbidden in replay.' }
+            $paths = @(Get-ChildItem $global:T01Mockcontext -File -Recurse | ForEach-Object { $_.FullName.Substring($global:T01Mockcontext.Length + 1).Replace('\', '/') } | Sort-Object)
+            $expected = @('Dockerfile', 'packages/imagine-connecteur/composer.json', 'packages/imagine-connecteur/composer.lock', 'packages/imagine-pilotage/composer.json', 'packages/imagine-pilotage/composer.lock', 'verifier-image.php')
+            if (($paths -join '|') -ne ($expected -join '|')) { throw ('Unexpected build context: ' + ($paths -join '|')) }
+            if ($global:T01Mockcase -eq 'prepare-build-error') { $global:LASTEXITCODE = 1; return 'Build failure (test double)' }
+            return 'Build success (test double; no real image was built)'
+        }
+        'run' {
+            if ($global:T01Mockcase -notlike 'prepare-*' -or $d -notcontains 'none' -or $d -notcontains '--rm' -or $d -notcontains '/opt/t01/verifier-image.php') { throw 'Unexpected preparation probe.' }
+            if ($global:T01Mockcase -eq 'prepare-probe-error') { $global:LASTEXITCODE = 1; return 'Image probe failure (test double)' }
+            return 'Image probe success (test double)'
+        }
         default { throw ('Forbidden Docker operation in replay: ' + ($d -join ' ')) }
     }
+}
+if ($global:T01Mockcase -like 'prepare-*') {
+    & (Join-Path $env:T01_TEST_ROOT 'wp/tests/preparer-image.ps1')
+    $code = $LASTEXITCODE
+    if ($global:T01Mockcontext -and (Test-Path $global:T01Mockcontext)) { throw 'Preparation context leaked.' }
+    Write-Output 'T01 PREP CONTEXT : removed (external Docker boundary mocked)'
+    exit $code
 }
 & (Join-Path $env:T01_TEST_ROOT 'wp/tests/rejouer.ps1')
 exit $LASTEXITCODE

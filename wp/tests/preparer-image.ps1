@@ -22,7 +22,7 @@ try {
         }
     }
     # Only public dependency manifests enter the build context; no repository, site, config or credentials.
-    $converted = @(& wsl.exe -d Ubuntu -- wslpath -a -u $context 2>&1)
+    $converted = @(& wsl.exe -d Ubuntu -- wslpath -a -u $context.Replace('\', '/') 2>&1)
     if ($LASTEXITCODE -ne 0) { throw 'Conversion du dossier temporaire impossible.' }
     $linux = ($converted -join "`n").Trim()
     Write-Output 'PREPARATION T01 : reseau utilise uniquement dans Docker pour les dependances publiques verrouillees ; aucun PHP ni paquet installe sur Windows.'
