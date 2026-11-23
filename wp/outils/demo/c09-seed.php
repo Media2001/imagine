@@ -113,6 +113,9 @@ foreach ($rows as $row) {
         if (is_wp_error($order)) { throw new \RuntimeException('Commande C09 impossible.'); }
         $order->set_customer_id($id);
         $order->set_created_via('admin');
+        // last_payment est un alias historique WCS de dernière création de commande,
+        // même sans date_paid : dater la fixture avant son terme expiré, sans paiement.
+        $order->set_date_created($now->modify('-335 days')->getTimestamp());
         $order->set_address($address + ['email' => $login . '@example.org', 'phone' => ''], 'billing');
         $order->set_address($address, 'shipping');
         $order->set_currency('EUR');

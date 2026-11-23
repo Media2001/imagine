@@ -1,0 +1,1418 @@
+{
+  "mutation": {
+    "duplicate_order": 127,
+    "duplicate_subscription": 128,
+    "duplicate_membership": 129,
+    "unexpected_owned_order": 130
+  },
+  "exit": 1,
+  "runtime": {
+    "total": 337,
+    "failures": [
+      "V-DEC:login_email",
+      "V-DEC:password",
+      "V-DEC:role",
+      "V-DEC-FIN:login_email",
+      "V-DEC-FIN:password",
+      "V-DEC-FIN:role",
+      "V-INSCRIT:login_email",
+      "V-INSCRIT:password",
+      "V-INSCRIT:role",
+      "V-INSCRIT:nombre_commandes",
+      "V-INSCRIT:commande_sans_paiement",
+      "V-INSCRIT:produit_commande",
+      "A-CARTE:login_email",
+      "A-CARTE:password",
+      "A-CARTE:nombre_commandes",
+      "A-CARTE:nombre_abonnements",
+      "A-CARTE:nombre_adhesions",
+      "A-CARTE:commande_sans_paiement",
+      "A-CARTE:produit_commande",
+      "A-CARTE:etat_abonnement",
+      "A-CARTE:parent_natif",
+      "A-CARTE:adhesion_lien_natif",
+      "A-CARTE:etat_adhesion",
+      "A-SEPA4:motif",
+      "A-SEPA4:login_email",
+      "A-SEPA4:password",
+      "A-SEPA4:commande_sans_paiement",
+      "A-SEPA4:produit_commande",
+      "A-SEPA4:etat_abonnement",
+      "A-SEPA4:adhesion_lien_natif",
+      "A-SEPA4:etat_adhesion",
+      "A-PAYPAL:motif",
+      "A-PAYPAL:login_email",
+      "A-PAYPAL:password",
+      "A-PAYPAL:commande_sans_paiement",
+      "A-PAYPAL:produit_commande",
+      "A-PAYPAL:etat_abonnement",
+      "A-PAYPAL:adhesion_lien_natif",
+      "A-PAYPAL:etat_adhesion",
+      "A-VIR:motif",
+      "A-VIR:login_email",
+      "A-VIR:password",
+      "A-VIR:commande_sans_paiement",
+      "A-VIR:produit_commande",
+      "A-VIR:etat_abonnement",
+      "A-VIR:adhesion_lien_natif",
+      "A-VIR:etat_adhesion",
+      "A-PAPIER:motif",
+      "A-PAPIER:login_email",
+      "A-PAPIER:password",
+      "A-PAPIER:commande_sans_paiement",
+      "A-PAPIER:produit_commande",
+      "A-PAPIER:etat_abonnement",
+      "A-PAPIER:adhesion_lien_natif",
+      "A-PAPIER:etat_adhesion",
+      "A-GRACE:motif",
+      "A-GRACE:login_email",
+      "A-GRACE:password",
+      "A-GRACE:role",
+      "A-GRACE:commande_sans_paiement",
+      "A-GRACE:produit_commande",
+      "A-GRACE:adhesion_lien_natif",
+      "A-GRACE:etat_adhesion",
+      "A-SUSP:motif",
+      "A-SUSP:login_email",
+      "A-SUSP:password",
+      "A-SUSP:role",
+      "A-SUSP:commande_sans_paiement",
+      "A-SUSP:produit_commande",
+      "A-SUSP:adhesion_lien_natif",
+      "A-SUSP:etat_adhesion",
+      "A-EXPIRE:login_email",
+      "A-EXPIRE:password",
+      "A-EXPIRE:commande_sans_paiement",
+      "A-EXPIRE:produit_commande",
+      "A-EXPIRE:etat_abonnement",
+      "A-EXPIRE:adhesion_lien_natif",
+      "A-EXPIRE:etat_adhesion",
+      "A-NONRENOUV:motif",
+      "A-NONRENOUV:login_email",
+      "A-NONRENOUV:password",
+      "A-NONRENOUV:commande_sans_paiement",
+      "A-NONRENOUV:produit_commande",
+      "A-NONRENOUV:etat_abonnement",
+      "A-NONRENOUV:adhesion_lien_natif",
+      "A-NONRENOUV:etat_adhesion",
+      "A-ETRANGER:motif",
+      "A-ETRANGER:login_email",
+      "A-ETRANGER:password",
+      "A-ETRANGER:commande_sans_paiement",
+      "A-ETRANGER:produit_commande",
+      "A-ETRANGER:etat_abonnement",
+      "A-ETRANGER:adhesion_lien_natif",
+      "A-ETRANGER:etat_adhesion",
+      "A-ETRANGER:port_natif_fictif",
+      "A-SANSMAIL:motif",
+      "A-SANSMAIL:login_email",
+      "A-SANSMAIL:password",
+      "A-SANSMAIL:commande_sans_paiement",
+      "A-SANSMAIL:produit_commande",
+      "A-SANSMAIL:etat_abonnement",
+      "A-SANSMAIL:adhesion_lien_natif",
+      "A-SANSMAIL:etat_adhesion",
+      "A-ECHEANCE:motif",
+      "A-ECHEANCE:login_email",
+      "A-ECHEANCE:password",
+      "A-ECHEANCE:commande_sans_paiement",
+      "A-ECHEANCE:produit_commande",
+      "A-ECHEANCE:etat_abonnement",
+      "A-ECHEANCE:adhesion_lien_natif",
+      "A-ECHEANCE:etat_adhesion",
+      "P-OFFRANT:login_email",
+      "P-OFFRANT:password",
+      "P-OFFRANT:role",
+      "P-OFFERT:login_email",
+      "P-OFFERT:password",
+      "P-OFFERT:role",
+      "P-GEST:login_email",
+      "P-GEST:password",
+      "P-GEST:role",
+      "P-BENEF:login_email",
+      "P-BENEF:password",
+      "P-BENEF:role",
+      "P-PRO:login_email",
+      "P-PRO:password",
+      "P-PRO:role",
+      "P-SOL-ATT:motif",
+      "P-SOL-ATT:login_email",
+      "P-SOL-ATT:password",
+      "P-SOL-ATT:role",
+      "P-SOL-ATT:etat_adhesion",
+      "P-SOL-OK:motif",
+      "P-SOL-OK:login_email",
+      "P-SOL-OK:password",
+      "P-SOL-OK:role",
+      "P-SOL-OK:etat_adhesion",
+      "P-NUMERO:login_email",
+      "P-NUMERO:password",
+      "P-NUMERO:role",
+      "P-NUMERO:commande_sans_paiement",
+      "P-NUMERO:produit_commande",
+      "P-COOP:login_email",
+      "P-COOP:password",
+      "P-COOP:role",
+      "E-ADMIN:motif",
+      "E-ADMIN:login_email",
+      "E-ADMIN:password",
+      "E-ADMIN:role",
+      "E-REDAC:motif",
+      "E-REDAC:login_email",
+      "E-REDAC:password",
+      "E-REDAC:role",
+      "E-REDAC:contenus_calendrier",
+      "E-ABO:login_email",
+      "E-ABO:password",
+      "E-ABO:role",
+      "E-ABO:gestion_commandes"
+    ],
+    "checks": {
+      "catalogue_30": true,
+      "fixture_installee": true,
+      "V-ANON:motif": true,
+      "V-ANON:sans_compte": true,
+      "V-FAUX:motif": true,
+      "V-FAUX:sans_compte": true,
+      "V-DEC:motif": true,
+      "V-DEC:login_email": false,
+      "V-DEC:password": false,
+      "V-DEC:role": false,
+      "V-DEC:nombre_commandes": true,
+      "V-DEC:nombre_abonnements": true,
+      "V-DEC:nombre_adhesions": true,
+      "V-DEC-FIN:motif": true,
+      "V-DEC-FIN:login_email": false,
+      "V-DEC-FIN:password": false,
+      "V-DEC-FIN:role": false,
+      "V-DEC-FIN:nombre_commandes": true,
+      "V-DEC-FIN:nombre_abonnements": true,
+      "V-DEC-FIN:nombre_adhesions": true,
+      "V-INSCRIT:motif": true,
+      "V-INSCRIT:login_email": false,
+      "V-INSCRIT:password": false,
+      "V-INSCRIT:role": false,
+      "V-INSCRIT:nombre_commandes": false,
+      "V-INSCRIT:nombre_abonnements": true,
+      "V-INSCRIT:nombre_adhesions": true,
+      "V-INSCRIT:commande_sans_paiement": false,
+      "V-INSCRIT:produit_commande": false,
+      "A-CARTE:motif": true,
+      "A-CARTE:login_email": false,
+      "A-CARTE:password": false,
+      "A-CARTE:role": true,
+      "A-CARTE:nombre_commandes": false,
+      "A-CARTE:nombre_abonnements": false,
+      "A-CARTE:nombre_adhesions": false,
+      "A-CARTE:commande_sans_paiement": false,
+      "A-CARTE:produit_commande": false,
+      "A-CARTE:etat_abonnement": false,
+      "A-CARTE:aucun_paiement_automatique": true,
+      "A-CARTE:parent_natif": false,
+      "A-CARTE:adhesion_lien_natif": false,
+      "A-CARTE:produit_abonnement": true,
+      "A-CARTE:prochain_paiement": true,
+      "A-CARTE:etat_adhesion": false,
+      "A-CARTE:plan_adhesion": true,
+      "A-SEPA4:motif": false,
+      "A-SEPA4:login_email": false,
+      "A-SEPA4:password": false,
+      "A-SEPA4:role": true,
+      "A-SEPA4:nombre_commandes": true,
+      "A-SEPA4:nombre_abonnements": true,
+      "A-SEPA4:nombre_adhesions": true,
+      "A-SEPA4:commande_sans_paiement": false,
+      "A-SEPA4:produit_commande": false,
+      "A-SEPA4:etat_abonnement": false,
+      "A-SEPA4:aucun_paiement_automatique": true,
+      "A-SEPA4:parent_natif": true,
+      "A-SEPA4:adhesion_lien_natif": false,
+      "A-SEPA4:produit_abonnement": true,
+      "A-SEPA4:prochain_paiement": true,
+      "A-SEPA4:etat_adhesion": false,
+      "A-SEPA4:plan_adhesion": true,
+      "A-PAYPAL:motif": false,
+      "A-PAYPAL:login_email": false,
+      "A-PAYPAL:password": false,
+      "A-PAYPAL:role": true,
+      "A-PAYPAL:nombre_commandes": true,
+      "A-PAYPAL:nombre_abonnements": true,
+      "A-PAYPAL:nombre_adhesions": true,
+      "A-PAYPAL:commande_sans_paiement": false,
+      "A-PAYPAL:produit_commande": false,
+      "A-PAYPAL:etat_abonnement": false,
+      "A-PAYPAL:aucun_paiement_automatique": true,
+      "A-PAYPAL:parent_natif": true,
+      "A-PAYPAL:adhesion_lien_natif": false,
+      "A-PAYPAL:produit_abonnement": true,
+      "A-PAYPAL:prochain_paiement": true,
+      "A-PAYPAL:etat_adhesion": false,
+      "A-PAYPAL:plan_adhesion": true,
+      "A-VIR:motif": false,
+      "A-VIR:login_email": false,
+      "A-VIR:password": false,
+      "A-VIR:role": true,
+      "A-VIR:nombre_commandes": true,
+      "A-VIR:nombre_abonnements": true,
+      "A-VIR:nombre_adhesions": true,
+      "A-VIR:commande_sans_paiement": false,
+      "A-VIR:produit_commande": false,
+      "A-VIR:etat_abonnement": false,
+      "A-VIR:aucun_paiement_automatique": true,
+      "A-VIR:parent_natif": true,
+      "A-VIR:adhesion_lien_natif": false,
+      "A-VIR:produit_abonnement": true,
+      "A-VIR:prochain_paiement": true,
+      "A-VIR:etat_adhesion": false,
+      "A-VIR:plan_adhesion": true,
+      "A-PAPIER:motif": false,
+      "A-PAPIER:login_email": false,
+      "A-PAPIER:password": false,
+      "A-PAPIER:role": true,
+      "A-PAPIER:nombre_commandes": true,
+      "A-PAPIER:nombre_abonnements": true,
+      "A-PAPIER:nombre_adhesions": true,
+      "A-PAPIER:commande_sans_paiement": false,
+      "A-PAPIER:produit_commande": false,
+      "A-PAPIER:etat_abonnement": false,
+      "A-PAPIER:aucun_paiement_automatique": true,
+      "A-PAPIER:parent_natif": true,
+      "A-PAPIER:adhesion_lien_natif": false,
+      "A-PAPIER:produit_abonnement": true,
+      "A-PAPIER:prochain_paiement": true,
+      "A-PAPIER:echeance_ce_mois": true,
+      "A-PAPIER:etat_adhesion": false,
+      "A-PAPIER:plan_adhesion": true,
+      "A-GRACE:motif": false,
+      "A-GRACE:login_email": false,
+      "A-GRACE:password": false,
+      "A-GRACE:role": false,
+      "A-GRACE:nombre_commandes": true,
+      "A-GRACE:nombre_abonnements": true,
+      "A-GRACE:nombre_adhesions": true,
+      "A-GRACE:commande_sans_paiement": false,
+      "A-GRACE:produit_commande": false,
+      "A-GRACE:etat_abonnement": true,
+      "A-GRACE:aucun_paiement_automatique": true,
+      "A-GRACE:parent_natif": true,
+      "A-GRACE:adhesion_lien_natif": false,
+      "A-GRACE:produit_abonnement": true,
+      "A-GRACE:prochain_paiement": true,
+      "A-GRACE:fenetre_grace": true,
+      "A-GRACE:etat_adhesion": false,
+      "A-GRACE:plan_adhesion": true,
+      "A-SUSP:motif": false,
+      "A-SUSP:login_email": false,
+      "A-SUSP:password": false,
+      "A-SUSP:role": false,
+      "A-SUSP:nombre_commandes": true,
+      "A-SUSP:nombre_abonnements": true,
+      "A-SUSP:nombre_adhesions": true,
+      "A-SUSP:commande_sans_paiement": false,
+      "A-SUSP:produit_commande": false,
+      "A-SUSP:etat_abonnement": true,
+      "A-SUSP:aucun_paiement_automatique": true,
+      "A-SUSP:parent_natif": true,
+      "A-SUSP:adhesion_lien_natif": false,
+      "A-SUSP:produit_abonnement": true,
+      "A-SUSP:prochain_paiement": true,
+      "A-SUSP:fenetre_grace": true,
+      "A-SUSP:etat_adhesion": false,
+      "A-SUSP:plan_adhesion": true,
+      "A-EXPIRE:motif": true,
+      "A-EXPIRE:login_email": false,
+      "A-EXPIRE:password": false,
+      "A-EXPIRE:role": true,
+      "A-EXPIRE:nombre_commandes": true,
+      "A-EXPIRE:nombre_abonnements": true,
+      "A-EXPIRE:nombre_adhesions": true,
+      "A-EXPIRE:commande_sans_paiement": false,
+      "A-EXPIRE:produit_commande": false,
+      "A-EXPIRE:etat_abonnement": false,
+      "A-EXPIRE:aucun_paiement_automatique": true,
+      "A-EXPIRE:parent_natif": true,
+      "A-EXPIRE:adhesion_lien_natif": false,
+      "A-EXPIRE:produit_abonnement": true,
+      "A-EXPIRE:prochain_paiement": true,
+      "A-EXPIRE:etat_adhesion": false,
+      "A-EXPIRE:plan_adhesion": true,
+      "A-NONRENOUV:motif": false,
+      "A-NONRENOUV:login_email": false,
+      "A-NONRENOUV:password": false,
+      "A-NONRENOUV:role": true,
+      "A-NONRENOUV:nombre_commandes": true,
+      "A-NONRENOUV:nombre_abonnements": true,
+      "A-NONRENOUV:nombre_adhesions": true,
+      "A-NONRENOUV:commande_sans_paiement": false,
+      "A-NONRENOUV:produit_commande": false,
+      "A-NONRENOUV:etat_abonnement": false,
+      "A-NONRENOUV:aucun_paiement_automatique": true,
+      "A-NONRENOUV:parent_natif": true,
+      "A-NONRENOUV:adhesion_lien_natif": false,
+      "A-NONRENOUV:produit_abonnement": true,
+      "A-NONRENOUV:prochain_paiement": true,
+      "A-NONRENOUV:etat_adhesion": false,
+      "A-NONRENOUV:plan_adhesion": true,
+      "A-ETRANGER:motif": false,
+      "A-ETRANGER:login_email": false,
+      "A-ETRANGER:password": false,
+      "A-ETRANGER:role": true,
+      "A-ETRANGER:nombre_commandes": true,
+      "A-ETRANGER:nombre_abonnements": true,
+      "A-ETRANGER:nombre_adhesions": true,
+      "A-ETRANGER:commande_sans_paiement": false,
+      "A-ETRANGER:produit_commande": false,
+      "A-ETRANGER:etat_abonnement": false,
+      "A-ETRANGER:aucun_paiement_automatique": true,
+      "A-ETRANGER:parent_natif": true,
+      "A-ETRANGER:adhesion_lien_natif": false,
+      "A-ETRANGER:produit_abonnement": true,
+      "A-ETRANGER:prochain_paiement": true,
+      "A-ETRANGER:etat_adhesion": false,
+      "A-ETRANGER:plan_adhesion": true,
+      "A-ETRANGER:port_natif_fictif": false,
+      "A-SANSMAIL:motif": false,
+      "A-SANSMAIL:login_email": false,
+      "A-SANSMAIL:password": false,
+      "A-SANSMAIL:role": true,
+      "A-SANSMAIL:nombre_commandes": true,
+      "A-SANSMAIL:nombre_abonnements": true,
+      "A-SANSMAIL:nombre_adhesions": true,
+      "A-SANSMAIL:commande_sans_paiement": false,
+      "A-SANSMAIL:produit_commande": false,
+      "A-SANSMAIL:etat_abonnement": false,
+      "A-SANSMAIL:aucun_paiement_automatique": true,
+      "A-SANSMAIL:parent_natif": true,
+      "A-SANSMAIL:adhesion_lien_natif": false,
+      "A-SANSMAIL:produit_abonnement": true,
+      "A-SANSMAIL:prochain_paiement": true,
+      "A-SANSMAIL:etat_adhesion": false,
+      "A-SANSMAIL:plan_adhesion": true,
+      "A-ECHEANCE:motif": false,
+      "A-ECHEANCE:login_email": false,
+      "A-ECHEANCE:password": false,
+      "A-ECHEANCE:role": true,
+      "A-ECHEANCE:nombre_commandes": true,
+      "A-ECHEANCE:nombre_abonnements": true,
+      "A-ECHEANCE:nombre_adhesions": true,
+      "A-ECHEANCE:commande_sans_paiement": false,
+      "A-ECHEANCE:produit_commande": false,
+      "A-ECHEANCE:etat_abonnement": false,
+      "A-ECHEANCE:aucun_paiement_automatique": true,
+      "A-ECHEANCE:parent_natif": true,
+      "A-ECHEANCE:adhesion_lien_natif": false,
+      "A-ECHEANCE:produit_abonnement": true,
+      "A-ECHEANCE:prochain_paiement": true,
+      "A-ECHEANCE:terme_30_jours": true,
+      "A-ECHEANCE:etat_adhesion": false,
+      "A-ECHEANCE:plan_adhesion": true,
+      "P-OFFRANT:motif": true,
+      "P-OFFRANT:login_email": false,
+      "P-OFFRANT:password": false,
+      "P-OFFRANT:role": false,
+      "P-OFFRANT:nombre_commandes": true,
+      "P-OFFRANT:nombre_abonnements": true,
+      "P-OFFRANT:nombre_adhesions": true,
+      "P-OFFERT:motif": true,
+      "P-OFFERT:login_email": false,
+      "P-OFFERT:password": false,
+      "P-OFFERT:role": false,
+      "P-OFFERT:nombre_commandes": true,
+      "P-OFFERT:nombre_abonnements": true,
+      "P-OFFERT:nombre_adhesions": true,
+      "P-GEST:motif": true,
+      "P-GEST:login_email": false,
+      "P-GEST:password": false,
+      "P-GEST:role": false,
+      "P-GEST:nombre_commandes": true,
+      "P-GEST:nombre_abonnements": true,
+      "P-GEST:nombre_adhesions": true,
+      "P-BENEF:motif": true,
+      "P-BENEF:login_email": false,
+      "P-BENEF:password": false,
+      "P-BENEF:role": false,
+      "P-BENEF:nombre_commandes": true,
+      "P-BENEF:nombre_abonnements": true,
+      "P-BENEF:nombre_adhesions": true,
+      "P-PRO:motif": true,
+      "P-PRO:login_email": false,
+      "P-PRO:password": false,
+      "P-PRO:role": false,
+      "P-PRO:nombre_commandes": true,
+      "P-PRO:nombre_abonnements": true,
+      "P-PRO:nombre_adhesions": true,
+      "P-SOL-ATT:motif": false,
+      "P-SOL-ATT:login_email": false,
+      "P-SOL-ATT:password": false,
+      "P-SOL-ATT:role": false,
+      "P-SOL-ATT:nombre_commandes": true,
+      "P-SOL-ATT:nombre_abonnements": true,
+      "P-SOL-ATT:nombre_adhesions": true,
+      "P-SOL-ATT:etat_adhesion": false,
+      "P-SOL-ATT:plan_adhesion": true,
+      "P-SOL-OK:motif": false,
+      "P-SOL-OK:login_email": false,
+      "P-SOL-OK:password": false,
+      "P-SOL-OK:role": false,
+      "P-SOL-OK:nombre_commandes": true,
+      "P-SOL-OK:nombre_abonnements": true,
+      "P-SOL-OK:nombre_adhesions": true,
+      "P-SOL-OK:etat_adhesion": false,
+      "P-SOL-OK:plan_adhesion": true,
+      "P-SOL-OK:fin_45_jours": true,
+      "P-NUMERO:motif": true,
+      "P-NUMERO:login_email": false,
+      "P-NUMERO:password": false,
+      "P-NUMERO:role": false,
+      "P-NUMERO:nombre_commandes": true,
+      "P-NUMERO:nombre_abonnements": true,
+      "P-NUMERO:nombre_adhesions": true,
+      "P-NUMERO:commande_sans_paiement": false,
+      "P-NUMERO:produit_commande": false,
+      "P-COOP:motif": true,
+      "P-COOP:login_email": false,
+      "P-COOP:password": false,
+      "P-COOP:role": false,
+      "P-COOP:nombre_commandes": true,
+      "P-COOP:nombre_abonnements": true,
+      "P-COOP:nombre_adhesions": true,
+      "E-ADMIN:motif": false,
+      "E-ADMIN:login_email": false,
+      "E-ADMIN:password": false,
+      "E-ADMIN:role": false,
+      "E-ADMIN:nombre_commandes": true,
+      "E-ADMIN:nombre_abonnements": true,
+      "E-ADMIN:nombre_adhesions": true,
+      "E-REDAC:motif": false,
+      "E-REDAC:login_email": false,
+      "E-REDAC:password": false,
+      "E-REDAC:role": false,
+      "E-REDAC:nombre_commandes": true,
+      "E-REDAC:nombre_abonnements": true,
+      "E-REDAC:nombre_adhesions": true,
+      "E-REDAC:contenus_calendrier": false,
+      "E-ABO:motif": true,
+      "E-ABO:login_email": false,
+      "E-ABO:password": false,
+      "E-ABO:role": false,
+      "E-ABO:nombre_commandes": true,
+      "E-ABO:nombre_abonnements": true,
+      "E-ABO:nombre_adhesions": true,
+      "E-ABO:gestion_commandes": false,
+      "aucun_compte_visiteur_robot": true,
+      "numero_entreprise_coherent_non_atteste": true,
+      "mail_coupe": true,
+      "http_coupe": true,
+      "passerelles_coupees": true,
+      "catalogue_plan_droits": true
+    },
+    "proof": {
+      "V-ANON": {
+        "user_id": 0,
+        "decision": {
+          "complet": false,
+          "motif": "anonyme",
+          "bloc": "connexion"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "V-FAUX": {
+        "user_id": 0,
+        "decision": {
+          "complet": false,
+          "motif": "anonyme",
+          "bloc": "connexion"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "V-DEC": {
+        "user_id": 6,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "V-DEC-FIN": {
+        "user_id": 7,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "V-INSCRIT": {
+        "user_id": 8,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [
+          {
+            "id": 130,
+            "status": "pending",
+            "total": "0.00",
+            "customer_id": 8,
+            "item_count": 0,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": ""
+          }
+        ],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "A-CARTE": {
+        "user_id": 9,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [
+          {
+            "id": 127,
+            "status": "pending",
+            "total": "0.00",
+            "customer_id": 9,
+            "item_count": 0,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": ""
+          },
+          {
+            "id": 88,
+            "status": "pending",
+            "total": "0.00",
+            "customer_id": 9,
+            "item_count": 0,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 128,
+            "parent_id": 0,
+            "customer_id": 9,
+            "status": "pending",
+            "start": "2026-11-23 14:57:36",
+            "end": 0,
+            "next_payment": 0,
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          },
+          {
+            "id": 89,
+            "parent_id": 88,
+            "customer_id": 9,
+            "status": "on-hold",
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-11-23 14:56:58",
+            "next_payment": "2026-12-23 14:56:58",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 129,
+            "user_id": 9,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": null,
+            "start": "2026-11-23 14:57:36",
+            "end": null
+          },
+          {
+            "id": 90,
+            "user_id": 9,
+            "plan_id": 86,
+            "status": "cancelled",
+            "order_id": 88,
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-11-23 14:56:58"
+          }
+        ]
+      },
+      "A-SEPA4": {
+        "user_id": 10,
+        "decision": {
+          "complet": false,
+          "motif": "expire",
+          "bloc": "abonnement"
+        },
+        "orders": [
+          {
+            "id": 91,
+            "status": "pending",
+            "total": "0.00",
+            "customer_id": 10,
+            "item_count": 0,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 92,
+            "parent_id": 91,
+            "customer_id": 10,
+            "status": "on-hold",
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-11-23 14:56:58",
+            "next_payment": "2026-12-23 14:56:58",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 93,
+            "user_id": 10,
+            "plan_id": 86,
+            "status": "cancelled",
+            "order_id": 91,
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-11-23 14:56:58"
+          }
+        ]
+      },
+      "A-PAYPAL": {
+        "user_id": 11,
+        "decision": {
+          "complet": false,
+          "motif": "expire",
+          "bloc": "abonnement"
+        },
+        "orders": [
+          {
+            "id": 94,
+            "status": "pending",
+            "total": "0.00",
+            "customer_id": 11,
+            "item_count": 0,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 95,
+            "parent_id": 94,
+            "customer_id": 11,
+            "status": "on-hold",
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-11-23 14:56:58",
+            "next_payment": "2026-12-23 14:56:58",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 96,
+            "user_id": 11,
+            "plan_id": 86,
+            "status": "cancelled",
+            "order_id": 94,
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-11-23 14:56:58"
+          }
+        ]
+      },
+      "A-VIR": {
+        "user_id": 12,
+        "decision": {
+          "complet": false,
+          "motif": "expire",
+          "bloc": "abonnement"
+        },
+        "orders": [
+          {
+            "id": 97,
+            "status": "pending",
+            "total": "0.00",
+            "customer_id": 12,
+            "item_count": 0,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 98,
+            "parent_id": 97,
+            "customer_id": 12,
+            "status": "on-hold",
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-11-23 14:56:58",
+            "next_payment": "2026-12-23 14:56:58",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 99,
+            "user_id": 12,
+            "plan_id": 86,
+            "status": "cancelled",
+            "order_id": 97,
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-11-23 14:56:58"
+          }
+        ]
+      },
+      "A-PAPIER": {
+        "user_id": 13,
+        "decision": {
+          "complet": false,
+          "motif": "expire",
+          "bloc": "abonnement"
+        },
+        "orders": [
+          {
+            "id": 100,
+            "status": "pending",
+            "total": "0.00",
+            "customer_id": 13,
+            "item_count": 0,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 101,
+            "parent_id": 100,
+            "customer_id": 13,
+            "status": "on-hold",
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-11-23 14:56:58",
+            "next_payment": "2026-11-23 15:56:58",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 102,
+            "user_id": 13,
+            "plan_id": 86,
+            "status": "cancelled",
+            "order_id": 100,
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-11-23 14:56:58"
+          }
+        ]
+      },
+      "A-GRACE": {
+        "user_id": 14,
+        "decision": {
+          "complet": false,
+          "motif": "expire",
+          "bloc": "abonnement"
+        },
+        "orders": [
+          {
+            "id": 103,
+            "status": "pending",
+            "total": "0.00",
+            "customer_id": 14,
+            "item_count": 0,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 104,
+            "parent_id": 103,
+            "customer_id": 14,
+            "status": "on-hold",
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-11-23 14:56:58",
+            "next_payment": "2026-12-23 14:56:58",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "2026-11-22 14:56:58",
+            "grace_end": "2026-11-25 14:56:58"
+          }
+        ],
+        "memberships": [
+          {
+            "id": 105,
+            "user_id": 14,
+            "plan_id": 86,
+            "status": "cancelled",
+            "order_id": 103,
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-11-23 14:56:58"
+          }
+        ]
+      },
+      "A-SUSP": {
+        "user_id": 15,
+        "decision": {
+          "complet": false,
+          "motif": "expire",
+          "bloc": "abonnement"
+        },
+        "orders": [
+          {
+            "id": 106,
+            "status": "pending",
+            "total": "0.00",
+            "customer_id": 15,
+            "item_count": 0,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 107,
+            "parent_id": 106,
+            "customer_id": 15,
+            "status": "on-hold",
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-11-23 14:56:58",
+            "next_payment": "2026-12-23 14:56:58",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "2026-11-19 14:56:58",
+            "grace_end": "2026-11-22 14:56:58"
+          }
+        ],
+        "memberships": [
+          {
+            "id": 108,
+            "user_id": 15,
+            "plan_id": 86,
+            "status": "cancelled",
+            "order_id": 106,
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-11-23 14:56:58"
+          }
+        ]
+      },
+      "A-EXPIRE": {
+        "user_id": 16,
+        "decision": {
+          "complet": false,
+          "motif": "expire",
+          "bloc": "abonnement"
+        },
+        "orders": [
+          {
+            "id": 109,
+            "status": "pending",
+            "total": "0.00",
+            "customer_id": 16,
+            "item_count": 0,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 110,
+            "parent_id": 109,
+            "customer_id": 16,
+            "status": "on-hold",
+            "start": "2025-12-23 14:56:58",
+            "end": "2026-11-22 14:56:58",
+            "next_payment": 0,
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 111,
+            "user_id": 16,
+            "plan_id": 86,
+            "status": "cancelled",
+            "order_id": 109,
+            "start": "2025-12-23 14:56:58",
+            "end": "2026-11-22 14:56:58"
+          }
+        ]
+      },
+      "A-NONRENOUV": {
+        "user_id": 17,
+        "decision": {
+          "complet": false,
+          "motif": "expire",
+          "bloc": "abonnement"
+        },
+        "orders": [
+          {
+            "id": 112,
+            "status": "pending",
+            "total": "0.00",
+            "customer_id": 17,
+            "item_count": 0,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 113,
+            "parent_id": 112,
+            "customer_id": 17,
+            "status": "on-hold",
+            "start": "2025-12-23 14:56:58",
+            "end": "2026-12-23 14:56:58",
+            "next_payment": 0,
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 114,
+            "user_id": 17,
+            "plan_id": 86,
+            "status": "cancelled",
+            "order_id": 112,
+            "start": "2025-12-23 14:56:58",
+            "end": "2026-12-23 14:56:58"
+          }
+        ]
+      },
+      "A-ETRANGER": {
+        "user_id": 18,
+        "decision": {
+          "complet": false,
+          "motif": "expire",
+          "bloc": "abonnement"
+        },
+        "orders": [
+          {
+            "id": 115,
+            "status": "pending",
+            "total": "0.00",
+            "customer_id": 18,
+            "item_count": 0,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "FR"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 116,
+            "parent_id": 115,
+            "customer_id": 18,
+            "status": "on-hold",
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-11-23 14:56:58",
+            "next_payment": "2026-12-23 14:56:58",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 117,
+            "user_id": 18,
+            "plan_id": 86,
+            "status": "cancelled",
+            "order_id": 115,
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-11-23 14:56:58"
+          }
+        ]
+      },
+      "A-SANSMAIL": {
+        "user_id": 19,
+        "decision": {
+          "complet": false,
+          "motif": "expire",
+          "bloc": "abonnement"
+        },
+        "orders": [
+          {
+            "id": 118,
+            "status": "pending",
+            "total": "0.00",
+            "customer_id": 19,
+            "item_count": 0,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 119,
+            "parent_id": 118,
+            "customer_id": 19,
+            "status": "on-hold",
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-11-23 14:56:58",
+            "next_payment": "2026-12-23 14:56:58",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 120,
+            "user_id": 19,
+            "plan_id": 86,
+            "status": "cancelled",
+            "order_id": 118,
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-11-23 14:56:58"
+          }
+        ]
+      },
+      "A-ECHEANCE": {
+        "user_id": 20,
+        "decision": {
+          "complet": false,
+          "motif": "expire",
+          "bloc": "abonnement"
+        },
+        "orders": [
+          {
+            "id": 121,
+            "status": "pending",
+            "total": "0.00",
+            "customer_id": 20,
+            "item_count": 0,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 122,
+            "parent_id": 121,
+            "customer_id": 20,
+            "status": "on-hold",
+            "start": "2025-12-23 14:56:58",
+            "end": "2026-12-23 14:56:58",
+            "next_payment": "2026-12-22 14:56:58",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": ""
+          }
+        ],
+        "memberships": [
+          {
+            "id": 123,
+            "user_id": 20,
+            "plan_id": 86,
+            "status": "cancelled",
+            "order_id": 121,
+            "start": "2025-12-23 14:56:58",
+            "end": "2026-12-23 14:56:58"
+          }
+        ]
+      },
+      "P-OFFRANT": {
+        "user_id": 21,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "P-OFFERT": {
+        "user_id": 22,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "P-GEST": {
+        "user_id": 23,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "P-BENEF": {
+        "user_id": 24,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "P-PRO": {
+        "user_id": 25,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "P-SOL-ATT": {
+        "user_id": 26,
+        "decision": {
+          "complet": false,
+          "motif": "expire",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": [
+          {
+            "id": 124,
+            "user_id": 26,
+            "plan_id": 86,
+            "status": "cancelled",
+            "order_id": null,
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-11-23 14:56:58"
+          }
+        ]
+      },
+      "P-SOL-OK": {
+        "user_id": 27,
+        "decision": {
+          "complet": false,
+          "motif": "expire",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": [
+          {
+            "id": 125,
+            "user_id": 27,
+            "plan_id": 86,
+            "status": "cancelled",
+            "order_id": null,
+            "start": "2025-12-23 14:56:58",
+            "end": "2027-01-07 14:56:58"
+          }
+        ]
+      },
+      "P-NUMERO": {
+        "user_id": 28,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [
+          {
+            "id": 126,
+            "status": "pending",
+            "total": "0.00",
+            "customer_id": 28,
+            "item_count": 0,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "P-COOP": {
+        "user_id": 29,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "E-ADMIN": {
+        "user_id": 30,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "E-REDAC": {
+        "user_id": 31,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "E-ABO": {
+        "user_id": 32,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      }
+    },
+    "fixture": {
+      "plan": 86,
+      "product": 87,
+      "users": {
+        "V-DEC": 6,
+        "V-DEC-FIN": 7,
+        "V-INSCRIT": 8,
+        "A-CARTE": 9,
+        "A-SEPA4": 10,
+        "A-PAYPAL": 11,
+        "A-VIR": 12,
+        "A-PAPIER": 13,
+        "A-GRACE": 14,
+        "A-SUSP": 15,
+        "A-EXPIRE": 16,
+        "A-NONRENOUV": 17,
+        "A-ETRANGER": 18,
+        "A-SANSMAIL": 19,
+        "A-ECHEANCE": 20,
+        "P-OFFRANT": 21,
+        "P-OFFERT": 22,
+        "P-GEST": 23,
+        "P-BENEF": 24,
+        "P-PRO": 25,
+        "P-SOL-ATT": 26,
+        "P-SOL-OK": 27,
+        "P-NUMERO": 28,
+        "P-COOP": 29,
+        "E-ADMIN": 30,
+        "E-REDAC": 31,
+        "E-ABO": 32
+      },
+      "orders": {
+        "A-CARTE": 88,
+        "A-SEPA4": 91,
+        "A-PAYPAL": 94,
+        "A-VIR": 97,
+        "A-PAPIER": 100,
+        "A-GRACE": 103,
+        "A-SUSP": 106,
+        "A-EXPIRE": 109,
+        "A-NONRENOUV": 112,
+        "A-ETRANGER": 115,
+        "A-SANSMAIL": 118,
+        "A-ECHEANCE": 121,
+        "P-NUMERO": 126
+      },
+      "subscriptions": {
+        "A-CARTE": 89,
+        "A-SEPA4": 92,
+        "A-PAYPAL": 95,
+        "A-VIR": 98,
+        "A-PAPIER": 101,
+        "A-GRACE": 104,
+        "A-SUSP": 107,
+        "A-EXPIRE": 110,
+        "A-NONRENOUV": 113,
+        "A-ETRANGER": 116,
+        "A-SANSMAIL": 119,
+        "A-ECHEANCE": 122
+      },
+      "memberships": {
+        "A-CARTE": 90,
+        "A-SEPA4": 93,
+        "A-PAYPAL": 96,
+        "A-VIR": 99,
+        "A-PAPIER": 102,
+        "A-GRACE": 105,
+        "A-SUSP": 108,
+        "A-EXPIRE": 111,
+        "A-NONRENOUV": 114,
+        "A-ETRANGER": 117,
+        "A-SANSMAIL": 120,
+        "A-ECHEANCE": 123,
+        "P-SOL-ATT": 124,
+        "P-SOL-OK": 125
+      }
+    }
+  }
+}
