@@ -36,6 +36,7 @@ _a_supprimer/
 .sync.lock
 .relire.lock
 .hermes.lock
+.hermes-2.lock
 
 # Donnees reelles - jamais dans le depot (abonnes, exports Access, Brevo, Stripe)
 *.mdb
