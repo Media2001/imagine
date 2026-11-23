@@ -65,7 +65,7 @@ def run():
                     if kind == 'clean':
                         mismatched = cmd.copy()
                         mismatched[mismatched.index('--expected-core-version') + 1] = '7.0.9'
-                        refused = subprocess.run(mismatched, input=b'', capture_output=True, timeout=180,
+                        refused = subprocess.run(mismatched, input=(secrets.token_urlsafe(40) + '\n').encode(), capture_output=True, timeout=180,
                                                  env={**os.environ, 'PYTHONDONTWRITEBYTECODE': '1'})
                         guard = json.loads(refused.stdout.decode().strip().splitlines()[-1])
                         guard_path = Path(guard['report'])

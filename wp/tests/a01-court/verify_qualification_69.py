@@ -132,6 +132,9 @@ def main():
         for runner in recovered['runners_removed']:
             absent = publish.call(['inspect', runner['name']], check=False)
             assert absent.returncode and b'no such object' in absent.stderr.lower()
+        for label in (publish.LABEL, publish.offline_runner.LABEL):
+            residue = publish.call(['ps', '-aq', '--filter', 'label=' + label + '=true']).stdout.strip()
+            assert not residue, 'OWNED_RUNNER_LABEL_RESIDUE'
     units = subprocess.run([sys.executable, '-m', 'unittest', 'discover', '-s', 'wp/tests/a01-court', '-p', 'test_*.py', '-v'],
                            cwd=ROOT, capture_output=True, timeout=90,
                            env={**os.environ, 'PYTHONDONTWRITEBYTECODE': '1',
@@ -152,6 +155,7 @@ def main():
               'offline': {'path': offline.relative_to(ROOT).as_posix(), 'sha256': sha(offline), 'checks': 18},
               'unit_tests': int(count[1]), 'unit_exit': units.returncode, 'unit_transcript_sha256': hashlib.sha256(transcript).hexdigest(),
               'live_cleanup_checked': args.live_cleanup, 'payloads_match_current': True,
+              'owned_runner_labels_empty': args.live_cleanup,
               'delivery_sources': delivery, 'no_real_archive_or_agent_io': True,
               'subscriptions_691': 'NOT_TESTED; prior 7.0.9 qualification retained; first Ced real-import report reviewed before opening',
               'memberships_691': '1.30.3 actually activated and rights/shortcodes preserved'}

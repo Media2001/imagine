@@ -163,7 +163,7 @@ def verify(report, live=False):
         for path in report.parent.parent.glob('*/result.json'):
             historical = json.loads(path.read_text(encoding='utf-8'))
             for case in historical.get('cases', []):
-                if 'normal_creation' in case: names.add(case['normal_creation']['slug'])
+                if 'name' in case: names.add(case['name'])
         recovery = report.parent.parent / '4fde653a20f2/cleanup-recovery.json'
         if recovery.is_file(): names.add(json.loads(recovery.read_text())['name'])
         for name in sorted(names):

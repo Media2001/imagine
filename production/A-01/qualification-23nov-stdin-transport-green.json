@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "subject_exit": 1,
+  "subject_report": "production/A-01/publication-23nov/ab135a17a909/result.json",
+  "subject_sha256": "9e7bd7398f33d386daca4cbe2e547f6a1c645c5a814f3dfbed0072926582b387",
+  "exact_stdin_cli": true,
+  "synthetic_archive_only": true,
+  "archive_sha256": "167e93de220e1b2df36848d3fd3ae102f5f274dbcbaec0059b27d0de1f48b79f",
+  "metadata_guard_before_site_download_bootstrap": true,
+  "synthetic_archive_directory_absent": true
+}

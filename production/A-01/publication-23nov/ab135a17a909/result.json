@@ -1,0 +1,127 @@
+{
+  "status": "FAIL",
+  "run_id": "ab135a17a909",
+  "cases": [
+    {
+      "name": "imagine-test-a01-stdin-transport",
+      "storage": "operator",
+      "trapped": false,
+      "trap_kind": null,
+      "status": "FAIL",
+      "offline_isolation_before": {
+        "network": "none",
+        "mounts": [],
+        "ports": [],
+        "privileged": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
+        "name": "imagine-a01-publication-6bfa977f1416"
+      },
+      "source_manifest": {
+        "wp/outils/staging/neutraliser": "3bd131154ce850d2427d164ec3d33f12fa372fe65b3f2888ff926c779100ff2d",
+        "wp/outils/staging/anonymiser": "2d8ee8c6afc3b586b49393db1c99bfb5049f568ed6d506fc1ad29db38eb0de1d",
+        "wp/outils/staging/verifier": "d0f3e5728411faa22e20109636d684f551fe937600eebb5839382d205c42b9d6",
+        "wp/outils/staging/command.php": "fb5589cf23024a50cbf188a158fc5d92f5a8389297468f07e984601a58a06305",
+        "wp/outils/staging/lib.php": "b3df143051f5bd63f7ee27ebf5073946bf9b094fe88464d41cdc820ab82f8459",
+        "wp/outils/staging/schema.php": "81dfe75642c7a267fe92d23336fe14353de2d479700f8c97415702e14ae45d2a",
+        "wp/outils/staging/files.php": "2209ead54c5fb1405d9d4cd06749328349ee3be981f831c9cbafcd5ccb80125e",
+        "wp/outils/staging/pdo-store.php": "3984aea62a1405534c2c8e73fe948e6605e6e0795d6a1d9a331b33b8464b61eb",
+        "wp/outils/staging/runtime-probe.php": "3c8a98d1db5714e1944194f558a1df3a3c512e14e3aa370308a60a97f5889140",
+        "wp/outils/staging/policy.php": "d37e5a2c87da63a66280479eea01f3d3ad0ea4671cb8ba82e079cfd9c84e4401",
+        "wp/outils/staging/mu-plugins/000-imagine-staging-safety.php": "c16f048f3fd2587ba719924eec53b07651ea3b6a495a8125746a157582f5474f",
+        "wp/outils/staging-court/archive.py": "ef489212c21575b266e661d46afbed78c33feacbc16ef1c1faf44b93f43829ef",
+        "wp/outils/staging-court/inside.py": "3493d1d55a3959f644a4bbc9109addcae6f822e559a4e46a97a02ef1840761ed",
+        "wp/outils/staging-court/bridge.php": "5c13515a5ca50d3e2991a7d595a2499d53cd29b75ce95880c5291f69046d0a22",
+        "wp/outils/staging-court/core_source.py": "e8bdd546a791852a9d6dc22b01b61b77777fdf6f9e98acfd58fdebd7867265ab",
+        "wp/outils/staging-wp-integration/worker/worker.py": "1cdb5f85db2d2c0e3aecba4828785794e03c1a3a383b4c3a67075b1426e4f293",
+        "wp/tests/staging-e2e/inside.py": "6f3b745290d33c65fe05f91997e244091d1ff6ff5d913054b723258010bd65ff",
+        "wp/tests/staging-e2e/fixture.php": "ae2f4ff9ae14910623b5ad52318bd0b4ca44fd8ec829e929484dbbcd84526618",
+        "wp/tests/staging-e2e/snapshot.php": "ca87758706b4d673a42971d6964cde6972a4c2aba8873f534e7b32669df52b76",
+        "wp/tests/staging-e2e/oracle.php": "b10744669aeae305adfb4fc0c2fbf73897d97c26d0e09b8143cdec0ce424f685",
+        "wp/tests/staging-e2e/mutate.php": "1612e6e121c90b9850a1a92ab7250dd15e1792f5da709c979470ddb0a455aaa4",
+        "wp/tests/staging-e2e/db-probe.php": "27f0cbc465112574e0b3545b4eb22bb1a403e58eaf18494cfde72e7128e2635d",
+        "wp/tests/staging-e2e/mail-probe.php": "693f212827b5283d38babc7a0719e8bd9a4fc81b752a4d5912fe39161062b2b0",
+        "wp/tests/staging-e2e/worker-bridge.php": "c440b849b554c24f062441afd65811d74ac5112e9fce0a7961ed89d7e58d6fb7",
+        "wp/tests/staging-e2e/subject-preflight.php": "c6eb3a2746d2916bf14c884229f05e3b4950fc26521037cd95962f6e93d4ab51",
+        "wp/tests/staging-e2e/fidelity.php": "3e319c13679a92a400cca9e61306ecd01fc953c830f6b44fb302ce933bee389a",
+        "wp/tests/staging-e2e/fidelity-mu.php": "2a8f60c6a35375dd885d73d6a6e42dd8ca3acbc7b015af9a254709284af5beb7",
+        "wp/tests/staging-e2e/licensed-fixture.php": "f52b4704560dae7d24dccaa415fe9adca9d69adbe239637cf1301185d2f38bb5",
+        "wp/tests/staging-e2e/subject-adapter.json": "ace78fbb6c0b1a2b81911f6287efb3c9c3cdddf00b10c64c42cf0acb170b75aa",
+        "wp/tests/staging-e2e/harness.py": "3d7af593be2355afabb954f46625f67932c68e8ba446fe85c36f7de14b261f49",
+        "wp/tests/staging-e2e/test_harness.py": "d41a8502f9ff2f52d479d73d466c3d939b3987293dba214759e080de5d73c563",
+        "wp/tests/a01-court/roundtrip.py": "a07c5997421f40bd893af082dc4600c79c2d3740521a95f3fa7e763e628d1db8",
+        "wp/tests/a01-court/export.php": "2f42b0f076364e3289ba228394dc98e14b2b92a7a50a14af26d1f146dd4b0d33",
+        "wp/tests/a01-court/test_archive.py": "26b8f92bd8d71989d6f65db927a5c5da95be5d8b8082d129eada42dc8183c3ec",
+        "wp/tests/staging-data/commands.py": "20516cddd3f366aca2efbf215b8c8c2a06da019e2f23988d7165f5d743995f25",
+        "wp/tests/staging-data/fixtures.php": "2c6d88066a988863c951b1ad133f28598170e8aaf7c03d7d5baf624ef0a97953",
+        "wp/tests/staging-data/mu-plugin.php": "c010f5df1f7ea62697ca68a55998e117e43fef1178d3c8fc4f25531ef790b79f",
+        "wp/tests/staging-data/pdo-contract.php": "262f15008c067246aa40877494a7f8345e4bd34a3bc63bd434725a4a37bf0c24",
+        "wp/tests/staging-data/reprise.php": "572b10c3d117450cdb66d64fd4a3d763f5fb87a72d0b0422b6b94fe1ee0cb79c",
+        "wp/tests/staging-data/run.php": "053fc010774a6e659dc8128e24a81db4ed1fec9cec941a49c6146d1751158a0e",
+        "wp/tests/staging-data/runtime.php": "bbb2697295c5f1dd42e4546f6ed3d5077370f8d69391eee63793626a073f4e2b",
+        "wp/tests/staging-data/verify.py": "30c10f97fdd8cfe5a031172de5b61fdc93eb0a65394e78151e744a70883e7f53",
+        "wp/outils/staging-court/publication_probe.php": "2d22f3cf6131144669695f4b0bb221e04876735d642d0b472a95466a864f440a",
+        "wp/outils/staging-court/script_capacity_probe.php": "701751e2b8560688cd5574b08a0d04d762097f59505a8cac1c629292d373a355",
+        "wp/tests/a01-court/prepare_publication.py": "612bd0e96377697593a61e49111cfdab15b865448d1cbee17be3eb443166b112",
+        "wp/tests/a01-court/qualification_69.py": "3ee097358e76a8464365cbd9463cc3b21479d8ec8335ce1c61c3302b5ca2f5e6",
+        "wp/tests/licensed-a01/inside-commercial.py": "b92b1c2bf64ec301672663a361535636a025340177cfdd5560d223c89beb23ca",
+        "wp/tests/licensed-a01/cases.php": "f718a926aeed8f3a98e369ecd198aca86895d357442fb1983bdfd3c46582d422"
+      },
+      "archive_core_preflight": {
+        "ok": false,
+        "stage": "archive_core_preflight",
+        "code": "SOURCE_EXPECTED_CORE_VERSION_MISMATCH",
+        "core_versions": {
+          "source": "6.9.1",
+          "expected": "7.0.9"
+        },
+        "metadata_only": true
+      },
+      "error": "SOURCE_EXPECTED_CORE_VERSION_MISMATCH",
+      "frames": [
+        {
+          "file": "publish.py",
+          "line": 525,
+          "function": "main"
+        }
+      ]
+    }
+  ],
+  "cleanup": [
+    {
+      "name": "imagine-a01-publication-6bfa977f1416",
+      "absent": true
+    }
+  ],
+  "no_real_archive": false,
+  "no_agent_access_used": true,
+  "tool_or_templates_modified": false,
+  "expected_core_version": "7.0.9",
+  "update_policy": "deployment_scripts_only; DISALLOW_FILE_MODS retained; update-host egress retained",
+  "post_verified_network_limit": "WordPress HTTP filtering only; not a system firewall",
+  "started_utc": "2026-11-23T08:48:47.190594+00:00",
+  "tool_source_manifest": {
+    "/app/api/orchestrator.py": "1d73b3d4c4c2825cc4ba68a8aefa2731c401767db8f63916891d70cec49694d1",
+    "/app/api/main.py": "fae065a3d75eabb98266bbe6a47a4446ff8bb3477df6e2a176e3fc86872b9b32",
+    "/app/api/models.py": "44dc74dce43076787910a496091b8b54f19004b26df03678666ada2620584c77",
+    "/app/api/templates/docker-compose.wp.yml.j2": "2098452ae6c10a63cc7b966ea4df441da3b233932176d87d754d6c81a523c9b4",
+    "/app/api/templates/templates.json": "784843aee6afda8dd5037ae029981b1c0d4472c5d1edabf383702edfc19e3637"
+  },
+  "tool_sources_unchanged": true,
+  "finished_utc": "2026-11-23T08:48:50.699489+00:00",
+  "command_sources": {
+    "wp/outils/staging-court/archive.py": "ef489212c21575b266e661d46afbed78c33feacbc16ef1c1faf44b93f43829ef",
+    "wp/outils/staging-court/core_source.py": "e8bdd546a791852a9d6dc22b01b61b77777fdf6f9e98acfd58fdebd7867265ab",
+    "wp/outils/staging-court/inside.py": "3493d1d55a3959f644a4bbc9109addcae6f822e559a4e46a97a02ef1840761ed",
+    "wp/outils/staging-court/publication.py": "ac8031f2e9352e694d03a07226fa19e3982f75a696107d9ff6ae41d914a1f244",
+    "wp/outils/staging-court/publication_preflight.py": "cd4dfeb3ef170ea83ba503c3e2b193e4f3dbc11ee8a1053c01d2efc122fee313",
+    "wp/outils/staging-court/publish.py": "c8b7efe2997893a2b5dd935612dad23935b532733b3d270a2e5b2b31c5f48577",
+    "wp/outils/staging-court/run.py": "0fd43f04786cf59a7451cc2d701965b625e3de7babd7c1ddb6f339bc4a874b4c",
+    "wp/outils/staging-court/bridge.php": "5c13515a5ca50d3e2991a7d595a2499d53cd29b75ce95880c5291f69046d0a22",
+    "wp/outils/staging-court/publication_probe.php": "2d22f3cf6131144669695f4b0bb221e04876735d642d0b472a95466a864f440a",
+    "wp/outils/staging-court/script_capacity_probe.php": "701751e2b8560688cd5574b08a0d04d762097f59505a8cac1c629292d373a355"
+  }
+}
