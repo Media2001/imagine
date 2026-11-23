@@ -67,7 +67,7 @@ def main():
         created = True
         record('isolation_before_input', True, validate(json.loads(call(['inspect', name]).stdout)[0], name))
         call(['start', name]); call(['exec', name, 'mkdir', '-p', '/subject', '/opt/a02', '/report'])
-        for file in ['unit.php'] + ([] if args.unit_only else ['inside.py', 'seed.php', 'fingerprint.php']):
+        for file in ['unit.php'] + ([] if args.unit_only else ['inside.py', 'seed.php', 'fingerprint.php', 'readonly-probe.php']):
             call(['cp', local(ROOT / file), name + ':/opt/a02/' + file])
         if SUBJECT.exists():
             call(['cp', local(SUBJECT), name + ':/subject/audit'])

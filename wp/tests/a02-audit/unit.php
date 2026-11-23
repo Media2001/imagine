@@ -28,6 +28,7 @@ if (is_file($subject)) {
     check('identifier_preserved', \Imagine\Audit\Audit::identifier('woocommerce/woocommerce.php') === 'woocommerce/woocommerce.php');
     check('identifier_email_redacted', \Imagine\Audit\Audit::identifier('person@example.org') === '[masque]');
     check('identifier_markup_redacted', \Imagine\Audit\Audit::identifier('<script>') === '[masque]');
+    check('identifier_traversal_redacted', \Imagine\Audit\Audit::identifier('../wp-config.php') === '[masque]');
     check('identifier_token_redacted', \Imagine\Audit\Audit::identifier('sk_live_FICTIONAL_PRIVATE_VALUE') === '[masque]');
     $literal = "<?php define('DB_NAME', 'fixture'); define('DB_USER', 'audit'); define('DB_PASSWORD', ''); define('DB_HOST', 'localhost:/scratch/db.sock'); \$table_prefix = 'abc_'; require 'never-execute.php';";
     if (method_exists(\Imagine\Audit\Audit::class, 'config')) {

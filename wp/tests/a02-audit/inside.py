@@ -117,6 +117,7 @@ def run_storage(storage):
     plugins = {v['name']: v for v in versions['plugins']}
     check(storage + ':plugins_inactive_mu', plugins['inactive-fixture/inactive-fixture.php']['active'] is False and plugins['mu/a02-fixture.php']['active'] is True)
     check(storage + ':cached_update_and_requirements', plugins['fixture-builder/fixture-builder.php']['latest'] == '3.0.0' and plugins['fixture-builder/fixture-builder.php']['requires_php'] == '8.2')
+    check(storage + ':commercial_requirements_constants', plugins['woocommerce-memberships/woocommerce-memberships.php']['requires_php'] == '7.4' and plugins['woocommerce-memberships/woocommerce-memberships.php']['requires_wp'] == '5.6')
     check(storage + ':unknown_latest_not_invented', plugins['inactive-fixture/inactive-fixture.php']['latest'] is None)
     themes = {v['name']: v for v in versions['themes']}
     check(storage + ':theme_inventory', themes['a02-theme']['active'] and themes['a02-theme']['latest'] == '2.0.0')
@@ -162,6 +163,31 @@ def run_storage(storage):
     check(storage + ':db_identical', before == after, {'before': before['logical_sha256'], 'after': after['logical_sha256'], 'tables': len(before['tables'])})
     check(storage + ':site_files_identical', file_before == files(site), {'before': file_before, 'after': files(site)})
     check(storage + ':never_bootstrap', not (SCRATCH / 'a02-bootstrap-trap').exists())
+    original = (site / 'wp-config.php').read_text()
+    try:
+        (site / 'wp-config.php').write_text(original.replace("define('DB_USER', 'a02_" + storage + "')", "define('DB_USER', 'root')"))
+        guard = cmd(['php', str(ROOT / 'readonly-probe.php')], env={'A02_SITE': str(site)}, check=False)
+        check(storage + ':transaction_blocks_even_root', guard.returncode == 0 and all(json.loads(guard.stdout).values()), json.loads(guard.stdout))
+    finally:
+        (site / 'wp-config.php').write_text(original)
+    # Invalid dynamic configuration must never be executed or printed.
+    try:
+        (site / 'wp-config.php').write_text(original.replace("define('DB_PASSWORD', '')", "define('DB_PASSWORD', getenv('A02_NEVER_EXECUTE_PRIVATE_CANARY'))"))
+        bad = audit(site, OUT / (storage + '-invalid-config'))
+        check(storage + ':dynamic_config_safe_refusal', bad.returncode == 1 and bad.stderr == 'A02_CONFIG_NON_LITERAL\n' and not (OUT / (storage + '-invalid-config')).exists())
+    finally:
+        (site / 'wp-config.php').write_text(original)
+    # Parent-directory symlinks must not escape the selected synthetic site.
+    link = site / 'wp-content/themes/a02-symlink'
+    external = SCRATCH / ('external-' + storage)
+    external.mkdir()
+    (external / 'style.css').write_text('/* Theme Name: private canary\nVersion: 1.0.0\n*/')
+    link.symlink_to(external, target_is_directory=True)
+    bad = audit(site, OUT / (storage + '-symlink'))
+    check(storage + ':symlink_parent_refused', bad.returncode == 1 and not (OUT / (storage + '-symlink')).exists())
+    link.unlink()
+    check(storage + ':negative_probes_no_database_change', before == fingerprint(db))
+    check(storage + ':negative_probes_files_restored', file_before == files(site))
 
 def main():
     SCRATCH.mkdir()

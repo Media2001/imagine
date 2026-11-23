@@ -1,0 +1,70 @@
+{
+  "run_id": "9af0705eb173",
+  "container": "imagine-a02-audit-9af0705eb173",
+  "recorded_at": "2026-11-23T09:53:35.817982+00:00",
+  "mode": "full",
+  "exit_code": 0,
+  "checks": [
+    {
+      "check": "isolation_before_input",
+      "status": "PASS",
+      "detail": {
+        "network": "none",
+        "mounts": [],
+        "ports": [],
+        "privileged": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2"
+      }
+    },
+    {
+      "check": "sources_stable_at_copy",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "unit_return",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "inner_receipt",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "isolation_after_execution",
+      "status": "PASS",
+      "detail": {
+        "network": "none",
+        "mounts": [],
+        "ports": [],
+        "privileged": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2"
+      }
+    },
+    {
+      "check": "cleanup",
+      "status": "PASS",
+      "detail": {
+        "absent": true
+      }
+    },
+    {
+      "check": "sources_unchanged",
+      "status": "PASS",
+      "detail": null
+    }
+  ]
+}

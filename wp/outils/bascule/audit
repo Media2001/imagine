@@ -191,6 +191,16 @@ final class Audit
         return $files;
     }
 
+    private static function requirement(string $text, string $header, string $constant): ?string
+    {
+        $value = self::version(self::header($text, $header));
+        if ($value !== null) {
+            return $value;
+        }
+        preg_match('/\bconst\s+' . preg_quote($constant, '/') . '\s*=\s*[\'\"]([0-9A-Za-z.+-]+)[\'\"]\s*;/', $text, $match);
+        return self::version($match[1] ?? null);
+    }
+
     private function inventory(): array
     {
         $active = self::decode($this->option('active_plugins'));
@@ -218,8 +228,10 @@ final class Audit
                     'active' => $mu || in_array($key, $active, true) || array_key_exists($key, $network),
                     'kind' => $mu ? 'mu' : 'plugin',
                     'latest' => self::version($cached['new_version'] ?? null),
-                    'requires_wp' => self::version(self::header($text, 'Requires at least')),
-                    'requires_php' => self::version(self::header($text, 'Requires PHP')),
+                    'requires_wp' => self::requirement($text, 'Requires at least', 'MINIMUM_WP_VERSION'),
+                    'requires_php' => self::requirement($text, 'Requires PHP', 'MINIMUM_PHP_VERSION'),
+                    'requires_woo' => self::requirement($text, 'WC requires at least', 'MINIMUM_WC_VERSION'),
+                    'requirements_source' => 'headers_or_literal_MINIMUM_constants_else_unknown',
                     'latest_requires_wp' => self::version($cached['requires'] ?? null),
                     'latest_requires_php' => self::version($cached['requires_php'] ?? null),
                     'last_updated' => self::date($cached['last_updated'] ?? null),
@@ -278,6 +290,9 @@ final class Audit
 
     public static function gatewayIds(string $source): array
     {
+        if (!preg_match('/\bclass\s+[A-Za-z_][A-Za-z0-9_]*\s+extends\s+\\\\?WC_Payment_Gateway(?:_CC|_eCheck)?\b/', $source)) {
+            return [];
+        }
         $ids = [];
         if (preg_match_all('/\$this->id\s*=\s*[\'\"]([A-Za-z0-9_-]+)[\'\"]/', $source, $matches)) {
             $ids = $matches[1];
@@ -335,6 +350,9 @@ final class Audit
             $root = $this->site . '/wp-content/plugins/' . (str_contains($name, '/') ? dirname($name) : $name);
             $files = is_dir($root) ? self::tree($root, '.php') : [$root];
             foreach ($files as $file) {
+                if (preg_match('~/(?:vendor|tests?|fixtures|node_modules)/~i', $file)) {
+                    continue;
+                }
                 $text = self::read($file, 16777216);
                 if (!str_contains($text, 'WC_Payment_Gateway')) {
                     continue;
@@ -634,6 +652,8 @@ final class Audit
     {
         return is_string($value)
             && preg_match('~\A[A-Za-z0-9_./\\-]{1,160}\z~D', $value)
+            && !str_contains($value, '..')
+            && !str_starts_with($value, '/')
             && !preg_match('/(?:sk_|pk_|rk_|whsec_|xkeysib-|[a-f0-9]{40})/i', $value)
             ? $value : '[masque]';
     }
