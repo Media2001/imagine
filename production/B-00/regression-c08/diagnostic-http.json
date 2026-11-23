@@ -1,0 +1,626 @@
+{
+  "scope": "imagine-test-demo",
+  "url": "http://192.168.129.32:8085",
+  "total": 229,
+  "passed": 229,
+  "failed": 0,
+  "failures": [],
+  "checks": {
+    "anonyme-page:status": true,
+    "anonyme-page:temoin": true,
+    "anonyme-page:autre_temoin_absent": true,
+    "anonyme-page:sans_erreur_php": true,
+    "anonyme-page:cache_prive": true,
+    "anonyme-page:sans_validateur_partage": true,
+    "anonyme:bloc_connexion": true,
+    "anonyme:extrait_public": true,
+    "partage:trois_balises": true,
+    "partage:temoin_absent": true,
+    "partage:balisage_payant": true,
+    "rest-item:status": true,
+    "rest-item:temoin": true,
+    "rest-item:autre_temoin_absent": true,
+    "rest-item:sans_erreur_php": true,
+    "rest-item:cache_prive": true,
+    "rest-item:sans_validateur_partage": true,
+    "rest-collection:status": true,
+    "rest-collection:temoin": true,
+    "rest-collection:autre_temoin_absent": true,
+    "rest-collection:sans_erreur_php": true,
+    "rest-collection:cache_prive": true,
+    "rest-collection:sans_validateur_partage": true,
+    "rest-collection:fixture_effectivement_presente": true,
+    "rest-champs:status": true,
+    "rest-champs:temoin": true,
+    "rest-champs:autre_temoin_absent": true,
+    "rest-champs:sans_erreur_php": true,
+    "rest-champs:cache_prive": true,
+    "rest-champs:sans_validateur_partage": true,
+    "rest-embed:status": true,
+    "rest-embed:temoin": true,
+    "rest-embed:autre_temoin_absent": true,
+    "rest-embed:sans_erreur_php": true,
+    "rest-embed:cache_prive": true,
+    "rest-embed:sans_validateur_partage": true,
+    "rest-route-alternative:status": true,
+    "rest-route-alternative:temoin": true,
+    "rest-route-alternative:autre_temoin_absent": true,
+    "rest-route-alternative:sans_erreur_php": true,
+    "rest-route-alternative:cache_prive": true,
+    "rest-route-alternative:sans_validateur_partage": true,
+    "rest-recherche:status": true,
+    "rest-recherche:temoin": true,
+    "rest-recherche:autre_temoin_absent": true,
+    "rest-recherche:sans_erreur_php": true,
+    "rest-recherche:cache_prive": true,
+    "rest-recherche:sans_validateur_partage": true,
+    "rss2:status": true,
+    "rss2:temoin": true,
+    "rss2:autre_temoin_absent": true,
+    "rss2:sans_erreur_php": true,
+    "rss2:cache_prive": true,
+    "rss2:sans_validateur_partage": true,
+    "rss2:fixture_effectivement_presente": true,
+    "rss:status": true,
+    "rss:temoin": true,
+    "rss:autre_temoin_absent": true,
+    "rss:sans_erreur_php": true,
+    "rss:cache_prive": true,
+    "rss:sans_validateur_partage": true,
+    "rss:fixture_effectivement_presente": true,
+    "atom:status": true,
+    "atom:temoin": true,
+    "atom:autre_temoin_absent": true,
+    "atom:sans_erreur_php": true,
+    "atom:cache_prive": true,
+    "atom:sans_validateur_partage": true,
+    "atom:fixture_effectivement_presente": true,
+    "rdf:status": true,
+    "rdf:temoin": true,
+    "rdf:autre_temoin_absent": true,
+    "rdf:sans_erreur_php": true,
+    "rdf:cache_prive": true,
+    "rdf:sans_validateur_partage": true,
+    "rdf:fixture_effectivement_presente": true,
+    "recherche:status": true,
+    "recherche:temoin": true,
+    "recherche:autre_temoin_absent": true,
+    "recherche:sans_erreur_php": true,
+    "recherche:cache_prive": true,
+    "recherche:sans_validateur_partage": true,
+    "recherche:reponse_recherche_valide": true,
+    "extrait-automatique:status": true,
+    "extrait-automatique:temoin": true,
+    "extrait-automatique:autre_temoin_absent": true,
+    "extrait-automatique:sans_erreur_php": true,
+    "extrait-automatique:cache_prive": true,
+    "extrait-automatique:sans_validateur_partage": true,
+    "extrait-automatique:repli_neutre": true,
+    "embed-page:status": true,
+    "embed-page:temoin": true,
+    "embed-page:autre_temoin_absent": true,
+    "embed-page:sans_erreur_php": true,
+    "embed-page:cache_prive": true,
+    "embed-page:sans_validateur_partage": true,
+    "apercu:status": true,
+    "apercu:temoin": true,
+    "apercu:autre_temoin_absent": true,
+    "apercu:sans_erreur_php": true,
+    "apercu:cache_prive": true,
+    "apercu:sans_validateur_partage": true,
+    "page-multipage:status": true,
+    "page-multipage:temoin": true,
+    "page-multipage:autre_temoin_absent": true,
+    "page-multipage:sans_erreur_php": true,
+    "page-multipage:cache_prive": true,
+    "page-multipage:sans_validateur_partage": true,
+    "page-amp-inactif:status": true,
+    "page-amp-inactif:temoin": true,
+    "page-amp-inactif:autre_temoin_absent": true,
+    "page-amp-inactif:sans_erreur_php": true,
+    "page-amp-inactif:cache_prive": true,
+    "page-amp-inactif:sans_validateur_partage": true,
+    "oembed:status": true,
+    "oembed:temoin": true,
+    "oembed:autre_temoin_absent": true,
+    "oembed:sans_erreur_php": true,
+    "oembed:cache_prive": true,
+    "oembed:sans_validateur_partage": true,
+    "rest-contexte-edition-interdit:status": true,
+    "rest-contexte-edition-interdit:temoin": true,
+    "rest-contexte-edition-interdit:autre_temoin_absent": true,
+    "rest-contexte-edition-interdit:sans_erreur_php": true,
+    "rest-contexte-edition-interdit:cache_prive": true,
+    "rest-contexte-edition-interdit:sans_validateur_partage": true,
+    "rest-revisions-interdites:status": true,
+    "rest-revisions-interdites:temoin": true,
+    "rest-revisions-interdites:autre_temoin_absent": true,
+    "rest-revisions-interdites:sans_erreur_php": true,
+    "rest-revisions-interdites:cache_prive": true,
+    "rest-revisions-interdites:sans_validateur_partage": true,
+    "faux-googlebot:status": true,
+    "faux-googlebot:temoin": true,
+    "faux-googlebot:autre_temoin_absent": true,
+    "faux-googlebot:sans_erreur_php": true,
+    "faux-googlebot:cache_prive": true,
+    "faux-googlebot:sans_validateur_partage": true,
+    "faux-bingbot:status": true,
+    "faux-bingbot:temoin": true,
+    "faux-bingbot:autre_temoin_absent": true,
+    "faux-bingbot:sans_erreur_php": true,
+    "faux-bingbot:cache_prive": true,
+    "faux-bingbot:sans_validateur_partage": true,
+    "conditionnelle-anonyme:status": true,
+    "conditionnelle-anonyme:temoin": true,
+    "conditionnelle-anonyme:autre_temoin_absent": true,
+    "conditionnelle-anonyme:sans_erreur_php": true,
+    "conditionnelle-anonyme:cache_prive": true,
+    "conditionnelle-anonyme:sans_validateur_partage": true,
+    "conditionnelle-flux:status": true,
+    "conditionnelle-flux:temoin": true,
+    "conditionnelle-flux:autre_temoin_absent": true,
+    "conditionnelle-flux:sans_erreur_php": true,
+    "conditionnelle-flux:cache_prive": true,
+    "conditionnelle-flux:sans_validateur_partage": true,
+    "actif-page:status": true,
+    "actif-page:temoin": true,
+    "actif-page:autre_temoin_absent": true,
+    "actif-page:sans_erreur_php": true,
+    "actif-page:cache_prive": true,
+    "actif-page:sans_validateur_partage": true,
+    "actif:bloc": true,
+    "actif:nonce_natif": true,
+    "actif-rest:status": true,
+    "actif-rest:temoin": true,
+    "actif-rest:autre_temoin_absent": true,
+    "actif-rest:sans_erreur_php": true,
+    "actif-rest:cache_prive": true,
+    "actif-rest:sans_validateur_partage": true,
+    "anonyme-apres-actif:status": true,
+    "anonyme-apres-actif:temoin": true,
+    "anonyme-apres-actif:autre_temoin_absent": true,
+    "anonyme-apres-actif:sans_erreur_php": true,
+    "anonyme-apres-actif:cache_prive": true,
+    "anonyme-apres-actif:sans_validateur_partage": true,
+    "grace-page:status": true,
+    "grace-page:temoin": true,
+    "grace-page:autre_temoin_absent": true,
+    "grace-page:sans_erreur_php": true,
+    "grace-page:cache_prive": true,
+    "grace-page:sans_validateur_partage": true,
+    "grace:bloc": true,
+    "grace:nonce_natif": true,
+    "grace-rest:status": true,
+    "grace-rest:temoin": true,
+    "grace-rest:autre_temoin_absent": true,
+    "grace-rest:sans_erreur_php": true,
+    "grace-rest:cache_prive": true,
+    "grace-rest:sans_validateur_partage": true,
+    "anonyme-apres-grace:status": true,
+    "anonyme-apres-grace:temoin": true,
+    "anonyme-apres-grace:autre_temoin_absent": true,
+    "anonyme-apres-grace:sans_erreur_php": true,
+    "anonyme-apres-grace:cache_prive": true,
+    "anonyme-apres-grace:sans_validateur_partage": true,
+    "sans-droit-page:status": true,
+    "sans-droit-page:temoin": true,
+    "sans-droit-page:autre_temoin_absent": true,
+    "sans-droit-page:sans_erreur_php": true,
+    "sans-droit-page:cache_prive": true,
+    "sans-droit-page:sans_validateur_partage": true,
+    "sans-droit:bloc": true,
+    "sans-droit:nonce_natif": true,
+    "sans-droit-rest:status": true,
+    "sans-droit-rest:temoin": true,
+    "sans-droit-rest:autre_temoin_absent": true,
+    "sans-droit-rest:sans_erreur_php": true,
+    "sans-droit-rest:cache_prive": true,
+    "sans-droit-rest:sans_validateur_partage": true,
+    "anonyme-apres-sans-droit:status": true,
+    "anonyme-apres-sans-droit:temoin": true,
+    "anonyme-apres-sans-droit:autre_temoin_absent": true,
+    "anonyme-apres-sans-droit:sans_erreur_php": true,
+    "anonyme-apres-sans-droit:cache_prive": true,
+    "anonyme-apres-sans-droit:sans_validateur_partage": true,
+    "cookie-mot-de-passe-non-droit:status": true,
+    "cookie-mot-de-passe-non-droit:temoin": true,
+    "cookie-mot-de-passe-non-droit:autre_temoin_absent": true,
+    "cookie-mot-de-passe-non-droit:sans_erreur_php": true,
+    "cookie-mot-de-passe-non-droit:cache_prive": true,
+    "cookie-mot-de-passe-non-droit:sans_validateur_partage": true,
+    "article-ouvert:status": true,
+    "article-ouvert:temoin": true,
+    "article-ouvert:autre_temoin_absent": true,
+    "article-ouvert:sans_erreur_php": true,
+    "article-ouvert:cache_prive": true,
+    "article-ouvert:sans_validateur_partage": true,
+    "article_ouvert:complet": true
+  },
+  "responses": {
+    "anonyme-page": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 27843,
+      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+    },
+    "rest-item": {
+      "path": "/wp-json/wp/v2/posts/81",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 2279,
+      "body_sha256": "b038f599441cf314b818a723edfd06475a9965c4afebd526469fbbb1006caae4"
+    },
+    "rest-collection": {
+      "path": "/wp-json/wp/v2/posts?include=81%2C82&_embed=1",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 6157,
+      "body_sha256": "e6456cdbc67cb3a46463a1294ac987f8277aae0db0e8fc41d8b1ccbab5b188c5"
+    },
+    "rest-champs": {
+      "path": "/wp-json/wp/v2/posts/81?_fields=content,excerpt",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 303,
+      "body_sha256": "e1392a4853f55d570b69a9fa33eddc0579ecf08376e9ea1c6a880e37b12036f2"
+    },
+    "rest-embed": {
+      "path": "/wp-json/wp/v2/posts/81?context=embed",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 1567,
+      "body_sha256": "3cc64071373fbd1e408b66207558b3fc0061c244a001146684760e859a32bbfd"
+    },
+    "rest-route-alternative": {
+      "path": "/?rest_route=/wp/v2/posts/81",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 2279,
+      "body_sha256": "b038f599441cf314b818a723edfd06475a9965c4afebd526469fbbb1006caae4"
+    },
+    "rest-recherche": {
+      "path": "/wp-json/wp/v2/search?search=C08",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 947,
+      "body_sha256": "5f2dda7770d2b6aba1a3304f4e8df5504a8a1ff03853f8f51ed5852dbe3079bc"
+    },
+    "rss2": {
+      "path": "/?feed=rss2",
+      "status": 200,
+      "headers": {
+        "content-type": "application/rss+xml; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 13274,
+      "body_sha256": "fda2227f053485a9a4c7474c0d1c9ef7e8304dae0513d58e835b282fe923069c"
+    },
+    "rss": {
+      "path": "/?feed=rss",
+      "status": 200,
+      "headers": {
+        "content-type": "application/rss+xml; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 3205,
+      "body_sha256": "e3004a6c191605cae9ff17593f494a7de72ff076c29d4667711485a281b417c4"
+    },
+    "atom": {
+      "path": "/?feed=atom",
+      "status": 200,
+      "headers": {
+        "content-type": "application/atom+xml; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 14440,
+      "body_sha256": "cb575cc091bc59419b5ceb62b4392f3fa647e01259a5342db066501d67cc28a3"
+    },
+    "rdf": {
+      "path": "/?feed=rdf",
+      "status": 200,
+      "headers": {
+        "content-type": "application/rdf+xml; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 13467,
+      "body_sha256": "6e8f6bdd88c1b83bdd2bbf64f73e812f28b86a25824c500d07501b4291fe2205"
+    },
+    "recherche": {
+      "path": "/?s=C08",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 26187,
+      "body_sha256": "62e2a46753e8f86b4fe2c5c8eec1f03d739ec787de3c3e1dde9d9eeca330429e"
+    },
+    "extrait-automatique": {
+      "path": "/c08-article-reserve-automatique/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 27538,
+      "body_sha256": "05124c15e6b513634067359ef557d16bebf8fcf865f54ebc081b2221bc6f87b9"
+    },
+    "embed-page": {
+      "path": "/c08-article-reserve-article/embed/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 20263,
+      "body_sha256": "cbfc47c12eb66b2335943b7d37030dcd24a65823dc03d11d017e94efc2ad34d4"
+    },
+    "apercu": {
+      "path": "/?p=81&preview=true",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 27843,
+      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+    },
+    "page-multipage": {
+      "path": "/c08-article-reserve-article/?page=2",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 27843,
+      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+    },
+    "page-amp-inactif": {
+      "path": "/c08-article-reserve-article/?amp=1",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 27843,
+      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+    },
+    "oembed": {
+      "path": "/wp-json/oembed/1.0/embed?url=http%3A%2F%2F192.168.129.32%3A8085%2Fc08-article-reserve-article%2F",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 632,
+      "body_sha256": "87602d413a0aeb3f8e0465e7544fdc4036e1484ae732e01be8ac299822331267"
+    },
+    "rest-contexte-edition-interdit": {
+      "path": "/wp-json/wp/v2/posts/81?context=edit",
+      "status": 401,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 151,
+      "body_sha256": "67cc54dbad8110b6f3b3179bd429862bafda68b9d5fd14d80b5c2f24b71a94b9"
+    },
+    "rest-revisions-interdites": {
+      "path": "/wp-json/wp/v2/posts/81/revisions",
+      "status": 401,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Origin"
+      },
+      "bytes": 169,
+      "body_sha256": "2112ed283ae0facda9170947b36278e896b47997a6ef933ad1f68f825c59d711"
+    },
+    "faux-googlebot": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 27843,
+      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+    },
+    "faux-bingbot": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 27843,
+      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+    },
+    "conditionnelle-anonyme": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 27843,
+      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+    },
+    "conditionnelle-flux": {
+      "path": "/?feed=rss2",
+      "status": 200,
+      "headers": {
+        "content-type": "application/rss+xml; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 13274,
+      "body_sha256": "fda2227f053485a9a4c7474c0d1c9ef7e8304dae0513d58e835b282fe923069c"
+    },
+    "actif-page": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 28325,
+      "body_sha256": "91cdaa3ed67aa24224f78dc92125efb25c4cc5fa95d9c00fbeb4001c8d29d13f"
+    },
+    "actif-rest": {
+      "path": "/wp-json/wp/v2/posts/81",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 3740,
+      "body_sha256": "08f7e7e4c920250bcba196f3841951fa68d3626e14a4bbc1a58a6b22c930b81e"
+    },
+    "anonyme-apres-actif": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 27843,
+      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+    },
+    "grace-page": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 28638,
+      "body_sha256": "b907726abacff2a95d7b2ec5b3599c3816bca548dbfee7c36a6111dbff2ecc96"
+    },
+    "grace-rest": {
+      "path": "/wp-json/wp/v2/posts/81",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 3740,
+      "body_sha256": "08f7e7e4c920250bcba196f3841951fa68d3626e14a4bbc1a58a6b22c930b81e"
+    },
+    "anonyme-apres-grace": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 27843,
+      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+    },
+    "sans-droit-page": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 27257,
+      "body_sha256": "7a65112759770ae7bb2671272276bf96330aeb1ce184233da6897fa8ed411c78"
+    },
+    "sans-droit-rest": {
+      "path": "/wp-json/wp/v2/posts/81",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json; charset=UTF-8",
+        "vary": "Cookie, Authorization, User-Agent",
+        "cache-control": "no-cache, must-revalidate, max-age=0, no-store, private"
+      },
+      "bytes": 2279,
+      "body_sha256": "b038f599441cf314b818a723edfd06475a9965c4afebd526469fbbb1006caae4"
+    },
+    "anonyme-apres-sans-droit": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 27843,
+      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+    },
+    "cookie-mot-de-passe-non-droit": {
+      "path": "/c08-article-reserve-article/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 27843,
+      "body_sha256": "40ce41d05674b6154f95f4a47fa7ab31ef83f831504c3aa47ef6feb09eff6084"
+    },
+    "article-ouvert": {
+      "path": "/demo-2026-t1-ouvert/",
+      "status": 200,
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
+        "vary": "Cookie, Authorization, User-Agent"
+      },
+      "bytes": 29915,
+      "body_sha256": "5523038fd7d7d7a536eb790b09a840593ee9bf5570e8801130cbeb57deaf229a"
+    }
+  }
+}

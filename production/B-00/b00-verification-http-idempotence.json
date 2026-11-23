@@ -553,7 +553,7 @@
       "headers": {
         "Content-Type": "text/html; charset=UTF-8"
       },
-      "body_sha256": "bc3dda3a9f54308226514c363dee36149c69418024e84c01a0174299a3b2155b",
+      "body_sha256": "0aa4e3eef946b975c19791f05e7f6a2f851beee72b28cf7b8fbc1f1f32bfdf1f",
       "body_bytes": 28303
     },
     "objet_term:demo-thematique-2": {
@@ -563,7 +563,7 @@
       "headers": {
         "Content-Type": "text/html; charset=UTF-8"
       },
-      "body_sha256": "2aa62071ed0958ac54cbd620e98095bd973f080d96999b8268fa8693823fa751",
+      "body_sha256": "80300706293e616b66d605088da5b9a3a689e7e18d0e038f10222396b3b3ca3b",
       "body_bytes": 26733
     },
     "objet_term:demo-thematique-3": {
@@ -573,7 +573,7 @@
       "headers": {
         "Content-Type": "text/html; charset=UTF-8"
       },
-      "body_sha256": "a400fe0a97cda7fe6572f5e086eeb44acdbe6c93610e0fc7c81c6a6b6d335ccf",
+      "body_sha256": "42ba965861655da2e6db28d904e85faeea07cd6867a064103fb02831ffc04a93",
       "body_bytes": 26706
     },
     "administration-authentifiee": {
@@ -583,7 +583,7 @@
       "headers": {
         "Content-Type": "text/html; charset=UTF-8"
       },
-      "body_sha256": "686a04d525caad2a093cdd2a02a4d92faf1b30322732f7c5300e634c0967aef2",
+      "body_sha256": "74f5b0037aca2ea6c3b318b226d337bebc778aef1c78f68e019fc160eddf7f13",
       "body_bytes": 304338
     }
   }

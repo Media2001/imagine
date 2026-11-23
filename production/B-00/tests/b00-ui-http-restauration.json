@@ -1,0 +1,15 @@
+{
+  "changed_keys_only": [
+    "C08-actif:wc_last_active",
+    "C08-actif:session_tokens",
+    "C08-grace:wc_last_active",
+    "C08-grace:session_tokens",
+    "C08-sans-droit:wc_last_active",
+    "C08-sans-droit:session_tokens"
+  ],
+  "restored_ui_keys": [
+    "C08-actif:wc_last_active",
+    "C08-grace:wc_last_active",
+    "C08-sans-droit:wc_last_active"
+  ]
+}

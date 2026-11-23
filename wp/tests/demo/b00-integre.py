@@ -49,7 +49,7 @@ def snapshot():
 
 
 def account_state():
-    code = '$out=[];foreach(get_option("imagine_c09_fixture")["users"] as $k=>$id){$out[$k]=["data"=>get_userdata($id)->data,"meta"=>get_user_meta($id)];}echo wp_json_encode($out);'
+    code = '$out=[];$users=get_option("imagine_c09_fixture")["users"];foreach(get_option("imagine_c08_fixture")["users"] as $k=>$id){$users["C08-".$k]=$id;}foreach($users as $k=>$id){$out[$k]=["data"=>get_userdata($id)->data,"meta"=>get_user_meta($id)];}echo wp_json_encode($out);'
     return json.loads(b00.wp('eval', code)['stdout'])
 
 
@@ -72,7 +72,7 @@ def restore_test_ui(before):
     # des droits et sont exclus du snapshot depuis sa première version.
     if restore:
         payload = json.dumps(json.dumps(restore))
-        code = '$rows=json_decode(' + payload + ',true);$f=get_option("imagine_c09_fixture");foreach($rows as $k=>$meta){$id=$f["users"][$k];foreach($meta as $field=>$values){delete_user_meta($id,$field);foreach($values as $v){add_user_meta($id,$field,maybe_unserialize($v));}}}echo "restored";'
+        code = '$rows=json_decode(' + payload + ',true);$users=get_option("imagine_c09_fixture")["users"];foreach(get_option("imagine_c08_fixture")["users"] as $k=>$id){$users["C08-".$k]=$id;}foreach($rows as $k=>$meta){$id=$users[$k];foreach($meta as $field=>$values){delete_user_meta($id,$field);foreach($values as $v){add_user_meta($id,$field,maybe_unserialize($v));}}}echo "restored";'
         b00.wp('eval', code)
     save('tests/b00-ui-http-restauration.json', {'changed_keys_only': changes, 'restored_ui_keys': [k + ':' + f for k,v in restore.items() for f in v]})
 
@@ -92,6 +92,7 @@ def run(replay=False):
         if result.returncode:
             raise RuntimeError('Reconstruction CLI post-C08 échouée')
     protected = snapshot()
+    save('tests/b00-integre-avant-recettes.json', protected)
     accounts_before = account_state()
     checks, suites = {}, {}
     stream = io.StringIO()
