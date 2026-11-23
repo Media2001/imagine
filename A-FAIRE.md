@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 23 novembre 2026, 13 h 45.
+Mis à jour le 23 novembre 2026, 14 h 25.
 
 **Deux voies depuis le 23/11.** Ce fichier est la file de la voie 1. Une deuxième session d'Hermès suit `A-FAIRE-2.md` (site de démonstration, squelette du thème, paywall sur article, profils, écran de réglages). Lis la section « Les deux voies » de la consigne permanente. Ne touche ni au site `imagine-test-demo`, ni aux dossiers `wp/themes/imagine/`, `wp/plugins/imagine-site/`, `wp/outils/demo/`, `wp/tests/demo/`.
 
@@ -13,6 +13,8 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 ## Consignes actives, par ordre de priorité
 
 File du 23/11, 13 h 45. Tes rapports de 10 h 11, 10 h 31, 11 h 16, 11 h 20 et 12 h 48 sont lus, ainsi que les vérifications d'A-01 et d'A-02.
+
+**0. `briefs/A-01-archive-reelle.md`** — le premier import réel a été refusé au prévol (`ARCHIVE_PATH`), sans dire pourquoi. Un mode diagnostic en une passe, et des règles de chemin moins aveugles. Deux heures. **Passe avant tout : Ced attend pour relancer.**
 
 **1. `briefs/T-01-commande-de-rejeu.md`** — **débloqué : tu prépares l'image toi-même.** Lance `wp/tests/preparer-image.ps1` (dépendances publiques verrouillées, aucun secret, aucun compte : il n'y a pas de raison de le réserver à Ced). Puis le vrai rejeu, la preuve, et `production/T-01/PRET`. Une heure.
 
@@ -74,5 +76,5 @@ Ensuite la file est vide : l'audit réel (A-02 sur le staging d'Imagine) attend 
 | C-05 Échéancier en quatre fois | 22/11 | **Clos le 23/11** (bibliothèque et preuve sur le vrai Subscriptions ; écran de réglages exclu) |
 | C-06 Décision d'accès | 21 et 22/11 | **Clos le 23/11** (bibliothèque ; écran de réglages exclu) |
 | C-07 Liste d'envoi | 22/11 | **Clos le 23/11** (bibliothèque ; écran de réglages exclu) |
-| A-01, import, vérification et publication | 22 et 23/11 | **Clos le 23/11** : qualifié en 6.9.1 sur archives fictives. Limite : Subscriptions non testable en 6.9.1, le premier import réel fera foi. Ce n'est pas un accord d'import |
+| A-01, import, vérification et publication | 22 et 23/11 | Clos le 23/11 puis **rouvert à 14 h 25** (consigne 0) : qualifié en 6.9.1 sur archives fictives, mais refus `ARCHIVE_PATH` sur l'archive réelle. Limite : Subscriptions non testable en 6.9.1, le premier import réel fera foi. Ce n'est pas un accord d'import |
 | A-02 Script d'audit | 23/11, corrigé le 23/11 | **Clos le 23/11** (outil et banc fictif). L'audit réel reste à lancer |
