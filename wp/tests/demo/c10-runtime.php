@@ -7,6 +7,11 @@ if (!defined('WP_CLI') || !WP_CLI || wp_get_environment_type() !== 'local'
     throw new \RuntimeException('Cible fictive C10 requise.');
 }
 $checks = ['ecran_present' => class_exists('Imagine\\Pilotage\\Administration\\Reglages')];
+$c10Fixture = get_option('imagine_c10_fixture');
+$checks['temoin_front_permanent'] = is_array($c10Fixture)
+    && get_post_type($c10Fixture['article']) === 'post'
+    && get_post_meta($c10Fixture['article'], '_imagine_c10_fixture', true) === 'article-futur'
+    && get_post_meta($c10Fixture['issue'], 'imagine_sortie', true) === '2099-01-01';
 if ($checks['ecran_present']) {
     $screen = new \Imagine\Pilotage\Administration\Reglages();
     $screen->enregistrer();

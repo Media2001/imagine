@@ -1,18 +1,18 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-23T20:56:58.143572+00:00",
+  "at": "2026-11-23T21:07:06.123315+00:00",
   "url": "http://192.168.129.32:8085",
   "files_sha256": {
-    "imagine-demo-build/c10-runtime.php": "4513bec050b30db5fca55fb7164394dedecde609548ec36e21c2eb95e90ff9db"
+    "imagine-demo-build/c10-runtime.php": "10b6b3820275e3bda27217d58a7de65b6603547027ffbc374825592d4cc63503"
   },
   "file_count": 1,
   "runtime": {
     "code": 1,
-    "stdout": "{\n    \"checks\": {\n        \"ecran_present\": true,\n        \"trois_options_meme_groupe\": true,\n        \"rendu_Accès\": true,\n        \"rendu_Paiement en quatre fois\": true,\n        \"rendu_Liste d’envoi\": true,\n        \"rendu_À confirmer par Imagine\": true,\n        \"rendu_Défaut\": true,\n        \"rendu_Journal des modifications\": true,\n        \"rendu_options.php\": true,\n        \"rendu__wpnonce\": true,\n        \"huit_champs\": true,\n        \"cap_admin\": true,\n        \"redacteur_sans_droit\": true,\n        \"futur_ferme\": true,\n        \"futur_equipe_reglage_effectif\": false,\n        \"A_VIR_virement_non_valide\": false,\n        \"role_referent_lecture_equipe\": false,\n        \"pdf_policies_connected\": false,\n        \"journal_KO_refuse_et_conserve\": false,\n        \"journal_KO_aucun_evenement\": true,\n        \"journal_KO_previent\": false\n    },\n    \"total\": 21,\n    \"failures\": [\n        \"futur_equipe_reglage_effectif\",\n        \"A_VIR_virement_non_valide\",\n        \"role_referent_lecture_equipe\",\n        \"pdf_policies_connected\",\n        \"journal_KO_refuse_et_conserve\",\n        \"journal_KO_previent\"\n    ]\n}",
+    "stdout": "{\n    \"checks\": {\n        \"ecran_present\": true,\n        \"temoin_front_permanent\": false,\n        \"trois_options_meme_groupe\": true,\n        \"rendu_Accès\": true,\n        \"rendu_Paiement en quatre fois\": true,\n        \"rendu_Liste d’envoi\": true,\n        \"rendu_À confirmer par Imagine\": true,\n        \"rendu_Défaut\": true,\n        \"rendu_Journal des modifications\": true,\n        \"rendu_options.php\": true,\n        \"rendu__wpnonce\": true,\n        \"huit_champs\": true,\n        \"cap_admin\": true,\n        \"redacteur_sans_droit\": true,\n        \"futur_ferme\": true,\n        \"futur_equipe_reglage_effectif\": true,\n        \"A_VIR_virement_non_valide\": true,\n        \"role_referent_lecture_equipe\": true,\n        \"pdf_policies_connected\": true,\n        \"pdf_robot_extrait\": true,\n        \"pdf_robot_complet\": true,\n        \"pdf_anterieur_ferme\": true,\n        \"pdf_anterieur_ouvert\": true,\n        \"journal_KO_refuse_et_conserve\": true,\n        \"journal_KO_aucun_evenement\": true,\n        \"journal_KO_previent\": true\n    },\n    \"total\": 26,\n    \"failures\": [\n        \"temoin_front_permanent\"\n    ]\n}",
     "stderr": ""
   },
-  "protected_before": "07c7217505615f72526f5d804bc8add8bba40a4eea5877f4bc8fbbe6592e2ef8",
-  "protected_after": "07c7217505615f72526f5d804bc8add8bba40a4eea5877f4bc8fbbe6592e2ef8",
+  "protected_before": "b9f4d41bda3d07b5adcad40b86b7f8cfb78af534c80efdeabce7c6098b6e85dc",
+  "protected_after": "b9f4d41bda3d07b5adcad40b86b7f8cfb78af534c80efdeabce7c6098b6e85dc",
   "manifest_unchanged": true,
   "status": "RED"
 }

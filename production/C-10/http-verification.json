@@ -1,6 +1,6 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-23T15:40:42.320641+00:00",
+  "at": "2026-11-23T21:04:09.606943+00:00",
   "url": "http://192.168.129.32:8085",
   "effect": {
     "setting": "imagine_envoi_colonnes_export",
@@ -14,7 +14,7 @@
   },
   "audit_evidence": [
     {
-      "quand_utc": "2026-11-23T15:41:29Z",
+      "quand_utc": "2026-11-23T21:05:06Z",
       "qui_id": 30,
       "qui_login": "e-admin",
       "option": "imagine_envoi_colonnes_export",
@@ -36,7 +36,7 @@
       ]
     },
     {
-      "quand_utc": "2026-11-23T15:41:29Z",
+      "quand_utc": "2026-11-23T21:05:06Z",
       "qui_id": 30,
       "qui_login": "e-admin",
       "option": "imagine_c05_reglages",
@@ -54,7 +54,7 @@
       }
     },
     {
-      "quand_utc": "2026-11-23T15:41:29Z",
+      "quand_utc": "2026-11-23T21:05:06Z",
       "qui_id": 30,
       "qui_login": "e-admin",
       "option": "imagine_acces_reglages",
@@ -70,9 +70,17 @@
       }
     }
   ],
-  "audit_count_before": 12,
-  "audit_count_after": 18,
-  "invalid_cases": 23,
+  "front_effect": {
+    "article": 81,
+    "option": "imagine_acces_reglages",
+    "closed": "ferme_tous",
+    "open_for_team_only": "equipe",
+    "release_restored": "2026-01-15",
+    "http_checks": 5
+  },
+  "audit_count_before": 36,
+  "audit_count_after": 46,
+  "invalid_cases": 25,
   "checks": {
     "admin_page_200": true,
     "menu_imagine_reglages": true,
@@ -137,6 +145,12 @@
     "forme_18_ancien_conserve": true,
     "forme_19_refuse": true,
     "forme_19_ancien_conserve": true,
+    "forme_20_refuse": true,
+    "forme_20_ancien_conserve": true,
+    "forme_21_refuse": true,
+    "forme_21_ancien_conserve": true,
+    "mixte_acces_refuse_paiement_persiste": true,
+    "mixte_un_seul_evenement_paiement": true,
     "valeurs_alternatives_lues_exactes": true,
     "trois_changements_trois_journaux": true,
     "audit_qui_quand": true,
@@ -148,13 +162,18 @@
     "invalide_conserve_non_defaut_imagine_envoi_colonnes_export": true,
     "retour_defauts_exact": true,
     "retour_journalise": true,
+    "front_futur_defaut_ferme_equipe": true,
+    "front_reglage_ouvre_article_equipe": true,
+    "front_futur_reste_ferme_anonyme": true,
+    "front_futur_reste_ferme_sans_droit": true,
+    "front_retour_defaut_referme_article": true,
     "session_detruite_30": true,
     "session_detruite_31": true,
     "session_detruite_5": true,
     "session_detruite_32": true,
     "C08_C09_contenus_comptes_bibliotheques_preserves": true
   },
-  "total": 79,
+  "total": 90,
   "responses": {
     "redacteur": {
       "status": 403,
