@@ -229,17 +229,19 @@ def diagnose(stream, expected='6.9.1', decisions=None, php='8.2'):
     if not expected_valid:
         findings.add('EXPECTED_CORE_VERSION_REFUSED')
     try:
-        version = select_version(scan['package'], expected if expected_valid else None)
+        version = select_version(scan['package'])
+        if expected_valid and version != expected:
+            findings.add('SOURCE_EXPECTED_CORE_VERSION_MISMATCH')
     except Refusal as error:
         findings.add(str(error))
-    except (AttributeError, IndexError):
+    except (AttributeError, IndexError, RecursionError):
         findings.add('SOURCE_CORE_METADATA_REFUSED')
     if scan['package'] is not None:
         try:
             metadata = json.loads(scan['package'])
             if isinstance(metadata, dict) and any(key in metadata for key in ('Multisite', 'Network')):
                 findings.add('MULTISITE_METADATA_REVIEW_REQUIRED', blocking=False)
-        except (ValueError, TypeError):
+        except (ValueError, TypeError, RecursionError):
             pass
     sql_diagnosis(scan['sql'], findings, decisions)
     for relative, header in plugins:
@@ -252,7 +254,7 @@ def diagnose(stream, expected='6.9.1', decisions=None, php='8.2'):
             if match and current and numeric(match[1]) > numeric(current):
                 findings.add(code, relative, blocking=False)
     report = findings.report(scan['report']['entries'], scan['report']['complete'])
-    report.update(mode='diagnose', read_only=True, created_sites=[], downloads=0, extracted_files=0,
+    report.update(mode='diagnose', core_versions={'source':version,'expected':expected if expected_valid else None}, read_only=True, created_sites=[], downloads=0, extracted_files=0,
                   status='REFUSED' if report['blockers'] else 'NO_STATIC_BLOCKER',
                   full_staging_ready=False,
                   deferred_checks=['TARGET_FILESYSTEM_CASE_PROBE_BEFORE_RESTORE', 'PUBLIC_CORE_AVAILABILITY_AND_EXACT_VERSION',

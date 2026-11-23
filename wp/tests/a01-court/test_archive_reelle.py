@@ -359,6 +359,43 @@ runpy.run_path(SCRIPT,run_name='__main__')
         self.assertIn('SQL_UNAVAILABLE',report['blockers'])
         self.assertIn('SOURCE_CORE_METADATA_REFUSED',report['blockers'])
         self.assertNotIn('ALICE',json.dumps(report))
+    def test_version_mismatch_does_not_hide_plugin_warnings(self):
+        import diagnosis
+        raw = fixture([('package.json',b'{"WordPress":{"Version":"6.9.1"}}'), ('database.sql',b'DELETE FROM `wp_options`;'),
+                       ('plugins/fiction/ALICE.php',b'<?php /*\nPlugin Name: Fiction\nRequires at least: 99.0\nRequires PHP: 99.0\n*/')])
+        report = diagnosis.diagnose(io.BytesIO(raw), expected='7.0.9')
+        self.assertIn('SOURCE_EXPECTED_CORE_VERSION_MISMATCH',report['blockers'])
+        self.assertIn('PLUGIN_REQUIRES_NEWER_WORDPRESS',report['warnings'])
+        self.assertIn('PLUGIN_REQUIRES_NEWER_PHP',report['warnings'])
+        self.assertEqual({'source':'6.9.1','expected':'7.0.9'},report['core_versions'])
+        self.assertNotIn('ALICE',json.dumps(report))
+
+    def test_secret_in_truncated_final_file_is_not_lost(self):
+        import diagnosis
+        raw = entry('package.json',b'{}') + entry('database.sql',b'DELETE FROM `wp_options`;') + entry('plugins/fiction/ALICE.php',b'sk_test_FICTION_SECRET_PADDING')[:-5]
+        report = diagnosis.diagnose(io.BytesIO(raw))
+        self.assertFalse(report['complete'])
+        self.assertIn('ARCHIVE_TRUNCATED',report['blockers'])
+        self.assertIn('SECRET_OU_IDENTIFIANT',report['blockers'])
+        self.assertNotIn('ALICE',json.dumps(report))
+    def test_size_budget_does_not_hide_small_late_manifest(self):
+        package = b'{"WordPress":{"Version":"6.9.1"}}'
+        raw = fixture([('uploads/2026/fiction.bin',b'0123456789'),('package.json',package),('database.sql',b'x')])
+        scan = archive.audit(io.BytesIO(raw), max_bytes=4, retain_sql=True)
+        self.assertIn('ARCHIVE_LIMIT',scan['report']['blockers'])
+        self.assertEqual(package,scan['package'])
+        self.assertEqual(b'x',scan['sql'])
+        self.assertTrue(scan['report']['complete'])
+
+    def test_manifest_recursion_is_safe_and_keeps_other_findings(self):
+        import diagnosis
+        raw = fixture([('package.json',b'['*1200+b'0'+b']'*1200),('database.sql',b'DELETE FROM `wp_options`;'),
+                       ('uploads/2026/ALICE\\photo.jpg',b'x')])
+        report = diagnosis.diagnose(io.BytesIO(raw))
+        self.assertIn('SOURCE_CORE_METADATA_REFUSED',report['blockers'])
+        self.assertIn('SQL_STATEMENT',report['blockers'])
+        self.assertIn('ARCHIVE_PATH_BACKSLASH',report['blockers'])
+        self.assertNotIn('ALICE',json.dumps(report))
 
 
 if __name__ == '__main__':

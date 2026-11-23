@@ -31,6 +31,14 @@ foreach ($secret['c08_accounts'] as $key => $account) {
         $id = wp_insert_user($userData);
     }
     if (is_wp_error($id)) { throw new \RuntimeException('Compte C08 non créé.'); }
+    // Répare aussi une exécution interrompue; wp_update_user ne rehash pas une valeur
+    // égale au champ stocké (cas d'un ancien essai wp_insert_user sur ID existant).
+    if (!wp_check_password($account['password'], get_userdata($id)->user_pass, $id)) {
+        wp_set_password($account['password'], $id);
+    }
+    if (!wp_check_password($account['password'], get_userdata($id)->user_pass, $id)) {
+        throw new \RuntimeException('Mot de passe fictif non vérifié.');
+    }
     $manifest['users'][$key] = $id;
     if ($key === 'sans-droit') { continue; }
     $sub = isset($old['subscriptions'][$key]) ? wcs_get_subscription($old['subscriptions'][$key]) : false;

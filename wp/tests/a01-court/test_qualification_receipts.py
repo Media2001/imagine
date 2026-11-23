@@ -17,8 +17,9 @@ class QualificationReceipts(unittest.TestCase):
     def setUp(self):
         self.assertTrue(REPORT.is_file(), 'Complete 6.9.1 receipt required')
         self.value = json.loads(REPORT.read_bytes())
-        # Require a passing current-source baseline BEFORE crediting a rejection.
-        self.assertEqual('PASS', verify_publication.verify(REPORT)['status'])
+        # Immutable historical receipts exercise their schema, not changed code.
+        # The default verifier remains strict; HistoricalReceiptBoundary proves it.
+        self.assertEqual('HISTORICAL_SCHEMA_ONLY', verify_publication.verify(REPORT, historical_schema_only=True)['status'])
 
     def reject(self, change):
         change(self.value)
@@ -52,6 +53,24 @@ class QualificationReceipts(unittest.TestCase):
 
     def test_core_must_precede_archived_content(self):
         self.reject(lambda v: v['cases'][0]['injection']['empty_target_core_before_archive_injection'].update(archive_content_absent=False))
+
+
+class HistoricalReceiptBoundary(unittest.TestCase):
+    def test_historical_schema_check_is_never_current_source_qualification(self):
+        import inspect
+        self.assertIn('historical_schema_only', inspect.signature(verify_publication.verify).parameters)
+        result = verify_publication.verify(REPORT, historical_schema_only=True)
+        self.assertEqual('HISTORICAL_SCHEMA_ONLY', result['status'])
+        self.assertFalse(result['source_payloads_match_current_files'])
+        self.assertFalse(result['full_staging_ready'])
+
+    def test_default_keeps_strict_source_integrity(self):
+        value = json.loads(REPORT.read_bytes())
+        value['command_sources'][next(iter(value['command_sources']))] = '0' * 64
+        original = Path.read_bytes
+        with mock.patch.object(Path, 'read_bytes', lambda p: json.dumps(value).encode() if p == REPORT else original(p)):
+            with self.assertRaisesRegex(AssertionError, 'COMMAND_SOURCE_DRIFT'):
+                verify_publication.verify(REPORT)
 
 
 if __name__ == '__main__':

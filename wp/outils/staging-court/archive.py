@@ -126,7 +126,8 @@ def audit(stream, max_bytes=1024*1024*1024, max_entries=150000, retain_sql=False
             findings.add(code, relative, blocking=code not in ('ARCHIVE_PATH_COLON', 'ARCHIVE_PATH_CASE_ONLY'))
         length = int(size)
         total += length
-        limited = entries > max_entries or total > max_bytes or (relative == 'database.sql' and length > 128*1024*1024) or (relative == 'package.json' and length > 1024*1024)
+        metadata_limited = (relative == 'database.sql' and length > 128*1024*1024) or (relative == 'package.json' and length > 1024*1024)
+        limited = entries > max_entries or total > max_bytes or metadata_limited
         if limited:
             findings.add('ARCHIVE_LIMIT', relative)
         if relative == 'multisite.json':
@@ -137,17 +138,19 @@ def audit(stream, max_bytes=1024*1024*1024, max_entries=150000, retain_sql=False
             data = stream.read(min(remaining, 1024*1024))
             if not data:
                 findings.add('ARCHIVE_TRUNCATED', relative)
+                if on_chunk is not None:
+                    on_chunk(relative, b'', True)
                 return {'report': findings.report(entries, False), 'package': package, 'sql': sql}
             if on_chunk is not None:
                 on_chunk(relative, data, False)
-            if not limited and (relative == 'package.json' or (retain_sql and relative == 'database.sql')):
+            if not metadata_limited and (relative == 'package.json' or (retain_sql and relative == 'database.sql')):
                 chunks.append(data)
             remaining -= len(data)
         if on_chunk is not None:
             on_chunk(relative, b'', True)
-        if relative == 'package.json' and not limited:
+        if relative == 'package.json' and not metadata_limited:
             package = b''.join(chunks)
-        elif relative == 'database.sql' and retain_sql and not limited:
+        elif relative == 'database.sql' and retain_sql and not metadata_limited:
             sql = b''.join(chunks)
         if entries > max_entries:
             break

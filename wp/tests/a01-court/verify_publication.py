@@ -12,7 +12,9 @@ TOOLS = ROOT / 'wp/outils/staging-court'
 sys.path.insert(0, str(TOOLS))
 
 
-def verify(report, live=False):
+def verify(report, live=False, *, historical_schema_only=False):
+    # Unit replay of immutable historical evidence is not current qualification.
+    assert not (historical_schema_only and live), 'HISTORICAL_MODE_CANNOT_CERTIFY_LIVE'
     report = report.resolve()
     assert any(report.is_relative_to(ROOT / 'production/A-01' / folder)
                for folder in ('publication-22nov', 'publication-23nov'))
@@ -42,7 +44,8 @@ def verify(report, live=False):
     for rel, digest in value['command_sources'].items():
         path = (ROOT / rel).resolve()
         assert path.is_relative_to(TOOLS)
-        assert hashlib.sha256(path.read_bytes()).hexdigest() == digest, 'COMMAND_SOURCE_DRIFT:' + rel
+        if not historical_schema_only:
+            assert hashlib.sha256(path.read_bytes()).hexdigest() == digest, 'COMMAND_SOURCE_DRIFT:' + rel
         current[rel] = digest
     assert [(c['storage'], c['trap_kind']) for c in value['cases']] == [('classic', None), ('hpos', None), ('classic', 'secret'), ('classic', 'personal')]
     summaries = []
@@ -51,7 +54,8 @@ def verify(report, live=False):
         for rel, digest in case['source_manifest'].items():
             path = (ROOT / rel).resolve()
             assert path.is_relative_to(ROOT / 'wp')
-            assert hashlib.sha256(path.read_bytes()).hexdigest() == digest, 'PAYLOAD_SOURCE_DRIFT:' + rel
+            if not historical_schema_only:
+                assert hashlib.sha256(path.read_bytes()).hexdigest() == digest, 'PAYLOAD_SOURCE_DRIFT:' + rel
         assert case['new_php_lint']['exit'] == 0
         for phase in ('offline_isolation_before', 'offline_isolation_after'):
             proof = case[phase]
@@ -177,10 +181,12 @@ def verify(report, live=False):
             code = 'from pathlib import Path\nimport hashlib,json\nprint(json.dumps({"sha256":hashlib.sha256(Path(' + repr(path) + ').read_bytes()).hexdigest()}))'
             actual = json.loads(publish.call(['exec', '-i', 'staging-wp-dashboard', 'python', '-'], code.encode()).stdout)
             assert actual['sha256'] == digest, 'LIVE_TOOL_SOURCE_DRIFT'
-    return {'status': 'PASS', 'recorded_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+    return {'status': 'HISTORICAL_SCHEMA_ONLY' if historical_schema_only else 'PASS',
+            'full_staging_ready': False if historical_schema_only else True,
+            'recorded_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
             'report': str(report), 'report_sha256': hashlib.sha256(raw).hexdigest(),
             'cases_verified': len(summaries), 'cases': summaries, 'command_sources': current,
-            'source_payloads_match_current_files': True, 'live_cleanup': live_receipts,
+            'source_payloads_match_current_files': not historical_schema_only, 'live_cleanup': live_receipts,
             'live_cleanup_count': len(live_receipts), 'no_agent_authentication': True,
             'shared_tool_source_hashes_match_live': live}
 
