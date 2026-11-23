@@ -42,12 +42,26 @@ def fetch(item):
     text = raw.decode('utf8')
     text = re.sub(r'<(script|style)\b[^>]*>.*?</\1>', '', text, flags=re.S | re.I)
     text = re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', text)))
-    hits = [m.start() for m in re.finditer(re.escape(term), text, re.I)]
-    return {'url': url, 'final_url': final, 'status': status, 'sha256': hashlib.sha256(raw).hexdigest(), 'topic': term, 'topic_occurrences': len(hits)}
+    evidence = []
+    for claim, phrase in claims:
+        offset = text.find(phrase)
+        if offset < 0:
+            raise RuntimeError('EXACT_PHRASE_NOT_FOUND:' + term)
+        evidence.append({'claim': claim, 'exact_phrase': phrase, 'verified_in_source': True,
+                         'normalized_text_offset': offset})
+    return {'url': url, 'final_url': final, 'status': status,
+            'sha256': hashlib.sha256(raw).hexdigest(), 'topic': term,
+            'topic_occurrences': len(re.findall(re.escape(term), text, re.I)),
+            'recorded_at_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            'normalization': 'HTML tags removed, entities decoded, whitespace collapsed',
+            'evidence': evidence}
 
 if __name__ == '__main__':
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
         results = list(pool.map(fetch, URLS))
     path = ROOT / 'production/A-02/sources-officielles.json'
+    history = path.with_name('sources-officielles-avant-corrections.json')
+    if path.exists() and not history.exists():
+        history.write_bytes(path.read_bytes())
     path.write_text(json.dumps(results, indent=2, ensure_ascii=False) + '\n', encoding='utf8')
     print(json.dumps(results, indent=2, ensure_ascii=False))

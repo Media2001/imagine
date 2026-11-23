@@ -1,5 +1,5 @@
 {
   "phpcs_sha256": "204214c1ea5ba814fb0b2608c19cca2c10bf5ffcc9f0e3d4c34aadc0179517b7",
-  "exit_code": 1,
+  "exit_code": 2,
   "container_absent": true
 }

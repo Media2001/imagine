@@ -15,8 +15,10 @@ def main():
     name = 'imagine-a02-audit-style-' + uuid.uuid4().hex[:12]
     created = False
     result = {'phpcs_sha256': expected, 'exit_code': 1}
-    out = run.REPO / 'production/A-02/style'
-    out.mkdir(exist_ok=True)
+    out = run.REPO / 'production/A-02/style' / name
+    out.mkdir(parents=True, exist_ok=False)
+    result['sources'] = run.manifest()
+    result['container'] = name
     try:
         run.call(['create', '--name', name, '--label', run.LABEL + '=' + name, '--network', 'none', '--no-healthcheck', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--pull', 'never', '--entrypoint', '/bin/sleep', run.IMAGE, 'infinity'])
         created = True
@@ -33,7 +35,7 @@ def main():
         (out / 'phpcs.json').write_text(p.stdout, encoding='utf8')
         (out / 'stderr.log').write_text(p.stderr, encoding='utf8')
         result['exit_code'] = p.returncode
-        print(p.stdout)
+        print(json.dumps({'evidence': str(out), 'totals': json.loads(p.stdout)['totals'], 'exit_code': p.returncode}))
     finally:
         if created:
             info = json.loads(run.call(['inspect', name]).stdout)[0]

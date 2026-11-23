@@ -3,17 +3,43 @@
     "url": "https://developer.wordpress.org/reference/functions/get_plugins/",
     "final_url": "https://developer.wordpress.org/reference/functions/get_plugins/",
     "status": 200,
-    "sha256": "63f5c9f1610f0baccc34120255c660a26ad6346d0720f6185a90666c178760e5",
+    "sha256": "ccb34d4bb08d3d1af7399891d614967bcf5a214850eb93da5fae592ce4bb0e6b",
     "topic": "get_plugins",
-    "topic_occurrences": 10
+    "topic_occurrences": 10,
+    "recorded_at_utc": "2026-11-23T11:38:31.153925+00:00",
+    "normalization": "HTML tags removed, entities decoded, whitespace collapsed",
+    "evidence": [
+      {
+        "claim": "Plugin files and header inventory",
+        "exact_phrase": "Checks the plugins directory and retrieve all plugin files with plugin data.",
+        "verified_in_source": true,
+        "normalized_text_offset": 850
+      }
+    ]
   },
   {
     "url": "https://developer.wordpress.org/reference/functions/wp_update_plugins/",
     "final_url": "https://developer.wordpress.org/reference/functions/wp_update_plugins/",
     "status": 200,
-    "sha256": "54394eae5750244cb6c0bc56706d67ecfa31fad8b81ec90a3b247533a44340bc",
+    "sha256": "94bc84dacf5d05344df614990bd7528e7bdedb34e561956591ec9e30687d92f2",
     "topic": "update_plugins",
-    "topic_occurrences": 11
+    "topic_occurrences": 11,
+    "recorded_at_utc": "2026-11-23T11:38:31.075872+00:00",
+    "normalization": "HTML tags removed, entities decoded, whitespace collapsed",
+    "evidence": [
+      {
+        "claim": "Native update cache",
+        "exact_phrase": "get_site_transient( 'update_plugins' )",
+        "verified_in_source": true,
+        "normalized_text_offset": 1767
+      },
+      {
+        "claim": "Live checker sends plugin metadata; auditor must not invoke it",
+        "exact_phrase": "A list of all plugins installed is sent to api.wordpress.org, along with the site locale.",
+        "verified_in_source": true,
+        "normalized_text_offset": 1040
+      }
+    ]
   },
   {
     "url": "https://developer.woocommerce.com/docs/features/high-performance-order-storage/",
@@ -21,7 +47,17 @@
     "status": 200,
     "sha256": "592a84d2249abc9cd081874e6fa1f4c934cab70656fd47025bb81013601ef91b",
     "topic": "authoritative",
-    "topic_occurrences": 19
+    "topic_occurrences": 19,
+    "recorded_at_utc": "2026-11-23T11:38:30.514457+00:00",
+    "normalization": "HTML tags removed, entities decoded, whitespace collapsed",
+    "evidence": [
+      {
+        "claim": "Only count the authoritative store",
+        "exact_phrase": "If the woocommerce_custom_orders_table_enabled options is set to true, HPOS is active and the new tables are authoritative",
+        "verified_in_source": true,
+        "normalized_text_offset": 4839
+      }
+    ]
   },
   {
     "url": "https://woocommerce.com/document/woocommerce-memberships-restrict-content/",
@@ -29,7 +65,23 @@
     "status": 200,
     "sha256": "bae74c99dbf70cf44556e1e954daa311bea3e57b48bec77e6b62f0ed0bd28e29",
     "topic": "delay",
-    "topic_occurrences": 19
+    "topic_occurrences": 19,
+    "recorded_at_utc": "2026-11-23T11:38:30.318791+00:00",
+    "normalization": "HTML tags removed, entities decoded, whitespace collapsed",
+    "evidence": [
+      {
+        "claim": "Native content and taxonomy restrictions",
+        "exact_phrase": "restriction rules for individual posts, pages, or taxonomies",
+        "verified_in_source": true,
+        "normalized_text_offset": 4818
+      },
+      {
+        "claim": "Native immediate and delayed access",
+        "exact_phrase": "immediately or after a certain time has passed",
+        "verified_in_source": true,
+        "normalized_text_offset": 4963
+      }
+    ]
   },
   {
     "url": "https://woocommerce.com/document/fix-outdated-templates-woocommerce/",
@@ -37,6 +89,40 @@
     "status": 200,
     "sha256": "7242079b26feab67a6d10174ddca63ad68556847a45b909d329ff595fd5018ee",
     "topic": "version",
-    "topic_occurrences": 9
+    "topic_occurrences": 9,
+    "recorded_at_utc": "2026-11-23T11:38:30.739602+00:00",
+    "normalization": "HTML tags removed, entities decoded, whitespace collapsed",
+    "evidence": [
+      {
+        "claim": "Woo templates evolve with releases",
+        "exact_phrase": "We sometimes update the default templates when a new version of WooCommerce is released.",
+        "verified_in_source": true,
+        "normalized_text_offset": 906
+      },
+      {
+        "claim": "Theme and child overrides",
+        "exact_phrase": "templates overridden by your theme/child theme",
+        "verified_in_source": true,
+        "normalized_text_offset": 1965
+      }
+    ]
+  },
+  {
+    "url": "https://developer.wordpress.org/reference/functions/locate_template/",
+    "final_url": "https://developer.wordpress.org/reference/functions/locate_template/",
+    "status": 200,
+    "sha256": "8aae48f2d964e5d8b95dd8f25a1207d33841af7fcafa6a854f5afb16a2089584",
+    "topic": "stylesheet",
+    "topic_occurrences": 6,
+    "recorded_at_utc": "2026-11-23T11:38:31.314573+00:00",
+    "normalization": "HTML tags removed, entities decoded, whitespace collapsed",
+    "evidence": [
+      {
+        "claim": "Child stylesheet directory precedes parent template directory",
+        "exact_phrase": "Searches in the stylesheet directory before the template directory",
+        "verified_in_source": true,
+        "normalized_text_offset": 1002
+      }
+    ]
   }
 ]

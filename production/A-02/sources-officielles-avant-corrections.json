@@ -1,0 +1,42 @@
+[
+  {
+    "url": "https://developer.wordpress.org/reference/functions/get_plugins/",
+    "final_url": "https://developer.wordpress.org/reference/functions/get_plugins/",
+    "status": 200,
+    "sha256": "63f5c9f1610f0baccc34120255c660a26ad6346d0720f6185a90666c178760e5",
+    "topic": "get_plugins",
+    "topic_occurrences": 10
+  },
+  {
+    "url": "https://developer.wordpress.org/reference/functions/wp_update_plugins/",
+    "final_url": "https://developer.wordpress.org/reference/functions/wp_update_plugins/",
+    "status": 200,
+    "sha256": "54394eae5750244cb6c0bc56706d67ecfa31fad8b81ec90a3b247533a44340bc",
+    "topic": "update_plugins",
+    "topic_occurrences": 11
+  },
+  {
+    "url": "https://developer.woocommerce.com/docs/features/high-performance-order-storage/",
+    "final_url": "https://developer.woocommerce.com/docs/features/orders/high-performance-order-storage/",
+    "status": 200,
+    "sha256": "592a84d2249abc9cd081874e6fa1f4c934cab70656fd47025bb81013601ef91b",
+    "topic": "authoritative",
+    "topic_occurrences": 19
+  },
+  {
+    "url": "https://woocommerce.com/document/woocommerce-memberships-restrict-content/",
+    "final_url": "https://woocommerce.com/document/woocommerce-memberships-restrict-content/",
+    "status": 200,
+    "sha256": "bae74c99dbf70cf44556e1e954daa311bea3e57b48bec77e6b62f0ed0bd28e29",
+    "topic": "delay",
+    "topic_occurrences": 19
+  },
+  {
+    "url": "https://woocommerce.com/document/fix-outdated-templates-woocommerce/",
+    "final_url": "https://developer.woocommerce.com/docs/theming/theme-development/fixing-outdated-woocommerce-templates",
+    "status": 200,
+    "sha256": "7242079b26feab67a6d10174ddca63ad68556847a45b909d329ff595fd5018ee",
+    "topic": "version",
+    "topic_occurrences": 9
+  }
+]

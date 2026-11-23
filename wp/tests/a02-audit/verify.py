@@ -31,7 +31,7 @@ def main():
         counts[label] = len(value['checks'])
     passed = {c['check'] for c in result['checks']}
     for storage in ['classic', 'hpos']:
-        for key in ['commercial_fixture', 'cli_success', 'db_identical', 'site_files_identical', 'never_bootstrap', 'transaction_blocks_even_root', 'dynamic_config_safe_refusal', 'symlink_parent_refused', 'negative_probes_no_database_change', 'negative_probes_files_restored', 'no_private_values', 'seven_sections', 'replay_success']:
+        for key in ['commercial_fixture', 'cli_success', 'db_identical', 'site_files_identical', 'never_bootstrap', 'transaction_blocks_even_root', 'dynamic_config_safe_refusal', 'symlink_parent_refused', 'negative_probes_no_database_change', 'negative_probes_files_restored', 'no_private_values', 'seven_sections', 'replay_success', 'gateway_cross_file', 'gateway_unresolved', 'subscription_first_meta_deterministic', 'subscription_duplicate_conflict_notices', 'child_masks_parent', 'parent_fallback_effective', 'effective_template_risk_count', 'theme_roles', 'posts_utc_year_boundary']:
             assert storage + ':' + key in passed
         before = load(evidence / (storage + '-db-before.json'))
         after = load(evidence / (storage + '-db-after.json'))
@@ -43,6 +43,18 @@ def main():
         md = (evidence / storage / 'audit.md').read_text(encoding='utf8')
         assert set(report['sections']) == REQUIRED and report['read_only'] is True
         assert report['sections']['commerce']['order_storage'] == storage
+        commerce = report['sections']['commerce']
+        assert sum(row['count'] for row in commerce['subscriptions']) == 3
+        assert 'a02_indirect' in commerce['gateways'] and 'a02_not_gateway' not in commerce['gateways']
+        assert commerce['subscription_meta_selection'].startswith('lowest_meta_row_id')
+        assert commerce['subscription_meta_anomalies'] == [
+            {'key': '_billing_interval', 'subscriptions_with_duplicates': 1, 'extra_rows': 1, 'subscriptions_with_conflicts': 1},
+            {'key': '_billing_period', 'subscriptions_with_duplicates': 2, 'extra_rows': 3, 'subscriptions_with_conflicts': 1},
+        ]
+        templates = report['sections']['risks']['woocommerce_templates']
+        assert sum(v['outdated'] is True and v['effective'] for v in templates) == 1
+        assert any(v['resolution'] == 'masked_by_child' and not v['effective'] and v['outdated'] for v in templates)
+        assert report['sections']['content']['post_year_basis'] == 'UTC_creation'
         assert len(report['priorities']) == 5 and md.count('```json') == 7
         blocks = re.findall(r'```json\n(.*?)\n```', md, re.S)
         assert [json.loads(b) for b in blocks] == list(report['sections'].values())

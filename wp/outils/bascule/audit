@@ -340,8 +340,10 @@ final class Audit
                     }
                     $aliases[strtolower($alias)] = ltrim($target, '\\');
                 }
-                if ($token[0] !== T_CLASS || !is_array($tokens[$i + 1] ?? null)
-                    || $tokens[$i + 1][0] !== T_STRING) {
+                if (
+                    $token[0] !== T_CLASS || !is_array($tokens[$i + 1] ?? null)
+                    || $tokens[$i + 1][0] !== T_STRING
+                ) {
                     continue;
                 }
                 $abstract = is_array($tokens[$i - 1] ?? null) && $tokens[$i - 1][0] === T_ABSTRACT;
@@ -365,7 +367,12 @@ final class Audit
                 }
                 // Separators are unnecessary for assignments; preserve const boundaries below.
                 $constants = [];
-                preg_match_all('/const([A-Za-z_][A-Za-z0-9_]*)=[\'\"]([A-Za-z0-9_-]+)[\'\"]/', $body, $matches, PREG_SET_ORDER);
+                preg_match_all(
+                    '/const([A-Za-z_][A-Za-z0-9_]*)=[\'\"]([A-Za-z0-9_-]+)[\'\"]/',
+                    $body,
+                    $matches,
+                    PREG_SET_ORDER
+                );
                 foreach ($matches as $match) {
                     $constants[$match[1]] = $match[2];
                 }
@@ -381,7 +388,8 @@ final class Audit
             $cursor = $name;
             $resolved = false;
             while ($cursor !== '' && !isset($chain[$cursor])) {
-                if (in_array($cursor, ['wc_payment_gateway', 'wc_payment_gateway_cc', 'wc_payment_gateway_echeck'], true)) {
+                $roots = ['wc_payment_gateway', 'wc_payment_gateway_cc', 'wc_payment_gateway_echeck'];
+                if (in_array($cursor, $roots, true)) {
                     $resolved = true;
                     break;
                 }
@@ -391,7 +399,15 @@ final class Audit
                 $chain[$cursor] = $classes[$cursor];
                 $cursor = $classes[$cursor]['parent'];
             }
-            $body = implode('', array_column($chain, 'body'));
+            // Inspect the nearest class that assigns an ID. A dynamic child must not
+            // silently inherit the statically known ID of its overridden parent.
+            $body = '';
+            foreach ($chain as $ancestor) {
+                if (str_contains($ancestor['body'], '$this->id=')) {
+                    $body = $ancestor['body'];
+                    break;
+                }
+            }
             if (!$resolved) {
                 if ($cursor !== '' && str_contains($body, '$this->id=')) {
                     $unresolved[] = ['class' => self::identifier($name), 'reason' => 'ancestry_unresolved'];
@@ -591,6 +607,7 @@ final class Audit
         $years = $this->query("SELECT YEAR(post_date_gmt) AS year,COUNT(*) AS count FROM $post WHERE post_type='post' GROUP BY YEAR(post_date_gmt) ORDER BY year");
         return ['post_types' => $pairs($types), 'taxonomies' => $pairs($taxonomies), 'custom_fields' => $pairs($fields),
             'post_year_basis' => 'UTC_creation',
+            'custom_fields_scope' => 'all_postmeta_keys_including_internal_core_and_woocommerce; names_and_counts_only',
             'posts_by_year' => array_map(static fn(array $r): array => ['year' => (int) $r['year'], 'count' => (int) $r['count']], $years),
             'page_builders' => $builders, 'page_builder_detection' => 'known_active_plugin_or_theme_names_only_not_exhaustive', 'coverage' => 'stored_types_and_taxonomies_including_empty_core_types_not_runtime_registry; top_50_post_meta_keys'];
     }

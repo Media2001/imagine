@@ -163,6 +163,7 @@ def run_storage(storage):
     check(storage + ':no_fixture_specific_builder_detection', content['page_builders'] == [])
     check(storage + ':yearly_articles_fields', any(v['year'] == 2025 and v['count'] == 2 for v in content['posts_by_year']) and any(v['name'] == 'a02_editorial_field' and v['count'] == 3 for v in content['custom_fields']))
     check(storage + ':posts_utc_year_boundary', content.get('post_year_basis') == 'UTC_creation' and any(v['year'] == 2023 and v['count'] == 1 for v in content['posts_by_year']) and not any(v['year'] == 2024 for v in content['posts_by_year']))
+    check(storage + ':custom_fields_internal_scope_explicit', content.get('custom_fields_scope') == 'all_postmeta_keys_including_internal_core_and_woocommerce; names_and_counts_only')
     dbs = data['sections']['database']
     check(storage + ':all_tables_counts_sizes', len(dbs['tables']) == len(before['tables']) and all(v['rows'] == before['tables'][v['name']]['rows'] and v['bytes'] >= 0 for v in dbs['tables']))
     check(storage + ':orphan_candidate', any(v['name'] == 'wp_orphan_fixture' and v['ownership'] == 'unattributed_candidate' for v in dbs['tables']))
