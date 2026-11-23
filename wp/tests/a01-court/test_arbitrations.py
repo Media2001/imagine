@@ -29,30 +29,34 @@ class ExpectedCore(unittest.TestCase):
             self.assertEqual('6.9.1', module.validate_core_version(
                 b'{"WordPress":{"Version":"6.9.1"}}', version, '6.9.1')['pinned'])
 
-    def test_operator_default_refuses_wrong_runtime_before_site_or_archive(self):
-        self.assertTrue(hasattr(publish, 'runtime_core_preflight'), 'Runtime selection gate missing')
+    def test_operator_default_refuses_wrong_archive_before_site_download_or_bootstrap(self):
+        self.assertTrue(hasattr(publish, 'archive_core_preflight'), 'Archive selection gate missing')
         with tempfile.TemporaryDirectory(dir=Path.home() / 'AppData/Local/hermes/cache/scratch') as directory:
             root = Path(directory)
-            preflight = {'ok': False, 'stage': 'core_preflight',
-                         'code': 'PINNED_CORE_EXPECTED_VERSION_MISMATCH',
-                         'expected': '6.9.1', 'pinned': '7.0.9'}
+            archive = root / 'fiction.wpress'
+            archive.write_bytes(b'Fictitious transport; real metadata scanner tested separately')
+            preflight = {'ok': False, 'stage': 'archive_core_preflight',
+                         'code': 'SOURCE_EXPECTED_CORE_VERSION_MISMATCH',
+                         'expected': '6.9.1', 'source': '7.0.9'}
             with mock.patch.multiple(publish, ROOT=root, HERE=root,
                     fresh_runner=lambda name: {}, offline_isolation=lambda name: {},
                     call=lambda *args, **kwargs: __import__('subprocess').CompletedProcess([], 0, b'', b''),
-                    runtime_core_preflight=mock.Mock(return_value=preflight),
+                    archive_core_preflight=mock.Mock(return_value=preflight),
+                    prepare_core=mock.Mock(side_effect=AssertionError('No download for mismatched manifest')),
                     remove_owned=lambda name: {'name': name, 'absent': True}), \
                  mock.patch.object(publish, 'api', side_effect=AssertionError('No site mutation/lookup before core gate')) as api, \
                  mock.patch('publication_preflight.collect', return_value={'tool_source_manifest': {}}), \
                  mock.patch.object(publish.getpass, 'getpass', side_effect=AssertionError('No archive prompt before core gate')), \
-                 mock.patch.object(sys, 'argv', ['publish.py', '--archive', str(root / 'never-open.wpress'),
+                 mock.patch.object(sys, 'argv', ['publish.py', '--archive', str(archive),
                        '--operator-ced', '--name', 'imagine-test-a01-version', '--production-url', 'https://source.invalid']):
                 self.assertEqual(1, publish.main())
-                publish.runtime_core_preflight.assert_called_once()
-                self.assertEqual('6.9.1', publish.runtime_core_preflight.call_args.args[1])
+                publish.archive_core_preflight.assert_called_once()
+                self.assertEqual('6.9.1', publish.archive_core_preflight.call_args.args[2])
+                publish.prepare_core.assert_not_called()
                 api.assert_not_called()
             result = json.loads(next(root.rglob('result.json')).read_text())
-            self.assertEqual(preflight, result['cases'][0]['runtime_core_preflight'])
-            self.assertEqual('PINNED_CORE_EXPECTED_VERSION_MISMATCH', result['cases'][0]['error'])
+            self.assertEqual(preflight, result['cases'][0]['archive_core_preflight'])
+            self.assertEqual('SOURCE_EXPECTED_CORE_VERSION_MISMATCH', result['cases'][0]['error'])
             self.assertEqual('6.9.1', result['expected_core_version'])
             self.assertTrue(result['cleanup'][0]['absent'])
 

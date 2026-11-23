@@ -41,6 +41,9 @@ class CleanupOrchestration(unittest.TestCase):
             with mock.patch.multiple(publish, ROOT=root, HERE=root, api=api, call=call,
                                      fresh_runner=lambda name: {}, offline_isolation=lambda name: {},
                                      runtime_core_preflight=lambda *args: {'ok': True},
+                                     archive_core_preflight=lambda *args: {'ok': True, 'source': '6.9.1'},
+                                     prepare_core=lambda *args: (b'', {'version': '6.9.1'}),
+                                     set_empty_runner_core=lambda *args: {'ok': True},
                                      read_json=lambda *args: {'data_verified': True}, stop_site=stop,
                                      remove_owned=remove,
                                      guarded_publish=lambda *args: site.update(status='running') or {'full_staging_ready': True}), \

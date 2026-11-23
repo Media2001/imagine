@@ -48,7 +48,7 @@ def main():
         before = commercial.case(site, 'snapshot')
         rights = commercial.case(site, 'rights')
     theme = site / 'wp-content/themes/a01-fiction'
-    theme.mkdir()
+    theme.mkdir(parents=True)
     (theme / 'style.css').write_text('/*\nTheme Name: A01 Fiction Only\n*/\n')
     (theme / 'index.php').write_text('<?php echo "A01_FICTION_PUBLICATION_OK";')
     native.wp(site, ['theme', 'activate', 'a01-fiction'])

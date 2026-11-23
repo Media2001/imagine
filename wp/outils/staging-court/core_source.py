@@ -110,11 +110,12 @@ def plugin_warnings(content, wordpress, php):
     warnings = []
     for path in sorted(content.glob('plugins/*/*.php')) + sorted(content.glob('plugins/*.php')):
         header = path.read_bytes()[:8192].decode('utf-8', 'replace')
-        if not re.search(r'^\s*\*?\s*Plugin Name:', header, re.M | re.I):
+        prefix = r'^(?:[ \t]*<\?php)?[ \t\/*#@]*'
+        if not re.search(prefix + r'Plugin Name:', header, re.M | re.I):
             continue
         for field, current, code in [('Requires at least', wordpress, 'PLUGIN_REQUIRES_NEWER_WORDPRESS'),
                                      ('Requires PHP', php, 'PLUGIN_REQUIRES_NEWER_PHP')]:
-            match = re.search(r'^\s*\*?\s*' + field + r':\s*(' + VERSION + r')\s*$', header, re.M | re.I)
+            match = re.search(prefix + field + r':[ \t]*(' + VERSION + r')[ \t]*(?:\*/)?[ \t]*$', header, re.M | re.I)
             if match and numeric(match[1]) > numeric(current):
                 warnings.append({'code': code, 'plugin': path.relative_to(content).as_posix(),
                                  'required': match[1], 'current': current, 'blocking': False})

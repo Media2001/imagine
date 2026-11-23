@@ -25,6 +25,15 @@ def archive_bytes(package):
 
 
 class CoreSelection(unittest.TestCase):
+    def test_wordpress_header_comment_prefixes_are_recognized(self):
+        import core_source
+        with tempfile.TemporaryDirectory(dir=os.getenv('TMPDIR')) as folder:
+            root = Path(folder)
+            plugin = root / 'plugins/fiction.php'
+            plugin.parent.mkdir()
+            plugin.write_text('<?php\n/* Plugin Name: Fiction comment\n# Requires at least: 99.0\n * Requires PHP: 99.0 */\n')
+            self.assertEqual(2, len(core_source.plugin_warnings(root, '6.9.1', '8.2')))
+
     def test_plugin_minima_only_warn_and_never_change_files(self):
         import core_source
         with tempfile.TemporaryDirectory(dir=os.getenv('TMPDIR')) as folder:
