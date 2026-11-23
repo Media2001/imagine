@@ -58,10 +58,16 @@ def run():
                     archive = Path(folder) / 'fiction-generated-here.wpress'
                     publish.call(['cp', source + ':/scratch/fiction.wpress', host_to_wsl(archive)])
                     assert hashlib.sha256(archive.read_bytes()).hexdigest() == fixture['archive_sha256']
+                    # Real CLI refusal without a decision is preserved in the earlier
+                    # f1514b98e29e run. This decision applies ONLY to invented fixture data.
+                    decisions = Path(folder) / 'synthetic-decisions-only.json'
+                    decisions.write_text(json.dumps({'wp_wc_email_unsubscribes': {'action': 'garder'}}))
+                    item['decisions_are_synthetic_not_Ced_approval'] = True
                     cmd = [sys.executable, str(ROOT / 'wp/outils/staging-court/publish.py'),
                            '--operator-ced', '--archive', str(archive), '--name', name,
                            '--production-url', 'https://production.synthetic.invalid',
-                           '--expected-core-version', '6.9.1', '--php-version', '8.2', '--password-stdin']
+                           '--expected-core-version', '6.9.1', '--php-version', '8.2', '--password-stdin',
+                           '--table-decisions', str(decisions)]
                     if kind == 'clean':
                         mismatched = cmd.copy()
                         mismatched[mismatched.index('--expected-core-version') + 1] = '7.0.9'
@@ -86,6 +92,7 @@ def run():
                     assert hashlib.sha256(archive.read_bytes()).hexdigest() == fixture['archive_sha256']
                     item['command_flags'] = cmd[2:]
                     item['command_flags'][item['command_flags'].index('--archive') + 1] = '<temporary invented archive; deleted>'
+                    item['command_flags'][item['command_flags'].index('--table-decisions') + 1] = '<synthetic fixture decisions only; deleted>'
                     item['cli_exit'] = execution.returncode
                     item['stdout_sha256'] = hashlib.sha256(execution.stdout).hexdigest()
                     item['stderr_sha256'] = hashlib.sha256(execution.stderr).hexdigest()

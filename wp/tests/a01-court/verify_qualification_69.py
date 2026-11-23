@@ -44,6 +44,7 @@ def verify_operator(report, live):
     summaries = []
     for item in value['cases']:
         assert item['status'] == 'PASS' and item['temporary_archive_directory_absent'] is True
+        assert item['decisions_are_synthetic_not_Ced_approval'] is True
         sources_match(item['source_manifest'])
         path, subject = read_relative(item['subject_report'])
         assert sha(path) == item['subject_sha256']

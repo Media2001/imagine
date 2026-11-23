@@ -6,10 +6,10 @@
 # Recette synthétique seulement : quatre nouveaux sites, puis suppression vérifiée.
 python .\wp\outils\staging-court\publish.py --self-test-publication
 # Relecture pure des preuves, avec GET/inspect d’absence, sans création/import.
-python .\wp\tests\a01-court\verify_publication.py --report production/A-01/publication-23nov/a47d8512821b/result.json --live-cleanup
+python .\wp\tests\a01-court\verify_publication.py --report production/A-01/publication-23nov/52170a14f7a7/result.json --live-cleanup
 ```
 
-Preuve : `production/A-01/publication-23nov/a47d8512821b/result.json`, **4 PASS**, WordPress **6.9.1**, Woo **11.0.1** (dernière version publique compatible trouvée à cette date), Memberships **1.30.3** réellement testé. Classique/HPOS publiés HTTP 200 ; clé fictive persistante et table personnelle non tranchée refusées avant injection. Durée des quatre cas : **469.181883 s** ; pour un appel d’outil borné à 420 s, utiliser un processus suivi en arrière-plan et attendre sa vraie fin, pas un reçu intermédiaire.
+Preuve : `production/A-01/publication-23nov/52170a14f7a7/result.json`, **4 PASS**, WordPress **6.9.1**, Woo **11.0.1** (dernière version publique compatible trouvée à cette date), Memberships **1.30.3** réellement testé. Classique/HPOS publiés HTTP 200 ; clé fictive persistante et table personnelle non tranchée refusées avant injection. Durée des quatre cas : **469.181883 s** ; pour un appel d’outil borné à 420 s, utiliser un processus suivi en arrière-plan et attendre sa vraie fin, pas un reçu intermédiaire.
 
 **Limite : Subscriptions n’est pas qualifié en 6.9.1** ; seul ZIP disponible **9.4.1**, minima WP **7.0** / Woo **11.1**, aucun contournement. La qualification antérieure en **7.0.9** reste la preuve de ce traitement ; Ced seul lance le premier import réel, rapport relu avant toute ouverture. Aucun accès agent, archive Imagine ou GO implicite. Après vérification : filtre HTTP WordPress, pas pare-feu système ; mises à jour par scripts de bascule seulement, verrous admin/auto conservés.
 
