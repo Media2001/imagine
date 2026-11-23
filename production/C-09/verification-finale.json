@@ -1,7 +1,7 @@
 {
   "status": "PRET",
   "scope": "imagine-test-demo",
-  "at": "2026-11-23T21:46:23.334902+00:00",
+  "at": "2026-11-23T21:53:24.832097+00:00",
   "categories": {
     "créé": [
       "V-ANON",
@@ -49,7 +49,7 @@
   "totals": {
     "unitaires": 7,
     "natifs": 377,
-    "http": 192,
+    "http": 197,
     "securite": 10,
     "reset": 6,
     "regression_c08": 30,
@@ -58,7 +58,7 @@
     "horloge": 11,
     "plan": 4
   },
-  "total_checks": 686,
+  "total_checks": 691,
   "table_rows": 30,
   "decision_count": 29,
   "secret_scan": {

@@ -85,7 +85,7 @@ Matrice persistante exacte du rôle `imagine_referent_abonnements` (Référent a
 ## Preuves et rejeu
 
 - `installation.json`, `relance.json`, `reset.json` et `readback.json` : contrôles de la dernière recette complète après les sources finales. Les ID principaux restent identiques.
-- `readback.json` : objets natifs et décisions nominatives ; `http.json` : connexions, témoin de contenu et blocs, sans cookie/nonce/mot de passe enregistré.
+- `readback.json` : objets natifs et décisions nominatives ; `http.json` : 27 connexions, témoin de contenu et blocs ; E-ABO ouvre les écrans natifs liste/création de commande (200), mais pas éditorial/réglages (403). E-REDAC ne peut ouvrir le parcours natif de réglages (403). Aucun cookie/nonce/mot de passe enregistré.
 - `red-runtime.json`, `red-safety.json`, `red-reset.json` : échecs réellement observés avant installation/correction ou après altérations ; `reset-preuve.json` : restauration après altérations et ajout de doublons possédés.
 - `corrections.json` : six tarifs et raccords natifs, classement strict, capacité réelle E-REDAC, matrice E-ABO, lecture équipe et motif A-VIR indépendants du catalogue.
 - `clock.json` : générateur réellement exécuté aux 30/11/2026 23:59:59, 31/12/2026 23:59:59 et 01/01/2027 00:00:00 UTC ; échéance dans le mois, puis restauration à l’horloge réelle relue.

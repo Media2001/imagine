@@ -3,7 +3,7 @@
   "accounts_c09": 27,
   "scenarios_c09": 29,
   "accounts_c08": 3,
-  "total": 192,
+  "total": 197,
   "failures": [],
   "evidence": {
     "V-ANON": {
@@ -460,7 +460,7 @@
       "response": {
         "status": 200,
         "bytes": 41504,
-        "sha256": "5e003acf4b5a7c2431764cc1614e9740900b9042754449c482b8a0102a161caa",
+        "sha256": "a791ed20bc39c3773213c2485eb2ab996f306a735dee81f808e67bb9d42eb956",
         "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
       },
       "full": true
@@ -472,12 +472,13 @@
         "temoin_selon_decision": true,
         "sans_erreur_php": true,
         "cache_prive": true,
-        "bloc_absent": true
+        "bloc_absent": true,
+        "parcours_option_calendrier_refuse": true
       },
       "response": {
         "status": 200,
         "bytes": 36444,
-        "sha256": "d49fdb32b20479579af4c8e22debe6e2c7e5a6794e801a4c43ff4dfb62942e5f",
+        "sha256": "c3351b3e20621f0a23bc45beb608dcf17634cf721c8d70f7bb7d59ec076f51a9",
         "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
       },
       "full": true
@@ -489,7 +490,11 @@
         "temoin_selon_decision": true,
         "sans_erreur_php": true,
         "cache_prive": true,
-        "bloc_absent": true
+        "bloc_absent": true,
+        "commandes_accessibles": true,
+        "creation_commande_accessible": true,
+        "editorial_refuse": true,
+        "reglages_refuses": true
       },
       "response": {
         "status": 200,
