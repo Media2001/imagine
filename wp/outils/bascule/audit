@@ -254,6 +254,9 @@ final class Audit
             $themes[] = [
                 'name' => self::identifier($name), 'version' => self::version(self::header($text, 'Version')),
                 'active' => $name === $stylesheet || $name === $template,
+                'role' => $name === $stylesheet
+                    ? ($name === $template ? 'stylesheet_template' : 'stylesheet')
+                    : ($name === $template ? 'template' : 'inactive'),
                 'latest' => self::version($cached['new_version'] ?? null),
                 'requires_wp' => self::version(self::header($text, 'Requires at least')),
                 'requires_php' => self::version(self::header($text, 'Requires PHP')),
@@ -461,13 +464,11 @@ final class Audit
         $meta = $this->table('postmeta');
         if ($hpos) {
             $orders = $this->table('wc_orders');
-            $ometa = $this->table('wc_orders_meta');
-            $subs = $this->query("SELECT o.status, p.meta_value AS period, i.meta_value AS billing_interval, COUNT(*) AS count FROM $orders o LEFT JOIN $ometa p ON p.order_id=o.id AND p.meta_key='_billing_period' LEFT JOIN $ometa i ON i.order_id=o.id AND i.meta_key='_billing_interval' WHERE o.type='shop_subscription' GROUP BY o.status,p.meta_value,i.meta_value ORDER BY o.status,p.meta_value,i.meta_value");
             $years = $this->query("SELECT YEAR(date_created_gmt) AS year, COUNT(*) AS count FROM $orders WHERE type='shop_order' GROUP BY YEAR(date_created_gmt) ORDER BY year");
         } else {
-            $subs = $this->query("SELECT o.post_status AS status,p.meta_value AS period,i.meta_value AS billing_interval,COUNT(*) AS count FROM $post o LEFT JOIN $meta p ON p.post_id=o.ID AND p.meta_key='_billing_period' LEFT JOIN $meta i ON i.post_id=o.ID AND i.meta_key='_billing_interval' WHERE o.post_type='shop_subscription' GROUP BY o.post_status,p.meta_value,i.meta_value ORDER BY o.post_status,p.meta_value,i.meta_value");
             $years = $this->query("SELECT YEAR(post_date_gmt) AS year,COUNT(*) AS count FROM $post WHERE post_type='shop_order' GROUP BY YEAR(post_date_gmt) ORDER BY year");
         }
+        [$subs, $metaAnomalies] = $this->subscriptionCounts($hpos);
         $subscriptions = [];
         foreach ($subs as $row) {
             $subscriptions[] = ['status' => self::identifier($row['status']), 'period' => self::period($row['period']), 'interval' => self::number($row['billing_interval']), 'count' => (int) $row['count']];
@@ -520,6 +521,8 @@ final class Audit
             'gateways' => $gateways, 'gateway_detection' => 'static_active_source_ids_not_enabled_status_dynamic_ids_unknown',
             'gateway_unresolved' => $gatewayUnresolved,
             'subscriptions' => $subscriptions, 'memberships' => $memberships,
+            'subscription_meta_selection' => 'lowest_meta_row_id_per_subscription_and_key; not_a_data_repair',
+            'subscription_meta_anomalies' => $metaAnomalies,
             'orders_by_year' => array_map(static fn(array $r): array => ['year' => (int) $r['year'], 'count' => (int) $r['count']], $years),
             'subscription_products' => $products];
     }
@@ -683,6 +686,15 @@ final class Audit
                 'last_updated' => $old, 'older_than_two_years' => $old === null ? null : $old < gmdate('Y-m-d', strtotime('-2 years'))];
         }
         $overrides = [];
+        $childPaths = [];
+        foreach ($versions['themes'] as $theme) {
+            if ($theme['role'] === 'stylesheet' && $theme['name'] !== '[masque]') {
+                $root = $this->site . '/wp-content/themes/' . $theme['name'] . '/woocommerce';
+                foreach (self::tree($root, '.php') as $file) {
+                    $childPaths[substr($file, strlen($root) + 1)] = true;
+                }
+            }
+        }
         foreach ($versions['themes'] as $theme) {
             if (!$theme['active'] || $theme['name'] === '[masque]') {
                 continue;
@@ -698,7 +710,10 @@ final class Audit
                 }
                 $a = self::version($local[1] ?? null);
                 $b = self::version($current[1] ?? null);
-                $overrides[] = ['theme' => $theme['name'], 'file' => self::identifier($relative), 'override_version' => $a, 'installed_woo_template_version' => $b,
+                $masked = $theme['role'] === 'template' && isset($childPaths[$relative]);
+                $overrides[] = ['theme' => $theme['name'], 'file' => self::identifier($relative),
+                    'effective' => !$masked, 'resolution' => $masked ? 'masked_by_child' : 'effective',
+                    'override_version' => $a, 'installed_woo_template_version' => $b,
                     'outdated' => $a !== null && $b !== null ? version_compare($a, $b, '<') : null];
             }
         }
@@ -747,7 +762,7 @@ final class Audit
             'database' => $this->database($versions), 'scheduling' => $this->scheduling(), 'risks' => $this->risks($versions)];
         $unknown = count(array_filter($sections['database']['tables'], static fn(array $t): bool => $t['ownership'] === 'unattributed_candidate'));
         $updateCount = count(array_filter($sections['risks']['plugin_updates'], static fn(array $p): bool => $p['update_available'] === true));
-        $outdated = count(array_filter($sections['risks']['woocommerce_templates'], static fn(array $t): bool => $t['outdated'] === true));
+        $outdated = count(array_filter($sections['risks']['woocommerce_templates'], static fn(array $t): bool => $t['effective'] && $t['outdated'] === true));
         return ['schema' => 'imagine-a02-audit-v1', 'generated_at_utc' => gmdate('c'), 'read_only' => true,
             'privacy' => 'structural_identifiers_versions_numeric_counts_only; no_titles_contacts_settings_arguments_or_raw_logs',
             'sections' => $sections, 'limitations' => array_values(array_unique(array_merge($this->limitations, [

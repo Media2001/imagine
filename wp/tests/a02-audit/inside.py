@@ -89,6 +89,13 @@ $table_prefix = 'wp_'; define('ABSPATH', __DIR__.'/'); require_once ABSPATH.'wp-
     (theme / 'style.css').write_text('/*\nTheme Name: A02 fixture\nVersion: 1.0.0\nRequires at least: 6.0\nRequires PHP: 8.2\n*/\n')
     (theme / 'index.php').write_text('<?php // fixture\n')
     (theme / 'woocommerce/myaccount/form-login.php').write_text('<?php /** @version 1.0.0 */\n')
+    (theme / 'woocommerce/checkout').mkdir()
+    (theme / 'woocommerce/checkout/form-checkout.php').write_text('<?php /** @version 1.0.0 */\n')
+    child = site / 'wp-content/themes/a02-child'
+    (child / 'woocommerce/myaccount').mkdir(parents=True)
+    (child / 'style.css').write_text('/*\nTheme Name: A02 child\nTemplate: a02-theme\nVersion: 1.0.0\n*/\n')
+    (child / 'index.php').write_text('<?php // child fixture\n')
+    shutil.copyfile(site / 'wp-content/plugins/woocommerce/templates/myaccount/form-login.php', child / 'woocommerce/myaccount/form-login.php')
     p = wp(site, ['eval-file', str(ROOT / 'seed.php'), '--use-include'])
     lines = [line[9:] for line in p.stdout.splitlines() if line.startswith('A02_JSON=')]
     seed = json.loads(lines[0])
@@ -155,6 +162,7 @@ def run_storage(storage):
     check(storage + ':empty_core_types_and_taxonomies', any(v['name'] == 'revision' and v['count'] == 0 for v in content['post_types']) and any(v['name'] == 'post_tag' and v['count'] == 0 for v in content['taxonomies']))
     check(storage + ':no_fixture_specific_builder_detection', content['page_builders'] == [])
     check(storage + ':yearly_articles_fields', any(v['year'] == 2025 and v['count'] == 2 for v in content['posts_by_year']) and any(v['name'] == 'a02_editorial_field' and v['count'] == 3 for v in content['custom_fields']))
+    check(storage + ':posts_utc_year_boundary', content.get('post_year_basis') == 'UTC_creation' and any(v['year'] == 2023 and v['count'] == 1 for v in content['posts_by_year']) and not any(v['year'] == 2024 for v in content['posts_by_year']))
     dbs = data['sections']['database']
     check(storage + ':all_tables_counts_sizes', len(dbs['tables']) == len(before['tables']) and all(v['rows'] == before['tables'][v['name']]['rows'] and v['bytes'] >= 0 for v in dbs['tables']))
     check(storage + ':orphan_candidate', any(v['name'] == 'wp_orphan_fixture' and v['ownership'] == 'unattributed_candidate' for v in dbs['tables']))
@@ -166,6 +174,14 @@ def run_storage(storage):
     risks = data['sections']['risks']
     check(storage + ':update_gap_stale_plugin', any(v['name'] == 'fixture-builder/fixture-builder.php' and v['update_available'] and v['older_than_two_years'] for v in risks['plugin_updates']))
     check(storage + ':outdated_override', any(v['file'] == 'myaccount/form-login.php' and v['outdated'] for v in risks['woocommerce_templates']))
+    templates = {(v['theme'], v['file']): v for v in risks['woocommerce_templates']}
+    masked = templates['a02-theme', 'myaccount/form-login.php']
+    child_override = templates['a02-child', 'myaccount/form-login.php']
+    parent_only = templates['a02-theme', 'checkout/form-checkout.php']
+    check(storage + ':child_masks_parent', masked.get('resolution') == 'masked_by_child' and masked.get('effective') is False and child_override.get('effective') is True and child_override['outdated'] is False)
+    check(storage + ':parent_fallback_effective', parent_only.get('effective') is True and parent_only['outdated'] is True)
+    check(storage + ':effective_template_risk_count', sum(v['outdated'] is True and v.get('effective') is True for v in templates.values()) == 1 and data['priorities'][3].startswith('4. Relire les surcharges WooCommerce: 1 perimee(s)'))
+    check(storage + ':theme_roles', themes['a02-theme'].get('role') == 'template' and themes['a02-child'].get('role') == 'stylesheet')
     check(storage + ':deprecated_only_function', risks['deprecated_functions'] == [{'function': 'a02_legacy_function', 'count': 1}])
     check(storage + ':five_priorities', len(data['priorities']) == 5 and '## Synthese' in (target / 'audit.md').read_text())
     payload = (target / 'audit.json').read_text() + (target / 'audit.md').read_text() + p.stdout + p.stderr
