@@ -1,4 +1,4 @@
-# État des chantiers — mis à jour le 22 novembre 2026, 17 h
+# État des chantiers — mis à jour le 23 novembre 2026, 8 h
 
 ## Mise en route
 
@@ -10,7 +10,8 @@
 | Circuit de relecture | `scripts/relire.ps1` adapté aux lots ; se lance sans erreur, **pas encore testé sur un lot** | Lancer à la main sur le premier lot `PRET`, puis planifier « IMAGINE - relecture » | Ced |
 | Staging | Pas de Docker sur le NUC : on utilise l'outil de staging de Ced, avec Novamira pour l'accès des agents. Étape « site à abonnements » à ajouter à l'outil (`prompts/2026-11-19-staging-imagine.md`). Le `docker-compose.yml` du dépôt n'est plus utilisé | Hermès ajoute l'étape ; puis retirer Docker du dépôt | Hermès, puis Claude |
 | Exécution des tests PHP | Consigne donnée à Hermès : conteneur jetable de l'outil de staging, rien sur Windows | Confirmer dans son premier rapport que ça fonctionne | Hermès |
-| Recette | Profils de test et 41 cas d'acceptance proposés dans `docs/recette/` | Relecture par Ced, puis validation par le pilote du projet | Ced |
+| Recette | Profils de test et 41 cas d'acceptance proposés dans `docs/recette/` | Relecture par Ced quand il verra Imagine | Ced |
+| Rejeu des tests par les relecteurs | Les relecteurs ne peuvent pas exécuter PHP | Lot T-01 : une commande de rejeu sûre | Hermès |
 
 ## A · L'existant
 
@@ -19,12 +20,13 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 | Lot | État | Prochaine étape | Qui |
 |---|---|---|---|
 | Sauvegarde de production | Pas encore récupérée | Export SQL + `wp-content`, déposés sur le NUC **hors du dépôt** | Ced |
-| A-01 Import neutralisé | **La commande existe et fonctionne sur archive fictive** : site publié dans l'outil de staging, statut vérifié, extensions et réglages intacts (classique et HPOS) ; archive piégée refusée. Relecture : à corriger, cinq points importants trouvés par Codex, dont un de sûreté | Corrections, vérification, puis import réel lancé par Ced | Hermès, puis Ced |
+| A-01 Import neutralisé | Commande corrigée et vérifiée (sept corrections, dont le point de sûreté). **Elle refuse encore une archive en 6.9.1**, version de la production : le banc d'essai n'est qualifié qu'en 7.0.9 | Qualification en 6.9.1 (`briefs/A-01-qualification-6-9.md`), puis import réel lancé par Ced | Hermès, puis Ced |
 | A-07 Exposition de l'outil de staging | Fait le 20/11. Test depuis l'extérieur en IPv4 : le tableau de bord n'est pas joignable. Non vérifié : redirections, DMZ et pare-feu IPv6 dans l'administration de la box | Coup d'œil à la box quand possible ; retirer l'autorisation du port 7000 en profil public du pare-feu Windows | Ced |
 | Licences WooCommerce | Obtenues le 20/11 | Déposer les archives Subscriptions et Memberships dans le dossier des extensions premium de l'outil de staging, hors dépôt | Ced |
 | Staging Imagine existant | Arrêté par Hermès le 19/11, non supprimé ; la révocation du mot de passe applicatif dans WordPress n'est pas attestée | Ne pas le redémarrer ; le détruire quand le nouveau parcours est validé | Ced |
 | A-00 Couverture des extensions | **Clos le 21/11** : corrigé, arbitrages appliqués, vérifié au second tour | Branchement dans un lot ultérieur | — |
-| A-02 à A-06 | En attente | Voir `A-FAIRE.md` | — |
+| A-02 Audit | Brief écrit : script préparé sur site fictif, à lancer dès que le staging existe | Production | Hermès |
+| A-03 à A-06 | En attente | Voir `A-FAIRE.md` | — |
 
 ## B · Le thème
 
@@ -42,9 +44,9 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 | C-04 File du connecteur | **Clos le 21/11** : corrigé, arbitrages appliqués, vérifié au second tour | Branchement dans un lot ultérieur | — |
 | C-03 Vérification des robots | **Clos le 21/11** : corrigé, arbitrages appliqués, vérifié au second tour | Branchement dans un lot ultérieur | — |
 | C-02 Numéro d'entreprise | **Clos le 21/11** : corrigé, arbitrages appliqués, vérifié au second tour | Branchement dans un lot ultérieur | — |
-| C-06 Décision d'accès | Trois réglages ajoutés le 22/11 (63 tests) | Vérification complémentaire automatique, puis clôture | Relecteur |
-| C-05 Échéancier en quatre fois | Repris sur la règle par bloc de quatre numéros, relu, corrigé, vérifié le 22/11 ; prouvé sur le vrai Subscriptions (classique et HPOS) | Marge SEPA en réglage, puis clôture | Hermès |
-| C-07 Liste d'envoi | Format d'export en réglage, ajouté le 22/11 | Vérification complémentaire automatique, puis clôture | Relecteur |
+| C-06 Décision d'accès | **Clos le 23/11.** Trois réglages, 63 tests | Branchement dans un lot ultérieur | — |
+| C-05 Échéancier en quatre fois | **Clos le 23/11.** Bibliothèque et preuve sur le vrai Subscriptions ; 765 tests dans la suite | Branchement dans un lot ultérieur, avec l'écran de réglages | — |
+| C-07 Liste d'envoi | **Clos le 23/11.** Format d'export en réglage | Branchement dans un lot ultérieur | — |
 | Suite | En attente | Voir `A-FAIRE.md` | — |
 
 ## En attente de tiers

@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 22 novembre 2026, 17 h.
+Mis à jour le 23 novembre 2026, 8 h.
 
 Consigne permanente : `prompts/consigne-permanente.md`. Doctrine : `doctrine/doctrine.md` (dernière révision : **22/11/2026 — une règle ouverte devient un réglage**).
 
@@ -10,13 +10,15 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 
 ## Consignes actives, par ordre de priorité
 
-File du 22/11, 17 h. Ton rapport de 15 h 18 est lu, ainsi que la fusion de A-01.
+File du 23/11, 8 h. Ton rapport du 22/11 à 17 h 28 est lu, ainsi que les quatre vérifications.
 
-**1. A-01 — corrections de la relecture.** `corrections/A-01.md`, instructions 1 à 7, **R4 en premier** (il touche à la sûreté). Les quatre questions de la fusion ont leur réponse dans `docs/arbitrages-2026-11-22.md`, section A-01 : applique-les dans la même passe. Une demi-journée. Redépose `PRET`. Tu ne lances toujours aucun import d'Imagine.
+**1. `briefs/A-01-qualification-6-9.md`** — qualifier la commande pour la version de la production. Le cœur du site suit l'archive ; l'import n'installe aucune extension ; la version des extensions du banc ne décide plus de ce que la commande accepte. Une demi-journée. **Passe avant tout.**
 
-**2. C-05 — marge SEPA en réglage.** `docs/arbitrages-2026-11-22.md`, dernier ajout. Une heure. Redépose `PRET` seulement si tu modifies le code.
+**2. `briefs/T-01-commande-de-rejeu.md`** — une commande unique pour que les relecteurs rejouent eux-mêmes les tests. Une heure.
 
-Rien d'autre à reprendre : C-06 et C-07 attendent leur vérification complémentaire, que le script de relecture lance désormais tout seul.
+**3. `briefs/A-02-audit.md`** — le script d'audit de l'existant, préparé et prouvé sur site fictif, pour être lancé dès que le staging d'Imagine existe. Une demi-journée.
+
+**Les écrans de réglages.** Dans C-05, C-06 et C-07, tu as livré des adaptateurs d'administration (pages de réglages WordPress). Ils ne font pas partie des lots clos : laisse-les en l'état, ne les développe pas davantage. Ils seront repris, relus et montrés à Ced dans le lot de branchement.
 
 **Où lancer les tests PHP.** Dans un conteneur jetable, comme jusqu'ici. Rien sur Windows.
 
@@ -67,4 +69,7 @@ Rien d'autre à reprendre : C-06 et C-07 attendent leur vérification complémen
 | C-02 Numéro d'entreprise | 20/11, corrigé le 21/11 | **Clos le 21/11** |
 | C-03 Vérification des robots | 20/11, corrigé le 21/11 | Bloquant C03-01 corrigé. **Clos le 21/11** |
 | C-04 File du connecteur | 20/11, corrigé le 21/11 | **Clos le 21/11** |
-| A-01, import et vérification hors ligne | 21/11 | Fait et prouvé sur données fictives ; publication restante (consigne 1) |
+| C-05 Échéancier en quatre fois | 22/11 | **Clos le 23/11** (bibliothèque et preuve sur le vrai Subscriptions ; écran de réglages exclu) |
+| C-06 Décision d'accès | 21 et 22/11 | **Clos le 23/11** (bibliothèque ; écran de réglages exclu) |
+| C-07 Liste d'envoi | 22/11 | **Clos le 23/11** (bibliothèque ; écran de réglages exclu) |
+| A-01, import, vérification et publication | 22/11 | Prouvé sur archive fictive en 7.0.9 ; qualification en 6.9.1 en cours (consigne 1) |

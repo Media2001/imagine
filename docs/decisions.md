@@ -29,6 +29,8 @@ Ce qui est tranché par Ced, daté. Ce fichier précise ou corrige le cahier des
 | 22/11/2026 | Une règle métier que le client n'a pas tranchée devient un réglage modifiable dans l'administration, avec une valeur par défaut prudente. Elle ne bloque pas un lot. |
 | 22/11/2026 | Paiement en quatre fois : quatre échéances par bloc de quatre numéros, une par numéro (corrige la formulation du 21/11). Détail des réglages : `docs/arbitrages-2026-11-22.md`. |
 | 22/11/2026 | Accord de Ced : Hermès peut créer, démarrer, arrêter et supprimer des sites de test (`imagine-test-…`) dans l'outil de staging par son usage normal, activation de la licence Novamira comprise. Il ne modifie pas l'outil et ne lance aucun import d'Imagine. |
+| 23/11/2026 | Import : le cœur du site suit la version de l'archive ; l'import n'installe ni ne met à jour aucune extension. Les lots de bibliothèque se clôturent sans leurs écrans de réglages, qui seront repris et montrés à Ced au branchement. |
+| 22/11/2026 | Premier paiement par SEPA : la marge de confirmation est un réglage, appliquée par défaut. |
 | 11/11/2026 | Architecture de production : Claude (briefs, arbitrages), Hermès (production), Codex et Claude Code (relecture), Git comme file de travail. |
 
 ## Ouvert — à trancher par Ced
