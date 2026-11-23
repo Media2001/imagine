@@ -1,0 +1,1 @@
+{"url": "http://192.168.129.32:8085", "registry_status": "running", "total": 68, "failures": []}

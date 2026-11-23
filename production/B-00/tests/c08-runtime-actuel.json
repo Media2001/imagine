@@ -1,0 +1,40 @@
+{
+  "exit": 0,
+  "stderr": "",
+  "result": {
+    "checks": {
+      "adaptateur_present": true,
+      "anonyme_extrait_connexion": true,
+      "actif_natif_complet": true,
+      "grace_native_bandeau": true,
+      "connecte_sans_droit_ferme": true,
+      "article_sans_metadonnees_garde_ferme": true,
+      "objet_retourne_expurge": true,
+      "cache_objet_source_non_mute": true,
+      "filtre_contenu_direct": true,
+      "filtre_flux_direct": true,
+      "extrait_automatique_ne_lit_pas_corps": true,
+      "extrait_vide_repli_neutre": true,
+      "ancien_mot_de_passe_pas_un_droit": true,
+      "rest_brut_et_mot_de_passe_expurges": true,
+      "cache_valideurs_supprimes": true,
+      "cache_directives_privees": true,
+      "cache_apres_anonyme_complet": true,
+      "abonne_pas_de_mot_de_passe": true,
+      "configuration_invalide_fermee": true,
+      "exception_adaptateur_fermee": true,
+      "exception_adaptateur_filtre_corps_ferme": true,
+      "plan_non_designe_ferme": true,
+      "date_numero_invalide_fermee": true,
+      "onhold_sans_grace_ferme": true,
+      "grace_plan_revoque_fermee": true,
+      "bloc_suspendu_ne_promet_pas_lecture": true,
+      "xmlrpc_sans_methode_contenu": true,
+      "mail_reste_coupe": true,
+      "http_reste_coupe": true,
+      "passerelles_reste_coupees": true
+    },
+    "total": 30,
+    "failures": []
+  }
+}

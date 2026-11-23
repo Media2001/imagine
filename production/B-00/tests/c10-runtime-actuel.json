@@ -1,0 +1,23 @@
+{
+  "exit": 0,
+  "stderr": "",
+  "result": {
+    "checks": {
+      "ecran_present": true,
+      "trois_options_meme_groupe": true,
+      "rendu_Accès": true,
+      "rendu_Paiement en quatre fois": true,
+      "rendu_Liste d’envoi": true,
+      "rendu_À confirmer par Imagine": true,
+      "rendu_Défaut": true,
+      "rendu_Journal des modifications": true,
+      "rendu_options.php": true,
+      "rendu__wpnonce": true,
+      "huit_champs": true,
+      "cap_admin": true,
+      "redacteur_sans_droit": true
+    },
+    "total": 13,
+    "failures": []
+  }
+}
