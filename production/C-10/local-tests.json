@@ -1,0 +1,7 @@
+{
+  "total": 4,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "output": "test_denials (test_c10_scope.ScopeTest.test_denials) ... ok\ntest_deployment_allowlist (test_c10_scope.ScopeTest.test_deployment_allowlist) ... ok\ntest_expected_target (test_c10_scope.ScopeTest.test_expected_target) ... ok\ntest_guard_exists (test_c10_scope.ScopeTest.test_guard_exists) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.001s\n\nOK\n"
+}

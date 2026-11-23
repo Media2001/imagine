@@ -1,6 +1,6 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-23T15:32:54.518942+00:00",
+  "at": "2026-11-23T15:39:55.631407+00:00",
   "url": "http://192.168.129.32:8085",
   "files_sha256": {
     "plugins/imagine-pilotage/imagine-reglages.php": "72e89bec95331ea1091e9462473c5ff7d984fc25ba384c0dbaead659fe827312",
@@ -16,8 +16,8 @@
     "stdout": "{\n    \"checks\": {\n        \"ecran_present\": true,\n        \"trois_options_meme_groupe\": true,\n        \"rendu_Accès\": true,\n        \"rendu_Paiement en quatre fois\": true,\n        \"rendu_Liste d’envoi\": true,\n        \"rendu_À confirmer par Imagine\": true,\n        \"rendu_Défaut\": true,\n        \"rendu_Journal des modifications\": true,\n        \"rendu_options.php\": true,\n        \"rendu__wpnonce\": true,\n        \"huit_champs\": true,\n        \"cap_admin\": true,\n        \"redacteur_sans_droit\": true\n    },\n    \"total\": 13,\n    \"failures\": []\n}",
     "stderr": ""
   },
-  "protected_before": "a7ffe0b0351e65727c60297d6962e9979c4b13395d1494812ff2e357249e05f3",
-  "protected_after": "a7ffe0b0351e65727c60297d6962e9979c4b13395d1494812ff2e357249e05f3",
+  "protected_before": "6b111dd98fead965ffe221e97413bbbcf8d35b5c9345a33537ab2c742e4f316f",
+  "protected_after": "6b111dd98fead965ffe221e97413bbbcf8d35b5c9345a33537ab2c742e4f316f",
   "manifest_unchanged": true,
   "status": "VERIFIED"
 }

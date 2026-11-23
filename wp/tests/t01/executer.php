@@ -61,6 +61,10 @@ function verifyCoverage(string $package): void
     echo 'T01 COVERAGE : ' . basename($package) . ' ; ' . count($selected) . " test files; full root configuration\n";
 }
 
+if (defined('T01_FUNCTIONS_ONLY') && T01_FUNCTIONS_ONLY === true) {
+    return;
+}
+
 try {
     if (!extension_loaded('dom') || !extension_loaded('SimpleXML') || !extension_loaded('mbstring')) {
         throw new RuntimeException('Image T01 incomplete: DOM, SimpleXML and mbstring required; run preparer-image.ps1.');

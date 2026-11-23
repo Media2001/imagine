@@ -1,0 +1,113 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-23T15:42:11.295459+00:00",
+  "checks": {
+    "local_green": true,
+    "runtime_green": true,
+    "http_green": true,
+    "deployed_sources_exact": true,
+    "php_stderr_empty": true,
+    "c08_runtime_green": true,
+    "c09_counts_27_13_12_14": true,
+    "c09_fixture_ids_originals": true,
+    "bootstrap_c10_active": true,
+    "defaults_restored_exact": true,
+    "protected_snapshot_unchanged": true,
+    "a_voir_present": true,
+    "no_known_secret_leak": true
+  },
+  "total": 13,
+  "failures": [],
+  "suites": {
+    "local": {
+      "total": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "output": "test_denials (test_c10_scope.ScopeTest.test_denials) ... ok\ntest_deployment_allowlist (test_c10_scope.ScopeTest.test_deployment_allowlist) ... ok\ntest_expected_target (test_c10_scope.ScopeTest.test_expected_target) ... ok\ntest_guard_exists (test_c10_scope.ScopeTest.test_guard_exists) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.001s\n\nOK\n"
+    },
+    "c10_runtime": {
+      "checks": {
+        "ecran_present": true,
+        "trois_options_meme_groupe": true,
+        "rendu_Accès": true,
+        "rendu_Paiement en quatre fois": true,
+        "rendu_Liste d’envoi": true,
+        "rendu_À confirmer par Imagine": true,
+        "rendu_Défaut": true,
+        "rendu_Journal des modifications": true,
+        "rendu_options.php": true,
+        "rendu__wpnonce": true,
+        "huit_champs": true,
+        "cap_admin": true,
+        "redacteur_sans_droit": true
+      },
+      "total": 13,
+      "failures": []
+    },
+    "c10_http": {
+      "total": 79,
+      "failures": [],
+      "invalid_cases": 23
+    },
+    "c08_regression": {
+      "checks": {
+        "adaptateur_present": true,
+        "anonyme_extrait_connexion": true,
+        "actif_natif_complet": true,
+        "grace_native_bandeau": true,
+        "connecte_sans_droit_ferme": true,
+        "article_sans_metadonnees_garde_ferme": true,
+        "objet_retourne_expurge": true,
+        "cache_objet_source_non_mute": true,
+        "filtre_contenu_direct": true,
+        "filtre_flux_direct": true,
+        "extrait_automatique_ne_lit_pas_corps": true,
+        "extrait_vide_repli_neutre": true,
+        "ancien_mot_de_passe_pas_un_droit": true,
+        "rest_brut_et_mot_de_passe_expurges": true,
+        "cache_valideurs_supprimes": true,
+        "cache_directives_privees": true,
+        "cache_apres_anonyme_complet": true,
+        "abonne_pas_de_mot_de_passe": true,
+        "configuration_invalide_fermee": true,
+        "exception_adaptateur_fermee": true,
+        "exception_adaptateur_filtre_corps_ferme": true,
+        "plan_non_designe_ferme": true,
+        "date_numero_invalide_fermee": true,
+        "onhold_sans_grace_ferme": true,
+        "grace_plan_revoque_fermee": true,
+        "bloc_suspendu_ne_promet_pas_lecture": true,
+        "xmlrpc_sans_methode_contenu": true,
+        "mail_reste_coupe": true,
+        "http_reste_coupe": true,
+        "passerelles_reste_coupees": true
+      },
+      "total": 30,
+      "failures": []
+    }
+  },
+  "c10_assertions": 96,
+  "c09_inventory": {
+    "users": 27,
+    "shop_order": 13,
+    "shop_subscription": 12,
+    "memberships": 14
+  },
+  "deployed_files_sha256": {
+    "plugins/imagine-pilotage/imagine-reglages.php": "72e89bec95331ea1091e9462473c5ff7d984fc25ba384c0dbaead659fe827312",
+    "plugins/imagine-pilotage/src/Administration/Reglages.php": "6c752d8f0d082f7f9eb0e99c977faea5ce2e217414256d5a6837ce5c4c9fe362",
+    "plugins/imagine-pilotage/src/Acces/AdministrationReglages.php": "14753c28e43daad991ae5477db43415dceb01a2148d4e602087e105c7fd2a71a",
+    "plugins/imagine-pilotage/src/Echeancier/ReglagesAdministration.php": "0ab7a89640da4532ff954bf0ed09088a5743d4e1de67706b7c366fe3eb222db0",
+    "plugins/imagine-pilotage/src/Envoi/AdministrationFormatExport.php": "ac59e9b8b1486441ede29346362fabd1b721d0a238c55492c63b88ab4bdb9927",
+    "imagine-demo-build/c10-runtime.php": "8775478f60b73454d4840eff5e39ff705e90b5f23851e880468e8cd3cd283074"
+  },
+  "file_count": 6,
+  "protected_sha256": "6b111dd98fead965ffe221e97413bbbcf8d35b5c9345a33537ab2c742e4f316f",
+  "secret_scan": {
+    "files_checked": 15,
+    "matches": []
+  },
+  "browser_admin": "Non ouvert : aucun login enregistré dans le coffre ; HTTP réel vérifié par sessions WP éphémères détruites.",
+  "status": "VERIFIED"
+}
