@@ -1,0 +1,49 @@
+{
+  "at": "2026-11-23T14:39:20.134093+00:00",
+  "scope": "imagine-test-demo",
+  "status": "VERIFIED",
+  "tests": {
+    "runtime_php": 30,
+    "http": 229,
+    "faults": 29,
+    "regression": 120,
+    "local-tests": 13,
+    "idempotence": 4
+  },
+  "total_checks": 425,
+  "failures": [],
+  "deployed_php_files": 9,
+  "exact_remote_readback": true,
+  "source_files": 16,
+  "source_sha256": {
+    "wp/outils/demo/c08-seed.php": "d63d706e2d4eb872746a147781a67277fb77aa2f1e72f844632c94fada0f9771",
+    "wp/outils/demo/c08.py": "134ae2d40ff93f10c1e062b834d9604330a21c602866c047cd19977b3e3d6610",
+    "wp/plugins/imagine-site/imagine-site.php": "ebfecf90834e0d30348a8e8bfd65884fc1a8397dfb8e6824491848f0e265a6c9",
+    "wp/plugins/imagine-site/Paywall.php": "a55c966c379ff007e6d5111d847953b5335b38a94b683e01b8ba55269501deee",
+    "wp/plugins/imagine-site/README.md": "e605d462cb173088cd5c65f5b424a058276538cfad5a558685b4d737d6f6503f",
+    "wp/tests/demo/c08-faults.py": "aa39e2e4dab5b3d66fe9a87c79efef1e6569b4712db22b52f38953825e18c28d",
+    "wp/tests/demo/c08-idempotence.py": "04763f85e20a0b9a7e3dd6ed4e451cf79d235aa3305627411215b6c04ac385d5",
+    "wp/tests/demo/c08-regression.py": "43673720245e43e0fb679007b741ccac5243766a32556d79d6559ee257ee3e0d",
+    "wp/tests/demo/c08-runtime.php": "a31c6b2787b89f31a40b3594f340ff8b9606cd22094a9aec2d9f92ad00fd708e",
+    "wp/tests/demo/c08-verifier.py": "6274e728410d87d8fc417836d0741e41c7cb515b4a5668c13e1ed1d9e84d44f8",
+    "wp/tests/demo/test_c08_scope.py": "45de3d2d7e5d932423cd3e51ac0129d8ea0aea0592107071ead9fd9989833f75",
+    "wp/themes/imagine/functions.php": "43f653338d144260991780b5f89f795b3d0bc712623dbec0abd8f0b1200da917",
+    "wp/themes/imagine/parts/paywall-abonnement.php": "c4a7d59d415d56b7e9f98a6cc0c5bd307936aece34715cdcbc2fef2d198f7438",
+    "wp/themes/imagine/parts/paywall-connexion.php": "2cd97c05b828b7440907f196aef47a2b079d3e93a02b23934faf4843447b4d5a",
+    "wp/themes/imagine/parts/paywall-decouverte_epuisee.php": "00194346c2a38f648cc4a0106e39743d3d7dd9b5e8ddca0086b515e6e77912d5",
+    "wp/themes/imagine/parts/paywall-regularisation.php": "a3557bd40a761cbe6ac0307879cf1c95871e419b19ad6140a1b03e162e957937"
+  },
+  "private_credentials_file": "C:\\Users\\Ced\\.imagine-demo\\c08-identifiants.json",
+  "no_private_password_in_deliverables": true,
+  "leak_files": [],
+  "http_responses": 35,
+  "closed_library_php_files_verified": 70,
+  "b00_tagged_objects_unchanged": 41,
+  "fixture_counts": {
+    "articles": 2,
+    "plans": 1,
+    "users": 3,
+    "memberships": 2,
+    "subscriptions": 2
+  }
+}

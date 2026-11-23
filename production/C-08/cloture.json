@@ -1,0 +1,18 @@
+{
+  "scope": "imagine-test-demo",
+  "checks": {
+    "proof_verified": true,
+    "counts_consistent": true,
+    "source_hashes_final": true,
+    "pret_exists": true,
+    "a_voir_exists": true,
+    "report_exists": true,
+    "report_total_matches": true,
+    "pret_total_matches": true,
+    "only_demo_running": true,
+    "final_documents_no_password": true
+  },
+  "failures": [],
+  "status": "PRET",
+  "test_total": 425
+}

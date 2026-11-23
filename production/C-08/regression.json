@@ -488,8 +488,8 @@
         "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
         "vary": "Cookie, Authorization, User-Agent"
       },
-      "bytes": 30486,
-      "body_sha256": "efcf0391a5d2188061b35b1cabd4406bcb2af41aa456905e72517f73f4d5eb4b"
+      "bytes": 29658,
+      "body_sha256": "67bbf59a359f7243f116e6a9c3ddb093bedab161ccface87c1e6e3c68a2e1417"
     },
     "demo-calendrier": {
       "status": 200,
@@ -578,8 +578,8 @@
         "cache-control": "no-cache, no-store, private, must-revalidate, max-age=0",
         "vary": "Cookie, Authorization, User-Agent"
       },
-      "bytes": 30486,
-      "body_sha256": "efcf0391a5d2188061b35b1cabd4406bcb2af41aa456905e72517f73f4d5eb4b"
+      "bytes": 29658,
+      "body_sha256": "67bbf59a359f7243f116e6a9c3ddb093bedab161ccface87c1e6e3c68a2e1417"
     },
     "kiosque": {
       "status": 200,
