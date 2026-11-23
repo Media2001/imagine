@@ -1,10 +1,4 @@
 """Validation structurelle HTML5 locale ; pas une certification WCAG/W3C."""
-from pathlib import Path
-import sys
-
-ROOT = Path(__file__).resolve().parents[3]
-for wheel in sorted((ROOT / 'production/B-01/validation').glob('*.whl')):
-    sys.path.insert(0, str(wheel))
 import html5lib
 from bs4 import BeautifulSoup
 

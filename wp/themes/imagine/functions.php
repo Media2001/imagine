@@ -87,14 +87,17 @@ function imagine_list(\WP_Query $query, int $heading = 2, bool $covers = false):
 {
     $tag = $heading === 3 ? 'h3' : 'h2';
     if (!$query->have_posts()) {
-        echo '<p>' . esc_html__('Aucun contenu pour le moment.', 'imagine') . '</p>';
+        echo '<p>' . (is_search()
+            ? esc_html__('Aucun résultat pour votre recherche.', 'imagine')
+            : esc_html__('Aucun contenu pour le moment.', 'imagine')) . '</p>';
         return;
     }
     echo '<ul class="imagine-list">';
     while ($query->have_posts()) {
         $query->the_post();
         echo '<li data-imagine-id="' . esc_attr((string) get_the_ID()) . '">';
-        echo '<' . $tag . '><a href="' . esc_url(get_permalink()) . '">' . esc_html(get_the_title()) . '</a></' . $tag . '>';
+        $rel = get_post_type() === 'imagine_partenaire' ? ' rel="sponsored"' : '';
+        echo '<' . $tag . '><a href="' . esc_url(get_permalink()) . '"' . $rel . '>' . esc_html(get_the_title()) . '</a></' . $tag . '>';
         if ($covers) {
             echo '<div class="imagine-cover">' . get_the_post_thumbnail(get_the_ID(), 'medium') . '</div>';
             imagine_date('imagine_sortie');
@@ -110,25 +113,27 @@ function imagine_list(\WP_Query $query, int $heading = 2, bool $covers = false):
 function imagine_date(string $key): void
 {
     $date = (string) get_post_meta(get_the_ID(), $key, true);
-    if ($date !== '') {
-        echo '<p><time datetime="' . esc_attr($date) . '">' . esc_html($date) . '</time></p>';
+    $parsed = \DateTimeImmutable::createFromFormat('!Y-m-d', $date, wp_timezone());
+    if ($parsed && $parsed->format('Y-m-d') === $date) {
+        echo '<p><time datetime="' . esc_attr($date) . '">'
+            . esc_html(wp_date('j F Y', $parsed->getTimestamp(), wp_timezone())) . '</time></p>';
     }
 }
 
 function imagine_navigation(): void
 {
     $links = [
-        home_url('/') => __('Accueil', 'imagine'),
-        get_post_type_archive_link('imagine_numero') ?: home_url('/') => __('Kiosque', 'imagine'),
-        home_url('/#imagine-thematiques') => __('Thématiques', 'imagine'),
-        get_post_type_archive_link('imagine_evenement') ?: home_url('/') => __('Agenda', 'imagine'),
-        get_post_type_archive_link('imagine_partenaire') ?: home_url('/') => __('Partenaires', 'imagine'),
-        wp_login_url() => __('Accès au compte', 'imagine'),
-        home_url('/#imagine-abonnement') => __('S’abonner', 'imagine'),
+        'accueil' => [home_url('/'), __('Accueil', 'imagine')],
+        'kiosque' => [get_post_type_archive_link('imagine_numero') ?: home_url('/'), __('Kiosque', 'imagine')],
+        'thematiques' => [home_url('/#imagine-thematiques'), __('Thématiques', 'imagine')],
+        'agenda' => [get_post_type_archive_link('imagine_evenement') ?: home_url('/'), __('Agenda', 'imagine')],
+        'partenaires' => [get_post_type_archive_link('imagine_partenaire') ?: home_url('/'), __('Partenaires', 'imagine')],
+        'compte' => [wp_login_url(), __('Accès au compte', 'imagine')],
+        'abonnement' => [home_url('/#imagine-abonnement'), __('S’abonner', 'imagine')],
     ];
     echo '<ul>';
-    foreach ($links as $url => $label) {
-        echo '<li><a href="' . esc_url($url) . '">' . esc_html($label) . '</a></li>';
+    foreach ($links as $key => [$url, $label]) {
+        echo '<li data-imagine-nav="' . esc_attr($key) . '"><a href="' . esc_url($url) . '">' . esc_html($label) . '</a></li>';
     }
     echo '</ul>';
 }

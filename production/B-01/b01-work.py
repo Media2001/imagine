@@ -24,6 +24,21 @@ if __name__=='__main__':
         snapshot('scope-before-runtime.json')
         code='''echo wp_json_encode(['url'=>home_url(),'wp'=>get_bloginfo('version'),'locale'=>get_locale(),'manifest'=>get_option('imagine_demo_manifest'),'c08'=>get_option('imagine_c08_fixture'),'posts'=>array_map(static fn($p)=>['id'=>$p->ID,'slug'=>$p->post_name,'date'=>$p->post_date,'key'=>get_post_meta($p->ID,'imagine_demo_key',true)],get_posts(['post_type'=>'post','numberposts'=>-1]))]);'''
         data=json.loads(wp('eval',code)['stdout']); save('baseline.json',data); print(json.dumps(data,ensure_ascii=False,indent=2))
+    elif mode=='deploy-plugin':
+        import base64
+        code='''$out=[]; $files=glob(get_template_directory().'/*.php'); $files[]=get_template_directory().'/style.css'; $files[]=WP_PLUGIN_DIR.'/imagine-site/imagine-site.php'; foreach($files as $f){$out[str_replace(WP_CONTENT_DIR.'/', '',$f)]=base64_encode(file_get_contents($f));} echo wp_json_encode($out);'''
+        backup=json.loads(wp('eval',code)['stdout']); save('runtime-backup-before-deployment.json',backup)
+        expected=json.loads((PROOF/'scope-before-local.json').read_text())['wp/plugins/imagine-site/imagine-site.php']
+        if hashlib.sha256(base64.b64decode(backup['plugins/imagine-site/imagine-site.php'])).hexdigest()!=expected:
+            raise RuntimeError('Plugin bootstrap drift before deployment')
+        hashes={}
+        for name in ['NumeroPublication.php','imagine-site.php']:
+            content=(ROOT/'wp/plugins/imagine-site'/name).read_bytes(); hashes[name]=hashlib.sha256(content).hexdigest()
+            upload('plugins/imagine-site/'+name,content)
+        code='''$out=[]; foreach(['NumeroPublication.php','imagine-site.php'] as $f){$p=WP_PLUGIN_DIR.'/imagine-site/'.$f; token_get_all(file_get_contents($p),TOKEN_PARSE);$out[$f]=hash_file('sha256',$p);} echo wp_json_encode($out);'''
+        actual=json.loads(wp('eval',code)['stdout']); save('plugin-installation.json',{'expected':hashes,'actual':actual,'exact':actual==hashes})
+        assert actual==hashes
+        print('Targeted issue-date guard deployed and exact readback passed')
     elif mode=='after':
         before=json.loads((PROOF/'scope-before-runtime.json').read_text(encoding='utf-8'))
         after=snapshot('scope-after-runtime.json')

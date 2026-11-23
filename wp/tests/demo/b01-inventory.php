@@ -10,14 +10,17 @@ if (!defined('WP_CLI') || !WP_CLI || wp_get_environment_type() !== 'local'
     throw new \RuntimeException('Recette réservée au site fictif local B-00.');
 }
 $checks = [];
+wp_set_current_user(0);
 $check = static function (string $name, bool $ok) use (&$checks): void {
     $checks[] = ['name' => $name, 'ok' => $ok];
 };
 $check('thème Imagine actif', get_stylesheet() === 'imagine');
 $check('sortie unique chargeable', function_exists('Imagine\\Theme\\imagine_article_body'));
-$issues = get_posts(['post_type' => 'imagine_numero', 'numberposts' => -1, 'meta_key' => 'imagine_sortie',
-    'orderby' => ['meta_value' => 'DESC', 'ID' => 'DESC']]);
-$articles = get_posts(['post_type' => 'post', 'numberposts' => -1, 'meta_key' => 'imagine_demo_key', 'orderby' => 'ID', 'order' => 'ASC']);
+$check('locale française déjà réglée B00', get_locale() === 'fr_FR');
+$check('pile réelle WordPress 7', version_compare(get_bloginfo('version'), '7.0', '>='));
+$check('contenu installation déjà purgé B00', get_post(1) === null && get_post(2) === null && get_comment(1) === null);
+$issues = get_posts(['post_type' => 'imagine_numero', 'numberposts' => -1, 'orderby' => 'ID', 'order' => 'ASC']);
+$articles = get_posts(['post_type' => 'post', 'numberposts' => -1, 'orderby' => 'ID', 'order' => 'ASC']);
 $map = static fn (\WP_Post $p): array => ['id' => $p->ID, 'url' => get_permalink($p), 'title' => $p->post_title];
 $issueRows = [];
 foreach ($issues as $issue) {
@@ -26,8 +29,11 @@ foreach ($issues as $issue) {
     $issueRows[] = $map($issue) + ['date' => get_post_meta($issue->ID, 'imagine_sortie', true),
         'type' => get_post_meta($issue->ID, 'imagine_type', true), 'articles' => array_map($map, $members),
         'pdf' => wp_get_attachment_url((int) get_post_meta($issue->ID, 'imagine_pdf_id', true))];
-    $check('quatre articles du numéro ' . $issue->ID, count($members) === 4);
+    $b00 = array_filter($members, static fn ($p) => get_post_meta($p->ID, 'imagine_demo_key', true) !== '');
+    $check('quatre articles B00 du numéro ' . $issue->ID, count($b00) === 4);
+    $check('numéro publié avec date valide ' . $issue->ID, \Imagine\Site\NumeroPublication::valid(get_post_meta($issue->ID, 'imagine_sortie', true)));
 }
+usort($issueRows, static fn ($a, $b) => [$b['date'], $b['id']] <=> [$a['date'], $a['id']]);
 $articleRows = [];
 foreach ($articles as $post) {
     $GLOBALS['post'] = $post;
@@ -37,19 +43,12 @@ foreach ($articles as $post) {
     $body = ob_get_clean();
     $reserved = (bool) get_post_meta($post->ID, 'imagine_reserve', true);
     $check('sortie anonyme article ' . $post->ID, $reserved
-        ? !str_contains($body, 'CONTENU_FICTIF_RESERVE_') && str_contains($body, 'post_password')
+        ? !str_contains($body, 'CONTENU_FICTIF_RESERVE_') && !str_contains($body, $post->post_content)
         : str_contains($body, 'CONTENU_FICTIF_OUVERT_'));
-    if ($reserved) {
-        require_once ABSPATH . WPINC . '/class-phpass.php';
-        $_COOKIE['wp-postpass_' . COOKIEHASH] = (new \PasswordHash(8, true))->HashPassword($post->post_password);
-        ob_start();
-        \Imagine\Theme\imagine_article_body();
-        $authorized = ob_get_clean();
-        $check('sortie native autorisée complète ' . $post->ID, str_contains($authorized, 'CONTENU_FICTIF_RESERVE_') && str_contains($authorized, 'Scène fictive 5.'));
-        unset($_COOKIE['wp-postpass_' . COOKIEHASH]);
-    }
+    $check('mot de passe natif retiré B00 ' . $post->ID, $post->post_password === '');
     $articleRows[] = $map($post) + ['issue' => (int) get_post_meta($post->ID, 'imagine_numero_id', true),
         'reserved' => $reserved, 'excerpt' => $post->post_excerpt, 'author' => get_the_author(),
+        'date' => $post->post_date, 'key' => get_post_meta($post->ID, 'imagine_demo_key', true),
         'terms' => wp_get_post_terms($post->ID, 'imagine_thematique', ['fields' => 'ids'])];
 }
 wp_reset_postdata();
@@ -61,10 +60,13 @@ foreach (get_terms(['taxonomy' => 'imagine_thematique', 'hide_empty' => true]) a
     $themes[] = ['id' => $term->term_id, 'url' => get_term_link($term), 'title' => $term->name,
         'articles' => array_map($map, $members)];
 }
-$check('emails sortants bloqués', wp_mail('b01-fictif@example.org', 'Test fictif B-01', 'Test sans envoi') === false);
-$check('HTTP distant bloqué', is_wp_error(wp_remote_get('https://example.org')));
+$check('garde emails sans envoi', apply_filters('pre_wp_mail', null, []) === false);
+$http = apply_filters('pre_http_request', false, [], 'https://example.org');
+$check('garde HTTP sans requête distante', is_wp_error($http) && $http->get_error_code() === 'imagine_demo_offline');
 $check('indexation refusée', get_option('blog_public') === '0');
 $result = ['scope' => 'imagine-test-demo', 'base' => home_url('/'), 'checks' => $checks,
+    'wordpress' => get_bloginfo('version'), 'locale' => get_locale(),
+    'manifest' => get_option('imagine_demo_manifest'), 'c08_fixture' => get_option('imagine_c08_fixture'),
     'issues' => $issueRows, 'articles' => $articleRows, 'themes' => $themes,
     'events' => array_map($map, get_posts(['post_type' => 'imagine_evenement', 'numberposts' => -1])),
     'partners' => array_map($map, get_posts(['post_type' => 'imagine_partenaire', 'numberposts' => -1])),
