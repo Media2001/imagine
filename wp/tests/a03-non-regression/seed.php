@@ -40,7 +40,7 @@ foreach ($subStates as $i => $state) {
         $s->update_status('active');
         $s->update_status($state);
     }
-    if (in_array($state, ['active', 'on-hold', 'pending-cancel'], true)) {
+    if (in_array($state, ['active', 'on-hold'], true)) {
         $s->update_dates(['next_payment' => '2027-02-01 10:00:00']);
     }
     $subscriptionIds[] = $s->get_id();
@@ -55,6 +55,6 @@ foreach ([['2026-11-01', 'completed', '12.30'], ['2026-10-01', 'processing', '20
     $order->save();
 }
 $action = as_schedule_single_action(strtotime('2027-01-14 10:00:00 UTC'), 'a03_fixture_action', ['A03_PRIVATE_ARGS_CANARY'], 'a03');
-wc_create_pages();
+WC_Install::create_pages();
 $pages = ['home' => '/', 'open' => '/?p=' . $open, 'restricted' => '/?p=' . $restricted, 'shop' => '/?page_id=' . wc_get_page_id('shop'), 'cart' => '/?page_id=' . wc_get_page_id('cart'), 'checkout' => '/?page_id=' . wc_get_page_id('checkout'), 'account' => '/?page_id=' . wc_get_page_id('myaccount')];
 echo 'A03_JSON=' . json_encode(['users' => $users, 'membership_ids' => $membershipIds, 'restricted' => $restricted, 'open' => $open, 'action' => $action, 'subscription_ids' => $subscriptionIds, 'pages' => $pages, 'versions' => ['wordpress' => get_bloginfo('version'), 'woocommerce' => WC()->version, 'subscriptions' => WC_Subscriptions::$version, 'memberships' => wc_memberships()->get_version()]]) . "\n";

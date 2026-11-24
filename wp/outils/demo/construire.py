@@ -275,7 +275,7 @@ def run_build(label='construction'):
         upload('imagine-demo-build/b00-fixture.json', json.dumps(data, ensure_ascii=False).encode())
         for issue in data['issues']:
             upload('imagine-demo-build/assets/' + issue['slug'] + '.png', cover_png(issue['label'], issue['color']))
-            upload('imagine-demo-build/assets/' + issue['slug'] + '.pdf', dummy_pdf(issue['label']))
+            remote('pdf-source', name=issue['slug'] + '.pdf', data=base64.b64encode(dummy_pdf(issue['label'])).decode())
         upload('imagine-demo-build/b00-seed.php', (tools / 'b00-seed.php').read_bytes())
         step('adresses-lisibles', wp('rewrite', 'structure', '/%postname%/'))
         seeded = wp('eval', 'require ABSPATH . "wp-content/imagine-demo-build/b00-seed.php";')

@@ -1,0 +1,69 @@
+{
+  "suite": "A03-real-classic-hpos",
+  "checks": [
+    {
+      "check": "classic:real_plugins",
+      "ok": true,
+      "detail": {
+        "wordpress": "7.0.9",
+        "woocommerce": "11.1.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3"
+      }
+    },
+    {
+      "check": "classic:snapshot_cli",
+      "ok": false,
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "classic:exception",
+      "ok": false,
+      "class": "AssertionError",
+      "code": "classic:snapshot_cli"
+    },
+    {
+      "check": "hpos:real_plugins",
+      "ok": true,
+      "detail": {
+        "wordpress": "7.0.9",
+        "woocommerce": "11.1.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3"
+      }
+    },
+    {
+      "check": "hpos:snapshot_cli",
+      "ok": false,
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "hpos:exception",
+      "ok": false,
+      "class": "AssertionError",
+      "code": "hpos:snapshot_cli"
+    },
+    {
+      "check": "network_none",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp6",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "exit_code": 1
+}

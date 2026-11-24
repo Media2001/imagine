@@ -66,6 +66,25 @@ function upsert(string $key, array $post): int
 
 function media(string $key, string $filename, string $mime, string $title): int
 {
+    if ($mime === 'application/pdf') {
+        // C11 : jamais de copie PDF dans uploads ni dans les assets publics du seed.
+        if (!class_exists('Imagine\\Site\\PdfNumero')) {
+            throw new \RuntimeException('Adaptateur PDF privé obligatoire.');
+        }
+        $issueKey = substr($key, 0, -4);
+        $issues = get_posts(['post_type' => 'imagine_numero', 'numberposts' => 2,
+            'meta_key' => 'imagine_demo_key', 'meta_value' => $issueKey]);
+        if (count($issues) !== 1) {
+            throw new \RuntimeException('Numéro PDF ambigu.');
+        }
+        $issue = $issues[0]->ID;
+        $id = upsert($key, ['post_type' => 'attachment', 'post_status' => 'private',
+            'post_title' => $title, 'post_name' => $key, 'post_mime_type' => $mime,
+            'guid' => \Imagine\Site\PdfNumero::url($issue)]);
+        update_post_meta($issue, 'imagine_pdf_id', $id);
+        \Imagine\Site\PdfNumero::protect($issue, $id, '/var/www/imagine-private-pdf/source/' . $filename);
+        return $id;
+    }
     $uploads = wp_upload_dir();
     $directory = $uploads['basedir'] . '/imagine-demo';
     wp_mkdir_p($directory);

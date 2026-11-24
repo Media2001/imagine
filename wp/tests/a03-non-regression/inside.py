@@ -19,7 +19,7 @@ LICENSED = {'woocommerce-subscriptions.zip': 'ed8c529d1382e2d06fa6e605e799c9db56
 def cmd(args, data=None, check=True, env=None, timeout=180):
     p = subprocess.run(args, input=data, text=True, capture_output=True, env={**os.environ, **(env or {})}, timeout=timeout)
     if check and p.returncode:
-        raise RuntimeError('COMMAND_' + pathlib.Path(args[0]).name + '_' + str(p.returncode) + ':' + p.stderr[-1200:])
+        raise RuntimeError('COMMAND_' + pathlib.Path(args[0]).name + '_' + str(p.returncode) + ':' + p.stderr[:1200])
     return p
 
 def wp(site, args, **kw):
@@ -59,7 +59,7 @@ def install(storage):
     config = """<?php
  define('DB_NAME', '%s'); define('DB_USER', 'root'); define('DB_PASSWORD', ''); define('DB_HOST', 'localhost:/scratch/mariadb.sock'); define('DB_CHARSET', 'utf8mb4'); define('DB_COLLATE', '');
  define('WP_ENVIRONMENT_TYPE', 'staging'); define('WP_HTTP_BLOCK_EXTERNAL', true); define('DISABLE_WP_CRON', true); define('AUTOMATIC_UPDATER_DISABLED', true); define('WP_AUTO_UPDATE_CORE', false); define('WP_DEBUG', false);
- $table_prefix = 'wp_'; define('ABSPATH', __DIR__.'/'); require_once ABSPATH.'wp-settings.php';
+ $table_prefix = 'wp_'; if (!defined('ABSPATH')) { define('ABSPATH', __DIR__.'/'); } require_once ABSPATH.'wp-settings.php';
  """ % db
     (site / 'wp-config.php').write_text(config)
     wp(site, ['core', 'install', '--url=http://127.0.0.1:18803', '--title=Fiction A03', '--admin_user=a03-admin', '--admin_email=a03-admin@example.org', '--skip-email', '--prompt=admin_password'], data=secrets.token_urlsafe(40) + '\n')
