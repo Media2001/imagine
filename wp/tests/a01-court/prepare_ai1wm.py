@@ -21,6 +21,12 @@ def main():
     out.mkdir(parents=True, exist_ok=False)
     result = {'status': 'PREPARING', 'name': name, 'synthetic_only': True, 'created': False, 'output': str(out)}
     package = Path('C:/Users/Ced/AppData/Local/hermes/cache/scratch/a01-ai1wm-7.109.zip')
+    if not package.exists():
+        # Public dependency preparation is completed before the offline runner.
+        from core_source import download
+        raw = download('https://downloads.wordpress.org/plugin/all-in-one-wp-migration.7.109.zip')
+        assert hashlib.sha256(raw).hexdigest() == 'cc592ad8e929d6ddb14b46a70dc840a0571f8bd6addda36a9bbf007d0bb3b72f'
+        package.write_bytes(raw)
     assert hashlib.sha256(package.read_bytes()).hexdigest() == 'cc592ad8e929d6ddb14b46a70dc840a0571f8bd6addda36a9bbf007d0bb3b72f'
     def save():
         (out / 'prepare.json').write_text(json.dumps(result, indent=2))

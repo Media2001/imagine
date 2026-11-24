@@ -52,6 +52,13 @@ try:
         record['summary_lines'] = len(p.stdout.splitlines())
         record['summary'] = p.stdout.decode()
         assert record['summary_lines'] <= 25
+        if case == 'small':
+            record['cli_limits'] = []
+            for flag in ('--max-bytes', '--max-entries', '--max-sql-bytes'):
+                limited = subprocess.run(cli + ['--detail', flag, '1'], capture_output=True, preexec_fn=bound, timeout=120)
+                limited_report = json.loads(limited.stdout)
+                assert limited.returncode == 1 and 'ARCHIVE_LIMIT' in limited_report['blockers']
+                record['cli_limits'].append({'flag': flag, 'exit': limited.returncode, 'archive_limit': True})
         if case == 'large':
             assert sum(row['bytes'] for row in report['inventory']['uploads'] if row['directory']=='2026') > 1024**3
         target = Path('/scratch/restored-' + case)

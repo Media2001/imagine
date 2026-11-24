@@ -55,6 +55,13 @@ class ArchiveReelle2(unittest.TestCase):
             framer.feed(malicious[offset:offset+7])
         framer.finish()
         self.assertEqual([malicious], statements)
+        with self.assertRaisesRegex(archive.Refusal, '^SQL_STATEMENT_LIMIT$'):
+            Framer(lambda statement: None, limit=8).feed(b"SELECT 'long';")
+        for byte in range(len(malicious)):
+            parts = []
+            framed = Framer(parts.append)
+            framed.feed(malicious[:byte]); framed.feed(malicious[byte:]); framed.finish()
+            self.assertEqual([malicious], parts)
 
     def test_excluded_payloads_never_read_and_unknown_uploads_closed(self):
         raw = attack('./database.sql') + attack('uploads/wpallexport/contact.csv', b'NEVER_READ') + bytes(4377)

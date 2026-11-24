@@ -1,3 +1,37 @@
+# A-01 archive-reelle-2 — diagnostic courant pour Ced (24 novembre 2026)
+
+```powershell
+Set-Location 'C:\Users\Ced\imagine'
+$env:PYTHONDONTWRITEBYTECODE = '1'
+python .\wp\outils\staging-court\publish.py --diagnose --operator-ced --archive $ARCHIVE_WPRESS --expected-core-version 6.9.1
+```
+
+**Ced seul renseigne `$ARCHIVE_WPRESS`. Aucun agent n’a ouvert l’archive Imagine ni son ancienne copie.** Par défaut : résumé par règle (nombre, bloquant/avertissement, cinq premières zones), extensions/thèmes et dossiers d’uploads avec nombres/tailles. `--detail` rend le JSON complet, sans valeurs SQL, secrets ni noms de fichiers. Diagnostic strictement inerte : aucun site, fichier extrait, téléchargement, base ni bootstrap. Aucun résultat statique ne vaut staging vérifié.
+
+## Changements du nouveau brief
+
+- Racine AI1WM `.` / `./` normalisée seulement en tête ; traversées, `.` intérieur, doublons, contrôles, liens et collisions restent refusés. En-têtes v1 (chemin 4096) et v2 (chemin 4088 + CRC32), EOF nul ou v2 ; CRC des fichiers conservés vérifiés quand présents. **Le CRC global de l’archive n’est pas lu/calculé**, car cela imposerait de lire les exports exclus. Le cadrage et la taille EOF restent vérifiés.
+- Défauts : **50 Gio**, **2 000 000 entrées**, **base 8 Gio**. Ajustables, en octets/entier positif, par `--max-bytes`, `--max-entries`, `--max-sql-bytes` (diagnostic et import). Lecture par blocs de 1 Mio ; SQL analysé par instruction bornée à 16 Mio, jamais dump/tokenisation global en mémoire. Restauration SQL sur disque, validation complète avant import par stdin. Place libre contrôlée avant création de l’arborescence, avec provision SQL normalisé/pages DB et 256 Mio de marge.
+- Secrets de fichiers : uniquement candidats de configuration propres au site, hors plugins/thèmes ; **avertissement**, jamais motif bloquant de fichier. Médias/code public non recherchés. Secrets de base et traitements natifs inchangés.
+- Exclusions avant toute lecture/extraction de leur contenu : dossiers d’exports/journaux/cache listés au brief, journaux et archives hors années, sauvegardes/cache connus ; PDF/images conservés dans `woocommerce_uploads` et `simple-file-list`, autres types fermés. Dossier d’uploads inconnu : `UPLOADS_DIRECTORY_REVIEW_REQUIRED` et nom de dossier pour décision, aucun repli ouvert. Rapport : zone/nombre/octets exclus. Le traitement natif `staging/files.php` respecte aussi les médias conservés et archives datées, au lieu de les supprimer ensuite.
+
+## Sources publiques effectivement lues
+
+Extension publique **All-in-One WP Migration 7.109**, paquet `https://downloads.wordpress.org/plugin/all-in-one-wp-migration.7.109.zip`, SHA-256 `cc592ad8e929d6ddb14b46a70dc840a0571f8bd6addda36a9bbf007d0bb3b72f`.
+Dans le tag officiel `https://plugins.svn.wordpress.org/all-in-one-wp-migration/tags/7.109/` :
+`lib/vendor/servmask/archiver/class-ai1wm-archiver.php` (HEADER_SIZE, block_format, get_eof_block/is_v1_eof/is_v2_eof), `class-ai1wm-compressor.php` (get_file_block et CRC),
+`lib/model/export/class-ai1wm-export-config.php` (package.json : WordPress/Database/Plugin/PHP, options compression/chiffrement), `class-ai1wm-export-database.php`,
+`lib/controller/class-ai1wm-main-controller.php` (pipeline enregistré), `class-ai1wm-export-controller.php`, `lib/model/export/class-ai1wm-export-init.php`, `class-ai1wm-export-download.php`, `functions.php`.
+Le manifeste public est `archive-reelle-2-public/public-source.json`. La commande gratuite `wp ai1wm export` est un stub pour l’extension payante : le banc exécute **les callbacks inchangés du véritable pipeline gratuit**, de Init à Clean, sur un WordPress entièrement fictif hors réseau. Aucun achat, licence, modification du fournisseur ou réécriture d’archive positive.
+
+## Preuves du nouveau brief
+
+Qualification en cours : les reçus définitifs et les limites seront inscrits ici après relecture. L’ancien PRET est conservé sous `PRET-archive-reelle-23nov-historique-avant-archive-reelle-2.txt` ; il ne qualifie pas ce brief.
+
+---
+
+# Historique antérieur intégral — archive-reelle du 23 novembre, non courant
+
 # A-01 archive-reelle — commande de diagnostic pour Ced
 
 ```powershell
