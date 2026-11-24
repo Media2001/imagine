@@ -1,0 +1,119 @@
+{
+  "suite": "A03-real-classic-hpos",
+  "checks": [
+    {
+      "check": "classic:real_plugins",
+      "ok": true,
+      "detail": {
+        "wordpress": "7.0.9",
+        "woocommerce": "11.1.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3"
+      }
+    },
+    {
+      "check": "classic:snapshot_cli",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "classic:storage",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:rights_matrix",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:subscriptions_dates_counts",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:orders_twelve_months",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:http_pages",
+      "ok": false,
+      "detail": null
+    },
+    {
+      "check": "classic:exception",
+      "ok": false,
+      "class": "AssertionError",
+      "code": "classic:http_pages"
+    },
+    {
+      "check": "hpos:real_plugins",
+      "ok": true,
+      "detail": {
+        "wordpress": "7.0.9",
+        "woocommerce": "11.1.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3"
+      }
+    },
+    {
+      "check": "hpos:snapshot_cli",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "hpos:storage",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:rights_matrix",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:subscriptions_dates_counts",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:orders_twelve_months",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:http_pages",
+      "ok": false,
+      "detail": null
+    },
+    {
+      "check": "hpos:exception",
+      "ok": false,
+      "class": "AssertionError",
+      "code": "hpos:http_pages"
+    },
+    {
+      "check": "network_none",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp6",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "exit_code": 1
+}

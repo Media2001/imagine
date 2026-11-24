@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+namespace Imagine\NonRegression;
+
+define('IMAGINE_A03_LIBRARY_ONLY', true);
+require __DIR__ . '/non-regression';
+try {
+    if (PHP_SAPI !== 'cli' || count($argv) !== 3) {
+        throw new \RuntimeException('A03_COMPARE_USAGE');
+    }
+    $diff = Report::compare(Site::json($argv[1]), Site::json($argv[2]));
+    fwrite(STDOUT, json_encode($diff, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n");
+    exit($diff['anormal'] ? 2 : ($diff['changes'] ? 3 : 0));
+} catch (\Throwable $error) {
+    fwrite(STDERR, "A03_COMPARE_REFUSED\n");
+    exit(1);
+}

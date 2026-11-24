@@ -8,6 +8,7 @@
     "demo-2026-t1:media-slug": true,
     "demo-2026-t1:numero": true,
     "demo-2026-t1:endpoint-anonyme": true,
+    "demo-2026-t1:bloc-connexion": true,
     "demo-2026-t2:ancien-direct": true,
     "demo-2026-t2:ancien-source": true,
     "demo-2026-t2:media-rest": true,
@@ -15,6 +16,7 @@
     "demo-2026-t2:media-slug": true,
     "demo-2026-t2:numero": true,
     "demo-2026-t2:endpoint-anonyme": true,
+    "demo-2026-t2:bloc-connexion": true,
     "demo-2026-t3:ancien-direct": true,
     "demo-2026-t3:ancien-source": true,
     "demo-2026-t3:media-rest": true,
@@ -22,6 +24,7 @@
     "demo-2026-t3:media-slug": true,
     "demo-2026-t3:numero": true,
     "demo-2026-t3:endpoint-anonyme": true,
+    "demo-2026-t3:bloc-connexion": true,
     "demo-2026-hs:ancien-direct": true,
     "demo-2026-hs:ancien-source": true,
     "demo-2026-hs:media-rest": true,
@@ -29,6 +32,7 @@
     "demo-2026-hs:media-slug": true,
     "demo-2026-hs:numero": true,
     "demo-2026-hs:endpoint-anonyme": true,
+    "demo-2026-hs:bloc-connexion": true,
     "demo-2026-t4:ancien-direct": true,
     "demo-2026-t4:ancien-source": true,
     "demo-2026-t4:media-rest": true,
@@ -36,8 +40,280 @@
     "demo-2026-t4:media-slug": true,
     "demo-2026-t4:numero": true,
     "demo-2026-t4:endpoint-anonyme": true,
-    "abonne:pdf_exact": true
+    "demo-2026-t4:bloc-connexion": true,
+    "liste-uploads": true,
+    "liste-uploads:sans-fichier-pdf": true,
+    "liste-sources": true,
+    "liste-sources:sans-fichier-pdf": true,
+    "medias": false,
+    "medias-inclusion": true,
+    "rest-route": true,
+    "rest-recherche": false,
+    "recherche": true,
+    "sitemap": true,
+    "sitemap-numeros": true,
+    "sitemap-attachment": true,
+    "prive-direct": true,
+    "demo-2026-t1:abonne-pdf-exact": true,
+    "demo-2026-t2:abonne-pdf-exact": true,
+    "demo-2026-t3:abonne-pdf-exact": true,
+    "demo-2026-hs:abonne-pdf-exact": true,
+    "demo-2026-t4:abonne-pdf-exact": true,
+    "abonne-conditionnel": false,
+    "cache-prive-no-store": true,
+    "sans-validateurs": true,
+    "pdf-type": true,
+    "pdf-disposition": true,
+    "abonne-head": true,
+    "head-sans-octets": true,
+    "anonyme-apres-abonne": true,
+    "anonyme-apres:bloc": true,
+    "anonyme-apres:cache": true,
+    "faux-robot": true,
+    "connecte-sans-droit": true,
+    "sans-droit:bloc": true,
+    "identifiant-invalide": true,
+    "identifiant-inconnu": true,
+    "methode-refusee": true
   },
-  "passed": 36,
-  "total": 36
+  "responses": {
+    "demo-2026-t1:ancien-direct": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-t1:ancien-source": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-t1:media-rest": {
+      "status": 401,
+      "bytes": 133
+    },
+    "demo-2026-t1:attachment": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-t1:media-slug": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-t1:numero": {
+      "status": 200,
+      "bytes": 29167
+    },
+    "demo-2026-t1:endpoint-anonyme": {
+      "status": 200,
+      "bytes": 29167
+    },
+    "demo-2026-t2:ancien-direct": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-t2:ancien-source": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-t2:media-rest": {
+      "status": 401,
+      "bytes": 133
+    },
+    "demo-2026-t2:attachment": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-t2:media-slug": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-t2:numero": {
+      "status": 200,
+      "bytes": 28715
+    },
+    "demo-2026-t2:endpoint-anonyme": {
+      "status": 200,
+      "bytes": 28715
+    },
+    "demo-2026-t3:ancien-direct": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-t3:ancien-source": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-t3:media-rest": {
+      "status": 401,
+      "bytes": 133
+    },
+    "demo-2026-t3:attachment": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-t3:media-slug": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-t3:numero": {
+      "status": 200,
+      "bytes": 28717
+    },
+    "demo-2026-t3:endpoint-anonyme": {
+      "status": 200,
+      "bytes": 28717
+    },
+    "demo-2026-hs:ancien-direct": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-hs:ancien-source": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-hs:media-rest": {
+      "status": 401,
+      "bytes": 133
+    },
+    "demo-2026-hs:attachment": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-hs:media-slug": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-hs:numero": {
+      "status": 200,
+      "bytes": 28739
+    },
+    "demo-2026-hs:endpoint-anonyme": {
+      "status": 200,
+      "bytes": 28739
+    },
+    "demo-2026-t4:ancien-direct": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-t4:ancien-source": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-t4:media-rest": {
+      "status": 401,
+      "bytes": 133
+    },
+    "demo-2026-t4:attachment": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-t4:media-slug": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-t4:numero": {
+      "status": 200,
+      "bytes": 28717
+    },
+    "demo-2026-t4:endpoint-anonyme": {
+      "status": 200,
+      "bytes": 28717
+    },
+    "liste-uploads": {
+      "status": 403,
+      "bytes": 153
+    },
+    "liste-sources": {
+      "status": 403,
+      "bytes": 153
+    },
+    "medias": {
+      "status": 400,
+      "bytes": 396
+    },
+    "medias-inclusion": {
+      "status": 200,
+      "bytes": 2
+    },
+    "rest-route": {
+      "status": 401,
+      "bytes": 133
+    },
+    "rest-recherche": {
+      "status": 400,
+      "bytes": 625
+    },
+    "recherche": {
+      "status": 200,
+      "bytes": 27986
+    },
+    "sitemap": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "sitemap-numeros": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "sitemap-attachment": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "prive-direct": {
+      "status": 404,
+      "bytes": 25965
+    },
+    "demo-2026-t1:abonne-pdf-exact": {
+      "status": 200,
+      "bytes": 663
+    },
+    "demo-2026-t2:abonne-pdf-exact": {
+      "status": 200,
+      "bytes": 663
+    },
+    "demo-2026-t3:abonne-pdf-exact": {
+      "status": 200,
+      "bytes": 663
+    },
+    "demo-2026-hs:abonne-pdf-exact": {
+      "status": 200,
+      "bytes": 664
+    },
+    "demo-2026-t4:abonne-pdf-exact": {
+      "status": 200,
+      "bytes": 663
+    },
+    "abonne-conditionnel": {
+      "status": 200,
+      "bytes": 663
+    },
+    "abonne-head": {
+      "status": 200,
+      "bytes": 0
+    },
+    "anonyme-apres-abonne": {
+      "status": 200,
+      "bytes": 28717
+    },
+    "faux-robot": {
+      "status": 200,
+      "bytes": 28717
+    },
+    "connecte-sans-droit": {
+      "status": 200,
+      "bytes": 28299
+    },
+    "identifiant-invalide": {
+      "status": 404,
+      "bytes": 2508
+    },
+    "identifiant-inconnu": {
+      "status": 404,
+      "bytes": 2508
+    },
+    "methode-refusee": {
+      "status": 405,
+      "bytes": 2509
+    }
+  },
+  "passed": 71,
+  "total": 74
 }
