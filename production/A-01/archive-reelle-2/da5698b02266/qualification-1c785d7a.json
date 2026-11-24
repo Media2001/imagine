@@ -1,0 +1,185 @@
+{
+  "status": "FAIL",
+  "synthetic_only": true,
+  "name": "imagine-test-a01-ai1wm-da5698b02266",
+  "isolation_before": {
+    "network": "none",
+    "mounts": [],
+    "ports": [],
+    "privileged": false,
+    "cap_drop": [
+      "ALL"
+    ],
+    "no_new_privileges": true,
+    "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
+    "name": "imagine-test-a01-ai1wm-da5698b02266"
+  },
+  "source_manifest": {
+    "wp/outils/staging-court/archive.py": "334e25bf956fd0d73f9d972bfb81f3b4167a92686d2178676804a395536a9047",
+    "wp/outils/staging-court/archive_policy.py": "cbe4e556f7d1d5a7483f7e4bee7d08f3fc44524d1237ffac3d27f507461490e4",
+    "wp/outils/staging-court/core_source.py": "e8bdd546a791852a9d6dc22b01b61b77777fdf6f9e98acfd58fdebd7867265ab",
+    "wp/outils/staging-court/diagnosis.py": "5a67317cad87a908224a026ac8fe0801aa0a14caa99c6c012871afb511729a5c",
+    "wp/outils/staging-court/inside.py": "47d6ecad7d4abe9dc92d9bd98d0d34808bb78c65b229d81c4cfebdef3c13e2b1",
+    "wp/outils/staging-court/publication.py": "ac8031f2e9352e694d03a07226fa19e3982f75a696107d9ff6ae41d914a1f244",
+    "wp/outils/staging-court/publication_preflight.py": "cd4dfeb3ef170ea83ba503c3e2b193e4f3dbc11ee8a1053c01d2efc122fee313",
+    "wp/outils/staging-court/publish.py": "06a6e537f9bcee48f8d24b6de3351c7ae91df3e7bafd981ab1e146ab420e9c80",
+    "wp/outils/staging-court/run.py": "1bdf8a21648ad9ffb69951d7acaef6d9e6818b9e0e3b267d0851b77d1668f2a0",
+    "wp/outils/staging-court/sql_diagnostic.py": "51159af86a790cfae95836b4928f6a427f4dafe7ba6a397c539a1aaeeea23250",
+    "wp/outils/staging-court/sql_stream.py": "cbfcd01d7f4f7d51e641c368134eafd7bd6fab5ec254e8662c30a9d930519370",
+    "wp/tests/a01-court/test_archive.py": "0c75ffb3ea53cc1f82f510d714d19690a1529da13873ebd7c8e331aa1af6e490",
+    "wp/tests/a01-court/test_archive_reelle.py": "e9bd12a88d7ff7bb0c560f16ace386cac44b3c656b5f788247cdf28aec8c0fe7",
+    "wp/tests/a01-court/test_archive_reelle_2.py": "4bc1880e68d0e26bb437e4f7cf88139ca70d3a77fa165e005c3537cd00e97204",
+    "wp/tests/a01-court/ai1wm_verify_inside.py": "94974f00a3066a43a5e7cda94a8841e3a249635fd56095797ca0c8ed72c26890",
+    "wp/outils/staging/schema.php": "81dfe75642c7a267fe92d23336fe14353de2d479700f8c97415702e14ae45d2a",
+    "wp/outils/staging/policy.php": "d37e5a2c87da63a66280479eea01f3d3ad0ea4671cb8ba82e079cfd9c84e4401",
+    "wp/outils/staging/lib.php": "b3df143051f5bd63f7ee27ebf5073946bf9b094fe88464d41cdc820ab82f8459",
+    "wp/outils/staging-wp-integration/worker/worker.py": "1cdb5f85db2d2c0e3aecba4828785794e03c1a3a383b4c3a67075b1426e4f293"
+  },
+  "exit": 1,
+  "subject": {
+    "status": "FAIL",
+    "cases": [
+      {
+        "case": "small",
+        "archive_bytes": 16955562,
+        "root_prefix": ".",
+        "eof_v2": true,
+        "archive_sha256": "087c65b409b9bdc4259c5dea1fca9ba2248fa4fff46b33bf34a225bd819b387f",
+        "diagnostic_exit": 1,
+        "diagnostic": {
+          "entries": 455,
+          "complete": true,
+          "rules": [
+            {
+              "code": "SECRET_OU_IDENTIFIANT",
+              "count": 1,
+              "blocking": false,
+              "locations": [
+                {
+                  "zone": "mu-plugins/(racine)",
+                  "extension": ".json",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "code": "SQL_STATEMENT",
+              "count": 18,
+              "blocking": true,
+              "locations": []
+            }
+          ],
+          "blockers": [
+            "SQL_STATEMENT"
+          ],
+          "warnings": [
+            "SECRET_OU_IDENTIFIANT"
+          ],
+          "total_bytes": 14959650,
+          "database_bytes": 92184,
+          "archive_bytes": 16955562,
+          "excluded": [
+            {
+              "zone": "uploads/wc-logs",
+              "count": 1,
+              "bytes": 11
+            },
+            {
+              "zone": "uploads/simple-file-list",
+              "count": 1,
+              "bytes": 12
+            },
+            {
+              "zone": "uploads/wpallexport",
+              "count": 1,
+              "bytes": 26
+            },
+            {
+              "zone": "uploads/woocommerce_uploads",
+              "count": 1,
+              "bytes": 11
+            },
+            {
+              "zone": "themes/(racine)",
+              "count": 1,
+              "bytes": 15
+            }
+          ],
+          "inventory": {
+            "plugins": [
+              "akismet"
+            ],
+            "themes": [
+              "twentytwentyfive",
+              "twentytwentyfour",
+              "twentytwentythree"
+            ],
+            "uploads": [
+              {
+                "directory": "wc-logs",
+                "count": 1,
+                "bytes": 11
+              },
+              {
+                "directory": "simple-file-list",
+                "count": 2,
+                "bytes": 25
+              },
+              {
+                "directory": "wpallexport",
+                "count": 1,
+                "bytes": 26
+              },
+              {
+                "directory": "2026",
+                "count": 1,
+                "bytes": 13
+              },
+              {
+                "directory": "woocommerce_uploads",
+                "count": 2,
+                "bytes": 23
+              }
+            ]
+          },
+          "mode": "diagnose",
+          "core_versions": {
+            "source": "7.0.9",
+            "expected": "7.0.9"
+          },
+          "read_only": true,
+          "created_sites": [],
+          "downloads": 0,
+          "extracted_files": 0,
+          "status": "REFUSED",
+          "full_staging_ready": false,
+          "deferred_checks": [
+            "TARGET_FILESYSTEM_CASE_PROBE_BEFORE_RESTORE",
+            "PUBLIC_CORE_AVAILABILITY_AND_EXACT_VERSION",
+            "DATABASE_ENGINE_AND_CONSTRAINT_RUNTIME",
+            "POST_NEUTRALISATION_RESIDUE",
+            "PLUGIN_BOOTSTRAP_AND_NATIVE_RUNTIME",
+            "PUBLICATION_AND_HTTP_PROBE"
+          ]
+        }
+      }
+    ],
+    "real_extension": "7.109",
+    "handcrafted_positive_archives": false,
+    "error": "AssertionError:['SQL_STATEMENT']",
+    "frames": "Traceback (most recent call last):\n  File \"/checkout/wp/tests/a01-court/ai1wm_verify_inside.py\", line 44, in <module>\n    assert p.returncode == 0, report['blockers']\n           ^^^^^^^^^^^^^^^^^\nAssertionError: ['SQL_STATEMENT']\n"
+  },
+  "isolation_after": {
+    "network": "none",
+    "mounts": [],
+    "ports": [],
+    "privileged": false,
+    "cap_drop": [
+      "ALL"
+    ],
+    "no_new_privileges": true,
+    "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
+    "name": "imagine-test-a01-ai1wm-da5698b02266"
+  },
+  "sources_unchanged": true
+}

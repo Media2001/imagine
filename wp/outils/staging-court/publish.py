@@ -123,7 +123,7 @@ print(json.dumps({'ok':pinned==expected,'stage':'core_preflight','expected':expe
     return json.loads(call(['exec', '-i', runner, 'python3', '-'], program.encode()).stdout)
 
 
-def archive_core_preflight(runner, archive, expected):
+def archive_core_preflight(runner, archive, expected, limits=None):
     """Read the validated manifest without restoring files, SQL or bootstrap."""
     program = '''import json,sys
 sys.path.insert(0,'/opt/court')
@@ -132,7 +132,7 @@ from core_source import select_version
 archive_report={}
 try:
  with open(ARCHIVE_TOKEN,'rb') as stream:
-  sql,package,count=restore(stream,None,metadata_only=True,case_probe_root='/scratch',report=archive_report)
+  sql,package,count=restore(stream,None,metadata_only=True,case_probe_root='/scratch',report=archive_report,**LIMITS_TOKEN)
  version=select_version(package,EXPECTED_TOKEN)
  print(json.dumps({'ok':True,'source':version,'expected':EXPECTED_TOKEN,'entries':count,'metadata_only':True,'archive_report':archive_report}))
 except Refusal as error:
@@ -141,7 +141,7 @@ except Refusal as error:
  print(json.dumps({'ok':False,'stage':'archive_core_preflight','code':code if code in allowed else 'ARCHIVE_REFUSED',
  'detail':getattr(error,'detail',None) or {'code':code if code in allowed else 'ARCHIVE_REFUSED','count':1,'locations':[{'zone':'(metadonnees)','extension':'.json','count':1}]},
  'archive_report':archive_report,'core_versions':getattr(error,'core_versions',None),'metadata_only':True}))
-'''.replace('ARCHIVE_TOKEN', repr(archive)).replace('EXPECTED_TOKEN', repr(expected))
+'''.replace('ARCHIVE_TOKEN', repr(archive)).replace('EXPECTED_TOKEN', repr(expected)).replace('LIMITS_TOKEN', repr(limits or {}))
     return json.loads(call(['exec', '-i', runner, 'python3', '-'], program.encode()).stdout)
 
 
@@ -473,6 +473,11 @@ def main():
     group.add_argument('--archive')
     parser.add_argument('--operator-ced', action='store_true')
     parser.add_argument('--diagnose', action='store_true', help='Lecture seule intégrale : aucun site, extraction ou téléchargement')
+    parser.add_argument('--detail', action='store_true', help='Diagnostic JSON complet, toutes localisations')
+    from archive import DEFAULT_MAX_BYTES, DEFAULT_MAX_ENTRIES, DEFAULT_MAX_SQL_BYTES
+    parser.add_argument('--max-bytes', type=int, default=DEFAULT_MAX_BYTES)
+    parser.add_argument('--max-entries', type=int, default=DEFAULT_MAX_ENTRIES)
+    parser.add_argument('--max-sql-bytes', type=int, default=DEFAULT_MAX_SQL_BYTES)
     parser.add_argument('--password-stdin', action='store_true',
                         help='Automatisation Ced : mot de passe neuf par pipe stdin seulement, jamais argv')
     parser.add_argument('--name')
@@ -483,12 +488,17 @@ def main():
                         help='Version attendue de l’archive ; cœur public préparé à sa version avant injection')
     parser.add_argument('--case', choices=['classic', 'hpos', 'trap', 'personal'], help='Rejeu synthétique ciblé, défaut les quatre')
     args = parser.parse_args()
+    limits = dict(max_bytes=args.max_bytes, max_entries=args.max_entries, max_sql_bytes=args.max_sql_bytes)
+    if any(value <= 0 for value in limits.values()):
+        parser.error('Les plafonds doivent etre des entiers strictement positifs')
+    if args.detail and not args.diagnose:
+        parser.error('--detail est reserve au diagnostic')
     if args.diagnose:
         if not args.operator_ced or not args.archive or args.password_stdin or args.case:
             parser.error('--diagnose exige --operator-ced --archive, sans mot de passe ni self-test')
-        from diagnosis import diagnose_path
-        report = diagnose_path(args.archive, args.expected_core_version, args.table_decisions, args.php_version)
-        print(json.dumps(report, ensure_ascii=False, indent=2))
+        from diagnosis import diagnose_path, format_summary
+        report = diagnose_path(args.archive, args.expected_core_version, args.table_decisions, args.php_version, **limits)
+        print(json.dumps(report, ensure_ascii=False, indent=2) if args.detail else format_summary(report))
         return 1 if report['blockers'] else 0
     if not re.fullmatch(r'[0-9]+\.[0-9]+(?:\.[0-9]+)?', args.expected_core_version):
         parser.error('--expected-core-version : version numérique stricte requise')
@@ -551,7 +561,7 @@ def main():
                     call(['exec', runner, 'mkdir', '-p', '/input'])
                     call(['cp', p, runner + ':/input/source.wpress'])
                     archive_path = '/input/source.wpress'
-                    receipt['archive_core_preflight'] = archive_core_preflight(runner, archive_path, args.expected_core_version)
+                    receipt['archive_core_preflight'] = archive_core_preflight(runner, archive_path, args.expected_core_version, limits)
                     if receipt['archive_core_preflight']['ok'] is not True:
                         raise RuntimeError(receipt['archive_core_preflight']['code'])
                     prepared_core = prepare_core(receipt['archive_core_preflight']['source'])
@@ -585,7 +595,7 @@ def main():
                 receipt['new_php_lint'] = {'exit': lint.returncode, 'output_sha256': hashlib.sha256(lint.stdout + lint.stderr).hexdigest()}
                 receipt['source_manifest'] = manifest
                 request = {'target_url': 'http://localhost:' + str(site['port']),
-                           'expected_core_version': args.expected_core_version,
+                           'expected_core_version': args.expected_core_version, 'archive_limits': limits,
                            'php_version': php_runtime,
                            'production_url': args.production_url or 'https://production.synthetic.invalid',
                            'password': (piped_password if args.password_stdin else read_admin_password(False)) if args.archive else secrets.token_urlsafe(40),
@@ -605,7 +615,7 @@ def main():
                     request['decisions'] = {'wp_wc_email_unsubscribes': {'action': 'garder'}}
                     receipt['decisions_are_synthetic_not_Ced_approval'] = True
                     archive_path = '/scratch/fiction.wpress'
-                    receipt['archive_core_preflight'] = archive_core_preflight(runner, archive_path, args.expected_core_version)
+                    receipt['archive_core_preflight'] = archive_core_preflight(runner, archive_path, args.expected_core_version, limits)
                     if receipt['archive_core_preflight']['ok'] is not True:
                         raise RuntimeError(receipt['archive_core_preflight']['code'])
                 program = '''import json,sys

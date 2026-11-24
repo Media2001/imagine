@@ -79,6 +79,7 @@ class Validator:
         self.schemas, self.engines, self.inserts = {}, {}, set()
         self.option_names = set()
         self.prefix = None
+        self.transaction = False
         self.statements = self.bytes = 0
 
     def error(self, code, **schema):
@@ -107,6 +108,14 @@ class Validator:
             return
         values = [v.upper() if k == 'word' else v for k, v in tokens]
         sql = canonical(tokens)
+        if values in (['START', 'TRANSACTION'], ['COMMIT']):
+            starting = values == ['START', 'TRANSACTION']
+            if starting == self.transaction:
+                self.error('SQL_TRANSACTION')
+            self.transaction = starting
+            if self.sink:
+                self.sink.write(sql.encode())
+            return
         try:
             self.module.sql_plan(sql.encode(), table_engines={'INNODB', 'MYISAM', 'ARIA', 'MEMORY'})
         except self.module.Refusal as exc:
@@ -173,6 +182,8 @@ class Validator:
             self.sink.write(sql.encode())
 
     def finish(self):
+        if self.transaction:
+            self.error('SQL_TRANSACTION')
         prefixes = [t[:-7] for t in self.schemas if t.endswith('_options')]
         self.prefix = prefixes[0] if len(prefixes) == 1 else None
         if not self.prefix or any(not t.startswith(self.prefix) for t in self.schemas):

@@ -131,7 +131,8 @@ class ArchiveReelle(unittest.TestCase):
         self.assertEqual(2, rules['TABLE_PERSONNELLE_A_TRANCHER']['count'])
         self.assertEqual(2, rules['SQL_STATEMENT']['count'])
         self.assertEqual(1, rules['SOURCE_CORE_METADATA_REFUSED']['count'])
-        self.assertEqual(2, rules['SECRET_OU_IDENTIFIANT']['count'])
+        self.assertEqual(1, rules['SECRET_OU_IDENTIFIANT']['count'])
+        self.assertFalse(rules['SECRET_OU_IDENTIFIANT']['blocking'])
         self.assertEqual(1, rules['SOURCE_SECRET_NEUTRALISABLE']['count'])
         self.assertFalse(rules['SOURCE_SECRET_NEUTRALISABLE']['blocking'])
         self.assertIn('wp_fiction_contacts', json.dumps(report))
@@ -229,7 +230,7 @@ class ArchiveReelle(unittest.TestCase):
         report = diagnosis.diagnose(io.BytesIO(raw), expected='INVALID_ALICE')
         self.assertIn('SOURCE_CORE_METADATA_REFUSED', report['blockers'])
         self.assertIn('EXPECTED_CORE_VERSION_REFUSED', report['blockers'])
-        self.assertEqual(2, next(r for r in report['rules'] if r['code'] == 'SECRET_OU_IDENTIFIANT')['count'])
+        self.assertEqual(1, next(r for r in report['rules'] if r['code'] == 'SECRET_OU_IDENTIFIANT')['count'])
         self.assertNotIn('ALICE', json.dumps(report))
 
     def test_real_cli_no_writes_and_no_network_even_on_valid_source(self):
@@ -376,11 +377,11 @@ runpy.run_path(SCRIPT,run_name='__main__')
 
     def test_secret_in_truncated_final_file_is_not_lost(self):
         import diagnosis
-        raw = entry('package.json',b'{}') + entry('database.sql',b'DELETE FROM `wp_options`;') + entry('plugins/fiction/ALICE.php',b'sk_test_FICTION_SECRET_PADDING')[:-5]
+        raw = entry('package.json',b'{}') + entry('database.sql',b'DELETE FROM `wp_options`;') + entry('mu-plugins/fiction/ALICE.php',b'whsec_FICTION_SECRET_PADDING')[:-5]
         report = diagnosis.diagnose(io.BytesIO(raw))
         self.assertFalse(report['complete'])
         self.assertIn('ARCHIVE_TRUNCATED',report['blockers'])
-        self.assertIn('SECRET_OU_IDENTIFIANT',report['blockers'])
+        self.assertIn('SECRET_OU_IDENTIFIANT',report['warnings'])
         self.assertNotIn('ALICE',json.dumps(report))
     def test_size_budget_does_not_hide_small_late_manifest(self):
         package = b'{"WordPress":{"Version":"6.9.1"}}'
