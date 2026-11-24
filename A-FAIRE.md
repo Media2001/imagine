@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 23 novembre 2026, 21 h 10.
+Mis à jour le 24 novembre 2026, 7 h 30.
 
 **Deux voies depuis le 23/11.** Ce fichier est la file de la voie 1. Une deuxième session d'Hermès suit `A-FAIRE-2.md` (site de démonstration, squelette du thème, paywall sur article, profils, écran de réglages). Lis la section « Les deux voies » de la consigne permanente. Ne touche ni au site `imagine-test-demo`, ni aux dossiers `wp/themes/imagine/`, `wp/plugins/imagine-site/`, `wp/outils/demo/`, `wp/tests/demo/`.
 
@@ -12,9 +12,13 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 
 ## Consignes actives, par ordre de priorité
 
-File du 23/11, 21 h 10. Ton rapport de 16 h 58 est lu. T-01 est clos ; les relecteurs sont désormais autorisés à lancer `wp/tests/rejouer.ps1`.
+File du 24/11, 7 h 30. En attendant l'import (le diagnostic ne sera lancé par Ced que ce soir), on prépare la suite sur site fictif.
 
-**Aucune consigne active.** La voie 1 attend le diagnostic de l'archive, que Ced lance lui-même, puis l'import. Ne commence rien.
+**1. `briefs/A-03-non-regression.md`** — la photo de ce qui marche, avant et après mise à jour, et sa commande de comparaison. Une demi-journée.
+
+**2. `briefs/A-04-mise-a-jour.md`** — le script de mise à jour vers la pile cible, reprenable, prouvé sur site fictif. Une journée.
+
+Tu n'ouvres toujours pas l'archive d'Imagine et tu ne lances ni le diagnostic ni l'import. Preuves proportionnées : un test par exigence, un rapport court.
 
 **Les écrans de réglages.** Dans C-05, C-06 et C-07, tu as livré des adaptateurs d'administration (pages de réglages WordPress). Ils ne font pas partie des lots clos : laisse-les en l'état. Ils sont repris par la voie 2 (lot C-10).
 
