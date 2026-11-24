@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 24 novembre 2026, 7 h 30.
+Mis à jour le 24 novembre 2026, 20 h 30.
 
 **Deux voies depuis le 23/11.** Ce fichier est la file de la voie 1. Une deuxième session d'Hermès suit `A-FAIRE-2.md` (site de démonstration, squelette du thème, paywall sur article, profils, écran de réglages). Lis la section « Les deux voies » de la consigne permanente. Ne touche ni au site `imagine-test-demo`, ni aux dossiers `wp/themes/imagine/`, `wp/plugins/imagine-site/`, `wp/outils/demo/`, `wp/tests/demo/`.
 
@@ -13,6 +13,8 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 ## Consignes actives, par ordre de priorité
 
 File du 24/11, 7 h 30. En attendant l'import (le diagnostic ne sera lancé par Ced que ce soir), on prépare la suite sur site fictif.
+
+**0. `briefs/A-01-archive-reelle-2.md`** — le diagnostic de l'archive réelle est revenu : la commande ne lit pas le format d'une vraie archive (préfixe `.`), ses plafonds sont trop bas, sa recherche de secrets dans les fichiers est inutilisable, et des exports d'abonnés traînent dans `uploads/`. Une demi-journée. **Passe avant tout, y compris les corrections d'A-03 et A-04.**
 
 **1. `briefs/A-03-non-regression.md`** — la photo de ce qui marche, avant et après mise à jour, et sa commande de comparaison. Une demi-journée.
 

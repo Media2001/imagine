@@ -21,3 +21,12 @@ Toute demande hors cahier des charges, toute contradiction interne au cahier des
 
 - L'extension `imagine-site` réunit le modèle de contenu provisoire (B-00) et le branchement du paywall (C-08) : B-00 ne se relit plus isolément. Accepté pour la démonstration ; à séparer quand le vrai modèle éditorial sera défini.
 - Modèle de contenu de la démonstration (numéro, rattachement des articles) : provisoire, sans ACF, à remplacer après l'audit de l'existant.
+
+## 24 novembre 2026 — ce que montre l'archive de production (diagnostic, sans données)
+
+- L'archive est celle de `kiosque.imagine-magazine.com` : 49 756 fichiers, médias de 2020 à 2026.
+- Extensions présentes (dossiers) : woocommerce, woocommerce-subscriptions, woocommerce-memberships, woocommerce-subscription-downloads, woocommerce-gateway-stripe, woocommerce-product-addons, flexible-checkout-fields, woo-order-export-lite, advanced-custom-fields-pro, custom-post-type-ui, wp-all-import-pro, wpai-acf-add-on, wp-all-export, wordpress-seo (Yoast, pas Rank Math), matomo, wordfence, fluent-smtp, simple-file-list, loco-translate, user-switching, regenerate-thumbnails, worker (ManageWP).
+- Thèmes : imaginev2 (sur mesure, une cinquantaine de fichiers PHP), storefront, twentytwentyfive.
+- Seule passerelle de paiement visible : Stripe. Pas de Teams, pas d'Event Tickets.
+- Des exports et journaux dans `uploads/` (wpallexport, memberships_csv_exports, wc-logs…) : à exclure du staging, et à signaler à Imagine (fichiers d'abonnés stockés dans un dossier de médias).
+
