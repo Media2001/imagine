@@ -76,61 +76,64 @@ final class Site
                 }
             }
         }
-            // WordPress officially preserves an already supplied $wpdb in require_wp_db().
-            // Read failures must throw immediately, before an API can clear last_error.
-            // Keep all native renewal writes rollback-only, including nested WC transactions.
-            define('ABSPATH', $site . '/');
-            define('WP_DEBUG', false);
-            define('WP_DEBUG_DISPLAY', false);
-            require_once ABSPATH . 'wp-includes/plugin.php';
-            require_once ABSPATH . 'wp-includes/class-wpdb.php';
-            $GLOBALS['wpdb'] = new class (
-                $config['DB_USER'],
-                $config['DB_PASSWORD'],
-                $config['DB_NAME'],
-                $config['DB_HOST']
-) extends \wpdb {
-                private bool $closed = false;
-                private bool $probe = false;
+        // WordPress officially preserves an already supplied $wpdb in require_wp_db().
+        // Read failures must throw immediately, before an API can clear last_error.
+        // Keep all native renewal writes rollback-only, including nested WC transactions.
+        define('ABSPATH', $site . '/');
+        define('WP_DEBUG', false);
+        define('WP_DEBUG_DISPLAY', false);
+        require_once ABSPATH . 'wp-includes/plugin.php';
+        require_once ABSPATH . 'wp-includes/class-wpdb.php';
+        $GLOBALS['wpdb'] = new class (
+            $config['DB_USER'],
+            $config['DB_PASSWORD'],
+            $config['DB_NAME'],
+            $config['DB_HOST']
+        ) extends \wpdb {
+            private bool $closed = false;
+            private bool $probe = false;
 
-                public function beginProbe(): void
-                {
-                    if (parent::query('START TRANSACTION') === false) {
-                        throw new \RuntimeException('A03_TRANSACTION_FAILED');
-                    }
-                    $this->probe = true;
+            public function beginProbe(): void
+            {
+                if (parent::query('START TRANSACTION') === false) {
+                    throw new \RuntimeException('A03_TRANSACTION_FAILED');
                 }
+                $this->probe = true;
+            }
 
-                public function finishProbe(): void
-                {
-                    parent::query('ROLLBACK');
-                    $this->closed = true;
-                }
+            public function finishProbe(): void
+            {
+                parent::query('ROLLBACK');
+                $this->closed = true;
+            }
 
-                public function query($query)
-                {
-                    if ($this->probe && preg_match('/\A\s*(?:START|BEGIN|COMMIT|ROLLBACK|SAVEPOINT|RELEASE)\b/i', $query)) {
-                        return 0;
-                    }
-                    if (
-                        $this->probe && preg_match(
-                            '/\A\s*(?:CREATE|ALTER|DROP|TRUNCATE|RENAME|GRANT|REVOKE|LOCK|UNLOCK)\b/i',
-                            $query
-                        )
-                    ) {
-                        throw new \RuntimeException('A03_DDL_DURING_PROBE');
-                    }
-                    if ($this->closed && !preg_match('/\A\s*(?:SELECT|SHOW|DESCRIBE)\b/i', $query)) {
-                        return false;
-                    }
-                    $result = parent::query($query);
-                    if ($result === false && preg_match('/\A\s*(?:SELECT|SHOW|DESCRIBE|EXPLAIN)\b/i', $query)) {
-                        throw new \RuntimeException('A03_SQL_READ');
-                    }
-                    return $result;
+            public function query($query)
+            {
+                if (
+                    $this->probe
+                    && preg_match('/\A\s*(?:START|BEGIN|COMMIT|ROLLBACK|SAVEPOINT|RELEASE)\b/i', $query)
+                ) {
+                    return 0;
                 }
-            };
-            $GLOBALS['wpdb']->suppress_errors(true);
+                if (
+                    $this->probe && preg_match(
+                        '/\A\s*(?:CREATE|ALTER|DROP|TRUNCATE|RENAME|GRANT|REVOKE|LOCK|UNLOCK)\b/i',
+                        $query
+                    )
+                ) {
+                    throw new \RuntimeException('A03_DDL_DURING_PROBE');
+                }
+                if ($this->closed && !preg_match('/\A\s*(?:SELECT|SHOW|DESCRIBE)\b/i', $query)) {
+                    return false;
+                }
+                $result = parent::query($query);
+                if ($result === false && preg_match('/\A\s*(?:SELECT|SHOW|DESCRIBE|EXPLAIN)\b/i', $query)) {
+                    throw new \RuntimeException('A03_SQL_READ');
+                }
+                return $result;
+            }
+        };
+        $GLOBALS['wpdb']->suppress_errors(true);
         if ($write) {
             $GLOBALS['wpdb']->beginProbe();
         }

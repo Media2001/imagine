@@ -21,8 +21,8 @@ Aucune activation WordPress n'est nécessaire.
 - Les deux modes ne sont jamais comparables entre eux. Schéma, structure ou mode invalides
   lèvent uniquement un code technique constant (`A03_REPORT_SCHEMA|STRUCTURE|MODE`).
   La commande existante `comparer` traduit ces exceptions en code de sortie 1.
-- Les sept clés de pages sont fixes. Une page supprimée devient **anormale** ; si une même page
-  manque dans les deux photos, la comparaison est refusée (pas de faux « inchangé »).
+- Les sept clés de pages sont fixes et obligatoires dans la référence. Une page supprimée dans
+  la seconde photo devient **anormale** ; une référence incomplète est refusée, même si la page apparaît ensuite.
 - Le timestamp, une fois son type validé, n'entre pas dans les différences. Les classements
   versions = attendu, accès/actions = anormal, pages/sonde = à regarder hors santé dégradée
   restent inchangés. Aucune liste de hooks attendus n'est introduite.
@@ -46,9 +46,13 @@ Le lock réutilise exactement les dépendances publiques déjà préparées pour
 son empreinte de contenu est calculée par Composer pour le nouveau manifeste.
 Dans le conteneur jetable autorisé uniquement : `composer install --no-scripts --no-plugins`,
 `composer validate --strict --no-check-publish`, `composer test`, `composer lint`.
-La commande de rejeu autorisée du projet reste `wp/tests/rejouer.ps1` ; son image préparée
-ancienne doit être reconstruite par la procédure autorisée pour inclure ce nouveau manifeste.
-Aucun `vendor/` n'est livré et aucun PHP Windows n'est requis.
+`python wp/tests/a03-non-regression/phpunit.py --name nom-nouveau` rejoue ce paquet seul,
+avec découverte et contrôle exhaustif de couverture T01 sur sa copie, sans modifier le banc partagé.
+Les dépendances déjà préparées de `imagine-tests-t01:1` sont réutilisées hors réseau ;
+aucun `vendor/` n'est livré et aucun PHP Windows n'est requis. Sorties : scratch Hermes.
+La commande globale reste `wp/tests/rejouer.ps1` ; si son image ne connaît pas encore ce
+manifeste, son propriétaire doit la préparer par la procédure autorisée. Le runner A03 ne
+reconstruit pas cette image et ne prétend pas avoir rejoué les autres lots.
 
 PSR-4 : `Imagine\NonRegression\` → `src/` ; après installation Composer,
 autoload = `wp/plugins/imagine-non-regression/vendor/autoload.php`.

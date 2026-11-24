@@ -1,10 +1,10 @@
-Fait : A-03 livré, photos comparables et commande comparer ; aucune action A-04 commencée.
-Prêt à relire : scripts dans wp/outils/bascule/non-regression et comparer, classes propres dans a03/, mode d’emploi de dix lignes dans non-regression.md.
-Tests exécutés : 4 tests purs et 45 contrôles réels classique/HPOS au vert, 7 fichiers PHP lintés ; PSR-12 production : zéro erreur, zéro avertissement.
-Preuves finales : production/A-03/preuve-finale/{runner,result,unit,lint}.json et rapports JSON fictifs ; historique RED/GREEN condensé dans tdd.json.
-Relecture : python C:/Users/Ced/imagine/wp/tests/a03-non-regression/run.py --name relecture-parent-a03 (nouveau nom de sortie obligatoire).
-Résultats : deux photos identiques sans différence ; adhésion expirée et action supprimée détectées anormales dans les deux stockages ; la matrice conserve les réponses natives, dont pending autorisé par Memberships ici.
-Renouvellement : commande native manuelle impayée créée et liée, compte/abonnement/commande nettoyés ; toutes les lignes SQL restaurées après succès et après panne provoquée, AUTO_INCREMENT pouvant avancer.
-Limites : SELECT SQL requis pour la photo ; sonde d’écriture séparée, tables InnoDB sans drop-in DB/cache ; GET visiteur et erreurs PHP visibles, aucun paiement ni analyse exhaustive des journaux.
-Périmètre respecté : aucun réel, archive Imagine, compte réel, Novamira, Git, import/diagnostic, autre voie ou verrou modifié ; runners propres supprimés et sources acceptées contrôlées inchangées.
-À arbitrer/Bloqué : rien pour ce lot fictif ; relecture indépendante du parent nécessaire, PRET ne vaut ni clôture A-03 ni GO sur un staging réel.
+Fait : corrections A-03 §4.1–9 appliquées ; représentants ordinaires, erreurs SQL bloquant la photo, écriture complète/chmod contrôlés, comparateur strict et chemins anti-PII ; aucun droit métier inventé.
+Prêt à relire : scripts A03, paquet pur wp/plugins/imagine-non-regression découvrable T01 et mode d’emploi de dix lignes ; PRET technique ne vaut ni clôture ni GO réel.
+Tests réels : PHPUnit 115 tests / 246 assertions ; 10 contrôles purs/CLI, 5 cas du writer, 63 contrôles classique+HPOS (30 par stockage et 3 d’isolation), tous réussis ; 10 lints PHP et PSR-12 production/paquet sans erreur ni avertissement.
+TDD : référence incomplète ajoutée en RED (1 échec), puis GREEN ; historiques C1 et SQL repris dans le scratch, jamais réinventés. Dépendances déjà préparées ; Composer signale le filtre de sécurité réseau indisponible, pas un audit réseau réussi.
+Sorties hors dépôt : C:/Users/Ced/AppData/Local/hermes/cache/scratch/imagine-a03-runs/{reprise-acceptance-finale,reprise-phpunit-final,reprise-baseline-red}/ et reprise-style-green.json ; aucun arbre de preuves ni reçu d’empreintes livré ici.
+Rejeu indépendant : python wp/tests/a03-non-regression/run.py --name nouveau-nom ; python wp/tests/a03-non-regression/phpunit.py --name autre-nom ; WSL/Docker jetables, sans montage/port/réseau, nettoyage exact des runners vérifié.
+Résultats : photos identiques sans différence ; droit du seul client ordinaire, adhésion expirée et action supprimée détectés anormaux ; table inaccessible distincte du vide légitime ; refus de sortie sans mutation du site ; renouvellement manuel nettoyé, lignes restaurées aussi après panne.
+Limites conservées : php_error dépend des erreurs affichées, fatal silencieux seulement via HTTP défaillant ; pas de lecture des journaux, pas de preuve d’étanchéité servie (lot paywall), pas de valeurs avant/après ; toutes les actions restent anormales sans whitelist.
+À arbitrer par Ced : les cinq questions de corrections/A-03.md §5 restent sans réponse ; aucune acceptation supposée. T01 découverte/couverture rejouées sur A03 seul ; commande globale non exécutée, préparation d’une image connaissant ce manifeste réservée à son propriétaire si nécessaire.
+Périmètre : aucun réel, Git, Novamira, staging Imagine, autre voie, banc partagé, verrou ni file modifiés ; A-04 non commencé et toujours dépendant de la clôture A-03 ; relecture indépendante parent et décisions humaines restent nécessaires.

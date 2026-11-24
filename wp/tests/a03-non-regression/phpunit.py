@@ -1,6 +1,7 @@
 """A03 pure PHPUnit replay, offline, without changing the shared T01 bench."""
 import argparse
 import importlib.util
+import hashlib
 import json
 import pathlib
 import re
@@ -24,6 +25,11 @@ def main():
     out = pathlib.Path(__import__('os').environ['LOCALAPPDATA']) / 'hermes/cache/scratch/imagine-a03-runs' / args.name
     out.mkdir(parents=True, exist_ok=False)
     package = runner.REPO / 'wp/plugins/imagine-non-regression'
+    roots = [package, ROOT, runner.REPO / 'wp/outils/bascule/a03', ROOT.parent / 't01']
+    def inventory():
+        return {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for root in roots
+                for p in root.rglob('*') if p.is_file() and '__pycache__' not in p.parts}
+    before = inventory()
     name = 'imagine-a03-phpunit-' + uuid.uuid4().hex[:12]
     result = {'container': name, 'commands': {}, 'exit_code': 1, 'cleanup': False}
     created = False
@@ -89,7 +95,8 @@ def main():
             bench.call(['rm', '-f', name])
             missing = bench.call(['inspect', name], check=False)
             result['cleanup'] = missing.returncode != 0 and re.search('no such (object|container)', missing.stderr, re.I) is not None
-        if not result['cleanup']:
+        result['sources_unchanged'] = before == inventory()
+        if not result['cleanup'] or not result['sources_unchanged']:
             result['exit_code'] = 1
         (out / 'checks.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf8')
         print(json.dumps({'output': str(out), **result}, indent=2))
