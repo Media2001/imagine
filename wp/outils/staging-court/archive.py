@@ -46,6 +46,15 @@ class Findings:
                 'warnings': [r['code'] for r in rules if not r['blocking']]}
 
 
+def archive_path(prefix, name):
+    # AI1WM dirname('package.json') is '.', not an unsafe interior segment.
+    if prefix in ('.', './'):
+        prefix = ''
+    elif prefix.startswith('./'):
+        prefix = prefix[2:]
+    return prefix + '/' + name if prefix else name
+
+
 def path_rules(relative, seen, folded, directories):
     parts = relative.split('/')
     rules = []
@@ -117,7 +126,7 @@ def audit(stream, max_bytes=1024*1024*1024, max_entries=150000, retain_sql=False
                 bad = True
             bad |= bool(padding.strip(b'\0'))
         name, size, stamp, prefix = fields
-        relative = prefix + '/' + name if prefix else name
+        relative = archive_path(prefix, name)
         if bad or not name or '/' in name or not re.fullmatch(r'[0-9]{1,12}', stamp):
             findings.add('ARCHIVE_HEADER', relative)
         if not re.fullmatch(r'[0-9]{1,14}', size):
@@ -256,7 +265,7 @@ def _restore_payload(stream, content, max_bytes=1024 * 1024 * 1024, max_entries=
         if (not name or '/' in name or name in ('.', '..')
                 or not re.fullmatch(r'[0-9]{1,14}', size) or not re.fullmatch(r'[0-9]{1,12}', stamp)):
             raise Refusal('ARCHIVE_HEADER')
-        relative = prefix + '/' + name if prefix else name
+        relative = archive_path(prefix, name)
         parts = relative.split('/')
         for code in path_rules(relative, seen, folded, directories):
             if code == 'ARCHIVE_PATH_CASE_ONLY' and not case_verified:

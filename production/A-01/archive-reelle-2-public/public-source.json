@@ -1,0 +1,16 @@
+{
+  "url": "https://downloads.wordpress.org/plugin/all-in-one-wp-migration.7.109.zip",
+  "sha256": "cc592ad8e929d6ddb14b46a70dc840a0571f8bd6addda36a9bbf007d0bb3b72f",
+  "files": {
+    "all-in-one-wp-migration/constants.php": "5de41c60c3a04aa3c6c627d9ec5d0e201294e7a8d67d09a8ab40f35fde833b27",
+    "all-in-one-wp-migration/lib/controller/class-ai1wm-export-controller.php": "59b2f41f239a02178e63e5dd6d4837c3f1c040cd8117874b2c9ae6c51d88d541",
+    "all-in-one-wp-migration/lib/model/export/class-ai1wm-export-archive.php": "760a5e1c26440bcfe89aa7f860b11b98212a7b57843da1ca39ddb3bc149fb275",
+    "all-in-one-wp-migration/lib/model/export/class-ai1wm-export-config.php": "e464db1a60dab9f47a4b1833d522ad7542ddf35447a6347d54c8aef62b9462e4",
+    "all-in-one-wp-migration/lib/model/export/class-ai1wm-export-database.php": "a716d2bf2cb4a19d1811ea2b3aa86a2ceaa01be31bc31f3ddf935135b026da6e",
+    "all-in-one-wp-migration/lib/model/export/class-ai1wm-export-download.php": "833feb8e50e4273903bbcae1606fab1c3d304f092c4eeeb61026c719bd17a57e",
+    "all-in-one-wp-migration/lib/vendor/servmask/archiver/class-ai1wm-archiver.php": "6e5f88d9f282190a9b152ebd1a9f8a1b4ab03990a35c5c86fde71533773394dc",
+    "all-in-one-wp-migration/lib/vendor/servmask/archiver/class-ai1wm-compressor.php": "09b2c91a0dfff8b3635d9bb918ff02cb49eadbb7744b32fe4de0048c74d1168c",
+    "all-in-one-wp-migration/lib/vendor/servmask/archiver/class-ai1wm-extractor.php": "cd46a228b8740eeaeee811844f6fd26bb4e23affd5c382ebef3fc951a61eff71",
+    "all-in-one-wp-migration/lib/vendor/servmask/command/class-ai1wm-wp-cli-command.php": "b93372d17b4a19b95157946ce7a915fed33c9f108a21e0fd939a7e90b7d12e9d"
+  }
+}
