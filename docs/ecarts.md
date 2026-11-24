@@ -29,4 +29,4 @@ Toute demande hors cahier des charges, toute contradiction interne au cahier des
 - Thèmes : imaginev2 (sur mesure, une cinquantaine de fichiers PHP), storefront, twentytwentyfive.
 - Seule passerelle de paiement visible : Stripe. Pas de Teams, pas d'Event Tickets.
 - Des exports et journaux dans `uploads/` (wpallexport, memberships_csv_exports, wc-logs…) : à exclure du staging, et à signaler à Imagine (fichiers d'abonnés stockés dans un dossier de médias).
-
+- Confirmé par Ced le 24/11 : il n'y a **qu'un seul site**, `kiosque.imagine-magazine.com` (éditorial, abonnements et boutique). Cette archive est donc tout l'existant.
