@@ -200,7 +200,7 @@ final class Decouverte
                 $rights['droits'][] = ['type' => 'decouverte',
                     'debut' => new DateTimeImmutable($state['debut'], new DateTimeZone('UTC')),
                     'compte_verifie' => self::verifie($id),
-                    'consommes' => count($state['articles']) - ($seen ? 1 : 0)];
+                    'consommes' => count($state['articles'])];
                 $content['decouverte'] = true;
                 $rule = $policy['forme'] === 'articles'
                     ? new \Imagine\Pilotage\Acces\NombreArticlesDecouverte($policy['nombre'], $policy['numeros'], false)

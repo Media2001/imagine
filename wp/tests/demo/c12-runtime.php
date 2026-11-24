@@ -50,7 +50,7 @@ if ($checks['raccord_disponible']) {
             $exhausted = Decouverte::decider($content, $visitor, $robot, $now, 912003);
             $checks['epuisement_moteur_bloc'] = !$exhausted->complet && $exhausted->motif->value === 'decouverte_epuisee'
                 && $exhausted->bloc->value === 'decouverte_epuisee' && Decouverte::etat($id)['articles'] === [912001, 912002];
-            $checks['relecture_apres_quota_sans_credit'] = Decouverte::decider($content, $visitor, $robot, $now, 912001)->complet
+            $checks['relecture_apres_quota_fermee_sans_credit'] = !Decouverte::decider($content, $visitor, $robot, $now, 912001)->complet
                 && Decouverte::etat($id)['articles'] === [912001, 912002];
             $future = $content; $future['sortie'] = $now->modify('+1 day');
             $checks['futur_pas_de_credit'] = !Decouverte::decider($future, $visitor, $robot, $now, 912004)->complet;
