@@ -1,6 +1,7 @@
 """PHPUnit C12 hors ligne : réutilise les dépendances T01 sans modifier son image."""
 from pathlib import Path
 import json
+import re
 import subprocess
 import uuid
 
@@ -49,6 +50,11 @@ def run():
         state = json.loads(docker('inspect', name).stdout)[0]['State']
         if result.returncode or state['ExitCode'] or state['Running']:
             raise SystemExit(1)
+        counts = re.search(r'OK \((\d+) tests?, (\d+) assertions?\)', result.stdout)
+        if not counts:
+            raise RuntimeError('Résumé PHPUnit C12 introuvable')
+        return {'tests': int(counts[1]), 'assertions': int(counts[2]), 'succes': True,
+                'network': 'none', 'api_wp_sql': 'doublures', 'moteur_et_raccord': 'reels'}
     finally:
         if created:
             probe = docker('inspect', name, check=False)

@@ -4,6 +4,7 @@ import base64
 import importlib.util
 import io
 import json
+import runpy
 import sys
 import unittest
 from pathlib import Path
@@ -11,7 +12,7 @@ import c10
 
 ROOT = c10.ROOT
 FILES = ['plugins/imagine-site/Decouverte.php', 'plugins/imagine-site/DecouverteReglages.php',
-         'plugins/imagine-site/Paywall.php', 'plugins/imagine-site/imagine-site.php']
+         'plugins/imagine-site/Paywall.php']  # Bootstrap C13 conservé, jamais réinstallé ici.
 
 
 def upload(rel, source):
@@ -68,6 +69,7 @@ def regression(http):
 
 
 def run(tests_only=False, check_only=False):
+    phpunit = runpy.run_path(str(ROOT / 'wp/outils/demo/c12-unit.py'))['run']()
     _, manifest = c10.guard()  # Identité read-only AVANT toute écriture cible.
     if not tests_only and not check_only:
         for rel in FILES:
@@ -83,7 +85,7 @@ def run(tests_only=False, check_only=False):
         actual = c10.b00.wp('eval', 'echo base64_encode(file_get_contents(WP_CONTENT_DIR . ' + json.dumps('/' + rel) + '));')['stdout'].strip()
         if actual != base64.b64encode((ROOT / 'wp' / rel).read_bytes()).decode():
             raise RuntimeError('Code cible différent : ' + rel)
-    results = {'PHP_C12': runtime()}
+    results = {'PHPUnit_C12': phpunit, 'PHP_C12': runtime()}
     if tests_only:
         return results
     http = module('c12_http', 'c12-http.py')
@@ -101,12 +103,12 @@ def run(tests_only=False, check_only=False):
     results['manifestes_preserves'] = manifest == c10.guard()[1]
     if results['manifestes_preserves'] is not True:
         raise RuntimeError('Manifeste C08/B00 différent')
-    results['total_assertions'] = sum(len(v) for k, v in results.items() if k in ['PHP_C12', 'HTTP_C12', 'C11_cible']) + local.testsRun
+    results['total_controles'] = sum(len(v) for k, v in results.items() if k in ['PHP_C12', 'HTTP_C12', 'C11_cible']) + local.testsRun + phpunit['tests']
     results['statut'] = 'VERT'
     out = ROOT / 'production/C-12/resultats.json'
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding='utf-8')
-    print('C12 VERT :', results['total_assertions'], 'contrôles ; résultats :', out)
+    print('C12 VERT :', results['total_controles'], 'contrôles/tests ; résultats :', out)
     return results
 
 

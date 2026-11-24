@@ -14,12 +14,15 @@ if ($checks['raccord_disponible']) {
     $before = get_option($key, $absent);
     $verified = get_user_meta($id, 'imagine_email_confirme', true);
     $policy = get_option(Decouverte::OPTION, $absent);
+    $relecture = get_option(Decouverte::RELECTURE, $absent);
     $now = new DateTimeImmutable('2026-11-24 10:00:00', new DateTimeZone('UTC'));
     try {
         delete_option($key);
+        update_option(Decouverte::RELECTURE, 'fermee');
         update_user_meta($id, 'imagine_email_confirme', '1');
         $settings = ['ouverture' => 'fermee', 'forme' => 'articles', 'jours' => 7, 'nombre' => 2,
-            'numeros' => [(string) get_option('imagine_demo_manifest')['demo-2026-t4']]];
+            'numeros' => array_map(static fn ($slug): string => (string) get_option('imagine_demo_manifest')[$slug],
+                ['demo-2026-t4', 'demo-2026-t3', 'demo-2026-t2'])];
         update_option(Decouverte::OPTION, $settings);
         $checks['defaut_ferme'] = Decouverte::ouvrir($id, $now) === null;
         $settings['ouverture'] = 'premiere_lecture'; update_option(Decouverte::OPTION, $settings);
@@ -42,18 +45,39 @@ if ($checks['raccord_disponible']) {
             $visitor = ['identifie' => true, 'droits' => []];
             $content = ['reserve' => true, 'numero' => $settings['numeros'][0], 'type' => 'article',
                 'sortie' => $now->modify('-1 day'), 'decouverte' => true];
+            delete_option($key);
+            $future = $content; $future['sortie'] = $now->modify('+1 day');
+            $futureDecision = Decouverte::decider($future, $visitor, $robot, $now, 912004);
+            $checks['futur_sans_etat_motif_sans_ouverture'] = !$futureDecision->complet
+                && $futureDecision->motif->value === 'contenu_futur_ferme_par_reglage' && Decouverte::etat($id) === null;
+            $notDesignated = $content; $notDesignated['decouverte'] = false;
+            $checks['non_designe_sans_ouverture'] = !Decouverte::decider($notDesignated, $visitor, $robot, $now, 912005)->complet
+                && Decouverte::etat($id) === null;
             $checks['premier_article'] = Decouverte::decider($content, $visitor, $robot, $now, 912001)->complet
                 && Decouverte::etat($id)['articles'] === [912001];
+            $availableState = Decouverte::etat($id);
+            $futureDecision = Decouverte::decider($future, $visitor, $robot, $now, 912004);
+            $checks['futur_pas_de_credit'] = !$futureDecision->complet
+                && $futureDecision->motif->value === 'contenu_futur_ferme_par_reglage'
+                && Decouverte::etat($id) === $availableState;
+            $checks['non_designe_meme_numero_sans_credit'] = !Decouverte::decider($notDesignated, $visitor, $robot, $now, 912005)->complet
+                && Decouverte::etat($id) === $availableState;
             $checks['relecture_idempotente'] = Decouverte::decider($content, $visitor, $robot, $now, 912001)->complet
                 && Decouverte::etat($id)['articles'] === [912001];
-            $checks['dernier_credit_livre'] = Decouverte::decider($content, $visitor, $robot, $now, 912002)->complet;
-            $exhausted = Decouverte::decider($content, $visitor, $robot, $now, 912003);
+            $second = $content; $second['numero'] = $settings['numeros'][1];
+            $third = $content; $third['numero'] = $settings['numeros'][2];
+            $checks['dernier_credit_livre'] = Decouverte::decider($second, $visitor, $robot, $now, 912002)->complet;
+            $exhausted = Decouverte::decider($third, $visitor, $robot, $now, 912003);
             $checks['epuisement_moteur_bloc'] = !$exhausted->complet && $exhausted->motif->value === 'decouverte_epuisee'
                 && $exhausted->bloc->value === 'decouverte_epuisee' && Decouverte::etat($id)['articles'] === [912001, 912002];
             $checks['relecture_apres_quota_fermee_sans_credit'] = !Decouverte::decider($content, $visitor, $robot, $now, 912001)->complet
                 && Decouverte::etat($id)['articles'] === [912001, 912002];
-            $future = $content; $future['sortie'] = $now->modify('+1 day');
-            $checks['futur_pas_de_credit'] = !Decouverte::decider($future, $visitor, $robot, $now, 912004)->complet;
+            update_option(Decouverte::RELECTURE, 'rester_lisible');
+            $checks['relecture_apres_quota_lisible_sans_recredit'] = Decouverte::decider($content, $visitor, $robot, $now, 912001)->complet
+                && Decouverte::decider($second, $visitor, $robot, $now, 912002)->complet
+                && !Decouverte::decider($third, $visitor, $robot, $now, 912003)->complet
+                && Decouverte::etat($id)['articles'] === [912001, 912002];
+            update_option(Decouverte::RELECTURE, 'fermee');
             $pdf = $content; $pdf['type'] = 'pdf';
             $checks['pdf_hors_decouverte'] = !Decouverte::decider($pdf, $visitor, $robot, $now, 912004)->complet;
             $settings['nombre'] = 3; update_option(Decouverte::OPTION, $settings);
@@ -88,6 +112,9 @@ if ($checks['raccord_disponible']) {
             $checks['persistance_retablie_positive'] = Decouverte::decider($content, $visitor, $robot, $now, 912001)->complet;
         }
         if (!function_exists('add_settings_error')) { require_once ABSPATH . 'wp-admin/includes/template.php'; }
+        $checks['relecture_deux_valeurs_et_invalide'] = \Imagine\Site\DecouverteReglages::nettoyerRelecture('fermee') === 'fermee'
+            && \Imagine\Site\DecouverteReglages::nettoyerRelecture('rester_lisible') === 'rester_lisible'
+            && \Imagine\Site\DecouverteReglages::nettoyerRelecture('invalide') === 'fermee';
         $validPolicy = get_option(Decouverte::OPTION);
         $failAudit = static function (string $query): string {
             return str_starts_with($query, 'INSERT INTO') && str_contains($query, 'imagine_reglages_journal_')
@@ -101,6 +128,10 @@ if ($checks['raccord_disponible']) {
             $checks['audit_panne_annule_modification'] = get_option(Decouverte::OPTION) === $validPolicy;
             delete_option(Decouverte::OPTION); add_option(Decouverte::OPTION, $changed, '', false);
             $checks['audit_panne_annule_creation'] = get_option(Decouverte::OPTION, null) === null;
+            update_option(Decouverte::RELECTURE, 'rester_lisible');
+            $checks['audit_relecture_panne_annule_modification'] = get_option(Decouverte::RELECTURE) === 'fermee';
+            delete_option(Decouverte::RELECTURE); add_option(Decouverte::RELECTURE, 'rester_lisible', '', false);
+            $checks['audit_relecture_panne_annule_creation'] = get_option(Decouverte::RELECTURE, null) === null;
         } finally {
             remove_filter('query', $failAudit); $wpdb->suppress_errors($suppress);
             update_option(Decouverte::OPTION, $validPolicy);
@@ -109,9 +140,11 @@ if ($checks['raccord_disponible']) {
         if (isset($originalUser)) { wp_set_current_user($originalUser); }
         if ($before === $absent) { delete_option($key); } else { update_option($key, $before); }
         if ($policy === $absent) { delete_option(Decouverte::OPTION); } else { update_option(Decouverte::OPTION, $policy); }
+        if ($relecture === $absent) { delete_option(Decouverte::RELECTURE); } else { update_option(Decouverte::RELECTURE, $relecture); }
         if ($verified === '') { delete_user_meta($id, 'imagine_email_confirme'); } else { update_user_meta($id, 'imagine_email_confirme', $verified); }
     }
-    $checks['restauration_etat'] = get_option($key, $absent) === $before && get_option(Decouverte::OPTION, $absent) === $policy;
+    $checks['restauration_etat'] = get_option($key, $absent) === $before && get_option(Decouverte::OPTION, $absent) === $policy
+        && get_option(Decouverte::RELECTURE, $absent) === $relecture;
 }
 echo wp_json_encode($checks);
 if (in_array(false, $checks, true)) { WP_CLI::halt(1); }

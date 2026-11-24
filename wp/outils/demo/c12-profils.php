@@ -24,9 +24,27 @@ function profil(int $id, string $code, bool $reset = false): void
     if ($code === 'V-DEC-FIN' && get_option($key, null) === null) {
         $settings = \Imagine\Site\Decouverte::defauts();
         $settings['ouverture'] = 'premiere_lecture';
-        $settings['numeros'] = [(string) get_option('imagine_demo_manifest')['demo-2026-t4']];
-        $articles = array_values(get_option('imagine_c12_fixture'));
+        $manifest = get_option('imagine_demo_manifest');
+        $settings['numeros'] = array_map(static fn ($slug): string => (string) $manifest[$slug],
+            ['demo-2026-t4', 'demo-2026-t3', 'demo-2026-t2']);
+        $fixture = get_option('imagine_c12_fixture');
+        $articles = [$fixture['un'], $fixture['deux']];
         add_option($key, ['debut' => gmdate('Y-m-d H:i:s', time() - DAY_IN_SECONDS),
             'reglages' => $settings, 'articles' => array_slice($articles, 0, $settings['nombre'])], '', false);
+    }
+    // Migration bornée du seul personnage épuisé de l'ancienne démo C12.
+    // Aucun compte de lecteur ni crédit n'est réinitialisé/ajouté.
+    if ($code === 'V-DEC-FIN') {
+        $state = \Imagine\Site\Decouverte::etat($id);
+        $fixture = get_option('imagine_c12_fixture');
+        $manifest = get_option('imagine_demo_manifest');
+        if ($state && $state['articles'] === [$fixture['un'], $fixture['deux']]
+            && $state['reglages']['nombre'] === 2
+            && $state['reglages']['numeros'] === [(string) $manifest['demo-2026-t4']]) {
+            $state['reglages']['numeros'] = array_map(static fn ($slug): string => (string) $manifest[$slug],
+                ['demo-2026-t4', 'demo-2026-t3', 'demo-2026-t2']);
+            update_option($key, $state);
+            if (\Imagine\Site\Decouverte::etat($id) !== $state) { throw new \RuntimeException('Migration V-DEC-FIN non relue.'); }
+        }
     }
 }
