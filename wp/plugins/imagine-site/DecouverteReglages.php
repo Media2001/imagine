@@ -16,7 +16,7 @@ final class DecouverteReglages
                 'type' => 'array', 'sanitize_callback' => [self::class, 'nettoyer'], 'show_in_rest' => false,
             ]);
             register_setting('imagine_reglages', Decouverte::RELECTURE, [
-                'type' => 'string', 'default' => 'fermee',
+                'type' => 'string',
                 'sanitize_callback' => [self::class, 'nettoyerRelecture'], 'show_in_rest' => false,
             ]);
         }, 30);
