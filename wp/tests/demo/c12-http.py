@@ -50,6 +50,25 @@ def wp(code):
     return json.loads(r['stdout'])
 
 
+def settings_post(admin, desired, nonce_override=None):
+    from html import unescape
+    _, _, page = fetch('/wp-admin/admin.php?page=imagine-reglages', admin)
+    nonce = re.search(r'name="_wpnonce" value="([^"]+)"', page)
+    if not nonce:
+        raise RuntimeError('Nonce Settings API absent')
+    fields = {'option_page': 'imagine_reglages', 'action': 'update',
+              '_wpnonce': nonce_override or unescape(nonce.group(1)),
+              '_wp_http_referer': '/wp-admin/admin.php?page=imagine-reglages'}
+    values = wp(r'$s=new Imagine\Pilotage\Administration\Reglages();$v=[];foreach($s->defauts() as $k=>$d){$v[$k]=get_option($k,$d);}echo wp_json_encode($v);')
+    for option, value in values.items():
+        if isinstance(value, dict):
+            fields.update({option + '[' + k + ']': v for k, v in value.items()})
+        else:
+            fields[option] = '\n'.join(value)
+    fields.update({'imagine_decouverte_reglages[' + k + ']': (','.join(v) if isinstance(v, list) else v) for k, v in desired.items()})
+    return fetch('/wp-admin/options.php', admin, urlencode(fields).encode())
+
+
 def verify():
     c12.c10.guard()
     ids = wp('echo wp_json_encode(get_option("imagine_c12_fixture"));')
@@ -58,9 +77,31 @@ def verify():
     before = wp('$id=' + str(user) + ';echo wp_json_encode(["etat"=>get_option("' + key + '",null),"policy"=>get_option("imagine_decouverte_reglages",null),"verifie"=>get_user_meta($id,"imagine_email_confirme",true)]);')
     accounts = json.loads((Path.home() / '.imagine-demo/identifiants.json').read_text(encoding='utf-8'))['c09_accounts']
     checks = {}
+    c10_before = wp('$out=[];foreach(["imagine_acces_reglages","imagine_c05_reglages","imagine_envoi_colonnes_export"] as $k){$out[$k]=get_option($k,null);}echo wp_json_encode($out);')
     try:
-        wp('delete_option("' + key + '");update_user_meta(' + str(user) + ',"imagine_email_confirme","1");$p=["ouverture"=>"premiere_lecture","forme"=>"articles","jours"=>7,"nombre"=>2,"numeros"=>[(string)get_option("imagine_demo_manifest")["demo-2026-t4"]]];update_option("imagine_decouverte_reglages",$p);echo "true";')
+        wp('delete_option("' + key + '");update_user_meta(' + str(user) + ',"imagine_email_confirme","1");update_option("imagine_decouverte_reglages",["ouverture"=>"fermee","forme"=>"articles","jours"=>7,"nombre"=>2,"numeros"=>[]]);echo "true";')
         client = login(accounts['V-DEC'])
+        _, _, closed = fetch('/c12-decouverte-un/', client)
+        checks['defaut_HTTP_ferme_sans_ouverture'] = 'Le texte réservé C12 un révèle' not in closed and wp('echo wp_json_encode(get_option("' + key + '",null));') is None
+        admin = login(accounts['E-ADMIN'])
+        issue = wp('echo wp_json_encode((string)get_option("imagine_demo_manifest")["demo-2026-t4"]);')
+        desired = {'ouverture': 'premiere_lecture', 'forme': 'articles', 'jours': 7, 'nombre': 2, 'numeros': [issue]}
+        status, _, settings_html = settings_post(admin, desired)
+        checks['activation_POST_natif_C10'] = status == 200 and wp('echo wp_json_encode(get_option("imagine_decouverte_reglages"));') == desired
+        audit = wp('global $wpdb;$rows=$wpdb->get_col("SELECT option_value FROM {$wpdb->options} WHERE option_name LIKE \'imagine_reglages_journal_%\'");$out=[];foreach($rows as $row){$event=maybe_unserialize($row);if($event["option"]==="imagine_decouverte_reglages"){$out[]=$event;}}echo wp_json_encode($out);')
+        checks['journal_visible_compte_admin'] = any(e['qui_login'] == 'e-admin' and e['apres'] == desired for e in audit)
+        bad = dict(desired, nombre=0)
+        settings_post(admin, bad)
+        checks['reglage_invalide_conserve'] = wp('echo wp_json_encode(get_option("imagine_decouverte_reglages"));') == desired
+        status, _, _ = settings_post(admin, dict(desired, nombre=3), nonce_override='nonce-invalide')
+        checks['nonce_invalide_refuse'] = status == 403 and wp('echo wp_json_encode(get_option("imagine_decouverte_reglages"));') == desired
+        status, _, _ = fetch('/wp-admin/options.php', client, urlencode({'option_page': 'imagine_reglages', 'action': 'update', '_wpnonce': 'nonce-invalide'}).encode())
+        checks['client_ne_modifie_pas_C10'] = status == 403 and wp('echo wp_json_encode(get_option("imagine_decouverte_reglages"));') == desired
+        fin_user = wp('echo wp_json_encode(get_option("imagine_c09_fixture")["users"]["V-DEC-FIN"]);')
+        fin_before = wp('echo wp_json_encode(get_option("imagine_decouverte_compte_' + str(fin_user) + '"));')
+        fin = login(accounts['V-DEC-FIN'])
+        status, _, text = fetch('/c12-decouverte-trois/', fin)
+        checks['profil_V_DEC_FIN_epuise_HTTP'] = status == 200 and 'data-imagine-bloc="decouverte_epuisee"' in text and 'Le texte réservé C12 trois révèle' not in text and wp('echo wp_json_encode(get_option("imagine_decouverte_compte_' + str(fin_user) + '"));') == fin_before
         nonce_status, _, nonce = fetch('/wp-admin/admin-ajax.php?action=rest-nonce', client)
         auth_status, _, me = fetch('/wp-json/wp/v2/users/me', client, headers={'X-WP-Nonce': nonce.strip()})
         checks['rest_vraiment_connecte'] = nonce_status == 200 and auth_status == 200 and json.loads(me)['id'] == user
@@ -125,11 +166,32 @@ def verify():
         after_race = wp('echo wp_json_encode(get_option("' + key + '"));')
         granted = {label for label, full in responses if full}
         checks['concurrence_quota_atomique'] = len(after_race['articles']) == 2 and len(granted) == 1
+        settings_post(admin, dict(desired, nombre=3))
+        new_label = 'trois' if ids['trois'] not in after_race['articles'] else 'deux'
+        _, _, text = fetch('/c12-decouverte-' + new_label + '/', fresh_session)
+        checks['changement_nombre_sans_recredit'] = 'data-imagine-bloc="decouverte_epuisee"' in text and wp('echo wp_json_encode(get_option("' + key + '"));') == after_race
+        settings_post(admin, dict(desired, numeros=[]))
+        _, _, text = fetch(path, fresh_session)
+        checks['perimetre_vide_ferme_sans_consommation'] = witness not in text and wp('echo wp_json_encode(get_option("' + key + '"));') == after_race
+        settings_post(admin, dict(desired, forme='duree', jours=1, nombre=1))
+        wp('delete_option("' + key + '");echo "true";')
+        _, _, text = fetch(path, fresh_session)
+        checks['duree_HTTP_positive'] = witness in text and 'UTC (fin exclue)' in text
+        wp('$s=get_option("' + key + '");$s["debut"]=gmdate("Y-m-d H:i:s",time()-DAY_IN_SECONDS);update_option("' + key + '",$s);echo "true";')
+        duration_state = wp('echo wp_json_encode(get_option("' + key + '"));')
+        _, _, text = fetch('/c12-decouverte-deux/', fresh_session)
+        checks['duree_HTTP_epuisee_sans_renouveler'] = 'Le texte réservé C12 deux révèle' not in text and 'data-imagine-bloc="decouverte_epuisee"' in text and wp('echo wp_json_encode(get_option("' + key + '"));') == duration_state
+        settings_post(admin, dict(desired, ouverture='fermee'))
+        _, _, text = fetch(path, fresh_session)
+        checks['fermeture_generale_HTTP'] = witness not in text and wp('echo wp_json_encode(get_option("' + key + '"));') == duration_state
     finally:
         code = '$old=json_decode(' + json.dumps(json.dumps(before)) + ',true);$key=' + json.dumps(key) + ';foreach([$key=>"etat","imagine_decouverte_reglages"=>"policy"] as $option=>$field){if($old[$field]===null){delete_option($option);}else{update_option($option,$old[$field]);}}if($old["verifie"]===""){delete_user_meta(' + str(user) + ',"imagine_email_confirme");}else{update_user_meta(' + str(user) + ',"imagine_email_confirme",$old["verifie"]);}echo "true";'
         wp(code)
         restored = wp('$id=' + str(user) + ';echo wp_json_encode(["etat"=>get_option("' + key + '",null),"policy"=>get_option("imagine_decouverte_reglages",null),"verifie"=>get_user_meta($id,"imagine_email_confirme",true)]);')
         checks['restauration_exacte'] = restored == before
+        wp('$old=json_decode(' + json.dumps(json.dumps(c10_before)) + ',true);foreach($old as $key=>$value){if($value===null){delete_option($key);}else{update_option($key,$value);}}echo "true";')
+        c10_after = wp('$out=[];foreach(["imagine_acces_reglages","imagine_c05_reglages","imagine_envoi_colonnes_export"] as $k){$out[$k]=get_option($k,null);}echo wp_json_encode($out);')
+        checks['C10_options_exactement_preservees'] = c10_after == c10_before
     failures = [k for k, v in checks.items() if v is not True]
     print('C12 HTTP :', len(checks) - len(failures), '/', len(checks), '; échecs :', failures)
     if failures:

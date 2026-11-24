@@ -33,6 +33,13 @@ def run(tests_only=False):
     if not tests_only:
         for rel in FILES:
             upload(rel, ROOT / 'wp' / rel)
+        for name in ['c12-seed.php', 'c12-profils.php', 'c09-seed.php', 'c09-profils.json']:
+            upload('imagine-demo-build/' + name, ROOT / 'wp/outils/demo' / name)
+        c10.b00.wp('eval', '(static function(){require WP_CONTENT_DIR . "/imagine-demo-build/c12-seed.php";})();')
+        c10.b00.wp('eval', 'require_once WP_CONTENT_DIR . "/imagine-demo-build/c12-profils.php";$f=get_option("imagine_c09_fixture");foreach(["V-DEC","V-DEC-FIN"] as $k){Imagine\\Demo\\C12\\profil($f["users"][$k],$k);}echo "ok";')
+        result = json.loads(c10.b00.wp('eval', '$f=get_option("imagine_c09_fixture");$out=[];foreach(["V-DEC","V-DEC-FIN"] as $k){$id=$f["users"][$k];$out[$k]=["verified"=>get_user_meta($id,"imagine_email_confirme",true)==="1","state"=>Imagine\\Site\\Decouverte::etat($id)];}echo wp_json_encode($out);')['stdout'])
+        if not all(row['verified'] for row in result.values()) or result['V-DEC-FIN']['state'] is None:
+            raise RuntimeError('Profils C12 non relus')
     runtime()
 
 
