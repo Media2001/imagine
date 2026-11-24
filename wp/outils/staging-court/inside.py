@@ -13,7 +13,7 @@ import time
 from urllib.parse import urlsplit
 
 from archive import Refusal, restore, audit, check_space, ARCHIVE_REFUSALS
-from core_source import plugin_warnings
+from core_source import plugin_warnings, manifest_settings_values
 from legacy_importer import sql_plan, CREATE_WORDS
 
 # Narrow grammar additions required by SHOW CREATE from the existing synthetic baseline.
@@ -133,6 +133,7 @@ def restore_and_verify(archive, request):
         sql, package, count = restore(stream, SITE / 'wp-content', report=archive_report,
                                       sql_path=SITE.parent / 'a01-source.sql', **limits)
     core_versions = validate_core_version(package, CORE / 'wp-includes/version.php', request.get('expected_core_version'))
+    manifest_settings = manifest_settings_values(package, SITE / 'wp-content')
     before = manifest(SITE / 'wp-content')
     # SQL stays on disk; validate every bounded statement before any import.
     from sql_stream import validate_file
@@ -155,6 +156,14 @@ def restore_and_verify(archive, request):
     engines = {row.split('\t')[0]: row.split('\t')[1].upper() for row in engine_rows}
     if engines != plan['table_engines']:
         raise Refusal('TABLE_ENGINE_READBACK_REFUSED')
+    for option, value in manifest_settings.items():
+        encoded = value.encode().hex()
+        sql = "UPDATE `" + prefix + "options` SET option_value=0x" + encoded + " WHERE option_name='" + option + "';"
+        command(['mariadb', '--socket=' + SOCKET, '--user=root', DB], data=sql.encode())
+        readback = command(['mariadb', '--socket=' + SOCKET, '--user=root', '--skip-column-names', DB,
+            '-e', "SELECT HEX(option_value) FROM `" + prefix + "options` WHERE option_name='" + option + "'"]).stdout.decode().strip().lower()
+        if readback != encoded:
+            raise Refusal('SOURCE_SETTINGS_METADATA_REFUSED')
     # Only target home/siteurl are rewritten before the native context guard. No WP bootstrap yet.
     update = "UPDATE `" + prefix + "options` SET option_value='" + target.replace("'", "''") + "' WHERE option_name IN ('home','siteurl');"
     command(['mariadb', '--socket=' + SOCKET, '--user=root', DB], data=update.encode())
@@ -190,6 +199,7 @@ def restore_and_verify(archive, request):
     verified = len(steps) == 3 and all(step['exit'] == 0 for step in steps)
     result = {'status': 'verified-offline' if verified else 'imported', 'data_verified': verified,
               'core_versions': core_versions, 'archive_report': archive_report,
+              'manifest_settings_restored_readback': sorted(manifest_settings),
               'table_engines': engines,
               'warnings': ([{'code': 'NON_INNODB_TABLE', 'table': table, 'engine': engine}
                            for table, engine in sorted(engines.items()) if engine != 'INNODB']
@@ -212,7 +222,7 @@ FAILURE_STAGES = {
         'FRESH_CONTENT_REQUIRED', 'FILE_TYPE_REFUSED')},
     **{code: 'core_preflight' for code in (
         'SOURCE_CORE_METADATA_REFUSED', 'PINNED_CORE_VERSION_REFUSED', 'SOURCE_CORE_VERSION_MISMATCH',
-        'EXPECTED_CORE_VERSION_REFUSED', 'PINNED_CORE_EXPECTED_VERSION_MISMATCH')},
+        'EXPECTED_CORE_VERSION_REFUSED', 'PINNED_CORE_EXPECTED_VERSION_MISMATCH', 'SOURCE_SETTINGS_METADATA_REFUSED')},
     **{code: 'sql_preflight' for code in (
         'SQL_ENCODING', 'SQL_GRAMMAR', 'SQL_TERMINATOR', 'SQL_IDENTIFIER', 'SQL_TABLE',
         'SQL_DDL', 'SQL_DDL_UNSUPPORTED', 'SQL_INSERT', 'SQL_INSERT_LITERAL',

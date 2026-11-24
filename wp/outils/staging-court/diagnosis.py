@@ -5,7 +5,7 @@ from pathlib import Path
 import re
 from archive import Findings, Refusal, audit, secret_candidate, DEFAULT_MAX_BYTES, DEFAULT_MAX_ENTRIES, DEFAULT_MAX_SQL_BYTES
 from sql_diagnostic import SQLAnalysis
-from core_source import select_version, numeric
+from core_source import select_version, numeric, manifest_settings_values
 
 HERE = Path(__file__).resolve().parent
 DANGER = re.compile(rb'[spr]k_(?:live|test)_|whsec_|xkeysib[-_]|(?<![a-z0-9])(?:cus|pm|src|seti|pi|ch|tok|ba)_[a-z0-9_-]+|(?<![a-z0-9])[BI]-[A-Z0-9]{6,}', re.I)
@@ -258,6 +258,7 @@ def diagnose(stream, expected='6.9.1', decisions=None, php='8.2', max_bytes=DEFA
         manifest_count += 1
         try:
             source_version = select_version(payload)
+            manifest_settings_values(payload)
             if version is None:
                 version = source_version
             if expected_valid and source_version != expected:

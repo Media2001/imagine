@@ -3,6 +3,9 @@
   "sha256": "cc592ad8e929d6ddb14b46a70dc840a0571f8bd6addda36a9bbf007d0bb3b72f",
   "files": {
     "all-in-one-wp-migration/constants.php": "5de41c60c3a04aa3c6c627d9ec5d0e201294e7a8d67d09a8ab40f35fde833b27",
+    "all-in-one-wp-migration/functions.php": "58aab1abb3544882ebb6ea341c6fd8145d536d8409dc0b465442ff2f8c4287c9",
+    "all-in-one-wp-migration/lib/controller/class-ai1wm-main-controller.php": "6fe11e07ba03fdbf70691e78aa64bb037ecc934db94a32beb973566c230e1af1",
+    "all-in-one-wp-migration/lib/model/export/class-ai1wm-export-init.php": "b31d84ebffdf6420576686c23f61d2c761c39336eaa9a8c7cc8ac0f6585f0cd0",
     "all-in-one-wp-migration/lib/controller/class-ai1wm-export-controller.php": "59b2f41f239a02178e63e5dd6d4837c3f1c040cd8117874b2c9ae6c51d88d541",
     "all-in-one-wp-migration/lib/model/export/class-ai1wm-export-archive.php": "760a5e1c26440bcfe89aa7f860b11b98212a7b57843da1ca39ddb3bc149fb275",
     "all-in-one-wp-migration/lib/model/export/class-ai1wm-export-config.php": "e464db1a60dab9f47a4b1833d522ad7542ddf35447a6347d54c8aef62b9462e4",

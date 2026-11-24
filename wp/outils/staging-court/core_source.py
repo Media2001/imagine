@@ -29,6 +29,39 @@ def select_version(package, expected=None):
     return version
 
 
+def manifest_settings_values(package, content=None):
+    """AI1WM clears these SQL options and carries their real values in JSON."""
+    from pathlib import Path
+    try:
+        metadata = json.loads(package)
+        if not isinstance(metadata, dict):
+            raise ValueError
+        keys = ('Plugins', 'Template', 'Stylesheet')
+        if not any(key in metadata for key in keys) and 'Plugin' not in metadata:
+            return {}  # legacy unit/minimal manifests carry SQL options themselves
+        plugins = metadata['Plugins']
+        if not isinstance(plugins, list) or len(plugins) > 10000 or len(set(plugins)) != len(plugins):
+            raise ValueError
+        for plugin in plugins:
+            if (not isinstance(plugin, str) or not re.fullmatch(r'[A-Za-z0-9_./-]{1,500}', plugin)
+                    or any(part in ('', '.', '..') for part in plugin.split('/')) or not plugin.endswith('.php')):
+                raise ValueError
+            if content is not None and not (Path(content) / 'plugins' / plugin).is_file():
+                raise ValueError
+        for key in ('Template', 'Stylesheet'):
+            slug = metadata[key]
+            if not isinstance(slug, str) or not re.fullmatch(r'[A-Za-z0-9_-]{1,200}', slug):
+                raise ValueError
+            if content is not None and not (Path(content) / 'themes' / slug).is_dir():
+                raise ValueError
+        serialized = 'a:' + str(len(plugins)) + ':{' + ''.join(
+            'i:' + str(i) + ';s:' + str(len(value.encode())) + ':"' + value + '";'
+            for i, value in enumerate(plugins)) + '}'
+        return {'active_plugins': serialized, 'template': metadata['Template'], 'stylesheet': metadata['Stylesheet']}
+    except (ValueError, KeyError, TypeError, RecursionError):
+        raise Refusal('SOURCE_SETTINGS_METADATA_REFUSED') from None
+
+
 class OfficialRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):
         from urllib.parse import urlsplit

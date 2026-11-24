@@ -128,16 +128,17 @@ def archive_core_preflight(runner, archive, expected, limits=None):
     program = '''import json,sys
 sys.path.insert(0,'/opt/court')
 from archive import restore,Refusal,ARCHIVE_REFUSALS
-from core_source import select_version
+from core_source import select_version, manifest_settings_values
 archive_report={}
 try:
  with open(ARCHIVE_TOKEN,'rb') as stream:
   sql,package,count=restore(stream,None,metadata_only=True,case_probe_root='/scratch',report=archive_report,**LIMITS_TOKEN)
  version=select_version(package,EXPECTED_TOKEN)
+ manifest_settings_values(package)
  print(json.dumps({'ok':True,'source':version,'expected':EXPECTED_TOKEN,'entries':count,'metadata_only':True,'archive_report':archive_report}))
 except Refusal as error:
  code=str(error)
- allowed=ARCHIVE_REFUSALS | {'SOURCE_CORE_METADATA_REFUSED','SOURCE_EXPECTED_CORE_VERSION_MISMATCH','EXPECTED_CORE_VERSION_REFUSED'}
+ allowed=ARCHIVE_REFUSALS | {'SOURCE_CORE_METADATA_REFUSED','SOURCE_EXPECTED_CORE_VERSION_MISMATCH','EXPECTED_CORE_VERSION_REFUSED','SOURCE_SETTINGS_METADATA_REFUSED'}
  print(json.dumps({'ok':False,'stage':'archive_core_preflight','code':code if code in allowed else 'ARCHIVE_REFUSED',
  'detail':getattr(error,'detail',None) or {'code':code if code in allowed else 'ARCHIVE_REFUSED','count':1,'locations':[{'zone':'(metadonnees)','extension':'.json','count':1}]},
  'archive_report':archive_report,'core_versions':getattr(error,'core_versions',None),'metadata_only':True}))

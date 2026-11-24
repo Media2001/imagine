@@ -40,6 +40,7 @@ call(['mariadb', '--socket=/scratch/mariadb.sock', '--user=root', '-e', 'CREATE 
 def wp(args, data=None): return call(['wp', '--allow-root', '--path=' + str(site)] + args, data)
 wp(['core', 'install', '--url=https://imagine-test-a01-ai1wm.invalid', '--title=FICTION ONLY', '--admin_user=fiction', '--admin_email=fiction@example.org', '--skip-email', '--prompt=admin_password'], (secrets.token_urlsafe(32) + '\n').encode())
 wp(['plugin', 'activate', 'all-in-one-wp-migration'])
+wp(['plugin', 'activate', 'akismet'])  # package.json carries this active plugin; SQL deliberately clears it
 content = site / 'wp-content'
 for path, data in {'uploads/2026/11/fixture.jpg': b'FICTION MEDIA', 'uploads/wpallexport/fiction.csv': b'FICTION EXPORT NOT TO READ',
                    'uploads/woocommerce_uploads/issue.pdf': b'%PDF FICTION', 'uploads/woocommerce_uploads/private.csv': b'FICTION CSV',

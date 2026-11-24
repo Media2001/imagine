@@ -121,6 +121,14 @@ try:
             'expected_core_version':'7.0.9','decisions':{}}, False)
         record['native_offline']={k:v for k,v in offline.items() if k not in ('restored_files_before_cleanup','files_after_cleanup')}
         assert offline.get('data_verified') is True, record['native_offline']
+        metadata=json.loads(package)
+        expected=__import__('core_source').manifest_settings_values(package)
+        assert metadata['Plugins']==['akismet/akismet.php']
+        for option,value in expected.items():
+            actual=subprocess.check_output(['mariadb','--socket=/scratch/mariadb.sock','--user=root','--skip-column-names',DB,
+                '-e',"SELECT HEX(option_value) FROM `SERVMASK_PREFIX_options` WHERE option_name='"+option+"'"]).decode().strip().lower()
+            assert actual==value.encode().hex(), option
+        record['real_manifest_plugins_theme_restored']=True
         assert offline['restored_files_before_cleanup']['uploads/woocommerce_uploads/issue.pdf']==offline['files_after_cleanup']['uploads/woocommerce_uploads/issue.pdf']
         record['native_three_phases_pass']=True
         record['status']='PASS'

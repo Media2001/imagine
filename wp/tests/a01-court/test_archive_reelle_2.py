@@ -20,6 +20,24 @@ def attack(path, data=b'x'):
 
 
 class ArchiveReelle2(unittest.TestCase):
+    def test_real_manifest_settings_restore_and_unsafe_plugin_refusal(self):
+        import diagnosis
+        sys.modules['legacy_importer'] = diagnosis.parser_module()
+        import inside
+        self.assertTrue(hasattr(inside, 'manifest_settings_values'))
+        with tempfile.TemporaryDirectory(dir=os.environ.get('TMPDIR')) as tmp:
+            content = Path(tmp)
+            (content / 'plugins/public').mkdir(parents=True)
+            (content / 'plugins/public/main.php').write_text('<?php')
+            (content / 'themes/fiction').mkdir(parents=True)
+            manifest = {'Plugins':['public/main.php'], 'Template':'fiction', 'Stylesheet':'fiction'}
+            values = inside.manifest_settings_values(json.dumps(manifest).encode(), content)
+            self.assertEqual('fiction', values['template'])
+            self.assertEqual('a:1:{i:0;s:15:"public/main.php";}', values['active_plugins'])
+            manifest['Plugins'] = ['../outside.php']
+            with self.assertRaisesRegex(archive.Refusal, '^SOURCE_SETTINGS_METADATA_REFUSED$'):
+                inside.manifest_settings_values(json.dumps(manifest).encode(), content)
+
     def test_default_summary_is_short_and_detail_retains_locations(self):
         import diagnosis
         self.assertTrue(hasattr(diagnosis, 'format_summary'))
