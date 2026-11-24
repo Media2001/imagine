@@ -49,7 +49,7 @@ def main():
         record('isolated_before', True)
         bench.call(['start', name])
         bench.call(['exec', name, 'mkdir', '-p', '/subject', '/opt/a03', '/report', '/opt/a02', '/subject/a03', '/staging/mu-plugins', '/plugins/imagine-non-regression/src'])
-        files = [(ROOT / 'unit.php', '/opt/a03/unit.php'), (REPO / 'wp/outils/bascule/audit', '/subject/audit')]
+        files = [(ROOT / 'unit.php', '/opt/a03/unit.php'), (ROOT / 'output-boundary.php', '/opt/a03/output-boundary.php'), (REPO / 'wp/outils/bascule/audit', '/subject/audit')]
         for file in ['non-regression', 'comparer']:
             p = REPO / 'wp/outils/bascule' / file
             if p.exists():
@@ -57,14 +57,14 @@ def main():
         files += [(p, '/subject/a03/' + p.name) for p in (REPO / 'wp/outils/bascule/a03').glob('*.php')]
         files += [(p, '/plugins/imagine-non-regression/src/' + p.name) for p in (REPO / 'wp/plugins/imagine-non-regression/src').glob('*.php')]
         if not args.unit_only:
-            files += [(p, '/opt/a03/' + p.name) for p in ROOT.iterdir() if p.suffix in ('.php', '.py') and p.name not in ('run.py', 'unit.php')]
+            files += [(p, '/opt/a03/' + p.name) for p in ROOT.iterdir() if p.suffix in ('.php', '.py') and p.name not in ('run.py', 'unit.php', 'output-boundary.php')]
             files += [(REPO / 'wp/outils/staging/runtime-probe.php', '/staging/runtime-probe.php'), (REPO / 'wp/outils/staging/mu-plugins/000-imagine-staging-safety.php', '/staging/mu-plugins/000-imagine-staging-safety.php'), (REPO / 'wp/outils/staging/mu-plugins/000-imagine-staging-safety.php', '/subject/000-imagine-staging-safety.php'), (ROOT.parent / 'a02-audit/fingerprint.php', '/opt/a03/fingerprint.php')]
         for source, destination in files:
             bench.call(['cp', bench.local(source), name + ':' + destination])
         if not args.unit_only:
             for file in bench.LICENSED:
                 bench.call(['cp', '/home/ced/staging-wp/plugins/' + file, name + ':/opt/a03/' + file])
-        lint_targets = [target for source, target in files if source.parent == ROOT and source.suffix == '.php' or target.startswith('/subject/a03/') or target in ['/subject/non-regression', '/subject/comparer']]
+        lint_targets = [target for source, target in files if source.parent == ROOT and source.suffix == '.php' or target.startswith(('/subject/a03/', '/plugins/')) or target in ['/subject/non-regression', '/subject/comparer']]
         lint = {target: bench.call(['exec', name, 'php', '-l', target], check=False).returncode == 0 for target in lint_targets}
         (out / 'lint.json').write_text(json.dumps(lint, indent=2) + '\n', encoding='utf8')
         record('php_lint', all(lint.values()))
@@ -72,6 +72,10 @@ def main():
         (out / 'unit.log').write_text(unit.stdout + unit.stderr, encoding='utf8')
         bench.call(['cp', name + ':/report/unit.json', bench.local(out / 'unit.json')])
         record('unit', unit.returncode == 0)
+        boundary = bench.call(['exec', name, 'php', '/opt/a03/output-boundary.php'], check=False)
+        (out / 'output-boundary.log').write_text(boundary.stdout + boundary.stderr, encoding='utf8')
+        bench.call(['cp', name + ':/report/output-boundary.json', bench.local(out / 'output-boundary.json')])
+        record('output_boundary', boundary.returncode == 0)
         if not args.unit_only and unit.returncode == 0:
             execution = bench.call(['exec', name, 'python3', '/opt/a03/inside.py'], check=False, timeout=1500)
             (out / 'execution.log').write_text(execution.stdout + execution.stderr, encoding='utf8')

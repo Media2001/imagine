@@ -75,7 +75,9 @@ final class Site
                     throw new \RuntimeException('A03_TRANSACTIONAL_TABLES_REQUIRED');
                 }
             }
+        }
             // WordPress officially preserves an already supplied $wpdb in require_wp_db().
+            // Read failures must throw immediately, before an API can clear last_error.
             // Keep all native renewal writes rollback-only, including nested WC transactions.
             define('ABSPATH', $site . '/');
             define('WP_DEBUG', false);
@@ -89,12 +91,14 @@ final class Site
                 $config['DB_HOST']
 ) extends \wpdb {
                 private bool $closed = false;
+                private bool $probe = false;
 
                 public function beginProbe(): void
                 {
                     if (parent::query('START TRANSACTION') === false) {
                         throw new \RuntimeException('A03_TRANSACTION_FAILED');
                     }
+                    $this->probe = true;
                 }
 
                 public function finishProbe(): void
@@ -105,11 +109,11 @@ final class Site
 
                 public function query($query)
                 {
-                    if (preg_match('/\A\s*(?:START|BEGIN|COMMIT|ROLLBACK|SAVEPOINT|RELEASE)\b/i', $query)) {
+                    if ($this->probe && preg_match('/\A\s*(?:START|BEGIN|COMMIT|ROLLBACK|SAVEPOINT|RELEASE)\b/i', $query)) {
                         return 0;
                     }
                     if (
-                        preg_match(
+                        $this->probe && preg_match(
                             '/\A\s*(?:CREATE|ALTER|DROP|TRUNCATE|RENAME|GRANT|REVOKE|LOCK|UNLOCK)\b/i',
                             $query
                         )
@@ -119,12 +123,17 @@ final class Site
                     if ($this->closed && !preg_match('/\A\s*(?:SELECT|SHOW|DESCRIBE)\b/i', $query)) {
                         return false;
                     }
-                    return parent::query($query);
+                    $result = parent::query($query);
+                    if ($result === false && preg_match('/\A\s*(?:SELECT|SHOW|DESCRIBE|EXPLAIN)\b/i', $query)) {
+                        throw new \RuntimeException('A03_SQL_READ');
+                    }
+                    return $result;
                 }
             };
             $GLOBALS['wpdb']->suppress_errors(true);
-            $GLOBALS['wpdb']->beginProbe();
-        }
+            if ($write) {
+                $GLOBALS['wpdb']->beginProbe();
+            }
         $db = null;
         unset($config);
         // No raw bootstrap output, personal values or plugin messages leave this process.
@@ -145,8 +154,10 @@ final class Site
         }
         self::$safeRuntime = true;
         if (!$write) {
-            $wpdb->query('SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ');
-            $wpdb->query('START TRANSACTION READ ONLY');
+            if ($wpdb->query('SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ') === false
+                || $wpdb->query('START TRANSACTION READ ONLY') === false) {
+                throw new \RuntimeException('A03_TRANSACTION_FAILED');
+            }
         }
     }
 
@@ -155,7 +166,7 @@ final class Site
         global $wpdb;
         $wpdb->last_error = '';
         $value = $read();
-        if ($wpdb->last_error !== '') {
+        if ($wpdb->last_error !== '' && preg_match('/\A\s*(?:SELECT|SHOW|DESCRIBE|EXPLAIN)\b/i', $wpdb->last_query)) {
             throw new \RuntimeException('A03_SQL_READ');
         }
         return $value;

@@ -123,6 +123,13 @@ def run_storage(storage):
         check(storage + ':identical_no_diff', compare.returncode == 0 and same['changes'] == [])
         (OUT / (storage + '-identical.json')).write_text(compare.stdout)
         fault_mu = site / 'wp-content/mu-plugins/998-a03-collect-fault.php'
+        fault_mu.write_text("<?php namespace Imagine\\NonRegression; function wcs_get_subscriptions($args) { global $wpdb; $wpdb->get_var('SELECT ID FROM wp_a03_missing_table'); $wpdb->get_var('SELECT 1'); return \\wcs_get_subscriptions($args); }")
+        try:
+            hidden_target = OUT / (storage + '-sql-hidden')
+            hidden = snapshot(site, settings, hidden_target)
+        finally:
+            fault_mu.unlink()
+        check(storage + ':nested_failed_read_cannot_be_cleared', hidden.returncode == 1 and hidden.stderr == 'A03_SQL_READ\n' and not hidden_target.exists())
         for label, prefix in [('memberships', 'SELECT ID FROM wp_posts WHERE post_type='), ('users', 'SELECT ID FROM wp_users ORDER BY ID'), ('actions', 'SELECT action_id,hook,scheduled_date_gmt FROM')]:
             fault_mu.write_text("<?php add_filter('query', static function ($query) { return str_starts_with($query, " + json.dumps(prefix) + ") ? 'SELECT ID FROM wp_a03_missing_table' : $query; });")
             try:
@@ -153,16 +160,14 @@ def run_storage(storage):
         sql(db, "UPDATE wp_posts SET post_status='wcm-expired' WHERE ID=" + str(seed['membership_ids']['active']))
         sql(db, 'DELETE FROM wp_actionscheduler_actions WHERE action_id=' + str(seed['action']))
         changed = OUT / (storage + '-altered')
-        debug_mu = site / 'wp-content/mu-plugins/997-a03-debug.php'
-        debug_mu.write_text("<?php add_filter('query', static function ($q) { global $wpdb; if ($wpdb->last_error) { $GLOBALS['a03_debug'][] = ['error' => $wpdb->last_error, 'query' => $wpdb->last_query]; } return $q; }, -99999); register_shutdown_function(static function () { global $wpdb; file_put_contents('/report/" + storage + "-sql-debug.json', json_encode(['past' => $GLOBALS['a03_debug'] ?? [], 'error' => $wpdb->last_error, 'query' => $wpdb->last_query])); });")
         p = snapshot(site, settings, changed)
-        debug_mu.unlink()
         check(storage + ':altered_cli', p.returncode == 0, {'stderr': p.stderr[:160]})
         diff = cmd(['php', '/subject/comparer', str(target / 'non-regression.json'), str(changed / 'non-regression.json')], check=False)
         data = json.loads(diff.stdout)
         (OUT / (storage + '-anomalies.json')).write_text(diff.stdout)
         check(storage + ':two_mutations_detected', diff.returncode == 2 and any(v['class'] == 'anormal' and v['path'].startswith('access.') for v in data['changes']) and any(v['class'] == 'anormal' and v['path'].startswith('actions.') for v in data['changes']))
-        check(storage + ':privacy', all(token not in p.read_text() for p in OUT.rglob('*.json') for token in ['A03_PERSONAL_CANARY', 'A03_PRIVATE_CONTENT_CANARY', 'A03_PRIVATE_ARGS_CANARY', '@example.org']))
+        # Export privacy only; served-content leak tests belong to the paywall lot.
+        check(storage + ':privacy', all(token not in p.read_text() for p in OUT.rglob('*.json') for token in ['A03_PERSONAL_CANARY', 'A03_PRIVATE_ARGS_CANARY', '@example.org']))
         marker_path = site / '.imagine-staging-verified.json'
         marker_bytes = marker_path.read_bytes()
         marker_path.unlink()
