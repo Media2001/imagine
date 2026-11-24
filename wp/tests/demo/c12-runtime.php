@@ -29,6 +29,27 @@ if ($checks['raccord_disponible']) {
         $first = Decouverte::ouvrir($id, $now);
         $checks['ouverture_compte_verifie'] = is_array($first) && $first['debut'] === $now->format('Y-m-d H:i:s') && $first['articles'] === [];
         $checks['jamais_renouveler'] = Decouverte::ouvrir($id, $now->modify('+30 days')) === $first;
+        $checks['decompte_raccorde'] = method_exists(Decouverte::class, 'decider');
+        if ($checks['decompte_raccorde']) {
+            $robot = new \Imagine\Pilotage\Robots\Decision(\Imagine\Pilotage\Robots\Motif::NonCandidat);
+            $visitor = ['identifie' => true, 'droits' => []];
+            $content = ['reserve' => true, 'numero' => $settings['numeros'][0], 'type' => 'article',
+                'sortie' => $now->modify('-1 day'), 'decouverte' => true];
+            $checks['premier_article'] = Decouverte::decider($content, $visitor, $robot, $now, 912001)->complet
+                && Decouverte::etat($id)['articles'] === [912001];
+            $checks['relecture_idempotente'] = Decouverte::decider($content, $visitor, $robot, $now, 912001)->complet
+                && Decouverte::etat($id)['articles'] === [912001];
+            $checks['dernier_credit_livre'] = Decouverte::decider($content, $visitor, $robot, $now, 912002)->complet;
+            $exhausted = Decouverte::decider($content, $visitor, $robot, $now, 912003);
+            $checks['epuisement_moteur_bloc'] = !$exhausted->complet && $exhausted->motif->value === 'decouverte_epuisee'
+                && $exhausted->bloc->value === 'decouverte_epuisee' && Decouverte::etat($id)['articles'] === [912001, 912002];
+            $checks['relecture_apres_quota_sans_credit'] = Decouverte::decider($content, $visitor, $robot, $now, 912001)->complet
+                && Decouverte::etat($id)['articles'] === [912001, 912002];
+            $future = $content; $future['sortie'] = $now->modify('+1 day');
+            $checks['futur_pas_de_credit'] = !Decouverte::decider($future, $visitor, $robot, $now, 912004)->complet;
+            $pdf = $content; $pdf['type'] = 'pdf';
+            $checks['pdf_hors_decouverte'] = !Decouverte::decider($pdf, $visitor, $robot, $now, 912004)->complet;
+        }
     } finally {
         if ($before === $absent) { delete_option($key); } else { update_option($key, $before); }
         if ($policy === $absent) { delete_option(Decouverte::OPTION); } else { update_option(Decouverte::OPTION, $policy); }

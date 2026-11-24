@@ -1,9 +1,0 @@
-{
-    "tests": {
-        "comparison_classifies_versions_access_and_scheduler": true,
-        "verified_marker_and_explicit_write_gate": true,
-        "page_health_and_date_movement_are_anomalous": false,
-        "database_host_is_literal_and_bounded": false
-    },
-    "exit_code": 1
-}

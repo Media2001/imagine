@@ -1,0 +1,3 @@
+A-03 prêt à relire : 4 tests purs, 45 contrôles fictifs réels classique/HPOS et 7 lints PHP réussis ; PSR-12 production sans erreur ni avertissement.
+Preuve : production/A-03/preuve-finale/result.json et runner.json ; périmètre et limites dans notes.md (dix lignes).
+Ce témoin ne clôt pas le lot et n'autorise aucune opération sur le réel.

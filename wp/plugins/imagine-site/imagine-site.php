@@ -33,6 +33,8 @@ spl_autoload_register(static function (string $class): void {
 require_once __DIR__ . '/NumeroPublication.php';
 NumeroPublication::register();
 
+require_once __DIR__ . '/Decouverte.php';
+
 require_once __DIR__ . '/Paywall.php';
 Paywall::register();
 
