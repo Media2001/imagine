@@ -2,7 +2,7 @@
 
 File de la **deuxième session d'Hermès**. Tenue par Claude. **Hermès ne modifie pas ce fichier.**
 
-Mis à jour le 23 novembre 2026, 21 h 10.
+Mis à jour le 24 novembre 2026, 7 h 30.
 
 Consigne permanente : `prompts/consigne-permanente.md` (section « Les deux voies »). Doctrine : `doctrine/doctrine.md`.
 
@@ -10,23 +10,15 @@ La voie 1 (`A-FAIRE.md`) s'occupe de l'existant : import, audit, mise à jour. L
 
 ## Consignes actives, par ordre de priorité
 
-**Tes rapports jusqu'à 18 h 38 sont lus.** B-00, B-01 et C-08 : vérifiés, code clos (voir « Terminé »). Les questions de C-09 et C-10 sont arbitrées : `docs/arbitrages-2026-11-23.md`, sections de 21 h 10.
+**Tes rapports jusqu'au 23/11, 23 h, sont lus.** C-09 et C-10 : vérifiés, code clos. L'arbitrage de 21 h 10 couvrait bien la correction A-VIR dans l'adaptateur de C-08.
 
-**0. Corrections de C-10, puis de C-09** — `corrections/C-10.md`, `corrections/C-09.md`. C-10 d'abord : le paywall lit les réglages d'accès, et `A-VOIR.md` montre l'effet. La correction « A-VIR » se fait dans l'adaptateur de C-08.
+**1. `briefs/C-11-pdf-du-numero.md`** — le PDF d'un numéro passe par la décision d'accès et n'a plus d'adresse publique. Une demi-journée. **D'abord : c'est une fuite ouverte.**
 
-**Proportion des preuves, à partir de maintenant** : lis la dernière section des arbitrages. Sur ce site fictif, une correction se prouve par son test et un rejeu de la recette du lot, rien de plus.
+**2. `briefs/C-12-acces-decouverte.md`** — ouverture, décompte et épuisement de l'accès découverte. Une demi-journée.
 
-Après ces corrections, la file est vide : arrête-toi. Les lots 1 à 5 ci-dessous sont rendus.
+**3. `briefs/C-13-ecran-liste-envoi.md`** — l'écran « Liste d'envoi » pour le référent abonnements. Une demi-journée.
 
-**1. `briefs/B-00-site-de-demonstration.md`** — le site `imagine-test-demo`, reconstruit par un script, avec numéros et articles fictifs. Une demi-journée. **Passe avant tout : les autres se branchent dessus.**
-
-**2. `briefs/B-01-squelette-du-theme.md`** — tous les gabarits, sans habillage. Une demi-journée.
-
-**3. `briefs/C-08-paywall-sur-article.md`** — la décision d'accès branchée sur un vrai article, avec le test d'étanchéité. Une demi-journée.
-
-**4. `briefs/C-09-profils-de-test.md`** — les trente profils créés par script. Une demi-journée.
-
-**5. `briefs/C-10-ecran-de-reglages.md`** — un écran « Imagine › Réglages » dans l'administration. Une demi-journée.
+**Proportion des preuves** (rappel, `docs/arbitrages-2026-11-23.md`, dernière section) : un test par exigence et un rejeu de la recette du lot. Pas de captures régénérées, pas d'archives d'anciennes preuves, pas de reçus d'empreintes. Un rapport de dix lignes suffit.
 
 ## Règles de la voie 2
 
@@ -44,3 +36,5 @@ Après ces corrections, la file est vide : arrête-toi. Les lots 1 à 5 ci-desso
 | B-00 Site de démonstration | 23/11, corrigé le 23/11 | **Code clos le 23/11.** Validation visuelle de Ced attendue |
 | B-01 Squelette du thème | 23/11, corrigé le 23/11 | **Code clos le 23/11.** Validation visuelle de Ced attendue |
 | C-08 Paywall sur article | 23/11, corrigé le 23/11 | **Code clos le 23/11** (recherche interne étanche). Validation visuelle de Ced attendue |
+| C-09 Profils de test | 23/11, corrigé le 23/11 | **Code clos le 24/11** : 4 créés, 25 partiels, 1 impossible hors ligne |
+| C-10 Écran de réglages | 23/11, corrigé le 23/11 | **Code clos le 24/11** : les réglages d'accès agissent sur le paywall. Validation visuelle de Ced attendue |

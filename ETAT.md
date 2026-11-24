@@ -1,4 +1,4 @@
-# État des chantiers — mis à jour le 23 novembre 2026, 21 h 10
+# État des chantiers — mis à jour le 24 novembre 2026, 7 h 30
 
 ## Mise en route
 
@@ -6,13 +6,13 @@
 |---|---|---|---|
 | Dépôt | Créé ; cloné sur le NUC (`C:\Users\Ced\imagine`, alias SSH `github-imagine`) | — | — |
 | Hermès sur ce dépôt | Travail en continu, réveil horaire planifié le 21/11 (`/cron`, verrou `.hermes.lock`) | — | — |
-| Voie 2 (ce qui se voit) | Ouverte le 23/11 : file `A-FAIRE-2.md`, verrou `.hermes-2.lock`, site fictif `imagine-test-demo`. Cinq lots en file (B-00, B-01, C-08, C-09, C-10) | Site `imagine-test-demo` en ligne (réseau local, port 8085). B-00, B-01, C-08 : code clos. C-09, C-10 : corrections arbitrées en cours | Validation visuelle par Ced | Ced |
+| Voie 2 (ce qui se voit) | Ouverte le 23/11 : file `A-FAIRE-2.md`, verrou `.hermes-2.lock`, site fictif `imagine-test-demo`. Cinq lots en file (B-00, B-01, C-08, C-09, C-10) | Site `imagine-test-demo` en ligne (réseau local, port 8085). B-00, B-01, C-08, C-09, C-10 : code clos. En file le 24/11 : C-11 (PDF protégé), C-12 (découverte), C-13 (écran liste d'envoi) | Validation visuelle par Ced | Ced |
 | Synchronisation Git | En service depuis le 20/11, 8 h 55. La nuit du 19 a été perdue : Git refusait les commits faute d'identité, et le script ne le signalait pas (corrigé) | — | — |
 | Circuit de relecture | `scripts/relire.ps1` adapté aux lots ; se lance sans erreur, **pas encore testé sur un lot** | Lancer à la main sur le premier lot `PRET`, puis planifier « IMAGINE - relecture » | Ced |
 | Staging | Pas de Docker sur le NUC : on utilise l'outil de staging de Ced, avec Novamira pour l'accès des agents. Étape « site à abonnements » à ajouter à l'outil (`prompts/2026-11-19-staging-imagine.md`). Le `docker-compose.yml` du dépôt n'est plus utilisé | Hermès ajoute l'étape ; puis retirer Docker du dépôt | Hermès, puis Claude |
 | Exécution des tests PHP | Consigne donnée à Hermès : conteneur jetable de l'outil de staging, rien sur Windows | Confirmer dans son premier rapport que ça fonctionne | Hermès |
 | Recette | Profils de test et 41 cas d'acceptance proposés dans `docs/recette/` | Relecture par Ced quand il verra Imagine | Ced |
-| Rejeu des tests par les relecteurs | T-01 clos le 23/11 : `wp/tests/rejouer.ps1`, autorisée dans `scripts/relire.ps1` | Vérifier sur la prochaine relecture que le rejeu a bien lieu | Claude |
+| Rejeu des tests par les relecteurs | T-01 clos le 23/11 : `wp/tests/rejouer.ps1`, autorisée dans `scripts/relire.ps1` | Le 23/11 au soir, le relecteur s'est encore vu refuser la commande ; autorisation réécrite le 24/11, à revérifier | Claude |
 
 ## A · L'existant
 
