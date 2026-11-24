@@ -33,6 +33,8 @@ def verify(qualification):
     for rel,digest in result['source_manifest'].items():
         assert hashlib.sha256((ROOT/rel).read_bytes()).hexdigest()==digest, 'SOURCE_DRIFT:'+rel
     assert result['native_file_policy_exit']==0 and all(row['exit']==0 for row in result['units'])
+    assert result['capacity_preflight']['before_any_creation'] and result['capacity_test_synthetic_host_directory_removed']
+    assert result['capacity_preflight']['free_bytes']>=result['capacity_preflight']['required_bytes']
     assert result['sanitized_dump_pipe']['exact_counts_and_content_bytes'] is True
     assert result['sanitized_dump_pipe']['total_content_bytes']>128*1024**2
     cases=result['subject']['cases']
@@ -86,8 +88,9 @@ def verify(qualification):
         'recorded_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
         'qualification':str(qualification.relative_to(ROOT)).replace('\\','/'),
         'qualification_sha256':hashlib.sha256(qualification.read_bytes()).hexdigest(),
-        'host':counts(ROOT/'production/A-01/archive-reelle-2-host-manifest-final.log'),
+        'host':counts(ROOT/'production/A-01/archive-reelle-2-host-livraison.log'),
         'linux':counts(folder/unit['log']),'harness':counts(folder/harness['log']),
+        'native_data':next(row['receipt'] for row in result['units'] if row['key']=='data'),
         'new_test_methods':len(methods),'real_exports':len(cases),
         'large':{'entries':diag['entries'],'archive_bytes':large['archive_bytes'],'media_bytes':media,'database_bytes':diag['database_bytes'],
                  'generated_posts_restored':large['restored_generated_posts'],'summary_lines':large['summary_lines'],

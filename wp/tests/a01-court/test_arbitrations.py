@@ -39,6 +39,7 @@ class ExpectedCore(unittest.TestCase):
                          'code': 'SOURCE_EXPECTED_CORE_VERSION_MISMATCH',
                          'expected': '6.9.1', 'source': '7.0.9'}
             with mock.patch.multiple(publish, ROOT=root, HERE=root,
+                    archive_capacity_on_engine=lambda *args: {},
                     fresh_runner=lambda name: {}, offline_isolation=lambda name: {},
                     call=lambda *args, **kwargs: __import__('subprocess').CompletedProcess([], 0, b'', b''),
                     archive_core_preflight=mock.Mock(return_value=preflight),
