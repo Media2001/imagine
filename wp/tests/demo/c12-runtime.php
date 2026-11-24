@@ -26,6 +26,11 @@ if ($checks['raccord_disponible']) {
         delete_user_meta($id, 'imagine_email_confirme');
         $checks['email_non_confirme_ferme'] = Decouverte::ouvrir($id, $now) === null;
         update_user_meta($id, 'imagine_email_confirme', '1');
+        $firstName = get_user_meta($id, 'first_name', true);
+        try {
+            update_user_meta($id, 'first_name', '');
+            $checks['identite_incomplete_fermee'] = Decouverte::ouvrir($id, $now) === null;
+        } finally { update_user_meta($id, 'first_name', $firstName); }
         $first = Decouverte::ouvrir($id, $now);
         $checks['ouverture_compte_verifie'] = is_array($first) && $first['debut'] === $now->format('Y-m-d H:i:s') && $first['articles'] === [];
         $checks['jamais_renouveler'] = Decouverte::ouvrir($id, $now->modify('+30 days')) === $first;
