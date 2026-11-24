@@ -106,8 +106,20 @@ final class EnvoiNatif
         foreach (wcs_get_subscriptions(['subscriptions_per_page' => -1, 'subscription_status' => 'any']) as $sub) {
             self::relever($sub);
         }
+        return self::calculer($code, self::releves(), $now);
+    }
+
+    /** Entrées de relevés explicites pour éprouver le gel sans antidater le natif. */
+    public static function calculer(string $code, array $events, DateTimeImmutable $now): array
+    {
+        $calendar = self::calendrier();
+        $selected = array_values(array_filter($calendar->numeros, static fn (Numero $n): bool => $n->id === $code));
+        if ($selected === []) {
+            throw new \OutOfBoundsException('Numéro absent du calendrier.');
+        }
+        $number = $selected[0];
         $groups = [];
-        foreach (self::releves() as $event) {
+        foreach ($events as $event) {
             $groups[$event['donnees']['id']][] = $event;
         }
         $subscriptions = $exclusions = [];
@@ -115,7 +127,7 @@ final class EnvoiNatif
         foreach ($groups as $id => $events) {
             $situations = [];
             $last = $events[array_key_last($events)]['donnees'];
-            $creation = (new DateTimeImmutable('@' . $last['creation']));
+            $creation = new DateTimeImmutable('@' . $events[0]['donnees']['creation']);
             $reason = $creation >= $number->cloture ? 'cree_apres_cloture' : 'historique_indisponible';
             foreach ($events as $event) {
                 $recorded = new DateTimeImmutable($event['observe_utc'], new DateTimeZone('UTC'));

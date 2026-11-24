@@ -35,7 +35,8 @@ def verify():
         checks['page_native_' + k] = status == 200 and '<h1>Liste d’envoi</h1>' in text and 'DEMO-2027-T1' in text and '2027-01-05' in text
     checks['menu_referent_sans_reglages'] = 'page=imagine-liste-envoi' in pages['E-ABO'] and 'page=imagine-reglages' not in pages['E-ABO']
     fields = {'action': 'imagine_exporter_liste_envoi', 'numero': 'DEMO-2027-T1'}
-    before = h.wp(r'echo wp_json_encode(Imagine\Site\ListeEnvoiAdmin::journal());') if 'Liste d’envoi' in pages.get('E-ABO', '') else []
+    count_journal = lambda: h.wp(r'global $wpdb;echo wp_json_encode((int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name LIKE %s",$wpdb->esc_like(Imagine\Site\ListeEnvoiAdmin::JOURNAL)."%")));')
+    before = count_journal() if 'Liste d’envoi' in pages.get('E-ABO', '') else 0
     for k in ('E-REDAC', 'A-CARTE'):
         status, headers, text = h.fetch(page_path, clients[k])
         checks['page_interdite_' + k] = 'name="action" value="imagine_exporter_liste_envoi"' not in text and 'text/csv' not in headers.get('content-type', '')
@@ -58,12 +59,21 @@ def verify():
         rows = list(csv.reader(io.StringIO(body)))
         expected = h.wp(r'echo wp_json_encode((new Imagine\Pilotage\Envoi\AdministrationFormatExport())->lire()->colonnes);')
         view = h.wp(r'$v=Imagine\Site\EnvoiNatif::apercu("DEMO-2027-T1");echo wp_json_encode(["nombre"=>count($v["liste"]->lignes),"belgique"=>$v["belgique"],"etranger"=>$v["etranger"]]);')
-        checks['CSV_reel_' + profile] = status == 200 and headers.get('content-type', '').startswith('text/csv') and rows[0] == expected and len(rows)-1 == view['nombre']
+        checks['CSV_reel_' + profile] = status == 200 and headers.get('content-type', '').startswith('text/csv') and rows[0] == expected and len(rows)-1 == view['nombre'] == 2
+        checks['CSV_formules_HTTP_' + profile] = all(re.match(r'[\x00-\x20]*[=+@-]', cell) is None for row in rows[1:] for cell in row)
         checks['CSV_prive_' + profile] = 'no-store' in headers.get('cache-control', '') and headers.get('x-content-type-options') == 'nosniff' and 'attachment;' in headers.get('content-disposition', '')
         events = h.wp(r'echo wp_json_encode(Imagine\Site\ListeEnvoiAdmin::journal());')
         event = events[0]
         checks['journal_export_' + profile] = event['qui_login'] == accounts[profile]['login'] and event['numero'] == fields['numero'] and event['lignes'] == len(rows)-1 and bool(event['quand_utc'])
-    checks['refus_sans_journal_export'] = len(h.wp(r'echo wp_json_encode(Imagine\Site\ListeEnvoiAdmin::journal());')) == len(before) + 2 if len(before) < 48 else True
+    checks['refus_sans_journal_export'] = count_journal() == before + 2
+    nonce = re.search(r'name="_wpnonce" value="([^"]+)"', pages['E-ABO']).group(1)
+    status, headers, _ = h.fetch(endpoint + '?' + urlencode(dict(fields, _wpnonce=nonce)), clients['E-ABO'])
+    checks['GET_export_refuse'] = status == 405 and 'text/csv' not in headers.get('content-type', '')
+    status, headers, _ = h.fetch(endpoint, clients['E-ABO'], urlencode(dict(fields, numero='DEMO-2027-T2', _wpnonce=nonce)).encode())
+    checks['nonce_lie_au_numero'] = status == 403 and 'text/csv' not in headers.get('content-type', '')
+    status, headers, _ = h.fetch(endpoint, clients['E-ABO'], urlencode(dict(fields, **{'_wpnonce[]': 'invalide'})).encode())
+    checks['nonce_tableau_refuse'] = status == 403 and 'text/csv' not in headers.get('content-type', '')
+    checks['aucun_evenement_sur_refus_final'] = count_journal() == before + 2
     print(json.dumps({'HTTP': checks}, ensure_ascii=False))
     if not all(v is True for v in checks.values()):
         raise RuntimeError('Échec C13 HTTP')

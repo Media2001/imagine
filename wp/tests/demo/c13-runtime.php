@@ -41,10 +41,12 @@ if ($checks['raccord_present']) {
             $before = \Imagine\Site\EnvoiNatif::calculer('DEMO-2026-T4', $base, new \DateTimeImmutable('2026-10-06'));
             $data['rue'] = 'Adresse modifiée après clôture';
             $data['etat'] = 'cancelled';
+            $data['creation'] = strtotime('2026-11-01 00:00:00 UTC');
             $after = \Imagine\Site\EnvoiNatif::calculer('DEMO-2026-T4', array_merge($base,
                 [['observe_utc' => '2026-10-04 22:00:01.000000', 'donnees' => $data]]), new \DateTimeImmutable('2026-10-07'));
             $checks['gel_cloture_C07_adresse_statut'] = count($before['liste']->lignes) === 1
                 && $before['liste']->lignes === $after['liste']->lignes;
+            $data['creation'] = strtotime('2026-09-01 00:00:00 UTC');
             $unknown = \Imagine\Site\EnvoiNatif::calculer('DEMO-2026-T4',
                 [['observe_utc' => '2026-10-04 22:00:01.000000', 'donnees' => $data]], new \DateTimeImmutable('2026-10-07'));
             $checks['historique_absent_ferme'] = $unknown['historique_incomplet'] && $unknown['liste']->lignes === [];
@@ -52,6 +54,32 @@ if ($checks['raccord_present']) {
         $checks['numero_invalide_refuse'] = false;
         try { \Imagine\Site\EnvoiNatif::apercu('inexistant'); }
         catch (\OutOfBoundsException) { $checks['numero_invalide_refuse'] = true; }
+    }
+    wp_set_current_user($fixture['users']['E-ABO']);
+    $checks['referent_sans_droits_sensibles'] = !current_user_can('manage_options') && !current_user_can('manage_woocommerce')
+        && !current_user_can('edit_posts') && !current_user_can('create_users') && !current_user_can('edit_users');
+    if ($checks['raccord_natif_et_C07']) {
+        $columns = static fn (): array => ['pays', 'destinataire', 'ville'];
+        add_filter('pre_option_imagine_envoi_colonnes_export', $columns);
+        try {
+            $bytes = \Imagine\Site\ListeEnvoiAdmin::preparer('DEMO-2027-T1');
+            $checks['format_C10_effectivement_lu'] = str_starts_with($bytes, "pays,destinataire,ville\n")
+                && substr_count($bytes, "\n") === 3;
+        } finally { remove_filter('pre_option_imagine_envoi_colonnes_export', $columns); }
+        global $wpdb;
+        $triggered = false;
+        $fault = static function (string $sql) use (&$triggered, $wpdb): string {
+            if (str_starts_with($sql, 'INSERT INTO') && str_contains($sql, \Imagine\Site\ListeEnvoiAdmin::JOURNAL)) {
+                $triggered = true;
+                return "SELECT option_id FROM {$wpdb->options} WHERE 1=0";
+            }
+            return $sql;
+        };
+        $checks['journal_indisponible_refuse'] = false;
+        add_filter('query', $fault);
+        try { \Imagine\Site\ListeEnvoiAdmin::preparer('DEMO-2027-T1'); }
+        catch (\RuntimeException) { $checks['journal_indisponible_refuse'] = $triggered; }
+        finally { remove_filter('query', $fault); }
     }
     wp_set_current_user(0);
     $checks['anonyme_ferme'] = !\Imagine\Site\ListeEnvoiAdmin::autorise();
