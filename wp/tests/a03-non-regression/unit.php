@@ -36,5 +36,15 @@ test('comparison_classifies_versions_access_and_scheduler', function (): void {
     expect(array_column($diff['changes'], 'class') === ['attendu', 'anormal', 'anormal']);
     expect($diff['anormal'] === 2);
 });
+test('verified_marker_and_explicit_write_gate', function (): void {
+    $marker = ['status' => 'verified', 'offline_verified' => true, 'runtime_probe_passed' => true];
+    expect(Imagine\NonRegression\Policy::verified($marker));
+    $marker['runtime_probe_passed'] = false;
+    expect(!Imagine\NonRegression\Policy::verified($marker));
+    expect(!Imagine\NonRegression\Policy::renewalAllowed(false, true, true));
+    expect(!Imagine\NonRegression\Policy::renewalAllowed(true, false, true));
+    expect(!Imagine\NonRegression\Policy::renewalAllowed(true, true, false));
+    expect(Imagine\NonRegression\Policy::renewalAllowed(true, true, true));
+});
 file_put_contents('/report/unit.json', json_encode(['tests' => $checks, 'exit_code' => (int) in_array(false, $checks, true)], JSON_PRETTY_PRINT) . "\n");
 exit((int) in_array(false, $checks, true));

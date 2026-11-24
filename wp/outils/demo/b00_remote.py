@@ -29,6 +29,20 @@ elif action == 'wp':
         raise ValueError('Commande hors périmètre')
     r = subprocess.run(['docker', 'exec', '--user', 'www-data', WP, 'wp', *args], capture_output=True, text=True)
     print(json.dumps({'code': r.returncode, 'stdout': r.stdout, 'stderr': r.stderr}))
+elif action in ('pdf-private-init', 'pdf-source'):
+    # Hors docroot du seul conteneur fictif, aucune règle serveur.
+    subprocess.run(['docker', 'exec', '--user', 'root', WP, 'sh', '-c',
+        'mkdir -p /var/www/imagine-private-pdf/source && chown www-data:www-data /var/www/imagine-private-pdf /var/www/imagine-private-pdf/source && chmod 700 /var/www/imagine-private-pdf /var/www/imagine-private-pdf/source; if [ -d /var/www/html/wp-content/imagine-demo-build/assets ]; then chown www-data:www-data /var/www/html/wp-content/imagine-demo-build/assets; fi'], check=True, capture_output=True)
+    if action == 'pdf-source':
+        if payload['name'] not in [f'demo-2026-{suffix}.pdf' for suffix in ('t1', 't2', 't3', 't4', 'hs')]:
+            raise ValueError('Source PDF hors fixture')
+        data = base64.b64decode(payload['data'])
+        if not data.startswith(b'%PDF-'):
+            raise ValueError('Source non PDF')
+        subprocess.run(['docker', 'exec', '-i', '--user', 'www-data', WP, 'sh', '-c',
+            'umask 077; cat > /var/www/imagine-private-pdf/source/' + payload['name']],
+            input=data, capture_output=True, check=True)
+    print(json.dumps({'private_directory': True, 'source': payload.get('name')}))
 elif action == 'requirements':
     import hashlib
     import re

@@ -36,6 +36,9 @@ NumeroPublication::register();
 require_once __DIR__ . '/Paywall.php';
 Paywall::register();
 
+require_once __DIR__ . '/PdfNumero.php';
+PdfNumero::register();
+
 add_action('init', static function (): void {
     foreach ([
         'imagine_numero' => [__('Numéros fictifs', 'imagine-site'), 'numeros'],

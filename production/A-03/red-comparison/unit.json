@@ -1,0 +1,6 @@
+{
+    "tests": {
+        "comparison_classifies_versions_access_and_scheduler": false
+    },
+    "exit_code": 1
+}

@@ -20,7 +20,8 @@ while (have_posts()) : the_post();
             'orderby' => ['menu_order' => 'ASC', 'ID' => 'ASC'],
         ]), 3); ?>
     </section>
-    <?php $pdf = wp_get_attachment_url((int) get_post_meta(get_the_ID(), 'imagine_pdf_id', true)); ?>
+    <?php $pdf = class_exists('Imagine\\Site\\PdfNumero') ? \Imagine\Site\PdfNumero::url(get_the_ID()) : false; ?>
+    <?php if ($pdf) { echo \Imagine\Site\PdfNumero::block(get_post()); } ?>
     <?php if ($pdf) : ?>
         <p><a href="<?php echo esc_url($pdf); ?>"><?php esc_html_e('Ouvrir le PDF factice du numéro', 'imagine'); ?></a></p>
     <?php endif; ?>

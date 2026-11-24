@@ -92,6 +92,33 @@ final class Paywall
         }
     }
 
+    /** Raccord C11 : même identité native que C08, contrat PDF exact du moteur C06. */
+    public static function decisionPdf(WP_Post $issue): array
+    {
+        try {
+            if ($issue->post_type !== 'imagine_numero' || $issue->post_status !== 'publish') {
+                throw new \RuntimeException('Numéro indisponible.');
+            }
+            $date = get_post_meta($issue->ID, 'imagine_sortie', true);
+            $release = is_string($date) ? DateTimeImmutable::createFromFormat('!Y-m-d', $date, wp_timezone()) : false;
+            if (!$release || $release->format('Y-m-d') !== $date) {
+                throw new \RuntimeException('Date éditoriale invalide.');
+            }
+            $now = new DateTimeImmutable(gmdate('Y-m-d H:i:s'), new DateTimeZone('UTC'));
+            $userId = get_current_user_id();
+            $decision = self::deciderContenu(
+                ['reserve' => true, 'numero' => (string) $issue->ID, 'type' => 'pdf',
+                    'sortie' => $release, 'decouverte' => false],
+                ['identifie' => $userId > 0, 'droits' => $userId ? self::rights($userId, $now) : []],
+                self::robot($now),
+                $now
+            );
+            return ['complet' => $decision->complet, 'motif' => $decision->motif->value, 'bloc' => $decision->bloc->value];
+        } catch (\Throwable) {
+            return ['complet' => false, 'motif' => 'adaptateur_indisponible', 'bloc' => 'abonnement'];
+        }
+    }
+
     /** Point de décision commun articles/PDF ; aucun droit PDF n'est inventé par le raccord. */
     public static function deciderContenu(
         array $contenu,
