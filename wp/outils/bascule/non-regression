@@ -54,6 +54,9 @@ final class Report
 
 final class Site
 {
+    private static bool $verified = false;
+    private static bool $safeRuntime = false;
+
     public static function identifier(string $value): string
     {
         return \Imagine\Audit\Audit::identifier($value);
@@ -73,7 +76,8 @@ final class Site
 
     public static function bootstrap(string $site, bool $write): void
     {
-        if (!Policy::verified(self::json($site . '/.imagine-staging-verified.json'))) {
+        self::$verified = Policy::verified(self::json($site . '/.imagine-staging-verified.json'));
+        if (!self::$verified) {
             throw new \RuntimeException('A03_NOT_VERIFIED');
         }
         $guard = $site . '/wp-content/mu-plugins/000-imagine-staging-safety.php';
@@ -324,9 +328,112 @@ final class Site
         return $result;
     }
 
+    public static function renewal(): array
+    {
+        global $wpdb;
+        $marker = ['status' => 'verified', 'offline_verified' => true, 'runtime_probe_passed' => true];
+        // bootstrap has independently checked the marker, native blockers and MU bytes.
+        if (!Policy::renewalAllowed(true, Policy::verified($marker), wp_get_environment_type() === 'staging')) {
+            throw new \RuntimeException('A03_RENEWAL_UNSAFE');
+        }
+        $token = bin2hex(random_bytes(12));
+        $uid = null;
+        $subscription = null;
+        $renewal = null;
+        $subscriptionId = 0;
+        $renewalId = 0;
+        $actionIds = [];
+        $result = ['enabled' => true, 'manual_only' => false, 'created' => false, 'linked' => false, 'pending' => false, 'cleaned' => false];
+        try {
+            $uid = wp_insert_user(['user_login' => 'imagine_a03_' . $token, 'user_email' => 'imagine-a03-' . $token . '@example.org', 'user_pass' => wp_generate_password(48), 'display_name' => 'Compte fictif A03']);
+            if (is_wp_error($uid)) {
+                throw new \RuntimeException('A03_TEST_USER');
+            }
+            update_user_meta($uid, 'imagine_a03_owned', $token);
+            $subscription = wcs_create_subscription(['customer_id' => $uid, 'status' => 'pending', 'billing_period' => 'month', 'billing_interval' => 1]);
+            if (is_wp_error($subscription)) {
+                throw new \RuntimeException('A03_TEST_SUBSCRIPTION');
+            }
+            $subscriptionId = $subscription->get_id();
+            $subscription->update_meta_data('_imagine_a03_owned', $token);
+            $subscription->set_payment_method('');
+            $subscription->set_requires_manual_renewal(true);
+            $fee = new \WC_Order_Item_Fee();
+            $fee->set_name('Test fictif A03');
+            $fee->set_amount('1.00');
+            $fee->set_total('1.00');
+            $subscription->add_item($fee);
+            $subscription->calculate_totals(false);
+            $subscription->save();
+            $subscription->update_status('active');
+            $result['manual_only'] = $subscription->get_requires_manual_renewal() === true && $subscription->get_payment_method() === '';
+            if (!$result['manual_only']) {
+                throw new \RuntimeException('A03_MANUAL_ONLY_REQUIRED');
+            }
+            $renewal = wcs_create_renewal_order($subscription);
+            if (is_wp_error($renewal) || !$renewal instanceof \WC_Order) {
+                throw new \RuntimeException('A03_RENEWAL_NOT_CREATED');
+            }
+            $renewalId = $renewal->get_id();
+            $renewal->update_meta_data('_imagine_a03_owned', $token);
+            $renewal->save();
+            $result['created'] = $renewalId > 0 && $renewal->get_total() === '1.00';
+            $result['linked'] = isset(wcs_get_subscriptions_for_renewal_order($renewal)[$subscriptionId]);
+            $result['pending'] = $renewal->has_status('pending') && $renewal->get_date_paid() === null && $renewal->get_payment_method() === '';
+            if (!$result['created'] || !$result['linked'] || !$result['pending']) {
+                throw new \RuntimeException('A03_RENEWAL_ASSERTION');
+            }
+        } finally {
+            // Capture only actions referring to the subscription owned by this invocation.
+            if ($subscriptionId) {
+                foreach ($wpdb->get_results("SELECT action_id,args FROM {$wpdb->prefix}actionscheduler_actions", ARRAY_A) as $row) {
+                    $args = json_decode($row['args'], true);
+                    if (is_array($args) && (int) ($args['subscription_id'] ?? 0) === $subscriptionId) {
+                        $actionIds[] = (int) $row['action_id'];
+                    }
+                }
+            }
+            foreach ([$renewal, $subscription] as $object) {
+                if ($object instanceof \WC_Abstract_Order) {
+                    if ($object->get_meta('_imagine_a03_owned') !== $token) {
+                        throw new \RuntimeException('A03_CLEANUP_OWNERSHIP');
+                    }
+                    $object->delete(true);
+                }
+            }
+            foreach ($actionIds as $actionId) {
+                if (\ActionScheduler::store()->fetch_action($actionId) instanceof \ActionScheduler_Action) {
+                    try {
+                        \ActionScheduler::store()->delete_action($actionId);
+                    } catch (\InvalidArgumentException) {
+                        // WCS deletion may already have removed precisely this action.
+                    }
+                }
+                $wpdb->delete($wpdb->prefix . 'actionscheduler_logs', ['action_id' => $actionId], ['%d']);
+            }
+            if (is_int($uid)) {
+                if (get_user_meta($uid, 'imagine_a03_owned', true) !== $token) {
+                    throw new \RuntimeException('A03_CLEANUP_OWNERSHIP');
+                }
+                require_once ABSPATH . 'wp-admin/includes/user.php';
+                wp_delete_user($uid);
+            }
+            $hpos = \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+            $table = $hpos ? $wpdb->prefix . 'wc_orders' : $wpdb->posts;
+            $column = $hpos ? 'id' : 'ID';
+            $remaining = (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM $table WHERE $column IN (%d,%d)", $subscriptionId, $renewalId));
+            $result['cleaned'] = $remaining === 0 && !$wpdb->get_var($wpdb->prepare("SELECT ID FROM {$wpdb->users} WHERE ID=%d", (int) $uid));
+            if (!$result['cleaned']) {
+                throw new \RuntimeException('A03_CLEANUP_FAILED');
+            }
+        }
+        return $result;
+    }
+
     public static function main(array $args): int
     {
         $options = [];
+        $write = false;
         foreach (array_slice($args, 1) as $arg) {
             if (!preg_match('/\A--(wp-path|config|output)=(.+)\z/D', $arg, $m) || isset($options[$m[1]])) {
                 throw new \RuntimeException('A03_USAGE');

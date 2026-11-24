@@ -38,7 +38,8 @@ final class PdfNumero
             throw new \RuntimeException('Référence PDF invalide.');
         }
         $path = self::directory() . '/' . $name;
-        if (is_link($path) || !is_file($path) || !is_readable($path)) {
+        if (is_link($path) || !is_file($path) || !is_readable($path)
+            || @file_get_contents($path, false, null, 0, 5) !== '%PDF-') {
             throw new \RuntimeException('PDF indisponible.');
         }
         return $path;
@@ -159,7 +160,7 @@ final class PdfNumero
         $handle = false;
         try {
             if (Paywall::decisionPdf($issue)['complet']) {
-                $handle = fopen(self::path($issue->ID), 'rb');
+                $handle = @fopen(self::path($issue->ID), 'rb');
                 if (!$handle || fread($handle, 5) !== '%PDF-' || fseek($handle, 0) !== 0) {
                     throw new \RuntimeException('PDF invalide.');
                 }

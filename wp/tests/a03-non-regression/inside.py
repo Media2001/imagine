@@ -125,6 +125,20 @@ def run_storage(storage):
         (OUT / (storage + '-anomalies.json')).write_text(diff.stdout)
         check(storage + ':two_mutations_detected', diff.returncode == 2 and any(v['class'] == 'anormal' and v['path'].startswith('access.') for v in data['changes']) and any(v['class'] == 'anormal' and v['path'].startswith('actions.') for v in data['changes']))
         check(storage + ':privacy', all(token not in p.read_text() for p in OUT.rglob('*.json') for token in ['A03_PERSONAL_CANARY', 'A03_PRIVATE_CONTENT_CANARY', 'A03_PRIVATE_ARGS_CANARY', '@example.org']))
+        marker_path = site / '.imagine-staging-verified.json'
+        marker_bytes = marker_path.read_bytes()
+        marker_path.unlink()
+        denied = snapshot(site, settings, OUT / (storage + '-unverified'), ['--renewal-test'])
+        marker_path.write_bytes(marker_bytes)
+        check(storage + ':renewal_unverified_refused', denied.returncode == 1 and denied.stderr == 'A03_JSON_FILE\n' and not (OUT / (storage + '-unverified')).exists())
+        # Only the opt-in run gets the synthetic writer config; no real credential exists.
+        (site / 'wp-config.php').write_text(config)
+        renewal_before = fingerprint(db)
+        renewed = snapshot(site, settings, OUT / (storage + '-renewal'), ['--renewal-test'])
+        check(storage + ':renewal_cli', renewed.returncode == 0, {'exit': renewed.returncode, 'stderr': renewed.stderr[:180]})
+        renewal = json.loads((OUT / (storage + '-renewal/non-regression.json')).read_text())['renewal']
+        check(storage + ':manual_renewal_created_and_cleaned', renewal['enabled'] and renewal['manual_only'] and renewal['created'] and renewal['linked'] and renewal['pending'] and renewal['cleaned'])
+        check(storage + ':renewal_database_restored', fingerprint(db) == renewal_before)
     finally:
         server.terminate()
         server.wait(timeout=15)

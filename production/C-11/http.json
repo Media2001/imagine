@@ -45,10 +45,10 @@
     "liste-uploads:sans-fichier-pdf": true,
     "liste-sources": true,
     "liste-sources:sans-fichier-pdf": true,
-    "medias": false,
+    "medias": true,
     "medias-inclusion": true,
     "rest-route": true,
-    "rest-recherche": false,
+    "rest-recherche": true,
     "recherche": true,
     "sitemap": true,
     "sitemap-numeros": true,
@@ -59,7 +59,7 @@
     "demo-2026-t3:abonne-pdf-exact": true,
     "demo-2026-hs:abonne-pdf-exact": true,
     "demo-2026-t4:abonne-pdf-exact": true,
-    "abonne-conditionnel": false,
+    "abonne-conditionnel": true,
     "cache-prive-no-store": true,
     "sans-validateurs": true,
     "pdf-type": true,
@@ -226,8 +226,8 @@
       "bytes": 153
     },
     "medias": {
-      "status": 400,
-      "bytes": 396
+      "status": 200,
+      "bytes": 2
     },
     "medias-inclusion": {
       "status": 200,
@@ -238,8 +238,8 @@
       "bytes": 133
     },
     "rest-recherche": {
-      "status": 400,
-      "bytes": 625
+      "status": 200,
+      "bytes": 2382
     },
     "recherche": {
       "status": 200,
@@ -314,6 +314,6 @@
       "bytes": 2509
     }
   },
-  "passed": 71,
+  "passed": 74,
   "total": 74
 }

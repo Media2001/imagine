@@ -1,0 +1,37 @@
+{
+  "c11-seed-runtime": {
+    "demo-2026-t1:idempotent-0": true,
+    "demo-2026-t1:idempotent-1": true,
+    "demo-2026-t2:idempotent-0": true,
+    "demo-2026-t2:idempotent-1": true,
+    "demo-2026-t3:idempotent-0": true,
+    "demo-2026-t3:idempotent-1": true,
+    "demo-2026-hs:idempotent-0": true,
+    "demo-2026-hs:idempotent-1": true,
+    "demo-2026-t4:idempotent-0": true,
+    "demo-2026-t4:idempotent-1": true
+  },
+  "c11-runtime": {
+    "actif_natif": true,
+    "offert_natif_meme_droit": true,
+    "groupe_natif_meme_droit": true,
+    "C10_pdf_anterieur_ferme": true,
+    "C10_pdf_anterieur_ouvert": true,
+    "C10_pdf_robot_extrait": true,
+    "C10_pdf_robot_complet": true,
+    "sans_droit_ferme": true,
+    "P-NUMERO_ferme": true,
+    "V-DEC_ferme": true,
+    "P-COOP_ferme": true,
+    "A-SUSP_ferme": true,
+    "A-EXPIRE_ferme": true,
+    "A-VIR_ferme": true,
+    "date_invalide_fermee": true,
+    "date_2099-01-01_fermee": true,
+    "erreur_native_fermee_apres_positif": true,
+    "positif_retabli": true,
+    "stockage_hors_docroot": true,
+    "restauration_exacte_options": true,
+    "canari_supprime": true
+  }
+}

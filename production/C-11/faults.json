@@ -1,0 +1,10 @@
+{
+  "corrompu:ferme-avec-bloc": true,
+  "corrompu:sans-octets": true,
+  "absent:ferme-avec-bloc": true,
+  "absent:sans-octets": true,
+  "traversee:ferme-avec-bloc": true,
+  "traversee:sans-octets": true,
+  "positif-retabli": true,
+  "nettoyage-relu": true
+}
