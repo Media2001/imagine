@@ -47,6 +47,24 @@ def wsl_python(code, data=None):
     return json.loads(p.stdout)
 
 
+def archive_capacity_on_engine(path, limits):
+    """Read-only space gate before creating runner/site/report or copying input."""
+    from archive import audit
+    source = Path(path)
+    if source.is_symlink() or not source.is_file() or source.suffix.lower() != '.wpress':
+        raise RuntimeError('ARCHIVE_SOURCE_REFUSED')
+    with source.open('rb') as stream:
+        report = audit(stream, **limits)['report']
+    needed = source.stat().st_size + report['total_bytes'] + 3 * report['database_bytes'] + 512 * 1024**2
+    root = call(['info', '--format', '{{.DockerRootDir}}']).stdout.decode().strip()
+    if not root.startswith('/') or any(c in root for c in '\r\n\0'):
+        raise RuntimeError('CAPACITY_PREFLIGHT_REFUSED')
+    space = wsl_python('import json,sys,shutil\nv=json.load(sys.stdin)\nprint(json.dumps({"free":shutil.disk_usage(v["root"]).free}))', json.dumps({'root':root}).encode())
+    if space['free'] < needed:
+        raise RuntimeError('DISK_SPACE_INSUFFICIENT')
+    return {'required_bytes':needed,'free_bytes':space['free'],'before_any_creation':True}
+
+
 def api(method, path, payload=None):
     if path not in ('/api/sites', '/api/health'):
         match = re.fullmatch(r'/api/sites/(imagine-test-[a-z0-9-]+)(?:/(start|stop))?', path)
@@ -523,7 +541,6 @@ def main():
         parser.error('--password-stdin réservé au mode opérateur')
     run_id = uuid.uuid4().hex[:12]
     out = ROOT / 'production/A-01/publication-23nov' / run_id
-    out.mkdir(parents=True, exist_ok=False)
     cases = [('classic', None), ('hpos', None), ('classic', 'secret'), ('classic', 'personal')] if args.self_test_publication else [('operator', None)]
     if args.case:
         if not args.self_test_publication: parser.error('--case réservé aux tests fictifs')
@@ -541,6 +558,9 @@ def main():
         # Capture an explicitly supplied pipe before ANY WSL subprocess.
         # Interactive Ced prompting remains after the ordinary prerequisites.
         piped_password = read_admin_password(True) if args.password_stdin else None
+        if args.archive:
+            result['capacity_preflight'] = archive_capacity_on_engine(args.archive, limits)
+        out.mkdir(parents=True, exist_ok=False)
         from publication_preflight import collect
         before = collect()['tool_source_manifest']
         result['tool_source_manifest'] = before
@@ -792,8 +812,10 @@ except Exception as e: print(json.dumps({'reachable':False,'error_class':type(e)
         result['finished_utc'] = datetime.datetime.now(datetime.timezone.utc).isoformat()
         result['command_sources'] = {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
                                       for p in sorted(HERE.glob('*.py')) + sorted(HERE.glob('*.php'))}
-        (out / 'result.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
-    print(json.dumps({'status': result['status'], 'report': str(out / 'result.json'),
+        if out.exists():
+            (out / 'result.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
+    print(json.dumps({'status': result['status'], 'report': str(out / 'result.json') if out.exists() else None,
+                      'blocker': result.get('blocker'),
                       'refusals': refusal_summary(result)}))
     return 0 if result['status'] == 'PASS' else 1
 

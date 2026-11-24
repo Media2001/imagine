@@ -97,6 +97,9 @@ class ArchiveReelle2(unittest.TestCase):
         report = archive.audit(io.BytesIO(attack('uploads/unknown-fixture/file.pdf') + attack('./database.sql') + bytes(4377)))['report']
         self.assertIn('UPLOADS_DIRECTORY_REVIEW_REQUIRED', report['blockers'])
         self.assertIn('unknown-fixture', json.dumps(report))
+        named = archive.audit(io.BytesIO(attack('uploads/dossier fictif/file.pdf') + attack('./database.sql') + bytes(4377)))['report']
+        self.assertEqual('dossier fictif', named['inventory']['uploads'][0]['directory'])
+        self.assertIn('uploads/dossier fictif', json.dumps(named))
         for name in ('a.pdf', 'b.jpg'):
             self.assertFalse(archive.excluded('uploads/woocommerce_uploads/' + name))
         for name in ('a.csv', 'b.html', 'c', 'd.log', 'e.zip'):
@@ -115,6 +118,33 @@ class ArchiveReelle2(unittest.TestCase):
                 with self.assertRaisesRegex(archive.Refusal, '^DISK_SPACE_INSUFFICIENT$'):
                     archive.restore(io.BytesIO(raw), target)
             self.assertFalse(target.exists())
+            import diagnosis
+            sys.modules['legacy_importer'] = diagnosis.parser_module()
+            import inside
+            source = Path(tmp) / 'fixture.wpress'
+            source.write_bytes(raw)
+            with patch.object(archive.shutil, 'disk_usage', return_value=type('Disk', (), {'free': 0})()), \
+                 patch.object(inside, 'database_start', side_effect=AssertionError('Must not create database before disk gate')) as start:
+                refusal = inside.execute_offline_request(str(source), {}, True)
+            self.assertEqual('DISK_SPACE_INSUFFICIENT', refusal['failure']['code'])
+            start.assert_not_called()
+            import publish
+            self.assertTrue(hasattr(publish, 'archive_capacity_on_engine'))
+            with patch.object(publish, 'call', return_value=__import__('subprocess').CompletedProcess([],0,b'/var/lib/docker\n',b'')), \
+                 patch.object(publish, 'wsl_python', return_value={'free':0}):
+                with self.assertRaisesRegex(RuntimeError, '^DISK_SPACE_INSUFFICIENT$'):
+                    publish.archive_capacity_on_engine(source, {})
+            from contextlib import redirect_stdout
+            nonexistent = Path(tmp) / 'no-created-repository'
+            output = io.StringIO()
+            with patch.object(publish, 'ROOT', nonexistent), patch.object(publish, 'HERE', nonexistent), \
+                 patch.object(publish, 'archive_capacity_on_engine', side_effect=RuntimeError('DISK_SPACE_INSUFFICIENT')), \
+                 patch.object(sys, 'argv', ['publish.py','--operator-ced','--archive',str(source),
+                     '--name','imagine-test-a01-no-space','--production-url','https://source.invalid']), redirect_stdout(output):
+                self.assertEqual(1, publish.main())
+            self.assertFalse(nonexistent.exists())
+            self.assertEqual('DISK_SPACE_INSUFFICIENT', json.loads(output.getvalue())['blocker'])
+            self.assertIsNone(json.loads(output.getvalue())['report'])
         report = archive.audit(io.BytesIO(raw), max_sql_bytes=2)['report']
         self.assertIn('ARCHIVE_LIMIT', report['blockers'])
         self.assertEqual(3, report['database_bytes'])

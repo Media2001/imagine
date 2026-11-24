@@ -101,6 +101,16 @@ def validate_core_version(package, version_file, expected=None):
     return versions
 
 
+def archive_capacity_preflight(archive, request):
+    with Path(archive).open('rb') as source:
+        report = audit(source, **request.get('archive_limits', {}))['report']
+    for rule in report['rules']:
+        if rule['blocking']:
+            raise Refusal(rule['code'], rule)
+    check_space(SITE, report['total_bytes'] + 3 * report['database_bytes'])
+    return report
+
+
 def restore_and_verify(archive, request):
     isolation()
     if SITE.exists():
@@ -120,12 +130,7 @@ def restore_and_verify(archive, request):
     # Pinned core is usable only after an exact package/core comparison below.
     # No PHP or database import executes before that gate.
     limits = request.get('archive_limits', {})
-    with Path(archive).open('rb') as source:
-        preflight = audit(source, **limits)['report']
-    for rule in preflight['rules']:
-        if rule['blocking']:
-            raise Refusal(rule['code'], rule)
-    check_space(SITE, preflight['total_bytes'] + 3 * preflight['database_bytes'])
+    archive_capacity_preflight(archive, request)
     shutil.copytree(CORE, SITE)
     shutil.rmtree(SITE / 'wp-content')
     archive_report = {}
@@ -238,6 +243,7 @@ def execute_offline_request(archive, request, start_database):
     """Always return a safe receipt, including failures before native cleanup."""
     try:
         if start_database:
+            archive_capacity_preflight(archive, request)
             database_start()
         return restore_and_verify(archive, request)
     except Exception as exc:
@@ -264,6 +270,7 @@ def main():
         request = json.loads(sys.stdin.buffer.read(16385))
         if len(json.dumps(request)) > 16384:
             raise Refusal('REQUEST_LIMIT')
+        archive_capacity_preflight('/input/source.wpress', request)
         process = database_start()
         output = restore_and_verify('/input/source.wpress', request)
         if output['data_verified']:

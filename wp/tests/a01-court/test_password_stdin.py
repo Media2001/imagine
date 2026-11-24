@@ -20,6 +20,7 @@ class StdinPassword(unittest.TestCase):
             archive = root / 'fiction.wpress'
             archive.write_bytes(b'Fictitious metadata seam only')
             with mock.patch.multiple(publish, ROOT=root, HERE=root,
+                    archive_capacity_on_engine=lambda *args: events.append('capacity') or {},
                     read_admin_password=lambda flag: events.append('password') or 'entierement-fictif-0123456789',
                     fresh_runner=lambda name: {}, offline_isolation=lambda name: {},
                     call=lambda *a, **k: subprocess.CompletedProcess([], 0, b'', b''),

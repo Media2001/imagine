@@ -62,6 +62,10 @@ def location(relative):
             zone = parts[0] + '/(racine)'
             if len(parts) > 2 and re.fullmatch(r'[\w-]{1,100}', parts[1], re.ASCII):
                 zone = parts[0] + '/' + parts[1]
+            elif (parts[0] == 'uploads' and len(parts) > 2 and parts[1] not in ('', '.', '..')
+                  and len(parts[1]) <= 255 and not any(unicodedata.category(c) in ('Cc', 'Cf') for c in parts[1])
+                  and '\\' not in parts[1]):
+                zone = 'uploads/' + parts[1]  # directory name is required for the explicit operator decision
     suffix = parts[-1].rsplit('.', 1)[-1].lower() if '.' in parts[-1] else ''
     return {'zone': zone, 'extension': '.' + suffix if suffix in EXTENSIONS else '(autre)'}
 
@@ -194,7 +198,7 @@ def audit(stream, max_bytes=DEFAULT_MAX_BYTES, max_entries=DEFAULT_MAX_ENTRIES, 
         elif parts[0] == 'themes' and safe_dir:
             themes.add(parts[1])
         elif parts[0] == 'uploads' and len(parts) > 2:
-            folder = parts[1] if safe_dir else '(autre)'
+            folder = location(relative)['zone'].partition('/')[2]
             row = uploads.setdefault(folder, {'directory': folder, 'count': 0, 'bytes': 0})
             row['count'] += 1; row['bytes'] += length
             if unknown_upload(relative):
