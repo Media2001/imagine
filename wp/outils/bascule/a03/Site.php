@@ -150,12 +150,24 @@ final class Site
         }
     }
 
+    private static function read(callable $read): mixed
+    {
+        global $wpdb;
+        $wpdb->last_error = '';
+        $value = $read();
+        if ($wpdb->last_error !== '') {
+            throw new \RuntimeException('A03_SQL_READ');
+        }
+        return $value;
+    }
+
     private static function subscriptions(): array
     {
         $result = [];
         for ($page = 1;; $page++) {
-            $batch = wcs_get_subscriptions(['subscriptions_per_page' => 100, 'paged' => $page,
-                'subscription_status' => 'any', 'orderby' => 'ID', 'order' => 'ASC']);
+            $batch = self::read(static fn(): array => wcs_get_subscriptions([
+                'subscriptions_per_page' => 100, 'paged' => $page,
+                'subscription_status' => 'any', 'orderby' => 'ID', 'order' => 'ASC']));
             foreach ($batch as $s) {
                 $result[$s->get_id()] = $s;
             }
@@ -198,8 +210,8 @@ final class Site
         $userMembers = [];
         $memberships = [];
         $membershipQuery = "SELECT ID FROM {$wpdb->posts} WHERE post_type='wc_user_membership' ORDER BY ID";
-        foreach ($wpdb->get_col($membershipQuery) as $id) {
-            $m = wc_memberships_get_user_membership((int) $id);
+        foreach (self::read(static fn() => $wpdb->get_col($membershipQuery)) as $id) {
+            $m = self::read(static fn() => wc_memberships_get_user_membership((int) $id));
             if (!$m) {
                 throw new \RuntimeException('A03_MEMBERSHIP_READ');
             }
@@ -211,9 +223,10 @@ final class Site
         $samples = [];
         $membershipStates = ['none'];
         $subscriptionStates = ['none'];
-        foreach ($wpdb->get_col("SELECT ID FROM {$wpdb->users} ORDER BY ID") as $id) {
+        foreach (self::read(static fn() => $wpdb->get_col("SELECT ID FROM {$wpdb->users} ORDER BY ID")) as $id) {
             $id = (int) $id;
-            if (user_can($id, 'manage_options') || user_can($id, 'manage_woocommerce') || is_super_admin($id)) {
+            if (self::read(static fn(): bool => user_can($id, 'manage_options')
+                || user_can($id, 'manage_woocommerce') || is_super_admin($id))) {
                 continue;
             }
             $ms = array_unique($userMembers[$id] ?? ['none']);
@@ -232,19 +245,21 @@ final class Site
             throw new \RuntimeException('A03_SAMPLE_CONFIG');
         }
         foreach ($targets as $post) {
-            if (!is_int($post) || !wc_memberships_is_post_content_restricted($post)) {
+            if (!is_int($post) || !self::read(static fn(): bool => wc_memberships_is_post_content_restricted($post))) {
                 throw new \RuntimeException('A03_CONTENT_NOT_RESTRICTED');
             }
             foreach (array_unique(array_merge([0], array_values($samples))) as $uid) {
-                $access[$uid . ':' . $post] = wc_memberships_user_can($uid, 'view', ['post' => $post]);
+                $access[$uid . ':' . $post] = self::read(
+                    static fn(): bool => wc_memberships_user_can($uid, 'view', ['post' => $post])
+                );
             }
         }
         ksort($access, SORT_NATURAL);
         $actions = [];
         $actionDays = [];
         foreach (
-            $wpdb->get_results("SELECT action_id,hook,scheduled_date_gmt FROM" .
-            " {$wpdb->prefix}actionscheduler_actions WHERE status='pending' ORDER BY action_id", ARRAY_A) as $a
+            self::read(static fn() => $wpdb->get_results("SELECT action_id,hook,scheduled_date_gmt FROM" .
+            " {$wpdb->prefix}actionscheduler_actions WHERE status='pending' ORDER BY action_id", ARRAY_A)) as $a
         ) {
             $hook = self::identifier($a['hook']);
             $date = $a['scheduled_date_gmt'];
@@ -288,8 +303,9 @@ final class Site
         }
         $result = [];
         for ($page = 1;; $page++) {
-            $orders = wc_get_orders(['type' => 'shop_order', 'status' => array_keys(wc_get_order_statuses()),
-                'limit' => 100, 'page' => $page, 'orderby' => 'ID', 'order' => 'ASC']);
+            $orders = self::read(static fn(): array => wc_get_orders([
+                'type' => 'shop_order', 'status' => array_keys(wc_get_order_statuses()),
+                'limit' => 100, 'page' => $page, 'orderby' => 'ID', 'order' => 'ASC']));
             foreach ($orders as $order) {
                 $date = $order->get_date_created();
                 if (!$date) {
@@ -446,7 +462,7 @@ final class Site
             // Capture only actions referring to the subscription owned by this invocation.
             if ($subscriptionId) {
                 $query = "SELECT action_id,args FROM {$wpdb->prefix}actionscheduler_actions";
-                foreach ($wpdb->get_results($query, ARRAY_A) as $row) {
+                foreach (self::read(static fn() => $wpdb->get_results($query, ARRAY_A)) as $row) {
                     $args = json_decode($row['args'], true);
                     if (is_array($args) && (int) ($args['subscription_id'] ?? 0) === $subscriptionId) {
                         $actionIds[] = (int) $row['action_id'];
@@ -481,13 +497,15 @@ final class Site
             $hpos = OrderUtil::custom_orders_table_usage_is_enabled();
             $table = $hpos ? $wpdb->prefix . 'wc_orders' : $wpdb->posts;
             $column = $hpos ? 'id' : 'ID';
-            $remaining = (int) $wpdb->get_var($wpdb->prepare(
+            $remaining = (int) self::read(static fn() => $wpdb->get_var($wpdb->prepare(
                 "SELECT COUNT(*) FROM $table WHERE $column IN (%d,%d)",
                 $subscriptionId,
                 $renewalId
-            ));
+            )));
             $result['cleaned'] = $remaining === 0
-                && !$wpdb->get_var($wpdb->prepare("SELECT ID FROM {$wpdb->users} WHERE ID=%d", (int) $uid));
+                && !self::read(static fn() => $wpdb->get_var($wpdb->prepare(
+                    "SELECT ID FROM {$wpdb->users} WHERE ID=%d", (int) $uid
+                )));
             if (!$result['cleaned']) {
                 throw new \RuntimeException('A03_CLEANUP_FAILED');
             }

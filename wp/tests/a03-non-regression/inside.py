@@ -153,8 +153,11 @@ def run_storage(storage):
         sql(db, "UPDATE wp_posts SET post_status='wcm-expired' WHERE ID=" + str(seed['membership_ids']['active']))
         sql(db, 'DELETE FROM wp_actionscheduler_actions WHERE action_id=' + str(seed['action']))
         changed = OUT / (storage + '-altered')
+        debug_mu = site / 'wp-content/mu-plugins/997-a03-debug.php'
+        debug_mu.write_text("<?php add_filter('query', static function ($q) { global $wpdb; if ($wpdb->last_error) { $GLOBALS['a03_debug'][] = ['error' => $wpdb->last_error, 'query' => $wpdb->last_query]; } return $q; }, -99999); register_shutdown_function(static function () { global $wpdb; file_put_contents('/report/" + storage + "-sql-debug.json', json_encode(['past' => $GLOBALS['a03_debug'] ?? [], 'error' => $wpdb->last_error, 'query' => $wpdb->last_query])); });")
         p = snapshot(site, settings, changed)
-        check(storage + ':altered_cli', p.returncode == 0)
+        debug_mu.unlink()
+        check(storage + ':altered_cli', p.returncode == 0, {'stderr': p.stderr[:160]})
         diff = cmd(['php', '/subject/comparer', str(target / 'non-regression.json'), str(changed / 'non-regression.json')], check=False)
         data = json.loads(diff.stdout)
         (OUT / (storage + '-anomalies.json')).write_text(diff.stdout)
