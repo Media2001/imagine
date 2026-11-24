@@ -72,9 +72,10 @@ Achat de numéro non raccordé : fermé, y compris le profil fictif P-NUMERO. Au
 
 ```bash
 python C:/Users/Ced/imagine/wp/outils/demo/c11.py             # installer/rejouer, démo existante seulement
-python C:/Users/Ced/imagine/wp/outils/demo/c11.py --check-only # recettes ciblées, sans reconstruction B00
-python -m unittest discover -s C:/Users/Ced/imagine/wp/tests/demo -p 'test_*.py' -v
+python C:/Users/Ced/imagine/wp/outils/demo/c11.py --check-only # recettes ciblées et unitaires, sans reconstruction B00
 ```
+
+Les unitaires utilisent les six wheels universelles gelées B01 en lecture seule (zipimport), sans installation ni réseau ; pas besoin de `html5lib` dans le Python global.
 
 La commande de contrôle téléverse les recettes, teste les options natives avec restauration exacte et supprime ses canaris dans `finally`. Sources officielles, limites de la démo, URL à ouvrir et choix de stockage en cinq lignes : `production/C-11/A-VOIR.md`. Les preuves sont limitées à `production/C-11/{http,runtime,faults}.json`.
 

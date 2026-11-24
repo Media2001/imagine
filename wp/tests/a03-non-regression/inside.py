@@ -98,6 +98,12 @@ def run_storage(storage):
     time.sleep(.5)
     try:
         before_db, before_files = fingerprint(db), filemap(site)
+        settings_path = settings
+        dropin = site / 'wp-content/object-cache.php'
+        dropin.write_text("<?php throw new RuntimeException('A03_DROPIN_MUST_NOT_BOOT');")
+        denied_dropin = snapshot(site, settings_path, OUT / (storage + '-dropin'))
+        dropin.unlink()
+        check(storage + ':dropin_refused_before_bootstrap', denied_dropin.returncode == 1 and denied_dropin.stderr == 'A03_DB_OR_CACHE_DROPIN\n')
         target = OUT / storage
         p = snapshot(site, settings, target)
         check(storage + ':snapshot_cli', p.returncode == 0 and (target / 'non-regression.json').exists(), {'exit': p.returncode, 'stderr': p.stderr[:160]})
@@ -149,6 +155,13 @@ def run_storage(storage):
         renewal_after = fingerprint(db, details=True)
         row_changes = [key for key in renewal_before['tables'] if renewal_before['tables'][key]['rows_sha256'] != renewal_after['tables'][key]['rows_sha256']]
         check(storage + ':renewal_business_rows_restored', not row_changes, {'changed_tables': row_changes})
+        failure = site / 'wp-content/mu-plugins/999-a03-failure.php'
+        failure.write_text("<?php add_filter('wcs_renewal_order_created', static function ($order) { throw new RuntimeException('A03_TEST_FAILURE_AFTER_CREATE'); });")
+        failed_before = fingerprint(db, details=True)
+        failed = snapshot(site, settings, OUT / (storage + '-renewal-failed'), ['--renewal-test'])
+        failure.unlink()
+        failed_after = fingerprint(db, details=True)
+        check(storage + ':renewal_failure_rolls_back', failed.returncode == 1 and failed.stderr == 'A03_TEST_FAILURE_AFTER_CREATE\n' and all(failed_before['tables'][key]['rows_sha256'] == failed_after['tables'][key]['rows_sha256'] for key in failed_before['tables']) and not (OUT / (storage + '-renewal-failed')).exists())
     finally:
         server.terminate()
         server.wait(timeout=15)

@@ -19,8 +19,9 @@ Depuis le dépôt (bash Windows) :
 
 ```bash
 python C:/Users/Ced/imagine/wp/outils/demo/c11.py --check-only
-python -m unittest discover -s C:/Users/Ced/imagine/wp/tests/demo -p 'test_*.py' -v
 ```
+
+La commande inclut les tests unitaires locaux avec les six wheels universelles déjà gelées dans `production/B-01/validation` chargées en lecture seule ; aucune installation ni récupération réseau. Un `python -m unittest` nu peut échouer si `html5lib` n'est pas installé dans le Python appelant.
 
 `--check-only` ne réinstalle pas le plugin et ne reconstruit pas B00 ; il téléverse les recettes ciblées, rejoue deux fois les seules fonctions médias PDF du seed, teste les réglages C10 natifs puis les défauts et l'étanchéité HTTP. Les canaris C11 sont supprimés dans `finally` ; les options sont restaurées à leur valeur ou absence exacte. Pour réinstaller/régénérer les cinq PDF fictifs : même commande sans `--check-only`.
 
@@ -32,6 +33,7 @@ Tests : `wp/tests/demo/c11-verifier.py`, `c11-runtime.php`, `c11-seed-runtime.ph
 - Acheteur à l'unité : **fermé**. Il n'existe pas encore de mapping natif produit/commande → numéro validé dans l'adaptateur. Le profil C09 `P-NUMERO` est éprouvé fermé ; aucun droit déduit d'une commande, d'un rôle ou d'un cookie.
 - Robots : contrôle HTTP du faux Googlebot fermé ; les deux valeurs C10 sont testées avec une décision robot **synthétique** à la frontière C06. Le DNS extérieur est volontairement indisponible sur la démo : aucun vrai robot Internet déclaré vérifié.
 - PDF antérieurs : les deux valeurs C10 sont testées avec les vrais droits Memberships/Subscriptions du compte actif et un numéro-canari supprimé ensuite. Offert/groupe réutilisent les mêmes objets natifs via le mapping de plans, pas des faux droits stockés ailleurs.
+- Les options sont restaurées exactement ; le journal natif C10 conserve normalement les traces fictives des changements de réglages des recettes. Aucun effacement du journal n'est effectué.
 - Le sitemap natif est désactivé sur cette démo non indexable ; les routes de sitemap réelles sont sollicitées et ne publient aucun PDF. Aucun cache hébergeur ni déploiement réel n'est revendiqué.
 
 ## Standard consulté

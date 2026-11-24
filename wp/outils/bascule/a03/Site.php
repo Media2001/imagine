@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Imagine\NonRegression;
 
+use Automattic\WooCommerce\Utilities\OrderUtil;
+
 final class Site
 {
     private static bool $verified = false;
@@ -33,22 +35,42 @@ final class Site
             throw new \RuntimeException('A03_NOT_VERIFIED');
         }
         $guard = $site . '/wp-content/mu-plugins/000-imagine-staging-safety.php';
-        if (!is_file($guard) || is_link($guard) || hash_file('sha256', $guard) !== hash_file('sha256', dirname(__DIR__, 2) . '/staging/mu-plugins/000-imagine-staging-safety.php')) {
+        if (
+            !is_file($guard) || is_link($guard) || hash_file('sha256', $guard) !== hash_file(
+                'sha256',
+                dirname(__DIR__, 2) . '/staging/mu-plugins/000-imagine-staging-safety.php'
+            )
+        ) {
             throw new \RuntimeException('A03_SAFETY_BYTES');
+        }
+        foreach (['db.php', 'object-cache.php', 'advanced-cache.php'] as $dropin) {
+            $file = $site . '/wp-content/' . $dropin;
+            if (file_exists($file) || is_link($file)) {
+                throw new \RuntimeException('A03_DB_OR_CACHE_DROPIN');
+            }
         }
         define('IMAGINE_AUDIT_LIBRARY_ONLY', true);
         require_once dirname(__DIR__) . '/audit';
         $config = \Imagine\Audit\Audit::config(file_get_contents($site . '/wp-config.php'));
-        $db = new \PDO(Policy::dsn($config), $config['DB_USER'], $config['DB_PASSWORD'], [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]);
+        $db = new \PDO(Policy::dsn($config), $config['DB_USER'], $config['DB_PASSWORD'], [\PDO::ATTR_ERRMODE
+            => \PDO::ERRMODE_EXCEPTION]);
         if (!$write) {
             foreach ($db->query('SHOW GRANTS')->fetchAll(\PDO::FETCH_COLUMN) as $grant) {
-                if (!preg_match('/\AGRANT (?:USAGE|SELECT) ON /D', $grant) || str_contains($grant, 'WITH GRANT OPTION')) {
+                if (
+                    !preg_match('/\AGRANT (?:USAGE|SELECT) ON /D', $grant) || str_contains(
+                        $grant,
+                        'WITH GRANT OPTION'
+                    )
+                ) {
                     throw new \RuntimeException('A03_SELECT_ACCOUNT_REQUIRED');
                 }
             }
         }
         if ($write) {
-            foreach ($db->query('SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_TYPE=\'BASE TABLE\'')->fetchAll(\PDO::FETCH_COLUMN) as $engine) {
+            foreach (
+                $db->query('SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND' .
+                ' TABLE_TYPE=\'BASE TABLE\'')->fetchAll(\PDO::FETCH_COLUMN) as $engine
+            ) {
                 if ($engine !== 'InnoDB') {
                     throw new \RuntimeException('A03_TRANSACTIONAL_TABLES_REQUIRED');
                 }
@@ -60,7 +82,12 @@ final class Site
             define('WP_DEBUG_DISPLAY', false);
             require_once ABSPATH . 'wp-includes/plugin.php';
             require_once ABSPATH . 'wp-includes/class-wpdb.php';
-            $GLOBALS['wpdb'] = new class ($config['DB_USER'], $config['DB_PASSWORD'], $config['DB_NAME'], $config['DB_HOST']) extends \wpdb {
+            $GLOBALS['wpdb'] = new class (
+                $config['DB_USER'],
+                $config['DB_PASSWORD'],
+                $config['DB_NAME'],
+                $config['DB_HOST']
+) extends \wpdb {
                 private bool $closed = false;
 
                 public function beginProbe(): void
@@ -81,7 +108,12 @@ final class Site
                     if (preg_match('/\A\s*(?:START|BEGIN|COMMIT|ROLLBACK|SAVEPOINT|RELEASE)\b/i', $query)) {
                         return 0;
                     }
-                    if (preg_match('/\A\s*(?:CREATE|ALTER|DROP|TRUNCATE|RENAME|GRANT|REVOKE|LOCK|UNLOCK)\b/i', $query)) {
+                    if (
+                        preg_match(
+                            '/\A\s*(?:CREATE|ALTER|DROP|TRUNCATE|RENAME|GRANT|REVOKE|LOCK|UNLOCK)\b/i',
+                            $query
+                        )
+                    ) {
                         throw new \RuntimeException('A03_DDL_DURING_PROBE');
                     }
                     if ($this->closed && !preg_match('/\A\s*(?:SELECT|SHOW|DESCRIBE)\b/i', $query)) {
@@ -104,7 +136,8 @@ final class Site
         }
         require_once dirname(__DIR__, 2) . '/staging/runtime-probe.php';
         $probe = \Imagine\Staging\runtimeProbe();
-        $required = ['mail_blocked', 'http_blocked', 'subscriptions_staging', 'environment_staging', 'cron_disabled', 'as_async_disabled', 'as_runner_disabled', 'gateways_disabled'];
+        $required = ['mail_blocked', 'http_blocked', 'subscriptions_staging', 'environment_staging',
+            'cron_disabled', 'as_async_disabled', 'as_runner_disabled', 'gateways_disabled'];
         foreach ($required as $key) {
             if (($probe[$key] ?? null) !== true) {
                 throw new \RuntimeException('A03_RUNTIME_UNSAFE');
@@ -121,7 +154,8 @@ final class Site
     {
         $result = [];
         for ($page = 1;; $page++) {
-            $batch = wcs_get_subscriptions(['subscriptions_per_page' => 100, 'paged' => $page, 'subscription_status' => 'any', 'orderby' => 'ID', 'order' => 'ASC']);
+            $batch = wcs_get_subscriptions(['subscriptions_per_page' => 100, 'paged' => $page,
+                'subscription_status' => 'any', 'orderby' => 'ID', 'order' => 'ASC']);
             foreach ($batch as $s) {
                 $result[$s->get_id()] = $s;
             }
@@ -144,12 +178,16 @@ final class Site
         $counts = ['status' => [], 'gateway' => [], 'period' => []];
         $userSubs = [];
         foreach ($subs as $id => $s) {
-            $row = ['status' => self::identifier($s->get_status()), 'gateway' => self::identifier($s->get_payment_method() ?: 'manual'),
+            $row = ['status' => self::identifier($s->get_status()), 'gateway'
+                => self::identifier($s->get_payment_method() ?: 'manual'),
                 'period' => self::identifier($s->get_billing_period()), 'interval' => (int) $s->get_billing_interval(),
                 'next_payment_utc' => $s->get_date('next_payment', 'gmt')];
             $rows[$id] = $row;
             $userSubs[$s->get_user_id()][] = $row['status'];
-            foreach (['status' => $row['status'], 'gateway' => $row['gateway'], 'period' => $row['interval'] . '-' . $row['period']] as $kind => $key) {
+            foreach (
+                ['status' => $row['status'], 'gateway' => $row['gateway'], 'period' => $row['interval']
+                . '-' . $row['period']] as $kind => $key
+            ) {
                 $counts[$kind][$key] = ($counts[$kind][$key] ?? 0) + 1;
             }
         }
@@ -159,14 +197,16 @@ final class Site
         unset($group);
         $userMembers = [];
         $memberships = [];
-        foreach ($wpdb->get_col("SELECT ID FROM {$wpdb->posts} WHERE post_type='wc_user_membership' ORDER BY ID") as $id) {
+        $membershipQuery = "SELECT ID FROM {$wpdb->posts} WHERE post_type='wc_user_membership' ORDER BY ID";
+        foreach ($wpdb->get_col($membershipQuery) as $id) {
             $m = wc_memberships_get_user_membership((int) $id);
             if (!$m) {
                 throw new \RuntimeException('A03_MEMBERSHIP_READ');
             }
             $state = self::identifier($m->get_status());
             $userMembers[$m->get_user_id()][] = $state;
-            $memberships[(int) $id] = ['user_id' => $m->get_user_id(), 'plan_id' => $m->get_plan_id(), 'status' => $state];
+            $memberships[(int) $id] = ['user_id' => $m->get_user_id(), 'plan_id' => $m->get_plan_id(),
+                'status' => $state];
         }
         $samples = [];
         $membershipStates = ['none'];
@@ -199,7 +239,10 @@ final class Site
         ksort($access, SORT_NATURAL);
         $actions = [];
         $actionDays = [];
-        foreach ($wpdb->get_results("SELECT action_id,hook,scheduled_date_gmt FROM {$wpdb->prefix}actionscheduler_actions WHERE status='pending' ORDER BY action_id", ARRAY_A) as $a) {
+        foreach (
+            $wpdb->get_results("SELECT action_id,hook,scheduled_date_gmt FROM" .
+            " {$wpdb->prefix}actionscheduler_actions WHERE status='pending' ORDER BY action_id", ARRAY_A) as $a
+        ) {
             $hook = self::identifier($a['hook']);
             $date = $a['scheduled_date_gmt'];
             if (!preg_match('/\A[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\z/D', $date)) {
@@ -216,10 +259,14 @@ final class Site
         sort($membershipStates);
         sort($subscriptionStates);
         return ['schema' => 'imagine-a03-v1', 'generated_at_utc' => gmdate('c'),
-            'versions' => ['wordpress' => get_bloginfo('version'), 'php' => PHP_VERSION, 'woocommerce' => WC()->version, 'memberships' => wc_memberships()->get_version(), 'subscriptions' => \WC_Subscriptions::$version],
-            'storage' => \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled() ? 'hpos' : 'classic',
-            'sample_states' => ['membership' => $membershipStates, 'subscription' => $subscriptionStates], 'samples' => $samples,
-            'memberships' => $memberships, 'access' => $access, 'subscriptions' => $rows, 'subscription_counts' => $counts,
+            'versions' => ['wordpress' => get_bloginfo('version'), 'php' => PHP_VERSION, 'woocommerce'
+                => WC()->version, 'memberships' => wc_memberships()->get_version(), 'subscriptions'
+                => \WC_Subscriptions::$version],
+            'storage' => OrderUtil::custom_orders_table_usage_is_enabled() ? 'hpos' : 'classic',
+            'sample_states' => ['membership' => $membershipStates, 'subscription' => $subscriptionStates],
+                'samples' => $samples,
+            'memberships' => $memberships, 'access' => $access, 'subscriptions' => $rows,
+                'subscription_counts' => $counts,
             'actions' => $actions, 'action_days' => $actionDays, 'order_months' => $months, 'orders' => $orders,
             'pages' => self::pages($settings['pages'] ?? []), 'renewal' => ['enabled' => false]];
     }
@@ -237,7 +284,8 @@ final class Site
         }
         $result = [];
         for ($page = 1;; $page++) {
-            $orders = wc_get_orders(['type' => 'shop_order', 'status' => array_keys(wc_get_order_statuses()), 'limit' => 100, 'page' => $page, 'orderby' => 'ID', 'order' => 'ASC']);
+            $orders = wc_get_orders(['type' => 'shop_order', 'status' => array_keys(wc_get_order_statuses()),
+                'limit' => 100, 'page' => $page, 'orderby' => 'ID', 'order' => 'ASC']);
             foreach ($orders as $order) {
                 $date = $order->get_date_created();
                 if (!$date) {
@@ -293,7 +341,8 @@ final class Site
             $status = 0;
             $body = '';
             for ($redirect = 0; $redirect < 4; $redirect++) {
-                $context = stream_context_create(['http' => ['method' => 'GET', 'follow_location' => 0, 'ignore_errors' => true, 'timeout' => 15, 'header' => "Connection: close\r\n"]]);
+                $context = stream_context_create(['http' => ['method' => 'GET', 'follow_location' => 0,
+                    'ignore_errors' => true, 'timeout' => 15, 'header' => "Connection: close\r\n"]]);
                 $http_response_header = [];
                 $handle = @fopen($url, 'rb', false, $context);
                 $body = $handle === false ? '' : stream_get_contents($handle, 4194305);
@@ -313,14 +362,19 @@ final class Site
                 if ($status < 300 || $status > 399 || $location === null) {
                     break;
                 }
-                $next = str_starts_with($location, '/') && !str_starts_with($location, '//') ? $base . $location : $location;
+                $next = str_starts_with($location, '/') && !str_starts_with($location, '//') ? $base
+                    . $location : $location;
                 if (!str_starts_with($next, $base . '/') || preg_match('/[\\\\\x00-\x20]/', $next)) {
                     break;
                 }
                 $url = $next;
             }
-            $result[$key] = ['status' => $first, 'final_status' => $status, 'marker' => strlen($body) <= 4194304 && str_contains($body, $marker),
-                'php_error' => (bool) preg_match('/(?:Fatal error|Parse error|Warning:|Notice:|Deprecated:|Uncaught (?:Error|Exception))/i', $body)];
+            $result[$key] = ['status' => $first, 'final_status' => $status, 'marker'
+                => strlen($body) <= 4194304 && str_contains($body, $marker),
+                'php_error' => (bool) preg_match(
+                    '/(?:Fatal error|Parse error|Warning:|Notice:|Deprecated:|Uncaught (?:Error|Exception))/i',
+                    $body
+                )];
         }
         return $result;
     }
@@ -338,14 +392,18 @@ final class Site
         $subscriptionId = 0;
         $renewalId = 0;
         $actionIds = [];
-        $result = ['enabled' => true, 'manual_only' => false, 'created' => false, 'linked' => false, 'pending' => false, 'cleaned' => false];
+        $result = ['enabled' => true, 'manual_only' => false, 'created' => false, 'linked' => false, 'pending'
+            => false, 'cleaned' => false];
         try {
-            $uid = wp_insert_user(['user_login' => 'imagine_a03_' . $token, 'user_email' => 'imagine-a03-' . $token . '@example.org', 'user_pass' => wp_generate_password(48), 'display_name' => 'Compte fictif A03']);
+            $uid = wp_insert_user(['user_login' => 'imagine_a03_' . $token, 'user_email' => 'imagine-a03-'
+                . $token . '@example.org', 'user_pass' => wp_generate_password(48), 'display_name'
+                => 'Compte fictif A03']);
             if (is_wp_error($uid)) {
                 throw new \RuntimeException('A03_TEST_USER');
             }
             update_user_meta($uid, 'imagine_a03_owned', $token);
-            $subscription = wcs_create_subscription(['customer_id' => $uid, 'status' => 'pending', 'billing_period' => 'month', 'billing_interval' => 1]);
+            $subscription = wcs_create_subscription(['customer_id' => $uid, 'status' => 'pending',
+                'billing_period' => 'month', 'billing_interval' => 1]);
             if (is_wp_error($subscription)) {
                 throw new \RuntimeException('A03_TEST_SUBSCRIPTION');
             }
@@ -361,7 +419,8 @@ final class Site
             $subscription->calculate_totals(false);
             $subscription->save();
             $subscription->update_status('active');
-            $result['manual_only'] = $subscription->get_requires_manual_renewal() === true && $subscription->get_payment_method() === '';
+            $result['manual_only'] = $subscription->get_requires_manual_renewal() === true
+                && $subscription->get_payment_method() === '';
             if (!$result['manual_only']) {
                 throw new \RuntimeException('A03_MANUAL_ONLY_REQUIRED');
             }
@@ -374,14 +433,16 @@ final class Site
             $renewal->save();
             $result['created'] = $renewalId > 0 && $renewal->get_total() === '1.00';
             $result['linked'] = isset(wcs_get_subscriptions_for_renewal_order($renewal)[$subscriptionId]);
-            $result['pending'] = $renewal->has_status('pending') && $renewal->get_date_paid() === null && $renewal->get_payment_method() === '';
+            $result['pending'] = $renewal->has_status('pending') && $renewal->get_date_paid() === null
+                && $renewal->get_payment_method() === '';
             if (!$result['created'] || !$result['linked'] || !$result['pending']) {
                 throw new \RuntimeException('A03_RENEWAL_ASSERTION');
             }
         } finally {
             // Capture only actions referring to the subscription owned by this invocation.
             if ($subscriptionId) {
-                foreach ($wpdb->get_results("SELECT action_id,args FROM {$wpdb->prefix}actionscheduler_actions", ARRAY_A) as $row) {
+                $query = "SELECT action_id,args FROM {$wpdb->prefix}actionscheduler_actions";
+                foreach ($wpdb->get_results($query, ARRAY_A) as $row) {
                     $args = json_decode($row['args'], true);
                     if (is_array($args) && (int) ($args['subscription_id'] ?? 0) === $subscriptionId) {
                         $actionIds[] = (int) $row['action_id'];
@@ -413,11 +474,16 @@ final class Site
                 require_once ABSPATH . 'wp-admin/includes/user.php';
                 wp_delete_user($uid);
             }
-            $hpos = \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+            $hpos = OrderUtil::custom_orders_table_usage_is_enabled();
             $table = $hpos ? $wpdb->prefix . 'wc_orders' : $wpdb->posts;
             $column = $hpos ? 'id' : 'ID';
-            $remaining = (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM $table WHERE $column IN (%d,%d)", $subscriptionId, $renewalId));
-            $result['cleaned'] = $remaining === 0 && !$wpdb->get_var($wpdb->prepare("SELECT ID FROM {$wpdb->users} WHERE ID=%d", (int) $uid));
+            $remaining = (int) $wpdb->get_var($wpdb->prepare(
+                "SELECT COUNT(*) FROM $table WHERE $column IN (%d,%d)",
+                $subscriptionId,
+                $renewalId
+            ));
+            $result['cleaned'] = $remaining === 0
+                && !$wpdb->get_var($wpdb->prepare("SELECT ID FROM {$wpdb->users} WHERE ID=%d", (int) $uid));
             if (!$result['cleaned']) {
                 throw new \RuntimeException('A03_CLEANUP_FAILED');
             }
@@ -468,7 +534,10 @@ final class Site
         if (!mkdir($output, 0700)) {
             throw new \RuntimeException('A03_OUTPUT_FAILED');
         }
-        file_put_contents($output . '/non-regression.json', json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n");
+        file_put_contents($output . '/non-regression.json', json_encode(
+            $report,
+            JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR
+        ) . "\n");
         chmod($output . '/non-regression.json', 0600);
         return 0;
     }

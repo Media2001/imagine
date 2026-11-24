@@ -21,7 +21,10 @@ if (!defined('IMAGINE_A03_LIBRARY_ONLY')) {
         exit($exit);
     } catch (\Throwable $error) {
         ob_end_clean();
-        $code = preg_match('/\AA0[23]_[A-Z_]+\z/D', $error->getMessage()) ? $error->getMessage() : 'A03_EXECUTION_FAILED';
+        $code = preg_match(
+            '/\AA0[23]_[A-Z_]+\z/D',
+            $error->getMessage()
+        ) ? $error->getMessage() : 'A03_EXECUTION_FAILED';
         fwrite(STDERR, $code . "\n");
         exit(1);
     }

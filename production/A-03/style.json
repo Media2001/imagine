@@ -3,24 +3,14 @@
   "cleanup": true,
   "totals": {
     "errors": 0,
-    "warnings": 52,
+    "warnings": 7,
     "fixable": 0
   },
   "files": {
     "/subject/non-regression.php": {
       "errors": 0,
-      "warnings": 1,
-      "messages": [
-        {
-          "message": "Line exceeds 120 characters; contains 122 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 24,
-          "column": 122
-        }
-      ]
+      "warnings": 0,
+      "messages": []
     },
     "/subject/comparer.php": {
       "errors": 0,
@@ -39,7 +29,7 @@
     },
     "/subject/unit.php": {
       "errors": 0,
-      "warnings": 6,
+      "warnings": 1,
       "messages": [
         {
           "message": "A file should declare new symbols (classes, functions, constants, etc.) and cause no other side effects, or it should execute logic with side effects, but should not do both. The first symbol is defined on line 6 and the first side effect is on line 5.",
@@ -49,318 +39,36 @@
           "type": "WARNING",
           "line": 1,
           "column": 1
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 189 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 29,
-          "column": 189
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 224 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 50,
-          "column": 224
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 185 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 62,
-          "column": 185
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 149 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 63,
-          "column": 149
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 153 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 71,
-          "column": 153
         }
       ]
     },
     "/subject/seed.php": {
       "errors": 0,
-      "warnings": 10,
-      "messages": [
-        {
-          "message": "Line exceeds 120 characters; contains 164 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 6,
-          "column": 164
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 148 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 7,
-          "column": 148
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 125 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 8,
-          "column": 125
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 220 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 12,
-          "column": 220
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 199 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 20,
-          "column": 199
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 197 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 30,
-          "column": 197
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 192 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 48,
-          "column": 192
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 132 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 57,
-          "column": 132
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 301 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 59,
-          "column": 301
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 406 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 60,
-          "column": 406
-        }
-      ]
+      "warnings": 0,
+      "messages": []
     },
     "/subject/Policy.php": {
       "errors": 0,
-      "warnings": 1,
-      "messages": [
-        {
-          "message": "Line exceeds 120 characters; contains 163 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 17,
-          "column": 163
-        }
-      ]
+      "warnings": 0,
+      "messages": []
     },
     "/subject/Report.php": {
       "errors": 0,
-      "warnings": 2,
-      "messages": [
-        {
-          "message": "Line exceeds 120 characters; contains 129 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 29,
-          "column": 129
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 128 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 38,
-          "column": 128
-        }
-      ]
+      "warnings": 0,
+      "messages": []
     },
     "/subject/Site.php": {
       "errors": 0,
-      "warnings": 31,
+      "warnings": 5,
       "messages": [
         {
-          "message": "Line exceeds 120 characters; contains 181 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 36,
-          "column": 181
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 138 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 42,
-          "column": 138
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 122 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 45,
-          "column": 122
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 183 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 51,
-          "column": 183
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 141 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 63,
-          "column": 141
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 121 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 84,
-          "column": 121
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 182 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 107,
-          "column": 182
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 165 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 124,
-          "column": 165
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 136 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 147,
-          "column": 136
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 152 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 152,
-          "column": 152
-        },
-        {
           "message": "Line exceeds 120 characters; contains 123 characters",
           "source": "Generic.Files.LineLength.TooLong",
           "severity": 5,
           "fixable": false,
           "type": "WARNING",
-          "line": 162,
+          "line": 192,
           "column": 123
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 123 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 169,
-          "column": 123
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 183 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 202,
-          "column": 183
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 219 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 219,
-          "column": 219
         },
         {
           "message": "Line exceeds 120 characters; contains 130 characters",
@@ -368,71 +76,8 @@
           "severity": 5,
           "fixable": false,
           "type": "WARNING",
-          "line": 220,
+          "line": 256,
           "column": 130
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 129 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 221,
-          "column": 129
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 123 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 222,
-          "column": 123
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 181 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 240,
-          "column": 181
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 185 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 296,
-          "column": 185
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 125 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 316,
-          "column": 125
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 145 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 322,
-          "column": 145
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 149 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 323,
-          "column": 149
         },
         {
           "message": "Line exceeds 120 characters; contains 141 characters",
@@ -440,44 +85,8 @@
           "severity": 5,
           "fixable": false,
           "type": "WARNING",
-          "line": 341,
+          "line": 366,
           "column": 141
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 215 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 343,
-          "column": 215
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 154 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 348,
-          "column": 154
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 137 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 364,
-          "column": 137
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 144 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 377,
-          "column": 144
         },
         {
           "message": "Line exceeds 120 characters; contains 132 characters",
@@ -485,7 +94,7 @@
           "severity": 5,
           "fixable": false,
           "type": "WARNING",
-          "line": 384,
+          "line": 433,
           "column": 132
         },
         {
@@ -494,26 +103,8 @@
           "severity": 5,
           "fixable": false,
           "type": "WARNING",
-          "line": 419,
+          "line": 468,
           "column": 147
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 142 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 420,
-          "column": 142
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 155 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 471,
-          "column": 155
         }
       ]
     }

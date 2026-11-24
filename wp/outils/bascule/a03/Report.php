@@ -26,7 +26,11 @@ final class Report
             if (in_array($root, ['generated_at_utc'], true)) {
                 return;
             }
-            $class = $root === 'versions' ? 'attendu' : (in_array($root, ['pages', 'renewal'], true) ? 'a regarder' : 'anormal');
+            $class = $root === 'versions' ? 'attendu' : (in_array(
+                $root,
+                ['pages', 'renewal'],
+                true
+            ) ? 'a regarder' : 'anormal');
             if (
                 $root === 'pages' && ((str_ends_with($path, '.marker') && $b !== true)
                 || (str_ends_with($path, '.php_error') && $b !== false)
@@ -35,7 +39,8 @@ final class Report
                 $class = 'anormal';
             }
             // Values deliberately excluded: even malformed inputs never echo PII.
-            $changes[] = ['path' => preg_match('/\A[A-Za-z0-9_.:-]{1,240}\z/D', $path) ? $path : '[masque]', 'class' => $class];
+            $changes[] = ['path' => preg_match('/\A[A-Za-z0-9_.:-]{1,240}\z/D', $path) ? $path : '[masque]',
+                'class' => $class];
         };
         $walk($before, $after, '');
         return ['schema' => 'imagine-a03-comparison-v1', 'changes' => $changes,
