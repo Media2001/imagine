@@ -99,11 +99,11 @@
     },
     "demo-2026-t1:numero": {
       "status": 200,
-      "bytes": 29167
+      "bytes": 29171
     },
     "demo-2026-t1:endpoint-anonyme": {
       "status": 200,
-      "bytes": 29167
+      "bytes": 29171
     },
     "demo-2026-t2:ancien-direct": {
       "status": 404,
@@ -127,11 +127,11 @@
     },
     "demo-2026-t2:numero": {
       "status": 200,
-      "bytes": 28715
+      "bytes": 28719
     },
     "demo-2026-t2:endpoint-anonyme": {
       "status": 200,
-      "bytes": 28715
+      "bytes": 28719
     },
     "demo-2026-t3:ancien-direct": {
       "status": 404,
@@ -155,11 +155,11 @@
     },
     "demo-2026-t3:numero": {
       "status": 200,
-      "bytes": 28717
+      "bytes": 28721
     },
     "demo-2026-t3:endpoint-anonyme": {
       "status": 200,
-      "bytes": 28717
+      "bytes": 28721
     },
     "demo-2026-hs:ancien-direct": {
       "status": 404,
@@ -183,11 +183,11 @@
     },
     "demo-2026-hs:numero": {
       "status": 200,
-      "bytes": 28739
+      "bytes": 28743
     },
     "demo-2026-hs:endpoint-anonyme": {
       "status": 200,
-      "bytes": 28739
+      "bytes": 28743
     },
     "demo-2026-t4:ancien-direct": {
       "status": 404,
@@ -211,11 +211,11 @@
     },
     "demo-2026-t4:numero": {
       "status": 200,
-      "bytes": 28717
+      "bytes": 28721
     },
     "demo-2026-t4:endpoint-anonyme": {
       "status": 200,
-      "bytes": 28717
+      "bytes": 28721
     },
     "liste-uploads": {
       "status": 403,
@@ -291,15 +291,15 @@
     },
     "anonyme-apres-abonne": {
       "status": 200,
-      "bytes": 28717
+      "bytes": 28721
     },
     "faux-robot": {
       "status": 200,
-      "bytes": 28717
+      "bytes": 28721
     },
     "connecte-sans-droit": {
       "status": 200,
-      "bytes": 28299
+      "bytes": 28303
     },
     "identifiant-invalide": {
       "status": 404,

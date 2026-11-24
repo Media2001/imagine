@@ -19,7 +19,8 @@ def verify():
     $path=\\Imagine\\Site\\PdfNumero::directory().'/'.$name;file_put_contents($path,'FICHIER INVALIDE C11');chmod($path,0600);
     $id=wp_insert_post(['post_type'=>'imagine_numero','post_status'=>'publish','post_name'=>'c11-canari-erreur-temporaire',
         'post_title'=>'Canari entièrement fictif C11 temporaire','post_date'=>'2000-01-01 12:00:00','post_date_gmt'=>'2000-01-01 11:00:00',
-        'meta_input'=>['_imagine_c11_fixture'=>'http-fault','imagine_sortie'=>'2026-10-15','_imagine_pdf_blob'=>$name]]);
+        'meta_input'=>['_imagine_c11_fixture'=>'http-fault','imagine_sortie'=>'2026-10-15','_imagine_pdf_blob'=>$name,
+            'imagine_pdf_id'=>get_post_meta($m['demo-2026-t4'],'imagine_pdf_id',true)]]);
     echo wp_json_encode(['id'=>$id,'blob'=>$name,'valid'=>get_post_meta($m['demo-2026-t4'],'_imagine_pdf_blob',true)]);'''
     fixture = json.loads(c10.b00.wp('eval', php)['stdout'])
     cid = fixture['id']

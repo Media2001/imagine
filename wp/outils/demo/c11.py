@@ -3,7 +3,10 @@ from pathlib import Path
 import argparse
 import base64
 import importlib.util
+import io
 import json
+import sys
+import unittest
 import c10
 from b00_fixtures import fixture_data, dummy_pdf
 
@@ -57,6 +60,18 @@ def run(check_only=False):
     spec = importlib.util.spec_from_file_location('c11_verify', ROOT / 'wp/tests/demo/c11-verifier.py')
     verify = importlib.util.module_from_spec(spec); spec.loader.exec_module(verify)
     verify.verify()
+    # Wheels universelles gelées B01, en lecture seule : pas d'installation ni de réseau.
+    sys.path[:0] = [str(p) for p in (ROOT / 'production/B-01/validation').glob('*.whl')]
+    transcript = io.StringIO()
+    local = unittest.TextTestRunner(stream=transcript, verbosity=1).run(
+        unittest.defaultTestLoader.discover(str(ROOT / 'wp/tests/demo'), pattern='test_*.py'))
+    runtime['local_unit'] = {'total': local.testsRun, 'success': local.wasSuccessful(),
+                             'failures': [str(t) for t, _ in local.failures + local.errors]}
+    (ROOT / 'production/C-11/runtime.json').write_text(json.dumps(runtime, ensure_ascii=False, indent=2), encoding='utf-8')
+    print('Unitaires locaux :', local.testsRun, '; succès :', local.wasSuccessful())
+    if not local.wasSuccessful():
+        print(transcript.getvalue())
+        raise SystemExit(1)
 
 
 if __name__ == '__main__':

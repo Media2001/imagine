@@ -42,12 +42,13 @@ def main():
         bench.validate(json.loads(bench.call(['inspect', name]).stdout)[0], name)
         record('isolated_before', True)
         bench.call(['start', name])
-        bench.call(['exec', name, 'mkdir', '-p', '/subject', '/opt/a03', '/report', '/opt/a02', '/staging/mu-plugins'])
+        bench.call(['exec', name, 'mkdir', '-p', '/subject', '/opt/a03', '/report', '/opt/a02', '/subject/a03', '/staging/mu-plugins'])
         files = [(ROOT / 'unit.php', '/opt/a03/unit.php'), (REPO / 'wp/outils/bascule/audit', '/subject/audit')]
         for file in ['non-regression', 'comparer']:
             p = REPO / 'wp/outils/bascule' / file
             if p.exists():
                 files.append((p, '/subject/' + file))
+        files += [(p, '/subject/a03/' + p.name) for p in (REPO / 'wp/outils/bascule/a03').glob('*.php')]
         if not args.unit_only:
             files += [(p, '/opt/a03/' + p.name) for p in ROOT.iterdir() if p.suffix in ('.php', '.py') and p.name not in ('run.py', 'unit.php')]
             files += [(REPO / 'wp/outils/staging/runtime-probe.php', '/staging/runtime-probe.php'), (REPO / 'wp/outils/staging/mu-plugins/000-imagine-staging-safety.php', '/staging/mu-plugins/000-imagine-staging-safety.php'), (REPO / 'wp/outils/staging/mu-plugins/000-imagine-staging-safety.php', '/subject/000-imagine-staging-safety.php'), (ROOT.parent / 'a02-audit/fingerprint.php', '/opt/a03/fingerprint.php')]

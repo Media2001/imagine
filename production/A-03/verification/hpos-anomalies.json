@@ -1,0 +1,54 @@
+{
+    "schema": "imagine-a03-comparison-v1",
+    "changes": [
+        {
+            "path": "sample_states.membership.0",
+            "class": "anormal"
+        },
+        {
+            "path": "sample_states.membership.1",
+            "class": "anormal"
+        },
+        {
+            "path": "sample_states.membership.2",
+            "class": "anormal"
+        },
+        {
+            "path": "sample_states.membership.3",
+            "class": "anormal"
+        },
+        {
+            "path": "sample_states.membership.4",
+            "class": "anormal"
+        },
+        {
+            "path": "sample_states.membership.5",
+            "class": "anormal"
+        },
+        {
+            "path": "samples.active:active",
+            "class": "anormal"
+        },
+        {
+            "path": "samples.expired:active",
+            "class": "anormal"
+        },
+        {
+            "path": "memberships.13.status",
+            "class": "anormal"
+        },
+        {
+            "path": "access.2:10",
+            "class": "anormal"
+        },
+        {
+            "path": "actions.28",
+            "class": "anormal"
+        },
+        {
+            "path": "action_days.a03_fixture_action:2027-01-14",
+            "class": "anormal"
+        }
+    ],
+    "anormal": 12
+}
