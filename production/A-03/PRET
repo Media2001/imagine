@@ -1,0 +1,5 @@
+Reprise technique A-03 §4.1–9 prête à relire.
+Rejeu Docker/WSL : 115 tests PHPUnit, 246 assertions ; 63 contrôles classique+HPOS ; 10 contrôles purs/CLI ; 5 cas de sortie ; lints PHP et PSR-12 réussis.
+Voir notes.md et les sorties scratch indiquées ; aucune archive de preuves livrée.
+Ne vaut ni clôture A-03 ni GO réel : rejeu indépendant parent réussi le 25/11 (reveil-parent-20261125-e2e et reveil-parent-20261125-phpunit) ; questions Ced §5 et préparation T01 globale par son propriétaire si nécessaire restent distinctes.
+A-04 non commencé, dépend toujours de la clôture A-03.
