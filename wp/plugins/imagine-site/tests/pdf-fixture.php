@@ -4,6 +4,11 @@
 declare(strict_types=1);
 
 namespace {
+    if (PHP_SAPI !== 'cli' || !isset($argv[1])) {
+        http_response_code(404);
+        exit;
+    }
+
     final class WP_Post
     {
         public function __construct(

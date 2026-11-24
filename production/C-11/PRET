@@ -1,0 +1,4 @@
+C-11 — corrections prêtes à relire, 24 novembre 2026.
+Contrôles finaux verts : PHPUnit C11 36 tests/200 assertions ; seed 7/7 ; natif 25/25 ; HTTP 94/94 ; défauts 8/8 ; Python 33/33 ; T01 812 tests/33434 assertions.
+Repli PHPUnit local autorisé : les 36 tests C11 sont exécutés par c11.py mais ne sont pas découverts par T01 ; voir A-VOIR.md et RAPPORT.md.
+C12/C13 préservés ; aucune clôture d'autre lot ni GO réel.
