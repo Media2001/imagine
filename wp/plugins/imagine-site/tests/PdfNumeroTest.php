@@ -68,8 +68,8 @@ final class PdfNumeroTest extends TestCase
     public function testNeighbourDirectoryIsNotMistakenForPublicChild(): void
     {
         $response = $this->request(['action' => 'directory', 'directory' => 'public-private']);
-        // Absent is closed; the existing sibling is covered by the canonical matrix.
-        self::assertNotNull($response['error']);
+        self::assertNull($response['error']);
+        self::assertStringEndsWith('/public-private/site-1', $response['value']);
     }
 
     public static function pathFaults(): array

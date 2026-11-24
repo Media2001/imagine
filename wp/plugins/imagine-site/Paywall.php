@@ -103,7 +103,7 @@ final class Paywall
             if (!$release || $release->format('Y-m-d') !== $date) {
                 throw new \RuntimeException('Date éditoriale invalide.');
             }
-            $now = new DateTimeImmutable(gmdate('Y-m-d H:i:s'), new DateTimeZone('UTC'));
+            $now = self::$requestInstant ??= new DateTimeImmutable(gmdate('Y-m-d H:i:s'), new DateTimeZone('UTC'));
             $userId = get_current_user_id();
             $decision = self::deciderContenu(
                 ['reserve' => true, 'numero' => (string) $issue->ID, 'type' => 'pdf',

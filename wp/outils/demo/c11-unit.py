@@ -58,10 +58,10 @@ def run():
                     raise RuntimeError('Propriété du conteneur C11 refusée')
                 docker('container', 'rm', '-f', name)
                 absent = docker('inspect', name, check=False)
-                if absent.returncode == 0 or 'No such' not in absent.stderr:
+                if absent.returncode == 0 or 'no such' not in (absent.stdout + absent.stderr).lower():
                     raise RuntimeError('Absence du conteneur C11 non vérifiée')
                 print('C11 PHPUnit : conteneur propre supprimé, absence relue.')
-            elif 'No such' not in probe.stderr:
+            elif 'no such' not in (probe.stdout + probe.stderr).lower():
                 raise RuntimeError('État du conteneur C11 indéterminé')
 
 

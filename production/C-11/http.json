@@ -7,7 +7,9 @@
     "demo-2026-t1:attachment": true,
     "demo-2026-t1:media-slug": true,
     "demo-2026-t1:numero": true,
+    "demo-2026-t1:numero:sans-lien-pdf": false,
     "demo-2026-t1:endpoint-anonyme": true,
+    "demo-2026-t1:endpoint-anonyme:sans-lien-pdf": false,
     "demo-2026-t1:bloc-connexion": true,
     "demo-2026-t2:ancien-direct": true,
     "demo-2026-t2:ancien-source": true,
@@ -15,7 +17,9 @@
     "demo-2026-t2:attachment": true,
     "demo-2026-t2:media-slug": true,
     "demo-2026-t2:numero": true,
+    "demo-2026-t2:numero:sans-lien-pdf": false,
     "demo-2026-t2:endpoint-anonyme": true,
+    "demo-2026-t2:endpoint-anonyme:sans-lien-pdf": false,
     "demo-2026-t2:bloc-connexion": true,
     "demo-2026-t3:ancien-direct": true,
     "demo-2026-t3:ancien-source": true,
@@ -23,7 +27,9 @@
     "demo-2026-t3:attachment": true,
     "demo-2026-t3:media-slug": true,
     "demo-2026-t3:numero": true,
+    "demo-2026-t3:numero:sans-lien-pdf": false,
     "demo-2026-t3:endpoint-anonyme": true,
+    "demo-2026-t3:endpoint-anonyme:sans-lien-pdf": false,
     "demo-2026-t3:bloc-connexion": true,
     "demo-2026-hs:ancien-direct": true,
     "demo-2026-hs:ancien-source": true,
@@ -31,7 +37,9 @@
     "demo-2026-hs:attachment": true,
     "demo-2026-hs:media-slug": true,
     "demo-2026-hs:numero": true,
+    "demo-2026-hs:numero:sans-lien-pdf": false,
     "demo-2026-hs:endpoint-anonyme": true,
+    "demo-2026-hs:endpoint-anonyme:sans-lien-pdf": false,
     "demo-2026-hs:bloc-connexion": true,
     "demo-2026-t4:ancien-direct": true,
     "demo-2026-t4:ancien-source": true,
@@ -39,7 +47,9 @@
     "demo-2026-t4:attachment": true,
     "demo-2026-t4:media-slug": true,
     "demo-2026-t4:numero": true,
+    "demo-2026-t4:numero:sans-lien-pdf": false,
     "demo-2026-t4:endpoint-anonyme": true,
+    "demo-2026-t4:endpoint-anonyme:sans-lien-pdf": false,
     "demo-2026-t4:bloc-connexion": true,
     "liste-uploads": true,
     "liste-uploads:sans-fichier-pdf": true,
@@ -54,10 +64,20 @@
     "sitemap-numeros": true,
     "sitemap-attachment": true,
     "prive-direct": true,
+    "demo-2026-t1:abonne-page-numero": true,
+    "demo-2026-t1:abonne-lien-pdf": true,
     "demo-2026-t1:abonne-pdf-exact": true,
+    "demo-2026-t2:abonne-page-numero": true,
+    "demo-2026-t2:abonne-lien-pdf": true,
     "demo-2026-t2:abonne-pdf-exact": true,
+    "demo-2026-t3:abonne-page-numero": true,
+    "demo-2026-t3:abonne-lien-pdf": true,
     "demo-2026-t3:abonne-pdf-exact": true,
+    "demo-2026-hs:abonne-page-numero": true,
+    "demo-2026-hs:abonne-lien-pdf": true,
     "demo-2026-hs:abonne-pdf-exact": true,
+    "demo-2026-t4:abonne-page-numero": true,
+    "demo-2026-t4:abonne-lien-pdf": true,
     "demo-2026-t4:abonne-pdf-exact": true,
     "abonne-conditionnel": true,
     "cache-prive-no-store": true,
@@ -211,11 +231,11 @@
     },
     "demo-2026-t4:numero": {
       "status": 200,
-      "bytes": 28721
+      "bytes": 29337
     },
     "demo-2026-t4:endpoint-anonyme": {
       "status": 200,
-      "bytes": 28721
+      "bytes": 29337
     },
     "liste-uploads": {
       "status": 403,
@@ -261,21 +281,41 @@
       "status": 404,
       "bytes": 25965
     },
+    "demo-2026-t1:abonne-page-numero": {
+      "status": 200,
+      "bytes": 28805
+    },
     "demo-2026-t1:abonne-pdf-exact": {
       "status": 200,
       "bytes": 663
+    },
+    "demo-2026-t2:abonne-page-numero": {
+      "status": 200,
+      "bytes": 28356
     },
     "demo-2026-t2:abonne-pdf-exact": {
       "status": 200,
       "bytes": 663
     },
+    "demo-2026-t3:abonne-page-numero": {
+      "status": 200,
+      "bytes": 28358
+    },
     "demo-2026-t3:abonne-pdf-exact": {
       "status": 200,
       "bytes": 663
     },
+    "demo-2026-hs:abonne-page-numero": {
+      "status": 200,
+      "bytes": 28380
+    },
     "demo-2026-hs:abonne-pdf-exact": {
       "status": 200,
       "bytes": 664
+    },
+    "demo-2026-t4:abonne-page-numero": {
+      "status": 200,
+      "bytes": 28913
     },
     "demo-2026-t4:abonne-pdf-exact": {
       "status": 200,
@@ -291,15 +331,15 @@
     },
     "anonyme-apres-abonne": {
       "status": 200,
-      "bytes": 28721
+      "bytes": 29337
     },
     "faux-robot": {
       "status": 200,
-      "bytes": 28721
+      "bytes": 29337
     },
     "connecte-sans-droit": {
       "status": 200,
-      "bytes": 28303
+      "bytes": 28919
     },
     "identifiant-invalide": {
       "status": 404,
@@ -314,6 +354,6 @@
       "bytes": 2509
     }
   },
-  "passed": 74,
-  "total": 74
+  "passed": 84,
+  "total": 94
 }

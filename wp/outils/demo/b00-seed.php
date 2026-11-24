@@ -82,7 +82,9 @@ function media(string $key, string $filename, string $mime, string $title): int
             'post_title' => $title, 'post_name' => $key, 'post_mime_type' => $mime,
             'guid' => \Imagine\Site\PdfNumero::url($issue)]);
         update_post_meta($issue, 'imagine_pdf_id', $id);
-        \Imagine\Site\PdfNumero::protect($issue, $id, '/var/www/imagine-private-pdf/source/' . $filename);
+        \Imagine\Site\PdfNumero::protect($issue, $id, '/var/www/imagine-private-pdf/source/' . $filename,
+            [wp_upload_dir()['basedir'] . '/imagine-demo/' . $filename,
+                __DIR__ . '/assets/' . $filename]);
         return $id;
     }
     $uploads = wp_upload_dir();

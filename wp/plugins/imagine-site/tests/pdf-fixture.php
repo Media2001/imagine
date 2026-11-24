@@ -113,7 +113,7 @@ namespace {
                 $GLOBALS['value'] = $method->invoke(null, $scenario['path'], $scenario['root'], $scenario['windows']);
                 break;
             case 'directory':
-                if (($scenario['directory'] ?? '') === 'public/child') { mkdir($temp . '/public/child'); }
+                if (in_array($scenario['directory'] ?? '', ['public/child', 'public-private'], true)) { mkdir($temp . '/' . $scenario['directory']); }
                 $GLOBALS['value'] = \Imagine\Site\PdfNumero::directory();
                 break;
             case 'protect':

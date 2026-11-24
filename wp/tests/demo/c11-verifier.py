@@ -66,6 +66,8 @@ def verify():
         }
         for name, path in paths.items():
             status, headers, body = probe(slug + ':' + name, path)
+            if name in ('endpoint-anonyme', 'numero'):
+                checks[slug + ':' + name + ':sans-lien-pdf'] = b'Ouvrir le PDF factice du num' not in body
             if name == 'endpoint-anonyme':
                 checks[slug + ':bloc-connexion'] = status == 200 and b'data-imagine-pdf-bloc="connexion"' in body
     for name, path in {
@@ -89,6 +91,8 @@ def verify():
     credentials = json.loads((Path.home() / '.imagine-demo/c08-identifiants.json').read_text(encoding='utf-8'))
     active = http.login(base, credentials['accounts']['actif'])
     for issue in fixture_data()['issues']:
+        status, hs, body = probe(issue['slug'] + ':abonne-page-numero', '/numeros/' + issue['slug'] + '/', active)
+        checks[issue['slug'] + ':abonne-lien-pdf'] = b'Ouvrir le PDF factice du num' in body
         probe(issue['slug'] + ':abonne-pdf-exact', '/?imagine_pdf=' + str(manifest[issue['slug']]), active, statuses=(200,), pdf=dummy_pdf(issue['label']))
     endpoint = '/?imagine_pdf=' + str(manifest['demo-2026-t4'])
     status, headers, body = probe('abonne-conditionnel', endpoint, active,

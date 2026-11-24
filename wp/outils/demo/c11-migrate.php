@@ -18,14 +18,9 @@ foreach (['t1', 't2', 't3', 'hs', 't4'] as $suffix) {
         || get_post_meta($media, 'imagine_demo_key', true) !== $slug . '-pdf') {
         throw new RuntimeException('Propriétaire fixture C11 incohérent.');
     }
-    PdfNumero::protect($issue, $media, '/var/www/imagine-private-pdf/source/' . $slug . '.pdf');
-    // Fermer aussi les copies de travail B00, pas seulement les médias.
-    foreach ([WP_CONTENT_DIR . '/uploads/imagine-demo/', WP_CONTENT_DIR . '/imagine-demo-build/assets/'] as $dir) {
-        $old = $dir . $slug . '.pdf';
-        if (is_file($old) && !unlink($old)) {
-            throw new RuntimeException('Ancienne copie publique non supprimée.');
-        }
-    }
+    PdfNumero::protect($issue, $media, '/var/www/imagine-private-pdf/source/' . $slug . '.pdf',
+        [wp_upload_dir()['basedir'] . '/imagine-demo/' . $slug . '.pdf',
+            WP_CONTENT_DIR . '/imagine-demo-build/assets/' . $slug . '.pdf']);
     $post = get_post($issue);
     $content = str_replace(content_url('/uploads/imagine-demo/' . $slug . '.pdf'), PdfNumero::url($issue), $post->post_content);
     if ($content !== $post->post_content) {

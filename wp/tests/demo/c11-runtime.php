@@ -22,6 +22,18 @@ try {
     wp_set_current_user($f['users']['actif']);
     $checks['actif_natif'] = Paywall::decisionPdf($issue)['complet'];
     $checks['article_C08_actif_inchange'] = Paywall::decision(get_post($f['article']))['complet'];
+    // Horloge de requête injectée, pas une modification des dates ni des droits natifs.
+    $clock = new ReflectionProperty(Paywall::class, 'requestInstant');
+    $shared = $clock->getValue();
+    try {
+        $clock->setValue(null, new DateTimeImmutable('1900-01-01 00:00:00', new DateTimeZone('UTC')));
+        Paywall::invalidate();
+        $checks['instant_article_PDF_unique'] = !Paywall::decision(get_post($f['article']))['complet']
+            && !Paywall::decisionPdf($issue)['complet'];
+    } finally {
+        $clock->setValue(null, $shared);
+        Paywall::invalidate();
+    }
     wp_set_current_user(0);
     $checks['article_C08_anonyme_inchange'] = !Paywall::decision(get_post($f['article']))['complet'];
     wp_set_current_user($f['users']['actif']);

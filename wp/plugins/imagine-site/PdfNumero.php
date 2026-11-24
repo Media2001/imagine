@@ -31,13 +31,50 @@ final class PdfNumero
         return rtrim($root, '/\\');
     }
 
+    /** Chemins déjà résolus par realpath : frontière explicite, casse propre à l'OS. */
+    private static function withinDirectory(string $path, string $directory, ?bool $windows = null): bool
+    {
+        $path = rtrim(str_replace('\\', '/', $path), '/');
+        $directory = rtrim(str_replace('\\', '/', $directory), '/');
+        if ($windows ?? PHP_OS_FAMILY === 'Windows') {
+            $path = strtolower($path);
+            $directory = strtolower($directory);
+        }
+        return $path === $directory || str_starts_with($path, $directory . '/');
+    }
+
+    /** Une seule fermeture pour le seed, la migration et une source publique. */
+    private static function removePublicCopies(array $paths): void
+    {
+        $public = self::publicRoot();
+        foreach (array_unique($paths) as $path) {
+            if (!is_string($path)) {
+                throw new \RuntimeException('Copie PDF publique invalide.');
+            }
+            clearstatcache(true, $path);
+            if (!file_exists($path) && !is_link($path)) {
+                continue;
+            }
+            $real = realpath($path);
+            // Une copie inattendue (répertoire/lien/hors racine) ne vaut jamais réussite.
+            if (!$real || is_link($path) || !is_file($path) || !self::withinDirectory($real, $public)
+                || !unlink($path)) {
+                throw new \RuntimeException('Ancien PDF public non retiré.');
+            }
+            clearstatcache(true, $path);
+            if (file_exists($path) || is_link($path)) {
+                throw new \RuntimeException('Ancien PDF public encore présent.');
+            }
+        }
+    }
+
     public static function directory(): string
     {
         $public = self::publicRoot();
         $configured = defined('IMAGINE_PDF_PRIVATE_DIR') ? constant('IMAGINE_PDF_PRIVATE_DIR')
             : dirname($public) . '/imagine-private-pdf';
         $root = is_string($configured) ? realpath($configured) : false;
-        if (!$root || is_link($configured) || $root === $public || str_starts_with($root . '/', $public . '/')) {
+        if (!$root || is_link($configured) || self::withinDirectory($root, $public)) {
             throw new \RuntimeException('Stockage PDF privé indisponible.');
         }
         $path = $root . '/site-' . get_current_blog_id();
@@ -69,7 +106,7 @@ final class PdfNumero
     }
 
     /** Import explicite local : le numéro et le média gardent leurs identifiants natifs. */
-    public static function protect(int $issue, int $attachment, string $source): void
+    public static function protect(int $issue, int $attachment, string $source, array $publicCopies = []): void
     {
         $post = get_post($issue);
         $media = get_post($attachment);
@@ -96,6 +133,11 @@ final class PdfNumero
                 throw new \RuntimeException('Écriture PDF refusée.');
             }
         }
+        $realSource = realpath($source);
+        if ($realSource && self::withinDirectory($realSource, self::publicRoot())) {
+            $publicCopies[] = $source;
+        }
+        self::removePublicCopies($publicCopies);
         update_post_meta($issue, '_imagine_pdf_blob', $name);
         update_post_meta($attachment, '_imagine_pdf_numero', $issue);
         // Aucun chemin physique ou ancien URL dans les sorties médias natives.
@@ -106,12 +148,6 @@ final class PdfNumero
         if (is_wp_error($result) || get_post_meta($issue, '_imagine_pdf_blob', true) !== $name
             || get_post($attachment)->post_status !== 'private') {
             throw new \RuntimeException('Protection PDF non persistée.');
-        }
-        // L'appelant supprime aussi toutes ses copies de travail publiques exactes.
-        $public = self::publicRoot();
-        $realSource = realpath($source);
-        if ($public && $realSource && str_starts_with($realSource, $public . '/') && !unlink($source)) {
-            throw new \RuntimeException('Ancien PDF public non retiré.');
         }
     }
 
