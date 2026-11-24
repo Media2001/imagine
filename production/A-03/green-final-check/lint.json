@@ -1,0 +1,9 @@
+{
+  "/opt/a03/unit.php": true,
+  "/subject/non-regression": true,
+  "/subject/comparer": true,
+  "/subject/a03/Policy.php": true,
+  "/subject/a03/Report.php": true,
+  "/subject/a03/Site.php": true,
+  "/opt/a03/seed.php": true
+}

@@ -1,0 +1,6 @@
+# Références officielles consultées pour A-03
+- WooCommerce CRUD/HPOS : https://developer.woocommerce.com/docs/extensions/core-concepts/wc-get-orders/ — lecture par API Woo et pagination, sans SQL commandes dépendant du stockage.
+- Memberships : https://woocommerce.com/document/woocommerce-memberships-function-reference/ — `wc_memberships_user_can`, objets d’adhésion et états natifs ; aucun nouveau droit inventé.
+- Subscriptions : https://woocommerce.com/document/subscriptions/develop/functions/ et https://raw.githubusercontent.com/Automattic/woocommerce-subscriptions-core/trunk/includes/wcs-renewal-functions.php — indicateur manuel explicite, création de commande et relation de renouvellement natives ; aucun paiement exécuté.
+- WordPress : https://developer.wordpress.org/reference/functions/require_wp_db/ et https://developer.wordpress.org/reference/classes/wpdb/__construct/ — réemploi du `$wpdb` fourni pour isoler la sonde en transaction annulée, sans changer WordPress ni les extensions.
+- Consultation par HTTP natif : l’outil `web_extract` a refusé l’extraction dans cette session ; la première URL supposée de référence renouvellement retournait 404, remplacée par les deux références Subscriptions ci-dessus.

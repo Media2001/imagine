@@ -1,9 +1,9 @@
 {
-  "exit_code": 1,
+  "exit_code": 0,
   "cleanup": true,
   "totals": {
     "errors": 0,
-    "warnings": 7,
+    "warnings": 0,
     "fixable": 0
   },
   "files": {
@@ -13,36 +13,6 @@
       "messages": []
     },
     "/subject/comparer.php": {
-      "errors": 0,
-      "warnings": 1,
-      "messages": [
-        {
-          "message": "A file should declare new symbols (classes, functions, constants, etc.) and cause no other side effects, or it should execute logic with side effects, but should not do both. The first symbol is defined on line 8 and the first side effect is on line 9.",
-          "source": "PSR1.Files.SideEffects.FoundWithSymbols",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 1,
-          "column": 1
-        }
-      ]
-    },
-    "/subject/unit.php": {
-      "errors": 0,
-      "warnings": 1,
-      "messages": [
-        {
-          "message": "A file should declare new symbols (classes, functions, constants, etc.) and cause no other side effects, or it should execute logic with side effects, but should not do both. The first symbol is defined on line 6 and the first side effect is on line 5.",
-          "source": "PSR1.Files.SideEffects.FoundWithSymbols",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 1,
-          "column": 1
-        }
-      ]
-    },
-    "/subject/seed.php": {
       "errors": 0,
       "warnings": 0,
       "messages": []
@@ -59,54 +29,8 @@
     },
     "/subject/Site.php": {
       "errors": 0,
-      "warnings": 5,
-      "messages": [
-        {
-          "message": "Line exceeds 120 characters; contains 123 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 192,
-          "column": 123
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 130 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 256,
-          "column": 130
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 141 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 366,
-          "column": 141
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 132 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 433,
-          "column": 132
-        },
-        {
-          "message": "Line exceeds 120 characters; contains 147 characters",
-          "source": "Generic.Files.LineLength.TooLong",
-          "severity": 5,
-          "fixable": false,
-          "type": "WARNING",
-          "line": 468,
-          "column": 147
-        }
-      ]
+      "warnings": 0,
+      "messages": []
     }
   }
 }

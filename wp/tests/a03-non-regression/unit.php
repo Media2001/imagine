@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-// phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols -- Executable test harness, not an autoloaded library.
 $checks = [];
 function test(string $name, callable $body): void
 {

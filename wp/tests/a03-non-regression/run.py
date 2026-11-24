@@ -35,6 +35,10 @@ def main():
     def record(key, ok):
         result['checks'].append({'check': key, 'ok': bool(ok)})
     try:
+        for p in ROOT.glob('*.php'):
+            assert len(p.read_bytes()) < 1000000
+        owned = [REPO / 'wp/outils/bascule/a03', REPO / 'wp/outils/bascule/non-regression', REPO / 'wp/outils/bascule/comparer', ROOT]
+        own_before = {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for root in owned for p in ([root] if root.is_file() else root.rglob('*')) if p.is_file()}
         image = json.loads(bench.call(['image', 'inspect', bench.IMAGE]).stdout)[0]
         assert not image['Config'].get('Volumes') and not image['Config'].get('ExposedPorts')
         bench.call(['create', '--name', name, '--label', LABEL + '=' + name, '--network', 'none', '--no-healthcheck', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--pids-limit', '256', '--memory', '1536m', '--cpus', '2', '--log-driver', 'none', '--pull', 'never', '--entrypoint', '/bin/sleep', bench.IMAGE, 'infinity'])
@@ -57,6 +61,10 @@ def main():
         if not args.unit_only:
             for file in bench.LICENSED:
                 bench.call(['cp', '/home/ced/staging-wp/plugins/' + file, name + ':/opt/a03/' + file])
+        lint_targets = [target for source, target in files if source.parent == ROOT and source.suffix == '.php' or target.startswith('/subject/a03/') or target in ['/subject/non-regression', '/subject/comparer']]
+        lint = {target: bench.call(['exec', name, 'php', '-l', target], check=False).returncode == 0 for target in lint_targets}
+        (out / 'lint.json').write_text(json.dumps(lint, indent=2) + '\n', encoding='utf8')
+        record('php_lint', all(lint.values()))
         unit = bench.call(['exec', name, 'php', '/opt/a03/unit.php'], check=False)
         (out / 'unit.log').write_text(unit.stdout + unit.stderr, encoding='utf8')
         bench.call(['cp', name + ':/report/unit.json', bench.local(out / 'unit.json')])
@@ -83,6 +91,9 @@ def main():
             except Exception:
                 record('owned_cleanup', False)
         record('accepted_sources_unchanged', before == inventory())
+        if 'own_before' in locals():
+            own_after = {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for root in owned for p in ([root] if root.is_file() else root.rglob('*')) if p.is_file()}
+            record('tested_sources_unchanged', own_before == own_after)
         result['exit_code'] = int(any(not item['ok'] for item in result['checks']))
         (out / 'runner.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf8')
         print(json.dumps({'output': str(out), **json.loads((out / 'runner.json').read_text())}, indent=2))

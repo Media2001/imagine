@@ -1,0 +1,12 @@
+{
+    "schema": "imagine-a03-v1",
+    "mode": "renewal_probe",
+    "renewal": {
+        "enabled": true,
+        "manual_only": true,
+        "created": true,
+        "linked": true,
+        "pending": true,
+        "cleaned": true
+    }
+}

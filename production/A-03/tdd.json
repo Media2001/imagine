@@ -1,0 +1,539 @@
+{
+  "historical_executed_runs": [
+    {
+      "run": "red-comparison",
+      "exit_code": 1,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": false
+        },
+        "exit_code": 1
+      },
+      "failed_checks": [],
+      "owned_cleanup": true
+    },
+    {
+      "run": "green-comparison",
+      "exit_code": 0,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true
+        },
+        "exit_code": 0
+      },
+      "failed_checks": [],
+      "owned_cleanup": true
+    },
+    {
+      "run": "red-policy",
+      "exit_code": 1,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true,
+          "verified_marker_and_explicit_write_gate": false
+        },
+        "exit_code": 1
+      },
+      "failed_checks": [],
+      "owned_cleanup": true
+    },
+    {
+      "run": "green-policy",
+      "exit_code": 0,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true,
+          "verified_marker_and_explicit_write_gate": true
+        },
+        "exit_code": 0
+      },
+      "failed_checks": [],
+      "owned_cleanup": true
+    },
+    {
+      "run": "red-snapshot",
+      "exit_code": 1,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true,
+          "verified_marker_and_explicit_write_gate": true
+        },
+        "exit_code": 0
+      },
+      "failed_checks": [
+        {
+          "check": "classic:exception",
+          "ok": false,
+          "class": "RuntimeError",
+          "code": "COMMAND_wp_1:bcommand.php(497): call_user_func()\n#9 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(470): WP_CLI\\Dispatcher\\Subcommand->invoke()\n#10 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(493): WP_CLI\\Runner->run_command()\n#11 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(136): WP_CLI\\Runner->run_command_and_exit()\n#12 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(1228): WP_CLI\\Runner->do_early_invoke()\n"
+        },
+        {
+          "check": "hpos:exception",
+          "ok": false,
+          "class": "RuntimeError",
+          "code": "COMMAND_wp_1:/Subcommand.php(497): call_user_func()\n#9 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(470): WP_CLI\\Dispatcher\\Subcommand->invoke()\n#10 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(493): WP_CLI\\Runner->run_command()\n#11 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(136): WP_CLI\\Runner->run_command_and_exit()\n#12 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(1228): WP_CLI\\Runner->do_early_invoke"
+        }
+      ],
+      "owned_cleanup": true
+    },
+    {
+      "run": "red-snapshot-2",
+      "exit_code": 1,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true,
+          "verified_marker_and_explicit_write_gate": true
+        },
+        "exit_code": 0
+      },
+      "failed_checks": [
+        {
+          "check": "classic:exception",
+          "ok": false,
+          "class": "RuntimeError",
+          "code": "COMMAND_wp_1:PHP Warning:  Constant ABSPATH already defined in phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(1334) : eval()'d code on line 3\nPHP Fatal error:  Uncaught Exception: Subscription #23: The cancelled date must occur after the next payment date. in /scratch/classic/wp-content/plugins/woocommerce-subscriptions/includes/core/class-wc-subscription.php:3008\nStack trace:\n#0 /scratch/classic/wp-content/plugins/woocommerce-subscriptions/includes/core/class-wc-subscriptio"
+        },
+        {
+          "check": "hpos:exception",
+          "ok": false,
+          "class": "RuntimeError",
+          "code": "COMMAND_wp_1:PHP Warning:  Constant ABSPATH already defined in phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Runner.php(1334) : eval()'d code on line 3\nPHP Fatal error:  Uncaught Exception: Subscription #23: The cancelled date must occur after the next payment date. in /scratch/hpos/wp-content/plugins/woocommerce-subscriptions/includes/core/class-wc-subscription.php:3008\nStack trace:\n#0 /scratch/hpos/wp-content/plugins/woocommerce-subscriptions/includes/core/class-wc-subscription.php("
+        }
+      ],
+      "owned_cleanup": true
+    },
+    {
+      "run": "red-snapshot-3",
+      "exit_code": 1,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true,
+          "verified_marker_and_explicit_write_gate": true
+        },
+        "exit_code": 0
+      },
+      "failed_checks": [
+        {
+          "check": "classic:exception",
+          "ok": false,
+          "class": "RuntimeError",
+          "code": "COMMAND_wp_1:PHP Fatal error:  Uncaught Error: Call to undefined function wc_create_pages() in /opt/a03/seed.php:58\nStack trace:\n#0 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(73): include()\n#1 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(59): EvalFile_Command::execute_eval()\n#2 [internal function]: EvalFile_Command->__invoke()\n#3 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/CommandFactory.php(100): call_user"
+        },
+        {
+          "check": "hpos:exception",
+          "ok": false,
+          "class": "RuntimeError",
+          "code": "COMMAND_wp_1:PHP Fatal error:  Uncaught Error: Call to undefined function wc_create_pages() in /opt/a03/seed.php:58\nStack trace:\n#0 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(73): include()\n#1 phar:///usr/local/bin/wp/vendor/wp-cli/eval-command/src/EvalFile_Command.php(59): EvalFile_Command::execute_eval()\n#2 [internal function]: EvalFile_Command->__invoke()\n#3 phar:///usr/local/bin/wp/vendor/wp-cli/wp-cli/php/WP_CLI/Dispatcher/CommandFactory.php(100): call_user"
+        }
+      ],
+      "owned_cleanup": true
+    },
+    {
+      "run": "red-snapshot-4",
+      "exit_code": 1,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true,
+          "verified_marker_and_explicit_write_gate": true
+        },
+        "exit_code": 0
+      },
+      "failed_checks": [
+        {
+          "check": "classic:snapshot_cli",
+          "ok": false,
+          "detail": {
+            "exit": 0,
+            "stderr": ""
+          }
+        },
+        {
+          "check": "classic:exception",
+          "ok": false,
+          "class": "AssertionError",
+          "code": "classic:snapshot_cli"
+        },
+        {
+          "check": "hpos:snapshot_cli",
+          "ok": false,
+          "detail": {
+            "exit": 0,
+            "stderr": ""
+          }
+        },
+        {
+          "check": "hpos:exception",
+          "ok": false,
+          "class": "AssertionError",
+          "code": "hpos:snapshot_cli"
+        }
+      ],
+      "owned_cleanup": true
+    },
+    {
+      "run": "green-snapshot-attempt",
+      "exit_code": 1,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true,
+          "verified_marker_and_explicit_write_gate": true
+        },
+        "exit_code": 0
+      },
+      "failed_checks": [
+        {
+          "check": "classic:rights_matrix",
+          "ok": false,
+          "detail": null
+        },
+        {
+          "check": "classic:exception",
+          "ok": false,
+          "class": "AssertionError",
+          "code": "classic:rights_matrix"
+        },
+        {
+          "check": "hpos:rights_matrix",
+          "ok": false,
+          "detail": null
+        },
+        {
+          "check": "hpos:exception",
+          "ok": false,
+          "class": "AssertionError",
+          "code": "hpos:rights_matrix"
+        }
+      ],
+      "owned_cleanup": true
+    },
+    {
+      "run": "green-snapshot-attempt-2",
+      "exit_code": 1,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true,
+          "verified_marker_and_explicit_write_gate": true
+        },
+        "exit_code": 0
+      },
+      "failed_checks": [
+        {
+          "check": "classic:http_pages",
+          "ok": false,
+          "detail": null
+        },
+        {
+          "check": "classic:exception",
+          "ok": false,
+          "class": "AssertionError",
+          "code": "classic:http_pages"
+        },
+        {
+          "check": "hpos:http_pages",
+          "ok": false,
+          "detail": null
+        },
+        {
+          "check": "hpos:exception",
+          "ok": false,
+          "class": "AssertionError",
+          "code": "hpos:http_pages"
+        }
+      ],
+      "owned_cleanup": true
+    },
+    {
+      "run": "green-snapshot",
+      "exit_code": 0,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true,
+          "verified_marker_and_explicit_write_gate": true
+        },
+        "exit_code": 0
+      },
+      "failed_checks": [],
+      "owned_cleanup": true
+    },
+    {
+      "run": "red-renewal",
+      "exit_code": 1,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true,
+          "verified_marker_and_explicit_write_gate": true
+        },
+        "exit_code": 0
+      },
+      "failed_checks": [
+        {
+          "check": "classic:renewal_unverified_refused",
+          "ok": false,
+          "detail": null
+        },
+        {
+          "check": "classic:exception",
+          "ok": false,
+          "class": "AssertionError",
+          "code": "classic:renewal_unverified_refused"
+        },
+        {
+          "check": "hpos:renewal_unverified_refused",
+          "ok": false,
+          "detail": null
+        },
+        {
+          "check": "hpos:exception",
+          "ok": false,
+          "class": "AssertionError",
+          "code": "hpos:renewal_unverified_refused"
+        }
+      ],
+      "owned_cleanup": true
+    },
+    {
+      "run": "green-renewal-attempt",
+      "exit_code": 1,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true,
+          "verified_marker_and_explicit_write_gate": true
+        },
+        "exit_code": 0
+      },
+      "failed_checks": [
+        {
+          "check": "classic:renewal_database_restored",
+          "ok": false,
+          "detail": null
+        },
+        {
+          "check": "classic:exception",
+          "ok": false,
+          "class": "AssertionError",
+          "code": "classic:renewal_database_restored"
+        },
+        {
+          "check": "hpos:renewal_database_restored",
+          "ok": false,
+          "detail": null
+        },
+        {
+          "check": "hpos:exception",
+          "ok": false,
+          "class": "AssertionError",
+          "code": "hpos:renewal_database_restored"
+        }
+      ],
+      "owned_cleanup": true
+    },
+    {
+      "run": "green-renewal-attempt-2",
+      "exit_code": 1,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true,
+          "verified_marker_and_explicit_write_gate": true
+        },
+        "exit_code": 0
+      },
+      "failed_checks": [
+        {
+          "check": "classic:renewal_business_rows_restored",
+          "ok": false,
+          "detail": {
+            "changed_tables": [
+              "wp_actionscheduler_actions",
+              "wp_actionscheduler_groups",
+              "wp_actionscheduler_logs",
+              "wp_options",
+              "wp_postmeta"
+            ]
+          }
+        },
+        {
+          "check": "classic:exception",
+          "ok": false,
+          "class": "AssertionError",
+          "code": "classic:renewal_business_rows_restored"
+        },
+        {
+          "check": "hpos:renewal_business_rows_restored",
+          "ok": false,
+          "detail": {
+            "changed_tables": [
+              "wp_actionscheduler_actions",
+              "wp_actionscheduler_groups",
+              "wp_actionscheduler_logs",
+              "wp_options",
+              "wp_postmeta",
+              "wp_woocommerce_order_itemmeta",
+              "wp_woocommerce_order_items"
+            ]
+          }
+        },
+        {
+          "check": "hpos:exception",
+          "ok": false,
+          "class": "AssertionError",
+          "code": "hpos:renewal_business_rows_restored"
+        }
+      ],
+      "owned_cleanup": true
+    },
+    {
+      "run": "green-renewal-attempt-3",
+      "exit_code": 1,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true,
+          "verified_marker_and_explicit_write_gate": true
+        },
+        "exit_code": 0
+      },
+      "failed_checks": [
+        {
+          "check": "classic:renewal_cli",
+          "ok": false,
+          "detail": {
+            "exit": 255,
+            "stderr": ""
+          }
+        },
+        {
+          "check": "classic:exception",
+          "ok": false,
+          "class": "AssertionError",
+          "code": "classic:renewal_cli"
+        },
+        {
+          "check": "hpos:renewal_cli",
+          "ok": false,
+          "detail": {
+            "exit": 255,
+            "stderr": ""
+          }
+        },
+        {
+          "check": "hpos:exception",
+          "ok": false,
+          "class": "AssertionError",
+          "code": "hpos:renewal_cli"
+        }
+      ],
+      "owned_cleanup": true
+    },
+    {
+      "run": "green-renewal-attempt-4",
+      "exit_code": 0,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true,
+          "verified_marker_and_explicit_write_gate": true
+        },
+        "exit_code": 0
+      },
+      "failed_checks": [],
+      "owned_cleanup": true
+    },
+    {
+      "run": "red-hardening",
+      "exit_code": 1,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true,
+          "verified_marker_and_explicit_write_gate": true,
+          "page_health_and_date_movement_are_anomalous": false,
+          "database_host_is_literal_and_bounded": false
+        },
+        "exit_code": 1
+      },
+      "failed_checks": [],
+      "owned_cleanup": true
+    },
+    {
+      "run": "green-hardening",
+      "exit_code": 0,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true,
+          "verified_marker_and_explicit_write_gate": true,
+          "page_health_and_date_movement_are_anomalous": true,
+          "database_host_is_literal_and_bounded": true
+        },
+        "exit_code": 0
+      },
+      "failed_checks": [],
+      "owned_cleanup": true
+    },
+    {
+      "run": "verification",
+      "exit_code": 0,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true,
+          "verified_marker_and_explicit_write_gate": true,
+          "page_health_and_date_movement_are_anomalous": true,
+          "database_host_is_literal_and_bounded": true
+        },
+        "exit_code": 0
+      },
+      "failed_checks": [],
+      "owned_cleanup": true
+    },
+    {
+      "run": "red-dropin",
+      "exit_code": 1,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true,
+          "verified_marker_and_explicit_write_gate": true,
+          "page_health_and_date_movement_are_anomalous": true,
+          "database_host_is_literal_and_bounded": true
+        },
+        "exit_code": 0
+      },
+      "failed_checks": [
+        {
+          "check": "classic:dropin_refused_before_bootstrap",
+          "ok": false,
+          "detail": null
+        },
+        {
+          "check": "classic:exception",
+          "ok": false,
+          "class": "AssertionError",
+          "code": "classic:dropin_refused_before_bootstrap"
+        },
+        {
+          "check": "hpos:dropin_refused_before_bootstrap",
+          "ok": false,
+          "detail": null
+        },
+        {
+          "check": "hpos:exception",
+          "ok": false,
+          "class": "AssertionError",
+          "code": "hpos:dropin_refused_before_bootstrap"
+        }
+      ],
+      "owned_cleanup": true
+    },
+    {
+      "run": "green-final-check",
+      "exit_code": 0,
+      "unit": {
+        "tests": {
+          "comparison_classifies_versions_access_and_scheduler": true,
+          "verified_marker_and_explicit_write_gate": true,
+          "page_health_and_date_movement_are_anomalous": true,
+          "database_host_is_literal_and_bounded": true
+        },
+        "exit_code": 0
+      },
+      "failed_checks": [],
+      "owned_cleanup": true
+    }
+  ],
+  "purpose": "Condensed RED/GREEN history; no source hash archive; final acceptance is separate."
+}

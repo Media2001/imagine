@@ -1,0 +1,13 @@
+{
+  "as_of_month": "2026-11",
+  "restricted_ids": [10],
+  "pages": {
+    "home": {"path": "/", "marker": "A03_PAGE_MARKER"},
+    "open": {"path": "/?p=11", "marker": "A03_OPEN_MARKER"},
+    "restricted": {"path": "/?p=10", "marker": "A03_PAGE_MARKER"},
+    "shop": {"path": "/?page_id=30", "marker": "woocommerce"},
+    "cart": {"path": "/?page_id=31", "marker": "woocommerce"},
+    "checkout": {"path": "/?page_id=32", "marker": "woocommerce"},
+    "account": {"path": "/?page_id=33", "marker": "woocommerce"}
+  }
+}

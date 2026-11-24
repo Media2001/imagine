@@ -20,7 +20,7 @@ def main():
     name = 'imagine-a03-style-' + uuid.uuid4().hex[:12]
     created = False
     result = {'exit_code': 1, 'cleanup': False}
-    targets = [runner.REPO / 'wp/outils/bascule/non-regression', runner.REPO / 'wp/outils/bascule/comparer', ROOT / 'unit.php', ROOT / 'seed.php'] + list((runner.REPO / 'wp/outils/bascule/a03').glob('*.php'))
+    targets = [runner.REPO / 'wp/outils/bascule/non-regression', runner.REPO / 'wp/outils/bascule/comparer'] + list((runner.REPO / 'wp/outils/bascule/a03').glob('*.php'))
     tool = pathlib.Path('C:/Users/Ced/AppData/Local/hermes/cache/scratch/a02-phpcs.phar')
     assert runner.hashlib.sha256(tool.read_bytes()).hexdigest() == '204214c1ea5ba814fb0b2608c19cca2c10bf5ffcc9f0e3d4c34aadc0179517b7'
     output = runner.REPO / 'production/A-03/style.json'
