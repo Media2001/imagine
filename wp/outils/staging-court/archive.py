@@ -5,6 +5,47 @@ import re
 import struct
 import tempfile
 import unicodedata
+import shutil
+import zlib
+from archive_policy import (DEFAULT_MAX_BYTES, DEFAULT_MAX_ENTRIES, DEFAULT_MAX_SQL_BYTES, CHUNK,
+                            excluded, unknown_upload, secret_candidate)
+
+
+def header_fields(header):
+    crc = header[-8:] if re.fullmatch(rb'[0-9a-fA-F]{8}', header[-8:]) else None
+    raw_fields = struct.unpack('255s14s12s4088s8s', header)[:4] if crc else struct.unpack('255s14s12s4096s', header)
+    fields = []
+    for raw in raw_fields:
+        value, _, padding = raw.partition(b'\0')
+        if padding.strip(b'\0'):
+            raise Refusal('ARCHIVE_HEADER')
+        try:
+            fields.append(value.decode('utf-8', 'strict'))
+        except UnicodeError:
+            raise Refusal('ARCHIVE_HEADER') from None
+    return fields, crc
+
+
+def eof_block(header):
+    if header == bytes(4377):
+        return True
+    return (header[:255] == bytes(255) and header[269:4369] == bytes(4100)
+            and re.fullmatch(rb'[0-9a-fA-F]{8}', header[-8:])
+            and re.fullmatch(rb'[0-9]{1,14}', header[255:269].rstrip(b'\0')))
+
+
+def skip_payload(stream, length):
+    if not stream.seekable():
+        raise Refusal('ARCHIVE_SEEK_REQUIRED')
+    stream.seek(length, 1)
+
+
+def check_space(root, needed):
+    root = pathlib.Path(root)
+    while not root.exists():
+        root = root.parent
+    if shutil.disk_usage(root).free < needed + 256 * CHUNK:
+        raise Refusal('DISK_SPACE_INSUFFICIENT')
 
 
 EXTENSIONS = frozenset('php css js jpg jpeg png gif webp avif svg ico txt md json sql xml html htm pdf zip gz wpress log csv ttf woff woff2 eot mp3 mp4 ogg wav bin'.split())
@@ -90,44 +131,46 @@ def path_rules(relative, seen, folded, directories):
     return rules
 
 
-def audit(stream, max_bytes=1024*1024*1024, max_entries=150000, retain_sql=False, on_chunk=None, on_metadata=None):
-    """One bounded streaming pass, inert bytes only, no filesystem writes.
-
-    Broken framing/unsafe length cannot be resynchronised: record incomplete
-    explicitly, never interpret guessed payload boundaries as another header.
-    """
+def audit(stream, max_bytes=DEFAULT_MAX_BYTES, max_entries=DEFAULT_MAX_ENTRIES, retain_sql=False,
+          on_chunk=None, on_metadata=None, max_sql_bytes=DEFAULT_MAX_SQL_BYTES):
+    """Streaming, inert bytes; metadata indices only, no complete SQL/media."""
     findings = Findings()
     seen, folded, directories = set(), set(), set()
-    total = entries = 0
+    total = entries = database_bytes = 0
     package = sql = None
     complete = False
+    excluded_zones, uploads, plugins, themes = {}, {}, set(), set()
+    start = stream.tell()
+    def result():
+        value = findings.report(entries, complete)
+        value.update(total_bytes=total, database_bytes=database_bytes, archive_bytes=stream.tell() - start,
+                     excluded=list(excluded_zones.values()), inventory={'plugins': sorted(plugins), 'themes': sorted(themes), 'uploads': list(uploads.values())})
+        return {'report': value, 'package': package, 'sql': sql}
     while entries <= max_entries:
+        offset = stream.tell() - start
         header = stream.read(4377)
         if len(header) != 4377:
             findings.add('ARCHIVE_TRUNCATED')
             break
-        if header == bytes(4377):
+        if eof_block(header):
             complete = True
+            if header != bytes(4377) and int(header[255:269].rstrip(b'\0')) != offset:
+                findings.add('ARCHIVE_EOF_SIZE')
             if stream.read(1):
                 findings.add('ARCHIVE_TRAILING_DATA')
             if 'database.sql' not in seen:
                 findings.add('ARCHIVE_DATABASE_MISSING', 'database.sql')
             break
         entries += 1
-        raw_fields = struct.unpack('255s14s12s4096s', header)
-        fields = []
-        bad = False
-        for raw in raw_fields:
-            value, _, padding = raw.partition(b'\0')
-            try:
-                fields.append(value.decode('utf-8', 'strict'))
-            except UnicodeError:
-                fields.append('')
-                bad = True
-            bad |= bool(padding.strip(b'\0'))
-        name, size, stamp, prefix = fields
+        try:
+            (name, size, stamp, prefix), crc = header_fields(header)
+        except Refusal:
+            findings.add('ARCHIVE_HEADER')
+            name, size, stamp, prefix = (x.partition(b'\0')[0].decode('utf-8', 'replace') for x in struct.unpack('255s14s12s4096s', header))
+            crc = None
         relative = archive_path(prefix, name)
-        if bad or not name or '/' in name or not re.fullmatch(r'[0-9]{1,12}', stamp):
+        parts = relative.split('/')
+        if not name or '/' in name or not re.fullmatch(r'[0-9]{1,12}', stamp):
             findings.add('ARCHIVE_HEADER', relative)
         if not re.fullmatch(r'[0-9]{1,14}', size):
             findings.add('ARCHIVE_SIZE_INVALID', relative)
@@ -136,44 +179,67 @@ def audit(stream, max_bytes=1024*1024*1024, max_entries=150000, retain_sql=False
             findings.add(code, relative, blocking=code not in ('ARCHIVE_PATH_COLON', 'ARCHIVE_PATH_CASE_ONLY'))
         length = int(size)
         total += length
-        metadata_limited = (relative == 'database.sql' and length > 128*1024*1024) or (relative == 'package.json' and length > 1024*1024)
-        limited = entries > max_entries or total > max_bytes or metadata_limited
-        if limited:
+        if relative == 'database.sql':
+            database_bytes += length
+        metadata_limited = (relative == 'database.sql' and length > max_sql_bytes) or (relative == 'package.json' and length > CHUNK)
+        if entries > max_entries or total > max_bytes or metadata_limited:
             findings.add('ARCHIVE_LIMIT', relative)
         if relative == 'multisite.json':
             findings.add('MULTISITE_UNSUPPORTED', relative)
+        safe_dir = len(parts) > 2 and re.fullmatch(r'[\w-]{1,100}', parts[1], re.ASCII)
+        if parts[0] == 'plugins' and safe_dir:
+            plugins.add(parts[1])
+        elif parts[0] == 'themes' and safe_dir:
+            themes.add(parts[1])
+        elif parts[0] == 'uploads' and len(parts) > 2:
+            folder = parts[1] if safe_dir else '(autre)'
+            row = uploads.setdefault(folder, {'directory': folder, 'count': 0, 'bytes': 0})
+            row['count'] += 1; row['bytes'] += length
+            if unknown_upload(relative):
+                findings.add('UPLOADS_DIRECTORY_REVIEW_REQUIRED', relative)
+        if excluded(relative):
+            zone = location(relative)['zone']
+            row = excluded_zones.setdefault(zone, {'zone': zone, 'count': 0, 'bytes': 0})
+            row['count'] += 1; row['bytes'] += length
+            skip_payload(stream, length)
+            continue
         chunks = []
-        remaining = length
+        retain = relative == 'package.json' or (retain_sql and relative == 'database.sql' and length <= CHUNK)
+        if retain_sql and relative == 'database.sql' and length > CHUNK:
+            findings.add('SQL_STREAM_REQUIRED', relative)
+        remaining, checksum = length, 0
         while remaining:
-            data = stream.read(min(remaining, 1024*1024))
+            data = stream.read(min(remaining, CHUNK))
             if not data:
                 findings.add('ARCHIVE_TRUNCATED', relative)
                 if on_chunk is not None:
                     on_chunk(relative, b'', True)
-                return {'report': findings.report(entries, False), 'package': package, 'sql': sql}
-            if on_chunk is not None:
+                return result()
+            if crc:
+                checksum = zlib.crc32(data, checksum)
+            if on_chunk is not None and not metadata_limited:
                 on_chunk(relative, data, False)
-            if not metadata_limited and (relative == 'package.json' or (retain_sql and relative == 'database.sql')):
+            if retain and not metadata_limited:
                 chunks.append(data)
             remaining -= len(data)
-        if on_chunk is not None:
+        if crc and f'{checksum:08x}'.encode() != crc.lower():
+            findings.add('ARCHIVE_CRC_MISMATCH', relative)
+        if on_chunk is not None and not metadata_limited:
             on_chunk(relative, b'', True)
-        if relative == 'package.json' and not metadata_limited:
+        if retain and not metadata_limited:
+            payload = b''.join(chunks)
             if on_metadata is not None:
-                on_metadata(relative, b''.join(chunks))
+                on_metadata(relative, payload)
+            elif relative == 'package.json':
+                package = payload
             else:
-                package = b''.join(chunks)
-        elif relative == 'database.sql' and retain_sql and not metadata_limited:
-            if on_metadata is not None:
-                on_metadata(relative, b''.join(chunks))
-            else:
-                sql = b''.join(chunks)
+                sql = payload
         if entries > max_entries:
             break
-    return {'report': findings.report(entries, complete), 'package': package, 'sql': sql}
+    return result()
 
 
-ARCHIVE_REFUSALS = frozenset('ARCHIVE_TRUNCATED ARCHIVE_INVALID ARCHIVE_HEADER ARCHIVE_PATH ARCHIVE_LIMIT ARCHIVE_LAYOUT_UNSUPPORTED MULTISITE_UNSUPPORTED ARCHIVE_TRAILING_DATA ARCHIVE_DATABASE_MISSING ARCHIVE_SIZE_INVALID ARCHIVE_PATH_ABSOLUTE ARCHIVE_PATH_DRIVE ARCHIVE_PATH_EMPTY ARCHIVE_PATH_DOT ARCHIVE_PATH_PARENT ARCHIVE_PATH_BACKSLASH ARCHIVE_PATH_CONTROL ARCHIVE_PATH_DUPLICATE ARCHIVE_PATH_FILE_DIRECTORY_COLLISION ARCHIVE_TARGET_SYMLINK ARCHIVE_CASE_SENSITIVITY_UNVERIFIED ARCHIVE_CASE_INSENSITIVE_TARGET FRESH_CONTENT_REQUIRED'.split())
+ARCHIVE_REFUSALS = frozenset('ARCHIVE_TRUNCATED ARCHIVE_INVALID ARCHIVE_HEADER ARCHIVE_PATH ARCHIVE_LIMIT ARCHIVE_LAYOUT_UNSUPPORTED MULTISITE_UNSUPPORTED ARCHIVE_TRAILING_DATA ARCHIVE_DATABASE_MISSING ARCHIVE_SIZE_INVALID ARCHIVE_PATH_ABSOLUTE ARCHIVE_PATH_DRIVE ARCHIVE_PATH_EMPTY ARCHIVE_PATH_DOT ARCHIVE_PATH_PARENT ARCHIVE_PATH_BACKSLASH ARCHIVE_PATH_CONTROL ARCHIVE_PATH_DUPLICATE ARCHIVE_PATH_FILE_DIRECTORY_COLLISION ARCHIVE_TARGET_SYMLINK ARCHIVE_CASE_SENSITIVITY_UNVERIFIED ARCHIVE_CASE_INSENSITIVE_TARGET FRESH_CONTENT_REQUIRED UPLOADS_DIRECTORY_REVIEW_REQUIRED DISK_SPACE_INSUFFICIENT ARCHIVE_SEEK_REQUIRED ARCHIVE_CRC_MISMATCH ARCHIVE_EOF_SIZE SQL_STREAM_REQUIRED'.split())
 
 
 class Refusal(ValueError):
@@ -207,9 +273,9 @@ def probe_case_sensitive(root):
         first.unlink()
 
 
-def restore(stream, content, max_bytes=1024*1024*1024, max_entries=150000, metadata_only=False, case_probe_root=None, report=None):
+def restore(stream, content, max_bytes=DEFAULT_MAX_BYTES, max_entries=DEFAULT_MAX_ENTRIES, metadata_only=False, case_probe_root=None, report=None, max_sql_bytes=DEFAULT_MAX_SQL_BYTES, sql_path=None):
     start = stream.tell()
-    scan = audit(stream, max_bytes, max_entries)
+    scan = audit(stream, max_bytes, max_entries, max_sql_bytes=max_sql_bytes)
     if report is not None:
         report.update(scan['report'])
     for rule in scan['report']['rules']:
@@ -221,6 +287,10 @@ def restore(stream, content, max_bytes=1024*1024*1024, max_entries=150000, metad
     if not metadata_only:
         if content is None or content.exists():
             raise Refusal('FRESH_CONTENT_REQUIRED')
+        needed = scan['report']['total_bytes'] - sum(row['bytes'] for row in scan['report']['excluded'])
+        check_space(content, needed + 3 * scan['report']['database_bytes'])
+        if sql_path is None and scan['report']['database_bytes'] > CHUNK:
+            raise Refusal('SQL_STREAM_REQUIRED')
         content.mkdir(parents=True)
     case_rule = next((r for r in scan['report']['rules'] if r['code'] == 'ARCHIVE_PATH_CASE_ONLY'), None)
     if case_rule:
@@ -233,10 +303,10 @@ def restore(stream, content, max_bytes=1024*1024*1024, max_entries=150000, metad
         if not sensitive:
             raise Refusal('ARCHIVE_CASE_INSENSITIVE_TARGET', dict(case_rule, code='ARCHIVE_CASE_INSENSITIVE_TARGET', blocking=True))
     stream.seek(start)
-    return _restore_payload(stream, content, max_bytes, max_entries, metadata_only, case_verified=bool(case_rule), case_probe_root=case_probe_root)
+    return _restore_payload(stream, content, max_bytes, max_entries, metadata_only, case_verified=bool(case_rule), case_probe_root=case_probe_root, max_sql_bytes=max_sql_bytes, sql_path=sql_path)
 
 
-def _restore_payload(stream, content, max_bytes=1024 * 1024 * 1024, max_entries=150000, metadata_only=False, case_verified=False, case_probe_root=None):
+def _restore_payload(stream, content, max_bytes=DEFAULT_MAX_BYTES, max_entries=DEFAULT_MAX_ENTRIES, metadata_only=False, case_verified=False, case_probe_root=None, max_sql_bytes=DEFAULT_MAX_SQL_BYTES, sql_path=None):
     seen, folded, directories = set(), set(), set()
     total = 0
     sql = None
@@ -247,21 +317,11 @@ def _restore_payload(stream, content, max_bytes=1024 * 1024 * 1024, max_entries=
         header = stream.read(4377)
         if len(header) != 4377:
             raise Refusal('ARCHIVE_TRUNCATED')
-        if header == bytes(4377):
+        if eof_block(header):
             if stream.read(1) or 'database.sql' not in seen:
                 raise Refusal('ARCHIVE_INVALID')
             return sql, package, len(seen)
-        fields = struct.unpack('255s14s12s4096s', header)
-        values = []
-        for raw in fields:
-            value, _, padding = raw.partition(b'\0')
-            if padding.strip(b'\0'):
-                raise Refusal('ARCHIVE_HEADER')
-            try:
-                values.append(value.decode('utf-8', 'strict'))
-            except UnicodeError:
-                raise Refusal('ARCHIVE_HEADER') from None
-        name, size, stamp, prefix = values
+        (name, size, stamp, prefix), crc = header_fields(header)
         if (not name or '/' in name or name in ('.', '..')
                 or not re.fullmatch(r'[0-9]{1,14}', size) or not re.fullmatch(r'[0-9]{1,12}', stamp)):
             raise Refusal('ARCHIVE_HEADER')
@@ -279,8 +339,13 @@ def _restore_payload(stream, content, max_bytes=1024 * 1024 * 1024, max_entries=
                 raise Refusal(code, {'code': code, 'count': 1, 'blocking': True, 'locations': [dict(location(relative), count=1)]})
         length = int(size)
         total += length
-        if len(seen) > max_entries or total > max_bytes or (relative == 'database.sql' and length > 128*1024*1024):
+        if len(seen) > max_entries or total > max_bytes or (relative == 'database.sql' and length > max_sql_bytes):
             raise Refusal('ARCHIVE_LIMIT')
+        if unknown_upload(relative):
+            raise Refusal('UPLOADS_DIRECTORY_REVIEW_REQUIRED')
+        if excluded(relative) or (metadata_only and relative == 'database.sql'):
+            skip_payload(stream, length)
+            continue
         # The format exports wp-content-relative paths. Never accept a root config/core tree.
         metadata = relative in ('database.sql', 'package.json', 'multisite.json')
         if not metadata and parts[0] in ('wp-config.php', 'wp-admin', 'wp-includes', 'wp-content'):
@@ -293,24 +358,36 @@ def _restore_payload(stream, content, max_bytes=1024 * 1024 * 1024, max_entries=
                 raise Refusal('ARCHIVE_TARGET_SYMLINK', {'code': 'ARCHIVE_TARGET_SYMLINK', 'count': 1, 'blocking': True, 'locations': [dict(location(relative), count=1)]})
             target.parent.mkdir(parents=True, exist_ok=True)
             handle = target.open('xb')
+        elif relative == 'database.sql' and not metadata_only and sql_path is not None:
+            sql = pathlib.Path(sql_path)
+            if sql.exists() or any(p.is_symlink() for p in (sql, *sql.parents)):
+                raise Refusal('ARCHIVE_TARGET_SYMLINK')
+            handle = sql.open('xb')
         else:
             handle = None
         chunks = []
         try:
             remaining = length
+            checksum = 0
             while remaining:
                 data = stream.read(min(remaining, 1024*1024))
                 if not data:
                     raise Refusal('ARCHIVE_TRUNCATED')
+                if crc:
+                    checksum = zlib.crc32(data, checksum)
                 if handle:
                     handle.write(data)
                 elif relative == 'package.json' or (relative == 'database.sql' and not metadata_only):
+                    if relative == 'database.sql' and length > CHUNK:
+                        raise Refusal('SQL_STREAM_REQUIRED')
                     chunks.append(data)
                 remaining -= len(data)
+            if crc and f'{checksum:08x}'.encode() != crc.lower():
+                raise Refusal('ARCHIVE_CRC_MISMATCH')
         finally:
             if handle:
                 handle.close()
-        if relative == 'database.sql' and not metadata_only:
+        if relative == 'database.sql' and not metadata_only and sql_path is None:
             sql = b''.join(chunks)
         elif relative == 'package.json':
             package = b''.join(chunks)
