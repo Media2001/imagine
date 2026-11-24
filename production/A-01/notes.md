@@ -27,7 +27,25 @@ Le manifeste public est `archive-reelle-2-public/public-source.json`. La command
 
 ## Preuves du nouveau brief
 
-Qualification en cours : les reçus définitifs et les limites seront inscrits ici après relecture. L’ancien PRET est conservé sous `PRET-archive-reelle-23nov-historique-avant-archive-reelle-2.txt` ; il ne qualifie pas ce brief.
+- **Reçu courant :** `archive-reelle-2/2b2c796bf78b/qualification-89a75913.json`, pilote sortie **0 / PASS**, puis relecture des empreintes, reçus et absences : **`archive-reelle-2-final.json`**, sortie 0. Les passes précédentes, dont le premier refus SQL et les anciens résultats devenus historiques, sont conservées ; aucune ne remplace ce reçu courant.
+- **Deux exports réels AI1WM 7.109**, pipeline complet inchangé de Init à Clean, WordPress fictif **7.0.9 / PHP 8.2.36** dans l’image existante sans réseau, port ou montage. Grosse archive : **32 455 entrées**, **1 511 054 151 octets**, **1 184 933 028 octets de médias datés**, **169 156 381 octets de SQL**. Les 32 000 PNG générés sont de vrais PNG (contrôle PHP du type et dimensions) ; le PDF conservé est généré avec objets/xref. **1 500 articles** générés par WordPress, restaurés et relus. Aucun contenu réel ni compte externe.
+- Diagnostic normal et `--detail` réellement exécutés sous plafond d’espace d’adressage **256 Mio** ; résumé de **15 lignes**. Les trois plafonds CLI sont abaissés séparément et produisent bien un refus. Garde d’espace réel Docker éprouvée ; pénurie simulée → aucun dossier de rapport/runner/site/base créé. Les deux archives passent ensuite `neutraliser` → `anonymiser` → `verifier`, sorties 0 ; réglages plugin Akismet/thème relus après nettoyage, sans réactivation. Dump neutralisé transféré par le vrai pipe puis nombres/octets de contenus comparés. Ce n’est **pas** une nouvelle publication HTTP ni une qualification de Subscriptions/Memberships.
+- **6 nouveaux tests ciblés** ; hôte **91 tests : 83 exécutés verts, 8 branches Linux différées** ; Linux **47 : 46 exécutés verts, 1 branche Windows différée** ; sécurité du banc **17/17** ; données natives **9 cas / 337 assertions**, lint PHP vert. Compteurs recoupés, non additionnables. Les branches système différées sont couvertes sur l’autre vrai système. Les exports exclus sont munis d’une garde d’intervalles de lecture : aucune lecture/extraction de leurs octets ; PDF/PNG conservés exacts, dossiers inconnus refusés avec leur nom (espaces inclus), avertissements de secrets limités aux configurations.
+- **Nettoyage relu :** les trois seuls conteneurs créés (`imagine-test-a01-ai1wm-da5698b02266`, `imagine-test-a01-ai1wm-8f6e3d24930d`, `imagine-test-a01-ai1wm-2b2c796bf78b`) ont été supprimés, puis inspectés absents. Aucun réseau/volume/port créé. Les archives et bases synthétiques ont disparu avec leurs conteneurs ; la copie de transport temporaire côté hôte est supprimée. Le ZIP public temporaire est supprimé, reçu `archive-reelle-2-public/cleanup.json`. Les sources publiques citées restent comme preuve. Ancien PRET conservé sous `PRET-archive-reelle-23nov-historique-avant-archive-reelle-2.txt` ; aucun reçu antérieur n’est requalifié.
+
+### Revérification parent, sans archive ni création
+
+Depuis la racine du dépôt, sortie **0 / PASS** attendue (nom de sortie neuf obligatoire) :
+
+```powershell
+python wp/tests/a01-court/verify_ai1wm_final.py --qualification production/A-01/archive-reelle-2/2b2c796bf78b/qualification-89a75913.json --output production/A-01/archive-reelle-2-parent-neuf.json
+```
+
+### Refaire les seuls exports fictifs
+
+`python wp/tests/a01-court/prepare_ai1wm.py` prépare le paquet public épinglé si nécessaire et crée un conteneur neuf sans réseau. Prendre le chemin de reçu `<run>` qu’il imprime, puis `python wp/tests/a01-court/exercise_ai1wm.py production/A-01/archive-reelle-2/<run> --cleanup`. Ce deuxième pilote qualifie ces seuls exports et supprime son seul conteneur par son nom relu. Aucun chemin d’archive réelle n’est accepté par ces pilotes.
+
+**Limites explicites :** CRC global différé pour ne pas lire les fichiers exclus ; grammaire SQL volontairement fermée et instruction limitée à 16 Mio ; la qualification grand volume porte sur ce jeu mesuré, pas sur tout site de 50 Gio. Le PRET est celui du code de ce brief, pas un GO d’import ou d’accès au réel. Ced seul relance maintenant le diagnostic en tête de cette page.
 
 ---
 
