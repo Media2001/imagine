@@ -60,6 +60,28 @@ final class Decouverte
         }
     }
 
+    public static function compteur(string $content): string
+    {
+        $post = get_post();
+        if (!$post || !self::concerne($post->ID)
+            || !in_array(Paywall::decision($post)['motif'], ['decouverte_articles', 'decouverte_duree'], true)) {
+            return $content;
+        }
+        $state = self::etat(get_current_user_id());
+        if (!$state) {
+            return $content;
+        }
+        if ($state['reglages']['forme'] === 'articles') {
+            $count = count($state['articles']);
+            $max = $state['reglages']['nombre'];
+            $text = sprintf(__('Découverte : %1$d article(s) ouvert(s) sur %2$d. Relire le même article ne consomme pas de crédit.', 'imagine-site'), $count, $max);
+            return $content . '<p class="imagine-decouverte-compteur" data-imagine-decouverte="' . esc_attr($count . '/' . $max) . '">' . esc_html($text) . '</p>';
+        }
+        $until = (new DateTimeImmutable($state['debut'], new DateTimeZone('UTC')))->modify('+' . $state['reglages']['jours'] . ' days');
+        return $content . '<p class="imagine-decouverte-compteur">'
+            . esc_html(sprintf(__('Découverte jusqu’au %s UTC (fin exclue).', 'imagine-site'), $until->format('d/m/Y H:i:s'))) . '</p>';
+    }
+
     public static function defauts(): array
     {
         return ['ouverture' => 'fermee', 'forme' => 'articles', 'jours' => 7, 'nombre' => 2, 'numeros' => []];

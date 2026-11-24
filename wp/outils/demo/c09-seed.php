@@ -173,6 +173,10 @@ foreach ($rows as $row) {
     $customer->set_billing_phone('');
     $customer->save();
     $manifest['users'][$key] = $id;
+    if (($row['decouverte'] ?? null) === 'C12') {
+        require_once __DIR__ . '/c12-profils.php';
+        \Imagine\Demo\C12\profil((int) $id, $key, true);
+    }
     // Revenir aussi à l'absence initiale : ne conserver aucun objet C09 additionnel.
     // Le prévol ci-dessus a déjà refusé tout objet non possédé.
     if (!isset($row['native'])) {

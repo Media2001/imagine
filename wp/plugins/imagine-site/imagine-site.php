@@ -35,6 +35,8 @@ NumeroPublication::register();
 
 require_once __DIR__ . '/Decouverte.php';
 Decouverte::register();
+require_once __DIR__ . '/DecouverteReglages.php';
+DecouverteReglages::register();
 
 require_once __DIR__ . '/Paywall.php';
 Paywall::register();
