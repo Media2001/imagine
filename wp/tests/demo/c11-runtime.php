@@ -76,6 +76,23 @@ try {
     $path = PdfNumero::path($issue->ID);
     $checks['stockage_hors_docroot'] = !str_starts_with(realpath($path), realpath(ABSPATH) . '/')
         && (fileperms($path) & 0777) === 0600;
+    $documentRoot = $_SERVER['DOCUMENT_ROOT'] ?? null;
+    try {
+        // WordPress installé dans un sous-répertoire public : ABSPATH seul ne suffit pas.
+        $_SERVER['DOCUMENT_ROOT'] = dirname(rtrim(ABSPATH, '/'));
+        try {
+            PdfNumero::path($issue->ID);
+            $checks['racine_publique_parent_refusee'] = false;
+        } catch (Throwable) {
+            $checks['racine_publique_parent_refusee'] = true;
+        }
+    } finally {
+        if ($documentRoot === null) {
+            unset($_SERVER['DOCUMENT_ROOT']);
+        } else {
+            $_SERVER['DOCUMENT_ROOT'] = $documentRoot;
+        }
+    }
 } finally {
     if ($policy === $absent) {
         delete_option('imagine_acces_reglages');

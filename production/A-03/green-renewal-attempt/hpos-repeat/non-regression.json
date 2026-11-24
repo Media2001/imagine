@@ -1,0 +1,304 @@
+{
+    "schema": "imagine-a03-v1",
+    "generated_at_utc": "2026-11-24T07:39:33+00:00",
+    "versions": {
+        "wordpress": "7.0.9",
+        "php": "8.2.36",
+        "woocommerce": "11.1.1",
+        "memberships": "1.30.3",
+        "subscriptions": "9.4.1"
+    },
+    "storage": "hpos",
+    "sample_states": {
+        "membership": [
+            "active",
+            "cancelled",
+            "expired",
+            "none",
+            "paused",
+            "pending"
+        ],
+        "subscription": [
+            "active",
+            "cancelled",
+            "expired",
+            "none",
+            "on-hold",
+            "pending",
+            "pending-cancel"
+        ]
+    },
+    "samples": {
+        "active:active": 2,
+        "cancelled:cancelled": 5,
+        "expired:expired": 4,
+        "none:none": 1,
+        "none:pending-cancel": 7,
+        "paused:on-hold": 3,
+        "pending:pending": 6
+    },
+    "memberships": {
+        "13": {
+            "user_id": 2,
+            "plan_id": 12,
+            "status": "active"
+        },
+        "15": {
+            "user_id": 3,
+            "plan_id": 12,
+            "status": "paused"
+        },
+        "17": {
+            "user_id": 4,
+            "plan_id": 12,
+            "status": "expired"
+        },
+        "19": {
+            "user_id": 5,
+            "plan_id": 12,
+            "status": "cancelled"
+        },
+        "21": {
+            "user_id": 6,
+            "plan_id": 12,
+            "status": "pending"
+        }
+    },
+    "access": {
+        "0:10": false,
+        "1:10": true,
+        "2:10": true,
+        "3:10": false,
+        "4:10": false,
+        "5:10": false,
+        "6:10": true,
+        "7:10": false
+    },
+    "subscriptions": {
+        "14": {
+            "status": "active",
+            "gateway": "manual",
+            "period": "month",
+            "interval": 1,
+            "next_payment_utc": "2027-02-01 10:00:00"
+        },
+        "16": {
+            "status": "on-hold",
+            "gateway": "bacs",
+            "period": "year",
+            "interval": 2,
+            "next_payment_utc": "2027-02-01 10:00:00"
+        },
+        "18": {
+            "status": "expired",
+            "gateway": "manual",
+            "period": "month",
+            "interval": 3,
+            "next_payment_utc": 0
+        },
+        "20": {
+            "status": "cancelled",
+            "gateway": "bacs",
+            "period": "year",
+            "interval": 4,
+            "next_payment_utc": 0
+        },
+        "22": {
+            "status": "pending",
+            "gateway": "manual",
+            "period": "month",
+            "interval": 5,
+            "next_payment_utc": 0
+        },
+        "23": {
+            "status": "pending-cancel",
+            "gateway": "bacs",
+            "period": "year",
+            "interval": 6,
+            "next_payment_utc": 0
+        }
+    },
+    "subscription_counts": {
+        "status": {
+            "active": 1,
+            "cancelled": 1,
+            "expired": 1,
+            "on-hold": 1,
+            "pending": 1,
+            "pending-cancel": 1
+        },
+        "gateway": {
+            "bacs": 3,
+            "manual": 3
+        },
+        "period": {
+            "1-month": 1,
+            "2-year": 1,
+            "3-month": 1,
+            "4-year": 1,
+            "5-month": 1,
+            "6-year": 1
+        }
+    },
+    "actions": {
+        "5": {
+            "hook": "woocommerce_run_update_callback",
+            "date": "2026-11-24 07:39:22"
+        },
+        "6": {
+            "hook": "action_scheduler/migration_hook",
+            "date": "2026-11-24 07:40:22"
+        },
+        "7": {
+            "hook": "wcs_schedule_pending_batch_processes",
+            "date": "2026-11-24 07:39:24"
+        },
+        "8": {
+            "hook": "woocommerce_delete_legacy_report_transients",
+            "date": "2026-11-24 07:40:27"
+        },
+        "11": {
+            "hook": "woocommerce_scheduled_subscription_payment",
+            "date": "2027-02-01 10:00:00"
+        },
+        "12": {
+            "hook": "woocommerce_scheduled_subscription_customer_notification_renewal",
+            "date": "2027-01-29 10:00:00"
+        },
+        "22": {
+            "hook": "woocommerce_scheduled_subscription_customer_notification_expiration",
+            "date": "2030-12-29 00:00:00"
+        },
+        "23": {
+            "hook": "woocommerce_scheduled_subscription_end_of_prepaid_term",
+            "date": "2031-01-01 00:00:00"
+        },
+        "24": {
+            "hook": "wc-admin_import_orders",
+            "date": "2026-11-24 07:39:34"
+        },
+        "25": {
+            "hook": "wc-admin_import_orders",
+            "date": "2026-11-24 07:39:34"
+        },
+        "26": {
+            "hook": "wc-admin_import_orders",
+            "date": "2026-11-24 07:39:35"
+        },
+        "27": {
+            "hook": "wc-admin_import_orders",
+            "date": "2026-11-24 07:39:35"
+        },
+        "28": {
+            "hook": "a03_fixture_action",
+            "date": "2027-01-14 10:00:00"
+        },
+        "29": {
+            "hook": "wcs_report_update_cache",
+            "date": "2026-11-24 07:44:30"
+        },
+        "30": {
+            "hook": "wcs_report_update_cache",
+            "date": "2026-11-24 07:49:30"
+        },
+        "31": {
+            "hook": "wcs_report_update_cache",
+            "date": "2026-11-24 07:54:30"
+        },
+        "32": {
+            "hook": "wcs_report_update_cache",
+            "date": "2026-11-24 07:59:30"
+        }
+    },
+    "action_days": {
+        "a03_fixture_action:2027-01-14": 1,
+        "action_scheduler/migration_hook:2026-11-24": 1,
+        "wc-admin_import_orders:2026-11-24": 4,
+        "wcs_report_update_cache:2026-11-24": 4,
+        "wcs_schedule_pending_batch_processes:2026-11-24": 1,
+        "woocommerce_delete_legacy_report_transients:2026-11-24": 1,
+        "woocommerce_run_update_callback:2026-11-24": 1,
+        "woocommerce_scheduled_subscription_customer_notification_expiration:2030-12-29": 1,
+        "woocommerce_scheduled_subscription_customer_notification_renewal:2027-01-29": 1,
+        "woocommerce_scheduled_subscription_end_of_prepaid_term:2031-01-01": 1,
+        "woocommerce_scheduled_subscription_payment:2027-02-01": 1
+    },
+    "order_months": [
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+    ],
+    "orders": {
+        "2025-12:cancelled:EUR": {
+            "count": 1,
+            "amount_minor": 999,
+            "decimals": 2
+        },
+        "2026-10:processing:EUR": {
+            "count": 1,
+            "amount_minor": 2015,
+            "decimals": 2
+        },
+        "2026-11:completed:EUR": {
+            "count": 1,
+            "amount_minor": 1230,
+            "decimals": 2
+        }
+    },
+    "pages": {
+        "home": {
+            "status": 200,
+            "final_status": 200,
+            "marker": true,
+            "php_error": false
+        },
+        "open": {
+            "status": 200,
+            "final_status": 200,
+            "marker": true,
+            "php_error": false
+        },
+        "restricted": {
+            "status": 200,
+            "final_status": 200,
+            "marker": true,
+            "php_error": false
+        },
+        "shop": {
+            "status": 200,
+            "final_status": 200,
+            "marker": true,
+            "php_error": false
+        },
+        "cart": {
+            "status": 200,
+            "final_status": 200,
+            "marker": true,
+            "php_error": false
+        },
+        "checkout": {
+            "status": 302,
+            "final_status": 200,
+            "marker": true,
+            "php_error": false
+        },
+        "account": {
+            "status": 200,
+            "final_status": 200,
+            "marker": true,
+            "php_error": false
+        }
+    },
+    "renewal": {
+        "enabled": false
+    }
+}

@@ -9,12 +9,35 @@ use WP_Post;
 /** Stockage hors document root, jamais de livraison statique ou d'URL de fichier. */
 final class PdfNumero
 {
+    private static function publicRoot(): string
+    {
+        $documentRoot = $_SERVER['DOCUMENT_ROOT'] ?? '';
+        if (is_string($documentRoot) && $documentRoot !== '' && ($real = realpath($documentRoot))) {
+            return rtrim($real, '/\\');
+        }
+        // WP-CLI n'a pas forcément DOCUMENT_ROOT. Déduire les installations en sous-dossier
+        // uniquement lorsque chemin URL et chemin disque correspondent, sinon fermer.
+        $root = realpath(ABSPATH);
+        $urlPath = trim((string) parse_url(site_url('/'), PHP_URL_PATH), '/');
+        foreach (array_reverse($urlPath === '' ? [] : explode('/', $urlPath)) as $part) {
+            if (!$root || basename($root) !== rawurldecode($part)) {
+                throw new \RuntimeException('Racine publique PDF indéterminée.');
+            }
+            $root = dirname($root);
+        }
+        if (!$root) {
+            throw new \RuntimeException('Racine publique PDF indéterminée.');
+        }
+        return rtrim($root, '/\\');
+    }
+
     public static function directory(): string
     {
-        $public = realpath(ABSPATH);
-        $root = realpath(dirname(rtrim(ABSPATH, '/\\')) . '/imagine-private-pdf');
-        if (!$public || !$root || is_link(dirname(rtrim(ABSPATH, '/\\')) . '/imagine-private-pdf')
-            || $root === $public || str_starts_with($root . '/', $public . '/')) {
+        $public = self::publicRoot();
+        $configured = defined('IMAGINE_PDF_PRIVATE_DIR') ? constant('IMAGINE_PDF_PRIVATE_DIR')
+            : dirname($public) . '/imagine-private-pdf';
+        $root = is_string($configured) ? realpath($configured) : false;
+        if (!$root || is_link($configured) || $root === $public || str_starts_with($root . '/', $public . '/')) {
             throw new \RuntimeException('Stockage PDF privé indisponible.');
         }
         $path = $root . '/site-' . get_current_blog_id();

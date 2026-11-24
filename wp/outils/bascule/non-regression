@@ -99,6 +99,54 @@ final class Site
                 }
             }
         }
+        if ($write) {
+            foreach ($db->query('SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_TYPE=\'BASE TABLE\'')->fetchAll(\PDO::FETCH_COLUMN) as $engine) {
+                if ($engine !== 'InnoDB') {
+                    throw new \RuntimeException('A03_TRANSACTIONAL_TABLES_REQUIRED');
+                }
+            }
+            // WordPress officially preserves an already supplied $wpdb in require_wp_db().
+            // Keep all native renewal writes rollback-only, including nested WC transactions.
+            define('ABSPATH', $site . '/');
+            define('WPINC', 'wp-includes');
+            define('WP_DEBUG', false);
+            define('WP_DEBUG_DISPLAY', false);
+            require_once ABSPATH . WPINC . '/load.php';
+            require_once ABSPATH . WPINC . '/plugin.php';
+            require_once ABSPATH . WPINC . '/class-wpdb.php';
+            $GLOBALS['wpdb'] = new class ($config['DB_USER'], $config['DB_PASSWORD'], $config['DB_NAME'], $config['DB_HOST']) extends \wpdb {
+                private bool $closed = false;
+
+                public function beginProbe(): void
+                {
+                    if (parent::query('START TRANSACTION') === false) {
+                        throw new \RuntimeException('A03_TRANSACTION_FAILED');
+                    }
+                }
+
+                public function finishProbe(): void
+                {
+                    parent::query('ROLLBACK');
+                    $this->closed = true;
+                }
+
+                public function query($query)
+                {
+                    if (preg_match('/\A\s*(?:START|BEGIN|COMMIT|ROLLBACK|SAVEPOINT|RELEASE)\b/i', $query)) {
+                        return 0;
+                    }
+                    if (preg_match('/\A\s*(?:CREATE|ALTER|DROP|TRUNCATE|RENAME|GRANT|REVOKE|LOCK|UNLOCK)\b/i', $query)) {
+                        throw new \RuntimeException('A03_DDL_DURING_PROBE');
+                    }
+                    if ($this->closed && !preg_match('/\A\s*(?:SELECT|SHOW|DESCRIBE)\b/i', $query)) {
+                        return false;
+                    }
+                    return parent::query($query);
+                }
+            };
+            $GLOBALS['wpdb']->suppress_errors(true);
+            $GLOBALS['wpdb']->beginProbe();
+        }
         $db = null;
         unset($config);
         // No raw bootstrap output, personal values or plugin messages leave this process.
@@ -116,6 +164,7 @@ final class Site
                 throw new \RuntimeException('A03_RUNTIME_UNSAFE');
             }
         }
+        self::$safeRuntime = true;
         if (!$write) {
             $wpdb->query('SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ');
             $wpdb->query('START TRANSACTION READ ONLY');
@@ -331,9 +380,7 @@ final class Site
     public static function renewal(): array
     {
         global $wpdb;
-        $marker = ['status' => 'verified', 'offline_verified' => true, 'runtime_probe_passed' => true];
-        // bootstrap has independently checked the marker, native blockers and MU bytes.
-        if (!Policy::renewalAllowed(true, Policy::verified($marker), wp_get_environment_type() === 'staging')) {
+        if (!Policy::renewalAllowed(true, self::$verified, self::$safeRuntime)) {
             throw new \RuntimeException('A03_RENEWAL_UNSAFE');
         }
         $token = bin2hex(random_bytes(12));
@@ -435,6 +482,10 @@ final class Site
         $options = [];
         $write = false;
         foreach (array_slice($args, 1) as $arg) {
+            if ($arg === '--renewal-test' && !$write) {
+                $write = true;
+                continue;
+            }
             if (!preg_match('/\A--(wp-path|config|output)=(.+)\z/D', $arg, $m) || isset($options[$m[1]])) {
                 throw new \RuntimeException('A03_USAGE');
             }
@@ -451,10 +502,18 @@ final class Site
             throw new \RuntimeException('A03_PATH_UNSAFE_OR_EXISTS');
         }
         $settings = self::json($options['config']);
-        self::bootstrap($site, false);
-        $report = self::collect($settings);
+        self::bootstrap($site, $write);
         global $wpdb;
-        $wpdb->query('ROLLBACK');
+        if ($write) {
+            try {
+                $report = ['schema' => 'imagine-a03-v1', 'mode' => 'renewal_probe', 'renewal' => self::renewal()];
+            } finally {
+                $wpdb->finishProbe();
+            }
+        } else {
+            $report = self::collect($settings);
+            $wpdb->query('ROLLBACK');
+        }
         $output = $parent . '/' . $base;
         if (!mkdir($output, 0700)) {
             throw new \RuntimeException('A03_OUTPUT_FAILED');

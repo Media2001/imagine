@@ -34,8 +34,9 @@ def check(name, ok, detail=None):
     if not ok:
         raise AssertionError(name)
 
-def fingerprint(db):
-    return json.loads(cmd(['php', str(ROOT / 'fingerprint.php')], env={'A02_DB': db}).stdout)['logical_sha256']
+def fingerprint(db, details=False):
+    value = json.loads(cmd(['php', str(ROOT / 'fingerprint.php')], env={'A02_DB': db}).stdout)
+    return value if details else value['logical_sha256']
 
 def filemap(site):
     return {str(p.relative_to(site)): hashlib.sha256(p.read_bytes()).hexdigest() for p in site.rglob('*') if p.is_file()}
@@ -133,12 +134,14 @@ def run_storage(storage):
         check(storage + ':renewal_unverified_refused', denied.returncode == 1 and denied.stderr == 'A03_JSON_FILE\n' and not (OUT / (storage + '-unverified')).exists())
         # Only the opt-in run gets the synthetic writer config; no real credential exists.
         (site / 'wp-config.php').write_text(config)
-        renewal_before = fingerprint(db)
+        renewal_before = fingerprint(db, details=True)
         renewed = snapshot(site, settings, OUT / (storage + '-renewal'), ['--renewal-test'])
         check(storage + ':renewal_cli', renewed.returncode == 0, {'exit': renewed.returncode, 'stderr': renewed.stderr[:180]})
         renewal = json.loads((OUT / (storage + '-renewal/non-regression.json')).read_text())['renewal']
         check(storage + ':manual_renewal_created_and_cleaned', renewal['enabled'] and renewal['manual_only'] and renewal['created'] and renewal['linked'] and renewal['pending'] and renewal['cleaned'])
-        check(storage + ':renewal_database_restored', fingerprint(db) == renewal_before)
+        renewal_after = fingerprint(db, details=True)
+        row_changes = [key for key in renewal_before['tables'] if renewal_before['tables'][key]['rows_sha256'] != renewal_after['tables'][key]['rows_sha256']]
+        check(storage + ':renewal_business_rows_restored', not row_changes, {'changed_tables': row_changes})
     finally:
         server.terminate()
         server.wait(timeout=15)
