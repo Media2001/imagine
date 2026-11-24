@@ -45,13 +45,15 @@ final class ReportTest extends TestCase
             $bad[$key] = is_array($value) ? 'not an array' : [];
             yield 'type ' . $key => [$bad];
         }
-        foreach ([
+        foreach (
+            [
             ['versions', 'wordpress'], ['sample_states', 'membership'],
             ['memberships', 1, 'status'], ['subscriptions', 9, 'next_payment_utc'],
             ['subscription_counts', 'status'], ['actions', 1, 'date'],
             ['orders', '2026-11:completed:EUR', 'amount_minor'], ['pages', 'home', 'final_status'],
             ['renewal', 'enabled'],
-        ] as $path) {
+            ] as $path
+        ) {
             $bad = Reports::photo();
             $row = &$bad;
             foreach (array_slice($path, 0, -1) as $key) {
@@ -61,7 +63,8 @@ final class ReportTest extends TestCase
             unset($row);
             yield 'nested missing ' . implode('.', $path) => [$bad];
         }
-        foreach ([
+        foreach (
+            [
             ['access', '10:30', 1], ['samples', 'none:none', '20'],
             ['sample_states', 'membership', ['none' => false]],
             ['pages', 'home', ['status' => '200', 'final_status' => 200, 'marker' => true, 'php_error' => false]],
@@ -71,7 +74,8 @@ final class ReportTest extends TestCase
             ['actions', 1, ['hook' => 'example', 'date' => []]],
             ['orders', '2026-11:completed:EUR', ['count' => 1, 'amount_minor' => '15', 'decimals' => 2]],
             ['subscription_counts', 'status', ['active' => '1']],
-        ] as [$section, $key, $value]) {
+            ] as [$section, $key, $value]
+        ) {
             $bad = Reports::photo();
             $bad[$section][$key] = $value;
             yield 'nested type ' . $section => [$bad];
@@ -149,7 +153,8 @@ final class ReportTest extends TestCase
 
     public static function unsafeKeys(): iterable
     {
-        foreach ([
+        foreach (
+            [
             ['access', 'Jean.Dupont', true], ['access', '-1:30', true], ['access', '1:0', true],
             ['memberships', 'Jean.Dupont', ['user_id' => 10, 'plan_id' => 2, 'status' => 'active']],
             ['subscriptions', 'Jean.Dupont', Reports::photo()['subscriptions'][9]],
@@ -159,14 +164,17 @@ final class ReportTest extends TestCase
             ['orders', 'Jean.Dupont', ['count' => 1, 'amount_minor' => 100, 'decimals' => 2]],
             ['orders', '2026-99:completed:EUR', ['count' => 1, 'amount_minor' => 100, 'decimals' => 2]],
             ['action_days', 'Jean Dupont:2027-01-01', 1], ['action_days', '../hook:2027-01-01', 1],
-        ] as $index => [$section, $key, $value]) {
+            ] as $index => [$section, $key, $value]
+        ) {
             $bad = Reports::photo();
             $bad[$section][$key] = $value;
             yield $section . $index => [$bad];
         }
-        foreach ([['sample_states', 'membership'], ['sample_states', 'subscription'],
+        foreach (
+            [['sample_states', 'membership'], ['sample_states', 'subscription'],
             ['subscription_counts', 'status'], ['subscription_counts', 'gateway'],
-            ['subscription_counts', 'period']] as [$section, $group]) {
+            ['subscription_counts', 'period']] as [$section, $group]
+        ) {
             $bad = Reports::photo();
             $bad[$section][$group]['Jean.Dupont'] = $section === 'sample_states' ? true : 1;
             yield $section . $group => [$bad];
@@ -216,6 +224,26 @@ final class ReportTest extends TestCase
             $before,
             $after
         )['changes']);
+    }
+
+    public function testTwoPhotosMissingTheSamePageCannotProveNoChange(): void
+    {
+        $bad = Reports::photo();
+        unset($bad['pages']['home']);
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('A03_REPORT_STRUCTURE');
+        Report::compare($bad, $bad);
+    }
+
+    public function testEmptyInventoriesAndHposRemainValid(): void
+    {
+        $empty = Reports::photo();
+        $empty['storage'] = 'hpos';
+        foreach (['samples', 'memberships', 'access', 'subscriptions', 'actions', 'action_days', 'orders'] as $key) {
+            $empty[$key] = [];
+        }
+        $empty['subscription_counts'] = ['status' => [], 'gateway' => [], 'period' => []];
+        self::assertSame([], Report::compare($empty, $empty)['changes']);
     }
 
     public function testExistingClassificationsRemainUnchanged(): void

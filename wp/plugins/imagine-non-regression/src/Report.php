@@ -147,6 +147,12 @@ final class Report
                 self::validatePhoto($report);
             }
         }
+        if ($beforeMode === 'photo') {
+            // A removed page is a difference, but two equally incomplete maps are not a baseline.
+            foreach (['home', 'open', 'restricted', 'shop', 'cart', 'checkout', 'account'] as $page) {
+                self::requireValid(isset($before['pages'][$page]) || isset($after['pages'][$page]));
+            }
+        }
         $changes = [];
         $walk = static function (mixed $a, mixed $b, string $path) use (&$walk, &$changes): void {
             if ($a === $b) {
