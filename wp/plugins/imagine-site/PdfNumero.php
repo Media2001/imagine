@@ -108,7 +108,7 @@ final class PdfNumero
             throw new \RuntimeException('Protection PDF non persistée.');
         }
         // L'appelant supprime aussi toutes ses copies de travail publiques exactes.
-        $public = realpath(ABSPATH);
+        $public = self::publicRoot();
         $realSource = realpath($source);
         if ($public && $realSource && str_starts_with($realSource, $public . '/') && !unlink($source)) {
             throw new \RuntimeException('Ancien PDF public non retiré.');

@@ -13,6 +13,8 @@
   },
   "c11-runtime": {
     "actif_natif": true,
+    "article_C08_actif_inchange": true,
+    "article_C08_anonyme_inchange": true,
     "offert_natif_meme_droit": true,
     "groupe_natif_meme_droit": true,
     "C10_pdf_anterieur_ferme": true,
@@ -31,6 +33,7 @@
     "erreur_native_fermee_apres_positif": true,
     "positif_retabli": true,
     "stockage_hors_docroot": true,
+    "racine_publique_parent_refusee": true,
     "restauration_exacte_options": true,
     "canari_supprime": true
   }

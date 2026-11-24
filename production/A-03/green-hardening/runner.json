@@ -1,0 +1,26 @@
+{
+  "container": "imagine-a03-69ecafa32869",
+  "checks": [
+    {
+      "check": "isolated_before",
+      "ok": true
+    },
+    {
+      "check": "unit",
+      "ok": true
+    },
+    {
+      "check": "isolated_after",
+      "ok": true
+    },
+    {
+      "check": "owned_cleanup",
+      "ok": true
+    },
+    {
+      "check": "accepted_sources_unchanged",
+      "ok": true
+    }
+  ],
+  "exit_code": 0
+}

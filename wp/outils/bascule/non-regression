@@ -7,6 +7,22 @@ namespace Imagine\NonRegression;
 
 final class Policy
 {
+    public static function dsn(array $config): string
+    {
+        if (!preg_match('/\A[A-Za-z0-9_-]+\z/D', $config['DB_NAME'])) {
+            throw new \RuntimeException('A03_DB_NAME');
+        }
+        $host = $config['DB_HOST'];
+        if (preg_match('~\Alocalhost:(/[^;\x00-\x1f]+)\z~D', $host, $match)) {
+            $dsn = 'mysql:unix_socket=' . $match[1];
+        } elseif (preg_match('/\A([A-Za-z0-9_.-]+)(?::([0-9]{1,5}))?\z/D', $host, $match) && (int) ($match[2] ?? 3306) <= 65535 && (int) ($match[2] ?? 3306) > 0) {
+            $dsn = 'mysql:host=' . $match[1] . ';port=' . ($match[2] ?? '3306');
+        } else {
+            throw new \RuntimeException('A03_DB_HOST');
+        }
+        return $dsn . ';dbname=' . $config['DB_NAME'] . ';charset=utf8mb4';
+    }
+
     public static function verified(array $marker): bool
     {
         return ($marker['status'] ?? null) === 'verified'
@@ -43,6 +59,11 @@ final class Report
                 return;
             }
             $class = $root === 'versions' ? 'attendu' : (in_array($root, ['pages', 'renewal'], true) ? 'a regarder' : 'anormal');
+            if ($root === 'pages' && ((str_ends_with($path, '.marker') && $b !== true)
+                || (str_ends_with($path, '.php_error') && $b !== false)
+                || (str_ends_with($path, 'status') && (!is_int($b) || $b < 200 || $b >= 400)))) {
+                $class = 'anormal';
+            }
             // Values deliberately excluded: even malformed inputs never echo PII.
             $changes[] = ['path' => preg_match('/\A[A-Za-z0-9_.:-]{1,240}\z/D', $path) ? $path : '[masque]', 'class' => $class];
         };
@@ -87,11 +108,7 @@ final class Site
         define('IMAGINE_AUDIT_LIBRARY_ONLY', true);
         require_once __DIR__ . '/audit';
         $config = \Imagine\Audit\Audit::config(file_get_contents($site . '/wp-config.php'));
-        $host = $config['DB_HOST'];
-        if (!preg_match('~\Alocalhost:(/[^;\x00-\x1f]+)\z~D', $host, $match)) {
-            throw new \RuntimeException('A03_UNIX_SOCKET_REQUIRED');
-        }
-        $db = new \PDO('mysql:unix_socket=' . $match[1] . ';dbname=' . $config['DB_NAME'], $config['DB_USER'], $config['DB_PASSWORD'], [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]);
+        $db = new \PDO(Policy::dsn($config), $config['DB_USER'], $config['DB_PASSWORD'], [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]);
         if (!$write) {
             foreach ($db->query('SHOW GRANTS')->fetchAll(\PDO::FETCH_COLUMN) as $grant) {
                 if (!preg_match('/\AGRANT (?:USAGE|SELECT) ON /D', $grant) || str_contains($grant, 'WITH GRANT OPTION')) {
@@ -108,12 +125,10 @@ final class Site
             // WordPress officially preserves an already supplied $wpdb in require_wp_db().
             // Keep all native renewal writes rollback-only, including nested WC transactions.
             define('ABSPATH', $site . '/');
-            define('WPINC', 'wp-includes');
             define('WP_DEBUG', false);
             define('WP_DEBUG_DISPLAY', false);
-            require_once ABSPATH . WPINC . '/load.php';
-            require_once ABSPATH . WPINC . '/plugin.php';
-            require_once ABSPATH . WPINC . '/class-wpdb.php';
+            require_once ABSPATH . 'wp-includes/plugin.php';
+            require_once ABSPATH . 'wp-includes/class-wpdb.php';
             $GLOBALS['wpdb'] = new class ($config['DB_USER'], $config['DB_PASSWORD'], $config['DB_NAME'], $config['DB_HOST']) extends \wpdb {
                 private bool $closed = false;
 

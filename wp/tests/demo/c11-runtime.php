@@ -21,6 +21,10 @@ $canary = 0;
 try {
     wp_set_current_user($f['users']['actif']);
     $checks['actif_natif'] = Paywall::decisionPdf($issue)['complet'];
+    $checks['article_C08_actif_inchange'] = Paywall::decision(get_post($f['article']))['complet'];
+    wp_set_current_user(0);
+    $checks['article_C08_anonyme_inchange'] = !Paywall::decision(get_post($f['article']))['complet'];
+    wp_set_current_user($f['users']['actif']);
     foreach (['offert', 'groupe'] as $type) {
         update_option('imagine_acces_plans', array_replace($plans, [$f['plan'] => $type]));
         $decision = Paywall::decisionPdf($issue);

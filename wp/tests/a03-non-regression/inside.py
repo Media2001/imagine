@@ -134,6 +134,13 @@ def run_storage(storage):
         check(storage + ':renewal_unverified_refused', denied.returncode == 1 and denied.stderr == 'A03_JSON_FILE\n' and not (OUT / (storage + '-unverified')).exists())
         # Only the opt-in run gets the synthetic writer config; no real credential exists.
         (site / 'wp-config.php').write_text(config)
+        denied_default = snapshot(site, settings, OUT / (storage + '-writer-default'))
+        check(storage + ':default_requires_select_account', denied_default.returncode == 1 and denied_default.stderr == 'A03_SELECT_ACCOUNT_REQUIRED\n')
+        inverse = site / 'wp-content/mu-plugins/999-a03-inverse.php'
+        inverse.write_text("<?php add_filter('woocommerce_subscriptions_is_duplicate_site', '__return_false', PHP_INT_MAX);")
+        denied_runtime = snapshot(site, settings, OUT / (storage + '-unsafe-runtime'), ['--renewal-test'])
+        inverse.unlink()
+        check(storage + ':renewal_runtime_refused', denied_runtime.returncode == 1 and denied_runtime.stderr == 'A03_RUNTIME_UNSAFE\n')
         renewal_before = fingerprint(db, details=True)
         renewed = snapshot(site, settings, OUT / (storage + '-renewal'), ['--renewal-test'])
         check(storage + ':renewal_cli', renewed.returncode == 0, {'exit': renewed.returncode, 'stderr': renewed.stderr[:180]})
