@@ -61,6 +61,11 @@ def run(check_only=False):
         if len(migrated) != 5 or not all(row['private'] for row in migrated):
             raise RuntimeError('Migration incomplète')
         print('Migration privée : 5 numéros, relus.')
+    # Même en contrôle seul, les tests ne doivent pas valider un code distant différent.
+    for rel in FILES:
+        code = 'echo base64_encode(file_get_contents(WP_CONTENT_DIR . ' + json.dumps('/' + rel) + '));'
+        if c10.b00.wp('eval', code)['stdout'].strip() != base64.b64encode((ROOT / 'wp' / rel).read_bytes()).decode():
+            raise RuntimeError('Code C11 distant/local différent : ' + rel)
     # Recettes ciblées : fonctions média du seed seulement, jamais de reseed B00 global.
     for rel, source in {
         'imagine-demo-build/b00-seed.php': ROOT / 'wp/outils/demo/b00-seed.php',

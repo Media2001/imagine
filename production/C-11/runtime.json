@@ -1,7 +1,7 @@
 {
   "phpunit": {
-    "total": 34,
-    "assertions": 190,
+    "total": 36,
+    "assertions": 200,
     "success": true,
     "runner": "wp/outils/demo/c11-unit.py",
     "discovery_T01": false
