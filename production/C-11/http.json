@@ -147,11 +147,11 @@
     },
     "demo-2026-t2:numero": {
       "status": 200,
-      "bytes": 28610
+      "bytes": 28818
     },
     "demo-2026-t2:endpoint-anonyme": {
       "status": 200,
-      "bytes": 28610
+      "bytes": 28818
     },
     "demo-2026-t3:ancien-direct": {
       "status": 404,
@@ -175,11 +175,11 @@
     },
     "demo-2026-t3:numero": {
       "status": 200,
-      "bytes": 28612
+      "bytes": 28818
     },
     "demo-2026-t3:endpoint-anonyme": {
       "status": 200,
-      "bytes": 28612
+      "bytes": 28818
     },
     "demo-2026-hs:ancien-direct": {
       "status": 404,
@@ -231,11 +231,11 @@
     },
     "demo-2026-t4:numero": {
       "status": 200,
-      "bytes": 29228
+      "bytes": 29034
     },
     "demo-2026-t4:endpoint-anonyme": {
       "status": 200,
-      "bytes": 29228
+      "bytes": 29034
     },
     "liste-uploads": {
       "status": 403,
@@ -291,7 +291,7 @@
     },
     "demo-2026-t2:abonne-page-numero": {
       "status": 200,
-      "bytes": 28356
+      "bytes": 28545
     },
     "demo-2026-t2:abonne-pdf-exact": {
       "status": 200,
@@ -299,7 +299,7 @@
     },
     "demo-2026-t3:abonne-page-numero": {
       "status": 200,
-      "bytes": 28358
+      "bytes": 28544
     },
     "demo-2026-t3:abonne-pdf-exact": {
       "status": 200,
@@ -315,7 +315,7 @@
     },
     "demo-2026-t4:abonne-page-numero": {
       "status": 200,
-      "bytes": 28913
+      "bytes": 28745
     },
     "demo-2026-t4:abonne-pdf-exact": {
       "status": 200,
@@ -331,15 +331,15 @@
     },
     "anonyme-apres-abonne": {
       "status": 200,
-      "bytes": 29228
+      "bytes": 29034
     },
     "faux-robot": {
       "status": 200,
-      "bytes": 29228
+      "bytes": 29034
     },
     "connecte-sans-droit": {
       "status": 200,
-      "bytes": 28810
+      "bytes": 28616
     },
     "identifiant-invalide": {
       "status": 404,
