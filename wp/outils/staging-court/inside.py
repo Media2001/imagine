@@ -12,7 +12,7 @@ import sys
 import time
 from urllib.parse import urlsplit
 
-from archive import Refusal, restore, ARCHIVE_REFUSALS
+from archive import Refusal, restore, audit, check_space, ARCHIVE_REFUSALS
 from core_source import plugin_warnings
 from legacy_importer import sql_plan, CREATE_WORDS
 
@@ -65,7 +65,8 @@ def manifest(root):
         if p.is_symlink() or (not p.is_dir() and not p.is_file()):
             raise Refusal('FILE_TYPE_REFUSED')
         if p.is_file():
-            result[p.relative_to(root).as_posix()] = hashlib.sha256(p.read_bytes()).hexdigest()
+            with p.open('rb') as source:
+                result[p.relative_to(root).as_posix()] = hashlib.file_digest(source, 'sha256').hexdigest()
     return result
 
 
@@ -118,63 +119,36 @@ def restore_and_verify(archive, request):
         raise Refusal('ADMIN_PASSWORD_REFUSED')
     # Pinned core is usable only after an exact package/core comparison below.
     # No PHP or database import executes before that gate.
+    limits = request.get('archive_limits', {})
+    with Path(archive).open('rb') as source:
+        preflight = audit(source, **limits)['report']
+    for rule in preflight['rules']:
+        if rule['blocking']:
+            raise Refusal(rule['code'], rule)
+    check_space(SITE, preflight['total_bytes'] + 3 * preflight['database_bytes'])
     shutil.copytree(CORE, SITE)
     shutil.rmtree(SITE / 'wp-content')
     archive_report = {}
     with Path(archive).open('rb') as stream:
-        sql, package, count = restore(stream, SITE / 'wp-content', report=archive_report)
+        sql, package, count = restore(stream, SITE / 'wp-content', report=archive_report,
+                                      sql_path='/scratch/a01-source.sql', **limits)
     core_versions = validate_core_version(package, CORE / 'wp-includes/version.php', request.get('expected_core_version'))
     before = manifest(SITE / 'wp-content')
-    # Canonicalize only CREATE TABLE token groups. INSERT string literals are untouched.
-    from legacy_importer import TOKEN
-    text = sql.decode('utf-8')
-    position = 0
-    groups = []
-    group = []
-    while position < len(text):
-        match = TOKEN.match(text, position)
-        if not match:
-            raise Refusal('SQL_GRAMMAR')
-        position = match.end()
-        if match.lastgroup in ('space', 'comment'):
-            continue
-        if match.group() == ';':
-            statement = ' '.join(group)
-            if statement.startswith('CREATE TABLE '):
-                statement = re.sub(
-                    r'(\) ENGINE = (?:INNODB|MYISAM|ARIA|MEMORY)) AUTO_INCREMENT = ([0-9]+) '
-                    r'(DEFAULT CHARSET = [A-Z0-9_]+(?: COLLATE = [A-Z0-9_]+)?)$',
-                    r'\1 \3 AUTO_INCREMENT = \2', statement
-                )
-            groups.append(statement)
-            group = []
-        else:
-            group.append(match.group().upper() if match.lastgroup == 'word' else match.group())
-    if group:
-        raise Refusal('SQL_TERMINATOR')
-    sql = (';\n'.join(groups) + ';\n').encode()
-    try:
-        plan = sql_plan(sql, table_engines={'INNODB', 'MYISAM', 'ARIA', 'MEMORY'})
-    except Exception:
-        from legacy_importer import TOKEN, CREATE_WORDS
-        groups = []
-        group = []
-        for match in TOKEN.finditer(sql.decode('utf-8')):
-            if match.lastgroup in ('space', 'comment'):
-                continue
-            if match.group() == ';':
-                if group and [t[1].upper() for t in group[:2]] == ['CREATE', 'TABLE']:
-                    groups.extend(t[1].upper() for t in group[4:] if t[0] == 'word'
-                                  and t[1].upper() not in CREATE_WORDS)
-                group = []
-            else:
-                group.append((match.lastgroup, match.group()))
-        # Schema grammar keywords only, never SQL, rows or literal values.
-        raise Refusal('SQL_DDL_UNSUPPORTED_' + '_'.join(sorted(set(groups)))[:100]) from None
+    # SQL stays on disk; validate every bounded statement before any import.
+    from sql_stream import validate_file
+    import legacy_importer
+    normalized = Path('/scratch/a01-validated.sql')
+    if normalized.exists():
+        normalized.unlink()
+    plan = validate_file(sql, legacy_importer, normalized)
     prefix = plan['prefix']
     command(['mariadb', '--socket=' + SOCKET, '--user=root', '-e', 'CREATE DATABASE ' + DB])
-    command(['mariadb', '--socket=' + SOCKET, '--user=root', DB],
-            data=(';\n'.join(plan['statements']) + ';\n').encode())
+    with normalized.open('rb') as source:
+        imported = subprocess.run(['mariadb', '--socket=' + SOCKET, '--user=root', DB], stdin=source,
+                                  stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=1200)
+    if imported.returncode:
+        raise Refusal('COMMAND_REFUSED')
+    sql.unlink(); normalized.unlink()
     # Independent engine readback: the import must preserve, not convert, engines.
     engine_rows = command(['mariadb', '--socket=' + SOCKET, '--user=root', '--skip-column-names', '-e',
                            "SELECT TABLE_NAME,ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA='" + DB + "'"]).stdout.decode().splitlines()
@@ -242,7 +216,7 @@ FAILURE_STAGES = {
     **{code: 'sql_preflight' for code in (
         'SQL_ENCODING', 'SQL_GRAMMAR', 'SQL_TERMINATOR', 'SQL_IDENTIFIER', 'SQL_TABLE',
         'SQL_DDL', 'SQL_DDL_UNSUPPORTED', 'SQL_INSERT', 'SQL_INSERT_LITERAL',
-        'SQL_STATEMENT', 'SQL_PREFIX')},
+        'SQL_STATEMENT', 'SQL_PREFIX', 'SQL_STATEMENT_LIMIT', 'SQL_INSERT_COLUMN_COUNT')},
     **{code: 'request_validation' for code in (
         'FRESH_SITE_REQUIRED', 'TARGET_REFUSED', 'DECISIONS_REFUSED', 'ADMIN_PASSWORD_REFUSED', 'REQUEST_LIMIT')},
     **{code: 'isolation' for code in ('NETWORK_REFUSED', 'LISTENER_REFUSED')},

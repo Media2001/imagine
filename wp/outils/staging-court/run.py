@@ -45,7 +45,7 @@ def inspect(name):
 def payload(test):
     pairs = [(ROOT / 'wp/outils/staging' / f, 'subject/' + f) for f in SUBJECT]
     pairs += [(ROOT / 'wp/outils/staging-court' / f, 'opt/court/' + f)
-              for f in ['archive.py', 'inside.py', 'bridge.php', 'core_source.py']]
+              for f in ['archive.py', 'archive_policy.py', 'sql_stream.py', 'inside.py', 'bridge.php', 'core_source.py']]
     pairs.append((ROOT / 'wp/outils/staging-wp-integration/worker/worker.py', 'opt/court/legacy_importer.py'))
     if test:
         pairs += [(ROOT / 'wp/tests/staging-e2e' / f, 'opt/e2e/' + f) for f in FIXTURE + ['harness.py', 'test_harness.py']]

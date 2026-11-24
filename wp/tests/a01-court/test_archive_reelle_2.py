@@ -20,6 +20,42 @@ def attack(path, data=b'x'):
 
 
 class ArchiveReelle2(unittest.TestCase):
+    def test_default_summary_is_short_and_detail_retains_locations(self):
+        import diagnosis
+        self.assertTrue(hasattr(diagnosis, 'format_summary'))
+        report = {'status':'REFUSED','entries':49756,'total_bytes':2000000000,'database_bytes':150000000,
+                  'rules':[{'code':'ARCHIVE_LIMIT','count':45376,'blocking':True,
+                            'locations':[{'zone':'uploads/' + str(i),'count':1} for i in range(50)]}],
+                  'inventory':{'plugins':['woocommerce'],'themes':['fiction'],'uploads':[{'directory':'2026','count':49756,'bytes':2000000000}]},'excluded':[]}
+        output = diagnosis.format_summary(report)
+        self.assertLess(len(output.splitlines()), 12)
+        self.assertIn('45376', output)
+        self.assertIn('BLOQUANT', output)
+        self.assertNotIn('uploads/5', output)
+        self.assertEqual(50, len(report['rules'][0]['locations']))
+
+    def test_streamed_sql_and_targeted_nonblocking_secrets(self):
+        import diagnosis
+        sql = b'CREATE TABLE `wp_options` (`option_name` varchar(100),`option_value` text) ENGINE=InnoDB;'
+        sql += b"INSERT INTO `wp_options` VALUES ('home','fiction'),('siteurl','fiction');"
+        sql += b''.join(('CREATE TABLE `wp_' + t + '` (`id` bigint) ENGINE=InnoDB;').encode() for t in ('users','usermeta','posts','postmeta','comments'))
+        raw = attack('./package.json', b'{"WordPress":{"Version":"6.9.1"}}') + attack('./database.sql', sql)
+        for path in ('plugins/public/main.php', 'themes/public/style.php', 'uploads/2026/a.jpg', 'uploads/2026/a.mp3', 'mu-plugins/site.php', 'site.json'):
+            raw += attack(path, b"<?php $api_key='FICTION_ONLY'; whsec_FICTION")
+        report = diagnosis.diagnose(io.BytesIO(raw + bytes(4377)))
+        rule = next(r for r in report['rules'] if r['code'] == 'SECRET_OU_IDENTIFIANT')
+        self.assertEqual(2, rule['count'])
+        self.assertFalse(rule['blocking'])
+        self.assertEqual([], report['blockers'])
+        from sql_stream import Framer
+        statements = []
+        framer = Framer(statements.append)
+        malicious = b"INSERT INTO `wp_posts` VALUES ('fiction;CREATE TABLE `NEVER_VALUE` (`email` text)');"
+        for offset in range(0, len(malicious), 7):
+            framer.feed(malicious[offset:offset+7])
+        framer.finish()
+        self.assertEqual([malicious], statements)
+
     def test_excluded_payloads_never_read_and_unknown_uploads_closed(self):
         raw = attack('./database.sql') + attack('uploads/wpallexport/contact.csv', b'NEVER_READ') + bytes(4377)
         class Guard(io.BytesIO):

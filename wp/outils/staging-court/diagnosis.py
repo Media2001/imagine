@@ -3,7 +3,8 @@ import importlib.util
 import json
 from pathlib import Path
 import re
-from archive import Findings, Refusal, audit
+from archive import Findings, Refusal, audit, secret_candidate, DEFAULT_MAX_BYTES, DEFAULT_MAX_ENTRIES, DEFAULT_MAX_SQL_BYTES
+from sql_diagnostic import SQLAnalysis
 from core_source import select_version, numeric
 
 HERE = Path(__file__).resolve().parent
@@ -205,7 +206,7 @@ def sql_diagnosis(payload, findings, decisions):
                 findings.add('URL_ABSENTE', table=prefix + 'options', columns=['option_name', 'option_value'])
 
 
-def diagnose(stream, expected='6.9.1', decisions=None, php='8.2'):
+def diagnose(stream, expected='6.9.1', decisions=None, php='8.2', max_bytes=DEFAULT_MAX_BYTES, max_entries=DEFAULT_MAX_ENTRIES, max_sql_bytes=DEFAULT_MAX_SQL_BYTES):
     findings = Findings()
     if decisions is None:
         decisions = {}
@@ -215,15 +216,26 @@ def diagnose(stream, expected='6.9.1', decisions=None, php='8.2'):
     # Only current entry's bounded prefix/tail are retained; no file payloads.
     tail, head, dangerous = b'', b'', False
     plugins = []
+    sql_analysis = None
     def observe(relative, data, final):
-        nonlocal tail, head, dangerous
+        nonlocal tail, head, dangerous, sql_analysis, sql_count
+        if relative == 'database.sql':
+            if sql_analysis is None:
+                sql_count += 1
+                sql_analysis = SQLAnalysis(findings, decisions)
+            if final:
+                sql_analysis.finish(); sql_analysis = None
+            else:
+                sql_analysis.feed(data)
+            return
         if not final:
-            dangerous |= bool(DANGER.search(tail + data) or SENSITIVE_VALUE.search(tail + data))
+            if secret_candidate(relative):
+                dangerous |= bool(DANGER.search(tail + data) or SENSITIVE_VALUE.search(tail + data))
             tail = (tail + data)[-256:]
             head = (head + data[:8192])[:8192]
             return
         if dangerous and relative != 'database.sql':
-            findings.add('SECRET_OU_IDENTIFIANT', relative)
+            findings.add('SECRET_OU_IDENTIFIANT', relative, blocking=False)
         if relative.startswith('plugins/') and relative.endswith('.php'):
             plugins.append((relative, head.decode('utf-8', 'replace').replace('\r', '\n')))
         tail, head, dangerous = b'', b'', False
@@ -257,7 +269,7 @@ def diagnose(stream, expected='6.9.1', decisions=None, php='8.2'):
         except (ValueError, TypeError, RecursionError):
             pass
 
-    scan = audit(stream, retain_sql=True, on_chunk=observe, on_metadata=metadata_entry)
+    scan = audit(stream, max_bytes=max_bytes, max_entries=max_entries, max_sql_bytes=max_sql_bytes, on_chunk=observe, on_metadata=metadata_entry)
     # Preserve traversal order and precise original counts from the archive pass.
     archive_rules = scan['report']['rules']
     findings.rules = {**{r['code']: r for r in archive_rules}, **findings.rules}
@@ -275,6 +287,8 @@ def diagnose(stream, expected='6.9.1', decisions=None, php='8.2'):
             if match and current and numeric(match[1]) > numeric(current):
                 findings.add(code, relative, blocking=False)
     report = findings.report(scan['report']['entries'], scan['report']['complete'])
+    for key in ('total_bytes', 'database_bytes', 'archive_bytes', 'excluded', 'inventory'):
+        report[key] = scan['report'][key]
     report.update(mode='diagnose', core_versions={'source':version,'expected':expected if expected_valid else None}, read_only=True, created_sites=[], downloads=0, extracted_files=0,
                   status='REFUSED' if report['blockers'] else 'NO_STATIC_BLOCKER',
                   full_staging_ready=False,
@@ -284,7 +298,23 @@ def diagnose(stream, expected='6.9.1', decisions=None, php='8.2'):
     return report
 
 
-def diagnose_path(path, expected='6.9.1', decisions_path=None, php='8.2'):
+def format_summary(report):
+    lines = [f"{report['status']} | {report.get('entries', 0)} entrees | contenu {report.get('total_bytes', 0)} octets | base {report.get('database_bytes', 0)} octets"]
+    for rule in report['rules']:
+        zones = list(dict.fromkeys(str(loc.get('zone', loc.get('table', '(schema)'))) for loc in rule['locations']))[:5]
+        lines.append(f"{rule['code']}: {rule['count']} | {'BLOQUANT' if rule['blocking'] else 'AVERTISSEMENT'} | " + ', '.join(zones))
+    inventory = report.get('inventory', {})
+    lines.append('Extensions: ' + ', '.join(inventory.get('plugins', [])))
+    lines.append('Themes: ' + ', '.join(inventory.get('themes', [])))
+    for row in inventory.get('uploads', []):
+        lines.append(f"uploads/{row['directory']}: {row['count']} fichiers, {row['bytes']} octets")
+    for row in report.get('excluded', []):
+        lines.append(f"EXCLU {row['zone']}: {row['count']} fichiers, {row['bytes']} octets")
+    lines.append('Lecture seule; staging non verifie. Detail complet: --detail')
+    return '\n'.join(lines)
+
+
+def diagnose_path(path, expected='6.9.1', decisions_path=None, php='8.2', **limits):
     try:
         source = Path(path)
         if source.is_symlink() or not source.is_file() or source.suffix.lower() != '.wpress':
@@ -296,7 +326,7 @@ def diagnose_path(path, expected='6.9.1', decisions_path=None, php='8.2'):
             except (ValueError, OSError):
                 decisions = []  # diagnosed, never copied into output
         with source.open('rb') as stream:
-            return diagnose(stream, expected, decisions, php)
+            return diagnose(stream, expected, decisions, php, **limits)
     except (OSError, Refusal):
         findings = Findings()
         findings.add('ARCHIVE_SOURCE_REFUSED')
