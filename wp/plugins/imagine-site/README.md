@@ -100,3 +100,17 @@ Cible unique fictive : installation ciblée, puis rejeu PHP/HTTP réel et non-r�
 
 Limites : unicité **par compte**, pas d’identification de personne à travers plusieurs adresses ; refus des emails jetables et vraie confirmation email à raccorder au futur parcours d’inscription. Un robot utilisant une session valide et un UA humain n’est pas distinguable d’un lecteur. Aucun robot Internet n’a été vérifié hors ligne. PDF et achats de numéro n’acquièrent aucun droit découverte ; aucun accès réel ni email sortant.
 
+## C-13 — Liste d’envoi native (relecture avec réserve C09)
+
+`EnvoiNatif.php` lit les souscriptions natives et leurs adresses de livraison par CRUD. Les relevés observés sont append-only, non autoloadés (`imagine_envoi_releve_ID_UUID`) et ne sont jamais antidatés. Les sauvegardes natives ajoutent une observation si les champs postaux changent. C01 fournit les numéros théoriques ; C07 seul établit les lignes, le gel, les anomalies et l'éligibilité. Un historique antérieur manquant ferme l'export. Une projection future est explicitement provisoire.
+
+`ListeEnvoiAdmin.php` ajoute **Imagine → Liste d’envoi**, sous la capacité C09 existante `imagine_exporter_liste_envoi`, ou `manage_options` pour les administrateurs. Aucun rôle ni droit sensible n'est ajouté. L'exception au blocage administratif Woo est limitée à cet écran et à sa capacité. L'export authentifié `admin-post.php` exige POST et un nonce lié au numéro ; C07/C04 protègent le CSV et C10 fournit les colonnes. Aucun fichier export public. L'audit `imagine_envoi_export_journal_UUID` est écrit/relu avant la réponse ; s'il échoue, l'export ferme. Cinquante événements affichés, sans purge.
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/c13.py --deploy
+PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/c13.py
+PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/c13.py --require-complete
+```
+
+Cible unique `imagine-test-demo`, aucun reset global ou C09/C10/C11/C12. Deux témoins supplémentaires C13, avec une grâce explicitement fictive et aucun paiement, permettent un vrai CSV de deux destinataires BE/FR, sans email dans le format postal. **Ils ne remplacent pas l'acceptation positive des profils C09** : leurs douze souscriptions sont sans paiement validé, A-SANSMAIL reste exclu pour ce motif ; offerts/groupés ne disposent pas du lien natif nécessaire. Aucun statut actif n'est converti en règlement et aucun adaptateur offert/Teams complet n'est revendiqué. Le mode strict retourne 2 tant que ces gates restent bloquées ; le mode technique peut être vert. Voir `production/C-13/{A-VOIR.md,COMMANDES.md,resultats.json}`. PRET signifie ici relecture avec réserves, pas recette complète ni validation visuelle.
+

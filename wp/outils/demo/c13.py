@@ -39,7 +39,7 @@ def protege():
     return json.loads(r['stdout'])
 
 
-def run(deploy=False, php_only=False):
+def run(deploy=False, php_only=False, require_complete=False):
     _, before = c10.guard()  # Sonde read-only avant toute mutation de la cible.
     protected = protege()
     if deploy:
@@ -77,6 +77,8 @@ def run(deploy=False, php_only=False):
         (ROOT / 'production/C-13/resultats.json').write_text(json.dumps(checks, ensure_ascii=False, indent=2), encoding='utf-8')
         print('C13 :', len(checks['PHP']) + len(checks['HTTP']), 'assertions PHP/HTTP ; manifestes préservés')
         print('Acceptation C09 :', json.dumps(checks['acceptation_C09'], ensure_ascii=False), '; recette complète :', checks['recette_complete'])
+        if require_complete and not checks['recette_complete']:
+            raise SystemExit(2)
     return checks
 
 
@@ -84,5 +86,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--deploy', action='store_true')
     parser.add_argument('--php-only', action='store_true')
+    parser.add_argument('--require-complete', action='store_true', help='Exit 2 si une exigence C09 reste bloquée, même avec les tests techniques verts')
     args = parser.parse_args()
-    run(args.deploy, args.php_only)
+    if args.php_only and args.require_complete:
+        parser.error('--require-complete exige le rejeu complet')
+    run(args.deploy, args.php_only, args.require_complete)

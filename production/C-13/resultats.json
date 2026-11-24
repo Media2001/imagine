@@ -15,10 +15,14 @@
     "calcul_historique_testable": true,
     "gel_cloture_C07_adresse_statut": true,
     "historique_absent_ferme": true,
+    "offline_aucun_transport": true,
+    "temoins_C13_sans_paiement": true,
     "numero_invalide_refuse": true,
     "referent_sans_droits_sensibles": true,
     "format_C10_effectivement_lu": true,
     "journal_indisponible_refuse": true,
+    "suppression_native_cloture_future": true,
+    "temoin_suppression_nettoye": true,
     "anonyme_ferme": true
   },
   "sources_installees_conformes": true,
@@ -48,5 +52,17 @@
     "aucun_evenement_sur_refus_final": true
   },
   "manifestes_preserves": true,
-  "C09_roles_options_editorial_preserves": true
+  "C09_roles_options_editorial_preserves": true,
+  "acceptation_C09": {
+    "numero": "DEMO-2027-T1",
+    "abonnements_C09": 12,
+    "sans_paiement_valide": 12,
+    "C09_destinataires": 0,
+    "A_SANSMAIL_inclus": false,
+    "A_SANSMAIL_motif": "paiement_non_valide",
+    "offert_natif_present": false,
+    "groupe_natif_present": false
+  },
+  "recette_complete": false,
+  "statut": "PRET_RELECTURE_AVEC_BLOCAGE_C09"
 }
