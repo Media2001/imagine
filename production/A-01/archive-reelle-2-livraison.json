@@ -1,0 +1,172 @@
+{
+  "status": "PASS",
+  "recorded_utc": "2026-11-24T21:13:33.116651+00:00",
+  "scope": "A-01 archive-reelle-2 only; current acceptance on real public-plugin exports; no real archive or new HTTP publication",
+  "modified_existing": {
+    "wp/outils/staging-court/archive.py": "f965e6764cffacd34faba77682a2a944ce76c666aa337e896fa7737de79884f4",
+    "wp/outils/staging-court/diagnosis.py": "6fe58b57a2ca939873ee071e895074f3bf96da35cfd4e09632e0f4f1f6f9862d",
+    "wp/outils/staging-court/inside.py": "b5455483e913d3db392bdb500de93a3361ef7949fbc73d8c2badba69241fb819",
+    "wp/outils/staging-court/publish.py": "12d24504e5f5fb0077989e3b6e8e81dd905d625965de3f2f1d7830efed81ee85",
+    "wp/outils/staging-court/core_source.py": "4333875f38c2d87eb4f9b8f247d30b799e99ab7f4bd99530a22fb11b70b1f29e",
+    "wp/outils/staging-court/run.py": "1bdf8a21648ad9ffb69951d7acaef6d9e6818b9e0e3b267d0851b77d1668f2a0",
+    "wp/outils/staging/files.php": "97aa0aeecfb13dca77b97b93d1a147f33962889044f26a9ff06a2cd8a621baeb",
+    "wp/tests/a01-court/test_archive_reelle.py": "58d034cc30a7163c95a9e0f6014cdde7a7a3a69b81f936bdabab23e6057bac17",
+    "wp/tests/a01-court/test_corrections.py": "0ba79199daaae079a55bd59acb0942344166f74bfc1de6dc28b610f82d388cec",
+    "wp/tests/a01-court/test_password_stdin.py": "119149fa86ab23fb7c5372460ae87ea294113d0fac2184208c200b4e2402fdb3",
+    "wp/tests/a01-court/test_arbitrations.py": "12e2445fc409a2567728b39dc2ab1e6ea720f2a014efa46117084614fc72eb2d",
+    "production/A-01/notes.md": "152b577eff5eb48fc0d9af36b70561b35e37fb1c21f07bb4e384159a72c28ab7"
+  },
+  "new_sources": {
+    "wp/outils/staging-court/archive_policy.py": "cbe4e556f7d1d5a7483f7e4bee7d08f3fc44524d1237ffac3d27f507461490e4",
+    "wp/outils/staging-court/sql_stream.py": "cccbd868ecccbfef3409817b77606e5b5261501e1cb48f1764fca44365af0f56",
+    "wp/outils/staging-court/sql_diagnostic.py": "51159af86a790cfae95836b4928f6a427f4dafe7ba6a397c539a1aaeeea23250",
+    "wp/tests/a01-court/test_archive_reelle_2.py": "11c063c53ce58ebda1aa89b4fd7d3155a5fac128d67d036cb79e441c19c473bf",
+    "wp/tests/a01-court/ai1wm_export_fixture.php": "c1b3b83721571a73ad11539e3931bb550787d673293acf3f4d7e850f3c535ce4",
+    "wp/tests/a01-court/prepare_ai1wm.py": "3ccb90944bdd91bc6ad4dee255097610315d8e3d120f8ebe166cfc1dbd06f731",
+    "wp/tests/a01-court/ai1wm_prepare_inside.py": "6bc7e99de80e09bed42e2d95a5e5fe551cdc1cc0907f34f57bfb30a4f444ee14",
+    "wp/tests/a01-court/exercise_ai1wm.py": "c9d310dd597681fbc343a92de3217f8e2deaf33fe3906fa221690790f179cad4",
+    "wp/tests/a01-court/ai1wm_verify_inside.py": "288fdb549eff97f6d008bd16847606e573ade2bd5792de1f536a0793ac0d8aed",
+    "wp/tests/a01-court/test_native_file_policy.php": "30b7f7d0b6de2cd55804c880cfe57402686969cadf560b776151e9440823743f",
+    "wp/tests/a01-court/verify_ai1wm_final.py": "356196887664f2ca8e44ab0bdf021252df5534fb56545e16007fa51ff592bb85"
+  },
+  "markers": {
+    "production/A-01/PRET": "e1a9e93d3eb0725db0d65f7efa22d7fd3181e8bafd96c69788ae50b139968ca1",
+    "production/A-01/PRET-archive-reelle-23nov-historique-avant-archive-reelle-2.txt": "8266bc1fd89dc178721d7564f45dacbf180f4fc78b062c655afa07b609064752"
+  },
+  "production_artifacts": {
+    "production/A-01/archive-reelle-2-final.json": "e317e6c055356d6c073454844de80d07ef2e6f5cdc694cd9cc628fcf8726c62c",
+    "production/A-01/archive-reelle-2-host-all.log": "45d510112b6214a3d76e502ad873c6d63ddc98195528d7c259bd83f3afe14f83",
+    "production/A-01/archive-reelle-2-host-final.log": "a80de571231ae214aba50d5b76b291e947bfa76da7068ca455ae88ca5ac3f383",
+    "production/A-01/archive-reelle-2-host-livraison.log": "da18a48937e40f0798b143f1441dc44b9688648301f9a8784649938f4762aa55",
+    "production/A-01/archive-reelle-2-host-manifest-final.log": "fd30ce0fed8241a3646cc04b135bfd83cf89042d898c41cf6e24933f35d05e46",
+    "production/A-01/archive-reelle-2-host-remise.log": "a79c2aeff1245cd3e3f3a7f8bcc98936a4a544213a318af60fa7d616fea80a20",
+    "production/A-01/archive-reelle-2-public/class-ai1wm-archiver.php": "6e5f88d9f282190a9b152ebd1a9f8a1b4ab03990a35c5c86fde71533773394dc",
+    "production/A-01/archive-reelle-2-public/class-ai1wm-compressor.php": "09b2c91a0dfff8b3635d9bb918ff02cb49eadbb7744b32fe4de0048c74d1168c",
+    "production/A-01/archive-reelle-2-public/class-ai1wm-export-archive.php": "760a5e1c26440bcfe89aa7f860b11b98212a7b57843da1ca39ddb3bc149fb275",
+    "production/A-01/archive-reelle-2-public/class-ai1wm-export-config.php": "e464db1a60dab9f47a4b1833d522ad7542ddf35447a6347d54c8aef62b9462e4",
+    "production/A-01/archive-reelle-2-public/class-ai1wm-export-controller.php": "59b2f41f239a02178e63e5dd6d4837c3f1c040cd8117874b2c9ae6c51d88d541",
+    "production/A-01/archive-reelle-2-public/class-ai1wm-export-database.php": "a716d2bf2cb4a19d1811ea2b3aa86a2ceaa01be31bc31f3ddf935135b026da6e",
+    "production/A-01/archive-reelle-2-public/class-ai1wm-export-download.php": "833feb8e50e4273903bbcae1606fab1c3d304f092c4eeeb61026c719bd17a57e",
+    "production/A-01/archive-reelle-2-public/class-ai1wm-export-init.php": "b31d84ebffdf6420576686c23f61d2c761c39336eaa9a8c7cc8ac0f6585f0cd0",
+    "production/A-01/archive-reelle-2-public/class-ai1wm-extractor.php": "cd46a228b8740eeaeee811844f6fd26bb4e23affd5c382ebef3fc951a61eff71",
+    "production/A-01/archive-reelle-2-public/class-ai1wm-main-controller.php": "6fe11e07ba03fdbf70691e78aa64bb037ecc934db94a32beb973566c230e1af1",
+    "production/A-01/archive-reelle-2-public/class-ai1wm-wp-cli-command.php": "b93372d17b4a19b95157946ce7a915fed33c9f108a21e0fd939a7e90b7d12e9d",
+    "production/A-01/archive-reelle-2-public/cleanup.json": "067c0c6615a01f8faf170642a69bb4d79bf1f410a98afb5c357cf67c3ef16b61",
+    "production/A-01/archive-reelle-2-public/constants.php": "5de41c60c3a04aa3c6c627d9ec5d0e201294e7a8d67d09a8ab40f35fde833b27",
+    "production/A-01/archive-reelle-2-public/functions.php": "58aab1abb3544882ebb6ea341c6fd8145d536d8409dc0b465442ff2f8c4287c9",
+    "production/A-01/archive-reelle-2-public/public-source.json": "17303500965bcbbcec30362cf61bfa3bd6ae5b2ebd406753bd6ca5d8db697365",
+    "production/A-01/archive-reelle-2-rapport.md": "a0dd5ae9bf41bec84d05fc34385e707bb98e0f9ae8ac49b42dc20ab2825c7fc1",
+    "production/A-01/archive-reelle-2-red-directory-name.log": "5ccce7d9aaf24535ef21af4f8ab3911a7106ac3399057e73df5f822ed9cdf936",
+    "production/A-01/archive-reelle-2-red-engine-capacity.log": "a35286ac9559d184a347d6a764ae6ce5ca5c96b3349c5f3168fad62c3f64f039",
+    "production/A-01/archive-reelle-2-red-manifest.log": "bfefb897971c78eea718f05855df45b868b384ad29b2c696c5686fb297e0a2bc",
+    "production/A-01/archive-reelle-2-red-native-files.log": "a41d7d27a4ec9f54d170876c2ff59e8e271871ece25d932827acf20cbd2d269c",
+    "production/A-01/archive-reelle-2-red-policy.log": "80997b6b228676e2286b96ead88e5e0eaad773e02ae97a8cd3efb58cfd96d969",
+    "production/A-01/archive-reelle-2-red-pre-database.log": "06411c430e0a0269a1f1e5d149949c04c7ae9f31bcdde2e5bec1375da828216e",
+    "production/A-01/archive-reelle-2-red-root.log": "342cf6df3482c6937d1eec4b61dbecd5cc957cd2860dd67d937e5bf86ca9e890",
+    "production/A-01/archive-reelle-2-red-secrets.log": "2e20865c7dfe356cdb27ce40bb6ae157cf81e9a0c0d0a821604920faadbe4603",
+    "production/A-01/archive-reelle-2-red-summary.log": "937a81e4163d1ea26380a2cc277011a51f3c0f1cf1881971dd86b71d23c083db",
+    "production/A-01/archive-reelle-2-regression-host.log": "56043dce1f7c4c86225c2922b35de15fe3338e7bb8eda8228dec3a6f865ecc6e",
+    "production/A-01/archive-reelle-2/2b2c796bf78b/archive-89a75913.log": "32bc109a215208623048ed699db05b7274debf3b203cbe9de4ceae40178c3156",
+    "production/A-01/archive-reelle-2/2b2c796bf78b/cleanup.json": "750aee593c12d8aca00052f7818104f0be734c2a6378a1843cfa43277b4bb470",
+    "production/A-01/archive-reelle-2/2b2c796bf78b/data-89a75913.log": "696851cd08b293e694dada09b6664183eb4f7ac68120857dafb808456de844a7",
+    "production/A-01/archive-reelle-2/2b2c796bf78b/harness-89a75913.log": "f05c0cc6349b42640edb294cb40e00d78bee696865be386303f0b749486371fd",
+    "production/A-01/archive-reelle-2/2b2c796bf78b/native-files-89a75913.log": "54af3b5cd68908ea169007d0a0fce1e92c80d0c836170a80344d3eedc806e233",
+    "production/A-01/archive-reelle-2/2b2c796bf78b/prepare.json": "7accf006510eb265f5c2a9a5c669debafd24253b941dde9aa60712127fc5c4a8",
+    "production/A-01/archive-reelle-2/2b2c796bf78b/prepare.log": "dd7fd7072fe9d2f22f605919bca48c1c1af1be1fb7a557522c9fd8f2c8759559",
+    "production/A-01/archive-reelle-2/2b2c796bf78b/qualification-89a75913.json": "5cf1c9cc5281a94961dcad173f3985bb34a69c61d3cd39fd97ecd70e7bda42a1",
+    "production/A-01/archive-reelle-2/2b2c796bf78b/qualification-89a75913.log": "00c037e5f1be65d18626bc2e53b6ad46b717fe13eaa2f3144b9b2508876887bf",
+    "production/A-01/archive-reelle-2/8f6e3d24930d/archive-5e22ae21.log": "349446415d17d608e648da3d379663d947ee9ad04f1003be109383e98c0015ff",
+    "production/A-01/archive-reelle-2/8f6e3d24930d/archive-bee2c1b1.log": "ba545c856cf8669bcc8ee5036a0b429ce0882f1307c511fa154bdfc2cd50877a",
+    "production/A-01/archive-reelle-2/8f6e3d24930d/cleanup.json": "8a64031f10d5d65c51b6c0270560dea9bafdacf3e81971d4cce703304eef9e13",
+    "production/A-01/archive-reelle-2/8f6e3d24930d/data-bee2c1b1.log": "696851cd08b293e694dada09b6664183eb4f7ac68120857dafb808456de844a7",
+    "production/A-01/archive-reelle-2/8f6e3d24930d/harness-5e22ae21.log": "57b4e591b7c7449d87529d375476172cc6ee45b2790a735121f3b2b504e307e8",
+    "production/A-01/archive-reelle-2/8f6e3d24930d/harness-bee2c1b1.log": "ba88456b71e2b49eb3ed93fd422002e88af476a380b6c5abac5752898ff78186",
+    "production/A-01/archive-reelle-2/8f6e3d24930d/native-files-5e22ae21.log": "54af3b5cd68908ea169007d0a0fce1e92c80d0c836170a80344d3eedc806e233",
+    "production/A-01/archive-reelle-2/8f6e3d24930d/native-files-bee2c1b1.log": "54af3b5cd68908ea169007d0a0fce1e92c80d0c836170a80344d3eedc806e233",
+    "production/A-01/archive-reelle-2/8f6e3d24930d/prepare.json": "45f1121825384f0b1c207e18051558ea15dc606853e56c1b479b6ca5948b8aa6",
+    "production/A-01/archive-reelle-2/8f6e3d24930d/prepare.log": "88e5ab406f73e3a0e957ed51402b955e47ad40dd5e17a9bb5018132d2f623fba",
+    "production/A-01/archive-reelle-2/8f6e3d24930d/qualification-5e22ae21.json": "3c33aa6a0397ac1e87e736a87f997a704ea572c6be066548ea9573a03b98994e",
+    "production/A-01/archive-reelle-2/8f6e3d24930d/qualification-5e22ae21.log": "7960da40d28a9d61b5fb63e69c15aebbef41b55f56893f201f8e90029e9e4aea",
+    "production/A-01/archive-reelle-2/8f6e3d24930d/qualification-bee2c1b1.json": "050d1815a0a909b1f98f2b46873102124a22445721c93acba64135d95dc577bf",
+    "production/A-01/archive-reelle-2/8f6e3d24930d/qualification-bee2c1b1.log": "7960da40d28a9d61b5fb63e69c15aebbef41b55f56893f201f8e90029e9e4aea",
+    "production/A-01/archive-reelle-2/da5698b02266/archive-15a83a77.log": "ec5a4071e6e149fd6c522cc1d5dd73e53070208a13593d67d1ec2c0b6aaf9ba3",
+    "production/A-01/archive-reelle-2/da5698b02266/archive-9deb9901.log": "4fd77e48656591dd5f921b77e443eab258bec399a5a3d4eca689af0131c361dd",
+    "production/A-01/archive-reelle-2/da5698b02266/cleanup.json": "27845b1962860a49f3af6171872a9499f538e52c252b572a7d1def0345fecfe3",
+    "production/A-01/archive-reelle-2/da5698b02266/harness-15a83a77.log": "ee782a5dd3fdb0b622ba5ea2ef6ce5144fc806258ce0c8a1eb973edbeaa06f03",
+    "production/A-01/archive-reelle-2/da5698b02266/harness-9deb9901.log": "fa564fd7ef6ac4bf0a63205d99caf35b882d85978015f4911aa53661d6dcc77f",
+    "production/A-01/archive-reelle-2/da5698b02266/native-files-15a83a77.log": "54af3b5cd68908ea169007d0a0fce1e92c80d0c836170a80344d3eedc806e233",
+    "production/A-01/archive-reelle-2/da5698b02266/native-files-9deb9901.log": "54af3b5cd68908ea169007d0a0fce1e92c80d0c836170a80344d3eedc806e233",
+    "production/A-01/archive-reelle-2/da5698b02266/prepare.json": "6a552bac5861ac2e5484d9c02bc314a2dbee4c90c7ea5f4fe4ca17fa35816af3",
+    "production/A-01/archive-reelle-2/da5698b02266/prepare.log": "88e5ab406f73e3a0e957ed51402b955e47ad40dd5e17a9bb5018132d2f623fba",
+    "production/A-01/archive-reelle-2/da5698b02266/qualification-15a83a77.json": "a33f31792519d71e62ec50f9107e14550c6d37b9c9a1a2c6b0d8455c3b5ac973",
+    "production/A-01/archive-reelle-2/da5698b02266/qualification-15a83a77.log": "c694058bbc79f41077c1f35d0b40034b96c3395eb775040510f65ae6a4dc7f8f",
+    "production/A-01/archive-reelle-2/da5698b02266/qualification-1c785d7a.json": "10bf8d4892a1f115be2e5303686cd7299fb88ee4863b2a3c5d83297e3a437ba6",
+    "production/A-01/archive-reelle-2/da5698b02266/qualification-9deb9901.json": "5daf31e1506aa6e55f2d3db0ddf5deda398b71f0ca764e07d335ecabd8194b35",
+    "production/A-01/archive-reelle-2/da5698b02266/qualification-9deb9901.log": "c694058bbc79f41077c1f35d0b40034b96c3395eb775040510f65ae6a4dc7f8f",
+    "production/A-01/archive-reelle-2/da5698b02266/qualification.log": "c694058bbc79f41077c1f35d0b40034b96c3395eb775040510f65ae6a4dc7f8f"
+  },
+  "current_qualification": "production/A-01/archive-reelle-2/2b2c796bf78b/qualification-89a75913.json",
+  "tests": {
+    "host": {
+      "run": 91,
+      "executed_passed": 83,
+      "skipped_platform_branches": 8,
+      "failures": 0,
+      "errors": 0
+    },
+    "linux": {
+      "run": 47,
+      "executed_passed": 46,
+      "skipped_platform_branches": 1,
+      "failures": 0,
+      "errors": 0
+    },
+    "harness": {
+      "run": 17,
+      "executed_passed": 17,
+      "skipped_platform_branches": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    "new_test_methods": 6,
+    "large": {
+      "entries": 32455,
+      "archive_bytes": 1511054151,
+      "media_bytes": 1184933028,
+      "database_bytes": 169156381,
+      "generated_posts_restored": 1500,
+      "summary_lines": 15,
+      "diagnostic_memory_limit_bytes": 268435456
+    }
+  },
+  "native_data": {
+    "cases": 9,
+    "assertions": 337,
+    "ok": true
+  },
+  "owned_resources_removed": [
+    {
+      "name": "imagine-test-a01-ai1wm-da5698b02266",
+      "absent": true
+    },
+    {
+      "name": "imagine-test-a01-ai1wm-8f6e3d24930d",
+      "absent": true
+    },
+    {
+      "name": "imagine-test-a01-ai1wm-2b2c796bf78b",
+      "absent": true
+    }
+  ],
+  "public_cache_removed": {
+    "owned_public_package": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a01-ai1wm-7.109.zip",
+    "sha256": "cc592ad8e929d6ddb14b46a70dc840a0571f8bd6addda36a9bbf007d0bb3b72f",
+    "bytes": 889487,
+    "removed": true,
+    "absence_readback": true
+  },
+  "documents_checked_after_final_writes": true,
+  "no_git": true,
+  "no_lock_or_parent_report_changes": true,
+  "no_other_lane_changes": true
+}
