@@ -94,6 +94,16 @@ def verify():
         checks['un_designe_par_numero_existant'] = [editorial[k]['numero'] for k in ['un', 'deux', 'trois']] == issues and all(editorial[k]['designe'] for k in ['un', 'deux', 'trois']) and editorial['non-designe'] == {'numero': issues[0], 'designe': False}
         status, _, text = fetch('/c12-decouverte-non-designe/', client)
         checks['non_designe_meme_numero_sans_ouverture_HTTP'] = status == 200 and 'Le texte réservé C12 non-designe révèle' not in text and wp('echo wp_json_encode(get_option("' + key + '",null));') is None
+        # Clé absente et faux natif sont deux états distincts ; ne muter que notre témoin.
+        non_id = ids['non-designe']
+        marker_before = wp('echo wp_json_encode(get_post_meta(' + str(non_id) + ',"imagine_decouverte",false));')
+        try:
+            wp('$id=' + str(non_id) + ';if(get_post_meta($id,"_imagine_c12_fixture",true)!=="non-designe"){throw new RuntimeException("Proprietaire C12 refuse");}delete_post_meta($id,"imagine_decouverte");echo "true";')
+            status, _, text = fetch('/c12-decouverte-non-designe/', client)
+            checks['designation_absente_HTTP_fermee_sans_etat'] = status == 200 and 'Le texte réservé C12 non-designe révèle' not in text and wp('echo wp_json_encode(get_option("' + key + '",null));') is None
+        finally:
+            wp('$id=' + str(non_id) + ';if(get_post_meta($id,"_imagine_c12_fixture",true)!=="non-designe"){throw new RuntimeException("Proprietaire C12 refuse");}delete_post_meta($id,"imagine_decouverte");foreach(json_decode(' + json.dumps(json.dumps(marker_before)) + ',true) as $v){add_post_meta($id,"imagine_decouverte",$v);}echo "true";')
+            checks['designation_native_restauree_exactement'] = wp('echo wp_json_encode(get_post_meta(' + str(non_id) + ',"imagine_decouverte",false));') == marker_before
         audit = wp('global $wpdb;$rows=$wpdb->get_col("SELECT option_value FROM {$wpdb->options} WHERE option_name LIKE \'imagine_reglages_journal_%\'");$out=[];foreach($rows as $row){$event=maybe_unserialize($row);if($event["option"]==="imagine_decouverte_reglages"){$out[]=$event;}}echo wp_json_encode($out);')
         checks['journal_visible_compte_admin'] = any(e['qui_login'] == 'e-admin' and e['apres'] == desired for e in audit)
         bad = dict(desired, nombre=0)

@@ -74,7 +74,7 @@ def run(tests_only=False, check_only=False):
     if not tests_only and not check_only:
         for rel in FILES:
             upload(rel, ROOT / 'wp' / rel)
-        for name in ['c12-seed.php', 'c12-profils.php', 'c09-seed.php', 'c09-profils.json']:
+        for name in ['c12-seed.php', 'c12-profils.php']:
             upload('imagine-demo-build/' + name, ROOT / 'wp/outils/demo' / name)
         c10.b00.wp('eval', '(static function(){require WP_CONTENT_DIR . "/imagine-demo-build/c12-seed.php";})();')
         c10.b00.wp('eval', 'require_once WP_CONTENT_DIR . "/imagine-demo-build/c12-profils.php";$f=get_option("imagine_c09_fixture");foreach(["V-DEC","V-DEC-FIN"] as $k){Imagine\\Demo\\C12\\profil($f["users"][$k],$k);}echo "ok";')

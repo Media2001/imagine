@@ -5,27 +5,34 @@ Cible unique : `http://192.168.129.32:8085` (`imagine-test-demo`). Aucun accès 
 ## Démonstration en quelques minutes
 
 1. Se connecter en **e-admin** à `http://192.168.129.32:8085/wp-login.php`. Les mots de passe existants restent dans `C:/Users/Ced/.imagine-demo/identifiants.json`, section `c09_accounts` ; ils ne sont pas recopiés ici.
-2. Ouvrir `http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-reglages`, section **Accès**. Les cinq champs Découverte portent **« À confirmer par Imagine »**. Le défaut est **fermé**, forme **nombre d’articles**, **2 articles**, **7 jours**, **aucun numéro**. Choisir **Première lecture admissible d’un compte vérifié**, garder **Nombre d’articles / 2**, saisir **39** dans le périmètre, puis enregistrer. Le journal C10 montre le compte administrateur et les valeurs avant/après.
-3. Dans une autre session, se connecter en **v-dec**, sans visiter d’autre article réservé du numéro 39 entre les étapes. Ouvrir `http://192.168.129.32:8085/c12-decouverte-un/` : texte complet, compteur **1/2**. Recharger ce même article : toujours **1/2**. Une autre session du même compte n’ajoute aucun crédit.
-4. Ouvrir `http://192.168.129.32:8085/c12-decouverte-deux/` : texte complet, **2/2**. Puis `http://192.168.129.32:8085/c12-decouverte-trois/` : seulement l’extrait et **« Votre accès découverte est épuisé »**. Une relecture après épuisement est également fermée, conformément au moteur C06 ; le compteur n’est jamais décrémenté pour prolonger le droit.
-5. Se connecter en **v-dec-fin**, puis ouvrir le troisième article : même bloc d’épuisement. En fenêtre anonyme : extrait et connexion. Vider les cookies rend anonyme, pas des crédits.
-6. Revenir en e-admin et remettre **Ouverture : Fermée**, **Périmètre : vide**. Les autres réglages C10 ne changent pas. Le lot laisse lui-même ces valeurs prudentes après ses tests.
+2. Ouvrir `http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-reglages`, section **Accès**. Les cinq paramètres et le sixième champ **Relecture après quota** portent **« À confirmer par Imagine »**. Défauts : **Fermée**, **2 articles**, **7 jours**, **aucun numéro**, relecture **Se refermer**. Activer **Première lecture admissible d’un compte vérifié**, garder **Nombre d’articles / 2**, saisir **39,25,18**, relecture **Se refermer**, enregistrer. Le journal C10 montre administrateur et avant/après.
+3. En **v-dec**, ouvrir d’abord `http://192.168.129.32:8085/c12-decouverte-non-designe/` : **extrait seulement**, sans ouverture de découverte. Il appartient au **même numéro 39** que le suivant : le numéro seul n’accorde aucun accès.
+4. Ouvrir `http://192.168.129.32:8085/c12-decouverte-un/` : complet, **1/2**. Recharger : **1/2**. Revenir au **non-désigné** : extrait, aucun crédit consommé. Une nouvelle session ne recrédite rien.
+5. Ouvrir `http://192.168.129.32:8085/c12-decouverte-deux/` (**numéro 25**) : complet, **2/2**. Puis `http://192.168.129.32:8085/c12-decouverte-trois/` (**numéro 18**) : extrait et **« Votre accès découverte est épuisé »**. Trois numéros existants distincts, **un seul témoin désigné par numéro** ; l’autre témoin du 39 reste réservé.
+6. **Relecture après quota, question ouverte** : recharger le premier → bloc épuisé avec **Se refermer**. En e-admin choisir **Rester lisible pour les articles déjà ouverts** ; en v-dec recharger premier et deuxième → complets, toujours **2/2**. Troisième et non-désigné restent fermés. Remettre **Se refermer** → relecture fermée. Ce sont **deux politiques réglables du raccord**, pas une contrainte C06 ni un arbitrage acquis d’Imagine. Le mode lisible transmet au moteur le rang de l’article déjà ouvert, sans retirer/ajouter de crédit au stockage.
+7. En **v-dec-fin**, le troisième est épuisé. En anonyme : extrait et connexion. Vider les cookies rend anonyme, pas des crédits.
+8. Remettre **Ouverture : Fermée**, **Périmètre : vide**, **Relecture : Se refermer**. Autres réglages C10 inchangés. Ces défauts prudents sont laissés après les tests. Le parcours consomme réellement v-dec : pas de reset silencieux ; le script des profils permet un reset explicite de ce seul personnage fictif si une nouvelle démonstration est souhaitée.
 
-Le mode **Durée** utilise la durée, pas le nombre ; fin UTC exclue. Chaque ouverture fige ses paramètres. Modifier la durée/le nombre ne recrédite jamais un compte déjà ouvert ; le périmètre courant peut retirer un numéro mais n’élargit pas le périmètre initial. Fermer suspend tous les accès découverte. Les trois articles C12 sont datés anciennement pour préserver les cartes récentes de la démo.
+Le mode **Durée** garde sa fin UTC exclue quelle que soit la relecture. Chaque ouverture fige durée/nombre/périmètre initial : les augmenter ne recrédite pas le compte. Le périmètre courant peut retirer, pas élargir l’initial. **La relecture est un réglage courant séparé**, applicable aux comptes épuisés, sans droit permanent ; désignation et périmètres initial/courant restent requis. Fermer suspend la découverte. Les quatre articles sont datés anciennement pour préserver les cartes récentes.
 
 ## Rejeu technique du parent
 
 ```bash
-python C:/Users/Ced/imagine/wp/outils/demo/c12.py --check-only
+PYTHONDONTWRITEBYTECODE=1 python C:/Users/Ced/imagine/wp/outils/demo/c12.py --check-only
 ```
 
-Cette commande relit le code installé, téléverse les recettes ciblées, exerce le vrai HTTP connecté/anonyme et les POST natifs `options.php`, puis la non-régression C11 et les unitaires locaux. Elle restaure exactement les options et l’état V-DEC trouvés à l’entrée, même en cas d’échec. Elle ne remet donc pas à zéro une démonstration déjà consommée. Pour installer les seuls fichiers/fixtures C12, sans constructeur global ni reset des autres profils :
+Cette commande commence par PHPUnit hors réseau (vrais **Paywall + Decouverte + moteur C06**, API WP/SQL doublées), relit les trois fichiers applicatifs installés, téléverse les recettes, exerce PHP natif, HTTP connecté/anonyme, POST `options.php` et concurrence, puis la non-régression C11 et les unitaires Python. Options, politique de relecture et état V-DEC sont restaurés exactement, même en échec. Les six wheels B01 sont lues sans installation. Pour le banc autonome ou l’installation ciblée :
 
 ```bash
-python C:/Users/Ced/imagine/wp/outils/demo/c12.py
+PYTHONDONTWRITEBYTECODE=1 python C:/Users/Ced/imagine/wp/outils/demo/c12-unit.py
+PYTHONDONTWRITEBYTECODE=1 python C:/Users/Ced/imagine/wp/outils/demo/c12.py
 ```
 
 Résultats : `C:/Users/Ced/imagine/production/C-12/resultats.json`. Le script C09 intègre maintenant les deux profils découverte ; son complément ciblé est `wp/outils/demo/c12-profils.php`. Aucun fichier de `production/C-09` ou `production/C-11` n’est écrit par le runner C12.
+
+Le seed conserve les IDs des trois témoins et rattache deux/trois aux numéros 25/18 ; il ajoute le seul témoin non désigné du 39. Migration bornée du personnage fictif **V-DEC-FIN** : son ancien périmètre de démo devient 39/25/18 **sans changer ses deux articles consommés** ; aucun compte lecteur ni crédit n’est élargi. Bootstrap C13 et PdfNumero C11 ne sont pas réinstallés.
+
+**Limite du runner partagé :** `wp/tests/rejouer.ps1` ne sélectionne pas `phpunit.c12.xml` et n’a pas de cache Composer imagine-site : ses 812 tests ne couvrent pas ce raccord. Repli C11 réutilisé sans modifier runner/T01 : image existante `imagine-tests-t01:1`, PHPUnit 11.5.58, PHP 8.2.33, conteneur local éphémère `--network none`, dépôt en lecture seule, nettoyage/absence relus. Aucun téléchargement ni installation. La preuve SQL/HTTP native reste distincte des doublures locales.
 
 ## Périmètre démontré et limites
 
@@ -35,11 +42,14 @@ Résultats : `C:/Users/Ced/imagine/production/C-12/resultats.json`. Le script C0
 - Les robots Google/Bing locaux sont des **faux robots non vérifiés** ; le contrat robot vérifié est éprouvé séparément en PHP, sans prétendre avoir fait du DNS Internet. Un robot avec cookies valides et UA humain n’est pas distinguable d’un lecteur.
 - Découverte **articles seulement**, jamais PDF. Le stockage privé C11, le PDF abonné exact et les refus anonymes/REST ont été rejoués sans reconstruction.
 - Réglages C10 étendus depuis `imagine-site` par hooks et enveloppement du rendu existant, faute de hook interne. Aucun fichier de la bibliothèque close n’est modifié. La table/titre de la section Accès est une dépendance de ce petit raccord, contrôlée par HTTP.
-- Déclencheur, durée, nombre et périmètre : **à confirmer par Imagine**. Aucun GO réel, paiement, achat, installation NUC, email sortant ou validation visuelle n’est déduit de PRET.
+- Désignation native **imagine_decouverte**, booléenne, éditable via l’API WordPress par l’éditeur autorisé. Absente/fausse/invalide : pas de découverte. Les droits natifs prioritaires restent indépendants.
+- **À confirmer par Imagine : relecture après quota — se refermer ou rester lisible ?** Doctrine §4 appliquée, deux valeurs testées, choix courant prudent **fermé**, sans inventer l’arbitrage. Déclencheur, durée, nombre et périmètre restent également à confirmer. Aucun GO réel, paiement, achat, installation NUC, email sortant ou validation visuelle n’est déduit de PRET. Aucun gate paiement C09/C13 n’est contourné.
 
-## Documentation officielle consultée
+## Documentation officielle consultée avant la correction applicative
 
 - WordPress Settings API : `https://developer.wordpress.org/plugins/settings/settings-api/` — persistance native, capacité et nonce de `options.php`.
+- WordPress `register_post_meta()` : `https://developer.wordpress.org/reference/functions/register_post_meta/` — clé éditoriale native, aucune table sur mesure.
+- WordPress `get_post_meta()` : `https://developer.wordpress.org/reference/functions/get_post_meta/` — vrai stocké comme `1`, faux comme chaîne vide ; absence fermée via `metadata_exists`.
 - WordPress `add_option()` : `https://developer.wordpress.org/reference/functions/add_option/` — son code comporte un UPSERT ; le compteur utilise INSERT IGNORE et un compare-and-swap binaire pour ne jamais écraser une ouverture concurrente.
 - WordPress `template_redirect` : `https://developer.wordpress.org/reference/hooks/template_redirect/` — connaissance de la requête finale avant le rendu ; consommation après les redirections canoniques, sans changer le template.
 - WooCommerce Memberships, restrictions : `https://woocommerce.com/document/woocommerce-memberships-restrict-content/` — réutilisation des adhésions/restrictions natives existantes ; le stockage nouveau se limite à l’ouverture et au compteur que ces règles ne raccordent pas.
