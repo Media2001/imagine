@@ -16,6 +16,11 @@ wc_memberships()->get_rules_instance()->set_rules(['add' => [
         => 'post_type', 'content_type_name' => 'post', 'object_ids' => [$restricted], 'access_schedule' => 'immediate'],
 ]]);
 $users = [];
+$ordinary = wp_insert_user(['user_login' => 'a03-ordinary', 'role' => 'customer',
+    'user_email' => 'a03-ordinary@example.org', 'user_pass' => wp_generate_password(40)]);
+if (is_wp_error($ordinary)) {
+    throw new RuntimeException('A03_SEED_ORDINARY');
+}
 $membershipIds = [];
 $subscriptionIds = [];
 $memberStates = ['active', 'paused', 'expired', 'cancelled', 'pending'];
@@ -73,7 +78,7 @@ WC_Install::create_pages();
 $pages = ['home' => '/', 'open' => '/?p=' . $open, 'restricted' => '/?p=' . $restricted, 'shop'
     => '/?page_id=' . wc_get_page_id('shop'), 'cart' => '/?page_id=' . wc_get_page_id('cart'), 'checkout'
     => '/?page_id=' . wc_get_page_id('checkout'), 'account' => '/?page_id=' . wc_get_page_id('myaccount')];
-echo 'A03_JSON=' . json_encode(['users' => $users, 'membership_ids' => $membershipIds, 'restricted'
+echo 'A03_JSON=' . json_encode(['ordinary' => $ordinary, 'users' => $users, 'membership_ids' => $membershipIds, 'restricted'
     => $restricted, 'open' => $open, 'action' => $action, 'subscription_ids' => $subscriptionIds, 'pages'
     => $pages, 'versions' => ['wordpress' => get_bloginfo('version'), 'woocommerce' => WC()->version,
     'subscriptions' => WC_Subscriptions::$version, 'memberships' => wc_memberships()->get_version()]]) . "\n";

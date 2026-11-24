@@ -213,6 +213,9 @@ final class Site
         $subscriptionStates = ['none'];
         foreach ($wpdb->get_col("SELECT ID FROM {$wpdb->users} ORDER BY ID") as $id) {
             $id = (int) $id;
+            if (user_can($id, 'manage_options') || user_can($id, 'manage_woocommerce') || is_super_admin($id)) {
+                continue;
+            }
             $ms = array_unique($userMembers[$id] ?? ['none']);
             $ss = array_unique($userSubs[$id] ?? ['none']);
             sort($ms);
@@ -263,7 +266,8 @@ final class Site
                 => WC()->version, 'memberships' => wc_memberships()->get_version(), 'subscriptions'
                 => \WC_Subscriptions::$version],
             'storage' => OrderUtil::custom_orders_table_usage_is_enabled() ? 'hpos' : 'classic',
-            'sample_states' => ['membership' => $membershipStates, 'subscription' => $subscriptionStates],
+            'sample_states' => ['membership' => array_fill_keys($membershipStates, true),
+                'subscription' => array_fill_keys($subscriptionStates, true)],
                 'samples' => $samples,
             'memberships' => $memberships, 'access' => $access, 'subscriptions' => $rows,
                 'subscription_counts' => $counts,

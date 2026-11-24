@@ -7,6 +7,7 @@ import subprocess
 import sys
 import uuid
 import hashlib
+import os
 
 sys.dont_write_bytecode = True
 ROOT = pathlib.Path(__file__).resolve().parent
@@ -21,9 +22,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--unit-only', action='store_true')
     parser.add_argument('--name', default='proof')
+    parser.add_argument('--output-root', type=pathlib.Path, default=pathlib.Path(os.environ['LOCALAPPDATA']) / 'hermes/cache/scratch/imagine-a03-runs')
     args = parser.parse_args()
     assert args.name.replace('-', '').isalnum()
-    out = REPO / 'production/A-03' / args.name
+    out = args.output_root / args.name
     out.mkdir(parents=True, exist_ok=False)
     name = 'imagine-a03-' + uuid.uuid4().hex[:12]
     result = {'container': name, 'checks': [], 'exit_code': 1}
@@ -37,7 +39,7 @@ def main():
     try:
         for p in ROOT.glob('*.php'):
             assert len(p.read_bytes()) < 1000000
-        owned = [REPO / 'wp/outils/bascule/a03', REPO / 'wp/outils/bascule/non-regression', REPO / 'wp/outils/bascule/comparer', ROOT]
+        owned = [REPO / 'wp/outils/bascule/a03', REPO / 'wp/outils/bascule/non-regression', REPO / 'wp/outils/bascule/comparer', REPO / 'wp/plugins/imagine-non-regression', ROOT]
         own_before = {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for root in owned for p in ([root] if root.is_file() else root.rglob('*')) if p.is_file()}
         image = json.loads(bench.call(['image', 'inspect', bench.IMAGE]).stdout)[0]
         assert not image['Config'].get('Volumes') and not image['Config'].get('ExposedPorts')
@@ -46,13 +48,14 @@ def main():
         bench.validate(json.loads(bench.call(['inspect', name]).stdout)[0], name)
         record('isolated_before', True)
         bench.call(['start', name])
-        bench.call(['exec', name, 'mkdir', '-p', '/subject', '/opt/a03', '/report', '/opt/a02', '/subject/a03', '/staging/mu-plugins'])
+        bench.call(['exec', name, 'mkdir', '-p', '/subject', '/opt/a03', '/report', '/opt/a02', '/subject/a03', '/staging/mu-plugins', '/plugins/imagine-non-regression/src'])
         files = [(ROOT / 'unit.php', '/opt/a03/unit.php'), (REPO / 'wp/outils/bascule/audit', '/subject/audit')]
         for file in ['non-regression', 'comparer']:
             p = REPO / 'wp/outils/bascule' / file
             if p.exists():
                 files.append((p, '/subject/' + file))
         files += [(p, '/subject/a03/' + p.name) for p in (REPO / 'wp/outils/bascule/a03').glob('*.php')]
+        files += [(p, '/plugins/imagine-non-regression/src/' + p.name) for p in (REPO / 'wp/plugins/imagine-non-regression/src').glob('*.php')]
         if not args.unit_only:
             files += [(p, '/opt/a03/' + p.name) for p in ROOT.iterdir() if p.suffix in ('.php', '.py') and p.name not in ('run.py', 'unit.php')]
             files += [(REPO / 'wp/outils/staging/runtime-probe.php', '/staging/runtime-probe.php'), (REPO / 'wp/outils/staging/mu-plugins/000-imagine-staging-safety.php', '/staging/mu-plugins/000-imagine-staging-safety.php'), (REPO / 'wp/outils/staging/mu-plugins/000-imagine-staging-safety.php', '/subject/000-imagine-staging-safety.php'), (ROOT.parent / 'a02-audit/fingerprint.php', '/opt/a03/fingerprint.php')]

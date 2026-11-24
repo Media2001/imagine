@@ -108,6 +108,7 @@ def run_storage(storage):
         p = snapshot(site, settings, target)
         check(storage + ':snapshot_cli', p.returncode == 0 and (target / 'non-regression.json').exists(), {'exit': p.returncode, 'stderr': p.stderr[:160]})
         a = json.loads((target / 'non-regression.json').read_text())
+        check(storage + ':ordinary_not_admin_represents_none', a['samples'].get('none:none') == seed['ordinary'] and a['access'].get(str(seed['ordinary']) + ':' + str(seed['restricted'])) is False and not any(key.startswith('1:') for key in a['access']))
         check(storage + ':storage', a['storage'] == storage)
         check(storage + ':rights_matrix', a['access'][str(seed['users'][0]) + ':' + str(seed['restricted'])] is True and all(a['access'][str(u) + ':' + str(seed['restricted'])] is False for u in [seed['users'][1], seed['users'][2], seed['users'][3], seed['users'][5]]) and a['access'][str(seed['users'][4]) + ':' + str(seed['restricted'])] is True and a['access']['0:' + str(seed['restricted'])] is False and set(a['sample_states']['membership']) >= {'active', 'paused', 'expired', 'cancelled', 'pending', 'none'})
         check(storage + ':subscriptions_dates_counts', len(a['subscriptions']) == 6 and {v['status'] for v in a['subscriptions'].values()} == {'active', 'on-hold', 'expired', 'cancelled', 'pending', 'pending-cancel'} and sum(a['subscription_counts']['status'].values()) == 6 and any(v['next_payment_utc'] == '2027-02-01 10:00:00' for v in a['subscriptions'].values()))
