@@ -64,5 +64,5 @@
     "groupe_natif_present": false
   },
   "recette_complete": false,
-  "statut": "PRET_RELECTURE_AVEC_BLOCAGE_C09"
+  "statut": "BLOQUE_ACCEPTATION_C09"
 }
