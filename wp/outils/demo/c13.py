@@ -36,6 +36,11 @@ def run(deploy=False, php_only=False):
     if deploy:
         for rel in FILES:
             upload(rel, ROOT / 'wp' / rel)
+        upload('imagine-demo-build/c13-fixture.php', ROOT / 'wp/outils/demo/c13-fixture.php')
+        seed = c10.b00.wp('eval', '(static function(){require WP_CONTENT_DIR . "/imagine-demo-build/c13-fixture.php";})();')
+        if seed['stderr']:
+            raise RuntimeError('Avertissement à l’initialisation C13')
+        print('Témoins natifs C13 relus :', seed['stdout'].strip())
     checks = {'PHP': runtime()}
     if not php_only:
         path = ROOT / 'wp/tests/demo/c13-http.py'
