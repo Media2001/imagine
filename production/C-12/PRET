@@ -1,0 +1,5 @@
+C-12 PRET à relire — démo fictive imagine-test-demo uniquement.
+Installation et rejeu : 25/25 PHP C12, 75/75 HTTP C12, 28/28 non-régression C11, 33/33 unitaires locaux.
+Défaut final fermé ; A-VOIR.md décrit l’activation contrôlée dans la section Accès C10 et les limites.
+Aucun GO réel ni validation visuelle ; bibliothèques closes inchangées.
+Rejeu : python C:/Users/Ced/imagine/wp/outils/demo/c12.py --check-only

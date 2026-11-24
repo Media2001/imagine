@@ -3,6 +3,7 @@
     "raccord_disponible": true,
     "defaut_ferme": true,
     "email_non_confirme_ferme": true,
+    "identite_incomplete_fermee": true,
     "ouverture_compte_verifie": true,
     "jamais_renouveler": true,
     "decompte_raccorde": true,
@@ -10,7 +11,7 @@
     "relecture_idempotente": true,
     "dernier_credit_livre": true,
     "epuisement_moteur_bloc": true,
-    "relecture_apres_quota_sans_credit": true,
+    "relecture_apres_quota_fermee_sans_credit": true,
     "futur_pas_de_credit": true,
     "pdf_hors_decouverte": true,
     "reglage_change_sans_recredit": true,
@@ -137,6 +138,6 @@
     "succes": true
   },
   "manifestes_preserves": true,
-  "total_assertions": 160,
+  "total_assertions": 161,
   "statut": "VERT"
 }
