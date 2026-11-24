@@ -66,8 +66,17 @@ def run(deploy=False, php_only=False):
         checks['C09_roles_options_editorial_preserves'] = protected == protege()
         if not checks['manifestes_preserves'] or not checks['C09_roles_options_editorial_preserves']:
             raise RuntimeError('État protégé différent')
+        gate_code = r'''$f=get_option('imagine_c09_fixture');$v=Imagine\Site\EnvoiNatif::apercu('DEMO-2027-T1');$included=array_column($v['liste']->lignes,'abonnement_id');$excluded=array_column($v['exclus'],'motif','abonnement_id');$out=['numero'=>'DEMO-2027-T1','abonnements_C09'=>count($f['subscriptions']),'sans_paiement_valide'=>0,'C09_destinataires'=>0,'A_SANSMAIL_inclus'=>in_array((string)$f['subscriptions']['A-SANSMAIL'],$included,true),'A_SANSMAIL_motif'=>$excluded[(string)$f['subscriptions']['A-SANSMAIL']]??null,'offert_natif_present'=>isset($f['subscriptions']['P-OFFERT']),'groupe_natif_present'=>isset($f['subscriptions']['P-BENEF'])];foreach($f['subscriptions'] as $id){$s=wcs_get_subscription($id);$out['sans_paiement_valide']+=!$s->get_date_paid()?1:0;$out['C09_destinataires']+=in_array((string)$id,$included,true)?1:0;}echo wp_json_encode($out);'''
+        gate = c10.b00.wp('eval', gate_code)
+        if gate['stderr']:
+            raise RuntimeError('Lecture du blocage C09 non propre')
+        checks['acceptation_C09'] = json.loads(gate['stdout'])
+        checks['recette_complete'] = all(checks['PHP'].values()) and all(checks['HTTP'].values()) and all(
+            checks['acceptation_C09'][k] for k in ('A_SANSMAIL_inclus', 'offert_natif_present', 'groupe_natif_present'))
+        checks['statut'] = 'PRET_RELECTURE_AVEC_BLOCAGE_C09' if not checks['recette_complete'] else 'PRET_RELECTURE'
         (ROOT / 'production/C-13/resultats.json').write_text(json.dumps(checks, ensure_ascii=False, indent=2), encoding='utf-8')
-        print('C13 :', sum(len(v) for v in checks.values() if isinstance(v, dict)), 'assertions PHP/HTTP ; manifestes préservés')
+        print('C13 :', len(checks['PHP']) + len(checks['HTTP']), 'assertions PHP/HTTP ; manifestes préservés')
+        print('Acceptation C09 :', json.dumps(checks['acceptation_C09'], ensure_ascii=False), '; recette complète :', checks['recette_complete'])
     return checks
 
 

@@ -51,6 +51,16 @@ if ($checks['raccord_present']) {
                 [['observe_utc' => '2026-10-04 22:00:01.000000', 'donnees' => $data]], new \DateTimeImmutable('2026-10-07'));
             $checks['historique_absent_ferme'] = $unknown['historique_incomplet'] && $unknown['liste']->lignes === [];
         }
+        $checks['offline_aucun_transport'] = apply_filters('pre_wp_mail', null, ['to' => 'c13@example.org',
+            'subject' => 'Sonde passive', 'message' => '', 'headers' => [], 'attachments' => []]) === false
+            && is_wp_error(apply_filters('pre_http_request', false, [], 'https://example.org'))
+            && apply_filters('woocommerce_available_payment_gateways', []) === [];
+        $checks['temoins_C13_sans_paiement'] = true;
+        foreach (get_option('imagine_c13_fixture') as $subId) {
+            $sub = wcs_get_subscription($subId);
+            $checks['temoins_C13_sans_paiement'] = $checks['temoins_C13_sans_paiement'] && $sub->is_manual()
+                && !$sub->get_date_paid() && !$sub->get_payment_method() && !$sub->get_transaction_id();
+        }
         $checks['numero_invalide_refuse'] = false;
         try { \Imagine\Site\EnvoiNatif::apercu('inexistant'); }
         catch (\OutOfBoundsException) { $checks['numero_invalide_refuse'] = true; }
@@ -80,6 +90,33 @@ if ($checks['raccord_present']) {
         try { \Imagine\Site\ListeEnvoiAdmin::preparer('DEMO-2027-T1'); }
         catch (\RuntimeException) { $checks['journal_indisponible_refuse'] = $triggered; }
         finally { remove_filter('query', $fault); }
+    }
+    $checks['suppression_native_cloture_future'] = false;
+    $source = wcs_get_subscription(get_option('imagine_c13_fixture')['BE']);
+    $temporary = wcs_create_subscription(['customer_id' => $source->get_customer_id(), 'status' => 'pending',
+        'start_date' => gmdate('Y-m-d H:i:s'), 'billing_period' => 'year', 'billing_interval' => 1]);
+    if (is_wp_error($temporary)) { throw new \RuntimeException('Témoin de suppression C13 impossible.'); }
+    $temporaryId = $temporary->get_id();
+    try {
+        $temporary->set_requires_manual_renewal(true);
+        $temporary->update_meta_data('_imagine_c13_fixture', 'suppression-test');
+        $temporary->set_address($source->get_address('shipping'), 'shipping');
+        $temporary->update_dates(['end' => '2027-11-01 00:00:00', 'next_payment' => 0], 'gmt');
+        $temporary->update_meta_data('_imagine_acces_grace_debut', gmdate('Y-m-d H:i:s'));
+        $temporary->update_meta_data('_imagine_acces_grace_fin', '2027-01-06 00:00:00');
+        $temporary->set_status('on-hold');
+        $temporary->save();
+        $temporary->delete(true);
+        $v = \Imagine\Site\EnvoiNatif::apercu('DEMO-2027-T1');
+        $checks['suppression_native_cloture_future'] = !in_array((string) $temporaryId, array_column($v['liste']->lignes, 'abonnement_id'), true);
+    } finally {
+        if (wcs_get_subscription($temporaryId)) { wcs_get_subscription($temporaryId)->delete(true); }
+        global $wpdb;
+        $keys = $wpdb->get_col($wpdb->prepare("SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
+            $wpdb->esc_like(\Imagine\Site\EnvoiNatif::RELEVE . $temporaryId . '_') . '%'));
+        foreach ($keys as $key) { delete_option($key); }
+        $checks['temoin_suppression_nettoye'] = !wcs_get_subscription($temporaryId)
+            && \Imagine\Site\EnvoiNatif::releves((string) $temporaryId) === [];
     }
     wp_set_current_user(0);
     $checks['anonyme_ferme'] = !\Imagine\Site\ListeEnvoiAdmin::autorise();

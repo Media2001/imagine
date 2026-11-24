@@ -1,4 +1,4 @@
-# C13 — documentation officielle consultée avant code (24/11/2026)
+# C13 — références officielles vérifiées (24/11/2026)
 
 - WordPress `add_submenu_page` : https://developer.wordpress.org/reference/functions/add_submenu_page/ — capacité du menu ET contrôle du callback ; admin native suffisante.
 - WordPress `check_admin_referer` : https://developer.wordpress.org/reference/functions/check_admin_referer/ — nonce vérifie l'intention, ne remplace jamais la capacité.
@@ -8,4 +8,6 @@
 
 Standard réutilisé : menu/formulaire/tableaux WordPress, capacités natives, nonce, contrôleur admin-post, CRUD Subscriptions/Memberships. Sur-mesure limité au raccord C01/C07, aux observations postales datées et à l'audit. CSV et protection tableur viennent exclusivement de C07/C04 ; format lu dans C10. Aucun changement des bibliothèques closes.
 
-Constats préalables : le rôle dédié existe réellement et e-abo le possède ; aucun élargissement requis. C09 contient des états présents, sans historique postal daté de clôture, aucun paiement, ni attribution persistée des quatre numéros. Ne pas reconstituer un historique passé à partir des états présents ; les clôtures antérieures au premier relevé seront fermées. Offerts/groupés restent absents du natif C09 : ne pas inventer de bénéficiaires.
+Traçabilité de méthode : les cinq URL officielles ont été relues en HTTP 200. La consultation distante a été tardive sur le premier tracer calendrier/capacités ; ce point de procédure n'est pas présenté comme conforme à « docs avant code ».
+
+Constats préalables : le rôle dédié existe réellement et e-abo le possède ; aucun élargissement requis. C09 contient des états présents, sans historique postal daté de clôture, aucun paiement, ni attribution persistée des quatre numéros. Ne pas reconstituer un historique passé à partir des états présents ; si un abonnement existait avant une clôture mais n'a aucun relevé antérieur, l'export est fermé. Offerts/groupés restent absents du natif C09 : ne pas inventer de bénéficiaires.
