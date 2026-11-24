@@ -15,6 +15,10 @@ final class DecouverteReglages
             register_setting('imagine_reglages', Decouverte::OPTION, [
                 'type' => 'array', 'sanitize_callback' => [self::class, 'nettoyer'], 'show_in_rest' => false,
             ]);
+            register_setting('imagine_reglages', Decouverte::RELECTURE, [
+                'type' => 'string', 'default' => 'fermee',
+                'sanitize_callback' => [self::class, 'nettoyerRelecture'], 'show_in_rest' => false,
+            ]);
         }, 30);
         add_action('admin_menu', static function (): void {
             global $wp_filter;
@@ -77,6 +81,20 @@ final class DecouverteReglages
         return $old;
     }
 
+    public static function nettoyerRelecture(mixed $value): string
+    {
+        $old = get_option(Decouverte::RELECTURE, 'fermee');
+        $old = in_array($old, ['fermee', 'rester_lisible'], true) ? $old : 'fermee';
+        if ($value === null) {
+            return $old; // Formulaire antérieur : aucune ouverture implicite.
+        }
+        if (in_array($value, ['fermee', 'rester_lisible'], true)) {
+            return $value;
+        }
+        add_settings_error(Decouverte::RELECTURE, 'imagine_decouverte_relecture_invalide', __('Relecture invalide : ancienne valeur conservée.', 'imagine-site'));
+        return $old;
+    }
+
     private static function champs(): string
     {
         $values = Decouverte::reglages();
@@ -107,13 +125,23 @@ final class DecouverteReglages
             echo '<p class="description" id="' . esc_attr($id . '-aide') . '"><strong>' . esc_html__('À confirmer par Imagine', 'imagine-site') . '</strong><br>'
                 . esc_html__('Défaut : fermée, 2 articles ou 7 jours, aucun numéro. Articles seulement, jamais de PDF. Les paramètres sont figés à l’ouverture du compte ; les modifier ne recrédite pas les comptes déjà ouverts. Fermer suspend tous les accès découverte. Vérification email fictive sur la démo.', 'imagine-site') . '</p></td></tr>';
         }
+        echo '<tr class="imagine-reglage imagine-decouverte"><th scope="row"><label for="imagine-decouverte-relecture">'
+            . esc_html__('Découverte — relecture après quota', 'imagine-site') . '</label></th><td>';
+        echo '<select id="imagine-decouverte-relecture" name="' . esc_attr(Decouverte::RELECTURE) . '" aria-describedby="imagine-decouverte-relecture-aide">';
+        foreach (['fermee' => __('Se refermer (défaut prudent)', 'imagine-site'), 'rester_lisible' => __('Rester lisible pour les articles déjà ouverts', 'imagine-site')] as $value => $label) {
+            echo '<option value="' . esc_attr($value) . '"' . selected(get_option(Decouverte::RELECTURE, 'fermee'), $value, false) . '>' . esc_html($label) . '</option>';
+        }
+        echo '</select><p class="description" id="imagine-decouverte-relecture-aide"><strong>'
+            . esc_html__('À confirmer par Imagine', 'imagine-site') . '</strong><br>'
+            . esc_html__('Question ouverte : choix courant prudent fermé, pas une contrainte du moteur C06. Ce réglage courant agit aussi sur les comptes déjà ouverts, sans recrédit. Désignation éditoriale et périmètres initial/courant restent requis ; aucun nouveau texte ni PDF. La fin du mode durée reste exclue.', 'imagine-site')
+            . '</p></td></tr>';
         return ob_get_clean();
     }
 
     /** Même journal visible C10, après persistance ; refus si l'audit ne peut être écrit. */
     private static function journal(string $key, mixed $old, mixed $new): void
     {
-        if (self::$restoring || $key !== Decouverte::OPTION || $old === $new) {
+        if (self::$restoring || !in_array($key, [Decouverte::OPTION, Decouverte::RELECTURE], true) || $old === $new) {
             return;
         }
         $user = wp_get_current_user();

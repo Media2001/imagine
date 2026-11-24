@@ -11,6 +11,7 @@ use DateTimeZone;
 final class Decouverte
 {
     public const OPTION = 'imagine_decouverte_reglages';
+    public const RELECTURE = 'imagine_decouverte_relecture';
     private static int $article = 0;
 
     public static function concerne(int $articleId): bool
@@ -20,6 +21,13 @@ final class Decouverte
 
     public static function register(): void
     {
+        add_action('init', static function (): void {
+            register_post_meta('post', 'imagine_decouverte', [
+                'type' => 'boolean', 'single' => true, 'show_in_rest' => true,
+                'description' => __('Article désigné par la rédaction pour la découverte.', 'imagine-site'),
+                'auth_callback' => static fn () => current_user_can('edit_posts'),
+            ]);
+        });
         // Après les redirections canoniques : seules les vraies lectures finales consomment.
         add_action('template_redirect', [self::class, 'preparer'], PHP_INT_MAX);
         // WordPress peut supprimer preview=true pour un lecteur sans edit_post :
@@ -174,12 +182,16 @@ final class Decouverte
     }
 
     /** Le moteur C06 arbitre aussi les droits prioritaires : ils ne consomment jamais. */
-    public static function decider(array $content, array $visitor, \Imagine\Pilotage\Robots\Decision $robot,
-        DateTimeImmutable $now, int $articleId): \Imagine\Pilotage\Acces\Decision
-    {
+    public static function decider(
+        array $content,
+        array $visitor,
+        \Imagine\Pilotage\Robots\Decision $robot,
+        DateTimeImmutable $now,
+        int $articleId
+    ): \Imagine\Pilotage\Acces\Decision {
         $base = Paywall::deciderContenu($content, $visitor, $robot, $now);
         if ($base->complet || !$visitor['identifie'] || $content['type'] !== 'article'
-            || !$content['reserve'] || $content['sortie'] > $now) {
+            || !$content['reserve'] || ($content['decouverte'] ?? false) !== true || $content['sortie'] > $now) {
             return $base;
         }
         $id = get_current_user_id();
@@ -195,13 +207,17 @@ final class Decouverte
                     return $base;
                 }
                 $policy = $state['reglages'];
-                $seen = in_array($articleId, $state['articles'], true);
+                $rank = array_search($articleId, $state['articles'], true);
+                $seen = $rank !== false;
                 $rights = $visitor;
                 $rights['droits'][] = ['type' => 'decouverte',
                     'debut' => new DateTimeImmutable($state['debut'], new DateTimeZone('UTC')),
                     'compte_verifie' => self::verifie($id),
-                    'consommes' => count($state['articles'])];
-                $content['decouverte'] = true;
+                    // Choix administratif ouvert : le rang du déjà-lu, jamais un recrédit.
+                    // Le moteur conserve les filtres éditorial, numéro et temps.
+                    'consommes' => $seen && $policy['forme'] === 'articles'
+                        && get_option(self::RELECTURE, 'fermee') === 'rester_lisible'
+                        ? $rank : count($state['articles'])];
                 $rule = $policy['forme'] === 'articles'
                     ? new \Imagine\Pilotage\Acces\NombreArticlesDecouverte($policy['nombre'], $policy['numeros'], false)
                     : new \Imagine\Pilotage\Acces\DureeDecouverte($policy['jours'] * DAY_IN_SECONDS, $policy['numeros'], false);

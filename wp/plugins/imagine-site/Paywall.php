@@ -76,7 +76,9 @@ final class Paywall
             $userId = get_current_user_id();
             $visitor = ['identifie' => $userId > 0, 'droits' => $userId ? self::rights($userId, $now) : []];
             $content = ['reserve' => in_array($flag, ['1', true, 1], true), 'numero' => (string) $number,
-                'type' => 'article', 'sortie' => $release, 'decouverte' => false];
+                'type' => 'article', 'sortie' => $release,
+                'decouverte' => metadata_exists('post', $post->ID, 'imagine_decouverte')
+                    && in_array(get_post_meta($post->ID, 'imagine_decouverte', true), ['1', true, 1], true)];
             $robot = self::robot($now);
             $decision = Decouverte::concerne($post->ID)
                 ? Decouverte::decider($content, $visitor, $robot, $now, $post->ID)

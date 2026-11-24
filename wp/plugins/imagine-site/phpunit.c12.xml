@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="false">
+    <testsuites>
+        <testsuite name="C12 raccord"><directory suffix="Test.php">tests-c12</directory></testsuite>
+    </testsuites>
+</phpunit>
