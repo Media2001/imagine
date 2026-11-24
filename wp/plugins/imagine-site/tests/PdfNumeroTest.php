@@ -53,6 +53,20 @@ final class PdfNumeroTest extends TestCase
         self::assertTrue($response['value']);
     }
 
+    public function testKnownPublicCopyIsRemovedAndReadBack(): void
+    {
+        $response = $this->request(['action' => 'protect-copies', 'blocked' => false]);
+        self::assertNull($response['error']);
+        self::assertTrue($response['value']);
+    }
+
+    public function testUnremovablePublicCopyNeverReportsSuccess(): void
+    {
+        $response = $this->request(['action' => 'protect-copies', 'blocked' => true]);
+        self::assertSame('Ancien PDF public non retiré.', $response['error']);
+        self::assertNull($response['value']);
+    }
+
     public static function directories(): array
     {
         return [['public'], ['public/child'], ['missing']];

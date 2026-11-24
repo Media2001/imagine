@@ -116,6 +116,17 @@ namespace {
                 if (in_array($scenario['directory'] ?? '', ['public/child', 'public-private'], true)) { mkdir($temp . '/' . $scenario['directory']); }
                 $GLOBALS['value'] = \Imagine\Site\PdfNumero::directory();
                 break;
+            case 'protect-copies':
+                $copy = $temp . '/public/stale.pdf';
+                if ($scenario['blocked']) {
+                    mkdir($copy);
+                } else {
+                    file_put_contents($copy, $pdf);
+                }
+                \Imagine\Site\PdfNumero::protect(1, 2, $source, [$copy]);
+                clearstatcache();
+                $GLOBALS['value'] = !file_exists($copy) && !file_exists($source);
+                break;
             case 'protect':
                 \Imagine\Site\PdfNumero::protect(1, 2, $source);
                 clearstatcache();

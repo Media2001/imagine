@@ -41,5 +41,11 @@
     "racine_publique_parent_refusee": true,
     "restauration_exacte_options": true,
     "canari_supprime": true
-  }
+  },
+  "local_unit": {
+    "total": 33,
+    "success": true,
+    "failures": []
+  },
+  "shared_C12_C13_preserved": true
 }
