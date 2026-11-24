@@ -237,7 +237,11 @@ def diagnose(stream, expected='6.9.1', decisions=None, php='8.2', max_bytes=DEFA
         if dangerous and relative != 'database.sql':
             findings.add('SECRET_OU_IDENTIFIANT', relative, blocking=False)
         if relative.startswith('plugins/') and relative.endswith('.php'):
-            plugins.append((relative, head.decode('utf-8', 'replace').replace('\r', '\n')))
+            header = head.decode('utf-8', 'replace').replace('\r', '\n')
+            # Retain header metadata only, never every PHP file's 8 KiB prefix.
+            if re.search(r'^[ \t\/*#@]*(?:Plugin Name):', header, re.M | re.I):
+                plugins.append((relative, '\n'.join(line for line in header.splitlines()
+                    if re.match(r'^[ \t\/*#@]*(?:Plugin Name|Requires at least|Requires PHP):', line, re.I))))
         tail, head, dangerous = b'', b'', False
     version = None
     manifest_count = sql_count = 0

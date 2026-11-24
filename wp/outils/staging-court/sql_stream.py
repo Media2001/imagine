@@ -27,6 +27,8 @@ class Framer:
             pos, token = match.start(), match.group()
             if token == b';':
                 end = match.end()
+                if end > self.limit:
+                    raise Refusal('SQL_STATEMENT_LIMIT')
                 self.consume(self.buffer[:end])
                 self.buffer = self.buffer[end:]
                 self.position = 0

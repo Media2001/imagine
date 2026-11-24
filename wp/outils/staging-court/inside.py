@@ -131,13 +131,13 @@ def restore_and_verify(archive, request):
     archive_report = {}
     with Path(archive).open('rb') as stream:
         sql, package, count = restore(stream, SITE / 'wp-content', report=archive_report,
-                                      sql_path='/scratch/a01-source.sql', **limits)
+                                      sql_path=SITE.parent / 'a01-source.sql', **limits)
     core_versions = validate_core_version(package, CORE / 'wp-includes/version.php', request.get('expected_core_version'))
     before = manifest(SITE / 'wp-content')
     # SQL stays on disk; validate every bounded statement before any import.
     from sql_stream import validate_file
     import legacy_importer
-    normalized = Path('/scratch/a01-validated.sql')
+    normalized = SITE.parent / 'a01-validated.sql'
     if normalized.exists():
         normalized.unlink()
     plan = validate_file(sql, legacy_importer, normalized)
@@ -216,7 +216,7 @@ FAILURE_STAGES = {
     **{code: 'sql_preflight' for code in (
         'SQL_ENCODING', 'SQL_GRAMMAR', 'SQL_TERMINATOR', 'SQL_IDENTIFIER', 'SQL_TABLE',
         'SQL_DDL', 'SQL_DDL_UNSUPPORTED', 'SQL_INSERT', 'SQL_INSERT_LITERAL',
-        'SQL_STATEMENT', 'SQL_PREFIX', 'SQL_STATEMENT_LIMIT', 'SQL_INSERT_COLUMN_COUNT')},
+        'SQL_STATEMENT', 'SQL_PREFIX', 'SQL_STATEMENT_LIMIT', 'SQL_INSERT_COLUMN_COUNT', 'SQL_TRANSACTION')},
     **{code: 'request_validation' for code in (
         'FRESH_SITE_REQUIRED', 'TARGET_REFUSED', 'DECISIONS_REFUSED', 'ADMIN_PASSWORD_REFUSED', 'REQUEST_LIMIT')},
     **{code: 'isolation' for code in ('NETWORK_REFUSED', 'LISTENER_REFUSED')},

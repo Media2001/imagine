@@ -41,6 +41,14 @@ final class Files
     }
     private static function forbidden(string $relative): bool
     {
+        // A-01/2: dated media archives are intentional; exports outside years
+        // have already been excluded without reading by the archive reader.
+        if (preg_match('~^wp-content/uploads/(?:woocommerce_uploads|simple-file-list)/.+\.(?:pdf|jpg|jpeg|png|gif|webp|avif|svg|ico|tif|tiff|bmp)$~iD', $relative)) {
+            return false;
+        }
+        if (preg_match('~^wp-content/uploads/[12][0-9]{3}/.+\.(?:zip|sql|wpress)$~iD', $relative)) {
+            return false;
+        }
         $code = (bool) preg_match('~^(?:wp-admin/|wp-includes/|wp-content/(?:plugins|mu-plugins|themes|languages)/)~', $relative);
         $archive = (bool) preg_match('~\.(?:sql|sqlite|sqlite3|db|dump|zip|tar|gz|gzip|tgz|bz2|xz|zst|lz4|7z|rar|wpress|wpstg|bak|old|log)(?:\.[^/]*)?$~i', $relative);
         $data = !$code && (bool) preg_match('~(?:^|/)[^/]*(?:backup|back-up|dump|archive|import|export|updraft|ai1wm|wpvivid|duplicator|wflogs|wc-logs|cache)[^/]*(?:/|$)|\.(?:csv|tsv|xls|xlsx|ods|xml|jsonl|vcf|ics)(?:\.[^/]*)?$~i', $relative);

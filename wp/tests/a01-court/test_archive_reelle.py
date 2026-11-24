@@ -101,7 +101,7 @@ class ArchiveReelle(unittest.TestCase):
             path.write_bytes(raw)
             before = {p.relative_to(tmp).as_posix(): p.read_bytes() for p in Path(tmp).rglob('*') if p.is_file()}
             output = io.StringIO()
-            with patch.object(sys, 'argv', ['publish.py', '--diagnose', '--operator-ced', '--archive', str(path)]), \
+            with patch.object(sys, 'argv', ['publish.py', '--diagnose', '--detail', '--operator-ced', '--archive', str(path)]), \
                  patch.object(publish, 'api', side_effect=AssertionError('SITE_FORBIDDEN')), \
                  patch.object(publish, 'call', side_effect=AssertionError('DOCKER_FORBIDDEN')), \
                  patch.object(publish, 'prepare_core', side_effect=AssertionError('DOWNLOAD_FORBIDDEN')), \
@@ -258,7 +258,7 @@ sys.dont_write_bytecode=True
 sys.addaudithook(hook)
 sys.argv=ARGV
 runpy.run_path(SCRIPT,run_name='__main__')
-'''.replace('ARGV', repr(['publish.py', '--diagnose', '--operator-ced', '--archive', str(path)])).replace('SCRIPT', repr(str(TOOLS / 'publish.py')))
+'''.replace('ARGV', repr(['publish.py', '--diagnose', '--detail', '--operator-ced', '--archive', str(path)])).replace('SCRIPT', repr(str(TOOLS / 'publish.py')))
             p = subprocess.run([sys.executable, '-c', program], capture_output=True)
             self.assertEqual(1, p.returncode, p.stderr.decode())
             report = json.loads(p.stdout)
@@ -324,7 +324,7 @@ runpy.run_path(SCRIPT,run_name='__main__')
             path = Path(tmp) / 'fiction.wpress'
             path.write_bytes(raw)
             before = sorted(str(p) for p in Path(tmp).rglob('*'))
-            p = subprocess.run([sys.executable, str(TOOLS / 'publish.py'), '--diagnose', '--operator-ced', '--archive', str(path)], capture_output=True)
+            p = subprocess.run([sys.executable, str(TOOLS / 'publish.py'), '--diagnose', '--detail', '--operator-ced', '--archive', str(path)], capture_output=True)
             self.assertEqual(0, p.returncode, p.stderr.decode())
             report = json.loads(p.stdout)
             self.assertEqual([], report['blockers'])

@@ -99,7 +99,7 @@ class OfflineDiagnostics(unittest.TestCase):
                 with mock.patch.multiple(module, SITE=site, CORE=core_path, isolation=lambda: None), \
                      mock.patch.object(module, 'command', side_effect=AssertionError('Database/bootstrap must not run')):
                     results.append(module.execute_offline_request(str(archive), request, False))
-            self.assertEqual(['ARCHIVE_TRUNCATED', 'SQL_DDL_UNSUPPORTED'], [r['failure']['code'] for r in results])
+            self.assertEqual(['ARCHIVE_TRUNCATED', 'SQL_STATEMENT'], [r['failure']['code'] for r in results])
             self.assertEqual(['archive_restore', 'sql_preflight'], [r['failure']['stage'] for r in results])
             for result in results:
                 self.assertFalse(result['data_verified'])

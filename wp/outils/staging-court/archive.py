@@ -7,6 +7,7 @@ import tempfile
 import unicodedata
 import shutil
 import zlib
+import json
 from archive_policy import (DEFAULT_MAX_BYTES, DEFAULT_MAX_ENTRIES, DEFAULT_MAX_SQL_BYTES, CHUNK,
                             excluded, unknown_upload, secret_candidate)
 
@@ -144,6 +145,7 @@ def audit(stream, max_bytes=DEFAULT_MAX_BYTES, max_entries=DEFAULT_MAX_ENTRIES, 
     def result():
         value = findings.report(entries, complete)
         value.update(total_bytes=total, database_bytes=database_bytes, archive_bytes=stream.tell() - start,
+                     crc_policy='retained-entry CRC when present; excluded bytes never read; EOF size checked; whole-archive CRC deferred',
                      excluded=list(excluded_zones.values()), inventory={'plugins': sorted(plugins), 'themes': sorted(themes), 'uploads': list(uploads.values())})
         return {'report': value, 'package': package, 'sql': sql}
     while entries <= max_entries:
@@ -228,6 +230,13 @@ def audit(stream, max_bytes=DEFAULT_MAX_BYTES, max_entries=DEFAULT_MAX_ENTRIES, 
             on_chunk(relative, b'', True)
         if retain and not metadata_limited:
             payload = b''.join(chunks)
+            if relative == 'package.json':
+                try:
+                    manifest = json.loads(payload)
+                    if isinstance(manifest, dict) and (manifest.get('Encrypted') or manifest.get('Compression', {}).get('Enabled')):
+                        findings.add('ARCHIVE_ENCODING_UNSUPPORTED', relative)
+                except (ValueError, TypeError, AttributeError, RecursionError):
+                    pass  # malformed metadata is diagnosed by the manifest consumer
             if on_metadata is not None:
                 on_metadata(relative, payload)
             elif relative == 'package.json':
@@ -239,7 +248,7 @@ def audit(stream, max_bytes=DEFAULT_MAX_BYTES, max_entries=DEFAULT_MAX_ENTRIES, 
     return result()
 
 
-ARCHIVE_REFUSALS = frozenset('ARCHIVE_TRUNCATED ARCHIVE_INVALID ARCHIVE_HEADER ARCHIVE_PATH ARCHIVE_LIMIT ARCHIVE_LAYOUT_UNSUPPORTED MULTISITE_UNSUPPORTED ARCHIVE_TRAILING_DATA ARCHIVE_DATABASE_MISSING ARCHIVE_SIZE_INVALID ARCHIVE_PATH_ABSOLUTE ARCHIVE_PATH_DRIVE ARCHIVE_PATH_EMPTY ARCHIVE_PATH_DOT ARCHIVE_PATH_PARENT ARCHIVE_PATH_BACKSLASH ARCHIVE_PATH_CONTROL ARCHIVE_PATH_DUPLICATE ARCHIVE_PATH_FILE_DIRECTORY_COLLISION ARCHIVE_TARGET_SYMLINK ARCHIVE_CASE_SENSITIVITY_UNVERIFIED ARCHIVE_CASE_INSENSITIVE_TARGET FRESH_CONTENT_REQUIRED UPLOADS_DIRECTORY_REVIEW_REQUIRED DISK_SPACE_INSUFFICIENT ARCHIVE_SEEK_REQUIRED ARCHIVE_CRC_MISMATCH ARCHIVE_EOF_SIZE SQL_STREAM_REQUIRED'.split())
+ARCHIVE_REFUSALS = frozenset('ARCHIVE_TRUNCATED ARCHIVE_INVALID ARCHIVE_HEADER ARCHIVE_PATH ARCHIVE_LIMIT ARCHIVE_LAYOUT_UNSUPPORTED MULTISITE_UNSUPPORTED ARCHIVE_TRAILING_DATA ARCHIVE_DATABASE_MISSING ARCHIVE_SIZE_INVALID ARCHIVE_PATH_ABSOLUTE ARCHIVE_PATH_DRIVE ARCHIVE_PATH_EMPTY ARCHIVE_PATH_DOT ARCHIVE_PATH_PARENT ARCHIVE_PATH_BACKSLASH ARCHIVE_PATH_CONTROL ARCHIVE_PATH_DUPLICATE ARCHIVE_PATH_FILE_DIRECTORY_COLLISION ARCHIVE_TARGET_SYMLINK ARCHIVE_CASE_SENSITIVITY_UNVERIFIED ARCHIVE_CASE_INSENSITIVE_TARGET FRESH_CONTENT_REQUIRED UPLOADS_DIRECTORY_REVIEW_REQUIRED DISK_SPACE_INSUFFICIENT ARCHIVE_SEEK_REQUIRED ARCHIVE_CRC_MISMATCH ARCHIVE_EOF_SIZE SQL_STREAM_REQUIRED ARCHIVE_ENCODING_UNSUPPORTED'.split())
 
 
 class Refusal(ValueError):

@@ -101,6 +101,21 @@ try:
         assert count == (1500 if case=='large' else 0)
         record.update(restored_generated_posts=count,restoration_exclusions=restore_report['excluded'],retained_files=sum(1 for p in target.rglob('*') if p.is_file()),payload_never_read=True,streamed_sql_import=True)
         if case=='large': assert record['retained_files']>32000
+        # Exact offline operator implementation, including all three native phases.
+        from inside import execute_offline_request, SITE, DB
+        import secrets
+        if SITE.exists(): shutil.rmtree(SITE)
+        subprocess.run(['mariadb','--socket=/scratch/mariadb.sock','--user=root','-e','DROP DATABASE IF EXISTS '+DB],check=True,capture_output=True)
+        for name in ('a01-source.sql', 'a01-validated.sql'):
+            stale=Path('/scratch')/name
+            if stale.exists(): stale.unlink()
+        offline=execute_offline_request(str(source), {'target_url':'https://imagine-test-a01-restored.invalid',
+            'production_url':'https://source.synthetic.invalid', 'password':secrets.token_urlsafe(32),
+            'expected_core_version':'7.0.9','decisions':{}}, False)
+        record['native_offline']={k:v for k,v in offline.items() if k not in ('restored_files_before_cleanup','files_after_cleanup')}
+        assert offline.get('data_verified') is True, record['native_offline']
+        assert offline['restored_files_before_cleanup']['uploads/woocommerce_uploads/issue.pdf']==offline['files_after_cleanup']['uploads/woocommerce_uploads/issue.pdf']
+        record['native_three_phases_pass']=True
         record['status']='PASS'
     result['peak_child_rss_kib']=resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss
     result['status']='PASS'
