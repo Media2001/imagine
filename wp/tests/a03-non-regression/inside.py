@@ -115,6 +115,10 @@ def run_storage(storage):
         check(storage + ':orders_twelve_months', len(a['order_months']) == 12 and sum(v['count'] for v in a['orders'].values()) == 3 and sum(v['amount_minor'] for v in a['orders'].values()) == 4244)
         check(storage + ':http_pages', len(a['pages']) == 7 and all(v['final_status'] == 200 and v['marker'] and v['php_error'] is False for v in a['pages'].values()))
         check(storage + ':readonly_database_and_files', fingerprint(db) == before_db and filemap(site) == before_files)
+        denied_output = snapshot(site, settings, pathlib.Path('/proc') / ('a03-output-' + storage))
+        check(storage + ':output_failure_cli_is_nonzero_and_readonly', denied_output.returncode == 1
+              and denied_output.stderr == 'A03_OUTPUT_FAILED\n' and denied_output.stdout == ''
+              and fingerprint(db) == before_db and filemap(site) == before_files)
         repeat = OUT / (storage + '-repeat')
         p = snapshot(site, settings, repeat)
         check(storage + ':repeat_cli', p.returncode == 0)

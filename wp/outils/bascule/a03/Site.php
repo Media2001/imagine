@@ -131,9 +131,9 @@ final class Site
                 }
             };
             $GLOBALS['wpdb']->suppress_errors(true);
-            if ($write) {
-                $GLOBALS['wpdb']->beginProbe();
-            }
+        if ($write) {
+            $GLOBALS['wpdb']->beginProbe();
+        }
         $db = null;
         unset($config);
         // No raw bootstrap output, personal values or plugin messages leave this process.
@@ -154,8 +154,10 @@ final class Site
         }
         self::$safeRuntime = true;
         if (!$write) {
-            if ($wpdb->query('SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ') === false
-                || $wpdb->query('START TRANSACTION READ ONLY') === false) {
+            if (
+                $wpdb->query('SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ') === false
+                || $wpdb->query('START TRANSACTION READ ONLY') === false
+            ) {
                 throw new \RuntimeException('A03_TRANSACTION_FAILED');
             }
         }
@@ -236,8 +238,10 @@ final class Site
         $subscriptionStates = ['none'];
         foreach (self::read(static fn() => $wpdb->get_col("SELECT ID FROM {$wpdb->users} ORDER BY ID")) as $id) {
             $id = (int) $id;
-            if (self::read(static fn(): bool => user_can($id, 'manage_options')
-                || user_can($id, 'manage_woocommerce') || is_super_admin($id))) {
+            if (
+                self::read(static fn(): bool => user_can($id, 'manage_options')
+                || user_can($id, 'manage_woocommerce') || is_super_admin($id))
+            ) {
                 continue;
             }
             $ms = array_unique($userMembers[$id] ?? ['none']);
@@ -515,7 +519,8 @@ final class Site
             )));
             $result['cleaned'] = $remaining === 0
                 && !self::read(static fn() => $wpdb->get_var($wpdb->prepare(
-                    "SELECT ID FROM {$wpdb->users} WHERE ID=%d", (int) $uid
+                    "SELECT ID FROM {$wpdb->users} WHERE ID=%d",
+                    (int) $uid
                 )));
             if (!$result['cleaned']) {
                 throw new \RuntimeException('A03_CLEANUP_FAILED');

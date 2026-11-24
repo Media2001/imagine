@@ -153,6 +153,42 @@ test('sample_state_dictionary_does_not_reindex', function (): void {
     unset($after['sample_states']['membership']['active']);
     expect(count(Imagine\NonRegression\Report::compare($before, $after)['changes']) === 1);
 });
+test('comparer_cli_rejects_malformed_reports_without_leaking_keys', function (): void {
+    $badKey = a03Photo();
+    $badKey['access']['Jean.Dupont'] = true;
+    $lostPage = a03Photo();
+    unset($lostPage['pages']['home']);
+    foreach ([
+        [['schema' => 'imagine-a03-v1'], ['schema' => 'imagine-a03-v1'], 1],
+        [a03Photo(), a03Probe(), 1], [a03Probe(), a03Photo(), 1],
+        [$badKey, $badKey, 1], [a03Photo(), $lostPage, 2],
+    ] as $i => [$before, $after, $expected]) {
+        $files = ['/report/compare-before-' . $i . '.json', '/report/compare-after-' . $i . '.json'];
+        foreach ([$before, $after] as $index => $report) {
+            file_put_contents($files[$index], json_encode($report, JSON_THROW_ON_ERROR));
+        }
+        $process = proc_open(['php', '/subject/comparer', ...$files], [
+            0 => ['file', '/dev/null', 'r'], 1 => ['pipe', 'w'], 2 => ['pipe', 'w'],
+        ], $pipes);
+        expect(is_resource($process));
+        $stdout = stream_get_contents($pipes[1]);
+        $stderr = stream_get_contents($pipes[2]);
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+        expect(proc_close($process) === $expected);
+        expect(!str_contains($stdout . $stderr, 'Jean'));
+        if ($expected === 1) {
+            expect($stdout === '' && $stderr === "A03_COMPARE_REFUSED\n");
+        } else {
+            expect(json_decode($stdout, true, 64, JSON_THROW_ON_ERROR)['changes'] === [
+                ['path' => 'pages.home', 'class' => 'anormal'],
+            ]);
+        }
+        foreach ($files as $file) {
+            unlink($file);
+        }
+    }
+});
 file_put_contents('/report/unit.json', json_encode(['tests' => $checks, 'exit_code' => (int) in_array(
     false,
     $checks,

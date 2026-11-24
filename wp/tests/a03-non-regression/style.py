@@ -16,7 +16,9 @@ bench = runner.bench
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--fix', action='store_true')
+    parser.add_argument('--name', default='style-' + uuid.uuid4().hex[:12])
     args = parser.parse_args()
+    assert args.name.replace('-', '').isalnum()
     name = 'imagine-a03-style-' + uuid.uuid4().hex[:12]
     created = False
     result = {'exit_code': 1, 'cleanup': False}
@@ -24,7 +26,8 @@ def main():
     tool = pathlib.Path('C:/Users/Ced/AppData/Local/hermes/cache/scratch/a02-phpcs.phar')
     # PHP_CodeSniffer 3.13.5, official release PHAR, exercised only in Docker.
     assert runner.hashlib.sha256(tool.read_bytes()).hexdigest() == '9ff3ddf1fcc6c9347a57bed63da10edfc6610e4339c6bee149e92537609c7939'
-    output = pathlib.Path('C:/Users/Ced/AppData/Local/hermes/cache/scratch/imagine-a03-runs/style-final.json')
+    output = pathlib.Path('C:/Users/Ced/AppData/Local/hermes/cache/scratch/imagine-a03-runs') / (args.name + '.json')
+    assert not output.exists()
     try:
         bench.call(['create', '--name', name, '--label', runner.LABEL + '=' + name, '--network', 'none', '--no-healthcheck', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--pull', 'never', '--entrypoint', '/bin/sleep', bench.IMAGE, 'infinity'])
         created = True

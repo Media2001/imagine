@@ -242,6 +242,15 @@ final class ReportTest extends TestCase
         Report::compare($bad, $bad);
     }
 
+    public function testIncompleteBaselineIsRefusedEvenIfPageAppearsAfterwards(): void
+    {
+        $before = Reports::photo();
+        unset($before['pages']['home']);
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('A03_REPORT_STRUCTURE');
+        Report::compare($before, Reports::photo());
+    }
+
     public function testEmptyInventoriesAndHposRemainValid(): void
     {
         $empty = Reports::photo();

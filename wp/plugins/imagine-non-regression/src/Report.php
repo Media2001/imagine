@@ -56,7 +56,8 @@ final class Report
         }
         foreach ($report['subscriptions'] as $row) {
             self::shape($row, ['status' => 'string', 'gateway' => 'string', 'period' => 'string',
-                'interval' => 'int', 'next_payment_utc' => ($row['next_payment_utc'] ?? null) === 0 ? 'int' : 'string']);
+                'interval' => 'int',
+                'next_payment_utc' => ($row['next_payment_utc'] ?? null) === 0 ? 'int' : 'string']);
         }
         self::shape($report['subscription_counts'], ['status' => 'array', 'gateway' => 'array', 'period' => 'array']);
         foreach ($report['subscription_counts'] as $counts) {
@@ -148,9 +149,9 @@ final class Report
             }
         }
         if ($beforeMode === 'photo') {
-            // A removed page is a difference, but two equally incomplete maps are not a baseline.
+            // The baseline must contain every page. A later loss is an anomaly, not a valid baseline.
             foreach (['home', 'open', 'restricted', 'shop', 'cart', 'checkout', 'account'] as $page) {
-                self::requireValid(isset($before['pages'][$page]) || isset($after['pages'][$page]));
+                self::requireValid(isset($before['pages'][$page]));
             }
         }
         $changes = [];

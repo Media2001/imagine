@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 add_filter('pre_wp_mail', '__return_false', PHP_INT_MAX);
 $restricted = wp_insert_post(['post_type' => 'post', 'post_status' => 'publish', 'post_title'
-    => 'Fiction privee', 'post_content' => 'A03_PRIVATE_CONTENT_CANARY']);
+    => 'Fiction privee', 'post_content' => 'Texte fictif reserve A03']);
 $open = wp_insert_post(['post_type' => 'post', 'post_status' => 'publish', 'post_title' => 'Fiction ouverte',
     'post_content' => 'A03_OPEN_MARKER']);
 $plan = wp_insert_post(['post_type' => 'wc_membership_plan', 'post_status' => 'publish', 'post_title'
