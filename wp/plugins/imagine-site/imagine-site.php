@@ -44,6 +44,9 @@ Paywall::register();
 require_once __DIR__ . '/PdfNumero.php';
 PdfNumero::register();
 
+require_once __DIR__ . '/EnvoiNatif.php';
+require_once __DIR__ . '/ListeEnvoiAdmin.php';
+
 add_action('init', static function (): void {
     foreach ([
         'imagine_numero' => [__('Numéros fictifs', 'imagine-site'), 'numeros'],
