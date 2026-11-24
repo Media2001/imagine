@@ -12,9 +12,16 @@
     "repartition_exacte": true,
     "positif_natif_C13_sans_email_BE_etranger": true,
     "CSV_C07_formules": true,
+    "calcul_historique_testable": true,
+    "gel_cloture_C07_adresse_statut": true,
+    "historique_absent_ferme": true,
     "numero_invalide_refuse": true,
+    "referent_sans_droits_sensibles": true,
+    "format_C10_effectivement_lu": true,
+    "journal_indisponible_refuse": true,
     "anonyme_ferme": true
   },
+  "sources_installees_conformes": true,
   "HTTP": {
     "page_native_E-ABO": true,
     "page_native_E-ADMIN": true,
@@ -27,12 +34,19 @@
     "nonce_absent": true,
     "nonce_invalide": true,
     "CSV_reel_E-ABO": true,
+    "CSV_formules_HTTP_E-ABO": true,
     "CSV_prive_E-ABO": true,
     "journal_export_E-ABO": true,
     "CSV_reel_E-ADMIN": true,
+    "CSV_formules_HTTP_E-ADMIN": true,
     "CSV_prive_E-ADMIN": true,
     "journal_export_E-ADMIN": true,
-    "refus_sans_journal_export": true
+    "refus_sans_journal_export": true,
+    "GET_export_refuse": true,
+    "nonce_lie_au_numero": true,
+    "nonce_tableau_refuse": true,
+    "aucun_evenement_sur_refus_final": true
   },
-  "manifestes_preserves": true
+  "manifestes_preserves": true,
+  "C09_roles_options_editorial_preserves": true
 }

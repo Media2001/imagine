@@ -31,8 +31,17 @@ def runtime():
     return checks
 
 
+def protege():
+    code = r'''global $wpdb;$out=[];$keys=['imagine_c08_fixture','imagine_c09_fixture','imagine_demo_manifest','imagine_demo_calendrier','imagine_acces_plans','imagine_acces_reglages','imagine_c05_reglages','imagine_envoi_colonnes_export','imagine_decouverte_reglages'];foreach($keys as $k){$out['options'][$k]=get_option($k,null);}$out['roles']=wp_roles()->roles;$f=get_option('imagine_c09_fixture');foreach($f['users'] as $k=>$id){$u=get_userdata($id);$out['users'][$k]=[$u->ID,$u->user_login,$u->user_email,$u->roles,$u->caps];}foreach($f['subscriptions'] as $k=>$id){$s=wcs_get_subscription($id);$out['subscriptions'][$k]=$s->get_data();}foreach($f['memberships'] as $k=>$id){$m=wc_memberships_get_user_membership($id);$out['memberships'][$k]=[$m->get_status(),$m->get_user_id(),$m->get_plan_id(),$m->get_start_date(),$m->get_end_date('mysql',false),get_post_meta($id,'_subscription_id',true)];}$out['editorial']=$wpdb->get_results("SELECT ID,post_title,post_content,post_excerpt,post_status,post_password FROM {$wpdb->posts} WHERE post_type IN ('post','imagine_numero') ORDER BY ID",ARRAY_A);echo wp_json_encode($out);'''
+    r = c10.b00.wp('eval', code)
+    if r['stderr']:
+        raise RuntimeError('Lecture de protection C13 non propre')
+    return json.loads(r['stdout'])
+
+
 def run(deploy=False, php_only=False):
     _, before = c10.guard()  # Sonde read-only avant toute mutation de la cible.
+    protected = protege()
     if deploy:
         for rel in FILES:
             upload(rel, ROOT / 'wp' / rel)
@@ -41,7 +50,12 @@ def run(deploy=False, php_only=False):
         if seed['stderr']:
             raise RuntimeError('Avertissement à l’initialisation C13')
         print('Témoins natifs C13 relus :', seed['stdout'].strip())
+    for rel in FILES:
+        actual = c10.b00.wp('eval', 'echo base64_encode(file_get_contents(WP_CONTENT_DIR . ' + json.dumps('/' + rel) + '));')['stdout'].strip()
+        if actual != base64.b64encode((ROOT / 'wp' / rel).read_bytes()).decode():
+            raise RuntimeError('Code installé différent des sources : ' + rel)
     checks = {'PHP': runtime()}
+    checks['sources_installees_conformes'] = True
     if not php_only:
         path = ROOT / 'wp/tests/demo/c13-http.py'
         spec = importlib.util.spec_from_file_location('c13_http', path)
@@ -49,8 +63,9 @@ def run(deploy=False, php_only=False):
         spec.loader.exec_module(mod)
         checks['HTTP'] = mod.verify()
         checks['manifestes_preserves'] = before == c10.guard()[1]
-        if not checks['manifestes_preserves']:
-            raise RuntimeError('Manifeste protégé différent')
+        checks['C09_roles_options_editorial_preserves'] = protected == protege()
+        if not checks['manifestes_preserves'] or not checks['C09_roles_options_editorial_preserves']:
+            raise RuntimeError('État protégé différent')
         (ROOT / 'production/C-13/resultats.json').write_text(json.dumps(checks, ensure_ascii=False, indent=2), encoding='utf-8')
         print('C13 :', sum(len(v) for v in checks.values() if isinstance(v, dict)), 'assertions PHP/HTTP ; manifestes préservés')
     return checks
