@@ -31,7 +31,9 @@ if ($checks['raccord_disponible']) {
         $checks['jamais_renouveler'] = Decouverte::ouvrir($id, $now->modify('+30 days')) === $first;
         $checks['decompte_raccorde'] = method_exists(Decouverte::class, 'decider');
         if ($checks['decompte_raccorde']) {
-            $robot = new \Imagine\Pilotage\Robots\Decision(\Imagine\Pilotage\Robots\Motif::NonCandidat);
+            $originalUser = get_current_user_id();
+            wp_set_current_user($id);
+            $robot = new \Imagine\Pilotage\Robots\Decision(\Imagine\Pilotage\Robots\Motif::AgentInconnu);
             $visitor = ['identifie' => true, 'droits' => []];
             $content = ['reserve' => true, 'numero' => $settings['numeros'][0], 'type' => 'article',
                 'sortie' => $now->modify('-1 day'), 'decouverte' => true];
@@ -51,6 +53,7 @@ if ($checks['raccord_disponible']) {
             $checks['pdf_hors_decouverte'] = !Decouverte::decider($pdf, $visitor, $robot, $now, 912004)->complet;
         }
     } finally {
+        if (isset($originalUser)) { wp_set_current_user($originalUser); }
         if ($before === $absent) { delete_option($key); } else { update_option($key, $before); }
         if ($policy === $absent) { delete_option(Decouverte::OPTION); } else { update_option(Decouverte::OPTION, $policy); }
         if ($verified === '') { delete_user_meta($id, 'imagine_email_confirme'); } else { update_user_meta($id, 'imagine_email_confirme', $verified); }

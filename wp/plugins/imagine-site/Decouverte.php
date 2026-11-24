@@ -65,7 +65,7 @@ final class Decouverte
             return null;
         }
         $key = self::key($userId);
-        $state = get_option($key, null);
+        $state = self::etat($userId);
         if ($state === null) {
             $initial = ['debut' => $now->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d H:i:s'),
                 'reglages' => $settings, 'articles' => []];
@@ -80,9 +80,89 @@ final class Decouverte
             }
             wp_cache_delete('notoptions', 'options');
             wp_cache_delete($key, 'options');
-            $state = get_option($key, null); // Relit même en cas de course d'ouverture.
+            $state = self::etat($userId); // Relit même en cas de course d'ouverture.
         }
         return self::etatValide($state) ? $state : null;
+    }
+
+    /** Lecture fraîche : le cache d'options ne peut masquer une consommation concurrente. */
+    public static function etat(int $userId): ?array
+    {
+        global $wpdb;
+        $raw = $wpdb->get_var($wpdb->prepare("SELECT option_value FROM {$wpdb->options} WHERE option_name = %s", self::key($userId)));
+        if ($wpdb->last_error !== '') {
+            throw new \RuntimeException('État découverte indisponible.');
+        }
+        if ($raw === null) {
+            return null;
+        }
+        $state = maybe_unserialize($raw);
+        if (!self::etatValide($state)) {
+            throw new \RuntimeException('État découverte invalide, jamais réinitialisé.');
+        }
+        return $state;
+    }
+
+    /** Le moteur C06 arbitre aussi les droits prioritaires : ils ne consomment jamais. */
+    public static function decider(array $content, array $visitor, \Imagine\Pilotage\Robots\Decision $robot,
+        DateTimeImmutable $now, int $articleId): \Imagine\Pilotage\Acces\Decision
+    {
+        $base = Paywall::deciderContenu($content, $visitor, $robot, $now);
+        if ($base->complet || !$visitor['identifie'] || $content['type'] !== 'article'
+            || !$content['reserve'] || $content['sortie'] > $now) {
+            return $base;
+        }
+        $id = get_current_user_id();
+        $settings = self::reglages();
+        if ($id <= 0 || $settings['ouverture'] !== 'premiere_lecture'
+            || !in_array($content['numero'], $settings['numeros'], true)) {
+            return $base;
+        }
+        try {
+            for ($attempt = 0; $attempt < 5; ++$attempt) {
+                $state = self::ouvrir($id, $now);
+                if (!$state) {
+                    return $base;
+                }
+                $policy = $state['reglages'];
+                $seen = in_array($articleId, $state['articles'], true);
+                $rights = $visitor;
+                $rights['droits'][] = ['type' => 'decouverte',
+                    'debut' => new DateTimeImmutable($state['debut'], new DateTimeZone('UTC')),
+                    'compte_verifie' => self::verifie($id),
+                    'consommes' => count($state['articles']) - ($seen ? 1 : 0)];
+                $content['decouverte'] = true;
+                $rule = $policy['forme'] === 'articles'
+                    ? new \Imagine\Pilotage\Acces\NombreArticlesDecouverte($policy['nombre'], $policy['numeros'], false)
+                    : new \Imagine\Pilotage\Acces\DureeDecouverte($policy['jours'] * DAY_IN_SECONDS, $policy['numeros'], false);
+                $decision = (new \Imagine\Pilotage\Acces\Moteur())->decider($content, $rights, $robot, $now,
+                    $rule, (new \Imagine\Pilotage\Acces\AdministrationReglages())->lire());
+                if (!$decision->complet || $seen) {
+                    return $decision;
+                }
+                $next = $state;
+                $next['articles'][] = $articleId;
+                global $wpdb;
+                // Compare-and-swap binaire : une lecture concurrente doit revalider le quota.
+                $updated = $wpdb->query($wpdb->prepare(
+                    "UPDATE {$wpdb->options} SET option_value = %s WHERE option_name = %s AND BINARY option_value = BINARY %s",
+                    maybe_serialize($next), self::key($id), maybe_serialize($state)
+                ));
+                wp_cache_delete(self::key($id), 'options');
+                if ($updated === 1) {
+                    if (self::etat($id) === null) {
+                        return $base;
+                    }
+                    return $decision;
+                }
+                if ($updated === false) {
+                    return $base;
+                }
+            }
+        } catch (\Throwable) {
+            return $base;
+        }
+        return $base; // Contention persistante : fermé, pas de droit présumé.
     }
 
     private static function etatValide(mixed $state): bool
