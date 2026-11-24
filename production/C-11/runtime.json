@@ -1,19 +1,24 @@
 {
+  "phpunit": {
+    "total": 34,
+    "assertions": 190,
+    "success": true,
+    "runner": "wp/outils/demo/c11-unit.py",
+    "discovery_T01": false
+  },
   "c11-seed-runtime": {
-    "demo-2026-t1:idempotent-0": true,
-    "demo-2026-t1:idempotent-1": true,
-    "demo-2026-t2:idempotent-0": true,
-    "demo-2026-t2:idempotent-1": true,
-    "demo-2026-t3:idempotent-0": true,
-    "demo-2026-t3:idempotent-1": true,
-    "demo-2026-hs:idempotent-0": true,
-    "demo-2026-hs:idempotent-1": true,
-    "demo-2026-t4:idempotent-0": true,
-    "demo-2026-t4:idempotent-1": true
+    "depart_sans_reference_privee": true,
+    "depart_deux_copies_publiques": true,
+    "passage_1_copies_supprimees": true,
+    "passage_1_ids_octets_prives_stables": true,
+    "passage_2_copies_supprimees": true,
+    "passage_2_ids_octets_prives_stables": true,
+    "restauration_privee_relue": true
   },
   "c11-runtime": {
     "actif_natif": true,
     "article_C08_actif_inchange": true,
+    "instant_article_PDF_unique": true,
     "article_C08_anonyme_inchange": true,
     "offert_natif_meme_droit": true,
     "groupe_natif_meme_droit": true,
@@ -36,10 +41,5 @@
     "racine_publique_parent_refusee": true,
     "restauration_exacte_options": true,
     "canari_supprime": true
-  },
-  "local_unit": {
-    "total": 32,
-    "success": true,
-    "failures": []
   }
 }

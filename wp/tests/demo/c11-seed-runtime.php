@@ -27,7 +27,9 @@ $checks = [];
     }
     $sourcePath = '/var/www/imagine-private-pdf/source/' . $slug . '.pdf';
     $bytes = file_get_contents($sourcePath);
-    $privatePath = \Imagine\Site\PdfNumero::path($issue);
+    $originalPath = \Imagine\Site\PdfNumero::path($issue);
+    $originalBlob = get_post_meta($issue, '_imagine_pdf_blob', true);
+    $firstPrivatePath = null;
     $paths = [wp_upload_dir()['basedir'] . '/imagine-demo/' . $slug . '.pdf',
         WP_CONTENT_DIR . '/imagine-demo-build/assets/' . $slug . '.pdf'];
     $title = get_post($media)->post_title;
@@ -39,17 +41,21 @@ $checks = [];
         }
         wp_update_post(['ID' => $media, 'post_status' => 'inherit', 'guid' => content_url('/uploads/imagine-demo/' . $slug . '.pdf')]);
         update_attached_file($media, $paths[0]);
+        delete_post_meta($issue, '_imagine_pdf_blob');
+        delete_post_meta($media, '_imagine_pdf_numero');
+        $checks['depart_sans_reference_privee'] = get_post_meta($issue, '_imagine_pdf_blob', true) === '';
         $checks['depart_deux_copies_publiques'] = is_file($paths[0]) && is_file($paths[1])
             && get_post($media)->post_status === 'inherit';
         for ($i = 1; $i <= 2; $i++) {
             $id = \Imagine\Demo\Seed\media($slug . '-pdf', $slug . '.pdf', 'application/pdf', $title);
             clearstatcache();
+            $firstPrivatePath ??= \Imagine\Site\PdfNumero::path($issue);
             $checks['passage_' . $i . '_copies_supprimees'] = !file_exists($paths[0]) && !is_link($paths[0])
                 && !file_exists($paths[1]) && !is_link($paths[1]);
             $checks['passage_' . $i . '_ids_octets_prives_stables'] = $id === $media
                 && (int) get_post_meta($issue, 'imagine_pdf_id', true) === $media
-                && \Imagine\Site\PdfNumero::path($issue) === $privatePath
-                && file_get_contents($privatePath) === $bytes && get_post($media)->post_status === 'private'
+                && \Imagine\Site\PdfNumero::path($issue) === $firstPrivatePath
+                && file_get_contents($firstPrivatePath) === $bytes && get_post($media)->post_status === 'private'
                 && !get_post_meta($media, '_wp_attached_file', true);
         }
     } finally {
@@ -58,9 +64,19 @@ $checks = [];
                 throw new RuntimeException('Nettoyage du témoin public C11 refusé.');
             }
         }
+        $createdBlob = get_post_meta($issue, '_imagine_pdf_blob', true);
+        update_post_meta($issue, '_imagine_pdf_blob', $originalBlob);
         \Imagine\Site\PdfNumero::protect($issue, $media, $sourcePath);
+        if (is_string($createdBlob) && $createdBlob !== $originalBlob
+            && preg_match('/\A[a-f0-9]{32}\.pdf\z/D', $createdBlob)) {
+            $createdPath = \Imagine\Site\PdfNumero::directory() . '/' . $createdBlob;
+            if (is_file($createdPath) && !unlink($createdPath)) {
+                throw new RuntimeException('Nettoyage du blob témoin refusé.');
+            }
+        }
     }
     $checks['restauration_privee_relue'] = get_post($media)->post_status === 'private'
+        && \Imagine\Site\PdfNumero::path($issue) === $originalPath
         && file_get_contents(\Imagine\Site\PdfNumero::path($issue)) === $bytes
         && !file_exists($paths[0]) && !file_exists($paths[1]);
 })();
