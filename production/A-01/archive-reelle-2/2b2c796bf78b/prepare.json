@@ -1,0 +1,76 @@
+{
+  "status": "PREPARED",
+  "name": "imagine-test-a01-ai1wm-2b2c796bf78b",
+  "synthetic_only": true,
+  "created": true,
+  "output": "C:\\Users\\Ced\\imagine\\production\\A-01\\archive-reelle-2\\2b2c796bf78b",
+  "isolation": {
+    "network": "none",
+    "mounts": [],
+    "ports": [],
+    "privileged": false,
+    "cap_drop": [
+      "ALL"
+    ],
+    "no_new_privileges": true,
+    "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
+    "name": "imagine-test-a01-ai1wm-2b2c796bf78b"
+  },
+  "exit": 0,
+  "small": {
+    "plugin_version": "7.109",
+    "path": "/scratch/imagine-test-a01-ai1wm-synthetic/wp-content/ai1wm-backups/small.wpress",
+    "bytes": 17030072,
+    "steps": [
+      "Ai1wm_Export_Init::execute",
+      "Ai1wm_Export_Compatibility::execute",
+      "Ai1wm_Export_Archive::execute",
+      "Ai1wm_Export_Config::execute",
+      "Ai1wm_Export_Config_File::execute",
+      "Ai1wm_Export_Enumerate_Content::execute",
+      "Ai1wm_Export_Enumerate_Media::execute",
+      "Ai1wm_Export_Enumerate_Plugins::execute",
+      "Ai1wm_Export_Enumerate_Themes::execute",
+      "Ai1wm_Export_Enumerate_Tables::execute",
+      "Ai1wm_Export_Content::execute",
+      "Ai1wm_Export_Media::execute",
+      "Ai1wm_Export_Plugins::execute",
+      "Ai1wm_Export_Themes::execute",
+      "Ai1wm_Export_Database::execute",
+      "Ai1wm_Export_Database_File::execute",
+      "Ai1wm_Export_Archive_Crc::execute",
+      "Ai1wm_Export_Download::execute",
+      "Ai1wm_Export_Clean::execute"
+    ],
+    "wordpress": "7.0.9",
+    "php": "8.2.36"
+  },
+  "large": {
+    "plugin_version": "7.109",
+    "path": "/scratch/imagine-test-a01-ai1wm-synthetic/wp-content/ai1wm-backups/large.wpress",
+    "bytes": 1511054151,
+    "steps": [
+      "Ai1wm_Export_Init::execute",
+      "Ai1wm_Export_Compatibility::execute",
+      "Ai1wm_Export_Archive::execute",
+      "Ai1wm_Export_Config::execute",
+      "Ai1wm_Export_Config_File::execute",
+      "Ai1wm_Export_Enumerate_Content::execute",
+      "Ai1wm_Export_Enumerate_Media::execute",
+      "Ai1wm_Export_Enumerate_Plugins::execute",
+      "Ai1wm_Export_Enumerate_Themes::execute",
+      "Ai1wm_Export_Enumerate_Tables::execute",
+      "Ai1wm_Export_Content::execute",
+      "Ai1wm_Export_Media::execute",
+      "Ai1wm_Export_Plugins::execute",
+      "Ai1wm_Export_Themes::execute",
+      "Ai1wm_Export_Database::execute",
+      "Ai1wm_Export_Database_File::execute",
+      "Ai1wm_Export_Archive_Crc::execute",
+      "Ai1wm_Export_Download::execute",
+      "Ai1wm_Export_Clean::execute"
+    ],
+    "wordpress": "7.0.9",
+    "php": "8.2.36"
+  }
+}

@@ -45,6 +45,7 @@ def verify(qualification):
         assert case['payload_never_read'] and case['excluded_read_guard_intervals']>0
         assert case['streamed_sql_import'] and case['native_three_phases_pass']
         assert case['real_manifest_plugins_theme_restored']
+        assert case['genuine_generated_png_validated']
         assert case['diagnostic_memory_limit_bytes']==256*1024**2
         assert case['summary_lines']<=25
         diag=case['diagnostic']; native=case['native_offline']
@@ -67,8 +68,8 @@ def verify(qualification):
     assert diag['entries']>30000 and media>1024**3 and diag['database_bytes']>128*1024**2
     assert large['restored_generated_posts']==1500
     cleanups=[]
-    # Both exact names were created by these receipts, never by a global scan.
-    for run in ('da5698b02266',folder.name):
+    # Exact names were created by these receipts, never by a global scan.
+    for run in ('da5698b02266','8f6e3d24930d',folder.name):
         owned=ROOT/'production/A-01/archive-reelle-2'/run
         p=json.loads((owned/'prepare.json').read_bytes())
         c=json.loads((owned/'cleanup.json').read_bytes())

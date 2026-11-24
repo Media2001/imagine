@@ -4,8 +4,33 @@ from pathlib import Path
 import secrets
 import shutil
 import subprocess
+import struct
 import sys
 import time
+import zlib
+
+
+def generated_png():
+    def chunk(kind, data):
+        return struct.pack('>I', len(data)) + kind + data + struct.pack('>I', zlib.crc32(kind + data))
+    row = bytes(i % 256 for i in range(128 * 3))
+    raster = (b'\0' + row) * 96
+    return (b'\x89PNG\r\n\x1a\n' + chunk(b'IHDR', struct.pack('>IIBBBBB',128,96,8,2,0,0,0))
+            + chunk(b'IDAT', zlib.compress(raster, 0)) + chunk(b'IEND', b''))
+
+
+def generated_pdf():
+    data = bytearray(b'%PDF-1.4\n%\xe2\xe3\xcf\xd3\n')
+    bodies = [b'<< /Type /Catalog /Pages 2 0 R >>', b'<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+              b'<< /Type /Page /Parent 2 0 R /MediaBox [0 0 100 100] /Resources << >> >>']
+    offsets = [0]
+    for index, body in enumerate(bodies, 1):
+        offsets.append(len(data)); data += str(index).encode() + b' 0 obj\n' + body + b'\nendobj\n'
+    xref = len(data)
+    data += b'xref\n0 4\n0000000000 65535 f \n'
+    for offset in offsets[1:]: data += ('%010d 00000 n \n' % offset).encode()
+    data += b'trailer\n<< /Size 4 /Root 1 0 R >>\nstartxref\n' + str(xref).encode() + b'\n%%EOF\n'
+    return bytes(data)
 
 
 def call(args, data=None):
@@ -42,18 +67,18 @@ wp(['core', 'install', '--url=https://imagine-test-a01-ai1wm.invalid', '--title=
 wp(['plugin', 'activate', 'all-in-one-wp-migration'])
 wp(['plugin', 'activate', 'akismet'])  # package.json carries this active plugin; SQL deliberately clears it
 content = site / 'wp-content'
-for path, data in {'uploads/2026/11/fixture.jpg': b'FICTION MEDIA', 'uploads/wpallexport/fiction.csv': b'FICTION EXPORT NOT TO READ',
-                   'uploads/woocommerce_uploads/issue.pdf': b'%PDF FICTION', 'uploads/woocommerce_uploads/private.csv': b'FICTION CSV',
-                   'uploads/simple-file-list/issue.jpg': b'FICTION IMAGE', 'uploads/simple-file-list/private.html': b'FICTION HTML',
+for path, data in {'uploads/2026/11/fixture.png': generated_png(), 'uploads/wpallexport/fiction.csv': b'FICTION EXPORT NOT TO READ',
+                   'uploads/woocommerce_uploads/issue.pdf': generated_pdf(), 'uploads/woocommerce_uploads/private.csv': b'FICTION CSV',
+                   'uploads/simple-file-list/issue.png': generated_png(), 'uploads/simple-file-list/private.html': b'FICTION HTML',
                    'uploads/wc-logs/order.log': b'FICTION LOG', 'themes/fiction-backup.zip': b'FICTION ARCHIVE',
                    'mu-plugins/fiction.json': b'{"api_key":"FICTION_SITE_VALUE"}'}.items():
     p = content / path; p.parent.mkdir(parents=True, exist_ok=True); p.write_bytes(data)
 wp(['eval-file', '/opt/fixture.php', 'small', '--use-include'])
 wp(['eval-file', '/opt/fixture.php', 'grow', '--use-include'])
 media = content / 'uploads/2026/11'
-block = b'FICTION GENERATED MEDIA NO REAL DATA\n' * 1000
+block = generated_png()
 for i in range(32000):
-    (media / ('generated-%05d.pdf' % i)).write_bytes(block)
+    (media / ('generated-%05d.png' % i)).write_bytes(block)
 print(json.dumps({'generated_media_files': 32000, 'generated_media_bytes': len(block) * 32000}), flush=True)
 wp(['eval-file', '/opt/fixture.php', 'large', '--use-include'])
 print('REAL_AI1WM_EXPORTS_READY', flush=True)

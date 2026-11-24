@@ -91,8 +91,11 @@ try:
         for path in ('uploads/wpallexport/fiction.csv','uploads/wc-logs/order.log','uploads/woocommerce_uploads/private.csv',
                      'uploads/simple-file-list/private.html','themes/fiction-backup.zip'):
             assert not (target/path).exists()
-        for path in ('uploads/woocommerce_uploads/issue.pdf','uploads/simple-file-list/issue.jpg','uploads/2026/11/fixture.jpg'):
+        for path in ('uploads/woocommerce_uploads/issue.pdf','uploads/simple-file-list/issue.png','uploads/2026/11/fixture.png'):
             assert (target/path).read_bytes()==(site/'wp-content'/path).read_bytes()
+        image=json.loads(subprocess.check_output(['php','-r','echo json_encode(getimagesize($argv[1]));',str(target/'uploads/2026/11/fixture.png')]))
+        assert image['0']==128 and image['1']==96 and image['mime']=='image/png'
+        record['genuine_generated_png_validated']=True
         normalized = Path('/scratch/validated-' + case + '.sql')
         if normalized.exists(): normalized.unlink()
         plan = validate_file(sql,legacy_importer,normalized)
