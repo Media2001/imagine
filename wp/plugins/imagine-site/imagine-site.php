@@ -46,6 +46,8 @@ PdfNumero::register();
 
 require_once __DIR__ . '/EnvoiNatif.php';
 require_once __DIR__ . '/ListeEnvoiAdmin.php';
+EnvoiNatif::register();
+ListeEnvoiAdmin::register();
 
 add_action('init', static function (): void {
     foreach ([

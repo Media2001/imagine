@@ -1,0 +1,36 @@
+{
+  "PHP": {
+    "raccord_present": true,
+    "calendrier_15_clotures": true,
+    "capacite_E-ABO": true,
+    "capacite_E-ADMIN": true,
+    "capacite_E-REDAC": true,
+    "capacite_A-CARTE": true,
+    "raccord_natif_et_C07": true,
+    "C09_exclus_motifs": true,
+    "aucun_paiement_invente_C09": true,
+    "repartition_exacte": true,
+    "numero_invalide_refuse": true,
+    "anonyme_ferme": true
+  },
+  "HTTP": {
+    "page_native_E-ABO": true,
+    "page_native_E-ADMIN": true,
+    "menu_referent_sans_reglages": true,
+    "page_interdite_E-REDAC": true,
+    "export_interdit_E-REDAC": true,
+    "page_interdite_A-CARTE": true,
+    "export_interdit_A-CARTE": true,
+    "export_anonyme_ferme": true,
+    "nonce_absent": true,
+    "nonce_invalide": true,
+    "CSV_reel_E-ABO": true,
+    "CSV_prive_E-ABO": true,
+    "journal_export_E-ABO": true,
+    "CSV_reel_E-ADMIN": true,
+    "CSV_prive_E-ADMIN": true,
+    "journal_export_E-ADMIN": true,
+    "refus_sans_journal_export": true
+  },
+  "manifestes_preserves": true
+}
