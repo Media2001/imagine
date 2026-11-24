@@ -56,7 +56,7 @@ final class Report
         }
         foreach ($report['subscriptions'] as $row) {
             self::shape($row, ['status' => 'string', 'gateway' => 'string', 'period' => 'string',
-                'interval' => 'int', 'next_payment_utc' => 'string']);
+                'interval' => 'int', 'next_payment_utc' => ($row['next_payment_utc'] ?? null) === 0 ? 'int' : 'string']);
         }
         self::shape($report['subscription_counts'], ['status' => 'array', 'gateway' => 'array', 'period' => 'array']);
         foreach ($report['subscription_counts'] as $counts) {

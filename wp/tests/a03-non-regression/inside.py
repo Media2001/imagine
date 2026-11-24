@@ -122,6 +122,33 @@ def run_storage(storage):
         same = json.loads(compare.stdout)
         check(storage + ':identical_no_diff', compare.returncode == 0 and same['changes'] == [])
         (OUT / (storage + '-identical.json')).write_text(compare.stdout)
+        fault_mu = site / 'wp-content/mu-plugins/998-a03-collect-fault.php'
+        for label, prefix in [('memberships', 'SELECT ID FROM wp_posts WHERE post_type='), ('users', 'SELECT ID FROM wp_users ORDER BY ID'), ('actions', 'SELECT action_id,hook,scheduled_date_gmt FROM')]:
+            fault_mu.write_text("<?php add_filter('query', static function ($query) { return str_starts_with($query, " + json.dumps(prefix) + ") ? 'SELECT ID FROM wp_a03_missing_table' : $query; });")
+            try:
+                bad_target = OUT / (storage + '-sql-' + label)
+                denied_sql = snapshot(site, settings, bad_target)
+            finally:
+                fault_mu.unlink()
+            check(storage + ':sql_' + label + '_failure_is_not_empty', denied_sql.returncode == 1 and denied_sql.stderr == 'A03_SQL_READ\n' and not bad_target.exists(), {'exit': denied_sql.returncode, 'stderr': denied_sql.stderr[:100]})
+        fault_mu.write_text("<?php add_filter('query', static function ($query) { return str_starts_with($query, 'SELECT action_id,hook,scheduled_date_gmt FROM') ? 'SELECT action_id,hook,scheduled_date_gmt FROM wp_actionscheduler_actions WHERE 1=0' : $query; });")
+        try:
+            empty_target = OUT / (storage + '-empty-actions')
+            empty = snapshot(site, settings, empty_target)
+        finally:
+            fault_mu.unlink()
+        check(storage + ':legitimate_empty_actions_accepted', empty.returncode == 0 and json.loads((empty_target / 'non-regression.json').read_text())['actions'] == [])
+        fault_mu.write_text("<?php namespace Imagine\\NonRegression; function wc_memberships_user_can($uid, $action, $target) { return $uid === " + str(seed['ordinary']) + " ? true : \\wc_memberships_user_can($uid, $action, $target); }")
+        try:
+            rights_target = OUT / (storage + '-ordinary-rights')
+            rights = snapshot(site, settings, rights_target)
+        finally:
+            fault_mu.unlink()
+        rights_report = json.loads((rights_target / 'non-regression.json').read_text())
+        rights_diff = cmd(['php', '/subject/comparer', str(target / 'non-regression.json'), str(rights_target / 'non-regression.json')], check=False)
+        rights_changes = json.loads(rights_diff.stdout)['changes']
+        check(storage + ':only_ordinary_right_changed_and_detected', rights.returncode == 0 and rights_report['samples'] == a['samples'] and rights_diff.returncode == 2 and rights_changes == [{'path': 'access.' + str(seed['ordinary']) + ':' + str(seed['restricted']), 'class': 'anormal'}])
+        check(storage + ':fault_probes_readonly', fingerprint(db) == before_db and filemap(site) == before_files)
         # Mutations are oracle-only, created within this disposable fixture.
         sql(db, "UPDATE wp_posts SET post_status='wcm-expired' WHERE ID=" + str(seed['membership_ids']['active']))
         sql(db, 'DELETE FROM wp_actionscheduler_actions WHERE action_id=' + str(seed['action']))

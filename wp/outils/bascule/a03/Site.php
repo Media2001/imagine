@@ -534,15 +534,22 @@ final class Site
             $report = self::collect($settings);
             $wpdb->query('ROLLBACK');
         }
-        $output = $parent . '/' . $base;
-        if (!mkdir($output, 0700)) {
+        self::writeReport($parent . '/' . $base, $report);
+        return 0;
+    }
+
+    public static function writeReport(string $output, array $report): void
+    {
+        $json = json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n";
+        if (!@mkdir($output, 0700)) {
             throw new \RuntimeException('A03_OUTPUT_FAILED');
         }
-        file_put_contents($output . '/non-regression.json', json_encode(
-            $report,
-            JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR
-        ) . "\n");
-        chmod($output . '/non-regression.json', 0600);
-        return 0;
+        $file = $output . '/non-regression.json';
+        if (@file_put_contents($file, $json) !== strlen($json) || !@chmod($file, 0600)) {
+            if (is_file($file)) {
+                @unlink($file);
+            }
+            throw new \RuntimeException('A03_OUTPUT_FAILED');
+        }
     }
 }

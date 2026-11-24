@@ -11,6 +11,13 @@ use RuntimeException;
 
 final class ReportTest extends TestCase
 {
+    public function testNativeMissingNextPaymentIsZero(): void
+    {
+        $photo = Reports::photo();
+        $photo['subscriptions'][9]['next_payment_utc'] = 0;
+        self::assertSame([], Report::compare($photo, $photo)['changes']);
+    }
+
     public function testCompletePhotoAndTimestampAreSupported(): void
     {
         $before = Reports::photo();
