@@ -47,6 +47,8 @@
     "reglage_relecture_defaut_ferme_POST": true,
     "un_designe_par_numero_existant": true,
     "non_designe_meme_numero_sans_ouverture_HTTP": true,
+    "designation_absente_HTTP_fermee_sans_etat": true,
+    "designation_native_restauree_exactement": true,
     "journal_visible_compte_admin": true,
     "reglage_invalide_conserve": true,
     "nonce_invalide_refuse": true,
@@ -162,6 +164,6 @@
     "succes": true
   },
   "manifestes_preserves": true,
-  "total_controles": 184,
+  "total_controles": 186,
   "statut": "VERT"
 }
