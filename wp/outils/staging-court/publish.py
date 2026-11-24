@@ -226,6 +226,21 @@ def target_info(slug, prefix):
     return info
 
 
+def pipe_sanitized_database(runner, db_helper):
+    """Stream only the already sanitized owned-runner database into its target."""
+    sender = subprocess.Popen(DOCKER + ['exec', runner, 'mariadb-dump', '--socket=/scratch/mariadb.sock', '--user=root',
+                 '--skip-comments', '--skip-dump-date', '--single-transaction', 'imagine_a01_staging'],
+                 stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    try:
+        receiver = subprocess.run(DOCKER + ['exec', '-i', db_helper, 'mariadb', '--socket=/tmp/a01.sock', '--user=root', 'wordpress'],
+                     stdin=sender.stdout, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, timeout=1200)
+    finally:
+        sender.stdout.close()
+    sender.stderr.read(); sender.wait(timeout=60)
+    if sender.returncode or receiver.returncode:
+        raise RuntimeError('TARGET_DATABASE_TRANSFER_REFUSED')
+
+
 def inject(slug, runner, offline, target, helpers):
     """No WordPress executes here: stopped volumes, socket-only DB helper."""
     stop_site(slug)
@@ -348,9 +363,8 @@ os.chown(root,33,33); os.chmod(root,0o755)
         raise RuntimeError('TARGET_SOCKET_DATABASE_REFUSED')
     call(['exec', db_helper, 'mariadb', '--socket=/tmp/a01.sock', '--user=root', '-e',
           'DROP DATABASE wordpress; CREATE DATABASE wordpress CHARACTER SET utf8mb4;'])
-    dump = call(['exec', runner, 'mariadb-dump', '--socket=/scratch/mariadb.sock', '--user=root',
-                 '--skip-comments', '--skip-dump-date', '--single-transaction', 'imagine_a01_staging']).stdout
-    call(['exec', '-i', db_helper, 'mariadb', '--socket=/tmp/a01.sock', '--user=root', 'wordpress'], dump)
+    # Pipe the sanitized dump directly; no complete database in host memory.
+    pipe_sanitized_database(runner, db_helper)
     assert re.fullmatch(r'http://[a-zA-Z0-9.-]+:[0-9]+', target)
     sql = "UPDATE `" + prefix + "options` SET option_value='" + target + "' WHERE option_name IN ('home','siteurl');"
     call(['exec', '-i', db_helper, 'mariadb', '--socket=/tmp/a01.sock', '--user=root', 'wordpress'], sql.encode())

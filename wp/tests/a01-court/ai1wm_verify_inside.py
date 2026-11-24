@@ -22,7 +22,7 @@ try:
     site = Path('/scratch/imagine-test-a01-ai1wm-synthetic')
     for case in ('small','large'):
         source = site / ('wp-content/ai1wm-backups/' + case + '.wpress')
-        record = {'case':case, 'archive_bytes':source.stat().st_size}
+        record = {'case':case, 'archive_bytes':source.stat().st_size, 'diagnostic_memory_limit_bytes':256*1024**2}
         result['cases'].append(record)
         with source.open('rb') as stream:
             header = stream.read(4377)

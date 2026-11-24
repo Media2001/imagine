@@ -53,6 +53,12 @@ def main():
     result['exit'] = execution.returncode
     subject = publish.call(['exec', name, 'cat', '/report/ai1wm-verification.json'], check=False)
     if subject.returncode == 0: result['subject'] = json.loads(subject.stdout)
+    if execution.returncode == 0:
+        program = b"import pathlib,subprocess\np=pathlib.Path('/tmp/a01.sock')\nassert not p.exists()\np.symlink_to('/scratch/mariadb.sock')\nsubprocess.run(['mariadb','--socket=/scratch/mariadb.sock','--user=root','-e','CREATE DATABASE wordpress'],check=True)\n"
+        publish.call(['exec','-i',name,'python3','-'],program)
+        publish.pipe_sanitized_database(name,name)
+        program = b"import json,subprocess\nargs=['mariadb','--socket=/scratch/mariadb.sock','--user=root','--skip-column-names','-e']\na=subprocess.check_output(args+[\"SELECT COUNT(*),SUM(LENGTH(post_content)) FROM imagine_a01_staging.SERVMASK_PREFIX_posts\"])\nb=subprocess.check_output(args+[\"SELECT COUNT(*),SUM(LENGTH(post_content)) FROM wordpress.SERVMASK_PREFIX_posts\"])\nassert a==b\nprint(json.dumps({'exact_counts_and_content_bytes':True,'total_content_bytes':int(a.split()[1])}))\n"
+        result['sanitized_dump_pipe'] = json.loads(publish.call(['exec','-i',name,'python3','-'],program).stdout)
     result['isolation_after'] = publish.offline_isolation(name)
     result['sources_unchanged'] = all(hashlib.sha256((ROOT / rel).read_bytes()).hexdigest() == digest for rel,digest in result['source_manifest'].items())
     result['status'] = 'PASS' if result['sources_unchanged'] and result['native_file_policy_exit']==0 and all(v['exit']==0 for v in result['units']) and execution.returncode == 0 and result.get('subject',{}).get('status') == 'PASS' else 'FAIL'
