@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="false">
+    <testsuites>
+        <testsuite name="C11 contrôleur"><directory suffix="Test.php">tests</directory></testsuite>
+    </testsuites>
+</phpunit>
