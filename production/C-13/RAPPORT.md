@@ -1,5 +1,5 @@
 Fait : écran natif Liste d’envoi déployé, aperçu, exclus, export C07/C10 protégé et journal relu.
-Prêt à relire : C-13 technique avec réserve C09 ; PRET ne vaut ni recette complète, ni code clos, ni visuel validé.
+Prêt à relire : code technique consultable ; C-13 BLOQUÉ, marqueur PRET retiré par le parent après rejeu strict incomplet.
 À arbitrer par Ced : complément postal fictif C13 rattaché aux profils C09 sans changer leurs états natifs, oui/non ? Voir A-VOIR.md.
 Bloqué : A-SANSMAIL C09 non inclus, 12/12 souscriptions sans paiement validé ; bénéficiaires offert/groupe natifs absents.
 Ensuite : contrôle indépendant parent et rapport -V2 ; aucune reprise de C09/C10 ni autre lot.

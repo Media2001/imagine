@@ -1,6 +1,6 @@
 # C-13 — à voir sur la démonstration
 
-**PRET pour relecture technique avec réserve C09. La recette complète n'est pas acquise ; aucune validation visuelle ni clôture du lot n'est revendiquée.**
+**BLOQUÉ pour l’acceptation C09. L’écran est consultable et les contrôles techniques passent, mais le lot n’est pas PRET : la recette complète n’est pas acquise. Aucune validation visuelle ni clôture revendiquée.**
 
 ## Ouvrir l'écran
 

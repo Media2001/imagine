@@ -73,7 +73,7 @@ def run(deploy=False, php_only=False, require_complete=False):
         checks['acceptation_C09'] = json.loads(gate['stdout'])
         checks['recette_complete'] = all(checks['PHP'].values()) and all(checks['HTTP'].values()) and all(
             checks['acceptation_C09'][k] for k in ('A_SANSMAIL_inclus', 'offert_natif_present', 'groupe_natif_present'))
-        checks['statut'] = 'PRET_RELECTURE_AVEC_BLOCAGE_C09' if not checks['recette_complete'] else 'PRET_RELECTURE'
+        checks['statut'] = 'BLOQUE_ACCEPTATION_C09' if not checks['recette_complete'] else 'PRET_RELECTURE'
         (ROOT / 'production/C-13/resultats.json').write_text(json.dumps(checks, ensure_ascii=False, indent=2), encoding='utf-8')
         print('C13 :', len(checks['PHP']) + len(checks['HTTP']), 'assertions PHP/HTTP ; manifestes préservés')
         print('Acceptation C09 :', json.dumps(checks['acceptation_C09'], ensure_ascii=False), '; recette complète :', checks['recette_complete'])
