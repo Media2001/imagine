@@ -51,6 +51,54 @@ if ($checks['raccord_disponible']) {
             $checks['futur_pas_de_credit'] = !Decouverte::decider($future, $visitor, $robot, $now, 912004)->complet;
             $pdf = $content; $pdf['type'] = 'pdf';
             $checks['pdf_hors_decouverte'] = !Decouverte::decider($pdf, $visitor, $robot, $now, 912004)->complet;
+            $settings['nombre'] = 3; update_option(Decouverte::OPTION, $settings);
+            $checks['reglage_change_sans_recredit'] = !Decouverte::decider($content, $visitor, $robot, $now, 912003)->complet
+                && Decouverte::etat($id)['reglages']['nombre'] === 2;
+            delete_option($key); $settings['forme'] = 'duree'; $settings['jours'] = 1;
+            update_option(Decouverte::OPTION, $settings); Decouverte::ouvrir($id, $now);
+            $checks['duree_avant_limite'] = Decouverte::decider($content, $visitor, $robot, $now->modify('+86399 seconds'), 912001)->complet;
+            $boundary = Decouverte::decider($content, $visitor, $robot, $now->modify('+86400 seconds'), 912002);
+            $checks['duree_fin_exclue_moteur'] = !$boundary->complet && $boundary->motif->value === 'decouverte_epuisee';
+            $scope = $content; $scope['numero'] = '999999';
+            $checks['hors_perimetre_pas_de_credit'] = !Decouverte::decider($scope, $visitor, $robot, $now, 912003)->complet
+                && Decouverte::etat($id)['articles'] === [912001];
+            update_option($key, 'corrompu');
+            $checks['etat_invalide_jamais_recree'] = !Decouverte::decider($content, $visitor, $robot, $now, 912003)->complet
+                && get_option($key) === 'corrompu';
+            delete_option($key);
+            $robotVerified = new \Imagine\Pilotage\Robots\Decision(\Imagine\Pilotage\Robots\Motif::VerifieDns, 'google');
+            $checks['robot_verifie_contrat_sans_compteur'] = Decouverte::decider($content, $visitor, $robotVerified, $now, 912003)->complet
+                && get_option($key, null) === null;
+            Decouverte::ouvrir($id, $now);
+            $stopCas = static function (string $query): string {
+                global $wpdb;
+                return str_starts_with($query, "UPDATE {$wpdb->options} SET option_value =") && str_contains($query, 'imagine_decouverte_compte_')
+                    ? "UPDATE {$wpdb->options} SET option_value = option_value WHERE 1=0" : $query;
+            };
+            add_filter('query', $stopCas);
+            try {
+                $checks['persistance_refusee_lecture_fermee'] = !Decouverte::decider($content, $visitor, $robot, $now, 912001)->complet
+                    && Decouverte::etat($id)['articles'] === [];
+            } finally { remove_filter('query', $stopCas); }
+            $checks['persistance_retablie_positive'] = Decouverte::decider($content, $visitor, $robot, $now, 912001)->complet;
+        }
+        if (!function_exists('add_settings_error')) { require_once ABSPATH . 'wp-admin/includes/template.php'; }
+        $validPolicy = get_option(Decouverte::OPTION);
+        $failAudit = static function (string $query): string {
+            return str_starts_with($query, 'INSERT INTO') && str_contains($query, 'imagine_reglages_journal_')
+                ? 'INSERT INTO imagine_c12_table_inexistante (a) VALUES (1)' : $query;
+        };
+        global $wpdb; $suppress = $wpdb->suppress_errors(true);
+        add_filter('query', $failAudit);
+        try {
+            $changed = $validPolicy; $changed['jours'] = 13;
+            update_option(Decouverte::OPTION, $changed);
+            $checks['audit_panne_annule_modification'] = get_option(Decouverte::OPTION) === $validPolicy;
+            delete_option(Decouverte::OPTION); add_option(Decouverte::OPTION, $changed, '', false);
+            $checks['audit_panne_annule_creation'] = get_option(Decouverte::OPTION, null) === null;
+        } finally {
+            remove_filter('query', $failAudit); $wpdb->suppress_errors($suppress);
+            update_option(Decouverte::OPTION, $validPolicy);
         }
     } finally {
         if (isset($originalUser)) { wp_set_current_user($originalUser); }

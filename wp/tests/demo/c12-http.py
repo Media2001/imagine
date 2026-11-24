@@ -95,8 +95,9 @@ def verify():
         checks['reglage_invalide_conserve'] = wp('echo wp_json_encode(get_option("imagine_decouverte_reglages"));') == desired
         status, _, _ = settings_post(admin, dict(desired, nombre=3), nonce_override='nonce-invalide')
         checks['nonce_invalide_refuse'] = status == 403 and wp('echo wp_json_encode(get_option("imagine_decouverte_reglages"));') == desired
-        status, _, _ = fetch('/wp-admin/options.php', client, urlencode({'option_page': 'imagine_reglages', 'action': 'update', '_wpnonce': 'nonce-invalide'}).encode())
-        checks['client_ne_modifie_pas_C10'] = status == 403 and wp('echo wp_json_encode(get_option("imagine_decouverte_reglages"));') == desired
+        status, _, denied = fetch('/wp-admin/options.php', client, urlencode({'option_page': 'imagine_reglages', 'action': 'update', '_wpnonce': 'nonce-invalide'}).encode())
+        # WooCommerce écarte le rôle customer vers Mon compte avant options.php.
+        checks['client_ne_modifie_pas_C10'] = (status == 403 or (status == 200 and 'woocommerce-MyAccount' in denied and 'name="option_page"' not in denied)) and wp('echo wp_json_encode(get_option("imagine_decouverte_reglages"));') == desired
         fin_user = wp('echo wp_json_encode(get_option("imagine_c09_fixture")["users"]["V-DEC-FIN"]);')
         fin_before = wp('echo wp_json_encode(get_option("imagine_decouverte_compte_' + str(fin_user) + '"));')
         fin = login(accounts['V-DEC-FIN'])
