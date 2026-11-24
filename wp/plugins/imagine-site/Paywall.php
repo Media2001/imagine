@@ -75,13 +75,12 @@ final class Paywall
             }
             $userId = get_current_user_id();
             $visitor = ['identifie' => $userId > 0, 'droits' => $userId ? self::rights($userId, $now) : []];
-            $decision = self::deciderContenu(
-                ['reserve' => in_array($flag, ['1', true, 1], true), 'numero' => (string) $number, 'type' => 'article',
-                    'sortie' => $release, 'decouverte' => false],
-                $visitor,
-                self::robot($now),
-                $now
-            );
+            $content = ['reserve' => in_array($flag, ['1', true, 1], true), 'numero' => (string) $number,
+                'type' => 'article', 'sortie' => $release, 'decouverte' => false];
+            $robot = self::robot($now);
+            $decision = Decouverte::concerne($post->ID)
+                ? Decouverte::decider($content, $visitor, $robot, $now, $post->ID)
+                : self::deciderContenu($content, $visitor, $robot, $now);
             return self::$decisions[$key] = ['complet' => $decision->complet, 'motif' => $decision->motif->value, 'bloc' => $decision->bloc->value];
         } catch (\Throwable) {
             $closed = ['complet' => false, 'motif' => 'adaptateur_indisponible', 'bloc' => 'abonnement'];

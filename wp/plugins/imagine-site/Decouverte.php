@@ -11,6 +11,54 @@ use DateTimeZone;
 final class Decouverte
 {
     public const OPTION = 'imagine_decouverte_reglages';
+    private static int $article = 0;
+
+    public static function concerne(int $articleId): bool
+    {
+        return self::$article === $articleId && $articleId > 0;
+    }
+
+    public static function register(): void
+    {
+        // Après les redirections canoniques : seules les vraies lectures finales consomment.
+        add_action('template_redirect', [self::class, 'preparer'], PHP_INT_MAX);
+        // WordPress peut supprimer preview=true pour un lecteur sans edit_post :
+        // ne pas transformer cet aperçu en une deuxième requête de lecture payante.
+        add_filter('redirect_canonical', static fn ($url) => isset($_GET['preview']) ? false : $url);
+        add_filter('the_content', [self::class, 'compteur'], 20);
+    }
+
+    public static function preparer(): void
+    {
+        if (!is_user_logged_in() || is_admin() || wp_doing_ajax() || wp_doing_cron()
+            || (defined('WP_CLI') && WP_CLI) || (defined('REST_REQUEST') && REST_REQUEST)
+            || ($_SERVER['REQUEST_METHOD'] ?? '') !== 'GET' || !is_singular('post')
+            || is_feed() || is_preview() || is_embed() || is_trackback() || is_404()
+            || isset($_GET['preview']) || isset($_GET['rest_route']) || isset($_GET['imagine_pdf'])
+            || preg_match('/bot|crawler|spider|slurp|preview|facebookexternalhit|headless/i', (string) ($_SERVER['HTTP_USER_AGENT'] ?? ''))
+            || trim((string) ($_SERVER['HTTP_USER_AGENT'] ?? '')) === ''
+            || preg_match('/prefetch|prerender/i', ($_SERVER['HTTP_SEC_PURPOSE'] ?? '') . ($_SERVER['HTTP_PURPOSE'] ?? ''))) {
+            return;
+        }
+        $post = get_post(get_queried_object_id());
+        if (!$post || $post->post_type !== 'post' || $post->post_status !== 'publish') {
+            return;
+        }
+        self::$article = $post->ID;
+        Paywall::invalidate();
+        if (Paywall::decision($post)['complet']) {
+            // C08 avait expurgé un clone avant de connaître la route finale ; le cache natif est intact.
+            global $wp_query;
+            foreach ($wp_query->posts as $index => $candidate) {
+                if ($candidate->ID === $post->ID) {
+                    $wp_query->posts[$index] = clone $post;
+                }
+            }
+            $wp_query->post = clone $post;
+            $wp_query->queried_object = clone $post;
+            $GLOBALS['post'] = clone $post;
+        }
+    }
 
     public static function defauts(): array
     {
