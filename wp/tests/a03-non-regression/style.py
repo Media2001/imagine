@@ -22,7 +22,8 @@ def main():
     result = {'exit_code': 1, 'cleanup': False}
     targets = [runner.REPO / 'wp/outils/bascule/non-regression', runner.REPO / 'wp/outils/bascule/comparer'] + list((runner.REPO / 'wp/outils/bascule/a03').glob('*.php')) + list((runner.REPO / 'wp/plugins/imagine-non-regression/src').glob('*.php'))
     tool = pathlib.Path('C:/Users/Ced/AppData/Local/hermes/cache/scratch/a02-phpcs.phar')
-    assert runner.hashlib.sha256(tool.read_bytes()).hexdigest() == '204214c1ea5ba814fb0b2608c19cca2c10bf5ffcc9f0e3d4c34aadc0179517b7'
+    # PHP_CodeSniffer 3.13.5, official release PHAR, exercised only in Docker.
+    assert runner.hashlib.sha256(tool.read_bytes()).hexdigest() == '9ff3ddf1fcc6c9347a57bed63da10edfc6610e4339c6bee149e92537609c7939'
     output = pathlib.Path('C:/Users/Ced/AppData/Local/hermes/cache/scratch/imagine-a03-runs/style-final.json')
     try:
         bench.call(['create', '--name', name, '--label', runner.LABEL + '=' + name, '--network', 'none', '--no-healthcheck', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--pull', 'never', '--entrypoint', '/bin/sleep', bench.IMAGE, 'infinity'])
