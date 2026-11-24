@@ -12,6 +12,19 @@ if ($checks['raccord_present']) {
         wp_set_current_user($fixture['users'][$profile]);
         $checks['capacite_' . $profile] = \Imagine\Site\ListeEnvoiAdmin::autorise() === $allowed;
     }
+    $checks['raccord_natif_et_C07'] = method_exists(\Imagine\Site\EnvoiNatif::class, 'apercu');
+    if ($checks['raccord_natif_et_C07']) {
+        $view = \Imagine\Site\EnvoiNatif::apercu('DEMO-2027-T1');
+        $excluded = array_column($view['exclus'], 'motif', 'abonnement_id');
+        $checks['C09_exclus_motifs'] = ($excluded[(string) $fixture['subscriptions']['A-SUSP']] ?? '') === 'suspendu'
+            && ($excluded[(string) $fixture['subscriptions']['A-VIR']] ?? '') === 'virement_non_valide'
+            && ($excluded[(string) $fixture['subscriptions']['A-EXPIRE']] ?? '') === 'expire';
+        $checks['aucun_paiement_invente_C09'] = ($excluded[(string) $fixture['subscriptions']['A-SANSMAIL']] ?? '') === 'paiement_non_valide';
+        $checks['repartition_exacte'] = $view['belgique'] + $view['etranger'] === count($view['liste']->lignes);
+        $checks['numero_invalide_refuse'] = false;
+        try { \Imagine\Site\EnvoiNatif::apercu('inexistant'); }
+        catch (\OutOfBoundsException) { $checks['numero_invalide_refuse'] = true; }
+    }
     wp_set_current_user(0);
     $checks['anonyme_ferme'] = !\Imagine\Site\ListeEnvoiAdmin::autorise();
 }
