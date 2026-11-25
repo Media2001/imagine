@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmp7uy0ee52/site",
+    "--base-url=http://127.0.0.1:36255",
+    "--plan=/repo/wp/tests/a09/tmp7uy0ee52/sans-location.csv",
+    "--output=/report/sans-location",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "A09_REDIRECT_EXPECTED\n",
+  "events": [
+    {
+      "method": "GET",
+      "path": "/depart",
+      "at": 479752.837601058,
+      "port": 36255
+    }
+  ],
+  "site_unchanged": true
+}

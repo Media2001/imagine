@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpiu0bs22g/site",
+    "--base-url=http://127.0.0.1:42431",
+    "--plan=/repo/wp/tests/a09/tmpiu0bs22g/mauvaise-cible.csv",
+    "--output=/report/mauvaise-cible",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "A09_TARGET_EXPECTED\n",
+  "events": [
+    {
+      "method": "GET",
+      "path": "/depart",
+      "at": 479756.969520166,
+      "port": 42431
+    }
+  ],
+  "site_unchanged": true
+}

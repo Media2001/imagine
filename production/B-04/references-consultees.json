@@ -1,0 +1,22 @@
+[
+  {
+    "url": "https://developer.wordpress.org/reference/classes/wp_query/",
+    "status": 200,
+    "bytes": 561237
+  },
+  {
+    "url": "https://developer.wordpress.org/reference/functions/the_posts_pagination/",
+    "status": 200,
+    "bytes": 180989
+  },
+  {
+    "url": "https://developer.woocommerce.com/docs/theming/theme-development/classic-theme-developer-handbook/",
+    "status": 200,
+    "bytes": 75464
+  },
+  {
+    "url": "https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/plugins/woocommerce/src/Internal/ComingSoon/ComingSoonRequestHandler.php",
+    "status": 200,
+    "bytes": 15641
+  }
+]

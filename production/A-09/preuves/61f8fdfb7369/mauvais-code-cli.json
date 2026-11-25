@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpplb2bfw3/site",
+    "--base-url=http://127.0.0.1:43081",
+    "--plan=/repo/wp/tests/a09/tmpplb2bfw3/mauvais-code.csv",
+    "--output=/report/mauvais-code",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "A09_REDIRECT_EXPECTED\n",
+  "events": [
+    {
+      "method": "GET",
+      "path": "/depart",
+      "at": 479756.422718824,
+      "port": 43081
+    }
+  ],
+  "site_unchanged": true
+}

@@ -1,0 +1,5 @@
+﻿line,ancienne,cible,code,observed_code,observed_target,final_status,hops,issues
+2,/chaine,/final,301,301,/intermediaire,302,1,"mauvaise_cible, cible_non_200"
+3,/boucle,/boucle-b,301,301,/boucle-b,301,1,cible_non_200
+4,/auto,/final,301,301,/auto,301,1,"mauvaise_cible, cible_non_200"
+5,/long0,/final,301,301,/long1,301,1,"mauvaise_cible, cible_non_200"

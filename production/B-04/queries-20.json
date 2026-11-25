@@ -1,0 +1,81 @@
+{
+  "scope": "imagine-test-demo",
+  "method": "Real HTTP front controller: SAVEQUERIES; native wp(), template-loader and exact theme; no SQL strings saved; counters include bootstrap vs template_redirect onward.",
+  "total": 24,
+  "checks": {
+    "vingt_vrais_articles_distincts": true,
+    "seed_rejouable_identifiants_stables": true,
+    "fixture_native_verifiee": true,
+    "instrumentation_octets_exacts": true,
+    "anonyme:page_normale_20_articles": true,
+    "anonyme:compteur_reel": true,
+    "anonyme:HTML5": true,
+    "anonyme:pas_corps_reserve": true,
+    "anonyme:aucun_PDF": true,
+    "anonyme:route_canonique_reelle": true,
+    "a-carte:page_normale_20_articles": true,
+    "a-carte:compteur_reel": true,
+    "a-carte:HTML5": true,
+    "a-carte:pas_corps_reserve": true,
+    "a-carte:aucun_PDF": true,
+    "a-carte:route_canonique_reelle": true,
+    "p-numero:page_normale_20_articles": true,
+    "p-numero:compteur_reel": true,
+    "p-numero:HTML5": true,
+    "p-numero:pas_corps_reserve": true,
+    "p-numero:aucun_PDF": true,
+    "p-numero:route_canonique_reelle": true,
+    "endpoint_temporaire_retire": true,
+    "vingt_et_numero_exacts_supprimes": true
+  },
+  "failures": [],
+  "measurements": {
+    "anonyme": {
+      "full_request_sql": 93,
+      "template_sql": 32,
+      "articles": 20,
+      "issue": 2476,
+      "instrumented_HTTP_status": 200,
+      "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+    },
+    "a-carte": {
+      "full_request_sql": 183,
+      "template_sql": 110,
+      "articles": 20,
+      "issue": 2476,
+      "instrumented_HTTP_status": 200,
+      "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+    },
+    "p-numero": {
+      "full_request_sql": 182,
+      "template_sql": 113,
+      "articles": 20,
+      "issue": 2476,
+      "instrumented_HTTP_status": 200,
+      "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+    }
+  },
+  "fixture_article_ids": [
+    2477,
+    2478,
+    2479,
+    2480,
+    2481,
+    2482,
+    2483,
+    2484,
+    2485,
+    2486,
+    2487,
+    2488,
+    2489,
+    2490,
+    2491,
+    2492,
+    2493,
+    2494,
+    2495,
+    2496
+  ],
+  "fixture_issue": 2476
+}

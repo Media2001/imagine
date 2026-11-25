@@ -1,0 +1,67 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpzgkwqsm9/site",
+    "--base-url=http://127.0.0.1:36667",
+    "--plan=/repo/wp/tests/a09/tmpzgkwqsm9/chaines-boucles.csv",
+    "--output=/report/chaines-boucles",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 1,
+  "stdout": "# Test des redirections \u2014 lecture seule\n\n0 CONFORME ; 4 non conforme(s).\n\n| Ligne | Ancienne | Cible attendue | R\u00e9sultat |\n|---|---|---|---|\n| 2 | /chaine | /final | mauvaise_cible, cible_non_200 |\n| 3 | /boucle | /boucle-b | cible_non_200 |\n| 4 | /auto | /final | mauvaise_cible, cible_non_200 |\n| 5 | /long0 | /final | mauvaise_cible, cible_non_200 |\n",
+  "stderr": "",
+  "events": [
+    {
+      "method": "GET",
+      "path": "/chaine",
+      "at": 479839.192632453,
+      "port": 36667
+    },
+    {
+      "method": "GET",
+      "path": "/intermediaire",
+      "at": 479839.29291731,
+      "port": 36667
+    },
+    {
+      "method": "GET",
+      "path": "/boucle",
+      "at": 479839.393282004,
+      "port": 36667
+    },
+    {
+      "method": "GET",
+      "path": "/boucle-b",
+      "at": 479839.493245008,
+      "port": 36667
+    },
+    {
+      "method": "GET",
+      "path": "/auto",
+      "at": 479839.593612345,
+      "port": 36667
+    },
+    {
+      "method": "GET",
+      "path": "/auto",
+      "at": 479839.694792759,
+      "port": 36667
+    },
+    {
+      "method": "GET",
+      "path": "/long0",
+      "at": 479839.794926493,
+      "port": 36667
+    },
+    {
+      "method": "GET",
+      "path": "/long1",
+      "at": 479839.895638388,
+      "port": 36667
+    }
+  ],
+  "site_unchanged": true
+}

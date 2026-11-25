@@ -1,0 +1,43 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmptoit8n1h/site",
+    "--base-url=http://127.0.0.1:38679",
+    "--plan=/repo/wp/tests/a09/tmptoit8n1h/mauvaise-cible.csv",
+    "--output=/report/mauvaise-cible",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 1,
+  "stdout": "# Test des redirections \u2014 lecture seule\n\n1 CONFORME ; 1 non conforme(s).\n\n| Ligne | Ancienne | Cible attendue | R\u00e9sultat |\n|---|---|---|---|\n| 2 | /depart | /attendu | mauvaise_cible |\n| 3 | /ok | /fin | CONFORME |\n",
+  "stderr": "",
+  "events": [
+    {
+      "method": "GET",
+      "path": "/depart",
+      "at": 479795.011422256,
+      "port": 38679
+    },
+    {
+      "method": "GET",
+      "path": "/autre",
+      "at": 479795.111751228,
+      "port": 38679
+    },
+    {
+      "method": "GET",
+      "path": "/ok",
+      "at": 479795.211510901,
+      "port": 38679
+    },
+    {
+      "method": "GET",
+      "path": "/fin",
+      "at": 479795.313194965,
+      "port": 38679
+    }
+  ],
+  "site_unchanged": true
+}

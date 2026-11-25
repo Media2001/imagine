@@ -63,6 +63,13 @@ def run(phase='final'):
                 badge=soup.select_one('#imagine-contents-list [data-imagine-id="'+str(article['id'])+'"] [data-imagine-access]')
                 status=expected['statuses'][str(article['id'])]
                 checks[prefix+'statut:'+str(article['id'])]=bool(badge and badge.get('data-imagine-access')==status['code'] and badge.get_text(strip=True)==status['label'])
+                acode, _, article_html = http.fetch(article['path'], client)
+                body = BeautifulSoup(article_html, 'html.parser').select_one('.imagine-paywall-body')
+                article_text = body.get_text(' ', strip=True) if body else ''
+                private_markers = article['markers']
+                checks[prefix+'destination:'+str(article['id'])] = acode == 200 and bool(body) and (
+                    all(marker in article_text for marker in private_markers) if status['code'] != 'reserve'
+                    else all(marker not in article_html for marker in private_markers))
             checks[prefix+'aucun_corps_article']=all(marker not in text for a in issue['articles'] for marker in a['markers'])
             free=[a for a in issue['articles'] if expected['statuses'][str(a['id'])]['code']=='libre']
             feature=soup.select_one('[data-imagine-free-article]')

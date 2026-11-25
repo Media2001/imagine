@@ -1,0 +1,105 @@
+{
+  "schema": "imagine-a09-report-v1",
+  "base_url": "http://127.0.0.1:36667",
+  "read_only": true,
+  "requests": 8,
+  "total": 4,
+  "nonconformes": 4,
+  "rows": [
+    {
+      "line": 2,
+      "ancienne": "/chaine",
+      "cible": "/final",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "/intermediaire",
+      "final_status": 302,
+      "hops": 1,
+      "issues": [
+        "mauvaise_cible",
+        "cible_non_200"
+      ],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:36667/chaine",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:36667/intermediaire",
+          "status": 302
+        }
+      ]
+    },
+    {
+      "line": 3,
+      "ancienne": "/boucle",
+      "cible": "/boucle-b",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "/boucle-b",
+      "final_status": 301,
+      "hops": 1,
+      "issues": [
+        "cible_non_200"
+      ],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:36667/boucle",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:36667/boucle-b",
+          "status": 301
+        }
+      ]
+    },
+    {
+      "line": 4,
+      "ancienne": "/auto",
+      "cible": "/final",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "/auto",
+      "final_status": 301,
+      "hops": 1,
+      "issues": [
+        "mauvaise_cible",
+        "cible_non_200"
+      ],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:36667/auto",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:36667/auto",
+          "status": 301
+        }
+      ]
+    },
+    {
+      "line": 5,
+      "ancienne": "/long0",
+      "cible": "/final",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "/long1",
+      "final_status": 301,
+      "hops": 1,
+      "issues": [
+        "mauvaise_cible",
+        "cible_non_200"
+      ],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:36667/long0",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:36667/long1",
+          "status": 301
+        }
+      ]
+    }
+  ]
+}

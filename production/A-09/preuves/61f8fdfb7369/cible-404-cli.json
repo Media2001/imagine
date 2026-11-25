@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmptexbegu_/site",
+    "--base-url=http://127.0.0.1:43057",
+    "--plan=/repo/wp/tests/a09/tmptexbegu_/cible-404.csv",
+    "--output=/report/cible-404",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "A09_CHECK_FAILED\n",
+  "events": [
+    {
+      "method": "GET",
+      "path": "/depart",
+      "at": 479754.480157869,
+      "port": 43057
+    },
+    {
+      "method": "GET",
+      "path": "/attendu",
+      "at": 479754.580323662,
+      "port": 43057
+    }
+  ],
+  "site_unchanged": true
+}

@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmp6z13liw9/site",
+    "--base-url=http://127.0.0.1:40273",
+    "--plan=/repo/wp/tests/a09/tmp6z13liw9/timeout.csv",
+    "--output=/report/timeout",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "A09_CHECK_FAILED\n",
+  "events": [
+    {
+      "method": "GET",
+      "path": "/depart",
+      "at": 479755.775304993,
+      "port": 40273
+    },
+    {
+      "method": "GET",
+      "path": "/attendu",
+      "at": 479755.875335535,
+      "port": 40273
+    }
+  ],
+  "site_unchanged": true
+}

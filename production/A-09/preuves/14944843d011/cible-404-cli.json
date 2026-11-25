@@ -1,0 +1,43 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpu4hx_v90/site",
+    "--base-url=http://127.0.0.1:34219",
+    "--plan=/repo/wp/tests/a09/tmpu4hx_v90/cible-404.csv",
+    "--output=/report/cible-404",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 1,
+  "stdout": "# Test des redirections \u2014 lecture seule\n\n1 CONFORME ; 1 non conforme(s).\n\n| Ligne | Ancienne | Cible attendue | R\u00e9sultat |\n|---|---|---|---|\n| 2 | /depart | /attendu | cible_non_200 |\n| 3 | /ok | /fin | CONFORME |\n",
+  "stderr": "",
+  "events": [
+    {
+      "method": "GET",
+      "path": "/depart",
+      "at": 479791.568805761,
+      "port": 34219
+    },
+    {
+      "method": "GET",
+      "path": "/attendu",
+      "at": 479791.668173012,
+      "port": 34219
+    },
+    {
+      "method": "GET",
+      "path": "/ok",
+      "at": 479791.768420136,
+      "port": 34219
+    },
+    {
+      "method": "GET",
+      "path": "/fin",
+      "at": 479791.86874506,
+      "port": 34219
+    }
+  ],
+  "site_unchanged": true
+}
