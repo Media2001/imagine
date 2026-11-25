@@ -1,0 +1,185 @@
+{
+  "schema": "imagine-a08-v1",
+  "identity": {
+    "site": "/scratch/hpos",
+    "inputs": {
+      "/opt/a08/hpos-update.json": "5c1be97eb2dd2347d0b9516a45c386093809b87978bdff4e8192317a1445a838",
+      "/opt/a08/hpos-cleanup.json": "e374ccfcd7b162080ede34de0b625a8355abe82cd2b4502a951d7a6949bf98a5",
+      "/opt/a03/hpos-settings.json": "979432daeecdf32164c1187f8571ccf0e5e464fea1033a90daef57f75cfd1774",
+      "/opt/a08/hpos-backup.json": "2d2c21a4cb980632db1cadaaee1ea1adc2da4f0c0bcbc2168e5400dcb94ad6af"
+    },
+    "tools": {
+      "nettoyer.md": "8913167c788d24c3deb6f9f803d48653c5d204e8d30b753c893aa8548a9eb309",
+      "plan-imagine.exemple.json": "dea1acad0e998f755e7701749f91978562ca2acc654fa336a4c1c53b99a7f25c",
+      "comparer": "d9e40a82360a4982de5c9aa55d0b14178621c99b32ea0da6e40223aa29ae2a58",
+      "non-regression": "74971fff009aa578b7db5ba510aa54f6bec76bae7b0e68b57887a2e628c66b6b",
+      "nettoyer": "8a1d4cf46b15a6ed4dd440a0955126b1cef998122d9241b9a328ab7c3ca6a758",
+      "mettre-a-jour.md": "52859e25931ffa051a8a47d4ab39057fd038c8f1cd9be9c0a0e2b07904621530",
+      "mettre-a-jour": "863c22cbb6fec2c1469388d65aae6fa1c2383e848e5b38f646dc0e2689f4a941",
+      "repeter": "8c4cf537ff761f1f49694c52b223d2c7b470fc99d155ae4b6968cde26bc38a24",
+      "000-imagine-staging-safety.php": "c16f048f3fd2587ba719924eec53b07651ea3b6a495a8125746a157582f5474f",
+      "audit": "7eb2b4bfa450e37d3f4265e3055cdba61a877b056f4feb0bfce06f681659c6dc",
+      "non-regression.md": "4e721baaacce65f780f5491ba5463ca4dcd5237b6bf152c958917d5d9c71ded0",
+      "README.md": "67a9c1383940203419f77eae021b165d2ebf1e93e9080a2bdee5d9bf5b7a3829",
+      "lancer": "f156ce43843230a7c1e066f02537aabe6796cb7366c5ca99b8ff3c029cc0fa29",
+      "a08/sequence.py": "25ab8b3579a1a2c35e0ce83be2e543042f7f29c76a424b731372e5fb8fe7592d",
+      "a05/bootstrap.php": "2bf552d56c7f93319f817f2354ab7368f222409c21abd73187afaa7a6bf24dc1",
+      "a05/database.php": "f78f3a92d5e826c9894c9c5d25fefee374dcd28dea2b494c265386c8c4ee229a",
+      "a05/native.php": "3bd4d910606c5bd188b8536565db481960add38870a1fa751dfb478600a309de",
+      "a05/clean.py": "6f4e15727007711d1e350892269c2795cbb5bd2542377c4e2d14604ce40267df",
+      "a03/Report.php": "ffc1a003aeb5055e3a758389232f3e381a41db2167842c7691c1706bfba4cad9",
+      "a03/Site.php": "0350fb54dd7a906247f8f65a8203fc94fde9ccc52b303b13f76273eb773ca24c",
+      "a03/Policy.php": "6877b7330d472a41b14011e3e41aeb422d01e58a0c2675340bd101a87d427b62",
+      "a04/bootstrap.php": "c00ac7d816b2192794391ad9d9d873fdeb1ab12658662bd172599b459f6dfeb7",
+      "a04/update.py": "92da71dfda8d97f774db5254fee16661037a3937947e563b9bbc6fe048e41f0b",
+      "a04/maintenance.php": "4c356eb960eeaf1807b6aa55cd07551a58dfd843c797f6a5db3011d20aca6feb",
+      "a04/runtime.php": "838ab4fa0c93ec5350226fe7721d1fc444bc67ca3ac2558e5dc22c21079a7c17"
+    }
+  },
+  "done": {
+    "audit": {
+      "artifact": "audit-1",
+      "seals": {
+        "audit-1-receipt.json": "86b5bf80ce35ed5781a70e57b2689c4a53738e2aa3902dc4a502ac420cca15c9",
+        "audit-1-stdout.log": "155abfb842212f5d540722c2b9a187099d9ff9bb6f667fcf01d863b6745c6b66",
+        "audit-1-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "audit-1/audit.md": "e7b4ca0e642d2036251c42ebd29c4a72661e91557f69079bbcb7988927de08a5",
+        "audit-1/audit.json": "8131a8817dd3fa58970f4c7fe7a65d630be74d91971d4c50b2914d6bb4f8abcf"
+      }
+    },
+    "avant": {
+      "artifact": "avant-1",
+      "seals": {
+        "avant-1-receipt.json": "a62fd1f2115c869ca9db809192767ba8dd4f0e845d69cc586d1b3b61a054427b",
+        "avant-1-stdout.log": "47d5d5ae11757e3988788536f45acbc17da1c1586c734422b7edbef34a7f8316",
+        "avant-1-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "avant-1/non-regression.json": "f3ade39fe1999b1424a5479efa1f308ba227009ffb557dc6a136f9f5cfe44842"
+      }
+    },
+    "mise-a-jour": {
+      "artifact": null,
+      "seals": {
+        "mise-a-jour-2-receipt.json": "ab1a114dfa9f5f03e32f42c5116544174b685d0cbf284168438a02ba4b25c923",
+        "mise-a-jour-2-stdout.log": "40c6bdaa26d4beabcf4368c1a8433ad932aa49eeda06074261ddbebbbc27ab4c",
+        "mise-a-jour-2-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "nettoyage": {
+      "artifact": null,
+      "seals": {
+        "nettoyage-1-receipt.json": "1037e06e19082187049f0b26375ffe61437919dc0c0aa1f78921e4fa0ce6d12d",
+        "nettoyage-1-stdout.log": "53405fc80850fbd279d8cd2269dc525df203dd2ce5199cfb46391797c72e5efd",
+        "nettoyage-1-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "apres": {
+      "artifact": "apres-1",
+      "seals": {
+        "apres-1-receipt.json": "1a8c9b6541d13eb09405bb97115357e06698ee4231d2f06923fcb9cca67f1b9e",
+        "apres-1-stdout.log": "47d5d5ae11757e3988788536f45acbc17da1c1586c734422b7edbef34a7f8316",
+        "apres-1-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "apres-1/non-regression.json": "a4788459e62b898eea57eccd5b152f7f49d079c1723ac26efa3a4d1071c807cb"
+      }
+    }
+  },
+  "attempts": [
+    {
+      "step": "audit",
+      "command": [
+        "php",
+        "/subject/audit",
+        "--wp-path=/scratch/hpos",
+        "--output=/report/hpos-sequence/audit-1"
+      ],
+      "exit": 0,
+      "duration_seconds": 1.767761004040949,
+      "receipt": "audit-1-receipt.json"
+    },
+    {
+      "step": "avant",
+      "command": [
+        "php",
+        "/subject/non-regression",
+        "--wp-path=/scratch/hpos",
+        "--config=/opt/a03/hpos-settings.json",
+        "--output=/report/hpos-sequence/avant-1"
+      ],
+      "exit": 0,
+      "duration_seconds": 1.777118791011162,
+      "receipt": "avant-1-receipt.json"
+    },
+    {
+      "step": "mise-a-jour",
+      "command": [
+        "python3",
+        "-B",
+        "/subject/mettre-a-jour",
+        "--wp-path=/scratch/hpos",
+        "--plan=/opt/a08/hpos-update.json",
+        "--backup=/opt/a08/hpos-backup.json",
+        "--state=/report/hpos-sequence/a04"
+      ],
+      "exit": 1,
+      "duration_seconds": 0.15654252900276333,
+      "receipt": "mise-a-jour-1-receipt.json"
+    },
+    {
+      "step": "mise-a-jour",
+      "command": [
+        "python3",
+        "-B",
+        "/subject/mettre-a-jour",
+        "--wp-path=/scratch/hpos",
+        "--plan=/opt/a08/hpos-update.json",
+        "--backup=/opt/a08/hpos-backup.json",
+        "--state=/report/hpos-sequence/a04"
+      ],
+      "exit": 0,
+      "duration_seconds": 81.7290791660198,
+      "receipt": "mise-a-jour-2-receipt.json"
+    },
+    {
+      "step": "nettoyage",
+      "command": [
+        "python3",
+        "-B",
+        "/subject/nettoyer",
+        "--wp-path=/scratch/hpos",
+        "--plan=/opt/a08/hpos-cleanup.json",
+        "--backup=/opt/a08/hpos-backup.json",
+        "--state=/report/hpos-sequence/a05"
+      ],
+      "exit": 0,
+      "duration_seconds": 2.164294450019952,
+      "receipt": "nettoyage-1-receipt.json"
+    },
+    {
+      "step": "apres",
+      "command": [
+        "php",
+        "/subject/non-regression",
+        "--wp-path=/scratch/hpos",
+        "--config=/opt/a03/hpos-settings.json",
+        "--output=/report/hpos-sequence/apres-1"
+      ],
+      "exit": 0,
+      "duration_seconds": 1.4344486519694328,
+      "receipt": "apres-1-receipt.json"
+    },
+    {
+      "step": "comparaison",
+      "command": [
+        "php",
+        "/subject/comparer",
+        "/report/hpos-sequence/avant-1/non-regression.json",
+        "/report/hpos-sequence/apres-1/non-regression.json"
+      ],
+      "exit": 3,
+      "duration_seconds": 0.03748552402248606,
+      "receipt": "comparaison-1-receipt.json"
+    }
+  ],
+  "status": "ARRÊT : comparaison (code 3)",
+  "passes": [],
+  "look_at": "comparaison-1-receipt.json et journal natif "
+}

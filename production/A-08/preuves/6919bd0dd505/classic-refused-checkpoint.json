@@ -1,0 +1,105 @@
+{
+  "schema": "imagine-a08-v1",
+  "identity": {
+    "site": "/scratch/classic",
+    "inputs": {
+      "/opt/a08/classic-update.json": "5c1be97eb2dd2347d0b9516a45c386093809b87978bdff4e8192317a1445a838",
+      "/opt/a08/classic-cleanup.json": "e374ccfcd7b162080ede34de0b625a8355abe82cd2b4502a951d7a6949bf98a5",
+      "/opt/a03/classic-settings.json": "dda829c8d649fbd36a7fb0c3b7ae3e0bd5418a0cf7ec0ba53010a2d8f1ee5683",
+      "/opt/a08/classic-backup.json": "36cec5e775dfaec134db3c85c3d1bb04b3c868e72b1356874ebc2ca77ff53d13"
+    },
+    "tools": {
+      "nettoyer.md": "8913167c788d24c3deb6f9f803d48653c5d204e8d30b753c893aa8548a9eb309",
+      "plan-imagine.exemple.json": "dea1acad0e998f755e7701749f91978562ca2acc654fa336a4c1c53b99a7f25c",
+      "comparer": "d9e40a82360a4982de5c9aa55d0b14178621c99b32ea0da6e40223aa29ae2a58",
+      "non-regression": "74971fff009aa578b7db5ba510aa54f6bec76bae7b0e68b57887a2e628c66b6b",
+      "nettoyer": "8a1d4cf46b15a6ed4dd440a0955126b1cef998122d9241b9a328ab7c3ca6a758",
+      "mettre-a-jour.md": "52859e25931ffa051a8a47d4ab39057fd038c8f1cd9be9c0a0e2b07904621530",
+      "mettre-a-jour": "863c22cbb6fec2c1469388d65aae6fa1c2383e848e5b38f646dc0e2689f4a941",
+      "repeter": "8c4cf537ff761f1f49694c52b223d2c7b470fc99d155ae4b6968cde26bc38a24",
+      "000-imagine-staging-safety.php": "c16f048f3fd2587ba719924eec53b07651ea3b6a495a8125746a157582f5474f",
+      "audit": "7eb2b4bfa450e37d3f4265e3055cdba61a877b056f4feb0bfce06f681659c6dc",
+      "non-regression.md": "4e721baaacce65f780f5491ba5463ca4dcd5237b6bf152c958917d5d9c71ded0",
+      "README.md": "67a9c1383940203419f77eae021b165d2ebf1e93e9080a2bdee5d9bf5b7a3829",
+      "lancer": "f156ce43843230a7c1e066f02537aabe6796cb7366c5ca99b8ff3c029cc0fa29",
+      "a08/sequence.py": "25ab8b3579a1a2c35e0ce83be2e543042f7f29c76a424b731372e5fb8fe7592d",
+      "a05/bootstrap.php": "2bf552d56c7f93319f817f2354ab7368f222409c21abd73187afaa7a6bf24dc1",
+      "a05/database.php": "f78f3a92d5e826c9894c9c5d25fefee374dcd28dea2b494c265386c8c4ee229a",
+      "a05/native.php": "3bd4d910606c5bd188b8536565db481960add38870a1fa751dfb478600a309de",
+      "a05/clean.py": "6f4e15727007711d1e350892269c2795cbb5bd2542377c4e2d14604ce40267df",
+      "a03/Report.php": "ffc1a003aeb5055e3a758389232f3e381a41db2167842c7691c1706bfba4cad9",
+      "a03/Site.php": "0350fb54dd7a906247f8f65a8203fc94fde9ccc52b303b13f76273eb773ca24c",
+      "a03/Policy.php": "6877b7330d472a41b14011e3e41aeb422d01e58a0c2675340bd101a87d427b62",
+      "a04/bootstrap.php": "c00ac7d816b2192794391ad9d9d873fdeb1ab12658662bd172599b459f6dfeb7",
+      "a04/update.py": "92da71dfda8d97f774db5254fee16661037a3937947e563b9bbc6fe048e41f0b",
+      "a04/maintenance.php": "4c356eb960eeaf1807b6aa55cd07551a58dfd843c797f6a5db3011d20aca6feb",
+      "a04/runtime.php": "838ab4fa0c93ec5350226fe7721d1fc444bc67ca3ac2558e5dc22c21079a7c17"
+    }
+  },
+  "done": {
+    "audit": {
+      "artifact": "audit-1",
+      "seals": {
+        "audit-1-receipt.json": "6ba6a6f619ce5c6f4b81366b227082bfa4f17334f4a6b6180eb8bbbeeb111d0b",
+        "audit-1-stdout.log": "155abfb842212f5d540722c2b9a187099d9ff9bb6f667fcf01d863b6745c6b66",
+        "audit-1-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "audit-1/audit.md": "b89293ef004bc0e66d468b73b15d6fb44f3d9b7e3406a8163344a0b30f00e17e",
+        "audit-1/audit.json": "a8da432365df09d33e5709ce2f1b44b2b1f618ba6377bbd935cf781a492ba91c"
+      }
+    },
+    "avant": {
+      "artifact": "avant-1",
+      "seals": {
+        "avant-1-receipt.json": "2b1775bf5e47fbff8a59b3fd90726b96593f7366e533fc0e2cbcfcd5b395c15b",
+        "avant-1-stdout.log": "47d5d5ae11757e3988788536f45acbc17da1c1586c734422b7edbef34a7f8316",
+        "avant-1-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "avant-1/non-regression.json": "0bea056362bd7727610dcdbe9e278b498b04a87b08bd690ca813dacb719fc727"
+      }
+    }
+  },
+  "attempts": [
+    {
+      "step": "audit",
+      "command": [
+        "php",
+        "/subject/audit",
+        "--wp-path=/scratch/classic",
+        "--output=/report/classic-sequence/audit-1"
+      ],
+      "exit": 0,
+      "duration_seconds": 1.1131093809963204,
+      "receipt": "audit-1-receipt.json"
+    },
+    {
+      "step": "avant",
+      "command": [
+        "php",
+        "/subject/non-regression",
+        "--wp-path=/scratch/classic",
+        "--config=/opt/a03/classic-settings.json",
+        "--output=/report/classic-sequence/avant-1"
+      ],
+      "exit": 0,
+      "duration_seconds": 1.5140801360248588,
+      "receipt": "avant-1-receipt.json"
+    },
+    {
+      "step": "mise-a-jour",
+      "command": [
+        "python3",
+        "-B",
+        "/subject/mettre-a-jour",
+        "--wp-path=/scratch/classic",
+        "--plan=/opt/a08/classic-update.json",
+        "--backup=/opt/a08/classic-backup.json",
+        "--state=/report/classic-sequence/a04"
+      ],
+      "exit": 1,
+      "duration_seconds": 0.1474634560290724,
+      "receipt": "mise-a-jour-1-receipt.json"
+    }
+  ],
+  "status": "ARR\u00caT : mise-a-jour (code 1)",
+  "passes": [],
+  "look_at": "mise-a-jour-1-receipt.json et journal natif a04/"
+}

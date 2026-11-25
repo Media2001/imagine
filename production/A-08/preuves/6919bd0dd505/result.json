@@ -1,0 +1,123 @@
+{
+  "suite": "A08-real-synthetic-classic-hpos",
+  "checks": [
+    {
+      "check": "classic:audit_before_native",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "classic:no_mutations_before_gate",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:real_middle_refusal",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:refusal_no_later_step",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:refusal_database_files_exact",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:resume_update_cleanup_native",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "classic:before_not_replayed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:cleanup_effects_real",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:native_maintenance_preserved",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:exception",
+      "ok": false,
+      "class": "KeyError",
+      "code": "'comparison'"
+    },
+    {
+      "check": "hpos:audit_before_native",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "hpos:no_mutations_before_gate",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:real_middle_refusal",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:refusal_no_later_step",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:refusal_database_files_exact",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:resume_update_cleanup_native",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "hpos:before_not_replayed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:cleanup_effects_real",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:native_maintenance_preserved",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:exception",
+      "ok": false,
+      "class": "KeyError",
+      "code": "'comparison'"
+    },
+    {
+      "check": "network_none",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp6",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "exit_code": 1
+}

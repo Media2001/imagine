@@ -34,6 +34,20 @@ def digest(path):
 def run():
     work = module('b03-work.py')
     work.guard()
+    # New receipt namespace: never rewrite the failed historical gate or baseline.
+    run_proof = PROOF / 'reconciliation-c15' / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
+    run_proof.mkdir(parents=True, exist_ok=False)
+    preservation_guard = module('b03-preservation.py')
+    historical_before = load('corrections-before.json')
+    linked_before = preservation_guard.links(ROOT)
+    documentary_checks, c15_sources = preservation_guard.documentary(ROOT)
+    current_start = {'at': datetime.now(timezone.utc).isoformat(),
+                     'remote': work.wp(historical_before['snapshot_php']),
+                     'local': preservation_guard.local_snapshot(ROOT)}
+    (run_proof / 'current-before.json').write_text(json.dumps(current_start, indent=2), encoding='utf-8')
+    semantic = module('c15-action.py')  # snapshot() only; NEVER action/reset.
+    native_before = semantic.snapshot()
+    work.PROOF = run_proof
     deployed = dict(load('deploy-corrections.json')['expected'])
     amendment = load('deploy-reduced-motion.json')
     assert amendment['before'] == {k: deployed[k] for k in amendment['expected']}
@@ -43,19 +57,32 @@ def run():
     actual = work.readback(list(expected))
     checks = {'theme_local_deploye_exact': actual == expected and all(expected[k] == v for k, v in deployed.items()),
               'depot_limite_aux_deux_assets': set(deployed) == {'themes/imagine/assets/reading.css', 'themes/imagine/assets/reading.js'}}
-    php = work.runtime('corrections')
-    http = module('b03-http.py').run('corrections')
+    runtime_path = 'imagine-demo-build/b03-runtime.php'
+    checks['PHP_B03_test_deploye_exact'] = work.readback([runtime_path])[runtime_path] == digest(HERE / 'b03-runtime.php')
+    if not checks['PHP_B03_test_deploye_exact']:
+        raise RuntimeError('B03 runtime differs; no upload performed')
+    php = work.wp('require WP_CONTENT_DIR."/' + runtime_path + '";')
+    php.update(at=datetime.now(timezone.utc).isoformat(), scope='imagine-test-demo', phase='corrections')
+    (run_proof / 'php-corrections.json').write_text(json.dumps(php, ensure_ascii=False, indent=2), encoding='utf-8')
+    http_runner = module('b03-http.py')
+    http_runner.PROOF = run_proof
+    http = http_runner.run('corrections')
     node = subprocess.run(['node', '--test', '--test-reporter=tap', str(HERE / 'b03-reading.test.cjs')],
                           capture_output=True, text=True, encoding='utf-8')
-    (PROOF / 'js-corrections-green.txt').write_text(node.stdout + node.stderr, encoding='utf-8')
+    (run_proof / 'js-corrections-green.txt').write_text(node.stdout + node.stderr, encoding='utf-8')
     checks['JS_execution_sans_echec'] = node.returncode == 0
     node_tests = int(re.search(r'^# tests (\d+)$', node.stdout, re.M)[1])
     node_pass = int(re.search(r'^# pass (\d+)$', node.stdout, re.M)[1])
     checks['JS_tous_passes'] = node_tests == node_pass and node_tests > 0
-    module('b03-regression.py').run()
-    regression = load('local-regression.json')
+    regression_runner = module('b03-regression.py')
+    regression_runner.PROOF = run_proof
+    regression_runner.run()
+    regression = json.loads((run_proof / 'local-regression.json').read_text(encoding='utf-8'))
     local = regression['current_contract']
     checks['regression_locale'] = local['tests'] > 0 and not any(local[k] for k in ['failures', 'errors', 'skipped'])
+    guard_tests = subprocess.run([sys.executable, '-B', str(HERE / 'b03-preservation-test.py')], capture_output=True, text=True, encoding='utf-8')
+    (run_proof / 'preservation-unit.txt').write_text(guard_tests.stdout + guard_tests.stderr, encoding='utf-8')
+    checks['garde_preservation_contre_exemples'] = guard_tests.returncode == 0
     historical = regression['original_b01']
     checks['B01_seule_assertion_historique_obsolete'] = historical['failures'] == 1 and historical['errors'] == 0 and 'assertFalse(list(THEME.rglob' in historical['output']
     # Pas de rejouer.ps1 : son balayage global d'orphelins risquerait un autre worker.
@@ -67,7 +94,7 @@ def run():
                '--log-driver', 'none', '--label', 'org.imagine.b03=regression', '--entrypoint', 'timeout',
                'imagine-tests-t01:1', '600', 'php', '/repo/wp/tests/t01/executer.php']
     native = subprocess.run(command, capture_output=True, text=True, encoding='utf-8', timeout=650)
-    (PROOF / 't01-release.txt').write_text(native.stdout + native.stderr, encoding='utf-8')
+    (run_proof / 't01-release.txt').write_text(native.stdout + native.stderr, encoding='utf-8')
     matches = re.findall(r'^T01_RESULT (.+)$', native.stdout, re.M)
     t01 = json.loads(matches[0]) if len(matches) == 1 else {}
     checks['T01_canonique_hors_ligne'] = native.returncode == 0 and t01.get('pass') is True and all(t01[k] == 0 for k in ['failures', 'errors', 'skipped'])
@@ -82,29 +109,36 @@ def run():
     browser_count = len(browser['checks'])
     for name, value in browser['source_sha256'].items():
         checks['liaison_preuve_navigateur:' + name] = value == expected['themes/imagine/assets/' + name]
-    before = load('corrections-before.json')
-    remote_now = work.wp(before['snapshot_php'])
-    local_now = {p.relative_to(ROOT / 'wp').as_posix(): digest(p) for d in ['themes/imagine', 'plugins'] for p in (ROOT / 'wp' / d).rglob('*') if p.is_file()}
-    changed = lambda old, new: sorted(k for k in set(old) | set(new) if old.get(k) != new.get(k))
-    remote_changed = changed(before['remote'], remote_now)
-    local_changed = changed(before['local'], local_now)
-    allowed = sorted(deployed)
-    # Ces quatre chemins sont la propriété déclarée du worker C15 parallèle.
-    # Les différences sont conservées et tracées, pas restaurées par B03.
-    parallel_paths = ['plugins/imagine-site/EcheancesRegles.php', 'plugins/imagine-site/EcheancesNatives.php',
-                      'plugins/imagine-site/EcheancesAdmin.php', 'plugins/imagine-site/imagine-site.php']
-    local_owned = [k for k in local_changed if k not in parallel_paths]
-    remote_owned = [k for k in remote_changed if k not in parallel_paths]
-    checks['contenus_paiements_dates_et_autres_sources_preserves'] = remote_owned == allowed and local_owned == allowed
-    preservation = {'scope': 'imagine-test-demo', 'at': datetime.now(timezone.utc).isoformat(),
-                    'parallel_local_observed': [k for k in local_changed if k in parallel_paths],
-                    'parallel_remote_observed': [k for k in remote_changed if k in parallel_paths],
-                    'parallel_remote_sha256': {k: remote_now[k] for k in remote_changed if k in parallel_paths},
-                    'remote_items': len(remote_now), 'local_files': len(local_now),
-                    'remote_changed': remote_changed, 'local_changed': local_changed,
-                    'tables_sha256': {k: v for k, v in remote_now.items() if '/' not in k},
-                    'exact_allowed_changes': checks['contenus_paiements_dates_et_autres_sources_preserves']}
-    (PROOF / 'preservation-corrections.json').write_text(json.dumps(preservation, indent=2), encoding='utf-8')
+    # Existing deployed C09 test is read back byte-for-byte, then required read-only.
+    c09_path = 'imagine-demo-build/c09-payments.php'
+    checks['C09_test_deploye_exact'] = work.readback([c09_path])[c09_path] == digest(HERE / 'c09-payments.php')
+    if not checks['C09_test_deploye_exact']:
+        raise RuntimeError('C09 test bytes differ; no automatic upload authorized')
+    raw = work.c08.b00.wp('eval', 'require WP_CONTENT_DIR."/' + c09_path + '";', check=False)
+    if raw['stderr']:
+        raise RuntimeError('C09 readback warning; private output withheld')
+    c09 = json.loads(raw['stdout'])
+    c09.update(exit=raw['code'], at=datetime.now(timezone.utc).isoformat())
+    (run_proof / 'c09-native-readback.json').write_text(json.dumps(c09, indent=2), encoding='utf-8')
+    checks['C09_149_natifs_frais'] = c09['exit'] == 0 and c09['total'] == 149 and len(c09['checks']) == 149 and not c09['failures'] and all(v is True for v in c09['checks'].values())
+    native_after = semantic.snapshot()
+    checks['etat_metier_natif_exact_avant_apres_rejeu'] = native_before == native_after
+    current_end = {'at': datetime.now(timezone.utc).isoformat(),
+                   'remote': work.wp(historical_before['snapshot_php']),
+                   'local': preservation_guard.local_snapshot(ROOT)}
+    (run_proof / 'current-after.json').write_text(json.dumps(current_end, indent=2), encoding='utf-8')
+    scoped_checks, preservation = preservation_guard.compare(historical_before, current_start, current_end, deployed, c15_sources)
+    checks.update(scoped_checks)
+    checks.update(documentary_checks)
+    checks['reçus_historiques_et_C15_intacts'] = linked_before == preservation_guard.links(ROOT)
+    preservation.update(scope='imagine-test-demo', at=datetime.now(timezone.utc).isoformat(),
+                        checks={**scoped_checks, **documentary_checks}, linked_sha256=linked_before,
+                        current_before_sha256=digest(run_proof / 'current-before.json'),
+                        current_after_sha256=digest(run_proof / 'current-after.json'),
+                        semantic_before_sha256=hashlib.sha256(json.dumps(native_before, sort_keys=True).encode()).hexdigest(),
+                        semantic_after_sha256=hashlib.sha256(json.dumps(native_after, sort_keys=True).encode()).hexdigest(),
+                        semantic_scope='C15 snapshot(): fixture, seed, roles, discovery, order status/paid/amount/method/customer/addresses, subscription status/start/end/next/shipping, membership status/start/end; no user table hashes or audit-note rollback')
+    (run_proof / 'preservation-reconciliation.json').write_text(json.dumps(preservation, ensure_ascii=False, indent=2), encoding='utf-8')
     sources = [ROOT / 'wp' / path for path in expected]
     sources += sorted(p for p in HERE.glob('b03-*') if p.is_file()) + [HERE / 'test_b03_contract.py']
     documents = [PROOF / p for p in ['A-VOIR.md', 'RAPPORT.md', 'besoins-designer.md', 'REJOUER.md']]
@@ -135,22 +169,32 @@ def run():
         contrast[theme] = (max(values)+.05)/(min(values)+.05)
     checks['fonds_AA'] = all(v >= 4.5 for v in contrast.values())
     correction = ROOT / 'corrections/B-03.md'
-    checks['verification_apres_correction'] = datetime.now(timezone.utc).timestamp() > correction.stat().st_mtime
+    checks['verification_apres_correction'] = datetime.fromisoformat(current_start['at']).timestamp() > correction.stat().st_mtime
+    checks['verification_apres_C15_termine'] = datetime.fromisoformat(current_start['at']).timestamp() > (ROOT / 'production/C-15/PRET').stat().st_mtime
     failures = [k for k,v in checks.items() if v is not True]
     evidence = {'at': datetime.now(timezone.utc).isoformat(), 'scope': 'imagine-test-demo', 'status': 'VERIFIED' if not failures else 'FAILED',
                 'counts': {'php_B03': php['total'], 'HTTP': http['total'], 'JS': node_tests, 'local_regression': local['tests'],
-                           'T01': t01, 'browser_anonyme_assertions': browser_count, 'final_checks': len(checks)},
+                           'T01': t01, 'C09_native': c09['total'], 'browser_anonyme_assertions': browser_count, 'final_checks': len(checks)},
                 'checks': checks, 'failures': failures, 'remote_sha256': actual,
                 'correction_sha256': digest(correction),
                 'script_bytes': len(script), 'script_gzip_bytes': len(gzip.compress(script, mtime=0)),
                 'reading_words_per_minute': http['reading_words_per_minute'], 'contrast_ratios': contrast, 'python': sys.executable,
                 'source_sha256': {p.relative_to(ROOT).as_posix(): digest(p) for p in sources},
                 'documents_sha256': {p.relative_to(ROOT).as_posix(): digest(p) for p in documents},
-                'evidence_sha256': {name: digest(PROOF / name) for name in ['deploy-corrections.json', 'deploy-reduced-motion.json', 'php-corrections.json', 'http-corrections.json', 'js-corrections-green.txt', 't01-release.txt', 'local-regression.json', 'browser-colors-corrections.json', 'preservation-corrections.json', 'preparer-image.txt']},
+                'evidence_sha256': {p.relative_to(ROOT).as_posix(): digest(p) for p in
+                    [PROOF / n for n in ['deploy-corrections.json', 'deploy-reduced-motion.json', 'browser-colors-corrections.json', 'preparer-image.txt']]
+                    + [run_proof / n for n in ['php-corrections.json', 'http-corrections.json', 'js-corrections-green.txt', 't01-release.txt', 'local-regression.json', 'preservation-reconciliation.json', 'current-before.json', 'current-after.json', 'c09-native-readback.json', 'preservation-unit.txt']]},
                 'limits': ['Navigateur réel anonyme seulement ; a-carte prouvé par vrais cookies HTTP et logique JS testée hors navigateur.',
+                           preservation['reservation'],
+                           'Snapshots exacts limites aux quatre tables historiques non-utilisateur et aux fichiers plugins/theme ; options et metier natif verifies separement par snapshot semantique. Aucun paiement/action/reset C15 rejoue.',
                            'Ancienne assertion B01 sans aucun JS obsolète ; une adaptation B03 en mémoire, test historique intact.',
                            'PRET est prêt à relire, pas une approbation visuelle ou une mise en production.']}
-    (PROOF / 'verification-finale.json').write_text(json.dumps(evidence, ensure_ascii=False, indent=2), encoding='utf-8')
+    (run_proof / 'verification-finale.json').write_text(json.dumps(evidence, ensure_ascii=False, indent=2), encoding='utf-8')
+    pointer = {'status': evidence['status'], 'at': evidence['at'],
+               'receipt': (run_proof / 'verification-finale.json').relative_to(ROOT).as_posix(),
+               'sha256': digest(run_proof / 'verification-finale.json'),
+               'historical_failed_receipt_preserved': 'production/B-03/verification-finale.json'}
+    (PROOF / 'reconciliation-c15-current.json').write_text(json.dumps(pointer, indent=2), encoding='utf-8')
     print(json.dumps({k:evidence[k] for k in ['status', 'counts', 'failures', 'script_bytes', 'script_gzip_bytes', 'contrast_ratios']}, ensure_ascii=False, indent=2))
     if failures:
         raise SystemExit(1)

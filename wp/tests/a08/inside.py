@@ -81,17 +81,29 @@ def run_storage(storage):
     state=OUT/(storage+'-sequence')
     args=['python3','-B','/subject/repeter','--wp-path='+str(site),'--state='+str(state),'--update-plan='+str(plan_update),'--clean-plan='+str(plan_clean),'--config='+str(settings),'--backup='+str(backup)]
     readonly=config.replace("define('DB_USER', 'root')","define('DB_USER', 'a03_"+storage+"')")
+    saved_maintenance=[None]
     def read_mode():
         # Operator fixture boundary, never A08: retain external network isolation and safety MU.
-        for path in [site/'.maintenance',site/'wp-content/mu-plugins/001-imagine-a04-maintenance.php']:
+        persistent=site/'wp-content/mu-plugins/001-imagine-a04-maintenance.php'
+        if persistent.exists():saved_maintenance[0]=persistent.read_bytes()
+        for path in [site/'.maintenance',persistent]:
             if path.exists():path.unlink()
         (site/'wp-config.php').write_text(readonly)
     def write_mode():
         (site/'wp-config.php').write_text(config)
         (site/'.maintenance').write_text('<?php $upgrading = '+str(int(time.time()))+';\n')
+        if saved_maintenance[0] is not None:
+            (site/'wp-content/mu-plugins/001-imagine-a04-maintenance.php').write_bytes(saved_maintenance[0])
     def invoke(label,extra=None):
+        # Same explicit fixture-only AUTO_INCREMENT repair as accepted A03.snapshot.
+        sequence_query="SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='wp_options'"
+        reading=label in ['before','after','second-before','second-after']
+        sequence=int(a03.sql(db,sequence_query).stdout.splitlines()[-1]) if reading else None
         started=time.monotonic()
         result=a03.cmd(args+(extra or []),check=False,timeout=700)
+        if reading:
+            a03.sql(db,'ALTER TABLE wp_options AUTO_INCREMENT='+str(sequence))
+            assert int(a03.sql(db,sequence_query).stdout.splitlines()[-1])==sequence
         write(OUT/(storage+'-'+label+'-call.json'),{'command':args+(extra or []),'exit':result.returncode,'stderr':result.stderr,'stdout':result.stdout,'duration_seconds':time.monotonic()-started})
         return result
     def checkpoint():return json.loads((state/'etat.json').read_text())

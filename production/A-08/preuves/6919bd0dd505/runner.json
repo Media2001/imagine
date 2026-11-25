@@ -1,0 +1,135 @@
+{
+  "container": "imagine-a08-9905c22e8267",
+  "label": "org.imagine.a08-repetition",
+  "checks": [
+    {
+      "check": "isolation_before",
+      "ok": true,
+      "detail": {
+        "network": "none",
+        "mounts": [],
+        "ports": [],
+        "privileged": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2"
+      }
+    },
+    {
+      "check": "unit",
+      "ok": true,
+      "detail": {
+        "exit": 0
+      }
+    },
+    {
+      "check": "a02_regression",
+      "ok": true,
+      "detail": {
+        "command": [
+          "php",
+          "/opt/a02/unit.php"
+        ],
+        "exit": 0
+      }
+    },
+    {
+      "check": "a03_regression",
+      "ok": true,
+      "detail": {
+        "command": [
+          "php",
+          "/opt/a03/unit.php"
+        ],
+        "exit": 0
+      }
+    },
+    {
+      "check": "a03-boundary_regression",
+      "ok": true,
+      "detail": {
+        "command": [
+          "php",
+          "/opt/a03/output-boundary.php"
+        ],
+        "exit": 0
+      }
+    },
+    {
+      "check": "a04_regression",
+      "ok": true,
+      "detail": {
+        "command": [
+          "python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "/opt/a04",
+          "-p",
+          "test_*.py",
+          "-v"
+        ],
+        "exit": 0
+      }
+    },
+    {
+      "check": "a05_regression",
+      "ok": true,
+      "detail": {
+        "command": [
+          "python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "/opt/a05",
+          "-p",
+          "test_*.py",
+          "-v"
+        ],
+        "exit": 0
+      }
+    },
+    {
+      "check": "integration",
+      "ok": false,
+      "detail": {
+        "exit": 1
+      }
+    },
+    {
+      "check": "isolation_after",
+      "ok": true,
+      "detail": {
+        "network": "none",
+        "mounts": [],
+        "ports": [],
+        "privileged": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2"
+      }
+    },
+    {
+      "check": "cleanup_exact_owned",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "diagnostic": "error: no such object: imagine-a08-9905c22e8267"
+      }
+    },
+    {
+      "check": "sources_unchanged",
+      "ok": false,
+      "detail": null
+    }
+  ],
+  "exit_code": 1
+}

@@ -141,7 +141,7 @@ def main(argv=None, runner=subprocess.run):
                             accepted = photo.get('php_log',{}).get('checked') is True and photo['php_log']['errors']==0
                     if step=='comparaison':
                         comparison = json.loads(stdout)
-                        checkpoint['comparison'] = {key:comparison[key] for key in ['attendu','anormal']}
+                        checkpoint['comparison'] = {'attendu':sum(c['class']=='attendu' for c in comparison['changes']), 'anormal':comparison['anormal']}
                         accepted = code in [0,3] and comparison['anormal']==0 and all(c['class']=='attendu' for c in comparison['changes'])
                 except (ValueError,KeyError,TypeError,OSError):
                     accepted = False

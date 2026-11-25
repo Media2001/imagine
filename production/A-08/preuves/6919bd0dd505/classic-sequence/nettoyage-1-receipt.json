@@ -1,0 +1,15 @@
+{
+  "step": "nettoyage",
+  "command": [
+    "python3",
+    "-B",
+    "/subject/nettoyer",
+    "--wp-path=/scratch/classic",
+    "--plan=/opt/a08/classic-cleanup.json",
+    "--backup=/opt/a08/classic-backup.json",
+    "--state=/report/classic-sequence/a05"
+  ],
+  "exit": 0,
+  "duration_seconds": 2.3023599769803695,
+  "receipt": "nettoyage-1-receipt.json"
+}

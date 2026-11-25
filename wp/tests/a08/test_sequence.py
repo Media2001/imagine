@@ -61,7 +61,7 @@ class ExecutionTest(unittest.TestCase):
                         out = pathlib.Path(arg.split('=',1)[1]); out.mkdir()
                         filename = 'audit.json' if tool=='audit' else 'non-regression.json'
                         (out/filename).write_text(json.dumps({'php_log':{'checked':True,'errors':0},'private':'BASE_VALUE_CANARY'}))
-                stdout = json.dumps({'attendu':2,'anormal':0,'changes':[{'class':'attendu'}]}) if tool=='comparer' else 'BASE_VALUE_CANARY'
+                stdout = json.dumps({'anormal':0,'changes':[{'class':'attendu'},{'class':'attendu'}]}) if tool=='comparer' else 'BASE_VALUE_CANARY'
                 return SimpleNamespace(returncode=3 if tool=='comparer' else rc, stdout=stdout, stderr='A04_MAINTENANCE\n' if rc else '')
             self.assertEqual(m.main(args, runner=runner),75)
             self.assertEqual(calls,['audit','non-regression'])
@@ -110,6 +110,92 @@ class GuardTest(unittest.TestCase):
             self.assertEqual(m.main(args,runner=fake),1)
             self.assertIn('ARRÊT : comparaison',(root/'state/rapport.md').read_text())
             self.assertEqual(json.loads((root/'state/comparaison-1-receipt.json').read_text())['exit'],0)
+
+
+class BoundaryTest(unittest.TestCase):
+    def setUp(self):
+        import tempfile
+        self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
+        self.root=pathlib.Path(self.tmp.name);self.site=self.root/'site';self.site.mkdir()
+        self.args=['--wp-path='+str(self.site),'--state='+str(self.root/'state')]
+        for key in ['update-plan','clean-plan','config','backup']:
+            path=self.root/key;path.write_text('{}');self.args.append('--'+key+'='+str(path))
+        self.module=subject();self.calls=[];self.compare_code=0;self.log_errors=0
+        self.compare={'attendu':0,'anormal':0,'changes':[]}
+
+    def fake(self,command,**kw):
+        import json
+        from types import SimpleNamespace
+        self.calls.append(command)
+        for argument in command:
+            if argument.startswith('--output='):
+                path=pathlib.Path(argument.split('=',1)[1]);path.mkdir()
+                (path/('audit.json' if command[1].endswith('/audit') else 'non-regression.json')).write_text(json.dumps({'php_log':{'checked':True,'errors':self.log_errors}}))
+        compare=command[1].endswith('/comparer')
+        return SimpleNamespace(returncode=self.compare_code if compare else 0,stdout=json.dumps(self.compare) if compare else '',stderr='')
+
+    def execute(self,extra=()):
+        return self.module.main(self.args+list(extra),runner=self.fake)
+
+    def test_changed_input_refuses_before_call(self):
+        self.assertEqual(self.execute(),75)
+        (self.root/'config').write_text('{"changed":true}')
+        self.assertEqual(self.execute(['--mutations-ready']),1)
+        self.assertEqual(len(self.calls),2)
+
+    def test_changed_completed_proof_refuses_before_call(self):
+        self.assertEqual(self.execute(),75)
+        (self.root/'state/avant-1/non-regression.json').write_text('{}')
+        self.assertEqual(self.execute(['--mutations-ready']),1)
+        self.assertEqual(len(self.calls),2)
+
+    def test_site_output_refused(self):
+        self.args[1]='--state='+str(self.site/'unsafe')
+        self.assertEqual(self.execute(),1);self.assertEqual(self.calls,[])
+        self.assertFalse((self.site/'unsafe').exists())
+
+    def test_native_anomaly_code_two_never_requalified(self):
+        import json
+        self.compare_code=2;self.compare={'attendu':0,'anormal':1,'changes':[{'class':'anormal'}]}
+        self.assertEqual(self.execute(['--mutations-ready','--reception-ready']),2)
+        state=json.loads((self.root/'state/etat.json').read_text())
+        self.assertNotIn('comparaison',state['done'])
+        self.assertIn('anormaux : 1',(self.root/'state/rapport.md').read_text())
+        self.assertEqual(len(self.calls),6)
+
+    def test_nonzero_child_with_plausible_json_never_success(self):
+        self.compare_code=1
+        self.assertEqual(self.execute(['--mutations-ready','--reception-ready']),1)
+        self.assertIn('ARRÊT : comparaison',(self.root/'state/rapport.md').read_text())
+
+    def test_dirty_php_log_blocks_before_mutations(self):
+        self.log_errors=1
+        self.assertEqual(self.execute(['--mutations-ready','--reception-ready']),1)
+        self.assertEqual(len(self.calls),2)
+        self.assertIn('ARRÊT : avant',(self.root/'state/rapport.md').read_text())
+
+    def test_missing_native_executable_is_durable_refusal(self):
+        def missing(*args,**kw):raise FileNotFoundError('PRIVATE_CANARY')
+        self.assertEqual(self.module.main(self.args,runner=missing),1)
+        text=(self.root/'state/rapport.md').read_text()
+        self.assertIn('ARRÊT : audit',text);self.assertNotIn('PRIVATE_CANARY',text)
+
+    def test_no_new_pass_until_complete(self):
+        self.assertEqual(self.execute(['--new-pass']),1);self.assertEqual(self.calls,[])
+
+    def test_site_lock_cannot_be_bypassed_by_other_state(self):
+        import fcntl
+        import hashlib
+        path=pathlib.Path('/tmp')/('imagine-a08-'+hashlib.sha256(str(self.site.resolve()).encode()).hexdigest()+'.lock')
+        with open(path,'a') as lock:
+            fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+            self.assertEqual(self.execute(),1);self.assertEqual(self.calls,[])
+
+    def test_go_attestations_forwarded_separately(self):
+        commands=self.module.commands(pathlib.Path('/subject'),self.site,self.root/'state',self.root/'config',self.root/'update-plan',self.root/'clean-plan',self.root/'backup',pathlib.Path('/go-a04'),pathlib.Path('/go-a05'),1)
+        self.assertIn('--go=/go-a04',commands['mise-a-jour'])
+        self.assertNotIn('--go=/go-a05',commands['mise-a-jour'])
+        self.assertIn('--go=/go-a05',commands['nettoyage'])
 
 
 if __name__ == '__main__':
