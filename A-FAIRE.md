@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 25 novembre 2026, 11 h 45.
+Mis à jour le 25 novembre 2026, 13 h 30.
 
 **Deux voies depuis le 23/11.** Ce fichier est la file de la voie 1. Une deuxième session d'Hermès suit `A-FAIRE-2.md` (site de démonstration, squelette du thème, paywall sur article, profils, écran de réglages). Lis la section « Les deux voies » de la consigne permanente. Ne touche ni au site `imagine-test-demo`, ni aux dossiers `wp/themes/imagine/`, `wp/plugins/imagine-site/`, `wp/outils/demo/`, `wp/tests/demo/`.
 
@@ -13,6 +13,8 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 ## Consignes actives, par ordre de priorité
 
 File du 25/11, 11 h 45. Tes rapports de 22 h 16 et 0 h 36 sont lus. Tu as attendu toute la nuit sur des questions techniques : c'est la règle qui était mauvaise, elle change. **Lis la nouvelle section « Tu n'attends pas sur une question technique » de la consigne permanente**, et `docs/arbitrages-2026-11-25.md`.
+
+**0. `briefs/A-01-archive-reelle-3.md`** — le diagnostic de 13 h 15 passe l'archive, il reste la base : tables inconnues vidées par défaut, décisions par famille, `INSERT` binaires de Matomo, deux dossiers, extensions à neutraliser. Trois heures. **Passe avant A-04. Ced attend pour lancer l'import.**
 
 **1. Relance `wp/tests/preparer-image.ps1`** (l'image de test est périmée depuis l'ajout du paquet d'A-03), puis `rejouer.ps1`. Dix minutes. Si la suite n'est pas verte, corrige d'abord.
 
