@@ -42,9 +42,23 @@ def main():
     durations={}
     for storage in ['classic','hpos']:
         for key in ['real_middle_refusal','refusal_no_later_step','refusal_database_files_exact',
-                    'resume_update_cleanup_native','complete_native_expected_only','second_native_mutations_no_effect',
+                    'resume_update_cleanup_native','complete_native_expected_only','second_native_business_invariants',
                     'second_comparison_identical','second_all_six_tools_really_run','staging_guard_bytes_unchanged']:
             assert storage+':'+key in names,(storage,key)
+        assert storage+':native_timeout_refresh_source' in names
+        fingerprints=json.loads((proof/(storage+'-second-mutation-fingerprints.json')).read_text())
+        before,after=fingerprints['before'],fingerprints['after']
+        assert {k:v for k,v in before['files'].items() if k!='.maintenance'}=={k:v for k,v in after['files'].items() if k!='.maintenance'}
+        assert set(fingerprints['file_changes'])<={'.maintenance'}
+        assert {k:v for k,v in before['database']['tables'].items() if k!='wp_options'}=={k:v for k,v in after['database']['tables'].items() if k!='wp_options'}
+        assert before['database']['tables']['wp_options']['schema_sha256']==after['database']['tables']['wp_options']['schema_sha256']
+        options=json.loads((proof/(storage+'-second-option-fingerprints.json')).read_text())
+        expiry='_transient_timeout_wcs_woocommerce_active_version'
+        assert set(options['changed'])<={expiry} and set(options['before'])==set(options['after'])
+        assert {k:v for k,v in options['before'].items() if k!=expiry}=={k:v for k,v in options['after'].items() if k!=expiry}
+        source=json.loads((proof/(storage+'-native-timeout-source.json')).read_text())
+        assert source['sha256']==before['files']['wp-content/plugins/'+source['file']]
+        assert source['hook']=='woocommerce_init' and 'set_transient(' in source['statement']
         state=proof/(storage+'-sequence')
         refused=json.loads((proof/(storage+'-refused-checkpoint.json')).read_text())
         assert list(refused['done'])==steps[:2] and len(refused['attempts'])==3

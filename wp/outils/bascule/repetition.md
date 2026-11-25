@@ -51,7 +51,8 @@ nouvelle sortie. Plan changé, preuve altérée, sauvegarde périmée : aucune r
 **Second passage complet :** préalables de réception, `"${sequence[@]}" --new-pass`, puis
 les deux rendez-vous. Six outils relancés, checkpoints A04/A05 conservés, anciennes preuves
 conservées, un seul rapport. Sans ce drapeau, l'état terminé ne relance rien.
-La maintenance native peut être rafraîchie ; la comparaison métier doit rester identique.
+La maintenance et l'expiration du cache natif WCS peuvent être rafraîchies ;
+« sans changement » signifie ici comparaison métier identique, pas octets techniques immobiles.
 
 **GO ÉCRIT DE CED :** requis séparément pour toute opération réelle/production.
 `--go-update=/hors-depot/go-a04.json` et `--go-clean=/hors-depot/go-a05.json` transmettent

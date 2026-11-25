@@ -1,0 +1,15 @@
+{
+  "step": "nettoyage",
+  "command": [
+    "python3",
+    "-B",
+    "/subject/nettoyer",
+    "--wp-path=/scratch/hpos",
+    "--plan=/opt/a08/hpos-cleanup.json",
+    "--backup=/opt/a08/hpos-backup.json",
+    "--state=/report/hpos-sequence/a05"
+  ],
+  "exit": 0,
+  "duration_seconds": 0.43228239397285506,
+  "receipt": "nettoyage-2-receipt.json"
+}

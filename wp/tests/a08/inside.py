@@ -45,6 +45,11 @@ def run_storage(storage):
     try:site,db,seed,config,settings=a03.install(storage)
     finally:shutil.copytree=original
     a03.wp(site,['eval',"require_once WC_ABSPATH . 'includes/admin/wc-admin-functions.php'; wc_memberships()->get_lifecycle_handler()->init(); WC_Subscriptions_Upgrader::upgrade();"])
+    wcs_main=site/'wp-content/plugins/woocommerce-subscriptions/woocommerce-subscriptions.php'
+    wcs_source=wcs_main.read_text()
+    native_refresh='set_transient( WC_Subscriptions_Dependency_Manager::WC_ACTIVE_VERSION_TRANSIENT, WC()->version, HOUR_IN_SECONDS );'
+    check(storage+':native_timeout_refresh_source',native_refresh in wcs_source and "'woocommerce_init'" in wcs_source)
+    write(OUT/(storage+'-native-timeout-source.json'),{'file':'woocommerce-subscriptions/woocommerce-subscriptions.php','sha256':sha(wcs_main),'hook':'woocommerce_init','statement':native_refresh,'licensed_zip_sha256':sha('/opt/a03/woocommerce-subscriptions.zip')})
     orphan=site/'wp-content/plugins/a08-orphan';orphan.mkdir()
     (orphan/'entry.php').write_text('<?php\n/*\nPlugin Name: Fiction A08 orphan\nVersion: 1.0.0\n*/\n')
     a03.wp(site,['plugin','activate','a08-orphan/entry.php'])
@@ -155,9 +160,14 @@ def run_storage(storage):
         write(OUT/(storage+'-second-mutation-fingerprints.json'),{'before':mutation_before,'after':mutation_after,'file_changes':file_changes,'table_changes':table_changes,'exit':second.returncode})
         option_changes=sorted(name for name in set(options_before)|set(options_after) if options_before.get(name)!=options_after.get(name))
         write(OUT/(storage+'-second-option-fingerprints.json'),{'before':options_before,'after':options_after,'changed':option_changes})
-        # Diagnostic continuation: retain strict failure and still observe final A03.
-        row={'check':storage+':second_native_raw_fingerprint_exact','ok':second.returncode==75 and mutation_before==mutation_after,'detail':{'exit':second.returncode,'files_changed':file_changes,'tables_changed':table_changes,'options_changed':option_changes}}
-        CHECKS.append(row);print(json.dumps(row),flush=True)
+        # Native control refreshes are not business transformations. Keep their raw
+        # fingerprints visible; forbid every other option row/file/table change.
+        expiry='_transient_timeout_wcs_woocommerce_active_version'
+        expected_options={name:value for name,value in options_before.items() if name!=expiry}
+        observed_options={name:value for name,value in options_after.items() if name!=expiry}
+        technical={'raw_fingerprint_exact':mutation_before==mutation_after,'files_changed':file_changes,'tables_changed':table_changes,'options_changed':option_changes}
+        write(OUT/(storage+'-second-technical-refresh.json'),technical)
+        check(storage+':second_native_business_invariants',second.returncode==75 and set(file_changes)<={'.maintenance'} and set(table_changes)<={'wp_options'} and set(option_changes)<={expiry} and expected_options==observed_options and set(options_before)==set(options_after) and mutation_before['database']['tables']['wp_options']['schema_sha256']==mutation_after['database']['tables']['wp_options']['schema_sha256'],technical)
         read_mode();reception_before=fp()
         final=invoke('second-after',['--reception-ready'])
         cp=checkpoint()

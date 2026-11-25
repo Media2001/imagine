@@ -1,0 +1,17 @@
+{
+  "total": 10,
+  "checks": {
+    "produit_existe": true,
+    "proprietaire": true,
+    "publie": true,
+    "prix_zero": true,
+    "virtuel": true,
+    "pas_de_stock_reel": true,
+    "natif_C14_numero11": true,
+    "achetable": true,
+    "label_fictif": true,
+    "produit271_reste_prive": true
+  },
+  "failures": [],
+  "product": 2475
+}

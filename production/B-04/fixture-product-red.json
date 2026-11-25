@@ -1,0 +1,11 @@
+{
+  "total": 2,
+  "checks": {
+    "produit_existe": false,
+    "produit271_reste_prive": true
+  },
+  "failures": [
+    "produit_existe"
+  ],
+  "product": 0
+}

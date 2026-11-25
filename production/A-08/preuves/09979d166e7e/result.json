@@ -1,0 +1,269 @@
+{
+  "suite": "A08-real-synthetic-classic-hpos",
+  "checks": [
+    {
+      "check": "classic:audit_before_native",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "classic:no_mutations_before_gate",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:real_middle_refusal",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:refusal_no_later_step",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:refusal_database_files_exact",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:resume_update_cleanup_native",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "classic:before_not_replayed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:cleanup_effects_real",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:native_maintenance_preserved",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:complete_native_expected_only",
+      "ok": true,
+      "detail": {
+        "attendu": 4,
+        "anormal": 0
+      }
+    },
+    {
+      "check": "classic:second_pass_restarts_audit_before",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:second_readonly_before_exact",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:second_native_raw_fingerprint_exact",
+      "ok": false,
+      "detail": {
+        "exit": 75,
+        "files_changed": [
+          ".maintenance"
+        ],
+        "tables_changed": [
+          "wp_options"
+        ],
+        "options_changed": [
+          "_transient_timeout_wcs_woocommerce_active_version"
+        ]
+      }
+    },
+    {
+      "check": "classic:second_comparison_identical",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:second_readonly_after_exact",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:second_all_six_tools_really_run",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:photo_avant-1_native_storage_and_clean_log",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:photo_apres-1_native_storage_and_clean_log",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:photo_avant-2_native_storage_and_clean_log",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:photo_apres-2_native_storage_and_clean_log",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:single_report_six_rows_private",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:staging_guard_bytes_unchanged",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:audit_before_native",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "hpos:no_mutations_before_gate",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:real_middle_refusal",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:refusal_no_later_step",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:refusal_database_files_exact",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:resume_update_cleanup_native",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "hpos:before_not_replayed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:cleanup_effects_real",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:native_maintenance_preserved",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:complete_native_expected_only",
+      "ok": true,
+      "detail": {
+        "attendu": 4,
+        "anormal": 0
+      }
+    },
+    {
+      "check": "hpos:second_pass_restarts_audit_before",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:second_readonly_before_exact",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:second_native_raw_fingerprint_exact",
+      "ok": false,
+      "detail": {
+        "exit": 75,
+        "files_changed": [
+          ".maintenance"
+        ],
+        "tables_changed": [
+          "wp_options"
+        ],
+        "options_changed": [
+          "_transient_timeout_wcs_woocommerce_active_version"
+        ]
+      }
+    },
+    {
+      "check": "hpos:second_comparison_identical",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:second_readonly_after_exact",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:second_all_six_tools_really_run",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:photo_avant-1_native_storage_and_clean_log",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:photo_apres-1_native_storage_and_clean_log",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:photo_avant-2_native_storage_and_clean_log",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:photo_apres-2_native_storage_and_clean_log",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:single_report_six_rows_private",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:staging_guard_bytes_unchanged",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "network_none",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp6",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "exit_code": 1
+}

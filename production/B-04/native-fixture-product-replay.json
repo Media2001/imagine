@@ -1,0 +1,20 @@
+{
+  "fixture": {
+    "product": 2475
+  },
+  "product": {
+    "id": 2475,
+    "status": "publish",
+    "price": "0",
+    "type": "simple",
+    "virtual": true,
+    "stock_managed": false,
+    "numero": 11,
+    "url": "http://192.168.129.32:8085/product/b04-produit-fictif-numero-11/"
+  },
+  "witness": null,
+  "scope": "imagine-test-demo",
+  "readback_exact": true,
+  "action": "product",
+  "source_sha256": "f4e3525fa8f72221e301b161cb1b07c553200f533b138dd54096895e72094942"
+}

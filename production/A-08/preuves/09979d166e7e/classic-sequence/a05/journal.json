@@ -1,0 +1,80 @@
+[
+  {
+    "utc": "2026-11-25T19:33:04Z",
+    "kind": "deactivate",
+    "name": "a08-orphan/entry.php",
+    "stage": "start"
+  },
+  {
+    "utc": "2026-11-25T19:33:05Z",
+    "kind": "deactivate",
+    "name": "a08-orphan/entry.php",
+    "stage": "done"
+  },
+  {
+    "utc": "2026-11-25T19:33:05Z",
+    "kind": "plugin",
+    "name": "a08-orphan/entry.php",
+    "stage": "start"
+  },
+  {
+    "utc": "2026-11-25T19:33:05Z",
+    "kind": "plugin",
+    "name": "a08-orphan/entry.php",
+    "stage": "done"
+  },
+  {
+    "utc": "2026-11-25T19:33:05Z",
+    "kind": "table",
+    "name": "wp_a08_orphan",
+    "stage": "start"
+  },
+  {
+    "utc": "2026-11-25T19:33:05Z",
+    "kind": "table",
+    "name": "wp_a08_orphan",
+    "stage": "done"
+  },
+  {
+    "utc": "2026-11-25T19:33:05Z",
+    "kind": "option",
+    "name": "a08_orphan_setting",
+    "stage": "start"
+  },
+  {
+    "utc": "2026-11-25T19:33:05Z",
+    "kind": "option",
+    "name": "a08_orphan_setting",
+    "stage": "done"
+  },
+  {
+    "utc": "2026-11-25T19:33:05Z",
+    "kind": "cron",
+    "name": "a08_orphan_hook",
+    "stage": "start"
+  },
+  {
+    "utc": "2026-11-25T19:33:05Z",
+    "kind": "cron",
+    "name": "a08_orphan_hook",
+    "stage": "done"
+  },
+  {
+    "utc": "2026-11-25T19:33:05Z",
+    "kind": "upload",
+    "name": "a08-debris",
+    "stage": "start"
+  },
+  {
+    "utc": "2026-11-25T19:33:05Z",
+    "kind": "upload",
+    "name": "a08-debris",
+    "stage": "done"
+  },
+  {
+    "utc": "2026-11-25T19:33:05Z",
+    "kind": "all",
+    "name": "all",
+    "stage": "complete"
+  }
+]
