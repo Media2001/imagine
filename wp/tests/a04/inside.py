@@ -77,8 +77,12 @@ def run_storage(storage):
         after=[target_core,target_wc,versions['subscriptions'],versions['memberships']]
         archives=['/opt/compatible-public/wordpress.zip','/opt/compatible-public/woocommerce.zip','/opt/a03/woocommerce-subscriptions.zip','/opt/a03/woocommerce-memberships.zip']
         keys.append('a04-rest');before.append('1.0.0');after.append('2.0.0');archives.append(str(rest_zip))
+        audit_file=ROOT/(storage+'-rest-audit.md')
+        audit_file.write_text('# Audit fictif A-04 : a04-rest\n\nFichier principal : fiction-entry.php.\nLes versions source et cible ne contiennent que cet en-tête PHP sans hook, SQL, cron, batch ou tâche Action Scheduler ; aucune migration différée.\nSHA-256 source : '+hashlib.sha256(rest_source.encode()).hexdigest()+'\nSHA-256 cible : '+hashlib.sha256(rest_source.replace('Version: 1.0.0','Version: 2.0.0').encode()).hexdigest()+'\n',encoding='utf8')
         steps=[{'component':k,'main_file':None if k=='core' else 'fiction-entry.php' if k=='a04-rest' else k+'.php','before':v,'after':t,'archive':p,'sha256':sha(p),'adapter':k if k in keys[:4] else 'bootstrap-only','hooks':[]} for k,v,t,p in zip(keys,before,after,archives)]
+        steps[-1]['audit']={'component':'a04-rest','path':str(audit_file),'sha256':sha(audit_file),'conclusion':'no-deferred-database-migrations'}
         plan=ROOT/(storage+'-plan.json');write(plan,{'schema':'imagine-a04-v1','site_status':'verified-staging','steps':steps})
+        shutil.copyfile(plan,OUT/(storage+'-plan.json'));shutil.copyfile(audit_file,OUT/(storage+'-rest-audit.md'))
         # Prove guards before the first update, with actual filesystem readbacks.
         denied=update(site,plan,backup,ROOT/(storage+'-no-maintenance'))
         check(storage+':maintenance_required',denied.returncode==1 and denied.stderr=='A04_MAINTENANCE\n')

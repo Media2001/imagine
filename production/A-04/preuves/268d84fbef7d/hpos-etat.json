@@ -1,0 +1,273 @@
+{
+  "schema": "imagine-a04-state-v1",
+  "plan_sha256": "1f6f940c113f925c89c5d47b11e7ac60557ce48e58b20720f2b67f85fc881179",
+  "site": "/scratch/hpos",
+  "config_sha256": "a9b5715979031d7b5aea484cbbb5b38e37927319100b3de93de95c5c8bd8002d",
+  "steps": {
+    "core": {
+      "phase": "verified",
+      "before": "7.0",
+      "after": "7.0.9",
+      "started": 1795623510.0590434,
+      "attempts": 1,
+      "files": 3500,
+      "migrations": [
+        "wp core update-db; db_version=61833"
+      ],
+      "duration_seconds": 22.927
+    },
+    "woocommerce": {
+      "phase": "verified",
+      "before": "11.0.1",
+      "after": "11.1.1",
+      "started": 1795623533.0123968,
+      "attempts": 6,
+      "files": 5862,
+      "migrations": [
+        "wc_update_1110_delete_dashboard_outofstock_count_transient",
+        "wc_update_1110_cleanup_block_email_posts",
+        "wc_update_1110_flush_product_count_cache",
+        "wc_update_11101_remove_deprecated_variation_gallery_option",
+        "WC_Install::update_db_version=11.1.1",
+        "woocommerce_db_version=11.1.1",
+        "Automattic\\WooCommerce\\Internal\\VariationGallery\\Migration::run",
+        "woocommerce_db_version=11.1.1"
+      ],
+      "duration_seconds": 47.584
+    },
+    "woocommerce-subscriptions": {
+      "phase": "verified",
+      "before": "9.4.1",
+      "after": "9.4.1",
+      "started": 1795623580.6203136,
+      "attempts": 1,
+      "files": 763,
+      "migrations": [],
+      "duration_seconds": 6.009
+    },
+    "woocommerce-memberships": {
+      "phase": "verified",
+      "before": "1.30.3",
+      "after": "1.30.3",
+      "started": 1795623586.6533363,
+      "attempts": 1,
+      "files": 664,
+      "migrations": [
+        "WC_Memberships lifecycle init"
+      ],
+      "duration_seconds": 5.441
+    },
+    "a04-rest": {
+      "phase": "verified",
+      "before": "1.0.0",
+      "after": "2.0.0",
+      "started": 1795623592.1213489,
+      "attempts": 1,
+      "files": 1,
+      "migrations": [],
+      "duration_seconds": 1.381
+    }
+  },
+  "events": [
+    {
+      "utc": "2026-11-25T16:18:30Z",
+      "component": "core",
+      "stage": "start",
+      "before": "7.0",
+      "after": "7.0.9"
+    },
+    {
+      "utc": "2026-11-25T16:18:51Z",
+      "component": "core",
+      "stage": "copied",
+      "files": 3500
+    },
+    {
+      "utc": "2026-11-25T16:18:52Z",
+      "component": "core",
+      "stage": "verified",
+      "before": "7.0",
+      "after": "7.0.9",
+      "duration_seconds": 22.927,
+      "migrations": [
+        "wp core update-db; db_version=61833"
+      ]
+    },
+    {
+      "utc": "2026-11-25T16:18:53Z",
+      "component": "woocommerce",
+      "stage": "start",
+      "before": "11.0.1",
+      "after": "11.1.1"
+    },
+    {
+      "utc": "2026-11-25T16:19:29Z",
+      "component": "woocommerce",
+      "stage": "copied",
+      "files": 5862
+    },
+    {
+      "utc": "2026-11-25T16:19:29Z",
+      "component": "woocommerce",
+      "stage": "interruption_requested"
+    },
+    {
+      "utc": "2026-11-25T16:19:30Z",
+      "component": "woocommerce",
+      "stage": "resume",
+      "before": "11.0.1",
+      "after": "11.1.1"
+    },
+    {
+      "utc": "2026-11-25T16:19:30Z",
+      "component": "woocommerce",
+      "stage": "interruption_requested"
+    },
+    {
+      "utc": "2026-11-25T16:19:31Z",
+      "component": "woocommerce",
+      "stage": "resume",
+      "before": "11.0.1",
+      "after": "11.1.1"
+    },
+    {
+      "utc": "2026-11-25T16:19:31Z",
+      "component": "woocommerce",
+      "stage": "interruption_requested"
+    },
+    {
+      "utc": "2026-11-25T16:19:33Z",
+      "component": "woocommerce",
+      "stage": "resume",
+      "before": "11.0.1",
+      "after": "11.1.1"
+    },
+    {
+      "utc": "2026-11-25T16:19:33Z",
+      "component": "woocommerce",
+      "stage": "interruption_requested"
+    },
+    {
+      "utc": "2026-11-25T16:19:34Z",
+      "component": "woocommerce",
+      "stage": "resume",
+      "before": "11.0.1",
+      "after": "11.1.1"
+    },
+    {
+      "utc": "2026-11-25T16:19:35Z",
+      "component": "all",
+      "stage": "stopped",
+      "code": "A04_CALLBACK_REFUSED"
+    },
+    {
+      "utc": "2026-11-25T16:19:37Z",
+      "component": "woocommerce",
+      "stage": "resume",
+      "before": "11.0.1",
+      "after": "11.1.1"
+    },
+    {
+      "utc": "2026-11-25T16:19:39Z",
+      "component": "woocommerce",
+      "stage": "native_follow_up",
+      "wave": 1
+    },
+    {
+      "utc": "2026-11-25T16:19:40Z",
+      "component": "woocommerce",
+      "stage": "verified",
+      "before": "11.0.1",
+      "after": "11.1.1",
+      "duration_seconds": 47.584,
+      "migrations": [
+        "wc_update_1110_delete_dashboard_outofstock_count_transient",
+        "wc_update_1110_cleanup_block_email_posts",
+        "wc_update_1110_flush_product_count_cache",
+        "wc_update_11101_remove_deprecated_variation_gallery_option",
+        "WC_Install::update_db_version=11.1.1",
+        "woocommerce_db_version=11.1.1",
+        "Automattic\\WooCommerce\\Internal\\VariationGallery\\Migration::run",
+        "woocommerce_db_version=11.1.1"
+      ]
+    },
+    {
+      "utc": "2026-11-25T16:19:40Z",
+      "component": "woocommerce-subscriptions",
+      "stage": "start",
+      "before": "9.4.1",
+      "after": "9.4.1"
+    },
+    {
+      "utc": "2026-11-25T16:19:45Z",
+      "component": "woocommerce-subscriptions",
+      "stage": "copied",
+      "files": 763
+    },
+    {
+      "utc": "2026-11-25T16:19:46Z",
+      "component": "woocommerce-subscriptions",
+      "stage": "verified",
+      "before": "9.4.1",
+      "after": "9.4.1",
+      "duration_seconds": 6.009,
+      "migrations": []
+    },
+    {
+      "utc": "2026-11-25T16:19:46Z",
+      "component": "woocommerce-memberships",
+      "stage": "start",
+      "before": "1.30.3",
+      "after": "1.30.3"
+    },
+    {
+      "utc": "2026-11-25T16:19:50Z",
+      "component": "woocommerce-memberships",
+      "stage": "copied",
+      "files": 664
+    },
+    {
+      "utc": "2026-11-25T16:19:52Z",
+      "component": "woocommerce-memberships",
+      "stage": "verified",
+      "before": "1.30.3",
+      "after": "1.30.3",
+      "duration_seconds": 5.441,
+      "migrations": [
+        "WC_Memberships lifecycle init"
+      ]
+    },
+    {
+      "utc": "2026-11-25T16:19:52Z",
+      "component": "a04-rest",
+      "stage": "start",
+      "before": "1.0.0",
+      "after": "2.0.0"
+    },
+    {
+      "utc": "2026-11-25T16:19:52Z",
+      "component": "a04-rest",
+      "stage": "copied",
+      "files": 1
+    },
+    {
+      "utc": "2026-11-25T16:19:53Z",
+      "component": "a04-rest",
+      "stage": "verified",
+      "before": "1.0.0",
+      "after": "2.0.0",
+      "duration_seconds": 1.381,
+      "migrations": []
+    },
+    {
+      "utc": "2026-11-25T16:19:56Z",
+      "component": "all",
+      "stage": "complete"
+    },
+    {
+      "utc": "2026-11-25T16:20:00Z",
+      "component": "all",
+      "stage": "complete"
+    }
+  ]
+}

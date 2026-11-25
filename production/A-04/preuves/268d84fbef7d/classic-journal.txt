@@ -1,0 +1,29 @@
+A-04 — maintenance conservée
+{"after": "7.0.9", "before": "7.0", "component": "core", "stage": "start", "utc": "2026-11-25T16:15:12Z"}
+{"component": "core", "files": 3500, "stage": "copied", "utc": "2026-11-25T16:15:33Z"}
+{"after": "7.0.9", "before": "7.0", "component": "core", "duration_seconds": 22.582, "migrations": ["wp core update-db; db_version=61833"], "stage": "verified", "utc": "2026-11-25T16:15:35Z"}
+{"after": "11.1.1", "before": "11.0.1", "component": "woocommerce", "stage": "start", "utc": "2026-11-25T16:15:35Z"}
+{"component": "woocommerce", "files": 5862, "stage": "copied", "utc": "2026-11-25T16:16:11Z"}
+{"component": "woocommerce", "stage": "interruption_requested", "utc": "2026-11-25T16:16:11Z"}
+{"after": "11.1.1", "before": "11.0.1", "component": "woocommerce", "stage": "resume", "utc": "2026-11-25T16:16:12Z"}
+{"component": "woocommerce", "stage": "interruption_requested", "utc": "2026-11-25T16:16:12Z"}
+{"after": "11.1.1", "before": "11.0.1", "component": "woocommerce", "stage": "resume", "utc": "2026-11-25T16:16:14Z"}
+{"component": "woocommerce", "stage": "interruption_requested", "utc": "2026-11-25T16:16:14Z"}
+{"after": "11.1.1", "before": "11.0.1", "component": "woocommerce", "stage": "resume", "utc": "2026-11-25T16:16:15Z"}
+{"component": "woocommerce", "stage": "interruption_requested", "utc": "2026-11-25T16:16:15Z"}
+{"after": "11.1.1", "before": "11.0.1", "component": "woocommerce", "stage": "resume", "utc": "2026-11-25T16:16:17Z"}
+{"code": "A04_CALLBACK_REFUSED", "component": "all", "stage": "stopped", "utc": "2026-11-25T16:16:17Z"}
+{"after": "11.1.1", "before": "11.0.1", "component": "woocommerce", "stage": "resume", "utc": "2026-11-25T16:16:20Z"}
+{"component": "woocommerce", "stage": "native_follow_up", "utc": "2026-11-25T16:16:21Z", "wave": 1}
+{"after": "11.1.1", "before": "11.0.1", "component": "woocommerce", "duration_seconds": 47.527, "migrations": ["wc_update_1110_delete_dashboard_outofstock_count_transient", "wc_update_1110_cleanup_block_email_posts", "wc_update_1110_flush_product_count_cache", "wc_update_11101_remove_deprecated_variation_gallery_option", "WC_Install::update_db_version=11.1.1", "woocommerce_db_version=11.1.1", "Automattic\\WooCommerce\\Internal\\VariationGallery\\Migration::run", "woocommerce_db_version=11.1.1"], "stage": "verified", "utc": "2026-11-25T16:16:23Z"}
+{"after": "9.4.1", "before": "9.4.1", "component": "woocommerce-subscriptions", "stage": "start", "utc": "2026-11-25T16:16:23Z"}
+{"component": "woocommerce-subscriptions", "files": 763, "stage": "copied", "utc": "2026-11-25T16:16:27Z"}
+{"after": "9.4.1", "before": "9.4.1", "component": "woocommerce-subscriptions", "duration_seconds": 6.067, "migrations": [], "stage": "verified", "utc": "2026-11-25T16:16:29Z"}
+{"after": "1.30.3", "before": "1.30.3", "component": "woocommerce-memberships", "stage": "start", "utc": "2026-11-25T16:16:29Z"}
+{"component": "woocommerce-memberships", "files": 664, "stage": "copied", "utc": "2026-11-25T16:16:33Z"}
+{"after": "1.30.3", "before": "1.30.3", "component": "woocommerce-memberships", "duration_seconds": 5.437, "migrations": ["WC_Memberships lifecycle init"], "stage": "verified", "utc": "2026-11-25T16:16:34Z"}
+{"after": "2.0.0", "before": "1.0.0", "component": "a04-rest", "stage": "start", "utc": "2026-11-25T16:16:34Z"}
+{"component": "a04-rest", "files": 1, "stage": "copied", "utc": "2026-11-25T16:16:34Z"}
+{"after": "2.0.0", "before": "1.0.0", "component": "a04-rest", "duration_seconds": 1.338, "migrations": [], "stage": "verified", "utc": "2026-11-25T16:16:35Z"}
+{"component": "all", "stage": "complete", "utc": "2026-11-25T16:16:39Z"}
+{"component": "all", "stage": "complete", "utc": "2026-11-25T16:16:43Z"}

@@ -1,0 +1,22 @@
+{
+  "native_a03_exit": 3,
+  "native_a03_anormal": 0,
+  "changes": [
+    {
+      "path": "versions.wordpress",
+      "class": "attendu"
+    },
+    {
+      "path": "versions.woocommerce",
+      "class": "attendu"
+    },
+    {
+      "path": "actions.32",
+      "class": "attendu"
+    },
+    {
+      "path": "action_days.[masque]",
+      "class": "attendu"
+    }
+  ]
+}

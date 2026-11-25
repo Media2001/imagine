@@ -116,5 +116,76 @@ class MainFileCorrections(unittest.TestCase):
                 self.fail('Explicit main_file identity not supported: ' + str(error))
 
 
+class AuditCorrections(unittest.TestCase):
+    def plan(self, audit=True):
+        plan = MainFileCorrections().plan()
+        step = {'component': 'fixture-box', 'main_file': 'entry.php',
+                'before': '1.0', 'after': '2.0', 'archive': '/fixture.zip',
+                'sha256': 'a' * 64, 'adapter': 'bootstrap-only', 'hooks': []}
+        if audit:
+            step['audit'] = {'component': 'fixture-box', 'path': '/audit/fixture.md',
+                             'sha256': 'b' * 64, 'conclusion': 'no-deferred-database-migrations'}
+        plan['steps'].append(step)
+        return plan
+
+    def test_bootstrap_only_without_audit_refused(self):
+        with self.assertRaisesRegex(a04.Refusal, '^A04_AUDIT$'):
+            a04.validate_plan(self.plan(audit=False))
+
+    def test_named_audit_trace_accepted(self):
+        plan = self.plan()
+        try:
+            self.assertEqual(a04.validate_plan(plan), plan)
+        except a04.Refusal as error:
+            self.fail('Named audit trace rejected: ' + str(error))
+
+    def test_audit_must_name_this_component_and_explicit_conclusion(self):
+        for key, value in [('component', 'different-plugin'), ('conclusion', 'unknown'),
+                           ('path', 'relative.md'), ('sha256', ''), ('sha256', 'x' * 64)]:
+            with self.subTest(key=key, value=value):
+                plan = self.plan()
+                plan['steps'][-1]['audit'][key] = value
+                with self.assertRaisesRegex(a04.Refusal, '^A04_AUDIT$'):
+                    a04.validate_plan(plan)
+
+    def test_custom_adapter_after_first_four_stays_refused(self):
+        plan = self.plan()
+        plan['steps'][-1]['adapter'] = 'fixture-box'
+        with self.assertRaisesRegex(a04.Refusal, '^A04_ADAPTER$'):
+            a04.validate_plan(plan)
+
+    def test_audit_file_readback_detects_changed_or_missing_evidence(self):
+        self.assertTrue(hasattr(a04, 'check_audit'), 'Audit bytes must be checked before bootstrap')
+        with tempfile.TemporaryDirectory(prefix='a04-audit-') as temp:
+            path = pathlib.Path(temp).resolve() / 'fiction.md'
+            path.write_text('fixture-box: synthetic header-only plugin, no deferred migration')
+            audit = {'component': 'fixture-box', 'path': str(path),
+                     'sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
+                     'conclusion': 'no-deferred-database-migrations'}
+            a04.check_audit(audit)
+            path.write_text('changed')
+            with self.assertRaisesRegex(a04.Refusal, '^A04_AUDIT_HASH$'):
+                a04.check_audit(audit)
+            path.unlink()
+            with self.assertRaisesRegex(a04.Refusal, '^A04_AUDIT_FILE$'):
+                a04.check_audit(audit)
+
+    def test_audit_symlink_parent_refused(self):
+        self.assertTrue(hasattr(a04, 'check_audit'), 'Audit path must be checked before bootstrap')
+        with tempfile.TemporaryDirectory(prefix='a04-audit-link-') as temp:
+            root = pathlib.Path(temp).resolve()
+            real = root / 'real'
+            real.mkdir()
+            path = real / 'fiction.md'
+            path.write_text('fixture-box synthetic audit')
+            link = root / 'link'
+            link.symlink_to(real, target_is_directory=True)
+            audit = {'component': 'fixture-box', 'path': str(link / path.name),
+                     'sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
+                     'conclusion': 'no-deferred-database-migrations'}
+            with self.assertRaisesRegex(a04.Refusal, '^A04_AUDIT_FILE$'):
+                a04.check_audit(audit)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

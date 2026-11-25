@@ -62,17 +62,34 @@ def validate_plan(plan):
     names = [s.get('component') for s in steps]
     require(names[:4] == ORDER and len(set(names)) == len(names), 'A04_ORDER')
     for i, step in enumerate(steps):
-        require(set(step) == {'component', 'main_file', 'before', 'after', 'archive', 'sha256', 'adapter', 'hooks'}, 'A04_PLAN')
+        fields = {'component', 'main_file', 'before', 'after', 'archive', 'sha256', 'adapter', 'hooks'}
+        if i >= 4:
+            require('audit' in step, 'A04_AUDIT')
+            fields.add('audit')
+        require(set(step) == fields, 'A04_PLAN')
         key = step['component']
         require(isinstance(key, str) and re.fullmatch('[a-z0-9][a-z0-9-]{0,99}', key), 'A04_COMPONENT')
         validate_main_file(key, step['main_file'])
         require(numeric(step['after']) >= numeric(step['before']), 'A04_DOWNGRADE')
         require(step['adapter'] == (key if i < 4 else 'bootstrap-only'), 'A04_ADAPTER')
+        if i >= 4:
+            audit = step['audit']
+            require(isinstance(audit, dict) and set(audit) == {'component', 'path', 'sha256', 'conclusion'}
+                and audit['component'] == key and audit['conclusion'] == 'no-deferred-database-migrations'
+                and isinstance(audit['path'], str) and pathlib.Path(audit['path']).is_absolute()
+                and isinstance(audit['sha256'], str) and re.fullmatch('[a-f0-9]{64}', audit['sha256']), 'A04_AUDIT')
         require(step['hooks'] == [], 'A04_HOOK')
         require(isinstance(step['archive'], str) and pathlib.Path(step['archive']).is_absolute(), 'A04_PACKAGE')
         require(isinstance(step['sha256'], str) and re.fullmatch('[a-f0-9]{64}', step['sha256']), 'A04_PACKAGE')
     require(steps[0]['after'].startswith('7.0.'), 'A04_CORE_TARGET')
     return plan
+
+def check_audit(audit):
+    file = pathlib.Path(audit['path'])
+    require(file.is_absolute() and file.is_file() and not file.is_symlink()
+        and not any(parent.is_symlink() for parent in file.parents)
+        and file.resolve() == file and 0 < file.stat().st_size <= 1048576, 'A04_AUDIT_FILE')
+    require(digest(file) == audit['sha256'], 'A04_AUDIT_HASH')
 
 def authorize(status, site, identity, gofile):
     if status == 'verified-staging':
@@ -282,6 +299,7 @@ def execute(args):
         php = php_probe.stdout.strip(); numeric(php)
         planned_bytes = 0
         for step in plan['steps']:
+            if step['adapter'] == 'bootstrap-only': check_audit(step['audit'])
             package = pathlib.Path(step['archive'])
             require(package.is_file() and not package.is_symlink() and digest(package) == step['sha256'], 'A04_PACKAGE_HASH')
             archive_entries(package, step['component'])
