@@ -121,7 +121,8 @@ def run_storage(storage):
         check(storage + ':orders_twelve_months', len(a['order_months']) == 12 and sum(v['count'] for v in a['orders'].values()) == 3 and sum(v['amount_minor'] for v in a['orders'].values()) == 4244)
         check(storage + ':http_pages', len(a['pages']) == 7 and all(v['final_status'] == 200 and v['marker'] and v['php_error'] is False for v in a['pages'].values()))
         after_detail = fingerprint(db, details=True)
-        check(storage + ':readonly_database_and_files', fingerprint(db) == before_db and filemap(site) == before_files, {'row_changes': [k for k in before_detail['tables'] if before_detail['tables'][k]['rows_sha256'] != after_detail['tables'][k]['rows_sha256']], 'schema_changes': [k for k in before_detail['tables'] if before_detail['tables'][k]['schema_sha256'] != after_detail['tables'][k]['schema_sha256']], 'file_changes': [k for k in set(before_files) | set(filemap(site)) if before_files.get(k) != filemap(site).get(k)]})
+        after_files = filemap(site)
+        check(storage + ':readonly_database_and_files', fingerprint(db) == before_db and after_files == before_files, {'row_changes': [k for k in before_detail['tables'] if before_detail['tables'][k]['rows_sha256'] != after_detail['tables'][k]['rows_sha256']], 'schema_changes': [k for k in before_detail['tables'] if before_detail['tables'][k]['schema_sha256'] != after_detail['tables'][k]['schema_sha256']], 'file_changes': [k for k in set(before_files) | set(after_files) if before_files.get(k) != after_files.get(k)]})
         denied_output = snapshot(site, settings, pathlib.Path('/proc') / ('a03-output-' + storage))
         check(storage + ':output_failure_cli_is_nonzero_and_readonly', denied_output.returncode == 1
               and denied_output.stderr == 'A03_OUTPUT_FAILED\n' and denied_output.stdout == ''

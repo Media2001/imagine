@@ -90,6 +90,22 @@ final class EnvoiNatif
 
     public static function register(): void
     {
+        add_action('woocommerce_after_customer_object_save', [self::class, 'actualiser']);
+        add_action('save_post_wc_user_membership', [self::class, 'actualiser']);
+        foreach (['added_post_meta', 'updated_post_meta', 'deleted_post_meta'] as $hook) {
+            add_action($hook, static function ($metaId, $postId, $key): void {
+                if (in_array(get_post_type($postId), ['wc_user_membership', 'wc_membership_plan'], true)) {
+                    self::actualiser();
+                }
+            }, 10, 3);
+        }
+        add_action('deleted_post', static function ($id, $post): void {
+            if (in_array($post->post_type, ['wc_user_membership', 'wc_membership_plan'], true)) {
+                self::actualiser();
+            }
+        }, 10, 2);
+        add_action('update_option_imagine_acces_plans', [self::class, 'actualiser']);
+        add_action('update_option_imagine_envoi_groupes', [self::class, 'actualiser']);
         add_action('woocommerce_after_subscription_object_save', static function ($sub): void {
             if ($sub instanceof \WC_Subscription) { self::relever($sub); }
         });
@@ -112,11 +128,34 @@ final class EnvoiNatif
             }
         }, 10, 2);
         add_action('update_option_imagine_demo_calendrier', static function (): void { self::initialiser(); });
+        add_filter('pre_update_option', static function ($value, $option, $old) {
+            if (str_starts_with($option, self::GEL)) { return $old; }
+            if ($option === self::CALENDRIER) {
+                try {
+                    return EnvoiRegles::reviserCalendrier($old, $value,
+                        new DateTimeImmutable('now', new DateTimeZone('UTC')));
+                } catch (\Throwable) { return $old; }
+            }
+            return $value;
+        }, 10, 3);
+    }
+
+    /** Toute modification native d'attribution/adresse est observée sans réécrire le passé. */
+    public static function actualiser(): void
+    {
+        if (!function_exists('wcs_get_subscriptions')) { return; }
+        foreach (wcs_get_subscriptions(['subscriptions_per_page' => -1, 'subscription_status' => 'any']) as $sub) {
+            self::relever($sub);
+        }
     }
 
     /** Liste C07 exacte ; C01 fournit les numéros théoriquement dus, sans activation fictive. */
     public static function apercu(string $code): array
     {
+        $now = new DateTimeImmutable('now', new DateTimeZone('UTC'));
+        $key = self::GEL . $code;
+        $frozen = get_option($key, null);
+        if ($frozen !== null) { return self::relireGel($code, $frozen, $now); }
         $calendar = self::calendrier();
         $selected = array_values(array_filter($calendar->numeros, static fn (Numero $n): bool => $n->id === $code));
         if ($selected === []) {
@@ -126,10 +165,6 @@ final class EnvoiNatif
             throw new \RuntimeException('Subscriptions indisponible.');
         }
         $number = $selected[0];
-        $now = new DateTimeImmutable('now', new DateTimeZone('UTC'));
-        $key = self::GEL . $code;
-        $frozen = get_option($key, null);
-        if ($frozen !== null) { return self::relireGel($code, $frozen, $now); }
         $alive = [];
         foreach (wcs_get_subscriptions(['subscriptions_per_page' => -1, 'subscription_status' => 'any']) as $sub) {
             self::relever($sub);

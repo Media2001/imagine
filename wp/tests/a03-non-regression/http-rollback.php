@@ -10,9 +10,14 @@ if (PHP_SAPI === 'cli-server') {
     require_once ABSPATH . 'wp-includes/class-wpdb.php';
     $GLOBALS['wpdb'] = new class ('root', '', DB_NAME, DB_HOST) extends wpdb {
         private bool $probe = false;
+        private int $optionsSequence = 0;
 
         public function begin(): void
         {
+            $this->optionsSequence = (int) $this->get_var(
+                "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE()"
+                . " AND TABLE_NAME='wp_options'"
+            );
             if (parent::query('START TRANSACTION') === false) {
                 throw new RuntimeException('A03_FIXTURE_WEB_BEGIN');
             }
@@ -23,6 +28,13 @@ if (PHP_SAPI === 'cli-server') {
         {
             $this->probe = false;
             parent::query('ROLLBACK');
+            // InnoDB does not roll back allocated option IDs. Restore the exact
+            // synthetic sequence as well; schema/rows are checked independently.
+            if ($this->optionsSequence < 1 || parent::query(
+                'ALTER TABLE wp_options AUTO_INCREMENT=' . $this->optionsSequence
+            ) === false) {
+                throw new RuntimeException('A03_FIXTURE_WEB_SEQUENCE');
+            }
         }
 
         public function query($query)

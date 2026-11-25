@@ -23,6 +23,8 @@ $order = null;
 $memberIds = [];
 $planId = 0;
 $oldAddresses = [];
+$gelKey = EnvoiNatif::GEL . 'C13-GEL-FICTIF';
+if (get_option($gelKey, null) !== null) { throw new \RuntimeException('Collision de gel jetable.'); }
 $owned = '_imagine_c13_correction_jetable';
 try {
     $sub = wcs_create_subscription(['customer_id' => $source->get_customer_id(), 'status' => 'pending',
@@ -90,6 +92,12 @@ try {
     $count = count($history);
     EnvoiNatif::relever($sub);
     $checks['observation_rejouee_sans_doublon'] = count(EnvoiNatif::releves((string) $sub->get_id())) === $count;
+    $changedCustomer = new \WC_Customer($recipient->get_customer_id());
+    $changedCustomer->set_shipping_address_1('Adresse fictive modifiee par CRUD C13');
+    $changedCustomer->save();
+    $observed = EnvoiNatif::releves((string) $sub->get_id());
+    $checks['adresse_beneficiaire_hook_natif_historise'] = count($observed) > $count && in_array($group, $observed, true)
+        && $observed[array_key_last($observed)]['donnees']['beneficiaires'][1]['rue'] === 'Adresse fictive modifiee par CRUD C13';
     // Commande de renouvellement native à zéro, date/statut explicitement fictifs, jamais payment_complete().
     $order = wc_create_order(['customer_id' => $sub->get_customer_id(), 'status' => 'pending']);
     if (is_wp_error($order)) { throw new \RuntimeException('Commande jetable impossible.'); }
@@ -110,6 +118,10 @@ try {
         && $renewed['donnees']['renouvellements'][0]['id'] === (string) $order->get_id();
 
     $checks['renouvellement_pas_paiement_initial_reconstruit'] = $renewed['donnees']['paiement'] === null;
+    $nativeView = EnvoiNatif::calculer('DEMO-2027-T1', EnvoiNatif::releves((string) $sub->get_id()),
+        new \DateTimeImmutable('now', new \DateTimeZone('UTC')));
+    $checks['renouvellement_natif_C01_C07_deux_beneficiaires'] = count($nativeView['liste']->lignes) === 2
+        && array_unique(array_column($nativeView['liste']->lignes, 'origine')) === ['groupe'];
     $sub->set_billing_period('month');
     $sub->set_billing_interval(3);
     $sub->save();
@@ -125,9 +137,44 @@ try {
     update_option('imagine_demo_calendrier', $changed);
     $checks['cloture_passee_reecriture_option_refusee'] = get_option('imagine_demo_calendrier') === $calendar
         && get_option(EnvoiNatif::CALENDRIER) === $calendar;
+    update_option(EnvoiNatif::CALENDRIER, $changed);
+    $checks['reference_passee_reecriture_directe_refusee'] = get_option(EnvoiNatif::CALENDRIER) === $calendar;
+    // Entrées pures fictives, jamais des relevés natifs antidatés.
+    $rows = [];
+    foreach ([1, 4, 7, 10] as $index => $month) {
+        $rows[] = ['code' => $index === 0 ? 'C13-GEL-FICTIF' : 'C13-GEL-' . $index,
+            'type' => 'regulier', 'sortie' => sprintf('2026-%02d-15', $month),
+            'cloture' => sprintf('2026-%02d-05', $month)];
+    }
+    $synthetic = $gift['donnees'];
+    $synthetic['creation'] = strtotime('2026-01-01 UTC');
+    $synthetic['debut'] = '2026-01-01 00:00:00';
+    $synthetic['etat'] = 'active';
+    $synthetic['paiement'] = strtotime('2026-01-01 UTC');
+    $snapshot = EnvoiRegles::figer('C13-GEL-FICTIF', [['observe_utc' => '2026-01-02 00:00:00', 'donnees' => $synthetic]],
+        new \DateTimeImmutable('2026-02-01 UTC'), $rows);
+    if (!add_option($gelKey, $snapshot, '', false) || get_option($gelKey) !== $snapshot) {
+        throw new \RuntimeException('Gel fictif non persisté/relu.');
+    }
+    $before = EnvoiNatif::apercu('C13-GEL-FICTIF');
+    $poison = static fn (): array => [];
+    add_filter('pre_option_' . EnvoiNatif::CALENDRIER, $poison);
+    add_filter('pre_option_imagine_demo_calendrier', $poison);
+    try {
+        $after = EnvoiNatif::apercu('C13-GEL-FICTIF');
+        $checks['gel_persistant_ignore_calendrier_courant'] = count($before['liste']->lignes) === 1
+            && $before['liste']->lignes === $after['liste']->lignes && $before['blocs'] === $after['blocs'];
+    } finally {
+        remove_filter('pre_option_' . EnvoiNatif::CALENDRIER, $poison);
+        remove_filter('pre_option_imagine_demo_calendrier', $poison);
+    }
+    update_option($gelKey, ['version' => 'corrompue']);
+    $checks['gel_persistant_reecriture_refusee'] = get_option($gelKey) === $snapshot;
     $checks['libelle_non_eligible_traduit'] = ListeEnvoiAdmin::motif('non_eligible') === 'Non éligible à l’envoi';
 } finally {
     foreach ($memberIds as $id) { wp_delete_post($id, true); }
+    delete_option($gelKey);
+    $checks['gel_jetable_absent'] = get_option($gelKey, null) === null;
     if ($order && !is_wp_error($order)) { $order->delete(true); }
     if ($sub && !is_wp_error($sub)) {
         $id = (string) $sub->get_id();

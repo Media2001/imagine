@@ -51,7 +51,7 @@ def verify():
         print(json.dumps({'HTTP': checks}, ensure_ascii=False))
         raise RuntimeError('Échec C13 HTTP avant exports')
     for profile in ('E-ABO', 'E-ADMIN'):
-        nonce = re.search(r'name="_wpnonce" value="([^"]+)"', pages[profile])
+        nonce = re.search(r'name="action" value="imagine_exporter_liste_envoi".*?name="_wpnonce" value="([^"]+)"', pages[profile], re.S)
         if not nonce:
             raise RuntimeError('Nonce export natif absent')
         payload = dict(fields, _wpnonce=unescape(nonce.group(1)))
