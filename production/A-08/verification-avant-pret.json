@@ -1,0 +1,11 @@
+{
+  "command": [
+    "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+    "-B",
+    "C:\\Users\\Ced\\imagine\\production\\A-08\\verifier.py",
+    "--sans-pret"
+  ],
+  "exit": 0,
+  "stdout": "{\n  \"exit_code\": 0,\n  \"verified_files\": {\n    \"protected\": 73,\n    \"sources\": 59,\n    \"evidence\": 166,\n    \"history\": 16,\n    \"delivery\": 11\n  },\n  \"counts\": {\n    \"a08_unit\": 14,\n    \"a02_unit\": 17,\n    \"a03_unit\": 10,\n    \"a03_boundaries\": 5,\n    \"a04_unit\": 48,\n    \"a05_unit\": 21,\n    \"native_checks\": 49,\n    \"runner_checks\": 11\n  },\n  \"durations_seconds_cumulative\": {\n    \"classic\": {\n      \"audit\": 2.382,\n      \"avant\": 2.22,\n      \"mise-a-jour\": 82.857,\n      \"nettoyage\": 2.748,\n      \"apres\": 2.509,\n      \"comparaison\": 0.078\n    },\n    \"hpos\": {\n      \"audit\": 2.587,\n      \"avant\": 2.489,\n      \"mise-a-jour\": 82.289,\n      \"nettoyage\": 2.621,\n      \"apres\": 2.19,\n      \"comparaison\": 0.069\n    }\n  },\n  \"proof\": \"production/A-08/preuves/2bbcefb53170\"\n}\n",
+  "stderr": ""
+}

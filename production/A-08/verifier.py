@@ -16,7 +16,7 @@ def sha(path):
 def main():
     manifest=json.loads((LOT/'manifeste.json').read_text(encoding='utf8'))
     verified={}
-    for kind in ['protected','sources','evidence','delivery']:
+    for kind in ['protected','sources','evidence','history','delivery']:
         entries=manifest[kind]
         assert entries,kind
         for name,digest in entries.items():

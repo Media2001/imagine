@@ -1,0 +1,49 @@
+{
+  "command": [
+    "python",
+    "-B",
+    "production/A-08/verifier.py"
+  ],
+  "exit": 0,
+  "result": {
+    "exit_code": 0,
+    "verified_files": {
+      "protected": 73,
+      "sources": 59,
+      "evidence": 166,
+      "history": 16,
+      "delivery": 11
+    },
+    "counts": {
+      "a08_unit": 14,
+      "a02_unit": 17,
+      "a03_unit": 10,
+      "a03_boundaries": 5,
+      "a04_unit": 48,
+      "a05_unit": 21,
+      "native_checks": 49,
+      "runner_checks": 11
+    },
+    "durations_seconds_cumulative": {
+      "classic": {
+        "audit": 2.382,
+        "avant": 2.22,
+        "mise-a-jour": 82.857,
+        "nettoyage": 2.748,
+        "apres": 2.509,
+        "comparaison": 0.078
+      },
+      "hpos": {
+        "audit": 2.587,
+        "avant": 2.489,
+        "mise-a-jour": 82.289,
+        "nettoyage": 2.621,
+        "apres": 2.19,
+        "comparaison": 0.069
+      }
+    },
+    "proof": "production/A-08/preuves/2bbcefb53170"
+  },
+  "stdout": "{\n  \"exit_code\": 0,\n  \"verified_files\": {\n    \"protected\": 73,\n    \"sources\": 59,\n    \"evidence\": 166,\n    \"history\": 16,\n    \"delivery\": 11\n  },\n  \"counts\": {\n    \"a08_unit\": 14,\n    \"a02_unit\": 17,\n    \"a03_unit\": 10,\n    \"a03_boundaries\": 5,\n    \"a04_unit\": 48,\n    \"a05_unit\": 21,\n    \"native_checks\": 49,\n    \"runner_checks\": 11\n  },\n  \"durations_seconds_cumulative\": {\n    \"classic\": {\n      \"audit\": 2.382,\n      \"avant\": 2.22,\n      \"mise-a-jour\": 82.857,\n      \"nettoyage\": 2.748,\n      \"apres\": 2.509,\n      \"comparaison\": 0.078\n    },\n    \"hpos\": {\n      \"audit\": 2.587,\n      \"avant\": 2.489,\n      \"mise-a-jour\": 82.289,\n      \"nettoyage\": 2.621,\n      \"apres\": 2.19,\n      \"comparaison\": 0.069\n    }\n  },\n  \"proof\": \"production/A-08/preuves/2bbcefb53170\"\n}\n",
+  "stderr": ""
+}

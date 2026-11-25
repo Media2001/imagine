@@ -16,6 +16,10 @@ function imagine_setup(): void
     load_theme_textdomain('imagine', get_template_directory() . '/languages');
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
+    add_theme_support('woocommerce');
+    // header.php/footer.php already own the semantic main landmark.
+    remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
+    remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
     add_theme_support('html5', ['search-form', 'gallery', 'caption', 'style', 'script']);
 }
 add_action('after_setup_theme', __NAMESPACE__ . '\\imagine_setup');
@@ -91,7 +95,7 @@ function imagine_archive_order(\WP_Query $query): void
     if ($query->is_post_type_archive('imagine_numero')) {
         $query->set('meta_key', 'imagine_sortie');
         $query->set('orderby', ['meta_value' => 'DESC', 'ID' => 'DESC']);
-        $query->set('posts_per_page', -1);
+        // Keep WordPress' native page size and paged query variable.
     } elseif ($query->is_post_type_archive('imagine_evenement')) {
         $query->set('meta_key', 'imagine_date');
         $query->set('orderby', ['meta_value' => 'ASC', 'ID' => 'ASC']);
