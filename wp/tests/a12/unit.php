@@ -13,20 +13,28 @@ require '/subject/a12/AuditLibrary.php';
 \Imagine\ContentInventory\AuditLibrary::load();
 require '/subject/a12/Registry.php';
 $root = '/report/origin-fixture';
-foreach ([
+foreach (
+    [
     'wp-includes/post.php' => 'core',
     'wp-content/plugins/synthetic/vendor/registrar.php' => 'plugin',
     'wp-content/themes/synthetic/functions.php' => 'theme',
     'wp-content/mu-plugins/submodule/registrar.php' => 'mu_plugin',
-] as $file => $owner) {
+    ] as $file => $owner
+) {
     mkdir(dirname($root . '/' . $file), 0700, true);
     file_put_contents($root . '/' . $file, '<?php');
     $check('real_origin:' . $owner, \Imagine\ContentInventory\Registry::origin($root, $root . '/' . $file)
         === ['owner' => $owner, 'file' => $file]);
 }
 $unknown = ['owner' => 'unknown', 'file' => null];
-$check('unreadable_origin_not_invented', \Imagine\ContentInventory\Registry::origin($root, $root . '/absent.php') === $unknown);
-$check('outside_origin_never_exports_absolute_path', \Imagine\ContentInventory\Registry::origin($root, __FILE__) === $unknown);
+$check(
+    'unreadable_origin_not_invented',
+    \Imagine\ContentInventory\Registry::origin($root, $root . '/absent.php') === $unknown
+);
+$check(
+    'outside_origin_never_exports_absolute_path',
+    \Imagine\ContentInventory\Registry::origin($root, __FILE__) === $unknown
+);
 $check('missing_stack_origin_explicit', \Imagine\ContentInventory\Registry::origin($root, null) === $unknown);
 $result = [
     'suite' => 'A12-pure-unit', 'checks' => $checks,

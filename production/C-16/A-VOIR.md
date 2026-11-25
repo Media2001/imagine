@@ -30,7 +30,8 @@ Don, pack, abonnement offert et abonnement groupé ne sont que des emplacements 
 python wp/outils/demo/c16.py --deploy
 python wp/outils/demo/c16-unit.py unit-final
 python wp/tests/demo/c16-http.py http-final
-python wp/outils/demo/c16-unit.py unit-root-final ''
+python wp/outils/demo/c16-unit.py unit-root-final --root
+python wp/tests/demo/c16-etat.py # contrôle sans paiement, exit 2 tant que les gates globaux sont rouges
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
 ```

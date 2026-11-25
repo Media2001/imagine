@@ -18,7 +18,16 @@ final class Inventory
     public function __construct(string $site)
     {
         $this->site = $site;
-        require_once $site . '/wp-includes/plugin.php';
+        // A11 already rejects the other unsupported layout constants. Preserve
+        // A12's upload/MU guards: silently ignoring these would photograph another layout.
+        $file = $site . '/wp-config.php';
+        if (is_link($file) || realpath($file) !== $file || !is_readable($file) || filesize($file) > 1048576) {
+            throw new \RuntimeException('A12_CONFIG_UNSAFE');
+        }
+        $config = file_get_contents($file);
+        if (preg_match('/[\'\"](?:WPMU_PLUGIN_DIR|UPLOADS)[\'\"]\s*,/', $config)) {
+            throw new \RuntimeException('A12_CUSTOM_LAYOUT_UNSUPPORTED');
+        }
         $this->registry = new Registry($site);
         $this->registry->listen();
         \Imagine\PublicAddresses\Runtime::boot($site);

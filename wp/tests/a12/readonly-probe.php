@@ -22,7 +22,8 @@ $guards = \Imagine\PublicAddresses\Runtime::$guards;
 $report = $inventory->collect();
 $results = [
     'blocked' => $blocked, 'server_readonly' => $server, 'escape_denied' => $escape,
-    'same_session_for_registry_metadata_attachments' => $sameSession && $GLOBALS['wpdb'] === $db && $report['registry']['runtime_verified'],
+    'same_session_for_registry_metadata_attachments' => $sameSession && $GLOBALS['wpdb'] === $db
+        && $report['registry']['runtime_verified'],
     'http_denied' => is_wp_error($http), 'mail_denied' => $mail === false, 'schedule_denied' => $scheduled === false,
     'guards_exercised' => $guards['http'] >= 1 && $guards['mail'] >= 1 && $guards['scheduled'] >= 1,
     'early_bootstrap_guards_all_pass' => count($GLOBALS['a12_early_guards'] ?? []) === 9

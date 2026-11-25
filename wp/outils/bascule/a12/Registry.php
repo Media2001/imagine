@@ -49,18 +49,23 @@ final class Registry
 
     public function listen(): void
     {
-        add_action('registered_post_type', function (string $name, object $object): void {
+        $post = function (string $name, object $object): void {
             $this->record('post_types', $name, $object, 'register_post_type');
-        }, PHP_INT_MAX, 2);
-        add_action('registered_taxonomy', function (string $name): void {
+        };
+        $taxonomy = function (string $name): void {
             $this->record('taxonomies', $name, $GLOBALS['wp_taxonomies'][$name] ?? null, 'register_taxonomy');
-        }, PHP_INT_MAX);
+        };
+        // Native WP_Hook::build_preinitialized_hooks normalizes these at plugin.php.
+        // Do not load ANY site PHP before the A11 runtime's source safety checks.
+        $GLOBALS['wp_filter']['registered_post_type'][PHP_INT_MAX][] = ['function' => $post, 'accepted_args' => 2];
+        $GLOBALS['wp_filter']['registered_taxonomy'][PHP_INT_MAX][] = ['function' => $taxonomy, 'accepted_args' => 1];
     }
 
     public function snapshot(): array
     {
         $result = ['post_types' => [], 'taxonomies' => []];
-        foreach (['post_types' => get_post_types([], 'objects'), 'taxonomies' => get_taxonomies([], 'objects')] as $kind => $objects) {
+        $native = ['post_types' => get_post_types([], 'objects'), 'taxonomies' => get_taxonomies([], 'objects')];
+        foreach ($native as $kind => $objects) {
             foreach ($objects as $name => $object) {
                 $event = $this->events[$kind][$name] ?? null;
                 $result[$kind][$name] = [$event && $event['object'] === $object

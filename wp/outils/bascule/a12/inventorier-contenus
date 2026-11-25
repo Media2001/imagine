@@ -32,7 +32,8 @@ try {
     while (ob_get_level() > $level) {
         ob_end_clean();
     }
-    $code = $exception instanceof \RuntimeException && preg_match('/\AA(?:12|11|02)_[A-Z_]+\z/D', $exception->getMessage())
+    $code = $exception instanceof \RuntimeException
+        && preg_match('/\AA(?:12|11|02)_[A-Z_]+\z/D', $exception->getMessage())
         ? $exception->getMessage() : 'A12_INVENTORY_FAILED';
     fwrite(STDERR, $code . "\n");
     exit(1);

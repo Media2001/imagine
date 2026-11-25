@@ -99,6 +99,7 @@ if (getenv('A12_CONFINED') === '1') {
     gap = {'runtime_missing_from_snapshot': sorted(set(oracle['runtime_post_types'])-set(rows)), 'source_candidates_not_runtime': sorted(k for k,v in rows.items() if v['declarations'] and k not in oracle['runtime_post_types'])}
     (OUT/(storage+'-registry-gap.json')).write_text(json.dumps(gap, indent=2)+'\n')
     b.check(storage+':runtime_gap_empty', not any(gap.values()))
+    b.check(storage+':registered_totals_match_oracle', report['registry']['post_type_count'] == len(oracle['runtime_post_types']) and report['registry']['taxonomy_count'] == len(oracle['runtime_taxonomies']))
     fields = {x['key']: x['content_count'] for x in row['metadata_keys']}
     b.check(storage+':metadata_distinct_owners_not_row_count', fields['a12_field'] == oracle['metadata_content_count'] == 5)
     t = tax['a12_rubrique']
@@ -137,6 +138,8 @@ if (getenv('A12_CONFINED') === '1') {
     link.unlink()
     no_audit = b.cmd(['php', '/subject/a12/inventorier-contenus', '--wp-path='+str(site), '--output=/report/no-audit-'+storage], check=False)
     b.check(storage+':guard:missing_audit', no_audit.returncode == 1 and no_audit.stderr == 'A12_USAGE\n')
+    raw = b.cmd(['php', '/subject/a12/inventorier-contenus', '--wp-path='+str(site), '--output='+str(OUT/(storage+'-raw')), '--audit='+str(auditdir/'audit.json')], check=False)
+    b.check(storage+':guard:unconfined_launcher', raw.returncode == 1 and raw.stderr == 'A12_CONFINEMENT_REQUIRED\n' and not (OUT/(storage+'-raw')).exists())
     import shutil
     canonical = pathlib.Path('/checkout/wp/outils/bascule')
     if not canonical.exists():
@@ -187,6 +190,20 @@ if (getenv('A12_CONFINED') === '1') {
         b.check(storage+':guard:dynamic_config', bad.returncode == 1 and bad.stderr == 'A02_CONFIG_NON_LITERAL\n')
     finally:
         (site/'wp-config.php').write_text(config)
+    for constant in ['WPMU_PLUGIN_DIR', 'UPLOADS']:
+        (site/'wp-config.php').write_text(config + "\ndefine('"+constant+"', '/forbidden-layout');\n")
+        try:
+            bad = inventory(site, OUT/(storage+'-layout-'+constant.lower()), auditdir/'audit.json')
+            b.check(storage+':guard:layout:'+constant, bad.returncode == 1 and bad.stderr == 'A12_CUSTOM_LAYOUT_UNSUPPORTED\n')
+        finally:
+            (site/'wp-config.php').write_text(config)
+    dropin = site/'wp-content/object-cache.php'
+    dropin.write_text("<?php throw new RuntimeException('A12_NEVER_EXECUTE_DROPIN');")
+    try:
+        bad = inventory(site, OUT/(storage+'-dropin'), auditdir/'audit.json')
+        b.check(storage+':guard:dropin_before_execution', bad.returncode == 1 and bad.stderr == 'A11_DROPIN_UNSUPPORTED\n')
+    finally:
+        dropin.unlink()
     after = b.fingerprint(db)
     (OUT/(storage+'-db-after.json')).write_text(json.dumps(after, indent=2)+'\n')
     b.check(storage+':all_tables_identical_including_scheduler', before == after, {'before': before['logical_sha256'], 'after': after['logical_sha256'], 'tables': len(before['tables'])})

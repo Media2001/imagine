@@ -31,4 +31,6 @@ def run(label='final', selection='CommandeReglesTest'):
         PROOF.mkdir(parents=True,exist_ok=True)
         (PROOF/(label+'.json')).write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
     return result['exit']
-if __name__=='__main__': sys.exit(run(sys.argv[1] if len(sys.argv)>1 else 'final',sys.argv[2] if len(sys.argv)>2 else 'CommandeReglesTest'))
+if __name__=='__main__':
+    selection=sys.argv[2] if len(sys.argv)>2 else 'CommandeReglesTest'
+    sys.exit(run(sys.argv[1] if len(sys.argv)>1 else 'final','' if selection=='--root' else selection))
