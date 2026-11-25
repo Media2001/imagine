@@ -1,0 +1,17 @@
+A-04 — maintenance conservée
+{"after": "7.0.9", "before": "7.0.9", "component": "core", "stage": "start", "utc": "2026-11-25T14:02:24Z"}
+{"component": "core", "files": 3500, "stage": "copied", "utc": "2026-11-25T14:02:45Z"}
+{"after": "7.0.9", "before": "7.0.9", "component": "core", "duration_seconds": 22.763, "migrations": ["wp core update-db; db_version=61833"], "stage": "verified", "utc": "2026-11-25T14:02:47Z"}
+{"after": "11.1.1", "before": "11.1.1", "component": "woocommerce", "stage": "start", "utc": "2026-11-25T14:02:47Z"}
+{"component": "woocommerce", "files": 5862, "stage": "copied", "utc": "2026-11-25T14:03:24Z"}
+{"after": "11.1.1", "before": "11.1.1", "component": "woocommerce", "duration_seconds": 37.867, "migrations": ["woocommerce_db_version=11.1.1"], "stage": "verified", "utc": "2026-11-25T14:03:25Z"}
+{"after": "9.4.1", "before": "9.4.1", "component": "woocommerce-subscriptions", "stage": "start", "utc": "2026-11-25T14:03:25Z"}
+{"component": "woocommerce-subscriptions", "files": 763, "stage": "copied", "utc": "2026-11-25T14:03:30Z"}
+{"after": "9.4.1", "before": "9.4.1", "component": "woocommerce-subscriptions", "duration_seconds": 6.107, "migrations": [], "stage": "verified", "utc": "2026-11-25T14:03:31Z"}
+{"after": "1.30.3", "before": "1.30.3", "component": "woocommerce-memberships", "stage": "start", "utc": "2026-11-25T14:03:31Z"}
+{"component": "woocommerce-memberships", "files": 664, "stage": "copied", "utc": "2026-11-25T14:03:35Z"}
+{"after": "1.30.3", "before": "1.30.3", "component": "woocommerce-memberships", "duration_seconds": 5.386, "migrations": ["WC_Memberships lifecycle init"], "stage": "verified", "utc": "2026-11-25T14:03:36Z"}
+{"after": "2.0.0", "before": "2.0.0", "component": "a04-rest", "stage": "start", "utc": "2026-11-25T14:03:36Z"}
+{"component": "a04-rest", "files": 1, "stage": "copied", "utc": "2026-11-25T14:03:36Z"}
+{"after": "2.0.0", "before": "2.0.0", "component": "a04-rest", "duration_seconds": 1.363, "migrations": [], "stage": "verified", "utc": "2026-11-25T14:03:38Z"}
+{"component": "all", "stage": "complete", "utc": "2026-11-25T14:03:41Z"}

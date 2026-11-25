@@ -1,0 +1,187 @@
+{
+  "schema": "imagine-a04-state-v1",
+  "plan_sha256": "10748ec21c2b0c2480b1dec4ffbc9386f7d9f8825370c609b870bceed79f5e33",
+  "site": "/scratch/hpos",
+  "config_sha256": "8a6c166733a5db34a77cb458b98e418c5400ba37b4f10a81e1e5eb3759372cf0",
+  "steps": {
+    "core": {
+      "phase": "verified",
+      "before": "7.0.9",
+      "after": "7.0.9",
+      "started": 1795615540.4066167,
+      "attempts": 1,
+      "files": 3500,
+      "migrations": [
+        "wp core update-db; db_version=61833"
+      ],
+      "duration_seconds": 22.832
+    },
+    "woocommerce": {
+      "phase": "verified",
+      "before": "11.1.1",
+      "after": "11.1.1",
+      "started": 1795615563.2593608,
+      "attempts": 1,
+      "files": 5862,
+      "migrations": [
+        "woocommerce_db_version=11.1.1"
+      ],
+      "duration_seconds": 36.652
+    },
+    "woocommerce-subscriptions": {
+      "phase": "verified",
+      "before": "9.4.1",
+      "after": "9.4.1",
+      "started": 1795615599.931866,
+      "attempts": 1,
+      "files": 763,
+      "migrations": [],
+      "duration_seconds": 5.939
+    },
+    "woocommerce-memberships": {
+      "phase": "verified",
+      "before": "1.30.3",
+      "after": "1.30.3",
+      "started": 1795615605.892094,
+      "attempts": 1,
+      "files": 664,
+      "migrations": [
+        "WC_Memberships lifecycle init"
+      ],
+      "duration_seconds": 5.532
+    },
+    "a04-rest": {
+      "phase": "verified",
+      "before": "2.0.0",
+      "after": "2.0.0",
+      "started": 1795615611.447307,
+      "attempts": 1,
+      "files": 1,
+      "migrations": [],
+      "duration_seconds": 1.588
+    }
+  },
+  "events": [
+    {
+      "utc": "2026-11-25T14:05:40Z",
+      "component": "core",
+      "stage": "start",
+      "before": "7.0.9",
+      "after": "7.0.9"
+    },
+    {
+      "utc": "2026-11-25T14:06:01Z",
+      "component": "core",
+      "stage": "copied",
+      "files": 3500
+    },
+    {
+      "utc": "2026-11-25T14:06:03Z",
+      "component": "core",
+      "stage": "verified",
+      "before": "7.0.9",
+      "after": "7.0.9",
+      "duration_seconds": 22.832,
+      "migrations": [
+        "wp core update-db; db_version=61833"
+      ]
+    },
+    {
+      "utc": "2026-11-25T14:06:03Z",
+      "component": "woocommerce",
+      "stage": "start",
+      "before": "11.1.1",
+      "after": "11.1.1"
+    },
+    {
+      "utc": "2026-11-25T14:06:38Z",
+      "component": "woocommerce",
+      "stage": "copied",
+      "files": 5862
+    },
+    {
+      "utc": "2026-11-25T14:06:39Z",
+      "component": "woocommerce",
+      "stage": "verified",
+      "before": "11.1.1",
+      "after": "11.1.1",
+      "duration_seconds": 36.652,
+      "migrations": [
+        "woocommerce_db_version=11.1.1"
+      ]
+    },
+    {
+      "utc": "2026-11-25T14:06:39Z",
+      "component": "woocommerce-subscriptions",
+      "stage": "start",
+      "before": "9.4.1",
+      "after": "9.4.1"
+    },
+    {
+      "utc": "2026-11-25T14:06:44Z",
+      "component": "woocommerce-subscriptions",
+      "stage": "copied",
+      "files": 763
+    },
+    {
+      "utc": "2026-11-25T14:06:45Z",
+      "component": "woocommerce-subscriptions",
+      "stage": "verified",
+      "before": "9.4.1",
+      "after": "9.4.1",
+      "duration_seconds": 5.939,
+      "migrations": []
+    },
+    {
+      "utc": "2026-11-25T14:06:45Z",
+      "component": "woocommerce-memberships",
+      "stage": "start",
+      "before": "1.30.3",
+      "after": "1.30.3"
+    },
+    {
+      "utc": "2026-11-25T14:06:50Z",
+      "component": "woocommerce-memberships",
+      "stage": "copied",
+      "files": 664
+    },
+    {
+      "utc": "2026-11-25T14:06:51Z",
+      "component": "woocommerce-memberships",
+      "stage": "verified",
+      "before": "1.30.3",
+      "after": "1.30.3",
+      "duration_seconds": 5.532,
+      "migrations": [
+        "WC_Memberships lifecycle init"
+      ]
+    },
+    {
+      "utc": "2026-11-25T14:06:51Z",
+      "component": "a04-rest",
+      "stage": "start",
+      "before": "2.0.0",
+      "after": "2.0.0"
+    },
+    {
+      "utc": "2026-11-25T14:06:51Z",
+      "component": "a04-rest",
+      "stage": "copied",
+      "files": 1
+    },
+    {
+      "utc": "2026-11-25T14:06:53Z",
+      "component": "a04-rest",
+      "stage": "verified",
+      "before": "2.0.0",
+      "after": "2.0.0",
+      "duration_seconds": 1.588,
+      "migrations": []
+    },
+    {
+      "utc": "2026-11-25T14:06:56Z",
+      "component": "all",
+      "stage": "complete"
+    }
+  ]
+}

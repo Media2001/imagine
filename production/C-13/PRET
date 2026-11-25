@@ -1,2 +1,1 @@
-25 novembre 2026 — VOIE 2 — redépôt pour relecture demandé par A-FAIRE-2.md et docs/arbitrages-2026-11-25.md.
-Lire A-VOIR.md et resultats.json : contrôles techniques historiques verts, acceptation complète C09 non acquise. Aucun changement des droits ni paiement inventé. PRET ne vaut ni clôture ni validation visuelle.
+2026-11-25T15:05:24.738307+01:00 VOIE 2 — corrections techniques soumises à relecture. Parent : 10 tests purs/30 assertions, 75 contrôles PHP/HTTP verts ; suite autorisée 1010 tests/33978 assertions verte. Acceptation complète C09 toujours fausse, strict exit 2, aucun paiement inventé. Voir A-VOIR et RAPPORT.

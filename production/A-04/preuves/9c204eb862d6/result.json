@@ -1,0 +1,484 @@
+{
+  "suite": "A04-real-synthetic-classic-hpos",
+  "checks": [
+    {
+      "check": "legacy691:native_guard_no_override",
+      "ok": true,
+      "detail": {
+        "wordpress": "6.9.1",
+        "subscriptions_requires_wp": "7.0",
+        "woo_activation_exit": 0,
+        "subscriptions_activation_exit": 1,
+        "stderr_sha256": "a458be6643702b9910a60a8e9e23b683bf364b0325bf8ed7f95570560dab2028"
+      }
+    },
+    {
+      "check": "classic:baseline_versions",
+      "ok": true,
+      "detail": {
+        "wordpress": "7.0",
+        "woocommerce": "11.0.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3"
+      }
+    },
+    {
+      "check": "classic:a03_before",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:a03_before_php_log_clean",
+      "ok": true,
+      "detail": {
+        "checked": true,
+        "from_utc": "2026-11-25T14:00:44Z",
+        "until_utc": "2026-11-25T14:00:45Z",
+        "errors": 0
+      }
+    },
+    {
+      "check": "classic:maintenance_required",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:stale_backup_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:native_child_started",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:orphan_child_keeps_site_lock",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:controlled_interruption",
+      "ok": true,
+      "detail": {
+        "exit": 75,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:durable_checkpoint",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:real_updater_paused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:concurrent_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:same_site_other_state_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:real_updater_sigkill",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:foreign_callback_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:foreign_callback_not_executed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:resumed",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:previous_step_not_replayed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:current_step_resumed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:idempotent_repeat",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:maintenance_kept",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:persistent_maintenance_503",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:a03_after",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:a03_after_php_log_clean",
+      "ok": true,
+      "detail": {
+        "checked": true,
+        "from_utc": "2026-11-25T14:02:22Z",
+        "until_utc": "2026-11-25T14:02:23Z",
+        "errors": 0
+      }
+    },
+    {
+      "check": "classic:native_a03_expected_only_code3",
+      "ok": true,
+      "detail": {
+        "native_a03_exit": 3,
+        "native_a03_anormal": 0,
+        "changes": [
+          {
+            "path": "versions.wordpress",
+            "class": "attendu"
+          },
+          {
+            "path": "versions.woocommerce",
+            "class": "attendu"
+          },
+          {
+            "path": "actions.32",
+            "class": "attendu"
+          },
+          {
+            "path": "action_days.[masque]",
+            "class": "attendu"
+          }
+        ]
+      }
+    },
+    {
+      "check": "classic:target_versions_exact",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:production_fixture_config_distinct",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:production_requires_go",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:production_mode_synthetic_only",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:production_roundtrip_no_business_change",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:a03_roundtrip_php_log_clean",
+      "ok": true,
+      "detail": {
+        "checked": true,
+        "from_utc": "2026-11-25T14:03:41Z",
+        "until_utc": "2026-11-25T14:03:43Z",
+        "errors": 0
+      }
+    },
+    {
+      "check": "classic:remaining_file_only_plugin_updated_last",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:themes_untouched_and_no_cleanup",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:native_callbacks_not_double_executed",
+      "ok": true,
+      "detail": [
+        "wc_update_1110_delete_dashboard_outofstock_count_transient",
+        "wc_update_1110_cleanup_block_email_posts",
+        "wc_update_1110_flush_product_count_cache",
+        "wc_update_11101_remove_deprecated_variation_gallery_option"
+      ]
+    },
+    {
+      "check": "hpos:baseline_versions",
+      "ok": true,
+      "detail": {
+        "wordpress": "7.0",
+        "woocommerce": "11.0.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3"
+      }
+    },
+    {
+      "check": "hpos:a03_before",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:a03_before_php_log_clean",
+      "ok": true,
+      "detail": {
+        "checked": true,
+        "from_utc": "2026-11-25T14:04:00Z",
+        "until_utc": "2026-11-25T14:04:01Z",
+        "errors": 0
+      }
+    },
+    {
+      "check": "hpos:maintenance_required",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:stale_backup_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:native_child_started",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:orphan_child_keeps_site_lock",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:controlled_interruption",
+      "ok": true,
+      "detail": {
+        "exit": 75,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:durable_checkpoint",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:real_updater_paused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:concurrent_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:same_site_other_state_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:real_updater_sigkill",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:foreign_callback_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:foreign_callback_not_executed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:resumed",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:previous_step_not_replayed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:current_step_resumed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:idempotent_repeat",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:maintenance_kept",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:persistent_maintenance_503",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:a03_after",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:a03_after_php_log_clean",
+      "ok": true,
+      "detail": {
+        "checked": true,
+        "from_utc": "2026-11-25T14:05:38Z",
+        "until_utc": "2026-11-25T14:05:39Z",
+        "errors": 0
+      }
+    },
+    {
+      "check": "hpos:native_a03_expected_only_code3",
+      "ok": true,
+      "detail": {
+        "native_a03_exit": 3,
+        "native_a03_anormal": 0,
+        "changes": [
+          {
+            "path": "versions.wordpress",
+            "class": "attendu"
+          },
+          {
+            "path": "versions.woocommerce",
+            "class": "attendu"
+          },
+          {
+            "path": "actions.32",
+            "class": "attendu"
+          },
+          {
+            "path": "action_days.[masque]",
+            "class": "attendu"
+          }
+        ]
+      }
+    },
+    {
+      "check": "hpos:target_versions_exact",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:production_fixture_config_distinct",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:production_requires_go",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:production_mode_synthetic_only",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:production_roundtrip_no_business_change",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:a03_roundtrip_php_log_clean",
+      "ok": true,
+      "detail": {
+        "checked": true,
+        "from_utc": "2026-11-25T14:06:56Z",
+        "until_utc": "2026-11-25T14:06:58Z",
+        "errors": 0
+      }
+    },
+    {
+      "check": "hpos:remaining_file_only_plugin_updated_last",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:themes_untouched_and_no_cleanup",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:native_callbacks_not_double_executed",
+      "ok": true,
+      "detail": [
+        "wc_update_1110_delete_dashboard_outofstock_count_transient",
+        "wc_update_1110_cleanup_block_email_posts",
+        "wc_update_1110_flush_product_count_cache",
+        "wc_update_11101_remove_deprecated_variation_gallery_option"
+      ]
+    },
+    {
+      "check": "network_none",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp6",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "exit_code": 0
+}
