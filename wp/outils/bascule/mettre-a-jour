@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+"""A-04 : mise à jour locale, verrouillée, journalisée et reprenable."""
+import sys
+sys.dont_write_bytecode = True
+
+class Refusal(RuntimeError):
+    pass
+
+def validate_plan(plan):
+    if not isinstance(plan, dict) or plan.get('schema') != 'imagine-a04-v1':
+        raise Refusal('A04_PLAN')
+    return plan

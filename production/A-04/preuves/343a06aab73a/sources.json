@@ -1,0 +1,6 @@
+{
+  "wp/tests/a04/probe.py": "267ddac0f4bfe8f339a23b48888de3c4472c6ea8258658bb9417d2c4224a0b80",
+  "wp/tests/a04/run.py": "69a8be9ec42a41c05bf2ec7d037859ffa12c307fd75a437c639ff1080e632665",
+  "wp/tests/a04/test_update.py": "c4463002b710b0bf9fba8dee7823e1f45ebd6aaf2cf0961570fc004ba143d7e0",
+  "wp/outils/bascule/mettre-a-jour": "57c34fd2c628cbc7602c9409e37b86901ebfa4f441828c46d2f4533f6a1ec240"
+}
