@@ -15,5 +15,11 @@ try {
 } catch (PDOException $error) {
     $blocked = (int) ($error->errorInfo[1] ?? 0) === 1792;
 }
-echo json_encode(['blocked' => $blocked]) . "\n";
-exit($blocked ? 0 : 1);
+$queryBlocked = false;
+try {
+    (new ReflectionMethod($subject, 'select'))->invoke($subject, 'UPDATE wp_options SET option_value=option_value');
+} catch (RuntimeException $error) {
+    $queryBlocked = $error->getMessage() === 'A10_NON_SELECT_FORBIDDEN';
+}
+echo json_encode(['blocked' => $blocked, 'select_guard' => $queryBlocked]) . "\n";
+exit($blocked && $queryBlocked ? 0 : 1);

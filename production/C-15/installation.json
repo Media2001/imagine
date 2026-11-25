@@ -1,10 +1,11 @@
 {
   "scope": "imagine-test-demo",
   "sha256_readback": {
-    "EcheancesRegles.php": "dacecd0d9adecf44c2e1b0f8b9974077fb411ba5aa2e8e13fcef0860591e9229",
-    "EcheancesNatives.php": "27837582469b2fca2792ae43398cae57a8e7dc8303d3769b695630cccc571f0f",
-    "EcheancesAdmin.php": "3a0fd5ffe2f6c7657d9fcbb082f18a8219bec793c8ad6a820c318c1a7ccf041b",
-    "imagine-site.php": "7fa2bf3260b64ae1422cf8564ef2227d1ab9ead15ecca5bb7782693263b79eb9"
+    "EcheancesRegles.php": "a7fb2b4fad9ac8939ce999f3babbbf04d633d1e94bf8a164d9f2f3d5d3c0adc5",
+    "EcheancesNatives.php": "5c989a61516c5f391f6597afcb3f55e169867e6ce77bdd1603f4a5f7bbfdda0a",
+    "EcheancesAdmin.php": "3a0fd5ffe2f6c7657d9fcbb082f18a8219bec793c8ad6a820c318c1a7ccf041b"
   },
-  "theme_uploaded": false
+  "theme_uploaded": false,
+  "bootstrap_written": false,
+  "bootstrap_preserved": true
 }

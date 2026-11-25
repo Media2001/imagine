@@ -1,0 +1,10 @@
+{
+  "checks": {
+    "owned_all_dates_restored": true,
+    "catalogue_semantic_exact": true
+  },
+  "global_c09_reset": false,
+  "removed_owned_renewals": [
+    2522
+  ]
+}

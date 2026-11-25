@@ -91,7 +91,19 @@ final class EcheancesNatives
                 'subscription_status' => ['active', 'pending-cancel', 'on-hold', 'pending'], 'orderby' => 'ID', 'order' => 'ASC']);
             foreach ($subs as $sub) {
                 $reference = self::fictif($sub, 'A-PAPIER') ? 'A-PAPIER' : (string) $sub->get_meta('imagine_mandat_reference');
-                $rows[] = ['id' => $sub->get_id(), 'abonne' => trim($sub->get_billing_first_name() . ' ' . $sub->get_billing_last_name()),
+                $renewals = [];
+                if ($view === 'mandats' && self::methode($sub) === 'imagine_papier') {
+                    foreach ($sub->get_related_orders('all', 'renewal') as $order) {
+                        // Relation WCS + même propriétaire, jamais une commande parent
+                        // ni une passerelle explicitement différente du mandat papier.
+                        if ($order->get_type() === 'shop_order' && $order->get_refunds() === []
+                            && (int) $order->get_customer_id() === (int) $sub->get_customer_id()
+                            && in_array((string) $order->get_payment_method(), ['', 'imagine_papier'], true)) {
+                            $renewals[] = self::commande($order);
+                        }
+                    }
+                }
+                $rows[] = ['id' => $sub->get_id(), 'type' => 'souscription', 'renouvellements' => $renewals, 'abonne' => trim($sub->get_billing_first_name() . ' ' . $sub->get_billing_last_name()),
                     'etat' => $sub->get_status(), 'prochaine' => (int) $sub->get_time('next_payment'), 'fin' => (int) $sub->get_time('end'),
                     'methode' => self::methode($sub), 'montant' => $sub->get_total(), 'devise' => $sub->get_currency(), 'reference' => $reference];
             }

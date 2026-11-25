@@ -12,7 +12,7 @@ import profils
 
 ROOT = profils.b00.ROOT
 PROOF = ROOT / 'production/C-15'
-FILES = ['EcheancesRegles.php', 'EcheancesNatives.php', 'EcheancesAdmin.php', 'imagine-site.php']
+FILES = ['EcheancesRegles.php', 'EcheancesNatives.php', 'EcheancesAdmin.php']
 
 
 def wp(code, check=True):
@@ -49,14 +49,15 @@ def runtime(label):
 
 def deploy():
     profils.guard('imagine-test-demo')
-    # Bootstrap: don't overwrite a concurrent or unknown change.
-    remote = wp('echo wp_json_encode(base64_encode(file_get_contents(WP_PLUGIN_DIR."/imagine-site/imagine-site.php")));')
-    local = (ROOT / 'wp/plugins/imagine-site/imagine-site.php').read_bytes()
-    block = b"require_once __DIR__ . '/EcheancesRegles.php';\nrequire_once __DIR__ . '/EcheancesNatives.php';\nrequire_once __DIR__ . '/EcheancesAdmin.php';\nEcheancesAdmin::register();\n\n"
-    if base64.b64decode(remote) not in (local, local.replace(block, b'')):
-        raise RuntimeError('Concurrent bootstrap differs; no overwrite')
+    # C15 is already wired: never write the shared B02 bootstrap.
+    remote = wp('echo wp_json_encode([hash_file("sha256",WP_PLUGIN_DIR."/imagine-site/imagine-site.php"),class_exists("Imagine\\\\Site\\\\EcheancesRegles"),class_exists("Imagine\\\\Site\\\\EcheancesNatives"),class_exists("Imagine\\\\Site\\\\EcheancesAdmin")]);')
+    if remote[1:] != [True, True, True]:
+        raise RuntimeError('C15 bootstrap absent; no shared-file overwrite permitted')
     hashes = {name: upload('plugins/imagine-site/' + name, ROOT / 'wp/plugins/imagine-site' / name) for name in FILES}
-    save('installation', {'scope': 'imagine-test-demo', 'sha256_readback': hashes, 'theme_uploaded': False})
+    after = wp('echo wp_json_encode(hash_file("sha256",WP_PLUGIN_DIR."/imagine-site/imagine-site.php"));')
+    if after != remote[0]:
+        raise RuntimeError('Concurrent bootstrap changed during upload; C15 did not write it')
+    save('installation', {'scope': 'imagine-test-demo', 'sha256_readback': hashes, 'theme_uploaded': False, 'bootstrap_written': False, 'bootstrap_preserved': after == remote[0]})
 
 
 def load_test(name):

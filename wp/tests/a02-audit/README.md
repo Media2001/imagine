@@ -57,3 +57,5 @@ L'auditeur tokenise les cinq coordonnées littérales de configuration sans exé
 - Taille physique estimée par `information_schema`; décompte SELECT exact. L'empreinte n'est pas un hash des fichiers InnoDB ni des statistiques internes du moteur. Tables non transactionnelles signalées.
 
 Vérification documentaire publique séparée et facultative : `python wp/tests/a02-audit/documentation.py` (réseau public uniquement, pas pendant la fixture). Références et empreintes dans `production/A-02/sources-officielles.json`. `style.py` est un contrôle PHPCS supplémentaire, hors replay fonctionnel, utilisant uniquement le PHAR public SHA-256 figé dans le scratch Hermes, jamais PHP hôte ; ses avertissements et son vrai code retour sont conservés dans `production/A-02/style/`.
+Complement A-10 : php wp/outils/bascule/inventorier-codes --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/codes-date
+Lecture seule ; sortie soeur du rapport A-02, hors site et depot ; noms de codes autorises, emails comptes uniquement ; rejeu : python wp/tests/a10/run.py

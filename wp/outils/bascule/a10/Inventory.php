@@ -177,7 +177,7 @@ final class Inventory
                 'allowed_email_count' => Projection::emailCount($meta['customer_email']),
                 'individual_use' => $meta['individual_use'] === 'yes', 'free_shipping' => $meta['free_shipping'] === 'yes',
                 'exclude_sale_items' => $meta['exclude_sale_items'] === 'yes',
-                'minimum_amount' => Projection::decimal($meta['minimum_amount']), 'maximum_amount' => Projection::decimal($meta['maximum_amount']),
+                'minimum_amount' => Projection::decimal($meta['minimum_amount'] === '' ? '0' : $meta['minimum_amount']), 'maximum_amount' => Projection::decimal($meta['maximum_amount'] === '' ? '0' : $meta['maximum_amount']),
                 'recurring_on_renewals' => Projection::recurring($typeValue),
                 'payment_limit_including_initial' => Projection::number($meta['_wcs_number_payments'] === '' ? '0' : $meta['_wcs_number_payments']),
                 'subscriptions' => $subscriptions, 'orders_12_months' => (int) $orderCount];
@@ -200,7 +200,7 @@ final class Inventory
                 'Commandes distinctes par code et creation UTC sur douze mois calendaires; tous statuts sauf corbeille et auto-draft, futurs et remboursements enfants exclus. Ce ne sont pas des ventes nettes.',
                 'Abonnements porteurs distincts: active, on-hold, pending et pending-cancel separes; cancelled et expired exclus.',
                 'Jamais utilise signifie usage_count enregistre egal a zero, pas une reconstruction historique. Expire et jamais utilise peuvent se recouper.',
-                'Aucun reclassement ni suppression. Usage limits 0 sans limite, item_limit null sans limite, montants null absents ou non numeriques.',
+                'Aucun reclassement ni suppression. Usage limits 0 sans limite, item_limit null sans limite, seuils vides 0 sans restriction; montants invalides null.',
                 'Site simple, configuration litterale, tables InnoDB, stockage Woo standard; metadonnees coupon dupliquees refusees.',
             ]];
     }

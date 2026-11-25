@@ -66,6 +66,7 @@ final class MonCompteRegles
             return $view;
         }
         $view['bloc_debut'] = $current->format('Y-m-d H:i:s');
+        $view = self::reglements($data, $view, $now);
         if (!$engine) {
             return $view;
         }
@@ -82,6 +83,88 @@ final class MonCompteRegles
         foreach ($view['echeances'] as $i => &$row) {
             $row['numero'] = $numbers[$i]->id ?? null;
             $row['date'] = isset($positions[$i]) ? $positions[$i]->date->format('Y-m-d') : null;
+        }
+        unset($row);
+        return $view;
+    }
+
+    /** Ordre initial puis relations natives triées ; jamais la date de paiement comme date C05. */
+    private static function reglements(array $data, array $view, DateTimeImmutable $now): array
+    {
+        $view['avertissements'] = [];
+        if (!$view['echeances']) {
+            return $view;
+        }
+        $orders = [];
+        $unplaced = false;
+        foreach ($data['orders'] ?? [] as $order) {
+            if (($data['owner'] ?? 0) <= 0 || (int) $order['owner'] !== (int) $data['owner']) {
+                $view['avertissements'][] = 'Commande liée hors propriétaire ignorée';
+                continue;
+            }
+            $created = self::date($order['created'] ?? '');
+            $explicit = $order['bloc_debut'] ?? '';
+            if ($order['initial'] && $view['bloc_debut'] !== $data['start']) {
+                continue;
+            }
+            if ($explicit !== '' && $explicit !== $view['bloc_debut']) {
+                continue;
+            }
+            if (!$order['initial'] && $explicit === '' && $created && $order['created'] < $view['bloc_debut']) {
+                continue;
+            }
+            if (!$created && !$order['initial']) {
+                $view['avertissements'][] = 'Rattachement ambigu — commande #' . $order['id'] . ' sans date native exploitable';
+                $unplaced = true;
+                continue;
+            }
+            $id = (int) $order['id'];
+            if (isset($orders[$id])) {
+                $previous = $orders[$id];
+                unset($previous['ambigu']);
+                if ($previous !== $order) {
+                    $view['avertissements'][] = 'Rattachement contradictoire — commande #' . $id;
+                    $orders[$id]['ambigu'] = true;
+                }
+                continue;
+            }
+            $orders[$id] = $order;
+        }
+        $groups = [];
+        foreach ($orders as $order) {
+            $key = $order['initial'] ? '0' : '1' . $order['created'];
+            $groups[$key][] = $order;
+        }
+        // La commande mère manquante ne transforme pas le premier renouvellement en initial.
+        if ($view['bloc_debut'] === $data['start'] && !isset($groups['0'])) {
+            $groups['0'] = [null];
+        }
+        ksort($groups);
+        $slots = [];
+        foreach ($groups as $group) {
+            $ambiguous = count($group) > 1 || !empty($group[0]['ambigu']) || $group[0] === null;
+            foreach ($group as $order) {
+                $slots[] = ['order' => $order, 'ambigu' => $ambiguous];
+                if ($ambiguous && $order) {
+                    $view['avertissements'][] = 'Rattachement ambigu — commande #' . $order['id']
+                        . ' (' . $order['status'] . ', ' . $order['total'] . ' ' . $order['currency'] . ')';
+                }
+            }
+        }
+        if (count($slots) > 4) {
+            $view['avertissements'][] = 'Rattachement ambigu — plus de quatre commandes dans le bloc';
+        }
+        foreach ($view['echeances'] as $i => &$row) {
+            $slot = $slots[$i] ?? null;
+            $order = $slot['order'] ?? null;
+            $ambiguous = ($slot['ambigu'] ?? false) || (!$slot && $unplaced);
+            $row['commande'] = !$ambiguous ? ($order['id'] ?? null) : null;
+            $row['montant'] = $ambiguous ? null : ($order['total'] ?? ($data['total'] ?? null));
+            $row['devise'] = $ambiguous ? null : ($order['currency'] ?? ($data['currency'] ?? null));
+            $paid = $order ? self::date($order['paid_at'] ?? '') : null;
+            $row['etat'] = $ambiguous ? 'Rattachement ambigu — voir détail' : (!$order ? 'À venir'
+                : ($order['status'] === 'failed' ? 'Échouée'
+                    : ($order['paid'] && $paid && $paid <= $now ? 'Payée' : 'Non réglée — commande native en attente')));
         }
         unset($row);
         return $view;
