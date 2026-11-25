@@ -2,7 +2,8 @@
 """Contrôle CSV A-13, autonome et sans import dans un site."""
 import argparse
 import csv
-from datetime import date
+from collections import Counter, defaultdict
+from datetime import date, datetime
 import io
 import json
 from pathlib import Path
@@ -128,9 +129,14 @@ def parser_csv(text, separator):
             except StopIteration:
                 break
     except csv.Error:
-        preflight_iban(records, text)
         raise Refus('CSV mal formé : guillemets ou taille de cellule à vérifier.') from None
     return records
+
+
+def preflight_format_invalide(text, separator):
+    # Pas d'analyse métier : même un CSV cassé est balayé intégralement.
+    header = [(1, text.splitlines()[0].split(separator))] if text else []
+    preflight_iban(header, text)
 
 
 def lire_csv(text, declared):
@@ -139,20 +145,28 @@ def lire_csv(text, declared):
         for separator in SEPARATORS:
             try:
                 records = parser_csv(text, separator)
-            except Refus as error:
-                if 'IBAN' in str(error):
-                    raise
+            except Refus:
                 continue
             if records and len(records[0][1]) > 1 and all(len(row) == len(records[0][1]) for _, row in records):
                 candidates.append((separator, records))
         if len(candidates) != 1:
-            preflight_iban(parser_csv(text, ';'), text)
+            try:
+                records = parser_csv(text, ';')
+            except Refus:
+                preflight_format_invalide(text, ';')
+                raise
+            preflight_iban(records, text)
             if len(candidates) > 1:
                 raise Refus('Séparateur ambigu : déclarer separateur dans la correspondance.')
             raise Refus('CSV ou séparateur indéterminé : déclarer separateur et vérifier la structure.')
         separator, records = candidates[0]
     else:
-        separator, records = declared, parser_csv(text, declared)
+        separator = declared
+        try:
+            records = parser_csv(text, declared)
+        except Refus:
+            preflight_format_invalide(text, declared)
+            raise
     preflight_iban(records, text)
     if not records or len(records[0][1]) < 2 or any(len(row) != len(records[0][1]) for _, row in records):
         raise Refus('CSV incohérent : nombre de colonnes variable ou en-tête absent.')
@@ -160,6 +174,82 @@ def lire_csv(text, declared):
     if any(not name.strip() for name in header) or len(set(header)) != len(header):
         raise Refus('En-têtes vides ou en double : corriger le CSV.')
     return records, SEPARATORS[separator] + (' (détecté)' if declared == 'auto' else ' (déclaré)')
+
+
+def email_valide(value):
+    if len(value) > 254 or value.count('@') != 1:
+        return False
+    local, domain = value.split('@')
+    if len(local) > 64 or local.startswith('.') or local.endswith('.') or '..' in local:
+        return False
+    if not re.fullmatch(r"[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+", local):
+        return False
+    labels = domain.split('.')
+    return len(labels) >= 2 and all(re.fullmatch(r'[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?', label) for label in labels)
+
+
+def analyser(records, config, au):
+    header = records[0][1]
+    indexes = {field: header.index(name) if name is not None else None for field, name in config['colonnes'].items()}
+    defects = defaultdict(list)
+    groups = {key: defaultdict(list) for key in ('email', 'postal', 'mandat')}
+    without_email = 0
+    for line, row in records[1:]:
+        fields = {key: row[index].strip() if index is not None else '' for key, index in indexes.items()}
+        errors = defects[line]
+        for field in config['obligatoires']:
+            if not fields[field]:
+                errors.append('Champ obligatoire absent : ' + field)
+        expiry = fields['echeance']
+        if expiry:
+            try:
+                parsed = datetime.strptime(expiry, config['format_date']).date()
+                if parsed.strftime(config['format_date']) != expiry:
+                    raise ValueError
+            except ValueError:
+                errors.append('Date d’échéance illisible')
+            else:
+                if parsed < au:
+                    errors.append('Date d’échéance passée')
+        issues = fields['numeros_dus']
+        if issues:
+            if not re.fullmatch(r'[+-]?[0-9]+', issues):
+                errors.append('Nombre de numéros dus illisible')
+            elif issues.startswith('-') and any(c != '0' for c in issues[1:]):
+                errors.append('Nombre de numéros dus négatif')
+        postal_fields = ('rue', 'code_postal', 'ville', 'pays')
+        if not all(fields[key] for key in postal_fields):
+            errors.append('Adresse postale incomplète')
+        email = fields['email']
+        if not email:
+            without_email += 1
+        elif not email_valide(email):
+            errors.append('Adresse électronique mal formée')
+        if email:
+            groups['email'][normaliser(email)].append(line)
+        if fields['nom'] and all(fields[key] for key in postal_fields):
+            key = tuple(normaliser(fields[key]) for key in ('nom', 'prenom', *postal_fields))
+            groups['postal'][key].append(line)
+        mode = fields['mode_paiement']
+        if mode and mode not in config['modes_paiement']:
+            errors.append('Mode de paiement non déclaré')
+        if mode in config['modes_mandat_papier'] and not fields['reference_mandat']:
+            errors.append('Mandat papier sans référence')
+        if fields['reference_mandat']:
+            groups['mandat'][normaliser(fields['reference_mandat'])].append(line)
+        if config['types_abonnement_autorises'] and fields['type_abonnement'] and fields['type_abonnement'] not in config['types_abonnement_autorises']:
+            errors.append('Type d’abonnement non déclaré')
+    duplicates = set()
+    labels = {'email': 'Doublon d’adresse électronique', 'postal': 'Doublon de nom et adresse postale',
+              'mandat': 'Référence de mandat en double'}
+    for key, grouped in groups.items():
+        for lines in grouped.values():
+            if len(lines) > 1:
+                duplicates.update(lines)
+                for line in lines:
+                    defects[line].append(labels[key])
+    rejected = [(line, reason) for line in sorted(defects) for reason in defects[line]]
+    return rejected, len({line for line, _ in rejected}), without_email, len(duplicates)
 
 
 def controler(source, correspondance, au):
@@ -170,12 +260,19 @@ def controler(source, correspondance, au):
     if any(name not in header for name in config['colonnes'].values() if name is not None):
         raise Refus('Correspondance : colonne configurée absente du CSV.')
     total = len(records) - 1
-    resume = (f'Encodage : {encodage}\nSéparateur : {separateur}\n'
-              f'Lignes contrôlées : {total}\nLignes sans défaut : {total}\n'
-              'Lignes rejetées : 0\nLignes sans adresse électronique : 0\n'
-              'Lignes en doublon : 0\n')
-    ecrire(source, resume, 'ligne;motif\n')
-    return 0, f'Contrôle terminé : {total} lignes, 0 rejet.'
+    rejected, bad_rows, without_email, duplicates = analyser(records, config, au)
+    resume = (f'Date de référence : {au.isoformat()}\nEncodage : {encodage}\nSéparateur : {separateur}\n'
+              f'Lignes contrôlées : {total}\nLignes sans défaut : {total - bad_rows}\n'
+              f'Lignes rejetées : {bad_rows}\nLignes sans adresse électronique : {without_email}\n'
+              f'Lignes en doublon : {duplicates}\nMotifs (nombre de lignes par motif) :\n')
+    counts = Counter(reason for _, reason in rejected)
+    resume += ''.join(f'- {reason} : {count}\n' for reason, count in sorted(counts.items())) or '- Aucun\n'
+    stream = io.StringIO(newline='')
+    writer = csv.writer(stream, delimiter=';', lineterminator='\n')
+    writer.writerow(['ligne', 'motif'])
+    writer.writerows(rejected)
+    ecrire(source, resume, stream.getvalue())
+    return (1 if bad_rows else 0), f'Contrôle terminé : {total} lignes, {bad_rows} rejet(s).'
 
 
 def main(argv=None):

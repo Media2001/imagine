@@ -1,0 +1,78 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Imagine\ContentInventory;
+
+final class Command
+{
+    private static function inside(string $path, string $root): bool
+    {
+        return $path === $root || str_starts_with($path . '/', $root . '/');
+    }
+
+    public static function main(array $args): int
+    {
+        $options = [];
+        foreach (array_slice($args, 1) as $arg) {
+            if (!preg_match('/\A--(wp-path|output|audit)=(.+)\z/D', $arg, $match) || isset($options[$match[1]])) {
+                throw new \RuntimeException('A12_USAGE');
+            }
+            $options[$match[1]] = $match[2];
+        }
+        if (count($options) !== 3 || PHP_SAPI !== 'cli') {
+            throw new \RuntimeException('A12_USAGE');
+        }
+        $site = realpath($options['wp-path']);
+        $parent = realpath(dirname($options['output']));
+        $base = basename($options['output']);
+        if (!$site || !$parent || !is_dir($site) || !is_dir($parent) || !preg_match('/\A[A-Za-z0-9_-]+\z/D', $base)) {
+            throw new \RuntimeException('A12_PATH_INVALID');
+        }
+        $repository = dirname(__DIR__, 4);
+        if (!is_file($repository . '/wp/outils/bascule/audit')) {
+            $repository = dirname(__DIR__);
+        }
+        if (self::inside($parent, $site) || self::inside($parent, $repository)) {
+            throw new \RuntimeException('A12_OUTPUT_UNSAFE');
+        }
+        $output = $parent . '/' . $base;
+        if (file_exists($output) || is_link($output)) {
+            throw new \RuntimeException('A12_OUTPUT_EXISTS');
+        }
+        $audit = realpath($options['audit']);
+        if (!$audit || !is_file($audit) || is_link($options['audit']) || filesize($audit) > 16777216 || self::inside($audit, $site) || self::inside($audit, $repository) || dirname(dirname($audit)) !== $parent) {
+            throw new \RuntimeException('A12_AUDIT_GUARD');
+        }
+        $photo = json_decode(file_get_contents($audit), true, 64, JSON_THROW_ON_ERROR);
+        if (($photo['schema'] ?? null) !== 'imagine-a02-audit-v1' || ($photo['read_only'] ?? null) !== true || !isset($photo['sections']['database']['tables'], $photo['sections']['commerce']['order_storage'])) {
+            throw new \RuntimeException('A12_AUDIT_GUARD');
+        }
+        $report = (new Inventory($site))->collect();
+        if ($report['storage'] !== $photo['sections']['commerce']['order_storage']) {
+            throw new \RuntimeException('A12_AUDIT_STORAGE_MISMATCH');
+        }
+        $report['audit_sha256'] = hash_file('sha256', $audit);
+        $json = json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n";
+        $markdown = "# Structure des contenus — lecture seule\n\nATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas preuve d enregistrement. Aucune decision de rattachement.\n\n```json\n"
+            . json_encode($report, JSON_PRETTY_PRINT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR) . "\n```\n";
+        if (!mkdir($output, 0700)) {
+            throw new \RuntimeException('A12_OUTPUT_CREATE');
+        }
+        foreach (['contenus.json' => $json, 'contenus.md' => $markdown] as $file => $content) {
+            $handle = fopen($output . '/' . $file, 'xb');
+            if ($handle === false) {
+                throw new \RuntimeException('A12_OUTPUT_WRITE');
+            }
+            try {
+                if (!chmod($output . '/' . $file, 0600) || fwrite($handle, $content) !== strlen($content)) {
+                    throw new \RuntimeException('A12_OUTPUT_WRITE');
+                }
+            } finally {
+                fclose($handle);
+            }
+        }
+        fwrite(STDOUT, "A12_OK_PARTIAL_REGISTRY contenus.json contenus.md\n");
+        return 0;
+    }
+}

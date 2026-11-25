@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendor/autoload.php" colors="false" cacheResult="false">
+  <testsuites><testsuite name="B04-Catalogue">
+    <file>tests/CatalogueTest.php</file>
+    <file>tests/CatalogueStatusTest.php</file>
+  </testsuite></testsuites>
+</phpunit>

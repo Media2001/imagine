@@ -18,6 +18,7 @@ $excluded->save();
 $category = wp_insert_term('A10_CATEGORY_PRIVATE_CANARY', 'product_cat');
 $coupons = [];
 $expected = [];
+$now = new DateTimeImmutable('2026-11-25T12:00:00Z');
 foreach ($types as $i => $type) {
     $code = 'a10-' . str_replace('_', '-', $type);
     $c = new WC_Coupon();
@@ -98,7 +99,7 @@ foreach (['pending', 'cancelled', 'expired'] as $status) {
 }
 foreach ([['pending', '-1 day'], ['completed', '-2 days'], ['cancelled', '-3 days'], ['refunded', '-4 days'], ['pending', '-2 years'], ['pending', '+2 days'], ['trash', '-5 days']] as [$status, $offset]) {
     $o = wc_create_order();
-    $o->set_date_created(gmdate('Y-m-d H:i:s', strtotime($offset)));
+    $o->set_date_created($now->modify($offset)->format('Y-m-d\TH:i:s\Z'));
     $o->set_billing_first_name('A10_PERSONAL_PRIVATE_CANARY');
     $o->set_billing_email('a10-private@example.org');
     $attach($o, 'A10-RECURRING-FEE', true);
@@ -111,7 +112,7 @@ $renewal = wcs_create_renewal_order($active);
 if (is_wp_error($renewal)) {
     throw new RuntimeException('A10_FIXTURE_RENEWAL');
 }
-$renewal->set_date_created(gmdate('Y-m-d H:i:s', strtotime('-1 hour')));
+$renewal->set_date_created($now->modify('-1 hour')->format('Y-m-d\TH:i:s\Z'));
 $renewal->save();
 $renewalCarries = in_array('a10-recurring-fee', array_map('strtolower', $renewal->get_coupon_codes()), true);
 // Native historical coupon items survive deletion/renaming of their coupon record.
@@ -131,8 +132,53 @@ foreach (['deleted', 'renamed'] as $kind) {
     }
 }
 $orderOnly = wc_create_order();
-$orderOnly->set_date_created(gmdate('Y-m-d H:i:s', strtotime('-1 hour')));
+$orderOnly->set_date_created($now->modify('-1 hour')->format('Y-m-d\TH:i:s\Z'));
 $attach($orderOnly, 'a10-order-only-old', true);
+$boundaryOrders = [];
+foreach (['from' => '2025-11-25T12:00:00Z', 'to' => '2026-11-25T12:00:00Z'] as $edge => $instant) {
+    foreach ([-1, 0, 1] as $delta) {
+        $label = $edge . '-' . ($delta < 0 ? 'before' : ($delta > 0 ? 'after' : 'equal'));
+        $c = new WC_Coupon();
+        $c->set_code('a10-boundary-order-' . $label);
+        $c->set_discount_type('percent');
+        $c->set_amount('1');
+        $c->set_usage_count(1);
+        $c->save();
+        $coupons[$label] = $c;
+        $o = wc_create_order();
+        $date = (new DateTimeImmutable($instant))->modify(sprintf('%+d seconds', $delta));
+        $o->set_date_created($date->format('Y-m-d\TH:i:s\Z'));
+        $attach($o, $c->get_code(), true);
+        $boundaryOrders[$c->get_code()] = (int) ($edge === 'from' ? $delta >= 0 : $delta <= 0);
+    }
+}
+$boundaryExpiry = [];
+foreach ([-1, 0, 1] as $delta) {
+    $c = new WC_Coupon();
+    $c->set_code('a10-boundary-expiry-' . ($delta < 0 ? 'before' : ($delta > 0 ? 'after' : 'equal')));
+    $c->set_discount_type('percent');
+    $c->set_amount('1');
+    $c->set_usage_count(1);
+    $c->set_date_expires($now->getTimestamp() + $delta);
+    $c->save();
+    $coupons[$c->get_code()] = $c;
+    $boundaryExpiry[$c->get_code()] = $delta < 0;
+}
+$legacyExpiry = [];
+foreach (['winter' => '2035-01-15', 'summer' => '2035-07-15'] as $season => $day) {
+    $c = new WC_Coupon();
+    $c->set_code('a10-legacy-' . $season);
+    $c->set_discount_type('percent');
+    $c->set_amount('1');
+    $c->set_usage_count(1);
+    $c->save();
+    delete_post_meta($c->get_id(), 'date_expires');
+    update_post_meta($c->get_id(), 'expiry_date', $day);
+    $coupons['legacy-' . $season] = new WC_Coupon($c->get_id());
+    $legacyExpiry[$c->get_code()] = (new DateTimeImmutable($day, new DateTimeZone('Europe/Brussels')))->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d\TH:i:s\Z');
+}
+// Saved empty amount is unknown, unlike native minimum/maximum defaults.
+update_post_meta($coupons['winter']->get_id(), 'coupon_amount', '');
 $utc = static function (?WC_DateTime $date): ?string {
     if ($date === null) {
         return null;
@@ -144,7 +190,7 @@ $utc = static function (?WC_DateTime $date): ?string {
 foreach ($coupons as $c) {
     $c = new WC_Coupon($c->get_id());
     $expected[$c->get_code()] = [
-        'type' => $c->get_discount_type(), 'amount' => $c->get_amount(),
+        'type' => $c->get_discount_type(), 'amount' => $c->get_code() === 'a10-season-winter' ? null : $c->get_amount(),
         'usage_count' => $c->get_usage_count(), 'usage_limit' => $c->get_usage_limit(),
         'usage_limit_per_user' => $c->get_usage_limit_per_user(), 'item_limit' => $c->get_limit_usage_to_x_items(),
         'allowed_email_count' => count($c->get_email_restrictions()),
@@ -167,5 +213,7 @@ foreach ([WC_ABSPATH . 'includes/data-stores/class-wc-coupon-data-store-cpt.php'
     WP_PLUGIN_DIR . '/woocommerce-subscriptions/includes/class-wcs-limited-recurring-coupon-manager.php'] as $source) {
     $schemaSources[str_replace(WP_PLUGIN_DIR . '/', '', $source)] = hash_file('sha256', $source);
 }
-echo 'A10_JSON=' . json_encode(['expected' => $expected, 'native_source_sha256' => $schemaSources, 'renewal_carries_coupon' => $renewalCarries,
+echo 'A10_JSON=' . json_encode(['expected' => $expected, 'boundary_orders' => $boundaryOrders,
+    'boundary_expiry' => $boundaryExpiry, 'legacy_expiry' => $legacyExpiry,
+    'native_source_sha256' => $schemaSources, 'renewal_carries_coupon' => $renewalCarries,
     'versions' => ['wordpress' => get_bloginfo('version'), 'woocommerce' => WC()->version, 'subscriptions' => WC_Subscriptions::$version]]) . "\n";

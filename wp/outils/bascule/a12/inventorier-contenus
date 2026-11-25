@@ -1,0 +1,29 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+namespace Imagine\ContentInventory;
+
+define('IMAGINE_AUDIT_LIBRARY_ONLY', true);
+require dirname(__DIR__) . '/audit';
+require __DIR__ . '/Declarations.php';
+require __DIR__ . '/Inventory.php';
+require __DIR__ . '/Command.php';
+
+ini_set('display_errors', '0');
+ini_set('log_errors', '0');
+set_error_handler(static function (int $severity): bool {
+    if (error_reporting() & $severity) {
+        throw new \RuntimeException('A12_RUNTIME_WARNING');
+    }
+    return true;
+});
+try {
+    exit(Command::main($argv));
+} catch (\Throwable $exception) {
+    $code = $exception instanceof \RuntimeException && preg_match('/\AA(?:12|02)_[A-Z_]+\z/D', $exception->getMessage())
+        ? $exception->getMessage() : 'A12_INVENTORY_FAILED';
+    fwrite(STDERR, $code . "\n");
+    exit(1);
+}

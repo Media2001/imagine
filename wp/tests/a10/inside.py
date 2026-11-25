@@ -1,4 +1,5 @@
 """Native A10 acceptance on the unchanged A02 synthetic bench."""
+import datetime
 import importlib.util
 import json
 import pathlib
@@ -20,6 +21,9 @@ def inventory(site,out,*extra):
 
 def run_storage(storage):
     site,db,_=b.install(storage)
+    # MariaDB session clock only, fixture-owned server; no subject clock override.
+    stamp=int(datetime.datetime(2026,11,25,12,tzinfo=datetime.timezone.utc).timestamp())
+    b.sql('mysql',f"SET GLOBAL init_connect='SET timestamp={stamp}'")
     (OUT/(storage+'-seed.json')).unlink()
     config=(site/'wp-config.php').read_text()
     writable=config.replace("define('DB_USER', 'a02_"+storage+"')", "define('DB_USER', 'root')").split("\nfile_put_contents('/scratch/a02-bootstrap-trap'")[0]
@@ -55,15 +59,24 @@ def run_storage(storage):
         b.check(storage+':orphan_visible:'+code,row.get('record_status')=='fiche introuvable' and all(k in row and row[k] is None for k in missing) and row['subscriptions']=={'active':int(code!='a10-order-only-old'),'on_hold':0,'pending':0,'pending_cancel':0} and row['orders_12_months']==int(code=='a10-order-only-old'))
     b.check(storage+':exact_inventory',set(rows)==set(data['expected'])|{'a10-deleted-old','a10-renamed-old','a10-order-only-old'} and len(rows)==len(data['expected'])+3)
     b.check(storage+':authoritative_storage',report['storage']==storage)
+    b.check(storage+':fixed_clock',report['generated_at_utc']=='2026-11-25T12:00:00Z' and report['window']=={'from_utc':'2025-11-25T12:00:00Z','to_utc':'2026-11-25T12:00:00Z','inclusive':True})
+    for code,count in data['boundary_orders'].items():
+        b.check(storage+':order_boundary:'+code,rows[code]['orders_12_months']==count)
+    for code,expired in data['boundary_expiry'].items():
+        b.check(storage+':expiry_boundary:'+code,(code in report['expired']) is expired)
+    for code,date in data['legacy_expiry'].items():
+        b.check(storage+':legacy_brussels:'+code,rows[code]['date_expires_utc']==date)
+    b.check(storage+':brussels_winter_summer',rows['a10-season-winter']['date_created_utc']=='2025-01-15T12:00:00Z' and rows['a10-season-summer']['date_created_utc']=='2025-07-15T12:00:00Z')
+    b.check(storage+':empty_amount_unknown',rows['a10-season-winter']['amount'] is None)
     for code,expected in data['expected'].items():
         actual=rows[code]
         b.check(storage+':native_fields:'+code,all(actual.get(k)==v for k,v in expected.items()))
     rec=rows['a10-recurring-fee']
     b.check(storage+':distinct_subscription_counts',rec['subscriptions']=={'active':1,'on_hold':1,'pending':1,'pending_cancel':1})
     b.check(storage+':exact_12month_orders',rec['orders_12_months']==5)
-    b.check(storage+':other_coupon_counts_zero',all(v['orders_12_months']==0 and sum(v['subscriptions'].values())==0 for k,v in rows.items() if k not in ['a10-recurring-fee','a10-deleted-old','a10-renamed-old','a10-order-only-old']))
+    b.check(storage+':other_coupon_counts_zero',all(v['orders_12_months']==0 and sum(v['subscriptions'].values())==0 for k,v in rows.items() if k not in ['a10-recurring-fee','a10-deleted-old','a10-renamed-old','a10-order-only-old'] and k not in data['boundary_orders']))
     b.check(storage+':renewal_types',all(rows['a10-'+t.replace('_','-')]['recurring_on_renewals'] is (t in ['recurring_fee','recurring_percent']) for t in ['percent','fixed_cart','fixed_product','recurring_fee','recurring_percent','sign_up_fee','sign_up_fee_percent']))
-    b.check(storage+':expired_separate',report['expired']==['a10-expired','a10-expired-never-used'])
+    b.check(storage+':expired_separate',report['expired']==['a10-boundary-expiry-before','a10-expired','a10-expired-never-used'])
     b.check(storage+':never_used_separate',report['never_used']==['a10-expired-never-used','a10-never-used','a10-renamed-new'])
     full=(target/'codes.json').read_text()+(target/'codes.md').read_text()+p.stdout+p.stderr
     b.check(storage+':privacy',not re.search(r'@|PRIVATE_CANARY|customer_id|user_id|billing_|subscription_id|order_id',full))

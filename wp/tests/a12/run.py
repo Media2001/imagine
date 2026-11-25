@@ -15,7 +15,8 @@ spec = importlib.util.spec_from_file_location('a02_runner', REPO/'wp/tests/a02-a
 b = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(b)
 b.LABEL = 'org.imagine.a12-content'
-PROTECTED = ['wp/tests/a02-audit', 'wp/tests/a10', 'wp/tests/a11', 'wp/outils/bascule/a10', 'wp/outils/bascule/a11', 'wp/outils/bascule/audit']
+# Only immutable dependencies are invariance gates; A10/A11 have concurrent owners.
+PROTECTED = ['wp/tests/a02-audit', 'wp/outils/bascule/audit']
 
 def manifest(roots):
     files = []

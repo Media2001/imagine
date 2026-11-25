@@ -77,7 +77,7 @@ add_action('init', function () {
     attachments = report['attachments']
     expected_pdf_bytes = sum(x['bytes'] for x in oracle['attachments'] if x['mime'] == 'application/pdf')
     pdf = next(x for x in attachments['by_mime'] if x['mime'] == 'application/pdf')
-    b.check(storage+':two_pdfs_exact_sizes_one_orphan', attachments['pdf_count'] == 2 and attachments['orphan_count'] == 1 and pdf['count'] == 2 and pdf['bytes'] == expected_pdf_bytes and attachments['missing_files'] == 0)
+    b.check(storage+':two_pdfs_exact_sizes_one_orphan', attachments['pdf_count'] == 2 and attachments['orphan_count'] == oracle['all_orphan_count'] and pdf['count'] == 2 and pdf.get('orphan_count') == 1 and pdf['bytes'] == expected_pdf_bytes and attachments['missing_files'] == 0)
     png = next(x for x in attachments['by_mime'] if x['mime'] == 'image/png')
     b.check(storage+':non_pdf_size', png['bytes'] == next(x['bytes'] for x in oracle['attachments'] if x['mime'] == 'image/png'))
     links = {x['key']: x for x in report['product_links']}

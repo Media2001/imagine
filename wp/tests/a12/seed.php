@@ -69,7 +69,10 @@ foreach ($terms as $termId) {
     $top[] = ['name' => get_term($termId)->name, 'content_count' => count(get_objects_in_term($termId, 'a12_rubrique'))];
 }
 usort($top, static fn(array $a, array $b): int => $b['content_count'] <=> $a['content_count'] ?: strcmp($a['name'], $b['name']));
+$allAttachments = get_posts(['post_type' => 'attachment', 'post_status' => 'inherit', 'numberposts' => -1]);
+$allOrphans = count(array_filter($allAttachments, static fn($post): bool => (int) $post->post_parent === 0 || get_post((int) $post->post_parent) === null));
 $oracle = [
+    'all_attachment_count' => count($allAttachments), 'all_orphan_count' => $allOrphans,
     'wordpress' => get_bloginfo('version'), 'woocommerce' => WC_VERSION,
     'runtime_registered' => ['a12_article' => post_type_exists('a12_article'), 'a12_empty' => post_type_exists('a12_empty'), 'a12_rubrique' => taxonomy_exists('a12_rubrique'), 'a12_theme' => post_type_exists('a12_theme')],
     'states' => $states, 'top_terms' => array_slice($top, 0, 20), 'term_count' => count($terms),

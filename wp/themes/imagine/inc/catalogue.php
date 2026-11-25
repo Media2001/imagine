@@ -46,7 +46,7 @@ function imagine_issue_product(int $issue): string
 }
 
 /** Public catalogue metadata only: never derive an excerpt from article content. */
-function imagine_catalogue_articles(array $articles, array $statuses = [], int $heading = 2, string $id = ''): void
+function imagine_catalogue_articles(array $articles, array $statuses = [], int $heading = 2, string $id = '', bool $showIssue = true): void
 {
     if ($articles === []) {
         echo '<p>' . esc_html__('Aucun article pour le moment.', 'imagine') . '</p>';
@@ -56,7 +56,7 @@ function imagine_catalogue_articles(array $articles, array $statuses = [], int $
     echo '<ul class="imagine-list"' . ($id !== '' ? ' id="' . esc_attr($id) . '"' : '') . '>';
     foreach ($articles as $article) {
         $status = $statuses[$article->ID] ?? imagine_access_status(class_exists('Imagine\\Site\\Paywall')
-            ? \Imagine\Site\Paywall::decision($article) : []);
+            ? \Imagine\Site\Paywall::decisionListe($article) : []);
         echo '<li data-imagine-id="' . esc_attr((string) $article->ID) . '"><' . $tag . '><a href="'
             . esc_url(get_permalink($article)) . '">' . esc_html(get_the_title($article)) . '</a></' . $tag . '>';
         echo '<p data-imagine-access="' . esc_attr($status['code']) . '">' . esc_html($status['label']) . '</p>';
@@ -76,7 +76,7 @@ function imagine_catalogue_articles(array $articles, array $statuses = [], int $
             }
             echo implode(', ', $links) . '</p>';
         }
-        $issue = get_post((int) get_post_meta($article->ID, 'imagine_numero_id', true));
+        $issue = $showIssue ? get_post((int) get_post_meta($article->ID, 'imagine_numero_id', true)) : null;
         if ($issue && $issue->post_type === 'imagine_numero' && $issue->post_status === 'publish') {
             echo '<p>' . esc_html__('Dans le numéro :', 'imagine') . ' <a href="' . esc_url(get_permalink($issue))
                 . '">' . esc_html(get_the_title($issue)) . '</a></p>';

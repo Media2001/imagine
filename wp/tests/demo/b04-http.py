@@ -37,15 +37,24 @@ foreach(['demo-2026-t1','demo-2026-t4'] as $slug){
  $out['issues'][$slug]=$row;
 }
 foreach(['anonyme'=>0,'a-carte'=>$profiles['A-CARTE'],'p-numero'=>$profiles['P-NUMERO']] as $label=>$uid){wp_set_current_user($uid);
- foreach($out['issues'] as $slug=>$row){$p=get_post($row['id']);$d=Imagine\Site\Paywall::decisionPdf($p);$expected=['pdf'=>$d['complet'],'motif_pdf'=>$d['motif'],'statuses'=>[]];
+ foreach($out['issues'] as $slug=>$row){$p=get_post($row['id']);$d=Imagine\Site\Paywall::decisionPdf($p);$expected=['pdf'=>$d['complet'],'motif_pdf'=>$d['motif'],'owned'=>$d['complet'],'statuses'=>[]];
+ foreach(Imagine\Site\AchatsNumeros::droits($uid) as $right){if(($right['numero']??'')===(string)$p->ID){$expected['owned']=true;}}
  foreach($row['articles'] as $a){$decision=Imagine\Site\Paywall::decision(get_post($a['id']));$expected['statuses'][(string)$a['id']]=Imagine\Theme\imagine_access_status($decision);}
  $out['expected'][$label][$slug]=$expected;}}
 echo wp_json_encode($out);
 '''
 
+def require_private_markers(inventory):
+    for issue in inventory['issues'].values():
+        for article in issue['articles']:
+            if not article['markers'] or not all(isinstance(m, str) and m.strip() for m in article['markers']):
+                raise AssertionError('Fixture sans marqueur de corps non vide : ' + str(article['id']))
+
+
 def run(phase='final'):
     work.guard()
     inventory=work.wp(INVENTORY)
+    require_private_markers(inventory)
     accounts=json.loads((Path.home()/'.imagine-demo/identifiants.json').read_text(encoding='utf-8'))['c09_accounts']
     clients={'anonyme':None,'a-carte':http.login(accounts['A-CARTE']),'p-numero':http.login(accounts['P-NUMERO'])}
     checks, responses={}, {}
@@ -77,7 +86,7 @@ def run(phase='final'):
             audio=soup.select_one('section[aria-labelledby="imagine-audio-contents"]')
             checks[prefix+'emplacement_audio_sans_fichier']=bool(audio and not audio.select('audio,source,iframe,a[href]') and 'Sommaire audio' in audio.get_text())
             buy=soup.select_one('a[data-imagine-buy]')
-            checks[prefix+'achat_selon_decision']=bool(buy)==bool(not expected['pdf'] and issue['product'])
+            checks[prefix+'achat_selon_possession']=bool(buy)==bool(not expected['owned'] and issue['product'])
             if buy:
                 checks[prefix+'achat_vrai_produit_C14']=buy.get('href')==issue['product'] and buy.get_text(strip=True)=='Acheter ce numéro'
             pdf=soup.select_one('a[data-imagine-pdf]')

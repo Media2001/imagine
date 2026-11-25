@@ -17,17 +17,17 @@ while (have_posts()) :
     $free = null;
     foreach ($articles as $article) {
         $statuses[$article->ID] = imagine_access_status(class_exists('Imagine\\Site\\Paywall')
-            ? \Imagine\Site\Paywall::decision($article) : []);
+            ? \Imagine\Site\Paywall::decisionListe($article) : []);
         if ($free === null && $statuses[$article->ID]['code'] === 'libre') {
             $free = $article;
         }
     }
     $issueDecision = class_exists('Imagine\\Site\\Paywall') ? \Imagine\Site\Paywall::decisionPdf($issue) : [];
-    $covered = ($issueDecision['complet'] ?? false) === true;
+    $covered = class_exists('Imagine\\Site\\Paywall') && \Imagine\Site\Paywall::couvreNumero($issue);
     $productUrl = $covered ? '' : imagine_issue_product($issue->ID);
     $pdf = '';
-    // Never inspect existence or expose the route before the server access decision.
-    if ($covered && class_exists('Imagine\\Site\\PdfNumero')) {
+    // La possession ne sert qu'au bouton : C11 reste seul juge de la lecture actuelle.
+    if (($issueDecision['complet'] ?? false) === true && class_exists('Imagine\\Site\\PdfNumero')) {
         try {
             \Imagine\Site\PdfNumero::path($issue->ID);
             $pdf = \Imagine\Site\PdfNumero::url($issue->ID);
@@ -49,7 +49,7 @@ while (have_posts()) :
     <?php endif; ?>
     <section aria-labelledby="imagine-contents">
         <h2 id="imagine-contents"><?php esc_html_e('Sommaire détaillé', 'imagine'); ?></h2>
-        <?php imagine_catalogue_articles($articles, $statuses, 3, 'imagine-contents-list'); ?>
+        <?php imagine_catalogue_articles($articles, $statuses, 3, 'imagine-contents-list', false); ?>
     </section>
     <section aria-labelledby="imagine-audio-contents">
         <h2 id="imagine-audio-contents"><?php esc_html_e('Sommaire audio', 'imagine'); ?></h2>

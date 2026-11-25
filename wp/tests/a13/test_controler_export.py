@@ -184,6 +184,131 @@ class ExportTests(unittest.TestCase):
         result, source = self.run_cli(config=config)
         self.assert_refused(result, source, 'email ne peut pas être obligatoire')
 
+    def test_dirty_fixture_each_defect_is_reported_on_exact_source_line(self):
+        expected = {
+            2: 'Champ obligatoire absent : nom',
+            3: 'Date d’échéance illisible', 4: 'Date d’échéance passée',
+            5: 'Nombre de numéros dus illisible', 6: 'Nombre de numéros dus négatif',
+            7: 'Adresse postale incomplète', 8: 'Adresse électronique mal formée',
+            9: 'Mode de paiement non déclaré', 10: 'Mandat papier sans référence',
+            12: 'Doublon d’adresse électronique', 13: 'Doublon d’adresse électronique',
+            14: 'Doublon de nom et adresse postale', 15: 'Doublon de nom et adresse postale',
+            16: 'Référence de mandat en double', 17: 'Référence de mandat en double',
+            18: 'Champ obligatoire absent : type_abonnement',
+            19: 'Champ obligatoire absent : echeance', 20: 'Champ obligatoire absent : numeros_dus',
+            21: 'Adresse postale incomplète', 22: 'Adresse postale incomplète', 23: 'Adresse postale incomplète',
+            24: 'Champ obligatoire absent : cooperateur', 25: 'Champ obligatoire absent : mode_paiement',
+            26: 'Nombre de numéros dus illisible', 27: 'Date d’échéance illisible',
+        }
+        result, source = self.run_cli(fixture='a13-export-defauts-fictif.csv')
+        self.assertEqual(1, result.returncode, result.stderr)
+        actual = self.rejects(source)
+        self.assertEqual([{'ligne': str(line), 'motif': motif} for line, motif in expected.items()], actual)
+        summary = self.summary(source)
+        for text in ('Lignes contrôlées : 30', 'Lignes sans défaut : 5', 'Lignes rejetées : 25',
+                     'Lignes sans adresse électronique : 1', 'Lignes en doublon : 6'):
+            self.assertIn(text, summary)
+        self.assertIn('Adresse postale incomplète : 4', summary)
+        self.assertIn('Date d’échéance illisible : 2', summary)
+        outputs = summary + str(actual) + result.stdout + result.stderr
+        for forbidden in ('example.org', 'Licorne', 'Éléphant', 'MANDAT-FICTIF', 'illisible-fictif'):
+            self.assertNotIn(forbidden, outputs)
+
+    def test_without_email_is_clean_and_counted(self):
+        text = self.clean_bytes().decode().replace('a13-fictif-01@example.org', '')
+        result, source = self.run_cli(content=text.encode())
+        self.assertEqual(0, result.returncode, result.stderr)
+        self.assertIn('Lignes sans adresse électronique : 1', self.summary(source))
+        self.assertEqual([], self.rejects(source))
+
+    def test_optional_absent_email_column_never_invents_addresses(self):
+        config = self.config()
+        config['colonnes']['email'] = None
+        rows = list(csv.reader(io.StringIO(self.clean_bytes().decode()), delimiter=';'))
+        for row in rows:
+            del row[6]
+        stream = io.StringIO(newline='')
+        csv.writer(stream, delimiter=';').writerows(rows)
+        result, source = self.run_cli(content=stream.getvalue().encode(), config=config)
+        self.assertEqual(0, result.returncode, result.stderr)
+        self.assertIn('Lignes sans adresse électronique : 30', self.summary(source))
+        self.assertEqual([], self.rejects(source))
+
+    def test_due_today_and_zero_issues_are_not_rejected(self):
+        text = self.clean_bytes().replace(b';2099-12-31;', b';2026-11-25;').replace(b';4;', b';0;')
+        result, source = self.run_cli(content=text)
+        self.assertEqual(0, result.returncode, result.stderr)
+        self.assertEqual([], self.rejects(source))
+
+    def test_date_format_is_declared_not_guessed(self):
+        config = self.config()
+        config['format_date'] = '%d/%m/%Y'
+        text = self.clean_bytes().replace(b'2099-12-31', b'31/12/2099')
+        result, source = self.run_cli(content=text, config=config)
+        self.assertEqual(0, result.returncode, result.stderr)
+        self.assertEqual([], self.rejects(source))
+
+    def test_optional_subscription_type_filter_is_off_by_default(self):
+        result, source = self.run_cli(content=self.clean_bytes().replace(b';papier;', b';type-fictif-inconnu;'))
+        self.assertEqual(0, result.returncode, result.stderr)
+        self.assertEqual([], self.rejects(source))
+
+    def test_optional_subscription_type_filter_when_enabled(self):
+        config = self.config()
+        config['types_abonnement_autorises'] = ['numerique']
+        result, source = self.run_cli(config=config)
+        self.assertEqual(1, result.returncode, result.stderr)
+        self.assertEqual(30, len(self.rejects(source)))
+        self.assertEqual('Type d’abonnement non déclaré', self.rejects(source)[0]['motif'])
+
+    def test_source_line_number_remains_physical_with_quoted_multiline_cells(self):
+        text = self.clean_bytes().decode().replace(';1 rue Imaginaire;', ';"1 rue\nImaginaire";')
+        text = text.replace('a13-fictif-02@example.org', 'email-invalide')
+        result, source = self.run_cli(content=text.encode())
+        self.assertEqual(1, result.returncode, result.stderr)
+        self.assertEqual([{'ligne': '4', 'motif': 'Adresse électronique mal formée'}], self.rejects(source))
+
+    def test_multiple_defects_count_one_rejected_row(self):
+        text = self.clean_bytes().decode().replace('a13-fictif-01@example.org', 'email-invalide').replace('1 rue Imaginaire;', ';', 1)
+        result, source = self.run_cli(content=text.encode())
+        self.assertEqual(1, result.returncode, result.stderr)
+        self.assertIn('Lignes rejetées : 1', self.summary(source))
+        self.assertEqual(2, len(self.rejects(source)))
+        self.assertEqual({'2'}, {item['ligne'] for item in self.rejects(source)})
+
+    def test_iban_column_identification_with_quoted_csv_cells(self):
+        text = (FIXTURES / 'a13-export-iban-fictif.csv').read_text(encoding='utf-8')
+        text = text.replace('Fictif Licorne 01;', '"Fictif Licorne 01";', 1)
+        result, source = self.run_cli(content=text.encode())
+        self.assert_refused(result, source, 'IBAN suspect : colonne 14')
+
+    def test_iban_suspicious_header_even_with_empty_values(self):
+        text = (FIXTURES / 'a13-export-iban-fictif.csv').read_text(encoding='utf-8')
+        text = text.replace('IBAN fictif', 'Compte I B A N').replace('ZZ00 0000 0000 0000 0000', '')
+        result, source = self.run_cli(content=text.encode())
+        self.assert_refused(result, source, 'IBAN suspect : colonne 14')
+
+    def test_iban_inside_invalid_quoted_csv_is_refused_without_leak(self):
+        text = self.clean_bytes() + b'"cassure-fictive;ZZ00000000000000000000\n'
+        result, source = self.run_cli(content=text)
+        self.assert_refused(result, source, 'IBAN suspect')
+        self.assertNotIn('ZZ00', result.stdout + result.stderr)
+
+    def test_duplicate_json_keys_are_refused_without_traceback(self):
+        # Le fichier de config de ce test est lui aussi hors dépôt.
+        config = self.work / 'double.json'
+        config.write_text('{"version":1,"version":1}', encoding='utf-8')
+        result, source = self.run_cli(extra=('--correspondance', str(config)))
+        self.assert_refused(result, source, 'clé en double')
+        self.assertNotIn('Traceback', result.stderr)
+
+    def test_invalid_configuration_types_are_refused_without_traceback(self):
+        config = self.config()
+        config['colonnes'] = []
+        result, source = self.run_cli(config=config)
+        self.assert_refused(result, source, 'Correspondance')
+        self.assertNotIn('Traceback', result.stderr)
+
     def test_clean_file_returns_zero_and_thirty_clean_rows(self):
         result, source = self.run_cli()
         self.assertEqual(0, result.returncode, result.stderr)
