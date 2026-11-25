@@ -1,0 +1,4337 @@
+{
+  "before": {
+    "environment": "staging",
+    "prefix": "wp_",
+    "tables": [
+      {
+        "name": "wp_a05_kept",
+        "rows": 1,
+        "bytes": 16384
+      },
+      {
+        "name": "wp_a05_orphan",
+        "rows": 2,
+        "bytes": 16384
+      },
+      {
+        "name": "wp_a05_stats_2015",
+        "rows": 1,
+        "bytes": 16384
+      },
+      {
+        "name": "wp_a05_stats_2026",
+        "rows": 1,
+        "bytes": 16384
+      },
+      {
+        "name": "wp_actionscheduler_actions",
+        "rows": 28,
+        "bytes": 163840
+      },
+      {
+        "name": "wp_actionscheduler_claims",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_actionscheduler_groups",
+        "rows": 9,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_actionscheduler_logs",
+        "rows": 39,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_commentmeta",
+        "rows": 15,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_comments",
+        "rows": 25,
+        "bytes": 147456
+      },
+      {
+        "name": "wp_links",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_options",
+        "rows": 433,
+        "bytes": 1228800
+      },
+      {
+        "name": "wp_postmeta",
+        "rows": 20,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_posts",
+        "rows": 28,
+        "bytes": 147456
+      },
+      {
+        "name": "wp_termmeta",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_terms",
+        "rows": 17,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_term_relationships",
+        "rows": 3,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_term_taxonomy",
+        "rows": 17,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_usermeta",
+        "rows": 122,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_users",
+        "rows": 8,
+        "bytes": 65536
+      },
+      {
+        "name": "wp_wcs_health_check_candidates",
+        "rows": 0,
+        "bytes": 81920
+      },
+      {
+        "name": "wp_wcs_health_check_runs",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_wc_admin_notes",
+        "rows": 0,
+        "bytes": 16384
+      },
+      {
+        "name": "wp_wc_admin_note_actions",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_wc_category_lookup",
+        "rows": 0,
+        "bytes": 16384
+      },
+      {
+        "name": "wp_wc_customer_lookup",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_wc_download_log",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_wc_email_unsubscribes",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_wc_orders",
+        "rows": 10,
+        "bytes": 163840
+      },
+      {
+        "name": "wp_wc_orders_meta",
+        "rows": 122,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_wc_order_addresses",
+        "rows": 10,
+        "bytes": 81920
+      },
+      {
+        "name": "wp_wc_order_coupon_lookup",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_wc_order_operational_data",
+        "rows": 10,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_wc_order_product_lookup",
+        "rows": 0,
+        "bytes": 98304
+      },
+      {
+        "name": "wp_wc_order_stats",
+        "rows": 0,
+        "bytes": 81920
+      },
+      {
+        "name": "wp_wc_order_tax_lookup",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_wc_product_attributes_lookup",
+        "rows": 0,
+        "bytes": 65536
+      },
+      {
+        "name": "wp_wc_product_download_directories",
+        "rows": 2,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_wc_product_meta_lookup",
+        "rows": 0,
+        "bytes": 131072
+      },
+      {
+        "name": "wp_wc_rate_limits",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_wc_reserved_stock",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_wc_tax_rate_classes",
+        "rows": 2,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_wc_webhooks",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_woocommerce_api_keys",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_woocommerce_attribute_taxonomies",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_woocommerce_downloadable_product_permissions",
+        "rows": 0,
+        "bytes": 98304
+      },
+      {
+        "name": "wp_woocommerce_log",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_woocommerce_order_itemmeta",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_woocommerce_order_items",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_woocommerce_payment_tokenmeta",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_woocommerce_payment_tokens",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_woocommerce_sessions",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_woocommerce_shipping_zones",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_woocommerce_shipping_zone_locations",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_woocommerce_shipping_zone_methods",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_woocommerce_subscription_downloads",
+        "rows": 0,
+        "bytes": 16384
+      },
+      {
+        "name": "wp_woocommerce_tax_rates",
+        "rows": 0,
+        "bytes": 81920
+      },
+      {
+        "name": "wp_woocommerce_tax_rate_locations",
+        "rows": 0,
+        "bytes": 49152
+      }
+    ],
+    "options": [
+      {
+        "name": "_site_transient_theme_roots",
+        "bytes": 154
+      },
+      {
+        "name": "_site_transient_timeout_theme_roots",
+        "bytes": 10
+      },
+      {
+        "name": "_site_transient_timeout_woocommerce_blocks_patterns",
+        "bytes": 10
+      },
+      {
+        "name": "_site_transient_timeout_wp_theme_files_patterns-eb6fa075b3f8a64043cf570bac2e4bb7",
+        "bytes": 10
+      },
+      {
+        "name": "_site_transient_woocommerce_blocks_patterns",
+        "bytes": 15158
+      },
+      {
+        "name": "_site_transient_wp_theme_files_patterns-eb6fa075b3f8a64043cf570bac2e4bb7",
+        "bytes": 53
+      },
+      {
+        "name": "_transient__wc_activation_redirect",
+        "bytes": 1
+      },
+      {
+        "name": "_transient_as-post-store-dependencies-met",
+        "bytes": 3
+      },
+      {
+        "name": "_transient_jetpack_autoloader_plugin_paths",
+        "bytes": 47
+      },
+      {
+        "name": "_transient_jetpack_connection_active_plugins_refresh",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_orders-transient-version",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_product_query-transient-version",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_timeout__wc_activation_redirect",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_timeout_as-post-store-dependencies-met",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_timeout_wc_settings_email_improvements_reverted",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_timeout_wc_term_counts",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_timeout_wcs_do_subscriptions_exist",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_timeout_wcs_woocommerce_active_version",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_timeout_woocommerce_subscriptions_activated",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_wc_attribute_taxonomies",
+        "bytes": 6
+      },
+      {
+        "name": "_transient_wc_settings_email_improvements_reverted",
+        "bytes": 3
+      },
+      {
+        "name": "_transient_wc_term_counts",
+        "bytes": 6
+      },
+      {
+        "name": "_transient_wcs_do_subscriptions_exist",
+        "bytes": 0
+      },
+      {
+        "name": "_transient_wcs_woocommerce_active_version",
+        "bytes": 6
+      },
+      {
+        "name": "_transient_woocommerce_activated_plugin",
+        "bytes": 27
+      },
+      {
+        "name": "_transient_woocommerce_product_task_has_product_transient",
+        "bytes": 2
+      },
+      {
+        "name": "_transient_woocommerce_subscriptions_activated",
+        "bytes": 1
+      },
+      {
+        "name": "_transient_woocommerce_webhook_ids_status_active",
+        "bytes": 6
+      },
+      {
+        "name": "_transient_wp_core_block_css_files",
+        "bytes": 22750
+      },
+      {
+        "name": "a05_orphan_setting",
+        "bytes": 14
+      },
+      {
+        "name": "a05_uninstall_canary",
+        "bytes": 28
+      },
+      {
+        "name": "action_scheduler_hybrid_store_demarkation",
+        "bytes": 1
+      },
+      {
+        "name": "active_plugins",
+        "bytes": 335
+      },
+      {
+        "name": "admin_email",
+        "bytes": 21
+      },
+      {
+        "name": "admin_email_lifespan",
+        "bytes": 10
+      },
+      {
+        "name": "apfs_version",
+        "bytes": 5
+      },
+      {
+        "name": "auto_plugin_theme_update_emails",
+        "bytes": 6
+      },
+      {
+        "name": "auto_update_core_dev",
+        "bytes": 7
+      },
+      {
+        "name": "auto_update_core_major",
+        "bytes": 7
+      },
+      {
+        "name": "auto_update_core_minor",
+        "bytes": 7
+      },
+      {
+        "name": "avatar_default",
+        "bytes": 7
+      },
+      {
+        "name": "avatar_rating",
+        "bytes": 1
+      },
+      {
+        "name": "blog_charset",
+        "bytes": 5
+      },
+      {
+        "name": "blog_public",
+        "bytes": 1
+      },
+      {
+        "name": "blogdescription",
+        "bytes": 0
+      },
+      {
+        "name": "blogname",
+        "bytes": 11
+      },
+      {
+        "name": "category_base",
+        "bytes": 0
+      },
+      {
+        "name": "close_comments_days_old",
+        "bytes": 2
+      },
+      {
+        "name": "close_comments_for_old_posts",
+        "bytes": 1
+      },
+      {
+        "name": "comment_max_links",
+        "bytes": 1
+      },
+      {
+        "name": "comment_moderation",
+        "bytes": 1
+      },
+      {
+        "name": "comment_order",
+        "bytes": 3
+      },
+      {
+        "name": "comment_previously_approved",
+        "bytes": 1
+      },
+      {
+        "name": "comment_registration",
+        "bytes": 1
+      },
+      {
+        "name": "comments_notify",
+        "bytes": 1
+      },
+      {
+        "name": "comments_per_page",
+        "bytes": 2
+      },
+      {
+        "name": "cron",
+        "bytes": 2348
+      },
+      {
+        "name": "current_theme",
+        "bytes": 11
+      },
+      {
+        "name": "current_theme_supports_woocommerce",
+        "bytes": 2
+      },
+      {
+        "name": "date_format",
+        "bytes": 6
+      },
+      {
+        "name": "db_version",
+        "bytes": 5
+      },
+      {
+        "name": "default_category",
+        "bytes": 1
+      },
+      {
+        "name": "default_comment_status",
+        "bytes": 4
+      },
+      {
+        "name": "default_comments_page",
+        "bytes": 6
+      },
+      {
+        "name": "default_email_category",
+        "bytes": 1
+      },
+      {
+        "name": "default_link_category",
+        "bytes": 1
+      },
+      {
+        "name": "default_ping_status",
+        "bytes": 4
+      },
+      {
+        "name": "default_pingback_flag",
+        "bytes": 1
+      },
+      {
+        "name": "default_post_format",
+        "bytes": 1
+      },
+      {
+        "name": "default_product_cat",
+        "bytes": 2
+      },
+      {
+        "name": "default_role",
+        "bytes": 10
+      },
+      {
+        "name": "disallowed_keys",
+        "bytes": 0
+      },
+      {
+        "name": "finished_splitting_shared_terms",
+        "bytes": 1
+      },
+      {
+        "name": "fresh_site",
+        "bytes": 1
+      },
+      {
+        "name": "gmt_offset",
+        "bytes": 1
+      },
+      {
+        "name": "hack_file",
+        "bytes": 1
+      },
+      {
+        "name": "home",
+        "bytes": 22
+      },
+      {
+        "name": "html_type",
+        "bytes": 9
+      },
+      {
+        "name": "image_default_align",
+        "bytes": 0
+      },
+      {
+        "name": "image_default_link_type",
+        "bytes": 4
+      },
+      {
+        "name": "image_default_size",
+        "bytes": 0
+      },
+      {
+        "name": "initial_db_version",
+        "bytes": 5
+      },
+      {
+        "name": "large_size_h",
+        "bytes": 4
+      },
+      {
+        "name": "large_size_w",
+        "bytes": 4
+      },
+      {
+        "name": "link_manager_enabled",
+        "bytes": 1
+      },
+      {
+        "name": "links_updated_date_format",
+        "bytes": 12
+      },
+      {
+        "name": "mailserver_login",
+        "bytes": 17
+      },
+      {
+        "name": "mailserver_pass",
+        "bytes": 0
+      },
+      {
+        "name": "mailserver_port",
+        "bytes": 3
+      },
+      {
+        "name": "mailserver_url",
+        "bytes": 16
+      },
+      {
+        "name": "medium_large_size_h",
+        "bytes": 1
+      },
+      {
+        "name": "medium_large_size_w",
+        "bytes": 3
+      },
+      {
+        "name": "medium_size_h",
+        "bytes": 3
+      },
+      {
+        "name": "medium_size_w",
+        "bytes": 3
+      },
+      {
+        "name": "moderation_keys",
+        "bytes": 0
+      },
+      {
+        "name": "moderation_notify",
+        "bytes": 1
+      },
+      {
+        "name": "nonce_key",
+        "bytes": 64
+      },
+      {
+        "name": "nonce_salt",
+        "bytes": 64
+      },
+      {
+        "name": "page_comments",
+        "bytes": 1
+      },
+      {
+        "name": "page_for_posts",
+        "bytes": 1
+      },
+      {
+        "name": "page_on_front",
+        "bytes": 1
+      },
+      {
+        "name": "permalink_structure",
+        "bytes": 0
+      },
+      {
+        "name": "ping_sites",
+        "bytes": 27
+      },
+      {
+        "name": "posts_per_page",
+        "bytes": 2
+      },
+      {
+        "name": "posts_per_rss",
+        "bytes": 2
+      },
+      {
+        "name": "product_cat_children",
+        "bytes": 6
+      },
+      {
+        "name": "recently_edited",
+        "bytes": 0
+      },
+      {
+        "name": "require_name_email",
+        "bytes": 1
+      },
+      {
+        "name": "rewrite_rules",
+        "bytes": 0
+      },
+      {
+        "name": "rss_use_excerpt",
+        "bytes": 1
+      },
+      {
+        "name": "schema-ActionScheduler_LoggerSchema",
+        "bytes": 14
+      },
+      {
+        "name": "schema-ActionScheduler_StoreSchema",
+        "bytes": 14
+      },
+      {
+        "name": "show_avatars",
+        "bytes": 1
+      },
+      {
+        "name": "show_comments_cookies_opt_in",
+        "bytes": 1
+      },
+      {
+        "name": "show_on_front",
+        "bytes": 5
+      },
+      {
+        "name": "sidebars_widgets",
+        "bytes": 154
+      },
+      {
+        "name": "site_icon",
+        "bytes": 1
+      },
+      {
+        "name": "siteurl",
+        "bytes": 22
+      },
+      {
+        "name": "start_of_week",
+        "bytes": 1
+      },
+      {
+        "name": "sticky_posts",
+        "bytes": 6
+      },
+      {
+        "name": "stylesheet",
+        "bytes": 11
+      },
+      {
+        "name": "tag_base",
+        "bytes": 0
+      },
+      {
+        "name": "template",
+        "bytes": 11
+      },
+      {
+        "name": "theme_mods_a03-fiction",
+        "bytes": 38
+      },
+      {
+        "name": "theme_mods_twentytwentyfive",
+        "bytes": 244
+      },
+      {
+        "name": "theme_switched",
+        "bytes": 0
+      },
+      {
+        "name": "thread_comments",
+        "bytes": 1
+      },
+      {
+        "name": "thread_comments_depth",
+        "bytes": 1
+      },
+      {
+        "name": "thumbnail_crop",
+        "bytes": 1
+      },
+      {
+        "name": "thumbnail_size_h",
+        "bytes": 3
+      },
+      {
+        "name": "thumbnail_size_w",
+        "bytes": 3
+      },
+      {
+        "name": "time_format",
+        "bytes": 5
+      },
+      {
+        "name": "timezone_string",
+        "bytes": 0
+      },
+      {
+        "name": "uninstall_plugins",
+        "bytes": 6
+      },
+      {
+        "name": "upload_path",
+        "bytes": 0
+      },
+      {
+        "name": "upload_url_path",
+        "bytes": 0
+      },
+      {
+        "name": "uploads_use_yearmonth_folders",
+        "bytes": 1
+      },
+      {
+        "name": "use_balanceTags",
+        "bytes": 1
+      },
+      {
+        "name": "use_smilies",
+        "bytes": 1
+      },
+      {
+        "name": "use_trackback",
+        "bytes": 1
+      },
+      {
+        "name": "user_count",
+        "bytes": 1
+      },
+      {
+        "name": "users_can_register",
+        "bytes": 1
+      },
+      {
+        "name": "wc_downloads_approved_directories_mode",
+        "bytes": 7
+      },
+      {
+        "name": "wc_memberships_active_member_user_role",
+        "bytes": 8
+      },
+      {
+        "name": "wc_memberships_admin_restricted_content_notice",
+        "bytes": 3
+      },
+      {
+        "name": "wc_memberships_allow_cumulative_access_granting_orders",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_apply_member_discounts_when_purchasing_membership",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_assign_user_roles_to_members",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_display_member_login_notice",
+        "bytes": 4
+      },
+      {
+        "name": "wc_memberships_enable_member_directory",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_enable_subscriptions_sign_up_fees_discounts",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_excerpt_length",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_exclude_on_sale_products_from_member_discounts",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_hide_restricted_products",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_inactive_member_user_role",
+        "bytes": 8
+      },
+      {
+        "name": "wc_memberships_inherit_restrictions",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_is_active",
+        "bytes": 3
+      },
+      {
+        "name": "wc_memberships_lifecycle_events",
+        "bytes": 57
+      },
+      {
+        "name": "wc_memberships_milestone_messages",
+        "bytes": 168
+      },
+      {
+        "name": "wc_memberships_privacy_erasure_request_delete_user_memberships",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_profile_field_upload_allowed_file_types",
+        "bytes": 69
+      },
+      {
+        "name": "wc_memberships_redirect_page_id",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_redirect_upon_member_login",
+        "bytes": 11
+      },
+      {
+        "name": "wc_memberships_restriction_mode",
+        "bytes": 12
+      },
+      {
+        "name": "wc_memberships_rules",
+        "bytes": 443
+      },
+      {
+        "name": "wc_memberships_show_excerpts",
+        "bytes": 3
+      },
+      {
+        "name": "wc_memberships_version",
+        "bytes": 6
+      },
+      {
+        "name": "wc_subscriptions_siteurl",
+        "bytes": 50
+      },
+      {
+        "name": "wcs_notification_settings_update_time",
+        "bytes": 10
+      },
+      {
+        "name": "wcs_pending_batch_processes",
+        "bytes": 51
+      },
+      {
+        "name": "wcs_plugin_version",
+        "bytes": 5
+      },
+      {
+        "name": "wcs_plugin_version_previous",
+        "bytes": 1
+      },
+      {
+        "name": "wcs-schema-WCS_Health_Check_Table_Maker",
+        "bytes": 14
+      },
+      {
+        "name": "widget_archives",
+        "bytes": 30
+      },
+      {
+        "name": "widget_block",
+        "bytes": 890
+      },
+      {
+        "name": "widget_calendar",
+        "bytes": 30
+      },
+      {
+        "name": "widget_categories",
+        "bytes": 6
+      },
+      {
+        "name": "widget_custom_html",
+        "bytes": 30
+      },
+      {
+        "name": "widget_media_audio",
+        "bytes": 30
+      },
+      {
+        "name": "widget_media_gallery",
+        "bytes": 30
+      },
+      {
+        "name": "widget_media_image",
+        "bytes": 30
+      },
+      {
+        "name": "widget_media_video",
+        "bytes": 30
+      },
+      {
+        "name": "widget_meta",
+        "bytes": 30
+      },
+      {
+        "name": "widget_nav_menu",
+        "bytes": 30
+      },
+      {
+        "name": "widget_pages",
+        "bytes": 30
+      },
+      {
+        "name": "widget_recent-comments",
+        "bytes": 30
+      },
+      {
+        "name": "widget_recent-posts",
+        "bytes": 30
+      },
+      {
+        "name": "widget_rss",
+        "bytes": 6
+      },
+      {
+        "name": "widget_search",
+        "bytes": 30
+      },
+      {
+        "name": "widget_tag_cloud",
+        "bytes": 30
+      },
+      {
+        "name": "widget_text",
+        "bytes": 6
+      },
+      {
+        "name": "widget_wc_brands_brand_description",
+        "bytes": 30
+      },
+      {
+        "name": "widget_wc_brands_brand_thumbnails",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_brand_nav",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_layered_nav",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_layered_nav_filters",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_price_filter",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_product_categories",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_product_search",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_product_tag_cloud",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_products",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_rating_filter",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_recent_reviews",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_recently_viewed_products",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_top_rated_products",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_widget_cart",
+        "bytes": 30
+      },
+      {
+        "name": "woocommerce_address_autocomplete_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_admin_install_timestamp",
+        "bytes": 10
+      },
+      {
+        "name": "woocommerce_admin_notices",
+        "bytes": 6
+      },
+      {
+        "name": "woocommerce_all_except_countries",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_allow_bulk_remove_personal_data",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_allow_tracking",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_allowed_countries",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_analytics_enabled",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_anonymize_completed_orders",
+        "bytes": 50
+      },
+      {
+        "name": "woocommerce_anonymize_refunded_orders",
+        "bytes": 50
+      },
+      {
+        "name": "woocommerce_attribute_lookup_direct_updates",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_attribute_lookup_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_attribute_lookup_optimized_updates",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_calc_discounts_sequentially",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_calc_taxes",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_cart_page_id",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_cart_redirect_after_add",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_cart_save_for_later_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_checkout_address_2_field",
+        "bytes": 8
+      },
+      {
+        "name": "woocommerce_checkout_company_field",
+        "bytes": 6
+      },
+      {
+        "name": "woocommerce_checkout_highlight_required_fields",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_checkout_order_received_endpoint",
+        "bytes": 14
+      },
+      {
+        "name": "woocommerce_checkout_page_id",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_checkout_pay_endpoint",
+        "bytes": 9
+      },
+      {
+        "name": "woocommerce_checkout_phone_field",
+        "bytes": 8
+      },
+      {
+        "name": "woocommerce_checkout_privacy_policy_text",
+        "bytes": 161
+      },
+      {
+        "name": "woocommerce_currency",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_currency_pos",
+        "bytes": 4
+      },
+      {
+        "name": "woocommerce_custom_orders_table_created",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_custom_orders_table_data_sync_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_custom_orders_table_enabled",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_db_version",
+        "bytes": 6
+      },
+      {
+        "name": "woocommerce_default_country",
+        "bytes": 5
+      },
+      {
+        "name": "woocommerce_default_customer_address",
+        "bytes": 4
+      },
+      {
+        "name": "woocommerce_delete_inactive_accounts",
+        "bytes": 50
+      },
+      {
+        "name": "woocommerce_demo_store",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_dimension_unit",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_downloads_add_hash_to_filename",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_downloads_count_partial",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_downloads_deliver_inline",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_downloads_grant_access_after_payment",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_downloads_redirect_fallback_allowed",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_downloads_require_login",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_email_auto_sync_with_theme",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_email_background_color",
+        "bytes": 7
+      },
+      {
+        "name": "woocommerce_email_base_color",
+        "bytes": 7
+      },
+      {
+        "name": "woocommerce_email_body_background_color",
+        "bytes": 7
+      },
+      {
+        "name": "woocommerce_email_font_family",
+        "bytes": 9
+      },
+      {
+        "name": "woocommerce_email_footer_text",
+        "bytes": 33
+      },
+      {
+        "name": "woocommerce_email_footer_text_color",
+        "bytes": 7
+      },
+      {
+        "name": "woocommerce_email_from_address",
+        "bytes": 21
+      },
+      {
+        "name": "woocommerce_email_header_alignment",
+        "bytes": 4
+      },
+      {
+        "name": "woocommerce_email_header_image",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_email_header_image_width",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_email_improvements_disabled_count",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_email_improvements_first_disabled_at",
+        "bytes": 19
+      },
+      {
+        "name": "woocommerce_email_improvements_last_disabled_at",
+        "bytes": 19
+      },
+      {
+        "name": "woocommerce_email_reply_to_address",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_email_reply_to_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_email_reply_to_name",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_email_text_color",
+        "bytes": 7
+      },
+      {
+        "name": "woocommerce_enable_ajax_add_to_cart",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_enable_checkout_login_reminder",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_enable_coupons",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_enable_delayed_account_creation",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_enable_guest_checkout",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_enable_myaccount_registration",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_enable_review_rating",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_enable_reviews",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_enable_shipping_calc",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_enable_signup_and_login_from_checkout",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_erasure_request_removes_download_data",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_erasure_request_removes_order_data",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_abandoned_cart_recovery_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_block_editor_unified_assets_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_block_email_editor_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_blueprint_enabled",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_feature_cost_of_goods_sold_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_customer_review_request_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_deferred_transactional_emails_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_destroy-empty-sessions_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_email_improvements_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_mcp_integration_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_order_attribution_enabled",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_feature_order_withdrawal_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_product_gallery_videos_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_product_instance_caching_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_rate_limit_checkout_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_remote_logging_enabled",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_feature_rest_api_caching_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_wc_visual_attribute_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_file_download_method",
+        "bytes": 5
+      },
+      {
+        "name": "woocommerce_force_ssl_checkout",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_hide_out_of_stock_items",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_hold_stock_minutes",
+        "bytes": 5
+      },
+      {
+        "name": "woocommerce_hpos_datastore_caching_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_hpos_fts_index_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_inbox_variant_assignment",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_logout_endpoint",
+        "bytes": 15
+      },
+      {
+        "name": "woocommerce_manage_stock",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_maxmind_geolocation_settings",
+        "bytes": 69
+      },
+      {
+        "name": "woocommerce_maybe_regenerate_images_hash",
+        "bytes": 32
+      },
+      {
+        "name": "woocommerce_myaccount_add_payment_method_endpoint",
+        "bytes": 18
+      },
+      {
+        "name": "woocommerce_myaccount_delete_payment_method_endpoint",
+        "bytes": 21
+      },
+      {
+        "name": "woocommerce_myaccount_downloads_endpoint",
+        "bytes": 9
+      },
+      {
+        "name": "woocommerce_myaccount_edit_account_endpoint",
+        "bytes": 12
+      },
+      {
+        "name": "woocommerce_myaccount_edit_address_endpoint",
+        "bytes": 12
+      },
+      {
+        "name": "woocommerce_myaccount_lost_password_endpoint",
+        "bytes": 13
+      },
+      {
+        "name": "woocommerce_myaccount_members_area_endpoint",
+        "bytes": 12
+      },
+      {
+        "name": "woocommerce_myaccount_orders_endpoint",
+        "bytes": 6
+      },
+      {
+        "name": "woocommerce_myaccount_page_id",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_myaccount_payment_methods_endpoint",
+        "bytes": 15
+      },
+      {
+        "name": "woocommerce_myaccount_profile_fields_area_endpoint",
+        "bytes": 10
+      },
+      {
+        "name": "woocommerce_myaccount_set_default_payment_method_endpoint",
+        "bytes": 26
+      },
+      {
+        "name": "woocommerce_myaccount_view_order_endpoint",
+        "bytes": 10
+      },
+      {
+        "name": "woocommerce_newly_installed",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_notify_backorder",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_notify_low_stock",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_notify_low_stock_amount",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_notify_no_stock",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_notify_no_stock_amount",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_order_stats_has_fulfillment_column",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_paypal_settings",
+        "bytes": 861
+      },
+      {
+        "name": "woocommerce_permalinks",
+        "bytes": 182
+      },
+      {
+        "name": "woocommerce_placeholder_image",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_pos_refund_returns_policy",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_pos_store_address",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_pos_store_email",
+        "bytes": 21
+      },
+      {
+        "name": "woocommerce_pos_store_phone",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_price_decimal_sep",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_price_display_suffix",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_price_num_decimals",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_price_thousand_sep",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_prices_include_tax",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_product_match_featured_image_by_sku",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_product_wishlist_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_queue_flush_rewrite_rules",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_refund_returns_page_id",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_registration_generate_password",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_registration_generate_username",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_registration_privacy_policy_text",
+        "bytes": 175
+      },
+      {
+        "name": "woocommerce_remote_variant_assignment",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_review_rating_required",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_review_rating_verification_label",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_review_rating_verification_required",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_schema_version",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_ship_to_countries",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_ship_to_destination",
+        "bytes": 7
+      },
+      {
+        "name": "woocommerce_shipping_cost_requires_address",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_shipping_debug_mode",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_shipping_hide_rates_when_free",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_shipping_tax_class",
+        "bytes": 7
+      },
+      {
+        "name": "woocommerce_shop_page_id",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_show_marketplace_suggestions",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_single_image_width",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_specific_allowed_countries",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_specific_ship_to_countries",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_stock_email_recipient",
+        "bytes": 21
+      },
+      {
+        "name": "woocommerce_stock_format",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_store_address",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_store_address_2",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_store_city",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_store_id",
+        "bytes": 36
+      },
+      {
+        "name": "woocommerce_store_postcode",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_subscription_downloads_version",
+        "bytes": 5
+      },
+      {
+        "name": "woocommerce_subscriptions_accept_manual_renewals",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_active_version",
+        "bytes": 5
+      },
+      {
+        "name": "woocommerce_subscriptions_add_to_cart_button_text",
+        "bytes": 11
+      },
+      {
+        "name": "woocommerce_subscriptions_apportion_sign_up_fee",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_cancelled_role",
+        "bytes": 8
+      },
+      {
+        "name": "woocommerce_subscriptions_customer_notifications_enabled",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_subscriptions_customer_notifications_offset",
+        "bytes": 49
+      },
+      {
+        "name": "woocommerce_subscriptions_days_no_fee",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_subscriptions_dedicated_queues_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_drip_downloadable_content_on_renewal",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_enable_auto_renewal_toggle",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_enable_early_renewal",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_subscriptions_enable_early_renewal_via_modal",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_enable_health_check_nightly_scan",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_enable_retry",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_enable_simple_subscription",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_enable_variable_subscription",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_external_trigger_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_first_billing_behavior",
+        "bytes": 4
+      },
+      {
+        "name": "woocommerce_subscriptions_gifting_downloadable_products",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_gifting_enable_gifting",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_gifting_gifting_checkbox_text",
+        "bytes": 14
+      },
+      {
+        "name": "woocommerce_subscriptions_gifting_migration_settled",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_subscriptions_is_active",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_subscriptions_max_customer_suspensions_enable",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_max_customer_suspensions_limit",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_max_customer_suspensions_per_period",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_subscriptions_multiple_purchase",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_subscriptions_order_button_text",
+        "bytes": 11
+      },
+      {
+        "name": "woocommerce_subscriptions_paypal_debugging_default_set",
+        "bytes": 4
+      },
+      {
+        "name": "woocommerce_subscriptions_previous_version",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_subscriptions_subscriber_role",
+        "bytes": 10
+      },
+      {
+        "name": "woocommerce_subscriptions_switch_button_text",
+        "bytes": 6
+      },
+      {
+        "name": "woocommerce_subscriptions_switch_first_billing_behavior",
+        "bytes": 4
+      },
+      {
+        "name": "woocommerce_subscriptions_switch_first_billing_physical",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_switch_first_billing_virtual",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_switch_fixed_term_behavior",
+        "bytes": 4
+      },
+      {
+        "name": "woocommerce_subscriptions_switch_fixed_term_physical",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_switch_fixed_term_virtual",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_turn_off_automatic_payments",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_zero_initial_payment_requires_payment",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_tax_based_on",
+        "bytes": 8
+      },
+      {
+        "name": "woocommerce_tax_classes",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_tax_display_cart",
+        "bytes": 4
+      },
+      {
+        "name": "woocommerce_tax_display_shop",
+        "bytes": 4
+      },
+      {
+        "name": "woocommerce_tax_round_at_subtotal",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_tax_total_display",
+        "bytes": 8
+      },
+      {
+        "name": "woocommerce_terms_page_id",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_thumbnail_image_width",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_trash_cancelled_orders",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_trash_failed_orders",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_trash_pending_orders",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_unforce_ssl_checkout",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_version",
+        "bytes": 6
+      },
+      {
+        "name": "woocommerce_weight_unit",
+        "bytes": 3
+      },
+      {
+        "name": "wp_1_wc_regenerate_images_batch_69b6d244e992f87fe5e25e61268591fb",
+        "bytes": 45
+      },
+      {
+        "name": "wp_attachment_pages_enabled",
+        "bytes": 1
+      },
+      {
+        "name": "wp_calendar_block_has_published_posts",
+        "bytes": 1
+      },
+      {
+        "name": "wp_force_deactivated_plugins",
+        "bytes": 6
+      },
+      {
+        "name": "wp_notes_notify",
+        "bytes": 1
+      },
+      {
+        "name": "wp_page_for_privacy_policy",
+        "bytes": 1
+      },
+      {
+        "name": "wp_user_roles",
+        "bytes": 9988
+      }
+    ],
+    "cron": [
+      {
+        "name": "recovery_mode_clean_expired_keys",
+        "rows": 1,
+        "bytes": 119
+      },
+      {
+        "name": "wp_privacy_delete_old_export_files",
+        "rows": 1,
+        "bytes": 119
+      },
+      {
+        "name": "action_scheduler_run_queue",
+        "rows": 1,
+        "bytes": 142
+      },
+      {
+        "name": "jetpack_clean_nonces",
+        "rows": 1,
+        "bytes": 119
+      },
+      {
+        "name": "jetpack_v2_heartbeat",
+        "rows": 1,
+        "bytes": 119
+      },
+      {
+        "name": "wc_admin_process_orders_milestone",
+        "rows": 1,
+        "bytes": 119
+      },
+      {
+        "name": "wp_1_wc_regenerate_images_cron",
+        "rows": 1,
+        "bytes": 152
+      },
+      {
+        "name": "do_pings",
+        "rows": 1,
+        "bytes": 88
+      },
+      {
+        "name": "wp_version_check",
+        "rows": 1,
+        "bytes": 125
+      },
+      {
+        "name": "wp_update_plugins",
+        "rows": 1,
+        "bytes": 125
+      },
+      {
+        "name": "wp_update_themes",
+        "rows": 1,
+        "bytes": 125
+      },
+      {
+        "name": "wc_memberships_jobs_cleanup",
+        "rows": 1,
+        "bytes": 119
+      },
+      {
+        "name": "wp_site_health_scheduled_check",
+        "rows": 1,
+        "bytes": 121
+      },
+      {
+        "name": "a05_orphan_hook",
+        "rows": 1,
+        "bytes": 106
+      }
+    ],
+    "active": [
+      "a05-base/entry.php",
+      "a05-dependent/entry.php",
+      "a05-gateway/entry.php",
+      "a05-keep/entry.php",
+      "a05-remove/entry.php",
+      "woocommerce-memberships/woocommerce-memberships.php",
+      "woocommerce-subscriptions/woocommerce-subscriptions.php",
+      "woocommerce/woocommerce.php"
+    ],
+    "theme": "a03-fiction",
+    "plugins": {
+      "hello.php": {
+        "requires": [],
+        "gateway": false,
+        "active": false
+      },
+      "a05-base/entry.php": {
+        "requires": [],
+        "gateway": false,
+        "active": true
+      },
+      "a05-dependent/entry.php": {
+        "requires": [
+          "a05-base"
+        ],
+        "gateway": false,
+        "active": true
+      },
+      "a05-gateway/entry.php": {
+        "requires": [],
+        "gateway": false,
+        "active": true
+      },
+      "a05-keep/entry.php": {
+        "requires": [],
+        "gateway": false,
+        "active": true
+      },
+      "a05-orphan/entry.php": {
+        "requires": [],
+        "gateway": false,
+        "active": false
+      },
+      "a05-remove/entry.php": {
+        "requires": [],
+        "gateway": false,
+        "active": true
+      },
+      "akismet/akismet.php": {
+        "requires": [],
+        "gateway": false,
+        "active": false
+      },
+      "woocommerce/woocommerce.php": {
+        "requires": [],
+        "gateway": true,
+        "active": true
+      },
+      "woocommerce-memberships/woocommerce-memberships.php": {
+        "requires": [],
+        "gateway": true,
+        "active": true
+      },
+      "woocommerce-subscriptions/woocommerce-subscriptions.php": {
+        "requires": [
+          "woocommerce"
+        ],
+        "gateway": true,
+        "active": true
+      }
+    },
+    "mu_plugins": [
+      "000-imagine-staging-safety.php"
+    ]
+  },
+  "after": {
+    "environment": "staging",
+    "prefix": "wp_",
+    "tables": [
+      {
+        "name": "wp_a05_kept",
+        "rows": 1,
+        "bytes": 16384
+      },
+      {
+        "name": "wp_actionscheduler_actions",
+        "rows": 28,
+        "bytes": 163840
+      },
+      {
+        "name": "wp_actionscheduler_claims",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_actionscheduler_groups",
+        "rows": 9,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_actionscheduler_logs",
+        "rows": 39,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_commentmeta",
+        "rows": 15,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_comments",
+        "rows": 25,
+        "bytes": 147456
+      },
+      {
+        "name": "wp_links",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_options",
+        "rows": 432,
+        "bytes": 1228800
+      },
+      {
+        "name": "wp_postmeta",
+        "rows": 20,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_posts",
+        "rows": 28,
+        "bytes": 147456
+      },
+      {
+        "name": "wp_termmeta",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_terms",
+        "rows": 17,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_term_relationships",
+        "rows": 3,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_term_taxonomy",
+        "rows": 17,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_usermeta",
+        "rows": 122,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_users",
+        "rows": 8,
+        "bytes": 65536
+      },
+      {
+        "name": "wp_wcs_health_check_candidates",
+        "rows": 0,
+        "bytes": 81920
+      },
+      {
+        "name": "wp_wcs_health_check_runs",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_wc_admin_notes",
+        "rows": 0,
+        "bytes": 16384
+      },
+      {
+        "name": "wp_wc_admin_note_actions",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_wc_category_lookup",
+        "rows": 0,
+        "bytes": 16384
+      },
+      {
+        "name": "wp_wc_customer_lookup",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_wc_download_log",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_wc_email_unsubscribes",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_wc_orders",
+        "rows": 10,
+        "bytes": 163840
+      },
+      {
+        "name": "wp_wc_orders_meta",
+        "rows": 122,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_wc_order_addresses",
+        "rows": 10,
+        "bytes": 81920
+      },
+      {
+        "name": "wp_wc_order_coupon_lookup",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_wc_order_operational_data",
+        "rows": 10,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_wc_order_product_lookup",
+        "rows": 0,
+        "bytes": 98304
+      },
+      {
+        "name": "wp_wc_order_stats",
+        "rows": 0,
+        "bytes": 81920
+      },
+      {
+        "name": "wp_wc_order_tax_lookup",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_wc_product_attributes_lookup",
+        "rows": 0,
+        "bytes": 65536
+      },
+      {
+        "name": "wp_wc_product_download_directories",
+        "rows": 2,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_wc_product_meta_lookup",
+        "rows": 0,
+        "bytes": 131072
+      },
+      {
+        "name": "wp_wc_rate_limits",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_wc_reserved_stock",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_wc_tax_rate_classes",
+        "rows": 2,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_wc_webhooks",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_woocommerce_api_keys",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_woocommerce_attribute_taxonomies",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_woocommerce_downloadable_product_permissions",
+        "rows": 0,
+        "bytes": 98304
+      },
+      {
+        "name": "wp_woocommerce_log",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_woocommerce_order_itemmeta",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_woocommerce_order_items",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_woocommerce_payment_tokenmeta",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_woocommerce_payment_tokens",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_woocommerce_sessions",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_woocommerce_shipping_zones",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "wp_woocommerce_shipping_zone_locations",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_woocommerce_shipping_zone_methods",
+        "rows": 0,
+        "bytes": 49152
+      },
+      {
+        "name": "wp_woocommerce_subscription_downloads",
+        "rows": 0,
+        "bytes": 16384
+      },
+      {
+        "name": "wp_woocommerce_tax_rates",
+        "rows": 0,
+        "bytes": 81920
+      },
+      {
+        "name": "wp_woocommerce_tax_rate_locations",
+        "rows": 0,
+        "bytes": 49152
+      }
+    ],
+    "options": [
+      {
+        "name": "_site_transient_theme_roots",
+        "bytes": 154
+      },
+      {
+        "name": "_site_transient_timeout_theme_roots",
+        "bytes": 10
+      },
+      {
+        "name": "_site_transient_timeout_woocommerce_blocks_patterns",
+        "bytes": 10
+      },
+      {
+        "name": "_site_transient_timeout_wp_theme_files_patterns-eb6fa075b3f8a64043cf570bac2e4bb7",
+        "bytes": 10
+      },
+      {
+        "name": "_site_transient_woocommerce_blocks_patterns",
+        "bytes": 15158
+      },
+      {
+        "name": "_site_transient_wp_theme_files_patterns-eb6fa075b3f8a64043cf570bac2e4bb7",
+        "bytes": 53
+      },
+      {
+        "name": "_transient__wc_activation_redirect",
+        "bytes": 1
+      },
+      {
+        "name": "_transient_as-post-store-dependencies-met",
+        "bytes": 3
+      },
+      {
+        "name": "_transient_jetpack_autoloader_plugin_paths",
+        "bytes": 47
+      },
+      {
+        "name": "_transient_jetpack_connection_active_plugins_refresh",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_orders-transient-version",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_product_query-transient-version",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_timeout__wc_activation_redirect",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_timeout_as-post-store-dependencies-met",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_timeout_wc_settings_email_improvements_reverted",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_timeout_wc_term_counts",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_timeout_wcs_do_subscriptions_exist",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_timeout_wcs_woocommerce_active_version",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_timeout_woocommerce_subscriptions_activated",
+        "bytes": 10
+      },
+      {
+        "name": "_transient_wc_attribute_taxonomies",
+        "bytes": 6
+      },
+      {
+        "name": "_transient_wc_settings_email_improvements_reverted",
+        "bytes": 3
+      },
+      {
+        "name": "_transient_wc_term_counts",
+        "bytes": 6
+      },
+      {
+        "name": "_transient_wcs_do_subscriptions_exist",
+        "bytes": 0
+      },
+      {
+        "name": "_transient_wcs_woocommerce_active_version",
+        "bytes": 6
+      },
+      {
+        "name": "_transient_woocommerce_activated_plugin",
+        "bytes": 27
+      },
+      {
+        "name": "_transient_woocommerce_product_task_has_product_transient",
+        "bytes": 2
+      },
+      {
+        "name": "_transient_woocommerce_subscriptions_activated",
+        "bytes": 1
+      },
+      {
+        "name": "_transient_woocommerce_webhook_ids_status_active",
+        "bytes": 6
+      },
+      {
+        "name": "_transient_wp_core_block_css_files",
+        "bytes": 22750
+      },
+      {
+        "name": "a05_uninstall_canary",
+        "bytes": 28
+      },
+      {
+        "name": "action_scheduler_hybrid_store_demarkation",
+        "bytes": 1
+      },
+      {
+        "name": "active_plugins",
+        "bytes": 303
+      },
+      {
+        "name": "admin_email",
+        "bytes": 21
+      },
+      {
+        "name": "admin_email_lifespan",
+        "bytes": 10
+      },
+      {
+        "name": "apfs_version",
+        "bytes": 5
+      },
+      {
+        "name": "auto_plugin_theme_update_emails",
+        "bytes": 6
+      },
+      {
+        "name": "auto_update_core_dev",
+        "bytes": 7
+      },
+      {
+        "name": "auto_update_core_major",
+        "bytes": 7
+      },
+      {
+        "name": "auto_update_core_minor",
+        "bytes": 7
+      },
+      {
+        "name": "avatar_default",
+        "bytes": 7
+      },
+      {
+        "name": "avatar_rating",
+        "bytes": 1
+      },
+      {
+        "name": "blog_charset",
+        "bytes": 5
+      },
+      {
+        "name": "blog_public",
+        "bytes": 1
+      },
+      {
+        "name": "blogdescription",
+        "bytes": 0
+      },
+      {
+        "name": "blogname",
+        "bytes": 11
+      },
+      {
+        "name": "category_base",
+        "bytes": 0
+      },
+      {
+        "name": "close_comments_days_old",
+        "bytes": 2
+      },
+      {
+        "name": "close_comments_for_old_posts",
+        "bytes": 1
+      },
+      {
+        "name": "comment_max_links",
+        "bytes": 1
+      },
+      {
+        "name": "comment_moderation",
+        "bytes": 1
+      },
+      {
+        "name": "comment_order",
+        "bytes": 3
+      },
+      {
+        "name": "comment_previously_approved",
+        "bytes": 1
+      },
+      {
+        "name": "comment_registration",
+        "bytes": 1
+      },
+      {
+        "name": "comments_notify",
+        "bytes": 1
+      },
+      {
+        "name": "comments_per_page",
+        "bytes": 2
+      },
+      {
+        "name": "cron",
+        "bytes": 2200
+      },
+      {
+        "name": "current_theme",
+        "bytes": 11
+      },
+      {
+        "name": "current_theme_supports_woocommerce",
+        "bytes": 2
+      },
+      {
+        "name": "date_format",
+        "bytes": 6
+      },
+      {
+        "name": "db_version",
+        "bytes": 5
+      },
+      {
+        "name": "default_category",
+        "bytes": 1
+      },
+      {
+        "name": "default_comment_status",
+        "bytes": 4
+      },
+      {
+        "name": "default_comments_page",
+        "bytes": 6
+      },
+      {
+        "name": "default_email_category",
+        "bytes": 1
+      },
+      {
+        "name": "default_link_category",
+        "bytes": 1
+      },
+      {
+        "name": "default_ping_status",
+        "bytes": 4
+      },
+      {
+        "name": "default_pingback_flag",
+        "bytes": 1
+      },
+      {
+        "name": "default_post_format",
+        "bytes": 1
+      },
+      {
+        "name": "default_product_cat",
+        "bytes": 2
+      },
+      {
+        "name": "default_role",
+        "bytes": 10
+      },
+      {
+        "name": "disallowed_keys",
+        "bytes": 0
+      },
+      {
+        "name": "finished_splitting_shared_terms",
+        "bytes": 1
+      },
+      {
+        "name": "fresh_site",
+        "bytes": 1
+      },
+      {
+        "name": "gmt_offset",
+        "bytes": 1
+      },
+      {
+        "name": "hack_file",
+        "bytes": 1
+      },
+      {
+        "name": "home",
+        "bytes": 22
+      },
+      {
+        "name": "html_type",
+        "bytes": 9
+      },
+      {
+        "name": "image_default_align",
+        "bytes": 0
+      },
+      {
+        "name": "image_default_link_type",
+        "bytes": 4
+      },
+      {
+        "name": "image_default_size",
+        "bytes": 0
+      },
+      {
+        "name": "initial_db_version",
+        "bytes": 5
+      },
+      {
+        "name": "large_size_h",
+        "bytes": 4
+      },
+      {
+        "name": "large_size_w",
+        "bytes": 4
+      },
+      {
+        "name": "link_manager_enabled",
+        "bytes": 1
+      },
+      {
+        "name": "links_updated_date_format",
+        "bytes": 12
+      },
+      {
+        "name": "mailserver_login",
+        "bytes": 17
+      },
+      {
+        "name": "mailserver_pass",
+        "bytes": 0
+      },
+      {
+        "name": "mailserver_port",
+        "bytes": 3
+      },
+      {
+        "name": "mailserver_url",
+        "bytes": 16
+      },
+      {
+        "name": "medium_large_size_h",
+        "bytes": 1
+      },
+      {
+        "name": "medium_large_size_w",
+        "bytes": 3
+      },
+      {
+        "name": "medium_size_h",
+        "bytes": 3
+      },
+      {
+        "name": "medium_size_w",
+        "bytes": 3
+      },
+      {
+        "name": "moderation_keys",
+        "bytes": 0
+      },
+      {
+        "name": "moderation_notify",
+        "bytes": 1
+      },
+      {
+        "name": "nonce_key",
+        "bytes": 64
+      },
+      {
+        "name": "nonce_salt",
+        "bytes": 64
+      },
+      {
+        "name": "page_comments",
+        "bytes": 1
+      },
+      {
+        "name": "page_for_posts",
+        "bytes": 1
+      },
+      {
+        "name": "page_on_front",
+        "bytes": 1
+      },
+      {
+        "name": "permalink_structure",
+        "bytes": 0
+      },
+      {
+        "name": "ping_sites",
+        "bytes": 27
+      },
+      {
+        "name": "posts_per_page",
+        "bytes": 2
+      },
+      {
+        "name": "posts_per_rss",
+        "bytes": 2
+      },
+      {
+        "name": "product_cat_children",
+        "bytes": 6
+      },
+      {
+        "name": "recently_edited",
+        "bytes": 0
+      },
+      {
+        "name": "require_name_email",
+        "bytes": 1
+      },
+      {
+        "name": "rewrite_rules",
+        "bytes": 0
+      },
+      {
+        "name": "rss_use_excerpt",
+        "bytes": 1
+      },
+      {
+        "name": "schema-ActionScheduler_LoggerSchema",
+        "bytes": 14
+      },
+      {
+        "name": "schema-ActionScheduler_StoreSchema",
+        "bytes": 14
+      },
+      {
+        "name": "show_avatars",
+        "bytes": 1
+      },
+      {
+        "name": "show_comments_cookies_opt_in",
+        "bytes": 1
+      },
+      {
+        "name": "show_on_front",
+        "bytes": 5
+      },
+      {
+        "name": "sidebars_widgets",
+        "bytes": 154
+      },
+      {
+        "name": "site_icon",
+        "bytes": 1
+      },
+      {
+        "name": "siteurl",
+        "bytes": 22
+      },
+      {
+        "name": "start_of_week",
+        "bytes": 1
+      },
+      {
+        "name": "sticky_posts",
+        "bytes": 6
+      },
+      {
+        "name": "stylesheet",
+        "bytes": 11
+      },
+      {
+        "name": "tag_base",
+        "bytes": 0
+      },
+      {
+        "name": "template",
+        "bytes": 11
+      },
+      {
+        "name": "theme_mods_a03-fiction",
+        "bytes": 38
+      },
+      {
+        "name": "theme_mods_twentytwentyfive",
+        "bytes": 244
+      },
+      {
+        "name": "theme_switched",
+        "bytes": 0
+      },
+      {
+        "name": "thread_comments",
+        "bytes": 1
+      },
+      {
+        "name": "thread_comments_depth",
+        "bytes": 1
+      },
+      {
+        "name": "thumbnail_crop",
+        "bytes": 1
+      },
+      {
+        "name": "thumbnail_size_h",
+        "bytes": 3
+      },
+      {
+        "name": "thumbnail_size_w",
+        "bytes": 3
+      },
+      {
+        "name": "time_format",
+        "bytes": 5
+      },
+      {
+        "name": "timezone_string",
+        "bytes": 0
+      },
+      {
+        "name": "uninstall_plugins",
+        "bytes": 6
+      },
+      {
+        "name": "upload_path",
+        "bytes": 0
+      },
+      {
+        "name": "upload_url_path",
+        "bytes": 0
+      },
+      {
+        "name": "uploads_use_yearmonth_folders",
+        "bytes": 1
+      },
+      {
+        "name": "use_balanceTags",
+        "bytes": 1
+      },
+      {
+        "name": "use_smilies",
+        "bytes": 1
+      },
+      {
+        "name": "use_trackback",
+        "bytes": 1
+      },
+      {
+        "name": "user_count",
+        "bytes": 1
+      },
+      {
+        "name": "users_can_register",
+        "bytes": 1
+      },
+      {
+        "name": "wc_downloads_approved_directories_mode",
+        "bytes": 7
+      },
+      {
+        "name": "wc_memberships_active_member_user_role",
+        "bytes": 8
+      },
+      {
+        "name": "wc_memberships_admin_restricted_content_notice",
+        "bytes": 3
+      },
+      {
+        "name": "wc_memberships_allow_cumulative_access_granting_orders",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_apply_member_discounts_when_purchasing_membership",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_assign_user_roles_to_members",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_display_member_login_notice",
+        "bytes": 4
+      },
+      {
+        "name": "wc_memberships_enable_member_directory",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_enable_subscriptions_sign_up_fees_discounts",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_excerpt_length",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_exclude_on_sale_products_from_member_discounts",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_hide_restricted_products",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_inactive_member_user_role",
+        "bytes": 8
+      },
+      {
+        "name": "wc_memberships_inherit_restrictions",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_is_active",
+        "bytes": 3
+      },
+      {
+        "name": "wc_memberships_lifecycle_events",
+        "bytes": 57
+      },
+      {
+        "name": "wc_memberships_milestone_messages",
+        "bytes": 168
+      },
+      {
+        "name": "wc_memberships_privacy_erasure_request_delete_user_memberships",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_profile_field_upload_allowed_file_types",
+        "bytes": 69
+      },
+      {
+        "name": "wc_memberships_redirect_page_id",
+        "bytes": 2
+      },
+      {
+        "name": "wc_memberships_redirect_upon_member_login",
+        "bytes": 11
+      },
+      {
+        "name": "wc_memberships_restriction_mode",
+        "bytes": 12
+      },
+      {
+        "name": "wc_memberships_rules",
+        "bytes": 443
+      },
+      {
+        "name": "wc_memberships_show_excerpts",
+        "bytes": 3
+      },
+      {
+        "name": "wc_memberships_version",
+        "bytes": 6
+      },
+      {
+        "name": "wc_subscriptions_siteurl",
+        "bytes": 50
+      },
+      {
+        "name": "wcs_notification_settings_update_time",
+        "bytes": 10
+      },
+      {
+        "name": "wcs_pending_batch_processes",
+        "bytes": 51
+      },
+      {
+        "name": "wcs_plugin_version",
+        "bytes": 5
+      },
+      {
+        "name": "wcs_plugin_version_previous",
+        "bytes": 1
+      },
+      {
+        "name": "wcs-schema-WCS_Health_Check_Table_Maker",
+        "bytes": 14
+      },
+      {
+        "name": "widget_archives",
+        "bytes": 30
+      },
+      {
+        "name": "widget_block",
+        "bytes": 890
+      },
+      {
+        "name": "widget_calendar",
+        "bytes": 30
+      },
+      {
+        "name": "widget_categories",
+        "bytes": 6
+      },
+      {
+        "name": "widget_custom_html",
+        "bytes": 30
+      },
+      {
+        "name": "widget_media_audio",
+        "bytes": 30
+      },
+      {
+        "name": "widget_media_gallery",
+        "bytes": 30
+      },
+      {
+        "name": "widget_media_image",
+        "bytes": 30
+      },
+      {
+        "name": "widget_media_video",
+        "bytes": 30
+      },
+      {
+        "name": "widget_meta",
+        "bytes": 30
+      },
+      {
+        "name": "widget_nav_menu",
+        "bytes": 30
+      },
+      {
+        "name": "widget_pages",
+        "bytes": 30
+      },
+      {
+        "name": "widget_recent-comments",
+        "bytes": 30
+      },
+      {
+        "name": "widget_recent-posts",
+        "bytes": 30
+      },
+      {
+        "name": "widget_rss",
+        "bytes": 6
+      },
+      {
+        "name": "widget_search",
+        "bytes": 30
+      },
+      {
+        "name": "widget_tag_cloud",
+        "bytes": 30
+      },
+      {
+        "name": "widget_text",
+        "bytes": 6
+      },
+      {
+        "name": "widget_wc_brands_brand_description",
+        "bytes": 30
+      },
+      {
+        "name": "widget_wc_brands_brand_thumbnails",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_brand_nav",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_layered_nav",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_layered_nav_filters",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_price_filter",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_product_categories",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_product_search",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_product_tag_cloud",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_products",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_rating_filter",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_recent_reviews",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_recently_viewed_products",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_top_rated_products",
+        "bytes": 30
+      },
+      {
+        "name": "widget_woocommerce_widget_cart",
+        "bytes": 30
+      },
+      {
+        "name": "woocommerce_address_autocomplete_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_admin_install_timestamp",
+        "bytes": 10
+      },
+      {
+        "name": "woocommerce_admin_notices",
+        "bytes": 6
+      },
+      {
+        "name": "woocommerce_all_except_countries",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_allow_bulk_remove_personal_data",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_allow_tracking",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_allowed_countries",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_analytics_enabled",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_anonymize_completed_orders",
+        "bytes": 50
+      },
+      {
+        "name": "woocommerce_anonymize_refunded_orders",
+        "bytes": 50
+      },
+      {
+        "name": "woocommerce_attribute_lookup_direct_updates",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_attribute_lookup_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_attribute_lookup_optimized_updates",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_calc_discounts_sequentially",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_calc_taxes",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_cart_page_id",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_cart_redirect_after_add",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_cart_save_for_later_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_checkout_address_2_field",
+        "bytes": 8
+      },
+      {
+        "name": "woocommerce_checkout_company_field",
+        "bytes": 6
+      },
+      {
+        "name": "woocommerce_checkout_highlight_required_fields",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_checkout_order_received_endpoint",
+        "bytes": 14
+      },
+      {
+        "name": "woocommerce_checkout_page_id",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_checkout_pay_endpoint",
+        "bytes": 9
+      },
+      {
+        "name": "woocommerce_checkout_phone_field",
+        "bytes": 8
+      },
+      {
+        "name": "woocommerce_checkout_privacy_policy_text",
+        "bytes": 161
+      },
+      {
+        "name": "woocommerce_currency",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_currency_pos",
+        "bytes": 4
+      },
+      {
+        "name": "woocommerce_custom_orders_table_created",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_custom_orders_table_data_sync_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_custom_orders_table_enabled",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_db_version",
+        "bytes": 6
+      },
+      {
+        "name": "woocommerce_default_country",
+        "bytes": 5
+      },
+      {
+        "name": "woocommerce_default_customer_address",
+        "bytes": 4
+      },
+      {
+        "name": "woocommerce_delete_inactive_accounts",
+        "bytes": 50
+      },
+      {
+        "name": "woocommerce_demo_store",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_dimension_unit",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_downloads_add_hash_to_filename",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_downloads_count_partial",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_downloads_deliver_inline",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_downloads_grant_access_after_payment",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_downloads_redirect_fallback_allowed",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_downloads_require_login",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_email_auto_sync_with_theme",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_email_background_color",
+        "bytes": 7
+      },
+      {
+        "name": "woocommerce_email_base_color",
+        "bytes": 7
+      },
+      {
+        "name": "woocommerce_email_body_background_color",
+        "bytes": 7
+      },
+      {
+        "name": "woocommerce_email_font_family",
+        "bytes": 9
+      },
+      {
+        "name": "woocommerce_email_footer_text",
+        "bytes": 33
+      },
+      {
+        "name": "woocommerce_email_footer_text_color",
+        "bytes": 7
+      },
+      {
+        "name": "woocommerce_email_from_address",
+        "bytes": 21
+      },
+      {
+        "name": "woocommerce_email_header_alignment",
+        "bytes": 4
+      },
+      {
+        "name": "woocommerce_email_header_image",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_email_header_image_width",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_email_improvements_disabled_count",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_email_improvements_first_disabled_at",
+        "bytes": 19
+      },
+      {
+        "name": "woocommerce_email_improvements_last_disabled_at",
+        "bytes": 19
+      },
+      {
+        "name": "woocommerce_email_reply_to_address",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_email_reply_to_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_email_reply_to_name",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_email_text_color",
+        "bytes": 7
+      },
+      {
+        "name": "woocommerce_enable_ajax_add_to_cart",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_enable_checkout_login_reminder",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_enable_coupons",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_enable_delayed_account_creation",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_enable_guest_checkout",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_enable_myaccount_registration",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_enable_review_rating",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_enable_reviews",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_enable_shipping_calc",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_enable_signup_and_login_from_checkout",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_erasure_request_removes_download_data",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_erasure_request_removes_order_data",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_abandoned_cart_recovery_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_block_editor_unified_assets_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_block_email_editor_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_blueprint_enabled",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_feature_cost_of_goods_sold_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_customer_review_request_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_deferred_transactional_emails_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_destroy-empty-sessions_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_email_improvements_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_mcp_integration_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_order_attribution_enabled",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_feature_order_withdrawal_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_product_gallery_videos_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_product_instance_caching_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_rate_limit_checkout_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_remote_logging_enabled",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_feature_rest_api_caching_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_feature_wc_visual_attribute_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_file_download_method",
+        "bytes": 5
+      },
+      {
+        "name": "woocommerce_force_ssl_checkout",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_hide_out_of_stock_items",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_hold_stock_minutes",
+        "bytes": 5
+      },
+      {
+        "name": "woocommerce_hpos_datastore_caching_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_hpos_fts_index_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_inbox_variant_assignment",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_logout_endpoint",
+        "bytes": 15
+      },
+      {
+        "name": "woocommerce_manage_stock",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_maxmind_geolocation_settings",
+        "bytes": 69
+      },
+      {
+        "name": "woocommerce_maybe_regenerate_images_hash",
+        "bytes": 32
+      },
+      {
+        "name": "woocommerce_myaccount_add_payment_method_endpoint",
+        "bytes": 18
+      },
+      {
+        "name": "woocommerce_myaccount_delete_payment_method_endpoint",
+        "bytes": 21
+      },
+      {
+        "name": "woocommerce_myaccount_downloads_endpoint",
+        "bytes": 9
+      },
+      {
+        "name": "woocommerce_myaccount_edit_account_endpoint",
+        "bytes": 12
+      },
+      {
+        "name": "woocommerce_myaccount_edit_address_endpoint",
+        "bytes": 12
+      },
+      {
+        "name": "woocommerce_myaccount_lost_password_endpoint",
+        "bytes": 13
+      },
+      {
+        "name": "woocommerce_myaccount_members_area_endpoint",
+        "bytes": 12
+      },
+      {
+        "name": "woocommerce_myaccount_orders_endpoint",
+        "bytes": 6
+      },
+      {
+        "name": "woocommerce_myaccount_page_id",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_myaccount_payment_methods_endpoint",
+        "bytes": 15
+      },
+      {
+        "name": "woocommerce_myaccount_profile_fields_area_endpoint",
+        "bytes": 10
+      },
+      {
+        "name": "woocommerce_myaccount_set_default_payment_method_endpoint",
+        "bytes": 26
+      },
+      {
+        "name": "woocommerce_myaccount_view_order_endpoint",
+        "bytes": 10
+      },
+      {
+        "name": "woocommerce_newly_installed",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_notify_backorder",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_notify_low_stock",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_notify_low_stock_amount",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_notify_no_stock",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_notify_no_stock_amount",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_order_stats_has_fulfillment_column",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_paypal_settings",
+        "bytes": 861
+      },
+      {
+        "name": "woocommerce_permalinks",
+        "bytes": 182
+      },
+      {
+        "name": "woocommerce_placeholder_image",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_pos_refund_returns_policy",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_pos_store_address",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_pos_store_email",
+        "bytes": 21
+      },
+      {
+        "name": "woocommerce_pos_store_phone",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_price_decimal_sep",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_price_display_suffix",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_price_num_decimals",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_price_thousand_sep",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_prices_include_tax",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_product_match_featured_image_by_sku",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_product_wishlist_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_queue_flush_rewrite_rules",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_refund_returns_page_id",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_registration_generate_password",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_registration_generate_username",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_registration_privacy_policy_text",
+        "bytes": 175
+      },
+      {
+        "name": "woocommerce_remote_variant_assignment",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_review_rating_required",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_review_rating_verification_label",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_review_rating_verification_required",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_schema_version",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_ship_to_countries",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_ship_to_destination",
+        "bytes": 7
+      },
+      {
+        "name": "woocommerce_shipping_cost_requires_address",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_shipping_debug_mode",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_shipping_hide_rates_when_free",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_shipping_tax_class",
+        "bytes": 7
+      },
+      {
+        "name": "woocommerce_shop_page_id",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_show_marketplace_suggestions",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_single_image_width",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_specific_allowed_countries",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_specific_ship_to_countries",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_stock_email_recipient",
+        "bytes": 21
+      },
+      {
+        "name": "woocommerce_stock_format",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_store_address",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_store_address_2",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_store_city",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_store_id",
+        "bytes": 36
+      },
+      {
+        "name": "woocommerce_store_postcode",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_subscription_downloads_version",
+        "bytes": 5
+      },
+      {
+        "name": "woocommerce_subscriptions_accept_manual_renewals",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_active_version",
+        "bytes": 5
+      },
+      {
+        "name": "woocommerce_subscriptions_add_to_cart_button_text",
+        "bytes": 11
+      },
+      {
+        "name": "woocommerce_subscriptions_apportion_sign_up_fee",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_cancelled_role",
+        "bytes": 8
+      },
+      {
+        "name": "woocommerce_subscriptions_customer_notifications_enabled",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_subscriptions_customer_notifications_offset",
+        "bytes": 49
+      },
+      {
+        "name": "woocommerce_subscriptions_days_no_fee",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_subscriptions_dedicated_queues_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_drip_downloadable_content_on_renewal",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_enable_auto_renewal_toggle",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_enable_early_renewal",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_subscriptions_enable_early_renewal_via_modal",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_enable_health_check_nightly_scan",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_enable_retry",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_enable_simple_subscription",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_enable_variable_subscription",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_external_trigger_enabled",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_first_billing_behavior",
+        "bytes": 4
+      },
+      {
+        "name": "woocommerce_subscriptions_gifting_downloadable_products",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_gifting_enable_gifting",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_gifting_gifting_checkbox_text",
+        "bytes": 14
+      },
+      {
+        "name": "woocommerce_subscriptions_gifting_migration_settled",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_subscriptions_is_active",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_subscriptions_max_customer_suspensions_enable",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_max_customer_suspensions_limit",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_max_customer_suspensions_per_period",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_subscriptions_multiple_purchase",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_subscriptions_order_button_text",
+        "bytes": 11
+      },
+      {
+        "name": "woocommerce_subscriptions_paypal_debugging_default_set",
+        "bytes": 4
+      },
+      {
+        "name": "woocommerce_subscriptions_previous_version",
+        "bytes": 1
+      },
+      {
+        "name": "woocommerce_subscriptions_subscriber_role",
+        "bytes": 10
+      },
+      {
+        "name": "woocommerce_subscriptions_switch_button_text",
+        "bytes": 6
+      },
+      {
+        "name": "woocommerce_subscriptions_switch_first_billing_behavior",
+        "bytes": 4
+      },
+      {
+        "name": "woocommerce_subscriptions_switch_first_billing_physical",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_switch_first_billing_virtual",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_switch_fixed_term_behavior",
+        "bytes": 4
+      },
+      {
+        "name": "woocommerce_subscriptions_switch_fixed_term_physical",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_switch_fixed_term_virtual",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_turn_off_automatic_payments",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_subscriptions_zero_initial_payment_requires_payment",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_tax_based_on",
+        "bytes": 8
+      },
+      {
+        "name": "woocommerce_tax_classes",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_tax_display_cart",
+        "bytes": 4
+      },
+      {
+        "name": "woocommerce_tax_display_shop",
+        "bytes": 4
+      },
+      {
+        "name": "woocommerce_tax_round_at_subtotal",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_tax_total_display",
+        "bytes": 8
+      },
+      {
+        "name": "woocommerce_terms_page_id",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_thumbnail_image_width",
+        "bytes": 3
+      },
+      {
+        "name": "woocommerce_trash_cancelled_orders",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_trash_failed_orders",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_trash_pending_orders",
+        "bytes": 0
+      },
+      {
+        "name": "woocommerce_unforce_ssl_checkout",
+        "bytes": 2
+      },
+      {
+        "name": "woocommerce_version",
+        "bytes": 6
+      },
+      {
+        "name": "woocommerce_weight_unit",
+        "bytes": 3
+      },
+      {
+        "name": "wp_1_wc_regenerate_images_batch_69b6d244e992f87fe5e25e61268591fb",
+        "bytes": 45
+      },
+      {
+        "name": "wp_attachment_pages_enabled",
+        "bytes": 1
+      },
+      {
+        "name": "wp_calendar_block_has_published_posts",
+        "bytes": 1
+      },
+      {
+        "name": "wp_force_deactivated_plugins",
+        "bytes": 6
+      },
+      {
+        "name": "wp_notes_notify",
+        "bytes": 1
+      },
+      {
+        "name": "wp_page_for_privacy_policy",
+        "bytes": 1
+      },
+      {
+        "name": "wp_user_roles",
+        "bytes": 9988
+      }
+    ],
+    "cron": [
+      {
+        "name": "recovery_mode_clean_expired_keys",
+        "rows": 1,
+        "bytes": 119
+      },
+      {
+        "name": "wp_privacy_delete_old_export_files",
+        "rows": 1,
+        "bytes": 119
+      },
+      {
+        "name": "action_scheduler_run_queue",
+        "rows": 1,
+        "bytes": 142
+      },
+      {
+        "name": "jetpack_clean_nonces",
+        "rows": 1,
+        "bytes": 119
+      },
+      {
+        "name": "jetpack_v2_heartbeat",
+        "rows": 1,
+        "bytes": 119
+      },
+      {
+        "name": "wc_admin_process_orders_milestone",
+        "rows": 1,
+        "bytes": 119
+      },
+      {
+        "name": "wp_1_wc_regenerate_images_cron",
+        "rows": 1,
+        "bytes": 152
+      },
+      {
+        "name": "do_pings",
+        "rows": 1,
+        "bytes": 88
+      },
+      {
+        "name": "wp_version_check",
+        "rows": 1,
+        "bytes": 125
+      },
+      {
+        "name": "wp_update_plugins",
+        "rows": 1,
+        "bytes": 125
+      },
+      {
+        "name": "wp_update_themes",
+        "rows": 1,
+        "bytes": 125
+      },
+      {
+        "name": "wc_memberships_jobs_cleanup",
+        "rows": 1,
+        "bytes": 119
+      },
+      {
+        "name": "wp_site_health_scheduled_check",
+        "rows": 1,
+        "bytes": 121
+      }
+    ],
+    "active": [
+      "a05-base/entry.php",
+      "a05-dependent/entry.php",
+      "a05-gateway/entry.php",
+      "a05-keep/entry.php",
+      "woocommerce-memberships/woocommerce-memberships.php",
+      "woocommerce-subscriptions/woocommerce-subscriptions.php",
+      "woocommerce/woocommerce.php"
+    ],
+    "theme": "a03-fiction",
+    "plugins": {
+      "hello.php": {
+        "requires": [],
+        "gateway": false,
+        "active": false
+      },
+      "a05-base/entry.php": {
+        "requires": [],
+        "gateway": false,
+        "active": true
+      },
+      "a05-dependent/entry.php": {
+        "requires": [
+          "a05-base"
+        ],
+        "gateway": false,
+        "active": true
+      },
+      "a05-gateway/entry.php": {
+        "requires": [],
+        "gateway": false,
+        "active": true
+      },
+      "a05-keep/entry.php": {
+        "requires": [],
+        "gateway": false,
+        "active": true
+      },
+      "a05-orphan/entry.php": {
+        "requires": [],
+        "gateway": false,
+        "active": false
+      },
+      "akismet/akismet.php": {
+        "requires": [],
+        "gateway": false,
+        "active": false
+      },
+      "woocommerce/woocommerce.php": {
+        "requires": [],
+        "gateway": true,
+        "active": true
+      },
+      "woocommerce-memberships/woocommerce-memberships.php": {
+        "requires": [],
+        "gateway": true,
+        "active": true
+      },
+      "woocommerce-subscriptions/woocommerce-subscriptions.php": {
+        "requires": [
+          "woocommerce"
+        ],
+        "gateway": true,
+        "active": true
+      }
+    },
+    "mu_plugins": [
+      "001-imagine-a04-maintenance.php",
+      "000-imagine-staging-safety.php"
+    ]
+  },
+  "files_changed": [
+    "wp-content/plugins/a05-remove/uninstall.php",
+    "wp-content/plugins/a05-remove/entry.php",
+    "wp-content/mu-plugins/001-imagine-a04-maintenance.php",
+    ".maintenance",
+    "wp-content/uploads/a05-debris/fiction.txt"
+  ],
+  "surviving_tables_changed": [
+    "wp_options"
+  ]
+}

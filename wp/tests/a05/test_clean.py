@@ -20,7 +20,7 @@ class Contract(unittest.TestCase):
         with self.assertRaisesRegex(clean.Refusal, 'DEPENDENCY.*base/base.php'):
             clean.protect(plan, inventory)
 
-    def test_inventory_reads_real_fiction_without_writes(self):
+    def test_inventory_entrypoint_is_available(self):
         import clean
         self.assertTrue(callable(clean.inspect_site))
 

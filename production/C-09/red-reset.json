@@ -1,15 +1,15 @@
 {
   "mutation": {
-    "changed_plan": 211,
+    "changed_plan": 2434,
     "plan_alteration_readback": true,
-    "duplicate_order": 212,
-    "duplicate_subscription": 213,
-    "duplicate_membership": 214,
-    "unexpected_owned_order": 215
+    "duplicate_order": 2435,
+    "duplicate_subscription": 2436,
+    "duplicate_membership": 2437,
+    "unexpected_owned_order": 2438
   },
   "exit": 1,
   "runtime": {
-    "total": 380,
+    "total": 386,
     "failures": [
       "V-DEC:login_email",
       "V-DEC:password",
@@ -21,32 +21,32 @@
       "V-INSCRIT:password",
       "V-INSCRIT:role",
       "V-INSCRIT:nombre_commandes",
-      "V-INSCRIT:commande_sans_paiement",
+      "V-INSCRIT:commande_fictive_2438",
       "V-INSCRIT:produit_commande",
       "A-CARTE:login_email",
       "A-CARTE:password",
       "A-CARTE:nombre_commandes",
       "A-CARTE:nombre_abonnements",
       "A-CARTE:nombre_adhesions",
-      "A-CARTE:commande_sans_paiement",
+      "A-CARTE:commande_fictive_2435",
       "A-CARTE:produit_commande",
+      "A-CARTE:commande_fictive_88",
       "A-CARTE:etat_abonnement",
-      "A-CARTE:parent_natif",
       "A-CARTE:adhesion_lien_natif",
       "A-CARTE:etat_adhesion",
       "A-CARTE:plan_adhesion",
       "A-SEPA4:motif",
       "A-SEPA4:login_email",
       "A-SEPA4:password",
-      "A-SEPA4:commande_sans_paiement",
       "A-SEPA4:produit_commande",
+      "A-SEPA4:commande_fictive_91",
       "A-SEPA4:etat_abonnement",
       "A-SEPA4:adhesion_lien_natif",
       "A-SEPA4:etat_adhesion",
       "A-PAYPAL:motif",
       "A-PAYPAL:login_email",
       "A-PAYPAL:password",
-      "A-PAYPAL:commande_sans_paiement",
+      "A-PAYPAL:commande_fictive_94",
       "A-PAYPAL:produit_commande",
       "A-PAYPAL:etat_abonnement",
       "A-PAYPAL:adhesion_lien_natif",
@@ -54,7 +54,7 @@
       "A-VIR:motif",
       "A-VIR:login_email",
       "A-VIR:password",
-      "A-VIR:commande_sans_paiement",
+      "A-VIR:commande_fictive_97",
       "A-VIR:produit_commande",
       "A-VIR:etat_abonnement",
       "A-VIR:adhesion_lien_natif",
@@ -62,7 +62,7 @@
       "A-PAPIER:motif",
       "A-PAPIER:login_email",
       "A-PAPIER:password",
-      "A-PAPIER:commande_sans_paiement",
+      "A-PAPIER:commande_fictive_100",
       "A-PAPIER:produit_commande",
       "A-PAPIER:etat_abonnement",
       "A-PAPIER:adhesion_lien_natif",
@@ -71,21 +71,21 @@
       "A-GRACE:login_email",
       "A-GRACE:password",
       "A-GRACE:role",
-      "A-GRACE:commande_sans_paiement",
       "A-GRACE:produit_commande",
+      "A-GRACE:commande_fictive_103",
       "A-GRACE:adhesion_lien_natif",
       "A-GRACE:etat_adhesion",
       "A-SUSP:motif",
       "A-SUSP:login_email",
       "A-SUSP:password",
       "A-SUSP:role",
-      "A-SUSP:commande_sans_paiement",
       "A-SUSP:produit_commande",
+      "A-SUSP:commande_fictive_106",
       "A-SUSP:adhesion_lien_natif",
       "A-SUSP:etat_adhesion",
       "A-EXPIRE:login_email",
       "A-EXPIRE:password",
-      "A-EXPIRE:commande_sans_paiement",
+      "A-EXPIRE:commande_fictive_109",
       "A-EXPIRE:produit_commande",
       "A-EXPIRE:etat_abonnement",
       "A-EXPIRE:adhesion_lien_natif",
@@ -93,7 +93,7 @@
       "A-NONRENOUV:motif",
       "A-NONRENOUV:login_email",
       "A-NONRENOUV:password",
-      "A-NONRENOUV:commande_sans_paiement",
+      "A-NONRENOUV:commande_fictive_112",
       "A-NONRENOUV:produit_commande",
       "A-NONRENOUV:etat_abonnement",
       "A-NONRENOUV:adhesion_lien_natif",
@@ -101,7 +101,7 @@
       "A-ETRANGER:motif",
       "A-ETRANGER:login_email",
       "A-ETRANGER:password",
-      "A-ETRANGER:commande_sans_paiement",
+      "A-ETRANGER:commande_fictive_115",
       "A-ETRANGER:produit_commande",
       "A-ETRANGER:etat_abonnement",
       "A-ETRANGER:adhesion_lien_natif",
@@ -110,7 +110,7 @@
       "A-SANSMAIL:motif",
       "A-SANSMAIL:login_email",
       "A-SANSMAIL:password",
-      "A-SANSMAIL:commande_sans_paiement",
+      "A-SANSMAIL:commande_fictive_118",
       "A-SANSMAIL:produit_commande",
       "A-SANSMAIL:etat_abonnement",
       "A-SANSMAIL:adhesion_lien_natif",
@@ -118,7 +118,7 @@
       "A-ECHEANCE:motif",
       "A-ECHEANCE:login_email",
       "A-ECHEANCE:password",
-      "A-ECHEANCE:commande_sans_paiement",
+      "A-ECHEANCE:commande_fictive_121",
       "A-ECHEANCE:produit_commande",
       "A-ECHEANCE:etat_abonnement",
       "A-ECHEANCE:adhesion_lien_natif",
@@ -148,10 +148,12 @@
       "P-SOL-OK:password",
       "P-SOL-OK:role",
       "P-SOL-OK:etat_adhesion",
+      "P-NUMERO:motif",
       "P-NUMERO:login_email",
       "P-NUMERO:password",
       "P-NUMERO:role",
-      "P-NUMERO:commande_sans_paiement",
+      "P-NUMERO:commande_fictive_126",
+      "V-NUM:numero_achete_PDF",
       "P-NUMERO:produit_commande",
       "P-COOP:login_email",
       "P-COOP:password",
@@ -214,7 +216,7 @@
       "V-INSCRIT:nombre_commandes": false,
       "V-INSCRIT:nombre_abonnements": true,
       "V-INSCRIT:nombre_adhesions": true,
-      "V-INSCRIT:commande_sans_paiement": false,
+      "V-INSCRIT:commande_fictive_2438": false,
       "V-INSCRIT:montant_fixture_explicite": true,
       "V-INSCRIT:produit_commande": false,
       "A-CARTE:motif": true,
@@ -224,12 +226,13 @@
       "A-CARTE:nombre_commandes": false,
       "A-CARTE:nombre_abonnements": false,
       "A-CARTE:nombre_adhesions": false,
-      "A-CARTE:commande_sans_paiement": false,
+      "A-CARTE:commande_fictive_2435": false,
       "A-CARTE:montant_fixture_explicite": true,
       "A-CARTE:produit_commande": false,
+      "A-CARTE:commande_fictive_88": false,
       "A-CARTE:etat_abonnement": false,
       "A-CARTE:aucun_paiement_automatique": true,
-      "A-CARTE:parent_natif": false,
+      "A-CARTE:parent_natif": true,
       "A-CARTE:adhesion_lien_natif": false,
       "A-CARTE:produit_abonnement": true,
       "A-CARTE:prochain_paiement": true,
@@ -242,9 +245,10 @@
       "A-SEPA4:nombre_commandes": true,
       "A-SEPA4:nombre_abonnements": true,
       "A-SEPA4:nombre_adhesions": true,
-      "A-SEPA4:commande_sans_paiement": false,
+      "A-SEPA4:commande_fictive_2419": true,
       "A-SEPA4:montant_fixture_explicite": true,
       "A-SEPA4:produit_commande": false,
+      "A-SEPA4:commande_fictive_91": false,
       "A-SEPA4:etat_abonnement": false,
       "A-SEPA4:aucun_paiement_automatique": true,
       "A-SEPA4:parent_natif": true,
@@ -260,7 +264,7 @@
       "A-PAYPAL:nombre_commandes": true,
       "A-PAYPAL:nombre_abonnements": true,
       "A-PAYPAL:nombre_adhesions": true,
-      "A-PAYPAL:commande_sans_paiement": false,
+      "A-PAYPAL:commande_fictive_94": false,
       "A-PAYPAL:montant_fixture_explicite": true,
       "A-PAYPAL:produit_commande": false,
       "A-PAYPAL:etat_abonnement": false,
@@ -278,7 +282,7 @@
       "A-VIR:nombre_commandes": true,
       "A-VIR:nombre_abonnements": true,
       "A-VIR:nombre_adhesions": true,
-      "A-VIR:commande_sans_paiement": false,
+      "A-VIR:commande_fictive_97": false,
       "A-VIR:montant_fixture_explicite": true,
       "A-VIR:produit_commande": false,
       "A-VIR:etat_abonnement": false,
@@ -296,7 +300,7 @@
       "A-PAPIER:nombre_commandes": true,
       "A-PAPIER:nombre_abonnements": true,
       "A-PAPIER:nombre_adhesions": true,
-      "A-PAPIER:commande_sans_paiement": false,
+      "A-PAPIER:commande_fictive_100": false,
       "A-PAPIER:montant_fixture_explicite": true,
       "A-PAPIER:produit_commande": false,
       "A-PAPIER:etat_abonnement": false,
@@ -315,9 +319,10 @@
       "A-GRACE:nombre_commandes": true,
       "A-GRACE:nombre_abonnements": true,
       "A-GRACE:nombre_adhesions": true,
-      "A-GRACE:commande_sans_paiement": false,
+      "A-GRACE:commande_fictive_2420": true,
       "A-GRACE:montant_fixture_explicite": true,
       "A-GRACE:produit_commande": false,
+      "A-GRACE:commande_fictive_103": false,
       "A-GRACE:etat_abonnement": true,
       "A-GRACE:aucun_paiement_automatique": true,
       "A-GRACE:parent_natif": true,
@@ -334,9 +339,10 @@
       "A-SUSP:nombre_commandes": true,
       "A-SUSP:nombre_abonnements": true,
       "A-SUSP:nombre_adhesions": true,
-      "A-SUSP:commande_sans_paiement": false,
+      "A-SUSP:commande_fictive_2421": true,
       "A-SUSP:montant_fixture_explicite": true,
       "A-SUSP:produit_commande": false,
+      "A-SUSP:commande_fictive_106": false,
       "A-SUSP:etat_abonnement": true,
       "A-SUSP:aucun_paiement_automatique": true,
       "A-SUSP:parent_natif": true,
@@ -353,7 +359,7 @@
       "A-EXPIRE:nombre_commandes": true,
       "A-EXPIRE:nombre_abonnements": true,
       "A-EXPIRE:nombre_adhesions": true,
-      "A-EXPIRE:commande_sans_paiement": false,
+      "A-EXPIRE:commande_fictive_109": false,
       "A-EXPIRE:montant_fixture_explicite": true,
       "A-EXPIRE:produit_commande": false,
       "A-EXPIRE:etat_abonnement": false,
@@ -371,7 +377,7 @@
       "A-NONRENOUV:nombre_commandes": true,
       "A-NONRENOUV:nombre_abonnements": true,
       "A-NONRENOUV:nombre_adhesions": true,
-      "A-NONRENOUV:commande_sans_paiement": false,
+      "A-NONRENOUV:commande_fictive_112": false,
       "A-NONRENOUV:montant_fixture_explicite": true,
       "A-NONRENOUV:produit_commande": false,
       "A-NONRENOUV:etat_abonnement": false,
@@ -389,7 +395,7 @@
       "A-ETRANGER:nombre_commandes": true,
       "A-ETRANGER:nombre_abonnements": true,
       "A-ETRANGER:nombre_adhesions": true,
-      "A-ETRANGER:commande_sans_paiement": false,
+      "A-ETRANGER:commande_fictive_115": false,
       "A-ETRANGER:montant_fixture_explicite": true,
       "A-ETRANGER:produit_commande": false,
       "A-ETRANGER:etat_abonnement": false,
@@ -408,7 +414,7 @@
       "A-SANSMAIL:nombre_commandes": true,
       "A-SANSMAIL:nombre_abonnements": true,
       "A-SANSMAIL:nombre_adhesions": true,
-      "A-SANSMAIL:commande_sans_paiement": false,
+      "A-SANSMAIL:commande_fictive_118": false,
       "A-SANSMAIL:montant_fixture_explicite": true,
       "A-SANSMAIL:produit_commande": false,
       "A-SANSMAIL:etat_abonnement": false,
@@ -426,7 +432,7 @@
       "A-ECHEANCE:nombre_commandes": true,
       "A-ECHEANCE:nombre_abonnements": true,
       "A-ECHEANCE:nombre_adhesions": true,
-      "A-ECHEANCE:commande_sans_paiement": false,
+      "A-ECHEANCE:commande_fictive_121": false,
       "A-ECHEANCE:montant_fixture_explicite": true,
       "A-ECHEANCE:produit_commande": false,
       "A-ECHEANCE:etat_abonnement": false,
@@ -492,14 +498,16 @@
       "P-SOL-OK:etat_adhesion": false,
       "P-SOL-OK:plan_adhesion": true,
       "P-SOL-OK:fin_45_jours": true,
-      "P-NUMERO:motif": true,
+      "P-NUMERO:motif": false,
       "P-NUMERO:login_email": false,
       "P-NUMERO:password": false,
       "P-NUMERO:role": false,
       "P-NUMERO:nombre_commandes": true,
       "P-NUMERO:nombre_abonnements": true,
       "P-NUMERO:nombre_adhesions": true,
-      "P-NUMERO:commande_sans_paiement": false,
+      "P-NUMERO:commande_fictive_126": false,
+      "V-NUM:numero_achete_PDF": false,
+      "V-NUM:autre_numero_ferme": true,
       "P-NUMERO:montant_fixture_explicite": true,
       "P-NUMERO:produit_commande": false,
       "P-COOP:motif": true,
@@ -622,7 +630,7 @@
         },
         "orders": [
           {
-            "id": 215,
+            "id": 2438,
             "status": "pending",
             "total": "0.00",
             "customer_id": 8,
@@ -645,7 +653,7 @@
         },
         "orders": [
           {
-            "id": 212,
+            "id": 2435,
             "status": "pending",
             "total": "0.00",
             "customer_id": 9,
@@ -661,7 +669,11 @@
             "total": "120.00",
             "customer_id": 9,
             "item_count": 0,
-            "date_paid": null,
+            "date_paid": {
+              "date": "2026-08-27 19:31:06.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
             "gateway": "",
             "transaction_id": "",
             "shipping_country": "BE"
@@ -669,11 +681,11 @@
         ],
         "subscriptions": [
           {
-            "id": 213,
+            "id": 2436,
             "parent_id": 0,
             "customer_id": 9,
             "status": "pending",
-            "start": "2026-11-23 21:57:55",
+            "start": "2026-11-25 17:32:08",
             "end": 0,
             "next_payment": 0,
             "manual": true,
@@ -687,32 +699,32 @@
             "parent_id": 88,
             "customer_id": 9,
             "status": "on-hold",
-            "start": "2025-12-23 21:57:19",
-            "end": "2027-11-23 21:57:19",
-            "next_payment": "2026-12-23 21:57:19",
+            "start": "2026-08-27 17:31:06",
+            "end": "2027-11-25 17:31:06",
+            "next_payment": "2026-12-25 17:31:06",
             "manual": true,
-            "payment_count": 0,
+            "payment_count": 1,
             "grace_start": "",
             "grace_end": ""
           }
         ],
         "memberships": [
           {
-            "id": 214,
+            "id": 2437,
             "user_id": 9,
             "plan_id": 86,
             "status": "active",
             "order_id": null,
-            "start": "2026-11-23 21:57:55",
+            "start": "2026-11-25 17:32:08",
             "end": null
           },
           {
             "id": 90,
             "user_id": 9,
-            "plan_id": 211,
+            "plan_id": 2434,
             "status": "cancelled",
             "order_id": 88,
-            "start": "2026-11-23 21:57:55",
+            "start": "2026-11-25 17:32:08",
             "end": null
           }
         ]
@@ -726,12 +738,31 @@
         },
         "orders": [
           {
+            "id": 2419,
+            "status": "processing",
+            "total": "30.00",
+            "customer_id": 10,
+            "item_count": 1,
+            "date_paid": {
+              "date": "2026-10-26 18:31:06.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          },
+          {
             "id": 91,
             "status": "pending",
             "total": "30.00",
             "customer_id": 10,
             "item_count": 0,
-            "date_paid": null,
+            "date_paid": {
+              "date": "2026-05-29 19:31:06.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
             "gateway": "",
             "transaction_id": "",
             "shipping_country": "BE"
@@ -743,11 +774,11 @@
             "parent_id": 91,
             "customer_id": 10,
             "status": "on-hold",
-            "start": "2025-12-23 21:57:19",
-            "end": "2027-11-23 21:57:19",
-            "next_payment": "2026-12-23 21:57:19",
+            "start": "2026-05-29 17:31:06",
+            "end": "2027-11-25 17:31:06",
+            "next_payment": "2026-12-25 17:31:06",
             "manual": true,
-            "payment_count": 0,
+            "payment_count": 2,
             "grace_start": "",
             "grace_end": "",
             "scheduled_payment_action": false
@@ -760,8 +791,8 @@
             "plan_id": 86,
             "status": "cancelled",
             "order_id": 91,
-            "start": "2025-12-23 21:57:19",
-            "end": "2027-11-23 21:57:19"
+            "start": "2026-05-29 17:31:06",
+            "end": "2027-11-25 17:31:06"
           }
         ]
       },
@@ -779,7 +810,11 @@
             "total": "120.00",
             "customer_id": 11,
             "item_count": 0,
-            "date_paid": null,
+            "date_paid": {
+              "date": "2026-08-27 19:31:06.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
             "gateway": "",
             "transaction_id": "",
             "shipping_country": "BE"
@@ -791,11 +826,11 @@
             "parent_id": 94,
             "customer_id": 11,
             "status": "on-hold",
-            "start": "2025-12-23 21:57:19",
-            "end": "2027-11-23 21:57:19",
-            "next_payment": "2026-12-23 21:57:19",
+            "start": "2026-08-27 17:31:06",
+            "end": "2027-11-25 17:31:06",
+            "next_payment": "2026-12-25 17:31:06",
             "manual": true,
-            "payment_count": 0,
+            "payment_count": 1,
             "grace_start": "",
             "grace_end": "",
             "scheduled_payment_action": false
@@ -808,8 +843,8 @@
             "plan_id": 86,
             "status": "cancelled",
             "order_id": 94,
-            "start": "2025-12-23 21:57:19",
-            "end": "2027-11-23 21:57:19"
+            "start": "2026-08-27 17:31:06",
+            "end": "2027-11-25 17:31:06"
           }
         ]
       },
@@ -839,9 +874,9 @@
             "parent_id": 97,
             "customer_id": 12,
             "status": "on-hold",
-            "start": "2025-12-23 21:57:19",
-            "end": "2027-11-23 21:57:19",
-            "next_payment": "2026-12-23 21:57:19",
+            "start": "2025-12-25 17:31:06",
+            "end": "2027-11-25 17:31:06",
+            "next_payment": "2026-12-25 17:31:06",
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
@@ -856,8 +891,8 @@
             "plan_id": 86,
             "status": "cancelled",
             "order_id": 97,
-            "start": "2025-12-23 21:57:19",
-            "end": "2027-11-23 21:57:19"
+            "start": "2025-12-25 17:31:06",
+            "end": "2027-11-25 17:31:06"
           }
         ]
       },
@@ -875,7 +910,11 @@
             "total": "30.00",
             "customer_id": 13,
             "item_count": 0,
-            "date_paid": null,
+            "date_paid": {
+              "date": "2026-08-27 19:31:06.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
             "gateway": "",
             "transaction_id": "",
             "shipping_country": "BE"
@@ -887,11 +926,11 @@
             "parent_id": 100,
             "customer_id": 13,
             "status": "on-hold",
-            "start": "2025-12-23 21:57:19",
-            "end": "2027-11-23 21:57:19",
-            "next_payment": "2026-11-23 22:57:19",
+            "start": "2026-08-27 17:31:06",
+            "end": "2027-11-25 17:31:06",
+            "next_payment": "2026-11-25 18:31:06",
             "manual": true,
-            "payment_count": 0,
+            "payment_count": 1,
             "grace_start": "",
             "grace_end": "",
             "scheduled_payment_action": false
@@ -904,8 +943,8 @@
             "plan_id": 86,
             "status": "cancelled",
             "order_id": 100,
-            "start": "2025-12-23 21:57:19",
-            "end": "2027-11-23 21:57:19"
+            "start": "2026-08-27 17:31:06",
+            "end": "2027-11-25 17:31:06"
           }
         ]
       },
@@ -917,6 +956,17 @@
           "bloc": "abonnement"
         },
         "orders": [
+          {
+            "id": 2420,
+            "status": "failed",
+            "total": "0.00",
+            "customer_id": 14,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          },
           {
             "id": 103,
             "status": "pending",
@@ -935,13 +985,13 @@
             "parent_id": 103,
             "customer_id": 14,
             "status": "on-hold",
-            "start": "2025-12-23 21:57:19",
-            "end": "2027-11-23 21:57:19",
-            "next_payment": "2026-12-23 21:57:19",
+            "start": "2025-12-25 17:31:06",
+            "end": "2027-11-25 17:31:06",
+            "next_payment": "2026-12-25 17:31:06",
             "manual": true,
             "payment_count": 0,
-            "grace_start": "2026-11-22 21:57:19",
-            "grace_end": "2026-11-25 21:57:19",
+            "grace_start": "2026-11-24 17:31:06",
+            "grace_end": "2026-11-27 17:31:06",
             "scheduled_payment_action": false
           }
         ],
@@ -952,8 +1002,8 @@
             "plan_id": 86,
             "status": "cancelled",
             "order_id": 103,
-            "start": "2025-12-23 21:57:19",
-            "end": "2027-11-23 21:57:19"
+            "start": "2025-12-25 17:31:06",
+            "end": "2027-11-25 17:31:06"
           }
         ]
       },
@@ -965,6 +1015,17 @@
           "bloc": "abonnement"
         },
         "orders": [
+          {
+            "id": 2421,
+            "status": "failed",
+            "total": "0.00",
+            "customer_id": 15,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          },
           {
             "id": 106,
             "status": "pending",
@@ -983,13 +1044,13 @@
             "parent_id": 106,
             "customer_id": 15,
             "status": "on-hold",
-            "start": "2025-12-23 21:57:19",
-            "end": "2027-11-23 21:57:19",
-            "next_payment": "2026-12-23 21:57:19",
+            "start": "2025-12-25 17:31:06",
+            "end": "2027-11-25 17:31:06",
+            "next_payment": "2026-12-25 17:31:06",
             "manual": true,
             "payment_count": 0,
-            "grace_start": "2026-11-19 21:57:19",
-            "grace_end": "2026-11-22 21:57:19",
+            "grace_start": "2026-11-21 17:31:06",
+            "grace_end": "2026-11-24 17:31:06",
             "scheduled_payment_action": false
           }
         ],
@@ -1000,8 +1061,8 @@
             "plan_id": 86,
             "status": "cancelled",
             "order_id": 106,
-            "start": "2025-12-23 21:57:19",
-            "end": "2027-11-23 21:57:19"
+            "start": "2025-12-25 17:31:06",
+            "end": "2027-11-25 17:31:06"
           }
         ]
       },
@@ -1031,8 +1092,8 @@
             "parent_id": 109,
             "customer_id": 16,
             "status": "on-hold",
-            "start": "2025-12-23 21:57:19",
-            "end": "2026-11-22 21:57:19",
+            "start": "2025-12-25 17:31:06",
+            "end": "2026-11-24 17:31:06",
             "next_payment": 0,
             "manual": true,
             "payment_count": 0,
@@ -1048,8 +1109,8 @@
             "plan_id": 86,
             "status": "cancelled",
             "order_id": 109,
-            "start": "2025-12-23 21:57:19",
-            "end": "2026-11-22 21:57:19"
+            "start": "2025-12-25 17:31:06",
+            "end": "2026-11-24 17:31:06"
           }
         ]
       },
@@ -1067,7 +1128,11 @@
             "total": "0.00",
             "customer_id": 17,
             "item_count": 0,
-            "date_paid": null,
+            "date_paid": {
+              "date": "2026-08-27 19:31:06.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
             "gateway": "",
             "transaction_id": "",
             "shipping_country": "BE"
@@ -1079,11 +1144,11 @@
             "parent_id": 112,
             "customer_id": 17,
             "status": "on-hold",
-            "start": "2025-12-23 21:57:19",
-            "end": "2026-12-23 21:57:19",
+            "start": "2026-08-27 17:31:06",
+            "end": "2026-12-25 17:31:06",
             "next_payment": 0,
             "manual": true,
-            "payment_count": 0,
+            "payment_count": 1,
             "grace_start": "",
             "grace_end": "",
             "scheduled_payment_action": false
@@ -1096,8 +1161,8 @@
             "plan_id": 86,
             "status": "cancelled",
             "order_id": 112,
-            "start": "2025-12-23 21:57:19",
-            "end": "2026-12-23 21:57:19"
+            "start": "2026-08-27 17:31:06",
+            "end": "2026-12-25 17:31:06"
           }
         ]
       },
@@ -1115,7 +1180,11 @@
             "total": "0.00",
             "customer_id": 18,
             "item_count": 0,
-            "date_paid": null,
+            "date_paid": {
+              "date": "2026-08-27 19:31:06.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
             "gateway": "",
             "transaction_id": "",
             "shipping_country": "FR"
@@ -1127,11 +1196,11 @@
             "parent_id": 115,
             "customer_id": 18,
             "status": "on-hold",
-            "start": "2025-12-23 21:57:19",
-            "end": "2027-11-23 21:57:19",
-            "next_payment": "2026-12-23 21:57:19",
+            "start": "2026-08-27 17:31:06",
+            "end": "2027-11-25 17:31:06",
+            "next_payment": "2026-12-25 17:31:06",
             "manual": true,
-            "payment_count": 0,
+            "payment_count": 1,
             "grace_start": "",
             "grace_end": "",
             "scheduled_payment_action": false
@@ -1144,8 +1213,8 @@
             "plan_id": 86,
             "status": "cancelled",
             "order_id": 115,
-            "start": "2025-12-23 21:57:19",
-            "end": "2027-11-23 21:57:19"
+            "start": "2026-08-27 17:31:06",
+            "end": "2027-11-25 17:31:06"
           }
         ]
       },
@@ -1163,7 +1232,11 @@
             "total": "0.00",
             "customer_id": 19,
             "item_count": 0,
-            "date_paid": null,
+            "date_paid": {
+              "date": "2026-08-27 19:31:06.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
             "gateway": "",
             "transaction_id": "",
             "shipping_country": "BE"
@@ -1175,11 +1248,11 @@
             "parent_id": 118,
             "customer_id": 19,
             "status": "on-hold",
-            "start": "2025-12-23 21:57:19",
-            "end": "2027-11-23 21:57:19",
-            "next_payment": "2026-12-23 21:57:19",
+            "start": "2026-08-27 17:31:06",
+            "end": "2027-11-25 17:31:06",
+            "next_payment": "2026-12-25 17:31:06",
             "manual": true,
-            "payment_count": 0,
+            "payment_count": 1,
             "grace_start": "",
             "grace_end": "",
             "scheduled_payment_action": false
@@ -1192,8 +1265,8 @@
             "plan_id": 86,
             "status": "cancelled",
             "order_id": 118,
-            "start": "2025-12-23 21:57:19",
-            "end": "2027-11-23 21:57:19"
+            "start": "2026-08-27 17:31:06",
+            "end": "2027-11-25 17:31:06"
           }
         ]
       },
@@ -1211,7 +1284,11 @@
             "total": "0.00",
             "customer_id": 20,
             "item_count": 0,
-            "date_paid": null,
+            "date_paid": {
+              "date": "2026-08-27 19:31:06.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
             "gateway": "",
             "transaction_id": "",
             "shipping_country": "BE"
@@ -1223,11 +1300,11 @@
             "parent_id": 121,
             "customer_id": 20,
             "status": "on-hold",
-            "start": "2025-12-23 21:57:19",
-            "end": "2026-12-23 21:57:19",
-            "next_payment": "2026-12-22 21:57:19",
+            "start": "2026-08-27 17:31:06",
+            "end": "2026-12-25 17:31:06",
+            "next_payment": "2026-12-24 17:31:06",
             "manual": true,
-            "payment_count": 0,
+            "payment_count": 1,
             "grace_start": "",
             "grace_end": "",
             "scheduled_payment_action": false
@@ -1240,8 +1317,8 @@
             "plan_id": 86,
             "status": "cancelled",
             "order_id": 121,
-            "start": "2025-12-23 21:57:19",
-            "end": "2026-12-23 21:57:19"
+            "start": "2026-08-27 17:31:06",
+            "end": "2026-12-25 17:31:06"
           }
         ]
       },
@@ -1316,8 +1393,8 @@
             "plan_id": 86,
             "status": "cancelled",
             "order_id": null,
-            "start": "2025-12-23 21:57:19",
-            "end": "2027-11-23 21:57:19"
+            "start": "2025-12-25 17:31:06",
+            "end": "2027-11-25 17:31:06"
           }
         ]
       },
@@ -1337,8 +1414,8 @@
             "plan_id": 86,
             "status": "cancelled",
             "order_id": null,
-            "start": "2025-12-23 21:57:19",
-            "end": "2027-01-07 21:57:19"
+            "start": "2025-12-25 17:31:06",
+            "end": "2027-01-09 17:31:06"
           }
         ]
       },
@@ -1356,7 +1433,11 @@
             "total": "0.00",
             "customer_id": 28,
             "item_count": 0,
-            "date_paid": null,
+            "date_paid": {
+              "date": "2026-11-25 18:31:26.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
             "gateway": "",
             "transaction_id": "",
             "shipping_country": "BE"
@@ -1498,6 +1579,11 @@
         "solidaire-4": 195,
         "soutien-1": 196,
         "soutien-4": 197
+      },
+      "renewals": {
+        "A-SEPA4": 2419,
+        "A-GRACE": 2420,
+        "A-SUSP": 2421
       }
     }
   }

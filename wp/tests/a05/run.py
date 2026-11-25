@@ -25,7 +25,7 @@ def main():
     pairs = [(p, '/opt/a05/' + p.name) for p in ROOT.glob('*') if p.is_file()]
     base = REPO / 'wp/outils/bascule'
     pairs += [(p, '/subject/a05/' + p.name) for p in (base / 'a05').glob('*') if p.is_file()]
-    pairs += [(base/'plan-imagine.exemple.json','/subject/plan-imagine.exemple.json')]
+    pairs += [(base/'plan-imagine.exemple.json','/subject/plan-imagine.exemple.json'),(base/'nettoyer.md','/subject/nettoyer.md')]
     pairs += [(base / 'nettoyer', '/subject/nettoyer')] if (base / 'nettoyer').exists() else []
     pairs += [(p, '/subject/a04/' + p.name) for p in (base / 'a04').glob('*') if p.is_file()]
     pairs += [(ROOT.parent/'a03-non-regression'/f, '/opt/a03/'+f) for f in ['seed.php', 'inside.py', 'http-rollback.php']]

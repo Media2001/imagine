@@ -110,6 +110,8 @@ def run_storage(storage):
         after=subject.inspect_site(site);file_after=a03.filemap(site);db_after=a03.fingerprint(db,True)
         check(storage+':only_named_removed', 'a05-remove/entry.php' not in after['plugins'] and all(n in after['plugins'] for n in frozen_before['plugins'] if n!='a05-remove/entry.php') and not any(r['name'] in ['wp_a05_orphan','wp_a05_stats_2015','wp_a05_stats_2026'] for r in after['tables']) and not any(r['name'].startswith('a05_orphan_') for r in after['options']) and not any(r['name']=='a05_orphan_hook' for r in after['cron']) and not uploads.exists() and kept_upload.exists())
         check(storage+':default_uninstall_not_run',any(r['name']=='a05_uninstall_canary' for r in after['options']))
+        kept_cron={r['name']:r for r in frozen_before['cron'] if r['name']!='a05_orphan_hook'}
+        check(storage+':unlisted_cron_payloads_intact',bool(kept_cron) and kept_cron=={r['name']:r for r in after['cron']})
         options_after=option_hashes(db);option_changes=[n for n in set(options_before)|set(options_after) if options_before.get(n)!=options_after.get(n)]
         check(storage+':unlisted_option_values_intact',set(option_changes)=={'active_plugins','cron','a05_orphan_setting'},sorted(option_changes))
         write(OUT/(storage+'-options-fingerprints.json'),{'before':options_before,'after':options_after,'changed':sorted(option_changes)})

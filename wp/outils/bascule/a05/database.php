@@ -88,7 +88,8 @@ final class Database
                     continue;
                 }
                 foreach ($hooks as $hook => $events) {
-                    $cron[$hook] ??= ['name' => $hook, 'rows' => 0, 'bytes' => 0];
+                    $cron[$hook] ??= ['name' => $hook, 'rows' => 0, 'bytes' => 0, 'chunks' => []];
+                    $cron[$hook]['chunks'][$stamp] = hash('sha256', serialize($events));
                     $cron[$hook]['rows'] += count($events);
                     $cron[$hook]['bytes'] += strlen(serialize($events));
                 }

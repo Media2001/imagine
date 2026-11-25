@@ -1,0 +1,29 @@
+{
+  "evidence": "production\\A-05\\preuves\\3f1d3e3ce8f2",
+  "unit_tests": 16,
+  "integration_checks": 93,
+  "integration_failed": [],
+  "runner_checks": 7,
+  "runner_exit": 0,
+  "source_files_checked": 29,
+  "source_drift": [],
+  "a04_accepted_files_checked": 31,
+  "a04_drift": [],
+  "example_extensions": 22,
+  "example_diagnostic_exact": true,
+  "example_all_keep": true,
+  "native_a03": {
+    "classic": {
+      "native_exit": 0,
+      "schema": "imagine-a03-comparison-v1",
+      "changes": [],
+      "anormal": 0
+    },
+    "hpos": {
+      "native_exit": 0,
+      "schema": "imagine-a03-comparison-v1",
+      "changes": [],
+      "anormal": 0
+    }
+  }
+}

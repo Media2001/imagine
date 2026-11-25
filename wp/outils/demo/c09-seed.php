@@ -384,6 +384,13 @@ foreach ([...array_values($manifest['orders']), ...array_values($manifest['subsc
     }
     $o->save();
 }
+// Les transitions payées WCS peuvent changer le rôle client ; restaurer le contrat C09.
+foreach ($rows as $row) {
+    if (!$row['compte']) { continue; }
+    $user = new \WP_User($manifest['users'][$row['code']]);
+    $user->remove_all_caps();
+    $user->set_role($row['role'] ?? 'customer');
+}
 update_option('imagine_c09_fixture', $manifest);
 update_option('imagine_c09_seeded_at', $now->format('Y-m-d H:i:s'));
 echo wp_json_encode($manifest, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
