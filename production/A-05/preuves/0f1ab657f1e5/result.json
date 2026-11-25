@@ -1,0 +1,627 @@
+{
+  "suite": "A05-real-synthetic-classic-hpos",
+  "checks": [
+    {
+      "check": "classic:fixture_orphan_cron_really_present",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:maintenance_required",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A04_MAINTENANCE\n"
+      }
+    },
+    {
+      "check": "classic:inherited_recent_backup_guard",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:inherited_canonical_backup_guard",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:inherited_verified_status_guard",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:custom_uploads_config_fails_closed",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_CUSTOM_PATHS_UNSUPPORTED\n"
+      }
+    },
+    {
+      "check": "classic:dry_actual_environment_guard",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A04_ENVIRONMENT\n"
+      }
+    },
+    {
+      "check": "classic:dry_run",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:dry_database_files_exact",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:dry_sizes",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:a03_before",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "classic:refusal_dependency",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_DEPENDENCY:a05-base/entry.php\n"
+      }
+    },
+    {
+      "check": "classic:refusal_commerce",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_PROTECTED_PLUGIN:woocommerce/woocommerce.php\n"
+      }
+    },
+    {
+      "check": "classic:refusal_subscriptions",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_PROTECTED_PLUGIN:woocommerce-subscriptions/woocommerce-subscriptions.php\n"
+      }
+    },
+    {
+      "check": "classic:refusal_memberships",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_PROTECTED_PLUGIN:woocommerce-memberships/woocommerce-memberships.php\n"
+      }
+    },
+    {
+      "check": "classic:refusal_gateway",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_PROTECTED_PLUGIN:a05-gateway/entry.php\n"
+      }
+    },
+    {
+      "check": "classic:refusal_core-table",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_PROTECTED_TABLE:wp_posts\n"
+      }
+    },
+    {
+      "check": "classic:refusal_commerce-table",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_PROTECTED_TABLE:wp_wc_admin_notes\n"
+      }
+    },
+    {
+      "check": "classic:refusal_kept-table",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_KEPT_PLUGIN_TABLE:wp_a05_kept\n"
+      }
+    },
+    {
+      "check": "classic:refusal_outside-upload",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_NAME:../outside\n"
+      }
+    },
+    {
+      "check": "classic:refusal_active-theme",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_NAME:../themes/a03-fiction/index.php\n"
+      }
+    },
+    {
+      "check": "classic:resolved_upload_escape_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:registered_hook_not_orphan_refused",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_CRON_NOT_ORPHAN:a05_orphan_hook\n"
+      }
+    },
+    {
+      "check": "classic:actual_cleaner_paused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:same_site_other_state_locked",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:actual_sigkill",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:checkpoint_fsynced",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:actual_resume",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:expired_maintenance_resume_refreshed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:only_named_removed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:default_uninstall_not_run",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:unlisted_cron_payloads_intact",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:unlisted_option_values_intact",
+      "ok": true,
+      "detail": [
+        "a05_orphan_setting",
+        "active_plugins",
+        "cron"
+      ]
+    },
+    {
+      "check": "classic:unlisted_tables_intact",
+      "ok": true,
+      "detail": [
+        "wp_options"
+      ]
+    },
+    {
+      "check": "classic:unlisted_files_intact",
+      "ok": true,
+      "detail": [
+        ".maintenance",
+        "wp-content/plugins/a05-remove/uninstall.php",
+        "wp-content/plugins/a05-remove/entry.php",
+        "wp-content/uploads/a05-debris/fiction.txt",
+        "wp-content/mu-plugins/001-imagine-a04-maintenance.php"
+      ]
+    },
+    {
+      "check": "classic:repeat_zero_effect",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:fresh_second_pass_zero_effect",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:a03_after",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "classic:native_a03_result_unmodified",
+      "ok": true,
+      "detail": {
+        "native_exit": 0,
+        "schema": "imagine-a03-comparison-v1",
+        "changes": [],
+        "anormal": 0
+      }
+    },
+    {
+      "check": "classic:php_log_clean_before",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:php_log_clean_after",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:native_deactivate_files_kept",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:explicit_uninstall_dry_does_not_run",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:native_explicit_uninstall",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:ambiguous_uninstall_checkpoint_refused",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_UNINSTALL_AMBIGUOUS:a05-explicit/entry.php\n",
+        "proof_kind": "checkpoint-double"
+      }
+    },
+    {
+      "check": "hpos:fixture_orphan_cron_really_present",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:maintenance_required",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A04_MAINTENANCE\n"
+      }
+    },
+    {
+      "check": "hpos:inherited_recent_backup_guard",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:inherited_canonical_backup_guard",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:inherited_verified_status_guard",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:custom_uploads_config_fails_closed",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_CUSTOM_PATHS_UNSUPPORTED\n"
+      }
+    },
+    {
+      "check": "hpos:dry_actual_environment_guard",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A04_ENVIRONMENT\n"
+      }
+    },
+    {
+      "check": "hpos:dry_run",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:dry_database_files_exact",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:dry_sizes",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:a03_before",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "hpos:refusal_dependency",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_DEPENDENCY:a05-base/entry.php\n"
+      }
+    },
+    {
+      "check": "hpos:refusal_commerce",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_PROTECTED_PLUGIN:woocommerce/woocommerce.php\n"
+      }
+    },
+    {
+      "check": "hpos:refusal_subscriptions",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_PROTECTED_PLUGIN:woocommerce-subscriptions/woocommerce-subscriptions.php\n"
+      }
+    },
+    {
+      "check": "hpos:refusal_memberships",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_PROTECTED_PLUGIN:woocommerce-memberships/woocommerce-memberships.php\n"
+      }
+    },
+    {
+      "check": "hpos:refusal_gateway",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_PROTECTED_PLUGIN:a05-gateway/entry.php\n"
+      }
+    },
+    {
+      "check": "hpos:refusal_core-table",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_PROTECTED_TABLE:wp_posts\n"
+      }
+    },
+    {
+      "check": "hpos:refusal_commerce-table",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_PROTECTED_TABLE:wp_wc_admin_notes\n"
+      }
+    },
+    {
+      "check": "hpos:refusal_kept-table",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_KEPT_PLUGIN_TABLE:wp_a05_kept\n"
+      }
+    },
+    {
+      "check": "hpos:refusal_outside-upload",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_NAME:../outside\n"
+      }
+    },
+    {
+      "check": "hpos:refusal_active-theme",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_NAME:../themes/a03-fiction/index.php\n"
+      }
+    },
+    {
+      "check": "hpos:resolved_upload_escape_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:registered_hook_not_orphan_refused",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_CRON_NOT_ORPHAN:a05_orphan_hook\n"
+      }
+    },
+    {
+      "check": "hpos:actual_cleaner_paused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:same_site_other_state_locked",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:actual_sigkill",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:checkpoint_fsynced",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:actual_resume",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:expired_maintenance_resume_refreshed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:only_named_removed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:default_uninstall_not_run",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:unlisted_cron_payloads_intact",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:unlisted_option_values_intact",
+      "ok": true,
+      "detail": [
+        "a05_orphan_setting",
+        "active_plugins",
+        "cron"
+      ]
+    },
+    {
+      "check": "hpos:unlisted_tables_intact",
+      "ok": true,
+      "detail": [
+        "wp_options"
+      ]
+    },
+    {
+      "check": "hpos:unlisted_files_intact",
+      "ok": true,
+      "detail": [
+        ".maintenance",
+        "wp-content/plugins/a05-remove/uninstall.php",
+        "wp-content/plugins/a05-remove/entry.php",
+        "wp-content/uploads/a05-debris/fiction.txt",
+        "wp-content/mu-plugins/001-imagine-a04-maintenance.php"
+      ]
+    },
+    {
+      "check": "hpos:repeat_zero_effect",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:fresh_second_pass_zero_effect",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:a03_after",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "hpos:native_a03_result_unmodified",
+      "ok": true,
+      "detail": {
+        "native_exit": 0,
+        "schema": "imagine-a03-comparison-v1",
+        "changes": [],
+        "anormal": 0
+      }
+    },
+    {
+      "check": "hpos:php_log_clean_before",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:php_log_clean_after",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:native_deactivate_files_kept",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:explicit_uninstall_dry_does_not_run",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:native_explicit_uninstall",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:ambiguous_uninstall_checkpoint_refused",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_UNINSTALL_AMBIGUOUS:a05-explicit/entry.php\n",
+        "proof_kind": "checkpoint-double"
+      }
+    },
+    {
+      "check": "network_none",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp6",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "exit_code": 0
+}
