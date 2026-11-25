@@ -1,0 +1,121 @@
+{
+  "suite": "A05-real-synthetic-classic-hpos",
+  "checks": [
+    {
+      "check": "classic:fixture_orphan_cron_really_present",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:maintenance_required",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A04_MAINTENANCE\n"
+      }
+    },
+    {
+      "check": "classic:inherited_recent_backup_guard",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:inherited_canonical_backup_guard",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:inherited_verified_status_guard",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:custom_uploads_config_fails_closed",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_CUSTOM_PATHS_UNSUPPORTED\n"
+      }
+    },
+    {
+      "check": "classic:dry_actual_environment_guard",
+      "ok": false,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:exception",
+      "ok": false,
+      "class": "AssertionError",
+      "code": "classic:dry_actual_environment_guard"
+    },
+    {
+      "check": "hpos:fixture_orphan_cron_really_present",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:maintenance_required",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A04_MAINTENANCE\n"
+      }
+    },
+    {
+      "check": "hpos:inherited_recent_backup_guard",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:inherited_canonical_backup_guard",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:inherited_verified_status_guard",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:custom_uploads_config_fails_closed",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "code": "A05_CUSTOM_PATHS_UNSUPPORTED\n"
+      }
+    },
+    {
+      "check": "hpos:dry_actual_environment_guard",
+      "ok": false,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:exception",
+      "ok": false,
+      "class": "AssertionError",
+      "code": "hpos:dry_actual_environment_guard"
+    },
+    {
+      "check": "network_none",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp6",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "exit_code": 1
+}

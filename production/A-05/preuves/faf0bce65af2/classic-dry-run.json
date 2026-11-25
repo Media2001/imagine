@@ -1,0 +1,63 @@
+{
+  "mode": "dry-run",
+  "operations": [
+    {
+      "kind": "deactivate",
+      "name": "a05-remove/entry.php",
+      "rows": 1,
+      "bytes": 0,
+      "phase": "pending"
+    },
+    {
+      "kind": "plugin",
+      "name": "a05-remove/entry.php",
+      "files": 2,
+      "bytes": 152,
+      "phase": "pending"
+    },
+    {
+      "kind": "table",
+      "name": "wp_a05_orphan",
+      "rows": 2,
+      "bytes": 16384,
+      "phase": "pending"
+    },
+    {
+      "kind": "table",
+      "name": "wp_a05_stats_2015",
+      "rows": 1,
+      "bytes": 16384,
+      "phase": "pending"
+    },
+    {
+      "kind": "table",
+      "name": "wp_a05_stats_2026",
+      "rows": 1,
+      "bytes": 16384,
+      "phase": "pending"
+    },
+    {
+      "kind": "option",
+      "name": "a05_orphan_setting",
+      "rows": 1,
+      "bytes": 14,
+      "phase": "pending"
+    },
+    {
+      "kind": "cron",
+      "name": "a05_orphan_hook",
+      "rows": 1,
+      "bytes": 106,
+      "phase": "pending"
+    },
+    {
+      "kind": "upload",
+      "name": "a05-debris",
+      "files": 1,
+      "bytes": 14,
+      "phase": "pending"
+    }
+  ],
+  "table_bytes": "allocated data+indexes; rows exact",
+  "uninstall_effects": "unknown third-party routine; not executed"
+}

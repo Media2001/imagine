@@ -60,6 +60,8 @@ def run_storage(storage):
     custom_config=config+"\ndefine('UPLOADS', '/fiction/outside');\n";(site/'wp-config.php').write_text(custom_config)
     r=clean(site,plan,backup,state,['--dry-run']);(site/'wp-config.php').write_text(config)
     check(storage+':custom_uploads_config_fails_closed',r.returncode==1 and r.stderr=='A05_CUSTOM_PATHS_UNSUPPORTED\n',{'exit':r.returncode,'code':r.stderr[:120]})
+    wrong_env=config.replace("define('WP_ENVIRONMENT_TYPE', 'staging')","define('WP_ENVIRONMENT_TYPE', 'production')");(site/'wp-config.php').write_text(wrong_env);r=clean(site,plan,backup,state,['--dry-run']);(site/'wp-config.php').write_text(config)
+    check(storage+':dry_actual_environment_guard',wrong_env!=config and r.returncode==1 and r.stderr=='A04_ENVIRONMENT\n',{'exit':r.returncode,'code':r.stderr[:120]})
     check(storage+':dry_run',dry.returncode==0,{'exit':dry.returncode,'code':dry.stderr[:200]})
     check(storage+':dry_database_files_exact',before_db==a03.fingerprint(db,True) and before_files==a03.filemap(site))
     report=json.loads(dry.stdout);check(storage+':dry_sizes',any(o['kind']=='table' and o['name']=='wp_a05_orphan' and o['rows']==2 and o['bytes']>0 for o in report['operations']) and any(o['kind']=='upload' and o['files']==1 and o['bytes']==14 for o in report['operations']))
@@ -81,6 +83,10 @@ def run_storage(storage):
         outside=ROOT/(storage+'-outside');outside.mkdir();(outside/'canary.txt').write_text('outside intact');link=site/'wp-content/uploads/a05-link';link.symlink_to(outside,target_is_directory=True)
         bad=ROOT/(storage+'-symlink.json');write(bad,{**plan_doc,'uploads':[{'path':'a05-link','action':'supprimer'}]});refused=clean(site,bad,backup,ROOT/(storage+'-refused-symlink'))
         check(storage+':resolved_upload_escape_refused',refused.returncode==1 and 'SYMLINK' in refused.stderr and (outside/'canary.txt').read_text()=='outside intact');link.unlink()
+        # Registered hooks are not orphans; prove the native preflight is read-only.
+        hook_guard=site/'wp-content/mu-plugins/997-a05-hook.php';hook_guard.write_text("<?php add_action('a05_orphan_hook','__return_true');")
+        registered=ROOT/(storage+'-registered-hook.json');write(registered,{**plan_doc,'plugins':[],'tables':[],'options':[],'uploads':[]});hook_db=a03.fingerprint(db);hook_files=a03.filemap(site);r=clean(site,registered,backup,ROOT/(storage+'-registered-state'))
+        check(storage+':registered_hook_not_orphan_refused',r.returncode==1 and r.stderr=='A05_CRON_NOT_ORPHAN:a05_orphan_hook\n' and hook_db==a03.fingerprint(db) and hook_files==a03.filemap(site),{'exit':r.returncode,'code':r.stderr[:150]});hook_guard.unlink()
         frozen_before=subject.inspect_site(site);file_before=a03.filemap(site);db_before=a03.fingerprint(db,True);options_before=option_hashes(db)
         interrupted=subprocess.Popen(['python3','-B','/subject/nettoyer','--wp-path='+str(site),'--plan='+str(plan),'--backup='+str(backup),'--state='+str(state),'--stop-after=1','--pause'],stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)
         try:

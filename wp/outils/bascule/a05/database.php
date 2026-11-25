@@ -41,11 +41,22 @@ final class Database
         require_once dirname(__DIR__) . '/a03/Policy.php';
         $source = file_get_contents($input['site'] . '/wp-config.php');
         $tokens = array_values(array_filter(token_get_all($source), static fn ($t): bool => !is_array($t) || !in_array($t[0], [T_WHITESPACE, T_COMMENT, T_DOC_COMMENT], true)));
+        $environment = null;
         foreach ($tokens as $i => $token) {
             if (is_array($token) && $token[0] === T_STRING && strtolower($token[1]) === 'define' && ($tokens[$i + 1] ?? null) === '(' && is_array($tokens[$i + 2] ?? null)) {
                 $key = trim($tokens[$i + 2][1], "'\"");
                 if (in_array($key, ['UPLOADS', 'WP_CONTENT_DIR', 'WP_PLUGIN_DIR', 'WPMU_PLUGIN_DIR'], true)) {
                     throw new \RuntimeException('A05_CUSTOM_PATHS_UNSUPPORTED');
+                }
+                if ($key === 'WP_ENVIRONMENT_TYPE') {
+                    $value = $tokens[$i + 4] ?? null;
+                    if ($environment !== null || !is_array($value) || $value[0] !== T_CONSTANT_ENCAPSED_STRING || !in_array(trim($value[1], "'\""), ['staging', 'production'], true)) {
+                        throw new \RuntimeException('A05_ENVIRONMENT_CONFIG');
+                    }
+                    $environment = trim($value[1], "'\"");
+                }
+                if ($key === 'MULTISITE' && (($tokens[$i + 4][1] ?? null) !== 'false')) {
+                    throw new \RuntimeException('A05_MULTISITE_UNSUPPORTED');
                 }
             }
         }
@@ -82,7 +93,7 @@ final class Database
                     $cron[$hook]['bytes'] += strlen(serialize($events));
                 }
             }
-            $result = ['prefix' => $prefix, 'tables' => $tables, 'options' => $rows, 'cron' => array_values($cron), 'active' => array_values(self::decode(self::value($db, $options, 'active_plugins'))), 'theme' => self::value($db, $options, 'stylesheet')];
+            $result = ['environment' => $environment ?? 'production', 'prefix' => $prefix, 'tables' => $tables, 'options' => $rows, 'cron' => array_values($cron), 'active' => array_values(self::decode(self::value($db, $options, 'active_plugins'))), 'theme' => self::value($db, $options, 'stylesheet')];
             $db->rollBack();
             return $result;
         }

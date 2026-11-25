@@ -210,7 +210,7 @@ def execute(args):
             if not args.dry_run and not state['complete']:a04.refresh_maintenance(site)
             else:a04.maintenance(site)
         else:a04.maintenance(site)
-        inv=inspect_site(site); proposed=operations(site,plan,inv)
+        inv=inspect_site(site);need(inv['environment']==environment,'A04_ENVIRONMENT');proposed=operations(site,plan,inv)
         if args.dry_run:
             print(json.dumps({'mode':'dry-run','operations':proposed,'table_bytes':'allocated data+indexes; rows exact','uninstall_effects':'unknown third-party routine; not executed'},ensure_ascii=False,indent=2));return 0
         if state and state['complete']:
