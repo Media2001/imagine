@@ -1,0 +1,31 @@
+{
+  "schema": "imagine-a12-delivery-v1",
+  "verdict": "PARTIEL_NON_PRET",
+  "readiness": false,
+  "requirements": {
+    "stored_counts_and_dates": true,
+    "terms_top_twenty": true,
+    "metadata_keys_counts": true,
+    "attachments": true,
+    "recognizable_product_links": true,
+    "privacy": true,
+    "database_readonly": true,
+    "site_files_unchanged": true,
+    "runtime_registry_exhaustive": false,
+    "shared_image_preparation_run": false,
+    "shared_audit_readme_updated_by_parent": false
+  },
+  "bounded_suite_exit": 0,
+  "evidence_integrity_exit": 0,
+  "evidence": "production/A-12/preuves/final",
+  "unmet_requirements": [
+    "Exhaustive runtime registry without WordPress bootstrap is not proven.",
+    "Shared test image preparation reserved for parent; not run here."
+  ],
+  "counts": {
+    "unit.json": 5,
+    "result.json": 100,
+    "runner.json": 7,
+    "style.json": 6
+  }
+}

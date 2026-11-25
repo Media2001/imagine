@@ -50,6 +50,11 @@ def main():
             for name in ['contenus.json', 'contenus.md']:
                 payload = (out/(storage+'-contents')/name).read_text()
                 check(storage+':privacy:'+name, not re.search(r'PRIVATE_CANARY|@example|DB_PASSWORD|/scratch|first\.pdf|second\.pdf|post_title|post_content|post_author|meta_value', payload))
+        style = json.loads((out/'style/style.json').read_text())
+        check('strict_psr12_pass', style['exit_code'] == 0 and style['phpcs_exit'] == 0 and style['totals']['errors'] == 0 and style['totals']['warnings'] == 0)
+        check('style_exact_source_binding', style['sources'] == owned)
+        check('style_cleanup', any(x['check'] == 'cleanup' and x['status'] == 'PASS' for x in style['checks']))
+        totals['style.json'] = len(style['checks'])
         check('no_pret', not (run.REPO/'production/A-12/PRET').exists())
         missing = run.b.call(['inspect', runner['container']], check=False)
         check('exact_owned_runner_still_absent', missing.returncode != 0 and re.search(r'no such (object|container)', missing.stderr, re.I) is not None)

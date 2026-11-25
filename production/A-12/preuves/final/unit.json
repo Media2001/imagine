@@ -1,0 +1,26 @@
+{
+    "suite": "A12-pure-unit",
+    "checks": [
+        {
+            "check": "declaration_parser_implemented",
+            "status": "PASS"
+        },
+        {
+            "check": "literal_post_types_not_comments_strings_or_methods",
+            "status": "PASS"
+        },
+        {
+            "check": "literal_fully_qualified_taxonomy",
+            "status": "PASS"
+        },
+        {
+            "check": "dynamic_and_concatenated_arguments_explicit",
+            "status": "PASS"
+        },
+        {
+            "check": "invalid_identifier_never_exported",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 0
+}

@@ -14,9 +14,11 @@ if (getenv('A11_VARIANT') === 'seed') {
     }
     $author = wp_insert_user(['user_login' => 'a11-public-writer', 'user_nicename' => 'a11-writer', 'user_email' => 'a11-writer@example.org', 'display_name' => 'PRIVATE_AUTHOR_NAME_CANARY', 'role' => 'author']);
     wp_insert_user(['user_login' => 'a11-no-posts', 'user_nicename' => 'PRIVATE_NO_POST_AUTHOR_CANARY', 'user_email' => 'a11-no-posts@example.org', 'role' => 'subscriber']);
+    $pageAuthor = wp_insert_user(['user_login' => 'a11-page-only', 'user_nicename' => 'PRIVATE_PAGE_ONLY_CANARY', 'user_email' => 'a11-page-only@example.org', 'role' => 'author']);
+    $productAuthor = wp_insert_user(['user_login' => 'a11-product-writer', 'user_nicename' => 'a11-product-writer', 'user_email' => 'a11-product-writer@example.org', 'role' => 'author']);
     $ids = [];
     foreach ([['article', 'post', 'publish', ''], ['unicode', 'post', 'publish', ''], ['parent', 'page', 'publish', ''], ['child', 'page', 'publish', ''], ['story', 'a11_story', 'publish', ''], ['draft', 'post', 'draft', ''], ['private', 'page', 'private', ''], ['protected', 'post', 'publish', 'invented-password'], ['shop', 'page', 'publish', '']] as [$slug, $type, $status, $password]) {
-        $ids[$slug] = wp_insert_post(['post_type' => $type, 'post_status' => $status, 'post_name' => $slug === 'unicode' ? 'a11-école' : 'a11-' . $slug, 'post_title' => 'PRIVATE_CONTENT_TITLE_CANARY', 'post_content' => 'PRIVATE_BODY_CANARY', 'post_author' => $author, 'post_password' => $password, 'post_date' => '2025-02-03 12:00:00', 'post_date_gmt' => '2025-02-03 12:00:00', 'post_parent' => $slug === 'child' ? $ids['parent'] : 0]);
+        $ids[$slug] = wp_insert_post(['post_type' => $type, 'post_status' => $status, 'post_name' => $slug === 'unicode' ? 'a11-école' : 'a11-' . $slug, 'post_title' => 'PRIVATE_CONTENT_TITLE_CANARY', 'post_content' => 'PRIVATE_BODY_CANARY', 'post_author' => $type === 'page' ? $pageAuthor : $author, 'post_password' => $password, 'post_date' => '2025-02-03 12:00:00', 'post_date_gmt' => '2025-02-03 12:00:00', 'post_parent' => $slug === 'child' ? $ids['parent'] : 0]);
     }
     $p = new WC_Product_Simple();
     $p->set_name('PRIVATE_PRODUCT_NAME_CANARY');
@@ -24,6 +26,8 @@ if (getenv('A11_VARIANT') === 'seed') {
     $p->set_status('publish');
     $p->set_regular_price('4.00');
     $ids['product'] = $p->save();
+    wp_update_post(['ID' => $ids['product'], 'post_author' => $productAuthor]);
+    update_option('a11_fixture_product_author', $productAuthor);
     // These are attachment PAGE URLs, never upload/download URLs.
     foreach (['attachment' => 'article', 'hidden-attachment' => 'protected'] as $slug => $parent) {
         $ids[$slug] = wp_insert_attachment(['post_title' => 'PRIVATE_ATTACHMENT_CANARY', 'post_name' => 'a11-' . $slug, 'post_status' => 'inherit', 'post_mime_type' => 'image/png'], false, $ids[$parent]);

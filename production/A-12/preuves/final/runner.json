@@ -1,0 +1,68 @@
+{
+  "suite": "A12-owned-runner",
+  "container": "imagine-a12-content-5151e7f3ad67",
+  "at_utc": "2026-11-25T22:55:15.317907+00:00",
+  "mode": "native",
+  "checks": [
+    {
+      "check": "isolation_before",
+      "status": "PASS",
+      "detail": {
+        "network": "none",
+        "mounts": [],
+        "ports": [],
+        "privileged": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2"
+      }
+    },
+    {
+      "check": "unit_return",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "native_return",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "isolation_after",
+      "status": "PASS",
+      "detail": {
+        "network": "none",
+        "mounts": [],
+        "ports": [],
+        "privileged": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2"
+      }
+    },
+    {
+      "check": "cleanup_exact_owned_runner",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "owned_sources_stable",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "protected_sources_unchanged",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 0
+}

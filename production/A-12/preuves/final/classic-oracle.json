@@ -1,0 +1,172 @@
+{
+  "all_attachment_count": 4,
+  "all_orphan_count": 2,
+  "wordpress": "7.0.9",
+  "woocommerce": "11.1.1",
+  "runtime_registered": {
+    "a12_article": true,
+    "a12_empty": true,
+    "a12_rubrique": true,
+    "a12_theme": true,
+    "a12_dynamic": true
+  },
+  "runtime_post_types": [
+    "post",
+    "page",
+    "attachment",
+    "revision",
+    "nav_menu_item",
+    "custom_css",
+    "customize_changeset",
+    "oembed_cache",
+    "user_request",
+    "wp_block",
+    "wp_template",
+    "wp_template_part",
+    "wp_global_styles",
+    "wp_navigation",
+    "wp_font_family",
+    "wp_font_face",
+    "scheduled-action",
+    "product",
+    "product_variation",
+    "shop_order",
+    "shop_order_refund",
+    "shop_coupon",
+    "shop_order_placehold",
+    "shop_subscription",
+    "a12_article",
+    "a12_empty",
+    "a12_dynamic",
+    "wc_membership_plan",
+    "wc_user_membership",
+    "a12_theme"
+  ],
+  "runtime_taxonomies": [
+    "category",
+    "post_tag",
+    "nav_menu",
+    "link_category",
+    "post_format",
+    "wp_theme",
+    "wp_template_part_area",
+    "wp_pattern_category",
+    "action-group",
+    "product_brand",
+    "product_type",
+    "product_visibility",
+    "product_cat",
+    "product_tag",
+    "product_shipping_class",
+    "pos_product_visibility",
+    "a12_rubrique"
+  ],
+  "states": {
+    "draft": 1,
+    "private": 1,
+    "publish": 2,
+    "trash": 1
+  },
+  "top_terms": [
+    {
+      "name": "Rubrique fictive 01",
+      "content_count": 3
+    },
+    {
+      "name": "Rubrique fictive 02",
+      "content_count": 2
+    },
+    {
+      "name": "Rubrique fictive 03",
+      "content_count": 0
+    },
+    {
+      "name": "Rubrique fictive 04",
+      "content_count": 0
+    },
+    {
+      "name": "Rubrique fictive 05",
+      "content_count": 0
+    },
+    {
+      "name": "Rubrique fictive 06",
+      "content_count": 0
+    },
+    {
+      "name": "Rubrique fictive 07",
+      "content_count": 0
+    },
+    {
+      "name": "Rubrique fictive 08",
+      "content_count": 0
+    },
+    {
+      "name": "Rubrique fictive 09",
+      "content_count": 0
+    },
+    {
+      "name": "Rubrique fictive 10",
+      "content_count": 0
+    },
+    {
+      "name": "Rubrique fictive 11",
+      "content_count": 0
+    },
+    {
+      "name": "Rubrique fictive 12",
+      "content_count": 0
+    },
+    {
+      "name": "Rubrique fictive 13",
+      "content_count": 0
+    },
+    {
+      "name": "Rubrique fictive 14",
+      "content_count": 0
+    },
+    {
+      "name": "Rubrique fictive 15",
+      "content_count": 0
+    },
+    {
+      "name": "Rubrique fictive 16",
+      "content_count": 0
+    },
+    {
+      "name": "Rubrique fictive 17",
+      "content_count": 0
+    },
+    {
+      "name": "Rubrique fictive 18",
+      "content_count": 0
+    },
+    {
+      "name": "Rubrique fictive 19",
+      "content_count": 0
+    },
+    {
+      "name": "Rubrique fictive 20",
+      "content_count": 0
+    }
+  ],
+  "term_count": 23,
+  "metadata_content_count": 5,
+  "attachments": [
+    {
+      "mime": "application/pdf",
+      "bytes": 23,
+      "orphan": false
+    },
+    {
+      "mime": "application/pdf",
+      "bytes": 28,
+      "orphan": true
+    },
+    {
+      "mime": "image/png",
+      "bytes": 10,
+      "orphan": false
+    }
+  ],
+  "hpos": false
+}

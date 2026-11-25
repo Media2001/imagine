@@ -1,0 +1,2 @@
+Complément A-12 (registre partiel, NON PRET) : php wp/outils/bascule/a12/inventorier-contenus --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/contenus-date
+Lecture seule ; structures/comptes et noms de rubriques, jamais titres/valeurs ; registre runtime non prouvé ; rejeu dédié : python wp/tests/a12/run.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a12-rejeu-nouveau

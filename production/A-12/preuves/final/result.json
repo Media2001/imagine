@@ -1,0 +1,558 @@
+{
+  "suite": "A12-bounded-native-readonly-inventory",
+  "checks": [
+    {
+      "check": "a12_lint:AuditLibrary.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "a12_lint:Command.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "a12_lint:Declarations.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "a12_lint:Inventory.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "a12_lint:readonly-probe.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "a12_lint:seed.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "a12_lint:unit.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "a12_lint:inventorier-contenus",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:seed.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:fingerprint.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:unit.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:readonly-probe.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": false,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "classic:native_registration_and_storage",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:a02_audit_compatible",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:inventory_implemented",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:cli_success",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0,
+        "stderr": "suppressed"
+      }
+    },
+    {
+      "check": "classic:exact_states_and_distinct_content_count",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:publication_utc_not_drafts_or_trash",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:empty_declared_type",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:source_mu_and_theme",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:inactive_source_excluded",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_false_runtime_claim",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:runtime_incompleteness_really_observed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:metadata_distinct_owners_not_row_count",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:exact_taxonomy_terms_top_twenty",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:taxonomy_distinct_content_statuses",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:taxonomy_publication_dates",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:two_pdfs_exact_sizes_one_orphan",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:non_pdf_size",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:distinct_scalar_product_links",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:case_sensitive_link_keys",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:reverse_product_to_article_link",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:serialized_link_not_interpreted",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:privacy_no_titles_values_contacts_paths",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:modes",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:replay_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:existing_output",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:web_output",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:source_output",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:bad_argument",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:symlink_parent_web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:missing_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:canonical_repository",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:audit_storage_mismatch",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:audit_schema",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:missing_dependency_closed_error",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:missing_media_not_invented_size",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:symlink_media",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:root_transaction_blocks_writes",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:dynamic_config",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_tables_identical_including_scheduler",
+      "status": "PASS",
+      "detail": {
+        "before": "009f5e09272c00bf767a07b1bc8485f6bb9e39730faba6de25f0835e4da350ed",
+        "after": "009f5e09272c00bf767a07b1bc8485f6bb9e39730faba6de25f0835e4da350ed",
+        "tables": 55
+      }
+    },
+    {
+      "check": "classic:site_files_identical",
+      "status": "PASS",
+      "detail": {
+        "before": "357343bd820d67c19652c79c4d19a3f222f52ed8f3aa1ce07b277f98f48b9865",
+        "after": "357343bd820d67c19652c79c4d19a3f222f52ed8f3aa1ce07b277f98f48b9865"
+      }
+    },
+    {
+      "check": "classic:never_bootstrap",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": true,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "hpos:native_registration_and_storage",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:a02_audit_compatible",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:inventory_implemented",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:cli_success",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0,
+        "stderr": "suppressed"
+      }
+    },
+    {
+      "check": "hpos:exact_states_and_distinct_content_count",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:publication_utc_not_drafts_or_trash",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:empty_declared_type",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:source_mu_and_theme",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:inactive_source_excluded",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_false_runtime_claim",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:runtime_incompleteness_really_observed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:metadata_distinct_owners_not_row_count",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:exact_taxonomy_terms_top_twenty",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:taxonomy_distinct_content_statuses",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:taxonomy_publication_dates",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:two_pdfs_exact_sizes_one_orphan",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:non_pdf_size",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:distinct_scalar_product_links",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:case_sensitive_link_keys",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:reverse_product_to_article_link",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:serialized_link_not_interpreted",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:privacy_no_titles_values_contacts_paths",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:modes",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:replay_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:existing_output",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:web_output",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:source_output",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:bad_argument",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:symlink_parent_web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:missing_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:canonical_repository",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:audit_storage_mismatch",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:audit_schema",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:missing_dependency_closed_error",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:missing_media_not_invented_size",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:symlink_media",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:root_transaction_blocks_writes",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:dynamic_config",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_tables_identical_including_scheduler",
+      "status": "PASS",
+      "detail": {
+        "before": "eab3fdc717c1f729086799bb1c16df79e9d579e994160999588d7a2940abd9c6",
+        "after": "eab3fdc717c1f729086799bb1c16df79e9d579e994160999588d7a2940abd9c6",
+        "tables": 55
+      }
+    },
+    {
+      "check": "hpos:site_files_identical",
+      "status": "PASS",
+      "detail": {
+        "before": "79ce44bdf2601cdf68d069f2730c0e48e7e5ab0ea298104c335c6597bea1fb38",
+        "after": "79ce44bdf2601cdf68d069f2730c0e48e7e5ab0ea298104c335c6597bea1fb38"
+      }
+    },
+    {
+      "check": "hpos:never_bootstrap",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "network_interfaces",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp6",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 0,
+  "licensed_sha256": {
+    "woocommerce-subscriptions.zip": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083",
+    "woocommerce-memberships.zip": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285"
+  },
+  "no_real_site": true,
+  "readiness": false,
+  "unmet_requirements": [
+    "Exhaustive runtime registry without WordPress bootstrap is not proven.",
+    "Shared test image preparation reserved for parent; not run here."
+  ]
+}

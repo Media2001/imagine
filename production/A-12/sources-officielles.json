@@ -1,0 +1,51 @@
+[
+  {
+    "reference": "get_post_types",
+    "url": "https://developer.wordpress.org/reference/functions/get_post_types/",
+    "http_status": 200,
+    "sha256": "34eb006bb82134969069c1291b3c08b47d1c7c86b30081c508e5207ac97ac44d",
+    "pattern_observed": true
+  },
+  {
+    "reference": "get_taxonomies",
+    "url": "https://developer.wordpress.org/reference/functions/get_taxonomies/",
+    "http_status": 200,
+    "sha256": "9343e0c5c9b1e8a33b7b5352d0651590bf161a0e6037ecd2192fc671599b9066",
+    "pattern_observed": true
+  },
+  {
+    "reference": "register_post_type",
+    "url": "https://developer.wordpress.org/reference/functions/register_post_type/",
+    "http_status": 200,
+    "sha256": "960a9e79210d433418b9b9502570a8d6bf13e0964e8c8ad3bb80ed5473be53d6",
+    "pattern_observed": true
+  },
+  {
+    "reference": "register_taxonomy",
+    "url": "https://developer.wordpress.org/reference/functions/register_taxonomy/",
+    "http_status": 200,
+    "sha256": "b263670f2c504514a7165d6481cbdccad72e4f8010ab51df18fbe8be7085f052",
+    "pattern_observed": true
+  },
+  {
+    "reference": "get_attached_file",
+    "url": "https://developer.wordpress.org/reference/functions/get_attached_file/",
+    "http_status": 200,
+    "sha256": "c3a71dff5f87df2a5132a2e04fb8ff255ae3d3a5edf81b96338b89da08db82d5",
+    "pattern_observed": true
+  },
+  {
+    "reference": "attachment_metadata",
+    "url": "https://developer.wordpress.org/reference/functions/wp_get_attachment_metadata/",
+    "http_status": 200,
+    "sha256": "fddb409071ab281e208775d8d1eed7fa69b82f127feee74888c9b5c50bf889a8",
+    "pattern_observed": true
+  },
+  {
+    "reference": "hpos",
+    "url": "https://developer.woocommerce.com/docs/features/high-performance-order-storage/",
+    "http_status": 200,
+    "sha256": "592a84d2249abc9cd081874e6fa1f4c934cab70656fd47025bb81013601ef91b",
+    "pattern_observed": true
+  }
+]

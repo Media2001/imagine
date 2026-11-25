@@ -33,6 +33,7 @@ foreach (get_taxonomies(['public' => true], 'objects') as $tax) {
     }
 }
 $add(get_author_posts_url((int) get_option('a11_fixture_author')), "archive d'auteur", 'author');
+$add(get_author_posts_url((int) get_option('a11_fixture_product_author')), "archive d'auteur", 'author');
 foreach (['post', 'product', 'a11_story'] as $type) {
     $add(get_post_type_archive_link($type), 'archive de type de contenu', $type);
 }

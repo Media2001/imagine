@@ -87,7 +87,8 @@ final class Inventory
                         'product' => 'produit',
                         default => 'article',
                     };
-                    if (post_type_supports($post->post_type, 'author') && $post->post_author) {
+                    // Same type scope as native WP user sitemaps: no page/attachment-only authors.
+                    if ($post->post_type !== 'page' && $post->post_author) {
                         $authors[(int) $post->post_author] = true;
                     }
                 }

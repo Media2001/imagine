@@ -64,6 +64,9 @@ def main():
             b.call(['rm', '-f', name])
             missing = b.call(['inspect', name], check=False)
             record('cleanup', missing.returncode != 0 and re.search(r'no such (object|container)', missing.stderr, re.I) is not None)
+        if not args.fix:
+            record('owned_sources_stable', initial == run.manifest(['wp/tests/a12', 'wp/outils/bascule/a12']))
+        record('immutable_dependencies_stable', protected == run.manifest(run.PROTECTED))
         receipt['exit_code'] = int(any(x['status'] != 'PASS' for x in receipt['checks']))
         (out/'style.json').write_text(json.dumps(receipt, indent=2)+'\n', encoding='utf8')
         print(json.dumps(receipt, indent=2))

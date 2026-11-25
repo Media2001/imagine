@@ -1,0 +1,82 @@
+{
+  "container": "imagine-a12-style-821116741408",
+  "checks": [
+    {
+      "check": "isolation_before",
+      "status": "PASS",
+      "detail": {
+        "network": "none",
+        "mounts": [],
+        "ports": [],
+        "privileged": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:e3d49bd873ebffe87c5ceb54ca6a5893f776cf355a7572eebfd1b194c108ecd2"
+      }
+    },
+    {
+      "check": "phpcs_strict_exit",
+      "status": "PASS",
+      "detail": {
+        "errors": 0,
+        "warnings": 0,
+        "fixable": 0
+      }
+    },
+    {
+      "check": "isolation_after",
+      "status": "PASS",
+      "detail": {
+        "network": "none",
+        "mounts": [],
+        "ports": [],
+        "privileged": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:e3d49bd873ebffe87c5ceb54ca6a5893f776cf355a7572eebfd1b194c108ecd2"
+      }
+    },
+    {
+      "check": "cleanup",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "owned_sources_stable",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "immutable_dependencies_stable",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 0,
+  "sources": {
+    "wp/outils/bascule/a12/AuditLibrary.php": "bf64f573d1c17fe8d1d4c4f548a2b9773fafa2ec2ccf988b68d8f8129bb7133c",
+    "wp/outils/bascule/a12/Command.php": "0316645ec13a6a248d39ce33a966adda77bc58db69ecc31e8354e67bfb52c886",
+    "wp/outils/bascule/a12/Declarations.php": "bdb1366951af802e2c1f7512307a2c824c5937ef020d801210623b2afe02dd90",
+    "wp/outils/bascule/a12/inventorier-contenus": "9d35f6ebcbd4c39336ee5b45f8e287426543c5d5010a8535610d8b9354115b16",
+    "wp/outils/bascule/a12/Inventory.php": "91c3d3d399e1527e13fc96e0524b2f13224990c6c9220f3b749a48600c71c339",
+    "wp/outils/bascule/a12/README.md": "400a8ebcb1738baecac35c1bf35b05b9967dba423a448f09b98b09724ec052a9",
+    "wp/tests/a12/inside.py": "05e0c20edc562b550c404317822ac03d4b900f8fa9b08a86fc48a694ef2d255d",
+    "wp/tests/a12/README.md": "becf07f17a394f0e70a36cb9ffb1fdb38f83c6a1252dc90ac05101d5c03333ee",
+    "wp/tests/a12/readonly-probe.php": "bffce225875f0a73ed123bab4d0740aef88771a856e4179f8ad9416de4da53fc",
+    "wp/tests/a12/run.py": "9790c6cf4e701bbf8a0c31ac4e915592bc0be8c2605f2d17c82f6572c1f0d83d",
+    "wp/tests/a12/seed.php": "96919c17bfedec58cdaf3fe51b879e071f8291ff7399caa37c941ad4c74cb769",
+    "wp/tests/a12/style.py": "13a247a7266d0c26cbf8688108ced644c4a1035a2d8dd37c6a5235c123532fc2",
+    "wp/tests/a12/unit.php": "77bfddf2bc03373fefd8e8f616432082a75044fbfbccf431faf52e4314754235",
+    "wp/tests/a12/verify.py": "2a1f3d15be7a2c40f7788e5eeab21130bb20c4278fd6313a98aec67dc3af89da"
+  },
+  "phpcs_exit": 0,
+  "totals": {
+    "errors": 0,
+    "warnings": 0,
+    "fixable": 0
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "suite": "A12-final-evidence-integrity",
+  "verdict": "PARTIEL_NON_PRET",
+  "readiness": false,
+  "counts": {
+    "unit.json": 5,
+    "result.json": 100,
+    "runner.json": 7,
+    "style.json": 6
+  },
+  "checks": [
+    {
+      "check": "exact_current_source_inventory_and_hashes",
+      "status": "PASS"
+    },
+    {
+      "check": "immutable_a02_dependency_hashes",
+      "status": "PASS"
+    },
+    {
+      "check": "unit.json:actual_success",
+      "status": "PASS"
+    },
+    {
+      "check": "unit.json:no_duplicate_assertions",
+      "status": "PASS"
+    },
+    {
+      "check": "result.json:actual_success",
+      "status": "PASS"
+    },
+    {
+      "check": "result.json:no_duplicate_assertions",
+      "status": "PASS"
+    },
+    {
+      "check": "runner.json:actual_success",
+      "status": "PASS"
+    },
+    {
+      "check": "runner.json:no_duplicate_assertions",
+      "status": "PASS"
+    },
+    {
+      "check": "native_not_unit_only",
+      "status": "PASS"
+    },
+    {
+      "check": "mandatory_runner_gates",
+      "status": "PASS"
+    },
+    {
+      "check": "honest_partial_readiness",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:independent_all_table_snapshot_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:scheduler_in_snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:schema_storage_readonly",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:explicit_runtime_limit",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:audit_bound_by_exact_bytes",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:observed_unmet_runtime_registry",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:privacy:contenus.json",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:privacy:contenus.md",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:independent_all_table_snapshot_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:scheduler_in_snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:schema_storage_readonly",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:explicit_runtime_limit",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:audit_bound_by_exact_bytes",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:observed_unmet_runtime_registry",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:privacy:contenus.json",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:privacy:contenus.md",
+      "status": "PASS"
+    },
+    {
+      "check": "strict_psr12_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "style_exact_source_binding",
+      "status": "PASS"
+    },
+    {
+      "check": "style_cleanup",
+      "status": "PASS"
+    },
+    {
+      "check": "no_pret",
+      "status": "PASS"
+    },
+    {
+      "check": "exact_owned_runner_still_absent",
+      "status": "PASS"
+    }
+  ],
+  "exit_code": 0
+}

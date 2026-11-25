@@ -83,7 +83,7 @@ def run_storage(storage):
             for nature in {c[0] for c in contexts}: counts[nature]=counts.get(nature,0)+1
         b.check(key+':summary_counts_exact',report['par_nature']==counts)
         b.check(key+':native_permalink_bases',report['permaliens']==data['permaliens'])
-        b.check(key+':author_slug_only',sum(any(c['nature']=="archive d'auteur" for c in row['contextes']) for row in report['adresses'])==1)
+        b.check(key+':author_slug_only',sum(any(c['nature']=="archive d'auteur" for c in row['contextes']) for row in report['adresses'])==2)
         with open(target/'adresses.csv',encoding='utf-8-sig',newline='') as f:
             rows=list(csv.DictReader(f,delimiter=';'))
         b.check(key+':spreadsheet_exact',len(rows)==len(actual) and {r['ancienne'] for r in rows}==set(actual))
