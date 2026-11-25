@@ -2,7 +2,7 @@
 
 File de la **deuxième session d'Hermès**. Tenue par Claude. **Hermès ne modifie pas ce fichier.**
 
-Mis à jour le 25 novembre 2026, 16 h 30 (passage automatique).
+Mis à jour le 25 novembre 2026, 19 h 30 (passage automatique).
 
 Consigne permanente : `prompts/consigne-permanente.md` (section « Les deux voies »). Doctrine : `doctrine/doctrine.md`.
 
@@ -10,19 +10,19 @@ La voie 1 (`A-FAIRE.md`) s'occupe de l'existant : import, audit, mise à jour. L
 
 ## Consignes actives, par ordre de priorité
 
-**Tes rapports de 13 h 25, 13 h 59 et 15 h 05 sont lus.** C-13 : vérifié, code clos. Arbitrages : `docs/arbitrages-2026-11-25.md`, section « Passage automatique de 16 h 30 ».
+**Pas de rapport de ta part depuis 16 h 25**, mais ton travail est lu dans `production/` : complément de C-09 rendu (`PRET` de 19 h 13), B-03 rendu à 18 h 03, relu, corrections en cours. C-14 : vérifié, code clos. Arbitrages : `docs/arbitrages-2026-11-25.md`, section « Passage automatique de 19 h 30 ».
 
-**0. C-14 : redépose `production/C-14/PRET`.** Tes corrections sont livrées, mais le `PRET` date d'avant la fusion : la vérification ne se déclenche que sur un `PRET` plus récent que `corrections/C-14.md`. Deux minutes. Même réflexe pour tout lot corrigé.
+**0. Corrections de B-03 : `corrections/B-03.md`.** Tu les as commencées, termine-les. Le défaut de la fusion est confirmé : **les couleurs posées dans le contenu sont neutralisées dans les trois fonds**, sans toucher au contenu enregistré ni aux images. Instruction 4 : retire le bloc redondant. Instruction 5 (rejouer la part que les relecteurs n'ont pas pu exécuter) : **elle ne te concerne pas et ne bloque pas** ; rejoue toi-même tes tests PHP et HTTP après correction et dépose les reçus. Puis redépose `production/B-03/PRET`.
 
-**1. B-02 : dépose `production/B-02/PRET`.** Le profil `a-4x-j45` n'existe pas : erreur de brief, le profil « quatre fois » est **A-SEPA4**. `PRET` veut dire « prêt à relire » : dépose-le avec tes réserves telles qu'elles sont écrites. Ton raccord vers la liste d'envoi pour les changements d'adresse est accepté là où il est. Deux minutes.
+**1. B-02 : dépose `production/B-02/PRET`.** Il manque toujours, donc le lot n'a jamais été relu. `PRET` veut dire « prêt à relire », pas « recette complète » : dépose-le maintenant, avec tes réserves telles qu'elles sont écrites (seconde échéance payée non lue par le tableau, marge, historique, documents). La relecture dira ce qui est à corriger ; n'attends pas d'avoir tout raccordé. Deux minutes.
 
-**2. `briefs/C-09-complement-paiements-fictifs.md`** — les profils reçoivent les paiements fictifs que leur fiche décrit, déclarés comme tels. C'est ce qui manquait à C-13 et à B-02 pour être montrés. Aucune règle ne change. Deux heures.
+**2. `briefs/B-04-page-numero.md`** — la page numéro, le kiosque et la page thématique, avec le statut d'accès visible, le bouton d'achat (C-14) et le PDF (C-11). Une demi-journée.
 
-**3. `briefs/B-03-mode-lecture.md`** — le mode lecture de l'article (§3.3). Une demi-journée.
+**3. `briefs/C-15-ecran-des-echeances.md`** — l'écran des échéances du référent administratif (§3.13), sur les paiements fictifs du complément de C-09. Une demi-journée.
 
-Les corrections d'un lot relu (C-14, B-02, C-09) passent avant le lot en cours, sans attendre que cette file les cite. Preuves proportionnées, rapports courts.
+Les corrections d'un lot relu (B-03, B-02, C-09) passent avant le lot en cours, sans attendre que cette file les cite. Preuves proportionnées, rapports courts. **Un rapport dans `files/rapports/` à chaque fin de réveil**, même de cinq lignes : c'est ce que le passage automatique lit en premier.
 
-L'incident des douze observations créées par un diagnostic (C-14) est pris en compte : on ne nettoie rien.
+Les liens « offert » et « groupé » absents des profils (C-13 et B-02 en mode strict) : c'est une limite connue des données de démonstration, liée à une question ouverte chez Imagine. On ne les fabrique pas. Ne t'arrête pas dessus.
 
 ## Règles de la voie 2
 
@@ -45,5 +45,7 @@ L'incident des douze observations créées par un diagnostic (C-14) est pris en 
 | C-12 Accès découverte | 24/11, refait le 24/11 | **Code clos le 25/11** : désignation éditoriale obligatoire, fermé par défaut |
 | C-10 Écran de réglages | 23/11, corrigé le 23/11 | **Code clos le 24/11** : les réglages d'accès agissent sur le paywall. Validation visuelle de Ced attendue |
 | C-13 Écran de la liste d'envoi | 24/11, corrigé le 25/11 | **Code clos le 25/11** : bénéficiaires, renouvellements, gel persistant, règles en code pur. Liste vide pour les profils tant que le complément de C-09 n'est pas fait. Validation visuelle de Ced attendue (menus) |
-| C-14 Achat au numéro | 25/11, corrigé le 25/11 | Rendu ; vérification attendue (consigne 0) |
+| C-14 Achat au numéro | 25/11, corrigé le 25/11 | **Code clos le 25/11** : l'achat payé ouvre les articles et le PDF du seul numéro acheté, sans limite de durée ; remboursement partiel en réglage. Validation visuelle de Ced attendue |
 | B-02 Mon compte | 25/11 | Rendu sans `PRET` ; à déposer (consigne 1) |
+| C-09 Complément paiements fictifs | 25/11 | Rendu (9 profils créés, 20 partiels, 1 impossible) ; vérification attendue |
+| B-03 Mode lecture | 25/11 | Relu : **à corriger** (contraste quand le contenu porte ses propres couleurs), consigne 0 |
