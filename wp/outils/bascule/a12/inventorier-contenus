@@ -13,15 +13,26 @@ set_error_handler(static function (int $severity): bool {
     }
     return true;
 });
+$level = ob_get_level();
+ob_start();
 try {
     require __DIR__ . '/AuditLibrary.php';
     AuditLibrary::load();
-    require __DIR__ . '/Declarations.php';
+    require dirname(__DIR__) . '/a11/Runtime.php';
+    require __DIR__ . '/Registry.php';
     require __DIR__ . '/Inventory.php';
     require __DIR__ . '/Command.php';
-    exit(Command::main($argv));
+    $code = Command::main($argv);
+    while (ob_get_level() > $level) {
+        ob_end_clean();
+    }
+    fwrite(STDOUT, "A12_OK contenus.json contenus.md\n");
+    exit($code);
 } catch (\Throwable $exception) {
-    $code = $exception instanceof \RuntimeException && preg_match('/\AA(?:12|02)_[A-Z_]+\z/D', $exception->getMessage())
+    while (ob_get_level() > $level) {
+        ob_end_clean();
+    }
+    $code = $exception instanceof \RuntimeException && preg_match('/\AA(?:12|11|02)_[A-Z_]+\z/D', $exception->getMessage())
         ? $exception->getMessage() : 'A12_INVENTORY_FAILED';
     fwrite(STDERR, $code . "\n");
     exit(1);

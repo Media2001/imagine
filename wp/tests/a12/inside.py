@@ -18,7 +18,7 @@ def safe_check(name, ok, detail=None):
 b.check = safe_check
 
 def inventory(site, out, audit, *extra):
-    return b.cmd(['php', '/subject/a12/inventorier-contenus', '--wp-path='+str(site), '--output='+str(out), '--audit='+str(audit), *extra], check=False)
+    return b.cmd(['python3', '/subject/a12/confine.py', '--wp-path='+str(site), '--output='+str(out), '--audit='+str(audit), *extra], check=False)
 
 def run_storage(storage):
     site, db, _ = b.install(storage)
@@ -117,7 +117,7 @@ add_action('init', function () {
     if not canonical.exists():
         canonical.parent.mkdir(parents=True, exist_ok=True)
         shutil.copytree('/subject', canonical)
-    bad = b.cmd(['php', str(canonical/'a12/inventorier-contenus'), '--wp-path='+str(site), '--audit='+str(auditdir/'audit.json'), '--output=/checkout/forbidden'], check=False)
+    bad = b.cmd(['python3', str(canonical/'a12/confine.py'), '--wp-path='+str(site), '--audit='+str(auditdir/'audit.json'), '--output=/checkout/forbidden'], check=False)
     b.check(storage+':guard:canonical_repository', bad.returncode == 1 and bad.stderr == 'A12_OUTPUT_UNSAFE\n' and not pathlib.Path('/checkout/forbidden').exists())
     wrong = OUT/(storage+'-wrong-audit')
     wrong.mkdir()
@@ -144,7 +144,7 @@ add_action('init', function () {
         b.check(storage+':missing_media_not_invented_size', bad.returncode == 0 and variant['attachments']['missing_files'] == 1 and next(x for x in variant['attachments']['by_mime'] if x['mime'] == 'application/pdf')['bytes'] == 28)
         pdfpath.symlink_to(held)
         bad = inventory(site, OUT/(storage+'-symlink-media'), auditdir/'audit.json')
-        b.check(storage+':guard:symlink_media', bad.returncode == 1 and bad.stderr == 'A12_ATTACHMENT_PATH_UNSAFE\n' and not (OUT/(storage+'-symlink-media')).exists())
+        b.check(storage+':guard:symlink_media', bad.returncode == 1 and bad.stderr == 'A11_SYMLINK_UNSUPPORTED\n' and not (OUT/(storage+'-symlink-media')).exists())
     finally:
         if pdfpath.is_symlink():
             pdfpath.unlink()
@@ -165,7 +165,7 @@ add_action('init', function () {
     (OUT/(storage+'-db-after.json')).write_text(json.dumps(after, indent=2)+'\n')
     b.check(storage+':all_tables_identical_including_scheduler', before == after, {'before': before['logical_sha256'], 'after': after['logical_sha256'], 'tables': len(before['tables'])})
     b.check(storage+':site_files_identical', fb == b.files(site), {'before': fb, 'after': b.files(site)})
-    b.check(storage+':never_bootstrap', not pathlib.Path('/scratch/a02-bootstrap-trap').exists())
+    b.check(storage+':config_never_executed', not pathlib.Path('/scratch/a02-bootstrap-trap').exists())
 
 b.run_storage = run_storage
 if __name__ == '__main__':
@@ -176,7 +176,7 @@ if __name__ == '__main__':
     path = OUT/'result.json'
     result = json.loads(path.read_text())
     result['suite'] = 'A12-bounded-native-readonly-inventory'
-    result['readiness'] = False
-    result['unmet_requirements'] = ['Exhaustive runtime registry without WordPress bootstrap is not proven.', 'Shared test image preparation reserved for parent; not run here.']
+    result['readiness'] = exit_code == 0
+    result['unmet_requirements'] = [] if exit_code == 0 else ['Dedicated native suite failed.']
     path.write_text(json.dumps(result, indent=2)+'\n')
     sys.exit(exit_code)

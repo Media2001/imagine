@@ -9,55 +9,21 @@ use Imagine\Audit\Audit;
 /** Native runtime registry and structural reads on the SAME fenced wpdb session. */
 final class Inventory
 {
-    private \PDO $db;
+    private \Imagine\PublicAddresses\ReadOnlyDb $db;
     private string $prefix;
     private string $site;
     private array $tables = [];
+    private Registry $registry;
 
     public function __construct(string $site)
     {
         $this->site = $site;
-        $source = self::read($site . '/wp-config.php', 1048576);
-        $config = Audit::config($source);
-        foreach (token_get_all($source) as $token) {
-            if (
-                is_array($token) && $token[0] === T_CONSTANT_ENCAPSED_STRING
-                && in_array(
-                    substr($token[1], 1, -1),
-                    ['WP_CONTENT_DIR', 'WPMU_PLUGIN_DIR', 'WP_PLUGIN_DIR', 'UPLOADS', 'MULTISITE'],
-                    true
-                )
-            ) {
-                throw new \RuntimeException('A12_CUSTOM_LAYOUT_UNSUPPORTED');
-            }
-        }
-        $this->prefix = $config['table_prefix'];
-        $host = $config['DB_HOST'];
-        if (preg_match('~\Alocalhost:(/[^;\x00-\x1f]+)\z~D', $host, $match)) {
-            $dsn = 'mysql:unix_socket=' . $match[1];
-        } elseif (preg_match('/\A([A-Za-z0-9_.-]+)(?::([0-9]{1,5}))?\z/D', $host, $match)) {
-            $dsn = 'mysql:host=' . $match[1] . ';port=' . ($match[2] ?? '3306');
-        } else {
-            throw new \RuntimeException('A12_DB_HOST_UNSUPPORTED');
-        }
-        if (!preg_match('/\A[A-Za-z0-9_-]+\z/D', $config['DB_NAME'])) {
-            throw new \RuntimeException('A12_DB_NAME_UNSUPPORTED');
-        }
-        $this->db = new \PDO(
-            $dsn . ';dbname=' . $config['DB_NAME'] . ';charset=utf8mb4',
-            $config['DB_USER'],
-            $config['DB_PASSWORD'],
-            [
-                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-                \PDO::ATTR_EMULATE_PREPARES => false,
-                \PDO::MYSQL_ATTR_MULTI_STATEMENTS => false,
-                \PDO::ATTR_TIMEOUT => 10,
-            ]
-        );
-        unset($config);
-        $this->db->exec('SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ');
-        $this->db->exec('SET SESSION TRANSACTION READ ONLY');
-        $this->db->beginTransaction();
+        require_once $site . '/wp-includes/plugin.php';
+        $this->registry = new Registry($site);
+        $this->registry->listen();
+        \Imagine\PublicAddresses\Runtime::boot($site);
+        $this->db = $GLOBALS['wpdb'];
+        $this->prefix = $GLOBALS['table_prefix'];
         $tableRows = $this->select(
             'SELECT TABLE_NAME,ENGINE FROM information_schema.TABLES '
             . 'WHERE TABLE_SCHEMA=DATABASE() AND TABLE_TYPE=\'BASE TABLE\' ORDER BY TABLE_NAME'
@@ -73,21 +39,19 @@ final class Inventory
         }
     }
 
-    public function __destruct()
-    {
-        if (isset($this->db) && $this->db->inTransaction()) {
-            $this->db->rollBack();
-        }
-    }
-
     private function select(string $sql, array $params = []): array
     {
         if (!str_starts_with($sql, 'SELECT ')) {
             throw new \RuntimeException('A12_SELECT_ONLY');
         }
-        $statement = $this->db->prepare($sql);
-        $statement->execute($params);
-        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+        if ($params) {
+            $sql = $this->db->prepare(str_replace('?', '%s', $sql), ...$params);
+        }
+        $rows = $this->db->get_results($sql, ARRAY_A);
+        if ($this->db->last_error !== '' || !is_array($rows)) {
+            throw new \RuntimeException('A12_READ_FAILED');
+        }
+        return $rows;
     }
 
     private function table(string $suffix): string
@@ -103,104 +67,6 @@ final class Inventory
     {
         $rows = $this->select('SELECT option_value FROM ' . $this->table('options') . ' WHERE option_name=?', [$name]);
         return $rows[0]['option_value'] ?? '';
-    }
-
-    private static function read(string $file, int $limit = 16777216): string
-    {
-        if (
-            is_link($file) || realpath($file) !== $file || !is_file($file)
-            || !is_readable($file) || filesize($file) > $limit
-        ) {
-            throw new \RuntimeException('A12_SOURCE_UNREADABLE_OR_UNSAFE');
-        }
-        $text = file_get_contents($file);
-        if ($text === false) {
-            throw new \RuntimeException('A12_SOURCE_UNREADABLE_OR_UNSAFE');
-        }
-        return $text;
-    }
-
-    private static function tree(string $root): array
-    {
-        if (is_link($root)) {
-            throw new \RuntimeException('A12_SYMLINK_UNSUPPORTED');
-        }
-        if (!is_dir($root)) {
-            return [];
-        }
-        $files = [];
-        $visited = 0;
-        $walk = static function (string $dir, int $depth) use (&$walk, &$files, &$visited): void {
-            if ($depth > 24) {
-                throw new \RuntimeException('A12_SOURCE_LIMIT');
-            }
-            foreach (new \FilesystemIterator($dir) as $file) {
-                if (++$visited > 100000) {
-                    throw new \RuntimeException('A12_SOURCE_LIMIT');
-                }
-                if ($file->isLink()) {
-                    throw new \RuntimeException('A12_SYMLINK_UNSUPPORTED');
-                }
-                if ($file->isDir()) {
-                    if (!preg_match('/\A(?:vendor|tests?|fixtures|node_modules|\.git)\z/i', $file->getFilename())) {
-                        $walk($file->getPathname(), $depth + 1);
-                    }
-                } elseif ($file->isFile() && str_ends_with($file->getFilename(), '.php')) {
-                    $files[] = $file->getPathname();
-                }
-            }
-        };
-        $walk($root, 0);
-        sort($files);
-        return $files;
-    }
-
-    private function declarations(): array
-    {
-        $sources = [];
-        foreach (['post.php', 'taxonomy.php'] as $file) {
-            $sources[$this->site . '/wp-includes/' . $file] = 'core';
-        }
-        foreach (Audit::decode($this->option('active_plugins')) as $plugin) {
-            if (!is_string($plugin) || Audit::identifier($plugin) === '[masque]' || !str_ends_with($plugin, '.php')) {
-                throw new \RuntimeException('A12_PLUGIN_IDENTIFIER_UNSAFE');
-            }
-            $main = $this->site . '/wp-content/plugins/' . $plugin;
-            $files = str_contains($plugin, '/') ? self::tree(dirname($main)) : [$main];
-            foreach ($files as $file) {
-                $sources[$file] = 'plugin';
-            }
-        }
-        foreach (glob($this->site . '/wp-content/mu-plugins/*.php') ?: [] as $file) {
-            $sources[$file] = 'mu_plugin';
-        }
-        foreach (array_unique([$this->option('stylesheet'), $this->option('template')]) as $theme) {
-            if ($theme === '' || Audit::identifier($theme) === '[masque]' || str_contains($theme, '/')) {
-                throw new \RuntimeException('A12_THEME_IDENTIFIER_UNSAFE');
-            }
-            foreach (self::tree($this->site . '/wp-content/themes/' . $theme) as $file) {
-                $sources[$file] = 'theme';
-            }
-        }
-        ksort($sources);
-        $result = ['post_types' => [], 'taxonomies' => [], 'unresolved_calls' => 0, 'source_files' => count($sources)];
-        foreach ($sources as $file => $owner) {
-            $text = self::read($file);
-            // Fast lexical prefilter only; no source code is included or evaluated.
-            if (!str_contains($text, 'register_post_type') && !str_contains($text, 'register_taxonomy')) {
-                continue;
-            }
-            $found = Declarations::parse($text);
-            $result['unresolved_calls'] += $found['unresolved_calls'];
-            foreach (['post_types', 'taxonomies'] as $kind) {
-                foreach ($found[$kind] as $name) {
-                    $result[$kind][$name][] = [
-                        'owner' => $owner, 'file' => Audit::identifier(substr($file, strlen($this->site) + 1)),
-                    ];
-                }
-            }
-        }
-        return $result;
     }
 
     private static function publication(?string $value): ?string
@@ -229,7 +95,7 @@ final class Inventory
         return [
             'name' => Audit::identifier($name),
             'registration' => $declarations
-                ? 'literal_source_candidate_not_runtime_verified' : 'stored_only_registration_unknown',
+                ? 'runtime_registered' : 'stored_only_unregistered',
             'declarations' => $declarations, 'content_count' => array_sum($states), 'states' => $states,
             'first_published_utc' => self::publication($dates['first_date']),
             'last_published_utc' => self::publication($dates['last_date']),
@@ -340,7 +206,7 @@ final class Inventory
 
     public function collect(): array
     {
-        $declarations = $this->declarations();
+        $declarations = $this->registry->snapshot();
         $post = $this->table('posts');
         $meta = $this->table('postmeta');
         $tt = $this->table('term_taxonomy');
@@ -401,13 +267,15 @@ final class Inventory
             'schema' => 'imagine-a12-content-v1', 'read_only' => true,
             'storage' => $this->option('woocommerce_custom_orders_table_enabled') === 'yes' ? 'hpos' : 'classic',
             'registry' => [
-                'runtime_verified' => false,
-                'coverage' => 'stored_objects_plus_literal_active_source_candidates_not_runtime_registry',
-                'unresolved_calls' => $declarations['unresolved_calls'],
-                'source_files' => $declarations['source_files'],
+                'runtime_verified' => true,
+                'coverage' => 'native_registry_after_wp_loaded_plus_separately_marked_stored_only_objects',
+                'post_type_count' => count($declarations['post_types']),
+                'taxonomy_count' => count($declarations['taxonomies']),
+                'session' => 'same_readonly_wpdb_from_before_bootstrap_through_all_aggregates',
             ],
             'post_types' => $typeRows, 'taxonomies' => $taxRows,
             'attachments' => $this->attachments(), 'product_links' => $this->productLinks(),
+            'native_guards' => \Imagine\PublicAddresses\Runtime::$guards,
             'conventions' => [
                 'Etats: tous contenus stockes, corbeille et brouillons inclus; '
                     . 'taxonomies: contenus distincts par taxonomie, pas somme des termes.',
@@ -423,11 +291,9 @@ final class Inventory
                     . 'entre contenu et produit/variation, deux directions; structures serialisees non interpretees.',
             ],
             'limitations' => [
-                'REGISTRE INCOMPLET: aucun bootstrap. Un appel litteral peut etre conditionnel ou inutilise; '
-                    . 'un appel dynamique ou une source exclue peut manquer. Jamais une preuve du registre runtime.',
-                'Sources: coeur post.php/taxonomy.php, repertoires des extensions actives, '
-                    . 'MU PHP de premier niveau, themes enfant/parent; vendor/tests/fixtures exclus. '
-                    . 'Le fichier est une preuve de declaration candidate, pas une attribution runtime certaine.',
+                'Registre natif apres wp_loaded dans le contexte CLI confine, sans requete front/admin. '
+                    . 'Attribution: fichier appelant register_post_type/register_taxonomy observe sur la pile. '
+                    . 'Objet injecte hors API: declarant inconnu, jamais invente.',
                 'Site simple, tables InnoDB, configuration litterale et disposition standard. '
                     . 'Requetes SELECT dans transaction READ ONLY; aucune action, tache, notification ni HTTP.',
                 'Les seuls textes libres permis sont les noms des termes; valeurs suspectes masquees. '

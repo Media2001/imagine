@@ -47,6 +47,7 @@ def run(label='http-final'):
             s,_,text=h.fetch(PATH+'&recherche='+urlencode({'q':search})[2:],abo)
             checks['recherche_'+search]=s==200 and 'value="'+str(native['uid'])+'"' in text
         scenarios=[('existant',{'mode':'existant','client':str(native['uid'])},'bacs'),
+            ('nouveau',{'mode':'nouveau','nom':'Personnage Fictif C16 Nouveau','email':'c16-fictif@example.org'},'bacs'),
             ('sansmail',{'mode':'nouveau','nom':'Personnage Fictif C16 Sansmail','sans_email':'1','email':''},'bacs'),
             ('doublon',{'mode':'nouveau','nom':'Ne pas remplacer','email':'V-INSCRIT@EXAMPLE.ORG'},'bacs'),
             ('direct',{'mode':'direct'},'imagine_papier')]
@@ -54,8 +55,23 @@ def run(label='http-final'):
             _,_,first=h.fetch(PATH,abo)
             s,_,second=post(first,dict(client,c16_action='choisir'))
             checks[name+'_etape2']=s==200 and 'data-imagine-etape="2"' in second
+            checks[name+'_sans_creation_avant_confirmation']=c16.wp('echo wp_json_encode(count(wc_get_orders(["type"=>"shop_order","limit"=>-1,"meta_key"=>"_imagine_c16_fixture","meta_value"=>"1"])));')==len(created)
+            if name=='existant':
+                s,_,_=post(second,dict(address,c16_action='preparer',produit='99999999',paiement='bacs'))
+                checks['produit_etranger_refuse']=s==409
+                s,_,_=post(second,dict(address,c16_action='preparer',produit=str(native['produit']),paiement='stripe'))
+                checks['paiement_en_ligne_refuse']=s==409
+                s,_,_=post(second,{'c16_action':'preparer','produit':str(native['produit']),'paiement':'bacs'})
+                checks['adresse_incomplete_refusee']=s==409
+                _,_,other=h.fetch(PATH+'&token='+form(second)['token'],h.login(accounts['E-ADMIN']))
+                checks['brouillon_autre_referent_refuse']='data-imagine-etape=' not in other
             s,_,third=post(second,dict(address,c16_action='preparer',produit=str(native['produit']),paiement=payment))
             checks[name+'_etape3']=s==200 and 'data-imagine-etape="3"' in third and 'Créer la commande en attente' in third
+            if name=='existant':
+                s,_,_=post(third,{'c16_action':'creer'})
+                checks['confirmation_absente_refusee']=s==409
+                s,_,body=h.fetch(PATH+'&'+urlencode(dict(form(third),c16_action='creer',confirmer='oui')),abo)
+                checks['GET_ne_cree_pas']=s==200 and 'data-imagine-commande=' not in body
             s,_,done=post(third,{'c16_action':'creer','confirmer':'oui'})
             found=re.search(r'data-imagine-commande="(\d+)"',done)
             checks[name+'_cree']=s==200 and found is not None
@@ -71,6 +87,9 @@ def run(label='http-final'):
                 checks['sansmail_pas_adhesion']=data['members']==0
                 closed=c16.wp('echo wp_json_encode(Imagine\\Site\\AchatsNumeros::droits('+str(data['uid'])+'));')
                 checks['sansmail_pas_acces_numero']=closed==[]
+                decision=c16.wp('wp_set_current_user('+str(data['uid'])+');$_SERVER["HTTP_USER_AGENT"]="Imagine C16 recette locale";$_SERVER["REMOTE_ADDR"]="192.0.2.16";echo wp_json_encode(Imagine\\Site\\Paywall::decision(get_post(get_option("imagine_c08_fixture")["article"])));')
+                checks['sansmail_C06_ferme_sans_droit']=decision=={'complet':False,'motif':'sans_droit','bloc':'abonnement'}
+                c16.save('acces-sansmail',decision)
                 mail=c16.wp('$email='+json.dumps(data['email'])+';echo wp_json_encode([Imagine\\Site\\SansEmail::filtrer(null,["to"=>$email,"headers"=>[]]),Imagine\\Site\\SansEmail::filtrer(null,["to"=>"normal@example.org","headers"=>"Bcc: ".$email]),Imagine\\Site\\SansEmail::filtrer(null,["to"=>"normal@example.org","headers"=>[]]),Imagine\\Site\\SansEmail::filtrer(null,["to"=>"a-sansmail@example.org","headers"=>[]])]);')
                 checks['sansmail_exclusion_individuelle_TO_BCC_C09']=mail==[False,False,None,False]
             if payment=='bacs':

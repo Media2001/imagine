@@ -16,7 +16,7 @@ b = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(b)
 b.LABEL = 'org.imagine.a12-content'
 # Only immutable dependencies are invariance gates; A10/A11 have concurrent owners.
-PROTECTED = ['wp/tests/a02-audit', 'wp/outils/bascule/audit']
+PROTECTED = ['wp/tests/a02-audit', 'wp/outils/bascule/audit', 'wp/outils/bascule/a11', 'wp/tests/a11']
 
 def manifest(roots):
     files = []
@@ -54,6 +54,7 @@ def main():
             for p in sorted(root.glob('*')):
                 if p.is_file(): b.call(['cp', b.local(p), name+':'+dest+'/'+p.name])
         b.call(['cp', b.local(REPO/'wp/outils/bascule/audit'), name+':/subject/audit'])
+        b.call(['cp', b.local(REPO/'wp/outils/bascule/a11'), name+':/subject/a11'])
         unit = b.call(['exec', name, 'php', '/opt/a12/unit.php'], check=False)
         (out/'unit.log').write_text(unit.stdout+unit.stderr, encoding='utf8')
         b.call(['cp', name+':/report/unit.json', b.local(out/'unit.json')])

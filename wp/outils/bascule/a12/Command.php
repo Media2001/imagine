@@ -55,14 +55,17 @@ final class Command
         ) {
             throw new \RuntimeException('A12_AUDIT_GUARD');
         }
+        if (getenv('A12_CONFINED') !== '1') {
+            throw new \RuntimeException('A12_CONFINEMENT_REQUIRED');
+        }
         $report = (new Inventory($site))->collect();
         if ($report['storage'] !== $photo['sections']['commerce']['order_storage']) {
             throw new \RuntimeException('A12_AUDIT_STORAGE_MISMATCH');
         }
         $report['audit_sha256'] = hash_file('sha256', $audit);
         $json = json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n";
-        $markdown = "# Structure des contenus — lecture seule\n\nATTENTION : registre runtime non verifie. "
-            . "Declarants = candidats statiques, pas preuve d enregistrement. "
+        $markdown = "# Structure des contenus — lecture seule\n\nRegistre natif apres wp_loaded. "
+            . "Declarants observes pendant les enregistrements effectifs. "
             . "Aucune decision de rattachement.\n\n```json\n"
             . json_encode(
                 $report,
@@ -84,7 +87,6 @@ final class Command
                 fclose($handle);
             }
         }
-        fwrite(STDOUT, "A12_OK_PARTIAL_REGISTRY contenus.json contenus.md\n");
         return 0;
     }
 }

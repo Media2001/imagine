@@ -9,30 +9,25 @@ $check = static function (string $name, bool $ok) use (&$checks): void {
     $checks[] = ['check' => $name, 'status' => $ok ? 'PASS' : 'FAIL'];
 };
 
-$file = '/subject/a12/Declarations.php';
-$check('declaration_parser_implemented', is_file($file));
-if (is_file($file)) {
-    require $file;
-    $source = <<<'PHP'
-<?php
-// register_post_type('comment_fake', []);
-$x = "register_taxonomy('string_fake', 'post')";
-function register_post_type($a, $b) {}
-$obj->register_post_type('method_fake', []);
-Foo::register_taxonomy('static_fake', 'post');
-register_post_type('a12_article', []);
-\register_taxonomy('a12_rubrique', ['a12_article']);
-register_post_type($dynamic, []);
-register_post_type('prefix_' . $suffix, []);
-register_post_type('a12_empty', []);
-PHP;
-    $r = \Imagine\ContentInventory\Declarations::parse($source);
-    $check('literal_post_types_not_comments_strings_or_methods', $r['post_types'] === ['a12_article', 'a12_empty']);
-    $check('literal_fully_qualified_taxonomy', $r['taxonomies'] === ['a12_rubrique']);
-    $check('dynamic_and_concatenated_arguments_explicit', $r['unresolved_calls'] === 2);
-    $r = \Imagine\ContentInventory\Declarations::parse('<?php register_post_type("name@example.org", []);');
-    $check('invalid_identifier_never_exported', $r['post_types'] === [] && $r['unresolved_calls'] === 1);
+require '/subject/a12/AuditLibrary.php';
+\Imagine\ContentInventory\AuditLibrary::load();
+require '/subject/a12/Registry.php';
+$root = '/report/origin-fixture';
+foreach ([
+    'wp-includes/post.php' => 'core',
+    'wp-content/plugins/synthetic/vendor/registrar.php' => 'plugin',
+    'wp-content/themes/synthetic/functions.php' => 'theme',
+    'wp-content/mu-plugins/submodule/registrar.php' => 'mu_plugin',
+] as $file => $owner) {
+    mkdir(dirname($root . '/' . $file), 0700, true);
+    file_put_contents($root . '/' . $file, '<?php');
+    $check('real_origin:' . $owner, \Imagine\ContentInventory\Registry::origin($root, $root . '/' . $file)
+        === ['owner' => $owner, 'file' => $file]);
 }
+$unknown = ['owner' => 'unknown', 'file' => null];
+$check('unreadable_origin_not_invented', \Imagine\ContentInventory\Registry::origin($root, $root . '/absent.php') === $unknown);
+$check('outside_origin_never_exports_absolute_path', \Imagine\ContentInventory\Registry::origin($root, __FILE__) === $unknown);
+$check('missing_stack_origin_explicit', \Imagine\ContentInventory\Registry::origin($root, null) === $unknown);
 $result = [
     'suite' => 'A12-pure-unit', 'checks' => $checks,
     'exit_code' => (int) in_array('FAIL', array_column($checks, 'status'), true),
