@@ -1,9 +1,11 @@
 B-04 — PRET pour nouvelle relecture technique après corrections 1–6.
 2026-11-26T00:00:16+01:00
 Cible unique vérifiée : imagine-test-demo.
-77 tests PHPUnit uniques / 530 assertions ; 4 tests Python ; 513 contrôles natifs/HTTP/SQL/navigateur ; zéro échec. PSR-12 -n : zéro erreur. Préparateur d'image exécuté, sortie 0.
-Preuve courante : verification-corrections-finale.json
-SHA-256 : c158c6fac0d9e41c26a8a55d7aa57b06ae9483b5d06e17185e5e7095076cc5f0
-A-VOIR.md, CORRECTIONS.md, COMMANDES-CORRECTIONS.md ; contrôle : sceller.py --check.
+Qualification initiale conservée (ces matrices ne sont pas annoncées rejouées) : 77 tests PHPUnit uniques / 530 assertions ; 4 tests Python ; 513 contrôles natifs/HTTP/SQL/navigateur ; zéro échec. PSR-12 -n : zéro erreur. Préparateur d'image exécuté, sortie 0.
+Preuve initiale des corrections : verification-corrections-finale.json (inchangée).
+Complément courant de portabilité T01 : verification-portabilite-c16.json
+SHA-256 du complément : b83923ee214b849b954e1c1a50f8b5760153e0f760971909a9ec5299ef12f2e8
+Rejeu après changement de la seule fixture de chemin : B04 4 tests / 91 assertions, racine 76 / 481, C12 7 / 63 ; canonique T01 1040 / 34229, zéro échec/erreur/ignoré. Préparateur relancé, exit 0. Matrices natives antérieures non rejouées, empreintes et sources natives relues identiques.
+A-VOIR.md, CORRECTIONS.md, COMMANDES-CORRECTIONS.md ; contrôle courant : sceller-portabilite.py --check.
 Point 7 visuel : statut kiosque conservé, décision de Ced attendue, sans blocage des corrections techniques.
 Ce PRET n'est ni une clôture par les relecteurs, ni une validation visuelle, ni un GO de mise en ligne/réel.

@@ -1075,7 +1075,7 @@
     "wp/outils/bascule/plan-redirections.exemple.csv": "40db839a6ab51d83206dc182ccd4870a5732a9c3138c4169f991afb30282ceb1",
     "wp/outils/bascule/README.md": "67a9c1383940203419f77eae021b165d2ebf1e93e9080a2bdee5d9bf5b7a3829",
     "wp/outils/bascule/repeter": "8c4cf537ff761f1f49694c52b223d2c7b470fc99d155ae4b6968cde26bc38a24",
-    "wp/outils/bascule/repetition.md": "e398d7442dd9422e6b0ba7c8ff38b3fd4d6344e6597d9b8dae3f97d3b7e81829",
+    "wp/outils/bascule/repetition.md": "badf3ee4beb4d7c3a56859cc70b706ff7bdd988c7871d3ae51a69a247af681f1",
     "wp/outils/bascule/tester-redirections": "8df7a554fbe4c56f284affeba2f58723fc9448e5692b32cfe1545bfc57eece41",
     "wp/outils/bascule/tester-redirections.md": "7add72b196437bf5e8c00d91faf580afc27ed8449c73779bc51570e1f2ffa6c0",
     "wp/outils/bascule/a03/Policy.php": "6877b7330d472a41b14011e3e41aeb422d01e58a0c2675340bd101a87d427b62",
@@ -2111,5 +2111,13 @@
   "technical_ready_only": true,
   "ced_question_deferred": "III.6 : style des introductions de repetition.md, aucune décision réelle prise",
   "scope": "Chaîne fictive classique+HPOS ; idempotence métier, contrôles techniques natifs rafraîchissables ; deux rendez-vous opérateur.",
-  "not_a_real_go": true
+  "not_a_real_go": true,
+  "documentation_addendum": {
+    "at": "2026-11-26T00:45:26.505703+01:00",
+    "only_prose_additions": true,
+    "commands_unchanged": true,
+    "before_sha256": "e398d7442dd9422e6b0ba7c8ff38b3fd4d6344e6597d9b8dae3f97d3b7e81829",
+    "after_sha256": "badf3ee4beb4d7c3a56859cc70b706ff7bdd988c7871d3ae51a69a247af681f1"
+  },
+  "documentation_diff": "production/A-08/intros-20261126/prose.diff"
 }

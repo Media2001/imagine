@@ -1,9 +1,10 @@
 {
   "lot": "A-08",
   "manifest": "production/A-08/manifeste.json",
-  "manifest_sha256": "d3a809c41ffc85a44ecae1e0e4bb18584bd05f72ec4703f5d6a585af4ac3d42d",
+  "manifest_sha256": "d525b5a597108c160b1ee204901780dd7d95a2a1450a4db80b4092b8f7533353",
   "scope": "Chaîne fictive classique+HPOS ; idempotence métier, contrôles techniques natifs rafraîchissables ; deux rendez-vous opérateur.",
   "technical_ready_only": true,
-  "ced_question_deferred": "III.6 : style des introductions de repetition.md, aucune décision réelle prise",
-  "not_a_real_go": true
+  "not_a_real_go": true,
+  "documentation_introductions": "Consigne 1 appliquée : ajouts de prose seulement, commandes inchangées, sans rejeu Docker.",
+  "at": "2026-11-26T00:45:26.521576+01:00"
 }

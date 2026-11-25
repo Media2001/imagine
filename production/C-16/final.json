@@ -1,7 +1,7 @@
 {
-  "at": "2026-11-25T23:39:45.445362+00:00",
+  "at": "2026-11-25T23:46:38.746896+00:00",
   "status": "PRET_TECHNIQUE_C16_RESERVE_C09_HISTORIQUE",
-  "PRET_present": false,
+  "PRET_present": true,
   "payload_sha256_readback": {
     "wp/plugins/imagine-site/CommandeRegles.php": "a49b51d864bd46e2d59b381abb1bfd4ac1a0c1e4bcb03d9d0402d7ecf7ec0006",
     "wp/plugins/imagine-site/CommandeNative.php": "3c3724e034488be0ce0a338d3cebb839da29ac053bc17e348ebec1764a309d17",
@@ -12,6 +12,10 @@
     "wp/outils/demo/c09-seed.php": "55aeb3d11504d845798ddfbc2107212785a090a322072f22a8cf281a3ecb0714"
   },
   "c16_unit_exit": 0,
+  "c16_unit": {
+    "tests": 6,
+    "assertions": 14
+  },
   "plugin_suites": {
     "root": {
       "tests": 76,
@@ -49,6 +53,8 @@
   "C09_failures": [
     "A-PAPIER:action_native_planifiee_ou_absente_selon_statut"
   ],
+  "C09_native_exit": 1,
+  "strict_global_exit": 2,
   "global_all_green": false,
   "historical_C09_nonblocking_for_C16": true,
   "A_PAPIER_unchanged_before_after_C16_http": true,
@@ -68,6 +74,7 @@
     "preparer-image-gates.log": "00a9027bb23cd14bb846783c1cfa9b1324898f622e165c30649ffd1643476acf",
     "gates-c09-diagnostic.json": "34ef03d13c50aadf50bd1299a42805ad970dbe7d19557d8cd8f1431ca0bc16f4",
     "gates-c09-after-http.json": "4a5c3887e7481ceae74c91ee00b474ff392ae3372964a33750fc2cac858884f8",
+    "gates-c09-policy.json": "e548b4d5aa65d54d96449ec7db9cadf4b2c8b2544d3871916efed6e3717ded86",
     "c09-non-regression-gates.json": "4c3a4b3ac01d43bf19d50ff8445ff2a5be28e161bcffd1e98e689b6bcbc1e7ad"
   }
 }

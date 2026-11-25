@@ -1,7 +1,8 @@
 {
   "schema": "imagine-a12-delivery-v1",
-  "verdict": "PARTIEL_NON_PRET",
+  "verdict": "NATIVE_VERIFIE_ATTENTE_PARENT",
   "readiness": false,
+  "technical_readiness": true,
   "requirements": {
     "stored_counts_and_dates": true,
     "terms_top_twenty": true,
@@ -9,23 +10,28 @@
     "attachments": true,
     "recognizable_product_links": true,
     "privacy": true,
-    "database_readonly": true,
+    "database_readonly_before_bootstrap": true,
+    "same_native_session_for_all_reads": true,
+    "system_confinement_of_third_party_code": true,
     "site_files_unchanged": true,
-    "runtime_registry_exhaustive": false,
-    "shared_image_preparation_run": false,
-    "shared_audit_readme_updated_by_parent": false
+    "runtime_registry_exhaustive": true,
+    "runtime_declarants_exact_when_readable": true,
+    "shared_image_preparation_verified": null,
+    "shared_audit_readme_updated_verified": null
   },
   "bounded_suite_exit": 0,
   "evidence_integrity_exit": 0,
   "evidence": "production/A-12/preuves/final",
-  "unmet_requirements": [
-    "Exhaustive runtime registry without WordPress bootstrap is not proven.",
-    "Shared test image preparation reserved for parent; not run here."
+  "unmet_technical_requirements": [],
+  "unverified_parent_requirements": [
+    "Read actual shared image preparation receipt (exit 0 and verified image), reserved for parent.",
+    "Read common audit instructions containing the two updated integration.md lines, reserved for parent."
   ],
   "counts": {
-    "unit.json": 5,
-    "result.json": 100,
+    "result.json": 118,
+    "unit.json": 7,
     "runner.json": 7,
+    "verification.json": 41,
     "style.json": 6
   }
 }

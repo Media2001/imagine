@@ -19,6 +19,26 @@ def require(ok,message):
 def load(path):
     return json.loads(path.read_text(encoding='utf8'))
 
+# Exact parent-authorized additions, including the single blank separator.
+# No substring removal, newline normalization, or arbitrary later appendix is allowed.
+INTEGRATION_APPENDIX = (
+    "\nAprès l'audit, lancer `php wp/outils/bascule/a11/inventorier-adresses --wp-path=/copie-verifiee/site --audit=/rapports/audit-001/audit.json --output=/rapports/adresses-001` dans la même copie confinée, avec un dossier de sortie neuf, frère du rapport d'audit et hors racine web/dépôt.\n"
+    "Le fichier `adresses.csv` (UTF-8, séparateur `;`) donne la colonne `ancienne` selon A-09; `resume.md` donne les nombres, les exclus et les bases de permaliens, sans client ni décision de redirection; voir `a11/README.md` pour les gardes et le rejeu dédié.\n"
+    "Complément A-12 (registre natif, lecture seule) : python3 wp/outils/bascule/a12/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/contenus-date\n"
+    "Conteneur Linux déconnecté + Landlock obligatoire ; types/taxos réellement enregistrés et comptes, jamais titres/valeurs ; rejeu dédié : python wp/tests/a12/run.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a12-rejeu-nouveau\n"
+).encode('utf8')
+A10_APPENDIX_SHA256 = 'bcc41da71fcd300d02b0bcecd0b5979580338f06cf4eae139183d40fa9dcdd51'
+A02_README_SHA256 = '7314ab53dd50331d8f3e310215cda613954214c96b0df353981f4ebdac89db72'
+
+def readme_original_digest(current, appendix):
+    require(hashlib.sha256(appendix).hexdigest()==A10_APPENDIX_SHA256, 'A10_APPENDIX_BYTES_CHANGED')
+    require(len(appendix.splitlines())==2, 'A10_APPENDIX_LINE_COUNT')
+    suffix=appendix+INTEGRATION_APPENDIX
+    require(current.endswith(suffix), 'README_APPENDIX')
+    digest=hashlib.sha256(current[:-len(suffix)]).hexdigest()
+    require(digest==A02_README_SHA256, 'README_ORIGINAL_BYTES_CHANGED')
+    return digest
+
 def verify(evidence):
     require(evidence.is_dir(),'EVIDENCE_MISSING')
     receipt=load(evidence/'runner.json')
@@ -76,13 +96,13 @@ def verify(evidence):
         text=(evidence/(storage+'-codes/codes.json')).read_text()+(evidence/(storage+'-codes/codes.md')).read_text()
         require(re.search(r'@|PRIVATE_CANARY|customer_id|user_id|billing_|subscription_id|order_id',text) is None,'PRIVACY_LEAK')
         require(load(evidence/(storage+'-repeat/codes.json'))['codes']==data['codes'],'REPLAY_BUSINESS_DRIFT')
-    # The only authorized A02 change is the exact two-line byte appendix.
+    # Reconstruct exactly: original A02 bytes + A10 + approved A11/A12 bytes.
     original,actual=r.a02_manifest()
     appendix=(REPO/'production/A-10/readme-ajout.txt').read_bytes()
     readme='wp/tests/a02-audit/README.md'
     current=(REPO/readme).read_bytes()
-    require(len(appendix.splitlines())==2 and current.endswith(appendix),'README_APPENDIX')
-    actual[readme]=hashlib.sha256(current[:-len(appendix)]).hexdigest()
+    require(original[readme]==A02_README_SHA256, 'README_BASELINE_CHANGED')
+    actual[readme]=readme_original_digest(current,appendix)
     require(actual==original,'A02_ACCEPTED_SOURCES_CHANGED')
     preparation=load(REPO/'production/A-10/preparation/receipt.json')
     require(preparation['exit_code']==0,'T01_PREPARATION_NOT_GREEN')

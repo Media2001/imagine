@@ -1,0 +1,10 @@
+C-16 — PRET pour relecture technique, avec réserve C09 historique explicite.
+Cible unique : imagine-test-demo. Aucun paiement réel, aucun accès activé.
+Parcours C16 : 70/70 contrôles HTTP/natifs, 6 tests / 14 assertions.
+T01 canonique après correction portable B04 : 1040 tests / 34229 assertions, zéro échec/erreur/ignoré.
+Plugin racine : 76 tests / 481 assertions ; C12 séparé : 7 / 63 ; B04 ciblé : 4 / 91 (sous-ensemble racine).
+Préparateur d'image relancé, exit 0. Payload relu identique. Reset ciblé : 11 objets et 3 comptes supprimés, absence relue.
+C09 reste à 381/382 : action A-PAPIER #8103 annulée le 25/11/2026 à 20:38:22 UTC, avant le déploiement C16 enregistré ; aucun changement avant/après le nouveau parcours C16. Défaut historique classé hors C16, pas corrigé ni masqué.
+État courant et empreintes : final.json. Parcours, commandes et limites : A-VOIR.md.
+Relecture : python wp/tests/demo/c16-gates.py (exit 0 ciblé) ; --strict-global (exit 2 conservé).
+Ne signifie ni tous les lots verts, ni clôture par les relecteurs, ni validation visuelle de Ced, ni GO sur le réel.

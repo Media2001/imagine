@@ -84,7 +84,7 @@ def run():
     assert rest == {'objects': [], 'users': []}
     evidence = ['installation.json', 'unit-gates.json', 'http-gates.json', 'reset.json',
         'rejouer-t01-gates-red.log', 'rejouer-t01-gates-final.log', 'preparer-image-gates.log',
-        'gates-c09-diagnostic.json', 'gates-c09-after-http.json', 'c09-non-regression-gates.json']
+        'gates-c09-diagnostic.json', 'gates-c09-after-http.json', 'gates-c09-policy.json', 'c09-non-regression-gates.json']
     result = {'at': datetime.now(timezone.utc).isoformat(),
         'status': 'PRET_TECHNIQUE_C16_RESERVE_C09_HISTORIQUE' if historical else 'GATES_TECHNIQUES_VERTS',
         'PRET_present': (p / 'PRET').exists(), 'payload_sha256_readback': payload,
@@ -92,6 +92,7 @@ def run():
         'http_checks': http['total'], 'http_failures': http['failures'],
         'created_then_deleted': http['created_then_deleted'], 'preparation_verified': True,
         'canonical_T01': canonical, 'C09_checks': c09['total'], 'C09_failures': c09['failures'],
+        'C09_native_exit': raw['code'], 'strict_global_exit': 2 if c09['failures'] else 0,
         'global_all_green': not c09['failures'], 'historical_C09_nonblocking_for_C16': historical,
         'A_PAPIER_unchanged_before_after_C16_http': unchanged,
         'historical_reason': 'Action 8103 canceled 2026-11-25 20:38:22 UTC, before C16 deployment; not naturally consumed. No rescheduling or subscription change executed.',

@@ -1,0 +1,14 @@
+{
+  "command": [
+    "C:/windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "C:\\Users\\Ced\\imagine\\wp\\tests\\preparer-image.ps1"
+  ],
+  "exit_code": 0,
+  "at": "2026-11-26T00:45:29.444348+01:00",
+  "log": "production/A-11/preparer-image-parent.log",
+  "sha256": "7ba0045cb9fe58444da2ccef73cfe250b226c42aba32dee9ae77171417cf42a1"
+}
