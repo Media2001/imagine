@@ -156,11 +156,11 @@ def run_wp(site, args, env=None, timeout=300):
         raise Refusal(codes[-1] if codes else 'A04_COMMAND_FAILED')
     return p
 
-def worker(site, step, mode):
+def worker(site, step, mode, journal=None):
     script = pathlib.Path(__file__).resolve().parent / 'runtime.php'
     result = run_wp(site, ['eval-file', str(script), '--use-include'],
         {'IMAGINE_A04_COMPONENT': step['component'], 'IMAGINE_A04_MODE': mode,
-         'IMAGINE_A04_HOOKS': json.dumps(step['hooks'])})
+         'IMAGINE_A04_HOOKS': json.dumps(step['hooks']), 'IMAGINE_A04_JOURNAL': str(journal) if journal else ''})
     lines = [v[len('A04_JSON='):] for v in result.stdout.splitlines() if v.startswith('A04_JSON=')]
     require(len(lines) == 1, 'A04_RUNTIME_RECEIPT')
     receipt = json.loads(lines[0])
@@ -224,7 +224,7 @@ def execute(args):
         else: shutil.copyfile(template, persistent)
         try:
             # Never bootstrap a partly copied component after SIGKILL: finish its overlay first.
-            if not any(r['phase'] == 'copying' for r in state['steps'].values()): worker(site, plan['steps'][0], 'guard')
+            if not any(r['phase'] == 'copying' for r in state['steps'].values()): worker(site, plan['steps'][0], 'guard', safe_path(state_dir, 'migrations.jsonl'))
             for step in plan['steps']:
                 key = step['component']; row = state['steps'].get(key)
                 if row and row['phase'] == 'verified': continue
@@ -249,10 +249,10 @@ def execute(args):
                 if key == 'woocommerce':
                     native = run_wp(site,['wc','update'])
                     callbacks = sorted(set(re.findall(r'\bwc_update_[0-9][A-Za-z0-9_]*\b', native.stdout)))
-                migrated = worker(site,step,'migrate')
+                migrated = worker(site,step,'migrate',safe_path(state_dir,'migrations.jsonl'))
                 migrated['migrations'] = callbacks + migrated.get('migrations', [])
                 refresh_maintenance(site)
-                worker(site,step,'verify')
+                worker(site,step,'verify',safe_path(state_dir,'migrations.jsonl'))
                 require(version(site,key) == step['after'],'A04_TARGET_VERSION')
                 row['phase']='verified';row['duration_seconds']=round(time.time()-row['started'],3);row['migrations']=migrated.get('migrations',[])
                 event(key,'verified',before=row['before'],after=row['after'],duration_seconds=row['duration_seconds'],migrations=row['migrations'])

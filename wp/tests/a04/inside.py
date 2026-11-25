@@ -95,7 +95,7 @@ def run_storage(storage):
         check(storage+':real_updater_sigkill',lock.returncode==-9)
         resumed=update(site,plan,backup,state)
         if resumed.returncode:
-            for filename in ['etat.json','journal.json','journal.txt']:
+            for filename in ['etat.json','journal.json','journal.txt','migrations.jsonl']:
                 shutil.copyfile(state/filename,OUT/(storage+'-failed-'+filename))
             pending=a03.sql(db,"SELECT hook,status,COUNT(*) AS count FROM wp_actionscheduler_actions WHERE status IN ('pending','in-progress','failed') GROUP BY hook,status ORDER BY hook,status")
             diagnostic=a03.sql(db,"SELECT action_id,JSON_KEYS(args) AS arg_keys,JSON_UNQUOTE(JSON_EXTRACT(args,'$.update_callback')) AS named_callback,JSON_UNQUOTE(JSON_EXTRACT(args,'$[0]')) AS positional_callback FROM wp_actionscheduler_actions WHERE hook='woocommerce_run_update_callback' AND status='pending'")
@@ -125,7 +125,7 @@ def run_storage(storage):
         compared=a03.cmd(['php','/subject/comparer',str(OUT/(storage+'-before/non-regression.json')),str(OUT/(storage+'-after/non-regression.json'))],check=False)
         diff=json.loads(compared.stdout);write(OUT/(storage+'-comparison.json'),diff)
         check(storage+':only_expected_changes',compared.returncode==0, diff)
-        for name in ['etat.json','journal.json','journal.txt']:
+        for name in ['etat.json','journal.json','journal.txt','migrations.jsonl']:
             shutil.copyfile(state/name,OUT/(storage+'-'+name))
         write(OUT/(storage+'-versions.json'),{'before':dict(zip(keys,before)),'after':dict(zip(keys,after)),'baseline_public_woo':old_version})
     finally:

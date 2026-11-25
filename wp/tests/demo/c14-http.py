@@ -16,7 +16,7 @@ def verify():
     m = wp('echo wp_json_encode(get_option("imagine_demo_manifest"));')
     uid, oid = f['users']['P-NUMERO'], f['orders']['P-NUMERO']
     issue, other = m['demo-2026-t1'], m['demo-2026-t2']
-    articles = wp('''$out=[];foreach([''' + str(issue) + ',' + str(other) + '''] as $n){$p=get_posts(['post_type'=>'post','numberposts'=>1,'post_status'=>'publish','meta_query'=>[['key'=>'imagine_numero_id','value'=>$n],['key'=>'imagine_reserve','value'=>'1']]])[0];$out[]=['id'=>$p->ID,'path'=>parse_url(get_permalink($p),PHP_URL_PATH),'witness'=>wp_strip_all_tags($p->post_content)];}echo wp_json_encode($out);''')
+    articles = wp('''$out=[];foreach([''' + str(issue) + ',' + str(other) + '''] as $n){$p=get_posts(['post_type'=>'post','numberposts'=>1,'post_status'=>'publish','meta_query'=>[['key'=>'imagine_numero_id','value'=>$n],['key'=>'imagine_reserve','value'=>'1']]])[0];$out[]=['id'=>$p->ID,'path'=>parse_url(get_permalink($p),PHP_URL_PATH),'witness'=>preg_match('/CONTENU_FICTIF_RESERVE_[A-Z0-9_-]+/',$p->post_content,$match)?$match[0]:throw new RuntimeException('Sentinelle C14 absente')];}echo wp_json_encode($out);''')
     bought, excluded = articles
     accounts = json.loads((Path.home() / '.imagine-demo/identifiants.json').read_text(encoding='utf-8'))['c09_accounts']
     client = http.login(accounts['P-NUMERO'])

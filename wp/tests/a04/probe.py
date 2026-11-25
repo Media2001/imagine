@@ -23,4 +23,4 @@ for f in pathlib.Path('/opt/a04').glob('*.zip'):
                     text=z.read(n).decode(errors='replace')
                     if 'function get_lifecycle' in text or 'class Lifecycle' in text:
                         print('MEMBERSHIPS_LIFECYCLE_API',n,re.findall(r'public (?:static )?function ([A-Za-z0-9_]+)',text))
-                        print('MEMBERSHIPS_METHOD_SIGNATURES',re.findall(r'public function (?:init|get_lifecycle_handler)\\s*\\([^)]*\\)',text))
+                        print('MEMBERSHIPS_METHOD_SIGNATURES',[line.strip() for line in text.splitlines() if 'public function init(' in line or 'function get_lifecycle_handler(' in line])

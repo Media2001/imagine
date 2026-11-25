@@ -119,7 +119,7 @@ try {
     $order->add_product($product, 1, ['subtotal' => '10', 'total' => '10']); $order->save();
     $checks['nouvelle_ligne_retablit'] = $allowed();
     $second = $make($user); $second->set_status('processing'); $second->set_date_paid(time() - DAY_IN_SECONDS); $second->save();
-    $order->set_status('refunded'); $order->save();
+    $order->set_status('cancelled'); $order->save();
     $checks['autre_achat_valide_conserve_droit'] = $allowed();
     $second->delete(true);
     $checks['suppression_dernier_achat_valide_revoque'] = $closed();

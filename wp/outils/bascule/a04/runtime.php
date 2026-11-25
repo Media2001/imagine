@@ -13,6 +13,24 @@ final class Runtime
         }
     }
 
+    public static function trace(array $event): void
+    {
+        $path = (string) getenv('IMAGINE_A04_JOURNAL');
+        if ($path === '') {
+            return;
+        }
+        self::need(!is_link($path), 'A04_JOURNAL');
+        $handle = fopen($path, 'ab');
+        self::need(is_resource($handle), 'A04_JOURNAL');
+        try {
+            self::need(flock($handle, LOCK_EX), 'A04_JOURNAL');
+            $line = json_encode(['utc' => gmdate('c')] + $event, JSON_THROW_ON_ERROR) . "\n";
+            self::need(fwrite($handle, $line) === strlen($line) && fflush($handle) && fsync($handle), 'A04_JOURNAL');
+        } finally {
+            fclose($handle);
+        }
+    }
+
     public static function wooMigrations(): array
     {
         $allowed = [];
@@ -45,10 +63,13 @@ final class Runtime
                 && in_array($callback, $allowed, true), 'A04_CALLBACK_REFUSED');
             // Only this native callback and this exact action. The staging AS
             // blocker stays installed; no global queue or payment hook is run.
+            $label = is_array($callback) ? implode('::', $callback) : $callback;
+            self::trace(['component' => 'woocommerce', 'action_id' => $id, 'callback' => $label, 'stage' => 'begin']);
             \WC_Install::run_update_callback($callback);
             $store->mark_complete($id);
             self::need($store->get_status($id) === 'complete', 'A04_ACTION_READBACK');
-            $executed[] = is_array($callback) ? implode('::', $callback) : $callback;
+            self::trace(['component' => 'woocommerce', 'action_id' => $id, 'callback' => $label, 'stage' => 'complete']);
+            $executed[] = $label;
         }
         throw new \RuntimeException('A04_MIGRATION_LIMIT');
     }
@@ -159,6 +180,9 @@ final class Runtime
 try {
     echo 'A04_JSON=' . json_encode(Runtime::run(), JSON_THROW_ON_ERROR) . "\n";
 } catch (\Throwable $error) {
+    Runtime::trace(['component' => (string) getenv('IMAGINE_A04_COMPONENT'),
+        'stage' => 'error', 'class' => get_class($error), 'line' => $error->getLine(),
+        'file' => basename($error->getFile())]);
     $code = preg_match('/\AA04_[A-Z_]+\z/D', $error->getMessage())
         ? $error->getMessage() : 'A04_RUNTIME_FAILED';
     fwrite(STDERR, $code . "\n");
