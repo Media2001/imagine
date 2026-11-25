@@ -49,6 +49,12 @@ def run(phase='final'):
         checks[label + ':etat_accessible'] = bool(toggle and toggle.get('aria-pressed') == 'false' and toggle.get('aria-controls') == 'imagine-reading-options')
         checks[label + ':corps_unique'] = len(soup.select('[data-imagine-body="article"]')) == 1 and len(soup.select('.imagine-paywall-body')) == 1
         checks[label + ':temps_calcule_serveur'] = bool(soup.select_one('[data-imagine-reading-time]'))
+        import re
+        words = len(re.findall(r"[^\W_]+(?:[’'-][^\W_]+)*", body.get_text(' ', strip=True))) if body else 0
+        minutes = max(1, (words + 199) // 200)
+        timing = soup.select_one('[data-imagine-reading-time]')
+        checks[label + ':temps_selon_texte_serve_uniquement'] = bool(timing and (' : ' + str(minutes) + ' minute') in timing.get_text())
+        checks[label + ':script_differe'] = bool(soup.select_one('script[src*="/assets/reading.js"][defer]'))
         checks[label + ':trois_fonds_et_tailles'] = len(soup.select('#imagine-reading-theme option')) == 3 and len(soup.select('#imagine-reading-size option')) == 3
         checks[label + ':barre_progression_nommee'] = bool(soup.select_one('progress#imagine-reading-progress[aria-label][max="100"]'))
         checks[label + ':script_dedie'] = len(soup.select('script[src*="/assets/reading.js"]')) == 1
@@ -59,8 +65,18 @@ def run(phase='final'):
     for label, path in [('REST', '/wp-json/wp/v2/posts?slug=c08-article-reserve-article'), ('flux', '/feed/'), ('recherche', '/?s=lucioles')]:
         code, _, text = http.fetch(path)
         checks[label + ':anonyme_sans_texte_reserve'] = code == 200 and witness not in text
+    assets = {}
+    for name in ['reading.js', 'reading.css']:
+        code, _, data = http.fetch('/wp-content/themes/imagine/assets/' + name)
+        expected = (ROOT / 'wp/themes/imagine/assets' / name).read_bytes()
+        actual = data.encode('utf-8')
+        checks['asset:' + name + ':HTTP_octets_exacts'] = code == 200 and actual == expected
+        assets[name] = hashlib.sha256(actual).hexdigest()
+    code, _, home = http.fetch('/')
+    checks['accueil:HTTP200'] = code == 200
+    checks['accueil:aucun_asset_lecture'] = '/assets/reading.js' not in home and '/assets/reading.css' not in home
     receipt = {'at': datetime.now(timezone.utc).isoformat(), 'scope': 'imagine-test-demo', 'phase': phase, 'checks': checks,
-               'total': len(checks), 'failures': [k for k,v in checks.items() if not v], 'responses': responses}
+               'total': len(checks), 'failures': [k for k,v in checks.items() if not v], 'responses': responses, 'assets_sha256': assets}
     PROOF.mkdir(parents=True, exist_ok=True)
     (PROOF / ('http-' + phase + '.json')).write_text(json.dumps(receipt, ensure_ascii=False, indent=2), encoding='utf-8')
     print(json.dumps({k: receipt[k] for k in ['phase', 'total', 'failures']}, ensure_ascii=False))

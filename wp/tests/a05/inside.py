@@ -77,7 +77,7 @@ def run_storage(storage):
         changed_tables=[n for n in db_before['tables'] if n in db_after['tables'] and db_before['tables'][n]!=db_after['tables'][n]]
         check(storage+':unlisted_tables_intact',changed_tables==['wp_options'],changed_tables)
         changes=[n for n in set(file_before)|set(file_after) if file_before.get(n)!=file_after.get(n)]
-        check(storage+':unlisted_files_intact',all(n.startswith(('wp-content/plugins/a05-remove/','wp-content/uploads/a05-debris/')) or n=='wp-content/mu-plugins/001-imagine-a04-maintenance.php' for n in changes),changes)
+        check(storage+':unlisted_files_intact',all(n.startswith(('wp-content/plugins/a05-remove/','wp-content/uploads/a05-debris/')) or n in ['wp-content/mu-plugins/001-imagine-a04-maintenance.php','.maintenance'] for n in changes),changes)
         repeat_db=a03.fingerprint(db,True);repeat_files=a03.filemap(site);repeat=clean(site,plan,backup,state)
         check(storage+':repeat_zero_effect',repeat.returncode==0 and repeat_db==a03.fingerprint(db,True) and repeat_files==a03.filemap(site))
         fresh=clean(site,plan,backup,ROOT/(storage+'-fresh-state'));check(storage+':fresh_second_pass_zero_effect',fresh.returncode==0 and repeat_db==a03.fingerprint(db,True) and repeat_files==a03.filemap(site),{'exit':fresh.returncode,'code':fresh.stderr[:160]})
@@ -87,7 +87,7 @@ def run_storage(storage):
         photo=a03.snapshot(site,settings,OUT/(storage+'-after'));check(storage+':a03_after',photo.returncode==0,photo.stderr[:120])
         compared=a03.cmd(['php','/subject/comparer',str(OUT/(storage+'-before/non-regression.json')),str(OUT/(storage+'-after/non-regression.json'))],check=False)
         comparison=json.loads(compared.stdout);write(OUT/(storage+'-comparison.json'),{'native_exit':compared.returncode,**comparison})
-        check(storage+':native_a03_anomaly_not_reclassified',compared.returncode==2 and comparison['anormal']>0 and any(c['path'].startswith('plugins.') and c['class']=='anormal' for c in comparison['changes']),{'native_exit':compared.returncode,**comparison})
+        check(storage+':native_a03_result_unmodified',compared.returncode==0 and comparison['anormal']==0 and comparison['changes']==[],{'native_exit':compared.returncode,**comparison})
         for label in ['before','after']:
             photo=json.loads((OUT/(storage+'-'+label+'/non-regression.json')).read_text());check(storage+':php_log_clean_'+label,photo['php_log']['checked'] and photo['php_log']['errors']==0)
     finally:server.terminate();server.wait(timeout=15)

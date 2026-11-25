@@ -70,7 +70,7 @@ def protect(plan,inv):
     deleted=[r['name'] for r in inv['tables'] if selected(plan['tables'],r['name'])]
     if deleted:
         kept=[n for n in plugins if plugin_action(plan,n)!='retirer']
-        kept+=['theme:'+inv['theme']]+['mu:'+n for n in inv.get('mu_plugins',[])]
+        kept+=['theme:'+inv['theme']]+['mu:'+n for n in inv.get('mu_plugins',[]) if n!='001-imagine-a04-maintenance.php']
         for name in kept: need(name in plan['table_owners'],'A05_TABLE_OWNERSHIP_REQUIRED',name)
         for name in deleted:
             prefix=inv['prefix'];suffix=name[len(prefix):] if name.startswith(prefix) else name
@@ -202,6 +202,7 @@ def execute(args):
         state=a04.load_json(state_file) if state_file.exists() else None
         persistent=a04.safe_path(site,'wp-content/mu-plugins/001-imagine-a04-maintenance.php')
         template=ROOT.parent/'a04/maintenance.php'
+        if persistent.exists():need(a04.digest(persistent)==a04.digest(template),'A04_MAINTENANCE_BYTES')
         if state:
             need(state.get('schema')=='imagine-a05-state-v1' and state.get('site')==str(site) and state.get('plan_sha256')==identity and state.get('config_sha256')==config and isinstance(state.get('operations'),list),'A05_STATE')
             need(persistent.is_file() and a04.digest(persistent)==a04.digest(template),'A04_MAINTENANCE_BYTES')

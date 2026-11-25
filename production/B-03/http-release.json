@@ -1,0 +1,70 @@
+{
+  "at": "2026-11-25T16:55:44.290550+00:00",
+  "scope": "imagine-test-demo",
+  "phase": "release",
+  "checks": {
+    "a-carte:HTTP200": true,
+    "a-carte:texte_selon_droit": true,
+    "a-carte:extrait_present": true,
+    "a-carte:bloc_paywall": true,
+    "a-carte:cache_prive": true,
+    "a-carte:HTML5_semantique": true,
+    "a-carte:vrai_bouton_lecture": true,
+    "a-carte:sans_JS_bouton_invisible": true,
+    "a-carte:etat_accessible": true,
+    "a-carte:corps_unique": true,
+    "a-carte:temps_calcule_serveur": true,
+    "a-carte:temps_selon_texte_serve_uniquement": true,
+    "a-carte:script_differe": true,
+    "a-carte:trois_fonds_et_tailles": true,
+    "a-carte:barre_progression_nommee": true,
+    "a-carte:script_dedie": true,
+    "a-carte:style_dedie": true,
+    "a-carte:sans_erreur_PHP": true,
+    "anonyme:HTTP200": true,
+    "anonyme:texte_selon_droit": true,
+    "anonyme:extrait_present": true,
+    "anonyme:bloc_paywall": true,
+    "anonyme:cache_prive": true,
+    "anonyme:HTML5_semantique": true,
+    "anonyme:vrai_bouton_lecture": true,
+    "anonyme:sans_JS_bouton_invisible": true,
+    "anonyme:etat_accessible": true,
+    "anonyme:corps_unique": true,
+    "anonyme:temps_calcule_serveur": true,
+    "anonyme:temps_selon_texte_serve_uniquement": true,
+    "anonyme:script_differe": true,
+    "anonyme:trois_fonds_et_tailles": true,
+    "anonyme:barre_progression_nommee": true,
+    "anonyme:script_dedie": true,
+    "anonyme:style_dedie": true,
+    "anonyme:sans_erreur_PHP": true,
+    "REST:anonyme_sans_texte_reserve": true,
+    "flux:anonyme_sans_texte_reserve": true,
+    "recherche:anonyme_sans_texte_reserve": true,
+    "asset:reading.js:HTTP_octets_exacts": true,
+    "asset:reading.css:HTTP_octets_exacts": true,
+    "accueil:HTTP200": true,
+    "accueil:aucun_asset_lecture": true
+  },
+  "total": 43,
+  "failures": [],
+  "responses": {
+    "a-carte": {
+      "status": 200,
+      "bytes": 30555,
+      "body_sha256": "2ef5acae5e1f453904139b21abddc878b528cec59e7f58889b5864266b879026",
+      "article": "/c08-article-reserve-article/"
+    },
+    "anonyme": {
+      "status": 200,
+      "bytes": 30073,
+      "body_sha256": "5fa49b453e64f9cc3d987698602b35cc9cdfa4ad32a797bbc0b02286d4dd2341",
+      "article": "/c08-article-reserve-article/"
+    }
+  },
+  "assets_sha256": {
+    "reading.js": "4ef1f631c533358d9279d2512bbc2da7ea88f9be6277563f06c59db85105fd0f",
+    "reading.css": "96e03e236cd685b4198f53a7c48dcdc28ac1b1055e6b130e1328d52f649dce06"
+  }
+}
