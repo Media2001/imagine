@@ -1,0 +1,10 @@
+{
+  "raw_fingerprint_exact": false,
+  "files_changed": [],
+  "tables_changed": [
+    "wp_options"
+  ],
+  "options_changed": [
+    "_transient_timeout_wcs_woocommerce_active_version"
+  ]
+}

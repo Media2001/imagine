@@ -1,0 +1,18 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "/subject/repeter",
+    "--wp-path=/scratch/classic",
+    "--state=/report/classic-sequence",
+    "--update-plan=/opt/a08/classic-update.json",
+    "--clean-plan=/opt/a08/classic-cleanup.json",
+    "--config=/opt/a03/classic-settings.json",
+    "--backup=/opt/a08/classic-backup.json",
+    "--mutations-ready"
+  ],
+  "exit": 75,
+  "stderr": "",
+  "stdout": "",
+  "duration_seconds": 5.430015716003254
+}

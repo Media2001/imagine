@@ -1,0 +1,333 @@
+{
+  "schema": "imagine-a08-v1",
+  "identity": {
+    "site": "/scratch/classic",
+    "inputs": {
+      "/opt/a08/classic-update.json": "5c1be97eb2dd2347d0b9516a45c386093809b87978bdff4e8192317a1445a838",
+      "/opt/a08/classic-cleanup.json": "e374ccfcd7b162080ede34de0b625a8355abe82cd2b4502a951d7a6949bf98a5",
+      "/opt/a03/classic-settings.json": "dda829c8d649fbd36a7fb0c3b7ae3e0bd5418a0cf7ec0ba53010a2d8f1ee5683",
+      "/opt/a08/classic-backup.json": "73fe123121286b6f05071016e0ebf601008be8aa34f8063e96b0bb53557f0085"
+    },
+    "tools": {
+      "nettoyer.md": "8913167c788d24c3deb6f9f803d48653c5d204e8d30b753c893aa8548a9eb309",
+      "plan-imagine.exemple.json": "dea1acad0e998f755e7701749f91978562ca2acc654fa336a4c1c53b99a7f25c",
+      "repetition.md": "e5bfe25f8f15c9c52bfd6447e17ccac003919c74a6a876c5b0b97f07cf540089",
+      "comparer": "d9e40a82360a4982de5c9aa55d0b14178621c99b32ea0da6e40223aa29ae2a58",
+      "non-regression": "74971fff009aa578b7db5ba510aa54f6bec76bae7b0e68b57887a2e628c66b6b",
+      "nettoyer": "8a1d4cf46b15a6ed4dd440a0955126b1cef998122d9241b9a328ab7c3ca6a758",
+      "mettre-a-jour.md": "52859e25931ffa051a8a47d4ab39057fd038c8f1cd9be9c0a0e2b07904621530",
+      "mettre-a-jour": "863c22cbb6fec2c1469388d65aae6fa1c2383e848e5b38f646dc0e2689f4a941",
+      "repeter": "8c4cf537ff761f1f49694c52b223d2c7b470fc99d155ae4b6968cde26bc38a24",
+      "000-imagine-staging-safety.php": "c16f048f3fd2587ba719924eec53b07651ea3b6a495a8125746a157582f5474f",
+      "audit": "7eb2b4bfa450e37d3f4265e3055cdba61a877b056f4feb0bfce06f681659c6dc",
+      "non-regression.md": "4e721baaacce65f780f5491ba5463ca4dcd5237b6bf152c958917d5d9c71ded0",
+      "README.md": "67a9c1383940203419f77eae021b165d2ebf1e93e9080a2bdee5d9bf5b7a3829",
+      "lancer": "f156ce43843230a7c1e066f02537aabe6796cb7366c5ca99b8ff3c029cc0fa29",
+      "a08/sequence.py": "8ef74b38f0c7099c56d3f5d6f66e093027c431b592e88247e33cc8d801296ddd",
+      "a05/bootstrap.php": "2bf552d56c7f93319f817f2354ab7368f222409c21abd73187afaa7a6bf24dc1",
+      "a05/database.php": "f78f3a92d5e826c9894c9c5d25fefee374dcd28dea2b494c265386c8c4ee229a",
+      "a05/native.php": "3bd4d910606c5bd188b8536565db481960add38870a1fa751dfb478600a309de",
+      "a05/clean.py": "6f4e15727007711d1e350892269c2795cbb5bd2542377c4e2d14604ce40267df",
+      "a03/Report.php": "ffc1a003aeb5055e3a758389232f3e381a41db2167842c7691c1706bfba4cad9",
+      "a03/Site.php": "0350fb54dd7a906247f8f65a8203fc94fde9ccc52b303b13f76273eb773ca24c",
+      "a03/Policy.php": "6877b7330d472a41b14011e3e41aeb422d01e58a0c2675340bd101a87d427b62",
+      "a04/bootstrap.php": "c00ac7d816b2192794391ad9d9d873fdeb1ab12658662bd172599b459f6dfeb7",
+      "a04/update.py": "92da71dfda8d97f774db5254fee16661037a3937947e563b9bbc6fe048e41f0b",
+      "a04/maintenance.php": "4c356eb960eeaf1807b6aa55cd07551a58dfd843c797f6a5db3011d20aca6feb",
+      "a04/runtime.php": "838ab4fa0c93ec5350226fe7721d1fc444bc67ca3ac2558e5dc22c21079a7c17"
+    }
+  },
+  "done": {
+    "audit": {
+      "artifact": "audit-2",
+      "seals": {
+        "audit-2-receipt.json": "77cd37b920692410d71742d4646c5b680335da4f5737db2b05d294d07bb74a51",
+        "audit-2-stdout.log": "155abfb842212f5d540722c2b9a187099d9ff9bb6f667fcf01d863b6745c6b66",
+        "audit-2-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "audit-2/audit.md": "a05ec238847e816279a3d23d106782d14ff197aa12b67f76d72775671a00b5ef",
+        "audit-2/audit.json": "1ff7ecefb8be8de8e169fc2467ed9cf233c418c9ddd8457de144d8b9a306299f"
+      }
+    },
+    "avant": {
+      "artifact": "avant-2",
+      "seals": {
+        "avant-2-receipt.json": "826ac3dd3e4762ea8b0613396bc85e015805deb30577b596238e6a3e576345b0",
+        "avant-2-stdout.log": "47d5d5ae11757e3988788536f45acbc17da1c1586c734422b7edbef34a7f8316",
+        "avant-2-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "avant-2/non-regression.json": "73bda1018dcc6051c78b24f9ebaaa36b399e93d87765fc47dad5753a04d33bea"
+      }
+    },
+    "mise-a-jour": {
+      "artifact": null,
+      "seals": {
+        "mise-a-jour-3-receipt.json": "e0a82dc67c6e94eea206dd269b3428e45954d5b84546194b0aa2be78569d3094",
+        "mise-a-jour-3-stdout.log": "40c6bdaa26d4beabcf4368c1a8433ad932aa49eeda06074261ddbebbbc27ab4c",
+        "mise-a-jour-3-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "nettoyage": {
+      "artifact": null,
+      "seals": {
+        "nettoyage-2-receipt.json": "836809c6db137b45e121aea266dde484c657da6feba5aa7365d32351800451ee",
+        "nettoyage-2-stdout.log": "6641fa93463fe6ab162500237429fc631d5bd7b7ff0674f40924b32adde3adec",
+        "nettoyage-2-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "apres": {
+      "artifact": "apres-2",
+      "seals": {
+        "apres-2-receipt.json": "82332a47ddace77c859ad79467888244f0cd14213d5bd98de57770b31a4818e8",
+        "apres-2-stdout.log": "47d5d5ae11757e3988788536f45acbc17da1c1586c734422b7edbef34a7f8316",
+        "apres-2-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "apres-2/non-regression.json": "e520c4730b5ec2c23c5ad7cf51103a3b4eb6c7f74128f4b243f1eed079da339e"
+      }
+    },
+    "comparaison": {
+      "artifact": null,
+      "seals": {
+        "comparaison-2-receipt.json": "bf45e68503e42d74f7b2fc5082e828972ba6c0f2fb32cc3cf8d568202a7c8a17",
+        "comparaison-2-stdout.log": "54c63a675744101c4a3dbed4fc48a6418bb204b7776a5065382aaf78947afb35",
+        "comparaison-2-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  },
+  "attempts": [
+    {
+      "step": "audit",
+      "command": [
+        "php",
+        "/subject/audit",
+        "--wp-path=/scratch/classic",
+        "--output=/report/classic-sequence/audit-1"
+      ],
+      "exit": 0,
+      "duration_seconds": 1.034320355975069,
+      "receipt": "audit-1-receipt.json"
+    },
+    {
+      "step": "avant",
+      "command": [
+        "php",
+        "/subject/non-regression",
+        "--wp-path=/scratch/classic",
+        "--config=/opt/a03/classic-settings.json",
+        "--output=/report/classic-sequence/avant-1"
+      ],
+      "exit": 0,
+      "duration_seconds": 1.4606606650049798,
+      "receipt": "avant-1-receipt.json"
+    },
+    {
+      "step": "mise-a-jour",
+      "command": [
+        "python3",
+        "-B",
+        "/subject/mettre-a-jour",
+        "--wp-path=/scratch/classic",
+        "--plan=/opt/a08/classic-update.json",
+        "--backup=/opt/a08/classic-backup.json",
+        "--state=/report/classic-sequence/a04"
+      ],
+      "exit": 1,
+      "duration_seconds": 0.15334164397791028,
+      "receipt": "mise-a-jour-1-receipt.json"
+    },
+    {
+      "step": "mise-a-jour",
+      "command": [
+        "python3",
+        "-B",
+        "/subject/mettre-a-jour",
+        "--wp-path=/scratch/classic",
+        "--plan=/opt/a08/classic-update.json",
+        "--backup=/opt/a08/classic-backup.json",
+        "--state=/report/classic-sequence/a04"
+      ],
+      "exit": 0,
+      "duration_seconds": 77.91356580803404,
+      "receipt": "mise-a-jour-2-receipt.json"
+    },
+    {
+      "step": "nettoyage",
+      "command": [
+        "python3",
+        "-B",
+        "/subject/nettoyer",
+        "--wp-path=/scratch/classic",
+        "--plan=/opt/a08/classic-cleanup.json",
+        "--backup=/opt/a08/classic-backup.json",
+        "--state=/report/classic-sequence/a05"
+      ],
+      "exit": 0,
+      "duration_seconds": 2.280061154975556,
+      "receipt": "nettoyage-1-receipt.json"
+    },
+    {
+      "step": "apres",
+      "command": [
+        "php",
+        "/subject/non-regression",
+        "--wp-path=/scratch/classic",
+        "--config=/opt/a03/classic-settings.json",
+        "--output=/report/classic-sequence/apres-1"
+      ],
+      "exit": 0,
+      "duration_seconds": 1.4281972410390154,
+      "receipt": "apres-1-receipt.json"
+    },
+    {
+      "step": "comparaison",
+      "command": [
+        "php",
+        "/subject/comparer",
+        "/report/classic-sequence/avant-1/non-regression.json",
+        "/report/classic-sequence/apres-1/non-regression.json"
+      ],
+      "exit": 3,
+      "duration_seconds": 0.03558778198203072,
+      "receipt": "comparaison-1-receipt.json"
+    },
+    {
+      "step": "audit",
+      "command": [
+        "php",
+        "/subject/audit",
+        "--wp-path=/scratch/classic",
+        "--output=/report/classic-sequence/audit-2"
+      ],
+      "exit": 0,
+      "duration_seconds": 1.347218380018603,
+      "receipt": "audit-2-receipt.json"
+    },
+    {
+      "step": "avant",
+      "command": [
+        "php",
+        "/subject/non-regression",
+        "--wp-path=/scratch/classic",
+        "--config=/opt/a03/classic-settings.json",
+        "--output=/report/classic-sequence/avant-2"
+      ],
+      "exit": 0,
+      "duration_seconds": 0.7595402440056205,
+      "receipt": "avant-2-receipt.json"
+    },
+    {
+      "step": "mise-a-jour",
+      "command": [
+        "python3",
+        "-B",
+        "/subject/mettre-a-jour",
+        "--wp-path=/scratch/classic",
+        "--plan=/opt/a08/classic-update.json",
+        "--backup=/opt/a08/classic-backup.json",
+        "--state=/report/classic-sequence/a04"
+      ],
+      "exit": 0,
+      "duration_seconds": 4.790266137977596,
+      "receipt": "mise-a-jour-3-receipt.json"
+    },
+    {
+      "step": "nettoyage",
+      "command": [
+        "python3",
+        "-B",
+        "/subject/nettoyer",
+        "--wp-path=/scratch/classic",
+        "--plan=/opt/a08/classic-cleanup.json",
+        "--backup=/opt/a08/classic-backup.json",
+        "--state=/report/classic-sequence/a05"
+      ],
+      "exit": 0,
+      "duration_seconds": 0.4679179309750907,
+      "receipt": "nettoyage-2-receipt.json"
+    },
+    {
+      "step": "apres",
+      "command": [
+        "php",
+        "/subject/non-regression",
+        "--wp-path=/scratch/classic",
+        "--config=/opt/a03/classic-settings.json",
+        "--output=/report/classic-sequence/apres-2"
+      ],
+      "exit": 0,
+      "duration_seconds": 1.0812208550050855,
+      "receipt": "apres-2-receipt.json"
+    },
+    {
+      "step": "comparaison",
+      "command": [
+        "php",
+        "/subject/comparer",
+        "/report/classic-sequence/avant-2/non-regression.json",
+        "/report/classic-sequence/apres-2/non-regression.json"
+      ],
+      "exit": 0,
+      "duration_seconds": 0.0425677879829891,
+      "receipt": "comparaison-2-receipt.json"
+    }
+  ],
+  "status": "TERMINÉ — réception sans anomalie",
+  "passes": [
+    {
+      "audit": {
+        "artifact": "audit-1",
+        "seals": {
+          "audit-1-receipt.json": "4e28807864653360c663c2a4458508ace70880ea1c6536ab283a12623b5687de",
+          "audit-1-stdout.log": "155abfb842212f5d540722c2b9a187099d9ff9bb6f667fcf01d863b6745c6b66",
+          "audit-1-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "audit-1/audit.md": "df06194e5195f940752ea30ecf377fb16fd05e601f05b7ac330780f9a268f0e6",
+          "audit-1/audit.json": "05cfffb08fa7d66873946ee41b6f155053b99ec350d76a953deab5e7e6bd1f98"
+        }
+      },
+      "avant": {
+        "artifact": "avant-1",
+        "seals": {
+          "avant-1-receipt.json": "de8bbde033edb0a9e9ef5c0115892c3c4b110474e4be8ec2ea3dddbb9387e1ef",
+          "avant-1-stdout.log": "47d5d5ae11757e3988788536f45acbc17da1c1586c734422b7edbef34a7f8316",
+          "avant-1-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "avant-1/non-regression.json": "3c2457e157f3a0e27e12989cbf621e198b8e37dcb547dfc931fe0484bf8ba84e"
+        }
+      },
+      "mise-a-jour": {
+        "artifact": null,
+        "seals": {
+          "mise-a-jour-2-receipt.json": "ea164bfdc966962a68f36a13c91eba341ee4efe61e45d23475f578142f874d1f",
+          "mise-a-jour-2-stdout.log": "40c6bdaa26d4beabcf4368c1a8433ad932aa49eeda06074261ddbebbbc27ab4c",
+          "mise-a-jour-2-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "nettoyage": {
+        "artifact": null,
+        "seals": {
+          "nettoyage-1-receipt.json": "0ef97e18fd7f74fb7b94a62bf3e91f1f621f578007601aa1b887f23d12bd78d4",
+          "nettoyage-1-stdout.log": "53405fc80850fbd279d8cd2269dc525df203dd2ce5199cfb46391797c72e5efd",
+          "nettoyage-1-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "apres": {
+        "artifact": "apres-1",
+        "seals": {
+          "apres-1-receipt.json": "cb7f3e44b44d860f97763a67b2f55c2aade0ed262bb5ae7953aac154b2425dd8",
+          "apres-1-stdout.log": "47d5d5ae11757e3988788536f45acbc17da1c1586c734422b7edbef34a7f8316",
+          "apres-1-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "apres-1/non-regression.json": "75d4fa2bb19dc9628e1011828e133cb9048f084a5a14d5e97263d6f848b9cbc8"
+        }
+      },
+      "comparaison": {
+        "artifact": null,
+        "seals": {
+          "comparaison-1-receipt.json": "96488bb5c9952df2d7ffd119ef0db9041ff92ebfdebdd01f682c24124ff3319c",
+          "comparaison-1-stdout.log": "4580a3b9746b892215def000d0813986f7e824024fd7c414694b16005170a8a2",
+          "comparaison-1-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    }
+  ],
+  "look_at": "rapport.md ; maintenance non pilotée par A08 ; aucun GO implicite",
+  "comparison": {
+    "attendu": 0,
+    "anormal": 0
+  }
+}

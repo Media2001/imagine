@@ -1,0 +1,12 @@
+{
+  "step": "audit",
+  "command": [
+    "php",
+    "/subject/audit",
+    "--wp-path=/scratch/hpos",
+    "--output=/report/hpos-sequence/audit-1"
+  ],
+  "exit": 0,
+  "duration_seconds": 1.5045721929636784,
+  "receipt": "audit-1-receipt.json"
+}

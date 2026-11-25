@@ -91,11 +91,24 @@ def main():
     assert count==manifest['counts']['a08_unit']
     assert len(inner['checks'])==manifest['counts']['native_checks']
     assert len(runner['checks'])==manifest['counts']['runner_checks']
+    audit=json.loads((proof/'a02-unit.json').read_text())['checks']
+    assert len(audit)==manifest['counts']['a02_unit'] and all(row['status']=='PASS' for row in audit)
+    a03=json.loads((proof/'a03-unit.json').read_text())
+    assert a03['exit_code']==0 and all(a03['tests'].values()) and len(a03['tests'])==manifest['counts']['a03_unit']
+    boundary=json.loads((proof/'output-boundary.json').read_text())
+    assert all(boundary.values()) and len(boundary)==manifest['counts']['a03_boundaries']
+    for lot in ['a04','a05']:
+        log=(proof/(lot+'-regression.log')).read_text()
+        assert log.rstrip().endswith('OK') and int(re.search(r'Ran (\d+) tests?',log)[1])==manifest['counts'][lot+'_unit']
     prep=json.loads((LOT/'preparer-image.json').read_text())
     assert prep['exit']==0 and prep['command'][-1]=='wp/tests/preparer-image.ps1'
     assert 'T01 IMAGE READY' in (LOT/'preparer-image.log').read_text(encoding='utf8',errors='replace')
-    pret=json.loads((LOT/'PRET').read_text(encoding='utf8'))
-    assert pret['manifest_sha256']==sha(LOT/'manifeste.json')
+    if sys.argv[1:]==['--sans-pret']:
+        assert not (LOT/'PRET').exists()
+    else:
+        assert not sys.argv[1:],'Unknown verifier option'
+        pret=json.loads((LOT/'PRET').read_text(encoding='utf8'))
+        assert pret['manifest_sha256']==sha(LOT/'manifeste.json')
     print(json.dumps({'exit_code':0,'verified_files':verified,'counts':manifest['counts'],'durations_seconds_cumulative':durations,'proof':manifest['proof']},indent=2))
     return 0
 

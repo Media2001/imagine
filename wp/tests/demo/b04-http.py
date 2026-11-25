@@ -30,7 +30,7 @@ foreach(['demo-2026-t1','demo-2026-t4'] as $slug){
  'meta_key'=>'imagine_numero_id','meta_value'=>$p->ID,'orderby'=>['menu_order'=>'ASC','ID'=>'ASC']]);
  $row=['id'=>$p->ID,'path'=>wp_parse_url(get_permalink($p),PHP_URL_PATH),'title'=>$p->post_title,'articles'=>[],'product'=>null];
  foreach($articles as $a){$paragraphs=preg_split('/<\/p>/', $a->post_content);$markers=[];
- foreach($paragraphs as $paragraph){$text=trim(wp_strip_all_tags($paragraph));if(mb_strlen($text)>35 && !str_contains($a->post_excerpt,$text)){$markers[]=$text;}}
+ foreach($paragraphs as $paragraph){$text=trim(wp_strip_all_tags($paragraph));if(mb_strlen($text)>35 && !str_contains($a->post_excerpt,$text) && !str_contains($p->post_excerpt,$text)){$markers[]=$text;}}
  $row['articles'][]=['id'=>$a->ID,'path'=>wp_parse_url(get_permalink($a),PHP_URL_PATH),'title'=>$a->post_title,'markers'=>$markers];}
  foreach(get_posts(['post_type'=>'product','post_status'=>'publish','numberposts'=>-1,'meta_key'=>Imagine\Site\AchatsNumeros::PRODUIT,'meta_value'=>$p->ID,'orderby'=>'ID','order'=>'ASC']) as $productPost){
  $product=wc_get_product($productPost->ID);if(Imagine\Site\AchatsNumeros::numero($product)===$p->ID && $product->is_purchasable() && $product->is_in_stock()){$row['product']=$product->get_permalink();break;}}

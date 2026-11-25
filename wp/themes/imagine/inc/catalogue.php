@@ -23,3 +23,65 @@ function imagine_access_status(array $decision): array
     };
     return ['code' => $code, 'label' => $label];
 }
+
+/** Published, purchasable native C14 product only; no rights inferred here. */
+function imagine_issue_product(int $issue): string
+{
+    if (!function_exists('wc_get_product') || !class_exists('Imagine\\Site\\AchatsNumeros')) {
+        return '';
+    }
+    $products = get_posts([
+        'post_type' => 'product', 'post_status' => 'publish', 'numberposts' => -1,
+        'meta_key' => \Imagine\Site\AchatsNumeros::PRODUIT, 'meta_value' => $issue,
+        'orderby' => 'ID', 'order' => 'ASC',
+    ]);
+    foreach ($products as $post) {
+        $product = wc_get_product($post->ID);
+        if (\Imagine\Site\AchatsNumeros::numero($product) === $issue
+            && $product->is_purchasable() && $product->is_in_stock()) {
+            return $product->get_permalink();
+        }
+    }
+    return '';
+}
+
+/** Public catalogue metadata only: never derive an excerpt from article content. */
+function imagine_catalogue_articles(array $articles, array $statuses = [], int $heading = 2, string $id = ''): void
+{
+    if ($articles === []) {
+        echo '<p>' . esc_html__('Aucun article pour le moment.', 'imagine') . '</p>';
+        return;
+    }
+    $tag = $heading === 3 ? 'h3' : 'h2';
+    echo '<ul class="imagine-list"' . ($id !== '' ? ' id="' . esc_attr($id) . '"' : '') . '>';
+    foreach ($articles as $article) {
+        $status = $statuses[$article->ID] ?? imagine_access_status(class_exists('Imagine\\Site\\Paywall')
+            ? \Imagine\Site\Paywall::decision($article) : []);
+        echo '<li data-imagine-id="' . esc_attr((string) $article->ID) . '"><' . $tag . '><a href="'
+            . esc_url(get_permalink($article)) . '">' . esc_html(get_the_title($article)) . '</a></' . $tag . '>';
+        echo '<p data-imagine-access="' . esc_attr($status['code']) . '">' . esc_html($status['label']) . '</p>';
+        $excerpt = mb_substr(trim(wp_strip_all_tags(strip_shortcodes($article->post_excerpt))), 0, 320);
+        if ($excerpt !== '') {
+            echo '<p>' . esc_html($excerpt) . '</p>';
+        }
+        $terms = get_the_terms($article->ID, 'imagine_thematique');
+        if (is_array($terms)) {
+            echo '<p>' . esc_html__('Thématiques :', 'imagine') . ' ';
+            $links = [];
+            foreach ($terms as $term) {
+                $url = get_term_link($term);
+                if (!is_wp_error($url)) {
+                    $links[] = '<a href="' . esc_url($url) . '">' . esc_html($term->name) . '</a>';
+                }
+            }
+            echo implode(', ', $links) . '</p>';
+        }
+        $issue = get_post((int) get_post_meta($article->ID, 'imagine_numero_id', true));
+        if ($issue && $issue->post_type === 'imagine_numero' && $issue->post_status === 'publish') {
+            echo '<p>' . esc_html__('Dans le numéro :', 'imagine') . ' <a href="' . esc_url(get_permalink($issue))
+                . '">' . esc_html(get_the_title($issue)) . '</a></p>';
+        }
+        echo '</li>';
+    }
+    echo '</ul>';
+}
