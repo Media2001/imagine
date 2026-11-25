@@ -103,8 +103,10 @@ final class Runtime
         $expectedEnvironment = (string) getenv('IMAGINE_A04_EXPECTED_ENV');
         self::need(in_array($expectedEnvironment, ['staging', 'production'], true)
             && wp_get_environment_type() === $expectedEnvironment, 'A04_ENVIRONMENT');
-        foreach (['mail_blocked', 'http_blocked', 'subscriptions_staging',
-            'cron_disabled', 'as_async_disabled', 'as_runner_disabled', 'gateways_disabled'] as $key) {
+        foreach (
+            ['mail_blocked', 'http_blocked', 'subscriptions_staging',
+            'cron_disabled', 'as_async_disabled', 'as_runner_disabled', 'gateways_disabled'] as $key
+        ) {
             self::need(($probe[$key] ?? null) === true, 'A04_RUNTIME_UNSAFE');
         }
         self::trace(['component' => $component, 'mode' => $mode, 'stage' => 'runtime_safe', 'environment' => $expectedEnvironment]);
@@ -161,9 +163,11 @@ final class Runtime
                     // The native notifications processor is recurring operational
                     // work, not a schema/data upgrader. Preserve it; never send it.
                     $processors = get_option($name, []);
-                    self::need(is_array($processors)
+                    self::need(
+                        is_array($processors)
                         && array_diff($processors, ['WCS_Notifications_Batch_Processor']) === [],
-                        'A04_BACKGROUND_MIGRATION_ADAPTER_REQUIRED');
+                        'A04_BACKGROUND_MIGRATION_ADAPTER_REQUIRED'
+                    );
                     continue;
                 }
                 if (preg_match('/^' . $prefix . '.*_batch_/', $name)) {

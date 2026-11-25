@@ -15,6 +15,7 @@ import zipfile
 
 ORDER = ['core', 'woocommerce', 'woocommerce-subscriptions', 'woocommerce-memberships']
 HOOKS = {'woocommerce_run_update_callback'}
+LOCK_FDS = ()
 
 class Refusal(RuntimeError):
     pass
@@ -184,7 +185,7 @@ def run_wp(site, args, env=None, timeout=300):
     try:
         p = subprocess.run(['wp', '--allow-root', '--no-color', '--path=' + str(site),
                 '--require=' + str(pathlib.Path(__file__).resolve().parent / 'bootstrap.php')] + args,
-            capture_output=True, text=True, env={**os.environ, 'IMAGINE_A04_SITE': str(site), **(env or {})}, timeout=timeout)
+            capture_output=True, text=True, pass_fds=LOCK_FDS, env={**os.environ, 'IMAGINE_A04_SITE': str(site), **(env or {})}, timeout=timeout)
     except subprocess.TimeoutExpired:
         raise Refusal('A04_COMMAND_TIMEOUT') from None
     if p.returncode != 0 or re.search(r'(?:Fatal error|Parse error|Uncaught (?:Error|Exception))', p.stdout + p.stderr, re.I):
@@ -213,6 +214,7 @@ def refresh_maintenance(site):
     safe_path(site, '.maintenance').write_text('<?php $upgrading = ' + str(int(time.time())) + ';\n')
 
 def execute(args):
+    global LOCK_FDS
     require(sys.platform == 'linux', 'A04_LINUX_REQUIRED')
     import fcntl
     site = pathlib.Path(args.wp_path)
@@ -227,6 +229,9 @@ def execute(args):
             fcntl.flock(site_lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError: raise Refusal('A04_ALREADY_RUNNING') from None
+        # Native children retain the same flock descriptions if this parent is
+        # SIGKILLed; a second updater must wait until those children really exit.
+        LOCK_FDS = (lock.fileno(), site_lock.fileno())
         maintenance(site)
         if target_env == 'staging':
             marker = load_json(safe_path(site, '.imagine-staging-verified.json'))

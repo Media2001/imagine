@@ -76,6 +76,20 @@ def run_storage(storage):
         denied=update(site,plan,bad,ROOT/(storage+'-stale'))
         check(storage+':stale_backup_refused',denied.returncode==1 and denied.stderr=='A04_BACKUP_AGE\n')
         state=ROOT/(storage+'-state')
+        # Kill the actual updater while a real WP-CLI child is still alive.
+        # Its inherited kernel locks must prevent any overlapping resume.
+        child_marker=ROOT/(storage+'-wp-child-started')
+        delay=site/'wp-content/mu-plugins/998-a04-owned-delay.php'
+        delay.write_text("<?php if (defined('WP_CLI') && WP_CLI) { file_put_contents("+json.dumps(str(child_marker))+", (string) getmypid()); sleep(4); }")
+        interrupted=subprocess.Popen(['python3','-B','/subject/mettre-a-jour','--wp-path='+str(site),'--plan='+str(plan),'--backup='+str(backup),'--state='+str(state),'--stop-after=woocommerce'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+        for _ in range(1000):
+            if child_marker.exists() or interrupted.poll() is not None:break
+            time.sleep(.02)
+        check(storage+':native_child_started',child_marker.is_file())
+        delay.unlink();interrupted.kill();interrupted.wait(timeout=10)
+        concurrent=update(site,plan,backup,state)
+        check(storage+':orphan_child_keeps_site_lock',interrupted.returncode==-9 and concurrent.returncode==1 and concurrent.stderr=='A04_ALREADY_RUNNING\n')
+        time.sleep(5)
         stopped=update(site,plan,backup,state,['--stop-after=woocommerce'])
         check(storage+':controlled_interruption',stopped.returncode==75,{'exit':stopped.returncode,'code':stopped.stderr[:200]})
         initial=json.loads((state/'etat.json').read_text())
