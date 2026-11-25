@@ -1,0 +1,457 @@
+{
+  "suite": "A02-real-commercial-fixture",
+  "checks": [
+    {
+      "check": "lint:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:seed.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:fingerprint.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:unit.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:readonly-probe.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": false,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "classic:native_renewal_carries_coupon",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:a02_audit_compatible",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:command_available",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:cli_success",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0,
+        "stderr": "suppressed"
+      }
+    },
+    {
+      "check": "classic:exact_inventory",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:authoritative_storage",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:native_fields:a10-percent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:native_fields:a10-fixed-cart",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:native_fields:a10-fixed-product",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:native_fields:a10-recurring-fee",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:native_fields:a10-recurring-percent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:native_fields:a10-sign-up-fee",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:native_fields:a10-sign-up-fee-percent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:native_fields:a10-expired",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:native_fields:a10-never-used",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:native_fields:a10-expired-never-used",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:distinct_subscription_counts",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:exact_12month_orders",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:other_coupon_counts_zero",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:renewal_types",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:expired_separate",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:never_used_separate",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:privacy",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:file_modes",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:repeat_exact_business_fields",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:missing_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:output_in_web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:existing_output",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:output_in_source",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:unknown_argument",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:symlink_web_parent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:invalid_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:root_transaction_write_denied",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:database_identical_all_tables",
+      "status": "PASS",
+      "detail": {
+        "before": "232754deb8969340406907bc07474af7e8f8249f75d2c3b17c66ce9e4762a6d5",
+        "after": "232754deb8969340406907bc07474af7e8f8249f75d2c3b17c66ce9e4762a6d5",
+        "tables": 55
+      }
+    },
+    {
+      "check": "classic:site_files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:never_bootstrap",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": true,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "hpos:native_renewal_carries_coupon",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:a02_audit_compatible",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:command_available",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:cli_success",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0,
+        "stderr": "suppressed"
+      }
+    },
+    {
+      "check": "hpos:exact_inventory",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:authoritative_storage",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_fields:a10-percent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_fields:a10-fixed-cart",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_fields:a10-fixed-product",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_fields:a10-recurring-fee",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_fields:a10-recurring-percent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_fields:a10-sign-up-fee",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_fields:a10-sign-up-fee-percent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_fields:a10-expired",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_fields:a10-never-used",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_fields:a10-expired-never-used",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:distinct_subscription_counts",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:exact_12month_orders",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:other_coupon_counts_zero",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:renewal_types",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:expired_separate",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:never_used_separate",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:privacy",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:file_modes",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:repeat_exact_business_fields",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:missing_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:output_in_web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:existing_output",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:output_in_source",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:unknown_argument",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:symlink_web_parent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:invalid_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:root_transaction_write_denied",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:database_identical_all_tables",
+      "status": "PASS",
+      "detail": {
+        "before": "50d34f1ddd2e514ef0ad9aa5da09b6fc46199cefb78316b7e93020d41c5650ce",
+        "after": "50d34f1ddd2e514ef0ad9aa5da09b6fc46199cefb78316b7e93020d41c5650ce",
+        "tables": 55
+      }
+    },
+    {
+      "check": "hpos:site_files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:never_bootstrap",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "network_interfaces",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp6",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 0,
+  "licensed_sha256": {
+    "woocommerce-subscriptions.zip": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083",
+    "woocommerce-memberships.zip": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285"
+  },
+  "no_real_site": true
+}

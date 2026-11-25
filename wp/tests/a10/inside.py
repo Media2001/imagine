@@ -89,6 +89,30 @@ def run_storage(storage):
         probe=b.cmd(['php','/opt/a10/readonly-probe.php'],env={'A10_SITE':str(site)},check=False)
         b.check(storage+':root_transaction_write_denied',probe.returncode==0 and json.loads(probe.stdout)['blocked'])
     finally: (site/'wp-config.php').write_text(config)
+    # Exercise the real checkout-layout repository guard, not only standalone fallback.
+    import shutil
+    canonical=pathlib.Path('/checkout/wp/outils/bascule')
+    if not canonical.exists():
+        canonical.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copytree('/subject',canonical)
+    guarded=b.cmd(['php',str(canonical/'inventorier-codes'),'--wp-path='+str(site),'--output=/checkout/forbidden','--audit='+str(auditdir/'audit.json')],check=False)
+    b.check(storage+':guard:canonical_repository',guarded.returncode==1 and guarded.stderr=='A10_OUTPUT_UNSAFE\n' and not pathlib.Path('/checkout/forbidden').exists())
+    wrongphoto=json.loads((auditdir/'audit.json').read_text())
+    wrongphoto['sections']['commerce']['order_storage']='classic' if storage=='hpos' else 'hpos'
+    wrong.write_text(json.dumps(wrongphoto))
+    mismatch=inventory(site,OUT/(storage+'-storage-mismatch'),'--audit='+str(wrong))
+    # The audit must be nested in a photograph directory with the common report parent.
+    # Place the synthetic bad photograph there to reach the storage-specific guard.
+    wrongnested=OUT/(storage+'-wrong-audit'); wrongnested.mkdir()
+    (wrongnested/'audit.json').write_text(json.dumps(wrongphoto))
+    mismatch=inventory(site,OUT/(storage+'-storage-mismatch'),'--audit='+str(wrongnested/'audit.json'))
+    b.check(storage+':guard:storage_mismatch',mismatch.returncode==1 and mismatch.stderr=='A10_AUDIT_STORAGE_MISMATCH\n' and not (OUT/(storage+'-storage-mismatch')).exists())
+    (site/'wp-config.php').write_text(config.replace("define('DB_PASSWORD', '')", "define('DB_PASSWORD', getenv('A10_PRIVATE_CONFIG_CANARY'))"))
+    try:
+        dynamic=inventory(site,OUT/(storage+'-dynamic'),'--audit='+str(auditdir/'audit.json'))
+        b.check(storage+':guard:dynamic_config',dynamic.returncode==1 and dynamic.stderr=='A02_CONFIG_NON_LITERAL\n' and not (OUT/(storage+'-dynamic')).exists())
+    finally: (site/'wp-config.php').write_text(config)
+    b.check(storage+':existing_output_bytes_preserved',json.loads((target/'codes.json').read_text())==report)
     after=b.fingerprint(db)
     (OUT/(storage+'-db-after.json')).write_text(json.dumps(after,indent=2)+'\n')
     b.check(storage+':database_identical_all_tables',before==after,{'before':before['logical_sha256'],'after':after['logical_sha256'],'tables':len(before['tables'])})
@@ -97,4 +121,13 @@ def run_storage(storage):
     # No DB mutations after this point; A02 independent snapshot equality includes cron/actions.
 
 b.run_storage=run_storage
-if __name__=='__main__': sys.exit(b.main())
+if __name__=='__main__':
+    for file in sorted(pathlib.Path('/subject/a10').glob('*.php')) + [pathlib.Path('/subject/inventorier-codes')] + sorted(pathlib.Path('/opt/a10').glob('*.php')):
+        lint=b.cmd(['php','-l',str(file)],check=False)
+        b.check('a10_lint:'+file.name,lint.returncode==0)
+    result=b.main()
+    path=OUT/'result.json'
+    payload=json.loads(path.read_text())
+    payload['suite']='A10-native-coupon-inventory-on-A02-bench'
+    path.write_text(json.dumps(payload,indent=2)+'\n')
+    sys.exit(result)

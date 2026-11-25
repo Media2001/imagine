@@ -179,7 +179,7 @@ final class Inventory
                 'exclude_sale_items' => $meta['exclude_sale_items'] === 'yes',
                 'minimum_amount' => Projection::decimal($meta['minimum_amount']), 'maximum_amount' => Projection::decimal($meta['maximum_amount']),
                 'recurring_on_renewals' => Projection::recurring($typeValue),
-                'renewal_payment_limit' => Projection::number($meta['_wcs_number_payments'] === '' ? '0' : $meta['_wcs_number_payments']),
+                'payment_limit_including_initial' => Projection::number($meta['_wcs_number_payments'] === '' ? '0' : $meta['_wcs_number_payments']),
                 'subscriptions' => $subscriptions, 'orders_12_months' => (int) $orderCount];
             $codes[] = $row;
             if ($expiry !== null && $expiry < $now->format('Y-m-d\TH:i:s\Z')) {
@@ -196,7 +196,7 @@ final class Inventory
             'codes' => $codes, 'expired' => $expired, 'never_used' => $never,
             'limitations' => [
                 'Reglages enregistres uniquement, aucun bootstrap ni filtre tiers; aucune promesse de remise effective future.',
-                'Recurrence standard Subscriptions; null pour type inconnu. Limite renouvellements: 0 illimitee; ce total configure ne mesure pas le solde de chaque abonnement.',
+                'Recurrence standard Subscriptions; null pour type inconnu. Limite de paiements incluant le paiement initial: 0 illimitee; ce total configure ne mesure pas le solde de chaque abonnement.',
                 'Commandes distinctes par code et creation UTC sur douze mois calendaires; tous statuts sauf corbeille et auto-draft, futurs et remboursements enfants exclus. Ce ne sont pas des ventes nettes.',
                 'Abonnements porteurs distincts: active, on-hold, pending et pending-cancel separes; cancelled et expired exclus.',
                 'Jamais utilise signifie usage_count enregistre egal a zero, pas une reconstruction historique. Expire et jamais utilise peuvent se recouper.',

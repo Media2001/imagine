@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://woocommerce.com/document/coupon-management/",
+    "final_url": "https://woocommerce.com/document/coupon-management/",
+    "http_status": 200,
+    "sha256": "dd8e06e83c21fc45de1aa8a7c0d9fc217765f9aaa287134bd95ed0cbe395be87",
+    "anchor": "Coupons: Overview",
+    "decision": "Core provides coupon types, product/email restrictions and usage limits; no custom rule engine needed.",
+    "at_utc": "2026-11-25T20:36:37.516850+00:00"
+  },
+  {
+    "url": "https://woocommerce.com/document/subscriptions/subscriptions-coupons/",
+    "final_url": "https://woocommerce.com/document/subscriptions/subscriptions-coupons/",
+    "http_status": 200,
+    "sha256": "336e21bb6c28b9e4a792f317567ffb8af6b7440939b34195d6c8a3f316ad7c4b",
+    "anchor": "Recurring Product Discount",
+    "decision": "Subscriptions distinguishes recurring and sign-up discounts; fixed payment limit is a configured total, not remaining renewals.",
+    "at_utc": "2026-11-25T20:36:37.516850+00:00"
+  },
+  {
+    "url": "https://woocommerce.com/document/subscriptions/limited-payment-coupon-guide/",
+    "final_url": "https://woocommerce.com/document/subscriptions/subscriptions-coupons/limited-payment-coupon-guide/",
+    "http_status": 200,
+    "sha256": "d04987efa575dd62a7152fc2b2c6073dc5b76b113560ee2caed4b5c158be6c59",
+    "anchor": "initial payment",
+    "decision": "The configured limited-coupon total includes an eligible initial payment; future effective discount depends on payment history.",
+    "at_utc": "2026-11-25T20:36:37.824534+00:00"
+  },
+  {
+    "url": "https://developer.woocommerce.com/docs/features/high-performance-order-storage/",
+    "final_url": "https://developer.woocommerce.com/docs/features/orders/high-performance-order-storage/",
+    "http_status": 200,
+    "sha256": "592a84d2249abc9cd081874e6fa1f4c934cab70656fd47025bb81013601ef91b",
+    "anchor": "Authoritative tables",
+    "decision": "Only the configured authoritative order store is counted; order items are the native coupon carrier relation.",
+    "at_utc": "2026-11-25T20:36:37.299246+00:00"
+  }
+]

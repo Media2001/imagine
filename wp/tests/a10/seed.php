@@ -112,8 +112,21 @@ foreach ($coupons as $c) {
         'product_ids' => $c->get_product_ids(), 'excluded_product_ids' => $c->get_excluded_product_ids(),
         'product_categories' => $c->get_product_categories(),
         'date_expires_utc' => $c->get_date_expires()?->date('Y-m-d\TH:i:s\Z'),
-        'renewal_payment_limit' => (int) $c->get_meta('_wcs_number_payments'),
+        'date_created_utc' => $c->get_date_created()?->date('Y-m-d\TH:i:s\Z'),
+        'date_modified_utc' => $c->get_date_modified()?->date('Y-m-d\TH:i:s\Z'),
+        'payment_limit_including_initial' => (int) $c->get_meta('_wcs_number_payments'),
+        'individual_use' => $c->get_individual_use(), 'free_shipping' => $c->get_free_shipping(),
+        'exclude_sale_items' => $c->get_exclude_sale_items(),
+        'minimum_amount' => $c->get_minimum_amount() === '' ? null : $c->get_minimum_amount(),
+        'maximum_amount' => $c->get_maximum_amount() === '' ? null : $c->get_maximum_amount(),
     ];
 }
-echo 'A10_JSON=' . json_encode(['expected' => $expected, 'renewal_carries_coupon' => $renewalCarries,
+$schemaSources = [];
+foreach ([WC_ABSPATH . 'includes/data-stores/class-wc-coupon-data-store-cpt.php',
+    WC_ABSPATH . 'includes/data-stores/class-wc-order-item-data-store.php',
+    WP_PLUGIN_DIR . '/woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php',
+    WP_PLUGIN_DIR . '/woocommerce-subscriptions/includes/class-wcs-limited-recurring-coupon-manager.php'] as $source) {
+    $schemaSources[str_replace(WP_PLUGIN_DIR . '/', '', $source)] = hash_file('sha256', $source);
+}
+echo 'A10_JSON=' . json_encode(['expected' => $expected, 'native_source_sha256' => $schemaSources, 'renewal_carries_coupon' => $renewalCarries,
     'versions' => ['wordpress' => get_bloginfo('version'), 'woocommerce' => WC()->version, 'subscriptions' => WC_Subscriptions::$version]]) . "\n";

@@ -1,0 +1,8 @@
+{
+  "exit": 0,
+  "stdout": "T01 COVERAGE : site ; 5 test files; full root configuration\nPHPUnit 11.5.58 by Sebastian Bergmann and contributors.\n\nRuntime:       PHP 8.2.33\nConfiguration: /tmp/site/phpunit.xml\n\n..                                                                  2 / 2 (100%)\n\nTime: 00:00.003, Memory: 8.00 MB\n\nOK (2 tests, 15 assertions)\n\nC15_JUNIT\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<testsuites>\n  <testsuite name=\"/tmp/site/phpunit.xml\" tests=\"2\" assertions=\"15\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.001643\">\n    <testsuite name=\"Site-C11-C13\" tests=\"2\" assertions=\"15\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.001643\">\n      <testsuite name=\"Imagine\\Site\\Tests\\EcheancesReglesTest\" file=\"/tmp/site/tests/EcheancesReglesTest.php\" tests=\"2\" assertions=\"15\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.001643\">\n        <testcase name=\"testMandatSuspenduExigeRenouvellementNatifDuEtSupprimeLeFutur\" file=\"/tmp/site/tests/EcheancesReglesTest.php\" line=\"12\" class=\"Imagine\\Site\\Tests\\EcheancesReglesTest\" classname=\"Imagine.Site.Tests.EcheancesReglesTest\" assertions=\"12\" time=\"0.001420\"/>\n        <testcase name=\"testMandatSansReferenceResteVisibleEtExporte\" file=\"/tmp/site/tests/EcheancesReglesTest.php\" line=\"35\" class=\"Imagine\\Site\\Tests\\EcheancesReglesTest\" classname=\"Imagine.Site.Tests.EcheancesReglesTest\" assertions=\"3\" time=\"0.000223\"/>\n      </testsuite>\n    </testsuite>\n  </testsuite>\n</testsuites>\n",
+  "stderr": "",
+  "network": "none",
+  "image": "sha256:81307cd3b6dc27150ee6b5dfe01c14d3b6b53fa4ae49411f5515bd810e72c3e9",
+  "selection": "EcheancesReglesTest"
+}

@@ -26,7 +26,7 @@ def run(label, selection='EcheancesReglesTest'):
         code += '$args[]=\'--filter\';$args[]=' + json.dumps(selection) + ';'
     code += "$p=proc_open($args,[0=>['file','/dev/null','r'],1=>STDOUT,2=>STDERR],$pipes);$exit=proc_close($p);echo '\nC15_JUNIT\n';if(is_file('/tmp/junit.xml'))echo file_get_contents('/tmp/junit.xml');exit($exit);"
     try:
-        docker('create','--name',name,'--label','org.imagine.c15-proof=1','--pull','never','--network','none','--read-only','--user','65534:65534','--cap-drop','ALL','--security-opt','no-new-privileges','--tmpfs','/tmp:rw,nosuid,nodev,size=256m,mode=1777','--mount','type=bind,source='+source+',target=/repo/wp,readonly','--entrypoint','php',image['Id'],'-r',code)
+        docker('create','--name',name,'--label','org.imagine.c15-proof=1','--pull','never','--network','none','--read-only','--user','65534:65534','--cap-drop','ALL','--security-opt','no-new-privileges','--tmpfs','/tmp:rw,nosuid,nodev,size=256m,mode=1777','--mount','type=bind,source='+source+',target=/repo/wp,readonly','--entrypoint','php',image['Id'],'/repo/wp/tests/demo/c15-t01-runtime.php',selection)
         inspect=json.loads(docker('inspect',name).stdout)[0]
         assert inspect['HostConfig']['NetworkMode']=='none' and inspect['HostConfig']['ReadonlyRootfs'] and not inspect['Mounts'][0]['RW']
         p=docker('start','-a',name,check=False)

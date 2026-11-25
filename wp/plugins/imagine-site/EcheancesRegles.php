@@ -13,9 +13,29 @@ final class EcheancesRegles
             throw new \InvalidArgumentException('Période invalide.');
         }
         $out = [];
+        $seen = [];
         foreach ($rows as $row) {
-            if ($row['etat'] === 'active' && $row['methode'] === 'imagine_papier' && $row['reference'] !== ''
-                && $row['prochaine'] > 0 && $row['prochaine'] <= $now + $days * 86400
+            if ($row['methode'] !== 'imagine_papier' || !in_array($row['etat'], ['active', 'on-hold'], true)) {
+                continue;
+            }
+            $row['reference'] = trim($row['reference']) === '' ? 'Référence manquante' : $row['reference'];
+            $due = array_filter($row['renouvellements'] ?? [], static fn ($order) =>
+                !$order['paye'] && $order['date_payee'] === 0
+                && in_array($order['etat'], ['pending', 'on-hold', 'failed'], true)
+                && $order['creation'] > 0 && $order['creation'] <= $now);
+            if ($due !== []) {
+                foreach ($due as $order) {
+                    if (!isset($seen[$order['id']])) {
+                        $out[] = array_replace($row, ['id' => $order['id'], 'souscription' => $row['id'],
+                            'etat' => $order['etat'], 'montant' => $order['montant'], 'devise' => $order['devise'],
+                            'echeance' => $order['creation'], 'type' => 'commande']);
+                        $seen[$order['id']] = true;
+                    }
+                }
+                // Une dette native remplace la projection future, elle ne s'y ajoute pas.
+                continue;
+            }
+            if ($row['etat'] === 'active' && $row['prochaine'] > 0 && $row['prochaine'] <= $now + $days * 86400
                 && ($row['fin'] === 0 || ($row['fin'] > $now && $row['prochaine'] < $row['fin']))) {
                 $out[] = $row + ['echeance' => $row['prochaine']];
             }
