@@ -31,12 +31,18 @@ def journal():
     return wp('''global $wpdb;$rows=$wpdb->get_results("SELECT option_name,option_value FROM {$wpdb->options} WHERE option_name LIKE 'imagine_envoi_releve_%' ORDER BY option_name",ARRAY_A);$out=[];foreach($rows as $r){$out[$r['option_name']]=hash('sha256',$r['option_value']);}echo wp_json_encode($out);''')
 
 
+def shared():
+    value = c14.preserve()
+    value['policies'] = [row for row in value['policies'] if not row['option_name'].startswith('imagine_envoi_releve_')]
+    return value
+
+
 def run(deploy=False, http=True):
     PROOF.mkdir(exist_ok=True)
     c14.c10.guard()
     before = snapshot()
     journal_before = journal()
-    protected = c14.preserve()
+    protected = shared()
     result = {'scope': 'imagine-test-demo', 'at': datetime.now(timezone.utc).isoformat(), 'status': 'EN_COURS'}
     def save():
         (PROOF / 'resultats.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
@@ -71,13 +77,15 @@ def run(deploy=False, http=True):
     own = wp('echo wp_json_encode(get_option("imagine_c09_fixture")["subscriptions"]["A-CARTE"]);')
     result['postal_journal_append_only'] = all(journal_after.get(k) == v for k, v in journal_before.items()) and len(added) == (2 if http else 0) and all(k.startswith('imagine_envoi_releve_' + str(own) + '_') for k in added)
     result['postal_observations_added'] = len(added)
-    result['closed_and_prior_lots_preserved'] = protected == c14.preserve()
+    result['closed_and_prior_lots_preserved'] = protected == shared()
     result['snapshot_before'] = before
     result['snapshot_after'] = snapshot()
     result['acceptance_blockers'] = [
         'A-4x-J45 absent de C09 et du site ; aucun alias ni état 2/4 inventé.',
         'Marge C05 non renseignée : quatre positions nommées A-SEPA4, aucune date théorique inventée.',
-        'Historique activation C01 et factures/justificatifs non raccordés : emplacements nommés.'
+        'Historique activation C01 et factures/justificatifs non raccordés : emplacements nommés.',
+        'Aucune échéance failed native sur les profils demandés : branche de paiement échoué non prouvée par HTTP, aucun rejet fabriqué.',
+        'A-CARTE sans paiement validé : adresse/source postale prouvée, inclusion positive dans un vrai export C07 non attestée.'
     ]
     checks = {k + ':' + key: value for k, group in result.items() if k in ['deployed_bytes', 'b02-runtime.php', 'b02-state.php', 'http'] for key, value in group.items()}
     checks.update({k: result[k] for k in ['native_snapshot_preserved', 'closed_and_prior_lots_preserved', 'postal_journal_append_only']})

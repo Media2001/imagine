@@ -127,6 +127,21 @@ PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/c14-regressions.py
 Le paquet C14 est une recette PHP pure autonome, plus une recette native HPOS et du vrai HTTP authentifié ; il n'est **pas découvert par T01**. `wp/tests/preparer-image.ps1` a néanmoins été relancé conformément à la consigne permanente. Les tests C11/C12 réutilisent les dépendances publiques préparées en conteneurs hors réseau. Les reçus C14 et les parcours sont dans `production/C-14/`. Aucun `PRET` n'est créé par l'implémenteur : la vérification indépendante du parent reste requise.
 
 
+## B-02 — tableau de bord Mon compte (squelette)
+
+`MonCompte.php` ajoute les cinq sections au **dashboard natif WooCommerce** ; le thème ne remplace ni la connexion, ni les routes Subscriptions, ni le formulaire d'adresse. Aucun endpoint public de données, aucune identité fournie par GET/POST : `donnees()` lit seulement la session et recontrôle le propriétaire de chaque souscription/commande. Les PDF viennent exclusivement de la décision C11/C14. Aucun CSS ajouté.
+
+La formule, le total récurrent, la prochaine date et les adresses viennent du CRUD natif. C01 fournit premier/dernier numéros théoriques ; sans historique d'activation, le compteur reste nommé non raccordé. C05 fournit les positions théoriques seulement si sa marge obligatoire est renseignée. Sans elle, A-SEPA4 affiche quatre emplacements, pas de fausses dates ni de fausses échéances payées. Les renouvellements sans rang métier restent non raccordés. Les factures/justificatifs sont une liste vide explicite, jamais les commandes rebaptisées factures.
+
+L'adresse postale affichée est celle de la souscription (source C13), pas seulement l'adresse par défaut du client. Le lien ouvre le formulaire Woo/WCS `edit-address/shipping/?subscription=ID` : validations, deux nonces et sauvegarde restent natifs. **Raccord B02 supplémentaire** : `woocommerce_after_subscription_object_save` appelle le relevé C13 existant, append-only et dédupliqué ; le hook `after_order_object_save` de C13 ne recevait pas la sauvegarde réelle Subscriptions 9.4.1. Aucun fichier C13/close modifié, aucune réécriture du passé postal. La recette change puis restaure l'adresse et garde les deux observations et les notes natives, sans reset.
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/b02.py --deploy
+PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/b02.py --require-complete
+```
+
+La seconde commande renvoie **2** tant que l'acceptation nominative est incomplète : `a-4x-j45` n'existe pas dans C09, A-SEPA4 n'est pas présenté comme son équivalent 2/4 ; marge C05 absente ; aucun rejet/paiement fabriqué. La recette technique PHP+HTTP peut être verte sans prétendre remplir ces gates. Le paquet B02 n'est pas découvert par T01 ; `preparer-image.ps1` a néanmoins été exécuté et vérifié. Parcours, commandes, limites et résultats : `production/B-02/`. Aucun PRET déposé.
+
 ## C-13 — Liste d’envoi native (relecture avec réserve C09)
 
 `EnvoiNatif.php` lit les souscriptions natives et leurs adresses de livraison par CRUD. Les relevés observés sont append-only, non autoloadés (`imagine_envoi_releve_ID_UUID`) et ne sont jamais antidatés. Les sauvegardes natives ajoutent une observation si les champs postaux changent. C01 fournit les numéros théoriques ; C07 seul établit les lignes, le gel, les anomalies et l'éligibilité. Un historique antérieur manquant ferme l'export. Une projection future est explicitement provisoire.

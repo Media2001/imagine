@@ -53,7 +53,6 @@ final class MonCompte
             return __('Virement en attente de validation', 'imagine-site');
         }
         if ($sub->has_status('on-hold')) {
-            $parent = wc_get_order($sub->get_parent_id());
             $members = wc_memberships_get_user_memberships($sub->get_customer_id(), ['status' => 'any']) ?? [];
             foreach ($members as $member) {
                 if ((int) get_post_meta($member->get_id(), '_subscription_id', true) === $sub->get_id()

@@ -1,7 +1,7 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-25T12:41:39.603530+00:00",
-  "status": "ECHEC",
+  "at": "2026-11-25T12:44:55.852529+00:00",
+  "status": "TECHNIQUE_VERT_ACCEPTATION_PARTIELLE",
   "deployed_bytes": {
     "plugins/imagine-site/MonCompte.php": true,
     "themes/imagine/parts/mon-compte.php": true,
@@ -84,6 +84,15 @@
     "anonyme_pas_de_coordonnees": true,
     "A_4x_J45_absent_pas_de_profil_fabrique": true
   },
+  "b02-state.php": {
+    "A-VIR_etat_natif_clair": true,
+    "A-EXPIRE_etat_natif_clair": true,
+    "A-NONRENOUV_etat_natif_clair": true,
+    "grace_fenetre_UTC_native_pas_renouvelee": true,
+    "API_identite_aucun_argument": true,
+    "hook_subscription_postal_natif_present": true,
+    "aucun_rejet_natif_ne_pas_fabriquer": true
+  },
   "http": {
     "A-CARTE_dashboard_HTTP": true,
     "A-CARTE_cache_prive": true,
@@ -143,7 +152,7 @@
   "native_snapshot_preserved": true,
   "postal_journal_append_only": true,
   "postal_observations_added": 2,
-  "closed_and_prior_lots_preserved": false,
+  "closed_and_prior_lots_preserved": true,
   "snapshot_before": {
     "users": "be0e99ae38678960009815b78d86b33cc2f5d84f7ef94b6a786829fd6f7c8b36",
     "posts": "237a091cacce66e349e9d9f08e81c34f9084887beedea81350f047636ec907e7",
@@ -173,10 +182,10 @@
   "acceptance_blockers": [
     "A-4x-J45 absent de C09 et du site ; aucun alias ni état 2/4 inventé.",
     "Marge C05 non renseignée : quatre positions nommées A-SEPA4, aucune date théorique inventée.",
-    "Historique activation C01 et factures/justificatifs non raccordés : emplacements nommés."
+    "Historique activation C01 et factures/justificatifs non raccordés : emplacements nommés.",
+    "Aucune échéance failed native sur les profils demandés : branche de paiement échoué non prouvée par HTTP, aucun rejet fabriqué.",
+    "A-CARTE sans paiement validé : adresse/source postale prouvée, inclusion positive dans un vrai export C07 non attestée."
   ],
-  "total": 135,
-  "failures": [
-    "closed_and_prior_lots_preserved"
-  ]
+  "total": 142,
+  "failures": []
 }

@@ -15,7 +15,7 @@ $until = $sub->get_meta('_imagine_acces_grace_fin');
 $expected = $from <= $now && $now < $until ? 'En délai de grâce' : 'Suspendu';
 $checks['grace_fenetre_UTC_native_pas_renouvelee'] = MonCompte::etat($sub) === $expected;
 $checks['API_identite_aucun_argument'] = (new ReflectionMethod(MonCompte::class, 'donnees'))->getNumberOfParameters() === 0;
-$checks['hook_subscription_postal_natif_present'] = has_action('woocommerce_after_subscription_object_save');
+$checks['hook_subscription_postal_natif_present'] = (bool) has_action('woocommerce_after_subscription_object_save');
 $failed = 0;
 foreach (['A-CARTE', 'A-SEPA4', 'A-SUSP'] as $who) {
     $sub = wcs_get_subscription($f['subscriptions'][$who]);
