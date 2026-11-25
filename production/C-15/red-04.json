@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-25T18:43:42.133013+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "raccord_present": false
+  },
+  "total": 1,
+  "failures": [
+    "raccord_present"
+  ]
+}

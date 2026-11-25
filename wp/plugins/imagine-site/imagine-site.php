@@ -53,6 +53,11 @@ require_once __DIR__ . '/ListeEnvoiAdmin.php';
 EnvoiNatif::register();
 ListeEnvoiAdmin::register();
 
+require_once __DIR__ . '/EcheancesRegles.php';
+require_once __DIR__ . '/EcheancesNatives.php';
+require_once __DIR__ . '/EcheancesAdmin.php';
+EcheancesAdmin::register();
+
 require_once __DIR__ . '/MonCompte.php';
 MonCompte::register();
 

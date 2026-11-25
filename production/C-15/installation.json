@@ -1,0 +1,10 @@
+{
+  "scope": "imagine-test-demo",
+  "sha256_readback": {
+    "EcheancesRegles.php": "a6c684f0162d96ef53c8a503ddc9b9cef232837ae301642c09efe06dcf8a90fa",
+    "EcheancesNatives.php": "9b4d1018f9b3061228f70d3fdd54c301179b8e9fd63827ffd6932a75f72a4745",
+    "EcheancesAdmin.php": "e1ff08daf19b7cc7a973376a88c112b6a324ad964f6ad191a28322fbd1f4cdb0",
+    "imagine-site.php": "7fa2bf3260b64ae1422cf8564ef2227d1ab9ead15ecca5bb7782693263b79eb9"
+  },
+  "theme_uploaded": false
+}

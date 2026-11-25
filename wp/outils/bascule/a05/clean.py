@@ -120,10 +120,10 @@ def inspect_site(site):
     for path in sorted(directory.glob('*.php'))+sorted(directory.glob('*/*.php')):
         need(not path.is_symlink(),'A05_PLUGIN_SYMLINK',str(path))
         text=path.read_text(encoding='utf8',errors='replace')[:8192]
-        if not re.search(r'^\s*(?:/\*+|\*|//|#)?\s*Plugin Name:',text,re.M|re.I): continue
+        if not re.search(r'^[ \t/*#@]*Plugin Name:',text,re.M|re.I): continue
         name=path.relative_to(directory).as_posix(); component=name.split('/')[0]
         a04.safe_path(directory,name)
-        header=re.search(r'^\s*(?:\*)?\s*Requires Plugins:\s*([^\r\n]+)',text,re.M|re.I)
+        header=re.search(r'^[ \t/*#@]*Requires Plugins:[ \t]*([^\r\n]+)',text,re.M|re.I)
         base=directory/component if '/' in name else path
         files_size(base)
         sources=base.rglob('*.php') if base.is_dir() else [base]
@@ -152,7 +152,10 @@ def operations(site,plan,inv):
         if row['action']=='retirer':
             if row['uninstall']:ops.append({'kind':'uninstall','name':name,'rows':0,'bytes':0,'phase':'pending'})
             base=name.split('/')[0] if '/' in name else name
-            need(not any(n!=name and n.startswith(base+'/') and plugin_action(plan,n)=='garder' for n in inv['plugins']),'A05_SHARED_PLUGIN_DIRECTORY',base)
+            # Fail closed for every shared directory, including multiple removals:
+            # deleting early could skip a neighbour's explicit native uninstall.
+            neighbours=[n for n in inv['plugins'] if n!=name and n.startswith(base+'/')]
+            need(not neighbours,'A05_SHARED_PLUGIN_DIRECTORY',base+('/'+neighbours[0].split('/',1)[1] if neighbours else ''))
             path=a04.safe_path(site,'wp-content/plugins/'+base)
             ops.append({'kind':'plugin','name':name,**files_size(path),'phase':'pending'})
     for kind,plural in [('table','tables'),('option','options'),('cron','cron')]:
@@ -162,9 +165,23 @@ def operations(site,plan,inv):
         path=safe_upload(site,row['path'])
         if row['action']=='garder':continue
         for kept in plan['uploads']:
-            need(not (kept['action']=='garder' and (kept['path']==row['path'] or kept['path'].startswith(row['path']+'/'))),'A05_UPLOAD_KEEP_CONFLICT',row['path'])
+            need(not (kept['action']=='garder' and (kept['path']==row['path'] or kept['path'].startswith(row['path']+'/') or row['path'].startswith(kept['path']+'/'))),'A05_UPLOAD_KEEP_CONFLICT',row['path'])
         if path.exists():ops.append({'kind':'upload','name':row['path'],**files_size(path),'phase':'pending'})
     return ops
+
+def absent_resources(site,plan,inv):
+    """Names only, informational: never checkpoint or execute these entries."""
+    absent=[]
+    def add(kind,name):absent.append({'kind':kind,'name':name,'status':'nommé, absent'})
+    for row in plan['plugins']:
+        name=row['plugin']
+        if not any(n==name or ('/' not in name and n.startswith(name+'/')) for n in inv['plugins']):add('plugin',name)
+    for kind,plural in [('table','tables'),('option','options'),('cron','cron')]:
+        for row in plan[plural]:
+            if not any(r['name']==row['name'] if row['match']=='exact' else r['name'].startswith(row['name']) for r in inv[plural]):add(kind,row['name'])
+    for row in plan['uploads']:
+        if not safe_upload(site,row['path']).exists():add('upload',row['path'])
+    return absent
 
 def authorize(plan,site,identity,gofile):
     if plan['site_status']=='verified-staging':return a04.authorize('verified-staging',site,identity,None)
@@ -212,7 +229,7 @@ def execute(args):
         else:a04.maintenance(site)
         inv=inspect_site(site);need(inv['environment']==environment,'A04_ENVIRONMENT');proposed=operations(site,plan,inv)
         if args.dry_run:
-            print(json.dumps({'mode':'dry-run','operations':proposed,'table_bytes':'allocated data+indexes; rows exact','uninstall_effects':'unknown third-party routine; not executed'},ensure_ascii=False,indent=2));return 0
+            print(json.dumps({'mode':'dry-run','operations':proposed,'information':absent_resources(site,plan,inv),'table_bytes':'allocated data+indexes; rows exact','uninstall_effects':'unknown third-party routine; not executed'},ensure_ascii=False,indent=2));return 0
         if state and state['complete']:
             need(not proposed,'A05_COMPLETED_DRIFT');print('A05_NOOP');return 0
         if state is None:

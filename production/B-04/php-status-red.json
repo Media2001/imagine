@@ -1,0 +1,11 @@
+{
+  "total": 1,
+  "checks": {
+    "fonction_statut_disponible": false
+  },
+  "failures": [
+    "fonction_statut_disponible"
+  ],
+  "at": "2026-11-25T18:44:02.365166+00:00",
+  "scope": "imagine-test-demo"
+}
