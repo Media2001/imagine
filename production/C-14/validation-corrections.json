@@ -1,7 +1,7 @@
 {
-  "at": "2026-11-25T14:55:49.676617+00:00",
+  "at": "2026-11-25T15:03:02.980481+00:00",
   "scope": "imagine-test-demo",
-  "status": "VERT",
+  "status": "EN_COURS",
   "commands": [
     {
       "name": "t01",
@@ -24,52 +24,6 @@
       ],
       "exit": 0,
       "log": "validation-c14.log"
-    },
-    {
-      "name": "regressions",
-      "argv": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
-        "C:\\Users\\Ced\\imagine\\wp\\outils\\demo\\c14-regressions.py"
-      ],
-      "exit": 0,
-      "log": "validation-regressions.log"
-    },
-    {
-      "name": "phpcs",
-      "argv": [
-        "wsl.exe",
-        "-d",
-        "Ubuntu",
-        "--",
-        "docker",
-        "run",
-        "--rm",
-        "--pull",
-        "never",
-        "--network",
-        "none",
-        "--read-only",
-        "--tmpfs",
-        "/tmp:rw,nosuid,nodev,size=16m,mode=1777",
-        "--cap-drop",
-        "ALL",
-        "--security-opt",
-        "no-new-privileges",
-        "--user",
-        "65534:65534",
-        "--mount",
-        "type=bind,source=/mnt/c/Users/Ced/imagine/wp,target=/repo/wp,readonly",
-        "--entrypoint",
-        "php",
-        "imagine-tests-t01:1",
-        "/opt/t01/imagine-site/vendor/bin/phpcs",
-        "--standard=PSR12",
-        "/repo/wp/plugins/imagine-site/AchatNumero.php",
-        "/repo/wp/plugins/imagine-site/AchatsNumeros.php",
-        "/repo/wp/plugins/imagine-site/tests/AchatNumeroTest.php"
-      ],
-      "exit": 0,
-      "log": "validation-phpcs.log"
     }
   ],
   "PRET_before": "e3aa30e17c31e87514b080cc766f5cd29c4fc3ad5c5dadb4e886c971f9ca447b",
@@ -81,43 +35,5 @@
     "errors": 0,
     "skipped": 0,
     "pass": true
-  },
-  "cleanup": {
-    "temporary_users": 0,
-    "temporary_posts": 0,
-    "refunds": 0,
-    "policy": "commande"
-  },
-  "shared_after": "5184daded8b1594202655bea845e2c9927af63f1ac3483fcf66bbda6dc01775a",
-  "shared_preserved": true,
-  "PRET_after": "e3aa30e17c31e87514b080cc766f5cd29c4fc3ad5c5dadb4e886c971f9ca447b",
-  "PRET_unchanged": true,
-  "resultats.json": {
-    "total": 686,
-    "sha256": "3bb97de76cfb48183a9a846d52460066cb75060c6e34e97aafd7206f9087a0f2"
-  },
-  "regressions.json": {
-    "total": 205,
-    "sha256": "c1797cafcb7d05c1674ddd71919652452cedd06529e2658411c4fb6903cbfcb0"
-  },
-  "sources_sha256": {
-    "wp/plugins/imagine-site/AchatNumero.php": "a771d362e11b7620a66d5813e8bfcc38395bb5469961a25e9f4ecf0a9e8fc65d",
-    "wp/plugins/imagine-site/AchatsNumeros.php": "44b4f2270c2735c7d63506b39a0cc191d6ee2f0afcdcb0bbc7128ca080853dfc",
-    "wp/plugins/imagine-site/tests/AchatNumeroTest.php": "4488a1ab4af1d0d7aceab47fc497d5919061e53de0dfb208e7d0090096f998f8",
-    "wp/plugins/imagine-site/README.md": "c17deb2aa258cbc115978fe08f5f6ba6ab816540afd6e22a8b2892ea1fd92990",
-    "wp/outils/demo/c14.py": "b314534e0a79c102878c88b2c5e130e888887da72f7bdcd5d5a67bb348d8a703",
-    "wp/outils/demo/c14-regressions.py": "fe3e4d1eaff48f735c4477d286a455722062016d1145add3505a41aeec6c76a3",
-    "wp/outils/demo/c14-validation.py": "dfb3bda12d7cd6e13f8e08446b8c3077b343ba4c7eb12111bb42c8d29c665f30",
-    "wp/tests/demo/c14-unit.php": "585c1b22bc8435063d49eb76c2d088f5d415572c3e0bd4ee48fafd9bb8389dff",
-    "wp/tests/demo/c14-runtime.php": "fdab01244276db82c6487a19f2d6c23074e1b2018971fd5d6cd6efee90ac7968",
-    "wp/tests/demo/c14-http.py": "92f502df574b14605aa44ef3c94e1efe68151a37f1918f29a59a5dcb9d94bf77",
-    "wp/tests/demo/c14-corrections-fixture.php": "aeec494a806865e7920fbb17725492d432acb13586a2e862e069cac173fc7945",
-    "wp/tests/demo/c14-corrections-runtime.php": "c0375b7caf86560a84bad1c93af30e1742ec5b96d08ba2d838d4a564f24d8a62",
-    "wp/tests/demo/c14-corrections-http.py": "6a47f4d397965b21192ea75a0c640e6a53ae2469057814eee5a16e071cf01abc",
-    "production/C-14/A-VOIR.md": "e24453c5e17efe33349c47e619f3e63a2dd070ab0cdb486ba4946ffc8f69e8bc",
-    "production/C-14/RAPPORT.md": "de7ad6e0755e72325fc4c7800a296a26ee8fab3ccb7e56cb779360656ac958a7",
-    "production/C-14/COMMANDES.md": "097a2b5689b3b0be96154f8fe5fc8d9efff4743efc12fed5515ae6d298f4c5a1",
-    "production/C-14/PROPOSITIONS-DOCS.md": "e121eda7591538e1aee65dbc172faa41afaf9878bbe2a3be25e41228cf564430"
-  },
-  "completed_at": "2026-11-25T15:01:23.168239+00:00"
+  }
 }
