@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-25T15:14:42.353092+00:00",
+  "at": "2026-11-25T15:19:15.670550+00:00",
   "scope": "imagine-test-demo",
   "status": "EN_COURS",
   "commands": [
@@ -19,7 +19,7 @@
     {
       "name": "c14",
       "argv": [
-        "C:\\Users\\Ced\\AppData\\Roaming\\uv\\python\\cpython-3.11-windows-x86_64-none\\python.exe",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
         "C:\\Users\\Ced\\imagine\\wp\\outils\\demo\\c14.py"
       ],
       "exit": 0,
