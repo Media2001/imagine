@@ -1,0 +1,15 @@
+{
+  "before": {
+    "errors": 33,
+    "warnings": 0,
+    "fixable": 33
+  },
+  "after": {
+    "errors": 33,
+    "warnings": 0,
+    "fixable": 33
+  },
+  "new_violations": 0,
+  "unchanged_inherited_violations": true,
+  "strict_PS R12_pass": false
+}

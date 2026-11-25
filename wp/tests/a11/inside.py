@@ -24,7 +24,8 @@ add_action('init', static function () {
     register_post_type('a11_story', ['public'=>true, 'has_archive'=>'histoires', 'rewrite'=>['slug'=>'histoires'], 'supports'=>['title','author']]);
     register_taxonomy('a11_topic','a11_story',['public'=>true,'rewrite'=>['slug'=>'sujets']]);
 });
-add_filter('post_type_link', static function ($url,$post) { return $post->post_type === 'a11_story' ? add_query_arg('edition','a%2fb+z',$url) : $url; },10,2);
+$a11_native_query = 'a%2fb+z';
+add_filter('post_type_link', static function ($url,$post) { return $post->post_type === 'a11_story' ? add_query_arg('edition',$GLOBALS['a11_native_query'] ?? 'MISSING_GLOBAL_SCOPE',$url) : $url; },10,2);
 '''
 
 def inventory(site,target,audit,*args):

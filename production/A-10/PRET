@@ -1,0 +1,8 @@
+PRET5e795d00f9d6
+A-10 — sept instructions de corrections/A-10.md appliquées ; outil et banc fictif seulement.
+Rejeu réel par python wp/tests/a10/verifier.py --replay : code 0, 204 assertions PASS (10 unitaires, 187 natives classique/HPOS, 7 runner), zéro échec.
+27 noms de codes par magasin, orphelins supprimés/renommés compris ; UTC Bruxelles hiver/été, legacy/offsets, bornes exactes et refus de métadonnées prouvés.
+Sources finales et 97 fichiers scellés : production/A-10/manifest.json ; sortie du rejeu : rejeu-corrections.json ; contrôle final : verification-finale.json.
+55 tables et fichiers du site inchangés ; isolation et suppression exacte du conteneur vérifiées. Aucun Git ni réel, autre lot, README/image partagés ou verrou modifié.
+Préparation T01 initiale verte conservée et vérifiée ; pas de nouveau paquet/dépendance, aucune reconstruction partagée.
+Rapport : files/rapports/2026-11-25-23h40-A10.md. Aucun GO au réel, aucun reclassement ou suppression de codes.

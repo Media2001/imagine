@@ -119,7 +119,7 @@ final class Inventory
             $this->add(get_author_posts_url($id), "archive d'auteur", 'author');
         }
         foreach ($types as $type) {
-            if ($type->has_archive) {
+            if ($type->has_archive || $type->name === 'post') {
                 $url = get_post_type_archive_link($type->name);
                 if ($url) {
                     $this->add($url, 'archive de type de contenu', $type->name);

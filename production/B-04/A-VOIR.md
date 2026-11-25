@@ -1,6 +1,8 @@
 # B-04 — À voir sur la démonstration fictive
 
-**Prêt à relire, sans validation graphique ni autorisation de mise en ligne.** L’arrêt précédent est conservé dans `historique-arret/` ; il est remplacé par cette livraison.
+**Corrections techniques 1–6 appliquées, prêtes à relire ; aucune validation graphique ni autorisation de mise en ligne.** La preuve courante est `verification-corrections-finale.json`. Les reçus de première livraison (`verification-finale.json`, ancien PRET conservé) sont historiques.
+
+Le statut ajouté au kiosque est **conservé à l'identique**, en attente du oui/non de Ced (point 7 de la fusion) ; cette décision visuelle ne bloque pas les corrections techniques.
 
 Site unique : `http://192.168.129.32:8085` — **imagine-test-demo**. Profils fictifs existants `a-carte` et `p-numero`, identifiants conservés hors dépôt.
 

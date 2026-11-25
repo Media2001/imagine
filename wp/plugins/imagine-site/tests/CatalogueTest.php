@@ -42,8 +42,8 @@ final class CatalogueTest extends TestCase
     public function testListingPredictsFirstReadWithoutOpeningOrConsuming(): void
     {
         $rows = $this->request([
-            ['article' => 'un', 'reading' => false, 'listing' => true],
-            ['article' => 'un', 'reading' => false], ['article' => 'un'],
+            ['article' => 'un', 'reading' => false, 'listing' => true, 'deny_write' => true],
+            ['article' => 'un', 'reading' => false, 'keep_cache' => true], ['article' => 'un', 'deny_write' => false],
             ['article' => 'deux', 'reading' => false, 'listing' => true], ['article' => 'deux'],
             ['article' => 'trois', 'reading' => false, 'listing' => true],
         ]);

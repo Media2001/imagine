@@ -1,6 +1,8 @@
 {
-  "total": 11,
+  "total": 13,
   "checks": {
+    "demo_absente_du_theme": true,
+    "mu_demo_charge": true,
     "pas_de_passerelle": true,
     "courriel_bloque_sans_envoi": true,
     "reseau_WP_bloque_sans_requete": true,

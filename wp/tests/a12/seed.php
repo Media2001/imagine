@@ -81,7 +81,8 @@ $allOrphans = count(array_filter($allAttachments, static fn($post): bool => (int
 $oracle = [
     'all_attachment_count' => count($allAttachments), 'all_orphan_count' => $allOrphans,
     'wordpress' => get_bloginfo('version'), 'woocommerce' => WC_VERSION,
-    'runtime_registered' => ['a12_article' => post_type_exists('a12_article'), 'a12_empty' => post_type_exists('a12_empty'), 'a12_rubrique' => taxonomy_exists('a12_rubrique'), 'a12_theme' => post_type_exists('a12_theme')],
+    'runtime_registered' => ['a12_article' => post_type_exists('a12_article'), 'a12_empty' => post_type_exists('a12_empty'), 'a12_rubrique' => taxonomy_exists('a12_rubrique'), 'a12_theme' => post_type_exists('a12_theme'), 'a12_dynamic' => post_type_exists('a12_dynamic')],
+    'runtime_post_types' => array_values(get_post_types()), 'runtime_taxonomies' => array_values(get_taxonomies()),
     'states' => $states, 'top_terms' => array_slice($top, 0, 20), 'term_count' => count($terms),
     'metadata_content_count' => count($ids), 'attachments' => $attachments,
     'hpos' => \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled(),

@@ -1,4 +1,6 @@
-# B-04 — Livraison de la page numéro, du kiosque et des thématiques
+# B-04 — Première livraison (historique)
+
+**Remplacé pour la relecture courante par `CORRECTIONS.md` et `verification-corrections-finale.json`.** Les comptes, mesures et conclusions ci-dessous décrivent la première livraison, pas les corrections du second passage.
 
 **Fait** : trois gabarits livrés sur imagine-test-demo ; helper commun de présentation C08, achat C14 public fictif et PDF C11 côté serveur.
 **Prêt à relire** : B-04 ; `A-VOIR.md`, `verification-finale.json`, captures et besoins designer fournis.

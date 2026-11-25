@@ -1,0 +1,16 @@
+{
+  "deleted_exact_paths": [
+    "imagine-demo-build/b04-correction-lint-Paywall.php",
+    "imagine-demo-build/b04-correction-lint-Decouverte.php",
+    "imagine-demo-build/b04-correction-lint-catalogue.php",
+    "imagine-demo-build/b04-correction-lint-single-imagine_numero.php",
+    "imagine-demo-build/b04-correction-lint-b04-preview.php"
+  ],
+  "readback": {
+    "imagine-demo-build/b04-correction-lint-Paywall.php": null,
+    "imagine-demo-build/b04-correction-lint-Decouverte.php": null,
+    "imagine-demo-build/b04-correction-lint-catalogue.php": null,
+    "imagine-demo-build/b04-correction-lint-single-imagine_numero.php": null,
+    "imagine-demo-build/b04-correction-lint-b04-preview.php": null
+  }
+}

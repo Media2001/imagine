@@ -33,6 +33,8 @@ add_action('init', function () {
     register_post_type('a12_article', ['public' => true]);
     register_post_type('a12_empty', ['public' => false]);
     register_taxonomy('a12_rubrique', ['a12_article'], ['public' => true]);
+    $dynamic = 'a12_dynamic';
+    register_post_type($dynamic, []);
     if (false) { register_post_type('a12_never', []); }
 });
 """)
@@ -68,6 +70,9 @@ add_action('init', function () {
     b.check(storage+':source_mu_and_theme', any(x['file'] == 'wp-content/mu-plugins/a12-declarations.php' and x['owner'] == 'mu_plugin' for x in row['declarations']) and rows['a12_theme']['declarations'] == [{'owner': 'theme', 'file': 'wp-content/themes/a02-child/functions.php'}])
     b.check(storage+':inactive_source_excluded', 'a12_inactive' not in rows)
     b.check(storage+':no_false_runtime_claim', report['registry']['runtime_verified'] is False and rows['a12_never']['registration'] == 'literal_source_candidate_not_runtime_verified')
+    gap = {'runtime_missing_from_snapshot': sorted(set(oracle['runtime_post_types'])-set(rows)), 'source_candidates_not_runtime': sorted(k for k,v in rows.items() if v['declarations'] and k not in oracle['runtime_post_types'])}
+    (OUT/(storage+'-registry-gap.json')).write_text(json.dumps(gap, indent=2)+'\n')
+    b.check(storage+':runtime_incompleteness_really_observed', 'a12_dynamic' in gap['runtime_missing_from_snapshot'] and 'a12_never' in gap['source_candidates_not_runtime'])
     fields = {x['key']: x['content_count'] for x in row['metadata_keys']}
     b.check(storage+':metadata_distinct_owners_not_row_count', fields['a12_field'] == oracle['metadata_content_count'] == 5)
     t = tax['a12_rubrique']
@@ -105,6 +110,43 @@ add_action('init', function () {
     link.unlink()
     no_audit = b.cmd(['php', '/subject/a12/inventorier-contenus', '--wp-path='+str(site), '--output=/report/no-audit-'+storage], check=False)
     b.check(storage+':guard:missing_audit', no_audit.returncode == 1 and no_audit.stderr == 'A12_USAGE\n')
+    import shutil
+    canonical = pathlib.Path('/checkout/wp/outils/bascule')
+    if not canonical.exists():
+        canonical.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copytree('/subject', canonical)
+    bad = b.cmd(['php', str(canonical/'a12/inventorier-contenus'), '--wp-path='+str(site), '--audit='+str(auditdir/'audit.json'), '--output=/checkout/forbidden'], check=False)
+    b.check(storage+':guard:canonical_repository', bad.returncode == 1 and bad.stderr == 'A12_OUTPUT_UNSAFE\n' and not pathlib.Path('/checkout/forbidden').exists())
+    wrong = OUT/(storage+'-wrong-audit')
+    wrong.mkdir()
+    photo = json.loads((auditdir/'audit.json').read_text())
+    photo['sections']['commerce']['order_storage'] = 'hpos' if storage == 'classic' else 'classic'
+    (wrong/'audit.json').write_text(json.dumps(photo))
+    bad = inventory(site, OUT/(storage+'-wrong-storage'), wrong/'audit.json')
+    b.check(storage+':guard:audit_storage_mismatch', bad.returncode == 1 and bad.stderr == 'A12_AUDIT_STORAGE_MISMATCH\n' and not (OUT/(storage+'-wrong-storage')).exists())
+    (wrong/'audit.json').write_text('{"schema":"wrong","read_only":true}')
+    bad = inventory(site, OUT/(storage+'-wrong-schema'), wrong/'audit.json')
+    b.check(storage+':guard:audit_schema', bad.returncode == 1 and bad.stderr == 'A12_AUDIT_GUARD\n' and not (OUT/(storage+'-wrong-schema')).exists())
+    incomplete = pathlib.Path('/incomplete/a12')
+    incomplete.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile('/subject/a12/inventorier-contenus', incomplete/'inventorier-contenus')
+    bad = b.cmd(['php', str(incomplete/'inventorier-contenus')], check=False)
+    b.check(storage+':guard:missing_dependency_closed_error', bad.returncode == 1 and re.fullmatch(r'A12_[A-Z_]+\n', bad.stderr) is not None and bad.stdout == '')
+    # File-only negative variants restore the precise original path and bytes.
+    pdfpath = next(site.rglob('first.pdf'))
+    held = pathlib.Path('/scratch/held-'+storage+'.pdf')
+    pdfpath.rename(held)
+    try:
+        bad = inventory(site, OUT/(storage+'-missing-media'), auditdir/'audit.json')
+        variant = json.loads((OUT/(storage+'-missing-media')/'contenus.json').read_text()) if bad.returncode == 0 else {}
+        b.check(storage+':missing_media_not_invented_size', bad.returncode == 0 and variant['attachments']['missing_files'] == 1 and next(x for x in variant['attachments']['by_mime'] if x['mime'] == 'application/pdf')['bytes'] == 28)
+        pdfpath.symlink_to(held)
+        bad = inventory(site, OUT/(storage+'-symlink-media'), auditdir/'audit.json')
+        b.check(storage+':guard:symlink_media', bad.returncode == 1 and bad.stderr == 'A12_ATTACHMENT_PATH_UNSAFE\n' and not (OUT/(storage+'-symlink-media')).exists())
+    finally:
+        if pdfpath.is_symlink():
+            pdfpath.unlink()
+        held.rename(pdfpath)
     (site/'wp-config.php').write_text(config.replace("define('DB_USER', 'a02_"+storage+"')", "define('DB_USER', 'root')"))
     try:
         probe = b.cmd(['php', '/opt/a12/readonly-probe.php'], env={'A12_SITE': str(site)}, check=False)

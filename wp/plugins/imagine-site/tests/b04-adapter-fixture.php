@@ -133,7 +133,7 @@ foreach ($scenario['steps'] as $step) {
     if (array_key_exists('marker', $step)) { $GLOBALS['meta'][$id]['imagine_decouverte'] = $step['marker']; }
     if ($step['future'] ?? false) { $GLOBALS['meta'][$GLOBALS['meta'][$id]['imagine_numero_id']]['imagine_sortie'] = '2099-01-01'; }
     $article->setValue(null, ($step['reading'] ?? true) ? $id : 0);
-    Paywall::invalidate(); // Doublures hors hooks : invalidation explicite, pas une preuve de hooks WP.
+    if (!($step['keep_cache'] ?? false)) { Paywall::invalidate(); } // Boundary doubles only.
     $decision = ($step['listing'] ?? false) ? (method_exists(Paywall::class, 'decisionListe') ? Paywall::decisionListe($GLOBALS['posts'][$id]) : ['complet' => false, 'motif' => 'missing_listing']) : Paywall::decision($GLOBALS['posts'][$id]);
     $out[] = ['decision' => $decision, 'state' => Decouverte::etat(7)];
 }
