@@ -1,0 +1,29 @@
+{
+  "lot": "A-08",
+  "checked_at": "2026-11-25T19:42:01+01:00",
+  "status": "blocked_before_implementation",
+  "reason": "New A-05 corrections require protected A05 source modifications before A08 may begin.",
+  "files": [
+    {
+      "path": "C:/Users/Ced/imagine/corrections/A-05.md",
+      "sha256": "9332a919bad6ce1f2f30b9172571e009ae3dbc85e98912a8820f78496bc1508a",
+      "bytes": 10567
+    },
+    {
+      "path": "C:/Users/Ced/imagine/wp/outils/bascule/a05/clean.py",
+      "sha256": "e1a5eaa3e3f85dbaa48d76b63e0a41dbdf569e7268108599a8da55add6bc370a",
+      "bytes": 18215
+    }
+  ],
+  "observed_unapplied_corrections": [
+    "P1: line 155 only protects neighbours whose action is garder, not desactiver.",
+    "P2: line 126 Requires Plugins comment prefixes do not match Plugin Name line 123.",
+    "P3: line 165 does not refuse deletion below a kept ancestor."
+  ],
+  "tests_executed": 0,
+  "php_executed": false,
+  "image_preparation_executed": false,
+  "new_test_package": false,
+  "ready": false,
+  "next_action": "Parent handles A-05 corrections P1/P2/P3/M1 and real evidence, then delegates A-08 again."
+}

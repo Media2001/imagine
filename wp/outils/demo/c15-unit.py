@@ -13,7 +13,7 @@ def run(label='unit'):
         return subprocess.run(['wsl.exe', '-d', 'Ubuntu', '--', 'docker', *args], capture_output=True, text=True, encoding='utf-8', check=True).stdout
     image = json.loads(docker('image', 'inspect', 'imagine-tests-t01:1'))[0]
     assert image['Config']['Labels']['org.imagine.t01-image'] == '1'
-    source = subprocess.run(['wsl.exe', '-d', 'Ubuntu', '--', 'wslpath', '-a', '-u', str(ROOT / 'wp')], capture_output=True, text=True, check=True).stdout.strip()
+    source = subprocess.run(['wsl.exe', '-d', 'Ubuntu', '--', 'wslpath', '-a', '-u', str(ROOT / 'wp').replace('\\', '/')], capture_output=True, text=True, check=True).stdout.strip()
     name = 'imagine-c15-unit-' + uuid.uuid4().hex
     try:
         docker('create', '--name', name, '--pull', 'never', '--network', 'none', '--read-only', '--user', '65534:65534', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--mount', 'type=bind,source=' + source + ',target=/repo/wp,readonly', '--entrypoint', 'php', image['Id'], '/repo/wp/tests/demo/c15-unit.php')

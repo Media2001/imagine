@@ -1,13 +1,17 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-25T18:32:33.604627+00:00",
+  "at": "2026-11-25T18:41:21.070117+00:00",
+  "parallel_local_observed": [
+    "plugins/imagine-site/EcheancesRegles.php"
+  ],
   "remote_items": 7605,
-  "local_files": 197,
+  "local_files": 198,
   "remote_changed": [
     "themes/imagine/assets/reading.css",
     "themes/imagine/assets/reading.js"
   ],
   "local_changed": [
+    "plugins/imagine-site/EcheancesRegles.php",
     "themes/imagine/assets/reading.css",
     "themes/imagine/assets/reading.js"
   ],

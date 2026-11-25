@@ -89,8 +89,12 @@ def run():
     remote_changed = changed(before['remote'], remote_now)
     local_changed = changed(before['local'], local_now)
     allowed = sorted(deployed)
-    checks['contenus_paiements_dates_et_autres_sources_preserves'] = remote_changed == allowed and local_changed == allowed
+    # C15 possède ce nouveau fichier local en parallèle ; aucun upload de plugin B03.
+    parallel_local = ['plugins/imagine-site/EcheancesRegles.php']
+    local_owned = [k for k in local_changed if k not in parallel_local]
+    checks['contenus_paiements_dates_et_autres_sources_preserves'] = remote_changed == allowed and local_owned == allowed
     preservation = {'scope': 'imagine-test-demo', 'at': datetime.now(timezone.utc).isoformat(),
+                    'parallel_local_observed': [k for k in local_changed if k in parallel_local],
                     'remote_items': len(remote_now), 'local_files': len(local_now),
                     'remote_changed': remote_changed, 'local_changed': local_changed,
                     'tables_sha256': {k: v for k, v in remote_now.items() if '/' not in k},

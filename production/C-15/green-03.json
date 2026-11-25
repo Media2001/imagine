@@ -1,0 +1,6 @@
+{
+  "exit": 0,
+  "stdout": "{\n    \"total\": 17,\n    \"checks\": {\n        \"regles_presentes\": true,\n        \"30_jours_inclus_tri_date_id\": true,\n        \"90_jours_borne_incluse\": true,\n        \"180_jours_sans_expire_annule\": true,\n        \"date_plus_proche\": true,\n        \"periode_invalide_refusee\": true,\n        \"filtres_paiements_presents\": true,\n        \"attente_statuts_natifs_non_payes\": true,\n        \"virements_bacs_seulement\": true,\n        \"echecs_statut_natif_sans_inventer_delai\": true,\n        \"vue_invalide_refusee\": true,\n        \"mandats_export_presents\": true,\n        \"mandats_renouvellement_actif_uniquement\": true,\n        \"aucun_bacs_dans_mandats\": true,\n        \"CSV_colonnes_strictes_sans_IBAN\": true,\n        \"CSV_formules_neutralisees\": true,\n        \"CSV_date_native_UTC\": true\n    },\n    \"failures\": []\n}\n",
+  "stderr": "",
+  "network": "none"
+}

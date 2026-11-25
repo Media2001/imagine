@@ -1,0 +1,6 @@
+{
+  "exit": 1,
+  "stdout": "{\n    \"total\": 7,\n    \"checks\": {\n        \"regles_presentes\": true,\n        \"30_jours_inclus_tri_date_id\": true,\n        \"90_jours_borne_incluse\": true,\n        \"180_jours_sans_expire_annule\": true,\n        \"date_plus_proche\": true,\n        \"periode_invalide_refusee\": true,\n        \"filtres_paiements_presents\": false\n    },\n    \"failures\": [\n        \"filtres_paiements_presents\"\n    ]\n}\n",
+  "stderr": "",
+  "network": "none"
+}

@@ -1,0 +1,6 @@
+{
+  "exit": 1,
+  "stdout": "{\n    \"total\": 1,\n    \"checks\": {\n        \"regles_presentes\": false\n    },\n    \"failures\": [\n        \"regles_presentes\"\n    ]\n}\n",
+  "stderr": "",
+  "network": "none"
+}

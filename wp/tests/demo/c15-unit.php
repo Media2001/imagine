@@ -23,6 +23,37 @@ if (class_exists(EcheancesRegles::class)) {
     test('date_plus_proche', EcheancesRegles::echeances([$rows[0]], $now, 30)[0]['echeance'] === $rows[0]['prochaine']);
     $bad = false; try { EcheancesRegles::echeances([], $now, 31); } catch (InvalidArgumentException) { $bad = true; }
     test('periode_invalide_refusee', $bad);
+    test('filtres_paiements_presents', method_exists(EcheancesRegles::class, 'paiements'));
+    if (method_exists(EcheancesRegles::class, 'paiements')) {
+        $orders = [
+            ['id' => 10, 'etat' => 'on-hold', 'paye' => false, 'date_payee' => 0, 'methode' => 'bacs', 'creation' => 10],
+            ['id' => 11, 'etat' => 'pending', 'paye' => false, 'date_payee' => 0, 'methode' => 'stripe', 'creation' => 9],
+            ['id' => 12, 'etat' => 'failed', 'paye' => false, 'date_payee' => 0, 'methode' => 'bacs', 'creation' => 8],
+            ['id' => 13, 'etat' => 'completed', 'paye' => true, 'date_payee' => 1, 'methode' => 'bacs', 'creation' => 7],
+            ['id' => 14, 'etat' => 'on-hold', 'paye' => false, 'date_payee' => 1, 'methode' => 'bacs', 'creation' => 6],
+            ['id' => 15, 'etat' => 'cancelled', 'paye' => false, 'date_payee' => 0, 'methode' => 'bacs', 'creation' => 5],
+            ['id' => 16, 'etat' => 'refunded', 'paye' => false, 'date_payee' => 0, 'methode' => 'bacs', 'creation' => 4],
+            ['id' => 17, 'etat' => 'pending', 'paye' => false, 'date_payee' => 0, 'methode' => '', 'creation' => 3],
+        ];
+        test('attente_statuts_natifs_non_payes', array_column(EcheancesRegles::paiements($orders, 'attente'), 'id') === [17, 11, 10]);
+        test('virements_bacs_seulement', array_column(EcheancesRegles::paiements($orders, 'virements'), 'id') === [10]);
+        test('echecs_statut_natif_sans_inventer_delai', array_column(EcheancesRegles::paiements($orders, 'echecs'), 'id') === [12]);
+        $bad = false; try { EcheancesRegles::paiements([], 'autre'); } catch (InvalidArgumentException) { $bad = true; }
+        test('vue_invalide_refusee', $bad);
+    }
+    test('mandats_export_presents', method_exists(EcheancesRegles::class, 'mandats') && method_exists(EcheancesRegles::class, 'csv'));
+    if (method_exists(EcheancesRegles::class, 'mandats') && method_exists(EcheancesRegles::class, 'csv')) {
+        $paper = array_map(static fn ($r) => $r + ['methode' => 'imagine_papier', 'reference' => 'FICTIF', 'abonne' => 'Fictif', 'montant' => '60.00', 'devise' => 'EUR'], $rows);
+        test('mandats_renouvellement_actif_uniquement', array_column(EcheancesRegles::mandats($paper, $now, 30), 'id') === [1]);
+        $paper[0]['methode'] = 'bacs';
+        test('aucun_bacs_dans_mandats', EcheancesRegles::mandats($paper, $now, 30) === []);
+        $stream = fopen('php://memory', 'w+');
+        EcheancesRegles::csv($stream, [['abonne' => " \t=FORMULE", 'montant' => '60.00', 'devise' => 'EUR', 'reference' => '+FICTIF', 'echeance' => $now, 'iban' => 'INTERDIT']]);
+        rewind($stream); $csv = stream_get_contents($stream); rewind($stream); $header = fgetcsv($stream, 0, ';', '"', ''); $line = fgetcsv($stream, 0, ';', '"', ''); fclose($stream);
+        test('CSV_colonnes_strictes_sans_IBAN', $header === ['Abonné', 'Montant', 'Devise', 'Référence du mandat', 'Échéance (UTC)'] && !str_contains($csv, 'INTERDIT'));
+        test('CSV_formules_neutralisees', $line[0] === "' \t=FORMULE" && $line[3] === "'+FICTIF");
+        test('CSV_date_native_UTC', $line[4] === '2026-11-25 12:00:00');
+    }
 }
 $failures = array_keys(array_filter($checks, static fn ($v) => !$v));
 echo json_encode(['total' => count($checks), 'checks' => $checks, 'failures' => $failures], JSON_PRETTY_PRINT) . "\n";
