@@ -18,7 +18,7 @@ foreach (['A-CARTE', 'A-PAYPAL', 'A-ETRANGER', 'A-SANSMAIL', 'A-ECHEANCE', 'A-NO
 }
 foreach ($f['subscriptions'] as $key => $id) {
     $s = wcs_get_subscription($id);
-    $checks[$key . ':manuel_sans_jeton'] = $s->is_manual() && !$s->get_payment_method() && !$s->get_transaction_id() && $s->get_payment_tokens() === [];
+    $checks[$key . ':manuel_sans_jeton'] = $s->is_manual() && $s->get_requires_manual_renewal() && !$s->get_payment_method() && !$s->get_transaction_id() && $s->get_payment_tokens() === [];
 }
 $o = wc_get_order($f['orders']['A-VIR']);
 $checks['A-VIR:non_paye'] = !$o->get_date_paid() && !$o->is_paid() && $o->has_status('on-hold');

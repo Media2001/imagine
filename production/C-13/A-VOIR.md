@@ -1,21 +1,21 @@
 # C-13 — à voir sur la démonstration
 
-**État unique : prêt à relire avec réserves C09. Les corrections techniques du 25 novembre 2026 sont appliquées et vérifiées ; `recette_complete=false`. Ce n’est ni acceptation complète, ni validation visuelle, ni clôture. Aucun PRET créé/modifié par ce worker : le marqueur relève du parent, et signifie uniquement prêt à relire.**
+**Complément C09 du 25 novembre 2026 : les paiements fictifs sont présents et A-SANSMAIL est inclus. Recette stricte : 51 PHP + 26 HTTP verts, 10 tests purs / 30 assertions, sortie 2 et `recette_complete=false` seulement pour les liens natifs offert/groupé C09 toujours absents. Ce n’est ni acceptation complète ni validation visuelle. Les marqueurs C13 relèvent du parent.**
 
 ## Ouvrir l'écran
 
 1. Se connecter en `e-abo` sur `http://192.168.129.32:8085/wp-login.php`. Les identifiants fictifs restent dans `C:\Users\Ced\.imagine-demo\identifiants.json`, hors dépôt.
 2. Ouvrir **Imagine → Liste d’envoi**, ou `http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-liste-envoi`.
 3. Choisir **DEMO-2027-T1**, clôture **5 janvier 2027 à 00:00 Europe/Brussels**. L'écran indique clairement « projection provisoire » : cette clôture est future.
-4. L'aperçu réel comporte **2 destinataires : 1 Belgique et 1 étranger**. Ils proviennent exclusivement des deux témoins **C13** natifs supplémentaires (`c13-postal-be`, `c13-postal-fr`), en grâce fictive explicitement bornée, sans paiement. Le témoin BE porte `imagine_sans_email=1` et conserve son adresse technique `@example.org`.
+4. L'aperçu réel comporte **8 destinataires : 6 Belgique et 2 étrangers**. Six sont les profils C09 **A-CARTE, A-SEPA4, A-PAYPAL, A-PAPIER, A-ETRANGER et A-SANSMAIL**, désormais dotés de leur paiement initial fictif. Deux restent les témoins C13 (`c13-postal-be`, `c13-postal-fr`) en grâce fictive, sans paiement. Le témoin BE conserve `imagine_sans_email=1` et son adresse technique. A-SANSMAIL figure bien dans le CSV postal ; cela ne prouve pas son exclusion individuelle des emails, toujours non raccordée.
 5. Les vrais abonnements C09 sont lus aussi : **A-SUSP → Suspendu ; A-VIR → Virement non validé ; A-EXPIRE → Expiré**. Les autres exclusions restent visibles, avec leur motif.
 6. Cliquer **Exporter le CSV provisoire**. Le fichier est généré à la demande, jamais déposé dans un répertoire public. Ses colonnes et leur ordre viennent du réglage C10. Les noms commençant par `=` et la ville commençant par `@` des témoins C13 sont neutralisés par C07/C04, avec une apostrophe dans le CSV.
 7. Recharger : le journal affiche le compte, la date UTC, le numéro, le nombre de lignes et l'état provisoire/clôturé. Chaque essai réussi crée un événement distinct ; les refus ne sont pas présentés comme des exports.
 8. Le compte `e-admin` peut faire le même parcours. `e-redac`, `a-carte` et l'anonyme ne peuvent pas exporter. `e-abo` n'obtient ni réglages C10, ni droits éditoriaux, ni `manage_woocommerce`, ni gestion générale des utilisateurs.
 
-## Blocage attesté — ne pas confondre témoins C13 et profils C09
+## Réserves restantes — paiements fictifs et liens natifs sont distincts
 
-Le relevé réel donne **12 abonnements C09 et 12 sans date de paiement validé**. En particulier **A-SANSMAIL est exclu pour `paiement_non_valide`, pas parce qu'il n'a pas d'email**. Son inclusion demandée par C13 n'est donc **pas démontrée** sur ce profil. Les états administratifs `active` de C09 ne sont pas silencieusement convertis en règlements ou mandats confirmés.
+Le relevé réel donne **12 abonnements C09, 4 sans date de paiement sur la souscription, et 6 destinataires C09 inclus**. A-SANSMAIL et A-CARTE ont leur inclusion positive dans l’export réel. Les états payés sont explicitement **fictifs** : métadonnée `imagine_demo_fictif=1`, titre « Paiement fictif de démonstration », identifiant de passerelle vide, aucune transaction, aucun jeton et reconduction manuelle. A-VIR reste non payé ; un actif sans paiement demeure exclu. A-GRACE et A-SUSP ont chacun leur renouvellement failed fictif, sans rejet bancaire réel.
 
 Les observations ne sont jamais antidatées. Un historique antérieur absent ferme l’export. Le gel persiste calendrier, clôture, observations et blocs C01 ; sa relecture ne dépend plus de l’option courante. Réécriture native des clôtures passées refusée, égalité à la clôture exclue. Les vrais renouvellements enregistrés sont désormais transmis à C01 sans déplacer le début initial ; une échéance trimestrielle n’est pas une année.
 
@@ -34,9 +34,9 @@ PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/c13-unit.py
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
 ```
 
-La première commande rejoue **10 tests purs / 30 assertions**, puis **75 contrôles PHP/HTTP**, relit les octets installés et vérifie la préservation C09/rôles/options/contenus et des sources B02/C14/fermées. Code **0** pour les gates techniques ; elle journalise ses vrais exports sans réinitialiser les profils.
+La première commande rejoue **10 tests purs / 30 assertions**, puis **77 contrôles PHP/HTTP**, relit les octets installés et vérifie la préservation C09/rôles/options/contenus et des sources B02/C14/fermées. Code **0** pour les gates techniques ; elle journalise ses vrais exports sans réinitialiser les profils. Seules les attentes des tests de démonstration ont changé : 8 lignes, répartition 6/2, inclusion nominative A-SANSMAIL/A-ETRANGER ; aucune règle C13/C07 n’a changé.
 
-La seconde exécute les mêmes contrôles mais termine volontairement en **code 2** tant que l'acceptation C09 reste incomplète. `production/C-13/resultats.json` conserve explicitement `recette_complete=false` et les constats natifs, sans les présenter comme un succès global.
+La seconde exécute les mêmes contrôles mais termine volontairement en **code 2** tant que les liens natifs P-OFFERT/P-GEST/P-BENEF manquent. Le complément a réellement rejoué cette recette via `python wp/tests/demo/c09-strict-recipes.py C13` : même fonction stricte sans déploiement, seule destination des reçus redirigée vers `production/C-09/complement-c13-strict.json`. Le résultat C13 antérieur n’a pas été écrasé. Le reçu actuel garde `recette_complete=false` ; aucun succès global n’est fabriqué.
 
 Installation ciblée déjà exécutée : `PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/c13.py --deploy`. Elle ne passe pas par le constructeur global, ne réinitialise pas C09/C10/C11/C12 et n'installe rien sur le NUC. Les témoins C13 existants ne sont pas remis à zéro.
 
