@@ -1,0 +1,107 @@
+{
+  "schema": "imagine-a08-v2",
+  "done": {
+    "audit": {
+      "artifact": "audit-1",
+      "seals": {
+        "audit-1-receipt.json": "c4e00e7e4283d8811631f53d294e87bd9b49e714620bc21d597ede60d497e02f",
+        "audit-1-stdout.log": "155abfb842212f5d540722c2b9a187099d9ff9bb6f667fcf01d863b6745c6b66",
+        "audit-1-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "audit-1/audit.md": "a6c0332db34dcb0fecb07ca6a50e662ff3a6cdd161a96860bcf14ed9ffc27ec1",
+        "audit-1/audit.json": "d451b525ecac6bbea73df4c8ce2adbc58d49dff04dee080a773e82d7a6ed742e"
+      }
+    },
+    "avant": {
+      "artifact": "avant-1",
+      "seals": {
+        "avant-1-receipt.json": "e15ed82c7b31a66d6d79decd17cc3e311d26c0fe74944879797b26b4c1e40346",
+        "avant-1-stdout.log": "47d5d5ae11757e3988788536f45acbc17da1c1586c734422b7edbef34a7f8316",
+        "avant-1-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "avant-1/non-regression.json": "4cfaf453ba8bd203927601191b2ec68a1fc3a665c3be10768bdcd8a750075343"
+      }
+    }
+  },
+  "attempts": [
+    {
+      "step": "audit",
+      "pass": 1,
+      "command": [
+        "php",
+        "/subject/audit",
+        "--wp-path=/scratch/hpos",
+        "--output=/report/hpos-sequence/audit-1"
+      ],
+      "exit": 0,
+      "duration_seconds": 1.0606557510327548,
+      "receipt": "audit-1-receipt.json"
+    },
+    {
+      "step": "avant",
+      "pass": 1,
+      "command": [
+        "php",
+        "/subject/non-regression",
+        "--wp-path=/scratch/hpos",
+        "--config=/opt/a03/hpos-settings.json",
+        "--output=/report/hpos-sequence/avant-1"
+      ],
+      "exit": 0,
+      "duration_seconds": 1.4165088690351695,
+      "receipt": "avant-1-receipt.json"
+    },
+    {
+      "step": "mise-a-jour",
+      "pass": 1,
+      "command": [
+        "python3",
+        "-B",
+        "/subject/mettre-a-jour",
+        "--wp-path=/scratch/hpos",
+        "--plan=/opt/a08/hpos-update.json",
+        "--backup=/opt/a08/hpos-backup.json",
+        "--state=/report/hpos-sequence/a04"
+      ],
+      "exit": 1,
+      "duration_seconds": 0.15010880603222176,
+      "receipt": "mise-a-jour-1-receipt.json"
+    }
+  ],
+  "status": "ARR\u00caT : mise-a-jour (code 1)",
+  "passes": [],
+  "comparisons": {},
+  "identity": {
+    "site": "/scratch/hpos",
+    "inputs": {
+      "/opt/a08/hpos-update.json": "5c1be97eb2dd2347d0b9516a45c386093809b87978bdff4e8192317a1445a838",
+      "/opt/a08/hpos-cleanup.json": "e374ccfcd7b162080ede34de0b625a8355abe82cd2b4502a951d7a6949bf98a5",
+      "/opt/a03/hpos-settings.json": "979432daeecdf32164c1187f8571ccf0e5e464fea1033a90daef57f75cfd1774",
+      "/opt/a08/hpos-backup.json": "0ab2245617e26c1edaf75097a7fb7053ecbb958409d75e7974324caa333b596e"
+    },
+    "tools": {
+      "repeter": "8c4cf537ff761f1f49694c52b223d2c7b470fc99d155ae4b6968cde26bc38a24",
+      "a08/sequence.py": "dcbc05535246ae325d0375e24eafec5aea2ddfd7d2d85285470e95255d2ba599",
+      "audit": "7eb2b4bfa450e37d3f4265e3055cdba61a877b056f4feb0bfce06f681659c6dc",
+      "non-regression": "74971fff009aa578b7db5ba510aa54f6bec76bae7b0e68b57887a2e628c66b6b",
+      "mettre-a-jour": "863c22cbb6fec2c1469388d65aae6fa1c2383e848e5b38f646dc0e2689f4a941",
+      "nettoyer": "8a1d4cf46b15a6ed4dd440a0955126b1cef998122d9241b9a328ab7c3ca6a758",
+      "comparer": "d9e40a82360a4982de5c9aa55d0b14178621c99b32ea0da6e40223aa29ae2a58",
+      "a03/Site.php": "0350fb54dd7a906247f8f65a8203fc94fde9ccc52b303b13f76273eb773ca24c",
+      "a03/Report.php": "ffc1a003aeb5055e3a758389232f3e381a41db2167842c7691c1706bfba4cad9",
+      "a03/Policy.php": "6877b7330d472a41b14011e3e41aeb422d01e58a0c2675340bd101a87d427b62",
+      "a04/update.py": "92da71dfda8d97f774db5254fee16661037a3937947e563b9bbc6fe048e41f0b",
+      "a04/runtime.php": "838ab4fa0c93ec5350226fe7721d1fc444bc67ca3ac2558e5dc22c21079a7c17",
+      "a04/bootstrap.php": "c00ac7d816b2192794391ad9d9d873fdeb1ab12658662bd172599b459f6dfeb7",
+      "a04/maintenance.php": "4c356eb960eeaf1807b6aa55cd07551a58dfd843c797f6a5db3011d20aca6feb",
+      "a05/clean.py": "6f4e15727007711d1e350892269c2795cbb5bd2542377c4e2d14604ce40267df",
+      "a05/database.php": "f78f3a92d5e826c9894c9c5d25fefee374dcd28dea2b494c265386c8c4ee229a",
+      "a05/native.php": "3bd4d910606c5bd188b8536565db481960add38870a1fa751dfb478600a309de",
+      "a05/bootstrap.php": "2bf552d56c7f93319f817f2354ab7368f222409c21abd73187afaa7a6bf24dc1",
+      "../../plugins/imagine-non-regression/src/Report.php": "d42370ba0d56b4820ea039d130d04f4e336e18276d24dab7fd3da4e2524675bf",
+      "../../plugins/imagine-non-regression/src/PhpLog.php": "4a14ec9b270e06028b6eac4bc5bce1e8dae4c3a6b3c335c81166f0143b823620",
+      "../../plugins/imagine-non-regression/src/Policy.php": "b61115ffc9dca5a93da8a5072cca74839e7441e87780f10021ecbc5f34479dd1",
+      "../staging/runtime-probe.php": "3c8a98d1db5714e1944194f558a1df3a3c512e14e3aa370308a60a97f5889140",
+      "../staging/mu-plugins/000-imagine-staging-safety.php": "c16f048f3fd2587ba719924eec53b07651ea3b6a495a8125746a157582f5474f"
+    }
+  },
+  "look_at": "mise-a-jour-1-receipt.json et journal natif a04/"
+}

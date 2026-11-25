@@ -1,0 +1,18 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "/subject/repeter",
+    "--wp-path=/scratch/hpos",
+    "--state=/report/hpos-sequence",
+    "--update-plan=/opt/a08/hpos-update.json",
+    "--clean-plan=/opt/a08/hpos-cleanup.json",
+    "--config=/opt/a03/hpos-settings.json",
+    "--backup=/opt/a08/hpos-backup.json",
+    "--new-pass"
+  ],
+  "exit": 1,
+  "stderr": "A08_PASS_NOT_COMPLETE\n",
+  "stdout": "",
+  "duration_seconds": 0.027922639972530305
+}

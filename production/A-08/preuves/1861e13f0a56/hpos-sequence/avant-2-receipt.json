@@ -1,0 +1,14 @@
+{
+  "step": "avant",
+  "pass": 2,
+  "command": [
+    "php",
+    "/subject/non-regression",
+    "--wp-path=/scratch/hpos",
+    "--config=/opt/a03/hpos-settings.json",
+    "--output=/report/hpos-sequence/avant-2"
+  ],
+  "exit": 0,
+  "duration_seconds": 0.7606313889846206,
+  "receipt": "avant-2-receipt.json"
+}
