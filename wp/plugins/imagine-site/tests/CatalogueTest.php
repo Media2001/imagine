@@ -23,6 +23,22 @@ final class CatalogueTest extends TestCase
         return json_decode($out, true, 512, JSON_THROW_ON_ERROR);
     }
 
+    public function testOwnershipDoesNotBecomeAnotherPurchaseBeforeRelease(): void
+    {
+        $rows = $this->request([
+            ['issue' => true, 'purchased' => true, 'instant' => '2098-12-31 23:59:59 UTC'],
+            ['issue' => true, 'instant' => '2099-01-01 00:00:00 UTC'],
+            ['issue' => true, 'purchased' => false],
+        ]);
+        self::assertTrue($rows[0]['possede']);
+        self::assertFalse($rows[0]['pdf']['complet']);
+        self::assertSame('contenu_futur_ferme_par_reglage', $rows[0]['pdf']['motif']);
+        self::assertTrue($rows[1]['possede']);
+        self::assertTrue($rows[1]['pdf']['complet']);
+        self::assertFalse($rows[2]['possede']);
+        self::assertFalse($rows[2]['pdf']['complet']);
+    }
+
     public function testListingPredictsFirstReadWithoutOpeningOrConsuming(): void
     {
         $rows = $this->request([

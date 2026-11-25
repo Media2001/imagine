@@ -187,7 +187,8 @@ final class Decouverte
         array $visitor,
         \Imagine\Pilotage\Robots\Decision $robot,
         DateTimeImmutable $now,
-        int $articleId
+        int $articleId,
+        bool $consommer = true
     ): \Imagine\Pilotage\Acces\Decision {
         $base = Paywall::deciderContenu($content, $visitor, $robot, $now);
         if ($base->complet || !$visitor['identifie'] || $content['type'] !== 'article'
@@ -202,7 +203,14 @@ final class Decouverte
         }
         try {
             for ($attempt = 0; $attempt < 5; ++$attempt) {
-                $state = self::ouvrir($id, $now);
+                if (!$consommer && !self::verifie($id)) {
+                    return $base;
+                }
+                // Même état figé et même moteur que la lecture, mais aucune insertion/CAS.
+                $state = $consommer ? self::ouvrir($id, $now) : (self::etat($id) ?? [
+                    'debut' => $now->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d H:i:s'),
+                    'reglages' => $settings, 'articles' => [],
+                ]);
                 if (!$state) {
                     return $base;
                 }
@@ -223,7 +231,7 @@ final class Decouverte
                     : new \Imagine\Pilotage\Acces\DureeDecouverte($policy['jours'] * DAY_IN_SECONDS, $policy['numeros'], false);
                 $decision = (new \Imagine\Pilotage\Acces\Moteur())->decider($content, $rights, $robot, $now,
                     $rule, (new \Imagine\Pilotage\Acces\AdministrationReglages())->lire());
-                if (!$decision->complet || $seen) {
+                if (!$consommer || !$decision->complet || $seen) {
                     return $decision;
                 }
                 $next = $state;

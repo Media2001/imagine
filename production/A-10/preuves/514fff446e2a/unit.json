@@ -1,0 +1,29 @@
+{
+    "checks": [
+        {
+            "check": "recurrence_standard_types",
+            "status": "PASS"
+        },
+        {
+            "check": "numeric_only",
+            "status": "PASS"
+        },
+        {
+            "check": "product_id_formats",
+            "status": "PASS"
+        },
+        {
+            "check": "email_count_only",
+            "status": "PASS"
+        },
+        {
+            "check": "utc_expiry",
+            "status": "PASS"
+        },
+        {
+            "check": "calendar_window_clamped",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 0
+}

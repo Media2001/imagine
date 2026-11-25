@@ -150,10 +150,12 @@ final class Inventory
         $codes = [];
         $expired = [];
         $never = [];
-        foreach ($this->select("SELECT ID,post_title,post_status,post_date_gmt,post_modified_gmt FROM $posts WHERE post_type='shop_coupon' ORDER BY BINARY post_title,ID") as $coupon) {
-            $meta = $this->metadata((int) $coupon['ID']);
+        // Coupon items retain historical names after a record is deleted or renamed.
+        // Project only distinct names from eligible carriers/orders, never their IDs.
+        $carried = " FROM $orders o JOIN $items i ON i.order_id=o.$id WHERE i.order_item_type='coupon' AND ((o.$type='shop_subscription' AND o.$status IN ('wc-active','wc-on-hold','wc-pending','wc-pending-cancel')) OR (o.$type='shop_order' AND o.$status NOT IN ('trash','auto-draft') AND o.$date>=? AND o.$date<=?))";
+        $coupons = $this->select("SELECT ID,post_title,post_status,post_date_gmt,post_modified_gmt FROM $posts WHERE post_type='shop_coupon' UNION ALL SELECT NULL AS ID,LOWER(i.order_item_name) AS post_title,NULL,NULL,NULL" . $carried . " AND NOT EXISTS (SELECT 1 FROM $posts p WHERE p.post_type='shop_coupon' AND BINARY LOWER(p.post_title)=BINARY LOWER(i.order_item_name)) GROUP BY BINARY LOWER(i.order_item_name) ORDER BY BINARY post_title,ID", [$cutoff, $now->format('Y-m-d H:i:s')]);
+        foreach ($coupons as $coupon) {
             $code = $coupon['post_title'];
-            $typeValue = $meta['discount_type'];
             // Names are the sole expressly permitted setting labels; not descriptions.
             $subscriptions = ['active' => 0, 'on_hold' => 0, 'pending' => 0, 'pending_cancel' => 0];
             $map = ['wc-active' => 'active', 'wc-on-hold' => 'on_hold', 'wc-pending' => 'pending', 'wc-pending-cancel' => 'pending_cancel'];
@@ -162,9 +164,22 @@ final class Inventory
                 $subscriptions[$map[$row['status']]] = (int) $row['n'];
             }
             $orderCount = $this->select("SELECT COUNT(DISTINCT o.$id) AS n" . $join . " AND o.$type='shop_order' AND o.$status NOT IN ('trash','auto-draft') AND o.$date>=? AND o.$date<=?", [$code, $cutoff, $now->format('Y-m-d H:i:s')])[0]['n'];
+            if ($coupon['ID'] === null) {
+                $unknown = array_fill_keys(['status', 'type', 'amount', 'amount_unit', 'date_created_utc',
+                    'date_modified_utc', 'date_expires_utc', 'usage_count', 'usage_limit', 'usage_limit_per_user',
+                    'item_limit', 'product_ids', 'excluded_product_ids', 'product_categories',
+                    'excluded_product_categories', 'allowed_email_count', 'individual_use', 'free_shipping',
+                    'exclude_sale_items', 'minimum_amount', 'maximum_amount', 'recurring_on_renewals',
+                    'payment_limit_including_initial'], null);
+                $codes[] = ['code' => $code, 'record_status' => 'fiche introuvable', ...$unknown,
+                    'subscriptions' => $subscriptions, 'orders_12_months' => (int) $orderCount];
+                continue;
+            }
+            $meta = $this->metadata((int) $coupon['ID']);
+            $typeValue = $meta['discount_type'];
             $expiry = Projection::expiry($meta['date_expires'] !== '' ? $meta['date_expires'] : $meta['expiry_date'], $zone);
             $count = Projection::number($meta['usage_count'] === '' ? '0' : $meta['usage_count']);
-            $row = ['code' => $code, 'status' => Audit::identifier($coupon['post_status']),
+            $row = ['code' => $code, 'record_status' => 'fiche presente', 'status' => Audit::identifier($coupon['post_status']),
                 'type' => Audit::identifier($typeValue), 'amount' => Projection::decimal($meta['coupon_amount']),
                 'amount_unit' => in_array($typeValue, ['percent', 'recurring_percent', 'sign_up_fee_percent'], true) ? 'percent' : (Projection::recurring($typeValue) === null ? 'unknown' : 'store_currency'),
                 'date_created_utc' => self::date($coupon['post_date_gmt']), 'date_modified_utc' => self::date($coupon['post_modified_gmt']),

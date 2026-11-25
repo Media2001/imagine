@@ -45,23 +45,6 @@ function imagine_issue_product(int $issue): string
     return '';
 }
 
-/** Only the explicitly owned fictive B04 product can be previewed through Woo's native page.
- * Store/cart/checkout visibility settings and every other product remain untouched.
- */
-function imagine_demo_product_preview(bool $excluded): bool
-{
-    if ($excluded) {
-        return true;
-    }
-    return wp_get_environment_type() === 'local'
-        && get_option('imagine_demo_site') === 'imagine-test-demo'
-        && rtrim(home_url(), '/') === 'http://192.168.129.32:8085'
-        && in_array($_SERVER['REQUEST_METHOD'] ?? '', ['GET', 'HEAD'], true)
-        && is_singular('product')
-        && get_post_meta(get_queried_object_id(), '_imagine_b04_fixture', true) === 'product-v1';
-}
-add_filter('woocommerce_coming_soon_exclude', __NAMESPACE__ . '\\imagine_demo_product_preview');
-
 /** Public catalogue metadata only: never derive an excerpt from article content. */
 function imagine_catalogue_articles(array $articles, array $statuses = [], int $heading = 2, string $id = ''): void
 {

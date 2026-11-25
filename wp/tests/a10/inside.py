@@ -53,7 +53,7 @@ def run_storage(storage):
         row=rows.get(code,{})
         missing=['status','type','amount','amount_unit','date_created_utc','date_modified_utc','date_expires_utc','usage_count','usage_limit','usage_limit_per_user','item_limit','product_ids','excluded_product_ids','product_categories','excluded_product_categories','allowed_email_count','individual_use','free_shipping','exclude_sale_items','minimum_amount','maximum_amount','recurring_on_renewals','payment_limit_including_initial']
         b.check(storage+':orphan_visible:'+code,row.get('record_status')=='fiche introuvable' and all(k in row and row[k] is None for k in missing) and row['subscriptions']=={'active':int(code!='a10-order-only-old'),'on_hold':0,'pending':0,'pending_cancel':0} and row['orders_12_months']==int(code=='a10-order-only-old'))
-    b.check(storage+':exact_inventory',set(rows)==set(data['expected'])|{'a10-deleted-old','a10-renamed-old','a10-order-only-old'} and len(rows)==14)
+    b.check(storage+':exact_inventory',set(rows)==set(data['expected'])|{'a10-deleted-old','a10-renamed-old','a10-order-only-old'} and len(rows)==len(data['expected'])+3)
     b.check(storage+':authoritative_storage',report['storage']==storage)
     for code,expected in data['expected'].items():
         actual=rows[code]
@@ -61,10 +61,10 @@ def run_storage(storage):
     rec=rows['a10-recurring-fee']
     b.check(storage+':distinct_subscription_counts',rec['subscriptions']=={'active':1,'on_hold':1,'pending':1,'pending_cancel':1})
     b.check(storage+':exact_12month_orders',rec['orders_12_months']==5)
-    b.check(storage+':other_coupon_counts_zero',all(v['orders_12_months']==0 and sum(v['subscriptions'].values())==0 for k,v in rows.items() if k!='a10-recurring-fee'))
+    b.check(storage+':other_coupon_counts_zero',all(v['orders_12_months']==0 and sum(v['subscriptions'].values())==0 for k,v in rows.items() if k not in ['a10-recurring-fee','a10-deleted-old','a10-renamed-old','a10-order-only-old']))
     b.check(storage+':renewal_types',all(rows['a10-'+t.replace('_','-')]['recurring_on_renewals'] is (t in ['recurring_fee','recurring_percent']) for t in ['percent','fixed_cart','fixed_product','recurring_fee','recurring_percent','sign_up_fee','sign_up_fee_percent']))
     b.check(storage+':expired_separate',report['expired']==['a10-expired','a10-expired-never-used'])
-    b.check(storage+':never_used_separate',report['never_used']==['a10-expired-never-used','a10-never-used'])
+    b.check(storage+':never_used_separate',report['never_used']==['a10-expired-never-used','a10-never-used','a10-renamed-new'])
     full=(target/'codes.json').read_text()+(target/'codes.md').read_text()+p.stdout+p.stderr
     b.check(storage+':privacy',not re.search(r'@|PRIVATE_CANARY|customer_id|user_id|billing_|subscription_id|order_id',full))
     b.check(storage+':file_modes',target.stat().st_mode&0o777==0o700 and all(x.stat().st_mode&0o777==0o600 for x in target.iterdir()))

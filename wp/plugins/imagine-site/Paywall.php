@@ -49,6 +49,17 @@ final class Paywall
     /** Aucun droit n'est inféré d'un cookie de mot de passe, UA ou en-tête de proxy. */
     public static function decision(WP_Post $post): array
     {
+        return self::evaluer($post, false);
+    }
+
+    /** Prévision du prochain GET article ; ne change ni contexte de lecture ni quota. */
+    public static function decisionListe(WP_Post $post): array
+    {
+        return self::evaluer($post, true);
+    }
+
+    private static function evaluer(WP_Post $post, bool $liste): array
+    {
         try {
             $now = self::$requestInstant ??= new DateTimeImmutable(gmdate('Y-m-d H:i:s'), new DateTimeZone('UTC'));
             $context = self::context();
@@ -57,7 +68,7 @@ final class Paywall
                 self::$readContext = $context;
             }
             $userId = get_current_user_id();
-            $key = get_current_blog_id() . ':' . $post->ID . ':' . $userId;
+            $key = get_current_blog_id() . ':' . $post->ID . ':' . $userId . ':' . ($liste ? 'liste' : 'lecture');
             if (isset(self::$decisions[$key])) {
                 return self::$decisions[$key];
             }
@@ -81,8 +92,8 @@ final class Paywall
                 'decouverte' => metadata_exists('post', $post->ID, 'imagine_decouverte')
                     && in_array(get_post_meta($post->ID, 'imagine_decouverte', true), ['1', true, 1], true)];
             $robot = self::robot($now);
-            $decision = Decouverte::concerne($post->ID)
-                ? Decouverte::decider($content, $visitor, $robot, $now, $post->ID)
+            $decision = ($liste || Decouverte::concerne($post->ID))
+                ? Decouverte::decider($content, $visitor, $robot, $now, $post->ID, !$liste)
                 : self::deciderContenu($content, $visitor, $robot, $now);
             return self::$decisions[$key] = ['complet' => $decision->complet, 'motif' => $decision->motif->value, 'bloc' => $decision->bloc->value];
         } catch (\Throwable) {
@@ -96,6 +107,20 @@ final class Paywall
 
     /** Raccord C11 : même identité native que C08, contrat PDF exact du moteur C06. */
     public static function decisionPdf(WP_Post $issue): array
+    {
+        return self::evaluerNumero($issue, false);
+    }
+
+    /** Présentation du CTA seulement : ne vaut JAMAIS autorisation de lire/servir un PDF.
+     * Même moteur et mêmes droits natifs ; seule la barrière de publication future est
+     * évaluée à la sortie pour reconnaître une acquisition déjà payée ou sa couverture.
+     */
+    public static function couvreNumero(WP_Post $issue): bool
+    {
+        return self::evaluerNumero($issue, true)['complet'];
+    }
+
+    private static function evaluerNumero(WP_Post $issue, bool $possession): array
     {
         try {
             if ($issue->post_type !== 'imagine_numero' || $issue->post_status !== 'publish') {
@@ -113,7 +138,7 @@ final class Paywall
                     'sortie' => $release, 'decouverte' => false],
                 ['identifie' => $userId > 0, 'droits' => $userId ? self::rights($userId, $now) : []],
                 self::robot($now),
-                $now
+                $possession ? max($now, $release) : $now
             );
             return ['complet' => $decision->complet, 'motif' => $decision->motif->value, 'bloc' => $decision->bloc->value];
         } catch (\Throwable) {

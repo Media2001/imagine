@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 add_filter('pre_wp_mail', '__return_false', PHP_INT_MAX);
+update_option('timezone_string', 'Europe/Brussels');
 $types = ['percent', 'fixed_cart', 'fixed_product', 'recurring_fee', 'recurring_percent', 'sign_up_fee', 'sign_up_fee_percent'];
 $product = new WC_Product_Subscription();
 $product->set_name('A10_PRODUCT_PRIVATE_CANARY');
@@ -57,6 +58,17 @@ foreach (['expired', 'never-used', 'expired-never-used'] as $i => $code) {
     }
     $c->save();
     $coupons[$code] = $c;
+}
+foreach (['winter' => '01-15', 'summer' => '07-15'] as $season => $day) {
+    $c = new WC_Coupon();
+    $c->set_code('a10-season-' . $season);
+    $c->set_discount_type('fixed_cart');
+    $c->set_amount('1');
+    $c->set_usage_count(1);
+    $c->set_date_created('2025-' . $day . 'T12:00:00Z');
+    $c->set_date_expires('2035-' . $day . 'T00:00:00Z');
+    $c->save();
+    $coupons[$season] = $c;
 }
 $attach = static function ($order, string $code, bool $duplicate = false): void {
     for ($i = 0; $i < ($duplicate ? 2 : 1); $i++) {
@@ -121,6 +133,14 @@ foreach (['deleted', 'renamed'] as $kind) {
 $orderOnly = wc_create_order();
 $orderOnly->set_date_created(gmdate('Y-m-d H:i:s', strtotime('-1 hour')));
 $attach($orderOnly, 'a10-order-only-old', true);
+$utc = static function (?WC_DateTime $date): ?string {
+    if ($date === null) {
+        return null;
+    }
+    $copy = clone $date;
+    $copy->setTimezone(new DateTimeZone('UTC'));
+    return $copy->date('Y-m-d\TH:i:s\Z');
+};
 foreach ($coupons as $c) {
     $c = new WC_Coupon($c->get_id());
     $expected[$c->get_code()] = [
@@ -130,9 +150,9 @@ foreach ($coupons as $c) {
         'allowed_email_count' => count($c->get_email_restrictions()),
         'product_ids' => $c->get_product_ids(), 'excluded_product_ids' => $c->get_excluded_product_ids(),
         'product_categories' => $c->get_product_categories(),
-        'date_expires_utc' => $c->get_date_expires()?->date('Y-m-d\TH:i:s\Z'),
-        'date_created_utc' => $c->get_date_created()?->date('Y-m-d\TH:i:s\Z'),
-        'date_modified_utc' => $c->get_date_modified()?->date('Y-m-d\TH:i:s\Z'),
+        'date_expires_utc' => $utc($c->get_date_expires()),
+        'date_created_utc' => $utc($c->get_date_created()),
+        'date_modified_utc' => $utc($c->get_date_modified()),
         'payment_limit_including_initial' => (int) $c->get_meta('_wcs_number_payments'),
         'individual_use' => $c->get_individual_use(), 'free_shipping' => $c->get_free_shipping(),
         'exclude_sale_items' => $c->get_exclude_sale_items(),

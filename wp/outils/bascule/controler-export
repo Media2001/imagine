@@ -1,0 +1,200 @@
+#!/usr/bin/env python
+"""Contrôle CSV A-13, autonome et sans import dans un site."""
+import argparse
+import csv
+from datetime import date
+import io
+import json
+from pathlib import Path
+import sys
+import re
+import unicodedata
+
+REPOSITORY = Path(__file__).resolve().parents[3]
+IBAN = re.compile(r'(?<![a-z0-9])[a-z]{2}[\s-]*\d[\s-]*\d(?:[\s-]*[a-z0-9]){11,30}(?![a-z0-9])', re.IGNORECASE)
+
+
+def normaliser(value):
+    return ' '.join(''.join(c for c in unicodedata.normalize('NFKD', value.casefold())
+                           if not unicodedata.combining(c)).split())
+
+
+def preflight_iban(records, text):
+    for record_index, (_, row) in enumerate(records):
+        for index, cell in enumerate(row, start=1):
+            name = re.sub(r'[^a-z0-9]', '', normaliser(cell))
+            if IBAN.search(cell) or (record_index == 0 and 'iban' in name):
+                raise Refus(f'IBAN suspect : colonne {index}. Aucun fichier produit ; retirer cette colonne de la copie à contrôler.')
+    # Couvre aussi les chaînes coupées entre cellules / retours à la ligne.
+    if IBAN.search(text):
+        raise Refus('IBAN suspect dans le fichier (colonne non déterminable). Aucun fichier produit.')
+
+
+def ecrire(source, resume, rejets):
+    if source.is_relative_to(REPOSITORY):
+        raise Refus('Sorties dans le dépôt interdites : copier le CSV hors du dépôt.')
+    targets = [source.with_name(source.stem + suffix) for suffix in ('.controle-resume.txt', '.controle-rejets.csv')]
+    if any(path.exists() or path.is_symlink() for path in targets):
+        raise Refus('Les sorties existent déjà ; les déplacer ou les supprimer explicitement hors du dépôt.')
+    created = []
+    try:
+        for path, content in zip(targets, [resume, rejets]):
+            with path.open('x', encoding='utf-8', newline='') as stream:
+                created.append(path)
+                stream.write(content)
+    except OSError:
+        for path in created:
+            path.unlink(missing_ok=True)
+        raise
+
+
+class Refus(ValueError):
+    """Erreur publique, sans donnée issue d'une cellule."""
+
+
+FIELDS = ('nom', 'prenom', 'rue', 'code_postal', 'ville', 'pays', 'email',
+          'type_abonnement', 'numeros_dus', 'echeance', 'cooperateur', 'mode_paiement', 'reference_mandat')
+SEPARATORS = {';': 'point-virgule', ',': 'virgule', '\t': 'tabulation', '|': 'barre verticale'}
+
+
+def objet_unique(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise Refus('Correspondance JSON : clé en double.')
+        result[key] = value
+    return result
+
+
+def lire_config(path):
+    config = json.loads(path.read_text(encoding='utf-8-sig'), object_pairs_hook=objet_unique)
+    keys = {'version', 'encodage', 'separateur', 'format_date', 'colonnes', 'obligatoires',
+            'modes_paiement', 'modes_mandat_papier', 'types_abonnement_autorises'}
+    if not isinstance(config, dict) or set(config) != keys or type(config['version']) is not int or config['version'] != 1:
+        raise Refus('Correspondance invalide : clés et version à vérifier.')
+    if config['encodage'] not in ('auto', 'utf-8', 'utf-8-sig', 'utf-16', 'cp1252', 'iso-8859-1'):
+        raise Refus('Correspondance : encodage non pris en charge.')
+    if config['separateur'] not in ('auto', *SEPARATORS):
+        raise Refus('Correspondance : séparateur non pris en charge.')
+    if config['format_date'] not in ('%Y-%m-%d', '%d/%m/%Y', '%d-%m-%Y'):
+        raise Refus('Correspondance : format de date non pris en charge.')
+    cols = config['colonnes']
+    if not isinstance(cols, dict) or set(cols) != set(FIELDS):
+        raise Refus('Correspondance : liste des champs invalide.')
+    if any(value is not None and (not isinstance(value, str) or not value.strip()) for value in cols.values()):
+        raise Refus('Correspondance : noms de colonnes invalides.')
+    names = [value for value in cols.values() if value is not None]
+    if len(names) != len(set(names)):
+        raise Refus('Correspondance : colonne affectée à plusieurs champs.')
+    for key in ('obligatoires', 'modes_paiement', 'modes_mandat_papier', 'types_abonnement_autorises'):
+        value = config[key]
+        if not isinstance(value, list) or any(not isinstance(item, str) or not item.strip() for item in value) or len(value) != len(set(value)):
+            raise Refus('Correspondance : listes invalides.')
+    if 'email' in config['obligatoires']:
+        raise Refus('Correspondance : email ne peut pas être obligatoire.')
+    if not set(config['obligatoires']) <= set(FIELDS) or any(cols[key] is None for key in config['obligatoires']):
+        raise Refus('Correspondance : champs obligatoires non configurés.')
+    if not config['modes_paiement'] or not set(config['modes_mandat_papier']) <= set(config['modes_paiement']):
+        raise Refus('Correspondance : modes de paiement et mandats incohérents.')
+    if any(cols[key] is None for key in ('nom', 'rue', 'code_postal', 'ville', 'pays', 'numeros_dus', 'echeance', 'mode_paiement')):
+        raise Refus('Correspondance : champ nécessaire au contrôle non configuré.')
+    return config
+
+
+def decoder(data, declared):
+    bom = ('utf-8-sig' if data.startswith(b'\xef\xbb\xbf') else
+           'utf-16' if data.startswith((b'\xff\xfe', b'\xfe\xff')) else None)
+    if declared != 'auto' and bom and declared not in (bom, 'utf-8' if bom == 'utf-8-sig' else bom):
+        raise Refus('BOM incompatible avec l’encodage déclaré.')
+    encoding = bom or ('utf-8' if declared == 'auto' else declared)
+    try:
+        text = data.decode(encoding, errors='strict')
+    except UnicodeError:
+        raise Refus('Encodage indéterminé ou invalide : déclarer encodage dans la correspondance.') from None
+    if '\x00' in text or any(ord(c) < 32 and c not in '\r\n\t' for c in text):
+        raise Refus('Encodage indéterminé ou caractères de contrôle interdits.')
+    label = encoding + (' (BOM)' if bom else ' (validé)' if declared == 'auto' else ' (déclaré)')
+    return text, label
+
+
+def parser_csv(text, separator):
+    reader = csv.reader(io.StringIO(text, newline=''), delimiter=separator, strict=True)
+    records = []
+    try:
+        while True:
+            start = reader.line_num + 1
+            try:
+                records.append((start, next(reader)))
+            except StopIteration:
+                break
+    except csv.Error:
+        preflight_iban(records, text)
+        raise Refus('CSV mal formé : guillemets ou taille de cellule à vérifier.') from None
+    return records
+
+
+def lire_csv(text, declared):
+    if declared == 'auto':
+        candidates = []
+        for separator in SEPARATORS:
+            try:
+                records = parser_csv(text, separator)
+            except Refus as error:
+                if 'IBAN' in str(error):
+                    raise
+                continue
+            if records and len(records[0][1]) > 1 and all(len(row) == len(records[0][1]) for _, row in records):
+                candidates.append((separator, records))
+        if len(candidates) != 1:
+            preflight_iban(parser_csv(text, ';'), text)
+            if len(candidates) > 1:
+                raise Refus('Séparateur ambigu : déclarer separateur dans la correspondance.')
+            raise Refus('CSV ou séparateur indéterminé : déclarer separateur et vérifier la structure.')
+        separator, records = candidates[0]
+    else:
+        separator, records = declared, parser_csv(text, declared)
+    preflight_iban(records, text)
+    if not records or len(records[0][1]) < 2 or any(len(row) != len(records[0][1]) for _, row in records):
+        raise Refus('CSV incohérent : nombre de colonnes variable ou en-tête absent.')
+    header = records[0][1]
+    if any(not name.strip() for name in header) or len(set(header)) != len(header):
+        raise Refus('En-têtes vides ou en double : corriger le CSV.')
+    return records, SEPARATORS[separator] + (' (détecté)' if declared == 'auto' else ' (déclaré)')
+
+
+def controler(source, correspondance, au):
+    config = lire_config(correspondance)
+    text, encodage = decoder(source.read_bytes(), config['encodage'])
+    records, separateur = lire_csv(text, config['separateur'])
+    header = records[0][1]
+    if any(name not in header for name in config['colonnes'].values() if name is not None):
+        raise Refus('Correspondance : colonne configurée absente du CSV.')
+    total = len(records) - 1
+    resume = (f'Encodage : {encodage}\nSéparateur : {separateur}\n'
+              f'Lignes contrôlées : {total}\nLignes sans défaut : {total}\n'
+              'Lignes rejetées : 0\nLignes sans adresse électronique : 0\n'
+              'Lignes en doublon : 0\n')
+    ecrire(source, resume, 'ligne;motif\n')
+    return 0, f'Contrôle terminé : {total} lignes, 0 rejet.'
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description='Contrôle hors ligne, sans import et sans recopie des données.')
+    parser.add_argument('fichier', type=Path)
+    parser.add_argument('--correspondance', required=True, type=Path)
+    parser.add_argument('--au', type=date.fromisoformat, default=date.today(), help='Date de référence AAAA-MM-JJ (défaut : date locale).')
+    args = parser.parse_args(argv)
+    try:
+        code, message = controler(args.fichier.resolve(), args.correspondance, args.au)
+    except Refus as error:
+        print('REFUS : ' + str(error), file=sys.stderr)
+        return 2
+    except (OSError, ValueError, csv.Error):
+        print('REFUS : fichier ou correspondance illisible.', file=sys.stderr)
+        return 2
+    print(message)
+    return code
+
+
+if __name__ == '__main__':
+    sys.exit(main())

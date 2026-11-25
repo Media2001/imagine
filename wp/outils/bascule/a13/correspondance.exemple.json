@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "encodage": "auto",
+  "separateur": "auto",
+  "format_date": "%Y-%m-%d",
+  "colonnes": {
+    "nom": "Nom",
+    "prenom": "Prenom",
+    "rue": "Rue",
+    "code_postal": "Code postal",
+    "ville": "Ville",
+    "pays": "Pays",
+    "email": "Email",
+    "type_abonnement": "Type abonnement",
+    "numeros_dus": "Numeros dus",
+    "echeance": "Echeance",
+    "cooperateur": "Cooperateur",
+    "mode_paiement": "Mode paiement",
+    "reference_mandat": "Reference mandat"
+  },
+  "obligatoires": ["nom", "type_abonnement", "numeros_dus", "echeance", "cooperateur", "mode_paiement"],
+  "modes_paiement": ["virement", "domiciliation_papier"],
+  "modes_mandat_papier": ["domiciliation_papier"],
+  "types_abonnement_autorises": []
+}

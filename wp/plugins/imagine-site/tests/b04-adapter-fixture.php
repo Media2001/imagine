@@ -49,6 +49,26 @@ function get_post($id): ?WP_Post { return $GLOBALS['posts'][$id] ?? null; }
 function get_post_meta($id, $key, $single = true): mixed { return $GLOBALS['meta'][$id][$key] ?? ''; }
 function metadata_exists($type, $id, $key): bool { return array_key_exists($key, $GLOBALS['meta'][$id] ?? []); }
 function wp_timezone(): DateTimeZone { return new DateTimeZone('UTC'); }
+final class WC_Order
+{
+    public function get_type(): string { return 'shop_order'; }
+    public function get_customer_id(): int { return 7; }
+    public function get_date_paid($context): DateTimeImmutable { return new DateTimeImmutable('2000-01-01 UTC'); }
+    public function get_id(): int { return 901; }
+    public function get_total(): string { return '0'; }
+    public function get_status($context): string { return 'completed'; }
+    public function is_paid(): bool { return true; }
+    public function get_items($type): array { return [new class {
+        public function get_meta($key, ...$args): int { return 39; }
+        public function get_id(): int { return 902; }
+        public function get_quantity(): int { return 1; }
+    }]; }
+}
+function wc_get_orders($args): mixed {
+    return $args['type'] === 'shop_order_refund' ? [] : (object) [
+        'orders' => ($GLOBALS['purchased'] ?? false) ? [new WC_Order()] : [], 'max_num_pages' => 1,
+    ];
+}
 function wc_memberships_get_user_memberships($id, $args): array { return []; }
 function wcs_get_subscription($id): mixed { return null; }
 function wp_get_current_user(): object { return get_userdata(7); }
@@ -97,6 +117,18 @@ foreach ($scenario['steps'] as $step) {
     if (isset($step['scope'])) { $GLOBALS['options'][Decouverte::OPTION]['numeros'] = $step['scope']; }
     if (isset($step['verified'])) { $GLOBALS['verified'] = $step['verified']; }
     if (isset($step['deny_write'])) { $GLOBALS['deny_write'] = $step['deny_write']; }
+    if (isset($step['purchased'])) { $GLOBALS['purchased'] = $step['purchased']; }
+    if (isset($step['instant'])) {
+        (new ReflectionProperty(Paywall::class, 'requestInstant'))->setValue(null, new DateTimeImmutable($step['instant']));
+    }
+    if ($step['issue'] ?? false) {
+        Paywall::invalidate();
+        $issue = $GLOBALS['posts'][39];
+        $GLOBALS['meta'][39]['imagine_sortie'] = '2099-01-01';
+        $out[] = ['pdf' => Paywall::decisionPdf($issue),
+            'possede' => method_exists(Paywall::class, 'couvreNumero') ? Paywall::couvreNumero($issue) : false];
+        continue;
+    }
     $id = $ids[$step['article']];
     if (array_key_exists('marker', $step)) { $GLOBALS['meta'][$id]['imagine_decouverte'] = $step['marker']; }
     if ($step['future'] ?? false) { $GLOBALS['meta'][$GLOBALS['meta'][$id]['imagine_numero_id']]['imagine_sortie'] = '2099-01-01'; }
