@@ -248,7 +248,6 @@ def execute(args):
         # Native children retain the same flock descriptions if this parent is
         # SIGKILLed; a second updater must wait until those children really exit.
         LOCK_FDS = (lock.fileno(), site_lock.fileno())
-        maintenance(site)
         if target_env == 'staging':
             marker = load_json(safe_path(site, '.imagine-staging-verified.json'))
             require(marker.get('status') == 'verified' and marker.get('offline_verified') is True and marker.get('runtime_probe_passed') is True, 'A04_NOT_VERIFIED')
@@ -261,7 +260,17 @@ def execute(args):
         check_backup(load_json(args.backup), site)
         config_hash = digest(safe_path(site, 'wp-config.php'))
         state_file = safe_path(state_dir, 'etat.json')
-        state = validate_state(load_json(state_file), identity, site, config_hash) if state_file.exists() else {'schema':'imagine-a04-state-v1','plan_sha256':identity,'site':str(site),'config_sha256':config_hash,'steps':{},'events':[]}
+        resuming = state_file.exists()
+        state = validate_state(load_json(state_file), identity, site, config_hash) if resuming else {'schema':'imagine-a04-state-v1','plan_sha256':identity,'site':str(site),'config_sha256':config_hash,'steps':{},'events':[]}
+        persistent = safe_path(site, 'wp-content/mu-plugins/001-imagine-a04-maintenance.php')
+        template = pathlib.Path(__file__).resolve().parent / 'maintenance.php'
+        if resuming:
+            # Both flocks are already held. Never refresh or recreate the MU
+            # for an unbound checkpoint or missing/modified persistent guard.
+            require(persistent.is_file() and digest(persistent) == digest(template), 'A04_MAINTENANCE_BYTES')
+            refresh_maintenance(site)
+        else:
+            maintenance(site)
         def save():
             atomic_json(state_file, state)
             atomic_json(state_dir / 'journal.json', state['events'])
@@ -286,8 +295,6 @@ def execute(args):
                 if row['phase'] == 'verified': require(current == step['after'], 'A04_COMPLETED_DRIFT')
         require(shutil.disk_usage(site).free >= planned_bytes + 134217728, 'A04_DISK_SPACE')
         save()
-        persistent = safe_path(site, 'wp-content/mu-plugins/001-imagine-a04-maintenance.php')
-        template = pathlib.Path(__file__).resolve().parent / 'maintenance.php'
         if persistent.exists(): require(digest(persistent) == digest(template), 'A04_MAINTENANCE_BYTES')
         else: shutil.copyfile(template, persistent)
         try:
