@@ -1,0 +1,2 @@
+action_id	arg_keys	named_callback	positional_callback
+38	["update_callback"]	["Automattic\\\\WooCommerce\\\\Internal\\\\VariationGallery\\\\Migration", "run"]	{"update_callback": ["Automattic\\\\WooCommerce\\\\Internal\\\\VariationGallery\\\\Migration", "run"]}

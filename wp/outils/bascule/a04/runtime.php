@@ -26,7 +26,7 @@ final class Runtime
                 'group' => 'woocommerce-db-updates', 'status' => 'pending',
                 'per_page' => 1, 'orderby' => 'action_id', 'order' => 'ASC'], 'ids');
             if (!$ids) {
-                return $executed;
+                return array_merge($executed, self::wooFinalize());
             }
             self::need(microtime(true) - $start < 120, 'A04_MIGRATION_LIMIT');
             $id = (int) reset($ids);
@@ -34,18 +34,38 @@ final class Runtime
             $action = $store->fetch_action($id);
             $args = $action->get_args();
             $callback = $args['update_callback'] ?? null;
-            self::need(count($args) === 1 && is_string($callback)
-                && in_array($callback, $allowed, true)
-                && preg_match('/\Awc_update_[0-9][A-Za-z0-9_]*\z/D', $callback) === 1,
-                'A04_CALLBACK_REFUSED');
+            $function = is_string($callback) && preg_match('/\Awc_update_[0-9][A-Za-z0-9_]*\z/D', $callback) === 1;
+            $method = is_array($callback) && array_is_list($callback) && count($callback) === 2
+                && is_string($callback[0]) && str_starts_with($callback[0], 'Automattic\\WooCommerce\\')
+                && is_string($callback[1]) && preg_match('/\A[A-Za-z][A-Za-z0-9_]*\z/D', $callback[1]) === 1;
+            self::need(count($args) === 1 && ($function || $method)
+                && in_array($callback, $allowed, true), 'A04_CALLBACK_REFUSED');
             // Only this native callback and this exact action. The staging AS
             // blocker stays installed; no global queue or payment hook is run.
             \WC_Install::run_update_callback($callback);
             $store->mark_complete($id);
             self::need($store->get_status($id) === 'complete', 'A04_ACTION_READBACK');
-            $executed[] = $callback;
+            $executed[] = is_array($callback) ? implode('::', $callback) : $callback;
         }
         throw new \RuntimeException('A04_MIGRATION_LIMIT');
+    }
+
+    public static function wooFinalize(): array
+    {
+        $ids = as_get_scheduled_actions(['hook' => 'woocommerce_update_db_to_current_version',
+            'group' => 'woocommerce-db-updates', 'status' => 'pending', 'per_page' => 100], 'ids');
+        $updates = \WC_Install::get_db_update_callbacks();
+        $expected = array_key_last($updates);
+        $expected = version_compare(WC()->version, $expected, '>') ? WC()->version : $expected;
+        foreach ($ids as $id) {
+            $store = \ActionScheduler::store();
+            $args = $store->fetch_action((int) $id)->get_args();
+            self::need($args === ['version' => $expected], 'A04_DB_VERSION_ACTION_REFUSED');
+            \WC_Install::update_db_version($expected);
+            $store->mark_complete((int) $id);
+            self::need($store->get_status((int) $id) === 'complete', 'A04_ACTION_READBACK');
+        }
+        return $ids ? ['WC_Install::update_db_version=' . $expected] : [];
     }
 
     public static function run(): array
