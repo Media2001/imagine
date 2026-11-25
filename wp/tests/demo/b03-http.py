@@ -48,6 +48,11 @@ def run(phase='final'):
         checks[label + ':sans_JS_bouton_invisible'] = bool(tools and tools.has_attr('hidden'))
         checks[label + ':etat_accessible'] = bool(toggle and toggle.get('aria-pressed') == 'false' and toggle.get('aria-controls') == 'imagine-reading-options')
         checks[label + ':corps_unique'] = len(soup.select('[data-imagine-body="article"]')) == 1 and len(soup.select('.imagine-paywall-body')) == 1
+        checks[label + ':temps_calcule_serveur'] = bool(soup.select_one('[data-imagine-reading-time]'))
+        checks[label + ':trois_fonds_et_tailles'] = len(soup.select('#imagine-reading-theme option')) == 3 and len(soup.select('#imagine-reading-size option')) == 3
+        checks[label + ':barre_progression_nommee'] = bool(soup.select_one('progress#imagine-reading-progress[aria-label][max="100"]'))
+        checks[label + ':script_dedie'] = len(soup.select('script[src*="/assets/reading.js"]')) == 1
+        checks[label + ':style_dedie'] = len(soup.select('link[href*="/assets/reading.css"]')) == 1
         checks[label + ':sans_erreur_PHP'] = not any(s in text for s in ['Fatal error', 'Warning:', 'critical error'])
         responses[label] = {'status': code, 'bytes': len(text.encode()), 'body_sha256': hashlib.sha256(str(body).encode()).hexdigest(), 'article': article}
     # Les données de la page sont incluses dans le contrôle de la sentinelle ci-dessus.

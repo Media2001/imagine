@@ -1,0 +1,96 @@
+/* B03 : seul html.imagine-reading active la vue ; le paywall reste dans le flux. */
+#imagine-reading-tools[hidden],
+#imagine-reading-options[hidden] {
+    display: none !important;
+}
+html.imagine-reading {
+    --imagine-paper: var(--imagine-reading-light-paper);
+    --imagine-ink: var(--imagine-reading-light-ink);
+    --imagine-reading-size: var(--imagine-reading-size-large);
+    margin-top: var(--imagine-zero) !important;
+    background: var(--imagine-paper);
+    scroll-behavior: auto;
+}
+html.imagine-reading[data-imagine-reading-theme="sepia"] {
+    --imagine-paper: var(--imagine-reading-sepia-paper);
+    --imagine-ink: var(--imagine-reading-sepia-ink);
+    color-scheme: light;
+}
+html.imagine-reading[data-imagine-reading-theme="dark"] {
+    --imagine-paper: var(--imagine-reading-dark-paper);
+    --imagine-ink: var(--imagine-reading-dark-ink);
+    color-scheme: dark;
+}
+html.imagine-reading[data-imagine-reading-size="normal"] {
+    --imagine-reading-size: var(--imagine-reading-size-normal);
+}
+html.imagine-reading[data-imagine-reading-size="larger"] {
+    --imagine-reading-size: var(--imagine-reading-size-larger);
+}
+.imagine-reading .imagine-shell > header,
+.imagine-reading .imagine-shell > footer,
+.imagine-reading #wpadminbar,
+.imagine-reading [data-imagine-distraction] {
+    display: none;
+}
+.imagine-reading .imagine-shell {
+    max-width: none;
+}
+.imagine-reading #imagine-main {
+    max-width: none;
+    display: block;
+}
+.imagine-reading .imagine-article,
+.imagine-reading #imagine-reading-tools {
+    max-width: var(--imagine-reading-column);
+    margin-inline: auto;
+    font-size: var(--imagine-reading-size);
+    line-height: var(--imagine-reading-leading);
+}
+.imagine-reading .imagine-article-body {
+    display: block;
+    columns: auto;
+}
+.imagine-reading .imagine-article figure {
+    margin-inline: var(--imagine-zero);
+}
+.imagine-reading .imagine-article figcaption {
+    font-size: var(--imagine-small);
+}
+.imagine-reading #imagine-reading-options select {
+    font: inherit;
+    color: var(--imagine-ink);
+    background: var(--imagine-paper);
+    max-width: var(--imagine-full);
+    padding: var(--imagine-small-space);
+}
+.imagine-reading #imagine-reading-options select:focus-visible {
+    outline: var(--imagine-focus) solid var(--imagine-ink);
+    outline-offset: var(--imagine-focus);
+}
+.imagine-reading #imagine-reading-progress {
+    width: var(--imagine-full);
+    accent-color: var(--imagine-ink);
+    color: var(--imagine-ink);
+    background: var(--imagine-paper);
+}
+.imagine-reading #imagine-reading-progress::-webkit-progress-bar {
+    background: var(--imagine-paper);
+    border: var(--imagine-focus) solid var(--imagine-ink);
+}
+.imagine-reading #imagine-reading-progress::-webkit-progress-value {
+    background: var(--imagine-ink);
+}
+.imagine-reading #imagine-reading-progress::-moz-progress-bar {
+    background: var(--imagine-ink);
+}
+@media (prefers-reduced-motion: reduce) {
+    html.imagine-reading {
+        scroll-behavior: auto;
+    }
+}
+@media print {
+    #imagine-reading-tools {
+        display: none;
+    }
+}

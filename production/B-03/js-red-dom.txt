@@ -1,0 +1,37 @@
+✔ préférences : choix autorisés et défauts prudents, même avec données corrompues (1.6432ms)
+✔ stockage local : aller-retour, absence, corruption, refus et quota sans exception (0.3491ms)
+✔ progression bornée sur le texte, et état de reprise validé sans coercition (0.2255ms)
+✖ parcours DOM sans navigateur : activation, réglages, progression, reprise et sortie clavier (0.3981ms)
+✖ reprise isolée par article et longueur du texte servi ; stockage indisponible et page hors article (0.2037ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 3
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 55.7752
+
+✖ failing tests:
+
+test at wp\tests\demo\b03-reading.test.cjs:85:1
+✖ parcours DOM sans navigateur : activation, réglages, progression, reprise et sortie clavier (0.3981ms)
+  TypeError: r.mount is not a function
+      at TestContext.<anonymous> (C:\Users\Ced\imagine\wp\tests\demo\b03-reading.test.cjs:87:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+
+test at wp\tests\demo\b03-reading.test.cjs:119:1
+✖ reprise isolée par article et longueur du texte servi ; stockage indisponible et page hors article (0.2037ms)
+  TypeError: r.mount is not a function
+      at TestContext.<anonymous> (C:\Users\Ced\imagine\wp\tests\demo\b03-reading.test.cjs:121:7)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7)

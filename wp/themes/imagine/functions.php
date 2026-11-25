@@ -29,6 +29,12 @@ function imagine_styles(): void
             (string) filemtime(get_template_directory() . $path)
         );
     }
+    if (is_singular('post')) {
+        wp_enqueue_style('imagine-reading', get_template_directory_uri() . '/assets/reading.css', ['imagine-structure'],
+            (string) filemtime(get_template_directory() . '/assets/reading.css'));
+        wp_enqueue_script('imagine-reading', get_template_directory_uri() . '/assets/reading.js', [],
+            (string) filemtime(get_template_directory() . '/assets/reading.js'), ['strategy' => 'defer', 'in_footer' => true]);
+    }
 }
 add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\imagine_styles');
 

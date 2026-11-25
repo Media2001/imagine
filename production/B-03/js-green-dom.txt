@@ -1,0 +1,13 @@
+✔ préférences : choix autorisés et défauts prudents, même avec données corrompues (1.6858ms)
+✔ stockage local : aller-retour, absence, corruption, refus et quota sans exception (0.3357ms)
+✔ progression bornée sur le texte, et état de reprise validé sans coercition (0.2265ms)
+✔ parcours DOM sans navigateur : activation, réglages, progression, reprise et sortie clavier (1.2759ms)
+✔ reprise isolée par article et longueur du texte servi ; stockage indisponible et page hors article (0.3518ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 56.6619

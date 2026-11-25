@@ -1,0 +1,67 @@
+{
+  "at": "2026-11-25T16:41:42.641462+00:00",
+  "scope": "imagine-test-demo",
+  "phase": "presentation-red",
+  "checks": {
+    "a-carte:HTTP200": true,
+    "a-carte:texte_selon_droit": true,
+    "a-carte:extrait_present": true,
+    "a-carte:bloc_paywall": true,
+    "a-carte:cache_prive": true,
+    "a-carte:HTML5_semantique": true,
+    "a-carte:vrai_bouton_lecture": true,
+    "a-carte:sans_JS_bouton_invisible": true,
+    "a-carte:etat_accessible": true,
+    "a-carte:corps_unique": true,
+    "a-carte:temps_calcule_serveur": true,
+    "a-carte:trois_fonds_et_tailles": false,
+    "a-carte:barre_progression_nommee": false,
+    "a-carte:script_dedie": false,
+    "a-carte:style_dedie": false,
+    "a-carte:sans_erreur_PHP": true,
+    "anonyme:HTTP200": true,
+    "anonyme:texte_selon_droit": true,
+    "anonyme:extrait_present": true,
+    "anonyme:bloc_paywall": true,
+    "anonyme:cache_prive": true,
+    "anonyme:HTML5_semantique": true,
+    "anonyme:vrai_bouton_lecture": true,
+    "anonyme:sans_JS_bouton_invisible": true,
+    "anonyme:etat_accessible": true,
+    "anonyme:corps_unique": true,
+    "anonyme:temps_calcule_serveur": true,
+    "anonyme:trois_fonds_et_tailles": false,
+    "anonyme:barre_progression_nommee": false,
+    "anonyme:script_dedie": false,
+    "anonyme:style_dedie": false,
+    "anonyme:sans_erreur_PHP": true,
+    "REST:anonyme_sans_texte_reserve": true,
+    "flux:anonyme_sans_texte_reserve": true,
+    "recherche:anonyme_sans_texte_reserve": true
+  },
+  "total": 35,
+  "failures": [
+    "a-carte:trois_fonds_et_tailles",
+    "a-carte:barre_progression_nommee",
+    "a-carte:script_dedie",
+    "a-carte:style_dedie",
+    "anonyme:trois_fonds_et_tailles",
+    "anonyme:barre_progression_nommee",
+    "anonyme:script_dedie",
+    "anonyme:style_dedie"
+  ],
+  "responses": {
+    "a-carte": {
+      "status": 200,
+      "bytes": 29195,
+      "body_sha256": "2ef5acae5e1f453904139b21abddc878b528cec59e7f58889b5864266b879026",
+      "article": "/c08-article-reserve-article/"
+    },
+    "anonyme": {
+      "status": 200,
+      "bytes": 28713,
+      "body_sha256": "5fa49b453e64f9cc3d987698602b35cc9cdfa4ad32a797bbc0b02286d4dd2341",
+      "article": "/c08-article-reserve-article/"
+    }
+  }
+}

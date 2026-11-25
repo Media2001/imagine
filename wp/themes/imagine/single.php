@@ -16,7 +16,26 @@ while (have_posts()) : the_post();
     <button type="button" id="imagine-reading-toggle" aria-pressed="false" aria-controls="imagine-reading-options"
         data-enter-label="<?php esc_attr_e('Lire l’article', 'imagine'); ?>"
         data-exit-label="<?php esc_attr_e('Quitter le mode lecture', 'imagine'); ?>"><?php esc_html_e('Lire l’article', 'imagine'); ?></button>
-    <div id="imagine-reading-options" hidden></div>
+    <div id="imagine-reading-options" hidden>
+        <fieldset>
+            <legend><?php esc_html_e('Réglages de lecture', 'imagine'); ?></legend>
+            <label for="imagine-reading-size"><?php esc_html_e('Taille du texte', 'imagine'); ?></label>
+            <select id="imagine-reading-size">
+                <option value="normal"><?php esc_html_e('Confort', 'imagine'); ?></option>
+                <option value="large" selected><?php esc_html_e('Grand', 'imagine'); ?></option>
+                <option value="larger"><?php esc_html_e('Très grand', 'imagine'); ?></option>
+            </select>
+            <label for="imagine-reading-theme"><?php esc_html_e('Fond', 'imagine'); ?></label>
+            <select id="imagine-reading-theme">
+                <option value="light"><?php esc_html_e('Clair', 'imagine'); ?></option>
+                <option value="sepia"><?php esc_html_e('Sépia', 'imagine'); ?></option>
+                <option value="dark"><?php esc_html_e('Sombre', 'imagine'); ?></option>
+            </select>
+        </fieldset>
+        <p><progress id="imagine-reading-progress" max="100" value="0" aria-label="<?php esc_attr_e('Progression dans le texte accessible', 'imagine'); ?>"></progress>
+            <span id="imagine-reading-percent" aria-hidden="true">0 %</span></p>
+        <p class="imagine-notice"><?php esc_html_e('Échap pour quitter. Réglages et position conservés dans ce navigateur uniquement.', 'imagine'); ?></p>
+    </div>
 </div>
 <article class="imagine-article" data-imagine-reading-id="<?php echo esc_attr((string) get_the_ID()); ?>">
     <header>

@@ -1,0 +1,8 @@
+test_css_dedie_active_uniquement_par_racine_et_variables (__main__.B03Contract.test_css_dedie_active_uniquement_par_racine_et_variables) ... ok
+test_sortie_unique_et_script_sans_reseau (__main__.B03Contract.test_sortie_unique_et_script_sans_reseau) ... ok
+test_trois_fonds_neutres_contraste_AA (__main__.B03Contract.test_trois_fonds_neutres_contraste_AA) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.002s
+
+OK

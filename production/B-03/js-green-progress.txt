@@ -1,0 +1,11 @@
+✔ préférences : choix autorisés et défauts prudents, même avec données corrompues (1.7078ms)
+✔ stockage local : aller-retour, absence, corruption, refus et quota sans exception (0.3539ms)
+✔ progression bornée sur le texte, et état de reprise validé sans coercition (0.23ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 56.5445

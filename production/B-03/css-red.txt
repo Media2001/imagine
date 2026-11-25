@@ -1,0 +1,24 @@
+test_css_dedie_active_uniquement_par_racine_et_variables (__main__.B03Contract.test_css_dedie_active_uniquement_par_racine_et_variables) ... FAIL
+test_sortie_unique_et_script_sans_reseau (__main__.B03Contract.test_sortie_unique_et_script_sans_reseau) ... ok
+test_trois_fonds_neutres_contraste_AA (__main__.B03Contract.test_trois_fonds_neutres_contraste_AA) ... FAIL
+
+======================================================================
+FAIL: test_css_dedie_active_uniquement_par_racine_et_variables (__main__.B03Contract.test_css_dedie_active_uniquement_par_racine_et_variables)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\test_b03_contract.py", line 13, in test_css_dedie_active_uniquement_par_racine_et_variables
+    self.assertTrue(path.is_file(), 'Feuille dédiée absente')
+AssertionError: False is not true : Feuille dédiée absente
+
+======================================================================
+FAIL: test_trois_fonds_neutres_contraste_AA (__main__.B03Contract.test_trois_fonds_neutres_contraste_AA)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\test_b03_contract.py", line 33, in test_trois_fonds_neutres_contraste_AA
+    self.assertIsNotNone(found, name + ' ' + role + ' absent')
+AssertionError: unexpectedly None : light paper absent
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+FAILED (failures=2)
