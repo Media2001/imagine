@@ -53,6 +53,33 @@ final class MonCompteAdapterTest extends TestCase
 
     #[RunInSeparateProcess]
     #[PreserveGlobalState(false)]
+    public function testGabaritNommeLeBlocIndisponibleEtLesRattachementsAmbigus(): void
+    {
+        $this->charger();
+        $GLOBALS['b02_status'] = 'active';
+        $compte = MonCompte::donnees();
+        $compte['abonnements'][0]['avertissements'] = ['Rattachement ambigu — commande #30 (processing, 30.00 EUR)'];
+        define('ABSPATH', '/fixture/');
+        $template = dirname(__DIR__, 3) . '/themes/imagine/parts/mon-compte.php';
+        if (!is_file($template)) {
+            // T01 copie les seuls paquets ; le thème reste sur son montage source en lecture seule.
+            $template = '/repo/wp/themes/imagine/parts/mon-compte.php';
+        }
+        self::assertFileExists($template);
+        ob_start();
+        try {
+            require $template;
+            $html = ob_get_contents();
+        } finally {
+            ob_end_clean();
+        }
+        self::assertStringContainsString('Bloc courant indisponible', $html);
+        self::assertStringContainsString('Rattachement ambigu — commande #30', $html);
+        self::assertSame(4, substr_count($html, '<th scope="row">'));
+    }
+
+    #[RunInSeparateProcess]
+    #[PreserveGlobalState(false)]
     public function testMonCompteNeDupliquePasLeHookPostalDeEnvoiNatif(): void
     {
         $this->charger();

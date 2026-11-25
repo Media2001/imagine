@@ -1,0 +1,17 @@
+{
+  "responses": [
+    {
+      "status": 409,
+      "elapsed": 2.508,
+      "success": false,
+      "lock": "free"
+    }
+  ],
+  "note_delta": 0,
+  "state": [
+    true,
+    1795639922,
+    "",
+    ""
+  ]
+}

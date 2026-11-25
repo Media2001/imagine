@@ -201,6 +201,88 @@ class BoundaryTest(unittest.TestCase):
             fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
             self.assertEqual(self.execute(),1);self.assertEqual(self.calls,[])
 
+    def test_dependency_closure_refuses_external_code_but_ignores_other_lots(self):
+        import shutil
+        base=self.root/'copy/wp/outils/bascule'
+        shutil.copytree('/subject',base)
+        shutil.copytree('/plugins',self.root/'copy/wp/plugins')
+        shutil.copytree('/staging',self.root/'copy/wp/outils/staging')
+        self.module.__file__=str(base/'a08/sequence.py')
+        self.assertEqual(self.execute(),75)
+        for relative in ['a09/check.py','a10/Inventory.php','inventorier-codes','README.md']:
+            p=base/relative;p.parent.mkdir(exist_ok=True);p.write_text('unrelated')
+        self.assertEqual(self.execute(),75)
+        for relative in ['plugins/imagine-non-regression/src/Report.php',
+                         'plugins/imagine-non-regression/src/PhpLog.php',
+                         'plugins/imagine-non-regression/src/Policy.php',
+                         'outils/staging/runtime-probe.php',
+                         'outils/staging/mu-plugins/000-imagine-staging-safety.php']:
+            p=self.root/'copy/wp'/relative;before=p.read_bytes();p.write_bytes(before+b'\n')
+            count=len(self.calls)
+            self.assertEqual(self.execute(['--mutations-ready']),1,relative)
+            self.assertEqual(len(self.calls),count)
+            self.assertIn('A08_IDENTITY_CHANGED',(self.root/'state/rapport.md').read_text())
+            p.write_bytes(before)
+
+    def test_missing_input_after_success_replaces_stale_report(self):
+        self.assertEqual(self.execute(['--mutations-ready','--reception-ready']),0)
+        (self.root/'config').unlink();count=len(self.calls)
+        self.assertEqual(self.execute(),1)
+        self.assertEqual(len(self.calls),count)
+        self.assertIn('ARRÊT',(self.root/'state/rapport.md').read_text())
+        self.assertNotIn('Statut : TERMINÉ',(self.root/'state/rapport.md').read_text())
+
+    def test_incomplete_new_pass_refreshes_report(self):
+        self.assertEqual(self.execute(),75)
+        self.assertEqual(self.execute(['--new-pass']),1)
+        self.assertIn('A08_PASS_NOT_COMPLETE',(self.root/'state/rapport.md').read_text())
+
+    def test_concurrent_refusal_leaves_report_and_warns_stderr(self):
+        import contextlib,fcntl,io
+        self.assertEqual(self.execute(),75)
+        p=self.root/'state/rapport.md';before=p.read_bytes();stderr=io.StringIO()
+        with open(self.root/'state/sequence.lock','a') as lock:
+            fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+            with contextlib.redirect_stderr(stderr):
+                self.assertEqual(self.execute(),1)
+        self.assertEqual(p.read_bytes(),before)
+        self.assertIn('A08_REPORT_NOT_UPDATED',stderr.getvalue())
+        self.assertIn('ne décrit pas cette tentative',stderr.getvalue())
+
+    def test_unreadable_checkpoint_reports_without_erasing_failure(self):
+        self.assertEqual(self.execute(),75)
+        p=self.root/'state/etat.json';p.write_text('invalid')
+        self.assertEqual(self.execute(),1)
+        self.assertEqual(p.read_text(),'invalid')
+        self.assertIn('ARRÊT',(self.root/'state/rapport.md').read_text())
+
+    def test_missing_fcntl_stable_no_traceback(self):
+        import builtins,contextlib,io
+        from unittest.mock import patch
+        original=builtins.__import__
+        def importing(name,*args,**kwargs):
+            if name=='fcntl':raise ImportError('PRIVATE_CANARY')
+            return original(name,*args,**kwargs)
+        stderr=io.StringIO()
+        with patch('builtins.__import__',side_effect=importing),contextlib.redirect_stderr(stderr):
+            self.assertEqual(self.execute(),1)
+        self.assertIn('A08_LINUX_REQUIRED',stderr.getvalue())
+        self.assertNotIn('PRIVATE_CANARY',stderr.getvalue())
+        self.assertNotIn('Traceback',stderr.getvalue())
+
+    def test_pass_reports_retain_first_comparison_and_attributed_durations(self):
+        import json
+        self.compare_code=3;self.compare={'anormal':0,'changes':[{'class':'attendu'}]*4}
+        self.assertEqual(self.execute(['--mutations-ready','--reception-ready']),0)
+        self.compare_code=0;self.compare={'anormal':0,'changes':[]}
+        self.assertEqual(self.execute(['--new-pass','--mutations-ready','--reception-ready']),0)
+        cp=json.loads((self.root/'state/etat.json').read_text())
+        self.assertEqual([r['pass'] for r in cp['attempts']],[1]*6+[2]*6)
+        text=(self.root/'state/rapport.md').read_text()
+        for token in ['Passage 1','Passage 2','attendus : 4','attendus : 0','cumulées dans ce passage']:
+            self.assertIn(token,text)
+        self.assertEqual(len(list((self.root/'state').glob('rapport*.md'))),1)
+
     def test_go_attestations_forwarded_separately(self):
         commands=self.module.commands(pathlib.Path('/subject'),self.site,self.root/'state',self.root/'config',self.root/'update-plan',self.root/'clean-plan',self.root/'backup',pathlib.Path('/go-a04'),pathlib.Path('/go-a05'),1)
         self.assertIn('--go=/go-a04',commands['mise-a-jour'])

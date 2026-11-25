@@ -140,9 +140,9 @@ final class EcheancesAdmin
             }
             // Aucun objet chargé avant le verrou dans ce parcours confirmé.
             $order = EcheancesNatives::virement((int) $id);
-            $order->payment_complete();
+            $completed = $order->payment_complete();
             $fresh = wc_get_order((int) $id);
-            if ($fresh && $fresh->is_paid() && $fresh->get_date_paid()) {
+            if ($completed !== false && $fresh && $fresh->is_paid() && $fresh->get_date_paid()) {
                 $user = wp_get_current_user();
                 $note = sprintf(self::t('C15 — Paiement reçu confirmé par %s (%s, #%d), le %s UTC.'),
                     $user->display_name, $user->user_login, $user->ID, gmdate('Y-m-d H:i:s'));

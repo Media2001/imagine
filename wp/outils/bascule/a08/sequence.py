@@ -1,5 +1,19 @@
 """Thin A08 sequence. Native tools retain all validation and mutation logic."""
 import argparse
+import contextlib
+
+# Audited transitive source closure, including code read as native guard templates.
+# Paths are relative to bascule; site/core/plugin runtime is checked by native tools.
+DEPENDENCIES = (
+    'repeter', 'a08/sequence.py', 'audit', 'non-regression', 'mettre-a-jour', 'nettoyer', 'comparer',
+    'a03/Site.php', 'a03/Report.php', 'a03/Policy.php',
+    'a04/update.py', 'a04/runtime.php', 'a04/bootstrap.php', 'a04/maintenance.php',
+    'a05/clean.py', 'a05/database.php', 'a05/native.php', 'a05/bootstrap.php',
+    '../../plugins/imagine-non-regression/src/Report.php',
+    '../../plugins/imagine-non-regression/src/PhpLog.php',
+    '../../plugins/imagine-non-regression/src/Policy.php',
+    '../staging/runtime-probe.php', '../staging/mu-plugins/000-imagine-staging-safety.php',
+)
 import hashlib
 import json
 import os
@@ -30,19 +44,23 @@ def save(path, value):
 
 
 def report(state, checkpoint):
-    rows = ['# Répétition A-08', '', 'Statut : '+checkpoint['status'], '',
-            '| Étape | Durée (s) | Résultat | Preuves relatives à cet état |',
-            '|---|---:|---|---|']
-    for name in ['audit','avant','mise-a-jour','nettoyage','apres','comparaison']:
-        attempts = [r for r in checkpoint['attempts'] if r['step']==name]
-        duration = sum(r['duration_seconds'] for r in attempts)
-        latest = attempts[-1] if attempts else None
-        result = 'OK' if name in checkpoint['done'] else ('arrêt code '+str(latest['exit']) if latest else 'non lancée')
-        evidence = ', '.join(r['receipt'] for r in attempts) or '—'
-        rows.append('| '+name+' | '+format(duration,'.3f')+' | '+result+' | '+evidence+' |')
-    comparison = checkpoint.get('comparison')
-    if comparison:
-        rows += ['', 'Comparaison native : attendus : '+str(comparison['attendu'])+', anormaux : '+str(comparison['anormal'])+'.']
+    rows = ['# Répétition A-08', '', 'Statut : '+checkpoint['status']]
+    for number in range(1, len(checkpoint['passes'])+2):
+        done = checkpoint['passes'][number-1] if number<=len(checkpoint['passes']) else checkpoint['done']
+        rows += ['', '## Passage '+str(number), '',
+                 'Durées cumulées dans ce passage (essais refusés inclus), hors attentes opérateur.', '',
+                 '| Étape | Durée (s) | Résultat | Preuves relatives à cet état |',
+                 '|---|---:|---|---|']
+        for name in ['audit','avant','mise-a-jour','nettoyage','apres','comparaison']:
+            attempts = [r for r in checkpoint['attempts'] if r['step']==name and r['pass']==number]
+            duration = sum(r['duration_seconds'] for r in attempts)
+            latest = attempts[-1] if attempts else None
+            result = 'OK' if name in done else ('arrêt code '+str(latest['exit']) if latest else 'non lancée')
+            evidence = ', '.join(r['receipt'] for r in attempts) or '—'
+            rows.append('| '+name+' | '+format(duration,'.3f')+' | '+result+' | '+evidence+' |')
+        comparison = checkpoint.get('comparisons',{}).get(str(number))
+        if comparison is not None:
+            rows += ['', 'Comparaison native du passage '+str(number)+' : attendus : '+str(comparison['attendu'])+', anormaux : '+str(comparison['anormal'])+'.']
     rows += ['', 'À regarder : '+checkpoint.get('look_at','etat.json et reçus des étapes')+'.',
              'Les durées excluent les attentes opérateur. Aucun résultat ne vaut GO de mise en ligne.',
              'Aucune valeur de base n’est reproduite ici. Les noms de ressources restent dans les preuves natives.']

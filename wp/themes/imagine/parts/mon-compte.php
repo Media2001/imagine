@@ -28,6 +28,8 @@ $nomme = static fn (?string $value, string $placeholder): string => $value !== n
 <dt><?php esc_html_e('Montant récurrent natif', 'imagine'); ?></dt><dd><?php echo wp_kses_post(wc_price($a['montant'], ['currency' => $a['devise']])); ?></dd>
 <dt><?php esc_html_e('Moyen de paiement', 'imagine'); ?></dt><dd><?php echo esc_html($a['paiement']); ?><?php if ($a['manuel']) : ?> — <?php esc_html_e('renouvellement manuel', 'imagine'); ?><?php endif; ?></dd>
 </dl>
+<?php if (!empty($a['bloc_indisponible'])) : ?><p data-imagine-bloc-indisponible><?php echo esc_html(__($a['bloc_indisponible'], 'imagine')); ?></p><?php endif; ?>
+<?php foreach ($a['avertissements'] ?? [] as $warning) : ?><p data-imagine-rattachement><?php echo esc_html(__($warning, 'imagine')); ?></p><?php endforeach; ?>
 <p><?php esc_html_e('La projection des numéros ne prouve ni règlement ni expédition. Les droits PDF ci-dessous sont contrôlés séparément.', 'imagine'); ?></p>
 <p><a href="<?php echo esc_url($a['vue']); ?>"><?php esc_html_e('Gérer cet abonnement dans WooCommerce', 'imagine'); ?></a></p>
 <?php if ($a['echec'] || in_array($a['etat'], [__('Suspendu', 'imagine-site'), __('En délai de grâce', 'imagine-site')], true)) : ?>
@@ -42,7 +44,7 @@ $nomme = static fn (?string $value, string $placeholder): string => $value !== n
 <th scope="row"><?php echo esc_html((string) $e['rang']); ?></th>
 <td><?php echo esc_html($nomme($e['numero'], __('Numéro non raccordé', 'imagine'))); ?></td>
 <td><?php echo esc_html($nomme($e['date'], __('Date non raccordée — marge C05 obligatoire', 'imagine'))); ?></td>
-<td><?php echo esc_html($e['etat']); ?></td>
+<td><?php echo esc_html(__($e['etat'], 'imagine-site')); ?></td>
 <td><?php echo $e['montant'] !== null ? wp_kses_post(wc_price($e['montant'], ['currency' => $e['devise']])) : esc_html__('Montant non raccordé', 'imagine'); ?></td>
 </tr><?php endforeach; ?></tbody></table>
 <?php endforeach; if (!$quatre) : ?><p><?php esc_html_e('Aucun échéancier en quatre fois natif rattaché à ce compte.', 'imagine'); ?></p><?php endif; ?>

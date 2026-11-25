@@ -34,3 +34,14 @@ function wc_get_endpoint_url(mixed ...$args): string { return '/edit-address'; }
 function wc_get_page_permalink(string $page): string { return '/mon-compte'; }
 function add_action(string $name, mixed ...$args): void { $GLOBALS['b02_hooks'][] = $name; }
 function add_filter(string $name, mixed ...$args): void {}
+function esc_attr__(string $value, string $domain = ''): string { return htmlspecialchars($value); }
+function esc_html__(string $value, string $domain = ''): string { return htmlspecialchars($value); }
+function esc_attr_e(string $value, string $domain = ''): void { echo htmlspecialchars($value); }
+function esc_html_e(string $value, string $domain = ''): void { echo htmlspecialchars($value); }
+function esc_attr(string $value): string { return htmlspecialchars($value); }
+function esc_html(string $value): string { return htmlspecialchars($value); }
+function esc_url(string $value): string { return htmlspecialchars($value); }
+function wp_kses_post(string $value): string { return $value; }
+function wc_price(mixed $value, array $args): string { return (string) $value; }
+function WC(): object { return (object) ['countries' => new class { public function get_formatted_address(array $address): string { return 'Adresse fictive'; } }]; }
+function wc_get_account_endpoint_url(string $endpoint): string { return '/' . $endpoint; }

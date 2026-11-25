@@ -14,13 +14,18 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'outils/demo'))
 import c15
 
 
-def verify(label):
+def verify(label, refuse=False):
     c15.profils.guard('imagine-test-demo')
     w=c15.load_test('c15-witness')
     c15.upload('imagine-demo-build/c15-state.php',c15.ROOT/'wp/tests/demo/c15-state.php')
     h=c15.load_test('c12-http')
     credentials=json.loads((Path.home()/'.imagine-demo/identifiants.json').read_text(encoding='utf-8'))['c09_accounts']
     clients=[h.login(credentials[k]) for k in ('E-ABO','E-ADMIN')]
+    from urllib.request import build_opener, HTTPRedirectHandler, HTTPCookieProcessor
+    class NoRedirect(HTTPRedirectHandler):
+        def redirect_request(self, *args, **kwargs):
+            return None
+    clients=[build_opener(NoRedirect(),HTTPCookieProcessor(next(handler.cookiejar for handler in client.handlers if hasattr(handler,'cookiejar')))) for client in clients]
     f=c15.wp('echo wp_json_encode(get_option("imagine_c09_fixture"));')
     oid=f['orders']['A-VIR']
     before=w.snapshot()
@@ -34,7 +39,7 @@ def verify(label):
         match=re.search(r'name="action" value="imagine_virement_recu".*?name="_wpnonce" value="([^"]+)"',page,re.S)
         if status!=200 or not match:
             raise RuntimeError('A-VIR form absent; refusing fixture write')
-        payloads.append(urlencode({'action':'imagine_virement_recu','commande':str(oid),'_wpnonce':unescape(match.group(1)),'confirmer':'oui'}).encode())
+        payloads.append(urlencode({'action':'imagine_virement_recu','commande':str(oid),'_wpnonce':unescape(match.group(1)),'confirmer':'oui', 'imagine_c15_refus':'apres' if refuse else ''}).encode())
     target='mu-plugins/imagine-c15-concurrent-witness.php'
     exists=c15.wp('echo wp_json_encode(file_exists(WP_CONTENT_DIR.'+json.dumps('/'+target)+'));')
     if exists:
@@ -49,15 +54,24 @@ def verify(label):
         installed=True
         barrier=Barrier(2)
         def request(index):
-            barrier.wait(timeout=15)
+            if not refuse:
+                barrier.wait(timeout=15)
             start=time.monotonic()
-            status,_,body=h.fetch('/wp-admin/admin-post.php',clients[index],payloads[index])
-            return {'status':status,'elapsed':round(time.monotonic()-start,3),'success':status==200 and '<h1>Échéances</h1>' in body}
-        with ThreadPoolExecutor(max_workers=2) as pool:
-            responses=list(pool.map(request,range(2)))
+            status,headers,body=h.fetch('/wp-admin/admin-post.php',clients[index],payloads[index])
+            return {'status':status,'elapsed':round(time.monotonic()-start,3),'success':status==302 and 'recu=1' in headers.get('location',''), 'lock':headers.get('x-imagine-c15-lock')}
+        if refuse:
+            responses=[request(0)]
+        else:
+            with ThreadPoolExecutor(max_workers=2) as pool:
+                responses=list(pool.map(request,range(2)))
         after_notes=notes()
-        checks['two_simultaneous_one_success_one_refusal']=sorted(r['status'] for r in responses)==[200,409] and sum(r['success'] for r in responses)==1
-        checks['single_C15_audit_note']=len(after_notes)==len(prior)+1
+        if refuse:
+            checks['native_false_despite_paid_is_refused']=responses[0]['status']==409 and not responses[0]['success']
+            checks['native_false_no_C15_success_note']=len(after_notes)==len(prior)
+        else:
+            checks['two_simultaneous_one_success_one_refusal']=sorted(r['status'] for r in responses)==[302,409] and sum(r['success'] for r in responses)==1
+            checks['single_C15_audit_note']=len(after_notes)==len(prior)+1
+        checks['finally_unlock_before_response']=all(r['lock']=='free' for r in responses)
         state=c15.wp('$o=wc_get_order('+str(oid)+');echo wp_json_encode([$o->is_paid(),$o->get_date_paid()?->getTimestamp(),$o->get_transaction_id(),$o->get_payment_method()]);')
         checks['native_paid_no_gateway_no_transaction']=state[0] and bool(state[1]) and state[2:]==['','']
         c15.save(label+'-native',{'responses':responses,'note_delta':len(after_notes)-len(prior),'state':state})
@@ -76,4 +90,4 @@ def verify(label):
     return not result['failures']
 
 if __name__=='__main__':
-    sys.exit(0 if verify(sys.argv[1]) else 1)
+    sys.exit(0 if verify(sys.argv[1], '--refus' in sys.argv) else 1)

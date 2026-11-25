@@ -10,10 +10,43 @@ import sys
 import c14
 
 ROOT = c14.ROOT
-PROOF = ROOT / 'production/B-02'
-FILES = ['plugins/imagine-site/MonCompte.php', 'themes/imagine/parts/mon-compte.php',
-         'themes/imagine/functions.php', 'plugins/imagine-site/imagine-site.php']
+PROOF = ROOT / 'production/B-02/corrections-20261125'
+FILES = ['plugins/imagine-site/MonCompteRegles.php', 'plugins/imagine-site/MonCompte.php',
+         'themes/imagine/parts/mon-compte.php']
 wp = c14.wp
+
+
+def acceptance_blockers(observed):
+    requirements = {
+        'profile_sepa4': 'Profil natif A-SEPA4 absent.',
+        'four_states_complete': 'A-SEPA4 : deux positions payées et deux à venir non constatées.',
+        'margin': 'Marge C05 non renseignée : dates théoriques non disponibles.',
+        'counter': 'Historique activation C01 : compteur des numéros restants non raccordé.',
+        'documents': 'Factures et justificatifs : raccord documentaire non disponible.',
+        'failed_order': 'A-SUSP : aucune commande échouée native observée.',
+        'carte_paid': 'A-CARTE : aucun paiement validé natif observé.',
+        'native_bacs': 'A-VIR : circuit bacs natif absent ; libellé virement non démontrable sur ce profil.',
+        'current_block': 'Bloc courant : projection fiable non disponible sur les profils de réception.',
+        'address_edit_replayed': 'Édition positive de l’adresse non rejouée pour préserver les données ; isolation GET/POST rejouée.'
+    }
+    return [message for key, message in requirements.items() if observed.get(key) is not True]
+
+
+def observations():
+    return wp('''$f=get_option('imagine_c09_fixture');$o=['profile_sepa4'=>false,'four_states_complete'=>false,
+'margin'=>(new Imagine\\Pilotage\\Echeancier\\ReglagesAdministration())->lire()->margeJours!==null,
+'counter'=>true,'documents'=>false,'failed_order'=>false,'carte_paid'=>false,'native_bacs'=>false,'current_block'=>true,
+'address_edit_replayed'=>false];
+foreach(['A-CARTE','A-SEPA4','A-SUSP','A-VIR'] as $key){$s=wcs_get_subscription($f['subscriptions'][$key]??0);if(!$s){$o['current_block']=false;continue;}
+wp_set_current_user($s->get_customer_id());$v=Imagine\\Site\\MonCompte::donnees();$a=current(array_filter($v['abonnements'],static fn($a)=>$a['id']===$s->get_id()));
+$o['counter']=$o['counter']&&$a['restants']!==null;$o['documents']=$o['documents']||$v['factures']!==[];
+$o['current_block']=$o['current_block']&&$a['premier']!==null&&$a['dernier']!==null;
+if($key==='A-SEPA4'){$o['profile_sepa4']=true;$o['four_states_complete']=array_column($a['echeances'],'etat')===['Payée','Payée','À venir','À venir'];}
+if($key==='A-VIR'){$o['native_bacs']=$s->get_payment_method()==='bacs';}
+foreach(array_unique([$s->get_parent_id(),...array_values($s->get_related_orders('ids','renewal'))]) as $id){$r=wc_get_order($id);if(!$r||(int)$r->get_customer_id()!==(int)$s->get_customer_id()){continue;}
+if($key==='A-SUSP'&&$r->has_status('failed')){$o['failed_order']=true;}
+if($key==='A-CARTE'&&$r->is_paid()&&$r->get_date_paid()){$o['carte_paid']=true;}}}
+wp_set_current_user(0);echo wp_json_encode($o);''')
 
 
 def snapshot():
@@ -33,12 +66,15 @@ def journal():
 
 def shared():
     value = c14.preserve()
+    value['bootstrap'] = c14.c10.b00.wp('eval', 'echo hash_file("sha256",WP_PLUGIN_DIR . "/imagine-site/imagine-site.php");')['stdout'].strip()
+    value['files'].pop('imagine-site/MonCompte.php', None)
+    value['theme'].pop('parts/mon-compte.php', None)
     value['policies'] = [row for row in value['policies'] if not row['option_name'].startswith('imagine_envoi_releve_')]
     return value
 
 
 def run(deploy=False, http=True):
-    PROOF.mkdir(exist_ok=True)
+    PROOF.mkdir(parents=True, exist_ok=True)
     c14.c10.guard()
     before = snapshot()
     journal_before = journal()
@@ -48,12 +84,7 @@ def run(deploy=False, http=True):
         (PROOF / 'resultats.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
     save()
     if deploy:
-        # Bootstrap partagé : uniquement l'inclusion B02, jamais perte d'un lot précédent.
-        old = base64.b64decode(c14.c10.b00.wp('eval', 'echo base64_encode(file_get_contents(WP_PLUGIN_DIR . "/imagine-site/imagine-site.php"));')['stdout'])
-        source = (ROOT / 'wp/plugins/imagine-site/imagine-site.php').read_bytes()
-        addition = b"require_once __DIR__ . '/MonCompte.php';\nMonCompte::register();\n\n"
-        if old != source and old != source.replace(addition, b''):
-            raise RuntimeError('Bootstrap partagé divergent : arrêt sans écriture')
+        # Aucun bootstrap ni functions.php : préserver le C15/B04 installé, même divergent du disque.
         for rel in FILES:
             c14.upload(rel, ROOT / 'wp' / rel)
     result['deployed_bytes'] = {}
@@ -75,18 +106,14 @@ def run(deploy=False, http=True):
     journal_after = journal()
     added = set(journal_after) - set(journal_before)
     own = wp('echo wp_json_encode(get_option("imagine_c09_fixture")["subscriptions"]["A-CARTE"]);')
-    result['postal_journal_append_only'] = all(journal_after.get(k) == v for k, v in journal_before.items()) and len(added) == (2 if http else 0) and all(k.startswith('imagine_envoi_releve_' + str(own) + '_') for k in added)
+    result['postal_journal_append_only'] = journal_after == journal_before
     result['postal_observations_added'] = len(added)
     result['closed_and_prior_lots_preserved'] = protected == shared()
     result['snapshot_before'] = before
     result['snapshot_after'] = snapshot()
-    result['acceptance_blockers'] = [
-        'A-4x-J45 absent de C09 et du site ; aucun alias ni état 2/4 inventé.',
-        'Marge C05 non renseignée : quatre positions nommées A-SEPA4, aucune date théorique inventée.',
-        'Historique activation C01 et factures/justificatifs non raccordés : emplacements nommés.',
-        'Aucune échéance failed native sur les profils demandés : branche de paiement échoué non prouvée par HTTP, aucun rejet fabriqué.',
-        'A-CARTE sans paiement validé : adresse/source postale prouvée, inclusion positive dans un vrai export C07 non attestée.'
-    ]
+    result['observations'] = observations()
+    result['observations']['address_edit_replayed'] = result.get('http', {}).get('POST_natif_adresse_modifiee_et_relue') is True
+    result['acceptance_blockers'] = acceptance_blockers(result['observations'])
     checks = {k + ':' + key: value for k, group in result.items() if k in ['deployed_bytes', 'b02-runtime.php', 'b02-state.php', 'http'] for key, value in group.items()}
     checks.update({k: result[k] for k in ['native_snapshot_preserved', 'closed_and_prior_lots_preserved', 'postal_journal_append_only']})
     result['total'] = len(checks)
