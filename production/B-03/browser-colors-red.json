@@ -1,0 +1,212 @@
+{
+  "at": "2026-11-25T18:17:20.662327+00:00",
+  "scope": "imagine-test-demo",
+  "browser": "153.0.8010.12",
+  "python": "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+  "checks": {
+    "390:HTTP200": true,
+    "390:light:b03-black:AA": true,
+    "390:light:b03-block:AA": false,
+    "390:light:b03-inline:AA": true,
+    "390:light:DOM_intact": true,
+    "390:light:image_intacte": true,
+    "390:light:paywall_visible": true,
+    "390:sepia:b03-black:AA": true,
+    "390:sepia:b03-block:AA": false,
+    "390:sepia:b03-inline:AA": true,
+    "390:sepia:DOM_intact": true,
+    "390:sepia:image_intacte": true,
+    "390:sepia:paywall_visible": true,
+    "390:dark:b03-black:AA": false,
+    "390:dark:b03-block:AA": false,
+    "390:dark:b03-inline:AA": true,
+    "390:dark:DOM_intact": true,
+    "390:dark:image_intacte": true,
+    "390:dark:paywall_visible": true,
+    "390:couleur_auteur_retablie": true,
+    "390:contenu_DOM_original": true,
+    "1440:HTTP200": true,
+    "1440:light:b03-black:AA": true,
+    "1440:light:b03-block:AA": false,
+    "1440:light:b03-inline:AA": true,
+    "1440:light:DOM_intact": true,
+    "1440:light:image_intacte": true,
+    "1440:light:paywall_visible": true,
+    "1440:sepia:b03-black:AA": true,
+    "1440:sepia:b03-block:AA": false,
+    "1440:sepia:b03-inline:AA": true,
+    "1440:sepia:DOM_intact": true,
+    "1440:sepia:image_intacte": true,
+    "1440:sepia:paywall_visible": true,
+    "1440:dark:b03-black:AA": false,
+    "1440:dark:b03-block:AA": false,
+    "1440:dark:b03-inline:AA": true,
+    "1440:dark:DOM_intact": true,
+    "1440:dark:image_intacte": true,
+    "1440:dark:paywall_visible": true,
+    "1440:couleur_auteur_retablie": true,
+    "1440:contenu_DOM_original": true,
+    "aucune_erreur_JS": true
+  },
+  "samples": [
+    {
+      "width": 390,
+      "theme": "light",
+      "id": "b03-black",
+      "color": "rgb(0, 0, 0)",
+      "background": "rgb(255, 255, 255)",
+      "ratio": 21
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "id": "b03-block",
+      "color": "rgb(0, 0, 0)",
+      "background": "rgb(207, 46, 46)",
+      "ratio": 4.083328986934576
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "id": "b03-inline",
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(0, 0, 255)",
+      "ratio": 8.592471358428805
+    },
+    {
+      "width": 390,
+      "theme": "sepia",
+      "id": "b03-black",
+      "color": "rgb(0, 0, 0)",
+      "background": "rgb(244, 236, 216)",
+      "ratio": 17.836373968607305
+    },
+    {
+      "width": 390,
+      "theme": "sepia",
+      "id": "b03-block",
+      "color": "rgb(0, 0, 0)",
+      "background": "rgb(207, 46, 46)",
+      "ratio": 4.083328986934576
+    },
+    {
+      "width": 390,
+      "theme": "sepia",
+      "id": "b03-inline",
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(0, 0, 255)",
+      "ratio": 8.592471358428805
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "id": "b03-black",
+      "color": "rgb(0, 0, 0)",
+      "background": "rgb(23, 23, 23)",
+      "ratio": 1.1713625123613862
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "id": "b03-block",
+      "color": "rgb(0, 0, 0)",
+      "background": "rgb(207, 46, 46)",
+      "ratio": 4.083328986934576
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "id": "b03-inline",
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(0, 0, 255)",
+      "ratio": 8.592471358428805
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "id": "b03-black",
+      "color": "rgb(0, 0, 0)",
+      "background": "rgb(255, 255, 255)",
+      "ratio": 21
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "id": "b03-block",
+      "color": "rgb(0, 0, 0)",
+      "background": "rgb(207, 46, 46)",
+      "ratio": 4.083328986934576
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "id": "b03-inline",
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(0, 0, 255)",
+      "ratio": 8.592471358428805
+    },
+    {
+      "width": 1440,
+      "theme": "sepia",
+      "id": "b03-black",
+      "color": "rgb(0, 0, 0)",
+      "background": "rgb(244, 236, 216)",
+      "ratio": 17.836373968607305
+    },
+    {
+      "width": 1440,
+      "theme": "sepia",
+      "id": "b03-block",
+      "color": "rgb(0, 0, 0)",
+      "background": "rgb(207, 46, 46)",
+      "ratio": 4.083328986934576
+    },
+    {
+      "width": 1440,
+      "theme": "sepia",
+      "id": "b03-inline",
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(0, 0, 255)",
+      "ratio": 8.592471358428805
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "id": "b03-black",
+      "color": "rgb(0, 0, 0)",
+      "background": "rgb(23, 23, 23)",
+      "ratio": 1.1713625123613862
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "id": "b03-block",
+      "color": "rgb(0, 0, 0)",
+      "background": "rgb(207, 46, 46)",
+      "ratio": 4.083328986934576
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "id": "b03-inline",
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(0, 0, 255)",
+      "ratio": 8.592471358428805
+    }
+  ],
+  "errors": [],
+  "failures": [
+    "390:light:b03-block:AA",
+    "390:sepia:b03-block:AA",
+    "390:dark:b03-black:AA",
+    "390:dark:b03-block:AA",
+    "1440:light:b03-block:AA",
+    "1440:sepia:b03-block:AA",
+    "1440:dark:b03-black:AA",
+    "1440:dark:b03-block:AA"
+  ],
+  "source_sha256": {
+    "reading.css": "96e03e236cd685b4198f53a7c48dcdc28ac1b1055e6b130e1328d52f649dce06",
+    "reading.js": "4ef1f631c533358d9279d2512bbc2da7ea88f9be6277563f06c59db85105fd0f"
+  }
+}

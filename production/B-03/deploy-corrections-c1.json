@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-25T18:18:00.519036+00:00",
+  "scope": "imagine-test-demo",
+  "phase": "corrections-c1",
+  "expected": {
+    "themes/imagine/assets/reading.css": "be2be13087eabca1ca78afaa4e384aa9a60361ebc51c539fa7b7ccec7d67a65a"
+  },
+  "actual": {
+    "themes/imagine/assets/reading.css": "be2be13087eabca1ca78afaa4e384aa9a60361ebc51c539fa7b7ccec7d67a65a"
+  },
+  "exact": true,
+  "files": 1,
+  "php_parsed": 0
+}

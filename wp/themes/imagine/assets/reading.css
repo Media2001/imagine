@@ -51,6 +51,14 @@ html.imagine-reading[data-imagine-reading-size="larger"] {
     display: block;
     columns: auto;
 }
+/* Couleurs éditoriales neutralisées dans les trois fonds, sans réécrire le HTML.
+ * !important dépasse les styles inline ordinaires et les classes couleur de blocs.
+ * Les médias et leurs descendants restent intacts ; aucune image de fond effacée. */
+.imagine-reading .imagine-article-body,
+.imagine-reading .imagine-article-body :where(:not(img, picture, picture *, svg, svg *, video, video *, audio, audio *, canvas, iframe, object, object *, embed, source)) {
+    color: var(--imagine-ink) !important;
+    background-color: var(--imagine-paper) !important;
+}
 .imagine-reading .imagine-article figure {
     margin-inline: var(--imagine-zero);
 }
