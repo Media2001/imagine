@@ -25,7 +25,7 @@ foreach (['A-CARTE', 'A-SEPA4', 'A-SUSP', 'P-NUMERO', 'V-INSCRIT'] as $who) {
         $checks[$who . '_abonnement_' . $row['id'] . '_natif_propre'] = (int) $s->get_customer_id() === $v['user'];
         $checks[$who . '_adresse_' . $row['id'] . '_source_postale'] = $row['adresse'] === $s->get_address('shipping');
         $checks[$who . '_aucun_paiement_invente'] = $row['paiement'] === 'Moyen de paiement non raccordé';
-        $checks[$who . '_range_C01'] = $row['premier'] === '2026-T1' && $row['dernier'] === '2026-T4';
+        $checks[$who . '_range_C01'] = $row['premier'] === 'DEMO-2026-T1' && $row['dernier'] === 'DEMO-2026-T4';
         $checks[$who . '_compteur_historique_nomme'] = $row['restants'] === null;
     }
     foreach ($v['numeros'] as $n) {

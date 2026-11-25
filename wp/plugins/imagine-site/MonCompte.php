@@ -125,7 +125,7 @@ final class MonCompte
                 $row['dernier'] = $engine->dernier($year)?->id;
                 // Aucun historique d'activation/réactivation C01 natif n'est branché ici.
                 // Ne pas transformer l'état administratif actif en paiement ou numéros restants.
-                if ($sub->get_billing_period() === 'month' && $sub->get_billing_interval() === 3) {
+                if ($sub->get_billing_period() === 'month' && (int) $sub->get_billing_interval() === 3) {
                     $row['echeances'] = self::echeances($sub, $engine, $year);
                 }
             } catch (\Throwable) {
