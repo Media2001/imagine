@@ -234,4 +234,6 @@ Le calendrier trois ans et les six produits tarifaires fictifs sont complets ; c
 
 
 if __name__ == '__main__':
-    run()
+    # Le complément remplace les anciennes attentes « aucun paiement » ; conserver
+    # les anciens reçus et ne jamais régénérer leur prose comme un résultat actuel.
+    load('c09-complement').run_final()

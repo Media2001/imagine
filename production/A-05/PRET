@@ -1,0 +1,12 @@
+A-05 — prêt à relire, 25 novembre 2026, 18 h 35 (Europe/Paris).
+
+Outil seulement : aucune autorisation ni opération réelle.
+Preuve finale : production/A-05/preuves/3f1d3e3ce8f2/.
+16 tests unitaires, 93 contrôles d'intégration/isolation, 7 contrôles du runner : tous réussis ; trois fichiers PHP lintés dans le conteneur jetable.
+T-01 reconstruit : production/A-05/preparation-image-finale.log.
+Rejeu global : 1 012 tests, 34 006 assertions, aucun échec/erreur/ignoré ; production/A-05/rejeu-global-final.log.
+A-03 natif classique et HPOS : code 0, aucune anomalie, aucune requalification ; inventaires de retrait distincts conservés.
+A-04 : 31 fichiers comparés aux manifestes acceptés sans dérive ; verification-finale.json.
+
+Lire production/A-05/notes.md, wp/outils/bascule/nettoyer.md et files/rapports/2026-11-25-18h34.md pour les preuves, commandes exactes, choix prudents et limites.
+La reprise incertaine d'une routine tierce de désinstallation est refusée, jamais simulée ni rejouée aveuglément.

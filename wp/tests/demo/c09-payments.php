@@ -64,6 +64,22 @@ foreach ($f['memberships'] as $key => $id) {
 foreach ([$f['plan'], $f['product'], ...array_values($f['tariffs'])] as $id) {
     $checks['catalogue_' . $id . ':marque'] = get_post_meta($id, 'imagine_demo_fictif', true) === '1';
 }
+foreach (['A-VIR', 'A-GRACE', 'A-SUSP', 'A-EXPIRE'] as $key) {
+    $o = wc_get_order($f['orders'][$key]);
+    $checks[$key . ':initial_non_paye_conserve'] = !$o->get_date_paid() && !$o->is_paid();
+}
+foreach (['P-OFFERT', 'P-GEST', 'P-BENEF'] as $key) {
+    $checks[$key . ':aucun_lien_ou_droit_invente'] = !isset($f['subscriptions'][$key]) && !isset($f['memberships'][$key]);
+}
+foreach ([...array_values($f['orders']), ...array_values($f['renewals'])] as $id) {
+    $o = wc_get_order($id);
+    $ok = $o->get_meta('imagine_demo_fictif') === '1'
+        && $o->get_payment_method_title() === 'Paiement fictif de démonstration';
+    foreach (['line_item', 'shipping', 'fee'] as $type) {
+        foreach ($o->get_items($type) as $item) { $ok = $ok && $item->get_meta('imagine_demo_fictif') === '1'; }
+    }
+    $checks['commande_' . $id . ':marques'] = $ok;
+}
 $postal = \Imagine\Site\EnvoiNatif::apercu('DEMO-2027-T1');
 $checks['A-SANSMAIL:inclusion_postale'] = in_array((string) $f['subscriptions']['A-SANSMAIL'], array_column($postal['liste']->lignes, 'abonnement_id'), true);
 $failures = array_keys(array_filter($checks, static fn ($v) => !$v));

@@ -1,5 +1,5 @@
 <?php
-/** C09 : vrais objets natifs, zéro paiement, propriété stricte, remise à l'état initial. */
+/** C09 : objets natifs et états payés fictifs autorisés, aucun paiement réel. */
 declare(strict_types=1);
 namespace Imagine\Demo\C09;
 

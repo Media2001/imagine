@@ -61,8 +61,60 @@ def seed():
     return json.loads(raw['stdout'])
 
 
+def run_final():
+    import io
+    import unittest
+    tests = Path(__file__).resolve().parent
+    def load(name):
+        spec = importlib.util.spec_from_file_location(name.replace('-', '_'), tests / (name + '.py'))
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module
+    legacy = load('c09-verifier')
+    stream = io.StringIO()
+    local = unittest.TextTestRunner(stream=stream, verbosity=2).run(unittest.defaultTestLoader.discover(str(tests), pattern='test_c09_profils.py'))
+    legacy.save('complement-local.json', {'total': local.testsRun, 'failures': len(local.failures), 'errors': len(local.errors), 'output': stream.getvalue()})
+    if not local.wasSuccessful() or local.skipped:
+        raise RuntimeError('Unittest C09 rouge')
+    first = profils.run(label='installation')
+    again = profils.run(label='relance')
+    if first['native']['fixture'] != again['native']['fixture']:
+        raise RuntimeError('Identifiants modifiés au rejeu')
+    load('c09-reset').run()
+    payments = native('final-native')
+    if payments['exit']:
+        raise RuntimeError('Paiements C09 rouges')
+    safety = legacy.native_test('safety')
+    corrections = legacy.native_test('corrections')
+    readback = profils.run(label='readback', readback_only=True)
+    http = load('c09-http').run()
+    recipes = load('c09-strict-recipes')
+    c13 = recipes.run('C13')
+    b02 = recipes.run('B02')
+    if c13['exit'] not in (0, 2) or b02['exit'] not in (0, 2):
+        raise RuntimeError('Échec technique de recette stricte')
+    secret = legacy.secret_scan()
+    if secret['matches']:
+        raise RuntimeError('Valeur privée détectée ; aucun secret imprimé')
+    rows = profils.catalogue()
+    result = {'scope': 'imagine-test-demo', 'at': datetime.now(timezone.utc).isoformat(),
+        'status': 'TECHNIQUE_VERIFIE_ACCEPTATIONS_PARTIELLES' if c13['exit'] or b02['exit'] else 'VERIFIE',
+        'categories': {k: [r['code'] for r in rows if r['etat'] == k] for k in ['créé', 'partiel', 'impossible']},
+        'tests': {'local': local.testsRun, 'natif': readback['native']['total'], 'paiements': payments['total'],
+            'securite': safety['total'], 'corrections': corrections['total'], 'HTTP': http['total'],
+            'C08': readback['c08_regression']['total']},
+        'strict_C13_exit': c13['exit'], 'strict_B02_exit': b02['exit'],
+        'secret_scan': secret, 'ids_rejoues_identiques': True, 'B00_C08_preserves': readback['preserved_b00_c08']}
+    legacy.save('complement-verification.json', result)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return result
+
+
 if __name__ == '__main__':
-    if '--seed' in sys.argv:
-        seed()
-    result = native(sys.argv[1] if len(sys.argv) > 1 and not sys.argv[1].startswith('--') else 'readback')
-    raise SystemExit(result['exit'])
+    if '--full' in sys.argv:
+        run_final()
+    else:
+        if '--seed' in sys.argv:
+            seed()
+        result = native(sys.argv[1] if len(sys.argv) > 1 and not sys.argv[1].startswith('--') else 'readback')
+        raise SystemExit(result['exit'])

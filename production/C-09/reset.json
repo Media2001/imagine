@@ -1,6 +1,6 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-25T17:30:08.529708+00:00",
+  "at": "2026-11-25T17:33:04.245432+00:00",
   "url": "http://192.168.129.32:8085",
   "files_sha256": {
     "imagine-demo-build/c09-runtime.php": "9fbc96d273e6110a36313a9c84a329d71375bccdd6a190915389a9b44c9ec92f",
@@ -9,7 +9,7 @@
     "imagine-demo-build/c12-seed.php": "6cdce3fa0c141ebbcea458240df4d00a49dc21a84000c4dd94587325ebb0a3e2",
     "imagine-demo-build/c14-profil.php": "8ac3bcb1aa3bab2cf43369a3c7c8a31962c52c362c7879c269658a9b2124337f",
     "imagine-demo-build/c09-profils.json": "0dbdee8b276739a738a517ec9bcbcfd61f11ce4853376889b6465c093c8f1da7",
-    "imagine-demo-build/c09-seed.php": "40f2427ce11b2e19ec0569508134ef8ed6f4611d7b3b766ff95f834d0a14d224"
+    "imagine-demo-build/c09-seed.php": "5076a6657c99241b86eeaf229f8af125b61877f1c81c4b0560c25da4d952ac2e"
   },
   "before": {
     "b00": {
@@ -2522,16 +2522,7 @@
   "preserved_b00_c08": true,
   "native": {
     "total": 382,
-    "failures": [
-      "A-CARTE:role",
-      "A-SEPA4:role",
-      "A-PAYPAL:role",
-      "A-PAPIER:role",
-      "A-NONRENOUV:role",
-      "A-ETRANGER:role",
-      "A-SANSMAIL:role",
-      "A-ECHEANCE:role"
-    ],
+    "failures": [],
     "checks": {
       "catalogue_30": true,
       "fixture_installee": true,
@@ -2563,7 +2554,7 @@
       "A-CARTE:motif": true,
       "A-CARTE:login_email": true,
       "A-CARTE:password": true,
-      "A-CARTE:role": false,
+      "A-CARTE:role": true,
       "A-CARTE:nombre_commandes": true,
       "A-CARTE:nombre_abonnements": true,
       "A-CARTE:nombre_adhesions": true,
@@ -2581,7 +2572,7 @@
       "A-SEPA4:motif": true,
       "A-SEPA4:login_email": true,
       "A-SEPA4:password": true,
-      "A-SEPA4:role": false,
+      "A-SEPA4:role": true,
       "A-SEPA4:nombre_commandes": true,
       "A-SEPA4:nombre_abonnements": true,
       "A-SEPA4:nombre_adhesions": true,
@@ -2600,7 +2591,7 @@
       "A-PAYPAL:motif": true,
       "A-PAYPAL:login_email": true,
       "A-PAYPAL:password": true,
-      "A-PAYPAL:role": false,
+      "A-PAYPAL:role": true,
       "A-PAYPAL:nombre_commandes": true,
       "A-PAYPAL:nombre_abonnements": true,
       "A-PAYPAL:nombre_adhesions": true,
@@ -2636,7 +2627,7 @@
       "A-PAPIER:motif": true,
       "A-PAPIER:login_email": true,
       "A-PAPIER:password": true,
-      "A-PAPIER:role": false,
+      "A-PAPIER:role": true,
       "A-PAPIER:nombre_commandes": true,
       "A-PAPIER:nombre_abonnements": true,
       "A-PAPIER:nombre_adhesions": true,
@@ -2713,7 +2704,7 @@
       "A-NONRENOUV:motif": true,
       "A-NONRENOUV:login_email": true,
       "A-NONRENOUV:password": true,
-      "A-NONRENOUV:role": false,
+      "A-NONRENOUV:role": true,
       "A-NONRENOUV:nombre_commandes": true,
       "A-NONRENOUV:nombre_abonnements": true,
       "A-NONRENOUV:nombre_adhesions": true,
@@ -2731,7 +2722,7 @@
       "A-ETRANGER:motif": true,
       "A-ETRANGER:login_email": true,
       "A-ETRANGER:password": true,
-      "A-ETRANGER:role": false,
+      "A-ETRANGER:role": true,
       "A-ETRANGER:nombre_commandes": true,
       "A-ETRANGER:nombre_abonnements": true,
       "A-ETRANGER:nombre_adhesions": true,
@@ -2750,7 +2741,7 @@
       "A-SANSMAIL:motif": true,
       "A-SANSMAIL:login_email": true,
       "A-SANSMAIL:password": true,
-      "A-SANSMAIL:role": false,
+      "A-SANSMAIL:role": true,
       "A-SANSMAIL:nombre_commandes": true,
       "A-SANSMAIL:nombre_abonnements": true,
       "A-SANSMAIL:nombre_adhesions": true,
@@ -2768,7 +2759,7 @@
       "A-ECHEANCE:motif": true,
       "A-ECHEANCE:login_email": true,
       "A-ECHEANCE:password": true,
-      "A-ECHEANCE:role": false,
+      "A-ECHEANCE:role": true,
       "A-ECHEANCE:nombre_commandes": true,
       "A-ECHEANCE:nombre_abonnements": true,
       "A-ECHEANCE:nombre_adhesions": true,
@@ -2987,7 +2978,7 @@
             "customer_id": 9,
             "item_count": 1,
             "date_paid": {
-              "date": "2026-08-27 19:29:42.000000",
+              "date": "2026-08-27 19:32:37.000000",
               "timezone_type": 3,
               "timezone": "Europe/Brussels"
             },
@@ -3002,14 +2993,14 @@
             "parent_id": 88,
             "customer_id": 9,
             "status": "active",
-            "start": "2026-08-27 17:29:42",
-            "end": "2027-11-25 17:29:42",
-            "next_payment": "2026-12-25 17:29:42",
+            "start": "2026-08-27 17:32:37",
+            "end": "2027-11-25 17:32:37",
+            "next_payment": "2026-12-25 17:32:37",
             "manual": true,
             "payment_count": 1,
             "grace_start": "",
             "grace_end": "",
-            "scheduled_payment_action": 1798219782
+            "scheduled_payment_action": 1798219957
           }
         ],
         "memberships": [
@@ -3019,8 +3010,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 88,
-            "start": "2026-08-27 17:29:42",
-            "end": "2027-11-25 17:29:42"
+            "start": "2026-08-27 17:32:37",
+            "end": "2027-11-25 17:32:37"
           }
         ]
       },
@@ -3039,7 +3030,7 @@
             "customer_id": 10,
             "item_count": 1,
             "date_paid": {
-              "date": "2026-10-26 18:29:42.000000",
+              "date": "2026-10-26 18:32:37.000000",
               "timezone_type": 3,
               "timezone": "Europe/Brussels"
             },
@@ -3054,7 +3045,7 @@
             "customer_id": 10,
             "item_count": 1,
             "date_paid": {
-              "date": "2026-05-29 19:29:42.000000",
+              "date": "2026-05-29 19:32:37.000000",
               "timezone_type": 3,
               "timezone": "Europe/Brussels"
             },
@@ -3069,14 +3060,14 @@
             "parent_id": 91,
             "customer_id": 10,
             "status": "active",
-            "start": "2026-05-29 17:29:42",
-            "end": "2027-11-25 17:29:42",
-            "next_payment": "2026-12-25 17:29:42",
+            "start": "2026-05-29 17:32:37",
+            "end": "2027-11-25 17:32:37",
+            "next_payment": "2026-12-25 17:32:37",
             "manual": true,
             "payment_count": 2,
             "grace_start": "",
             "grace_end": "",
-            "scheduled_payment_action": 1798219782
+            "scheduled_payment_action": 1798219957
           }
         ],
         "memberships": [
@@ -3086,8 +3077,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 91,
-            "start": "2026-05-29 17:29:42",
-            "end": "2027-11-25 17:29:42"
+            "start": "2026-05-29 17:32:37",
+            "end": "2027-11-25 17:32:37"
           }
         ]
       },
@@ -3106,7 +3097,7 @@
             "customer_id": 11,
             "item_count": 1,
             "date_paid": {
-              "date": "2026-08-27 19:29:42.000000",
+              "date": "2026-08-27 19:32:37.000000",
               "timezone_type": 3,
               "timezone": "Europe/Brussels"
             },
@@ -3121,14 +3112,14 @@
             "parent_id": 94,
             "customer_id": 11,
             "status": "active",
-            "start": "2026-08-27 17:29:42",
-            "end": "2027-11-25 17:29:42",
-            "next_payment": "2026-12-25 17:29:42",
+            "start": "2026-08-27 17:32:37",
+            "end": "2027-11-25 17:32:37",
+            "next_payment": "2026-12-25 17:32:37",
             "manual": true,
             "payment_count": 1,
             "grace_start": "",
             "grace_end": "",
-            "scheduled_payment_action": 1798219782
+            "scheduled_payment_action": 1798219957
           }
         ],
         "memberships": [
@@ -3138,8 +3129,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 94,
-            "start": "2026-08-27 17:29:42",
-            "end": "2027-11-25 17:29:42"
+            "start": "2026-08-27 17:32:37",
+            "end": "2027-11-25 17:32:37"
           }
         ]
       },
@@ -3169,9 +3160,9 @@
             "parent_id": 97,
             "customer_id": 12,
             "status": "pending",
-            "start": "2025-12-25 17:29:42",
-            "end": "2027-11-25 17:29:42",
-            "next_payment": "2026-12-25 17:29:42",
+            "start": "2025-12-25 17:32:37",
+            "end": "2027-11-25 17:32:37",
+            "next_payment": "2026-12-25 17:32:37",
             "manual": true,
             "payment_count": 0,
             "grace_start": "",
@@ -3186,8 +3177,8 @@
             "plan_id": 86,
             "status": "pending",
             "order_id": 97,
-            "start": "2025-12-25 17:29:42",
-            "end": "2027-11-25 17:29:42"
+            "start": "2025-12-25 17:32:37",
+            "end": "2027-11-25 17:32:37"
           }
         ]
       },
@@ -3206,7 +3197,7 @@
             "customer_id": 13,
             "item_count": 1,
             "date_paid": {
-              "date": "2026-08-27 19:29:42.000000",
+              "date": "2026-08-27 19:32:37.000000",
               "timezone_type": 3,
               "timezone": "Europe/Brussels"
             },
@@ -3221,14 +3212,14 @@
             "parent_id": 100,
             "customer_id": 13,
             "status": "active",
-            "start": "2026-08-27 17:29:42",
-            "end": "2027-11-25 17:29:42",
-            "next_payment": "2026-11-25 18:29:42",
+            "start": "2026-08-27 17:32:37",
+            "end": "2027-11-25 17:32:37",
+            "next_payment": "2026-11-25 18:32:37",
             "manual": true,
             "payment_count": 1,
             "grace_start": "",
             "grace_end": "",
-            "scheduled_payment_action": 1795631382
+            "scheduled_payment_action": 1795631557
           }
         ],
         "memberships": [
@@ -3238,8 +3229,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 100,
-            "start": "2026-08-27 17:29:42",
-            "end": "2027-11-25 17:29:42"
+            "start": "2026-08-27 17:32:37",
+            "end": "2027-11-25 17:32:37"
           }
         ]
       },
@@ -3280,13 +3271,13 @@
             "parent_id": 103,
             "customer_id": 14,
             "status": "on-hold",
-            "start": "2025-12-25 17:29:42",
-            "end": "2027-11-25 17:29:42",
-            "next_payment": "2026-12-25 17:29:42",
+            "start": "2025-12-25 17:32:37",
+            "end": "2027-11-25 17:32:37",
+            "next_payment": "2026-12-25 17:32:37",
             "manual": true,
             "payment_count": 0,
-            "grace_start": "2026-11-24 17:29:42",
-            "grace_end": "2026-11-27 17:29:42",
+            "grace_start": "2026-11-24 17:32:37",
+            "grace_end": "2026-11-27 17:32:37",
             "scheduled_payment_action": false
           }
         ],
@@ -3297,8 +3288,8 @@
             "plan_id": 86,
             "status": "paused",
             "order_id": 103,
-            "start": "2025-12-25 17:29:42",
-            "end": "2027-11-25 17:29:42"
+            "start": "2025-12-25 17:32:37",
+            "end": "2027-11-25 17:32:37"
           }
         ]
       },
@@ -3339,13 +3330,13 @@
             "parent_id": 106,
             "customer_id": 15,
             "status": "on-hold",
-            "start": "2025-12-25 17:29:42",
-            "end": "2027-11-25 17:29:42",
-            "next_payment": "2026-12-25 17:29:42",
+            "start": "2025-12-25 17:32:37",
+            "end": "2027-11-25 17:32:37",
+            "next_payment": "2026-12-25 17:32:37",
             "manual": true,
             "payment_count": 0,
-            "grace_start": "2026-11-21 17:29:42",
-            "grace_end": "2026-11-24 17:29:42",
+            "grace_start": "2026-11-21 17:32:37",
+            "grace_end": "2026-11-24 17:32:37",
             "scheduled_payment_action": false
           }
         ],
@@ -3356,8 +3347,8 @@
             "plan_id": 86,
             "status": "paused",
             "order_id": 106,
-            "start": "2025-12-25 17:29:42",
-            "end": "2027-11-25 17:29:42"
+            "start": "2025-12-25 17:32:37",
+            "end": "2027-11-25 17:32:37"
           }
         ]
       },
@@ -3387,8 +3378,8 @@
             "parent_id": 109,
             "customer_id": 16,
             "status": "expired",
-            "start": "2025-12-25 17:29:42",
-            "end": "2026-11-24 17:29:42",
+            "start": "2025-12-25 17:32:37",
+            "end": "2026-11-24 17:32:37",
             "next_payment": 0,
             "manual": true,
             "payment_count": 0,
@@ -3404,8 +3395,8 @@
             "plan_id": 86,
             "status": "expired",
             "order_id": 109,
-            "start": "2025-12-25 17:29:42",
-            "end": "2026-11-24 17:29:42"
+            "start": "2025-12-25 17:32:37",
+            "end": "2026-11-24 17:32:37"
           }
         ]
       },
@@ -3424,7 +3415,7 @@
             "customer_id": 17,
             "item_count": 1,
             "date_paid": {
-              "date": "2026-08-27 19:29:42.000000",
+              "date": "2026-08-27 19:32:37.000000",
               "timezone_type": 3,
               "timezone": "Europe/Brussels"
             },
@@ -3439,8 +3430,8 @@
             "parent_id": 112,
             "customer_id": 17,
             "status": "pending-cancel",
-            "start": "2026-08-27 17:29:42",
-            "end": "2026-12-25 17:29:42",
+            "start": "2026-08-27 17:32:37",
+            "end": "2026-12-25 17:32:37",
             "next_payment": 0,
             "manual": true,
             "payment_count": 1,
@@ -3456,8 +3447,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 112,
-            "start": "2026-08-27 17:29:42",
-            "end": "2026-12-25 17:29:42"
+            "start": "2026-08-27 17:32:37",
+            "end": "2026-12-25 17:32:37"
           }
         ]
       },
@@ -3476,7 +3467,7 @@
             "customer_id": 18,
             "item_count": 1,
             "date_paid": {
-              "date": "2026-08-27 19:29:42.000000",
+              "date": "2026-08-27 19:32:37.000000",
               "timezone_type": 3,
               "timezone": "Europe/Brussels"
             },
@@ -3491,14 +3482,14 @@
             "parent_id": 115,
             "customer_id": 18,
             "status": "active",
-            "start": "2026-08-27 17:29:42",
-            "end": "2027-11-25 17:29:42",
-            "next_payment": "2026-12-25 17:29:42",
+            "start": "2026-08-27 17:32:37",
+            "end": "2027-11-25 17:32:37",
+            "next_payment": "2026-12-25 17:32:37",
             "manual": true,
             "payment_count": 1,
             "grace_start": "",
             "grace_end": "",
-            "scheduled_payment_action": 1798219782
+            "scheduled_payment_action": 1798219957
           }
         ],
         "memberships": [
@@ -3508,8 +3499,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 115,
-            "start": "2026-08-27 17:29:42",
-            "end": "2027-11-25 17:29:42"
+            "start": "2026-08-27 17:32:37",
+            "end": "2027-11-25 17:32:37"
           }
         ]
       },
@@ -3528,7 +3519,7 @@
             "customer_id": 19,
             "item_count": 1,
             "date_paid": {
-              "date": "2026-08-27 19:29:42.000000",
+              "date": "2026-08-27 19:32:37.000000",
               "timezone_type": 3,
               "timezone": "Europe/Brussels"
             },
@@ -3543,14 +3534,14 @@
             "parent_id": 118,
             "customer_id": 19,
             "status": "active",
-            "start": "2026-08-27 17:29:42",
-            "end": "2027-11-25 17:29:42",
-            "next_payment": "2026-12-25 17:29:42",
+            "start": "2026-08-27 17:32:37",
+            "end": "2027-11-25 17:32:37",
+            "next_payment": "2026-12-25 17:32:37",
             "manual": true,
             "payment_count": 1,
             "grace_start": "",
             "grace_end": "",
-            "scheduled_payment_action": 1798219782
+            "scheduled_payment_action": 1798219957
           }
         ],
         "memberships": [
@@ -3560,8 +3551,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 118,
-            "start": "2026-08-27 17:29:42",
-            "end": "2027-11-25 17:29:42"
+            "start": "2026-08-27 17:32:37",
+            "end": "2027-11-25 17:32:37"
           }
         ]
       },
@@ -3580,7 +3571,7 @@
             "customer_id": 20,
             "item_count": 1,
             "date_paid": {
-              "date": "2026-08-27 19:29:42.000000",
+              "date": "2026-08-27 19:32:37.000000",
               "timezone_type": 3,
               "timezone": "Europe/Brussels"
             },
@@ -3595,14 +3586,14 @@
             "parent_id": 121,
             "customer_id": 20,
             "status": "active",
-            "start": "2026-08-27 17:29:42",
-            "end": "2026-12-25 17:29:42",
-            "next_payment": "2026-12-24 17:29:42",
+            "start": "2026-08-27 17:32:37",
+            "end": "2026-12-25 17:32:37",
+            "next_payment": "2026-12-24 17:32:37",
             "manual": true,
             "payment_count": 1,
             "grace_start": "",
             "grace_end": "",
-            "scheduled_payment_action": 1798133382
+            "scheduled_payment_action": 1798133557
           }
         ],
         "memberships": [
@@ -3612,8 +3603,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": 121,
-            "start": "2026-08-27 17:29:42",
-            "end": "2026-12-25 17:29:42"
+            "start": "2026-08-27 17:32:37",
+            "end": "2026-12-25 17:32:37"
           }
         ]
       },
@@ -3688,8 +3679,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": null,
-            "start": "2025-12-25 17:29:42",
-            "end": "2027-11-25 17:29:42"
+            "start": "2025-12-25 17:32:37",
+            "end": "2027-11-25 17:32:37"
           }
         ]
       },
@@ -3709,8 +3700,8 @@
             "plan_id": 86,
             "status": "active",
             "order_id": null,
-            "start": "2025-12-25 17:29:42",
-            "end": "2027-01-09 17:29:42"
+            "start": "2025-12-25 17:32:37",
+            "end": "2027-01-09 17:32:37"
           }
         ]
       },
@@ -3729,7 +3720,7 @@
             "customer_id": 28,
             "item_count": 1,
             "date_paid": {
-              "date": "2026-11-25 18:30:02.000000",
+              "date": "2026-11-25 18:32:57.000000",
               "timezone_type": 3,
               "timezone": "Europe/Brussels"
             },
@@ -3918,6 +3909,6 @@
     "total": 30,
     "failures": []
   },
-  "native_exit": 1,
-  "status": "FAILED"
+  "native_exit": 0,
+  "status": "VERIFIED"
 }
