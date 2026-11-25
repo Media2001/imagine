@@ -1,4 +1,4 @@
-"""All issues means even an undated owned synthetic issue; exact cleanup."""
+"""B01 native release-date publication guard is preserved; exact owned cleanup."""
 from pathlib import Path
 import importlib.util
 import json
@@ -17,7 +17,7 @@ $old=$GLOBALS['wp_the_query'];$q=new WP_Query();$GLOBALS['wp_the_query']=$q;
 $q->query(['post_type'=>'imagine_numero','post_status'=>'publish','posts_per_page'=>-1]);
 $ids=wp_list_pluck($q->posts,'ID');$GLOBALS['wp_the_query']=$old;echo wp_json_encode($ids);
 ''')
-    checks={'all_issues_including_undated':id in native,'unknown_date_last':native[-1:]==[id]}
+    checks={'native_B01_guard_keeps_undated_issue_draft':w.wp('echo wp_json_encode(get_post_status('+str(id)+'));')=='draft', 'draft_not_in_public_archive':id not in native}
 finally:
     removed=w.wp('$id='+str(id)+';if(get_post_meta($id,"_imagine_b04_fixture",true)!=="undated-v1"){throw new RuntimeException("B04 ownership refused");}wp_delete_post($id,true);echo wp_json_encode(get_post($id)===null&&get_post_meta($id)===[]);')
     checks['exact_own_object_removed']=removed

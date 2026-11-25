@@ -83,15 +83,16 @@ checks['C14:formulaire_natif_ajout_panier']=bool(form and form.select_one('[name
 checks['C14:pas_de_passerelle_formulaire_paiement']=not soup.select('input[name="payment_method"],iframe[src*="stripe"],script[src*="paypal"]')
 # Exercise native main-query pagination without touching the site's posts_per_page option.
 native=w.wp(r'''
-$old=$GLOBALS['wp_the_query'];$out=[];
+$old=$GLOBALS['wp_the_query'];$out=[];$_SERVER['REQUEST_URI']='/numeros/';
 for($page=1;$page<=3;$page++){
 $q=new WP_Query();$GLOBALS['wp_the_query']=$q;$GLOBALS['wp_query']=$q;
 $q->query(['post_type'=>'imagine_numero','post_status'=>'publish','posts_per_page'=>2,'paged'=>$page]);
-$out[]=['ids'=>wp_list_pluck($q->posts,'ID'),'size'=>$q->get('posts_per_page'),'found'=>$q->found_posts,'pages'=>$q->max_num_pages];}
+$nav=get_the_posts_pagination();$out[]=['ids'=>wp_list_pluck($q->posts,'ID'),'size'=>$q->get('posts_per_page'),'found'=>$q->found_posts,'pages'=>$q->max_num_pages,'native_navigation'=>str_contains($nav,'page-numbers')&&str_contains($nav,'/numeros/')];}
 $GLOBALS['wp_the_query']=$old;$GLOBALS['wp_query']=$old;
 echo wp_json_encode($out);
 ''')
 checks['pagination:taille_native_preservee']=all(p['size']==2 for p in native)
+checks['pagination:navigation_WP_native']=all(p['native_navigation'] for p in native)
 checks['pagination:pages_2_2_1']=[len(p['ids']) for p in native]==[2,2,1]
 checks['pagination:ordre_descendant_sans_doublon']=[id for p in native for id in p['ids']]==[i['id'] for i in inventory['issues']]
 result={'scope':'imagine-test-demo','total':len(checks),'checks':checks,'failures':[k for k,v in checks.items() if not v],'native_pagination':native,'archive_pages':len(archive_pages),'term_count':len(inventory['terms'])}

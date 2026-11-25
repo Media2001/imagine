@@ -1,0 +1,10 @@
+A-09 — PRET POUR RELECTURE TECHNIQUE
+Date UTC : 2026-11-25T20:11:14.042946+00:00
+Preuve HTTP fictive : 6fd5c1c30990 ; 21 tests verts.
+Rejeu parent avant PRET : d8d441060471 (21 tests verts, 63 GET réels).
+Manifeste SHA-256 : d920e088dd3f5a62dccad7e661f5a6b834bef8d257fdeef214c6f1890e1e17e8
+Vérification avant PRET SHA-256 : aacd83de40a3997cfaefabf20614edf38cdefe907ae9762a7ad067a5cd26c51a
+Image T01 préparée réellement : code 0 ; reçu preparer-image.json.
+80 sources acceptées inchangées ; aucun runner A09 restant.
+Commande parent : python -B production/A-09/verifier.py --replay
+Aucun plan réel, aucun site réel, aucun GO production.

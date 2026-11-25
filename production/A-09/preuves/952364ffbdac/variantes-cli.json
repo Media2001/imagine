@@ -1,0 +1,79 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmp58rli3wp/site",
+    "--base-url=http://127.0.0.1:33555",
+    "--plan=/repo/wp/tests/a09/tmp58rli3wp/variantes.csv",
+    "--output=/report/variantes",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 0,
+  "stdout": "# Test des redirections \u2014 lecture seule\n\n5 CONFORME ; 0 non conforme(s).\n\n| Ligne | Ancienne | Code attendu | Code observ\u00e9 | Cible attendue | Cible observ\u00e9e | HTTP final | Sauts | R\u00e9sultat |\n|---|---|---|---|---|---|---|---|---|\n| 2 | /old0 | 301 | 301 | /new0?n=1 | new0?n=1 | 200 | 1 | CONFORME |\n| 3 | /old1 | 302 | 302 | /new1?n=1 | http://127.0.0.1:33555/new1?n=1 | 200 | 1 | CONFORME |\n| 4 | /old2 | 303 | 303 | /new2?n=1 | new2?n=1 | 200 | 1 | CONFORME |\n| 5 | /old3 | 307 | 307 | /new3?n=1 | http://127.0.0.1:33555/new3?n=1 | 200 | 1 | CONFORME |\n| 6 | /old4 | 308 | 308 | /new4?n=1 | new4?n=1 | 200 | 1 | CONFORME |\n",
+  "stderr": "",
+  "events": [
+    {
+      "method": "GET",
+      "path": "/old0",
+      "at": 480757.14018168,
+      "port": 33555
+    },
+    {
+      "method": "GET",
+      "path": "/new0?n=1",
+      "at": 480757.239546243,
+      "port": 33555
+    },
+    {
+      "method": "GET",
+      "path": "/old1",
+      "at": 480757.339816393,
+      "port": 33555
+    },
+    {
+      "method": "GET",
+      "path": "/new1?n=1",
+      "at": 480757.439922298,
+      "port": 33555
+    },
+    {
+      "method": "GET",
+      "path": "/old2",
+      "at": 480757.540463925,
+      "port": 33555
+    },
+    {
+      "method": "GET",
+      "path": "/new2?n=1",
+      "at": 480757.640634415,
+      "port": 33555
+    },
+    {
+      "method": "GET",
+      "path": "/old3",
+      "at": 480757.740552555,
+      "port": 33555
+    },
+    {
+      "method": "GET",
+      "path": "/new3?n=1",
+      "at": 480757.840894473,
+      "port": 33555
+    },
+    {
+      "method": "GET",
+      "path": "/old4",
+      "at": 480757.9408799,
+      "port": 33555
+    },
+    {
+      "method": "GET",
+      "path": "/new4?n=1",
+      "at": 480758.041222058,
+      "port": 33555
+    }
+  ],
+  "site_unchanged": true
+}

@@ -8,10 +8,10 @@
     "-File",
     "C:\\Users\\Ced\\imagine\\wp\\tests\\preparer-image.ps1"
   ],
-  "started_utc": "2026-11-25T19:59:52.693414+00:00",
-  "ended_utc": "2026-11-25T19:59:55.627345+00:00",
+  "started_utc": "2026-11-25T20:07:59.836026+00:00",
+  "ended_utc": "2026-11-25T20:08:02.840485+00:00",
   "exit_code": 0,
   "script_sha256": "3b1b8e2baf0f8388a9bffa8c44836b9d91bddc6736a10adb46fa7ef0298ae3dc",
   "script_unchanged": true,
-  "log_sha256": "2d8a58e988c31ddd4eb794cc46f51132c7744a870c0be7b58a29b0372f9f40ac"
+  "log_sha256": "bec2c816457836590b5ab83f5a50f8747cfcfb0ff5e9117911b3e834a12f4f6c"
 }

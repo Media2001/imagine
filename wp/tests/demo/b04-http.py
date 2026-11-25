@@ -88,6 +88,8 @@ def run(phase='final'):
                 checks[prefix+'PDF_reel_autorise']=status==200 and pdfheaders.get('content-type','').startswith('application/pdf') and data.startswith('%PDF-')
             else:
                 checks[prefix+'aucune_adresse_ni_indice_PDF']='imagine_pdf=' not in text and 'data-imagine-pdf' not in text and '.pdf' not in text and 'PDF' not in soup.select_one('main').get_text()
+                denied_code, denied_headers, denied = http.fetch('/?imagine_pdf='+str(issue['id']), client)
+                checks[prefix+'PDF_route_serveur_refusee']=denied_code==200 and not denied_headers.get('content-type','').startswith('application/pdf') and not denied.startswith('%PDF-')
             checks[prefix+'pas_de_chemin_prive']='imagine-private-pdf' not in text and '_imagine_pdf_blob' not in text
             responses[prefix]={'path':issue['path'],'status':code,'sha256':hashlib.sha256(text.encode()).hexdigest(),'article_count':len(issue['articles']),'pdf_allowed':expected['pdf'],'pdf_motif':expected['motif_pdf']}
     result={'scope':'imagine-test-demo','at':datetime.now(timezone.utc).isoformat(),'total':len(checks),'checks':checks,'failures':[k for k,v in checks.items() if v is not True],'responses':responses}

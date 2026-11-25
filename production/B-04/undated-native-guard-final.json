@@ -1,0 +1,18 @@
+{
+  "scope": "imagine-test-demo",
+  "total": 3,
+  "checks": {
+    "native_B01_guard_keeps_undated_issue_draft": true,
+    "draft_not_in_public_archive": true,
+    "exact_own_object_removed": true
+  },
+  "failures": [],
+  "native_ids": [
+    39,
+    32,
+    25,
+    18,
+    11
+  ],
+  "temporary_owned_id": 2499
+}

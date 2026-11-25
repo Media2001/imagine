@@ -1,0 +1,135 @@
+{
+  "schema": "imagine-a09-report-v1",
+  "base_url": "http://127.0.0.1:35017",
+  "read_only": true,
+  "requests": 15,
+  "total": 4,
+  "nonconformes": 4,
+  "rows": [
+    {
+      "line": 2,
+      "ancienne": "/chaine",
+      "cible": "/final",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "/intermediaire",
+      "final_status": 200,
+      "hops": 2,
+      "issues": [
+        "mauvaise_cible",
+        "chaine"
+      ],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:35017/chaine",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:35017/intermediaire",
+          "status": 302
+        },
+        {
+          "url": "http://127.0.0.1:35017/final",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "line": 3,
+      "ancienne": "/boucle",
+      "cible": "/boucle-b",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "/boucle-b",
+      "final_status": null,
+      "hops": 2,
+      "issues": [
+        "chaine",
+        "boucle"
+      ],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:35017/boucle",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:35017/boucle-b",
+          "status": 301
+        }
+      ]
+    },
+    {
+      "line": 4,
+      "ancienne": "/auto",
+      "cible": "/final",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "/auto",
+      "final_status": null,
+      "hops": 1,
+      "issues": [
+        "mauvaise_cible",
+        "boucle"
+      ],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:35017/auto",
+          "status": 301
+        }
+      ]
+    },
+    {
+      "line": 5,
+      "ancienne": "/long0",
+      "cible": "/final",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "/long1",
+      "final_status": null,
+      "hops": 9,
+      "issues": [
+        "mauvaise_cible",
+        "chaine",
+        "limite_sauts"
+      ],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:35017/long0",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:35017/long1",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:35017/long2",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:35017/long3",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:35017/long4",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:35017/long5",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:35017/long6",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:35017/long7",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:35017/long8",
+          "status": 301
+        }
+      ]
+    }
+  ]
+}

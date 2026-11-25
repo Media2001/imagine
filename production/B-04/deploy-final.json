@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-25T20:11:16.547516+00:00",
+  "scope": "imagine-test-demo",
+  "expected": {
+    "themes/imagine/functions.php": "f1ca667e6b807bc1a54fcb725c9a1f24754e9efa791ba4728bdaf35a612485bb",
+    "themes/imagine/inc/catalogue.php": "578ccfb5a874a3eb8ecabe5d4e782df4b8ac4d65033a2d09636442efdf6b406c",
+    "themes/imagine/single-imagine_numero.php": "be51d1d4281c5fc037919b6d5d8ea46d098ce7b8d2be99386ba1c3e63b1c9346",
+    "themes/imagine/archive-imagine_numero.php": "92e09dea1729c011f8a0dcc18432f635b8832431f04828513426dd477b66c12e",
+    "themes/imagine/taxonomy-imagine_thematique.php": "ad4f9a75297af05d62cc803be63fad5c0b1e5d596518a2f05a903477eb6edc82"
+  },
+  "actual": {
+    "themes/imagine/functions.php": "f1ca667e6b807bc1a54fcb725c9a1f24754e9efa791ba4728bdaf35a612485bb",
+    "themes/imagine/inc/catalogue.php": "578ccfb5a874a3eb8ecabe5d4e782df4b8ac4d65033a2d09636442efdf6b406c",
+    "themes/imagine/single-imagine_numero.php": "be51d1d4281c5fc037919b6d5d8ea46d098ce7b8d2be99386ba1c3e63b1c9346",
+    "themes/imagine/archive-imagine_numero.php": "92e09dea1729c011f8a0dcc18432f635b8832431f04828513426dd477b66c12e",
+    "themes/imagine/taxonomy-imagine_thematique.php": "ad4f9a75297af05d62cc803be63fad5c0b1e5d596518a2f05a903477eb6edc82"
+  },
+  "exact": true,
+  "files": 5
+}

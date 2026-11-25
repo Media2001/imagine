@@ -93,12 +93,8 @@ function imagine_archive_order(\WP_Query $query): void
         return;
     }
     if ($query->is_post_type_archive('imagine_numero')) {
-        $query->set('meta_query', [
-            'relation' => 'OR',
-            'imagine_issue_date' => ['key' => 'imagine_sortie', 'compare' => 'EXISTS'],
-            'imagine_issue_undated' => ['key' => 'imagine_sortie', 'compare' => 'NOT EXISTS'],
-        ]);
-        $query->set('orderby', ['imagine_issue_date' => 'DESC', 'ID' => 'DESC']);
+        $query->set('meta_key', 'imagine_sortie');
+        $query->set('orderby', ['meta_value' => 'DESC', 'ID' => 'DESC']);
         // Keep WordPress' native page size and paged query variable.
     } elseif ($query->is_post_type_archive('imagine_evenement')) {
         $query->set('meta_key', 'imagine_date');

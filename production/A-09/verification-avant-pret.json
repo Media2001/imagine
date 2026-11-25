@@ -1,0 +1,12 @@
+{
+  "command": [
+    "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+    "-B",
+    "C:\\Users\\Ced\\imagine\\production\\A-09\\verifier.py",
+    "--pre-pret"
+  ],
+  "exit_code": 0,
+  "stdout": "{\n  \"exit_code\": 0,\n  \"scope\": \"A09 dedicated Python/real HTTP suite; not a global T01 replay or staging acceptance\",\n  \"proof\": {\n    \"packet\": \"6fd5c1c30990\",\n    \"tests\": 21,\n    \"http_reports\": 13,\n    \"runner\": \"imagine-a09-46522e65909d\",\n    \"requests\": 63\n  },\n  \"replay\": null,\n  \"protected_sources\": 80,\n  \"manifest_sha256\": \"d920e088dd3f5a62dccad7e661f5a6b834bef8d257fdeef214c6f1890e1e17e8\",\n  \"cleanup\": \"no A09-owned runner\",\n  \"production_authorized\": false\n}\n",
+  "stderr": "",
+  "recorded_utc": "2026-11-25T20:11:14.042946+00:00"
+}

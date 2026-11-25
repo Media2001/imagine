@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmp7j1lwq91/site",
+    "--base-url=http://127.0.0.1:33857",
+    "--plan=/repo/wp/tests/a09/tmp7j1lwq91/marker-structure-3.csv",
+    "--output=/report/marker-structure-3",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "A09_NOT_VERIFIED\n",
+  "events": [],
+  "site_unchanged": true
+}

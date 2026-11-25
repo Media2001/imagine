@@ -1,0 +1,21 @@
+{
+  "scope": "imagine-test-demo",
+  "total": 3,
+  "checks": {
+    "all_issues_including_undated": false,
+    "unknown_date_last": false,
+    "exact_own_object_removed": true
+  },
+  "failures": [
+    "all_issues_including_undated",
+    "unknown_date_last"
+  ],
+  "native_ids": [
+    39,
+    32,
+    25,
+    18,
+    11
+  ],
+  "temporary_owned_id": 2498
+}

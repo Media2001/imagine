@@ -1,0 +1,10 @@
+{
+  "cases": [
+    "plan-doublon",
+    "plan-contradictoire",
+    "plan-absolu",
+    "plan-identique",
+    "plan-mauvais-code"
+  ],
+  "requests": []
+}

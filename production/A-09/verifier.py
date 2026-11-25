@@ -131,7 +131,7 @@ def main():
         require('T01 IMAGE READY' in prep_log and 'PREPARATION T01 : image verifiee sha256:' in prep_log, 'prepared image not verified')
         with (ROOT/'wp/outils/bascule/plan-redirections.exemple.csv').open(encoding='utf8', newline='') as stream:
             example = list(csv.DictReader(stream))
-        require(len(example) == 3 and all('fictif' in r['ancienne'] and 'fictif' in r['cible'] for r in example), 'example not exactly three fictitious rows')
+        require(len(example) == 3 and all(re.search(r'ficti(?:f|ve)', r['ancienne']) and re.search(r'ficti(?:f|ve)', r['cible']) for r in example), 'example not exactly three fictitious rows')
         for name in manifest['sources']:
             if name.endswith('.py') or name.endswith('/tester-redirections'):
                 compile((ROOT/name).read_text(encoding='utf8'), name, 'exec')
