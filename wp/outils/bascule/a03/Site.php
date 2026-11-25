@@ -389,20 +389,38 @@ final class Site
                 $http_response_header = [];
                 $handle = @fopen($url, 'rb', false, $context);
                 $body = $handle === false ? '' : stream_get_contents($handle, 4194305);
+                $metadata = is_resource($handle) ? stream_get_meta_data($handle) : [];
                 if (is_resource($handle)) {
                     fclose($handle);
                 }
-                if ($handle === false || $body === false || strlen($body) > 4194304) {
+                if (
+                    $handle === false || $body === false || strlen($body) > 4194304
+                    || ($metadata['timed_out'] ?? true)
+                ) {
                     throw new \RuntimeException('A03_HTTP_READ');
                 }
                 $location = null;
+                $contentLength = null;
                 foreach ($http_response_header as $header) {
                     if (preg_match('~\AHTTP/\S+ ([0-9]{3})~', $header, $match)) {
                         $status = (int) $match[1];
                     }
+                    if (stripos($header, 'Content-Length:') === 0) {
+                        $length = trim(substr($header, 15));
+                        if (!preg_match('/\A[0-9]{1,8}\z/D', $length)) {
+                            throw new \RuntimeException('A03_HTTP_READ');
+                        }
+                        if ($contentLength !== null && $contentLength !== (int) $length) {
+                            throw new \RuntimeException('A03_HTTP_READ');
+                        }
+                        $contentLength = (int) $length;
+                    }
                     if (stripos($header, 'Location: ') === 0) {
                         $location = trim(substr($header, 10));
                     }
+                }
+                if ($status === 0 || ($contentLength !== null && strlen($body) !== $contentLength)) {
+                    throw new \RuntimeException('A03_HTTP_READ');
                 }
                 $first ??= $status;
                 if ($status < 300 || $status > 399 || $location === null) {
@@ -411,7 +429,7 @@ final class Site
                 $next = str_starts_with($location, '/') && !str_starts_with($location, '//') ? $base
                     . $location : $location;
                 if (!str_starts_with($next, $base . '/') || preg_match('/[\\\\\x00-\x20]/', $next)) {
-                    break;
+                    throw new \RuntimeException('A03_HTTP_REDIRECT');
                 }
                 $url = $next;
             }

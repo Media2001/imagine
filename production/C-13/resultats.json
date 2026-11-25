@@ -58,10 +58,12 @@
     "correction_objets_jetables_absents": true
   },
   "sources_installees_conformes": true,
+  "B02_C14_et_sources_fermees_preserves": true,
   "HTTP": {
     "page_native_E-ABO": true,
     "page_native_E-ADMIN": true,
     "menu_referent_sans_reglages": true,
+    "politique_groupes_administrateur_seulement": true,
     "page_interdite_E-REDAC": true,
     "export_interdit_E-REDAC": true,
     "page_interdite_A-CARTE": true,

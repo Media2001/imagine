@@ -1,0 +1,50 @@
+{
+  "commande": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1",
+  "exit": 0,
+  "total": {
+    "tests": 1010,
+    "assertions": 33978,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass": true
+  },
+  "paquets": {
+    "imagine-connecteur": {
+      "name": "/tmp/t01/plugins/imagine-connecteur/phpunit.xml",
+      "tests": "37",
+      "assertions": "224",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "0.015586"
+    },
+    "imagine-non-regression": {
+      "name": "/tmp/t01/plugins/imagine-non-regression/phpunit.xml",
+      "tests": "152",
+      "assertions": "314",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "0.029057"
+    },
+    "imagine-pilotage": {
+      "name": "/tmp/t01/plugins/imagine-pilotage/phpunit.xml",
+      "tests": "775",
+      "assertions": "33210",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "0.240905"
+    },
+    "imagine-site": {
+      "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+      "tests": "46",
+      "assertions": "230",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "0.477630"
+    }
+  }
+}
