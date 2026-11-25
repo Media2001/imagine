@@ -47,6 +47,8 @@ if (class_exists(EcheancesRegles::class)) {
         test('mandats_renouvellement_actif_uniquement', array_column(EcheancesRegles::mandats($paper, $now, 30), 'id') === [1]);
         $paper[0]['methode'] = 'bacs';
         test('aucun_bacs_dans_mandats', EcheancesRegles::mandats($paper, $now, 30) === []);
+        $overdue = array_replace($paper[0], ['id' => 20, 'methode' => 'imagine_papier', 'prochaine' => $now - 1, 'fin' => $now + 86400]);
+        test('mandat_date_native_passee_reste_a_lancer', array_column(EcheancesRegles::mandats([$overdue], $now, 30), 'id') === [20]);
         $stream = fopen('php://memory', 'w+');
         EcheancesRegles::csv($stream, [['abonne' => " \t=FORMULE", 'montant' => '60.00', 'devise' => 'EUR', 'reference' => '+FICTIF', 'echeance' => $now, 'iban' => 'INTERDIT']]);
         rewind($stream); $csv = stream_get_contents($stream); rewind($stream); $header = fgetcsv($stream, 0, ';', '"', ''); $line = fgetcsv($stream, 0, ';', '"', ''); fclose($stream);

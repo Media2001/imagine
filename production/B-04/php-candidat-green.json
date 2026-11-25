@@ -1,0 +1,20 @@
+{
+  "total": 11,
+  "checks": {
+    "fonction_statut_disponible": true,
+    "statut:libre": true,
+    "statut:decouverte_duree": true,
+    "statut:decouverte_articles": true,
+    "statut:achat": true,
+    "statut:abonnement": true,
+    "statut:ferme": true,
+    "statut:decouverte_epuisee": true,
+    "statut:libre_mais_ferme": true,
+    "statut:invalide": true,
+    "statut:vrai_strict": true
+  },
+  "failures": [],
+  "at": "2026-11-25T18:58:44.031580+00:00",
+  "scope": "candidat B04 uniquement, pas le thème actif",
+  "source_sha256": "9047b8089b32463243174c360314e4ad409e5ec249d65e63787e97208e950592"
+}

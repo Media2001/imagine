@@ -18,6 +18,11 @@ def reset(before):
     # Its C12 initializer resets discovery; restore those dependent profiles exactly.
     code = '$GLOBALS["imagine_c09_now"]=new DateTimeImmutable(' + json.dumps(before['seeded']) + ',new DateTimeZone("UTC"));ob_start();(static function(){require WP_CONTENT_DIR."/imagine-demo-build/c09-seed.php";})();ob_end_clean();$old=json_decode(' + json.dumps(json.dumps(before['decouverte'])) + ',true);foreach($old as $k=>$v){if($v===null){delete_option($k);}else{update_option($k,$v);}}echo "true";'
     c15.wp(code)
+    # The dependent C14 initializer computes its own paid date. Preserve that
+    # previously observed native date, rather than moving P-NUMERO with C15.
+    pnum = before['fixture']['orders']['P-NUMERO']
+    paid = before['orders'][str(pnum)][1]
+    c15.wp('$o=wc_get_order(' + str(pnum) + ');if($o->get_meta("_imagine_c09_fixture")!=="P-NUMERO")throw new RuntimeException("Wrong owner");$o->set_date_paid(' + ('null' if paid is None else str(paid)) + ');$o->save();echo "true";')
     after = snapshot()
     c15.save('restauration', {'C09_reset': True, 'dependent_discovery_restored': before['decouverte'] == after['decouverte'], 'baseline_semantic_equal': before == after, 'theme_written': False})
     if before != after:
@@ -62,6 +67,8 @@ def verify():
         checks['objet_refuse_' + name] = status == 409 and not paid_state()[0]
     if not all(checks.values()):
         c15.save('action', {'checks': checks}); print(checks); raise SystemExit(1)
+    prior_notes = c15.wp('echo wp_json_encode(array_map(static fn($n)=>$n->content,wc_get_order_notes(["order_id"=>' + str(oid) + '])));')
+    prior_own_count = sum('C15' in n and 'e-abo' in n for n in prior_notes)
     # Only authorized mutation: existing A-VIR. Always reset, even on ambiguous HTTP.
     try:
         status, _, text = h.fetch(endpoint, clients['E-ABO'], urlencode(dict(payload, confirmer='oui')).encode())
@@ -69,7 +76,7 @@ def verify():
         checks['paiement_natif_paye_date'] = status == 200 and state[0] and bool(state[1]) and state[2] in ('processing', 'completed')
         notes = c15.wp('echo wp_json_encode(array_map(static fn($n)=>$n->content,wc_get_order_notes(["order_id"=>' + str(oid) + '])));')
         own = [n for n in notes if 'C15' in n and 'e-abo' in n and re.search(r'\d{4}-\d{2}-\d{2}.*UTC', n)]
-        checks['note_operateur_datee_native'] = len(own) == 1
+        checks['note_operateur_datee_native'] = len(own) == prior_own_count + 1
         status, _, _ = h.fetch(endpoint, clients['E-ABO'], urlencode(dict(payload, confirmer='oui')).encode())
         notes2 = c15.wp('echo wp_json_encode(count(wc_get_order_notes(["order_id"=>' + str(oid) + '])));')
         checks['double_validation_refusee_sans_double_note'] = status == 409 and notes2 == len(notes)

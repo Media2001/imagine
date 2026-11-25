@@ -2,49 +2,49 @@ TAP version 13
 # Subtest: préférences : choix autorisés et défauts prudents, même avec données corrompues
 ok 1 - préférences : choix autorisés et défauts prudents, même avec données corrompues
   ---
-  duration_ms: 2.2044
+  duration_ms: 2.3273
   type: 'test'
   ...
 # Subtest: stockage local : aller-retour, absence, corruption, refus et quota sans exception
 ok 2 - stockage local : aller-retour, absence, corruption, refus et quota sans exception
   ---
-  duration_ms: 0.4767
+  duration_ms: 0.477
   type: 'test'
   ...
 # Subtest: progression bornée sur le texte, et état de reprise validé sans coercition
 ok 3 - progression bornée sur le texte, et état de reprise validé sans coercition
   ---
-  duration_ms: 0.3273
+  duration_ms: 0.286
   type: 'test'
   ...
 # Subtest: parcours DOM sans navigateur : activation, réglages, progression, reprise et sortie clavier
 ok 4 - parcours DOM sans navigateur : activation, réglages, progression, reprise et sortie clavier
   ---
-  duration_ms: 1.786
+  duration_ms: 1.5899
   type: 'test'
   ...
 # Subtest: départ pagehide avant rAF : dernière position réelle et reprise instantanée
 ok 5 - départ pagehide avant rAF : dernière position réelle et reprise instantanée
   ---
-  duration_ms: 0.3801
+  duration_ms: 0.3168
   type: 'test'
   ...
 # Subtest: départ visibilitychange avant rAF : dernière position réelle et reprise instantanée
 ok 6 - départ visibilitychange avant rAF : dernière position réelle et reprise instantanée
   ---
-  duration_ms: 0.2596
+  duration_ms: 0.2248
   type: 'test'
   ...
 # Subtest: départ inactif : ne pas écraser la dernière position de lecture avec le scroll ordinaire
 ok 7 - départ inactif : ne pas écraser la dernière position de lecture avec le scroll ordinaire
   ---
-  duration_ms: 0.2833
+  duration_ms: 0.2863
   type: 'test'
   ...
 # Subtest: reprise isolée par article et longueur du texte servi ; stockage indisponible et page hors article
 ok 8 - reprise isolée par article et longueur du texte servi ; stockage indisponible et page hors article
   ---
-  duration_ms: 0.3041
+  duration_ms: 0.3361
   type: 'test'
   ...
 1..8
@@ -55,4 +55,4 @@ ok 8 - reprise isolée par article et longueur du texte servi ; stockage indispo
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 73.3958
+# duration_ms 66.1863

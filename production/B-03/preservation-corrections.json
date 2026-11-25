@@ -1,9 +1,24 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-25T18:56:02.178272+00:00",
+  "at": "2026-11-25T19:00:04.441844+00:00",
   "parallel_local_observed": [
-    "plugins/imagine-site/EcheancesRegles.php"
+    "plugins/imagine-site/EcheancesAdmin.php",
+    "plugins/imagine-site/EcheancesNatives.php",
+    "plugins/imagine-site/EcheancesRegles.php",
+    "plugins/imagine-site/imagine-site.php"
   ],
+  "parallel_remote_observed": [
+    "plugins/imagine-site/EcheancesAdmin.php",
+    "plugins/imagine-site/EcheancesNatives.php",
+    "plugins/imagine-site/EcheancesRegles.php",
+    "plugins/imagine-site/imagine-site.php"
+  ],
+  "parallel_remote_sha256": {
+    "plugins/imagine-site/EcheancesAdmin.php": "1c28686880e80a8f6e4c3887b6303a993bd88756cbe23d9f811506c402a6e156",
+    "plugins/imagine-site/EcheancesNatives.php": "27837582469b2fca2792ae43398cae57a8e7dc8303d3769b695630cccc571f0f",
+    "plugins/imagine-site/EcheancesRegles.php": "a6c684f0162d96ef53c8a503ddc9b9cef232837ae301642c09efe06dcf8a90fa",
+    "plugins/imagine-site/imagine-site.php": "7fa2bf3260b64ae1422cf8564ef2227d1ab9ead15ecca5bb7782693263b79eb9"
+  },
   "remote_items": 7608,
   "local_files": 200,
   "remote_changed": [
@@ -12,7 +27,11 @@
     "plugins/imagine-site/EcheancesRegles.php",
     "plugins/imagine-site/imagine-site.php",
     "themes/imagine/assets/reading.css",
-    "themes/imagine/assets/reading.js"
+    "themes/imagine/assets/reading.js",
+    "wp_postmeta",
+    "wp_posts",
+    "wp_wc_orders",
+    "wp_wc_orders_meta"
   ],
   "local_changed": [
     "plugins/imagine-site/EcheancesAdmin.php",
@@ -23,10 +42,10 @@
     "themes/imagine/assets/reading.js"
   ],
   "tables_sha256": {
-    "wp_postmeta": "419187d0399483fae5b013cf8a5ef70160da2199ddc7c79d3b4b1bef73a215bd",
-    "wp_posts": "31a9e13359851aa5bd842c4ff8233901cd706a6f056e6e713a72758ebb113470",
-    "wp_wc_orders": "2eff2dc101e50588e2ebd7b4cd3cfb6f4de33033a2651fb92fdc77ff02118b19",
-    "wp_wc_orders_meta": "885d3ce65593fc8ae52ba384b7a1c0184cdc7f33047119882f89263c91c9b3e0"
+    "wp_postmeta": "e61365e1b307a3910f3da794b5c44fc3e7c44bbb93e7002318277fed4a6591e8",
+    "wp_posts": "f47f249ef54a0cf11c30f56b6e50a3bafa035b84946b350ee25ecb4b0a1a6a1a",
+    "wp_wc_orders": "34ebee1f5867546ffdc466c93da0f21b8d10288027baceda92a84b5c15ac0cf1",
+    "wp_wc_orders_meta": "ec9818a7f873832cf0671b9b31e50bf421d98af116df6fae1b09ce6c99fa4b8f"
   },
   "exact_allowed_changes": false
 }

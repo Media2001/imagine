@@ -1,0 +1,15 @@
+A-05 — prêt à relire après corrections du 25 novembre 2026 (Europe/Paris).
+
+P1, P2, P3 et M1 appliqués en TDD RED puis GREEN, sans question ouverte.
+Preuve finale actuelle : production/A-05/preuves/8d814c18912a/.
+21 tests unitaires, 149 contrôles natifs classique/HPOS/isolation et 7 contrôles du runner : tous réussis ; 44 refus adverses à blanc/réels sans mutation. Durée complète : 197,836 s.
+Trois fichiers PHP lintés uniquement dans le conteneur jetable A-05 ; image existante réutilisée. Tous les conteneurs exacts possédés supprimés et absence vérifiée.
+A-03 natif : code 0, changes:[], anormal:0 en classique et HPOS, aucune requalification. Vrai SIGKILL/reprise et deux seconds passages sans effet rejoués.
+29 sources finales sans dérive ; 307 fichiers de preuves historiques inchangés ; 16 sources A-04 acceptées encore identiques.
+Aucun paquet tests/Composer ajouté : T-01 non reconstruit et ancien rejeu global seulement historique.
+
+Lire production/A-05/notes.md, production/A-05/verification-finale.json, production/A-05/scellement.json et files/rapports/2026-11-25-19h58.md.
+Rejeu : python -B wp/tests/a05/run.py
+Vérification : python -B production/A-05/corrections-20261125/verifier.py
+
+Outil seulement ; aucune donnée réelle, aucun GO, aucun Git, aucun A-08 ni verrou parent touché. Prêt à relire ne vaut pas clôture ou autorisation d'exploitation.
