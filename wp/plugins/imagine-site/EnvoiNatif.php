@@ -49,7 +49,7 @@ final class EnvoiNatif
             'id' => (string) $sub->get_id(), 'user' => (string) $sub->get_customer_id(),
             'creation' => $created->getTimestamp(), 'debut' => $sub->get_date('start', 'gmt'),
             'fin' => $sub->get_date('end', 'gmt'), 'etat' => $sub->get_status(),
-            'paiement' => $sub->get_date_paid()?->getTimestamp(),
+            'paiement' => EnvoiRelations::paiementInitial($sub),
             'grace_debut' => $sub->get_meta('_imagine_acces_grace_debut'),
             'grace_fin' => $sub->get_meta('_imagine_acces_grace_fin'),
             'destinataire' => trim($sub->get_shipping_first_name() . ' ' . $sub->get_shipping_last_name()),
@@ -146,8 +146,7 @@ final class EnvoiNatif
         }
         $view = self::calculer($code, $events, $now);
         if (!$view['provisoire']) {
-            $snapshot = ['version' => 1, 'numero' => $code, 'calendrier' => get_option(self::CALENDRIER),
-                'observations' => $events, 'cloture' => $number->cloture->format(DATE_ATOM), 'blocs' => $view['blocs']];
+            $snapshot = EnvoiRegles::figer($code, $events, $now, get_option(self::CALENDRIER));
             add_option($key, $snapshot, '', false); // Le premier gel gagne en concurrence.
             $frozen = get_option($key, null);
             if ($frozen === null) { throw new \RuntimeException('Gel indisponible : export fermé.'); }
@@ -161,12 +160,7 @@ final class EnvoiNatif
         if (!is_array($frozen) || ($frozen['version'] ?? null) !== 1 || ($frozen['numero'] ?? null) !== $code) {
             throw new \RuntimeException('Gel postal invalide.');
         }
-        $view = EnvoiRegles::calculer($code, $frozen['observations'], $now, $frozen['calendrier']);
-        if ($view['provisoire'] || $view['liste']->cloture->format(DATE_ATOM) !== $frozen['cloture']
-            || $view['blocs'] !== $frozen['blocs']) {
-            throw new \RuntimeException('Référence historique incohérente.');
-        }
-        return $view;
+        return EnvoiRegles::relire($frozen, $now);
     }
 
     /** Compatibilité des recettes ; horloge, calendrier et logique dans le banc pur. */

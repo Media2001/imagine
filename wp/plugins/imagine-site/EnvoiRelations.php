@@ -79,6 +79,18 @@ final class EnvoiRelations
             'code_postal' => $address['postcode'] ?? '', 'ville' => $address['city'] ?? '', 'pays' => $address['country'] ?? ''];
     }
 
+    public static function paiementInitial(\WC_Subscription $sub): ?int
+    {
+        $parent = $sub->get_parent_id() ? wc_get_order($sub->get_parent_id()) : null;
+        if ($parent) {
+            $refunds = wc_get_orders(['type' => 'shop_order_refund', 'parent' => $parent->get_id(), 'limit' => 1]);
+            return $parent->is_paid() && !$refunds && $parent->get_customer_id() === $sub->get_customer_id()
+                ? $parent->get_date_paid()?->getTimestamp() : null;
+        }
+        // WCS recopie le dernier règlement sur la souscription ; il ne prouve pas l'année initiale.
+        return $sub->get_related_orders('ids', 'renewal') === [] ? $sub->get_date_paid()?->getTimestamp() : null;
+    }
+
     public static function renouvellements(\WC_Subscription $sub): array
     {
         $rows = [];
@@ -86,7 +98,7 @@ final class EnvoiRelations
             $date = $order->get_date_paid();
             $explicit = $order->get_meta('_imagine_envoi_bloc_debut');
             // Quatre échéances ne sont pas quatre années. Sans rang explicite, annuel 1 seulement.
-            if ($explicit === '' && ($sub->get_billing_period() !== 'year' || $sub->get_billing_interval() !== 1)) {
+            if ($explicit === '' && ($sub->get_billing_period() !== 'year' || (int) $sub->get_billing_interval() !== 1)) {
                 continue;
             }
             $refunds = wc_get_orders(['type' => 'shop_order_refund', 'parent' => $order->get_id(), 'limit' => 1]);

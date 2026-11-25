@@ -120,6 +120,25 @@ final class EnvoiReglesTest extends TestCase
         self::assertSame([], $this->vue($data)['liste']->lignes);
     }
 
+    public function testReferenceGeleeResisteCalendrierCourantEtBeneficiaireModifie(): void
+    {
+        $data = $this->donnees();
+        $data['origine'] = 'offert';
+        $data['beneficiaires_resolus'] = true;
+        $data['beneficiaires'] = [['id' => '30', 'nom' => 'Beneficiaire Fictif', 'rue' => 'Avant cloture',
+            'complement' => '', 'code_postal' => '1000', 'ville' => 'Ville Fictive', 'pays' => 'BE']];
+        $base = ['observe_utc' => '2026-01-02 00:00:00', 'donnees' => $data];
+        $snapshot = EnvoiRegles::figer('2026-T1', [$base], new DateTimeImmutable('2026-02-01 UTC'), $this->calendrier());
+        $data['beneficiaires'][0]['rue'] = 'Apres cloture';
+        $late = ['observe_utc' => '2026-01-06 00:00:00', 'donnees' => $data];
+        self::assertSame($this->vue($data, '2026-T1', [$base, $late])['liste']->lignes,
+            EnvoiRegles::relire($snapshot, new DateTimeImmutable('2028-01-01 UTC'))['liste']->lignes);
+        self::assertSame('Avant cloture', EnvoiRegles::relire($snapshot, new DateTimeImmutable('2028-01-01 UTC'))['liste']->lignes[0]['rue']);
+        $snapshot['blocs'] = [];
+        $this->expectException(RuntimeException::class);
+        EnvoiRegles::relire($snapshot, new DateTimeImmutable('2028-01-01 UTC'));
+    }
+
     public function testIndividuelEtNonPayeRestentDistincts(): void
     {
         $data = $this->donnees();

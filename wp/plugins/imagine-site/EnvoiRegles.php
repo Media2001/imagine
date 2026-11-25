@@ -71,6 +71,25 @@ final class EnvoiRegles
         return $after;
     }
 
+    public static function figer(string $code, array $events, DateTimeImmutable $now, array $rows): array
+    {
+        $view = self::calculer($code, $events, $now, $rows);
+        if ($view['provisoire']) { throw new \LogicException('Une projection ne peut être gelée.'); }
+        return ['version' => 1, 'numero' => $code, 'calendrier' => $rows, 'observations' => $events,
+            'cloture' => $view['liste']->cloture->format(DATE_ATOM), 'blocs' => $view['blocs']];
+    }
+
+    public static function relire(array $snapshot, DateTimeImmutable $now): array
+    {
+        if (($snapshot['version'] ?? null) !== 1) { throw new \RuntimeException('Version postale inconnue.'); }
+        $view = self::calculer($snapshot['numero'], $snapshot['observations'], $now, $snapshot['calendrier']);
+        if ($view['provisoire'] || $view['liste']->cloture->format(DATE_ATOM) !== $snapshot['cloture']
+            || $view['blocs'] !== $snapshot['blocs']) {
+            throw new \RuntimeException('Référence historique incohérente.');
+        }
+        return $view;
+    }
+
     public static function calculer(string $code, array $events, DateTimeImmutable $now, array $rows): array
     {
         $calendar = self::calendrier($rows);

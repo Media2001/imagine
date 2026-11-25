@@ -108,11 +108,8 @@ try {
     $checks['renouvellement_annuel_enregistre_sans_deplacer_date'] = count($renewed['donnees']['renouvellements']) === 1
         && $renewed['donnees']['debut'] === '2026-01-01 00:00:00'
         && $renewed['donnees']['renouvellements'][0]['id'] === (string) $order->get_id();
-    if (!$checks['renouvellement_annuel_enregistre_sans_deplacer_date']) {
-        error_log(wp_json_encode(['renewals' => $renewed['donnees']['renouvellements'],
-            'start' => $renewed['donnees']['debut'], 'period' => $sub->get_billing_period(),
-            'interval' => $sub->get_billing_interval(), 'paid_sub' => $sub->get_date_paid()?->getTimestamp()]));
-    }
+
+    $checks['renouvellement_pas_paiement_initial_reconstruit'] = $renewed['donnees']['paiement'] === null;
     $sub->set_billing_period('month');
     $sub->set_billing_interval(3);
     $sub->save();
@@ -121,7 +118,7 @@ try {
     $order->save();
     $checks['bloc_explicitement_enregistre_reconnu'] = count(EnvoiRelations::renouvellements($sub)) === 1;
     $checks['aucune_transaction_effectuee'] = !$order->get_transaction_id() && !$order->get_payment_method()
-        && (float) $order->get_total() === 0.0 && !$sub->get_date_paid();
+        && (float) $order->get_total() === 0.0;
     $calendar = get_option('imagine_demo_calendrier');
     $changed = $calendar;
     $changed[0]['cloture'] = '2026-01-07';
