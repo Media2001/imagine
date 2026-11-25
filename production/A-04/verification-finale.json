@@ -1,0 +1,34 @@
+{
+  "status": "VERIFIE_SUR_FIXTURES_PRET_NON_DEPOSE",
+  "packet": "production/A-04/preuves/214440542c12",
+  "observed_runner_exit": 0,
+  "unit_tests": 32,
+  "fixture_checks": 62,
+  "runner_checks": 8,
+  "source_files_bound": 17,
+  "dependency_files_bound": 13,
+  "style_errors": 0,
+  "style_warnings": 13,
+  "style_all_messages_exit": 1,
+  "style_error_only_exit": 0,
+  "native_a03_unchanged": {
+    "classic": {
+      "exit": 2,
+      "anormal": 2
+    },
+    "hpos": {
+      "exit": 2,
+      "anormal": 2
+    }
+  },
+  "qualification_additive_only": true,
+  "manifest_path": "production/A-04/manifest-final.json",
+  "manifest_sha256": "f015a69960c012b1a002a2f6ce887a88f2e1850b7c44e24c0077b372dceec701",
+  "manifest_files": 391,
+  "no_PRET": true,
+  "no_real_data_or_accounts": true,
+  "no_owned_runner_left": true,
+  "no_archive_or_SQL_export_left": true,
+  "global_T01_executed": false,
+  "shared_image_preparation_executed_by_subagent": false
+}
