@@ -55,7 +55,8 @@ def run_storage(storage):
         (site/'wp-config.php').write_text(writable)
         try:
             b.wp(site,['eval-file','/opt/a11/seed.php','--use-include'],env={'A11_VARIANT':variant})
-            oracle=b.wp(site,['eval-file','/opt/a11/oracle.php','--use-include'],check=False)
+            oracle_url='https://a02.synthetic.test'+('/magazine' if variant=='subdir' else '')
+            oracle=b.wp(site,['--url='+oracle_url,'eval-file','/opt/a11/oracle.php','--use-include'],check=False)
             if oracle.returncode:
                 (OUT/(storage+'-'+variant+'-oracle-error.log')).write_text(oracle.stdout+oracle.stderr)
                 raise RuntimeError('ORACLE_FAILED')

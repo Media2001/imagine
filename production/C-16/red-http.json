@@ -1,0 +1,12 @@
+{
+  "checks": {
+    "etape1_referent": false,
+    "menu_unique": false,
+    "hors_perimetre_nomme": false
+  },
+  "failures": [
+    "etape1_referent",
+    "menu_unique",
+    "hors_perimetre_nomme"
+  ]
+}

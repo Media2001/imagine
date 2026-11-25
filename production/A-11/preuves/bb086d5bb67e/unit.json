@@ -1,0 +1,57 @@
+{
+    "checks": [
+        {
+            "check": "address_engine_exists",
+            "status": "PASS"
+        },
+        {
+            "check": "relative:\/sub\/a\/~\/%C3%A9\/?x=%2f&x=+",
+            "status": "PASS"
+        },
+        {
+            "check": "relative:\/?p=12",
+            "status": "PASS"
+        },
+        {
+            "check": "relative:\/",
+            "status": "PASS"
+        },
+        {
+            "check": "refused:https:\/\/evil.test\/a",
+            "status": "PASS"
+        },
+        {
+            "check": "refused:https:\/\/fixture.test\/a?",
+            "status": "PASS"
+        },
+        {
+            "check": "refused:https:\/\/fixture.test\/a#x",
+            "status": "PASS"
+        },
+        {
+            "check": "refused:https:\/\/fixture.test\/a%2fb",
+            "status": "PASS"
+        },
+        {
+            "check": "refused:https:\/\/fixture.test\/..\/b",
+            "status": "PASS"
+        },
+        {
+            "check": "refused:https:\/\/fixture.test\/\u00e9",
+            "status": "PASS"
+        },
+        {
+            "check": "refused:https:\/\/fixture.test\/\/evil",
+            "status": "PASS"
+        },
+        {
+            "check": "refused:https:\/\/fixture.test\/a%0ab",
+            "status": "PASS"
+        },
+        {
+            "check": "refused:https:\/\/fixture.test\/a?x=%zz",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 0
+}

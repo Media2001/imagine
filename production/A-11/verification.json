@@ -1,0 +1,21 @@
+{
+  "verified": true,
+  "unit_checks": 13,
+  "native_checks": 284,
+  "runner_checks": 7,
+  "source_files": 14,
+  "counts": {
+    "classic-pretty": 25,
+    "classic-plain": 26,
+    "classic-subdir": 25,
+    "classic-attachments-disabled": 22,
+    "classic-static-front": 24,
+    "hpos-pretty": 25,
+    "hpos-plain": 26,
+    "hpos-subdir": 25,
+    "hpos-attachments-disabled": 22,
+    "hpos-static-front": 24
+  },
+  "packet": "C:\\Users\\Ced\\imagine\\production\\A-11\\preuves\\bb086d5bb67e",
+  "runner_sha256": "b51b0186b04f93b20db902dc4065edbc34d6302e7668759c2c20bd1593c97674"
+}

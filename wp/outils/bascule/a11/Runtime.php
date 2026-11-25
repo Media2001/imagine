@@ -46,8 +46,6 @@ final class Runtime
         define('WP_HTTP_BLOCK_EXTERNAL', true);
         define('WP_USE_THEMES', false);
         define('WP_ENVIRONMENT_TYPE', 'staging');
-        $_SERVER['HTTP_HOST'] = 'a11.offline.invalid';
-        $_SERVER['REQUEST_URI'] = '/';
         $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
         $_SERVER['REQUEST_METHOD'] = 'GET';
         require_once ABSPATH . 'wp-includes/plugin.php';
@@ -55,6 +53,17 @@ final class Runtime
         require_once __DIR__ . '/ReadOnlyDb.php';
         $GLOBALS['table_prefix'] = $config['table_prefix'];
         $GLOBALS['wpdb'] = new ReadOnlyDb($config['DB_USER'], $config['DB_PASSWORD'], $config['DB_NAME'], $config['DB_HOST']);
+        $prefix = $config['table_prefix'];
+        $home = $GLOBALS['wpdb']->get_var("SELECT option_value FROM `{$prefix}options` WHERE option_name='home' LIMIT 1");
+        $origin = is_string($home) ? parse_url($home) : false;
+        if (!$origin || !in_array($origin['scheme'] ?? '', ['http', 'https'], true) || empty($origin['host']) || isset($origin['user'])) {
+            throw new \RuntimeException('A11_HOME_INVALID');
+        }
+        $_SERVER['HTTP_HOST'] = $origin['host'] . (isset($origin['port']) ? ':' . $origin['port'] : '');
+        $_SERVER['SERVER_NAME'] = $origin['host'];
+        $_SERVER['HTTPS'] = $origin['scheme'] === 'https' ? 'on' : 'off';
+        $_SERVER['SERVER_PORT'] = (string) ($origin['port'] ?? ($origin['scheme'] === 'https' ? 443 : 80));
+        $_SERVER['REQUEST_URI'] = rtrim($origin['path'] ?? '', '/') . '/';
         unset($config, $source);
         add_filter('pre_http_request', static function () {
             self::$guards['http']++;
