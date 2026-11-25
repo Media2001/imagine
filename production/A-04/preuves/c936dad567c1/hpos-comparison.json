@@ -1,0 +1,22 @@
+{
+  "schema": "imagine-a03-comparison-v1",
+  "changes": [
+    {
+      "path": "versions.wordpress",
+      "class": "attendu"
+    },
+    {
+      "path": "versions.woocommerce",
+      "class": "attendu"
+    },
+    {
+      "path": "actions.32",
+      "class": "anormal"
+    },
+    {
+      "path": "action_days.[masque]",
+      "class": "anormal"
+    }
+  ],
+  "anormal": 2
+}

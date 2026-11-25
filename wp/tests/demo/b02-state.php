@@ -16,6 +16,20 @@ $expected = $from <= $now && $now < $until ? 'En délai de grâce' : 'Suspendu';
 $checks['grace_fenetre_UTC_native_pas_renouvelee'] = MonCompte::etat($sub) === $expected;
 $checks['API_identite_aucun_argument'] = (new ReflectionMethod(MonCompte::class, 'donnees'))->getNumberOfParameters() === 0;
 $checks['hook_subscription_postal_natif_present'] = (bool) has_action('woocommerce_after_subscription_object_save');
+$outside = true;
+foreach ($GLOBALS['wp_filter']['woocommerce_after_subscription_object_save']->callbacks as $callbacks) {
+    foreach ($callbacks as $cb) {
+        if ($cb['function'] instanceof Closure && basename((new ReflectionFunction($cb['function']))->getFileName()) === 'MonCompte.php') {
+            try {
+                // Objet natif non persisté : hors formulaire B02, notre callback ne doit rien observer.
+                ($cb['function'])(new WC_Subscription());
+            } catch (Throwable) {
+                $outside = false;
+            }
+        }
+    }
+}
+$checks['raccord_postal_hors_formulaire_sans_effet'] = $outside;
 $failed = 0;
 foreach (['A-CARTE', 'A-SEPA4', 'A-SUSP'] as $who) {
     $sub = wcs_get_subscription($f['subscriptions'][$who]);

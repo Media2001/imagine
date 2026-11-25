@@ -1,0 +1,20 @@
+{
+  "kind": "recovery-after-host-watchdog",
+  "container": "imagine-a04-14bcbc7571e0",
+  "inner_exit_code": 0,
+  "host_exec_exit_observed": false,
+  "checks": 62,
+  "isolation": {
+    "network": "none",
+    "mounts": [],
+    "ports": [],
+    "privileged": false,
+    "cap_drop": [
+      "ALL"
+    ],
+    "no_new_privileges": true,
+    "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2"
+  },
+  "cleanup_exact_owned": true,
+  "not_a_normal_runner_receipt": true
+}

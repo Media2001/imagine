@@ -1,0 +1,14 @@
+{
+  "schema": "imagine-a04-qualification-v1",
+  "qualified": true,
+  "expected_hooks": [
+    {
+      "hook": "woocommerce_run_on_woocommerce_admin_updated",
+      "action_id": 32,
+      "reason": "Woo schedules its administrative version-update handler; operational work is preserved, not executed."
+    }
+  ],
+  "native_a03_verdict_unchanged": true,
+  "native_a03_exit": 2,
+  "native_a03_anormal": 2
+}

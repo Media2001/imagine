@@ -17,8 +17,10 @@ final class MonCompte
         add_action('woocommerce_account_dashboard', [self::class, 'afficher']);
         // Subscriptions émet son propre object_type, pas after_order_object_save.
         // Réutilise le relevé C13 append-only et dédupliqué, sans changer C13/C07.
+        // Raccord limité au formulaire client B02 : ne pas modifier les autres saves C13/C14.
         add_action('woocommerce_after_subscription_object_save', static function ($sub): void {
-            if ($sub instanceof \WC_Subscription) {
+            if ($sub instanceof \WC_Subscription && did_action('woocommerce_customer_save_address') > 0
+                && get_current_user_id() > 0 && (int) $sub->get_customer_id() === get_current_user_id()) {
                 EnvoiNatif::relever($sub);
             }
         });

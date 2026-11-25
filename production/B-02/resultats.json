@@ -1,6 +1,6 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-25T12:44:55.852529+00:00",
+  "at": "2026-11-25T12:51:06.364486+00:00",
   "status": "TECHNIQUE_VERT_ACCEPTATION_PARTIELLE",
   "deployed_bytes": {
     "plugins/imagine-site/MonCompte.php": true,
@@ -91,6 +91,7 @@
     "grace_fenetre_UTC_native_pas_renouvelee": true,
     "API_identite_aucun_argument": true,
     "hook_subscription_postal_natif_present": true,
+    "raccord_postal_hors_formulaire_sans_effet": true,
     "aucun_rejet_natif_ne_pas_fabriquer": true
   },
   "http": {
@@ -186,6 +187,6 @@
     "Aucune échéance failed native sur les profils demandés : branche de paiement échoué non prouvée par HTTP, aucun rejet fabriqué.",
     "A-CARTE sans paiement validé : adresse/source postale prouvée, inclusion positive dans un vrai export C07 non attestée."
   ],
-  "total": 142,
+  "total": 143,
   "failures": []
 }
