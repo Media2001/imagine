@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 24 novembre 2026, 20 h 30.
+Mis à jour le 25 novembre 2026, 11 h 45.
 
 **Deux voies depuis le 23/11.** Ce fichier est la file de la voie 1. Une deuxième session d'Hermès suit `A-FAIRE-2.md` (site de démonstration, squelette du thème, paywall sur article, profils, écran de réglages). Lis la section « Les deux voies » de la consigne permanente. Ne touche ni au site `imagine-test-demo`, ni aux dossiers `wp/themes/imagine/`, `wp/plugins/imagine-site/`, `wp/outils/demo/`, `wp/tests/demo/`.
 
@@ -12,15 +12,15 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 
 ## Consignes actives, par ordre de priorité
 
-File du 24/11, 7 h 30. En attendant l'import (le diagnostic ne sera lancé par Ced que ce soir), on prépare la suite sur site fictif.
+File du 25/11, 11 h 45. Tes rapports de 22 h 16 et 0 h 36 sont lus. Tu as attendu toute la nuit sur des questions techniques : c'est la règle qui était mauvaise, elle change. **Lis la nouvelle section « Tu n'attends pas sur une question technique » de la consigne permanente**, et `docs/arbitrages-2026-11-25.md`.
 
-**0. `briefs/A-01-archive-reelle-2.md`** — le diagnostic de l'archive réelle est revenu : la commande ne lit pas le format d'une vraie archive (préfixe `.`), ses plafonds sont trop bas, sa recherche de secrets dans les fichiers est inutilisable, et des exports d'abonnés traînent dans `uploads/`. Une demi-journée. **Passe avant tout, y compris les corrections d'A-03 et A-04.**
+**1. Relance `wp/tests/preparer-image.ps1`** (l'image de test est périmée depuis l'ajout du paquet d'A-03), puis `rejouer.ps1`. Dix minutes. Si la suite n'est pas verte, corrige d'abord.
 
-**1. `briefs/A-03-non-regression.md`** — la photo de ce qui marche, avant et après mise à jour, et sa commande de comparaison. Une demi-journée.
+**2. A-03, trois compléments arbitrés** (hooks attendus après mise à jour, journal d'erreurs PHP, échec de collecte bloquant) : `docs/arbitrages-2026-11-25.md`. Une heure. Le lot est clos pour le reste.
 
-**2. `briefs/A-04-mise-a-jour.md`** — le script de mise à jour vers la pile cible, reprenable, prouvé sur site fictif. Une journée.
+**3. `briefs/A-04-mise-a-jour.md`** — le script de mise à jour. Une journée. Tu peux commencer sans attendre la relecture du point 2.
 
-Tu n'ouvres toujours pas l'archive d'Imagine et tu ne lances ni le diagnostic ni l'import. Preuves proportionnées : un test par exigence, un rapport court.
+Tu n'ouvres toujours pas l'archive d'Imagine ; Ced relance le diagnostic.
 
 **Les écrans de réglages.** Dans C-05, C-06 et C-07, tu as livré des adaptateurs d'administration (pages de réglages WordPress). Ils ne font pas partie des lots clos : laisse-les en l'état. Ils sont repris par la voie 2 (lot C-10).
 
@@ -77,5 +77,7 @@ Tu n'ouvres toujours pas l'archive d'Imagine et tu ne lances ni le diagnostic ni
 | C-06 Décision d'accès | 21 et 22/11 | **Clos le 23/11** (bibliothèque ; écran de réglages exclu) |
 | C-07 Liste d'envoi | 22/11 | **Clos le 23/11** (bibliothèque ; écran de réglages exclu) |
 | A-01, import, vérification et publication | 22 et 23/11 | **Clos le 23/11** (mode diagnostic et règles de chemin vérifiés à 16 h 33) : qualifié en 6.9.1 sur archives fictives, mais refus `ARCHIVE_PATH` sur l'archive réelle. Limite : Subscriptions non testable en 6.9.1, le premier import réel fera foi. Ce n'est pas un accord d'import |
+| A-01 Archive réelle (format AI1WM, plafonds, exclusions, diagnostic court) | 24/11 | **Clos le 25/11** |
+| A-03 Non-régression | 24/11, corrigé le 25/11 | **Code clos le 25/11**, trois compléments en consigne 2 |
 | T-01 Commande de rejeu | 23/11, corrigé le 23/11 | **Clos le 23/11** ; autorisation ajoutée au script de relecture |
 | A-02 Script d'audit | 23/11, corrigé le 23/11 | **Clos le 23/11** (outil et banc fictif). L'audit réel reste à lancer |

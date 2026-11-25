@@ -20,6 +20,18 @@ Tout ce que cette consigne dit de « `A-FAIRE.md` » et du « verrou » vaut, po
 - **L'outil de staging est partagé.** S'il refuse une opération parce qu'une autre est en cours, attends cinq minutes et réessaie, trois fois au plus. Tu ne forces rien, tu ne modifies pas l'outil.
 - Un fichier `corrections/<lot>.md` ne te concerne que si le lot est de ta voie.
 
+## Tu n'attends pas sur une question technique (depuis le 25 novembre 2026)
+
+Quand une fusion de relecture ou toi-même posez une question :
+
+- **technique** (choix de code, de test, de preuve, de périmètre entre lots) : applique le défaut prudent proposé, note-le dans ton rapport sous « Décisions prises à défaut », et continue. Claude peut le renverser ensuite ;
+- **métier** : fais-en un réglage au défaut prudent, note la question pour Imagine, et continue ;
+- **visuelle, ou touchant au réel** (donnée réelle, compte, paiement, mise en ligne) : c'est la seule qui attend, et elle n'arrête que ce lot. Passe au suivant.
+
+Un lot vérifié « prêt » par les relecteurs ne bloque jamais le lot suivant de ta file, même s'il n'est pas encore inscrit dans « Terminé ». « À arbitrer par Ced » dans une fusion ne signifie pas « arrête-toi » : classe la question toi-même selon ces trois catégories.
+
+Quand un lot ajoute un paquet de tests, relance `wp/tests/preparer-image.ps1` avant de déposer `PRET`.
+
 ## Tu travailles en continu
 
 Sur ce dépôt, tu n'as pas de passages à heures fixes : tu enchaînes les lots tant que la file en contient.

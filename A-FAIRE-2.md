@@ -2,7 +2,7 @@
 
 File de la **deuxième session d'Hermès**. Tenue par Claude. **Hermès ne modifie pas ce fichier.**
 
-Mis à jour le 24 novembre 2026, 7 h 30.
+Mis à jour le 25 novembre 2026, 11 h 45.
 
 Consigne permanente : `prompts/consigne-permanente.md` (section « Les deux voies »). Doctrine : `doctrine/doctrine.md`.
 
@@ -10,15 +10,15 @@ La voie 1 (`A-FAIRE.md`) s'occupe de l'existant : import, audit, mise à jour. L
 
 ## Consignes actives, par ordre de priorité
 
-**Tes rapports jusqu'au 23/11, 23 h, sont lus.** C-09 et C-10 : vérifiés, code clos. L'arbitrage de 21 h 10 couvrait bien la correction A-VIR dans l'adaptateur de C-08.
+**Tes rapports du 24/11 sont lus.** C-11 et C-12 : vérifiés, code clos. Tu es restée à l'arrêt depuis hier midi en attendant des arbitrages : la règle change. **Lis la nouvelle section « Tu n'attends pas sur une question technique » de la consigne permanente**, et `docs/arbitrages-2026-11-25.md`.
 
-**1. `briefs/C-11-pdf-du-numero.md`** — le PDF d'un numéro passe par la décision d'accès et n'a plus d'adresse publique. Une demi-journée. **D'abord : c'est une fuite ouverte.**
+**0. C-13 : redépose `production/C-13/PRET`.** Le lot est rendu mais le fichier n'y est plus, donc il n'a jamais été relu. Deux minutes.
 
-**2. `briefs/C-12-acces-decouverte.md`** — ouverture, décompte et épuisement de l'accès découverte. Une demi-journée.
+**1. `briefs/C-14-achat-au-numero.md`** — une commande payée d'un numéro ouvre ce numéro, articles et PDF. Une demi-journée.
 
-**3. `briefs/C-13-ecran-liste-envoi.md`** — l'écran « Liste d'envoi » pour le référent abonnements. Une demi-journée.
+**2. `briefs/B-02-mon-compte.md`** — l'espace « Mon compte » en squelette : abonnement, échéances, numéros, coordonnées. Une demi-journée.
 
-**Proportion des preuves** (rappel, `docs/arbitrages-2026-11-23.md`, dernière section) : un test par exigence et un rejeu de la recette du lot. Pas de captures régénérées, pas d'archives d'anciennes preuves, pas de reçus d'empreintes. Un rapport de dix lignes suffit.
+Les corrections de C-13, quand sa relecture reviendra, passent avant le lot en cours. Preuves proportionnées, rapports courts.
 
 ## Règles de la voie 2
 
@@ -37,4 +37,6 @@ La voie 1 (`A-FAIRE.md`) s'occupe de l'existant : import, audit, mise à jour. L
 | B-01 Squelette du thème | 23/11, corrigé le 23/11 | **Code clos le 23/11.** Validation visuelle de Ced attendue |
 | C-08 Paywall sur article | 23/11, corrigé le 23/11 | **Code clos le 23/11** (recherche interne étanche). Validation visuelle de Ced attendue |
 | C-09 Profils de test | 23/11, corrigé le 23/11 | **Code clos le 24/11** : 4 créés, 25 partiels, 1 impossible hors ligne |
+| C-11 PDF du numéro | 24/11, corrigé le 24/11 | **Code clos le 25/11** : fichier hors racine publique, servi par la décision d'accès |
+| C-12 Accès découverte | 24/11, refait le 24/11 | **Code clos le 25/11** : désignation éditoriale obligatoire, fermé par défaut |
 | C-10 Écran de réglages | 23/11, corrigé le 23/11 | **Code clos le 24/11** : les réglages d'accès agissent sur le paywall. Validation visuelle de Ced attendue |

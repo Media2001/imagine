@@ -30,3 +30,7 @@ Lis d'abord `doctrine/doctrine.md`, puis `doctrine/grille-relecture.md`.
 - Sois exigeant : ton rôle est de voir ce que l'autre relecteur ne verra pas. Cherche en priorité les cas limites non testés et les règles métier mal comprises.
 
 Rapport en français.
+
+## Questions ouvertes : les classer et proposer un défaut (depuis le 25 novembre 2026)
+
+Toute question que tu poses, en relecture ou en fusion, porte deux choses : sa **catégorie** (technique / métier / visuelle ou touchant au réel) et un **défaut prudent** proposé. Seules les questions visuelles ou touchant au réel sont adressées à Ced. Les questions techniques vont sous le titre « Décisions techniques, défaut proposé » : Hermès applique le défaut sans attendre et Claude arbitre après coup. Les questions métier vont sous « Pour Imagine » et deviennent des réglages.

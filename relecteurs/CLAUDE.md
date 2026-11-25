@@ -34,3 +34,7 @@ Lis d'abord `doctrine/doctrine.md`, puis `doctrine/grille-relecture.md`.
 - Ton verdict, même « Conforme », **n'est jamais un GO**.
 
 Rapports en français, phrases courtes.
+
+## Questions ouvertes : les classer et proposer un défaut (depuis le 25 novembre 2026)
+
+Toute question que tu poses, en relecture ou en fusion, porte deux choses : sa **catégorie** (technique / métier / visuelle ou touchant au réel) et un **défaut prudent** proposé. Seules les questions visuelles ou touchant au réel sont adressées à Ced. Les questions techniques vont sous le titre « Décisions techniques, défaut proposé » : Hermès applique le défaut sans attendre et Claude arbitre après coup. Les questions métier vont sous « Pour Imagine » et deviennent des réglages.

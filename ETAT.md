@@ -1,4 +1,4 @@
-# État des chantiers — mis à jour le 24 novembre 2026, 20 h 30
+# État des chantiers — mis à jour le 25 novembre 2026, 11 h 45
 
 ## Mise en route
 
@@ -6,7 +6,7 @@
 |---|---|---|---|
 | Dépôt | Créé ; cloné sur le NUC (`C:\Users\Ced\imagine`, alias SSH `github-imagine`) | — | — |
 | Hermès sur ce dépôt | Travail en continu, réveil horaire planifié le 21/11 (`/cron`, verrou `.hermes.lock`) | — | — |
-| Voie 2 (ce qui se voit) | Ouverte le 23/11 : file `A-FAIRE-2.md`, verrou `.hermes-2.lock`, site fictif `imagine-test-demo`. Cinq lots en file (B-00, B-01, C-08, C-09, C-10) | Site `imagine-test-demo` en ligne (réseau local, port 8085). B-00, B-01, C-08, C-09, C-10 : code clos. En file le 24/11 : C-11 (PDF protégé), C-12 (découverte), C-13 (écran liste d'envoi) | Validation visuelle par Ced | Ced |
+| Voie 2 (ce qui se voit) | Ouverte le 23/11 : file `A-FAIRE-2.md`, verrou `.hermes-2.lock`, site fictif `imagine-test-demo`. Cinq lots en file (B-00, B-01, C-08, C-09, C-10) | Site `imagine-test-demo` en ligne (réseau local, port 8085). B-00, B-01, C-08 à C-12 : code clos. C-13 à relire. En file le 25/11 : C-14 (achat au numéro), B-02 (mon compte) | Validation visuelle par Ced | Ced |
 | Synchronisation Git | En service depuis le 20/11, 8 h 55. La nuit du 19 a été perdue : Git refusait les commits faute d'identité, et le script ne le signalait pas (corrigé) | — | — |
 | Circuit de relecture | `scripts/relire.ps1` adapté aux lots ; se lance sans erreur, **pas encore testé sur un lot** | Lancer à la main sur le premier lot `PRET`, puis planifier « IMAGINE - relecture » | Ced |
 | Staging | Pas de Docker sur le NUC : on utilise l'outil de staging de Ced, avec Novamira pour l'accès des agents. Étape « site à abonnements » à ajouter à l'outil (`prompts/2026-11-19-staging-imagine.md`). Le `docker-compose.yml` du dépôt n'est plus utilisé | Hermès ajoute l'étape ; puis retirer Docker du dépôt | Hermès, puis Claude |
@@ -21,7 +21,7 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 | Lot | État | Prochaine étape | Qui |
 |---|---|---|---|
 | Sauvegarde de production | Pas encore récupérée | Export SQL + `wp-content`, déposés sur le NUC **hors du dépôt** | Ced |
-| A-01 Import neutralisé | Commande corrigée et vérifiée (sept corrections, dont le point de sûreté). Qualifiée en 6.9.1 sur archives fictives le 23/11 à 10 h 11 (Subscriptions non testable en 6.9.1 : limite déclarée) | Diagnostic lancé par Ced le 24/11 : six refus, dont quatre pour une seule cause (format réel de l'archive non lu), plafonds trop bas, recherche de secrets inutilisable, exports d'abonnés dans `uploads/` | `briefs/A-01-archive-reelle-2.md`, puis Ced relance le diagnostic | Hermès, puis Ced |
+| A-01 Import neutralisé | Commande corrigée et vérifiée (sept corrections, dont le point de sûreté). Qualifiée en 6.9.1 sur archives fictives le 23/11 à 10 h 11 (Subscriptions non testable en 6.9.1 : limite déclarée) | Diagnostic lancé par Ced le 24/11 : six refus, dont quatre pour une seule cause (format réel de l'archive non lu), plafonds trop bas, recherche de secrets inutilisable, exports d'abonnés dans `uploads/` | Reprise rendue et vérifiée le 24/11 au soir (format réel, plafonds, exclusions) : **Ced relance le diagnostic** | Ced |
 | A-07 Exposition de l'outil de staging | Fait le 20/11. Test depuis l'extérieur en IPv4 : le tableau de bord n'est pas joignable. Non vérifié : redirections, DMZ et pare-feu IPv6 dans l'administration de la box | Coup d'œil à la box quand possible ; retirer l'autorisation du port 7000 en profil public du pare-feu Windows | Ced |
 | Licences WooCommerce | Obtenues le 20/11 | Déposer les archives Subscriptions et Memberships dans le dossier des extensions premium de l'outil de staging, hors dépôt | Ced |
 | Staging Imagine existant | Arrêté par Hermès le 19/11, non supprimé ; la révocation du mot de passe applicatif dans WordPress n'est pas attestée | Ne pas le redémarrer ; le détruire quand le nouveau parcours est validé | Ced |
