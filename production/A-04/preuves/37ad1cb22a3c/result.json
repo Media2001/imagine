@@ -1,0 +1,161 @@
+{
+  "suite": "A04-real-synthetic-classic-hpos",
+  "checks": [
+    {
+      "check": "classic:baseline_versions",
+      "ok": true,
+      "detail": {
+        "wordpress": "7.0",
+        "woocommerce": "11.0.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3"
+      }
+    },
+    {
+      "check": "classic:a03_before",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:maintenance_required",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:stale_backup_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:controlled_interruption",
+      "ok": true,
+      "detail": {
+        "exit": 75,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:durable_checkpoint",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:real_updater_paused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:concurrent_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:real_updater_sigkill",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:resumed",
+      "ok": false,
+      "detail": {
+        "exit": 1,
+        "code": "A04_RUNTIME_FAILED\n"
+      }
+    },
+    {
+      "check": "classic:exception",
+      "ok": false,
+      "class": "AssertionError",
+      "code": "classic:resumed"
+    },
+    {
+      "check": "hpos:baseline_versions",
+      "ok": true,
+      "detail": {
+        "wordpress": "7.0",
+        "woocommerce": "11.0.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3"
+      }
+    },
+    {
+      "check": "hpos:a03_before",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:maintenance_required",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:stale_backup_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:controlled_interruption",
+      "ok": true,
+      "detail": {
+        "exit": 75,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:durable_checkpoint",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:real_updater_paused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:concurrent_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:real_updater_sigkill",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:resumed",
+      "ok": false,
+      "detail": {
+        "exit": 1,
+        "code": "A04_RUNTIME_FAILED\n"
+      }
+    },
+    {
+      "check": "hpos:exception",
+      "ok": false,
+      "class": "AssertionError",
+      "code": "hpos:resumed"
+    },
+    {
+      "check": "network_none",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp6",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "exit_code": 1
+}

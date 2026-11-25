@@ -43,6 +43,7 @@ def run_storage(storage):
         shutil.copytree=copy
     try:site,db,seed,config,settings=a03.install(storage)
     finally:shutil.copytree=original
+    a03.wp(site,['eval',"require_once WC_ABSPATH . 'includes/admin/wc-admin-functions.php'; wc_memberships()->get_lifecycle_handler()->init(); WC_Subscriptions_Upgrader::upgrade();"])
     check(storage+':baseline_versions',bool(seed['versions']),seed['versions'])
     server=subprocess.Popen(['php','-d','log_errors=0','-d','display_errors=0','-S','127.0.0.1:18803','-t',str(site)],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
     time.sleep(.5)

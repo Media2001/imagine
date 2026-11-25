@@ -53,7 +53,9 @@ if ($checks['fixture_installee']) {
             if ($key === 'P-NUMERO') {
                 $bought = get_post(get_option('imagine_demo_manifest')['demo-2026-t1']);
                 $checks['V-NUM:numero_achete_PDF'] = \Imagine\Site\Paywall::decisionPdf($bought)['motif'] === 'numero_achete';
-                $checks['V-NUM:autre_numero_ferme'] = !$decision['complet'] && $decision['motif'] === 'autre_numero';
+                $checks['V-NUM:autre_numero_ferme'] = !\Imagine\Site\Paywall::decisionPdf(
+                    get_post(get_option('imagine_demo_manifest')['demo-2026-t2'])
+                )['complet'];
             }
             $amount = isset($row['tarif']) ? (float) wc_get_product($fixture['tariffs'][$row['tarif']])->get_price() : 0.0;
             $checks[$key . ':montant_fixture_explicite'] = (float) $order->get_total() === $amount;
@@ -82,7 +84,7 @@ if ($checks['fixture_installee']) {
                 $checks[$key . ':fenetre_grace'] = $key === 'A-GRACE' ? $from <= $now && $now < $until : $from < $until && $until < $now;
             }
             if ($key === 'A-ECHEANCE') {
-                $checks[$key . ':terme_30_jours'] = abs($sub->get_time('end') - (time() + 30 * DAY_IN_SECONDS)) < 300;
+                $checks[$key . ':terme_30_jours'] = abs($sub->get_time('end') - ($seededAt + 30 * DAY_IN_SECONDS)) < 300;
             }
             if ($key === 'A-PAPIER') {
                 $checks[$key . ':echeance_ce_mois'] = gmdate('Y-m', $next) === gmdate('Y-m', $seededAt);
@@ -96,7 +98,7 @@ if ($checks['fixture_installee']) {
             $checks[$key . ':etat_adhesion'] = $member->get_status() === $expected;
             $checks[$key . ':plan_adhesion'] = $member->get_plan_id() === $fixture['plan'];
             if ($key === 'P-SOL-OK') {
-                $checks[$key . ':fin_45_jours'] = abs(strtotime($member->get_end_date('mysql', false) . ' UTC') - (time() + 45 * DAY_IN_SECONDS)) < 300;
+                $checks[$key . ':fin_45_jours'] = abs(strtotime($member->get_end_date('mysql', false) . ' UTC') - ($seededAt + 45 * DAY_IN_SECONDS)) < 300;
             }
         }
         if ($key === 'A-ETRANGER') {

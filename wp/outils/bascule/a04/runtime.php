@@ -124,6 +124,7 @@ final class Runtime
                 self::need((string) get_option(\WC_Subscriptions::PLUGIN_VERSION_OPTION_NAME) === \WC_Subscriptions::$version, 'A04_SUBSCRIPTIONS_DB');
                 self::need((string) get_option('woocommerce_subscriptions_active_version') === \WC_Subscriptions_Core_Plugin::instance()->get_library_version(), 'A04_SUBSCRIPTIONS_LIBRARY_DB');
             } elseif ($component === 'woocommerce-memberships') {
+                require_once WC_ABSPATH . 'includes/admin/wc-admin-functions.php';
                 $handler = wc_memberships()->get_lifecycle_handler();
                 if ($mode === 'migrate') {
                     self::need(is_callable([$handler, 'init']), 'A04_MEMBERSHIPS_UPGRADER');
