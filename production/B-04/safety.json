@@ -1,0 +1,17 @@
+{
+  "total": 11,
+  "checks": {
+    "pas_de_passerelle": true,
+    "courriel_bloque_sans_envoi": true,
+    "reseau_WP_bloque_sans_requete": true,
+    "store_reste_coming_soon": true,
+    "preview_GET_own_product": true,
+    "preview_HEAD_own_product": true,
+    "preview_POST_ferme": true,
+    "ancien_produit_prive_pas_exempte": true,
+    "checkout_pas_exempte": true,
+    "exemption_native_autrui_preservee": true,
+    "witness_retire": true
+  },
+  "failures": []
+}

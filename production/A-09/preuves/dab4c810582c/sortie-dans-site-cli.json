@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpcrd1ol2y/site",
+    "--base-url=http://127.0.0.1:46191",
+    "--plan=/repo/wp/tests/a09/tmpcrd1ol2y/sortie-dans-site.csv",
+    "--output=/report/sortie-dans-site",
+    "--interval=0.1",
+    "--timeout=0.15",
+    "--output=/repo/wp/tests/a09/tmpcrd1ol2y/site/output"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "A09_OUTPUT\n",
+  "events": [],
+  "site_unchanged": true
+}

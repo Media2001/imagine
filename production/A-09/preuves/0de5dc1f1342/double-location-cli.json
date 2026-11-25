@@ -1,0 +1,37 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmptsfbn2yv/site",
+    "--base-url=http://127.0.0.1:33235",
+    "--plan=/repo/wp/tests/a09/tmptsfbn2yv/double-location.csv",
+    "--output=/report/double-location",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 1,
+  "stdout": "# Test des redirections \u2014 lecture seule\n\n1 CONFORME ; 1 non conforme(s).\n\n| Ligne | Ancienne | Cible attendue | R\u00e9sultat |\n|---|---|---|---|\n| 2 | /depart | /attendu | redirection_invalide |\n| 3 | /ok | /fin | CONFORME |\n",
+  "stderr": "",
+  "events": [
+    {
+      "method": "GET",
+      "path": "/depart",
+      "at": 479895.516749162,
+      "port": 33235
+    },
+    {
+      "method": "GET",
+      "path": "/ok",
+      "at": 479895.616428102,
+      "port": 33235
+    },
+    {
+      "method": "GET",
+      "path": "/fin",
+      "at": 479895.717402982,
+      "port": 33235
+    }
+  ],
+  "site_unchanged": true
+}

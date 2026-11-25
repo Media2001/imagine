@@ -35,7 +35,10 @@ if phase=='before':
 else:
     before=json.loads(baseline.read_text(encoding='utf-8'))
     checks={k:before[k]==state[k] for k in before}
-    result={'checks':checks,'failures':[k for k,v in checks.items() if not v], 'state':state}
+    extras=w.wp('global $wpdb;echo wp_json_encode(array_map("intval",$wpdb->get_col("SELECT ID FROM {$wpdb->posts} WHERE ID NOT IN ('+','.join(map(str,ids))+') ORDER BY ID")));')
+    product=w.wp('echo wp_json_encode((int)get_option("imagine_b04_fixture")["product"]);')
+    checks['only_new_persistent_post_is_owned_product']=extras==[product]
+    result={'checks':checks,'failures':[k for k,v in checks.items() if not v], 'known_owned_new_post_ids':extras, 'state':state}
 (w.PROOF/('preservation-resume-'+phase+'.json')).write_text(json.dumps(result,indent=2),encoding='utf-8')
 print(json.dumps({'phase':phase,'existing_posts':len(state['post_ids']),'failures':result.get('failures',[])}))
 if result.get('failures'):raise SystemExit(1)

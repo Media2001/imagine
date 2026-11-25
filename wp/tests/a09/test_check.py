@@ -112,5 +112,14 @@ class SiteTest(unittest.TestCase):
                 m.authorize_site(site, decl['base_url'])
 
 
+class OriginStrictTest(unittest.TestCase):
+    def test_port_zero_and_even_empty_userinfo_are_not_repaired(self):
+        m = subject()
+        for value in ['http://example.org:0', 'http://@example.org', 'http://user@example.org']:
+            with self.subTest(value=value):
+                with self.assertRaises(ValueError):
+                    m.origin(value)
+
+
 if __name__ == '__main__':
     unittest.main()

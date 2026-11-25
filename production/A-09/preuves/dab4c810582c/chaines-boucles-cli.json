@@ -1,0 +1,109 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpc8h7hjh8/site",
+    "--base-url=http://127.0.0.1:46131",
+    "--plan=/repo/wp/tests/a09/tmpc8h7hjh8/chaines-boucles.csv",
+    "--output=/report/chaines-boucles",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 1,
+  "stdout": "# Test des redirections \u2014 lecture seule\n\n0 CONFORME ; 4 non conforme(s).\n\n| Ligne | Ancienne | Cible attendue | R\u00e9sultat |\n|---|---|---|---|\n| 2 | /chaine | /final | mauvaise_cible, chaine |\n| 3 | /boucle | /boucle-b | chaine, boucle |\n| 4 | /auto | /final | mauvaise_cible, boucle |\n| 5 | /long0 | /final | mauvaise_cible, chaine, limite_sauts |\n",
+  "stderr": "",
+  "events": [
+    {
+      "method": "GET",
+      "path": "/chaine",
+      "at": 479960.484672276,
+      "port": 46131
+    },
+    {
+      "method": "GET",
+      "path": "/intermediaire",
+      "at": 479960.584740213,
+      "port": 46131
+    },
+    {
+      "method": "GET",
+      "path": "/final",
+      "at": 479960.684858983,
+      "port": 46131
+    },
+    {
+      "method": "GET",
+      "path": "/boucle",
+      "at": 479960.786032147,
+      "port": 46131
+    },
+    {
+      "method": "GET",
+      "path": "/boucle-b",
+      "at": 479960.886104287,
+      "port": 46131
+    },
+    {
+      "method": "GET",
+      "path": "/auto",
+      "at": 479960.986301433,
+      "port": 46131
+    },
+    {
+      "method": "GET",
+      "path": "/long0",
+      "at": 479961.086547281,
+      "port": 46131
+    },
+    {
+      "method": "GET",
+      "path": "/long1",
+      "at": 479961.186998575,
+      "port": 46131
+    },
+    {
+      "method": "GET",
+      "path": "/long2",
+      "at": 479961.28780031,
+      "port": 46131
+    },
+    {
+      "method": "GET",
+      "path": "/long3",
+      "at": 479961.388129354,
+      "port": 46131
+    },
+    {
+      "method": "GET",
+      "path": "/long4",
+      "at": 479961.489354331,
+      "port": 46131
+    },
+    {
+      "method": "GET",
+      "path": "/long5",
+      "at": 479961.589043625,
+      "port": 46131
+    },
+    {
+      "method": "GET",
+      "path": "/long6",
+      "at": 479961.689196746,
+      "port": 46131
+    },
+    {
+      "method": "GET",
+      "path": "/long7",
+      "at": 479961.790380861,
+      "port": 46131
+    },
+    {
+      "method": "GET",
+      "path": "/long8",
+      "at": 479961.890582948,
+      "port": 46131
+    }
+  ],
+  "site_unchanged": true
+}

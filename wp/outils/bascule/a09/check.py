@@ -1,6 +1,7 @@
 """Read-only A09 redirect plan checker. No automatic redirect handling."""
 import argparse
 import csv
+import html
 import http.client
 import importlib.util
 import json
@@ -67,11 +68,11 @@ def load_plan(path):
 def origin(value):
     need(isinstance(value, str) and not re.search(r'[\\\x00-\x20\x7f-\uffff]', value), 'A09_BASE_URL')
     parts = urlsplit(value)
-    need(parts.scheme in ['http', 'https'] and parts.hostname and not parts.username and not parts.password
+    need(parts.scheme in ['http', 'https'] and parts.hostname and parts.username is None and parts.password is None
          and parts.path in ['', '/'] and not parts.query and not parts.fragment and '?' not in value and '#' not in value, 'A09_BASE_URL')
     host = parts.hostname
     need(bool(re.fullmatch(r'[A-Za-z0-9.:-]+', host)) and '%' not in host, 'A09_BASE_URL')
-    port = parts.port or (443 if parts.scheme == 'https' else 80)
+    port = parts.port if parts.port is not None else (443 if parts.scheme == 'https' else 80)
     need(0 < port <= 65535, 'A09_BASE_URL')
     host = '['+host+']' if ':' in host else host
     return parts.scheme+'://'+host.lower()+(':'+str(port) if port != (443 if parts.scheme == 'https' else 80) else '')
@@ -126,39 +127,48 @@ class Client:
 
 
 def check_row(client, row):
-    url = client.base+row['ancienne']
+    url = client.base+relative(row['ancienne'])
     result = {**row, 'observed_code': None, 'observed_target': None, 'final_status': None, 'hops': 0, 'issues': [], 'trace': []}
-    issues = result['issues']
+    issues, seen = result['issues'], set()
     try:
-        status, locations = client.get(url)
-        result['observed_code'] = status
-        result['trace'].append({'url': url, 'status': status})
-        if status != row['code']:
-            issues.append('mauvais_code')
-        if status not in REDIRECTS:
-            if status != 200:
-                issues.append('cible_non_200')
-            result['final_status'] = status
-            return result
-        if len(locations) != 1 or not locations[0]:
-            issues.append('redirection_invalide')
-            return result
-        location = locations[0]
-        result['observed_target'] = location
-        target = urljoin(url, location)
-        parts = urlsplit(target)
-        if origin(parts.scheme+'://'+parts.netloc) != client.base:
-            issues.append('cible_externe')
-            return result
-        path = relative((parts.path or '/')+('?' + parts.query if parts.query else ''))
-        if path != relative(row['cible']) or parts.fragment:
-            issues.append('mauvaise_cible')
-        result['hops'] = 1
-        final, unused = client.get(target)
-        result['trace'].append({'url': target, 'status': final})
-        result['final_status'] = final
-        if final != 200:
-            issues.append('cible_non_200')
+        for attempt in range(9):
+            if url in seen:
+                issues.append('boucle')
+                break
+            seen.add(url)
+            status, locations = client.get(url)
+            result['trace'].append({'url': url, 'status': status})
+            if attempt == 0:
+                result['observed_code'] = status
+                if status != row['code']:
+                    issues.append('mauvais_code')
+            if status not in REDIRECTS:
+                result['final_status'] = status
+                if status != 200:
+                    issues.append('cible_non_200')
+                break
+            result['hops'] += 1
+            if result['hops'] == 2:
+                issues.append('chaine')
+            if len(locations) != 1 or not locations[0]:
+                issues.append('redirection_invalide')
+                break
+            location = locations[0]
+            if attempt == 0:
+                result['observed_target'] = location
+            need(len(location) <= 2048 and not re.search(r'[\\\x00-\x20\x7f-\uffff]', location), 'A09_LOCATION')
+            target = urljoin(url, location)
+            parts = urlsplit(target)
+            if parts.scheme not in ['http', 'https'] or origin(parts.scheme+'://'+parts.netloc) != client.base:
+                issues.append('cible_externe')
+                break
+            path = relative((parts.path or '/')+('?' + parts.query if parts.query else ''))
+            if attempt == 0 and (path != relative(row['cible']) or parts.fragment):
+                issues.append('mauvaise_cible')
+            if attempt == 8:
+                issues.append('limite_sauts')
+                break
+            url = client.base+path
     except TimeoutError:
         issues.append('delai_depasse')
     except (OSError, http.client.HTTPException):
@@ -174,9 +184,12 @@ def write_reports(output, rows, client):
               'requests': client.requests, 'total': len(rows), 'nonconformes': len(bad), 'rows': rows}
     (output/'rapport.json').write_text(json.dumps(report, ensure_ascii=False, indent=2)+'\n', encoding='utf8')
     lines = ['# Test des redirections — lecture seule', '', str(len(rows)-len(bad))+' CONFORME ; '+str(len(bad))+' non conforme(s).', '',
-             '| Ligne | Ancienne | Cible attendue | Résultat |', '|---|---|---|---|']
+             '| Ligne | Ancienne | Code attendu | Code observé | Cible attendue | Cible observée | HTTP final | Sauts | Résultat |',
+             '|---|---|---|---|---|---|---|---|---|']
     for row in rows:
-        lines.append('| '+str(row['line'])+' | '+row['ancienne'].replace('|', '\\|')+' | '+row['cible'].replace('|', '\\|')+' | '+(', '.join(row['issues']) or 'CONFORME')+' |')
+        cells = [row[k] for k in ['line', 'ancienne', 'code', 'observed_code', 'cible', 'observed_target', 'final_status', 'hops']]
+        cells.append(', '.join(row['issues']) or 'CONFORME')
+        lines.append('| '+' | '.join(html.escape(str(v) if v is not None else '—').replace('|', '&#124;').replace('\r', ' ').replace('\n', ' ') for v in cells)+' |')
     text = '\n'.join(lines)+'\n'
     (output/'rapport.md').write_text(text, encoding='utf8')
     with open(output/'nonconformes.csv', 'w', encoding='utf-8-sig', newline='') as stream:
@@ -184,7 +197,8 @@ def write_reports(output, rows, client):
         writer = csv.DictWriter(stream, fieldnames=fields, extrasaction='ignore')
         writer.writeheader()
         for row in bad:
-            writer.writerow({**row, 'issues': ', '.join(row['issues'])})
+            values = {**row, 'issues': ', '.join(row['issues'])}
+            writer.writerow({k: "'"+v if isinstance(v, str) and v.startswith(('=', '+', '-', '@', '\t', '\r', '\n')) else v for k, v in values.items()})
     print(text, end='')
     return int(bool(bad))
 

@@ -144,6 +144,83 @@ class DefectHttpTest(HttpFixture):
         self.assert_defect('double-location', {'/depart': (301, ['/attendu', '/autre'], 0)}, 'redirection_invalide', ['/depart'])
 
 
+class VariantHttpTest(HttpFixture):
+    def test_absolute_same_origin_relative_and_query_locations_for_all_codes(self):
+        codes = [301, 302, 303, 307, 308]
+        plans = []
+        for i, code in enumerate(codes):
+            source, target = '/old'+str(i), '/new'+str(i)+'?n=1'
+            location = self.base+target if i % 2 else target.removeprefix('/')
+            self.routes[source] = (code, location, 0)
+            self.routes[target] = (200, None, 0)
+            plans.append((source, target, code))
+        result, out = self.run_cli('variantes', plans)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        report = json.loads((out/'rapport.json').read_text())
+        self.assertEqual(report['nonconformes'], 0)
+        self.assertEqual(report['requests'], 10)
+        self.assertTrue(all(b['at']-a['at'] >= 0.09 for a, b in zip(self.events, self.events[1:])))
+
+    def test_csv_observed_location_cannot_be_interpreted_as_formula(self):
+        self.routes.update({'/depart': (301, '=/formule-fictive', 0), '/=/formule-fictive': (200, None, 0)})
+        result, out = self.run_cli('csv-sur', [('/depart', '/attendu', 301)])
+        self.assertEqual(result.returncode, 1, result.stderr)
+        with (out/'nonconformes.csv').open(encoding='utf-8-sig') as stream:
+            row = list(csv.DictReader(stream))[0]
+        self.assertEqual(row['observed_target'], "'=/formule-fictive")
+        text = (out/'rapport.md').read_text()
+        self.assertIn('Code observé', text)
+        self.assertIn('=/formule-fictive', text)
+
+
+
+class RefusalHttpTest(HttpFixture):
+    def test_invalid_plan_tail_cannot_emit_even_first_valid_request(self):
+        raw_cases = {
+            'plan-doublon': 'ancienne,cible,code\n/ok,/fin,301\n/ok,/fin,301\n',
+            'plan-contradictoire': 'ancienne,cible,code\n/ok,/fin,301\n/ok,/autre,302\n',
+            'plan-absolu': 'ancienne,cible,code\n/ok,/fin,301\nhttp://example.org/a,/fin,301\n',
+            'plan-identique': 'ancienne,cible,code\n/ok,/fin,301\n/a,/a,301\n',
+            'plan-mauvais-code': 'ancienne,cible,code\n/ok,/fin,301\n/a,/fin,200\n',
+        }
+        self.routes.update({'/ok': (301, '/fin', 0), '/fin': (200, None, 0)})
+        for name, raw in raw_cases.items():
+            with self.subTest(name=name):
+                result, out = self.run_cli(name, [], raw=raw)
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertIn('A09_PLAN', result.stderr)
+                self.assertEqual(self.events, [])
+                self.assertFalse(out.exists())
+        (pathlib.Path('/report')/'invalid-plan-no-request.json').write_text(json.dumps({'cases': list(raw_cases), 'requests': self.events}, indent=2)+'\n')
+
+    def test_unverified_site_wrong_declaration_and_bad_limits_make_no_request(self):
+        marker = self.site/'.imagine-staging-verified.json'
+        old = marker.read_text()
+        for name, value in [('non-verifie', {'status': 'pending'}), ('production', {'status': 'production', 'offline_verified': True, 'runtime_probe_passed': True})]:
+            marker.write_text(json.dumps(value))
+            self.before = self.fingerprint()
+            result, out = self.run_cli(name, [('/a', '/b', 301)])
+            self.assertEqual(result.returncode, 2)
+            self.assertEqual(self.events, [])
+        marker.write_text(old)
+        self.before = self.fingerprint()
+        for i, flags in enumerate([['--interval=0'], ['--interval=nan'], ['--timeout=0'], ['--timeout=inf'], ['--base-url=http://example.org']]):
+            result, out = self.run_cli('limites-'+str(i), [('/a', '/b', 301)], extra=flags)
+            self.assertEqual(result.returncode, 2)
+            self.assertEqual(self.events, [])
+
+    def test_existing_output_or_output_inside_site_are_refused_without_requests(self):
+        existing = pathlib.Path('/report')/'sortie-existante'
+        existing.mkdir()
+        (existing/'canary').write_text('keep')
+        for name, output in [('sortie-refus', existing), ('sortie-dans-site', self.site/'output')]:
+            result, unused = self.run_cli(name, [('/a', '/b', 301)], extra=['--output='+str(output)])
+            self.assertEqual(result.returncode, 2)
+            self.assertEqual(self.events, [])
+        self.assertEqual((existing/'canary').read_text(), 'keep')
+
+
+
 class ChainHttpTest(HttpFixture):
     def test_chain_loop_and_jump_limit_are_distinct_and_bounded(self):
         self.routes.update({'/chaine': (301, '/intermediaire', 0), '/intermediaire': (302, '/final', 0), '/final': (200, None, 0),

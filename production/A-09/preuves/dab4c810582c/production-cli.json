@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpmw40ier2/site",
+    "--base-url=http://127.0.0.1:42309",
+    "--plan=/repo/wp/tests/a09/tmpmw40ier2/production.csv",
+    "--output=/report/production",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "A09_NOT_VERIFIED\n",
+  "events": [],
+  "site_unchanged": true
+}

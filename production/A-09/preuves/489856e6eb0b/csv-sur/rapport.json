@@ -1,0 +1,33 @@
+{
+  "schema": "imagine-a09-report-v1",
+  "base_url": "http://127.0.0.1:40983",
+  "read_only": true,
+  "requests": 2,
+  "total": 1,
+  "nonconformes": 1,
+  "rows": [
+    {
+      "line": 2,
+      "ancienne": "/depart",
+      "cible": "/attendu",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "=/formule-fictive",
+      "final_status": 200,
+      "hops": 1,
+      "issues": [
+        "mauvaise_cible"
+      ],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:40983/depart",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:40983/=/formule-fictive",
+          "status": 200
+        }
+      ]
+    }
+  ]
+}

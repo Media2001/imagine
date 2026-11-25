@@ -1,0 +1,109 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmp34yge1ia/site",
+    "--base-url=http://127.0.0.1:34343",
+    "--plan=/repo/wp/tests/a09/tmp34yge1ia/chaines-boucles.csv",
+    "--output=/report/chaines-boucles",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 1,
+  "stdout": "# Test des redirections \u2014 lecture seule\n\n0 CONFORME ; 4 non conforme(s).\n\n| Ligne | Ancienne | Cible attendue | R\u00e9sultat |\n|---|---|---|---|\n| 2 | /chaine | /final | mauvaise_cible, chaine |\n| 3 | /boucle | /boucle-b | chaine, boucle |\n| 4 | /auto | /final | mauvaise_cible, boucle |\n| 5 | /long0 | /final | mauvaise_cible, chaine, limite_sauts |\n",
+  "stderr": "",
+  "events": [
+    {
+      "method": "GET",
+      "path": "/chaine",
+      "at": 479891.204393499,
+      "port": 34343
+    },
+    {
+      "method": "GET",
+      "path": "/intermediaire",
+      "at": 479891.304161954,
+      "port": 34343
+    },
+    {
+      "method": "GET",
+      "path": "/final",
+      "at": 479891.405183088,
+      "port": 34343
+    },
+    {
+      "method": "GET",
+      "path": "/boucle",
+      "at": 479891.505742087,
+      "port": 34343
+    },
+    {
+      "method": "GET",
+      "path": "/boucle-b",
+      "at": 479891.605422705,
+      "port": 34343
+    },
+    {
+      "method": "GET",
+      "path": "/auto",
+      "at": 479891.705315849,
+      "port": 34343
+    },
+    {
+      "method": "GET",
+      "path": "/long0",
+      "at": 479891.805470535,
+      "port": 34343
+    },
+    {
+      "method": "GET",
+      "path": "/long1",
+      "at": 479891.906137484,
+      "port": 34343
+    },
+    {
+      "method": "GET",
+      "path": "/long2",
+      "at": 479892.006046054,
+      "port": 34343
+    },
+    {
+      "method": "GET",
+      "path": "/long3",
+      "at": 479892.105804446,
+      "port": 34343
+    },
+    {
+      "method": "GET",
+      "path": "/long4",
+      "at": 479892.206439534,
+      "port": 34343
+    },
+    {
+      "method": "GET",
+      "path": "/long5",
+      "at": 479892.306606383,
+      "port": 34343
+    },
+    {
+      "method": "GET",
+      "path": "/long6",
+      "at": 479892.40668039,
+      "port": 34343
+    },
+    {
+      "method": "GET",
+      "path": "/long7",
+      "at": 479892.506935099,
+      "port": 34343
+    },
+    {
+      "method": "GET",
+      "path": "/long8",
+      "at": 479892.607310873,
+      "port": 34343
+    }
+  ],
+  "site_unchanged": true
+}
