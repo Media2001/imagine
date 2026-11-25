@@ -1,0 +1,279 @@
+{
+  "suite": "A04-real-synthetic-classic-hpos",
+  "checks": [
+    {
+      "check": "classic:baseline_versions",
+      "ok": true,
+      "detail": {
+        "wordpress": "7.0",
+        "woocommerce": "11.0.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3"
+      }
+    },
+    {
+      "check": "classic:a03_before",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:maintenance_required",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:stale_backup_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:controlled_interruption",
+      "ok": true,
+      "detail": {
+        "exit": 75,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:durable_checkpoint",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:real_updater_paused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:concurrent_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:real_updater_sigkill",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:resumed",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:previous_step_not_replayed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:current_step_resumed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:idempotent_repeat",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:maintenance_kept",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:persistent_maintenance_503",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:a03_after",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:only_expected_changes",
+      "ok": false,
+      "detail": {
+        "schema": "imagine-a03-comparison-v1",
+        "changes": [
+          {
+            "path": "versions.wordpress",
+            "class": "attendu"
+          },
+          {
+            "path": "versions.woocommerce",
+            "class": "attendu"
+          },
+          {
+            "path": "actions.37",
+            "class": "anormal"
+          },
+          {
+            "path": "action_days.[masque]",
+            "class": "anormal"
+          }
+        ],
+        "anormal": 2
+      }
+    },
+    {
+      "check": "classic:exception",
+      "ok": false,
+      "class": "AssertionError",
+      "code": "classic:only_expected_changes"
+    },
+    {
+      "check": "hpos:baseline_versions",
+      "ok": true,
+      "detail": {
+        "wordpress": "7.0",
+        "woocommerce": "11.0.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3"
+      }
+    },
+    {
+      "check": "hpos:a03_before",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:maintenance_required",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:stale_backup_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:controlled_interruption",
+      "ok": true,
+      "detail": {
+        "exit": 75,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:durable_checkpoint",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:real_updater_paused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:concurrent_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:real_updater_sigkill",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:resumed",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:previous_step_not_replayed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:current_step_resumed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:idempotent_repeat",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:maintenance_kept",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:persistent_maintenance_503",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:a03_after",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:only_expected_changes",
+      "ok": false,
+      "detail": {
+        "schema": "imagine-a03-comparison-v1",
+        "changes": [
+          {
+            "path": "versions.wordpress",
+            "class": "attendu"
+          },
+          {
+            "path": "versions.woocommerce",
+            "class": "attendu"
+          },
+          {
+            "path": "actions.37",
+            "class": "anormal"
+          },
+          {
+            "path": "action_days.[masque]",
+            "class": "anormal"
+          }
+        ],
+        "anormal": 2
+      }
+    },
+    {
+      "check": "hpos:exception",
+      "ok": false,
+      "class": "AssertionError",
+      "code": "hpos:only_expected_changes"
+    },
+    {
+      "check": "network_none",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp6",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "exit_code": 1
+}

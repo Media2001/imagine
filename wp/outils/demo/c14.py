@@ -67,7 +67,11 @@ def run(deploy=False):
     PROOF.mkdir(parents=True, exist_ok=True)
     c10.guard()
     before = preserve()
-    results = {'scope': 'imagine-test-demo', 'at': datetime.now(timezone.utc).isoformat(), 'pure': pure()}
+    results = {'scope': 'imagine-test-demo', 'at': datetime.now(timezone.utc).isoformat(), 'pure': pure(), 'status': 'EN_COURS'}
+    results['runtime'] = wp('echo wp_json_encode(["wp"=>get_bloginfo("version"),"woo"=>WC_VERSION,"php"=>PHP_VERSION,"hpos"=>get_option("woocommerce_custom_orders_table_enabled")]);')
+    def save():
+        (PROOF / 'resultats.json').write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding='utf-8')
+    save()
     if deploy:
         # Le bootstrap en place doit être exactement C13 + l'ajout ciblé C14.
         rel = 'plugins/imagine-site/imagine-site.php'
@@ -88,12 +92,22 @@ def run(deploy=False):
             raise RuntimeError('Code C14 distant/local différent : ' + name)
     for name in ['c14-runtime.php', 'c09-runtime.php']:
         upload('imagine-demo-build/' + name, ROOT / 'wp/tests/demo' / name)
-    results['native'] = wp('require WP_CONTENT_DIR . "/imagine-demo-build/c14-runtime.php";')
+    raw = c10.b00.wp('eval', 'require WP_CONTENT_DIR . "/imagine-demo-build/c14-runtime.php";', check=False)
+    try:
+        results['native'] = json.loads(raw['stdout'])
+    except json.JSONDecodeError:
+        results['status'] = 'ECHEC_PHP'
+        results['error'] = raw['stderr'][-2000:]
+        save()
+        raise RuntimeError('Recette native C14 interrompue ; voir resultats.json')
+    save()
     print('C14 natif :', sum(v is True for v in results['native'].values()), '/', len(results['native']), flush=True)
-    if not all(v is True for v in results['native'].values()):
-        (PROOF / 'echec.json').write_text(json.dumps(results, indent=2, ensure_ascii=False), encoding='utf-8')
+    if raw['code'] or raw['stderr'] or not results['native'] or not all(v is True for v in results['native'].values()):
+        results['status'] = 'ECHEC_NATIF'
+        save()
         raise RuntimeError('Échecs C14 natifs : ' + str([k for k,v in results['native'].items() if v is not True]))
     results['http'] = module('c14_http', 'c14-http.py').verify()
+    save()
     for key, filename in [('C08', 'c08-runtime.php'), ('C11', 'c11-runtime.php')]:
         upload('imagine-demo-build/' + filename, ROOT / 'wp/tests/demo' / filename)
         value = wp('require WP_CONTENT_DIR . "/imagine-demo-build/' + filename + '";')

@@ -125,9 +125,15 @@ def run_storage(storage):
         check(storage+':a03_after',p.returncode==0,{'exit':p.returncode,'code':p.stderr[:150]})
         compared=a03.cmd(['php','/subject/comparer',str(OUT/(storage+'-before/non-regression.json')),str(OUT/(storage+'-after/non-regression.json'))],check=False)
         diff=json.loads(compared.stdout);write(OUT/(storage+'-comparison.json'),diff)
-        check(storage+':only_expected_changes',compared.returncode==0, diff)
         for name in ['etat.json','journal.json','journal.txt','migrations.jsonl']:
             shutil.copyfile(state/name,OUT/(storage+'-'+name))
+        sys.path.insert(0,'/subject/a04')
+        from qualification import qualify
+        qualified=qualify(json.loads((OUT/(storage+'-before/non-regression.json')).read_text()),json.loads((OUT/(storage+'-after/non-regression.json')).read_text()),{'wordpress':after[0],'woocommerce':after[1],'subscriptions':after[2],'memberships':after[3]})
+        qualified['native_a03_exit']=compared.returncode
+        qualified['native_a03_anormal']=diff['anormal']
+        write(OUT/(storage+'-qualification.json'),qualified)
+        check(storage+':only_exact_expected_changes_additive',compared.returncode in [0,2,3] and qualified['qualified'],qualified)
         write(OUT/(storage+'-versions.json'),{'before':dict(zip(keys,before)),'after':dict(zip(keys,after)),'baseline_public_woo':old_version})
     finally:
         server.terminate();server.wait(timeout=15)

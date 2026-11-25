@@ -36,6 +36,25 @@ try {
     $product->update_meta_data($owned, $token);
     $product->update_meta_data(AchatsNumeros::PRODUIT, $a);
     $product->save(); $ids['posts'][] = $product->get_id();
+    $savedPost = $_POST;
+    try {
+        $_POST = [AchatsNumeros::PRODUIT => (string) $b];
+        AchatsNumeros::enregistrer($product); $product->save();
+        $checks['champ_refuse_client_non_editeur'] = AchatsNumeros::numero(wc_get_product($product->get_id())) === $a;
+        wp_set_current_user(get_option('imagine_c09_fixture')['users']['E-ADMIN']);
+        AchatsNumeros::enregistrer($product); $product->save();
+        $checks['champ_admin_persiste_un_seul_numero'] = AchatsNumeros::numero(wc_get_product($product->get_id())) === $b;
+        foreach (['suffixe' => $a . 'junk', 'tableau' => [$a], 'autre_type' => (string) $article['a']->ID, 'vide' => '0'] as $label => $value) {
+            $_POST = [AchatsNumeros::PRODUIT => $value];
+            AchatsNumeros::enregistrer($product); $product->save();
+            $checks['champ_' . $label . '_ferme'] = AchatsNumeros::numero(wc_get_product($product->get_id())) === 0;
+        }
+        $_POST = [AchatsNumeros::PRODUIT => (string) $a];
+        AchatsNumeros::enregistrer($product); $product->save();
+    } finally {
+        $_POST = $savedPost;
+        wp_set_current_user($user);
+    }
     $make = static function (int $customer) use (&$ids, $owned, $token, $product): WC_Order {
         $o = wc_create_order(['customer_id' => $customer, 'status' => 'pending', 'created_via' => 'admin']);
         if (is_wp_error($o)) { throw new RuntimeException('Commande C14 impossible.'); }
@@ -134,6 +153,22 @@ try {
     $checks['suppression_commande_definitive_revoque'] = $closed();
     $order = $make($user); $order->set_status('processing'); $order->set_date_paid(time() - DAY_IN_SECONDS); $order->save();
     $checks['nouvelle_commande_valide'] = $allowed();
+    $failure = static function (array $args) use ($user): array {
+        if (($args['customer_id'] ?? null) === $user) { throw new RuntimeException('Panne native C14 synthétique.'); }
+        return $args;
+    };
+    add_filter('woocommerce_order_query_args', $failure);
+    try {
+        $checks['erreur_lecture_native_ferme_apres_positif'] = $closed();
+    } finally {
+        remove_filter('woocommerce_order_query_args', $failure);
+    }
+    $checks['lecture_retablie_apres_erreur'] = $allowed();
+    for ($i = 0; $i < 50; ++$i) {
+        $pageOrder = $make($user); $pageOrder->set_status('processing');
+        $pageOrder->set_date_paid(time() - DAY_IN_SECONDS); $pageOrder->save();
+    }
+    $checks['pagination_51_commandes_payees_sans_troncature'] = count(AchatsNumeros::droits($user)) === 51;
     $product->delete(true);
     $checks['produit_supprime_revoque'] = $closed();
     $checks['HPOS_natif_actif'] = \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();

@@ -29,7 +29,8 @@ final class Paywall
         global $wp_filter;
         $hooks = [];
         foreach ($wp_filter as $name => $hook) {
-            if (preg_match('/^(get_(post|user)_metadata|(?:pre_)?option_imagine_acces_|woocommerce_subscription_get_|wc_memberships_user_membership_get_)/', $name)) {
+            if (preg_match('/^(get_(post|user)_metadata|(?:pre_)?option_imagine_acces_|woocommerce_subscription_get_|wc_memberships_user_membership_get_)/', $name)
+                || $name === 'woocommerce_order_query_args') {
                 foreach ($hook->callbacks as $priority => $callbacks) {
                     $hooks[$name][$priority] = array_map(static fn (array $callback): int => $callback['accepted_args'], $callbacks);
                 }
@@ -57,9 +58,7 @@ final class Paywall
             }
             $userId = get_current_user_id();
             $key = get_current_blog_id() . ':' . $post->ID . ':' . $userId;
-            // C14 : les commandes/lignes/remboursements restent une source vivante.
-            // Aucun ancien accord connecté n'est réutilisé, même dans la même requête.
-            if ($userId === 0 && isset(self::$decisions[$key])) {
+            if (isset(self::$decisions[$key])) {
                 return self::$decisions[$key];
             }
             $flag = get_post_meta($post->ID, 'imagine_reserve', true);
@@ -374,6 +373,12 @@ final class Paywall
             'added_option', 'updated_option', 'deleted_option', 'clean_post_cache',
             'clean_user_cache', 'switch_blog', 'set_user_role', 'add_user_role', 'remove_user_role',
             'woocommerce_after_order_object_save', 'woocommerce_subscription_status_updated',
+            'woocommerce_after_order_item_object_save', 'woocommerce_after_product_object_save',
+            'added_order_item_meta', 'updated_order_item_meta', 'deleted_order_item_meta',
+            'woocommerce_new_order_item', 'woocommerce_update_order_item', 'woocommerce_delete_order_item',
+            'woocommerce_before_delete_order', 'woocommerce_delete_order',
+            'woocommerce_before_trash_order', 'woocommerce_trash_order', 'woocommerce_untrash_order',
+            'woocommerce_order_refunded', 'woocommerce_refund_deleted',
             'wc_memberships_user_membership_status_changed'] as $hook) {
             add_action($hook, [self::class, 'invalidate'], PHP_INT_MAX, 0);
         }
