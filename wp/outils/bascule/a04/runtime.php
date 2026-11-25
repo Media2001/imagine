@@ -100,10 +100,14 @@ final class Runtime
         self::need(in_array($mode, ['guard', 'migrate', 'verify'], true), 'A04_MODE');
         require_once dirname(__DIR__, 2) . '/staging/runtime-probe.php';
         $probe = \Imagine\Staging\runtimeProbe();
-        foreach (['mail_blocked', 'http_blocked', 'subscriptions_staging', 'environment_staging',
+        $expectedEnvironment = (string) getenv('IMAGINE_A04_EXPECTED_ENV');
+        self::need(in_array($expectedEnvironment, ['staging', 'production'], true)
+            && wp_get_environment_type() === $expectedEnvironment, 'A04_ENVIRONMENT');
+        foreach (['mail_blocked', 'http_blocked', 'subscriptions_staging',
             'cron_disabled', 'as_async_disabled', 'as_runner_disabled', 'gateways_disabled'] as $key) {
             self::need(($probe[$key] ?? null) === true, 'A04_RUNTIME_UNSAFE');
         }
+        self::trace(['component' => $component, 'mode' => $mode, 'stage' => 'runtime_safe', 'environment' => $expectedEnvironment]);
         $migrations = [];
         if ($mode !== 'guard') {
             if ($component === 'core') {

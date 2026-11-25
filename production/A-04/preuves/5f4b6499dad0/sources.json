@@ -1,0 +1,18 @@
+{
+  "wp/tests/a04/public.lock.json": "681b250c1ad91b19357b6b10d1aeb358866f7f36df30f7b57df54ebc8cdf8bf1",
+  "wp/tests/a04/inside.py": "40a66bd000ee09019aa5c5f58178aa2f45e3f2e6a88347de166f0f735e6dda93",
+  "wp/tests/a04/prepare_public.py": "a375103b5fbf7a1bbb426a92f6142b65d9d9495e08c17a11cd9fa9e5203dd86f",
+  "wp/tests/a04/probe.py": "1c4f159371185ef9bff062fcf80ed64ebc3f4a51ad02b0bd54b0e40e303fb014",
+  "wp/tests/a04/run.py": "7555bb6b0306a3b52aa4ff55292d2ecb87a140796c8ec933efb5763e3058ae16",
+  "wp/tests/a04/test_go.py": "0709dc52c0b3d0e7970219cfeee1b464991acbdc2f75a706f8fbb2f82057b8e4",
+  "wp/tests/a04/test_packages.py": "b460fd7c6a7824a3e1ca17c86161aa24f1d7383903af498705e9e099d19b8559",
+  "wp/tests/a04/test_qualification.py": "7381721515c40e1974fc8a4f069fe7d2dfdcbadcfc0644b4410bbe93a2598600",
+  "wp/tests/a04/test_safety.py": "251848f943494bee92777737103d819e1deaf42fa671a748d592f3e894e9cadf",
+  "wp/tests/a04/test_update.py": "c4463002b710b0bf9fba8dee7823e1f45ebd6aaf2cf0961570fc004ba143d7e0",
+  "wp/outils/bascule/mettre-a-jour": "863c22cbb6fec2c1469388d65aae6fa1c2383e848e5b38f646dc0e2689f4a941",
+  "wp/outils/bascule/a04/bootstrap.php": "a42d04e617be64ab54ebba797218092502782fbdc071cc4e22086e1eef90a35e",
+  "wp/outils/bascule/a04/maintenance.php": "4c356eb960eeaf1807b6aa55cd07551a58dfd843c797f6a5db3011d20aca6feb",
+  "wp/outils/bascule/a04/runtime.php": "400fd0d79c4e691242f154714f94a6fa7f49887ca9bb50c0c99206ecef8121ca",
+  "wp/outils/bascule/a04/qualification.py": "da47f602e355b6f75a891d52ebb3da53d7c93a99ac3bdfe67596ce809100f727",
+  "wp/outils/bascule/a04/update.py": "96911d79ab004ec561be3b0a54f912b2f93bde04e6d3f1ab9a304376a6ce0282"
+}
