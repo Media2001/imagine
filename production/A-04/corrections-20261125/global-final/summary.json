@@ -1,0 +1,40 @@
+{
+  "suites": {
+    "imagine-connecteur": {
+      "tests": 37,
+      "assertions": 224,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "imagine-non-regression": {
+      "tests": 152,
+      "assertions": 314,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "imagine-pilotage": {
+      "tests": 775,
+      "assertions": 33210,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "imagine-site": {
+      "tests": 48,
+      "assertions": 258,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "native": {
+    "tests": 1012,
+    "assertions": 34006,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass": true
+  }
+}
