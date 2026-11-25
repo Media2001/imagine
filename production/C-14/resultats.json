@@ -1,6 +1,6 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-25T11:57:40.031979+00:00",
+  "at": "2026-11-25T12:03:29.561372+00:00",
   "pure": {
     "payee_processing": true,
     "payee_completed": true,
@@ -24,6 +24,13 @@
     "date_native_conservee_sans_expiration": true,
     "contrat_moteur_exact": true
   },
+  "status": "VERT",
+  "runtime": {
+    "wp": "7.0.9",
+    "woo": "11.2.2",
+    "php": "8.3.32",
+    "hpos": "yes"
+  },
   "profil": {
     "user": 28,
     "order": 126,
@@ -35,6 +42,12 @@
     "mapped_issue": 11
   },
   "native": {
+    "champ_refuse_client_non_editeur": true,
+    "champ_admin_persiste_un_seul_numero": true,
+    "champ_suffixe_ferme": true,
+    "champ_tableau_ferme": true,
+    "champ_autre_type_ferme": true,
+    "champ_vide_ferme": true,
     "champ_mapping_natif": true,
     "instantane_ligne_natif": true,
     "non_payee_pending_articles_PDF": true,
@@ -70,6 +83,9 @@
     "mise_corbeille_commande_revoque": true,
     "suppression_commande_definitive_revoque": true,
     "nouvelle_commande_valide": true,
+    "erreur_lecture_native_ferme_apres_positif": true,
+    "lecture_retablie_apres_erreur": true,
+    "pagination_51_commandes_payees_sans_troncature": true,
     "produit_supprime_revoque": true,
     "HPOS_natif_actif": true,
     "aucun_moyen_paiement_transaction": true,
@@ -146,6 +162,5 @@
     "failures": []
   },
   "shared_C08_C09_C10_C11_C12_C13_preserved": true,
-  "status": "VERT",
-  "total": 527
+  "total": 536
 }

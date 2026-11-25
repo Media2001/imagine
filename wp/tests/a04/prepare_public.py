@@ -1,10 +1,11 @@
 """Preparation only: official public ZIPs. No site, no PHP, no credentials."""
 import hashlib,json,pathlib,urllib.request
 OUT=pathlib.Path(__file__).resolve().parents[3]/'production/A-04/dependances'
-SOURCES={'wordpress-6.9.1.zip':'https://wordpress.org/wordpress-6.9.1.zip','wordpress-7.0.zip':'https://wordpress.org/wordpress-7.0.zip','woocommerce-11.0.1.zip':'https://downloads.wordpress.org/plugin/woocommerce.11.0.1.zip'}
+SOURCES=json.loads(pathlib.Path(__file__).with_name('public.lock.json').read_text())
 def main():
     OUT.mkdir(parents=True,exist_ok=True);results=[]
-    for name,url in SOURCES.items():
+    for name,metadata in SOURCES.items():
+        url=metadata['url']
         target=OUT/name
         try:
             if not target.exists():
@@ -15,6 +16,7 @@ def main():
                         if size>150000000:raise RuntimeError('PUBLIC_SIZE_LIMIT')
                         out.write(block)
             with target.open('rb') as f:sha=hashlib.file_digest(f,'sha256').hexdigest()
+            if sha!=metadata['sha256']:raise RuntimeError('PUBLIC_SHA256_MISMATCH')
             results.append({'name':name,'url':url,'sha256':sha,'bytes':target.stat().st_size,'ok':True})
         except Exception as e:results.append({'name':name,'url':url,'ok':False,'class':type(e).__name__,'code':getattr(e,'code',None)})
     (OUT/'public.json').write_text(json.dumps(results,indent=2)+'\n');print(json.dumps(results,indent=2))

@@ -28,7 +28,7 @@ def main():
     created = False
     def record(key, ok, detail=None):
         result['checks'].append({'check': key, 'ok': bool(ok), 'detail': detail})
-    source_files = list(ROOT.glob('*.py')) + list(ROOT.glob('*.php')) + [REPO / 'wp/outils/bascule/mettre-a-jour'] + list((REPO / 'wp/outils/bascule/a04').glob('*.php')) + list((REPO / 'wp/outils/bascule/a04').glob('*.py'))
+    source_files = [ROOT / 'public.lock.json'] + list(ROOT.glob('*.py')) + list(ROOT.glob('*.php')) + [REPO / 'wp/outils/bascule/mettre-a-jour'] + list((REPO / 'wp/outils/bascule/a04').glob('*.php')) + list((REPO / 'wp/outils/bascule/a04').glob('*.py'))
     initial = {str(p.relative_to(REPO)).replace('\\', '/'): hashlib.sha256(p.read_bytes()).hexdigest() for p in source_files if p.is_file()}
     (out / 'sources.json').write_text(json.dumps(initial, indent=2)+'\n')
     try:
@@ -72,6 +72,7 @@ def main():
                 for public in ['wordpress-6.9.1.zip', 'wordpress-7.0.zip', 'woocommerce-11.0.1.zip']:
                     path = REPO / 'production/A-04/dependances' / public
                     assert path.is_file(), 'A04_PUBLIC_PREPARATION_REQUIRED'
+                    assert hashlib.sha256(path.read_bytes()).hexdigest() == json.loads((ROOT/'public.lock.json').read_text())[public]['sha256'], 'A04_PUBLIC_SHA256'
                     bench.call(['cp', bench.local(path), name+':/opt/a04/'+public])
                 execution = bench.call(['exec', name, 'python3', '-B', '/opt/a04/inside.py'], check=False, timeout=1500)
                 (out/'execution.log').write_text(execution.stdout+execution.stderr)

@@ -256,6 +256,8 @@ def execute(args):
                 require(version(site,key) == step['after'],'A04_TARGET_VERSION')
                 row['phase']='verified';row['duration_seconds']=round(time.time()-row['started'],3);row['migrations']=migrated.get('migrations',[])
                 event(key,'verified',before=row['before'],after=row['after'],duration_seconds=row['duration_seconds'],migrations=row['migrations'])
+            for step in plan['steps']:
+                worker(site,step,'verify',safe_path(state_dir,'migrations.jsonl'))
             event('all','complete'); return 0
         except BaseException as error:
             event('all','stopped',code=str(error) if isinstance(error,Refusal) else 'A04_EXECUTION_FAILED')

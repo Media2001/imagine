@@ -94,6 +94,13 @@ def run_storage(storage):
         check(storage+':concurrent_refused',denied.returncode==1 and denied.stderr=='A04_ALREADY_RUNNING\n')
         lock.kill();lock.wait(timeout=10)
         check(storage+':real_updater_sigkill',lock.returncode==-9)
+        forged=a03.wp(site,['eval',"echo 'A04_ID=' . as_schedule_single_action(time(), 'woocommerce_run_update_callback', ['update_callback'=>'wp_delete_user'], 'woocommerce-db-updates');"])
+        forged_id=int(forged.stdout.split('A04_ID=')[-1].strip())
+        blocked=update(site,plan,backup,state)
+        check(storage+':foreign_callback_refused',blocked.returncode==1 and blocked.stderr=='A04_CALLBACK_REFUSED\n')
+        intact=a03.wp(site,['eval',"echo 'A04_INTACT=' . (int) (get_user_by('id', "+str(seed['ordinary'])+") !== false && ActionScheduler::store()->get_status("+str(forged_id)+") === 'pending');"])
+        check(storage+':foreign_callback_not_executed',intact.stdout.strip().endswith('A04_INTACT=1'))
+        a03.wp(site,['eval',"ActionScheduler::store()->delete_action("+str(forged_id)+");"])
         resumed=update(site,plan,backup,state)
         if resumed.returncode:
             for filename in ['etat.json','journal.json','journal.txt','migrations.jsonl']:
@@ -109,7 +116,7 @@ def run_storage(storage):
         check(storage+':resumed',resumed.returncode==0,{'exit':resumed.returncode,'code':resumed.stderr[:200]})
         current=json.loads((state/'etat.json').read_text())
         check(storage+':previous_step_not_replayed',current['steps']['core']==initial['steps']['core'])
-        check(storage+':current_step_resumed',current['steps']['woocommerce']['attempts']==3 and all(r['phase']=='verified' for r in current['steps'].values()))
+        check(storage+':current_step_resumed',current['steps']['woocommerce']['attempts']==4 and all(r['phase']=='verified' for r in current['steps'].values()))
         repeat=update(site,plan,backup,state);again=json.loads((state/'etat.json').read_text())
         check(storage+':idempotent_repeat',repeat.returncode==0 and again['steps']==current['steps'])
         # No theme/data cleanup; maintenance remains and is explicitly removed by fixture only.
@@ -137,6 +144,24 @@ def run_storage(storage):
         write(OUT/(storage+'-versions.json'),{'before':dict(zip(keys,before)),'after':dict(zip(keys,after)),'baseline_public_woo':old_version})
     finally:
         server.terminate();server.wait(timeout=15)
+def legacy_compatibility():
+    import secrets,re
+    site=pathlib.Path('/scratch/legacy-691');site.mkdir()
+    a03.sql('mysql','CREATE DATABASE a04_legacy')
+    with zipfile.ZipFile(ROOT/'wordpress-6.9.1.zip') as z:z.extractall(ROOT/'legacy-core')
+    shutil.copytree(ROOT/'legacy-core/wordpress',site,dirs_exist_ok=True)
+    for package in [ROOT/'woocommerce-11.0.1.zip',pathlib.Path('/opt/a03/woocommerce-subscriptions.zip')]:
+        with zipfile.ZipFile(package) as z:z.extractall(site/'wp-content/plugins')
+    config="<?php define('DB_NAME','a04_legacy'); define('DB_USER','root'); define('DB_PASSWORD',''); define('DB_HOST','localhost:/scratch/mariadb.sock'); define('DB_CHARSET','utf8mb4'); define('DB_COLLATE',''); define('WP_ENVIRONMENT_TYPE','staging'); define('DISABLE_WP_CRON',true); define('WP_HTTP_BLOCK_EXTERNAL',true); $table_prefix='wp_'; define('ABSPATH',__DIR__.'/'); require_once ABSPATH.'wp-settings.php';"
+    (site/'wp-config.php').write_text(config)
+    a03.wp(site,['core','install','--url=https://a04-legacy.synthetic.test','--title=Fiction A04 legacy','--admin_user=a04-fiction','--admin_email=a04-fiction@example.org','--skip-email','--prompt=admin_password'],data=secrets.token_urlsafe(40)+'\n')
+    woo=a03.wp(site,['plugin','activate','woocommerce'],check=False)
+    sub=a03.wp(site,['plugin','activate','woocommerce-subscriptions'],check=False)
+    header=(site/'wp-content/plugins/woocommerce-subscriptions/woocommerce-subscriptions.php').read_text()
+    minimum=next(line.split('Requires at least:',1)[1].strip() for line in header.splitlines() if 'Requires at least:' in line)
+    installed=a03.wp(site,['core','version']).stdout.strip()
+    check('legacy691:native_guard_no_override',installed=='6.9.1' and minimum=='7.0' and sub.returncode!=0,{'wordpress':installed,'subscriptions_requires_wp':minimum,'woo_activation_exit':woo.returncode,'subscriptions_activation_exit':sub.returncode,'stderr_sha256':hashlib.sha256(sub.stderr.encode()).hexdigest()})
+
 def main():
     pathlib.Path('/scratch').mkdir()
     a03.cmd(['mariadb-install-db','--datadir=/scratch/mysql','--auth-root-authentication-method=normal','--skip-test-db','--user=root'])
@@ -145,6 +170,7 @@ def main():
         for _ in range(100):
             if a03.cmd(['mariadb-admin','--socket=/scratch/mariadb.sock','-uroot','ping'],check=False).returncode==0:break
             time.sleep(.2)
+        legacy_compatibility()
         for storage in ['classic','hpos']:
             try:run_storage(storage)
             except Exception as e:
