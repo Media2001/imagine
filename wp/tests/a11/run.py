@@ -56,7 +56,7 @@ def main():
         b.call(['cp',b.local(REPO/'wp/outils/bascule/audit'),name+':/subject/audit'])
         b.call(['cp',b.local(REPO/'wp/outils/bascule/a09/check.py'),name+':/reference/wp/outils/bascule/a09/check.py'])
         unit = b.call(['exec',name,'php','/opt/a11/unit.php'],check=False)
-        (out/'unit.log').write_text(unit.stdout+unit.stderr)
+        (out/'unit.log').write_text(unit.stdout+unit.stderr,encoding='utf-8')
         b.call(['cp',name+':/report/unit.json',b.local(out/'unit.json')])
         record('unit',unit.returncode==0,{'exit_code':unit.returncode})
         if not args.unit_only:
@@ -64,7 +64,7 @@ def main():
                 if p.is_file(): b.call(['cp',b.local(p),name+':/opt/a02/'+p.name])
             for f in b.LICENSED: b.call(['cp','/home/ced/staging-wp/plugins/'+f,name+':/opt/a02/'+f])
             native = b.call(['exec',name,'python3','/opt/a11/inside.py'],check=False,timeout=1500)
-            (out/'execution.log').write_text(native.stdout+native.stderr)
+            (out/'execution.log').write_text(native.stdout+native.stderr,encoding='utf-8')
             b.call(['cp',name+':/report/.',b.local(out)])
             result = json.loads((out/'result.json').read_text())
             record('native', native.returncode==0 and result['exit_code']==0, {'exit_code':native.returncode})

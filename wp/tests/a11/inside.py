@@ -1,5 +1,6 @@
 """A11 native URLs and immutable all-table fingerprints on the A02 fixture."""
 import csv
+import hashlib
 import importlib.util
 import json
 import pathlib
@@ -28,7 +29,7 @@ add_action('init', static function () {
 });
 global $a11_native_query;
 $a11_native_query = 'a%2fb+z';
-add_filter('post_type_link', static function ($url,$post) { return $post->post_type === 'a11_story' ? (getenv('A11_BAD_URL') ? 'https://elsewhere.invalid/refused' : add_query_arg('edition',$GLOBALS['a11_native_query'],$url)) : $url; },10,2);
+add_filter('post_type_link', static function ($url,$post) { return $post->post_type === 'a11_story' ? (getenv('A11_BAD_URL') ? 'https://elsewhere.invalid/refused' : add_query_arg(['edition'=>$GLOBALS['a11_native_query'], 'host'=>$_SERVER['HTTP_HOST'] ?? 'missing', 'ssl'=>is_ssl() ? 'yes' : 'no'],$url)) : $url; },10,2);
 '''
 
 def inventory(site,target,audit,*args):
@@ -36,6 +37,8 @@ def inventory(site,target,audit,*args):
 
 def run_storage(storage):
     site,db,_=b.install(storage)
+    native_sources={rel:hashlib.sha256((site/rel).read_bytes()).hexdigest() for rel in ['wp-includes/link-template.php','wp-includes/post.php','wp-includes/load.php','wp-includes/class-wpdb.php','wp-includes/sitemaps/providers/class-wp-sitemaps-users.php','wp-content/plugins/woocommerce/includes/class-wc-post-types.php']}
+    (OUT/(storage+'-native-sources.json')).write_text(json.dumps(native_sources,indent=2)+'\n')
     (OUT/(storage+'-seed.json')).unlink()
     config=(site/'wp-config.php').read_text()
     writable=config.replace("define('DB_USER', 'a02_"+storage+"')", "define('DB_USER', 'root')").split("\nfile_put_contents('/scratch/a02-bootstrap-trap'")[0]
@@ -140,6 +143,7 @@ def run_storage(storage):
 
 b.run_storage=run_storage
 if __name__=='__main__':
+    (OUT/'php-version.txt').write_text(b.cmd(['php','-v']).stdout)
     for p in sorted(pathlib.Path('/subject/a11').glob('*'))+sorted(pathlib.Path('/opt/a11').glob('*.php')):
         if p.suffix=='.php' or p.name=='inventorier-adresses':
             lint=b.cmd(['php','-l',str(p)],check=False)

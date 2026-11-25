@@ -50,8 +50,8 @@ Références officielles consultées pour cette livraison :
 
 - WordPress `get_permalink`, `get_attachment_link`, `get_term_link`, `get_author_posts_url`, `get_post_type_archive_link` : `https://developer.wordpress.org/reference/functions/` (pages portant ces noms).
 - Hooks `pre_http_request`, `pre_wp_mail`, `pre_schedule_event` : `https://developer.wordpress.org/reference/hooks/` (pages portant ces noms).
-- Source WordPress 6.9.1 : `https://github.com/WordPress/WordPress/blob/6.9.1/wp-includes/link-template.php`, `post.php`, `load.php` et `sitemaps/providers/class-wp-sitemaps-users.php` (l'exception native de l'archive `post`, l'héritage des pièces jointes et le périmètre des auteurs ont été vérifiés dans ces sources).
-- Source WooCommerce : `https://github.com/woocommerce/woocommerce/blob/10.3.6/plugins/woocommerce/includes/class-wc-post-types.php` (l'archive produit dépend du support WooCommerce du thème), et fonctions natives réellement exécutées sur la version épinglée du banc.
+- Source WordPress 7.0.9 : `https://github.com/WordPress/WordPress/blob/7.0.9/wp-includes/link-template.php`, `post.php`, `load.php` et `sitemaps/providers/class-wp-sitemaps-users.php` (l'exception native de l'archive `post`, l'héritage des pièces jointes et le périmètre des auteurs ont été vérifiés dans ces sources).
+- Source WooCommerce 11.1.1 : `https://github.com/woocommerce/woocommerce/blob/11.1.1/plugins/woocommerce/includes/class-wc-post-types.php` (l'archive produit dépend du support WooCommerce du thème), et fonctions natives réellement exécutées sur la version épinglée du banc.
 
 ## Suite dédiée, sans rejeu global
 
