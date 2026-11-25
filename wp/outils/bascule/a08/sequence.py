@@ -57,6 +57,7 @@ def main(argv=None, runner=subprocess.run):
     parser.add_argument('--go-clean', type=pathlib.Path)
     parser.add_argument('--mutations-ready', action='store_true')
     parser.add_argument('--reception-ready', action='store_true')
+    parser.add_argument('--new-pass', action='store_true', help='nouvelle réception complète ; checkpoints A04/A05 conservés')
     args = parser.parse_args(argv)
     base = pathlib.Path(__file__).resolve().parents[1]
     checkpoint = None
@@ -84,11 +85,17 @@ def main(argv=None, runner=subprocess.run):
                 checkpoint = json.loads(path.read_text())
                 if checkpoint['schema']!='imagine-a08-v1' or checkpoint['identity']!=identity:
                     raise ValueError('A08_IDENTITY_CHANGED')
-                for entry in checkpoint['done'].values():
+                for entry in [*checkpoint['done'].values(),*[entry for previous in checkpoint.get('passes',[]) for entry in previous.values()]]:
                     if any(not (state/name).is_file() or digest(state/name)!=sha for name,sha in entry['seals'].items()):
                         raise ValueError('A08_EVIDENCE_CHANGED')
             else:
-                checkpoint = {'schema':'imagine-a08-v1','identity':identity,'done':{},'attempts':[],'status':'en cours'}
+                checkpoint = {'schema':'imagine-a08-v1','identity':identity,'done':{},'attempts':[],'status':'en cours','passes':[]}
+            if args.new_pass:
+                if len(checkpoint['done'])!=6:
+                    raise ValueError('A08_PASS_NOT_COMPLETE')
+                checkpoint['passes'].append(checkpoint['done'])
+                checkpoint['done']={}
+                checkpoint.pop('comparison',None)
             def persist():
                 save(path,checkpoint)
                 report(state,checkpoint)
@@ -124,17 +131,20 @@ def main(argv=None, runner=subprocess.run):
                 (state/(prefix+'-stderr.log')).write_text(stderr,encoding='utf8')
                 artifact = None
                 accepted = code==0
-                if step in ['audit','avant','apres']:
-                    artifact = prefix
-                    expected = state/artifact/('audit.json' if step=='audit' else 'non-regression.json')
-                    accepted = accepted and expected.is_file()
-                    if accepted and step!='audit':
-                        photo = json.loads(expected.read_text())
-                        accepted = photo.get('php_log',{}).get('checked') is True and photo['php_log']['errors']==0
-                if step=='comparaison':
-                    comparison = json.loads(stdout)
-                    checkpoint['comparison'] = {key:comparison[key] for key in ['attendu','anormal']}
-                    accepted = code in [0,3] and comparison['anormal']==0 and all(c['class']=='attendu' for c in comparison['changes'])
+                try:
+                    if step in ['audit','avant','apres']:
+                        artifact = prefix
+                        expected = state/artifact/('audit.json' if step=='audit' else 'non-regression.json')
+                        accepted = accepted and expected.is_file()
+                        if accepted and step!='audit':
+                            photo = json.loads(expected.read_text())
+                            accepted = photo.get('php_log',{}).get('checked') is True and photo['php_log']['errors']==0
+                    if step=='comparaison':
+                        comparison = json.loads(stdout)
+                        checkpoint['comparison'] = {key:comparison[key] for key in ['attendu','anormal']}
+                        accepted = code in [0,3] and comparison['anormal']==0 and all(c['class']=='attendu' for c in comparison['changes'])
+                except (ValueError,KeyError,TypeError,OSError):
+                    accepted = False
                 save(receipt_path,row)
                 if not accepted:
                     checkpoint['status']='ARRÊT : '+step+' (code '+str(code)+')'

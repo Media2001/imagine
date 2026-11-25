@@ -1,0 +1,22 @@
+{
+  "verified": true,
+  "source_readback_exact": true,
+  "tests_total": 257,
+  "semantic_restore": true,
+  "files_sha256": {
+    "production/C-15/A-VOIR.md": "a3054c23c362d38089fd9856b5a231498db39da721dd898752a67de61778d994",
+    "production/C-15/RAPPORT.md": "89bbb4274a1f2c87c4096d987762b6847206ac246e50217b6cf05c16991ea233",
+    "wp/outils/demo/c15-unit.py": "f36813e34c95baecfc799d9ba35dff347f176e954e4db837d561d02f5ca2b402",
+    "wp/outils/demo/c15.py": "1be62faa0034ca8cdd7b4b55e23ff8f53795c241039bff3db8fe8eae003c0834",
+    "wp/plugins/imagine-site/EcheancesAdmin.php": "3a0fd5ffe2f6c7657d9fcbb082f18a8219bec793c8ad6a820c318c1a7ccf041b",
+    "wp/plugins/imagine-site/EcheancesNatives.php": "27837582469b2fca2792ae43398cae57a8e7dc8303d3769b695630cccc571f0f",
+    "wp/plugins/imagine-site/EcheancesRegles.php": "dacecd0d9adecf44c2e1b0f8b9974077fb411ba5aa2e8e13fcef0860591e9229",
+    "wp/plugins/imagine-site/imagine-site.php": "7fa2bf3260b64ae1422cf8564ef2227d1ab9ead15ecca5bb7782693263b79eb9",
+    "wp/plugins/imagine-site/README.md": "ae57046a7790a18ab72bd40ac3acd651eecebe0e5a6ebbd1a74981c69ae81336",
+    "wp/tests/demo/c15-action.py": "62fa1225949a6b3fbaabdbb3a001626da6dbd466a6cf2c3b0a3bce8e0700f8c9",
+    "wp/tests/demo/c15-http.py": "a190ca27cebb7f767f0cd3d72ff5d3a0917abf5e48a4ef6057679684eaa36dbf",
+    "wp/tests/demo/c15-runtime.php": "514168a8f68f453493bde73642938e07d876e9d10229ff281965c581c1c851b3",
+    "wp/tests/demo/c15-unit.php": "cb75bf047ba8589466885401e4b9c309b3701006cd254e7897581c3009221324",
+    "wp/tests/demo/c15-verifier.py": "d6815cd4063233c58083837ff8265e90181ae7521a8b3b77a48db725e6a737a4"
+  }
+}

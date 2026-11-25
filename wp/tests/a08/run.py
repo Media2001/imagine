@@ -37,6 +37,7 @@ def main():
         target = {'a03-non-regression': 'a03', 'a04': 'a04', 'a05': 'a05'}[folder]
         pairs += [(p, '/opt/' + target + '/' + p.name) for p in (ROOT.parent/folder).iterdir() if p.is_file()]
     pairs += [(p, '/plugins/imagine-non-regression/src/'+p.name) for p in (REPO/'wp/plugins/imagine-non-regression/src').glob('*.php')]
+    pairs += [(ROOT.parent/'a02-audit/unit.php','/opt/a02/unit.php')]
     pairs += [(REPO/'wp/outils/staging/runtime-probe.php','/staging/runtime-probe.php'),
               (REPO/'wp/outils/staging/mu-plugins/000-imagine-staging-safety.php','/staging/mu-plugins/000-imagine-staging-safety.php'),
               (REPO/'wp/outils/staging/mu-plugins/000-imagine-staging-safety.php','/subject/000-imagine-staging-safety.php'),
@@ -64,11 +65,24 @@ def main():
         (out/'unit.log').write_text(unit.stdout+unit.stderr)
         record('unit', unit.returncode == 0, {'exit': unit.returncode})
         if not args.unit_only and unit.returncode == 0:
+            for suite, command in [
+                ('a02',['php','/opt/a02/unit.php']),
+                ('a03',['php','/opt/a03/unit.php']),
+                ('a03-boundary',['php','/opt/a03/output-boundary.php']),
+                ('a04',['python3','-B','-m','unittest','discover','-s','/opt/a04','-p','test_*.py','-v']),
+                ('a05',['python3','-B','-m','unittest','discover','-s','/opt/a05','-p','test_*.py','-v'])]:
+                regression=bench.call(['exec',name]+command,check=False)
+                (out/(suite+'-regression.log')).write_text(regression.stdout+regression.stderr)
+                record(suite+'_regression',regression.returncode==0,{'command':command,'exit':regression.returncode})
+                if suite in ['a02','a03']:
+                    bench.call(['exec',name,'mv','/report/unit.json','/report/'+suite+'-unit.json'])
             for f in bench.LICENSED:
                 bench.call(['cp','/home/ced/staging-wp/plugins/'+f,name+':/opt/a03/'+f])
             lock = json.loads((ROOT.parent/'a04/public.lock.json').read_text())
             for f in ['wordpress-7.0.zip','woocommerce-11.0.1.zip']:
-                p = REPO/'production/A-04/dependances'/f
+                p = REPO/'production/A-08/dependances'/f
+                if not p.is_file():
+                    p = REPO/'production/A-04/dependances'/f
                 assert hashlib.sha256(p.read_bytes()).hexdigest() == lock[f]['sha256']
                 bench.call(['cp',bench.local(p),name+':/opt/a04/'+f])
             execution = bench.call(['exec',name,'python3','-B','/opt/a08/inside.py'],check=False,timeout=1700)

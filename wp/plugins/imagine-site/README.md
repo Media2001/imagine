@@ -146,6 +146,24 @@ PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/b02.py --require-complete
 
 La seconde commande renvoie **2** tant que l'acceptation nominative est incomplète : `a-4x-j45` n'existe pas dans C09, A-SEPA4 n'est pas présenté comme son équivalent 2/4 ; marge C05 absente ; aucun rejet/paiement fabriqué. La recette technique PHP+HTTP peut être verte sans prétendre remplir ces gates. Le paquet B02 n'est pas découvert par T01 ; `preparer-image.ps1` a néanmoins été exécuté et vérifié. Parcours, commandes, limites et résultats : `production/B-02/`. Aucun PRET déposé.
 
+## C-15 — écran des échéances
+
+`EcheancesRegles.php` contient les filtres purs et le CSV ; `EcheancesNatives.php` lit exclusivement commandes et souscriptions Woo/WCS paginées ; `EcheancesAdmin.php` ajoute **Imagine → Échéances** au parent existant, sans créer de menu principal. Le doublon préexistant C10/C13 du parent pour le référent est dédupliqué à l'affichage, sans modifier leurs fichiers. Capacité C09 existante `imagine_gerer_echeances`, ou administrateur `manage_options` ; aucun nouveau rôle ni droit global.
+
+Cinq vues : fin/prochain renouvellement à 30/90/180 jours ; commandes natives `pending|on-hold` impayées ; virements impayés `bacs` ; prochains mandats papier actifs, dates déjà dues conservées ; commandes `failed`. Aucun délai de retard, aucune nouvelle décision d'accès. L'action unique **Paiement reçu** est un POST avec nonce lié à la commande, puis écran de confirmation et case obligatoire ; relecture de l'objet natif, contrôle type/propriétaire/méthode/statut/date/remboursements, `payment_complete()`, note Woo portant opérateur et instant UTC. Une commande déjà payée est refusée, aucune action en masse ni remboursement. Les transports email/HTTP et le report des emails sont bloqués pendant cette transition.
+
+L'export des mandats est un flux `php://output` privé/no-store, POST/capacité/nonce lié à la période, cinq colonnes fixes (abonné, montant, devise, référence, échéance UTC), cellules protégées contre les formules. Aucun fichier public, aucun IBAN lu ou exporté.
+
+**Particularité explicite de la démo C09** : ses méthodes de passerelle restent volontairement vides. Sur la seule URL locale autorisée, les marqueurs natifs `imagine_demo_fictif=1`, `_imagine_c09_fixture`, l'ID du manifeste et son propriétaire identifient A-VIR comme virement et A-PAPIER comme mandat papier. La référence fictive existante est l'identifiant **A-PAPIER**, pas un mandat bancaire créé. Sans ces quatre contrôles, une méthode vide reste inconnue ; une méthode native non vide reste prioritaire. Hors démo : `bacs` ou `imagine_papier`, référence native `imagine_mandat_reference` pour le papier. Aucun état payé parallèle et aucun nouveau profil.
+
+```powershell
+python wp/outils/demo/c15-unit.py
+python wp/outils/demo/c15.py --deploy --http
+python wp/tests/demo/c15-verifier.py --prepare --action
+```
+
+Le dernier rejeu exerce réellement A-VIR par HTTP puis le reset C09 existant à son horloge initiale. Il restaure les états découverte dépendants et la date payée native de P-NUMERO que l'initialiseur C14 déplacerait sinon ; comparaison sémantique relue de tous les profils commerciaux C09, rôles et IDs. Les notes d'audit natives sont conservées ; le reset invalide les sessions C09, se reconnecter ensuite. Aucun thème téléversé ou restauré. `preparer-image.ps1` est exécuté sans modification ; les tests C15 autonomes de `wp/tests/demo/` ne sont pas annoncés comme découverts par T01. Preuves et limites : `production/C-15/`.
+
 ## C-13 — Liste d’envoi native (relecture avec réserve C09)
 
 `EnvoiRegles.php` porte les règles **pures**, avec horloge, calendrier et observations injectés, sans WordPress. C01 fournit les blocs, y compris `renouveler()` ; C07 établit les lignes, anomalies et éligibilité. `EnvoiNatif.php` lit le CRUD natif et conserve les relevés append-only non autoloadés (`imagine_envoi_releve_ID_UUID`), jamais antidatés. Les hooks Subscriptions/Memberships et les adresses client ajoutent les changements observés ; le rejeu identique ne duplique pas. Historique/calendrier incomplet ou bénéficiaires requis non résolus : export fermé. Projection future explicitement provisoire.

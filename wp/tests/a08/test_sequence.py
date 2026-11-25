@@ -82,6 +82,12 @@ class ExecutionTest(unittest.TestCase):
             self.assertIn('Durée',report)
             self.assertEqual(m.main(args, runner=runner),0)
             self.assertEqual(len(calls),7)
+            self.assertEqual(m.main(args+['--new-pass'], runner=runner),75)
+            self.assertEqual(calls[-2:],['audit','non-regression'])
+            self.assertEqual(m.main(args+['--mutations-ready'], runner=runner),75)
+            self.assertEqual(m.main(args+['--reception-ready'], runner=runner),0)
+            self.assertEqual(len(calls),13)
+            self.assertEqual(len(json.loads((root/'state/etat.json').read_text())['passes']),1)
 
 
 class GuardTest(unittest.TestCase):
