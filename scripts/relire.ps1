@@ -3,7 +3,7 @@
 # Sans -Lot : traite tous les dossiers production\<lot> qui ont PRET et pas encore de relecture.
 # Ordre : installation des dependances de test (dans Docker) -> Codex relit -> Claude Code relit -> Claude Code fusionne.
 # Si Hermes redepose PRET apres les corrections : passe de verification par Claude.
-# Si le lot est encore modifie ensuite : verifications complementaires, quatre au plus, puis il remonte a Ced.
+# Si le lot est encore modifie ensuite : verifications complementaires, huit au plus (quatre jusqu'au 25/11 : A-01 a recu trois briefs successifs), puis il remonte a Ced.
 # Chaque relecteur lit son fichier de role dans relecteurs\ et n'ecrit que son rapport.
 # Journal : %LOCALAPPDATA%\IMAGINE\relire.log
 
@@ -90,12 +90,12 @@ try {
             }
             else {
                 # Verifications complementaires : le lot a ete modifie apres sa derniere verification
-                # (nouvelle consigne, arbitrages, reglages). Quatre verifications au plus, puis on remonte a Ced.
+                # (nouvelle consigne, arbitrages, reglages). Huit verifications au plus, puis on remonte a Ced.
                 $vers = @(Get-ChildItem (Join-Path $repo $rel) -Filter 'verification*.md' | Sort-Object LastWriteTime)
                 $derniere = $vers[-1]
                 if ((Get-Item $pretF).LastWriteTime -gt $derniere.LastWriteTime) {
-                    if ($vers.Count -ge 4) {
-                        Write-Log "$s : quatre verifications deja faites -> pas de nouvelle verification automatique, remonte a Ced"
+                    if ($vers.Count -ge 8) {
+                        Write-Log "$s : huit verifications deja faites -> pas de nouvelle verification automatique, remonte a Ced"
                     }
                     else {
                         $n = $vers.Count + 1

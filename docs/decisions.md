@@ -50,6 +50,18 @@ Ce qui est tranché par Ced, daté. Ce fichier précise ou corrige le cahier des
 Issues des relectures du 20/11 (`docs/arbitrages-2026-11-21.md`, questions non tranchées) : prélèvement SEPA obligatoire après une première carte ; retrait immédiat ou délai de grâce au premier rejet ; licence Teams pour les abonnements groupés ; forme de l'accès découverte ; recalcul du port en cours d'année ; emails SEPA de Stripe ; recherche de la dénomination d'entreprise ; PayPal sous condition d'approbation.
 
 
+Issues des lots de la voie 2, au 25/11 (chacune est un réglage au défaut prudent, aucun lot n'attend) :
+
+| Question fermée pour Imagine | Défaut appliqué | Réglage |
+|---|---|---|
+| Un remboursement partiel d'une commande de plusieurs numéros ferme-t-il tous les accès de la commande ? | Oui, toute la commande | `imagine_achat_remboursement` : `commande` ou `ligne` (C-14) |
+| Un achat sans compte ouvre-t-il le numérique après création du compte (§3.7) ? | Non, fermé, pas de rapprochement par email | Parcours non livré (C-14) |
+| Les bénéficiaires d'un abonnement groupé figurent-ils dans la liste d'envoi à partir des liens de Memberships, sans Teams ? | Non, fermé | `imagine_envoi_groupes` : `ferme` ou `liens_memberships` (C-13) |
+| Après épuisement de l'accès découverte, un article déjà ouvert se referme-t-il ? | Oui | Réglage de C-12 |
+| Un robot d'indexation vérifié reçoit-il le PDF du numéro ? | Non, l'extrait seulement | Réglage de C-11 |
+
+Rappel de règle, sans question : un abonnement actif dans l'administration mais **sans paiement validé** ne figure pas dans la liste d'envoi.
+
 Prioritaires : grille tarifaire (3), tarif solidaire (4), accès découverte (5). Tant qu'elles sont ouvertes, le tunnel ne peut pas être finalisé.
 
 ## Ouvert — chez Step (chapitre 8)
