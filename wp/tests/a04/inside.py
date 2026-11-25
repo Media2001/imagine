@@ -98,6 +98,8 @@ def run_storage(storage):
             for filename in ['etat.json','journal.json','journal.txt']:
                 shutil.copyfile(state/filename,OUT/(storage+'-failed-'+filename))
             pending=a03.sql(db,"SELECT hook,status,COUNT(*) AS count FROM wp_actionscheduler_actions WHERE status IN ('pending','in-progress','failed') GROUP BY hook,status ORDER BY hook,status")
+            diagnostic=a03.sql(db,"SELECT action_id,JSON_KEYS(args) AS arg_keys,JSON_UNQUOTE(JSON_EXTRACT(args,'$.update_callback')) AS named_callback,JSON_UNQUOTE(JSON_EXTRACT(args,'$[0]')) AS positional_callback FROM wp_actionscheduler_actions WHERE hook='woocommerce_run_update_callback' AND status='pending'")
+            (OUT/(storage+'-callback-identifiers.tsv')).write_text(diagnostic.stdout)
             (OUT/(storage+'-pending-identifiers.tsv')).write_text(pending.stdout)
         check(storage+':resumed',resumed.returncode==0,{'exit':resumed.returncode,'code':resumed.stderr[:200]})
         current=json.loads((state/'etat.json').read_text())

@@ -1,0 +1,97 @@
+{
+  "schema": "imagine-a04-state-v1",
+  "plan_sha256": "f33af089e677248dfd3d497d22526e37dc453a76f943eea45df1d62388d3c6b9",
+  "site": "/scratch/hpos",
+  "config_sha256": "b1a748e286800db7aa976494bc53daf30a311b362de01ec10c0ff0df625f062a",
+  "steps": {
+    "core": {
+      "phase": "verified",
+      "before": "7.0",
+      "after": "7.0.9",
+      "started": 1795605515.1836307,
+      "attempts": 1,
+      "files": 3500,
+      "duration_seconds": 22.749,
+      "migrations": [
+        "wp core update-db; db_version=61833"
+      ]
+    },
+    "woocommerce": {
+      "phase": "migrating",
+      "before": "11.0.1",
+      "after": "11.1.1",
+      "started": 1795605537.956802,
+      "attempts": 3,
+      "files": 5862
+    }
+  },
+  "events": [
+    {
+      "utc": "2026-11-25T11:18:35Z",
+      "component": "core",
+      "stage": "start",
+      "before": "7.0",
+      "after": "7.0.9"
+    },
+    {
+      "utc": "2026-11-25T11:18:56Z",
+      "component": "core",
+      "stage": "copied",
+      "files": 3500
+    },
+    {
+      "utc": "2026-11-25T11:18:57Z",
+      "component": "core",
+      "stage": "verified",
+      "before": "7.0",
+      "after": "7.0.9",
+      "duration_seconds": 22.749,
+      "migrations": [
+        "wp core update-db; db_version=61833"
+      ]
+    },
+    {
+      "utc": "2026-11-25T11:18:57Z",
+      "component": "woocommerce",
+      "stage": "start",
+      "before": "11.0.1",
+      "after": "11.1.1"
+    },
+    {
+      "utc": "2026-11-25T11:19:34Z",
+      "component": "woocommerce",
+      "stage": "copied",
+      "files": 5862
+    },
+    {
+      "utc": "2026-11-25T11:19:34Z",
+      "component": "woocommerce",
+      "stage": "interruption_requested"
+    },
+    {
+      "utc": "2026-11-25T11:19:35Z",
+      "component": "woocommerce",
+      "stage": "resume",
+      "before": "11.0.1",
+      "after": "11.1.1"
+    },
+    {
+      "utc": "2026-11-25T11:19:35Z",
+      "component": "woocommerce",
+      "stage": "interruption_requested"
+    },
+    {
+      "utc": "2026-11-25T11:19:36Z",
+      "component": "woocommerce",
+      "stage": "resume",
+      "before": "11.0.1",
+      "after": "11.1.1"
+    },
+    {
+      "utc": "2026-11-25T11:19:38Z",
+      "component": "all",
+      "stage": "stopped",
+      "code": "A04_CALLBACK_REFUSED"
+    }
+  ]
+}

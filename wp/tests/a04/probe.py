@@ -2,6 +2,7 @@ import pathlib, re, zipfile
 p=pathlib.Path('/opt/woocommerce/woocommerce/includes/class-wc-install.php')
 s=p.read_text()
 print('WOO_PUBLIC_UPDATE_METHODS',re.findall(r'public static function ([A-Za-z0-9_]+)',s))
+for match in re.finditer('woocommerce_run_update_callback',s):print('WOO_QUEUE_DEFINITION',s[max(0,match.start()-280):match.start()+420])
 for marker in ['public static function run_update_callback','public static function get_db_update_callbacks']:
     start=s.find(marker)
     print('WOO_UPDATE_IMPLEMENTATION',s[start:start+2600])
