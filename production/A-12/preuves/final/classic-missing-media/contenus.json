@@ -192,8 +192,8 @@
                 "draft": 2,
                 "publish": 5
             },
-            "first_published_utc": "2026-11-25T23:37:38Z",
-            "last_published_utc": "2026-11-25T23:37:42Z",
+            "first_published_utc": "2026-11-25T23:49:09Z",
+            "last_published_utc": "2026-11-25T23:49:14Z",
             "metadata_keys": [
                 {
                     "key": "_wp_page_template",
@@ -215,7 +215,7 @@
                 "publish": 4
             },
             "first_published_utc": "2023-12-31T23:30:00Z",
-            "last_published_utc": "2026-11-25T23:37:38Z",
+            "last_published_utc": "2026-11-25T23:49:09Z",
             "metadata_keys": [
                 {
                     "key": "_encloseme",
@@ -244,8 +244,8 @@
             "states": {
                 "publish": 2
             },
-            "first_published_utc": "2026-11-25T23:37:47Z",
-            "last_published_utc": "2026-11-25T23:37:49Z",
+            "first_published_utc": "2026-11-25T23:49:20Z",
+            "last_published_utc": "2026-11-25T23:49:23Z",
             "metadata_keys": [
                 {
                     "key": "_a12_article_id",
@@ -745,8 +745,8 @@
             "states": {
                 "publish": 1
             },
-            "first_published_utc": "2026-11-25T23:37:46Z",
-            "last_published_utc": "2026-11-25T23:37:46Z",
+            "first_published_utc": "2026-11-25T23:49:20Z",
+            "last_published_utc": "2026-11-25T23:49:20Z",
             "metadata_keys": [
                 {
                     "key": "_access_length",
@@ -1040,7 +1040,7 @@
                 "publish": 4
             },
             "first_published_utc": "2023-12-31T23:30:00Z",
-            "last_published_utc": "2026-11-25T23:37:38Z",
+            "last_published_utc": "2026-11-25T23:49:09Z",
             "term_count": 2,
             "top_terms": [
                 {
@@ -1162,8 +1162,8 @@
             "states": {
                 "publish": 2
             },
-            "first_published_utc": "2026-11-25T23:37:47Z",
-            "last_published_utc": "2026-11-25T23:37:49Z",
+            "first_published_utc": "2026-11-25T23:49:20Z",
+            "last_published_utc": "2026-11-25T23:49:23Z",
             "term_count": 1,
             "top_terms": [
                 {
@@ -1217,8 +1217,8 @@
             "states": {
                 "publish": 2
             },
-            "first_published_utc": "2026-11-25T23:37:47Z",
-            "last_published_utc": "2026-11-25T23:37:49Z",
+            "first_published_utc": "2026-11-25T23:49:20Z",
+            "last_published_utc": "2026-11-25T23:49:23Z",
             "term_count": 6,
             "top_terms": [
                 {
@@ -1427,5 +1427,5 @@
         "Les seuls textes libres permis sont les noms des termes; valeurs suspectes masquees. Aucun titre, contenu, auteur, contact, identifiant de client, valeur de champ ou chemin de media exporte.",
         "Les comptes editoriaux restent dans posts/postmeta dans les deux magasins; aucune lecture des coordonnees de commande HPOS ni interpretation des droits."
     ],
-    "audit_sha256": "26256e973692dcefe1a2d9f053adfdc09d26dcf15589f0056413b784ed3a291b"
+    "audit_sha256": "7ed1910cb549785f5b3e9c51b9e4574d07e761e28bfde499371af49145f53c96"
 }

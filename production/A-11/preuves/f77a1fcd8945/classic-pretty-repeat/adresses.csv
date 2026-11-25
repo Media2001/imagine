@@ -1,0 +1,26 @@
+﻿ancienne;nature;type_contenu;etat_publication;derniere_modification_utc;autres_contextes
+/;"archive de type de contenu";post;public;;
+/?attachment_id=37;"pièce jointe";attachment;inherit;2026-11-25T23:48:55Z;
+/a11-category/a11-article/;article;post;publish;2025-02-03T12:00:00Z;
+/a11-category/a11-article/attachment/a11-attachment/;"pièce jointe";attachment;inherit;2026-11-25T23:48:55Z;
+/a11-parent/;page;page;publish;2025-02-03T12:00:00Z;
+/a11-parent/a11-child/;page;page;publish;2025-02-03T12:00:00Z;
+/a11-shop/;page;page;publish;2025-02-03T12:00:00Z;"archive de type de contenu : product"
+/a11-unattached/;"pièce jointe";attachment;inherit;2026-11-25T23:48:55Z;
+/author/a11-product-writer/;"archive d'auteur";author;public;;
+/author/a11-writer/;"archive d'auteur";author;public;;
+/boutique/a11-product_cat/a11-product/;produit;product;publish;2026-11-25T23:48:55Z;
+/etiquettes/a11-empty-product_tag/;"terme de taxonomie";product_tag;public;;
+/etiquettes/a11-product_tag/;"terme de taxonomie";product_tag;public;;
+/familles/a11-empty-product_cat/;"terme de taxonomie";product_cat;public;;
+/familles/a11-product_cat/;"terme de taxonomie";product_cat;public;;
+/histoires/;"archive de type de contenu";a11_story;public;;
+/histoires/a11-story/?edition=a%2fb+z&host=a02.synthetic.test&ssl=yes;article;a11_story;publish;2025-02-03T12:00:00Z;
+/mots/a11-empty-post_tag/;"terme de taxonomie";post_tag;public;;
+/mots/a11-post_tag/;"terme de taxonomie";post_tag;public;;
+/rubriques/a11-category/;"terme de taxonomie";category;public;;
+/rubriques/a11-empty-category/;"terme de taxonomie";category;public;;
+/rubriques/uncategorized/;"terme de taxonomie";category;public;;
+/sujets/a11-a11_topic/;"terme de taxonomie";a11_topic;public;;
+/sujets/a11-empty-a11_topic/;"terme de taxonomie";a11_topic;public;;
+/uncategorized/a11-ecole/;article;post;publish;2025-02-03T12:00:00Z;

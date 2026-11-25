@@ -49,12 +49,17 @@ Le nom complet comprend le prénom s'il est configuré. La syntaxe email est
 contrôlée sans réseau, pas la délivrabilité. Les outils WordPress ne sont pas
 appelés : le besoin est précisément un contrôle préalable autonome, pas un importeur.
 
-## Intégration réservée au parent
+## Intégration reçue
 
-Ce lot ajoute `wp/tests/a13/` ; la consigne permanente demande de relancer
-`wp/tests/preparer-image.ps1` avant `PRET`. Le sous-agent n'a pas reconstruit
-l'image partagée ni modifié un script partagé. **Le parent doit effectuer cette
-reconstruction, consigner son résultat et déposer `production/A-13/PRET` seulement
-après réussite.** Les 35 tests ci-dessus sont autonomes ; aucun test PHP global
-ni test d'accès à un export réel n'est revendiqué ici. Aucun marqueur `PRET`
-anticipé ou conditionnel n'est fourni dans ce paquet.
+Le parent a exécuté `wp/tests/preparer-image.ps1`, code **0**, le **26 novembre
+2026 à 00:45:29 CET** ; reçu et journal `production/A-11/preparer-image-parent.json`
+et `.log`, image T01 vérifiée. Cette exigence est acquise avant le marqueur PRET.
+La réception a rejoué les **35 tests**, sans échec/erreur/ignoré, puis les trois
+commandes CLI fictives (codes **0, 1 et 2**) : preuves fraîches
+`reception-verification.json` et `reception-verification.tests.txt`.
+
+Les anciennes preuves `verification.json` et `.tests.txt` restent historiques,
+sans réécriture de leur mention d'attente parent. `reception.json` porte l'état
+courant ; `manifeste.json` scelle l'ensemble. Vérification consolidée en lecture
+seule : `python -B production/A-10/verifier-reception.py`. Aucun test PHP global,
+accès à un export réel, import ou GO de migration n'est revendiqué.

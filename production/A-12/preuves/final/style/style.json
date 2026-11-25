@@ -1,5 +1,5 @@
 {
-  "container": "imagine-a12-style-91d211b8a0a9",
+  "container": "imagine-a12-style-7be3ae70865d",
   "checks": [
     {
       "check": "isolation_before",
@@ -13,7 +13,7 @@
           "ALL"
         ],
         "no_new_privileges": true,
-        "image_id": "sha256:fde840f6e05fc66a4985114182f4edc0cf4090f43ac48d1d674b089baddc3377"
+        "image_id": "sha256:e3d597bba3f5a69635b5d5a264fe69b03d35cc94da90f0b09485f8d8664c3c57"
       }
     },
     {
@@ -37,7 +37,7 @@
           "ALL"
         ],
         "no_new_privileges": true,
-        "image_id": "sha256:fde840f6e05fc66a4985114182f4edc0cf4090f43ac48d1d674b089baddc3377"
+        "image_id": "sha256:e3d597bba3f5a69635b5d5a264fe69b03d35cc94da90f0b09485f8d8664c3c57"
       }
     },
     {

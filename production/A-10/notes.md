@@ -1,6 +1,6 @@
 # A-10 — livré pour relecture
 
-Paquet courant : `preuves/5e795d00f9d6`, produit après les derniers changements des sources. `python wp/tests/a10/verifier.py --replay` : **code 0, 10 assertions unitaires + 187 natives + 7 runner = 204 PASS**, zéro échec. Commande et sortie réelle : `rejeu-corrections.json`. Assertions nommées, pas un décompte PHPUnit. Les paquets précédents restent historiques ; ancien état : `notes-avant-corrections.md` et `manifest-avant-corrections.json`.
+Paquet courant d'intégration : `preuves/3a27ca7aea7c`, produit après la correction du contrat multi-lots du README. Rejeu natif réel : **code 0, 10 assertions unitaires + 187 natives + 7 runner = 204 PASS**, zéro échec. Quatre tests de contrat supplémentaires protègent l'original et tous les octets des ajouts autorisés. Le précédent paquet `5e795d00f9d6` et `rejeu-corrections.json` restent historiques, sans être réétiquetés. Assertions nommées, pas un décompte PHPUnit ; ancien état également dans `notes-avant-corrections.md` et `manifest-avant-corrections.json`.
 
 ## Sept instructions de correction
 
@@ -26,11 +26,11 @@ Les variantes sont préparées après la preuve principale et disposent chacune 
 
 ## Préservation, RED et préparation
 
-`a02-baseline.json` couvre l'inventaire et les bytes A-02. Seul ajout autorisé : les **deux lignes exactes** de `readme-ajout.txt` en fin de `wp/tests/a02-audit/README.md` ; leur retrait reconstruit le SHA-256 original. Aucun autre outil accepté modifié, aucun Git, staging, demo, archive ou site réel accédé.
+`a02-baseline.json` couvre l'inventaire et les bytes A-02. Le vérificateur reconstruit désormais strictement **README A-02 original + deux lignes A-10 exactes + séparateur vide + deux lignes A-11 exactes + deux lignes A-12 exactes**, dans cet ordre, sans normaliser les octets. Le SHA-256 A-02 original et celui de l'ajout A-10 sont figés ; les ajouts A-11/A-12 sont des littéraux exacts. Toute mutation d'un octet, omission, duplication, inversion, fin de ligne ou ajout inconnu est refusée. Aucun autre outil accepté modifié, aucun Git, staging, demo, archive ou site réel accédé.
 
-Les premiers RED historiques (module puis commande absents) sont conservés ; les deux RED propres à cette correction figurent ci-dessus. GREEN final après le dernier changement de source : `5e795d00f9d6`.
+Les premiers RED historiques (module puis commande absents) sont conservés ; les deux RED propres à cette correction figurent ci-dessus. GREEN correction métier historique : `5e795d00f9d6` ; GREEN d'intégration après le dernier changement de source de test : `3a27ca7aea7c`.
 
-La préparation initiale `wp/tests/preparer-image.ps1` avait réellement terminé code **0** : reçu et journal bruts dans `preparation/`, toujours vérifiés avec le SHA-256 courant du script. Cette correction étend le paquet A10 existant sans nouvelle dépendance : **aucune reconstruction de l'image partagée**, ni nouvelle préparation présentée comme fraîche. Le journal initial conserve l'avertissement préexistant « T01 sans tests : themes/imagine » ; aucun fichier de cette voie 2 modifié. Aucune prétention de rejeu global T01 : l'acceptance est la fixture native autonome.
+La préparation initiale code **0** dans `preparation/` reste historique et vérifiable. La préparation commune du parent du **26 novembre 2026 à 00:45:29 CET** a réellement terminé **code 0**, reçu et journal bruts `production/A-11/preparer-image-parent.json` et `.log`, avec image T01 vérifiée. Cette réception n'a ni relancé la préparation partagée ni ajouté de dépendance. Le journal conserve l'avertissement préexistant « T01 sans tests : themes/imagine » ; aucun fichier de cette voie 2 modifié. Aucune prétention de rejeu global T01 : l'acceptance est la fixture native autonome. Le reçu consolidé `reception-common.json` lie ce résultat aux octets du journal et du script.
 
 ## Défauts techniques et limites
 

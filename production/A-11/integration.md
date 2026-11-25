@@ -7,11 +7,13 @@ Le chemin transmis `C:/Users/Ced/imagine voie1` n'existe pas sur cette machine. 
 Après l'audit, lancer `php wp/outils/bascule/a11/inventorier-adresses --wp-path=/copie-verifiee/site --audit=/rapports/audit-001/audit.json --output=/rapports/adresses-001` dans la même copie confinée, avec un dossier de sortie neuf, frère du rapport d'audit et hors racine web/dépôt.
 Le fichier `adresses.csv` (UTF-8, séparateur `;`) donne la colonne `ancienne` selon A-09; `resume.md` donne les nombres, les exclus et les bases de permaliens, sans client ni décision de redirection; voir `a11/README.md` pour les gardes et le rejeu dédié.
 
-## Dernier geste réservé au parent
+## Réception intégrée
 
-La consigne permanente exige `wp/tests/preparer-image.ps1` après l'ajout d'un paquet de tests. Sa reconstruction m'a été expressément interdite : **elle reste au parent**, ainsi que l'insertion des deux lignes ci-dessus dans le README partagé. Aucun `PRET` n'est déposé tant que cette exigence n'est pas prouvée. Le parent peut déposer `production/A-11/PRET` après son succès et le contrôle du paquet final par `python wp/tests/a11/verifier.py production/A-11/preuves/IDENTIFIANT`.
+Les deux lignes ci-dessus ont été relues dans le README partagé, à leurs octets exacts après l'ajout A-10 et avant les deux lignes A-12. Le parent a réellement exécuté `wp/tests/preparer-image.ps1`, code **0**, le **26 novembre 2026 à 00:45:29 CET** ; reçu et journal `preparer-image-parent.json` / `.log`, image T01 vérifiée. Ces formalités sont acquises et ne restent plus à faire.
 
-Le runner dédié `python wp/tests/a11/run.py --final` ne reconstruit rien et n'effectue aucun rejeu global. Les essais intermédiaires sont hors dépôt, dans le scratch Hermes A11; le seul dossier `production/A-11/preuves/` doit contenir le dernier rejeu vert.
+Rejeu natif frais sur le baseline intégré : **13 assertions unitaires, 284 natives, 7 runner**, toutes PASS ; paquet courant unique `preuves/f77a1fcd8945`. Le vérificateur original conserve les comparaisons strictes `protected-before == protected-after == sources courantes` ; aucun README ni autre drift n'est ignoré. L'ancien paquet `bb086d5bb67e` et l'ancien manifeste sont conservés byte à byte au scratch `a10-a13-reception/historical/A-11/`, pas modifiés pour les rendre verts.
+
+Vérification ciblée : `python -B wp/tests/a11/verifier.py production/A-11/preuves/f77a1fcd8945`. Vérification consolidée des manifestes/PRET : `python -B production/A-10/verifier-reception.py`. Un nouveau rejeu reste disponible via `python wp/tests/a11/run.py` (scratch) ; ne pas multiplier les paquets finaux au dépôt.
 
 ## Décisions prises à défaut
 

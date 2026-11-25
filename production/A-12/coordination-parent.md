@@ -1,7 +1,7 @@
-# Coordination A-12 / parent
+## Réception des formalités du parent
 
-Le blocage runtime est levé. Dernier rejeu natif : 118 assertions PASS, 7 pures PASS, 7 gates runner PASS ; PHPCS strict sans erreur/avertissement. Sources A-11 et A-02 inchangées. Trente types et dix-huit taxonomies exactement égaux à l'oracle dans chaque mode, `a12_dynamic` inclus et `a12_never` exclu.
+La préparation commune a réellement terminé code **0** le **26 novembre 2026 à 00:45:29 CET** : reçu `production/A-11/preparer-image-parent.json`, journal `.log`, image T01 vérifiée. Le README partagé contient les deux lignes exactes d'`integration.md` après les ajouts A-10/A-11 ; la commande reste le lanceur Landlock `python3 wp/outils/bascule/a12/confine.py`, jamais le PHP brut.
 
-**Commande opérateur modifiée** : lancer `python3 wp/outils/bascule/a12/confine.py ...`, pas le PHP brut. Le lanceur applique Landlock au code tiers avant bootstrap et refuse hors conteneur Linux déconnecté. Les deux lignes à intégrer sont à jour dans `integration.md`.
+Nouveau rejeu natif et contrôle PSR-12 strict, sans modifier les sources A-12 ni A-11. Le paquet courant unique est `preuves/final/` avec baseline intégré réellement observé ; 118 assertions natives, 7 unitaires, 7 runner, 6 style et 41 intégrité PASS. L'ancien paquet et ses baselines restent byte à byte au scratch `a10-a13-reception/historical/A-12/`. Les comparaisons strictes des dépendances sont conservées, sans exception README.
 
-Le parent garde l'ownership de `wp/tests/preparer-image.ps1` et du mode d'emploi commun. Pour déposer PRET sans affirmation invérifiable, le worker doit pouvoir lire le reçu réel de préparation (exit 0, image vérifiée) et l'intégration commune. Merci de déposer leur référence/résultat dans ce dossier A-12 ou de les confirmer par le canal de coordination. Le worker n'exécute aucune préparation partagée ni modification du mode d'emploi commun.
+Réception PRET sans réserve technique connue. Contrôle parent : `python -B production/A-10/verifier-reception.py`. Aucun accès réel, aucune préparation partagée supplémentaire, aucun Git ni modification de verrou.

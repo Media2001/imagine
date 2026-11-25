@@ -1,6 +1,6 @@
 # A-12 — résultat de la livraison
 
-**Verdict technique : NATIVE_VERIFIE. Le blocage registre est levé.** Le dépôt de `PRET` attend uniquement la lecture des deux formalités communes réservées au parent (préparation d'image et mode d'emploi). Aucun résultat de ces opérations n'est inventé ici.
+**Verdict technique : NATIVE_VERIFIE. Réception intégrée : PRET.** Le blocage registre est levé et les deux formalités communes sont désormais prouvées : préparation d'image parent code 0 et lecture exacte du mode d'emploi multi-lots. Le reçu consolidé `production/A-10/reception-common.json` lie ces faits aux octets du journal, du script et du README.
 
 ## Acquis vérifiés
 
@@ -15,8 +15,8 @@ Comptes prouvés : cinq contenus de quatre états, type vide et type déclaré d
 ## Registre acquis ; formalités du parent
 
 1. **Registres natifs et attribution runtime : acquis.** Dans les deux magasins, **30 types et 18 taxonomies** exactement égaux à l'oracle ; `a12_dynamic` inclus, `a12_never` exclu, taxonomie calculée incluse, appels non exécutés et objets retirés exclus. Les deux fichiers `*-registry-gap.json` ont leurs listes vides. Fichiers déclarants cœur/WooCommerce/MU/thème exacts ; observation par hooks réels et pile sans arguments, pas d'analyse statique. L'ancien `Declarations.php` est supprimé.
-2. **Préparation de l'image partagée avant PRET : responsabilité du parent.** Non exécutée par ce worker. Le runner de style a réellement inspecté/utilisé l'image `sha256:fde840f6e05fc66a4985114182f4edc0cf4090f43ac48d1d674b089baddc3377` ; cela ne fabrique pas un reçu de `preparer-image.ps1`. Aucun package Composer ajouté.
-3. **Deux lignes communes : responsabilité du parent.** Fichier `integration.md` à jour ; ne pas intégrer l'ancienne commande PHP brute ni l'ancien avertissement de registre partiel. `coordination-parent.md` demande la référence du reçu de préparation et la lecture de l'intégration avant `PRET`.
+2. **Préparation de l'image partagée avant PRET : acquise.** Reçu parent `production/A-11/preparer-image-parent.json`, code 0, journal SHA-256 vérifié ; image T01 inspectée et utilisée par le nouveau contrôle de style. L'ancienne image et son reçu de style restent historiques au scratch. Aucun package Composer ajouté.
+3. **Deux lignes communes : intégrées et relues.** Les octets d'`integration.md` sont dans le README partagé, dans l'ordre exact A-10/A-11/A-12. `coordination-parent.md` et le verdict portent maintenant la réception, sans formalité parent restante.
 
 ## Décisions prises à défaut
 
@@ -27,14 +27,14 @@ Orphelin signifie parent nul/inexistant, pas inutilisé. Poids signifie originau
 ## Commandes effectivement exécutées pour le paquet final
 
 ```text
-python wp/tests/a12/style.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a12-runtime/final-style
-python wp/tests/a12/run.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a12-runtime/final-native
-python wp/tests/a12/verify.py C:/Users/Ced/AppData/Local/hermes/cache/scratch/a12-runtime/final-native --save
-python wp/tests/a12/verify.py production/A-12/preuves/final --save
+python -B wp/tests/a12/style.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a10-a13-reception/a12-style
+python -B wp/tests/a12/run.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a10-a13-reception/a12-native
+python -B wp/tests/a12/verify.py C:/Users/Ced/AppData/Local/hermes/cache/scratch/a10-a13-reception/a12-native --save
+python -B wp/tests/a12/verify.py production/A-12/preuves/final --save
 ```
 
 Le dossier de style a été copié sous le paquet natif ; les empreintes de sources concordent. Ne pas réutiliser ces destinations déjà existantes pour un nouveau rejeu.
 
-Ancien paquet partiel archivé hors dépôt dans `a12-runtime/previous-partial-final/`. RED runtime réellement observé dans `a12-runtime/red-runtime/` avant modification : l'exigence d'égalité du registre échouait. Essais intermédiaires au scratch seulement : garde de chemin du lanceur corrigée, cinq avertissements de longueur de ligne corrigés. Une seule livraison finale verte au dépôt, liée aux sources finales ; dépendances A-02 et A-11 stables. Aucun fichier d'un autre lot restauré/modifié.
+Ancien paquet partiel archivé hors dépôt dans `a12-runtime/previous-partial-final/` ; ancien paquet natif pré-intégration conservé byte à byte dans `a10-a13-reception/historical/A-12/`. RED runtime réellement observé dans `a12-runtime/red-runtime/` avant modification : l'exigence d'égalité du registre échouait. Essais intermédiaires au scratch seulement : garde de chemin du lanceur corrigée, cinq avertissements de longueur de ligne corrigés. Une seule livraison finale verte au dépôt, liée aux sources finales ; nouveau baseline A-02 comprenant exclusivement les ajouts exacts déjà intégrés par le parent, et dépendances A-11 strictement stables. Aucun fichier d'un autre lot restauré/modifié.
 
 Références officielles publiques : `standards.md`, `sources-officielles.json`. Aucun réel, compte, archive Imagine, secret, site de staging, bootstrap production, envoi, achat, déploiement ou opération Git. Aucun rapport réel ne doit rejoindre ce dépôt.

@@ -1,0 +1,9 @@
+{
+  "exit": 0,
+  "stdout": "PHPUnit 11.5.58 by Sebastian Bergmann and contributors.\n\nRuntime:       PHP 8.2.33\nConfiguration: /repo/wp/plugins/imagine-site/phpunit.xml\n\n.                                                                   1 / 1 (100%)\n\nTime: 00:00.010, Memory: 8.00 MB\n\nOK (1 test, 2 assertions)\n\nC16_JUNIT\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<testsuites>\n  <testsuite name=\"/repo/wp/plugins/imagine-site/phpunit.xml\" tests=\"1\" assertions=\"2\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.006253\">\n    <testsuite name=\"Site-C11-C13\" tests=\"1\" assertions=\"2\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.006253\">\n      <testsuite name=\"Imagine\\Site\\Tests\\JustificatifReglesTest\" file=\"/repo/wp/plugins/imagine-site/tests/JustificatifReglesTest.php\" tests=\"1\" assertions=\"2\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.006253\">\n        <testcase name=\"testDecisionRemovesAllDocumentReferences\" file=\"/repo/wp/plugins/imagine-site/tests/JustificatifReglesTest.php\" line=\"12\" class=\"Imagine\\Site\\Tests\\JustificatifReglesTest\" classname=\"Imagine.Site.Tests.JustificatifReglesTest\" assertions=\"2\" time=\"0.006253\"/>\n      </testsuite>\n    </testsuite>\n  </testsuite>\n</testsuites>\n",
+  "stderr": "",
+  "network": "none",
+  "image": "sha256:e3d597bba3f5a69635b5d5a264fe69b03d35cc94da90f0b09485f8d8664c3c57",
+  "selection": "JustificatifReglesTest",
+  "removed": true
+}
