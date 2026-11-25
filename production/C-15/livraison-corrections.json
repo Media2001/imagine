@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-25T21:13:06.651983+00:00",
+  "status": "VERIFIED",
+  "PRET_newer_than_fusion": true,
+  "final_sources_unchanged": true,
+  "T01_C15_cases": 9,
+  "T01_C15_assertions": 45,
+  "owned_renewals_absent": true,
+  "sha256": {
+    "corrections/C-15.md": "89c5148f3bdfcc2500543dea398528a3148b884249ffc7735b30e9b11883c6f1",
+    "production/C-15/A-VOIR.md": "ced7b9abf22d81b33531a5e889a1001f3bf019ffe3e489379293f3a0f98ea866",
+    "production/C-15/RAPPORT.md": "f504d87aff94de5e8b6fdbc7cb11e14447a03cd1291f4844cf7019c7f422a858",
+    "production/C-15/PRET": "5904dc5d39db3a6c5c064210ff78d00ff60539dd5869a9603e3bf5b041b50674",
+    "production/C-15/corrections-final.json": "ec636f783402f147f32df74e243c25098f392a9c2a48bb1b351cf816176fb923"
+  }
+}

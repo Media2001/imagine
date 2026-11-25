@@ -1,0 +1,109 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpiiwm4ij2/site",
+    "--base-url=http://127.0.0.1:39633",
+    "--plan=/repo/wp/tests/a09/tmpiiwm4ij2/chaines-boucles.csv",
+    "--output=/report/chaines-boucles",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 1,
+  "stdout": "# Test des redirections \u2014 lecture seule\n\n0 CONFORME ; 4 non conforme(s).\n\n| Ligne | Ancienne | Code attendu | Code observ\u00e9 | Cible attendue | Cible observ\u00e9e | HTTP final | Sauts | R\u00e9sultat |\n|---|---|---|---|---|---|---|---|---|\n| 2 | /chaine | 301 | 301 | /final | /intermediaire | 200 | 2 | mauvaise_cible, chaine |\n| 3 | /boucle | 301 | 301 | /boucle-b | /boucle-b | \u2014 | 2 | chaine, boucle |\n| 4 | /auto | 301 | 301 | /final | /auto | \u2014 | 1 | mauvaise_cible, boucle |\n| 5 | /long0 | 301 | 301 | /final | /long1 | \u2014 | 9 | mauvaise_cible, chaine, limite_sauts |\n",
+  "stderr": "",
+  "events": [
+    {
+      "method": "GET",
+      "path": "/chaine",
+      "at": 484386.009212062,
+      "port": 39633
+    },
+    {
+      "method": "GET",
+      "path": "/intermediaire",
+      "at": 484386.109588337,
+      "port": 39633
+    },
+    {
+      "method": "GET",
+      "path": "/final",
+      "at": 484386.210423774,
+      "port": 39633
+    },
+    {
+      "method": "GET",
+      "path": "/boucle",
+      "at": 484386.311010821,
+      "port": 39633
+    },
+    {
+      "method": "GET",
+      "path": "/boucle-b",
+      "at": 484386.411012765,
+      "port": 39633
+    },
+    {
+      "method": "GET",
+      "path": "/auto",
+      "at": 484386.511345335,
+      "port": 39633
+    },
+    {
+      "method": "GET",
+      "path": "/long0",
+      "at": 484386.611954675,
+      "port": 39633
+    },
+    {
+      "method": "GET",
+      "path": "/long1",
+      "at": 484386.711843174,
+      "port": 39633
+    },
+    {
+      "method": "GET",
+      "path": "/long2",
+      "at": 484386.812775511,
+      "port": 39633
+    },
+    {
+      "method": "GET",
+      "path": "/long3",
+      "at": 484386.91341077,
+      "port": 39633
+    },
+    {
+      "method": "GET",
+      "path": "/long4",
+      "at": 484387.013821462,
+      "port": 39633
+    },
+    {
+      "method": "GET",
+      "path": "/long5",
+      "at": 484387.115032016,
+      "port": 39633
+    },
+    {
+      "method": "GET",
+      "path": "/long6",
+      "at": 484387.215167314,
+      "port": 39633
+    },
+    {
+      "method": "GET",
+      "path": "/long7",
+      "at": 484387.315738678,
+      "port": 39633
+    },
+    {
+      "method": "GET",
+      "path": "/long8",
+      "at": 484387.416194981,
+      "port": 39633
+    }
+  ],
+  "site_unchanged": true
+}

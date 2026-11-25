@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpl5xr4iyf/site",
+    "--base-url=http://127.0.0.1:39843",
+    "--plan=/repo/wp/tests/a09/tmpl5xr4iyf/limites-4.csv",
+    "--output=/report/limites-4",
+    "--interval=0.1",
+    "--timeout=0.15",
+    "--base-url=http://example.org"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "A09_DECLARATION\n",
+  "events": [],
+  "site_unchanged": true
+}

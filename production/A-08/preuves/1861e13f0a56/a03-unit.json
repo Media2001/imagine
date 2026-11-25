@@ -1,0 +1,15 @@
+{
+    "tests": {
+        "comparison_classifies_versions_access_and_scheduler": true,
+        "verified_marker_and_explicit_write_gate": true,
+        "page_health_and_date_movement_are_anomalous": true,
+        "database_host_is_literal_and_bounded": true,
+        "incomplete_reports_are_refused": true,
+        "renewal_modes_are_complete_and_not_interchangeable": true,
+        "disappearing_page_is_anomalous": true,
+        "section_keys_refuse_personal_names": true,
+        "sample_state_dictionary_does_not_reindex": true,
+        "comparer_cli_rejects_malformed_reports_without_leaking_keys": true
+    },
+    "exit_code": 0
+}

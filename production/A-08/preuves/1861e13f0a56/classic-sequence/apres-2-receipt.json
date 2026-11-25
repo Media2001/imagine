@@ -1,0 +1,14 @@
+{
+  "step": "apres",
+  "pass": 2,
+  "command": [
+    "php",
+    "/subject/non-regression",
+    "--wp-path=/scratch/classic",
+    "--config=/opt/a03/classic-settings.json",
+    "--output=/report/classic-sequence/apres-2"
+  ],
+  "exit": 0,
+  "duration_seconds": 0.7584839159972034,
+  "receipt": "apres-2-receipt.json"
+}

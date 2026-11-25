@@ -1,0 +1,37 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpr10p_mk9/site",
+    "--base-url=http://127.0.0.1:35331",
+    "--plan=/repo/wp/tests/a09/tmpr10p_mk9/double-location.csv",
+    "--output=/report/double-location",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 1,
+  "stdout": "# Test des redirections \u2014 lecture seule\n\n1 CONFORME ; 1 non conforme(s).\n\n| Ligne | Ancienne | Code attendu | Code observ\u00e9 | Cible attendue | Cible observ\u00e9e | HTTP final | Sauts | R\u00e9sultat |\n|---|---|---|---|---|---|---|---|---|\n| 2 | /depart | 301 | 301 | /attendu | \u2014 | \u2014 | 1 | redirection_invalide |\n| 3 | /ok | 301 | 301 | /fin | /fin | 200 | 1 | CONFORME |\n",
+  "stderr": "",
+  "events": [
+    {
+      "method": "GET",
+      "path": "/depart",
+      "at": 484390.307489282,
+      "port": 35331
+    },
+    {
+      "method": "GET",
+      "path": "/ok",
+      "at": 484390.407559074,
+      "port": 35331
+    },
+    {
+      "method": "GET",
+      "path": "/fin",
+      "at": 484390.507399979,
+      "port": 35331
+    }
+  ],
+  "site_unchanged": true
+}

@@ -1,0 +1,115 @@
+{
+  "schema": "imagine-a09-report-v1",
+  "base_url": "http://127.0.0.1:41613",
+  "read_only": true,
+  "requests": 10,
+  "total": 5,
+  "nonconformes": 0,
+  "rows": [
+    {
+      "line": 2,
+      "ancienne": "/old0",
+      "cible": "/new0?n=1",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "new0?n=1",
+      "final_status": 200,
+      "hops": 1,
+      "issues": [],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:41613/old0",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:41613/new0?n=1",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "line": 3,
+      "ancienne": "/old1",
+      "cible": "/new1?n=1",
+      "code": 302,
+      "observed_code": 302,
+      "observed_target": "http://127.0.0.1:41613/new1?n=1",
+      "final_status": 200,
+      "hops": 1,
+      "issues": [],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:41613/old1",
+          "status": 302
+        },
+        {
+          "url": "http://127.0.0.1:41613/new1?n=1",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "line": 4,
+      "ancienne": "/old2",
+      "cible": "/new2?n=1",
+      "code": 303,
+      "observed_code": 303,
+      "observed_target": "new2?n=1",
+      "final_status": 200,
+      "hops": 1,
+      "issues": [],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:41613/old2",
+          "status": 303
+        },
+        {
+          "url": "http://127.0.0.1:41613/new2?n=1",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "line": 5,
+      "ancienne": "/old3",
+      "cible": "/new3?n=1",
+      "code": 307,
+      "observed_code": 307,
+      "observed_target": "http://127.0.0.1:41613/new3?n=1",
+      "final_status": 200,
+      "hops": 1,
+      "issues": [],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:41613/old3",
+          "status": 307
+        },
+        {
+          "url": "http://127.0.0.1:41613/new3?n=1",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "line": 6,
+      "ancienne": "/old4",
+      "cible": "/new4?n=1",
+      "code": 308,
+      "observed_code": 308,
+      "observed_target": "new4?n=1",
+      "final_status": 200,
+      "hops": 1,
+      "issues": [],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:41613/old4",
+          "status": 308
+        },
+        {
+          "url": "http://127.0.0.1:41613/new4?n=1",
+          "status": 200
+        }
+      ]
+    }
+  ]
+}

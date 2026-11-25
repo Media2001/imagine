@@ -1,0 +1,29 @@
+{
+  "at": "2026-11-25T21:15:46.566363+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "raccord_present": true,
+    "capacite_E-ABO": true,
+    "capacite_E-ADMIN": true,
+    "capacite_E-REDAC": true,
+    "capacite_A-CARTE": true,
+    "referent_cap_dediee_sans_manage_options": true,
+    "A_ECHEANCE_dans_echeances": true,
+    "A_VIR_seul_virement": true,
+    "A_VIR_attente": true,
+    "A_CARTE_payee_hors_attente": true,
+    "echecs_GRACE_SUSP_seulement": true,
+    "A_PAPIER_seul_mandat": true,
+    "mandat_identifiant_fictif_natif": true,
+    "mandat_montant_date_natifs": true,
+    "pas_IBAN_dans_projection": true,
+    "marqueur_fictif_mauvais_proprietaire_ferme": true,
+    "marqueur_fictif_mauvais_id_ferme": true,
+    "marqueur_sans_fictif_ferme": true,
+    "methode_native_prioritaire_pas_de_bacs_invente": true,
+    "garde_hors_ligne": true,
+    "anonyme_ferme": true
+  },
+  "total": 21,
+  "failures": []
+}

@@ -1,0 +1,131 @@
+{
+  "schema": "imagine-a05-state-v1",
+  "site": "/scratch/classic",
+  "plan_sha256": "e374ccfcd7b162080ede34de0b625a8355abe82cd2b4502a951d7a6949bf98a5",
+  "config_sha256": "9a14bbeb20f2b5443c961da8ac66abff7be8bc1f9a65d1c4b9aacbe40e769c77",
+  "operations": [
+    {
+      "kind": "deactivate",
+      "name": "a08-orphan/entry.php",
+      "rows": 1,
+      "bytes": 0,
+      "phase": "done"
+    },
+    {
+      "kind": "plugin",
+      "name": "a08-orphan/entry.php",
+      "files": 1,
+      "bytes": 59,
+      "phase": "done"
+    },
+    {
+      "kind": "table",
+      "name": "wp_a08_orphan",
+      "rows": 1,
+      "bytes": 16384,
+      "phase": "done"
+    },
+    {
+      "kind": "option",
+      "name": "a08_orphan_setting",
+      "rows": 1,
+      "bytes": 7,
+      "phase": "done"
+    },
+    {
+      "kind": "cron",
+      "name": "a08_orphan_hook",
+      "rows": 1,
+      "bytes": 106,
+      "phase": "done"
+    },
+    {
+      "kind": "upload",
+      "name": "a08-debris",
+      "files": 1,
+      "bytes": 27,
+      "phase": "done"
+    }
+  ],
+  "events": [
+    {
+      "utc": "2026-11-25T21:15:54Z",
+      "kind": "deactivate",
+      "name": "a08-orphan/entry.php",
+      "stage": "start"
+    },
+    {
+      "utc": "2026-11-25T21:15:55Z",
+      "kind": "deactivate",
+      "name": "a08-orphan/entry.php",
+      "stage": "done"
+    },
+    {
+      "utc": "2026-11-25T21:15:55Z",
+      "kind": "plugin",
+      "name": "a08-orphan/entry.php",
+      "stage": "start"
+    },
+    {
+      "utc": "2026-11-25T21:15:55Z",
+      "kind": "plugin",
+      "name": "a08-orphan/entry.php",
+      "stage": "done"
+    },
+    {
+      "utc": "2026-11-25T21:15:55Z",
+      "kind": "table",
+      "name": "wp_a08_orphan",
+      "stage": "start"
+    },
+    {
+      "utc": "2026-11-25T21:15:55Z",
+      "kind": "table",
+      "name": "wp_a08_orphan",
+      "stage": "done"
+    },
+    {
+      "utc": "2026-11-25T21:15:55Z",
+      "kind": "option",
+      "name": "a08_orphan_setting",
+      "stage": "start"
+    },
+    {
+      "utc": "2026-11-25T21:15:55Z",
+      "kind": "option",
+      "name": "a08_orphan_setting",
+      "stage": "done"
+    },
+    {
+      "utc": "2026-11-25T21:15:55Z",
+      "kind": "cron",
+      "name": "a08_orphan_hook",
+      "stage": "start"
+    },
+    {
+      "utc": "2026-11-25T21:15:55Z",
+      "kind": "cron",
+      "name": "a08_orphan_hook",
+      "stage": "done"
+    },
+    {
+      "utc": "2026-11-25T21:15:55Z",
+      "kind": "upload",
+      "name": "a08-debris",
+      "stage": "start"
+    },
+    {
+      "utc": "2026-11-25T21:15:55Z",
+      "kind": "upload",
+      "name": "a08-debris",
+      "stage": "done"
+    },
+    {
+      "utc": "2026-11-25T21:15:55Z",
+      "kind": "all",
+      "name": "all",
+      "stage": "complete"
+    }
+  ],
+  "complete": true
+}
