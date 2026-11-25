@@ -16,7 +16,11 @@ if (!is_string($imagineA04Site) || !is_dir($imagineA04Site)) {
 require_once $imagineA04Site . '/wp-includes/plugin.php';
 unset($imagineA04Site);
 add_filter('pre_wp_mail', static fn(): bool => false, PHP_INT_MAX);
-add_filter('pre_http_request', static fn() => new \WP_Error('imagine_a04_offline', 'Sortie bloquée pendant la bascule.'), PHP_INT_MAX);
+add_filter(
+    'pre_http_request',
+    static fn() => new \WP_Error('imagine_a04_offline', 'Sortie bloquée pendant la bascule.'),
+    PHP_INT_MAX
+);
 add_filter('woocommerce_available_payment_gateways', static fn(): array => [], PHP_INT_MAX);
 add_filter('woocommerce_subscriptions_is_duplicate_site', static fn (): bool => true, PHP_INT_MAX);
 // Keep Woo migrations inside its own explicit, journalled stage.

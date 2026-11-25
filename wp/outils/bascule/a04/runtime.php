@@ -68,7 +68,8 @@ final class Runtime
             \WC_Install::run_update_callback($callback);
             $store->mark_complete($id);
             self::need($store->get_status($id) === 'complete', 'A04_ACTION_READBACK');
-            self::trace(['component' => 'woocommerce', 'action_id' => $id, 'callback' => $label, 'stage' => 'complete']);
+            self::trace(['component' => 'woocommerce', 'action_id' => $id,
+                'callback' => $label, 'stage' => 'complete']);
             $executed[] = $label;
         }
         throw new \RuntimeException('A04_MIGRATION_LIMIT');
@@ -109,7 +110,8 @@ final class Runtime
         ) {
             self::need(($probe[$key] ?? null) === true, 'A04_RUNTIME_UNSAFE');
         }
-        self::trace(['component' => $component, 'mode' => $mode, 'stage' => 'runtime_safe', 'environment' => $expectedEnvironment]);
+        self::trace(['component' => $component, 'mode' => $mode,
+            'stage' => 'runtime_safe', 'environment' => $expectedEnvironment]);
         $migrations = [];
         if ($mode !== 'guard') {
             if ($component === 'core') {
@@ -125,16 +127,27 @@ final class Runtime
                     }
                     $migrations = self::wooMigrations();
                 }
-                self::need(version_compare((string) get_option('woocommerce_db_version'), WC()->version, '>='), 'A04_WC_DB');
+                self::need(
+                    version_compare((string) get_option('woocommerce_db_version'), WC()->version, '>='),
+                    'A04_WC_DB'
+                );
                 $migrations[] = 'woocommerce_db_version=' . get_option('woocommerce_db_version');
             } elseif ($component === 'woocommerce-subscriptions') {
                 self::need(class_exists('WC_Subscriptions_Upgrader'), 'A04_SUBSCRIPTIONS_UPGRADER');
-                if ($mode === 'migrate' && (string) get_option(\WC_Subscriptions::PLUGIN_VERSION_OPTION_NAME) !== \WC_Subscriptions::$version) {
+                $storedVersion = (string) get_option(\WC_Subscriptions::PLUGIN_VERSION_OPTION_NAME);
+                if ($mode === 'migrate' && $storedVersion !== \WC_Subscriptions::$version) {
                     \WC_Subscriptions_Upgrader::upgrade();
                     $migrations[] = 'WC_Subscriptions_Upgrader::upgrade';
                 }
-                self::need((string) get_option(\WC_Subscriptions::PLUGIN_VERSION_OPTION_NAME) === \WC_Subscriptions::$version, 'A04_SUBSCRIPTIONS_DB');
-                self::need((string) get_option('woocommerce_subscriptions_active_version') === \WC_Subscriptions_Core_Plugin::instance()->get_library_version(), 'A04_SUBSCRIPTIONS_LIBRARY_DB');
+                self::need(
+                    (string) get_option(\WC_Subscriptions::PLUGIN_VERSION_OPTION_NAME) === \WC_Subscriptions::$version,
+                    'A04_SUBSCRIPTIONS_DB'
+                );
+                self::need(
+                    (string) get_option('woocommerce_subscriptions_active_version')
+                    === \WC_Subscriptions_Core_Plugin::instance()->get_library_version(),
+                    'A04_SUBSCRIPTIONS_LIBRARY_DB'
+                );
             } elseif ($component === 'woocommerce-memberships') {
                 require_once WC_ABSPATH . 'includes/admin/wc-admin-functions.php';
                 $handler = wc_memberships()->get_lifecycle_handler();
@@ -143,7 +156,10 @@ final class Runtime
                     $handler->init();
                     $migrations[] = 'WC_Memberships lifecycle init';
                 }
-                self::need((string) get_option('wc_memberships_version') === wc_memberships()->get_version(), 'A04_MEMBERSHIPS_DB');
+                self::need(
+                    (string) get_option('wc_memberships_version') === wc_memberships()->get_version(),
+                    'A04_MEMBERSHIPS_DB'
+                );
             }
             // Only the exact native Woo queue is drained above. Other pending
             // migration work must never be mistaken for completion or run as a global queue.
@@ -160,12 +176,17 @@ final class Runtime
                 if (
                     $component === 'woocommerce' && $mode === 'verify'
                     && $row['status'] === 'pending'
-                    && in_array($row['hook'], ['woocommerce_run_update_callback', 'woocommerce_update_db_to_current_version'], true)
-                    && \ActionScheduler::store()->fetch_action((int) $row['action_id'])->get_group() === 'woocommerce-db-updates'
+                    && in_array($row['hook'], [
+                        'woocommerce_run_update_callback', 'woocommerce_update_db_to_current_version',
+                    ], true)
+                    && \ActionScheduler::store()->fetch_action((int) $row['action_id'])->get_group()
+                    === 'woocommerce-db-updates'
                 ) {
                     throw new \RuntimeException('A04_KNOWN_MIGRATION_PENDING');
                 }
-                if (preg_match('/^' . $prefix . '.*(?:upgrade|migrate|migration|run_update_callback|update_db_to_current_version)/', $row['hook'])) {
+                $migrationPattern = '/^' . $prefix
+                    . '.*(?:upgrade|migrate|migration|run_update_callback|update_db_to_current_version)/';
+                if (preg_match($migrationPattern, $row['hook'])) {
                     throw new \RuntimeException('A04_PENDING_MIGRATION_ADAPTER_REQUIRED');
                 }
             }
@@ -190,7 +211,10 @@ final class Runtime
             }
             foreach (_get_cron_array() ?: [] as $hooks) {
                 foreach (array_keys($hooks) as $hook) {
-                    self::need(!preg_match('/^' . $prefix . '.*(?:upgrade|migrate|migration)/', $hook), 'A04_CRON_MIGRATION_ADAPTER_REQUIRED');
+                    self::need(
+                        !preg_match('/^' . $prefix . '.*(?:upgrade|migrate|migration)/', $hook),
+                        'A04_CRON_MIGRATION_ADAPTER_REQUIRED'
+                    );
                 }
             }
         }

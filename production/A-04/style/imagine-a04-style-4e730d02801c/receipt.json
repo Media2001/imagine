@@ -1,0 +1,15 @@
+{
+  "exit_code": 0,
+  "cleanup": true,
+  "all_messages_exit": 1,
+  "totals": {
+    "errors": 0,
+    "warnings": 1,
+    "fixable": 0
+  },
+  "sources": {
+    "wp\\outils\\bascule\\a04\\bootstrap.php": "c00ac7d816b2192794391ad9d9d873fdeb1ab12658662bd172599b459f6dfeb7",
+    "wp\\outils\\bascule\\a04\\maintenance.php": "4c356eb960eeaf1807b6aa55cd07551a58dfd843c797f6a5db3011d20aca6feb",
+    "wp\\outils\\bascule\\a04\\runtime.php": "838ab4fa0c93ec5350226fe7721d1fc444bc67ca3ac2558e5dc22c21079a7c17"
+  }
+}

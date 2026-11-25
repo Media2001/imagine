@@ -17,7 +17,7 @@
       "errors": "0",
       "failures": "0",
       "skipped": "0",
-      "time": "0.015586"
+      "time": "0.015442"
     },
     "imagine-non-regression": {
       "name": "/tmp/t01/plugins/imagine-non-regression/phpunit.xml",
@@ -26,7 +26,7 @@
       "errors": "0",
       "failures": "0",
       "skipped": "0",
-      "time": "0.029057"
+      "time": "0.028571"
     },
     "imagine-pilotage": {
       "name": "/tmp/t01/plugins/imagine-pilotage/phpunit.xml",
@@ -35,7 +35,7 @@
       "errors": "0",
       "failures": "0",
       "skipped": "0",
-      "time": "0.240905"
+      "time": "0.237647"
     },
     "imagine-site": {
       "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
@@ -44,7 +44,7 @@
       "errors": "0",
       "failures": "0",
       "skipped": "0",
-      "time": "0.477630"
+      "time": "0.492554"
     }
   }
 }

@@ -33,6 +33,7 @@
     "correction_regles_pures_presentes": true,
     "correction_relations_natives_presentes": true,
     "correction_cadeau_relation_native_identite_adresse": true,
+    "correction_identifiant_beneficiaire_malforme_pas_normalise": true,
     "correction_cadeau_incomplet_ferme_sans_rapprochement_email": true,
     "correction_politique_groupes_defaut_ferme": true,
     "correction_groupe_natif_deux_attribuees_une_libre": true,

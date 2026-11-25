@@ -1,0 +1,7 @@
+{
+  "commande": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1",
+  "exit_reel": 0,
+  "image_verifiee": "sha256:138354ada07ea0f9e02fb7fa751df9ebe68ddaac5bb6ffc5d55fbf227047660b",
+  "paquet_imagine_site_present": true,
+  "lock_a_jour": true
+}
