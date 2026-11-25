@@ -30,3 +30,4 @@ Toute demande hors cahier des charges, toute contradiction interne au cahier des
 - Seule passerelle de paiement visible : Stripe. Pas de Teams, pas d'Event Tickets.
 - Des exports et journaux dans `uploads/` (wpallexport, memberships_csv_exports, wc-logs…) : à exclure du staging, et à signaler à Imagine (fichiers d'abonnés stockés dans un dossier de médias).
 - Confirmé par Ced le 24/11 : il n'y a **qu'un seul site**, `kiosque.imagine-magazine.com` (éditorial, abonnements et boutique). Cette archive est donc tout l'existant.
+- Diagnostic du 25/11 : 16,9 Go de contenu, base de 474 Mo. Des tables `ahm_*` (WordPress Download Manager, extension désinstallée, tables restées), `matomo_*` depuis 2015, `fsmpt_email_logs` (journal des emails envoyés). À nettoyer au chantier A-05 et à signaler à Imagine.
