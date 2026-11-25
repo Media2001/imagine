@@ -1,0 +1,14 @@
+{
+  "step": "apres",
+  "pass": 1,
+  "command": [
+    "php",
+    "/subject/non-regression",
+    "--wp-path=/scratch/hpos",
+    "--config=/opt/a03/hpos-settings.json",
+    "--output=/report/hpos-sequence/apres-1"
+  ],
+  "exit": 0,
+  "duration_seconds": 1.6338070170022547,
+  "receipt": "apres-1-receipt.json"
+}

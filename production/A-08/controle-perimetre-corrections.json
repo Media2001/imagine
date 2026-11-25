@@ -1,0 +1,14 @@
+{
+  "recorded_at": "2026-11-25T22:02:08.719745+01:00",
+  "protected_and_history_drift": [],
+  "protected_count": 1041,
+  "history_count": 772,
+  "parent_lock_unchanged": true,
+  "queue_sha256": "188f3a6ecad00003becd67ef9cdd36ae75c2ba032c70e3cd23cfa30aa8370b55",
+  "corrections_a08_unchanged": true,
+  "new_corrections_for_parent": [
+    "corrections/A-09.md"
+  ],
+  "concurrent_other_lane_changes_observed": true,
+  "global_scope_receipt": "Other-lane B02/C15/imagine-site/demo and review lock changed concurrently; not rewritten/reverted or included in A08 baseline; do not claim whole-repo immobility."
+}

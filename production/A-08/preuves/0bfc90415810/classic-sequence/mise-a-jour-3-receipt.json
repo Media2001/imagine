@@ -1,0 +1,16 @@
+{
+  "step": "mise-a-jour",
+  "pass": 2,
+  "command": [
+    "python3",
+    "-B",
+    "/subject/mettre-a-jour",
+    "--wp-path=/scratch/classic",
+    "--plan=/opt/a08/classic-update.json",
+    "--backup=/opt/a08/classic-backup.json",
+    "--state=/report/classic-sequence/a04"
+  ],
+  "exit": 0,
+  "duration_seconds": 3.627057059959043,
+  "receipt": "mise-a-jour-3-receipt.json"
+}

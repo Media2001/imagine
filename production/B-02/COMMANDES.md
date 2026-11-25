@@ -1,4 +1,25 @@
-# B-02 — Commandes réellement exécutées
+# B-02 — Rejeu des corrections, 25 novembre 2026, 21 h 58 CET
+
+Depuis `C:/Users/Ced/imagine`, bash Windows :
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 'C:/Users/Ced/AppData/Local/hermes/cache/scratch/imagine-b03-tests/Scripts/python.exe' wp/tests/demo/test_b02_runner.py
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
+PYTHONDONTWRITEBYTECODE=1 'C:/Users/Ced/AppData/Local/hermes/cache/scratch/imagine-b03-tests/Scripts/python.exe' wp/outils/demo/b02.py --require-complete
+```
+
+Résultats réellement obtenus : runner **2/2** ; préparation **exit 0** ; T01 **1023 tests/34094 assertions, PASS** ; strict natif/HTTP **138/138, exit 2** pour cinq réserves observées. Installation initiale des corrections faite avec `--deploy --require-complete`, seulement MonCompteRegles.php, MonCompte.php, parts/mon-compte.php puis relecture exacte ; ne réinstalle ni bootstrap partagé ni functions.php. Ne pas lancer de seed/reset C09.
+
+Le test HTTP conserve son parcours positif d’adresse dans `verify(allow_address_edit=True)` mais le défaut des corrections est sans édition positive. Isolation GET/POST et refus de nonce toujours exécutés. Aucun passage à True n’a été effectué ici. Les logs FAIL initiaux et les reçus antérieurs sont conservés ; le rapport distingue le premier snapshot pris pendant des mutations concurrentes et le rejeu stable.
+
+TDD ciblé réel : PHPUnit de l’image préparée, conteneur `--rm --pull never --network none --read-only --tmpfs /tmp:rw,nosuid,nodev,size=128m,mode=1777 --cap-drop ALL --security-opt no-new-privileges --user 65534:65534`, source wp montée readonly ; fichiers MonCompteReglesTest.php et MonCompteAdapterTest.php, **9 tests/73 assertions**. Les tests séparés ont besoin du tmpfs PHPUnit ; aucun outil installé sur Windows.
+
+---
+
+# Historique des commandes avant fusion B02
+
+**Les nombres et descriptions ci-dessous sont historiques, pas les attentes actuelles. En particulier : le hook postal limité au formulaire, l’absence de second règlement et le profil a-4x-j45 sont périmés. Aucun ancien reçu JSON/log n’a été réécrit.**
 
 Répertoire : `C:/Users/Ced/imagine` ; shell bash Windows, `python`, jamais python3. Aucun Git, reset, seed C09 ou reconstruction globale.
 

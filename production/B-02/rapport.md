@@ -1,4 +1,50 @@
-# B-02 — Rapport de livraison, 25 novembre 2026
+# B-02 — Corrections de fusion, 25 novembre 2026, 21 h 58 CET
+
+1. **Fait** : garde Memberships, quatre positions indépendantes du calendrier, deux paiements natifs raccordés, bloc courant renouvelé via Moteur, attente virement réservée à bacs, cœur pur et hook postal redondant retiré.
+2. **Prêt à relire** : corrections B02 ; 138/138 contrôles natifs/HTTP/préservation, 9 nouveaux tests PHPUnit (73 assertions), 2 tests du runner. T01 canonique : 1023 tests, 34094 assertions, aucun échec/erreur/ignoré.
+3. **À valider** : visuel par Ced ; marge C05, historique d’activation/compteur C01 et documents restent non raccordés ; aucun changement de droits ou de paiement.
+4. **Bloqué** : aucune panne technique restante. Acceptation complète toujours partielle, strict **exit 2**, cinq réserves observées ci-dessous.
+5. **Ensuite** : relecture de la fusion corrigée ; aucun travail sur C15, les files/verrous, les bibliothèques closes ou les autres lots.
+
+## Preuves actuelles
+
+- `corrections-20261125/resultats.json` : **73 natifs + 8 états + 51 HTTP + 3 readbacks applicatifs + 3 gardes = 138/138**, zéro échec. Rejeu strict sans réinstallation, sortie 2. Trois fichiers seulement déployés et relus : MonCompteRegles.php, MonCompte.php, parts/mon-compte.php. Aucun bootstrap partagé, functions.php ni autre fichier du thème écrasé.
+- `corrections-preparer-image.log` : préparation obligatoire réellement exécutée, exit 0 ; image `sha256:8f56b898f0963a86caf5a55cce9ee526e7b6d17c33d3cc8172a1dc7b277a2917`, PHP 8.2.33, quatre paquets. Aucun script T01 modifié.
+- `corrections-t01-final.log` : T01 isolé canonique, **1023 tests / 34094 assertions**, zéro échec, erreur ou ignoré. Paquet imagine-site : 59 tests / 346 assertions. Les 9 tests B02, dont les bornes exactes de grâce/fin, passent dans ce paquet. La première exécution T01 a révélé que le thème n’est pas copié parmi les paquets ; test corrigé pour lire le montage source T01, puis rejeu vert ; le reçu FAIL initial reste conservé.
+- Les logs `corrections-red-*` et `corrections-red-native.json` conservent les rouges fonctionnels avant les corrections : état pur absent, projection absente, premier bloc figé, deuxième règlement omis, ambiguïtés, fatale Memberships, hook doublonné, gabarit et runner.
+- Le premier strict a aussi constaté des mutations **concurrentes d’A-VIR (98)** pendant son snapshot : début/statut/fin puis restauration, quatre observations postales ajoutées entre 20:52:51.19 et 20:52:51.77 UTC. Reçu intégral conservé dans `corrections-first-strict-failure.json` (exit 1, garde non affaiblie). B02 n’a fait aucun save sur ce profil. Rejeu distinct : empreintes natives, rôles, options, lots clos et thème partagé conservés ; **zéro observation postale ajoutée**. Aucune donnée restaurée ou réinitialisée pour faire passer le test.
+
+## Décisions prises à défaut
+
+- `cancelled` ⇒ **Expiré**. `pending` sans bacs ⇒ **Paiement en attente de validation**, et non « virement ». `on-hold` + adhésion pending/delayed ⇒ virement seulement si `get_payment_method() === 'bacs'` ; sinon Suspendu ou grâce dans la fenêtre native `[début, fin[`. Sans API Memberships, on-hold ⇒ Suspendu. Ce sont des libellés, pas des droits.
+- Projection pure recevant données et heure. La commande initiale puis les relations de renouvellement natives sont triées chronologiquement, contrôlées par propriétaire et dédupliquées par ID. Dates de confirmation et dates théoriques C05 ne sont jamais confondues. Deux commandes au même instant ou un ID contradictoire : positions concernées signalées ambiguës, détail des commandes connues conservé ; les autres positions fiables restent lisibles.
+- Renouvellements d’année : représentation C13 native déjà contrôlée, puis `Moteur::renouveler()`. Cas pur exact **171–174 → 175–178**. Au-delà de l’anniversaire sans renouvellement fiable, « Bloc courant indisponible — renouvellement non raccordé », jamais le premier bloc présenté comme actuel. En 4× sans rang de bloc explicite, on ne transforme pas chaque règlement trimestriel en année.
+- Suppression du callback postal de MonCompte : **EnvoiNatif relève déjà toutes les sauvegardes natives**. L’ancienne affirmation « limité au formulaire client » était fausse et est retirée du code actuel ; les anciennes preuves ci-dessous sont historiques.
+- HTTP : GET d’isolation, consultation étrangère, POST forgé et nonce invalide conservés et rejoués ; le parcours positif de modification/restauration d’adresse reste dans le test mais **n’est pas exécuté** dans ces corrections, conformément à l’interdiction de modifier les données. Pas de paiement, passerelle, jeton de paiement, droit, rôle, fixture ou queue modifié.
+
+## Réserves réelles (strict exit 2)
+
+1. Marge C05 non renseignée : aucune date théorique fabriquée.
+2. Historique activation/réactivation C01 non raccordé : compteur restant indisponible.
+3. Factures/justificatifs : raccord documentaire non disponible.
+4. A-VIR : méthode native vide, donc aucun virement identifié sur ce profil ; libellé générique correct. Les branches bacs/carte/inconnu sont couvertes en pur, pas par une fausse passerelle installée.
+5. Édition positive d’adresse non rejouée dans ce périmètre sans mutation ; preuves historiques séparées.
+
+**Ne sont plus des réserves** : A-SEPA4 existe et affiche **2 Payée / 2 À venir** ; A-SUSP a sa commande native failed et son bandeau HTTP ; A-CARTE possède un paiement natif validé. `acceptance_blockers` est calculé depuis les contrôles réels et testé sur jeux complets/incomplets, sans alias a-4x-j45.
+
+## Écarts à reporter par Claude dans docs/ecarts.md
+
+**25 novembre 2026** : le brief renvoie par erreur au §3.10 (Newsletters), le contenu compte relève des §3.7/3.8/3.9 ; `a-4x-j45` est une erreur de brief, profil applicable **A-SEPA4**. Le dossier docs/ est interdit au worker : écarts consignés ici, sans écriture hors périmètre.
+
+## Fichiers de cette correction
+
+`wp/plugins/imagine-site/{MonCompte.php,MonCompteRegles.php,tests/MonCompteReglesTest.php,tests/MonCompteAdapterTest.php,tests/b02-adapter-fixture.php}` ; `wp/themes/imagine/parts/mon-compte.php` seulement ; `wp/outils/demo/b02.py` ; `wp/tests/demo/{b02-runtime.php,b02-state.php,b02-http.py,test_b02_runner.py}` ; preuves et documentation sous `production/B-02/`. Bootstrap/README partagés inchangés.
+
+---
+
+# Historique antérieur à la fusion B02 — reçu de livraison du 25 novembre 2026
+
+**Tout ce qui suit est historique, non un constat actuel. Les reçus JSON et logs anciens n’ont pas été réécrits. Le hook limité au formulaire et les anciens manques de paiement ci-dessous sont périmés ; voir le rapport de correction en tête.**
 
 1. **Fait** : cinq rubriques Mon compte, données natives, PDF C11/C14, édition postale Woo/WCS et isolation réelle GET/POST.
 2. **Prêt à relire** : squelette technique inspectable, 144/144 contrôles techniques. **Aucun PRET**, conformément à la délégation.

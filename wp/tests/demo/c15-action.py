@@ -13,18 +13,15 @@ def snapshot():
     return c15.wp(r'''$f=get_option('imagine_c09_fixture');$out=['fixture'=>$f,'seeded'=>get_option('imagine_c09_seeded_at'),'decouverte'=>[],'orders'=>[],'subs'=>[],'members'=>[]];foreach(['V-DEC','V-DEC-FIN'] as $key){$id=$f['users'][$key];$out['decouverte']['imagine_decouverte_compte_'.$id]=get_option('imagine_decouverte_compte_'.$id,null);}$out['roles']=wp_roles()->roles;foreach(array_merge(array_values($f['orders']),array_values($f['renewals'])) as $id){$o=wc_get_order($id);$out['orders'][$id]=[$o->get_status(),$o->get_date_paid()?->getTimestamp(),$o->get_total(),$o->get_payment_method(),$o->get_customer_id(),$o->get_address('billing'),$o->get_address('shipping')];}foreach($f['subscriptions'] as $k=>$id){$s=wcs_get_subscription($id);$out['subs'][$k]=[$s->get_status(),$s->get_time('start'),$s->get_time('end'),$s->get_time('next_payment'),$s->get_address('shipping')];}foreach($f['memberships'] as $k=>$id){$m=wc_memberships_get_user_membership($id);$out['members'][$k]=[$m->get_status(),$m->get_start_date(),$m->get_end_date('mysql',false)];}echo wp_json_encode($out);''')
 
 
-def reset(before):
-    # C09 canonical reset at its original fixture clock, not a new fixture date.
-    # Its C12 initializer resets discovery; restore those dependent profiles exactly.
-    code = '$GLOBALS["imagine_c09_now"]=new DateTimeImmutable(' + json.dumps(before['seeded']) + ',new DateTimeZone("UTC"));ob_start();(static function(){require WP_CONTENT_DIR."/imagine-demo-build/c09-seed.php";})();ob_end_clean();$old=json_decode(' + json.dumps(json.dumps(before['decouverte'])) + ',true);foreach($old as $k=>$v){if($v===null){delete_option($k);}else{update_option($k,$v);}}echo "true";'
-    c15.wp(code)
-    # The dependent C14 initializer computes its own paid date. Preserve that
-    # previously observed native date, rather than moving P-NUMERO with C15.
-    pnum = before['fixture']['orders']['P-NUMERO']
-    paid = before['orders'][str(pnum)][1]
-    c15.wp('$o=wc_get_order(' + str(pnum) + ');if($o->get_meta("_imagine_c09_fixture")!=="P-NUMERO")throw new RuntimeException("Wrong owner");$o->set_date_paid(' + ('null' if paid is None else str(paid)) + ');$o->save();echo "true";')
+def reset(before, owned):
+    # Do not run global C09 seed/reset alongside B02. Restore only the existing
+    # A-VIR native order/subscription/membership and its exact observed dates.
+    witness = c15.load_test('c15-witness')
+    witness.restore({'A-VIR': owned['A-VIR']})
     after = snapshot()
-    c15.save('restauration', {'C09_reset': True, 'dependent_discovery_restored': before['decouverte'] == after['decouverte'], 'baseline_semantic_equal': before == after, 'theme_written': False})
+    c15.save('restauration', {'C09_reset': False, 'scoped_native_restore': 'A-VIR',
+        'dependent_discovery_restored': before['decouverte'] == after['decouverte'],
+        'baseline_semantic_equal': before == after, 'theme_written': False})
     if before != after:
         c15.save('restore-diff', {'before': before, 'after': after})
         raise RuntimeError('C09 semantic restore mismatch; inspect C15/restore-diff.json')
@@ -45,6 +42,8 @@ def verify():
         c15.save('action-red', {'checks': checks}); print(checks); raise SystemExit(1)
     payload = {'action': 'imagine_virement_recu', 'commande': str(oid), '_wpnonce': unescape(match.group(1))}
     before = snapshot()
+    c15.upload('imagine-demo-build/c15-state.php', c15.ROOT / 'wp/tests/demo/c15-state.php')
+    owned = c15.load_test('c15-witness').snapshot()
     paid_state = lambda: c15.wp('$o=wc_get_order(' + str(oid) + ');echo wp_json_encode([$o->is_paid(),$o->get_date_paid()?->getTimestamp(),$o->get_status()]);')
     for role in ('E-REDAC', 'A-CARTE'):
         status, _, _ = h.fetch(endpoint, clients[role], urlencode(dict(payload, confirmer='oui')).encode())
@@ -67,22 +66,22 @@ def verify():
         checks['objet_refuse_' + name] = status == 409 and not paid_state()[0]
     if not all(checks.values()):
         c15.save('action', {'checks': checks}); print(checks); raise SystemExit(1)
-    prior_notes = c15.wp('echo wp_json_encode(array_map(static fn($n)=>$n->content,wc_get_order_notes(["order_id"=>' + str(oid) + '])));')
+    prior_notes = c15.wp('echo wp_json_encode(array_map(static fn($n)=>$n->content,wc_get_order_notes(["order_id"=>' + str(oid) + ',"limit"=>0])));')
     prior_own_count = sum('C15' in n and 'e-abo' in n for n in prior_notes)
     # Only authorized mutation: existing A-VIR. Always reset, even on ambiguous HTTP.
     try:
         status, _, text = h.fetch(endpoint, clients['E-ABO'], urlencode(dict(payload, confirmer='oui')).encode())
         state = paid_state()
         checks['paiement_natif_paye_date'] = status == 200 and state[0] and bool(state[1]) and state[2] in ('processing', 'completed')
-        notes = c15.wp('echo wp_json_encode(array_map(static fn($n)=>$n->content,wc_get_order_notes(["order_id"=>' + str(oid) + '])));')
+        notes = c15.wp('echo wp_json_encode(array_map(static fn($n)=>$n->content,wc_get_order_notes(["order_id"=>' + str(oid) + ',"limit"=>0])));')
         own = [n for n in notes if 'C15' in n and 'e-abo' in n and re.search(r'\d{4}-\d{2}-\d{2}.*UTC', n)]
         checks['note_operateur_datee_native'] = len(own) == prior_own_count + 1
         status, _, _ = h.fetch(endpoint, clients['E-ABO'], urlencode(dict(payload, confirmer='oui')).encode())
-        notes2 = c15.wp('echo wp_json_encode(count(wc_get_order_notes(["order_id"=>' + str(oid) + '])));')
+        notes2 = c15.wp('echo wp_json_encode(count(wc_get_order_notes(["order_id"=>' + str(oid) + ',"limit"=>0])));')
         checks['double_validation_refusee_sans_double_note'] = status == 409 and notes2 == len(notes)
         c15.save('paiement-readback', {'order_id': oid, 'native_state': state, 'dated_operator_note': bool(own)})
     finally:
-        reset(before)
+        reset(before, owned)
         checks['reset_C09_relu'] = snapshot() == before and not paid_state()[0]
     c15.save('action', {'total': len(checks), 'checks': checks, 'failures': [k for k,v in checks.items() if v is not True]})
     print(json.dumps({'total': len(checks), 'failures': [k for k,v in checks.items() if v is not True]}))

@@ -1,0 +1,13 @@
+{
+  "step": "audit",
+  "pass": 1,
+  "command": [
+    "php",
+    "/subject/audit",
+    "--wp-path=/scratch/classic",
+    "--output=/report/classic-sequence/audit-1"
+  ],
+  "exit": 0,
+  "duration_seconds": 1.0734487709705718,
+  "receipt": "audit-1-receipt.json"
+}

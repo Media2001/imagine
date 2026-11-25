@@ -12,4 +12,4 @@ Squelette sémantique uniquement, sans nouvelle CSS, composants ni valeurs méti
 - Factures/justificatifs : état vide explicite, distinct des commandes.
 - Focus clavier, contraste, messages d'erreur et libellés français à valider. Pas de maquette reçue ni de validation visuelle revendiquée.
 
-Les règles de tarif, paiements, nombre restant, marge de calendrier et provenance des factures relèvent d'Imagine/du raccord technique, pas du designer. A-4x-J45 absent et absence de paiements/rejets réels restent des limites de fixture, non des choix graphiques.
+Les règles de tarif, paiements, nombre restant, marge de calendrier et provenance des factures relèvent d'Imagine/du raccord technique, pas du designer. Mise à jour du 25 novembre 2026 après fusion : le profil applicable est **A-SEPA4**, avec deux règlements natifs fictifs payés et deux positions à venir ; A-SUSP a son rejet fictif. Aucun paiement ou rejet bancaire réel. Prévoir le libellé d’attente générique lorsque la méthode native est inconnue, le bloc courant indisponible et les rattachements ambigus ; ces états ne doivent pas être confondus avec des droits d’accès.

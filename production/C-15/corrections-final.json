@@ -1,0 +1,32 @@
+{
+  "at": "2026-11-25T21:01:57.927715+00:00",
+  "scope": "imagine-test-demo",
+  "status": "RUNNING",
+  "sources": {
+    "wp/outils/demo/c15-unit.py": "f36813e34c95baecfc799d9ba35dff347f176e954e4db837d561d02f5ca2b402",
+    "wp/outils/demo/c15.py": "bac9bd3289798004fa8bf48023b557f8a84f561b7e840af9ecd686f5cab7c66e",
+    "wp/plugins/imagine-site/EcheancesAdmin.php": "822e8d57aa96f32e95c937c83c330c1cf4dd35aed9ddaa3243c9cac186c861eb",
+    "wp/plugins/imagine-site/EcheancesNatives.php": "5c989a61516c5f391f6597afcb3f55e169867e6ce77bdd1603f4a5f7bbfdda0a",
+    "wp/plugins/imagine-site/EcheancesRegles.php": "a7fb2b4fad9ac8939ce999f3babbbf04d633d1e94bf8a164d9f2f3d5d3c0adc5",
+    "wp/plugins/imagine-site/tests/EcheancesReglesTest.php": "00e38113d7d4b68682c9f015e5f1dcbf7582663d5b4e2ae10f9bb24b12f95d5a",
+    "wp/tests/demo/c15-action.py": "10ecee54d5f27878bdad820a9a37f571f758fc96e84f9b59bea13755899a8670",
+    "wp/tests/demo/c15-concurrent-mu.php": "ec20df70b27aa8dea75c08839ecc7254e8ba8235f0bde1c3db06e27a9e4d4017",
+    "wp/tests/demo/c15-concurrent.py": "fca0ce6373e2e5717fe62efe37ad49a95f37ee96eca1c1a1cf35362726f62faf",
+    "wp/tests/demo/c15-corrections.py": "07cc1c87b7a6755ea4871056a78ea3b5e993574d9cb94822a5068672da818b51",
+    "wp/tests/demo/c15-http.py": "a190ca27cebb7f767f0cd3d72ff5d3a0917abf5e48a4ef6057679684eaa36dbf",
+    "wp/tests/demo/c15-labels.py": "1972b36019fe71f1da2d1a457820fe2fd3bc3477ec4949e1e4d8d126330b5631",
+    "wp/tests/demo/c15-runtime.php": "514168a8f68f453493bde73642938e07d876e9d10229ff281965c581c1c851b3",
+    "wp/tests/demo/c15-state.php": "741a158e2c768b261a05797666e91e9f649bb2f401d3c6cc565b11a1ce0a44c6",
+    "wp/tests/demo/c15-t01-runtime.php": "3e291eb1b224468d884fe7ec744d08c1aa2dbc07a88c3c57c4a3279d7d99f73c",
+    "wp/tests/demo/c15-t01.py": "18966e7fd7e517210112528d66d5c53223f6d0647e79038ffacd8679a3d4865c",
+    "wp/tests/demo/c15-unit.php": "d05b7cd2ee2a24e3092e03c029914351edfa645280380b1854a07cd4f18ec336",
+    "wp/tests/demo/c15-verifier.py": "d6815cd4063233c58083837ff8265e90181ae7521a8b3b77a48db725e6a737a4",
+    "wp/tests/demo/c15-witness.py": "ecc7f24694ce3481052aee2b38df7338840c6fa5643583c893a044be112f3766"
+  },
+  "corrections-preparation-image": {
+    "exit": 0
+  },
+  "corrections-t01": {
+    "exit": 0
+  }
+}

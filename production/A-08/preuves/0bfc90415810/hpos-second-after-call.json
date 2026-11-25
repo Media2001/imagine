@@ -1,0 +1,18 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "/subject/repeter",
+    "--wp-path=/scratch/hpos",
+    "--state=/report/hpos-sequence",
+    "--update-plan=/opt/a08/hpos-update.json",
+    "--clean-plan=/opt/a08/hpos-cleanup.json",
+    "--config=/opt/a03/hpos-settings.json",
+    "--backup=/opt/a08/hpos-backup.json",
+    "--reception-ready"
+  ],
+  "exit": 0,
+  "stderr": "",
+  "stdout": "",
+  "duration_seconds": 1.2203019940061495
+}

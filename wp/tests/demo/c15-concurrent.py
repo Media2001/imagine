@@ -76,14 +76,17 @@ def verify(label, refuse=False):
         checks['native_paid_no_gateway_no_transaction']=state[0] and bool(state[1]) and state[2:]==['','']
         c15.save(label+'-native',{'responses':responses,'note_delta':len(after_notes)-len(prior),'state':state})
     finally:
-        if installed:
-            import subprocess
-            cleanup = 'from pathlib import Path; import hashlib; p=Path("/app/sites/imagine-test-demo/wp-content/mu-plugins/imagine-c15-concurrent-witness.php"); assert hashlib.sha256(p.read_bytes()).hexdigest()=='+repr(digest)+'; p.unlink(); print(not p.exists())'
-            p=subprocess.run(['wsl.exe','docker','exec','-i','staging-wp-dashboard','python'],input=cleanup,capture_output=True,text=True,check=True)
-            checks['temporary_MU_removed']=p.stdout.strip()=='True' and c15.wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR.'+json.dumps('/'+target)+'));') is True
-        w.restore(before)
-        checks['owned_all_dates_restored']=w.snapshot()==before
-        checks['catalogue_semantic_exact']=c15.load_test('c15-action').snapshot()==broad
+        try:
+            if installed:
+                import subprocess
+                cleanup = 'from pathlib import Path; import hashlib; p=Path("/app/sites/imagine-test-demo/wp-content/mu-plugins/imagine-c15-concurrent-witness.php"); assert hashlib.sha256(p.read_bytes()).hexdigest()=='+repr(digest)+'; p.unlink(); print(not p.exists())'
+                p=subprocess.run(['wsl.exe','docker','exec','-i','staging-wp-dashboard','python'],input=cleanup,capture_output=True,text=True,check=True)
+                checks['temporary_MU_removed']=p.stdout.strip()=='True' and c15.wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR.'+json.dumps('/'+target)+'));') is True
+        finally:
+            # A failed MU removal must never skip the independent state restore.
+            w.restore({'A-VIR':before['A-VIR']})
+            checks['owned_all_dates_restored']=w.snapshot()==before
+            checks['catalogue_semantic_exact']=c15.load_test('c15-action').snapshot()==broad
     result={'checks':checks,'total':len(checks),'failures':[k for k,v in checks.items() if v is not True],'responses':responses,'global_C09_reset':False}
     c15.save(label,result)
     print(json.dumps(result))

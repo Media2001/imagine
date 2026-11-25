@@ -1,0 +1,46 @@
+{
+  "at": "2026-11-25T21:00:05.709717+00:00",
+  "source_sha256": {
+    "wp/plugins/imagine-site/MonCompte.php": "1fec9e338d5a319e6cad2308c984a4dbc405f773d3a20a6454c1f9418ac7b498",
+    "wp/plugins/imagine-site/MonCompteRegles.php": "ac80ab938156688459dc888d60a5ca36c8e66b6d210cbdf93ea9e1e0aff86133",
+    "wp/plugins/imagine-site/tests/MonCompteReglesTest.php": "839e2ed00249878442f454b9eb551982a3b3fe92bf2ca13d7bcef88384e206ad",
+    "wp/plugins/imagine-site/tests/MonCompteAdapterTest.php": "98355adc699ac865548fab6fdcbe1197cff942a3b1eca87b52642f40e4bce80a",
+    "wp/plugins/imagine-site/tests/b02-adapter-fixture.php": "a3c090e5096588bb64dd388fc86457b8548f8514daa6230f5f8bf5638bcbd291",
+    "wp/themes/imagine/parts/mon-compte.php": "a4cc64f8bdff688a4e2d9bb0333c2928c1f83a337a04f213db300afa1f7b684a",
+    "wp/outils/demo/b02.py": "f6dc8224342d4f68d003e2007984993929982e5341c081cbaa3b2d17ec6444f6",
+    "wp/tests/demo/b02-runtime.php": "605aa467598bd9b21169d809473090f2c0b38b3374171b8c75d06817210f5e57",
+    "wp/tests/demo/b02-state.php": "ab3b59c012809d66834d8eb128d40d68f77e7aeeaf2b0ae606c54e6b7a282988",
+    "wp/tests/demo/b02-http.py": "b04fcddb69405f40fc1079610f49939bd87272c6a99457690c78d7339ac9cceb",
+    "wp/tests/demo/test_b02_runner.py": "b10dec1f9ef75698e93527accd67ec081711f62e3cf016531e083606ff7e9d8a"
+  },
+  "remote_readback": {
+    "wp/plugins/imagine-site/MonCompte.php": "1fec9e338d5a319e6cad2308c984a4dbc405f773d3a20a6454c1f9418ac7b498",
+    "wp/plugins/imagine-site/MonCompteRegles.php": "ac80ab938156688459dc888d60a5ca36c8e66b6d210cbdf93ea9e1e0aff86133",
+    "wp/themes/imagine/parts/mon-compte.php": "a4cc64f8bdff688a4e2d9bb0333c2928c1f83a337a04f213db300afa1f7b684a",
+    "bootstrap_C15_present": true,
+    "bootstrap_sha256": "7fa2bf3260b64ae1422cf8564ef2227d1ab9ead15ecca5bb7782693263b79eb9",
+    "theme_functions_sha256": "f1ca667e6b807bc1a54fcb725c9a1f24754e9efa791ba4728bdaf35a612485bb"
+  },
+  "native_http_total": 138,
+  "native_http_failures": [],
+  "native_preserved": true,
+  "closed_preserved": true,
+  "postal_preserved": true,
+  "strict_exit": 2,
+  "acceptance_blockers": [
+    "Marge C05 non renseignée : dates théoriques non disponibles.",
+    "Historique activation C01 : compteur des numéros restants non raccordé.",
+    "Factures et justificatifs : raccord documentaire non disponible.",
+    "A-VIR : circuit bacs natif absent ; libellé virement non démontrable sur ce profil.",
+    "Édition positive de l’adresse non rejouée pour préserver les données ; isolation GET/POST rejouée."
+  ],
+  "t01": {
+    "tests": 1023,
+    "assertions": 34094,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass": true
+  },
+  "docs_newer_than_fusion": true
+}

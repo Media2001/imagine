@@ -1,0 +1,7 @@
+{
+    "write-failed": true,
+    "write-short": true,
+    "chmod-failed": true,
+    "success": true,
+    "mkdir-failed": true
+}

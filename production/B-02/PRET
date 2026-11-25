@@ -1,0 +1,15 @@
+B-02 — PRÊT À RELIRE APRÈS FUSION
+25 novembre 2026, 22 h 00 CET (21:00 UTC).
+
+Fusion traitée : corrections/B-02.md ; décisions prudentes appliquées, aucun paiement/droit/fixture modifié par B02.
+138/138 contrôles natifs/HTTP/readback/préservation ; 51/51 HTTP avec isolation GET/POST ; 9 tests B02/73 assertions et 2 tests runner.
+Préparation image obligatoire exécutée ; T01 canonique isolé : 1023 tests, 34094 assertions, zéro échec/erreur/ignoré.
+Strict --require-complete : EXIT 2, acceptation PARTIELLE et non GO.
+
+Réserves observées : marge C05 ; historique/compteur C01 ; documents ; bacs natif absent d’A-VIR ; édition positive d’adresse non rejouée dans ce périmètre sans mutation (tests conservés, GET/POST d’isolation rejoués).
+A-SEPA4 : deux Payée/deux À venir réellement affichées ; A-SUSP failed et A-CARTE payé attestés. Pas de réserve fictive a-4x-j45.
+Écarts §3.10 et a-4x-j45 → A-SEPA4 consignés dans rapport.md, à reporter dans docs/ecarts.md par Claude (écriture docs interdite au worker).
+
+À ouvrir : A-VOIR.md. Détails : rapport.md et COMMANDES.md.
+Reçu actuel : corrections-20261125/resultats.json ; vérification : corrections-verification.json.
+PRET = prêt à relire, pas validation visuelle ni acceptation complète.

@@ -23,6 +23,29 @@ def main():
             path=ROOT/name
             assert path.is_file() and sha(path)==digest,(kind,name)
         verified[kind]=len(entries)
+    transition=json.loads((LOT/'transition-corrections-2140.json').read_text())
+    original=json.loads((LOT/'baseline.json').read_text())
+    update=transition['approved_a10_two_lines']
+    assert update['actual_path']=='wp/tests/a02-audit/README.md'
+    data=(ROOT/update['actual_path']).read_bytes()
+    assert hashlib.sha256(b''.join(data.splitlines(keepends=True)[:-2])).hexdigest()==original[update['actual_path']]
+    assert sha(ROOT/update['actual_path'])==update['current_sha256']
+    assert sha(ROOT/'wp/outils/bascule/README.md')==original['wp/outils/bascule/README.md']
+    platform=json.loads((LOT/'windows-importerror.json').read_text())
+    assert platform['exit']==1 and platform['no_state_created'] is True
+    assert 'A08_LINUX_REQUIRED' in platform['stderr'] and 'A08_REPORT_NOT_UPDATED' in platform['stderr'] and 'Traceback' not in platform['stderr']
+    perimeter=json.loads((LOT/'controle-perimetre-corrections.json').read_text())
+    assert perimeter['protected_and_history_drift']==[] and perimeter['parent_lock_unchanged'] is True
+    assert perimeter['corrections_a08_unchanged'] is True
+    assert manifest['technical_ready_only'] is True and manifest['not_a_real_go'] is True
+    assert 'III.6' in manifest['ced_question_deferred']
+    import importlib.util
+    spec=importlib.util.spec_from_file_location('a08_verified_closure',ROOT/'wp/outils/bascule/a08/sequence.py')
+    sequence=importlib.util.module_from_spec(spec);spec.loader.exec_module(sequence)
+    closure={name:sha(ROOT/'wp/outils/bascule'/name) for name in sequence.DEPENDENCIES}
+    assert len(closure)==23
+    assert not any('a09' in n or 'a10' in n or 'inventorier-codes' in n for n in closure)
+    assert '../../plugins/imagine-non-regression/src/Report.php' in closure
     proof=ROOT/manifest['proof']
     runner=json.loads((proof/'runner.json').read_text())
     assert runner['exit_code']==0 and all(row['ok'] for row in runner['checks'])
@@ -74,7 +97,10 @@ def main():
         assert json.loads((state/'comparaison-1-receipt.json').read_text())['exit']==3
         final=json.loads((state/'etat.json').read_text())
         assert list(final['done'])==steps and len(final['passes'])==1
+        assert final['schema']=='imagine-a08-v2' and final['identity']['tools']==closure
         assert len(final['attempts'])==13 and final['comparison']=={'attendu':0,'anormal':0}
+        assert final['comparisons']=={'1':{'attendu':len(one['changes']),'anormal':0},'2':{'attendu':0,'anormal':0}}
+        assert [row['pass'] for row in final['attempts']]==[1]*7+[2]*6
         two=json.loads((state/'comparaison-2-stdout.log').read_text())
         assert two['changes']==[] and two['anormal']==0
         assert json.loads((state/'comparaison-2-receipt.json').read_text())['exit']==0
@@ -87,7 +113,18 @@ def main():
         text=(state/'rapport.md').read_text(encoding='utf8')
         assert 'TERMINÉ' in text and 'anormaux : 0' in text
         assert all('| '+name+' |' in text for name in steps)
-        durations[storage]={name:round(sum(row['duration_seconds'] for row in final['attempts'] if row['step']==name),3) for name in steps}
+        sections=text.split('## Passage ')
+        assert len(sections)==3
+        durations[storage]={}
+        for number,section in enumerate(sections[1:],1):
+            assert section.startswith(str(number)+'\n') and 'cumulées dans ce passage' in section
+            comparison=final['comparisons'][str(number)]
+            assert 'attendus : '+str(comparison['attendu'])+', anormaux : '+str(comparison['anormal']) in section
+            times={name:sum(row['duration_seconds'] for row in final['attempts'] if row['step']==name and row['pass']==number) for name in steps}
+            for name,seconds in times.items():
+                assert '| '+name+' | '+format(seconds,'.3f')+' | OK |' in section
+            durations[storage][str(number)]={name:round(seconds,3) for name,seconds in times.items()}
+        assert 'ARRÊT' in (proof/(storage+'-missing-input-report.md')).read_text(encoding='utf8')
     unit=(proof/'unit.log').read_text()
     assert unit.rstrip().endswith('OK')
     count=int(re.search(r'Ran (\d+) tests?',unit)[1])
@@ -106,13 +143,24 @@ def main():
     prep=json.loads((LOT/'preparer-image.json').read_text())
     assert prep['exit']==0 and prep['command'][-1]=='wp/tests/preparer-image.ps1'
     assert 'T01 IMAGE READY' in (LOT/'preparer-image.log').read_text(encoding='utf8',errors='replace')
+    assert transition['new_test_package'] is False
+    for key in ['unit','a02_regression','a03_regression','a03-boundary_regression','a04_regression','a05_regression','integration','cleanup_exact_owned','sources_unchanged']:
+        assert any(row['check']==key and row['ok'] for row in runner['checks']),key
+    for method in ['test_dependency_closure_refuses_external_code_but_ignores_other_lots',
+                   'test_missing_input_after_success_replaces_stale_report','test_incomplete_new_pass_refreshes_report',
+                   'test_concurrent_refusal_leaves_report_and_warns_stderr','test_missing_fcntl_stable_no_traceback',
+                   'test_pass_reports_retain_first_comparison_and_attributed_durations']:
+        assert method in unit,method
+    documentation=(ROOT/'wp/outils/bascule/repetition.md').read_text(encoding='utf8')
+    assert '**Code 2 :**' in documentation and 'sauvegarde de départ vérifiée' in documentation and '**nouvel état**' in documentation
     if sys.argv[1:]==['--sans-pret']:
         assert not (LOT/'PRET').exists()
     else:
         assert not sys.argv[1:],'Unknown verifier option'
         pret=json.loads((LOT/'PRET').read_text(encoding='utf8'))
-        assert pret['manifest_sha256']==sha(LOT/'manifeste.json')
-    print(json.dumps({'exit_code':0,'verified_files':verified,'counts':manifest['counts'],'durations_seconds_cumulative':durations,'proof':manifest['proof']},indent=2))
+        assert pret['manifest_sha256']==sha(LOT/'manifeste.json') and pret['technical_ready_only'] is True
+        assert pret['ced_question_deferred']==manifest['ced_question_deferred']
+    print(json.dumps({'exit_code':0,'verified_files':verified,'counts':manifest['counts'],'durations_seconds_by_pass':durations,'proof':manifest['proof']},indent=2))
     return 0
 
 

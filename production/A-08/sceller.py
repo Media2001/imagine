@@ -55,15 +55,17 @@ def main():
             'a03_boundaries':len(json.loads((proof/'output-boundary.json').read_text())),
             'a04_unit':count_tests('a04-regression.log'),'a05_unit':count_tests('a05-regression.log'),
             'native_checks':len(inner['checks']),'runner_checks':len(runner['checks'])}
-    history=[]
-    for ident in ['b5f500c89800','ff8cfcb0e2cb','5a321d32d802','eaf29aea5303','86139c81dd7e','8413ef37ee04']:
-        history += [LOT/'preuves'/ident/filename for filename in ['unit.log','runner.json']]
-    history += [LOT/'preuves/09979d166e7e'/filename for filename in ['result.json','runner.json','classic-second-option-fingerprints.json','hpos-second-option-fingerprints.json']]
-    delivery=[LOT/name for name in ['baseline.json','precontrole.json','notes.md','sceller.py','verifier.py','preparer-image.json','preparer-image.log','dependances/public.json','dependances/wordpress-7.0.zip','dependances/woocommerce-11.0.1.zip']]+[report]
+    history_map=json.loads((LOT/'historique-corrections-2140.json').read_text())
+    for name,digest in history_map.items():assert sha(ROOT/name)==digest,name
+    for directory in (LOT/'preuves').iterdir():
+        if directory.is_dir() and directory!=proof:
+            history_map.update(mapping(p for p in directory.rglob('*') if p.is_file()))
+    delivery=[LOT/name for name in ['baseline.json','baseline-corrections-2140.json','historique-corrections-2140.json','transition-corrections-2140.json','windows-importerror.json','controle-perimetre-corrections.json','preparer-corrections.py','precontrole.json','notes.md','sceller.py','verifier.py','preparer-image.json','preparer-image.log','dependances/public.json','dependances/wordpress-7.0.zip','dependances/woocommerce-11.0.1.zip']]+[report,ROOT/'corrections/A-08.md']
     manifest={'schema':'imagine-a08-delivery-v1','created_at':datetime.datetime.now().astimezone().isoformat(),
               'proof':str(proof.relative_to(ROOT)).replace('\\','/'),'report':str(report.relative_to(ROOT)).replace('\\','/'),
               'counts':counts,'protected':protected,'sources':sources,
-              'evidence':mapping(path for path in proof.rglob('*') if path.is_file()),'history':mapping(history),'delivery':mapping(delivery),
+              'evidence':mapping(path for path in proof.rglob('*') if path.is_file()),'history':history_map,'delivery':mapping(delivery),
+              'technical_ready_only':True,'ced_question_deferred':'III.6 : style des introductions de repetition.md, aucune décision réelle prise',
               'scope':'Chaîne fictive classique+HPOS ; idempotence métier, contrôles techniques natifs rafraîchissables ; deux rendez-vous opérateur.',
               'not_a_real_go':True}
     write(LOT/'manifeste.json',manifest)
@@ -73,7 +75,8 @@ def main():
     print(verified.stdout,verified.stderr)
     assert verified.returncode==0,'PRET withheld: verifier failed'
     write(LOT/'PRET',{'lot':'A-08','manifest':'production/A-08/manifeste.json','manifest_sha256':sha(LOT/'manifeste.json'),
-                      'scope':manifest['scope'],'not_a_real_go':True})
+                      'scope':manifest['scope'],'technical_ready_only':True,
+                      'ced_question_deferred':manifest['ced_question_deferred'],'not_a_real_go':True})
     return 0
 
 

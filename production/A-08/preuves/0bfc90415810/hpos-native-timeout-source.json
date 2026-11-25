@@ -1,0 +1,7 @@
+{
+  "file": "woocommerce-subscriptions/woocommerce-subscriptions.php",
+  "sha256": "23327b70c217aaf10d165e6ea2114d611292cd75247812a519d701f94cfbf029",
+  "hook": "woocommerce_init",
+  "statement": "set_transient( WC_Subscriptions_Dependency_Manager::WC_ACTIVE_VERSION_TRANSIENT, WC()->version, HOUR_IN_SECONDS );",
+  "licensed_zip_sha256": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083"
+}

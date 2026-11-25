@@ -1,0 +1,17 @@
+{
+  "command": [
+    "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+    "-B",
+    "C:\\Users\\Ced\\imagine\\wp\\outils\\bascule\\repeter",
+    "--wp-path=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a08-native-platform-probe\\wp-path",
+    "--state=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a08-native-platform-probe\\state",
+    "--update-plan=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a08-native-platform-probe\\update-plan",
+    "--clean-plan=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a08-native-platform-probe\\clean-plan",
+    "--config=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a08-native-platform-probe\\config",
+    "--backup=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a08-native-platform-probe\\backup"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "A08_LINUX_REQUIRED\nA08_REPORT_NOT_UPDATED : le rapport.md existant ne d\u00e9crit pas cette tentative (\u00e9tat inaccessible ou verrou non acquis).\n",
+  "no_state_created": true
+}

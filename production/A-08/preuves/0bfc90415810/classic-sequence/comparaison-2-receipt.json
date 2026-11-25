@@ -1,0 +1,13 @@
+{
+  "step": "comparaison",
+  "pass": 2,
+  "command": [
+    "php",
+    "/subject/comparer",
+    "/report/classic-sequence/avant-2/non-regression.json",
+    "/report/classic-sequence/apres-2/non-regression.json"
+  ],
+  "exit": 0,
+  "duration_seconds": 0.03733802499482408,
+  "receipt": "comparaison-2-receipt.json"
+}

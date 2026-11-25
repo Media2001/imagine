@@ -1,5 +1,12 @@
 # B-02 — Standard avant le raccord
 
+Actualisation du 25 novembre 2026 (corrections) : documentation officielle relue directement, sans installation :
+- `https://woocommerce.com/document/subscriptions/customers-view/` : gestion native des souscriptions, commandes initiales/renouvellements, adresses et moyens de paiement.
+- `https://woocommerce.com/document/subscriptions/develop/functions/` : `get_date(type, 'gmt')`, méthodes de relations natives de WC_Subscription ; aucune mise à jour de dates invoquée par B02.
+- `https://woocommerce.com/document/bacs/` : circuit de virement manuel distinct d’une simple attente administrative. B02 n’active ni ne configure ce circuit.
+
+La source de droits reste C11/C14 ; le cœur B02 ne fait que projeter des libellés/positions. Aucun code ou réglage des bibliothèques closes modifié.
+
 Documentation officielle consultée dans le navigateur (extraction directe indisponible sur ce backend ; aucune installation pour la contourner) :
 
 - `https://woocommerce.com/document/subscriptions/customers-view/` : My Account natif, liste et détail de souscription, dates/total/méthode, commandes associées, changement d'adresse et paiement des renouvellements échoués.

@@ -16,7 +16,7 @@ def snapshot():
 
 def restore(before, renewals=()):
     call('$before=json_decode('+json.dumps(json.dumps(before))+',true);echo wp_json_encode('+NS+'restore($before,'+json.dumps(list(renewals))+'));')
-    after=snapshot()
+    after={k:v for k,v in snapshot().items() if k in before}
     if before!=after:
         c15.save('corrections-restore-diff',{'before':before,'after':after})
         raise RuntimeError('Owned semantic restore differs')
@@ -44,7 +44,7 @@ def verify(label):
         checks['native_paid_renewal_excluded']=paid['paid'] and not any(r['id']==oid for r in paid['rows'])
         c15.save(label+'-paid-native',paid)
     finally:
-        restore(before,renewals)
+        restore({'A-PAPIER':before['A-PAPIER']},renewals)
         checks['owned_all_dates_restored']=snapshot()==before
         checks['catalogue_semantic_exact']=action.snapshot()==all_before
         c15.save(label+'-restore',{'checks':{k:v for k,v in checks.items() if 'restore' in k or 'exact' in k},'global_c09_reset':False,'removed_owned_renewals':renewals})

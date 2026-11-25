@@ -1,4 +1,25 @@
-# B-02 — Mon compte, squelette à inspecter
+# B-02 — Corrections à voir, 25 novembre 2026, 21 h 58 CET
+
+Site fictif uniquement : `http://192.168.129.32:8085/my-account/`. Utiliser les identifiants C09 déjà hors dépôt, jamais copiés dans les preuves.
+
+- **a-sepa4** : quatre positions, **deux « Payée », deux « À venir »**, montants des deux commandes natives propres ; dates C05 toujours nommées indisponibles faute de marge. Les numéros sont enrichis même sans marge. Aucun SEPA ni paiement réel lancé.
+- **a-carte** : état Actif, formule/total/date natifs, numéros/PDF contrôlés par C11/C14 ; compteur restant nommé non raccordé. Le moyen natif vide n’est pas une carte inventée.
+- **a-susp** : Suspendu, bandeau « Échéance échouée » et action Woo native sur son rejet fictif, aucun PDF.
+- **a-vir** : **Paiement en attente de validation**, car `payment_method` est vide ; le nom de personnage n’est pas une preuve de virement. Virement affichable uniquement pour bacs natif.
+- **p-numero** : seul numéro/PDF acheté, sans abonnement fabriqué.
+- Adresses : même source native qu’avant. Les GET/POST étrangers et nonce invalide restent interdits. Cette correction n’a pas modifié puis restauré une adresse ; parcours positif conservé dans le test, non rejoué.
+
+Cœur pur rejoué dans T01 : Memberships absent sans fatale ; calendrier absent/invalide et début inexploitable gardent quatre emplacements ; renouvellement **171–174 → 175–178**, ou bloc courant explicitement indisponible sans source fiable ; grâce et fin d’abonnement à l’instant exact ; rattachement ambigu nommé sans masquer les règlements fiables.
+
+**Preuves actuelles** : `corrections-20261125/resultats.json` : 138/138 contrôles, 51/51 HTTP, snapshots natifs/lots clos conservés, zéro nouvelle observation postale ; strict **exit 2**, pas acceptation complète. `corrections-t01-final.log` : 1023 tests, 34094 assertions, PASS. Réserves : marge C05, historique/compteur C01, documents, bacs absent d’A-VIR et édition positive d’adresse non rejouée. Visuel toujours à valider par Ced.
+
+`rapport.md` détaille les décisions et les écarts à reporter par Claude ; aucun docs/, bootstrap, functions.php ou C15 modifié.
+
+---
+
+# Historique avant fusion — ne pas employer comme attendu actuel
+
+**Les informations ci-dessous décrivent les anciens reçus et leurs limites à leur date. La table à une seule Payée et les réserves codées en dur sont corrigées ; voir l’état actuel en tête. Les anciens reçus ne sont pas réécrits.**
 
 **Complément C09 du 25 novembre 2026 : 140/140 contrôles, dont 55/55 HTTP ; recette stricte sortie 2, acceptation encore partielle. A-SEPA4 est le profil quatre fois requis (a-4x-j45 était une erreur de brief, arbitrage de 16h30). Les marqueurs B02 relèvent du parent.**
 

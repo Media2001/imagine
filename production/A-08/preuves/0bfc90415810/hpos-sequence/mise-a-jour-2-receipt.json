@@ -1,0 +1,16 @@
+{
+  "step": "mise-a-jour",
+  "pass": 1,
+  "command": [
+    "python3",
+    "-B",
+    "/subject/mettre-a-jour",
+    "--wp-path=/scratch/hpos",
+    "--plan=/opt/a08/hpos-update.json",
+    "--backup=/opt/a08/hpos-backup.json",
+    "--state=/report/hpos-sequence/a04"
+  ],
+  "exit": 0,
+  "duration_seconds": 81.00234720000299,
+  "receipt": "mise-a-jour-2-receipt.json"
+}
