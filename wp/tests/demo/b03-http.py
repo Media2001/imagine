@@ -21,10 +21,19 @@ def module(name, filename):
     return mod
 
 
+def reading_speed():
+    response = c08.b00.wp('eval', 'echo wp_json_encode(\\Imagine\\Theme\\IMAGINE_READING_WORDS_PER_MINUTE);')
+    speed = json.loads(response['stdout'])
+    if response['stderr'] or type(speed) is not int or speed <= 0:
+        raise RuntimeError('Constante serveur de lecture invalide')
+    return speed
+
+
 def run(phase='final'):
     site, _ = c08.guard()
     if site['url'].rstrip('/') != 'http://192.168.129.32:8085':
         raise RuntimeError('Origine B03 refusée')
+    speed = reading_speed()
     http = module('b03_http_transport', 'c12-http.py')
     from b01_html import BeautifulSoup, validate_html
     accounts = json.loads((Path.home() / '.imagine-demo/identifiants.json').read_text(encoding='utf-8'))['c09_accounts']
@@ -51,7 +60,7 @@ def run(phase='final'):
         checks[label + ':temps_calcule_serveur'] = bool(soup.select_one('[data-imagine-reading-time]'))
         import re
         words = len(re.findall(r"[^\W_]+(?:[’'-][^\W_]+)*", body.get_text(' ', strip=True))) if body else 0
-        minutes = max(1, (words + 199) // 200)
+        minutes = max(1, (words + speed - 1) // speed)
         timing = soup.select_one('[data-imagine-reading-time]')
         checks[label + ':temps_selon_texte_serve_uniquement'] = bool(timing and (' : ' + str(minutes) + ' minute') in timing.get_text())
         checks[label + ':script_differe'] = bool(soup.select_one('script[src*="/assets/reading.js"][defer]'))
@@ -75,7 +84,7 @@ def run(phase='final'):
     code, _, home = http.fetch('/')
     checks['accueil:HTTP200'] = code == 200
     checks['accueil:aucun_asset_lecture'] = '/assets/reading.js' not in home and '/assets/reading.css' not in home
-    receipt = {'at': datetime.now(timezone.utc).isoformat(), 'scope': 'imagine-test-demo', 'phase': phase, 'checks': checks,
+    receipt = {'at': datetime.now(timezone.utc).isoformat(), 'scope': 'imagine-test-demo', 'phase': phase, 'checks': checks, 'reading_words_per_minute': speed,
                'total': len(checks), 'failures': [k for k,v in checks.items() if not v], 'responses': responses, 'assets_sha256': assets}
     PROOF.mkdir(parents=True, exist_ok=True)
     (PROOF / ('http-' + phase + '.json')).write_text(json.dumps(receipt, ensure_ascii=False, indent=2), encoding='utf-8')

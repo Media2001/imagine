@@ -37,6 +37,23 @@ class B03Contract(unittest.TestCase):
             self.assertGreaterEqual(ratio, 4.5, name)
         self.assertRegex(tokens, r'--imagine-reading-column:\s*70ch;')
 
+    def test_HTTP_lit_la_constante_du_serveur_sans_valeur_magique(self):
+        import importlib.util
+        from unittest.mock import patch
+        path = Path(__file__).with_name('b03-http.py')
+        spec = importlib.util.spec_from_file_location('b03_http_contract', path)
+        http = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(http)
+        self.assertTrue(hasattr(http, 'reading_speed'), 'Lecture de la constante serveur absente')
+        for speed in [137, 299]:
+            with patch.object(http.c08.b00, 'wp', return_value={'stdout': str(speed), 'stderr': ''}) as remote:
+                self.assertEqual(http.reading_speed(), speed)
+                self.assertIn('IMAGINE_READING_WORDS_PER_MINUTE', remote.call_args.args[1])
+        source = path.read_text(encoding='utf-8')
+        self.assertIn('speed = reading_speed()', source)
+        self.assertIn('(words + speed - 1) // speed', source)
+        self.assertNotRegex(source, r'//\s*200\b|\bwords\s*\+\s*199\b')
+
     def test_sortie_unique_et_script_sans_reseau(self):
         single = (THEME / 'single.php').read_text(encoding='utf-8')
         self.assertEqual(single.count('imagine_article_body();'), 1)
