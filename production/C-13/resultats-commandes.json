@@ -1,0 +1,48 @@
+[
+  {
+    "commande": "PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/c13.py",
+    "exit_reel": 0,
+    "PHP": 50,
+    "HTTP": 24,
+    "pur": {
+      "tests": 10,
+      "assertions": 30,
+      "succes": true,
+      "network": "none"
+    },
+    "recette_complete": false,
+    "acceptation_C09": {
+      "numero": "DEMO-2027-T1",
+      "abonnements_C09": 12,
+      "sans_paiement_valide": 12,
+      "C09_destinataires": 0,
+      "A_SANSMAIL_inclus": false,
+      "A_SANSMAIL_motif": "paiement_non_valide",
+      "offert_natif_present": false,
+      "groupe_natif_present": false
+    }
+  },
+  {
+    "commande": "PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/c13.py --require-complete",
+    "exit_reel": 2,
+    "PHP": 50,
+    "HTTP": 24,
+    "pur": {
+      "tests": 10,
+      "assertions": 30,
+      "succes": true,
+      "network": "none"
+    },
+    "recette_complete": false,
+    "acceptation_C09": {
+      "numero": "DEMO-2027-T1",
+      "abonnements_C09": 12,
+      "sans_paiement_valide": 12,
+      "C09_destinataires": 0,
+      "A_SANSMAIL_inclus": false,
+      "A_SANSMAIL_motif": "paiement_non_valide",
+      "offert_natif_present": false,
+      "groupe_natif_present": false
+    }
+  }
+]

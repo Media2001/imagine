@@ -1,0 +1,80 @@
+{
+  "suite": "A04-real-synthetic-classic-hpos",
+  "checks": [
+    {
+      "check": "legacy691:native_guard_no_override",
+      "ok": true,
+      "detail": {
+        "wordpress": "6.9.1",
+        "subscriptions_requires_wp": "7.0",
+        "woo_activation_exit": 0,
+        "subscriptions_activation_exit": 1,
+        "stderr_sha256": "a458be6643702b9910a60a8e9e23b683bf364b0325bf8ed7f95570560dab2028"
+      }
+    },
+    {
+      "check": "classic:baseline_versions",
+      "ok": true,
+      "detail": {
+        "wordpress": "7.0",
+        "woocommerce": "11.0.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3"
+      }
+    },
+    {
+      "check": "classic:a03_before",
+      "ok": false,
+      "detail": {
+        "exit": 1,
+        "code": "A03_EXECUTION_FAILED\n"
+      }
+    },
+    {
+      "check": "classic:exception",
+      "ok": false,
+      "class": "AssertionError",
+      "code": "classic:a03_before"
+    },
+    {
+      "check": "hpos:baseline_versions",
+      "ok": true,
+      "detail": {
+        "wordpress": "7.0",
+        "woocommerce": "11.0.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3"
+      }
+    },
+    {
+      "check": "hpos:a03_before",
+      "ok": false,
+      "detail": {
+        "exit": 1,
+        "code": "A03_EXECUTION_FAILED\n"
+      }
+    },
+    {
+      "check": "hpos:exception",
+      "ok": false,
+      "class": "AssertionError",
+      "code": "hpos:a03_before"
+    },
+    {
+      "check": "network_none",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp6",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "exit_code": 1
+}

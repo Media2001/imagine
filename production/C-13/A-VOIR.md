@@ -34,7 +34,7 @@ PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/c13-unit.py
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
 ```
 
-La première commande rejoue **10 tests purs / 30 assertions**, puis **74 contrôles PHP/HTTP**, relit les octets installés et vérifie la préservation C09/rôles/options/contenus et des sources B02/C14/fermées. Code **0** pour les gates techniques ; elle journalise ses vrais exports sans réinitialiser les profils.
+La première commande rejoue **10 tests purs / 30 assertions**, puis **75 contrôles PHP/HTTP**, relit les octets installés et vérifie la préservation C09/rôles/options/contenus et des sources B02/C14/fermées. Code **0** pour les gates techniques ; elle journalise ses vrais exports sans réinitialiser les profils.
 
 La seconde exécute les mêmes contrôles mais termine volontairement en **code 2** tant que l'acceptation C09 reste incomplète. `production/C-13/resultats.json` conserve explicitement `recette_complete=false` et les constats natifs, sans les présenter comme un succès global.
 

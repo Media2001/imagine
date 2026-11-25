@@ -24,7 +24,7 @@ PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/c13.py
 PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/c13.py --require-complete
 ```
 
-Résultat technique final après corrections : **10 tests purs / 30 assertions**, puis **74 contrôles PHP/HTTP**, dont deux exports HTTP non vides de **2 lignes**. Nonce/capacité/méthode, format C10, injection, journal/panne conservés ; cadeau/groupe/renouvellement/gel persistant ajoutés. Octets installés relus ; sources B02/C14/fermées et états C09/rôles/options/contenus préservés.
+Résultat technique final après corrections : **10 tests purs / 30 assertions**, puis **75 contrôles PHP/HTTP**, dont deux exports HTTP non vides de **2 lignes**. Nonce/capacité/méthode, format C10, injection, journal/panne conservés ; cadeau/groupe/renouvellement/gel persistant ajoutés. Octets installés relus ; sources B02/C14/fermées et états C09/rôles/options/contenus préservés.
 
 La commande technique sort en **0** ; la commande stricte sort en **2**, avec `recette_complete=false` : **12/12 souscriptions C09 sans date de paiement validé ; A-SANSMAIL non inclus ; offert/groupe natifs absents**. Ce n'est pas un échec masqué ni un succès complet.
 

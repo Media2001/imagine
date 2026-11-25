@@ -9,7 +9,8 @@ final class EnvoiRelations
 {
     public static function beneficiaires(\WC_Subscription $sub): array
     {
-        $gift = class_exists('WCS_Gifting') && \WCS_Gifting::is_gifted_subscription($sub);
+        $gift = $sub->meta_exists('_recipient_user') || $sub->get_meta('_recipient_user_email_address') !== ''
+            || (class_exists('WCS_Gifting') && \WCS_Gifting::is_gifted_subscription($sub));
         $plans = get_option('imagine_acces_plans', []);
         $groupPlans = array_keys(array_filter($plans, static fn ($type): bool => $type === 'groupe'));
         $memberships = get_posts(['post_type' => 'wc_user_membership', 'post_status' => 'any',
@@ -49,13 +50,16 @@ final class EnvoiRelations
             return ['origine' => 'abonnement', 'beneficiaires' => [], 'beneficiaires_resolus' => true];
         }
         if ($gift) {
-            $id = class_exists('WCS_Gifting') ? (int) \WCS_Gifting::get_recipient_user($sub) : 0;
+            $raw = class_exists('WCS_Gifting') ? \WCS_Gifting::get_recipient_user($sub) : $sub->get_meta('_recipient_user');
+            $valid = (is_string($raw) || is_int($raw)) && preg_match('/^[1-9][0-9]*$/D', (string) $raw)
+                && (string) (int) $raw === (string) $raw;
+            $id = $valid ? (int) $raw : 0;
             $user = $id ? get_userdata($id) : false;
             // L'adresse de livraison du cadeau appartient au destinataire, pas à la facturation du payeur.
             $p = self::adresse((string) $id, $sub->get_address('shipping'));
             return ['origine' => 'offert', 'beneficiaires' => $user ? [$p] : [],
                 'beneficiaires_resolus' => (bool) $user && $group === [] && $capacity === 0,
-                'relation_native' => ['recipient_user' => $id]];
+                'relation_native' => ['recipient_user' => $raw]];
         }
         $people = $links = [];
         $resolved = $capacity > 0 && get_option('imagine_envoi_groupes', 'ferme') === 'liens_memberships';

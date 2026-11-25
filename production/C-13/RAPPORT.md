@@ -18,7 +18,7 @@ Ensuite : rejeu indépendant du parent ; aucun changement de C09, C14, B02 ou bi
 - `preparer-image.ps1` : **0**, image préparée/vérifiée ; le paquet `imagine-site` est désormais découvert automatiquement sans toucher au runner fermé ni à T01.
 - `rejouer.ps1` : **1010 tests, 33978 assertions, 0 échec/erreur/ignoré**, code **0**. Dont `imagine-site` : **46 tests, 230 assertions** (C11 conservé + C13).
 - C13 pur autonome : **10 tests, 30 assertions**, code **0**, sans WordPress ni réseau.
-- Démonstration PHP/HTTP réelle : **74 contrôles verts**, deux CSV de deux lignes BE/FR ; sources B02/C14/fermées relues conformes et préservées, états C09/rôles/options/contenus inchangés.
+- Démonstration PHP/HTTP réelle : **75 contrôles verts**, deux CSV de deux lignes BE/FR ; sources B02/C14/fermées relues conformes et préservées, états C09/rôles/options/contenus inchangés.
 - Mode strict : **2**, `recette_complete=false` ; ce code n’est pas un succès d’acceptation. Les témoins fictifs C13 ne remplacent pas les profils C09.
 - Objets natifs jetables nettoyés/relus absents. Commande neuve à zéro, statut/date **fictifs** (recopiés par WCS sur sa souscription jetable). Aucun profil actif existant transformé en paiement, aucun `payment_complete()` ni transport réel.
 

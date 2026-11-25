@@ -52,13 +52,16 @@ def run_storage(storage):
     old_file=site/'wp-content/plugins/woocommerce/a04-old-file-kept.txt';old_file.write_text('Fiction A04 preserve unlisted file')
     themes_before=a03.filemap(site/'wp-content/themes')
     check(storage+':baseline_versions',bool(seed['versions']),seed['versions'])
-    server=subprocess.Popen(['php','-d','log_errors=0','-d','display_errors=0','-S','127.0.0.1:18803','-t',str(site)],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+    log_path=json.loads(settings.read_text())['php_error_log']
+    server=subprocess.Popen(['php','-d','log_errors=1','-d','display_errors=0','-d','date.timezone=UTC','-d','error_log='+log_path,'-S','127.0.0.1:18803','-t',str(site)],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
     time.sleep(.5)
     def readonly():
         (site/'wp-config.php').write_text(config.replace("define('DB_USER', 'root')","define('DB_USER', 'a03_"+storage+"')"))
     try:
         readonly();p=a03.snapshot(site,settings,OUT/(storage+'-before'))
         check(storage+':a03_before',p.returncode==0,{'exit':p.returncode,'code':p.stderr[:150]})
+        photo_before=json.loads((OUT/(storage+'-before/non-regression.json')).read_text())
+        check(storage+':a03_before_php_log_clean',photo_before['php_log']['checked'] is True and photo_before['php_log']['errors']==0,photo_before['php_log'])
         (site/'wp-config.php').write_text(config)
         # Explicit disposable file + DB backups, never any external archive or input.
         backup_dir=ROOT/('backup-'+storage);backup_dir.mkdir()
@@ -154,17 +157,16 @@ def run_storage(storage):
         persistent.unlink();readonly()
         p=a03.snapshot(site,settings,OUT/(storage+'-after'))
         check(storage+':a03_after',p.returncode==0,{'exit':p.returncode,'code':p.stderr[:150]})
+        photo_after=json.loads((OUT/(storage+'-after/non-regression.json')).read_text())
+        check(storage+':a03_after_php_log_clean',photo_after['php_log']['checked'] is True and photo_after['php_log']['errors']==0,photo_after['php_log'])
         compared=a03.cmd(['php','/subject/comparer',str(OUT/(storage+'-before/non-regression.json')),str(OUT/(storage+'-after/non-regression.json'))],check=False)
         diff=json.loads(compared.stdout);write(OUT/(storage+'-comparison.json'),diff)
         for name in ['etat.json','journal.json','journal.txt','migrations.jsonl']:
             shutil.copyfile(state/name,OUT/(storage+'-'+name))
-        sys.path.insert(0,'/subject/a04')
-        from qualification import qualify
-        qualified=qualify(json.loads((OUT/(storage+'-before/non-regression.json')).read_text()),json.loads((OUT/(storage+'-after/non-regression.json')).read_text()),{'wordpress':after[0],'woocommerce':after[1],'subscriptions':after[2],'memberships':after[3]})
-        qualified['native_a03_exit']=compared.returncode
-        qualified['native_a03_anormal']=diff['anormal']
-        write(OUT/(storage+'-qualification.json'),qualified)
-        check(storage+':only_exact_expected_changes_additive',compared.returncode in [0,2,3] and qualified['qualified'],qualified)
+        native={'native_a03_exit':compared.returncode,'native_a03_anormal':diff['anormal'],'changes':diff['changes']}
+        write(OUT/(storage+'-comparison-receipt.json'),native)
+        check(storage+':native_a03_expected_only_code3',compared.returncode==3 and diff['anormal']==0 and bool(diff['changes']) and all(c['class']=='attendu' for c in diff['changes']),native)
+        check(storage+':target_versions_exact',photo_after['versions']=={**photo_before['versions'],'wordpress':after[0],'woocommerce':after[1],'subscriptions':after[2],'memberships':after[3]})
         write(OUT/(storage+'-versions.json'),{'before':dict(zip(keys,before)),'after':dict(zip(keys,after)),'baseline_public_woo':old_version})
         # A production-mode rehearsal is still this same entirely fictitious,
         # disconnected fixture. Its local GO is synthetic, never an operator GO.
@@ -187,7 +189,11 @@ def run_storage(storage):
         (site/'wp-content/mu-plugins/001-imagine-a04-maintenance.php').unlink();maintenance.unlink();readonly()
         p=a03.snapshot(site,settings,OUT/(storage+'-production-roundtrip'))
         after_prod=a03.cmd(['php','/subject/comparer',str(OUT/(storage+'-after/non-regression.json')),str(OUT/(storage+'-production-roundtrip/non-regression.json'))],check=False)
-        check(storage+':production_roundtrip_no_business_change',p.returncode==0 and after_prod.returncode==0)
+        roundtrip=json.loads(after_prod.stdout)
+        write(OUT/(storage+'-production-roundtrip-comparison.json'),{'native_a03_exit':after_prod.returncode,**roundtrip})
+        check(storage+':production_roundtrip_no_business_change',p.returncode==0 and after_prod.returncode==0 and roundtrip['changes']==[])
+        photo_roundtrip=json.loads((OUT/(storage+'-production-roundtrip/non-regression.json')).read_text())
+        check(storage+':a03_roundtrip_php_log_clean',photo_roundtrip['php_log']['checked'] is True and photo_roundtrip['php_log']['errors']==0,photo_roundtrip['php_log'])
         check(storage+':remaining_file_only_plugin_updated_last',current['steps']['a04-rest']['phase']=='verified' and 'Version: 2.0.0' in rest.read_text())
         check(storage+':themes_untouched_and_no_cleanup',themes_before==a03.filemap(site/'wp-content/themes') and old_file.read_text()=='Fiction A04 preserve unlisted file')
         trace=[json.loads(line) for line in (state/'migrations.jsonl').read_text().splitlines()]

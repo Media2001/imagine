@@ -40,6 +40,11 @@ try {
         && $gift['donnees']['beneficiaires_resolus']
         && $gift['donnees']['beneficiaires'][0]['id'] === (string) $recipient->get_customer_id()
         && $gift['donnees']['beneficiaires'][0]['rue'] === $recipient->get_shipping_address_1();
+    $sub->update_meta_data('_recipient_user', (string) $recipient->get_customer_id() . '-invalide');
+    $sub->save();
+    $malformedGift = EnvoiNatif::relever($sub);
+    $checks['identifiant_beneficiaire_malforme_pas_normalise'] = $malformedGift['donnees']['origine'] === 'offert'
+        && !$malformedGift['donnees']['beneficiaires_resolus'] && $malformedGift['donnees']['beneficiaires'] === [];
     $sub->delete_meta_data('_recipient_user');
     $sub->update_meta_data('_recipient_user_email_address', 'beneficiaire-absent-fictif@example.org');
     $sub->save();

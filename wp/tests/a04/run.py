@@ -58,7 +58,7 @@ def main():
             record('unit', unit.returncode == 0)
             if not args.unit_only and unit.returncode == 0:
                 # Read-only reuse; no baseline sources are changed.
-                files = [(ROOT.parent/'a03-non-regression'/f, '/opt/a03/'+f) for f in ['seed.php', 'inside.py']]
+                files = [(ROOT.parent/'a03-non-regression'/f, '/opt/a03/'+f) for f in ['seed.php', 'inside.py', 'http-rollback.php']]
                 files += [(REPO/'wp/outils/bascule'/f, '/subject/'+f) for f in ['non-regression', 'comparer', 'audit']]
                 files += [(p, '/subject/a03/'+p.name) for p in (REPO/'wp/outils/bascule/a03').glob('*.php')]
                 files += [(p, '/plugins/imagine-non-regression/src/'+p.name) for p in (REPO/'wp/plugins/imagine-non-regression/src').glob('*.php')]
