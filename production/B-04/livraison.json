@@ -1,0 +1,79 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-25T20:27:16.338331+00:00",
+  "status": "PRET_A_RELIRE",
+  "checks_total": 554,
+  "preservation_checks": 9,
+  "failures": [],
+  "final_verification_sha256": "40638b418a0f5e0fe682e823d022e9ac4a62f60ffa768756c36624fdd7301fd3",
+  "final_preservation_sha256": "52b1235cc728d0371423f5d85d9cfab4e4524e42e01ad4b6b4b0ae22d46693dd",
+  "document_sha256": {
+    "RAPPORT.md": "bb6cc88c0957a61ecccb2f2fd7b46b53e90420f48a6d1ff69a3ddfb3a47655d5",
+    "A-VOIR.md": "7bdc579bd3aeb7af078b5c7442159f8893c8ebcf0620f286a64bc9dd1c9e5b06",
+    "besoins-designer.md": "b46b35aa78c8ec0ec1de21b917e2594819bb142ccc67209ac38c21393962363d",
+    "COMMANDES.md": "f2c404dedabc74eb07aec40f3d0194456a51fcab5eddeff5bd0913b19d725e6d",
+    "references.md": "ff714654e06d45733404d3cb7c77241217260fcf90d143fe5e30b5721625dedc"
+  },
+  "theme_readback_sha256": {
+    "themes/imagine/functions.php": "f1ca667e6b807bc1a54fcb725c9a1f24754e9efa791ba4728bdaf35a612485bb",
+    "themes/imagine/inc/catalogue.php": "578ccfb5a874a3eb8ecabe5d4e782df4b8ac4d65033a2d09636442efdf6b406c",
+    "themes/imagine/single-imagine_numero.php": "be51d1d4281c5fc037919b6d5d8ea46d098ce7b8d2be99386ba1c3e63b1c9346",
+    "themes/imagine/archive-imagine_numero.php": "92e09dea1729c011f8a0dcc18432f635b8832431f04828513426dd477b66c12e",
+    "themes/imagine/taxonomy-imagine_thematique.php": "ad4f9a75297af05d62cc803be63fad5c0b1e5d596518a2f05a903477eb6edc82"
+  },
+  "fixture": {
+    "fixture": {
+      "product": 2475
+    },
+    "product": {
+      "id": 2475,
+      "status": "publish",
+      "price": "0",
+      "numero": 11
+    },
+    "original271_private": true
+  },
+  "query_witness_removed": [
+    2501,
+    2502,
+    2503,
+    2504,
+    2505,
+    2506,
+    2507,
+    2508,
+    2509,
+    2510,
+    2511,
+    2512,
+    2513,
+    2514,
+    2515,
+    2516,
+    2517,
+    2518,
+    2519,
+    2520,
+    2500
+  ],
+  "query_endpoint_removed": true,
+  "screenshots_sha256": {
+    "production\\B-04\\captures\\anonyme-1280-numero11.png": "324b3b1edd9906a428ecdaa51e891a58ef29a1a8e00de746bbea3dcf37b4e604",
+    "production\\B-04\\captures\\anonyme-1280-numero39.png": "684e955b0d41a92a8c16d3fe36824e0fb1881c38270b1c80acef5a0bec4d013c",
+    "production\\B-04\\captures\\anonyme-1280-kiosque.png": "b3970a0d1bec12e3582064272a931ad364da84c8c6e6b4f344b5f74235436939",
+    "production\\B-04\\captures\\anonyme-1280-thematique.png": "0170c896af1c02c0289a77c9616963a69aafae3adc9ce9eab9ed31016913126c",
+    "production\\B-04\\captures\\anonyme-375-numero11.png": "38cf09a4a7b5df7a39f6703acb99eb6134817d81ea8f8b096077b5f5aa0bf415",
+    "production\\B-04\\captures\\anonyme-375-numero39.png": "9f367e29df5f7fb79e1c4f8611f34831eb21f393bcf71a7b432a114a4712498e",
+    "production\\B-04\\captures\\anonyme-375-kiosque.png": "d05373a2c279343f3db5dd961f9a4e58c154d8905e46664930f75f470c343034",
+    "production\\B-04\\captures\\anonyme-375-thematique.png": "bd2960be7589c9cb55cb30449c1083ba682b4fb94c9376e12b1354c05975c38f",
+    "production\\B-04\\captures\\a-carte-1280-numero11.png": "31dff8ae8d7c8527cb9d837dc0f329c0c4a85d0ace8dc98899f4a029004aa317",
+    "production\\B-04\\captures\\a-carte-1280-numero39.png": "0b8b777e40ea9635b05743f091af1c79db044132a5dacd46a73a0350761c5a99",
+    "production\\B-04\\captures\\a-carte-375-numero11.png": "b76f7c3aef38e0f53e7762569c7d080588216302fc816f03caa0e612c65cc80c",
+    "production\\B-04\\captures\\a-carte-375-numero39.png": "36dd5e75e92a8cf7db52c687bc789b1b9004a3bd02f8d3524f891b81d2e7be7a",
+    "production\\B-04\\captures\\p-numero-1280-numero11.png": "a3e9cff05c282d2dfd008f0023cc9a0d15938923a0ca3b78ee68476c455a455f",
+    "production\\B-04\\captures\\p-numero-1280-numero39.png": "684e955b0d41a92a8c16d3fe36824e0fb1881c38270b1c80acef5a0bec4d013c",
+    "production\\B-04\\captures\\p-numero-375-numero11.png": "cc44c8077346d9ecdc20d602138e99683d537dff7a7e7c7440879c9de9c6ed65",
+    "production\\B-04\\captures\\p-numero-375-numero39.png": "9f367e29df5f7fb79e1c4f8611f34831eb21f393bcf71a7b432a114a4712498e"
+  },
+  "prepare_image_log_sha256": "74984676bef4a2c2dd71e71b42e9b4390189ccd843bd93ef263b1413b2d2d3d9"
+}

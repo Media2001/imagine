@@ -1,0 +1,9 @@
+{
+  "wp/tests/a10/inside.py": "748699d57b0abe5cdd2265ab79af7726e17b95d32c1b3d094514595464da34df",
+  "wp/tests/a10/inspect_native.py": "352a36c549f3f73555c4730cbd82d84a9c579ca802a5376313cbba2e8ff2ec5e",
+  "wp/tests/a10/run.py": "96fb1da9798814abf99f74d2e3ab80d6198043a070eb1186532aec2d0d0b1693",
+  "wp/tests/a10/seed.php": "ba642059a8e2db3f70bae8f85468c9b30f118c41b725df85732776f6d8b7a848",
+  "wp/tests/a10/unit.php": "903aac377c844dd39bd8d00d89321dfa6c87c4e4deaf942a6ab896d4ed480a66",
+  "wp/outils/bascule/a10/Projection.php": "1dbd61e2393ddc9ca3dd259be2c00a12ed5ec90a728cf34e08f714e0811748c9",
+  "wp/outils/bascule/audit": "7eb2b4bfa450e37d3f4265e3055cdba61a877b056f4feb0bfce06f681659c6dc"
+}

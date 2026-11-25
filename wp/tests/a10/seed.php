@@ -67,11 +67,13 @@ $attach = static function ($order, string $code, bool $duplicate = false): void 
     }
     $order->save();
 };
-foreach (wcs_get_subscriptions(['subscriptions_per_page' => -1, 'subscription_status' => 'any']) as $s) {
+$fixtureSubscriptions = wcs_get_subscriptions(['subscriptions_per_page' => -1, 'subscription_status' => 'any']);
+$fixtureCustomer = current($fixtureSubscriptions)->get_customer_id();
+foreach ($fixtureSubscriptions as $s) {
     $attach($s, 'a10-recurring-fee', true);
 }
 foreach (['pending', 'cancelled', 'expired'] as $status) {
-    $s = wcs_create_subscription(['status' => 'pending', 'billing_period' => 'month', 'billing_interval' => 1]);
+    $s = wcs_create_subscription(['customer_id' => $fixtureCustomer, 'status' => 'pending', 'billing_period' => 'month', 'billing_interval' => 1]);
     if (is_wp_error($s)) {
         throw new RuntimeException('A10_FIXTURE_SUBSCRIPTION');
     }

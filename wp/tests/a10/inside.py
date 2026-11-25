@@ -8,6 +8,12 @@ sys.dont_write_bytecode=True
 spec=importlib.util.spec_from_file_location('a02', '/opt/a02/inside.py')
 b=importlib.util.module_from_spec(spec); spec.loader.exec_module(b)
 OUT=pathlib.Path('/report')
+original_check=b.check
+def safe_check(name,ok,detail=None):
+    if name.endswith(':commercial_fixture') and isinstance(detail,dict):
+        detail={k:detail[k] for k in ['versions','hpos','subscriptions','rules','restriction_real']}
+    return original_check(name,ok,detail)
+b.check=safe_check
 
 def inventory(site,out,*extra):
     return b.cmd(['php','/subject/inventorier-codes','--wp-path='+str(site),'--output='+str(out),*extra],check=False)
@@ -19,7 +25,10 @@ def run_storage(storage):
     writable=config.replace("define('DB_USER', 'a02_"+storage+"')", "define('DB_USER', 'root')").split("\nfile_put_contents('/scratch/a02-bootstrap-trap'")[0]
     (site/'wp-config.php').write_text(writable)
     try:
-        p=b.wp(site,['eval-file','/opt/a10/seed.php','--use-include'])
+        p=b.wp(site,['eval-file','/opt/a10/seed.php','--use-include'],check=False)
+        if p.returncode:
+            (OUT/(storage+'-fixture-error.log')).write_text(p.stderr)
+            raise RuntimeError('A10_NATIVE_SEED_FAILED')
         data=json.loads(next(x[9:] for x in p.stdout.splitlines() if x.startswith('A10_JSON=')))
     finally:
         (site/'wp-config.php').write_text(config)
