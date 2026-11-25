@@ -1,0 +1,824 @@
+woocommerce-subscriptions/includes/class-wcs-limited-recurring-coupon-manager.php:20
+	 * @var string
+	 */
+	private static $coupons_renewals = '_wcs_number_payments';
+
+	/**
+	 * Initialize the class hooks and callbacks.
+woocommerce-subscriptions/includes/class-wcs-limited-recurring-coupon-manager.php:96
+		}
+
+		$coupon_type = $coupon->get_discount_type();
+
+		// If we have a virtual coupon, attempt to get the original coupon.
+		if ( WC_Subscriptions_Coupon::is_renewal_cart_coupon( $coupon_type ) ) {
+woocommerce-subscriptions/includes/class-wcs-limited-recurring-coupon-manager.php:101
+		if ( WC_Subscriptions_Coupon::is_renewal_cart_coupon( $coupon_type ) ) {
+			$coupon      = WC_Subscriptions_Coupon::map_virtual_coupon( $coupon->get_code() );
+			$coupon_type = $coupon->get_discount_type();
+		}
+
+		if ( ! WC_Subscriptions_Coupon::is_recurring_coupon( $coupon_type ) ) {
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:20
+	 * @var string
+	 */
+	protected static $coupons_renewals = '_wcs_number_payments';
+
+	/** @var string error message for invalid subscription coupons */
+	public static $coupon_error;
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:39
+	 */
+	private static $recurring_coupons = array(
+		'recurring_fee'     => 1,
+		'recurring_percent' => 1,
+	);
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:40
+	private static $recurring_coupons = array(
+		'recurring_fee'     => 1,
+		'recurring_percent' => 1,
+	);
+
+	/**
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:48
+	 * @var array
+	 */
+	private static $sign_up_fee_coupons = array(
+		'sign_up_fee_percent' => 1,
+		'sign_up_fee'         => 1,
+	);
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:49
+	 */
+	private static $sign_up_fee_coupons = array(
+		'sign_up_fee_percent' => 1,
+		'sign_up_fee'         => 1,
+	);
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:50
+	private static $sign_up_fee_coupons = array(
+		'sign_up_fee_percent' => 1,
+		'sign_up_fee'         => 1,
+	);
+
+	/**
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:124
+		}
+
+		if ( $displaying_initial_cart_totals && WC_Subscriptions_Cart::all_cart_items_have_free_trial() && in_array( wcs_get_coupon_property( $coupon, 'discount_type' ), array( 'recurring_fee', 'recurring_percent' ) ) ) {
+			$coupon_html .= '<span class="wcs-hidden-coupon" type="hidden"></span>';
+		}
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:141
+			$discount_types,
+			array(
+				'sign_up_fee'         => __( 'Sign Up Fee Discount', 'woocommerce-subscriptions' ),
+				'sign_up_fee_percent' => __( 'Sign Up Fee % Discount', 'woocommerce-subscriptions' ),
+				'recurring_fee'       => __( 'Recurring Product Discount', 'woocommerce-subscriptions' ),
+				'recurring_percent'   => __( 'Recurring Product % Discount', 'woocommerce-subscriptions' ),
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:142
+			array(
+				'sign_up_fee'         => __( 'Sign Up Fee Discount', 'woocommerce-subscriptions' ),
+				'sign_up_fee_percent' => __( 'Sign Up Fee % Discount', 'woocommerce-subscriptions' ),
+				'recurring_fee'       => __( 'Recurring Product Discount', 'woocommerce-subscriptions' ),
+				'recurring_percent'   => __( 'Recurring Product % Discount', 'woocommerce-subscriptions' ),
+			)
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:143
+				'sign_up_fee'         => __( 'Sign Up Fee Discount', 'woocommerce-subscriptions' ),
+				'sign_up_fee_percent' => __( 'Sign Up Fee % Discount', 'woocommerce-subscriptions' ),
+				'recurring_fee'       => __( 'Recurring Product Discount', 'woocommerce-subscriptions' ),
+				'recurring_percent'   => __( 'Recurring Product % Discount', 'woocommerce-subscriptions' ),
+			)
+		);
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:144
+				'sign_up_fee_percent' => __( 'Sign Up Fee % Discount', 'woocommerce-subscriptions' ),
+				'recurring_fee'       => __( 'Recurring Product Discount', 'woocommerce-subscriptions' ),
+				'recurring_percent'   => __( 'Recurring Product % Discount', 'woocommerce-subscriptions' ),
+			)
+		);
+	}
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:187
+		}
+
+		$coupon_type = wcs_get_coupon_property( $coupon, 'discount_type' );
+
+		// Only deal with subscriptions coupon types which apply to cart items
+		if ( ! in_array( $coupon_type, array( 'recurring_fee', 'recurring_percent', 'sign_up_fee', 'sign_up_fee_percent', 'renewal_fee', 'renewal_percent', 'renewal_cart', 'initial_cart' ) ) ) {
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:190
+
+		// Only deal with subscriptions coupon types which apply to cart items
+		if ( ! in_array( $coupon_type, array( 'recurring_fee', 'recurring_percent', 'sign_up_fee', 'sign_up_fee_percent', 'renewal_fee', 'renewal_percent', 'renewal_cart', 'initial_cart' ) ) ) {
+			return $discount;
+		}
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:215
+
+		// Set the defaults for our logic checks to false
+		$apply_recurring_coupon = $apply_recurring_percent_coupon = $apply_initial_coupon = $apply_initial_percent_coupon = $apply_renewal_cart_coupon = false;
+
+		// Check if we're applying any recurring discounts to recurring total calculations
+		if ( 'recurring_total' == $calculation_type ) {
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:219
+		// Check if we're applying any recurring discounts to recurring total calculations
+		if ( 'recurring_total' == $calculation_type ) {
+			$apply_recurring_coupon         = 'recurring_fee' == $coupon_type;
+			$apply_recurring_percent_coupon = 'recurring_percent' == $coupon_type;
+		}
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:220
+		if ( 'recurring_total' == $calculation_type ) {
+			$apply_recurring_coupon         = 'recurring_fee' == $coupon_type;
+			$apply_recurring_percent_coupon = 'recurring_percent' == $coupon_type;
+		}
+
+		// Check if we're applying any initial discounts
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:229
+			if ( $is_switch || ! WC_Subscriptions_Cart::all_cart_items_have_free_trial() ) {
+
+				if ( 'recurring_fee' === $coupon_type || 'initial_cart' === $coupon_type ) {
+					$apply_initial_coupon = true;
+				}
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:233
+				}
+
+				if ( 'recurring_percent' == $coupon_type ) {
+					$apply_initial_percent_coupon = true;
+				}
+			}
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:239
+
+			// Apply sign-up discounts. Exclude switch cart items because their initial amount is entirely sign-up fees but should be treated as initial amounts
+			if ( ! $is_switch && WC_Subscriptions_Product::get_sign_up_fee( $cart_item['data'] ) > 0 ) {
+
+				if ( 'sign_up_fee' == $coupon_type ) {
+					$apply_initial_coupon = true;
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:241
+			if ( ! $is_switch && WC_Subscriptions_Product::get_sign_up_fee( $cart_item['data'] ) > 0 ) {
+
+				if ( 'sign_up_fee' == $coupon_type ) {
+					$apply_initial_coupon = true;
+				}
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:245
+				}
+
+				if ( 'sign_up_fee_percent' == $coupon_type ) {
+					$apply_initial_percent_coupon = true;
+				}
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:255
+						array(
+							'qty'   => 1,
+							'price' => WC_Subscriptions_Product::get_sign_up_fee( $cart_item['data'] ),
+						)
+					);
+				} else {
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:263
+						array(
+							'qty'   => 1,
+							'price' => WC_Subscriptions_Product::get_sign_up_fee( $cart_item['data'] ),
+						)
+					);
+				}
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:269
+
+				// Only Sign up fee coupons apply to sign up fees, adjust the discounting_amount accordingly
+				if ( in_array( $coupon_type, array( 'sign_up_fee', 'sign_up_fee_percent' ) ) ) {
+					$discounting_amount = $signup_fee;
+				} else {
+					$discounting_amount -= $signup_fee;
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:281
+			}
+			if ( 'renewal_percent' == $coupon_type ) {
+				$apply_recurring_percent_coupon = true;
+			}
+			if ( 'renewal_cart' == $coupon_type ) {
+				$apply_renewal_cart_coupon = true;
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:292
+
+			// Recurring coupons only apply when there is no free trial (carts can have a mix of free trial and non free trial items)
+			if ( $apply_initial_coupon && 'recurring_fee' == $coupon_type && ! $is_switch && WC_Subscriptions_Product::get_trial_length( $cart_item['data'] ) > 0 ) {
+				$discounting_amount = 0;
+			}
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:296
+			}
+
+			$discount_amount = min( wcs_get_coupon_property( $coupon, 'coupon_amount' ), $discounting_amount );
+			$discount_amount = $single ? $discount_amount : $discount_amount * $cart_item_qty;
+
+		} elseif ( $apply_recurring_percent_coupon ) {
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:299
+			$discount_amount = $single ? $discount_amount : $discount_amount * $cart_item_qty;
+
+		} elseif ( $apply_recurring_percent_coupon ) {
+
+			$discount_amount = ( $discounting_amount / 100 ) * wcs_get_coupon_property( $coupon, 'coupon_amount' );
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:301
+		} elseif ( $apply_recurring_percent_coupon ) {
+
+			$discount_amount = ( $discounting_amount / 100 ) * wcs_get_coupon_property( $coupon, 'coupon_amount' );
+
+		} elseif ( $apply_initial_percent_coupon ) {
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:306
+
+			// Recurring coupons only apply when there is no free trial (carts can have a mix of free trial and non free trial items)
+			if ( 'recurring_percent' == $coupon_type && ! $is_switch && WC_Subscriptions_Product::get_trial_length( $cart_item['data'] ) > 0 ) {
+				$discounting_amount = 0;
+			}
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:310
+			}
+
+			$discount_amount = ( $discounting_amount / 100 ) * wcs_get_coupon_property( $coupon, 'coupon_amount' );
+
+		} elseif ( $apply_renewal_cart_coupon ) {
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:314
+		} elseif ( $apply_renewal_cart_coupon ) {
+
+			$coupon_code      = wcs_get_coupon_property( $coupon, 'code' );
+			$renewal_subtotal = self::get_renewal_subtotal( $coupon_code, $calculation );
+
+			if ( is_numeric( $renewal_subtotal ) && $renewal_subtotal > 0 ) {
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:326
+				$discount_percent = ( $discounting_amount * $cart_item['quantity'] ) / $renewal_subtotal;
+
+				$discount_amount = ( wcs_get_coupon_property( $coupon, 'coupon_amount' ) * $discount_percent ) / $cart_item_qty;
+			} elseif ( false !== $renewal_subtotal ) {
+				// Without a positive renewal subtotal there is no basis to prorate the discount
+				// against, so the coupon applies no discount. get_renewal_subtotal() has already
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:364
+		}
+
+		$coupon_type = wcs_get_coupon_property( $coupon, 'discount_type' );
+		$order       = $line_item->get_order();
+		$product     = $line_item->get_product();
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:369
+
+		// Recurring coupons can be applied to subscriptions, any renewal line item or subscription products in other order types
+		if ( in_array( $coupon_type, array( 'recurring_fee', 'recurring_percent' ) ) && ( wcs_is_subscription( $order ) || wcs_order_contains_renewal( $order ) || WC_Subscriptions_Product::is_subscription( $product ) ) ) {
+			if ( 'recurring_fee' === $coupon_type ) {
+				$discount = min( $coupon->get_amount(), $discounting_amount );
+				$discount = $single ? $discount : $discount * $line_item->get_quantity();
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:370
+		// Recurring coupons can be applied to subscriptions, any renewal line item or subscription products in other order types
+		if ( in_array( $coupon_type, array( 'recurring_fee', 'recurring_percent' ) ) && ( wcs_is_subscription( $order ) || wcs_order_contains_renewal( $order ) || WC_Subscriptions_Product::is_subscription( $product ) ) ) {
+			if ( 'recurring_fee' === $coupon_type ) {
+				$discount = min( $coupon->get_amount(), $discounting_amount );
+				$discount = $single ? $discount : $discount * $line_item->get_quantity();
+			} else { // recurring_percent
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:373
+				$discount = min( $coupon->get_amount(), $discounting_amount );
+				$discount = $single ? $discount : $discount * $line_item->get_quantity();
+			} else { // recurring_percent
+				$discount = (float) $coupon->get_amount() * ( $discounting_amount / 100 );
+			}
+		// Sign-up fee coupons apply to parent order line items which are subscription products and have a signup fee
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:377
+			}
+		// Sign-up fee coupons apply to parent order line items which are subscription products and have a signup fee
+		} elseif ( in_array( $coupon_type, array( 'sign_up_fee', 'sign_up_fee_percent' ) ) && WC_Subscriptions_Product::is_subscription( $product ) && wcs_order_contains_subscription( $order, 'parent' ) && 0 !== WC_Subscriptions_Product::get_sign_up_fee( $product ) ) {
+			if ( 'sign_up_fee' === $coupon_type ) {
+				$discount = min( $coupon->get_amount(), WC_Subscriptions_Product::get_sign_up_fee( $product ) );
+				$discount = $single ? $discount : $discount * $line_item->get_quantity();
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:378
+		// Sign-up fee coupons apply to parent order line items which are subscription products and have a signup fee
+		} elseif ( in_array( $coupon_type, array( 'sign_up_fee', 'sign_up_fee_percent' ) ) && WC_Subscriptions_Product::is_subscription( $product ) && wcs_order_contains_subscription( $order, 'parent' ) && 0 !== WC_Subscriptions_Product::get_sign_up_fee( $product ) ) {
+			if ( 'sign_up_fee' === $coupon_type ) {
+				$discount = min( $coupon->get_amount(), WC_Subscriptions_Product::get_sign_up_fee( $product ) );
+				$discount = $single ? $discount : $discount * $line_item->get_quantity();
+			} else { // sign_up_fee_percent
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:379
+		} elseif ( in_array( $coupon_type, array( 'sign_up_fee', 'sign_up_fee_percent' ) ) && WC_Subscriptions_Product::is_subscription( $product ) && wcs_order_contains_subscription( $order, 'parent' ) && 0 !== WC_Subscriptions_Product::get_sign_up_fee( $product ) ) {
+			if ( 'sign_up_fee' === $coupon_type ) {
+				$discount = min( $coupon->get_amount(), WC_Subscriptions_Product::get_sign_up_fee( $product ) );
+				$discount = $single ? $discount : $discount * $line_item->get_quantity();
+			} else { // sign_up_fee_percent
+				$discount = (float) $coupon->get_amount() * ( WC_Subscriptions_Product::get_sign_up_fee( $product ) / 100 );
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:381
+				$discount = min( $coupon->get_amount(), WC_Subscriptions_Product::get_sign_up_fee( $product ) );
+				$discount = $single ? $discount : $discount * $line_item->get_quantity();
+			} else { // sign_up_fee_percent
+				$discount = (float) $coupon->get_amount() * ( WC_Subscriptions_Product::get_sign_up_fee( $product ) / 100 );
+			}
+		}
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:382
+				$discount = $single ? $discount : $discount * $line_item->get_quantity();
+			} else { // sign_up_fee_percent
+				$discount = (float) $coupon->get_amount() * ( WC_Subscriptions_Product::get_sign_up_fee( $product ) / 100 );
+			}
+		}
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:393
+	 *
+	 * Used internally for checking if a WooCommerce discount coupon ('core') has been applied, or for if a specific
+	 * subscription coupon type, like 'recurring_fee' or 'sign_up_fee', has been applied.
+	 *
+	 * @param string $coupon_type Any available coupon type or a special keyword referring to a class of coupons. Can be:
+	 *  - 'any' to check for any type of discount
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:398
+	 *  - 'any' to check for any type of discount
+	 *  - 'core' for any core WooCommerce coupon
+	 *  - 'recurring_fee' for the recurring amount subscription coupon
+	 *  - 'sign_up_fee' for the sign-up fee subscription coupon
+	 *
+	 * @since 1.0.0 - Migrated from WooCommerce Subscriptions v1.3.5
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:399
+	 *  - 'core' for any core WooCommerce coupon
+	 *  - 'recurring_fee' for the recurring amount subscription coupon
+	 *  - 'sign_up_fee' for the sign-up fee subscription coupon
+	 *
+	 * @since 1.0.0 - Migrated from WooCommerce Subscriptions v1.3.5
+	 */
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:413
+
+				$coupon           = new WC_Coupon( $code );
+				$cart_coupon_type = wcs_get_coupon_property( $coupon, 'discount_type' );
+
+				if ( 'any' == $coupon_type || $coupon_type == $cart_coupon_type || ( 'core' == $coupon_type && in_array( $cart_coupon_type, $core_coupons ) ) ) {
+					$contains_discount = true;
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:469
+	public static function validate_subscription_coupon_for_cart( $valid, $coupon ) {
+		self::$coupon_error = '';
+		$coupon_type        = wcs_get_coupon_property( $coupon, 'discount_type' );
+
+		// ignore non-subscription coupons
+		if ( ! in_array( $coupon_type, array( 'recurring_fee', 'sign_up_fee', 'recurring_percent', 'sign_up_fee_percent', 'renewal_fee', 'renewal_percent', 'renewal_cart', 'initial_cart' ) ) ) {
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:472
+
+		// ignore non-subscription coupons
+		if ( ! in_array( $coupon_type, array( 'recurring_fee', 'sign_up_fee', 'recurring_percent', 'sign_up_fee_percent', 'renewal_fee', 'renewal_percent', 'renewal_cart', 'initial_cart' ) ) ) {
+
+			// but make sure there is actually something for the coupon to be applied to (i.e. not a free trial)
+			if ( ( wcs_cart_contains_renewal() || WC_Subscriptions_Cart::cart_contains_subscription() ) && 0 == WC()->cart->subtotal ) {
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:493
+			if ( ! wcs_cart_contains_renewal() && in_array( $coupon_type, array( 'renewal_fee', 'renewal_percent', 'renewal_cart' ) ) ) {
+				// translators: 1$: coupon code that is being removed
+				self::$coupon_error = sprintf( __( 'Sorry, the "%1$s" coupon is only valid for renewals.', 'woocommerce-subscriptions' ), wcs_get_coupon_property( $coupon, 'code' ) );
+			}
+
+			// prevent sign up fee coupons from being applied to subscriptions without a sign up fee
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:497
+
+			// prevent sign up fee coupons from being applied to subscriptions without a sign up fee
+			if ( 0 == WC_Subscriptions_Cart::get_cart_subscription_sign_up_fee() && in_array( $coupon_type, array( 'sign_up_fee', 'sign_up_fee_percent' ) ) ) {
+				self::$coupon_error = __( 'Sorry, this coupon is only valid for subscription products with a sign-up fee.', 'woocommerce-subscriptions' );
+			}
+		}
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:514
+	 *
+	 * @since 1.0.0 - Migrated from WooCommerce Subscriptions v2.2.13
+	 * @param WC_Coupon $coupon The subscription coupon being validated. Can accept recurring_fee, recurring_percent, sign_up_fee or sign_up_fee_percent coupon types.
+	 * @param WC_Order|WC_Subscription $order The order or subscription object to which the coupon is being applied
+	 * @return bool whether the coupon is valid
+	 */
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:519
+	 */
+	public static function validate_subscription_coupon_for_order( $valid, $coupon, $order ) {
+		$coupon_type   = wcs_get_coupon_property( $coupon, 'discount_type' );
+		$error_message = '';
+
+		// Recurring coupons can be applied to subscriptions and renewal orders
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:523
+
+		// Recurring coupons can be applied to subscriptions and renewal orders
+		if ( in_array( $coupon_type, array( 'recurring_fee', 'recurring_percent' ) ) && ! ( wcs_is_subscription( $order ) || wcs_order_contains_subscription( $order, 'any' ) ) ) {
+			$error_message = __( 'Sorry, recurring coupons can only be applied to subscriptions or subscription orders.', 'woocommerce-subscriptions' );
+		// Sign-up fee coupons can be applied to parent orders which contain subscription products with at least one sign up fee
+		} elseif ( in_array( $coupon_type, array( 'sign_up_fee', 'sign_up_fee_percent' ) ) && ! ( wcs_order_contains_subscription( $order, 'parent' ) || 0 !== WC_Subscriptions_Order::get_sign_up_fee( $order ) ) ) {
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:526
+			$error_message = __( 'Sorry, recurring coupons can only be applied to subscriptions or subscription orders.', 'woocommerce-subscriptions' );
+		// Sign-up fee coupons can be applied to parent orders which contain subscription products with at least one sign up fee
+		} elseif ( in_array( $coupon_type, array( 'sign_up_fee', 'sign_up_fee_percent' ) ) && ! ( wcs_order_contains_subscription( $order, 'parent' ) || 0 !== WC_Subscriptions_Order::get_sign_up_fee( $order ) ) ) {
+			// translators: placeholder is coupon code
+			$error_message = sprintf( __( 'Sorry, "%s" can only be applied to subscription parent orders which contain a product with signup fees.', 'woocommerce-subscriptions' ), wcs_get_coupon_property( $coupon, 'code' ) );
+		// Only recurring coupons can be applied to subscriptions
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:528
+		} elseif ( in_array( $coupon_type, array( 'sign_up_fee', 'sign_up_fee_percent' ) ) && ! ( wcs_order_contains_subscription( $order, 'parent' ) || 0 !== WC_Subscriptions_Order::get_sign_up_fee( $order ) ) ) {
+			// translators: placeholder is coupon code
+			$error_message = sprintf( __( 'Sorry, "%s" can only be applied to subscription parent orders which contain a product with signup fees.', 'woocommerce-subscriptions' ), wcs_get_coupon_property( $coupon, 'code' ) );
+		// Only recurring coupons can be applied to subscriptions
+		} elseif ( ! in_array( $coupon_type, array( 'recurring_fee', 'recurring_percent' ) ) && wcs_is_subscription( $order ) ) {
+			$error_message = __( 'Sorry, only recurring coupons can be applied to subscriptions.', 'woocommerce-subscriptions' );
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:530
+			$error_message = sprintf( __( 'Sorry, "%s" can only be applied to subscription parent orders which contain a product with signup fees.', 'woocommerce-subscriptions' ), wcs_get_coupon_property( $coupon, 'code' ) );
+		// Only recurring coupons can be applied to subscriptions
+		} elseif ( ! in_array( $coupon_type, array( 'recurring_fee', 'recurring_percent' ) ) && wcs_is_subscription( $order ) ) {
+			$error_message = __( 'Sorry, only recurring coupons can be applied to subscriptions.', 'woocommerce-subscriptions' );
+		}
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:586
+		foreach ( $applied_coupons as $coupon_code ) {
+			$coupon      = new WC_Coupon( $coupon_code );
+			$coupon_type = wcs_get_coupon_property( $coupon, 'discount_type' );
+
+			/**
+			 * Filters whether the coupon should be allowed to be removed.
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:624
+
+		if ( is_array( $product_coupon_types ) ) {
+			$product_coupon_types = array_merge( $product_coupon_types, array( 'recurring_fee', 'recurring_percent', 'sign_up_fee', 'sign_up_fee_percent', 'renewal_fee', 'renewal_percent', 'renewal_cart', 'initial_cart' ) );
+		}
+
+		return $product_coupon_types;
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:648
+	public static function prepare_renewal_subtotal_calculation( $quantity, $item, $coupon, $discounts ) {
+		self::$renewal_subtotal_calculation = null;
+		if ( ! $discounts instanceof WC_Discounts || ! $coupon instanceof WC_Coupon || 'renewal_cart' !== $coupon->get_discount_type()
+			|| ! WC()->cart instanceof WC_Cart || $discounts->get_object() !== WC()->cart
+			|| ! is_object( $item ) || ! isset( $item->key, $item->subtotal, $item->subtotal_taxes )
+		) {
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1201
+	public static function get_pseudo_coupon_label( $label, $coupon ) {
+		// If the coupon is one of our pseudo coupons, rather than displaying "Coupon: discount_renewal" display a nicer label.
+		switch ( $coupon->get_discount_type() ) {
+			case 'renewal_cart':
+				$label = esc_html( __( 'Renewal Discount', 'woocommerce-subscriptions' ) );
+				break;
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1303
+
+				$coupon        = new WC_Coupon( $coupon_code );
+				$coupon_type   = wcs_get_coupon_property( $coupon, 'discount_type' );
+				$coupon_amount = wcs_get_coupon_property( $coupon, 'coupon_amount' );
+
+				$is_valid_for_product = $coupon->is_valid_for_product( $cart_item['data'], $cart_item );
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1304
+				$coupon        = new WC_Coupon( $coupon_code );
+				$coupon_type   = wcs_get_coupon_property( $coupon, 'discount_type' );
+				$coupon_amount = wcs_get_coupon_property( $coupon, 'coupon_amount' );
+
+				$is_valid_for_product = $coupon->is_valid_for_product( $cart_item['data'], $cart_item );
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1310
+				if ( $coupon->apply_before_tax() && $coupon->is_valid() && $is_valid_for_product ) {
+
+					$apply_recurring_coupon = $apply_recurring_percent_coupon = $apply_initial_coupon = $apply_initial_percent_coupon = false;
+
+					// Apply recurring fee discounts to recurring total calculations
+					if ( 'recurring_total' == $calculation_type ) {
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1314
+					// Apply recurring fee discounts to recurring total calculations
+					if ( 'recurring_total' == $calculation_type ) {
+						$apply_recurring_coupon         = 'recurring_fee' == $coupon_type;
+						$apply_recurring_percent_coupon = 'recurring_percent' == $coupon_type;
+					}
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1315
+					if ( 'recurring_total' == $calculation_type ) {
+						$apply_recurring_coupon         = 'recurring_fee' == $coupon_type;
+						$apply_recurring_percent_coupon = 'recurring_percent' == $coupon_type;
+					}
+
+					if ( 'none' == $calculation_type ) {
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1323
+						if ( ! WC_Subscriptions_Cart::all_cart_items_have_free_trial() ) {
+
+							if ( 'recurring_fee' == $coupon_type ) {
+								$apply_initial_coupon = true;
+							}
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1327
+							}
+
+							if ( 'recurring_percent' == $coupon_type ) {
+								$apply_initial_percent_coupon = true;
+							}
+						}
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1333
+
+						// Apply sign-up discounts to initial total
+						if ( WC_Subscriptions_Product::get_sign_up_fee( $cart_item['data'] ) > 0 ) {
+
+							if ( 'sign_up_fee' == $coupon_type ) {
+								$apply_initial_coupon = true;
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1335
+						if ( WC_Subscriptions_Product::get_sign_up_fee( $cart_item['data'] ) > 0 ) {
+
+							if ( 'sign_up_fee' == $coupon_type ) {
+								$apply_initial_coupon = true;
+							}
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1339
+							}
+
+							if ( 'sign_up_fee_percent' == $coupon_type ) {
+								$apply_initial_percent_coupon = true;
+							}
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1343
+							}
+
+							$calculation_price = WC_Subscriptions_Product::get_sign_up_fee( $cart_item['data'] );
+						}
+					}
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1352
+
+						// Recurring coupons only apply when there is no free trial (carts can have a mix of free trial and non free trial items)
+						if ( $apply_initial_coupon && 'recurring_fee' == $coupon_type && WC_Subscriptions_Product::get_trial_length( $cart_item['data'] ) > 0 ) {
+							$discount_amount = 0;
+						}
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1361
+						$price = $price - $discount_amount;
+
+					} elseif ( $apply_recurring_percent_coupon ) {
+
+						$discount_amount = round( ( $calculation_price / 100 ) * $coupon_amount, WC()->cart->dp );
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1373
+
+						// Recurring coupons only apply when there is no free trial (carts can have a mix of free trial and non free trial items)
+						if ( 'recurring_percent' == $coupon_type && 0 == WC_Subscriptions_Product::get_trial_length( $cart_item['data'] ) ) {
+							$amount_to_discount = WC_Subscriptions_Product::get_price( $cart_item['data'] );
+						} else {
+							$amount_to_discount = 0;
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1380
+
+						// Sign up fee coupons only apply to sign up fees
+						if ( 'sign_up_fee_percent' == $coupon_type ) {
+							$amount_to_discount = WC_Subscriptions_Product::get_sign_up_fee( $cart_item['data'] );
+						}
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1381
+						// Sign up fee coupons only apply to sign up fees
+						if ( 'sign_up_fee_percent' == $coupon_type ) {
+							$amount_to_discount = WC_Subscriptions_Product::get_sign_up_fee( $cart_item['data'] );
+						}
+
+						$discount_amount = round( ( $amount_to_discount / 100 ) * $coupon_amount, WC()->cart->dp );
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1420
+		}
+
+		$coupon_type           = $coupon->get_discount_type();
+		$is_recurring_coupon   = isset( self::$recurring_coupons[ $coupon_type ] );
+		$is_sign_up_fee_coupon = isset( self::$sign_up_fee_coupons[ $coupon_type ] );
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1422
+		$coupon_type           = $coupon->get_discount_type();
+		$is_recurring_coupon   = isset( self::$recurring_coupons[ $coupon_type ] );
+		$is_sign_up_fee_coupon = isset( self::$sign_up_fee_coupons[ $coupon_type ] );
+
+		// Recurring and sign up fee coupons are not valid for non-subscription products.
+		if ( ( $is_recurring_coupon || $is_sign_up_fee_coupon ) && ! WC_Subscriptions_Product::is_subscription( $product ) ) {
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1425
+
+		// Recurring and sign up fee coupons are not valid for non-subscription products.
+		if ( ( $is_recurring_coupon || $is_sign_up_fee_coupon ) && ! WC_Subscriptions_Product::is_subscription( $product ) ) {
+			$is_valid = false;
+		}
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1430
+
+		// Sign up fee coupons are not valid for products without a sign up fee.
+		if ( $is_sign_up_fee_coupon && 0 === WC_Subscriptions_Product::get_sign_up_fee( $product ) ) {
+			$is_valid = false;
+		}
+
+woocommerce-subscriptions/includes/core/class-wc-subscriptions-coupon.php:1503
+
+		$coupon_code          = $coupon->get_code();
+		$coupon_type          = $coupon->get_discount_type();
+		$limited_use_quantity = $coupon->get_limit_usage_to_x_items();
+
+		if ( null === $limited_use_quantity || ! isset( self::$recurring_coupons[ $coupon_type ] ) ) {
+COUPON STORE
+do: Migrate expiry_date meta to date_expires in upgrade routine.
+				'discount_type'               => get_post_meta( $coupon_id, 'discount_type', true ),
+				'amount'                      => get_post_meta( $coupon_id, 'coupon_amount', true ),
+				'usage_count'                 => get_post_meta( $coupon_id, 'usage_count', true ),
+				'individual_use'              => 'yes' === get_post_meta( $coupon_id, 'individual_use', true ),
+				'product_ids'                 => $this->get_coupon_meta_as_array( $coupon_id, 'product_ids' ),
+				'excluded_product_ids'        => $this->get_coupon_meta_as_array( $coupon_id, 'exclude_product_ids' ),
+				'usage_limit'                 => get_post_meta( $coupon_id, 'usage_limit', true ),
+				'usage_limit_per_user'        => get_post_meta( $coupon_id, 'usage_limit_per_user', true ),
+				'limit_usage_to_x_items'      => $limit_usage_to_x_items > 0 ? $limit_usage_to_x_items : null,
+				'free_shipping'               => 'yes' === get_post_meta( $coupon_id, 'free_shipping', true ),
+				'product_categories'          => array_filter( (array) get_post_meta( $coupon_id, 'product_categories', true ) ),
+				'excluded_product_categories' => array_filter( (array) get_post_meta( $coupon_id, 'exclude_product_categories', true ) ),
+				'exclude_sale_items'          => 'yes' === get_post_meta( $coupon_id, 'exclude_sale_items', true ),
+				'minimum_amount'              => get_post_meta( $coupon_id, 'minimum_amount', true ),
+				'maximum_amount'              => get_post_meta( $coupon_id, 'maximum_amount', true ),
+				'email_restrictions'          => array_filter( (array) get_post_meta( $coupon_id, 'customer_email', true ) ),
+			)
+		);
+		$coupon->read_meta_data();
+		$coupon->set_object_read( true );
+		do_action( 'woocommerce_coupon_loaded', $coupon );
+	}
+
+	/**
+	 * Get a metadata value that is stored as either a string consisting of a comma-separated list of values
+	 * or as a serialized array.
+	 *
+	 * WooCommerce always stores the coupon product ids as a comma-separated string, but it seems that
+	 * some plugins mistakenly change these to an array.
+	 *
+	 * @param int    $coupon_id The coupon id.
+	 * @param string $meta_key The meta key to get.
+	 * @return array The metadata value as an array, with empty values removed.
+	 */
+	private function get_coupon_meta_as_array( $coupon_id, string $meta_key ) {
+		$meta_value = get_post_meta( $coupon_id, $meta_key, true );
+		return array_filter(
+			is_array( $meta_value ) ? $meta_value : explode( ',', $meta_value )
+		);
+	}
+
+	/**
+	 * Updates a coupon in the database.
+	 *
+	 * @since 3.0.0
+	 * @param WC_Coupon $coupon Coupon object.
+	 */
+	public function update( &$coupon ) {
+		$coupon->save_meta_data();
+		$changes = $coupon->get_changes();
+
+		if ( array_intersect( array( 'code', 'description', 'date_created', 'date_modified', 'status' ), array_keys( $changes ) ) ) {
+			$post_data = array(
+				'post_title'        => $coupon->get_code( 'edit' ),
+				'post_excerpt'      => $coupon->get_description( 'edit' ),
+				'post_status'       => $coupon->get_status( 'edit' ),
+				'post_date'         => gmdate( 'Y-m-d H:i:s', $coupon->get_date_created( 'edit' )->getOffsetTimestamp() ),
+				'post_date_gmt'     => gmdate( 'Y-m-d H:i:s', $coupon->get_date_created( 'edit' )->getTimestamp() ),
+				'post_modified'     => isset( $changes['date_modified'] ) ? gmdate( 'Y-m-d H:i:s', $coupon->get_date_modified( 'edit' )->getOffsetTimestamp() ) : current_time( 'mysql' ),
+				'post_modified_gmt' => isset( $changes['date_modified'] ) ? gmdate( 'Y-m-d H:i:s', $coupon->get_date_modified( 'edit' )->getTimestamp() ) : current_time( 'mysql', 1 ),
+			);
+
+			/**
+			 * When updating this object, to prevent infinite loops, use $wpdb
+			 * to update data, since wp_update_post spawns more calls to the
+			 * save_post action.
+			 *
+			 * This ensures hooks are fired by either WP itself (admin screen save),
+			 * or an update purely from CRUD.
+			 */
+			if ( doing_action( 'save_post' ) ) {
+				$GLOBALS['wpdb']->update( $GLOBALS['wpdb']->posts, $post_data, array( 'ID' => $coupon->get_id() ) );
+				clean_post_cache( $coupon->get_id() );
+			} else {
+				wp_update_post( array_merge( array( 'ID' => $coupon->get_id() ), $post_data ) );
+			}
+			$coupon->read_meta_data( true ); // Refresh internal meta data, in case things were hooked into `save_post` or another WP hook.
+		}
+		$this->update_post_meta( $coupon );
+		$coupon->apply_changes();
+		delete_transient( 'rest_api_coupons_type_count' );
+
+		// The `coupon_id_from_code` entry in the object cache must not exist when the coupon is not published, otherwise the coupon will remain available for use.
+		if ( 'publish' !== $coupon->get_status() ) {
+			$hashed_code = md5( wc_strtolower( $coupon->get_code() ) );
+			wp_cache_delete( WC_Cache_Helper::get_cache_prefix( 'coupons' ) . 'coupon_id_from_code_' . $hashed_code, 'coupons' );
+		}
+
+		do_action( 'woocommerce_update_coupon', $coupon->get_id(), $coupon );
+	}
+
+	/**
+	 * Deletes a coupon from the database.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param WC_Coupon $coupon Coupon object.
+	 * @param array     $args Array of args to pass to the delete method.
+	 */
+	public function delete( &$coupon, $args = array() ) {
+		$args = wp_parse_args(
+			$args,
+			array(
+				'force_delete' => false,
+			)
+		);
+
+		$id = $coupon->get_id();
+
+		if ( ! $id ) {
+			return;
+		}
+
+		if ( $args['force_delete'] ) {
+			wp_delete_post( $id );
+
+			$hashed_code = md5( wc_strtolower( $coupon->get_code() ) );
+			wp_cache_delete( WC_Cache_Helper::get_cache_prefix( 'coupons' ) . 'coupon_id_from_code_' . $hashed_code, 'coupons' );
+
+			$coupon->set_id( 0 );
+			do_action( 'woocommerce_delete_coupon', $id );
+		} else {
+			wp_trash_post( $id );
+			$coupon->set_status( 'trash' );
+			do_action( 'woocommerce_trash_coupon', $id );
+		}
+	}
+
+	/**
+	 * Helper method that updates all the post meta for a coupon based on it's settings in the WC_Coupon class.
+	 *
+	 * @param WC_Coupon $coupon Coupon object.
+	 * @since 3.0.0
+	 */
+	private function update_post_meta( &$coupon ) {
+		$updated_props = array();
+
+		$meta_key_to_props = array(
+			'discount_type'              => 'discount_type',
+			'coupon_amount'              => 'amount',
+			'individual_use'             => 'individual_use',
+			'product_ids'                => 'product_ids',
+			'exclude_product_ids'        => 'excluded_product_ids',
+			'usage_limit'                => 'usage_limit',
+			'usage_limit_per_user'       => 'usage_limit_per_user',
+			'limit_usage_to_x_items'     => 'limit_usage_to_x_items',
+			'usage_count'                => 'usage_count',
+			'date_expires'               => 'date_expires',
+			'free_shipping'              => 'free_shipping',
+			'product_categories'         => 'product_categories',
+			'exclude_product_categories' => 'excluded_product_categories',
+			'exclude_sale_items'         => 'exclude_sale_items',
+			'minimum_amount'             => 'minimum_amount',
+			'maximum_amount'             => 'maximum_amount',
+			'customer_email'             => 'email_restrictions',
+		);
+
+		$props_to_update = $this->get_props_to_update( $coupon, $meta_key_to_props );
+		foreach ( $props_to_update as $meta_key => $prop ) {
+			$value = $coupon->{"get_$prop"}( 'edit' );
+			$value = is_string( $value ) ? wp_slash( $value ) : $value;
+			switch ( $prop ) {
+				case 'individual_use':
+				case 'free_shipping':
+				case 'exclude_sale_items':
+					$value = wc_bool_to_string( $value );
+					break;
+				case 'product_ids':
+				case 'excluded_product_ids':
+					$value = implode( ',', array_filte
+ORDER COUPON STORE
+<?php
+/**
+ * Class WC_Order_Item_Coupon_Data_Store file.
+ *
+ * @package WooCommerce\DataStores
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * WC Order Item Coupon Data Store
+ *
+ * @version  3.0.0
+ */
+class WC_Order_Item_Coupon_Data_Store extends Abstract_WC_Order_Item_Type_Data_Store implements WC_Object_Data_Store_Interface, WC_Order_Item_Type_Data_Store_Interface {
+
+	/**
+	 * Data stored in meta keys.
+	 *
+	 * @since 3.0.0
+	 * @var array
+	 */
+	protected $internal_meta_keys = array( 'discount_amount', 'discount_amount_tax' );
+
+	/**
+	 * Read/populate data properties specific to this order item.
+	 *
+	 * @since 3.0.0
+	 * @param WC_Order_Item_Coupon $item Coupon order item.
+	 */
+	public function read( &$item ) {
+		parent::read( $item );
+		$id = $item->get_id();
+		$item->set_props(
+			array(
+				'discount'     => get_metadata( 'order_item', $id, 'discount_amount', true ),
+				'discount_tax' => get_metadata( 'order_item', $id, 'discount_amount_tax', true ),
+			)
+		);
+		$item->set_object_read( true );
+	}
+
+	/**
+	 * Saves an item's data to the database / item meta.
+	 * Ran after both create and update, so $item->get_id() will be set.
+	 *
+	 * @since 3.0.0
+	 * @param WC_Order_Item_Coupon $item Coupon order item.
+	 */
+	public function save_item_data( &$item ) {
+		$id          = $item->get_id();
+		$save_values = array(
+			'discount_amount'     => $item->get_discount( 'edit' ),
+			'discount_amount_tax' => $item->get_discount_tax( 'edit' ),
+		);
+		foreach ( $save_values as $key => $value ) {
+			update_metadata( 'order_item', $id, $key, $value );
+		}
+	}
+}
+

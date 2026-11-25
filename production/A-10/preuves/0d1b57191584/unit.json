@@ -1,0 +1,9 @@
+{
+    "checks": [
+        {
+            "check": "projection_module_exists",
+            "status": "FAIL"
+        }
+    ],
+    "exit_code": 1
+}
