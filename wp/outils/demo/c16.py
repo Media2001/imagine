@@ -30,6 +30,11 @@ def upload(target,source):
 def deploy():
     profils.guard('imagine-test-demo')
     hashes={}
+    bootstrap=ROOT/'wp/plugins/imagine-site/imagine-site.php'
+    before=wp('echo wp_json_encode(hash_file("sha256",WP_PLUGIN_DIR."/imagine-site/imagine-site.php"));')
+    block="\nrequire_once __DIR__ . '/CommandeRegles.php';\nrequire_once __DIR__ . '/SansEmail.php';\nrequire_once __DIR__ . '/CommandeNative.php';\nrequire_once __DIR__ . '/CommandeAdmin.php';\nSansEmail::register();\nCommandeAdmin::register();\n"
+    allowed={hashlib.sha256(bootstrap.read_bytes()).hexdigest(),hashlib.sha256(bootstrap.read_bytes().replace(block.encode(),b'')).hexdigest()}
+    if before not in allowed: raise RuntimeError('Shared bootstrap drift: no overwrite')
     for name in FILES:
         hashes[name]=upload('plugins/imagine-site/'+name,ROOT/'wp/plugins/imagine-site'/name)
     hashes['c16-reset.php']=upload('imagine-demo-build/c16-reset.php',ROOT/'wp/outils/demo/c16-reset.php')

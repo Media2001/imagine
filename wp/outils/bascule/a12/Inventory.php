@@ -6,7 +6,7 @@ namespace Imagine\ContentInventory;
 
 use Imagine\Audit\Audit;
 
-/** SELECT-only structural snapshot. WordPress and third-party PHP are never executed. */
+/** Native runtime registry and structural reads on the SAME fenced wpdb session. */
 final class Inventory
 {
     private \PDO $db;

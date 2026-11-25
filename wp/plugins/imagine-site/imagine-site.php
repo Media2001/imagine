@@ -58,6 +58,13 @@ require_once __DIR__ . '/EcheancesNatives.php';
 require_once __DIR__ . '/EcheancesAdmin.php';
 EcheancesAdmin::register();
 
+require_once __DIR__ . '/CommandeRegles.php';
+require_once __DIR__ . '/SansEmail.php';
+require_once __DIR__ . '/CommandeNative.php';
+require_once __DIR__ . '/CommandeAdmin.php';
+SansEmail::register();
+CommandeAdmin::register();
+
 require_once __DIR__ . '/MonCompte.php';
 MonCompte::register();
 

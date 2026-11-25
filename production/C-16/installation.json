@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-25T23:18:01.331223+00:00",
+  "scope": "imagine-test-demo",
+  "sha256_readback": {
+    "CommandeRegles.php": "a49b51d864bd46e2d59b381abb1bfd4ac1a0c1e4bcb03d9d0402d7ecf7ec0006",
+    "CommandeNative.php": "3c3724e034488be0ce0a338d3cebb839da29ac053bc17e348ebec1764a309d17",
+    "CommandeAdmin.php": "6d033e01249479efaddc12c59884e9bf2525dec8b482693e6cae6636ce0a4c47",
+    "SansEmail.php": "720148ca8163849666a68ef968d6d552647bbc4d909c3a287d12ce1a98def59c",
+    "imagine-site.php": "080a979aa5b40258f181e761298850d14ae1c07856782c1d19bad2fe774500a8",
+    "c16-reset.php": "c82dd0e082ceff2d8267444dbd9227f3299ee9ce1d4974bc7702f4b77a156193",
+    "c09-seed.php": "55aeb3d11504d845798ddfbc2107212785a090a322072f22a8cf281a3ecb0714"
+  },
+  "A-SANSMAIL_marker": true,
+  "theme_uploaded": false,
+  "commercial_install": false
+}

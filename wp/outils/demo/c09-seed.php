@@ -33,6 +33,11 @@ if ($mailClosed !== false || !is_wp_error($httpClosed) || $httpClosed->get_error
     || apply_filters('woocommerce_available_payment_gateways', []) !== []) {
     throw new \RuntimeException('Garde hors ligne C09 absente.');
 }
+// C16 partage le reset : supprimer seulement ses objets impayés possédés avant le prévol C09.
+if (is_file(__DIR__ . '/c16-reset.php')) {
+    require_once __DIR__ . '/c16-reset.php';
+    \imagine_c16_reset();
+}
 $secret = json_decode(file_get_contents('/var/www/.imagine-demo/seed-secret.json'), true, 512, JSON_THROW_ON_ERROR);
 $rows = json_decode(file_get_contents(WP_CONTENT_DIR . '/imagine-demo-build/c09-profils.json'), true, 512, JSON_THROW_ON_ERROR);
 require_once __DIR__ . '/c09-calendar.php';
@@ -172,6 +177,10 @@ foreach ($rows as $row) {
     $customer->set_billing_email($login . '@example.org');
     $customer->set_billing_phone('');
     $customer->save();
+    // Marqueur partagé C13/C16 : l'adresse technique n'est jamais un destinataire.
+    if ($key === 'A-SANSMAIL') {
+        update_user_meta($id, 'imagine_sans_email', '1');
+    }
     $manifest['users'][$key] = $id;
     if (($row['decouverte'] ?? null) === 'C12') {
         require_once __DIR__ . '/c12-profils.php';

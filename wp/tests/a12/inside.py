@@ -69,10 +69,11 @@ add_action('init', function () {
     b.check(storage+':empty_declared_type', rows['a12_empty']['content_count'] == 0 and rows['a12_empty']['first_published_utc'] is None)
     b.check(storage+':source_mu_and_theme', any(x['file'] == 'wp-content/mu-plugins/a12-declarations.php' and x['owner'] == 'mu_plugin' for x in row['declarations']) and rows['a12_theme']['declarations'] == [{'owner': 'theme', 'file': 'wp-content/themes/a02-child/functions.php'}])
     b.check(storage+':inactive_source_excluded', 'a12_inactive' not in rows)
-    b.check(storage+':no_false_runtime_claim', report['registry']['runtime_verified'] is False and rows['a12_never']['registration'] == 'literal_source_candidate_not_runtime_verified')
+    b.check(storage+':exact_runtime_registry_dynamic_not_never', report['registry']['runtime_verified'] is True and 'a12_dynamic' in rows and 'a12_never' not in rows and set(rows) == set(oracle['runtime_post_types']))
+    b.check(storage+':exact_runtime_taxonomies', set(tax) == set(oracle['runtime_taxonomies']))
     gap = {'runtime_missing_from_snapshot': sorted(set(oracle['runtime_post_types'])-set(rows)), 'source_candidates_not_runtime': sorted(k for k,v in rows.items() if v['declarations'] and k not in oracle['runtime_post_types'])}
     (OUT/(storage+'-registry-gap.json')).write_text(json.dumps(gap, indent=2)+'\n')
-    b.check(storage+':runtime_incompleteness_really_observed', 'a12_dynamic' in gap['runtime_missing_from_snapshot'] and 'a12_never' in gap['source_candidates_not_runtime'])
+    b.check(storage+':runtime_gap_empty', not any(gap.values()))
     fields = {x['key']: x['content_count'] for x in row['metadata_keys']}
     b.check(storage+':metadata_distinct_owners_not_row_count', fields['a12_field'] == oracle['metadata_content_count'] == 5)
     t = tax['a12_rubrique']
