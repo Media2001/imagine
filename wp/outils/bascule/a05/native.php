@@ -17,7 +17,7 @@ try {
             }
         }
     } else {
-        $GLOBALS['imagine_a05_writes'] = true;
+        $GLOBALS['imagine_a05_writes'] = $operation['kind'];
         $plugin = $operation['name'];
         if ($operation['kind'] === 'deactivate') {
             deactivate_plugins($plugin, true, false);

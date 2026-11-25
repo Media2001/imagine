@@ -190,7 +190,9 @@ foreach ($rows as $row) {
     }
     $order = null;
     if (isset($row['native']) || !empty($row['order_only'])) {
-        $order = $one(wc_get_orders(['customer_id' => $id, 'type' => 'shop_order', 'limit' => -1]));
+        $parentOrders = array_filter(wc_get_orders(['customer_id' => $id, 'type' => 'shop_order', 'limit' => -1]),
+            static fn ($o) => !$o->get_meta('_subscription_renewal'));
+        $order = $one(array_values($parentOrders));
         if (!$order) { $order = wc_create_order(['customer_id' => $id, 'created_via' => 'admin', 'status' => 'pending']); }
         if (is_wp_error($order)) { throw new \RuntimeException('Commande C09 impossible.'); }
         $order->set_customer_id($id);
@@ -252,7 +254,8 @@ foreach ($rows as $row) {
         $sub->set_billing_interval(isset($row['tarif']) ? $tariffs[$row['tarif']]['interval'] : 1);
         $sub->set_requires_manual_renewal(true);
         $sub->set_payment_method('');
-        $sub->set_payment_method_title('Fixture C09 — renouvellement manuel de sécurité');
+        $sub->set_payment_method_title('Paiement fictif de démonstration');
+        $sub->update_meta_data('imagine_demo_fictif', '1');
         $sub->set_transaction_id('');
         $sub->set_date_paid(null);
         $sub->set_date_completed(null);
@@ -300,6 +303,61 @@ foreach ($rows as $row) {
         $member->update_status(match ($row['native'] ?? '') { 'grace', 'suspended' => 'paused', 'pending' => 'pending', 'expired' => 'expired', default => 'active' });
         $manifest['memberships'][$key] = $member->get_id();
     }
+}
+$manifest['renewals'] = [];
+foreach ($manifest['subscriptions'] as $key => $id) {
+    $sub = wcs_get_subscription($id);
+    $related = array_map('wc_get_order', array_values($sub->get_related_orders('ids', 'renewal')));
+    // Le prévol garantit la propriété C09 avant tout retrait de doublon.
+    foreach ($related as $relatedOrder) {
+        if (!$relatedOrder || $relatedOrder->get_meta($owned) !== $key) {
+            throw new \RuntimeException('Renouvellement étranger C09 ; refus.');
+        }
+    }
+    if (!in_array($key, ['A-SEPA4', 'A-GRACE', 'A-SUSP'], true)) {
+        foreach ($related as $extra) { $extra->delete(true); }
+        continue;
+    }
+    $dates = ['start' => $sub->get_date('start'), 'trial_end' => 0, 'end' => $sub->get_date('end'),
+        'next_payment' => $sub->get_date('next_payment'), 'cancelled' => 0];
+    $renewal = $one($related);
+    if (!$renewal) { $renewal = wcs_create_renewal_order($sub); }
+    if (is_wp_error($renewal)) { throw new \RuntimeException('Renouvellement natif C09 impossible.'); }
+    $renewal->set_customer_id($sub->get_customer_id());
+    $renewal->set_created_via('admin');
+    $renewal->set_currency('EUR');
+    $renewal->set_payment_method('');
+    $renewal->set_payment_method_title('Paiement fictif de démonstration');
+    $renewal->set_transaction_id('');
+    $renewal->set_date_paid(null);
+    $renewal->set_date_completed(null);
+    $renewal->set_customer_note('FICTIF C09 : état natif autorisé de démonstration, aucun débit ou rejet bancaire réel.');
+    $renewal->update_meta_data($owned, $key);
+    $renewal->update_meta_data('imagine_demo_fictif', '1');
+    $renewal->set_address($sub->get_address('shipping'), 'shipping');
+    $renewal->set_address($sub->get_address('billing'), 'billing');
+    $renewal->remove_order_items();
+    foreach ($sub->get_items() as $item) {
+        $renewal->add_product($item->get_product(), 1, ['subtotal' => $item->get_subtotal(), 'total' => $item->get_total()]);
+    }
+    $renewal->calculate_totals(false);
+    $when = $key === 'A-SEPA4' ? $now->modify('-30 days')->getTimestamp()
+        : strtotime($sub->get_meta('_imagine_acces_grace_debut') . ' UTC');
+    $renewal->set_date_created($when);
+    $renewal->set_status($key === 'A-SEPA4' ? 'processing' : 'failed');
+    $renewal->save();
+    $renewal = wc_get_order($renewal->get_id());
+    $renewal->set_date_paid($key === 'A-SEPA4' ? $when : null);
+    $renewal->save();
+    // Les transitions natives peuvent recalculer les dates ; rétablir la fixture décrite.
+    $sub = wcs_get_subscription($id);
+    $sub->update_dates($dates, 'gmt');
+    $sub->set_requires_manual_renewal(true);
+    $sub->set_status($key === 'A-SEPA4' ? 'active' : 'on-hold');
+    $sub->save();
+    $member = wc_memberships_get_user_membership($manifest['memberships'][$key]);
+    $member->update_status($key === 'A-SEPA4' ? 'active' : 'paused');
+    $manifest['renewals'][$key] = $renewal->get_id();
 }
 // Finaliser depuis une instance fraîche : les hooks natifs d'adhésion/statut peuvent
 // relire la commande parente pendant le seed. Aucun payment_complete()/transport.

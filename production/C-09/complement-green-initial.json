@@ -1,28 +1,28 @@
 {
   "total": 38,
   "checks": {
-    "A-CARTE:initial_paye": false,
+    "A-CARTE:initial_paye": true,
     "A-CARTE:initial_fictif": true,
     "A-CARTE:aucune_transaction": true,
-    "A-PAYPAL:initial_paye": false,
+    "A-PAYPAL:initial_paye": true,
     "A-PAYPAL:initial_fictif": true,
     "A-PAYPAL:aucune_transaction": true,
-    "A-ETRANGER:initial_paye": false,
+    "A-ETRANGER:initial_paye": true,
     "A-ETRANGER:initial_fictif": true,
     "A-ETRANGER:aucune_transaction": true,
-    "A-SANSMAIL:initial_paye": false,
+    "A-SANSMAIL:initial_paye": true,
     "A-SANSMAIL:initial_fictif": true,
     "A-SANSMAIL:aucune_transaction": true,
-    "A-ECHEANCE:initial_paye": false,
+    "A-ECHEANCE:initial_paye": true,
     "A-ECHEANCE:initial_fictif": true,
     "A-ECHEANCE:aucune_transaction": true,
-    "A-NONRENOUV:initial_paye": false,
+    "A-NONRENOUV:initial_paye": true,
     "A-NONRENOUV:initial_fictif": true,
     "A-NONRENOUV:aucune_transaction": true,
-    "A-SEPA4:initial_paye": false,
+    "A-SEPA4:initial_paye": true,
     "A-SEPA4:initial_fictif": true,
     "A-SEPA4:aucune_transaction": true,
-    "A-PAPIER:initial_paye": false,
+    "A-PAPIER:initial_paye": true,
     "A-PAPIER:initial_fictif": true,
     "A-PAPIER:aucune_transaction": true,
     "A-CARTE:manuel_sans_jeton": true,
@@ -40,22 +40,13 @@
     "A-VIR:non_paye": true,
     "hors_ligne": true
   },
-  "failures": [
-    "A-CARTE:initial_paye",
-    "A-PAYPAL:initial_paye",
-    "A-ETRANGER:initial_paye",
-    "A-SANSMAIL:initial_paye",
-    "A-ECHEANCE:initial_paye",
-    "A-NONRENOUV:initial_paye",
-    "A-SEPA4:initial_paye",
-    "A-PAPIER:initial_paye"
-  ],
+  "failures": [],
   "proof": {
     "A-CARTE": {
       "initial": {
         "id": 88,
         "status": "processing",
-        "paid": null,
+        "paid": 1766682475,
         "total": "120.00"
       }
     },
@@ -63,7 +54,7 @@
       "initial": {
         "id": 94,
         "status": "processing",
-        "paid": null,
+        "paid": 1766682475,
         "total": "120.00"
       }
     },
@@ -71,7 +62,7 @@
       "initial": {
         "id": 115,
         "status": "processing",
-        "paid": null,
+        "paid": 1766682475,
         "total": "0.00"
       }
     },
@@ -79,7 +70,7 @@
       "initial": {
         "id": 118,
         "status": "processing",
-        "paid": null,
+        "paid": 1766682475,
         "total": "0.00"
       }
     },
@@ -87,7 +78,7 @@
       "initial": {
         "id": 121,
         "status": "processing",
-        "paid": null,
+        "paid": 1766682475,
         "total": "0.00"
       }
     },
@@ -95,7 +86,7 @@
       "initial": {
         "id": 112,
         "status": "processing",
-        "paid": null,
+        "paid": 1766682475,
         "total": "0.00"
       }
     },
@@ -103,7 +94,7 @@
       "initial": {
         "id": 91,
         "status": "processing",
-        "paid": null,
+        "paid": 1766682475,
         "total": "30.00"
       }
     },
@@ -111,11 +102,11 @@
       "initial": {
         "id": 100,
         "status": "processing",
-        "paid": null,
+        "paid": 1766682475,
         "total": "30.00"
       }
     }
   },
-  "exit": 1,
-  "at": "2026-11-25T17:06:33.097631+00:00"
+  "exit": 0,
+  "at": "2026-11-25T17:08:36.727653+00:00"
 }

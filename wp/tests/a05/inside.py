@@ -32,12 +32,13 @@ def run_storage(storage):
         if slug=='a05-remove':(p/'uninstall.php').write_text("<?php if (!defined('WP_UNINSTALL_PLUGIN')) exit; delete_option('a05_uninstall_canary');")
     for slug in ['a05-remove','a05-keep','a05-base','a05-dependent','a05-gateway']:a03.wp(site,['plugin','activate',slug+'/entry.php'])
     a03.sql(db,"CREATE TABLE wp_a05_orphan (id INT PRIMARY KEY) ENGINE=InnoDB; INSERT INTO wp_a05_orphan VALUES (1),(2); CREATE TABLE wp_a05_stats_2015 (id INT) ENGINE=InnoDB; INSERT INTO wp_a05_stats_2015 VALUES (7); CREATE TABLE wp_a05_stats_2026 LIKE wp_a05_stats_2015; INSERT INTO wp_a05_stats_2026 VALUES (9); CREATE TABLE wp_a05_kept (id INT) ENGINE=InnoDB; INSERT INTO wp_a05_kept VALUES (8);")
-    a03.wp(site,['eval',"add_option('a05_orphan_setting', 'Fiction option'); add_option('a05_uninstall_canary','must-survive-default-removal'); wp_schedule_single_event(time()+3600,'a05_orphan_hook',['fiction']);"])
+    a03.wp(site,['eval',"add_option('a05_orphan_setting', 'Fiction option'); add_option('a05_uninstall_canary','must-survive-default-removal'); $cron=_get_cron_array(); $cron[time()+3600]['a05_orphan_hook'][md5(serialize(['fiction']))]=['schedule'=>false,'args'=>['fiction']]; _set_cron_array($cron);"])
     uploads=site/'wp-content/uploads/a05-debris';uploads.mkdir(parents=True);(uploads/'fiction.txt').write_text('fiction debris')
     kept_upload=site/'wp-content/uploads/a05-kept';kept_upload.mkdir();(kept_upload/'keep.txt').write_text('fiction preserved')
     (site/'.imagine-a04-bascule.lock').touch()
     sys.path.insert(0,'/subject/a05');import clean as subject
     inv=subject.inspect_site(site)
+    check(storage+':fixture_orphan_cron_really_present',any(r['name']=='a05_orphan_hook' and r['rows']==1 for r in inv['cron']))
     owners={name:[] for name in inv['plugins']};owners.update({'theme:'+inv['theme']:[]});owners.update({'mu:'+n:[] for n in inv['mu_plugins']});owners['a05-keep/entry.php']=['wp_a05_kept']
     plan_doc={'schema':'imagine-a05-v1','site_status':'verified-staging','plugins':[{'plugin':'a05-remove/entry.php','action':'retirer','uninstall':False}],'tables':[{'match':'exact','name':'wp_a05_orphan','action':'supprimer'},{'match':'prefix','name':'wp_a05_stats_','action':'supprimer'}],'options':[{'match':'prefix','name':'a05_orphan_','action':'supprimer'}],'cron':[{'match':'exact','name':'a05_orphan_hook','action':'supprimer'}],'uploads':[{'path':'a05-debris','action':'supprimer'}],'table_owners':owners}
     plan=ROOT/(storage+'-plan.json');write(plan,plan_doc);shutil.copyfile(plan,OUT/(storage+'-plan.json'))
@@ -78,7 +79,21 @@ def run_storage(storage):
         bad=ROOT/(storage+'-symlink.json');write(bad,{**plan_doc,'uploads':[{'path':'a05-link','action':'supprimer'}]});refused=clean(site,bad,backup,ROOT/(storage+'-refused-symlink'))
         check(storage+':resolved_upload_escape_refused',refused.returncode==1 and 'SYMLINK' in refused.stderr and (outside/'canary.txt').read_text()=='outside intact');link.unlink()
         frozen_before=subject.inspect_site(site);file_before=a03.filemap(site);db_before=a03.fingerprint(db,True);options_before=option_hashes(db)
-        stopped=clean(site,plan,backup,state,['--stop-after=1']);check(storage+':actual_interruption',stopped.returncode==75,{'exit':stopped.returncode,'code':stopped.stderr[:160]})
+        interrupted=subprocess.Popen(['python3','-B','/subject/nettoyer','--wp-path='+str(site),'--plan='+str(plan),'--backup='+str(backup),'--state='+str(state),'--stop-after=1','--pause'],stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)
+        try:
+            paused=False
+            for _ in range(400):
+                if interrupted.poll() is not None:break
+                if (state/'etat.json').is_file():
+                    checkpoint=json.loads((state/'etat.json').read_text())
+                    if checkpoint['events'] and checkpoint['events'][-1]['stage']=='interruption_requested':paused=True;break
+                time.sleep(.025)
+            check(storage+':actual_cleaner_paused',paused)
+            concurrent=clean(site,plan,backup,ROOT/(storage+'-alternate-state'));check(storage+':same_site_other_state_locked',concurrent.returncode==1 and concurrent.stderr=='A04_ALREADY_RUNNING\n')
+        finally:
+            if interrupted.poll() is None:interrupted.kill()
+            interrupted.wait(timeout=10)
+        check(storage+':actual_sigkill',interrupted.returncode==-9)
         checkpoint=json.loads((state/'etat.json').read_text());check(storage+':checkpoint_fsynced',checkpoint['operations'][0]['phase']=='done' and checkpoint['complete'] is False)
         resumed=clean(site,plan,backup,state);check(storage+':actual_resume',resumed.returncode==0,{'exit':resumed.returncode,'code':resumed.stderr[:200]})
         after=subject.inspect_site(site);file_after=a03.filemap(site);db_after=a03.fingerprint(db,True)
