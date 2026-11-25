@@ -1,0 +1,94 @@
+{
+  "schema": "imagine-a04-observed-finalisation-v1",
+  "verified_at_utc": "2026-11-25T14:18:33.628517+00:00",
+  "verification_kind": "ad-hoc read-only receipt/hash acceptance, not independent review",
+  "actual_evidence": {
+    "packet": "production/A-04/preuves/9c204eb862d6",
+    "unit_tests": 32,
+    "test_update_tests": 7,
+    "fixture_checks": 70,
+    "runner_checks": 8,
+    "source_files_bound": 15,
+    "dependency_files_bound": 15,
+    "native_a03": {
+      "classic": {
+        "exit": 3,
+        "anormal": 0,
+        "expected_changes": 4,
+        "identical_roundtrip_exit": 0
+      },
+      "hpos": {
+        "exit": 3,
+        "anormal": 0,
+        "expected_changes": 4,
+        "identical_roundtrip_exit": 0
+      }
+    },
+    "style_errors": 0,
+    "style_warnings": 1,
+    "global": {
+      "tests": 1012,
+      "assertions": 34006,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pass": true
+    },
+    "global_runner": "imagine-t01-fbfc282ff47c4bf8a365b71b81f5d8fb",
+    "global_sources_stable_during_execution": true,
+    "global_sources_drift_since_execution": [
+      "wp/outils/demo/c14.py",
+      "wp/plugins/imagine-site/AchatsNumeros.php",
+      "wp/tests/demo/c14-http.py"
+    ],
+    "protected_files_checked": 1207,
+    "unrelated_observed_drift": [
+      "wp/outils/demo/c14.py",
+      "wp/plugins/imagine-site/AchatNumero.php",
+      "wp/plugins/imagine-site/AchatsNumeros.php",
+      "wp/plugins/imagine-site/EnvoiRelations.php",
+      "wp/tests/demo/c13-corrections-runtime.php",
+      "wp/tests/demo/c14-http.py",
+      "wp/tests/demo/c14-runtime.php",
+      "wp/tests/demo/c14-unit.php",
+      ".hermes-2.lock"
+    ],
+    "historical_files_checked": 374,
+    "historical_drift": [],
+    "owned_runners_absent_readback": true
+  },
+  "observed_host_exits": {
+    "a04_full": {
+      "session": "proc_992c83b45e12",
+      "exit": 0
+    },
+    "a04_style_error_only": {
+      "session": "proc_f3b0c4e3d027",
+      "exit": 0
+    },
+    "prepare_image": {
+      "session": "proc_5ba6cc85bf65",
+      "exit": 0
+    },
+    "global_first": {
+      "session": "proc_5b254435e08a",
+      "exit": 0
+    },
+    "global_latest": {
+      "session": "proc_d30d8811fb16",
+      "exit": 0
+    },
+    "interface_red": {
+      "session": "proc_f42b270aec0c",
+      "exit": 1
+    }
+  },
+  "final_check_script": {
+    "path": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a04-final-check.py",
+    "sha256": "dd5d9ad4a1e5a5a18e6ceade384ffbf420ac92da098d25b127a859feced234a8"
+  },
+  "historical_packet_disposition": "unchanged, not regenerated or enriched",
+  "shared_sources_written_by_this_subagent": false,
+  "parent_lock_unchanged": true,
+  "no_real_access_or_publication_authorized": true
+}
