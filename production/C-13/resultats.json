@@ -1,4 +1,10 @@
 {
+  "pur": {
+    "tests": 8,
+    "assertions": 27,
+    "succes": true,
+    "network": "none"
+  },
   "PHP": {
     "raccord_present": true,
     "calendrier_15_clotures": true,
@@ -23,7 +29,32 @@
     "journal_indisponible_refuse": true,
     "suppression_native_cloture_future": true,
     "temoin_suppression_nettoye": true,
-    "anonyme_ferme": true
+    "anonyme_ferme": true,
+    "correction_regles_pures_presentes": true,
+    "correction_relations_natives_presentes": true,
+    "correction_cadeau_relation_native_identite_adresse": true,
+    "correction_cadeau_incomplet_ferme_sans_rapprochement_email": true,
+    "correction_politique_groupes_defaut_ferme": true,
+    "correction_groupe_natif_deux_attribuees_une_libre": true,
+    "correction_attributions_historisees_append_only": true,
+    "correction_observation_rejouee_sans_doublon": true,
+    "correction_adresse_beneficiaire_hook_natif_historise": true,
+    "correction_renouvellement_attente_non_reconnu": true,
+    "correction_renouvellement_annuel_enregistre_sans_deplacer_date": true,
+    "correction_renouvellement_pas_paiement_initial_reconstruit": true,
+    "correction_renouvellement_natif_C01_C07_deux_beneficiaires": true,
+    "correction_echeance_trimestrielle_pas_nouvelle_annee": true,
+    "correction_bloc_explicitement_enregistre_reconnu": true,
+    "correction_aucune_transaction_effectuee": true,
+    "correction_cloture_passee_reecriture_option_refusee": true,
+    "correction_reference_passee_reecriture_directe_refusee": true,
+    "correction_gel_persistant_ignore_calendrier_courant": true,
+    "correction_gel_persistant_reecriture_refusee": true,
+    "correction_libelle_non_eligible_traduit": true,
+    "correction_gel_jetable_absent": true,
+    "correction_souscription_jetable_nettoyee": true,
+    "correction_options_restaurees": true,
+    "correction_objets_jetables_absents": true
   },
   "sources_installees_conformes": true,
   "HTTP": {

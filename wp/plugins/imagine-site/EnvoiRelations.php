@@ -18,6 +18,9 @@ final class EnvoiRelations
         $group = [];
         foreach ($memberships as $post) {
             $membership = wc_memberships_get_user_membership($post->ID);
+            if ($membership && ($plans[$membership->get_plan_id()] ?? null) === 'offert') {
+                $gift = true;
+            }
             if ($membership && in_array($membership->get_plan_id(), $groupPlans, true)) {
                 $group[] = $membership;
             }
@@ -25,6 +28,11 @@ final class EnvoiRelations
         // Un groupe sans place attribuée reste identifiable par les produits du plan natif.
         $capacity = 0;
         foreach ($sub->get_items() as $item) {
+            foreach ($plans as $planId => $type) {
+                if ($type !== 'offert') { continue; }
+                $plan = wc_memberships_get_membership_plan($planId);
+                if ($plan && in_array($item->get_product_id(), $plan->get_product_ids(), true)) { $gift = true; }
+            }
             foreach ($groupPlans as $planId) {
                 $plan = wc_memberships_get_membership_plan($planId);
                 if ($plan && in_array($item->get_product_id(), $plan->get_product_ids(), true)) {
@@ -37,7 +45,7 @@ final class EnvoiRelations
             return ['origine' => 'abonnement', 'beneficiaires' => [], 'beneficiaires_resolus' => true];
         }
         if ($gift) {
-            $id = (int) \WCS_Gifting::get_recipient_user($sub);
+            $id = class_exists('WCS_Gifting') ? (int) \WCS_Gifting::get_recipient_user($sub) : 0;
             $user = $id ? get_userdata($id) : false;
             // L'adresse de livraison du cadeau appartient au destinataire, pas à la facturation du payeur.
             $p = self::adresse((string) $id, $sub->get_address('shipping'));

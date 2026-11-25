@@ -100,7 +100,14 @@ final class EnvoiRegles
         $number = $selected[0];
         usort($events, static fn (array $a, array $b): int => strcmp($a['observe_utc'], $b['observe_utc']));
         $groups = [];
+        $seen = [];
         foreach ($events as $event) {
+            $key = $event['donnees']['id'] . ':' . (new DateTimeImmutable($event['observe_utc'], new DateTimeZone('UTC')))->format('U.u');
+            if (isset($seen[$key])) {
+                if ($seen[$key] !== $event['donnees']) { throw new \LogicException('Observations contradictoires au même instant.'); }
+                continue;
+            }
+            $seen[$key] = $event['donnees'];
             $groups[$event['donnees']['id']][] = $event;
         }
         $subscriptions = $exclusions = $blocks = [];
@@ -144,7 +151,7 @@ final class EnvoiRegles
                     $seen[$renewal['id']] = true;
                     $renewed = self::date($renewal['debut']);
                     if ($renewal['paiement'] === null || $renewal['paiement'] >= $number->cloture->getTimestamp()
-                        || $renewed >= $number->cloture) {
+                        || $renewal['paiement'] > $recorded->getTimestamp() || $renewed >= $number->cloture) {
                         continue;
                     }
                     $year = $engine->renouveler($year, $renewed);
@@ -163,7 +170,8 @@ final class EnvoiRegles
                         'non_resolus' => $engine->nonResolus($block)];
                     $complete = $complete && $engine->nonResolus($block) === 0;
                     if (in_array($code, $ids, true)) {
-                        $paid = $payment !== null && $payment < $number->cloture->getTimestamp();
+                        $paid = $payment !== null && $payment <= $recorded->getTimestamp()
+                            && $payment < $number->cloture->getTimestamp();
                     }
                     $due = array_values(array_unique([...$due, ...$ids]));
                 }

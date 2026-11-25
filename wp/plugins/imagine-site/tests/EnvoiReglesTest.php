@@ -139,6 +139,26 @@ final class EnvoiReglesTest extends TestCase
         EnvoiRegles::relire($snapshot, new DateTimeImmutable('2028-01-01 UTC'));
     }
 
+    public function testRejeuContradictoireRefuse(): void
+    {
+        $data = $this->donnees();
+        $first = ['observe_utc' => '2026-01-02 00:00:00', 'donnees' => $data];
+        $data['rue'] = 'Contradiction au meme instant';
+        $this->expectException(LogicException::class);
+        $this->vue($data, '2026-T1', [$first, ['observe_utc' => $first['observe_utc'], 'donnees' => $data]]);
+    }
+
+    public function testPaiementFuturEtRenouvellementALaClotureRestentFermes(): void
+    {
+        $data = $this->donnees();
+        $data['paiement'] = strtotime('2026-01-03 UTC');
+        self::assertSame([], $this->vue($data)['liste']->lignes);
+        $data['paiement'] = strtotime('2026-01-01 UTC');
+        $data['renouvellements'] = [['id' => '90', 'debut' => '2027-01-01 00:00:00',
+            'paiement' => strtotime('2027-01-04 23:00:00 UTC')]];
+        self::assertSame([], $this->vue($data, '2027-T1', [['observe_utc' => '2027-01-04 23:00:00', 'donnees' => $data]])['liste']->lignes);
+    }
+
     public function testIndividuelEtNonPayeRestentDistincts(): void
     {
         $data = $this->donnees();

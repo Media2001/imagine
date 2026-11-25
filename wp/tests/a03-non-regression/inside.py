@@ -91,7 +91,16 @@ def install(storage):
     return site, db, seed, config, settings_path
 
 def snapshot(site, settings, target, extra=None):
-    return cmd(['php', '/subject/non-regression', '--wp-path=' + str(site), '--config=' + str(settings), '--output=' + str(target)] + (extra or []), check=False)
+    db = 'a03_' + site.name
+    sequence_query = "SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='wp_options'"
+    sequence = int(sql(db, sequence_query).stdout.splitlines()[-1])
+    result = cmd(['php', '/subject/non-regression', '--wp-path=' + str(site), '--config=' + str(settings), '--output=' + str(target)] + (extra or []), check=False)
+    # Fixture web requests execute real transient writes, rollback-only. InnoDB
+    # allocates IDs even on rollback: restore only this synthetic option sequence,
+    # after the collector releases metadata locks, and verify the exact readback.
+    sql(db, 'ALTER TABLE wp_options AUTO_INCREMENT=' + str(sequence))
+    assert int(sql(db, sequence_query).stdout.splitlines()[-1]) == sequence
+    return result
 
 def run_storage(storage):
     site, db, seed, config, settings = install(storage)
@@ -205,6 +214,21 @@ def run_storage(storage):
         rights_changes = json.loads(rights_diff.stdout)['changes']
         check(storage + ':only_ordinary_right_changed_and_detected', rights.returncode == 0 and rights_report['samples'] == a['samples'] and rights_diff.returncode == 2 and rights_changes == [{'path': 'access.' + str(seed['ordinary']) + ':' + str(seed['restricted']), 'class': 'anormal'}])
         check(storage + ':fault_probes_readonly', fingerprint(db) == before_db and filemap(site) == before_files)
+        # Native synthetic AS rows; only the previous-version oracle is edited.
+        hook = 'woocommerce_run_on_woocommerce_admin_updated'
+        previous = dict(a)
+        previous['versions'] = {**a['versions'], 'woocommerce': '11.0.1'}
+        previous_file = OUT / (storage + '-previous-version-oracle.json')
+        previous_file.write_text(json.dumps(previous))
+        for label, scheduled_hook, expected_code in [('expected', hook, 3), ('not-expected', 'woocommerce_run_update_callback', 2)]:
+            sql(db, "INSERT INTO wp_actionscheduler_actions (hook,status,scheduled_date_gmt,scheduled_date_local,args,schedule,group_id) SELECT '" + scheduled_hook + "',status,scheduled_date_gmt,scheduled_date_local,args,schedule,group_id FROM wp_actionscheduler_actions WHERE action_id=" + str(seed['action']))
+            action_id = int(sql(db, 'SELECT MAX(action_id) FROM wp_actionscheduler_actions').stdout.splitlines()[-1])
+            hook_target = OUT / (storage + '-hook-' + label)
+            hook_photo = snapshot(site, settings, hook_target)
+            hook_diff = cmd(['php', '/subject/comparer', str(previous_file), str(hook_target / 'non-regression.json')], check=False)
+            hook_changes = json.loads(hook_diff.stdout)
+            sql(db, 'DELETE FROM wp_actionscheduler_actions WHERE action_id=' + str(action_id))
+            check(storage + ':native_hook_' + label + '_classification', hook_photo.returncode == 0 and hook_diff.returncode == expected_code and hook_changes['anormal'] == (0 if label == 'expected' else 2) and len(hook_changes['changes']) == 3)
         # Mutations are oracle-only, created within this disposable fixture.
         sql(db, "UPDATE wp_posts SET post_status='wcm-expired' WHERE ID=" + str(seed['membership_ids']['active']))
         sql(db, 'DELETE FROM wp_actionscheduler_actions WHERE action_id=' + str(seed['action']))

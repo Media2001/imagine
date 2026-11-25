@@ -82,6 +82,9 @@ def main():
         cases = {case.attrib['name'] for case in junit.iter('testcase')}
         assert {'testMinimalReportsAreRefused', 'testDisappearingPageIsAnomalous',
                 'testIncompleteBaselineIsRefusedEvenIfPageAppearsAfterwards',
+                'testOnlyObservedAdminHookAndItsCounterAreExpectedAfterWooUpdate',
+                'testSilentPhpDiagnosticIsAnomalousEvenWithHealthyHttpAndUnchangedCount',
+                'testMissingLogIsNotAnEmptyLog', 'testRotationDuringProbeIsBlocking',
                 'testPureClassesBelongToTheDiscoverablePackage'} <= cases
         result['isolation_after'] = bench.validate(json.loads(bench.call(['inspect', name]).stdout)[0], name)
         result['exit_code'] = int(any(item['returncode'] for item in result['commands'].values())

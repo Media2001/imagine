@@ -392,6 +392,9 @@ final class Site
                 if (is_resource($handle)) {
                     fclose($handle);
                 }
+                if ($handle === false || $body === false || strlen($body) > 4194304) {
+                    throw new \RuntimeException('A03_HTTP_READ');
+                }
                 $location = null;
                 foreach ($http_response_header as $header) {
                     if (preg_match('~\AHTTP/\S+ ([0-9]{3})~', $header, $match)) {

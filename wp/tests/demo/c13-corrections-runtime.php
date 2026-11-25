@@ -86,6 +86,12 @@ try {
     $checks['groupe_natif_deux_attribuees_une_libre'] = $group['donnees']['origine'] === 'groupe'
         && $group['donnees']['places'] === 3 && $group['donnees']['beneficiaires_resolus']
         && count($group['donnees']['beneficiaires']) === 2;
+    update_option('imagine_acces_plans', $oldPlans + [$planId => 'offert']);
+    $requiredGift = EnvoiNatif::relever($sub);
+    $checks['cadeau_requis_sans_relation_ferme_pas_payeur'] = $requiredGift['donnees']['origine'] === 'offert'
+        && !$requiredGift['donnees']['beneficiaires_resolus'] && $requiredGift['donnees']['beneficiaires'] === [];
+    update_option('imagine_acces_plans', $oldPlans + [$planId => 'groupe']);
+    EnvoiNatif::relever($sub);
     $history = EnvoiNatif::releves((string) $sub->get_id());
     $checks['attributions_historisees_append_only'] = in_array($gift, $history, true)
         && in_array($missing, $history, true) && in_array($closed, $history, true) && in_array($group, $history, true);
