@@ -1,4 +1,7 @@
-C09 — PRET pour relecture du brief, partiels/impossible explicités.
-30 profils : 4 créé, 25 partiel, 1 impossible.
-27 comptes natifs ; 691 contrôles/tests de dernière passe réussis, zéro échec.
-Voir A-VOIR.md, RAPPORT.md et verification-finale.json.
+C-09 — Complément paiements fictifs PRET pour relecture, avec réserves explicites.
+30 profils : 9 créés, 20 partiels, 1 impossible ; 27 comptes.
+Paiements/marques 149/149 ; natif 382/382 ; HTTP 197/197 ; sécurité 10/10 ; corrections 41/41 ; régression C08 30/30 ; local 7/7 ; reset 6/6.
+C13 strict : 51 PHP + 26 HTTP verts, pur 10 tests / 30 assertions, sortie 2 (liens offert/groupé absents).
+B02 strict : 140/140 dont 55 HTTP, sortie 2 ; seconde échéance native payée encore non consommée par son tableau, autres raccords manquants déclarés.
+Ce marqueur ne signifie ni acceptation globale C13/B02 ni validation visuelle.
+Voir A-VOIR.md, RAPPORT-complement.md, complement-verification.json et reçus complement-*.

@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-25T18:08:45.404478+00:00",
+  "status": "PRET_RELECTURE_AVEC_RESERVES",
+  "table_rows": 30,
+  "native": {
+    "manual": true,
+    "A_VIR_unpaid": true,
+    "A_SEPA4_count": 2,
+    "address_restored": true
+  },
+  "production_sources_unchanged": 40,
+  "secret_scan": {
+    "files_checked": 62,
+    "matches": []
+  },
+  "files_sha256": {
+    "production\\C-09\\PRET": "8a2a14f8a0953bc4e5c77fb93242f8fa3e887de8ddc024a4da07ddd743dce7e0",
+    "production\\C-09\\A-VOIR.md": "241ca1ea4661dc3f07cb366637a5f074eb378db1433dc4d25fd5d409b55110ea",
+    "production\\C-09\\RAPPORT-complement.md": "1e7a57c9a3087d9219d9384d019c5bb189ca9f59bf5c5d76d0a692aae2856034",
+    "production\\C-13\\A-VOIR.md": "7337678b328b0cb74902385a6c198dc90facc35f3ceaa0962330a12e7838be1b",
+    "production\\B-02\\A-VOIR.md": "db09b17ebf5b2b6462a8f92e39aa1a5ad44530e3c1a2826f6795ac853330cb0b"
+  }
+}

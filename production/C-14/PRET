@@ -1,3 +1,5 @@
 25 novembre 2026, 16 h 25 — VOIE 2 — corrections prêtes à relire.
 Rejeu parent c14-validation.py : code 0 ; C14 686 contrôles, régressions 205 contrôles/tests ; T01 1012 tests/34006 assertions sans échec/erreur/ignoré ; 17 empreintes d’artefacts vérifiées et état partagé préservé.
 Voir reception-parent.json, validation-corrections.json, A-VOIR.md et RAPPORT.md. Incident des 12 observations synthétiques C13 conservé et déclaré. Aucune clôture ni validation visuelle/réelle.
+
+Redepose voie 2 2026-11-25T19:12:36.002388+01:00 : 17 empreintes du recu corrections recontrolees identiques.
