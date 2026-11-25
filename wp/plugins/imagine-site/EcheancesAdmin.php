@@ -24,6 +24,10 @@ final class EcheancesAdmin
 
     public static function register(): void
     {
+        foreach ([self::EXPORT => 'exporter'] as $action => $method) {
+            add_action('admin_post_' . $action, [self::class, $method]);
+            add_action('admin_post_nopriv_' . $action, [self::class, $method]);
+        }
         add_action('admin_menu', [self::class, 'menu'], 110);
         add_filter('woocommerce_prevent_admin_access', static function (bool $prevent): bool {
             global $pagenow;
@@ -34,6 +38,19 @@ final class EcheancesAdmin
     public static function menu(): void
     {
         if (self::autorise()) {
+            // C10 et C13 enregistrent le même parent pour des capacités différentes.
+            // Garder seulement son entrée accessible ; aucun nouveau menu principal.
+            global $menu;
+            $kept = false;
+            foreach ($menu as $index => $entry) {
+                if (($entry[2] ?? '') === 'imagine') {
+                    if ($kept || !current_user_can($entry[1])) {
+                        unset($menu[$index]);
+                    } else {
+                        $kept = true;
+                    }
+                }
+            }
             add_submenu_page('imagine', self::t('Échéances'), self::t('Échéances'),
                 current_user_can('manage_options') ? 'manage_options' : self::CAP, self::PAGE, [self::class, 'page']);
         }
@@ -53,6 +70,44 @@ final class EcheancesAdmin
             throw new \InvalidArgumentException('Période invalide.');
         }
         return (int) $value;
+    }
+
+    private static function requete(string $nonceAction): void
+    {
+        self::verifier();
+        if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
+            header('Allow: POST');
+            wp_die(self::t('Requête POST uniquement.'), '', ['response' => 405]);
+        }
+        $nonce = $_POST['_wpnonce'] ?? null;
+        if (!is_string($nonce) || !wp_verify_nonce($nonce, $nonceAction)) {
+            wp_die(self::t('Jeton de sécurité invalide.'), '', ['response' => 403]);
+        }
+    }
+
+    public static function exporter(): void
+    {
+        self::verifier();
+        try {
+            $days = self::periode($_POST);
+        } catch (\Throwable) {
+            wp_die(self::t('Période invalide.'), '', ['response' => 400]);
+        }
+        self::requete(self::EXPORT . ':' . $days);
+        try {
+            $rows = EcheancesNatives::lire('mandats', $days);
+        } catch (\Throwable) {
+            wp_die(self::t('Export indisponible.'), '', ['response' => 409]);
+        }
+        nocache_headers();
+        header('Cache-Control: private, no-store, no-cache, must-revalidate, max-age=0');
+        header('Content-Type: text/csv; charset=UTF-8');
+        header('X-Content-Type-Options: nosniff');
+        header('Content-Disposition: attachment; filename="mandats-papier.csv"');
+        $stream = fopen('php://output', 'w');
+        EcheancesRegles::csv($stream, $rows);
+        fclose($stream);
+        exit;
     }
 
     public static function page(): void
@@ -104,6 +159,14 @@ final class EcheancesAdmin
         if ($rows === []) {
             echo '<tr><td colspan="6">' . esc_html(self::t('Aucun résultat dans cette vue.')) . '</td></tr>';
         }
-        echo '</tbody></table></div>';
+        echo '</tbody></table>';
+        if ($view === 'mandats') {
+            echo '<form method="post" action="' . esc_url(admin_url('admin-post.php')) . '"><input type="hidden" name="action" value="' . esc_attr(self::EXPORT)
+                . '"><input type="hidden" name="jours" value="' . esc_attr((string) $days) . '">';
+            wp_nonce_field(self::EXPORT . ':' . $days);
+            submit_button(self::t('Exporter les mandats papier (CSV)'));
+            echo '</form>';
+        }
+        echo '</div>';
     }
 }

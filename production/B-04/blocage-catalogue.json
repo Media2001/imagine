@@ -1,0 +1,61 @@
+{
+  "products": [
+    {
+      "id": 87,
+      "status": "private",
+      "type": "subscription",
+      "numero": "",
+      "price_present": true
+    },
+    {
+      "id": 192,
+      "status": "private",
+      "type": "subscription",
+      "numero": "",
+      "price_present": true
+    },
+    {
+      "id": 193,
+      "status": "private",
+      "type": "subscription",
+      "numero": "",
+      "price_present": true
+    },
+    {
+      "id": 194,
+      "status": "private",
+      "type": "subscription",
+      "numero": "",
+      "price_present": true
+    },
+    {
+      "id": 195,
+      "status": "private",
+      "type": "subscription",
+      "numero": "",
+      "price_present": true
+    },
+    {
+      "id": 196,
+      "status": "private",
+      "type": "subscription",
+      "numero": "",
+      "price_present": true
+    },
+    {
+      "id": 197,
+      "status": "private",
+      "type": "subscription",
+      "numero": "",
+      "price_present": true
+    },
+    {
+      "id": 271,
+      "status": "private",
+      "type": "simple",
+      "numero": "11",
+      "price_present": true
+    }
+  ],
+  "c14_option_exists": false
+}

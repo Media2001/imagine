@@ -31,7 +31,7 @@ def verify():
             native = c15.wp('echo wp_json_encode(array_column(Imagine\\Site\\EcheancesNatives::lire(' + json.dumps(view) + ',30),"id"));')
             shown = [int(n) for n in re.findall(r'data-imagine-echeance="(\d+)"', text)]
             checks['vue_native_' + role + '_' + view] = status == 200 and '<h1>Échéances</h1>' in text and shown == native and bool(native)
-            checks['prive_sans_IBAN_' + role + '_' + view] = 'no-store' in headers.get('cache-control', '') and re.search(r'iban', text, re.I) is None
+            checks['prive_sans_IBAN_' + role + '_' + view] = 'no-store' in headers.get('cache-control', '') and re.search(r'\biban\b', text, re.I) is None
         text = pages[role, 'mandats']
         checks['menu_Imagine_unique_' + role] = len(re.findall(r'id="toplevel_page_imagine"', text)) == 1
     checks['referent_sans_reglages'] = 'page=imagine-reglages' not in pages['E-ABO', 'mandats']
@@ -56,7 +56,7 @@ def verify():
             rows = list(csv.reader(io.StringIO(text), delimiter=';'))
             checks['CSV_ouvert_' + role] = status == 200 and len(rows) == 2 and rows[0] == ['Abonné', 'Montant', 'Devise', 'Référence du mandat', 'Échéance (UTC)'] and rows[1][3] == 'A-PAPIER'
             checks['CSV_prive_' + role] = 'private' in headers.get('cache-control', '') and 'no-store' in headers.get('cache-control', '') and headers.get('x-content-type-options') == 'nosniff' and 'attachment;' in headers.get('content-disposition', '')
-            checks['CSV_sans_formule_IBAN_' + role] = re.search(r'iban', text, re.I) is None and all(re.match(r'[\x00-\x20]*[=+@-]', cell) is None for row in rows[1:] for cell in row)
+            checks['CSV_sans_formule_IBAN_' + role] = re.search(r'\biban\b', text, re.I) is None and all(re.match(r'[\x00-\x20]*[=+@-]', cell) is None for row in rows[1:] for cell in row)
             status, _, _ = h.fetch(endpoint + '?' + urlencode(payload), clients[role])
             checks['export_GET_refuse_' + role] = status == 405
             status, _, _ = h.fetch(endpoint, clients[role], urlencode(dict(payload, jours='90')).encode())

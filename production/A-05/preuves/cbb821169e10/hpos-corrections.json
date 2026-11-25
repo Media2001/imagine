@@ -1,0 +1,790 @@
+[
+  {
+    "case": "P1-True-False",
+    "mode": "dry-run",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [
+        {
+          "plugin": "a05-shared/remove.php",
+          "action": "retirer",
+          "uninstall": false
+        },
+        {
+          "plugin": "a05-shared/neighbour.php",
+          "action": "desactiver",
+          "uninstall": false
+        }
+      ],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [],
+      "table_owners": {}
+    },
+    "expected": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php",
+    "exit": 1,
+    "stderr": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php\n",
+    "before": {
+      "database": "19c258ee34c9ab543e94959247f81d82823d0f2b68b6a3bfe709e309462a4b09",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "after": {
+      "database": "19c258ee34c9ab543e94959247f81d82823d0f2b68b6a3bfe709e309462a4b09",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "duration_seconds": 0.8664803850115277,
+    "state_created": false
+  },
+  {
+    "case": "P1-True-False",
+    "mode": "real",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [
+        {
+          "plugin": "a05-shared/remove.php",
+          "action": "retirer",
+          "uninstall": false
+        },
+        {
+          "plugin": "a05-shared/neighbour.php",
+          "action": "desactiver",
+          "uninstall": false
+        }
+      ],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [],
+      "table_owners": {}
+    },
+    "expected": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php",
+    "exit": 1,
+    "stderr": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php\n",
+    "before": {
+      "database": "19c258ee34c9ab543e94959247f81d82823d0f2b68b6a3bfe709e309462a4b09",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "after": {
+      "database": "19c258ee34c9ab543e94959247f81d82823d0f2b68b6a3bfe709e309462a4b09",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "duration_seconds": 0.9079426659736782,
+    "state_created": false
+  },
+  {
+    "case": "P1-True-True",
+    "mode": "dry-run",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [
+        {
+          "plugin": "a05-shared/neighbour.php",
+          "action": "desactiver",
+          "uninstall": false
+        },
+        {
+          "plugin": "a05-shared/remove.php",
+          "action": "retirer",
+          "uninstall": false
+        }
+      ],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [],
+      "table_owners": {}
+    },
+    "expected": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php",
+    "exit": 1,
+    "stderr": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php\n",
+    "before": {
+      "database": "19c258ee34c9ab543e94959247f81d82823d0f2b68b6a3bfe709e309462a4b09",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "after": {
+      "database": "19c258ee34c9ab543e94959247f81d82823d0f2b68b6a3bfe709e309462a4b09",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "duration_seconds": 0.8609758070087992,
+    "state_created": false
+  },
+  {
+    "case": "P1-True-True",
+    "mode": "real",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [
+        {
+          "plugin": "a05-shared/neighbour.php",
+          "action": "desactiver",
+          "uninstall": false
+        },
+        {
+          "plugin": "a05-shared/remove.php",
+          "action": "retirer",
+          "uninstall": false
+        }
+      ],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [],
+      "table_owners": {}
+    },
+    "expected": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php",
+    "exit": 1,
+    "stderr": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php\n",
+    "before": {
+      "database": "19c258ee34c9ab543e94959247f81d82823d0f2b68b6a3bfe709e309462a4b09",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "after": {
+      "database": "19c258ee34c9ab543e94959247f81d82823d0f2b68b6a3bfe709e309462a4b09",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "duration_seconds": 0.8580066209542565,
+    "state_created": false
+  },
+  {
+    "case": "P1-False-False",
+    "mode": "dry-run",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [
+        {
+          "plugin": "a05-shared/remove.php",
+          "action": "retirer",
+          "uninstall": false
+        },
+        {
+          "plugin": "a05-shared/neighbour.php",
+          "action": "desactiver",
+          "uninstall": false
+        }
+      ],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [],
+      "table_owners": {}
+    },
+    "expected": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php",
+    "exit": 1,
+    "stderr": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php\n",
+    "before": {
+      "database": "13845cd78228d83ede98e3e6d2d80a5f2b1ee49aec9461b8e59805a8f70f6e05",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "after": {
+      "database": "13845cd78228d83ede98e3e6d2d80a5f2b1ee49aec9461b8e59805a8f70f6e05",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "duration_seconds": 0.8594769719638862,
+    "state_created": false
+  },
+  {
+    "case": "P1-False-False",
+    "mode": "real",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [
+        {
+          "plugin": "a05-shared/remove.php",
+          "action": "retirer",
+          "uninstall": false
+        },
+        {
+          "plugin": "a05-shared/neighbour.php",
+          "action": "desactiver",
+          "uninstall": false
+        }
+      ],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [],
+      "table_owners": {}
+    },
+    "expected": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php",
+    "exit": 1,
+    "stderr": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php\n",
+    "before": {
+      "database": "13845cd78228d83ede98e3e6d2d80a5f2b1ee49aec9461b8e59805a8f70f6e05",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "after": {
+      "database": "13845cd78228d83ede98e3e6d2d80a5f2b1ee49aec9461b8e59805a8f70f6e05",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "duration_seconds": 0.8623669889639132,
+    "state_created": false
+  },
+  {
+    "case": "P1-False-True",
+    "mode": "dry-run",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [
+        {
+          "plugin": "a05-shared/neighbour.php",
+          "action": "desactiver",
+          "uninstall": false
+        },
+        {
+          "plugin": "a05-shared/remove.php",
+          "action": "retirer",
+          "uninstall": false
+        }
+      ],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [],
+      "table_owners": {}
+    },
+    "expected": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php",
+    "exit": 1,
+    "stderr": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php\n",
+    "before": {
+      "database": "13845cd78228d83ede98e3e6d2d80a5f2b1ee49aec9461b8e59805a8f70f6e05",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "after": {
+      "database": "13845cd78228d83ede98e3e6d2d80a5f2b1ee49aec9461b8e59805a8f70f6e05",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "duration_seconds": 0.8696850500418805,
+    "state_created": false
+  },
+  {
+    "case": "P1-False-True",
+    "mode": "real",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [
+        {
+          "plugin": "a05-shared/neighbour.php",
+          "action": "desactiver",
+          "uninstall": false
+        },
+        {
+          "plugin": "a05-shared/remove.php",
+          "action": "retirer",
+          "uninstall": false
+        }
+      ],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [],
+      "table_owners": {}
+    },
+    "expected": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php",
+    "exit": 1,
+    "stderr": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php\n",
+    "before": {
+      "database": "13845cd78228d83ede98e3e6d2d80a5f2b1ee49aec9461b8e59805a8f70f6e05",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "after": {
+      "database": "13845cd78228d83ede98e3e6d2d80a5f2b1ee49aec9461b8e59805a8f70f6e05",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "duration_seconds": 0.8585664500133134,
+    "state_created": false
+  },
+  {
+    "case": "P1-multiple-removals",
+    "mode": "dry-run",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [
+        {
+          "plugin": "a05-shared/remove.php",
+          "action": "retirer",
+          "uninstall": true
+        },
+        {
+          "plugin": "a05-shared/neighbour.php",
+          "action": "retirer",
+          "uninstall": true
+        }
+      ],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [],
+      "table_owners": {}
+    },
+    "expected": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php",
+    "exit": 1,
+    "stderr": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php\n",
+    "before": {
+      "database": "13845cd78228d83ede98e3e6d2d80a5f2b1ee49aec9461b8e59805a8f70f6e05",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "after": {
+      "database": "13845cd78228d83ede98e3e6d2d80a5f2b1ee49aec9461b8e59805a8f70f6e05",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "duration_seconds": 0.8631700800033286,
+    "state_created": false
+  },
+  {
+    "case": "P1-multiple-removals",
+    "mode": "real",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [
+        {
+          "plugin": "a05-shared/remove.php",
+          "action": "retirer",
+          "uninstall": true
+        },
+        {
+          "plugin": "a05-shared/neighbour.php",
+          "action": "retirer",
+          "uninstall": true
+        }
+      ],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [],
+      "table_owners": {}
+    },
+    "expected": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php",
+    "exit": 1,
+    "stderr": "A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php\n",
+    "before": {
+      "database": "13845cd78228d83ede98e3e6d2d80a5f2b1ee49aec9461b8e59805a8f70f6e05",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "after": {
+      "database": "13845cd78228d83ede98e3e6d2d80a5f2b1ee49aec9461b8e59805a8f70f6e05",
+      "files": "6ebf88a0673addb26688511515ce7493cb1a4303592abc4410fdbdf5785e2d19"
+    },
+    "duration_seconds": 0.8638871439616196,
+    "state_created": false
+  },
+  {
+    "case": "P2-slash-retirer",
+    "mode": "dry-run",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [
+        {
+          "plugin": "a05-base/entry.php",
+          "action": "retirer",
+          "uninstall": false
+        }
+      ],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [],
+      "table_owners": {}
+    },
+    "expected": "A05_DEPENDENCY:a05-base/entry.php",
+    "exit": 1,
+    "stderr": "A05_DEPENDENCY:a05-base/entry.php\n",
+    "before": {
+      "database": "debd9ec15ada3e4bd267edc2747880d1cd85398150252c1ebf44edf1002f9e5e",
+      "files": "4a9dc597402ca3c65edf20d8f64716089ca0dc72dba3fd1ceeaf74e76308113f"
+    },
+    "after": {
+      "database": "debd9ec15ada3e4bd267edc2747880d1cd85398150252c1ebf44edf1002f9e5e",
+      "files": "4a9dc597402ca3c65edf20d8f64716089ca0dc72dba3fd1ceeaf74e76308113f"
+    },
+    "duration_seconds": 0.8636224119691178,
+    "state_created": false
+  },
+  {
+    "case": "P2-slash-retirer",
+    "mode": "real",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [
+        {
+          "plugin": "a05-base/entry.php",
+          "action": "retirer",
+          "uninstall": false
+        }
+      ],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [],
+      "table_owners": {}
+    },
+    "expected": "A05_DEPENDENCY:a05-base/entry.php",
+    "exit": 1,
+    "stderr": "A05_DEPENDENCY:a05-base/entry.php\n",
+    "before": {
+      "database": "debd9ec15ada3e4bd267edc2747880d1cd85398150252c1ebf44edf1002f9e5e",
+      "files": "4a9dc597402ca3c65edf20d8f64716089ca0dc72dba3fd1ceeaf74e76308113f"
+    },
+    "after": {
+      "database": "debd9ec15ada3e4bd267edc2747880d1cd85398150252c1ebf44edf1002f9e5e",
+      "files": "4a9dc597402ca3c65edf20d8f64716089ca0dc72dba3fd1ceeaf74e76308113f"
+    },
+    "duration_seconds": 0.8581548759830184,
+    "state_created": false
+  },
+  {
+    "case": "P2-slash-desactiver",
+    "mode": "dry-run",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [
+        {
+          "plugin": "a05-base/entry.php",
+          "action": "desactiver",
+          "uninstall": false
+        }
+      ],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [],
+      "table_owners": {}
+    },
+    "expected": "A05_DEPENDENCY:a05-base/entry.php",
+    "exit": 1,
+    "stderr": "A05_DEPENDENCY:a05-base/entry.php\n",
+    "before": {
+      "database": "debd9ec15ada3e4bd267edc2747880d1cd85398150252c1ebf44edf1002f9e5e",
+      "files": "4a9dc597402ca3c65edf20d8f64716089ca0dc72dba3fd1ceeaf74e76308113f"
+    },
+    "after": {
+      "database": "debd9ec15ada3e4bd267edc2747880d1cd85398150252c1ebf44edf1002f9e5e",
+      "files": "4a9dc597402ca3c65edf20d8f64716089ca0dc72dba3fd1ceeaf74e76308113f"
+    },
+    "duration_seconds": 0.8703137779957615,
+    "state_created": false
+  },
+  {
+    "case": "P2-slash-desactiver",
+    "mode": "real",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [
+        {
+          "plugin": "a05-base/entry.php",
+          "action": "desactiver",
+          "uninstall": false
+        }
+      ],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [],
+      "table_owners": {}
+    },
+    "expected": "A05_DEPENDENCY:a05-base/entry.php",
+    "exit": 1,
+    "stderr": "A05_DEPENDENCY:a05-base/entry.php\n",
+    "before": {
+      "database": "debd9ec15ada3e4bd267edc2747880d1cd85398150252c1ebf44edf1002f9e5e",
+      "files": "4a9dc597402ca3c65edf20d8f64716089ca0dc72dba3fd1ceeaf74e76308113f"
+    },
+    "after": {
+      "database": "debd9ec15ada3e4bd267edc2747880d1cd85398150252c1ebf44edf1002f9e5e",
+      "files": "4a9dc597402ca3c65edf20d8f64716089ca0dc72dba3fd1ceeaf74e76308113f"
+    },
+    "duration_seconds": 0.8560591390123591,
+    "state_created": false
+  },
+  {
+    "case": "P2-hash-retirer",
+    "mode": "dry-run",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [
+        {
+          "plugin": "a05-base/entry.php",
+          "action": "retirer",
+          "uninstall": false
+        }
+      ],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [],
+      "table_owners": {}
+    },
+    "expected": "A05_DEPENDENCY:a05-base/entry.php",
+    "exit": 1,
+    "stderr": "A05_DEPENDENCY:a05-base/entry.php\n",
+    "before": {
+      "database": "c2e2a84ce5054d3c77d4860ec9ccaf1d2c7cab13ac44fe9dfe514d8ffcf9b842",
+      "files": "229680e05bb51d65f5347f3afaa15e5ca1cec4a1e524365bcd1153455ef81935"
+    },
+    "after": {
+      "database": "c2e2a84ce5054d3c77d4860ec9ccaf1d2c7cab13ac44fe9dfe514d8ffcf9b842",
+      "files": "229680e05bb51d65f5347f3afaa15e5ca1cec4a1e524365bcd1153455ef81935"
+    },
+    "duration_seconds": 0.9068536570412107,
+    "state_created": false
+  },
+  {
+    "case": "P2-hash-retirer",
+    "mode": "real",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [
+        {
+          "plugin": "a05-base/entry.php",
+          "action": "retirer",
+          "uninstall": false
+        }
+      ],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [],
+      "table_owners": {}
+    },
+    "expected": "A05_DEPENDENCY:a05-base/entry.php",
+    "exit": 1,
+    "stderr": "A05_DEPENDENCY:a05-base/entry.php\n",
+    "before": {
+      "database": "c2e2a84ce5054d3c77d4860ec9ccaf1d2c7cab13ac44fe9dfe514d8ffcf9b842",
+      "files": "229680e05bb51d65f5347f3afaa15e5ca1cec4a1e524365bcd1153455ef81935"
+    },
+    "after": {
+      "database": "c2e2a84ce5054d3c77d4860ec9ccaf1d2c7cab13ac44fe9dfe514d8ffcf9b842",
+      "files": "229680e05bb51d65f5347f3afaa15e5ca1cec4a1e524365bcd1153455ef81935"
+    },
+    "duration_seconds": 0.8957619860302657,
+    "state_created": false
+  },
+  {
+    "case": "P2-hash-desactiver",
+    "mode": "dry-run",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [
+        {
+          "plugin": "a05-base/entry.php",
+          "action": "desactiver",
+          "uninstall": false
+        }
+      ],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [],
+      "table_owners": {}
+    },
+    "expected": "A05_DEPENDENCY:a05-base/entry.php",
+    "exit": 1,
+    "stderr": "A05_DEPENDENCY:a05-base/entry.php\n",
+    "before": {
+      "database": "c2e2a84ce5054d3c77d4860ec9ccaf1d2c7cab13ac44fe9dfe514d8ffcf9b842",
+      "files": "229680e05bb51d65f5347f3afaa15e5ca1cec4a1e524365bcd1153455ef81935"
+    },
+    "after": {
+      "database": "c2e2a84ce5054d3c77d4860ec9ccaf1d2c7cab13ac44fe9dfe514d8ffcf9b842",
+      "files": "229680e05bb51d65f5347f3afaa15e5ca1cec4a1e524365bcd1153455ef81935"
+    },
+    "duration_seconds": 0.8603389050113037,
+    "state_created": false
+  },
+  {
+    "case": "P2-hash-desactiver",
+    "mode": "real",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [
+        {
+          "plugin": "a05-base/entry.php",
+          "action": "desactiver",
+          "uninstall": false
+        }
+      ],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [],
+      "table_owners": {}
+    },
+    "expected": "A05_DEPENDENCY:a05-base/entry.php",
+    "exit": 1,
+    "stderr": "A05_DEPENDENCY:a05-base/entry.php\n",
+    "before": {
+      "database": "c2e2a84ce5054d3c77d4860ec9ccaf1d2c7cab13ac44fe9dfe514d8ffcf9b842",
+      "files": "229680e05bb51d65f5347f3afaa15e5ca1cec4a1e524365bcd1153455ef81935"
+    },
+    "after": {
+      "database": "c2e2a84ce5054d3c77d4860ec9ccaf1d2c7cab13ac44fe9dfe514d8ffcf9b842",
+      "files": "229680e05bb51d65f5347f3afaa15e5ca1cec4a1e524365bcd1153455ef81935"
+    },
+    "duration_seconds": 0.8696654260274954,
+    "state_created": false
+  },
+  {
+    "case": "P3-False",
+    "mode": "dry-run",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [
+        {
+          "path": "a05-archive",
+          "action": "garder"
+        },
+        {
+          "path": "a05-archive/2020",
+          "action": "supprimer"
+        }
+      ],
+      "table_owners": {}
+    },
+    "expected": "A05_UPLOAD_KEEP_CONFLICT:a05-archive/2020",
+    "exit": 1,
+    "stderr": "A05_UPLOAD_KEEP_CONFLICT:a05-archive/2020\n",
+    "before": {
+      "database": "c2e2a84ce5054d3c77d4860ec9ccaf1d2c7cab13ac44fe9dfe514d8ffcf9b842",
+      "files": "7bed460c90ea1a154bc9104fd9e905de860526829006f67a8f6d4be90f663177"
+    },
+    "after": {
+      "database": "c2e2a84ce5054d3c77d4860ec9ccaf1d2c7cab13ac44fe9dfe514d8ffcf9b842",
+      "files": "7bed460c90ea1a154bc9104fd9e905de860526829006f67a8f6d4be90f663177"
+    },
+    "duration_seconds": 0.8736476100166328,
+    "state_created": false
+  },
+  {
+    "case": "P3-False",
+    "mode": "real",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [
+        {
+          "path": "a05-archive",
+          "action": "garder"
+        },
+        {
+          "path": "a05-archive/2020",
+          "action": "supprimer"
+        }
+      ],
+      "table_owners": {}
+    },
+    "expected": "A05_UPLOAD_KEEP_CONFLICT:a05-archive/2020",
+    "exit": 1,
+    "stderr": "A05_UPLOAD_KEEP_CONFLICT:a05-archive/2020\n",
+    "before": {
+      "database": "c2e2a84ce5054d3c77d4860ec9ccaf1d2c7cab13ac44fe9dfe514d8ffcf9b842",
+      "files": "7bed460c90ea1a154bc9104fd9e905de860526829006f67a8f6d4be90f663177"
+    },
+    "after": {
+      "database": "c2e2a84ce5054d3c77d4860ec9ccaf1d2c7cab13ac44fe9dfe514d8ffcf9b842",
+      "files": "7bed460c90ea1a154bc9104fd9e905de860526829006f67a8f6d4be90f663177"
+    },
+    "duration_seconds": 0.8680336800171062,
+    "state_created": false
+  },
+  {
+    "case": "P3-True",
+    "mode": "dry-run",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [
+        {
+          "path": "a05-archive/2020",
+          "action": "supprimer"
+        },
+        {
+          "path": "a05-archive",
+          "action": "garder"
+        }
+      ],
+      "table_owners": {}
+    },
+    "expected": "A05_UPLOAD_KEEP_CONFLICT:a05-archive/2020",
+    "exit": 1,
+    "stderr": "A05_UPLOAD_KEEP_CONFLICT:a05-archive/2020\n",
+    "before": {
+      "database": "c2e2a84ce5054d3c77d4860ec9ccaf1d2c7cab13ac44fe9dfe514d8ffcf9b842",
+      "files": "7bed460c90ea1a154bc9104fd9e905de860526829006f67a8f6d4be90f663177"
+    },
+    "after": {
+      "database": "c2e2a84ce5054d3c77d4860ec9ccaf1d2c7cab13ac44fe9dfe514d8ffcf9b842",
+      "files": "7bed460c90ea1a154bc9104fd9e905de860526829006f67a8f6d4be90f663177"
+    },
+    "duration_seconds": 0.8754001799970865,
+    "state_created": false
+  },
+  {
+    "case": "P3-True",
+    "mode": "real",
+    "plan": {
+      "schema": "imagine-a05-v1",
+      "site_status": "verified-staging",
+      "plugins": [],
+      "tables": [],
+      "options": [],
+      "cron": [],
+      "uploads": [
+        {
+          "path": "a05-archive/2020",
+          "action": "supprimer"
+        },
+        {
+          "path": "a05-archive",
+          "action": "garder"
+        }
+      ],
+      "table_owners": {}
+    },
+    "expected": "A05_UPLOAD_KEEP_CONFLICT:a05-archive/2020",
+    "exit": 1,
+    "stderr": "A05_UPLOAD_KEEP_CONFLICT:a05-archive/2020\n",
+    "before": {
+      "database": "c2e2a84ce5054d3c77d4860ec9ccaf1d2c7cab13ac44fe9dfe514d8ffcf9b842",
+      "files": "7bed460c90ea1a154bc9104fd9e905de860526829006f67a8f6d4be90f663177"
+    },
+    "after": {
+      "database": "c2e2a84ce5054d3c77d4860ec9ccaf1d2c7cab13ac44fe9dfe514d8ffcf9b842",
+      "files": "7bed460c90ea1a154bc9104fd9e905de860526829006f67a8f6d4be90f663177"
+    },
+    "duration_seconds": 0.8550445639993995,
+    "state_created": false
+  }
+]

@@ -20,6 +20,56 @@ def option_hashes(db):
     rows=a03.sql(db,"SELECT option_name, SHA2(option_value,256) AS digest FROM wp_options ORDER BY option_name").stdout.splitlines()[1:]
     return dict(line.split('\t',1) for line in rows)
 
+def correction_cases(storage,site,db,backup):
+    """Real SQL/PHP/CLI matrix, no inventory doubles; independent after A03 pair."""
+    sys.path.insert(0,'/subject/a05');import clean as subject
+    records=[]
+    def fingerprint():
+        return {'database':a03.hashlib.sha256(json.dumps(a03.fingerprint(db,True),sort_keys=True).encode()).hexdigest(),'files':a03.hashlib.sha256(json.dumps(a03.filemap(site),sort_keys=True).encode()).hexdigest()}
+    def attempt(label,doc,expected):
+        plan=ROOT/(storage+'-correction-'+label+'.json');write(plan,doc)
+        state=ROOT/(storage+'-correction-state-'+label)
+        for dry in [True,False]:
+            before=fingerprint();started=time.monotonic()
+            r=clean(site,plan,backup,state,['--dry-run'] if dry else [])
+            after=fingerprint()
+            row={'case':label,'mode':'dry-run' if dry else 'real','plan':doc,'expected':expected,'exit':r.returncode,'stderr':r.stderr,'before':before,'after':after,'duration_seconds':time.monotonic()-started,'state_created':state.exists()}
+            records.append(row);write(OUT/(storage+'-corrections.json'),records)
+            check(storage+':correction_'+label+'_'+row['mode'],r.returncode==1 and r.stderr==expected+'\n' and before==after and not state.exists(),row)
+    base={'schema':'imagine-a05-v1','site_status':'verified-staging','plugins':[],'tables':[],'options':[],'cron':[],'uploads':[],'table_owners':{}}
+    shared=site/'wp-content/plugins/a05-shared';shared.mkdir()
+    for name in ['remove','neighbour']:(shared/(name+'.php')).write_text('<?php\n// Plugin Name: Fiction '+name+'\n')
+    for active in [True,False]:
+        a03.wp(site,['eval',("activate_plugin" if active else "deactivate_plugins")+"('a05-shared/neighbour.php');"])
+        check(storage+':correction_neighbour_active_'+str(active),subject.inspect_site(site)['plugins']['a05-shared/neighbour.php']['active']==active)
+        for reverse in [False,True]:
+            rows=[{'plugin':'a05-shared/remove.php','action':'retirer','uninstall':False},{'plugin':'a05-shared/neighbour.php','action':'desactiver','uninstall':False}]
+            if reverse:rows.reverse()
+            attempt('P1-'+str(active)+'-'+str(reverse),{**base,'plugins':rows},'A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php')
+    attempt('P1-multiple-removals',{**base,'plugins':[{'plugin':'a05-shared/'+n+'.php','action':'retirer','uninstall':True} for n in ['remove','neighbour']]},'A05_SHARED_PLUGIN_DIRECTORY:a05-shared/neighbour.php')
+    dependency=site/'wp-content/plugins/a05-comment-kept';dependency.mkdir()
+    target=site/'wp-content/plugins/a05-comment-base';target.mkdir();(target/'entry.php').write_text('<?php\n// Plugin Name: Fiction isolated comment dependency\n')
+    for prefix,label in [('//','slash'),('#','hash')]:
+        (dependency/'entry.php').write_text('<?php\n'+prefix+' Plugin Name: Fiction comment kept\n'+prefix+' Requires Plugins: a05-comment-base\n')
+        native=a03.wp(site,['eval',"$p=get_plugin_data(WP_PLUGIN_DIR . '/a05-comment-kept/entry.php',false,false); echo 'A05_HEADER=' . json_encode($p['RequiresPlugins']);"])
+        inventory=subject.inspect_site(site)
+        check(storage+':correction_native_header_'+label,'A05_HEADER="a05-comment-base"' in native.stdout and inventory['plugins']['a05-comment-kept/entry.php']['requires']==['a05-comment-base'] and [n for n,meta in inventory['plugins'].items() if 'a05-comment-base' in meta['requires']]==['a05-comment-kept/entry.php'])
+        for action in ['retirer','desactiver']:
+            attempt('P2-'+label+'-'+action,{**base,'plugins':[{'plugin':'a05-comment-base/entry.php','action':action,'uninstall':False}]},'A05_DEPENDENCY:a05-comment-base/entry.php')
+    archive=site/'wp-content/uploads/a05-archive/2020';archive.mkdir(parents=True);(archive/'keep.txt').write_text('fiction must survive')
+    for reverse in [False,True]:
+        rows=[{'path':'a05-archive','action':'garder'},{'path':'a05-archive/2020','action':'supprimer'}]
+        if reverse:rows.reverse()
+        attempt('P3-'+str(reverse),{**base,'uploads':rows},'A05_UPLOAD_KEEP_CONFLICT:a05-archive/2020')
+    absent={**base,'plugins':[{'plugin':'a05-absent/main.php','action':'retirer','uninstall':False},{'plugin':'a05-base','action':'garder','uninstall':False}],'uploads':[{'path':'a05-absent','action':'supprimer'}]}
+    for kind in ['tables','options','cron']:absent[kind]=[{'match':'prefix' if kind!='cron' else 'exact','name':'a05_absent_'+kind,'action':'supprimer'}]
+    plan=ROOT/(storage+'-absent.json');write(plan,absent);state=ROOT/(storage+'-absent-state');before=fingerprint();r=clean(site,plan,backup,state,['--dry-run']);after=fingerprint()
+    report=json.loads(r.stdout);write(OUT/(storage+'-absent-dry-run.json'),report)
+    expected={('plugin','a05-absent/main.php'),('table','a05_absent_tables'),('option','a05_absent_options'),('cron','a05_absent_cron'),('upload','a05-absent')}
+    check(storage+':correction_M1_information_only',r.returncode==0 and report['operations']==[] and {(v['kind'],v['name']) for v in report['information']}==expected and all(v['status']=='nommé, absent' for v in report['information']) and before==after and not state.exists(),{'before':before,'after':after})
+    r=clean(site,plan,backup,state)
+    check(storage+':correction_M1_real_noop',r.returncode==0 and r.stdout=='A05_NOOP\n' and before==fingerprint() and not state.exists())
+
 def run_storage(storage):
     site,db,seed,config,settings=a03.install(storage)
     a03.wp(site,['eval',"require_once WC_ABSPATH . 'includes/admin/wc-admin-functions.php'; wc_memberships()->get_lifecycle_handler()->init(); WC_Subscriptions_Upgrader::upgrade();"])
@@ -145,6 +195,7 @@ def run_storage(storage):
         checkpoint={'schema':'imagine-a05-state-v1','site':str(site),'plan_sha256':subject.a04.digest(explicit),'config_sha256':subject.a04.digest(site/'wp-config.php'),'operations':[{'kind':'uninstall','name':'a05-explicit/entry.php','phase':'started'}],'events':[],'complete':False};write(ambiguous/'etat.json',checkpoint)
         # This checkpoint double is additional fail-closed coverage, not the real interruption proof.
         r=clean(site,explicit,backup,ambiguous);check(storage+':ambiguous_uninstall_checkpoint_refused',r.returncode==1 and r.stderr=='A05_UNINSTALL_AMBIGUOUS:a05-explicit/entry.php\n',{'exit':r.returncode,'code':r.stderr[:150],'proof_kind':'checkpoint-double'})
+        correction_cases(storage,site,db,backup)
     finally:server.terminate();server.wait(timeout=15)
 def main():
     pathlib.Path('/scratch').mkdir();a03.cmd(['mariadb-install-db','--datadir=/scratch/mysql','--auth-root-authentication-method=normal','--skip-test-db','--user=root'])
