@@ -1,40 +1,40 @@
 # A-12 — résultat de la livraison
 
-**Verdict : PARTIEL_NON_PRET. Aucun `production/A-12/PRET`.**
+**Verdict technique : NATIVE_VERIFIE. Le blocage registre est levé.** Le dépôt de `PRET` attend uniquement la lecture des deux formalités communes réservées au parent (préparation d'image et mode d'emploi). Aucun résultat de ces opérations n'est inventé ici.
 
 ## Acquis vérifiés
 
-Le collecteur dédié est `wp/outils/bascule/a12/inventorier-contenus`. Sorties privées JSON/Markdown, liées par SHA-256 à l'audit A-02 frère, hors racine web et hors dépôt. Aucun fichier partagé ni README d'audit modifié ; les deux lignes à intégrer sont dans `integration.md`.
+Le lanceur obligatoire est `python3 wp/outils/bascule/a12/confine.py` ; il exécute le collecteur PHP sous Landlock, dans un conteneur Linux déconnecté. Sorties privées JSON/Markdown liées par SHA-256 à l'audit A-02 frère, hors racine web et dépôt. Aucun fichier partagé ni README d'audit modifié par ce worker ; les deux lignes **mises à jour pour ce lanceur** sont dans `integration.md`.
 
-Dernier rejeu : `preuves/final/`, source manifest exact de **14 fichiers**. **100 assertions natives**, **5 assertions pures**, **7 contrôles runner**, **6 contrôles style** et **32 contrôles d'intégrité** réussis ; zéro échec dans ces suites bornées. Ce ne sont pas des nombres PHPUnit et ce n'est pas une réception complète du brief. PHPCS PSR-12 strict : exit 0, zéro erreur, zéro avertissement. Les recettes du cahier des charges et le rejeu global T01 ne sont pas étendus.
+Dernier rejeu : `preuves/final/`, manifeste exact de **16 fichiers source/test/documentation**. **118 assertions natives**, **7 assertions pures**, **7 contrôles runner**, **6 contrôles style** et **41 contrôles d'intégrité** réussis ; zéro échec. Ce sont des assertions nommées, pas des nombres PHPUnit. PHPCS PSR-12 strict : exit 0, zéro erreur et avertissement. Suite dédiée proportionnée au brief, pas de rejeu global T01.
 
-Banc A-02 inchangé : WordPress 7.0.9, Woo 11.1.1, Subscriptions 9.4.1, Memberships 1.30.3 ; mode classique puis HPOS. Pour chaque mode, empreintes de **55 tables** identiques avant/après, schémas et toutes lignes logiques compris, options/cron et Action Scheduler inclus. Empreintes des fichiers du site identiques ; piège de bootstrap absent ; compte du sujet SELECT seul ; UPDATE zéro ligne sous root réellement refusé par la transaction READ ONLY. Conteneurs propres A-12 sans réseau/montage/port, supprimés puis absence relue.
+Banc A-02 et sources/tests A-11 inchangés : WordPress 7.0.9, Woo 11.1.1, Subscriptions 9.4.1, Memberships 1.30.3 ; classique puis HPOS. Pour chaque mode : **55 tables** identiques avant/après, schémas et toutes lignes logiques, options/cron et Action Scheduler inclus ; fichiers du site identiques, configuration non exécutée. Connexion A-11 native déjà READ ONLY avant tout MU-plugin, gardée pour toutes les agrégations/métas/pièces jointes. Le sujet possède SELECT seulement. Sous root fictif, le serveur refuse réellement UPDATE (1792), le wrapper bloque COMMIT/changement de transaction ; HTTP/mail/cron refusés avant les extensions. Landlock ABI **7** observée : création et troncature dans le site effectivement refusées au code tiers. Conteneurs A-12 sans réseau/montage/port supprimés, absence relue.
 
 Comptes prouvés : cinq contenus de quatre états, type vide et type déclaré dans le thème, champs dupliqués comptés par contenu distinct, taxonomie de 23 rubriques et vingt premières exactes, dates UTC limitées aux publications, deux PDF (23 et 28 octets, un PDF orphelin), liens produits directs/inverses, clés différant par casse, données sérialisées non interprétées. Le placeholder natif Woo explique quatre médias/deux parents nuls **au total** ; l'oracle natif est conservé, aucun média n'a été supprimé pour réduire ce total. Absence des titres/textes/valeurs/contacts et noms de médias dans les rapports, permissions et refus de chemins/configurations/audits invalides vérifiés.
 
-## Exigences non acquises
+## Registre acquis ; formalités du parent
 
-1. **Registre effectivement enregistré et attribution exacte** : non prouvés. L'analyse sans bootstrap restitue les objets stockés et les appels littéraux candidats, pas les registres exécutés. Le banc observe un type dynamique réellement enregistré (`a12_dynamic`) absent de l'inventaire, et un appel conditionnel non exécuté (`a12_never`) présent comme candidat. Les fichiers `*-registry-gap.json` conservent les autres écarts natifs. `registry.runtime_verified=false` partout ; aucun compte exact de registre n'est prétendu. Les taxonomies/déclarations dynamiques ont la même limite générale. Une stratégie runtime sûre doit être qualifiée avant `PRET`.
-2. **Préparation de l'image partagée avant PRET** : non exécutée, explicitement réservée au parent. L'image A-02 et les dépendances T01 déjà présentes ont été réutilisées sans rebuild ; leurs IDs inspectés sont dans les reçus. Le paquet dédié n'ajoute pas de package Composer au banc global.
-3. **Deux lignes dans le mode d'emploi partagé** : fournies séparément au parent dans `integration.md`, pas appliquées à un fichier hors ownership. Les marquer « registre partiel » tant que le point 1 n'est pas résolu.
+1. **Registres natifs et attribution runtime : acquis.** Dans les deux magasins, **30 types et 18 taxonomies** exactement égaux à l'oracle ; `a12_dynamic` inclus, `a12_never` exclu, taxonomie calculée incluse, appels non exécutés et objets retirés exclus. Les deux fichiers `*-registry-gap.json` ont leurs listes vides. Fichiers déclarants cœur/WooCommerce/MU/thème exacts ; observation par hooks réels et pile sans arguments, pas d'analyse statique. L'ancien `Declarations.php` est supprimé.
+2. **Préparation de l'image partagée avant PRET : responsabilité du parent.** Non exécutée par ce worker. Le runner de style a réellement inspecté/utilisé l'image `sha256:fde840f6e05fc66a4985114182f4edc0cf4090f43ac48d1d674b089baddc3377` ; cela ne fabrique pas un reçu de `preparer-image.ps1`. Aucun package Composer ajouté.
+3. **Deux lignes communes : responsabilité du parent.** Fichier `integration.md` à jour ; ne pas intégrer l'ancienne commande PHP brute ni l'ancien avertissement de registre partiel. `coordination-parent.md` demande la référence du reçu de préparation et la lecture de l'intégration avant `PRET`.
 
 ## Décisions prises à défaut
 
-J'ai privilégié le READ ONLY sans bootstrap établi par A-02 plutôt que de charger des extensions susceptibles d'écrire ou d'envoyer. Les appels statiques restent explicitement des candidats ; je ne rebaptise pas leur réussite partielle en conformité du brief. Aucun choix de rattachement, de droits, de paiement ou de modèle éditorial.
+J'ai réutilisé directement le runtime A-11 **sans toucher à aucun de ses fichiers**, plutôt que reconstruire un bootstrap ou une approximation statique. Ses hooks ne suffisent pas à neutraliser du PHP arbitraire : Landlock et le réseau coupé sont appliqués avant exec PHP, et les écritures de fichiers sont réellement éprouvées. Un déclarant hors API/illisible reste `unknown`. Registre photographié après `wp_loaded`, sans inventer d'autres contextes front/admin/REST. Aucun rattachement, droit, paiement ni modèle éditorial décidé.
 
 Orphelin signifie parent nul/inexistant, pas inutilisé. Poids signifie originaux locaux, pas miniatures. Les liens ne sont reconnus que pour les scalaires canoniques et clés explicitement décrites. Valeurs suspectes dans les seuls noms de rubriques autorisés : masquées. Ces conventions sont dans chaque rapport et le README.
 
 ## Commandes effectivement exécutées pour le paquet final
 
 ```text
-python wp/tests/a12/style.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a12-work/final-style
-python wp/tests/a12/run.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a12-work/final-native
-python wp/tests/a12/verify.py C:/Users/Ced/AppData/Local/hermes/cache/scratch/a12-work/final-native
-python wp/tests/a12/verify.py production/A-12/preuves/final
+python wp/tests/a12/style.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a12-runtime/final-style
+python wp/tests/a12/run.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a12-runtime/final-native
+python wp/tests/a12/verify.py C:/Users/Ced/AppData/Local/hermes/cache/scratch/a12-runtime/final-native --save
+python wp/tests/a12/verify.py production/A-12/preuves/final --save
 ```
 
 Le dossier de style a été copié sous le paquet natif ; les empreintes de sources concordent. Ne pas réutiliser ces destinations déjà existantes pour un nouveau rejeu.
 
-Les RED et essais intermédiaires sont seulement dans le scratch `a12-work/` : analyseur absent, collecteur absent, ajout du sous-compte PDF orphelin, fermeture d'erreur au chargement et distinction de casse des clés. Un premier gate trop large a aussi observé des changements concurrents de fichiers A-10 ; rien n'a été restauré ou modifié dans ces fichiers. Le gate final porte sur les dépendances A-02 effectivement lues, et leur inventaire est stable. Les échecs de style intermédiaires ont été corrigés avant le dernier double rejeu.
+Ancien paquet partiel archivé hors dépôt dans `a12-runtime/previous-partial-final/`. RED runtime réellement observé dans `a12-runtime/red-runtime/` avant modification : l'exigence d'égalité du registre échouait. Essais intermédiaires au scratch seulement : garde de chemin du lanceur corrigée, cinq avertissements de longueur de ligne corrigés. Une seule livraison finale verte au dépôt, liée aux sources finales ; dépendances A-02 et A-11 stables. Aucun fichier d'un autre lot restauré/modifié.
 
 Références officielles publiques : `standards.md`, `sources-officielles.json`. Aucun réel, compte, archive Imagine, secret, site de staging, bootstrap production, envoi, achat, déploiement ou opération Git. Aucun rapport réel ne doit rejoindre ce dépôt.

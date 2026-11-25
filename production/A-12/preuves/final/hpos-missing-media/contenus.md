@@ -1,6 +1,6 @@
 # Structure des contenus — lecture seule
 
-ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas preuve d enregistrement. Aucune decision de rattachement.
+Registre natif apres wp_loaded. Declarants observes pendant les enregistrements effectifs. Aucune decision de rattachement.
 
 ```json
 {
@@ -8,15 +8,16 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
     "read_only": true,
     "storage": "hpos",
     "registry": {
-        "runtime_verified": false,
-        "coverage": "stored_objects_plus_literal_active_source_candidates_not_runtime_registry",
-        "unresolved_calls": 16,
-        "source_files": 4387
+        "runtime_verified": true,
+        "coverage": "native_registry_after_wp_loaded_plus_separately_marked_stored_only_objects",
+        "post_type_count": 30,
+        "taxonomy_count": 18,
+        "session": "same_readonly_wpdb_from_before_bootstrap_through_all_aggregates"
     },
     "post_types": [
         {
             "name": "a12_article",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "mu_plugin",
@@ -52,8 +53,8 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
             ]
         },
         {
-            "name": "a12_empty",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "name": "a12_dynamic",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "mu_plugin",
@@ -67,8 +68,8 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
             "metadata_keys": []
         },
         {
-            "name": "a12_never",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "name": "a12_empty",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "mu_plugin",
@@ -83,7 +84,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "a12_theme",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "theme",
@@ -98,7 +99,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "attachment",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -124,7 +125,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "custom_css",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -139,7 +140,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "customize_changeset",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -154,7 +155,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "nav_menu_item",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -169,7 +170,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "oembed_cache",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -184,7 +185,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "page",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -196,8 +197,8 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
                 "draft": 2,
                 "publish": 5
             },
-            "first_published_utc": "2026-11-25T22:55:45Z",
-            "last_published_utc": "2026-11-25T22:55:49Z",
+            "first_published_utc": "2026-11-25T23:37:57Z",
+            "last_published_utc": "2026-11-25T23:38:02Z",
             "metadata_keys": [
                 {
                     "key": "_wp_page_template",
@@ -207,7 +208,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "post",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -219,7 +220,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
                 "publish": 4
             },
             "first_published_utc": "2023-12-31T23:30:00Z",
-            "last_published_utc": "2026-11-25T22:55:45Z",
+            "last_published_utc": "2026-11-25T23:37:57Z",
             "metadata_keys": [
                 {
                     "key": "_encloseme",
@@ -237,7 +238,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "product",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "plugin",
@@ -248,8 +249,8 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
             "states": {
                 "publish": 2
             },
-            "first_published_utc": "2026-11-25T22:55:54Z",
-            "last_published_utc": "2026-11-25T22:55:56Z",
+            "first_published_utc": "2026-11-25T23:38:07Z",
+            "last_published_utc": "2026-11-25T23:38:09Z",
             "metadata_keys": [
                 {
                     "key": "_a12_article_id",
@@ -351,7 +352,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "product_variation",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "plugin",
@@ -366,7 +367,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "revision",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -380,8 +381,23 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
             "metadata_keys": []
         },
         {
+            "name": "scheduled-action",
+            "registration": "runtime_registered",
+            "declarations": [
+                {
+                    "owner": "plugin",
+                    "file": "wp-content\/plugins\/woocommerce\/packages\/action-scheduler\/classes\/data-stores\/ActionScheduler_wpPostStore_PostTypeRegistrar.php"
+                }
+            ],
+            "content_count": 0,
+            "states": [],
+            "first_published_utc": null,
+            "last_published_utc": null,
+            "metadata_keys": []
+        },
+        {
             "name": "shop_coupon",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "plugin",
@@ -395,9 +411,29 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
             "metadata_keys": []
         },
         {
+            "name": "shop_order",
+            "registration": "runtime_registered",
+            "declarations": [
+                {
+                    "owner": "plugin",
+                    "file": "wp-content\/plugins\/woocommerce\/includes\/wc-order-functions.php"
+                }
+            ],
+            "content_count": 0,
+            "states": [],
+            "first_published_utc": null,
+            "last_published_utc": null,
+            "metadata_keys": []
+        },
+        {
             "name": "shop_order_placehold",
-            "registration": "stored_only_registration_unknown",
-            "declarations": [],
+            "registration": "runtime_registered",
+            "declarations": [
+                {
+                    "owner": "plugin",
+                    "file": "wp-content\/plugins\/woocommerce\/includes\/wc-order-functions.php"
+                }
+            ],
             "content_count": 6,
             "states": {
                 "draft": 6
@@ -407,8 +443,38 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
             "metadata_keys": []
         },
         {
+            "name": "shop_order_refund",
+            "registration": "runtime_registered",
+            "declarations": [
+                {
+                    "owner": "plugin",
+                    "file": "wp-content\/plugins\/woocommerce\/includes\/wc-order-functions.php"
+                }
+            ],
+            "content_count": 0,
+            "states": [],
+            "first_published_utc": null,
+            "last_published_utc": null,
+            "metadata_keys": []
+        },
+        {
+            "name": "shop_subscription",
+            "registration": "runtime_registered",
+            "declarations": [
+                {
+                    "owner": "plugin",
+                    "file": "wp-content\/plugins\/woocommerce\/includes\/wc-order-functions.php"
+                }
+            ],
+            "content_count": 0,
+            "states": [],
+            "first_published_utc": null,
+            "last_published_utc": null,
+            "metadata_keys": []
+        },
+        {
             "name": "user_request",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -423,7 +489,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "wc_membership_plan",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "plugin",
@@ -434,8 +500,8 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
             "states": {
                 "publish": 1
             },
-            "first_published_utc": "2026-11-25T22:55:54Z",
-            "last_published_utc": "2026-11-25T22:55:54Z",
+            "first_published_utc": "2026-11-25T23:38:06Z",
+            "last_published_utc": "2026-11-25T23:38:06Z",
             "metadata_keys": [
                 {
                     "key": "_access_length",
@@ -449,7 +515,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "wc_user_membership",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "plugin",
@@ -477,7 +543,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "wp_block",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -492,7 +558,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "wp_font_face",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -507,7 +573,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "wp_font_family",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -522,7 +588,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "wp_global_styles",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -537,7 +603,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "wp_navigation",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -552,7 +618,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "wp_template",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -567,7 +633,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "wp_template_part",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -583,8 +649,24 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
     ],
     "taxonomies": [
         {
+            "name": "a12_dynamic_tax",
+            "registration": "runtime_registered",
+            "declarations": [
+                {
+                    "owner": "mu_plugin",
+                    "file": "wp-content\/mu-plugins\/a12-declarations.php"
+                }
+            ],
+            "content_count": 0,
+            "states": [],
+            "first_published_utc": null,
+            "last_published_utc": null,
+            "term_count": 0,
+            "top_terms": []
+        },
+        {
             "name": "a12_rubrique",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "mu_plugin",
@@ -684,8 +766,24 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
             ]
         },
         {
+            "name": "action-group",
+            "registration": "runtime_registered",
+            "declarations": [
+                {
+                    "owner": "plugin",
+                    "file": "wp-content\/plugins\/woocommerce\/packages\/action-scheduler\/classes\/data-stores\/ActionScheduler_wpPostStore_TaxonomyRegistrar.php"
+                }
+            ],
+            "content_count": 0,
+            "states": [],
+            "first_published_utc": null,
+            "last_published_utc": null,
+            "term_count": 0,
+            "top_terms": []
+        },
+        {
             "name": "category",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -697,7 +795,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
                 "publish": 4
             },
             "first_published_utc": "2023-12-31T23:30:00Z",
-            "last_published_utc": "2026-11-25T22:55:45Z",
+            "last_published_utc": "2026-11-25T23:37:57Z",
             "term_count": 2,
             "top_terms": [
                 {
@@ -712,7 +810,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "link_category",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -728,7 +826,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "nav_menu",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -744,7 +842,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "pos_product_visibility",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "plugin",
@@ -760,7 +858,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "post_format",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -776,7 +874,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "post_tag",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -792,7 +890,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "product_brand",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "plugin",
@@ -808,7 +906,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "product_cat",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "plugin",
@@ -819,8 +917,8 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
             "states": {
                 "publish": 2
             },
-            "first_published_utc": "2026-11-25T22:55:54Z",
-            "last_published_utc": "2026-11-25T22:55:56Z",
+            "first_published_utc": "2026-11-25T23:38:07Z",
+            "last_published_utc": "2026-11-25T23:38:09Z",
             "term_count": 1,
             "top_terms": [
                 {
@@ -831,7 +929,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "product_shipping_class",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "plugin",
@@ -847,7 +945,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "product_tag",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "plugin",
@@ -863,7 +961,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "product_type",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "plugin",
@@ -874,8 +972,8 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
             "states": {
                 "publish": 2
             },
-            "first_published_utc": "2026-11-25T22:55:54Z",
-            "last_published_utc": "2026-11-25T22:55:56Z",
+            "first_published_utc": "2026-11-25T23:38:07Z",
+            "last_published_utc": "2026-11-25T23:38:09Z",
             "term_count": 6,
             "top_terms": [
                 {
@@ -906,7 +1004,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "product_visibility",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "plugin",
@@ -958,24 +1056,8 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
             ]
         },
         {
-            "name": "wc_fulfillment_shipping_provider",
-            "registration": "literal_source_candidate_not_runtime_verified",
-            "declarations": [
-                {
-                    "owner": "plugin",
-                    "file": "wp-content\/plugins\/woocommerce\/src\/Admin\/Features\/Fulfillments\/FulfillmentsController.php"
-                }
-            ],
-            "content_count": 0,
-            "states": [],
-            "first_published_utc": null,
-            "last_published_utc": null,
-            "term_count": 0,
-            "top_terms": []
-        },
-        {
             "name": "wp_pattern_category",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -991,7 +1073,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "wp_template_part_area",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -1007,7 +1089,7 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         },
         {
             "name": "wp_theme",
-            "registration": "literal_source_candidate_not_runtime_verified",
+            "registration": "runtime_registered",
             "declarations": [
                 {
                     "owner": "core",
@@ -1081,6 +1163,11 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
             "non_scalar_rows": 2
         }
     ],
+    "native_guards": {
+        "http": 1,
+        "mail": 1,
+        "scheduled": 1
+    },
     "conventions": [
         "Etats: tous contenus stockes, corbeille et brouillons inclus; taxonomies: contenus distincts par taxonomie, pas somme des termes.",
         "Premiere et derniere publication: post_date_gmt des seuls contenus actuellement publish; null si aucun.",
@@ -1090,12 +1177,11 @@ ATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas 
         "Liaisons: cles product\/produit\/article\/numero\/issue; seules references scalaires canoniques entre contenu et produit\/variation, deux directions; structures serialisees non interpretees."
     ],
     "limitations": [
-        "REGISTRE INCOMPLET: aucun bootstrap. Un appel litteral peut etre conditionnel ou inutilise; un appel dynamique ou une source exclue peut manquer. Jamais une preuve du registre runtime.",
-        "Sources: coeur post.php\/taxonomy.php, repertoires des extensions actives, MU PHP de premier niveau, themes enfant\/parent; vendor\/tests\/fixtures exclus. Le fichier est une preuve de declaration candidate, pas une attribution runtime certaine.",
+        "Registre natif apres wp_loaded dans le contexte CLI confine, sans requete front\/admin. Attribution: fichier appelant register_post_type\/register_taxonomy observe sur la pile. Objet injecte hors API: declarant inconnu, jamais invente.",
         "Site simple, tables InnoDB, configuration litterale et disposition standard. Requetes SELECT dans transaction READ ONLY; aucune action, tache, notification ni HTTP.",
         "Les seuls textes libres permis sont les noms des termes; valeurs suspectes masquees. Aucun titre, contenu, auteur, contact, identifiant de client, valeur de champ ou chemin de media exporte.",
         "Les comptes editoriaux restent dans posts\/postmeta dans les deux magasins; aucune lecture des coordonnees de commande HPOS ni interpretation des droits."
     ],
-    "audit_sha256": "25a1be9c529e585dd91224bdbd34009f7cf40f312cffd377932a92382828917d"
+    "audit_sha256": "88f9f7095feddec1d1d41e1c881a9dc7a204bf39c3abd4dd360d5ceb2e8f7bbb"
 }
 ```

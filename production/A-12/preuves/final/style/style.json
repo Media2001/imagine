@@ -1,5 +1,5 @@
 {
-  "container": "imagine-a12-style-821116741408",
+  "container": "imagine-a12-style-91d211b8a0a9",
   "checks": [
     {
       "check": "isolation_before",
@@ -13,7 +13,7 @@
           "ALL"
         ],
         "no_new_privileges": true,
-        "image_id": "sha256:e3d49bd873ebffe87c5ceb54ca6a5893f776cf355a7572eebfd1b194c108ecd2"
+        "image_id": "sha256:fde840f6e05fc66a4985114182f4edc0cf4090f43ac48d1d674b089baddc3377"
       }
     },
     {
@@ -37,7 +37,7 @@
           "ALL"
         ],
         "no_new_privileges": true,
-        "image_id": "sha256:e3d49bd873ebffe87c5ceb54ca6a5893f776cf355a7572eebfd1b194c108ecd2"
+        "image_id": "sha256:fde840f6e05fc66a4985114182f4edc0cf4090f43ac48d1d674b089baddc3377"
       }
     },
     {
@@ -59,19 +59,21 @@
   "exit_code": 0,
   "sources": {
     "wp/outils/bascule/a12/AuditLibrary.php": "bf64f573d1c17fe8d1d4c4f548a2b9773fafa2ec2ccf988b68d8f8129bb7133c",
-    "wp/outils/bascule/a12/Command.php": "0316645ec13a6a248d39ce33a966adda77bc58db69ecc31e8354e67bfb52c886",
-    "wp/outils/bascule/a12/Declarations.php": "bdb1366951af802e2c1f7512307a2c824c5937ef020d801210623b2afe02dd90",
-    "wp/outils/bascule/a12/inventorier-contenus": "9d35f6ebcbd4c39336ee5b45f8e287426543c5d5010a8535610d8b9354115b16",
-    "wp/outils/bascule/a12/Inventory.php": "91c3d3d399e1527e13fc96e0524b2f13224990c6c9220f3b749a48600c71c339",
-    "wp/outils/bascule/a12/README.md": "400a8ebcb1738baecac35c1bf35b05b9967dba423a448f09b98b09724ec052a9",
-    "wp/tests/a12/inside.py": "05e0c20edc562b550c404317822ac03d4b900f8fa9b08a86fc48a694ef2d255d",
-    "wp/tests/a12/README.md": "becf07f17a394f0e70a36cb9ffb1fdb38f83c6a1252dc90ac05101d5c03333ee",
-    "wp/tests/a12/readonly-probe.php": "bffce225875f0a73ed123bab4d0740aef88771a856e4179f8ad9416de4da53fc",
-    "wp/tests/a12/run.py": "9790c6cf4e701bbf8a0c31ac4e915592bc0be8c2605f2d17c82f6572c1f0d83d",
+    "wp/outils/bascule/a12/Command.php": "34b7ff4f3949afdeb85499819b53cbba6317ed7d9ecd0d64bf0b64ec272c4c85",
+    "wp/outils/bascule/a12/confine.py": "2450ab475aa79e9384999ec23e5be136ee01161121184c309024ee01ed9e88a0",
+    "wp/outils/bascule/a12/inventorier-contenus": "0586b44f90d1a291b57af42c2746526ada2c8995342c88c95d34a99369399f0b",
+    "wp/outils/bascule/a12/Inventory.php": "565595efbc881535eb6e61f10f924b4577e048a02ab902b8f08c06ffdb899ecc",
+    "wp/outils/bascule/a12/README.md": "c1b2a8b6959921a83f2651be59196bd58d5180a7194cf5c317cf605a8846e561",
+    "wp/outils/bascule/a12/Registry.php": "ea9f653e7a66e5267f93bd40a2c87d77e26dbf9bdd9a45c763fd1d38172dd530",
+    "wp/tests/a12/inside.py": "563ee2e38f49e8a97c6f6a84471f43310dfa3b6e91561096bd71db995d2512fc",
+    "wp/tests/a12/probe.py": "baaf9f591ca89ee1e3ffc6e806048810bb5cbfd0cefe21065b380441d735192c",
+    "wp/tests/a12/README.md": "700c9f994fed2c466b144380f21af806a84b44d042b4ed996025c81c3028a7e8",
+    "wp/tests/a12/readonly-probe.php": "7ff23d87c41214f929cf62f92e1b21e17f3a54af2d84ac2a065e4802f92c3af4",
+    "wp/tests/a12/run.py": "711711e2265e9a5050c7814064dfcdef13fb4b62ea14162e9735a661f3722ece",
     "wp/tests/a12/seed.php": "96919c17bfedec58cdaf3fe51b879e071f8291ff7399caa37c941ad4c74cb769",
     "wp/tests/a12/style.py": "13a247a7266d0c26cbf8688108ced644c4a1035a2d8dd37c6a5235c123532fc2",
-    "wp/tests/a12/unit.php": "77bfddf2bc03373fefd8e8f616432082a75044fbfbccf431faf52e4314754235",
-    "wp/tests/a12/verify.py": "2a1f3d15be7a2c40f7788e5eeab21130bb20c4278fd6313a98aec67dc3af89da"
+    "wp/tests/a12/unit.php": "93e5f07897a57a8970e3754eaa53ede0fae223cd4aef01441393ec1eb15afa3e",
+    "wp/tests/a12/verify.py": "5eb9b81c98f3feab5138faac9826a9e97cc8fea07b5f45664b4f524a62ab1221"
   },
   "phpcs_exit": 0,
   "totals": {

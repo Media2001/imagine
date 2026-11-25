@@ -1,12 +1,4 @@
 {
-  "runtime_missing_from_snapshot": [
-    "a12_dynamic",
-    "scheduled-action",
-    "shop_order",
-    "shop_order_refund",
-    "shop_subscription"
-  ],
-  "source_candidates_not_runtime": [
-    "a12_never"
-  ]
+  "runtime_missing_from_snapshot": [],
+  "source_candidates_not_runtime": []
 }

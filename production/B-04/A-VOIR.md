@@ -4,6 +4,8 @@
 
 Le statut ajouté au kiosque est **conservé à l'identique**, en attente du oui/non de Ced (point 7 de la fusion) ; cette décision visuelle ne bloque pas les corrections techniques.
 
+**Addendum du 26 novembre, portabilité T01** : seule la fixture `tests/b04-status-fixture.php` change pour retrouver le thème réel dans le checkout ou le montage source `/repo/wp` du banc canonique. Aucun mapping alternatif, aucune assertion sautée, aucun code visuel modifié. Rejeu réel : B04 **4 tests / 91 assertions**, racine **76 / 481**, C12 **7 / 63**, T01 canonique **1 040 / 34 229**, zéro échec. Nouveau sceau de ce seul delta : `verification-portabilite-c16.json`, contrôle `python production/B-04/sceller-portabilite.py --check`. Il complète le sceau antérieur sans redater ses matrices ; les sources natives et toutes les preuves/captures précédentes ont été relues identiques. Le README partagé comporte désormais C16, écart documentaire signalé dans le nouveau sceau. L'ancien `sceller.py --check` visait l'instantané initial et n'est plus le contrôle courant après ce delta.
+
 Site unique : `http://192.168.129.32:8085` — **imagine-test-demo**. Profils fictifs existants `a-carte` et `p-numero`, identifiants conservés hors dépôt.
 
 ## Adresses

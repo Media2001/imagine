@@ -1,10 +1,10 @@
 {
   "suite": "A12-final-evidence-integrity",
-  "verdict": "PARTIEL_NON_PRET",
-  "readiness": false,
+  "verdict": "NATIVE_VERIFIE",
+  "readiness": true,
   "counts": {
-    "unit.json": 5,
-    "result.json": 100,
+    "unit.json": 7,
+    "result.json": 118,
     "runner.json": 7,
     "style.json": 6
   },
@@ -14,7 +14,7 @@
       "status": "PASS"
     },
     {
-      "check": "immutable_a02_dependency_hashes",
+      "check": "immutable_a02_a11_dependency_hashes",
       "status": "PASS"
     },
     {
@@ -50,7 +50,11 @@
       "status": "PASS"
     },
     {
-      "check": "honest_partial_readiness",
+      "check": "native_readiness_without_unmet_requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:mandatory_native_cases_present",
       "status": "PASS"
     },
     {
@@ -66,7 +70,19 @@
       "status": "PASS"
     },
     {
-      "check": "classic:explicit_runtime_limit",
+      "check": "classic:exact_native_runtime_sets",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:dynamic_included_conditional_excluded",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:exact_registered_totals",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:same_session_root_sql_kernel_and_early_guards",
       "status": "PASS"
     },
     {
@@ -74,7 +90,7 @@
       "status": "PASS"
     },
     {
-      "check": "classic:observed_unmet_runtime_registry",
+      "check": "classic:empty_native_registry_gap",
       "status": "PASS"
     },
     {
@@ -83,6 +99,10 @@
     },
     {
       "check": "classic:privacy:contenus.md",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:mandatory_native_cases_present",
       "status": "PASS"
     },
     {
@@ -98,7 +118,19 @@
       "status": "PASS"
     },
     {
-      "check": "hpos:explicit_runtime_limit",
+      "check": "hpos:exact_native_runtime_sets",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:dynamic_included_conditional_excluded",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:exact_registered_totals",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:same_session_root_sql_kernel_and_early_guards",
       "status": "PASS"
     },
     {
@@ -106,7 +138,7 @@
       "status": "PASS"
     },
     {
-      "check": "hpos:observed_unmet_runtime_registry",
+      "check": "hpos:empty_native_registry_gap",
       "status": "PASS"
     },
     {
@@ -130,7 +162,11 @@
       "status": "PASS"
     },
     {
-      "check": "no_pret",
+      "check": "real_kernel_landlock_abi",
+      "status": "PASS"
+    },
+    {
+      "check": "static_registry_parser_removed",
       "status": "PASS"
     },
     {

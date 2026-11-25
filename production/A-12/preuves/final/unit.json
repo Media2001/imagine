@@ -2,23 +2,31 @@
     "suite": "A12-pure-unit",
     "checks": [
         {
-            "check": "declaration_parser_implemented",
+            "check": "real_origin:core",
             "status": "PASS"
         },
         {
-            "check": "literal_post_types_not_comments_strings_or_methods",
+            "check": "real_origin:plugin",
             "status": "PASS"
         },
         {
-            "check": "literal_fully_qualified_taxonomy",
+            "check": "real_origin:theme",
             "status": "PASS"
         },
         {
-            "check": "dynamic_and_concatenated_arguments_explicit",
+            "check": "real_origin:mu_plugin",
             "status": "PASS"
         },
         {
-            "check": "invalid_identifier_never_exported",
+            "check": "unreadable_origin_not_invented",
+            "status": "PASS"
+        },
+        {
+            "check": "outside_origin_never_exports_absolute_path",
+            "status": "PASS"
+        },
+        {
+            "check": "missing_stack_origin_explicit",
             "status": "PASS"
         }
     ],

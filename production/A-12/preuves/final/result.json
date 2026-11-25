@@ -12,12 +12,12 @@
       "detail": null
     },
     {
-      "check": "a12_lint:Declarations.php",
+      "check": "a12_lint:Inventory.php",
       "status": "PASS",
       "detail": null
     },
     {
-      "check": "a12_lint:Inventory.php",
+      "check": "a12_lint:Registry.php",
       "status": "PASS",
       "detail": null
     },
@@ -131,12 +131,37 @@
       "detail": null
     },
     {
-      "check": "classic:no_false_runtime_claim",
+      "check": "classic:exact_runtime_registry_dynamic_not_never",
       "status": "PASS",
       "detail": null
     },
     {
-      "check": "classic:runtime_incompleteness_really_observed",
+      "check": "classic:exact_runtime_taxonomies",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:dynamic_taxonomy_excludes_unexecuted_and_removed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:dynamic_declarant_is_executed_mu",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:native_core_and_woocommerce_declarants",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:runtime_gap_empty",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:registered_totals_match_oracle",
       "status": "PASS",
       "detail": null
     },
@@ -236,6 +261,11 @@
       "detail": null
     },
     {
+      "check": "classic:guard:unconfined_launcher",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:guard:canonical_repository",
       "status": "PASS",
       "detail": null
@@ -266,9 +296,12 @@
       "detail": null
     },
     {
-      "check": "classic:root_transaction_blocks_writes",
+      "check": "classic:root_transaction_blocks_writes_and_system_confines_bootstrap",
       "status": "PASS",
-      "detail": null
+      "detail": {
+        "exit_code": 0,
+        "stderr": ""
+      }
     },
     {
       "check": "classic:guard:dynamic_config",
@@ -276,11 +309,26 @@
       "detail": null
     },
     {
+      "check": "classic:guard:layout:WPMU_PLUGIN_DIR",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:layout:UPLOADS",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:dropin_before_execution",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:all_tables_identical_including_scheduler",
       "status": "PASS",
       "detail": {
-        "before": "009f5e09272c00bf767a07b1bc8485f6bb9e39730faba6de25f0835e4da350ed",
-        "after": "009f5e09272c00bf767a07b1bc8485f6bb9e39730faba6de25f0835e4da350ed",
+        "before": "552fddafdfb824bf9a8bfef1497e4f9d4f6964497dee232e38af1c3650a4b816",
+        "after": "552fddafdfb824bf9a8bfef1497e4f9d4f6964497dee232e38af1c3650a4b816",
         "tables": 55
       }
     },
@@ -288,12 +336,12 @@
       "check": "classic:site_files_identical",
       "status": "PASS",
       "detail": {
-        "before": "357343bd820d67c19652c79c4d19a3f222f52ed8f3aa1ce07b277f98f48b9865",
-        "after": "357343bd820d67c19652c79c4d19a3f222f52ed8f3aa1ce07b277f98f48b9865"
+        "before": "57497b554611308b32fc7c3c2cf68848de9a823114e133c6264a9b3164323c08",
+        "after": "57497b554611308b32fc7c3c2cf68848de9a823114e133c6264a9b3164323c08"
       }
     },
     {
-      "check": "classic:never_bootstrap",
+      "check": "classic:config_never_executed",
       "status": "PASS",
       "detail": null
     },
@@ -362,12 +410,37 @@
       "detail": null
     },
     {
-      "check": "hpos:no_false_runtime_claim",
+      "check": "hpos:exact_runtime_registry_dynamic_not_never",
       "status": "PASS",
       "detail": null
     },
     {
-      "check": "hpos:runtime_incompleteness_really_observed",
+      "check": "hpos:exact_runtime_taxonomies",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:dynamic_taxonomy_excludes_unexecuted_and_removed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:dynamic_declarant_is_executed_mu",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_core_and_woocommerce_declarants",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:runtime_gap_empty",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:registered_totals_match_oracle",
       "status": "PASS",
       "detail": null
     },
@@ -467,6 +540,11 @@
       "detail": null
     },
     {
+      "check": "hpos:guard:unconfined_launcher",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "hpos:guard:canonical_repository",
       "status": "PASS",
       "detail": null
@@ -497,9 +575,12 @@
       "detail": null
     },
     {
-      "check": "hpos:root_transaction_blocks_writes",
+      "check": "hpos:root_transaction_blocks_writes_and_system_confines_bootstrap",
       "status": "PASS",
-      "detail": null
+      "detail": {
+        "exit_code": 0,
+        "stderr": ""
+      }
     },
     {
       "check": "hpos:guard:dynamic_config",
@@ -507,11 +588,26 @@
       "detail": null
     },
     {
+      "check": "hpos:guard:layout:WPMU_PLUGIN_DIR",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:layout:UPLOADS",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:dropin_before_execution",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "hpos:all_tables_identical_including_scheduler",
       "status": "PASS",
       "detail": {
-        "before": "eab3fdc717c1f729086799bb1c16df79e9d579e994160999588d7a2940abd9c6",
-        "after": "eab3fdc717c1f729086799bb1c16df79e9d579e994160999588d7a2940abd9c6",
+        "before": "11df5bf38b73ffb3be82ba7bc08b7dd50a5a31b35233063a6f5f6be2f6195983",
+        "after": "11df5bf38b73ffb3be82ba7bc08b7dd50a5a31b35233063a6f5f6be2f6195983",
         "tables": 55
       }
     },
@@ -519,12 +615,12 @@
       "check": "hpos:site_files_identical",
       "status": "PASS",
       "detail": {
-        "before": "79ce44bdf2601cdf68d069f2730c0e48e7e5ab0ea298104c335c6597bea1fb38",
-        "after": "79ce44bdf2601cdf68d069f2730c0e48e7e5ab0ea298104c335c6597bea1fb38"
+        "before": "eb6e33b51683f6a7dfd27ebfd5815863ef751210be1d3ab15c3530f74f1e2c75",
+        "after": "eb6e33b51683f6a7dfd27ebfd5815863ef751210be1d3ab15c3530f74f1e2c75"
       }
     },
     {
-      "check": "hpos:never_bootstrap",
+      "check": "hpos:config_never_executed",
       "status": "PASS",
       "detail": null
     },
@@ -550,9 +646,6 @@
     "woocommerce-memberships.zip": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285"
   },
   "no_real_site": true,
-  "readiness": false,
-  "unmet_requirements": [
-    "Exhaustive runtime registry without WordPress bootstrap is not proven.",
-    "Shared test image preparation reserved for parent; not run here."
-  ]
+  "readiness": true,
+  "unmet_requirements": []
 }

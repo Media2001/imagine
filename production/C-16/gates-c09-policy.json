@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-25T23:42:43+00:00",
+  "source_sha256": "b79ffba24c7c81287c1103255acd0380dbac122ffe9a34232d6b8f33efdca258",
+  "method": "WCS_Action_Scheduler::update_date",
+  "start_line": 109,
+  "end_line": 145,
+  "scheduling_policy_excerpt": "\t\t\t\t\t$this->unschedule_actions( $action_hook, $action_args );\n\n\t\t\t\t\t// Only reschedule if it's in the future\n\t\t\t\t\tif ( $timestamp <= current_time( 'timestamp', true ) ) {\n\t\t\t\t\t\t// A zero timestamp means the date is being deleted (see delete_date()), which is deliberate.\n\t\t\t\t\t\t// Any other past date means we have just cleared this subscription's action and will not\n\t\t\t\t\t\t// replace it, leaving the same end state as a failed schedule: a date on the subscription\n\t\t\t\t\t\t// with nothing behind it. Record it so that state is never mistaken for a healthy one.\n\t\t\t\t\t\tif ( $timestamp > 0 && $this->is_schedulable_for_status( $subscription, $date_type ) ) {\n\t\t\t\t\t\t\t$this->log_unscheduled_subscription_event( self::REASON_DATE_IN_PAST, $action_hook, $action_args, $timestamp );\n\t\t\t\t\t\t}\n\n\t\t\t\t\t\treturn;\n\t\t\t\t\t}\n\n",
+  "calendar_seeded_at": "2026-11-25 18:01:50",
+  "calendar_computed_due": "2026-11-25 19:01:50"
+}

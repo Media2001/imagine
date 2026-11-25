@@ -1,6 +1,6 @@
 # C-16 — À voir
 
-**Code et parcours fictif exercés ; qualification globale bloquée, aucun `PRET`.** Ce n’est ni une validation visuelle, ni un GO sur des données/paiements réels. C17 et C18 ne sont pas traités.
+**C-16 prêt à relire techniquement : `PRET` déposé. T01 canonique corrigé ; réserve C09 historique explicitement conservée.** Ce n’est ni une validation visuelle, ni un GO sur des données/paiements réels. C17 et C18 ne sont pas traités.
 
 ## Compte et adresse
 
@@ -27,14 +27,20 @@ Don, pack, abonnement offert et abonnement groupé ne sont que des emplacements 
 ## Rejouer depuis la racine
 
 ```powershell
-python wp/outils/demo/c16.py --deploy
-python wp/outils/demo/c16-unit.py unit-final
-python wp/tests/demo/c16-http.py http-final
-python wp/outils/demo/c16-unit.py unit-root-final --root
-python wp/tests/demo/c16-etat.py # contrôle sans paiement, exit 2 tant que les gates globaux sont rouges
+# Relecture courante, sans paiement ni reset global :
+python wp/tests/demo/c16-gates.py                # exit 0 : C16 recevable, réserve C09 affichée
+python wp/tests/demo/c16-gates.py --strict-global # exit 2 : C09 conserve son échec historique
+python production/B-04/sceller-portabilite.py --check
+
+# Pour rejouer les tests (enregistrer de nouveaux reçus sans effacer les anciens) :
+python wp/outils/demo/c16-unit.py unit-gates
+python wp/outils/demo/b04-unit.py portabilite-c16
+python wp/tests/demo/c16-http.py http-gates
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
 ```
+
+Les commandes de qualification ont été réellement exécutées ; leurs sorties sont conservées dans les fichiers `*-gates*` ci-dessous. `c16-etat.py`, les anciens `*-final*` et `final-before-gates.json` documentent l'arrêt précédent, **pas l'état courant**. Le déploiement C16 est déjà relu identique : ne pas le relancer pour regarder les écrans.
 
 Le runner HTTP utilise les outils/identifiants privés existants de B00/C09/C12. Il crée puis supprime ses objets **pending**, par l’extension C16 du reset C09 (`c16-reset.php`), également incluse par le seed C09 avant son prévol. Il ne relance pas le reset global des profils : C09/C12/C14 sont préservés. Un objet payé/modifié/étranger fait refuser le nettoyage, pas une suppression aveugle. Les relevés postaux append-only sont conservés. Ne pas lancer de seed global pour simplement montrer ces écrans.
 
@@ -44,16 +50,16 @@ Tout est dans `production/C-16/` :
 
 - `natif.md` : dix lignes de comparaison avec le parcours standard, sources officielles consultées.
 - `installation.json` : SHA-256 relus des fichiers réellement déployés, cible fixe, aucune installation commerciale ni téléversement du thème.
-- `unit-final.json` : **6 tests C16, 14 assertions**, PHPUnit réel hors réseau, conteneur supprimé et absence vérifiée.
-- `unit-root-final.json` : **76 tests racine, 481 assertions**, zéro échec/erreur. Ce total inclut C16, il ne s’y additionne pas ; la configuration C12 séparée n’est pas annoncée rejouée.
-- `http-final.json` : **70 contrôles, zéro échec** : cinq souscriptions (existant, nouveau, sans email, email connu, vente directe), un achat de numéro sans souscription, refus de droits/nonces/saisie, reprise sans doublon et reset. Les lectures natives sont dans `native-*.json`, la décision fermée dans `acces-sansmail.json`.
-- `reset.json`, `etat-final-readback.json` : objets/comptes C16 supprimés ; inventaires finaux vides, nombre de comptes et manifestes C09/état C12 restaurés. Les six commandes temporaires du dernier rejeu étaient **2614, 2616, 2618, 2620, 2622, 2624**, puis supprimées.
-- `red-regles.json`, `red-http.json` : RED avant implémentation. `http-first.json` a découvert trois mauvais statuts HTTP de nonce (refus après les en-têtes admin), corrigés par le traitement sur `admin_init`. `unit-current.json` est un ancien échec de banc copié sans ses frères ; le banc final lit le dépôt monté en lecture seule et passe.
-- `preparer-image.log` : préparation réelle exécutée, exit 0, image vérifiée ; ni édition de T01 ni dépendance commerciale.
+- `unit-gates.json` : **6 tests C16, 14 assertions**, PHPUnit réel hors réseau, conteneur supprimé et absence vérifiée.
+- `../B-04/unit-portabilite-c16.json` et JUnit associés : **76 tests racine / 481 assertions**, **7 tests C12 / 63 assertions** ; **4 tests B04 / 91 assertions** (sous-ensemble de la racine, ne pas additionner). Tous réussis. C16 est aussi inclus dans la racine.
+- `http-gates.json` : **70 contrôles, zéro échec** : cinq souscriptions (existant, nouveau, sans email, email connu, vente directe), un achat de numéro sans souscription, refus de droits/nonces/saisie, reprise sans doublon et reset. Lectures natives : `native-*.json`, décision fermée : `acces-sansmail.json`.
+- `reset.json`, `final.json` : **11 objets natifs et 3 comptes C16 supprimés**, inventaires finaux vides ; nombre de comptes, manifeste C09 et état C12 restaurés. Les six commandes temporaires du rejeu courant étaient **2625, 2627, 2629, 2631, 2633, 2635**. Les cinq souscriptions liées ont aussi été retirées.
+- `red-regles.json`, `red-http.json` : RED avant implémentation. Les échecs historiques et le rapport de 00 h 29 restent conservés, sans réécriture.
+- `preparer-image-gates.log` : préparation réelle après correction du test B04, exit 0, image vérifiée ; ni édition de T01 ni dépendance commerciale.
 
-### Gates rouges conservés, sans faux PRET
+### Les deux gates : correction et classement explicite
 
-1. **Commande canonique `wp/tests/rejouer.ps1` : exit 1**, **1 040 tests / 34 176 assertions, 1 échec, 0 erreur, 0 ignoré** (`rejouer-t01.log`). Seul échec : `CatalogueStatusTest::testDeliveredFunctionAloneMapsAllFourCodesAndBothDiscoveryReasons`, car le banc canonique cherche `/tmp/t01/themes/imagine/inc/catalogue.php`, qui n’a pas été copié. Le même test passe lorsque le dépôt monté `/repo/wp` est utilisé (suite racine ci-dessus). Aucun fichier B04 ni runner T01 n’a été corrigé dans C16 : ce point est rendu au parent, pas masqué par une exclusion.
-2. **Lecture native C09 : 382 contrôles, un échec** (`c09-non-regression.json`) : `A-PAPIER:action_native_planifiee_ou_absente_selon_statut`. L’abonnement existant #101 reste `active`, prochaine date native **25 novembre 2026 à 19:01:50 UTC**, mais `as_next_scheduled_action(...)` vaut `false`. Constat relu à **23:24:34 UTC** (`etat-final-readback.json`). C16 n’a pas réparé/replanifié ce profil ni exécuté sa file ; origine non attribuée sans preuve de départ sur ce point.
+1. **T01 réellement vert : exit 0, 1 040 tests / 34 229 assertions, 0 échec, 0 erreur, 0 ignoré** (`rejouer-t01-gates-final.log`). RED reproduit avant correction dans `rejouer-t01-gates-red.log`. Seul changement B04 : `wp/plugins/imagine-site/tests/b04-status-fixture.php` lit d'abord le thème frère du checkout puis, si absent du paquet copié, le vrai thème au montage en lecture seule `/repo/wp` documenté par le runner. Si les deux manquent : exception. **Aucune assertion ni test supprimé** ; le mapping livré et l'absence de hooks restent testés, **55 assertions** pour ce test. Aucun changement de thème, de runner T01 ou de bibliothèque close. Nouveau sceau B04 : `../B-04/verification-portabilite-c16.json`, preuves natives antérieures conservées et empreintes relues, sans rejouer leur matrice.
+2. **C09 ne devient pas tout vert : 381/382 contrôles réussis**, même échec `A-PAPIER:action_native_planifiee_ou_absente_selon_statut` (`c09-non-regression-gates.json`). Diagnostic natif : action **8103**, prévue pour le **25 novembre 2026 à 19:01:50 UTC**, **annulée le 25 novembre à 20:38:22 UTC** ; elle n'a donc pas été « consommée naturellement ». L'installation C16 enregistrée est postérieure, à **23:18:01 UTC**. L'abonnement #101 et l'action sont identiques avant/après le nouveau parcours HTTP C16 et au readback final (`gates-c09-diagnostic.json`, `gates-c09-after-http.json`, `gates-c09-final-readback.json`). Le calendrier C09 crée A-PAPIER à +1 h ; la restauration C15 des anciennes dates est une explication cohérente, **pas une attribution prouvée de l'annulation**. L'API WCS installée ne recrée pas une action pour une date passée. Aucun seed global, changement de #101, exécution de file ou replanification arbitraire n'a été fait.
 
-Les gates C16 ciblés sont verts ; ces deux gates globaux sont réellement rouges. `PRET` n’est donc pas déposé. Le parent peut faire la vérification de C16 et classer les problèmes de banc/fixture sans rouvrir ici B04 ou C15. La validation visuelle de Ced reste à faire, comme pour les autres écrans de cette voie.
+**Décision technique à défaut** : le défaut historique de fixture C09 est classé hors C16, non bloquant pour sa réception ciblée ; il reste visible, non corrigé et doit être traité dans une consigne dédiée. `c16-gates.py` ne tolère que cet état précisément documenté et inchangé ; toute autre régression refuse le lot. Le mode `--strict-global` retourne toujours **2**, avec `global_all_green=false`. `PRET` signifie seulement **C16 prêt à relire techniquement**, pas « tous les lots verts », ni clôture ni validation visuelle de Ced.

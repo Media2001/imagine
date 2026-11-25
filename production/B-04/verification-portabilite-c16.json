@@ -1,0 +1,83 @@
+{
+  "at": "2026-11-25T23:40:58.367438+00:00",
+  "scope": "B04 test path portability only",
+  "technical_instructions_completed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "visual_instruction_7": "Statut kiosque conserve sans modification ; decision Ced attendue.",
+  "change": "wp/plugins/imagine-site/tests/b04-status-fixture.php",
+  "before_sha256": "4bd9080377801506700ad24d2989ab9e673a83604b0b7600758b3fcfa5abb0a3",
+  "after_sha256": "999d512ee2d6b5f9757e7a790ae089802d4edba75903376f4a47a21c4818334e",
+  "assertions_not_skipped_or_replaced": true,
+  "readme_drift_already_due_to_C16_documentation": true,
+  "native_sources_readback": {
+    "plugins/imagine-site/Paywall.php": "4d850dd0d10b8cff2da98e84ddd5e9d4dfb23d57b0f280b5ce3686d945cf0373",
+    "plugins/imagine-site/Decouverte.php": "cef466294643cdb01b354770ed3a730e4a876a0ce29c7ad4bb258d2c43a9e231",
+    "themes/imagine/inc/catalogue.php": "60fdcb75cc450a756164995eca8e5623f6b480ee755c16bdda6f9d1dde6a9e5e",
+    "themes/imagine/single-imagine_numero.php": "efaa64dd4bf445b885f71602014d49478e7d600cbfafafffd9eecab010246499",
+    "mu-plugins/imagine-demo-b04-preview.php": "5e48112348a4cc666f763923552492c95fab10e07935c54f1614fb2c2dda0c94"
+  },
+  "native_matrices_replayed": false,
+  "original_native_receipts_and_screenshots_hashes_verified": true,
+  "phpunit": {
+    "root": {
+      "tests": 76,
+      "assertions": 481
+    },
+    "c12": {
+      "tests": 7,
+      "assertions": 63
+    },
+    "b04": {
+      "tests": 4,
+      "assertions": 91
+    }
+  },
+  "canonical_T01": {
+    "tests": 1040,
+    "assertions": 34229,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass": true
+  },
+  "sources_sha256": {
+    "wp/plugins/imagine-site/Paywall.php": "4d850dd0d10b8cff2da98e84ddd5e9d4dfb23d57b0f280b5ce3686d945cf0373",
+    "wp/plugins/imagine-site/Decouverte.php": "cef466294643cdb01b354770ed3a730e4a876a0ce29c7ad4bb258d2c43a9e231",
+    "wp/plugins/imagine-site/README.md": "d3342e531b41bf368739b4ae8e659d641505021ca0aa7fdb6a0d5fdddb099160",
+    "wp/plugins/imagine-site/phpunit.b04.xml": "d85edf8d009dd726bbc6d2785ff633e57fb3e5224ddb14eb6342230e446c222b",
+    "wp/plugins/imagine-site/tests/CatalogueTest.php": "40ab9944a0f6784876cd04a8e6a3011fe87d665fd22c4a09ce02c885b38471bd",
+    "wp/plugins/imagine-site/tests/CatalogueStatusTest.php": "3928251a3d7a9ff402cad78569fe1f17df7fab7f7f15127dc1d8796e6b793221",
+    "wp/plugins/imagine-site/tests/b04-adapter-fixture.php": "ca1f5316983dd58e3e115d1b4ce6ad94f183dd94d70f668ed74b23fc1d6266eb",
+    "wp/plugins/imagine-site/tests/b04-status-fixture.php": "999d512ee2d6b5f9757e7a790ae089802d4edba75903376f4a47a21c4818334e",
+    "wp/themes/imagine/inc/catalogue.php": "60fdcb75cc450a756164995eca8e5623f6b480ee755c16bdda6f9d1dde6a9e5e",
+    "wp/themes/imagine/single-imagine_numero.php": "efaa64dd4bf445b885f71602014d49478e7d600cbfafafffd9eecab010246499",
+    "wp/outils/demo/b04-preview.php": "5e48112348a4cc666f763923552492c95fab10e07935c54f1614fb2c2dda0c94",
+    "wp/outils/demo/b04-unit.py": "dc3bcf7851bbb55d5952ea8d0b91317d4b53830ca76200687e0672df74dc22ce",
+    "wp/tests/demo/b04-http.py": "30949654e23d9e1657c8c0364e8ebd0ab767d4f6d83bdb587b7a5430e5a2d69d",
+    "wp/tests/demo/b04-corrections.py": "dc1951d4cdfa8542e9a8ab3a640820920b3b5016936a3dce1531ef950430cad1",
+    "wp/tests/demo/b04-safety.py": "3821b228f56027d6e2896ed8dfb8881cca1c996ab5515c35d98c27427529cd47",
+    "wp/tests/demo/b04-unit-bootstrap.php": "bd670578cd3c60620a0f0347fa3e9b65118a2e2b6d81c1f301f41e2839983bfb",
+    "wp/tests/demo/test_b04_http_contract.py": "f319754bdeca796bfe21c9d0899f32757735996b93c371f5310065d6ed8b82d1",
+    "production/B-04/sceller-portabilite.py": "a1d4b9d0e8c6d4869f17c64ff5f392207921120326c38600a4e10f494f0028b0"
+  },
+  "evidence_sha256": {
+    "production/B-04/verification-corrections-finale.json": "c158c6fac0d9e41c26a8a55d7aa57b06ae9483b5d06e17185e5e7095076cc5f0",
+    "production/B-04/unit-portabilite-c16.json": "86092ec133e0fbd821704c71fab222b09af776fb65ac675509ab1b54e7f4670d",
+    "production/B-04/unit-portabilite-c16.log": "58cdacc434275e42d1b89e09f2e9295c39efe850d5d25cdcd56891e2b32232b1",
+    "production/B-04/junit-root-portabilite-c16.xml": "7f8ad97b03241664a4feb0b7003509f061f1ef4df247a824c96e10dc96e1db72",
+    "production/B-04/phpunit-root-portabilite-c16.log": "7a0d2d0ac2983aa4d13e07a779f9ead48df8e2804238784acf0088b9250c65c3",
+    "production/B-04/junit-c12-portabilite-c16.xml": "0c295d0bd357faaa9977fc1d15f54f953a6bd8bbeecd9b8119769c9a658a7d32",
+    "production/B-04/phpunit-c12-portabilite-c16.log": "6e61159a5b14093b4978e408f837d0b9f81200716ed0a424785d02feaec69ef5",
+    "production/B-04/junit-b04-portabilite-c16.xml": "98c88b8b6cafa5ec2977528851b89ac6718f6cfc1bddb42693db1cfd9b049540",
+    "production/B-04/phpunit-b04-portabilite-c16.log": "0f2bc8d133e38bade860526dad607100171b5ef05bd2ffbd2afa0d0bb7d2b86e",
+    "production/C-16/rejouer-t01-gates-final.log": "3549ebcd456ad4bb5031c25529cbf9780dc3d197988550bc6e0aed4ca0199af4",
+    "production/C-16/preparer-image-gates.log": "00a9027bb23cd14bb846783c1cfa9b1324898f622e165c30649ffd1643476acf",
+    "production/C-16/rejouer-t01-gates-red.log": "9dc6e741282c87659777df3646529b3e47c387396bf87692423b736f9816e097"
+  }
+}

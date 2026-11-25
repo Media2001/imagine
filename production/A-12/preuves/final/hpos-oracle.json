@@ -59,7 +59,8 @@
     "product_tag",
     "product_shipping_class",
     "pos_product_visibility",
-    "a12_rubrique"
+    "a12_rubrique",
+    "a12_dynamic_tax"
   ],
   "states": {
     "draft": 1,
