@@ -1,0 +1,20 @@
+B-03 — PRET À RELIRE APRÈS CORRECTIONS
+2026-11-25T19:30:30.444557+01:00
+Site fictif : imagine-test-demo uniquement.
+
+Les cinq instructions de corrections/B-03.md sont appliquées et rejouées.
+Correction SHA-256 : 38673c3b79b1f9ce6e0c9a3968b68fc3879a332d2a52031ade4a761ad6886e7c
+Reçu : production/B-03/verification-finale.json — VERIFIED, aucun échec.
+Reçu SHA-256 : 293df4f7305592dd971d134355a238cc45d9661cf15cb937eae83a72a0693cab
+
+10 assertions PHP B03 ; 43 contrôles HTTP ; 8 tests JS ; 15 tests locaux ;
+1012 tests T01 / 34006 assertions ; 77 contrôles Chromium anonymes.
+27 empreintes sources/documents/preuves vérifiées après leurs derniers changements.
+Contrastes des sondes noir/bloc coloré sur les trois fonds : 21 / 14,255 / 16,157.
+Octets déployés et servis vérifiés ; seuls reading.css et reading.js changent.
+Paywall, contenus, images, paiements/dates C09, extensions et autres sources conservés.
+
+Rejeu exact des interpréteurs retrouvés : REJOUER.md.
+Parcours : A-VOIR.md. Rapport bref : RAPPORT.md.
+Validation visuelle par Ced et valeurs du designer toujours en attente.
+PRET n’est ni une clôture de relecture, ni une approbation visuelle, ni un GO de production.

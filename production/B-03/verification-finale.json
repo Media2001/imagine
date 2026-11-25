@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-25T18:24:47.519564+00:00",
+  "at": "2026-11-25T18:32:33.734331+00:00",
   "scope": "imagine-test-demo",
   "status": "VERIFIED",
   "counts": {
@@ -16,7 +16,7 @@
       "pass": true
     },
     "browser_anonyme_assertions": 77,
-    "final_checks": 19
+    "final_checks": 20
   },
   "checks": {
     "theme_local_deploye_exact": true,
@@ -37,7 +37,8 @@
     "contenus_paiements_dates_et_autres_sources_preserves": true,
     "documents_requis": true,
     "aucun_mot_de_passe_prive_dans_livrables": true,
-    "fonds_AA": true
+    "fonds_AA": true,
+    "verification_apres_correction": true
   },
   "failures": [],
   "remote_sha256": {
@@ -48,6 +49,7 @@
     "themes/imagine/single.php": "31bce0f66ba2a0961d39b1bf231055a20105e39a2e824c0806963608354604a2",
     "themes/imagine/functions.php": "929557bb5b097533cb573e946c755a14dfad4b28f880eb8ea363f812790b62bc"
   },
+  "correction_sha256": "38673c3b79b1f9ce6e0c9a3968b68fc3879a332d2a52031ade4a761ad6886e7c",
   "script_bytes": 6045,
   "script_gzip_bytes": 1956,
   "reading_words_per_minute": 200,
@@ -65,7 +67,7 @@
     "wp/themes/imagine/single.php": "31bce0f66ba2a0961d39b1bf231055a20105e39a2e824c0806963608354604a2",
     "wp/themes/imagine/functions.php": "929557bb5b097533cb573e946c755a14dfad4b28f880eb8ea363f812790b62bc",
     "wp/tests/demo/b03-colors.py": "aa0e30f9c86221aee13383787180402b27cbc6d7a302a40e544cc21acae74efa",
-    "wp/tests/demo/b03-final.py": "7a84367efe1805ab197bf1771a0f7b9a8b61358cdce05271fbba814d134e5bcd",
+    "wp/tests/demo/b03-final.py": "e59a6f52976b8d35e26a0ba827661652c34296e60ed9802634c91a1a50cbabfa",
     "wp/tests/demo/b03-http.py": "590b94838468212b166e6e3c8342be06c6e1901173910ad5387bf57eab653922",
     "wp/tests/demo/b03-reading.test.cjs": "47d425e720412649ca7c217290cf7c1c1522732736ae5a45470a020b61d582bd",
     "wp/tests/demo/b03-regression.py": "1586c98341def420f5ed8382f209a3e94bc85d577a296333ee842de66844e3c1",
@@ -74,21 +76,21 @@
     "wp/tests/demo/test_b03_contract.py": "26573ec63bc6d0c0c00db65772edf44163cf0f9a10eb584a82398b93c6c5879c"
   },
   "documents_sha256": {
-    "production/B-03/A-VOIR.md": "36319dbfce43444e935cd6961df9fcd0c1dac064e796c84585bab5859463e162",
-    "production/B-03/RAPPORT.md": "09a11e0778c23c13c6a62005af5b60629d702a2a6351b1d8c13374aa4c28872c",
+    "production/B-03/A-VOIR.md": "8ebc599cc2e5ebc2483bef23433c039922306d198e0294ce876de8bf19ced48d",
+    "production/B-03/RAPPORT.md": "4de7beac3847749f8c6092b4e4cc4bcd6ff9cb066379a75cbcb94f16b7dd0dfc",
     "production/B-03/besoins-designer.md": "d8d2db424d2fd1d201cff6e6d4ec8a20702c54746b650b6cf2f0cf7af04ba9c0",
-    "production/B-03/REJOUER.md": "eac7268388a1f23553b2e0b4d1ea78fee5e43d836287603149bbc73aeea292ae"
+    "production/B-03/REJOUER.md": "d4664bc8e2c3d64efbdc96a913169f5be5e9d86e18832e07b7f3780c24970a04"
   },
   "evidence_sha256": {
     "deploy-corrections.json": "7a3fdc3984cc879e5301b70faa34434fa7f75a0bf4e1b31536f43f529b38a565",
-    "php-corrections.json": "d70b30397fa4ed8101b4f74cdfdae25352074484c12d2333edd50626ee3169bf",
-    "http-corrections.json": "4c63f2c9c17d0c16a85303bca614ba331359b5f2e5254aea64f7b1f5f8d954e9",
-    "js-corrections-green.txt": "d6aa4d87d84d7df48bd9b8c14a65e0e08ee15f19b0ef4aec5c581a9aa1b29948",
-    "t01-release.txt": "9123b0faffbf29fb96da64769cb2c2ced311ebad228c1cbdc0ee23b6b3f68a1c",
-    "local-regression.json": "7e0dcc5a684b895262cdd5d2254a2f162909657a09883c9e73d04308f2c95746",
-    "browser-colors-corrections.json": "5ef3fe3bca4e9ecffdf03be27cb31164ec7beca3e9c25cb28caecfabded15b9f",
-    "preservation-corrections.json": "48d428b98322fec07660f1c502467f099f00a99c7de2d899a0fdf3d0fd413316",
-    "preparer-image.txt": "fc3a0ff12a898f1a4d6b3b2aed751d1392d1a959d1a4478b4bde8015105e7fd9"
+    "php-corrections.json": "17ac5024504d1b216f83334f0716bd1c206b4388ed837c611169928d00df745c",
+    "http-corrections.json": "290321143fbf11512dfc4e4622dbd8d68cedc17510b958b437239c15a093378b",
+    "js-corrections-green.txt": "81d9208dbe65f9b1eb9217ec56b4c9b054876e476b0caadae2f8d7ba701f6670",
+    "t01-release.txt": "459f11af4a7070e75cf20976339b9472d3be09d131bef54b07675b13d12b1cae",
+    "local-regression.json": "a483f40c01cf0150a0fafc06081862d3ae577576a8cb2c0e9b26dc0cfc99819a",
+    "browser-colors-corrections.json": "22aec71b306abbae2470e626e670e9a26ac1dfdacf316774b60a72094d113f12",
+    "preservation-corrections.json": "e20f6ec3f225c306002ae8693ac125b90775914da8f2421acf197db5f20f7732",
+    "preparer-image.txt": "4ca92823d999c6773db619f952cb4240e38b8c2d26e1cef65c7592758b000a51"
   },
   "limits": [
     "Navigateur réel anonyme seulement ; a-carte prouvé par vrais cookies HTTP et logique JS testée hors navigateur.",

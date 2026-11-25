@@ -121,11 +121,14 @@ def run():
         values = [luminance(re.search(r'--imagine-reading-' + theme + '-' + role + r':\s*#([0-9a-fA-F]{6});', css_tokens)[1]) for role in ['paper', 'ink']]
         contrast[theme] = (max(values)+.05)/(min(values)+.05)
     checks['fonds_AA'] = all(v >= 4.5 for v in contrast.values())
+    correction = ROOT / 'corrections/B-03.md'
+    checks['verification_apres_correction'] = datetime.now(timezone.utc).timestamp() > correction.stat().st_mtime
     failures = [k for k,v in checks.items() if v is not True]
     evidence = {'at': datetime.now(timezone.utc).isoformat(), 'scope': 'imagine-test-demo', 'status': 'VERIFIED' if not failures else 'FAILED',
                 'counts': {'php_B03': php['total'], 'HTTP': http['total'], 'JS': node_tests, 'local_regression': local['tests'],
                            'T01': t01, 'browser_anonyme_assertions': browser_count, 'final_checks': len(checks)},
                 'checks': checks, 'failures': failures, 'remote_sha256': actual,
+                'correction_sha256': digest(correction),
                 'script_bytes': len(script), 'script_gzip_bytes': len(gzip.compress(script, mtime=0)),
                 'reading_words_per_minute': http['reading_words_per_minute'], 'contrast_ratios': contrast, 'python': sys.executable,
                 'source_sha256': {p.relative_to(ROOT).as_posix(): digest(p) for p in sources},
