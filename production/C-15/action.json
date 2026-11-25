@@ -1,0 +1,16 @@
+{
+  "checks": {
+    "formulaire_paiement_recu": true,
+    "paiement_cap_refus_E-REDAC": true,
+    "paiement_cap_refus_A-CARTE": true,
+    "paiement_nonce_absent": true,
+    "paiement_nonce_invalide": true,
+    "paiement_nonce_tableau": true,
+    "confirmation_serveur_sans_ecriture": true,
+    "paiement_GET_refuse": true,
+    "nonce_lie_commande": true,
+    "objet_refuse_deja_paye": false,
+    "objet_refuse_echec_pas_virement": false,
+    "objet_refuse_souscription_pas_commande": false
+  }
+}

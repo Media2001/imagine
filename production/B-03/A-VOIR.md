@@ -39,7 +39,7 @@ Dans les **trois** palettes, la lecture neutralise les couleurs inline et les cl
 - `http-corrections.json` : 43 contrôles, vraie connexion A-CARTE, anonyme, vitesse lue dans la constante serveur, HTML5, octets des assets et absence sur l’accueil ; corps C08 inchangés.
 - `php-corrections.json`, `js-corrections-green.txt`, `local-regression.json`, `t01-release.txt` : 10 assertions PHP B03, 8 tests JS, 15 tests locaux, 1 012 tests T01 / 34 006 assertions.
 - `browser-colors-corrections.json` : **77 contrôles réels anonymes**, couleurs et images, trois tailles, rechargement/Échap, zéro requête lors des réglages, JavaScript désactivé et mouvement réduit. Les anciens reçus navigateur sont historiques. Le parcours connecté est prouvé en HTTP, pas présenté comme une inspection visuelle connectée.
-- `preservation-corrections.json` : seuls les deux assets changent ; contenus, métadonnées, commandes/paiements et dates, extensions et autres sources conservés.
+- `preservation-corrections.json` : seuls les deux assets B03 changent dans son périmètre ; contenus, métadonnées, commandes/paiements et dates conservés. Les quatre fichiers C15 attribués au worker parallèle sont explicitement tracés séparément, sans restauration ni déploiement de plugin par B03.
 
 Vitesse fixe : **200 mots/minute**, une seule constante dans `wp/themes/imagine/inc/reading.php`. Minimum affiché : une minute ; HTML autorisé uniquement, bloc de droits exclu du compte. Script sans dépendance : **6 045 octets UTF-8**, **1 956 octets gzip déterministe** (poids mesuré, pas promesse de compression HTTP).
 

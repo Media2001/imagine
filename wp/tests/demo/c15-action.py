@@ -4,13 +4,13 @@ from html import unescape
 import json
 import re
 import sys
-from urllib.parse import urlencode
+from urllib.parse import urlencode, unquote
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'outils/demo'))
 import c15
 
 
 def snapshot():
-    return c15.wp(r'''$f=get_option('imagine_c09_fixture');$out=['fixture'=>$f,'seeded'=>get_option('imagine_c09_seeded_at'),'decouverte'=>[],'orders'=>[],'subs'=>[],'members'=>[]];foreach(['V-DEC','V-DEC-FIN'] as $key){$id=$f['users'][$key];$out['decouverte']['imagine_decouverte_compte_'.$id]=get_option('imagine_decouverte_compte_'.$id,null);}$out['roles']=wp_roles()->roles;foreach($f['orders']+$f['renewals'] as $k=>$id){$o=wc_get_order($id);$out['orders'][$id]=[$o->get_status(),$o->get_date_paid()?->getTimestamp(),$o->get_total(),$o->get_payment_method(),$o->get_customer_id(),$o->get_address('billing'),$o->get_address('shipping')];}foreach($f['subscriptions'] as $k=>$id){$s=wcs_get_subscription($id);$out['subs'][$k]=[$s->get_status(),$s->get_time('start'),$s->get_time('end'),$s->get_time('next_payment'),$s->get_address('shipping')];}foreach($f['memberships'] as $k=>$id){$m=wc_memberships_get_user_membership($id);$out['members'][$k]=[$m->get_status(),$m->get_start_date(),$m->get_end_date('mysql',false)];}echo wp_json_encode($out);''')
+    return c15.wp(r'''$f=get_option('imagine_c09_fixture');$out=['fixture'=>$f,'seeded'=>get_option('imagine_c09_seeded_at'),'decouverte'=>[],'orders'=>[],'subs'=>[],'members'=>[]];foreach(['V-DEC','V-DEC-FIN'] as $key){$id=$f['users'][$key];$out['decouverte']['imagine_decouverte_compte_'.$id]=get_option('imagine_decouverte_compte_'.$id,null);}$out['roles']=wp_roles()->roles;foreach(array_merge(array_values($f['orders']),array_values($f['renewals'])) as $id){$o=wc_get_order($id);$out['orders'][$id]=[$o->get_status(),$o->get_date_paid()?->getTimestamp(),$o->get_total(),$o->get_payment_method(),$o->get_customer_id(),$o->get_address('billing'),$o->get_address('shipping')];}foreach($f['subscriptions'] as $k=>$id){$s=wcs_get_subscription($id);$out['subs'][$k]=[$s->get_status(),$s->get_time('start'),$s->get_time('end'),$s->get_time('next_payment'),$s->get_address('shipping')];}foreach($f['memberships'] as $k=>$id){$m=wc_memberships_get_user_membership($id);$out['members'][$k]=[$m->get_status(),$m->get_start_date(),$m->get_end_date('mysql',false)];}echo wp_json_encode($out);''')
 
 
 def reset(before):
@@ -55,7 +55,9 @@ def verify():
     checks['nonce_lie_commande'] = status == 403 and not paid_state()[0]
     # Valid user-specific nonces for wrong native objects: guard must reject independently.
     for name, target in [('deja_paye', f['orders']['A-CARTE']), ('echec_pas_virement', f['renewals']['A-GRACE']), ('souscription_pas_commande', f['subscriptions']['A-VIR'])]:
-        nonce = c15.wp('wp_set_current_user(' + str(f['users']['E-ABO']) + ');echo wp_json_encode(wp_create_nonce("imagine_virement_recu:' + str(target) + '"));')
+        jar = next(handler.cookiejar for handler in clients['E-ABO'].handlers if hasattr(handler, 'cookiejar'))
+        cookie = unquote(next(c.value for c in jar if c.name.startswith('wordpress_logged_in_')))
+        nonce = c15.wp('$_COOKIE[LOGGED_IN_COOKIE]=' + json.dumps(cookie) + ';wp_set_current_user(' + str(f['users']['E-ABO']) + ');echo wp_json_encode(wp_create_nonce("imagine_virement_recu:' + str(target) + '"));')
         status, _, _ = h.fetch(endpoint, clients['E-ABO'], urlencode(dict(payload, commande=str(target), _wpnonce=nonce, confirmer='oui')).encode())
         checks['objet_refuse_' + name] = status == 409 and not paid_state()[0]
     if not all(checks.values()):

@@ -24,7 +24,7 @@ final class EcheancesAdmin
 
     public static function register(): void
     {
-        foreach ([self::EXPORT => 'exporter'] as $action => $method) {
+        foreach ([self::EXPORT => 'exporter', self::RECU => 'recevoir'] as $action => $method) {
             add_action('admin_post_' . $action, [self::class, $method]);
             add_action('admin_post_nopriv_' . $action, [self::class, $method]);
         }
@@ -83,6 +83,72 @@ final class EcheancesAdmin
         if (!is_string($nonce) || !wp_verify_nonce($nonce, $nonceAction)) {
             wp_die(self::t('Jeton de sécurité invalide.'), '', ['response' => 403]);
         }
+    }
+
+    private static function formulaire(int $id, bool $confirm = false): void
+    {
+        echo '<form method="post" action="' . esc_url(admin_url('admin-post.php')) . '"><input type="hidden" name="action" value="'
+            . esc_attr(self::RECU) . '"><input type="hidden" name="commande" value="' . esc_attr((string) $id) . '">';
+        wp_nonce_field(self::RECU . ':' . $id);
+        if ($confirm) {
+            echo '<p><label><input type="checkbox" name="confirmer" value="oui" required> '
+                . esc_html(self::t('Je confirme avoir constaté ce paiement sur l’extrait bancaire.')) . '</label></p>';
+        }
+        submit_button($confirm ? self::t('Confirmer le paiement reçu') : self::t('Paiement reçu'), 'secondary', '', false);
+        echo '</form>';
+    }
+
+    public static function recevoir(): void
+    {
+        self::verifier();
+        $id = $_POST['commande'] ?? ($_GET['commande'] ?? '');
+        if (!is_string($id) || !preg_match('/^[1-9][0-9]{0,9}$/D', $id)) {
+            wp_die(self::t('Commande invalide.'), '', ['response' => 400]);
+        }
+        self::requete(self::RECU . ':' . $id);
+        try {
+            $order = EcheancesNatives::virement((int) $id);
+        } catch (\Throwable) {
+            wp_die(self::t('Opération refusée : virement natif impayé requis.'), '', ['response' => 409]);
+        }
+        if (($_POST['confirmer'] ?? '') !== 'oui') {
+            nocache_headers();
+            ob_start();
+            echo '<h1>' . esc_html(self::t('Confirmer le paiement reçu')) . '</h1><p>'
+                . esc_html('#' . $id . ' — ' . $order->get_formatted_billing_full_name() . ' — ' . $order->get_total() . ' ' . $order->get_currency()) . '</p>';
+            self::formulaire((int) $id, true);
+            echo '<p><a href="' . esc_url(admin_url('admin.php?page=' . self::PAGE . '&vue=virements')) . '">' . esc_html(self::t('Annuler et revenir aux virements')) . '</a></p>';
+            wp_die(ob_get_clean(), self::t('Confirmation'), ['response' => 200]);
+        }
+        // Portée de la requête seulement : les transitions natives ne doivent ni
+        // envoyer un email ni appeler un service, y compris une passerelle.
+        $noMail = static fn () => false;
+        $noHttp = static fn () => new \WP_Error('imagine_c15_offline', self::t('Appel sortant interdit.'));
+        add_filter('pre_wp_mail', $noMail, PHP_INT_MAX);
+        add_filter('pre_http_request', $noHttp, PHP_INT_MAX);
+        add_filter('woocommerce_defer_transactional_emails', '__return_false', PHP_INT_MAX);
+        $ok = false;
+        try {
+            $order->payment_complete();
+            $fresh = wc_get_order((int) $id);
+            if ($fresh && $fresh->is_paid() && $fresh->get_date_paid()) {
+                $user = wp_get_current_user();
+                $note = sprintf(self::t('C15 — Paiement reçu confirmé par %s (%s, #%d), le %s UTC.'),
+                    $user->display_name, $user->user_login, $user->ID, gmdate('Y-m-d H:i:s'));
+                $ok = (bool) $fresh->add_order_note($note, false, true);
+            }
+        } catch (\Throwable) {
+            $ok = false;
+        } finally {
+            remove_filter('pre_wp_mail', $noMail, PHP_INT_MAX);
+            remove_filter('pre_http_request', $noHttp, PHP_INT_MAX);
+            remove_filter('woocommerce_defer_transactional_emails', '__return_false', PHP_INT_MAX);
+        }
+        if (!$ok) {
+            wp_die(self::t('Résultat incomplet : relire la commande native et ses notes avant toute nouvelle action.'), '', ['response' => 409]);
+        }
+        wp_safe_redirect(admin_url('admin.php?page=' . self::PAGE . '&vue=virements&recu=1'));
+        exit;
     }
 
     public static function exporter(): void
@@ -149,12 +215,16 @@ final class EcheancesAdmin
         foreach ([self::t('Abonné'), self::t('Objet natif'), self::t('État'), self::t('Montant'), self::t('Échéance / création (UTC)'), self::t('Référence du mandat')] as $label) {
             echo '<th scope="col">' . esc_html($label) . '</th>';
         }
-        echo '</tr></thead><tbody>';
+        echo '<th scope="col">' . esc_html(self::t('Action')) . '</th></tr></thead><tbody>';
         foreach ($rows as $row) {
             echo '<tr data-imagine-echeance="' . esc_attr((string) $row['id']) . '"><td>' . esc_html($row['abonne']) . '</td><td>#'
                 . esc_html((string) $row['id']) . '</td><td>' . esc_html($row['etat']) . '</td><td>'
                 . esc_html($row['montant'] . ' ' . $row['devise']) . '</td><td>' . esc_html(gmdate('Y-m-d H:i:s', $row['echeance'] ?? $row['creation']))
-                . '</td><td>' . esc_html($view === 'mandats' ? $row['reference'] : '—') . '</td></tr>';
+                . '</td><td>' . esc_html($view === 'mandats' ? $row['reference'] : '—') . '</td><td>';
+            if ($view === 'virements') {
+                self::formulaire($row['id']);
+            }
+            echo '</td></tr>';
         }
         if ($rows === []) {
             echo '<tr><td colspan="6">' . esc_html(self::t('Aucun résultat dans cette vue.')) . '</td></tr>';

@@ -1,0 +1,19 @@
+A-05 — maintenance conservée
+{"kind": "deactivate", "name": "a05-remove/entry.php", "stage": "start", "utc": "2026-11-25T18:53:41Z"}
+{"kind": "deactivate", "name": "a05-remove/entry.php", "stage": "done", "utc": "2026-11-25T18:53:42Z"}
+{"kind": "deactivate", "name": "a05-remove/entry.php", "stage": "interruption_requested", "utc": "2026-11-25T18:53:42Z"}
+{"kind": "plugin", "name": "a05-remove/entry.php", "stage": "start", "utc": "2026-11-25T18:53:43Z"}
+{"kind": "plugin", "name": "a05-remove/entry.php", "stage": "done", "utc": "2026-11-25T18:53:43Z"}
+{"kind": "table", "name": "wp_a05_orphan", "stage": "start", "utc": "2026-11-25T18:53:43Z"}
+{"kind": "table", "name": "wp_a05_orphan", "stage": "done", "utc": "2026-11-25T18:53:43Z"}
+{"kind": "table", "name": "wp_a05_stats_2015", "stage": "start", "utc": "2026-11-25T18:53:43Z"}
+{"kind": "table", "name": "wp_a05_stats_2015", "stage": "done", "utc": "2026-11-25T18:53:43Z"}
+{"kind": "table", "name": "wp_a05_stats_2026", "stage": "start", "utc": "2026-11-25T18:53:43Z"}
+{"kind": "table", "name": "wp_a05_stats_2026", "stage": "done", "utc": "2026-11-25T18:53:43Z"}
+{"kind": "option", "name": "a05_orphan_setting", "stage": "start", "utc": "2026-11-25T18:53:43Z"}
+{"kind": "option", "name": "a05_orphan_setting", "stage": "done", "utc": "2026-11-25T18:53:43Z"}
+{"kind": "cron", "name": "a05_orphan_hook", "stage": "start", "utc": "2026-11-25T18:53:43Z"}
+{"kind": "cron", "name": "a05_orphan_hook", "stage": "done", "utc": "2026-11-25T18:53:43Z"}
+{"kind": "upload", "name": "a05-debris", "stage": "start", "utc": "2026-11-25T18:53:43Z"}
+{"kind": "upload", "name": "a05-debris", "stage": "done", "utc": "2026-11-25T18:53:43Z"}
+{"kind": "all", "name": "all", "stage": "complete", "utc": "2026-11-25T18:53:43Z"}

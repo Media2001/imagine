@@ -1,17 +1,29 @@
 {
-  "evidence": "production\\A-05\\preuves\\3f1d3e3ce8f2",
-  "unit_tests": 16,
-  "integration_checks": 93,
-  "integration_failed": [],
+  "verified_at": "2026-11-25T19:56:56.005660+01:00",
+  "evidence": "production/A-05/preuves/8d814c18912a",
+  "unit_tests": 21,
+  "integration_checks": 149,
   "runner_checks": 7,
-  "runner_exit": 0,
   "source_files_checked": 29,
   "source_drift": [],
-  "a04_accepted_files_checked": 31,
-  "a04_drift": [],
-  "example_extensions": 22,
-  "example_diagnostic_exact": true,
-  "example_all_keep": true,
+  "historical_evidence_files_unchanged": 307,
+  "protected_dependency_files_unchanged": 52,
+  "accepted_a04_sources_verified": 16,
+  "accepted_a04_drift": [],
+  "own_changed_files": [
+    "wp/outils/bascule/a05/clean.py",
+    "wp/outils/bascule/nettoyer.md",
+    "wp/tests/a05/inside.py",
+    "wp/tests/a05/test_clean.py"
+  ],
+  "concurrent_out_of_scope_drift_not_touched": [
+    "wp/plugins/imagine-site/imagine-site.php",
+    "wp/tests/demo/b03-final.py"
+  ],
+  "native_correction_refusals": {
+    "classic": 22,
+    "hpos": 22
+  },
   "native_a03": {
     "classic": {
       "native_exit": 0,
@@ -25,5 +37,61 @@
       "changes": [],
       "anormal": 0
     }
-  }
+  },
+  "full_duration_seconds": 197.83605789998546,
+  "tdd": {
+    "P1": {
+      "red": {
+        "evidence": "production/A-05/preuves/38d47b375c0a",
+        "duration_seconds": 5.254825299954973,
+        "exit_code": 1
+      },
+      "green": {
+        "evidence": "production/A-05/preuves/b36ce007b531",
+        "duration_seconds": 5.535114099970087,
+        "exit_code": 0
+      }
+    },
+    "P2": {
+      "red": {
+        "evidence": "production/A-05/preuves/f812865c42bf",
+        "duration_seconds": 5.134330499975476,
+        "exit_code": 1
+      },
+      "green": {
+        "evidence": "production/A-05/preuves/645eddc0beb7",
+        "duration_seconds": 5.161368799977936,
+        "exit_code": 0
+      }
+    },
+    "P3": {
+      "red": {
+        "evidence": "production/A-05/preuves/2a6e2c5399ea",
+        "duration_seconds": 5.253469499992207,
+        "exit_code": 1
+      },
+      "green": {
+        "evidence": "production/A-05/preuves/07f3d4f556d1",
+        "duration_seconds": 5.289581699995324,
+        "exit_code": 0
+      }
+    },
+    "M1": {
+      "red": {
+        "evidence": "production/A-05/preuves/5815ad02d0a1",
+        "duration_seconds": 5.295019400015008,
+        "exit_code": 1
+      },
+      "green": {
+        "evidence": "production/A-05/preuves/4cbb2da586cd",
+        "duration_seconds": 5.305024400004186,
+        "exit_code": 0
+      }
+    }
+  },
+  "new_test_package": false,
+  "t01_preparation_required": false,
+  "t01_note": "Only cases added to the existing A05 Python package; no Composer/test package added. Historical T01 results are not claimed as fresh.",
+  "a05_containers_remaining": [],
+  "exit_code": 0
 }

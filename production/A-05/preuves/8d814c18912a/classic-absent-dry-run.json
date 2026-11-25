@@ -1,0 +1,33 @@
+{
+  "mode": "dry-run",
+  "operations": [],
+  "information": [
+    {
+      "kind": "plugin",
+      "name": "a05-absent/main.php",
+      "status": "nomm\u00e9, absent"
+    },
+    {
+      "kind": "table",
+      "name": "a05_absent_tables",
+      "status": "nomm\u00e9, absent"
+    },
+    {
+      "kind": "option",
+      "name": "a05_absent_options",
+      "status": "nomm\u00e9, absent"
+    },
+    {
+      "kind": "cron",
+      "name": "a05_absent_cron",
+      "status": "nomm\u00e9, absent"
+    },
+    {
+      "kind": "upload",
+      "name": "a05-absent",
+      "status": "nomm\u00e9, absent"
+    }
+  ],
+  "table_bytes": "allocated data+indexes; rows exact",
+  "uninstall_effects": "unknown third-party routine; not executed"
+}

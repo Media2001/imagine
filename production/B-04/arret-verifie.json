@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-25T18:53:21.871288+00:00",
+  "scope": "imagine-test-demo",
+  "status": "BLOCKED_ROLLED_BACK",
+  "theme_restored_exact": true,
+  "actual": {
+    "themes/imagine/functions.php": "929557bb5b097533cb573e946c755a14dfad4b28f880eb8ea363f812790b62bc",
+    "themes/imagine/inc/catalogue.php": null,
+    "themes/imagine/single-imagine_numero.php": "fd1382d5654a5b18cb994e8ea72938b9e288545d0265e61e31e48fc4c26c5d03",
+    "themes/imagine/archive-imagine_numero.php": "64235c2d457714a53d785ea8c4a91f37bd43aca625f91a7a213a9647d50fb721",
+    "themes/imagine/taxonomy-imagine_thematique.php": "4bcfce91262f2f298ca7e1cff8666ca8de72bf2574d0f3035f4bcc2252536af5"
+  },
+  "expected": {
+    "themes/imagine/functions.php": "929557bb5b097533cb573e946c755a14dfad4b28f880eb8ea363f812790b62bc",
+    "themes/imagine/inc/catalogue.php": null,
+    "themes/imagine/single-imagine_numero.php": "fd1382d5654a5b18cb994e8ea72938b9e288545d0265e61e31e48fc4c26c5d03",
+    "themes/imagine/archive-imagine_numero.php": "64235c2d457714a53d785ea8c4a91f37bd43aca625f91a7a213a9647d50fb721",
+    "themes/imagine/taxonomy-imagine_thematique.php": "4bcfce91262f2f298ca7e1cff8666ca8de72bf2574d0f3035f4bcc2252536af5"
+  },
+  "candidate_retained": "C:\\Users\\Ced\\imagine\\production\\B-04\\catalogue-candidat.php",
+  "catalogue_blocker": "Aucun produit publié ; produit simple 271 privé, lié au numéro 11. Aucun objet ou droit fabriqué."
+}

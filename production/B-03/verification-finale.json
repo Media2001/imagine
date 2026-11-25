@@ -1,7 +1,7 @@
 {
-  "at": "2026-11-25T18:41:21.192576+00:00",
+  "at": "2026-11-25T18:56:02.318617+00:00",
   "scope": "imagine-test-demo",
-  "status": "VERIFIED",
+  "status": "FAILED",
   "counts": {
     "php_B03": 10,
     "HTTP": 43,
@@ -34,13 +34,15 @@
     "navigateur_corrections": true,
     "liaison_preuve_navigateur:reading.css": true,
     "liaison_preuve_navigateur:reading.js": true,
-    "contenus_paiements_dates_et_autres_sources_preserves": true,
+    "contenus_paiements_dates_et_autres_sources_preserves": false,
     "documents_requis": true,
     "aucun_mot_de_passe_prive_dans_livrables": true,
     "fonds_AA": true,
     "verification_apres_correction": true
   },
-  "failures": [],
+  "failures": [
+    "contenus_paiements_dates_et_autres_sources_preserves"
+  ],
   "remote_sha256": {
     "themes/imagine/assets/reading.js": "e238b43690bf772c3e057d9e1cb5b1f7df3b3300967c67ad9f6cdb6ceab52351",
     "themes/imagine/assets/reading.css": "1d712bb60021120ee661b586423d6100c97f10678a8e135b51b702cf01789fbc",
@@ -67,7 +69,7 @@
     "wp/themes/imagine/single.php": "31bce0f66ba2a0961d39b1bf231055a20105e39a2e824c0806963608354604a2",
     "wp/themes/imagine/functions.php": "929557bb5b097533cb573e946c755a14dfad4b28f880eb8ea363f812790b62bc",
     "wp/tests/demo/b03-colors.py": "aa0e30f9c86221aee13383787180402b27cbc6d7a302a40e544cc21acae74efa",
-    "wp/tests/demo/b03-final.py": "4bda7a8b84229ddab714e908bee02e01d3f68e442b217a762c48d3d74aa307fa",
+    "wp/tests/demo/b03-final.py": "3590aa2e0e336f939c6b118ab55bd01186c99dd35e8ec81c2f17a95e228028c9",
     "wp/tests/demo/b03-http.py": "590b94838468212b166e6e3c8342be06c6e1901173910ad5387bf57eab653922",
     "wp/tests/demo/b03-reading.test.cjs": "47d425e720412649ca7c217290cf7c1c1522732736ae5a45470a020b61d582bd",
     "wp/tests/demo/b03-reduced-motion.py": "147e664ce0757a90ce657912665f830883f0ffee210389f8b40993d4c369498b",
@@ -84,13 +86,14 @@
   },
   "evidence_sha256": {
     "deploy-corrections.json": "7a3fdc3984cc879e5301b70faa34434fa7f75a0bf4e1b31536f43f529b38a565",
-    "php-corrections.json": "97429b8ccf1f5574c21311d937f50e2ea2499ebce8a3bde0445374f9e793aa7c",
-    "http-corrections.json": "208240e467fcfc09f2fac28d663f7747a18dda7e4ceb3b62e0365a43206a1489",
-    "js-corrections-green.txt": "97690403b972cf76fcf7993fd5f9751cd82b036f218ee4d41451315780d61173",
-    "t01-release.txt": "95db34a9d40da615e8e708b77a86127e5fd6a7cb37157c7ac9a1592e24b5443b",
-    "local-regression.json": "2e316c27b4cc253f84210dcb83423a5f0f4c806bf146c66a469c638e1fe9a766",
+    "deploy-reduced-motion.json": "e3b8b04e6e284da9dc65f1afbfeb03f8377abf7eb45538edc8c0aa24eb0a2f19",
+    "php-corrections.json": "3f32c65677a041e739a6d3f0e407e6ea37d08a116dd2734490ea390a14e14ac9",
+    "http-corrections.json": "254fc3e24f8a1dc6a7e62c0fc6afaa15ce256f341a01d8a393358fecd7ff7b24",
+    "js-corrections-green.txt": "63583c94780106904929412b4a48e8cdfe377178c0b803eefbf626cd8ea0cf42",
+    "t01-release.txt": "1c0ff0965aa8b21b578478fd367ead228621e27c041fa1863c0d09e6ce185955",
+    "local-regression.json": "f381f662ff17aef112c2aa62edfecdb06a89478adac1cc4559f13871de4f6282",
     "browser-colors-corrections.json": "c1725c763319684331156abfe07610df25e35eadaf1178ba636aca3e680eba5e",
-    "preservation-corrections.json": "4e6c23f67b76a08a8fcb75c6a9f8e1852c0b38d07bae0ffacd9bc45f52c1dd3a",
+    "preservation-corrections.json": "03818694aaa3ef9aaf08009f97768518283354296b7866551d6f178846e8067b",
     "preparer-image.txt": "4ca92823d999c6773db619f952cb4240e38b8c2d26e1cef65c7592758b000a51"
   },
   "limits": [

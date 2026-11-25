@@ -42,6 +42,20 @@ final class EcheancesNatives
             'creation' => $order->get_date_created()?->getTimestamp() ?? 0];
     }
 
+    public static function virement(int $id): object
+    {
+        $order = wc_get_order($id);
+        if (!$order || $order->get_type() !== 'shop_order' || $order->get_refunds() !== []
+            || EcheancesRegles::paiements([self::commande($order)], 'virements') === []) {
+            throw new \LogicException('Virement natif impayé requis.');
+        }
+        $related = wcs_get_subscriptions_for_order($id, ['order_type' => ['parent', 'renewal']]);
+        if (!array_filter($related, static fn ($sub) => (int) $sub->get_customer_id() === (int) $order->get_customer_id())) {
+            throw new \LogicException('Propriétaire incohérent.');
+        }
+        return $order;
+    }
+
     public static function lire(string $view, int $days): array
     {
         if (!function_exists('wc_get_orders') || !function_exists('wcs_get_subscriptions')) {

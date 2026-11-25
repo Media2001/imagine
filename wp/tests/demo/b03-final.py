@@ -89,12 +89,17 @@ def run():
     remote_changed = changed(before['remote'], remote_now)
     local_changed = changed(before['local'], local_now)
     allowed = sorted(deployed)
-    # C15 possède ce nouveau fichier local en parallèle ; aucun upload de plugin B03.
-    parallel_local = ['plugins/imagine-site/EcheancesRegles.php']
-    local_owned = [k for k in local_changed if k not in parallel_local]
-    checks['contenus_paiements_dates_et_autres_sources_preserves'] = remote_changed == allowed and local_owned == allowed
+    # Ces quatre chemins sont la propriété déclarée du worker C15 parallèle.
+    # Les différences sont conservées et tracées, pas restaurées par B03.
+    parallel_paths = ['plugins/imagine-site/EcheancesRegles.php', 'plugins/imagine-site/EcheancesNatives.php',
+                      'plugins/imagine-site/EcheancesAdmin.php', 'plugins/imagine-site/imagine-site.php']
+    local_owned = [k for k in local_changed if k not in parallel_paths]
+    remote_owned = [k for k in remote_changed if k not in parallel_paths]
+    checks['contenus_paiements_dates_et_autres_sources_preserves'] = remote_owned == allowed and local_owned == allowed
     preservation = {'scope': 'imagine-test-demo', 'at': datetime.now(timezone.utc).isoformat(),
-                    'parallel_local_observed': [k for k in local_changed if k in parallel_local],
+                    'parallel_local_observed': [k for k in local_changed if k in parallel_paths],
+                    'parallel_remote_observed': [k for k in remote_changed if k in parallel_paths],
+                    'parallel_remote_sha256': {k: remote_now[k] for k in remote_changed if k in parallel_paths},
                     'remote_items': len(remote_now), 'local_files': len(local_now),
                     'remote_changed': remote_changed, 'local_changed': local_changed,
                     'tables_sha256': {k: v for k, v in remote_now.items() if '/' not in k},
@@ -141,7 +146,7 @@ def run():
                 'reading_words_per_minute': http['reading_words_per_minute'], 'contrast_ratios': contrast, 'python': sys.executable,
                 'source_sha256': {p.relative_to(ROOT).as_posix(): digest(p) for p in sources},
                 'documents_sha256': {p.relative_to(ROOT).as_posix(): digest(p) for p in documents},
-                'evidence_sha256': {name: digest(PROOF / name) for name in ['deploy-corrections.json', 'php-corrections.json', 'http-corrections.json', 'js-corrections-green.txt', 't01-release.txt', 'local-regression.json', 'browser-colors-corrections.json', 'preservation-corrections.json', 'preparer-image.txt']},
+                'evidence_sha256': {name: digest(PROOF / name) for name in ['deploy-corrections.json', 'deploy-reduced-motion.json', 'php-corrections.json', 'http-corrections.json', 'js-corrections-green.txt', 't01-release.txt', 'local-regression.json', 'browser-colors-corrections.json', 'preservation-corrections.json', 'preparer-image.txt']},
                 'limits': ['Navigateur réel anonyme seulement ; a-carte prouvé par vrais cookies HTTP et logique JS testée hors navigateur.',
                            'Ancienne assertion B01 sans aucun JS obsolète ; une adaptation B03 en mémoire, test historique intact.',
                            'PRET est prêt à relire, pas une approbation visuelle ou une mise en production.']}

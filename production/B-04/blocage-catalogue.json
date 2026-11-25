@@ -57,5 +57,39 @@
       "price_present": true
     }
   ],
-  "c14_option_exists": false
+  "published_products": 0,
+  "issues": [
+    {
+      "id": 11,
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-t1/",
+      "articles": 6
+    },
+    {
+      "id": 18,
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-t2/",
+      "articles": 5
+    },
+    {
+      "id": 25,
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-t3/",
+      "articles": 5
+    },
+    {
+      "id": 32,
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-hs/",
+      "articles": 4
+    },
+    {
+      "id": 39,
+      "url": "http://192.168.129.32:8085/numeros/demo-2026-t4/",
+      "articles": 6
+    }
+  ],
+  "max_articles_in_issue": 6,
+  "scope": "imagine-test-demo",
+  "at": "2026-11-25T18:54:41.634595+00:00",
+  "product_count": 8,
+  "issue_count": 5,
+  "article_count": 26,
+  "candidate_sha256": "9047b8089b32463243174c360314e4ad409e5ec249d65e63787e97208e950592"
 }
