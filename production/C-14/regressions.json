@@ -1,15 +1,18 @@
 {
   "scope": "imagine-test-demo",
+  "at": "2026-11-25T14:59:20.788080+00:00",
   "status": "VERT",
   "c11_phpunit": {
     "tests": 48,
     "assertions": 258,
-    "exit": 0
+    "exit": 0,
+    "selection": "tests/ : C11 + C13 + C14"
   },
   "c12_phpunit": {
     "tests": 7,
     "assertions": 63,
-    "exit": 0
+    "exit": 0,
+    "selection": "tests-c12/"
   },
   "C12_native": {
     "raccord_disponible": true,
