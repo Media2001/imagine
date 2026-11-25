@@ -33,6 +33,7 @@ if (getenv('A11_VARIANT') === 'seed') {
         $ids[$slug] = wp_insert_attachment(['post_title' => 'PRIVATE_ATTACHMENT_CANARY', 'post_name' => 'a11-' . $slug, 'post_status' => 'inherit', 'post_mime_type' => 'image/png'], false, $ids[$parent]);
     }
     $ids['unattached'] = wp_insert_attachment(['post_title' => 'PRIVATE_ATTACHMENT_CANARY', 'post_name' => 'a11-unattached', 'post_status' => 'inherit', 'post_mime_type' => 'image/png']);
+    $ids['orphan-attachment'] = wp_insert_attachment(['post_title' => 'PRIVATE_ATTACHMENT_CANARY', 'post_name' => 'a11-orphan-attachment', 'post_status' => 'inherit', 'post_mime_type' => 'image/png'], false, 99999999);
     foreach (['category', 'post_tag', 'product_cat', 'product_tag', 'a11_topic'] as $tax) {
         $term = wp_insert_term('PRIVATE_TERM_LABEL_CANARY', $tax, ['slug' => 'a11-' . $tax]);
         wp_set_object_terms($ids[in_array($tax, ['product_cat', 'product_tag'], true) ? 'product' : ($tax === 'a11_topic' ? 'story' : 'article')], [$term['term_id']], $tax);

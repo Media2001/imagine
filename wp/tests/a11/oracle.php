@@ -19,7 +19,7 @@ foreach (['article' => 'article', 'unicode' => 'article', 'parent' => 'page', 'c
     $add(get_permalink($post), $nature, $post->post_type, $post->post_status, get_post_modified_time('Y-m-d\TH:i:s\Z', true, $post));
 }
 if (get_option('wp_attachment_pages_enabled')) {
-    foreach (['attachment', 'unattached'] as $key) {
+    foreach (['attachment', 'unattached', 'orphan-attachment'] as $key) {
         $post = get_post($ids[$key]);
         $add(get_attachment_link($post), 'pièce jointe', 'attachment', $post->post_status, get_post_modified_time('Y-m-d\TH:i:s\Z', true, $post));
     }
@@ -38,4 +38,4 @@ foreach (['post', 'product', 'a11_story'] as $type) {
     $add(get_post_type_archive_link($type), 'archive de type de contenu', $type);
 }
 ksort($expected);
-echo 'A11_JSON=' . json_encode(['expected' => $expected, 'fields' => $fields, 'permaliens' => ['structure' => get_option('permalink_structure'), 'base_categories' => get_option('category_base'), 'base_etiquettes' => get_option('tag_base'), 'woocommerce' => wc_get_permalink_structure()], 'excluded' => ['draft' => 1, 'private' => 1, 'password' => 1, 'attachment_parent_not_public' => 1, 'attachment_pages_disabled' => get_option('wp_attachment_pages_enabled') ? 0 : 2], 'versions' => ['wordpress' => get_bloginfo('version'), 'woocommerce' => WC_VERSION]]) . "\n";
+echo 'A11_JSON=' . json_encode(['expected' => $expected, 'fields' => $fields, 'permaliens' => ['structure' => get_option('permalink_structure'), 'base_categories' => get_option('category_base'), 'base_etiquettes' => get_option('tag_base'), 'woocommerce' => wc_get_permalink_structure()], 'excluded' => ['draft' => 1, 'private' => 1, 'password' => 1, 'attachment_parent_not_public' => 1, 'attachment_pages_disabled' => get_option('wp_attachment_pages_enabled') ? 0 : 3], 'versions' => ['wordpress' => get_bloginfo('version'), 'woocommerce' => WC_VERSION]]) . "\n";

@@ -23,21 +23,26 @@ final class Inventory
 
     private static function publicAttachment(\WP_Post $post): bool
     {
+        $original = $post;
         $seen = [];
         while ($post->post_parent) {
             if (isset($seen[$post->ID])) {
                 throw new \RuntimeException('A11_ATTACHMENT_PARENT_CYCLE');
             }
             $seen[$post->ID] = true;
-            $post = get_post($post->post_parent);
-            if (!$post || $post->post_password !== '') {
+            $parent = get_post($post->post_parent);
+            if (!$parent) {
+                break; // Native get_post_status treats a missing parent as unattached/published.
+            }
+            if ($parent->post_password !== '') {
                 return false;
             }
-            if ($post->post_type !== 'attachment') {
-                return $post->post_status === 'publish' && is_post_publicly_viewable($post);
+            if ($parent->post_type !== 'attachment' || $parent->ID === $post->ID) {
+                break;
             }
+            $post = $parent;
         }
-        return true;
+        return get_post_status($original) === 'publish' && is_post_publicly_viewable($original);
     }
 
     public function collect(): array

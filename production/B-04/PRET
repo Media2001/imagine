@@ -1,0 +1,9 @@
+B-04 — PRET pour nouvelle relecture technique après corrections 1–6.
+2026-11-26T00:00:16+01:00
+Cible unique vérifiée : imagine-test-demo.
+77 tests PHPUnit uniques / 530 assertions ; 4 tests Python ; 513 contrôles natifs/HTTP/SQL/navigateur ; zéro échec. PSR-12 -n : zéro erreur. Préparateur d'image exécuté, sortie 0.
+Preuve courante : verification-corrections-finale.json
+SHA-256 : c158c6fac0d9e41c26a8a55d7aa57b06ae9483b5d06e17185e5e7095076cc5f0
+A-VOIR.md, CORRECTIONS.md, COMMANDES-CORRECTIONS.md ; contrôle : sceller.py --check.
+Point 7 visuel : statut kiosque conservé, décision de Ced attendue, sans blocage des corrections techniques.
+Ce PRET n'est ni une clôture par les relecteurs, ni une validation visuelle, ni un GO de mise en ligne/réel.

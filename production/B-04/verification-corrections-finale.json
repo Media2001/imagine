@@ -1,0 +1,127 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-25T22:59:17.131011+00:00",
+  "technical_instructions_completed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "visual_instruction_7": "Statut kiosque conserve sans modification ; decision Ced attendue.",
+  "suites": {
+    "native-http-corrections-definitif.json": {
+      "total": 32,
+      "failures": 0
+    },
+    "http-definitif.json": {
+      "total": 146,
+      "failures": 0
+    },
+    "catalogue-definitif.json": {
+      "total": 201,
+      "failures": 0
+    },
+    "php-definitif.json": {
+      "total": 11,
+      "failures": 0
+    },
+    "safety.json": {
+      "total": 13,
+      "failures": 0
+    },
+    "queries-20.json": {
+      "total": 24,
+      "failures": 0
+    },
+    "browser.json": {
+      "total": 86,
+      "failures": 0
+    }
+  },
+  "native_controls": 513,
+  "phpunit": {
+    "root": {
+      "tests": 70,
+      "assertions": 467
+    },
+    "c12": {
+      "tests": 7,
+      "assertions": 63
+    },
+    "b04": {
+      "tests": 4,
+      "assertions": 91
+    }
+  },
+  "phpunit_unique_tests": 77,
+  "phpunit_unique_assertions": 530,
+  "python_tests": 4,
+  "phpcs_errors": 0,
+  "native_source_readback_exact": true,
+  "native_sources": {
+    "plugins/imagine-site/Paywall.php": "4d850dd0d10b8cff2da98e84ddd5e9d4dfb23d57b0f280b5ce3686d945cf0373",
+    "plugins/imagine-site/Decouverte.php": "cef466294643cdb01b354770ed3a730e4a876a0ce29c7ad4bb258d2c43a9e231",
+    "themes/imagine/inc/catalogue.php": "60fdcb75cc450a756164995eca8e5623f6b480ee755c16bdda6f9d1dde6a9e5e",
+    "themes/imagine/single-imagine_numero.php": "efaa64dd4bf445b885f71602014d49478e7d600cbfafafffd9eecab010246499",
+    "mu-plugins/imagine-demo-b04-preview.php": "5e48112348a4cc666f763923552492c95fab10e07935c54f1614fb2c2dda0c94"
+  },
+  "sources_sha256": {
+    "wp/plugins/imagine-site/Paywall.php": "4d850dd0d10b8cff2da98e84ddd5e9d4dfb23d57b0f280b5ce3686d945cf0373",
+    "wp/plugins/imagine-site/Decouverte.php": "cef466294643cdb01b354770ed3a730e4a876a0ce29c7ad4bb258d2c43a9e231",
+    "wp/plugins/imagine-site/README.md": "335bc984df205fefe7e7ffe05929f96a20b40c4a3d7ee5e88f7322335e30f899",
+    "wp/plugins/imagine-site/phpunit.b04.xml": "d85edf8d009dd726bbc6d2785ff633e57fb3e5224ddb14eb6342230e446c222b",
+    "wp/plugins/imagine-site/tests/CatalogueTest.php": "40ab9944a0f6784876cd04a8e6a3011fe87d665fd22c4a09ce02c885b38471bd",
+    "wp/plugins/imagine-site/tests/CatalogueStatusTest.php": "3928251a3d7a9ff402cad78569fe1f17df7fab7f7f15127dc1d8796e6b793221",
+    "wp/plugins/imagine-site/tests/b04-adapter-fixture.php": "ca1f5316983dd58e3e115d1b4ce6ad94f183dd94d70f668ed74b23fc1d6266eb",
+    "wp/plugins/imagine-site/tests/b04-status-fixture.php": "4bd9080377801506700ad24d2989ab9e673a83604b0b7600758b3fcfa5abb0a3",
+    "wp/themes/imagine/inc/catalogue.php": "60fdcb75cc450a756164995eca8e5623f6b480ee755c16bdda6f9d1dde6a9e5e",
+    "wp/themes/imagine/single-imagine_numero.php": "efaa64dd4bf445b885f71602014d49478e7d600cbfafafffd9eecab010246499",
+    "wp/outils/demo/b04-preview.php": "5e48112348a4cc666f763923552492c95fab10e07935c54f1614fb2c2dda0c94",
+    "wp/outils/demo/b04-unit.py": "dc3bcf7851bbb55d5952ea8d0b91317d4b53830ca76200687e0672df74dc22ce",
+    "wp/tests/demo/b04-http.py": "30949654e23d9e1657c8c0364e8ebd0ab767d4f6d83bdb587b7a5430e5a2d69d",
+    "wp/tests/demo/b04-corrections.py": "dc1951d4cdfa8542e9a8ab3a640820920b3b5016936a3dce1531ef950430cad1",
+    "wp/tests/demo/b04-safety.py": "3821b228f56027d6e2896ed8dfb8881cca1c996ab5515c35d98c27427529cd47",
+    "wp/tests/demo/b04-unit-bootstrap.php": "bd670578cd3c60620a0f0347fa3e9b65118a2e2b6d81c1f301f41e2839983bfb",
+    "wp/tests/demo/test_b04_http_contract.py": "f319754bdeca796bfe21c9d0899f32757735996b93c371f5310065d6ed8b82d1"
+  },
+  "evidence_sha256": {
+    "production/B-04/native-http-corrections-definitif.json": "13095fb8f7fd67815fd1f5b7da25f4cb6f787632edff561a5e42a4e74fd29761",
+    "production/B-04/http-definitif.json": "d6121f3079834a17c3fc53181530a13d8a47a16225d0aaf99105b33adb7a26db",
+    "production/B-04/catalogue-definitif.json": "9124f16edc555c18af54ef51fe927a67a8ff02f8f869e34f85b2b86e5fe5cd66",
+    "production/B-04/php-definitif.json": "fe2a74446f6911a93b65dc2a48949107599b8f024b2a84d2e50908b342a8be2b",
+    "production/B-04/safety.json": "782ecaff80c0862083b239c4e8ea0452cfe95530f028e60399efc9dc283c8b16",
+    "production/B-04/queries-20.json": "ba24caa97fec5501eb194c1571712aa2700bb162eb1d54a6fcc0b6db4bb4009a",
+    "production/B-04/browser.json": "23f731f6d48a42eae7362f919bf1fd00b0ed060b959acab05ac924c01daa9eb1",
+    "production/B-04/junit-root-definitif.xml": "f6803c8c1f9de4f08ded4a8ee52b078c9d89903474f2140fd6b2f0b38a0a75d8",
+    "production/B-04/junit-c12-definitif.xml": "8c53f3900975a43e3582f6086956e6a9b0e3af17f111e223dc023f66460c3bff",
+    "production/B-04/junit-b04-definitif.xml": "24121d454ac3e38641f6ad6b6f44ef133abe0768d5448454ccce92e47da54103",
+    "production/B-04/unit-definitif.json": "03694502a418f993b58636f76ccd3cf5a7f4244ed86a78ee1a9ccbb92c619f9c",
+    "production/B-04/unit-definitif.log": "7847094ce94add9ca91298110c0ded403e24abdd178cafbf4287e659c3c99b10",
+    "production/B-04/python-contract-definitif.log": "10b376f8c759d23770a5a838cd88bc0edcdc511190b8feff3ffac95693ea2782",
+    "production/B-04/phpcs-style-final.json": "caedbd9a7f322f2714a2f57fde59121441f61d3aa8e4d893e7cdccc6ac52963b",
+    "production/B-04/preparer-image-corrections.log": "0703471f229b8a2749064d20009183034ed411ccc9aec50dfb3ebe42a7745fec",
+    "production/B-04/deploy-corrections-corrections-style.json": "477861786018de35f7dfaa5bf1bd90a3a68c62fa9fe578da6da1d004de82dc02",
+    "production/B-04/style-whitespace-only.json": "db6743f739758c410d67e0e3928f3d06bb91eeb9cdeeaa2b05cfd3b2e65e3103",
+    "production/B-04/cleanup-corrections-style-lint.json": "cfd85502d19bbba9b35531e4651087790658b3ef35c859f11c029db4bf814264"
+  },
+  "screenshots_sha256": {
+    "production\\B-04\\captures\\anonyme-1280-numero11.png": "77aeafed3449c39707d54d0003d0736ba1481d620fe07cef636407dc47a54052",
+    "production\\B-04\\captures\\anonyme-1280-numero39.png": "63588fdf73fa0a495a8282c0a19ca3a595299ab43bed3a42ef5610f7d7f5f6e7",
+    "production\\B-04\\captures\\anonyme-1280-kiosque.png": "b3970a0d1bec12e3582064272a931ad364da84c8c6e6b4f344b5f74235436939",
+    "production\\B-04\\captures\\anonyme-1280-thematique.png": "86fc2de3d2f1662d26ef5865235c0c3456add3178141f143006ce41dd00a6547",
+    "production\\B-04\\captures\\anonyme-375-numero11.png": "e889eb34190d3dbd5e73b939a5bd64ffb4e50b1fa323b5110df869b3f8c6b6c8",
+    "production\\B-04\\captures\\anonyme-375-numero39.png": "0b5f5d60ea7147adeea6ae99e3a2f99b2daa56e3300ccd41ad8582058cabd015",
+    "production\\B-04\\captures\\anonyme-375-kiosque.png": "d05373a2c279343f3db5dd961f9a4e58c154d8905e46664930f75f470c343034",
+    "production\\B-04\\captures\\anonyme-375-thematique.png": "bd2960be7589c9cb55cb30449c1083ba682b4fb94c9376e12b1354c05975c38f",
+    "production\\B-04\\captures\\a-carte-1280-numero11.png": "003b832cd37cfa71e3acbd2014e89126c03c4844a0727336dfd49b85a42d061a",
+    "production\\B-04\\captures\\a-carte-1280-numero39.png": "5748d241eebd06778b618ff4b4f5761269eb4874af0b66f1a721480d089e8de6",
+    "production\\B-04\\captures\\a-carte-375-numero11.png": "b45002c40d10816596f99eb57782c0099694433c849779ad24b50ce13f8c4a14",
+    "production\\B-04\\captures\\a-carte-375-numero39.png": "07bef17a1c35eb65bae373998c524bf178a011cddc25ce81aa0612e8e282e3b9",
+    "production\\B-04\\captures\\p-numero-1280-numero11.png": "7470bde0c80f2c0dad2068c18fa1b5911ff180fca7d09ad63c094c4c615ce276",
+    "production\\B-04\\captures\\p-numero-1280-numero39.png": "63588fdf73fa0a495a8282c0a19ca3a595299ab43bed3a42ef5610f7d7f5f6e7",
+    "production\\B-04\\captures\\p-numero-375-numero11.png": "683a8e67feae7ace1f1cb8cf689ef41c9217694bd848ffcdab321b868db901cc",
+    "production\\B-04\\captures\\p-numero-375-numero39.png": "0b5f5d60ea7147adeea6ae99e3a2f99b2daa56e3300ccd41ad8582058cabd015"
+  }
+}
