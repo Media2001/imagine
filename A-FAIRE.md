@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 25 novembre 2026, 13 h 30.
+Mis à jour le 25 novembre 2026, 16 h 30 (passage automatique).
 
 **Deux voies depuis le 23/11.** Ce fichier est la file de la voie 1. Une deuxième session d'Hermès suit `A-FAIRE-2.md` (site de démonstration, squelette du thème, paywall sur article, profils, écran de réglages). Lis la section « Les deux voies » de la consigne permanente. Ne touche ni au site `imagine-test-demo`, ni aux dossiers `wp/themes/imagine/`, `wp/plugins/imagine-site/`, `wp/outils/demo/`, `wp/tests/demo/`.
 
@@ -12,15 +12,15 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 
 ## Consignes actives, par ordre de priorité
 
-File du 25/11, 11 h 45. Tes rapports de 22 h 16 et 0 h 36 sont lus. Tu as attendu toute la nuit sur des questions techniques : c'est la règle qui était mauvaise, elle change. **Lis la nouvelle section « Tu n'attends pas sur une question technique » de la consigne permanente**, et `docs/arbitrages-2026-11-25.md`.
+File du 25/11, 16 h 30. Tes rapports de 14 h 51 à 15 h 59 sont lus : compléments d'A-03, A-04 et troisième passe d'A-01 rendus en une après-midi. A-03 est clos. Arbitrages : `docs/arbitrages-2026-11-25.md`, section « Passage automatique de 16 h 30 ».
 
-**0. `briefs/A-01-archive-reelle-3.md`** — le diagnostic de 13 h 15 passe l'archive, il reste la base : tables inconnues vidées par défaut, décisions par famille, `INSERT` binaires de Matomo, deux dossiers, extensions à neutraliser. Trois heures. **Passe avant A-04. Ced attend pour lancer l'import.**
+**0. Corrections d'A-04 : `corrections/A-04.md`** (fusion arrivée à 15 h 48, juste avant ton arrêt). Six instructions, aucune bloquante ; deux importantes : contrôle de l'emplacement de la sauvegarde sur le chemin **résolu** (I3), fichier principal d'une extension **déclaré dans le plan** (I1). Les trois défauts proposés par la fusion sont confirmés, applique-les : déclaration dans le plan, rafraîchissement de `.maintenance` sous verrou à la reprise, trace d'audit pour `bootstrap-only`. Puis **redépose `production/A-04/PRET`** : la vérification ne se déclenche que sur un `PRET` plus récent que la fusion. Deux heures.
 
-**1. Relance `wp/tests/preparer-image.ps1`** (l'image de test est périmée depuis l'ajout du paquet d'A-03), puis `rejouer.ps1`. Dix minutes. Si la suite n'est pas verte, corrige d'abord.
+**1. A-01, troisième passe : si sa relecture revient « à corriger »**, ces corrections passent avant tout le reste : Ced attend ce lot pour relancer son diagnostic. Ta décision de désactiver Stripe sur la copie est confirmée.
 
-**2. A-03, trois compléments arbitrés** (hooks attendus après mise à jour, journal d'erreurs PHP, échec de collecte bloquant) : `docs/arbitrages-2026-11-25.md`. Une heure. Le lot est clos pour le reste.
+**2. `briefs/A-05-nettoyage.md`** — le script de nettoyage, qui exécute un plan et ne décide rien. Une demi-journée. Tu construis sur A-04 sans attendre sa clôture.
 
-**3. `briefs/A-04-mise-a-jour.md`** — le script de mise à jour. Une journée. Tu peux commencer sans attendre la relecture du point 2.
+**Règle ajoutée.** Une fusion « à corriger » (`corrections/<lot>.md`) arrivée après la dernière mise à jour de cette file est à prendre tout de suite, avant le lot en cours, sans attendre que la file la cite. Avant de t'arrêter sur « file vide », regarde s'il y a une fusion plus récente que ton dernier `PRET` pour chacun de tes lots rendus.
 
 Tu n'ouvres toujours pas l'archive d'Imagine ; Ced relance le diagnostic.
 
@@ -41,9 +41,7 @@ Tu n'ouvres toujours pas l'archive d'Imagine ; Ced relance le diagnostic.
 | Lot | Contenu | Attend |
 |---|---|---|
 | A-02 Audit | Versions de WordPress, PHP, WooCommerce, Subscriptions, Memberships, passerelles ; extensions et thème actifs ; taille de la base ; ce qui doit être retiré | Staging créé et vérifié |
-| A-03 Tests de non-régression | Avant toute mise à jour : un abonné accède à ses contenus, un non-abonné non, un renouvellement de test passe | A-02 |
-| A-04 Mise à jour | Memberships et ce qui en dépend, par script rejouable ; A-03 rejoué après | A-03, licences |
-| A-05 Nettoyage | Retrait des extensions et réglages inutiles, par script rejouable | A-02 |
+| A-05 Nettoyage sur le site réel | L'outil est en consigne 2 ; son passage sur le staging d'Imagine attend un plan rempli par Ced | Audit réel, plan de Ced |
 | A-06 Import des abonnés hors ligne | Base Access, abonnés sans email (§4.3) | Export fourni par Imagine ; règle sur les données réelles |
 
 ### B · Le thème
@@ -80,6 +78,8 @@ Tu n'ouvres toujours pas l'archive d'Imagine ; Ced relance le diagnostic.
 | C-07 Liste d'envoi | 22/11 | **Clos le 23/11** (bibliothèque ; écran de réglages exclu) |
 | A-01, import, vérification et publication | 22 et 23/11 | **Clos le 23/11** (mode diagnostic et règles de chemin vérifiés à 16 h 33) : qualifié en 6.9.1 sur archives fictives, mais refus `ARCHIVE_PATH` sur l'archive réelle. Limite : Subscriptions non testable en 6.9.1, le premier import réel fera foi. Ce n'est pas un accord d'import |
 | A-01 Archive réelle (format AI1WM, plafonds, exclusions, diagnostic court) | 24/11 | **Clos le 25/11** |
-| A-03 Non-régression | 24/11, corrigé le 25/11 | **Code clos le 25/11**, trois compléments en consigne 2 |
+| A-03 Non-régression | 24/11, corrigé le 25/11, complété le 25/11 | **Clos le 25/11** (trois compléments vérifiés, suite rejouée par le vérificateur : 1 012 tests) |
+| A-04 Mise à jour | 25/11 | Rendu ; **à corriger** (`corrections/A-04.md`), consigne 0 |
+| A-01 Troisième passe (base réelle) | 25/11 | Rendu ; relecture attendue. Ce n'est pas un accord d'import |
 | T-01 Commande de rejeu | 23/11, corrigé le 23/11 | **Clos le 23/11** ; autorisation ajoutée au script de relecture |
 | A-02 Script d'audit | 23/11, corrigé le 23/11 | **Clos le 23/11** (outil et banc fictif). L'audit réel reste à lancer |

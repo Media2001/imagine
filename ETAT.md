@@ -1,4 +1,16 @@
-# État des chantiers — mis à jour le 25 novembre 2026, 11 h 45
+# État des chantiers — mis à jour le 25 novembre 2026, 16 h 30 (passage automatique)
+
+## En attente de Ced
+
+Ce que toi seul peux faire, dans l'ordre d'utilité. Rien d'autre n'attend : les deux voies ont du travail.
+
+1. **Archive d'Imagine.** La troisième passe d'A-01 (base réelle : tables inconnues vidées, Matomo, deux dossiers) est rendue depuis 15 h 53, **pas encore relue**. Le diagnostic ne crée rien, tu peux le relancer quand tu veux : `python .\wp\outils\staging-court\publish.py --diagnose --operator-ced --archive "<ton archive>" --expected-core-version 6.9.1`. L'import, lui, reste ta décision ; le plus sûr est d'attendre la vérification du lot (`relectures/A-01/`).
+2. **À regarder sur le site de démonstration** (`http://192.168.129.32:8085`, réseau local ; pour chaque lot, `production/<lot>/A-VOIR.md` dit quoi ouvrir) : B-00, B-01, C-08, C-10, C-11, C-12, et maintenant **C-13** (liste d'envoi, en `e-abo` ; vérifie aussi que les menus « Imagine » ne se doublent pas avec l'écran de réglages). **B-02** (« Mon compte », `/my-account/`) et **C-14** (achat d'un numéro, en `p-numero`) sont visibles mais encore en relecture. La liste d'envoi est vide pour les profils tant que le complément de C-09 n'est pas passé (en file).
+3. **Questions à porter à Imagine** quand tu les verras : la liste est dans `docs/decisions.md` (cinq nouvelles, toutes déjà réglées sur un défaut prudent).
+4. Plus tard, pour le nettoyage du site réel : un plan à remplir (`briefs/A-05-nettoyage.md`), après l'audit du staging.
+5. Toujours ouverts de ton côté : retirer l'autorisation du port 7000 du pare-feu Windows et jeter un œil à la box (A-07) ; détruire l'ancien staging d'Imagine quand le nouveau parcours est validé.
+
+Changé sans toi pendant ce passage, à défaire si tu n'es pas d'accord : le plafond de vérifications par lot de `scripts/relire.ps1` passe de quatre à huit (A-01 en avait déjà quatre, sa troisième passe n'aurait jamais été relue) ; les profils de démonstration vont recevoir des paiements fictifs déclarés (`briefs/C-09-complement-paiements-fictifs.md`).
 
 ## Mise en route
 
@@ -6,7 +18,7 @@
 |---|---|---|---|
 | Dépôt | Créé ; cloné sur le NUC (`C:\Users\Ced\imagine`, alias SSH `github-imagine`) | — | — |
 | Hermès sur ce dépôt | Travail en continu, réveil horaire planifié le 21/11 (`/cron`, verrou `.hermes.lock`) | — | — |
-| Voie 2 (ce qui se voit) | Ouverte le 23/11 : file `A-FAIRE-2.md`, verrou `.hermes-2.lock`, site fictif `imagine-test-demo`. Cinq lots en file (B-00, B-01, C-08, C-09, C-10) | Site `imagine-test-demo` en ligne (réseau local, port 8085). B-00, B-01, C-08 à C-12 : code clos. C-13 à relire. En file le 25/11 : C-14 (achat au numéro), B-02 (mon compte) | Validation visuelle par Ced | Ced |
+| Voie 2 (ce qui se voit) | Ouverte le 23/11 : file `A-FAIRE-2.md`, verrou `.hermes-2.lock`, site fictif `imagine-test-demo` en ligne sur le réseau local (port 8085). Code clos : B-00, B-01, C-08 à C-13. Rendus le 25/11, en relecture : C-14 (achat au numéro, corrigé), B-02 (mon compte) | En file : complément de C-09 (paiements fictifs déclarés), B-03 (mode lecture). Validation visuelle par Ced | Hermès, Ced |
 | Synchronisation Git | En service depuis le 20/11, 8 h 55. La nuit du 19 a été perdue : Git refusait les commits faute d'identité, et le script ne le signalait pas (corrigé) | — | — |
 | Circuit de relecture | `scripts/relire.ps1` adapté aux lots ; se lance sans erreur, **pas encore testé sur un lot** | Lancer à la main sur le premier lot `PRET`, puis planifier « IMAGINE - relecture » | Ced |
 | Staging | Pas de Docker sur le NUC : on utilise l'outil de staging de Ced, avec Novamira pour l'accès des agents. Étape « site à abonnements » à ajouter à l'outil (`prompts/2026-11-19-staging-imagine.md`). Le `docker-compose.yml` du dépôt n'est plus utilisé | Hermès ajoute l'étape ; puis retirer Docker du dépôt | Hermès, puis Claude |
@@ -21,13 +33,16 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 | Lot | État | Prochaine étape | Qui |
 |---|---|---|---|
 | Sauvegarde de production | Pas encore récupérée | Export SQL + `wp-content`, déposés sur le NUC **hors du dépôt** | Ced |
-| A-01 Import neutralisé | Commande corrigée et vérifiée (sept corrections, dont le point de sûreté). Qualifiée en 6.9.1 sur archives fictives le 23/11 à 10 h 11 (Subscriptions non testable en 6.9.1 : limite déclarée) | Diagnostic lancé par Ced le 24/11 : six refus, dont quatre pour une seule cause (format réel de l'archive non lu), plafonds trop bas, recherche de secrets inutilisable, exports d'abonnés dans `uploads/` | Diagnostic du 25/11, 13 h 15 : l'archive passe (16,9 Go, base 474 Mo), restent trois refus liés à la base (Matomo, tables inconnues) et à deux dossiers | `briefs/A-01-archive-reelle-3.md`, puis import par Ced | Hermès, puis Ced |
+| A-01 Import neutralisé | Qualifié en 6.9.1 sur archives fictives le 23/11. Diagnostics de Ced des 24 et 25/11 : l'archive réelle est lue en entier (16,9 Go, base 474 Mo). Troisième passe (base réelle) rendue le 25/11 à 15 h 53 : tables hors catalogue restaurées vides, décisions par famille, deux dossiers exclus, neutralisation complétée (Stripe désactivée) | Relecture de la troisième passe, puis diagnostic et import par Ced | Relecteurs, puis Ced |
 | A-07 Exposition de l'outil de staging | Fait le 20/11. Test depuis l'extérieur en IPv4 : le tableau de bord n'est pas joignable. Non vérifié : redirections, DMZ et pare-feu IPv6 dans l'administration de la box | Coup d'œil à la box quand possible ; retirer l'autorisation du port 7000 en profil public du pare-feu Windows | Ced |
 | Licences WooCommerce | Obtenues le 20/11 | Déposer les archives Subscriptions et Memberships dans le dossier des extensions premium de l'outil de staging, hors dépôt | Ced |
 | Staging Imagine existant | Arrêté par Hermès le 19/11, non supprimé ; la révocation du mot de passe applicatif dans WordPress n'est pas attestée | Ne pas le redémarrer ; le détruire quand le nouveau parcours est validé | Ced |
 | A-00 Couverture des extensions | **Clos le 21/11** : corrigé, arbitrages appliqués, vérifié au second tour | Branchement dans un lot ultérieur | — |
 | A-02 Audit | **Clos le 23/11** (script prouvé sur site fictif, classique et HPOS) | Audit réel dès que le staging d'Imagine est vérifié | Hermès |
-| A-03 à A-06 | En attente | Voir `A-FAIRE.md` | — |
+| A-03 Non-régression | **Clos le 25/11** (trois compléments vérifiés ; 1 012 tests rejoués par le vérificateur) | Rejeu sur le staging d'Imagine le jour venu | — |
+| A-04 Mise à jour | Rendu le 25/11, relu : **à corriger**, rien de bloquant (emplacement de la sauvegarde, fichier principal des extensions). Limite connue : montée 6.9.1 → 7.0 sur la pile commerciale non prouvable sur le banc | Corrections en tête de `A-FAIRE.md` | Hermès |
+| A-05 Nettoyage | Brief écrit le 25/11 : un outil qui exécute un plan, sans rien décider | En file après A-04 ; le plan du site réel sera rempli par Ced | Hermès, puis Ced |
+| A-06 Import des abonnés hors ligne | En attente de l'export Access | — | Imagine |
 
 ## B · Le thème
 

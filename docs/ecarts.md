@@ -31,3 +31,15 @@ Toute demande hors cahier des charges, toute contradiction interne au cahier des
 - Des exports et journaux dans `uploads/` (wpallexport, memberships_csv_exports, wc-logs…) : à exclure du staging, et à signaler à Imagine (fichiers d'abonnés stockés dans un dossier de médias).
 - Confirmé par Ced le 24/11 : il n'y a **qu'un seul site**, `kiosque.imagine-magazine.com` (éditorial, abonnements et boutique). Cette archive est donc tout l'existant.
 - Diagnostic du 25/11 : 16,9 Go de contenu, base de 474 Mo. Des tables `ahm_*` (WordPress Download Manager, extension désinstallée, tables restées), `matomo_*` depuis 2015, `fsmpt_email_logs` (journal des emails envoyés). À nettoyer au chantier A-05 et à signaler à Imagine.
+
+## 25 novembre 2026 — lots C-13, C-14, B-02
+
+- **C-13 · §3.13 contre le brief.** §3.13 dit qu'un compte « sans email » est « exclu de tous les envois » ; le brief dit qu'il figure dans la liste d'envoi postale. Résolu par le brief : exclu des envois par email seulement (même lecture que le 22/11). Sur la démonstration, A-SANSMAIL est exclu pour une autre raison : pas de paiement validé.
+- **C-13 · abonnements offerts et groupés.** Le raccord est livré et testé sur des liens fictifs ; les profils de C-09 n'ont pas ces liens. Limite des données de démonstration, plus du code. Le modèle des groupes (Teams ou liens de Memberships) reste à confirmer par Imagine : réglage fermé par défaut.
+- **C-13 · actif n'est pas expédié.** Un abonnement actif dans l'administration sans paiement validé n'entre pas dans la liste d'envoi. Règle maintenue ; les profils reçoivent des paiements fictifs déclarés (`briefs/C-09-complement-paiements-fictifs.md`).
+- **C-14 · référence du brief.** Le brief citait §3.11 (événements) ; les dispositions applicables à l'achat d'un numéro sont §3.7 (achat sans compte) et §3.9 (articles et PDF du numéro acquis, sans limite de durée). Erreur de brief, sans effet sur le code corrigé.
+- **C-14 · achat sans compte.** §3.7 prévoit l'achat papier sans compte, puis la création d'un compte ; le rattachement numérique après coup n'est pas décrit. Fermé par défaut, question pour Imagine (`decisions.md`).
+- **B-02 · référence du brief.** Le brief citait §3.10, qui traite des newsletters. Le cahier des charges ne détaille pas l'espace « Mon compte » au-delà de §3.7 : le minimum de cinq rubriques du brief fait foi, à confronter aux maquettes.
+- **B-02 · profil inexistant.** Le brief nommait `a-4x-j45` ; le profil « quatre fois » du catalogue est A-SEPA4. Erreur de brief.
+- **Diagnostic de l'archive (rappel pour A-05).** Le nettoyage du site réel se décidera sur un plan rempli par Ced après l'audit du staging ; l'outil ne retire rien d'office.
+
