@@ -1,8 +1,9 @@
 {
   "lot": "A-13",
-  "horodatage": "2026-11-25T23:35:17.868083+01:00",
-  "portee": "Paquet local du sous-agent ; PRET et reconstruction image réservés au parent.",
-  "nombre_fichiers": 12,
+  "horodatage": "2026-11-25T23:54:53.004966+00:00",
+  "status": "PRET",
+  "portee": "Reception integree locale avec preparation image parent reussie; aucun reel.",
+  "nombre_fichiers": 16,
   "fichiers": [
     {
       "chemin": "files/rapports/2026-11-25-23h34-A13.md",
@@ -10,9 +11,29 @@
       "sha256": "18a1f0ab41b9aee32cca060ae2a26d26bc460ecd5d924d68e0464d5b36447c57"
     },
     {
+      "chemin": "files/rapports/2026-11-26-reception-A10-A13.md",
+      "octets": 3014,
+      "sha256": "b9b1bdbdd27773ec87be31f4a79ef699d41fc22cfae0f9f99aaf959bd81138a8"
+    },
+    {
       "chemin": "production/A-13/LIVRAISON.md",
-      "octets": 3491,
-      "sha256": "146198cb881c35809e92e2a173cdb2c88ad4ff54daf110e3ba8874de82b2b41f"
+      "octets": 3810,
+      "sha256": "b457b4e095a3014cbbd5608c9f7113cdca0396dfd0ee152a84ec17f41d90d786"
+    },
+    {
+      "chemin": "production/A-13/reception-verification.json",
+      "octets": 2967,
+      "sha256": "6477488377352c4499bce66b5428bb029ba2dbbfecf1330b6b931a0cec365ca1"
+    },
+    {
+      "chemin": "production/A-13/reception-verification.tests.txt",
+      "octets": 4948,
+      "sha256": "1382495c37f610e2afec3c4d5d028b3506a8802ac77263ec3ecdc1d91c83b4cc"
+    },
+    {
+      "chemin": "production/A-13/reception.json",
+      "octets": 491,
+      "sha256": "53c3637e2db89ef346a3f5763ac72c93dced556248bad1380e37a972504c5f4d"
     },
     {
       "chemin": "production/A-13/verification.json",
@@ -64,5 +85,9 @@
       "octets": 4046,
       "sha256": "ab1a093580aa226a47ad95c86cd6f593db28aa857f704b801d019c71e9dce373"
     }
+  ],
+  "excluded_dynamic": [
+    "production/A-13/PRET",
+    "production/A-13/manifeste.json"
   ]
 }

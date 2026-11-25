@@ -65,6 +65,12 @@ require_once __DIR__ . '/CommandeAdmin.php';
 SansEmail::register();
 CommandeAdmin::register();
 
+require_once __DIR__ . '/JustificatifRegles.php';
+require_once __DIR__ . '/JustificatifsReglages.php';
+require_once __DIR__ . '/Justificatifs.php';
+JustificatifsReglages::register();
+Justificatifs::register();
+
 require_once __DIR__ . '/MonCompte.php';
 MonCompte::register();
 

@@ -404,4 +404,8 @@ foreach ($rows as $row) {
 }
 update_option('imagine_c09_fixture', $manifest);
 update_option('imagine_c09_seeded_at', $now->format('Y-m-d H:i:s'));
+if (is_file(__DIR__ . '/c17-profils.php') && class_exists(\Imagine\Site\Justificatifs::class)) {
+    require_once __DIR__ . '/c17-profils.php';
+    \Imagine\Demo\C17\profils(true);
+}
 echo wp_json_encode($manifest, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);

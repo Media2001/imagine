@@ -1,0 +1,11 @@
+{
+  "command": [
+    "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+    "-B",
+    "wp/tests/a10/test_readme_contract.py"
+  ],
+  "at_utc": "2026-11-25T23:54:53.004966+00:00",
+  "exit_code": 0,
+  "tests": 4,
+  "log_sha256": "56057bb1345f54224a46464a116832e066d42f6758deaa51168185f7fd0cbc67"
+}

@@ -2106,10 +2106,12 @@
     "production/A-08/dependances/wordpress-7.0.zip": "b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
     "production/A-08/dependances/woocommerce-11.0.1.zip": "da189b6616c610d15a2106f93151dab81b78f83e075bcefce221ac0d00b4fa21",
     "files/rapports/2026-11-25-22h02.md": "46fca6d5adf65452c99c04326662429ff06bea3c25547a46ab27d8aa8fac278a",
-    "corrections/A-08.md": "b32c7f7793f1db3ded147125ab0136e8dadaa4ac6be3d0888469dc2f2f7ee865"
+    "corrections/A-08.md": "b32c7f7793f1db3ded147125ab0136e8dadaa4ac6be3d0888469dc2f2f7ee865",
+    "production/A-08/intros-20261126/avant.md": "e398d7442dd9422e6b0ba7c8ff38b3fd4d6344e6597d9b8dae3f97d3b7e81829",
+    "production/A-08/intros-20261126/prose.diff": "557b175c8b8aed5862b2cb59e77ca9695cb06f95e9b35d6c247c6625d3a02c83",
+    "production/A-08/intros-20261126/verification.json": "eed6404df75b6c8194cae4ab141a073fd145daa5ef2b6510a68a2da3396fb1dd"
   },
   "technical_ready_only": true,
-  "ced_question_deferred": "III.6 : style des introductions de repetition.md, aucune décision réelle prise",
   "scope": "Chaîne fictive classique+HPOS ; idempotence métier, contrôles techniques natifs rafraîchissables ; deux rendez-vous opérateur.",
   "not_a_real_go": true,
   "documentation_addendum": {
@@ -2117,7 +2119,11 @@
     "only_prose_additions": true,
     "commands_unchanged": true,
     "before_sha256": "e398d7442dd9422e6b0ba7c8ff38b3fd4d6344e6597d9b8dae3f97d3b7e81829",
-    "after_sha256": "badf3ee4beb4d7c3a56859cc70b706ff7bdd988c7871d3ae51a69a247af681f1"
+    "after_sha256": "badf3ee4beb4d7c3a56859cc70b706ff7bdd988c7871d3ae51a69a247af681f1",
+    "bash_blocks_identical": true,
+    "original_lines_preserved": true
   },
-  "documentation_diff": "production/A-08/intros-20261126/prose.diff"
+  "documentation_diff": "production/A-08/intros-20261126/prose.diff",
+  "documentation_decision": "III.6 appliquée conformément à A-FAIRE consigne 1 ; aucun rejeu Docker demandé.",
+  "documentation_current_source_sha256": "badf3ee4beb4d7c3a56859cc70b706ff7bdd988c7871d3ae51a69a247af681f1"
 }

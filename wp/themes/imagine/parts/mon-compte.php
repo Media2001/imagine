@@ -62,6 +62,7 @@ $nomme = static fn (?string $value, string $placeholder): string => $value !== n
 <?php if (!$compte['abonnements']) : ?><p><a href="<?php echo esc_url(wc_get_account_endpoint_url('edit-address')); ?>"><?php esc_html_e('Gérer mes adresses WooCommerce', 'imagine'); ?></a></p><?php endif; ?>
 </section>
 <section id="imagine-compte-factures"><h2><?php esc_html_e('Mes factures et justificatifs', 'imagine'); ?></h2>
-<ul data-imagine-factures><li><?php esc_html_e('Aucune facture ou justificatif disponible — raccord documentaire non disponible.', 'imagine'); ?></li></ul>
+<ul data-imagine-factures><li><?php esc_html_e('Aucune facture disponible — raccord documentaire Odoo non disponible.', 'imagine'); ?></li></ul>
+<?php if (class_exists(\Imagine\Site\Justificatifs::class)) { \Imagine\Site\Justificatifs::compte(); } ?>
 <p><?php esc_html_e('Les commandes ne sont pas présentées comme des factures.', 'imagine'); ?> <a href="<?php echo esc_url(wc_get_account_endpoint_url('orders')); ?>"><?php esc_html_e('Voir mes commandes', 'imagine'); ?></a></p>
 </section></div>

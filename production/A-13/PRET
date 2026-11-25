@@ -1,0 +1,3 @@
+PRET
+Reception integree ; preuves synthetiques uniquement ; preparation image parent code 0.
+Controle : python -B production/A-10/verifier-reception.py

@@ -182,7 +182,7 @@ final class PdfNumero
             . esc_html__('Connexion', 'imagine-site') . '</a></aside>';
     }
 
-    private static function privateHeaders(): void
+    public static function privateHeaders(): void
     {
         nocache_headers();
         header('Cache-Control: private, no-store, no-cache, must-revalidate, max-age=0', true);

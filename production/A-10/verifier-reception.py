@@ -65,7 +65,8 @@ def main():
             require((REPO/relative).is_file() and digest(REPO/relative) == sha, lot+':MANIFEST_DRIFT:'+relative)
         require(payload.get('status', payload.get('verdict')) == 'PRET', lot+':STATUS_NOT_PRET')
         pret = (REPO/'production'/lot/'PRET').read_text(encoding='utf8').splitlines()[0]
-        require(pret.startswith('PRET'), lot+':PRET_MISSING')
+        expected_pret = 'PRET'+payload['run_id'] if lot == 'A-10' else ('PRET'+Path(payload['packet']).name if lot == 'A-11' else 'PRET')
+        require(pret == expected_pret, lot+':PRET_POINTER_INVALID')
         # Every current delivery file must be sealed; only self and non-circular verification are excluded.
         exclusions = set(payload.get('excluded_dynamic', []))
         for path in (REPO/'production'/lot).rglob('*'):
@@ -80,6 +81,13 @@ def main():
     a11_packet = manifests['A-11']['packet']
     a11_dirs = sorted(p.relative_to(REPO).as_posix() for p in (REPO/'production/A-11/preuves').iterdir() if p.is_dir())
     require(a11_dirs == [a11_packet], 'A11_NOT_ONE_FINAL_PACKET')
+    source11 = read(a11_packet+'/sources.json')
+    current11 = {p.relative_to(REPO).as_posix(): digest(p) for root in [REPO/'wp/tests/a11', REPO/'wp/outils/bascule/a11'] for p in root.rglob('*') if p.is_file() and '__pycache__' not in p.parts}
+    require(source11 == current11, 'A11_EXACT_SOURCE_INVENTORY_DRIFT')
+    runner11 = read(a11_packet+'/runner.json')
+    require(any(c['check'] == 'native' and c['status'] == 'PASS' for c in runner11['checks']), 'A11_NATIVE_MISSING')
+    missing11 = v.r.b.call(['inspect', runner11['container']], check=False)
+    require(missing11.returncode != 0 and re.search(r'no such (object|container)', missing11.stderr, re.I) is not None, 'A11_OWNED_RUNNER_NOT_ABSENT')
     a11 = execute(['wp/tests/a11/verifier.py', a11_packet])
     a12_dirs = sorted(p.name for p in (REPO/'production/A-12/preuves').iterdir() if p.is_dir())
     require(a12_dirs == ['final'], 'A12_NOT_ONE_FINAL_PACKET')

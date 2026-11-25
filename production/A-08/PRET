@@ -1,7 +1,7 @@
 {
   "lot": "A-08",
   "manifest": "production/A-08/manifeste.json",
-  "manifest_sha256": "d525b5a597108c160b1ee204901780dd7d95a2a1450a4db80b4092b8f7533353",
+  "manifest_sha256": "53e96a0e0e6f469e874accbee98f8cd7f240cbc3672cd7e9af46c8f58787663f",
   "scope": "Chaîne fictive classique+HPOS ; idempotence métier, contrôles techniques natifs rafraîchissables ; deux rendez-vous opérateur.",
   "technical_ready_only": true,
   "not_a_real_go": true,
