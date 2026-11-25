@@ -1,0 +1,16 @@
+{
+  "total": 4,
+  "checks": {
+    "numero_temoin_existe": false,
+    "vingt_articles_distincts": false,
+    "exactement_manifest": true,
+    "proprietaires_exacts": false
+  },
+  "failures": [
+    "numero_temoin_existe",
+    "vingt_articles_distincts",
+    "proprietaires_exacts"
+  ],
+  "ids": [],
+  "issue": 0
+}

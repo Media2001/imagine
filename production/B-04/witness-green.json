@@ -1,0 +1,33 @@
+{
+  "total": 4,
+  "checks": {
+    "numero_temoin_existe": true,
+    "vingt_articles_distincts": true,
+    "exactement_manifest": true,
+    "proprietaires_exacts": true
+  },
+  "failures": [],
+  "ids": [
+    2477,
+    2478,
+    2479,
+    2480,
+    2481,
+    2482,
+    2483,
+    2484,
+    2485,
+    2486,
+    2487,
+    2488,
+    2489,
+    2490,
+    2491,
+    2492,
+    2493,
+    2494,
+    2495,
+    2496
+  ],
+  "issue": 2476
+}
