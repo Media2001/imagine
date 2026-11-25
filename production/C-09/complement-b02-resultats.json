@@ -1,6 +1,6 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-25T17:55:20.744487+00:00",
+  "at": "2026-11-25T18:05:53.248605+00:00",
   "status": "TECHNIQUE_VERT_ACCEPTATION_PARTIELLE",
   "deployed_bytes": {
     "plugins/imagine-site/MonCompte.php": true,
@@ -152,30 +152,30 @@
   "postal_observations_added": 2,
   "closed_and_prior_lots_preserved": true,
   "snapshot_before": {
-    "users": "1088381ca5daa9f665efc1415d004b97fd56a3d2d282e7c4f9674bda51d04cef",
-    "posts": "04abb35d96d6b7abe4cffeeb5fe7fea02ff358971b9b43d8cddd0a8ece8ba30b",
-    "postmeta": "a4d3249dc5c24d649eb3ac796f6ffd6d32b794da6955175e4cf79a84f7083371",
-    "wc_orders": "b9b2d61c1c06a47d7c2854ad21531d7d7651af9557d5c139682ff19696aaa893",
+    "users": "a5a7d7483809350a216609796b6948657b139c080d1b57ecde563cfa00370ce7",
+    "posts": "3e64cb07e6a6c2a2b84b5c90bed5fc0faf82dc9087c9e313f23182ebca965131",
+    "postmeta": "bde50ac296e6537d8358865bde1c701b588c12073a841b008b225de2f380f530",
+    "wc_orders": "9c96a3e4e3ad4fb0189dbe9d0eac32472e96bc08497f296620a41a7490ce5345",
     "wc_order_addresses": "a95005c8c84e14edf4ddc29e4d4412fcc5ad898ab0e29c02f81ed928d0e8cfb1",
-    "wc_order_operational_data": "929b640115ed26b45e30796a8fd65846cd93f5ad3117a7812c00c55764570ee5",
-    "wc_orders_meta": "264268679ab5a02697bc85a12d41a0c402d9586a1ad540e3f042496620bad4b6",
-    "woocommerce_order_items": "849f4254d3b1d8672665358f2f00e83e8fd73a3a50bf6f4c870ddf4348323bb0",
-    "woocommerce_order_itemmeta": "c380fd6e086bb87a57f21ea07196f05c106af75bc9f448bada3f5e73720a01db",
-    "roles": "509d3de5a810397af7ef5e8cbc4b4271482fb22f0cddfd97bf4602cef6ed1358",
-    "options": "287d0692539de7b440ea8188ad8b9f5e43faae33474d415d133ecd84fa913f74"
+    "wc_order_operational_data": "9bb72aadfbed33f5e0dcb40a7052d8387e026842ddeea72ef1fbfdc281ae8805",
+    "wc_orders_meta": "13099afa23fc37a87555f56dd79c41b2019a6ad49fc8c05eb3156fe00152d214",
+    "woocommerce_order_items": "c06e853cf3c61cc74de036c5e4412f7471d416e5871a2ed26050ff32a8a08f74",
+    "woocommerce_order_itemmeta": "f569c597bfac29e9cc2130243aedcb33e8ad1d8a1028ddcbde447758b523bbfc",
+    "roles": "6db850a360241de6d8fb6cc98afa76bb0a4d5d15abbfbbc23b9a672ca5c6ee14",
+    "options": "aab850b4edf1b38dd69cbcc863efb0bcbb10b29039a46560f4884a0da7060d6f"
   },
   "snapshot_after": {
-    "users": "1088381ca5daa9f665efc1415d004b97fd56a3d2d282e7c4f9674bda51d04cef",
-    "posts": "04abb35d96d6b7abe4cffeeb5fe7fea02ff358971b9b43d8cddd0a8ece8ba30b",
-    "postmeta": "a4d3249dc5c24d649eb3ac796f6ffd6d32b794da6955175e4cf79a84f7083371",
-    "wc_orders": "b9b2d61c1c06a47d7c2854ad21531d7d7651af9557d5c139682ff19696aaa893",
+    "users": "a5a7d7483809350a216609796b6948657b139c080d1b57ecde563cfa00370ce7",
+    "posts": "3e64cb07e6a6c2a2b84b5c90bed5fc0faf82dc9087c9e313f23182ebca965131",
+    "postmeta": "bde50ac296e6537d8358865bde1c701b588c12073a841b008b225de2f380f530",
+    "wc_orders": "9c96a3e4e3ad4fb0189dbe9d0eac32472e96bc08497f296620a41a7490ce5345",
     "wc_order_addresses": "a95005c8c84e14edf4ddc29e4d4412fcc5ad898ab0e29c02f81ed928d0e8cfb1",
-    "wc_order_operational_data": "929b640115ed26b45e30796a8fd65846cd93f5ad3117a7812c00c55764570ee5",
-    "wc_orders_meta": "264268679ab5a02697bc85a12d41a0c402d9586a1ad540e3f042496620bad4b6",
-    "woocommerce_order_items": "849f4254d3b1d8672665358f2f00e83e8fd73a3a50bf6f4c870ddf4348323bb0",
-    "woocommerce_order_itemmeta": "c380fd6e086bb87a57f21ea07196f05c106af75bc9f448bada3f5e73720a01db",
-    "roles": "509d3de5a810397af7ef5e8cbc4b4271482fb22f0cddfd97bf4602cef6ed1358",
-    "options": "287d0692539de7b440ea8188ad8b9f5e43faae33474d415d133ecd84fa913f74"
+    "wc_order_operational_data": "9bb72aadfbed33f5e0dcb40a7052d8387e026842ddeea72ef1fbfdc281ae8805",
+    "wc_orders_meta": "13099afa23fc37a87555f56dd79c41b2019a6ad49fc8c05eb3156fe00152d214",
+    "woocommerce_order_items": "c06e853cf3c61cc74de036c5e4412f7471d416e5871a2ed26050ff32a8a08f74",
+    "woocommerce_order_itemmeta": "f569c597bfac29e9cc2130243aedcb33e8ad1d8a1028ddcbde447758b523bbfc",
+    "roles": "6db850a360241de6d8fb6cc98afa76bb0a4d5d15abbfbbc23b9a672ca5c6ee14",
+    "options": "aab850b4edf1b38dd69cbcc863efb0bcbb10b29039a46560f4884a0da7060d6f"
   },
   "acceptance_blockers": [
     "A-4x-J45 absent de C09 et du site ; aucun alias ni état 2/4 inventé.",

@@ -1,6 +1,6 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-25T17:56:14.842748+00:00",
+  "at": "2026-11-25T18:06:45.751654+00:00",
   "status": "TECHNIQUE_VERIFIE_ACCEPTATIONS_PARTIELLES",
   "categories": {
     "créé": [
@@ -43,7 +43,7 @@
   "tests": {
     "local": 7,
     "natif": 382,
-    "paiements": 147,
+    "paiements": 149,
     "securite": 10,
     "corrections": 41,
     "HTTP": 197,
@@ -52,7 +52,7 @@
   "strict_C13_exit": 2,
   "strict_B02_exit": 2,
   "secret_scan": {
-    "files_checked": 58,
+    "files_checked": 61,
     "matches": []
   },
   "ids_rejoues_identiques": true,
