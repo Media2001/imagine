@@ -146,7 +146,7 @@ def restore_and_verify(archive, request):
     normalized = SITE.parent / 'a01-validated.sql'
     if normalized.exists():
         normalized.unlink()
-    plan = validate_file(sql, legacy_importer, normalized)
+    plan = validate_file(sql, legacy_importer, normalized, decisions=request.get('decisions', {}))
     prefix = plan['prefix']
     command(['mariadb', '--socket=' + SOCKET, '--user=root', '-e', 'CREATE DATABASE ' + DB])
     with normalized.open('rb') as source:
@@ -186,7 +186,7 @@ def restore_and_verify(archive, request):
     (SITE / '.imagine-staging-offline').write_text('OFFLINE_COPY\n')
     context = {'environment': 'staging', 'isolated': True, 'restored': True, 'database': DB,
                'wp_path': str(SITE), 'target_url': target, 'production_hosts': [production.hostname],
-               'prefix': prefix, 'table_decisions': request.get('decisions', {})}
+               'prefix': prefix, 'table_decisions': plan['table_decisions']}
     Path('/scratch/a01-context.json').write_text(json.dumps(context))
     steps = []
     report = {'ok': False, 'issues': ['NOT_VERIFIED']}
@@ -206,6 +206,7 @@ def restore_and_verify(archive, request):
               'core_versions': core_versions, 'archive_report': archive_report,
               'manifest_settings_restored_readback': sorted(manifest_settings),
               'table_engines': engines,
+              'sql_policy': plan,
               'warnings': ([{'code': 'NON_INNODB_TABLE', 'table': table, 'engine': engine}
                            for table, engine in sorted(engines.items()) if engine != 'INNODB']
                            + plugin_warnings(SITE / 'wp-content', core_versions['source'], request.get('php_version', '8.2'))),

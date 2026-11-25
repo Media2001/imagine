@@ -6,7 +6,7 @@ DEFAULT_MAX_BYTES = 50 * 1024**3
 DEFAULT_MAX_ENTRIES = 2000000
 DEFAULT_MAX_SQL_BYTES = 8 * 1024**3
 CHUNK = 1024 * 1024
-EXCLUDE_UPLOADS = frozenset('wpallexport wpallimport memberships_csv_exports memberships_csv_imports wc-logs wpdesk-logs ur-logs matomo wpdm-cache woocommerce-logs gravity_forms_logs wpforms-logs fluentform-logs'.split())
+EXCLUDE_UPLOADS = frozenset('wpallexport wpallimport memberships_csv_exports memberships_csv_imports wc-logs wpdesk-logs ur-logs matomo wpdm-cache woocommerce-logs gravity_forms_logs wpforms-logs fluentform-logs memberships_profile_fields download-manager-files'.split())
 KEEP_UPLOADS = frozenset('woocommerce_uploads simple-file-list'.split())
 MEDIA = frozenset('pdf jpg jpeg png gif webp avif svg ico tif tiff bmp'.split())
 

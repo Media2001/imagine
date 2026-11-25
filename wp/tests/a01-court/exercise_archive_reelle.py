@@ -22,7 +22,7 @@ def main():
     name = 'imagine-a01-diag-test-' + uuid.uuid4().hex[:12]
     created = False
     result = {'status': 'FAIL', 'synthetic_only': True, 'created_sites': [], 'commands': []}
-    files = list(TOOLS.glob('*.py')) + list((ROOT / 'wp/tests/a01-court').glob('test_*.py'))
+    files = list(TOOLS.glob('*.py')) + [TOOLS / 'politique-tables.json'] + list((ROOT / 'wp/tests/a01-court').glob('test_*.py'))
     files += [Path(__file__), ROOT / 'wp/outils/staging/schema.php', ROOT / 'wp/outils/staging/lib.php',
               ROOT / 'wp/outils/staging/policy.php', ROOT / 'wp/outils/staging-wp-integration/worker/worker.py']
     stream = io.BytesIO()

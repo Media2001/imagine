@@ -3,6 +3,7 @@ import importlib.util
 import json
 from pathlib import Path
 import re
+import shutil
 from archive import Findings, Refusal, audit, secret_candidate, DEFAULT_MAX_BYTES, DEFAULT_MAX_ENTRIES, DEFAULT_MAX_SQL_BYTES
 from sql_diagnostic import SQLAnalysis
 from core_source import select_version, numeric, manifest_settings_values
@@ -217,6 +218,7 @@ def diagnose(stream, expected='6.9.1', decisions=None, php='8.2', max_bytes=DEFA
     tail, head, dangerous = b'', b'', False
     plugins = []
     sql_analysis = None
+    table_families, unclassified_tables = [], []
     def observe(relative, data, final):
         nonlocal tail, head, dangerous, sql_analysis, sql_count
         if relative == 'database.sql':
@@ -224,7 +226,10 @@ def diagnose(stream, expected='6.9.1', decisions=None, php='8.2', max_bytes=DEFA
                 sql_count += 1
                 sql_analysis = SQLAnalysis(findings, decisions)
             if final:
-                sql_analysis.finish(); sql_analysis = None
+                sql_analysis.finish()
+                table_families.extend(sql_analysis.table_summary)
+                unclassified_tables.extend(sql_analysis.unclassified)
+                sql_analysis = None
             else:
                 sql_analysis.feed(data)
             return
@@ -253,7 +258,11 @@ def diagnose(stream, expected='6.9.1', decisions=None, php='8.2', max_bytes=DEFA
         nonlocal version, manifest_count, sql_count
         if relative == 'database.sql':
             sql_count += 1
-            sql_diagnosis(payload, findings, decisions)
+            analysis = SQLAnalysis(findings, decisions)
+            analysis.feed(payload)
+            analysis.finish()
+            table_families.extend(analysis.table_summary)
+            unclassified_tables.extend(analysis.unclassified)
             return
         manifest_count += 1
         try:
@@ -292,6 +301,15 @@ def diagnose(stream, expected='6.9.1', decisions=None, php='8.2', max_bytes=DEFA
             if match and current and numeric(match[1]) > numeric(current):
                 findings.add(code, relative, blocking=False)
     report = findings.report(scan['report']['entries'], scan['report']['complete'])
+    grouped = {}
+    for row in table_families:
+        key = (row['family'], row['action'])
+        grouped[key] = grouped.get(key, 0) + row['count']
+    report['table_families'] = [{'family':k[0], 'action':k[1], 'count':v} for k,v in sorted(grouped.items())]
+    report['unclassified_tables'] = sorted(set(unclassified_tables))
+    report['table_policy_version'] = 1
+    report['disk_space'] = {'required_bytes':scan['report']['archive_bytes'] + scan['report']['total_bytes'] + 3 * scan['report']['database_bytes'] + 512 * 1024**2,
+                            'available_bytes':shutil.disk_usage(HERE).free, 'scope':'diagnostic_filesystem; engine checked again before restore'}
     for key in ('total_bytes', 'database_bytes', 'archive_bytes', 'excluded', 'inventory'):
         report[key] = scan['report'][key]
     report.update(mode='diagnose', core_versions={'source':version,'expected':expected if expected_valid else None}, read_only=True, created_sites=[], downloads=0, extracted_files=0,
@@ -306,8 +324,18 @@ def diagnose(stream, expected='6.9.1', decisions=None, php='8.2', max_bytes=DEFA
 def format_summary(report):
     lines = [f"{report['status']} | {report.get('entries', 0)} entrees | contenu {report.get('total_bytes', 0)} octets | base {report.get('database_bytes', 0)} octets"]
     for rule in report['rules']:
+        if rule['code'] in ('TABLE_STRUCTURE_SEULE', 'TABLE_DECISION_EXPLICITE'):
+            continue  # Replaced by the compact exact-count family summary below.
         zones = list(dict.fromkeys(str(loc.get('zone', loc.get('table', '(schema)'))) for loc in rule['locations']))[:5]
         lines.append(f"{rule['code']}: {rule['count']} | {'BLOQUANT' if rule['blocking'] else 'AVERTISSEMENT'} | " + ', '.join(zones))
+    families = report.get('table_families', [])
+    if families:
+        lines.append('Tables: ' + '; '.join(f"{r['family']} {r['count']} {r['action']}" for r in families))
+    if report.get('unclassified_tables'):
+        lines.append('Hors familles: ' + ', '.join(report['unclassified_tables']))
+    disk = report.get('disk_space')
+    if disk:
+        lines.append(f"Disque: necessaire {disk['required_bytes']} octets; disponible {disk['available_bytes']} octets (filesystem diagnostic, controle moteur avant restauration)")
     inventory = report.get('inventory', {})
     lines.append('Extensions: ' + ', '.join(inventory.get('plugins', [])))
     lines.append('Themes: ' + ', '.join(inventory.get('themes', [])))

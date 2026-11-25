@@ -1,6 +1,19 @@
 """Bounded SQL framing/validation; never resynchronise inside a literal."""
 import re
 from archive import Refusal
+from table_policy import Policy
+
+INSERT_HEAD = re.compile(rb"\s*(?:(?:--|\#)[^\n]*\n\s*)*INSERT\s+INTO\s+`([A-Za-z0-9_]+)`\s*", re.I)
+SKIP_MARK = re.compile(rb"['\"`\\;#/-]")
+HEX = re.compile(r"(?:0[xX][0-9a-fA-F]+|[xX]'(?:[0-9a-fA-F]{2})*')")
+BINARY = re.compile(r"_binary\s*('(?:[^'\\]|\\.|'')*')", re.I | re.S)
+
+
+def binary_hex(literal):
+    raw = literal[1:-1].encode('utf-8', 'surrogateescape').replace(b"''", b"'")
+    escapes = {b'0':b'\0', b'n':b'\n', b'r':b'\r', b't':b'\t', b'b':b'\b', b'Z':b'\x1a'}
+    raw = re.sub(rb'\\(.)', lambda m: escapes.get(m[1], m[1]) if m[1] not in (b'%', b'_') else b'\\'+m[1], raw, flags=re.S)
+    return '0x'+raw.hex() if raw else "X''"
 
 MAX_STATEMENT = 16 * 1024**2
 MARK = re.compile(rb"[;'\"`#]|--|/\*")
@@ -15,10 +28,52 @@ class Framer:
         self.buffer = b''
         self.position = 0
         self.peak = 0
+        self.owner = getattr(consume, '__self__', None)
+        self.skipping = False
+        self.quote = None
+        self.escape = False
+
+    def discard(self, data):
+        # Lexical framing only: no decoding, value grammar, scanning or retention.
+        at = 0
+        while at < len(data):
+            if self.escape:
+                self.escape = False
+                at += 1
+                continue
+            match = SKIP_MARK.search(data, at)
+            if match is None:
+                return b''
+            c = match.group()
+            at = match.end()
+            if self.quote:
+                if c == b'\\': self.escape = True
+                elif c == self.quote: self.quote = None
+            elif c in (b"'", b'"', b'`'):
+                self.quote = c
+            elif c == b';':
+                self.skipping = False
+                return data[at:]
+            elif c in (b'#', b'/', b'-'):
+                # Exported VALUES contain no SQL comments. Keep an ambiguous
+                # framing closed, rather than resynchronising inside a comment.
+                raise Refusal('SQL_INSERT_FRAMING')
+        return b''
 
     def feed(self, data):
+        if self.skipping:
+            data = self.discard(data)
         self.buffer += data
         while True:
+            head = INSERT_HEAD.match(self.buffer)
+            if head and self.owner and hasattr(self.owner, 'skip_insert') and self.owner.skip_insert(head[1].decode()):
+                self.skipping = True
+                self.quote = None
+                self.escape = False
+                self.buffer = self.discard(self.buffer[head.end():])
+                self.position = 0
+                if self.skipping: break
+                continue
             match = MARK.search(self.buffer, self.position)
             if match is None:
                 # Keep one byte for a delimiter split across feed boundaries.
@@ -62,7 +117,7 @@ class Framer:
     def finish(self):
         # Only whitespace/ordinary line comments may follow the final ';'.
         tail = re.sub(rb'(?:--|#)[^\n]*(?:\n|$)', b'', self.buffer)
-        if tail.strip():
+        if self.skipping or tail.strip():
             raise Refusal('SQL_TERMINATOR')
 
 
@@ -76,13 +131,31 @@ def canonical(tokens):
 
 class Validator:
     """Retain schema identifiers/DDL only, never rows or whole-dump tokens."""
-    def __init__(self, module, findings=None, sink=None):
+    def __init__(self, module, findings=None, sink=None, decisions=None):
         self.module, self.findings, self.sink = module, findings, sink
         self.schemas, self.engines, self.inserts = {}, {}, set()
         self.option_names = set()
         self.prefix = None
         self.transaction = False
         self.statements = self.bytes = 0
+        self.skipped_inserts = 0
+        from diagnosis import catalogue
+        self.policy = Policy(catalogue(), decisions)
+
+    def inferred_prefix(self, table):
+        if self.prefix: return self.prefix
+        for kind in sorted(self.policy.known, key=len, reverse=True):
+            if table.endswith('_' + kind): return table[:-len(kind)]
+        return None
+
+    def skip_insert(self, table):
+        if table not in self.schemas: return False
+        decision, _ = self.policy.resolve(table, self.inferred_prefix(table))
+        if decision.get('action') != 'vider': return False
+        self.inserts.add(table)
+        self.skipped_inserts += 1
+        self.statements += 1
+        return True
 
     def error(self, code, **schema):
         if self.findings is None:
@@ -91,12 +164,19 @@ class Validator:
 
     def statement(self, payload):
         self.bytes += len(payload); self.statements += 1
-        try:
-            text = payload.decode('utf-8', 'strict')
-        except UnicodeError:
-            self.error('SQL_ENCODING'); return
+        text = payload.decode('utf-8', 'surrogateescape')
         tokens, pos = [], 0
         while pos < len(text):
+            binary = BINARY.match(text, pos)
+            if binary:
+                tokens.append(('hex', binary_hex(binary[1])))
+                pos = binary.end()
+                continue
+            hexadecimal = HEX.match(text, pos)
+            if hexadecimal:
+                tokens.append(('hex', hexadecimal[0]))
+                pos = hexadecimal.end()
+                continue
             match = self.module.TOKEN.match(text, pos)
             if not match:
                 self.error('SQL_GRAMMAR')
@@ -104,7 +184,11 @@ class Validator:
                     self.findings.add('SQL_ANALYSIS_PARTIAL', blocking=False)
                 return
             if match.lastgroup not in ('space', 'comment') and match.group() != ';':
-                tokens.append((match.lastgroup, match.group()))
+                value = match.group()
+                if match.lastgroup == 'string' and any(0xDC80 <= ord(c) <= 0xDCFF for c in value):
+                    tokens.append(('hex', binary_hex(value)))
+                else:
+                    tokens.append((match.lastgroup, value))
             pos = match.end()
         if not tokens:
             return
@@ -119,7 +203,10 @@ class Validator:
                 self.sink.write(sql.encode())
             return
         try:
-            self.module.sql_plan(sql.encode(), table_engines={'INNODB', 'MYISAM', 'ARIA', 'MEMORY'})
+            # Legacy closed grammar validates statement structure using inert
+            # stand-ins only for the literal forms already lexed above.
+            checked = canonical([('string', "'BLOB'") if k == 'hex' else (k, v) for k, v in tokens])
+            self.module.sql_plan(checked.encode(), table_engines={'INNODB', 'MYISAM', 'ARIA', 'MEMORY'})
         except self.module.Refusal as exc:
             if str(exc) not in ('SQL_PREFIX', 'SQL_TABLE'):
                 table_at = 1 if values[0] == 'UPDATE' else 2
@@ -146,6 +233,8 @@ class Validator:
                     if kind == 'id': columns.append(value[1:-1])
                     beginning = False
             self.schemas[table] = columns
+            if table.endswith('_options'):
+                self.prefix = table[:-7]
             match = re.search(r'\bENGINE = ([A-Z0-9_]+)', sql)
             self.engines[table] = match[1] if match else None
         elif values[:2] == ['INSERT', 'INTO']:
@@ -173,12 +262,12 @@ class Validator:
                                 self.error('OPTION_DUPLIQUEE', table=table, columns=['option_name'])
                             self.option_names.add(key)
                     row = None
-                elif row is not None and kind in ('string', 'number', 'word'):
+                elif row is not None and kind in ('string', 'number', 'word', 'hex'):
                     row.append(value[1:-1].replace("''", "'") if kind == 'string' else value)
             if self.findings:
                 from diagnosis import DANGER
                 for kind, value in tokens:
-                    if kind == 'string' and DANGER.search(value.encode()):
+                    if kind == 'string' and DANGER.search(value.encode('utf-8', 'surrogateescape')):
                         self.findings.add('SOURCE_SECRET_NEUTRALISABLE', blocking=False, table=table, columns=active)
         if self.sink:
             self.sink.write(sql.encode())
@@ -192,14 +281,21 @@ class Validator:
             self.error('SQL_PREFIX')
         for table in self.inserts - self.schemas.keys():
             self.error('SQL_TABLE', table=table, columns=[])
-        return {'prefix': self.prefix, 'table_engines': self.engines, 'statements_count': self.statements}
+        decisions = {table: self.policy.resolve(table, self.prefix)[0] for table in self.schemas
+                     if (table[len(self.prefix):] if self.prefix else '') not in self.policy.known}
+        return {'prefix': self.prefix, 'table_engines': self.engines, 'statements_count': self.statements,
+                'table_decisions': decisions, 'skipped_inserts': self.skipped_inserts,
+                'table_policy_version': self.policy.data['version']}
 
 
-def validate_file(path, module, destination):
+def validate_file(path, module, destination, decisions=None):
     with open(path, 'rb') as source, open(destination, 'xb') as sink:
-        validator = Validator(module, sink=sink)
+        validator = Validator(module, sink=sink, decisions=decisions)
         framer = Framer(validator.statement)
         while data := source.read(1024 * 1024):
             framer.feed(data)
         framer.finish()
-        return validator.finish()
+        plan = validator.finish()
+        from sql_diagnostic import check_schema
+        check_schema(validator, None)
+        return plan
