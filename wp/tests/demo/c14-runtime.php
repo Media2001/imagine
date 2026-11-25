@@ -84,9 +84,14 @@ try {
     $checks['remboursement_sans_passerelle'] = !$refund->get_refunded_payment();
     $refund->delete(true);
     $checks['suppression_remboursement_relit_etat_natif'] = $allowed();
+    // Woo conserve un total_refunded en cache après delete() brut : utiliser une
+    // autre commande pour le témoin total, sans purger les caches du sujet.
+    $order->set_status('cancelled'); $order->save();
+    $order = $make($user); $order->set_status('processing');
+    $order->set_date_paid(time() - DAY_IN_SECONDS); $order->save();
     $refund = wc_create_refund(['order_id' => $order->get_id(), 'amount' => '10',
         'refund_payment' => false, 'restock_items' => false]);
-    if (is_wp_error($refund)) { throw new RuntimeException('Remboursement total C14 impossible.'); }
+    if (is_wp_error($refund)) { throw new RuntimeException('Remboursement total C14 impossible : ' . $refund->get_error_code() . ' ' . $refund->get_error_message()); }
     $ids['orders'][] = $refund->get_id();
     $checks['remboursement_total_revoque'] = $closed();
     $refund->delete(true);
@@ -118,11 +123,13 @@ try {
     $checks['autre_achat_valide_conserve_droit'] = $allowed();
     $second->delete(true);
     $checks['suppression_dernier_achat_valide_revoque'] = $closed();
-    $order = wc_get_order($order->get_id()); $order->set_status('processing'); $order->save();
+    $order = wc_get_order($order->get_id()); $order->set_status('processing');
+    $order->set_date_paid(time() - DAY_IN_SECONDS); $order->save();
     $checks['ordre_paye_apres_retrait_retabli'] = $allowed();
+    $deletedOrder = $order->get_id();
     $order->delete(false);
     $checks['mise_corbeille_commande_revoque'] = $closed();
-    $order = wc_get_order($ids['orders'][0]);
+    $order = wc_get_order($deletedOrder);
     if ($order) { $order->delete(true); }
     $checks['suppression_commande_definitive_revoque'] = $closed();
     $order = $make($user); $order->set_status('processing'); $order->set_date_paid(time() - DAY_IN_SECONDS); $order->save();

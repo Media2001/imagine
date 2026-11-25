@@ -62,7 +62,8 @@ final class AchatsNumeros
                 $acquired = $paid ? (new DateTimeImmutable('@' . $paid->getTimestamp()))->setTimezone(new DateTimeZone('UTC')) : null;
                 // Tout remboursement, même partiel/sans ventilation, retire la commande.
                 // Un autre achat valide du même numéro garde son propre droit.
-                $refunded = $order->get_refunds() !== [] || (float) $order->get_total_refunded() > 0;
+                $refunded = wc_get_orders(['type' => 'shop_order_refund', 'parent' => $order->get_id(),
+                    'limit' => 1, 'return' => 'ids']) !== [];
                 foreach ($order->get_items('line_item') as $item) {
                     $right = AchatNumero::droit($client, [
                         'client' => (int) $order->get_customer_id(), 'etat' => $order->get_status('edit'),
