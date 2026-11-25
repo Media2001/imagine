@@ -265,7 +265,8 @@ foreach ($rows as $row) {
         $sub->remove_order_items();
         $sub->add_product($product, 1, ['subtotal' => $fixtureAmount, 'total' => $fixtureAmount]);
         $sub->calculate_totals(false);
-        $start = $paidInitial ? $date($key === 'A-SEPA4' ? '-180 days' : '-90 days') : $date('-335 days');
+        $start = $paidInitial && !in_array($key, ['A-ECHEANCE', 'A-NONRENOUV'], true)
+            ? $date($key === 'A-SEPA4' ? '-180 days' : '-90 days') : $date('-335 days');
         $end = $date('+365 days');
         $next = $date('+30 days');
         if ($key === 'A-ECHEANCE') { $end = $date('+30 days'); $next = $date('+29 days'); }
@@ -363,8 +364,9 @@ foreach ($manifest['subscriptions'] as $key => $id) {
 // relire la commande parente pendant le seed. Aucun payment_complete()/transport.
 foreach (['A-CARTE', 'A-PAYPAL', 'A-ETRANGER', 'A-SANSMAIL', 'A-ECHEANCE', 'A-NONRENOUV', 'A-SEPA4', 'A-PAPIER'] as $key) {
     $paid = wc_get_order($manifest['orders'][$key]);
-    $paid->set_date_created($now->modify($key === 'A-SEPA4' ? '-180 days' : '-90 days')->getTimestamp());
-    $paid->set_date_paid($now->modify($key === 'A-SEPA4' ? '-180 days' : '-90 days')->getTimestamp());
+    $initialAt = wcs_get_subscription($manifest['subscriptions'][$key])->get_time('start');
+    $paid->set_date_created($initialAt);
+    $paid->set_date_paid($initialAt);
     $paid->save();
 }
 // Marque lisible de chaque objet/ligne de cette fixture ; ne donne aucun droit.

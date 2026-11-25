@@ -80,6 +80,10 @@ foreach ([...array_values($f['orders']), ...array_values($f['renewals'])] as $id
     }
     $checks['commande_' . $id . ':marques'] = $ok;
 }
+foreach (['A-ECHEANCE', 'A-NONRENOUV'] as $key) {
+    $s = wcs_get_subscription($f['subscriptions'][$key]);
+    $checks[$key . ':annee_native_preservee'] = $s->get_time('end') - $s->get_time('start') === 365 * DAY_IN_SECONDS;
+}
 $postal = \Imagine\Site\EnvoiNatif::apercu('DEMO-2027-T1');
 $checks['A-SANSMAIL:inclusion_postale'] = in_array((string) $f['subscriptions']['A-SANSMAIL'], array_column($postal['liste']->lignes, 'abonnement_id'), true);
 $failures = array_keys(array_filter($checks, static fn ($v) => !$v));

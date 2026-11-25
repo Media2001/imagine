@@ -1,0 +1,60 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-25T17:56:14.842748+00:00",
+  "status": "TECHNIQUE_VERIFIE_ACCEPTATIONS_PARTIELLES",
+  "categories": {
+    "créé": [
+      "V-ANON",
+      "V-FAUX",
+      "V-DEC",
+      "V-DEC-FIN",
+      "A-GRACE",
+      "A-SUSP",
+      "A-EXPIRE",
+      "P-NUMERO",
+      "E-ADMIN"
+    ],
+    "partiel": [
+      "V-INSCRIT",
+      "A-CARTE",
+      "A-SEPA4",
+      "A-PAYPAL",
+      "A-VIR",
+      "A-PAPIER",
+      "A-NONRENOUV",
+      "A-ETRANGER",
+      "A-SANSMAIL",
+      "A-ECHEANCE",
+      "P-OFFRANT",
+      "P-OFFERT",
+      "P-GEST",
+      "P-BENEF",
+      "P-PRO",
+      "P-SOL-ATT",
+      "P-SOL-OK",
+      "P-COOP",
+      "E-REDAC",
+      "E-ABO"
+    ],
+    "impossible": [
+      "V-ROBOT"
+    ]
+  },
+  "tests": {
+    "local": 7,
+    "natif": 382,
+    "paiements": 147,
+    "securite": 10,
+    "corrections": 41,
+    "HTTP": 197,
+    "C08": 30
+  },
+  "strict_C13_exit": 2,
+  "strict_B02_exit": 2,
+  "secret_scan": {
+    "files_checked": 58,
+    "matches": []
+  },
+  "ids_rejoues_identiques": true,
+  "B00_C08_preserves": true
+}
