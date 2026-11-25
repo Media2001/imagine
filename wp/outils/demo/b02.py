@@ -85,8 +85,7 @@ def run(deploy=False, http=True):
         'Marge C05 non renseignée : quatre positions nommées A-SEPA4, aucune date théorique inventée.',
         'Historique activation C01 et factures/justificatifs non raccordés : emplacements nommés.',
         'Aucune échéance failed native sur les profils demandés : branche de paiement échoué non prouvée par HTTP, aucun rejet fabriqué.',
-        'A-CARTE sans paiement validé : adresse/source postale prouvée, inclusion positive dans un vrai export C07 non attestée.',
-        'Corrections C13/C14 présentes au contrôle final : hors délégation B02, signalées au parent sans réouverture de leurs sources.'
+        'A-CARTE sans paiement validé : adresse/source postale prouvée, inclusion positive dans un vrai export C07 non attestée.'
     ]
     checks = {k + ':' + key: value for k, group in result.items() if k in ['deployed_bytes', 'b02-runtime.php', 'b02-state.php', 'http'] for key, value in group.items()}
     checks.update({k: result[k] for k in ['native_snapshot_preserved', 'closed_and_prior_lots_preserved', 'postal_journal_append_only']})

@@ -1,5 +1,5 @@
 Fait : corrections C13 appliquées au raccord natif : bénéficiaires, renouvellements C01, gel persistant, logique pure et libellés.
-Prêt à relire : avec réserves d’acceptation C09 seulement ; ni recette complète, ni validation visuelle, ni clôture. PRET relève exclusivement du parent, sans création/modification par ce worker.
+Prêt à relire : corrections techniques rejouées par le parent et PRET redéposé, avec réserves d’acceptation C09 ; ni recette complète, ni validation visuelle, ni clôture.
 À valider par Ced : coexistence visuelle des menus C10/C13 ; aucune question technique n’attend Ced.
 Bloqué : acceptation nominative C09 : 12/12 souscriptions sans paiement validé, 0 destinataire, A-SANSMAIL exclu ; liens offert/groupe C09 absents.
 Ensuite : rejeu indépendant du parent ; aucun changement de C09, C14, B02 ou bibliothèque close.

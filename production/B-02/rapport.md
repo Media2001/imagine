@@ -4,7 +4,7 @@
 2. **Prêt à relire** : squelette technique inspectable, 144/144 contrôles techniques. **Aucun PRET**, conformément à la délégation.
 3. **À valider** : visuel par Ced ; manque nominatif C09 et données non raccordées explicités ci-dessous.
 4. **Bloqué** : réception complète A-4x-J45 / quatre échéances payées-à-venir et action après rejet non prouvables avec les objets actuellement disponibles sans inventer des états de paiement.
-5. **Ensuite** : vérification indépendante du parent, sans réouverture de C13/C14 par ce lot.
+5. **Ensuite** : vérification indépendante du parent effectuée : 144 contrôles techniques verts, code strict 2 maintenu. Corrections C13/C14 traitées séparément ; réception B02 nominative toujours partielle.
 
 ## Résultat réel
 
