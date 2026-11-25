@@ -117,10 +117,16 @@ final class Runtime
                 $migrations[] = 'wp core update-db; db_version=' . $wp_db_version;
             } elseif ($component === 'woocommerce') {
                 if ($mode === 'migrate') {
+                    $pending = as_get_scheduled_actions(['hook' => 'woocommerce_run_update_callback',
+                        'group' => 'woocommerce-db-updates', 'status' => 'pending', 'per_page' => 1], 'ids');
+                    if (\WC_Install::needs_db_update() && !$pending) {
+                        \WC_Install::run_manual_database_update();
+                        self::trace(['component' => $component, 'stage' => 'native_migrations_enqueued']);
+                    }
                     $migrations = self::wooMigrations();
                 }
                 self::need(version_compare((string) get_option('woocommerce_db_version'), WC()->version, '>='), 'A04_WC_DB');
-                $migrations[] = 'wp wc update; woocommerce_db_version=' . get_option('woocommerce_db_version');
+                $migrations[] = 'woocommerce_db_version=' . get_option('woocommerce_db_version');
             } elseif ($component === 'woocommerce-subscriptions') {
                 self::need(class_exists('WC_Subscriptions_Upgrader'), 'A04_SUBSCRIPTIONS_UPGRADER');
                 if ($mode === 'migrate' && (string) get_option(\WC_Subscriptions::PLUGIN_VERSION_OPTION_NAME) !== \WC_Subscriptions::$version) {
@@ -139,7 +145,7 @@ final class Runtime
                 }
                 self::need((string) get_option('wc_memberships_version') === wc_memberships()->get_version(), 'A04_MEMBERSHIPS_DB');
             }
-            // Native Woo CLI drains its own callbacks synchronously. Other pending
+            // Only the exact native Woo queue is drained above. Other pending
             // migration work must never be mistaken for completion or run as a global queue.
             $rows = $wpdb->get_results("SELECT action_id,hook,status FROM {$wpdb->prefix}actionscheduler_actions
                 WHERE status IN ('pending','in-progress','failed') ORDER BY action_id", ARRAY_A);

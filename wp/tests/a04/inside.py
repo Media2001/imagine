@@ -44,6 +44,13 @@ def run_storage(storage):
     try:site,db,seed,config,settings=a03.install(storage)
     finally:shutil.copytree=original
     a03.wp(site,['eval',"require_once WC_ABSPATH . 'includes/admin/wc-admin-functions.php'; wc_memberships()->get_lifecycle_handler()->init(); WC_Subscriptions_Upgrader::upgrade();"])
+    rest=site/'wp-content/plugins/a04-rest/a04-rest.php';rest.parent.mkdir()
+    rest_source='<?php\n/*\nPlugin Name: Fiction A04 files only\nVersion: 1.0.0\nRequires PHP: 8.2\nRequires at least: 7.0\n*/\n'
+    rest.write_text(rest_source);a03.wp(site,['plugin','activate','a04-rest'])
+    rest_zip=ROOT/(storage+'-rest.zip')
+    with zipfile.ZipFile(rest_zip,'w') as z:z.writestr('a04-rest/a04-rest.php',rest_source.replace('Version: 1.0.0','Version: 2.0.0'))
+    old_file=site/'wp-content/plugins/woocommerce/a04-old-file-kept.txt';old_file.write_text('Fiction A04 preserve unlisted file')
+    themes_before=a03.filemap(site/'wp-content/themes')
     check(storage+':baseline_versions',bool(seed['versions']),seed['versions'])
     server=subprocess.Popen(['php','-d','log_errors=0','-d','display_errors=0','-S','127.0.0.1:18803','-t',str(site)],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
     time.sleep(.5)
@@ -58,7 +65,7 @@ def run_storage(storage):
         sql=backup_dir/'database.sql'
         exported=a03.cmd(['mariadb-dump','--socket=/scratch/mariadb.sock','-uroot','--single-transaction',db]);sql.write_text(exported.stdout)
         files=backup_dir/'content.tar'
-        with tarfile.open(files,'w') as tar:tar.add(site/'wp-content',arcname='wp-content')
+        with tarfile.open(files,'w') as tar:tar.add(site,arcname='site')
         backup=ROOT/(storage+'-backup.json')
         backup_doc={'site':str(site),'created_at':int(time.time()),'database':{'path':str(sql),'sha256':sha(sql)},'files':{'path':str(files),'sha256':sha(files)}};write(backup,backup_doc)
         versions=seed['versions'];target_core=package_version('/opt/compatible-public/wordpress.zip','wordpress/wp-includes/version.php',True)
@@ -66,7 +73,8 @@ def run_storage(storage):
         keys=['core','woocommerce','woocommerce-subscriptions','woocommerce-memberships'];before=[versions['wordpress'],versions['woocommerce'],versions['subscriptions'],versions['memberships']]
         after=[target_core,target_wc,versions['subscriptions'],versions['memberships']]
         archives=['/opt/compatible-public/wordpress.zip','/opt/compatible-public/woocommerce.zip','/opt/a03/woocommerce-subscriptions.zip','/opt/a03/woocommerce-memberships.zip']
-        steps=[{'component':k,'before':v,'after':t,'archive':p,'sha256':sha(p),'adapter':k,'hooks':[]} for k,v,t,p in zip(keys,before,after,archives)]
+        keys.append('a04-rest');before.append('1.0.0');after.append('2.0.0');archives.append(str(rest_zip))
+        steps=[{'component':k,'before':v,'after':t,'archive':p,'sha256':sha(p),'adapter':k if k in keys[:4] else 'bootstrap-only','hooks':[]} for k,v,t,p in zip(keys,before,after,archives)]
         plan=ROOT/(storage+'-plan.json');write(plan,{'schema':'imagine-a04-v1','site_status':'verified-staging','steps':steps})
         # Prove guards before the first update, with actual filesystem readbacks.
         denied=update(site,plan,backup,ROOT/(storage+'-no-maintenance'))
@@ -180,6 +188,11 @@ def run_storage(storage):
         p=a03.snapshot(site,settings,OUT/(storage+'-production-roundtrip'))
         after_prod=a03.cmd(['php','/subject/comparer',str(OUT/(storage+'-after/non-regression.json')),str(OUT/(storage+'-production-roundtrip/non-regression.json'))],check=False)
         check(storage+':production_roundtrip_no_business_change',p.returncode==0 and after_prod.returncode==0)
+        check(storage+':remaining_file_only_plugin_updated_last',current['steps']['a04-rest']['phase']=='verified' and 'Version: 2.0.0' in rest.read_text())
+        check(storage+':themes_untouched_and_no_cleanup',themes_before==a03.filemap(site/'wp-content/themes') and old_file.read_text()=='Fiction A04 preserve unlisted file')
+        trace=[json.loads(line) for line in (state/'migrations.jsonl').read_text().splitlines()]
+        names=[row['callback'] for row in trace if row.get('stage')=='complete' and row.get('callback','').startswith('wc_update_')]
+        check(storage+':native_callbacks_not_double_executed',bool(names) and len(names)==len(set(names)),names)
     finally:
         server.terminate();server.wait(timeout=15)
 def legacy_compatibility():

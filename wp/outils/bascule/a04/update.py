@@ -67,7 +67,7 @@ def validate_plan(plan):
         require(isinstance(key, str) and re.fullmatch('[a-z0-9][a-z0-9-]{0,99}', key), 'A04_COMPONENT')
         require(numeric(step['after']) >= numeric(step['before']), 'A04_DOWNGRADE')
         require(step['adapter'] == (key if i < 4 else 'bootstrap-only'), 'A04_ADAPTER')
-        require(isinstance(step['hooks'], list) and len(set(step['hooks'])) == len(step['hooks']) and all(h in HOOKS for h in step['hooks']), 'A04_HOOK')
+        require(step['hooks'] == [], 'A04_HOOK')
         require(isinstance(step['archive'], str) and pathlib.Path(step['archive']).is_absolute(), 'A04_PACKAGE')
         require(isinstance(step['sha256'], str) and re.fullmatch('[a-f0-9]{64}', step['sha256']), 'A04_PACKAGE')
     require(steps[0]['after'].startswith('7.0.'), 'A04_CORE_TARGET')
@@ -296,13 +296,8 @@ def execute(args):
                         while True: time.sleep(1)
                     return 75
                 row['phase'] = 'migrating'; save()
-                callbacks = []
                 if key == 'core': run_wp(site,['core','update-db'])
-                if key == 'woocommerce':
-                    native = run_wp(site,['wc','update'])
-                    callbacks = sorted(set(re.findall(r'\bwc_update_[0-9][A-Za-z0-9_]*\b', native.stdout)))
                 migrated = worker(site,step,'migrate',safe_path(state_dir,'migrations.jsonl'),target_env)
-                migrated['migrations'] = callbacks + migrated.get('migrations', [])
                 refresh_maintenance(site)
                 worker(site,step,'verify',safe_path(state_dir,'migrations.jsonl'),target_env)
                 require(version(site,key) == step['after'],'A04_TARGET_VERSION')

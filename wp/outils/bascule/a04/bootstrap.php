@@ -18,7 +18,9 @@ unset($imagineA04Site);
 add_filter('pre_wp_mail', static fn(): bool => false, PHP_INT_MAX);
 add_filter('pre_http_request', static fn() => new \WP_Error('imagine_a04_offline', 'Sortie bloquée pendant la bascule.'), PHP_INT_MAX);
 add_filter('woocommerce_available_payment_gateways', static fn(): array => [], PHP_INT_MAX);
-add_filter('woocommerce_subscriptions_is_duplicate_site', static fn(): bool => true, PHP_INT_MAX);
+add_filter('woocommerce_subscriptions_is_duplicate_site', static fn (): bool => true, PHP_INT_MAX);
+// Keep Woo migrations inside its own explicit, journalled stage.
+add_filter('woocommerce_enable_auto_update_db', static fn (): bool => false, PHP_INT_MAX);
 add_filter('action_scheduler_allow_async_request_runner', static fn(): bool => false, PHP_INT_MAX);
 add_filter('pre_get_ready_cron_jobs', static fn(): array => [], PHP_INT_MAX);
 add_filter('pre_schedule_event', static fn(): bool => false, PHP_INT_MAX);
