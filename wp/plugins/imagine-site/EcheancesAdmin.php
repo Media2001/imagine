@@ -106,12 +106,12 @@ final class EcheancesAdmin
             wp_die(self::t('Commande invalide.'), '', ['response' => 400]);
         }
         self::requete(self::RECU . ':' . $id);
-        try {
-            $order = EcheancesNatives::virement((int) $id);
-        } catch (\Throwable) {
-            wp_die(self::t('Opération refusée : virement natif impayé requis.'), '', ['response' => 409]);
-        }
         if (($_POST['confirmer'] ?? '') !== 'oui') {
+            try {
+                $order = EcheancesNatives::virement((int) $id);
+            } catch (\Throwable) {
+                wp_die(self::t('Opération refusée : virement natif impayé requis.'), '', ['response' => 409]);
+            }
             nocache_headers();
             ob_start();
             echo '<h1>' . esc_html(self::t('Confirmer le paiement reçu')) . '</h1><p>'
@@ -127,8 +127,19 @@ final class EcheancesAdmin
         add_filter('pre_wp_mail', $noMail, PHP_INT_MAX);
         add_filter('pre_http_request', $noHttp, PHP_INT_MAX);
         add_filter('woocommerce_defer_transactional_emails', '__return_false', PHP_INT_MAX);
+        global $wpdb;
+        // Verrou consultatif de la connexion MySQL : aucun registre ni bail persistant.
+        // Le nom sépare base, site et commande et reste sous les 64 octets natifs.
+        $lock = 'imagine_c15_' . substr(hash('sha256', DB_NAME . ':' . $wpdb->prefix . ':' . $id), 0, 48);
+        $locked = false;
         $ok = false;
         try {
+            $locked = (string) $wpdb->get_var($wpdb->prepare('SELECT GET_LOCK(%s, 5)', $lock)) === '1';
+            if (!$locked) {
+                throw new \RuntimeException('Commande déjà en cours de validation.');
+            }
+            // Aucun objet chargé avant le verrou dans ce parcours confirmé.
+            $order = EcheancesNatives::virement((int) $id);
             $order->payment_complete();
             $fresh = wc_get_order((int) $id);
             if ($fresh && $fresh->is_paid() && $fresh->get_date_paid()) {
@@ -143,6 +154,9 @@ final class EcheancesAdmin
             remove_filter('pre_wp_mail', $noMail, PHP_INT_MAX);
             remove_filter('pre_http_request', $noHttp, PHP_INT_MAX);
             remove_filter('woocommerce_defer_transactional_emails', '__return_false', PHP_INT_MAX);
+            if ($locked && (string) $wpdb->get_var($wpdb->prepare('SELECT RELEASE_LOCK(%s)', $lock)) !== '1') {
+                $ok = false;
+            }
         }
         if (!$ok) {
             wp_die(self::t('Résultat incomplet : relire la commande native et ses notes avant toute nouvelle action.'), '', ['response' => 409]);

@@ -1,0 +1,28 @@
+{
+  "checks": {
+    "two_simultaneous_one_success_one_refusal": false,
+    "single_C15_audit_note": false,
+    "native_paid_no_gateway_no_transaction": true,
+    "temporary_MU_removed": true,
+    "owned_all_dates_restored": true,
+    "catalogue_semantic_exact": true
+  },
+  "total": 6,
+  "failures": [
+    "two_simultaneous_one_success_one_refusal",
+    "single_C15_audit_note"
+  ],
+  "responses": [
+    {
+      "status": 200,
+      "elapsed": 2.586,
+      "success": true
+    },
+    {
+      "status": 200,
+      "elapsed": 2.553,
+      "success": true
+    }
+  ],
+  "global_C09_reset": false
+}

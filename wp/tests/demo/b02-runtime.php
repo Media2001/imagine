@@ -50,7 +50,19 @@ foreach (['A-CARTE', 'A-SEPA4', 'A-SUSP', 'P-NUMERO', 'V-INSCRIT'] as $who) {
     if ($who === 'A-SEPA4') {
         $checks['quatre_positions_meme_sans_marge'] = count($v['abonnements'][0]['echeances']) === 4;
         $checks['marge_manquante_sans_dates_inventees'] = count(array_filter($v['abonnements'][0]['echeances'], static fn ($e) => $e['date'] === null)) === 4;
-        $checks['premiere_payee_autres_non_raccordees'] = substr_count($html, '>Payée<') === 1;
+        $states = array_column($v['abonnements'][0]['echeances'], 'etat');
+        $checks['deux_payees_deux_a_venir_modele'] = $states === ['Payée', 'Payée', 'À venir', 'À venir'];
+        $checks['deux_payees_deux_a_venir_rendu'] = substr_count($html, '>Payée<') === count(array_filter($states, static fn ($s) => $s === 'Payée'))
+            && substr_count($html, '>À venir<') === 2;
+        $known = array_values(array_filter($v['abonnements'][0]['echeances'], static fn ($e) => ($e['commande'] ?? null) !== null));
+        $checks['reglements_identifiants_montants_propres'] = count($known) === 2;
+        foreach ($known as $entry) {
+            $native = wc_get_order($entry['commande']);
+            $checks['reglements_identifiants_montants_propres'] = $checks['reglements_identifiants_montants_propres']
+                && (int) $native->get_customer_id() === $v['user'] && $entry['montant'] === $native->get_total()
+                && $entry['devise'] === $native->get_currency();
+        }
+        $checks['lecture_rejouee_sans_double_compte'] = MonCompte::donnees()['abonnements'][0]['echeances'] === $v['abonnements'][0]['echeances'];
         $checks['deux_paiements_natifs_C09'] = wcs_get_subscription($f['subscriptions'][$who])->get_payment_count() === 2;
     }
     if ($who === 'A-SUSP') {
@@ -67,5 +79,5 @@ wp_set_current_user(0);
 $checks['anonyme_modele_vide'] = MonCompte::donnees() === [];
 ob_start(); MonCompte::afficher(); $html = ob_get_clean();
 $checks['anonyme_pas_de_coordonnees'] = $html === '';
-$checks['A_4x_J45_absent_pas_de_profil_fabrique'] = !get_user_by('login', 'a-4x-j45');
+$checks['profil_reception_A_SEPA4_natif'] = isset($f['subscriptions']['A-SEPA4']) && (bool) get_user_by('login', 'a-sepa4');
 echo wp_json_encode($checks, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);

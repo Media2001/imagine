@@ -4,7 +4,7 @@ declare(strict_types=1);
 use Imagine\Site\MonCompte;
 $f = get_option('imagine_c09_fixture');
 $checks = [];
-foreach (['A-VIR' => 'Virement en attente de validation', 'A-EXPIRE' => 'Expiré', 'A-NONRENOUV' => 'Actif'] as $who => $expected) {
+foreach (['A-VIR' => 'Suspendu', 'A-EXPIRE' => 'Expiré', 'A-NONRENOUV' => 'Actif'] as $who => $expected) {
     $sub = wcs_get_subscription($f['subscriptions'][$who]);
     $checks[$who . '_etat_natif_clair'] = MonCompte::etat($sub) === $expected;
 }
@@ -20,16 +20,11 @@ $outside = true;
 foreach ($GLOBALS['wp_filter']['woocommerce_after_subscription_object_save']->callbacks as $callbacks) {
     foreach ($callbacks as $cb) {
         if ($cb['function'] instanceof Closure && basename((new ReflectionFunction($cb['function']))->getFileName()) === 'MonCompte.php') {
-            try {
-                // Objet natif non persisté : hors formulaire B02, notre callback ne doit rien observer.
-                ($cb['function'])(new WC_Subscription());
-            } catch (Throwable) {
-                $outside = false;
-            }
+            $outside = false;
         }
     }
 }
-$checks['raccord_postal_hors_formulaire_sans_effet'] = $outside;
+$checks['aucun_hook_postal_redondant_MonCompte'] = $outside;
 $failed = 0;
 foreach (['A-CARTE', 'A-SEPA4', 'A-SUSP'] as $who) {
     $sub = wcs_get_subscription($f['subscriptions'][$who]);

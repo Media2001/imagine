@@ -185,6 +185,9 @@ final class MonCompteRegles
                 ? 'Virement en attente de validation' : 'Paiement en attente de validation';
         }
         if ($status === 'on-hold') {
+            if (($data['memberships_available'] ?? true) === false) {
+                return 'Suspendu';
+            }
             if (($data['method'] ?? '') === 'bacs' && ($data['membership_pending'] ?? false)) {
                 return 'Virement en attente de validation';
             }

@@ -1,0 +1,20 @@
+{
+  "command": [
+    "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+    "C:\\Users\\Ced\\imagine\\wp\\tests\\a10\\verifier.py",
+    "production/A-10/preuves/eaeb5368fbca"
+  ],
+  "exit_code": 0,
+  "at_utc": "2026-11-25T20:47:15.552320+00:00",
+  "result": {
+    "evidence": "production/A-10/preuves/eaeb5368fbca",
+    "exit_code": 0,
+    "unit_assertions": 6,
+    "native_assertions": 97,
+    "runner_assertions": 7,
+    "source_files": 14,
+    "a02_original_bytes_preserved": true,
+    "cleanup_verified": true
+  },
+  "stderr": ""
+}

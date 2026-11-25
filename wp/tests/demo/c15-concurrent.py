@@ -63,8 +63,10 @@ def verify(label):
         c15.save(label+'-native',{'responses':responses,'note_delta':len(after_notes)-len(prior),'state':state})
     finally:
         if installed:
-            deleted=c15.wp('$p=WP_CONTENT_DIR.'+json.dumps('/'+target)+';if(!is_file($p)||hash_file("sha256",$p)!=='+json.dumps(digest)+')throw new RuntimeException("Witness ownership mismatch");unlink($p);echo wp_json_encode(!file_exists($p));')
-            checks['temporary_MU_removed']=deleted is True
+            import subprocess
+            cleanup = 'from pathlib import Path; import hashlib; p=Path("/app/sites/imagine-test-demo/wp-content/mu-plugins/imagine-c15-concurrent-witness.php"); assert hashlib.sha256(p.read_bytes()).hexdigest()=='+repr(digest)+'; p.unlink(); print(not p.exists())'
+            p=subprocess.run(['wsl.exe','docker','exec','-i','staging-wp-dashboard','python'],input=cleanup,capture_output=True,text=True,check=True)
+            checks['temporary_MU_removed']=p.stdout.strip()=='True' and c15.wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR.'+json.dumps('/'+target)+'));') is True
         w.restore(before)
         checks['owned_all_dates_restored']=w.snapshot()==before
         checks['catalogue_semantic_exact']=c15.load_test('c15-action').snapshot()==broad

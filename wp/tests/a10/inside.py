@@ -99,8 +99,6 @@ def run_storage(storage):
     b.check(storage+':guard:canonical_repository',guarded.returncode==1 and guarded.stderr=='A10_OUTPUT_UNSAFE\n' and not pathlib.Path('/checkout/forbidden').exists())
     wrongphoto=json.loads((auditdir/'audit.json').read_text())
     wrongphoto['sections']['commerce']['order_storage']='classic' if storage=='hpos' else 'hpos'
-    wrong.write_text(json.dumps(wrongphoto))
-    mismatch=inventory(site,OUT/(storage+'-storage-mismatch'),'--audit='+str(wrong))
     # The audit must be nested in a photograph directory with the common report parent.
     # Place the synthetic bad photograph there to reach the storage-specific guard.
     wrongnested=OUT/(storage+'-wrong-audit'); wrongnested.mkdir()

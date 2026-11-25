@@ -10,7 +10,7 @@ import b02
 import c14
 
 
-def verify():
+def verify(allow_address_edit=False):
     c14.c10.guard()
     http = c14.module('b02_transport', 'c12-http.py')
     binary = c14.module('b02_pdf', 'c11-verifier.py').fetch
@@ -34,7 +34,7 @@ def verify():
         if key == 'A-SEPA4':
             table = re.search(r'<table data-imagine-echeancier=.*?</table>', body, re.S)
             checks['4x_quatre_lignes_HTTP'] = bool(table) and table.group(0).count('<th scope="row">') == 4
-            checks['4x_premiere_payee_et_dates_non_raccordees_HTTP'] = 'Date non raccordée' in body and body.count('>Payée<') == 1
+            checks['4x_deux_payees_deux_a_venir_dates_non_raccordees_HTTP'] = 'Date non raccordée' in body and body.count('>Payée<') == 2 and body.count('>À venir<') == 2
         if key == 'A-SUSP':
             checks['suspendu_bandeau_HTTP'] = 'data-imagine-regularisation' in body and 'Suspendu' in body
             checks['suspendu_echeance_echouee_fictive_HTTP'] = 'Échéance échouée' in body
@@ -59,7 +59,7 @@ def verify():
             checks['isolation_adresse_pas_formulaire_autre'] = 'value="' + str(other) + '" id="update_subscription_address"' not in body
     code, _, body = http.fetch(base)
     checks['anonyme_pas_compte_HTTP'] = code == 200 and 'data-imagine-mon-compte' not in body and 'A-CARTE' not in body
-    checks['profil_demande_A_4x_J45_absent'] = not wp('echo wp_json_encode((bool)get_user_by("login","a-4x-j45"));')
+    checks['profil_reception_A_SEPA4_natif'] = bool(wp('echo wp_json_encode((bool)get_user_by("login","a-sepa4"));'))
     _, _, home = http.fetch('/')
     nav = re.search(r'data-imagine-nav="compte".*?</li>', home, re.S)
     checks['navigation_compte_natif'] = bool(nav) and base in nav.group(0)
@@ -78,6 +78,18 @@ def verify():
             fields[name] = 'invalide' if bad_nonce else unescape(match.group(1))
         fields.update({'action': 'edit_address', 'save_address': '1', 'update_subscription_address': str(target)})
         return http.fetch(base + 'edit-address/shipping/?subscription=' + str(target), client, urlencode(fields).encode())
+    if not allow_address_edit:
+        # Corrections B02 : conserver les POST d'isolation, aucune édition positive ni restauration SQL.
+        edit(before['shipping'], bad_nonce=True)
+        checks['POST_nonce_invalide_sans_ecriture'] = wp(guard + 'echo wp_json_encode($s->get_shipping_address_1());') == before['shipping']['address_1']
+        edit(before['shipping'], target=other)
+        checks['POST_ID_autre_sans_mutation_autre'] = wp('$s=wcs_get_subscription(' + str(other) + ');echo wp_json_encode([$s->get_address("shipping"),$s->get_date_modified()?->getTimestamp()]);') == foreign_before
+        after = wp(guard + 'echo wp_json_encode(["shipping"=>$s->get_address("shipping"),"modified"=>$s->get_date_modified()?->getTimestamp(),"customer"=>(new WC_Customer($s->get_customer_id()))->get_shipping(),"observations"=>count(Imagine\\Site\\EnvoiNatif::releves((string)$s->get_id()))]);')
+        checks['adresse_client_et_journal_sans_mutation'] = before == after
+        failures = [k for k, value in checks.items() if value is not True]
+        (b02.PROOF / 'http.json').write_text(json.dumps(checks, ensure_ascii=False, indent=2), encoding='utf-8')
+        print('B02 HTTP sans édition positive :', len(checks) - len(failures), '/', len(checks), '; échecs :', failures, flush=True)
+        return checks
     changed = dict(before['shipping'], address_1='2 rue Imaginaire B02')
     try:
         edit(changed, bad_nonce=True)

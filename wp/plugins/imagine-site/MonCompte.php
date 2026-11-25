@@ -7,7 +7,9 @@ namespace Imagine\Site;
 use DateTimeImmutable;
 use DateTimeZone;
 use Imagine\Pilotage\Numeros\Moteur;
-use Imagine\Pilotage\Echeancier\{Planificateur, ReglagesAdministration};
+use Imagine\Pilotage\Echeancier\ReglagesAdministration;
+
+require_once __DIR__ . '/MonCompteRegles.php';
 
 /** Lecture seule : tableau de bord Woo, pas de nouvelle source de droits ou de facture. */
 final class MonCompte
@@ -15,15 +17,7 @@ final class MonCompte
     public static function register(): void
     {
         add_action('woocommerce_account_dashboard', [self::class, 'afficher']);
-        // Subscriptions émet son propre object_type, pas after_order_object_save.
-        // Réutilise le relevé C13 append-only et dédupliqué, sans changer C13/C07.
-        // Raccord limité au formulaire client B02 : ne pas modifier les autres saves C13/C14.
-        add_action('woocommerce_after_subscription_object_save', static function ($sub): void {
-            if ($sub instanceof \WC_Subscription && did_action('woocommerce_customer_save_address') > 0
-                && get_current_user_id() > 0 && (int) $sub->get_customer_id() === get_current_user_id()) {
-                EnvoiNatif::relever($sub);
-            }
-        });
+        // Le relevé postal des sauvegardes appartient à EnvoiNatif, sans doublon B02.
         add_action('template_redirect', static function (): void {
             if (function_exists('is_account_page') && is_account_page()) {
                 nocache_headers();
@@ -35,70 +29,25 @@ final class MonCompte
             static fn (bool $allowed, $sub, int $user): bool => $allowed && (int) $sub->get_customer_id() === $user, 10, 3);
     }
 
-    private static function date(string $value): ?DateTimeImmutable
-    {
-        $date = DateTimeImmutable::createFromFormat('!Y-m-d H:i:s', $value, new DateTimeZone('UTC'));
-        return $date && $date->format('Y-m-d H:i:s') === $value ? $date : null;
-    }
-
     public static function etat(\WC_Subscription $sub): string
     {
-        $now = new DateTimeImmutable('now', new DateTimeZone('UTC'));
-        $end = self::date($sub->get_date('end', 'gmt'));
-        if ($sub->has_status(['expired', 'cancelled']) || ($end && $end <= $now)) {
-            return __('Expiré', 'imagine-site');
-        }
-        if ($sub->has_status(['active', 'pending-cancel'])) {
-            return __('Actif', 'imagine-site');
-        }
-        if ($sub->has_status('pending')) {
-            return __('Virement en attente de validation', 'imagine-site');
-        }
-        if ($sub->has_status('on-hold')) {
-            $members = wc_memberships_get_user_memberships($sub->get_customer_id(), ['status' => 'any']) ?? [];
-            foreach ($members as $member) {
+        $available = function_exists('wc_memberships_get_user_memberships');
+        $pending = false;
+        if ($sub->has_status('on-hold') && $available) {
+            foreach (wc_memberships_get_user_memberships($sub->get_customer_id(), ['status' => 'any']) ?? [] as $member) {
                 if ((int) get_post_meta($member->get_id(), '_subscription_id', true) === $sub->get_id()
                     && in_array($member->get_status(), ['pending', 'delayed'], true)) {
-                    return __('Virement en attente de validation', 'imagine-site');
+                    $pending = true;
                 }
             }
-            $from = self::date((string) $sub->get_meta('_imagine_acces_grace_debut'));
-            $until = self::date((string) $sub->get_meta('_imagine_acces_grace_fin'));
-            if ($from && $until && $from <= $now && $now < $until) {
-                return __('En délai de grâce', 'imagine-site');
-            }
         }
-        return __('Suspendu', 'imagine-site');
-    }
-
-    /** Renouvellements réellement rattachés, pas un calendrier de paiements deviné. */
-    private static function echeances(\WC_Subscription $sub, Moteur $engine, $year): array
-    {
-        $positions = [];
-        try {
-            $margin = (new ReglagesAdministration())->lire()->margeJours;
-            $positions = (new Planificateur($engine))->planifier($year, $margin);
-        } catch (\Throwable) {
-            // Marge obligatoire absente ou calendrier incomplet : positions nommées seulement.
-        }
-        $rows = [];
-        for ($i = 1; $i <= 4; $i++) {
-            $position = $positions[$i - 1] ?? null;
-            $order = $i === 1 ? wc_get_order($sub->get_parent_id()) : null;
-            if ($order && (int) $order->get_customer_id() !== get_current_user_id()) {
-                $order = null;
-            }
-            $state = __('État de paiement non raccordé', 'imagine-site');
-            if ($order) {
-                $state = $order->has_status('failed') ? __('Échouée', 'imagine-site')
-                    : ($order->is_paid() && $order->get_date_paid() ? __('Payée', 'imagine-site')
-                        : __('Non réglée — commande native en attente', 'imagine-site'));
-            }
-            $rows[] = ['rang' => $i, 'numero' => $position?->numero->id,
-                'date' => $position?->date->format('Y-m-d'), 'etat' => $state,
-                'montant' => $order?->get_total(), 'devise' => $order?->get_currency()];
-        }
-        return $rows;
+        return __(MonCompteRegles::etat([
+            'status' => $sub->get_status(), 'end' => $sub->get_date('end', 'gmt'),
+            'method' => $sub->get_payment_method(), 'membership_pending' => $pending,
+            'memberships_available' => $available,
+            'grace_from' => (string) $sub->get_meta('_imagine_acces_grace_debut'),
+            'grace_until' => (string) $sub->get_meta('_imagine_acces_grace_fin'),
+        ], new DateTimeImmutable('now', new DateTimeZone('UTC'))), 'imagine-site');
     }
 
     /** Le seul paramètre d'identité est la session WP. Aucun ID venant de GET/POST. */
@@ -108,6 +57,7 @@ final class MonCompte
         if (!$user) {
             return [];
         }
+        $now = new DateTimeImmutable('now', new DateTimeZone('UTC'));
         $out = ['user' => $user, 'abonnements' => [], 'numeros' => [], 'factures' => []];
         foreach (wcs_get_users_subscriptions($user) as $sub) {
             if ((int) $sub->get_customer_id() !== $user) {
@@ -122,34 +72,43 @@ final class MonCompte
                 'manuel' => $sub->get_requires_manual_renewal(), 'echeances' => [], 'echec' => false,
                 'vue' => $sub->get_view_order_url(), 'adresse' => $sub->get_address('shipping'),
                 'edition_adresse' => add_query_arg('subscription', $sub->get_id(), wc_get_endpoint_url('edit-address', 'shipping', wc_get_page_permalink('myaccount')))];
-            try {
-                $engine = new Moteur(EnvoiNatif::calendrier());
-                $start = self::date($sub->get_date('start', 'gmt'));
-                if (!$start) {
-                    throw new \RuntimeException('Début natif absent');
-                }
-                $year = $engine->ouvrir($start);
-                $row['premier'] = $engine->premier($year)?->id;
-                $row['dernier'] = $engine->dernier($year)?->id;
-                // Aucun historique d'activation/réactivation C01 natif n'est branché ici.
-                // Ne pas transformer l'état administratif actif en paiement ou numéros restants.
-                if ($sub->get_billing_period() === 'month' && (int) $sub->get_billing_interval() === 3) {
-                    $row['echeances'] = self::echeances($sub, $engine, $year);
-                }
-            } catch (\Throwable) {
-                // Les emplacements restent nommés, jamais des nombres fabriqués.
-            }
+            $source = ['owner' => $user, 'period' => $sub->get_billing_period(), 'interval' => $sub->get_billing_interval(),
+                'start' => $sub->get_date('start', 'gmt'), 'total' => $sub->get_total(), 'currency' => $sub->get_currency(),
+                'renouvellements' => EnvoiRelations::renouvellements($sub), 'orders' => []];
             $related = array_unique([$sub->get_parent_id(), ...array_values($sub->get_related_orders('ids', 'renewal'))]);
             foreach ($related as $id) {
-                $order = wc_get_order($id);
-                if ($order && (int) $order->get_customer_id() === $user && $order->has_status('failed')) {
+                $order = $id ? wc_get_order($id) : null;
+                if (!$order) {
+                    continue;
+                }
+                $source['orders'][] = ['id' => (int) $order->get_id(), 'owner' => (int) $order->get_customer_id(),
+                    'initial' => (int) $id === (int) $sub->get_parent_id(),
+                    'created' => $order->get_date_created() ? gmdate('Y-m-d H:i:s', $order->get_date_created()->getTimestamp()) : '',
+                    'paid' => $order->is_paid(), 'paid_at' => $order->get_date_paid() ? gmdate('Y-m-d H:i:s', $order->get_date_paid()->getTimestamp()) : '',
+                    'status' => $order->get_status(), 'total' => $order->get_total(), 'currency' => $order->get_currency(),
+                    'bloc_debut' => (string) $order->get_meta('_imagine_envoi_bloc_debut')];
+                if ((int) $order->get_customer_id() === $user && $order->has_status('failed')) {
                     $row['echec'] = true;
                     if ($order->needs_payment()) {
                         $row['regulariser'] = $order->get_checkout_payment_url();
                     }
                 }
             }
-            $out['abonnements'][] = $row;
+            // Les quatre emplacements et paiements ne dépendent pas du calendrier postal.
+            $projection = MonCompteRegles::projeter($source, $now);
+            try {
+                $engine = new Moteur(EnvoiNatif::calendrier());
+                $margin = null;
+                try {
+                    $margin = (new ReglagesAdministration())->lire()->margeJours;
+                } catch (\Throwable) {
+                    // Réglage obligatoire inexploitable : aucune date théorique inventée.
+                }
+                $projection = MonCompteRegles::projeter($source, $now, $engine, $margin);
+            } catch (\Throwable) {
+                // Référence absente/invalide : conserver les positions et règlements déjà lus.
+            }
+            $out['abonnements'][] = array_replace($row, $projection);
         }
         foreach (get_posts(['post_type' => 'imagine_numero', 'post_status' => 'publish', 'posts_per_page' => -1,
             'meta_key' => 'imagine_sortie', 'orderby' => 'meta_value', 'order' => 'DESC']) as $issue) {
