@@ -1,6 +1,6 @@
 # C-13 — à voir sur la démonstration
 
-**BLOQUÉ pour l’acceptation C09. L’écran est consultable et les contrôles techniques passent, mais le lot n’est pas PRET : la recette complète n’est pas acquise. Aucune validation visuelle ni clôture revendiquée.**
+**Soumis à relecture le 25 novembre 2026 : PRET redéposé sur consigne explicite de la file voie 2 et des arbitrages du jour. L’écran et ses contrôles techniques sont consultables ; la recette complète C09 reste non acquise (détails et reçu ci-dessous). PRET signifie ici prêt à relire, pas acceptation complète, validation visuelle ou clôture.**
 
 ## Ouvrir l'écran
 

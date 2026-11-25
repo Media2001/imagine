@@ -44,6 +44,13 @@ def run_storage(storage):
     try:site,db,seed,config,settings=a03.install(storage)
     finally:shutil.copytree=original
     a03.wp(site,['eval',"require_once WC_ABSPATH . 'includes/admin/wc-admin-functions.php'; wc_memberships()->get_lifecycle_handler()->init(); WC_Subscriptions_Upgrader::upgrade();"])
+    rest=site/'wp-content/plugins/a04-rest/a04-rest.php';rest.parent.mkdir()
+    rest_source='<?php\n/*\nPlugin Name: Fiction A04 files only\nVersion: 1.0.0\nRequires PHP: 8.2\nRequires at least: 7.0\n*/\n'
+    rest.write_text(rest_source);a03.wp(site,['plugin','activate','a04-rest'])
+    rest_zip=ROOT/(storage+'-rest.zip')
+    with zipfile.ZipFile(rest_zip,'w') as z:z.writestr('a04-rest/a04-rest.php',rest_source.replace('Version: 1.0.0','Version: 2.0.0'))
+    old_file=site/'wp-content/plugins/woocommerce/a04-old-file-kept.txt';old_file.write_text('Fiction A04 preserve unlisted file')
+    themes_before=a03.filemap(site/'wp-content/themes')
     check(storage+':baseline_versions',bool(seed['versions']),seed['versions'])
     server=subprocess.Popen(['php','-d','log_errors=0','-d','display_errors=0','-S','127.0.0.1:18803','-t',str(site)],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
     time.sleep(.5)
@@ -58,7 +65,7 @@ def run_storage(storage):
         sql=backup_dir/'database.sql'
         exported=a03.cmd(['mariadb-dump','--socket=/scratch/mariadb.sock','-uroot','--single-transaction',db]);sql.write_text(exported.stdout)
         files=backup_dir/'content.tar'
-        with tarfile.open(files,'w') as tar:tar.add(site/'wp-content',arcname='wp-content')
+        with tarfile.open(files,'w') as tar:tar.add(site,arcname='site')
         backup=ROOT/(storage+'-backup.json')
         backup_doc={'site':str(site),'created_at':int(time.time()),'database':{'path':str(sql),'sha256':sha(sql)},'files':{'path':str(files),'sha256':sha(files)}};write(backup,backup_doc)
         versions=seed['versions'];target_core=package_version('/opt/compatible-public/wordpress.zip','wordpress/wp-includes/version.php',True)
@@ -66,7 +73,8 @@ def run_storage(storage):
         keys=['core','woocommerce','woocommerce-subscriptions','woocommerce-memberships'];before=[versions['wordpress'],versions['woocommerce'],versions['subscriptions'],versions['memberships']]
         after=[target_core,target_wc,versions['subscriptions'],versions['memberships']]
         archives=['/opt/compatible-public/wordpress.zip','/opt/compatible-public/woocommerce.zip','/opt/a03/woocommerce-subscriptions.zip','/opt/a03/woocommerce-memberships.zip']
-        steps=[{'component':k,'before':v,'after':t,'archive':p,'sha256':sha(p),'adapter':k,'hooks':[]} for k,v,t,p in zip(keys,before,after,archives)]
+        keys.append('a04-rest');before.append('1.0.0');after.append('2.0.0');archives.append(str(rest_zip))
+        steps=[{'component':k,'before':v,'after':t,'archive':p,'sha256':sha(p),'adapter':k if k in keys[:4] else 'bootstrap-only','hooks':[]} for k,v,t,p in zip(keys,before,after,archives)]
         plan=ROOT/(storage+'-plan.json');write(plan,{'schema':'imagine-a04-v1','site_status':'verified-staging','steps':steps})
         # Prove guards before the first update, with actual filesystem readbacks.
         denied=update(site,plan,backup,ROOT/(storage+'-no-maintenance'))
@@ -76,6 +84,20 @@ def run_storage(storage):
         denied=update(site,plan,bad,ROOT/(storage+'-stale'))
         check(storage+':stale_backup_refused',denied.returncode==1 and denied.stderr=='A04_BACKUP_AGE\n')
         state=ROOT/(storage+'-state')
+        # Kill the actual updater while a real WP-CLI child is still alive.
+        # Its inherited kernel locks must prevent any overlapping resume.
+        child_marker=ROOT/(storage+'-wp-child-started')
+        delay=site/'wp-content/mu-plugins/998-a04-owned-delay.php'
+        delay.write_text("<?php if (defined('WP_CLI') && WP_CLI) { file_put_contents("+json.dumps(str(child_marker))+", (string) getmypid()); sleep(4); }")
+        interrupted=subprocess.Popen(['python3','-B','/subject/mettre-a-jour','--wp-path='+str(site),'--plan='+str(plan),'--backup='+str(backup),'--state='+str(state),'--stop-after=woocommerce'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+        for _ in range(1000):
+            if child_marker.exists() or interrupted.poll() is not None:break
+            time.sleep(.02)
+        check(storage+':native_child_started',child_marker.is_file())
+        delay.unlink();interrupted.kill();interrupted.wait(timeout=10)
+        concurrent=update(site,plan,backup,state)
+        check(storage+':orphan_child_keeps_site_lock',interrupted.returncode==-9 and concurrent.returncode==1 and concurrent.stderr=='A04_ALREADY_RUNNING\n')
+        time.sleep(5)
         stopped=update(site,plan,backup,state,['--stop-after=woocommerce'])
         check(storage+':controlled_interruption',stopped.returncode==75,{'exit':stopped.returncode,'code':stopped.stderr[:200]})
         initial=json.loads((state/'etat.json').read_text())
@@ -92,6 +114,8 @@ def run_storage(storage):
         check(storage+':real_updater_paused',paused)
         denied=update(site,plan,backup,state)
         check(storage+':concurrent_refused',denied.returncode==1 and denied.stderr=='A04_ALREADY_RUNNING\n')
+        alternate=update(site,plan,backup,ROOT/(storage+'-alternate-state'))
+        check(storage+':same_site_other_state_refused',alternate.returncode==1 and alternate.stderr=='A04_ALREADY_RUNNING\n')
         lock.kill();lock.wait(timeout=10)
         check(storage+':real_updater_sigkill',lock.returncode==-9)
         forged=a03.wp(site,['eval',"echo 'A04_ID=' . as_schedule_single_action(time(), 'woocommerce_run_update_callback', ['update_callback'=>'wp_delete_user'], 'woocommerce-db-updates');"])
@@ -142,6 +166,33 @@ def run_storage(storage):
         write(OUT/(storage+'-qualification.json'),qualified)
         check(storage+':only_exact_expected_changes_additive',compared.returncode in [0,2,3] and qualified['qualified'],qualified)
         write(OUT/(storage+'-versions.json'),{'before':dict(zip(keys,before)),'after':dict(zip(keys,after)),'baseline_public_woo':old_version})
+        # A production-mode rehearsal is still this same entirely fictitious,
+        # disconnected fixture. Its local GO is synthetic, never an operator GO.
+        production_config=config.replace("define('WP_ENVIRONMENT_TYPE', 'staging')","define('WP_ENVIRONMENT_TYPE', 'production')")
+        check(storage+':production_fixture_config_distinct',production_config!=config)
+        (site/'wp-config.php').write_text(production_config)
+        safety=site/'wp-content/mu-plugins/000-imagine-staging-safety.php';safety_bytes=safety.read_bytes();safety.unlink()
+        maintenance.write_text('<?php $upgrading = '+str(int(time.time()))+';\n')
+        production_steps=[{**s,'before':s['after']} for s in steps]
+        prod_plan=ROOT/(storage+'-production-plan.json');write(prod_plan,{'schema':'imagine-a04-v1','site_status':'frozen-production','steps':production_steps})
+        denied=update(site,prod_plan,backup,ROOT/(storage+'-production-no-go'))
+        check(storage+':production_requires_go',denied.returncode==1 and denied.stderr=='A04_PRODUCTION_GO_REQUIRED\n')
+        go=ROOT/(storage+'-SYNTHETIC-ONLY-go.json');write(go,{'author':'Ced','task':'A-04-mise-a-jour','go':True,'site':str(site),'plan_sha256':sha(prod_plan),'expires_at':int(time.time())+3600})
+        prod_state=ROOT/(storage+'-production-state')
+        rehearsed=update(site,prod_plan,backup,prod_state,['--go='+str(go)])
+        check(storage+':production_mode_synthetic_only',rehearsed.returncode==0,{'exit':rehearsed.returncode,'code':rehearsed.stderr[:100]})
+        for name in ['etat.json','journal.json','journal.txt','migrations.jsonl']:
+            shutil.copyfile(prod_state/name,OUT/(storage+'-production-'+name))
+        (site/'wp-config.php').write_text(config);safety.write_bytes(safety_bytes)
+        (site/'wp-content/mu-plugins/001-imagine-a04-maintenance.php').unlink();maintenance.unlink();readonly()
+        p=a03.snapshot(site,settings,OUT/(storage+'-production-roundtrip'))
+        after_prod=a03.cmd(['php','/subject/comparer',str(OUT/(storage+'-after/non-regression.json')),str(OUT/(storage+'-production-roundtrip/non-regression.json'))],check=False)
+        check(storage+':production_roundtrip_no_business_change',p.returncode==0 and after_prod.returncode==0)
+        check(storage+':remaining_file_only_plugin_updated_last',current['steps']['a04-rest']['phase']=='verified' and 'Version: 2.0.0' in rest.read_text())
+        check(storage+':themes_untouched_and_no_cleanup',themes_before==a03.filemap(site/'wp-content/themes') and old_file.read_text()=='Fiction A04 preserve unlisted file')
+        trace=[json.loads(line) for line in (state/'migrations.jsonl').read_text().splitlines()]
+        names=[row['callback'] for row in trace if row.get('stage')=='complete' and row.get('callback','').startswith('wc_update_')]
+        check(storage+':native_callbacks_not_double_executed',bool(names) and len(names)==len(set(names)),names)
     finally:
         server.terminate();server.wait(timeout=15)
 def legacy_compatibility():

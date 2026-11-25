@@ -1,0 +1,110 @@
+{
+  "schema": "imagine-a04-state-v1",
+  "plan_sha256": "879749c3ac64ee0ab5a5a0beb6bca670551ea076354e9f9dc2d215da8a3f4d30",
+  "site": "/scratch/classic",
+  "config_sha256": "9ee6a65d47130e598ceae6f0b012edb22d8010f34cb34e32919309e310d85755",
+  "steps": {
+    "core": {
+      "phase": "verified",
+      "before": "7.0",
+      "after": "7.0.9",
+      "started": 1795610049.9717348,
+      "attempts": 1,
+      "files": 3500,
+      "duration_seconds": 22.668,
+      "migrations": [
+        "wp core update-db; db_version=61833"
+      ]
+    },
+    "woocommerce": {
+      "phase": "migrating",
+      "before": "11.0.1",
+      "after": "11.1.1",
+      "started": 1795610072.6630247,
+      "attempts": 4,
+      "files": 5862
+    }
+  },
+  "events": [
+    {
+      "utc": "2026-11-25T12:34:09Z",
+      "component": "core",
+      "stage": "start",
+      "before": "7.0",
+      "after": "7.0.9"
+    },
+    {
+      "utc": "2026-11-25T12:34:30Z",
+      "component": "core",
+      "stage": "copied",
+      "files": 3500
+    },
+    {
+      "utc": "2026-11-25T12:34:32Z",
+      "component": "core",
+      "stage": "verified",
+      "before": "7.0",
+      "after": "7.0.9",
+      "duration_seconds": 22.668,
+      "migrations": [
+        "wp core update-db; db_version=61833"
+      ]
+    },
+    {
+      "utc": "2026-11-25T12:34:32Z",
+      "component": "woocommerce",
+      "stage": "start",
+      "before": "11.0.1",
+      "after": "11.1.1"
+    },
+    {
+      "utc": "2026-11-25T12:35:07Z",
+      "component": "woocommerce",
+      "stage": "copied",
+      "files": 5862
+    },
+    {
+      "utc": "2026-11-25T12:35:07Z",
+      "component": "woocommerce",
+      "stage": "interruption_requested"
+    },
+    {
+      "utc": "2026-11-25T12:35:08Z",
+      "component": "woocommerce",
+      "stage": "resume",
+      "before": "11.0.1",
+      "after": "11.1.1"
+    },
+    {
+      "utc": "2026-11-25T12:35:08Z",
+      "component": "woocommerce",
+      "stage": "interruption_requested"
+    },
+    {
+      "utc": "2026-11-25T12:35:10Z",
+      "component": "woocommerce",
+      "stage": "resume",
+      "before": "11.0.1",
+      "after": "11.1.1"
+    },
+    {
+      "utc": "2026-11-25T12:35:11Z",
+      "component": "all",
+      "stage": "stopped",
+      "code": "A04_CALLBACK_REFUSED"
+    },
+    {
+      "utc": "2026-11-25T12:35:13Z",
+      "component": "woocommerce",
+      "stage": "resume",
+      "before": "11.0.1",
+      "after": "11.1.1"
+    },
+    {
+      "utc": "2026-11-25T12:35:15Z",
+      "component": "all",
+      "stage": "stopped",
+      "code": "A04_PENDING_MIGRATION_ADAPTER_REQUIRED"
+    }
+  ]
+}

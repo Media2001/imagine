@@ -1,0 +1,21 @@
+A-04 — maintenance conservée
+{"after": "7.0.9", "before": "7.0", "component": "core", "stage": "start", "utc": "2026-11-25T12:21:21Z"}
+{"component": "core", "files": 3500, "stage": "copied", "utc": "2026-11-25T12:21:44Z"}
+{"after": "7.0.9", "before": "7.0", "component": "core", "duration_seconds": 25.151, "migrations": ["wp core update-db; db_version=61833"], "stage": "verified", "utc": "2026-11-25T12:21:46Z"}
+{"after": "11.1.1", "before": "11.0.1", "component": "woocommerce", "stage": "start", "utc": "2026-11-25T12:21:46Z"}
+{"component": "woocommerce", "files": 5862, "stage": "copied", "utc": "2026-11-25T12:22:24Z"}
+{"component": "woocommerce", "stage": "interruption_requested", "utc": "2026-11-25T12:22:24Z"}
+{"after": "11.1.1", "before": "11.0.1", "component": "woocommerce", "stage": "resume", "utc": "2026-11-25T12:22:25Z"}
+{"component": "woocommerce", "stage": "interruption_requested", "utc": "2026-11-25T12:22:25Z"}
+{"after": "11.1.1", "before": "11.0.1", "component": "woocommerce", "stage": "resume", "utc": "2026-11-25T12:22:27Z"}
+{"code": "A04_CALLBACK_REFUSED", "component": "all", "stage": "stopped", "utc": "2026-11-25T12:22:29Z"}
+{"after": "11.1.1", "before": "11.0.1", "component": "woocommerce", "stage": "resume", "utc": "2026-11-25T12:22:31Z"}
+{"after": "11.1.1", "before": "11.0.1", "component": "woocommerce", "duration_seconds": 46.94, "migrations": ["Automattic\\WooCommerce\\Internal\\VariationGallery\\Migration::run", "WC_Install::update_db_version=11.1.1", "wp wc update; woocommerce_db_version=11.1.1"], "stage": "verified", "utc": "2026-11-25T12:22:33Z"}
+{"after": "9.4.1", "before": "9.4.1", "component": "woocommerce-subscriptions", "stage": "start", "utc": "2026-11-25T12:22:33Z"}
+{"component": "woocommerce-subscriptions", "files": 763, "stage": "copied", "utc": "2026-11-25T12:22:38Z"}
+{"after": "9.4.1", "before": "9.4.1", "component": "woocommerce-subscriptions", "duration_seconds": 6.066, "migrations": [], "stage": "verified", "utc": "2026-11-25T12:22:39Z"}
+{"after": "1.30.3", "before": "1.30.3", "component": "woocommerce-memberships", "stage": "start", "utc": "2026-11-25T12:22:39Z"}
+{"component": "woocommerce-memberships", "files": 664, "stage": "copied", "utc": "2026-11-25T12:22:43Z"}
+{"after": "1.30.3", "before": "1.30.3", "component": "woocommerce-memberships", "duration_seconds": 5.537, "migrations": ["WC_Memberships lifecycle init"], "stage": "verified", "utc": "2026-11-25T12:22:45Z"}
+{"component": "all", "stage": "complete", "utc": "2026-11-25T12:22:47Z"}
+{"component": "all", "stage": "complete", "utc": "2026-11-25T12:22:51Z"}

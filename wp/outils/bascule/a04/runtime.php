@@ -100,10 +100,16 @@ final class Runtime
         self::need(in_array($mode, ['guard', 'migrate', 'verify'], true), 'A04_MODE');
         require_once dirname(__DIR__, 2) . '/staging/runtime-probe.php';
         $probe = \Imagine\Staging\runtimeProbe();
-        foreach (['mail_blocked', 'http_blocked', 'subscriptions_staging', 'environment_staging',
-            'cron_disabled', 'as_async_disabled', 'as_runner_disabled', 'gateways_disabled'] as $key) {
+        $expectedEnvironment = (string) getenv('IMAGINE_A04_EXPECTED_ENV');
+        self::need(in_array($expectedEnvironment, ['staging', 'production'], true)
+            && wp_get_environment_type() === $expectedEnvironment, 'A04_ENVIRONMENT');
+        foreach (
+            ['mail_blocked', 'http_blocked', 'subscriptions_staging',
+            'cron_disabled', 'as_async_disabled', 'as_runner_disabled', 'gateways_disabled'] as $key
+        ) {
             self::need(($probe[$key] ?? null) === true, 'A04_RUNTIME_UNSAFE');
         }
+        self::trace(['component' => $component, 'mode' => $mode, 'stage' => 'runtime_safe', 'environment' => $expectedEnvironment]);
         $migrations = [];
         if ($mode !== 'guard') {
             if ($component === 'core') {
@@ -111,10 +117,16 @@ final class Runtime
                 $migrations[] = 'wp core update-db; db_version=' . $wp_db_version;
             } elseif ($component === 'woocommerce') {
                 if ($mode === 'migrate') {
+                    $pending = as_get_scheduled_actions(['hook' => 'woocommerce_run_update_callback',
+                        'group' => 'woocommerce-db-updates', 'status' => 'pending', 'per_page' => 1], 'ids');
+                    if (\WC_Install::needs_db_update() && !$pending) {
+                        \WC_Install::run_manual_database_update();
+                        self::trace(['component' => $component, 'stage' => 'native_migrations_enqueued']);
+                    }
                     $migrations = self::wooMigrations();
                 }
                 self::need(version_compare((string) get_option('woocommerce_db_version'), WC()->version, '>='), 'A04_WC_DB');
-                $migrations[] = 'wp wc update; woocommerce_db_version=' . get_option('woocommerce_db_version');
+                $migrations[] = 'woocommerce_db_version=' . get_option('woocommerce_db_version');
             } elseif ($component === 'woocommerce-subscriptions') {
                 self::need(class_exists('WC_Subscriptions_Upgrader'), 'A04_SUBSCRIPTIONS_UPGRADER');
                 if ($mode === 'migrate' && (string) get_option(\WC_Subscriptions::PLUGIN_VERSION_OPTION_NAME) !== \WC_Subscriptions::$version) {
@@ -133,7 +145,7 @@ final class Runtime
                 }
                 self::need((string) get_option('wc_memberships_version') === wc_memberships()->get_version(), 'A04_MEMBERSHIPS_DB');
             }
-            // Native Woo CLI drains its own callbacks synchronously. Other pending
+            // Only the exact native Woo queue is drained above. Other pending
             // migration work must never be mistaken for completion or run as a global queue.
             $rows = $wpdb->get_results("SELECT action_id,hook,status FROM {$wpdb->prefix}actionscheduler_actions
                 WHERE status IN ('pending','in-progress','failed') ORDER BY action_id", ARRAY_A);
@@ -145,7 +157,15 @@ final class Runtime
                 default => '(?!)',
             };
             foreach ($rows as $row) {
-                if (preg_match('/^' . $prefix . '.*(?:upgrade|migrate|migration|run_update_callback)/', $row['hook'])) {
+                if (
+                    $component === 'woocommerce' && $mode === 'verify'
+                    && $row['status'] === 'pending'
+                    && in_array($row['hook'], ['woocommerce_run_update_callback', 'woocommerce_update_db_to_current_version'], true)
+                    && \ActionScheduler::store()->fetch_action((int) $row['action_id'])->get_group() === 'woocommerce-db-updates'
+                ) {
+                    throw new \RuntimeException('A04_KNOWN_MIGRATION_PENDING');
+                }
+                if (preg_match('/^' . $prefix . '.*(?:upgrade|migrate|migration|run_update_callback|update_db_to_current_version)/', $row['hook'])) {
                     throw new \RuntimeException('A04_PENDING_MIGRATION_ADAPTER_REQUIRED');
                 }
             }
@@ -157,9 +177,11 @@ final class Runtime
                     // The native notifications processor is recurring operational
                     // work, not a schema/data upgrader. Preserve it; never send it.
                     $processors = get_option($name, []);
-                    self::need(is_array($processors)
+                    self::need(
+                        is_array($processors)
                         && array_diff($processors, ['WCS_Notifications_Batch_Processor']) === [],
-                        'A04_BACKGROUND_MIGRATION_ADAPTER_REQUIRED');
+                        'A04_BACKGROUND_MIGRATION_ADAPTER_REQUIRED'
+                    );
                     continue;
                 }
                 if (preg_match('/^' . $prefix . '.*_batch_/', $name)) {
@@ -181,11 +203,12 @@ final class Runtime
 try {
     echo 'A04_JSON=' . json_encode(Runtime::run(), JSON_THROW_ON_ERROR) . "\n";
 } catch (\Throwable $error) {
-    Runtime::trace(['component' => (string) getenv('IMAGINE_A04_COMPONENT'),
-        'stage' => 'error', 'class' => get_class($error), 'line' => $error->getLine(),
-        'file' => basename($error->getFile())]);
     $code = preg_match('/\AA04_[A-Z_]+\z/D', $error->getMessage())
         ? $error->getMessage() : 'A04_RUNTIME_FAILED';
+    Runtime::trace(['component' => (string) getenv('IMAGINE_A04_COMPONENT'),
+        'stage' => $code === 'A04_KNOWN_MIGRATION_PENDING' ? 'follow_up' : 'error',
+        'code' => $code, 'class' => get_class($error), 'line' => $error->getLine(),
+        'file' => basename($error->getFile())]);
     fwrite(STDERR, $code . "\n");
     exit(1);
 }

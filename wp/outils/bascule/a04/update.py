@@ -15,6 +15,7 @@ import zipfile
 
 ORDER = ['core', 'woocommerce', 'woocommerce-subscriptions', 'woocommerce-memberships']
 HOOKS = {'woocommerce_run_update_callback'}
+LOCK_FDS = ()
 
 class Refusal(RuntimeError):
     pass
@@ -66,7 +67,7 @@ def validate_plan(plan):
         require(isinstance(key, str) and re.fullmatch('[a-z0-9][a-z0-9-]{0,99}', key), 'A04_COMPONENT')
         require(numeric(step['after']) >= numeric(step['before']), 'A04_DOWNGRADE')
         require(step['adapter'] == (key if i < 4 else 'bootstrap-only'), 'A04_ADAPTER')
-        require(isinstance(step['hooks'], list) and len(set(step['hooks'])) == len(step['hooks']) and all(h in HOOKS for h in step['hooks']), 'A04_HOOK')
+        require(step['hooks'] == [], 'A04_HOOK')
         require(isinstance(step['archive'], str) and pathlib.Path(step['archive']).is_absolute(), 'A04_PACKAGE')
         require(isinstance(step['sha256'], str) and re.fullmatch('[a-f0-9]{64}', step['sha256']), 'A04_PACKAGE')
     require(steps[0]['after'].startswith('7.0.'), 'A04_CORE_TARGET')
@@ -127,6 +128,29 @@ def archive_entries(archive, component):
     require(bool(entries), 'A04_ARCHIVE_EMPTY')
     return entries
 
+def package_metadata(archive, component):
+    member = 'wordpress/wp-includes/version.php' if component == 'core' else component + '/' + component + '.php'
+    with zipfile.ZipFile(archive) as z:
+        require(member in z.namelist() and z.getinfo(member).file_size < 2097152, 'A04_PACKAGE_METADATA')
+        text = z.read(member).decode('utf8')
+    if component == 'core':
+        match = re.search(r"\$wp_version\s*=\s*'([^']+)'", text)
+        require(match is not None, 'A04_PACKAGE_VERSION')
+        return {'version':match[1], 'requires_php':None, 'requires_wp':None}
+    def header(name):
+        match = re.search(r'^\s*\*?\s*' + re.escape(name) + r':\s*([0-9.]+)', text, re.M | re.I)
+        return match[1] if match else None
+    return {'version':header('Version'), 'requires_php':header('Requires PHP'), 'requires_wp':header('Requires at least')}
+
+def check_package(archive, component, expected, target_wp, php):
+    metadata = package_metadata(archive, component)
+    require(metadata['version'] == expected, 'A04_PACKAGE_VERSION')
+    if metadata['requires_php']:
+        require(numeric(php) >= numeric(metadata['requires_php']), 'A04_PACKAGE_PHP')
+    if metadata['requires_wp']:
+        require(numeric(target_wp) >= numeric(metadata['requires_wp']), 'A04_PACKAGE_WORDPRESS')
+    return metadata
+
 def overlay(archive, site, component):
     entries = archive_entries(archive, component)
     base = site if component == 'core' else safe_path(site, 'wp-content/plugins/' + component)
@@ -161,7 +185,7 @@ def run_wp(site, args, env=None, timeout=300):
     try:
         p = subprocess.run(['wp', '--allow-root', '--no-color', '--path=' + str(site),
                 '--require=' + str(pathlib.Path(__file__).resolve().parent / 'bootstrap.php')] + args,
-            capture_output=True, text=True, env={**os.environ, 'IMAGINE_A04_SITE': str(site), **(env or {})}, timeout=timeout)
+            capture_output=True, text=True, pass_fds=LOCK_FDS, env={**os.environ, 'IMAGINE_A04_SITE': str(site), **(env or {})}, timeout=timeout)
     except subprocess.TimeoutExpired:
         raise Refusal('A04_COMMAND_TIMEOUT') from None
     if p.returncode != 0 or re.search(r'(?:Fatal error|Parse error|Uncaught (?:Error|Exception))', p.stdout + p.stderr, re.I):
@@ -190,6 +214,7 @@ def refresh_maintenance(site):
     safe_path(site, '.maintenance').write_text('<?php $upgrading = ' + str(int(time.time())) + ';\n')
 
 def execute(args):
+    global LOCK_FDS
     require(sys.platform == 'linux', 'A04_LINUX_REQUIRED')
     import fcntl
     site = pathlib.Path(args.wp_path)
@@ -199,9 +224,14 @@ def execute(args):
     state_dir = pathlib.Path(args.state)
     require(state_dir.is_absolute() and not state_dir.is_relative_to(site) and state_dir.resolve() == state_dir, 'A04_STATE_PATH')
     state_dir.mkdir(mode=0o700, parents=True, exist_ok=True)
-    with open(safe_path(state_dir, 'execution.lock'), 'a') as lock:
-        try: fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    with open(safe_path(state_dir, 'execution.lock'), 'a') as lock, open(safe_path(site, '.imagine-a04-bascule.lock'), 'a') as site_lock:
+        try:
+            fcntl.flock(site_lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError: raise Refusal('A04_ALREADY_RUNNING') from None
+        # Native children retain the same flock descriptions if this parent is
+        # SIGKILLed; a second updater must wait until those children really exit.
+        LOCK_FDS = (lock.fileno(), site_lock.fileno())
         maintenance(site)
         if target_env == 'staging':
             marker = load_json(safe_path(site, '.imagine-staging-verified.json'))
@@ -222,16 +252,23 @@ def execute(args):
             (state_dir / 'journal.txt').write_text('A-04 — maintenance conservée\n' + '\n'.join(json.dumps(e, ensure_ascii=False, sort_keys=True) for e in state['events'])+'\n', encoding='utf8')
         def event(key, stage, **extra):
             state['events'].append({'utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'component':key,'stage':stage,**extra}); save()
+        php_probe = subprocess.run(['php','-r','echo PHP_VERSION;'],capture_output=True,text=True,timeout=15)
+        require(php_probe.returncode == 0, 'A04_PHP')
+        php = php_probe.stdout.strip(); numeric(php)
+        planned_bytes = 0
         for step in plan['steps']:
             package = pathlib.Path(step['archive'])
             require(package.is_file() and not package.is_symlink() and digest(package) == step['sha256'], 'A04_PACKAGE_HASH')
             archive_entries(package, step['component'])
+            check_package(package,step['component'],step['after'],plan['steps'][0]['after'],php)
+            with zipfile.ZipFile(package) as z: planned_bytes += sum(info.file_size for info in z.infolist())
             row = state['steps'].get(step['component']); current = version(site, step['component'])
             if row is None: require(current == step['before'], 'A04_START_VERSION')
             else:
                 require(row.get('phase') in ['copying','copied','migrating','verified'], 'A04_STATE')
                 require(current in [step['before'],step['after']], 'A04_RESUME_VERSION')
                 if row['phase'] == 'verified': require(current == step['after'], 'A04_COMPLETED_DRIFT')
+        require(shutil.disk_usage(site).free >= planned_bytes + 134217728, 'A04_DISK_SPACE')
         save()
         persistent = safe_path(site, 'wp-content/mu-plugins/001-imagine-a04-maintenance.php')
         template = pathlib.Path(__file__).resolve().parent / 'maintenance.php'
@@ -259,17 +296,22 @@ def execute(args):
                         while True: time.sleep(1)
                     return 75
                 row['phase'] = 'migrating'; save()
-                callbacks = []
                 if key == 'core': run_wp(site,['core','update-db'])
-                if key == 'woocommerce':
-                    native = run_wp(site,['wc','update'])
-                    callbacks = sorted(set(re.findall(r'\bwc_update_[0-9][A-Za-z0-9_]*\b', native.stdout)))
-                migrated = worker(site,step,'migrate',safe_path(state_dir,'migrations.jsonl'),target_env)
-                migrated['migrations'] = callbacks + migrated.get('migrations', [])
-                refresh_maintenance(site)
-                worker(site,step,'verify',safe_path(state_dir,'migrations.jsonl'),target_env)
+                row.setdefault('migrations', [])
+                for wave in range(10):
+                    migrated = worker(site,step,'migrate',safe_path(state_dir,'migrations.jsonl'),target_env)
+                    row['migrations'].extend(migrated.get('migrations', [])); save()
+                    refresh_maintenance(site)
+                    try:
+                        worker(site,step,'verify',safe_path(state_dir,'migrations.jsonl'),target_env)
+                    except Refusal as error:
+                        if key != 'woocommerce' or str(error) != 'A04_KNOWN_MIGRATION_PENDING': raise
+                        event(key,'native_follow_up',wave=wave + 1)
+                        continue
+                    break
+                else: raise Refusal('A04_MIGRATION_FIXPOINT_LIMIT')
                 require(version(site,key) == step['after'],'A04_TARGET_VERSION')
-                row['phase']='verified';row['duration_seconds']=round(time.time()-row['started'],3);row['migrations']=migrated.get('migrations',[])
+                row['phase']='verified';row['duration_seconds']=round(time.time()-row['started'],3)
                 event(key,'verified',before=row['before'],after=row['after'],duration_seconds=row['duration_seconds'],migrations=row['migrations'])
             for step in plan['steps']:
                 worker(site,step,'verify',safe_path(state_dir,'migrations.jsonl'),target_env)

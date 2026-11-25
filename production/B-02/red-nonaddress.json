@@ -1,0 +1,10 @@
+{
+  "A-VIR_etat_natif_clair": true,
+  "A-EXPIRE_etat_natif_clair": true,
+  "A-NONRENOUV_etat_natif_clair": true,
+  "grace_fenetre_UTC_native_pas_renouvelee": true,
+  "API_identite_aucun_argument": true,
+  "hook_subscription_postal_natif_present": true,
+  "raccord_postal_hors_formulaire_sans_effet": false,
+  "aucun_rejet_natif_ne_pas_fabriquer": true
+}

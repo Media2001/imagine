@@ -1,6 +1,6 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-25T12:11:26.314901+00:00",
+  "at": "2026-11-25T12:21:21.362469+00:00",
   "pure": {
     "payee_processing": true,
     "payee_completed": true,
@@ -30,16 +30,6 @@
     "woo": "11.2.2",
     "php": "8.3.32",
     "hpos": "yes"
-  },
-  "profil": {
-    "user": 28,
-    "order": 126,
-    "product": 271,
-    "issue": 11,
-    "status": "processing",
-    "date_paid": true,
-    "no_gateway_transaction": true,
-    "mapped_issue": 11
   },
   "native": {
     "champ_refuse_client_non_editeur": true,
