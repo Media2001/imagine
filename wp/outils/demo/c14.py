@@ -45,7 +45,8 @@ def preserve():
     return wp('''$out=[];global $wpdb;
 foreach(['imagine_c08_fixture','imagine_c09_fixture','imagine_demo_manifest','imagine_acces_plans','imagine_c12_fixture','imagine_c13_fixture'] as $k){$out[$k]=get_option($k);}
 $out['policies']=$wpdb->get_results("SELECT option_name,option_value FROM {$wpdb->options} WHERE option_name LIKE 'imagine_decouverte_%' OR option_name LIKE 'imagine_envoi_%' OR option_name IN ('imagine_acces_reglages','imagine_c05_reglages','imagine_envoi_colonnes_export') ORDER BY option_name",ARRAY_A);
-$out['files']=[];foreach(['imagine-site/Decouverte.php','imagine-site/DecouverteReglages.php','imagine-site/EnvoiNatif.php','imagine-site/ListeEnvoiAdmin.php','imagine-site/PdfNumero.php'] as $p){$out['files'][$p]=hash_file('sha256',WP_PLUGIN_DIR . '/' . $p);}
+$out['files']=[];foreach(['imagine-site/Decouverte.php','imagine-site/DecouverteReglages.php','imagine-site/EnvoiNatif.php','imagine-site/EnvoiRegles.php','imagine-site/EnvoiRelations.php','imagine-site/ListeEnvoiAdmin.php','imagine-site/PdfNumero.php','imagine-site/MonCompte.php'] as $p){$out['files'][$p]=hash_file('sha256',WP_PLUGIN_DIR . '/' . $p);}
+$out['theme']=[];foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator(get_stylesheet_directory(),FilesystemIterator::SKIP_DOTS)) as $f){if($f->isFile()){$out['theme'][substr($f->getPathname(),strlen(get_stylesheet_directory())+1)]=hash_file('sha256',$f->getPathname());}}ksort($out['theme']);
 foreach(['imagine-pilotage','imagine-connecteur'] as $d){foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator(WP_PLUGIN_DIR . '/' . $d,FilesystemIterator::SKIP_DOTS)) as $f){if($f->isFile()){$out['files'][substr($f->getPathname(),strlen(WP_PLUGIN_DIR)+1)]=hash_file('sha256',$f->getPathname());}}}ksort($out['files']);echo wp_json_encode($out);''')
 
 
@@ -63,7 +64,7 @@ def pure():
     return checks
 
 
-def run(deploy=False):
+def run(deploy=False, code_only=False):
     PROOF.mkdir(parents=True, exist_ok=True)
     c10.guard()
     before = preserve()
@@ -72,7 +73,7 @@ def run(deploy=False):
     def save():
         (PROOF / 'resultats.json').write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding='utf-8')
     save()
-    if deploy:
+    if deploy or code_only:
         # Le bootstrap en place doit être exactement C13 + l'ajout ciblé C14.
         rel = 'plugins/imagine-site/imagine-site.php'
         old = base64.b64decode(c10.b00.wp('eval', 'echo base64_encode(file_get_contents(WP_CONTENT_DIR . "/' + rel + '"));')['stdout'])
@@ -82,6 +83,7 @@ def run(deploy=False):
             raise RuntimeError('Bootstrap partagé divergent, refus de perdre C13')
         for name in CODE:
             upload('plugins/imagine-site/' + name, ROOT / 'wp/plugins/imagine-site' / name)
+    if deploy:
         for name in ['c14-profil.php', 'c09-seed.php', 'c09-profils.json']:
             upload('imagine-demo-build/' + name, ROOT / 'wp/outils/demo' / name)
         results['profil'] = wp('require_once WP_CONTENT_DIR . "/imagine-demo-build/c14-profil.php";$f=get_option("imagine_c09_fixture");echo wp_json_encode(Imagine\\Demo\\C14\\profil($f["users"]["P-NUMERO"],wc_get_order($f["orders"]["P-NUMERO"])));')
@@ -90,7 +92,7 @@ def run(deploy=False):
         actual = c10.b00.wp('eval', 'echo base64_encode(file_get_contents(WP_PLUGIN_DIR . ' + json.dumps('/imagine-site/' + name) + '));')['stdout'].strip()
         if actual != expected:
             raise RuntimeError('Code C14 distant/local différent : ' + name)
-    for name in ['c14-runtime.php', 'c09-runtime.php']:
+    for name in ['c14-runtime.php', 'c14-corrections-fixture.php', 'c14-corrections-runtime.php', 'c09-runtime.php']:
         upload('imagine-demo-build/' + name, ROOT / 'wp/tests/demo' / name)
     raw = c10.b00.wp('eval', 'require WP_CONTENT_DIR . "/imagine-demo-build/c14-runtime.php";', check=False)
     try:
@@ -106,6 +108,11 @@ def run(deploy=False):
         results['status'] = 'ECHEC_NATIF'
         save()
         raise RuntimeError('Échecs C14 natifs : ' + str([k for k,v in results['native'].items() if v is not True]))
+    results['corrections_native'] = wp('require WP_CONTENT_DIR . "/imagine-demo-build/c14-corrections-runtime.php";')
+    if not results['corrections_native'] or not all(v is True for v in results['corrections_native'].values()):
+        save()
+        raise RuntimeError('Corrections natives C14 en échec')
+    save()
     results['http'] = module('c14_http', 'c14-http.py').verify()
     save()
     for key, filename in [('C08', 'c08-runtime.php'), ('C11', 'c11-runtime.php')]:
@@ -131,7 +138,7 @@ def run(deploy=False):
     if before != after:
         raise RuntimeError('État partagé modifié : ' + str([k for k in before if before[k] != after[k]]))
     results['status'] = 'VERT'
-    results['total'] = sum(len(results[k]) for k in ['pure', 'native', 'http', 'C11']) + results['C08']['total'] + results['C09']['total']
+    results['total'] = sum(len(results[k]) for k in ['pure', 'native', 'corrections_native', 'http', 'C11']) + results['C08']['total'] + results['C09']['total']
     (PROOF / 'resultats.json').write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding='utf-8')
     print('C14 VERT :', results['total'], 'contrôles/tests ;', PROOF / 'resultats.json')
     return results
@@ -140,4 +147,6 @@ def run(deploy=False):
 if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--deploy', action='store_true', help='Installation ciblée et V-NUM ; défaut = rejeu sans reset')
-    run(p.parse_args().deploy)
+    p.add_argument('--deploy-code', action='store_true', help='Installation du seul code C14, sans reset de profil')
+    args = p.parse_args()
+    run(args.deploy, args.deploy_code)

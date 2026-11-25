@@ -40,7 +40,7 @@ def verify(http, fetch_pdf, client, admin, expected_pdf):
     try:
         wp('delete_option("' + OPTION + '");echo "true";')
         status, _, page = http.fetch(PAGE, admin)
-        checks['reglage_admin_visible_defaut_prudent'] = status == 200 and 'name="' + OPTION + '"' in page and 'À confirmer par Imagine' in page and 'value="commande" selected=' in page
+        checks['reglage_admin_visible_defaut_prudent'] = status == 200 and 'name="' + OPTION + '"' in page and 'À confirmer par Imagine' in page and re.search(r'value="commande"\s+selected=', page) is not None
         checks['POST_defaut_persiste_ligne_native_absente'] = settings('commande') == 200 and state() == 'commande'
         checks['POST_nonce_invalide_refuse'] = settings('ligne', bad_nonce=True) == 403 and state() == 'commande'
         denied = settings('ligne', visitor=client)

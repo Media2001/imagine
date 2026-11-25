@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "default": "vider",
+  "families": [
+    {"pattern": "matomo_*", "action": "vider"},
+    {"pattern": "ahm_*", "action": "vider"},
+    {"pattern": "fsmpt_*", "action": "vider"},
+    {"pattern": "wf*", "action": "vider"},
+    {"pattern": "pmxi_*", "action": "vider"},
+    {"pattern": "pmxe_*", "action": "vider"},
+    {"pattern": "*_logs", "action": "vider"},
+    {"pattern": "*_log", "action": "vider"},
+    {"pattern": "*_logs_*", "action": "vider"},
+    {"pattern": "*_log_*", "action": "vider"}
+  ]
+}

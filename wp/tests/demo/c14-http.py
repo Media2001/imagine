@@ -84,6 +84,8 @@ def verify():
         checks['PDF_achete_final_retabli'] = code == 200 and data == expected
         code, _, body = http.fetch(bought['path'], client)
         checks['article_achete_final_retabli'] = code == 200 and bought['witness'] in body
+    corrections = c14.module('c14_corrections_http', 'c14-corrections-http.py').verify(http, fetch, client, admin, expected)
+    checks.update({'corrections_' + key: value for key, value in corrections.items()})
     failures = [k for k,v in checks.items() if v is not True]
     print('C14 HTTP :', len(checks) - len(failures), '/', len(checks), '; échecs :', failures, flush=True)
     if failures:

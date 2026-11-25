@@ -1,0 +1,11 @@
+{
+  "lot": "A-04",
+  "ready_for_review": true,
+  "real_access_authorized": false,
+  "packet": "production/A-04/preuves/9c204eb862d6",
+  "manifest_path": "production/A-04/manifest-final.json",
+  "manifest_sha256": "8d635011abba9b1a21acf084671a1f11449c90847b0fff07662bd1a7a0105d56",
+  "verification_path": "production/A-04/verification-finale.json",
+  "verification_sha256": "6ce42565ca8be997eeb659f1269b9422ffe64d9e67a4c20d1f214f582455a98a",
+  "scope": "Réception technique sur fixtures fictives classique et HPOS, pas une clôture ni un GO réel."
+}
