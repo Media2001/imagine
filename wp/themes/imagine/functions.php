@@ -8,6 +8,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+require_once __DIR__ . '/inc/reading.php';
+
 function imagine_setup(): void
 {
     load_theme_textdomain('imagine', get_template_directory() . '/languages');

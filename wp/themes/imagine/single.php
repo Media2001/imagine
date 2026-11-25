@@ -6,6 +6,11 @@ namespace Imagine\Theme;
 
 get_header();
 while (have_posts()) : the_post();
+    // Une seule décision/sortie C08 ; aucune lecture supplémentaire du corps stocké.
+    ob_start();
+    imagine_article_body();
+    $articleBody = (string) ob_get_clean();
+    $readingMinutes = imagine_reading_minutes($articleBody);
 ?>
 <div id="imagine-reading-tools" hidden>
     <button type="button" id="imagine-reading-toggle" aria-pressed="false" aria-controls="imagine-reading-options"
@@ -26,9 +31,13 @@ while (have_posts()) : the_post();
         <?php if ($terms && !is_wp_error($terms)) : ?>
             <p><?php esc_html_e('Thématiques :', 'imagine'); ?> <?php echo wp_kses_post($terms); ?></p>
         <?php endif; ?>
+        <p data-imagine-reading-time><?php echo esc_html(sprintf(
+            _n('Temps de lecture estimé : %d minute (texte accessible).', 'Temps de lecture estimé : %d minutes (texte accessible).', $readingMinutes, 'imagine'),
+            $readingMinutes
+        )); ?></p>
     </header>
     <div class="imagine-article-body" data-imagine-body="article">
-        <?php imagine_article_body(); ?>
+        <?php echo $articleBody; // Sortie HTML autorisée et filtrée par imagine_article_body(). ?>
     </div>
 </article>
 <?php endwhile; ?>

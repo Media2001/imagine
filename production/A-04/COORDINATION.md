@@ -1,4 +1,15 @@
-# A-04 — coordination finale avec le parent voie 1
+# A-04 — coordination courante : corrections du 25 novembre, 17h31
+
+- Six instructions appliquées : sauvegardes résolues et parents liés refusés ; `main_file` explicite ; reprise après 1 200 s sous les deux verrous et MU strict ; audit nominatif lié par SHA-256 ; documentation des adaptateurs alignée ; journal laissé selon l'option autorisée.
+- Paquet courant : `preuves/eb2aea037769/`, **48 tests Python, 86 contrôles fictifs, 8 contrôles runner**, trois lints, vrai code hôte 0 observé ; 16 sources et 15 dépendances liées et conformes. A-03 classique/HPOS : code 3 sans anomalie ; aller-retour production fictif code 0 sans changement. Sentinelle prouvant absence de bootstrap dans les refus MU/checkpoint et son exécution dans la reprise autorisée.
+- Image préparée après les derniers ajouts puis global réellement rejoué : `corrections-20261125/image-final/` et `global-final/`, **1 012 tests / 34 006 assertions**, zéro échec/erreur/ignoré, quatre JUnit et sources des bibliothèques stables. Aucun runner commun changé, Python A-04 reste séparé. Style : `style/imagine-a04-style-cc43212267af/`, zéro erreur et un avertissement préexistant.
+- Preuves historiques, anciens rapports/PRET/manifestes préservés (`corrections-20261125/avant/`) ; 436 fichiers historiques relus conformes. RED/GREEN de correction conservés. Trois ZIP publics créés puis retirés individuellement, aucun premium/SQL/GO réel exporté.
+- Rapport courant : `files/rapports/2026-11-25-17h31.md` et début de `rapport.md`. `PRET` et `verification-finale.json` sont conditionnés au vrai succès de `corrections-20261125/verifier.py --seal` ; ils ne valent ni clôture ni GO.
+- Aucun écrit sur le verrou parent, autre lot, voie 2, Git ou réel. A-05 appartient au parent ; ne pas l'enchaîner dans ce sous-agent. Limites de pile et de migrations premium historiques inchangées. Répétition réelle uniquement sur staging Imagine vérifié après GO écrit nominatif.
+
+---
+
+## Coordination antérieure conservée comme historique — ne décrit pas le paquet courant
 
 - Aucun écrit sur le verrou du parent, A-FAIRE, A-03, banc partagé ou voie 2. Aucun Git, Novamira, réel ou archive Imagine. Runner propre : label `org.imagine.a04-update`, nom exact `imagine-a04-<id>`. Dépôt effectif `C:/Users/Ced/imagine` ; pas de dossier `voie1`.
 - Banc A-04 adapté : copie de `http-rollback.php` vers `/opt/a03`, copie dynamique de tous les PHP A-03 conservée, champ obligatoire `php_error_log` repris des settings. Serveur : `log_errors=1`, `display_errors=0`, `date.timezone=UTC`, `error_log` égal à ce champ. Six photos réellement régénérées, bilans `php_log` contrôlés et sans diagnostic. HTTP natif fictif en rollback puis séquence d'options restaurée : aucune promesse de HTTP réel sans écritures.

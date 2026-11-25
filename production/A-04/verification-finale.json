@@ -1,43 +1,10 @@
 {
-  "schema": "imagine-a04-final-verification-v2",
-  "status": "VERIFIE_PRET_A_RELIRE",
-  "verified_at_utc": "2026-11-25T14:18:33.628517+00:00",
-  "repository": "C:\\Users\\Ced\\imagine",
-  "packet": "production/A-04/preuves/9c204eb862d6",
-  "observed_runner_exit": 0,
-  "unit_tests": 32,
-  "test_update_tests": 7,
-  "fixture_checks": 70,
+  "checked_at": "2026-11-25T16:35:02.762423+00:00",
+  "packet": "production/A-04/preuves/eb2aea037769",
+  "python_tests": 48,
+  "integration_checks": 86,
   "runner_checks": 8,
-  "source_files_bound": 15,
-  "dependency_files_bound": 15,
-  "native_a03": {
-    "classic": {
-      "exit": 3,
-      "anormal": 0,
-      "expected_changes": 4,
-      "identical_roundtrip_exit": 0
-    },
-    "hpos": {
-      "exit": 3,
-      "anormal": 0,
-      "expected_changes": 4,
-      "identical_roundtrip_exit": 0
-    }
-  },
-  "style_errors": 0,
-  "style_warnings": 1,
-  "style_all_messages_exit": 1,
-  "style_error_only_exit": 0,
-  "style_packet": "production/A-04/style/imagine-a04-style-4e730d02801c",
-  "qualification_alternative_removed": true,
-  "historical_qualification_sources_preserved": true,
-  "fresh_photos": 6,
-  "fresh_photos_php_log_checked_and_clean": true,
-  "global_T01_executed": true,
-  "shared_image_preparation_executed_by_subagent": true,
-  "t01_image": "sha256:07432c306dd454872d4f42e09a7562138b4f8a8ea7463deddef417c38c96be67",
-  "global_latest": {
+  "global": {
     "tests": 1012,
     "assertions": 34006,
     "failures": 0,
@@ -45,47 +12,16 @@
     "skipped": 0,
     "pass": true
   },
-  "global_latest_packet": "production/A-04/global-actualisation",
-  "global_sources_stable_during_execution": true,
-  "global_sources_drift_since_execution": [
-    "wp/outils/demo/c14.py",
-    "wp/plugins/imagine-site/AchatsNumeros.php",
-    "wp/tests/demo/c14-http.py"
-  ],
-  "unrelated_observed_drift": [
-    "wp/outils/demo/c14.py",
-    "wp/plugins/imagine-site/AchatNumero.php",
-    "wp/plugins/imagine-site/AchatsNumeros.php",
-    "wp/plugins/imagine-site/EnvoiRelations.php",
-    "wp/tests/demo/c13-corrections-runtime.php",
-    "wp/tests/demo/c14-http.py",
-    "wp/tests/demo/c14-runtime.php",
-    "wp/tests/demo/c14-unit.php",
-    ".hermes-2.lock"
-  ],
-  "unrelated_drift_disposition": "Observed only, never written or restored here; other lane remains active.",
+  "image_id": "sha256:8b9ad379a68eea59c4cdd633655cc3d09b018437c377b58cbf18c626367b35c9",
+  "style": {
+    "errors": 0,
+    "warnings": 1
+  },
+  "historical_files_unchanged": 436,
+  "report": "files/rapports/2026-11-25-17h31.md",
+  "all_passed": true,
+  "real_access_authorized": false,
   "manifest_path": "production/A-04/manifest-final.json",
-  "manifest_sha256": "8d635011abba9b1a21acf084671a1f11449c90847b0fff07662bd1a7a0105d56",
-  "manifest_files": 461,
-  "manifest_excluded_chain_targets": [
-    "production/A-04/PRET",
-    "production/A-04/manifest-final.json",
-    "production/A-04/verification-finale.json"
-  ],
-  "no_PRET": false,
-  "PRET_path": "production/A-04/PRET",
-  "ready_for_review": true,
-  "no_real_data_or_accounts": true,
-  "no_owned_runner_left": true,
-  "no_archive_or_SQL_export_left": true,
-  "parent_lock_unchanged": true,
-  "a03_sources_and_dependencies_unchanged": true,
-  "historical_files_verified_unchanged": 374,
-  "finalisation_receipt": "production/A-04/finalisation-receipt.json",
-  "limits": [
-    "Complete fixture begins on WordPress 7.0, not the unavailable commercial 6.9.1 stack.",
-    "Subscriptions and Memberships versions constant; no historical premium upgrade proof.",
-    "HTTP fixture writes natively then rolls back; no claim of write-free real HTTP.",
-    "Ready for technical review only, not closure, publication, or a real-site GO."
-  ]
+  "manifest_sha256": "b0ac18d932d6c7f6b5f31ab2f9689c49621ecc911932fce775c6ffbbc669eb33",
+  "verified_files": 629
 }

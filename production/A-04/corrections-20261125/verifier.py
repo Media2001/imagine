@@ -141,6 +141,10 @@ def main():
     if args.seal:
         production = ROOT / 'production/A-04'
         assert not (production / 'PRET').exists(), 'Do not overwrite an existing readiness pointer'
+        for name in ['finalisation-receipt.json', 'manifest-final.json', 'verification-finale.json']:
+            path = production / name
+            assert sha(path) == baseline[rel(path)], 'Current delivery metadata drift: ' + name
+            load(path)  # Read the complete previous record before replacement.
         write(production / 'finalisation-receipt.json', summary)
         owned = [ROOT / 'wp/outils/bascule/mettre-a-jour', ROOT / 'wp/outils/bascule/mettre-a-jour.md', report]
         owned += [p for folder in ['wp/outils/bascule/a04', 'wp/tests/a04'] for p in (ROOT / folder).iterdir() if p.is_file()]

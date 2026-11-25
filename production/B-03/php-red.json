@@ -1,0 +1,12 @@
+{
+  "total": 1,
+  "failures": [
+    "estimation_disponible"
+  ],
+  "checks": {
+    "estimation_disponible": false
+  },
+  "at": "2026-11-25T16:34:02.279958+00:00",
+  "scope": "imagine-test-demo",
+  "phase": "red"
+}

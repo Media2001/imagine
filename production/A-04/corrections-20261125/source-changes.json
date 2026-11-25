@@ -1,0 +1,41 @@
+{
+  "new_test_methods": 16,
+  "files": [
+    {
+      "path": "wp/outils/bascule/a04/update.py",
+      "status": "modified",
+      "before_sha256": "4613060a59a519bf2c4f3585f9a50cba803f19ec926018c79e6749b2bd9268bc",
+      "after_sha256": "92da71dfda8d97f774db5254fee16661037a3937947e563b9bbc6fe048e41f0b"
+    },
+    {
+      "path": "wp/outils/bascule/mettre-a-jour.md",
+      "status": "modified",
+      "before_sha256": "f5fca3e9dd0440c3b16ef8d66bd34cb118d1bde7a7e8da7912869c5a9b5e9684",
+      "after_sha256": "52859e25931ffa051a8a47d4ab39057fd038c8f1cd9be9c0a0e2b07904621530"
+    },
+    {
+      "path": "wp/tests/a04/inside.py",
+      "status": "modified",
+      "before_sha256": "69a35e998eebb874cd8c2452701a92096b4db7eea4f92fcefa307f1b8820ccaf",
+      "after_sha256": "36d9a3fbdeab20cc132c491e708f8411ae8285d6b2dafe440be32f9c135dc781"
+    },
+    {
+      "path": "wp/tests/a04/test_corrections.py",
+      "status": "created",
+      "before_sha256": null,
+      "after_sha256": "563491279d28d1e7d42e36424d6bea52dc060ae9448839669ace6051280d4881"
+    },
+    {
+      "path": "wp/tests/a04/test_packages.py",
+      "status": "modified",
+      "before_sha256": "b460fd7c6a7824a3e1ca17c86161aa24f1d7383903af498705e9e099d19b8559",
+      "after_sha256": "ef62a22f901a23de41db34f8329c3ec050694e11168964932f7bf6e772d72f6c"
+    },
+    {
+      "path": "wp/tests/a04/test_safety.py",
+      "status": "modified",
+      "before_sha256": "251848f943494bee92777737103d819e1deaf42fa671a748d592f3e894e9cadf",
+      "after_sha256": "207dcaf46d93d5157cf9782ba53045343c7a19ae28b79a32e8a5f718048b0dc4"
+    }
+  ]
+}

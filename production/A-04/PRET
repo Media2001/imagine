@@ -1,0 +1,11 @@
+{
+  "lot": "A-04",
+  "ready_for_review": true,
+  "real_access_authorized": false,
+  "packet": "production/A-04/preuves/eb2aea037769",
+  "manifest_path": "production/A-04/manifest-final.json",
+  "manifest_sha256": "b0ac18d932d6c7f6b5f31ab2f9689c49621ecc911932fce775c6ffbbc669eb33",
+  "verification_path": "production/A-04/verification-finale.json",
+  "verification_sha256": "60f04c317c178b2a6a25b3c1141f98c451f2cfa1641ecf3c209d46650556b397",
+  "scope": "Corrections A04 sur fixtures fictives classique/HPOS ; ni clôture ni GO réel."
+}

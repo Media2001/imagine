@@ -1,0 +1,547 @@
+--- before/wp/outils/bascule/a04/update.py
++++ after/wp/outils/bascule/a04/update.py
+@@ -62,16 +62,34 @@
+     names = [s.get('component') for s in steps]
+     require(names[:4] == ORDER and len(set(names)) == len(names), 'A04_ORDER')
+     for i, step in enumerate(steps):
+-        require(set(step) == {'component', 'before', 'after', 'archive', 'sha256', 'adapter', 'hooks'}, 'A04_PLAN')
++        fields = {'component', 'main_file', 'before', 'after', 'archive', 'sha256', 'adapter', 'hooks'}
++        if i >= 4:
++            require('audit' in step, 'A04_AUDIT')
++            fields.add('audit')
++        require(set(step) == fields, 'A04_PLAN')
+         key = step['component']
+         require(isinstance(key, str) and re.fullmatch('[a-z0-9][a-z0-9-]{0,99}', key), 'A04_COMPONENT')
++        validate_main_file(key, step['main_file'])
+         require(numeric(step['after']) >= numeric(step['before']), 'A04_DOWNGRADE')
+         require(step['adapter'] == (key if i < 4 else 'bootstrap-only'), 'A04_ADAPTER')
++        if i >= 4:
++            audit = step['audit']
++            require(isinstance(audit, dict) and set(audit) == {'component', 'path', 'sha256', 'conclusion'}
++                and audit['component'] == key and audit['conclusion'] == 'no-deferred-database-migrations'
++                and isinstance(audit['path'], str) and pathlib.Path(audit['path']).is_absolute()
++                and isinstance(audit['sha256'], str) and re.fullmatch('[a-f0-9]{64}', audit['sha256']), 'A04_AUDIT')
+         require(step['hooks'] == [], 'A04_HOOK')
+         require(isinstance(step['archive'], str) and pathlib.Path(step['archive']).is_absolute(), 'A04_PACKAGE')
+         require(isinstance(step['sha256'], str) and re.fullmatch('[a-f0-9]{64}', step['sha256']), 'A04_PACKAGE')
+     require(steps[0]['after'].startswith('7.0.'), 'A04_CORE_TARGET')
+     return plan
++
++def check_audit(audit):
++    file = pathlib.Path(audit['path'])
++    require(file.is_absolute() and file.is_file() and not file.is_symlink()
++        and not any(parent.is_symlink() for parent in file.parents)
++        and file.resolve() == file and 0 < file.stat().st_size <= 1048576, 'A04_AUDIT_FILE')
++    require(digest(file) == audit['sha256'], 'A04_AUDIT_HASH')
+ 
+ def authorize(status, site, identity, gofile):
+     if status == 'verified-staging':
+@@ -93,8 +111,13 @@
+         entry = backup.get(key, {})
+         file = pathlib.Path(entry.get('path', ''))
+         require(file.is_absolute() and file.is_file() and not file.is_symlink() and file.stat().st_size > 0, 'A04_BACKUP_FILE')
+-        require(not file.is_relative_to(pathlib.Path(site)), 'A04_BACKUP_LOCATION')
+-        require(digest(file) == entry.get('sha256'), 'A04_BACKUP_HASH')
++        # A lexical outside path may traverse .. or a symlinked directory.
++        # Reject every symlink in the supplied path, including its parents,
++        # then compare the canonical file and site before reading any bytes.
++        require(not any(parent.is_symlink() for parent in file.parents), 'A04_SYMLINK')
++        resolved = file.resolve(strict=True)
++        require(not resolved.is_relative_to(pathlib.Path(site).resolve()), 'A04_BACKUP_LOCATION')
++        require(digest(resolved) == entry.get('sha256'), 'A04_BACKUP_HASH')
+ 
+ def safe_path(base, relative):
+     base = pathlib.Path(base)
+@@ -128,8 +151,17 @@
+     require(bool(entries), 'A04_ARCHIVE_EMPTY')
+     return entries
+ 
+-def package_metadata(archive, component):
+-    member = 'wordpress/wp-includes/version.php' if component == 'core' else component + '/' + component + '.php'
++def validate_main_file(component, main_file):
++    if component == 'core':
++        require(main_file is None, 'A04_MAIN_FILE')
++        return
++    require(isinstance(main_file, str)
++        and re.fullmatch(r'[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*\.php', main_file)
++        and all(part not in ('.', '..') for part in main_file.split('/')), 'A04_MAIN_FILE')
++
++def package_metadata(archive, component, main_file=None):
++    validate_main_file(component, main_file)
++    member = 'wordpress/wp-includes/version.php' if component == 'core' else component + '/' + main_file
+     with zipfile.ZipFile(archive) as z:
+         require(member in z.namelist() and z.getinfo(member).file_size < 2097152, 'A04_PACKAGE_METADATA')
+         text = z.read(member).decode('utf8')
+@@ -142,8 +174,8 @@
+         return match[1] if match else None
+     return {'version':header('Version'), 'requires_php':header('Requires PHP'), 'requires_wp':header('Requires at least')}
+ 
+-def check_package(archive, component, expected, target_wp, php):
+-    metadata = package_metadata(archive, component)
++def check_package(archive, component, expected, target_wp, php, main_file=None):
++    metadata = package_metadata(archive, component, main_file)
+     require(metadata['version'] == expected, 'A04_PACKAGE_VERSION')
+     if metadata['requires_php']:
+         require(numeric(php) >= numeric(metadata['requires_php']), 'A04_PACKAGE_PHP')
+@@ -170,8 +202,9 @@
+                 if os.path.exists(temp): os.unlink(temp)
+     return len(entries)
+ 
+-def version(site, component):
+-    path = safe_path(site, 'wp-includes/version.php' if component == 'core' else 'wp-content/plugins/' + component + '/' + component + '.php')
++def version(site, component, main_file=None):
++    validate_main_file(component, main_file)
++    path = safe_path(site, 'wp-includes/version.php' if component == 'core' else 'wp-content/plugins/' + component + '/' + main_file)
+     text = path.read_text(encoding='utf8', errors='strict')
+     match = re.search(r"\$wp_version\s*=\s*'([^']+)'", text) if component == 'core' else re.search(r'^\s*\*?\s*Version:\s*([0-9.]+)', text, re.M | re.I)
+     require(match is not None, 'A04_VERSION_READ')
+@@ -232,7 +265,6 @@
+         # Native children retain the same flock descriptions if this parent is
+         # SIGKILLed; a second updater must wait until those children really exit.
+         LOCK_FDS = (lock.fileno(), site_lock.fileno())
+-        maintenance(site)
+         if target_env == 'staging':
+             marker = load_json(safe_path(site, '.imagine-staging-verified.json'))
+             require(marker.get('status') == 'verified' and marker.get('offline_verified') is True and marker.get('runtime_probe_passed') is True, 'A04_NOT_VERIFIED')
+@@ -245,7 +277,17 @@
+         check_backup(load_json(args.backup), site)
+         config_hash = digest(safe_path(site, 'wp-config.php'))
+         state_file = safe_path(state_dir, 'etat.json')
+-        state = validate_state(load_json(state_file), identity, site, config_hash) if state_file.exists() else {'schema':'imagine-a04-state-v1','plan_sha256':identity,'site':str(site),'config_sha256':config_hash,'steps':{},'events':[]}
++        resuming = state_file.exists()
++        state = validate_state(load_json(state_file), identity, site, config_hash) if resuming else {'schema':'imagine-a04-state-v1','plan_sha256':identity,'site':str(site),'config_sha256':config_hash,'steps':{},'events':[]}
++        persistent = safe_path(site, 'wp-content/mu-plugins/001-imagine-a04-maintenance.php')
++        template = pathlib.Path(__file__).resolve().parent / 'maintenance.php'
++        if resuming:
++            # Both flocks are already held. Never refresh or recreate the MU
++            # for an unbound checkpoint or missing/modified persistent guard.
++            require(persistent.is_file() and digest(persistent) == digest(template), 'A04_MAINTENANCE_BYTES')
++            refresh_maintenance(site)
++        else:
++            maintenance(site)
+         def save():
+             atomic_json(state_file, state)
+             atomic_json(state_dir / 'journal.json', state['events'])
+@@ -257,12 +299,13 @@
+         php = php_probe.stdout.strip(); numeric(php)
+         planned_bytes = 0
+         for step in plan['steps']:
++            if step['adapter'] == 'bootstrap-only': check_audit(step['audit'])
+             package = pathlib.Path(step['archive'])
+             require(package.is_file() and not package.is_symlink() and digest(package) == step['sha256'], 'A04_PACKAGE_HASH')
+             archive_entries(package, step['component'])
+-            check_package(package,step['component'],step['after'],plan['steps'][0]['after'],php)
++            check_package(package,step['component'],step['after'],plan['steps'][0]['after'],php,step['main_file'])
+             with zipfile.ZipFile(package) as z: planned_bytes += sum(info.file_size for info in z.infolist())
+-            row = state['steps'].get(step['component']); current = version(site, step['component'])
++            row = state['steps'].get(step['component']); current = version(site, step['component'], step['main_file'])
+             if row is None: require(current == step['before'], 'A04_START_VERSION')
+             else:
+                 require(row.get('phase') in ['copying','copied','migrating','verified'], 'A04_STATE')
+@@ -270,8 +313,6 @@
+                 if row['phase'] == 'verified': require(current == step['after'], 'A04_COMPLETED_DRIFT')
+         require(shutil.disk_usage(site).free >= planned_bytes + 134217728, 'A04_DISK_SPACE')
+         save()
+-        persistent = safe_path(site, 'wp-content/mu-plugins/001-imagine-a04-maintenance.php')
+-        template = pathlib.Path(__file__).resolve().parent / 'maintenance.php'
+         if persistent.exists(): require(digest(persistent) == digest(template), 'A04_MAINTENANCE_BYTES')
+         else: shutil.copyfile(template, persistent)
+         try:
+@@ -288,7 +329,7 @@
+                 refresh_maintenance(site)
+                 if row['phase'] == 'copying':
+                     row['files'] = overlay(step['archive'], site, key)
+-                    require(version(site,key) == step['after'],'A04_TARGET_VERSION')
++                    require(version(site,key,step['main_file']) == step['after'],'A04_TARGET_VERSION')
+                     row['phase'] = 'copied'; event(key,'copied',files=row['files'])
+                 if args.stop_after == key:
+                     event(key,'interruption_requested')
+@@ -310,7 +351,7 @@
+                         continue
+                     break
+                 else: raise Refusal('A04_MIGRATION_FIXPOINT_LIMIT')
+-                require(version(site,key) == step['after'],'A04_TARGET_VERSION')
++                require(version(site,key,step['main_file']) == step['after'],'A04_TARGET_VERSION')
+                 row['phase']='verified';row['duration_seconds']=round(time.time()-row['started'],3)
+                 event(key,'verified',before=row['before'],after=row['after'],duration_seconds=row['duration_seconds'],migrations=row['migrations'])
+             for step in plan['steps']:
+--- before/wp/outils/bascule/mettre-a-jour.md
++++ after/wp/outils/bascule/mettre-a-jour.md
+@@ -20,20 +20,21 @@
+ 
+ ## Préalables obligatoires
+ 
+-- Site gelé : maintenance WordPress `.maintenance` récente (moins de dix minutes), et arrêt **opérateur** des autres queues, cron système, déploiements et écritures. Le script ne prétend pas administrer ces services externes.
++- Site gelé : au **premier démarrage**, maintenance WordPress `.maintenance` récente (moins de dix minutes), et arrêt **opérateur** des autres queues, cron système, déploiements et écritures. À la reprise, un checkpoint valide lié au site, au plan et au `wp-config.php`, plus les octets conformes du MU A-04 persistant, autorisent le rafraîchissement de `.maintenance` sous les deux verrous, avant tout bootstrap. MU absent ou modifié : refus, jamais réinstallation implicite. Le script ne prétend pas administrer les services externes.
+ - Copie staging : marqueur A-01 `status=verified`, `offline_verified=true`, `runtime_probe_passed=true`, octets du MU de sécurité conformes à la référence du dépôt, puis sondes effectives mail/HTTP/paiements/cron/Action Scheduler. Un marqueur seul ne suffit pas.
+-- Base et fichiers sauvegardés hors du site, fichiers non vides, SHA-256 conformes, date de création ni future ni vieille de plus de **six heures**. La présence et l'intégrité des fichiers sont contrôlées, **pas leur restaurabilité** : Ced doit avoir vérifié séparément une restauration complète.
++- Base et fichiers sauvegardés hors du site **après résolution canonique des deux chemins**, fichiers non vides, SHA-256 conformes, date de création ni future ni vieille de plus de **six heures**. Tout lien symbolique dans le fichier ou l'un de ses répertoires parents est refusé, même s'il vise hors du site ; un chemin contenant `..` ne peut pas contourner le contrôle d'emplacement. La présence et l'intégrité des fichiers sont contrôlées, **pas leur restaurabilité** : Ced doit avoir vérifié séparément une restauration complète.
+ - Absence de drop-ins base/cache, de liens symboliques dans les chemins concernés, versions de départ exactes, pas de downgrade. Archives locales et SHA-256 figés ; version interne du paquet et exigences WordPress/PHP contrôlées avant copie. Espace libre : somme décompressée des paquets + 128 Mio.
+ 
+ Le fichier de sauvegarde est un JSON à clés `site` (chemin canonique exact), `created_at` (timestamp UTC), `database` et `files` ; ces deux dernières clés contiennent chacune `path` absolu et `sha256`. Le script ne crée aucune sauvegarde de site réel et n'en restaure aucune automatiquement.
+ 
+ ## Plan strict
+ 
+-Racine : `schema: "imagine-a04-v1"`, `site_status: "verified-staging"`, `steps: [...]`. Chaque étape contient **exactement** :
++Racine : `schema: "imagine-a04-v1"`, `site_status: "verified-staging"`, `steps: [...]`. Les quatre premières étapes contiennent **exactement** les clés de cet exemple ; les suivantes ajoutent obligatoirement `audit` (voir ci-dessous) :
+ 
+ ```json
+ {
+   "component": "woocommerce",
++  "main_file": "woocommerce.php",
+   "before": "11.0.1",
+   "after": "11.1.1",
+   "archive": "/paquets-fictifs/woocommerce.zip",
+@@ -43,7 +44,13 @@
+ }
+ ```
+ 
+-L'exemple est volontairement non exécutable tant que le hash n'est pas renseigné. Les quatre premières étapes sont obligatoirement `core`, `woocommerce`, `woocommerce-subscriptions`, `woocommerce-memberships` ; `adapter` porte le même nom. Cible du cœur : une **version exacte 7.0.x**, jamais `latest`. Les étapes suivantes nomment explicitement chaque autre extension ; `adapter: "bootstrap-only"` est réservé aux mises à jour **auditées sans migration de base différée**. Il ne constitue pas une certification générique d'un tiers inconnu. Une extension à migration spécifique demande un adaptateur qualifié avant d'entrer dans le plan. `hooks` est réservé et doit rester vide : aucune commande, URL, requête SQL ou fonction arbitraire n'est acceptée dans le plan.
++L'exemple est volontairement non exécutable tant que le hash n'est pas renseigné. Les quatre premières étapes sont obligatoirement `core`, `woocommerce`, `woocommerce-subscriptions`, `woocommerce-memberships` ; `adapter` porte le même nom. Cible du cœur : une **version exacte 7.0.x**, jamais `latest`.
++
++`main_file` est **déclaré explicitement** : chemin POSIX relatif au dossier de l'extension dans le paquet et sur disque, par exemple `fiction-entry.php` pour le composant `a04-rest`. Le fichier n'a pas à porter le nom du dossier. Aucun chemin absolu, `.`/`..`, antislash, URL ou suffixe autre que `.php` n'est accepté ; les liens de destination restent refusés. Pour `core`, `main_file` vaut obligatoirement `null` (métadonnées dans `wp-includes/version.php`). La même identité sert aux métadonnées du ZIP et aux versions installées avant/après/reprise. Les anciens plans sans cette déclaration sont refusés : préparer un nouveau plan pour une **nouvelle** exécution ; ne jamais réécrire le plan d'un checkpoint en cours.
++
++Les étapes suivantes nomment explicitement chaque autre extension et n'acceptent **que** `adapter: "bootstrap-only"`, réservé aux mises à jour **auditées sans migration de base différée**. Elles ajoutent une trace `audit` à clés exactes `component` (identique à l'étape), `path` (fichier d'audit absolu hors liens symboliques), `sha256` (empreinte exacte du fichier) et `conclusion: "no-deferred-database-migrations"`. Le fichier non vide est relu et vérifié avant bootstrap. Ce lien obligatoire ne certifie pas la qualité de l'audit humain. Le balayage générique reste délibérément `(?!)` pour ces composants ; il n'est pas élargi à des tâches légitimes.
++
++**Aucun adaptateur additionnel n'est accepté au-delà des quatre premiers**, même qualifié : `validate_plan` le refuse par conception. Une extension nécessitant une migration spécifique est exclue des plans actuellement acceptés ; son support demanderait un lot d'extension de l'outil et une qualification dédiés. `hooks` est réservé et doit rester vide : aucune commande, URL, requête SQL ou fonction arbitraire n'est acceptée dans le plan.
+ 
+ Ordre : le cœur satisfait les minima du nouveau Woo ; Woo fournit les API et schémas des deux premium ; Subscriptions précède l'intégration Memberships ; les autres suivent. Aucun changement de stockage classique/HPOS n'est entrepris.
+ 
+@@ -60,7 +67,9 @@
+ 
+ `etat.json` est atomique, synchronisé sur disque et lié au hash exact du plan, au site et au hash du `wp-config.php`. Phases : `copying`, `copied`, `migrating`, `verified`. Une copie interrompue est terminée avant de recharger WordPress ; les étapes déjà vérifiées ne sont pas mises à jour à nouveau. Les migrations de l'étape interrompue suivent la sémantique native de reprise : **pas de promesse exactly-once pour un callback coupé entre son effet SQL et son marquage**.
+ 
+-`journal.txt` / `journal.json` donnent étape, versions, durée, arrêts et vagues ; `migrations.jsonl`, synchronisé après chaque événement, conserve noms de callbacks, ID d'action, début/fin et codes d'erreur sans arguments, données métier ni erreurs SQL brutes.
++Une reprise après plus de dix minutes reste automatique **uniquement** si le checkpoint est valide et le MU persistant strictement conforme. Après acquisition des verrous site et état, puis contrôles staging/sauvegarde/identité, le script vérifie ce MU et rafraîchit `.maintenance` avant PHP/WP-CLI. Un état invalide, un MU absent/modifié ou une contention ne rafraîchit pas le fichier et n'amorce pas WordPress. Ne pas enlever les verrous ni fabriquer un checkpoint pour forcer une reprise.
++
++`journal.json` est la source structurée des étapes, versions, durées, arrêts et vagues ; `journal.txt` reste un en-tête suivi d'une ligne JSON par événement (statu quo accepté, pas une table humaine). `migrations.jsonl`, synchronisé après chaque événement, conserve noms de callbacks, ID d'action, début/fin et codes d'erreur sans arguments, données métier ni erreurs SQL brutes.
+ 
+ Deux `flock` : par état et par site (`.imagine-a04-bascule.lock`). Un autre répertoire d'état ne contourne donc pas le verrou. Les enfants WP-CLI héritent des mêmes descripteurs : tuer le parent ne libère pas le site tant qu'un enfant natif travaille encore. Les fichiers de verrou restent présents ; leur présence ne signifie pas qu'un processus tient encore le verrou. Ne jamais les supprimer pour « débloquer ».
+ 
+--- before/wp/tests/a04/inside.py
++++ after/wp/tests/a04/inside.py
+@@ -44,11 +44,11 @@
+     try:site,db,seed,config,settings=a03.install(storage)
+     finally:shutil.copytree=original
+     a03.wp(site,['eval',"require_once WC_ABSPATH . 'includes/admin/wc-admin-functions.php'; wc_memberships()->get_lifecycle_handler()->init(); WC_Subscriptions_Upgrader::upgrade();"])
+-    rest=site/'wp-content/plugins/a04-rest/a04-rest.php';rest.parent.mkdir()
++    rest=site/'wp-content/plugins/a04-rest/fiction-entry.php';rest.parent.mkdir()
+     rest_source='<?php\n/*\nPlugin Name: Fiction A04 files only\nVersion: 1.0.0\nRequires PHP: 8.2\nRequires at least: 7.0\n*/\n'
+-    rest.write_text(rest_source);a03.wp(site,['plugin','activate','a04-rest'])
++    rest.write_text(rest_source);a03.wp(site,['plugin','activate','a04-rest/fiction-entry.php'])
+     rest_zip=ROOT/(storage+'-rest.zip')
+-    with zipfile.ZipFile(rest_zip,'w') as z:z.writestr('a04-rest/a04-rest.php',rest_source.replace('Version: 1.0.0','Version: 2.0.0'))
++    with zipfile.ZipFile(rest_zip,'w') as z:z.writestr('a04-rest/fiction-entry.php',rest_source.replace('Version: 1.0.0','Version: 2.0.0'))
+     old_file=site/'wp-content/plugins/woocommerce/a04-old-file-kept.txt';old_file.write_text('Fiction A04 preserve unlisted file')
+     themes_before=a03.filemap(site/'wp-content/themes')
+     check(storage+':baseline_versions',bool(seed['versions']),seed['versions'])
+@@ -77,8 +77,12 @@
+         after=[target_core,target_wc,versions['subscriptions'],versions['memberships']]
+         archives=['/opt/compatible-public/wordpress.zip','/opt/compatible-public/woocommerce.zip','/opt/a03/woocommerce-subscriptions.zip','/opt/a03/woocommerce-memberships.zip']
+         keys.append('a04-rest');before.append('1.0.0');after.append('2.0.0');archives.append(str(rest_zip))
+-        steps=[{'component':k,'before':v,'after':t,'archive':p,'sha256':sha(p),'adapter':k if k in keys[:4] else 'bootstrap-only','hooks':[]} for k,v,t,p in zip(keys,before,after,archives)]
++        audit_file=ROOT/(storage+'-rest-audit.md')
++        audit_file.write_text('# Audit fictif A-04 : a04-rest\n\nFichier principal : fiction-entry.php.\nLes versions source et cible ne contiennent que cet en-tête PHP sans hook, SQL, cron, batch ou tâche Action Scheduler ; aucune migration différée.\nSHA-256 source : '+hashlib.sha256(rest_source.encode()).hexdigest()+'\nSHA-256 cible : '+hashlib.sha256(rest_source.replace('Version: 1.0.0','Version: 2.0.0').encode()).hexdigest()+'\n',encoding='utf8')
++        steps=[{'component':k,'main_file':None if k=='core' else 'fiction-entry.php' if k=='a04-rest' else k+'.php','before':v,'after':t,'archive':p,'sha256':sha(p),'adapter':k if k in keys[:4] else 'bootstrap-only','hooks':[]} for k,v,t,p in zip(keys,before,after,archives)]
++        steps[-1]['audit']={'component':'a04-rest','path':str(audit_file),'sha256':sha(audit_file),'conclusion':'no-deferred-database-migrations'}
+         plan=ROOT/(storage+'-plan.json');write(plan,{'schema':'imagine-a04-v1','site_status':'verified-staging','steps':steps})
++        shutil.copyfile(plan,OUT/(storage+'-plan.json'));shutil.copyfile(audit_file,OUT/(storage+'-rest-audit.md'))
+         # Prove guards before the first update, with actual filesystem readbacks.
+         denied=update(site,plan,backup,ROOT/(storage+'-no-maintenance'))
+         check(storage+':maintenance_required',denied.returncode==1 and denied.stderr=='A04_MAINTENANCE\n')
+@@ -86,6 +90,11 @@
+         bad=ROOT/(storage+'-stale.json');bad_doc={**backup_doc,'created_at':int(time.time())-21601};write(bad,bad_doc)
+         denied=update(site,plan,bad,ROOT/(storage+'-stale'))
+         check(storage+':stale_backup_refused',denied.returncode==1 and denied.stderr=='A04_BACKUP_AGE\n')
++        audit_bytes=audit_file.read_bytes();audit_file.write_text('altered fictitious audit')
++        audit_state=ROOT/(storage+'-bad-audit')
++        denied=update(site,plan,backup,audit_state)
++        check(storage+':audit_bytes_checked_before_bootstrap',denied.returncode==1 and denied.stderr=='A04_AUDIT_HASH\n' and not (audit_state/'etat.json').exists() and not (site/'wp-content/mu-plugins/001-imagine-a04-maintenance.php').exists())
++        audit_file.write_bytes(audit_bytes)
+         state=ROOT/(storage+'-state')
+         # Kill the actual updater while a real WP-CLI child is still alive.
+         # Its inherited kernel locks must prevent any overlapping resume.
+@@ -115,12 +124,46 @@
+             if lock.poll() is not None:break
+             time.sleep(.05)
+         check(storage+':real_updater_paused',paused)
++        maintenance.write_text('<?php $upgrading = '+str(int(time.time())-1200)+';\n')
++        locked_maintenance=maintenance.read_bytes()
+         denied=update(site,plan,backup,state)
+-        check(storage+':concurrent_refused',denied.returncode==1 and denied.stderr=='A04_ALREADY_RUNNING\n')
++        check(storage+':concurrent_refused',denied.returncode==1 and denied.stderr=='A04_ALREADY_RUNNING\n' and maintenance.read_bytes()==locked_maintenance)
+         alternate=update(site,plan,backup,ROOT/(storage+'-alternate-state'))
+-        check(storage+':same_site_other_state_refused',alternate.returncode==1 and alternate.stderr=='A04_ALREADY_RUNNING\n')
++        check(storage+':same_site_other_state_refused',alternate.returncode==1 and alternate.stderr=='A04_ALREADY_RUNNING\n' and maintenance.read_bytes()==locked_maintenance)
+         lock.kill();lock.wait(timeout=10)
+         check(storage+':real_updater_sigkill',lock.returncode==-9)
++        # Resume a real interrupted site after the native ten-minute window.
++        # A missing or changed persistent MU must never be repaired implicitly.
++        persistent=site/'wp-content/mu-plugins/001-imagine-a04-maintenance.php'
++        persistent_bytes=persistent.read_bytes()
++        maintenance.write_text('<?php $upgrading = '+str(int(time.time())-1200)+';\n')
++        refreshed=update(site,plan,backup,state,['--stop-after=woocommerce'])
++        check(storage+':expired_resume_accepted_with_exact_mu',refreshed.returncode==75,{'exit':refreshed.returncode,'code':refreshed.stderr[:100],'stale_seconds':1200})
++        boot_marker=ROOT/(storage+'-resume-bootstrap.marker')
++        boot_probe=site/'wp-content/mu-plugins/996-a04-bootstrap-canary.php'
++        boot_probe.write_text('<?php if (defined("WP_CLI") && WP_CLI) { file_put_contents('+json.dumps(str(boot_marker))+', "bootstrap\\n", FILE_APPEND); }')
++        maintenance.write_text('<?php $upgrading = '+str(int(time.time())-1200)+';\n')
++        expired_bytes=maintenance.read_bytes()
++        checkpoint_bytes=(state/'etat.json').read_bytes()
++        persistent.unlink()
++        denied=update(site,plan,backup,state)
++        check(storage+':expired_resume_missing_mu_refused',denied.returncode==1 and denied.stderr=='A04_MAINTENANCE_BYTES\n' and maintenance.read_bytes()==expired_bytes and (state/'etat.json').read_bytes()==checkpoint_bytes and not persistent.exists() and not boot_marker.exists(),{'exit':denied.returncode,'code':denied.stderr[:100]})
++        persistent.write_bytes(persistent_bytes+b'\n// altered synthetic MU\n')
++        denied=update(site,plan,backup,state)
++        check(storage+':expired_resume_changed_mu_refused',denied.returncode==1 and denied.stderr=='A04_MAINTENANCE_BYTES\n' and maintenance.read_bytes()==expired_bytes and (state/'etat.json').read_bytes()==checkpoint_bytes and not boot_marker.exists())
++        persistent.write_bytes(persistent_bytes)
++        invalid_state=ROOT/(storage+'-invalid-state');invalid_state.mkdir()
++        invalid_checkpoint=json.loads(checkpoint_bytes);invalid_checkpoint['config_sha256']='0'*64
++        write(invalid_state/'etat.json',invalid_checkpoint)
++        denied=update(site,plan,backup,invalid_state)
++        check(storage+':expired_resume_invalid_checkpoint_refused',denied.returncode==1 and denied.stderr=='A04_STATE\n' and maintenance.read_bytes()==expired_bytes and not boot_marker.exists())
++        refreshed=update(site,plan,backup,state,['--stop-after=woocommerce'])
++        import re
++        stamp=re.fullmatch(r'<\?php\s+\$upgrading\s*=\s*([0-9]+);\s*',maintenance.read_text())
++        check(storage+':expired_resume_refreshes_under_locks',refreshed.returncode==75 and stamp is not None and 0<=time.time()-int(stamp[1])<600 and persistent.read_bytes()==persistent_bytes,{'exit':refreshed.returncode,'code':refreshed.stderr[:100],'stale_seconds':1200})
++        check(storage+':expired_resume_preserves_verified_core',json.loads((state/'etat.json').read_text())['steps']['core']==initial['steps']['core'])
++        check(storage+':resume_bootstrap_canary_exercised',boot_marker.is_file() and boot_marker.read_text().splitlines()==['bootstrap'])
++        boot_probe.unlink()
+         forged=a03.wp(site,['eval',"echo 'A04_ID=' . as_schedule_single_action(time(), 'woocommerce_run_update_callback', ['update_callback'=>'wp_delete_user'], 'woocommerce-db-updates');"])
+         forged_id=int(forged.stdout.split('A04_ID=')[-1].strip())
+         blocked=update(site,plan,backup,state)
+@@ -143,7 +186,7 @@
+         check(storage+':resumed',resumed.returncode==0,{'exit':resumed.returncode,'code':resumed.stderr[:200]})
+         current=json.loads((state/'etat.json').read_text())
+         check(storage+':previous_step_not_replayed',current['steps']['core']==initial['steps']['core'])
+-        check(storage+':current_step_resumed',current['steps']['woocommerce']['attempts']==4 and all(r['phase']=='verified' for r in current['steps'].values()))
++        check(storage+':current_step_resumed',current['steps']['woocommerce']['attempts']==6 and all(r['phase']=='verified' for r in current['steps'].values()))
+         repeat=update(site,plan,backup,state);again=json.loads((state/'etat.json').read_text())
+         check(storage+':idempotent_repeat',repeat.returncode==0 and again['steps']==current['steps'])
+         # No theme/data cleanup; maintenance remains and is explicitly removed by fixture only.
+--- before/wp/tests/a04/test_corrections.py
++++ after/wp/tests/a04/test_corrections.py
+@@ -0,0 +1,191 @@
++"""A04 correction regressions; run in the disconnected owned bench."""
++import copy
++import hashlib
++import importlib.util
++import pathlib
++import tempfile
++import time
++import unittest
++
++P = pathlib.Path('/subject/a04/update.py') if pathlib.Path('/subject').exists() else pathlib.Path(__file__).resolve().parents[2] / 'outils/bascule/a04/update.py'
++spec = importlib.util.spec_from_file_location('a04_corrections', P)
++a04 = importlib.util.module_from_spec(spec)
++spec.loader.exec_module(a04)
++
++
++class BackupCorrections(unittest.TestCase):
++    def setUp(self):
++        self.temp = tempfile.TemporaryDirectory(prefix='a04-corrections-')
++        self.addCleanup(self.temp.cleanup)
++        self.root = pathlib.Path(self.temp.name).resolve()
++        self.site = self.root / 'site'
++        self.site.mkdir()
++        self.outside = self.root / 'backup'
++        self.outside.mkdir()
++        self.file = self.outside / 'fiction.sql'
++        self.file.write_text('SYNTHETIC backup')
++
++    def backup(self, path):
++        entry = {'path': str(path), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
++        return {'site': str(self.site), 'created_at': int(time.time()), 'database': entry, 'files': dict(entry)}
++
++    def test_real_external_backup_accepted(self):
++        a04.check_backup(self.backup(self.file), self.site)
++
++    def test_dotdot_resolving_inside_site_refused(self):
++        inside = self.site / 'fiction.sql'
++        inside.write_text('SYNTHETIC backup')
++        path = self.outside / '..' / 'site' / inside.name
++        with self.assertRaisesRegex(a04.Refusal, '^A04_BACKUP_LOCATION$'):
++            a04.check_backup(self.backup(path), self.site)
++
++    def test_parent_symlink_resolving_inside_site_refused(self):
++        inside = self.site / 'fiction.sql'
++        inside.write_text('SYNTHETIC backup')
++        link = self.root / 'linked-site'
++        link.symlink_to(self.site, target_is_directory=True)
++        with self.assertRaisesRegex(a04.Refusal, '^A04_SYMLINK$'):
++            a04.check_backup(self.backup(link / inside.name), self.site)
++
++    def test_parent_symlink_to_external_backup_also_refused(self):
++        link = self.root / 'linked-backup'
++        link.symlink_to(self.outside, target_is_directory=True)
++        with self.assertRaisesRegex(a04.Refusal, '^A04_SYMLINK$'):
++            a04.check_backup(self.backup(link / self.file.name), self.site)
++
++    def test_final_backup_symlink_refused(self):
++        link = self.outside / 'linked.sql'
++        link.symlink_to(self.file)
++        with self.assertRaises(a04.Refusal):
++            a04.check_backup(self.backup(link), self.site)
++
++
++class MainFileCorrections(unittest.TestCase):
++    def plan(self):
++        steps = [{'component': k, 'before': '1.0', 'after': '2.0',
++                  'archive': '/fixture.zip', 'sha256': 'a' * 64,
++                  'adapter': k, 'hooks': [],
++                  'main_file': None if k == 'core' else k + '.php'}
++                 for k in a04.ORDER]
++        steps[0].update(before='6.9.1', after='7.0.9')
++        return {'schema': 'imagine-a04-v1', 'site_status': 'verified-staging', 'steps': steps}
++
++    def test_explicit_main_file_plan_accepted(self):
++        plan = self.plan()
++        plan['steps'][1]['main_file'] = 'commerce-entry.php'
++        try:
++            self.assertEqual(a04.validate_plan(plan), plan)
++        except a04.Refusal as error:
++            self.fail('Explicit main_file declaration rejected: ' + str(error))
++
++    def test_unsafe_or_ambiguous_main_file_refused(self):
++        for value in ['', '../other.php', '/other.php', 'folder/../../other.php',
++                      'folder\\other.php', 'https:entry.php', 'entry.txt', '.', None, 123]:
++            with self.subTest(value=value):
++                plan = self.plan()
++                plan['steps'][1]['main_file'] = value
++                with self.assertRaisesRegex(a04.Refusal, '^A04_MAIN_FILE$'):
++                    a04.validate_plan(plan)
++
++    def test_core_cannot_declare_plugin_main_file(self):
++        plan = self.plan()
++        plan['steps'][0]['main_file'] = 'index.php'
++        with self.assertRaisesRegex(a04.Refusal, '^A04_MAIN_FILE$'):
++            a04.validate_plan(plan)
++
++    def test_missing_main_file_declaration_refused(self):
++        plan = self.plan()
++        del plan['steps'][1]['main_file']
++        with self.assertRaisesRegex(a04.Refusal, '^A04_PLAN$'):
++            a04.validate_plan(plan)
++
++    def test_different_folder_and_main_file_metadata_and_installed_version(self):
++        import zipfile
++        with tempfile.TemporaryDirectory(prefix='a04-main-file-') as temp:
++            root = pathlib.Path(temp)
++            package = root / 'fiction.zip'
++            with zipfile.ZipFile(package, 'w') as archive:
++                archive.writestr('fixture-box/entry.php', '<?php\n/*\nPlugin Name: Fiction\nVersion: 2.0\n*/')
++                archive.writestr('fixture-box/fixture-box.php', '<?php\n/*\nVersion: 99.0\n*/')
++            try:
++                metadata = a04.check_package(package, 'fixture-box', '2.0', '7.0.9', '8.2.36', main_file='entry.php')
++                self.assertEqual(metadata['version'], '2.0')
++                a04.overlay(package, root / 'site', 'fixture-box')
++                self.assertEqual(a04.version(root / 'site', 'fixture-box', main_file='entry.php'), '2.0')
++            except TypeError as error:
++                self.fail('Explicit main_file identity not supported: ' + str(error))
++
++
++class AuditCorrections(unittest.TestCase):
++    def plan(self, audit=True):
++        plan = MainFileCorrections().plan()
++        step = {'component': 'fixture-box', 'main_file': 'entry.php',
++                'before': '1.0', 'after': '2.0', 'archive': '/fixture.zip',
++                'sha256': 'a' * 64, 'adapter': 'bootstrap-only', 'hooks': []}
++        if audit:
++            step['audit'] = {'component': 'fixture-box', 'path': '/audit/fixture.md',
++                             'sha256': 'b' * 64, 'conclusion': 'no-deferred-database-migrations'}
++        plan['steps'].append(step)
++        return plan
++
++    def test_bootstrap_only_without_audit_refused(self):
++        with self.assertRaisesRegex(a04.Refusal, '^A04_AUDIT$'):
++            a04.validate_plan(self.plan(audit=False))
++
++    def test_named_audit_trace_accepted(self):
++        plan = self.plan()
++        try:
++            self.assertEqual(a04.validate_plan(plan), plan)
++        except a04.Refusal as error:
++            self.fail('Named audit trace rejected: ' + str(error))
++
++    def test_audit_must_name_this_component_and_explicit_conclusion(self):
++        for key, value in [('component', 'different-plugin'), ('conclusion', 'unknown'),
++                           ('path', 'relative.md'), ('sha256', ''), ('sha256', 'x' * 64)]:
++            with self.subTest(key=key, value=value):
++                plan = self.plan()
++                plan['steps'][-1]['audit'][key] = value
++                with self.assertRaisesRegex(a04.Refusal, '^A04_AUDIT$'):
++                    a04.validate_plan(plan)
++
++    def test_custom_adapter_after_first_four_stays_refused(self):
++        plan = self.plan()
++        plan['steps'][-1]['adapter'] = 'fixture-box'
++        with self.assertRaisesRegex(a04.Refusal, '^A04_ADAPTER$'):
++            a04.validate_plan(plan)
++
++    def test_audit_file_readback_detects_changed_or_missing_evidence(self):
++        self.assertTrue(hasattr(a04, 'check_audit'), 'Audit bytes must be checked before bootstrap')
++        with tempfile.TemporaryDirectory(prefix='a04-audit-') as temp:
++            path = pathlib.Path(temp).resolve() / 'fiction.md'
++            path.write_text('fixture-box: synthetic header-only plugin, no deferred migration')
++            audit = {'component': 'fixture-box', 'path': str(path),
++                     'sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
++                     'conclusion': 'no-deferred-database-migrations'}
++            a04.check_audit(audit)
++            path.write_text('changed')
++            with self.assertRaisesRegex(a04.Refusal, '^A04_AUDIT_HASH$'):
++                a04.check_audit(audit)
++            path.unlink()
++            with self.assertRaisesRegex(a04.Refusal, '^A04_AUDIT_FILE$'):
++                a04.check_audit(audit)
++
++    def test_audit_symlink_parent_refused(self):
++        self.assertTrue(hasattr(a04, 'check_audit'), 'Audit path must be checked before bootstrap')
++        with tempfile.TemporaryDirectory(prefix='a04-audit-link-') as temp:
++            root = pathlib.Path(temp).resolve()
++            real = root / 'real'
++            real.mkdir()
++            path = real / 'fiction.md'
++            path.write_text('fixture-box synthetic audit')
++            link = root / 'link'
++            link.symlink_to(real, target_is_directory=True)
++            audit = {'component': 'fixture-box', 'path': str(link / path.name),
++                     'sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
++                     'conclusion': 'no-deferred-database-migrations'}
++            with self.assertRaisesRegex(a04.Refusal, '^A04_AUDIT_FILE$'):
++                a04.check_audit(audit)
++
++
++if __name__ == '__main__':
++    unittest.main(verbosity=2)
+--- before/wp/tests/a04/test_packages.py
++++ after/wp/tests/a04/test_packages.py
+@@ -8,14 +8,14 @@
+         return p
+     def test_archive_version_checked_before_copy(self):
+         p=self.package('woocommerce/woocommerce.php','<?php\n/*\nVersion: 11.1.1\nRequires at least: 7.0\nRequires PHP: 8.2\n*/')
+-        self.assertEqual(m.package_metadata(p,'woocommerce')['version'],'11.1.1')
++        self.assertEqual(m.package_metadata(p,'woocommerce','woocommerce.php')['version'],'11.1.1')
+     def test_wrong_php_is_a_preflight_refusal(self):
+         p=self.package('woocommerce/woocommerce.php','<?php\n/*\nVersion: 11.1.1\nRequires PHP: 8.3\n*/')
+-        with self.assertRaisesRegex(m.Refusal,'A04_PACKAGE_PHP'):m.check_package(p,'woocommerce','11.1.1','7.0.9','8.2.36')
++        with self.assertRaisesRegex(m.Refusal,'A04_PACKAGE_PHP'):m.check_package(p,'woocommerce','11.1.1','7.0.9','8.2.36','woocommerce.php')
+     def test_wrong_wordpress_is_a_preflight_refusal(self):
+         p=self.package('woocommerce/woocommerce.php','<?php\n/*\nVersion: 11.1.1\nRequires at least: 7.1\n*/')
+-        with self.assertRaisesRegex(m.Refusal,'A04_PACKAGE_WORDPRESS'):m.check_package(p,'woocommerce','11.1.1','7.0.9','8.2.36')
++        with self.assertRaisesRegex(m.Refusal,'A04_PACKAGE_WORDPRESS'):m.check_package(p,'woocommerce','11.1.1','7.0.9','8.2.36','woocommerce.php')
+     def test_wrong_package_version_refused(self):
+         p=self.package('woocommerce/woocommerce.php','<?php\n/*\nVersion: 11.0.1\n*/')
+-        with self.assertRaisesRegex(m.Refusal,'A04_PACKAGE_VERSION'):m.check_package(p,'woocommerce','11.1.1','7.0.9','8.2.36')
++        with self.assertRaisesRegex(m.Refusal,'A04_PACKAGE_VERSION'):m.check_package(p,'woocommerce','11.1.1','7.0.9','8.2.36','woocommerce.php')
+ if __name__=='__main__':unittest.main(verbosity=2)
+--- before/wp/tests/a04/test_safety.py
++++ after/wp/tests/a04/test_safety.py
+@@ -2,7 +2,7 @@
+ ROOT=pathlib.Path('/subject') if pathlib.Path('/subject').is_dir() else pathlib.Path(__file__).resolve().parents[2]/'outils/bascule'
+ loader=importlib.machinery.SourceFileLoader('a04_update',str(ROOT/'mettre-a-jour'));spec=importlib.util.spec_from_loader(loader.name,loader);a04=importlib.util.module_from_spec(spec);loader.exec_module(a04)
+ def plan():
+-    steps=[{'component':k,'before':'1.0','after':'2.0','archive':'/package.zip','sha256':'a'*64,'adapter':k,'hooks':[]} for k in ['core','woocommerce','woocommerce-subscriptions','woocommerce-memberships']]
++    steps=[{'component':k,'main_file':None if k=='core' else k+'.php','before':'1.0','after':'2.0','archive':'/package.zip','sha256':'a'*64,'adapter':k,'hooks':[]} for k in ['core','woocommerce','woocommerce-subscriptions','woocommerce-memberships']]
+     steps[0].update(before='6.9.1',after='7.0.9')
+     return {'schema':'imagine-a04-v1','site_status':'verified-staging','steps':steps}
+ class SafetyTests(unittest.TestCase):

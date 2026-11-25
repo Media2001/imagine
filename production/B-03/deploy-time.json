@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-25T16:35:30.267910+00:00",
+  "scope": "imagine-test-demo",
+  "phase": "time",
+  "expected": {
+    "themes/imagine/assets/tokens.css": "189df2806d80babf869dc2e9183298fccb7523b4ebb9faaf03c9d2fee3322923",
+    "themes/imagine/inc/reading.php": "7f10967110b910b8702a6c07a954788e324c88f0284253656414ecfd94c41517",
+    "themes/imagine/single.php": "02a6f2e9b7325146f79ba5f181e9ad587270fc65dfaff75bbf252f9cd361f5ef",
+    "themes/imagine/functions.php": "5f2fe6334a51ca3546b605bd166e0c108f11b06f33d250aba07edcaa14532cf5"
+  },
+  "actual": {
+    "themes/imagine/assets/tokens.css": "189df2806d80babf869dc2e9183298fccb7523b4ebb9faaf03c9d2fee3322923",
+    "themes/imagine/inc/reading.php": "7f10967110b910b8702a6c07a954788e324c88f0284253656414ecfd94c41517",
+    "themes/imagine/single.php": "02a6f2e9b7325146f79ba5f181e9ad587270fc65dfaff75bbf252f9cd361f5ef",
+    "themes/imagine/functions.php": "5f2fe6334a51ca3546b605bd166e0c108f11b06f33d250aba07edcaa14532cf5"
+  },
+  "exact": true,
+  "files": 4,
+  "php_parsed": 3
+}
