@@ -24,8 +24,35 @@ Aucune activation WordPress n'est nécessaire.
 - Les sept clés de pages sont fixes et obligatoires dans la référence. Une page supprimée dans
   la seconde photo devient **anormale** ; une référence incomplète est refusée, même si la page apparaît ensuite.
 - Le timestamp, une fois son type validé, n'entre pas dans les différences. Les classements
-  versions = attendu, accès/actions = anormal, pages/sonde = à regarder hors santé dégradée
-  restent inchangés. Aucune liste de hooks attendus n'est introduite.
+  versions = attendu, accès/actions = anormal, pages/sonde = à regarder hors santé dégradée.
+  Exception fermée : `woocommerce_run_on_woocommerce_admin_updated` et son compteur de jour
+  deviennent attendus seulement si la version Woo diffère ; les deux côtés d’un ID existant
+  doivent porter ce hook. Ce seul travail administratif natif différé a été constaté dans
+  les mises à jour A04 classique/HPOS (`production/A-04/COORDINATION.md`). Aucune exception
+  pour migrations, paiements, entretien ou préfixe ; tout autre écart reste anormal.
+- La photo exige aussi `php_log` : `checked=true`, `from_utc`, `until_utc` (UTC ISO seconde,
+  fenêtre ordonnée ≤24 h), `errors` entier positif ou nul. Anciennes photos sans contrôle
+  du journal : refus, les régénérer, ne pas ajouter de preuve synthétique à un historique.
+  Les dates de fenêtre ne créent pas de diff ; toute nouvelle fenêtre avec diagnostics
+  est anormale, même quand le compteur est identique à celui de la référence.
+
+## Journal PHP complémentaire
+
+`PhpLog::read(path, from, until)` lit un journal PHP natif UTC entre deux bornes inclusives.
+`PhpLog::during(path, callable)` encadre les GET par ces dates, vérifie identité et préfixe
+avant/après, et renvoie `[résultat, bilan]`. Il ne configure ni n’active la journalisation.
+Le vrai serveur HTTP doit déjà écrire dans le fichier indiqué par `php_error_log` dans la
+configuration de collecte. Vérifier `log_errors=On` et `date.timezone=UTC` côté serveur.
+Un fichier vide lisible est valide ; chemin non canonique, lien, permission manquante,
+fichier absent, rotation, troncature/réécriture, lecture incomplète ou >16 Mio bloquent
+la collecte. Formats inconnus, dates invalides, lignes >64 Kio ou fin tronquée sont refusés,
+jamais ignorés. Format reconnu : `[25-Nov-2026 12:00:00 UTC] diagnostic`, avec suites de
+trace PHP natives ; chaque enregistrement horodaté dans la fenêtre est un diagnostic,
+y compris `error_log()` personnalisé. Ce compteur conservateur n’est pas un nombre
+d’exceptions distinctes. Les messages, traces, chemins et valeurs ne sont jamais exportés.
+Le contrôle couvre la fenêtre des GET (pas toute une mise à jour antérieure) ; HTTP/display
+restent contrôlés en plus. Connexion HTTP impossible ou corps trop grand = refus technique.
+Le choix du bon fichier et son activation côté serveur restent des prérequis opérateur.
 
 ## Clés et confidentialité
 
@@ -56,12 +83,18 @@ reconstruit pas cette image et ne prétend pas avoir rejoué les autres lots.
 
 PSR-4 : `Imagine\NonRegression\` → `src/` ; après installation Composer,
 autoload = `wp/plugins/imagine-non-regression/vendor/autoload.php`.
-Les wrappers CLI chargent directement les deux sources et n'exigent pas Composer à l'exécution.
+Les wrappers CLI chargent directement ces sources et n'exigent pas Composer à l'exécution.
 Pour copier les outils dans un banc, préserver le rapport relatif
 `wp/outils/bascule/a03/` → `wp/plugins/imagine-non-regression/src/`.
 Avec les anciens chemins aplatis `/subject/a03/`, les wrappers résolvent
-`/plugins/imagine-non-regression/src/{Report,Policy}.php` : copier ces sources à cet endroit
+`/plugins/imagine-non-regression/src/{Report,Policy,PhpLog}.php` : copier ces sources à cet endroit
 ou conserver l'arborescence `wp/` complète. Ne pas dupliquer les classes dans les wrappers.
 
-Les arbitrages de `corrections/A-03.md` §5 restent ouverts ; ce paquet ne clôt ni A-03,
-ni la vérification fonctionnelle WordPress, et n'autorise aucun accès au réel.
+Les arbitrages du 25/11 sont appliqués ; ce paquet ne prononce pas la clôture A03
+et n’autorise aucun accès au réel. Le banc HTTP fictif utilise un écrivain SQL natif en
+transaction annulée, car un serveur HTTP SELECT seul génère des erreurs sur les transients.
+Seule la séquence AUTO_INCREMENT synthétique de `wp_options` est restaurée explicitement
+après la sortie du collecteur (les lignes et schémas sont contrôlés indépendamment).
+Cet adaptateur de banc n’est ni installé par le sujet ni une promesse de HTTP sans écritures
+sur un staging réel. Les photos hooks du banc utilisent des lignes AS natives et un oracle
+de version antérieure synthétique ; la vraie mise à jour appartient au rejeu A04 du parent.

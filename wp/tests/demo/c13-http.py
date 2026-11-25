@@ -34,6 +34,7 @@ def verify():
         pages[k] = text
         checks['page_native_' + k] = status == 200 and '<h1>Liste d’envoi</h1>' in text and 'DEMO-2027-T1' in text and '2027-01-05' in text
     checks['menu_referent_sans_reglages'] = 'page=imagine-liste-envoi' in pages['E-ABO'] and 'page=imagine-reglages' not in pages['E-ABO']
+    checks['politique_groupes_administrateur_seulement'] = 'name="imagine_envoi_groupes"' in pages['E-ADMIN'] and 'name="imagine_envoi_groupes"' not in pages['E-ABO']
     fields = {'action': 'imagine_exporter_liste_envoi', 'numero': 'DEMO-2027-T1'}
     count_journal = lambda: h.wp(r'global $wpdb;echo wp_json_encode((int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name LIKE %s",$wpdb->esc_like(Imagine\Site\ListeEnvoiAdmin::JOURNAL)."%")));')
     before = count_journal() if 'Liste d’envoi' in pages.get('E-ABO', '') else 0

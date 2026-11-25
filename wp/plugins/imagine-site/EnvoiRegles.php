@@ -28,8 +28,11 @@ final class EnvoiRegles
             $dates = [];
             foreach (['sortie', 'cloture'] as $key) {
                 $value = $row[$key] ?? '';
-                $date = is_string($value) ? DateTimeImmutable::createFromFormat('!Y-m-d', $value,
-                    new DateTimeZone('Europe/Brussels')) : false;
+                $date = is_string($value) ? DateTimeImmutable::createFromFormat(
+                    '!Y-m-d',
+                    $value,
+                    new DateTimeZone('Europe/Brussels')
+                ) : false;
                 if (!$date || $date->format('Y-m-d') !== $value) {
                     throw new \RuntimeException('Calendrier postal invalide.');
                 }
@@ -74,17 +77,23 @@ final class EnvoiRegles
     public static function figer(string $code, array $events, DateTimeImmutable $now, array $rows): array
     {
         $view = self::calculer($code, $events, $now, $rows);
-        if ($view['provisoire']) { throw new \LogicException('Une projection ne peut être gelée.'); }
+        if ($view['provisoire']) {
+            throw new \LogicException('Une projection ne peut être gelée.');
+        }
         return ['version' => 1, 'numero' => $code, 'calendrier' => $rows, 'observations' => $events,
             'cloture' => $view['liste']->cloture->format(DATE_ATOM), 'blocs' => $view['blocs']];
     }
 
     public static function relire(array $snapshot, DateTimeImmutable $now): array
     {
-        if (($snapshot['version'] ?? null) !== 1) { throw new \RuntimeException('Version postale inconnue.'); }
+        if (($snapshot['version'] ?? null) !== 1) {
+            throw new \RuntimeException('Version postale inconnue.');
+        }
         $view = self::calculer($snapshot['numero'], $snapshot['observations'], $now, $snapshot['calendrier']);
-        if ($view['provisoire'] || $view['liste']->cloture->format(DATE_ATOM) !== $snapshot['cloture']
-            || $view['blocs'] !== $snapshot['blocs']) {
+        if (
+            $view['provisoire'] || $view['liste']->cloture->format(DATE_ATOM) !== $snapshot['cloture']
+            || $view['blocs'] !== $snapshot['blocs']
+        ) {
             throw new \RuntimeException('Référence historique incohérente.');
         }
         return $view;
@@ -104,7 +113,9 @@ final class EnvoiRegles
         foreach ($events as $event) {
             $key = $event['donnees']['id'] . ':' . (new DateTimeImmutable($event['observe_utc'], new DateTimeZone('UTC')))->format('U.u');
             if (isset($seen[$key])) {
-                if ($seen[$key] !== $event['donnees']) { throw new \LogicException('Observations contradictoires au même instant.'); }
+                if ($seen[$key] !== $event['donnees']) {
+                    throw new \LogicException('Observations contradictoires au même instant.');
+                }
                 continue;
             }
             $seen[$key] = $event['donnees'];
@@ -150,8 +161,10 @@ final class EnvoiRegles
                     }
                     $seen[$renewal['id']] = true;
                     $renewed = self::date($renewal['debut']);
-                    if ($renewal['paiement'] === null || $renewal['paiement'] >= $number->cloture->getTimestamp()
-                        || $renewal['paiement'] > $recorded->getTimestamp() || $renewed >= $number->cloture) {
+                    if (
+                        $renewal['paiement'] === null || $renewal['paiement'] >= $number->cloture->getTimestamp()
+                        || $renewal['paiement'] > $recorded->getTimestamp() || $renewed >= $number->cloture
+                    ) {
                         continue;
                     }
                     $year = $engine->renouveler($year, $renewed);
@@ -178,11 +191,27 @@ final class EnvoiRegles
                 $origin = $data['origine'] ?? 'abonnement';
                 $resolved = $origin === 'abonnement' || ($data['beneficiaires_resolus'] ?? false);
                 $people = $origin === 'abonnement'
-                    ? [new Destinataire($data['user'], $data['destinataire'], $data['rue'], $data['complement'],
-                        $data['code_postal'], $data['ville'], $data['pays'])]
-                    : array_map(static fn (array $p): Destinataire => new Destinataire($p['id'], $p['nom'],
-                        $p['rue'], $p['complement'], $p['code_postal'], $p['ville'], $p['pays']),
-                        $data['beneficiaires'] ?? []);
+                    ? [new Destinataire(
+                        $data['user'],
+                        $data['destinataire'],
+                        $data['rue'],
+                        $data['complement'],
+                        $data['code_postal'],
+                        $data['ville'],
+                        $data['pays']
+                    )]
+                    : array_map(
+                        static fn (array $p): Destinataire => new Destinataire(
+                            $p['id'],
+                            $p['nom'],
+                            $p['rue'],
+                            $p['complement'],
+                            $p['code_postal'],
+                            $p['ville'],
+                            $p['pays']
+                        ),
+                        $data['beneficiaires'] ?? []
+                    );
                 $resolved = $resolved && ($origin !== 'offert' || count($people) === 1)
                     && ($origin !== 'groupe' || count($people) <= ($data['places'] ?? 0));
                 if (!$resolved) {
@@ -207,8 +236,11 @@ final class EnvoiRegles
             $subscriptions[] = new Abonnement((string) $id, $last['origine'] ?? 'abonnement', $creation, $situations);
             $exclusions[(string) $id] = ['abonnement_id' => (string) $id,
                 'destinataire' => $last['destinataire'], 'motif' => $reason];
-            $blocked = $blocked || in_array($reason,
-                ['historique_indisponible', 'beneficiaires_non_resolus', 'calendrier_incomplet'], true);
+            $blocked = $blocked || in_array(
+                $reason,
+                ['historique_indisponible', 'beneficiaires_non_resolus', 'calendrier_incomplet'],
+                true
+            );
         }
         $list = ListeEnvoi::etablir($number, $calendar, $subscriptions, $number->cloture);
         $belgium = 0;

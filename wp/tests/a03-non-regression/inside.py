@@ -9,6 +9,8 @@ import subprocess
 import sys
 import time
 import zipfile
+import http.server
+import threading
 
 ROOT = pathlib.Path('/opt/a03')
 OUT = pathlib.Path('/report')
@@ -181,6 +183,37 @@ def run_storage(storage):
         finally:
             fault_mu.unlink()
         check(storage + ':http_collection_failure_blocks_report', unavailable.returncode == 1 and unavailable.stdout == '' and unavailable.stderr == 'A03_HTTP_READ\n' and not http_target.exists())
+        class FaultHttp(http.server.BaseHTTPRequestHandler):
+            kind = 'short'
+            def do_GET(self):
+                body = b'A03_PAGE_MARKER' + (b'x' * 4194304 if self.kind == 'large' else b'')
+                self.send_response(302 if self.kind == 'redirect' else 200)
+                if self.kind == 'redirect':
+                    self.send_header('Location', 'http://example.org/not-requested')
+                self.send_header('Content-Length', str(len(body) + (100 if self.kind == 'short' else 0)))
+                self.send_header('Connection', 'close')
+                self.end_headers()
+                try:
+                    self.wfile.write(body)
+                except (BrokenPipeError, ConnectionResetError):
+                    pass
+            def log_message(self, *args):
+                pass
+        fault_http = http.server.HTTPServer(('127.0.0.1', 18804), FaultHttp)
+        thread = threading.Thread(target=fault_http.serve_forever, daemon=True)
+        thread.start()
+        fault_mu.write_text("<?php add_filter('home_url', static fn() => 'http://127.0.0.1:18804');")
+        try:
+            for kind, code in [('short', 'A03_HTTP_READ'), ('large', 'A03_HTTP_READ'), ('redirect', 'A03_HTTP_REDIRECT')]:
+                FaultHttp.kind = kind
+                bad_target = OUT / (storage + '-http-' + kind)
+                partial = snapshot(site, settings, bad_target)
+                check(storage + ':http_' + kind + '_blocks_partial_report', partial.returncode == 1 and partial.stdout == '' and partial.stderr == code + '\n' and not bad_target.exists())
+        finally:
+            fault_mu.unlink()
+            fault_http.shutdown()
+            fault_http.server_close()
+            thread.join(timeout=5)
         fault_mu.write_text("<?php namespace Imagine\\NonRegression; function wcs_get_subscriptions($args) { global $wpdb; $wpdb->get_var('SELECT ID FROM wp_a03_missing_table'); $wpdb->get_var('SELECT 1'); return \\wcs_get_subscriptions($args); }")
         try:
             hidden_target = OUT / (storage + '-sql-hidden')

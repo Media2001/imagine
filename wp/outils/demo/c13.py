@@ -2,6 +2,7 @@
 import argparse
 import base64
 import importlib.util
+import hashlib
 import json
 from pathlib import Path
 import c10
@@ -9,6 +10,10 @@ import c10
 ROOT = c10.ROOT
 FILES = ['plugins/imagine-site/EnvoiRegles.php', 'plugins/imagine-site/EnvoiRelations.php',
          'plugins/imagine-site/EnvoiNatif.php', 'plugins/imagine-site/ListeEnvoiAdmin.php']
+READONLY = ['plugins/imagine-site/' + name for name in (
+    'imagine-site.php', 'MonCompte.php', 'AchatNumero.php', 'AchatsNumeros.php',
+    'Paywall.php', 'PdfNumero.php', 'Decouverte.php', 'DecouverteReglages.php')]
+READONLY += ['themes/imagine/functions.php', 'themes/imagine/parts/mon-compte.php']
 
 
 def upload(rel, source):
@@ -50,6 +55,12 @@ def run(deploy=False, php_only=False, require_complete=False):
     spec.loader.exec_module(unit)
     pure = unit.run()
     _, before = c10.guard()  # Sonde read-only avant toute mutation de la cible.
+    def protected_files():
+        code = '$out=[];foreach(json_decode(' + json.dumps(json.dumps(READONLY)) + ',true) as $p){$out[$p]=hash_file("sha256",WP_CONTENT_DIR . "/" . $p);}echo wp_json_encode($out);'
+        return json.loads(c10.b00.wp('eval', code)['stdout'])
+    protected_sources = protected_files()
+    if protected_sources != {p: hashlib.sha256((ROOT / 'wp' / p).read_bytes()).hexdigest() for p in READONLY}:
+        raise RuntimeError('Sources B02/C14/fermées différentes du dépôt ; aucun écrasement')
     protected = protege()
     if deploy:
         for rel in FILES:
@@ -65,6 +76,9 @@ def run(deploy=False, php_only=False, require_complete=False):
             raise RuntimeError('Code installé différent des sources : ' + rel)
     checks = {'pur': pure, 'PHP': runtime()}
     checks['sources_installees_conformes'] = True
+    checks['B02_C14_et_sources_fermees_preserves'] = protected_sources == protected_files()
+    if not checks['B02_C14_et_sources_fermees_preserves']:
+        raise RuntimeError('Sources protégées modifiées')
     if not php_only:
         path = ROOT / 'wp/tests/demo/c13-http.py'
         spec = importlib.util.spec_from_file_location('c13_http', path)

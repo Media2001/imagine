@@ -29,9 +29,13 @@ final class EnvoiRelations
         $capacity = 0;
         foreach ($sub->get_items() as $item) {
             foreach ($plans as $planId => $type) {
-                if ($type !== 'offert') { continue; }
+                if ($type !== 'offert') {
+                    continue;
+                }
                 $plan = wc_memberships_get_membership_plan($planId);
-                if ($plan && in_array($item->get_product_id(), $plan->get_product_ids(), true)) { $gift = true; }
+                if ($plan && in_array($item->get_product_id(), $plan->get_product_ids(), true)) {
+                    $gift = true;
+                }
             }
             foreach ($groupPlans as $planId) {
                 $plan = wc_memberships_get_membership_plan($planId);

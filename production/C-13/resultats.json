@@ -1,7 +1,7 @@
 {
   "pur": {
-    "tests": 8,
-    "assertions": 27,
+    "tests": 10,
+    "assertions": 30,
     "succes": true,
     "network": "none"
   },
@@ -36,6 +36,7 @@
     "correction_cadeau_incomplet_ferme_sans_rapprochement_email": true,
     "correction_politique_groupes_defaut_ferme": true,
     "correction_groupe_natif_deux_attribuees_une_libre": true,
+    "correction_cadeau_requis_sans_relation_ferme_pas_payeur": true,
     "correction_attributions_historisees_append_only": true,
     "correction_observation_rejouee_sans_doublon": true,
     "correction_adresse_beneficiaire_hook_natif_historise": true,

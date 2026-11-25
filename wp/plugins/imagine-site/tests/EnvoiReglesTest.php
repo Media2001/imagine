@@ -2,6 +2,12 @@
 
 declare(strict_types=1);
 
+namespace Imagine\Site\Tests;
+
+use DateTimeImmutable;
+use LogicException;
+use RuntimeException;
+
 require_once dirname(__DIR__) . '/tests-c13/bootstrap.php';
 
 use Imagine\Site\EnvoiRegles;
@@ -33,8 +39,12 @@ final class EnvoiReglesTest extends TestCase
 
     private function vue(array $data, string $code = '2026-T1', ?array $events = null): array
     {
-        return EnvoiRegles::calculer($code, $events ?? [['observe_utc' => '2026-01-02 00:00:00', 'donnees' => $data]],
-            new DateTimeImmutable('2028-01-01 UTC'), $this->calendrier());
+        return EnvoiRegles::calculer(
+            $code,
+            $events ?? [['observe_utc' => '2026-01-02 00:00:00', 'donnees' => $data]],
+            new DateTimeImmutable('2028-01-01 UTC'),
+            $this->calendrier()
+        );
     }
 
     public function testCadeauEtGroupeConserventIdentitesEtPlacesLibres(): void
@@ -104,8 +114,12 @@ final class EnvoiReglesTest extends TestCase
     public function testCalendrierIncompletFermeExport(): void
     {
         $rows = array_slice($this->calendrier(), 0, 2);
-        $view = EnvoiRegles::calculer('2026-T1', [['observe_utc' => '2026-01-02 00:00:00', 'donnees' => $this->donnees()]],
-            new DateTimeImmutable('2026-01-03 UTC'), $rows);
+        $view = EnvoiRegles::calculer(
+            '2026-T1',
+            [['observe_utc' => '2026-01-02 00:00:00', 'donnees' => $this->donnees()]],
+            new DateTimeImmutable('2026-01-03 UTC'),
+            $rows
+        );
         self::assertTrue($view['historique_incomplet']);
         self::assertSame('calendrier_incomplet', $view['exclus'][0]['motif']);
         self::assertSame([], $view['liste']->lignes);
@@ -131,8 +145,10 @@ final class EnvoiReglesTest extends TestCase
         $snapshot = EnvoiRegles::figer('2026-T1', [$base], new DateTimeImmutable('2026-02-01 UTC'), $this->calendrier());
         $data['beneficiaires'][0]['rue'] = 'Apres cloture';
         $late = ['observe_utc' => '2026-01-06 00:00:00', 'donnees' => $data];
-        self::assertSame($this->vue($data, '2026-T1', [$base, $late])['liste']->lignes,
-            EnvoiRegles::relire($snapshot, new DateTimeImmutable('2028-01-01 UTC'))['liste']->lignes);
+        self::assertSame(
+            $this->vue($data, '2026-T1', [$base, $late])['liste']->lignes,
+            EnvoiRegles::relire($snapshot, new DateTimeImmutable('2028-01-01 UTC'))['liste']->lignes
+        );
         self::assertSame('Avant cloture', EnvoiRegles::relire($snapshot, new DateTimeImmutable('2028-01-01 UTC'))['liste']->lignes[0]['rue']);
         $snapshot['blocs'] = [];
         $this->expectException(RuntimeException::class);

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace Imagine\Site;
 
 /** Écran natif et contrôleur d'export : capacité indépendante du nonce. */
@@ -49,12 +50,24 @@ final class ListeEnvoiAdmin
         // C10 garde son écran et sa capacité. Seul le parent visible du référent
         // est remplacé : aucun manage_options/manage_woocommerce n'est accordé.
         if (!current_user_can('manage_options')) {
-            add_menu_page(self::t('Liste d’envoi'), self::t('Imagine'), $cap, 'imagine',
-                [self::class, 'page'], 'dashicons-admin-settings');
+            add_menu_page(
+                self::t('Liste d’envoi'),
+                self::t('Imagine'),
+                $cap,
+                'imagine',
+                [self::class, 'page'],
+                'dashicons-admin-settings'
+            );
             remove_submenu_page('imagine', 'imagine');
         }
-        add_submenu_page('imagine', self::t('Liste d’envoi'), self::t('Liste d’envoi'),
-            $cap, self::PAGE, [self::class, 'page']);
+        add_submenu_page(
+            'imagine',
+            self::t('Liste d’envoi'),
+            self::t('Liste d’envoi'),
+            $cap,
+            self::PAGE,
+            [self::class, 'page']
+        );
     }
 
     private static function verifier(): void
@@ -83,10 +96,15 @@ final class ListeEnvoiAdmin
             settings_fields('imagine_envoi');
             echo '<label for="imagine-envoi-groupes">' . esc_html(self::t('Groupes — à confirmer par Imagine')) . '</label> ';
             echo '<select id="imagine-envoi-groupes" name="imagine_envoi_groupes">';
-            foreach (['ferme' => self::t('Fermé (défaut prudent)'),
-                'liens_memberships' => self::t('Attributions Memberships natives et capacité du produit')] as $value => $label) {
-                echo '<option value="' . esc_attr($value) . '"' . selected(get_option('imagine_envoi_groupes', 'ferme'),
-                    $value, false) . '>' . esc_html($label) . '</option>';
+            foreach (
+                ['ferme' => self::t('Fermé (défaut prudent)'),
+                'liens_memberships' => self::t('Attributions Memberships natives et capacité du produit')] as $value => $label
+            ) {
+                echo '<option value="' . esc_attr($value) . '"' . selected(
+                    get_option('imagine_envoi_groupes', 'ferme'),
+                    $value,
+                    false
+                ) . '>' . esc_html($label) . '</option>';
             }
             echo '</select><p>' . esc_html(self::t('Aucun statut actif ne remplace un paiement. Les places libres ne reçoivent rien. Les liens requis manquants ferment l’export.')) . '</p>';
             submit_button(self::t('Enregistrer la politique postale'));
@@ -117,15 +135,20 @@ final class ListeEnvoiAdmin
             submit_button(self::t('Afficher'), 'secondary', '', false);
             echo '</form><h2>' . esc_html(self::t('Aperçu')) . '</h2>';
             echo '<p>' . esc_html(sprintf(self::t('Clôture : %s (Europe/Brussels).'), $view['liste']->cloture->format('Y-m-d H:i'))) . '</p>';
-            echo '<p><strong>' . esc_html(sprintf(self::t('%d destinataires — Belgique : %d ; étranger : %d.'),
-                count($view['liste']->lignes), $view['belgique'], $view['etranger'])) . '</strong></p>';
+            echo '<p><strong>' . esc_html(sprintf(
+                self::t('%d destinataires — Belgique : %d ; étranger : %d.'),
+                count($view['liste']->lignes),
+                $view['belgique'],
+                $view['etranger']
+            )) . '</strong></p>';
             echo '<p>' . esc_html($view['provisoire']
                 ? self::t('Projection provisoire avant clôture, pas une liste finale. Les dates de fin connues sont prises en compte.')
                 : self::t('Liste à la clôture : seuls les relevés observés avant la clôture sont utilisés.')) . '</p>';
             echo '<div class="notice notice-warning inline"><p>' . esc_html(self::t(
                 'Démonstration hors ligne : aucun email, envoi postal ni paiement. '
                 . 'Les profils C09 actifs n’ont pas de paiement validé ; leur statut actif seul ne justifie pas une expédition. '
-                . 'Les bénéficiaires offerts/groupés absents du natif ne sont pas inventés.')) . '</p></div>';
+                . 'Les bénéficiaires offerts/groupés absents du natif ne sont pas inventés.'
+            )) . '</p></div>';
             if ($view['historique_incomplet']) {
                 echo '<div class="notice notice-error inline"><p>' . esc_html(self::t('Historique antérieur manquant : export fermé, aucune reconstitution rétroactive.')) . '</p></div>';
             }
@@ -150,8 +173,13 @@ final class ListeEnvoiAdmin
             echo '<input type="hidden" name="action" value="' . esc_attr(self::ACTION) . '">';
             echo '<input type="hidden" name="numero" value="' . esc_attr($code) . '">';
             wp_nonce_field(self::ACTION . ':' . $code);
-            submit_button($view['provisoire'] ? self::t('Exporter le CSV provisoire') : self::t('Exporter le CSV'),
-                'primary', 'submit', true, $view['historique_incomplet'] || $view['liste']->anomalies !== [] ? ['disabled' => 'disabled'] : []);
+            submit_button(
+                $view['provisoire'] ? self::t('Exporter le CSV provisoire') : self::t('Exporter le CSV'),
+                'primary',
+                'submit',
+                true,
+                $view['historique_incomplet'] || $view['liste']->anomalies !== [] ? ['disabled' => 'disabled'] : []
+            );
             echo '</form>';
         } catch (\Throwable) {
             echo '<div class="notice notice-error"><p>' . esc_html(self::t('Liste indisponible : vérifier le numéro, les données natives et le journal. Aucun CSV produit.')) . '</p></div>';
