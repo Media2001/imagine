@@ -1,17 +1,27 @@
-# B-04 — À voir : lot bloqué, pas de livraison visuelle
+# B-04 — À voir sur la démonstration fictive
 
-**Aucun PRET B04.** Après le constat des prérequis manquants, le tracer-bullet a été retiré et le thème restauré exactement. Ces adresses montrent encore le squelette précédent, pas des pages B04 terminées.
+**Prêt à relire, sans validation graphique ni autorisation de mise en ligne.** L’arrêt précédent est conservé dans `historique-arret/` ; il est remplacé par cette livraison.
 
-Site autorisé : `http://192.168.129.32:8085` (imagine-test-demo).
+Site unique : `http://192.168.129.32:8085` — **imagine-test-demo**. Profils fictifs existants `a-carte` et `p-numero`, identifiants conservés hors dépôt.
 
-- Kiosque : `http://192.168.129.32:8085/numeros/`.
+## Adresses
+
+- Kiosque : `http://192.168.129.32:8085/numeros/` — cinq numéros, couverture et titre natifs, date éditoriale décroissante, statut issu de C08/C11. Pagination native, taille du site conservée (10). La preuve sur trois pages de taille 2 est dans `catalogue-final.json`, sans changement de réglage.
 - Numéro 11 : `http://192.168.129.32:8085/numeros/demo-2026-t1/`.
 - Numéro 39 : `http://192.168.129.32:8085/numeros/demo-2026-t4/`.
+- Thématique : `http://192.168.129.32:8085/thematiques/demo-thematique-1/` — articles de plusieurs numéros, statut identique à celui de leur destination ; les trois thématiques sont testées.
+- Destination publique du bouton C14 : `http://192.168.129.32:8085/product/b04-produit-fictif-numero-11/` — **FICTIF B04**, produit simple natif à zéro euro. Ne pas passer commande. Le produit historique 271 reste privé ; le magasin et le checkout restent en « coming soon ».
 
-Les requêtes HTTP ont été faites sous **anonyme**, **a-carte**, **p-numero**, avec les identifiants fictifs déjà présents hors dépôt, jamais copiés ici. Aucun compte créé.
+## Comparer les trois visiteurs sur les DEUX mêmes numéros
 
-À la reprise, comparer les trois visiteurs sur le même numéro : statuts du sommaire conformes à C08, absence du corps réservé, vrai bouton C14 pour qui n’a pas le numéro, PDF C11 seulement sur décision complète. Les droits natifs diffèrent : P-NUMERO a le numéro 11 ; A-CARTE le PDF du numéro 39, pas celui du numéro 11. Ne pas fabriquer de droit pour rendre les colonnes identiques.
+| Visiteur | Numéro 11 | Numéro 39 |
+|---|---|---|
+| Anonyme | Articles réservés + article libre ; bouton Acheter ; aucun lien/indice PDF | Articles réservés + article libre ; aucun PDF ; aucun produit public C14 associé, donc aucun achat inventé |
+| a-carte | Articles ouverts selon C08 ; PDF antérieur fermé par le réglage existant ; bouton d’achat disponible | Articles ouverts et PDF ; pas de bouton d’achat |
+| p-numero | Numéro acheté : articles ouverts et PDF ; pas de bouton d’achat | Autre numéro : articles réservés sauf libre ; aucun PDF ni achat inventé |
 
-Le produit C14 du numéro 11, ID 271, est **privé** : aucune adresse d’achat publique ne peut être proposée honnêtement aujourd’hui. Le numéro de vingt articles demandé n’existe pas non plus dans les objets autorisés.
+Chaque page numéro comporte une présentation publique, un article libre mis en avant, un sommaire détaillé avec libellés textuels et liens réels, et l’emplacement nommé « Sommaire audio », **sans lecteur ni fichier**. Les liens du sommaire ont aussi été suivis pour vérifier le texte réellement servi. Le PDF reste servi par C11, jamais par une adresse physique.
 
-Voir `RAPPORT.md`, `blocage-catalogue.json`, `arret-verifie.json`. Les reçus `php-status-green.json` et `http-issue-red.json` documentent une tranche et son rouge, **pas une recette complète**.
+Captures finales : `captures/` (16 images, 1280 et 375 px). Géométrie, focus et navigation au clavier : `browser.json`. Mesure sur vingt vrais articles : `queries-20.json` ; le numéro, ses vingt articles et le contrôleur HTTP temporaire ont été retirés exactement après mesure.
+
+Référence de livraison : `verification-finale.json` ; détails et décisions dans `RAPPORT.md`. Le designer doit encore fixer les points de `besoins-designer.md`.

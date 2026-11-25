@@ -1,0 +1,143 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-25T20:20:25.390247+00:00",
+  "runs": [
+    {
+      "script": "wp\\tests\\demo\\b04-work.py",
+      "args": [
+        "php",
+        "final"
+      ],
+      "completed_green_receipt_before_tool_timeout": "production\\B-04\\final-run-00.log"
+    },
+    {
+      "script": "wp\\tests\\demo\\b04-fixture-test.py",
+      "args": [
+        "final"
+      ],
+      "completed_green_receipt_before_tool_timeout": "production\\B-04\\final-run-01.log"
+    },
+    {
+      "script": "wp\\tests\\demo\\b04-undated-test.py",
+      "args": [
+        "native-guard-final"
+      ],
+      "completed_green_receipt_before_tool_timeout": "production\\B-04\\final-run-02.log"
+    },
+    {
+      "script": "wp\\tests\\demo\\b04-http.py",
+      "args": [
+        "final"
+      ],
+      "completed_green_receipt_before_tool_timeout": "production\\B-04\\final-run-03.log"
+    },
+    {
+      "script": "wp\\tests\\demo\\b04-catalogue-test.py",
+      "args": [
+        "final"
+      ],
+      "completed_green_receipt_before_tool_timeout": "production\\B-04\\final-run-04.log"
+    },
+    {
+      "script": "wp\\tests\\demo\\b04-queries.py",
+      "args": [],
+      "completed_green_receipt_before_tool_timeout": "production\\B-04\\final-run-05.log"
+    },
+    {
+      "script": "wp\\tests\\demo\\b04-safety.py",
+      "args": [],
+      "completed_green_receipt_before_tool_timeout": "production\\B-04\\final-run-06.log"
+    },
+    {
+      "script": "wp\\tests\\demo\\b04-regression.py",
+      "args": [],
+      "completed_green_receipt_before_tool_timeout": "production\\B-04\\final-run-07.log"
+    },
+    {
+      "script": "b04-browser.py",
+      "exit": 0,
+      "runtime": "existing Hermes Python 3.11 + Playwright"
+    },
+    {
+      "script": "b04-preservation.py",
+      "exit": 0
+    }
+  ],
+  "counts": {
+    "php-final": 11,
+    "fixture-final": 10,
+    "undated-native-guard-final": 3,
+    "http-final": 146,
+    "catalogue-final": 201,
+    "queries-20": 24,
+    "safety": 11,
+    "browser": 86,
+    "B03_HTTP": 43,
+    "B03_PHP": 10,
+    "local_contracts": 9
+  },
+  "total": 554,
+  "failures": [],
+  "theme_source_sha256": {
+    "themes/imagine/functions.php": "f1ca667e6b807bc1a54fcb725c9a1f24754e9efa791ba4728bdaf35a612485bb",
+    "themes/imagine/inc/catalogue.php": "578ccfb5a874a3eb8ecabe5d4e782df4b8ac4d65033a2d09636442efdf6b406c",
+    "themes/imagine/single-imagine_numero.php": "be51d1d4281c5fc037919b6d5d8ea46d098ce7b8d2be99386ba1c3e63b1c9346",
+    "themes/imagine/archive-imagine_numero.php": "92e09dea1729c011f8a0dcc18432f635b8832431f04828513426dd477b66c12e",
+    "themes/imagine/taxonomy-imagine_thematique.php": "ad4f9a75297af05d62cc803be63fad5c0b1e5d596518a2f05a903477eb6edc82"
+  },
+  "theme_readback_sha256": {
+    "themes/imagine/functions.php": "f1ca667e6b807bc1a54fcb725c9a1f24754e9efa791ba4728bdaf35a612485bb",
+    "themes/imagine/inc/catalogue.php": "578ccfb5a874a3eb8ecabe5d4e782df4b8ac4d65033a2d09636442efdf6b406c",
+    "themes/imagine/single-imagine_numero.php": "be51d1d4281c5fc037919b6d5d8ea46d098ce7b8d2be99386ba1c3e63b1c9346",
+    "themes/imagine/archive-imagine_numero.php": "92e09dea1729c011f8a0dcc18432f635b8832431f04828513426dd477b66c12e",
+    "themes/imagine/taxonomy-imagine_thematique.php": "ad4f9a75297af05d62cc803be63fad5c0b1e5d596518a2f05a903477eb6edc82"
+  },
+  "queries_20": {
+    "anonyme": {
+      "full_request_sql": 93,
+      "template_sql": 32,
+      "articles": 20,
+      "issue": 2500,
+      "instrumented_HTTP_status": 200,
+      "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+    },
+    "a-carte": {
+      "full_request_sql": 183,
+      "template_sql": 110,
+      "articles": 20,
+      "issue": 2500,
+      "instrumented_HTTP_status": 200,
+      "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+    },
+    "p-numero": {
+      "full_request_sql": 182,
+      "template_sql": 113,
+      "articles": 20,
+      "issue": 2500,
+      "instrumented_HTTP_status": 200,
+      "cache": "no-cache, no-store, private, must-revalidate, max-age=0"
+    }
+  },
+  "sources": {
+    "wp/outils/demo/b04-fixture.php": "f4e3525fa8f72221e301b161cb1b07c553200f533b138dd54096895e72094942",
+    "wp/outils/demo/b04.py": "596b01e3d1394e0dea2e8593dc98be062af592bda959d6ec38db3c2cc06d5522",
+    "wp/tests/demo/b04-activity-reconcile.py": "801d4481ef65a06572bf336d76463f77e0a9115de10827951c021a199676f233",
+    "wp/tests/demo/b04-arreter.py": "f7378b9a082ab3a58eb09e63221b8274c8bd9b21bf066bcdcdaa4698eeffde8b",
+    "wp/tests/demo/b04-browser.py": "c853957931efc27c85ab1c8847a624d59e0c5e638bb79e3b5dedd5f817011fc8",
+    "wp/tests/demo/b04-catalogue-test.py": "139dc4f79a7e5edadcdbb0d80f7438f94ec8a841c126971c97f2a93a1914222a",
+    "wp/tests/demo/b04-final.py": "623ee6a2ed74848390c3948041c90b4e14d4ff41353a411824d46685ccea9166",
+    "wp/tests/demo/b04-fixture-test.py": "c07766b997d5942009a3b80c90c7e071cb9d92e2163dbfde071fba9295b9bef3",
+    "wp/tests/demo/b04-http.py": "e6b923e44566dbaaf0a75e5d9b5a036520fb9aa76de6f30bec3353b57d4e3974",
+    "wp/tests/demo/b04-inventaire.py": "040c35a71402e14321abdd461ab603429dcd3b1e0bc6e5510f43d3bbaf7f3e9b",
+    "wp/tests/demo/b04-preservation.py": "9bdd740d0351631134e6a6447ea9526073472dd3a0681a1902d38510a7c631de",
+    "wp/tests/demo/b04-queries.py": "9c828b155cd4ead651812a21048e254b1592ce4b20305592dc1995929dabe1bf",
+    "wp/tests/demo/b04-query-http.php": "1a4b7a6fbcb9cd655db73b650c8a6b558e8363f7a04b75ad15f76e784217be3c",
+    "wp/tests/demo/b04-regression.py": "701b7a2da6120a1be864c57d0dfd895b91d6c71bdbb64a06995beef53e6eb2cc",
+    "wp/tests/demo/b04-runtime.php": "6c0798945b59bfad80b9bb1cc5a0332e9817ffb8f95021610b1fb135daafadfc",
+    "wp/tests/demo/b04-safety.py": "3e023af06eb6506453ff53d388803a7a936ac8d8a169223b17fcf0695c1d2b68",
+    "wp/tests/demo/b04-undated-test.py": "717c18fc6d1c46cb7654b62c35d10f44f4859795a68e76f6516719e4ba02be2f",
+    "wp/tests/demo/b04-witness-test.py": "5b08fc8abfac04fb41dc77c1c970f2c9adf5ce9e92dfb853339aeab86c65a199",
+    "wp/tests/demo/b04-work.py": "904989f319dd52d5c2fa1e2e289f8464e2d576171f758758d8df838c615e0c4c"
+  },
+  "status": "GREEN"
+}

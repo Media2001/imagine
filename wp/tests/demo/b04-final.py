@@ -23,7 +23,18 @@ commands=[
  [python,str(HERE/'b04-regression.py')],
 ]
 runs=[]
+resume=sys.argv[1:]==['--resume']
+if sys.argv[1:] and not resume:raise SystemExit('Use no argument or --resume')
+if resume:
+    deployed=json.loads((w.PROOF/'deploy-final.json').read_text(encoding='utf-8'))
+    assert deployed['expected']=={('themes/imagine/'+p):w.digest(ROOT/'wp/themes/imagine'/p) for p in w.FILES}
 for i,command in enumerate(commands):
+    if resume:
+        log=w.PROOF/('final-run-%02d.log'%i)
+        assert log.exists() and log.stat().st_mtime>=(w.PROOF/'deploy-final.json').stat().st_mtime
+        assert Path(command[1]).stat().st_mtime<=log.stat().st_mtime
+        runs.append({'script':str(Path(command[1]).relative_to(ROOT)),'args':command[2:],'completed_green_receipt_before_tool_timeout':str(log.relative_to(ROOT))})
+        continue
     result=subprocess.run(command,cwd=ROOT,capture_output=True,text=True,encoding='utf-8',timeout=300)
     (w.PROOF/('final-run-%02d.log'%i)).write_text(result.stdout+result.stderr,encoding='utf-8')
     runs.append({'script':str(Path(command[1]).relative_to(ROOT)),'args':command[2:],'exit':result.returncode})
