@@ -43,6 +43,9 @@ def run_storage(storage):
     target=OUT/(storage+'-codes')
     p=inventory(site,target,'--audit='+str(auditdir/'audit.json'))
     b.check(storage+':command_available',pathlib.Path('/subject/inventorier-codes').exists())
+    if p.returncode != 0:
+        debug = b.cmd(['php'], env={'A10_SITE':str(site)}, data=r"<?php define('IMAGINE_AUDIT_LIBRARY_ONLY',true); require '/subject/audit'; require '/subject/a10/Projection.php'; require '/subject/a10/Inventory.php'; try { (new Imagine\CouponInventory\Inventory(getenv('A10_SITE')))->collect(); } catch (Throwable $e) { echo get_class($e).' '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine(); }", check=False)
+        (OUT/(storage+'-diagnostic.log')).write_text(debug.stdout+debug.stderr)
     b.check(storage+':cli_success',p.returncode==0,{'exit_code':p.returncode,'stderr':p.stderr if re.fullmatch(r'A(?:10|02)_[A-Z_]+\n',p.stderr) else 'suppressed'})
     report=json.loads((target/'codes.json').read_text())
     rows={x['code']:x for x in report['codes']}

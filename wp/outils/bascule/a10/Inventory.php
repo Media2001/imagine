@@ -101,7 +101,7 @@ final class Inventory
                 throw new \RuntimeException('A10_DUPLICATE_COUPON_META');
             }
             $seen[$row['meta_key']] = true;
-            $meta[$row['meta_key']] = $row['meta_value'];
+            $meta[$row['meta_key']] = $row['meta_value'] ?? '';
         }
         return $meta;
     }

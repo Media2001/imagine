@@ -1,0 +1,13 @@
+{
+  "wp/tests/a10/inside.py": "9c14f022a494322ee3dab690b793227dac5f0df622229131f2481285360e5eca",
+  "wp/tests/a10/inspect_native.py": "352a36c549f3f73555c4730cbd82d84a9c579ca802a5376313cbba2e8ff2ec5e",
+  "wp/tests/a10/readonly-probe.php": "8f64b50bd20040911250be7d8e022b4d66c7feba5ff69d105f45c72d1d58e703",
+  "wp/tests/a10/run.py": "96fb1da9798814abf99f74d2e3ab80d6198043a070eb1186532aec2d0d0b1693",
+  "wp/tests/a10/seed.php": "cf316d2e8385bfa3829074a3759b1f455d96b306e144ed638828c26e8949df4a",
+  "wp/tests/a10/unit.php": "903aac377c844dd39bd8d00d89321dfa6c87c4e4deaf942a6ab896d4ed480a66",
+  "wp/outils/bascule/a10/Command.php": "5dcacd8e36f1a0835950ef7a45131dd31fd59f328e2367aa62b7796eb3dacaf5",
+  "wp/outils/bascule/a10/Inventory.php": "981c0132fa332102ef6d0f9a580de0edd1fd24db131612a583c7ce1c0df404a2",
+  "wp/outils/bascule/a10/Projection.php": "1dbd61e2393ddc9ca3dd259be2c00a12ed5ec90a728cf34e08f714e0811748c9",
+  "wp/outils/bascule/inventorier-codes": "e1d77e7564d80e6404226866d8645d94c770e31ced460321422e5307f5c99c6c",
+  "wp/outils/bascule/audit": "7eb2b4bfa450e37d3f4265e3055cdba61a877b056f4feb0bfce06f681659c6dc"
+}

@@ -1,0 +1,28 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+namespace Imagine\CouponInventory;
+
+define('IMAGINE_AUDIT_LIBRARY_ONLY', true);
+require_once __DIR__ . '/audit';
+require_once __DIR__ . '/a10/Projection.php';
+require_once __DIR__ . '/a10/Inventory.php';
+require_once __DIR__ . '/a10/Command.php';
+
+ini_set('display_errors', '0');
+ini_set('log_errors', '0');
+set_error_handler(static function (int $severity): bool {
+    if (error_reporting() & $severity) {
+        throw new \RuntimeException('A10_RUNTIME_WARNING');
+    }
+    return true;
+});
+try {
+    exit(Command::main($argv));
+} catch (\Throwable $error) {
+    $code = preg_match('/\A(?:A10|A02)_[A-Z_]+\z/D', $error->getMessage()) ? $error->getMessage() : 'A10_INVENTORY_FAILED';
+    fwrite(STDERR, $code . "\n");
+    exit(1);
+}

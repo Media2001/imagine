@@ -1,0 +1,69 @@
+{
+  "run_id": "c5accba085ea",
+  "phase": "green",
+  "mode": "native",
+  "container": "imagine-a10-coupons-c5accba085ea",
+  "at_utc": "2026-11-25T20:29:43.128884+00:00",
+  "checks": [
+    {
+      "check": "isolation_before",
+      "status": "PASS",
+      "detail": {
+        "network": "none",
+        "mounts": [],
+        "ports": [],
+        "privileged": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2"
+      }
+    },
+    {
+      "check": "unit_return",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "native_return",
+      "status": "FAIL",
+      "detail": {
+        "exit_code": 1
+      }
+    },
+    {
+      "check": "isolation_after",
+      "status": "PASS",
+      "detail": {
+        "network": "none",
+        "mounts": [],
+        "ports": [],
+        "privileged": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2"
+      }
+    },
+    {
+      "check": "cleanup",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "sources_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "a02_unchanged_during_run",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 1
+}

@@ -1,0 +1,192 @@
+{
+  "expected": {
+    "a10-percent": {
+      "type": "percent",
+      "amount": "10.50",
+      "usage_count": 1,
+      "usage_limit": 50,
+      "usage_limit_per_user": 2,
+      "item_limit": 3,
+      "allowed_email_count": 2,
+      "product_ids": [
+        24
+      ],
+      "excluded_product_ids": [
+        25
+      ],
+      "product_categories": [
+        19
+      ],
+      "date_expires_utc": "2035-01-01T00:00:00Z",
+      "renewal_payment_limit": 0
+    },
+    "a10-fixed-cart": {
+      "type": "fixed_cart",
+      "amount": "10.50",
+      "usage_count": 2,
+      "usage_limit": 50,
+      "usage_limit_per_user": 2,
+      "item_limit": 3,
+      "allowed_email_count": 2,
+      "product_ids": [
+        24
+      ],
+      "excluded_product_ids": [
+        25
+      ],
+      "product_categories": [
+        19
+      ],
+      "date_expires_utc": "2035-01-01T00:00:00Z",
+      "renewal_payment_limit": 0
+    },
+    "a10-fixed-product": {
+      "type": "fixed_product",
+      "amount": "10.50",
+      "usage_count": 3,
+      "usage_limit": 50,
+      "usage_limit_per_user": 2,
+      "item_limit": 3,
+      "allowed_email_count": 2,
+      "product_ids": [
+        24
+      ],
+      "excluded_product_ids": [
+        25
+      ],
+      "product_categories": [
+        19
+      ],
+      "date_expires_utc": "2035-01-01T00:00:00Z",
+      "renewal_payment_limit": 0
+    },
+    "a10-recurring-fee": {
+      "type": "recurring_fee",
+      "amount": "10.50",
+      "usage_count": 6,
+      "usage_limit": 50,
+      "usage_limit_per_user": 2,
+      "item_limit": 3,
+      "allowed_email_count": 2,
+      "product_ids": [
+        24
+      ],
+      "excluded_product_ids": [
+        25
+      ],
+      "product_categories": [
+        19
+      ],
+      "date_expires_utc": "2035-01-01T00:00:00Z",
+      "renewal_payment_limit": 3
+    },
+    "a10-recurring-percent": {
+      "type": "recurring_percent",
+      "amount": "10.50",
+      "usage_count": 5,
+      "usage_limit": 50,
+      "usage_limit_per_user": 2,
+      "item_limit": 3,
+      "allowed_email_count": 2,
+      "product_ids": [
+        24
+      ],
+      "excluded_product_ids": [
+        25
+      ],
+      "product_categories": [
+        19
+      ],
+      "date_expires_utc": "2035-01-01T00:00:00Z",
+      "renewal_payment_limit": 0
+    },
+    "a10-sign-up-fee": {
+      "type": "sign_up_fee",
+      "amount": "10.50",
+      "usage_count": 6,
+      "usage_limit": 50,
+      "usage_limit_per_user": 2,
+      "item_limit": 3,
+      "allowed_email_count": 2,
+      "product_ids": [
+        24
+      ],
+      "excluded_product_ids": [
+        25
+      ],
+      "product_categories": [
+        19
+      ],
+      "date_expires_utc": "2035-01-01T00:00:00Z",
+      "renewal_payment_limit": 0
+    },
+    "a10-sign-up-fee-percent": {
+      "type": "sign_up_fee_percent",
+      "amount": "10.50",
+      "usage_count": 7,
+      "usage_limit": 50,
+      "usage_limit_per_user": 2,
+      "item_limit": 3,
+      "allowed_email_count": 2,
+      "product_ids": [
+        24
+      ],
+      "excluded_product_ids": [
+        25
+      ],
+      "product_categories": [
+        19
+      ],
+      "date_expires_utc": "2035-01-01T00:00:00Z",
+      "renewal_payment_limit": 0
+    },
+    "a10-expired": {
+      "type": "percent",
+      "amount": "5",
+      "usage_count": 9,
+      "usage_limit": 0,
+      "usage_limit_per_user": 0,
+      "item_limit": null,
+      "allowed_email_count": 0,
+      "product_ids": [],
+      "excluded_product_ids": [],
+      "product_categories": [],
+      "date_expires_utc": "2000-01-01T00:00:00Z",
+      "renewal_payment_limit": 0
+    },
+    "a10-never-used": {
+      "type": "percent",
+      "amount": "5",
+      "usage_count": 0,
+      "usage_limit": 0,
+      "usage_limit_per_user": 0,
+      "item_limit": null,
+      "allowed_email_count": 0,
+      "product_ids": [],
+      "excluded_product_ids": [],
+      "product_categories": [],
+      "date_expires_utc": null,
+      "renewal_payment_limit": 0
+    },
+    "a10-expired-never-used": {
+      "type": "percent",
+      "amount": "5",
+      "usage_count": 0,
+      "usage_limit": 0,
+      "usage_limit_per_user": 0,
+      "item_limit": null,
+      "allowed_email_count": 0,
+      "product_ids": [],
+      "excluded_product_ids": [],
+      "product_categories": [],
+      "date_expires_utc": "2000-01-01T00:00:00Z",
+      "renewal_payment_limit": 0
+    }
+  },
+  "renewal_carries_coupon": true,
+  "versions": {
+    "wordpress": "7.0.9",
+    "woocommerce": "11.1.1",
+    "subscriptions": "9.4.1"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "exit": 255,
+  "stdout": "\nParse error: syntax error, unexpected token \"=\", expecting end of file in Command line code on line 2\n",
+  "stderr": "",
+  "network": "none",
+  "image": "sha256:4c56c7708e1ffdd9c6bb14153067508d06c3b569de0aecc099efd90c572c8349",
+  "selection": "EcheancesReglesTest"
+}
