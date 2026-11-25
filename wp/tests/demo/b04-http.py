@@ -45,7 +45,11 @@ echo wp_json_encode($out);
 '''
 
 def require_private_markers(inventory):
+    if not inventory['issues']:
+        raise AssertionError('Aucun numéro témoin : preuve refusée')
     for issue in inventory['issues'].values():
+        if not issue['articles']:
+            raise AssertionError('Aucun article témoin : preuve refusée')
         for article in issue['articles']:
             if not article['markers'] or not all(isinstance(m, str) and m.strip() for m in article['markers']):
                 raise AssertionError('Fixture sans marqueur de corps non vide : ' + str(article['id']))

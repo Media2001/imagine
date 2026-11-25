@@ -19,6 +19,34 @@ b.check=safe_check
 def inventory(site,out,*extra):
     return b.cmd(['php','/subject/inventorier-codes','--wp-path='+str(site),'--output='+str(out),*extra],check=False)
 
+def variants(site,db,storage,auditdir):
+    """Prepare isolated corrupt/legacy settings, freeze, then run the real CLI."""
+    where="post_id=(SELECT ID FROM wp_posts WHERE post_type='shop_coupon' AND post_title='a10-percent')"
+    for key,setup,cleanup,error,dates in [
+        ('offset_fractional',"UPDATE wp_options SET option_value='' WHERE option_name='timezone_string'; UPDATE wp_options SET option_value='5.75' WHERE option_name='gmt_offset'",None,None,{'winter':'2035-01-14T18:15:00Z','summer':'2035-07-14T18:15:00Z'}),
+        ('offset_negative',"UPDATE wp_options SET option_value='-3.5' WHERE option_name='gmt_offset'",None,None,{'winter':'2035-01-15T03:30:00Z','summer':'2035-07-15T03:30:00Z'}),
+        ('offset_zero',"UPDATE wp_options SET option_value='0' WHERE option_name='gmt_offset'",None,None,{'winter':'2035-01-15T00:00:00Z','summer':'2035-07-15T00:00:00Z'}),
+        ('timezone_invalid',"UPDATE wp_options SET option_value='15' WHERE option_name='gmt_offset'",None,'A10_TIMEZONE_INVALID',None),
+        ('timezone_invalid_fraction',"UPDATE wp_options SET option_value='0.1' WHERE option_name='gmt_offset'","UPDATE wp_options SET option_value='0' WHERE option_name='gmt_offset'; UPDATE wp_options SET option_value='Europe/Brussels' WHERE option_name='timezone_string'",'A10_TIMEZONE_INVALID',None),
+        ('duplicate_meta',"INSERT INTO wp_postmeta (post_id,meta_key,meta_value) SELECT ID,'coupon_amount','A10_DUPLICATE_TEST' FROM wp_posts WHERE post_type='shop_coupon' AND post_title='a10-percent'","DELETE FROM wp_postmeta WHERE "+where+" AND meta_key='coupon_amount' AND meta_value='A10_DUPLICATE_TEST'",'A10_DUPLICATE_COUPON_META',None),
+        ('invalid_meta',"UPDATE wp_postmeta SET meta_value='a:1:{i:0;a:0:{}}' WHERE "+where+" AND meta_key='product_ids'",None,'A10_META_INVALID',None),
+    ]:
+        b.sql(db,setup)
+        before=b.fingerprint(db); files=b.files(site)
+        target=OUT/(storage+'-variant-'+key)
+        p=inventory(site,target,'--audit='+str(auditdir/'audit.json'))
+        after=b.fingerprint(db)
+        (OUT/(storage+'-variant-'+key+'-fingerprints.json')).write_text(json.dumps({'before':before,'after':after},indent=2)+'\n')
+        b.check(storage+':variant:'+key+':read_only',before==after and files==b.files(site))
+        if error:
+            b.check(storage+':variant:'+key,p.returncode==1 and p.stderr==error+'\n' and not target.exists())
+        else:
+            report=json.loads((target/'codes.json').read_text()) if p.returncode==0 else {}
+            rows={x['code']:x for x in report.get('codes',[])}
+            b.check(storage+':variant:'+key,p.returncode==0 and all(rows.get('a10-legacy-'+season,{}).get('date_expires_utc')==date for season,date in dates.items()))
+        (OUT/(storage+'-variant-'+key+'-command.json')).write_text(json.dumps({'exit_code':p.returncode,'stdout':p.stdout,'stderr':p.stderr},indent=2)+'\n')
+        if cleanup: b.sql(db,cleanup)
+
 def run_storage(storage):
     site,db,_=b.install(storage)
     # MariaDB session clock only, fixture-owned server; no subject clock override.
@@ -133,7 +161,8 @@ def run_storage(storage):
     b.check(storage+':database_identical_all_tables',before==after,{'before':before['logical_sha256'],'after':after['logical_sha256'],'tables':len(before['tables'])})
     b.check(storage+':site_files_identical',fb==b.files(site))
     b.check(storage+':never_bootstrap',not pathlib.Path('/scratch/a02-bootstrap-trap').exists())
-    # No DB mutations after this point; A02 independent snapshot equality includes cron/actions.
+    # Deliberate fixture variants start only AFTER the main immutable photograph.
+    variants(site,db,storage,auditdir)
 
 b.run_storage=run_storage
 if __name__=='__main__':

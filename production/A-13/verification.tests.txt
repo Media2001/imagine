@@ -1,0 +1,40 @@
+test_ambiguous_delimiter_is_refused (test_controler_export.ExportTests.test_ambiguous_delimiter_is_refused) ... ok
+test_clean_file_returns_zero_and_thirty_clean_rows (test_controler_export.ExportTests.test_clean_file_returns_zero_and_thirty_clean_rows) ... ok
+test_comma_delimiter_is_detected_and_reported (test_controler_export.ExportTests.test_comma_delimiter_is_detected_and_reported) ... ok
+test_conflicting_bom_and_declared_encoding_is_refused (test_controler_export.ExportTests.test_conflicting_bom_and_declared_encoding_is_refused) ... ok
+test_date_format_is_declared_not_guessed (test_controler_export.ExportTests.test_date_format_is_declared_not_guessed) ... ok
+test_declared_cp1252_is_accepted_and_reported (test_controler_export.ExportTests.test_declared_cp1252_is_accepted_and_reported) ... ok
+test_declared_delimiter_resolves_ambiguity (test_controler_export.ExportTests.test_declared_delimiter_resolves_ambiguity) ... ok
+test_dirty_fixture_each_defect_is_reported_on_exact_source_line (test_controler_export.ExportTests.test_dirty_fixture_each_defect_is_reported_on_exact_source_line) ... ok
+test_due_today_and_zero_issues_are_not_rejected (test_controler_export.ExportTests.test_due_today_and_zero_issues_are_not_rejected) ... ok
+test_duplicate_header_is_refused (test_controler_export.ExportTests.test_duplicate_header_is_refused) ... ok
+test_duplicate_json_keys_are_refused_without_traceback (test_controler_export.ExportTests.test_duplicate_json_keys_are_refused_without_traceback) ... ok
+test_email_cannot_be_mandatory (test_controler_export.ExportTests.test_email_cannot_be_mandatory) ... ok
+test_existing_output_is_not_overwritten (test_controler_export.ExportTests.test_existing_output_is_not_overwritten) ... ok
+test_iban_after_ragged_row_still_prevents_output (test_controler_export.ExportTests.test_iban_after_ragged_row_still_prevents_output) ... ok
+test_iban_column_identification_with_quoted_csv_cells (test_controler_export.ExportTests.test_iban_column_identification_with_quoted_csv_cells) ... ok
+test_iban_content_at_end_in_unmapped_column_precedes_all_analysis (test_controler_export.ExportTests.test_iban_content_at_end_in_unmapped_column_precedes_all_analysis) ... ok
+test_iban_header_refused_without_values_or_output (test_controler_export.ExportTests.test_iban_header_refused_without_values_or_output) ... ok
+test_iban_in_header_value_is_not_echoed (test_controler_export.ExportTests.test_iban_in_header_value_is_not_echoed) ... ok
+test_iban_inside_invalid_quoted_csv_is_refused_without_leak (test_controler_export.ExportTests.test_iban_inside_invalid_quoted_csv_is_refused_without_leak) ... ok
+test_iban_suspicious_header_even_with_empty_values (test_controler_export.ExportTests.test_iban_suspicious_header_even_with_empty_values) ... ok
+test_invalid_configuration_types_are_refused_without_traceback (test_controler_export.ExportTests.test_invalid_configuration_types_are_refused_without_traceback) ... ok
+test_legacy_encoding_requires_explicit_declaration (test_controler_export.ExportTests.test_legacy_encoding_requires_explicit_declaration) ... ok
+test_missing_mapped_header_is_refused (test_controler_export.ExportTests.test_missing_mapped_header_is_refused) ... ok
+test_multiple_defects_count_one_rejected_row (test_controler_export.ExportTests.test_multiple_defects_count_one_rejected_row) ... ok
+test_optional_absent_email_column_never_invents_addresses (test_controler_export.ExportTests.test_optional_absent_email_column_never_invents_addresses) ... ok
+test_optional_subscription_type_filter_is_off_by_default (test_controler_export.ExportTests.test_optional_subscription_type_filter_is_off_by_default) ... ok
+test_optional_subscription_type_filter_when_enabled (test_controler_export.ExportTests.test_optional_subscription_type_filter_when_enabled) ... ok
+test_ragged_csv_refused_without_output (test_controler_export.ExportTests.test_ragged_csv_refused_without_output) ... ok
+test_repository_output_refused_without_touching_fixture (test_controler_export.ExportTests.test_repository_output_refused_without_touching_fixture) ... ok
+test_source_line_number_remains_physical_with_quoted_multiline_cells (test_controler_export.ExportTests.test_source_line_number_remains_physical_with_quoted_multiline_cells) ... ok
+test_tab_delimiter_is_detected (test_controler_export.ExportTests.test_tab_delimiter_is_detected) ... ok
+test_unknown_configuration_key_is_refused (test_controler_export.ExportTests.test_unknown_configuration_key_is_refused) ... ok
+test_utf16_bom_is_detected (test_controler_export.ExportTests.test_utf16_bom_is_detected) ... ok
+test_utf8_bom_is_detected (test_controler_export.ExportTests.test_utf8_bom_is_detected) ... ok
+test_without_email_is_clean_and_counted (test_controler_export.ExportTests.test_without_email_is_clean_and_counted) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 4.060s
+
+OK

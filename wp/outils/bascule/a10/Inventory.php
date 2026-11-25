@@ -215,7 +215,7 @@ final class Inventory
                 'Commandes distinctes par code et creation UTC sur douze mois calendaires; tous statuts sauf corbeille et auto-draft, futurs et remboursements enfants exclus. Ce ne sont pas des ventes nettes.',
                 'Abonnements porteurs distincts: active, on-hold, pending et pending-cancel separes; cancelled et expired exclus.',
                 'Jamais utilise signifie usage_count enregistre egal a zero, pas une reconstruction historique. Expire et jamais utilise peuvent se recouper.',
-                'Aucun reclassement ni suppression. Usage limits 0 sans limite, item_limit null sans limite, seuils vides 0 sans restriction; montants invalides null.',
+                'Aucun reclassement ni suppression. Usage limits 0 sans limite, item_limit null sans limite, seuils vides 0 sans restriction; montants vides ou invalides null; fiche introuvable: tous reglages inconnus null, jamais classee expiree ou jamais utilisee sans compteur.',
                 'Site simple, configuration litterale, tables InnoDB, stockage Woo standard; metadonnees coupon dupliquees refusees.',
             ]];
     }

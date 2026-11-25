@@ -68,6 +68,9 @@ def verify(phase):
     assert inventory['marker'].strip(), 'Marqueur privé vide : preuve refusée'
     assert str(inventory['issue']) in inventory['owned'], 'Achat natif préexistant requis'
     before=w.wp(SNAPSHOT)
+    checkpoint={'scope':'imagine-test-demo','before':before,'user':inventory['user'],
+        'issue':inventory['issue'],'article':inventory['article'],'original_terms':inventory['original_terms']}
+    (w.PROOF/('fixture-corrections-before-'+phase+'.json')).write_text(json.dumps(checkpoint,indent=2),encoding='utf-8')
     checks={}
     key='imagine_decouverte_compte_'+str(inventory['user'])
     settings={'ouverture':'premiere_lecture','forme':'articles','jours':7,'nombre':2,'numeros':[str(inventory['discovery_issue'])]}

@@ -6,7 +6,7 @@ $ids = get_option('a11_fixture_ids');
 $expected = [];
 $add = static function ($url, string $nature, string $type) use (&$expected): void {
     if (is_wp_error($url) || !$url) {
-        throw new RuntimeException('ORACLE_URL');
+        throw new RuntimeException('ORACLE_URL:' . $nature . ':' . $type . ':' . json_encode(get_post_type_object($type)));
     }
     $p = wp_parse_url($url);
     $relative = ($p['path'] ?? '/') . (isset($p['query']) ? '?' . $p['query'] : '');

@@ -19,6 +19,7 @@ b.check=safe_check
 
 PLUGIN='''<?php
 /* Plugin Name: A11 synthetic native registrations */
+add_action('after_setup_theme', static function () { add_theme_support('woocommerce'); });
 add_action('init', static function () {
     register_post_type('a11_story', ['public'=>true, 'has_archive'=>'histoires', 'rewrite'=>['slug'=>'histoires'], 'supports'=>['title','author']]);
     register_taxonomy('a11_topic','a11_story',['public'=>true,'rewrite'=>['slug'=>'sujets']]);

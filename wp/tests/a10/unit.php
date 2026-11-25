@@ -20,6 +20,15 @@ if (!is_file($file)) {
     a10_check('email_count_only', $p::emailCount('a:2:{i:0;s:15:"one@example.org";i:1;s:15:"two@example.org";}') === 2 && $p::emailCount('one@example.org') === 1 && $p::emailCount('') === 0);
     a10_check('utc_expiry', $p::expiry('1795608000', new DateTimeZone('UTC')) === '2026-11-25T12:00:00Z' && $p::expiry('', new DateTimeZone('UTC')) === null);
     a10_check('calendar_window_clamped', $p::cutoff(new DateTimeImmutable('2024-02-29T12:00:00Z')) === '2023-02-28 12:00:00');
+    a10_check('empty_amount_unknown', $p::decimal('') === null);
+    foreach (['a:1:{i:0;a:0:{}}', 'a:broken', '12,invalid'] as $i => $invalid) {
+        try {
+            $p::ids($invalid);
+            a10_check('invalid_structured_meta_' . $i, false);
+        } catch (RuntimeException $error) {
+            a10_check('invalid_structured_meta_' . $i, $error->getMessage() === 'A10_META_INVALID');
+        }
+    }
 }
 file_put_contents('/report/unit.json', json_encode(['checks' => $checks, 'exit_code' => (int) in_array('FAIL', array_column($checks, 'status'), true)], JSON_PRETTY_PRINT) . "\n");
 foreach ($checks as $check) {

@@ -11,6 +11,11 @@ class MarkersTest(unittest.TestCase):
     def inventory(self, markers):
         return {'issues': {'witness': {'articles': [{'id': 1, 'markers': markers}]}}}
 
+    def test_empty_catalogue_or_issue_cannot_pass(self):
+        for inventory in [{'issues': {}}, {'issues': {'witness': {'articles': []}}}]:
+            with self.assertRaises(AssertionError):
+                b04.require_private_markers(inventory)
+
     def test_empty_markers_cannot_prove_sealing(self):
         with self.assertRaises(AssertionError):
             b04.require_private_markers(self.inventory([]))

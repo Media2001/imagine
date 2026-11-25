@@ -6,6 +6,13 @@ declare(strict_types=1);
 if (!post_type_exists('a12_article') || !taxonomy_exists('a12_rubrique')) {
     throw new RuntimeException('A12_FIXTURE_DECLARATIONS_MISSING');
 }
+// A02 intentionally names its term as a private canary because its report excludes names.
+// A12 explicitly permits editorial rubric names: give that inherited synthetic rubric a clear label.
+foreach (get_terms(['hide_empty' => false]) as $term) {
+    if ($term->name === 'A02_TERM_PRIVATE_CANARY') {
+        wp_update_term((int) $term->term_id, $term->taxonomy, ['name' => 'Rubrique A02 fictive']);
+    }
+}
 $ids = [];
 foreach (['publish', 'publish', 'draft', 'private', 'trash'] as $i => $status) {
     $ids[] = wp_insert_post([

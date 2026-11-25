@@ -9,6 +9,8 @@ s=importlib.util.spec_from_file_location('w',HERE/'b04-work.py');w=importlib.uti
 w.guard()
 result=w.wp(r'''
 $f=get_option('imagine_b04_fixture');$checks=[];
+$checks['demo_absente_du_theme']=!function_exists('Imagine\\Theme\\imagine_demo_product_preview');
+$checks['mu_demo_charge']=function_exists('Imagine\\Demo\\imagine_b04_product_preview');
 $checks['pas_de_passerelle']=apply_filters('woocommerce_available_payment_gateways',['canary'=>new stdClass()])===[];
 $checks['courriel_bloque_sans_envoi']=apply_filters('pre_wp_mail',null,[])===false;
 $checks['reseau_WP_bloque_sans_requete']=is_wp_error(apply_filters('pre_http_request',false,[],'https://example.org/b04-never-called'));

@@ -30,7 +30,6 @@ final class Runtime
             }
         }
         define('ABSPATH', $site . '/');
-        define('WPINC', 'wp-includes');
         foreach ($config as $key => $value) {
             if ($key !== 'table_prefix') {
                 define($key, $value);
@@ -51,9 +50,8 @@ final class Runtime
         $_SERVER['REQUEST_URI'] = '/';
         $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
         $_SERVER['REQUEST_METHOD'] = 'GET';
-        require_once ABSPATH . WPINC . '/load.php';
-        require_once ABSPATH . WPINC . '/plugin.php';
-        require_once ABSPATH . WPINC . '/class-wpdb.php';
+        require_once ABSPATH . 'wp-includes/plugin.php';
+        require_once ABSPATH . 'wp-includes/class-wpdb.php';
         require_once __DIR__ . '/ReadOnlyDb.php';
         $GLOBALS['table_prefix'] = $config['table_prefix'];
         $GLOBALS['wpdb'] = new ReadOnlyDb($config['DB_USER'], $config['DB_PASSWORD'], $config['DB_NAME'], $config['DB_HOST']);

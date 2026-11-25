@@ -1,5 +1,15 @@
 # Imagine — site (B-00, modèle provisoire)
 
+## B-04 — catalogue : corrections techniques du 25 novembre
+
+`Paywall::decisionListe()` prédit la lecture d'un article sans activer le contexte de lecture et sans écrire l'ouverture ou le quota découverte. Il utilise le même raccord `Decouverte::decider()` et le moteur C06 ; les décisions de liste et de lecture ont des clés mémoire distinctes. L'état figé, le périmètre courant, la vérification du compte, la relecture et les deux formes découverte restent communs.
+
+`Paywall::couvreNumero()` sert uniquement à masquer un achat inutile : même moteur PDF, avec une évaluation à la sortie si elle est future, sur les droits natifs existants. Il ne sert jamais à ouvrir un PDF. `decisionPdf()` et C11 gardent l'instant courant et la fermeture avant sortie ; l'achat payé est reconnu avant et à la sortie. A-carte avec PDF antérieur fermé conserve son bouton.
+
+Le paquet PHPUnit existant découvre `tests/CatalogueTest.php` et `tests/CatalogueStatusTest.php` par sa configuration racine, sans nouveau manifeste ni dépendance. `phpunit.b04.xml` sélectionne ce sous-ensemble : mapping pur des quatre codes/libellés (les deux motifs découverte inclus), découverte sans effet d'écriture et possession/PDF autour de la seconde de sortie. Rejeu Docker documenté dans `production/B-04/COMMANDES-CORRECTIONS.md`.
+
+La seule exemption produit fictif est désormais un mu-plugin de démonstration issu de `wp/outils/demo/b04-preview.php`, copié uniquement sur imagine-test-demo. Aucune IP ni logique de staging dans le thème. Aucun réglage métier ou visuel changé ; statut kiosque conservé en attendant Ced.
+
 **Ce modèle de démonstration n’est pas le modèle éditorial définitif.** Il sera remplacé après l’audit de l’existant. Aucun ACF, thème ou constructeur de pages n’est embarqué ici.
 
 - Types publics : `imagine_numero`, `imagine_evenement`, `imagine_partenaire` ; taxonomie `imagine_thematique` sur les articles natifs `post`.

@@ -1,0 +1,20 @@
+{
+  "scope": "imagine-test-demo",
+  "before": {
+    "options": {
+      "imagine_decouverte_reglages": null,
+      "imagine_decouverte_relecture": null,
+      "imagine_decouverte_compte_6": null
+    },
+    "verified": [
+      "1"
+    ],
+    "release": [
+      "2026-01-15"
+    ]
+  },
+  "user": 6,
+  "issue": 11,
+  "article": 233,
+  "original_terms": []
+}

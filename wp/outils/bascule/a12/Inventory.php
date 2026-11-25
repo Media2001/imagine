@@ -221,10 +221,12 @@ final class Inventory
             }
             $seen[$row['ID']] = true;
             $mime = preg_match('~\A[a-z0-9.+_-]+/[a-z0-9.+_-]+\z~D', $row['post_mime_type']) ? $row['post_mime_type'] : '[inconnu]';
-            $groups[$mime] ??= ['mime' => $mime, 'count' => 0, 'bytes' => 0];
+            $groups[$mime] ??= ['mime' => $mime, 'count' => 0, 'bytes' => 0, 'orphan_count' => 0];
             $groups[$mime]['count']++;
             $pdf += (int) ($mime === 'application/pdf');
-            $orphan += (int) ((int) $row['post_parent'] === 0 || $row['parent_exists'] === null);
+            $isOrphan = (int) ((int) $row['post_parent'] === 0 || $row['parent_exists'] === null);
+            $orphan += $isOrphan;
+            $groups[$mime]['orphan_count'] += $isOrphan;
             $relative = $row['attached_path'];
             if ($relative === null || $relative === '') {
                 $missing++;

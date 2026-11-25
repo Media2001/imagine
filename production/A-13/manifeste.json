@@ -1,0 +1,68 @@
+{
+  "lot": "A-13",
+  "horodatage": "2026-11-25T23:35:17.868083+01:00",
+  "portee": "Paquet local du sous-agent ; PRET et reconstruction image réservés au parent.",
+  "nombre_fichiers": 12,
+  "fichiers": [
+    {
+      "chemin": "files/rapports/2026-11-25-23h34-A13.md",
+      "octets": 2388,
+      "sha256": "18a1f0ab41b9aee32cca060ae2a26d26bc460ecd5d924d68e0464d5b36447c57"
+    },
+    {
+      "chemin": "production/A-13/LIVRAISON.md",
+      "octets": 3491,
+      "sha256": "146198cb881c35809e92e2a173cdb2c88ad4ff54daf110e3ba8874de82b2b41f"
+    },
+    {
+      "chemin": "production/A-13/verification.json",
+      "octets": 2967,
+      "sha256": "019a7e5333f428113d17d91ae5b86065b3a185795420ae8c02664b8792295a06"
+    },
+    {
+      "chemin": "production/A-13/verification.tests.txt",
+      "octets": 4948,
+      "sha256": "ac5e35e22e08c7fbb4e090d0c415852c38650f079e2f052be17532388098843e"
+    },
+    {
+      "chemin": "wp/outils/bascule/a13/correspondance.exemple.json",
+      "octets": 742,
+      "sha256": "18582a4bec7b95fbc79ada2a3da7209a60d5e4053928bb599b4b7b9a85a14752"
+    },
+    {
+      "chemin": "wp/outils/bascule/controler-export",
+      "octets": 14533,
+      "sha256": "cf9bba84d8f2a99b0a26f3eefbe1e1e04ba507fe51e3611d73912240d94f1a9a"
+    },
+    {
+      "chemin": "wp/outils/bascule/controler-export.md",
+      "octets": 5336,
+      "sha256": "1c228af2d14e889c186cc6a31dcf641f0ebe5e436ca695e11f7f2fe911a6d365"
+    },
+    {
+      "chemin": "wp/tests/a13/test_controler_export.py",
+      "octets": 17297,
+      "sha256": "76d0867073f0ba1178bd1e5658ef45739e2b5e4f5cdc86f0ddcc901f0372a0c8"
+    },
+    {
+      "chemin": "wp/tests/a13/verifier_livraison.py",
+      "octets": 4818,
+      "sha256": "084fc3a57c58971694148e5dd992c25d73f655ae265ca7181a79ee53e38eba1c"
+    },
+    {
+      "chemin": "wp/tests/fixtures/a13-export-defauts-fictif.csv",
+      "octets": 4048,
+      "sha256": "a5d493007f27ab0b1989c0df1040d670f87bc517643b36aeaabab6f6bc6896ce"
+    },
+    {
+      "chemin": "wp/tests/fixtures/a13-export-iban-fictif.csv",
+      "octets": 4808,
+      "sha256": "54d0684fb8852b38e30c136b15841d970bcb29e740bed4bbc18cbc88920fd8b0"
+    },
+    {
+      "chemin": "wp/tests/fixtures/a13-export-propre-fictif.csv",
+      "octets": 4046,
+      "sha256": "ab1a093580aa226a47ad95c86cd6f593db28aa857f704b801d019c71e9dce373"
+    }
+  ]
+}

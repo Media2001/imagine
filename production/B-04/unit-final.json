@@ -1,0 +1,14 @@
+{
+  "scope": "isolated-B04-PHPUnit",
+  "image": "sha256:e3d49bd873ebffe87c5ceb54ca6a5893f776cf355a7572eebfd1b194c108ecd2",
+  "runs": [
+    {
+      "suite": "root",
+      "config": "phpunit.xml",
+      "exit": 0,
+      "log": "phpunit-root-final.log"
+    }
+  ],
+  "isolation_verified": true,
+  "owned_container_removed": true
+}

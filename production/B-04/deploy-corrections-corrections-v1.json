@@ -1,0 +1,18 @@
+{
+  "scope": "imagine-test-demo",
+  "exact": true,
+  "expected": {
+    "plugins/imagine-site/Paywall.php": "b9404d95dc0661b6110c5f91cc642e00196cda5adeee33465a5220341e547e90",
+    "plugins/imagine-site/Decouverte.php": "791dd8832742843d47d3f0456cdefdaccdbc713b8836fed0124a5da2152f25af",
+    "themes/imagine/inc/catalogue.php": "29bef326f0f4391aedc68f1e66c5bf0e8fce729afd4da18da1d99b6f8d9b9307",
+    "themes/imagine/single-imagine_numero.php": "efaa64dd4bf445b885f71602014d49478e7d600cbfafafffd9eecab010246499",
+    "mu-plugins/imagine-demo-b04-preview.php": "5e48112348a4cc666f763923552492c95fab10e07935c54f1614fb2c2dda0c94"
+  },
+  "actual": {
+    "plugins/imagine-site/Paywall.php": "b9404d95dc0661b6110c5f91cc642e00196cda5adeee33465a5220341e547e90",
+    "plugins/imagine-site/Decouverte.php": "791dd8832742843d47d3f0456cdefdaccdbc713b8836fed0124a5da2152f25af",
+    "themes/imagine/inc/catalogue.php": "29bef326f0f4391aedc68f1e66c5bf0e8fce729afd4da18da1d99b6f8d9b9307",
+    "themes/imagine/single-imagine_numero.php": "efaa64dd4bf445b885f71602014d49478e7d600cbfafafffd9eecab010246499",
+    "mu-plugins/imagine-demo-b04-preview.php": "5e48112348a4cc666f763923552492c95fab10e07935c54f1614fb2c2dda0c94"
+  }
+}

@@ -1,0 +1,45 @@
+{
+    "checks": [
+        {
+            "check": "recurrence_standard_types",
+            "status": "PASS"
+        },
+        {
+            "check": "numeric_only",
+            "status": "PASS"
+        },
+        {
+            "check": "product_id_formats",
+            "status": "PASS"
+        },
+        {
+            "check": "email_count_only",
+            "status": "PASS"
+        },
+        {
+            "check": "utc_expiry",
+            "status": "PASS"
+        },
+        {
+            "check": "calendar_window_clamped",
+            "status": "PASS"
+        },
+        {
+            "check": "empty_amount_unknown",
+            "status": "PASS"
+        },
+        {
+            "check": "invalid_structured_meta_0",
+            "status": "PASS"
+        },
+        {
+            "check": "invalid_structured_meta_1",
+            "status": "PASS"
+        },
+        {
+            "check": "invalid_structured_meta_2",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 0
+}

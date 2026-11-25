@@ -26,7 +26,7 @@ def preflight_iban(records, text):
             name = re.sub(r'[^a-z0-9]', '', normaliser(cell))
             if IBAN.search(cell) or (record_index == 0 and 'iban' in name):
                 raise Refus(f'IBAN suspect : colonne {index}. Aucun fichier produit ; retirer cette colonne de la copie à contrôler.')
-    # Couvre aussi les chaînes coupées entre cellules / retours à la ligne.
+    # Couvre aussi les chaînes interrompues par des espaces ou retours à la ligne.
     if IBAN.search(text):
         raise Refus('IBAN suspect dans le fichier (colonne non déterminable). Aucun fichier produit.')
 

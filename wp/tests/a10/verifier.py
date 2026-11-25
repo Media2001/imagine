@@ -45,14 +45,34 @@ def verify(evidence):
         require(hashlib.sha256(audit.read_bytes()).hexdigest()==data['audit_sha256'],'AUDIT_BINDING_DRIFT')
         rows={x['code']:x for x in data['codes']}
         oracle=load(evidence/(storage+'-oracle.json'))
-        require(len(rows)==10 and set(rows)==set(oracle['expected']),'INVENTORY_COUNT')
+        require(len(rows)==27 and set(rows)==set(oracle['expected'])|{'a10-deleted-old','a10-renamed-old','a10-order-only-old'},'INVENTORY_COUNT')
+        for code in ['a10-deleted-old','a10-renamed-old','a10-order-only-old']:
+            row=rows[code]
+            require(row['record_status']=='fiche introuvable' and all(v is None for k,v in row.items() if k not in ['code','record_status','subscriptions','orders_12_months']),'ORPHAN_UNKNOWN_FIELDS')
+            require(row['subscriptions']=={'active':int(code!='a10-order-only-old'),'on_hold':0,'pending':0,'pending_cancel':0} and row['orders_12_months']==int(code=='a10-order-only-old'),'ORPHAN_COUNTS')
+            require(storage+':orphan_visible:'+code in names,'MISSING_ORPHAN_ASSERTION')
+        require(data['generated_at_utc']=='2026-11-25T12:00:00Z' and data['window']=={'from_utc':'2025-11-25T12:00:00Z','to_utc':'2026-11-25T12:00:00Z','inclusive':True},'FIXED_CLOCK_OR_WINDOW')
+        require(len(oracle['boundary_orders'])==6 and len(oracle['boundary_expiry'])==3 and len(oracle['legacy_expiry'])==2,'EDGE_FIXTURES_MISSING')
+        for code,count in oracle['boundary_orders'].items():
+            require(rows[code]['orders_12_months']==count and storage+':order_boundary:'+code in names,'ORDER_BOUNDARY:'+code)
+        for code,expired in oracle['boundary_expiry'].items():
+            require((code in data['expired']) is expired and storage+':expiry_boundary:'+code in names,'EXPIRY_BOUNDARY:'+code)
+        for code,date in oracle['legacy_expiry'].items():
+            require(rows[code]['date_expires_utc']==date and storage+':legacy_brussels:'+code in names,'LEGACY_BRUSSELS:'+code)
+        for key in ['offset_fractional','offset_negative','offset_zero','timezone_invalid','timezone_invalid_fraction','duplicate_meta','invalid_meta']:
+            require(storage+':variant:'+key in names and storage+':variant:'+key+':read_only' in names,'VARIANT_ASSERTION_MISSING:'+key)
+            fingerprints=load(evidence/(storage+'-variant-'+key+'-fingerprints.json'))
+            require(fingerprints['before']==fingerprints['after'] and fingerprints['before']['tables'],'VARIANT_DATABASE_CHANGED:'+key)
+            command=load(evidence/(storage+'-variant-'+key+'-command.json'))
+            error={'timezone_invalid':'A10_TIMEZONE_INVALID','timezone_invalid_fraction':'A10_TIMEZONE_INVALID','duplicate_meta':'A10_DUPLICATE_COUPON_META','invalid_meta':'A10_META_INVALID'}.get(key)
+            require(command['exit_code']==int(error is not None) and command['stderr']==(error+'\n' if error else ''),'VARIANT_COMMAND:'+key)
         require(oracle['renewal_carries_coupon'] is True,'NO_NATIVE_RENEWAL')
         require(len(oracle['native_source_sha256'])==4 and all(re.fullmatch('[a-f0-9]{64}',x) for x in oracle['native_source_sha256'].values()),'NATIVE_SOURCE_HASHES')
         for code,expected in oracle['expected'].items():
             require(all(rows[code].get(k)==v for k,v in expected.items()),'NATIVE_GETTER_MISMATCH:'+code)
         rec=rows['a10-recurring-fee']
         require(rec['subscriptions']=={'active':1,'on_hold':1,'pending':1,'pending_cancel':1} and rec['orders_12_months']==5,'CARRIER_COUNTS')
-        require(data['expired']==['a10-expired','a10-expired-never-used'] and data['never_used']==['a10-expired-never-used','a10-never-used'],'SEPARATE_LISTS')
+        require(data['expired']==['a10-boundary-expiry-before','a10-expired','a10-expired-never-used'] and data['never_used']==['a10-expired-never-used','a10-never-used','a10-renamed-new'],'SEPARATE_LISTS')
         text=(evidence/(storage+'-codes/codes.json')).read_text()+(evidence/(storage+'-codes/codes.md')).read_text()
         require(re.search(r'@|PRIVATE_CANARY|customer_id|user_id|billing_|subscription_id|order_id',text) is None,'PRIVACY_LEAK')
         require(load(evidence/(storage+'-repeat/codes.json'))['codes']==data['codes'],'REPLAY_BUSINESS_DRIFT')
