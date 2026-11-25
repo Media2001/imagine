@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/repo/wp/plugins/imagine-site/phpunit.b04.xml" tests="4" assertions="91" errors="0" failures="0" skipped="0" time="0.579750">
+    <testsuite name="B04-Catalogue" tests="4" assertions="91" errors="0" failures="0" skipped="0" time="0.579750">
+      <testsuite name="Imagine\Site\Tests\CatalogueTest" file="/repo/wp/plugins/imagine-site/tests/CatalogueTest.php" tests="3" assertions="36" errors="0" failures="0" skipped="0" time="0.310437">
+        <testcase name="testOwnershipDoesNotBecomeAnotherPurchaseBeforeRelease" file="/repo/wp/plugins/imagine-site/tests/CatalogueTest.php" line="26" class="Imagine\Site\Tests\CatalogueTest" classname="Imagine.Site.Tests.CatalogueTest" assertions="10" time="0.096668"/>
+        <testcase name="testListingPredictsFirstReadWithoutOpeningOrConsuming" file="/repo/wp/plugins/imagine-site/tests/CatalogueTest.php" line="42" class="Imagine\Site\Tests\CatalogueTest" classname="Imagine.Site.Tests.CatalogueTest" assertions="14" time="0.108465"/>
+        <testcase name="testListingUsesDurationAndClosesInvalidVerificationDesignationAndFuture" file="/repo/wp/plugins/imagine-site/tests/CatalogueTest.php" line="63" class="Imagine\Site\Tests\CatalogueTest" classname="Imagine.Site.Tests.CatalogueTest" assertions="12" time="0.105303"/>
+      </testsuite>
+      <testsuite name="Imagine\Site\Tests\CatalogueStatusTest" file="/repo/wp/plugins/imagine-site/tests/CatalogueStatusTest.php" tests="1" assertions="55" errors="0" failures="0" skipped="0" time="0.269314">
+        <testcase name="testDeliveredFunctionAloneMapsAllFourCodesAndBothDiscoveryReasons" file="/repo/wp/plugins/imagine-site/tests/CatalogueStatusTest.php" line="11" class="Imagine\Site\Tests\CatalogueStatusTest" classname="Imagine.Site.Tests.CatalogueStatusTest" assertions="55" time="0.269314"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

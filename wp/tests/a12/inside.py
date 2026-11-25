@@ -167,7 +167,8 @@ add_action('init', function () {
 
 b.run_storage = run_storage
 if __name__ == '__main__':
-    for p in sorted(pathlib.Path('/subject/a12').glob('*.php')) + sorted(pathlib.Path('/opt/a12').glob('*.php')):
+    php_sources = sorted(pathlib.Path('/subject/a12').glob('*.php')) + sorted(pathlib.Path('/opt/a12').glob('*.php')) + [pathlib.Path('/subject/a12/inventorier-contenus')]
+    for p in php_sources:
         b.check('a12_lint:'+p.name, b.cmd(['php', '-l', str(p)], check=False).returncode == 0)
     exit_code = b.main()
     path = OUT/'result.json'

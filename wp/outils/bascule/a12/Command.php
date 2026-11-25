@@ -41,11 +41,18 @@ final class Command
             throw new \RuntimeException('A12_OUTPUT_EXISTS');
         }
         $audit = realpath($options['audit']);
-        if (!$audit || !is_file($audit) || is_link($options['audit']) || filesize($audit) > 16777216 || self::inside($audit, $site) || self::inside($audit, $repository) || dirname(dirname($audit)) !== $parent) {
+        if (
+            !$audit || !is_file($audit) || is_link($options['audit']) || filesize($audit) > 16777216
+            || self::inside($audit, $site) || self::inside($audit, $repository)
+            || dirname(dirname($audit)) !== $parent
+        ) {
             throw new \RuntimeException('A12_AUDIT_GUARD');
         }
         $photo = json_decode(file_get_contents($audit), true, 64, JSON_THROW_ON_ERROR);
-        if (($photo['schema'] ?? null) !== 'imagine-a02-audit-v1' || ($photo['read_only'] ?? null) !== true || !isset($photo['sections']['database']['tables'], $photo['sections']['commerce']['order_storage'])) {
+        if (
+            ($photo['schema'] ?? null) !== 'imagine-a02-audit-v1' || ($photo['read_only'] ?? null) !== true
+            || !isset($photo['sections']['database']['tables'], $photo['sections']['commerce']['order_storage'])
+        ) {
             throw new \RuntimeException('A12_AUDIT_GUARD');
         }
         $report = (new Inventory($site))->collect();
@@ -54,8 +61,13 @@ final class Command
         }
         $report['audit_sha256'] = hash_file('sha256', $audit);
         $json = json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n";
-        $markdown = "# Structure des contenus — lecture seule\n\nATTENTION : registre runtime non verifie. Declarants = candidats statiques, pas preuve d enregistrement. Aucune decision de rattachement.\n\n```json\n"
-            . json_encode($report, JSON_PRETTY_PRINT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR) . "\n```\n";
+        $markdown = "# Structure des contenus — lecture seule\n\nATTENTION : registre runtime non verifie. "
+            . "Declarants = candidats statiques, pas preuve d enregistrement. "
+            . "Aucune decision de rattachement.\n\n```json\n"
+            . json_encode(
+                $report,
+                JSON_PRETTY_PRINT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR
+            ) . "\n```\n";
         if (!mkdir($output, 0700)) {
             throw new \RuntimeException('A12_OUTPUT_CREATE');
         }

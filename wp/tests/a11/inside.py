@@ -8,6 +8,8 @@ import sys
 sys.dont_write_bytecode = True
 spec=importlib.util.spec_from_file_location('a02','/opt/a02/inside.py')
 b=importlib.util.module_from_spec(spec); spec.loader.exec_module(b)
+spec9=importlib.util.spec_from_file_location('a09_reference','/reference/wp/outils/bascule/a09/check.py')
+a09=importlib.util.module_from_spec(spec9); spec9.loader.exec_module(a09)
 OUT=pathlib.Path('/report')
 original_check=b.check
 
@@ -24,8 +26,9 @@ add_action('init', static function () {
     register_post_type('a11_story', ['public'=>true, 'has_archive'=>'histoires', 'rewrite'=>['slug'=>'histoires'], 'supports'=>['title','author']]);
     register_taxonomy('a11_topic','a11_story',['public'=>true,'rewrite'=>['slug'=>'sujets']]);
 });
+global $a11_native_query;
 $a11_native_query = 'a%2fb+z';
-add_filter('post_type_link', static function ($url,$post) { return $post->post_type === 'a11_story' ? add_query_arg('edition',$GLOBALS['a11_native_query'] ?? 'MISSING_GLOBAL_SCOPE',$url) : $url; },10,2);
+add_filter('post_type_link', static function ($url,$post) { return $post->post_type === 'a11_story' ? (getenv('A11_BAD_URL') ? 'https://elsewhere.invalid/refused' : add_query_arg('edition',$GLOBALS['a11_native_query'],$url)) : $url; },10,2);
 '''
 
 def inventory(site,target,audit,*args):
@@ -69,7 +72,9 @@ def run_storage(storage):
         b.check(key+':cli',p.returncode==0,{'exit_code':p.returncode})
         report=json.loads((target/'adresses.json').read_text())
         actual={row['ancienne']:[[c['nature'],c['type_contenu']] for c in row['contextes']] for row in report['adresses']}
-        b.check(key+':exact_native_urls_and_natures',actual==data['expected'],{'expected':len(data['expected']),'actual':len(actual)})
+        b.check(key+':a09_exact_convention',all(a09.relative(url)==url for url in actual))
+        expected={a09.relative(url):contexts for url,contexts in data['expected'].items()}
+        b.check(key+':exact_native_urls_and_natures',actual==expected,{'expected':len(expected),'actual':len(actual)})
         b.check(key+':excluded_exact',report['exclus']==data['excluded'],report['exclus'])
         b.check(key+':author_slug_only',sum(any(c['nature']=="archive d'auteur" for c in row['contextes']) for row in report['adresses'])==1)
         with open(target/'adresses.csv',encoding='utf-8-sig',newline='') as f:

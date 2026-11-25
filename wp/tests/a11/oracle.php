@@ -12,7 +12,7 @@ $add = static function ($url, string $nature, string $type) use (&$expected): vo
     $relative = ($p['path'] ?? '/') . (isset($p['query']) ? '?' . $p['query'] : '');
     $expected[$relative][] = [$nature, $type];
 };
-foreach (['article' => 'article', 'parent' => 'page', 'child' => 'page', 'story' => 'article', 'shop' => 'page', 'product' => 'produit'] as $key => $nature) {
+foreach (['article' => 'article', 'unicode' => 'article', 'parent' => 'page', 'child' => 'page', 'story' => 'article', 'shop' => 'page', 'product' => 'produit'] as $key => $nature) {
     $add(get_permalink($ids[$key]), $nature, get_post_type($ids[$key]));
 }
 if (get_option('wp_attachment_pages_enabled')) {

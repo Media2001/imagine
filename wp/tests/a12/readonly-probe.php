@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-define('IMAGINE_AUDIT_LIBRARY_ONLY', true);
-require '/subject/audit';
+require '/subject/a12/AuditLibrary.php';
+\Imagine\ContentInventory\AuditLibrary::load();
 require '/subject/a12/Declarations.php';
 require '/subject/a12/Inventory.php';
 $inventory = new \Imagine\ContentInventory\Inventory(getenv('A12_SITE'));

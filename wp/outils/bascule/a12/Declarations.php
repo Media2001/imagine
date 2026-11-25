@@ -18,11 +18,21 @@ final class Declarations
                 continue;
             }
             $function = strtolower(ltrim($token[1], '\\'));
-            if (!in_array($function, ['register_post_type', 'register_taxonomy'], true) || ($tokens[$i + 1] ?? null) !== '(') {
+            if (
+                !in_array($function, ['register_post_type', 'register_taxonomy'], true)
+                || ($tokens[$i + 1] ?? null) !== '('
+            ) {
                 continue;
             }
             $previous = $tokens[$i - 1] ?? null;
-            if (is_array($previous) && in_array($previous[0], [T_FUNCTION, T_OBJECT_OPERATOR, T_NULLSAFE_OBJECT_OPERATOR, T_DOUBLE_COLON], true)) {
+            if (
+                is_array($previous)
+                && in_array(
+                    $previous[0],
+                    [T_FUNCTION, T_OBJECT_OPERATOR, T_NULLSAFE_OBJECT_OPERATOR, T_DOUBLE_COLON],
+                    true
+                )
+            ) {
                 continue;
             }
             $arg = $tokens[$i + 2] ?? null;

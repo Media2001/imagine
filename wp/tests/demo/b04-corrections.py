@@ -133,7 +133,7 @@ def verify(phase):
         checks['restauration_exacte_thematiques']=w.wp('echo wp_json_encode(wp_get_object_terms('+str(inventory['article'])+',"imagine_thematique",["fields"=>"ids"]));')==inventory['original_terms']
     result={'scope':'imagine-test-demo','at':datetime.now(timezone.utc).isoformat(),'total':len(checks),'checks':checks,'failures':[k for k,v in checks.items() if v is not True],
         'owned_native_issue':inventory['issue'],'native_purchase_preexisting':True,'created_order_or_payment':False,'private_marker_nonempty':True}
-    (w.PROOF/('http-corrections-'+phase+'.json')).write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+    (w.PROOF/('native-http-corrections-'+phase+'.json')).write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
     print(json.dumps({'phase':phase,'total':len(checks),'failures':result['failures']},ensure_ascii=False),flush=True)
     if result['failures']: raise SystemExit(1)
     return result

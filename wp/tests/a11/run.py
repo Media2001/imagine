@@ -34,7 +34,7 @@ def main():
         out = pathlib.Path.home()/'AppData/Local/hermes/cache/scratch/a11'/run_id
     out.mkdir(parents=True, exist_ok=False)
     roots = [HERE, REPO/'wp/outils/bascule/a11']
-    protected = [REPO/'wp/tests/a02-audit', REPO/'wp/tests/a10', REPO/'wp/outils/bascule/a10', REPO/'wp/outils/bascule/audit']
+    protected = [REPO/'wp/tests/a02-audit', REPO/'wp/tests/a10', REPO/'wp/outils/bascule/a10', REPO/'wp/outils/bascule/a09/check.py', REPO/'wp/outils/bascule/audit']
     source, base = hashes(roots), hashes(protected)
     (out/'sources.json').write_text(json.dumps(source, indent=2)+'\n')
     (out/'protected-before.json').write_text(json.dumps(base, indent=2)+'\n')
@@ -49,11 +49,12 @@ def main():
         created = True
         record('isolation_before', True, b.validate(json.loads(b.call(['inspect',name]).stdout)[0],name))
         b.call(['start',name])
-        b.call(['exec',name,'mkdir','-p','/subject/a11','/opt/a11','/opt/a02','/report'])
+        b.call(['exec',name,'mkdir','-p','/subject/a11','/opt/a11','/opt/a02','/report','/reference/wp/outils/bascule/a09'])
         for root, dest in [(HERE,'/opt/a11/'),(REPO/'wp/outils/bascule/a11','/subject/a11/')]:
             for p in root.iterdir():
                 if p.is_file(): b.call(['cp',b.local(p),name+':'+dest+p.name])
         b.call(['cp',b.local(REPO/'wp/outils/bascule/audit'),name+':/subject/audit'])
+        b.call(['cp',b.local(REPO/'wp/outils/bascule/a09/check.py'),name+':/reference/wp/outils/bascule/a09/check.py'])
         unit = b.call(['exec',name,'php','/opt/a11/unit.php'],check=False)
         (out/'unit.log').write_text(unit.stdout+unit.stderr)
         b.call(['cp',name+':/report/unit.json',b.local(out/'unit.json')])

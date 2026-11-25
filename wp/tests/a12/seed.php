@@ -56,32 +56,58 @@ if ($upload['error']) {
     throw new RuntimeException('A12_FIXTURE_UPLOAD_FAILED');
 }
 $attachments = [];
-foreach ([['application/pdf', 'first.pdf', "%PDF-1.4\nA12-FICTIVE-A\n", $ids[0]], ['application/pdf', 'second.pdf', "%PDF-1.4\nA12-FICTIVE-ORPHAN\n", 0], ['image/png', 'fake.png', 'A12FAKEPNG', $ids[0]]] as [$mime, $name, $bytes, $parent]) {
+$media = [
+    ['application/pdf', 'first.pdf', "%PDF-1.4\nA12-FICTIVE-A\n", $ids[0]],
+    ['application/pdf', 'second.pdf', "%PDF-1.4\nA12-FICTIVE-ORPHAN\n", 0],
+    ['image/png', 'fake.png', 'A12FAKEPNG', $ids[0]],
+];
+foreach ($media as [$mime, $name, $bytes, $parent]) {
     $path = $upload['path'] . '/' . $name;
     file_put_contents($path, $bytes);
-    $id = wp_insert_attachment(['post_title' => 'A12_ATTACHMENT_PRIVATE_CANARY', 'post_mime_type' => $mime, 'post_status' => 'inherit', 'post_parent' => $parent], $path, $parent, true);
+    $id = wp_insert_attachment([
+        'post_title' => 'A12_ATTACHMENT_PRIVATE_CANARY', 'post_mime_type' => $mime,
+        'post_status' => 'inherit', 'post_parent' => $parent,
+    ], $path, $parent, true);
     if (is_wp_error($id)) {
         throw new RuntimeException('A12_FIXTURE_ATTACHMENT_FAILED');
     }
     update_attached_file($id, $path);
-    $attachments[] = ['mime' => get_post_mime_type($id), 'bytes' => filesize(get_attached_file($id, true)), 'orphan' => get_post($id)->post_parent === 0];
+    $attachments[] = [
+        'mime' => get_post_mime_type($id), 'bytes' => filesize(get_attached_file($id, true)),
+        'orphan' => get_post($id)->post_parent === 0,
+    ];
 }
 $states = [];
-foreach (get_posts(['post_type' => 'a12_article', 'post_status' => ['publish', 'draft', 'private', 'trash'], 'numberposts' => -1]) as $post) {
+$articles = get_posts([
+    'post_type' => 'a12_article', 'post_status' => ['publish', 'draft', 'private', 'trash'], 'numberposts' => -1,
+]);
+foreach ($articles as $post) {
     $states[$post->post_status] = ($states[$post->post_status] ?? 0) + 1;
 }
 ksort($states);
 $top = [];
 foreach ($terms as $termId) {
-    $top[] = ['name' => get_term($termId)->name, 'content_count' => count(get_objects_in_term($termId, 'a12_rubrique'))];
+    $top[] = [
+        'name' => get_term($termId)->name, 'content_count' => count(get_objects_in_term($termId, 'a12_rubrique')),
+    ];
 }
-usort($top, static fn(array $a, array $b): int => $b['content_count'] <=> $a['content_count'] ?: strcmp($a['name'], $b['name']));
+usort(
+    $top,
+    static fn(array $a, array $b): int => $b['content_count'] <=> $a['content_count'] ?: strcmp($a['name'], $b['name'])
+);
 $allAttachments = get_posts(['post_type' => 'attachment', 'post_status' => 'inherit', 'numberposts' => -1]);
-$allOrphans = count(array_filter($allAttachments, static fn($post): bool => (int) $post->post_parent === 0 || get_post((int) $post->post_parent) === null));
+$allOrphans = count(array_filter(
+    $allAttachments,
+    static fn($post): bool => (int) $post->post_parent === 0 || get_post((int) $post->post_parent) === null
+));
 $oracle = [
     'all_attachment_count' => count($allAttachments), 'all_orphan_count' => $allOrphans,
     'wordpress' => get_bloginfo('version'), 'woocommerce' => WC_VERSION,
-    'runtime_registered' => ['a12_article' => post_type_exists('a12_article'), 'a12_empty' => post_type_exists('a12_empty'), 'a12_rubrique' => taxonomy_exists('a12_rubrique'), 'a12_theme' => post_type_exists('a12_theme'), 'a12_dynamic' => post_type_exists('a12_dynamic')],
+    'runtime_registered' => [
+        'a12_article' => post_type_exists('a12_article'), 'a12_empty' => post_type_exists('a12_empty'),
+        'a12_rubrique' => taxonomy_exists('a12_rubrique'), 'a12_theme' => post_type_exists('a12_theme'),
+        'a12_dynamic' => post_type_exists('a12_dynamic'),
+    ],
     'runtime_post_types' => array_values(get_post_types()), 'runtime_taxonomies' => array_values(get_taxonomies()),
     'states' => $states, 'top_terms' => array_slice($top, 0, 20), 'term_count' => count($terms),
     'metadata_content_count' => count($ids), 'attachments' => $attachments,

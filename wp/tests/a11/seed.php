@@ -15,8 +15,8 @@ if (getenv('A11_VARIANT') === 'seed') {
     $author = wp_insert_user(['user_login' => 'a11-public-writer', 'user_nicename' => 'a11-writer', 'user_email' => 'a11-writer@example.org', 'display_name' => 'PRIVATE_AUTHOR_NAME_CANARY', 'role' => 'author']);
     wp_insert_user(['user_login' => 'a11-no-posts', 'user_nicename' => 'PRIVATE_NO_POST_AUTHOR_CANARY', 'user_email' => 'a11-no-posts@example.org', 'role' => 'subscriber']);
     $ids = [];
-    foreach ([['article', 'post', 'publish', ''], ['parent', 'page', 'publish', ''], ['child', 'page', 'publish', ''], ['story', 'a11_story', 'publish', ''], ['draft', 'post', 'draft', ''], ['private', 'page', 'private', ''], ['protected', 'post', 'publish', 'invented-password'], ['shop', 'page', 'publish', '']] as [$slug, $type, $status, $password]) {
-        $ids[$slug] = wp_insert_post(['post_type' => $type, 'post_status' => $status, 'post_name' => 'a11-' . $slug, 'post_title' => 'PRIVATE_CONTENT_TITLE_CANARY', 'post_content' => 'PRIVATE_BODY_CANARY', 'post_author' => $author, 'post_password' => $password, 'post_date' => '2025-02-03 12:00:00', 'post_date_gmt' => '2025-02-03 12:00:00', 'post_parent' => $slug === 'child' ? $ids['parent'] : 0]);
+    foreach ([['article', 'post', 'publish', ''], ['unicode', 'post', 'publish', ''], ['parent', 'page', 'publish', ''], ['child', 'page', 'publish', ''], ['story', 'a11_story', 'publish', ''], ['draft', 'post', 'draft', ''], ['private', 'page', 'private', ''], ['protected', 'post', 'publish', 'invented-password'], ['shop', 'page', 'publish', '']] as [$slug, $type, $status, $password]) {
+        $ids[$slug] = wp_insert_post(['post_type' => $type, 'post_status' => $status, 'post_name' => $slug === 'unicode' ? 'a11-école' : 'a11-' . $slug, 'post_title' => 'PRIVATE_CONTENT_TITLE_CANARY', 'post_content' => 'PRIVATE_BODY_CANARY', 'post_author' => $author, 'post_password' => $password, 'post_date' => '2025-02-03 12:00:00', 'post_date_gmt' => '2025-02-03 12:00:00', 'post_parent' => $slug === 'child' ? $ids['parent'] : 0]);
     }
     $p = new WC_Product_Simple();
     $p->set_name('PRIVATE_PRODUCT_NAME_CANARY');

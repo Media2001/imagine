@@ -5,8 +5,6 @@ declare(strict_types=1);
 
 namespace Imagine\ContentInventory;
 
-define('IMAGINE_AUDIT_LIBRARY_ONLY', true);
-
 ini_set('display_errors', '0');
 ini_set('log_errors', '0');
 set_error_handler(static function (int $severity): bool {
@@ -16,7 +14,8 @@ set_error_handler(static function (int $severity): bool {
     return true;
 });
 try {
-    require dirname(__DIR__) . '/audit';
+    require __DIR__ . '/AuditLibrary.php';
+    AuditLibrary::load();
     require __DIR__ . '/Declarations.php';
     require __DIR__ . '/Inventory.php';
     require __DIR__ . '/Command.php';

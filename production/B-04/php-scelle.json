@@ -1,0 +1,19 @@
+{
+  "total": 11,
+  "checks": {
+    "fonction_statut_disponible": true,
+    "statut:libre": true,
+    "statut:decouverte_duree": true,
+    "statut:decouverte_articles": true,
+    "statut:achat": true,
+    "statut:abonnement": true,
+    "statut:ferme": true,
+    "statut:decouverte_epuisee": true,
+    "statut:libre_mais_ferme": true,
+    "statut:invalide": true,
+    "statut:vrai_strict": true
+  },
+  "failures": [],
+  "at": "2026-11-25T22:47:14.559616+00:00",
+  "scope": "imagine-test-demo"
+}
