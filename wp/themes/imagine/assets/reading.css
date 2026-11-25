@@ -97,13 +97,6 @@ html.imagine-reading[data-imagine-reading-size="larger"] {
 .imagine-reading #imagine-reading-progress::-moz-progress-bar {
     background: var(--imagine-ink);
 }
-/* Rappel redondant : auto est déjà garanti sur html.imagine-reading ci-dessus.
- * Le vrai verrou anti-animation de la reprise est behavior:'instant' dans reading.js. */
-@media (prefers-reduced-motion: reduce) {
-    html.imagine-reading {
-        scroll-behavior: auto;
-    }
-}
 @media print {
     #imagine-reading-tools {
         display: none;

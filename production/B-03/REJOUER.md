@@ -30,7 +30,7 @@ La commande obligatoire `powershell.exe -NoProfile -ExecutionPolicy Bypass -File
 
 - **Corrections B03-C1** : `browser-colors-red.json` → `browser-colors-corrections.json`, paragraphe noir et bloc rouge, ≥ 4,5:1 dans les trois palettes à 390 et 1440 px. Sondes DOM client temporaires, supprimées ; images et contenu enregistré intacts.
 - **Corrections B03-C2** : `js-corrections-red.txt` (deux reprises à 0 au lieu de 1200 avant rAF) → `js-corrections-green.txt` (pagehide, visibilité, préservation en mode inactif).
-- Le contrat HTTP a échoué avant ajout du lecteur de constante ; il teste désormais deux vitesses substituées (137, 299), et le HTTP lit réellement la constante du serveur. Le bloc de mouvement réduit est conservé avec commentaire explicite de sa redondance ; `behavior:'instant'` est le verrou réel.
+- Le contrat HTTP a échoué avant ajout du lecteur de constante ; il teste désormais deux vitesses substituées (137, 299), et le HTTP lit réellement la constante du serveur. Le bloc de mouvement réduit redondant est supprimé (instruction prioritaire de 19h30) ; `behavior:'instant'` est le verrou réel.
 
 - `http-red.json` → `http-button-green.json` : bouton réel et absence sans JS.
 - `php-red.json` → `php-time-green.json` : durée serveur ; `php-boundaries-red.json` → `php-release.json` : mots adjacents entre paragraphes.

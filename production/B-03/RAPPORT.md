@@ -10,7 +10,7 @@
 
 - Couleurs inline et classes de blocs neutralisées **dans les trois thèmes**, uniquement en CSS de lecture ; contenu enregistré et images intacts. Paragraphe noir et bloc rouge testés dans Chromium à 390 et 1440 px : **21:1 / 14,255:1 / 16,157:1**, tous ≥ 4,5:1. Sondes uniquement dans le DOM client, supprimées.
 - `pagehide` et `visibilitychange` recalculent synchroniquement la fraction avant sauvegarde ; hors lecture, la position mémorisée reste intacte. TDD rouge réel (reprise 0 au lieu de 1200) puis vert.
-- Le HTTP lit la constante serveur, sans vitesse magique dans le contre-calcul. Le bloc reduced-motion est conservé avec commentaire de redondance ; reprise JS toujours `instant`.
+- Le HTTP lit la constante serveur, sans vitesse magique dans le contre-calcul. Le bloc reduced-motion redondant est supprimé, conformément à la file de 19h30 ; reprise JS toujours `instant`.
 - **10 assertions PHP, 43 contrôles HTTP, 8 tests JS, 15 tests locaux, 1 012 tests T01 / 34 006 assertions et 77 contrôles navigateur**, zéro échec courant/ignoré. L’unique échec B01 historique « aucun JS » reste explicitement conservé, adapté en mémoire seulement.
 - Octets locaux/déployés/HTTP identiques ; seuls `reading.css` et `reading.js` ont été redéployés. Empreintes avant/après : contenus, métadonnées, commandes/paiements, dates, extensions et autres sources inchangés, donc complément C09 conservé. Aucune recette C09/B02 ni fixture rejouée.
 - Script : **6 045 octets**, **1 956 gzip**. Vitesse serveur inchangée : **200 mots/minute**. Les corps C08 sont inchangés et le témoin réservé reste absent des réponses anonymes sondées.

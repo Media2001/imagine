@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-25T18:37:57.465165+00:00",
+  "scope": "imagine-test-demo",
+  "before": {
+    "themes/imagine/assets/reading.css": "1deec5ff7825b63f61f90a4d852bbca28817f3ac2f2355e973538dffee265c58"
+  },
+  "expected": {
+    "themes/imagine/assets/reading.css": "1d712bb60021120ee661b586423d6100c97f10678a8e135b51b702cf01789fbc"
+  },
+  "actual": {
+    "themes/imagine/assets/reading.css": "1d712bb60021120ee661b586423d6100c97f10678a8e135b51b702cf01789fbc"
+  },
+  "exact": true,
+  "files": 1
+}

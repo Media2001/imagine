@@ -34,7 +34,11 @@ def digest(path):
 def run():
     work = module('b03-work.py')
     work.guard()
-    deployed = load('deploy-corrections.json')['expected']
+    deployed = dict(load('deploy-corrections.json')['expected'])
+    amendment = load('deploy-reduced-motion.json')
+    assert amendment['before'] == {k: deployed[k] for k in amendment['expected']}
+    assert set(amendment['expected']) == {'themes/imagine/assets/reading.css'}
+    deployed.update(amendment['expected'])
     expected = {'themes/imagine/' + rel: digest(ROOT / 'wp/themes/imagine' / rel) for rel in work.FILES}
     actual = work.readback(list(expected))
     checks = {'theme_local_deploye_exact': actual == expected and all(expected[k] == v for k, v in deployed.items()),
