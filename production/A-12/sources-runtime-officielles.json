@@ -1,0 +1,25 @@
+{
+  "at_utc": "2026-11-25T23:33:21.024242+00:00",
+  "sources": [
+    {
+      "url": "https://docs.kernel.org/userspace-api/landlock.html",
+      "status": 200,
+      "sha256": "5ea9c945b6b3ab5986a31bc6014989b8cc1718dbad2372b7f0a9ee9ac69d6397"
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/classes/wp_hook/build_preinitialized_hooks/",
+      "status": 200,
+      "sha256": "459c967d2ea4e866d7c06432bea6002ff1c3473030307626ade346b4f37d3d01"
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/hooks/registered_post_type/",
+      "status": 200,
+      "sha256": "8c98664f0b09eb6437e80da715980a0c71f5164c2aab621f206a9554554bd086"
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/hooks/registered_taxonomy/",
+      "status": 200,
+      "sha256": "ec1d34bf44f31519f19d793b473b40075ea0b4017abcad3088ac490490be4cfc"
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "at": "2026-11-25T23:37:14+00:00",
+  "seeded_at": "2026-11-25 18:01:50",
+  "id": 101,
+  "status": "active",
+  "manual": true,
+  "gateway": "",
+  "next_payment": "2026-11-25 19:01:50",
+  "scheduled": false,
+  "related_renewals": [],
+  "actions": [
+    {
+      "id": 8103,
+      "status": "canceled",
+      "scheduled": "2026-11-25 19:01:50",
+      "logs": [
+        {
+          "date": "2026-11-25 18:01:58",
+          "message": "action created"
+        },
+        {
+          "date": "2026-11-25 20:38:22",
+          "message": "action canceled"
+        }
+      ]
+    },
+    {
+      "id": 7990,
+      "status": "canceled",
+      "scheduled": "2026-11-25 19:00:22",
+      "logs": [
+        {
+          "date": "2026-11-25 18:00:28",
+          "message": "action created"
+        },
+        {
+          "date": "2026-11-25 18:01:14",
+          "message": "action canceled"
+        }
+      ]
+    },
+    {
+      "id": 7888,
+      "status": "canceled",
+      "scheduled": "2026-11-25 18:59:29",
+      "logs": [
+        {
+          "date": "2026-11-25 17:59:35",
+          "message": "action created"
+        },
+        {
+          "date": "2026-11-25 18:00:28",
+          "message": "action canceled"
+        }
+      ]
+    },
+    {
+      "id": 7786,
+      "status": "canceled",
+      "scheduled": "2026-11-25 18:58:08",
+      "logs": [
+        {
+          "date": "2026-11-25 17:58:14",
+          "message": "action created"
+        },
+        {
+          "date": "2026-11-25 17:59:35",
+          "message": "action canceled"
+        }
+      ]
+    },
+    {
+      "id": 7666,
+      "status": "canceled",
+      "scheduled": "2026-11-25 18:51:16",
+      "logs": [
+        {
+          "date": "2026-11-25 17:51:24",
+          "message": "action created"
+        },
+        {
+          "date": "2026-11-25 17:58:14",
+          "message": "action canceled"
+        }
+      ]
+    },
+    {
+      "id": 7553,
+      "status": "canceled",
+      "scheduled": "2026-11-25 18:49:51",
+      "logs": [
+        {
+          "date": "2026-11-25 17:49:57",
+          "message": "action created"
+        },
+        {
+          "date": "2026-11-25 17:50:41",
+          "message": "action canceled"
+        }
+      ]
+    },
+    {
+      "id": 7451,
+      "status": "canceled",
+      "scheduled": "2026-11-25 18:49:02",
+      "logs": [
+        {
+          "date": "2026-11-25 17:49:08",
+          "message": "action created"
+        },
+        {
+          "date": "2026-11-25 17:49:57",
+          "message": "action canceled"
+        }
+      ]
+    },
+    {
+      "id": 7331,
+      "status": "canceled",
+      "scheduled": "2026-11-25 18:40:21",
+      "logs": [
+        {
+          "date": "2026-11-25 17:40:27",
+          "message": "action created"
+        },
+        {
+          "date": "2026-11-25 17:49:08",
+          "message": "action canceled"
+        }
+      ]
+    },
+    {
+      "id": 7218,
+      "status": "canceled",
+      "scheduled": "2026-11-25 18:38:56",
+      "logs": [
+        {
+          "date": "2026-11-25 17:39:02",
+          "message": "action created"
+        },
+        {
+          "date": "2026-11-25 17:39:46",
+          "message": "action canceled"
+        }
+      ]
+    },
+    {
+      "id": 7116,
+      "status": "canceled",
+      "scheduled": "2026-11-25 18:38:05",
+      "logs": [
+        {
+          "date": "2026-11-25 17:38:11",
+          "message": "action created"
+        },
+        {
+          "date": "2026-11-25 17:39:02",
+          "message": "action canceled"
+        }
+      ]
+    }
+  ],
+  "native_sources": {
+    "WCS_Action_Scheduler": {
+      "file": "/var/www/html/wp-content/plugins/woocommerce-subscriptions/includes/core/class-wcs-action-scheduler.php",
+      "sha256": "b79ffba24c7c81287c1103255acd0380dbac122ffe9a34232d6b8f33efdca258"
+    },
+    "WC_Subscriptions_Manager": {
+      "file": "/var/www/html/wp-content/plugins/woocommerce-subscriptions/includes/core/class-wc-subscriptions-manager.php",
+      "sha256": "bcb4558d2a8de15f569dd5ce1cec3906429496ba83298d17ef834d8ee1581610"
+    }
+  }
+}

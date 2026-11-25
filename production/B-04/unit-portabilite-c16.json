@@ -1,0 +1,26 @@
+{
+  "scope": "isolated-B04-PHPUnit",
+  "image": "sha256:782e6b2288ae333afd34d5a8c65a2915ea3e6c5e99a7f1cedb4d43249eb4be81",
+  "runs": [
+    {
+      "suite": "root",
+      "config": "phpunit.xml",
+      "exit": 0,
+      "log": "phpunit-root-portabilite-c16.log"
+    },
+    {
+      "suite": "c12",
+      "config": "phpunit.c12.xml",
+      "exit": 0,
+      "log": "phpunit-c12-portabilite-c16.log"
+    },
+    {
+      "suite": "b04",
+      "config": "phpunit.b04.xml",
+      "exit": 0,
+      "log": "phpunit-b04-portabilite-c16.log"
+    }
+  ],
+  "isolation_verified": true,
+  "owned_container_removed": true
+}

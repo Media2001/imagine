@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/repo/wp/plugins/imagine-site/phpunit.c12.xml" tests="7" assertions="63" errors="0" failures="0" skipped="0" time="0.623286">
+    <testsuite name="C12 raccord" tests="7" assertions="63" errors="0" failures="0" skipped="0" time="0.623286">
+      <testsuite name="Imagine\Site\Tests\DecouverteTest" file="/repo/wp/plugins/imagine-site/tests-c12/DecouverteTest.php" tests="7" assertions="63" errors="0" failures="0" skipped="0" time="0.623286">
+        <testcase name="testRelecturePolicyIsExplicitAndNeverRecredits" file="/repo/wp/plugins/imagine-site/tests-c12/DecouverteTest.php" line="26" class="Imagine\Site\Tests\DecouverteTest" classname="Imagine.Site.Tests.DecouverteTest" assertions="13" time="0.094525"/>
+        <testcase name="testOnlyDesignatedArticleOfSameIssueCanOpenAndConsume" file="/repo/wp/plugins/imagine-site/tests-c12/DecouverteTest.php" line="46" class="Imagine\Site\Tests\DecouverteTest" classname="Imagine.Site.Tests.DecouverteTest" assertions="9" time="0.096031"/>
+        <testcase name="testInvalidOrRevokedDesignationNeverGrantsRelecture" file="/repo/wp/plugins/imagine-site/tests-c12/DecouverteTest.php" line="57" class="Imagine\Site\Tests\DecouverteTest" classname="Imagine.Site.Tests.DecouverteTest" assertions="8" time="0.091376"/>
+        <testcase name="testFutureWithNoStateAndAvailableQuotaIsNonConsuming" file="/repo/wp/plugins/imagine-site/tests-c12/DecouverteTest.php" line="70" class="Imagine\Site\Tests\DecouverteTest" classname="Imagine.Site.Tests.DecouverteTest" assertions="10" time="0.089760"/>
+        <testcase name="testNonReadingAndNewSessionCannotResetAccount" file="/repo/wp/plugins/imagine-site/tests-c12/DecouverteTest.php" line="85" class="Imagine\Site\Tests\DecouverteTest" classname="Imagine.Site.Tests.DecouverteTest" assertions="10" time="0.090760"/>
+        <testcase name="testCurrentScopeCannotExpandFrozenScope" file="/repo/wp/plugins/imagine-site/tests-c12/DecouverteTest.php" line="101" class="Imagine\Site\Tests\DecouverteTest" classname="Imagine.Site.Tests.DecouverteTest" assertions="6" time="0.079861"/>
+        <testcase name="testMissingVerificationAndFailedPersistenceDoNotOpen" file="/repo/wp/plugins/imagine-site/tests-c12/DecouverteTest.php" line="112" class="Imagine\Site\Tests\DecouverteTest" classname="Imagine.Site.Tests.DecouverteTest" assertions="7" time="0.080972"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

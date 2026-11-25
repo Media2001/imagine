@@ -12,7 +12,7 @@ $check = static function (string $name, bool $ok) use (&$checks): void {
 require '/subject/a12/AuditLibrary.php';
 \Imagine\ContentInventory\AuditLibrary::load();
 require '/subject/a12/Registry.php';
-$root = '/report/origin-fixture';
+$root = '/unit-origin-fixture';
 foreach (
     [
     'wp-includes/post.php' => 'core',
