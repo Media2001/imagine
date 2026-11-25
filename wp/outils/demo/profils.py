@@ -64,6 +64,7 @@ def run(slug='imagine-test-demo', label='installation', readback_only=False):
              'imagine-demo-build/c09-calendar.php': Path(__file__).with_name('c09-calendar.php'),
              'imagine-demo-build/c12-profils.php': Path(__file__).with_name('c12-profils.php'),
              'imagine-demo-build/c12-seed.php': Path(__file__).with_name('c12-seed.php'),
+            'imagine-demo-build/c14-profil.php': Path(__file__).with_name('c14-profil.php'),
              'imagine-demo-build/c09-profils.json': Path(__file__).with_name('c09-profils.json')}
     if not readback_only:
         path = b00.validate_credentials_path(Path.home() / '.imagine-demo/identifiants.json')

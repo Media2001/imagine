@@ -229,6 +229,10 @@ foreach ($rows as $row) {
         $order->calculate_totals(false);
         $order->set_status('on-hold');
         $order->save();
+        if ($key === 'P-NUMERO') {
+            require_once __DIR__ . '/c14-profil.php';
+            \Imagine\Demo\C14\profil((int) $id, $order);
+        }
         $manifest['orders'][$key] = $order->get_id();
     }
     $sub = null;

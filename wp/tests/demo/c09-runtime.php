@@ -46,8 +46,15 @@ if ($checks['fixture_installee']) {
             $entry['orders'][] = ['id' => $order->get_id(), 'status' => $order->get_status(), 'total' => $order->get_total(),
                 'customer_id' => $order->get_customer_id(), 'item_count' => $order->get_item_count(), 'date_paid' => $order->get_date_paid(),
                 'gateway' => $order->get_payment_method(), 'transaction_id' => $order->get_transaction_id(), 'shipping_country' => $order->get_shipping_country()];
-            $checks[$key . ':commande_sans_paiement'] = !$order->get_date_paid() && !$order->get_transaction_id()
-                && $order->get_payment_method() === '' && $order->get_status() === 'on-hold';
+            $checks[$key . ':commande_sans_paiement'] = !$order->get_transaction_id() && $order->get_payment_method() === ''
+                && ($key === 'P-NUMERO'
+                    ? (bool) $order->get_date_paid() && $order->get_status() === 'processing'
+                    : !$order->get_date_paid() && $order->get_status() === 'on-hold');
+            if ($key === 'P-NUMERO') {
+                $bought = get_post(get_option('imagine_demo_manifest')['demo-2026-t1']);
+                $checks['V-NUM:numero_achete_PDF'] = \Imagine\Site\Paywall::decisionPdf($bought)['motif'] === 'numero_achete';
+                $checks['V-NUM:autre_numero_ferme'] = !$decision['complet'] && $decision['motif'] === 'autre_numero';
+            }
             $amount = isset($row['tarif']) ? (float) wc_get_product($fixture['tariffs'][$row['tarif']])->get_price() : 0.0;
             $checks[$key . ':montant_fixture_explicite'] = (float) $order->get_total() === $amount;
             $checks[$key . ':produit_commande'] = $order->get_item_count() === 1;

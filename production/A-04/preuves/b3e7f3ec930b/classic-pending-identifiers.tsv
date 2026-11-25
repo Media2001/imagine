@@ -1,0 +1,12 @@
+hook	status	count
+a03_fixture_action	pending	1
+action_scheduler/migration_hook	pending	1
+wc-admin_import_orders	pending	4
+wcs_report_update_cache	pending	4
+wcs_schedule_pending_batch_processes	pending	1
+woocommerce_delete_legacy_report_transients	pending	1
+woocommerce_run_on_woocommerce_admin_updated	pending	1
+woocommerce_scheduled_subscription_customer_notification_expiration	pending	1
+woocommerce_scheduled_subscription_customer_notification_renewal	pending	1
+woocommerce_scheduled_subscription_end_of_prepaid_term	pending	1
+woocommerce_scheduled_subscription_payment	pending	1

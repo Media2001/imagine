@@ -131,6 +131,15 @@ final class Runtime
                 option_name LIKE '%\\_batch\\_%' OR option_name LIKE 'wcs%upgrade%'");
             self::need($wpdb->last_error === '', 'A04_SQL_READ');
             foreach ($batches as $name) {
+                if ($name === 'wcs_pending_batch_processes') {
+                    // The native notifications processor is recurring operational
+                    // work, not a schema/data upgrader. Preserve it; never send it.
+                    $processors = get_option($name, []);
+                    self::need(is_array($processors)
+                        && array_diff($processors, ['WCS_Notifications_Batch_Processor']) === [],
+                        'A04_BACKGROUND_MIGRATION_ADAPTER_REQUIRED');
+                    continue;
+                }
                 if (preg_match('/^' . $prefix . '.*_batch_/', $name)) {
                     self::need(empty(get_option($name)), 'A04_BACKGROUND_MIGRATION_ADAPTER_REQUIRED');
                 }

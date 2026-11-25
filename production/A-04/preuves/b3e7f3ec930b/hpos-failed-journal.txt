@@ -1,0 +1,14 @@
+A-04 — maintenance conservée
+{"after": "7.0.9", "before": "7.0", "component": "core", "stage": "start", "utc": "2026-11-25T11:41:01Z"}
+{"component": "core", "files": 3500, "stage": "copied", "utc": "2026-11-25T11:41:22Z"}
+{"after": "7.0.9", "before": "7.0", "component": "core", "duration_seconds": 22.634, "migrations": ["wp core update-db; db_version=61833"], "stage": "verified", "utc": "2026-11-25T11:41:23Z"}
+{"after": "11.1.1", "before": "11.0.1", "component": "woocommerce", "stage": "start", "utc": "2026-11-25T11:41:23Z"}
+{"component": "woocommerce", "files": 5862, "stage": "copied", "utc": "2026-11-25T11:42:00Z"}
+{"component": "woocommerce", "stage": "interruption_requested", "utc": "2026-11-25T11:42:00Z"}
+{"after": "11.1.1", "before": "11.0.1", "component": "woocommerce", "stage": "resume", "utc": "2026-11-25T11:42:01Z"}
+{"component": "woocommerce", "stage": "interruption_requested", "utc": "2026-11-25T11:42:01Z"}
+{"after": "11.1.1", "before": "11.0.1", "component": "woocommerce", "stage": "resume", "utc": "2026-11-25T11:42:02Z"}
+{"after": "11.1.1", "before": "11.0.1", "component": "woocommerce", "duration_seconds": 40.444, "migrations": ["wc_update_11101_remove_deprecated_variation_gallery_option", "wc_update_1110_cleanup_block_email_posts", "wc_update_1110_delete_dashboard_outofstock_count_transient", "wc_update_1110_flush_product_count_cache", "wc_update_1110_delete_dashboard_outofstock_count_transient", "wc_update_1110_cleanup_block_email_posts", "wc_update_1110_flush_product_count_cache", "wc_update_11101_remove_deprecated_variation_gallery_option", "Automattic\\WooCommerce\\Internal\\VariationGallery\\Migration::run", "WC_Install::update_db_version=11.1.1", "wp wc update; woocommerce_db_version=11.1.1"], "stage": "verified", "utc": "2026-11-25T11:42:04Z"}
+{"after": "9.4.1", "before": "9.4.1", "component": "woocommerce-subscriptions", "stage": "start", "utc": "2026-11-25T11:42:04Z"}
+{"component": "woocommerce-subscriptions", "files": 763, "stage": "copied", "utc": "2026-11-25T11:42:09Z"}
+{"code": "A04_BACKGROUND_MIGRATION_ADAPTER_REQUIRED", "component": "all", "stage": "stopped", "utc": "2026-11-25T11:42:09Z"}

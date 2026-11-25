@@ -100,6 +100,8 @@ def run_storage(storage):
             pending=a03.sql(db,"SELECT hook,status,COUNT(*) AS count FROM wp_actionscheduler_actions WHERE status IN ('pending','in-progress','failed') GROUP BY hook,status ORDER BY hook,status")
             diagnostic=a03.sql(db,"SELECT action_id,JSON_KEYS(args) AS arg_keys,JSON_UNQUOTE(JSON_EXTRACT(args,'$.update_callback')) AS named_callback,JSON_UNQUOTE(JSON_EXTRACT(args,'$[0]')) AS positional_callback FROM wp_actionscheduler_actions WHERE hook='woocommerce_run_update_callback' AND status='pending'")
             batches=a03.sql(db,"SELECT option_name,OCTET_LENGTH(option_value) AS bytes FROM wp_options WHERE option_name LIKE '%\\\\_batch\\\\_%' ORDER BY option_name")
+            process=a03.wp(site,['eval',"echo json_encode(get_option('wcs_pending_batch_processes'));"],check=False)
+            (OUT/(storage+'-batch-process-classes.json')).write_text(process.stdout)
             (OUT/(storage+'-batch-identifiers.tsv')).write_text(batches.stdout)
             (OUT/(storage+'-callback-identifiers.tsv')).write_text(diagnostic.stdout)
             (OUT/(storage+'-pending-identifiers.tsv')).write_text(pending.stdout)

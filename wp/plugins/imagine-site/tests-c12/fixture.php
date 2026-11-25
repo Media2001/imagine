@@ -62,6 +62,8 @@ spl_autoload_register(static function (string $class): void {
         require dirname(__DIR__, 2) . '/imagine-pilotage/src/' . str_replace('\\', '/', substr($class, strlen($prefix))) . '.php';
     }
 });
+require dirname(__DIR__) . '/AchatNumero.php';
+require dirname(__DIR__) . '/AchatsNumeros.php';
 require dirname(__DIR__) . '/Paywall.php';
 require dirname(__DIR__) . '/Decouverte.php';
 require dirname(__DIR__) . '/DecouverteReglages.php';
