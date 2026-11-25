@@ -1,0 +1,31 @@
+{
+  "at": "2026-11-25T16:25:07.308261+01:00",
+  "lot": "C-14",
+  "command": [
+    "python",
+    "wp/outils/demo/c14-validation.py"
+  ],
+  "exit": 0,
+  "status": "PRET_A_RELIRE_CORRECTIONS",
+  "acceptance_scope": "technique uniquement ; aucune clôture/validation visuelle ou réelle",
+  "validation_sha256": "3ad1c3fd229aed277980919976de5e09a01fa2e7819af8a834d8be670f9a50bf",
+  "artifact_hashes_verified": 17,
+  "T01": {
+    "tests": 1012,
+    "assertions": 34006,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass": true
+  },
+  "C14": 686,
+  "regressions": 205,
+  "shared_preserved": true,
+  "cleanup": {
+    "temporary_users": 0,
+    "temporary_posts": 0,
+    "refunds": 0,
+    "policy": "commande"
+  },
+  "incident_retained": "incident-observations-c13.json : 12 observations synthétiques C13 conservées, incident déclaré"
+}
