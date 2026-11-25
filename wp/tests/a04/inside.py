@@ -1,0 +1,127 @@
+"""A04 isolated real fixture; imports the existing bench read-only."""
+import hashlib
+import importlib.util
+import json
+import os
+import pathlib
+import shutil
+import subprocess
+import sys
+import tarfile
+import time
+import zipfile
+sys.dont_write_bytecode=True
+spec=importlib.util.spec_from_file_location('a03','/opt/a03/inside.py');a03=importlib.util.module_from_spec(spec);spec.loader.exec_module(a03)
+OUT=pathlib.Path('/report');ROOT=pathlib.Path('/opt/a04')
+CHECKS=[]
+def check(name,ok,detail=None):
+    CHECKS.append({'check':name,'ok':bool(ok),'detail':detail});print(json.dumps(CHECKS[-1]),flush=True)
+    if not ok:raise AssertionError(name)
+def sha(p):
+    with open(p,'rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()
+def write(p,v):p.write_text(json.dumps(v,indent=2)+'\n')
+def package_version(p,file,core=False):
+    import re
+    with zipfile.ZipFile(p) as z:s=z.read(file).decode()
+    return re.search(r"\$wp_version\s*=\s*'([^']+)'" if core else r'^\s*\*?\s*Version:\s*([0-9.]+)',s,re.M|re.I)[1]
+def update(site,plan,backup,state,extra=None):
+    return a03.cmd(['python3','-B','/subject/mettre-a-jour','--wp-path='+str(site),'--plan='+str(plan),'--backup='+str(backup),'--state='+str(state)]+(extra or []),check=False,timeout=600)
+def run_storage(storage):
+    # Redirect only fixture dependency paths in memory; existing bench files remain unchanged.
+    source='/opt/woocommerce/woocommerce';old=pathlib.Path('/opt/public/woocommerce.zip');old_version=None
+    original=shutil.copytree
+    if old.is_file():
+        old_version=package_version(old,'woocommerce/woocommerce.php')
+        if not (ROOT/'baseline/woocommerce').is_dir():
+            with zipfile.ZipFile(old) as z:z.extractall(ROOT/'baseline')
+        def copy(src,dst,*args,**kwargs):
+            return original(ROOT/'baseline/woocommerce' if str(src)==source else src,dst,*args,**kwargs)
+        shutil.copytree=copy
+    try:site,db,seed,config,settings=a03.install(storage)
+    finally:shutil.copytree=original
+    check(storage+':baseline_versions',bool(seed['versions']),seed['versions'])
+    server=subprocess.Popen(['php','-d','log_errors=0','-d','display_errors=0','-S','127.0.0.1:18803','-t',str(site)],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+    time.sleep(.5)
+    def readonly():
+        (site/'wp-config.php').write_text(config.replace("define('DB_USER', 'root')","define('DB_USER', 'a03_"+storage+"')"))
+    try:
+        readonly();p=a03.snapshot(site,settings,OUT/(storage+'-before'))
+        check(storage+':a03_before',p.returncode==0,{'exit':p.returncode,'code':p.stderr[:150]})
+        (site/'wp-config.php').write_text(config)
+        # Explicit disposable file + DB backups, never any external archive or input.
+        backup_dir=ROOT/('backup-'+storage);backup_dir.mkdir()
+        sql=backup_dir/'database.sql'
+        exported=a03.cmd(['mariadb-dump','--socket=/scratch/mariadb.sock','-uroot','--single-transaction',db]);sql.write_text(exported.stdout)
+        files=backup_dir/'content.tar'
+        with tarfile.open(files,'w') as tar:tar.add(site/'wp-content',arcname='wp-content')
+        backup=ROOT/(storage+'-backup.json')
+        backup_doc={'site':str(site),'created_at':int(time.time()),'database':{'path':str(sql),'sha256':sha(sql)},'files':{'path':str(files),'sha256':sha(files)}};write(backup,backup_doc)
+        versions=seed['versions'];target_core=package_version('/opt/compatible-public/wordpress.zip','wordpress/wp-includes/version.php',True)
+        target_wc=package_version('/opt/compatible-public/woocommerce.zip','woocommerce/woocommerce.php')
+        keys=['core','woocommerce','woocommerce-subscriptions','woocommerce-memberships'];before=[versions['wordpress'],versions['woocommerce'],versions['subscriptions'],versions['memberships']]
+        after=[target_core,target_wc,versions['subscriptions'],versions['memberships']]
+        archives=['/opt/compatible-public/wordpress.zip','/opt/compatible-public/woocommerce.zip','/opt/a03/woocommerce-subscriptions.zip','/opt/a03/woocommerce-memberships.zip']
+        steps=[{'component':k,'before':v,'after':t,'archive':p,'sha256':sha(p),'adapter':k,'hooks':[]} for k,v,t,p in zip(keys,before,after,archives)]
+        plan=ROOT/(storage+'-plan.json');write(plan,{'schema':'imagine-a04-v1','site_status':'verified-staging','steps':steps})
+        # Prove guards before the first update, with actual filesystem readbacks.
+        denied=update(site,plan,backup,ROOT/(storage+'-no-maintenance'))
+        check(storage+':maintenance_required',denied.returncode==1 and denied.stderr=='A04_MAINTENANCE\n')
+        maintenance=site/'.maintenance';maintenance.write_text('<?php $upgrading = '+str(int(time.time()))+';\n')
+        bad=ROOT/(storage+'-stale.json');bad_doc={**backup_doc,'created_at':int(time.time())-21601};write(bad,bad_doc)
+        denied=update(site,plan,bad,ROOT/(storage+'-stale'))
+        check(storage+':stale_backup_refused',denied.returncode==1 and denied.stderr=='A04_BACKUP_AGE\n')
+        state=ROOT/(storage+'-state')
+        stopped=update(site,plan,backup,state,['--stop-after=woocommerce'])
+        check(storage+':controlled_interruption',stopped.returncode==75,{'exit':stopped.returncode,'code':stopped.stderr[:200]})
+        initial=json.loads((state/'etat.json').read_text())
+        check(storage+':durable_checkpoint',initial['steps']['core']['phase']=='verified' and initial['steps']['woocommerce']['phase']=='copied')
+        # Real SIGKILL while holding a kernel flock, before the next migration.
+        # The first updater already stopped after files; a wrapper holds the same
+        # state flock to prove concurrent refusal and OS release after hard kill.
+        lock=subprocess.Popen(['python3','-c',"import fcntl,pathlib,time;f=open("+repr(str(state/'execution.lock'))+",'a');fcntl.flock(f,fcntl.LOCK_EX);pathlib.Path("+repr(str(ROOT/(storage+'-locked')))+").write_text('locked');time.sleep(120)"])
+        for _ in range(100):
+            if (ROOT/(storage+'-locked')).exists():break
+            time.sleep(.05)
+        denied=update(site,plan,backup,state)
+        check(storage+':concurrent_refused',denied.returncode==1 and denied.stderr=='A04_ALREADY_RUNNING\n')
+        lock.kill();lock.wait(timeout=10)
+        resumed=update(site,plan,backup,state)
+        check(storage+':resumed',resumed.returncode==0,{'exit':resumed.returncode,'code':resumed.stderr[:200]})
+        current=json.loads((state/'etat.json').read_text())
+        check(storage+':previous_step_not_replayed',current['steps']['core']==initial['steps']['core'])
+        check(storage+':current_step_resumed',current['steps']['woocommerce']['attempts']==2 and all(r['phase']=='verified' for r in current['steps'].values()))
+        repeat=update(site,plan,backup,state);again=json.loads((state/'etat.json').read_text())
+        check(storage+':idempotent_repeat',repeat.returncode==0 and again['steps']==current['steps'])
+        # No theme/data cleanup; maintenance remains and is explicitly removed by fixture only.
+        check(storage+':maintenance_kept',maintenance.is_file())
+        maintenance.unlink();readonly()
+        p=a03.snapshot(site,settings,OUT/(storage+'-after'))
+        check(storage+':a03_after',p.returncode==0,{'exit':p.returncode,'code':p.stderr[:150]})
+        compared=a03.cmd(['php','/subject/comparer',str(OUT/(storage+'-before/non-regression.json')),str(OUT/(storage+'-after/non-regression.json'))],check=False)
+        diff=json.loads(compared.stdout);write(OUT/(storage+'-comparison.json'),diff)
+        check(storage+':only_expected_changes',compared.returncode==0, diff)
+        for name in ['etat.json','journal.json','journal.txt']:
+            shutil.copyfile(state/name,OUT/(storage+'-'+name))
+        write(OUT/(storage+'-versions.json'),{'before':dict(zip(keys,before)),'after':dict(zip(keys,after)),'baseline_public_woo':old_version})
+    finally:
+        server.terminate();server.wait(timeout=15)
+def main():
+    pathlib.Path('/scratch').mkdir()
+    a03.cmd(['mariadb-install-db','--datadir=/scratch/mysql','--auth-root-authentication-method=normal','--skip-test-db','--user=root'])
+    db=subprocess.Popen(['mariadbd','--user=root','--datadir=/scratch/mysql','--socket=/scratch/mariadb.sock','--skip-networking','--skip-log-bin','--pid-file=/scratch/mysql.pid','--log-error=/scratch/mysql.log'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+    try:
+        for _ in range(100):
+            if a03.cmd(['mariadb-admin','--socket=/scratch/mariadb.sock','-uroot','ping'],check=False).returncode==0:break
+            time.sleep(.2)
+        for storage in ['classic','hpos']:
+            try:run_storage(storage)
+            except Exception as e:
+                CHECKS.append({'check':storage+':exception','ok':False,'class':type(e).__name__,'code':str(e)[:500]});print(json.dumps(CHECKS[-1]),flush=True)
+        check('network_none',[p.name for p in pathlib.Path('/sys/class/net').iterdir()]==['lo'])
+        for p in ['/proc/net/tcp','/proc/net/tcp6']:
+            check('no_listener:'+p,not any(l.split()[3]=='0A' for l in pathlib.Path(p).read_text().splitlines()[1:]))
+    finally:
+        db.terminate();db.wait(timeout=30)
+        result={'suite':'A04-real-synthetic-classic-hpos','checks':CHECKS,'exit_code':int(any(not c['ok'] for c in CHECKS))};write(OUT/'result.json',result)
+    return result['exit_code']
+if __name__=='__main__':sys.exit(main())

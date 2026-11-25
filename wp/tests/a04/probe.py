@@ -8,4 +8,4 @@ for f in pathlib.Path('/opt/a04').glob('*.zip'):
         for n in z.namelist():
             if n.endswith('.php') and ('class-wcs-upgrade' in n or 'class-wc-subscriptions-upgrade' in n or 'class-wc-memberships-upgrade' in n or 'class-upgrade.php' in n or 'woocommerce-subscriptions.php' in n or 'woocommerce-memberships.php' in n):
                 s=z.read(n).decode(errors='replace')
-                print(n, s[:200] if n.count('/') == 1 else s[:16000])
+                print(n, {'sha256':__import__('hashlib').sha256(s.encode()).hexdigest(), 'methods': re.findall(r'public (?:static )?function ([A-Za-z0-9_]+)', s), 'requirements':re.findall(r'Requires (?:at least|PHP):[^\\r\\n]+',s)})

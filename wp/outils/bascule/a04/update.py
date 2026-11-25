@@ -152,7 +152,8 @@ def run_wp(site, args, env=None, timeout=300):
     except subprocess.TimeoutExpired:
         raise Refusal('A04_COMMAND_TIMEOUT') from None
     if p.returncode != 0 or re.search(r'(?:Fatal error|Parse error|Uncaught (?:Error|Exception))', p.stdout + p.stderr, re.I):
-        raise Refusal('A04_COMMAND_FAILED')
+        codes = re.findall(r'\bA04_[A-Z_]+\b', p.stderr)
+        raise Refusal(codes[-1] if codes else 'A04_COMMAND_FAILED')
     return p
 
 def worker(site, step, mode):

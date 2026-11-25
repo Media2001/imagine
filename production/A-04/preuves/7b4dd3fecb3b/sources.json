@@ -1,0 +1,10 @@
+{
+  "wp/tests/a04/inside.py": "de13c4dc287eab7623afcd4cc9bd6b0a7f76f9d006254d05c89f4ff38ec14a66",
+  "wp/tests/a04/probe.py": "267ddac0f4bfe8f339a23b48888de3c4472c6ea8258658bb9417d2c4224a0b80",
+  "wp/tests/a04/run.py": "53a371fcda6ea08e2d27fa3b961a33acbed57e4f0555f73f6063f733f45e26f1",
+  "wp/tests/a04/test_safety.py": "251848f943494bee92777737103d819e1deaf42fa671a748d592f3e894e9cadf",
+  "wp/tests/a04/test_update.py": "c4463002b710b0bf9fba8dee7823e1f45ebd6aaf2cf0961570fc004ba143d7e0",
+  "wp/outils/bascule/mettre-a-jour": "863c22cbb6fec2c1469388d65aae6fa1c2383e848e5b38f646dc0e2689f4a941",
+  "wp/outils/bascule/a04/runtime.php": "5ea75677a62ea9d2e7968aa067969959771cd7d268bc674447c667a9edbffba6",
+  "wp/outils/bascule/a04/update.py": "c51b9c0ab2264863499b1205f8d168490081ce79a115d5774da418ff0a1707f9"
+}
