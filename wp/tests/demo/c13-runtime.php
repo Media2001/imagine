@@ -19,12 +19,13 @@ if ($checks['raccord_present']) {
         $checks['C09_exclus_motifs'] = ($excluded[(string) $fixture['subscriptions']['A-SUSP']] ?? '') === 'suspendu'
             && ($excluded[(string) $fixture['subscriptions']['A-VIR']] ?? '') === 'virement_non_valide'
             && ($excluded[(string) $fixture['subscriptions']['A-EXPIRE']] ?? '') === 'expire';
-        $checks['aucun_paiement_invente_C09'] = ($excluded[(string) $fixture['subscriptions']['A-SANSMAIL']] ?? '') === 'paiement_non_valide';
+        $included = array_column($view['liste']->lignes, 'abonnement_id');
+        $checks['paiement_fictif_C09_A_SANSMAIL_inclus'] = in_array((string) $fixture['subscriptions']['A-SANSMAIL'], $included, true);
         $checks['repartition_exacte'] = $view['belgique'] + $view['etranger'] === count($view['liste']->lignes);
-        $checks['positif_natif_C13_sans_email_BE_etranger'] = $view['belgique'] === 1 && $view['etranger'] === 1
-            && count($view['liste']->lignes) === 2;
+        $checks['positif_natif_C13_sans_email_BE_etranger'] = $view['belgique'] === 6 && $view['etranger'] === 2
+            && count($view['liste']->lignes) === 8;
         $checks['CSV_C07_formules'] = false;
-        if (count($view['liste']->lignes) === 2) {
+        if (count($view['liste']->lignes) === 8) {
             $csv = \Imagine\Pilotage\Envoi\ExportCsv::liste($view['liste']);
             $checks['CSV_C07_formules'] = str_contains($csv, "'=Personnage Fictif C13")
                 && str_contains($csv, "'@Ville Fictive") && !str_contains($csv, '@example.org');
@@ -74,7 +75,7 @@ if ($checks['raccord_present']) {
         try {
             $bytes = \Imagine\Site\ListeEnvoiAdmin::preparer('DEMO-2027-T1');
             $checks['format_C10_effectivement_lu'] = str_starts_with($bytes, "pays,destinataire,ville\n")
-                && substr_count($bytes, "\n") === 3;
+                && substr_count($bytes, "\n") === 9;
         } finally { remove_filter('pre_option_imagine_envoi_colonnes_export', $columns); }
         global $wpdb;
         $triggered = false;

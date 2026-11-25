@@ -31,6 +31,14 @@ class Safety(unittest.TestCase):
     def inventory(self):
         return {'plugins':{'keep/main.php':{'requires':[],'gateway':False}},'theme':'fiction','tables':[],'options':[],'cron':[],'prefix':'wp_','mu_plugins':[]}
 
+    def test_example_is_only_a_keep_form(self):
+        import clean,json
+        p=clean.validate(json.loads(pathlib.Path('/subject/plan-imagine.exemple.json').read_text()))
+        self.assertTrue(all(r['action']=='garder' for kind in ['plugins','tables','uploads'] for r in p[kind]))
+        self.assertTrue(all(r['uninstall'] is False for r in p['plugins']))
+        self.assertEqual([],p['options']);self.assertEqual([],p['cron']);self.assertEqual({},p['table_owners'])
+        self.assertEqual({'ahm_','matomo_','fsmpt_email_logs'},{r['name'] for r in p['tables']})
+
     def test_example_directory_names_only_allowed_for_keep(self):
         import clean
         p=self.plan();p['plugins']=[{'plugin':'diagnostic-directory','action':'garder','uninstall':False}]

@@ -60,7 +60,8 @@ def verify():
         rows = list(csv.reader(io.StringIO(body)))
         expected = h.wp(r'echo wp_json_encode((new Imagine\Pilotage\Envoi\AdministrationFormatExport())->lire()->colonnes);')
         view = h.wp(r'$v=Imagine\Site\EnvoiNatif::apercu("DEMO-2027-T1");echo wp_json_encode(["nombre"=>count($v["liste"]->lignes),"belgique"=>$v["belgique"],"etranger"=>$v["etranger"]]);')
-        checks['CSV_reel_' + profile] = status == 200 and headers.get('content-type', '').startswith('text/csv') and rows[0] == expected and len(rows)-1 == view['nombre'] == 2
+        checks['CSV_reel_' + profile] = status == 200 and headers.get('content-type', '').startswith('text/csv') and rows[0] == expected and len(rows)-1 == view['nombre'] == 8
+        checks['CSV_C09_sans_email_et_etranger_' + profile] = 'Personnage Fictif A-SANSMAIL' in body and 'Personnage Fictif A-ETRANGER' in body
         checks['CSV_formules_HTTP_' + profile] = all(re.match(r'[\x00-\x20]*[=+@-]', cell) is None for row in rows[1:] for cell in row)
         checks['CSV_prive_' + profile] = 'no-store' in headers.get('cache-control', '') and headers.get('x-content-type-options') == 'nosniff' and 'attachment;' in headers.get('content-disposition', '')
         events = h.wp(r'echo wp_json_encode(Imagine\Site\ListeEnvoiAdmin::journal());')

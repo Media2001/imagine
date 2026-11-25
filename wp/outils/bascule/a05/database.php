@@ -39,7 +39,17 @@ final class Database
         define('IMAGINE_AUDIT_LIBRARY_ONLY', true);
         require_once dirname(__DIR__) . '/audit';
         require_once dirname(__DIR__) . '/a03/Policy.php';
-        $config = \Imagine\Audit\Audit::config(file_get_contents($input['site'] . '/wp-config.php'));
+        $source = file_get_contents($input['site'] . '/wp-config.php');
+        $tokens = array_values(array_filter(token_get_all($source), static fn ($t): bool => !is_array($t) || !in_array($t[0], [T_WHITESPACE, T_COMMENT, T_DOC_COMMENT], true)));
+        foreach ($tokens as $i => $token) {
+            if (is_array($token) && $token[0] === T_STRING && strtolower($token[1]) === 'define' && ($tokens[$i + 1] ?? null) === '(' && is_array($tokens[$i + 2] ?? null)) {
+                $key = trim($tokens[$i + 2][1], "'\"");
+                if (in_array($key, ['UPLOADS', 'WP_CONTENT_DIR', 'WP_PLUGIN_DIR', 'WPMU_PLUGIN_DIR'], true)) {
+                    throw new \RuntimeException('A05_CUSTOM_PATHS_UNSUPPORTED');
+                }
+            }
+        }
+        $config = \Imagine\Audit\Audit::config($source);
         if (preg_match('/define\s*\(\s*[\'"]MULTISITE[\'"]\s*,\s*true/i', file_get_contents($input['site'] . '/wp-config.php'))) {
             throw new \RuntimeException('A05_MULTISITE_UNSUPPORTED');
         }
@@ -48,6 +58,10 @@ final class Database
         ]);
         $prefix = $config['table_prefix'];
         $options = self::identifier($prefix . 'options');
+        $uploadPath = self::value($db, $options, 'upload_path');
+        if ($uploadPath !== false && !in_array($uploadPath, ['', 'wp-content/uploads', $input['site'] . '/wp-content/uploads'], true)) {
+            throw new \RuntimeException('A05_CUSTOM_PATHS_UNSUPPORTED');
+        }
         if ($input['mode'] === 'inspect') {
             $db->exec('START TRANSACTION READ ONLY');
             $tables = [];

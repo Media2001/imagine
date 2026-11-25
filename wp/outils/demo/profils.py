@@ -48,7 +48,7 @@ def preserve():
 $f=$out["c08"];foreach($f["users"] as $k=>$id){$u=get_userdata($id);$out["users"][$k]=[$u->ID,$u->user_login,$u->user_email,$u->roles];}
 foreach($f["subscriptions"] as $k=>$id){$s=wcs_get_subscription($id);$out["subs"][$k]=[$id,$s->get_status(),$s->get_customer_id(),$s->get_date("start"),$s->get_date("end"),$s->get_date("next_payment"),$s->get_meta("_imagine_acces_grace_debut"),$s->get_meta("_imagine_acces_grace_fin")];}
 foreach($f["memberships"] as $k=>$id){$m=wc_memberships_get_user_membership($id);$out["members"][$k]=[$id,$m->get_status(),$m->get_user_id(),$m->get_plan_id(),$m->get_start_date(),$m->get_end_date("mysql",false),get_post_meta($id,"_subscription_id",true)];}
-ob_start();require WP_CONTENT_DIR . "/imagine-demo-build/b00-snapshot.php";$out["snapshot_b00"]=json_decode(ob_get_clean(),true);echo wp_json_encode($out);'''
+$out["snapshot_b00"]=["calendar"=>get_option("imagine_demo_calendrier"),"rows"=>[]];foreach($out["b00"] as $key=>$id){if(str_starts_with($key,"user:")){$u=get_userdata($id);$out["snapshot_b00"]["rows"][$key]=[$u->ID,$u->user_login,$u->roles];}elseif(str_starts_with($key,"term:")){$t=get_term($id,"imagine_thematique");$out["snapshot_b00"]["rows"][$key]=[$t->term_id,$t->slug,$t->name];}else{$p=get_post($id);$out["snapshot_b00"]["rows"][$key]=[$p->ID,$p->post_type,$p->post_title,$p->post_content,$p->post_excerpt,$p->post_name,$p->post_status,get_post_meta($id)];if($p->post_type==="attachment"){$path=get_attached_file($id);$out["snapshot_b00"]["rows"][$key][]=is_string($path)&&is_file($path)?hash_file("sha256",$path):null;}}}echo wp_json_encode($out);'''
     return json.loads(b00.wp('eval', code)['stdout'])
 
 

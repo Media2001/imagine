@@ -25,7 +25,9 @@ foreach (['A-CARTE', 'A-SEPA4', 'A-SUSP', 'P-NUMERO', 'V-INSCRIT'] as $who) {
         $checks[$who . '_abonnement_' . $row['id'] . '_natif_propre'] = (int) $s->get_customer_id() === $v['user'];
         $checks[$who . '_adresse_' . $row['id'] . '_source_postale'] = $row['adresse'] === $s->get_address('shipping');
         $checks[$who . '_aucun_paiement_invente'] = $row['paiement'] === 'Moyen de paiement non raccordé';
-        $checks[$who . '_range_C01'] = $row['premier'] === 'DEMO-2026-T1' && $row['dernier'] === 'DEMO-2026-T4';
+        $first = $who === 'A-CARTE' ? 'DEMO-2026-T4' : ($who === 'A-SEPA4' ? 'DEMO-2026-T3' : 'DEMO-2026-T1');
+        $last = $who === 'A-CARTE' ? 'DEMO-2027-T3' : ($who === 'A-SEPA4' ? 'DEMO-2027-T2' : 'DEMO-2026-T4');
+        $checks[$who . '_range_C01'] = $row['premier'] === $first && $row['dernier'] === $last;
         $checks[$who . '_compteur_historique_nomme'] = $row['restants'] === null;
     }
     foreach ($v['numeros'] as $n) {
@@ -48,12 +50,13 @@ foreach (['A-CARTE', 'A-SEPA4', 'A-SUSP', 'P-NUMERO', 'V-INSCRIT'] as $who) {
     if ($who === 'A-SEPA4') {
         $checks['quatre_positions_meme_sans_marge'] = count($v['abonnements'][0]['echeances']) === 4;
         $checks['marge_manquante_sans_dates_inventees'] = count(array_filter($v['abonnements'][0]['echeances'], static fn ($e) => $e['date'] === null)) === 4;
-        $checks['quatre_non_marquees_payees'] = !str_contains($html, '>Payée<');
+        $checks['premiere_payee_autres_non_raccordees'] = substr_count($html, '>Payée<') === 1;
+        $checks['deux_paiements_natifs_C09'] = wcs_get_subscription($f['subscriptions'][$who])->get_payment_count() === 2;
     }
     if ($who === 'A-SUSP') {
         $checks['suspendu_clair'] = $v['abonnements'][0]['etat'] === 'Suspendu';
-        $checks['suspendu_bandeau_action_native_sans_rejet_invente'] = str_contains($html, 'data-imagine-regularisation')
-            && str_contains($html, '/view-subscription/' . $f['subscriptions'][$who]) && !str_contains($html, 'Échéance échouée');
+        $checks['suspendu_bandeau_action_native_rejet_fictif'] = str_contains($html, 'data-imagine-regularisation')
+            && str_contains($html, '/view-subscription/' . $f['subscriptions'][$who]) && str_contains($html, 'Échéance échouée');
         $checks['suspendu_aucun_PDF'] = $v['numeros'] === [];
     }
     if ($who === 'P-NUMERO') {

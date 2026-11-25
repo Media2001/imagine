@@ -38,5 +38,5 @@ foreach (['A-CARTE', 'A-SEPA4', 'A-SUSP'] as $who) {
         $failed += $o && $o->has_status('failed') ? 1 : 0;
     }
 }
-$checks['aucun_rejet_natif_ne_pas_fabriquer'] = $failed === 0;
+$checks['rejet_natif_fictif_A_SUSP'] = $failed === 1;
 echo wp_json_encode($checks, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);

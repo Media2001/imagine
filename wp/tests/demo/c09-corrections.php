@@ -35,7 +35,7 @@ foreach (['A-CARTE' => 'normal-1', 'A-SEPA4' => 'normal-4', 'A-PAYPAL' => 'norma
         && $m->get_product_id() === $pid;
     $checks[$code . ':montants_fictifs_sans_paiement'] = $pid && (float) $order->get_total() === (float) wc_get_product($pid)->get_price()
         && (float) $sub->get_total() === (float) wc_get_product($pid)->get_price()
-        && !$order->get_date_paid() && !$sub->get_date_paid() && $sub->is_manual() && $sub->get_payment_method() === '';
+        && $order->get_date_paid() && $order->get_meta('imagine_demo_fictif') === '1' && $sub->is_manual() && $sub->get_payment_method() === '';
 }
 wp_set_current_user($f['users']['E-REDAC']);
 $calendarCap = apply_filters('option_page_capability_options', 'manage_options');

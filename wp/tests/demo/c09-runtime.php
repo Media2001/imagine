@@ -39,17 +39,19 @@ if ($checks['fixture_installee']) {
         $orders = wc_get_orders(['customer_id' => $id, 'type' => 'shop_order', 'limit' => -1]);
         $subs = wcs_get_users_subscriptions($id);
         $members = wc_memberships_get_user_memberships($id, ['status' => 'any']) ?? [];
-        $checks[$key . ':nombre_commandes'] = count($orders) === ((isset($row['native']) || !empty($row['order_only'])) ? 1 : 0);
+        $checks[$key . ':nombre_commandes'] = count($orders) === ((isset($row['native']) || !empty($row['order_only'])) ? (in_array($key, ['A-SEPA4', 'A-GRACE', 'A-SUSP'], true) ? 2 : 1) : 0);
         $checks[$key . ':nombre_abonnements'] = count($subs) === (isset($row['native']) ? 1 : 0);
         $checks[$key . ':nombre_adhesions'] = count($members) === ((isset($row['native']) || isset($row['membership'])) ? 1 : 0);
         foreach ($orders as $order) {
             $entry['orders'][] = ['id' => $order->get_id(), 'status' => $order->get_status(), 'total' => $order->get_total(),
                 'customer_id' => $order->get_customer_id(), 'item_count' => $order->get_item_count(), 'date_paid' => $order->get_date_paid(),
                 'gateway' => $order->get_payment_method(), 'transaction_id' => $order->get_transaction_id(), 'shipping_country' => $order->get_shipping_country()];
-            $checks[$key . ':commande_sans_paiement'] = !$order->get_transaction_id() && $order->get_payment_method() === ''
-                && ($key === 'P-NUMERO'
-                    ? (bool) $order->get_date_paid() && $order->get_status() === 'processing'
-                    : !$order->get_date_paid() && $order->get_status() === 'on-hold');
+            $renewal = (bool) $order->get_meta('_subscription_renewal');
+            $paid = in_array($key, ['P-NUMERO', 'A-CARTE', 'A-SEPA4', 'A-PAYPAL', 'A-PAPIER', 'A-NONRENOUV', 'A-ETRANGER', 'A-SANSMAIL', 'A-ECHEANCE'], true);
+            $checks[$key . ':commande_fictive_' . $order->get_id()] = !$order->get_transaction_id() && $order->get_payment_method() === ''
+                && $order->get_meta('imagine_demo_fictif') === '1'
+                && ($paid ? (bool) $order->get_date_paid() && $order->has_status('processing')
+                    : !$order->get_date_paid() && $order->has_status($renewal ? 'failed' : 'on-hold'));
             if ($key === 'P-NUMERO') {
                 $bought = get_post(get_option('imagine_demo_manifest')['demo-2026-t1']);
                 $checks['V-NUM:numero_achete_PDF'] = \Imagine\Site\Paywall::decisionPdf($bought)['motif'] === 'numero_achete';
@@ -69,8 +71,8 @@ if ($checks['fixture_installee']) {
                 'grace_start' => $sub->get_meta('_imagine_acces_grace_debut'), 'grace_end' => $sub->get_meta('_imagine_acces_grace_fin')];
             $checks[$key . ':etat_abonnement'] = $sub->get_status() === $expected;
             $checks[$key . ':aucun_paiement_automatique'] = $sub->is_manual() && !$sub->get_payment_method() && !$sub->get_transaction_id()
-                && !$sub->get_date_paid() && $sub->get_payment_count() === 0;
-            $checks[$key . ':parent_natif'] = isset($orders[0]) && $sub->get_parent_id() === $orders[0]->get_id();
+                && $sub->get_payment_tokens() === [];
+            $checks[$key . ':parent_natif'] = $sub->get_parent_id() === $fixture['orders'][$key];
             $linked = wc_memberships_get_memberships_from_subscription($sub);
             $checks[$key . ':adhesion_lien_natif'] = count($linked) === 1 && $linked[0]->get_user_id() === $id;
             $checks[$key . ':produit_abonnement'] = $sub->get_item_count() === 1;
@@ -121,7 +123,7 @@ if ($checks['fixture_installee']) {
     $checks['catalogue_plan_droits'] = (get_option('imagine_acces_plans')[$fixture['plan']] ?? null) === 'abonnement';
     $ownedUsers = get_users(['meta_key' => '_imagine_c09_fixture', 'fields' => 'ID']);
     $checks['inventaire_total_27_comptes'] = count($ownedUsers) === 27;
-    foreach (['shop_order' => 13, 'shop_subscription' => 12] as $type => $expected) {
+    foreach (['shop_order' => 16, 'shop_subscription' => 12] as $type => $expected) {
         $objects = wc_get_orders(['type' => $type, 'status' => array_keys($type === 'shop_subscription' ? wcs_get_subscription_statuses() : wc_get_order_statuses()),
             'limit' => -1, 'meta_query' => [['key' => '_imagine_c09_fixture', 'compare' => 'EXISTS']]]);
         $checks['inventaire_total_' . $type] = count($objects) === $expected;

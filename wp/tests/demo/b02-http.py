@@ -34,9 +34,10 @@ def verify():
         if key == 'A-SEPA4':
             table = re.search(r'<table data-imagine-echeancier=.*?</table>', body, re.S)
             checks['4x_quatre_lignes_HTTP'] = bool(table) and table.group(0).count('<th scope="row">') == 4
-            checks['4x_pas_de_paiements_fabriques_HTTP'] = 'Date non raccordée' in body and '>Payée<' not in body
+            checks['4x_premiere_payee_et_dates_non_raccordees_HTTP'] = 'Date non raccordée' in body and body.count('>Payée<') == 1
         if key == 'A-SUSP':
             checks['suspendu_bandeau_HTTP'] = 'data-imagine-regularisation' in body and 'Suspendu' in body
+            checks['suspendu_echeance_echouee_fictive_HTTP'] = 'Échéance échouée' in body
             checks['suspendu_sans_PDF_HTTP'] = '?imagine_pdf=' not in body
         if key in ['A-CARTE', 'P-NUMERO']:
             links = re.findall(r'href="([^"]*imagine_pdf=[0-9]+)"', body)
