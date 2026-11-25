@@ -56,7 +56,8 @@ def main():
     parent = pathlib.Path(options['--output']).parent.resolve(strict=True)
     source = pathlib.Path(__file__).resolve().parent
     # Early checks before granting any output write rights. PHP repeats complete guards.
-    repository = source.parents[3] if (source.parents[3]/'wp/outils/bascule/audit').is_file() else source.parent
+    candidate = source.parents[3] if len(source.parents) > 3 else source.parent
+    repository = candidate if (candidate/'wp/outils/bascule/audit').is_file() else source.parent
     if parent == site or site in parent.parents or parent == repository or repository in parent.parents:
         raise RuntimeError('A12_OUTPUT_UNSAFE')
     confine(parent)

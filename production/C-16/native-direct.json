@@ -1,6 +1,6 @@
 {
-  "id": 2611,
-  "uid": 64,
+  "id": 2622,
+  "uid": 67,
   "email": "vente-directe@sans-email.imagine.invalid",
   "nom": "Vente directe — fictif",
   "sans": "1",
@@ -9,11 +9,11 @@
   "date": null,
   "method": "imagine_papier",
   "sub": {
-    "id": 2612,
+    "id": 2623,
     "etat": "pending",
     "manual": true,
-    "parent": 2611,
-    "uid": 64
+    "parent": 2622,
+    "uid": 67
   },
   "members": 0
 }

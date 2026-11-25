@@ -1,0 +1,19 @@
+{
+  "id": 2616,
+  "uid": 65,
+  "email": "c16-fictif@example.org",
+  "nom": "Personnage Fictif C16 Nouveau",
+  "sans": "0",
+  "etat": "pending",
+  "paid": false,
+  "date": null,
+  "method": "bacs",
+  "sub": {
+    "id": 2617,
+    "etat": "pending",
+    "manual": true,
+    "parent": 2616,
+    "uid": 65
+  },
+  "members": 0
+}

@@ -35,8 +35,30 @@ add_action('init', function () {
     register_taxonomy('a12_rubrique', ['a12_article'], ['public' => true]);
     $dynamic = 'a12_dynamic';
     register_post_type($dynamic, []);
+    register_taxonomy($dynamic . '_tax', ['a12_article'], []);
+    register_post_type('a12_removed', []);
+    unregister_post_type('a12_removed');
+    register_taxonomy('a12_removed_tax', ['a12_article'], []);
+    unregister_taxonomy('a12_removed_tax');
     if (false) { register_post_type('a12_never', []); }
+    if (false) { register_taxonomy('a12_never_tax', ['a12_article'], []); }
 });
+if (getenv('A12_CONFINED') === '1') {
+    global $wpdb;
+    require_once ABSPATH . 'wp-includes/pluggable.php';
+    $GLOBALS['a12_early_guards'] = [
+        'before_plugins_loaded' => !did_action('plugins_loaded'),
+        'native_write_denied' => $wpdb->query('UPDATE wp_posts SET ID=ID WHERE 1=0') === false,
+        'server_write_denied' => @mysqli_query($wpdb->dbh, 'UPDATE wp_posts SET ID=ID WHERE 1=0') === false && mysqli_errno($wpdb->dbh) === 1792,
+        'file_create_denied' => @file_put_contents(ABSPATH . 'a12-write-canary', 'FORBIDDEN') === false,
+        'file_truncate_denied' => @file_put_contents(ABSPATH . 'index.php', 'FORBIDDEN') === false,
+        'http_denied' => is_wp_error(wp_remote_get('https://must-not-connect.invalid/')),
+        'mail_denied' => wp_mail('fiction@example.org', 'A12', 'A12') === false,
+        'cron_denied' => wp_schedule_single_event(time() + 9999, 'a12_early_forbidden') === false,
+        'direct_mail_disabled' => !function_exists('mail'),
+    ];
+    echo 'A12_BOOT_OUTPUT_PRIVATE_CANARY';
+}
 """)
     (site/'wp-content/themes/a02-child/functions.php').write_text("<?php add_action('init', function () { register_post_type('a12_theme', []); });")
     (site/'wp-content/plugins/inactive-fixture/decl.php').write_text("<?php register_post_type('a12_inactive', []);")
@@ -71,6 +93,9 @@ add_action('init', function () {
     b.check(storage+':inactive_source_excluded', 'a12_inactive' not in rows)
     b.check(storage+':exact_runtime_registry_dynamic_not_never', report['registry']['runtime_verified'] is True and 'a12_dynamic' in rows and 'a12_never' not in rows and set(rows) == set(oracle['runtime_post_types']))
     b.check(storage+':exact_runtime_taxonomies', set(tax) == set(oracle['runtime_taxonomies']))
+    b.check(storage+':dynamic_taxonomy_excludes_unexecuted_and_removed', 'a12_dynamic_tax' in tax and not {'a12_never_tax', 'a12_removed_tax'}.intersection(tax) and 'a12_removed' not in rows)
+    b.check(storage+':dynamic_declarant_is_executed_mu', rows['a12_dynamic']['declarations'] == row['declarations'] and tax['a12_dynamic_tax']['declarations'] == row['declarations'])
+    b.check(storage+':native_core_and_woocommerce_declarants', rows['post']['declarations'] == [{'owner': 'core', 'file': 'wp-includes/post.php'}] and rows['product']['declarations'] == [{'owner': 'plugin', 'file': 'wp-content/plugins/woocommerce/includes/class-wc-post-types.php'}])
     gap = {'runtime_missing_from_snapshot': sorted(set(oracle['runtime_post_types'])-set(rows)), 'source_candidates_not_runtime': sorted(k for k,v in rows.items() if v['declarations'] and k not in oracle['runtime_post_types'])}
     (OUT/(storage+'-registry-gap.json')).write_text(json.dumps(gap, indent=2)+'\n')
     b.check(storage+':runtime_gap_empty', not any(gap.values()))
@@ -151,8 +176,9 @@ add_action('init', function () {
         held.rename(pdfpath)
     (site/'wp-config.php').write_text(config.replace("define('DB_USER', 'a02_"+storage+"')", "define('DB_USER', 'root')"))
     try:
-        probe = b.cmd(['php', '/opt/a12/readonly-probe.php'], env={'A12_SITE': str(site)}, check=False)
-        b.check(storage+':root_transaction_blocks_writes', probe.returncode == 0 and json.loads(probe.stdout)['blocked'])
+        probe = b.cmd(['python3', '/opt/a12/probe.py'], env={'A12_SITE': str(site)}, check=False)
+        (OUT/(storage+'-readonly-probe.json')).write_text(probe.stdout)
+        b.check(storage+':root_transaction_blocks_writes_and_system_confines_bootstrap', probe.returncode == 0 and all(json.loads(probe.stdout).values()), {'exit_code': probe.returncode, 'stderr': probe.stderr[:120]})
     finally:
         (site/'wp-config.php').write_text(config)
     (site/'wp-config.php').write_text(config.replace("define('DB_PASSWORD', '')", "define('DB_PASSWORD', getenv('A12_SECRET_PRIVATE_CANARY'))"))

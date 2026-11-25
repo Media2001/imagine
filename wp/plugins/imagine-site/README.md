@@ -202,3 +202,22 @@ Depuis cette correction, `composer.json`, son lock et `phpunit.xml` racine rende
 
 Cible unique `imagine-test-demo`, aucun reset global ou C09/C10/C11/C12, sources B02/C14 et bootstrap préservés. Deux témoins permanents C13 en grâce fictive, sans paiement, permettent un CSV réel de deux personnes BE/FR. **Ils ne remplacent pas l’acceptation positive C09** : douze souscriptions sans paiement validé, A-SANSMAIL exclu pour ce motif (aucun filtre email), offerts/groupés C09 sans liens natifs. Le raccord est désormais livré et testé sur liens natifs jetables ; la gate C09 reste fermée, mode strict **2**, `recette_complete=false`. État unique : **prêt à relire avec réserves**, pas recette complète ni validation visuelle/clôture ; aucun PRET créé/modifié par ce worker. Parcours, commandes et reçus : `production/C-13/`.
 
+## C-16 — commande administrative en trois écrans
+
+`CommandeRegles` valide la saisie pure ; `CommandeAdmin` ajoute **Imagine → Commande pour un client** au menu unique, sans bibliothèque close modifiée. Capacité C15 `imagine_gerer_echeances` **et** C09 `imagine_creer_compte_client`, ou `manage_options`. Les POST sont traités avant les en-têtes administratifs pour des refus HTTP 403/409 réels. Client/recherche ou création, produit/adresse/paiement hors ligne, confirmation : trois écrans serveur sans JavaScript. Aucun objet n'est créé avant la confirmation.
+
+Le brouillon est un transient privé lié au référent, durée d'une heure ; son jeton et le nonce ne transportent pas la saisie. Verrou MySQL par brouillon, puis identité/email pour les créations concurrentes ; un rejeu reprend le même résultat, une interruption impose une relecture native avant nouvelle saisie. `CommandeNative` utilise uniquement les produits fictifs C09 existants et les produits simples reliés à un numéro publié par C14 ; catalogue/prix relus avant confirmation. Pas de prix, taxe ou port Imagine inventé. `WC_Order` et, pour l'abonnement, `WC_Subscription` liée nativement au parent, tous **pending**, renouvellement manuel explicite, aucune transaction ni adhésion. Les virements liés apparaissent dans C15 ; les numéros à l'unité restent exclus de sa vue selon son périmètre actuel.
+
+`SansEmail::META = imagine_sans_email` réutilise le marqueur de la fixture C13. A-SANSMAIL C09 ne le portait pas : C09 le pose désormais sans changer son adresse historique. Les nouveaux sans-email utilisent `@sans-email.imagine.invalid`, domaine réservé non livrable ; le compte générique `imagine-vente-directe` utilise le même mécanisme. Le filtre individuel `pre_wp_mail` refuse tout message comportant un tel destinataire en TO/CC/BCC, même mélangé à un destinataire normal ; le coupe-circuit global de la démo reste actif. Aucun envoi externe Brevo n'est exercé ni annoncé branché.
+
+Le reset C09 inclut `wp/outils/demo/c16-reset.php` lorsqu'il est déployé : prévol de tous les objets C16 impayés possédés, refus d'objets payés/modifiés ou étrangers, puis suppression native des objets/comptes et des brouillons. La recette appelle cette même extension **ciblée** du reset, sans réinitialiser les profils C09/C12/C14 ni leurs échéances. Les relevés postaux append-only C13 sont conservés.
+
+```powershell
+python wp/outils/demo/c16.py --deploy
+python wp/outils/demo/c16-unit.py unit-final
+python wp/tests/demo/c16-http.py http-final
+```
+
+Aucun réglage métier supplémentaire ni modification C10 ; don, pack, offert et groupé restent des emplacements nommés. Parcours, preuves exactes et blocages de qualification globale : `production/C-16/A-VOIR.md`. Ce lot n'appelle jamais `payment_complete()` et ne valide aucun paiement. Les 70 contrôles HTTP/natifs du dernier parcours sont verts, mais la qualification globale est signalée séparément : pas de faux PRET quand un gate reste rouge.
+
+
