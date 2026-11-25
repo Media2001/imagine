@@ -12,6 +12,36 @@ final class AchatsNumeros
 {
     public const PRODUIT = 'imagine_achat_numero_id';
     public const LIGNE = '_imagine_achat_numero_id';
+    public const REMBOURSEMENT = 'imagine_achat_remboursement';
+
+    public static function reglages(): void
+    {
+        register_setting('imagine_achats', self::REMBOURSEMENT, [
+            'type' => 'string', 'default' => 'commande',
+            'sanitize_callback' => static fn ($value): string => $value === 'ligne' ? 'ligne' : 'commande',
+        ]);
+        add_settings_section('imagine_achats', __('Achats de numéros', 'imagine-site'), '__return_false', 'imagine-achats');
+        add_settings_field(self::REMBOURSEMENT, __('Portée des remboursements', 'imagine-site'), static function (): void {
+            echo '<select name="' . esc_attr(self::REMBOURSEMENT) . '">';
+            foreach (['commande' => __('Toute la commande (défaut prudent)', 'imagine-site'),
+                'ligne' => __('Seulement les lignes remboursées', 'imagine-site')] as $value => $label) {
+                echo '<option value="' . esc_attr($value) . '" ' . selected(get_option(self::REMBOURSEMENT, 'commande'), $value, false) . '>' . esc_html($label) . '</option>';
+            }
+            echo '</select><p>' . esc_html__('À confirmer par Imagine. Par ligne : un partiel non ventilé ne retire aucun numéro ; un remboursement complet ferme toujours tout.', 'imagine-site') . '</p>';
+        }, 'imagine-achats', 'imagine_achats');
+    }
+
+    public static function ecran(): void
+    {
+        if (!current_user_can('manage_options')) {
+            wp_die(esc_html__('Accès refusé.', 'imagine-site'));
+        }
+        echo '<div class="wrap"><h1>' . esc_html__('Achats de numéros', 'imagine-site') . '</h1><form method="post" action="options.php">';
+        settings_fields('imagine_achats');
+        do_settings_sections('imagine-achats');
+        submit_button();
+        echo '</form></div>';
+    }
 
     private static function identifiant(mixed $value): int
     {
@@ -66,16 +96,38 @@ final class AchatsNumeros
                 $acquired = $paid
                     ? (new DateTimeImmutable('@' . $paid->getTimestamp()))->setTimezone(new DateTimeZone('UTC'))
                     : null;
-                // Tout remboursement, même partiel/sans ventilation, retire la commande.
-                // Un autre achat valide du même numéro garde son propre droit.
-                $refunded = wc_get_orders(['type' => 'shop_order_refund', 'parent' => $order->get_id(),
-                    'limit' => 1, 'return' => 'ids']) !== [];
+                $refunds = wc_get_orders(['type' => 'shop_order_refund', 'parent' => $order->get_id(),
+                    'limit' => -1, 'return' => 'objects']);
+                $refundedLines = [];
+                $amount = 0.0;
+                foreach ($refunds as $refund) {
+                    if (!$refund instanceof \WC_Order_Refund || $refund->get_parent_id() !== $order->get_id()) {
+                        throw new \RuntimeException('Remboursement natif incohérent.');
+                    }
+                    $amount += (float) $refund->get_amount();
+                    foreach ($refund->get_items('line_item') as $refundedItem) {
+                        $lineId = self::identifiant($refundedItem->get_meta('_refunded_item_id', true, 'edit'));
+                        if ($lineId > 0) {
+                            $refundedLines[$lineId] = true;
+                        }
+                    }
+                }
+                $complete = $refunds !== [] && (float) $order->get_total() > 0
+                    && $amount >= (float) $order->get_total();
                 foreach ($order->get_items('line_item') as $item) {
+                    $snapshot = self::identifiant($item->get_meta(self::LIGNE, true, 'edit'));
+                    $issue = $snapshot ? get_post($snapshot) : null;
                     $right = AchatNumero::droit($client, [
                         'client' => (int) $order->get_customer_id(), 'etat' => $order->get_status('edit'),
-                        'payee' => $order->is_paid(), 'acquis' => $acquired, 'remboursement' => $refunded,
-                        'numero' => self::numero($item->get_product()),
-                        'instantane' => self::identifiant($item->get_meta(self::LIGNE, true, 'edit')),
+                        'payee' => $order->is_paid(), 'acquis' => $acquired,
+                        'remboursement' => AchatNumero::remboursement(
+                            get_option(self::REMBOURSEMENT, 'commande'),
+                            $refunds !== [],
+                            $complete,
+                            isset($refundedLines[$item->get_id()])
+                        ),
+                        'instantane' => $snapshot,
+                        'publie' => $issue && $issue->post_type === 'imagine_numero' && $issue->post_status === 'publish',
                         'quantite' => $item->get_quantity(),
                     ]);
                     if ($right !== null) {
@@ -100,7 +152,7 @@ final class AchatsNumeros
             'value' => $product_object ? $product_object->get_meta(self::PRODUIT, true, 'edit') : '0',
             'options' => $options, 'wrapper_class' => 'show_if_simple',
             'description' => __('Modèle provisoire : un seul numéro, articles et PDF.', 'imagine-site') . ' '
-                . __('Réaffecter ou vider ferme les anciens achats, sans les déplacer.', 'imagine-site')]);
+                . __('Réaffecter ou vider ne change que les achats suivants ; le numéro acquis est conservé.', 'imagine-site')]);
     }
 
     public static function enregistrer($product): void
@@ -123,6 +175,11 @@ final class AchatsNumeros
 
     public static function register(): void
     {
+        add_action('admin_init', [self::class, 'reglages']);
+        add_action('admin_menu', static function (): void {
+            add_options_page(__('Achats de numéros', 'imagine-site'), __('Achats de numéros', 'imagine-site'),
+                'manage_options', 'imagine-achats', [self::class, 'ecran']);
+        });
         add_action('woocommerce_before_order_item_object_save', [self::class, 'instantane'], 10, 1);
         add_action('woocommerce_product_options_general_product_data', [self::class, 'champ']);
         add_action('woocommerce_admin_process_product_object', [self::class, 'enregistrer']);

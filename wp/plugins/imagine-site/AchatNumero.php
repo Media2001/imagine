@@ -9,6 +9,12 @@ use DateTimeImmutable;
 /** Conversion pure d'une ligne native vérifiée vers le contrat achat de C06. */
 final class AchatNumero
 {
+    /** Par ligne, un partiel non ventilé ne désigne aucune acquisition à retirer. */
+    public static function remboursement(mixed $portee, bool $present, bool $complet, bool $ligne): bool
+    {
+        return $complet || ($present && ($portee !== 'ligne' || $ligne));
+    }
+
     public static function droit(int $client, array $ligne): ?array
     {
         if (
@@ -18,12 +24,12 @@ final class AchatNumero
             || !($ligne['acquis'] ?? null) instanceof DateTimeImmutable
             || $ligne['acquis']->format('u') !== '000000'
             || ($ligne['remboursement'] ?? null) !== false
-            || !is_int($ligne['numero'] ?? null) || $ligne['numero'] <= 0
-            || ($ligne['instantane'] ?? null) !== $ligne['numero']
+            || !is_int($ligne['instantane'] ?? null) || $ligne['instantane'] <= 0
+            || ($ligne['publie'] ?? null) !== true
             || !is_numeric($ligne['quantite'] ?? null) || $ligne['quantite'] <= 0
         ) {
             return null;
         }
-        return ['type' => 'achat', 'numero' => (string) $ligne['numero'], 'acquis_le' => $ligne['acquis']];
+        return ['type' => 'achat', 'numero' => (string) $ligne['instantane'], 'acquis_le' => $ligne['acquis']];
     }
 }
