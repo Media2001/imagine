@@ -1,6 +1,7 @@
 """Non-régression C14 sans réinitialiser les autres profils ni écrire leurs rapports."""
 import io
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 import re
 import subprocess
@@ -13,7 +14,7 @@ import c12
 def run():
     c14.c10.guard()
     before = c14.preserve()
-    results = {'scope': 'imagine-test-demo', 'status': 'EN_COURS'}
+    results = {'scope': 'imagine-test-demo', 'at': datetime.now(timezone.utc).isoformat(), 'status': 'EN_COURS'}
     path = c14.PROOF / 'regressions.json'
     def save():
         path.write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding='utf-8')
@@ -26,6 +27,7 @@ def run():
             print(result.stdout + result.stderr)
             raise RuntimeError('PHPUnit ' + key + ' en échec')
         results[key + '_phpunit'] = {'tests': int(counts[1]), 'assertions': int(counts[2]), 'exit': result.returncode}
+        results[key + '_phpunit']['selection'] = 'tests/ : C11 + C13 + C14' if key == 'c11' else 'tests-c12/'
         print(key + ' PHPUnit :', int(counts[1]), 'tests ;', int(counts[2]), 'assertions', flush=True)
         save()
     results['C12_native'] = c12.runtime()

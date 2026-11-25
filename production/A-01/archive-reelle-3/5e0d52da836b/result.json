@@ -1,0 +1,1558 @@
+{
+  "status": "PASS",
+  "name": "imagine-test-a01-db3-5e0d52da836b",
+  "synthetic_only": true,
+  "source_manifest": {
+    "wp/outils/staging-court/archive.py": "f965e6764cffacd34faba77682a2a944ce76c666aa337e896fa7737de79884f4",
+    "wp/outils/staging-court/archive_policy.py": "d687f649173d0bca9679450b2b682d145b1fc53b2de674be7eb665768b7af7f3",
+    "wp/outils/staging-court/core_source.py": "4333875f38c2d87eb4f9b8f247d30b799e99ab7f4bd99530a22fb11b70b1f29e",
+    "wp/outils/staging-court/diagnosis.py": "17530f6ac02e0dd4536bfddc86390b44c130169f41bba0e705ffbfad43a7f927",
+    "wp/outils/staging-court/inside.py": "27ccaba9e4bf35af4dd4b8b32f1844025e2e63fe161a8f4dd084544849993b8d",
+    "wp/outils/staging-court/publication.py": "ac8031f2e9352e694d03a07226fa19e3982f75a696107d9ff6ae41d914a1f244",
+    "wp/outils/staging-court/publication_preflight.py": "cd4dfeb3ef170ea83ba503c3e2b193e4f3dbc11ee8a1053c01d2efc122fee313",
+    "wp/outils/staging-court/publish.py": "12d24504e5f5fb0077989e3b6e8e81dd905d625965de3f2f1d7830efed81ee85",
+    "wp/outils/staging-court/run.py": "10513a0dd11abdfe86d14d40512669c6e42e71bba96c7cfa9a4a358b7293bf39",
+    "wp/outils/staging-court/sql_diagnostic.py": "8198852780b5e4d647b72a1b48c87a6ce5fa81386b0fa87aa29498aa1931c737",
+    "wp/outils/staging-court/sql_stream.py": "a6d586798c7090107713865b9d077a666ef6be0fa846627da19116baef62fefb",
+    "wp/outils/staging-court/table_policy.py": "fd24e3cfe1b2ce3500dfd72fc49b2ff0fa2f4c58dd8a818d67f48c7d98e14d11",
+    "wp/outils/staging-court/politique-tables.json": "66a15c7c0c8711a20af83ac234fc4f402e170e1e12c1d8d5a93a9e1433ea8b4b",
+    "wp/outils/staging/schema.php": "81dfe75642c7a267fe92d23336fe14353de2d479700f8c97415702e14ae45d2a",
+    "wp/outils/staging-wp-integration/worker/worker.py": "1cdb5f85db2d2c0e3aecba4828785794e03c1a3a383b4c3a67075b1426e4f293",
+    "wp/tests/staging-data/fixtures.php": "2c6d88066a988863c951b1ad133f28598170e8aaf7c03d7d5baf624ef0a97953",
+    "wp/tests/a01-court/database_fixture.php": "fd163bf025d6beea94f942661ad520e03311ef893182489c34a67a8a5d5bd11f",
+    "wp/tests/a01-court/ai1wm_export_fixture.php": "c1b3b83721571a73ad11539e3931bb550787d673293acf3f4d7e850f3c535ce4",
+    "wp/tests/a01-court/database_verify_inside.py": "103e4aa1e5ec9d9e409e50b5e837affb4d7b9fc4d83966f6a3ddd972ac9ce08b",
+    "wp/tests/a01-court/test_database_policy.php": "75773d9b4eacf7b68d7f337fd2b91c858475a936dd57df10b0598ba87ebaf643",
+    "wp/tests/a01-court/exercise_database.py": "f37281e39110cb4e09ccf280181cd5775b39ba4fa3a243b8e70ec2cb2ced1bd9",
+    "wp/tests/a01-court/ai1wm_prepare_inside.py": "6bc7e99de80e09bed42e2d95a5e5fe551cdc1cc0907f34f57bfb30a4f444ee14",
+    "wp/outils/staging/neutraliser": "3bd131154ce850d2427d164ec3d33f12fa372fe65b3f2888ff926c779100ff2d",
+    "wp/outils/staging/anonymiser": "2d8ee8c6afc3b586b49393db1c99bfb5049f568ed6d506fc1ad29db38eb0de1d",
+    "wp/outils/staging/verifier": "d0f3e5728411faa22e20109636d684f551fe937600eebb5839382d205c42b9d6",
+    "wp/outils/staging/command.php": "fb5589cf23024a50cbf188a158fc5d92f5a8389297468f07e984601a58a06305",
+    "wp/outils/staging/lib.php": "8f438c249353ad8d2792d35968bff5f6a14eb5019daabde7fd51d7e8abcd472c",
+    "wp/outils/staging/files.php": "97aa0aeecfb13dca77b97b93d1a147f33962889044f26a9ff06a2cd8a621baeb",
+    "wp/outils/staging/pdo-store.php": "3984aea62a1405534c2c8e73fe948e6605e6e0795d6a1d9a331b33b8464b61eb",
+    "wp/outils/staging/runtime-probe.php": "3c8a98d1db5714e1944194f558a1df3a3c512e14e3aa370308a60a97f5889140",
+    "wp/outils/staging/policy.php": "5a4465fa3b1e566c1962db253c64eb0ab43e488af69c048d5ab58af233214ef8",
+    "wp/outils/staging/mu-plugins/000-imagine-staging-safety.php": "c16f048f3fd2587ba719924eec53b07651ea3b6a495a8125746a157582f5474f",
+    "wp/outils/staging-court/bridge.php": "5c13515a5ca50d3e2991a7d595a2499d53cd29b75ce95880c5291f69046d0a22",
+    "wp/tests/staging-e2e/inside.py": "6f3b745290d33c65fe05f91997e244091d1ff6ff5d913054b723258010bd65ff",
+    "wp/tests/staging-e2e/fixture.php": "ae2f4ff9ae14910623b5ad52318bd0b4ca44fd8ec829e929484dbbcd84526618",
+    "wp/tests/staging-e2e/snapshot.php": "ca87758706b4d673a42971d6964cde6972a4c2aba8873f534e7b32669df52b76",
+    "wp/tests/staging-e2e/oracle.php": "b10744669aeae305adfb4fc0c2fbf73897d97c26d0e09b8143cdec0ce424f685",
+    "wp/tests/staging-e2e/mutate.php": "1612e6e121c90b9850a1a92ab7250dd15e1792f5da709c979470ddb0a455aaa4",
+    "wp/tests/staging-e2e/db-probe.php": "27f0cbc465112574e0b3545b4eb22bb1a403e58eaf18494cfde72e7128e2635d",
+    "wp/tests/staging-e2e/mail-probe.php": "693f212827b5283d38babc7a0719e8bd9a4fc81b752a4d5912fe39161062b2b0",
+    "wp/tests/staging-e2e/worker-bridge.php": "c440b849b554c24f062441afd65811d74ac5112e9fce0a7961ed89d7e58d6fb7",
+    "wp/tests/staging-e2e/subject-preflight.php": "c6eb3a2746d2916bf14c884229f05e3b4950fc26521037cd95962f6e93d4ab51",
+    "wp/tests/staging-e2e/fidelity.php": "3e319c13679a92a400cca9e61306ecd01fc953c830f6b44fb302ce933bee389a",
+    "wp/tests/staging-e2e/fidelity-mu.php": "2a8f60c6a35375dd885d73d6a6e42dd8ca3acbc7b015af9a254709284af5beb7",
+    "wp/tests/staging-e2e/licensed-fixture.php": "f52b4704560dae7d24dccaa415fe9adca9d69adbe239637cf1301185d2f38bb5",
+    "wp/tests/staging-e2e/subject-adapter.json": "ace78fbb6c0b1a2b81911f6287efb3c9c3cdddf00b10c64c42cf0acb170b75aa",
+    "wp/tests/staging-e2e/harness.py": "3d7af593be2355afabb954f46625f67932c68e8ba446fe85c36f7de14b261f49",
+    "wp/tests/staging-e2e/test_harness.py": "d41a8502f9ff2f52d479d73d466c3d939b3987293dba214759e080de5d73c563",
+    "wp/tests/a01-court/roundtrip.py": "a07c5997421f40bd893af082dc4600c79c2d3740521a95f3fa7e763e628d1db8",
+    "wp/tests/a01-court/export.php": "2f42b0f076364e3289ba228394dc98e14b2b92a7a50a14af26d1f146dd4b0d33",
+    "wp/tests/a01-court/test_archive.py": "0c75ffb3ea53cc1f82f510d714d19690a1529da13873ebd7c8e331aa1af6e490",
+    "wp/tests/staging-data/commands.py": "20516cddd3f366aca2efbf215b8c8c2a06da019e2f23988d7165f5d743995f25",
+    "wp/tests/staging-data/mu-plugin.php": "c010f5df1f7ea62697ca68a55998e117e43fef1178d3c8fc4f25531ef790b79f",
+    "wp/tests/staging-data/pdo-contract.php": "262f15008c067246aa40877494a7f8345e4bd34a3bc63bd434725a4a37bf0c24",
+    "wp/tests/staging-data/reprise.php": "572b10c3d117450cdb66d64fd4a3d763f5fb87a72d0b0422b6b94fe1ee0cb79c",
+    "wp/tests/staging-data/run.php": "053fc010774a6e659dc8128e24a81db4ed1fec9cec941a49c6146d1751158a0e",
+    "wp/tests/staging-data/runtime.php": "bbb2697295c5f1dd42e4546f6ed3d5077370f8d69391eee63793626a073f4e2b",
+    "wp/tests/staging-data/verify.py": "30c10f97fdd8cfe5a031172de5b61fdc93eb0a65394e78151e744a70883e7f53"
+  },
+  "plugin_sha256": "cc592ad8e929d6ddb14b46a70dc840a0571f8bd6addda36a9bbf007d0bb3b72f",
+  "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
+  "isolation_before": {
+    "network": "none",
+    "mounts": [],
+    "ports": [],
+    "privileged": false,
+    "cap_drop": [
+      "ALL"
+    ],
+    "no_new_privileges": true,
+    "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
+    "name": "imagine-test-a01-db3-5e0d52da836b"
+  },
+  "native_policy_exit": 0,
+  "bounded_prepare_program_sha256": "bdc389dcf9b5640f05f2de6b54c3e0c91411b15babc6e4750454e0ba6f35a59f",
+  "prepare_exit": 0,
+  "real_export": {
+    "plugin_version": "7.109",
+    "path": "/scratch/imagine-test-a01-ai1wm-synthetic/wp-content/ai1wm-backups/small.wpress",
+    "bytes": 17051564,
+    "steps": [
+      "Ai1wm_Export_Init::execute",
+      "Ai1wm_Export_Compatibility::execute",
+      "Ai1wm_Export_Archive::execute",
+      "Ai1wm_Export_Config::execute",
+      "Ai1wm_Export_Config_File::execute",
+      "Ai1wm_Export_Enumerate_Content::execute",
+      "Ai1wm_Export_Enumerate_Media::execute",
+      "Ai1wm_Export_Enumerate_Plugins::execute",
+      "Ai1wm_Export_Enumerate_Themes::execute",
+      "Ai1wm_Export_Enumerate_Tables::execute",
+      "Ai1wm_Export_Content::execute",
+      "Ai1wm_Export_Media::execute",
+      "Ai1wm_Export_Plugins::execute",
+      "Ai1wm_Export_Themes::execute",
+      "Ai1wm_Export_Database::execute",
+      "Ai1wm_Export_Database_File::execute",
+      "Ai1wm_Export_Archive_Crc::execute",
+      "Ai1wm_Export_Download::execute",
+      "Ai1wm_Export_Clean::execute"
+    ],
+    "wordpress": "7.0.9",
+    "php": "8.2.36"
+  },
+  "fixture": {
+    "blob_sha256": "6c2cb93b6d9c6f9bf85c2f9af11de3d87b1fa721535951abdd861ec2ede9191d",
+    "blob_bytes": 283,
+    "synthetic_only": true
+  },
+  "verify_exit": 0,
+  "verification": {
+    "status": "PASS",
+    "cases": [
+      {
+        "case": "default",
+        "data_verified": true,
+        "native": {
+          "status": "verified-offline",
+          "data_verified": true,
+          "core_versions": {
+            "source": "7.0.9",
+            "pinned": "7.0.9",
+            "expected": "7.0.9"
+          },
+          "archive_report": {
+            "entries": 457,
+            "complete": true,
+            "rules": [],
+            "blockers": [],
+            "warnings": [],
+            "total_bytes": 15046898,
+            "database_bytes": 104990,
+            "archive_bytes": 17051564,
+            "crc_policy": "retained-entry CRC when present; excluded bytes never read; EOF size checked; whole-archive CRC deferred",
+            "excluded": [
+              {
+                "zone": "uploads/wc-logs",
+                "count": 1,
+                "bytes": 11
+              },
+              {
+                "zone": "uploads/simple-file-list",
+                "count": 1,
+                "bytes": 12
+              },
+              {
+                "zone": "uploads/memberships_profile_fields",
+                "count": 1,
+                "bytes": 25
+              },
+              {
+                "zone": "uploads/download-manager-files",
+                "count": 1,
+                "bytes": 25
+              },
+              {
+                "zone": "uploads/wpallexport",
+                "count": 1,
+                "bytes": 26
+              },
+              {
+                "zone": "uploads/woocommerce_uploads",
+                "count": 1,
+                "bytes": 11
+              },
+              {
+                "zone": "themes/(racine)",
+                "count": 1,
+                "bytes": 15
+              }
+            ],
+            "inventory": {
+              "plugins": [
+                "akismet"
+              ],
+              "themes": [
+                "twentytwentyfive",
+                "twentytwentyfour",
+                "twentytwentythree"
+              ],
+              "uploads": [
+                {
+                  "directory": "wc-logs",
+                  "count": 1,
+                  "bytes": 11
+                },
+                {
+                  "directory": "simple-file-list",
+                  "count": 2,
+                  "bytes": 37040
+                },
+                {
+                  "directory": "memberships_profile_fields",
+                  "count": 1,
+                  "bytes": 25
+                },
+                {
+                  "directory": "download-manager-files",
+                  "count": 1,
+                  "bytes": 25
+                },
+                {
+                  "directory": "wpallexport",
+                  "count": 1,
+                  "bytes": 26
+                },
+                {
+                  "directory": "2026",
+                  "count": 1,
+                  "bytes": 37028
+                },
+                {
+                  "directory": "woocommerce_uploads",
+                  "count": 2,
+                  "bytes": 363
+                }
+              ]
+            }
+          },
+          "manifest_settings_restored_readback": [
+            "active_plugins",
+            "stylesheet",
+            "template"
+          ],
+          "table_engines": {
+            "SERVMASK_PREFIX_term_taxonomy": "INNODB",
+            "SERVMASK_PREFIX_options": "INNODB",
+            "SERVMASK_PREFIX_ahm_emails": "INNODB",
+            "SERVMASK_PREFIX_commentmeta": "INNODB",
+            "SERVMASK_PREFIX_posts": "INNODB",
+            "SERVMASK_PREFIX_wfls_role_counts": "INNODB",
+            "SERVMASK_PREFIX_terms": "INNODB",
+            "SERVMASK_PREFIX_usermeta": "INNODB",
+            "SERVMASK_PREFIX_pmxi_posts": "INNODB",
+            "SERVMASK_PREFIX_comments": "INNODB",
+            "SERVMASK_PREFIX_pmxe_exports": "INNODB",
+            "SERVMASK_PREFIX_postmeta": "INNODB",
+            "SERVMASK_PREFIX_termmeta": "INNODB",
+            "SERVMASK_PREFIX_actionscheduler_logs": "INNODB",
+            "SERVMASK_PREFIX_matomo_archive_blob_2024_07": "INNODB",
+            "SERVMASK_PREFIX_users": "INNODB",
+            "SERVMASK_PREFIX_matomo_archive_blob_2024_01": "INNODB",
+            "SERVMASK_PREFIX_term_relationships": "INNODB",
+            "SERVMASK_PREFIX_fsmpt_email_logs": "INNODB",
+            "SERVMASK_PREFIX_fiction_email": "INNODB",
+            "SERVMASK_PREFIX_actionscheduler_actions": "INNODB",
+            "SERVMASK_PREFIX_links": "INNODB",
+            "SERVMASK_PREFIX_fiction_kept_blob": "INNODB",
+            "SERVMASK_PREFIX_fiction_blob": "INNODB",
+            "SERVMASK_PREFIX_matomo_archive_blob_2024_08": "INNODB"
+          },
+          "sql_policy": {
+            "prefix": "SERVMASK_PREFIX_",
+            "table_engines": {
+              "SERVMASK_PREFIX_actionscheduler_actions": "INNODB",
+              "SERVMASK_PREFIX_actionscheduler_logs": "INNODB",
+              "SERVMASK_PREFIX_ahm_emails": "INNODB",
+              "SERVMASK_PREFIX_commentmeta": "INNODB",
+              "SERVMASK_PREFIX_comments": "INNODB",
+              "SERVMASK_PREFIX_fiction_blob": "INNODB",
+              "SERVMASK_PREFIX_fiction_email": "INNODB",
+              "SERVMASK_PREFIX_fiction_kept_blob": "INNODB",
+              "SERVMASK_PREFIX_fsmpt_email_logs": "INNODB",
+              "SERVMASK_PREFIX_links": "INNODB",
+              "SERVMASK_PREFIX_matomo_archive_blob_2024_01": "INNODB",
+              "SERVMASK_PREFIX_matomo_archive_blob_2024_07": "INNODB",
+              "SERVMASK_PREFIX_matomo_archive_blob_2024_08": "INNODB",
+              "SERVMASK_PREFIX_options": "INNODB",
+              "SERVMASK_PREFIX_pmxe_exports": "INNODB",
+              "SERVMASK_PREFIX_pmxi_posts": "INNODB",
+              "SERVMASK_PREFIX_postmeta": "INNODB",
+              "SERVMASK_PREFIX_posts": "INNODB",
+              "SERVMASK_PREFIX_term_relationships": "INNODB",
+              "SERVMASK_PREFIX_term_taxonomy": "INNODB",
+              "SERVMASK_PREFIX_termmeta": "INNODB",
+              "SERVMASK_PREFIX_terms": "INNODB",
+              "SERVMASK_PREFIX_usermeta": "INNODB",
+              "SERVMASK_PREFIX_users": "INNODB",
+              "SERVMASK_PREFIX_wfls_role_counts": "INNODB"
+            },
+            "statements_count": 266,
+            "table_decisions": {
+              "SERVMASK_PREFIX_ahm_emails": {
+                "action": "vider"
+              },
+              "SERVMASK_PREFIX_fiction_blob": {
+                "action": "vider"
+              },
+              "SERVMASK_PREFIX_fiction_email": {
+                "action": "vider"
+              },
+              "SERVMASK_PREFIX_fiction_kept_blob": {
+                "action": "vider"
+              },
+              "SERVMASK_PREFIX_fsmpt_email_logs": {
+                "action": "vider"
+              },
+              "SERVMASK_PREFIX_matomo_archive_blob_2024_01": {
+                "action": "vider"
+              },
+              "SERVMASK_PREFIX_matomo_archive_blob_2024_07": {
+                "action": "vider"
+              },
+              "SERVMASK_PREFIX_matomo_archive_blob_2024_08": {
+                "action": "vider"
+              },
+              "SERVMASK_PREFIX_pmxe_exports": {
+                "action": "vider"
+              },
+              "SERVMASK_PREFIX_pmxi_posts": {
+                "action": "vider"
+              },
+              "SERVMASK_PREFIX_wfls_role_counts": {
+                "action": "vider"
+              }
+            },
+            "skipped_inserts": 12,
+            "table_policy_version": 1
+          },
+          "warnings": [],
+          "import_installed_or_updated_plugins": false,
+          "steps": [
+            {
+              "phase": "neutraliser",
+              "exit": 0,
+              "report": {
+                "ok": true,
+                "scope": "offline-data-only"
+              }
+            },
+            {
+              "phase": "anonymiser",
+              "exit": 0,
+              "report": {
+                "ok": true,
+                "scope": "offline-data-only"
+              }
+            },
+            {
+              "phase": "verifier",
+              "exit": 0,
+              "report": {
+                "ok": true,
+                "issues": [],
+                "warnings": [
+                  "TABLE_STRUCTURE_SEULE",
+                  "EMAIL_HORS_PERIMETRE_COMPTES_COMMANDES",
+                  "CHAMP_SECRET_CONNU_RESIDUEL",
+                  "OPTIONS_HORS_CATALOGUE_CONSERVEES",
+                  "CRON_OU_INDEXATION",
+                  "MU_PRODUCTION_CONSERVES"
+                ],
+                "unknown_tables": [
+                  {
+                    "name": "SERVMASK_PREFIX_ahm_emails",
+                    "columns": [
+                      "id",
+                      "email",
+                      "payload"
+                    ],
+                    "rows": 0,
+                    "personal_columns": [
+                      "email"
+                    ],
+                    "decision": {
+                      "action": "vider"
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_fiction_blob",
+                    "columns": [
+                      "id",
+                      "payload"
+                    ],
+                    "rows": 0,
+                    "personal_columns": [],
+                    "decision": {
+                      "action": "vider"
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_fiction_email",
+                    "columns": [
+                      "id",
+                      "email",
+                      "payload"
+                    ],
+                    "rows": 0,
+                    "personal_columns": [
+                      "email"
+                    ],
+                    "decision": {
+                      "action": "vider"
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_fiction_kept_blob",
+                    "columns": [
+                      "id",
+                      "payload"
+                    ],
+                    "rows": 0,
+                    "personal_columns": [],
+                    "decision": {
+                      "action": "vider"
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_fsmpt_email_logs",
+                    "columns": [
+                      "id",
+                      "email",
+                      "payload"
+                    ],
+                    "rows": 0,
+                    "personal_columns": [
+                      "email"
+                    ],
+                    "decision": {
+                      "action": "vider"
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_matomo_archive_blob_2024_01",
+                    "columns": [
+                      "id",
+                      "payload"
+                    ],
+                    "rows": 0,
+                    "personal_columns": [],
+                    "decision": {
+                      "action": "vider"
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_matomo_archive_blob_2024_07",
+                    "columns": [
+                      "id",
+                      "payload"
+                    ],
+                    "rows": 0,
+                    "personal_columns": [],
+                    "decision": {
+                      "action": "vider"
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_matomo_archive_blob_2024_08",
+                    "columns": [
+                      "id",
+                      "payload"
+                    ],
+                    "rows": 0,
+                    "personal_columns": [],
+                    "decision": {
+                      "action": "vider"
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_pmxe_exports",
+                    "columns": [
+                      "id",
+                      "payload"
+                    ],
+                    "rows": 0,
+                    "personal_columns": [],
+                    "decision": {
+                      "action": "vider"
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_pmxi_posts",
+                    "columns": [
+                      "id",
+                      "payload"
+                    ],
+                    "rows": 0,
+                    "personal_columns": [],
+                    "decision": {
+                      "action": "vider"
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_wfls_role_counts",
+                    "columns": [
+                      "id",
+                      "payload"
+                    ],
+                    "rows": 0,
+                    "personal_columns": [],
+                    "decision": {
+                      "action": "vider"
+                    }
+                  }
+                ],
+                "unknown_columns": [],
+                "unknown_post_types": [],
+                "disabled_plugins": [],
+                "active_plugins": [
+                  "akismet/akismet.php"
+                ],
+                "schema_details": {
+                  "tables": {
+                    "SERVMASK_PREFIX_actionscheduler_actions": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_actionscheduler_logs": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_ahm_emails": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_commentmeta": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_comments": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_fiction_blob": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_fiction_email": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_fiction_kept_blob": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_fsmpt_email_logs": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_links": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_matomo_archive_blob_2024_01": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_matomo_archive_blob_2024_07": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_matomo_archive_blob_2024_08": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_options": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_pmxe_exports": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_pmxi_posts": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_postmeta": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_posts": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_term_relationships": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_term_taxonomy": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_termmeta": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_terms": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_usermeta": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_users": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_wfls_role_counts": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    }
+                  },
+                  "triggers": [],
+                  "events": [],
+                  "warnings": []
+                },
+                "scope": "offline-data-only",
+                "files": {
+                  "mu_plugins": [
+                    "fiction.json"
+                  ],
+                  "drop_ins": [],
+                  "warnings": [
+                    "MU_PRODUCTION_CONSERVES"
+                  ]
+                }
+              }
+            }
+          ],
+          "archive_entries": 457,
+          "publication": "NOT_IMPLEMENTED: no port or egress is opened; site remains stopped",
+          "shared_tool_modified": false,
+          "no_Novamira": true
+        },
+        "tables": {
+          "fiction_blob": 0,
+          "fiction_kept_blob": 0,
+          "fiction_email": 0,
+          "matomo_archive_blob_2024_01": 0,
+          "matomo_archive_blob_2024_07": 0,
+          "matomo_archive_blob_2024_08": 0,
+          "ahm_emails": 0,
+          "fsmpt_email_logs": 0,
+          "wfls_role_counts": 0,
+          "pmxi_posts": 0,
+          "pmxe_exports": 0
+        },
+        "runtime": {
+          "mail_blocked": true,
+          "http_blocked": true,
+          "subscriptions_present": false,
+          "subscriptions_staging": null,
+          "environment_staging": true,
+          "cron_disabled": true,
+          "as_async_disabled": true,
+          "as_runner_disabled": true,
+          "gateways_disabled": true
+        },
+        "independent_residue_scan": {
+          "cells_scanned": 1064,
+          "files_scanned": 3952,
+          "sentinel_residue": false
+        },
+        "status": "PASS"
+      },
+      {
+        "case": "explicit",
+        "data_verified": true,
+        "native": {
+          "status": "verified-offline",
+          "data_verified": true,
+          "core_versions": {
+            "source": "7.0.9",
+            "pinned": "7.0.9",
+            "expected": "7.0.9"
+          },
+          "archive_report": {
+            "entries": 457,
+            "complete": true,
+            "rules": [],
+            "blockers": [],
+            "warnings": [],
+            "total_bytes": 15046898,
+            "database_bytes": 104990,
+            "archive_bytes": 17051564,
+            "crc_policy": "retained-entry CRC when present; excluded bytes never read; EOF size checked; whole-archive CRC deferred",
+            "excluded": [
+              {
+                "zone": "uploads/wc-logs",
+                "count": 1,
+                "bytes": 11
+              },
+              {
+                "zone": "uploads/simple-file-list",
+                "count": 1,
+                "bytes": 12
+              },
+              {
+                "zone": "uploads/memberships_profile_fields",
+                "count": 1,
+                "bytes": 25
+              },
+              {
+                "zone": "uploads/download-manager-files",
+                "count": 1,
+                "bytes": 25
+              },
+              {
+                "zone": "uploads/wpallexport",
+                "count": 1,
+                "bytes": 26
+              },
+              {
+                "zone": "uploads/woocommerce_uploads",
+                "count": 1,
+                "bytes": 11
+              },
+              {
+                "zone": "themes/(racine)",
+                "count": 1,
+                "bytes": 15
+              }
+            ],
+            "inventory": {
+              "plugins": [
+                "akismet"
+              ],
+              "themes": [
+                "twentytwentyfive",
+                "twentytwentyfour",
+                "twentytwentythree"
+              ],
+              "uploads": [
+                {
+                  "directory": "wc-logs",
+                  "count": 1,
+                  "bytes": 11
+                },
+                {
+                  "directory": "simple-file-list",
+                  "count": 2,
+                  "bytes": 37040
+                },
+                {
+                  "directory": "memberships_profile_fields",
+                  "count": 1,
+                  "bytes": 25
+                },
+                {
+                  "directory": "download-manager-files",
+                  "count": 1,
+                  "bytes": 25
+                },
+                {
+                  "directory": "wpallexport",
+                  "count": 1,
+                  "bytes": 26
+                },
+                {
+                  "directory": "2026",
+                  "count": 1,
+                  "bytes": 37028
+                },
+                {
+                  "directory": "woocommerce_uploads",
+                  "count": 2,
+                  "bytes": 363
+                }
+              ]
+            }
+          },
+          "manifest_settings_restored_readback": [
+            "active_plugins",
+            "stylesheet",
+            "template"
+          ],
+          "table_engines": {
+            "SERVMASK_PREFIX_term_taxonomy": "INNODB",
+            "SERVMASK_PREFIX_options": "INNODB",
+            "SERVMASK_PREFIX_ahm_emails": "INNODB",
+            "SERVMASK_PREFIX_commentmeta": "INNODB",
+            "SERVMASK_PREFIX_posts": "INNODB",
+            "SERVMASK_PREFIX_wfls_role_counts": "INNODB",
+            "SERVMASK_PREFIX_terms": "INNODB",
+            "SERVMASK_PREFIX_usermeta": "INNODB",
+            "SERVMASK_PREFIX_pmxi_posts": "INNODB",
+            "SERVMASK_PREFIX_comments": "INNODB",
+            "SERVMASK_PREFIX_pmxe_exports": "INNODB",
+            "SERVMASK_PREFIX_postmeta": "INNODB",
+            "SERVMASK_PREFIX_termmeta": "INNODB",
+            "SERVMASK_PREFIX_actionscheduler_logs": "INNODB",
+            "SERVMASK_PREFIX_matomo_archive_blob_2024_07": "INNODB",
+            "SERVMASK_PREFIX_users": "INNODB",
+            "SERVMASK_PREFIX_matomo_archive_blob_2024_01": "INNODB",
+            "SERVMASK_PREFIX_term_relationships": "INNODB",
+            "SERVMASK_PREFIX_fsmpt_email_logs": "INNODB",
+            "SERVMASK_PREFIX_fiction_email": "INNODB",
+            "SERVMASK_PREFIX_actionscheduler_actions": "INNODB",
+            "SERVMASK_PREFIX_links": "INNODB",
+            "SERVMASK_PREFIX_fiction_kept_blob": "INNODB",
+            "SERVMASK_PREFIX_fiction_blob": "INNODB",
+            "SERVMASK_PREFIX_matomo_archive_blob_2024_08": "INNODB"
+          },
+          "sql_policy": {
+            "prefix": "SERVMASK_PREFIX_",
+            "table_engines": {
+              "SERVMASK_PREFIX_actionscheduler_actions": "INNODB",
+              "SERVMASK_PREFIX_actionscheduler_logs": "INNODB",
+              "SERVMASK_PREFIX_ahm_emails": "INNODB",
+              "SERVMASK_PREFIX_commentmeta": "INNODB",
+              "SERVMASK_PREFIX_comments": "INNODB",
+              "SERVMASK_PREFIX_fiction_blob": "INNODB",
+              "SERVMASK_PREFIX_fiction_email": "INNODB",
+              "SERVMASK_PREFIX_fiction_kept_blob": "INNODB",
+              "SERVMASK_PREFIX_fsmpt_email_logs": "INNODB",
+              "SERVMASK_PREFIX_links": "INNODB",
+              "SERVMASK_PREFIX_matomo_archive_blob_2024_01": "INNODB",
+              "SERVMASK_PREFIX_matomo_archive_blob_2024_07": "INNODB",
+              "SERVMASK_PREFIX_matomo_archive_blob_2024_08": "INNODB",
+              "SERVMASK_PREFIX_options": "INNODB",
+              "SERVMASK_PREFIX_pmxe_exports": "INNODB",
+              "SERVMASK_PREFIX_pmxi_posts": "INNODB",
+              "SERVMASK_PREFIX_postmeta": "INNODB",
+              "SERVMASK_PREFIX_posts": "INNODB",
+              "SERVMASK_PREFIX_term_relationships": "INNODB",
+              "SERVMASK_PREFIX_term_taxonomy": "INNODB",
+              "SERVMASK_PREFIX_termmeta": "INNODB",
+              "SERVMASK_PREFIX_terms": "INNODB",
+              "SERVMASK_PREFIX_usermeta": "INNODB",
+              "SERVMASK_PREFIX_users": "INNODB",
+              "SERVMASK_PREFIX_wfls_role_counts": "INNODB"
+            },
+            "statements_count": 266,
+            "table_decisions": {
+              "SERVMASK_PREFIX_ahm_emails": {
+                "action": "vider"
+              },
+              "SERVMASK_PREFIX_fiction_blob": {
+                "action": "vider"
+              },
+              "SERVMASK_PREFIX_fiction_email": {
+                "action": "anonymiser",
+                "columns": [
+                  "email"
+                ]
+              },
+              "SERVMASK_PREFIX_fiction_kept_blob": {
+                "action": "garder"
+              },
+              "SERVMASK_PREFIX_fsmpt_email_logs": {
+                "action": "vider"
+              },
+              "SERVMASK_PREFIX_matomo_archive_blob_2024_01": {
+                "action": "garder"
+              },
+              "SERVMASK_PREFIX_matomo_archive_blob_2024_07": {
+                "action": "vider"
+              },
+              "SERVMASK_PREFIX_matomo_archive_blob_2024_08": {
+                "action": "vider"
+              },
+              "SERVMASK_PREFIX_pmxe_exports": {
+                "action": "vider"
+              },
+              "SERVMASK_PREFIX_pmxi_posts": {
+                "action": "vider"
+              },
+              "SERVMASK_PREFIX_wfls_role_counts": {
+                "action": "vider"
+              }
+            },
+            "skipped_inserts": 9,
+            "table_policy_version": 1
+          },
+          "warnings": [],
+          "import_installed_or_updated_plugins": false,
+          "steps": [
+            {
+              "phase": "neutraliser",
+              "exit": 0,
+              "report": {
+                "ok": true,
+                "scope": "offline-data-only"
+              }
+            },
+            {
+              "phase": "anonymiser",
+              "exit": 0,
+              "report": {
+                "ok": true,
+                "scope": "offline-data-only"
+              }
+            },
+            {
+              "phase": "verifier",
+              "exit": 0,
+              "report": {
+                "ok": true,
+                "issues": [],
+                "warnings": [
+                  "TABLE_STRUCTURE_SEULE",
+                  "TABLE_INCONNUE_CONSERVEE",
+                  "EMAIL_HORS_PERIMETRE_COMPTES_COMMANDES",
+                  "CHAMP_SECRET_CONNU_RESIDUEL",
+                  "OPTIONS_HORS_CATALOGUE_CONSERVEES",
+                  "CRON_OU_INDEXATION",
+                  "MU_PRODUCTION_CONSERVES"
+                ],
+                "unknown_tables": [
+                  {
+                    "name": "SERVMASK_PREFIX_ahm_emails",
+                    "columns": [
+                      "id",
+                      "email",
+                      "payload"
+                    ],
+                    "rows": 0,
+                    "personal_columns": [
+                      "email"
+                    ],
+                    "decision": {
+                      "action": "vider"
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_fiction_blob",
+                    "columns": [
+                      "id",
+                      "payload"
+                    ],
+                    "rows": 0,
+                    "personal_columns": [],
+                    "decision": {
+                      "action": "vider"
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_fiction_email",
+                    "columns": [
+                      "id",
+                      "email",
+                      "payload"
+                    ],
+                    "rows": 1,
+                    "personal_columns": [
+                      "email"
+                    ],
+                    "decision": {
+                      "action": "anonymiser",
+                      "columns": [
+                        "email"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_fiction_kept_blob",
+                    "columns": [
+                      "id",
+                      "payload"
+                    ],
+                    "rows": 1,
+                    "personal_columns": [],
+                    "decision": {
+                      "action": "garder"
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_fsmpt_email_logs",
+                    "columns": [
+                      "id",
+                      "email",
+                      "payload"
+                    ],
+                    "rows": 0,
+                    "personal_columns": [
+                      "email"
+                    ],
+                    "decision": {
+                      "action": "vider"
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_matomo_archive_blob_2024_01",
+                    "columns": [
+                      "id",
+                      "payload"
+                    ],
+                    "rows": 1,
+                    "personal_columns": [],
+                    "decision": {
+                      "action": "garder"
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_matomo_archive_blob_2024_07",
+                    "columns": [
+                      "id",
+                      "payload"
+                    ],
+                    "rows": 0,
+                    "personal_columns": [],
+                    "decision": {
+                      "action": "vider"
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_matomo_archive_blob_2024_08",
+                    "columns": [
+                      "id",
+                      "payload"
+                    ],
+                    "rows": 0,
+                    "personal_columns": [],
+                    "decision": {
+                      "action": "vider"
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_pmxe_exports",
+                    "columns": [
+                      "id",
+                      "payload"
+                    ],
+                    "rows": 0,
+                    "personal_columns": [],
+                    "decision": {
+                      "action": "vider"
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_pmxi_posts",
+                    "columns": [
+                      "id",
+                      "payload"
+                    ],
+                    "rows": 0,
+                    "personal_columns": [],
+                    "decision": {
+                      "action": "vider"
+                    }
+                  },
+                  {
+                    "name": "SERVMASK_PREFIX_wfls_role_counts",
+                    "columns": [
+                      "id",
+                      "payload"
+                    ],
+                    "rows": 0,
+                    "personal_columns": [],
+                    "decision": {
+                      "action": "vider"
+                    }
+                  }
+                ],
+                "unknown_columns": [],
+                "unknown_post_types": [],
+                "disabled_plugins": [],
+                "active_plugins": [
+                  "akismet/akismet.php"
+                ],
+                "schema_details": {
+                  "tables": {
+                    "SERVMASK_PREFIX_actionscheduler_actions": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_actionscheduler_logs": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_ahm_emails": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_commentmeta": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_comments": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_fiction_blob": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_fiction_email": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_fiction_kept_blob": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_fsmpt_email_logs": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_links": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_matomo_archive_blob_2024_01": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_matomo_archive_blob_2024_07": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_matomo_archive_blob_2024_08": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_options": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_pmxe_exports": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_pmxi_posts": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_postmeta": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_posts": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_term_relationships": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_term_taxonomy": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_termmeta": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_terms": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_usermeta": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_users": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    },
+                    "SERVMASK_PREFIX_wfls_role_counts": {
+                      "type": "BASE TABLE",
+                      "engine": "InnoDB"
+                    }
+                  },
+                  "triggers": [],
+                  "events": [],
+                  "warnings": []
+                },
+                "scope": "offline-data-only",
+                "files": {
+                  "mu_plugins": [
+                    "fiction.json"
+                  ],
+                  "drop_ins": [],
+                  "warnings": [
+                    "MU_PRODUCTION_CONSERVES"
+                  ]
+                }
+              }
+            }
+          ],
+          "archive_entries": 457,
+          "publication": "NOT_IMPLEMENTED: no port or egress is opened; site remains stopped",
+          "shared_tool_modified": false,
+          "no_Novamira": true
+        },
+        "tables": {
+          "fiction_blob": 0,
+          "fiction_kept_blob": 1,
+          "fiction_email": 1,
+          "matomo_archive_blob_2024_01": 1,
+          "matomo_archive_blob_2024_07": 0,
+          "matomo_archive_blob_2024_08": 0,
+          "ahm_emails": 0,
+          "fsmpt_email_logs": 0,
+          "wfls_role_counts": 0,
+          "pmxi_posts": 0,
+          "pmxe_exports": 0
+        },
+        "runtime": {
+          "mail_blocked": true,
+          "http_blocked": true,
+          "subscriptions_present": false,
+          "subscriptions_staging": null,
+          "environment_staging": true,
+          "cron_disabled": true,
+          "as_async_disabled": true,
+          "as_runner_disabled": true,
+          "gateways_disabled": true
+        },
+        "independent_residue_scan": {
+          "cells_scanned": 1072,
+          "files_scanned": 3952,
+          "sentinel_residue": false
+        },
+        "status": "PASS"
+      }
+    ],
+    "archive_sha256": "9af100464c271bde7f18b5e2e82561a39a62b9a17074e2d6ba7641c97e829d2f",
+    "diagnostic_exit": 0,
+    "diagnostic": {
+      "entries": 457,
+      "complete": true,
+      "rules": [
+        {
+          "code": "SECRET_OU_IDENTIFIANT",
+          "count": 1,
+          "blocking": false,
+          "locations": [
+            {
+              "zone": "mu-plugins/(racine)",
+              "extension": ".json",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "code": "SOURCE_SECRET_NEUTRALISABLE",
+          "count": 1,
+          "blocking": false,
+          "locations": [
+            {
+              "table": "SERVMASK_PREFIX_options",
+              "columns": [
+                "option_id",
+                "option_name",
+                "option_value",
+                "autoload"
+              ],
+              "count": 1
+            }
+          ]
+        },
+        {
+          "code": "TABLE_STRUCTURE_SEULE",
+          "count": 11,
+          "blocking": false,
+          "locations": [
+            {
+              "table": "SERVMASK_PREFIX_ahm_emails",
+              "columns": [
+                "id",
+                "email",
+                "payload"
+              ],
+              "count": 1
+            },
+            {
+              "table": "SERVMASK_PREFIX_fiction_blob",
+              "columns": [
+                "id",
+                "payload"
+              ],
+              "count": 1
+            },
+            {
+              "table": "SERVMASK_PREFIX_fiction_email",
+              "columns": [
+                "id",
+                "email",
+                "payload"
+              ],
+              "count": 1
+            },
+            {
+              "table": "SERVMASK_PREFIX_fiction_kept_blob",
+              "columns": [
+                "id",
+                "payload"
+              ],
+              "count": 1
+            },
+            {
+              "table": "SERVMASK_PREFIX_fsmpt_email_logs",
+              "columns": [
+                "id",
+                "email",
+                "payload"
+              ],
+              "count": 1
+            },
+            {
+              "table": "SERVMASK_PREFIX_matomo_archive_blob_2024_01",
+              "columns": [
+                "id",
+                "payload"
+              ],
+              "count": 1
+            },
+            {
+              "table": "SERVMASK_PREFIX_matomo_archive_blob_2024_07",
+              "columns": [
+                "id",
+                "payload"
+              ],
+              "count": 1
+            },
+            {
+              "table": "SERVMASK_PREFIX_matomo_archive_blob_2024_08",
+              "columns": [
+                "id",
+                "payload"
+              ],
+              "count": 1
+            },
+            {
+              "table": "SERVMASK_PREFIX_pmxe_exports",
+              "columns": [
+                "id",
+                "payload"
+              ],
+              "count": 1
+            },
+            {
+              "table": "SERVMASK_PREFIX_pmxi_posts",
+              "columns": [
+                "id",
+                "payload"
+              ],
+              "count": 1
+            },
+            {
+              "table": "SERVMASK_PREFIX_wfls_role_counts",
+              "columns": [
+                "id",
+                "payload"
+              ],
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "blockers": [],
+      "warnings": [
+        "SECRET_OU_IDENTIFIANT",
+        "SOURCE_SECRET_NEUTRALISABLE",
+        "TABLE_STRUCTURE_SEULE"
+      ],
+      "table_families": [
+        {
+          "family": "*_logs",
+          "action": "videe",
+          "count": 1
+        },
+        {
+          "family": "ahm_*",
+          "action": "videe",
+          "count": 1
+        },
+        {
+          "family": "catalogue",
+          "action": "catalogue",
+          "count": 13
+        },
+        {
+          "family": "fsmpt_*",
+          "action": "videe",
+          "count": 1
+        },
+        {
+          "family": "hors-famille",
+          "action": "videe",
+          "count": 3
+        },
+        {
+          "family": "matomo_*",
+          "action": "videe",
+          "count": 3
+        },
+        {
+          "family": "pmxe_*",
+          "action": "videe",
+          "count": 1
+        },
+        {
+          "family": "pmxi_*",
+          "action": "videe",
+          "count": 1
+        },
+        {
+          "family": "wf*",
+          "action": "videe",
+          "count": 1
+        }
+      ],
+      "unclassified_tables": [
+        "SERVMASK_PREFIX_fiction_blob",
+        "SERVMASK_PREFIX_fiction_email",
+        "SERVMASK_PREFIX_fiction_kept_blob"
+      ],
+      "table_policy_version": 1,
+      "disk_space": {
+        "required_bytes": 569284344,
+        "available_bytes": 774207787008,
+        "scope": "diagnostic_filesystem; engine checked again before restore"
+      },
+      "total_bytes": 15046898,
+      "database_bytes": 104990,
+      "archive_bytes": 17051564,
+      "excluded": [
+        {
+          "zone": "uploads/wc-logs",
+          "count": 1,
+          "bytes": 11
+        },
+        {
+          "zone": "uploads/simple-file-list",
+          "count": 1,
+          "bytes": 12
+        },
+        {
+          "zone": "uploads/memberships_profile_fields",
+          "count": 1,
+          "bytes": 25
+        },
+        {
+          "zone": "uploads/download-manager-files",
+          "count": 1,
+          "bytes": 25
+        },
+        {
+          "zone": "uploads/wpallexport",
+          "count": 1,
+          "bytes": 26
+        },
+        {
+          "zone": "uploads/woocommerce_uploads",
+          "count": 1,
+          "bytes": 11
+        },
+        {
+          "zone": "themes/(racine)",
+          "count": 1,
+          "bytes": 15
+        }
+      ],
+      "inventory": {
+        "plugins": [
+          "akismet"
+        ],
+        "themes": [
+          "twentytwentyfive",
+          "twentytwentyfour",
+          "twentytwentythree"
+        ],
+        "uploads": [
+          {
+            "directory": "wc-logs",
+            "count": 1,
+            "bytes": 11
+          },
+          {
+            "directory": "simple-file-list",
+            "count": 2,
+            "bytes": 37040
+          },
+          {
+            "directory": "memberships_profile_fields",
+            "count": 1,
+            "bytes": 25
+          },
+          {
+            "directory": "download-manager-files",
+            "count": 1,
+            "bytes": 25
+          },
+          {
+            "directory": "wpallexport",
+            "count": 1,
+            "bytes": 26
+          },
+          {
+            "directory": "2026",
+            "count": 1,
+            "bytes": 37028
+          },
+          {
+            "directory": "woocommerce_uploads",
+            "count": 2,
+            "bytes": 363
+          }
+        ]
+      },
+      "mode": "diagnose",
+      "core_versions": {
+        "source": "7.0.9",
+        "expected": "7.0.9"
+      },
+      "read_only": true,
+      "created_sites": [],
+      "downloads": 0,
+      "extracted_files": 0,
+      "status": "NO_STATIC_BLOCKER",
+      "full_staging_ready": false,
+      "deferred_checks": [
+        "TARGET_FILESYSTEM_CASE_PROBE_BEFORE_RESTORE",
+        "PUBLIC_CORE_AVAILABILITY_AND_EXACT_VERSION",
+        "DATABASE_ENGINE_AND_CONSTRAINT_RUNTIME",
+        "POST_NEUTRALISATION_RESIDUE",
+        "PLUGIN_BOOTSTRAP_AND_NATIVE_RUNTIME",
+        "PUBLICATION_AND_HTTP_PROBE"
+      ]
+    },
+    "summary": "NO_STATIC_BLOCKER | 457 entrees | contenu 15046898 octets | base 104990 octets\nSECRET_OU_IDENTIFIANT: 1 | AVERTISSEMENT | mu-plugins/(racine)\nSOURCE_SECRET_NEUTRALISABLE: 1 | AVERTISSEMENT | SERVMASK_PREFIX_options\nTables: *_logs 1 videe; ahm_* 1 videe; catalogue 13 catalogue; fsmpt_* 1 videe; hors-famille 3 videe; matomo_* 3 videe; pmxe_* 1 videe; pmxi_* 1 videe; wf* 1 videe\nHors familles: SERVMASK_PREFIX_fiction_blob, SERVMASK_PREFIX_fiction_email, SERVMASK_PREFIX_fiction_kept_blob\nDisque: necessaire 569284344 octets; disponible 774207787008 octets (filesystem diagnostic, controle moteur avant restauration)\nExtensions: akismet\nThemes: twentytwentyfive, twentytwentyfour, twentytwentythree\nuploads/wc-logs: 1 fichiers, 11 octets\nuploads/simple-file-list: 2 fichiers, 37040 octets\nuploads/memberships_profile_fields: 1 fichiers, 25 octets\nuploads/download-manager-files: 1 fichiers, 25 octets\nuploads/wpallexport: 1 fichiers, 26 octets\nuploads/2026: 1 fichiers, 37028 octets\nuploads/woocommerce_uploads: 2 fichiers, 363 octets\nEXCLU uploads/wc-logs: 1 fichiers, 11 octets\nEXCLU uploads/simple-file-list: 1 fichiers, 12 octets\nEXCLU uploads/memberships_profile_fields: 1 fichiers, 25 octets\nEXCLU uploads/download-manager-files: 1 fichiers, 25 octets\nEXCLU uploads/wpallexport: 1 fichiers, 26 octets\nEXCLU uploads/woocommerce_uploads: 1 fichiers, 11 octets\nEXCLU themes/(racine): 1 fichiers, 15 octets\nLecture seule; staging non verifie. Detail complet: --detail\n",
+    "real_export_blob_literal_forms": {
+      "binary_introducer": false,
+      "hexadecimal": true,
+      "escaped_octets": false
+    },
+    "default_skipped_inserts": 12,
+    "actual_table_decisions_cli": {
+      "exit": 0,
+      "family_override_readback": true
+    },
+    "extra_literal_roundtrip": {
+      "status": "PASS",
+      "rows": [
+        "2\t000A0D09081A5C27223B",
+        "3\t00FF27",
+        "4\t00FF27"
+      ],
+      "separate_from_real_extension_export": true
+    }
+  },
+  "isolation_after": {
+    "network": "none",
+    "mounts": [],
+    "ports": [],
+    "privileged": false,
+    "cap_drop": [
+      "ALL"
+    ],
+    "no_new_privileges": true,
+    "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
+    "name": "imagine-test-a01-db3-5e0d52da836b"
+  },
+  "sources_unchanged": true,
+  "cleanup": {
+    "name": "imagine-test-a01-db3-5e0d52da836b",
+    "absent": true
+  }
+}

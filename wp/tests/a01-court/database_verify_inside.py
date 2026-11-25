@@ -69,6 +69,12 @@ try:
         row={'case':case,'data_verified':restored.get('data_verified'),'native':{k:v for k,v in restored.items() if k not in ('restored_files_before_cleanup','files_after_cleanup')},'tables':{}}
         result['cases'].append(row)
         assert restored.get('data_verified') is True, restored
+        runtime_php = b"<?php require '/scratch/a01-site/wp-load.php'; require '/subject/runtime-probe.php'; echo json_encode(\\Imagine\\Staging\\runtimeProbe());"
+        runtime = subprocess.run(['php'],input=runtime_php,capture_output=True)
+        assert runtime.returncode == 0
+        row['runtime'] = json.loads(runtime.stdout)
+        for flag in ('mail_blocked','http_blocked','environment_staging','cron_disabled','as_async_disabled','as_runner_disabled','gateways_disabled'):
+            assert row['runtime'][flag] is True, flag
         for name in tables:
             count=int(sql('SELECT COUNT(*) FROM `'+prefix+name+'`'))
             assert count==(1 if name in kept else 0),(name,count)
@@ -87,6 +93,12 @@ try:
         program=r'''<?php
         $pdo=new PDO('mysql:unix_socket=/scratch/mariadb.sock;dbname=imagine_a01_staging','root','');
         $markers=['FICTION_PRIVATE_SENTINEL','FICTION_AS_SENTINEL','FICTION_EXTENDED','FICTION_DONE','FICTION_LOG_SENTINEL','FICTION_COMMENT_SENTINEL','FICTION_AUTHOR_SENTINEL','192.0.2.44','FICTION_ADMIN_SENTINEL','FICTION_OPTION_SECRET','sk_live_FICTION_ONLY','pk_live_FICTION_ONLY','whsec_FICTION_ONLY','FICTION_EXCLUDED_SENTINEL'];
+        if (DEFAULT_CASE) $markers[]='FICTION_BINARY_ONLY';
+        $opts=$pdo->query('SELECT option_name,option_value FROM SERVMASK_PREFIX_options')->fetchAll(PDO::FETCH_KEY_PAIR);
+        $stripe=unserialize($opts['woocommerce_stripe_settings'],['allowed_classes'=>false]);
+        if($stripe['testmode']!=='yes'||$stripe['secret_key']!==''||$stripe['publishable_key']!==''||$stripe['webhook_secret']!=='')throw new RuntimeException('STRIPE_SETTINGS_NOT_NEUTRALISED');
+        $settings=unserialize($opts['fiction_credentials'],['allowed_classes'=>false]);
+        if($settings['api_key']!==''||$settings['layout']!=='wide')throw new RuntimeException('OPTION_SETTINGS_FIDELITY');
         $cells=0; $files=0;
         foreach($pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN) as $table){
           foreach($pdo->query('SELECT * FROM `'.$table.'`') as $row){foreach($row as $value){
@@ -100,7 +112,7 @@ try:
         }
         echo json_encode(['cells_scanned'=>$cells,'files_scanned'=>$files,'sentinel_residue'=>false]);
         '''
-        p=subprocess.run(['php'],input=program.encode(),capture_output=True)
+        p=subprocess.run(['php'],input=program.replace('DEFAULT_CASE', 'true' if case=='default' else 'false').encode(),capture_output=True)
         assert p.returncode==0,p.stderr.decode()
         row['independent_residue_scan']=json.loads(p.stdout)
         row['status']='PASS'

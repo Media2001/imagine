@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'wp/outils/demo'))
 import c14
 c14.c10.guard()
-created = datetime.fromtimestamp((ROOT / 'wp/plugins/imagine-site/tests/AchatNumeroTest.php').stat().st_ctime, timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+created = datetime.fromtimestamp((ROOT / 'wp/tests/demo/c14-corrections-fixture.php').stat().st_ctime, timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
 data = c14.wp(r'''global $wpdb;$out=[];
 foreach($wpdb->get_results("SELECT option_name,option_value FROM {$wpdb->options} WHERE option_name LIKE 'imagine_envoi_releve_%' ORDER BY option_id",ARRAY_A) as $row){
 $v=maybe_unserialize($row['option_value']);if(in_array((string)($v['donnees']['id']??''),['77','79'],true)){

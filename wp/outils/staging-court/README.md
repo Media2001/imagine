@@ -1,3 +1,15 @@
+# A-01 — troisième passe base du 25 novembre
+
+Politique courante : `politique-tables.json` v1, inconnues en structure seule,
+familles vidées, `--table-decisions` prioritaire. Notes et tableau des extensions :
+`production/A-01/archive-reelle-3-notes.md`. Preuves exactes de la remise :
+`production/A-01/archive-reelle-3-final.json`. Aucune archive Imagine ouverte.
+
+Rejeu fictif ciblé : `python wp/tests/a01-court/exercise_database.py`.
+Tests A-01 en runner : `python wp/tests/a01-court/exercise_archive_reelle.py "test_*.py"`.
+Les qualifications de publication ci-dessous sont historiques ; cette passe
+requalifie la base/neutralisation hors ligne, pas un nouvel accès/publication.
+
 # A-01 — qualification 6.9.1 du 23 novembre
 
 **Le blocage 6.9.1 est levé sur archives entièrement fictives.** Le mode d’emploi courant (PowerShell, entrées Ced, refus, limites) est en tête de `production/A-01/notes.md`. Le cœur est choisi depuis le manifeste, téléchargé à sa version exacte depuis wordpress.org et relu sur cible vide avant injection. `--expected-core-version` reste un refus strict si l’archive diffère. Aucun `wp-content` du paquet core n’est installé ; l’import n’installe ni ne met à jour d’extension. Minima WP/PHP des extensions : avertissements seulement.
