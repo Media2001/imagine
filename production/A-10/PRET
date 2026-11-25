@@ -1,7 +1,0 @@
-PRETeaeb5368fbca
-A-10 — inventaire des codes, outil et banc fictif uniquement, prêt à relire.
-110 assertions vertes : 6 unitaires, 97 natives classique/HPOS, 7 runner.
-Vérificateur parent : python wp/tests/a10/verifier.py ; ajouter --replay pour un nouveau passage natif.
-Sources et preuves : production/A-10/manifest.json ; reçu : production/A-10/verification-finale.json.
-Préparation T01 réellement exécutée, code 0 ; A02 bytes préservés sauf ajout autorisé de deux lignes README.
-Aucun GO au réel ; aucune décision de reclassement/suppression.

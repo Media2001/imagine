@@ -49,7 +49,11 @@ def run_storage(storage):
     b.check(storage+':cli_success',p.returncode==0,{'exit_code':p.returncode,'stderr':p.stderr if re.fullmatch(r'A(?:10|02)_[A-Z_]+\n',p.stderr) else 'suppressed'})
     report=json.loads((target/'codes.json').read_text())
     rows={x['code']:x for x in report['codes']}
-    b.check(storage+':exact_inventory',set(rows)==set(data['expected']) and len(rows)==10)
+    for code in ['a10-deleted-old','a10-renamed-old','a10-order-only-old']:
+        row=rows.get(code,{})
+        missing=['status','type','amount','amount_unit','date_created_utc','date_modified_utc','date_expires_utc','usage_count','usage_limit','usage_limit_per_user','item_limit','product_ids','excluded_product_ids','product_categories','excluded_product_categories','allowed_email_count','individual_use','free_shipping','exclude_sale_items','minimum_amount','maximum_amount','recurring_on_renewals','payment_limit_including_initial']
+        b.check(storage+':orphan_visible:'+code,row.get('record_status')=='fiche introuvable' and all(k in row and row[k] is None for k in missing) and row['subscriptions']=={'active':int(code!='a10-order-only-old'),'on_hold':0,'pending':0,'pending_cancel':0} and row['orders_12_months']==int(code=='a10-order-only-old'))
+    b.check(storage+':exact_inventory',set(rows)==set(data['expected'])|{'a10-deleted-old','a10-renamed-old','a10-order-only-old'} and len(rows)==14)
     b.check(storage+':authoritative_storage',report['storage']==storage)
     for code,expected in data['expected'].items():
         actual=rows[code]

@@ -1,0 +1,16 @@
+{
+  "wp/tests/a10/documentation.py": "2265fd0dd48a848bf332f46c5a485b5d832cb21d3aa9446e74e6ae32e8a6bbd4",
+  "wp/tests/a10/inside.py": "dad67ca25735acc7efcd50eb0bde974c21654b321c0d6e5eb6cbddc60f92569e",
+  "wp/tests/a10/prepare_image.py": "648df4328c4256c6a413198258d831fbaab742696e4b124514effc516c38d737",
+  "wp/tests/a10/readonly-probe.php": "11227be646923321ebb4604b73d7f72206971c948dc7b7235eb40851674e0782",
+  "wp/tests/a10/run.py": "96fb1da9798814abf99f74d2e3ab80d6198043a070eb1186532aec2d0d0b1693",
+  "wp/tests/a10/seed.php": "c65f0b5755ab3be65cbc65091030bc8e385d6b4c22b3c1d2a812f483980c0b78",
+  "wp/tests/a10/unit.php": "903aac377c844dd39bd8d00d89321dfa6c87c4e4deaf942a6ab896d4ed480a66",
+  "wp/tests/a10/verifier.py": "5c43fbf98195369067d16b342f54ce33b576dbefa154aa4192430d094c05eac6",
+  "wp/outils/bascule/a10/Command.php": "5dcacd8e36f1a0835950ef7a45131dd31fd59f328e2367aa62b7796eb3dacaf5",
+  "wp/outils/bascule/a10/Inventory.php": "c43ee68b1d2d08fe6165059fd10a6a1b2daaedb5de923ab85d90dfa871186bb7",
+  "wp/outils/bascule/a10/Projection.php": "1dbd61e2393ddc9ca3dd259be2c00a12ed5ec90a728cf34e08f714e0811748c9",
+  "wp/outils/bascule/a10/README.md": "215dd13aecd35f55b63bc508d8806d558c692122601e3bf6c28c4feaae865a38",
+  "wp/outils/bascule/inventorier-codes": "e1d77e7564d80e6404226866d8645d94c770e31ced460321422e5307f5c99c6c",
+  "wp/outils/bascule/audit": "7eb2b4bfa450e37d3f4265e3055cdba61a877b056f4feb0bfce06f681659c6dc"
+}

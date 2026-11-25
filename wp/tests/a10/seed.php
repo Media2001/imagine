@@ -102,6 +102,25 @@ if (is_wp_error($renewal)) {
 $renewal->set_date_created(gmdate('Y-m-d H:i:s', strtotime('-1 hour')));
 $renewal->save();
 $renewalCarries = in_array('a10-recurring-fee', array_map('strtolower', $renewal->get_coupon_codes()), true);
+// Native historical coupon items survive deletion/renaming of their coupon record.
+foreach (['deleted', 'renamed'] as $kind) {
+    $c = new WC_Coupon();
+    $c->set_code('a10-' . $kind . '-old');
+    $c->set_discount_type('recurring_fee');
+    $c->set_amount('2');
+    $c->save();
+    $attach($active, $c->get_code(), true);
+    if ($kind === 'deleted') {
+        $c->delete(true);
+    } else {
+        $c->set_code('a10-renamed-new');
+        $c->save();
+        $coupons['renamed-new'] = $c;
+    }
+}
+$orderOnly = wc_create_order();
+$orderOnly->set_date_created(gmdate('Y-m-d H:i:s', strtotime('-1 hour')));
+$attach($orderOnly, 'a10-order-only-old', true);
 foreach ($coupons as $c) {
     $c = new WC_Coupon($c->get_id());
     $expected[$c->get_code()] = [
