@@ -1,0 +1,33 @@
+{
+  "suite": "A05-real-synthetic-classic-hpos",
+  "checks": [
+    {
+      "check": "classic:exception",
+      "ok": false,
+      "class": "RuntimeError",
+      "code": "COMMAND_wp_1:Warning: Failed to activate plugin. Fiction dependent requires 1 plugin to be installed and activated: Fiction dependency. .\nError: No plugins activated.\n"
+    },
+    {
+      "check": "hpos:exception",
+      "ok": false,
+      "class": "RuntimeError",
+      "code": "COMMAND_wp_1:Warning: Failed to activate plugin. Fiction dependent requires 1 plugin to be installed and activated: Fiction dependency. .\nError: No plugins activated.\n"
+    },
+    {
+      "check": "network_none",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp6",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "exit_code": 1
+}

@@ -16,6 +16,7 @@ class B03Contract(unittest.TestCase):
         self.assertIn('prefers-reduced-motion', css)
         self.assertIn('--imagine-reading-column', css)
         self.assertIn('[hidden]', css)
+        self.assertRegex(css, r'(?s)#imagine-reading-progress\s*\{[^}]*position:\s*fixed;')
         for value in re.findall(r'(?m)^\s*[a-z-]+:\s*([^;]+);', css):
             self.assertFalse(re.search(r'#[0-9a-fA-F]{3,8}\b|\d+(?:px|rem|em|ch|vh|vw|%)', value), value)
         self.assertNotRegex(css, r'\.imagine-paywall-bloc[^{}]*\{[^}]*display:\s*none')

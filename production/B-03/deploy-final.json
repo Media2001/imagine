@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-25T16:46:36.886917+00:00",
+  "scope": "imagine-test-demo",
+  "phase": "final",
+  "expected": {
+    "themes/imagine/assets/reading.js": "4ef1f631c533358d9279d2512bbc2da7ea88f9be6277563f06c59db85105fd0f",
+    "themes/imagine/assets/reading.css": "96e03e236cd685b4198f53a7c48dcdc28ac1b1055e6b130e1328d52f649dce06",
+    "themes/imagine/assets/tokens.css": "16803b735aad9a8b98d8425040b467a105d9cff192323b01bc29b24b352746ab",
+    "themes/imagine/inc/reading.php": "0d558dde1fd2d113320933601f64720946c977a1e68f024dcbf70f5dacdb2914",
+    "themes/imagine/single.php": "31bce0f66ba2a0961d39b1bf231055a20105e39a2e824c0806963608354604a2",
+    "themes/imagine/functions.php": "9480b64743336d36acb5d8aef522aebf6bb8002be0ed5aef83605723157e2f11"
+  },
+  "actual": {
+    "themes/imagine/assets/reading.js": "4ef1f631c533358d9279d2512bbc2da7ea88f9be6277563f06c59db85105fd0f",
+    "themes/imagine/assets/reading.css": "96e03e236cd685b4198f53a7c48dcdc28ac1b1055e6b130e1328d52f649dce06",
+    "themes/imagine/assets/tokens.css": "16803b735aad9a8b98d8425040b467a105d9cff192323b01bc29b24b352746ab",
+    "themes/imagine/inc/reading.php": "0d558dde1fd2d113320933601f64720946c977a1e68f024dcbf70f5dacdb2914",
+    "themes/imagine/single.php": "31bce0f66ba2a0961d39b1bf231055a20105e39a2e824c0806963608354604a2",
+    "themes/imagine/functions.php": "9480b64743336d36acb5d8aef522aebf6bb8002be0ed5aef83605723157e2f11"
+  },
+  "exact": true,
+  "files": 6,
+  "php_parsed": 3
+}

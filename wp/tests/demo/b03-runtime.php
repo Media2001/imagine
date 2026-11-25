@@ -11,6 +11,7 @@ if ($checks['estimation_disponible']) {
     $checks['vide_minimum_une_minute'] = $function('') === 1;
     $checks['200_mots_une_minute'] = $function(str_repeat('lecture ', 200)) === 1;
     $checks['201_mots_deux_minutes'] = $function(str_repeat('lecture ', 201)) === 2;
+    $checks['paragraphes_sans_espaces_201_mots'] = $function(str_repeat('<p>lecture</p>', 201)) === 2;
     $checks['401_mots_trois_minutes'] = $function(str_repeat('lecture ', 401)) === 3;
     $checks['unicode_et_apostrophes'] = $function(str_repeat('l’été œuvre-à-lire ', 100)) === 1;
     $checks['entites_HTML_et_balises'] = $function(str_repeat('<p>&eacute;t&eacute;&nbsp;heureux</p> ', 100)) === 1;

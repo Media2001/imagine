@@ -69,6 +69,11 @@ html.imagine-reading[data-imagine-reading-size="larger"] {
     outline-offset: var(--imagine-focus);
 }
 .imagine-reading #imagine-reading-progress {
+    position: fixed;
+    inset-block-start: var(--imagine-zero);
+    inset-inline-start: var(--imagine-zero);
+    height: var(--imagine-small-space);
+    z-index: var(--imagine-reading-progress-layer);
     width: var(--imagine-full);
     accent-color: var(--imagine-ink);
     color: var(--imagine-ink);

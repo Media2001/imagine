@@ -107,3 +107,29 @@ def files_size(path):
     for p in [path,*path.rglob('*')] if path.is_dir() else [path]:
         need(not p.is_symlink() and (p.is_file() or p.is_dir()),'A05_FILE_TYPE',str(path))
     return {'files':len(files),'bytes':sum(p.stat().st_size for p in files)}
+
+def database(site, mode='inspect', operation=None):
+    result=subprocess.run(['php',str(ROOT/'database.php')],input=json.dumps({'site':str(site),'mode':mode,'operation':operation}),capture_output=True,text=True,timeout=300,pass_fds=a04.LOCK_FDS)
+    need(result.returncode==0, result.stderr.strip() if re.fullmatch(r'A05_[A-Z_]+\n?',result.stderr) else 'A05_DATABASE_FAILED')
+    return json.loads(result.stdout)
+
+def inspect_site(site):
+    inv=database(site)
+    plugins={}; directory=a04.safe_path(site,'wp-content/plugins')
+    for path in sorted(directory.glob('*.php'))+sorted(directory.glob('*/*.php')):
+        need(not path.is_symlink(),'A05_PLUGIN_SYMLINK',str(path))
+        text=path.read_text(encoding='utf8',errors='replace')[:8192]
+        if not re.search(r'^\s*(?:/\*+|\*|//|#)?\s*Plugin Name:',text,re.M|re.I): continue
+        name=path.relative_to(directory).as_posix(); component=name.split('/')[0]
+        a04.safe_path(directory,name)
+        header=re.search(r'^\s*(?:\*)?\s*Requires Plugins:\s*([^\r\n]+)',text,re.M|re.I)
+        base=directory/component if '/' in name else path
+        files_size(base)
+        sources=base.rglob('*.php') if base.is_dir() else [base]
+        gateway=any('WC_Payment_Gateway' in file.read_text(encoding='utf8',errors='replace') for file in sources)
+        plugins[name]={'requires':[v.strip() for v in header[1].split(',')] if header else [],'gateway':gateway,'active':name in inv['active']}
+    need(set(inv['active'])<=set(plugins),'A05_ACTIVE_PLUGIN_METADATA')
+    inv['plugins']=plugins
+    inv['mu_plugins']=[p.name for p in a04.safe_path(site,'wp-content/mu-plugins').glob('*.php')]
+    return inv
+

@@ -1,0 +1,49 @@
+{
+  "suite": "A05-real-synthetic-classic-hpos",
+  "checks": [
+    {
+      "check": "classic:maintenance_required",
+      "ok": false,
+      "detail": {
+        "exit": 2,
+        "code": "python3: can't open file '/subject/nettoyer': [Errno 2] No such file or directory\n"
+      }
+    },
+    {
+      "check": "classic:exception",
+      "ok": false,
+      "class": "AssertionError",
+      "code": "classic:maintenance_required"
+    },
+    {
+      "check": "hpos:maintenance_required",
+      "ok": false,
+      "detail": {
+        "exit": 2,
+        "code": "python3: can't open file '/subject/nettoyer': [Errno 2] No such file or directory\n"
+      }
+    },
+    {
+      "check": "hpos:exception",
+      "ok": false,
+      "class": "AssertionError",
+      "code": "hpos:maintenance_required"
+    },
+    {
+      "check": "network_none",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp6",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "exit_code": 1
+}
