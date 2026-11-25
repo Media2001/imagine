@@ -1,17 +1,17 @@
-# État des chantiers — mis à jour le 25 novembre 2026, 19 h 30 (passage automatique)
+# État des chantiers — mis à jour le 25 novembre 2026, 22 h 30 (passage automatique)
 
 ## En attente de Ced
 
 Ce que toi seul peux faire, dans l'ordre d'utilité. Rien d'autre n'attend : les deux voies ont du travail.
 
 1. **Archive d'Imagine.** La troisième passe d'A-01 (base réelle : tables inconnues vidées, Matomo, deux dossiers, Stripe désactivée sur la copie) est **vérifiée et close** depuis 17 h 30. Tu peux relancer le diagnostic, qui ne crée rien : `python .\wp\outils\staging-court\publish.py --diagnose --operator-ced --archive "<ton archive>" --expected-core-version 6.9.1`. S'il sort sans refus, l'import devient possible ; il reste ta décision, et personne ne l'a prise à ta place.
-2. **À regarder sur le site de démonstration** (`http://192.168.129.32:8085`, réseau local ; pour chaque lot, `production/<lot>/A-VOIR.md` dit quoi ouvrir). Code clos, il ne manque que ton œil : B-00, B-01, C-08, C-10, C-11, C-12, C-13 (liste d'envoi, en `e-abo` ; vérifie aussi que les menus « Imagine » ne se doublent pas), et maintenant **C-14** (achat d'un numéro, en `p-numero`). Visibles mais encore en relecture ou en correction : B-02 (« Mon compte », `/my-account/`), B-03 (mode lecture, bouton « Lire l'article » sur un article). Les profils ont reçu leurs paiements fictifs à 19 h : la liste d'envoi n'est plus vide (huit destinataires).
-3. **Questions à porter à Imagine** quand tu les verras : `docs/decisions.md` (six, toutes déjà réglées sur un défaut prudent ; la nouvelle : la rédaction pose-t-elle des couleurs à la main dans les articles ?).
-4. Plus tard, pour le site réel, trois choses que les outils attendront de toi : le plan de nettoyage (`wp/outils/bascule/plan-imagine.exemple.json`, tout y est à « garder »), le plan de redirections (avec le référenceur), et un GO écrit pour répéter la mise à jour sur le staging d'Imagine une fois vérifié (c'est là seulement que la montée 6.9.1 → 7.0 sera prouvée).
+2. **À regarder sur le site de démonstration** (`http://192.168.129.32:8085`, réseau local ; pour chaque lot, `production/<lot>/A-VOIR.md` dit quoi ouvrir). Code clos, il ne manque que ton œil : B-00, B-01, C-08, C-10, C-11, C-12, C-13 (liste d'envoi, en `e-abo` ; vérifie aussi que les menus « Imagine » ne se doublent pas), C-14 (achat d'un numéro, en `p-numero`), et maintenant **B-03** (mode lecture, bouton « Lire l'article » sur un article). Visibles mais encore en relecture ou en vérification : B-02 (« Mon compte », `/my-account/`), B-04 (page numéro, kiosque, thématiques), C-15 (écran des échéances, en `e-abo`).
+3. **Questions à porter à Imagine** quand tu les verras : `docs/decisions.md` (neuf, toutes déjà réglées sur un défaut prudent ; les trois nouvelles portent sur l'écran des échéances et sur un libellé de « Mon compte »).
+4. Plus tard, pour le site réel, trois choses que les outils attendront de toi : le plan de nettoyage (`wp/outils/bascule/plan-imagine.exemple.json`, tout y est à « garder » ; l'outil qui l'exécute, A-05, est clos), le plan de redirections (avec le référenceur), et un GO écrit pour répéter la mise à jour sur le staging d'Imagine une fois vérifié (c'est là seulement que la montée 6.9.1 → 7.0 sera prouvée).
 5. Toujours ouverts de ton côté : retirer l'autorisation du port 7000 du pare-feu Windows et jeter un œil à la box (A-07) ; détruire l'ancien staging d'Imagine quand le nouveau parcours est validé.
 6. Le contraste des trois fonds du mode lecture sera à revalider à l'œil **après** le choix des couleurs par le designer, pas avant.
 
-Décidé sans toi pendant ce passage, à défaire si tu n'es pas d'accord : en vue de lecture, les couleurs posées à la main dans un article sont neutralisées sur les trois fonds (seule façon de garantir le contraste) ; cinq lots mis en file (`A-FAIRE.md`, `A-FAIRE-2.md`), tous des outils ou des squelettes sur données fictives.
+Décidé sans toi pendant ce passage, à défaire si tu n'es pas d'accord : la marche à suivre de la répétition de bascule (`wp/outils/bascule/repetition.md`, celle que tu liras le jour J) garde ses commandes exactes et reçoit une phrase simple en tête de chaque bloc ; six lots mis en file, tous des outils en lecture seule ou des écrans sur données fictives (`A-FAIRE.md`, `A-FAIRE-2.md`). Les deux voies s'étaient arrêtées file vide vers 22 h 15.
 
 ## Mise en route
 
@@ -19,7 +19,7 @@ Décidé sans toi pendant ce passage, à défaire si tu n'es pas d'accord : en v
 |---|---|---|---|
 | Dépôt | Créé ; cloné sur le NUC (`C:\Users\Ced\imagine`, alias SSH `github-imagine`) | — | — |
 | Hermès sur ce dépôt | Travail en continu, réveil horaire planifié le 21/11 (`/cron`, verrou `.hermes.lock`) | — | — |
-| Voie 2 (ce qui se voit) | Ouverte le 23/11 : file `A-FAIRE-2.md`, verrou `.hermes-2.lock`, site fictif `imagine-test-demo` en ligne sur le réseau local (port 8085). Code clos : B-00, B-01, C-08 à C-14. Rendus le 25/11 : complément de C-09 (vérification attendue), B-03 (mode lecture, à corriger), B-02 (mon compte, `PRET` jamais déposé, donc pas relu) | En file : corrections de B-03, B-04 (page numéro), C-15 (écran des échéances). Validation visuelle par Ced | Hermès, Ced |
+| Voie 2 (ce qui se voit) | Ouverte le 23/11 : file `A-FAIRE-2.md`, verrou `.hermes-2.lock`, site fictif `imagine-test-demo` en ligne sur le réseau local (port 8085). Code clos : B-00, B-01, B-03, C-08 à C-14, complément de C-09. Rendus le 25/11 et en relecture ou vérification : B-02 (mon compte), B-04 (page numéro, kiosque, thématiques), C-15 (écran des échéances) | En file : C-16 (commande pour un client, encodage sans email), C-17 (justificatifs du tarif solidaire), C-18 (extractions). Validation visuelle par Ced | Hermès, Ced |
 | Synchronisation Git | En service depuis le 20/11, 8 h 55. La nuit du 19 a été perdue : Git refusait les commits faute d'identité, et le script ne le signalait pas (corrigé) | — | — |
 | Circuit de relecture | `scripts/relire.ps1` adapté aux lots ; se lance sans erreur, **pas encore testé sur un lot** | Lancer à la main sur le premier lot `PRET`, puis planifier « IMAGINE - relecture » | Ced |
 | Staging | Pas de Docker sur le NUC : on utilise l'outil de staging de Ced, avec Novamira pour l'accès des agents. Étape « site à abonnements » à ajouter à l'outil (`prompts/2026-11-19-staging-imagine.md`). Le `docker-compose.yml` du dépôt n'est plus utilisé | Hermès ajoute l'étape ; puis retirer Docker du dépôt | Hermès, puis Claude |
@@ -42,11 +42,14 @@ On repart de la production (décision du 11/11) : copie neutralisée et anonymis
 | A-02 Audit | **Clos le 23/11** (script prouvé sur site fictif, classique et HPOS) | Audit réel dès que le staging d'Imagine est vérifié | Hermès |
 | A-03 Non-régression | **Clos le 25/11** (trois compléments vérifiés ; 1 012 tests rejoués par le vérificateur) | Rejeu sur le staging d'Imagine le jour venu | — |
 | A-04 Mise à jour | **Clos le 25/11** (six corrections vérifiées). Limite : montée 6.9.1 → 7.0 sur la pile commerciale et migrations historiques des extensions payantes non prouvables sur le banc | Répétition sur le staging d'Imagine vérifié, avec un GO écrit | Ced |
-| A-05 Nettoyage | Outil rendu le 25/11 à 18 h 34 : il exécute un plan et ne décide rien ; plan d'exemple tout à « garder » | Relecture ; le plan du site réel sera rempli par Ced | Relecteurs, puis Ced |
-| A-08 Répétition de la bascule | Brief écrit le 25/11 : enchaîner audit, non-régression, mise à jour, nettoyage sur le banc fictif ; marche à suivre | En file | Hermès |
-| A-09 Test des redirections | Brief écrit le 25/11 : l'outil qui vérifie un plan (§4.3) ; le plan viendra du référenceur | En file | Hermès |
-| A-10 Inventaire des codes de réduction | Brief écrit le 25/11 : complément de l'audit, lecture seule (§4.3) | En file | Hermès |
-| A-06 Import des abonnés hors ligne | En attente de l'export Access | — | Imagine |
+| A-05 Nettoyage | **Clos le 25/11** (cinq corrections vérifiées) : l'outil exécute un plan et ne décide rien ; plan d'exemple tout à « garder » | Le plan du site réel sera rempli par Ced après l'audit ; passage sur le staging d'Imagine avec un GO écrit | Ced |
+| A-08 Répétition de la bascule | Rendu et corrigé le 25/11 : audit, non-régression, mise à jour, nettoyage enchaînés sur le banc fictif (classique et HPOS), refus au milieu, reprise, second passage sans effet. Limites d'A-04 inchangées | Vérification ; une phrase d'introduction par bloc dans la marche à suivre | Relecteurs, Hermès |
+| A-09 Test des redirections | Rendu et corrigé le 25/11 : l'outil vérifie un plan, ne décide d'aucune redirection | Vérification ; le plan viendra du référenceur | Relecteurs |
+| A-10 Inventaire des codes de réduction | Rendu le 25/11, lecture seule | Relecture | Relecteurs |
+| A-11 Inventaire des adresses publiques | Brief écrit le 25/11 : la liste dont le référenceur a besoin pour écrire le plan (§4.3), lecture seule | En file | Hermès |
+| A-12 Inventaire des contenus | Brief écrit le 25/11 : structure des contenus existants (types, taxonomies, clés de champs, pièces jointes), sans aucune valeur (§4.3) | En file | Hermès |
+| A-13 Contrôle d'un export hors ligne | Brief écrit le 25/11 : contrôle d'un fichier d'abonnés (doublons, échéances, rejets, refus de tout IBAN) sur fichier fictif ; n'importe rien | En file | Hermès |
+| A-06 Import des abonnés hors ligne | En attente de l'export Access ; A-13 prépare le contrôle du fichier | — | Imagine |
 
 ## B · Le thème
 

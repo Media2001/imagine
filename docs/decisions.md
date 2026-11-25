@@ -50,7 +50,7 @@ Ce qui est tranché par Ced, daté. Ce fichier précise ou corrige le cahier des
 Issues des relectures du 20/11 (`docs/arbitrages-2026-11-21.md`, questions non tranchées) : prélèvement SEPA obligatoire après une première carte ; retrait immédiat ou délai de grâce au premier rejet ; licence Teams pour les abonnements groupés ; forme de l'accès découverte ; recalcul du port en cours d'année ; emails SEPA de Stripe ; recherche de la dénomination d'entreprise ; PayPal sous condition d'approbation.
 
 
-Issues des lots de la voie 2, au 25/11 (chacune est un réglage au défaut prudent, aucun lot n'attend) :
+Issues des lots de la voie 2, au 25/11 au soir (chacune est un réglage au défaut prudent, aucun lot n'attend) :
 
 | Question fermée pour Imagine | Défaut appliqué | Réglage |
 |---|---|---|
@@ -59,6 +59,9 @@ Issues des lots de la voie 2, au 25/11 (chacune est un réglage au défaut prude
 | Les bénéficiaires d'un abonnement groupé figurent-ils dans la liste d'envoi à partir des liens de Memberships, sans Teams ? | Non, fermé | `imagine_envoi_groupes` : `ferme` ou `liens_memberships` (C-13) |
 | Après épuisement de l'accès découverte, un article déjà ouvert se referme-t-il ? | Oui | Réglage de C-12 |
 | Un robot d'indexation vérifié reçoit-il le PDF du numéro ? | Non, l'extrait seulement | Réglage de C-11 |
+| « Paiements en attente » de l'écran des échéances : inclure les commandes à l'unité (numéro, don, pack) réglées par virement et non reçues ? | Non : seulement les paiements liés à un abonnement | Pas de réglage : périmètre de la vue (C-15) |
+| Un abonnement sur mandat papier suspendu figure-t-il dans « mandats à lancer » dans tous les cas, ou seulement quand un renouvellement exigible est impayé ? | Seulement le renouvellement exigible impayé | Pas de réglage : périmètre de la vue (C-15) |
+| Dans « Mon compte », un abonnement suspendu avec adhésion en attente s'affiche-t-il « virement en attente de validation » ? | Non : ce libellé est réservé au circuit virement ; sinon « suspendu » ou « en délai de grâce » | Pas de réglage : libellé (B-02) |
 | Les articles portent-ils des couleurs de texte ou de fond posées à la main par la rédaction ? | Non : texte neutre, la couleur relève du thème. En vue de lecture, ces couleurs sont de toute façon neutralisées | Pas de réglage : garde-fou du mode lecture (B-03) |
 
 Rappel de règle, sans question : un abonnement actif dans l'administration mais **sans paiement validé** ne figure pas dans la liste d'envoi.

@@ -140,3 +140,66 @@ Demandé à 16 h 30, non déposé à 19 h 30 : le lot n'a donc jamais été relu
 - Voie 2 : B-04 (page numéro, kiosque, thématique, §3.3), C-15 (écran des échéances, §3.13). C-15 n'a qu'une action d'écriture (« paiement reçu » sur un virement, par les fonctions natives) et n'ajoute aucune règle d'accès.
 - La voie 2 n'a pas déposé de rapport depuis 16 h 25 alors qu'elle a rendu deux lots : rappel ajouté à sa file.
 
+
+# Passage automatique de 22 h 30
+
+Lu : rapports de 19 h 34 à 22 h 18 (onze), vérifications A-05, B-03, C-09 (n° 2) et C-14 (n° 2), fusions A-05, A-08, A-09, B-02 et C-15.
+
+## A-05 — clos
+
+Vérification : cinq instructions sur cinq appliquées (dossier partagé, en-têtes de dépendance, ancêtre gardé dans `uploads`, affichage à blanc), preuve régénérée, aucune régression. Le vérificateur écrit « la clôture revient à Ced » : c'est un lot de code sans rien de visuel, il se clôt sur preuves (doctrine §6, décision du 21/11). **Ce n'est pas un accord pour toucher au réel** : le plan rempli par Ced, les préalables et un GO écrit restent requis avant tout nettoyage sur le staging d'Imagine.
+
+## B-03 — code clos, validation visuelle de Ced attendue
+
+Vérification : instructions 1 à 4 appliquées, la 5 partiellement (rejeu indépendant de la part PHP et HTTP). Déjà arbitré à 19 h 30 : cette instruction ne bloque pas la clôture du code, c'est une limite du poste des relecteurs sur un site fictif. La réécriture de `b03-final.py` (reçus datés, réconciliation avec C-15 qui touchait la base au même moment) n'était pas demandée ; elle ne touche pas le code livré et protège les reçus : acceptée. Reste à Ced : l'œil, et le contraste après le choix des couleurs par le designer.
+
+## Complément de C-09 — code clos
+
+Vérification n° 2 : « prêt pour la clôture ». Réserve inchangée : les décomptes sur le site de démonstration sont ceux d'Hermès, non rejoués par le relecteur. Proportion : accepté pour un site fictif.
+
+## C-14
+
+Vérification n° 2 : rien de neuf, le redépôt de `PRET` était administratif. Déjà clos à 19 h 30.
+
+## A-08 — corrigé, vérification attendue
+
+1. **III.6, présentation de `repetition.md`** : la fusion l'adressait à Ced parce que c'est la page qu'il lira le jour J. Ce n'est ni du visuel ni une décision sur le réel, c'est la lisibilité d'un mode d'emploi : tranché au défaut proposé par la fusion. Contenu exact conservé, une phrase simple en tête de chaque bloc, aucune commande modifiée. Ced peut le défaire.
+2. **Idempotence « métier »** : au second passage, le fichier de maintenance d'A-04 et l'expiration d'un cache natif de Subscriptions peuvent être rafraîchis ; rien d'autre ne change. Accepté : exiger l'immobilité de ces deux points demanderait de modifier une extension tierce (doctrine §5).
+3. Après une anomalie (code 2) : on conserve l'échec, on restaure la sauvegarde de départ, on repart dans un nouvel état. Confirmé, c'est le sens de la doctrine.
+4. Les durées mesurées sur le banc ne dimensionnent pas la maintenance réelle : noté, à ne pas reprendre comme estimation.
+
+## A-09 — corrigé, vérification attendue
+
+Refus global des adresses à requête vide (`/a?`), plutôt qu'une normalisation : confirmé, c'est le plus simple et il n'y a pas de faux verdict possible. Adresses relatives à la racine, déclaration explicite de l'origine testée : confirmés.
+
+## A-10 — rendu, relecture attendue
+
+Conventions de comptage confirmées, elles sont écrites dans le rapport : douze mois calendaires, bornes incluses ; commandes annulées ou remboursées comptées comme commandes et non comme ventes ; états « en attente » et « annulation en attente » séparés ; limite de paiements initial compris. Ce sont des conventions de lecture, pas des règles : aucun code n'est reclassé ni supprimé.
+
+## B-02 — corrigé, vérification attendue
+
+- Libellé d'un abonnement suspendu avec adhésion en attente : défaut de la fusion confirmé, « virement en attente » est réservé au circuit virement identifié. Question rangée pour Imagine.
+- Marge du paiement en quatre fois : c'est déjà un réglage (22/11). B-02 n'y met aucune valeur : confirmé.
+- Recette partielle assumée (marge, compteur et historique, documents) : ce sont des emplacements nommés, pas des défauts.
+
+## C-15 — corrigé, vérification attendue
+
+- « Paiements en attente » limité aux paiements liés à un abonnement ; « mandats à lancer » limité au renouvellement exigible impayé. Défauts de la fusion confirmés, deux questions rangées pour Imagine.
+- L'export garde une colonne devise en plus des quatre champs du cahier des charges : accepté, elle ne retire rien.
+- Deux confirmations simultanées d'un même virement : un succès, un refus, une seule note. C'est le comportement voulu.
+
+## B-04 — rendu, relecture attendue
+
+Jeu fictif propre au lot (un produit public à zéro euro, vingt articles temporaires créés puis supprimés) : accepté, rien n'est acheté ni payé.
+
+## Séparation des voies
+
+Un worker de la voie 2 a lu `A-FAIRE.md` malgré l'interdiction. Lecture seule, signalée par Hermès lui-même, recadrée. Sans suite.
+
+## Files
+
+Les deux voies se sont arrêtées file vide (22 h 17 et 22 h 18) : trois lots chacune, dans l'ordre du cahier des charges.
+
+- Voie 1, suite du §4.3 : A-11 (inventaire des adresses publiques, pour le plan de redirections), A-12 (inventaire de la structure des contenus, avant le modèle éditorial), A-13 (contrôle d'un export d'abonnés hors ligne). Les trois lisent et décrivent ; aucun ne décide. A-13 **n'importe rien** et ne verra jamais le vrai fichier : format inconnu, donc correspondance des colonnes en configuration ; refus de tout IBAN (§4.3).
+- Voie 2, suite du §3.13 : C-16 (commande pour le compte d'un client, encodage sans email, vente sans identité), C-17 (justificatifs du tarif solidaire), C-18 (extractions). C-17 ne touche **ni au prix ni à l'accès** : l'effet d'une validation ou d'un refus sur le tarif n'est pas arrêté par Imagine (chapitre 7, question 4) ; les catégories sont un réglage livré avec une valeur neutre. C-16 laisse le don, le pack, l'offert et le groupé en emplacements nommés. C-18 ne fabrique ni tranche d'âge ni étiquette.
+- Voie 1 : les lots récents déposent plusieurs centaines de fichiers de preuves chacun. Pour des outils en lecture seule, un seul paquet de preuves par lot (proportion).

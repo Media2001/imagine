@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 25 novembre 2026, 19 h 30 (passage automatique).
+Mis à jour le 25 novembre 2026, 22 h 30 (passage automatique).
 
 **Deux voies depuis le 23/11.** Ce fichier est la file de la voie 1. Une deuxième session d'Hermès suit `A-FAIRE-2.md` (site de démonstration, squelette du thème, paywall sur article, profils, écran de réglages). Lis la section « Les deux voies » de la consigne permanente. Ne touche ni au site `imagine-test-demo`, ni aux dossiers `wp/themes/imagine/`, `wp/plugins/imagine-site/`, `wp/outils/demo/`, `wp/tests/demo/`.
 
@@ -12,17 +12,21 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 
 ## Consignes actives, par ordre de priorité
 
-File du 25/11, 19 h 30. Tes rapports de 17 h 31, 18 h 34 et 18 h 39 sont lus : corrections d'A-04 et A-05 rendus en trois heures, file vide à 18 h 39. **A-04 est clos, la troisième passe d'A-01 aussi** (vérifications « prêt »). Arbitrages : `docs/arbitrages-2026-11-25.md`, section « Passage automatique de 19 h 30 ».
+File du 25/11, 22 h 30. Tes rapports de 19 h 41 à 22 h 18 sont lus : corrections d'A-05, puis A-08, A-09 et A-10 rendus, corrections d'A-08 et d'A-09 appliquées, file vide à 22 h 18. **A-05 est clos** (vérification « prêt », cinq instructions sur cinq). A-08 et A-09 attendent leur vérification, A-10 sa relecture. Arbitrages : `docs/arbitrages-2026-11-25.md`, section « Passage automatique de 22 h 30 ».
 
-**0. A-05 : si sa relecture revient « à corriger »** (`corrections/A-05.md`), ces corrections passent avant tout le reste. Tes décisions à défaut (fichier principal audité exigé pour agir, cartographie des tables obligatoire avant toute suppression, Action Scheduler laissé intact, désinstallation tierce seulement explicite) sont confirmées.
+**0. Corrections et vérifications d'A-08, A-09, A-10** : si l'une revient « à corriger » (`corrections/<lot>.md` plus récent que ton `PRET`), elle passe avant tout le reste. Tes décisions à défaut sont confirmées : idempotence « métier » d'A-08 (le fichier de maintenance et l'expiration d'un cache natif de Subscriptions peuvent être rafraîchis au second passage, rien d'autre) ; refus des adresses à requête vide dans A-09 ; conventions de comptage d'A-10 (douze mois calendaires, commandes annulées ou remboursées comptées comme commandes, limite de paiements initial compris).
 
-**1. `briefs/A-08-repetition-de-la-bascule.md`** — enchaîner audit, non-régression, mise à jour, nettoyage sur le banc fictif, et écrire la marche à suivre de la répétition générale. Une demi-journée. Tu construis sur A-05 sans attendre sa clôture.
+**1. A-08, question III.6 : tranchée.** `wp/outils/bascule/repetition.md` garde son contenu exact, et tu ajoutes **une phrase simple en tête de chaque bloc** qui dit ce que le bloc fait et ce qu'on doit voir à la fin. Aucune commande ne change. C'est de la documentation : pas de rejeu Docker, la preuve est le diff (que des lignes de prose ajoutées) et l'empreinte du fichier mise à jour dans ton manifeste. Un quart d'heure. Si la vérification d'A-08 est en cours quand tu lis ceci, fais-le quand même et redépose `PRET`.
 
-**2. `briefs/A-09-test-des-redirections.md`** — l'outil qui vérifie un plan de redirections (§4.3). Il ne décide d'aucune redirection. Trois heures.
+**2. `briefs/A-11-inventaire-des-adresses.md`** — la liste des adresses publiques d'un site, en lecture seule, pour que le référenceur puisse écrire le plan que vérifie A-09 (§4.3). Trois heures.
 
-**3. `briefs/A-10-inventaire-des-codes.md`** — l'inventaire des codes de réduction, en complément de l'audit, lecture seule (§4.3). Trois heures.
+**3. `briefs/A-12-inventaire-des-contenus.md`** — la photographie de la structure des contenus (types, taxonomies, clés de champs, pièces jointes), en lecture seule, avant le modèle éditorial (§4.3, §4.2). Des structures et des nombres, jamais de valeurs. Trois heures.
+
+**4. `briefs/A-13-controle-export-hors-ligne.md`** — l'outil qui contrôle un export d'abonnés hors ligne (doublons, échéances, rejets) sans rien importer, sur fichier fictif (§4.3). Une demi-journée.
 
 **Règle.** Une fusion « à corriger » (`corrections/<lot>.md`) arrivée après la dernière mise à jour de cette file est à prendre tout de suite, avant le lot en cours, sans attendre que la file la cite. Avant de t'arrêter sur « file vide », regarde s'il y a une fusion plus récente que ton dernier `PRET` pour chacun de tes lots rendus.
+
+**Preuves.** Tes derniers lots portent des centaines de fichiers de preuves par lot. Pour A-11 à A-13, qui ne font que lire : **un seul paquet de preuves par lot** (le dernier rejeu vert), les essais intermédiaires restent hors du dépôt.
 
 Tu n'ouvres toujours pas l'archive d'Imagine ; Ced relance le diagnostic.
 
@@ -43,9 +47,9 @@ Tu n'ouvres toujours pas l'archive d'Imagine ; Ced relance le diagnostic.
 | Lot | Contenu | Attend |
 |---|---|---|
 | A-02 Audit | Versions de WordPress, PHP, WooCommerce, Subscriptions, Memberships, passerelles ; extensions et thème actifs ; taille de la base ; ce qui doit être retiré | Staging créé et vérifié |
-| A-05 Nettoyage sur le site réel | L'outil est rendu (relecture en cours) ; son passage sur le staging d'Imagine attend un plan rempli par Ced | Audit réel, plan de Ced |
-| Redirections : le plan | Inventaire des adresses référencées, plan validé (§4.3) ; l'outil de test est en consigne 2 | Audit réel, référenceur |
-| A-06 Import des abonnés hors ligne | Base Access, abonnés sans email (§4.3) | Export fourni par Imagine ; règle sur les données réelles |
+| A-05 Nettoyage sur le site réel | L'outil est clos ; son passage sur le staging d'Imagine attend un plan rempli par Ced | Audit réel, plan de Ced |
+| Redirections : le plan | Plan validé (§4.3) ; l'outil de test est rendu (A-09), l'inventaire des adresses est en consigne 2 | Audit réel, référenceur |
+| A-06 Import des abonnés hors ligne | Base Access, abonnés sans email (§4.3) ; l'outil de contrôle du fichier est en consigne 4 | Export fourni par Imagine ; règle sur les données réelles |
 
 ### B · Le thème
 
@@ -84,6 +88,9 @@ Tu n'ouvres toujours pas l'archive d'Imagine ; Ced relance le diagnostic.
 | A-03 Non-régression | 24/11, corrigé le 25/11, complété le 25/11 | **Clos le 25/11** (trois compléments vérifiés, suite rejouée par le vérificateur : 1 012 tests) |
 | A-04 Mise à jour | 25/11, corrigé le 25/11 | **Clos le 25/11** (six corrections vérifiées). Limite : montée 6.9.1 → 7.0 sur la pile commerciale et migrations historiques des extensions payantes non prouvables sur le banc ; la preuve se fera sur le staging d'Imagine vérifié. Ce n'est pas un accord pour toucher au réel |
 | A-01 Troisième passe (base réelle) | 25/11 | **Clos le 25/11** (vérification n° 5, suite rejouée : 1 012 tests). Le diagnostic réel est à relancer par Ced. Ce n'est pas un accord d'import |
-| A-05 Script de nettoyage | 25/11 | Rendu ; relecture attendue (consigne 0) |
+| A-05 Script de nettoyage | 25/11, corrigé le 25/11 | **Clos le 25/11** (cinq corrections vérifiées). L'outil exécute un plan et ne décide rien ; le plan du site réel sera rempli par Ced. Ce n'est pas un accord pour toucher au réel |
+| A-08 Répétition de la bascule | 25/11, corrigé le 25/11 | Rendu ; vérification attendue (consigne 0) ; phrase d'introduction par bloc à ajouter (consigne 1) |
+| A-09 Test des redirections | 25/11, corrigé le 25/11 | Rendu ; vérification attendue (consigne 0) |
+| A-10 Inventaire des codes de réduction | 25/11 | Rendu ; relecture attendue (consigne 0) |
 | T-01 Commande de rejeu | 23/11, corrigé le 23/11 | **Clos le 23/11** ; autorisation ajoutée au script de relecture |
 | A-02 Script d'audit | 23/11, corrigé le 23/11 | **Clos le 23/11** (outil et banc fictif). L'audit réel reste à lancer |

@@ -2,7 +2,7 @@
 
 File de la **deuxième session d'Hermès**. Tenue par Claude. **Hermès ne modifie pas ce fichier.**
 
-Mis à jour le 25 novembre 2026, 19 h 30 (passage automatique).
+Mis à jour le 25 novembre 2026, 22 h 30 (passage automatique).
 
 Consigne permanente : `prompts/consigne-permanente.md` (section « Les deux voies »). Doctrine : `doctrine/doctrine.md`.
 
@@ -10,17 +10,19 @@ La voie 1 (`A-FAIRE.md`) s'occupe de l'existant : import, audit, mise à jour. L
 
 ## Consignes actives, par ordre de priorité
 
-**Pas de rapport de ta part depuis 16 h 25**, mais ton travail est lu dans `production/` : complément de C-09 rendu (`PRET` de 19 h 13), B-03 rendu à 18 h 03, relu, corrections en cours. C-14 : vérifié, code clos. Arbitrages : `docs/arbitrages-2026-11-25.md`, section « Passage automatique de 19 h 30 ».
+Tes rapports de 19 h 34, 21 h 29 et 22 h 17 sont lus, merci pour eux : complément de C-09, B-03 corrigé, B-04 et C-15 rendus, corrections de B-02 et de C-15 appliquées, file vide à 22 h 17. **B-03 et le complément de C-09 sont vérifiés : code clos.** B-02 et C-15 attendent leur vérification, B-04 sa relecture. Arbitrages : `docs/arbitrages-2026-11-25.md`, section « Passage automatique de 22 h 30 ».
 
-**0. Corrections de B-03 : `corrections/B-03.md`.** Tu les as commencées, termine-les. Le défaut de la fusion est confirmé : **les couleurs posées dans le contenu sont neutralisées dans les trois fonds**, sans toucher au contenu enregistré ni aux images. Instruction 4 : retire le bloc redondant. Instruction 5 (rejouer la part que les relecteurs n'ont pas pu exécuter) : **elle ne te concerne pas et ne bloque pas** ; rejoue toi-même tes tests PHP et HTTP après correction et dépose les reçus. Puis redépose `production/B-03/PRET`.
+**0. Corrections et vérifications de B-02, C-15, B-04** : si l'une revient « à corriger » (`corrections/<lot>.md` plus récent que ton `PRET`), elle passe avant tout le reste. Tes décisions à défaut sont confirmées : jeu fictif propre à B-04 (produit public à zéro euro, aucun achat exécuté) ; export de C-15 avec les colonnes montant et devise ; « mandats à lancer » limité au renouvellement exigible impayé ; « paiements en attente » limité aux abonnements ; libellé « virement » réservé au circuit virement dans B-02. Les trois questions correspondantes sont rangées pour Imagine.
 
-**1. B-02 : dépose `production/B-02/PRET`.** Il manque toujours, donc le lot n'a jamais été relu. `PRET` veut dire « prêt à relire », pas « recette complète » : dépose-le maintenant, avec tes réserves telles qu'elles sont écrites (seconde échéance payée non lue par le tableau, marge, historique, documents). La relecture dira ce qui est à corriger ; n'attends pas d'avoir tout raccordé. Deux minutes.
+**1. `briefs/C-16-commande-pour-un-client.md`** — la commande encodée par le référent administratif pour un client, en trois écrans au plus, avec l'encodage « sans email » et la vente sans identité (§3.13, §2.3). Une demi-journée.
 
-**2. `briefs/B-04-page-numero.md`** — la page numéro, le kiosque et la page thématique, avec le statut d'accès visible, le bouton d'achat (C-14) et le PDF (C-11). Une demi-journée.
+**2. `briefs/C-17-justificatifs-tarif-solidaire.md`** — le dépôt du justificatif dans « Mon compte », la file de validation côté administration, le fichier hors racine publique et supprimé à la décision (§3.13, §4.4). Ne touche ni au prix ni à l'accès. Une demi-journée.
 
-**3. `briefs/C-15-ecran-des-echeances.md`** — l'écran des échéances du référent administratif (§3.13), sur les paiements fictifs du complément de C-09. Une demi-journée.
+**3. `briefs/C-18-extractions.md`** — l'écran des extractions au format tableur, quatre extractions de départ, lecture seule (§3.13). Une demi-journée.
 
-Les corrections d'un lot relu (B-03, B-02, C-09) passent avant le lot en cours, sans attendre que cette file les cite. Preuves proportionnées, rapports courts. **Un rapport dans `files/rapports/` à chaque fin de réveil**, même de cinq lignes : c'est ce que le passage automatique lit en premier.
+Les corrections d'un lot relu passent avant le lot en cours, sans attendre que cette file les cite. Preuves proportionnées, rapports courts. **Un rapport dans `files/rapports/` à chaque fin de réveil**, même de cinq lignes : c'est ce que le passage automatique lit en premier.
+
+**Séparation des voies.** Ton rapport de 21 h 29 signale qu'un de tes workers a lu `A-FAIRE.md`. Lecture sans écriture, sans conséquence, et tu as recadré : rien d'autre à faire. La règle reste : tes workers ne lisent que cette file.
 
 Les liens « offert » et « groupé » absents des profils (C-13 et B-02 en mode strict) : c'est une limite connue des données de démonstration, liée à une question ouverte chez Imagine. On ne les fabrique pas. Ne t'arrête pas dessus.
 
@@ -46,6 +48,8 @@ Les liens « offert » et « groupé » absents des profils (C-13 et B-02 en mod
 | C-10 Écran de réglages | 23/11, corrigé le 23/11 | **Code clos le 24/11** : les réglages d'accès agissent sur le paywall. Validation visuelle de Ced attendue |
 | C-13 Écran de la liste d'envoi | 24/11, corrigé le 25/11 | **Code clos le 25/11** : bénéficiaires, renouvellements, gel persistant, règles en code pur. Liste vide pour les profils tant que le complément de C-09 n'est pas fait. Validation visuelle de Ced attendue (menus) |
 | C-14 Achat au numéro | 25/11, corrigé le 25/11 | **Code clos le 25/11** : l'achat payé ouvre les articles et le PDF du seul numéro acheté, sans limite de durée ; remboursement partiel en réglage. Validation visuelle de Ced attendue |
-| B-02 Mon compte | 25/11 | Rendu sans `PRET` ; à déposer (consigne 1) |
-| C-09 Complément paiements fictifs | 25/11 | Rendu (9 profils créés, 20 partiels, 1 impossible) ; vérification attendue |
-| B-03 Mode lecture | 25/11 | Relu : **à corriger** (contraste quand le contenu porte ses propres couleurs), consigne 0 |
+| B-02 Mon compte | 25/11, corrigé le 25/11 | Relu, corrigé ; vérification attendue (consigne 0). Recette partielle assumée : marge, historique, documents |
+| C-09 Complément paiements fictifs | 25/11 | **Code clos le 25/11** : 9 profils créés, 20 partiels, 1 impossible ; paiements fictifs déclarés comme tels. Liens « offert » et « groupé » non fabriqués |
+| B-03 Mode lecture | 25/11, corrigé le 25/11 | **Code clos le 25/11** : couleurs du contenu neutralisées sur les trois fonds, position de lecture conservée. Validation visuelle de Ced attendue, contraste à revoir après le choix des couleurs par le designer |
+| B-04 Page numéro, kiosque, thématiques | 25/11 | Rendu ; relecture attendue (consigne 0) |
+| C-15 Écran des échéances | 25/11, corrigé le 25/11 | Relu, corrigé ; vérification attendue (consigne 0) |
