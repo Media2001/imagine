@@ -47,7 +47,7 @@ def run_storage(storage):
         raise RuntimeError('NATIVE_SEED_FAILED')
     (site/'wp-config.php').write_text(config)
     b.check(storage+':command_exists',pathlib.Path('/subject/a11/inventorier-adresses').is_file())
-    for variant in ['pretty','plain','subdir','attachments-disabled']:
+    for variant in ['pretty','plain','subdir','attachments-disabled','static-front']:
         key=storage+':'+variant
         (site/'wp-config.php').write_text(writable)
         try:
@@ -76,6 +76,13 @@ def run_storage(storage):
         expected={a09.relative(url):contexts for url,contexts in data['expected'].items()}
         b.check(key+':exact_native_urls_and_natures',actual==expected,{'expected':len(expected),'actual':len(actual)})
         b.check(key+':excluded_exact',report['exclus']==data['excluded'],report['exclus'])
+        fields={a09.relative(url):value for url,value in data['fields'].items()}
+        b.check(key+':dates_and_status_native',all(all(row[k]==v for k,v in fields[row['ancienne']].items()) for row in report['adresses']))
+        counts={}
+        for contexts in expected.values():
+            for nature in {c[0] for c in contexts}: counts[nature]=counts.get(nature,0)+1
+        b.check(key+':summary_counts_exact',report['par_nature']==counts)
+        b.check(key+':native_permalink_bases',report['permaliens']==data['permaliens'])
         b.check(key+':author_slug_only',sum(any(c['nature']=="archive d'auteur" for c in row['contextes']) for row in report['adresses'])==1)
         with open(target/'adresses.csv',encoding='utf-8-sig',newline='') as f:
             rows=list(csv.DictReader(f,delimiter=';'))
@@ -95,6 +102,29 @@ def run_storage(storage):
         link=OUT/(stem+'-web-link'); link.symlink_to(site,target_is_directory=True)
         bad=inventory(site,link/'forbidden',auditdir/'audit.json')
         b.check(key+':symlink_web',bad.returncode==1 and not (site/'forbidden').exists()); link.unlink()
+        if variant == 'pretty':
+            import shutil
+            canonical=pathlib.Path('/checkout/wp/outils/bascule')
+            if not canonical.exists(): shutil.copytree('/subject',canonical)
+            guarded=b.cmd(['php',str(canonical/'a11/inventorier-adresses'),'--wp-path='+str(site),'--output=/checkout/forbidden','--audit='+str(auditdir/'audit.json')],check=False)
+            b.check(key+':canonical_repository_guard',guarded.returncode==1 and guarded.stderr=='A11_OUTPUT_UNSAFE\n' and not pathlib.Path('/checkout/forbidden').exists())
+            missing=b.cmd(['php','/subject/a11/inventorier-adresses','--wp-path='+str(site),'--output='+str(OUT/(stem+'-missing'))],check=False)
+            b.check(key+':missing_audit_refused',missing.returncode==1 and missing.stderr=='A11_USAGE\n')
+            wrong=OUT/(stem+'-wrong-audit'); wrong.mkdir(); (wrong/'audit.json').write_text('{"schema":"wrong","read_only":true}')
+            invalid=inventory(site,OUT/(stem+'-bad-audit'),wrong/'audit.json')
+            b.check(key+':invalid_audit_refused',invalid.returncode==1 and invalid.stderr=='A11_AUDIT_GUARD\n' and not (OUT/(stem+'-bad-audit')).exists())
+            badurl=b.cmd(['php','/subject/a11/inventorier-adresses','--wp-path='+str(site),'--output='+str(OUT/(stem+'-external-url')),'--audit='+str(auditdir/'audit.json')],env={'A11_BAD_URL':'1'},check=False)
+            b.check(key+':external_native_url_not_invented',badurl.returncode==1 and badurl.stderr=='A11_URL_NOT_A09_COMPATIBLE\n' and not (OUT/(stem+'-external-url')).exists())
+            (site/'wp-config.php').write_text(config.replace("define('DB_PASSWORD', '')", "define('DB_PASSWORD', getenv('A11_PRIVATE_CONFIG_CANARY'))"))
+            try:
+                dynamic=inventory(site,OUT/(stem+'-dynamic'),auditdir/'audit.json')
+                b.check(key+':dynamic_config_refused',dynamic.returncode==1 and dynamic.stderr=='A02_CONFIG_NON_LITERAL\n' and not (OUT/(stem+'-dynamic')).exists())
+            finally: (site/'wp-config.php').write_text(config)
+            dropin=site/'wp-content/object-cache.php'; dropin.write_text('<?php throw new RuntimeException("NEVER_EXECUTE");')
+            try:
+                blocked=inventory(site,OUT/(stem+'-dropin'),auditdir/'audit.json')
+                b.check(key+':dropin_refused_before_execution',blocked.returncode==1 and blocked.stderr=='A11_DROPIN_UNSUPPORTED\n' and not (OUT/(stem+'-dropin')).exists())
+            finally: dropin.unlink()
         # The subject's DB fence is also enforced with privileged synthetic credentials.
         (site/'wp-config.php').write_text(config.replace("define('DB_USER', 'a02_"+storage+"')", "define('DB_USER', 'root')"))
         try:

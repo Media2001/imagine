@@ -1,0 +1,5 @@
+{
+  "plugins/imagine-site/Paywall.php": true,
+  "plugins/imagine-site/Decouverte.php": true,
+  "themes/imagine/inc/catalogue.php": true
+}

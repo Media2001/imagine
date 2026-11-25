@@ -37,8 +37,10 @@ function imagine_issue_product(int $issue): string
     ]);
     foreach ($products as $post) {
         $product = wc_get_product($post->ID);
-        if (\Imagine\Site\AchatsNumeros::numero($product) === $issue
-            && $product->is_purchasable() && $product->is_in_stock()) {
+        if (
+            \Imagine\Site\AchatsNumeros::numero($product) === $issue
+            && $product->is_purchasable() && $product->is_in_stock()
+        ) {
             return $product->get_permalink();
         }
     }

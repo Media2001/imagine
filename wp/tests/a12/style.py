@@ -21,7 +21,9 @@ def main():
     name = 'imagine-a12-style-'+uuid.uuid4().hex[:12]
     b = run.b
     created = False
-    receipt = {'container': name, 'checks': [], 'exit_code': 1}
+    initial = run.manifest(['wp/tests/a12', 'wp/outils/bascule/a12'])
+    protected = run.manifest(run.PROTECTED)
+    receipt = {'container': name, 'checks': [], 'exit_code': 1, 'sources': initial}
     def record(key, ok, detail=None):
         receipt['checks'].append({'check': key, 'status': 'PASS' if ok else 'FAIL', 'detail': detail})
     try:

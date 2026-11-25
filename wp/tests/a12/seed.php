@@ -49,6 +49,7 @@ add_post_meta($ids[0], '_a12_product_id', (string) $productId);
 add_post_meta($ids[0], '_a12_product_id', (string) $productId);
 add_post_meta($ids[1], '_a12_product_id', (string) $productId);
 add_post_meta($ids[2], '_a12_product_id', (string) $ids[0]);
+add_post_meta($ids[2], '_A12_product_id', (string) $productId);
 add_post_meta($ids[3], '_a12_product_ids', [$productId]);
 add_post_meta($productId, '_a12_article_id', (string) $ids[0]);
 $upload = wp_upload_dir();

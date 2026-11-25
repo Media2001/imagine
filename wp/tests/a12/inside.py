@@ -87,6 +87,7 @@ add_action('init', function () {
     b.check(storage+':non_pdf_size', png['bytes'] == next(x['bytes'] for x in oracle['attachments'] if x['mime'] == 'image/png'))
     links = {x['key']: x for x in report['product_links']}
     b.check(storage+':distinct_scalar_product_links', links['_a12_product_id']['linked_contents'] == 2 and links['_a12_product_id']['distinct_pairs'] == 2)
+    b.check(storage+':case_sensitive_link_keys', links['_A12_product_id']['linked_contents'] == 1 and links['_A12_product_id']['distinct_pairs'] == 1)
     b.check(storage+':reverse_product_to_article_link', links['_a12_article_id']['linked_contents'] == 1 and links['_a12_article_id']['distinct_pairs'] == 1)
     b.check(storage+':serialized_link_not_interpreted', links['_a12_product_ids']['distinct_pairs'] == 0 and links['_a12_product_ids']['non_scalar_rows'] == 1)
     full = (target/'contenus.json').read_text()+(target/'contenus.md').read_text()+p.stdout+p.stderr

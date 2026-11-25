@@ -23,7 +23,7 @@ try {
     while (ob_get_level() > $level) {
         ob_end_clean();
     }
-    $message = preg_match('/\AA(?:11|02)_[A-Z_]+\z/D', $error->getMessage()) ? $error->getMessage() : 'A11_FAILED';
+    $message = preg_match('/\AA(?:11|02)_[A-Z0-9_]+\z/D', $error->getMessage()) ? $error->getMessage() : 'A11_FAILED';
     fwrite(STDERR, $message . "\n");
     exit(1);
 }

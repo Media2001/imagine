@@ -304,7 +304,7 @@ final class Inventory
         $posts = $this->table('posts');
         $meta = $this->table('postmeta');
         $result = [];
-        $keys = $this->select("SELECT DISTINCT meta_key FROM $meta ORDER BY BINARY meta_key");
+        $keys = $this->select("SELECT meta_key FROM $meta GROUP BY BINARY meta_key,meta_key ORDER BY BINARY meta_key");
         foreach ($keys as $row) {
             $key = $row['meta_key'];
             if (!preg_match('/(?:^|_)(?:product|produit|article|numero|issue)(?:_ids?)?(?:_|$)/i', $key)) {
@@ -321,12 +321,12 @@ final class Inventory
                 . 'THEN q.ID ELSE p.ID END) AS contents,COUNT(DISTINCT p.ID,q.ID) AS pairs '
                 . "FROM $meta m JOIN $posts p ON p.ID=m.post_id "
                 . "JOIN $posts q ON $numeric AND BINARY m.meta_value=BINARY CAST(q.ID AS CHAR) "
-                . "WHERE m.meta_key=? AND $pair",
+                . "WHERE BINARY m.meta_key=BINARY ? AND $pair",
                 [$key]
             )[0];
             $nonScalar = $this->select(
                 "SELECT COUNT(*) AS n FROM $meta m JOIN $posts p ON p.ID=m.post_id "
-                . "WHERE m.meta_key=? AND NOT ($numeric) AND (" . $editorial('p')
+                . "WHERE BINARY m.meta_key=BINARY ? AND NOT ($numeric) AND (" . $editorial('p')
                 . " OR p.post_type IN ('product','product_variation'))",
                 [$key]
             )[0]['n'];
@@ -403,14 +403,16 @@ final class Inventory
             'registry' => [
                 'runtime_verified' => false,
                 'coverage' => 'stored_objects_plus_literal_active_source_candidates_not_runtime_registry',
-                'unresolved_calls' => $declarations['unresolved_calls'], 'source_files' => $declarations['source_files'],
+                'unresolved_calls' => $declarations['unresolved_calls'],
+                'source_files' => $declarations['source_files'],
             ],
             'post_types' => $typeRows, 'taxonomies' => $taxRows,
             'attachments' => $this->attachments(), 'product_links' => $this->productLinks(),
             'conventions' => [
                 'Etats: tous contenus stockes, corbeille et brouillons inclus; '
                     . 'taxonomies: contenus distincts par taxonomie, pas somme des termes.',
-                'Premiere et derniere publication: post_date_gmt des seuls contenus actuellement publish; null si aucun.',
+                'Premiere et derniere publication: post_date_gmt des seuls contenus actuellement publish; '
+                    . 'null si aucun.',
                 'Termes: vingt premiers par nombre de contenus distincts relies, tous etats; '
                     . 'egalite par nom binaire puis identifiant interne non exporte.',
                 'Champs: toutes les cles postmeta, internes incluses, sans limite top-N; '

@@ -38,14 +38,16 @@ final class Decouverte
 
     public static function preparer(): void
     {
-        if (!is_user_logged_in() || is_admin() || wp_doing_ajax() || wp_doing_cron()
+        if (
+            !is_user_logged_in() || is_admin() || wp_doing_ajax() || wp_doing_cron()
             || (defined('WP_CLI') && WP_CLI) || (defined('REST_REQUEST') && REST_REQUEST)
             || ($_SERVER['REQUEST_METHOD'] ?? '') !== 'GET' || !is_singular('post')
             || is_feed() || is_preview() || is_embed() || is_trackback() || is_404()
             || isset($_GET['preview']) || isset($_GET['rest_route']) || isset($_GET['imagine_pdf'])
             || preg_match('/bot|crawler|spider|slurp|preview|facebookexternalhit|headless/i', (string) ($_SERVER['HTTP_USER_AGENT'] ?? ''))
             || trim((string) ($_SERVER['HTTP_USER_AGENT'] ?? '')) === ''
-            || preg_match('/prefetch|prerender/i', ($_SERVER['HTTP_SEC_PURPOSE'] ?? '') . ($_SERVER['HTTP_PURPOSE'] ?? ''))) {
+            || preg_match('/prefetch|prerender/i', ($_SERVER['HTTP_SEC_PURPOSE'] ?? '') . ($_SERVER['HTTP_PURPOSE'] ?? ''))
+        ) {
             return;
         }
         $post = get_post(get_queried_object_id());
@@ -71,8 +73,10 @@ final class Decouverte
     public static function compteur(string $content): string
     {
         $post = get_post();
-        if (!$post || !self::concerne($post->ID)
-            || !in_array(Paywall::decision($post)['motif'], ['decouverte_articles', 'decouverte_duree'], true)) {
+        if (
+            !$post || !self::concerne($post->ID)
+            || !in_array(Paywall::decision($post)['motif'], ['decouverte_articles', 'decouverte_duree'], true)
+        ) {
             return $content;
         }
         $state = self::etat(get_current_user_id());
@@ -118,13 +122,15 @@ final class Decouverte
 
     public static function valide(mixed $value): bool
     {
-        if (!is_array($value) || count($value) !== 5 || array_diff(array_keys(self::defauts()), array_keys($value))
+        if (
+            !is_array($value) || count($value) !== 5 || array_diff(array_keys(self::defauts()), array_keys($value))
             || !in_array($value['ouverture'], ['fermee', 'premiere_lecture'], true)
             || !in_array($value['forme'], ['articles', 'duree'], true)
             || !is_int($value['jours']) || $value['jours'] < 1 || $value['jours'] > 365
             || !is_int($value['nombre']) || $value['nombre'] < 1 || $value['nombre'] > 100
             || !is_array($value['numeros']) || !array_is_list($value['numeros'])
-            || count($value['numeros']) !== count(array_unique($value['numeros'], SORT_REGULAR))) {
+            || count($value['numeros']) !== count(array_unique($value['numeros'], SORT_REGULAR))
+        ) {
             return false;
         }
         foreach ($value['numeros'] as $id) {
@@ -191,14 +197,18 @@ final class Decouverte
         bool $consommer = true
     ): \Imagine\Pilotage\Acces\Decision {
         $base = Paywall::deciderContenu($content, $visitor, $robot, $now);
-        if ($base->complet || !$visitor['identifie'] || $content['type'] !== 'article'
-            || !$content['reserve'] || ($content['decouverte'] ?? false) !== true || $content['sortie'] > $now) {
+        if (
+            $base->complet || !$visitor['identifie'] || $content['type'] !== 'article'
+            || !$content['reserve'] || ($content['decouverte'] ?? false) !== true || $content['sortie'] > $now
+        ) {
             return $base;
         }
         $id = get_current_user_id();
         $settings = self::reglages();
-        if ($id <= 0 || $settings['ouverture'] !== 'premiere_lecture'
-            || !in_array($content['numero'], $settings['numeros'], true)) {
+        if (
+            $id <= 0 || $settings['ouverture'] !== 'premiere_lecture'
+            || !in_array($content['numero'], $settings['numeros'], true)
+        ) {
             return $base;
         }
         try {
@@ -229,8 +239,14 @@ final class Decouverte
                 $rule = $policy['forme'] === 'articles'
                     ? new \Imagine\Pilotage\Acces\NombreArticlesDecouverte($policy['nombre'], $policy['numeros'], false)
                     : new \Imagine\Pilotage\Acces\DureeDecouverte($policy['jours'] * DAY_IN_SECONDS, $policy['numeros'], false);
-                $decision = (new \Imagine\Pilotage\Acces\Moteur())->decider($content, $rights, $robot, $now,
-                    $rule, (new \Imagine\Pilotage\Acces\AdministrationReglages())->lire());
+                $decision = (new \Imagine\Pilotage\Acces\Moteur())->decider(
+                    $content,
+                    $rights,
+                    $robot,
+                    $now,
+                    $rule,
+                    (new \Imagine\Pilotage\Acces\AdministrationReglages())->lire()
+                );
                 if (!$consommer || !$decision->complet || $seen) {
                     return $decision;
                 }
@@ -240,7 +256,9 @@ final class Decouverte
                 // Compare-and-swap binaire : une lecture concurrente doit revalider le quota.
                 $updated = $wpdb->query($wpdb->prepare(
                     "UPDATE {$wpdb->options} SET option_value = %s WHERE option_name = %s AND BINARY option_value = BINARY %s",
-                    maybe_serialize($next), self::key($id), maybe_serialize($state)
+                    maybe_serialize($next),
+                    self::key($id),
+                    maybe_serialize($state)
                 ));
                 wp_cache_delete(self::key($id), 'options');
                 if ($updated === 1) {
@@ -261,10 +279,12 @@ final class Decouverte
 
     private static function etatValide(mixed $state): bool
     {
-        if (!is_array($state) || count($state) !== 3 || !isset($state['debut'], $state['reglages'], $state['articles'])
+        if (
+            !is_array($state) || count($state) !== 3 || !isset($state['debut'], $state['reglages'], $state['articles'])
             || !is_string($state['debut']) || !self::valide($state['reglages'])
             || !is_array($state['articles']) || !array_is_list($state['articles'])
-            || count($state['articles']) !== count(array_unique($state['articles'], SORT_REGULAR))) {
+            || count($state['articles']) !== count(array_unique($state['articles'], SORT_REGULAR))
+        ) {
             return false;
         }
         $date = DateTimeImmutable::createFromFormat('!Y-m-d H:i:s', $state['debut'], new DateTimeZone('UTC'));

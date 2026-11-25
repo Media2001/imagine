@@ -39,6 +39,10 @@ if (getenv('A11_VARIANT') === 'seed') {
     update_option('a11_fixture_author', $author);
 }
 $variant = getenv('A11_VARIANT');
+$ids = get_option('a11_fixture_ids');
+update_option('show_on_front', $variant === 'static-front' ? 'page' : 'posts');
+update_option('page_on_front', $variant === 'static-front' ? $ids['parent'] : 0);
+update_option('page_for_posts', $variant === 'static-front' ? $ids['child'] : 0);
 update_option('home', $variant === 'subdir' ? 'https://a02.synthetic.test/magazine' : 'https://a02.synthetic.test');
 update_option('permalink_structure', $variant === 'plain' ? '' : '/%category%/%postname%/');
 update_option('category_base', 'rubriques');
