@@ -1,0 +1,60 @@
+{
+  "schema": "imagine-a05-v1",
+  "site_status": "verified-staging",
+  "plugins": [
+    {
+      "plugin": "a05-remove/entry.php",
+      "action": "retirer",
+      "uninstall": false
+    }
+  ],
+  "tables": [
+    {
+      "match": "exact",
+      "name": "wp_a05_orphan",
+      "action": "supprimer"
+    },
+    {
+      "match": "prefix",
+      "name": "wp_a05_stats_",
+      "action": "supprimer"
+    }
+  ],
+  "options": [
+    {
+      "match": "prefix",
+      "name": "a05_orphan_",
+      "action": "supprimer"
+    }
+  ],
+  "cron": [
+    {
+      "match": "exact",
+      "name": "a05_orphan_hook",
+      "action": "supprimer"
+    }
+  ],
+  "uploads": [
+    {
+      "path": "a05-debris",
+      "action": "supprimer"
+    }
+  ],
+  "table_owners": {
+    "hello.php": [],
+    "a05-base/entry.php": [],
+    "a05-dependent/entry.php": [],
+    "a05-gateway/entry.php": [],
+    "a05-keep/entry.php": [
+      "wp_a05_kept"
+    ],
+    "a05-orphan/entry.php": [],
+    "a05-remove/entry.php": [],
+    "akismet/akismet.php": [],
+    "woocommerce/woocommerce.php": [],
+    "woocommerce-memberships/woocommerce-memberships.php": [],
+    "woocommerce-subscriptions/woocommerce-subscriptions.php": [],
+    "theme:a03-fiction": [],
+    "mu:000-imagine-staging-safety.php": []
+  }
+}

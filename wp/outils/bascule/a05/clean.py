@@ -253,14 +253,17 @@ def execute(args):
                 else:raise Refusal('A05_OPERATION')
                 op['phase']='done';event(op,'done')
                 if args.stop_after==index:
-                    event(op,'interruption_requested');return 75
+                    event(op,'interruption_requested')
+                    if args.pause:
+                        while True:time.sleep(1)
+                    return 75
             state['complete']=True;event({'kind':'all','name':'all'},'complete')
             print('A05_OK');return 0
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     for option in ['wp-path','plan','backup','state']:p.add_argument('--'+option,required=True)
-    p.add_argument('--go');p.add_argument('--dry-run',action='store_true');p.add_argument('--stop-after',type=int,default=0)
+    p.add_argument('--go');p.add_argument('--dry-run',action='store_true');p.add_argument('--stop-after',type=int,default=0);p.add_argument('--pause',action='store_true')
     try:return execute(p.parse_args())
     except Exception as error:
         message=str(error)

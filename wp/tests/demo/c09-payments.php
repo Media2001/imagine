@@ -64,6 +64,8 @@ foreach ($f['memberships'] as $key => $id) {
 foreach ([$f['plan'], $f['product'], ...array_values($f['tariffs'])] as $id) {
     $checks['catalogue_' . $id . ':marque'] = get_post_meta($id, 'imagine_demo_fictif', true) === '1';
 }
+$postal = \Imagine\Site\EnvoiNatif::apercu('DEMO-2027-T1');
+$checks['A-SANSMAIL:inclusion_postale'] = in_array((string) $f['subscriptions']['A-SANSMAIL'], array_column($postal['liste']->lignes, 'abonnement_id'), true);
 $failures = array_keys(array_filter($checks, static fn ($v) => !$v));
 echo wp_json_encode(['total' => count($checks), 'checks' => $checks, 'failures' => $failures, 'proof' => $proof]);
 if ($failures) { \WP_CLI::halt(1); }

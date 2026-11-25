@@ -1,0 +1,67 @@
+{
+  "container": "imagine-a05-950899b3e5da",
+  "checks": [
+    {
+      "check": "isolation_before",
+      "ok": true,
+      "detail": {
+        "network": "none",
+        "mounts": [],
+        "ports": [],
+        "privileged": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2"
+      }
+    },
+    {
+      "check": "lint",
+      "ok": true,
+      "detail": {
+        "/subject/a05/bootstrap.php": 0,
+        "/subject/a05/database.php": 0,
+        "/subject/a05/native.php": 0
+      }
+    },
+    {
+      "check": "unit",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "integration",
+      "ok": false,
+      "detail": {
+        "exit": 1
+      }
+    },
+    {
+      "check": "isolation_after",
+      "ok": true,
+      "detail": {
+        "network": "none",
+        "mounts": [],
+        "ports": [],
+        "privileged": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2"
+      }
+    },
+    {
+      "check": "cleanup_exact_owned",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "sources_unchanged",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "exit_code": 1
+}

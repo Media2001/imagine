@@ -265,7 +265,7 @@ foreach ($rows as $row) {
         $sub->remove_order_items();
         $sub->add_product($product, 1, ['subtotal' => $fixtureAmount, 'total' => $fixtureAmount]);
         $sub->calculate_totals(false);
-        $start = $date('-335 days');
+        $start = $paidInitial ? $date($key === 'A-SEPA4' ? '-180 days' : '-90 days') : $date('-335 days');
         $end = $date('+365 days');
         $next = $date('+30 days');
         if ($key === 'A-ECHEANCE') { $end = $date('+30 days'); $next = $date('+29 days'); }
@@ -295,7 +295,7 @@ foreach ($rows as $row) {
         if (is_wp_error($member)) { throw new \RuntimeException('Adhésion C09 impossible.'); }
         $member->set_order_id($order ? $order->get_id() : 0);
         $member->set_product_id($order ? $product->get_id() : 0);
-        $member->set_start_date($date('-335 days'));
+        $member->set_start_date($sub ? $sub->get_date('start') : $date('-335 days'));
         $member->set_end_date($key === 'P-SOL-OK' ? $date('+45 days') : ($sub ? $sub->get_date('end') : $date('+365 days')));
         update_post_meta($member->get_id(), $owned, $key);
         if ($sub) { update_post_meta($member->get_id(), '_subscription_id', $sub->get_id()); }
@@ -363,8 +363,26 @@ foreach ($manifest['subscriptions'] as $key => $id) {
 // relire la commande parente pendant le seed. Aucun payment_complete()/transport.
 foreach (['A-CARTE', 'A-PAYPAL', 'A-ETRANGER', 'A-SANSMAIL', 'A-ECHEANCE', 'A-NONRENOUV', 'A-SEPA4', 'A-PAPIER'] as $key) {
     $paid = wc_get_order($manifest['orders'][$key]);
-    $paid->set_date_paid($now->modify('-335 days')->getTimestamp());
+    $paid->set_date_created($now->modify($key === 'A-SEPA4' ? '-180 days' : '-90 days')->getTimestamp());
+    $paid->set_date_paid($now->modify($key === 'A-SEPA4' ? '-180 days' : '-90 days')->getTimestamp());
     $paid->save();
+}
+// Marque lisible de chaque objet/ligne de cette fixture ; ne donne aucun droit.
+foreach ($manifest['users'] as $id) { update_user_meta($id, 'imagine_demo_fictif', '1'); }
+foreach ([$manifest['plan'], ...array_values($manifest['memberships'])] as $id) {
+    update_post_meta($id, 'imagine_demo_fictif', '1');
+}
+foreach ([$manifest['product'], ...array_values($manifest['tariffs'])] as $id) {
+    $p = wc_get_product($id); $p->update_meta_data('imagine_demo_fictif', '1'); $p->save();
+}
+foreach ([...array_values($manifest['orders']), ...array_values($manifest['subscriptions']), ...array_values($manifest['renewals'])] as $id) {
+    $o = wc_get_order($id);
+    $o->update_meta_data('imagine_demo_fictif', '1');
+    $o->set_payment_method_title('Paiement fictif de démonstration');
+    foreach (['line_item', 'shipping', 'fee'] as $type) {
+        foreach ($o->get_items($type) as $item) { $item->update_meta_data('imagine_demo_fictif', '1'); $item->save(); }
+    }
+    $o->save();
 }
 update_option('imagine_c09_fixture', $manifest);
 update_option('imagine_c09_seeded_at', $now->format('Y-m-d H:i:s'));
