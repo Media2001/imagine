@@ -6,6 +6,32 @@ namespace Imagine\NonRegression;
 
 final class Report
 {
+    // A04 classic + HPOS observed only this deferred native Woo admin task.
+    // No migration, renewal, maintenance or prefix-wide exception is justified.
+    private const POST_UPDATE_HOOKS = ['woocommerce_run_on_woocommerce_admin_updated'];
+
+    private static function expectedActionChange(array $before, array $after, string $path): bool
+    {
+        if ($before['versions']['woocommerce'] === $after['versions']['woocommerce']) {
+            return false;
+        }
+        $parts = explode('.', $path, 3);
+        if ($parts[0] === 'action_days') {
+            $key = substr($path, strlen('action_days.'));
+            return in_array(explode(':', $key, 2)[0], self::POST_UPDATE_HOOKS, true);
+        }
+        if ($parts[0] !== 'actions' || !isset($parts[1])) {
+            return false;
+        }
+        foreach ([$before, $after] as $report) {
+            $row = $report['actions'][$parts[1]] ?? null;
+            if ($row !== null && !in_array($row['hook'], self::POST_UPDATE_HOOKS, true)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private static function requireValid(bool $valid): void
     {
         if (!$valid) {
@@ -155,7 +181,7 @@ final class Report
             }
         }
         $changes = [];
-        $walk = static function (mixed $a, mixed $b, string $path) use (&$walk, &$changes): void {
+        $walk = static function (mixed $a, mixed $b, string $path) use (&$walk, &$changes, $before, $after): void {
             if ($a === $b) {
                 return;
             }
@@ -181,6 +207,12 @@ final class Report
                 || (str_ends_with($path, 'status') && (!is_int($b) || $b < 200 || $b >= 400)))
             ) {
                 $class = 'anormal';
+            }
+            if (
+                in_array($root, ['actions', 'action_days'], true)
+                && self::expectedActionChange($before, $after, $path)
+            ) {
+                $class = 'attendu';
             }
             // No values are emitted. Free-form slug keys are never proof of anonymity.
             $safePath = in_array(

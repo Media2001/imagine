@@ -35,6 +35,8 @@ final class Reports
             'action_days' => ['woocommerce_scheduled_subscription_payment:2027-01-01' => 1],
             'order_months' => $months,
             'orders' => ['2026-11:completed:EUR' => ['count' => 1, 'amount_minor' => 1500, 'decimals' => 2]],
+            'php_log' => ['checked' => true, 'from_utc' => '2026-11-24T00:00:00Z',
+                'until_utc' => '2026-11-24T00:00:01Z', 'errors' => 0],
             'pages' => $pages, 'renewal' => ['enabled' => false],
         ];
     }
