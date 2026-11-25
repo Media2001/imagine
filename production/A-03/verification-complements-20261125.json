@@ -1,0 +1,85 @@
+{
+  "schema": "imagine-a03-complements-verification-v1",
+  "verified_at": "2026-11-25T14:49:23+01:00",
+  "repository": "C:/Users/Ced/imagine",
+  "requested_path_note": "C:/Users/Ced/imagine voie1 absent ; dépôt retrouvé par ses consignes et arbitrages concordants, sans opération Git.",
+  "ready_for_review": true,
+  "real_access_authorized": false,
+  "changes": {
+    "post_update_hooks": ["woocommerce_run_on_woocommerce_admin_updated"],
+    "qualification": "Hook exact et compteur journalier seulement, version Woo différente, aucun remplacement d’un autre hook ; tous les autres changements d’actions anormaux.",
+    "php_log": "Champ php_error_log obligatoire, fichier natif UTC lu entre deux horodatages inclusifs encadrant les GET, bilan sans message ni chemin ; journal absent/inaccessible/illisible/incomplet/rotaté ou réécrit bloquant.",
+    "collection": "SQL échoué bloquant conservé et rejoué ; HTTP indisponible, tronqué selon Content-Length, trop grand ou redirection hors site désormais bloquants ; aucune sortie partielle.",
+    "proof_archives": "Aucun répertoire d’archives ne subsistait dans production/A-03 ; absence reconfirmée, autres lots préservés."
+  },
+  "execution_exit_codes": {"prepare_image": 0, "global_replay": 0, "a03_phpunit": 0, "a03_classic_hpos": 0, "a03_production_style": 0},
+  "tests": {
+    "a03_phpunit": {"tests": 152, "assertions": 314, "failures": 0, "errors": 0, "skipped": 0},
+    "global_replay": {"tests": 1010, "assertions": 33978, "failures": 0, "errors": 0, "skipped": 0, "pass": true},
+    "fixture_checks": {"passed": 87, "total": 87, "classic": 42, "hpos": 42, "isolation": 3},
+    "pure_cli_checks": 10,
+    "output_writer_cases": 5,
+    "php_syntax_files": 12,
+    "runner_checks": 9,
+    "production_psr12": {"errors": 0, "warnings": 0},
+    "package_composer_validate_install_test_lint": "all exit 0",
+    "new_phpunit_tests_present_in_global_junit": true,
+    "fixture_versions": {"wordpress": "7.0.9", "woocommerce": "11.1.1", "subscriptions": "9.4.1", "memberships": "1.30.3"}
+  },
+  "evidence_outside_repository": {
+    "root": "C:/Users/Ced/AppData/Local/hermes/cache/scratch",
+    "a03_e2e": "imagine-a03-runs/complements-sealed-e2e-20261125",
+    "a03_phpunit": "imagine-a03-runs/complements-sealed-phpunit-20261125",
+    "production_style": "imagine-a03-runs/complements-sealed-style-20261125.json",
+    "image_preparation_log": "a03-sealed-prepare.log",
+    "complete_global_log_and_junit": "a03-sealed-global.log",
+    "fixture_host_log": "a03-sealed-e2e.log",
+    "phpunit_host_log": "a03-sealed-phpunit.log"
+  },
+  "isolation": {
+    "php_only_in_disposable_docker": true,
+    "a03_runners_removed_and_verified": true,
+    "global_runner_removed_and_verified": "imagine-t01-aa29db89e4b44890a683b4df4f27c7ea",
+    "t01_image": "sha256:330485f12ad158ca84a23bf54d20578b1673a8230e5a72bc64354b6cf25eef9e",
+    "tested_sources_stable": true,
+    "protected_files_rechecked": 413,
+    "protected_drift": [],
+    "protected_scope": "A04 sources/tests/production, docs, doctrine, prompts, files de travail, verrous",
+    "git_novamira_real_accounts_other_lane_writes": false
+  },
+  "limits_and_decisions": [
+    "Défaut prudent : liste d’un seul hook et qualification conditionnée au changement Woo, sans exception pour migrations ou paiements.",
+    "Prérequis opérateur : vrai journal du serveur HTTP, log_errors=On et date.timezone=UTC ; le collecteur ne configure aucun serveur et ne prouve pas qu’un fichier vide est le bon journal.",
+    "Format natif UTC uniquement, fichier au plus 16 Mio, ligne au plus 64 Kio, fenêtre au plus 24 h ; format inconnu refusé, pas ignoré.",
+    "Bilan conservateur de diagnostics horodatés, pas nombre d’exceptions distinctes ; seuls les GET sont encadrés, pas une mise à jour antérieure entière.",
+    "Anciennes photos sans php_log refusées : régénérer, ne jamais compléter artificiellement les preuves A04 historiques.",
+    "Banc HTTP seulement : écrivain natif en rollback ; séquence AUTO_INCREMENT synthétique wp_options réellement restaurée après la sortie du collecteur et relue. Ne démontre pas que le HTTP réel est sans écritures.",
+    "Banc hooks : lignes AS natives, version antérieure synthétique pour l’oracle de classement. La vraie mise à jour reste le rejeu A04 du parent.",
+    "Deux diagnostics au premier plan interrompus, récupérés par nom possédé et nettoyés ; reçus recovery-timeout conservés dans le scratch, jamais crédités comme réussites.",
+    "Étanchéité paywall hors A03, C-08/C-11 ; aucun GO ni accès réel."
+  ],
+  "parent_a04_handoff": [
+    "Dans son runner seulement, ajouter http-rollback.php aux fichiers A03 copiés vers /opt/a03 ; a03.install le requiert désormais.",
+    "Activer log_errors=1, date.timezone=UTC et error_log égal au champ php_error_log des settings dans le serveur HTTP du banc A04.",
+    "Conserver la copie dynamique de tous les src PHP A03 : PhpLog.php est requis par le wrapper Report.",
+    "Accepter comparer=3 pour des écarts uniquement attendus, 0 uniquement pour identique ; rejouer frais sans réécrire les anciennes preuves."
+  ],
+  "source_files_created_or_modified": [
+    "wp/outils/bascule/a03/Report.php",
+    "wp/outils/bascule/a03/Site.php",
+    "wp/outils/bascule/non-regression.md",
+    "wp/plugins/imagine-non-regression/README.md",
+    "wp/plugins/imagine-non-regression/src/Report.php",
+    "wp/plugins/imagine-non-regression/src/PhpLog.php",
+    "wp/plugins/imagine-non-regression/tests/Reports.php",
+    "wp/plugins/imagine-non-regression/tests/UpdateHooksTest.php",
+    "wp/plugins/imagine-non-regression/tests/PhpLogTest.php",
+    "wp/plugins/imagine-non-regression/tests/LogReportTest.php",
+    "wp/tests/a03-non-regression/exemple.json",
+    "wp/tests/a03-non-regression/inside.py",
+    "wp/tests/a03-non-regression/http-rollback.php",
+    "wp/tests/a03-non-regression/phpunit.py",
+    "wp/tests/a03-non-regression/seed.php",
+    "wp/tests/a03-non-regression/unit.php"
+  ]
+}

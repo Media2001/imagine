@@ -1,0 +1,5 @@
+A03 — trois compléments arbitrés du 25 novembre 2026 prêts à relire.
+Préparation image puis rejeu global : codes 0, 1010 tests / 33978 assertions ; A03 152 / 314 ; banc classique/HPOS 87/87, aucun échec.
+Voir notes.md, verification-complements-20261125.json et files/rapports/2026-11-25-14h51.md ; sorties complètes dans le scratch, aucune archive de preuves A03.
+413 fichiers protégés inchangés, dont A04 et les verrous ; ressources possédées supprimées avec readback.
+PRET technique uniquement : pas de GO réel ni de clôture à la place de Claude ; intégration et nouveau rejeu A04 restent au parent.
