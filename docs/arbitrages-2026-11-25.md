@@ -90,3 +90,53 @@ Le lot est resté sans `PRET` parce que le brief nommait un profil `a-4x-j45` qu
 
 Hermès rend un lot en quarante minutes à deux heures, et la voie 1 s'est arrêtée à 15 h 59, file vide, onze minutes après la fusion d'A-04. Deux conséquences : les files reçoivent désormais **plus d'un lot d'avance**, et une fusion « à corriger » arrivée après la dernière mise à jour de la file est à prendre par Hermès sans attendre que la file la cite (ajouté aux deux files).
 
+# Passage automatique de 19 h 30
+
+Lu : rapports de 16 h 25 à 18 h 39, vérifications A-01 (n° 5), A-04 et C-14, fusion B-03, rapport du complément de C-09.
+
+## A-01, troisième passe — close
+
+Vérification n° 5 : « prêt pour la clôture », suite rejouée par le vérificateur (1 012 tests). Les six décisions du brief sont appliquées. La modification de l'outil natif partagé (`staging/lib.php`, `policy.php`) était demandée (décision D5) et reste gardée par la version de politique : acceptée. Clôture d'un lot de code : **ce n'est pas un accord d'import**. Ced relance le diagnostic quand il veut ; l'import reste sa décision.
+
+## A-04 — clos
+
+Vérification : les six instructions sont appliquées. Deux réserves portées à la clôture, sans effet sur elle :
+
+1. Aucun relecteur n'a pu rejouer la suite d'intégration (pas de Docker sur leur poste). Accepté, comme au tour précédent : la suite PHP globale a été rejouée, la logique corrigée a été exercée en local par le vérificateur.
+2. La montée 6.9.1 → 7.0 sur la pile commerciale complète et les migrations historiques des extensions payantes ne sont pas prouvées. Elles ne peuvent l'être que sur le staging d'Imagine vérifié, avec un GO écrit de Ced (doctrine §3). Ce n'est pas une question, c'est une limite inscrite dans `ETAT.md`.
+
+## A-05 — rendu, relecture attendue
+
+Décisions à défaut d'Hermès confirmées : fichier principal audité exigé pour agir ; cartographie auditée obligatoire avant de supprimer une table ; désinstallation d'une extension seulement si le plan la demande, reprise refusée si sa fin est incertaine ; Action Scheduler ni purgé ni exécuté ; un seul site, chemins conventionnels. Le plan d'exemple laisse tout à « garder » : c'est ce qui était demandé.
+
+## C-14 — code clos, validation visuelle de Ced attendue
+
+Vérification : cinq instructions appliquées, la sixième (optionnelle) assumée et documentée. Les deux questions pour Imagine sont déjà des réglages au défaut prudent (`decisions.md`).
+
+## B-03 — à corriger (`corrections/B-03.md`)
+
+Verdict de la fusion retenu.
+
+1. **Couleurs posées dans le contenu : neutralisées dans les trois fonds.** Défaut de la fusion confirmé. Raison : c'est la seule façon de tenir « les trois fonds tiennent le contraste AA » sans dépendre de ce que la rédaction saisit, et c'est le sens d'une vue de lecture. Le contenu enregistré et les images ne sont pas touchés.
+2. **Bloc `prefers-reduced-motion` redondant : on le retire.** Le plus simple ; la garantie est ailleurs.
+3. **Instruction 5 (rejouer la part non reproduite par les relecteurs) : ne bloque pas la clôture.** C'est une limite du poste des relecteurs, pas un défaut du lot, et le site est fictif (proportion). Hermès rejoue ses tests après correction ; le vérificateur rejoue ce qu'il peut.
+4. La question « les articles portent-ils des couleurs posées à la main ? » est rangée pour Imagine (`decisions.md`). Elle ne change rien au code.
+5. La revalidation visuelle du contraste par Ced se fera **après** le choix des couleurs par le designer : la faire avant porterait sur des valeurs neutres provisoires.
+
+## Complément de C-09 — rendu, vérification attendue
+
+- Les paiements fictifs sont déclarés comme tels, sans passerelle, mandat ni jeton : conforme au brief.
+- Rôle rétabli après les transitions de Subscriptions au reset : accepté (correctif de banc).
+- **Liens « offert » et « groupé » absents** : on ne les fabrique pas. Ils dépendent du modèle des groupes, question ouverte chez Imagine. C-13 et B-02 restent donc « recette partielle » en mode strict sur ce point, et cela ne bloque ni leur démonstration ni la suite.
+- La seconde échéance payée que le tableau de B-02 ne lit pas est un défaut de B-02, à traiter dans sa relecture.
+
+## B-02 — toujours sans `PRET`
+
+Demandé à 16 h 30, non déposé à 19 h 30 : le lot n'a donc jamais été relu. Redit en tête de file, avec la précision que `PRET` ne veut pas dire « recette complète ».
+
+## Files
+
+- Voie 1, vide à 18 h 39 : A-08 (répétition de la bascule sur le banc fictif), A-09 (test des redirections, §4.3), A-10 (inventaire des codes de réduction, §4.3). Trois outils, aucune décision : les plans et les reclassements restent à Ced, au référenceur et à Imagine.
+- Voie 2 : B-04 (page numéro, kiosque, thématique, §3.3), C-15 (écran des échéances, §3.13). C-15 n'a qu'une action d'écriture (« paiement reçu » sur un virement, par les fonctions natives) et n'ajoute aucune règle d'accès.
+- La voie 2 n'a pas déposé de rapport depuis 16 h 25 alors qu'elle a rendu deux lots : rappel ajouté à sa file.
+
