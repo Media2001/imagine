@@ -40,6 +40,7 @@ def main():
     assert totals=={'tests':1012,'assertions':34006,'failures':0,'errors':0,'skipped':0,'pass':True}
     v=e2e['verification']
     assert e2e['native_policy_exit']==e2e['prepare_exit']==e2e['verify_exit']==v['diagnostic_exit']==0
+    assert e2e['native_regression']['ok'] is True and e2e['native_regression']['cases']==9
     assert v['status']=='PASS' and len(v['cases'])==2
     assert all(c['data_verified'] and c['status']=='PASS' and not c['independent_residue_scan']['sentinel_residue'] for c in v['cases'])
     assert e2e['real_export']['plugin_version']=='7.109'
@@ -75,6 +76,7 @@ def main():
             'receipt_sha256':{k:digest(v) for k,v in paths.items()},
             'a01_unit':{'run':count,'passed':count-1,'failed':0,'skipped_linux_windows_branch':1,'new_tests':new_tests,'ntfs_complement_passed':1},
             'global':totals,'new_composer_package':False,'image_rebuild_required':False,
+            'native_regression':{k:e2e['native_regression'][k] for k in ('ok','cases','assertions')},
             'real_extension':{'version':'7.109','sha256':e2e['plugin_sha256'],'wordpress':e2e['real_export']['wordpress'],'php':e2e['real_export']['php']},
             'proof':{'cases':2,'unknown_tables_empty_default':11,'blob_bytes':283,'blob_sha256':e2e['fixture']['blob_sha256'],
                      'default_skipped_inserts':v['default_skipped_inserts'],'actual_cli_override':True,

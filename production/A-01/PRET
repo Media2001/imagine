@@ -1,29 +1,36 @@
-A-01 archive-reelle-2 — PRET DE CODE POUR RELECTURE — 24 novembre 2026.
+A-01 archive-reelle-3 — PRET DE CODE POUR RELECTURE — 25 novembre 2026.
 
-Périmètre : briefs/A-01-archive-reelle-2.md, pas un GO d’import réel,
-de publication ou d’accès agent. Aucune archive Imagine ouverte.
+Brief : briefs/A-01-archive-reelle-3.md. Aucun GO d'import réel, de
+publication ou d'accès agent ; aucune archive Imagine ouverte.
 
-Deux exports produits par la vraie extension publique AI1WM 7.109 :
-WordPress fictif 7.0.9/PHP 8.2.36, sans réseau/port/montage.
-Grosse archive : 32 455 entrées, 1 511 054 151 octets ; médias générés
-1 184 933 028 octets, base 169 156 381 octets. Vrais PNG contrôlés.
-Diagnostic, fichiers conservés, exclusions sans lecture/extraction,
-import SQL et neutraliser/anonymiser/verifier réellement exécutés.
-Réglages plugins/thème du vrai package.json restaurés et relus.
-Diagnostic sous 256 Mio, résumé 15 lignes, plafonds CLI et refus disque testés.
+Inconnues en structure seule, politique de familles JSON v1 et décisions
+exactes prioritaires ; INSERT vidés sautés lexicalement en flux, préfixe
+résolu avant les lignes conservées. BLOB/hex/échappements éprouvés.
+Deux exclusions uploads, neutralisation complétée et tableau des 22
+extensions ; worker/Wordfence/SMTP/Matomo/Stripe désactivés, cron et
+tâches d'export/import supprimés, args/logs/commentaires/options traités.
+Résumé par famille et disque nécessaire/disponible, contrôle moteur conservé.
 
-91 tests hôte (83 verts, 8 branches Linux différées), 47 Linux (46 verts,
-1 branche Windows différée), 17 sécurité, 9 cas/337 assertions natives,
-lint PHP vert. Six nouveaux tests ciblés ; compteurs non additionnables.
-Trois seuls conteneurs créés supprimés et relus absents ; transports
-synthétiques hôte et ZIP public temporaire supprimés.
+Vrai export AI1WM 7.109 inchangé sur WordPress fictif 7.0.9/PHP 8.2.36.
+Deux restaurations opérateur hors ligne : 11 inconnues présentes/vides par
+défaut ; décisions explicites gardent deux BLOB intègres et anonymisent
+une colonne email. Aucun marqueur privé dans les données/fichiers contrôlés.
+Runtime mail/HTTP/cron/passerelles relu ; aucune publication nouvelle.
 
-Reçu courant : production/A-01/archive-reelle-2/2b2c796bf78b/qualification-89a75913.json
-Relecture : production/A-01/archive-reelle-2-final.json (PASS).
-Commande Ced et revérification parent : production/A-01/notes.md.
-Rapport court : production/A-01/archive-reelle-2-rapport.md.
+100 tests A01 Linux : 99 réussis, 1 branche Windows complétée sur NTFS ;
+9 tests Python nouveaux ; ancien banc natif 9 cas/337 assertions et 14 lints PHP PASS.
+Test PHP ciblé natif et 2 cas export/restauration PASS.
+Global : 1012 tests, 34006 assertions, 0 échec/erreur/ignoré. Aucun nouveau
+paquet Composer, image existante appropriée ; pas de reconstruction requise.
+Sources empreintées, noms des runners relus absents ; ZIP public temporaire retiré.
 
-CRC global différé pour ne pas lire les exclusions ; SQL fermé, instruction
-limitée à 16 Mio ; aucune nouvelle publication HTTP ou qualification
-commerciale. Les anciens reçus/PRET restent historiques, non requalifiés.
-Aucun Git, verrou, file, autre voie, outil partagé ou compte réel touché.
+Reçu final : production/A-01/archive-reelle-3-final.json (PASS).
+Export/restauration : production/A-01/archive-reelle-3/580210112ffe/result.json.
+Notes et limites : production/A-01/archive-reelle-3-notes.md.
+Rapport : files/rapports/2026-11-25-15h53.md.
+
+SQL conservé fermé, 16 Mio/instruction ; autres charsets/bits/expressions
+et commentaires au milieu des INSERT refusés. La grosse archive de la
+passe précédente, HTTP et extensions commerciales ne sont pas requalifiés.
+Les preuves antérieures restent historiques ; aucune règle métier changée.
+Aucun Git, verrou, file, source A03/A04, autre voie, compte réel ni Novamira touché.

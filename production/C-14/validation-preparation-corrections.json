@@ -1,0 +1,118 @@
+{
+  "at": "2026-11-25T14:43:25.271326+00:00",
+  "scope": "imagine-test-demo",
+  "status": "VERT",
+  "commands": [
+    {
+      "name": "image",
+      "argv": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\preparer-image.ps1"
+      ],
+      "exit": 0,
+      "log": "validation-image.log"
+    },
+    {
+      "name": "t01",
+      "argv": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\rejouer.ps1"
+      ],
+      "exit": 0,
+      "log": "validation-t01.log"
+    },
+    {
+      "name": "c14",
+      "argv": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "C:\\Users\\Ced\\imagine\\wp\\outils\\demo\\c14.py",
+        "--deploy-code"
+      ],
+      "exit": 0,
+      "log": "validation-c14.log"
+    },
+    {
+      "name": "regressions",
+      "argv": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "C:\\Users\\Ced\\imagine\\wp\\outils\\demo\\c14-regressions.py"
+      ],
+      "exit": 0,
+      "log": "validation-regressions.log"
+    },
+    {
+      "name": "phpcs",
+      "argv": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu",
+        "--",
+        "docker",
+        "run",
+        "--rm",
+        "--pull",
+        "never",
+        "--network",
+        "none",
+        "--read-only",
+        "--tmpfs",
+        "/tmp:rw,nosuid,nodev,size=16m,mode=1777",
+        "--cap-drop",
+        "ALL",
+        "--security-opt",
+        "no-new-privileges",
+        "--user",
+        "65534:65534",
+        "--mount",
+        "type=bind,source=/mnt/c/Users/Ced/imagine/wp,target=/repo/wp,readonly",
+        "--entrypoint",
+        "php",
+        "imagine-tests-t01:1",
+        "/opt/t01/imagine-site/vendor/bin/phpcs",
+        "--standard=PSR12",
+        "/repo/wp/plugins/imagine-site/AchatNumero.php",
+        "/repo/wp/plugins/imagine-site/AchatsNumeros.php",
+        "/repo/wp/plugins/imagine-site/tests/AchatNumeroTest.php"
+      ],
+      "exit": 0,
+      "log": "validation-phpcs.log"
+    }
+  ],
+  "PRET_before": "e3aa30e17c31e87514b080cc766f5cd29c4fc3ad5c5dadb4e886c971f9ca447b",
+  "shared_before": "5184daded8b1594202655bea845e2c9927af63f1ac3483fcf66bbda6dc01775a",
+  "T01": {
+    "tests": 1012,
+    "assertions": 34006,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass": true
+  },
+  "cleanup": {
+    "temporary_users": 0,
+    "temporary_posts": 0,
+    "refunds": 0,
+    "policy": "commande"
+  },
+  "shared_after": "5184daded8b1594202655bea845e2c9927af63f1ac3483fcf66bbda6dc01775a",
+  "shared_preserved": true,
+  "PRET_after": "e3aa30e17c31e87514b080cc766f5cd29c4fc3ad5c5dadb4e886c971f9ca447b",
+  "PRET_unchanged": true,
+  "resultats.json": {
+    "total": 686,
+    "sha256": "ad1c2dc7588e9d09a5fe052cb3309f0e85851593476ceb0f3b4b2d1e1642203c"
+  },
+  "regressions.json": {
+    "total": 205,
+    "sha256": "647a3e26814e16c793bb1e316d63a339f29a5925fca8f077d4c70c3004a78125"
+  },
+  "completed_at": "2026-11-25T14:49:04.718222+00:00"
+}

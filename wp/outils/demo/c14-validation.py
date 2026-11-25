@@ -74,6 +74,15 @@ echo wp_json_encode([
             if data['status'] != 'VERT':
                 raise RuntimeError('Reçu non vert : ' + filename)
             result[filename] = {'total': data['total'], 'sha256': hashlib.sha256((proof / filename).read_bytes()).hexdigest()}
+        result['sources_sha256'] = {str(p.relative_to(c14.ROOT)).replace('\\', '/'): hashlib.sha256(p.read_bytes()).hexdigest()
+            for p in [c14.ROOT / rel for rel in [
+                'wp/plugins/imagine-site/AchatNumero.php', 'wp/plugins/imagine-site/AchatsNumeros.php',
+                'wp/plugins/imagine-site/tests/AchatNumeroTest.php', 'wp/plugins/imagine-site/README.md',
+                'wp/outils/demo/c14.py', 'wp/outils/demo/c14-regressions.py', 'wp/outils/demo/c14-validation.py',
+                'wp/tests/demo/c14-unit.php', 'wp/tests/demo/c14-runtime.php', 'wp/tests/demo/c14-http.py',
+                'wp/tests/demo/c14-corrections-fixture.php', 'wp/tests/demo/c14-corrections-runtime.php',
+                'wp/tests/demo/c14-corrections-http.py', 'production/C-14/A-VOIR.md',
+                'production/C-14/RAPPORT.md', 'production/C-14/COMMANDES.md', 'production/C-14/PROPOSITIONS-DOCS.md']]}
         result['status'] = 'VERT'
         result['completed_at'] = datetime.now(timezone.utc).isoformat()
         print(json.dumps({k: result[k] for k in ['status', 'T01', 'cleanup', 'shared_preserved', 'PRET_unchanged']}, ensure_ascii=False), flush=True)

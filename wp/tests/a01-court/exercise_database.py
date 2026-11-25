@@ -64,6 +64,12 @@ def main():
         (out/'native-policy.log').write_bytes(p.stdout+p.stderr)
         result['native_policy_exit']=p.returncode
         if p.returncode: raise RuntimeError('NATIVE_POLICY_FAILED')
+        publish.call(['exec',name,'mkdir','-p','/scratch/native-data'])
+        native=publish.call(['exec','-e','PHP_BIN=/usr/bin/php','-e','IMAGINE_TEST_SCRATCH=/scratch/native-data',name,
+                            'python3','/checkout/wp/tests/staging-data/verify.py','--output','/report/a01-native-regression.json'],check=False)
+        (out/'native-regression.log').write_bytes(native.stdout+native.stderr)
+        result['native_regression']=publish.read_json(name,'/report/a01-native-regression.json')
+        if native.returncode or not result['native_regression']['ok']: raise RuntimeError('NATIVE_REGRESSION_FAILED')
         if not policy_only:
             program=(ROOT/'wp/tests/a01-court/ai1wm_prepare_inside.py').read_text()
             program=program.split("wp(['eval-file', '/opt/fixture.php', 'grow'")[0]

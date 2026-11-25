@@ -1,16 +1,16 @@
 {
   "status": "PASS",
-  "recorded_utc": "2026-11-25T14:52:51.837883+00:00",
+  "recorded_utc": "2026-11-25T14:57:35.891279+00:00",
   "scope": "A01/3 offline code qualification only; no real archive, site API or publication",
   "receipts": {
-    "unit": "production/A-01/archive-reelle/e6cac7bf98d8/result.json",
-    "e2e": "production/A-01/archive-reelle-3/5e0d52da836b/result.json",
+    "unit": "production/A-01/archive-reelle/322caa5c6533/result.json",
+    "e2e": "production/A-01/archive-reelle-3/580210112ffe/result.json",
     "global_log": "production/A-01/archive-reelle-3-global-final.log",
     "ntfs_log": "production/A-01/archive-reelle-3-ntfs.log"
   },
   "receipt_sha256": {
-    "unit": "2b64a4fa7b92eb0a06157c5a75862e68aeb2dc1660724247bf07edb326b3c1b3",
-    "e2e": "885bbc4bd9852bc132239162c90fe3c9435e855129f0a095711bdccc5a1837d5",
+    "unit": "23d16d0b76beedd07a26abad784eefb42ef01f8ad42854dce257ec0b7f20c8bf",
+    "e2e": "137ff05bab88eda84553d4421fd72264487c36a9da2726b91b57105ea83dc658",
     "global_log": "443a3a51acf7363d62dc7c97d7dc466fd056490a58bfe5c06f2c462b4a34b8bd",
     "ntfs_log": "44327b0b1138309b66207182685c625ab48a2b2ee04c1fcfdfe463ec38fc23c2"
   },
@@ -32,6 +32,11 @@
   },
   "new_composer_package": false,
   "image_rebuild_required": false,
+  "native_regression": {
+    "ok": true,
+    "cases": 9,
+    "assertions": 337
+  },
   "real_extension": {
     "version": "7.109",
     "sha256": "cc592ad8e929d6ddb14b46a70dc840a0571f8bd6addda36a9bbf007d0bb3b72f",
@@ -76,6 +81,7 @@
     "imagine-a01-diag-test-a49b706ae948",
     "imagine-a01-diag-test-a867c6788681",
     "imagine-a01-diag-test-b35628981fc6",
+    "imagine-a01-diag-test-b4c41baa1b9a",
     "imagine-a01-diag-test-f54e87d7af65",
     "imagine-t01-a9bdbaad19e24e3390e16a8509a2ffa1",
     "imagine-t01-cc86b67e82e645a0a54a71b230956be9",
@@ -86,6 +92,7 @@
     "imagine-test-a01-db3-31e998c29076",
     "imagine-test-a01-db3-40b7feddab6e",
     "imagine-test-a01-db3-45ee73882dc7",
+    "imagine-test-a01-db3-580210112ffe",
     "imagine-test-a01-db3-5e0d52da836b",
     "imagine-test-a01-db3-8997cc3e746e",
     "imagine-test-a01-db3-ba6f620d1d5d",
@@ -127,7 +134,7 @@
     "wp/tests/a01-court/database_fixture.php": "fd163bf025d6beea94f942661ad520e03311ef893182489c34a67a8a5d5bd11f",
     "wp/tests/a01-court/database_verify_inside.py": "103e4aa1e5ec9d9e409e50b5e837affb4d7b9fc4d83966f6a3ddd972ac9ce08b",
     "wp/tests/a01-court/exercise_archive_reelle.py": "61f14903d0488ea3958008c58cc360015b2d62b663c731779efe0b099a0ed4d4",
-    "wp/tests/a01-court/exercise_database.py": "f37281e39110cb4e09ccf280181cd5775b39ba4fa3a243b8e70ec2cb2ced1bd9",
+    "wp/tests/a01-court/exercise_database.py": "6f3c483f66e0b9c6e0c9669b52175c4f07edf978edd8dd8586d3fc29fafbc628",
     "wp/tests/a01-court/export.php": "2f42b0f076364e3289ba228394dc98e14b2b92a7a50a14af26d1f146dd4b0d33",
     "wp/tests/a01-court/roundtrip.py": "a07c5997421f40bd893af082dc4600c79c2d3740521a95f3fa7e763e628d1db8",
     "wp/tests/a01-court/test_arbitrations.py": "12e2445fc409a2567728b39dc2ab1e6ea720f2a014efa46117084614fc72eb2d",
@@ -143,7 +150,7 @@
     "wp/tests/a01-court/test_publication_preflight.py": "1f6dbf6400fab95b3a617cbd25a39de19e29ecb0d4ef621084007c5d9c93937b",
     "wp/tests/a01-court/test_qualification_receipts.py": "28f8463615274f832d16e86057c24063f2ac30e16e354360548f0db0c255bf3a",
     "wp/tests/a01-court/verify_correction_artifacts.py": "c8d82e1833d6610bf57a14e51439f69696bc5751edea01e5fea4e31338d70b49",
-    "wp/tests/a01-court/verify_database_delivery.py": "841b6d3db754972580087f0d46d4672b3a3fed545c7751f1ab9a9340f4d2a3e6",
+    "wp/tests/a01-court/verify_database_delivery.py": "a3d3e18e0a1683abcc1aec627d9fbcee14395cfc44f648ced058d84e015b2376",
     "wp/tests/a01-court/verify_publication.py": "f6df2f39bfe47c16f3d699410fafa7cc64b22d72a71df96ac20528294c83a5a5",
     "wp/tests/staging-data/commands.py": "20516cddd3f366aca2efbf215b8c8c2a06da019e2f23988d7165f5d743995f25",
     "wp/tests/staging-data/fixtures.php": "2c6d88066a988863c951b1ad133f28598170e8aaf7c03d7d5baf624ef0a97953",
