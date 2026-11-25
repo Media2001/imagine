@@ -1,0 +1,123 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Imagine\Site;
+
+use DateTimeImmutable;
+use DateTimeZone;
+
+/** Raccord CRUD Woo, sans table miroir ni rapprochement par adresse email. */
+final class AchatsNumeros
+{
+    public const PRODUIT = 'imagine_achat_numero_id';
+    public const LIGNE = '_imagine_achat_numero_id';
+
+    private static function identifiant(mixed $value): int
+    {
+        return (is_int($value) || is_string($value))
+            && preg_match('/\A[1-9][0-9]*\z/D', (string) $value)
+            && (string) (int) $value === (string) $value ? (int) $value : 0;
+    }
+
+    public static function numero($product): int
+    {
+        if (!$product instanceof \WC_Product || !$product->is_type('simple')
+            || $product->get_status() === 'trash') {
+            return 0;
+        }
+        $id = self::identifiant($product->get_meta(self::PRODUIT, true, 'edit'));
+        $issue = $id ? get_post($id) : null;
+        return $issue && $issue->post_type === 'imagine_numero' && $issue->post_status === 'publish' ? $id : 0;
+    }
+
+    /** Figé seulement à la création. Zéro interdit le rétro-octroi d'un ancien produit. */
+    public static function instantane($item): void
+    {
+        if ($item instanceof \WC_Order_Item_Product && !$item->get_id() && !$item->meta_exists(self::LIGNE)) {
+            $item->add_meta_data(self::LIGNE, self::numero($item->get_product()), true);
+        }
+    }
+
+    public static function droits(int $client): array
+    {
+        if ($client <= 0 || !function_exists('wc_get_orders')) {
+            return [];
+        }
+        $rights = [];
+        $page = 1;
+        do {
+            $result = wc_get_orders(['type' => 'shop_order', 'customer_id' => $client,
+                'status' => ['wc-processing', 'wc-completed'], 'limit' => 50,
+                'paged' => $page++, 'paginate' => true, 'return' => 'objects', 'orderby' => 'ID', 'order' => 'ASC']);
+            if (!is_object($result) || !isset($result->orders, $result->max_num_pages)) {
+                throw new \RuntimeException('Lecture des achats indisponible.');
+            }
+            foreach ($result->orders as $order) {
+                if (!$order instanceof \WC_Order || $order->get_type() !== 'shop_order'
+                    || (int) $order->get_customer_id() !== $client) {
+                    throw new \RuntimeException('Propriétaire de commande incohérent.');
+                }
+                $paid = $order->get_date_paid('edit');
+                $acquired = $paid ? (new DateTimeImmutable('@' . $paid->getTimestamp()))->setTimezone(new DateTimeZone('UTC')) : null;
+                // Tout remboursement, même partiel/sans ventilation, retire la commande.
+                // Un autre achat valide du même numéro garde son propre droit.
+                $refunded = $order->get_refunds() !== [] || (float) $order->get_total_refunded() > 0;
+                foreach ($order->get_items('line_item') as $item) {
+                    $right = AchatNumero::droit($client, [
+                        'client' => (int) $order->get_customer_id(), 'etat' => $order->get_status('edit'),
+                        'payee' => $order->is_paid(), 'acquis' => $acquired, 'remboursement' => $refunded,
+                        'numero' => self::numero($item->get_product()),
+                        'instantane' => self::identifiant($item->get_meta(self::LIGNE, true, 'edit')),
+                        'quantite' => $item->get_quantity(),
+                    ]);
+                    if ($right !== null) {
+                        $rights[] = $right;
+                    }
+                }
+            }
+        } while ($page <= (int) $result->max_num_pages);
+        return $rights;
+    }
+
+    public static function champ(): void
+    {
+        global $product_object;
+        $options = ['0' => __('Aucun accès au numéro', 'imagine-site')];
+        foreach (get_posts(['post_type' => 'imagine_numero', 'post_status' => 'publish',
+            'numberposts' => -1, 'orderby' => 'ID', 'order' => 'DESC']) as $issue) {
+            $options[(string) $issue->ID] = $issue->post_title . ' (#' . $issue->ID . ')';
+        }
+        woocommerce_wp_select(['id' => self::PRODUIT, 'label' => __('Numéro à l’unité', 'imagine-site'),
+            'value' => $product_object ? $product_object->get_meta(self::PRODUIT, true, 'edit') : '0',
+            'options' => $options, 'wrapper_class' => 'show_if_simple',
+            'description' => __('Modèle provisoire : un seul numéro, articles et PDF. Réaffecter ou vider ferme les anciens achats, sans les déplacer.', 'imagine-site')]);
+    }
+
+    public static function enregistrer($product): void
+    {
+        // Le nonce et la capacité natifs Woo sont vérifiés avant ce hook ; défense explicite.
+        if (!current_user_can('edit_post', $product->get_id()) || !isset($_POST[self::PRODUIT])) {
+            return;
+        }
+        $id = self::identifiant(wp_unslash($_POST[self::PRODUIT]));
+        $issue = $id ? get_post($id) : null;
+        if ($product->is_type('simple') && $issue && $issue->post_type === 'imagine_numero'
+            && $issue->post_status === 'publish') {
+            $product->update_meta_data(self::PRODUIT, $id);
+        } else {
+            $product->delete_meta_data(self::PRODUIT);
+        }
+    }
+
+    public static function register(): void
+    {
+        add_action('woocommerce_before_order_item_object_save', [self::class, 'instantane'], 10, 1);
+        add_action('woocommerce_product_options_general_product_data', [self::class, 'champ']);
+        add_action('woocommerce_admin_process_product_object', [self::class, 'enregistrer']);
+        add_filter('woocommerce_hidden_order_itemmeta', static function (array $keys): array {
+            $keys[] = self::LIGNE;
+            return $keys;
+        });
+    }
+}

@@ -99,6 +99,8 @@ def run_storage(storage):
                 shutil.copyfile(state/filename,OUT/(storage+'-failed-'+filename))
             pending=a03.sql(db,"SELECT hook,status,COUNT(*) AS count FROM wp_actionscheduler_actions WHERE status IN ('pending','in-progress','failed') GROUP BY hook,status ORDER BY hook,status")
             diagnostic=a03.sql(db,"SELECT action_id,JSON_KEYS(args) AS arg_keys,JSON_UNQUOTE(JSON_EXTRACT(args,'$.update_callback')) AS named_callback,JSON_UNQUOTE(JSON_EXTRACT(args,'$[0]')) AS positional_callback FROM wp_actionscheduler_actions WHERE hook='woocommerce_run_update_callback' AND status='pending'")
+            batches=a03.sql(db,"SELECT option_name,OCTET_LENGTH(option_value) AS bytes FROM wp_options WHERE option_name LIKE '%\\\\_batch\\\\_%' ORDER BY option_name")
+            (OUT/(storage+'-batch-identifiers.tsv')).write_text(batches.stdout)
             (OUT/(storage+'-callback-identifiers.tsv')).write_text(diagnostic.stdout)
             (OUT/(storage+'-pending-identifiers.tsv')).write_text(pending.stdout)
         check(storage+':resumed',resumed.returncode==0,{'exit':resumed.returncode,'code':resumed.stderr[:200]})

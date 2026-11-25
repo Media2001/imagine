@@ -38,6 +38,10 @@ Decouverte::register();
 require_once __DIR__ . '/DecouverteReglages.php';
 DecouverteReglages::register();
 
+require_once __DIR__ . '/AchatNumero.php';
+require_once __DIR__ . '/AchatsNumeros.php';
+AchatsNumeros::register();
+
 require_once __DIR__ . '/Paywall.php';
 Paywall::register();
 

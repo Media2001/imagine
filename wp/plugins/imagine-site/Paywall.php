@@ -57,7 +57,9 @@ final class Paywall
             }
             $userId = get_current_user_id();
             $key = get_current_blog_id() . ':' . $post->ID . ':' . $userId;
-            if (isset(self::$decisions[$key])) {
+            // C14 : les commandes/lignes/remboursements restent une source vivante.
+            // Aucun ancien accord connecté n'est réutilisé, même dans la même requête.
+            if ($userId === 0 && isset(self::$decisions[$key])) {
                 return self::$decisions[$key];
             }
             $flag = get_post_meta($post->ID, 'imagine_reserve', true);
@@ -157,7 +159,7 @@ final class Paywall
         if (!function_exists('wc_memberships_get_user_memberships') || !function_exists('wcs_get_subscription')) {
             throw new \RuntimeException('Extensions de droits indisponibles.');
         }
-        $rights = [];
+        $rights = AchatsNumeros::droits($userId);
         $user = get_userdata($userId);
         if ($user && array_intersect(['administrator', 'editor', 'imagine_referent_abonnements'], $user->roles)) {
             $rights[] = ['type' => 'equipe', 'role' => in_array('administrator', $user->roles, true) ? 'administration' : 'redaction'];
