@@ -20,15 +20,33 @@ final class AchatsNumeros
             'type' => 'string',
             'sanitize_callback' => static fn ($value): string => $value === 'ligne' ? 'ligne' : 'commande',
         ]);
-        add_settings_section('imagine_achats', __('Achats de numéros', 'imagine-site'), '__return_false', 'imagine-achats');
-        add_settings_field(self::REMBOURSEMENT, __('Portée des remboursements', 'imagine-site'), static function (): void {
-            echo '<select name="' . esc_attr(self::REMBOURSEMENT) . '">';
-            foreach (['commande' => __('Toute la commande (défaut prudent)', 'imagine-site'),
-                'ligne' => __('Seulement les lignes remboursées', 'imagine-site')] as $value => $label) {
-                echo '<option value="' . esc_attr($value) . '" ' . selected(get_option(self::REMBOURSEMENT, 'commande'), $value, false) . '>' . esc_html($label) . '</option>';
-            }
-            echo '</select><p>' . esc_html__('À confirmer par Imagine. Par ligne : un partiel non ventilé ne retire aucun numéro ; un remboursement complet ferme toujours tout.', 'imagine-site') . '</p>';
-        }, 'imagine-achats', 'imagine_achats');
+        add_settings_section(
+            'imagine_achats',
+            __('Achats de numéros', 'imagine-site'),
+            '__return_false',
+            'imagine-achats'
+        );
+        add_settings_field(
+            self::REMBOURSEMENT,
+            __('Portée des remboursements', 'imagine-site'),
+            static function (): void {
+                echo '<select name="' . esc_attr(self::REMBOURSEMENT) . '">';
+                $labels = ['commande' => __('Toute la commande (défaut prudent)', 'imagine-site'),
+                    'ligne' => __('Seulement les lignes remboursées', 'imagine-site')];
+                foreach ($labels as $value => $label) {
+                    echo '<option value="' . esc_attr($value) . '" '
+                        . selected(get_option(self::REMBOURSEMENT, 'commande'), $value, false)
+                        . '>' . esc_html($label) . '</option>';
+                }
+                echo '</select><p>' . esc_html__(
+                    'À confirmer par Imagine. Par ligne : un partiel non ventilé ne retire aucun numéro ; '
+                    . 'un remboursement complet ferme toujours tout.',
+                    'imagine-site'
+                ) . '</p>';
+            },
+            'imagine-achats',
+            'imagine_achats'
+        );
     }
 
     public static function ecran(): void
@@ -36,7 +54,8 @@ final class AchatsNumeros
         if (!current_user_can('manage_options')) {
             wp_die(esc_html__('Accès refusé.', 'imagine-site'));
         }
-        echo '<div class="wrap"><h1>' . esc_html__('Achats de numéros', 'imagine-site') . '</h1><form method="post" action="options.php">';
+        echo '<div class="wrap"><h1>' . esc_html__('Achats de numéros', 'imagine-site')
+            . '</h1><form method="post" action="options.php">';
         settings_fields('imagine_achats');
         do_settings_sections('imagine-achats');
         submit_button();
@@ -127,7 +146,8 @@ final class AchatsNumeros
                             isset($refundedLines[$item->get_id()])
                         ),
                         'instantane' => $snapshot,
-                        'publie' => $issue && $issue->post_type === 'imagine_numero' && $issue->post_status === 'publish',
+                        'publie' => $issue && $issue->post_type === 'imagine_numero'
+                            && $issue->post_status === 'publish',
                         'quantite' => $item->get_quantity(),
                     ]);
                     if ($right !== null) {
@@ -152,7 +172,7 @@ final class AchatsNumeros
             'value' => $product_object ? $product_object->get_meta(self::PRODUIT, true, 'edit') : '0',
             'options' => $options, 'wrapper_class' => 'show_if_simple',
             'description' => __('Modèle provisoire : un seul numéro, articles et PDF.', 'imagine-site') . ' '
-                . __('Réaffecter ou vider ne change que les achats suivants ; le numéro acquis est conservé.', 'imagine-site')]);
+                . __('Réaffecter ou vider : seuls les achats suivants changent.', 'imagine-site')]);
     }
 
     public static function enregistrer($product): void
@@ -177,8 +197,13 @@ final class AchatsNumeros
     {
         add_action('admin_init', [self::class, 'reglages']);
         add_action('admin_menu', static function (): void {
-            add_options_page(__('Achats de numéros', 'imagine-site'), __('Achats de numéros', 'imagine-site'),
-                'manage_options', 'imagine-achats', [self::class, 'ecran']);
+            add_options_page(
+                __('Achats de numéros', 'imagine-site'),
+                __('Achats de numéros', 'imagine-site'),
+                'manage_options',
+                'imagine-achats',
+                [self::class, 'ecran']
+            );
         });
         add_action('woocommerce_before_order_item_object_save', [self::class, 'instantane'], 10, 1);
         add_action('woocommerce_product_options_general_product_data', [self::class, 'champ']);

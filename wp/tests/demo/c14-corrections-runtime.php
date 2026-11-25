@@ -38,7 +38,8 @@ try {
         $checks['catalogue_reaffecte_A_conserve_B_ferme'] = C\decisions($f) === $expected;
         // Un achat suivant prend B, sans changer l'instantané de la première ligne.
         $next = $o->add_product($p, 1, ['subtotal' => '0', 'total' => '0']); $o->save();
-        $checks['achat_suivant_B_seulement'] = (int) wc_get_order_item_meta($next, AchatsNumeros::LIGNE, true) === $f['issues']['b']
+        $checks['achat_suivant_B_seulement'] = C\decisions($f) === ['a' => [true, true], 'b' => [true, true]]
+            && (int) wc_get_order_item_meta($next, AchatsNumeros::LIGNE, true) === $f['issues']['b']
             && (int) wc_get_order_item_meta($f['items']['a'], AchatsNumeros::LIGNE, true) === $f['issues']['a'];
         $o->remove_item($next); $o->save();
         $p->delete_meta_data(AchatsNumeros::PRODUIT); $p->save();

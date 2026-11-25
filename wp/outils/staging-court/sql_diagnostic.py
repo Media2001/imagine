@@ -4,10 +4,10 @@ from sql_stream import Framer, Validator
 
 
 class SQLAnalysis:
-    def __init__(self, findings, decisions):
+    def __init__(self, findings, decisions, schema_only=False, prefix=None):
         from diagnosis import parser_module
         self.findings, self.decisions = findings, decisions
-        self.validator = Validator(parser_module(), findings=findings, decisions=decisions)
+        self.validator = Validator(parser_module(), findings=findings, decisions=decisions, schema_only=schema_only, prefix=prefix)
         self.framer = Framer(self.validator.statement)
         self.failed = False
 
@@ -25,7 +25,8 @@ class SQLAnalysis:
             try: self.framer.finish()
             except Refusal as exc: f.add(str(exc))
         v.finish()
-        check_schema(v, f)
+        if not v.schema_only:
+            check_schema(v, f)
         self.table_summary, self.unclassified = v.policy.summary(v.schemas, v.prefix)
 
 

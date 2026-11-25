@@ -93,6 +93,15 @@ class ArchiveReelle3(unittest.TestCase):
         report, _ = self.analyze(base()+b'CREATE TABLE `wp_fiction` (`id` bigint DEFAULT \xff) ENGINE=InnoDB;')
         self.assertTrue(report['blockers'])
 
+    def test_catalogue_suffix_cannot_open_an_unknown_before_options(self):
+        from sql_stream import validate_file
+        sql = (b'CREATE TABLE `wp_fiction_users` (`id` bigint,`payload` text) ENGINE=InnoDB;'
+               b"INSERT INTO `wp_fiction_users` VALUES (1,'FICTION_MUST_DROP');") + base()
+        with tempfile.TemporaryDirectory() as tmp:
+            src, dst = Path(tmp)/'src', Path(tmp)/'dst'; src.write_bytes(sql)
+            validate_file(src, diagnosis.parser_module(), dst)
+            self.assertNotIn(b'FICTION_MUST_DROP', dst.read_bytes())
+
     def test_summary_families_and_space(self):
         report={'status':'NO_STATIC_BLOCKER','rules':[], 'table_families':[{'family':'matomo_*','count':185,'action':'videe'}],
                 'unclassified_tables':['wp_fiction'], 'disk_space':{'required_bytes':1234,'available_bytes':5678}}

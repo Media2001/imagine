@@ -138,11 +138,12 @@ def canonical(tokens):
 
 class Validator:
     """Retain schema identifiers/DDL only, never rows or whole-dump tokens."""
-    def __init__(self, module, findings=None, sink=None, decisions=None):
+    def __init__(self, module, findings=None, sink=None, decisions=None, schema_only=False, prefix=None):
         self.module, self.findings, self.sink = module, findings, sink
         self.schemas, self.engines, self.inserts = {}, {}, set()
         self.option_names = set()
-        self.prefix = None
+        self.prefix = prefix
+        self.schema_only = schema_only
         self.transaction = False
         self.statements = self.bytes = 0
         self.skipped_inserts = 0
@@ -156,9 +157,10 @@ class Validator:
         return None
 
     def skip_insert(self, table):
-        if table not in self.schemas: return False
-        decision, _ = self.policy.resolve(table, self.inferred_prefix(table))
-        if decision.get('action') != 'vider': return False
+        if not self.schema_only:
+            if table not in self.schemas: return False
+            decision, _ = self.policy.resolve(table, self.inferred_prefix(table))
+            if decision.get('action') != 'vider': return False
         self.inserts.add(table)
         self.skipped_inserts += 1
         self.statements += 1
@@ -296,8 +298,17 @@ class Validator:
 
 
 def validate_file(path, module, destination, decisions=None):
+    # First pass retains schema only and skips EVERY row lexically. The exact
+    # options prefix is therefore known before choosing which INSERTs to keep,
+    # even if a preceding unknown table happens to end in a catalogue suffix.
+    with open(path, 'rb') as source:
+        schema = Validator(module, schema_only=True)
+        frame = Framer(schema.statement)
+        while data := source.read(1024 * 1024): frame.feed(data)
+        frame.finish()
+        prefix = schema.finish()['prefix']
     with open(path, 'rb') as source, open(destination, 'xb') as sink:
-        validator = Validator(module, sink=sink, decisions=decisions)
+        validator = Validator(module, sink=sink, decisions=decisions, prefix=prefix)
         framer = Framer(validator.statement)
         while data := source.read(1024 * 1024):
             framer.feed(data)

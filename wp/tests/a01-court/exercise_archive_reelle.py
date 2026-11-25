@@ -25,6 +25,9 @@ def main():
     files = list(TOOLS.glob('*.py')) + [TOOLS / 'politique-tables.json'] + list((ROOT / 'wp/tests/a01-court').glob('test_*.py'))
     files += [Path(__file__), ROOT / 'wp/outils/staging/schema.php', ROOT / 'wp/outils/staging/lib.php',
               ROOT / 'wp/outils/staging/policy.php', ROOT / 'wp/outils/staging-wp-integration/worker/worker.py']
+    files += [ROOT / 'wp/tests/a01-court' / f for f in ('verify_publication.py', 'verify_correction_artifacts.py')]
+    files += [TOOLS / 'script_capacity_probe.php', ROOT / 'production/A-01/publication-23nov/52170a14f7a7/result.json']
+    files += [ROOT / 'production/A-01/publication-22nov' / case / 'result.json' for case in ('a6ca179f2442', '79cef0705045')]
     stream = io.BytesIO()
     manifest = {}
     with tarfile.open(fileobj=stream, mode='w') as tar:
@@ -45,7 +48,7 @@ def main():
         result['isolation_before'] = publish.offline_isolation(name)
         publish.call(['start', name])
         publish.call(['exec', '-i', name, 'tar', '-xf', '-', '-C', '/'], stream.getvalue())
-        publish.call(['exec', name, 'mkdir', '-p', '/scratch/tests'])
+        publish.call(['exec', name, 'mkdir', '-p', '/scratch/tests', '/root/AppData/Local/hermes/cache/scratch'])
         command = ['exec', '-e', 'PYTHONDONTWRITEBYTECODE=1', '-e', 'TMPDIR=/scratch/tests',
                    '-e', 'PYTHONPATH=/checkout/wp/outils/staging-court', name, 'python3', '-m', 'unittest', 'discover',
                    '-s', '/checkout/wp/tests/a01-court', '-p', sys.argv[1] if len(sys.argv) > 1 else 'test_archive_reelle.py', '-v']

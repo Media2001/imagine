@@ -219,19 +219,38 @@ def diagnose(stream, expected='6.9.1', decisions=None, php='8.2', max_bytes=DEFA
     plugins = []
     sql_analysis = None
     table_families, unclassified_tables = [], []
+    sql_start = sql_length = 0
     def observe(relative, data, final):
-        nonlocal tail, head, dangerous, sql_analysis, sql_count
+        nonlocal tail, head, dangerous, sql_analysis, sql_count, sql_start, sql_length
         if relative == 'database.sql':
             if sql_analysis is None:
                 sql_count += 1
-                sql_analysis = SQLAnalysis(findings, decisions)
+                sql_analysis = SQLAnalysis(Findings(), {}, schema_only=True)
+                sql_start, sql_length = stream.tell() - len(data), 0
             if final:
+                sql_analysis.finish()
+                # Two bounded passes over database.sql only; never seek into an
+                # excluded file. No temporary SQL file in a read-only diagnosis.
+                prefix = sql_analysis.validator.prefix
+                end = stream.tell()
+                stream.seek(sql_start)
+                sql_analysis = SQLAnalysis(findings, decisions, prefix=prefix)
+                remaining = sql_length
+                while remaining:
+                    chunk = stream.read(min(1024 * 1024, remaining))
+                    if not chunk:
+                        findings.add('ARCHIVE_TRUNCATED')
+                        break
+                    sql_analysis.feed(chunk)
+                    remaining -= len(chunk)
+                stream.seek(end)
                 sql_analysis.finish()
                 table_families.extend(sql_analysis.table_summary)
                 unclassified_tables.extend(sql_analysis.unclassified)
                 sql_analysis = None
             else:
                 sql_analysis.feed(data)
+                sql_length += len(data)
             return
         if not final:
             if secret_candidate(relative):
@@ -258,7 +277,9 @@ def diagnose(stream, expected='6.9.1', decisions=None, php='8.2', max_bytes=DEFA
         nonlocal version, manifest_count, sql_count
         if relative == 'database.sql':
             sql_count += 1
-            analysis = SQLAnalysis(findings, decisions)
+            schema = SQLAnalysis(Findings(), {}, schema_only=True)
+            schema.feed(payload); schema.finish()
+            analysis = SQLAnalysis(findings, decisions, prefix=schema.validator.prefix)
             analysis.feed(payload)
             analysis.finish()
             table_families.extend(analysis.table_summary)

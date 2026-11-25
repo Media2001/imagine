@@ -8,6 +8,7 @@ use DateTimeImmutable;
 use Imagine\Site\AchatNumero;
 use PHPUnit\Framework\TestCase;
 
+// phpcs:disable PSR1.Files.SideEffects -- Banc autonome et T01, même source pure.
 require_once dirname(__DIR__) . '/AchatNumero.php';
 
 final class AchatNumeroTest extends TestCase
