@@ -227,7 +227,12 @@ foreach ($rows as $row) {
             $order->add_item($shipping);
         }
         $order->calculate_totals(false);
-        $order->set_status('on-hold');
+        $paidInitial = in_array($key, ['A-CARTE', 'A-PAYPAL', 'A-ETRANGER', 'A-SANSMAIL', 'A-ECHEANCE', 'A-NONRENOUV', 'A-SEPA4', 'A-PAPIER'], true);
+        $order->update_meta_data('imagine_demo_fictif', '1');
+        $order->set_payment_method_title('Paiement fictif de démonstration');
+        $order->set_customer_note('FICTIF C09 : état natif de démonstration, aucun règlement, mandat ou transaction réel.');
+        $order->set_status($paidInitial ? 'processing' : 'on-hold');
+        $order->set_date_paid($paidInitial ? $now->modify('-335 days')->getTimestamp() : null);
         $order->save();
         if ($key === 'P-NUMERO') {
             require_once __DIR__ . '/c14-profil.php';
@@ -295,6 +300,13 @@ foreach ($rows as $row) {
         $member->update_status(match ($row['native'] ?? '') { 'grace', 'suspended' => 'paused', 'pending' => 'pending', 'expired' => 'expired', default => 'active' });
         $manifest['memberships'][$key] = $member->get_id();
     }
+}
+// Finaliser depuis une instance fraîche : les hooks natifs d'adhésion/statut peuvent
+// relire la commande parente pendant le seed. Aucun payment_complete()/transport.
+foreach (['A-CARTE', 'A-PAYPAL', 'A-ETRANGER', 'A-SANSMAIL', 'A-ECHEANCE', 'A-NONRENOUV', 'A-SEPA4', 'A-PAPIER'] as $key) {
+    $paid = wc_get_order($manifest['orders'][$key]);
+    $paid->set_date_paid($now->modify('-335 days')->getTimestamp());
+    $paid->save();
 }
 update_option('imagine_c09_fixture', $manifest);
 update_option('imagine_c09_seeded_at', $now->format('Y-m-d H:i:s'));

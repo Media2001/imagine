@@ -1,0 +1,41 @@
+{
+  "schema": "imagine-a05-v1",
+  "site_status": "verified-staging",
+  "plugins": [
+    {"plugin": "woocommerce", "action": "garder", "uninstall": false},
+    {"plugin": "woocommerce-subscriptions", "action": "garder", "uninstall": false},
+    {"plugin": "woocommerce-memberships", "action": "garder", "uninstall": false},
+    {"plugin": "woocommerce-subscription-downloads", "action": "garder", "uninstall": false},
+    {"plugin": "woocommerce-gateway-stripe", "action": "garder", "uninstall": false},
+    {"plugin": "woocommerce-product-addons", "action": "garder", "uninstall": false},
+    {"plugin": "flexible-checkout-fields", "action": "garder", "uninstall": false},
+    {"plugin": "woo-order-export-lite", "action": "garder", "uninstall": false},
+    {"plugin": "advanced-custom-fields-pro", "action": "garder", "uninstall": false},
+    {"plugin": "custom-post-type-ui", "action": "garder", "uninstall": false},
+    {"plugin": "wp-all-import-pro", "action": "garder", "uninstall": false},
+    {"plugin": "wpai-acf-add-on", "action": "garder", "uninstall": false},
+    {"plugin": "wp-all-export", "action": "garder", "uninstall": false},
+    {"plugin": "wordpress-seo", "action": "garder", "uninstall": false},
+    {"plugin": "matomo", "action": "garder", "uninstall": false},
+    {"plugin": "wordfence", "action": "garder", "uninstall": false},
+    {"plugin": "fluent-smtp", "action": "garder", "uninstall": false},
+    {"plugin": "simple-file-list", "action": "garder", "uninstall": false},
+    {"plugin": "loco-translate", "action": "garder", "uninstall": false},
+    {"plugin": "user-switching", "action": "garder", "uninstall": false},
+    {"plugin": "regenerate-thumbnails", "action": "garder", "uninstall": false},
+    {"plugin": "worker", "action": "garder", "uninstall": false}
+  ],
+  "tables": [
+    {"match": "prefix", "name": "ahm_", "action": "garder"},
+    {"match": "prefix", "name": "matomo_", "action": "garder"},
+    {"match": "exact", "name": "fsmpt_email_logs", "action": "garder"}
+  ],
+  "options": [],
+  "cron": [],
+  "uploads": [
+    {"path": "wpallexport", "action": "garder"},
+    {"path": "memberships_csv_exports", "action": "garder"},
+    {"path": "wc-logs", "action": "garder"}
+  ],
+  "table_owners": {}
+}
