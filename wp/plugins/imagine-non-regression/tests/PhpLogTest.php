@@ -30,6 +30,38 @@ final class PhpLogTest extends TestCase
         }
     }
 
+    public function testProbeIsBracketedByUtcTimestampsAndItsSilentLogIsCounted(): void
+    {
+        [$result, $log] = PhpLog::during($this->file, function (): string {
+            file_put_contents($this->file, '[' . gmdate('d-M-Y H:i:s') . " UTC] PHP Warning: SILENT_CANARY\n");
+            return 'healthy-http-200';
+        });
+        self::assertSame('healthy-http-200', $result);
+        self::assertSame(1, $log['errors']);
+        self::assertLessThanOrEqual(PhpLog::timestamp($log['until_utc']), PhpLog::timestamp($log['from_utc']));
+    }
+
+    public function testRotationDuringProbeIsBlocking(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('A03_PHP_LOG_READ');
+        PhpLog::during($this->file, function (): void {
+            rename($this->file, $this->file . '-link');
+            file_put_contents($this->file, '');
+            unlink($this->file . '-link');
+        });
+    }
+
+    public function testTruncationOrRewriteDuringProbeIsBlocking(): void
+    {
+        file_put_contents($this->file, "[24-Nov-2026 00:00:00 UTC] PHP Warning: old\n");
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('A03_PHP_LOG_READ');
+        PhpLog::during($this->file, function (): void {
+            file_put_contents($this->file, "[24-Nov-2026 00:00:00 UTC] PHP Warning: new\n");
+        });
+    }
+
     public function testEmptyReadableLogIsACompleteZeroResult(): void
     {
         self::assertSame(['checked' => true, 'from_utc' => self::FROM,

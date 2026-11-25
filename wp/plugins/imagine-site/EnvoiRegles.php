@@ -40,6 +40,37 @@ final class EnvoiRegles
         return new Calendrier($numbers);
     }
 
+    /** Refuse suppression, déplacement rétroactif ou réécriture d'un numéro clos. */
+    public static function reviserCalendrier(array $before, array $after, DateTimeImmutable $now): array
+    {
+        $old = self::calendrier($before);
+        $new = self::calendrier($after);
+        $indexed = [];
+        foreach ($new->numeros as $n) {
+            $indexed[$n->id] = $n;
+        }
+        foreach ($old->numeros as $n) {
+            if (!isset($indexed[$n->id])) {
+                throw new \LogicException('Suppression d’un numéro historique refusée.');
+            }
+            if ($indexed[$n->id] != $n) {
+                $old = $old->modifier($indexed[$n->id], $now);
+            }
+            unset($indexed[$n->id]);
+        }
+        foreach ($indexed as $added) {
+            if ($added->estCloture($now)) {
+                throw new \LogicException('Ajout rétroactif refusé.');
+            }
+            foreach ($old->numeros as $n) {
+                if ($n->estCloture($now) && $n->type === $added->type && $added->sortie <= $n->sortie) {
+                    throw new \LogicException('Ajout changeant un rang clos refusé.');
+                }
+            }
+        }
+        return $after;
+    }
+
     public static function calculer(string $code, array $events, DateTimeImmutable $now, array $rows): array
     {
         $calendar = self::calendrier($rows);
@@ -102,6 +133,7 @@ final class EnvoiRegles
                 }
                 $due = [];
                 $paid = false;
+                $complete = true;
                 $blocks[(string) $id] = [];
                 foreach ($years as [$block, $payment]) {
                     $ids = array_map(static fn (Numero $n): string => $n->id, $engine->numeros($block));
@@ -110,6 +142,7 @@ final class EnvoiRegles
                     }
                     $blocks[(string) $id][] = ['debut' => $block->debut->format(DATE_ATOM), 'numeros' => $ids,
                         'non_resolus' => $engine->nonResolus($block)];
+                    $complete = $complete && $engine->nonResolus($block) === 0;
                     if (in_array($code, $ids, true)) {
                         $paid = $payment !== null && $payment < $number->cloture->getTimestamp();
                     }
@@ -129,11 +162,15 @@ final class EnvoiRegles
                     $state = 'suspendu';
                     $people = [];
                 }
+                if (!$complete) {
+                    $state = 'suspendu';
+                }
                 // Un seul état retenu par observation ; les bénéficiaires libres ne sont pas des personnes.
-                $situations[] = new Situation(max($start, $recorded), $recorded, $state, $paid, $due, $people, $end);
+                $situations = [new Situation(max($start, $recorded), $recorded, $state, $paid, $due, $people, $end)];
                 $last = $data;
                 $reason = match (true) {
                     !$resolved => 'beneficiaires_non_resolus',
+                    !$complete => 'calendrier_incomplet',
                     $state === 'expire', $end !== null && $end <= $number->cloture => 'expire',
                     $state === 'suspendu' => 'suspendu', $state === 'attente' => 'virement_non_valide',
                     !$paid && $state !== 'grace' => 'paiement_non_valide',
@@ -143,7 +180,8 @@ final class EnvoiRegles
             $subscriptions[] = new Abonnement((string) $id, $last['origine'] ?? 'abonnement', $creation, $situations);
             $exclusions[(string) $id] = ['abonnement_id' => (string) $id,
                 'destinataire' => $last['destinataire'], 'motif' => $reason];
-            $blocked = $blocked || in_array($reason, ['historique_indisponible', 'beneficiaires_non_resolus'], true);
+            $blocked = $blocked || in_array($reason,
+                ['historique_indisponible', 'beneficiaires_non_resolus', 'calendrier_incomplet'], true);
         }
         $list = ListeEnvoi::etablir($number, $calendar, $subscriptions, $number->cloture);
         $belgium = 0;

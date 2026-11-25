@@ -83,7 +83,9 @@ def install(storage):
     (site / '.imagine-staging-verified.json').write_text(json.dumps(marker))
     # The marker is synthetic input only; the subject independently checks native runtime safety.
     sql('mysql', "CREATE USER 'a03_" + storage + "'@'localhost' IDENTIFIED BY ''; GRANT SELECT ON " + db + ".* TO 'a03_" + storage + "'@'localhost';")
-    settings = {'as_of_month': '2026-11', 'restricted_ids': [seed['restricted']], 'open_id': seed['open'], 'pages': {k: {'path': path, 'marker': 'A03_PAGE_MARKER'} for k, path in seed['pages'].items()}}
+    log_path = ROOT / (storage + '-php-errors.log')
+    log_path.write_text('')
+    settings = {'php_error_log': str(log_path), 'as_of_month': '2026-11', 'restricted_ids': [seed['restricted']], 'open_id': seed['open'], 'pages': {k: {'path': path, 'marker': 'A03_PAGE_MARKER'} for k, path in seed['pages'].items()}}
     settings_path = ROOT / (storage + '-settings.json')
     settings_path.write_text(json.dumps(settings))
     return site, db, seed, config, settings_path
@@ -94,7 +96,8 @@ def snapshot(site, settings, target, extra=None):
 def run_storage(storage):
     site, db, seed, config, settings = install(storage)
     (site / 'wp-config.php').write_text(config.replace("define('DB_USER', 'root')", "define('DB_USER', 'a03_" + storage + "')"))
-    server = subprocess.Popen(['php', '-d', 'log_errors=0', '-d', 'display_errors=0', '-S', '127.0.0.1:18803', '-t', str(site)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    log_path = pathlib.Path(json.loads(settings.read_text())['php_error_log'])
+    server = subprocess.Popen(['php', '-d', 'log_errors=1', '-d', 'display_errors=0', '-d', 'date.timezone=UTC', '-d', 'error_log=' + str(log_path), '-S', '127.0.0.1:18803', '-t', str(site)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     time.sleep(.5)
     try:
         before_db, before_files = fingerprint(db), filemap(site)
@@ -108,6 +111,7 @@ def run_storage(storage):
         p = snapshot(site, settings, target)
         check(storage + ':snapshot_cli', p.returncode == 0 and (target / 'non-regression.json').exists(), {'exit': p.returncode, 'stderr': p.stderr[:160]})
         a = json.loads((target / 'non-regression.json').read_text())
+        check(storage + ':php_log_checked_bounded_and_clean', a.get('php_log', {}).get('checked') is True and a['php_log']['errors'] == 0 and a['php_log']['from_utc'] <= a['php_log']['until_utc'])
         check(storage + ':ordinary_not_admin_represents_none', a['samples'].get('none:none') == seed['ordinary'] and a['access'].get(str(seed['ordinary']) + ':' + str(seed['restricted'])) is False and not any(key.startswith('1:') for key in a['access']))
         check(storage + ':storage', a['storage'] == storage)
         check(storage + ':rights_matrix', a['access'][str(seed['users'][0]) + ':' + str(seed['restricted'])] is True and all(a['access'][str(u) + ':' + str(seed['restricted'])] is False for u in [seed['users'][1], seed['users'][2], seed['users'][3], seed['users'][5]]) and a['access'][str(seed['users'][4]) + ':' + str(seed['restricted'])] is True and a['access']['0:' + str(seed['restricted'])] is False and set(a['sample_states']['membership']) >= {'active', 'paused', 'expired', 'cancelled', 'pending', 'none'})

@@ -23,6 +23,34 @@ final class PhpLog
         if ($end < $start || $end - $start > 86400) {
             throw new \RuntimeException('A03_PHP_LOG_WINDOW');
         }
+        [, $text] = self::snapshot($path);
+        return self::summarize($text, $from, $until, $start, $end);
+    }
+
+    /** Timestamp and bracket the HTTP probes; refuse rotation or lost log bytes. */
+    public static function during(string $path, callable $probe): array
+    {
+        [$initial, $prefix] = self::snapshot($path);
+        $from = gmdate('Y-m-d\TH:i:s\Z');
+        $result = $probe();
+        $until = gmdate('Y-m-d\TH:i:s\Z');
+        [$final, $text] = self::snapshot($path);
+        if (
+            $initial['ino'] !== $final['ino'] || $initial['dev'] !== $final['dev']
+            || substr($text, 0, strlen($prefix)) !== $prefix
+        ) {
+            throw new \RuntimeException('A03_PHP_LOG_READ');
+        }
+        $start = self::timestamp($from);
+        $end = self::timestamp($until);
+        if ($end < $start || $end - $start > 86400) {
+            throw new \RuntimeException('A03_PHP_LOG_WINDOW');
+        }
+        return [$result, self::summarize($text, $from, $until, $start, $end)];
+    }
+
+    private static function snapshot(string $path): array
+    {
         clearstatcache(true, $path);
         $stat = @lstat($path);
         if (
@@ -55,6 +83,11 @@ final class PhpLog
         } finally {
             fclose($stream);
         }
+        return [$stat, $text];
+    }
+
+    private static function summarize(string $text, string $from, string $until, int $start, int $end): array
+    {
         $errors = 0;
         $hasRecord = false;
         if ($text !== '' && !str_ends_with($text, "\n")) {

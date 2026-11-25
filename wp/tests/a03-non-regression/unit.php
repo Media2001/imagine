@@ -40,7 +40,9 @@ function a03Photo(): array
         'actions' => [1 => ['hook' => 'example', 'date' => '2026-12-01 00:00:00']],
         'action_days' => ['example:2026-12-01' => 1],
         'order_months' => array_map(static fn(int $month): string => sprintf('2026-%02d', $month), range(1, 12)),
-        'orders' => [], 'pages' => $pages, 'renewal' => ['enabled' => false],
+        'orders' => [], 'php_log' => ['checked' => true, 'from_utc' => '2026-11-24T00:00:00Z',
+            'until_utc' => '2026-11-24T00:00:01Z', 'errors' => 0],
+        'pages' => $pages, 'renewal' => ['enabled' => false],
     ];
 }
 function a03Probe(): array

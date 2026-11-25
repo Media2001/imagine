@@ -109,78 +109,9 @@ final class EnvoiNatif
         return self::calculer($code, self::releves(), $now);
     }
 
-    /** Entrées de relevés explicites pour éprouver le gel sans antidater le natif. */
+    /** Compatibilité des recettes ; horloge, calendrier et logique dans le banc pur. */
     public static function calculer(string $code, array $events, DateTimeImmutable $now): array
     {
-        $calendar = self::calendrier();
-        $selected = array_values(array_filter($calendar->numeros, static fn (Numero $n): bool => $n->id === $code));
-        if ($selected === []) {
-            throw new \OutOfBoundsException('Numéro absent du calendrier.');
-        }
-        $number = $selected[0];
-        $groups = [];
-        foreach ($events as $event) {
-            $groups[$event['donnees']['id']][] = $event;
-        }
-        $subscriptions = $exclusions = [];
-        $blocked = false;
-        foreach ($groups as $id => $events) {
-            $situations = [];
-            $last = $events[array_key_last($events)]['donnees'];
-            $creation = new DateTimeImmutable('@' . $events[0]['donnees']['creation']);
-            $reason = $creation >= $number->cloture ? 'cree_apres_cloture' : 'historique_indisponible';
-            foreach ($events as $event) {
-                $recorded = new DateTimeImmutable($event['observe_utc'], new DateTimeZone('UTC'));
-                if ($recorded >= $number->cloture) {
-                    continue;
-                }
-                $data = $event['donnees'];
-                $start = self::date($data['debut']);
-                $end = $data['fin'] === '' ? null : self::date($data['fin']);
-                $state = match ($data['etat']) {
-                    'active', 'pending-cancel' => 'actif', 'expired', 'cancelled' => 'expire',
-                    'pending' => 'attente', default => 'suspendu',
-                };
-                if ($data['etat'] === 'on-hold' && $data['grace_debut'] !== '' && $data['grace_fin'] !== '') {
-                    $from = self::date($data['grace_debut']);
-                    $until = self::date($data['grace_fin']);
-                    $reference = min($now, $number->cloture->modify('-1 microsecond'));
-                    if ($from <= $reference && $reference < $until) {
-                        $state = 'grace';
-                        $end = $end === null ? $until : min($end, $until);
-                    }
-                }
-                $engine = new \Imagine\Pilotage\Numeros\Moteur($calendar);
-                $year = $engine->ouvrir($start);
-                $due = array_map(static fn (Numero $n): string => $n->id, $engine->numeros($year));
-                if ($hs = $engine->horsSerie($year)) {
-                    $due[] = $hs->id;
-                }
-                $paid = $data['paiement'] !== null && $data['paiement'] < $number->cloture->getTimestamp();
-                $person = new \Imagine\Pilotage\Envoi\Destinataire($data['user'], $data['destinataire'],
-                    $data['rue'], $data['complement'], $data['code_postal'], $data['ville'], $data['pays']);
-                $situations[] = new \Imagine\Pilotage\Envoi\Situation(max($start, $recorded), $recorded,
-                    $state, $paid, $due, [$person], $end);
-                $reason = match (true) {
-                    $state === 'expire', $end !== null && $end <= $number->cloture => 'expire',
-                    $state === 'suspendu' => 'suspendu', $state === 'attente' => 'virement_non_valide',
-                    !$paid && $state !== 'grace' => 'paiement_non_valide',
-                    !in_array($code, $due, true) => 'numero_non_du', default => 'non_eligible',
-                };
-            }
-            $subscriptions[] = new \Imagine\Pilotage\Envoi\Abonnement((string) $id, 'abonnement', $creation, $situations);
-            $exclusions[(string) $id] = ['abonnement_id' => (string) $id,
-                'destinataire' => $last['destinataire'], 'motif' => $reason];
-            $blocked = $blocked || $reason === 'historique_indisponible';
-        }
-        $list = \Imagine\Pilotage\Envoi\ListeEnvoi::etablir($number, $calendar, $subscriptions, $number->cloture);
-        $belgium = 0;
-        foreach ($list->lignes as $row) {
-            unset($exclusions[$row['abonnement_id']]);
-            $belgium += $row['pays'] === 'BE' ? 1 : 0;
-        }
-        return ['liste' => $list, 'exclus' => array_values($exclusions), 'belgique' => $belgium,
-            'etranger' => count($list->lignes) - $belgium, 'historique_incomplet' => $blocked,
-            'provisoire' => $now < $number->cloture];
+        return EnvoiRegles::calculer($code, $events, $now, get_option(self::CALENDRIER));
     }
 }

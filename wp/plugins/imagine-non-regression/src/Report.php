@@ -62,7 +62,8 @@ final class Report
             'storage' => 'string', 'sample_states' => 'array', 'samples' => 'array',
             'memberships' => 'array', 'access' => 'array', 'subscriptions' => 'array',
             'subscription_counts' => 'array', 'actions' => 'array', 'action_days' => 'array',
-            'order_months' => 'array', 'orders' => 'array', 'pages' => 'array', 'renewal' => 'array',
+            'order_months' => 'array', 'orders' => 'array', 'pages' => 'array', 'php_log' => 'array',
+            'renewal' => 'array',
         ]);
         self::requireValid(in_array($report['storage'], ['classic', 'hpos'], true));
         self::shape($report['versions'], array_fill_keys(
@@ -101,6 +102,17 @@ final class Report
         foreach ($report['pages'] as $row) {
             self::shape($row, ['status' => 'int', 'final_status' => 'int', 'marker' => 'bool', 'php_error' => 'bool']);
         }
+        self::shape($report['php_log'], [
+            'checked' => 'bool', 'from_utc' => 'string', 'until_utc' => 'string', 'errors' => 'int',
+        ]);
+        self::requireValid($report['php_log']['checked'] === true && $report['php_log']['errors'] >= 0);
+        try {
+            $from = PhpLog::timestamp($report['php_log']['from_utc']);
+            $until = PhpLog::timestamp($report['php_log']['until_utc']);
+        } catch (\RuntimeException) {
+            self::requireValid(false);
+        }
+        self::requireValid($until >= $from && $until - $from <= 86400);
         self::shape($report['renewal'], ['enabled' => 'bool']);
         self::requireValid($report['renewal']['enabled'] === false);
         self::validateKeys($report);
@@ -192,7 +204,7 @@ final class Report
                 return;
             }
             $root = explode('.', $path)[0];
-            if (in_array($root, ['generated_at_utc'], true)) {
+            if (in_array($path, ['generated_at_utc', 'php_log.from_utc', 'php_log.until_utc'], true)) {
                 return;
             }
             $class = $root === 'versions' ? 'attendu' : (in_array(
@@ -223,6 +235,12 @@ final class Report
             $changes[] = ['path' => $safePath, 'class' => $class];
         };
         $walk($before, $after, '');
+        if (
+            $beforeMode === 'photo' && $after['php_log']['errors'] > 0
+            && $after['php_log']['errors'] === $before['php_log']['errors']
+        ) {
+            $changes[] = ['path' => 'php_log.errors', 'class' => 'anormal'];
+        }
         return ['schema' => 'imagine-a03-comparison-v1', 'changes' => $changes,
             'anormal' => count(array_filter($changes, static fn(array $c): bool => $c['class'] === 'anormal'))];
     }
