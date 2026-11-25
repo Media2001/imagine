@@ -1,0 +1,12 @@
+test_current_c15_drift_not_exempt (__main__.PreservationGuard.test_current_c15_drift_not_exempt) ... ok
+test_current_table_drift_rejected (__main__.PreservationGuard.test_current_table_drift_rejected) ... ok
+test_final_c15_digest_required (__main__.PreservationGuard.test_final_c15_digest_required) ... ok
+test_local_change_rejected (__main__.PreservationGuard.test_local_change_rejected) ... ok
+test_missing_c15_change_rejected (__main__.PreservationGuard.test_missing_c15_change_rejected) ... ok
+test_stable_run_with_documented_source_delta (__main__.PreservationGuard.test_stable_run_with_documented_source_delta) ... ok
+test_unrelated_historical_source_rejected (__main__.PreservationGuard.test_unrelated_historical_source_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.000s
+
+OK

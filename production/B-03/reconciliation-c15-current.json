@@ -1,0 +1,7 @@
+{
+  "status": "FAILED",
+  "at": "2026-11-25T19:21:33.076521+00:00",
+  "receipt": "production/B-03/reconciliation-c15/20261125T192053688433Z/verification-finale.json",
+  "sha256": "27052f453877d1582b2f41e08e8fb2a2057fc3e05085eda9214b40156386f7d6",
+  "historical_failed_receipt_preserved": "production/B-03/verification-finale.json"
+}

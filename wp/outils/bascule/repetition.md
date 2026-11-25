@@ -1,14 +1,10 @@
-# Répéter la bascule — A-08 (une page)
+# A-08 — Répétition de la bascule
 
-**Avant :** copie fraîche **vérifiée**, gel externe des écritures/queues/déploiements,
-plans A-04/A-05 relus (versions/ZIP/SHA-256 explicites, propriétaires des tables audités),
-sauvegarde base **et** fichiers hors du site, empreintes exactes, moins de six heures,
-restauration vérifiée séparément. Précréer le verrou natif `.imagine-a04-bascule.lock`.
-Préparer les settings A-03, leur journal PHP UTC lisible et le compte SQL **SELECT seul**.
-Le contrôle HTTP doit rester inaccessible au public pendant les deux réceptions.
-A08 ne crée aucune sauvegarde et ne modifie jamais maintenance, compte ou garde de sûreté.
-
-## Commande commune (Linux, outils hors racine web ; chemins fictifs à remplacer)
+**Préparer :** copie fraîche vérifiée ; gel externe écritures/queues/déploiements ; plans
+A04/A05 relus (ZIP/versions/SHA-256, propriétaires des tables audités) ; sauvegarde base ET
+fichiers hors site, intègre, moins de six heures, restauration vérifiée séparément.
+Précréer `.imagine-a04-bascule.lock`. Settings A03, journal PHP UTC, compte SQL SELECT seul,
+réception HTTP privée. A08 ne modifie aucun de ces préalables. Linux, chemins fictifs :
 
 ```bash
 S=/srv/fiction/site; T=/opt/imagine/wp/outils/bascule; E=/srv/fiction/repetition
@@ -39,30 +35,23 @@ Leurs arguments exacts et les numéros d'essai effectifs sont dans les reçus JS
 "${sequence[@]}" --reception-ready     # étapes 5–6 ; 0 seulement sans anomalie
 ```
 
-Ces rendez-vous sont nécessaires : A03 refuse un compte écriture, A04/A05 exigent
-maintenance ; sous le MU de maintenance A04 le HTTP répond 503. **Jamais de levée
-automatique ni de garde contournée.** L'opérateur rétablit l'état de maintenance voulu
-après réception ; aucun DNS ni exposition publique n'est piloté ici.
+Rendez-vous obligatoires : A03 refuse un compte écriture ; A04/A05 exigent maintenance ;
+le MU A04 rend le HTTP indisponible (503). L'opérateur conserve hors web les octets de ce MU
+et le rétablit à l'identique avant un second passage. A08 ne retire ni ne réinstalle de garde.
+Aucun DNS/exposition publique piloté ; après réception, rétablir la maintenance souhaitée.
 
-**Arrêts :** `75` = rendez-vous ou arrêt natif demandé ; `1` = refus/erreur ; `2` =
-anomalie native de comparaison, jamais requalifiée ; `3` natif = changements attendus,
-accepté comme succès de la séquence seulement avec zéro anormal. Lire **`$E/rapport.md`**
-(six étapes, durées cumulées de tous les essais, résultat, reçus ; aucune valeur de base).
-Les attentes humaines sont exclues. Les sorties détaillées restent dans les preuves.
+**Arrêts/reprise :** `75` = rendez-vous/arrêt natif ; `1` = refus/erreur ; `2` = anomalie,
+jamais requalifiée ; `3` natif accepté seulement avec zéro anormal. Lire **`$E/rapport.md`** :
+six étapes, durées cumulées hors attentes humaines, résultats, preuves ; aucune valeur de base.
+Même commande et drapeau du rendez-vous ; mêmes outils/plans/settings/sauvegarde.
+Étapes réussies scellées, A04/A05 reprennent leurs checkpoints. Ne supprimer aucun verrou.
+`A05_UNINSTALL_AMBIGUOUS` impose restauration vérifiée puis nouvel état ; lecture coupée :
+nouvelle sortie. Plan changé, preuve altérée, sauvegarde périmée : aucune réparation implicite.
 
-**Reprise :** même commande et mêmes plans/settings/sauvegarde/outils, avec le drapeau
-du rendez-vous concerné. Les étapes réussies et leurs preuves sont scellées, jamais rejouées.
-A04/A05 reprennent leurs propres checkpoints ; `A05_UNINSTALL_AMBIGUOUS` impose une
-restauration vérifiée puis un nouvel état, pas une reprise forcée. Une sauvegarde périmée,
-un plan modifié ou une preuve altérée n'est jamais réparé implicitement. Ne supprimer aucun
-verrou/checkpoint. Un arrêt brutal pendant une lecture laisse un essai incomplet conservé ;
-la lecture seule recommence dans une autre sortie. Les enfants héritent des verrous A08.
-
-**Second passage complet :** remettre les préalables de réception, lancer
-`"${sequence[@]}" --new-pass`, puis les deux commandes de rendez-vous ci-dessus.
-Les six outils sont réellement relancés, A04/A05 gardent leurs checkpoints ; le rapport
-reste unique et les anciennes photos/reçus sont conservés. Sans `--new-pass`, une
-séquence terminée n'effectue aucune opération native.
+**Second passage complet :** préalables de réception, `"${sequence[@]}" --new-pass`, puis
+les deux rendez-vous. Six outils relancés, checkpoints A04/A05 conservés, anciennes preuves
+conservées, un seul rapport. Sans ce drapeau, l'état terminé ne relance rien.
+La maintenance native peut être rafraîchie ; la comparaison métier doit rester identique.
 
 **GO ÉCRIT DE CED :** requis séparément pour toute opération réelle/production.
 `--go-update=/hors-depot/go-a04.json` et `--go-clean=/hors-depot/go-a05.json` transmettent

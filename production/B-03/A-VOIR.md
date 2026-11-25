@@ -1,6 +1,6 @@
 # B-03 — Mode lecture, à ouvrir
 
-**Corrections du 25/11/2026 appliquées et rejouées ; prêt à relire techniquement, sans validation visuelle.**
+**Corrections du 25/11/2026, y compris suppression CSS de 19h30, appliquées ; recette B03 réconciliée après clôture C15. Prêt à relire techniquement si le reçu courant lié par `reconciliation-c15-current.json` est `VERIFIED`, sans validation visuelle.**
 
 Site fictif uniquement : `http://192.168.129.32:8085`.
 Article de recette : `http://192.168.129.32:8085/c08-article-reserve-article/`.
@@ -35,11 +35,12 @@ Désactiver JavaScript puis recharger : **aucun bouton ni réglage**, article et
 
 Dans les **trois** palettes, la lecture neutralise les couleurs inline et les classes couleur des blocs, sans modifier le HTML enregistré ni les images. À la sortie, les couleurs d’auteur reviennent. Le contrôle rejouable `b03-colors.py` ajoute uniquement dans le DOM client un paragraphe explicitement noir, un bloc à fond rouge et une sonde inline, puis les supprime : ne rien enregistrer dans l’éditeur WordPress. Contrastes réellement calculés dans Chromium, sur ces sondes à 390 et 1440 px : **clair 21:1, sépia 14,255:1, sombre 16,157:1** (tous ≥ 4,5:1). L’image sonde, ses couleurs propres et le DOM restent intacts. Le bloc de droits reste visible.
 
-- `verification-finale.json` : résultats et empreintes de la release, des sources, des documents et des fichiers relus sur le site.
-- `http-corrections.json` : 43 contrôles, vraie connexion A-CARTE, anonyme, vitesse lue dans la constante serveur, HTML5, octets des assets et absence sur l’accueil ; corps C08 inchangés.
-- `php-corrections.json`, `js-corrections-green.txt`, `local-regression.json`, `t01-release.txt` : 10 assertions PHP B03, 8 tests JS, 15 tests locaux, 1 012 tests T01 / 34 006 assertions.
+- `reconciliation-c15-current.json` : pointeur et SHA-256 du **nouveau** reçu final sous `reconciliation-c15/<horodatage>/`. L'ancien `verification-finale.json` racine reste `FAILED`, historique intact, pas le verdict courant.
+- Dans ce nouveau dossier : `http-corrections.json`, 43 contrôles, vraie connexion A-CARTE, anonyme, vitesse lue dans la constante serveur, HTML5, octets des assets et absence sur l’accueil ; corps C08 comparés à l'historique.
+- Même dossier : `php-corrections.json`, `js-corrections-green.txt`, `local-regression.json`, `t01-release.txt` : 10 assertions PHP B03, 8 tests JS, 15 tests locaux, 1 012 tests T01 / 34 006 assertions. `c09-native-readback.json` : 149 contrôles natifs frais, sans seed ni paiement.
 - `browser-colors-corrections.json` : **77 contrôles réels anonymes**, couleurs et images, trois tailles, rechargement/Échap, zéro requête lors des réglages, JavaScript désactivé et mouvement réduit. Les anciens reçus navigateur sont historiques. Le parcours connecté est prouvé en HTTP, pas présenté comme une inspection visuelle connectée.
-- `preservation-corrections.json` : seuls les deux assets B03 changent dans son périmètre ; contenus, métadonnées, commandes/paiements et dates conservés. Les quatre fichiers C15 attribués au worker parallèle sont explicitement tracés séparément, sans restauration ni déploiement de plugin par B03.
+- `preservation-reconciliation.json` et `current-before.json` / `current-after.json` du nouveau dossier : **égalité exacte pendant le rejeu B03 courant**, sur les quatre tables non-utilisateur de la photographie existante et les fichiers plugins/thème. Aucune exception C15 dans cette garde courante. Les seuls deltas historiques de sources sont les deux assets B03 et les quatre chemins C15, dont les octets finaux doivent correspondre aux reçus C15 locaux et distants.
+- **Limite historique conservée** : `wp_posts`, `wp_postmeta`, `wp_wc_orders`, `wp_wc_orders_meta` diffèrent de `corrections-before.json`. Les paires d'empreintes restent explicites ; l'action/reset C15 est documentée et sémantiquement restaurée selon ses reçus, mais une empreinte ne permet pas d'attribuer exhaustivement chaque ligne changée. B03 ne prétend ni identité des tables historiques ni attribution exclusive de tous leurs deltas. Les notes d'audit légitimes ne sont pas supprimées. La référence et les anciens reçus restent intacts.
 
 Vitesse fixe : **200 mots/minute**, une seule constante dans `wp/themes/imagine/inc/reading.php`. Minimum affiché : une minute ; HTML autorisé uniquement, bloc de droits exclu du compte. Script sans dépendance : **6 045 octets UTF-8**, **1 956 octets gzip déterministe** (poids mesuré, pas promesse de compression HTTP).
 

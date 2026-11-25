@@ -10,6 +10,7 @@ C15_PATHS = [
     'plugins/imagine-site/imagine-site.php',
 ]
 TABLES = ['wp_postmeta', 'wp_posts', 'wp_wc_orders', 'wp_wc_orders_meta']
+C15_LOCAL_DOCUMENT = 'plugins/imagine-site/README.md'
 LINKS = ['production/B-03/corrections-before.json',
          'production/B-03/preservation-corrections.json',
          'production/B-03/verification-finale.json',
@@ -36,7 +37,8 @@ def changed(old, new):
     return sorted(k for k in set(old) | set(new) if old.get(k) != new.get(k))
 
 
-def compare(baseline, start, end, allowed_assets, c15_sources):
+def compare(baseline, start, end, allowed_assets, c15_sources, c15_local_documents=None):
+    c15_local_documents = c15_local_documents or {}
     remote_delta = changed(baseline['remote'], end['remote'])
     local_delta = changed(baseline['local'], end['local'])
     expected_sources = sorted(list(allowed_assets) + C15_PATHS)
@@ -45,13 +47,23 @@ def compare(baseline, start, end, allowed_assets, c15_sources):
         'snapshot_courant_distant_exact_stable': start['remote'] == end['remote'],
         'snapshot_courant_local_exact_stable': start['local'] == end['local'],
         'sources_historiques_deltas_exactement_B03_et_C15':
-            [k for k in remote_delta if '/' in k] == expected_sources and local_delta == expected_sources,
+            [k for k in remote_delta if '/' in k] == expected_sources
+            and local_delta == sorted(expected_sources + list(c15_local_documents)),
+        'documents_C15_locaux_exactement_lies_livraison':
+            set(c15_local_documents) <= {C15_LOCAL_DOCUMENT}
+            and all(end['local'].get(k) == v and k not in baseline['remote'] and k not in end['remote']
+                    for k, v in c15_local_documents.items()),
         'sources_C15_exactes_recu_final_local_distant': set(c15_sources) == set(C15_PATHS)
             and all(end['local'].get(k) == v == end['remote'].get(k) for k, v in c15_sources.items()),
         'tables_historiques_inventaire_delta_attendu': tables == TABLES,
     }
     return checks, {
         'historical_remote_changed': remote_delta, 'historical_local_changed': local_delta,
+        'C15_local_only_document_deltas': {k: {'baseline_sha256': baseline['local'].get(k),
+                                              'current_sha256': end['local'].get(k),
+                                              'delivery_sha256': v,
+                                              'remote': 'Absent du snapshot distant historique et courant ; aucun deploiement'}
+                                          for k, v in c15_local_documents.items()},
         'historical_table_deltas': {k: {'baseline_sha256': baseline['remote'].get(k),
                                       'current_sha256': end['remote'].get(k)} for k in tables},
         'current_remote_changed': changed(start['remote'], end['remote']),
@@ -68,6 +80,7 @@ def documentary(root):
     verification, restored, delivery, installation, action = [read(n) for n in
         ['verification.json', 'restauration.json', 'livraison.json', 'installation.json', 'action.json']]
     sources = {k.removeprefix('wp/'): v for k, v in verification['source_sha256'].items()}
+    local_documents = {C15_LOCAL_DOCUMENT: delivery['files_sha256']['wp/' + C15_LOCAL_DOCUMENT]}
     c09 = verification['C09_paiements_natifs']
     checks = {
         'C15_lien_documentaire_action_reset_semantique':
@@ -87,4 +100,4 @@ def documentary(root):
             and all(v == installation['sha256_readback'][Path(k).name]
                     == delivery['files_sha256']['wp/' + k] for k, v in sources.items()),
     }
-    return checks, sources
+    return checks, sources, local_documents

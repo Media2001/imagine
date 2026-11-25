@@ -40,7 +40,7 @@ def run():
     preservation_guard = module('b03-preservation.py')
     historical_before = load('corrections-before.json')
     linked_before = preservation_guard.links(ROOT)
-    documentary_checks, c15_sources = preservation_guard.documentary(ROOT)
+    documentary_checks, c15_sources, c15_local_documents = preservation_guard.documentary(ROOT)
     current_start = {'at': datetime.now(timezone.utc).isoformat(),
                      'remote': work.wp(historical_before['snapshot_php']),
                      'local': preservation_guard.local_snapshot(ROOT)}
@@ -127,7 +127,7 @@ def run():
                    'remote': work.wp(historical_before['snapshot_php']),
                    'local': preservation_guard.local_snapshot(ROOT)}
     (run_proof / 'current-after.json').write_text(json.dumps(current_end, indent=2), encoding='utf-8')
-    scoped_checks, preservation = preservation_guard.compare(historical_before, current_start, current_end, deployed, c15_sources)
+    scoped_checks, preservation = preservation_guard.compare(historical_before, current_start, current_end, deployed, c15_sources, c15_local_documents)
     checks.update(scoped_checks)
     checks.update(documentary_checks)
     checks['reçus_historiques_et_C15_intacts'] = linked_before == preservation_guard.links(ROOT)
