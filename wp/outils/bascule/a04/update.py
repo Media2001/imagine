@@ -218,6 +218,10 @@ def execute(args):
                 require(current in [step['before'],step['after']], 'A04_RESUME_VERSION')
                 if row['phase'] == 'verified': require(current == step['after'], 'A04_COMPLETED_DRIFT')
         save()
+        persistent = safe_path(site, 'wp-content/mu-plugins/001-imagine-a04-maintenance.php')
+        template = pathlib.Path(__file__).resolve().parent / 'maintenance.php'
+        if persistent.exists(): require(digest(persistent) == digest(template), 'A04_MAINTENANCE_BYTES')
+        else: shutil.copyfile(template, persistent)
         try:
             # Never bootstrap a partly copied component after SIGKILL: finish its overlay first.
             if not any(r['phase'] == 'copying' for r in state['steps'].values()): worker(site, plan['steps'][0], 'guard')
@@ -235,11 +239,18 @@ def execute(args):
                     require(version(site,key) == step['after'],'A04_TARGET_VERSION')
                     row['phase'] = 'copied'; event(key,'copied',files=row['files'])
                 if args.stop_after == key:
-                    event(key,'interruption_requested'); return 75
+                    event(key,'interruption_requested')
+                    if args.pause:
+                        while True: time.sleep(1)
+                    return 75
                 row['phase'] = 'migrating'; save()
+                callbacks = []
                 if key == 'core': run_wp(site,['core','update-db'])
-                if key == 'woocommerce': run_wp(site,['wc','update'])
+                if key == 'woocommerce':
+                    native = run_wp(site,['wc','update'])
+                    callbacks = sorted(set(re.findall(r'\bwc_update_[0-9][A-Za-z0-9_]*\b', native.stdout)))
                 migrated = worker(site,step,'migrate')
+                migrated['migrations'] = callbacks + migrated.get('migrations', [])
                 refresh_maintenance(site)
                 worker(site,step,'verify')
                 require(version(site,key) == step['after'],'A04_TARGET_VERSION')
@@ -254,6 +265,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     for option in ['wp-path','plan','backup','state']:parser.add_argument('--'+option,required=True)
     parser.add_argument('--stop-after',default='')
+    parser.add_argument('--pause',action='store_true',help='Attend à --stop-after; garde le verrou et la maintenance.')
     args=parser.parse_args()
     try:
         status=execute(args);print('A04_OK' if status == 0 else 'A04_INTERRUPTED');return status

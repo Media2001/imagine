@@ -35,7 +35,7 @@ final class Runtime
                 $migrations[] = 'wp wc update; woocommerce_db_version=' . get_option('woocommerce_db_version');
             } elseif ($component === 'woocommerce-subscriptions') {
                 self::need(class_exists('WC_Subscriptions_Upgrader'), 'A04_SUBSCRIPTIONS_UPGRADER');
-                if ($mode === 'migrate') {
+                if ($mode === 'migrate' && (string) get_option(\WC_Subscriptions::PLUGIN_VERSION_OPTION_NAME) !== \WC_Subscriptions::$version) {
                     \WC_Subscriptions_Upgrader::upgrade();
                     $migrations[] = 'WC_Subscriptions_Upgrader::upgrade';
                 }
@@ -70,13 +70,13 @@ final class Runtime
                 option_name LIKE '%\\_batch\\_%' OR option_name LIKE 'wcs%upgrade%'");
             self::need($wpdb->last_error === '', 'A04_SQL_READ');
             foreach ($batches as $name) {
-                if (preg_match('/(?:woocommerce|wcs|wc_memberships).*_batch_/', $name)) {
+                if (preg_match('/^' . $prefix . '.*_batch_/', $name)) {
                     self::need(empty(get_option($name)), 'A04_BACKGROUND_MIGRATION_ADAPTER_REQUIRED');
                 }
             }
             foreach (_get_cron_array() ?: [] as $hooks) {
                 foreach (array_keys($hooks) as $hook) {
-                    self::need(!preg_match('/(?:woocommerce|wcs|wc_memberships).*(?:upgrade|migrate|migration)/', $hook), 'A04_CRON_MIGRATION_ADAPTER_REQUIRED');
+                    self::need(!preg_match('/^' . $prefix . '.*(?:upgrade|migrate|migration)/', $hook), 'A04_CRON_MIGRATION_ADAPTER_REQUIRED');
                 }
             }
         }

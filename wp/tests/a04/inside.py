@@ -28,14 +28,18 @@ def update(site,plan,backup,state,extra=None):
     return a03.cmd(['python3','-B','/subject/mettre-a-jour','--wp-path='+str(site),'--plan='+str(plan),'--backup='+str(backup),'--state='+str(state)]+(extra or []),check=False,timeout=600)
 def run_storage(storage):
     # Redirect only fixture dependency paths in memory; existing bench files remain unchanged.
-    source='/opt/woocommerce/woocommerce';old=pathlib.Path('/opt/public/woocommerce.zip');old_version=None
+    source='/opt/woocommerce/woocommerce';old=ROOT/'woocommerce-11.0.1.zip';old_version=None
     original=shutil.copytree
+    baseline_core=ROOT/'baseline-core'
+    if not (baseline_core/'wordpress').is_dir():
+        with zipfile.ZipFile(ROOT/'wordpress-7.0.zip') as z:z.extractall(baseline_core)
     if old.is_file():
         old_version=package_version(old,'woocommerce/woocommerce.php')
         if not (ROOT/'baseline/woocommerce').is_dir():
             with zipfile.ZipFile(old) as z:z.extractall(ROOT/'baseline')
         def copy(src,dst,*args,**kwargs):
-            return original(ROOT/'baseline/woocommerce' if str(src)==source else src,dst,*args,**kwargs)
+            selected = ROOT/'baseline/woocommerce' if str(src)==source else baseline_core/'wordpress' if str(src)=='/opt/wordpress/wordpress' else src
+            return original(selected,dst,*args,**kwargs)
         shutil.copytree=copy
     try:site,db,seed,config,settings=a03.install(storage)
     finally:shutil.copytree=original
@@ -75,26 +79,36 @@ def run_storage(storage):
         check(storage+':controlled_interruption',stopped.returncode==75,{'exit':stopped.returncode,'code':stopped.stderr[:200]})
         initial=json.loads((state/'etat.json').read_text())
         check(storage+':durable_checkpoint',initial['steps']['core']['phase']=='verified' and initial['steps']['woocommerce']['phase']=='copied')
-        # Real SIGKILL while holding a kernel flock, before the next migration.
-        # The first updater already stopped after files; a wrapper holds the same
-        # state flock to prove concurrent refusal and OS release after hard kill.
-        lock=subprocess.Popen(['python3','-c',"import fcntl,pathlib,time;f=open("+repr(str(state/'execution.lock'))+",'a');fcntl.flock(f,fcntl.LOCK_EX);pathlib.Path("+repr(str(ROOT/(storage+'-locked')))+").write_text('locked');time.sleep(120)"])
-        for _ in range(100):
-            if (ROOT/(storage+'-locked')).exists():break
+        # A real updater is paused after its durable checkpoint, then SIGKILLed.
+        # No WP child is alive at this pause, so only the exact owned PID is killed.
+        lock=subprocess.Popen(['python3','-B','/subject/mettre-a-jour','--wp-path='+str(site),'--plan='+str(plan),'--backup='+str(backup),'--state='+str(state),'--stop-after=woocommerce','--pause'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+        paused=False
+        for _ in range(200):
+            checkpoint=json.loads((state/'etat.json').read_text())
+            if checkpoint['steps']['woocommerce']['attempts']==2 and checkpoint['events'][-1]['stage']=='interruption_requested':paused=True;break
+            if lock.poll() is not None:break
             time.sleep(.05)
+        check(storage+':real_updater_paused',paused)
         denied=update(site,plan,backup,state)
         check(storage+':concurrent_refused',denied.returncode==1 and denied.stderr=='A04_ALREADY_RUNNING\n')
         lock.kill();lock.wait(timeout=10)
+        check(storage+':real_updater_sigkill',lock.returncode==-9)
         resumed=update(site,plan,backup,state)
         check(storage+':resumed',resumed.returncode==0,{'exit':resumed.returncode,'code':resumed.stderr[:200]})
         current=json.loads((state/'etat.json').read_text())
         check(storage+':previous_step_not_replayed',current['steps']['core']==initial['steps']['core'])
-        check(storage+':current_step_resumed',current['steps']['woocommerce']['attempts']==2 and all(r['phase']=='verified' for r in current['steps'].values()))
+        check(storage+':current_step_resumed',current['steps']['woocommerce']['attempts']==3 and all(r['phase']=='verified' for r in current['steps'].values()))
         repeat=update(site,plan,backup,state);again=json.loads((state/'etat.json').read_text())
         check(storage+':idempotent_repeat',repeat.returncode==0 and again['steps']==current['steps'])
         # No theme/data cleanup; maintenance remains and is explicitly removed by fixture only.
         check(storage+':maintenance_kept',maintenance.is_file())
-        maintenance.unlink();readonly()
+        maintenance.unlink()
+        persistent=site/'wp-content/mu-plugins/001-imagine-a04-maintenance.php'
+        import urllib.request,urllib.error
+        try:urllib.request.urlopen('http://127.0.0.1:18803/',timeout=5);status=200
+        except urllib.error.HTTPError as error:status=error.code
+        check(storage+':persistent_maintenance_503',persistent.is_file() and status==503)
+        persistent.unlink();readonly()
         p=a03.snapshot(site,settings,OUT/(storage+'-after'))
         check(storage+':a03_after',p.returncode==0,{'exit':p.returncode,'code':p.stderr[:150]})
         compared=a03.cmd(['php','/subject/comparer',str(OUT/(storage+'-before/non-regression.json')),str(OUT/(storage+'-after/non-regression.json'))],check=False)

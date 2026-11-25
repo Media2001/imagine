@@ -69,6 +69,10 @@ def main():
                     bench.call(['cp', bench.local(s), name+':'+t])
                 for file in bench.LICENSED:
                     bench.call(['cp', '/home/ced/staging-wp/plugins/'+file, name+':/opt/a03/'+file])
+                for public in ['wordpress-6.9.1.zip', 'wordpress-7.0.zip', 'woocommerce-11.0.1.zip']:
+                    path = REPO / 'production/A-04/dependances' / public
+                    assert path.is_file(), 'A04_PUBLIC_PREPARATION_REQUIRED'
+                    bench.call(['cp', bench.local(path), name+':/opt/a04/'+public])
                 execution = bench.call(['exec', name, 'python3', '-B', '/opt/a04/inside.py'], check=False, timeout=1500)
                 (out/'execution.log').write_text(execution.stdout+execution.stderr)
                 bench.call(['cp', name+':/report/.', bench.local(out)])

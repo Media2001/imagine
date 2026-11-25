@@ -1,0 +1,15 @@
+{
+  "wp\\tests\\a03-non-regression\\seed.php": "93a8dd4997377765ba7d5eeaea14849f4e26183052349dabf12576a3d7ebd45e",
+  "wp\\tests\\a03-non-regression\\inside.py": "4710916bea23e5e4fe1265db1f66584d85c78ddb48b3eebc5c9f0a2cb614de8a",
+  "wp\\outils\\bascule\\non-regression": "74971fff009aa578b7db5ba510aa54f6bec76bae7b0e68b57887a2e628c66b6b",
+  "wp\\outils\\bascule\\comparer": "d9e40a82360a4982de5c9aa55d0b14178621c99b32ea0da6e40223aa29ae2a58",
+  "wp\\outils\\bascule\\audit": "7eb2b4bfa450e37d3f4265e3055cdba61a877b056f4feb0bfce06f681659c6dc",
+  "wp\\outils\\bascule\\a03\\Policy.php": "6877b7330d472a41b14011e3e41aeb422d01e58a0c2675340bd101a87d427b62",
+  "wp\\outils\\bascule\\a03\\Report.php": "4c8d0e283048288bb49e668eb1605eb342b23bf7f1cdbdd6b19de1c7a8a284b2",
+  "wp\\outils\\bascule\\a03\\Site.php": "a5b7d265cd5e9b6738e5cc62ca8f4da5383cf610614be5bbf55c012c0d78e20b",
+  "wp\\plugins\\imagine-non-regression\\src\\Policy.php": "b61115ffc9dca5a93da8a5072cca74839e7441e87780f10021ecbc5f34479dd1",
+  "wp\\plugins\\imagine-non-regression\\src\\Report.php": "f52a47a6bd5574a3008085f716e8d3d3bbf047fd5647e0c1a5971b21ab96bdbb",
+  "wp\\outils\\staging\\runtime-probe.php": "3c8a98d1db5714e1944194f558a1df3a3c512e14e3aa370308a60a97f5889140",
+  "wp\\outils\\staging\\mu-plugins\\000-imagine-staging-safety.php": "c16f048f3fd2587ba719924eec53b07651ea3b6a495a8125746a157582f5474f",
+  "wp\\tests\\a02-audit\\fingerprint.php": "7967895421d3e4181a19e8e905fe4597a5618159560fa2648c7b30a846203d12"
+}
