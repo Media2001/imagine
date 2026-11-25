@@ -6,6 +6,7 @@ require '/subject/lib.php';
 require '/opt/fixtures.php';
 
 $store = fixture();
+$store->tables['x_options'] = array_values(array_filter($store->tables['x_options'], static fn (array $row): bool => !in_array($row['option_name'], ['active_plugins', 'cron'], true)));
 $disabled = ['worker/init.php', 'wordfence/wordfence.php', 'fluent-smtp/fluent-smtp.php', 'matomo/matomo.php'];
 $kept = ['wp-all-export/wp-all-export.php', 'wp-all-import-pro/wp-all-import-pro.php', 'woo-order-export-lite/woocommerce-order-export.php', 'woocommerce-gateway-stripe/woocommerce-gateway-stripe.php'];
 $store->tables['x_options'][] = ['option_id' => 800, 'option_name' => 'active_plugins', 'option_value' => serialize(array_merge($disabled, $kept))];

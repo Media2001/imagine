@@ -5,6 +5,12 @@ declare(strict_types=1);
 // Liste négative A-01. Correspondances de chemins exactes : tout autre plugin garde son état.
 // Un plugin absent de cette liste n'est pas déclaré sûr : réseau système toujours confiné.
 return [
+    'remote-control' => [
+        'worker/init.php',
+    ],
+    'production-security' => [
+        'wordfence/wordfence.php',
+    ],
     'mail' => [
         'wp-mail-smtp/wp_mail_smtp.php', 'wp-mail-smtp-pro/wp_mail_smtp.php',
         'post-smtp/postman-smtp.php', 'easy-wp-smtp/easy-wp-smtp.php',

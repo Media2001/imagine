@@ -128,13 +128,13 @@ class ArchiveReelle(unittest.TestCase):
                        ('themes/fiction/ALICE.php', b'<?php whsec_FICTION_SECRET')])
         report = diagnosis.diagnose(io.BytesIO(raw), '6.9.1')
         rules = {r['code']: r for r in report['rules']}
-        self.assertEqual(2, rules['TABLE_PERSONNELLE_A_TRANCHER']['count'])
+        self.assertEqual(2, rules['TABLE_STRUCTURE_SEULE']['count'])
+        self.assertNotIn('TABLE_PERSONNELLE_A_TRANCHER', rules)
         self.assertEqual(2, rules['SQL_STATEMENT']['count'])
         self.assertEqual(1, rules['SOURCE_CORE_METADATA_REFUSED']['count'])
         self.assertEqual(1, rules['SECRET_OU_IDENTIFIANT']['count'])
         self.assertFalse(rules['SECRET_OU_IDENTIFIANT']['blocking'])
-        self.assertEqual(1, rules['SOURCE_SECRET_NEUTRALISABLE']['count'])
-        self.assertFalse(rules['SOURCE_SECRET_NEUTRALISABLE']['blocking'])
+        self.assertNotIn('SOURCE_SECRET_NEUTRALISABLE', rules)  # unknown rows are no longer inspected
         self.assertIn('wp_fiction_contacts', json.dumps(report))
         self.assertNotIn('ALICE', json.dumps(report))
         self.assertNotIn('FICTION_SECRET', json.dumps(report))
@@ -218,7 +218,7 @@ class ArchiveReelle(unittest.TestCase):
         rules = {r['code']: r for r in report['rules']}
         self.assertEqual(1, rules['OPTION_DUPLIQUEE']['count'])
         self.assertEqual(1, rules['URL_ABSENTE']['count'])
-        self.assertNotIn('TABLE_PERSONNELLE_A_TRANCHER', rules)
+        self.assertIn('TABLE_PERSONNELLE_A_TRANCHER', rules)  # explicit garder + personal column
         self.assertNotIn('ALICE', json.dumps(report))
 
     def test_all_metadata_errors_and_file_secret_assignments_are_counted(self):
@@ -425,8 +425,8 @@ runpy.run_path(SCRIPT,run_name='__main__')
         rules = {r['code']:r for r in report['rules']}
         self.assertEqual(2,rules['ARCHIVE_PATH_DUPLICATE']['count'])
         self.assertEqual(2,rules['SOURCE_CORE_METADATA_REFUSED']['count'])
-        self.assertEqual(2,rules['TABLE_PERSONNELLE_A_TRANCHER']['count'])
-        self.assertEqual({'wp_fiction_one','wp_fiction_two'},{loc['table'] for loc in rules['TABLE_PERSONNELLE_A_TRANCHER']['locations']})
+        self.assertEqual(2,rules['TABLE_STRUCTURE_SEULE']['count'])
+        self.assertEqual({'wp_fiction_one','wp_fiction_two'},{loc['table'] for loc in rules['TABLE_STRUCTURE_SEULE']['locations']})
     def test_ordinary_console_names_rule_count_and_first_zone(self):
         import publish
         self.assertTrue(hasattr(publish,'refusal_summary'),'Résumé exploitable du refus console manquant')

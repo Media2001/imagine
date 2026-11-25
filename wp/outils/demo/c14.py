@@ -117,7 +117,17 @@ def run(deploy=False, code_only=False):
     save()
     for key, filename in [('C08', 'c08-runtime.php'), ('C11', 'c11-runtime.php')]:
         upload('imagine-demo-build/' + filename, ROOT / 'wp/tests/demo' / filename)
-        value = wp('require WP_CONTENT_DIR . "/imagine-demo-build/' + filename + '";')
+        recipe = 'require WP_CONTENT_DIR . "/imagine-demo-build/' + filename + '";'
+        if key == 'C11':
+            # Les changements temporaires de plans C11 déclenchent les relevés append-only C13.
+            # Transaction native réelle, callbacks inclus, rollback à la fin du processus.
+            recipe = r'''require_once WP_CONTENT_DIR . '/imagine-demo-build/c14-profil.php';
+Imagine\\Demo\\C14\\guard();global $wpdb;
+$engines=$wpdb->get_col("SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_TYPE='BASE TABLE'");
+if(!$engines||array_filter($engines,static fn($e)=>$e!=='InnoDB')||wp_using_ext_object_cache()){throw new RuntimeException('Isolation transactionnelle C14 indisponible');}
+if($wpdb->query('START TRANSACTION')===false){throw new RuntimeException('Transaction C14 refusée');}
+try{(static function(){''' + recipe + '''})();}finally{$wpdb->query('ROLLBACK');}'''
+        value = wp(recipe)
         if key == 'C08':
             if value['failures']:
                 raise RuntimeError('Régression C08 : ' + str(value['failures']))

@@ -75,6 +75,24 @@ class ArchiveReelle3(unittest.TestCase):
         for folder in ('memberships_profile_fields','download-manager-files'):
             self.assertTrue(archive.excluded('uploads/'+folder+'/index.php'))
 
+    def test_negative_numbers_in_discarded_rows_and_chunk_boundaries(self):
+        from sql_stream import Framer, Validator
+        source = base() + b'CREATE TABLE `wp_fiction_drop` (`id` bigint,`payload` blob) ENGINE=InnoDB;'
+        source += b"INSERT INTO `wp_fiction_drop` VALUES (-1,_binary'\xff;\\\'a\\\\''b');"
+        for cut in range(len(source)):
+            v = Validator(diagnosis.parser_module())
+            f = Framer(v.statement)
+            f.feed(source[:cut]); f.feed(source[cut:]); f.finish(); v.finish()
+            self.assertEqual(1, v.skipped_inserts)
+
+    def test_bad_decisions_and_invalid_encoding_stay_closed(self):
+        sql = base() + b'CREATE TABLE `wp_fiction_drop` (`email` text) ENGINE=InnoDB;'
+        for invalid in (None, 'garder', {'action':'anything'}, {'action':'anonymiser','columns':['missing']}):
+            report, _ = self.analyze(sql, {'wp_fiction_drop':invalid})
+            self.assertIn('DECISION_INVALIDE', report['blockers'])
+        report, _ = self.analyze(base()+b'CREATE TABLE `wp_fiction` (`id` bigint DEFAULT \xff) ENGINE=InnoDB;')
+        self.assertTrue(report['blockers'])
+
     def test_summary_families_and_space(self):
         report={'status':'NO_STATIC_BLOCKER','rules':[], 'table_families':[{'family':'matomo_*','count':185,'action':'videe'}],
                 'unclassified_tables':['wp_fiction'], 'disk_space':{'required_bytes':1234,'available_bytes':5678}}
