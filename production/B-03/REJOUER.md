@@ -28,6 +28,10 @@ Le dernier amendement ne redéploie que le CSS, par `b03-reduced-motion.py` (pr�
 
 La commande obligatoire `powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1` a été réellement exécutée avec succès : `preparer-image.txt`. Ce script n’a pas été modifié ; aucun nouveau paquet Composer n’est créé par B03. Si les manifests des bibliothèques changent, refaire cette préparation explicitement avant le rejeu.
 
+## Réserve finale de concurrence
+
+Le dernier `verification-finale.json` est `FAILED` uniquement sur la préservation globale des quatre tables `wp_posts`, `wp_postmeta`, `wp_wc_orders`, `wp_wc_orders_meta`, changées pendant le travail parallèle C15. Les contrôles fonctionnels sont tous verts. PRET a été retiré : le parent doit rapprocher ces changements de son reçu C15 avant redépôt. Ne pas renouveler la photographie initiale ni exclure les tables pour forcer un vert. Le premier final après suppression CSS avait réellement réussi avant ces changements.
+
 ## Historique TDD et incompatibilité attendue
 
 - **Corrections B03-C1** : `browser-colors-red.json` → `browser-colors-corrections.json`, paragraphe noir et bloc rouge, ≥ 4,5:1 dans les trois palettes à 390 et 1440 px. Sondes DOM client temporaires, supprimées ; images et contenu enregistré intacts.

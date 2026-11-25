@@ -1,6 +1,6 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-25T19:00:04.441844+00:00",
+  "at": "2026-11-25T19:05:31.583677+00:00",
   "parallel_local_observed": [
     "plugins/imagine-site/EcheancesAdmin.php",
     "plugins/imagine-site/EcheancesNatives.php",
@@ -42,9 +42,9 @@
     "themes/imagine/assets/reading.js"
   ],
   "tables_sha256": {
-    "wp_postmeta": "e61365e1b307a3910f3da794b5c44fc3e7c44bbb93e7002318277fed4a6591e8",
-    "wp_posts": "f47f249ef54a0cf11c30f56b6e50a3bafa035b84946b350ee25ecb4b0a1a6a1a",
-    "wp_wc_orders": "34ebee1f5867546ffdc466c93da0f21b8d10288027baceda92a84b5c15ac0cf1",
+    "wp_postmeta": "1804ef21b564e1ab22f0c740d8a80b210b09d858cf8cd4e8aa714ce9a13e2e34",
+    "wp_posts": "4ba1f998c5ba4a22e545a6a2dd3d776e616e4d4eaad900ccca135f9db0edfd18",
+    "wp_wc_orders": "2b833e5c45b240f80cb5fd75ebbc23769c3d10005af4935f9edc10a3212e9983",
     "wp_wc_orders_meta": "ec9818a7f873832cf0671b9b31e50bf421d98af116df6fae1b09ce6c99fa4b8f"
   },
   "exact_allowed_changes": false

@@ -9,12 +9,19 @@ final class EcheancesRegles
 {
     public static function mandats(array $rows, int $now, int $days): array
     {
-        $rows = array_filter($rows, static fn ($row) => $row['etat'] === 'active'
-            && $row['methode'] === 'imagine_papier' && $row['reference'] !== '' && $row['prochaine'] > 0
-            && ($row['fin'] === 0 || $row['prochaine'] < $row['fin']));
-        // Un mandat à lancer désigne le prochain prélèvement, jamais la fin du contrat.
-        $rows = array_map(static fn ($row) => array_replace($row, ['fin' => 0]), $rows);
-        return self::echeances($rows, $now, $days);
+        if (!in_array($days, [30, 90, 180], true)) {
+            throw new \InvalidArgumentException('Période invalide.');
+        }
+        $out = [];
+        foreach ($rows as $row) {
+            if ($row['etat'] === 'active' && $row['methode'] === 'imagine_papier' && $row['reference'] !== ''
+                && $row['prochaine'] > 0 && $row['prochaine'] <= $now + $days * 86400
+                && ($row['fin'] === 0 || ($row['fin'] > $now && $row['prochaine'] < $row['fin']))) {
+                $out[] = $row + ['echeance' => $row['prochaine']];
+            }
+        }
+        usort($out, static fn ($a, $b) => [$a['echeance'], $a['id']] <=> [$b['echeance'], $b['id']]);
+        return $out;
     }
 
     /** Flux fourni par l'appelant : aucune écriture de fichier ni colonne libre. */

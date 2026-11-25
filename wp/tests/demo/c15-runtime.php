@@ -28,6 +28,16 @@ if ($c['raccord_present']) {
     $c['mandat_montant_date_natifs'] = ($paper['montant'] ?? null) === wcs_get_subscription($f['subscriptions']['A-PAPIER'])->get_total()
         && ($paper['echeance'] ?? null) === wcs_get_subscription($f['subscriptions']['A-PAPIER'])->get_time('next_payment');
     $c['pas_IBAN_dans_projection'] = !preg_match('/iban/i', wp_json_encode($views));
+    $source = wc_get_order($f['orders']['A-VIR']);
+    $clone = clone $source;
+    $clone->set_customer_id($f['users']['A-CARTE']);
+    $c['marqueur_fictif_mauvais_proprietaire_ferme'] = EcheancesNatives::methode($clone) === '';
+    $clone = clone $source; $clone->set_id(2147483647);
+    $c['marqueur_fictif_mauvais_id_ferme'] = EcheancesNatives::methode($clone) === '';
+    $clone = clone $source; $clone->update_meta_data('imagine_demo_fictif', '0');
+    $c['marqueur_sans_fictif_ferme'] = EcheancesNatives::methode($clone) === '';
+    $clone = clone $source; $clone->set_payment_method('stripe');
+    $c['methode_native_prioritaire_pas_de_bacs_invente'] = EcheancesNatives::methode($clone) === 'stripe';
     $c['garde_hors_ligne'] = apply_filters('pre_wp_mail', null, []) === false && is_wp_error(apply_filters('pre_http_request', false, [], 'https://example.org'))
         && WC()->payment_gateways()->get_available_payment_gateways() === [];
     wp_set_current_user(0);

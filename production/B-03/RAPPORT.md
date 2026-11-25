@@ -1,10 +1,14 @@
 # B-03 — Corrections du 25/11/2026
 
-**Fait** : les cinq instructions de `corrections/B-03.md` sont appliquées et vérifiées, paywall intact.
-**Prêt à relire** : PRET corrigé, reçu `verification-finale.json`, parcours `A-VOIR.md`.
+**Fait** : corrections fonctionnelles appliquées ; suppression prioritaire de 19h30 testée et déployée seule.
+**Prêt à relire** : premier final passé et PRET déposé avant B04 ; **PRET retiré en fin de passage**, voir garde de préservation ci-dessous.
 **À valider par Ced** : valeurs du designer puis contraste/rendu sur article réel ; validation visuelle toujours en attente.
-**Bloqué** : rien techniquement ; navigateur connecté non revendiqué, A-CARTE vérifié par HTTP réel.
+**Bloqué en clôture de passage** : quatre empreintes de tables ont changé pendant le travail C15 parallèle ; réconciliation par le parent nécessaire.
 **Ensuite** : retour au parent ; aucun rapport global V2, file ou verrou touché.
+
+## État final après travail parallèle C15
+
+Le final a réellement réussi après suppression CSS, avant la tranche B04. En fin de passage, tous les contrôles fonctionnels réussissent encore (10 PHP, 43 HTTP, 8 JS, 15 locaux, 1012 T01, 77 navigateur liés au CSS), mais la garde globale de préservation échoue : `wp_posts`, `wp_postmeta`, `wp_wc_orders`, `wp_wc_orders_meta` diffèrent de la photographie antérieure. Ce constat persiste après deux attentes de 30 puis 60 secondes. Les quatre chemins de plugin C15 déclarés sont séparés nominativement ; **les tables n’ont pas été exclues, réinitialisées ni remises à une nouvelle référence**. Ce worker n’a exécuté aucun seed ni sauvegarde de commande. Attribution exacte de ces différences au parent, pas une preuve inventée de préservation C09. Le reçu final reste donc `FAILED` sur cette seule garde ; PRET retiré, sans corriger les tables ni toucher C15.
 
 ## Résultat vérifié
 

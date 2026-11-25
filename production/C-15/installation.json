@@ -1,9 +1,9 @@
 {
   "scope": "imagine-test-demo",
   "sha256_readback": {
-    "EcheancesRegles.php": "a6c684f0162d96ef53c8a503ddc9b9cef232837ae301642c09efe06dcf8a90fa",
+    "EcheancesRegles.php": "dacecd0d9adecf44c2e1b0f8b9974077fb411ba5aa2e8e13fcef0860591e9229",
     "EcheancesNatives.php": "27837582469b2fca2792ae43398cae57a8e7dc8303d3769b695630cccc571f0f",
-    "EcheancesAdmin.php": "1c28686880e80a8f6e4c3887b6303a993bd88756cbe23d9f811506c402a6e156",
+    "EcheancesAdmin.php": "3a0fd5ffe2f6c7657d9fcbb082f18a8219bec793c8ad6a820c318c1a7ccf041b",
     "imagine-site.php": "7fa2bf3260b64ae1422cf8564ef2227d1ab9ead15ecca5bb7782693263b79eb9"
   },
   "theme_uploaded": false

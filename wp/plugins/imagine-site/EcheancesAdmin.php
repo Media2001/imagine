@@ -227,7 +227,7 @@ final class EcheancesAdmin
             echo '</td></tr>';
         }
         if ($rows === []) {
-            echo '<tr><td colspan="6">' . esc_html(self::t('Aucun résultat dans cette vue.')) . '</td></tr>';
+            echo '<tr><td colspan="7">' . esc_html(self::t('Aucun résultat dans cette vue.')) . '</td></tr>';
         }
         echo '</tbody></table>';
         if ($view === 'mandats') {

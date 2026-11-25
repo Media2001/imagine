@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-25T19:00:04.588544+00:00",
+  "at": "2026-11-25T19:05:31.718515+00:00",
   "scope": "imagine-test-demo",
   "status": "FAILED",
   "counts": {
@@ -80,20 +80,20 @@
   },
   "documents_sha256": {
     "production/B-03/A-VOIR.md": "41db2abd441838d52f38b7ac6f56da44e47489d9c647a3b6be4949ed26260b4a",
-    "production/B-03/RAPPORT.md": "f28b35707478410d9a942ae20fe4a77cfdafb936d91abdc35186fa7965f14a6f",
+    "production/B-03/RAPPORT.md": "14eafe3d7b7ce2dde5ce3d513952f8de7d019694d2cbac95d6bbbd5dcf8714c9",
     "production/B-03/besoins-designer.md": "d8d2db424d2fd1d201cff6e6d4ec8a20702c54746b650b6cf2f0cf7af04ba9c0",
-    "production/B-03/REJOUER.md": "4aa8fc10f3deb6ca3fb7b7b277832fe3757a52bce037ed7c578c73e0d657871e"
+    "production/B-03/REJOUER.md": "1f22d0ce9d3ea29e32e615d684bd3491567080fa262e1b1316e9c3356bf8ed43"
   },
   "evidence_sha256": {
     "deploy-corrections.json": "7a3fdc3984cc879e5301b70faa34434fa7f75a0bf4e1b31536f43f529b38a565",
     "deploy-reduced-motion.json": "e3b8b04e6e284da9dc65f1afbfeb03f8377abf7eb45538edc8c0aa24eb0a2f19",
-    "php-corrections.json": "77e899135a3050331afa7fcf6703fd72c86fd595babd96de65955ecc06635d06",
-    "http-corrections.json": "d9a5432bdbdd6245900053cfedbf206c9f3e392487371a1a9f9e1c7d2569824e",
-    "js-corrections-green.txt": "5c208265ce63987f39ecf62fb8d51d8452cad17895545f91a6dbc62d8acbc65b",
-    "t01-release.txt": "20e1d69ae62d560020c5a7e217097db9f23645aad087f89c3f591c7fd545b074",
-    "local-regression.json": "0bbd1c2c6eff793e918f8a38551df6d7fa9f20077944fdfe53f2fc488241e083",
+    "php-corrections.json": "ce6d89bd9e4bbd5b18166f0053e80038b7ef8b86aa8d306de5792d5b6538f295",
+    "http-corrections.json": "19bd87bca202de90b15caa198bfb95cfdfbeb8f9db7c28908d3517f389e68a31",
+    "js-corrections-green.txt": "95d074a1aa4665209fb5f4a0a5c1ceafae2b629c59449dd38b71d8986e571180",
+    "t01-release.txt": "8abaeeaa27dd8927bf452f7a202cc96b9c2fe3e760e0c82a2bb9b3b715eaa55b",
+    "local-regression.json": "3aec414c3960a19fdaadd3bdb7bb439d9466bc6da128120b88d503b097e8c5cf",
     "browser-colors-corrections.json": "c1725c763319684331156abfe07610df25e35eadaf1178ba636aca3e680eba5e",
-    "preservation-corrections.json": "dbcd95cde89ad9fd55c2ee263e5d6539454c2729c0c1387dd1eaee2af1786fd3",
+    "preservation-corrections.json": "cc7f08ef95cb38aae7da12a696a56c5d6cbb8d82597560714675050c5bc669aa",
     "preparer-image.txt": "4ca92823d999c6773db619f952cb4240e38b8c2d26e1cef65c7592758b000a51"
   },
   "limits": [

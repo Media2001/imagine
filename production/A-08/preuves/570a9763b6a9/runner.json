@@ -1,0 +1,57 @@
+{
+  "container": "imagine-a08-0bfecb113dde",
+  "label": "org.imagine.a08-repetition",
+  "checks": [
+    {
+      "check": "isolation_before",
+      "ok": true,
+      "detail": {
+        "network": "none",
+        "mounts": [],
+        "ports": [],
+        "privileged": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2"
+      }
+    },
+    {
+      "check": "unit",
+      "ok": true,
+      "detail": {
+        "exit": 0
+      }
+    },
+    {
+      "check": "isolation_after",
+      "ok": true,
+      "detail": {
+        "network": "none",
+        "mounts": [],
+        "ports": [],
+        "privileged": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2"
+      }
+    },
+    {
+      "check": "cleanup_exact_owned",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "diagnostic": "error: no such object: imagine-a08-0bfecb113dde"
+      }
+    },
+    {
+      "check": "sources_unchanged",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "exit_code": 0
+}

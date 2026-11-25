@@ -1,7 +1,7 @@
 # B-04 — Arrêt sur prérequis manquants
 
 **Fait** : lecture de la file de 19h30, consigne, doctrine, §3.3, décisions et interfaces C08/C11/C14 ; premier tracer-bullet TDD exécuté.
-**Prêt à relire** : B03 uniquement. **B04 n’est pas PRET.**
+**Prêt à relire** : aucun PRET déposé en fin de passage. B03 fonctionnellement vert, mais son PRET a été retiré après détection de quatre empreintes de tables changées pendant le travail C15 parallèle (voir le rapport B03). **B04 n’est pas PRET.**
 **À décider par le parent** : autoriser un complément ciblé des données fictives, hors du périmètre d’écriture confié à ce worker.
 **Bloqué** : aucun produit WooCommerce publié ; aucun numéro de vingt articles disponible.
 **Ensuite** : lot arrêté conformément à la demande, sans fabriquer d’objet, de droit ou de parcours d’achat.
