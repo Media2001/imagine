@@ -44,11 +44,11 @@ def run_storage(storage):
     try:site,db,seed,config,settings=a03.install(storage)
     finally:shutil.copytree=original
     a03.wp(site,['eval',"require_once WC_ABSPATH . 'includes/admin/wc-admin-functions.php'; wc_memberships()->get_lifecycle_handler()->init(); WC_Subscriptions_Upgrader::upgrade();"])
-    rest=site/'wp-content/plugins/a04-rest/a04-rest.php';rest.parent.mkdir()
+    rest=site/'wp-content/plugins/a04-rest/fiction-entry.php';rest.parent.mkdir()
     rest_source='<?php\n/*\nPlugin Name: Fiction A04 files only\nVersion: 1.0.0\nRequires PHP: 8.2\nRequires at least: 7.0\n*/\n'
-    rest.write_text(rest_source);a03.wp(site,['plugin','activate','a04-rest'])
+    rest.write_text(rest_source);a03.wp(site,['plugin','activate','a04-rest/fiction-entry.php'])
     rest_zip=ROOT/(storage+'-rest.zip')
-    with zipfile.ZipFile(rest_zip,'w') as z:z.writestr('a04-rest/a04-rest.php',rest_source.replace('Version: 1.0.0','Version: 2.0.0'))
+    with zipfile.ZipFile(rest_zip,'w') as z:z.writestr('a04-rest/fiction-entry.php',rest_source.replace('Version: 1.0.0','Version: 2.0.0'))
     old_file=site/'wp-content/plugins/woocommerce/a04-old-file-kept.txt';old_file.write_text('Fiction A04 preserve unlisted file')
     themes_before=a03.filemap(site/'wp-content/themes')
     check(storage+':baseline_versions',bool(seed['versions']),seed['versions'])
@@ -77,7 +77,7 @@ def run_storage(storage):
         after=[target_core,target_wc,versions['subscriptions'],versions['memberships']]
         archives=['/opt/compatible-public/wordpress.zip','/opt/compatible-public/woocommerce.zip','/opt/a03/woocommerce-subscriptions.zip','/opt/a03/woocommerce-memberships.zip']
         keys.append('a04-rest');before.append('1.0.0');after.append('2.0.0');archives.append(str(rest_zip))
-        steps=[{'component':k,'before':v,'after':t,'archive':p,'sha256':sha(p),'adapter':k if k in keys[:4] else 'bootstrap-only','hooks':[]} for k,v,t,p in zip(keys,before,after,archives)]
+        steps=[{'component':k,'main_file':None if k=='core' else 'fiction-entry.php' if k=='a04-rest' else k+'.php','before':v,'after':t,'archive':p,'sha256':sha(p),'adapter':k if k in keys[:4] else 'bootstrap-only','hooks':[]} for k,v,t,p in zip(keys,before,after,archives)]
         plan=ROOT/(storage+'-plan.json');write(plan,{'schema':'imagine-a04-v1','site_status':'verified-staging','steps':steps})
         # Prove guards before the first update, with actual filesystem readbacks.
         denied=update(site,plan,backup,ROOT/(storage+'-no-maintenance'))
@@ -121,6 +121,30 @@ def run_storage(storage):
         check(storage+':same_site_other_state_refused',alternate.returncode==1 and alternate.stderr=='A04_ALREADY_RUNNING\n')
         lock.kill();lock.wait(timeout=10)
         check(storage+':real_updater_sigkill',lock.returncode==-9)
+        # Resume a real interrupted site after the native ten-minute window.
+        # A missing or changed persistent MU must never be repaired implicitly.
+        persistent=site/'wp-content/mu-plugins/001-imagine-a04-maintenance.php'
+        persistent_bytes=persistent.read_bytes()
+        maintenance.write_text('<?php $upgrading = '+str(int(time.time())-1200)+';\n')
+        expired_bytes=maintenance.read_bytes()
+        checkpoint_bytes=(state/'etat.json').read_bytes()
+        persistent.unlink()
+        denied=update(site,plan,backup,state)
+        check(storage+':expired_resume_missing_mu_refused',denied.returncode==1 and denied.stderr=='A04_MAINTENANCE_BYTES\n' and maintenance.read_bytes()==expired_bytes and (state/'etat.json').read_bytes()==checkpoint_bytes and not persistent.exists(),{'exit':denied.returncode,'code':denied.stderr[:100]})
+        persistent.write_bytes(persistent_bytes+b'\n// altered synthetic MU\n')
+        denied=update(site,plan,backup,state)
+        check(storage+':expired_resume_changed_mu_refused',denied.returncode==1 and denied.stderr=='A04_MAINTENANCE_BYTES\n' and maintenance.read_bytes()==expired_bytes and (state/'etat.json').read_bytes()==checkpoint_bytes)
+        persistent.write_bytes(persistent_bytes)
+        invalid_state=ROOT/(storage+'-invalid-state');invalid_state.mkdir()
+        invalid_checkpoint=json.loads(checkpoint_bytes);invalid_checkpoint['config_sha256']='0'*64
+        write(invalid_state/'etat.json',invalid_checkpoint)
+        denied=update(site,plan,backup,invalid_state)
+        check(storage+':expired_resume_invalid_checkpoint_refused',denied.returncode==1 and denied.stderr=='A04_STATE\n' and maintenance.read_bytes()==expired_bytes)
+        refreshed=update(site,plan,backup,state,['--stop-after=woocommerce'])
+        import re
+        stamp=re.fullmatch(r'<\?php\s+\$upgrading\s*=\s*([0-9]+);\s*',maintenance.read_text())
+        check(storage+':expired_resume_refreshes_under_locks',refreshed.returncode==75 and stamp is not None and 0<=time.time()-int(stamp[1])<600 and persistent.read_bytes()==persistent_bytes,{'exit':refreshed.returncode,'code':refreshed.stderr[:100],'stale_seconds':1200})
+        check(storage+':expired_resume_preserves_verified_core',json.loads((state/'etat.json').read_text())['steps']['core']==initial['steps']['core'])
         forged=a03.wp(site,['eval',"echo 'A04_ID=' . as_schedule_single_action(time(), 'woocommerce_run_update_callback', ['update_callback'=>'wp_delete_user'], 'woocommerce-db-updates');"])
         forged_id=int(forged.stdout.split('A04_ID=')[-1].strip())
         blocked=update(site,plan,backup,state)
@@ -143,7 +167,7 @@ def run_storage(storage):
         check(storage+':resumed',resumed.returncode==0,{'exit':resumed.returncode,'code':resumed.stderr[:200]})
         current=json.loads((state/'etat.json').read_text())
         check(storage+':previous_step_not_replayed',current['steps']['core']==initial['steps']['core'])
-        check(storage+':current_step_resumed',current['steps']['woocommerce']['attempts']==4 and all(r['phase']=='verified' for r in current['steps'].values()))
+        check(storage+':current_step_resumed',current['steps']['woocommerce']['attempts']==5 and all(r['phase']=='verified' for r in current['steps'].values()))
         repeat=update(site,plan,backup,state);again=json.loads((state/'etat.json').read_text())
         check(storage+':idempotent_repeat',repeat.returncode==0 and again['steps']==current['steps'])
         # No theme/data cleanup; maintenance remains and is explicitly removed by fixture only.

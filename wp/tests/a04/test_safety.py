@@ -2,7 +2,7 @@ import hashlib, importlib.machinery, importlib.util, json, pathlib, tempfile, ti
 ROOT=pathlib.Path('/subject') if pathlib.Path('/subject').is_dir() else pathlib.Path(__file__).resolve().parents[2]/'outils/bascule'
 loader=importlib.machinery.SourceFileLoader('a04_update',str(ROOT/'mettre-a-jour'));spec=importlib.util.spec_from_loader(loader.name,loader);a04=importlib.util.module_from_spec(spec);loader.exec_module(a04)
 def plan():
-    steps=[{'component':k,'before':'1.0','after':'2.0','archive':'/package.zip','sha256':'a'*64,'adapter':k,'hooks':[]} for k in ['core','woocommerce','woocommerce-subscriptions','woocommerce-memberships']]
+    steps=[{'component':k,'main_file':None if k=='core' else k+'.php','before':'1.0','after':'2.0','archive':'/package.zip','sha256':'a'*64,'adapter':k,'hooks':[]} for k in ['core','woocommerce','woocommerce-subscriptions','woocommerce-memberships']]
     steps[0].update(before='6.9.1',after='7.0.9')
     return {'schema':'imagine-a04-v1','site_status':'verified-staging','steps':steps}
 class SafetyTests(unittest.TestCase):

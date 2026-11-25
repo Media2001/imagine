@@ -62,9 +62,10 @@ def validate_plan(plan):
     names = [s.get('component') for s in steps]
     require(names[:4] == ORDER and len(set(names)) == len(names), 'A04_ORDER')
     for i, step in enumerate(steps):
-        require(set(step) == {'component', 'before', 'after', 'archive', 'sha256', 'adapter', 'hooks'}, 'A04_PLAN')
+        require(set(step) == {'component', 'main_file', 'before', 'after', 'archive', 'sha256', 'adapter', 'hooks'}, 'A04_PLAN')
         key = step['component']
         require(isinstance(key, str) and re.fullmatch('[a-z0-9][a-z0-9-]{0,99}', key), 'A04_COMPONENT')
+        validate_main_file(key, step['main_file'])
         require(numeric(step['after']) >= numeric(step['before']), 'A04_DOWNGRADE')
         require(step['adapter'] == (key if i < 4 else 'bootstrap-only'), 'A04_ADAPTER')
         require(step['hooks'] == [], 'A04_HOOK')
@@ -93,8 +94,13 @@ def check_backup(backup, site):
         entry = backup.get(key, {})
         file = pathlib.Path(entry.get('path', ''))
         require(file.is_absolute() and file.is_file() and not file.is_symlink() and file.stat().st_size > 0, 'A04_BACKUP_FILE')
-        require(not file.is_relative_to(pathlib.Path(site)), 'A04_BACKUP_LOCATION')
-        require(digest(file) == entry.get('sha256'), 'A04_BACKUP_HASH')
+        # A lexical outside path may traverse .. or a symlinked directory.
+        # Reject every symlink in the supplied path, including its parents,
+        # then compare the canonical file and site before reading any bytes.
+        require(not any(parent.is_symlink() for parent in file.parents), 'A04_SYMLINK')
+        resolved = file.resolve(strict=True)
+        require(not resolved.is_relative_to(pathlib.Path(site).resolve()), 'A04_BACKUP_LOCATION')
+        require(digest(resolved) == entry.get('sha256'), 'A04_BACKUP_HASH')
 
 def safe_path(base, relative):
     base = pathlib.Path(base)
@@ -128,8 +134,17 @@ def archive_entries(archive, component):
     require(bool(entries), 'A04_ARCHIVE_EMPTY')
     return entries
 
-def package_metadata(archive, component):
-    member = 'wordpress/wp-includes/version.php' if component == 'core' else component + '/' + component + '.php'
+def validate_main_file(component, main_file):
+    if component == 'core':
+        require(main_file is None, 'A04_MAIN_FILE')
+        return
+    require(isinstance(main_file, str)
+        and re.fullmatch(r'[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*\.php', main_file)
+        and all(part not in ('.', '..') for part in main_file.split('/')), 'A04_MAIN_FILE')
+
+def package_metadata(archive, component, main_file=None):
+    validate_main_file(component, main_file)
+    member = 'wordpress/wp-includes/version.php' if component == 'core' else component + '/' + main_file
     with zipfile.ZipFile(archive) as z:
         require(member in z.namelist() and z.getinfo(member).file_size < 2097152, 'A04_PACKAGE_METADATA')
         text = z.read(member).decode('utf8')
@@ -142,8 +157,8 @@ def package_metadata(archive, component):
         return match[1] if match else None
     return {'version':header('Version'), 'requires_php':header('Requires PHP'), 'requires_wp':header('Requires at least')}
 
-def check_package(archive, component, expected, target_wp, php):
-    metadata = package_metadata(archive, component)
+def check_package(archive, component, expected, target_wp, php, main_file=None):
+    metadata = package_metadata(archive, component, main_file)
     require(metadata['version'] == expected, 'A04_PACKAGE_VERSION')
     if metadata['requires_php']:
         require(numeric(php) >= numeric(metadata['requires_php']), 'A04_PACKAGE_PHP')
@@ -170,8 +185,9 @@ def overlay(archive, site, component):
                 if os.path.exists(temp): os.unlink(temp)
     return len(entries)
 
-def version(site, component):
-    path = safe_path(site, 'wp-includes/version.php' if component == 'core' else 'wp-content/plugins/' + component + '/' + component + '.php')
+def version(site, component, main_file=None):
+    validate_main_file(component, main_file)
+    path = safe_path(site, 'wp-includes/version.php' if component == 'core' else 'wp-content/plugins/' + component + '/' + main_file)
     text = path.read_text(encoding='utf8', errors='strict')
     match = re.search(r"\$wp_version\s*=\s*'([^']+)'", text) if component == 'core' else re.search(r'^\s*\*?\s*Version:\s*([0-9.]+)', text, re.M | re.I)
     require(match is not None, 'A04_VERSION_READ')
@@ -260,9 +276,9 @@ def execute(args):
             package = pathlib.Path(step['archive'])
             require(package.is_file() and not package.is_symlink() and digest(package) == step['sha256'], 'A04_PACKAGE_HASH')
             archive_entries(package, step['component'])
-            check_package(package,step['component'],step['after'],plan['steps'][0]['after'],php)
+            check_package(package,step['component'],step['after'],plan['steps'][0]['after'],php,step['main_file'])
             with zipfile.ZipFile(package) as z: planned_bytes += sum(info.file_size for info in z.infolist())
-            row = state['steps'].get(step['component']); current = version(site, step['component'])
+            row = state['steps'].get(step['component']); current = version(site, step['component'], step['main_file'])
             if row is None: require(current == step['before'], 'A04_START_VERSION')
             else:
                 require(row.get('phase') in ['copying','copied','migrating','verified'], 'A04_STATE')
@@ -288,7 +304,7 @@ def execute(args):
                 refresh_maintenance(site)
                 if row['phase'] == 'copying':
                     row['files'] = overlay(step['archive'], site, key)
-                    require(version(site,key) == step['after'],'A04_TARGET_VERSION')
+                    require(version(site,key,step['main_file']) == step['after'],'A04_TARGET_VERSION')
                     row['phase'] = 'copied'; event(key,'copied',files=row['files'])
                 if args.stop_after == key:
                     event(key,'interruption_requested')
@@ -310,7 +326,7 @@ def execute(args):
                         continue
                     break
                 else: raise Refusal('A04_MIGRATION_FIXPOINT_LIMIT')
-                require(version(site,key) == step['after'],'A04_TARGET_VERSION')
+                require(version(site,key,step['main_file']) == step['after'],'A04_TARGET_VERSION')
                 row['phase']='verified';row['duration_seconds']=round(time.time()-row['started'],3)
                 event(key,'verified',before=row['before'],after=row['after'],duration_seconds=row['duration_seconds'],migrations=row['migrations'])
             for step in plan['steps']:

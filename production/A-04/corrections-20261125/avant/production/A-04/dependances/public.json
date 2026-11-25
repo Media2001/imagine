@@ -1,0 +1,23 @@
+[
+  {
+    "name": "wordpress-6.9.1.zip",
+    "url": "https://wordpress.org/wordpress-6.9.1.zip",
+    "sha256": "1c6ba9fc3ca6d5eb847666d82c0958c15878552387143ed61724ee81350fb120",
+    "bytes": 28685823,
+    "ok": true
+  },
+  {
+    "name": "wordpress-7.0.zip",
+    "url": "https://wordpress.org/wordpress-7.0.zip",
+    "sha256": "b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+    "bytes": 31549246,
+    "ok": true
+  },
+  {
+    "name": "woocommerce-11.0.1.zip",
+    "url": "https://downloads.wordpress.org/plugin/woocommerce.11.0.1.zip",
+    "sha256": "da189b6616c610d15a2106f93151dab81b78f83e075bcefce221ac0d00b4fa21",
+    "bytes": 20218895,
+    "ok": true
+  }
+]
