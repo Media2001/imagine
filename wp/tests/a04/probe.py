@@ -1,4 +1,10 @@
 import pathlib, re, zipfile
+p=pathlib.Path('/opt/woocommerce/woocommerce/includes/class-wc-install.php')
+s=p.read_text()
+print('WOO_PUBLIC_UPDATE_METHODS',re.findall(r'public static function ([A-Za-z0-9_]+)',s))
+for marker in ['public static function run_update_callback','public static function get_db_update_callbacks']:
+    start=s.find(marker)
+    print('WOO_UPDATE_IMPLEMENTATION',s[start:start+2600])
 for root in ['/opt/wordpress/wordpress', '/opt/woocommerce/woocommerce']:
     p=pathlib.Path(root)/('wp-includes/version.php' if 'wordpress' in root else 'woocommerce.php')
     print(str(p),re.findall(r"(?:\$wp_version\s*=\s*'([^']+)'|Version:\s*([^\r\n]+))",p.read_text())[:2])

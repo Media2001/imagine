@@ -13,6 +13,41 @@ final class Runtime
         }
     }
 
+    public static function wooMigrations(): array
+    {
+        $allowed = [];
+        foreach (\WC_Install::get_db_update_callbacks() as $callbacks) {
+            $allowed = array_merge($allowed, $callbacks);
+        }
+        $executed = [];
+        $start = microtime(true);
+        for ($batch = 0; $batch < 10000; $batch++) {
+            $ids = as_get_scheduled_actions(['hook' => 'woocommerce_run_update_callback',
+                'group' => 'woocommerce-db-updates', 'status' => 'pending',
+                'per_page' => 1, 'orderby' => 'action_id', 'order' => 'ASC'], 'ids');
+            if (!$ids) {
+                return $executed;
+            }
+            self::need(microtime(true) - $start < 120, 'A04_MIGRATION_LIMIT');
+            $id = (int) reset($ids);
+            $store = \ActionScheduler::store();
+            $action = $store->fetch_action($id);
+            $args = $action->get_args();
+            $callback = $args['update_callback'] ?? null;
+            self::need(count($args) === 1 && is_string($callback)
+                && in_array($callback, $allowed, true)
+                && preg_match('/\Awc_update_[0-9][A-Za-z0-9_]*\z/D', $callback) === 1,
+                'A04_CALLBACK_REFUSED');
+            // Only this native callback and this exact action. The staging AS
+            // blocker stays installed; no global queue or payment hook is run.
+            \WC_Install::run_update_callback($callback);
+            $store->mark_complete($id);
+            self::need($store->get_status($id) === 'complete', 'A04_ACTION_READBACK');
+            $executed[] = $callback;
+        }
+        throw new \RuntimeException('A04_MIGRATION_LIMIT');
+    }
+
     public static function run(): array
     {
         global $wpdb, $wp_db_version;
@@ -31,6 +66,9 @@ final class Runtime
                 self::need((string) get_option('db_version') === (string) $wp_db_version, 'A04_CORE_DB');
                 $migrations[] = 'wp core update-db; db_version=' . $wp_db_version;
             } elseif ($component === 'woocommerce') {
+                if ($mode === 'migrate') {
+                    $migrations = self::wooMigrations();
+                }
                 self::need(version_compare((string) get_option('woocommerce_db_version'), WC()->version, '>='), 'A04_WC_DB');
                 $migrations[] = 'wp wc update; woocommerce_db_version=' . get_option('woocommerce_db_version');
             } elseif ($component === 'woocommerce-subscriptions') {

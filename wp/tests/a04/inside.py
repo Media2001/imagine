@@ -94,6 +94,11 @@ def run_storage(storage):
         lock.kill();lock.wait(timeout=10)
         check(storage+':real_updater_sigkill',lock.returncode==-9)
         resumed=update(site,plan,backup,state)
+        if resumed.returncode:
+            for filename in ['etat.json','journal.json','journal.txt']:
+                shutil.copyfile(state/filename,OUT/(storage+'-failed-'+filename))
+            pending=a03.sql(db,"SELECT hook,status,COUNT(*) AS count FROM wp_actionscheduler_actions WHERE status IN ('pending','in-progress','failed') GROUP BY hook,status ORDER BY hook,status")
+            (OUT/(storage+'-pending-identifiers.tsv')).write_text(pending.stdout)
         check(storage+':resumed',resumed.returncode==0,{'exit':resumed.returncode,'code':resumed.stderr[:200]})
         current=json.loads((state/'etat.json').read_text())
         check(storage+':previous_step_not_replayed',current['steps']['core']==initial['steps']['core'])
