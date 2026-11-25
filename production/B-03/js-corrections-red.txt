@@ -1,0 +1,98 @@
+TAP version 13
+# Subtest: préférences : choix autorisés et défauts prudents, même avec données corrompues
+ok 1 - préférences : choix autorisés et défauts prudents, même avec données corrompues
+  ---
+  duration_ms: 3.3772
+  type: 'test'
+  ...
+# Subtest: stockage local : aller-retour, absence, corruption, refus et quota sans exception
+ok 2 - stockage local : aller-retour, absence, corruption, refus et quota sans exception
+  ---
+  duration_ms: 0.9897
+  type: 'test'
+  ...
+# Subtest: progression bornée sur le texte, et état de reprise validé sans coercition
+ok 3 - progression bornée sur le texte, et état de reprise validé sans coercition
+  ---
+  duration_ms: 0.5783
+  type: 'test'
+  ...
+# Subtest: parcours DOM sans navigateur : activation, réglages, progression, reprise et sortie clavier
+ok 4 - parcours DOM sans navigateur : activation, réglages, progression, reprise et sortie clavier
+  ---
+  duration_ms: 1.7181
+  type: 'test'
+  ...
+# Subtest: départ pagehide avant rAF : dernière position réelle et reprise instantanée
+not ok 5 - départ pagehide avant rAF : dernière position réelle et reprise instantanée
+  ---
+  duration_ms: 0.9315
+  type: 'test'
+  location: 'C:\\Users\\Ced\\imagine\\wp\\tests\\demo\\b03-reading.test.cjs:120:5'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1200
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1200
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Ced\imagine\wp\tests\demo\b03-reading.test.cjs:129:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1325:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+    Test.postRun (node:internal/test_runner/test:1465:19)
+    Test.run (node:internal/test_runner/test:1390:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: départ visibilitychange avant rAF : dernière position réelle et reprise instantanée
+not ok 6 - départ visibilitychange avant rAF : dernière position réelle et reprise instantanée
+  ---
+  duration_ms: 0.2911
+  type: 'test'
+  location: 'C:\\Users\\Ced\\imagine\\wp\\tests\\demo\\b03-reading.test.cjs:120:5'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1200
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1200
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Ced\imagine\wp\tests\demo\b03-reading.test.cjs:129:16)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1325:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+    Test.postRun (node:internal/test_runner/test:1465:19)
+    Test.run (node:internal/test_runner/test:1390:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+  ...
+# Subtest: départ inactif : ne pas écraser la dernière position de lecture avec le scroll ordinaire
+ok 7 - départ inactif : ne pas écraser la dernière position de lecture avec le scroll ordinaire
+  ---
+  duration_ms: 0.2627
+  type: 'test'
+  ...
+# Subtest: reprise isolée par article et longueur du texte servi ; stockage indisponible et page hors article
+ok 8 - reprise isolée par article et longueur du texte servi ; stockage indisponible et page hors article
+  ---
+  duration_ms: 0.29
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 6
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 77.6754

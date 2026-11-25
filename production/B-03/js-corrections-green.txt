@@ -1,0 +1,58 @@
+TAP version 13
+# Subtest: préférences : choix autorisés et défauts prudents, même avec données corrompues
+ok 1 - préférences : choix autorisés et défauts prudents, même avec données corrompues
+  ---
+  duration_ms: 2.3458
+  type: 'test'
+  ...
+# Subtest: stockage local : aller-retour, absence, corruption, refus et quota sans exception
+ok 2 - stockage local : aller-retour, absence, corruption, refus et quota sans exception
+  ---
+  duration_ms: 0.386
+  type: 'test'
+  ...
+# Subtest: progression bornée sur le texte, et état de reprise validé sans coercition
+ok 3 - progression bornée sur le texte, et état de reprise validé sans coercition
+  ---
+  duration_ms: 0.3253
+  type: 'test'
+  ...
+# Subtest: parcours DOM sans navigateur : activation, réglages, progression, reprise et sortie clavier
+ok 4 - parcours DOM sans navigateur : activation, réglages, progression, reprise et sortie clavier
+  ---
+  duration_ms: 1.8664
+  type: 'test'
+  ...
+# Subtest: départ pagehide avant rAF : dernière position réelle et reprise instantanée
+ok 5 - départ pagehide avant rAF : dernière position réelle et reprise instantanée
+  ---
+  duration_ms: 0.2488
+  type: 'test'
+  ...
+# Subtest: départ visibilitychange avant rAF : dernière position réelle et reprise instantanée
+ok 6 - départ visibilitychange avant rAF : dernière position réelle et reprise instantanée
+  ---
+  duration_ms: 0.1863
+  type: 'test'
+  ...
+# Subtest: départ inactif : ne pas écraser la dernière position de lecture avec le scroll ordinaire
+ok 7 - départ inactif : ne pas écraser la dernière position de lecture avec le scroll ordinaire
+  ---
+  duration_ms: 0.2413
+  type: 'test'
+  ...
+# Subtest: reprise isolée par article et longueur du texte servi ; stockage indisponible et page hors article
+ok 8 - reprise isolée par article et longueur du texte servi ; stockage indisponible et page hors article
+  ---
+  duration_ms: 0.2768
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 60.5419

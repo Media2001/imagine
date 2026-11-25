@@ -116,6 +116,36 @@ test('parcours DOM sans navigateur : activation, réglages, progression, reprise
     assert.ok([...e.data.values()].every(v => !v.includes('texte autorisé')));
 });
 
+for (const departure of ['pagehide', 'visibilitychange']) {
+    test(`départ ${departure} avant rAF : dernière position réelle et reprise instantanée`, () => {
+        const r = reader(), e = environment();
+        r.mount(e.doc, e.win); e.nodes.toggle.fire('click'); e.flush();
+        e.win.scrollY = 1200; e.win.fire('scroll');
+        // Ne pas vider la rAF du scroll avant le départ.
+        if (departure === 'visibilitychange') { e.doc.hidden = true; e.doc.fire(departure); }
+        else e.win.fire(departure);
+        const resumed = environment(e.data);
+        r.mount(resumed.doc, resumed.win); resumed.flush();
+        assert.equal(resumed.win.scrollY, 1200);
+        assert.equal(resumed.win.lastScroll.behavior, 'instant');
+        assert.equal(resumed.nodes.progress.value, 50);
+    });
+}
+
+test('départ inactif : ne pas écraser la dernière position de lecture avec le scroll ordinaire', () => {
+    const r = reader(), e = environment();
+    r.mount(e.doc, e.win); e.nodes.toggle.fire('click'); e.flush();
+    e.win.scrollY = 1200; e.nodes.toggle.fire('click');
+    e.win.scrollY = 1800; e.win.fire('scroll');
+    e.doc.hidden = true; e.doc.fire('visibilitychange'); e.win.fire('pagehide');
+    const saved = [...e.data.entries()].find(([key]) => key.includes(':position:'));
+    assert.deepEqual(JSON.parse(saved[1]), {active: false, position: 0.5});
+    const resumed = environment(e.data); r.mount(resumed.doc, resumed.win); resumed.flush();
+    assert.ok(!resumed.classes.has('imagine-reading'));
+    resumed.nodes.toggle.fire('click'); resumed.flush();
+    assert.equal(resumed.win.scrollY, 1200);
+});
+
 test('reprise isolée par article et longueur du texte servi ; stockage indisponible et page hors article', () => {
     const r = reader(), e = environment();
     r.mount(e.doc, e.win); e.nodes.toggle.fire('click'); e.flush(); e.win.fire('pagehide');

@@ -53,6 +53,12 @@
             return {top: rect.top + win.scrollY, height: rect.height};
         }
         function save() { write(storage, key, {active, position: fraction}); }
+        function saveDeparture() {
+            // La rAF du dernier scroll peut ne jamais tourner avant le départ.
+            // Hors lecture, conserver la fraction mémorisée et non le scroll ordinaire.
+            if (active) update();
+            save();
+        }
         function update() {
             const m = measure();
             const value = progress(win.scrollY, m.top, m.height, win.innerHeight);
@@ -108,10 +114,10 @@
         doc.addEventListener('keydown', event => {
             if (event.key === 'Escape' && active) { activate(false); toggle.focus(); }
         });
-        doc.addEventListener('visibilitychange', () => { if (doc.hidden) save(); });
+        doc.addEventListener('visibilitychange', () => { if (doc.hidden) saveDeparture(); });
         win.addEventListener('scroll', schedule, {passive: true});
         win.addEventListener('resize', schedule);
-        win.addEventListener('pagehide', save);
+        win.addEventListener('pagehide', saveDeparture);
         win.addEventListener('load', () => { if (active) restore(); });
         apply();
         tools.hidden = false;
