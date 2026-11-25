@@ -7,8 +7,8 @@ from pathlib import Path
 import c10
 
 ROOT = c10.ROOT
-FILES = ['plugins/imagine-site/EnvoiNatif.php', 'plugins/imagine-site/ListeEnvoiAdmin.php',
-         'plugins/imagine-site/imagine-site.php']
+FILES = ['plugins/imagine-site/EnvoiRegles.php', 'plugins/imagine-site/EnvoiRelations.php',
+         'plugins/imagine-site/EnvoiNatif.php', 'plugins/imagine-site/ListeEnvoiAdmin.php']
 
 
 def upload(rel, source):
@@ -25,6 +25,11 @@ def runtime():
     if out['code'] or out['stderr']:
         raise RuntimeError('Recette PHP C13 : ' + out['stderr'])
     checks = json.loads(out['stdout'])
+    upload('imagine-demo-build/c13-corrections-runtime.php', ROOT / 'wp/tests/demo/c13-corrections-runtime.php')
+    extra = c10.b00.wp('eval', 'require WP_CONTENT_DIR . "/imagine-demo-build/c13-corrections-runtime.php";', check=False)
+    if extra['code'] or extra['stderr']:
+        raise RuntimeError('Recette corrections PHP C13 : ' + str(extra))
+    checks.update({'correction_' + k: v for k, v in json.loads(extra['stdout']).items()})
     print(json.dumps({'PHP': checks}, ensure_ascii=False))
     if not checks or not all(v is True for v in checks.values()):
         raise RuntimeError('Assertions C13 rouges')
@@ -40,6 +45,10 @@ def protege():
 
 
 def run(deploy=False, php_only=False, require_complete=False):
+    spec = importlib.util.spec_from_file_location('c13_unit', ROOT / 'wp/outils/demo/c13-unit.py')
+    unit = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(unit)
+    pure = unit.run()
     _, before = c10.guard()  # Sonde read-only avant toute mutation de la cible.
     protected = protege()
     if deploy:
@@ -54,7 +63,7 @@ def run(deploy=False, php_only=False, require_complete=False):
         actual = c10.b00.wp('eval', 'echo base64_encode(file_get_contents(WP_CONTENT_DIR . ' + json.dumps('/' + rel) + '));')['stdout'].strip()
         if actual != base64.b64encode((ROOT / 'wp' / rel).read_bytes()).decode():
             raise RuntimeError('Code installé différent des sources : ' + rel)
-    checks = {'PHP': runtime()}
+    checks = {'pur': pure, 'PHP': runtime()}
     checks['sources_installees_conformes'] = True
     if not php_only:
         path = ROOT / 'wp/tests/demo/c13-http.py'

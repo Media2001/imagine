@@ -75,6 +75,8 @@ $action = as_schedule_single_action(
     'a03'
 );
 WC_Install::create_pages();
+// Prime the option before rollback-only HTTP so even its AUTO_INCREMENT is stable.
+update_option('current_theme_supports_woocommerce', 'no');
 $pages = ['home' => '/', 'open' => '/?p=' . $open, 'restricted' => '/?p=' . $restricted, 'shop'
     => '/?page_id=' . wc_get_page_id('shop'), 'cart' => '/?page_id=' . wc_get_page_id('cart'), 'checkout'
     => '/?page_id=' . wc_get_page_id('checkout'), 'account' => '/?page_id=' . wc_get_page_id('myaccount')];

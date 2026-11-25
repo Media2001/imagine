@@ -7,6 +7,7 @@ if (!defined('WP_CLI') || !WP_CLI || wp_get_environment_type() !== 'local'
     throw new \RuntimeException('C13 refuse cette cible.');
 }
 $owned = '_imagine_c13_fixture';
+\Imagine\Site\EnvoiNatif::initialiser();
 $manifest = get_option('imagine_c13_fixture', []);
 $now = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
 foreach (['BE', 'FR'] as $country) {

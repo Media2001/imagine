@@ -60,7 +60,7 @@ def install(storage):
     config = """<?php
  define('DB_NAME', '%s'); define('DB_USER', 'root'); define('DB_PASSWORD', ''); define('DB_HOST', 'localhost:/scratch/mariadb.sock'); define('DB_CHARSET', 'utf8mb4'); define('DB_COLLATE', '');
  define('WP_ENVIRONMENT_TYPE', 'staging'); define('WP_HTTP_BLOCK_EXTERNAL', true); define('DISABLE_WP_CRON', true); define('AUTOMATIC_UPDATER_DISABLED', true); define('WP_AUTO_UPDATE_CORE', false); define('WP_DEBUG', false);
- $table_prefix = 'wp_'; if (!defined('ABSPATH')) { define('ABSPATH', __DIR__.'/'); } require_once ABSPATH.'wp-settings.php';
+ $table_prefix = 'wp_'; if (!defined('ABSPATH')) { define('ABSPATH', __DIR__.'/'); } require '/opt/a03/http-rollback.php'; require_once ABSPATH.'wp-settings.php';
  """ % db
     (site / 'wp-config.php').write_text(config)
     wp(site, ['core', 'install', '--url=http://127.0.0.1:18803', '--title=Fiction A03', '--admin_user=a03-admin', '--admin_email=a03-admin@example.org', '--skip-email', '--prompt=admin_password'], data=secrets.token_urlsafe(40) + '\n')
@@ -100,7 +100,8 @@ def run_storage(storage):
     server = subprocess.Popen(['php', '-d', 'log_errors=1', '-d', 'display_errors=0', '-d', 'date.timezone=UTC', '-d', 'error_log=' + str(log_path), '-S', '127.0.0.1:18803', '-t', str(site)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     time.sleep(.5)
     try:
-        before_db, before_files = fingerprint(db), filemap(site)
+        before_detail = fingerprint(db, details=True)
+        before_db, before_files = before_detail['logical_sha256'], filemap(site)
         settings_path = settings
         dropin = site / 'wp-content/object-cache.php'
         dropin.write_text("<?php throw new RuntimeException('A03_DROPIN_MUST_NOT_BOOT');")
@@ -119,7 +120,8 @@ def run_storage(storage):
         check(storage + ':subscriptions_dates_counts', len(a['subscriptions']) == 6 and {v['status'] for v in a['subscriptions'].values()} == {'active', 'on-hold', 'expired', 'cancelled', 'pending', 'pending-cancel'} and sum(a['subscription_counts']['status'].values()) == 6 and any(v['next_payment_utc'] == '2027-02-01 10:00:00' for v in a['subscriptions'].values()))
         check(storage + ':orders_twelve_months', len(a['order_months']) == 12 and sum(v['count'] for v in a['orders'].values()) == 3 and sum(v['amount_minor'] for v in a['orders'].values()) == 4244)
         check(storage + ':http_pages', len(a['pages']) == 7 and all(v['final_status'] == 200 and v['marker'] and v['php_error'] is False for v in a['pages'].values()))
-        check(storage + ':readonly_database_and_files', fingerprint(db) == before_db and filemap(site) == before_files)
+        after_detail = fingerprint(db, details=True)
+        check(storage + ':readonly_database_and_files', fingerprint(db) == before_db and filemap(site) == before_files, {'row_changes': [k for k in before_detail['tables'] if before_detail['tables'][k]['rows_sha256'] != after_detail['tables'][k]['rows_sha256']], 'schema_changes': [k for k in before_detail['tables'] if before_detail['tables'][k]['schema_sha256'] != after_detail['tables'][k]['schema_sha256']], 'file_changes': [k for k in set(before_files) | set(filemap(site)) if before_files.get(k) != filemap(site).get(k)]})
         denied_output = snapshot(site, settings, pathlib.Path('/proc') / ('a03-output-' + storage))
         check(storage + ':output_failure_cli_is_nonzero_and_readonly', denied_output.returncode == 1
               and denied_output.stderr == 'A03_OUTPUT_FAILED\n' and denied_output.stdout == ''

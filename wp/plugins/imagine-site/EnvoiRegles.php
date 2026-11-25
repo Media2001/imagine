@@ -98,7 +98,7 @@ final class EnvoiRegles
                 }
                 $data = $event['donnees'];
                 $start = self::date($data['debut']);
-                $end = $data['fin'] === '' ? null : self::date($data['fin']);
+                $end = in_array($data['fin'], ['', 0, null], true) ? null : self::date($data['fin']);
                 $state = match ($data['etat']) {
                     'active', 'pending-cancel' => 'actif', 'expired', 'cancelled' => 'expire',
                     'pending' => 'attente', default => 'suspendu',

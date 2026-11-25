@@ -111,6 +111,15 @@ final class EnvoiReglesTest extends TestCase
         self::assertSame([], $view['liste']->lignes);
     }
 
+    public function testFinNativeNulleEtInitialCreationFerme(): void
+    {
+        $data = $this->donnees();
+        $data['fin'] = 0;
+        self::assertCount(1, $this->vue($data)['liste']->lignes);
+        $data['creation'] = strtotime('2026-01-04 23:00:00 UTC');
+        self::assertSame([], $this->vue($data)['liste']->lignes);
+    }
+
     public function testIndividuelEtNonPayeRestentDistincts(): void
     {
         $data = $this->donnees();
