@@ -1,0 +1,12 @@
+{
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "wp/tests/preparer-image.ps1"
+  ],
+  "exit_code": 0,
+  "observed_at": "2026-11-25T16:10:10.379973+00:00"
+}

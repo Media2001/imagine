@@ -20,20 +20,21 @@ Ces chemins sont des exemples fictifs, pas des destinations existantes. Le même
 
 ## Préalables obligatoires
 
-- Site gelé : maintenance WordPress `.maintenance` récente (moins de dix minutes), et arrêt **opérateur** des autres queues, cron système, déploiements et écritures. Le script ne prétend pas administrer ces services externes.
+- Site gelé : au **premier démarrage**, maintenance WordPress `.maintenance` récente (moins de dix minutes), et arrêt **opérateur** des autres queues, cron système, déploiements et écritures. À la reprise, un checkpoint valide lié au site, au plan et au `wp-config.php`, plus les octets conformes du MU A-04 persistant, autorisent le rafraîchissement de `.maintenance` sous les deux verrous, avant tout bootstrap. MU absent ou modifié : refus, jamais réinstallation implicite. Le script ne prétend pas administrer les services externes.
 - Copie staging : marqueur A-01 `status=verified`, `offline_verified=true`, `runtime_probe_passed=true`, octets du MU de sécurité conformes à la référence du dépôt, puis sondes effectives mail/HTTP/paiements/cron/Action Scheduler. Un marqueur seul ne suffit pas.
-- Base et fichiers sauvegardés hors du site, fichiers non vides, SHA-256 conformes, date de création ni future ni vieille de plus de **six heures**. La présence et l'intégrité des fichiers sont contrôlées, **pas leur restaurabilité** : Ced doit avoir vérifié séparément une restauration complète.
+- Base et fichiers sauvegardés hors du site **après résolution canonique des deux chemins**, fichiers non vides, SHA-256 conformes, date de création ni future ni vieille de plus de **six heures**. Tout lien symbolique dans le fichier ou l'un de ses répertoires parents est refusé, même s'il vise hors du site ; un chemin contenant `..` ne peut pas contourner le contrôle d'emplacement. La présence et l'intégrité des fichiers sont contrôlées, **pas leur restaurabilité** : Ced doit avoir vérifié séparément une restauration complète.
 - Absence de drop-ins base/cache, de liens symboliques dans les chemins concernés, versions de départ exactes, pas de downgrade. Archives locales et SHA-256 figés ; version interne du paquet et exigences WordPress/PHP contrôlées avant copie. Espace libre : somme décompressée des paquets + 128 Mio.
 
 Le fichier de sauvegarde est un JSON à clés `site` (chemin canonique exact), `created_at` (timestamp UTC), `database` et `files` ; ces deux dernières clés contiennent chacune `path` absolu et `sha256`. Le script ne crée aucune sauvegarde de site réel et n'en restaure aucune automatiquement.
 
 ## Plan strict
 
-Racine : `schema: "imagine-a04-v1"`, `site_status: "verified-staging"`, `steps: [...]`. Chaque étape contient **exactement** :
+Racine : `schema: "imagine-a04-v1"`, `site_status: "verified-staging"`, `steps: [...]`. Les quatre premières étapes contiennent **exactement** les clés de cet exemple ; les suivantes ajoutent obligatoirement `audit` (voir ci-dessous) :
 
 ```json
 {
   "component": "woocommerce",
+  "main_file": "woocommerce.php",
   "before": "11.0.1",
   "after": "11.1.1",
   "archive": "/paquets-fictifs/woocommerce.zip",
@@ -43,7 +44,13 @@ Racine : `schema: "imagine-a04-v1"`, `site_status: "verified-staging"`, `steps: 
 }
 ```
 
-L'exemple est volontairement non exécutable tant que le hash n'est pas renseigné. Les quatre premières étapes sont obligatoirement `core`, `woocommerce`, `woocommerce-subscriptions`, `woocommerce-memberships` ; `adapter` porte le même nom. Cible du cœur : une **version exacte 7.0.x**, jamais `latest`. Les étapes suivantes nomment explicitement chaque autre extension ; `adapter: "bootstrap-only"` est réservé aux mises à jour **auditées sans migration de base différée**. Il ne constitue pas une certification générique d'un tiers inconnu. Une extension à migration spécifique demande un adaptateur qualifié avant d'entrer dans le plan. `hooks` est réservé et doit rester vide : aucune commande, URL, requête SQL ou fonction arbitraire n'est acceptée dans le plan.
+L'exemple est volontairement non exécutable tant que le hash n'est pas renseigné. Les quatre premières étapes sont obligatoirement `core`, `woocommerce`, `woocommerce-subscriptions`, `woocommerce-memberships` ; `adapter` porte le même nom. Cible du cœur : une **version exacte 7.0.x**, jamais `latest`.
+
+`main_file` est **déclaré explicitement** : chemin POSIX relatif au dossier de l'extension dans le paquet et sur disque, par exemple `fiction-entry.php` pour le composant `a04-rest`. Le fichier n'a pas à porter le nom du dossier. Aucun chemin absolu, `.`/`..`, antislash, URL ou suffixe autre que `.php` n'est accepté ; les liens de destination restent refusés. Pour `core`, `main_file` vaut obligatoirement `null` (métadonnées dans `wp-includes/version.php`). La même identité sert aux métadonnées du ZIP et aux versions installées avant/après/reprise. Les anciens plans sans cette déclaration sont refusés : préparer un nouveau plan pour une **nouvelle** exécution ; ne jamais réécrire le plan d'un checkpoint en cours.
+
+Les étapes suivantes nomment explicitement chaque autre extension et n'acceptent **que** `adapter: "bootstrap-only"`, réservé aux mises à jour **auditées sans migration de base différée**. Elles ajoutent une trace `audit` à clés exactes `component` (identique à l'étape), `path` (fichier d'audit absolu hors liens symboliques), `sha256` (empreinte exacte du fichier) et `conclusion: "no-deferred-database-migrations"`. Le fichier non vide est relu et vérifié avant bootstrap. Ce lien obligatoire ne certifie pas la qualité de l'audit humain. Le balayage générique reste délibérément `(?!)` pour ces composants ; il n'est pas élargi à des tâches légitimes.
+
+**Aucun adaptateur additionnel n'est accepté au-delà des quatre premiers**, même qualifié : `validate_plan` le refuse par conception. Une extension nécessitant une migration spécifique est exclue des plans actuellement acceptés ; son support demanderait un lot d'extension de l'outil et une qualification dédiés. `hooks` est réservé et doit rester vide : aucune commande, URL, requête SQL ou fonction arbitraire n'est acceptée dans le plan.
 
 Ordre : le cœur satisfait les minima du nouveau Woo ; Woo fournit les API et schémas des deux premium ; Subscriptions précède l'intégration Memberships ; les autres suivent. Aucun changement de stockage classique/HPOS n'est entrepris.
 
@@ -60,7 +67,9 @@ Ordre : le cœur satisfait les minima du nouveau Woo ; Woo fournit les API et sc
 
 `etat.json` est atomique, synchronisé sur disque et lié au hash exact du plan, au site et au hash du `wp-config.php`. Phases : `copying`, `copied`, `migrating`, `verified`. Une copie interrompue est terminée avant de recharger WordPress ; les étapes déjà vérifiées ne sont pas mises à jour à nouveau. Les migrations de l'étape interrompue suivent la sémantique native de reprise : **pas de promesse exactly-once pour un callback coupé entre son effet SQL et son marquage**.
 
-`journal.txt` / `journal.json` donnent étape, versions, durée, arrêts et vagues ; `migrations.jsonl`, synchronisé après chaque événement, conserve noms de callbacks, ID d'action, début/fin et codes d'erreur sans arguments, données métier ni erreurs SQL brutes.
+Une reprise après plus de dix minutes reste automatique **uniquement** si le checkpoint est valide et le MU persistant strictement conforme. Après acquisition des verrous site et état, puis contrôles staging/sauvegarde/identité, le script vérifie ce MU et rafraîchit `.maintenance` avant PHP/WP-CLI. Un état invalide, un MU absent/modifié ou une contention ne rafraîchit pas le fichier et n'amorce pas WordPress. Ne pas enlever les verrous ni fabriquer un checkpoint pour forcer une reprise.
+
+`journal.json` est la source structurée des étapes, versions, durées, arrêts et vagues ; `journal.txt` reste un en-tête suivi d'une ligne JSON par événement (statu quo accepté, pas une table humaine). `migrations.jsonl`, synchronisé après chaque événement, conserve noms de callbacks, ID d'action, début/fin et codes d'erreur sans arguments, données métier ni erreurs SQL brutes.
 
 Deux `flock` : par état et par site (`.imagine-a04-bascule.lock`). Un autre répertoire d'état ne contourne donc pas le verrou. Les enfants WP-CLI héritent des mêmes descripteurs : tuer le parent ne libère pas le site tant qu'un enfant natif travaille encore. Les fichiers de verrou restent présents ; leur présence ne signifie pas qu'un processus tient encore le verrou. Ne jamais les supprimer pour « débloquer ».
 

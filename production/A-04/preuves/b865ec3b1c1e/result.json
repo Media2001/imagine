@@ -1,0 +1,222 @@
+{
+  "suite": "A04-real-synthetic-classic-hpos",
+  "checks": [
+    {
+      "check": "legacy691:native_guard_no_override",
+      "ok": true,
+      "detail": {
+        "wordpress": "6.9.1",
+        "subscriptions_requires_wp": "7.0",
+        "woo_activation_exit": 0,
+        "subscriptions_activation_exit": 1,
+        "stderr_sha256": "a458be6643702b9910a60a8e9e23b683bf364b0325bf8ed7f95570560dab2028"
+      }
+    },
+    {
+      "check": "classic:baseline_versions",
+      "ok": true,
+      "detail": {
+        "wordpress": "7.0",
+        "woocommerce": "11.0.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3"
+      }
+    },
+    {
+      "check": "classic:a03_before",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:a03_before_php_log_clean",
+      "ok": true,
+      "detail": {
+        "checked": true,
+        "from_utc": "2026-11-25T16:07:13Z",
+        "until_utc": "2026-11-25T16:07:14Z",
+        "errors": 0
+      }
+    },
+    {
+      "check": "classic:maintenance_required",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:stale_backup_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:native_child_started",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:orphan_child_keeps_site_lock",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:controlled_interruption",
+      "ok": true,
+      "detail": {
+        "exit": 75,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:durable_checkpoint",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:real_updater_paused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:concurrent_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:same_site_other_state_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:real_updater_sigkill",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:expired_resume_missing_mu_refused",
+      "ok": false,
+      "detail": {
+        "exit": 1,
+        "code": "A04_MAINTENANCE\n"
+      }
+    },
+    {
+      "check": "classic:exception",
+      "ok": false,
+      "class": "AssertionError",
+      "code": "classic:expired_resume_missing_mu_refused"
+    },
+    {
+      "check": "hpos:baseline_versions",
+      "ok": true,
+      "detail": {
+        "wordpress": "7.0",
+        "woocommerce": "11.0.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3"
+      }
+    },
+    {
+      "check": "hpos:a03_before",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:a03_before_php_log_clean",
+      "ok": true,
+      "detail": {
+        "checked": true,
+        "from_utc": "2026-11-25T16:08:39Z",
+        "until_utc": "2026-11-25T16:08:40Z",
+        "errors": 0
+      }
+    },
+    {
+      "check": "hpos:maintenance_required",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:stale_backup_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:native_child_started",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:orphan_child_keeps_site_lock",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:controlled_interruption",
+      "ok": true,
+      "detail": {
+        "exit": 75,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:durable_checkpoint",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:real_updater_paused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:concurrent_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:same_site_other_state_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:real_updater_sigkill",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:expired_resume_missing_mu_refused",
+      "ok": false,
+      "detail": {
+        "exit": 1,
+        "code": "A04_MAINTENANCE\n"
+      }
+    },
+    {
+      "check": "hpos:exception",
+      "ok": false,
+      "class": "AssertionError",
+      "code": "hpos:expired_resume_missing_mu_refused"
+    },
+    {
+      "check": "network_none",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp6",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "exit_code": 1
+}

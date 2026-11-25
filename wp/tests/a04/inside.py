@@ -126,6 +126,9 @@ def run_storage(storage):
         persistent=site/'wp-content/mu-plugins/001-imagine-a04-maintenance.php'
         persistent_bytes=persistent.read_bytes()
         maintenance.write_text('<?php $upgrading = '+str(int(time.time())-1200)+';\n')
+        refreshed=update(site,plan,backup,state,['--stop-after=woocommerce'])
+        check(storage+':expired_resume_accepted_with_exact_mu',refreshed.returncode==75,{'exit':refreshed.returncode,'code':refreshed.stderr[:100],'stale_seconds':1200})
+        maintenance.write_text('<?php $upgrading = '+str(int(time.time())-1200)+';\n')
         expired_bytes=maintenance.read_bytes()
         checkpoint_bytes=(state/'etat.json').read_bytes()
         persistent.unlink()
@@ -167,7 +170,7 @@ def run_storage(storage):
         check(storage+':resumed',resumed.returncode==0,{'exit':resumed.returncode,'code':resumed.stderr[:200]})
         current=json.loads((state/'etat.json').read_text())
         check(storage+':previous_step_not_replayed',current['steps']['core']==initial['steps']['core'])
-        check(storage+':current_step_resumed',current['steps']['woocommerce']['attempts']==5 and all(r['phase']=='verified' for r in current['steps'].values()))
+        check(storage+':current_step_resumed',current['steps']['woocommerce']['attempts']==6 and all(r['phase']=='verified' for r in current['steps'].values()))
         repeat=update(site,plan,backup,state);again=json.loads((state/'etat.json').read_text())
         check(storage+':idempotent_repeat',repeat.returncode==0 and again['steps']==current['steps'])
         # No theme/data cleanup; maintenance remains and is explicitly removed by fixture only.
