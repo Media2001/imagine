@@ -157,7 +157,15 @@ final class Runtime
                 default => '(?!)',
             };
             foreach ($rows as $row) {
-                if (preg_match('/^' . $prefix . '.*(?:upgrade|migrate|migration|run_update_callback)/', $row['hook'])) {
+                if (
+                    $component === 'woocommerce' && $mode === 'verify'
+                    && $row['status'] === 'pending'
+                    && in_array($row['hook'], ['woocommerce_run_update_callback', 'woocommerce_update_db_to_current_version'], true)
+                    && \ActionScheduler::store()->fetch_action((int) $row['action_id'])->get_group() === 'woocommerce-db-updates'
+                ) {
+                    throw new \RuntimeException('A04_KNOWN_MIGRATION_PENDING');
+                }
+                if (preg_match('/^' . $prefix . '.*(?:upgrade|migrate|migration|run_update_callback|update_db_to_current_version)/', $row['hook'])) {
                     throw new \RuntimeException('A04_PENDING_MIGRATION_ADAPTER_REQUIRED');
                 }
             }
@@ -195,11 +203,12 @@ final class Runtime
 try {
     echo 'A04_JSON=' . json_encode(Runtime::run(), JSON_THROW_ON_ERROR) . "\n";
 } catch (\Throwable $error) {
-    Runtime::trace(['component' => (string) getenv('IMAGINE_A04_COMPONENT'),
-        'stage' => 'error', 'class' => get_class($error), 'line' => $error->getLine(),
-        'file' => basename($error->getFile())]);
     $code = preg_match('/\AA04_[A-Z_]+\z/D', $error->getMessage())
         ? $error->getMessage() : 'A04_RUNTIME_FAILED';
+    Runtime::trace(['component' => (string) getenv('IMAGINE_A04_COMPONENT'),
+        'stage' => $code === 'A04_KNOWN_MIGRATION_PENDING' ? 'follow_up' : 'error',
+        'code' => $code, 'class' => get_class($error), 'line' => $error->getLine(),
+        'file' => basename($error->getFile())]);
     fwrite(STDERR, $code . "\n");
     exit(1);
 }

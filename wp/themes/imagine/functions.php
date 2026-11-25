@@ -156,7 +156,7 @@ function imagine_navigation(): void
         'thematiques' => [home_url('/#imagine-thematiques'), __('Thématiques', 'imagine')],
         'agenda' => [get_post_type_archive_link('imagine_evenement') ?: home_url('/'), __('Agenda', 'imagine')],
         'partenaires' => [get_post_type_archive_link('imagine_partenaire') ?: home_url('/'), __('Partenaires', 'imagine')],
-        'compte' => [wp_login_url(), __('Accès au compte', 'imagine')],
+        'compte' => [function_exists('wc_get_page_permalink') ? wc_get_page_permalink('myaccount') : wp_login_url(), __('Mon compte', 'imagine')],
         'abonnement' => [home_url('/#imagine-abonnement'), __('S’abonner', 'imagine')],
     ];
     echo '<ul>';

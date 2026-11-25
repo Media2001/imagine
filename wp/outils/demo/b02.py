@@ -21,16 +21,21 @@ def snapshot():
     return wp('''global $wpdb;$out=[];
 foreach(['users','posts','postmeta','wc_orders','wc_order_addresses','wc_order_operational_data','wc_orders_meta','woocommerce_order_items','woocommerce_order_itemmeta'] as $suffix){
 $t=$wpdb->prefix.$suffix;if($wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s',$wpdb->esc_like($t)))!==$t){continue;}
-$r=$wpdb->get_results("SELECT * FROM `{$t}`",ARRAY_A);usort($r,static fn($a,$b)=>strcmp(wp_json_encode($a),wp_json_encode($b)));$out[$suffix]=hash('sha256',serialize($r));}
+$r=$wpdb->get_results("SELECT * FROM `{$t}`",ARRAY_A);if($suffix==='posts'){$own=get_option('imagine_c09_fixture')['subscriptions']['A-CARTE'];foreach($r as &$row){if((int)$row['ID']===$own){unset($row['comment_count']);}}unset($row);}usort($r,static fn($a,$b)=>strcmp(wp_json_encode($a),wp_json_encode($b)));$out[$suffix]=hash('sha256',serialize($r));}
 $out['roles']=hash('sha256',serialize($wpdb->get_results("SELECT * FROM {$wpdb->usermeta} WHERE meta_key LIKE '%capabilities' OR meta_key LIKE '%user_level' ORDER BY umeta_id",ARRAY_A)));
-$r=$wpdb->get_results("SELECT option_name,option_value FROM {$wpdb->options} WHERE option_name LIKE 'imagine_%' OR option_name LIKE '%user_roles' ORDER BY option_name",ARRAY_A);$out['options']=hash('sha256',serialize($r));
+$r=$wpdb->get_results("SELECT option_name,option_value FROM {$wpdb->options} WHERE (option_name LIKE 'imagine_%' OR option_name LIKE '%user_roles') AND option_name NOT LIKE 'imagine_envoi_releve_%' ORDER BY option_name",ARRAY_A);$out['options']=hash('sha256',serialize($r));
 echo wp_json_encode($out);''')
+
+
+def journal():
+    return wp('''global $wpdb;$rows=$wpdb->get_results("SELECT option_name,option_value FROM {$wpdb->options} WHERE option_name LIKE 'imagine_envoi_releve_%' ORDER BY option_name",ARRAY_A);$out=[];foreach($rows as $r){$out[$r['option_name']]=hash('sha256',$r['option_value']);}echo wp_json_encode($out);''')
 
 
 def run(deploy=False, http=True):
     PROOF.mkdir(exist_ok=True)
     c14.c10.guard()
     before = snapshot()
+    journal_before = journal()
     protected = c14.preserve()
     result = {'scope': 'imagine-test-demo', 'at': datetime.now(timezone.utc).isoformat(), 'status': 'EN_COURS'}
     def save():
@@ -61,6 +66,11 @@ def run(deploy=False, http=True):
         result['http'] = test.verify()
         save()
     result['native_snapshot_preserved'] = before == snapshot()
+    journal_after = journal()
+    added = set(journal_after) - set(journal_before)
+    own = wp('echo wp_json_encode(get_option("imagine_c09_fixture")["subscriptions"]["A-CARTE"]);')
+    result['postal_journal_append_only'] = all(journal_after.get(k) == v for k, v in journal_before.items()) and len(added) == (2 if http else 0) and all(k.startswith('imagine_envoi_releve_' + str(own) + '_') for k in added)
+    result['postal_observations_added'] = len(added)
     result['closed_and_prior_lots_preserved'] = protected == c14.preserve()
     result['snapshot_before'] = before
     result['snapshot_after'] = snapshot()
@@ -70,7 +80,7 @@ def run(deploy=False, http=True):
         'Historique activation C01 et factures/justificatifs non raccordés : emplacements nommés.'
     ]
     checks = {k + ':' + key: value for k, group in result.items() if k in ['deployed_bytes', 'b02-runtime.php', 'b02-state.php', 'http'] for key, value in group.items()}
-    checks.update({k: result[k] for k in ['native_snapshot_preserved', 'closed_and_prior_lots_preserved']})
+    checks.update({k: result[k] for k in ['native_snapshot_preserved', 'closed_and_prior_lots_preserved', 'postal_journal_append_only']})
     result['total'] = len(checks)
     result['failures'] = [k for k, v in checks.items() if v is not True]
     result['status'] = 'TECHNIQUE_VERT_ACCEPTATION_PARTIELLE' if not result['failures'] else 'ECHEC'

@@ -15,6 +15,13 @@ final class MonCompte
     public static function register(): void
     {
         add_action('woocommerce_account_dashboard', [self::class, 'afficher']);
+        // Subscriptions émet son propre object_type, pas after_order_object_save.
+        // Réutilise le relevé C13 append-only et dédupliqué, sans changer C13/C07.
+        add_action('woocommerce_after_subscription_object_save', static function ($sub): void {
+            if ($sub instanceof \WC_Subscription) {
+                EnvoiNatif::relever($sub);
+            }
+        });
         add_action('template_redirect', static function (): void {
             if (function_exists('is_account_page') && is_account_page()) {
                 nocache_headers();

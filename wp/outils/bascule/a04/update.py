@@ -297,11 +297,21 @@ def execute(args):
                     return 75
                 row['phase'] = 'migrating'; save()
                 if key == 'core': run_wp(site,['core','update-db'])
-                migrated = worker(site,step,'migrate',safe_path(state_dir,'migrations.jsonl'),target_env)
-                refresh_maintenance(site)
-                worker(site,step,'verify',safe_path(state_dir,'migrations.jsonl'),target_env)
+                row.setdefault('migrations', [])
+                for wave in range(10):
+                    migrated = worker(site,step,'migrate',safe_path(state_dir,'migrations.jsonl'),target_env)
+                    row['migrations'].extend(migrated.get('migrations', [])); save()
+                    refresh_maintenance(site)
+                    try:
+                        worker(site,step,'verify',safe_path(state_dir,'migrations.jsonl'),target_env)
+                    except Refusal as error:
+                        if key != 'woocommerce' or str(error) != 'A04_KNOWN_MIGRATION_PENDING': raise
+                        event(key,'native_follow_up',wave=wave + 1)
+                        continue
+                    break
+                else: raise Refusal('A04_MIGRATION_FIXPOINT_LIMIT')
                 require(version(site,key) == step['after'],'A04_TARGET_VERSION')
-                row['phase']='verified';row['duration_seconds']=round(time.time()-row['started'],3);row['migrations']=migrated.get('migrations',[])
+                row['phase']='verified';row['duration_seconds']=round(time.time()-row['started'],3)
                 event(key,'verified',before=row['before'],after=row['after'],duration_seconds=row['duration_seconds'],migrations=row['migrations'])
             for step in plan['steps']:
                 worker(site,step,'verify',safe_path(state_dir,'migrations.jsonl'),target_env)
