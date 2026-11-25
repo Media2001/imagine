@@ -22,8 +22,10 @@ final class AchatsNumeros
 
     public static function numero($product): int
     {
-        if (!$product instanceof \WC_Product || !$product->is_type('simple')
-            || $product->get_status() === 'trash') {
+        if (
+            !$product instanceof \WC_Product || !$product->is_type('simple')
+            || $product->get_status() === 'trash'
+        ) {
             return 0;
         }
         $id = self::identifiant($product->get_meta(self::PRODUIT, true, 'edit'));
@@ -54,12 +56,16 @@ final class AchatsNumeros
                 throw new \RuntimeException('Lecture des achats indisponible.');
             }
             foreach ($result->orders as $order) {
-                if (!$order instanceof \WC_Order || $order->get_type() !== 'shop_order'
-                    || (int) $order->get_customer_id() !== $client) {
+                if (
+                    !$order instanceof \WC_Order || $order->get_type() !== 'shop_order'
+                    || (int) $order->get_customer_id() !== $client
+                ) {
                     throw new \RuntimeException('Propriétaire de commande incohérent.');
                 }
                 $paid = $order->get_date_paid('edit');
-                $acquired = $paid ? (new DateTimeImmutable('@' . $paid->getTimestamp()))->setTimezone(new DateTimeZone('UTC')) : null;
+                $acquired = $paid
+                    ? (new DateTimeImmutable('@' . $paid->getTimestamp()))->setTimezone(new DateTimeZone('UTC'))
+                    : null;
                 // Tout remboursement, même partiel/sans ventilation, retire la commande.
                 // Un autre achat valide du même numéro garde son propre droit.
                 $refunded = wc_get_orders(['type' => 'shop_order_refund', 'parent' => $order->get_id(),
@@ -85,14 +91,16 @@ final class AchatsNumeros
     {
         global $product_object;
         $options = ['0' => __('Aucun accès au numéro', 'imagine-site')];
-        foreach (get_posts(['post_type' => 'imagine_numero', 'post_status' => 'publish',
-            'numberposts' => -1, 'orderby' => 'ID', 'order' => 'DESC']) as $issue) {
+        $issues = get_posts(['post_type' => 'imagine_numero', 'post_status' => 'publish',
+            'numberposts' => -1, 'orderby' => 'ID', 'order' => 'DESC']);
+        foreach ($issues as $issue) {
             $options[(string) $issue->ID] = $issue->post_title . ' (#' . $issue->ID . ')';
         }
         woocommerce_wp_select(['id' => self::PRODUIT, 'label' => __('Numéro à l’unité', 'imagine-site'),
             'value' => $product_object ? $product_object->get_meta(self::PRODUIT, true, 'edit') : '0',
             'options' => $options, 'wrapper_class' => 'show_if_simple',
-            'description' => __('Modèle provisoire : un seul numéro, articles et PDF. Réaffecter ou vider ferme les anciens achats, sans les déplacer.', 'imagine-site')]);
+            'description' => __('Modèle provisoire : un seul numéro, articles et PDF.', 'imagine-site') . ' '
+                . __('Réaffecter ou vider ferme les anciens achats, sans les déplacer.', 'imagine-site')]);
     }
 
     public static function enregistrer($product): void
@@ -103,8 +111,10 @@ final class AchatsNumeros
         }
         $id = self::identifiant(wp_unslash($_POST[self::PRODUIT]));
         $issue = $id ? get_post($id) : null;
-        if ($product->is_type('simple') && $issue && $issue->post_type === 'imagine_numero'
-            && $issue->post_status === 'publish') {
+        if (
+            $product->is_type('simple') && $issue && $issue->post_type === 'imagine_numero'
+            && $issue->post_status === 'publish'
+        ) {
             $product->update_meta_data(self::PRODUIT, $id);
         } else {
             $product->delete_meta_data(self::PRODUIT);

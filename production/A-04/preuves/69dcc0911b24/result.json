@@ -1,0 +1,282 @@
+{
+  "suite": "A04-real-synthetic-classic-hpos",
+  "checks": [
+    {
+      "check": "legacy691:native_guard_no_override",
+      "ok": true,
+      "detail": {
+        "wordpress": "6.9.1",
+        "subscriptions_requires_wp": "7.0",
+        "woo_activation_exit": 0,
+        "subscriptions_activation_exit": 1,
+        "stderr_sha256": "a458be6643702b9910a60a8e9e23b683bf364b0325bf8ed7f95570560dab2028"
+      }
+    },
+    {
+      "check": "classic:baseline_versions",
+      "ok": true,
+      "detail": {
+        "wordpress": "7.0",
+        "woocommerce": "11.0.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3"
+      }
+    },
+    {
+      "check": "classic:a03_before",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:maintenance_required",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:stale_backup_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:controlled_interruption",
+      "ok": true,
+      "detail": {
+        "exit": 75,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:durable_checkpoint",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:real_updater_paused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:concurrent_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:real_updater_sigkill",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:foreign_callback_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:foreign_callback_not_executed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:resumed",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:previous_step_not_replayed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:current_step_resumed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:idempotent_repeat",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:maintenance_kept",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:persistent_maintenance_503",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:a03_after",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "classic:only_exact_expected_changes_additive",
+      "ok": true,
+      "detail": {
+        "schema": "imagine-a04-qualification-v1",
+        "qualified": true,
+        "expected_hooks": [
+          {
+            "hook": "woocommerce_run_on_woocommerce_admin_updated",
+            "action_id": 37,
+            "reason": "Woo schedules its administrative version-update handler; operational work is preserved, not executed."
+          }
+        ],
+        "native_a03_verdict_unchanged": true,
+        "native_a03_exit": 2,
+        "native_a03_anormal": 2
+      }
+    },
+    {
+      "check": "hpos:baseline_versions",
+      "ok": true,
+      "detail": {
+        "wordpress": "7.0",
+        "woocommerce": "11.0.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3"
+      }
+    },
+    {
+      "check": "hpos:a03_before",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:maintenance_required",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:stale_backup_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:controlled_interruption",
+      "ok": true,
+      "detail": {
+        "exit": 75,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:durable_checkpoint",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:real_updater_paused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:concurrent_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:real_updater_sigkill",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:foreign_callback_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:foreign_callback_not_executed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:resumed",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:previous_step_not_replayed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:current_step_resumed",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:idempotent_repeat",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:maintenance_kept",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:persistent_maintenance_503",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:a03_after",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "code": ""
+      }
+    },
+    {
+      "check": "hpos:only_exact_expected_changes_additive",
+      "ok": true,
+      "detail": {
+        "schema": "imagine-a04-qualification-v1",
+        "qualified": true,
+        "expected_hooks": [
+          {
+            "hook": "woocommerce_run_on_woocommerce_admin_updated",
+            "action_id": 37,
+            "reason": "Woo schedules its administrative version-update handler; operational work is preserved, not executed."
+          }
+        ],
+        "native_a03_verdict_unchanged": true,
+        "native_a03_exit": 2,
+        "native_a03_anormal": 2
+      }
+    },
+    {
+      "check": "network_none",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:/proc/net/tcp6",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "exit_code": 0
+}

@@ -68,7 +68,7 @@ Les octets sont déplacés hors de la racine HTTP : par défaut, `imagine-privat
 
 Les médias PDF gardent leurs IDs mais deviennent privés, sans `_wp_attached_file` ni métadonnées de chemin. GUID/URL native pointent vers le contrôleur, le REST média est fermé. `PdfNumero::protect(..., $publicCopies)` mutualise suppression **et relecture d'absence** : le seed PDF et la migration donnent les deux anciens chemins publics exacts. Le seed converge donc depuis un média public, sans migration externe préalable ; sa source reste hors docroot. Une copie inattendue, non supprimable, en répertoire ou en lien ne donne jamais une protection annoncée réussie. Le lien du thème exige une décision PDF complète ; article et PDF partagent l'instant immuable de requête.
 
-Achat de numéro non raccordé : fermé, y compris le profil fictif P-NUMERO. Aucun droit inféré d'une commande ou d'un rôle. Le DNS externe reste hors ligne : le faux robot est testé par HTTP, les deux politiques robots par une entrée synthétique au contrat C06/C10, pas par un faux robot déclaré réel. Les deux politiques PDF antérieurs utilisent les droits natifs actifs. Aucune bibliothèque close ni écran C10 n'est modifié.
+Depuis C14, P-NUMERO (alias V-NUM du brief) ouvre les articles et le PDF de son seul numéro T1, par la commande native de fixture. Les autres numéros restent fermés ; la recette C11 conserve donc son témoin T4 fermé. Aucune commande en attente ni rôle client ne donne un droit. Le DNS externe reste hors ligne : le faux robot est testé par HTTP, les deux politiques robots par une entrée synthétique au contrat C06/C10, pas par un faux robot déclaré réel. Les deux politiques PDF antérieurs utilisent les droits natifs actifs. Aucune bibliothèque close ni écran C10 n'est modifié.
 
 ```bash
 python C:/Users/Ced/imagine/wp/outils/demo/c11.py             # installer/rejouer, démo existante seulement
@@ -105,6 +105,27 @@ Cible unique fictive : installation ciblée, puis rejeu PHP/HTTP réel et non-r�
 Rejeu hors réseau autonome : `PYTHONDONTWRITEBYTECODE=1 python C:/Users/Ced/imagine/wp/outils/demo/c12-unit.py`. Configuration `phpunit.c12.xml`, répertoire distinct `tests-c12/` (ne change pas la sélection C11). Vrais Paywall/raccord/moteur C06, doubles WP/SQL explicites. Le repli local C11 réutilise sans installation les dépendances de l’image T01 existante, dépôt monté en lecture seule, réseau `none`, nettoyage vérifié. `wp/tests/rejouer.ps1` et ses 812 tests **n’incluent pas ce raccord** ; runner et T01 restent hors périmètre, inchangés. La recette native de la démo prouve séparément SQL/concurrence, routes HTTP et restauration. Bootstrap C13 et PdfNumero C11 ne sont pas réinstallés par C12.
 
 Limites : unicité **par compte**, pas d’identification de personne à travers plusieurs adresses ; refus des emails jetables et vraie confirmation email à raccorder au futur parcours d’inscription. Un robot utilisant une session valide et un UA humain n’est pas distinguable d’un lecteur. Aucun robot Internet n’a été vérifié hors ligne. PDF et achats de numéro n’acquièrent aucun droit découverte ; aucun accès réel ni email sortant.
+
+## C-14 — achat d'un numéro
+
+`AchatNumero.php` convertit une ligne validée vers le contrat `achat` du moteur C06, inchangé. `AchatsNumeros.php` est le raccord CRUD Woo : commandes `shop_order` du seul `customer_id` connecté, statuts strictement `processing|completed`, `is_paid()` et date native `date_paid` obligatoire. Aucune durée de fin n'est inventée. Une date future reste fermée par C06. Le montant peut être nul (fixture), jamais assimilé à une transaction bancaire démontrée.
+
+Dans les données générales d'un **produit simple**, `imagine_achat_numero_id` désigne un seul numéro publié. L'enregistrement conserve le contrôle natif Woo (nonce/capacité), plus la capacité d'édition dans le raccord ; les valeurs mal formées, autres types ou numéros absents ferment. Un instantané caché `_imagine_achat_numero_id` est écrit à la création de chaque ligne native. Ligne ancienne sans instantané : fermée, aucune reprise rétroactive. Le mapping courant doit toujours correspondre : vider/réaffecter/supprimer le produit retire l'accès, sans le transférer à un autre numéro. Variantes, packs et souscriptions ne sont pas des produits à l'unité dans ce modèle provisoire.
+
+Tout remboursement natif de la commande, même partiel ou non ventilé, ferme ses droits ; une autre commande valide conserve son propre droit. Les suppressions/trash de commande, de ligne, de produit et les changements de quantité/propriétaire sont relus. Les invalidations natives C08 sont étendues aux lignes, métadonnées Woo, produits, remboursements et suppressions : la mémoïsation **de requête** C12 reste intacte, indispensable pour livrer le dernier crédit découverte. Les remboursements sont recherchés par `wc_get_orders(parent=...)`, sans réutiliser les totaux de remboursement que Woo peut garder après un `delete()` brut. Pagination de 50, test natif sur 51 commandes ; pas de table de droits ni de cache partagé.
+
+Le §3.7 autorise l'achat papier invité et propose la création de compte ensuite. Le parcours de revendication de cet achat n'est pas implémenté par ce lot : sans `customer_id` rattaché, fermé, même avec la même adresse email. Aucun rapprochement automatique par email ni droit anonyme. Articles et PDF passent par les adaptateurs C08/C11 existants ; pas de téléchargement Woo statique.
+
+Le profil demandé « V-NUM » est absent des identifiants C09 : son équivalent existant **P-NUMERO**, login `p-numero`, est conservé et porte un alias explicite. `c09-seed.php` appelle `c14-profil.php` et son transport est ajouté à `profils.py`. C14 ne réinitialise que cette commande existante à zéro euro : état payé/date synthétiques déclarés, jamais `payment_complete()`, aucune passerelle ni transaction. T1 (ID 11) ouvert ; T2/T4 fermés. Les autres profils ne sont pas reconstruits.
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/c14.py --deploy  # installation ciblée + fixture P-NUMERO
+PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/c14.py           # rejeu, sans reset de profil
+PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/c14-regressions.py
+```
+
+Le paquet C14 est une recette PHP pure autonome, plus une recette native HPOS et du vrai HTTP authentifié ; il n'est **pas découvert par T01**. `wp/tests/preparer-image.ps1` a néanmoins été relancé conformément à la consigne permanente. Les tests C11/C12 réutilisent les dépendances publiques préparées en conteneurs hors réseau. Les reçus C14 et les parcours sont dans `production/C-14/`. Aucun `PRET` n'est créé par l'implémenteur : la vérification indépendante du parent reste requise.
+
 
 ## C-13 — Liste d’envoi native (relecture avec réserve C09)
 

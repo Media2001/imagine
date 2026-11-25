@@ -55,7 +55,7 @@ def numeric(value):
 
 def validate_plan(plan):
     require(isinstance(plan, dict) and set(plan) == {'schema', 'site_status', 'steps'} and plan['schema'] == 'imagine-a04-v1', 'A04_PLAN')
-    require(plan['site_status'] == 'verified-staging', 'A04_STATUS')
+    require(plan['site_status'] in ['verified-staging','frozen-production'], 'A04_STATUS')
     steps = plan['steps']
     require(isinstance(steps, list) and 4 <= len(steps) <= 100, 'A04_ORDER')
     names = [s.get('component') for s in steps]
@@ -71,6 +71,18 @@ def validate_plan(plan):
         require(isinstance(step['sha256'], str) and re.fullmatch('[a-f0-9]{64}', step['sha256']), 'A04_PACKAGE')
     require(steps[0]['after'].startswith('7.0.'), 'A04_CORE_TARGET')
     return plan
+
+def authorize(status, site, identity, gofile):
+    if status == 'verified-staging':
+        return 'staging'
+    require(status == 'frozen-production' and bool(gofile), 'A04_PRODUCTION_GO_REQUIRED')
+    go = load_json(gofile)
+    require(set(go) == {'author','task','go','site','plan_sha256','expires_at'}
+        and go['author'] == 'Ced' and go['task'] == 'A-04-mise-a-jour' and go['go'] is True
+        and go['site'] == str(site) and go['plan_sha256'] == identity
+        and isinstance(go['expires_at'], int) and 0 < go['expires_at'] - time.time() <= 21600,
+        'A04_PRODUCTION_GO_INVALID')
+    return 'production'
 
 def check_backup(backup, site):
     require(isinstance(backup, dict) and backup.get('site') == str(site), 'A04_BACKUP_SITE')
@@ -147,8 +159,9 @@ def validate_state(state, identity, site, config_hash):
 
 def run_wp(site, args, env=None, timeout=300):
     try:
-        p = subprocess.run(['wp', '--allow-root', '--no-color', '--path=' + str(site)] + args,
-            capture_output=True, text=True, env={**os.environ, **(env or {})}, timeout=timeout)
+        p = subprocess.run(['wp', '--allow-root', '--no-color', '--path=' + str(site),
+                '--require=' + str(pathlib.Path(__file__).resolve().parent / 'bootstrap.php')] + args,
+            capture_output=True, text=True, env={**os.environ, 'IMAGINE_A04_SITE': str(site), **(env or {})}, timeout=timeout)
     except subprocess.TimeoutExpired:
         raise Refusal('A04_COMMAND_TIMEOUT') from None
     if p.returncode != 0 or re.search(r'(?:Fatal error|Parse error|Uncaught (?:Error|Exception))', p.stdout + p.stderr, re.I):
@@ -156,11 +169,11 @@ def run_wp(site, args, env=None, timeout=300):
         raise Refusal(codes[-1] if codes else 'A04_COMMAND_FAILED')
     return p
 
-def worker(site, step, mode, journal=None):
+def worker(site, step, mode, journal=None, target_env='staging'):
     script = pathlib.Path(__file__).resolve().parent / 'runtime.php'
     result = run_wp(site, ['eval-file', str(script), '--use-include'],
         {'IMAGINE_A04_COMPONENT': step['component'], 'IMAGINE_A04_MODE': mode,
-         'IMAGINE_A04_HOOKS': json.dumps(step['hooks']), 'IMAGINE_A04_JOURNAL': str(journal) if journal else ''})
+         'IMAGINE_A04_HOOKS': json.dumps(step['hooks']), 'IMAGINE_A04_EXPECTED_ENV': target_env, 'IMAGINE_A04_JOURNAL': str(journal) if journal else ''})
     lines = [v[len('A04_JSON='):] for v in result.stdout.splitlines() if v.startswith('A04_JSON=')]
     require(len(lines) == 1, 'A04_RUNTIME_RECEIPT')
     receipt = json.loads(lines[0])
@@ -182,6 +195,7 @@ def execute(args):
     site = pathlib.Path(args.wp_path)
     require(site.is_absolute() and site.is_dir() and site.resolve() == site, 'A04_SITE_PATH')
     plan = validate_plan(load_json(args.plan)); identity = digest(args.plan)
+    target_env = authorize(plan['site_status'], site, identity, args.go)
     state_dir = pathlib.Path(args.state)
     require(state_dir.is_absolute() and not state_dir.is_relative_to(site) and state_dir.resolve() == state_dir, 'A04_STATE_PATH')
     state_dir.mkdir(mode=0o700, parents=True, exist_ok=True)
@@ -189,11 +203,12 @@ def execute(args):
         try: fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError: raise Refusal('A04_ALREADY_RUNNING') from None
         maintenance(site)
-        marker = load_json(safe_path(site, '.imagine-staging-verified.json'))
-        require(marker.get('status') == 'verified' and marker.get('offline_verified') is True and marker.get('runtime_probe_passed') is True, 'A04_NOT_VERIFIED')
-        safety = safe_path(site, 'wp-content/mu-plugins/000-imagine-staging-safety.php')
-        reference = pathlib.Path(__file__).resolve().parents[2] / 'staging/mu-plugins/000-imagine-staging-safety.php'
-        require(safety.is_file() and reference.is_file() and digest(safety) == digest(reference), 'A04_SAFETY_BYTES')
+        if target_env == 'staging':
+            marker = load_json(safe_path(site, '.imagine-staging-verified.json'))
+            require(marker.get('status') == 'verified' and marker.get('offline_verified') is True and marker.get('runtime_probe_passed') is True, 'A04_NOT_VERIFIED')
+            safety = safe_path(site, 'wp-content/mu-plugins/000-imagine-staging-safety.php')
+            reference = pathlib.Path(__file__).resolve().parents[2] / 'staging/mu-plugins/000-imagine-staging-safety.php'
+            require(safety.is_file() and reference.is_file() and digest(safety) == digest(reference), 'A04_SAFETY_BYTES')
         for name in ['db.php', 'object-cache.php', 'advanced-cache.php']:
             p = site / 'wp-content' / name
             require(not p.exists() and not p.is_symlink(), 'A04_DROPIN')
@@ -224,7 +239,7 @@ def execute(args):
         else: shutil.copyfile(template, persistent)
         try:
             # Never bootstrap a partly copied component after SIGKILL: finish its overlay first.
-            if not any(r['phase'] == 'copying' for r in state['steps'].values()): worker(site, plan['steps'][0], 'guard', safe_path(state_dir, 'migrations.jsonl'))
+            if not any(r['phase'] == 'copying' for r in state['steps'].values()): worker(site, plan['steps'][0], 'guard', safe_path(state_dir, 'migrations.jsonl'), target_env)
             for step in plan['steps']:
                 key = step['component']; row = state['steps'].get(key)
                 if row and row['phase'] == 'verified': continue
@@ -249,15 +264,15 @@ def execute(args):
                 if key == 'woocommerce':
                     native = run_wp(site,['wc','update'])
                     callbacks = sorted(set(re.findall(r'\bwc_update_[0-9][A-Za-z0-9_]*\b', native.stdout)))
-                migrated = worker(site,step,'migrate',safe_path(state_dir,'migrations.jsonl'))
+                migrated = worker(site,step,'migrate',safe_path(state_dir,'migrations.jsonl'),target_env)
                 migrated['migrations'] = callbacks + migrated.get('migrations', [])
                 refresh_maintenance(site)
-                worker(site,step,'verify',safe_path(state_dir,'migrations.jsonl'))
+                worker(site,step,'verify',safe_path(state_dir,'migrations.jsonl'),target_env)
                 require(version(site,key) == step['after'],'A04_TARGET_VERSION')
                 row['phase']='verified';row['duration_seconds']=round(time.time()-row['started'],3);row['migrations']=migrated.get('migrations',[])
                 event(key,'verified',before=row['before'],after=row['after'],duration_seconds=row['duration_seconds'],migrations=row['migrations'])
             for step in plan['steps']:
-                worker(site,step,'verify',safe_path(state_dir,'migrations.jsonl'))
+                worker(site,step,'verify',safe_path(state_dir,'migrations.jsonl'),target_env)
             event('all','complete'); return 0
         except BaseException as error:
             event('all','stopped',code=str(error) if isinstance(error,Refusal) else 'A04_EXECUTION_FAILED')
@@ -266,6 +281,7 @@ def execute(args):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     for option in ['wp-path','plan','backup','state']:parser.add_argument('--'+option,required=True)
+    parser.add_argument('--go',default=None,help='GO Ced local, borné au site/plan et valable au plus six heures (production seulement).')
     parser.add_argument('--stop-after',default='')
     parser.add_argument('--pause',action='store_true',help='Attend à --stop-after; garde le verrou et la maintenance.')
     args=parser.parse_args()

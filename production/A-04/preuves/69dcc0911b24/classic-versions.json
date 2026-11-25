@@ -1,0 +1,15 @@
+{
+  "before": {
+    "core": "7.0",
+    "woocommerce": "11.0.1",
+    "woocommerce-subscriptions": "9.4.1",
+    "woocommerce-memberships": "1.30.3"
+  },
+  "after": {
+    "core": "7.0.9",
+    "woocommerce": "11.1.1",
+    "woocommerce-subscriptions": "9.4.1",
+    "woocommerce-memberships": "1.30.3"
+  },
+  "baseline_public_woo": "11.0.1"
+}

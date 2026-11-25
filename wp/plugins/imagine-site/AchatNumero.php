@@ -11,7 +11,8 @@ final class AchatNumero
 {
     public static function droit(int $client, array $ligne): ?array
     {
-        if ($client <= 0 || ($ligne['client'] ?? null) !== $client
+        if (
+            $client <= 0 || ($ligne['client'] ?? null) !== $client
             || !in_array($ligne['etat'] ?? null, ['processing', 'completed'], true)
             || ($ligne['payee'] ?? null) !== true
             || !($ligne['acquis'] ?? null) instanceof DateTimeImmutable
@@ -19,7 +20,8 @@ final class AchatNumero
             || ($ligne['remboursement'] ?? null) !== false
             || !is_int($ligne['numero'] ?? null) || $ligne['numero'] <= 0
             || ($ligne['instantane'] ?? null) !== $ligne['numero']
-            || !is_numeric($ligne['quantite'] ?? null) || $ligne['quantite'] <= 0) {
+            || !is_numeric($ligne['quantite'] ?? null) || $ligne['quantite'] <= 0
+        ) {
             return null;
         }
         return ['type' => 'achat', 'numero' => (string) $ligne['numero'], 'acquis_le' => $ligne['acquis']];
