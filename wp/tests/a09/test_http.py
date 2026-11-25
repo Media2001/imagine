@@ -175,6 +175,16 @@ class VariantHttpTest(HttpFixture):
 
 
 class RefusalHttpTest(HttpFixture):
+    def test_malformed_native_marker_fails_closed_without_traceback_or_http(self):
+        marker = self.site/'.imagine-staging-verified.json'
+        for i, value in enumerate([[], None, 'verified', 1]):
+            marker.write_text(json.dumps(value))
+            self.before = self.fingerprint()
+            result, out = self.run_cli('marker-structure-'+str(i), [('/a', '/b', 301)])
+            self.assertEqual(result.returncode, 2)
+            self.assertNotIn('Traceback', result.stderr)
+            self.assertEqual(self.events, [])
+
     def test_invalid_plan_tail_cannot_emit_even_first_valid_request(self):
         raw_cases = {
             'plan-doublon': 'ancienne,cible,code\n/ok,/fin,301\n/ok,/fin,301\n',

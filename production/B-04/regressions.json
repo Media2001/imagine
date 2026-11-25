@@ -1,0 +1,30 @@
+{
+  "scope": "imagine-test-demo",
+  "B03_HTTP": {
+    "total": 43,
+    "failures": []
+  },
+  "B03_PHP": {
+    "total": 10,
+    "failures": [],
+    "checks": {
+      "estimation_disponible": true,
+      "vide_minimum_une_minute": true,
+      "200_mots_une_minute": true,
+      "201_mots_deux_minutes": true,
+      "paragraphes_sans_espaces_201_mots": true,
+      "401_mots_trois_minutes": true,
+      "unicode_et_apostrophes": true,
+      "entites_HTML_et_balises": true,
+      "CTA_exclu_estimation": true,
+      "scripts_non_comptes": true
+    }
+  },
+  "local_contracts": {
+    "total": 9,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "output": "test_HTTP_lit_la_constante_du_serveur_sans_valeur_magique (b04_reg_test_b03_contract.py.B03Contract.test_HTTP_lit_la_constante_du_serveur_sans_valeur_magique) ... ok\ntest_css_dedie_active_uniquement_par_racine_et_variables (b04_reg_test_b03_contract.py.B03Contract.test_css_dedie_active_uniquement_par_racine_et_variables) ... ok\ntest_sortie_unique_et_script_sans_reseau (b04_reg_test_b03_contract.py.B03Contract.test_sortie_unique_et_script_sans_reseau) ... ok\ntest_trois_fonds_neutres_contraste_AA (b04_reg_test_b03_contract.py.B03Contract.test_trois_fonds_neutres_contraste_AA) ... ok\ntest_credentials_cannot_be_in_repository (b04_reg_test_c08_scope.py.C08Scope.test_credentials_cannot_be_in_repository) ... ok\ntest_fixture_is_separate_from_b00_manifest (b04_reg_test_c08_scope.py.C08Scope.test_fixture_is_separate_from_b00_manifest) ... ok\ntest_reject_foreign_site_before_upload (b04_reg_test_c08_scope.py.C08Scope.test_reject_foreign_site_before_upload) ... ok\ntest_reject_production_environment_before_upload (b04_reg_test_c08_scope.py.C08Scope.test_reject_production_environment_before_upload) ... ok\ntest_reject_stopped_site_before_upload (b04_reg_test_c08_scope.py.C08Scope.test_reject_stopped_site_before_upload) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 0.004s\n\nOK\n"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmp2_ket9r_/site",
+    "--base-url=http://127.0.0.1:40475",
+    "--plan=/repo/wp/tests/a09/tmp2_ket9r_/marker-structure-0.csv",
+    "--output=/report/marker-structure-0",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"/repo/wp/outils/bascule/tester-redirections\", line 10, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/repo/wp/outils/bascule/a09/check.py\", line 217, in main\n    base = authorize_site(args.wp_path, args.base_url)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/repo/wp/outils/bascule/a09/check.py\", line 91, in authorize_site\n    need(marker.get('status') == 'verified' and marker.get('offline_verified') is True\n         ^^^^^^^^^^\nAttributeError: 'list' object has no attribute 'get'\n",
+  "events": [],
+  "site_unchanged": true
+}

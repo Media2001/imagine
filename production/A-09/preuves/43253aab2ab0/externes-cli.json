@@ -1,0 +1,49 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpcz1m1ybz/site",
+    "--base-url=http://127.0.0.1:38833",
+    "--plan=/repo/wp/tests/a09/tmpcz1m1ybz/externes.csv",
+    "--output=/report/externes",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 1,
+  "stdout": "# Test des redirections \u2014 lecture seule\n\n0 CONFORME ; 4 non conforme(s).\n\n| Ligne | Ancienne | Code attendu | Code observ\u00e9 | Cible attendue | Cible observ\u00e9e | HTTP final | Sauts | R\u00e9sultat |\n|---|---|---|---|---|---|---|---|---|\n| 2 | /externe | 301 | 301 | /final | http://127.0.0.1:42453/never-visit | \u2014 | 1 | cible_externe |\n| 3 | /plus-tard | 301 | 301 | /hop | /hop | \u2014 | 2 | chaine, cible_externe |\n| 4 | /protocole | 301 | 301 | /final | //127.0.0.1:42453/never-visit | \u2014 | 1 | cible_externe |\n| 5 | /schema | 301 | 301 | /final | mailto:nobody@example.org | \u2014 | 1 | cible_externe |\n",
+  "stderr": "",
+  "events": [
+    {
+      "method": "GET",
+      "path": "/externe",
+      "at": 480261.937006749,
+      "port": 38833
+    },
+    {
+      "method": "GET",
+      "path": "/plus-tard",
+      "at": 480262.036415089,
+      "port": 38833
+    },
+    {
+      "method": "GET",
+      "path": "/hop",
+      "at": 480262.13704132,
+      "port": 38833
+    },
+    {
+      "method": "GET",
+      "path": "/protocole",
+      "at": 480262.237433514,
+      "port": 38833
+    },
+    {
+      "method": "GET",
+      "path": "/schema",
+      "at": 480262.337786355,
+      "port": 38833
+    }
+  ],
+  "site_unchanged": true
+}

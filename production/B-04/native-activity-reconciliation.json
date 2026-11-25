@@ -1,0 +1,17 @@
+{
+  "scope": "imagine-test-demo",
+  "exact_frozen_digest_reproduced": true,
+  "only_changed_key": "wc_last_active",
+  "only_changed_users": {
+    "9": {
+      "before": "1795635167",
+      "after": "1795636702"
+    },
+    "28": {
+      "before": "1795635168",
+      "after": "1795636706"
+    }
+  },
+  "attempts": 1,
+  "no_database_write": true
+}

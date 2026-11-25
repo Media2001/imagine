@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpa_1dl_21/site",
+    "--base-url=http://127.0.0.1:45281",
+    "--plan=/repo/wp/tests/a09/tmpa_1dl_21/plan-doublon.csv",
+    "--output=/report/plan-doublon",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "A09_PLAN_DUPLICATE_OR_CONFLICT\n",
+  "events": [],
+  "site_unchanged": true
+}

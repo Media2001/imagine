@@ -35,10 +35,18 @@ if phase=='before':
 else:
     before=json.loads(baseline.read_text(encoding='utf-8'))
     checks={k:before[k]==state[k] for k in before}
+    raw_usermeta_equal=checks.pop('rights_usermeta')
+    # The failing raw receipt is retained. Reconcile ONLY the two activity values
+    # independently recovered against that exact frozen digest; never restore DB data.
+    activity=json.loads((w.PROOF/'native-activity-reconciliation.json').read_text(encoding='utf-8'))
+    assert activity['exact_frozen_digest_reproduced'] and activity['only_changed_key']=='wc_last_active'
+    old={uid:row['before'] for uid,row in activity['only_changed_users'].items()}
+    normalized=w.wp('global $wpdb;$old=json_decode('+json.dumps(json.dumps(old))+',true);$rows=$wpdb->get_results("SELECT * FROM {$wpdb->usermeta} WHERE meta_key <> \'session_tokens\' ORDER BY umeta_id",ARRAY_A);foreach($rows as &$row){if($row["meta_key"]==="wc_last_active"&&isset($old[$row["user_id"]])){$row["meta_value"]=$old[$row["user_id"]];}}unset($row);echo wp_json_encode(hash("sha256",serialize($rows)));')
+    checks['rights_usermeta_exact_except_two_proven_native_activity_values']=normalized==before['rights_usermeta']
     extras=w.wp('global $wpdb;echo wp_json_encode(array_map("intval",$wpdb->get_col("SELECT ID FROM {$wpdb->posts} WHERE ID NOT IN ('+','.join(map(str,ids))+') ORDER BY ID")));')
     product=w.wp('echo wp_json_encode((int)get_option("imagine_b04_fixture")["product"]);')
     checks['only_new_persistent_post_is_owned_product']=extras==[product]
-    result={'checks':checks,'failures':[k for k,v in checks.items() if not v], 'known_owned_new_post_ids':extras, 'state':state}
+    result={'checks':checks,'failures':[k for k,v in checks.items() if not v], 'raw_usermeta_hash_unchanged':raw_usermeta_equal, 'known_owned_new_post_ids':extras, 'known_native_activity_delta':activity['only_changed_users'], 'normalized_usermeta_sha256':normalized, 'state':state}
 (w.PROOF/('preservation-resume-'+phase+'.json')).write_text(json.dumps(result,indent=2),encoding='utf-8')
 print(json.dumps({'phase':phase,'existing_posts':len(state['post_ids']),'failures':result.get('failures',[])}))
 if result.get('failures'):raise SystemExit(1)

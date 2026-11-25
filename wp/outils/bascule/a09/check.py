@@ -88,7 +88,7 @@ def authorize_site(site, base_url):
     spec.loader.exec_module(guard)
     try:
         marker = guard.load_json(guard.safe_path(site, '.imagine-staging-verified.json'))
-        need(marker.get('status') == 'verified' and marker.get('offline_verified') is True
+        need(isinstance(marker, dict) and marker.get('status') == 'verified' and marker.get('offline_verified') is True
              and marker.get('runtime_probe_passed') is True, 'A09_NOT_VERIFIED')
         declaration = guard.load_json(guard.safe_path(site, '.imagine-a09-http.json'))
         need(set(declaration) == {'schema', 'kind', 'base_url'} and declaration['schema'] == 'imagine-a09-http-v1'
