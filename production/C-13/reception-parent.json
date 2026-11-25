@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-25T16:13:03.602013+01:00",
+  "lot": "C-13",
+  "command": [
+    "python",
+    "wp/outils/demo/c13.py",
+    "--require-complete"
+  ],
+  "exit": 2,
+  "technical_pass": true,
+  "acceptance_complete": false,
+  "receipt_sha256": "ede5d03baec628f24a1441afdb8ef361e51e1e2c2b3990a69c7267cb8137bd46",
+  "log_sha256": "674f52aaa45cd5d2dbac490e9d9b273f6a81a2bf85e9609ff19bafa75f0ec5ef",
+  "technical_total": 75,
+  "remaining": {
+    "numero": "DEMO-2027-T1",
+    "abonnements_C09": 12,
+    "sans_paiement_valide": 12,
+    "C09_destinataires": 0,
+    "A_SANSMAIL_inclus": false,
+    "A_SANSMAIL_motif": "paiement_non_valide",
+    "offert_natif_present": false,
+    "groupe_natif_present": false
+  }
+}

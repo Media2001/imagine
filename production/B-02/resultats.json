@@ -1,6 +1,6 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-25T15:09:04.851935+00:00",
+  "at": "2026-11-25T15:13:28.604442+00:00",
   "status": "TECHNIQUE_VERT_ACCEPTATION_PARTIELLE",
   "deployed_bytes": {
     "plugins/imagine-site/MonCompte.php": true,
@@ -163,10 +163,10 @@
     "wc_order_addresses": "df4093eefa2be0b65eaf9511c10eefd24edcb8c5a1e256a95a84b534549033ba",
     "wc_order_operational_data": "4cff1e720001cf39a37beac29435a1cbce6a9bbab692132757c268c80413a643",
     "wc_orders_meta": "bba1e8c79744f147147bdb3e812f095d126b5b4672c170c5b5135f46ba61bf5b",
-    "woocommerce_order_items": "d71777a91537c0a395c4c55967805b53e9714d490eacca5619325f8deefbaa3b",
-    "woocommerce_order_itemmeta": "30c857e6e56024d3f770d0001b13ef737b1d680a8a9c3050f53af59357ef95d7",
+    "woocommerce_order_items": "11307779b31e32fa6621324996102ba407eaac32ff1f7b1e30797fb5ac6f6c63",
+    "woocommerce_order_itemmeta": "1e0e2fdc4c97c619925d9179921d373989abcddfdb8fe3fc3edc0ced244b85ff",
     "roles": "8d0cb276fd0d91860a6182bae0c897d83429678fb7ddbac7a211ff6e2d22a47e",
-    "options": "f8dba3bdf70470703c1009dbbfb97aea24515668996344efedaad436bc7d885a"
+    "options": "8a710a476fb9d6152cde3a82e25040f4f47aaf5038a74626a94f9a21fd47bc45"
   },
   "snapshot_after": {
     "users": "be0e99ae38678960009815b78d86b33cc2f5d84f7ef94b6a786829fd6f7c8b36",
@@ -176,18 +176,17 @@
     "wc_order_addresses": "df4093eefa2be0b65eaf9511c10eefd24edcb8c5a1e256a95a84b534549033ba",
     "wc_order_operational_data": "4cff1e720001cf39a37beac29435a1cbce6a9bbab692132757c268c80413a643",
     "wc_orders_meta": "bba1e8c79744f147147bdb3e812f095d126b5b4672c170c5b5135f46ba61bf5b",
-    "woocommerce_order_items": "d71777a91537c0a395c4c55967805b53e9714d490eacca5619325f8deefbaa3b",
-    "woocommerce_order_itemmeta": "30c857e6e56024d3f770d0001b13ef737b1d680a8a9c3050f53af59357ef95d7",
+    "woocommerce_order_items": "11307779b31e32fa6621324996102ba407eaac32ff1f7b1e30797fb5ac6f6c63",
+    "woocommerce_order_itemmeta": "1e0e2fdc4c97c619925d9179921d373989abcddfdb8fe3fc3edc0ced244b85ff",
     "roles": "8d0cb276fd0d91860a6182bae0c897d83429678fb7ddbac7a211ff6e2d22a47e",
-    "options": "f8dba3bdf70470703c1009dbbfb97aea24515668996344efedaad436bc7d885a"
+    "options": "8a710a476fb9d6152cde3a82e25040f4f47aaf5038a74626a94f9a21fd47bc45"
   },
   "acceptance_blockers": [
     "A-4x-J45 absent de C09 et du site ; aucun alias ni état 2/4 inventé.",
     "Marge C05 non renseignée : quatre positions nommées A-SEPA4, aucune date théorique inventée.",
     "Historique activation C01 et factures/justificatifs non raccordés : emplacements nommés.",
     "Aucune échéance failed native sur les profils demandés : branche de paiement échoué non prouvée par HTTP, aucun rejet fabriqué.",
-    "A-CARTE sans paiement validé : adresse/source postale prouvée, inclusion positive dans un vrai export C07 non attestée.",
-    "Corrections C13/C14 présentes au contrôle final : hors délégation B02, signalées au parent sans réouverture de leurs sources."
+    "A-CARTE sans paiement validé : adresse/source postale prouvée, inclusion positive dans un vrai export C07 non attestée."
   ],
   "total": 144,
   "failures": []

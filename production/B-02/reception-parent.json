@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-25T16:14:19.170129+01:00",
+  "lot": "B-02",
+  "command": [
+    "python",
+    "wp/outils/demo/b02.py",
+    "--require-complete"
+  ],
+  "exit": 2,
+  "technical_pass": true,
+  "acceptance_complete": false,
+  "receipt_sha256": "0c2b57fd98e6dc5296f1dda7cf0c0f79de0f2d3d8727b1cc5c8f6e4ed1df105f",
+  "log_sha256": "5a4a8bc7d8dac37c1693eb00e28b3f24d31384329939956563f7721023671092",
+  "technical_total": 144,
+  "remaining": [
+    "A-4x-J45 absent de C09 et du site ; aucun alias ni état 2/4 inventé.",
+    "Marge C05 non renseignée : quatre positions nommées A-SEPA4, aucune date théorique inventée.",
+    "Historique activation C01 et factures/justificatifs non raccordés : emplacements nommés.",
+    "Aucune échéance failed native sur les profils demandés : branche de paiement échoué non prouvée par HTTP, aucun rejet fabriqué.",
+    "A-CARTE sans paiement validé : adresse/source postale prouvée, inclusion positive dans un vrai export C07 non attestée."
+  ]
+}
