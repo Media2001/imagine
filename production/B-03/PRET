@@ -1,0 +1,8 @@
+B-03 — prêt à relire techniquement
+Vérifié le 25 novembre 2026 à 16:59:45 UTC sur imagine-test-demo uniquement.
+Réception : A-VOIR.md ; rapport : RAPPORT.md.
+Preuve : verification-finale.json
+SHA-256 : 9d713737741f7b7c37423c1cfd43a3692ffc69dd84a5c4229c6b9b175a04ab87
+10 assertions PHP B03 ; 5 tests JS ; 43 contrôles HTTP ; 14 tests locaux ; 1012 tests T01 / 34006 assertions ; 29 contrôles navigateur anonymes ; 21 contrôles finaux, sans échec courant.
+L’assertion B01 historique sans JS est explicitement adaptée dans le seul rejeu B03, sans changer les tests historiques.
+Pas de validation visuelle, de clôture de relecture ni de GO de production.

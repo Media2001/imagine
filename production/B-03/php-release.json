@@ -1,0 +1,19 @@
+{
+  "total": 10,
+  "failures": [],
+  "checks": {
+    "estimation_disponible": true,
+    "vide_minimum_une_minute": true,
+    "200_mots_une_minute": true,
+    "201_mots_deux_minutes": true,
+    "paragraphes_sans_espaces_201_mots": true,
+    "401_mots_trois_minutes": true,
+    "unicode_et_apostrophes": true,
+    "entites_HTML_et_balises": true,
+    "CTA_exclu_estimation": true,
+    "scripts_non_comptes": true
+  },
+  "at": "2026-11-25T16:59:17.974723+00:00",
+  "scope": "imagine-test-demo",
+  "phase": "release"
+}

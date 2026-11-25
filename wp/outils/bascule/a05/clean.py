@@ -21,7 +21,8 @@ def need(ok, code, name=''):
     if not ok: raise Refusal(code + (':' + name if name else ''))
 
 def plugin_action(plan, name):
-    return next((row['action'] for row in plan['plugins'] if row['plugin'] == name), 'garder')
+    rows=[row for row in plan['plugins'] if row['plugin']==name or row['plugin']==name.split('/')[0]]
+    return 'garder' if not rows or any(row['action']=='garder' for row in rows) else rows[0]['action']
 
 def relative(value):
     return isinstance(value, str) and bool(re.fullmatch(r'[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*', value)) and all(x not in ['.','..'] for x in value.split('/'))
@@ -40,7 +41,7 @@ def validate(plan):
             need(key not in seen,'A05_DUPLICATE',key);seen.add(key)
             need(row['action'] in (['garder','desactiver','retirer'] if kind=='plugins' else ['garder','supprimer']),'A05_ACTION',key)
             if kind=='plugins':
-                need(key.endswith('.php') and isinstance(row['uninstall'],bool) and (not row['uninstall'] or row['action']=='retirer'),'A05_PLUGIN',key)
+                need((key.endswith('.php') or (row['action']=='garder' and '/' not in key)) and isinstance(row['uninstall'],bool) and (not row['uninstall'] or row['action']=='retirer'),'A05_PLUGIN',key)
             elif kind!='uploads':
                 need(row['match'] in (['exact'] if kind=='cron' else ['exact','prefix']),'A05_MATCH',key)
     need(isinstance(plan['table_owners'],dict),'A05_OWNERS')
@@ -146,7 +147,7 @@ def operations(site,plan,inv):
     for row in plan['plugins']:
         name=row['plugin'];a04.safe_path(site,'wp-content/plugins/'+name)
         if name not in inv['plugins']: continue
-        if row['action']=='garder':continue
+        if plugin_action(plan,name)=='garder':continue
         if inv['plugins'][name]['active']:ops.append({'kind':'deactivate','name':name,'rows':1,'bytes':0,'phase':'pending'})
         if row['action']=='retirer':
             if row['uninstall']:ops.append({'kind':'uninstall','name':name,'rows':0,'bytes':0,'phase':'pending'})
