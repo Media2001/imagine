@@ -7,7 +7,13 @@ namespace Imagine\Theme;
 get_header();
 while (have_posts()) : the_post();
 ?>
-<article>
+<div id="imagine-reading-tools" hidden>
+    <button type="button" id="imagine-reading-toggle" aria-pressed="false" aria-controls="imagine-reading-options"
+        data-enter-label="<?php esc_attr_e('Lire l’article', 'imagine'); ?>"
+        data-exit-label="<?php esc_attr_e('Quitter le mode lecture', 'imagine'); ?>"><?php esc_html_e('Lire l’article', 'imagine'); ?></button>
+    <div id="imagine-reading-options" hidden></div>
+</div>
+<article class="imagine-article" data-imagine-reading-id="<?php echo esc_attr((string) get_the_ID()); ?>">
     <header>
         <h1><?php the_title(); ?></h1>
         <p class="imagine-chapo"><?php echo esc_html(get_post_field('post_excerpt', get_the_ID())); ?></p>

@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-25T16:32:30.796679+00:00",
+  "scope": "imagine-test-demo",
+  "phase": "button",
+  "expected": {
+    "themes/imagine/assets/tokens.css": "189df2806d80babf869dc2e9183298fccb7523b4ebb9faaf03c9d2fee3322923",
+    "themes/imagine/single.php": "b4f87a8626982b5a78db0a10b85238460b8dd1785547891ed06cada92c7f5492",
+    "themes/imagine/functions.php": "cb581553f2ca187a421b598db21da829d105ac4bb5898c1af731dcb11ae33c52"
+  },
+  "actual": {
+    "themes/imagine/assets/tokens.css": "189df2806d80babf869dc2e9183298fccb7523b4ebb9faaf03c9d2fee3322923",
+    "themes/imagine/single.php": "b4f87a8626982b5a78db0a10b85238460b8dd1785547891ed06cada92c7f5492",
+    "themes/imagine/functions.php": "cb581553f2ca187a421b598db21da829d105ac4bb5898c1af731dcb11ae33c52"
+  },
+  "exact": true,
+  "files": 3,
+  "php_parsed": 2
+}

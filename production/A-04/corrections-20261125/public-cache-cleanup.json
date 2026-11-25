@@ -1,0 +1,26 @@
+{
+  "owned_public_files_only": true,
+  "records": [
+    {
+      "path": "production/A-04/dependances/wordpress-6.9.1.zip",
+      "sha256": "1c6ba9fc3ca6d5eb847666d82c0958c15878552387143ed61724ee81350fb120",
+      "expected": "1c6ba9fc3ca6d5eb847666d82c0958c15878552387143ed61724ee81350fb120",
+      "bytes": 28685823,
+      "absent": true
+    },
+    {
+      "path": "production/A-04/dependances/wordpress-7.0.zip",
+      "sha256": "b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "expected": "b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "bytes": 31549246,
+      "absent": true
+    },
+    {
+      "path": "production/A-04/dependances/woocommerce-11.0.1.zip",
+      "sha256": "da189b6616c610d15a2106f93151dab81b78f83e075bcefce221ac0d00b4fa21",
+      "expected": "da189b6616c610d15a2106f93151dab81b78f83e075bcefce221ac0d00b4fa21",
+      "bytes": 20218895,
+      "absent": true
+    }
+  ]
+}

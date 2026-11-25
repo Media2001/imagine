@@ -1,0 +1,62 @@
+{
+  "schema": "imagine-a04-v1",
+  "site_status": "verified-staging",
+  "steps": [
+    {
+      "component": "core",
+      "main_file": null,
+      "before": "7.0",
+      "after": "7.0.9",
+      "archive": "/opt/compatible-public/wordpress.zip",
+      "sha256": "5a46f3c0443a321afa1f511ec3007fc636fdbd2e7598871020351edeffa1e1a0",
+      "adapter": "core",
+      "hooks": []
+    },
+    {
+      "component": "woocommerce",
+      "main_file": "woocommerce.php",
+      "before": "11.0.1",
+      "after": "11.1.1",
+      "archive": "/opt/compatible-public/woocommerce.zip",
+      "sha256": "c5748c60a28c5d4b439109def3955c5a629f7cd66b919ae5aefa588bcaace710",
+      "adapter": "woocommerce",
+      "hooks": []
+    },
+    {
+      "component": "woocommerce-subscriptions",
+      "main_file": "woocommerce-subscriptions.php",
+      "before": "9.4.1",
+      "after": "9.4.1",
+      "archive": "/opt/a03/woocommerce-subscriptions.zip",
+      "sha256": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083",
+      "adapter": "woocommerce-subscriptions",
+      "hooks": []
+    },
+    {
+      "component": "woocommerce-memberships",
+      "main_file": "woocommerce-memberships.php",
+      "before": "1.30.3",
+      "after": "1.30.3",
+      "archive": "/opt/a03/woocommerce-memberships.zip",
+      "sha256": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285",
+      "adapter": "woocommerce-memberships",
+      "hooks": []
+    },
+    {
+      "component": "a04-rest",
+      "main_file": "fiction-entry.php",
+      "before": "1.0.0",
+      "after": "2.0.0",
+      "archive": "/opt/a04/hpos-rest.zip",
+      "sha256": "5d60244e36be0e1591d51a3c8ac90b514728dc08f7e3d0cfee2363d1765316b9",
+      "adapter": "bootstrap-only",
+      "hooks": [],
+      "audit": {
+        "component": "a04-rest",
+        "path": "/opt/a04/hpos-rest-audit.md",
+        "sha256": "d3cba68002fa867f8cef5c6cf7dd1ebb810b4b47d4481d04d333ba329aacdba6",
+        "conclusion": "no-deferred-database-migrations"
+      }
+    }
+  ]
+}
