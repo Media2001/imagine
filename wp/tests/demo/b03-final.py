@@ -34,16 +34,16 @@ def digest(path):
 def run():
     work = module('b03-work.py')
     work.guard()
-    deployed = load('deploy-release.json')['expected']
-    expected = {path: digest(ROOT / 'wp' / path) for path in deployed}
+    deployed = load('deploy-corrections.json')['expected']
+    expected = {'themes/imagine/' + rel: digest(ROOT / 'wp/themes/imagine' / rel) for rel in work.FILES}
     actual = work.readback(list(expected))
-    checks = {'theme_local_deploye_exact': actual == expected == deployed,
-              'depot_limite_au_theme': all(p.startswith('themes/imagine/') for p in deployed)}
-    php = work.runtime('release')
-    http = module('b03-http.py').run('release')
+    checks = {'theme_local_deploye_exact': actual == expected and all(expected[k] == v for k, v in deployed.items()),
+              'depot_limite_aux_deux_assets': set(deployed) == {'themes/imagine/assets/reading.css', 'themes/imagine/assets/reading.js'}}
+    php = work.runtime('corrections')
+    http = module('b03-http.py').run('corrections')
     node = subprocess.run(['node', '--test', '--test-reporter=tap', str(HERE / 'b03-reading.test.cjs')],
                           capture_output=True, text=True, encoding='utf-8')
-    (PROOF / 'js-release.txt').write_text(node.stdout + node.stderr, encoding='utf-8')
+    (PROOF / 'js-corrections-green.txt').write_text(node.stdout + node.stderr, encoding='utf-8')
     checks['JS_execution_sans_echec'] = node.returncode == 0
     node_tests = int(re.search(r'^# tests (\d+)$', node.stdout, re.M)[1])
     node_pass = int(re.search(r'^# pass (\d+)$', node.stdout, re.M)[1])
@@ -73,17 +73,25 @@ def run():
     baseline = load('http-red.json')
     for visitor in ['a-carte', 'anonyme']:
         checks['corps_C08_inchange:' + visitor] = baseline['responses'][visitor]['body_sha256'] == http['responses'][visitor]['body_sha256']
-    browser_count = 0
-    for receipt in ['browser-narrow-final.json', 'browser-wide-final.json']:
-        row = load(receipt)
-        checks[receipt] = not row['failures'] and all(v is True for v in row['checks'].values())
-        browser_count += len(row['checks'])
-    # Le dernier changement n'était qu'un reformatage de l'enqueue PHP.
-    # Les octets réellement exercés au navigateur restent identiques à la release.
-    browser_deploy = load('deploy-final.json')['actual']
-    for rel in ['assets/reading.js', 'assets/reading.css', 'assets/tokens.css', 'single.php']:
-        key = 'themes/imagine/' + rel
-        checks['liaison_preuve_navigateur:' + rel] = browser_deploy[key] == expected[key]
+    browser = load('browser-colors-corrections.json')
+    checks['navigateur_corrections'] = bool(browser['checks']) and not browser['failures'] and all(v is True for v in browser['checks'].values())
+    browser_count = len(browser['checks'])
+    for name, value in browser['source_sha256'].items():
+        checks['liaison_preuve_navigateur:' + name] = value == expected['themes/imagine/assets/' + name]
+    before = load('corrections-before.json')
+    remote_now = work.wp(before['snapshot_php'])
+    local_now = {p.relative_to(ROOT / 'wp').as_posix(): digest(p) for d in ['themes/imagine', 'plugins'] for p in (ROOT / 'wp' / d).rglob('*') if p.is_file()}
+    changed = lambda old, new: sorted(k for k in set(old) | set(new) if old.get(k) != new.get(k))
+    remote_changed = changed(before['remote'], remote_now)
+    local_changed = changed(before['local'], local_now)
+    allowed = sorted(deployed)
+    checks['contenus_paiements_dates_et_autres_sources_preserves'] = remote_changed == allowed and local_changed == allowed
+    preservation = {'scope': 'imagine-test-demo', 'at': datetime.now(timezone.utc).isoformat(),
+                    'remote_items': len(remote_now), 'local_files': len(local_now),
+                    'remote_changed': remote_changed, 'local_changed': local_changed,
+                    'tables_sha256': {k: v for k, v in remote_now.items() if '/' not in k},
+                    'exact_allowed_changes': checks['contenus_paiements_dates_et_autres_sources_preserves']}
+    (PROOF / 'preservation-corrections.json').write_text(json.dumps(preservation, indent=2), encoding='utf-8')
     sources = [ROOT / 'wp' / path for path in expected]
     sources += sorted(p for p in HERE.glob('b03-*') if p.is_file()) + [HERE / 'test_b03_contract.py']
     documents = [PROOF / p for p in ['A-VOIR.md', 'RAPPORT.md', 'besoins-designer.md', 'REJOUER.md']]
@@ -119,10 +127,10 @@ def run():
                            'T01': t01, 'browser_anonyme_assertions': browser_count, 'final_checks': len(checks)},
                 'checks': checks, 'failures': failures, 'remote_sha256': actual,
                 'script_bytes': len(script), 'script_gzip_bytes': len(gzip.compress(script, mtime=0)),
-                'reading_words_per_minute': 200, 'contrast_ratios': contrast,
+                'reading_words_per_minute': http['reading_words_per_minute'], 'contrast_ratios': contrast, 'python': sys.executable,
                 'source_sha256': {p.relative_to(ROOT).as_posix(): digest(p) for p in sources},
                 'documents_sha256': {p.relative_to(ROOT).as_posix(): digest(p) for p in documents},
-                'evidence_sha256': {name: digest(PROOF / name) for name in ['deploy-release.json', 'php-release.json', 'http-release.json', 'js-release.txt', 't01-release.txt', 'local-regression.json', 'browser-narrow-final.json', 'browser-wide-final.json', 'preparer-image.txt']},
+                'evidence_sha256': {name: digest(PROOF / name) for name in ['deploy-corrections.json', 'php-corrections.json', 'http-corrections.json', 'js-corrections-green.txt', 't01-release.txt', 'local-regression.json', 'browser-colors-corrections.json', 'preservation-corrections.json', 'preparer-image.txt']},
                 'limits': ['Navigateur réel anonyme seulement ; a-carte prouvé par vrais cookies HTTP et logique JS testée hors navigateur.',
                            'Ancienne assertion B01 sans aucun JS obsolète ; une adaptation B03 en mémoire, test historique intact.',
                            'PRET est prêt à relire, pas une approbation visuelle ou une mise en production.']}

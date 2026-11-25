@@ -1,0 +1,21 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-25T18:24:47.372505+00:00",
+  "remote_items": 7605,
+  "local_files": 197,
+  "remote_changed": [
+    "themes/imagine/assets/reading.css",
+    "themes/imagine/assets/reading.js"
+  ],
+  "local_changed": [
+    "themes/imagine/assets/reading.css",
+    "themes/imagine/assets/reading.js"
+  ],
+  "tables_sha256": {
+    "wp_postmeta": "419187d0399483fae5b013cf8a5ef70160da2199ddc7c79d3b4b1bef73a215bd",
+    "wp_posts": "31a9e13359851aa5bd842c4ff8233901cd706a6f056e6e713a72758ebb113470",
+    "wp_wc_orders": "2eff2dc101e50588e2ebd7b4cd3cfb6f4de33033a2651fb92fdc77ff02118b19",
+    "wp_wc_orders_meta": "885d3ce65593fc8ae52ba384b7a1c0184cdc7f33047119882f89263c91c9b3e0"
+  },
+  "exact_allowed_changes": true
+}

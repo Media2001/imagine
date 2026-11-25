@@ -4,29 +4,33 @@ Depuis `C:/Users/Ced/imagine`. Aucun accès réel, Git, nettoyage de site, compt
 
 ## Dépendances de test locales, sans installation globale
 
-Node est déjà présent. Les six wheels publics verrouillés de B01 sont réutilisés **hors ligne** dans un environnement jetable sous le scratch Hermes :
+Les interpréteurs déjà installés ont été retrouvés et exercés, sans nouveau paquet :
 
-```text
-uv venv --no-python-downloads --python python C:/Users/Ced/AppData/Local/hermes/cache/scratch/imagine-b03-tests
-uv pip install --python C:/Users/Ced/AppData/Local/hermes/cache/scratch/imagine-b03-tests/Scripts/python.exe --no-index --find-links production/B-01/validation --require-hashes -r production/B-01/validation/requirements.lock
-```
+- **HTTP/HTML et final** : `C:/Users/Ced/AppData/Local/hermes/cache/scratch/imagine-b03-tests/Scripts/python.exe` (BeautifulSoup 4.14.3, html5lib 1.1).
+- **Navigateur** : `C:/Users/Ced/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe` (Playwright et Chromium existants).
 
-Si l’environnement existe déjà, ne pas le recréer. Utiliser son Python pour les tests HTTP/HTML ; `PYTHONDONTWRITEBYTECODE=1` évite des écritures de cache dans les tests voisins. Les mots de passe sont lus uniquement en mémoire par le mécanisme HTTP privé déjà présent ; aucun cookie ni corps HTML connecté n’est enregistré.
+Le Python par défaut et le venv Hermes n’ont pas `html5lib` : **ne pas les utiliser pour le final ou HTTP**. Le venv B03 n’a pas Playwright : ne pas l’utiliser pour le navigateur. Ne recréer aucun environnement ; aucun paquet n’a été ajouté pendant les corrections. Node est déjà présent. L’option `-B` évite les caches Python dans les tests voisins. Les identifiants fictifs restent lus en mémoire ; aucun cookie, mot de passe ou corps connecté n’est enregistré.
 
 ## Dépôt ciblé et recette
 
 ```text
-python wp/tests/demo/b03-work.py deploy release
-C:/Users/Ced/AppData/Local/hermes/cache/scratch/imagine-b03-tests/Scripts/python.exe wp/tests/demo/b03-final.py
+C:/Users/Ced/AppData/Local/hermes/cache/scratch/imagine-b03-tests/Scripts/python.exe -B wp/tests/demo/b03-work.py php corrections
+C:/Users/Ced/AppData/Local/hermes/cache/scratch/imagine-b03-tests/Scripts/python.exe -B wp/tests/demo/b03-http.py corrections
+C:/Users/Ced/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe -B wp/tests/demo/b03-colors.py corrections
+C:/Users/Ced/AppData/Local/hermes/cache/scratch/imagine-b03-tests/Scripts/python.exe -B wp/tests/demo/b03-final.py
 ```
 
-`deploy` n’envoie que six fichiers B03 du thème, parse les PHP et relit les SHA-256. Il sauvegarde les préimages dans `theme-before-<phase>.json` et ne touche pas aux extensions. Ne pas appeler le constructeur B00 global, les seeds C08/C09, les recettes mutatrices C12/C14 ou les fixtures du parent.
+Ces commandes ont réellement réussi. Ne pas redéployer pour vérifier : les corrections n’ont envoyé que `assets/reading.css` et `assets/reading.js`, relus dans `deploy-corrections.json`, préimages dans `theme-before-corrections.json`. Les quatre autres fichiers B03 sont relus mais pas renvoyés. Ne pas appeler le constructeur B00 global, le `deploy release` historique, les seeds C08/C09, les recettes mutatrices C12/C14 ou les fixtures du parent.
 
-`b03-final.py` relit les six fichiers, exécute les dix assertions PHP B03 via le seul fichier `imagine-demo-build/b03-runtime.php`, les vrais HTTP, les tests Node et les régressions locales. Il utilise ensuite **l’exécuteur canonique T01** dans un conteneur éphémère isolé, montage du dépôt en lecture seule, réseau absent, sans site ni extension commerciale. Il ne passe pas par le balayage global d’orphelins de `rejouer.ps1`, pour ne pas interrompre un autre worker. Les reçus des contrôles navigateur anonymes déjà exercés sont liés aux mêmes octets CSS/JS/tokens/gabarit ; les manipulations pour les rejouer sont dans `A-VOIR.md`.
+`b03-final.py` relit les six fichiers, exécute les dix assertions PHP B03 via le seul fichier `imagine-demo-build/b03-runtime.php`, les 43 contrôles HTTP, les 8 tests Node et les 15 tests locaux. Il utilise ensuite **l’exécuteur canonique T01** (1 012 tests / 34 006 assertions) dans un conteneur éphémère isolé, dépôt en lecture seule, réseau absent, sans site ni extension commerciale et sans balayage d’orphelins. Les 77 contrôles navigateur de `browser-colors-corrections.json` sont liés aux SHA-256 actuels du CSS/JS : les anciens reçus ne servent pas à valider les nouveaux octets. `preservation-corrections.json` compare les empreintes préalables de `corrections-before.json` : seuls les deux assets changent, ni contenus, métadonnées, commandes, dates, extensions ni autres sources. Ne jamais recréer cette photographie après coup pour masquer une divergence.
 
 La commande obligatoire `powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1` a été réellement exécutée avec succès : `preparer-image.txt`. Ce script n’a pas été modifié ; aucun nouveau paquet Composer n’est créé par B03. Si les manifests des bibliothèques changent, refaire cette préparation explicitement avant le rejeu.
 
 ## Historique TDD et incompatibilité attendue
+
+- **Corrections B03-C1** : `browser-colors-red.json` → `browser-colors-corrections.json`, paragraphe noir et bloc rouge, ≥ 4,5:1 dans les trois palettes à 390 et 1440 px. Sondes DOM client temporaires, supprimées ; images et contenu enregistré intacts.
+- **Corrections B03-C2** : `js-corrections-red.txt` (deux reprises à 0 au lieu de 1200 avant rAF) → `js-corrections-green.txt` (pagehide, visibilité, préservation en mode inactif).
+- Le contrat HTTP a échoué avant ajout du lecteur de constante ; il teste désormais deux vitesses substituées (137, 299), et le HTTP lit réellement la constante du serveur. Le bloc de mouvement réduit est conservé avec commentaire explicite de sa redondance ; `behavior:'instant'` est le verrou réel.
 
 - `http-red.json` → `http-button-green.json` : bouton réel et absence sans JS.
 - `php-red.json` → `php-time-green.json` : durée serveur ; `php-boundaries-red.json` → `php-release.json` : mots adjacents entre paragraphes.

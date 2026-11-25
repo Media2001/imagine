@@ -1,25 +1,24 @@
-# B-03 — Rapport du lot
+# B-03 — Corrections du 25/11/2026
 
-**Fait** : mode lecture du thème, réglages locaux, reprise de position, durée serveur et progression ; aucun droit ni contenu de fixture modifié.
-**Prêt à relire** : B-03, après vérification réelle et dépôt de `PRET` ; voir `A-VOIR.md` et `verification-finale.json`.
-**À valider par Ced** : uniquement le visuel futur avec les valeurs du designer ; aucune question technique bloquante.
-**Bloqué** : rien sur le fonctionnement demandé. L’inspection navigateur connecté n’est pas revendiquée : A-CARTE est testé en HTTP réel.
-**Ensuite** : retour au parent, qui tient la file et le verrou ; aucun rapport V2 global écrit ici.
+**Fait** : les cinq instructions de `corrections/B-03.md` sont appliquées et vérifiées, paywall intact.
+**Prêt à relire** : PRET corrigé, reçu `verification-finale.json`, parcours `A-VOIR.md`.
+**À valider par Ced** : valeurs du designer puis contraste/rendu sur article réel ; validation visuelle toujours en attente.
+**Bloqué** : rien techniquement ; navigateur connecté non revendiqué, A-CARTE vérifié par HTTP réel.
+**Ensuite** : retour au parent ; aucun rapport global V2, file ou verrou touché.
 
-## Résultat
+## Résultat vérifié
 
-Thème seul : six fichiers ajoutés/modifiés, feuille dédiée activée par `html.imagine-reading`, JavaScript sans bibliothèque ni réseau (**5 756 octets**, gzip mesuré **1 851**). Bouton absent sans JS, vraie commande et état annoncé, sortie par Échap, fonds AA, largeur neutre `70ch`. Le corps passe toujours **une seule fois** par `imagine_article_body()` ; le HTML capturé après la décision C08 est réutilisé pour l’affichage et l’estimation (**200 mots/minute**, constante unique), sans lire le texte interdit pour en révéler la longueur. Les deux corps HTTP C08 sont comparés à l’avant-B03.
+- Couleurs inline et classes de blocs neutralisées **dans les trois thèmes**, uniquement en CSS de lecture ; contenu enregistré et images intacts. Paragraphe noir et bloc rouge testés dans Chromium à 390 et 1440 px : **21:1 / 14,255:1 / 16,157:1**, tous ≥ 4,5:1. Sondes uniquement dans le DOM client, supprimées.
+- `pagehide` et `visibilitychange` recalculent synchroniquement la fraction avant sauvegarde ; hors lecture, la position mémorisée reste intacte. TDD rouge réel (reprise 0 au lieu de 1200) puis vert.
+- Le HTTP lit la constante serveur, sans vitesse magique dans le contre-calcul. Le bloc reduced-motion est conservé avec commentaire de redondance ; reprise JS toujours `instant`.
+- **10 assertions PHP, 43 contrôles HTTP, 8 tests JS, 15 tests locaux, 1 012 tests T01 / 34 006 assertions et 77 contrôles navigateur**, zéro échec courant/ignoré. L’unique échec B01 historique « aucun JS » reste explicitement conservé, adapté en mémoire seulement.
+- Octets locaux/déployés/HTTP identiques ; seuls `reading.css` et `reading.js` ont été redéployés. Empreintes avant/après : contenus, métadonnées, commandes/paiements, dates, extensions et autres sources inchangés, donc complément C09 conservé. Aucune recette C09/B02 ni fixture rejouée.
+- Script : **6 045 octets**, **1 956 gzip**. Vitesse serveur inchangée : **200 mots/minute**. Les corps C08 sont inchangés et le témoin réservé reste absent des réponses anonymes sondées.
 
-Tests réellement exécutés : **10 assertions PHP B03**, **5 tests JS**, **43 contrôles HTTP**, **14 tests locaux** (B01 adapté explicitement, corrections B01, portée C08 et contrat B03), **1 012 tests T01 / 34 006 assertions**, zéro échec courant ni ignoré ; **29 contrôles navigateur anonymes** (390 et 1440 px, reprise/Échap, trois palettes/tailles, sans JS). Le reçu final fait foi pour les nombres et les empreintes. Préparation obligatoire de l’image exécutée, script intact. Les contrôles PHP de bibliothèques passent par le même exécuteur canonique, dans un conteneur propre sans balayage des conteneurs d’autres workers.
+## Décisions et incident résolu
 
-## Décisions prises à défaut
+Défaut prudent : neutralisation sur les trois fonds, pas de conservation des couleurs d’auteur en mode clair. L’éventuelle politique éditoriale d’Imagine reste une question client ; aucun contenu n’est réécrit. Progression non live inchangée, observation non bloquante.
 
-- Réglages globaux au navigateur ; position et activation par article **et longueur de texte servi**, jamais par compte. Reprise proportionnelle, sortie mémorisée ; valeurs invalides ou stockage refusé : défauts prudents, lecture maintenue.
-- Barre fixée en haut ; réglages simples dans le flux, hors `article`. Tous les blocs de droits restent présents, y compris si une décision complète porte un rappel ; seuls les appels périphériques disparaissent.
-- Trois tailles neutres, « Grand » par défaut ; aucun choix de maquette, police distante ou bibliothèque. La signature et les contenus fictifs existants sont conservés, même incomplets.
+Le Python d’origine a été retrouvé : `C:/Users/Ced/AppData/Local/hermes/cache/scratch/imagine-b03-tests/Scripts/python.exe` possède html5lib ; **`b03-final.py` a réellement réussi avec lui**. Le navigateur utilise le venv Hermes déjà équipé de Playwright. `REJOUER.md` donne les commandes exactes, séparées. Aucun paquet ni préparateur modifié ; pas d’installation globale. Deux erreurs initiales de harnais (échappement de la sonde SVG et test lexical prenant HTTP 200 pour une vitesse) ont été corrigées avant les résultats retenus.
 
-## Écarts et incidents
-
-L’ancien test B01 « aucun fichier JS » est logiquement dépassé par ce brief : résultat brut conservé, une seule assertion adaptée **en mémoire** vers une liste fermée dans le rejeu B03 ; aucun autre test/livre de lots modifié. Un premier contrôle navigateur trop bref en arrière-plan n’observait pas le rafraîchissement de progression ; vérification finale au premier plan réussie. Une capture a expiré, sans résultat fabriqué. Au premier lancement, Python global n’avait pas les parseurs HTML : réutilisation hors ligne des wheels B01 dans le scratch, sans installation globale.
-
-**Périmètre respecté** : `wp/themes/imagine/`, seuls nouveaux tests B03 sous `wp/tests/demo/`, `production/B-03/`. Ni plugin partagé, file, verrou, outil de staging, autre lot ni fixture native modifiés/réensemencés. Site `imagine-test-demo` exclusivement ; aucun Git, email, paiement ou système réel. `PRET` n’est ni une clôture de relecture ni une validation visuelle.
+**Périmètre** : thème, seuls tests B03 sous `wp/tests/demo`, `production/B-03`. Site fictif `imagine-test-demo` uniquement ; aucun Git, plugin, autre lot, reset, compte/paiement réel, file, verrou ou rapport global modifié. PRET signifie prêt à relire, pas clôture, approbation visuelle ni GO de production.
