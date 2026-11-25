@@ -1,0 +1,23 @@
+{
+  "original_baseline_sha256": "4677f2a6020d673f2db26638d9ea2d7afb532ad53d9d71adcd434d4789fab9aa",
+  "approved_a10_two_lines": {
+    "actual_path": "wp/tests/a02-audit/README.md",
+    "old_sha256": "7314ab53dd50331d8f3e310215cda613954214c96b0df353981f4ebdac89db72",
+    "current_sha256": "acb63389a0c965d4af81197213d201afb8f73f87971d342b59f9e9476eae47a0",
+    "removed_exact_append_restores_old_hash": true
+  },
+  "context_path_discrepancy": "wp/outils/bascule/README.md remains at original hash; actual two-line A10 append is wp/tests/a02-audit/README.md. Neither file modified by A08.",
+  "preserved_history_files": 765,
+  "archived_delivery_files": {
+    "production/A-08/corrections-2140/PRET": "026054d4e57b396fbc090a1a170cb5b453099d65217300afaf41c30453fd0a3c",
+    "production/A-08/corrections-2140/manifeste.json": "1ff3a247871278eea2f11a21f45066796855f263a94b29e95d1c9f5270ba3118",
+    "production/A-08/corrections-2140/verification-avant-pret.json": "d1bcc8a5c63fbdb1a137d8f6b7b900114a6068a36600aa6e9b97ad048b11fcc4",
+    "production/A-08/corrections-2140/verification-finale.json": "257a47de85ab556474afc20dcb97e4bfdc990ef9dd1b20cd4899ee02bf629c07",
+    "production/A-08/corrections-2140/notes.md": "e299b6b59e53ecb183fbba211117d2f4b5a713a1a3f8743d95350eaaa67dcd8e",
+    "production/A-08/corrections-2140/sceller.py": "519f2e3580b611ccbcf809886668c1c0f8db5fec82fc422cd4278a25ae53d7f3",
+    "production/A-08/corrections-2140/verifier.py": "e48efd7dd38afa574753d0a2f61cfeca076a7f6ec1aa448b305d5041ff9c0290"
+  },
+  "protected_current_files": 1041,
+  "new_test_package": false,
+  "image_preparation": "No new package, existing A08 tests extended; old preparation evidence retained, no shared/image modification."
+}

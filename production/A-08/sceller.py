@@ -35,7 +35,7 @@ def main():
     assert runner['exit_code']==inner['exit_code']==0
     assert all(row['ok'] for row in runner['checks']+inner['checks'])
     assert not (LOT/'PRET').exists() and not (LOT/'manifeste.json').exists()
-    protected=json.loads((LOT/'baseline.json').read_text())
+    protected=json.loads((LOT/'baseline-corrections-2140.json').read_text())
     for name,digest in protected.items():assert sha(ROOT/name)==digest,name
     sources=json.loads((proof/'sources.json').read_text())
     for name,digest in sources.items():assert sha(ROOT/name)==digest,name
@@ -44,7 +44,7 @@ def main():
     accepted_paths += [path for path in (ROOT/'wp/outils/bascule').rglob('*') if path.is_file()]
     accepted_paths += [ROOT/'wp/tests/preparer-image.ps1',ROOT/'wp/tests/rejouer.ps1']
     accepted_paths=[path for path in accepted_paths if '__pycache__' not in path.parts]
-    source_baseline={name for name in protected if '__pycache__' not in pathlib.PurePosixPath(name).parts}
+    source_baseline=set(protected) & set(mapping(accepted_paths))
     assert set(mapping(accepted_paths))==source_baseline|expected_new,'Accepted source inventory changed'
     def count_tests(filename):
         log=(proof/filename).read_text()

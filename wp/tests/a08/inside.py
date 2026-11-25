@@ -125,6 +125,18 @@ def run_storage(storage):
         check(storage+':audit_before_native',first.returncode==75 and list(checkpoint()['done'])==['audit','avant'],first.stderr)
         check(storage+':no_mutations_before_gate',orphan.is_dir() and debris.is_dir() and not (state/'a04').exists() and not (state/'a05').exists())
         native_before=checkpoint()['done']['avant']
+        # Native preflight adversaries: the real entrypoint, no runner doubles.
+        original_attempts=checkpoint()['attempts']
+        dependency=pathlib.Path('/plugins/imagine-non-regression/src/Report.php')
+        dependency_bytes=dependency.read_bytes()
+        try:
+            dependency.write_bytes(dependency_bytes+b'\n')
+            changed=invoke('changed-comparison-code',['--mutations-ready'])
+            check(storage+':external_comparison_change_refused_before_native',changed.returncode==1 and 'A08_IDENTITY_CHANGED' in changed.stderr and checkpoint()['attempts']==original_attempts and not (state/'a04').exists())
+        finally:
+            dependency.write_bytes(dependency_bytes)
+        incomplete=invoke('incomplete-new-pass',['--new-pass'])
+        check(storage+':incomplete_new_pass_current_stop_report',incomplete.returncode==1 and 'A08_PASS_NOT_COMPLETE' in (state/'rapport.md').read_text() and checkpoint()['attempts']==original_attempts)
         # Deliberately OMIT required maintenance: real A04 refuses in the middle.
         (site/'wp-config.php').write_text(config)
         prior=fp()
@@ -179,6 +191,18 @@ def run_storage(storage):
             check(storage+':photo_'+name+'_native_storage_and_clean_log',photo['storage']==storage and photo['php_log']['checked'] is True and photo['php_log']['errors']==0)
         text=(state/'rapport.md').read_text()
         check(storage+':single_report_six_rows_private',len(list(state.glob('rapport*.md')))==1 and all('| '+name+' |' in text for name in ['audit','avant','mise-a-jour','nettoyage','apres','comparaison']) and not any(token in text for token in ['@example.org','Fiction','a08_orphan_setting']))
+        check(storage+':per_pass_comparison_and_duration_report','## Passage 1' in text and '## Passage 2' in text and 'attendus : 4' in text and 'attendus : 0' in text and 'cumulées dans ce passage' in text and cp['comparisons']=={'1':{'attendu':4,'anormal':0},'2':{'attendu':0,'anormal':0}} and [r['pass'] for r in cp['attempts']]==[1]*7+[2]*6)
+        original_plan=plan_clean.read_bytes()
+        try:
+            plan_clean.unlink()
+            disappeared=invoke('missing-input-after-success')
+            check(storage+':missing_input_current_stop_report',disappeared.returncode==1 and 'ARRÊT' in (state/'rapport.md').read_text() and 'Statut : TERMINÉ' not in (state/'rapport.md').read_text() and checkpoint()['attempts']==cp['attempts'])
+            shutil.copyfile(state/'rapport.md',OUT/(storage+'-missing-input-report.md'))
+        finally:
+            plan_clean.write_bytes(original_plan)
+        # Revalidation against the same completed evidence, no native tool replay.
+        revalidated=invoke('revalidate-complete')
+        check(storage+':success_revalidated_after_adversary',revalidated.returncode==0 and checkpoint()['attempts']==cp['attempts'])
         write(OUT/(storage+'-inventory.json'),{'before':inventory,'after':inventory_after})
         # Root safety MU is byte-identical throughout both boundary preparations.
         check(storage+':staging_guard_bytes_unchanged',sha(site/'wp-content/mu-plugins/000-imagine-staging-safety.php')==sha('/subject/000-imagine-staging-safety.php'))

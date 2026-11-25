@@ -79,43 +79,53 @@ def main(argv=None, runner=subprocess.run):
     args = parser.parse_args(argv)
     base = pathlib.Path(__file__).resolve().parents[1]
     checkpoint = None
+    locked = False
+    locks = contextlib.ExitStack()
     try:
         import fcntl
-        for path in [args.wp_path,args.state,args.update_plan,args.clean_plan,args.config,args.backup]:
-            if any(p.is_symlink() for p in [path,*path.parents]):
-                raise ValueError('A08_SYMLINK')
-        site = args.wp_path.resolve(strict=True)
+        if any(p.is_symlink() for p in [args.state,*args.state.parents]):
+            raise ValueError('A08_SYMLINK')
+        site = args.wp_path.resolve()
         state = args.state.resolve()
         if state==site or site in state.parents:
             raise ValueError('A08_STATE_IN_SITE')
         state.mkdir(parents=True,exist_ok=True)
-        if any(path.is_symlink() for path in state.rglob('*')):
+        if (state/'sequence.lock').is_symlink():
             raise ValueError('A08_SYMLINK')
-        identity = {'site':str(site),'inputs':{str(p.resolve()):digest(p) for p in [args.update_plan,args.clean_plan,args.config,args.backup]},
-                    'tools':{str(p.relative_to(base)):digest(p) for p in base.rglob('*') if p.is_file()}}
         lock_path = pathlib.Path('/tmp')/('imagine-a08-'+hashlib.sha256(str(site).encode()).hexdigest()+'.lock')
-        with open(lock_path,'a') as site_lock, open(state/'sequence.lock','a') as state_lock:
+        if lock_path.is_symlink():
+            raise ValueError('A08_SYMLINK')
+        # ExitStack retains ownership through the refusal handler, not just the happy path.
+        with contextlib.nullcontext(locks.enter_context(open(lock_path,'a'))) as site_lock, contextlib.nullcontext(locks.enter_context(open(state/'sequence.lock','a'))) as state_lock:
             try:
                 for lock in [site_lock,state_lock]:
                     fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
             except BlockingIOError:
                 raise ValueError('A08_ALREADY_RUNNING')
+            locked = True
+            if any(path.is_symlink() for path in state.rglob('*')):
+                raise ValueError('A08_SYMLINK')
             path = state/'etat.json'
-            def refusal(code):
-                checkpoint['status']='ARRÊT : précontrôle ('+code+')'
-                checkpoint['look_at']='etat.json, empreintes des entrées et preuves ; ne rien effacer pour forcer'
-                report(state,checkpoint)
-                print(code,file=sys.stderr)
-                return 1
             if path.exists():
-                checkpoint = json.loads(path.read_text())
-                if checkpoint['schema']!='imagine-a08-v1' or checkpoint['identity']!=identity:
-                    return refusal('A08_IDENTITY_CHANGED')
-                for entry in [*checkpoint['done'].values(),*[entry for previous in checkpoint.get('passes',[]) for entry in previous.values()]]:
-                    if any(not (state/name).is_file() or digest(state/name)!=sha for name,sha in entry['seals'].items()):
-                        return refusal('A08_EVIDENCE_CHANGED')
+                loaded = json.loads(path.read_text())
+                if loaded.get('schema')!='imagine-a08-v2':
+                    raise ValueError('A08_IDENTITY_CHANGED')
+                checkpoint = loaded
             else:
-                checkpoint = {'schema':'imagine-a08-v1','identity':identity,'done':{},'attempts':[],'status':'en cours','passes':[]}
+                checkpoint = {'schema':'imagine-a08-v2','done':{},'attempts':[],
+                              'status':'en cours','passes':[],'comparisons':{}}
+            for candidate in [args.wp_path,args.update_plan,args.clean_plan,args.config,args.backup]:
+                if any(p.is_symlink() for p in [candidate,*candidate.parents]):
+                    raise ValueError('A08_SYMLINK')
+            site = args.wp_path.resolve(strict=True)
+            identity = {'site':str(site),'inputs':{str(p.resolve()):digest(p) for p in [args.update_plan,args.clean_plan,args.config,args.backup]},
+                        'tools':{name:digest(base/name) for name in DEPENDENCIES}}
+            if 'identity' in checkpoint and checkpoint['identity']!=identity:
+                raise ValueError('A08_IDENTITY_CHANGED')
+            checkpoint['identity'] = identity
+            for entry in [*checkpoint['done'].values(),*[entry for previous in checkpoint['passes'] for entry in previous.values()]]:
+                if any(not (state/name).is_file() or digest(state/name)!=sha for name,sha in entry['seals'].items()):
+                    raise ValueError('A08_EVIDENCE_CHANGED')
             if args.new_pass:
                 if len(checkpoint['done'])!=6:
                     raise ValueError('A08_PASS_NOT_COMPLETE')
@@ -142,7 +152,7 @@ def main(argv=None, runner=subprocess.run):
                 started = time.monotonic()
                 checkpoint['status']='en cours : '+step
                 checkpoint['look_at']=receipt_path.name+' et journal natif '+('a04/' if step=='mise-a-jour' else 'a05/' if step=='nettoyage' else '')
-                row = {'step':step,'command':command,'exit':None,'duration_seconds':0,'receipt':receipt_path.name}
+                row = {'step':step,'pass':len(checkpoint['passes'])+1,'command':command,'exit':None,'duration_seconds':0,'receipt':receipt_path.name}
                 checkpoint['attempts'].append(row)
                 persist()
                 try:
@@ -168,6 +178,7 @@ def main(argv=None, runner=subprocess.run):
                     if step=='comparaison':
                         comparison = json.loads(stdout)
                         checkpoint['comparison'] = {'attendu':sum(c['class']=='attendu' for c in comparison['changes']), 'anormal':comparison['anormal']}
+                        checkpoint['comparisons'][str(len(checkpoint['passes'])+1)] = checkpoint['comparison']
                         accepted = code in [0,3] and comparison['anormal']==0 and all(c['class']=='attendu' for c in comparison['changes'])
                 except (ValueError,KeyError,TypeError,OSError):
                     accepted = False
@@ -185,10 +196,32 @@ def main(argv=None, runner=subprocess.run):
             checkpoint['look_at']='rapport.md ; maintenance non pilotée par A08 ; aucun GO implicite'
             persist()
             return 0
-    except (ValueError,KeyError,OSError,TypeError) as error:
-        code = str(error) if re.fullmatch(r'A08_[A-Z_]+',str(error)) else 'A08_STATE_OR_PROOF_INVALID'
+    except (ValueError,KeyError,OSError,TypeError,ImportError,AttributeError) as error:
+        code = ('A08_LINUX_REQUIRED' if isinstance(error,ImportError) else
+                str(error) if re.fullmatch(r'A08_[A-Z_]+',str(error)) else 'A08_STATE_OR_PROOF_INVALID')
+        updated = False
+        if locked:
+            try:
+                if (state/'rapport.md').is_symlink():
+                    raise ValueError('A08_SYMLINK')
+                fallback = {'done':{},'passes':[],'attempts':[],'comparisons':{}}
+                failure = dict(checkpoint or fallback)
+                failure['status']='ARRÊT : précontrôle ('+code+')'
+                failure['look_at']='etat.json, entrées et preuves ; ne supprimer ni checkpoints ni verrous'
+                try:
+                    report(state,failure)
+                except (KeyError,TypeError,AttributeError):
+                    fallback.update(status=failure['status'],look_at=failure['look_at'])
+                    report(state,fallback)
+                updated = True
+            except (OSError,ValueError,KeyError,TypeError,AttributeError):
+                pass
         print(code,file=sys.stderr)
+        if not updated:
+            print('A08_REPORT_NOT_UPDATED : le rapport.md existant ne décrit pas cette tentative (état inaccessible ou verrou non acquis).',file=sys.stderr)
         return 1
+    finally:
+        locks.close()
 
 
 def commands(base, site, state, settings, update, clean, backup, go_update, go_clean, attempt):

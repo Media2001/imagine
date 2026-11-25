@@ -6,9 +6,99 @@ namespace Imagine\Site\Tests;
 
 use Imagine\Site\EcheancesRegles;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 final class EcheancesReglesTest extends TestCase
 {
+    public static function periodes(): array
+    {
+        return ['J30' => [30], 'J90' => [90], 'J180' => [180]];
+    }
+
+    #[DataProvider('periodes')]
+    public function testBornesExactesVoisinesUneSecondeEtEgalitesId(int $days): void
+    {
+        $now = 1000000;
+        $end = $now + $days * 86400;
+        $base = ['etat' => 'active', 'fin' => 0, 'methode' => 'imagine_papier', 'reference' => 'FICTIF'];
+        $rows = [
+            $base + ['id' => 9, 'prochaine' => $end],
+            $base + ['id' => 7, 'prochaine' => $end + 1],
+            $base + ['id' => 3, 'prochaine' => $end],
+            $base + ['id' => 8, 'prochaine' => $end - 1],
+            $base + ['id' => 2, 'prochaine' => 0],
+        ];
+        self::assertSame([8, 3, 9], array_column(EcheancesRegles::echeances($rows, $now, $days), 'id'));
+        self::assertSame([8, 3, 9], array_column(EcheancesRegles::mandats($rows, $now, $days), 'id'));
+        // La fin native seule est également inclusive à la borne exacte.
+        $rows[0]['prochaine'] = 0;
+        $rows[0]['fin'] = $end;
+        self::assertSame($end, EcheancesRegles::echeances([$rows[0]], $now, $days)[0]['echeance']);
+    }
+
+    public function testEtatsEcheancesEtDateLaPlusProcheSansDateInventee(): void
+    {
+        $now = 100;
+        $rows = [];
+        foreach (['active', 'pending-cancel', 'on-hold', 'pending', 'cancelled', 'expired'] as $id => $state) {
+            $rows[] = ['id' => $id, 'etat' => $state, 'prochaine' => 102, 'fin' => 101];
+        }
+        self::assertSame([0, 1, 2, 3], array_column(EcheancesRegles::echeances($rows, $now, 30), 'id'));
+        self::assertSame(101, EcheancesRegles::echeances([$rows[0]], $now, 30)[0]['echeance']);
+        self::assertSame([], EcheancesRegles::echeances([['id' => 9, 'etat' => 'active', 'prochaine' => 0, 'fin' => 0]], $now, 180));
+        $this->expectException(\InvalidArgumentException::class);
+        EcheancesRegles::echeances([], $now, 31);
+    }
+
+    public function testPaiementsNatifsTriDatePuisIdEtExclusions(): void
+    {
+        $base = ['etat' => 'on-hold', 'paye' => false, 'date_payee' => 0, 'methode' => 'bacs', 'creation' => 10];
+        $rows = [
+            $base + ['id' => 10], $base + ['id' => 2],
+            array_replace($base, ['id' => 11, 'etat' => 'pending', 'methode' => 'stripe', 'creation' => 9]),
+            array_replace($base, ['id' => 12, 'etat' => 'failed', 'creation' => 8]),
+            array_replace($base, ['id' => 13, 'etat' => 'completed', 'paye' => true, 'date_payee' => 1]),
+            array_replace($base, ['id' => 14, 'date_payee' => 1]),
+            array_replace($base, ['id' => 15, 'etat' => 'cancelled']),
+            array_replace($base, ['id' => 16, 'etat' => 'refunded']),
+            array_replace($base, ['id' => 17, 'etat' => 'pending', 'methode' => '', 'creation' => 3]),
+        ];
+        self::assertSame([17, 11, 2, 10], array_column(EcheancesRegles::paiements($rows, 'attente'), 'id'));
+        self::assertSame([2, 10], array_column(EcheancesRegles::paiements($rows, 'virements'), 'id'));
+        self::assertSame([12], array_column(EcheancesRegles::paiements($rows, 'echecs'), 'id'));
+        $this->expectException(\InvalidArgumentException::class);
+        EcheancesRegles::paiements([], 'autre');
+    }
+
+    public function testMandatsActifsSeulementEtFinNonRenouvelable(): void
+    {
+        $base = ['id' => 1, 'etat' => 'active', 'methode' => 'imagine_papier', 'reference' => 'FICTIF', 'prochaine' => 99, 'fin' => 200];
+        self::assertSame([1], array_column(EcheancesRegles::mandats([$base], 100, 30), 'id'));
+        foreach ([['methode' => 'bacs'], ['etat' => 'pending-cancel'], ['etat' => 'pending'], ['etat' => 'cancelled'], ['fin' => 99]] as $change) {
+            self::assertSame([], EcheancesRegles::mandats([array_replace($base, $change)], 100, 30));
+        }
+        $this->expectException(\InvalidArgumentException::class);
+        EcheancesRegles::mandats([], 100, 31);
+    }
+
+    public function testCsvColonnesFermeesDeviseFormulesEtUtcSansIban(): void
+    {
+        $stream = fopen('php://memory', 'w+');
+        EcheancesRegles::csv($stream, [['abonne' => " \t=FORMULE", 'montant' => '60.00', 'devise' => 'EUR',
+            'reference' => '+FICTIF', 'echeance' => 1795608000, 'iban' => 'INTERDIT']]);
+        rewind($stream);
+        $csv = stream_get_contents($stream);
+        rewind($stream);
+        self::assertSame(['Abonné', 'Montant', 'Devise', 'Référence du mandat', 'Échéance (UTC)'], fgetcsv($stream, 0, ';', '"', ''));
+        $line = fgetcsv($stream, 0, ';', '"', '');
+        self::assertSame("' \t=FORMULE", $line[0]);
+        self::assertSame("'+FICTIF", $line[3]);
+        self::assertSame('EUR', $line[2]);
+        self::assertSame('2026-11-25 12:00:00', $line[4]);
+        self::assertStringNotContainsString('INTERDIT', $csv);
+        fclose($stream);
+    }
+
     public function testMandatSuspenduExigeRenouvellementNatifDuEtSupprimeLeFutur(): void
     {
         $base = ['id' => 9, 'etat' => 'on-hold', 'methode' => 'imagine_papier',

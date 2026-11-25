@@ -190,6 +190,19 @@ final class EcheancesAdmin
         exit;
     }
 
+    private static function etat(array $row): string
+    {
+        // Les catalogues de traduction Woo/WCS ne sont pas toujours installés.
+        // Garder des libellés français traduisibles sans exposer les slugs anglais.
+        $labels = ($row['type'] ?? 'commande') === 'souscription'
+            ? ['pending' => 'En attente', 'active' => 'Actif', 'on-hold' => 'Suspendu',
+                'pending-cancel' => 'Résiliation programmée', 'cancelled' => 'Résilié', 'expired' => 'Expiré']
+            : ['pending' => 'En attente de paiement', 'on-hold' => 'En attente', 'processing' => 'En cours',
+                'completed' => 'Terminée', 'failed' => 'Échec', 'cancelled' => 'Annulée',
+                'refunded' => 'Remboursée', 'checkout-draft' => 'Brouillon'];
+        return self::t($labels[$row['etat']] ?? 'État natif non reconnu');
+    }
+
     public static function page(): void
     {
         self::verifier();
@@ -232,7 +245,7 @@ final class EcheancesAdmin
         echo '<th scope="col">' . esc_html(self::t('Action')) . '</th></tr></thead><tbody>';
         foreach ($rows as $row) {
             echo '<tr data-imagine-echeance="' . esc_attr((string) $row['id']) . '"><td>' . esc_html($row['abonne']) . '</td><td>#'
-                . esc_html((string) $row['id']) . '</td><td>' . esc_html($row['etat']) . '</td><td>'
+                . esc_html((string) $row['id']) . '</td><td>' . esc_html(self::etat($row)) . '</td><td>'
                 . esc_html($row['montant'] . ' ' . $row['devise']) . '</td><td>' . esc_html(gmdate('Y-m-d H:i:s', $row['echeance'] ?? $row['creation']))
                 . '</td><td>' . esc_html($view === 'mandats' ? $row['reference'] : '—') . '</td><td>';
             if ($view === 'virements') {

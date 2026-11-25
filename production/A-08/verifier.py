@@ -45,6 +45,9 @@ def main():
                     'resume_update_cleanup_native','complete_native_expected_only','second_native_business_invariants',
                     'second_comparison_identical','second_all_six_tools_really_run','staging_guard_bytes_unchanged']:
             assert storage+':'+key in names,(storage,key)
+        for key in ['external_comparison_change_refused_before_native','incomplete_new_pass_current_stop_report',
+                    'missing_input_current_stop_report','success_revalidated_after_adversary','per_pass_comparison_and_duration_report']:
+            assert storage+':'+key in names,(storage,key)
         assert storage+':native_timeout_refresh_source' in names
         fingerprints=json.loads((proof/(storage+'-second-mutation-fingerprints.json')).read_text())
         before,after=fingerprints['before'],fingerprints['after']

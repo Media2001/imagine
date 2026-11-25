@@ -56,6 +56,26 @@ if (class_exists(EcheancesRegles::class)) {
         test('CSV_formules_neutralisees', $line[0] === "' \t=FORMULE" && $line[3] === "'+FICTIF");
         test('CSV_date_native_UTC', $line[4] === '2026-11-25 12:00:00');
     }
+    foreach ([30, 90, 180] as $days) {
+        $bound = $now + $days * 86400;
+        $base = ['etat' => 'active', 'fin' => 0, 'methode' => 'imagine_papier', 'reference' => 'FICTIF'];
+        $edge = [$base + ['id' => 9, 'prochaine' => $bound], $base + ['id' => 7, 'prochaine' => $bound + 1],
+            $base + ['id' => 3, 'prochaine' => $bound], $base + ['id' => 8, 'prochaine' => $bound - 1],
+            $base + ['id' => 2, 'prochaine' => 0]];
+        test('borne_' . $days . '_exacte_voisines_1s_tri_ID_sans_dates', array_column(EcheancesRegles::echeances($edge, $now, $days), 'id') === [8, 3, 9]);
+        test('mandats_borne_' . $days . '_exacte_voisines_1s_tri_ID_sans_dates', array_column(EcheancesRegles::mandats($edge, $now, $days), 'id') === [8, 3, 9]);
+    }
+    $base = ['id' => 90, 'etat' => 'on-hold', 'methode' => 'imagine_papier', 'reference' => '',
+        'prochaine' => $now + 1, 'fin' => 0, 'montant' => '99.00', 'devise' => 'EUR'];
+    $due = ['id' => 91, 'etat' => 'failed', 'paye' => false, 'date_payee' => 0,
+        'creation' => $now - 1, 'montant' => '12.34', 'devise' => 'EUR'];
+    $list = EcheancesRegles::mandats([$base + ['renouvellements' => [$due, $due]]], $now, 30);
+    test('mandat_onhold_renouvellement_du_sans_doublon_futur', count($list) === 1 && $list[0]['id'] === 91
+        && $list[0]['montant'] === '12.34' && $list[0]['echeance'] === $now - 1);
+    test('mandat_reference_manquante_visible', ($list[0]['reference'] ?? '') === 'Référence manquante');
+    test('onhold_sans_dette_non_autorise_en_bloc', EcheancesRegles::mandats([$base], $now, 30) === []);
+    $due['paye'] = true;
+    test('renouvellement_paye_non_represente_comme_du', EcheancesRegles::mandats([$base + ['renouvellements' => [$due]]], $now, 30) === []);
 }
 $failures = array_keys(array_filter($checks, static fn ($v) => !$v));
 echo json_encode(['total' => count($checks), 'checks' => $checks, 'failures' => $failures], JSON_PRETTY_PRINT) . "\n";

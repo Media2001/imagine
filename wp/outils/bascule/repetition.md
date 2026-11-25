@@ -42,11 +42,22 @@ Aucun DNS/exposition publique piloté ; après réception, rétablir la maintena
 
 **Arrêts/reprise :** `75` = rendez-vous/arrêt natif ; `1` = refus/erreur ; `2` = anomalie,
 jamais requalifiée ; `3` natif accepté seulement avec zéro anormal. Lire **`$E/rapport.md`** :
-six étapes, durées cumulées hors attentes humaines, résultats, preuves ; aucune valeur de base.
+passages séparés, six étapes et comparaison par passage, durées cumulées dans chaque passage
+(essais refusés inclus), hors attentes humaines ; aucune valeur de base. En cas de
+`A08_REPORT_NOT_UPDATED` sur stderr, le rapport existant ne décrit **pas** cette tentative :
+état inaccessible ou verrou non acquis ; ne pas lire un ancien succès comme le résultat du refus.
 Même commande et drapeau du rendez-vous ; mêmes outils/plans/settings/sauvegarde.
+La clôture scellée couvre les outils appelés, supports A03/A04/A05, comparaison du plugin
+hors arbre, sonde runtime et garde staging ; pas les outils A09/A10 non appelés.
 Étapes réussies scellées, A04/A05 reprennent leurs checkpoints. Ne supprimer aucun verrou.
-`A05_UNINSTALL_AMBIGUOUS` impose restauration vérifiée puis nouvel état ; lecture coupée :
-nouvelle sortie. Plan changé, preuve altérée, sauvegarde périmée : aucune réparation implicite.
+**Code 2 :** une reprise ne refait pas la réception ; elle compare les mêmes photos et
+conserve l'anomalie. Conserver intégralement l'état et les preuves d'échec, restaurer la
+sauvegarde de départ vérifiée (base ET fichiers), puis recommencer les six étapes dans
+un **nouvel état**, avec entrées cohérentes et préalables natifs revérifiés. Ne supprimer
+ni checkpoints ni verrous pour débloquer. `--new-pass` n'est pas une sortie d'échec.
+`A05_UNINSTALL_AMBIGUOUS` impose également restauration vérifiée puis nouvel état ; lecture
+coupée : nouvelle sortie. Plan changé, preuve altérée, sauvegarde périmée : aucune réparation
+implicite. Les anciens états v1 sont conservés, non migrés vers le scellé v2.
 
 **Second passage complet :** préalables de réception, `"${sequence[@]}" --new-pass`, puis
 les deux rendez-vous. Six outils relancés, checkpoints A04/A05 conservés, anciennes preuves

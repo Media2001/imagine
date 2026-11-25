@@ -4,7 +4,7 @@ declare(strict_types=1);
 use Imagine\Site\MonCompte;
 $f = get_option('imagine_c09_fixture');
 $checks = [];
-foreach (['A-VIR' => 'Suspendu', 'A-EXPIRE' => 'Expiré', 'A-NONRENOUV' => 'Actif'] as $who => $expected) {
+foreach (['A-VIR' => 'Paiement en attente de validation', 'A-EXPIRE' => 'Expiré', 'A-NONRENOUV' => 'Actif'] as $who => $expected) {
     $sub = wcs_get_subscription($f['subscriptions'][$who]);
     $checks[$who . '_etat_natif_clair'] = MonCompte::etat($sub) === $expected;
 }
