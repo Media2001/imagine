@@ -1,0 +1,25 @@
+[
+  {
+    "url": "https://developer.wordpress.org/reference/functions/wp_enqueue_script/",
+    "title": "🐴 wp_enqueue_script() – Function | Developer.WordPress.org",
+    "excerpts": [
+      "ipt is printed in the footer. Default false.\n\nstrategy string\nOptional. If provided, may be either 'defer' or 'async'.\nin_footer bool\nOptional. Whether to print the script in the footer. Default 'false'.\nfetchpriority string\nOptional. The fetch priority for the script. Default 'auto'.\nmodule_dependencies array\nOptional. IDs for module dependencies loaded via dynamic import.\nFor the full data format, see the $deps param of wp_register_script_module().\nWhen provided, the script must either be printed in the footer (with in_footer set to true) or use a deferred loading strategy (defer), so that the script modules import map is printed before the",
+      "he footer. Default false.\n\nstrategy string\nOptional. If provided, may be either 'defer' or 'async'.\nin_footer bool\nOptional. Whether to print the script in the footer. Default 'false'.\nfetchpriority string\nOptional. The fetch priority for the script. Default 'auto'.\nmodule_dependencies array\nOptional. IDs for module dependencies loaded via dynamic import.\nFor the full data format, see the $deps param of wp_register_script_module().\nWhen provided, the script must either be printed in the footer (with in_footer set to true) or use a deferred loading strategy (defer), so that the script modules import map is printed before the script is evaluate"
+    ]
+  },
+  {
+    "url": "https://developer.wordpress.org/reference/functions/is_singular/",
+    "title": "🐴 is_singular() – Function | Developer.WordPress.org",
+    "excerpts": [
+      "ress Developer Resources\n\nDeveloper Blog\nCode Reference\nWP-CLI Commands\nHome\nReference\nFunctions\nis_singular()\nSearch\nis_singular( string|string[] $post_types = '' ): bool\nIn this article\nTable of Contents\n\nDetermines whether the query is for an existing single post of any post type (post, attachment, page, custom post types).\n\nDescription\n\nIf the $post_types parameter is specified, this function will additionally check if the query is for one of the Posts Types specified.\n\nFor more information on this and similar theme functions, check out the Conditional Tags article in the Theme Developer Handbook.\n\nSee also\nis_page()\nis_single()\nParameter"
+    ]
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage",
+    "title": "🐴 Window: localStorage property - Web APIs | MDN",
+    "excerpts": [
+      "\nA Storage object which can be used to access the current origin's local storage space.\n\nExceptions\nSecurityError DOMException\n\nThrown in one of the following cases:\n\nThe origin is not a valid scheme/host/port tuple. This can happen if the origin uses the file: or data: schemes, for example.\nThe request violates a policy decision. For example, the user has configured the browsers to prevent the page from persisting data.\n\nNote that if the user blocks cookies, browsers will probably interpret this as an instruction to prevent the page from persisting data.\n\nDescription\n\nThe keys and the values stored with localStorage are in the UTF-16 string ",
+      " content\nSkip to search\nHTML\nCSS\nJavaScript\nWeb APIs\nAll\nLearn\nTools\nAbout\nBlog\nWeb\nWeb APIs\nWindow\nlocalStorage\nWindow: localStorage property\nBaseline\nWIDELY AVAILABLE\n\nThe localStorage read-only property of the window interface allows you to access a Storage object for the Document's origin; the stored data is saved across browser sessions.\n\nlocalStorage is similar to sessionStorage, except that while localStorage data has no expiration time, sessionStorage data gets cleared when the page session ends — that is, when the page is closed. (localStorage data for a document loaded in a \"private browsing\" or \"incognito\" session is cleared when t"
+    ]
+  }
+]

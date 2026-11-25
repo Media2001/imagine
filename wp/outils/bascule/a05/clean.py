@@ -133,3 +133,135 @@ def inspect_site(site):
     inv['mu_plugins']=[p.name for p in a04.safe_path(site,'wp-content/mu-plugins').glob('*.php')]
     return inv
 
+def native(site, operation, environment):
+    env={**os.environ,'IMAGINE_A04_SITE':str(site),'IMAGINE_A04_COMPONENT':'core','IMAGINE_A04_MODE':'guard','IMAGINE_A04_EXPECTED_ENV':environment,'IMAGINE_A04_JOURNAL':'','IMAGINE_A05_OPERATION':json.dumps(operation)}
+    p=subprocess.run(['wp','--allow-root','--no-color','--path='+str(site),'--require='+str(ROOT/'bootstrap.php'),'eval-file',str(ROOT/'native.php'),'--use-include'],capture_output=True,text=True,env=env,pass_fds=a04.LOCK_FDS,timeout=300)
+    if p.returncode:
+        codes=re.findall(r'\bA0[45]_[A-Z_]+(?::[A-Za-z0-9_.\/-]+)?',p.stderr)
+        raise Refusal(codes[-1] if codes else 'A05_NATIVE_FAILED')
+    need('A05_JSON={"complete":true}' in p.stdout,'A05_NATIVE_RECEIPT')
+
+def operations(site,plan,inv):
+    protect(plan,inv); ops=[]
+    for row in plan['plugins']:
+        name=row['plugin'];a04.safe_path(site,'wp-content/plugins/'+name)
+        if name not in inv['plugins']: continue
+        if row['action']=='garder':continue
+        if inv['plugins'][name]['active']:ops.append({'kind':'deactivate','name':name,'rows':1,'bytes':0,'phase':'pending'})
+        if row['action']=='retirer':
+            if row['uninstall']:ops.append({'kind':'uninstall','name':name,'rows':0,'bytes':0,'phase':'pending'})
+            base=name.split('/')[0] if '/' in name else name
+            need(not any(n!=name and n.startswith(base+'/') and plugin_action(plan,n)=='garder' for n in inv['plugins']),'A05_SHARED_PLUGIN_DIRECTORY',base)
+            path=a04.safe_path(site,'wp-content/plugins/'+base)
+            ops.append({'kind':'plugin','name':name,**files_size(path),'phase':'pending'})
+    for kind,plural in [('table','tables'),('option','options'),('cron','cron')]:
+        for row in inv[plural]:
+            if selected(plan[plural],row['name']): ops.append({'kind':kind,'name':row['name'],'rows':int(row.get('rows',1)),'bytes':int(row['bytes']),'phase':'pending'})
+    for row in plan['uploads']:
+        path=safe_upload(site,row['path'])
+        if row['action']=='garder':continue
+        for kept in plan['uploads']:
+            need(not (kept['action']=='garder' and (kept['path']==row['path'] or kept['path'].startswith(row['path']+'/'))),'A05_UPLOAD_KEEP_CONFLICT',row['path'])
+        if path.exists():ops.append({'kind':'upload','name':row['path'],**files_size(path),'phase':'pending'})
+    return ops
+
+def authorize(plan,site,identity,gofile):
+    if plan['site_status']=='verified-staging':return a04.authorize('verified-staging',site,identity,None)
+    # A04 authorizes task A-04 only: an old update GO must NOT authorize cleanup.
+    need(bool(gofile),'A05_PRODUCTION_GO_REQUIRED')
+    go=a04.load_json(gofile)
+    need(set(go)=={'author','task','go','site','plan_sha256','expires_at'} and go['author']=='Ced' and go['task']=='A-05-nettoyage' and go['go'] is True and go['site']==str(site) and go['plan_sha256']==identity and isinstance(go['expires_at'],int) and 0<go['expires_at']-time.time()<=21600,'A05_PRODUCTION_GO_INVALID')
+    return 'production'
+
+def execute(args):
+    need(sys.platform=='linux','A05_LINUX_REQUIRED');import fcntl
+    site=pathlib.Path(args.wp_path)
+    need(site.is_absolute() and site.is_dir() and site.resolve()==site,'A05_SITE_PATH')
+    plan=validate(a04.load_json(args.plan));identity=a04.digest(args.plan)
+    environment=authorize(plan,site,identity,args.go)
+    state_dir=pathlib.Path(args.state)
+    need(state_dir.is_absolute() and state_dir.resolve()==state_dir and not state_dir.is_relative_to(site),'A05_STATE_PATH')
+    # The existing shared A04 lock is deliberately never created by a dry-run.
+    lock_path=a04.safe_path(site,'.imagine-a04-bascule.lock')
+    need(lock_path.is_file(),'A05_SHARED_LOCK_REQUIRED',str(lock_path))
+    with open(lock_path,'r') as site_lock:
+        try:fcntl.flock(site_lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+        except BlockingIOError:raise Refusal('A04_ALREADY_RUNNING') from None
+        a04.LOCK_FDS=(site_lock.fileno(),)
+        if environment=='staging':
+            marker=a04.load_json(a04.safe_path(site,'.imagine-staging-verified.json'))
+            need(marker.get('status')=='verified' and marker.get('offline_verified') is True and marker.get('runtime_probe_passed') is True,'A04_NOT_VERIFIED')
+            safety=a04.safe_path(site,'wp-content/mu-plugins/000-imagine-staging-safety.php')
+            reference=ROOT.parents[1]/'staging/mu-plugins/000-imagine-staging-safety.php'
+            need(safety.is_file() and reference.is_file() and a04.digest(safety)==a04.digest(reference),'A04_SAFETY_BYTES')
+        for name in ['db.php','object-cache.php','advanced-cache.php']:
+            path=site/'wp-content'/name;need(not path.exists() and not path.is_symlink(),'A04_DROPIN',name)
+        a04.check_backup(a04.load_json(args.backup),site)
+        config=a04.digest(a04.safe_path(site,'wp-config.php'))
+        state_file=a04.safe_path(state_dir,'etat.json')
+        state=a04.load_json(state_file) if state_file.exists() else None
+        persistent=a04.safe_path(site,'wp-content/mu-plugins/001-imagine-a04-maintenance.php')
+        template=ROOT.parent/'a04/maintenance.php'
+        if state:
+            need(state.get('schema')=='imagine-a05-state-v1' and state.get('site')==str(site) and state.get('plan_sha256')==identity and state.get('config_sha256')==config and isinstance(state.get('operations'),list),'A05_STATE')
+            need(persistent.is_file() and a04.digest(persistent)==a04.digest(template),'A04_MAINTENANCE_BYTES')
+            if not args.dry_run and not state['complete']:a04.refresh_maintenance(site)
+            else:a04.maintenance(site)
+        else:a04.maintenance(site)
+        inv=inspect_site(site); proposed=operations(site,plan,inv)
+        if args.dry_run:
+            print(json.dumps({'mode':'dry-run','operations':proposed,'table_bytes':'allocated data+indexes; rows exact','uninstall_effects':'unknown third-party routine; not executed'},ensure_ascii=False,indent=2));return 0
+        if state and state['complete']:
+            need(not proposed,'A05_COMPLETED_DRIFT');print('A05_NOOP');return 0
+        if state is None:
+            if not proposed: print('A05_NOOP');return 0
+            state={'schema':'imagine-a05-state-v1','site':str(site),'plan_sha256':identity,'config_sha256':config,'operations':proposed,'events':[],'complete':False}
+        state_dir.mkdir(mode=0o700,parents=True,exist_ok=True)
+        with open(a04.safe_path(state_dir,'execution.lock'),'a') as state_lock:
+            try:fcntl.flock(state_lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+            except BlockingIOError:raise Refusal('A04_ALREADY_RUNNING') from None
+            a04.LOCK_FDS=(site_lock.fileno(),state_lock.fileno())
+            # No state writes, MU creation or deletion before full plan safety preflight.
+            native(site,{'kind':'preflight','hooks':[o['name'] for o in state['operations'] if o['kind']=='cron']},environment)
+            if persistent.exists():need(a04.digest(persistent)==a04.digest(template),'A04_MAINTENANCE_BYTES')
+            else:shutil.copyfile(template,persistent)
+            def save():
+                a04.atomic_json(state_file,state);a04.atomic_json(state_dir/'journal.json',state['events'])
+                (state_dir/'journal.txt').write_text('A-05 — maintenance conservée\n'+'\n'.join(json.dumps(e,ensure_ascii=False,sort_keys=True) for e in state['events'])+'\n',encoding='utf8')
+            def event(op,phase):
+                state['events'].append({'utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'kind':op['kind'],'name':op['name'],'stage':phase});save()
+            save()
+            for index,op in enumerate(state['operations'],1):
+                if op['phase']=='done':continue
+                need(op['phase'] in ['pending','started'],'A05_STATE')
+                # Arbitrary third-party uninstall routines cannot be made atomic.
+                need(not(op['kind']=='uninstall' and op['phase']=='started'),'A05_UNINSTALL_AMBIGUOUS',op['name'])
+                op['phase']='started';event(op,'start')
+                if op['kind'] in ['deactivate','uninstall']:native(site,op,environment)
+                elif op['kind']=='plugin':
+                    rel=op['name'].split('/')[0] if '/' in op['name'] else op['name'];path=a04.safe_path(site,'wp-content/plugins/'+rel);files_size(path)
+                    if path.is_dir():shutil.rmtree(path)
+                    elif path.exists():path.unlink()
+                    need(not path.exists(),'A05_FILE_READBACK',op['name'])
+                elif op['kind']=='upload':
+                    path=safe_upload(site,op['name'])
+                    if path.exists():shutil.rmtree(path)
+                    need(not path.exists(),'A05_FILE_READBACK',op['name'])
+                elif op['kind'] in ['table','option','cron']:database(site,'apply',op)
+                else:raise Refusal('A05_OPERATION')
+                op['phase']='done';event(op,'done')
+                if args.stop_after==index:
+                    event(op,'interruption_requested');return 75
+            state['complete']=True;event({'kind':'all','name':'all'},'complete')
+            print('A05_OK');return 0
+
+def main():
+    p=argparse.ArgumentParser(description=__doc__)
+    for option in ['wp-path','plan','backup','state']:p.add_argument('--'+option,required=True)
+    p.add_argument('--go');p.add_argument('--dry-run',action='store_true');p.add_argument('--stop-after',type=int,default=0)
+    try:return execute(p.parse_args())
+    except Exception as error:
+        message=str(error)
+        print(message if isinstance(error,(Refusal,a04.Refusal)) and re.fullmatch(r'A0[45]_[A-Z_]+(?::[^\r\n]+)?',message) else 'A05_EXECUTION_FAILED',file=sys.stderr);return 1
+
+

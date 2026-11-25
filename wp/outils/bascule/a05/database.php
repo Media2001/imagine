@@ -68,7 +68,7 @@ final class Database
                     $cron[$hook]['bytes'] += strlen(serialize($events));
                 }
             }
-            $result = ['prefix' => $prefix, 'tables' => $tables, 'options' => $rows, 'cron' => array_values($cron), 'active' => self::decode(self::value($db, $options, 'active_plugins')), 'theme' => self::value($db, $options, 'stylesheet')];
+            $result = ['prefix' => $prefix, 'tables' => $tables, 'options' => $rows, 'cron' => array_values($cron), 'active' => array_values(self::decode(self::value($db, $options, 'active_plugins'))), 'theme' => self::value($db, $options, 'stylesheet')];
             $db->rollBack();
             return $result;
         }

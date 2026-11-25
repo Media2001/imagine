@@ -1,0 +1,23 @@
+{
+  "scope": "imagine-test-demo",
+  "context": "anonyme_1440x900_et_sans_JS",
+  "checks": {
+    "sans_JS_bouton_masque": true,
+    "sans_JS_article_lisible": true,
+    "sans_JS_navigation_visible": true,
+    "sans_JS_aucune_vue_active": true,
+    "large_1440": true,
+    "couleurs_light": true,
+    "couleurs_sepia": true,
+    "couleurs_dark": true,
+    "taille_normal": true,
+    "taille_large": true,
+    "taille_larger": true,
+    "colonne_70ch": true,
+    "menu_masque": true,
+    "paywall_visible": true,
+    "sans_debordement": true,
+    "aucune_requete_reglages": true
+  },
+  "failures": []
+}

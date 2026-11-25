@@ -1,0 +1,22 @@
+{
+  "historical_source_sha256": "6204770b071a9e79f9de0594814bc447ed47b83a29283af0bf667b168434c513",
+  "original_b01": {
+    "tests": 4,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "output": "test_b01_editorial_templates_and_body_seam (b03_reg_test_b01_theme.py.B01Theme.test_b01_editorial_templates_and_body_seam) ... ok\ntest_b01_html_validator_rejects_structural_regressions (b03_reg_test_b01_theme.py.B01Theme.test_b01_html_validator_rejects_structural_regressions) ... ok\ntest_b01_shell_contract (b03_reg_test_b01_theme.py.B01Theme.test_b01_shell_contract) ... FAIL\ntest_b01_targeted_installation_refuses_other_site (b03_reg_test_b01_theme.py.B01Theme.test_b01_targeted_installation_refuses_other_site) ... ok\n\n======================================================================\nFAIL: test_b01_shell_contract (b03_reg_test_b01_theme.py.B01Theme.test_b01_shell_contract)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Ced\\imagine\\wp\\tests\\demo\\test_b01_theme.py\", line 23, in test_b01_shell_contract\n    self.assertFalse(list(THEME.rglob('*.js')))\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: [WindowsPath('C:/Users/Ced/imagine/wp/themes/imagine/assets/reading.js')] is not false\n\n----------------------------------------------------------------------\nRan 4 tests in 0.333s\n\nFAILED (failures=1)\n"
+  },
+  "adaptation": {
+    "old": "self.assertFalse(list(THEME.rglob('*.js')))",
+    "new": "self.assertEqual(sorted(p.relative_to(THEME).as_posix() for p in THEME.rglob('*.js')), ['assets/reading.js'])",
+    "changes": 1
+  },
+  "current_contract": {
+    "tests": 14,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "output": "test_b01_editorial_templates_and_body_seam (b03_b01_adapter.B01Theme.test_b01_editorial_templates_and_body_seam) ... ok\ntest_b01_html_validator_rejects_structural_regressions (b03_b01_adapter.B01Theme.test_b01_html_validator_rejects_structural_regressions) ... ok\ntest_b01_shell_contract (b03_b01_adapter.B01Theme.test_b01_shell_contract) ... ok\ntest_b01_targeted_installation_refuses_other_site (b03_b01_adapter.B01Theme.test_b01_targeted_installation_refuses_other_site) ... ok\ntest_home_exact_fixture_ids_and_order_reject_intruder_and_permutation (b03_reg_b01_corrections.py.Corrections.test_home_exact_fixture_ids_and_order_reject_intruder_and_permutation) ... ok\ntest_semantics_localization_and_stable_navigation_source (b03_reg_b01_corrections.py.Corrections.test_semantics_localization_and_stable_navigation_source) ... ok\ntest_credentials_cannot_be_in_repository (b03_reg_test_c08_scope.py.C08Scope.test_credentials_cannot_be_in_repository) ... ok\ntest_fixture_is_separate_from_b00_manifest (b03_reg_test_c08_scope.py.C08Scope.test_fixture_is_separate_from_b00_manifest) ... ok\ntest_reject_foreign_site_before_upload (b03_reg_test_c08_scope.py.C08Scope.test_reject_foreign_site_before_upload) ... ok\ntest_reject_production_environment_before_upload (b03_reg_test_c08_scope.py.C08Scope.test_reject_production_environment_before_upload) ... ok\ntest_reject_stopped_site_before_upload (b03_reg_test_c08_scope.py.C08Scope.test_reject_stopped_site_before_upload) ... ok\ntest_css_dedie_active_uniquement_par_racine_et_variables (b03_reg_test_b03_contract.py.B03Contract.test_css_dedie_active_uniquement_par_racine_et_variables) ... ok\ntest_sortie_unique_et_script_sans_reseau (b03_reg_test_b03_contract.py.B03Contract.test_sortie_unique_et_script_sans_reseau) ... ok\ntest_trois_fonds_neutres_contraste_AA (b03_reg_test_b03_contract.py.B03Contract.test_trois_fonds_neutres_contraste_AA) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 0.015s\n\nOK\n"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "scope": "imagine-test-demo",
+  "context": "anonyme_390x844",
+  "checks": {
+    "etroit_390": true,
+    "lecture_active": true,
+    "fond_sombre": true,
+    "sans_debordement": true,
+    "paywall_visible": true,
+    "progression_fixe": true,
+    "progression_fin": true,
+    "mode_repris": true,
+    "fond_repris": true,
+    "position_reprise": true,
+    "echap_sortie": true,
+    "focus_retabli": true,
+    "navigation_retablie": true
+  },
+  "failures": []
+}
