@@ -17,7 +17,7 @@ final class AchatsNumeros
     public static function reglages(): void
     {
         register_setting('imagine_achats', self::REMBOURSEMENT, [
-            'type' => 'string', 'default' => 'commande',
+            'type' => 'string',
             'sanitize_callback' => static fn ($value): string => $value === 'ligne' ? 'ligne' : 'commande',
         ]);
         add_settings_section('imagine_achats', __('Achats de numéros', 'imagine-site'), '__return_false', 'imagine-achats');

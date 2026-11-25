@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/tmp/t01/plugins/imagine-site/phpunit.xml" tests="48" assertions="258" errors="0" failures="0" skipped="0" time="0.466006">
+    <testsuite name="Site-C11-C13" tests="48" assertions="258" errors="0" failures="0" skipped="0" time="0.466006">
+      <testsuite name="Imagine\Site\Tests\AchatNumeroTest" file="/tmp/t01/plugins/imagine-site/tests/AchatNumeroTest.php" tests="2" assertions="28" errors="0" failures="0" skipped="0" time="0.001418">
+        <testcase name="testSnapshotRemainsTheOnlyAcquiredIssue" file="/tmp/t01/plugins/imagine-site/tests/AchatNumeroTest.php" line="15" class="Imagine\Site\Tests\AchatNumeroTest" classname="Imagine.Site.Tests.AchatNumeroTest" assertions="8" time="0.001285"/>
+        <testcase name="testRefundScopeDefaultsClosedAndSupportsPerLine" file="/tmp/t01/plugins/imagine-site/tests/AchatNumeroTest.php" line="30" class="Imagine\Site\Tests\AchatNumeroTest" classname="Imagine.Site.Tests.AchatNumeroTest" assertions="20" time="0.000133"/>
+      </testsuite>
+      <testsuite name="Imagine\Site\Tests\EnvoiReglesTest" file="/tmp/t01/plugins/imagine-site/tests/EnvoiReglesTest.php" tests="10" assertions="30" errors="0" failures="0" skipped="0" time="0.003821">
+        <testcase name="testCadeauEtGroupeConserventIdentitesEtPlacesLibres" file="/tmp/t01/plugins/imagine-site/tests/EnvoiReglesTest.php" line="50" class="Imagine\Site\Tests\EnvoiReglesTest" classname="Imagine.Site.Tests.EnvoiReglesTest" assertions="6" time="0.001272"/>
+        <testcase name="testRenouvellementEnregistreSansDeplacerLeDebut" file="/tmp/t01/plugins/imagine-site/tests/EnvoiReglesTest.php" line="74" class="Imagine\Site\Tests\EnvoiReglesTest" classname="Imagine.Site.Tests.EnvoiReglesTest" assertions="5" time="0.000320"/>
+        <testcase name="testClotureEgaleRejeuEtHistoriqueBeneficiaires" file="/tmp/t01/plugins/imagine-site/tests/EnvoiReglesTest.php" line="89" class="Imagine\Site\Tests\EnvoiReglesTest" classname="Imagine.Site.Tests.EnvoiReglesTest" assertions="3" time="0.000294"/>
+        <testcase name="testCalendrierPasseImmuableEtFuturModifiable" file="/tmp/t01/plugins/imagine-site/tests/EnvoiReglesTest.php" line="103" class="Imagine\Site\Tests\EnvoiReglesTest" classname="Imagine.Site.Tests.EnvoiReglesTest" assertions="2" time="0.000519"/>
+        <testcase name="testCalendrierIncompletFermeExport" file="/tmp/t01/plugins/imagine-site/tests/EnvoiReglesTest.php" line="114" class="Imagine\Site\Tests\EnvoiReglesTest" classname="Imagine.Site.Tests.EnvoiReglesTest" assertions="3" time="0.000102"/>
+        <testcase name="testFinNativeNulleEtInitialCreationFerme" file="/tmp/t01/plugins/imagine-site/tests/EnvoiReglesTest.php" line="128" class="Imagine\Site\Tests\EnvoiReglesTest" classname="Imagine.Site.Tests.EnvoiReglesTest" assertions="2" time="0.000234"/>
+        <testcase name="testReferenceGeleeResisteCalendrierCourantEtBeneficiaireModifie" file="/tmp/t01/plugins/imagine-site/tests/EnvoiReglesTest.php" line="137" class="Imagine\Site\Tests\EnvoiReglesTest" classname="Imagine.Site.Tests.EnvoiReglesTest" assertions="3" time="0.000460"/>
+        <testcase name="testRejeuContradictoireRefuse" file="/tmp/t01/plugins/imagine-site/tests/EnvoiReglesTest.php" line="158" class="Imagine\Site\Tests\EnvoiReglesTest" classname="Imagine.Site.Tests.EnvoiReglesTest" assertions="1" time="0.000125"/>
+        <testcase name="testPaiementFuturEtRenouvellementALaClotureRestentFermes" file="/tmp/t01/plugins/imagine-site/tests/EnvoiReglesTest.php" line="167" class="Imagine\Site\Tests\EnvoiReglesTest" classname="Imagine.Site.Tests.EnvoiReglesTest" assertions="2" time="0.000213"/>
+        <testcase name="testIndividuelEtNonPayeRestentDistincts" file="/tmp/t01/plugins/imagine-site/tests/EnvoiReglesTest.php" line="178" class="Imagine\Site\Tests\EnvoiReglesTest" classname="Imagine.Site.Tests.EnvoiReglesTest" assertions="3" time="0.000283"/>
+      </testsuite>
+      <testsuite name="Imagine\Site\Tests\PdfNumeroTest" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" tests="36" assertions="200" errors="0" failures="0" skipped="0" time="0.460767">
+        <testsuite name="Imagine\Site\Tests\PdfNumeroTest::testCanonicalDirectoryBoundary" tests="8" assertions="40" errors="0" failures="0" skipped="0" time="0.100311">
+          <testcase name="testCanonicalDirectoryBoundary with data set &quot;unix enfant&quot;" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="42" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="5" time="0.012668"/>
+          <testcase name="testCanonicalDirectoryBoundary with data set &quot;unix égal&quot;" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="42" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="5" time="0.012326"/>
+          <testcase name="testCanonicalDirectoryBoundary with data set &quot;unix frère&quot;" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="42" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="5" time="0.012105"/>
+          <testcase name="testCanonicalDirectoryBoundary with data set &quot;unix casse distincte&quot;" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="42" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="5" time="0.012734"/>
+          <testcase name="testCanonicalDirectoryBoundary with data set &quot;windows enfant&quot;" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="42" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="5" time="0.012204"/>
+          <testcase name="testCanonicalDirectoryBoundary with data set &quot;windows égal&quot;" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="42" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="5" time="0.012823"/>
+          <testcase name="testCanonicalDirectoryBoundary with data set &quot;windows frère&quot;" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="42" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="5" time="0.012942"/>
+          <testcase name="testCanonicalDirectoryBoundary with data set &quot;windows autre volume&quot;" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="42" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="5" time="0.012509"/>
+        </testsuite>
+        <testcase name="testPublicSourceIsActuallyRemoved" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="49" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="5" time="0.012561"/>
+        <testcase name="testKnownPublicCopyIsRemovedAndReadBack" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="56" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="5" time="0.012897"/>
+        <testcase name="testUnremovablePublicCopyNeverReportsSuccess" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="63" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="5" time="0.012222"/>
+        <testsuite name="Imagine\Site\Tests\PdfNumeroTest::testUnsafeDirectoryFailsClosed" tests="3" assertions="12" errors="0" failures="0" skipped="0" time="0.037165">
+          <testcase name="testUnsafeDirectoryFailsClosed with data set #0" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="76" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="4" time="0.012354"/>
+          <testcase name="testUnsafeDirectoryFailsClosed with data set #1" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="76" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="4" time="0.012478"/>
+          <testcase name="testUnsafeDirectoryFailsClosed with data set #2" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="76" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="4" time="0.012332"/>
+        </testsuite>
+        <testcase name="testNeighbourDirectoryIsNotMistakenForPublicChild" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="82" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="5" time="0.012602"/>
+        <testsuite name="Imagine\Site\Tests\PdfNumeroTest::testPathFailsClosed" tests="4" assertions="20" errors="0" failures="0" skipped="0" time="0.052059">
+          <testcase name="testPathFailsClosed with data set #0" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="95" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="5" time="0.013507"/>
+          <testcase name="testPathFailsClosed with data set #1" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="95" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="5" time="0.013033"/>
+          <testcase name="testPathFailsClosed with data set #2" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="95" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="5" time="0.012634"/>
+          <testcase name="testPathFailsClosed with data set #3" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="95" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="5" time="0.012885"/>
+        </testsuite>
+        <testsuite name="Imagine\Site\Tests\PdfNumeroTest::testServe404" tests="5" assertions="30" errors="0" failures="0" skipped="0" time="0.065585">
+          <testcase name="testServe404 with data set #0" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="108" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="6" time="0.013625"/>
+          <testcase name="testServe404 with data set #1" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="108" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="6" time="0.013619"/>
+          <testcase name="testServe404 with data set #2" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="108" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="6" time="0.013030"/>
+          <testcase name="testServe404 with data set #3" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="108" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="6" time="0.012399"/>
+          <testcase name="testServe404 with data set #4" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="108" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="6" time="0.012913"/>
+        </testsuite>
+        <testcase name="testServe405" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="116" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="5" time="0.012753"/>
+        <testsuite name="Imagine\Site\Tests\PdfNumeroTest::testServeRedirectsWithoutBytes" tests="4" assertions="24" errors="0" failures="0" skipped="0" time="0.051550">
+          <testcase name="testServeRedirectsWithoutBytes with data set &quot;sans droit&quot;" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="134" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="6" time="0.012762"/>
+          <testcase name="testServeRedirectsWithoutBytes with data set &quot;panne décision&quot;" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="134" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="6" time="0.013210"/>
+          <testcase name="testServeRedirectsWithoutBytes with data set &quot;pdf absent&quot;" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="134" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="6" time="0.012558"/>
+          <testcase name="testServeRedirectsWithoutBytes with data set &quot;pièce jointe&quot;" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="134" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="6" time="0.013021"/>
+        </testsuite>
+        <testsuite name="Imagine\Site\Tests\PdfNumeroTest::testAuthorizedGetAndHead" tests="2" assertions="20" errors="0" failures="0" skipped="0" time="0.026020">
+          <testcase name="testAuthorizedGetAndHead with data set #0" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="145" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="10" time="0.013166"/>
+          <testcase name="testAuthorizedGetAndHead with data set #1" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="145" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="10" time="0.012854"/>
+        </testsuite>
+        <testsuite name="Imagine\Site\Tests\PdfNumeroTest::testBlock" tests="5" assertions="29" errors="0" failures="0" skipped="0" time="0.065042">
+          <testcase name="testBlock with data set #0" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="169" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="6" time="0.013195"/>
+          <testcase name="testBlock with data set #1" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="169" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="6" time="0.012976"/>
+          <testcase name="testBlock with data set #2" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="169" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="6" time="0.013187"/>
+          <testcase name="testBlock with data set #3" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="169" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="6" time="0.012994"/>
+          <testcase name="testBlock with data set #4" file="/tmp/t01/plugins/imagine-site/tests/PdfNumeroTest.php" line="169" class="Imagine\Site\Tests\PdfNumeroTest" classname="Imagine.Site.Tests.PdfNumeroTest" assertions="5" time="0.012690"/>
+        </testsuite>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>
