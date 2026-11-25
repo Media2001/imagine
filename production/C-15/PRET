@@ -1,0 +1,6 @@
+C-15 — corrections de corrections/C-15.md appliquées, prêt à relire.
+Rejeu : production/C-15/corrections-final.json — PRET_RELECTURE_CORRECTIONS.
+T01 standard réel après préparation inchangée : 1030 tests, 34124 assertions, 0 échec/erreur/ignoré ; C15 découvert : 9 tests / 45 assertions.
+Concurrence HTTP : 1 succès 302, 1 refus 409, 1 note C15 ; retour natif false refusé sans note de succès.
+États A-PAPIER impayé/payé exercés nativement ; restauration ciblée exacte, sans nouveau profil ni reset C09 global.
+Voir A-VOIR.md et RAPPORT.md. Validation visuelle de Ced attendue ; aucun GO sur le réel.

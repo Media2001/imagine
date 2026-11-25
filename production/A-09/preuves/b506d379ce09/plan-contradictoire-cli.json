@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmps15kkei6/site",
+    "--base-url=http://127.0.0.1:43905",
+    "--plan=/repo/wp/tests/a09/tmps15kkei6/plan-contradictoire.csv",
+    "--output=/report/plan-contradictoire",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "A09_PLAN_DUPLICATE_OR_CONFLICT\n",
+  "events": [],
+  "site_unchanged": true
+}

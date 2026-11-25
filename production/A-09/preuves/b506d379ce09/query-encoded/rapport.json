@@ -1,0 +1,73 @@
+{
+  "schema": "imagine-a09-report-v1",
+  "base_url": "http://127.0.0.1:39087",
+  "read_only": true,
+  "requests": 6,
+  "total": 3,
+  "nonconformes": 0,
+  "rows": [
+    {
+      "line": 2,
+      "ancienne": "/ancien?u=%2Fpage",
+      "cible": "/nouveau0?u=%2Fpage",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "/nouveau0?u=%2Fpage",
+      "final_status": 200,
+      "hops": 1,
+      "issues": [],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:39087/ancien?u=%2Fpage",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:39087/nouveau0?u=%2Fpage",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "line": 3,
+      "ancienne": "/x?q=deux%20mots",
+      "cible": "/nouveau1?q=deux%20mots",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "/nouveau1?q=deux%20mots",
+      "final_status": 200,
+      "hops": 1,
+      "issues": [],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:39087/x?q=deux%20mots",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:39087/nouveau1?q=deux%20mots",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "line": 4,
+      "ancienne": "/trois?u=%2fpage&x=%61%5c%3f%23",
+      "cible": "/nouveau2?u=%2fpage&x=%61%5c%3f%23",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "/nouveau2?u=%2fpage&x=%61%5c%3f%23",
+      "final_status": 200,
+      "hops": 1,
+      "issues": [],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:39087/trois?u=%2fpage&x=%61%5c%3f%23",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:39087/nouveau2?u=%2fpage&x=%61%5c%3f%23",
+          "status": 200
+        }
+      ]
+    }
+  ]
+}

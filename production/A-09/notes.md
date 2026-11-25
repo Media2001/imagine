@@ -1,4 +1,6 @@
-# A-09 — remise technique
+# A-09 — remise initiale historique
+
+**État initial conservé ci-dessous. Remise courante après fusion : `notes-corrections.md`, manifeste et PRET courants.**
 
 ## Résultat
 

@@ -10,10 +10,15 @@ Le plan CSV UTF-8 appartient au dépôt : en-tête exact `ancienne,cible,code`, 
 une ancienne URI relative à la racine, une cible relative, un code parmi
 301/302/303/307/308. `plan-redirections.exemple.csv` contient **trois lignes de données
 entièrement fictives**, en plus de l'en-tête. Les paramètres d'URL sont significatifs.
-Encoder les caractères non ASCII ; aucun fragment, espace, antislash, segment `.`/`..`,
-contrôle ou séparateur encodé. Pas de chemin absolu HTTP, `//hôte`, doublon même
+Encoder les caractères non ASCII (y compris au-delà de U+FFFF) ; aucun fragment,
+espace, antislash ou contrôle littéral. Dans le chemin : aucun segment `.`/`..`,
+espace, contrôle ou séparateur encodé. La requête conserve exactement ses encodages
+licites (`u=%2Fpage`, `q=deux%20mots`, casse comprise), sans décodage ; les contrôles
+encodés restent interdits. Une requête vide (`/a?` ou cible `/b?`) refuse **tout le
+plan**, code 2 `A09_PLAN_EMPTY_QUERY`, zéro GET : jamais de normalisation silencieuse.
+Une `Location` à requête vide est invalide et non suivie. Pas d'URL HTTP absolue, `//hôte`, doublon même
 identique, ligne contradictoire ou ancienne=cible (y compris caractères non réservés
-encodés). Maximum 1 000 lignes et 1 Mio pour le plan, 2 048 caractères par URI.
+encodés dans le chemin). Maximum 1 000 lignes et 1 Mio pour le plan, 2 048 caractères par URI.
 **Tout le plan est validé avant la première requête**, sans traitement partiel.
 
 Le répertoire `--wp-path` doit déjà porter le marqueur natif
@@ -55,6 +60,8 @@ même dans une chaîne. Une autre origine (schéma/hôte/port) est signalée san
 Conforme = code et première cible exacts, un saut, HTTP 200 ; sinon code/cible,
 chaîne, boucle, cible non-200, externe, délai ou erreur sont détaillés. Diagnostic
 borné à 9 requêtes par ligne ; la limite n'est jamais une conformité.
+`mauvaise_cible` compare la **première** cible au plan ; une chaîne peut donc avoir
+ce diagnostic même si sa destination finale est la cible attendue.
 
 **Rejouer la preuve fictive Windows/WSL :** `python -B wp/tests/a09/run.py`.
 Banc Docker propre à A09, réseau `none`, HTTP loopback réel, aucun site de démonstration.

@@ -1,0 +1,5 @@
+﻿line,ancienne,cible,code,observed_code,observed_target,final_status,hops,issues
+2,/externe,/final,301,301,http://127.0.0.1:34729/never-visit,,1,cible_externe
+3,/plus-tard,/hop,301,301,/hop,,2,"chaine, cible_externe"
+4,/protocole,/final,301,301,//127.0.0.1:34729/never-visit,,1,cible_externe
+5,/schema,/final,301,301,mailto:nobody@example.org,,1,cible_externe

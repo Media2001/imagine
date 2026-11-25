@@ -1,0 +1,91 @@
+{
+  "schema": "imagine-a09-report-v1",
+  "base_url": "http://127.0.0.1:40803",
+  "read_only": true,
+  "requests": 5,
+  "total": 4,
+  "nonconformes": 4,
+  "rows": [
+    {
+      "line": 2,
+      "ancienne": "/externe",
+      "cible": "/final",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "http://127.0.0.1:32833/never-visit",
+      "final_status": null,
+      "hops": 1,
+      "issues": [
+        "cible_externe"
+      ],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:40803/externe",
+          "status": 301
+        }
+      ]
+    },
+    {
+      "line": 3,
+      "ancienne": "/plus-tard",
+      "cible": "/hop",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "/hop",
+      "final_status": null,
+      "hops": 2,
+      "issues": [
+        "chaine",
+        "cible_externe"
+      ],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:40803/plus-tard",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:40803/hop",
+          "status": 302
+        }
+      ]
+    },
+    {
+      "line": 4,
+      "ancienne": "/protocole",
+      "cible": "/final",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "//127.0.0.1:32833/never-visit",
+      "final_status": null,
+      "hops": 1,
+      "issues": [
+        "cible_externe"
+      ],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:40803/protocole",
+          "status": 301
+        }
+      ]
+    },
+    {
+      "line": 5,
+      "ancienne": "/schema",
+      "cible": "/final",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "mailto:nobody@example.org",
+      "final_status": null,
+      "hops": 1,
+      "issues": [
+        "cible_externe"
+      ],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:40803/schema",
+          "status": 301
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpg8zj7wdn/site",
+    "--base-url=http://127.0.0.1:41377",
+    "--plan=/repo/wp/tests/a09/tmpg8zj7wdn/non-bmp-target.csv",
+    "--output=/report/non-bmp-target",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "A09_PLAN_URL\n",
+  "events": [],
+  "site_unchanged": true
+}

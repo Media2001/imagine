@@ -1,0 +1,31 @@
+{
+  "schema": "imagine-a09-report-v1",
+  "base_url": "http://127.0.0.1:38127",
+  "read_only": true,
+  "requests": 2,
+  "total": 1,
+  "nonconformes": 0,
+  "rows": [
+    {
+      "line": 2,
+      "ancienne": "/ancien-fictif",
+      "cible": "/nouveau-fictif",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "/nouveau-fictif",
+      "final_status": 200,
+      "hops": 1,
+      "issues": [],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:38127/ancien-fictif",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:38127/nouveau-fictif",
+          "status": 200
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "exit_code": 0,
+  "scope": "A09 dedicated Python/real HTTP suite; not a global T01 replay or staging acceptance",
+  "proof": {
+    "packet": "a1671ceb23d2",
+    "tests": 28,
+    "http_reports": 15,
+    "runner": "imagine-a09-27bef477e49b",
+    "requests": 70
+  },
+  "replay": null,
+  "protected_sources": 95,
+  "manifest_sha256": "ccbd4d6bceb205bc9d9410f0c127d6c85a8d19c8c184699c5d92e12f6e77fd6b",
+  "cleanup": "no A09-owned runner",
+  "production_authorized": false
+}

@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpnlkatlxm/site",
+    "--base-url=http://127.0.0.1:33311",
+    "--plan=/repo/wp/tests/a09/tmpnlkatlxm/limites-2.csv",
+    "--output=/report/limites-2",
+    "--interval=0.1",
+    "--timeout=0.15",
+    "--timeout=0"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "A09_RATE_OR_TIMEOUT\n",
+  "events": [],
+  "site_unchanged": true
+}

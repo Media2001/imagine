@@ -87,7 +87,7 @@ def verify_packet(packet, expected_tests):
         for row in data['rows']:
             require(all((urlsplit(t['url']).scheme, urlsplit(t['url']).netloc) == (base.scheme, base.netloc) for t in row['trace']), 'trace left origin')
         require(all(b['at']-a['at'] >= 0.08 for a, b in zip(receipt['events'], receipt['events'][1:])), 'rate not bounded')
-    expected = {'conforme', 'mauvais-code', 'mauvaise-cible', 'cible-404', 'cible-503', 'timeout', 'source-200', 'sans-location', 'double-location', 'chaines-boucles', 'externes', 'variantes', 'csv-sur'}
+    expected = {'conforme', 'mauvais-code', 'mauvaise-cible', 'cible-404', 'cible-503', 'timeout', 'source-200', 'sans-location', 'double-location', 'chaines-boucles', 'externes', 'variantes', 'csv-sur', 'query-encoded', 'empty-query-location'}
     require(set(reports) == expected, 'missing HTTP acceptance reports')
     conform = reports['conforme']['rows'][0]
     require(reports['conforme']['nonconformes'] == 0 and conform['hops'] == 1 and conform['observed_code'] == 301 and conform['final_status'] == 200, 'conformity proof')
@@ -98,6 +98,17 @@ def verify_packet(packet, expected_tests):
     require('boucle' in chain[1]['issues'] and 'boucle' in chain[2]['issues'] and 'limite_sauts' in chain[3]['issues'], 'loop or bound not proven')
     require(all('cible_externe' in r['issues'] for r in reports['externes']['rows']) and 'chaine' in reports['externes']['rows'][1]['issues'], 'external first/later not proven')
     require(read_json(packet/'external-trap.json')['received_requests'] == [], 'other-origin trap visited')
+    encoded = reports['query-encoded']
+    require(encoded['nonconformes'] == 0 and encoded['requests'] == 6, 'R1 query conformity')
+    query_events = read_json(packet/'query-encoded-cli.json')['events']
+    exact = ['/ancien?u=%2Fpage', '/nouveau0?u=%2Fpage', '/x?q=deux%20mots', '/nouveau1?q=deux%20mots', '/trois?u=%2fpage&x=%61%5c%3f%23', '/nouveau2?u=%2fpage&x=%61%5c%3f%23']
+    require([e['path'] for e in query_events] == exact, 'R1 changed query transport')
+    for name, code in [('query-path-refusal', 'A09_PLAN_URL'), ('query-control-refusal', 'A09_PLAN_URL'), ('empty-query-conflict', 'A09_PLAN_EMPTY_QUERY'), ('empty-query-target', 'A09_PLAN_EMPTY_QUERY'), ('non-bmp-source', 'A09_PLAN_URL'), ('non-bmp-target', 'A09_PLAN_URL')]:
+        receipt = read_json(packet/(name+'-cli.json'))
+        require(receipt['exit'] == 2 and receipt['events'] == [] and code in receipt['stderr'] and 'mauvaise_cible' not in receipt['stdout'], 'correction preflight failure: '+name)
+        require(not (packet/name/'rapport.json').exists(), 'refused plan produced a verdict: '+name)
+    empty = reports['empty-query-location']['rows'][0]
+    require(empty['issues'] == ['redirection_invalide'] and reports['empty-query-location']['requests'] == 1, 'empty observed query silently followed')
     invalid = read_json(packet/'invalid-plan-no-request.json')
     require(len(invalid['cases']) == 5 and invalid['requests'] == [], 'invalid plan emitted request')
     for name in invalid['cases']:
@@ -123,8 +134,28 @@ def main():
         require(manifest['schema'] == 'imagine-a09-delivery-v1' and manifest['production_authorized'] is False, 'manifest schema/scope')
         verify_hashes(manifest['sources'])
         verify_hashes(manifest['evidence'])
+        verify_hashes(read_json(LOT/'historique-corrections.json'))
         baseline = read_json(LOT/'baseline.json')
         verify_hashes(baseline)
+        prior = read_json(LOT/'avant-corrections/baseline.json')
+        transition = read_json(LOT/'transition-corrections.json')
+        allowed = {'wp/tests/a02-audit/README.md', 'wp/outils/bascule/a08/sequence.py', 'wp/outils/bascule/repetition.md', 'wp/tests/a08/inside.py', 'wp/tests/a08/test_sequence.py'}
+        require(set(transition['drift']) == allowed and all(prior[n] == d['old'] and baseline[n] == d['new'] for n,d in transition['drift'].items()), 'baseline transition not exact')
+        require(all(n in baseline and (n in allowed or baseline[n] == h) for n,h in prior.items()), 'unapproved baseline refresh')
+        extra = (b'Complement A-10 : php wp/outils/bascule/inventorier-codes --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/codes-date\n'
+                 b'Lecture seule ; sortie soeur du rapport A-02, hors site et depot ; noms de codes autorises, emails comptes uniquement ; rejeu : python wp/tests/a10/run.py\n')
+        data = (ROOT/'wp/tests/a02-audit/README.md').read_bytes()
+        require(data.endswith(extra) and hashlib.sha256(data[:-len(extra)]).hexdigest() == prior['wp/tests/a02-audit/README.md'], 'README original not reconstructed exactly')
+        a08 = read_json(ROOT/'production/A-08/manifeste.json')
+        require(sha(ROOT/'production/A-08/manifeste.json') == transition['a08_manifest_sha256'], 'A08 evidence changed')
+        require(all(a08['sources'][n] == baseline[n] for n in allowed-{'wp/tests/a02-audit/README.md'}), 'A08 corrections not source-bound')
+        a08packet = ROOT/a08['proof']
+        for filename in ['sources.json', 'runner.json']:
+            name = (a08packet/filename).relative_to(ROOT).as_posix()
+            require(a08['evidence'][name] == sha(a08packet/filename), 'A08 proof hash mismatch')
+        require(read_json(a08packet/'runner.json')['exit_code'] == 0, 'A08 proof not green')
+        a08snapshot = read_json(a08packet/'sources.json')
+        require(all(a08snapshot[n] == baseline[n] for n in allowed-{'wp/tests/a02-audit/README.md'}), 'A08 source snapshot mismatch')
         prep = read_json(LOT/'preparer-image.json')
         require(prep['exit_code'] == 0 and prep['script_unchanged'] is True and prep['script_sha256'] == sha(ROOT/'wp/tests/preparer-image.ps1') and prep['log_sha256'] == sha(LOT/'preparer-image.log'), 'preparation receipt not genuine/current')
         prep_log = (LOT/'preparer-image.log').read_text(encoding='utf8', errors='replace')

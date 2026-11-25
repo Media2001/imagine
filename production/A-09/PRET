@@ -1,0 +1,5 @@
+A-09 — corrections techniques R1/R2/R3 prêtes à relire.
+Preuve Docker/HTTP : a1671ceb23d2 ; 28 tests réussis, 0 échec.
+Manifeste SHA-256 : ccbd4d6bceb205bc9d9410f0c127d6c85a8d19c8c184699c5d92e12f6e77fd6b
+Historique préservé ; aucun GO production.
+Rejeu parent : python -B production/A-09/verifier.py --replay

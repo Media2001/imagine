@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpv86x27qg/site",
+    "--base-url=http://127.0.0.1:39019",
+    "--plan=/repo/wp/tests/a09/tmpv86x27qg/plan-mauvais-code.csv",
+    "--output=/report/plan-mauvais-code",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "A09_PLAN_CODE\n",
+  "events": [],
+  "site_unchanged": true
+}

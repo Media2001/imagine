@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpl2mbwaqm/site",
+    "--base-url=http://127.0.0.1:42981",
+    "--plan=/repo/wp/tests/a09/tmpl2mbwaqm/empty-query-conflict.csv",
+    "--output=/report/empty-query-conflict",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "A09_PLAN_EMPTY_QUERY\n",
+  "events": [],
+  "site_unchanged": true
+}

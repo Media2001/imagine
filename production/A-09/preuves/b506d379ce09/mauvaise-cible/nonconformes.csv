@@ -1,0 +1,2 @@
+﻿line,ancienne,cible,code,observed_code,observed_target,final_status,hops,issues
+2,/depart,/attendu,301,301,/autre,200,1,mauvaise_cible
