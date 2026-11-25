@@ -1,0 +1,13 @@
+{
+  "step": "avant",
+  "command": [
+    "php",
+    "/subject/non-regression",
+    "--wp-path=/scratch/classic",
+    "--config=/opt/a03/classic-settings.json",
+    "--output=/report/classic-sequence/avant-1"
+  ],
+  "exit": 0,
+  "duration_seconds": 1.6579796439618804,
+  "receipt": "avant-1-receipt.json"
+}

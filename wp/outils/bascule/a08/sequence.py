@@ -71,6 +71,8 @@ def main(argv=None, runner=subprocess.run):
         if state==site or site in state.parents:
             raise ValueError('A08_STATE_IN_SITE')
         state.mkdir(parents=True,exist_ok=True)
+        if any(path.is_symlink() for path in state.rglob('*')):
+            raise ValueError('A08_SYMLINK')
         identity = {'site':str(site),'inputs':{str(p.resolve()):digest(p) for p in [args.update_plan,args.clean_plan,args.config,args.backup]},
                     'tools':{str(p.relative_to(base)):digest(p) for p in base.rglob('*') if p.is_file()}}
         lock_path = pathlib.Path('/tmp')/('imagine-a08-'+hashlib.sha256(str(site).encode()).hexdigest()+'.lock')
@@ -81,13 +83,19 @@ def main(argv=None, runner=subprocess.run):
             except BlockingIOError:
                 raise ValueError('A08_ALREADY_RUNNING')
             path = state/'etat.json'
+            def refusal(code):
+                checkpoint['status']='ARRÊT : précontrôle ('+code+')'
+                checkpoint['look_at']='etat.json, empreintes des entrées et preuves ; ne rien effacer pour forcer'
+                report(state,checkpoint)
+                print(code,file=sys.stderr)
+                return 1
             if path.exists():
                 checkpoint = json.loads(path.read_text())
                 if checkpoint['schema']!='imagine-a08-v1' or checkpoint['identity']!=identity:
-                    raise ValueError('A08_IDENTITY_CHANGED')
+                    return refusal('A08_IDENTITY_CHANGED')
                 for entry in [*checkpoint['done'].values(),*[entry for previous in checkpoint.get('passes',[]) for entry in previous.values()]]:
                     if any(not (state/name).is_file() or digest(state/name)!=sha for name,sha in entry['seals'].items()):
-                        raise ValueError('A08_EVIDENCE_CHANGED')
+                        return refusal('A08_EVIDENCE_CHANGED')
             else:
                 checkpoint = {'schema':'imagine-a08-v1','identity':identity,'done':{},'attempts':[],'status':'en cours','passes':[]}
             if args.new_pass:

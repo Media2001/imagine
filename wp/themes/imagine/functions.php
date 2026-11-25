@@ -9,6 +9,7 @@ if (!defined('ABSPATH')) {
 }
 
 require_once __DIR__ . '/inc/reading.php';
+require_once __DIR__ . '/inc/catalogue.php';
 
 function imagine_setup(): void
 {

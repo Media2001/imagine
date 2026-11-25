@@ -108,6 +108,9 @@ def run_storage(storage):
         return result
     def checkpoint():return json.loads((state/'etat.json').read_text())
     def fp():return {'database':a03.fingerprint(db,True),'files':a03.filemap(site)}
+    def option_hashes():
+        rows=a03.sql(db,"SELECT option_name,SHA2(CONCAT(option_id,':',autoload,':',option_value),256) AS digest FROM wp_options ORDER BY option_name").stdout.splitlines()[1:]
+        return dict(row.split('\t',1) for row in rows)
     log_path=json.loads(settings.read_text())['php_error_log']
     server=subprocess.Popen(['php','-d','log_errors=1','-d','display_errors=0','-d','date.timezone=UTC','-d','error_log='+log_path,'-S','127.0.0.1:18803','-t',str(site)],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
     time.sleep(.5)
@@ -144,13 +147,17 @@ def run_storage(storage):
         started=invoke('second-before',['--new-pass'])
         check(storage+':second_pass_restarts_audit_before',started.returncode==75 and list(checkpoint()['done'])==['audit','avant'])
         check(storage+':second_readonly_before_exact',second_before==fp())
-        write_mode();mutation_before=fp()
+        write_mode();mutation_before=fp();options_before=option_hashes()
         second=invoke('second-mutations',['--mutations-ready'])
-        mutation_after=fp()
+        mutation_after=fp();options_after=option_hashes()
         file_changes=sorted(name for name in set(mutation_before['files'])|set(mutation_after['files']) if mutation_before['files'].get(name)!=mutation_after['files'].get(name))
         table_changes=sorted(name for name in set(mutation_before['database']['tables'])|set(mutation_after['database']['tables']) if mutation_before['database']['tables'].get(name)!=mutation_after['database']['tables'].get(name))
         write(OUT/(storage+'-second-mutation-fingerprints.json'),{'before':mutation_before,'after':mutation_after,'file_changes':file_changes,'table_changes':table_changes,'exit':second.returncode})
-        check(storage+':second_native_mutations_no_effect',second.returncode==75 and mutation_before==mutation_after,{'exit':second.returncode,'files_changed':file_changes,'tables_changed':table_changes})
+        option_changes=sorted(name for name in set(options_before)|set(options_after) if options_before.get(name)!=options_after.get(name))
+        write(OUT/(storage+'-second-option-fingerprints.json'),{'before':options_before,'after':options_after,'changed':option_changes})
+        # Diagnostic continuation: retain strict failure and still observe final A03.
+        row={'check':storage+':second_native_raw_fingerprint_exact','ok':second.returncode==75 and mutation_before==mutation_after,'detail':{'exit':second.returncode,'files_changed':file_changes,'tables_changed':table_changes,'options_changed':option_changes}}
+        CHECKS.append(row);print(json.dumps(row),flush=True)
         read_mode();reception_before=fp()
         final=invoke('second-after',['--reception-ready'])
         cp=checkpoint()

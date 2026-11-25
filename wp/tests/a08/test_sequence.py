@@ -142,6 +142,16 @@ class BoundaryTest(unittest.TestCase):
         (self.root/'config').write_text('{"changed":true}')
         self.assertEqual(self.execute(['--mutations-ready']),1)
         self.assertEqual(len(self.calls),2)
+        self.assertIn('A08_IDENTITY_CHANGED',(self.root/'state/rapport.md').read_text())
+        self.assertIn('ARRÊT',(self.root/'state/rapport.md').read_text())
+
+    def test_child_symlink_in_state_refused_without_native_call(self):
+        state=self.root/'state';state.mkdir()
+        sentinel=self.root/'sentinel';sentinel.write_text('intact')
+        (state/'audit-1-stdout.log').symlink_to(sentinel)
+        self.assertEqual(self.execute(),1)
+        self.assertEqual(self.calls,[])
+        self.assertEqual(sentinel.read_text(),'intact')
 
     def test_changed_completed_proof_refuses_before_call(self):
         self.assertEqual(self.execute(),75)
