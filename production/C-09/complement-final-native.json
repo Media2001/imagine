@@ -1,5 +1,5 @@
 {
-  "total": 147,
+  "total": 149,
   "checks": {
     "A-CARTE:initial_paye": true,
     "A-CARTE:initial_fictif": true,
@@ -147,6 +147,8 @@
     "commande_2419:marques": true,
     "commande_2420:marques": true,
     "commande_2421:marques": true,
+    "A-ECHEANCE:annee_native_preservee": true,
+    "A-NONRENOUV:annee_native_preservee": true,
     "A-SANSMAIL:inclusion_postale": true
   },
   "failures": [],
@@ -155,7 +157,7 @@
       "initial": {
         "id": 88,
         "status": "processing",
-        "paid": 1787853076,
+        "paid": 1787853710,
         "total": "120.00"
       }
     },
@@ -163,7 +165,7 @@
       "initial": {
         "id": 94,
         "status": "processing",
-        "paid": 1787853076,
+        "paid": 1787853710,
         "total": "120.00"
       }
     },
@@ -171,7 +173,7 @@
       "initial": {
         "id": 115,
         "status": "processing",
-        "paid": 1787853076,
+        "paid": 1787853710,
         "total": "0.00"
       }
     },
@@ -179,7 +181,7 @@
       "initial": {
         "id": 118,
         "status": "processing",
-        "paid": 1787853076,
+        "paid": 1787853710,
         "total": "0.00"
       }
     },
@@ -187,7 +189,7 @@
       "initial": {
         "id": 121,
         "status": "processing",
-        "paid": 1787853076,
+        "paid": 1766685710,
         "total": "0.00"
       }
     },
@@ -195,7 +197,7 @@
       "initial": {
         "id": 112,
         "status": "processing",
-        "paid": 1787853076,
+        "paid": 1766685710,
         "total": "0.00"
       }
     },
@@ -203,15 +205,15 @@
       "initial": {
         "id": 91,
         "status": "processing",
-        "paid": 1780077076,
+        "paid": 1780077710,
         "total": "30.00"
       },
       "renewals": [
         {
           "id": 2419,
           "status": "processing",
-          "created": 1793037076,
-          "paid": 1793037076,
+          "created": 1793037710,
+          "paid": 1793037710,
           "total": "30.00"
         }
       ]
@@ -220,7 +222,7 @@
       "initial": {
         "id": 100,
         "status": "processing",
-        "paid": 1787853076,
+        "paid": 1787853710,
         "total": "30.00"
       }
     },
@@ -229,7 +231,7 @@
         {
           "id": 2420,
           "status": "failed",
-          "created": 1795542676,
+          "created": 1795543310,
           "paid": null,
           "total": "0.00"
         }
@@ -240,7 +242,7 @@
         {
           "id": 2421,
           "status": "failed",
-          "created": 1795283476,
+          "created": 1795284110,
           "paid": null,
           "total": "0.00"
         }
@@ -248,5 +250,5 @@
     }
   },
   "exit": 0,
-  "at": "2026-11-25T17:52:12.322885+00:00"
+  "at": "2026-11-25T18:02:47.304449+00:00"
 }
