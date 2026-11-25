@@ -1,7 +1,7 @@
 {
-  "status": "FAILED",
-  "at": "2026-11-25T19:21:33.076521+00:00",
-  "receipt": "production/B-03/reconciliation-c15/20261125T192053688433Z/verification-finale.json",
-  "sha256": "27052f453877d1582b2f41e08e8fb2a2057fc3e05085eda9214b40156386f7d6",
+  "status": "VERIFIED",
+  "at": "2026-11-25T19:27:07.005639+00:00",
+  "receipt": "production/B-03/reconciliation-c15/20261125T192627238444Z/verification-finale.json",
+  "sha256": "f7fb70a5841ad811708d0e1ca2d373af5e375c6e828ccb7646dd82ee0bfc0eab",
   "historical_failed_receipt_preserved": "production/B-03/verification-finale.json"
 }

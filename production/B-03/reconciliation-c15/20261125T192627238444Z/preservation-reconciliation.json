@@ -1,0 +1,85 @@
+{
+  "historical_remote_changed": [
+    "plugins/imagine-site/EcheancesAdmin.php",
+    "plugins/imagine-site/EcheancesNatives.php",
+    "plugins/imagine-site/EcheancesRegles.php",
+    "plugins/imagine-site/imagine-site.php",
+    "themes/imagine/assets/reading.css",
+    "themes/imagine/assets/reading.js",
+    "wp_postmeta",
+    "wp_posts",
+    "wp_wc_orders",
+    "wp_wc_orders_meta"
+  ],
+  "historical_local_changed": [
+    "plugins/imagine-site/EcheancesAdmin.php",
+    "plugins/imagine-site/EcheancesNatives.php",
+    "plugins/imagine-site/EcheancesRegles.php",
+    "plugins/imagine-site/README.md",
+    "plugins/imagine-site/imagine-site.php",
+    "themes/imagine/assets/reading.css",
+    "themes/imagine/assets/reading.js"
+  ],
+  "C15_local_only_document_deltas": {
+    "plugins/imagine-site/README.md": {
+      "baseline_sha256": "c17deb2aa258cbc115978fe08f5f6ba6ab816540afd6e22a8b2892ea1fd92990",
+      "current_sha256": "ae57046a7790a18ab72bd40ac3acd651eecebe0e5a6ebbd1a74981c69ae81336",
+      "delivery_sha256": "ae57046a7790a18ab72bd40ac3acd651eecebe0e5a6ebbd1a74981c69ae81336",
+      "remote": "Absent du snapshot distant historique et courant ; aucun deploiement"
+    }
+  },
+  "historical_table_deltas": {
+    "wp_postmeta": {
+      "baseline_sha256": "419187d0399483fae5b013cf8a5ef70160da2199ddc7c79d3b4b1bef73a215bd",
+      "current_sha256": "15d8266bb3ab589016069e47a889084dc804475dea1e968ccac70c883c59b200"
+    },
+    "wp_posts": {
+      "baseline_sha256": "31a9e13359851aa5bd842c4ff8233901cd706a6f056e6e713a72758ebb113470",
+      "current_sha256": "a3bed592e4f101ec02b0f81590807df592d40e7805bb273fcb1fec54a83c071f"
+    },
+    "wp_wc_orders": {
+      "baseline_sha256": "2eff2dc101e50588e2ebd7b4cd3cfb6f4de33033a2651fb92fdc77ff02118b19",
+      "current_sha256": "baaeaa8cde97545f32630ac3c9affcaebcfb95eb6499de1e4756674920fec60c"
+    },
+    "wp_wc_orders_meta": {
+      "baseline_sha256": "885d3ce65593fc8ae52ba384b7a1c0184cdc7f33047119882f89263c91c9b3e0",
+      "current_sha256": "ec9818a7f873832cf0671b9b31e50bf421d98af116df6fae1b09ce6c99fa4b8f"
+    }
+  },
+  "current_remote_changed": [],
+  "current_local_changed": [],
+  "historical_whole_tables_unchanged": false,
+  "historical_table_classification": "Compatible avec action/reset C15 documente ; attribution exhaustive ligne par ligne NON prouvee par les seules empreintes historiques.",
+  "reservation": "La reference historique contient seulement des empreintes de tables, pas les lignes. Ni identite historique des tables ni attribution exclusive de chaque delta a C15 ne sont revendiquees. Acceptation B03 fondee sur stabilite exacte de son propre rejeu, sources fermees, C09 natif frais et HTTP frais.",
+  "scope": "imagine-test-demo",
+  "at": "2026-11-25T19:27:06.743058+00:00",
+  "checks": {
+    "snapshot_courant_distant_exact_stable": true,
+    "snapshot_courant_local_exact_stable": true,
+    "sources_historiques_deltas_exactement_B03_et_C15": true,
+    "documents_C15_locaux_exactement_lies_livraison": true,
+    "sources_C15_exactes_recu_final_local_distant": true,
+    "tables_historiques_inventaire_delta_attendu": true,
+    "C15_lien_documentaire_action_reset_semantique": true,
+    "C15_action_source_liee_livraison": true,
+    "C15_sources_liees_installation_livraison": true
+  },
+  "linked_sha256": {
+    "production/B-03/corrections-before.json": "e213630bab12e6be9b72b8e86b0a26a5e5ce6e736dcfe7cfcb4b2415d8242d7a",
+    "production/B-03/preservation-corrections.json": "cc7f08ef95cb38aae7da12a696a56c5d6cbb8d82597560714675050c5bc669aa",
+    "production/B-03/verification-finale.json": "8b3d68862e75eb91e1738a2754a858e5af25cc13d2cd690fe9e6fb3315b791f1",
+    "production/C-15/verification.json": "75fac933b82ae6a1c1fe5a660961818eae84a6be3db76b4e3d07c25022fff276",
+    "production/C-15/restauration.json": "e20a16109c2f7b9dd84456571d535242ee062057fb2a5cf2f6a06c0fadbe3c3c",
+    "production/C-15/livraison.json": "7284ddd55ff880c0333f9d760d05eeb6f52ccdbf31dc0ff053c476cf4b7d253b",
+    "production/C-15/installation.json": "91f7737ccae8ce048c4dea52538cdb16e4170327767516d303b789cbe199c98a",
+    "production/C-15/action.json": "375a873fed95b80042ef078dc7a7eb12bcc9e851a7d04b1d417b3330c6005e75",
+    "production/C-15/PRET": "d61637967446f9d9c1cd11f10c4d542e52c3d8afcdee3bfed58426715a5fa70f",
+    "production/C-15/A-VOIR.md": "a3054c23c362d38089fd9856b5a231498db39da721dd898752a67de61778d994",
+    "wp/tests/demo/c15-action.py": "62fa1225949a6b3fbaabdbb3a001626da6dbd466a6cf2c3b0a3bce8e0700f8c9"
+  },
+  "current_before_sha256": "f38e7e328e65b3b389ee652049248951819725f8e840ada786d7a40ddc372540",
+  "current_after_sha256": "fb787cd789d6b5798b9319db26495422efa19c7d5969632ac513895e38b19f1b",
+  "semantic_before_sha256": "820d863c0e12445e4badc5ee9076df72c7ae3e35c24c0dcc7d207c781289b61a",
+  "semantic_after_sha256": "820d863c0e12445e4badc5ee9076df72c7ae3e35c24c0dcc7d207c781289b61a",
+  "semantic_scope": "C15 snapshot(): fixture, seed, roles, discovery, order status/paid/amount/method/customer/addresses, subscription status/start/end/next/shipping, membership status/start/end; no user table hashes or audit-note rollback"
+}

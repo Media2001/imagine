@@ -1,0 +1,287 @@
+{
+  "schema": "imagine-a08-v1",
+  "identity": {
+    "site": "/scratch/hpos",
+    "inputs": {
+      "/opt/a08/hpos-update.json": "5c1be97eb2dd2347d0b9516a45c386093809b87978bdff4e8192317a1445a838",
+      "/opt/a08/hpos-cleanup.json": "e374ccfcd7b162080ede34de0b625a8355abe82cd2b4502a951d7a6949bf98a5",
+      "/opt/a03/hpos-settings.json": "979432daeecdf32164c1187f8571ccf0e5e464fea1033a90daef57f75cfd1774",
+      "/opt/a08/hpos-backup.json": "7fe526153cef07a8ba00a72e9bab6e2fb7345f047a79573ec47698bef10b94a6"
+    },
+    "tools": {
+      "nettoyer.md": "8913167c788d24c3deb6f9f803d48653c5d204e8d30b753c893aa8548a9eb309",
+      "plan-imagine.exemple.json": "dea1acad0e998f755e7701749f91978562ca2acc654fa336a4c1c53b99a7f25c",
+      "repetition.md": "f40d89af881d2f56a6e72421fb6291606bbf147920e0d5bc85e5ee524aa8be5a",
+      "comparer": "d9e40a82360a4982de5c9aa55d0b14178621c99b32ea0da6e40223aa29ae2a58",
+      "non-regression": "74971fff009aa578b7db5ba510aa54f6bec76bae7b0e68b57887a2e628c66b6b",
+      "nettoyer": "8a1d4cf46b15a6ed4dd440a0955126b1cef998122d9241b9a328ab7c3ca6a758",
+      "mettre-a-jour.md": "52859e25931ffa051a8a47d4ab39057fd038c8f1cd9be9c0a0e2b07904621530",
+      "mettre-a-jour": "863c22cbb6fec2c1469388d65aae6fa1c2383e848e5b38f646dc0e2689f4a941",
+      "repeter": "8c4cf537ff761f1f49694c52b223d2c7b470fc99d155ae4b6968cde26bc38a24",
+      "000-imagine-staging-safety.php": "c16f048f3fd2587ba719924eec53b07651ea3b6a495a8125746a157582f5474f",
+      "audit": "7eb2b4bfa450e37d3f4265e3055cdba61a877b056f4feb0bfce06f681659c6dc",
+      "non-regression.md": "4e721baaacce65f780f5491ba5463ca4dcd5237b6bf152c958917d5d9c71ded0",
+      "README.md": "67a9c1383940203419f77eae021b165d2ebf1e93e9080a2bdee5d9bf5b7a3829",
+      "lancer": "f156ce43843230a7c1e066f02537aabe6796cb7366c5ca99b8ff3c029cc0fa29",
+      "a08/sequence.py": "095ddc5e439dc5d6eb0f450cdbc0f41cdb50560a43c03e5f8058004b46059ee6",
+      "a05/bootstrap.php": "2bf552d56c7f93319f817f2354ab7368f222409c21abd73187afaa7a6bf24dc1",
+      "a05/database.php": "f78f3a92d5e826c9894c9c5d25fefee374dcd28dea2b494c265386c8c4ee229a",
+      "a05/native.php": "3bd4d910606c5bd188b8536565db481960add38870a1fa751dfb478600a309de",
+      "a05/clean.py": "6f4e15727007711d1e350892269c2795cbb5bd2542377c4e2d14604ce40267df",
+      "a03/Report.php": "ffc1a003aeb5055e3a758389232f3e381a41db2167842c7691c1706bfba4cad9",
+      "a03/Site.php": "0350fb54dd7a906247f8f65a8203fc94fde9ccc52b303b13f76273eb773ca24c",
+      "a03/Policy.php": "6877b7330d472a41b14011e3e41aeb422d01e58a0c2675340bd101a87d427b62",
+      "a04/bootstrap.php": "c00ac7d816b2192794391ad9d9d873fdeb1ab12658662bd172599b459f6dfeb7",
+      "a04/update.py": "92da71dfda8d97f774db5254fee16661037a3937947e563b9bbc6fe048e41f0b",
+      "a04/maintenance.php": "4c356eb960eeaf1807b6aa55cd07551a58dfd843c797f6a5db3011d20aca6feb",
+      "a04/runtime.php": "838ab4fa0c93ec5350226fe7721d1fc444bc67ca3ac2558e5dc22c21079a7c17"
+    }
+  },
+  "done": {
+    "audit": {
+      "artifact": "audit-2",
+      "seals": {
+        "audit-2-receipt.json": "12b33adcecaed333b015ff7fe69a4fd23a44e145510761b036f16c173d2e60b1",
+        "audit-2-stdout.log": "155abfb842212f5d540722c2b9a187099d9ff9bb6f667fcf01d863b6745c6b66",
+        "audit-2-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "audit-2/audit.md": "91c268499658c79a249d64c435613642cd50eb30aae98db7142bfc949d709812",
+        "audit-2/audit.json": "25833d633454957c17ab48465e81b7fecbd76bc12ea81052b3178697aee66282"
+      }
+    },
+    "avant": {
+      "artifact": "avant-2",
+      "seals": {
+        "avant-2-receipt.json": "6f1341da56faad1ea6190908570e2c10870c41c87557551d366e798639400a95",
+        "avant-2-stdout.log": "47d5d5ae11757e3988788536f45acbc17da1c1586c734422b7edbef34a7f8316",
+        "avant-2-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "avant-2/non-regression.json": "21d4b9a8da7a5290aa8ffb759d3656ac7de1fdd55fc36bea6907a4fdeca17129"
+      }
+    },
+    "mise-a-jour": {
+      "artifact": null,
+      "seals": {
+        "mise-a-jour-3-receipt.json": "423f83382d9c447a040b0efc5f91cc19bdd333ddbf1899917531a78f75d78068",
+        "mise-a-jour-3-stdout.log": "40c6bdaa26d4beabcf4368c1a8433ad932aa49eeda06074261ddbebbbc27ab4c",
+        "mise-a-jour-3-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "nettoyage": {
+      "artifact": null,
+      "seals": {
+        "nettoyage-2-receipt.json": "e1cc277ba85a88fd118ab12931bbfabd883639a142e4831a62230c54825e64b3",
+        "nettoyage-2-stdout.log": "6641fa93463fe6ab162500237429fc631d5bd7b7ff0674f40924b32adde3adec",
+        "nettoyage-2-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  },
+  "attempts": [
+    {
+      "step": "audit",
+      "command": [
+        "php",
+        "/subject/audit",
+        "--wp-path=/scratch/hpos",
+        "--output=/report/hpos-sequence/audit-1"
+      ],
+      "exit": 0,
+      "duration_seconds": 1.0567233110195957,
+      "receipt": "audit-1-receipt.json"
+    },
+    {
+      "step": "avant",
+      "command": [
+        "php",
+        "/subject/non-regression",
+        "--wp-path=/scratch/hpos",
+        "--config=/opt/a03/hpos-settings.json",
+        "--output=/report/hpos-sequence/avant-1"
+      ],
+      "exit": 0,
+      "duration_seconds": 1.4610357680357993,
+      "receipt": "avant-1-receipt.json"
+    },
+    {
+      "step": "mise-a-jour",
+      "command": [
+        "python3",
+        "-B",
+        "/subject/mettre-a-jour",
+        "--wp-path=/scratch/hpos",
+        "--plan=/opt/a08/hpos-update.json",
+        "--backup=/opt/a08/hpos-backup.json",
+        "--state=/report/hpos-sequence/a04"
+      ],
+      "exit": 1,
+      "duration_seconds": 0.15655130200320855,
+      "receipt": "mise-a-jour-1-receipt.json"
+    },
+    {
+      "step": "mise-a-jour",
+      "command": [
+        "python3",
+        "-B",
+        "/subject/mettre-a-jour",
+        "--wp-path=/scratch/hpos",
+        "--plan=/opt/a08/hpos-update.json",
+        "--backup=/opt/a08/hpos-backup.json",
+        "--state=/report/hpos-sequence/a04"
+      ],
+      "exit": 0,
+      "duration_seconds": 78.67852341500111,
+      "receipt": "mise-a-jour-2-receipt.json"
+    },
+    {
+      "step": "nettoyage",
+      "command": [
+        "python3",
+        "-B",
+        "/subject/nettoyer",
+        "--wp-path=/scratch/hpos",
+        "--plan=/opt/a08/hpos-cleanup.json",
+        "--backup=/opt/a08/hpos-backup.json",
+        "--state=/report/hpos-sequence/a05"
+      ],
+      "exit": 0,
+      "duration_seconds": 2.119037839991506,
+      "receipt": "nettoyage-1-receipt.json"
+    },
+    {
+      "step": "apres",
+      "command": [
+        "php",
+        "/subject/non-regression",
+        "--wp-path=/scratch/hpos",
+        "--config=/opt/a03/hpos-settings.json",
+        "--output=/report/hpos-sequence/apres-1"
+      ],
+      "exit": 0,
+      "duration_seconds": 1.401621013006661,
+      "receipt": "apres-1-receipt.json"
+    },
+    {
+      "step": "comparaison",
+      "command": [
+        "php",
+        "/subject/comparer",
+        "/report/hpos-sequence/avant-1/non-regression.json",
+        "/report/hpos-sequence/apres-1/non-regression.json"
+      ],
+      "exit": 3,
+      "duration_seconds": 0.038338772021234035,
+      "receipt": "comparaison-1-receipt.json"
+    },
+    {
+      "step": "audit",
+      "command": [
+        "php",
+        "/subject/audit",
+        "--wp-path=/scratch/hpos",
+        "--output=/report/hpos-sequence/audit-2"
+      ],
+      "exit": 0,
+      "duration_seconds": 1.1095592619967647,
+      "receipt": "audit-2-receipt.json"
+    },
+    {
+      "step": "avant",
+      "command": [
+        "php",
+        "/subject/non-regression",
+        "--wp-path=/scratch/hpos",
+        "--config=/opt/a03/hpos-settings.json",
+        "--output=/report/hpos-sequence/avant-2"
+      ],
+      "exit": 0,
+      "duration_seconds": 0.7533510029898025,
+      "receipt": "avant-2-receipt.json"
+    },
+    {
+      "step": "mise-a-jour",
+      "command": [
+        "python3",
+        "-B",
+        "/subject/mettre-a-jour",
+        "--wp-path=/scratch/hpos",
+        "--plan=/opt/a08/hpos-update.json",
+        "--backup=/opt/a08/hpos-backup.json",
+        "--state=/report/hpos-sequence/a04"
+      ],
+      "exit": 0,
+      "duration_seconds": 3.8345470759668387,
+      "receipt": "mise-a-jour-3-receipt.json"
+    },
+    {
+      "step": "nettoyage",
+      "command": [
+        "python3",
+        "-B",
+        "/subject/nettoyer",
+        "--wp-path=/scratch/hpos",
+        "--plan=/opt/a08/hpos-cleanup.json",
+        "--backup=/opt/a08/hpos-backup.json",
+        "--state=/report/hpos-sequence/a05"
+      ],
+      "exit": 0,
+      "duration_seconds": 0.45422557601705194,
+      "receipt": "nettoyage-2-receipt.json"
+    }
+  ],
+  "status": "attente opérateur avant apres",
+  "passes": [
+    {
+      "audit": {
+        "artifact": "audit-1",
+        "seals": {
+          "audit-1-receipt.json": "59e44b9345ed308b9e1d70d90deca3d38052bc66416697b4a38ab4968bcf1847",
+          "audit-1-stdout.log": "155abfb842212f5d540722c2b9a187099d9ff9bb6f667fcf01d863b6745c6b66",
+          "audit-1-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "audit-1/audit.md": "ac64d864f310734fcb0c187b72639bd4844713cd49883a4824dda14eb8465346",
+          "audit-1/audit.json": "dc10e6a76c1bc07bac3e923b2194ddbafc705d7c403ce1f7c85ff938445f3d47"
+        }
+      },
+      "avant": {
+        "artifact": "avant-1",
+        "seals": {
+          "avant-1-receipt.json": "aa3cd83264af864b6abfc0312609b11c91869675c3c5e4fec8ab37462c577a90",
+          "avant-1-stdout.log": "47d5d5ae11757e3988788536f45acbc17da1c1586c734422b7edbef34a7f8316",
+          "avant-1-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "avant-1/non-regression.json": "2c275880b04d61755324ab400af490ea7e1423d5c438abd33898e87bea860b12"
+        }
+      },
+      "mise-a-jour": {
+        "artifact": null,
+        "seals": {
+          "mise-a-jour-2-receipt.json": "2d0ff0a4218d632c139d71b8c7378b39677cafc121129ff85e0d1db287c4fc88",
+          "mise-a-jour-2-stdout.log": "40c6bdaa26d4beabcf4368c1a8433ad932aa49eeda06074261ddbebbbc27ab4c",
+          "mise-a-jour-2-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "nettoyage": {
+        "artifact": null,
+        "seals": {
+          "nettoyage-1-receipt.json": "80d03bc5fc720360c7491e3fa9accf669e29efe8d06d7b5789de5ab97da692ea",
+          "nettoyage-1-stdout.log": "53405fc80850fbd279d8cd2269dc525df203dd2ce5199cfb46391797c72e5efd",
+          "nettoyage-1-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "apres": {
+        "artifact": "apres-1",
+        "seals": {
+          "apres-1-receipt.json": "d23aa67097294cded85dc05c6caf81662514552159dbc01fe552077f94310f71",
+          "apres-1-stdout.log": "47d5d5ae11757e3988788536f45acbc17da1c1586c734422b7edbef34a7f8316",
+          "apres-1-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "apres-1/non-regression.json": "d2e345f344d3702949aac8422ad0742a0f8ba2615654efc9e3c416afa1781bff"
+        }
+      },
+      "comparaison": {
+        "artifact": null,
+        "seals": {
+          "comparaison-1-receipt.json": "bab82fa4494588d6c73310c181c83f5d13e471990570fe56de49c532d681a808",
+          "comparaison-1-stdout.log": "4580a3b9746b892215def000d0813986f7e824024fd7c414694b16005170a8a2",
+          "comparaison-1-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    }
+  ],
+  "look_at": "repetition.md : réception isolée, compte SELECT ; puis --reception-ready"
+}

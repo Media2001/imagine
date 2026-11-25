@@ -1,0 +1,12 @@
+B-03 PRET A RELIRE — 25 novembre 2026, après clôture C15 et correction CSS de 19h30.
+
+Reçu courant : production/B-03/reconciliation-c15/20261125T192359626892Z/verification-finale.json
+SHA-256 : d09e3b9b9b82dd939a86210a93c85257c077a1d0ec996ccc62886bdf2c4d4535
+Pointeur courant : production/B-03/reconciliation-c15-current.json
+Statut exécuté : VERIFIED, 35 gardes finales vertes ; 10 PHP B03, 43 HTTP frais, 8 JS, 15 tests locaux, 8 unitaires de préservation, T01 1012 tests / 34006 assertions, C09 149 natifs frais. Preuve navigateur 77 contrôles anonymes antérieurs liée aux octets actuels, pas une nouvelle inspection visuelle.
+
+Périmètre accepté : stabilité exacte de la propre fenêtre B03 (7608 éléments distants et 200 fichiers locaux), snapshot métier natif avant/après égal, sources historiques déployées limitées aux deux assets B03 et quatre fichiers C15 dont les octets sont liés aux reçus C15. Seul document local supplémentaire : plugins/imagine-site/README.md, exactement au SHA-256 de livraison C15, absent du snapshot distant. Aucun déploiement pendant cette réconciliation, aucun seed, reset ou paiement rejoué.
+
+Réserve historique maintenue : les quatre tables diffèrent de corrections-before.json. Leurs deltas d'empreintes sont conservés explicitement ; action/reset C15 et restauration sémantique liés documentairement. Attribution exhaustive de chaque ligne historique à C15 NON prouvée ; identité historique des tables NON revendiquée. Anciens reçus FAILED et référence conservés intacts. Notes d'audit non effacées.
+
+Prêt à relire dans cette portée, pas validation visuelle, clôture globale ni GO production. A-VOIR.md, RAPPORT.md et REJOUER.md précisent la portée et les limites. B04 non repris ; aucun thème/plugin, autre lot, file, verrou ou Git modifié.

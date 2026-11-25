@@ -1,0 +1,254 @@
+{
+  "total": 149,
+  "checks": {
+    "A-CARTE:initial_paye": true,
+    "A-CARTE:initial_fictif": true,
+    "A-CARTE:aucune_transaction": true,
+    "A-PAYPAL:initial_paye": true,
+    "A-PAYPAL:initial_fictif": true,
+    "A-PAYPAL:aucune_transaction": true,
+    "A-ETRANGER:initial_paye": true,
+    "A-ETRANGER:initial_fictif": true,
+    "A-ETRANGER:aucune_transaction": true,
+    "A-SANSMAIL:initial_paye": true,
+    "A-SANSMAIL:initial_fictif": true,
+    "A-SANSMAIL:aucune_transaction": true,
+    "A-ECHEANCE:initial_paye": true,
+    "A-ECHEANCE:initial_fictif": true,
+    "A-ECHEANCE:aucune_transaction": true,
+    "A-NONRENOUV:initial_paye": true,
+    "A-NONRENOUV:initial_fictif": true,
+    "A-NONRENOUV:aucune_transaction": true,
+    "A-SEPA4:initial_paye": true,
+    "A-SEPA4:initial_fictif": true,
+    "A-SEPA4:aucune_transaction": true,
+    "A-PAPIER:initial_paye": true,
+    "A-PAPIER:initial_fictif": true,
+    "A-PAPIER:aucune_transaction": true,
+    "A-CARTE:manuel_sans_jeton": true,
+    "A-SEPA4:manuel_sans_jeton": true,
+    "A-PAYPAL:manuel_sans_jeton": true,
+    "A-VIR:manuel_sans_jeton": true,
+    "A-PAPIER:manuel_sans_jeton": true,
+    "A-GRACE:manuel_sans_jeton": true,
+    "A-SUSP:manuel_sans_jeton": true,
+    "A-EXPIRE:manuel_sans_jeton": true,
+    "A-NONRENOUV:manuel_sans_jeton": true,
+    "A-ETRANGER:manuel_sans_jeton": true,
+    "A-SANSMAIL:manuel_sans_jeton": true,
+    "A-ECHEANCE:manuel_sans_jeton": true,
+    "A-VIR:non_paye": true,
+    "hors_ligne": true,
+    "A-SEPA4:renouvellement_unique": true,
+    "A-SEPA4:renouvellement_natif": true,
+    "A-SEPA4:renouvellement_fictif": true,
+    "A-SEPA4:deux_payees_sur_quatre": true,
+    "A-GRACE:renouvellement_unique": true,
+    "A-GRACE:renouvellement_natif": true,
+    "A-GRACE:renouvellement_fictif": true,
+    "A-GRACE:rejet_date_grace": true,
+    "A-SUSP:renouvellement_unique": true,
+    "A-SUSP:renouvellement_natif": true,
+    "A-SUSP:renouvellement_fictif": true,
+    "A-SUSP:rejet_date_grace": true,
+    "A-CARTE:marque_fictive_abonnement": true,
+    "A-CARTE:marque_ligne_abonnement": true,
+    "A-SEPA4:marque_fictive_abonnement": true,
+    "A-SEPA4:marque_ligne_abonnement": true,
+    "A-PAYPAL:marque_fictive_abonnement": true,
+    "A-PAYPAL:marque_ligne_abonnement": true,
+    "A-VIR:marque_fictive_abonnement": true,
+    "A-VIR:marque_ligne_abonnement": true,
+    "A-PAPIER:marque_fictive_abonnement": true,
+    "A-PAPIER:marque_ligne_abonnement": true,
+    "A-GRACE:marque_fictive_abonnement": true,
+    "A-GRACE:marque_ligne_abonnement": true,
+    "A-SUSP:marque_fictive_abonnement": true,
+    "A-SUSP:marque_ligne_abonnement": true,
+    "A-EXPIRE:marque_fictive_abonnement": true,
+    "A-EXPIRE:marque_ligne_abonnement": true,
+    "A-NONRENOUV:marque_fictive_abonnement": true,
+    "A-NONRENOUV:marque_ligne_abonnement": true,
+    "A-ETRANGER:marque_fictive_abonnement": true,
+    "A-ETRANGER:marque_ligne_abonnement": true,
+    "A-SANSMAIL:marque_fictive_abonnement": true,
+    "A-SANSMAIL:marque_ligne_abonnement": true,
+    "A-ECHEANCE:marque_fictive_abonnement": true,
+    "A-ECHEANCE:marque_ligne_abonnement": true,
+    "V-DEC:marque_compte": true,
+    "V-DEC-FIN:marque_compte": true,
+    "V-INSCRIT:marque_compte": true,
+    "A-CARTE:marque_compte": true,
+    "A-SEPA4:marque_compte": true,
+    "A-PAYPAL:marque_compte": true,
+    "A-VIR:marque_compte": true,
+    "A-PAPIER:marque_compte": true,
+    "A-GRACE:marque_compte": true,
+    "A-SUSP:marque_compte": true,
+    "A-EXPIRE:marque_compte": true,
+    "A-NONRENOUV:marque_compte": true,
+    "A-ETRANGER:marque_compte": true,
+    "A-SANSMAIL:marque_compte": true,
+    "A-ECHEANCE:marque_compte": true,
+    "P-OFFRANT:marque_compte": true,
+    "P-OFFERT:marque_compte": true,
+    "P-GEST:marque_compte": true,
+    "P-BENEF:marque_compte": true,
+    "P-PRO:marque_compte": true,
+    "P-SOL-ATT:marque_compte": true,
+    "P-SOL-OK:marque_compte": true,
+    "P-NUMERO:marque_compte": true,
+    "P-COOP:marque_compte": true,
+    "E-ADMIN:marque_compte": true,
+    "E-REDAC:marque_compte": true,
+    "E-ABO:marque_compte": true,
+    "A-CARTE:marque_adhesion": true,
+    "A-SEPA4:marque_adhesion": true,
+    "A-PAYPAL:marque_adhesion": true,
+    "A-VIR:marque_adhesion": true,
+    "A-PAPIER:marque_adhesion": true,
+    "A-GRACE:marque_adhesion": true,
+    "A-SUSP:marque_adhesion": true,
+    "A-EXPIRE:marque_adhesion": true,
+    "A-NONRENOUV:marque_adhesion": true,
+    "A-ETRANGER:marque_adhesion": true,
+    "A-SANSMAIL:marque_adhesion": true,
+    "A-ECHEANCE:marque_adhesion": true,
+    "P-SOL-ATT:marque_adhesion": true,
+    "P-SOL-OK:marque_adhesion": true,
+    "catalogue_86:marque": true,
+    "catalogue_87:marque": true,
+    "catalogue_192:marque": true,
+    "catalogue_193:marque": true,
+    "catalogue_194:marque": true,
+    "catalogue_195:marque": true,
+    "catalogue_196:marque": true,
+    "catalogue_197:marque": true,
+    "A-VIR:initial_non_paye_conserve": true,
+    "A-GRACE:initial_non_paye_conserve": true,
+    "A-SUSP:initial_non_paye_conserve": true,
+    "A-EXPIRE:initial_non_paye_conserve": true,
+    "P-OFFERT:aucun_lien_ou_droit_invente": true,
+    "P-GEST:aucun_lien_ou_droit_invente": true,
+    "P-BENEF:aucun_lien_ou_droit_invente": true,
+    "commande_88:marques": true,
+    "commande_91:marques": true,
+    "commande_94:marques": true,
+    "commande_97:marques": true,
+    "commande_100:marques": true,
+    "commande_103:marques": true,
+    "commande_106:marques": true,
+    "commande_109:marques": true,
+    "commande_112:marques": true,
+    "commande_115:marques": true,
+    "commande_118:marques": true,
+    "commande_121:marques": true,
+    "commande_126:marques": true,
+    "commande_2419:marques": true,
+    "commande_2420:marques": true,
+    "commande_2421:marques": true,
+    "A-ECHEANCE:annee_native_preservee": true,
+    "A-NONRENOUV:annee_native_preservee": true,
+    "A-SANSMAIL:inclusion_postale": true
+  },
+  "failures": [],
+  "proof": {
+    "A-CARTE": {
+      "initial": {
+        "id": 88,
+        "status": "processing",
+        "paid": 1787853710,
+        "total": "120.00"
+      }
+    },
+    "A-PAYPAL": {
+      "initial": {
+        "id": 94,
+        "status": "processing",
+        "paid": 1787853710,
+        "total": "120.00"
+      }
+    },
+    "A-ETRANGER": {
+      "initial": {
+        "id": 115,
+        "status": "processing",
+        "paid": 1787853710,
+        "total": "0.00"
+      }
+    },
+    "A-SANSMAIL": {
+      "initial": {
+        "id": 118,
+        "status": "processing",
+        "paid": 1787853710,
+        "total": "0.00"
+      }
+    },
+    "A-ECHEANCE": {
+      "initial": {
+        "id": 121,
+        "status": "processing",
+        "paid": 1766685710,
+        "total": "0.00"
+      }
+    },
+    "A-NONRENOUV": {
+      "initial": {
+        "id": 112,
+        "status": "processing",
+        "paid": 1766685710,
+        "total": "0.00"
+      }
+    },
+    "A-SEPA4": {
+      "initial": {
+        "id": 91,
+        "status": "processing",
+        "paid": 1780077710,
+        "total": "30.00"
+      },
+      "renewals": [
+        {
+          "id": 2419,
+          "status": "processing",
+          "created": 1793037710,
+          "paid": 1793037710,
+          "total": "30.00"
+        }
+      ]
+    },
+    "A-PAPIER": {
+      "initial": {
+        "id": 100,
+        "status": "processing",
+        "paid": 1787853710,
+        "total": "30.00"
+      }
+    },
+    "A-GRACE": {
+      "renewals": [
+        {
+          "id": 2420,
+          "status": "failed",
+          "created": 1795543310,
+          "paid": null,
+          "total": "0.00"
+        }
+      ]
+    },
+    "A-SUSP": {
+      "renewals": [
+        {
+          "id": 2421,
+          "status": "failed",
+          "created": 1795284110,
+          "paid": null,
+          "total": "0.00"
+        }
+      ]
+    }
+  },
+  "exit": 0,
+  "at": "2026-11-25T19:27:04.086019+00:00"
+}

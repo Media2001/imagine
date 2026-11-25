@@ -1,0 +1,48 @@
+{
+  "schema": "imagine-a05-v1",
+  "site_status": "verified-staging",
+  "plugins": [
+    {
+      "plugin": "a08-orphan/entry.php",
+      "action": "retirer",
+      "uninstall": false
+    }
+  ],
+  "tables": [
+    {
+      "match": "exact",
+      "name": "wp_a08_orphan",
+      "action": "supprimer"
+    }
+  ],
+  "options": [
+    {
+      "match": "exact",
+      "name": "a08_orphan_setting",
+      "action": "supprimer"
+    }
+  ],
+  "cron": [
+    {
+      "match": "exact",
+      "name": "a08_orphan_hook",
+      "action": "supprimer"
+    }
+  ],
+  "uploads": [
+    {
+      "path": "a08-debris",
+      "action": "supprimer"
+    }
+  ],
+  "table_owners": {
+    "hello.php": [],
+    "a08-orphan/entry.php": [],
+    "akismet/akismet.php": [],
+    "woocommerce/woocommerce.php": [],
+    "woocommerce-memberships/woocommerce-memberships.php": [],
+    "woocommerce-subscriptions/woocommerce-subscriptions.php": [],
+    "theme:a03-fiction": [],
+    "mu:000-imagine-staging-safety.php": []
+  }
+}
