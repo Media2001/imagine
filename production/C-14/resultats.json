@@ -1,6 +1,6 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-25T14:30:28.840558+00:00",
+  "at": "2026-11-25T14:33:46.627431+00:00",
   "pure": {
     "payee_processing": true,
     "payee_completed": true,
@@ -27,7 +27,7 @@
     "date_native_conservee_sans_expiration": true,
     "contrat_moteur_exact": true
   },
-  "status": "EN_COURS",
+  "status": "VERT",
   "runtime": {
     "wp": "7.0.9",
     "woo": "11.2.2",
@@ -267,5 +267,42 @@
     "corrections_instantane_retabli_produit_absent_b_PDF": true,
     "corrections_catalogue_nettoye_relu": true,
     "corrections_reglage_restaure_exactement": true
-  }
+  },
+  "C08": {
+    "total": 30,
+    "failures": []
+  },
+  "C11": {
+    "actif_natif": true,
+    "article_C08_actif_inchange": true,
+    "instant_article_PDF_unique": true,
+    "article_C08_anonyme_inchange": true,
+    "offert_natif_meme_droit": true,
+    "groupe_natif_meme_droit": true,
+    "C10_pdf_anterieur_ferme": true,
+    "C10_pdf_anterieur_ouvert": true,
+    "C10_pdf_robot_extrait": true,
+    "C10_pdf_robot_complet": true,
+    "sans_droit_ferme": true,
+    "P-NUMERO_ferme": true,
+    "V-DEC_ferme": true,
+    "P-COOP_ferme": true,
+    "A-SUSP_ferme": true,
+    "A-EXPIRE_ferme": true,
+    "A-VIR_ferme": true,
+    "date_invalide_fermee": true,
+    "date_2099-01-01_fermee": true,
+    "erreur_native_fermee_apres_positif": true,
+    "positif_retabli": true,
+    "stockage_hors_docroot": true,
+    "racine_publique_parent_refusee": true,
+    "restauration_exacte_options": true,
+    "canari_supprime": true
+  },
+  "C09": {
+    "total": 379,
+    "failures": []
+  },
+  "shared_C08_C09_C10_C11_C12_C13_preserved": true,
+  "total": 686
 }

@@ -122,7 +122,7 @@ def run(deploy=False, code_only=False):
             # Les changements temporaires de plans C11 déclenchent les relevés append-only C13.
             # Transaction native réelle, callbacks inclus, rollback à la fin du processus.
             recipe = r'''require_once WP_CONTENT_DIR . '/imagine-demo-build/c14-profil.php';
-Imagine\\Demo\\C14\\guard();global $wpdb;
+Imagine\Demo\C14\guard();global $wpdb;
 $engines=$wpdb->get_col("SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_TYPE='BASE TABLE'");
 if(!$engines||array_filter($engines,static fn($e)=>$e!=='InnoDB')||wp_using_ext_object_cache()){throw new RuntimeException('Isolation transactionnelle C14 indisponible');}
 if($wpdb->query('START TRANSACTION')===false){throw new RuntimeException('Transaction C14 refusée');}

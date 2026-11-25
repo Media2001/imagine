@@ -17,8 +17,8 @@ def binary_hex(literal):
 
 MAX_STATEMENT = 16 * 1024**2
 MARK = re.compile(rb"[;'\"`#]|--|/\*")
-QUOTED = {ord("'"): re.compile(rb"'(?:[^'\\]|\\.|'')*'"),
-          ord('"'): re.compile(rb'"(?:[^"\\]|\\.|"")*"'),
+QUOTED = {ord("'"): re.compile(rb"'(?:[^'\\]|\\.|'')*'", re.S),
+          ord('"'): re.compile(rb'"(?:[^"\\]|\\.|"")*"', re.S),
           ord('`'): re.compile(rb'`[^`]*`')}
 
 
@@ -32,9 +32,13 @@ class Framer:
         self.skipping = False
         self.quote = None
         self.escape = False
+        self.outside_dash = False
 
     def discard(self, data):
         # Lexical framing only: no decoding, value grammar, scanning or retention.
+        if self.outside_dash and data:
+            self.outside_dash = False
+            if data.startswith(b'-'): raise Refusal('SQL_INSERT_FRAMING')
         at = 0
         while at < len(data):
             if self.escape:
@@ -54,7 +58,10 @@ class Framer:
             elif c == b';':
                 self.skipping = False
                 return data[at:]
-            elif c in (b'#', b'/', b'-'):
+            elif c == b'-':
+                if data[at:at+1] == b'-': raise Refusal('SQL_INSERT_FRAMING')
+                self.outside_dash = at == len(data)
+            elif c in (b'#', b'/'):
                 # Exported VALUES contain no SQL comments. Keep an ambiguous
                 # framing closed, rather than resynchronising inside a comment.
                 raise Refusal('SQL_INSERT_FRAMING')

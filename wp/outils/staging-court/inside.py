@@ -186,7 +186,7 @@ def restore_and_verify(archive, request):
     (SITE / '.imagine-staging-offline').write_text('OFFLINE_COPY\n')
     context = {'environment': 'staging', 'isolated': True, 'restored': True, 'database': DB,
                'wp_path': str(SITE), 'target_url': target, 'production_hosts': [production.hostname],
-               'prefix': prefix, 'table_decisions': plan['table_decisions']}
+               'prefix': prefix, 'table_decisions': plan['table_decisions'], 'table_policy_version':plan['table_policy_version']}
     Path('/scratch/a01-context.json').write_text(json.dumps(context))
     steps = []
     report = {'ok': False, 'issues': ['NOT_VERIFIED']}

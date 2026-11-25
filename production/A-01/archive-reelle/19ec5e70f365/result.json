@@ -1,0 +1,89 @@
+{
+  "status": "FAIL",
+  "synthetic_only": true,
+  "created_sites": [],
+  "commands": [
+    {
+      "argv": [
+        "exec",
+        "-e",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "-e",
+        "TMPDIR=/scratch/tests",
+        "-e",
+        "PYTHONPATH=/checkout/wp/outils/staging-court",
+        "imagine-a01-diag-test-1b534101cc89",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "/checkout/wp/tests/a01-court",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "exit": 1
+    }
+  ],
+  "isolation_before": {
+    "network": "none",
+    "mounts": [],
+    "ports": [],
+    "privileged": false,
+    "cap_drop": [
+      "ALL"
+    ],
+    "no_new_privileges": true,
+    "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
+    "name": "imagine-a01-diag-test-1b534101cc89"
+  },
+  "isolation_after": {
+    "network": "none",
+    "mounts": [],
+    "ports": [],
+    "privileged": false,
+    "cap_drop": [
+      "ALL"
+    ],
+    "no_new_privileges": true,
+    "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
+    "name": "imagine-a01-diag-test-1b534101cc89"
+  },
+  "source_manifest": {
+    "wp/outils/staging-court/archive.py": "f965e6764cffacd34faba77682a2a944ce76c666aa337e896fa7737de79884f4",
+    "wp/outils/staging-court/archive_policy.py": "d687f649173d0bca9679450b2b682d145b1fc53b2de674be7eb665768b7af7f3",
+    "wp/outils/staging-court/core_source.py": "4333875f38c2d87eb4f9b8f247d30b799e99ab7f4bd99530a22fb11b70b1f29e",
+    "wp/outils/staging-court/diagnosis.py": "fbf19f26c4127bf02aa890feced758080c8fc0d670d5c8600852a9fae6f50ac1",
+    "wp/outils/staging-court/inside.py": "bcf07a12e279e7e0df6141a192f1a0bd3e7d48cf69dce3effdd56dd3bc919321",
+    "wp/outils/staging-court/publication.py": "ac8031f2e9352e694d03a07226fa19e3982f75a696107d9ff6ae41d914a1f244",
+    "wp/outils/staging-court/publication_preflight.py": "cd4dfeb3ef170ea83ba503c3e2b193e4f3dbc11ee8a1053c01d2efc122fee313",
+    "wp/outils/staging-court/publish.py": "12d24504e5f5fb0077989e3b6e8e81dd905d625965de3f2f1d7830efed81ee85",
+    "wp/outils/staging-court/run.py": "10513a0dd11abdfe86d14d40512669c6e42e71bba96c7cfa9a4a358b7293bf39",
+    "wp/outils/staging-court/sql_diagnostic.py": "405390e4b1f72e71e518eea85a0afe2aa7dc888842998504bcce54312dedd2c7",
+    "wp/outils/staging-court/sql_stream.py": "aaf78e6121b6bd5ac3716850902f7d80fe26adfa051b1229b70ce44decd50ecc",
+    "wp/outils/staging-court/table_policy.py": "45e5f40aa7c74b47af21a191221fa18774a408d72858999fd03f04d00db50948",
+    "wp/outils/staging-court/politique-tables.json": "66a15c7c0c8711a20af83ac234fc4f402e170e1e12c1d8d5a93a9e1433ea8b4b",
+    "wp/tests/a01-court/test_arbitrations.py": "12e2445fc409a2567728b39dc2ab1e6ea720f2a014efa46117084614fc72eb2d",
+    "wp/tests/a01-court/test_archive.py": "0c75ffb3ea53cc1f82f510d714d19690a1529da13873ebd7c8e331aa1af6e490",
+    "wp/tests/a01-court/test_archive_reelle.py": "35a3633a54cf913343ec9c3d2e5675c12776109c6d62e53d9c26e823a3ad1c4e",
+    "wp/tests/a01-court/test_archive_reelle_2.py": "11c063c53ce58ebda1aa89b4fd7d3155a5fac128d67d036cb79e441c19c473bf",
+    "wp/tests/a01-court/test_archive_reelle_3.py": "6867b3f205f2d27e815479464740d1b7e44a3d3ec8a09f8c35db9fb13fac985d",
+    "wp/tests/a01-court/test_core_selection.py": "60a9022f34e0d398cb736da5b4e63530309706d21ba3d66af73184a9334c94b4",
+    "wp/tests/a01-court/test_corrections.py": "0ba79199daaae079a55bd59acb0942344166f74bfc1de6dc28b610f82d388cec",
+    "wp/tests/a01-court/test_password_stdin.py": "119149fa86ab23fb7c5372460ae87ea294113d0fac2184208c200b4e2402fdb3",
+    "wp/tests/a01-court/test_publication.py": "8b191786aefa5a13e9fbf347a33968a41993103f3aa870b1bb1ebc0a9c620f31",
+    "wp/tests/a01-court/test_publication_preflight.py": "1f6dbf6400fab95b3a617cbd25a39de19e29ecb0d4ef621084007c5d9c93937b",
+    "wp/tests/a01-court/test_qualification_receipts.py": "28f8463615274f832d16e86057c24063f2ac30e16e354360548f0db0c255bf3a",
+    "wp/tests/a01-court/exercise_archive_reelle.py": "5b2d539666990b29810de3a91c947c2c532d5f711c3d0690c6e73f583fe6485d",
+    "wp/outils/staging/schema.php": "81dfe75642c7a267fe92d23336fe14353de2d479700f8c97415702e14ae45d2a",
+    "wp/outils/staging/lib.php": "c5b1883c9c3115284cbd163ec60c555b16c2ce30204b7da724efdb8b6ff33bd7",
+    "wp/outils/staging/policy.php": "de2d1fbf27beb424ad43680dc74522a9e37585d0339fa0a7995e1e8a54ae6a80",
+    "wp/outils/staging-wp-integration/worker/worker.py": "1cdb5f85db2d2c0e3aecba4828785794e03c1a3a383b4c3a67075b1426e4f293"
+  },
+  "sources_unchanged": true,
+  "cleanup": {
+    "name": "imagine-a01-diag-test-1b534101cc89",
+    "absent": true
+  }
+}

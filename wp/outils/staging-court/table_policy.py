@@ -26,7 +26,8 @@ class Policy:
         kind = table[len(prefix):] if prefix and table.startswith(prefix) else ''
         family = next((r['pattern'] for r in self.data['families'] if fnmatch.fnmatchcase(kind, r['pattern'])), None)
         if table in self.decisions:
-            return self.decisions[table], family or ('catalogue' if kind in self.known else 'hors-famille')
+            value = self.decisions[table]
+            return value if isinstance(value, dict) else {'action':None}, family or ('catalogue' if kind in self.known else 'hors-famille')
         if family:
             return {'action':'vider'}, family
         if kind in self.known:

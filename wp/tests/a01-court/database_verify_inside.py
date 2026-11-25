@@ -51,6 +51,14 @@ try:
             prefix+'matomo_archive_blob_2024_01':{'action':'garder'},
             prefix+'fiction_email':{'action':'anonymiser','columns':['email']}},
             ['fiction_kept_blob','matomo_archive_blob_2024_01','fiction_email'])]:
+        if case == 'explicit':
+            decision_path = Path('/scratch/explicit-table-decisions.json')
+            decision_path.write_text(json.dumps(decisions))
+            probe = subprocess.run(cli + ['--detail','--table-decisions',str(decision_path)],capture_output=True,timeout=180)
+            detail = json.loads(probe.stdout)
+            assert probe.returncode == 0 and not detail['blockers']
+            assert any(r['family']=='matomo_*' and r['action']=='gardee' and r['count']==1 for r in detail['table_families'])
+            result['actual_table_decisions_cli'] = {'exit':probe.returncode,'family_override_readback':True}
         if inside.SITE.exists(): shutil.rmtree(inside.SITE)
         sql('DROP DATABASE IF EXISTS '+inside.DB, 'mysql')
         for f in ('a01-source.sql','a01-validated.sql'):

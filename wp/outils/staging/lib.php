@@ -50,6 +50,15 @@ final class Engine
                 $this->unknownColumns[$table] = $extra;
             }
         }
+        // A-01 archive policy is explicit in its trusted context. Keep the
+        // standalone legacy contract for callers outside this importer.
+        if (($context['table_policy_version'] ?? null) === 1) {
+            foreach ($this->unknownTables as $table => $_) {
+                if (!array_key_exists($table, $this->decisions)) {
+                    $this->decisions[$table] = ['action' => 'vider'];
+                }
+            }
+        }
         foreach ($this->decisions as $table => $decision) {
             if (!isset($this->unknownTables[$table]) || !is_array($decision)
                 || array_diff(array_keys($decision), ['action', 'columns'])
@@ -323,7 +332,8 @@ final class Engine
                     $this->store->replace($table, $row, null);
                     continue;
                 }
-                if ($kind === 'actionscheduler_actions' && in_array($row['status'], ['complete', 'failed'], true)) {
+                if ($kind === 'actionscheduler_actions' && (in_array($row['status'], ['complete', 'failed'], true)
+                    || preg_match('/^(?:pmxi_|pmxe_|wp_all_(?:import|export)|woe_|woo_order_export)/i', (string) ($row['hook'] ?? '')))) {
                     $this->store->replace($table, $row, null);
                     continue;
                 }
@@ -572,6 +582,7 @@ final class Engine
         $this->unknownTables = $fresh->unknownTables;
         $this->unknownColumns = $fresh->unknownColumns;
         $this->unknownTypes = $fresh->unknownTypes;
+        $this->decisions = $fresh->decisions;
         $this->checkUrls(); // Barrière de cible, jamais transformée en avertissement.
         $options = $this->options();
         $plugins = self::decode($options['active_plugins'] ?? serialize([]));
@@ -593,13 +604,16 @@ final class Engine
                 $decision = $this->decisions[$table] ?? null;
                 $unknown[] = ['name' => $table, 'columns' => array_values($columns), 'rows' => count($rows),
                     'personal_columns' => $personal, 'decision' => $decision];
-                if ($personal && $decision === null && !$this->readOnly($table)) {
+                if ($personal && ($decision === null || (($this->context['table_policy_version'] ?? null) === 1 && ($decision['action'] ?? '') === 'garder')) && !$this->readOnly($table)) {
                     $issues[] = 'TABLE_PERSONNELLE_A_TRANCHER';
+                }
+                if (($decision['action'] ?? '') === 'vider' && $rows && !$this->readOnly($table)) {
+                    $issues[] = 'TABLE_STRUCTURE_NON_VIDE';
                 }
                 if ($this->readOnly($table) && $decision !== null && ($decision['action'] ?? '') !== 'garder') {
                     $warnings[] = 'DECISION_VUE_A_APPLIQUER_SUR_TABLE_SOURCE';
                 }
-                $warnings[] = 'TABLE_INCONNUE_CONSERVEE';
+                $warnings[] = ($decision['action'] ?? '') === 'vider' ? 'TABLE_STRUCTURE_SEULE' : 'TABLE_INCONNUE_CONSERVEE';
             }
             if (in_array($kind, ['woocommerce_payment_tokens', 'woocommerce_payment_tokenmeta', 'woocommerce_sessions', 'woocommerce_api_keys', 'actionscheduler_logs', 'actionscheduler_claims', 'woocommerce_log', 'wc_download_log', 'wc_rate_limits', 'commentmeta'], true) && $rows) {
                 $warnings[] = 'TABLE_A_VIDER';
