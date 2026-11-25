@@ -28,7 +28,7 @@ def main():
     created = False
     def record(key, ok, detail=None):
         result['checks'].append({'check': key, 'ok': bool(ok), 'detail': detail})
-    source_files = list(ROOT.glob('*.py')) + list(ROOT.glob('*.php')) + [REPO / 'wp/outils/bascule/mettre-a-jour'] + list((REPO / 'wp/outils/bascule/a04').glob('*.php'))
+    source_files = list(ROOT.glob('*.py')) + list(ROOT.glob('*.php')) + [REPO / 'wp/outils/bascule/mettre-a-jour'] + list((REPO / 'wp/outils/bascule/a04').glob('*.php')) + list((REPO / 'wp/outils/bascule/a04').glob('*.py'))
     initial = {str(p.relative_to(REPO)).replace('\\', '/'): hashlib.sha256(p.read_bytes()).hexdigest() for p in source_files if p.is_file()}
     (out / 'sources.json').write_text(json.dumps(initial, indent=2)+'\n')
     try:
@@ -42,7 +42,7 @@ def main():
         bench.call(['exec', name, 'mkdir', '-p', '/opt/a04', '/subject/a04', '/report', '/subject/a03', '/opt/a03', '/plugins/imagine-non-regression/src', '/staging/mu-plugins'])
         for source in source_files:
             if source.is_file():
-                target = '/opt/a04/'+source.name if source.parent == ROOT else '/subject/a04/'+source.name if source.suffix == '.php' else '/subject/mettre-a-jour'
+                target = '/opt/a04/'+source.name if source.parent == ROOT else '/subject/a04/'+source.name if source.parent.name == 'a04' else '/subject/mettre-a-jour'
                 bench.call(['cp', bench.local(source), name+':'+target])
         if args.probe:
             for file in bench.LICENSED:
@@ -53,7 +53,7 @@ def main():
         else:
             lint = {p.name: bench.call(['exec', name, 'php', '-l', '/subject/a04/'+p.name if p.parent.name == 'a04' and p.parent.parent.name == 'bascule' else '/opt/a04/'+p.name], check=False).returncode for p in source_files if p.suffix == '.php'}
             record('lint', all(v == 0 for v in lint.values()), lint)
-            unit = bench.call(['exec', name, 'python3', '-B', '/opt/a04/test_update.py'], check=False)
+            unit = bench.call(['exec', name, 'python3', '-B', '-m', 'unittest', 'discover', '-s', '/opt/a04', '-p', 'test_*.py', '-v'], check=False)
             (out/'unit.log').write_text(unit.stdout+unit.stderr)
             record('unit', unit.returncode == 0)
             if not args.unit_only and unit.returncode == 0:
