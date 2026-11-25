@@ -111,6 +111,7 @@ def run_storage(storage):
         p = snapshot(site, settings, target)
         check(storage + ':snapshot_cli', p.returncode == 0 and (target / 'non-regression.json').exists(), {'exit': p.returncode, 'stderr': p.stderr[:160]})
         a = json.loads((target / 'non-regression.json').read_text())
+        (OUT / (storage + '-synthetic-php.log')).write_bytes(log_path.read_bytes())
         check(storage + ':php_log_checked_bounded_and_clean', a.get('php_log', {}).get('checked') is True and a['php_log']['errors'] == 0 and a['php_log']['from_utc'] <= a['php_log']['until_utc'])
         check(storage + ':ordinary_not_admin_represents_none', a['samples'].get('none:none') == seed['ordinary'] and a['access'].get(str(seed['ordinary']) + ':' + str(seed['restricted'])) is False and not any(key.startswith('1:') for key in a['access']))
         check(storage + ':storage', a['storage'] == storage)
@@ -131,6 +132,43 @@ def run_storage(storage):
         check(storage + ':identical_no_diff', compare.returncode == 0 and same['changes'] == [])
         (OUT / (storage + '-identical.json')).write_text(compare.stdout)
         fault_mu = site / 'wp-content/mu-plugins/998-a03-collect-fault.php'
+        saved_settings = settings.read_text()
+        for label, value, code in [('missing', str(log_path) + '-absent', 'A03_PHP_LOG_READ'), ('not-configured', None, 'A03_PHP_LOG_CONFIG')]:
+            bad_settings = json.loads(saved_settings)
+            if value is None:
+                del bad_settings['php_error_log']
+            else:
+                bad_settings['php_error_log'] = value
+            settings.write_text(json.dumps(bad_settings))
+            bad_target = OUT / (storage + '-log-' + label)
+            denied_log = snapshot(site, settings, bad_target)
+            settings.write_text(saved_settings)
+            check(storage + ':log_' + label + '_blocks_report', denied_log.returncode == 1 and denied_log.stdout == '' and denied_log.stderr == code + '\n' and not bad_target.exists())
+        for label, content, mode, code in [('format', 'A03_PERSONAL_CANARY\n', 0o600, 'A03_PHP_LOG_FORMAT'), ('unreadable', '', 0, 'A03_PHP_LOG_READ')]:
+            log_path.write_text(content)
+            log_path.chmod(mode)
+            bad_target = OUT / (storage + '-log-' + label)
+            denied_log = snapshot(site, settings, bad_target)
+            log_path.chmod(0o600)
+            log_path.write_text('')
+            check(storage + ':log_' + label + '_blocks_report_without_pii', denied_log.returncode == 1 and denied_log.stdout == '' and denied_log.stderr == code + '\n' and not bad_target.exists())
+        fault_mu.write_text("<?php if (PHP_SAPI === 'cli-server') { error_reporting(E_ALL); trigger_error('A03_PERSONAL_CANARY@example.org', E_USER_WARNING); }")
+        try:
+            silent_target = OUT / (storage + '-silent-log')
+            silent = snapshot(site, settings, silent_target)
+        finally:
+            fault_mu.unlink()
+        silent_report = json.loads((silent_target / 'non-regression.json').read_text())
+        silent_diff = cmd(['php', '/subject/comparer', str(target / 'non-regression.json'), str(silent_target / 'non-regression.json')], check=False)
+        check(storage + ':silent_php_warning_detected_with_display_off_and_http_200', silent.returncode == 0 and all(v['final_status'] == 200 and v['marker'] and not v['php_error'] for v in silent_report['pages'].values()) and silent_report['php_log']['errors'] >= 7 and silent_diff.returncode == 2 and json.loads(silent_diff.stdout)['changes'] == [{'path': 'php_log.errors', 'class': 'anormal'}])
+        log_path.write_text('')
+        fault_mu.write_text("<?php add_filter('home_url', static fn() => 'http://127.0.0.1:18804');")
+        try:
+            http_target = OUT / (storage + '-http-unavailable')
+            unavailable = snapshot(site, settings, http_target)
+        finally:
+            fault_mu.unlink()
+        check(storage + ':http_collection_failure_blocks_report', unavailable.returncode == 1 and unavailable.stdout == '' and unavailable.stderr == 'A03_HTTP_READ\n' and not http_target.exists())
         fault_mu.write_text("<?php namespace Imagine\\NonRegression; function wcs_get_subscriptions($args) { global $wpdb; $wpdb->get_var('SELECT ID FROM wp_a03_missing_table'); $wpdb->get_var('SELECT 1'); return \\wcs_get_subscriptions($args); }")
         try:
             hidden_target = OUT / (storage + '-sql-hidden')

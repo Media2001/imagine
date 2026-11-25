@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once dirname(__DIR__) . '/tests-c13/bootstrap.php';
+
 use Imagine\Site\EnvoiRegles;
 use PHPUnit\Framework\TestCase;
 

@@ -294,6 +294,11 @@ final class Site
         $subscriptionStates = array_values(array_unique($subscriptionStates));
         sort($membershipStates);
         sort($subscriptionStates);
+        $logPath = $settings['php_error_log'] ?? null;
+        if (!is_string($logPath) || $logPath === '') {
+            throw new \RuntimeException('A03_PHP_LOG_CONFIG');
+        }
+        [$pages, $phpLog] = PhpLog::during($logPath, static fn(): array => self::pages($settings['pages'] ?? []));
         return ['schema' => 'imagine-a03-v1', 'generated_at_utc' => gmdate('c'),
             'versions' => ['wordpress' => get_bloginfo('version'), 'php' => PHP_VERSION, 'woocommerce'
                 => WC()->version, 'memberships' => wc_memberships()->get_version(), 'subscriptions'
@@ -305,7 +310,7 @@ final class Site
             'memberships' => $memberships, 'access' => $access, 'subscriptions' => $rows,
                 'subscription_counts' => $counts,
             'actions' => $actions, 'action_days' => $actionDays, 'order_months' => $months, 'orders' => $orders,
-            'pages' => self::pages($settings['pages'] ?? []), 'renewal' => ['enabled' => false]];
+            'php_log' => $phpLog, 'pages' => $pages, 'renewal' => ['enabled' => false]];
     }
 
     private static function orders(string $month): array

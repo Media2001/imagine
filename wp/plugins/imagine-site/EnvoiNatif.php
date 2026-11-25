@@ -7,34 +7,35 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Imagine\Pilotage\Numeros\{Calendrier, Numero, TypeNumero};
 
+require_once __DIR__ . '/EnvoiRegles.php';
+require_once __DIR__ . '/EnvoiRelations.php';
+
 /** Raccord WordPress : aucune règle de sélection de C01/C07 recopiée. */
 final class EnvoiNatif
 {
     public static function calendrier(): Calendrier
     {
-        $numeros = [];
-        $zone = new DateTimeZone('Europe/Brussels');
-        foreach (get_option('imagine_demo_calendrier', []) as $row) {
-            foreach (['sortie', 'cloture'] as $key) {
-                if (!NumeroPublication::valid($row[$key] ?? null)) {
-                    throw new \RuntimeException('Calendrier postal invalide.');
-                }
-            }
-            $numeros[] = new Numero($row['code'], TypeNumero::from($row['type']),
-                new DateTimeImmutable($row['sortie'], $zone), new DateTimeImmutable($row['cloture'], $zone));
-        }
-        return new Calendrier($numeros);
+        $rows = get_option(self::CALENDRIER, null);
+        if (!is_array($rows)) { throw new \RuntimeException('Initialisation postale requise.'); }
+        return EnvoiRegles::calendrier($rows);
     }
 
     public const RELEVE = 'imagine_envoi_releve_';
+    public const CALENDRIER = 'imagine_envoi_calendrier_reference';
+    public const GEL = 'imagine_envoi_gel_';
 
-    private static function date(string $value): DateTimeImmutable
+    public static function initialiser(): void
     {
-        $date = DateTimeImmutable::createFromFormat('!Y-m-d H:i:s', $value, new DateTimeZone('UTC'));
-        if (!$date || $date->format('Y-m-d H:i:s') !== $value) {
-            throw new \RuntimeException('Date native postale invalide.');
+        $rows = get_option('imagine_demo_calendrier', []);
+        EnvoiRegles::calendrier($rows);
+        if (get_option(self::CALENDRIER, null) === null) { add_option(self::CALENDRIER, $rows, '', false); }
+        $stored = get_option(self::CALENDRIER, null);
+        if (!is_array($stored)) { throw new \RuntimeException('Référence postale non persistée.'); }
+        EnvoiRegles::reviserCalendrier($stored, $rows, new DateTimeImmutable('now', new DateTimeZone('UTC')));
+        if ($stored !== $rows) {
+            update_option(self::CALENDRIER, $rows, false);
+            if (get_option(self::CALENDRIER) !== $rows) { throw new \RuntimeException('Référence postale non relue.'); }
         }
-        return $date;
     }
 
     /** Un relevé est une observation présente, jamais un paiement ni un passé inventés. */
@@ -54,8 +55,13 @@ final class EnvoiNatif
             'destinataire' => trim($sub->get_shipping_first_name() . ' ' . $sub->get_shipping_last_name()),
             'rue' => $sub->get_shipping_address_1(), 'complement' => $sub->get_shipping_address_2(),
             'code_postal' => $sub->get_shipping_postcode(), 'ville' => $sub->get_shipping_city(),
-            'pays' => $sub->get_shipping_country(),
-        ];
+            'pays' => $sub->get_shipping_country(), 'renouvellements' => EnvoiRelations::renouvellements($sub),
+        ] + EnvoiRelations::beneficiaires($sub);
+        return self::enregistrer($data);
+    }
+
+    private static function enregistrer(array $data): array
+    {
         $events = self::releves($data['id']);
         $last = $events === [] ? null : $events[array_key_last($events)];
         if (($last['donnees'] ?? null) !== $data) {
@@ -76,6 +82,7 @@ final class EnvoiNatif
             "SELECT option_value FROM {$wpdb->options} WHERE option_name LIKE %s ORDER BY option_id",
             $wpdb->esc_like($prefix) . '%'
         ));
+        if ($wpdb->last_error) { throw new \RuntimeException('Lecture des relevés indisponible.'); }
         $events = array_map('maybe_unserialize', $rows);
         usort($events, static fn (array $a, array $b): int => strcmp($a['observe_utc'], $b['observe_utc']));
         return $events;
@@ -83,11 +90,28 @@ final class EnvoiNatif
 
     public static function register(): void
     {
+        add_action('woocommerce_after_subscription_object_save', static function ($sub): void {
+            if ($sub instanceof \WC_Subscription) { self::relever($sub); }
+        });
         add_action('woocommerce_after_order_object_save', static function ($order): void {
             if ($order instanceof \WC_Subscription) {
                 self::relever($order);
+            } elseif (function_exists('wcs_get_subscriptions_for_renewal_order')) {
+                foreach (wcs_get_subscriptions_for_renewal_order($order) as $sub) { self::relever($sub); }
             }
         });
+        add_filter('pre_update_option_imagine_demo_calendrier', static function ($value, $old) {
+            try {
+                EnvoiRegles::reviserCalendrier(get_option(self::CALENDRIER, $old), $value,
+                    new DateTimeImmutable('now', new DateTimeZone('UTC')));
+                return $value;
+            } catch (\Throwable) {
+                add_settings_error('imagine_demo_calendrier', 'imagine_envoi_cloture',
+                    __('Calendrier refusé : les clôtures et rangs passés sont immuables.', 'imagine-site'));
+                return $old;
+            }
+        }, 10, 2);
+        add_action('update_option_imagine_demo_calendrier', static function (): void { self::initialiser(); });
     }
 
     /** Liste C07 exacte ; C01 fournit les numéros théoriquement dus, sans activation fictive. */
@@ -103,10 +127,46 @@ final class EnvoiNatif
         }
         $number = $selected[0];
         $now = new DateTimeImmutable('now', new DateTimeZone('UTC'));
+        $key = self::GEL . $code;
+        $frozen = get_option($key, null);
+        if ($frozen !== null) { return self::relireGel($code, $frozen, $now); }
+        $alive = [];
         foreach (wcs_get_subscriptions(['subscriptions_per_page' => -1, 'subscription_status' => 'any']) as $sub) {
             self::relever($sub);
+            $alive[(string) $sub->get_id()] = true;
         }
-        return self::calculer($code, self::releves(), $now);
+        $events = self::releves();
+        $latest = [];
+        foreach ($events as $event) { $latest[$event['donnees']['id']] = $event['donnees']; }
+        foreach ($latest as $id => $data) {
+            if (!isset($alive[$id]) && $data['etat'] !== 'cancelled') {
+                $data['etat'] = 'cancelled';
+                $events[] = self::enregistrer($data);
+            }
+        }
+        $view = self::calculer($code, $events, $now);
+        if (!$view['provisoire']) {
+            $snapshot = ['version' => 1, 'numero' => $code, 'calendrier' => get_option(self::CALENDRIER),
+                'observations' => $events, 'cloture' => $number->cloture->format(DATE_ATOM), 'blocs' => $view['blocs']];
+            add_option($key, $snapshot, '', false); // Le premier gel gagne en concurrence.
+            $frozen = get_option($key, null);
+            if ($frozen === null) { throw new \RuntimeException('Gel indisponible : export fermé.'); }
+            return self::relireGel($code, $frozen, $now);
+        }
+        return $view;
+    }
+
+    private static function relireGel(string $code, mixed $frozen, DateTimeImmutable $now): array
+    {
+        if (!is_array($frozen) || ($frozen['version'] ?? null) !== 1 || ($frozen['numero'] ?? null) !== $code) {
+            throw new \RuntimeException('Gel postal invalide.');
+        }
+        $view = EnvoiRegles::calculer($code, $frozen['observations'], $now, $frozen['calendrier']);
+        if ($view['provisoire'] || $view['liste']->cloture->format(DATE_ATOM) !== $frozen['cloture']
+            || $view['blocs'] !== $frozen['blocs']) {
+            throw new \RuntimeException('Référence historique incohérente.');
+        }
+        return $view;
     }
 
     /** Compatibilité des recettes ; horloge, calendrier et logique dans le banc pur. */

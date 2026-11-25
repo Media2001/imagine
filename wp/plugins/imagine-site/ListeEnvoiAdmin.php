@@ -23,6 +23,10 @@ final class ListeEnvoiAdmin
 
     public static function register(): void
     {
+        add_action('admin_init', static function (): void {
+            register_setting('imagine_envoi', 'imagine_envoi_groupes', ['type' => 'string', 'default' => 'ferme',
+                'sanitize_callback' => static fn ($value): string => $value === 'liens_memberships' ? $value : 'ferme']);
+        });
         add_action('admin_menu', [self::class, 'menu'], 100);
         add_filter('woocommerce_prevent_admin_access', static function (bool $prevent): bool {
             // Woo redirige les rôles sans edit_posts/manage_woocommerce vers Mon compte.
@@ -74,6 +78,20 @@ final class ListeEnvoiAdmin
         self::verifier();
         nocache_headers();
         echo '<div class="wrap"><h1>' . esc_html(self::t('Liste d’envoi')) . '</h1>';
+        if (current_user_can('manage_options')) {
+            echo '<form method="post" action="' . esc_url(admin_url('options.php')) . '">';
+            settings_fields('imagine_envoi');
+            echo '<label for="imagine-envoi-groupes">' . esc_html(self::t('Groupes — à confirmer par Imagine')) . '</label> ';
+            echo '<select id="imagine-envoi-groupes" name="imagine_envoi_groupes">';
+            foreach (['ferme' => self::t('Fermé (défaut prudent)'),
+                'liens_memberships' => self::t('Attributions Memberships natives et capacité du produit')] as $value => $label) {
+                echo '<option value="' . esc_attr($value) . '"' . selected(get_option('imagine_envoi_groupes', 'ferme'),
+                    $value, false) . '>' . esc_html($label) . '</option>';
+            }
+            echo '</select><p>' . esc_html(self::t('Aucun statut actif ne remplace un paiement. Les places libres ne reçoivent rien. Les liens requis manquants ferment l’export.')) . '</p>';
+            submit_button(self::t('Enregistrer la politique postale'));
+            echo '</form>';
+        }
         try {
             $calendar = EnvoiNatif::calendrier();
             $code = isset($_GET['numero']) ? self::numero($_GET) : '';
@@ -160,6 +178,9 @@ final class ListeEnvoiAdmin
             'virement_non_valide' => 'Virement non validé', 'paiement_non_valide' => 'Paiement non validé',
             'numero_non_du' => 'Numéro non dû (C01)', 'cree_apres_cloture' => 'Créé après la clôture',
             'historique_indisponible' => 'Historique avant clôture indisponible',
+            'non_eligible' => 'Non éligible à l’envoi',
+            'beneficiaires_non_resolus' => 'Bénéficiaires requis non résolus (export fermé)',
+            'calendrier_incomplet' => 'Calendrier incomplet (export fermé)',
             'adresse_incomplete' => 'Adresse incomplète', 'pays_manquant' => 'Pays manquant',
             'doublon_destinataire_adresse' => 'Deux exemplaires à la même adresse', default => $reason,
         });

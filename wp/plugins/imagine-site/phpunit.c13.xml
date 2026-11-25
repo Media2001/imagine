@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="tests-c13/bootstrap.php" colors="false">
+  <testsuites><testsuite name="C13-pur"><file>tests/EnvoiReglesTest.php</file></testsuite></testsuites>
+</phpunit>
