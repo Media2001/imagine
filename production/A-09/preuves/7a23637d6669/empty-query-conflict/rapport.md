@@ -1,0 +1,9 @@
+# Test des redirections — lecture seule
+
+2 CONFORME ; 1 non conforme(s).
+
+| Ligne | Ancienne | Code attendu | Code observé | Cible attendue | Cible observée | HTTP final | Sauts | Résultat |
+|---|---|---|---|---|---|---|---|---|
+| 2 | /ok | 301 | 301 | /fin | /fin | 200 | 1 | CONFORME |
+| 3 | /a? | 301 | 301 | /b | /b | 200 | 1 | CONFORME |
+| 4 | /a | 302 | 301 | /c | /b | 200 | 1 | mauvais_code, mauvaise_cible |

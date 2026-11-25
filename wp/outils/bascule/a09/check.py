@@ -29,16 +29,19 @@ def plain_file(path, code):
 
 
 def relative(value):
-    """Conservative ASCII URI paths; normalize percent-encoded unreserved."""
+    """ASCII URI: canonicalize path only; preserve query bytes exactly."""
     need(isinstance(value, str) and 0 < len(value) <= 2048, 'A09_PLAN_URL')
-    need(not re.search(r'[\\\x00-\x20\x7f-\uffff#]', value), 'A09_PLAN_URL')
+    need(value.isascii() and not re.search(r'[\\\x00-\x20\x7f#]', value), 'A09_PLAN_URL')
     need(value.startswith('/') and not value.startswith('//'), 'A09_PLAN_URL')
     need(not re.search(r'%(?![a-fA-F0-9]{2})', value), 'A09_PLAN_URL')
-    need(not re.search(r'%(?:0[0-9a-f]|1[0-9a-f]|20|2f|5c|7f)', value, re.I), 'A09_PLAN_URL')
-    value = re.sub(r'%([a-fA-F0-9]{2})', lambda m: chr(int(m[1], 16)) if re.fullmatch(r'[A-Za-z0-9_.~-]', chr(int(m[1], 16))) else '%'+m[1].upper(), value)
-    parts = urlsplit(value)
+    path, delimiter, query = value.partition('?')
+    need(not delimiter or bool(query), 'A09_PLAN_EMPTY_QUERY')
+    need(not re.search(r'%(?:0[0-9a-f]|1[0-9a-f]|20|2f|5c|7f)', path, re.I), 'A09_PLAN_URL')
+    need(not re.search(r'%(?:0[0-9a-f]|1[0-9a-f]|7f)', query, re.I), 'A09_PLAN_URL')
+    path = re.sub(r'%([a-fA-F0-9]{2})', lambda m: chr(int(m[1], 16)) if re.fullmatch(r'[A-Za-z0-9_.~-]', chr(int(m[1], 16))) else '%'+m[1].upper(), path)
+    parts = urlsplit(path)
     need(not parts.scheme and not parts.netloc and not parts.fragment and not any(s in ['.', '..'] for s in parts.path.split('/')), 'A09_PLAN_URL')
-    return value
+    return path+delimiter+query
 
 
 def load_plan(path):
@@ -66,7 +69,7 @@ def load_plan(path):
 
 
 def origin(value):
-    need(isinstance(value, str) and not re.search(r'[\\\x00-\x20\x7f-\uffff]', value), 'A09_BASE_URL')
+    need(isinstance(value, str) and value.isascii() and not re.search(r'[\\\x00-\x20\x7f]', value), 'A09_BASE_URL')
     parts = urlsplit(value)
     need(parts.scheme in ['http', 'https'] and parts.hostname and parts.username is None and parts.password is None
          and parts.path in ['', '/'] and not parts.query and not parts.fragment and '?' not in value and '#' not in value, 'A09_BASE_URL')
@@ -111,7 +114,8 @@ class Client:
     def get(self, url):
         parts = urlsplit(url)
         need(origin(parts.scheme+'://'+parts.netloc) == self.base, 'A09_OTHER_ORIGIN')
-        path = relative(parts.path or '/')+('?' + parts.query if parts.query else '')
+        need('?' not in url.split('#', 1)[0] or bool(parts.query), 'A09_PLAN_EMPTY_QUERY')
+        path = relative((parts.path or '/')+('?' + parts.query if parts.query else ''))
         if self.last is not None:
             time.sleep(max(0, self.interval-(time.monotonic()-self.last)))
         self.last = time.monotonic()
@@ -156,7 +160,8 @@ def check_row(client, row):
             location = locations[0]
             if attempt == 0:
                 result['observed_target'] = location
-            need(len(location) <= 2048 and not re.search(r'[\\\x00-\x20\x7f-\uffff]', location), 'A09_LOCATION')
+            need(len(location) <= 2048 and location.isascii() and not re.search(r'[\\\x00-\x20\x7f]', location), 'A09_LOCATION')
+            need('?' not in location.split('#', 1)[0] or bool(urlsplit(location).query), 'A09_LOCATION_EMPTY_QUERY')
             target = urljoin(url, location)
             parts = urlsplit(target)
             if parts.scheme not in ['http', 'https'] or origin(parts.scheme+'://'+parts.netloc) != client.base:

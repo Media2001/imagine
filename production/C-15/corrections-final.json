@@ -1,7 +1,7 @@
 {
   "at": "2026-11-25T21:01:57.927715+00:00",
   "scope": "imagine-test-demo",
-  "status": "RUNNING",
+  "status": "PRET_RELECTURE_CORRECTIONS",
   "sources": {
     "wp/outils/demo/c15-unit.py": "f36813e34c95baecfc799d9ba35dff347f176e954e4db837d561d02f5ca2b402",
     "wp/outils/demo/c15.py": "bac9bd3289798004fa8bf48023b557f8a84f561b7e840af9ecd686f5cab7c66e",
@@ -28,5 +28,224 @@
   },
   "corrections-t01": {
     "exit": 0
-  }
+  },
+  "T01": {
+    "tests": 1030,
+    "assertions": 34124,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass": true
+  },
+  "T01_C15_discovered": true,
+  "standalone_pure": {
+    "total": 28,
+    "checks": {
+      "regles_presentes": true,
+      "30_jours_inclus_tri_date_id": true,
+      "90_jours_borne_incluse": true,
+      "180_jours_sans_expire_annule": true,
+      "date_plus_proche": true,
+      "periode_invalide_refusee": true,
+      "filtres_paiements_presents": true,
+      "attente_statuts_natifs_non_payes": true,
+      "virements_bacs_seulement": true,
+      "echecs_statut_natif_sans_inventer_delai": true,
+      "vue_invalide_refusee": true,
+      "mandats_export_presents": true,
+      "mandats_renouvellement_actif_uniquement": true,
+      "aucun_bacs_dans_mandats": true,
+      "mandat_date_native_passee_reste_a_lancer": true,
+      "CSV_colonnes_strictes_sans_IBAN": true,
+      "CSV_formules_neutralisees": true,
+      "CSV_date_native_UTC": true,
+      "borne_30_exacte_voisines_1s_tri_ID_sans_dates": true,
+      "mandats_borne_30_exacte_voisines_1s_tri_ID_sans_dates": true,
+      "borne_90_exacte_voisines_1s_tri_ID_sans_dates": true,
+      "mandats_borne_90_exacte_voisines_1s_tri_ID_sans_dates": true,
+      "borne_180_exacte_voisines_1s_tri_ID_sans_dates": true,
+      "mandats_borne_180_exacte_voisines_1s_tri_ID_sans_dates": true,
+      "mandat_onhold_renouvellement_du_sans_doublon_futur": true,
+      "mandat_reference_manquante_visible": true,
+      "onhold_sans_dette_non_autorise_en_bloc": true,
+      "renouvellement_paye_non_represente_comme_du": true
+    },
+    "failures": []
+  },
+  "paper": {
+    "checks": {
+      "native_unpaid_onhold": true,
+      "due_renewal_not_lost": true,
+      "no_future_duplicate": true,
+      "native_paid_renewal_excluded": true,
+      "owned_all_dates_restored": true,
+      "catalogue_semantic_exact": true
+    },
+    "total": 6,
+    "failures": []
+  },
+  "action": {
+    "checks": {
+      "formulaire_paiement_recu": true,
+      "paiement_cap_refus_E-REDAC": true,
+      "paiement_cap_refus_A-CARTE": true,
+      "paiement_nonce_absent": true,
+      "paiement_nonce_invalide": true,
+      "paiement_nonce_tableau": true,
+      "confirmation_serveur_sans_ecriture": true,
+      "paiement_GET_refuse": true,
+      "nonce_lie_commande": true,
+      "objet_refuse_deja_paye": true,
+      "objet_refuse_echec_pas_virement": true,
+      "objet_refuse_souscription_pas_commande": true,
+      "paiement_natif_paye_date": true,
+      "note_operateur_datee_native": true,
+      "double_validation_refusee_sans_double_note": true,
+      "reset_C09_relu": true
+    },
+    "total": 16,
+    "failures": []
+  },
+  "concurrent": {
+    "checks": {
+      "two_simultaneous_one_success_one_refusal": true,
+      "single_C15_audit_note": true,
+      "finally_unlock_before_response": true,
+      "native_paid_no_gateway_no_transaction": true,
+      "temporary_MU_removed": true,
+      "owned_all_dates_restored": true,
+      "catalogue_semantic_exact": true
+    },
+    "total": 7,
+    "failures": [],
+    "responses": [
+      {
+        "status": 302,
+        "elapsed": 2.407,
+        "success": true,
+        "lock": "free"
+      },
+      {
+        "status": 409,
+        "elapsed": 2.339,
+        "success": false,
+        "lock": "free"
+      }
+    ],
+    "global_C09_reset": false
+  },
+  "native_false": {
+    "checks": {
+      "native_false_despite_paid_is_refused": true,
+      "native_false_no_C15_success_note": true,
+      "finally_unlock_before_response": true,
+      "native_paid_no_gateway_no_transaction": true,
+      "temporary_MU_removed": true,
+      "owned_all_dates_restored": true,
+      "catalogue_semantic_exact": true
+    },
+    "total": 7,
+    "failures": [],
+    "responses": [
+      {
+        "status": 409,
+        "elapsed": 2.405,
+        "success": false,
+        "lock": "free"
+      }
+    ],
+    "global_C09_reset": false
+  },
+  "french": {
+    "checks": {
+      "mandats_libelle_francais": true,
+      "attente_libelle_francais": true,
+      "virements_libelle_francais": true,
+      "echecs_libelle_francais": true
+    },
+    "total": 4,
+    "failures": []
+  },
+  "runtime": {
+    "raccord_present": true,
+    "capacite_E-ABO": true,
+    "capacite_E-ADMIN": true,
+    "capacite_E-REDAC": true,
+    "capacite_A-CARTE": true,
+    "referent_cap_dediee_sans_manage_options": true,
+    "A_ECHEANCE_dans_echeances": true,
+    "A_VIR_seul_virement": true,
+    "A_VIR_attente": true,
+    "A_CARTE_payee_hors_attente": true,
+    "echecs_GRACE_SUSP_seulement": true,
+    "A_PAPIER_seul_mandat": true,
+    "mandat_identifiant_fictif_natif": true,
+    "mandat_montant_date_natifs": true,
+    "pas_IBAN_dans_projection": true,
+    "marqueur_fictif_mauvais_proprietaire_ferme": true,
+    "marqueur_fictif_mauvais_id_ferme": true,
+    "marqueur_sans_fictif_ferme": true,
+    "methode_native_prioritaire_pas_de_bacs_invente": true,
+    "garde_hors_ligne": true,
+    "anonyme_ferme": true
+  },
+  "HTTP": {
+    "vue_native_E-ABO_echeances": true,
+    "prive_sans_IBAN_E-ABO_echeances": true,
+    "vue_native_E-ABO_attente": true,
+    "prive_sans_IBAN_E-ABO_attente": true,
+    "vue_native_E-ABO_virements": true,
+    "prive_sans_IBAN_E-ABO_virements": true,
+    "vue_native_E-ABO_mandats": true,
+    "prive_sans_IBAN_E-ABO_mandats": true,
+    "vue_native_E-ABO_echecs": true,
+    "prive_sans_IBAN_E-ABO_echecs": true,
+    "menu_Imagine_unique_E-ABO": true,
+    "vue_native_E-ADMIN_echeances": true,
+    "prive_sans_IBAN_E-ADMIN_echeances": true,
+    "vue_native_E-ADMIN_attente": true,
+    "prive_sans_IBAN_E-ADMIN_attente": true,
+    "vue_native_E-ADMIN_virements": true,
+    "prive_sans_IBAN_E-ADMIN_virements": true,
+    "vue_native_E-ADMIN_mandats": true,
+    "prive_sans_IBAN_E-ADMIN_mandats": true,
+    "vue_native_E-ADMIN_echecs": true,
+    "prive_sans_IBAN_E-ADMIN_echecs": true,
+    "menu_Imagine_unique_E-ADMIN": true,
+    "referent_sans_reglages": true,
+    "page_refusee_E-REDAC": true,
+    "page_refusee_A-CARTE": true,
+    "export_refuse_E-REDAC": true,
+    "export_refuse_A-CARTE": true,
+    "export_anonyme_refuse": true,
+    "export_nonce_absent": true,
+    "export_nonce_invalide": true,
+    "export_nonce_tableau": true,
+    "formulaire_export_E-ABO": true,
+    "CSV_ouvert_E-ABO": true,
+    "CSV_prive_E-ABO": true,
+    "CSV_sans_formule_IBAN_E-ABO": true,
+    "export_GET_refuse_E-ABO": true,
+    "export_nonce_lie_periode_E-ABO": true,
+    "formulaire_export_E-ADMIN": true,
+    "CSV_ouvert_E-ADMIN": true,
+    "CSV_prive_E-ADMIN": true,
+    "CSV_sans_formule_IBAN_E-ADMIN": true,
+    "export_GET_refuse_E-ADMIN": true,
+    "export_nonce_lie_periode_E-ADMIN": true
+  },
+  "C09": {
+    "total": 149,
+    "failures": [],
+    "exit": 0
+  },
+  "protected_remote_files_unchanged": true,
+  "all_fixture_semantics_exact": true,
+  "sources_unchanged_during_replay": true,
+  "no_temporary_MU": true,
+  "theme_written": false,
+  "shared_bootstrap_written": false,
+  "C09_source_written": false,
+  "global_C09_reset": false,
+  "finished_at": "2026-11-25T21:07:00.269355+00:00"
 }

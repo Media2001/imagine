@@ -1,0 +1,2 @@
+﻿line,ancienne,cible,code,observed_code,observed_target,final_status,hops,issues
+3,/x,/fin􏿿,301,404,,404,0,"mauvais_code, cible_non_200"

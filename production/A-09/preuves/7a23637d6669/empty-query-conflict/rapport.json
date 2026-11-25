@@ -1,0 +1,76 @@
+{
+  "schema": "imagine-a09-report-v1",
+  "base_url": "http://127.0.0.1:37247",
+  "read_only": true,
+  "requests": 6,
+  "total": 3,
+  "nonconformes": 1,
+  "rows": [
+    {
+      "line": 2,
+      "ancienne": "/ok",
+      "cible": "/fin",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "/fin",
+      "final_status": 200,
+      "hops": 1,
+      "issues": [],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:37247/ok",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:37247/fin",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "line": 3,
+      "ancienne": "/a?",
+      "cible": "/b",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "/b",
+      "final_status": 200,
+      "hops": 1,
+      "issues": [],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:37247/a?",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:37247/b",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "line": 4,
+      "ancienne": "/a",
+      "cible": "/c",
+      "code": 302,
+      "observed_code": 301,
+      "observed_target": "/b",
+      "final_status": 200,
+      "hops": 1,
+      "issues": [
+        "mauvais_code",
+        "mauvaise_cible"
+      ],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:37247/a",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:37247/b",
+          "status": 200
+        }
+      ]
+    }
+  ]
+}

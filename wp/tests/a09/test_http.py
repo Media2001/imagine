@@ -174,6 +174,75 @@ class VariantHttpTest(HttpFixture):
 
 
 
+class QueryEncodingHttpTest(HttpFixture):
+    def test_query_encodings_are_transmitted_unchanged_on_source_and_target(self):
+        rows = []
+        expected = []
+        for i, query in enumerate(['u=%2Fpage', 'q=deux%20mots', 'u=%2fpage&x=%61%5c%3f%23']):
+            source = ['/ancien', '/x', '/trois'][i]+'?'+query
+            target = '/nouveau'+str(i)+'?'+query
+            self.routes.update({source: (301, target, 0), target: (200, None, 0)})
+            rows.append((source, target, 301))
+            expected.extend([source, target])
+        result, out = self.run_cli('query-encoded', rows)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual([e['path'] for e in self.events], expected)
+        self.assertEqual(json.loads((out/'rapport.json').read_text())['nonconformes'], 0)
+
+    def test_encoded_path_separator_is_still_refused_before_http(self):
+        result, out = self.run_cli('query-path-refusal', [('/ok', '/fin', 301), ('/a%2fb', '/fin', 301)])
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertEqual(self.events, [])
+        self.assertFalse(out.exists())
+
+    def test_encoded_query_control_is_refused_before_http(self):
+        result, out = self.run_cli('query-control-refusal', [('/ok', '/fin', 301), ('/x?q=%0d%0aX', '/fin', 301)])
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertEqual(self.events, [])
+        self.assertFalse(out.exists())
+
+
+class EmptyQueryHttpTest(HttpFixture):
+    def test_empty_query_source_conflict_refuses_whole_plan_before_http(self):
+        self.routes.update({'/ok': (301, '/fin', 0), '/fin': (200, None, 0), '/a': (301, '/b', 0), '/b': (200, None, 0)})
+        result, out = self.run_cli('empty-query-conflict', [('/ok', '/fin', 301), ('/a?', '/b', 301), ('/a', '/c', 302)])
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertIn('A09_PLAN_EMPTY_QUERY', result.stderr)
+        self.assertEqual(self.events, [])
+        self.assertFalse(out.exists())
+
+    def test_empty_query_target_has_no_false_wrong_target_verdict(self):
+        self.routes.update({'/ok': (301, '/fin', 0), '/fin': (200, None, 0), '/a': (301, '/b', 0), '/b': (200, None, 0)})
+        result, out = self.run_cli('empty-query-target', [('/ok', '/fin', 301), ('/a', '/b?', 301)])
+        self.assertEqual(result.returncode, 2, result.stderr)
+        self.assertIn('A09_PLAN_EMPTY_QUERY', result.stderr)
+        self.assertNotIn('mauvaise_cible', result.stdout)
+        self.assertEqual(self.events, [])
+        self.assertFalse(out.exists())
+
+    def test_empty_query_location_is_not_silently_normalized_or_followed(self):
+        self.routes.update({'/a': (301, '/b?', 0), '/b': (200, None, 0)})
+        result, out = self.run_cli('empty-query-location', [('/a', '/b', 301)])
+        self.assertEqual(result.returncode, 1, result.stderr)
+        row = json.loads((out/'rapport.json').read_text())['rows'][0]
+        self.assertEqual(row['issues'], ['redirection_invalide'])
+        self.assertEqual([e['path'] for e in self.events], ['/a'])
+
+
+class AsciiPlanHttpTest(HttpFixture):
+    def test_non_bmp_tail_refuses_whole_plan_before_any_request(self):
+        self.routes.update({'/ok': (301, '/fin', 0), '/fin': (200, None, 0)})
+        cases = {'non-bmp-source': ('/x\U0001f600', '/fin', 301),
+                 'non-bmp-target': ('/x', '/fin\U0010ffff', 301)}
+        for name, tail in cases.items():
+            with self.subTest(name=name):
+                result, out = self.run_cli(name, [('/ok', '/fin', 301), tail])
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertIn('A09_PLAN_URL', result.stderr)
+                self.assertEqual(self.events, [])
+                self.assertFalse(out.exists())
+
+
 class RefusalHttpTest(HttpFixture):
     def test_malformed_native_marker_fails_closed_without_traceback_or_http(self):
         marker = self.site/'.imagine-staging-verified.json'

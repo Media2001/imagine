@@ -1,0 +1,22 @@
+{
+  "checks": {
+    "native_false_despite_paid_is_refused": true,
+    "native_false_no_C15_success_note": true,
+    "finally_unlock_before_response": true,
+    "native_paid_no_gateway_no_transaction": true,
+    "temporary_MU_removed": true,
+    "owned_all_dates_restored": true,
+    "catalogue_semantic_exact": true
+  },
+  "total": 7,
+  "failures": [],
+  "responses": [
+    {
+      "status": 409,
+      "elapsed": 2.405,
+      "success": false,
+      "lock": "free"
+    }
+  ],
+  "global_C09_reset": false
+}

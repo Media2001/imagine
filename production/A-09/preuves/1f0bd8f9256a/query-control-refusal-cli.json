@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpf0huhb4q/site",
+    "--base-url=http://127.0.0.1:40229",
+    "--plan=/repo/wp/tests/a09/tmpf0huhb4q/query-control-refusal.csv",
+    "--output=/report/query-control-refusal",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "A09_PLAN_URL\n",
+  "events": [],
+  "site_unchanged": true
+}

@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpt8rc9l91/site",
+    "--base-url=http://127.0.0.1:34289",
+    "--plan=/repo/wp/tests/a09/tmpt8rc9l91/non-bmp-source.csv",
+    "--output=/report/non-bmp-source",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 1,
+  "stdout": "# Test des redirections \u2014 lecture seule\n\n1 CONFORME ; 1 non conforme(s).\n\n| Ligne | Ancienne | Code attendu | Code observ\u00e9 | Cible attendue | Cible observ\u00e9e | HTTP final | Sauts | R\u00e9sultat |\n|---|---|---|---|---|---|---|---|---|\n| 2 | /ok | 301 | 301 | /fin | /fin | 200 | 1 | CONFORME |\n| 3 | /x\ud83d\ude00 | 301 | \u2014 | /fin | \u2014 | \u2014 | 0 | redirection_invalide |\n",
+  "stderr": "",
+  "events": [
+    {
+      "method": "GET",
+      "path": "/ok",
+      "at": 484035.701830322,
+      "port": 34289
+    },
+    {
+      "method": "GET",
+      "path": "/fin",
+      "at": 484035.801617339,
+      "port": 34289
+    }
+  ],
+  "site_unchanged": true
+}

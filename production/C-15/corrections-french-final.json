@@ -1,0 +1,10 @@
+{
+  "checks": {
+    "mandats_libelle_francais": true,
+    "attente_libelle_francais": true,
+    "virements_libelle_francais": true,
+    "echecs_libelle_francais": true
+  },
+  "total": 4,
+  "failures": []
+}

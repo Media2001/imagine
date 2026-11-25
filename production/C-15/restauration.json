@@ -1,5 +1,6 @@
 {
-  "C09_reset": true,
+  "C09_reset": false,
+  "scoped_native_restore": "A-VIR",
   "dependent_discovery_restored": true,
   "baseline_semantic_equal": true,
   "theme_written": false

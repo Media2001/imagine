@@ -1,0 +1,31 @@
+{
+  "schema": "imagine-a09-report-v1",
+  "base_url": "http://127.0.0.1:46481",
+  "read_only": true,
+  "requests": 2,
+  "total": 1,
+  "nonconformes": 0,
+  "rows": [
+    {
+      "line": 2,
+      "ancienne": "/a",
+      "cible": "/b",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "/b?",
+      "final_status": 200,
+      "hops": 1,
+      "issues": [],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:46481/a",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:46481/b",
+          "status": 200
+        }
+      ]
+    }
+  ]
+}

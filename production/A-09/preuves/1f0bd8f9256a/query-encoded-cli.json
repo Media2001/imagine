@@ -1,0 +1,55 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpgx9h0hdg/site",
+    "--base-url=http://127.0.0.1:35913",
+    "--plan=/repo/wp/tests/a09/tmpgx9h0hdg/query-encoded.csv",
+    "--output=/report/query-encoded",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 0,
+  "stdout": "# Test des redirections \u2014 lecture seule\n\n3 CONFORME ; 0 non conforme(s).\n\n| Ligne | Ancienne | Code attendu | Code observ\u00e9 | Cible attendue | Cible observ\u00e9e | HTTP final | Sauts | R\u00e9sultat |\n|---|---|---|---|---|---|---|---|---|\n| 2 | /ancien?u=%2Fpage | 301 | 301 | /nouveau0?u=%2Fpage | /nouveau0?u=%2Fpage | 200 | 1 | CONFORME |\n| 3 | /x?q=deux%20mots | 301 | 301 | /nouveau1?q=deux%20mots | /nouveau1?q=deux%20mots | 200 | 1 | CONFORME |\n| 4 | /trois?u=%2fpage&amp;x=%61%5c%3f%23 | 301 | 301 | /nouveau2?u=%2fpage&amp;x=%61%5c%3f%23 | /nouveau2?u=%2fpage&amp;x=%61%5c%3f%23 | 200 | 1 | CONFORME |\n",
+  "stderr": "",
+  "events": [
+    {
+      "method": "GET",
+      "path": "/ancien?u=%2Fpage",
+      "at": 483960.895466953,
+      "port": 35913
+    },
+    {
+      "method": "GET",
+      "path": "/nouveau0?u=%2Fpage",
+      "at": 483960.995103054,
+      "port": 35913
+    },
+    {
+      "method": "GET",
+      "path": "/x?q=deux%20mots",
+      "at": 483961.095300416,
+      "port": 35913
+    },
+    {
+      "method": "GET",
+      "path": "/nouveau1?q=deux%20mots",
+      "at": 483961.195328573,
+      "port": 35913
+    },
+    {
+      "method": "GET",
+      "path": "/trois?u=%2fpage&x=%61%5c%3f%23",
+      "at": 483961.295765611,
+      "port": 35913
+    },
+    {
+      "method": "GET",
+      "path": "/nouveau2?u=%2fpage&x=%61%5c%3f%23",
+      "at": 483961.395587436,
+      "port": 35913
+    }
+  ],
+  "site_unchanged": true
+}

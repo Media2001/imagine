@@ -1,0 +1,29 @@
+{
+  "drift": {
+    "wp/outils/bascule/repetition.md": {
+      "old": "e5bfe25f8f15c9c52bfd6447e17ccac003919c74a6a876c5b0b97f07cf540089",
+      "new": "e398d7442dd9422e6b0ba7c8ff38b3fd4d6344e6597d9b8dae3f97d3b7e81829"
+    },
+    "wp/outils/bascule/a08/sequence.py": {
+      "old": "8ef74b38f0c7099c56d3f5d6f66e093027c431b592e88247e33cc8d801296ddd",
+      "new": "dcbc05535246ae325d0375e24eafec5aea2ddfd7d2d85285470e95255d2ba599"
+    },
+    "wp/tests/a02-audit/README.md": {
+      "old": "7314ab53dd50331d8f3e310215cda613954214c96b0df353981f4ebdac89db72",
+      "new": "acb63389a0c965d4af81197213d201afb8f73f87971d342b59f9e9476eae47a0"
+    },
+    "wp/tests/a08/inside.py": {
+      "old": "eab6a79f3fb8953ae806750025bb462be2e3e76e45b9d6af1164f7b4ec469f97",
+      "new": "f364062ddf48df44dacb64dc4a17009339f1689c6b786a763a154c9cabcbe460"
+    },
+    "wp/tests/a08/test_sequence.py": {
+      "old": "ac95e6727a417e6ea08bfe0aaf107fa5574ce32de3d71f5dce01629aac5393b3",
+      "new": "66fe0a7cbd24db377a604502ff89c09577bdfd2754424e79d8efdc514c9cda39"
+    }
+  },
+  "readme_exact_two_line_removal_restores_old_sha256": true,
+  "a08_manifest_sha256": "d3a809c41ffc85a44ecae1e0e4bb18584bd05f72ec4703f5d6a585af4ac3d42d",
+  "a08_proof": "production/A-08/preuves/0bfc90415810",
+  "new_test_package": false,
+  "image_preparation": "Existing A09 Python package extended; historical preparation preserved; no new package."
+}

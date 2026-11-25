@@ -1,0 +1,49 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpt8rc9l91/site",
+    "--base-url=http://127.0.0.1:34289",
+    "--plan=/repo/wp/tests/a09/tmpt8rc9l91/non-bmp-target.csv",
+    "--output=/report/non-bmp-target",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 1,
+  "stdout": "# Test des redirections \u2014 lecture seule\n\n1 CONFORME ; 1 non conforme(s).\n\n| Ligne | Ancienne | Code attendu | Code observ\u00e9 | Cible attendue | Cible observ\u00e9e | HTTP final | Sauts | R\u00e9sultat |\n|---|---|---|---|---|---|---|---|---|\n| 2 | /ok | 301 | 301 | /fin | /fin | 200 | 1 | CONFORME |\n| 3 | /x | 301 | 404 | /fin\udbff\udfff | \u2014 | 404 | 0 | mauvais_code, cible_non_200 |\n",
+  "stderr": "",
+  "events": [
+    {
+      "method": "GET",
+      "path": "/ok",
+      "at": 484035.701830322,
+      "port": 34289
+    },
+    {
+      "method": "GET",
+      "path": "/fin",
+      "at": 484035.801617339,
+      "port": 34289
+    },
+    {
+      "method": "GET",
+      "path": "/ok",
+      "at": 484035.956495893,
+      "port": 34289
+    },
+    {
+      "method": "GET",
+      "path": "/fin",
+      "at": 484036.055990085,
+      "port": 34289
+    },
+    {
+      "method": "GET",
+      "path": "/x",
+      "at": 484036.156633461,
+      "port": 34289
+    }
+  ],
+  "site_unchanged": true
+}

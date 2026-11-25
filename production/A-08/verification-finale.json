@@ -1,0 +1,10 @@
+{
+  "command": [
+    "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+    "-B",
+    "C:\\Users\\Ced\\imagine\\production\\A-08\\verifier.py"
+  ],
+  "exit": 0,
+  "stdout": "{\n  \"exit_code\": 0,\n  \"verified_files\": {\n    \"protected\": 1041,\n    \"sources\": 68,\n    \"evidence\": 176,\n    \"history\": 782,\n    \"delivery\": 18\n  },\n  \"counts\": {\n    \"a08_unit\": 21,\n    \"a02_unit\": 17,\n    \"a03_unit\": 10,\n    \"a03_boundaries\": 5,\n    \"a04_unit\": 48,\n    \"a05_unit\": 21,\n    \"native_checks\": 59,\n    \"runner_checks\": 11\n  },\n  \"durations_seconds_by_pass\": {\n    \"classic\": {\n      \"1\": {\n        \"audit\": 1.073,\n        \"avant\": 1.453,\n        \"mise-a-jour\": 76.074,\n        \"nettoyage\": 2.164,\n        \"apres\": 1.519,\n        \"comparaison\": 0.043\n      },\n      \"2\": {\n        \"audit\": 1.183,\n        \"avant\": 0.793,\n        \"mise-a-jour\": 3.627,\n        \"nettoyage\": 0.432,\n        \"apres\": 0.759,\n        \"comparaison\": 0.037\n      }\n    },\n    \"hpos\": {\n      \"1\": {\n        \"audit\": 1.268,\n        \"avant\": 1.727,\n        \"mise-a-jour\": 81.157,\n        \"nettoyage\": 2.527,\n        \"apres\": 1.634,\n        \"comparaison\": 0.043\n      },\n      \"2\": {\n        \"audit\": 1.456,\n        \"avant\": 0.982,\n        \"mise-a-jour\": 3.968,\n        \"nettoyage\": 0.48,\n        \"apres\": 1.016,\n        \"comparaison\": 0.045\n      }\n    }\n  },\n  \"proof\": \"production/A-08/preuves/0bfc90415810\"\n}\n",
+  "stderr": ""
+}

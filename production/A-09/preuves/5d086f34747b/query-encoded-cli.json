@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/repo/wp/outils/bascule/tester-redirections",
+    "--wp-path=/repo/wp/tests/a09/tmpg5x695ta/site",
+    "--base-url=http://127.0.0.1:38929",
+    "--plan=/repo/wp/tests/a09/tmpg5x695ta/query-encoded.csv",
+    "--output=/report/query-encoded",
+    "--interval=0.1",
+    "--timeout=0.15"
+  ],
+  "exit": 2,
+  "stdout": "",
+  "stderr": "A09_PLAN_URL\n",
+  "events": [],
+  "site_unchanged": true
+}

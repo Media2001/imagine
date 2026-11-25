@@ -1,0 +1,51 @@
+{
+  "schema": "imagine-a09-report-v1",
+  "base_url": "http://127.0.0.1:34289",
+  "read_only": true,
+  "requests": 3,
+  "total": 2,
+  "nonconformes": 1,
+  "rows": [
+    {
+      "line": 2,
+      "ancienne": "/ok",
+      "cible": "/fin",
+      "code": 301,
+      "observed_code": 301,
+      "observed_target": "/fin",
+      "final_status": 200,
+      "hops": 1,
+      "issues": [],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:34289/ok",
+          "status": 301
+        },
+        {
+          "url": "http://127.0.0.1:34289/fin",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "line": 3,
+      "ancienne": "/x",
+      "cible": "/fin􏿿",
+      "code": 301,
+      "observed_code": 404,
+      "observed_target": null,
+      "final_status": 404,
+      "hops": 0,
+      "issues": [
+        "mauvais_code",
+        "cible_non_200"
+      ],
+      "trace": [
+        {
+          "url": "http://127.0.0.1:34289/x",
+          "status": 404
+        }
+      ]
+    }
+  ]
+}
