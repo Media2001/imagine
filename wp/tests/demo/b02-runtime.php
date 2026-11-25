@@ -40,6 +40,7 @@ foreach (['A-CARTE', 'A-SEPA4', 'A-SUSP', 'P-NUMERO', 'V-INSCRIT'] as $who) {
     }
     $checks[$who . '_factures_vides_explicites'] = $v['factures'] === [] && str_contains($html, 'Aucune facture ou justificatif disponible');
     if ($who === 'A-CARTE') {
+        $checks['gel_postal_non_atteste_par_B02'] = !str_contains($html, 'Une liste déjà close conserve son instantané.');
         $checks['carte_actif_natif_sans_carte_inventee'] = $v['abonnements'][0]['etat'] === 'Actif';
         $checks['carte_montant_date_natifs'] = $v['abonnements'][0]['prochaine'] === wcs_get_subscription($f['subscriptions'][$who])->get_date('next_payment', 'gmt')
             && $v['abonnements'][0]['montant'] === '120.00';

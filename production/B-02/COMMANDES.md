@@ -26,7 +26,7 @@ Premier natif 75/80 (préfixe réel DEMO des codes, intervalle WCS retourné en 
 PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/b02.py --deploy --require-complete
 ```
 
-Exit **2**, volontairement non vert en acceptation complète : **143/143 contrôles techniques**, aucune panne technique, mais profil nominatif A-4x-J45 absent et limites décrites dans `rapport.md`. Décomposition : 74 PHP natifs + 8 états natifs + 54 HTTP + 4 readbacks/syntaxes + 3 gardes de préservation. Quatre fichiers applicatifs seulement installés, plus les recettes PHP dans `imagine-demo-build` ; aucun reset de profil ni état de paiement changé.
+Exit **2**, volontairement non vert en acceptation complète : **144/144 contrôles techniques**, aucune panne technique, mais profil nominatif A-4x-J45 absent et limites décrites dans `rapport.md`. Décomposition : 75 PHP natifs + 8 états/gardes natifs + 54 HTTP + 4 readbacks/syntaxes + 3 gardes de préservation. Quatre fichiers applicatifs seulement installés, plus les recettes PHP dans `imagine-demo-build` ; aucun reset de profil ni état de paiement changé. Les derniers rouges ciblés (`red-nonaddress.json`, `red-gel.json`) ont précédé respectivement le bornage du hook postal au formulaire natif et la suppression de la promesse de gel C13 ; dernier rejeu complet vert technique, strict 2.
 
 Rejeu indépendant sans réinstallation :
 
@@ -42,6 +42,6 @@ La recette effectue un véritable aller-retour d'adresse synthétique, conserve 
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1
 ```
 
-Exit **0** ; PHP de l'image 8.2.33, trois paquets publics verrouillés, vérification hors ligne réussie. Image : `sha256:6fa287e70ce269aa0e0bb9dd93d15bbe9629b8280a731df3d11c88c386150572`. Avertissements explicites : imagine-site et le thème ne sont pas découverts par T01 ; les 82 assertions PHP B02 sont exécutées par la recette native ci-dessus, pas prétendues dans T01.
+Exit **0** ; PHP de l'image 8.2.33, trois paquets publics verrouillés, vérification hors ligne réussie. Image : `sha256:6fa287e70ce269aa0e0bb9dd93d15bbe9629b8280a731df3d11c88c386150572`. Avertissements explicites : imagine-site et le thème ne sont pas découverts par T01 ; les 83 assertions PHP B02 sont exécutées par la recette native ci-dessus, pas prétendues dans T01.
 
 Complément C14 pur exécuté via `c14.pure()` : **21/21**, sans paiement ni mutation de profil. Le runner C14 complet (qui modifie temporairement des états financiers synthétiques) n'a pas été relancé par ce lot. Les 536 + 193 contrôles antérieurs appartiennent au parent, pas aux totaux B02.

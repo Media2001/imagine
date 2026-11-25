@@ -1,0 +1,10 @@
+{
+  "kind": "owned-public-cache-cleanup",
+  "removed_exact_public_files": [
+    "wordpress-6.9.1.zip",
+    "wordpress-7.0.zip",
+    "woocommerce-11.0.1.zip"
+  ],
+  "no_real_archive_accessed": true,
+  "replay_preparation": "python -B wp/tests/a04/prepare_public.py"
+}

@@ -8,7 +8,7 @@ Squelette sémantique uniquement, sans nouvelle CSS, composants ni valeurs méti
 - Présentation accessible de quatre lignes d'échéances sur mobile, titres de colonnes et états non dépendants de la seule couleur.
 - Bandeau de régularisation et action native, sans faire croire qu'un rejet existe quand seul l'état suspendu est disponible.
 - PDF : numéro/titre et téléchargement protégé distincts. Aucun lien au fichier physique.
-- Coordonnées : adresse par souscription, édition native ; préciser visuellement qu'une liste postale déjà close garde son instantané.
+- Coordonnées : adresse par souscription, édition native ; préciser visuellement que le gel des listes closes relève du postal C13 (correction en cours, pas une garantie attestée par B02).
 - Factures/justificatifs : état vide explicite, distinct des commandes.
 - Focus clavier, contraste, messages d'erreur et libellés français à valider. Pas de maquette reçue ni de validation visuelle revendiquée.
 

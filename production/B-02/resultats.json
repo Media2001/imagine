@@ -1,6 +1,6 @@
 {
   "scope": "imagine-test-demo",
-  "at": "2026-11-25T12:51:06.364486+00:00",
+  "at": "2026-11-25T12:54:53.878420+00:00",
   "status": "TECHNIQUE_VERT_ACCEPTATION_PARTIELLE",
   "deployed_bytes": {
     "plugins/imagine-site/MonCompte.php": true,
@@ -27,6 +27,7 @@
     "A-CARTE_section_coordonnees": true,
     "A-CARTE_section_factures": true,
     "A-CARTE_factures_vides_explicites": true,
+    "gel_postal_non_atteste_par_B02": true,
     "carte_actif_natif_sans_carte_inventee": true,
     "carte_montant_date_natifs": true,
     "A-SEPA4_proprietaire_session": true,
@@ -185,8 +186,9 @@
     "Marge C05 non renseignée : quatre positions nommées A-SEPA4, aucune date théorique inventée.",
     "Historique activation C01 et factures/justificatifs non raccordés : emplacements nommés.",
     "Aucune échéance failed native sur les profils demandés : branche de paiement échoué non prouvée par HTTP, aucun rejet fabriqué.",
-    "A-CARTE sans paiement validé : adresse/source postale prouvée, inclusion positive dans un vrai export C07 non attestée."
+    "A-CARTE sans paiement validé : adresse/source postale prouvée, inclusion positive dans un vrai export C07 non attestée.",
+    "Corrections C13/C14 présentes au contrôle final : hors délégation B02, signalées au parent sans réouverture de leurs sources."
   ],
-  "total": 143,
+  "total": 144,
   "failures": []
 }

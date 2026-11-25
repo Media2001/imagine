@@ -1,0 +1,47 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-25T12:57:29.308581+00:00",
+  "B02_total_verified": 144,
+  "B02_groups": {
+    "deployed_bytes": 4,
+    "b02-runtime.php": 75,
+    "b02-state.php": 8,
+    "http": 54
+  },
+  "strict_exit": 2,
+  "C14_pure": {
+    "payee_processing": true,
+    "payee_completed": true,
+    "pending_fermee": true,
+    "on-hold_fermee": true,
+    "failed_fermee": true,
+    "cancelled_fermee": true,
+    "refunded_fermee": true,
+    "trash_fermee": true,
+    "checkout-draft_fermee": true,
+    "custom-paid_fermee": true,
+    "client_invalide_ferme": true,
+    "payee_invalide_ferme": true,
+    "acquis_invalide_ferme": true,
+    "remboursement_invalide_ferme": true,
+    "numero_invalide_ferme": true,
+    "instantane_invalide_ferme": true,
+    "quantite_invalide_ferme": true,
+    "invite_ferme": true,
+    "reaffectation_sans_deplacement": true,
+    "date_native_conservee_sans_expiration": true,
+    "contrat_moteur_exact": true
+  },
+  "PRET_absent": true,
+  "correction_files": {
+    "corrections\\C-13.md": "2026-11-25T12:39:11.931772+00:00",
+    "corrections\\C-14.md": "2026-11-25T12:51:33.457763+00:00"
+  },
+  "runtime": {
+    "php": "8.3.32",
+    "wp": "7.0.9",
+    "woo": "11.2.2",
+    "wcs": "9.4.1",
+    "hpos": "yes"
+  }
+}

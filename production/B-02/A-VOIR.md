@@ -13,7 +13,7 @@ Site exclusivement fictif : `http://192.168.129.32:8085`. Ouvrir `/my-account/` 
 
 ## Coordonnées et isolation
 
-« Modifier cette adresse postale » ouvre le **formulaire natif** `/my-account/edit-address/shipping/?subscription=89` pour a-carte. L'adresse affichée est celle de cette souscription, la source C13 utilisée par le postal ; pas une copie décorative de l'adresse client. Une liste déjà close garde son instantané. La recette a réellement changé la rue synthétique, relu souscription/client/relevé postal/HTTP, puis restauré la rue et la date de modification. Deux observations postales et les notes natives de cette action sont conservées, jamais effacées.
+« Modifier cette adresse postale » ouvre le **formulaire natif** `/my-account/edit-address/shipping/?subscription=89` pour a-carte. L'adresse affichée est celle de cette souscription, la source C13 utilisée par le postal ; pas une copie décorative de l'adresse client. Le gel des listes closes relève de C13 et reste sous correction, il n'est pas attesté par B02. La recette a réellement changé la rue synthétique, relu souscription/client/relevé postal/HTTP, puis restauré la rue et la date de modification. Deux observations postales et les notes natives de cette action sont conservées par parcours, jamais effacées.
 
 En a-carte, remplacer l'identifiant par `107` (A-SUSP) dans `view-subscription`, `edit-address`, ou ajouter `?subscription=107&user_id=15&customer_id=15` au dashboard : aucune donnée d'A-SUSP. GET et POST forgé d'adresse ont été exercés. Hors session, seul le formulaire Woo est visible.
 
@@ -21,4 +21,4 @@ En a-carte, remplacer l'identifiant par `107` (A-SUSP) dans `view-subscription`,
 
 « Mes factures et justificatifs » existe même vide ; le raccord documentaire est nommé manquant. Les commandes restent accessibles par leur lien natif et ne sont pas appelées factures. A-CARTE n'a pas de paiement validé : cette recette prouve la **même source postale**, pas son inclusion positive dans un export C07. Rien n'est envoyé (email, paiement, connecteur).
 
-Le §3.10 du cahier porte en réalité sur newsletters/segmentation, pas Mon compte : le minimum de cinq rubriques du brief est appliqué, sans ajouter un centre Brevo. Visuel à valider par Ced, besoins dans `besoins-designer.md`.
+Le §3.10 du cahier porte en réalité sur newsletters/segmentation, pas Mon compte : le minimum de cinq rubriques du brief est appliqué, sans ajouter un centre Brevo. Visuel à valider par Ced, besoins dans `besoins-designer.md`. Les nouvelles fusions `corrections/C-13.md` et `corrections/C-14.md` ont été signalées au parent ; B02 ne les résout pas et ne vaut pas acceptation de ces lots.

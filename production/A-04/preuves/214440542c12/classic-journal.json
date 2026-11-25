@@ -1,0 +1,178 @@
+[
+  {
+    "utc": "2026-11-25T12:49:08Z",
+    "component": "core",
+    "stage": "start",
+    "before": "7.0",
+    "after": "7.0.9"
+  },
+  {
+    "utc": "2026-11-25T12:49:28Z",
+    "component": "core",
+    "stage": "copied",
+    "files": 3500
+  },
+  {
+    "utc": "2026-11-25T12:49:29Z",
+    "component": "core",
+    "stage": "verified",
+    "before": "7.0",
+    "after": "7.0.9",
+    "duration_seconds": 21.693,
+    "migrations": [
+      "wp core update-db; db_version=61833"
+    ]
+  },
+  {
+    "utc": "2026-11-25T12:49:29Z",
+    "component": "woocommerce",
+    "stage": "start",
+    "before": "11.0.1",
+    "after": "11.1.1"
+  },
+  {
+    "utc": "2026-11-25T12:50:05Z",
+    "component": "woocommerce",
+    "stage": "copied",
+    "files": 5862
+  },
+  {
+    "utc": "2026-11-25T12:50:05Z",
+    "component": "woocommerce",
+    "stage": "interruption_requested"
+  },
+  {
+    "utc": "2026-11-25T12:50:06Z",
+    "component": "woocommerce",
+    "stage": "resume",
+    "before": "11.0.1",
+    "after": "11.1.1"
+  },
+  {
+    "utc": "2026-11-25T12:50:06Z",
+    "component": "woocommerce",
+    "stage": "interruption_requested"
+  },
+  {
+    "utc": "2026-11-25T12:50:08Z",
+    "component": "woocommerce",
+    "stage": "resume",
+    "before": "11.0.1",
+    "after": "11.1.1"
+  },
+  {
+    "utc": "2026-11-25T12:50:08Z",
+    "component": "all",
+    "stage": "stopped",
+    "code": "A04_CALLBACK_REFUSED"
+  },
+  {
+    "utc": "2026-11-25T12:50:11Z",
+    "component": "woocommerce",
+    "stage": "resume",
+    "before": "11.0.1",
+    "after": "11.1.1"
+  },
+  {
+    "utc": "2026-11-25T12:50:13Z",
+    "component": "woocommerce",
+    "stage": "native_follow_up",
+    "wave": 1
+  },
+  {
+    "utc": "2026-11-25T12:50:14Z",
+    "component": "woocommerce",
+    "stage": "verified",
+    "before": "11.0.1",
+    "after": "11.1.1",
+    "duration_seconds": 44.617,
+    "migrations": [
+      "wc_update_1110_delete_dashboard_outofstock_count_transient",
+      "wc_update_1110_cleanup_block_email_posts",
+      "wc_update_1110_flush_product_count_cache",
+      "wc_update_11101_remove_deprecated_variation_gallery_option",
+      "WC_Install::update_db_version=11.1.1",
+      "woocommerce_db_version=11.1.1",
+      "Automattic\\WooCommerce\\Internal\\VariationGallery\\Migration::run",
+      "woocommerce_db_version=11.1.1"
+    ]
+  },
+  {
+    "utc": "2026-11-25T12:50:14Z",
+    "component": "woocommerce-subscriptions",
+    "stage": "start",
+    "before": "9.4.1",
+    "after": "9.4.1"
+  },
+  {
+    "utc": "2026-11-25T12:50:19Z",
+    "component": "woocommerce-subscriptions",
+    "stage": "copied",
+    "files": 763
+  },
+  {
+    "utc": "2026-11-25T12:50:20Z",
+    "component": "woocommerce-subscriptions",
+    "stage": "verified",
+    "before": "9.4.1",
+    "after": "9.4.1",
+    "duration_seconds": 6.119,
+    "migrations": []
+  },
+  {
+    "utc": "2026-11-25T12:50:20Z",
+    "component": "woocommerce-memberships",
+    "stage": "start",
+    "before": "1.30.3",
+    "after": "1.30.3"
+  },
+  {
+    "utc": "2026-11-25T12:50:24Z",
+    "component": "woocommerce-memberships",
+    "stage": "copied",
+    "files": 664
+  },
+  {
+    "utc": "2026-11-25T12:50:26Z",
+    "component": "woocommerce-memberships",
+    "stage": "verified",
+    "before": "1.30.3",
+    "after": "1.30.3",
+    "duration_seconds": 5.502,
+    "migrations": [
+      "WC_Memberships lifecycle init"
+    ]
+  },
+  {
+    "utc": "2026-11-25T12:50:26Z",
+    "component": "a04-rest",
+    "stage": "start",
+    "before": "1.0.0",
+    "after": "2.0.0"
+  },
+  {
+    "utc": "2026-11-25T12:50:26Z",
+    "component": "a04-rest",
+    "stage": "copied",
+    "files": 1
+  },
+  {
+    "utc": "2026-11-25T12:50:27Z",
+    "component": "a04-rest",
+    "stage": "verified",
+    "before": "1.0.0",
+    "after": "2.0.0",
+    "duration_seconds": 1.373,
+    "migrations": []
+  },
+  {
+    "utc": "2026-11-25T12:50:30Z",
+    "component": "all",
+    "stage": "complete"
+  },
+  {
+    "utc": "2026-11-25T12:50:35Z",
+    "component": "all",
+    "stage": "complete"
+  }
+]

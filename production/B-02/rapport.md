@@ -1,14 +1,14 @@
 # B-02 — Rapport de livraison, 25 novembre 2026
 
 1. **Fait** : cinq rubriques Mon compte, données natives, PDF C11/C14, édition postale Woo/WCS et isolation réelle GET/POST.
-2. **Prêt à relire** : squelette technique inspectable, 143/143 contrôles techniques. **Aucun PRET**, conformément à la délégation.
+2. **Prêt à relire** : squelette technique inspectable, 144/144 contrôles techniques. **Aucun PRET**, conformément à la délégation.
 3. **À valider** : visuel par Ced ; manque nominatif C09 et données non raccordées explicités ci-dessous.
 4. **Bloqué** : réception complète A-4x-J45 / quatre échéances payées-à-venir et action après rejet non prouvables avec les objets actuellement disponibles sans inventer des états de paiement.
 5. **Ensuite** : vérification indépendante du parent, sans réouverture de C13/C14 par ce lot.
 
 ## Résultat réel
 
-Dernière commande : `PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/b02.py --deploy --require-complete`, **exit 2**. Technique : 74 assertions PHP native + 8 états + 54 HTTP + 4 readbacks/syntaxes + 3 gardes = **143/143**. Recettes avec vrais cookies WordPress et vrais objets HPOS, pas un rendu local simulé. Runtime relevé : PHP 8.3.32, WordPress 7.0.9, Woo 11.2.2, Subscriptions 9.4.1, HPOS actif. Image de tests préparée et vérifiée séparément, PHP 8.2.33.
+Dernière commande : `PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/b02.py --deploy --require-complete`, **exit 2**. Technique : 75 assertions PHP native + 8 états/gardes + 54 HTTP + 4 readbacks/syntaxes + 3 gardes = **144/144**. Recettes avec vrais cookies WordPress et vrais objets HPOS, pas un rendu local simulé. Runtime relevé : PHP 8.3.32, WordPress 7.0.9, Woo 11.2.2, Subscriptions 9.4.1, HPOS actif. Image de tests préparée et vérifiée séparément, PHP 8.2.33.
 
 ## Ce qui est branché
 
@@ -32,6 +32,8 @@ Dernière commande : `PYTHONDONTWRITEBYTECODE=1 python wp/outils/demo/b02.py --d
 Standard d'abord : réutilisation My Account, formulaire/adresses, nonces et actions Woo/WCS, documentation officielle et classe native lues. Adaptateur local limité à la projection/structure absente du standard. Le vrai test a trouvé que C13 écoute `woocommerce_after_order_object_save` alors que WCS 9.4.1 sauvegarde sous `woocommerce_after_subscription_object_save` : B02 ajoute ce raccord vers `EnvoiNatif::relever` existant et dédupliqué, **sans modifier le code C13 ni les bibliothèques closes**. Les options métier, rôles, contrats et droits sont préservés ; seules les observations/notes légitimes de l'aller-retour d'adresse s'ajoutent.
 
 Le §3.10 est « Newsletters et segmentation », pas Mon compte : application du minimum explicite du brief, aucune fonction Brevo ajoutée. Les éléments visuels attendent Ced ; pas de règle métier nouvelle ni de valeur financière décidée ici.
+
+**Signal prioritaire au parent au contrôle final : `corrections/C-13.md` et `corrections/C-14.md` sont maintenant présents et arbitrés « À corriger ».** C13 : bénéficiaires/groupés, renouvellements, gel du calendrier persistant et tests autonomes ; C14 : droit acquis indépendant du catalogue mutable, remboursement partiel réglable et état documentaire. Ils n'ont pas été traités dans cette délégation B02, dont les dossiers de restitution excluent C13/C14. Le texte B02 ne prétend plus attester le gel C13 : une assertion rouge puis verte garde cette limite. Le raccord de sauvegarde postale est limité au formulaire client (`did_action('woocommerce_customer_save_address')` + titulaire), pas aux saves génériques des autres lots ; canari natif non persisté rouge puis vert, sans aucun faux paiement.
 
 ## Fichiers
 

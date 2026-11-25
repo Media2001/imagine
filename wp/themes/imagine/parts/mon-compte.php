@@ -55,7 +55,7 @@ $nomme = static fn (?string $value, string $placeholder): string => $value !== n
 <?php foreach ($compte['abonnements'] as $a) : ?><article>
 <h3><?php echo esc_html(sprintf(__('Adresse postale de l’abonnement %s', 'imagine'), (string) $a['id'])); ?></h3>
 <address><?php echo wp_kses_post(WC()->countries->get_formatted_address($a['adresse'])); ?></address>
-<p><?php esc_html_e('Source : adresse de livraison de cette souscription, la même que la liste d’envoi. Une liste déjà close conserve son instantané.', 'imagine'); ?></p>
+<p><?php esc_html_e('Source : adresse de livraison de cette souscription, la même que la liste d’envoi. Le gel des listes closes relève du raccord postal C13.', 'imagine'); ?></p>
 <p><a href="<?php echo esc_url($a['edition_adresse']); ?>"><?php esc_html_e('Modifier cette adresse postale', 'imagine'); ?></a></p></article><?php endforeach; ?>
 <?php if (!$compte['abonnements']) : ?><p><a href="<?php echo esc_url(wc_get_account_endpoint_url('edit-address')); ?>"><?php esc_html_e('Gérer mes adresses WooCommerce', 'imagine'); ?></a></p><?php endif; ?>
 </section>
