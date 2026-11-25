@@ -27,7 +27,8 @@ class Policy:
         family = next((r['pattern'] for r in self.data['families'] if fnmatch.fnmatchcase(kind, r['pattern'])), None)
         if table in self.decisions:
             value = self.decisions[table]
-            return value if isinstance(value, dict) else {'action':None}, family or ('catalogue' if kind in self.known else 'hors-famille')
+            valid_action = isinstance(value, dict) and value.get('action') in ('garder', 'vider', 'anonymiser')
+            return value if valid_action else {'action':None}, family or ('catalogue' if kind in self.known else 'hors-famille')
         if family:
             return {'action':'vider'}, family
         if kind in self.known:
@@ -35,11 +36,14 @@ class Policy:
         return {'action':'vider'}, 'hors-famille'
 
     def summary(self, schemas, prefix):
+        from diagnosis import PERSONAL
         grouped, other = {}, []
         for table in sorted(schemas):
             decision, family = self.resolve(table, prefix)
             action = 'catalogue' if family == 'catalogue' and table not in self.decisions else {
                 'vider':'videe', 'garder':'gardee', 'anonymiser':'anonymisee'}.get(decision.get('action'), 'a-trancher')
+            if family != 'catalogue' and decision.get('action') == 'garder' and any(PERSONAL.search(c) for c in schemas[table]):
+                action = 'a-trancher'
             key = (family, action)
             grouped[key] = grouped.get(key, 0) + 1
             if family == 'hors-famille': other.append(table)

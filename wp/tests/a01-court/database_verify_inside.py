@@ -86,7 +86,7 @@ try:
         # Independent PDO full-table scan + complete restored file-byte scan.
         program=r'''<?php
         $pdo=new PDO('mysql:unix_socket=/scratch/mariadb.sock;dbname=imagine_a01_staging','root','');
-        $markers=['FICTION_PRIVATE_SENTINEL','FICTION_AS_SENTINEL','FICTION_EXTENDED','FICTION_DONE','FICTION_LOG_SENTINEL','FICTION_COMMENT_SENTINEL','FICTION_AUTHOR_SENTINEL','192.0.2.44','FICTION_OPTION_SECRET','sk_live_FICTION_ONLY','pk_live_FICTION_ONLY','whsec_FICTION_ONLY','FICTION_EXCLUDED_SENTINEL'];
+        $markers=['FICTION_PRIVATE_SENTINEL','FICTION_AS_SENTINEL','FICTION_EXTENDED','FICTION_DONE','FICTION_LOG_SENTINEL','FICTION_COMMENT_SENTINEL','FICTION_AUTHOR_SENTINEL','192.0.2.44','FICTION_ADMIN_SENTINEL','FICTION_OPTION_SECRET','sk_live_FICTION_ONLY','pk_live_FICTION_ONLY','whsec_FICTION_ONLY','FICTION_EXCLUDED_SENTINEL'];
         $cells=0; $files=0;
         foreach($pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN) as $table){
           foreach($pdo->query('SELECT * FROM `'.$table.'`') as $row){foreach($row as $value){

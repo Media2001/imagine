@@ -1,0 +1,53 @@
+{
+  "at": "2026-11-25T14:43:25.271326+00:00",
+  "scope": "imagine-test-demo",
+  "status": "EN_COURS",
+  "commands": [
+    {
+      "name": "image",
+      "argv": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\preparer-image.ps1"
+      ],
+      "exit": 0,
+      "log": "validation-image.log"
+    },
+    {
+      "name": "t01",
+      "argv": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\rejouer.ps1"
+      ],
+      "exit": 0,
+      "log": "validation-t01.log"
+    },
+    {
+      "name": "c14",
+      "argv": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "C:\\Users\\Ced\\imagine\\wp\\outils\\demo\\c14.py",
+        "--deploy-code"
+      ],
+      "exit": 0,
+      "log": "validation-c14.log"
+    }
+  ],
+  "PRET_before": "e3aa30e17c31e87514b080cc766f5cd29c4fc3ad5c5dadb4e886c971f9ca447b",
+  "shared_before": "5184daded8b1594202655bea845e2c9927af63f1ac3483fcf66bbda6dc01775a",
+  "T01": {
+    "tests": 1012,
+    "assertions": 34006,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass": true
+  }
+}

@@ -11,6 +11,11 @@ return [
     'production-security' => [
         'wordfence/wordfence.php',
     ],
+    // Also remove Stripe's inbound webhook handlers, not just checkout access.
+    // Its stored settings are still scrubbed and switched to test mode.
+    'payment-webhooks' => [
+        'woocommerce-gateway-stripe/woocommerce-gateway-stripe.php',
+    ],
     'mail' => [
         'wp-mail-smtp/wp_mail_smtp.php', 'wp-mail-smtp-pro/wp_mail_smtp.php',
         'post-smtp/postman-smtp.php', 'easy-wp-smtp/easy-wp-smtp.php',

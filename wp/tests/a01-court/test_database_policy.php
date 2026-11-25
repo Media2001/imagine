@@ -7,10 +7,13 @@ require '/opt/fixtures.php';
 
 $store = fixture();
 $store->tables['x_options'] = array_values(array_filter($store->tables['x_options'], static fn (array $row): bool => !in_array($row['option_name'], ['active_plugins', 'cron'], true)));
-$disabled = ['worker/init.php', 'wordfence/wordfence.php', 'fluent-smtp/fluent-smtp.php', 'matomo/matomo.php'];
-$kept = ['wp-all-export/wp-all-export.php', 'wp-all-import-pro/wp-all-import-pro.php', 'woo-order-export-lite/woocommerce-order-export.php', 'woocommerce-gateway-stripe/woocommerce-gateway-stripe.php'];
+$disabled = ['worker/init.php', 'wordfence/wordfence.php', 'fluent-smtp/fluent-smtp.php', 'matomo/matomo.php', 'woocommerce-gateway-stripe/woocommerce-gateway-stripe.php'];
+$kept = ['wp-all-export/wp-all-export.php', 'wp-all-import-pro/wp-all-import-pro.php', 'woo-order-export-lite/woocommerce-order-export.php'];
 $store->tables['x_options'][] = ['option_id' => 800, 'option_name' => 'active_plugins', 'option_value' => serialize(array_merge($disabled, $kept))];
 $store->tables['x_options'][] = ['option_id' => 801, 'option_name' => 'cron', 'option_value' => serialize([123 => ['pmxe_cron' => ['FICTION']]])];
+foreach (['admin_email', 'new_admin_email', 'woocommerce_email_from_address', 'woocommerce_stock_email_recipient'] as $i => $name) {
+    $store->tables['x_options'][] = ['option_id' => 810 + $i, 'option_name' => $name, 'option_value' => 'FICTION_ADMIN_SENTINEL@example.org'];
+}
 $context = ['environment' => 'staging', 'isolated' => true, 'restored' => true, 'database' => 'invented_staging', 'target_url' => 'https://invented.test', 'production_hosts' => ['source.invalid']];
 foreach (['pmxe_cron', 'pmxi_cron', 'woe_cron_export'] as $i => $hook) {
     $action = $store->tables['x_actionscheduler_actions'][0];
@@ -28,6 +31,11 @@ if (unserialize($options['active_plugins']) !== $kept) {
 }
 if (unserialize($options['cron']) !== []) {
     throw new RuntimeException('EXPORT_CRON_NOT_REMOVED');
+}
+foreach (['admin_email', 'new_admin_email', 'woocommerce_email_from_address', 'woocommerce_stock_email_recipient'] as $name) {
+    if ($options[$name] !== 'imagine-test-admin@example.org') {
+        throw new RuntimeException('OPERATIONAL_OPTION_EMAIL_NOT_ANONYMISED');
+    }
 }
 $stripe = unserialize($options['woocommerce_stripe_settings']);
 if ($stripe['secret_key'] !== '' || $stripe['testmode'] !== 'yes') {

@@ -394,6 +394,12 @@ final class Engine
                     if (self::sensitiveKey($row['option_name'])) {
                         $next['option_value'] = '';
                     }
+                    if ($privacy && in_array($row['option_name'], [
+                        'admin_email', 'new_admin_email', 'woocommerce_email_from_address',
+                        'woocommerce_stock_email_recipient',
+                    ], true)) {
+                        $next['option_value'] = 'imagine-test-admin@example.org';
+                    }
                     if (preg_match('/^woocommerce[_-].*(?:stripe|paypal|ppcp).*[_-]settings$/i', $row['option_name'])) {
                         $gateway = self::decode($next['option_value']);
                         if (is_array($gateway)) {

@@ -20,6 +20,7 @@ $wpdb->query("INSERT INTO `{$wpdb->prefix}actionscheduler_logs` VALUES (1,1,'FIC
 wp_insert_comment(['comment_content' => 'FICTION_COMMENT_SENTINEL', 'comment_author' => 'FICTION_AUTHOR_SENTINEL', 'comment_author_email' => 'FICTION_COMMENT_SENTINEL@example.org', 'comment_author_IP' => '192.0.2.44']);
 update_option('woocommerce_stripe_settings', ['enabled' => 'yes', 'secret_key' => 'sk_live_FICTION_ONLY', 'publishable_key' => 'pk_live_FICTION_ONLY', 'webhook_secret' => 'whsec_FICTION_ONLY', 'testmode' => 'no']);
 update_option('fiction_credentials', ['api_key' => 'FICTION_OPTION_SECRET', 'layout' => 'wide']);
+update_option('admin_email', 'FICTION_ADMIN_SENTINEL@example.org');
 foreach (['memberships_profile_fields', 'download-manager-files'] as $folder) {
     wp_mkdir_p(WP_CONTENT_DIR . '/uploads/' . $folder);
     file_put_contents(WP_CONTENT_DIR . '/uploads/' . $folder . '/index.php', 'FICTION_EXCLUDED_SENTINEL');

@@ -54,8 +54,9 @@ class ArchiveReelle3(unittest.TestCase):
 
     def test_explicit_keep_personal_still_requires_resolution(self):
         sql = base() + b'CREATE TABLE `wp_fiction_email` (`email` text) ENGINE=InnoDB;'
-        report, _ = self.analyze(sql, {'wp_fiction_email':{'action':'garder'}})
+        report, analysis = self.analyze(sql, {'wp_fiction_email':{'action':'garder'}})
         self.assertIn('TABLE_PERSONNELLE_A_TRANCHER', report['blockers'])
+        self.assertTrue(any(r['action']=='a-trancher' for r in analysis.table_summary))
         report, _ = self.analyze(sql, {'wp_fiction_email':{'action':'anonymiser','columns':['email']}})
         self.assertEqual([], report['blockers'])
 
