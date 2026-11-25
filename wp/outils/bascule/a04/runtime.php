@@ -19,6 +19,9 @@ final class Runtime
         foreach (\WC_Install::get_db_update_callbacks() as $callbacks) {
             $allowed = array_merge($allowed, $callbacks);
         }
+        // This native Woo migration deliberately uses the shared callback hook
+        // but is registered outside WC_Install::$db_updates (Woo 11.1.1).
+        $allowed[] = ['Automattic\\WooCommerce\\Internal\\VariationGallery\\Migration', 'run'];
         $executed = [];
         $start = microtime(true);
         for ($batch = 0; $batch < 10000; $batch++) {

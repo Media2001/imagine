@@ -1,0 +1,11 @@
+A-04 — maintenance conservée
+{"after": "7.0.9", "before": "7.0", "component": "core", "stage": "start", "utc": "2026-11-25T11:27:58Z"}
+{"component": "core", "files": 3500, "stage": "copied", "utc": "2026-11-25T11:28:19Z"}
+{"after": "7.0.9", "before": "7.0", "component": "core", "duration_seconds": 22.952, "migrations": ["wp core update-db; db_version=61833"], "stage": "verified", "utc": "2026-11-25T11:28:21Z"}
+{"after": "11.1.1", "before": "11.0.1", "component": "woocommerce", "stage": "start", "utc": "2026-11-25T11:28:21Z"}
+{"component": "woocommerce", "files": 5862, "stage": "copied", "utc": "2026-11-25T11:28:57Z"}
+{"component": "woocommerce", "stage": "interruption_requested", "utc": "2026-11-25T11:28:57Z"}
+{"after": "11.1.1", "before": "11.0.1", "component": "woocommerce", "stage": "resume", "utc": "2026-11-25T11:28:58Z"}
+{"component": "woocommerce", "stage": "interruption_requested", "utc": "2026-11-25T11:28:58Z"}
+{"after": "11.1.1", "before": "11.0.1", "component": "woocommerce", "stage": "resume", "utc": "2026-11-25T11:28:59Z"}
+{"code": "A04_CALLBACK_REFUSED", "component": "all", "stage": "stopped", "utc": "2026-11-25T11:29:01Z"}

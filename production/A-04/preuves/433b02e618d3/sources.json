@@ -1,0 +1,12 @@
+{
+  "wp/tests/a04/inside.py": "21e53940f88fbad3bc22036aa519712c709d88e609a8f8e84880c978b9b94cc9",
+  "wp/tests/a04/prepare_public.py": "24c3e5c53e923defa50103ffb1c284d3669eb6e52ef62d8411d433d76b278fd7",
+  "wp/tests/a04/probe.py": "ace750d9c1715d337b5d189cbac2cdf35ebb369b2466c0f7a7eee772b5e16b41",
+  "wp/tests/a04/run.py": "d8518f8943cb5c405063e98d8854575594f2c341743066e9ddf34c69f25b6e6d",
+  "wp/tests/a04/test_safety.py": "251848f943494bee92777737103d819e1deaf42fa671a748d592f3e894e9cadf",
+  "wp/tests/a04/test_update.py": "c4463002b710b0bf9fba8dee7823e1f45ebd6aaf2cf0961570fc004ba143d7e0",
+  "wp/outils/bascule/mettre-a-jour": "863c22cbb6fec2c1469388d65aae6fa1c2383e848e5b38f646dc0e2689f4a941",
+  "wp/outils/bascule/a04/maintenance.php": "4c356eb960eeaf1807b6aa55cd07551a58dfd843c797f6a5db3011d20aca6feb",
+  "wp/outils/bascule/a04/runtime.php": "f34b992f46c484064516bac0841d4f728d87c183274e9575703a805627c7637e",
+  "wp/outils/bascule/a04/update.py": "5513a067ed953ad8529a7cd785f60121a9a3a34f0a2f4966b6f9267b467c4f16"
+}

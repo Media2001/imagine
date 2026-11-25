@@ -1,0 +1,69 @@
+[
+  {
+    "utc": "2026-11-25T11:26:37Z",
+    "component": "core",
+    "stage": "start",
+    "before": "7.0",
+    "after": "7.0.9"
+  },
+  {
+    "utc": "2026-11-25T11:26:58Z",
+    "component": "core",
+    "stage": "copied",
+    "files": 3500
+  },
+  {
+    "utc": "2026-11-25T11:27:00Z",
+    "component": "core",
+    "stage": "verified",
+    "before": "7.0",
+    "after": "7.0.9",
+    "duration_seconds": 22.966,
+    "migrations": [
+      "wp core update-db; db_version=61833"
+    ]
+  },
+  {
+    "utc": "2026-11-25T11:27:00Z",
+    "component": "woocommerce",
+    "stage": "start",
+    "before": "11.0.1",
+    "after": "11.1.1"
+  },
+  {
+    "utc": "2026-11-25T11:27:36Z",
+    "component": "woocommerce",
+    "stage": "copied",
+    "files": 5862
+  },
+  {
+    "utc": "2026-11-25T11:27:36Z",
+    "component": "woocommerce",
+    "stage": "interruption_requested"
+  },
+  {
+    "utc": "2026-11-25T11:27:37Z",
+    "component": "woocommerce",
+    "stage": "resume",
+    "before": "11.0.1",
+    "after": "11.1.1"
+  },
+  {
+    "utc": "2026-11-25T11:27:37Z",
+    "component": "woocommerce",
+    "stage": "interruption_requested"
+  },
+  {
+    "utc": "2026-11-25T11:27:38Z",
+    "component": "woocommerce",
+    "stage": "resume",
+    "before": "11.0.1",
+    "after": "11.1.1"
+  },
+  {
+    "utc": "2026-11-25T11:27:40Z",
+    "component": "all",
+    "stage": "stopped",
+    "code": "A04_CALLBACK_REFUSED"
+  }
+]
