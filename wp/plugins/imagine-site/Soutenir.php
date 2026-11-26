@@ -36,11 +36,9 @@ final class Soutenir
     public static function rendre(): string
     {
         $config = self::configuration();
-        $subscribe = get_page_by_path('s-abonner');
+        $subscribe = home_url('/#imagine-abonnement');
         $html = '<div id="imagine-soutenir"><section><h2>' . esc_html(__('abonnement', 'imagine-site')) . '</h2>';
-        if ($subscribe) {
-            $html .= '<p><a href="' . esc_url(get_permalink($subscribe->ID)) . '">' . esc_html(__("S'abonner", 'imagine-site')) . '</a></p>';
-        }
+        $html .= '<p><a href="' . esc_url($subscribe) . '">' . esc_html(__("S'abonner", 'imagine-site')) . '</a></p>';
         $html .= '</section>';
         if ($config['don']) {
             $html .= '<section><h2>' . esc_html(__('don ponctuel ou récurrent', 'imagine-site')) . '</h2><p>'

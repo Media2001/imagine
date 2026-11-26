@@ -11,6 +11,23 @@ final class Cooperative
 
     public static function register(): void
     {
+        add_action('after_setup_theme', static function (): void {
+            register_nav_menu('imagine-principal', __('Navigation principale', 'imagine-site'));
+        });
+        add_filter('wp_nav_menu_items', static function (string $html, $args): string {
+            if (($args->theme_location ?? '') !== 'imagine-principal') {
+                return $html;
+            }
+            $tags = new \WP_HTML_Tag_Processor($html);
+            while ($tags->next_tag('LI')) {
+                foreach (['kiosque', 'agenda', 'compte'] as $key) {
+                    if ($tags->has_class('imagine-nav-' . $key)) {
+                        $tags->set_attribute('data-imagine-nav', $key);
+                    }
+                }
+            }
+            return $tags->get_updated_html();
+        }, 10, 2);
         add_filter('the_content', static function (string $content): string {
             if (!is_singular('page') || !in_the_loop() || !is_main_query()) {
                 return $content;

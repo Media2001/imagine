@@ -18,7 +18,13 @@ namespace Imagine\Theme;
     <header>
         <p><a href="<?php echo esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a></p>
         <nav aria-label="<?php esc_attr_e('Navigation principale', 'imagine'); ?>">
-            <?php imagine_navigation(); ?>
+            <?php
+            if (has_nav_menu('imagine-principal')) {
+                wp_nav_menu(['theme_location' => 'imagine-principal', 'container' => false, 'fallback_cb' => false]);
+            } else {
+                imagine_navigation();
+            }
+            ?>
         </nav>
     </header>
     <main id="imagine-main" tabindex="-1">

@@ -128,6 +128,18 @@ Retractation::register();
 RetractationReglages::register();
 RetractationConfidentialite::register();
 
+// B08 — pages publiques et propositions locales privées.
+require_once __DIR__ . '/CooperativeRegles.php';
+require_once __DIR__ . '/Cooperative.php';
+require_once __DIR__ . '/Soutenir.php';
+require_once __DIR__ . '/SujetRegles.php';
+require_once __DIR__ . '/Sujet.php';
+require_once __DIR__ . '/SujetConfidentialite.php';
+Cooperative::register();
+Soutenir::register();
+Sujet::register();
+SujetConfidentialite::register();
+
 add_action('init', static function (): void {
     foreach ([
         'imagine_numero' => [__('Numéros fictifs', 'imagine-site'), 'numeros'],

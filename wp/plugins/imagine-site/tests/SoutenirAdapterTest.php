@@ -24,6 +24,7 @@ final class SoutenirAdapterTest extends TestCase
         self::assertTrue(class_exists(Soutenir::class), 'Soutenir absent');
         $html = Soutenir::rendre();
         self::assertStringContainsString('abonnement', $html);
+        self::assertStringContainsString('https://demo.example.org/#imagine-abonnement', $html);
         self::assertStringContainsString('bénévolat', $html);
         self::assertStringContainsString('prise de parts', $html);
         self::assertStringNotContainsString('don ponctuel', $html);

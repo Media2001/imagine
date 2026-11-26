@@ -1,0 +1,137 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/b08-local.py": "8a6ed7d262964841f8bb7805269d78e13c1bbff297a5f6652c66bca47d93a11c",
+    "wp/outils/demo/b08.py": "5c36dd68e17dc30ae7235d1dae17460b845bcb709ecf58171303c38f18430a8e",
+    "wp/plugins/imagine-site/Cooperative.php": "289bd797e0f2e23554be36066cc496d8f0536c0adb20cb9a4b43e594fbed9f6f",
+    "wp/plugins/imagine-site/CooperativeRegles.php": "0d2f77d409c3513f4f2132ee6c5e580a32d15d30ea1fad94324efd6f18d5c35d",
+    "wp/plugins/imagine-site/Soutenir.php": "b428f00566a74199925a316371848d07c4a4f8d82ec37a50fbe573dbef00862f",
+    "wp/plugins/imagine-site/Sujet.php": "b73f1fbe62f28099cd9d4b3699a60fec0c514f990198b1508ccb8a09fe70685d",
+    "wp/plugins/imagine-site/SujetConfidentialite.php": "c1c13411a654312f8d2578d5bbd5fa527356d937eb1c001d41a351236056a423",
+    "wp/plugins/imagine-site/SujetRegles.php": "99cd84ea2bb7a0979624cf5b2fd4c0c4e46feb3f1148050df73da3cb83ba8639",
+    "wp/plugins/imagine-site/tests/CooperativeReglesTest.php": "aae4f085a850e41bb8fcc08987aa5ad035d146cc56238e91714536f9873dd6fb",
+    "wp/plugins/imagine-site/tests/SoutenirAdapterTest.php": "8fb925245715ac44ae8f0039067ec992fa33be8afd3fadf5ac6fdd696777ae95",
+    "wp/plugins/imagine-site/tests/SujetAdapterTest.php": "d1f1b2c974f8d0e49a087a04a2297263f97da044c3ebd34fa736e64893a18f15",
+    "wp/plugins/imagine-site/tests/SujetWPStubs.php": "7c96f541860b481a16e1b5a8012d2e9a345da890c8357e44b29f0c9a57fa2a4f",
+    "wp/tests/demo/b08-horslive.php": "5a5939e8e8ebdd2dfff629ef2641c3860ae7dd73e002a70b95cea51cac706d8c"
+  },
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "structure": {
+    "pages": [
+      {
+        "id": 2758,
+        "slug": "nos-newsletters",
+        "title": "Nos newsletters",
+        "parent": 0,
+        "empty": false
+      },
+      {
+        "id": 74,
+        "slug": "content-restricted",
+        "title": "Content restricted",
+        "parent": 0,
+        "empty": false
+      },
+      {
+        "id": 9,
+        "slug": "my-account",
+        "title": "My account",
+        "parent": 0,
+        "empty": false
+      },
+      {
+        "id": 8,
+        "slug": "checkout",
+        "title": "Checkout",
+        "parent": 0,
+        "empty": false
+      },
+      {
+        "id": 7,
+        "slug": "cart",
+        "title": "Cart",
+        "parent": 0,
+        "empty": false
+      },
+      {
+        "id": 6,
+        "slug": "shop",
+        "title": "Shop",
+        "parent": 0,
+        "empty": true
+      },
+      {
+        "id": 51,
+        "slug": "accueil-fictif",
+        "title": "Imagine — site de démonstration fictif",
+        "parent": 0,
+        "empty": false
+      },
+      {
+        "id": 50,
+        "slug": "calendrier-fictif",
+        "title": "Calendrier de parution fictif — 2026 à 2028",
+        "parent": 0,
+        "empty": false
+      }
+    ],
+    "menus": [],
+    "locations": [],
+    "manifest": {
+      "demo-2026-hs": 32,
+      "demo-2026-hs-couverture": 33,
+      "demo-2026-hs-ouvert": 38,
+      "demo-2026-hs-pdf": 34,
+      "demo-2026-hs-reserve-1": 35,
+      "demo-2026-hs-reserve-2": 36,
+      "demo-2026-hs-reserve-3": 37,
+      "demo-2026-t1": 11,
+      "demo-2026-t1-couverture": 12,
+      "demo-2026-t1-ouvert": 17,
+      "demo-2026-t1-pdf": 13,
+      "demo-2026-t1-reserve-1": 14,
+      "demo-2026-t1-reserve-2": 15,
+      "demo-2026-t1-reserve-3": 16,
+      "demo-2026-t2": 18,
+      "demo-2026-t2-couverture": 19,
+      "demo-2026-t2-ouvert": 24,
+      "demo-2026-t2-pdf": 20,
+      "demo-2026-t2-reserve-1": 21,
+      "demo-2026-t2-reserve-2": 22,
+      "demo-2026-t2-reserve-3": 23,
+      "demo-2026-t3": 25,
+      "demo-2026-t3-couverture": 26,
+      "demo-2026-t3-ouvert": 31,
+      "demo-2026-t3-pdf": 27,
+      "demo-2026-t3-reserve-1": 28,
+      "demo-2026-t3-reserve-2": 29,
+      "demo-2026-t3-reserve-3": 30,
+      "demo-2026-t4": 39,
+      "demo-2026-t4-couverture": 40,
+      "demo-2026-t4-ouvert": 45,
+      "demo-2026-t4-pdf": 41,
+      "demo-2026-t4-reserve-1": 42,
+      "demo-2026-t4-reserve-2": 43,
+      "demo-2026-t4-reserve-3": 44,
+      "demo-accueil": 51,
+      "demo-calendrier": 50,
+      "demo-events-1": 46,
+      "demo-events-2": 47,
+      "demo-partners-1": 48,
+      "demo-partners-2": 49,
+      "term:demo-thematique-1": 18,
+      "term:demo-thematique-2": 19,
+      "term:demo-thematique-3": 20,
+      "user:redaction": 2
+    }
+  }
+}

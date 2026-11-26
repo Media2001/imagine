@@ -37,6 +37,7 @@ function esc_html(string $s): string { return htmlspecialchars($s, ENT_QUOTES, '
 function esc_attr(string $s): string { return esc_html($s); }
 function esc_url(string $s): string { return esc_html($s); }
 function get_option(string $k, mixed $d = false): mixed { return $GLOBALS['b08_options'][$k] ?? $d; }
+function home_url(string $path = ''): string { return 'https://demo.example.org' . $path; }
 function get_permalink(int $id): string { return 'https://demo.example.org/page/' . $id; }
 function get_page_by_path(string $path): object { return (object)['ID' => $path === 'espace-cooperateurs' ? 90 : 91]; }
 function admin_url(string $path = ''): string { return 'https://demo.example.org/wp-admin/' . $path; }
