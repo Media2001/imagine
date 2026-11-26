@@ -1,0 +1,37 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T21:52:16.614074+00:00",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "private_snapshot": {
+    "file": "c25-private-fzxpngg7/snapshot.json",
+    "sha256": "3fc4351920de52d0ffcbd625c0ca37a28591c9b34740c9d3a61ba7b2d4fc6491",
+    "private": true
+  },
+  "restoration": {
+    "notes_absentes": true,
+    "demandes_absentes": true,
+    "reglage_absent": true
+  },
+  "tests_removed": {
+    "mu-plugins/c25-observer.php": true,
+    "imagine-demo-build/c25-runtime.php": true
+  },
+  "business_preserved": true,
+  "exact_rows_preserved": {
+    "users": true,
+    "usermeta": true,
+    "posts": true,
+    "postmeta": true,
+    "comments": true,
+    "commentmeta": true
+  }
+}

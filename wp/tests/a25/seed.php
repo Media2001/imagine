@@ -49,15 +49,19 @@ $wpdb->query("CREATE TABLE {$wpdb->prefix}a25_submission_entries (submission_id 
 $wpdb->query("CREATE TABLE {$wpdb->prefix}a25_submission_details (id bigint PRIMARY KEY, submission_id bigint,
     form_id int, message longtext, created_at datetime, KEY (submission_id)) ENGINE=InnoDB");
 for ($i = 1; $i <= 5; $i++) {
-    if ($wpdb->insert($wpdb->prefix . 'a25_submission_entries', ['submission_id' => $i, 'form_id' => 3,
-        'response' => 'A25_PK_MESSAGE_PRIVATE_CANARY', 'created_at' => '2022-06-01 12:00:00']) !== 1) {
+    if (
+        $wpdb->insert($wpdb->prefix . 'a25_submission_entries', ['submission_id' => $i, 'form_id' => 3,
+        'response' => 'A25_PK_MESSAGE_PRIVATE_CANARY', 'created_at' => '2022-06-01 12:00:00']) !== 1
+    ) {
         throw new RuntimeException('A25_SEED_SUBMISSION_PK');
     }
     // Two details per message: counting this table would inflate five messages to fifteen.
     foreach ([1, 2] as $detail) {
-        if ($wpdb->insert($wpdb->prefix . 'a25_submission_details', ['id' => $i * 2 + $detail,
+        if (
+            $wpdb->insert($wpdb->prefix . 'a25_submission_details', ['id' => $i * 2 + $detail,
             'submission_id' => $i, 'form_id' => 3, 'message' => 'A25_CHILD_MESSAGE_PRIVATE_CANARY',
-            'created_at' => '2022-06-01 12:00:00']) !== 1) {
+            'created_at' => '2022-06-01 12:00:00']) !== 1
+        ) {
             throw new RuntimeException('A25_SEED_SUBMISSION_CHILD');
         }
     }
