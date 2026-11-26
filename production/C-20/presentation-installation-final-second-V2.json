@@ -1,0 +1,20 @@
+{
+  "prior_sha256": {
+    "plugins/imagine-site/RenouvellementRegles.php": "112749077645935709f93a07f8c99c25934c2240e2d5e7f8889a2eb8f8e29bc9",
+    "plugins/imagine-site/Renouvellement.php": "7a14f981a09a92c700a0c350d610cc8dbea1a283de58ae57fe9be3c63bd9e505",
+    "themes/imagine/parts/mon-compte.php": "98633e0421b240ed4d5c3c930f3196ac026963eefd8e9200c8f8b869dc95eac7",
+    "plugins/imagine-site/imagine-site.php": "c8ea93d71e7d6e80cc57ed7e037e4a5352cba7bb9445b4ca37d6d8ea57e4efe2"
+  },
+  "sha256_readback": {
+    "plugins/imagine-site/RenouvellementRegles.php": "112749077645935709f93a07f8c99c25934c2240e2d5e7f8889a2eb8f8e29bc9",
+    "plugins/imagine-site/Renouvellement.php": "9304d60eed4caa8ebd6d82b00d4f8275f92408570a3dd223cd9594b78679166b",
+    "themes/imagine/parts/mon-compte.php": "98633e0421b240ed4d5c3c930f3196ac026963eefd8e9200c8f8b869dc95eac7",
+    "plugins/imagine-site/imagine-site.php": "c8ea93d71e7d6e80cc57ed7e037e4a5352cba7bb9445b4ca37d6d8ea57e4efe2"
+  },
+  "theme_backup": {
+    "private_archive": "/var/www/.imagine-demo/c20-theme-before-second.tar",
+    "sha256": "63427c74cff7e971a63bcc0cee33cd4a411e8ef6dcb4c353eb27ca0ad4646f55",
+    "public": false
+  },
+  "profiles_actions_unchanged": true
+}

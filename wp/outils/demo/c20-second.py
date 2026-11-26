@@ -8,6 +8,9 @@ PROOF = ROOT / 'production/C-20'
 wp = c20.wp
 
 def save(name, data):
+    import re
+    if not re.fullmatch(r'[a-z0-9][a-z0-9-]*', name):
+        raise ValueError('C20 receipt label refused')
     path = PROOF / (name + '-second-V2.json')
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding='utf-8')
 
@@ -134,7 +137,14 @@ def probe(label):
     return 1 if data['failures'] else 0
 
 if __name__ == '__main__':
-    if '--regressions' in sys.argv:
+    if '--verify' in sys.argv:
+        import importlib.util
+        path = ROOT / 'wp/tests/demo/c20-verifier.py'
+        spec = importlib.util.spec_from_file_location('c20_final_verifier', path)
+        verifier = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(verifier)
+        verifier.run()
+    elif '--regressions' in sys.argv:
         regressions(sys.argv[-1])
     elif '--deploy-ui' in sys.argv:
         deploy_ui()

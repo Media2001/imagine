@@ -1,0 +1,41 @@
+{
+  "at": "2026-11-26T05:42:55.484283+00:00",
+  "checks": {
+    "A-CARTE_account_real_200_one_block": true,
+    "A-CARTE_mode": true,
+    "A-CARTE_private_no_store": true,
+    "A-CARTE_no_false_action": true,
+    "A_CARTE_honest_manual_no_gateway": true,
+    "A-CARTE_native_view_no_cancel_resume": true,
+    "A-SEPA4_account_real_200_one_block": true,
+    "A-SEPA4_mode": true,
+    "A-SEPA4_private_no_store": true,
+    "A-SEPA4_no_false_action": true,
+    "A-SEPA4_native_view_no_cancel_resume": true,
+    "A-VIR_account_real_200_one_block": true,
+    "A-VIR_mode": true,
+    "A-VIR_private_no_store": true,
+    "A-VIR_no_false_action": true,
+    "A-VIR_native_view_no_cancel_resume": true,
+    "A-PAPIER_account_real_200_one_block": true,
+    "A-PAPIER_mode": true,
+    "A-PAPIER_private_no_store": true,
+    "A-PAPIER_no_false_action": true,
+    "A-PAPIER_native_view_no_cancel_resume": true,
+    "other_owner_native_view_no_details": true,
+    "A-CARTE_browser_visible": true,
+    "A-CARTE_real_manage_link_native_without_cancel": true,
+    "A-SEPA4_browser_visible": true,
+    "A-SEPA4_real_manage_link_native_without_cancel": true,
+    "profiles_actions_exact_after_HTTP_browser": true
+  },
+  "total": 27,
+  "failures": [],
+  "captures": [
+    "a-carte-http-final-source-1280.png",
+    "a-sepa4-http-final-source-390.png"
+  ],
+  "outside_requests_blocked": [],
+  "confirmation_action_delivered": false,
+  "visual_approval": false
+}

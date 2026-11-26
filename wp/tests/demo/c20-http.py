@@ -11,6 +11,8 @@ c20 = importlib.import_module('c20-second')
 
 
 def run(label='http-final'):
+    if not re.fullmatch(r'[a-z0-9][a-z0-9-]*', label):
+        raise ValueError('C20 HTTP receipt label refused')
     c20.c20.profils.guard('imagine-test-demo')
     spec = importlib.util.spec_from_file_location('c20_http_transport', Path(__file__).with_name('c12-http.py'))
     h = importlib.util.module_from_spec(spec)
@@ -60,7 +62,7 @@ def run(label='http-final'):
                 tab.goto(h.BASE + account_path, wait_until='networkidle')
                 aside = tab.locator('[data-imagine-renouvellement]')
                 checks[who + '_browser_visible'] = aside.is_visible()
-                name = who.lower() + '-second-' + str(width) + '.png'
+                name = who.lower() + '-' + label + '-' + str(width) + '.png'
                 aside.screenshot(path=str(c20.PROOF/name))
                 captures.append(name)
                 tab.get_by_role('link',name='Gérer cet abonnement dans WooCommerce',exact=True).first.click()
