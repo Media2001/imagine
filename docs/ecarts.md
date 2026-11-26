@@ -81,3 +81,14 @@ Toute demande hors cahier des charges, toute contradiction interne au cahier des
 - **A-22 · le brief ne visait que les flux.** Ses quatre canaris écrivaient sur les sorties du processus ; aucun n'altérait un fichier de rapport avant sa publication. La fusion l'a vu. Le canari par canal compte désormais un cinquième canal, le fichier.
 - **A-24 · les adresses ne se lisent pas sur une copie neutralisée.** L'import efface les champs d'adresse sauf le pays : restent les effectifs et la répartition par pays ; le reste vaut « inconnu après neutralisation ». L'état réel des adresses de livraison (§3.13) ne peut se lire que sur la source, hors agents : décision de Ced.
 - **C-23 · le public « découverte épuisée » n'existe pas sur l'état livré.** La découverte est livrée fermée (défaut de C-12, question 5 ouverte chez Imagine). Le test de livraison contrôle alors ce personnage comme un compte sans droit ; le cas « épuisé » se prouve dans une recette à part, réglage remis ensuite. À revoir quand l'accès découverte sera arrêté.
+
+
+## 26 novembre 2026, 22 h — lots A-25, A-22, C-23, B-07, C-24
+
+- **A-25 · l'import et les messages de formulaires.** Avec la décision `garder` posée sur une table de messages, les messages restent en clair après neutralisation et anonymisation (prouvé sur le banc). Le parcours de Ced vide par défaut les tables hors catalogue ; le sort des messages rangés comme des contenus n'est pas prouvé. Contraire à l'esprit du §3 de la doctrine. Lot A-28 ouvert ; d'ici là, pas de `garder` sur une table de formulaires.
+- **A-22 · un paquet de preuves ne se rejoue que sur le NUC.** Les journaux des paquets (`*.log`) ne sont pas versionnés : depuis une copie du dépôt, le vérificateur de paquet refuse (fichier absent). Les relecteurs du NUC, eux, ne peuvent pas lancer une commande avec argument. Le rejeu indépendant du vérificateur d'A-22 attend donc Ced.
+- **C-23 · une fonction entrée par un tour de correction.** La couverture des pages coopérateurs a été ajoutée au test pendant les corrections, hors des six instructions et sans les deux relectures de la doctrine §6. Gardée, non comptée comme prouvée ; relue avec C-26. Règle rappelée dans la file.
+- **B-07 · inscription ouverte sans garde.** Un visiteur anonyme peut créer une inscription par adresse et par événement, sans limite. Le brief demandait une inscription simple, sur un site fictif : rien n'est ajouté. À reprendre avant toute ouverture au public.
+- **C-24 · « inscrit à au moins une newsletter » (§3.10).** Le cahier des charges ne dit pas si une inscription créée d'office compte. Défaut prudent : non. Question rangée pour Imagine.
+- **Voie 2 · PSR-12 (doctrine §5).** Le code d'`imagine-site` et du thème condense des instructions sur une ligne. Dette acceptée jusqu'au gel du code, pour ne pas périmer les reçus des lots code clos ; un seul passage mécanique alors.
+

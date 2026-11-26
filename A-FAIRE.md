@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 26 novembre 2026, 19 h 30 (passage automatique).
+Mis à jour le 26 novembre 2026, 22 h 30 (passage automatique).
 
 **Deux voies depuis le 23/11.** Ce fichier est la file de la voie 1. Une deuxième session d'Hermès suit `A-FAIRE-2.md` (site de démonstration, squelette du thème, paywall sur article, profils, écran de réglages). Lis la section « Les deux voies » de la consigne permanente. Ne touche ni au site `imagine-test-demo`, ni aux dossiers `wp/themes/imagine/`, `wp/plugins/imagine-site/`, `wp/outils/demo/`, `wp/tests/demo/`.
 
@@ -12,19 +12,21 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 
 ## Consignes actives, par ordre de priorité
 
-File du 26/11, 19 h 30. Ton rapport de 17 h 06 est lu, merci ; tes notes de 18 h 56 sur A-22 aussi. **T-02 est clos** (vérification du second tour). A-20 et A-21 : corrections vérifiées à 17 h 38, mais le gardien a changé depuis ; ils se closent avec A-22. A-22 : fusion « à corriger » de 17 h 53, six instructions que tu dis appliquées, sans `PRET`. A-23, A-24 et A-25 sont construits, sans `PRET`. Arbitrages : `docs/arbitrages-2026-11-26.md`, passage de 19 h.
+File du 26/11, 22 h 30. Ton rapport de 19 h 21 est lu, merci ; tes notes de correction d'A-23, A-24 et A-25 et la réception d'A-27 aussi. **A-20 et A-21 sont clos** (leur propre vérification après le gel de 19 h 21). **A-22 : corrections vérifiées, rien à corriger**, pas encore clos : il manque le rejeu indépendant de son vérificateur de paquet, qui ne dépend pas de toi (voir `ETAT.md`). **Ne touche plus au gardien commun sans le dire en tête de ton rapport** : tout changement rouvre A-20, A-21 et A-22. A-23, A-24, A-25 : relus « à corriger », corrections que tu dis faites, sans `PRET`. Arbitrages : `docs/arbitrages-2026-11-26.md`, passage de 22 h.
 
-**0. Tes portes communes, puis les `PRET` d'A-20, A-21 et A-22 ensemble** (`corrections/A-22.md`, `briefs/A-22-superviseur-des-sorties.md`) :
-   - intègre la deuxième ligne de `readme-ajout.txt`, rejoue la préparation de l'image et le rejeu global dans les deux encodages, puis les vérificateurs des trois lots ; dépose les trois `PRET` sur les mêmes sources ;
-   - les défauts techniques de la fusion sont confirmés : rattachement analogique à §4.4 et §2.5 dit dans les notes, codes de refus historiques exacts par outil, duplication de l'enclos et code de délai d'A-20 laissés en dette ;
-   - A-20 et A-21 n'ont pas de troisième tour : le vérificateur d'A-22 contrôlera que leurs vérificateurs passent sur le gardien final et que rien d'autre n'a bougé chez eux depuis 17 h 38. Dis-lui dans tes notes d'A-22 ce qui a changé dans leurs dossiers depuis cette heure-là, en trois lignes ;
-   - ce qui vaut revalidation du paquet natif (instruction 6) : tes portes rejouées après le gel des sources, puis le rejeu par le vérificateur de ce qui tourne sans Docker. Écris la date et l'heure du gel.
+**0. A-23, A-24, A-25 : matrices natives, portes communes, puis leurs `PRET`** (`corrections/A-23.md`, `corrections/A-24.md`, `corrections/A-25.md`) :
+   - les défauts techniques des trois fusions sont confirmés, tels que tu les as appliqués : A-23 aligné sur la règle d'A-17 (définitions de rôle, plus les capacités directes) et refus fermé d'un rôle de gestion au nom non conforme ; A-24 compare sans les espaces ni la casse, données brutes intactes ; A-25 distingue `submission_id` clé primaire et référence, et répond « couverture indéterminée » dans le doute, jamais zéro ;
+   - une matrice neuve par lot après le dernier changement de source, un seul paquet par lot ; l'ancien paquet ne qualifie pas le code corrigé, tu l'as bien vu ; il sort du dépôt quand le nouveau est vert (règle du paquet unique) ;
+   - le cinquième canari (rapport altéré en fin de processus) vaut pour les trois ;
+   - A-23 : la question des collisions avec un compte de l'administration est rangée pour Imagine, défaut « oui » : n'y touche pas.
 
-**1. A-23, A-24, A-25 : leurs `PRET`, après A-22.** Chacun est rejoué si le gardien a changé depuis son paquet (compare l'empreinte du gardien citée dans le paquet). **Le cinquième canari vaut pour eux** : un rapport altéré en fin de processus n'est pas publié ; s'il manque à l'un des trois, ajoute-le avant le `PRET`. Les lignes de leurs `readme-ajout.txt` sont à intégrer par toi. A-24 : ton résultat sur la copie neutralisée (presque tout « inconnu ») est lu et porté à Ced ; l'import n'est pas à modifier.
+**1. Finir A-26 et A-27** (`briefs/A-26-ce-que-le-site-charge-chez-des-tiers.md`, `briefs/A-27-moyens-de-paiement-enregistres.md`) : matrices natives, lignes des `readme-ajout.txt` intégrées par toi, portes communes, `PRET`. A-27 : « tout est inconnu sur une copie neutralisée » est un résultat, il sera porté à Ced ; l'import n'est pas à modifier pour lui.
 
-**2. `briefs/A-26-ce-que-le-site-charge-chez-des-tiers.md`** — mesure d'audience, pixels, consentement, contenus intégrés dans les articles, comptés par famille et par service d'une liste fermée (§4.4, cookies et registre des traitements). Lecture seule, aucun identifiant ni domaine hors liste ne sort. Trois heures.
+**2. `briefs/A-28-messages-de-formulaires-et-import.md`** — ton alerte d'A-25 est prise au sérieux. Prouver par le vrai parcours d'import, sur archives fictives, ce qu'il reste des messages de formulaires (table dédiée connue, table inconnue, type de contenu) ; vider ceux d'une liste fermée, refuser un `garder` sur eux, et faire refuser par l'étape de vérification une copie où il en reste. A-01 reste clos pour tout le reste ; aucune commande de Ced ne change ; tu n'ouvres pas l'archive. Trois heures.
 
-**3. `briefs/A-27-moyens-de-paiement-enregistres.md`** — les abonnements vivants en renouvellement automatique, comptés par passerelle et par type de référence (carte, mandat SEPA, accord PayPal), cartes expirées, références orphelines (§4.3, §3.6). Lecture seule, aucun jeton ni référence ne sort, aucun appel à une passerelle. Trois heures.
+**3. `briefs/A-29-ce-que-le-site-fait-tout-seul.md`** — les tâches planifiées du site actuel, comptées par famille d'une liste fermée : en attente, en retard, en échec, renouvellements attendus par semaine sur huit semaines (§4.3, §3.8 ; pour choisir le moment de la bascule). Lecture seule, rien n'est exécuté ni replanifié, aucun nom de tâche hors liste ne sort. Trois heures.
+
+**Ton dernier rapport date de 19 h 21** alors que tu as travaillé depuis : un rapport court à la fin de chaque réveil, même quand rien n'est `PRET`. Trois lignes suffisent : où en sont les portes, ce qui bloque.
 
 **Un rapport court dans `files/rapports/` à la fin de chaque réveil**, même de cinq lignes : c'est ce que le passage automatique lit en premier.
 
@@ -115,9 +117,10 @@ Tu n'ouvres toujours pas l'archive d'Imagine ; c'est Ced qui lance le diagnostic
 | A-17 Sécurité des comptes de l'administration | 26/11, corrigé le 26/11 | **Clos le 26/11** (neuf corrections vérifiées ; chemin de refus corrigé au point commun, 60 refus au canari verts). Le compte des mots de passe d'application vaut « inconnu après neutralisation » ; l'import n'est pas modifié |
 | A-18 Ce que le site garde et ne devrait pas garder | 26/11, corrigé le 26/11 | **Clos le 26/11** (sept corrections vérifiées : les deux magasins de commandes lus, détection des formes bruitées). Ne dit pas si le serveur protège les fichiers ; ne supprime rien |
 | A-19 Cohérence des abonnements et des adhésions | 26/11, corrigé le 26/11 | **Clos le 26/11** (quatre corrections vérifiées ; la commande du mode d'emploi passe sans date). Des comptes seulement, ne corrige rien |
-| T-02 Rejeu des tests purs des outils | 26/11, corrigé le 26/11 | **Clos le 26/11** (trois corrections vérifiées : un reçu mixte est refusé, empreintes des reçus recalculées ; 14 outils, 279 contrôles). Le vérificateur n'a pas relancé les suites : empreintes recalculées et portes du parent de 17 h 06 |
-| A-20 Ce que paient les abonnés en ligne | 26/11, repris le 26/11 | Cinq corrections vérifiées à 17 h 38 ; paquet refait sur le gardien final, sans `PRET` ; se clôt avec A-22 (consigne 0) |
-| A-21 Les portes vers l'extérieur | 26/11, repris le 26/11 | Quatre corrections vérifiées à 17 h 38 ; paquet refait sur le gardien final, sans `PRET` ; se clôt avec A-22 (consigne 0) |
+| T-02 Rejeu des tests purs des outils | 26/11, corrigé le 26/11 | **Clos le 26/11** (trois corrections vérifiées : un reçu mixte est refusé, empreintes des reçus recalculées). Vérification complémentaire : suite rejouée par le vérificateur, 16 outils, 311 contrôles |
+| A-20 Ce que paient les abonnés en ligne | 26/11, corrigé et repris le 26/11 | **Clos le 26/11** (cinq corrections vérifiées ; vérification n° 3 sur le gardien final, canal « fichier » couvert). Matrice native rejouée par Hermès seul. Des comptes seulement |
+| A-21 Les portes vers l'extérieur | 26/11, corrigé et repris le 26/11 | **Clos le 26/11** (quatre corrections vérifiées ; vérification n° 3 sur le gardien final). Matrice native rejouée par Hermès seul. Aucune clé, aucune adresse, ne révoque rien |
+| A-22 Un seul gardien pour les sorties | 26/11, corrigé le 26/11 | Six corrections faites, cinq vérifiées par des tests rejoués ; **pas clos** : le vérificateur de paquet n'a été lancé par aucun relecteur (commande à Ced, `ETAT.md`) |
 | A-07 Retouches de rédaction | 26/11 | Sept retouches vérifiées ; constat du 20/11 annoté, rien de rejoué. Reste clos |
 | T-01 Commande de rejeu | 23/11, corrigé le 23/11 | **Clos le 23/11** ; autorisation ajoutée au script de relecture |
 | A-02 Script d'audit | 23/11, corrigé le 23/11 | **Clos le 23/11** (outil et banc fictif). L'audit réel reste à lancer |

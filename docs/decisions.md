@@ -77,6 +77,8 @@ Issues des lots, au 26/11 à 10 h (chacune est un réglage au défaut prudent, a
 | Qui peut poser ou retirer le statut de coopérateur sur un compte : le seul rôle Administrateur, ou aussi un autre rôle (à nommer) ? | Administrateur seul | Réglage des rôles autorisés, dans l'écran de réglages (B-06) |
 | Qui peut lire l'espace coopérateurs sans être coopérateur (rédaction, gestionnaires) ? | Administrateur seul ; les autres rôles sont refusés | Réglage des rôles autorisés, dans l'écran de réglages (B-06) |
 | Dans le formulaire de personnalisation, la localité est-elle un texte libre ou un choix dans une liste fermée ? | Liste fermée : un texte libre deviendrait tel quel une étiquette | Les questions et leurs choix sont un réglage (C-24) |
+| Pour la transmission des réponses de personnalisation (§3.10, « inscrit à au moins une newsletter »), une inscription créée d'office à la création du compte compte-t-elle comme une inscription ? | Non : seule une inscription choisie par le lecteur ouvre la transmission | Pas de réglage : règle de la transmission ; aucun envoi n'existe encore (C-24) |
+| Dans le compte des abonnés du site actuel, une adresse ou un identifiant de lecteur partagé avec un compte de l'administration compte-t-il comme un doublon du lecteur ? | Oui : c'est un obstacle à la reprise du compte | Pas de réglage : présentation de l'inventaire (A-23) |
 
 Rappel de règle, sans question : un abonnement actif dans l'administration mais **sans paiement validé** ne figure pas dans la liste d'envoi.
 
