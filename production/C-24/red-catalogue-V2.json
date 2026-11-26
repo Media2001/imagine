@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-26T17:23:11.363788+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "regles_presentes": false
+  },
+  "total": 1,
+  "failures": [
+    "regles_presentes"
+  ],
+  "exit": 1,
+  "stderr": "",
+  "image": "sha256:e91f2c66fea04ce67e390df3a2418b257946e36fac2ff0b57bdcc589d21fe9d4",
+  "container_removed": true
+}

@@ -30,6 +30,14 @@
       "status": "PASS"
     },
     {
+      "check": "classic:A20:channels:shutdown_file",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:A20:channels:shutdown_json",
+      "status": "PASS"
+    },
+    {
       "check": "classic:A20:channel_site_restored",
       "status": "PASS"
     },
@@ -67,6 +75,14 @@
     },
     {
       "check": "hpos:A20:channels:shutdown_echo",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:A20:channels:shutdown_file",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:A20:channels:shutdown_json",
       "status": "PASS"
     },
     {

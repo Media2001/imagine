@@ -1,5 +1,15 @@
 # A-20 — gardien commun intégré, nouveau paquet vérifié sans PRET
 
+## 26 novembre 2026 — reprise après fusion A22 de 17 h 53
+
+**Résultat courant : paquet neuf `a22-corrections-1753/a20-matrix-final-02`, cinq commandes réellement vertes, sur le gardien corrigé et figé.** Par console UTF-8/cp1252 Windows Python 3.14.6 : 34 tests Python, 23 assertions PHP pures, 158 contrôles natifs, 9 contrôles runner et **25 contrôles additionnels**, incluant les deux contaminations silencieuses de fichiers. Vérificateur livré : **111 PASS dans chaque console**. Sept sondes de miroir : PRET futur accepté, dérive du gardien et contenu altéré refusés, retrait du canari fichier refusé même après rescellement, restauration verte. Aucun marqueur créé dans le dépôt.
+
+Les données métier, formats et outils A20 sont inchangés ; adaptations limitées aux dépendances exécutées et au contrat de réception des nouveaux canaris communs. Ancien paquet et reçus préservés sous `C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/superseded/A-20/`. Les matrices sont exécutées, pas réétiquetées par de nouvelles empreintes. PHP reste en conteneurs exacts, jetables et déconnectés. **Les portes globales de 17 h 06 ne couvrent plus ces sources : préparation, rejeu global et décision de PRET restent au parent.** Aucun réel, compte, archive, Novamira, Git, voie2 ou README partagé.
+
+Commande réellement exécutée : `C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a20/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/a20-matrix-final-02`. Vérification directe : `C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a20/verify.py C:/Users/Ced/imagine/production/A-20/preuves/final`.
+
+## Historique précédent — non probant pour les sources corrigées ci-dessus
+
 ## Résultat courant — remplace les preuves antérieures
 
 `production/A-20/preuves/final` provient intégralement de la nouvelle matrice `a20-shared-final-04`, exécutée après les dernières sources communes et la restauration des refus d’arguments avant staging. Code réel de la matrice : **0**, cinq commandes vertes. Windows `C:/Python314/python.exe`, **3.14.6**, consoles UTF-8 puis cp1252 mesurées ; encodage enfant explicite et scratch Hermes explicite.

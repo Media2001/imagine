@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-26T17:26:51.809655+00:00",
+  "scope": "imagine-test-demo",
+  "total": 1,
+  "failures": [
+    "formulaire_natif_absent"
+  ],
+  "exit": 1,
+  "stderr": "",
+  "state_preserved": true,
+  "source_sha256": "732364b375a5cb6e0562ec8ce662923fae4a5d3723bb09a395ad1f37e0ffc418"
+}

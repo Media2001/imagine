@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-26T17:24:10.656552+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "regles_presentes": true,
+    "catalogue_ferme_valide": true,
+    "refus_question_duplicate": true,
+    "refus_choice_duplicate": true,
+    "refus_html": true,
+    "refus_libre": true,
+    "refus_type": true,
+    "refus_id": true,
+    "utf8_caracteres": true,
+    "transition_presente": false
+  },
+  "total": 10,
+  "failures": [
+    "transition_presente"
+  ],
+  "exit": 1,
+  "stderr": "",
+  "image": "sha256:e91f2c66fea04ce67e390df3a2418b257946e36fac2ff0b57bdcc589d21fe9d4",
+  "container_removed": true
+}

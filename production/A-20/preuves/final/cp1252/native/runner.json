@@ -1,7 +1,7 @@
 {
   "suite": "A20-owned-runner",
-  "container": "imagine-a20-prices-df8d5f785dfd",
-  "at": "2026-11-26T14:53:23.860505+00:00",
+  "container": "imagine-a20-prices-c6f2e5d80b2c",
+  "at": "2026-11-26T17:18:57.745596+00:00",
   "mode": "native",
   "checks": [
     {

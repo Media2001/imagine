@@ -10,11 +10,11 @@
   "wp/tests/a20/inside.py": "b67ae7ae2595432b2c5abbe8d4c3850daf7b6bafc7a601ca6b6a0c9164d4cc21",
   "wp/tests/a20/matrix.py": "d592603e586cb6837e687807abe4b5b9e74c14cd62a474c85a9079eafc692f6a",
   "wp/tests/a20/pure-probe.php": "90896b6da84f4ecad19ab11544ce319f2cdf26733ea749f06c3b25c2a50903c9",
-  "wp/tests/a20/run.py": "338148f674ed1171dfebc09fb59dac08e6b4012bc537c774678412686cc7bbb2",
+  "wp/tests/a20/run.py": "49905ed4fa0e0d0c903e6980af1459541cc5a9b9ae5be89f8990b307698368c8",
   "wp/tests/a20/seed.php": "5d2c056f847a9fe3cdf3cc0d2eb223be4026534aed0679f4e565f0205d300ba3",
   "wp/tests/a20/style.py": "d856a2ea35f9a25c4be47e20fe5f3b8b9c2669b525f10b76cb35c1f6b0b8fe31",
   "wp/tests/a20/test_launcher.py": "dba1512b121458352856f3f783a6f9087aece1c67cf61d04fbe637d536a92ebc",
   "wp/tests/a20/test_report.py": "065317021b41a54e5cce42d1d01fbe60e699554d5010436390be8a466ff96967",
   "wp/tests/a20/unit.php": "1aeb2b4b781ddc25a8c6d6262565977bc248b34c695afc1aab3181741f6c0601",
-  "wp/tests/a20/verify.py": "5c5421ca2dde014b22be1701bef40f88c52f2a5c67d18b0266b303f8e216f7e2"
+  "wp/tests/a20/verify.py": "d4faed13c398e155cd8cbc72d1b4c26d59afaba6bcdf6a56c34276e260a86e0d"
 }
