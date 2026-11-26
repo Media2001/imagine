@@ -15,7 +15,7 @@ if (($argv[1] ?? '') === '--pure') {
 }
 
 // Exercise the actual T01 discovery/coverage, without starting its global replay.
-define('T01_FUNCTIONS_ONLY', true);
+// The runner defines T01_FUNCTIONS_ONLY before this function-only include.
 require '/repo/wp/tests/t01/executer.php';
 $packages = discoverT01Packages('/work/wp')['packages'];
 if (array_column($packages, 'relative') !== ['plugins/imagine-pilotage']) {

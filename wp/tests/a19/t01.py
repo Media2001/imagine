@@ -40,7 +40,7 @@ def main():
         pure=b.call(['exec',name,'php','-n','-d','disable_functions=file_put_contents,fopen,mkdir,rename,unlink,mail,exec,shell_exec,system,passthru,popen,proc_open','/opt/a19/t01-probe.php','--pure'],check=False)
         (out/'pure.log').write_text(pure.stdout+pure.stderr,encoding='utf-8')
         check('pure_no_extensions_database_network_writes',pure.returncode==0 and pure.stdout=='A19_PURE_NO_EXTENSIONS_NO_WRITES_OK\n' and pure.stderr=='')
-        probe=b.call(['exec',name,'php','/opt/a19/t01-probe.php'],check=False)
+        probe=b.call(['exec',name,'php','-r','define("T01_FUNCTIONS_ONLY", true); require "/opt/a19/t01-probe.php";'],check=False)
         (out/'discovery.log').write_text(probe.stdout+probe.stderr,encoding='utf-8');check('unchanged_t01_discovery_and_full_coverage',probe.returncode==0)
         command=['php','vendor/bin/phpunit','--configuration','phpunit.xml','--filter','A19SubscriptionCoherenceTest','--fail-on-warning','--fail-on-risky','--fail-on-deprecation','--fail-on-skipped','--fail-on-incomplete','--do-not-cache-result','--colors=never','--log-junit','/report/t01-junit.xml']
         p=b.call(['exec','-w','/work/wp/plugins/imagine-pilotage',name,*command],check=False)
