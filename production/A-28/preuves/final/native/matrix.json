@@ -1,5 +1,5 @@
 {
-  "status": "FAIL",
+  "status": "PASS",
   "commands": [
     {
       "context": "utf8",
@@ -13,6 +13,20 @@
       "exit": 0,
       "sources_stable": true,
       "stdout_sha256": "3fc941d3fd9b32f076156254590d7dc1a6fda7aaf72bd89833d72402d570451b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "context": "cp1252",
+      "argv": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\a28\\run.py",
+        "--output",
+        "C:\\Users\\Ced\\imagine\\production\\A-28\\preuves\\final\\native\\cp1252"
+      ],
+      "exit": 0,
+      "sources_stable": true,
+      "stdout_sha256": "421f3be33a774af4f5a6a39b7e3d0d4d2e5d4d09ccdc757d5f90a7e959c796b1",
       "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
   ],

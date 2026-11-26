@@ -81,13 +81,29 @@ namespace {
     function get_option(string $key, mixed $default = false): mixed { return $GLOBALS['retract_options'][$key] ?? $default; }
     function add_option(string $key, mixed $value, mixed $deprecated = '', mixed $autoload = false): bool
     {
-        if ($GLOBALS['retract_fail_journal'] || isset($GLOBALS['retract_options'][$key])) { return false; }
+        if (isset($GLOBALS['retract_sanitizers'][$key])) { $value = ($GLOBALS['retract_sanitizers'][$key])($value); }
+        if (($GLOBALS['retract_fail_journal'] && str_starts_with($key, 'imagine_reglages_journal_')) || array_key_exists($key, $GLOBALS['retract_options'])) { return false; }
         $GLOBALS['retract_options'][$key] = $value;
+        do_action('added_option', $key, $value);
         return true;
     }
-    function update_option(string $key, mixed $value, mixed $autoload = false): bool { $GLOBALS['retract_options'][$key] = $value; return true; }
+    function update_option(string $key, mixed $value, mixed $autoload = false): bool
+    {
+        if (isset($GLOBALS['retract_sanitizers'][$key])) { $value = ($GLOBALS['retract_sanitizers'][$key])($value); }
+        if (!array_key_exists($key, $GLOBALS['retract_options'])) { return add_option($key, $value, '', $autoload); }
+        $old = $GLOBALS['retract_options'][$key];
+        if ($old === $value) { return false; }
+        $GLOBALS['retract_options'][$key] = $value;
+        do_action('updated_option', $key, $old, $value);
+        return true;
+    }
+    function delete_option(string $key): bool { unset($GLOBALS['retract_options'][$key]); return true; }
+    function do_action(string $hook, mixed ...$args): void { foreach ($GLOBALS['retract_hooks'][$hook] ?? [] as $fn) { $fn(...$args); } }
+    function register_setting(string $group, string $key, array $args): void { $GLOBALS['retract_sanitizers'][$key] = $args['sanitize_callback']; }
+    function wp_generate_uuid4(): string { return bin2hex(random_bytes(16)); }
+    function wp_die(string $message, string $title = '', array $args = []): never { throw new RuntimeException($message); }
     function get_comment(int $id): ?object { return isset($GLOBALS['retract_notes'][$id]) ? (object)$GLOBALS['retract_notes'][$id] : null; }
-    function add_comment_meta(int $id, string $key, mixed $value, bool $unique = false): int|false { $GLOBALS['retract_meta'][$id] = $value; return $id; }
+    function add_comment_meta(int $id, string $key, mixed $value, bool $unique = false): int|false { $GLOBALS['retract_meta'][$id] = wp_unslash($value); return $id; }
     function get_comment_meta(int $id, string $key, bool $single = false): mixed { return $GLOBALS['retract_meta'][$id] ?? ''; }
     function wp_delete_comment(int $id, bool $force = false): bool
     {
@@ -119,7 +135,8 @@ namespace {
     function wp_nonce_field(string $action, string $key): void { echo '<input name="' . $key . '" value="nonce">'; }
     function wp_create_nonce(string $action): string { return 'nonce'; }
     function wp_verify_nonce(string $nonce, string $action): bool { return $nonce === 'nonce'; }
-    function wp_unslash(mixed $value): mixed { return $value; }
+    function wp_unslash(mixed $value): mixed { return is_array($value) ? array_map('wp_unslash', $value) : (is_string($value) ? stripslashes($value) : $value); }
+    function wp_slash(mixed $value): mixed { return is_array($value) ? array_map('wp_slash', $value) : (is_string($value) ? addslashes($value) : $value); }
     function admin_url(string $path = ''): string { return '/wp-admin/' . $path; }
     function current_user_can(string $cap): bool { return true; }
     function add_settings_error(mixed ...$args): void {}

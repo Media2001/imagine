@@ -112,7 +112,7 @@ final class Retractation
                 false
             );
             $record['note'] = $note;
-            if (!$note || !add_comment_meta($note, self::META, $record, true)
+            if (!$note || !add_comment_meta($note, self::META, wp_slash($record), true)
                 || get_comment_meta($note, self::META, true) !== $record) {
                 throw new \RuntimeException('Note non persistée.');
             }

@@ -18,6 +18,58 @@ final class RetractationAdapterTest extends TestCase
         require __DIR__ . '/RetractationWPStubs.php';
     }
 
+    public function testAntislashWordPressReluEtExporteSansPerte(): void
+    {
+        $reason = 'Document C:\\dossier\\fichier et \\double\\\\fin "cité"';
+        self::assertNotSame($reason, wp_unslash($reason), 'Le bouchon déséchappe réellement');
+        self::assertSame($reason, wp_unslash(wp_slash($reason)));
+        $post = ['etape' => 'confirmer', '_c25' => 'nonce', 'confirmation' => 'confirmer', 'raison' => $reason];
+        $html = Retractation::panneau(10, wp_unslash(wp_slash($post)));
+        self::assertStringContainsString('Accusé de réception', $html);
+        $record = Retractation::lire(10);
+        self::assertSame($reason, $record['raison']);
+        self::assertSame($record, get_comment_meta($record['note'], Retractation::META, true));
+        $export = \Imagine\Site\RetractationConfidentialite::exporter('fictif@example.org');
+        self::assertCount(1, $export['data']);
+        self::assertContains($reason, array_column($export['data'][0]['data'], 'value'));
+    }
+
+    public function testReglagesJournalAjoutModificationEtRollbackPreimage(): void
+    {
+        \Imagine\Site\RetractationReglages::register();
+        do_action('admin_init');
+        $first = ['jours' => 14, 'origine' => 'paiement'];
+        $next = ['jours' => 1, 'origine' => 'manuelle'];
+        $events = static fn (): array => array_values(array_filter($GLOBALS['retract_options'],
+            static fn ($event): bool => is_array($event) && ($event['option'] ?? '') === Retractation::OPTION));
+        update_option('autre_option', 'fictif');
+        self::assertSame([], $events());
+        update_option(Retractation::OPTION, $first);
+        self::assertCount(1, $events());
+        self::assertNull($events()[0]['avant']);
+        self::assertSame($first, $events()[0]['apres']);
+        self::assertSame(7, $events()[0]['qui_id']);
+        self::assertSame('fictif', $events()[0]['qui_login']);
+        self::assertMatchesRegularExpression('/^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\dZ$/D', $events()[0]['quand_utc']);
+        update_option(Retractation::OPTION, $next);
+        self::assertCount(2, $events());
+        self::assertSame($first, $events()[1]['avant']);
+        self::assertSame($next, $events()[1]['apres']);
+        update_option(Retractation::OPTION, $next);
+        self::assertCount(2, $events(), 'Sans changement, pas de journal');
+        $GLOBALS['retract_fail_journal'] = true;
+        update_option(Retractation::OPTION, $first);
+        self::assertSame($next, get_option(Retractation::OPTION), 'Préimage relue, pas une valeur par défaut');
+        self::assertCount(2, $events(), 'Pas de journal de restauration');
+        delete_option(Retractation::OPTION);
+        update_option(Retractation::OPTION, $first);
+        self::assertNull(get_option(Retractation::OPTION, null), 'Création annulée, option réellement absente');
+        self::assertCount(2, $events());
+        $GLOBALS['retract_fail_journal'] = false;
+        update_option(Retractation::OPTION, $first);
+        self::assertCount(3, $events(), 'Reprise après panne');
+    }
+
     public function testDeuxEtapesAbandonConfirmationEtOrigineManuelle(): void
     {
         self::assertTrue(is_callable([Retractation::class, 'panneau']), 'Parcours deux étapes absent');

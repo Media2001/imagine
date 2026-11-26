@@ -7,8 +7,13 @@ namespace Imagine\Site;
 /** Deux réglages C10 et un champ de date sur la commande ; aucun changement de paiement. */
 final class RetractationReglages
 {
+    private static bool $restoring = false;
+    private static mixed $preimage = null;
+
     public static function register(): void
     {
+        add_action('added_option', static fn ($key, $new) => self::journal($key, null, $new), 25, 2);
+        add_action('updated_option', static fn ($key, $old, $new) => self::journal($key, $old, $new), 25, 3);
         add_action('admin_init', static function (): void {
             register_setting('imagine_reglages', Retractation::OPTION, ['type' => 'array', 'show_in_rest' => false, 'sanitize_callback' => [self::class, 'nettoyer']]);
         }, 50);
@@ -40,8 +45,39 @@ final class RetractationReglages
         add_action('woocommerce_process_shop_order_meta', [self::class, 'sauverDate'], 50, 1);
     }
 
+    private static function journal(string $key, mixed $old, mixed $new): void
+    {
+        if (self::$restoring || $key !== Retractation::OPTION || $old === $new) {
+            return;
+        }
+        $user = wp_get_current_user();
+        // Contrat du journal partagé C10, sans modifier sa bibliothèque close.
+        $name = 'imagine_reglages_journal_' . str_replace('-', '', wp_generate_uuid4());
+        $event = ['quand_utc' => gmdate('Y-m-d\TH:i:s\Z'), 'qui_id' => $user->ID,
+            'qui_login' => $user->ID ? $user->user_login : 'systeme',
+            'option' => $key, 'avant' => $old, 'apres' => $new];
+        if (add_option($name, $event, '', false) && get_option($name) === $event) {
+            return;
+        }
+        self::$preimage = $old;
+        self::$restoring = true;
+        try {
+            $old === null ? delete_option($key) : update_option($key, $old, false);
+            if (get_option($key, null) !== $old) {
+                wp_die(esc_html__('Échec du journal et de la restauration de la rétractation.', 'imagine-site'), '', ['response' => 500]);
+            }
+        } finally {
+            self::$restoring = false;
+            self::$preimage = null;
+        }
+        add_settings_error($key, 'imagine_retractation_journal', __('Journal indisponible : réglage inchangé.', 'imagine-site'));
+    }
+
     public static function nettoyer(mixed $value): array
     {
+        if (self::$restoring && is_array(self::$preimage) && $value === self::$preimage) {
+            return self::$preimage;
+        }
         if (is_array($value) && count($value) === 2 && isset($value['jours'], $value['origine'])
             && (is_int($value['jours']) || (is_string($value['jours']) && preg_match('/^[1-9][0-9]{0,2}$/D', $value['jours'])))) {
             $value['jours'] = (int)$value['jours'];
