@@ -1,0 +1,13 @@
+{
+  "shared_successors_and_mutation_refusal": {
+    "wp/plugins/imagine-site/Paywall.php": true,
+    "wp/plugins/imagine-site/imagine-site.php": true,
+    "wp/themes/imagine/parts/mon-compte.php": true,
+    "wp/plugins/imagine-site/README.md": true
+  },
+  "last_captures_identical_to_visually_inspected_pair": {
+    "a-carte-http-final-source-1280.png": true,
+    "a-sepa4-http-final-source-390.png": true
+  },
+  "no_C20_correction": true
+}
