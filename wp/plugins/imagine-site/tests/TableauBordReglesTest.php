@@ -9,6 +9,18 @@ use PHPUnit\Framework\TestCase;
 
 final class TableauBordReglesTest extends TestCase
 {
+    public function testEntryUsesNativeCreationAsStandardNewSubscriptionsNotScheduleStart(): void
+    {
+        $now = strtotime('2026-11-26 12:00:00 UTC');
+        $r = TableauBordRegles::calculer('mouvements', ['maintenant' => $now, 'mouvements' => [
+            ['creation' => $now, 'debut' => strtotime('2025-01-01 UTC'), 'fin' => 0, 'etat' => 'pending'],
+            ['creation' => strtotime('2025-01-01 UTC'), 'debut' => $now, 'fin' => 0, 'etat' => 'active'],
+            ['creation' => $now, 'debut' => 0, 'fin' => 0, 'etat' => 'active'],
+        ]]);
+        self::assertSame(2, $r['valeurs']['entrees']);
+        self::assertStringContainsString('création native', $r['phrase']);
+    }
+
     public function testEmptySourcesGiveRealZerosAndUnknownIndicatorIsRefused(): void
     {
         $data = ['abonnements' => [], 'echeances' => [], 'echecs' => [], 'mouvements' => [], 'maintenant' => 1800000000];
@@ -37,6 +49,7 @@ final class TableauBordReglesTest extends TestCase
             ['debut' => 0, 'fin' => $now, 'etat' => 'pending-cancel'],
             ['debut' => strtotime('2026-12-01 UTC'), 'fin' => 0, 'etat' => 'pending'],
         ];
+        $rows = array_map(static fn (array $row): array => $row + ['creation' => $row['debut']], $rows);
         $data = ['mouvements' => $rows, 'maintenant' => $now];
         $saved = $data;
         $r = TableauBordRegles::calculer('mouvements', $data);

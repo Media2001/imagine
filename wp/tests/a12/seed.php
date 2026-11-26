@@ -36,7 +36,9 @@ if (is_wp_error($linkTerm) || is_wp_error($mixedTerm)) {
 }
 $linkIds = [(int) $ids[0], 200000];
 foreach ($linkIds as $linkId) {
-    $wpdb->insert($wpdb->links, ['link_id' => $linkId, 'link_url' => 'https://fiction.invalid/link', 'link_name' => 'Lien fictif A12']);
+    $wpdb->insert($wpdb->links, [
+        'link_id' => $linkId, 'link_url' => 'https://fiction.invalid/link', 'link_name' => 'Lien fictif A12',
+    ]);
     wp_set_object_terms($linkId, [(int) $linkTerm['term_id']], 'link_category');
     wp_set_object_terms($linkId, [(int) $mixedTerm['term_id']], 'a12_mixed_tax');
 }

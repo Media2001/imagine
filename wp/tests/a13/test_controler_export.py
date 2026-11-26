@@ -22,12 +22,13 @@ class ExportTests(unittest.TestCase):
         self.addCleanup(self.tmp.cleanup)
         self.work = Path(self.tmp.name)
 
-    def run_cli(self, fixture='a13-export-propre-fictif.csv', content=None, config=None, extra=()):
-        source = self.work / 'export.csv'
+    def run_cli(self, fixture='a13-export-propre-fictif.csv', content=None, config=None, extra=(), work=None):
+        work = work or self.work
+        source = work / 'export.csv'
         source.write_bytes((FIXTURES / fixture).read_bytes() if content is None else content)
         mapping = CONFIG
         if config is not None:
-            mapping = self.work / 'correspondance.json'
+            mapping = work / 'correspondance.json'
             mapping.write_text(json.dumps(config, ensure_ascii=False), encoding='utf-8')
         result = subprocess.run(
             [sys.executable, str(TOOL), str(source), '--correspondance', str(mapping),
@@ -310,9 +311,9 @@ class ExportTests(unittest.TestCase):
         self.assertNotIn('Traceback', result.stderr)
 
     def test_iban_typographic_variants_in_one_unmapped_cell(self):
-        for marker in ('ZZ00.0000.0000.0000.0000', 'ZZ00\u200b0000\u200b0000\u200b0000\u200b0000',
+        for index, marker in enumerate(('ZZ00.0000.0000.0000.0000', 'ZZ00\u200b0000\u200b0000\u200b0000\u200b0000',
                        'ZZ00\u202f0000\u202f0000\u202f0000\u202f0000', 'ZZ00·0000·0000·0000·0000',
-                       'ＺＺ００.００００.００００.００００.００００'):
+                       'ＺＺ００.００００.００００.００００.００００')):
             with self.subTest(marker_type=ascii(marker)[:20]):
                 rows = list(csv.reader(io.StringIO(self.clean_bytes().decode()), delimiter=';'))
                 rows[0].append('Note')
@@ -320,7 +321,8 @@ class ExportTests(unittest.TestCase):
                 rows[-1][-1] = marker
                 stream = io.StringIO(newline=''); csv.writer(stream, delimiter=';').writerows(rows)
                 content = stream.getvalue().encode()
-                result, source = self.run_cli(content=content)
+                work = self.work / str(index); work.mkdir()
+                result, source = self.run_cli(content=content, work=work)
                 self.assert_refused(result, source, 'IBAN suspect : colonne 14')
                 self.assertNotIn('ZZ00', result.stdout + result.stderr)
                 self.assertEqual(content, source.read_bytes())

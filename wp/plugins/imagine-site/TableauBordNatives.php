@@ -20,7 +20,7 @@ final class TableauBordNatives
             if (!$sub) {
                 throw new \RuntimeException('Abonnement disparu pendant la lecture.');
             }
-            $data['mouvements'][] = ['debut' => (int) $sub->get_time('start'),
+            $data['mouvements'][] = ['creation' => $sub->get_date_created()?->getTimestamp() ?? 0,
                 'fin' => (int) $sub->get_time('end'), 'etat' => $sub->get_status()];
         }
         $data['maintenant'] = time();

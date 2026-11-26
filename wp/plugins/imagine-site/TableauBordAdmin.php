@@ -80,7 +80,7 @@ final class TableauBordAdmin
                 foreach ($metric['valeurs'] as $key => $number) {
                     $label = match ((string) $key) {
                         'total' => 'Total', '30' => 'À un mois — 30 jours', '90' => 'À trois mois — 90 jours',
-                        '180' => 'À six mois — 180 jours', 'entrees' => 'Entrées — début natif', 'sorties' => 'Sorties — fin native',
+                        '180' => 'À six mois — 180 jours', 'entrees' => 'Entrées — créations natives', 'sorties' => 'Sorties — fin native',
                         'mode:inconnu' => 'Mode non renseigné', 'mode:bacs' => 'Virement', 'mode:imagine_papier' => 'Mandat papier',
                         default => str_starts_with((string) $key, 'mode:') ? 'Mode natif : ' . substr((string) $key, 5) : (string) $key,
                     };

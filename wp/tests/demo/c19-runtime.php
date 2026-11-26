@@ -49,7 +49,7 @@ if ($checks['raccord_present']) {
         $start = strtotime(gmdate('Y-m-01 00:00:00', $now) . ' UTC');
         $counts = ['entrees' => 0, 'sorties' => 0];
         foreach (wcs_get_subscriptions(['subscriptions_per_page' => -1, 'subscription_status' => 'any']) as $sub) {
-            $debut = (int) $sub->get_time('start');
+            $debut = $sub->get_date_created()?->getTimestamp() ?? 0;
             $fin = (int) $sub->get_time('end');
             $counts['entrees'] += (int) ($debut > 0 && $debut >= $start && $debut <= $now);
             $counts['sorties'] += (int) ($sub->has_status(['cancelled', 'expired']) && $fin > 0 && $fin >= $start && $fin <= $now);

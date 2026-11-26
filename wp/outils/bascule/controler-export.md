@@ -29,7 +29,7 @@ fichier : seules sa position de colonne et une consigne sont affichées, **aucun
 valeur, aucun résumé, aucun fichier de rejets**. La totalité du fichier, y compris
 les colonnes non utilisées et la dernière ligne, est précontrôlée avant toute
 analyse métier et toute écriture. La détection vise une ressemblance, sans checksum
-bancaire ni vérification en ligne : un faux IBAN peut donc bloquer volontairement.
+bancaire ni vérification en ligne : un faux IBAN peut donc bloquer volontairement. La sonde normalise la typographie de chaque cellule (NFKC, ponctuation, espaces et caractères de format invisibles), jamais les données source ; elle ne concatène pas les colonnes.
 Si le CSV est cassé, la colonne peut ne pas être déterminable : réparer le format
 hors du dépôt, jamais ignorer l'alerte ou importer le fichier.
 
@@ -62,8 +62,7 @@ aucune adresse n'est inventée (création future selon CDC §3.13, hors de cet o
 
 Adresse complète = rue, code postal, ville, pays renseignés ; pas de géocodage.
 Email = contrôle syntaxique ASCII usuel (domaines internationalisés en punycode),
-aucun test de délivrabilité. Les doublons portent sur l'email, sur le nom complet
-(nom et prénom si fourni) + adresse complète, ou sur la référence de mandat.
+aucun test de délivrabilité. Les doublons portent par défaut sur l'email, sur le **nom + adresse complète, sans exiger le prénom**, ou sur la référence de mandat. L'option de correspondance `doublon_prenom_identique` est `false` par défaut (également quand absente d'une ancienne configuration) ; la passer explicitement à `true` ajoute le prénom à cette seule comparaison.
 Casse, accents et espaces sont normalisés pour les comparaisons uniquement.
 **Tous** les membres d'un doublon sont signalés, pas seulement le deuxième.
 Le résumé distingue lignes rejetées et motifs : une ligne peut porter plusieurs

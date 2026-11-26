@@ -21,5 +21,6 @@
   "obligatoires": ["nom", "type_abonnement", "numeros_dus", "echeance", "cooperateur", "mode_paiement"],
   "modes_paiement": ["virement", "domiciliation_papier"],
   "modes_mandat_papier": ["domiciliation_papier"],
-  "types_abonnement_autorises": []
+  "types_abonnement_autorises": [],
+  "doublon_prenom_identique": false
 }

@@ -24,7 +24,11 @@ def preflight_iban(records, text):
     for record_index, (_, row) in enumerate(records):
         for index, cell in enumerate(row, start=1):
             name = re.sub(r'[^a-z0-9]', '', normaliser(cell))
-            if IBAN.search(cell) or (record_index == 0 and 'iban' in name):
+            # Probe one cell only: never join columns/rows or modify the source.
+            probe = ''.join(c for c in unicodedata.normalize('NFKC', cell)
+                            if not (c.isspace() or unicodedata.category(c).startswith('P')
+                                    or unicodedata.category(c) == 'Cf'))
+            if IBAN.search(probe) or (record_index == 0 and 'iban' in name):
                 raise Refus(f'IBAN suspect : colonne {index}. Aucun fichier produit ; retirer cette colonne de la copie à contrôler.')
     # Couvre aussi les chaînes interrompues par des espaces ou retours à la ligne.
     if IBAN.search(text):
@@ -71,8 +75,11 @@ def lire_config(path):
     config = json.loads(path.read_text(encoding='utf-8-sig'), object_pairs_hook=objet_unique)
     keys = {'version', 'encodage', 'separateur', 'format_date', 'colonnes', 'obligatoires',
             'modes_paiement', 'modes_mandat_papier', 'types_abonnement_autorises'}
-    if not isinstance(config, dict) or set(config) != keys or type(config['version']) is not int or config['version'] != 1:
+    if not isinstance(config, dict) or set(config)-{'doublon_prenom_identique'} != keys or type(config['version']) is not int or config['version'] != 1:
         raise Refus('Correspondance invalide : clés et version à vérifier.')
+    config.setdefault('doublon_prenom_identique', False)
+    if type(config['doublon_prenom_identique']) is not bool:
+        raise Refus('Correspondance : option de doublon prénom booléenne attendue.')
     if config['encodage'] not in ('auto', 'utf-8', 'utf-8-sig', 'utf-16', 'cp1252', 'iso-8859-1'):
         raise Refus('Correspondance : encodage non pris en charge.')
     if config['separateur'] not in ('auto', *SEPARATORS):
@@ -228,7 +235,8 @@ def analyser(records, config, au):
         if email:
             groups['email'][normaliser(email)].append(line)
         if fields['nom'] and all(fields[key] for key in postal_fields):
-            key = tuple(normaliser(fields[key]) for key in ('nom', 'prenom', *postal_fields))
+            identity = ('nom', 'prenom') if config['doublon_prenom_identique'] else ('nom',)
+            key = tuple(normaliser(fields[key]) for key in (*identity, *postal_fields))
             groups['postal'][key].append(line)
         mode = fields['mode_paiement']
         if mode and mode not in config['modes_paiement']:
@@ -276,6 +284,10 @@ def controler(source, correspondance, au):
 
 
 def main(argv=None):
+    # A restricted console encoding must not raise after the UTF-8 outputs commit.
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, 'reconfigure'):
+            stream.reconfigure(errors='backslashreplace')
     parser = argparse.ArgumentParser(description='Contrôle hors ligne, sans import et sans recopie des données.')
     parser.add_argument('fichier', type=Path)
     parser.add_argument('--correspondance', required=True, type=Path)
