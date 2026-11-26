@@ -1,14 +1,14 @@
-# A-21 — candidat complet pour le build final parent
+# A-21 — corrections R1 à R4, candidat enfant pour finalisation parent
 
-- **Fait** : outil confiné en lecture seule, moteur PHP pur, banc natif classique/HPOS, refus fermés, documentation et vérificateur.
-- **Prêt à relire** : candidat `production/A-21/preuves/final` ; aucun `PRET` déposé par l'enfant.
-- **À arbitrer par Ced** : rien de nouveau ; aucune intervention sur le réel autorisée ou effectuée.
-- **Bloqué** : aucun blocage du périmètre enfant ; préparation de l'image et T-01 global réservés au parent.
-- **Ensuite** : parent : `preparer-image.ps1`, T-01 global et décision de dépôt de `PRET`.
+- **Fait** : sorties PHP supervisées jusqu'à la fin, publication différée, dépendances courantes scellées, option magasin directe documentée, tests IP/IPv6.
+- **Prêt à relire** : dernier paquet vert unique `C:/Users/Ced/imagine/production/A-21/preuves/final` ; aucun `PRET` écrit ni modifié par l'enfant.
+- **À arbitrer par Ced** : rien ; défauts techniques de la fusion appliqués, aucune action sur le réel.
+- **Bloqué** : rien sur le périmètre enfant. Les anciens `FINALISATION.md`, `verification.json`, `manifest.json` racine et `PRET` concernent la remise antérieure : le parent les remplace après ses nouveaux gates ; ils ne prouvent pas ces corrections.
+- **Ensuite** : parent : delta exact `readme-delta.txt`, préparation globale, rejeu T-01, puis marqueurs finaux. Aucune dépendance partagée, T-02, verrou, autre voie ni rapport commun modifié.
 
 ## Résultats exécutés
 
-Paquet final unique : `production/A-21/preuves/final`. Pour chacune des consoles Windows **cp1252** et **UTF-8** : **15 assertions PHP pures, 98 contrôles natifs, 7 contrôles runner, tous verts**, plus **7 tests Python, 0 échec**. Ce sont des assertions nommées, pas des tests PHPUnit inventés. PSR-12 strict et syntaxe : sept fichiers PHP, **0 erreur, 0 avertissement**, conteneur supprimé et absence relue.
+Paquet final unique : `production/A-21/preuves/final`. Pour chacune des consoles Windows **cp1252** et **UTF-8** : **18 assertions PHP pures, 172 contrôles natifs (classique + HPOS), 8 contrôles runner**, plus **12 tests Python**, tous verts. Ce ne sont pas des tests PHPUnit. PSR-12 strict et syntaxe : huit fichiers PHP, **0 erreur, 0 avertissement** ; conteneur exact supprimé et absence relue. Inclusion pure rejouée dans chaque runner : 18 assertions, aucune API native, aucune sortie parasite ni modification des rapports.
 
 Interpréteur mesuré : `C:/Python314/python.exe`, **3.14.6**, Windows win32 ; stdout/stderr et locale cp1252, UTF-8 désactivé pour le passage cp1252 ; stdout UTF-8 et mode UTF-8 activé pour l'autre. Chaque sous-processus fixe et décode explicitement son encodage. Les environnements et six commandes réellement exécutées sont dans `windows-matrix.json` et les deux reçus `*-environment.json`.
 
@@ -18,7 +18,13 @@ Sur chaque magasin : deux clés (lecture et lecture/écriture), dont une jamais 
 
 L'outil de neutralisation **existant, non modifié**, a réellement tourné sur un clone de chaque base fictive : clés retirées, quatre webhooks désactivés et destinations/secrets vidés, jeton magasin effacé, marque relue. Le rapport répond alors « inconnu après neutralisation », jamais zéro/non historique, et la lecture laisse ce clone inchangé.
 
-La commande du mode d'emploi a été copiée et exécutée avec **ses seuls trois arguments** (substitution des chemins fictifs uniquement), sans ajouter de date. Date courante capturée une seule fois, puis rejeu à date figée identique. Les cycles RED→GREEN exécutés (clés, webhooks, projection/neutralisation, lanceur, parcours natif, sujet standard `product.published`, contrat partagé) restent dans le scratch `a21-red-*` / `a21-green-*`, hors dépôt. La première passe de style conservait 27 avertissements ; ils sont corrigés, seule la dernière passe stricte verte est livrée.
+La commande du mode d'emploi a été copiée et exécutée avec **ses seuls trois arguments** (substitution des chemins fictifs uniquement), sans ajouter de date. Date courante capturée une seule fois, puis rejeu à date figée identique. **TDD réellement exécuté** : échec initial `classic/hpos:supervised_bootstrap:stdout` avec l'ancien lanceur ; échec réel des gardes Action Scheduler, puis vert ; échec de la mutation de rapport au shutdown, puis vert ; deux échecs Python sur JSON à clé dupliquée et tableau de sujets vide, puis vert. La dérive de dépendance a d'abord échoué faute de scellement dans le vérificateur, puis passe avec six mutations de fichiers réels sur copie jetable. Aucun journal RED n'est livré : tous restent dans le scratch A-21.
+
+**R1.** Le superviseur extérieur draine stdout et stderr jusqu'aux deux EOF et à `wait()` ; il reconstruit uniquement les réponses fermées. Le PHP enfant garde Landlock, SQL READ ONLY, fonctions interdites et réseau Docker absent, et n'écrit que dans un sous-dossier privé temporaire. Les rapports ne sont renommés vers la sortie demandée qu'après terminaison et validation canonique JSON/Markdown, textes fermés et hash de l'audit original. Douze fixtures par magasin : écritures stdout/stderr, exit avec/sans texte, faux succès précoce, shutdown stdout/stderr, gros flux, octet non UTF-8, succès dupliqué, rapport supprimé, rapport altéré au shutdown. Pour chacune : refus exact, aucun canari sur les deux flux ni dans les artefacts, sortie non publiée, sous-dossier temporaire retiré, tables et fichiers du site inchangés.
+
+La capture stricte a découvert des `error_log()` natifs d'Action Scheduler sur la file réellement vidée par la neutralisation. Aucun contournement du filtre et aucune liste blanche de ces textes : quatre pré-filtres natifs bloquent la planification avant écriture. La sonde native à `init` prouve les quatre refus, en plus de cron WordPress, mail, HTTP, SQL et noyau fichiers ; compte des planifications forcées = cinq. L'import et les dépendances partagées restent inchangés.
+
+**R2.** Les 48 dépendances exécutées sont comparées aux fichiers courants, pour l'instantané principal et celui de chaque console ; A-11, A-12, audit/A-02, neutralisation et helpers A-19 sont couverts. Le README commun reste exclu des empreintes et contrôlé exclusivement par `readme_contract`. Les trois tests IP/IPv6 conservent le classement par chaîne sans DNS ; même adresse IPv6 écrite autrement = chaîne extérieure, sans adresse publiée. Lecture directe `get_option('woocommerce_helper_data', [])` gardée et testée, sans appel à `WC_Helper`.
 
 ## Décisions prises à défaut et limites
 
