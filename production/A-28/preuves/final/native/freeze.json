@@ -1,7 +1,7 @@
 {
   "production/A-28/reference/command.php": "cb6a089fdf43d3e561d3e53b0a884463690bfa1ecd16e0e3b2ed31a05bf4e5d1",
   "production/A-28/reference/lib.php": "612943583f01c1e0bad63f76546eaf9f8d00c86d972fb69d59e26b4834f1d8c3",
-  "production/A-28/verify.py": "a721b3baefbb00b50c9675ff71068a88539c5bd33a7cd74db87b1a3cfecd2203",
+  "production/A-28/verify.py": "07e44b7bb420c8d7aaf7e913b254a70314bccfa190f8ab37926408a0fb3596cb",
   "wp/outils/staging/command.php": "25b146ef8c92505863c95ecfc57b6ce23d4ea7e30dfc2fc74ffdf64c92f13a59",
   "wp/outils/staging/files.php": "97aa0aeecfb13dca77b97b93d1a147f33962889044f26a9ff06a2cd8a621baeb",
   "wp/outils/staging/form-policy.json": "1d5e24262375c47247e451bd01e081ceb1e7a6af853d4e9060cffbad9457722d",
@@ -38,7 +38,7 @@
   "wp/tests/a28/MemoryStore.php": "7a1e266f44a1c5a81cbc95ced86a6035308274b30b741c75e795b8fbd7a395ee",
   "wp/tests/a28/nonform.php": "d005988f659fa56f3165f8ee31d39356f24be5a0c8c2cb3e0c0df9cc5dab2100",
   "wp/tests/a28/nonform.py": "8ab9dde9cbfe7abc2e7396d7c460b2e1666e79bb4f6f3dbdcd7f8471638c9e4a",
-  "wp/tests/a28/package.py": "a521c1ee79ab90e6b55e9f6eb270d164de74022e8094f655dfa94f61bfdf0ddc",
+  "wp/tests/a28/package.py": "5d8c9bef28b65108fffd39d1b08abeb9d59132c1cb4e17ea2be97936ab4aee18",
   "wp/tests/a28/run.py": "4b8d744935f0e12bf771fe6da164a3583aed6f40ac63e7af3b06e0b667d601ff",
   "wp/tests/a28/seed.php": "9a77c308993944184f7e98e489377e66022f2a99c3353d688fe4f5147a8d013c",
   "wp/tests/a28/test_policy.py": "48ceab5550668abcb5221aeaa959ae974a7b19037632de224fecb6b7da812177",

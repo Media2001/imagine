@@ -77,18 +77,18 @@ def deploy(label):
     bootstrap = 'plugins/imagine-site/imagine-site.php'
     local_source = (ROOT / 'wp' / bootstrap).read_text(encoding='utf-8')
     old = wp('$out=[];foreach(' + php(NAMES + [bootstrap]) + ' as $n){$p=WP_CONTENT_DIR."/".$n;$out[$n]=is_file($p)?file_get_contents($p):null;}echo wp_json_encode($out);')
-    assert old[bootstrap] in [local_source, local_source.replace(BLOCK, '')], 'Bootstrap distant divergent'
+    assert old[bootstrap] is not None and old[bootstrap].count(BLOCK) == 1, 'Bloc C25 distant absent ou divergent'
+    baseline = json.loads((PROOF / 'livraison-V2.json').read_text(encoding='utf-8'))['remote_sources']
     before = b06.state()
     durable = private(label, {'files': old, 'database': snapshot(), 'business': before})
     for name in NAMES:
-        assert old[name] is None or old[name] == (ROOT / 'wp' / name).read_text(encoding='utf-8'), 'Dérive C25'
+        assert old[name] is not None and hashlib.sha256(old[name].encode()).hexdigest() in [baseline[name], hashlib.sha256((ROOT / 'wp' / name).read_bytes()).hexdigest()], 'Dérive C25'
         b06.profils.b00.upload(name, (ROOT / 'wp' / name).read_bytes())
     parsed = wp('$out=[];foreach(' + php(NAMES) + ' as $n){token_get_all(file_get_contents(WP_CONTENT_DIR."/".$n),TOKEN_PARSE);$out[$n]=true;}echo wp_json_encode($out);')
     assert all(parsed.values())
     assert wp('echo wp_json_encode(file_get_contents(WP_CONTENT_DIR."/' + bootstrap + '"));') == old[bootstrap]
-    b06.profils.b00.upload(bootstrap, (ROOT / 'wp' / bootstrap).read_bytes())
     actual = b06.hashes(NAMES + [bootstrap])
-    assert actual == {n: hashlib.sha256((ROOT / 'wp' / n).read_bytes()).hexdigest() for n in NAMES + [bootstrap]}
+    assert actual == {**{n: hashlib.sha256((ROOT / 'wp' / n).read_bytes()).hexdigest() for n in NAMES}, bootstrap: hashlib.sha256(old[bootstrap].encode()).hexdigest()}
     assert before == b06.state()
     save(label, {'identity': identity, 'private_snapshot': durable, 'readback': actual, 'business_preserved': True})
 

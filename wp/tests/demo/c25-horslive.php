@@ -13,6 +13,10 @@ foreach (discoverT01Packages('/repo/wp')['packages'] as $package) {
     copyTree('/opt/t01/' . $package['cacheKey'] . '/vendor', $dest . '/vendor');
     $mutation = $argv[1] ?? '';
     $mutants = [
+        'antislash' => ['Retractation.php', 'wp_slash($record)', '$record'],
+        'journal-reglages' => ['RetractationReglages.php', '$key !== Retractation::OPTION', 'true'],
+        'rollback-reglages' => ['RetractationReglages.php', '$old === null ? delete_option($key) : update_option($key, $old, false);', '// inverse supprimée'],
+        'preimage-reglages' => ['RetractationReglages.php', 'self::$restoring && is_array(self::$preimage)', 'false && is_array(self::$preimage)'],
         'delai' => ['RetractationRegles.php', '$now <= $end', 'true'],
         'proprietaire' => ['Retractation.php', 'if (!$order || $user < 1 || $order->get_customer_id() !== $user) {', 'if (!$order || $user < 1) {'],
         'confirmation' => ['Retractation.php', "\$confirmation !== 'confirmer'", 'false'],

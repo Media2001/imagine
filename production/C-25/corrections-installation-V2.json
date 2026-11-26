@@ -1,0 +1,27 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T23:39:51.490399+00:00",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "private_snapshot": {
+    "file": "c25-private-uum7oie0/snapshot.json",
+    "sha256": "633b437eb9d32907de11e6bdb2a01b9ea6485dc11de9813f9c0785dc4c6e6257",
+    "private": true
+  },
+  "readback": {
+    "plugins/imagine-site/RetractationRegles.php": "2bd47e957ade4d39b83210a0adc754c4efe6c4948e0772b64fcb2f337c2632e5",
+    "plugins/imagine-site/Retractation.php": "61ab822800af0ff950fdcb2ef4b48d7c0465df73c62b6eb035ac729bbf602045",
+    "plugins/imagine-site/RetractationReglages.php": "5f3435dafe6a55f9d92bd5c63a2cf3e44a21ec681a9af2b8cd7472ef44cfb573",
+    "plugins/imagine-site/RetractationConfidentialite.php": "0089745076ed8797862f6abef47c49274d19dd17f2cfa21376f5de6a99995af8",
+    "plugins/imagine-site/imagine-site.php": "9005b70afdbcaedd514c3421a4f45ac679395aa97108c1969a9c85595ba28cc2"
+  },
+  "business_preserved": true
+}

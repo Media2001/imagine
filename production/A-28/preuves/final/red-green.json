@@ -1,5 +1,23 @@
 {
   "experiments_kept_outside_repository": true,
+  "scope_owner_qualification": {
+    "real_red_exit": 1,
+    "red_log_handle": "C:/Users/Ced/AppData/Local/hermes/cache/scratch/a28-work/red-scope.stderr.log",
+    "red_log_sha256": "3a86c183f71ed1392c2788da4272b9ddc8b1ac6e7a65ae14a87d22060cb31aab",
+    "earlier_green_not_current_qualification": "C:/Users/Ced/AppData/Local/hermes/cache/scratch/a28-work/pre-scope-qualification",
+    "correction": "Record separately owned voie2 roots with original before/after hashes, never rebase those hashes or modify their files; replay final native matrix and all gates after the packaging change.",
+    "final_scope": "scope.json"
+  },
+  "first_global_gate_failure": {
+    "handle": "C:/Users/Ced/AppData/Local/hermes/cache/scratch/a28-work/global-gates-first-red",
+    "observed_exit": 1,
+    "failed_gate": "global-utf8",
+    "failed_suite": "Imagine\\Site\\Tests\\RetractationAdapterTest",
+    "owned_sources_stable": true,
+    "stdout_sha256": "f728c9335d6040789f71707bcb2484f1dd8e7feb2d0b62289338aa7792106926",
+    "result_sha256": "3ae2093cce9f3f0070dde7c54aa3bdda8822c960eb22ffa9d57b18a6b62c4587",
+    "successor": "gates/commands.json"
+  },
   "receipts": [
     {
       "handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-work\\red-unit\\runner.json",

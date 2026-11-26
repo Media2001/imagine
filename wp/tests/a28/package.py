@@ -78,6 +78,13 @@ def scope():
     changed = sorted(rel for rel, old in baseline.items() if not (ROOT / rel).is_file() or digest(ROOT / rel) != old)
     forbidden = [rel for rel in changed if rel not in OWN_CHANGED]
     concurrent = []
+    # These roots have a separately declared owner in the permanent two-lane doctrine.
+    # Retain the original hashes; do not rebase their changes or attribute them to A28.
+    for rel in list(forbidden):
+        if rel.startswith(('wp/outils/demo/', 'wp/tests/demo/')):
+            concurrent.append({'file': rel, 'owner': 'voie2', 'qualification': 'declared_separate_owner_root',
+                'before_sha256': baseline[rel], 'after_sha256': digest(ROOT / rel) if (ROOT / rel).is_file() else None})
+            forbidden.remove(rel)
     # The parent's A29 append to its own shared audit README is a concurrent-owner change, not A28.
     shared = 'wp/tests/a02-audit/README.md'
     if shared in forbidden:
@@ -94,7 +101,11 @@ def scope():
             if p.is_file() and '__pycache__' not in p.parts and p.suffix != '.pyc' and not p.is_symlink():
                 rel = p.relative_to(ROOT).as_posix()
                 if rel not in baseline and rel not in OWN_CHANGED and not rel.startswith(('wp/tests/a28/', 'wp/tests/a29/', 'wp/outils/bascule/a29/')):
-                    added.append(rel)
+                    if rel.startswith(('wp/outils/demo/', 'wp/tests/demo/')):
+                        concurrent.append({'file': rel, 'owner': 'voie2', 'qualification': 'declared_separate_owner_root',
+                            'before_sha256': None, 'after_sha256': digest(p)})
+                    else:
+                        added.append(rel)
     original = (SCRATCH / 'original/wp/outils/staging-court/README.md').read_bytes()
     lines = (BASE / 'readme-ajout.txt').read_bytes()
     contract = v.load(BASE / 'readme-contract.json')
@@ -102,6 +113,7 @@ def scope():
     ced_same = all((ROOT / rel).read_bytes() == (SCRATCH / 'original' / rel).read_bytes()
                    for rel in ('wp/outils/staging/README.md', 'production/A-01/notes.md'))
     result = {'baseline_files': len(baseline), 'changed_owned_files': sorted(set(changed) & OWN_CHANGED),
+        'out_of_scope_definition': 'unexplained changes outside A28; explicitly separate owners remain visible in concurrent_owner_changes',
         'out_of_scope_changed': forbidden, 'out_of_scope_added': sorted(added), 'concurrent_owner_changes': concurrent,
         'readme_exact_three_lines': body == original + lines and len(lines.splitlines()) == 3,
         'ced_commands_unchanged': ced_same and re.findall(rb'```[^\n]*\n.*?```', original, re.S) == re.findall(rb'```[^\n]*\n.*?```', body, re.S),

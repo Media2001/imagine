@@ -188,6 +188,9 @@ def verify(root=ROOT):
     matrix = matrix_contract(packet / 'native', root, historical)
     gates_contract(packet / 'gates', root)
     scope = load(packet / 'scope.json')
+    need(all((r.get('owner') == 'voie2' and r['file'].startswith(('wp/outils/demo/', 'wp/tests/demo/')))
+             or (r.get('owner') == 'parent/A29' and r['file'] == 'wp/tests/a02-audit/README.md')
+             for r in scope['concurrent_owner_changes']), 'CONCURRENT_OWNER_SCOPE')
     need(scope['out_of_scope_changed'] == [] and scope['out_of_scope_added'] == [] and scope['ced_commands_unchanged'] is True
          and scope['readme_exact_three_lines'] is True and scope['common_guardian_unchanged'] is True
          and scope['old_packets_A23_A27_preserved'] is True, 'SCOPE_DRIFT')

@@ -52,11 +52,11 @@ def run(label):
         auth = c25.wp('''$admin=get_users(['role'=>'administrator','number'=>1])[0]->ID;$out=['admin'=>$admin,'cookies'=>[]];foreach([28,9,$admin] as $id){$token=WP_Session_Tokens::get_instance($id)->create(time()+3600);$out['cookies'][$id]=LOGGED_IN_COOKIE.'='.wp_generate_auth_cookie($id,time()+3600,'logged_in',$token).'; '.AUTH_COOKIE.'='.wp_generate_auth_cookie($id,time()+3600,'auth',$token).'; '.SECURE_AUTH_COOKIE.'='.wp_generate_auth_cookie($id,time()+3600,'secure_auth',$token);}echo wp_json_encode($out);''')
         c25.private(label + '-auth', auth)
         base = identity['url']
-        def http(path, user=28, data=None):
+        def http(path, user=28, data=None, headers=None):
             import urllib.parse
             assert path.startswith('/') and not path.startswith('//')
             payload = urllib.parse.urlencode(data).encode() if data is not None else None
-            request = urllib.request.Request(base + path, data=payload, headers={'Cookie': auth['cookies'][str(user)], 'User-Agent': 'Imagine-C25-fixture'})
+            request = urllib.request.Request(base + path, data=payload, headers={'Cookie': auth['cookies'][str(user)], 'User-Agent': 'Imagine-C25-fixture', **(headers or {})})
             with urllib.request.urlopen(request, timeout=40) as response:
                 assert response.geturl().startswith(base + '/')
                 text = response.read().decode('utf-8')
@@ -70,12 +70,12 @@ def run(label):
         checks['acces_temoin_positif'] = any(d['complet'] for per_user in access_before.values() for d in per_user.values())
         first = http(path)
         checks['HTTP_etape1_positive'] = 'id="imagine-retractation"' in first and 'Me rétracter' in first and 'facultatif' in first
-        review = http(path, data={'etape': 'preparer', '_c25': nonce(first), 'raison': 'Motif HTTP fictif'})
+        review = http(path, data={'etape': 'preparer', '_c25': nonce(first), 'raison': r'Motif HTTP fictif C:\dossier\fichier et \\double'})
         checks['HTTP_etape2_explicite'] = 'Confirmer ma demande de rétractation' in review and 'Commande n°126' in review
         checks['HTTP_abandon_ne_persiste_rien'] = c25.wp('echo wp_json_encode(Imagine\\Site\\Retractation::lire(126));') is None
-        bad = http(path, data={'etape': 'confirmer', '_c25': nonce(first), 'raison': 'Motif HTTP fictif', 'confirmation': 'confirmer'})
+        bad = http(path, data={'etape': 'confirmer', '_c25': nonce(first), 'raison': r'Motif HTTP fictif C:\dossier\fichier et \\double', 'confirmation': 'confirmer'})
         checks['HTTP_nonce_etape1_pas_confirmation'] = 'Demande refusée' in bad and c25.wp('echo wp_json_encode(Imagine\\Site\\Retractation::lire(126));') is None
-        post = {'etape': 'confirmer', '_c25': nonce(review), 'raison': 'Motif HTTP fictif', 'confirmation': 'confirmer'}
+        post = {'etape': 'confirmer', '_c25': nonce(review), 'raison': r'Motif HTTP fictif C:\dossier\fichier et \\double', 'confirmation': 'confirmer'}
         with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
             replies = list(pool.map(lambda _: http(path, data=post), range(2)))
         checks['HTTP_concurrence_deux_accuses'] = all('Accusé de réception' in text for text in replies)
@@ -116,9 +116,11 @@ def run(label):
         refused = http(account + '?imagine_retractation=88', user=9, data={'etape': 'confirmer', '_c25': signed, 'raison': '', 'confirmation': 'confirmer'})
         checks['HTTP_hors_delai_POST_signe_refuse'] = 'Demande refusée' in refused and c25.wp('echo wp_json_encode(Imagine\\Site\\Retractation::lire(88));') is None
         admin = http('/wp-admin/admin.php?page=imagine-retractations', user=auth['admin'])
-        checks['HTTP_admin_liste_native'] = 'Motif HTTP fictif' in admin and '#126' in admin
+        checks['HTTP_admin_liste_native'] = r'Motif HTTP fictif C:\dossier\fichier et \\double' in admin and '#126' in admin
         settings = http('/wp-admin/admin.php?page=imagine-reglages', user=auth['admin'])
         checks['HTTP_C10_deux_champs_dans_formulaire'] = 'name="imagine_retractation_reglages[jours]"' in settings and 'name="imagine_retractation_reglages[origine]"' in settings
+        import runpy
+        outcome['settings_HTTP'] = runpy.run_path(str(c25.ROOT / 'wp/outils/demo/c25-settings.py'))['run'](c25, http, base, auth['admin'], checks)
         result = c25.b06.profils.b00.wp('eval', 'require WP_CONTENT_DIR."/' + runtime + '";', check=False)
         native = json.loads(result['stdout'])
         outcome.update({'checks': checks, 'native': native, 'native_exit': result['code'], 'native_stderr': result['stderr'], 'http_statuses': statuses, 'observer_counts': c25.wp('echo wp_json_encode(get_option("imagine_c25_observations"));')})

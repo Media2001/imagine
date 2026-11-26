@@ -13,6 +13,10 @@ def run(label):
     hashes = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in (c25.ROOT / 'wp/plugins/imagine-site').glob('Retractation*.php')}
     rows = []
     cases = {
+        'antislash': 'testAntislashWordPressReluEtExporteSansPerte',
+        'journal-reglages': 'testReglagesJournalAjoutModificationEtRollbackPreimage',
+        'rollback-reglages': 'testReglagesJournalAjoutModificationEtRollbackPreimage',
+        'preimage-reglages': 'testReglagesJournalAjoutModificationEtRollbackPreimage',
         'delai': 'testDelaiEtOriginesAvecBornesEtFermeturePrudente',
         'proprietaire': 'testRefusHorsDelaiTitulaireConfirmationEtVerrou',
         'confirmation': 'testRefusHorsDelaiTitulaireConfirmationEtVerrou',

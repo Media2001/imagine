@@ -58,7 +58,9 @@ final class RetractationAdapterTest extends TestCase
         update_option(Retractation::OPTION, $next);
         self::assertCount(2, $events(), 'Sans changement, pas de journal');
         $GLOBALS['retract_fail_journal'] = true;
-        update_option(Retractation::OPTION, $first);
+        $failure = null;
+        try { update_option(Retractation::OPTION, $first); } catch (\RuntimeException $error) { $failure = $error; }
+        self::assertNull($failure, 'Rollback sans wp_die quand le SQL métier reste disponible');
         self::assertSame($next, get_option(Retractation::OPTION), 'Préimage relue, pas une valeur par défaut');
         self::assertCount(2, $events(), 'Pas de journal de restauration');
         delete_option(Retractation::OPTION);
@@ -68,6 +70,13 @@ final class RetractationAdapterTest extends TestCase
         $GLOBALS['retract_fail_journal'] = false;
         update_option(Retractation::OPTION, $first);
         self::assertCount(3, $events(), 'Reprise après panne');
+        $legacy = ['jours' => '14', 'origine' => 'paiement'];
+        $GLOBALS['retract_options'][Retractation::OPTION] = $legacy;
+        $GLOBALS['retract_fail_journal'] = true;
+        $failure = null;
+        try { update_option(Retractation::OPTION, $next); } catch (\RuntimeException $error) { $failure = $error; }
+        self::assertNull($failure);
+        self::assertSame($legacy, get_option(Retractation::OPTION), 'Inverse exacte sans renormaliser la préimage');
     }
 
     public function testDeuxEtapesAbandonConfirmationEtOrigineManuelle(): void
