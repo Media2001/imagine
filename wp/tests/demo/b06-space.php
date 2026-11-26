@@ -46,6 +46,14 @@ try {
     }
     $editorId = wp_insert_user(['user_login'=>'b06-editeur-fictif','user_email'=>'b06-editeur@example.org','user_pass'=>wp_generate_password(40),'role'=>'editor']);
     if (is_wp_error($editorId)) { throw new RuntimeException('Éditeur fictif absent.'); }
+    $editor = get_userdata($editorId);
+    $editor->add_cap('manage_options');
+    $editor->add_cap('edit_users');
+    wp_set_current_user($editorId);
+    $checks['capacites_larges_ne_valent_pas_role_admin'] = !C::administration() && !C::autorise();
+    $checks['ecran_edition_non_coop_interdit'] = !current_user_can('edit_post', $child) && !current_user_can('read_post', $child);
+    ob_start(); C::fiche($coop); $editorForm = ob_get_clean();
+    $checks['fiche_attribut_absente_editeur'] = $editorForm === '';
     foreach (['anonyme'=>0,'abonne_non_coop'=>(int)get_user_by('login','a-carte')->ID,'editeur_non_coop'=>$editorId] as $publicName=>$userId) {
         wp_set_current_user($userId);
         $GLOBALS['post'] = get_post($child);

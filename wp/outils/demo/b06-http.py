@@ -43,7 +43,7 @@ def profile(session, uid, oui, badnonce=False):
     code,headers,body,url = request(path, session, data)
     if badnonce:
         return code == 403 and 'Statut coopérateur non modifié' in html.unescape(body)
-    return code == 200 and 'updated=true' in url and 'id="your-profile"' in body
+    return code == 200 and 'updated=1' in url and 'id="your-profile"' in body
 
 def snapshot(ids):
     return wp('''global $wpdb;$ids='''+php(ids)+''';$list=implode(',',array_map('intval',$ids));echo wp_json_encode([
@@ -75,6 +75,7 @@ def run(label):
     identity = b06.guard()
     fixture = json.loads((b06.PROOF/'seed-V2.json').read_text(encoding='utf-8'))['fixture']
     accounts = wp('''$f=get_option('imagine_c09_fixture');$a=get_option('imagine_c08_fixture');echo wp_json_encode(['admin'=>get_user_by('login','admin')->ID,'coop'=>$f['users']['P-COOP'],'active'=>$f['users']['A-CARTE'],'plain'=>$f['users']['V-INSCRIT'],'article'=>$a['article'],'article_path'=>wp_parse_url(get_permalink($a['article']),PHP_URL_PATH)]);''')
+    account_path = wp('echo wp_json_encode(wp_parse_url(wc_get_page_permalink("myaccount"),PHP_URL_PATH));')
     ids = [accounts[k] for k in ['admin','coop','active','plain']]
     prior = snapshot(ids)
     baseline = invariant(accounts['coop'])
@@ -119,7 +120,7 @@ def run(label):
         code,headers,body,url = request('/?s='+MARKER,sessions['coop'])
         checks['recherche_inverse_non_vide'] = code==200 and child['path'] in c23.search_results_body(body.encode()).decode()
         for audience in ['coop','active','plain']:
-            code,headers,body,url = request('/mon-compte/', sessions[audience])
+            code,headers,body,url = request(account_path, sessions[audience])
             checks[audience+'_compte_natif'] = code==200 and 'id="mon-statut-cooperateur"' in body and ('Coopérateur : oui' if audience=='coop' else 'Coopérateur : non') in html.unescape(body)
         # Le même article reste fermé pour le coopérateur ; l'abonné valide prouve le témoin.
         witness = 'Les lucioles violettes de C08 gardent le secret du village fictif.'

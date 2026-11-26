@@ -33,6 +33,7 @@ final class Cooperateurs
         add_filter('get_the_excerpt', [self::class, 'extrait'], -1000, 2);
         add_action('pre_get_posts', [self::class, 'requete'], -1000);
         add_filter('rest_pre_dispatch', [self::class, 'rest'], -1000, 3);
+        add_filter('map_meta_cap', [self::class, 'capacites'], 20, 4);
         add_filter('wp_sitemaps_posts_query_args', [self::class, 'sitemap'], 10, 2);
         add_action('template_redirect', static function (): void {
             if (in_array(get_queried_object_id(), self::ids(), true)) {
@@ -244,6 +245,20 @@ final class Cooperateurs
                 if (in_array($name, ['post__in', 'post__not_in'], true)) { $q->set($name, $value); }
             }
         }
+    }
+
+    public static function capacites(array $caps, string $cap, int $userId, array $args): array
+    {
+        if (in_array($cap, ['read_post', 'edit_post', 'delete_post'], true) && isset($args[0])) {
+            $id = (int) $args[0];
+            $id = (int) (wp_is_post_revision($id) ?: $id);
+            $u = get_userdata($userId);
+            if (self::reserve($id) && !CooperateursRegles::lecture(get_user_meta($userId, self::META, true),
+                $u ? $u->roles : [], $userId > 0)) {
+                return ['do_not_allow'];
+            }
+        }
+        return $caps;
     }
 
     public static function sitemap(array $args, string $type): array
