@@ -192,3 +192,59 @@ Reste le bouton lui-même. Sur la démonstration, aucun abonnement n'est en reno
 
 - **Voie 1**, arrêtée file vide à 6 h 30. En tête : corrections d'A-17 (un bloquant) puis d'A-16, avec le contrôle du chemin de refus sur A-11 à A-15. Ensuite deux lots en lecture seule, sur banc fictif, dans l'ordre du §4.4 et du §4.3 : A-18 (ce que le site garde qu'il ne devrait pas garder : traces de données de paiement, fichiers d'abonnés dans le dossier des médias ; des comptes par clé et par dossier, aucune valeur) et A-19 (cohérence des abonnements et des adhésions avant la mise à niveau : combien d'abonnements sans adhésion, d'adhésions sans abonnement, de renouvellements automatiques sans moyen de paiement ; des comptes seulement).
 - **Voie 2** : C-21 en cours. En tête, un quart d'heure : déposer `PRET` sur C-20 tel quel. Puis C-21, B-05, C-22, déjà en file : plus d'un lot d'avance, aucun brief ajouté.
+
+# Passage automatique de 10 h
+
+Lu : les rapports de 7 h 32 à 10 h 05, les vérifications d'A-16, d'A-17 et de C-20, les fusions d'A-18, d'A-19, de B-05, de C-20 et de C-21. Aucun accord donné sur le réel.
+
+## A-17 — clos
+
+Vérification du second tour : les neuf instructions appliquées, 42 assertions, 66 contrôles natifs et 60 refus au canari verts, reçus liés au code courant. Le vérificateur laisse deux points « pour Ced » qui n'en sont pas : la copie avant ou après anonymisation est tranchée depuis 7 h (après, la doctrine le dit) ; le rejeu des paquets d'A-11, A-12, A-14 et A-15 après le changement du point commun est déjà fait par Hermès (rapport de 8 h 09 : 300, 132, 63 et 84 contrôles verts, manifestes rescellés). Ces lots restent clos.
+
+## A-16 — le refus nomme le champ, jamais sa valeur
+
+Les cinq instructions sont appliquées et vertes. Le vérificateur renvoie à Ced une seule question : le refus d'une correspondance qui désigne une clé absente ne nomme plus cette clé, alors que le brief l'exigeait. C'est un choix de code, pas une question pour Ced. Hermès a appliqué ma règle de 7 h (« code seul ») plus largement que je ne l'avais écrite ; le brief et la règle se contredisaient, la faute est dans mes textes.
+
+Tranché : **le refus nomme le champ de la correspondance qui est en cause** (`numero_type`, `thematique`, `pdf_cle`, `liaison.cle` : quatre noms écrits dans le code, liste fermée), **pas la valeur que l'opérateur y a mise**. Raison : l'opérateur a son fichier sous les yeux, le nom du champ lui suffit pour trouver sa faute, ce que voulait le brief ; et la règle du chemin de refus garde une seule forme, sans exception à expliquer : rien de libre ne sort, seulement un code et des noms d'une liste fermée. Une retouche d'un quart d'heure, un test, `PRET` redéposé ; le lot se clôt à la vérification suivante. Écart de brief noté.
+
+## A-18 — à corriger ; le oui ou non du brief était impossible
+
+Fusion de 9 h 43, arrivée après l'arrêt de la voie 1 : trois importants, tous des oublis de détection (le magasin de commandes inactif n'est pas lu ; une suite de chiffres voisine masque une carte ou un numéro de registre valide ; un IBAN coupé par deux espaces ou un retour à la ligne n'est pas vu). Confirmés : un inventaire de ce qu'on ne devrait pas garder qui répond « rien » à tort manque son but. Corrections en tête de la voie 1.
+
+- **Règles du serveur.** Mon brief demandait à la fois de n'ouvrir aucun fichier et de dire si une règle du serveur interdit la lecture : impossible. Le défaut d'Hermès est le bon et il est acquis : l'outil dit si un fichier de règles est présent, et répond « inconnu » sur l'interdiction. Écart de brief noté.
+- **La marque de la neutralisation.** La fusion range pour Imagine la question « cette marque est-elle posée exactement quand l'import neutralise ? ». Ce n'est pas une question pour Imagine : c'est notre import. On garde la marque telle quelle, parce qu'elle penche du côté d'« inconnu » ; rien à porter à Imagine.
+- Le double comptage d'un nombre de onze chiffres qui passe les deux contrôles (carte et registre) reste, documenté.
+
+## A-19 — à corriger, un bloquant
+
+Fusion de 9 h 53, après l'arrêt : la commande écrite dans le mode d'emploi est refusée par le lanceur, qui exige une date que le mode d'emploi dit facultative. Le parcours nominal échoue ; aucun test ne le lançait tel qu'il est écrit. Correction en tête de la voie 1.
+
+- **Règle ajoutée pour la voie 1** : un test lance la commande du mode d'emploi avec les seuls arguments que sa ligne donne. C'est le deuxième lot où le défaut se cache derrière un banc qui passe toujours tous les arguments.
+- **Instruction 3 de la fusion** (faire entrer les tests purs d'A-19 dans la commande de rejeu) : pas dans A-19. La réserve vaut pour tous les outils depuis A-10 ; elle se traite une fois, dans un lot d'outillage, T-02, sans toucher à l'isolation de T-01.
+- Le compte « schéma de passerelle inconnu », séparé de « moyen de paiement absent », reste : il évite de déclarer absent ce qu'on ne sait pas lire. Question rangée pour Imagine, défaut : garder les deux.
+
+## C-20 — code clos, en périmètre réduit
+
+Vérification de 10 h 13 : les cinq instructions de la fusion appliquées, le raccord du paywall couvert par un test sur le vrai adaptateur (sept bornes), suite rejouée par le vérificateur lui-même (1 114 tests). Code clos, validation visuelle de Ced attendue. La clôture ne dit pas « §3.4 fait » : le bouton, sa confirmation et la preuve du quatre-fois restent au branchement sur le staging vérifié. Deux points notés pour ce branchement, sans décision aujourd'hui : l'ordre entre « arrêt à terme » et « quatre fois », et la lecture du mode de paiement d'un vrai mandat papier.
+
+## C-21 — corrigé, vérification attendue ; les trois questions de la fusion
+
+La fusion de 9 h 13 a trouvé ce qu'une relecture avait manqué : l'export d'un opérateur contenait le nom et l'adresse du client dont il avait préparé la commande (bloquant), et l'effacement d'un payeur ou d'un membre détruisait ou suspendait les données d'autres personnes. Hermès a rendu les sept corrections à 10 h 05. Pas de clôture avant la vérification.
+
+Les trois questions que la fusion adresse à Ced ne touchent ni au visuel ni au réel :
+
+- **un membre d'un groupe s'efface, les autres continuent-ils d'être servis ? L'offrant d'un cadeau s'efface, le bénéficiaire garde-t-il son adresse et son numéro ?** Le brief répondait déjà : l'effacement préserve les tiers. Le défaut appliqué (oui aux deux) est donc la règle du lot, pas un choix nouveau. Ce que l'administration d'Imagine veut faire ensuite d'un groupe sans souscripteur est une question d'organisation : rangée pour Imagine, rien n'attend ;
+- **le libellé du mode de paiement dans l'archive native d'une commande** : on garde le masquage large. Raison : en cas de doute sur une donnée de paiement, on montre moins.
+
+## B-05 — à corriger
+
+Fusion de 10 h 13 : deux importants. Un lien sortant mal formé (un espace en tête, des barres en trop) échappe à la déclaration « lien commercial » ; et le contrôle « les articles de l'accueil ne sont pas déclarés commerciaux » visait le titre de la section au lieu de sa liste, il passait donc à vide. Corrections en tête de la voie 2. Défauts techniques confirmés : dans le contenu d'un partenaire, un lien douteux est déclaré commercial plutôt qu'oublié ; les liens internes vers la fiche d'un partenaire ne le sont pas.
+
+## C-22 — rendu, relecture attendue
+
+Une question rangée pour Imagine : l'inscription à la newsletter principale à la création du compte, et avec quel consentement. Défaut : aucune, tant que le lecteur ne coche pas lui-même.
+
+## Files
+
+- **Voie 1**, arrêtée file vide à 9 h 13. En tête : A-19 (bloquant), A-18, la retouche d'A-16. Puis trois lots : T-02 (la commande de rejeu joue aussi les tests purs des outils), A-20 (ce que paient aujourd'hui les abonnés en ligne : par produit, rythme, montant, pays ; pour la décision d'Imagine sur la grille, §3.4) et A-21 (les portes vers l'extérieur : clés d'interface et envois automatiques de WooCommerce, comptés, §4.4).
+- **Voie 2**, sans lot devant elle à 10 h 05. En tête : B-05. Puis deux lots : C-23 (le test d'étanchéité de livraison, une commande pour toutes les voies et tous les publics, §4.4) et B-06 (l'espace coopérateurs et l'attribut posé par l'administration, §3.12, sans rien attendre de CoopHub).
