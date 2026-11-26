@@ -117,6 +117,15 @@ class ContractTest(unittest.TestCase):
                 capture_output=True,text=True,encoding='utf-8',timeout=30)
             self.assertEqual((p.returncode,p.stdout,p.stderr),(1,'','A14_FAILED\n'))
 
+    def test_nonexistent_python_banks_are_declared_not_reported_green(self):
+        verifier=load(ROOT/'wp/tests/a22/verify.py','applicability_verifier')
+        matrix=verifier.m
+        self.assertEqual(set(matrix.NO_PYTHON),{'A03','A11'})
+        self.assertEqual(matrix.PYTHON_LOTS,[lot for lot in matrix.LOTS if lot not in matrix.NO_PYTHON]+['A22'])
+        for lot in matrix.LOTS:
+            files=list((ROOT/'wp/tests'/matrix.DIRS[lot]).rglob('test_*.py'))
+            self.assertEqual(bool(files),lot not in matrix.NO_PYTHON)
+
     def test_partial_report_is_not_complete(self):
         guard=load(ROOT/'wp/outils/bascule/stream_guard.py','guard_files')
         with tempfile.TemporaryDirectory(dir=os.environ.get('TMPDIR')) as tmp:

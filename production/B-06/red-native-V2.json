@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-26T15:26:18.328969+00:00",
+  "scope": "imagine-test-demo",
+  "failures": [
+    "ecran_attribut_natif_absent"
+  ],
+  "total": 1,
+  "exit": 1,
+  "stderr": "",
+  "state_preserved": true,
+  "source_sha256": "8d24876d039b113d3a0720c8bdab52f398adf0fef79e1b7650deb24ebeed12d6"
+}

@@ -100,6 +100,10 @@ Confidentialite::register();
 require_once __DIR__ . '/Partenaires.php';
 Partenaires::register();
 
+require_once __DIR__ . '/CooperateursRegles.php';
+require_once __DIR__ . '/Cooperateurs.php';
+Cooperateurs::register();
+
 add_action('init', static function (): void {
     foreach ([
         'imagine_numero' => [__('Numéros fictifs', 'imagine-site'), 'numeros'],

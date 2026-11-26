@@ -67,8 +67,11 @@ def verify(packet,parent_proof=None):
     source=load(packet/'sources.json')
     check('exact_current_executed_sources',source==m.sources())
     matrix=load(packet/'windows-matrix.json')
+    expected={(console,lot+'-python') for console in ['utf8','cp1252'] for lot in m.PYTHON_LOTS}
+    expected|={(console,lot+'-native') for console in ['utf8','cp1252'] for lot in m.LOTS}
     check('complete_real_windows_matrix',matrix['exit_code']==0 and matrix['sources_stable'] is True
-          and len(matrix['rows'])==46 and all(r['exit_code']==0 for r in matrix['rows']))
+          and len(matrix['rows'])==len(expected) and {(r['console'],r['label']) for r in matrix['rows']}==expected
+          and all(type(r['exit_code']) is int and r['exit_code']==0 for r in matrix['rows']))
     for console in ['utf8','cp1252']:
         folder=packet/console
         env=load(folder/'environment.json')
@@ -96,10 +99,17 @@ def verify(packet,parent_proof=None):
                               ['direct_stdout','direct_stderr','echo_exit','silent_exit','shutdown_stdout','shutdown_stderr','shutdown_echo'])
                       and sum(name.endswith(':mutation_without_guard_leaks') for name in names)==2
                       and sum(name.endswith(':documented_only_literal_arguments') for name in names)==2)
-            log=(folder/(lot+'-python.log')).read_text(encoding='utf-8')
-            match=re.search(r'Ran (\d+) tests?\b',log)
-            check(console+':'+lot+':python_bank_executed',bool(match) and '\nOK\n' in log)
-            counts[console+':'+lot+':python']=int(match[1]) if match else -1
+            if lot in m.NO_PYTHON:
+                check(console+':'+lot+':python_bank_absent_not_fake_pass',
+                    matrix.get('python_not_applicable',{}).get(lot) is True
+                    and not any((ROOT/'wp/tests'/m.DIRS[lot]).rglob('test_*.py'))
+                    and not (folder/(lot+'-python.log')).exists())
+                counts[console+':'+lot+':python']=0
+            else:
+                log=(folder/(lot+'-python.log')).read_text(encoding='utf-8')
+                match=re.search(r'Ran (\d+) tests?\b',log)
+                check(console+':'+lot+':python_bank_executed',bool(match) and int(match[1])>0 and '\nOK\n' in log)
+                counts[console+':'+lot+':python']=int(match[1]) if match else -1
         log=(folder/'A22-python.log').read_text(encoding='utf-8')
         check(console+':A22_python_tests','\nOK\n' in log)
     style=load(packet/'style/style.json')
