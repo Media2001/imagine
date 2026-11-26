@@ -75,7 +75,18 @@ function global:wsl.exe {
         'build' {
             if ($global:T01Mockcase -notlike 'prepare-*') { throw 'Build forbidden in replay.' }
             $paths = @(Get-ChildItem $global:T01Mockcontext -File -Recurse | ForEach-Object { $_.FullName.Substring($global:T01Mockcontext.Length + 1).Replace('\', '/') } | Sort-Object)
-            $expected = @('Dockerfile', 'packages/imagine-connecteur/composer.json', 'packages/imagine-connecteur/composer.lock', 'packages/imagine-pilotage/composer.json', 'packages/imagine-pilotage/composer.lock', 'verifier-image.php')
+            $expected = @('Dockerfile', 'verifier-image.php')
+            foreach ($kind in @('plugins', 'mu-plugins', 'themes')) {
+                $directory = Join-Path $env:T01_TEST_ROOT ('wp/' + $kind)
+                if (-not (Test-Path $directory)) { continue }
+                foreach ($package in @(Get-ChildItem $directory -Directory)) {
+                    if (-not (Test-Path (Join-Path $package.FullName 'phpunit.xml')) -and -not (Test-Path (Join-Path $package.FullName 'phpunit.xml.dist'))) { continue }
+                    $key = if ($kind -eq 'plugins') { $package.Name } else { $kind + '--' + $package.Name }
+                    $expected += 'packages/' + $key + '/composer.json'
+                    $expected += 'packages/' + $key + '/composer.lock'
+                }
+            }
+            $expected = @($expected | Sort-Object)
             if (($paths -join '|') -ne ($expected -join '|')) { throw ('Unexpected build context: ' + ($paths -join '|')) }
             if ($global:T01Mockcase -eq 'prepare-build-error') { $global:LASTEXITCODE = 1; return 'Build failure (test double)' }
             return 'Build success (test double; no real image was built)'

@@ -112,5 +112,25 @@ toolContract('real failing tool vetoes real PHPUnit success without changing its
     toolExpect($result['tests'] === 1 && $result['assertions'] === 1 && $result['failures'] === 0, 'PHPUnit totals changed');
 });
 
+toolContract('a dangling symbolic unit is refused instead of silently omitted', static function (): void {
+    $root = toolFixture();
+    unlink($root . '/tests/a90/unit.php');
+    symlink('/tmp/t02-absent-unit', $root . '/tests/a90/unit.php');
+    $refused = false;
+    try {
+        discoverT01Tools($root);
+    } catch (RuntimeException $error) {
+        $refused = $error->getMessage() === 'T02_UNIT_SYMLINK';
+    }
+    toolExpect($refused, 'Dangling unit silently skipped');
+});
+
+toolContract('a nonzero receipt exit cannot be hidden by a zero process exit', static function (): void {
+    $root = toolFixture();
+    file_put_contents($root . '/tests/a90/unit.php', '<?php file_put_contents("/report/unit.json", json_encode(["checks" => [["check" => "green", "status" => "PASS"]], "exit_code" => 1]));');
+    $result = runT01Tools($root, '/tmp/t02-run-' . bin2hex(random_bytes(6)));
+    toolExpect($result['failures'] > 0, 'Receipt error ignored');
+});
+
 echo "T02 CONTRACT : $tests tests, $failures failures\n";
 exit($failures === 0 ? 0 : 1);

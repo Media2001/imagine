@@ -6,8 +6,11 @@ declare(strict_types=1);
 function discoverT01Tools(string $wpRoot): array
 {
     $directory = rtrim($wpRoot, '/') . '/tests';
-    if (is_link($directory) || !is_dir($directory)) {
+    if (is_link($directory)) {
         throw new RuntimeException('T02_TEST_ROOT_INVALID');
+    }
+    if (!is_dir($directory)) {
+        return ['tools' => [], 'excluded' => []];
     }
     $tools = [];
     $excluded = [];
@@ -16,10 +19,13 @@ function discoverT01Tools(string $wpRoot): array
             continue;
         }
         $path = $item->getPathname();
+        if (is_link($path . '/unit.php')) {
+            throw new RuntimeException('T02_UNIT_SYMLINK');
+        }
         if (!is_file($path . '/unit.php')) {
             continue;
         }
-        if ($item->isLink() || is_link($path . '/unit.php')) {
+        if ($item->isLink()) {
             throw new RuntimeException('T02_UNIT_SYMLINK');
         }
         $lot = $item->getFilename();
@@ -81,6 +87,13 @@ function runT01Tools(string $wpRoot, string $workspace = '/tmp/t01-tools'): arra
     mkdir($workspace . '/wp/tests', 0777, true);
     if ($discovery['tools'] !== []) {
         copyTree($wpRoot . '/outils/bascule', $workspace . '/wp/outils/bascule');
+        // Legacy tools may require a pure library by its canonical sibling path.
+        // These aliases only point at the already read-only repository mount.
+        foreach (['plugins', 'mu-plugins', 'themes'] as $kind) {
+            if (is_dir($wpRoot . '/' . $kind)) {
+                symlink($wpRoot . '/' . $kind, $workspace . '/wp/' . $kind);
+            }
+        }
     }
     foreach ($discovery['tools'] as $tool) {
         $lot = $tool['lot'];
@@ -127,6 +140,9 @@ function runT01Tools(string $wpRoot, string $workspace = '/tmp/t01-tools'): arra
                 }
             } else {
                 throw new RuntimeException('T02_UNIT_RECEIPT_INVALID');
+            }
+            if (array_key_exists('exit_code', $receipt) && $receipt['exit_code'] !== 0) {
+                $failures = max(1, $failures);
             }
             if ($checks === 0) {
                 throw new RuntimeException('T02_UNIT_RECEIPT_EMPTY');

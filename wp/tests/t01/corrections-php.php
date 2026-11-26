@@ -119,10 +119,10 @@ function fixtureReplay(string $methodBody, string $configuration = 'phpunit.xml'
     file_put_contents($package . '/' . $configuration, '<phpunit bootstrap="vendor/autoload.php"><testsuites><testsuite name="Synthetic">' . $selection . '</testsuite></testsuites></phpunit>');
     file_put_contents($package . '/tests/SyntheticTest.php', '<?php final class SyntheticTest extends \\PHPUnit\\Framework\\TestCase { public function testSynthetic(): void { ' . $methodBody . ' } }');
     // Relocate only hard-coded input/output roots; selection and verdict code are unchanged.
-    $code = str_replace(['/repo/wp', '/tmp/t01/', '/opt/t01/'], [$root . '/wp', $root . '/work/', $root . '/cache/'], file_get_contents(__DIR__ . '/executer.php'));
+    $code = str_replace(['/repo/wp', '/tmp/t01/', '/opt/t01/', '/tmp/t01-tools'], [$root . '/wp', $root . '/work/', $root . '/cache/', $root . '/tools-work'], file_get_contents(__DIR__ . '/executer.php'));
     file_put_contents($root . '/executer.php', $code);
-    if (is_file(__DIR__ . '/discovery.php')) {
-        copy(__DIR__ . '/discovery.php', $root . '/discovery.php');
+    foreach (['discovery.php', 'tools.php'] as $file) {
+        copy(__DIR__ . '/' . $file, $root . '/' . $file);
     }
     [$status, $output] = childPhp('require ' . var_export($root . '/executer.php', true) . ';');
     check(preg_match('/^T01_RESULT (.+)$/m', $output, $matches) === 1, 'Replay result missing: ' . $output);
@@ -163,12 +163,31 @@ correction('discovery scans package roots, not wp/tests fixtures', static functi
     check(array_column($discovery['warnings'], 'relative') === ['mu-plugins/standalone.php', 'plugins/without-tests'], 'Untested custom packages were not warned');
 });
 
-correction('repository discovery keeps existing plugin caches and warns site/theme', static function (): void {
+correction('repository discovery preserves historical caches and covers current roots', static function (): void {
     check(function_exists('discoverT01Packages'), 'Shared custom package discovery is missing');
     $discovery = discoverT01Packages('/repo/wp');
-    check(array_column($discovery['packages'], 'relative') === ['plugins/imagine-connecteur', 'plugins/imagine-pilotage'], 'Current repository package inventory changed');
-    check(array_column($discovery['packages'], 'cacheKey') === ['imagine-connecteur', 'imagine-pilotage'], 'Existing prepared cache topology changed');
-    check(array_column($discovery['warnings'], 'relative') === ['plugins/imagine-site', 'themes/imagine'], 'Current untested custom packages are not warned');
+    $expected = [];
+    $warnings = [];
+    foreach (['plugins', 'mu-plugins', 'themes'] as $kind) {
+        foreach (glob('/repo/wp/' . $kind . '/*', GLOB_ONLYDIR) ?: [] as $package) {
+            $name = basename($package);
+            if (is_file($package . '/phpunit.xml') || is_file($package . '/phpunit.xml.dist')) {
+                $expected[$kind . '/' . $name] = $kind === 'plugins' ? $name : $kind . '--' . $name;
+            } else {
+                $warnings[] = $kind . '/' . $name;
+            }
+        }
+        if ($kind === 'mu-plugins') {
+            foreach (glob('/repo/wp/mu-plugins/*.php') ?: [] as $file) {
+                $warnings[] = 'mu-plugins/' . basename($file);
+            }
+        }
+    }
+    ksort($expected);
+    sort($warnings);
+    check(array_column($discovery['packages'], 'relative') === array_keys($expected), 'Current repository package inventory incomplete');
+    check(array_column($discovery['packages'], 'cacheKey') === array_values($expected), 'Existing prepared cache topology changed');
+    check(array_column($discovery['warnings'], 'relative') === $warnings, 'Current untested custom packages are not warned');
 });
 
 foreach (['mu-plugins', 'themes'] as $kind) {
