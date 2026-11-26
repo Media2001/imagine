@@ -1,11 +1,11 @@
 {
-  "horodatage": "2026-11-25T23:34:10.650841+01:00",
+  "horodatage": "2026-11-26T03:08:08.437393+01:00",
   "python": "3.11.15",
   "systeme": "Windows",
   "date_reference": "2026-11-25",
   "suite": {
     "commande": "python -m unittest discover -s wp/tests/a13 -v",
-    "tests": 35,
+    "tests": 40,
     "echecs": 0,
     "erreurs": 0,
     "ignores": 0
@@ -49,6 +49,16 @@
       "valeur_iban_dans_sorties": false
     }
   ],
+  "sources_sha256": {
+    "wp/outils/bascule/controler-export": "cd20ddd7aa0716de9ca16ef6833b6118b11451bd09d61488e0677c2295fcc876",
+    "wp/outils/bascule/a13/correspondance.exemple.json": "1b6ad3e72c1a4b7c3ee04caef896c16b9c942a78ede10e568f465c31ab0d9528",
+    "wp/outils/bascule/controler-export.md": "c558e8773de0230c8c33dd5fbb164f93e1e13ea405547d59dd84fca440c492d6",
+    "wp/tests/a13/test_controler_export.py": "b94735250cbf5c99ccbc83144658306d21a8ae929ca0bb0263905b88c26d1645",
+    "wp/tests/a13/verifier_livraison.py": "a616176e37729aca054e13331949366e4eff538929fb5e24b39f835d30147b6e",
+    "wp/tests/fixtures/a13-export-defauts-fictif.csv": "a5d493007f27ab0b1989c0df1040d670f87bc517643b36aeaabab6f6bc6896ce",
+    "wp/tests/fixtures/a13-export-iban-fictif.csv": "54d0684fb8852b38e30c136b15841d970bcb29e740bed4bbc18cbc88920fd8b0",
+    "wp/tests/fixtures/a13-export-propre-fictif.csv": "ab1a093580aa226a47ad95c86cd6f593db28aa857f704b801d019c71e9dce373"
+  },
   "statut": "A13_VERIFIE_LOCALEMENT",
   "integration": "Reconstruction image partagée à vérifier par le parent avant PRET."
 }

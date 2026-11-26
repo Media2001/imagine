@@ -1,0 +1,15 @@
+{
+  "status": "PRET_TECHNIQUE_C19",
+  "scope": "imagine-test-demo",
+  "source_files_verified_against_final_receipt": 17,
+  "sha256": {
+    "A-VOIR.md": "93c8ba0cfdc7c1115d5d9ac3e07ba4d2b83c1f72f958f31d428abf4aa9967de5",
+    "PRET": "a5e8b1296e7e78876ab74235eb6911c27fb9b0474113f0dc397d7e320a7ce55f",
+    "final-V2.json": "4607b5ffffc5e1819daf3245abd2e4b588563fc2382aaf320bdf6a6d61bd0687",
+    "tableau-de-bord-referent.png": "80133a79972af46b9825fd6da0de0e558206015a2a86f4b2cd28ea0c3a22521d"
+  },
+  "visual_approval": false,
+  "fixture_reset": false,
+  "C20_C21_treated": false,
+  "urgent_parent": "corrections/C-16.md is newer than production/C-16/PRET; R1 blocking concurrency. Its C09-red reminder is historical, not current."
+}

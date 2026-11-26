@@ -1,3 +1,6 @@
 PRET
-Reception integree ; preuves synthetiques uniquement ; preparation image parent code 0.
-Controle : python -B production/A-10/verifier-reception.py
+A-13 corrections B1/I1/I3, 40 tests et trois CLI fictives, preparation image code 0.
+Controle : python production/A-13/verifier_manifeste.py
+Rejeu : python wp/tests/a13/verifier_livraison.py --preuve <scratch>/verification.json
+Manifeste SHA-256 : 8d69f3c5e016596768d2f25cb35fe1833c41e61bf00eb7d0db4b792b359596a1
+Aucun reel ni GO de migration.

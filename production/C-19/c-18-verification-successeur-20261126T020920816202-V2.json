@@ -1,0 +1,2617 @@
+{
+  "at": "2026-11-26T02:09:30.289658+00:00",
+  "scope": "imagine-test-demo",
+  "status": "VERIFIED_SUCCESSOR_C09_RESTAURE",
+  "lot": "C-18",
+  "read_only": true,
+  "checks": {
+    "authorized_baseline_exact": true,
+    "historical_functional_sources_unchanged": true,
+    "deployed_source_readback_exact": true,
+    "native_C09_382_sur_382": true,
+    "C18_runtime_natif_lecture_seule": true,
+    "neuf_CSV_historiques_rouverts_non_reecrits": true,
+    "native_before_after_exact": true,
+    "historical_receipts_exactly_preserved": true
+  },
+  "total": 8,
+  "failures": [],
+  "authorized_baseline_successor": {
+    "receipt": "production/C-09/papier-restauration-V2.json",
+    "sha256": "0607a745fac5edec912ae623e1e221b86046c78a1e02203d71281adfbd176a6e",
+    "historical_baseline_rewritten": false
+  },
+  "before": {
+    "commandes": {
+      "77": "e0db29efde868e8724b7bfc534da8b8eba41fc4f048c5140d391967fa61d23ee",
+      "79": "3e7aa6cdc8fe0f9c946ec99e6a415a39d1bdb7b49fd741494bc6cbd888b9f85d",
+      "88": "e17d9898ca07a7527a44c53b064401d620eaaf36906a743851d98ac9ad8ef45e",
+      "89": "0d48b315e0534c4fab0acc1c5cd2f444880f0340e2eb6c2ba768aac2a6265277",
+      "91": "8435dd6a213aecb7592c4ca7beffad3ac4436c457bbe9e8602706c39a3bb7327",
+      "92": "6d4e1419005a7a120dba93e1e769116a6a45fccb563ced34fbe7905edc626326",
+      "94": "5adc4d2074d7ab3e18deb2e388688147e5d40719d966bf55c2c908f99816bcd0",
+      "95": "a739f915255da16c007f2013730921794fd24e492383ad9bc5d0dfae93b05c55",
+      "97": "4fac6d91e6327c0b4ab613d60f232861f38ba395f7d7ebff687e2c4262d04775",
+      "98": "cc2cdff32a38ee79038799586d0b8b5224c21d73551ac9b0ef1659df4410a047",
+      "100": "789a925c26d65e4dc51e2a8739abf78d495db60a7efa5f5680fbf136c1c31d5e",
+      "101": "d0ee639d9f69a8aec0df95e6e831469a14c682ecd494fb702a6a80b7f0870f29",
+      "103": "740dc07dba8e4a458ec21513059514b4359c040a08693bcb918a5ecb2f318e25",
+      "104": "15ec60aa3689ece476476777b47252554318929384b39f3445cecd229c6dc323",
+      "106": "724d4422b4eb8d80d29d3874ab471831b55cd051b9f3d216a3bcd8bdf770adcb",
+      "107": "5a0d2260659c51b3baff45a6048ee7a138e6eafc850bc17b8b50a9b062104329",
+      "109": "c209e5a8759c0ef5353e9fc3ba7e47ee93c6741c7702a89c60ecdba954d9b91c",
+      "110": "11d3d14ffd6c05ecdeb6faf031fcb7c7ff8456b79dc1d2488beed4c99da7dd65",
+      "112": "fae34d7eff35f2948354a97c1a4c2cbbaf41f00f65fcc99e9fab3d6a7a12239c",
+      "113": "3b0397e40f9d96327c748019ada951446f672d3973101ddaa16ca87369a7cd67",
+      "115": "7e3e2378f49d05d53865161f7e928c7ad40003cccdb87422e0cafde4d8aa5825",
+      "116": "99a6ab0cc8ed9ffc7745dd1c1f1da2a4b8187f949521fe7df4bd929cc7595dee",
+      "118": "6c1056e07c5b536e314e4f905f4199929dcfaf0e8325224ef5e5cb28ad514f4c",
+      "119": "601cd93c36750373da997de3e1e841871eaae8c05fd0a9d08d3f2fc6f47dfe45",
+      "121": "d55fdaad0c3dd0df860a6d19b4fe82846433672ec88891397150dd7387e13132",
+      "122": "128dbf42745acc3df5a8a683765ce9019f48026d37031b1f2247f6918db1fe04",
+      "126": "82adb03dc31bb544422a8558a7becb5aa793c61d8101042e627990b6f8a8a0ea",
+      "243": "7115f4dfdf88fad3fbf0a71381b976bd531fb7cb79e2c7e1cf3856acea3aaa2d",
+      "244": "87ca564098a7af4e70140632860f127101076e002cecf8052c24b899b05fe707",
+      "2419": "5637a4670be9e75968995c90f539538403611ef33476a679a5d3edaa60ed96b1",
+      "2420": "5be5b3363dc47c464ae78008eca796fa23522ff018793914ffb5d16cafcbf6c4",
+      "2421": "4996adb0aacf4fbcbbfbeb78fea5a5436015c281187514747fc04ee355af26ab"
+    },
+    "produits": {
+      "271": "9e4be77fac23fcc40cdc30f83e016529013118736f3421598f554ab88b8a51fe",
+      "2475": "4cad18e3b2e96ac44f02e33c89d34d33ec16e32d1dc2c852e3750dbca004b38e"
+    },
+    "adherents": {
+      "78": "b897fffacefa5711e0dc9fbedd271e024c183d91265c0d683a4820cb885ac126",
+      "80": "eab7266994892de80fead5e5bc5a0bcfe53ad8fc58c00c7d5477b8b535170f7e",
+      "90": "dde687e599549c5d099281a3c65ef186e3ddefd69ffca93119287c28b05d73b4",
+      "93": "c44a4d9c25de9e85aab54de6ce035d50e274337d2a7147649477d9411eae34c5",
+      "96": "0ee3b94a14fe9c08bd233510a9fa35a6621e04352cfc2d611e5d31b104cf7630",
+      "99": "1fb0f1aee51cc01cac09f3f47bb50fc95f6b552e09e1a8a9e7a5ef5363ae9c53",
+      "102": "a7390c34458b4d727aac847812e34aa5c799c243a045bc3fd0b2ccc048b39a95",
+      "105": "5eea527126716a1f41bc6aad60563823f7251db9b24cac3b57408bf97169ddc6",
+      "108": "57b2d4e21f27303d1aa63700bcf2ce15eece911cf54130ab06da1f2aa705b4bb",
+      "111": "d906a04f77f73dafc91a4d7384202654b75ce638d57be310b08c2572d061e887",
+      "114": "a9c6ec306f2437db10cd12c1740d9f8828e9a806a82aac6ec505455913bcd5ce",
+      "117": "e058c5ce24fe2c212c7a615ea3fb997d79547276a4aedc244f2c34e98d7608be",
+      "120": "4dc37248927ee71e165ce32bea3ae5b4f7c3ef8f41e863589f6421330662abe3",
+      "123": "0b13b695034ab772c3409adf6306161fca45123ac074a726b8c1e30367509daf",
+      "124": "15b4e0e00e358a17134aaa5e6f9818b6061f3b6aabd32b778ff9293138f0984b",
+      "125": "d7aec0a39c0ee76120f299d820675426a021c34f5db452273347dec1e4689f9e"
+    },
+    "profils": {
+      "V-DEC": [
+        6,
+        [
+          "customer"
+        ]
+      ],
+      "V-DEC-FIN": [
+        7,
+        [
+          "customer"
+        ]
+      ],
+      "V-INSCRIT": [
+        8,
+        [
+          "customer"
+        ]
+      ],
+      "A-CARTE": [
+        9,
+        [
+          "customer"
+        ]
+      ],
+      "A-SEPA4": [
+        10,
+        [
+          "customer"
+        ]
+      ],
+      "A-PAYPAL": [
+        11,
+        [
+          "customer"
+        ]
+      ],
+      "A-VIR": [
+        12,
+        [
+          "customer"
+        ]
+      ],
+      "A-PAPIER": [
+        13,
+        [
+          "customer"
+        ]
+      ],
+      "A-GRACE": [
+        14,
+        [
+          "customer"
+        ]
+      ],
+      "A-SUSP": [
+        15,
+        [
+          "customer"
+        ]
+      ],
+      "A-EXPIRE": [
+        16,
+        [
+          "customer"
+        ]
+      ],
+      "A-NONRENOUV": [
+        17,
+        [
+          "customer"
+        ]
+      ],
+      "A-ETRANGER": [
+        18,
+        [
+          "customer"
+        ]
+      ],
+      "A-SANSMAIL": [
+        19,
+        [
+          "customer"
+        ]
+      ],
+      "A-ECHEANCE": [
+        20,
+        [
+          "customer"
+        ]
+      ],
+      "P-OFFRANT": [
+        21,
+        [
+          "customer"
+        ]
+      ],
+      "P-OFFERT": [
+        22,
+        [
+          "customer"
+        ]
+      ],
+      "P-GEST": [
+        23,
+        [
+          "customer"
+        ]
+      ],
+      "P-BENEF": [
+        24,
+        [
+          "customer"
+        ]
+      ],
+      "P-PRO": [
+        25,
+        [
+          "customer"
+        ]
+      ],
+      "P-SOL-ATT": [
+        26,
+        [
+          "customer"
+        ]
+      ],
+      "P-SOL-OK": [
+        27,
+        [
+          "customer"
+        ]
+      ],
+      "P-NUMERO": [
+        28,
+        [
+          "customer"
+        ]
+      ],
+      "P-COOP": [
+        29,
+        [
+          "customer"
+        ]
+      ],
+      "E-ADMIN": [
+        30,
+        [
+          "administrator"
+        ]
+      ],
+      "E-REDAC": [
+        31,
+        [
+          "editor"
+        ]
+      ],
+      "E-ABO": [
+        32,
+        [
+          "imagine_referent_abonnements"
+        ]
+      ]
+    },
+    "options": {
+      "decouverte_6": null,
+      "decouverte_7": {
+        "debut": "2026-11-24 18:01:51",
+        "reglages": {
+          "ouverture": "premiere_lecture",
+          "forme": "articles",
+          "jours": 7,
+          "nombre": 2,
+          "numeros": [
+            "39",
+            "25",
+            "18"
+          ]
+        },
+        "articles": [
+          233,
+          234
+        ]
+      },
+      "decouverte_8": null,
+      "decouverte_9": null,
+      "decouverte_10": null,
+      "decouverte_11": null,
+      "decouverte_12": null,
+      "decouverte_13": null,
+      "decouverte_14": null,
+      "decouverte_15": null,
+      "decouverte_16": null,
+      "decouverte_17": null,
+      "decouverte_18": null,
+      "decouverte_19": null,
+      "decouverte_20": null,
+      "decouverte_21": null,
+      "decouverte_22": null,
+      "decouverte_23": null,
+      "decouverte_24": null,
+      "decouverte_25": null,
+      "decouverte_26": null,
+      "decouverte_27": null,
+      "decouverte_28": null,
+      "decouverte_29": null,
+      "decouverte_30": null,
+      "decouverte_31": null,
+      "decouverte_32": null,
+      "imagine_acces_reglages": null,
+      "imagine_c05_reglages": {
+        "marge_jours": null,
+        "apres_rejet": "restent_dues",
+        "tarif": "fige_bloc",
+        "confirmation_premier_sepa": "avec_marge"
+      },
+      "imagine_envoi_colonnes_export": [
+        "abonnement_id",
+        "destinataire_id",
+        "destinataire",
+        "rue",
+        "complement",
+        "code_postal",
+        "ville",
+        "pays",
+        "origine"
+      ],
+      "imagine_decouverte_reglages": null,
+      "imagine_decouverte_relecture": null,
+      "imagine_achat_remboursement": null,
+      "imagine_demo_calendrier": [
+        {
+          "code": "DEMO-2026-T1",
+          "type": "regulier",
+          "sortie": "2026-01-15",
+          "cloture": "2026-01-05"
+        },
+        {
+          "code": "DEMO-2026-T2",
+          "type": "regulier",
+          "sortie": "2026-04-15",
+          "cloture": "2026-04-05"
+        },
+        {
+          "code": "DEMO-2026-T3",
+          "type": "regulier",
+          "sortie": "2026-07-15",
+          "cloture": "2026-07-05"
+        },
+        {
+          "code": "DEMO-2026-HS",
+          "type": "hors-serie",
+          "sortie": "2026-08-15",
+          "cloture": "2026-08-05"
+        },
+        {
+          "code": "DEMO-2026-T4",
+          "type": "regulier",
+          "sortie": "2026-10-15",
+          "cloture": "2026-10-05"
+        },
+        {
+          "code": "DEMO-2027-T1",
+          "type": "regulier",
+          "sortie": "2027-01-15",
+          "cloture": "2027-01-05"
+        },
+        {
+          "code": "DEMO-2027-T2",
+          "type": "regulier",
+          "sortie": "2027-04-15",
+          "cloture": "2027-04-05"
+        },
+        {
+          "code": "DEMO-2027-T3",
+          "type": "regulier",
+          "sortie": "2027-07-15",
+          "cloture": "2027-07-05"
+        },
+        {
+          "code": "DEMO-2027-HS",
+          "type": "hors-serie",
+          "sortie": "2027-08-15",
+          "cloture": "2027-08-05"
+        },
+        {
+          "code": "DEMO-2027-T4",
+          "type": "regulier",
+          "sortie": "2027-10-15",
+          "cloture": "2027-10-05"
+        },
+        {
+          "code": "DEMO-2028-T1",
+          "type": "regulier",
+          "sortie": "2028-01-15",
+          "cloture": "2028-01-05"
+        },
+        {
+          "code": "DEMO-2028-T2",
+          "type": "regulier",
+          "sortie": "2028-04-15",
+          "cloture": "2028-04-05"
+        },
+        {
+          "code": "DEMO-2028-T3",
+          "type": "regulier",
+          "sortie": "2028-07-15",
+          "cloture": "2028-07-05"
+        },
+        {
+          "code": "DEMO-2028-HS",
+          "type": "hors-serie",
+          "sortie": "2028-08-15",
+          "cloture": "2028-08-05"
+        },
+        {
+          "code": "DEMO-2028-T4",
+          "type": "regulier",
+          "sortie": "2028-10-15",
+          "cloture": "2028-10-05"
+        }
+      ]
+    },
+    "pdf": {
+      "198fa4350d4f52cf1f727cc610fca04f.pdf": "88c7e76f7bd7249af59bf79e6739d658590e29f945eea99f7e2d42980d615fa5",
+      "46344feeca4adef38e70d12dbb4bcef8.pdf": "2446e6975b2d0d9b6067e0c2b0cbbd44939d5dcccf600c10519cce84ab0f742f",
+      "48c17aa6c0ece1c948e0ef57d3252b4a.pdf": "665395b60dafff2b32b1c3989166a9b17bb6028c592aa46e9d03fbe62140902e",
+      "80cb2fbb3e1bec6780af4cb918fc2469.pdf": "8c43b4ce454696908d600b7a2726a76129b1bbd4ffba6ad00f3abfd8b8076700",
+      "f59d02115496d4c5c2a322cb1383bedb.pdf": "e167c40428d2557c933c34d82545c833612b482d02a964248baba619d45f92d3"
+    },
+    "manifeste": {
+      "plan": 86,
+      "product": 87,
+      "users": {
+        "V-DEC": 6,
+        "V-DEC-FIN": 7,
+        "V-INSCRIT": 8,
+        "A-CARTE": 9,
+        "A-SEPA4": 10,
+        "A-PAYPAL": 11,
+        "A-VIR": 12,
+        "A-PAPIER": 13,
+        "A-GRACE": 14,
+        "A-SUSP": 15,
+        "A-EXPIRE": 16,
+        "A-NONRENOUV": 17,
+        "A-ETRANGER": 18,
+        "A-SANSMAIL": 19,
+        "A-ECHEANCE": 20,
+        "P-OFFRANT": 21,
+        "P-OFFERT": 22,
+        "P-GEST": 23,
+        "P-BENEF": 24,
+        "P-PRO": 25,
+        "P-SOL-ATT": 26,
+        "P-SOL-OK": 27,
+        "P-NUMERO": 28,
+        "P-COOP": 29,
+        "E-ADMIN": 30,
+        "E-REDAC": 31,
+        "E-ABO": 32
+      },
+      "orders": {
+        "A-CARTE": 88,
+        "A-SEPA4": 91,
+        "A-PAYPAL": 94,
+        "A-VIR": 97,
+        "A-PAPIER": 100,
+        "A-GRACE": 103,
+        "A-SUSP": 106,
+        "A-EXPIRE": 109,
+        "A-NONRENOUV": 112,
+        "A-ETRANGER": 115,
+        "A-SANSMAIL": 118,
+        "A-ECHEANCE": 121,
+        "P-NUMERO": 126
+      },
+      "subscriptions": {
+        "A-CARTE": 89,
+        "A-SEPA4": 92,
+        "A-PAYPAL": 95,
+        "A-VIR": 98,
+        "A-PAPIER": 101,
+        "A-GRACE": 104,
+        "A-SUSP": 107,
+        "A-EXPIRE": 110,
+        "A-NONRENOUV": 113,
+        "A-ETRANGER": 116,
+        "A-SANSMAIL": 119,
+        "A-ECHEANCE": 122
+      },
+      "memberships": {
+        "A-CARTE": 90,
+        "A-SEPA4": 93,
+        "A-PAYPAL": 96,
+        "A-VIR": 99,
+        "A-PAPIER": 102,
+        "A-GRACE": 105,
+        "A-SUSP": 108,
+        "A-EXPIRE": 111,
+        "A-NONRENOUV": 114,
+        "A-ETRANGER": 117,
+        "A-SANSMAIL": 120,
+        "A-ECHEANCE": 123,
+        "P-SOL-ATT": 124,
+        "P-SOL-OK": 125
+      },
+      "tariffs": {
+        "normal-1": 192,
+        "normal-4": 193,
+        "solidaire-1": 194,
+        "solidaire-4": 195,
+        "soutien-1": 196,
+        "soutien-4": 197
+      },
+      "renewals": {
+        "A-SEPA4": 2419,
+        "A-GRACE": 2420,
+        "A-SUSP": 2421
+      }
+    },
+    "reserve_native_C09_action8103": {
+      "action_id": "8103",
+      "status": "canceled",
+      "scheduled_date_gmt": "2026-11-25 19:01:50",
+      "last_attempt_gmt": "0000-00-00 00:00:00"
+    },
+    "native_fingerprints": {
+      "users": {
+        "count": 34,
+        "sha256": "e6a5b3fbc00d9e2f02a3a07696f4d2ed475644598006ee87520fcbe621958f7c"
+      },
+      "usermeta": {
+        "count": 988,
+        "sha256": "945dca3e8f4f616ee5b89a4de86e98418205ea5a72fe2f49215ea52c9a77b98f"
+      },
+      "posts": {
+        "count": 147,
+        "sha256": "e80864b6f3cbce8f7ee16069768d7f74292f6acfa73109e315bc7cc92c16a835"
+      },
+      "postmeta": {
+        "count": 1530,
+        "sha256": "9abc1ea824dccbe73a85d474f63bd1149d73aedc4b9d19447022404c5941637f"
+      },
+      "actionscheduler_actions": {
+        "count": 8789,
+        "sha256": "8e25627f386ab5d4f2bd628f822887f9c773d0d45a124e16f27974a0a7dfe0ff"
+      },
+      "actionscheduler_logs": {
+        "count": 16861,
+        "sha256": "ba43a13ad8dc21c62a56d1590ebdf854ec44e16adf2888bae9576d891530208f"
+      },
+      "woocommerce_order_items": {
+        "count": 201,
+        "sha256": "cd76ac549f0d2d3b647746cf972670f7b2ef6e23d087af6f1cf9ecbc5cb9accb"
+      },
+      "woocommerce_order_itemmeta": {
+        "count": 2034,
+        "sha256": "d301cbf5c4e335ab91dcca2bf8a4dff61b4cdb1404f5041e53aabada626cf215"
+      },
+      "wc_orders": {
+        "count": 32,
+        "sha256": "c355da1002bdd1b0d2b567c585d16a8f4e94fd56fd21ddfab9a83ebd02b5b389"
+      },
+      "wc_order_addresses": {
+        "count": 62,
+        "sha256": "ee4ef1eb1bbadbb1e0a54b9e1e4a05553483f8167374eaed95b4f493bf0f3212"
+      },
+      "wc_orders_meta": {
+        "count": 451,
+        "sha256": "e09dbf2b9de80b9beb0f11cae9f2791e62e8a1c10b628215d2091f66ab4aded5"
+      },
+      "wc_order_operational_data": {
+        "count": 32,
+        "sha256": "66ada17dce562d13172bb9138315e7792147d3da978adefc363db7306fe02a90"
+      },
+      "roles": "123b8b4ee45e584bd10686c799a9d179bc4a0d9966af4cd52aeff8d0e2b2b591"
+    }
+  },
+  "after": {
+    "commandes": {
+      "77": "e0db29efde868e8724b7bfc534da8b8eba41fc4f048c5140d391967fa61d23ee",
+      "79": "3e7aa6cdc8fe0f9c946ec99e6a415a39d1bdb7b49fd741494bc6cbd888b9f85d",
+      "88": "e17d9898ca07a7527a44c53b064401d620eaaf36906a743851d98ac9ad8ef45e",
+      "89": "0d48b315e0534c4fab0acc1c5cd2f444880f0340e2eb6c2ba768aac2a6265277",
+      "91": "8435dd6a213aecb7592c4ca7beffad3ac4436c457bbe9e8602706c39a3bb7327",
+      "92": "6d4e1419005a7a120dba93e1e769116a6a45fccb563ced34fbe7905edc626326",
+      "94": "5adc4d2074d7ab3e18deb2e388688147e5d40719d966bf55c2c908f99816bcd0",
+      "95": "a739f915255da16c007f2013730921794fd24e492383ad9bc5d0dfae93b05c55",
+      "97": "4fac6d91e6327c0b4ab613d60f232861f38ba395f7d7ebff687e2c4262d04775",
+      "98": "cc2cdff32a38ee79038799586d0b8b5224c21d73551ac9b0ef1659df4410a047",
+      "100": "789a925c26d65e4dc51e2a8739abf78d495db60a7efa5f5680fbf136c1c31d5e",
+      "101": "d0ee639d9f69a8aec0df95e6e831469a14c682ecd494fb702a6a80b7f0870f29",
+      "103": "740dc07dba8e4a458ec21513059514b4359c040a08693bcb918a5ecb2f318e25",
+      "104": "15ec60aa3689ece476476777b47252554318929384b39f3445cecd229c6dc323",
+      "106": "724d4422b4eb8d80d29d3874ab471831b55cd051b9f3d216a3bcd8bdf770adcb",
+      "107": "5a0d2260659c51b3baff45a6048ee7a138e6eafc850bc17b8b50a9b062104329",
+      "109": "c209e5a8759c0ef5353e9fc3ba7e47ee93c6741c7702a89c60ecdba954d9b91c",
+      "110": "11d3d14ffd6c05ecdeb6faf031fcb7c7ff8456b79dc1d2488beed4c99da7dd65",
+      "112": "fae34d7eff35f2948354a97c1a4c2cbbaf41f00f65fcc99e9fab3d6a7a12239c",
+      "113": "3b0397e40f9d96327c748019ada951446f672d3973101ddaa16ca87369a7cd67",
+      "115": "7e3e2378f49d05d53865161f7e928c7ad40003cccdb87422e0cafde4d8aa5825",
+      "116": "99a6ab0cc8ed9ffc7745dd1c1f1da2a4b8187f949521fe7df4bd929cc7595dee",
+      "118": "6c1056e07c5b536e314e4f905f4199929dcfaf0e8325224ef5e5cb28ad514f4c",
+      "119": "601cd93c36750373da997de3e1e841871eaae8c05fd0a9d08d3f2fc6f47dfe45",
+      "121": "d55fdaad0c3dd0df860a6d19b4fe82846433672ec88891397150dd7387e13132",
+      "122": "128dbf42745acc3df5a8a683765ce9019f48026d37031b1f2247f6918db1fe04",
+      "126": "82adb03dc31bb544422a8558a7becb5aa793c61d8101042e627990b6f8a8a0ea",
+      "243": "7115f4dfdf88fad3fbf0a71381b976bd531fb7cb79e2c7e1cf3856acea3aaa2d",
+      "244": "87ca564098a7af4e70140632860f127101076e002cecf8052c24b899b05fe707",
+      "2419": "5637a4670be9e75968995c90f539538403611ef33476a679a5d3edaa60ed96b1",
+      "2420": "5be5b3363dc47c464ae78008eca796fa23522ff018793914ffb5d16cafcbf6c4",
+      "2421": "4996adb0aacf4fbcbbfbeb78fea5a5436015c281187514747fc04ee355af26ab"
+    },
+    "produits": {
+      "271": "9e4be77fac23fcc40cdc30f83e016529013118736f3421598f554ab88b8a51fe",
+      "2475": "4cad18e3b2e96ac44f02e33c89d34d33ec16e32d1dc2c852e3750dbca004b38e"
+    },
+    "adherents": {
+      "78": "b897fffacefa5711e0dc9fbedd271e024c183d91265c0d683a4820cb885ac126",
+      "80": "eab7266994892de80fead5e5bc5a0bcfe53ad8fc58c00c7d5477b8b535170f7e",
+      "90": "dde687e599549c5d099281a3c65ef186e3ddefd69ffca93119287c28b05d73b4",
+      "93": "c44a4d9c25de9e85aab54de6ce035d50e274337d2a7147649477d9411eae34c5",
+      "96": "0ee3b94a14fe9c08bd233510a9fa35a6621e04352cfc2d611e5d31b104cf7630",
+      "99": "1fb0f1aee51cc01cac09f3f47bb50fc95f6b552e09e1a8a9e7a5ef5363ae9c53",
+      "102": "a7390c34458b4d727aac847812e34aa5c799c243a045bc3fd0b2ccc048b39a95",
+      "105": "5eea527126716a1f41bc6aad60563823f7251db9b24cac3b57408bf97169ddc6",
+      "108": "57b2d4e21f27303d1aa63700bcf2ce15eece911cf54130ab06da1f2aa705b4bb",
+      "111": "d906a04f77f73dafc91a4d7384202654b75ce638d57be310b08c2572d061e887",
+      "114": "a9c6ec306f2437db10cd12c1740d9f8828e9a806a82aac6ec505455913bcd5ce",
+      "117": "e058c5ce24fe2c212c7a615ea3fb997d79547276a4aedc244f2c34e98d7608be",
+      "120": "4dc37248927ee71e165ce32bea3ae5b4f7c3ef8f41e863589f6421330662abe3",
+      "123": "0b13b695034ab772c3409adf6306161fca45123ac074a726b8c1e30367509daf",
+      "124": "15b4e0e00e358a17134aaa5e6f9818b6061f3b6aabd32b778ff9293138f0984b",
+      "125": "d7aec0a39c0ee76120f299d820675426a021c34f5db452273347dec1e4689f9e"
+    },
+    "profils": {
+      "V-DEC": [
+        6,
+        [
+          "customer"
+        ]
+      ],
+      "V-DEC-FIN": [
+        7,
+        [
+          "customer"
+        ]
+      ],
+      "V-INSCRIT": [
+        8,
+        [
+          "customer"
+        ]
+      ],
+      "A-CARTE": [
+        9,
+        [
+          "customer"
+        ]
+      ],
+      "A-SEPA4": [
+        10,
+        [
+          "customer"
+        ]
+      ],
+      "A-PAYPAL": [
+        11,
+        [
+          "customer"
+        ]
+      ],
+      "A-VIR": [
+        12,
+        [
+          "customer"
+        ]
+      ],
+      "A-PAPIER": [
+        13,
+        [
+          "customer"
+        ]
+      ],
+      "A-GRACE": [
+        14,
+        [
+          "customer"
+        ]
+      ],
+      "A-SUSP": [
+        15,
+        [
+          "customer"
+        ]
+      ],
+      "A-EXPIRE": [
+        16,
+        [
+          "customer"
+        ]
+      ],
+      "A-NONRENOUV": [
+        17,
+        [
+          "customer"
+        ]
+      ],
+      "A-ETRANGER": [
+        18,
+        [
+          "customer"
+        ]
+      ],
+      "A-SANSMAIL": [
+        19,
+        [
+          "customer"
+        ]
+      ],
+      "A-ECHEANCE": [
+        20,
+        [
+          "customer"
+        ]
+      ],
+      "P-OFFRANT": [
+        21,
+        [
+          "customer"
+        ]
+      ],
+      "P-OFFERT": [
+        22,
+        [
+          "customer"
+        ]
+      ],
+      "P-GEST": [
+        23,
+        [
+          "customer"
+        ]
+      ],
+      "P-BENEF": [
+        24,
+        [
+          "customer"
+        ]
+      ],
+      "P-PRO": [
+        25,
+        [
+          "customer"
+        ]
+      ],
+      "P-SOL-ATT": [
+        26,
+        [
+          "customer"
+        ]
+      ],
+      "P-SOL-OK": [
+        27,
+        [
+          "customer"
+        ]
+      ],
+      "P-NUMERO": [
+        28,
+        [
+          "customer"
+        ]
+      ],
+      "P-COOP": [
+        29,
+        [
+          "customer"
+        ]
+      ],
+      "E-ADMIN": [
+        30,
+        [
+          "administrator"
+        ]
+      ],
+      "E-REDAC": [
+        31,
+        [
+          "editor"
+        ]
+      ],
+      "E-ABO": [
+        32,
+        [
+          "imagine_referent_abonnements"
+        ]
+      ]
+    },
+    "options": {
+      "decouverte_6": null,
+      "decouverte_7": {
+        "debut": "2026-11-24 18:01:51",
+        "reglages": {
+          "ouverture": "premiere_lecture",
+          "forme": "articles",
+          "jours": 7,
+          "nombre": 2,
+          "numeros": [
+            "39",
+            "25",
+            "18"
+          ]
+        },
+        "articles": [
+          233,
+          234
+        ]
+      },
+      "decouverte_8": null,
+      "decouverte_9": null,
+      "decouverte_10": null,
+      "decouverte_11": null,
+      "decouverte_12": null,
+      "decouverte_13": null,
+      "decouverte_14": null,
+      "decouverte_15": null,
+      "decouverte_16": null,
+      "decouverte_17": null,
+      "decouverte_18": null,
+      "decouverte_19": null,
+      "decouverte_20": null,
+      "decouverte_21": null,
+      "decouverte_22": null,
+      "decouverte_23": null,
+      "decouverte_24": null,
+      "decouverte_25": null,
+      "decouverte_26": null,
+      "decouverte_27": null,
+      "decouverte_28": null,
+      "decouverte_29": null,
+      "decouverte_30": null,
+      "decouverte_31": null,
+      "decouverte_32": null,
+      "imagine_acces_reglages": null,
+      "imagine_c05_reglages": {
+        "marge_jours": null,
+        "apres_rejet": "restent_dues",
+        "tarif": "fige_bloc",
+        "confirmation_premier_sepa": "avec_marge"
+      },
+      "imagine_envoi_colonnes_export": [
+        "abonnement_id",
+        "destinataire_id",
+        "destinataire",
+        "rue",
+        "complement",
+        "code_postal",
+        "ville",
+        "pays",
+        "origine"
+      ],
+      "imagine_decouverte_reglages": null,
+      "imagine_decouverte_relecture": null,
+      "imagine_achat_remboursement": null,
+      "imagine_demo_calendrier": [
+        {
+          "code": "DEMO-2026-T1",
+          "type": "regulier",
+          "sortie": "2026-01-15",
+          "cloture": "2026-01-05"
+        },
+        {
+          "code": "DEMO-2026-T2",
+          "type": "regulier",
+          "sortie": "2026-04-15",
+          "cloture": "2026-04-05"
+        },
+        {
+          "code": "DEMO-2026-T3",
+          "type": "regulier",
+          "sortie": "2026-07-15",
+          "cloture": "2026-07-05"
+        },
+        {
+          "code": "DEMO-2026-HS",
+          "type": "hors-serie",
+          "sortie": "2026-08-15",
+          "cloture": "2026-08-05"
+        },
+        {
+          "code": "DEMO-2026-T4",
+          "type": "regulier",
+          "sortie": "2026-10-15",
+          "cloture": "2026-10-05"
+        },
+        {
+          "code": "DEMO-2027-T1",
+          "type": "regulier",
+          "sortie": "2027-01-15",
+          "cloture": "2027-01-05"
+        },
+        {
+          "code": "DEMO-2027-T2",
+          "type": "regulier",
+          "sortie": "2027-04-15",
+          "cloture": "2027-04-05"
+        },
+        {
+          "code": "DEMO-2027-T3",
+          "type": "regulier",
+          "sortie": "2027-07-15",
+          "cloture": "2027-07-05"
+        },
+        {
+          "code": "DEMO-2027-HS",
+          "type": "hors-serie",
+          "sortie": "2027-08-15",
+          "cloture": "2027-08-05"
+        },
+        {
+          "code": "DEMO-2027-T4",
+          "type": "regulier",
+          "sortie": "2027-10-15",
+          "cloture": "2027-10-05"
+        },
+        {
+          "code": "DEMO-2028-T1",
+          "type": "regulier",
+          "sortie": "2028-01-15",
+          "cloture": "2028-01-05"
+        },
+        {
+          "code": "DEMO-2028-T2",
+          "type": "regulier",
+          "sortie": "2028-04-15",
+          "cloture": "2028-04-05"
+        },
+        {
+          "code": "DEMO-2028-T3",
+          "type": "regulier",
+          "sortie": "2028-07-15",
+          "cloture": "2028-07-05"
+        },
+        {
+          "code": "DEMO-2028-HS",
+          "type": "hors-serie",
+          "sortie": "2028-08-15",
+          "cloture": "2028-08-05"
+        },
+        {
+          "code": "DEMO-2028-T4",
+          "type": "regulier",
+          "sortie": "2028-10-15",
+          "cloture": "2028-10-05"
+        }
+      ]
+    },
+    "pdf": {
+      "198fa4350d4f52cf1f727cc610fca04f.pdf": "88c7e76f7bd7249af59bf79e6739d658590e29f945eea99f7e2d42980d615fa5",
+      "46344feeca4adef38e70d12dbb4bcef8.pdf": "2446e6975b2d0d9b6067e0c2b0cbbd44939d5dcccf600c10519cce84ab0f742f",
+      "48c17aa6c0ece1c948e0ef57d3252b4a.pdf": "665395b60dafff2b32b1c3989166a9b17bb6028c592aa46e9d03fbe62140902e",
+      "80cb2fbb3e1bec6780af4cb918fc2469.pdf": "8c43b4ce454696908d600b7a2726a76129b1bbd4ffba6ad00f3abfd8b8076700",
+      "f59d02115496d4c5c2a322cb1383bedb.pdf": "e167c40428d2557c933c34d82545c833612b482d02a964248baba619d45f92d3"
+    },
+    "manifeste": {
+      "plan": 86,
+      "product": 87,
+      "users": {
+        "V-DEC": 6,
+        "V-DEC-FIN": 7,
+        "V-INSCRIT": 8,
+        "A-CARTE": 9,
+        "A-SEPA4": 10,
+        "A-PAYPAL": 11,
+        "A-VIR": 12,
+        "A-PAPIER": 13,
+        "A-GRACE": 14,
+        "A-SUSP": 15,
+        "A-EXPIRE": 16,
+        "A-NONRENOUV": 17,
+        "A-ETRANGER": 18,
+        "A-SANSMAIL": 19,
+        "A-ECHEANCE": 20,
+        "P-OFFRANT": 21,
+        "P-OFFERT": 22,
+        "P-GEST": 23,
+        "P-BENEF": 24,
+        "P-PRO": 25,
+        "P-SOL-ATT": 26,
+        "P-SOL-OK": 27,
+        "P-NUMERO": 28,
+        "P-COOP": 29,
+        "E-ADMIN": 30,
+        "E-REDAC": 31,
+        "E-ABO": 32
+      },
+      "orders": {
+        "A-CARTE": 88,
+        "A-SEPA4": 91,
+        "A-PAYPAL": 94,
+        "A-VIR": 97,
+        "A-PAPIER": 100,
+        "A-GRACE": 103,
+        "A-SUSP": 106,
+        "A-EXPIRE": 109,
+        "A-NONRENOUV": 112,
+        "A-ETRANGER": 115,
+        "A-SANSMAIL": 118,
+        "A-ECHEANCE": 121,
+        "P-NUMERO": 126
+      },
+      "subscriptions": {
+        "A-CARTE": 89,
+        "A-SEPA4": 92,
+        "A-PAYPAL": 95,
+        "A-VIR": 98,
+        "A-PAPIER": 101,
+        "A-GRACE": 104,
+        "A-SUSP": 107,
+        "A-EXPIRE": 110,
+        "A-NONRENOUV": 113,
+        "A-ETRANGER": 116,
+        "A-SANSMAIL": 119,
+        "A-ECHEANCE": 122
+      },
+      "memberships": {
+        "A-CARTE": 90,
+        "A-SEPA4": 93,
+        "A-PAYPAL": 96,
+        "A-VIR": 99,
+        "A-PAPIER": 102,
+        "A-GRACE": 105,
+        "A-SUSP": 108,
+        "A-EXPIRE": 111,
+        "A-NONRENOUV": 114,
+        "A-ETRANGER": 117,
+        "A-SANSMAIL": 120,
+        "A-ECHEANCE": 123,
+        "P-SOL-ATT": 124,
+        "P-SOL-OK": 125
+      },
+      "tariffs": {
+        "normal-1": 192,
+        "normal-4": 193,
+        "solidaire-1": 194,
+        "solidaire-4": 195,
+        "soutien-1": 196,
+        "soutien-4": 197
+      },
+      "renewals": {
+        "A-SEPA4": 2419,
+        "A-GRACE": 2420,
+        "A-SUSP": 2421
+      }
+    },
+    "reserve_native_C09_action8103": {
+      "action_id": "8103",
+      "status": "canceled",
+      "scheduled_date_gmt": "2026-11-25 19:01:50",
+      "last_attempt_gmt": "0000-00-00 00:00:00"
+    },
+    "native_fingerprints": {
+      "users": {
+        "count": 34,
+        "sha256": "e6a5b3fbc00d9e2f02a3a07696f4d2ed475644598006ee87520fcbe621958f7c"
+      },
+      "usermeta": {
+        "count": 988,
+        "sha256": "945dca3e8f4f616ee5b89a4de86e98418205ea5a72fe2f49215ea52c9a77b98f"
+      },
+      "posts": {
+        "count": 147,
+        "sha256": "e80864b6f3cbce8f7ee16069768d7f74292f6acfa73109e315bc7cc92c16a835"
+      },
+      "postmeta": {
+        "count": 1530,
+        "sha256": "9abc1ea824dccbe73a85d474f63bd1149d73aedc4b9d19447022404c5941637f"
+      },
+      "actionscheduler_actions": {
+        "count": 8789,
+        "sha256": "8e25627f386ab5d4f2bd628f822887f9c773d0d45a124e16f27974a0a7dfe0ff"
+      },
+      "actionscheduler_logs": {
+        "count": 16861,
+        "sha256": "ba43a13ad8dc21c62a56d1590ebdf854ec44e16adf2888bae9576d891530208f"
+      },
+      "woocommerce_order_items": {
+        "count": 201,
+        "sha256": "cd76ac549f0d2d3b647746cf972670f7b2ef6e23d087af6f1cf9ecbc5cb9accb"
+      },
+      "woocommerce_order_itemmeta": {
+        "count": 2034,
+        "sha256": "d301cbf5c4e335ab91dcca2bf8a4dff61b4cdb1404f5041e53aabada626cf215"
+      },
+      "wc_orders": {
+        "count": 32,
+        "sha256": "c355da1002bdd1b0d2b567c585d16a8f4e94fd56fd21ddfab9a83ebd02b5b389"
+      },
+      "wc_order_addresses": {
+        "count": 62,
+        "sha256": "ee4ef1eb1bbadbb1e0a54b9e1e4a05553483f8167374eaed95b4f493bf0f3212"
+      },
+      "wc_orders_meta": {
+        "count": 451,
+        "sha256": "e09dbf2b9de80b9beb0f11cae9f2791e62e8a1c10b628215d2091f66ab4aded5"
+      },
+      "wc_order_operational_data": {
+        "count": 32,
+        "sha256": "66ada17dce562d13172bb9138315e7792147d3da978adefc363db7306fe02a90"
+      },
+      "roles": "123b8b4ee45e584bd10686c799a9d179bc4a0d9966af4cd52aeff8d0e2b2b591"
+    }
+  },
+  "global_C09_green": true,
+  "native_C09": {
+    "exit": 0,
+    "total": 382,
+    "failures": [],
+    "checks": {
+      "catalogue_30": true,
+      "fixture_installee": true,
+      "V-ANON:motif": true,
+      "V-ANON:sans_compte": true,
+      "V-FAUX:motif": true,
+      "V-FAUX:sans_compte": true,
+      "V-DEC:motif": true,
+      "V-DEC:login_email": true,
+      "V-DEC:password": true,
+      "V-DEC:role": true,
+      "V-DEC:nombre_commandes": true,
+      "V-DEC:nombre_abonnements": true,
+      "V-DEC:nombre_adhesions": true,
+      "V-DEC-FIN:motif": true,
+      "V-DEC-FIN:login_email": true,
+      "V-DEC-FIN:password": true,
+      "V-DEC-FIN:role": true,
+      "V-DEC-FIN:nombre_commandes": true,
+      "V-DEC-FIN:nombre_abonnements": true,
+      "V-DEC-FIN:nombre_adhesions": true,
+      "V-INSCRIT:motif": true,
+      "V-INSCRIT:login_email": true,
+      "V-INSCRIT:password": true,
+      "V-INSCRIT:role": true,
+      "V-INSCRIT:nombre_commandes": true,
+      "V-INSCRIT:nombre_abonnements": true,
+      "V-INSCRIT:nombre_adhesions": true,
+      "A-CARTE:motif": true,
+      "A-CARTE:login_email": true,
+      "A-CARTE:password": true,
+      "A-CARTE:role": true,
+      "A-CARTE:nombre_commandes": true,
+      "A-CARTE:nombre_abonnements": true,
+      "A-CARTE:nombre_adhesions": true,
+      "A-CARTE:commande_fictive_88": true,
+      "A-CARTE:montant_fixture_explicite": true,
+      "A-CARTE:produit_commande": true,
+      "A-CARTE:etat_abonnement": true,
+      "A-CARTE:aucun_paiement_automatique": true,
+      "A-CARTE:parent_natif": true,
+      "A-CARTE:adhesion_lien_natif": true,
+      "A-CARTE:produit_abonnement": true,
+      "A-CARTE:prochain_paiement": true,
+      "A-CARTE:etat_adhesion": true,
+      "A-CARTE:plan_adhesion": true,
+      "A-SEPA4:motif": true,
+      "A-SEPA4:login_email": true,
+      "A-SEPA4:password": true,
+      "A-SEPA4:role": true,
+      "A-SEPA4:nombre_commandes": true,
+      "A-SEPA4:nombre_abonnements": true,
+      "A-SEPA4:nombre_adhesions": true,
+      "A-SEPA4:commande_fictive_2419": true,
+      "A-SEPA4:montant_fixture_explicite": true,
+      "A-SEPA4:produit_commande": true,
+      "A-SEPA4:commande_fictive_91": true,
+      "A-SEPA4:etat_abonnement": true,
+      "A-SEPA4:aucun_paiement_automatique": true,
+      "A-SEPA4:parent_natif": true,
+      "A-SEPA4:adhesion_lien_natif": true,
+      "A-SEPA4:produit_abonnement": true,
+      "A-SEPA4:prochain_paiement": true,
+      "A-SEPA4:etat_adhesion": true,
+      "A-SEPA4:plan_adhesion": true,
+      "A-PAYPAL:motif": true,
+      "A-PAYPAL:login_email": true,
+      "A-PAYPAL:password": true,
+      "A-PAYPAL:role": true,
+      "A-PAYPAL:nombre_commandes": true,
+      "A-PAYPAL:nombre_abonnements": true,
+      "A-PAYPAL:nombre_adhesions": true,
+      "A-PAYPAL:commande_fictive_94": true,
+      "A-PAYPAL:montant_fixture_explicite": true,
+      "A-PAYPAL:produit_commande": true,
+      "A-PAYPAL:etat_abonnement": true,
+      "A-PAYPAL:aucun_paiement_automatique": true,
+      "A-PAYPAL:parent_natif": true,
+      "A-PAYPAL:adhesion_lien_natif": true,
+      "A-PAYPAL:produit_abonnement": true,
+      "A-PAYPAL:prochain_paiement": true,
+      "A-PAYPAL:etat_adhesion": true,
+      "A-PAYPAL:plan_adhesion": true,
+      "A-VIR:motif": true,
+      "A-VIR:login_email": true,
+      "A-VIR:password": true,
+      "A-VIR:role": true,
+      "A-VIR:nombre_commandes": true,
+      "A-VIR:nombre_abonnements": true,
+      "A-VIR:nombre_adhesions": true,
+      "A-VIR:commande_fictive_97": true,
+      "A-VIR:montant_fixture_explicite": true,
+      "A-VIR:produit_commande": true,
+      "A-VIR:etat_abonnement": true,
+      "A-VIR:aucun_paiement_automatique": true,
+      "A-VIR:parent_natif": true,
+      "A-VIR:adhesion_lien_natif": true,
+      "A-VIR:produit_abonnement": true,
+      "A-VIR:prochain_paiement": true,
+      "A-VIR:etat_adhesion": true,
+      "A-VIR:plan_adhesion": true,
+      "A-PAPIER:motif": true,
+      "A-PAPIER:login_email": true,
+      "A-PAPIER:password": true,
+      "A-PAPIER:role": true,
+      "A-PAPIER:nombre_commandes": true,
+      "A-PAPIER:nombre_abonnements": true,
+      "A-PAPIER:nombre_adhesions": true,
+      "A-PAPIER:commande_fictive_100": true,
+      "A-PAPIER:montant_fixture_explicite": true,
+      "A-PAPIER:produit_commande": true,
+      "A-PAPIER:etat_abonnement": true,
+      "A-PAPIER:aucun_paiement_automatique": true,
+      "A-PAPIER:parent_natif": true,
+      "A-PAPIER:adhesion_lien_natif": true,
+      "A-PAPIER:produit_abonnement": true,
+      "A-PAPIER:prochain_paiement": true,
+      "A-PAPIER:echeance_ce_mois": true,
+      "A-PAPIER:etat_adhesion": true,
+      "A-PAPIER:plan_adhesion": true,
+      "A-GRACE:motif": true,
+      "A-GRACE:login_email": true,
+      "A-GRACE:password": true,
+      "A-GRACE:role": true,
+      "A-GRACE:nombre_commandes": true,
+      "A-GRACE:nombre_abonnements": true,
+      "A-GRACE:nombre_adhesions": true,
+      "A-GRACE:commande_fictive_2420": true,
+      "A-GRACE:montant_fixture_explicite": true,
+      "A-GRACE:produit_commande": true,
+      "A-GRACE:commande_fictive_103": true,
+      "A-GRACE:etat_abonnement": true,
+      "A-GRACE:aucun_paiement_automatique": true,
+      "A-GRACE:parent_natif": true,
+      "A-GRACE:adhesion_lien_natif": true,
+      "A-GRACE:produit_abonnement": true,
+      "A-GRACE:prochain_paiement": true,
+      "A-GRACE:fenetre_grace": true,
+      "A-GRACE:etat_adhesion": true,
+      "A-GRACE:plan_adhesion": true,
+      "A-SUSP:motif": true,
+      "A-SUSP:login_email": true,
+      "A-SUSP:password": true,
+      "A-SUSP:role": true,
+      "A-SUSP:nombre_commandes": true,
+      "A-SUSP:nombre_abonnements": true,
+      "A-SUSP:nombre_adhesions": true,
+      "A-SUSP:commande_fictive_2421": true,
+      "A-SUSP:montant_fixture_explicite": true,
+      "A-SUSP:produit_commande": true,
+      "A-SUSP:commande_fictive_106": true,
+      "A-SUSP:etat_abonnement": true,
+      "A-SUSP:aucun_paiement_automatique": true,
+      "A-SUSP:parent_natif": true,
+      "A-SUSP:adhesion_lien_natif": true,
+      "A-SUSP:produit_abonnement": true,
+      "A-SUSP:prochain_paiement": true,
+      "A-SUSP:fenetre_grace": true,
+      "A-SUSP:etat_adhesion": true,
+      "A-SUSP:plan_adhesion": true,
+      "A-EXPIRE:motif": true,
+      "A-EXPIRE:login_email": true,
+      "A-EXPIRE:password": true,
+      "A-EXPIRE:role": true,
+      "A-EXPIRE:nombre_commandes": true,
+      "A-EXPIRE:nombre_abonnements": true,
+      "A-EXPIRE:nombre_adhesions": true,
+      "A-EXPIRE:commande_fictive_109": true,
+      "A-EXPIRE:montant_fixture_explicite": true,
+      "A-EXPIRE:produit_commande": true,
+      "A-EXPIRE:etat_abonnement": true,
+      "A-EXPIRE:aucun_paiement_automatique": true,
+      "A-EXPIRE:parent_natif": true,
+      "A-EXPIRE:adhesion_lien_natif": true,
+      "A-EXPIRE:produit_abonnement": true,
+      "A-EXPIRE:prochain_paiement": true,
+      "A-EXPIRE:etat_adhesion": true,
+      "A-EXPIRE:plan_adhesion": true,
+      "A-NONRENOUV:motif": true,
+      "A-NONRENOUV:login_email": true,
+      "A-NONRENOUV:password": true,
+      "A-NONRENOUV:role": true,
+      "A-NONRENOUV:nombre_commandes": true,
+      "A-NONRENOUV:nombre_abonnements": true,
+      "A-NONRENOUV:nombre_adhesions": true,
+      "A-NONRENOUV:commande_fictive_112": true,
+      "A-NONRENOUV:montant_fixture_explicite": true,
+      "A-NONRENOUV:produit_commande": true,
+      "A-NONRENOUV:etat_abonnement": true,
+      "A-NONRENOUV:aucun_paiement_automatique": true,
+      "A-NONRENOUV:parent_natif": true,
+      "A-NONRENOUV:adhesion_lien_natif": true,
+      "A-NONRENOUV:produit_abonnement": true,
+      "A-NONRENOUV:prochain_paiement": true,
+      "A-NONRENOUV:etat_adhesion": true,
+      "A-NONRENOUV:plan_adhesion": true,
+      "A-ETRANGER:motif": true,
+      "A-ETRANGER:login_email": true,
+      "A-ETRANGER:password": true,
+      "A-ETRANGER:role": true,
+      "A-ETRANGER:nombre_commandes": true,
+      "A-ETRANGER:nombre_abonnements": true,
+      "A-ETRANGER:nombre_adhesions": true,
+      "A-ETRANGER:commande_fictive_115": true,
+      "A-ETRANGER:montant_fixture_explicite": true,
+      "A-ETRANGER:produit_commande": true,
+      "A-ETRANGER:etat_abonnement": true,
+      "A-ETRANGER:aucun_paiement_automatique": true,
+      "A-ETRANGER:parent_natif": true,
+      "A-ETRANGER:adhesion_lien_natif": true,
+      "A-ETRANGER:produit_abonnement": true,
+      "A-ETRANGER:prochain_paiement": true,
+      "A-ETRANGER:etat_adhesion": true,
+      "A-ETRANGER:plan_adhesion": true,
+      "A-ETRANGER:port_natif_fictif": true,
+      "A-SANSMAIL:motif": true,
+      "A-SANSMAIL:login_email": true,
+      "A-SANSMAIL:password": true,
+      "A-SANSMAIL:role": true,
+      "A-SANSMAIL:nombre_commandes": true,
+      "A-SANSMAIL:nombre_abonnements": true,
+      "A-SANSMAIL:nombre_adhesions": true,
+      "A-SANSMAIL:commande_fictive_118": true,
+      "A-SANSMAIL:montant_fixture_explicite": true,
+      "A-SANSMAIL:produit_commande": true,
+      "A-SANSMAIL:etat_abonnement": true,
+      "A-SANSMAIL:aucun_paiement_automatique": true,
+      "A-SANSMAIL:parent_natif": true,
+      "A-SANSMAIL:adhesion_lien_natif": true,
+      "A-SANSMAIL:produit_abonnement": true,
+      "A-SANSMAIL:prochain_paiement": true,
+      "A-SANSMAIL:etat_adhesion": true,
+      "A-SANSMAIL:plan_adhesion": true,
+      "A-ECHEANCE:motif": true,
+      "A-ECHEANCE:login_email": true,
+      "A-ECHEANCE:password": true,
+      "A-ECHEANCE:role": true,
+      "A-ECHEANCE:nombre_commandes": true,
+      "A-ECHEANCE:nombre_abonnements": true,
+      "A-ECHEANCE:nombre_adhesions": true,
+      "A-ECHEANCE:commande_fictive_121": true,
+      "A-ECHEANCE:montant_fixture_explicite": true,
+      "A-ECHEANCE:produit_commande": true,
+      "A-ECHEANCE:etat_abonnement": true,
+      "A-ECHEANCE:aucun_paiement_automatique": true,
+      "A-ECHEANCE:parent_natif": true,
+      "A-ECHEANCE:adhesion_lien_natif": true,
+      "A-ECHEANCE:produit_abonnement": true,
+      "A-ECHEANCE:prochain_paiement": true,
+      "A-ECHEANCE:terme_30_jours": true,
+      "A-ECHEANCE:etat_adhesion": true,
+      "A-ECHEANCE:plan_adhesion": true,
+      "P-OFFRANT:motif": true,
+      "P-OFFRANT:login_email": true,
+      "P-OFFRANT:password": true,
+      "P-OFFRANT:role": true,
+      "P-OFFRANT:nombre_commandes": true,
+      "P-OFFRANT:nombre_abonnements": true,
+      "P-OFFRANT:nombre_adhesions": true,
+      "P-OFFERT:motif": true,
+      "P-OFFERT:login_email": true,
+      "P-OFFERT:password": true,
+      "P-OFFERT:role": true,
+      "P-OFFERT:nombre_commandes": true,
+      "P-OFFERT:nombre_abonnements": true,
+      "P-OFFERT:nombre_adhesions": true,
+      "P-GEST:motif": true,
+      "P-GEST:login_email": true,
+      "P-GEST:password": true,
+      "P-GEST:role": true,
+      "P-GEST:nombre_commandes": true,
+      "P-GEST:nombre_abonnements": true,
+      "P-GEST:nombre_adhesions": true,
+      "P-BENEF:motif": true,
+      "P-BENEF:login_email": true,
+      "P-BENEF:password": true,
+      "P-BENEF:role": true,
+      "P-BENEF:nombre_commandes": true,
+      "P-BENEF:nombre_abonnements": true,
+      "P-BENEF:nombre_adhesions": true,
+      "P-PRO:motif": true,
+      "P-PRO:login_email": true,
+      "P-PRO:password": true,
+      "P-PRO:role": true,
+      "P-PRO:nombre_commandes": true,
+      "P-PRO:nombre_abonnements": true,
+      "P-PRO:nombre_adhesions": true,
+      "P-SOL-ATT:motif": true,
+      "P-SOL-ATT:login_email": true,
+      "P-SOL-ATT:password": true,
+      "P-SOL-ATT:role": true,
+      "P-SOL-ATT:nombre_commandes": true,
+      "P-SOL-ATT:nombre_abonnements": true,
+      "P-SOL-ATT:nombre_adhesions": true,
+      "P-SOL-ATT:etat_adhesion": true,
+      "P-SOL-ATT:plan_adhesion": true,
+      "P-SOL-OK:motif": true,
+      "P-SOL-OK:login_email": true,
+      "P-SOL-OK:password": true,
+      "P-SOL-OK:role": true,
+      "P-SOL-OK:nombre_commandes": true,
+      "P-SOL-OK:nombre_abonnements": true,
+      "P-SOL-OK:nombre_adhesions": true,
+      "P-SOL-OK:etat_adhesion": true,
+      "P-SOL-OK:plan_adhesion": true,
+      "P-SOL-OK:fin_45_jours": true,
+      "P-NUMERO:motif": true,
+      "P-NUMERO:login_email": true,
+      "P-NUMERO:password": true,
+      "P-NUMERO:role": true,
+      "P-NUMERO:nombre_commandes": true,
+      "P-NUMERO:nombre_abonnements": true,
+      "P-NUMERO:nombre_adhesions": true,
+      "P-NUMERO:commande_fictive_126": true,
+      "V-NUM:numero_achete_PDF": true,
+      "V-NUM:autre_numero_ferme": true,
+      "P-NUMERO:montant_fixture_explicite": true,
+      "P-NUMERO:produit_commande": true,
+      "P-COOP:motif": true,
+      "P-COOP:login_email": true,
+      "P-COOP:password": true,
+      "P-COOP:role": true,
+      "P-COOP:nombre_commandes": true,
+      "P-COOP:nombre_abonnements": true,
+      "P-COOP:nombre_adhesions": true,
+      "E-ADMIN:motif": true,
+      "E-ADMIN:login_email": true,
+      "E-ADMIN:password": true,
+      "E-ADMIN:role": true,
+      "E-ADMIN:nombre_commandes": true,
+      "E-ADMIN:nombre_abonnements": true,
+      "E-ADMIN:nombre_adhesions": true,
+      "E-REDAC:motif": true,
+      "E-REDAC:login_email": true,
+      "E-REDAC:password": true,
+      "E-REDAC:role": true,
+      "E-REDAC:nombre_commandes": true,
+      "E-REDAC:nombre_abonnements": true,
+      "E-REDAC:nombre_adhesions": true,
+      "E-REDAC:contenus_calendrier": true,
+      "E-ABO:motif": true,
+      "E-ABO:login_email": true,
+      "E-ABO:password": true,
+      "E-ABO:role": true,
+      "E-ABO:nombre_commandes": true,
+      "E-ABO:nombre_abonnements": true,
+      "E-ABO:nombre_adhesions": true,
+      "E-ABO:gestion_commandes": true,
+      "aucun_compte_visiteur_robot": true,
+      "numero_entreprise_coherent_non_atteste": true,
+      "mail_coupe_filtre_passif": true,
+      "http_coupe_filtre_passif": true,
+      "passerelles_coupees": true,
+      "catalogue_plan_droits": true,
+      "inventaire_total_27_comptes": true,
+      "inventaire_total_shop_order": true,
+      "inventaire_total_shop_subscription": true,
+      "inventaire_total_14_adhesions": true,
+      "produit_natif_subscription_prive_zero": true,
+      "A-CARTE:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-CARTE:periodicite_reinitialisee": true,
+      "A-SEPA4:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-SEPA4:periodicite_reinitialisee": true,
+      "A-PAYPAL:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-PAYPAL:periodicite_reinitialisee": true,
+      "A-VIR:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-VIR:periodicite_reinitialisee": true,
+      "A-PAPIER:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-PAPIER:periodicite_reinitialisee": true,
+      "A-GRACE:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-GRACE:periodicite_reinitialisee": true,
+      "A-SUSP:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-SUSP:periodicite_reinitialisee": true,
+      "A-EXPIRE:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-EXPIRE:periodicite_reinitialisee": true,
+      "A-NONRENOUV:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-NONRENOUV:periodicite_reinitialisee": true,
+      "A-ETRANGER:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-ETRANGER:periodicite_reinitialisee": true,
+      "A-SANSMAIL:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-SANSMAIL:periodicite_reinitialisee": true,
+      "A-ECHEANCE:action_native_planifiee_ou_absente_selon_statut": true,
+      "A-ECHEANCE:periodicite_reinitialisee": true
+    },
+    "proof": {
+      "V-ANON": {
+        "user_id": 0,
+        "decision": {
+          "complet": false,
+          "motif": "anonyme",
+          "bloc": "connexion"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "V-FAUX": {
+        "user_id": 0,
+        "decision": {
+          "complet": false,
+          "motif": "anonyme",
+          "bloc": "connexion"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "V-DEC": {
+        "user_id": 6,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "V-DEC-FIN": {
+        "user_id": 7,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "V-INSCRIT": {
+        "user_id": 8,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "A-CARTE": {
+        "user_id": 9,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [
+          {
+            "id": 88,
+            "status": "processing",
+            "total": "120.00",
+            "customer_id": 9,
+            "item_count": 1,
+            "date_paid": {
+              "date": "2026-08-27 20:01:50.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 89,
+            "parent_id": 88,
+            "customer_id": 9,
+            "status": "active",
+            "start": "2026-08-27 18:01:50",
+            "end": "2027-11-25 18:01:50",
+            "next_payment": "2026-12-25 18:01:50",
+            "manual": true,
+            "payment_count": 1,
+            "grace_start": "",
+            "grace_end": "",
+            "scheduled_payment_action": 1798221710
+          }
+        ],
+        "memberships": [
+          {
+            "id": 90,
+            "user_id": 9,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": 88,
+            "start": "2026-08-27 18:01:50",
+            "end": "2027-11-25 18:01:50"
+          }
+        ]
+      },
+      "A-SEPA4": {
+        "user_id": 10,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [
+          {
+            "id": 2419,
+            "status": "processing",
+            "total": "30.00",
+            "customer_id": 10,
+            "item_count": 1,
+            "date_paid": {
+              "date": "2026-10-26 19:01:50.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          },
+          {
+            "id": 91,
+            "status": "processing",
+            "total": "30.00",
+            "customer_id": 10,
+            "item_count": 1,
+            "date_paid": {
+              "date": "2026-05-29 20:01:50.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 92,
+            "parent_id": 91,
+            "customer_id": 10,
+            "status": "active",
+            "start": "2026-05-29 18:01:50",
+            "end": "2027-11-25 18:01:50",
+            "next_payment": "2026-12-25 18:01:50",
+            "manual": true,
+            "payment_count": 2,
+            "grace_start": "",
+            "grace_end": "",
+            "scheduled_payment_action": 1798221710
+          }
+        ],
+        "memberships": [
+          {
+            "id": 93,
+            "user_id": 10,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": 91,
+            "start": "2026-05-29 18:01:50",
+            "end": "2027-11-25 18:01:50"
+          }
+        ]
+      },
+      "A-PAYPAL": {
+        "user_id": 11,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [
+          {
+            "id": 94,
+            "status": "processing",
+            "total": "120.00",
+            "customer_id": 11,
+            "item_count": 1,
+            "date_paid": {
+              "date": "2026-08-27 20:01:50.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 95,
+            "parent_id": 94,
+            "customer_id": 11,
+            "status": "active",
+            "start": "2026-08-27 18:01:50",
+            "end": "2027-11-25 18:01:50",
+            "next_payment": "2026-12-25 18:01:50",
+            "manual": true,
+            "payment_count": 1,
+            "grace_start": "",
+            "grace_end": "",
+            "scheduled_payment_action": 1798221710
+          }
+        ],
+        "memberships": [
+          {
+            "id": 96,
+            "user_id": 11,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": 94,
+            "start": "2026-08-27 18:01:50",
+            "end": "2027-11-25 18:01:50"
+          }
+        ]
+      },
+      "A-VIR": {
+        "user_id": 12,
+        "decision": {
+          "complet": false,
+          "motif": "virement_non_valide",
+          "bloc": "regularisation"
+        },
+        "orders": [
+          {
+            "id": 97,
+            "status": "on-hold",
+            "total": "0.00",
+            "customer_id": 12,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 98,
+            "parent_id": 97,
+            "customer_id": 12,
+            "status": "pending",
+            "start": "2025-12-25 18:01:50",
+            "end": "2027-11-25 18:01:50",
+            "next_payment": "2026-12-25 18:01:50",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": "",
+            "scheduled_payment_action": false
+          }
+        ],
+        "memberships": [
+          {
+            "id": 99,
+            "user_id": 12,
+            "plan_id": 86,
+            "status": "pending",
+            "order_id": 97,
+            "start": "2025-12-25 18:01:50",
+            "end": "2027-11-25 18:01:50"
+          }
+        ]
+      },
+      "A-PAPIER": {
+        "user_id": 13,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [
+          {
+            "id": 100,
+            "status": "processing",
+            "total": "30.00",
+            "customer_id": 13,
+            "item_count": 1,
+            "date_paid": {
+              "date": "2026-08-27 20:01:50.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 101,
+            "parent_id": 100,
+            "customer_id": 13,
+            "status": "active",
+            "start": "2026-08-27 18:01:50",
+            "end": "2027-11-25 18:01:50",
+            "next_payment": "2026-11-26 02:13:28",
+            "manual": true,
+            "payment_count": 1,
+            "grace_start": "",
+            "grace_end": "",
+            "scheduled_payment_action": 1795659208
+          }
+        ],
+        "memberships": [
+          {
+            "id": 102,
+            "user_id": 13,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": 100,
+            "start": "2026-08-27 18:01:50",
+            "end": "2027-11-25 18:01:50"
+          }
+        ]
+      },
+      "A-GRACE": {
+        "user_id": 14,
+        "decision": {
+          "complet": true,
+          "motif": "delai_grace",
+          "bloc": "regularisation"
+        },
+        "orders": [
+          {
+            "id": 2420,
+            "status": "failed",
+            "total": "0.00",
+            "customer_id": 14,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          },
+          {
+            "id": 103,
+            "status": "on-hold",
+            "total": "0.00",
+            "customer_id": 14,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 104,
+            "parent_id": 103,
+            "customer_id": 14,
+            "status": "on-hold",
+            "start": "2025-12-25 18:01:50",
+            "end": "2027-11-25 18:01:50",
+            "next_payment": "2026-12-25 18:01:50",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "2026-11-24 18:01:50",
+            "grace_end": "2026-11-27 18:01:50",
+            "scheduled_payment_action": false
+          }
+        ],
+        "memberships": [
+          {
+            "id": 105,
+            "user_id": 14,
+            "plan_id": 86,
+            "status": "paused",
+            "order_id": 103,
+            "start": "2025-12-25 18:01:50",
+            "end": "2027-11-25 18:01:50"
+          }
+        ]
+      },
+      "A-SUSP": {
+        "user_id": 15,
+        "decision": {
+          "complet": false,
+          "motif": "suspendu",
+          "bloc": "regularisation"
+        },
+        "orders": [
+          {
+            "id": 2421,
+            "status": "failed",
+            "total": "0.00",
+            "customer_id": 15,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          },
+          {
+            "id": 106,
+            "status": "on-hold",
+            "total": "0.00",
+            "customer_id": 15,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 107,
+            "parent_id": 106,
+            "customer_id": 15,
+            "status": "on-hold",
+            "start": "2025-12-25 18:01:50",
+            "end": "2027-11-25 18:01:50",
+            "next_payment": "2026-12-25 18:01:50",
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "2026-11-21 18:01:50",
+            "grace_end": "2026-11-24 18:01:50",
+            "scheduled_payment_action": false
+          }
+        ],
+        "memberships": [
+          {
+            "id": 108,
+            "user_id": 15,
+            "plan_id": 86,
+            "status": "paused",
+            "order_id": 106,
+            "start": "2025-12-25 18:01:50",
+            "end": "2027-11-25 18:01:50"
+          }
+        ]
+      },
+      "A-EXPIRE": {
+        "user_id": 16,
+        "decision": {
+          "complet": false,
+          "motif": "expire",
+          "bloc": "abonnement"
+        },
+        "orders": [
+          {
+            "id": 109,
+            "status": "on-hold",
+            "total": "0.00",
+            "customer_id": 16,
+            "item_count": 1,
+            "date_paid": null,
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 110,
+            "parent_id": 109,
+            "customer_id": 16,
+            "status": "expired",
+            "start": "2025-12-25 18:01:50",
+            "end": "2026-11-24 18:01:50",
+            "next_payment": 0,
+            "manual": true,
+            "payment_count": 0,
+            "grace_start": "",
+            "grace_end": "",
+            "scheduled_payment_action": false
+          }
+        ],
+        "memberships": [
+          {
+            "id": 111,
+            "user_id": 16,
+            "plan_id": 86,
+            "status": "expired",
+            "order_id": 109,
+            "start": "2025-12-25 18:01:50",
+            "end": "2026-11-24 18:01:50"
+          }
+        ]
+      },
+      "A-NONRENOUV": {
+        "user_id": 17,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [
+          {
+            "id": 112,
+            "status": "processing",
+            "total": "0.00",
+            "customer_id": 17,
+            "item_count": 1,
+            "date_paid": {
+              "date": "2025-12-25 19:01:50.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 113,
+            "parent_id": 112,
+            "customer_id": 17,
+            "status": "pending-cancel",
+            "start": "2025-12-25 18:01:50",
+            "end": "2026-12-25 18:01:50",
+            "next_payment": 0,
+            "manual": true,
+            "payment_count": 1,
+            "grace_start": "",
+            "grace_end": "",
+            "scheduled_payment_action": false
+          }
+        ],
+        "memberships": [
+          {
+            "id": 114,
+            "user_id": 17,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": 112,
+            "start": "2025-12-25 18:01:50",
+            "end": "2026-12-25 18:01:50"
+          }
+        ]
+      },
+      "A-ETRANGER": {
+        "user_id": 18,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [
+          {
+            "id": 115,
+            "status": "processing",
+            "total": "0.00",
+            "customer_id": 18,
+            "item_count": 1,
+            "date_paid": {
+              "date": "2026-08-27 20:01:50.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "FR"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 116,
+            "parent_id": 115,
+            "customer_id": 18,
+            "status": "active",
+            "start": "2026-08-27 18:01:50",
+            "end": "2027-11-25 18:01:50",
+            "next_payment": "2026-12-25 18:01:50",
+            "manual": true,
+            "payment_count": 1,
+            "grace_start": "",
+            "grace_end": "",
+            "scheduled_payment_action": 1798221710
+          }
+        ],
+        "memberships": [
+          {
+            "id": 117,
+            "user_id": 18,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": 115,
+            "start": "2026-08-27 18:01:50",
+            "end": "2027-11-25 18:01:50"
+          }
+        ]
+      },
+      "A-SANSMAIL": {
+        "user_id": 19,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [
+          {
+            "id": 118,
+            "status": "processing",
+            "total": "0.00",
+            "customer_id": 19,
+            "item_count": 1,
+            "date_paid": {
+              "date": "2026-08-27 20:01:50.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 119,
+            "parent_id": 118,
+            "customer_id": 19,
+            "status": "active",
+            "start": "2026-08-27 18:01:50",
+            "end": "2027-11-25 18:01:50",
+            "next_payment": "2026-12-25 18:01:50",
+            "manual": true,
+            "payment_count": 1,
+            "grace_start": "",
+            "grace_end": "",
+            "scheduled_payment_action": 1798221710
+          }
+        ],
+        "memberships": [
+          {
+            "id": 120,
+            "user_id": 19,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": 118,
+            "start": "2026-08-27 18:01:50",
+            "end": "2027-11-25 18:01:50"
+          }
+        ]
+      },
+      "A-ECHEANCE": {
+        "user_id": 20,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [
+          {
+            "id": 121,
+            "status": "processing",
+            "total": "0.00",
+            "customer_id": 20,
+            "item_count": 1,
+            "date_paid": {
+              "date": "2025-12-25 19:01:50.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [
+          {
+            "id": 122,
+            "parent_id": 121,
+            "customer_id": 20,
+            "status": "active",
+            "start": "2025-12-25 18:01:50",
+            "end": "2026-12-25 18:01:50",
+            "next_payment": "2026-12-24 18:01:50",
+            "manual": true,
+            "payment_count": 1,
+            "grace_start": "",
+            "grace_end": "",
+            "scheduled_payment_action": 1798135310
+          }
+        ],
+        "memberships": [
+          {
+            "id": 123,
+            "user_id": 20,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": 121,
+            "start": "2025-12-25 18:01:50",
+            "end": "2026-12-25 18:01:50"
+          }
+        ]
+      },
+      "P-OFFRANT": {
+        "user_id": 21,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "P-OFFERT": {
+        "user_id": 22,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "P-GEST": {
+        "user_id": 23,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "P-BENEF": {
+        "user_id": 24,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "P-PRO": {
+        "user_id": 25,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "P-SOL-ATT": {
+        "user_id": 26,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": [
+          {
+            "id": 124,
+            "user_id": 26,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": null,
+            "start": "2025-12-25 18:01:50",
+            "end": "2027-11-25 18:01:50"
+          }
+        ]
+      },
+      "P-SOL-OK": {
+        "user_id": 27,
+        "decision": {
+          "complet": true,
+          "motif": "abonnement_actif",
+          "bloc": "aucun"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": [
+          {
+            "id": 125,
+            "user_id": 27,
+            "plan_id": 86,
+            "status": "active",
+            "order_id": null,
+            "start": "2025-12-25 18:01:50",
+            "end": "2027-01-09 18:01:50"
+          }
+        ]
+      },
+      "P-NUMERO": {
+        "user_id": 28,
+        "decision": {
+          "complet": true,
+          "motif": "numero_achete",
+          "bloc": "aucun"
+        },
+        "orders": [
+          {
+            "id": 126,
+            "status": "processing",
+            "total": "0.00",
+            "customer_id": 28,
+            "item_count": 1,
+            "date_paid": {
+              "date": "2026-11-25 19:02:14.000000",
+              "timezone_type": 3,
+              "timezone": "Europe/Brussels"
+            },
+            "gateway": "",
+            "transaction_id": "",
+            "shipping_country": "BE"
+          }
+        ],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "P-COOP": {
+        "user_id": 29,
+        "decision": {
+          "complet": false,
+          "motif": "sans_droit",
+          "bloc": "abonnement"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "E-ADMIN": {
+        "user_id": 30,
+        "decision": {
+          "complet": true,
+          "motif": "equipe",
+          "bloc": "aucun"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      },
+      "E-REDAC": {
+        "user_id": 31,
+        "decision": {
+          "complet": true,
+          "motif": "equipe",
+          "bloc": "aucun"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": [],
+        "calendar_edit": {
+          "capability": "manage_options",
+          "allowed": false
+        }
+      },
+      "E-ABO": {
+        "user_id": 32,
+        "decision": {
+          "complet": true,
+          "motif": "equipe",
+          "bloc": "aucun"
+        },
+        "orders": [],
+        "subscriptions": [],
+        "memberships": []
+      }
+    },
+    "fixture": {
+      "plan": 86,
+      "product": 87,
+      "users": {
+        "V-DEC": 6,
+        "V-DEC-FIN": 7,
+        "V-INSCRIT": 8,
+        "A-CARTE": 9,
+        "A-SEPA4": 10,
+        "A-PAYPAL": 11,
+        "A-VIR": 12,
+        "A-PAPIER": 13,
+        "A-GRACE": 14,
+        "A-SUSP": 15,
+        "A-EXPIRE": 16,
+        "A-NONRENOUV": 17,
+        "A-ETRANGER": 18,
+        "A-SANSMAIL": 19,
+        "A-ECHEANCE": 20,
+        "P-OFFRANT": 21,
+        "P-OFFERT": 22,
+        "P-GEST": 23,
+        "P-BENEF": 24,
+        "P-PRO": 25,
+        "P-SOL-ATT": 26,
+        "P-SOL-OK": 27,
+        "P-NUMERO": 28,
+        "P-COOP": 29,
+        "E-ADMIN": 30,
+        "E-REDAC": 31,
+        "E-ABO": 32
+      },
+      "orders": {
+        "A-CARTE": 88,
+        "A-SEPA4": 91,
+        "A-PAYPAL": 94,
+        "A-VIR": 97,
+        "A-PAPIER": 100,
+        "A-GRACE": 103,
+        "A-SUSP": 106,
+        "A-EXPIRE": 109,
+        "A-NONRENOUV": 112,
+        "A-ETRANGER": 115,
+        "A-SANSMAIL": 118,
+        "A-ECHEANCE": 121,
+        "P-NUMERO": 126
+      },
+      "subscriptions": {
+        "A-CARTE": 89,
+        "A-SEPA4": 92,
+        "A-PAYPAL": 95,
+        "A-VIR": 98,
+        "A-PAPIER": 101,
+        "A-GRACE": 104,
+        "A-SUSP": 107,
+        "A-EXPIRE": 110,
+        "A-NONRENOUV": 113,
+        "A-ETRANGER": 116,
+        "A-SANSMAIL": 119,
+        "A-ECHEANCE": 122
+      },
+      "memberships": {
+        "A-CARTE": 90,
+        "A-SEPA4": 93,
+        "A-PAYPAL": 96,
+        "A-VIR": 99,
+        "A-PAPIER": 102,
+        "A-GRACE": 105,
+        "A-SUSP": 108,
+        "A-EXPIRE": 111,
+        "A-NONRENOUV": 114,
+        "A-ETRANGER": 117,
+        "A-SANSMAIL": 120,
+        "A-ECHEANCE": 123,
+        "P-SOL-ATT": 124,
+        "P-SOL-OK": 125
+      },
+      "tariffs": {
+        "normal-1": 192,
+        "normal-4": 193,
+        "solidaire-1": 194,
+        "solidaire-4": 195,
+        "soutien-1": 196,
+        "soutien-4": 197
+      },
+      "renewals": {
+        "A-SEPA4": 2419,
+        "A-GRACE": 2420,
+        "A-SUSP": 2421
+      }
+    }
+  },
+  "native_C18_current": {
+    "checks": {
+      "raccord_present": true,
+      "C09_etranger_seul_FR": true,
+      "mode_A-VIR": true,
+      "mode_A-PAPIER": true,
+      "etat_A-GRACE": true,
+      "etat_A-SUSP": true,
+      "etat_A-EXPIRE": true,
+      "etat_A-CARTE": true,
+      "A_ECHEANCE_30_jours": true,
+      "sans_email_colonne_vide": true,
+      "colonnes_strictes": true,
+      "aucune_ecriture_natif": true,
+      "capacite_dediee_sans_droits_globaux": true,
+      "journal_indisponible_refus_sans_CSV": true
+    }
+  },
+  "deployed_sha256_readback": {
+    "plugins/imagine-site/ExtractionsRegles.php": "a6fc6d2609df0a0fe02fc8024bc8ee5561d03c31ee158b7f055db4abf897e9f1",
+    "plugins/imagine-site/ExtractionsNatives.php": "1c9ed322dc3de28f374b544e0c1001d76288272822c7a10f5a6db690392e6114",
+    "plugins/imagine-site/ExtractionsAdmin.php": "67c0e08daf172fda148e2d4ffc2394f46e690db27a863cf3f4eb1f679a737326",
+    "plugins/imagine-site/extractions/age.php": "88f4a538f1b713d0118cfc9fdba2f0e4c72e2b6fa5e8b8841c4dba6899b0a499",
+    "plugins/imagine-site/extractions/echeance.php": "439c4304ecec1f574cc11ab852899e1eedde4ee23429f1a81794d96e8c9d5c14",
+    "plugins/imagine-site/extractions/etat.php": "780d7bbd6a9902067fb6554d552d2f41445368d09043a8dacc759e658c154786",
+    "plugins/imagine-site/extractions/etiquette.php": "48e4fedbdfa883f3467db957f69ad31b9f7b3114b981c2ea429413381be789b2",
+    "plugins/imagine-site/extractions/localite.php": "734b7840a9fb4f368b32ffc1693b3764b7f5e9b1983ff209fc4c12a3094ec240",
+    "plugins/imagine-site/extractions/mode.php": "892a780573b79fb01e2f636e5f49269e29694d31390593597c1e8939b2b706b6",
+    "plugins/imagine-site/imagine-site.php": "fd08869ef6a5c5741e2b7a4340dd55664556591ed496f5cbebc865ded0f2f6d8"
+  },
+  "historical_functional_sources_sha256": {
+    "wp/plugins/imagine-site/ExtractionsRegles.php": "a6fc6d2609df0a0fe02fc8024bc8ee5561d03c31ee158b7f055db4abf897e9f1",
+    "wp/plugins/imagine-site/ExtractionsNatives.php": "1c9ed322dc3de28f374b544e0c1001d76288272822c7a10f5a6db690392e6114",
+    "wp/plugins/imagine-site/ExtractionsAdmin.php": "67c0e08daf172fda148e2d4ffc2394f46e690db27a863cf3f4eb1f679a737326",
+    "wp/plugins/imagine-site/extractions/age.php": "88f4a538f1b713d0118cfc9fdba2f0e4c72e2b6fa5e8b8841c4dba6899b0a499",
+    "wp/plugins/imagine-site/extractions/echeance.php": "439c4304ecec1f574cc11ab852899e1eedde4ee23429f1a81794d96e8c9d5c14",
+    "wp/plugins/imagine-site/extractions/etat.php": "780d7bbd6a9902067fb6554d552d2f41445368d09043a8dacc759e658c154786",
+    "wp/plugins/imagine-site/extractions/etiquette.php": "48e4fedbdfa883f3467db957f69ad31b9f7b3114b981c2ea429413381be789b2",
+    "wp/plugins/imagine-site/extractions/localite.php": "734b7840a9fb4f368b32ffc1693b3764b7f5e9b1983ff209fc4c12a3094ec240",
+    "wp/plugins/imagine-site/extractions/mode.php": "892a780573b79fb01e2f636e5f49269e29694d31390593597c1e8939b2b706b6",
+    "wp/plugins/imagine-site/imagine-site.php": "fd08869ef6a5c5741e2b7a4340dd55664556591ed496f5cbebc865ded0f2f6d8",
+    "wp/plugins/imagine-site/README.md": "2bdc71aeb9427bb5263d3ba23d109d7446cd8f0eecf6fa51723d01bd0005f6e9",
+    "wp/plugins/imagine-site/tests/ExtractionsReglesTest.php": "e3dd83b09e216df409dc78d8bf71c9dff81cd3b5803b88f2a805527c28e462f4",
+    "wp/outils/demo/c18-unit.py": "827c58fc0c3f60678cf74bacc88d87ff342f8bb7843e3b70f511eac287af5db4",
+    "wp/outils/demo/c18.py": "4c6b6546e82875cfee3c20233453c7e571c7e51976b2ffc58d37a1287685ada6",
+    "wp/tests/demo/c18-http.py": "4c21ca66d88990a7f00aec65875ccbedc6a60b47dabdbb76978b823738a5d592",
+    "wp/tests/demo/c18-runtime.php": "e6a66a8668c385a50fafdbaae33a99e773902aa55a15fcfbe961f6152550d0e3",
+    "wp/tests/demo/c18-visuel.py": "5e2f4b330a2af98389b3384b49b8c9477bb4a5d4a28d22b007f7f9c3a1164eef"
+  },
+  "historical_receipts_sha256": {
+    "production/C-18/A-VOIR.md": "8d4a4d0c0b733b07de5add9cac489cede3ee4aa7b02e1ccde6edf6f24e2ff52a",
+    "production/C-18/c09-native-final.json": "f8df92dbcbbe930d8ac4191ef08093801da649cce4b21048e0eb7dda613f6746",
+    "production/C-18/canonical-inputs.json": "1f1b0c660e99d47e00bc438061f7df1cad0809d25b319f17c99484c9a374d5ca",
+    "production/C-18/extraction-1_localite.csv": "155b648cb2ad919e14c34cf81cfacb9c5398e9a8585d87839d3b452279b503c9",
+    "production/C-18/extraction-2_mode.csv": "1f6896de58cbb91de7ef7e074bc8d693dbac6dd2fdc584959318501ad69e7c66",
+    "production/C-18/extraction-3_mode.csv": "dc6468f264efdaf9500b423c85f4cdbd6d9c2790279587ea01b79973ec369c47",
+    "production/C-18/extraction-4_echeance.csv": "9b9eac0fb0ca25d073266315ae02c461cdad9cf308b346a09f9e102150f72962",
+    "production/C-18/extraction-5_etat.csv": "afd0b5870cd106971f094d10cbbeb93d460f6b7132fd695c77c248dcf59f1811",
+    "production/C-18/extraction-6_etat.csv": "63d7e9dce49d901a766f8ee80bb9ad5707d3f706b70f1fb77460d399c9dbb2da",
+    "production/C-18/extraction-7_etat.csv": "eecfca3a919cfc8f5e3a60df36db6d8cb6f20adee94b6f817076c55512b21062",
+    "production/C-18/extraction-8_etat.csv": "7018d2bae8e2aa0cec8302eef00658613fc361b8d7884cec81e4ef889a35612d",
+    "production/C-18/extraction-9_localite.csv": "9e2b7c4f778c0def444fea288590c94c1a297cdc654659f30a84967096a9e92c",
+    "production/C-18/extractions-referent.png": "c69da7f019db5351287c39215dedf61ca943f21e47de78c5436697feb7335f43",
+    "production/C-18/final.json": "cb60e6923565db6d2554686871b2dfe5902ebef053f9e26bb8d0abe5569e0ed5",
+    "production/C-18/http-final.json": "c0172801ed44a3e9700fa37afb177a48419d8ec7b9bcf81c68e978d84f004f3e",
+    "production/C-18/http-final.log": "071828de149d9fe066ee8e218068483d8ff01d61c1455bcac8465ce4b13db1be",
+    "production/C-18/http-green.json": "717f7b03ea87c5258fe5353523278192696fb6764e1be6f2fa8faccb745b7806",
+    "production/C-18/http-red.json": "5a93873a6645ebf778b501c04861c0b71375bb9516eaf850a7090944ef5cd931",
+    "production/C-18/installation-before-20261126005744.json": "455c0d6c360960f4645fbafcf1167e436e1979b6b44acc4b72548ca28998d276",
+    "production/C-18/installation.json": "69b00c5570361bcc209dd038e8f57f6184636f0eeb4862b1448a5685d3c6c1b5",
+    "production/C-18/livraison-verifiee.json": "0e453bd6dd7ea28ea817c29f34acbbe8511fc339e8f682f16cbf702d6461a282",
+    "production/C-18/preparer-image-final.log": "350aa8e6315b3308e15430fe25ed3e80f91a1e256550378644d0f2b79e9f1c37",
+    "production/C-18/PRET": "9611f8f0dade0ab5ad1bc9c17f7cbd74fbeac9bc04bba8bcf734eadbc40d3373",
+    "production/C-18/psr12-final.json": "15e034a42d2b8b67f7760e853ffd5d774be13d24a75bbfce1091b92d5c3f46d5",
+    "production/C-18/psr12-final.log": "85381a383bbc3d06c19ed8464ba3553d6af47d0f03910cbb684bacbfbaf45c8f",
+    "production/C-18/psr12-no-tmpfs.log": "a34943cba744981ef11de03c93b453148b7d9db7ca2fc116c9a402ce73673fa6",
+    "production/C-18/psr12.json": "fed0514b37dc61b6e4df75af986b54c37a539814cd6d722eafe09456a115e07f",
+    "production/C-18/rejouer-t01-final.log": "e3b6f826711a9fcf9a3e6171316d7a4b3ece8e154916f3893b7cc2c5f716d309",
+    "production/C-18/runtime-final.json": "969ad33831cf725ee926e2185a3936834704fe586d9cdd50170a15a76d1b3b92",
+    "production/C-18/runtime-green-native.json": "840839a187b16e8a0c1b33be67b5825b7c85cdc381631fef681b912bc35803d2",
+    "production/C-18/runtime-red.json": "0690fefdd9ffc8930460f54ca7c0a8353f5513e0310c53d9fbbf9705e172143b",
+    "production/C-18/unit-final.json": "d81a08e683663aebe2e41d39096b0931e9c65e69ce8b859a6f44e374de40b615",
+    "production/C-18/unit-final.log": "65acc8a51d3db9b5772ae6573cce33e54e4bcc3e9fa190318a3427f0a19e7edf",
+    "production/C-18/unit-green-csv.json": "8dd290dac669b2d6bd446e596d0cdcd25338d47502e6402dbadf9e7583bfc42c",
+    "production/C-18/unit-green-echeance.json": "35209a3ee9fbfe349842e20b740ac805a5f0bb6ce8780f388c4f265407966b56",
+    "production/C-18/unit-green-etat.json": "f3a1c7f2921072c4ac6410e5ab7b8bdd0a1943cd5fa1904b2320882be66bbd5c",
+    "production/C-18/unit-green-localite.json": "dd9162fa7d09885f86e14a9d25a6410c4ca09989570f862278caeec9f8b0acd0",
+    "production/C-18/unit-green-mode.json": "5c1852caa06cd47fdc31b0fa2cd86ce0b60ea9dc6af1049e3c6b04867ff75897",
+    "production/C-18/unit-green-validation.json": "4650243eb039bfead55beaf2e43dc2526beafa07660338f24ce85dbf745ef62e",
+    "production/C-18/unit-red-csv.json": "c692bd21a93e87d436b5c2da1bfe98312d724e2240ba2e4185169b602ddc724e",
+    "production/C-18/unit-red-echeance.json": "5774a27261dbf3a2c73da45f6f9f479d7dd4651baed2930a46fbbebbba9e616d",
+    "production/C-18/unit-red-etat.json": "ccd8799cc795eb666360492902a82ba558c0e22a8fc4e65ffc68a34f3153eebe",
+    "production/C-18/unit-red-localite.json": "fa13abf5a773d7207464460b7eaccc4e3008ba32a7a4f6c944ac86b70c44861f",
+    "production/C-18/unit-red-mode.json": "be3a7c91fd71b6cf62f4283810f67b6dbfbc3befde00713999790b6d490e2db5",
+    "production/C-18/unit-red-validation.json": "dd5b87de6f469ccfbe4db97a7fb2d427de9fd1d2bf8808eb1fe9542aced59ffc",
+    "production/C-18/unit-root-final.json": "9f4be73cbe3798ceb4539bfcb9a595dc23a00670d882e1ff0a7fa94d772e91ba",
+    "production/C-18/unit-root-final.log": "0d2b14d0c69b8472c0d316159741dafebdf0af0f53f6916e39af8cde85a1b213",
+    "production/C-18/verification-after.json": "df13d2a2ca1efcbb6ee725ece2c92131430d851de2b72ca80b9361945d01818c",
+    "production/C-18/verification-before.json": "df13d2a2ca1efcbb6ee725ece2c92131430d851de2b72ca80b9361945d01818c",
+    "production/C-18/visuel-final.log": "a7023262109991164426b97ddb67d613254b4f3eca6bce61537d98785b766b05",
+    "production/C-18/visuel.json": "391bc3e38f7e06aaa7ce5d9eddc1cd9e3fc73c4bd958bda340a3e85daab7c207"
+  },
+  "historical_tests_not_replayed": {
+    "unit-final": {
+      "tests": 17,
+      "assertions": 24,
+      "container_removed": true
+    },
+    "unit-root-final": {
+      "tests": 98,
+      "assertions": 523,
+      "container_removed": true
+    },
+    "runtime": {
+      "checks": 14,
+      "failures": []
+    },
+    "HTTP": {
+      "checks": 95,
+      "failures": []
+    }
+  },
+  "CSV_reopened": {
+    "extraction-1_localite.csv": {
+      "rows": 2,
+      "sha256": "155b648cb2ad919e14c34cf81cfacb9c5398e9a8585d87839d3b452279b503c9"
+    },
+    "extraction-2_mode.csv": {
+      "rows": 1,
+      "sha256": "1f6896de58cbb91de7ef7e074bc8d693dbac6dd2fdc584959318501ad69e7c66"
+    },
+    "extraction-3_mode.csv": {
+      "rows": 1,
+      "sha256": "dc6468f264efdaf9500b423c85f4cdbd6d9c2790279587ea01b79973ec369c47"
+    },
+    "extraction-4_echeance.csv": {
+      "rows": 10,
+      "sha256": "9b9eac0fb0ca25d073266315ae02c461cdad9cf308b346a09f9e102150f72962"
+    },
+    "extraction-5_etat.csv": {
+      "rows": 4,
+      "sha256": "afd0b5870cd106971f094d10cbbeb93d460f6b7132fd695c77c248dcf59f1811"
+    },
+    "extraction-6_etat.csv": {
+      "rows": 1,
+      "sha256": "63d7e9dce49d901a766f8ee80bb9ad5707d3f706b70f1fb77460d399c9dbb2da"
+    },
+    "extraction-7_etat.csv": {
+      "rows": 1,
+      "sha256": "eecfca3a919cfc8f5e3a60df36db6d8cb6f20adee94b6f817076c55512b21062"
+    },
+    "extraction-8_etat.csv": {
+      "rows": 9,
+      "sha256": "7018d2bae8e2aa0cec8302eef00658613fc361b8d7884cec81e4ef889a35612d"
+    },
+    "extraction-9_localite.csv": {
+      "rows": 16,
+      "sha256": "9e2b7c4f778c0def444fea288590c94c1a297cdc654659f30a84967096a9e92c"
+    }
+  },
+  "current_gate_source_sha256": {
+    "wp/tests/demo/c18-verifier.py": "d1174027b21c9f32ff1a0979134f34aa7eb300fcd46c2f3756e93500945a19cd",
+    "wp/tests/demo/c17-verifier.py": "83db42ed234675f488f7d6214dd398d68df67987887b81b39a3750d6158a92b2"
+  },
+  "visual_approval": false,
+  "fixture_reset": false
+}

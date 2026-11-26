@@ -533,12 +533,12 @@
     },
     "roles": "123b8b4ee45e584bd10686c799a9d179bc4a0d9966af4cd52aeff8d0e2b2b591"
   },
-  "all_options_fingerprint": "9fdbecbabbc86f2c6f4516fb4a1c7990ece45fa4e2ff3bca37809634f5a64bbf",
+  "all_options_fingerprint": "cf4a2c817a45081ed600b4640a5b2bd7c959698ca24e89a71a5f0a1ca81ec29a",
   "option_fingerprints": {
     "_site_transient_theme_roots": "5c8c47a3a4ccf795f2001bc7e078731d76b027868066afb953ab939c6ad3a455",
     "_site_transient_timeout_theme_roots": "7738049e36c4f1a724e41970a4fa84786cf5e2b2b3614872bdd22dd8e3af8796",
     "_site_transient_timeout_woocommerce_blocks_patterns": "7c862af870a4fa2612c000e5f9c0073bb813dc145ad6a3ba6c47e7059b887c9e",
-    "_site_transient_timeout_wp_theme_files_patterns-55884c82b8cc78f0affc1677838a8dc8": "0713d97483ed21ca59312b2a78cfefa1a75ff4b617ff123662401064fa569351",
+    "_site_transient_timeout_wp_theme_files_patterns-55884c82b8cc78f0affc1677838a8dc8": "032d4a82ee1ee03ff5f10dcaf69cdf3cd0d5951cc537cf66d650a8dd21b114b1",
     "_site_transient_update_core": "5f578680cb791743e14bf89d33917c8c09ee3cf500e0782594871007d74051be",
     "_site_transient_update_plugins": "05adbabf4eb136b2eb5e5404cc55f1303d449757a781220d524cce00635e5e3f",
     "_site_transient_update_themes": "b582ab735e8739b73ab582b1efd1e0e43283ff74ae78ff13d3a5c9a4942b1e32",

@@ -1,74 +1,68 @@
 {
   "lot": "A-13",
-  "horodatage": "2026-11-25T23:54:53.004966+00:00",
   "status": "PRET",
-  "portee": "Reception integree locale avec preparation image parent reussie; aucun reel.",
-  "nombre_fichiers": 16,
+  "horodatage": "2026-11-26T03:08:08.841336+01:00",
+  "nombre_fichiers": 15,
   "fichiers": [
     {
-      "chemin": "files/rapports/2026-11-25-23h34-A13.md",
-      "octets": 2388,
-      "sha256": "18a1f0ab41b9aee32cca060ae2a26d26bc460ecd5d924d68e0464d5b36447c57"
-    },
-    {
-      "chemin": "files/rapports/2026-11-26-reception-A10-A13.md",
-      "octets": 3014,
-      "sha256": "b9b1bdbdd27773ec87be31f4a79ef699d41fc22cfae0f9f99aaf959bd81138a8"
-    },
-    {
       "chemin": "production/A-13/LIVRAISON.md",
-      "octets": 3810,
-      "sha256": "b457b4e095a3014cbbd5608c9f7113cdca0396dfd0ee152a84ec17f41d90d786"
+      "octets": 4811,
+      "sha256": "a687f11f1341ed0f06254098e6715834ead7411ab55718166a01c70767cb0b9e"
     },
     {
-      "chemin": "production/A-13/reception-verification.json",
-      "octets": 2967,
-      "sha256": "6477488377352c4499bce66b5428bb029ba2dbbfecf1330b6b931a0cec365ca1"
-    },
-    {
-      "chemin": "production/A-13/reception-verification.tests.txt",
-      "octets": 4948,
-      "sha256": "1382495c37f610e2afec3c4d5d028b3506a8802ac77263ec3ecdc1d91c83b4cc"
+      "chemin": "production/A-13/preparer-image-corrections-26nov.log",
+      "octets": 4103,
+      "sha256": "8762feb1fe9840cbf14de9e87585574e3611e9fbd09c716ac3e4382fabec10b0"
     },
     {
       "chemin": "production/A-13/reception.json",
-      "octets": 491,
-      "sha256": "53c3637e2db89ef346a3f5763ac72c93dced556248bad1380e37a972504c5f4d"
+      "octets": 262,
+      "sha256": "5bab2e56167605f32250f7910f91b8fb9760c2c20fe0c852397d1560e7e24400"
+    },
+    {
+      "chemin": "production/A-13/seal-corrections-26nov.py",
+      "octets": 2953,
+      "sha256": "4129a223137584bb8f9563177361d4e95b6c59b9bef97a4c76e37d92bccdedd9"
     },
     {
       "chemin": "production/A-13/verification.json",
-      "octets": 2967,
-      "sha256": "019a7e5333f428113d17d91ae5b86065b3a185795420ae8c02664b8792295a06"
+      "octets": 3939,
+      "sha256": "2c82d5de9cbb556342f454d3f25661f898719de9ddd14895bb5d29676516212d"
     },
     {
       "chemin": "production/A-13/verification.tests.txt",
-      "octets": 4948,
-      "sha256": "ac5e35e22e08c7fbb4e090d0c415852c38650f079e2f052be17532388098843e"
+      "octets": 5710,
+      "sha256": "03464b42b1250e3b54a10b6ec207e1295e3244c0e6d4d7c35c5214b6a61ec4f6"
+    },
+    {
+      "chemin": "production/A-13/verifier_manifeste.py",
+      "octets": 2053,
+      "sha256": "4083ec86b9d6469429eca12a78c51a1f7e1b75cee1b8aa9318c9a8895918aaf3"
     },
     {
       "chemin": "wp/outils/bascule/a13/correspondance.exemple.json",
-      "octets": 742,
-      "sha256": "18582a4bec7b95fbc79ada2a3da7209a60d5e4053928bb599b4b7b9a85a14752"
+      "octets": 779,
+      "sha256": "1b6ad3e72c1a4b7c3ee04caef896c16b9c942a78ede10e568f465c31ab0d9528"
     },
     {
       "chemin": "wp/outils/bascule/controler-export",
-      "octets": 14533,
-      "sha256": "cf9bba84d8f2a99b0a26f3eefbe1e1e04ba507fe51e3611d73912240d94f1a9a"
+      "octets": 15403,
+      "sha256": "cd20ddd7aa0716de9ca16ef6833b6118b11451bd09d61488e0677c2295fcc876"
     },
     {
       "chemin": "wp/outils/bascule/controler-export.md",
-      "octets": 5336,
-      "sha256": "1c228af2d14e889c186cc6a31dcf641f0ebe5e436ca695e11f7f2fe911a6d365"
+      "octets": 5741,
+      "sha256": "c558e8773de0230c8c33dd5fbb164f93e1e13ea405547d59dd84fca440c492d6"
     },
     {
       "chemin": "wp/tests/a13/test_controler_export.py",
-      "octets": 17297,
-      "sha256": "76d0867073f0ba1178bd1e5658ef45739e2b5e4f5cdc86f0ddcc901f0372a0c8"
+      "octets": 20996,
+      "sha256": "b94735250cbf5c99ccbc83144658306d21a8ae929ca0bb0263905b88c26d1645"
     },
     {
       "chemin": "wp/tests/a13/verifier_livraison.py",
-      "octets": 4818,
-      "sha256": "084fc3a57c58971694148e5dd992c25d73f655ae265ca7181a79ee53e38eba1c"
+      "octets": 5237,
+      "sha256": "a616176e37729aca054e13331949366e4eff538929fb5e24b39f835d30147b6e"
     },
     {
       "chemin": "wp/tests/fixtures/a13-export-defauts-fictif.csv",
@@ -89,5 +83,7 @@
   "excluded_dynamic": [
     "production/A-13/PRET",
     "production/A-13/manifeste.json"
-  ]
+  ],
+  "report": "files/rapports/2026-11-26-03h08.md",
+  "real_go": false
 }
