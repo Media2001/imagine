@@ -28,5 +28,34 @@ def inspect():
     print(json.dumps(data, ensure_ascii=False))
 
 
+def probe():
+    profils.guard('imagine-test-demo')
+    import hashlib
+    source = ROOT / 'wp/tests/demo/c20-native.php'
+    target = 'imagine-demo-build/c20-native.php'
+    profils.b00.upload(target, source.read_bytes())
+    actual = wp('echo wp_json_encode(hash_file("sha256", WP_CONTENT_DIR . "/imagine-demo-build/c20-native.php"));')
+    assert actual == hashlib.sha256(source.read_bytes()).hexdigest()
+    read_only = 'define("IMAGINE_C20_READ_ONLY", true); require WP_CONTENT_DIR . "/imagine-demo-build/c20-native.php";'
+    before = wp(read_only)
+    save('before', before)
+    data = wp('token_get_all(file_get_contents(WP_CONTENT_DIR . "/imagine-demo-build/c20-native.php"), TOKEN_PARSE); require WP_CONTENT_DIR . "/imagine-demo-build/c20-native.php";')
+    data['source_sha256'] = actual
+    save('native-acceptance-red', data)
+    after = wp(read_only)
+    save('after', after)
+    restored = {'profiles_exact': before['profiles'] == after['profiles'],
+                'tables_exact': before['fingerprints'] == after['fingerprints'],
+                'table_count': len(before['fingerprints']),
+                'A-PAPIER_payment': [a for a in after['profiles']['A-PAPIER']['actions'] if a['hook'] == 'woocommerce_scheduled_subscription_payment']}
+    save('restoration', restored)
+    print(json.dumps({'restoration': restored}, ensure_ascii=False))
+    assert restored['profiles_exact'] and restored['tables_exact'], 'Native state drift after rollback'
+    print(json.dumps({'verdict': data['verdict'], 'total': data['acceptance_total'], 'passed': data['acceptance_passed'], 'failures': data['failures'], 'effects_blocked': data['effects_blocked'], 'rollback': {k: v['identical'] for k, v in data['rollback'].items()}}, ensure_ascii=False))
+    return 2 if data['failures'] else 0
+
+
 if __name__ == '__main__':
+    if '--probe' in sys.argv:
+        sys.exit(probe())
     inspect()
