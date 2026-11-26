@@ -1,0 +1,281 @@
+{
+  "expected": {
+    "/": [
+      [
+        "page",
+        "page"
+      ]
+    ],
+    "/?attachment_id=37": [
+      [
+        "pièce jointe",
+        "attachment"
+      ]
+    ],
+    "/a11-category/a11-article/": [
+      [
+        "article",
+        "post"
+      ]
+    ],
+    "/a11-category/a11-article/attachment/a11-attachment/": [
+      [
+        "pièce jointe",
+        "attachment"
+      ]
+    ],
+    "/a11-parent/a11-child/": [
+      [
+        "page",
+        "page"
+      ],
+      [
+        "archive de type de contenu",
+        "post"
+      ]
+    ],
+    "/a11-shop/": [
+      [
+        "page",
+        "page"
+      ],
+      [
+        "archive de type de contenu",
+        "product"
+      ]
+    ],
+    "/a11-unattached/": [
+      [
+        "pièce jointe",
+        "attachment"
+      ]
+    ],
+    "/author/a11-product-writer/": [
+      [
+        "archive d'auteur",
+        "author"
+      ]
+    ],
+    "/author/a11-writer/": [
+      [
+        "archive d'auteur",
+        "author"
+      ]
+    ],
+    "/boutique/a11-product_cat/a11-product/": [
+      [
+        "produit",
+        "product"
+      ]
+    ],
+    "/etiquettes/a11-empty-product_tag/": [
+      [
+        "terme de taxonomie",
+        "product_tag"
+      ]
+    ],
+    "/etiquettes/a11-product_tag/": [
+      [
+        "terme de taxonomie",
+        "product_tag"
+      ]
+    ],
+    "/familles/a11-empty-product_cat/": [
+      [
+        "terme de taxonomie",
+        "product_cat"
+      ]
+    ],
+    "/familles/a11-product_cat/": [
+      [
+        "terme de taxonomie",
+        "product_cat"
+      ]
+    ],
+    "/histoires/": [
+      [
+        "archive de type de contenu",
+        "a11_story"
+      ]
+    ],
+    "/histoires/a11-story/?edition=a%2fb+z&host=a02.synthetic.test&ssl=yes": [
+      [
+        "article",
+        "a11_story"
+      ]
+    ],
+    "/mots/a11-empty-post_tag/": [
+      [
+        "terme de taxonomie",
+        "post_tag"
+      ]
+    ],
+    "/mots/a11-post_tag/": [
+      [
+        "terme de taxonomie",
+        "post_tag"
+      ]
+    ],
+    "/rubriques/a11-category/": [
+      [
+        "terme de taxonomie",
+        "category"
+      ]
+    ],
+    "/rubriques/a11-empty-category/": [
+      [
+        "terme de taxonomie",
+        "category"
+      ]
+    ],
+    "/rubriques/uncategorized/": [
+      [
+        "terme de taxonomie",
+        "category"
+      ]
+    ],
+    "/sujets/a11-a11_topic/": [
+      [
+        "terme de taxonomie",
+        "a11_topic"
+      ]
+    ],
+    "/sujets/a11-empty-a11_topic/": [
+      [
+        "terme de taxonomie",
+        "a11_topic"
+      ]
+    ],
+    "/uncategorized/a11-ecole/": [
+      [
+        "article",
+        "post"
+      ]
+    ]
+  },
+  "fields": {
+    "/a11-category/a11-article/": {
+      "etat_publication": "publish",
+      "derniere_modification_utc": "2025-02-03T12:00:00Z"
+    },
+    "/uncategorized/a11-ecole/": {
+      "etat_publication": "publish",
+      "derniere_modification_utc": "2025-02-03T12:00:00Z"
+    },
+    "/": {
+      "etat_publication": "publish",
+      "derniere_modification_utc": "2025-02-03T12:00:00Z"
+    },
+    "/a11-parent/a11-child/": {
+      "etat_publication": "publish",
+      "derniere_modification_utc": "2025-02-03T12:00:00Z"
+    },
+    "/histoires/a11-story/?edition=a%2fb+z&host=a02.synthetic.test&ssl=yes": {
+      "etat_publication": "publish",
+      "derniere_modification_utc": "2025-02-03T12:00:00Z"
+    },
+    "/a11-shop/": {
+      "etat_publication": "publish",
+      "derniere_modification_utc": "2025-02-03T12:00:00Z"
+    },
+    "/boutique/a11-product_cat/a11-product/": {
+      "etat_publication": "publish",
+      "derniere_modification_utc": "2026-11-26T06:52:41Z"
+    },
+    "/a11-category/a11-article/attachment/a11-attachment/": {
+      "etat_publication": "inherit",
+      "derniere_modification_utc": "2026-11-26T06:52:41Z"
+    },
+    "/a11-unattached/": {
+      "etat_publication": "inherit",
+      "derniere_modification_utc": "2026-11-26T06:52:41Z"
+    },
+    "/?attachment_id=37": {
+      "etat_publication": "inherit",
+      "derniere_modification_utc": "2026-11-26T06:52:41Z"
+    },
+    "/rubriques/a11-empty-category/": {
+      "etat_publication": "public",
+      "derniere_modification_utc": null
+    },
+    "/rubriques/a11-category/": {
+      "etat_publication": "public",
+      "derniere_modification_utc": null
+    },
+    "/rubriques/uncategorized/": {
+      "etat_publication": "public",
+      "derniere_modification_utc": null
+    },
+    "/mots/a11-empty-post_tag/": {
+      "etat_publication": "public",
+      "derniere_modification_utc": null
+    },
+    "/mots/a11-post_tag/": {
+      "etat_publication": "public",
+      "derniere_modification_utc": null
+    },
+    "/familles/a11-empty-product_cat/": {
+      "etat_publication": "public",
+      "derniere_modification_utc": null
+    },
+    "/familles/a11-product_cat/": {
+      "etat_publication": "public",
+      "derniere_modification_utc": null
+    },
+    "/etiquettes/a11-empty-product_tag/": {
+      "etat_publication": "public",
+      "derniere_modification_utc": null
+    },
+    "/etiquettes/a11-product_tag/": {
+      "etat_publication": "public",
+      "derniere_modification_utc": null
+    },
+    "/sujets/a11-empty-a11_topic/": {
+      "etat_publication": "public",
+      "derniere_modification_utc": null
+    },
+    "/sujets/a11-a11_topic/": {
+      "etat_publication": "public",
+      "derniere_modification_utc": null
+    },
+    "/author/a11-writer/": {
+      "etat_publication": "public",
+      "derniere_modification_utc": null
+    },
+    "/author/a11-product-writer/": {
+      "etat_publication": "public",
+      "derniere_modification_utc": null
+    },
+    "/histoires/": {
+      "etat_publication": "public",
+      "derniere_modification_utc": null
+    }
+  },
+  "permaliens": {
+    "structure": "/%category%/%postname%/",
+    "base_categories": "rubriques",
+    "base_etiquettes": "mots",
+    "woocommerce": {
+      "product_base": "/boutique/%product_cat%",
+      "category_base": "familles",
+      "tag_base": "etiquettes",
+      "attribute_base": "attributs",
+      "use_verbose_page_rules": false,
+      "product_rewrite_slug": "/boutique/%product_cat%",
+      "category_rewrite_slug": "familles",
+      "tag_rewrite_slug": "etiquettes",
+      "attribute_rewrite_slug": "attributs"
+    }
+  },
+  "excluded": {
+    "draft": 1,
+    "private": 1,
+    "password": 1,
+    "attachment_parent_not_public": 1,
+    "attachment_pages_disabled": 0
+  },
+  "versions": {
+    "wordpress": "7.0.9",
+    "woocommerce": "11.1.1"
+  }
+}

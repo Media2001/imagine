@@ -1,0 +1,34 @@
+{
+  "source_and_test_files": [
+    "wp/outils/bascule/a11/README.md",
+    "wp/outils/bascule/a11/Runtime.php",
+    "wp/outils/bascule/a12/README.md",
+    "wp/outils/bascule/a14/README.md",
+    "wp/outils/bascule/a15/README.md",
+    "wp/outils/bascule/a16/README.md",
+    "wp/outils/bascule/a17/Inventory.php",
+    "wp/outils/bascule/a17/README.md",
+    "wp/tests/a11/inside.py",
+    "wp/tests/a11/verifier.py",
+    "wp/tests/a12/inside.py",
+    "wp/tests/a17/inside.py",
+    "wp/tests/a17/neutralise.php",
+    "wp/tests/a17/refusal-common.py",
+    "wp/tests/a17/run.py",
+    "wp/tests/a17/seed.php",
+    "wp/tests/a17/unit.php",
+    "wp/tests/a17/verify.py"
+  ],
+  "generated_or_resealed": [
+    "production/A-11/manifest.json",
+    "production/A-12/manifeste-final.json",
+    "production/A-14/manifest.json",
+    "production/A-15/manifest.json",
+    "production/A-16/refus-commun-A17.json",
+    "production/A-17/",
+    "production/A-{11,12,14,15}/preuves/{current-single-packet}/",
+    "production/A-{11,12,14,15}/verification-refus-26nov.json",
+    "production/A-{11,12,14,15,17}/controle-refus-windows.json"
+  ],
+  "not_owned": "A16 Inventory/Mapping/Command and its full proof packet belong to the concurrent A16 worker."
+}

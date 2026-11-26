@@ -1,0 +1,65 @@
+{
+  "exit_code": 0,
+  "checks": [
+    {
+      "check": "exact_owned_sources_inventory",
+      "status": "PASS"
+    },
+    {
+      "check": "unit_green",
+      "status": "PASS"
+    },
+    {
+      "check": "runner_green",
+      "status": "PASS"
+    },
+    {
+      "check": "native_runner_required",
+      "status": "PASS"
+    },
+    {
+      "check": "result_green",
+      "status": "PASS"
+    },
+    {
+      "check": "strict_psr12_after_last_write",
+      "status": "PASS"
+    },
+    {
+      "check": "preparer_image_really_ran",
+      "status": "PASS"
+    },
+    {
+      "check": "classic_fusion_required_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "classic_all_tables_equal",
+      "status": "PASS"
+    },
+    {
+      "check": "classic_counts_partition",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos_fusion_required_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos_all_tables_equal",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos_counts_partition",
+      "status": "PASS"
+    },
+    {
+      "check": "sealed_exact_owned_and_packet",
+      "status": "PASS"
+    },
+    {
+      "check": "no_foreign_lot_pinned",
+      "status": "PASS"
+    }
+  ]
+}

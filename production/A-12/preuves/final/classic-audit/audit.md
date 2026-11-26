@@ -197,8 +197,8 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         }
     ],
     "update_source": "local_cache_only_not_a_live_check",
-    "plugin_cache_checked_epoch": 1795658634,
-    "theme_cache_checked_epoch": 1795658634
+    "plugin_cache_checked_epoch": 1795676143,
+    "theme_cache_checked_epoch": 1795676144
 }
 ```
 
@@ -1193,7 +1193,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         },
         {
             "name": "cron",
-            "bytes": 2197
+            "bytes": 2216
         },
         {
             "name": "widget_block",
@@ -1357,43 +1357,43 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "hook": "a02_fixture_cron",
             "schedule": "daily",
             "count": 1,
-            "next_epoch": 1795662234
+            "next_epoch": 1795679743
         },
         {
             "hook": "action_scheduler_run_queue",
             "schedule": "every_minute",
             "count": 1,
-            "next_epoch": 1795658624
+            "next_epoch": 1795676134
         },
         {
             "hook": "do_pings",
             "schedule": "single",
             "count": 1,
-            "next_epoch": 1795658632
+            "next_epoch": 1795676142
         },
         {
             "hook": "jetpack_clean_nonces",
             "schedule": "hourly",
             "count": 1,
-            "next_epoch": 1795658627
+            "next_epoch": 1795676137
         },
         {
             "hook": "jetpack_v2_heartbeat",
             "schedule": "daily",
             "count": 1,
-            "next_epoch": 1795658627
+            "next_epoch": 1795676137
         },
         {
             "hook": "recovery_mode_clean_expired_keys",
             "schedule": "daily",
             "count": 1,
-            "next_epoch": 1795658624
+            "next_epoch": 1795676133
         },
         {
             "hook": "wc_admin_process_orders_milestone",
             "schedule": "hourly",
             "count": 1,
-            "next_epoch": 1795658627
+            "next_epoch": 1795676137
         },
         {
             "hook": "wc_memberships_jobs_cleanup",
@@ -1405,31 +1405,31 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "hook": "wp_privacy_delete_old_export_files",
             "schedule": "hourly",
             "count": 1,
-            "next_epoch": 1795658624
+            "next_epoch": 1795676134
         },
         {
             "hook": "wp_site_health_scheduled_check",
             "schedule": "weekly",
             "count": 1,
-            "next_epoch": 1795745024
+            "next_epoch": 1795762533
         },
         {
             "hook": "wp_update_plugins",
             "schedule": "twicedaily",
             "count": 1,
-            "next_epoch": 1795664023
+            "next_epoch": 1795681533
         },
         {
             "hook": "wp_update_themes",
             "schedule": "twicedaily",
             "count": 1,
-            "next_epoch": 1795665823
+            "next_epoch": 1795683333
         },
         {
             "hook": "wp_version_check",
             "schedule": "twicedaily",
             "count": 1,
-            "next_epoch": 1795662223
+            "next_epoch": 1795679733
         }
     ],
     "arguments_excluded": true

@@ -18,6 +18,102 @@
             "status": "PASS"
         },
         {
+            "check": "isolated_management:edit_users",
+            "status": "PASS"
+        },
+        {
+            "check": "disabled_management:edit_users",
+            "status": "PASS"
+        },
+        {
+            "check": "isolated_management:update_plugins",
+            "status": "PASS"
+        },
+        {
+            "check": "disabled_management:update_plugins",
+            "status": "PASS"
+        },
+        {
+            "check": "isolated_management:switch_themes",
+            "status": "PASS"
+        },
+        {
+            "check": "disabled_management:switch_themes",
+            "status": "PASS"
+        },
+        {
+            "check": "isolated_management:delete_plugins",
+            "status": "PASS"
+        },
+        {
+            "check": "disabled_management:delete_plugins",
+            "status": "PASS"
+        },
+        {
+            "check": "isolated_management:delete_themes",
+            "status": "PASS"
+        },
+        {
+            "check": "disabled_management:delete_themes",
+            "status": "PASS"
+        },
+        {
+            "check": "isolated_management:install_themes",
+            "status": "PASS"
+        },
+        {
+            "check": "disabled_management:install_themes",
+            "status": "PASS"
+        },
+        {
+            "check": "isolated_management:update_themes",
+            "status": "PASS"
+        },
+        {
+            "check": "disabled_management:update_themes",
+            "status": "PASS"
+        },
+        {
+            "check": "isolated_management:edit_theme_options",
+            "status": "PASS"
+        },
+        {
+            "check": "disabled_management:edit_theme_options",
+            "status": "PASS"
+        },
+        {
+            "check": "isolated_management:export",
+            "status": "PASS"
+        },
+        {
+            "check": "disabled_management:export",
+            "status": "PASS"
+        },
+        {
+            "check": "isolated_management:import",
+            "status": "PASS"
+        },
+        {
+            "check": "disabled_management:import",
+            "status": "PASS"
+        },
+        {
+            "check": "isolated_management:remove_users",
+            "status": "PASS"
+        },
+        {
+            "check": "disabled_management:remove_users",
+            "status": "PASS"
+        },
+        {
+            "check": "content_only_excluded",
+            "status": "PASS"
+        },
+        {
+            "check": "manage_prefix_stays_inclusive",
+            "status": "PASS"
+        },
+        {
             "check": "subscriber_not_management",
             "status": "PASS"
         },
@@ -38,7 +134,39 @@
             "status": "PASS"
         },
         {
+            "check": "non_demonstrated_context_unknown:0",
+            "status": "PASS"
+        },
+        {
+            "check": "non_demonstrated_context_unknown:1",
+            "status": "PASS"
+        },
+        {
+            "check": "non_demonstrated_context_unknown:2",
+            "status": "PASS"
+        },
+        {
+            "check": "non_demonstrated_context_unknown:3",
+            "status": "PASS"
+        },
+        {
+            "check": "non_demonstrated_context_unknown:4",
+            "status": "PASS"
+        },
+        {
+            "check": "non_demonstrated_context_unknown:5",
+            "status": "PASS"
+        },
+        {
+            "check": "non_demonstrated_context_unknown:6",
+            "status": "PASS"
+        },
+        {
             "check": "absent_constant_false_default",
+            "status": "PASS"
+        },
+        {
+            "check": "leap_day_calendar_convention",
             "status": "PASS"
         }
     ]

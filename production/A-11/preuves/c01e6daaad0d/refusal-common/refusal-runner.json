@@ -1,0 +1,67 @@
+{
+  "exit_code": 0,
+  "checks": [
+    {
+      "check": "isolation_before",
+      "status": "PASS"
+    },
+    {
+      "check": "native_exit",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "check": "isolation_after",
+      "status": "PASS"
+    },
+    {
+      "check": "cleanup",
+      "status": "PASS"
+    },
+    {
+      "check": "source_snapshot_stable",
+      "status": "PASS"
+    }
+  ],
+  "container": "imagine-a17-refusal-e672a4792ff6",
+  "sources": {
+    "wp/outils/bascule/a11/Address.php": "d71f4339f7501ff86ef2146204612258e737ab841aef6fa5aac4bf4d59d11eaf",
+    "wp/outils/bascule/a11/Command.php": "64109bc4b93fdbd0d0e5730dbc95d5d22208dc00285a2c97f29edb7e272f53a8",
+    "wp/outils/bascule/a11/inventorier-adresses": "36327e7f1729beff41ccbb124ac1799737b0a9e4e9cb395a35a55f17635a2ee7",
+    "wp/outils/bascule/a11/Inventory.php": "43fe9c02cf25a8c8fa69b4abed02aacd680bda232120d6cfd59a4c8283efd49f",
+    "wp/outils/bascule/a11/README.md": "3b88655eda283e7d9bf7efd2d01ca65ed37b22343a376554c5d426a96f3f7881",
+    "wp/outils/bascule/a11/ReadOnlyDb.php": "b61650b4efd9826ad2196afda1548e77b829bcd2e4648566437fe49b8a72ce38",
+    "wp/outils/bascule/a11/Runtime.php": "04168d07d47532967ac032d617e9a4cb59088dcdd5cfddc151c04c3aca9d0be2",
+    "wp/outils/bascule/a12/AuditLibrary.php": "bf64f573d1c17fe8d1d4c4f548a2b9773fafa2ec2ccf988b68d8f8129bb7133c",
+    "wp/outils/bascule/a12/Command.php": "23b3142c6b2f884fb33982dcc8337c0ba1c28b0f98d6fc3539ba6c709a12726a",
+    "wp/outils/bascule/a12/confine.py": "17e0e3d0cd4d8648cb2faf6504524cb809d5248f1da7dd9e9c938661e3f3c1ac",
+    "wp/outils/bascule/a12/inventorier-contenus": "7609221aa39ba9c79bc62f2703255d12aa1991d391acfd4af6476fc330f902a0",
+    "wp/outils/bascule/a12/Inventory.php": "890e084adbeb4a79050162d7063fffa9396d9ea5bcac2f506643309c9c607558",
+    "wp/outils/bascule/a12/README.md": "32c5a1d8d6a41568903a9bf74739947e96c66b46cc1bbb3618b00b921c1f6e98",
+    "wp/outils/bascule/a12/Registry.php": "ea9f653e7a66e5267f93bd40a2c87d77e26dbf9bdd9a45c763fd1d38172dd530",
+    "wp/outils/bascule/a14/Accounts.php": "1623c8dc4cdd2c0409b614eeef4ee86c35b5aec9962c5e02f059c5b1f5942e2f",
+    "wp/outils/bascule/a14/command.php": "df6ba1e20f2c92de7ec4d7b64e1564d3648b302e25f782909ca4843befb6f628",
+    "wp/outils/bascule/a14/correspondance.exemple.json": "2a71f7dba02ef9ff5c9f727f359b0103d16d1fcaa6b72cd39c03380056ccc3cf",
+    "wp/outils/bascule/a14/main.py": "319e9218e384db0df960e373e1730212c9c39f1e851226790d2bbf2cab41bee1",
+    "wp/outils/bascule/a14/Matcher.php": "ab234134e96755065cc6d6ff4aaec79d9ad276303f778a9d6a207c5118414a5b",
+    "wp/outils/bascule/a14/README.md": "a07c0ba49ed901e7a414bf78094e2be9af0e5ae72b6e8bd4864956949c68df7f",
+    "wp/outils/bascule/a15/Command.php": "962b68944ebe32d1691026293050e0b348bc98fbf5ed555bc71dbe7693ffba76",
+    "wp/outils/bascule/a15/confine.py": "c9a29eabc4378e2cdf9b5c20ebe089e77d4e963304b5a29380e56e7c9f409abc",
+    "wp/outils/bascule/a15/inventorier-emails": "33c829cab39803d5d6e5389ef908c03d13b9268c29e3556f36fe7271f99000be",
+    "wp/outils/bascule/a15/Inventory.php": "bac385ee70cc54dc78a806351147d1c4fc74558023374acdaa92b10770722f02",
+    "wp/outils/bascule/a15/README.md": "e8cde81a3401b748ddbf67a5fd24e379b2e5a0a1fedd7f688c750286806efbc5",
+    "wp/outils/bascule/a16/Command.php": "ad2ba6e4fb5d5555c22655e03377cd9e10724d92d5ffc4467553898686286fc1",
+    "wp/outils/bascule/a16/confine.py": "c4732873354ed241cec749046c14e6886c9c836acd165d835de141fd159dc327",
+    "wp/outils/bascule/a16/correspondance.exemple.json": "bd53386b30c31a8da179dcb1c289dcdf13308a37767fa7a010e710da1dcda5ce",
+    "wp/outils/bascule/a16/inventorier-numeros": "ea58a7eba41144efbf53e7fe7ae34d96b5e4b8d639480c572319fd4fa220c5ec",
+    "wp/outils/bascule/a16/Inventory.php": "5210445243066c4913fd1b2c144376487c79585078d3f9161ee67923fca3c54e",
+    "wp/outils/bascule/a16/Mapping.php": "66bdbe895a06c4307644aa38eda03ca8f8e4369bbe77a3ba14734468cc099738",
+    "wp/outils/bascule/a16/README.md": "a6caa994ae9373bfac0cd251b7aae6db3f86b70259e3b0116c8068995c91aca8",
+    "wp/outils/bascule/a17/Command.php": "7a42fcfdb759ccb84a8930488eca86228848c6e61eb79e2ca3288b67f3f531ad",
+    "wp/outils/bascule/a17/confine.py": "5063adc5145296ca9c65b3a64e5dddc461a346b1f3c64581fd89bca6f27d6943",
+    "wp/outils/bascule/a17/inventorier-securite": "39df5a81afa9d34b68e6d61703d18f8a7935a1e2cb49c03928aaf3d089c3cd12",
+    "wp/outils/bascule/a17/Inventory.php": "aef97cccf5d4795a10e82fff96a2e3f911bb9d21ea2a645cc2a311b9ed81a9aa",
+    "wp/outils/bascule/a17/README.md": "9f46900afc9be24aca8bbd273464b7db16ee82f5afd76dfcf979da599c3a4e50",
+    "wp/tests/a17/refusal-common.py": "a600ea8167fceb877d7b6674836442ae139b293f76e85c1a0ce6ec44c78322bd"
+  }
+}

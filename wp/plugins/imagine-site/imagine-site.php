@@ -91,6 +91,9 @@ require_once __DIR__ . '/ConfidentialiteRegles.php';
 require_once __DIR__ . '/Confidentialite.php';
 Confidentialite::register();
 
+require_once __DIR__ . '/Partenaires.php';
+Partenaires::register();
+
 add_action('init', static function (): void {
     foreach ([
         'imagine_numero' => [__('Numéros fictifs', 'imagine-site'), 'numeros'],

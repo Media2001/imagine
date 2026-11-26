@@ -1,0 +1,20 @@
+{
+  "exact_inventory_unchanged": true,
+  "file_count": 14,
+  "files": {
+    "wp/outils/staging/anonymiser": "2d8ee8c6afc3b586b49393db1c99bfb5049f568ed6d506fc1ad29db38eb0de1d",
+    "wp/outils/staging/command.php": "cb6a089fdf43d3e561d3e53b0a884463690bfa1ecd16e0e3b2ed31a05bf4e5d1",
+    "wp/outils/staging/files.php": "97aa0aeecfb13dca77b97b93d1a147f33962889044f26a9ff06a2cd8a621baeb",
+    "wp/outils/staging/HANDOFF-A-01.md": "0d6fc8433242c9ce9a379b6ef260cc5ed43b83d7c4d6dda4b8bec901af328261",
+    "wp/outils/staging/lib.php": "612943583f01c1e0bad63f76546eaf9f8d00c86d972fb69d59e26b4834f1d8c3",
+    "wp/outils/staging/neutraliser": "3bd131154ce850d2427d164ec3d33f12fa372fe65b3f2888ff926c779100ff2d",
+    "wp/outils/staging/pdo-store.php": "13bbd64697114071eda76b84438a6a1c9adf6135a8a5a92de0b70aa7930cd8d1",
+    "wp/outils/staging/policy.php": "5a4465fa3b1e566c1962db253c64eb0ab43e488af69c048d5ab58af233214ef8",
+    "wp/outils/staging/README.md": "48a12683928bd49872d9096aca644deee865b21be21d9d347d357a4357cbc7f7",
+    "wp/outils/staging/runtime-probe.php": "3c8a98d1db5714e1944194f558a1df3a3c512e14e3aa370308a60a97f5889140",
+    "wp/outils/staging/schema.php": "81dfe75642c7a267fe92d23336fe14353de2d479700f8c97415702e14ae45d2a",
+    "wp/outils/staging/SOURCES.md": "9c54d41203093fcbf5f44779b4ce78424efdf7bc0679e187c3afc7b79a689f48",
+    "wp/outils/staging/verifier": "d0f3e5728411faa22e20109636d684f551fe937600eebb5839382d205c42b9d6",
+    "wp/outils/staging/mu-plugins/000-imagine-staging-safety.php": "c16f048f3fd2587ba719924eec53b07651ea3b6a495a8125746a157582f5474f"
+  }
+}

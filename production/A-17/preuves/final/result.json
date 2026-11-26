@@ -66,6 +66,16 @@
       "detail": null
     },
     {
+      "check": "classic:isolated_management_roles_included_content_excluded",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:exact_boundary_not_old_and_future_unknown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:known_2fa_adapter",
       "status": "PASS",
       "detail": null
@@ -81,12 +91,22 @@
       "detail": null
     },
     {
+      "check": "classic:coexisting_2fa_supported_scope_not_global_total",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:no_identity_secret_in_outputs",
       "status": "PASS",
       "detail": null
     },
     {
       "check": "classic:unknown_2fa_not_zero",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_last_login_native_unknown_not_estimated",
       "status": "PASS",
       "detail": null
     },
@@ -146,6 +166,26 @@
       "detail": null
     },
     {
+      "check": "classic:real_neutralisation_erases_application_passwords",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:neutralised_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:neutralised_application_passwords_unknown_never_zero",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:neutralised_all_tables_and_files_readonly",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "hpos:commercial_fixture",
       "status": "PASS",
       "detail": {
@@ -185,6 +225,16 @@
       "detail": null
     },
     {
+      "check": "hpos:isolated_management_roles_included_content_excluded",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:exact_boundary_not_old_and_future_unknown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "hpos:known_2fa_adapter",
       "status": "PASS",
       "detail": null
@@ -200,12 +250,22 @@
       "detail": null
     },
     {
+      "check": "hpos:coexisting_2fa_supported_scope_not_global_total",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "hpos:no_identity_secret_in_outputs",
       "status": "PASS",
       "detail": null
     },
     {
       "check": "hpos:unknown_2fa_not_zero",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_last_login_native_unknown_not_estimated",
       "status": "PASS",
       "detail": null
     },
@@ -261,6 +321,26 @@
     },
     {
       "check": "hpos:config_not_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:real_neutralisation_erases_application_passwords",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:neutralised_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:neutralised_application_passwords_unknown_never_zero",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:neutralised_all_tables_and_files_readonly",
       "status": "PASS",
       "detail": null
     },

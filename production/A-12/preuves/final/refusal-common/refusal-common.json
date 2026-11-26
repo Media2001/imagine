@@ -1,0 +1,728 @@
+{
+  "exit_code": 0,
+  "checks": [
+    {
+      "check": "a11:symlink-file",
+      "status": "PASS"
+    },
+    {
+      "check": "a12:symlink-file",
+      "status": "PASS"
+    },
+    {
+      "check": "a14:symlink-file",
+      "status": "PASS"
+    },
+    {
+      "check": "a15:symlink-file",
+      "status": "PASS"
+    },
+    {
+      "check": "a16:symlink-file",
+      "status": "PASS"
+    },
+    {
+      "check": "a17:symlink-file",
+      "status": "PASS"
+    },
+    {
+      "check": "a11:symlink-directory",
+      "status": "PASS"
+    },
+    {
+      "check": "a12:symlink-directory",
+      "status": "PASS"
+    },
+    {
+      "check": "a14:symlink-directory",
+      "status": "PASS"
+    },
+    {
+      "check": "a15:symlink-directory",
+      "status": "PASS"
+    },
+    {
+      "check": "a16:symlink-directory",
+      "status": "PASS"
+    },
+    {
+      "check": "a17:symlink-directory",
+      "status": "PASS"
+    },
+    {
+      "check": "a11:config-define",
+      "status": "PASS"
+    },
+    {
+      "check": "a12:config-define",
+      "status": "PASS"
+    },
+    {
+      "check": "a14:config-define",
+      "status": "PASS"
+    },
+    {
+      "check": "a15:config-define",
+      "status": "PASS"
+    },
+    {
+      "check": "a16:config-define",
+      "status": "PASS"
+    },
+    {
+      "check": "a17:config-define",
+      "status": "PASS"
+    },
+    {
+      "check": "a11:config-const",
+      "status": "PASS"
+    },
+    {
+      "check": "a12:config-const",
+      "status": "PASS"
+    },
+    {
+      "check": "a14:config-const",
+      "status": "PASS"
+    },
+    {
+      "check": "a15:config-const",
+      "status": "PASS"
+    },
+    {
+      "check": "a16:config-const",
+      "status": "PASS"
+    },
+    {
+      "check": "a17:config-const",
+      "status": "PASS"
+    },
+    {
+      "check": "a11:wp-content/db.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a12:wp-content/db.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a14:wp-content/db.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a15:wp-content/db.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a16:wp-content/db.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a17:wp-content/db.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a11:wp-content/object-cache.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a12:wp-content/object-cache.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a14:wp-content/object-cache.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a15:wp-content/object-cache.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a16:wp-content/object-cache.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a17:wp-content/object-cache.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a11:wp-content/advanced-cache.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a12:wp-content/advanced-cache.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a14:wp-content/advanced-cache.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a15:wp-content/advanced-cache.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a16:wp-content/advanced-cache.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a17:wp-content/advanced-cache.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a11:wp-content/sunrise.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a12:wp-content/sunrise.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a14:wp-content/sunrise.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a15:wp-content/sunrise.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a16:wp-content/sunrise.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a17:wp-content/sunrise.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a11:wordfence-waf.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a12:wordfence-waf.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a14:wordfence-waf.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a15:wordfence-waf.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a16:wordfence-waf.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a17:wordfence-waf.php",
+      "status": "PASS"
+    },
+    {
+      "check": "a11:.user.ini",
+      "status": "PASS"
+    },
+    {
+      "check": "a12:.user.ini",
+      "status": "PASS"
+    },
+    {
+      "check": "a14:.user.ini",
+      "status": "PASS"
+    },
+    {
+      "check": "a15:.user.ini",
+      "status": "PASS"
+    },
+    {
+      "check": "a16:.user.ini",
+      "status": "PASS"
+    },
+    {
+      "check": "a17:.user.ini",
+      "status": "PASS"
+    }
+  ],
+  "cases": [
+    {
+      "case": "a11:symlink-file",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_SYMLINK_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a12:symlink-file",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_SYMLINK_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a14:symlink-file",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_SYMLINK_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a15:symlink-file",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_SYMLINK_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a16:symlink-file",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_SYMLINK_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a17:symlink-file",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_SYMLINK_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a11:symlink-directory",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_SYMLINK_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a12:symlink-directory",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_SYMLINK_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a14:symlink-directory",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_SYMLINK_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a15:symlink-directory",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_SYMLINK_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a16:symlink-directory",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_SYMLINK_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a17:symlink-directory",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_SYMLINK_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a11:config-define",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_CONFIG_OVERRIDE_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a12:config-define",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_CONFIG_OVERRIDE_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a14:config-define",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_CONFIG_OVERRIDE_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a15:config-define",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_CONFIG_OVERRIDE_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a16:config-define",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_CONFIG_OVERRIDE_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a17:config-define",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_CONFIG_OVERRIDE_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a11:config-const",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_CONFIG_OVERRIDE_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a12:config-const",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_CONFIG_OVERRIDE_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a14:config-const",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_CONFIG_OVERRIDE_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a15:config-const",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_CONFIG_OVERRIDE_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a16:config-const",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_CONFIG_OVERRIDE_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a17:config-const",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_CONFIG_OVERRIDE_UNSUPPORTED\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a11:wp-content/db.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/db.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a12:wp-content/db.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/db.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a14:wp-content/db.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/db.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a15:wp-content/db.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/db.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a16:wp-content/db.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/db.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a17:wp-content/db.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/db.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a11:wp-content/object-cache.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/object-cache.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a12:wp-content/object-cache.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/object-cache.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a14:wp-content/object-cache.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/object-cache.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a15:wp-content/object-cache.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/object-cache.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a16:wp-content/object-cache.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/object-cache.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a17:wp-content/object-cache.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/object-cache.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a11:wp-content/advanced-cache.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/advanced-cache.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a12:wp-content/advanced-cache.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/advanced-cache.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a14:wp-content/advanced-cache.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/advanced-cache.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a15:wp-content/advanced-cache.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/advanced-cache.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a16:wp-content/advanced-cache.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/advanced-cache.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a17:wp-content/advanced-cache.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/advanced-cache.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a11:wp-content/sunrise.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/sunrise.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a12:wp-content/sunrise.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/sunrise.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a14:wp-content/sunrise.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/sunrise.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a15:wp-content/sunrise.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/sunrise.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a16:wp-content/sunrise.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/sunrise.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a17:wp-content/sunrise.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wp-content/sunrise.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a11:wordfence-waf.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wordfence-waf.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a12:wordfence-waf.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wordfence-waf.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a14:wordfence-waf.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wordfence-waf.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a15:wordfence-waf.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wordfence-waf.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a16:wordfence-waf.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wordfence-waf.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a17:wordfence-waf.php",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\"wordfence-waf.php\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a11:.user.ini",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\".user.ini\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a12:.user.ini",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\".user.ini\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a14:.user.ini",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\".user.ini\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a15:.user.ini",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\".user.ini\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a16:.user.ini",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\".user.ini\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    },
+    {
+      "case": "a17:.user.ini",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A11_DROPIN_UNSUPPORTED {\"file\":\".user.ini\"}\n",
+      "canary_absent_all_artifacts": true,
+      "output_created": false
+    }
+  ],
+  "landlock_abi": "required_by_confine"
+}

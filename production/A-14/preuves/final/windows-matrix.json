@@ -1,60 +1,28 @@
 {
+  "exit_code": 0,
   "rows": [
     {
       "command": [
         "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
         "-B",
-        "-c",
-        "import sys,locale,json;print(json.dumps({'version':sys.version,'executable':sys.executable,'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode}))"
-      ],
-      "environment": {
-        "PYTHONIOENCODING": "utf-8",
-        "PYTHONUTF8": "1"
-      },
-      "exit_code": 0,
-      "log": "utf8-environment.json"
-    },
-    {
-      "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
-        "-B",
         "wp/tests/a14/test_input.py"
       ],
       "environment": {
         "PYTHONIOENCODING": "utf-8",
-        "PYTHONUTF8": "1"
+        "PYTHONUTF8": "1",
+        "PYTHONDONTWRITEBYTECODE": "1"
       },
-      "exit_code": 0,
-      "log": "utf8-python-tests.log"
-    },
-    {
-      "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
-        "-B",
-        "wp/tests/a14/run.py",
-        "--output",
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a14-matrix-corrections0615\\utf8"
-      ],
-      "environment": {
-        "PYTHONIOENCODING": "utf-8",
-        "PYTHONUTF8": "1"
+      "measured": {
+        "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+        "version": "3.14.7 (main, Sep  1 2026, 14:17:30) [MSC v.1944 64 bit (AMD64)]",
+        "stdout": "utf-8",
+        "stderr": "utf-8",
+        "locale": "cp1252",
+        "preferred": "utf-8",
+        "utf8_mode": 1
       },
-      "exit_code": 0,
-      "log": "utf8-runner.log"
-    },
-    {
-      "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
-        "-B",
-        "-c",
-        "import sys,locale,json;print(json.dumps({'version':sys.version,'executable':sys.executable,'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode}))"
-      ],
-      "environment": {
-        "PYTHONIOENCODING": "cp1252",
-        "PYTHONUTF8": "0"
-      },
-      "exit_code": 0,
-      "log": "cp1252-environment.json"
+      "started_at": "2026-11-26T07:01:48.288690+00:00",
+      "exit_code": 0
     },
     {
       "command": [
@@ -64,41 +32,20 @@
       ],
       "environment": {
         "PYTHONIOENCODING": "cp1252",
-        "PYTHONUTF8": "0"
+        "PYTHONUTF8": "0",
+        "PYTHONDONTWRITEBYTECODE": "1"
       },
-      "exit_code": 0,
-      "log": "cp1252-python-tests.log"
-    },
-    {
-      "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
-        "-B",
-        "wp/tests/a14/run.py",
-        "--output",
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a14-matrix-corrections0615\\cp1252"
-      ],
-      "environment": {
-        "PYTHONIOENCODING": "cp1252",
-        "PYTHONUTF8": "0"
+      "measured": {
+        "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+        "version": "3.14.7 (main, Sep  1 2026, 14:17:30) [MSC v.1944 64 bit (AMD64)]",
+        "stdout": "cp1252",
+        "stderr": "cp1252",
+        "locale": "cp1252",
+        "preferred": "cp1252",
+        "utf8_mode": 0
       },
-      "exit_code": 0,
-      "log": "cp1252-runner.log"
-    },
-    {
-      "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
-        "-B",
-        "wp/tests/a14/style.py",
-        "--output",
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a14-matrix-corrections0615\\style"
-      ],
-      "environment": {
-        "PYTHONIOENCODING": "cp1252",
-        "PYTHONUTF8": "0"
-      },
-      "exit_code": 0,
-      "log": "style.log"
+      "started_at": "2026-11-26T07:01:49.290524+00:00",
+      "exit_code": 0
     }
-  ],
-  "exit_code": 0
+  ]
 }

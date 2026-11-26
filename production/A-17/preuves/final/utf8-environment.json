@@ -1,1 +1,9 @@
-{"version": "3.14.7 (main, Sep  1 2026, 14:17:30) [MSC v.1944 64 bit (AMD64)]", "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe", "stdout": "utf-8", "stderr": "utf-8", "locale": "cp1252", "preferred": "utf-8", "utf8_mode": 1}
+{
+  "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+  "version": "3.14.7 (main, Sep  1 2026, 14:17:30) [MSC v.1944 64 bit (AMD64)]",
+  "stdout": "utf-8",
+  "stderr": "utf-8",
+  "locale": "cp1252",
+  "preferred": "utf-8",
+  "utf8_mode": 1
+}

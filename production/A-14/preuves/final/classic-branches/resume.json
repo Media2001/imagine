@@ -2,7 +2,7 @@
     "schema": "imagine-a14-v1",
     "read_only": true,
     "storage": "classic",
-    "audit_sha256": "393a7876d7c9a2fd4c27ded0b726f4488e0e7c45c392b69e2e34348b17ecf554",
+    "audit_sha256": "cd2780fe674567e3f69908f9207cd699290fb1163373be124468f792e1b4f7e0",
     "counts": {
         "contacts_total": 3,
         "contacts_with_account": 2,

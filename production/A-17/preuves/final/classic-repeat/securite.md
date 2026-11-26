@@ -9,10 +9,43 @@ Comptes par role, jamais identites.
     "storage": "classic",
     "as_of_utc": "2026-11-26T12:00:00Z",
     "cutoff_utc": "2025-11-26T12:00:00Z",
-    "unique_management_accounts": 5,
+    "unique_management_accounts": 10,
     "roles": [
         {
+            "role": "a17_edit_users",
+            "accounts": 1,
+            "application_password_accounts": 0,
+            "two_factor_active": 0,
+            "last_login": {
+                "status": "observe",
+                "no_recent_record": 0,
+                "unknown_accounts": 1
+            }
+        },
+        {
             "role": "a17_gestion",
+            "accounts": 1,
+            "application_password_accounts": 0,
+            "two_factor_active": 0,
+            "last_login": {
+                "status": "observe",
+                "no_recent_record": 0,
+                "unknown_accounts": 1
+            }
+        },
+        {
+            "role": "a17_switch_themes",
+            "accounts": 1,
+            "application_password_accounts": 0,
+            "two_factor_active": 0,
+            "last_login": {
+                "status": "observe",
+                "no_recent_record": 0,
+                "unknown_accounts": 1
+            }
+        },
+        {
+            "role": "a17_update_plugins",
             "accounts": 1,
             "application_password_accounts": 0,
             "two_factor_active": 0,
@@ -35,13 +68,13 @@ Comptes par role, jamais identites.
         },
         {
             "role": "editor",
-            "accounts": 1,
+            "accounts": 3,
             "application_password_accounts": 0,
             "two_factor_active": 0,
             "last_login": {
                 "status": "observe",
                 "no_recent_record": 0,
-                "unknown_accounts": 1
+                "unknown_accounts": 2
             }
         },
         {
@@ -57,6 +90,7 @@ Comptes par role, jamais identites.
         }
     ],
     "two_factor_adapter": "Two_Factor_Core::is_user_using_two_factor",
+    "two_factor_coverage": "supported_adapter_only",
     "last_login_adapter": "WP Last Login:wp-last-login",
     "protections": [
         {
@@ -64,6 +98,12 @@ Comptes par role, jamais identites.
             "version": "2.26.0",
             "active": true,
             "kind": "limitation_tentatives"
+        },
+        {
+            "name": "Other 2FA fixture",
+            "version": "1.0.0",
+            "active": true,
+            "kind": "double_authentification"
         },
         {
             "name": "Two-Factor fixture",
@@ -85,6 +125,6 @@ Comptes par role, jamais identites.
         "xmlrpc_authenticated_methods": true,
         "application_passwords_available": true
     },
-    "audit_sha256": "0d4c5ddc74c3e16cea4735ceee1be7b46ab8f2bc5c7c74ae44785b5eafd16411"
+    "audit_sha256": "10607067be7d79d030820bcbd13bd19dffe0f261f0ea3d7e2b5535be7ed04916"
 }
 ```

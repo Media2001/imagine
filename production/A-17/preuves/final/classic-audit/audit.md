@@ -83,6 +83,20 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "last_updated": null
         },
         {
+            "name": "other-2fa/other-2fa.php",
+            "version": "1.0.0",
+            "active": true,
+            "kind": "plugin",
+            "latest": null,
+            "requires_wp": null,
+            "requires_php": null,
+            "requires_woo": null,
+            "requirements_source": "headers_or_literal_MINIMUM_constants_else_unknown",
+            "latest_requires_wp": null,
+            "latest_requires_php": null,
+            "last_updated": null
+        },
+        {
             "name": "two-factor/two-factor.php",
             "version": "0.17.0",
             "active": true,
@@ -239,8 +253,8 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         }
     ],
     "update_source": "local_cache_only_not_a_live_check",
-    "plugin_cache_checked_epoch": 1795669061,
-    "theme_cache_checked_epoch": 1795669061
+    "plugin_cache_checked_epoch": 1795676372,
+    "theme_cache_checked_epoch": 1795676372
 }
 ```
 
@@ -938,7 +952,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         },
         {
             "name": "wp_posts",
-            "bytes": 147456,
+            "bytes": 98304,
             "rows": 23,
             "ownership": "wordpress"
         },
@@ -969,13 +983,13 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "name": "wp_usermeta",
             "bytes": 49152,
-            "rows": 125,
+            "rows": 218,
             "ownership": "wordpress"
         },
         {
             "name": "wp_users",
             "bytes": 65536,
-            "rows": 8,
+            "rows": 14,
             "ownership": "wordpress"
         },
         {
@@ -1207,7 +1221,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "ownership": "active_woocommerce"
         }
     ],
-    "total_bytes": 4259840,
+    "total_bytes": 4210688,
     "largest_autoload": [
         {
             "name": "a02_heavy_secret_setting",
@@ -1219,11 +1233,11 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         },
         {
             "name": "wp_user_roles",
-            "bytes": 10112
+            "bytes": 10623
         },
         {
             "name": "cron",
-            "bytes": 2216
+            "bytes": 2197
         },
         {
             "name": "widget_block",
@@ -1239,7 +1253,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         },
         {
             "name": "active_plugins",
-            "bytes": 377
+            "bytes": 412
         },
         {
             "name": "sidebars_widgets",
@@ -1387,43 +1401,43 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "hook": "a02_fixture_cron",
             "schedule": "daily",
             "count": 1,
-            "next_epoch": 1795672661
+            "next_epoch": 1795679972
         },
         {
             "hook": "action_scheduler_run_queue",
             "schedule": "every_minute",
             "count": 1,
-            "next_epoch": 1795669049
+            "next_epoch": 1795676362
         },
         {
             "hook": "do_pings",
             "schedule": "single",
             "count": 1,
-            "next_epoch": 1795669059
+            "next_epoch": 1795676370
         },
         {
             "hook": "jetpack_clean_nonces",
             "schedule": "hourly",
             "count": 1,
-            "next_epoch": 1795669053
+            "next_epoch": 1795676366
         },
         {
             "hook": "jetpack_v2_heartbeat",
             "schedule": "daily",
             "count": 1,
-            "next_epoch": 1795669053
+            "next_epoch": 1795676366
         },
         {
             "hook": "recovery_mode_clean_expired_keys",
             "schedule": "daily",
             "count": 1,
-            "next_epoch": 1795669048
+            "next_epoch": 1795676362
         },
         {
             "hook": "wc_admin_process_orders_milestone",
             "schedule": "hourly",
             "count": 1,
-            "next_epoch": 1795669053
+            "next_epoch": 1795676366
         },
         {
             "hook": "wc_memberships_jobs_cleanup",
@@ -1435,31 +1449,31 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "hook": "wp_privacy_delete_old_export_files",
             "schedule": "hourly",
             "count": 1,
-            "next_epoch": 1795669048
+            "next_epoch": 1795676362
         },
         {
             "hook": "wp_site_health_scheduled_check",
             "schedule": "weekly",
             "count": 1,
-            "next_epoch": 1795755448
+            "next_epoch": 1795762762
         },
         {
             "hook": "wp_update_plugins",
             "schedule": "twicedaily",
             "count": 1,
-            "next_epoch": 1795674448
+            "next_epoch": 1795681761
         },
         {
             "hook": "wp_update_themes",
             "schedule": "twicedaily",
             "count": 1,
-            "next_epoch": 1795676248
+            "next_epoch": 1795683561
         },
         {
             "hook": "wp_version_check",
             "schedule": "twicedaily",
             "count": 1,
-            "next_epoch": 1795672648
+            "next_epoch": 1795679961
         }
     ],
     "arguments_excluded": true
@@ -1510,6 +1524,15 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "name": "limit-login-attempts-reloaded/limit-login-attempts-reloaded.php",
             "installed": "2.26.0",
+            "latest": null,
+            "update_available": null,
+            "comparison": "unknown",
+            "last_updated": null,
+            "older_than_two_years": null
+        },
+        {
+            "name": "other-2fa/other-2fa.php",
+            "installed": "1.0.0",
             "latest": null,
             "update_available": null,
             "comparison": "unknown",

@@ -1,0 +1,24 @@
+{
+  "command": [
+    "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+    "-B",
+    "wp/tests/a17/refusal-common.py",
+    "--output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a17-session/refusal-final-cp1252"
+  ],
+  "environment": {
+    "PYTHONIOENCODING": "cp1252",
+    "PYTHONUTF8": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "measured": {
+    "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+    "version": "3.14.7 (main, Sep  1 2026, 14:17:30) [MSC v.1944 64 bit (AMD64)]",
+    "stdout": "cp1252",
+    "stderr": "cp1252",
+    "locale": "cp1252",
+    "preferred": "cp1252",
+    "utf8_mode": 0
+  },
+  "started_at": "2026-11-26T07:00:14.362471+00:00",
+  "exit_code": 0
+}
