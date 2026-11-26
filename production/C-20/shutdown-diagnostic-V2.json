@@ -1,0 +1,54 @@
+{
+  "actions": [
+    {
+      "id": "8902",
+      "hook": "wcs_report_update_cache",
+      "status": "canceled",
+      "args": "{\"report_class\":\"WCS_Report_Subscription_By_Product\"}"
+    },
+    {
+      "id": "8903",
+      "hook": "wcs_report_update_cache",
+      "status": "canceled",
+      "args": "{\"report_class\":\"WCS_Report_Dashboard\"}"
+    },
+    {
+      "id": "8904",
+      "hook": "wcs_report_update_cache",
+      "status": "canceled",
+      "args": "{\"report_class\":\"WCS_Report_Subscription_Events_By_Date\"}"
+    },
+    {
+      "id": "8905",
+      "hook": "wcs_report_update_cache",
+      "status": "canceled",
+      "args": "{\"report_class\":\"WCS_Report_Subscription_By_Customer\"}"
+    },
+    {
+      "id": "8916",
+      "hook": "wcs_report_update_cache",
+      "status": "pending",
+      "args": "{\"report_class\":\"WCS_Report_Subscription_By_Product\"}"
+    },
+    {
+      "id": "8917",
+      "hook": "wcs_report_update_cache",
+      "status": "pending",
+      "args": "{\"report_class\":\"WCS_Report_Dashboard\"}"
+    },
+    {
+      "id": "8918",
+      "hook": "wcs_report_update_cache",
+      "status": "pending",
+      "args": "{\"report_class\":\"WCS_Report_Subscription_Events_By_Date\"}"
+    },
+    {
+      "id": "8919",
+      "hook": "wcs_report_update_cache",
+      "status": "pending",
+      "args": "{\"report_class\":\"WCS_Report_Subscription_By_Customer\"}"
+    }
+  ],
+  "sessions_observed": 8,
+  "note": "Native report cache jobs after PHP shutdown; no payment jobs. Session identifiers intentionally omitted."
+}

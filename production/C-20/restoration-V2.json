@@ -1,0 +1,14 @@
+{
+  "profiles_exact": true,
+  "tables_exact": false,
+  "table_count": 55,
+  "A-PAPIER_payment": [
+    {
+      "action_id": "8793",
+      "hook": "woocommerce_scheduled_subscription_payment",
+      "status": "pending",
+      "scheduled_date_gmt": "2026-11-26 02:13:28",
+      "args": "{\"subscription_id\":101}"
+    }
+  ]
+}

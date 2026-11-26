@@ -1,0 +1,28 @@
+{
+  "checks": {
+    "profiles_actions_exact_fresh_process": true,
+    "rollback_tables_exact_each_case": true,
+    "external_drift_limited_to_cache_session_tables": true,
+    "c09_green": true,
+    "no_mail_or_http_attempt": true,
+    "no_pret": true
+  },
+  "changed_tables_after_shutdown": [
+    "wp_actionscheduler_actions",
+    "wp_actionscheduler_logs",
+    "wp_options",
+    "wp_woocommerce_sessions"
+  ],
+  "acceptance_total": 10,
+  "acceptance_passed": 3,
+  "acceptance_failures": [
+    "A-CARTE:current_access_unchanged",
+    "A-CARTE:shipping_list_unchanged",
+    "A-CARTE:native_resumption_dates",
+    "A-SEPA4:current_access_unchanged",
+    "A-SEPA4:shipping_list_unchanged",
+    "A-SEPA4:native_resumption_dates",
+    "A-SEPA4:remaining_instalments_retained"
+  ],
+  "verdict": "BLOCKED_NATIVE_NO_WORKAROUND"
+}

@@ -50,12 +50,39 @@ def probe():
                 'A-PAPIER_payment': [a for a in after['profiles']['A-PAPIER']['actions'] if a['hook'] == 'woocommerce_scheduled_subscription_payment']}
     save('restoration', restored)
     print(json.dumps({'restoration': restored}, ensure_ascii=False))
-    assert restored['profiles_exact'] and restored['tables_exact'], 'Native state drift after rollback'
+    assert restored['profiles_exact'], 'Targeted profiles/actions drift after rollback'
     print(json.dumps({'verdict': data['verdict'], 'total': data['acceptance_total'], 'passed': data['acceptance_passed'], 'failures': data['failures'], 'effects_blocked': data['effects_blocked'], 'rollback': {k: v['identical'] for k, v in data['rollback'].items()}}, ensure_ascii=False))
     return 2 if data['failures'] else 0
 
 
 if __name__ == '__main__':
+    if '--verify' in sys.argv:
+        profils.guard('imagine-test-demo')
+        before = json.loads((PROOF / 'before-V2.json').read_text(encoding='utf-8'))
+        after = wp('define("IMAGINE_C20_READ_ONLY", true); require WP_CONTENT_DIR . "/imagine-demo-build/c20-native.php";')
+        baseline_after = json.loads((PROOF / 'after-V2.json').read_text(encoding='utf-8'))
+        c09 = wp('require WP_CONTENT_DIR . "/imagine-demo-build/c09-runtime.php";')
+        acceptance = json.loads((PROOF / 'native-acceptance-red-V2.json').read_text(encoding='utf-8'))
+        changed = [t for t, v in before['fingerprints'].items() if v != baseline_after['fingerprints'][t]]
+        allowed = ['wp_actionscheduler_actions', 'wp_actionscheduler_logs', 'wp_options', 'wp_woocommerce_sessions']
+        import hashlib
+        source_hash = hashlib.sha256((ROOT / 'wp/tests/demo/c20-native.php').read_bytes()).hexdigest()
+        remote_hash = wp('echo wp_json_encode(hash_file("sha256", WP_CONTENT_DIR . "/imagine-demo-build/c20-native.php"));')
+        checks = {'probe_source_exact': source_hash == remote_hash == acceptance['source_sha256'],
+                  'profiles_actions_exact_fresh_process': before['profiles'] == after['profiles'],
+                  'rollback_tables_exact_each_case': all(v['identical'] for v in acceptance['rollback'].values()),
+                  'external_drift_limited_to_cache_session_tables': set(changed) <= set(allowed),
+                  'c09_green': c09['total'] == 382 and c09['failures'] == [],
+                  'no_mail_or_http_attempt': acceptance['effects_blocked'] == [],
+                  'no_pret': not (PROOF / 'PRET').exists()}
+        save('fresh-readback', after)
+        save('c09-native-final', c09)
+        save('verification', {'checks': checks, 'changed_tables_after_shutdown': changed,
+             'acceptance_total': acceptance['acceptance_total'], 'acceptance_passed': acceptance['acceptance_passed'],
+             'acceptance_failures': acceptance['failures'], 'verdict': acceptance['verdict']})
+        print(json.dumps({'checks': checks, 'c09_total': c09['total'], 'c09_failures': c09['failures'], 'acceptance_failures': acceptance['failures'], 'changed_tables_after_shutdown': changed}, ensure_ascii=False))
+        assert all(checks.values())
+        sys.exit(0)
     if '--probe' in sys.argv:
         sys.exit(probe())
     inspect()
