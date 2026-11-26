@@ -71,7 +71,8 @@ if ($checks['raccord_present']) {
         $html = ob_get_clean();
         $checks['rendu_tableau_simple'] = str_contains($html, 'data-imagine-indicateur="actifs"') && !str_contains($html, '<script');
         $checks['aucun_formulaire'] = !str_contains($html, '<form');
-        $fault = static function (string $sql): never { throw new \RuntimeException('Source indisponible simulée.'); };
+        $faultQueries = 0;
+        $fault = static function (string $sql) use (&$faultQueries): never { $faultQueries++; throw new \RuntimeException('Source indisponible simulée.'); };
         add_filter('query', $fault, PHP_INT_MAX);
         try {
             ob_start();
@@ -79,6 +80,7 @@ if ($checks['raccord_present']) {
             $unavailable = ob_get_clean();
             $checks['source_absente_pas_de_faux_zero'] = str_contains($unavailable, 'Indicateurs indisponibles')
                 && !str_contains($unavailable, 'data-imagine-mesure=');
+            $faultObservation = ['notice' => str_contains($unavailable, 'Indicateurs indisponibles'), 'numbers' => substr_count($unavailable, 'data-imagine-mesure='), 'queries' => $faultQueries];
         } finally {
             remove_filter('query', $fault, PHP_INT_MAX);
         }
@@ -95,4 +97,4 @@ if ($checks['raccord_present']) {
         remove_filter('pre_wp_mail', $mail, PHP_INT_MAX);
     }
 }
-echo wp_json_encode(['checks' => $checks, 'indicateurs' => $out]);
+echo wp_json_encode(['checks' => $checks, 'indicateurs' => $out, 'fault_queries' => $faultQueries ?? null, 'fault_observation' => $faultObservation ?? null]);

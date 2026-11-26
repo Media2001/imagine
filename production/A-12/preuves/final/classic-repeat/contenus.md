@@ -197,8 +197,8 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                 "draft": 2,
                 "publish": 5
             },
-            "first_published_utc": "2026-11-25T23:49:09Z",
-            "last_published_utc": "2026-11-25T23:49:14Z",
+            "first_published_utc": "2026-11-26T01:35:54Z",
+            "last_published_utc": "2026-11-26T01:35:58Z",
             "metadata_keys": [
                 {
                     "key": "_wp_page_template",
@@ -220,7 +220,7 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                 "publish": 4
             },
             "first_published_utc": "2023-12-31T23:30:00Z",
-            "last_published_utc": "2026-11-25T23:49:09Z",
+            "last_published_utc": "2026-11-26T01:35:54Z",
             "metadata_keys": [
                 {
                     "key": "_encloseme",
@@ -249,8 +249,8 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
             "states": {
                 "publish": 2
             },
-            "first_published_utc": "2026-11-25T23:49:20Z",
-            "last_published_utc": "2026-11-25T23:49:23Z",
+            "first_published_utc": "2026-11-26T01:36:03Z",
+            "last_published_utc": "2026-11-26T01:36:06Z",
             "metadata_keys": [
                 {
                     "key": "_a12_article_id",
@@ -750,8 +750,8 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
             "states": {
                 "publish": 1
             },
-            "first_published_utc": "2026-11-25T23:49:20Z",
-            "last_published_utc": "2026-11-25T23:49:20Z",
+            "first_published_utc": "2026-11-26T01:36:03Z",
+            "last_published_utc": "2026-11-26T01:36:03Z",
             "metadata_keys": [
                 {
                     "key": "_access_length",
@@ -1045,7 +1045,7 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                 "publish": 4
             },
             "first_published_utc": "2023-12-31T23:30:00Z",
-            "last_published_utc": "2026-11-25T23:49:09Z",
+            "last_published_utc": "2026-11-26T01:35:54Z",
             "term_count": 2,
             "top_terms": [
                 {
@@ -1167,8 +1167,8 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
             "states": {
                 "publish": 2
             },
-            "first_published_utc": "2026-11-25T23:49:20Z",
-            "last_published_utc": "2026-11-25T23:49:23Z",
+            "first_published_utc": "2026-11-26T01:36:03Z",
+            "last_published_utc": "2026-11-26T01:36:06Z",
             "term_count": 1,
             "top_terms": [
                 {
@@ -1222,8 +1222,8 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
             "states": {
                 "publish": 2
             },
-            "first_published_utc": "2026-11-25T23:49:20Z",
-            "last_published_utc": "2026-11-25T23:49:23Z",
+            "first_published_utc": "2026-11-26T01:36:03Z",
+            "last_published_utc": "2026-11-26T01:36:06Z",
             "term_count": 6,
             "top_terms": [
                 {
@@ -1432,6 +1432,6 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
         "Les seuls textes libres permis sont les noms des termes; valeurs suspectes masquees. Aucun titre, contenu, auteur, contact, identifiant de client, valeur de champ ou chemin de media exporte.",
         "Les comptes editoriaux restent dans posts\/postmeta dans les deux magasins; aucune lecture des coordonnees de commande HPOS ni interpretation des droits."
     ],
-    "audit_sha256": "7ed1910cb549785f5b3e9c51b9e4574d07e761e28bfde499371af49145f53c96"
+    "audit_sha256": "869d1912e59f3ddf8da196b49b4e85b7c5c0ad6d9969cf56ab9a8c2c5107c572"
 }
 ```

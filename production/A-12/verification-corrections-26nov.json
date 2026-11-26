@@ -1,0 +1,178 @@
+{
+  "suite": "A12-final-evidence-integrity",
+  "verdict": "NATIVE_VERIFIE",
+  "readiness": true,
+  "counts": {
+    "unit.json": 7,
+    "result.json": 118,
+    "runner.json": 7,
+    "style.json": 6
+  },
+  "checks": [
+    {
+      "check": "exact_current_source_inventory_and_hashes",
+      "status": "PASS"
+    },
+    {
+      "check": "frozen_a02_a11_execution_dependencies_present",
+      "status": "PASS"
+    },
+    {
+      "check": "unit.json:actual_success",
+      "status": "PASS"
+    },
+    {
+      "check": "unit.json:no_duplicate_assertions",
+      "status": "PASS"
+    },
+    {
+      "check": "result.json:actual_success",
+      "status": "PASS"
+    },
+    {
+      "check": "result.json:no_duplicate_assertions",
+      "status": "PASS"
+    },
+    {
+      "check": "runner.json:actual_success",
+      "status": "PASS"
+    },
+    {
+      "check": "runner.json:no_duplicate_assertions",
+      "status": "PASS"
+    },
+    {
+      "check": "native_not_unit_only",
+      "status": "PASS"
+    },
+    {
+      "check": "mandatory_runner_gates",
+      "status": "PASS"
+    },
+    {
+      "check": "native_readiness_without_unmet_requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:mandatory_native_cases_present",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:independent_all_table_snapshot_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:scheduler_in_snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:schema_storage_readonly",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:exact_native_runtime_sets",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:dynamic_included_conditional_excluded",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:exact_registered_totals",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:same_session_root_sql_kernel_and_early_guards",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:audit_bound_by_exact_bytes",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:empty_native_registry_gap",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:privacy:contenus.json",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:privacy:contenus.md",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:mandatory_native_cases_present",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:independent_all_table_snapshot_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:scheduler_in_snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:schema_storage_readonly",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:exact_native_runtime_sets",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:dynamic_included_conditional_excluded",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:exact_registered_totals",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:same_session_root_sql_kernel_and_early_guards",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:audit_bound_by_exact_bytes",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:empty_native_registry_gap",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:privacy:contenus.json",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:privacy:contenus.md",
+      "status": "PASS"
+    },
+    {
+      "check": "strict_psr12_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "style_exact_source_binding",
+      "status": "PASS"
+    },
+    {
+      "check": "style_cleanup",
+      "status": "PASS"
+    },
+    {
+      "check": "real_kernel_landlock_abi",
+      "status": "PASS"
+    },
+    {
+      "check": "static_registry_parser_removed",
+      "status": "PASS"
+    },
+    {
+      "check": "exact_owned_runner_still_absent",
+      "status": "PASS"
+    }
+  ],
+  "exit_code": 0
+}

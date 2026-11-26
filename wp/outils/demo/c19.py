@@ -32,6 +32,7 @@ def readback():
 def state():
     out = c18.state()
     out['all_options_fingerprint'] = wp(r'''global $wpdb;$rows=$wpdb->get_results("SELECT option_name,option_value,autoload FROM {$wpdb->options} WHERE option_name <> '_transient_timeout_wcs_woocommerce_active_version' ORDER BY option_name",ARRAY_A);echo wp_json_encode(hash('sha256',serialize($rows)));''')
+    out['option_fingerprints'] = wp(r'''global $wpdb;$out=[];foreach($wpdb->get_results("SELECT option_name,option_value,autoload FROM {$wpdb->options} WHERE option_name <> '_transient_timeout_wcs_woocommerce_active_version' ORDER BY option_name",ARRAY_A) as $row){$out[$row['option_name']]=hash('sha256',serialize($row));}echo wp_json_encode($out);''')
     return out
 
 

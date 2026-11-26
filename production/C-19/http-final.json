@@ -1,0 +1,63 @@
+{
+  "at": "2026-11-26T01:41:42.103802+00:00",
+  "checks": {
+    "referent_ecran_natif": true,
+    "aucune_donnee_personnelle_dans_ecran": true,
+    "aucun_formulaire_ni_script_ecran": true,
+    "six_indicateurs_grises_sans_chiffre": true,
+    "prive_no_store": true,
+    "menu_sans_reglages": true,
+    "phrase_actifs": true,
+    "phrase_echeances": true,
+    "phrase_echecs": true,
+    "phrase_mouvements": true,
+    "actifs_egal_apercu_C18": true,
+    "echeances_30_egal_lignes_HTTP_C15": true,
+    "echeances_90_egal_lignes_HTTP_C15": true,
+    "echeances_180_egal_lignes_HTTP_C15": true,
+    "echecs_egal_lignes_HTTP_C15": true,
+    "POST_autorise_refuse_405": true,
+    "refus_GET_403_E-REDAC": true,
+    "refus_POST_403_E-REDAC": true,
+    "refus_GET_403_A-CARTE": true,
+    "refus_POST_403_A-CARTE": true,
+    "anonyme_aucun_nombre": true,
+    "admin_autorise": true,
+    "HEAD_sans_corps": true,
+    "parametres_sans_effet": true,
+    "navigateur_vrai_menu_Imagine": true,
+    "navigateur_six_grises_visibles": true,
+    "navigateur_quatre_tables_chiffrees": true,
+    "natif_et_options_inchanges": false
+  },
+  "total": 28,
+  "failures": [
+    "natif_et_options_inchanges"
+  ],
+  "valeurs": {
+    "actifs": {
+      "total": 9,
+      "mode:inconnu": 8,
+      "mode:imagine_papier": 1
+    },
+    "echeances": {
+      "30": 11,
+      "90": 13,
+      "180": 13
+    },
+    "echecs": {
+      "total": 2
+    },
+    "mouvements": {
+      "entrees": 2,
+      "sorties": 1
+    }
+  },
+  "capture": "tableau-de-bord-referent.png",
+  "outside_demo_requests_blocked": [
+    "https://secure.gravatar.com/avatar/5b9987ee962642e78332349ffdb19c6a7bd443c26de02417cb43389b1e743cb3",
+    "https://secure.gravatar.com/avatar/5b9987ee962642e78332349ffdb19c6a7bd443c26de02417cb43389b1e743cb3"
+  ],
+  "visual_approval": false,
+  "fixture_reset": false
+}

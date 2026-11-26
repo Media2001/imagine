@@ -1,3 +1,6 @@
 PRET
-Reception integree ; preuves synthetiques uniquement ; preparation image parent code 0.
-Controle : python -B production/A-10/verifier-reception.py
+A-12, propagation des refus nommes A-11, 26 novembre 2026.
+Paquet unique : production/A-12/preuves/final
+Controle : python wp/tests/a12/verify.py production/A-12/preuves/final
+Manifeste SHA-256 : 3e95e0dbe5fc29c514995c6a3f0ab2d19830e34d25c6b190fcbd6f3afdb1e7f6
+Aucun GO reel.

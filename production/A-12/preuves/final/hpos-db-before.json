@@ -1,10 +1,10 @@
 {
-  "logical_sha256": "2ff8b831fc1acf1c0856fd999daf523d5ce232ebeef99732326d5bb3aa6ab016",
+  "logical_sha256": "93f5714e517096f1e6d332d44f6c901e49067eeb785e8a0339aa7574ad91cd10",
   "tables": {
     "wp_actionscheduler_actions": {
       "rows": 25,
       "schema_sha256": "4af9524375664e5c7241cd404334885bfa448754785349024728ed41622724ad",
-      "rows_sha256": "dcc8dc4abe5ce0d52cb1683a8dbcb5fe0f5918645c5ed0303ebad1debdecfa93"
+      "rows_sha256": "181b3260dc6a7052984db0f2536eb12d4e5b6ebd23a7b79bd3d72e601ccd82a0"
     },
     "wp_actionscheduler_claims": {
       "rows": 0,
@@ -19,7 +19,7 @@
     "wp_actionscheduler_logs": {
       "rows": 30,
       "schema_sha256": "e10c089c9258869deee59bd9aa8434969f4a6f9583f2e25a1b3bbe3659ab7e9a",
-      "rows_sha256": "e5473e84694a99f9b89bc7782dd3517e32a9a6ae02ed407ad0dd9e5f1ff89bfe"
+      "rows_sha256": "21b3025f08675886af1475806ccc43fdcec3f543eaea6bbedbf414aed088917e"
     },
     "wp_commentmeta": {
       "rows": 2,
@@ -29,7 +29,7 @@
     "wp_comments": {
       "rows": 8,
       "schema_sha256": "afb20bbfe1ec9368b83cebb14a00c62554b76618c9d7e847fea0cb08f1fe775a",
-      "rows_sha256": "2571a6ff34aca531d98a71089181d7684923407ffcaf3f2925da62e7f3171c7c"
+      "rows_sha256": "d1ffc56bf7f44440d8438c6f21c29a1622e6de05129a8861e536261dadfec5ee"
     },
     "wp_links": {
       "rows": 0,
@@ -39,7 +39,7 @@
     "wp_options": {
       "rows": 409,
       "schema_sha256": "4d7a5e9c525d6efa3d231a1e56cb192015a6de61c33ed44942005303aaa0d141",
-      "rows_sha256": "37b0899da493296a0f5bd2fb40cdee28cb203e0187d74c25c226383d980340b4"
+      "rows_sha256": "21baa43ae910e6e58ae9844313fde0284a17f5d89bb388070891b75c6c434aaa"
     },
     "wp_orphan_fixture": {
       "rows": 1,
@@ -49,12 +49,12 @@
     "wp_postmeta": {
       "rows": 77,
       "schema_sha256": "dfb625d44c4ce4300cce88bf736dc29f2c7068f30d9ca8d6b40e283ff7ba0ce8",
-      "rows_sha256": "c7332b04d4ebd84169500153f2ceba381dc50b9127ba5c8077deaeb67ad72320"
+      "rows_sha256": "77729193ffe1db16909f946e017c64ce64b5ee2259ddfa6e4980924f13c84969"
     },
     "wp_posts": {
       "rows": 32,
       "schema_sha256": "8e04d6e32b9fa830cd9f5fdd1569ec5c8923aaf98a2821a17de070a795238159",
-      "rows_sha256": "ea78b3e857d39446df531684c9dddbbde6cdefba5eb1ffba2a1bb60fb8ae6daf"
+      "rows_sha256": "649bc6d1bb12242c6898915d9849bfe2da70cea05699cc539c8828237f076b64"
     },
     "wp_term_relationships": {
       "rows": 13,
@@ -84,7 +84,7 @@
     "wp_users": {
       "rows": 4,
       "schema_sha256": "1c71abd69d27038e51325efb2da9751582f333cf1581067c3a7bf2aa3afc9bd1",
-      "rows_sha256": "2f36d1b9c1b42d13374ba5f3fd5731b7f5287e95a91373fee11396657efe895a"
+      "rows_sha256": "36d09657585e1138ced41872086714f5221d462be4887ffce32bacf9737788e3"
     },
     "wp_wc_admin_note_actions": {
       "rows": 0,
@@ -129,7 +129,7 @@
     "wp_wc_order_operational_data": {
       "rows": 6,
       "schema_sha256": "465b97edb4689090d6ea4d79b2cd91d8cda75bca1c5b8e40afaa978d936e7caa",
-      "rows_sha256": "09cc72ca27a80f9c375ba4f2631dd21197b9d19aa0d0fcedfe5c15825cb22b2a"
+      "rows_sha256": "03028d5faed63dbbba41a2a88a0af1672516c4f42ae0a06be785b9b4afbe5d21"
     },
     "wp_wc_order_product_lookup": {
       "rows": 0,
@@ -149,12 +149,12 @@
     "wp_wc_orders": {
       "rows": 6,
       "schema_sha256": "83af1ea395d05eb369e893ddc1043bcc3d29e0730231e30b24cfa8b1d2284ba6",
-      "rows_sha256": "e69617202195bbd5b217f27d18bed8476999538f9a460ec3146db8e3f2b8721a"
+      "rows_sha256": "a86813dd89392ce917824826445530d45eeac1916cc64a17f816bf266c9faeb2"
     },
     "wp_wc_orders_meta": {
       "rows": 68,
       "schema_sha256": "c95e2404fede5c3cea4c709c3183c1bec9986790c0da0efbfda1cc33583a3447",
-      "rows_sha256": "7ec794e8252959807145e5d1e2ca0df46d46f3d2ac0e1790e7db55e371cd6e68"
+      "rows_sha256": "0ca126f4dc384d62bf51dcf9543a78f119acfe34613098e7aee5462945d92cfd"
     },
     "wp_wc_product_attributes_lookup": {
       "rows": 0,

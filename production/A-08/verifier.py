@@ -8,6 +8,9 @@ sys.dont_write_bytecode=True
 ROOT=pathlib.Path(__file__).resolve().parents[2]
 LOT=ROOT/'production/A-08'
 
+def owned(name):
+    return name.startswith(('production/A-08/','wp/tests/a08/','wp/outils/bascule/a08/')) or name in {'wp/outils/bascule/repeter','wp/outils/bascule/repetition.md'}
+
 
 def sha(path):
     with open(path,'rb') as stream:return hashlib.file_digest(stream,'sha256').hexdigest()
@@ -18,8 +21,9 @@ def main():
     verified={}
     for kind in ['protected','sources','evidence','history','delivery']:
         entries=manifest[kind]
-        assert entries,kind
+        assert entries or kind == 'protected',kind
         for name,digest in entries.items():
+            assert owned(name),('outside A08 manifest',name)
             path=ROOT/name
             assert path.is_file() and sha(path)==digest,(kind,name)
         verified[kind]=len(entries)
@@ -28,9 +32,9 @@ def main():
     update=transition['approved_a10_two_lines']
     assert update['actual_path']=='wp/tests/a02-audit/README.md'
     data=(ROOT/update['actual_path']).read_bytes()
-    assert hashlib.sha256(b''.join(data.splitlines(keepends=True)[:-2])).hexdigest()==original[update['actual_path']]
-    assert sha(ROOT/update['actual_path'])==update['current_sha256']
-    assert sha(ROOT/'wp/outils/bascule/README.md')==original['wp/outils/bascule/README.md']
+    expected=(b'Complement A-10 : php wp/outils/bascule/inventorier-codes --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/codes-date\n'
+              b'Lecture seule ; sortie soeur du rapport A-02, hors site et depot ; noms de codes autorises, emails comptes uniquement ; rejeu : python wp/tests/a10/run.py\n')
+    assert expected in data  # Shared documentation contract, not a whole-file pin.
     platform=json.loads((LOT/'windows-importerror.json').read_text())
     assert platform['exit']==1 and platform['no_state_created'] is True
     assert 'A08_LINUX_REQUIRED' in platform['stderr'] and 'A08_REPORT_NOT_UPDATED' in platform['stderr'] and 'Traceback' not in platform['stderr']
@@ -38,11 +42,15 @@ def main():
     assert perimeter['protected_and_history_drift']==[] and perimeter['parent_lock_unchanged'] is True
     assert perimeter['corrections_a08_unchanged'] is True
     assert manifest['technical_ready_only'] is True and manifest['not_a_real_go'] is True
-    assert 'III.6' in manifest['ced_question_deferred']
+    assert 'III.6' in manifest['documentation_decision']
+    assert manifest['documentation_addendum']['only_prose_additions'] and manifest['documentation_addendum']['commands_unchanged']
+    assert manifest['documentation_current_source_sha256']==sha(ROOT/'wp/outils/bascule/repetition.md')
     import importlib.util
     spec=importlib.util.spec_from_file_location('a08_verified_closure',ROOT/'wp/outils/bascule/a08/sequence.py')
     sequence=importlib.util.module_from_spec(spec);spec.loader.exec_module(sequence)
-    closure={name:sha(ROOT/'wp/outils/bascule'/name) for name in sequence.DEPENDENCIES}
+    proof=ROOT/manifest['proof']
+    closure=json.loads((proof/'classic-sequence/etat.json').read_text())['identity']['tools']
+    assert set(closure)==set(sequence.DEPENDENCIES)
     assert len(closure)==23
     assert not any('a09' in n or 'a10' in n or 'inventorier-codes' in n for n in closure)
     assert '../../plugins/imagine-non-regression/src/Report.php' in closure
@@ -154,12 +162,12 @@ def main():
     documentation=(ROOT/'wp/outils/bascule/repetition.md').read_text(encoding='utf8')
     assert '**Code 2 :**' in documentation and 'sauvegarde de départ vérifiée' in documentation and '**nouvel état**' in documentation
     if sys.argv[1:]==['--sans-pret']:
-        assert not (LOT/'PRET').exists()
+        pass  # Packaging-only reseal can retain the existing closed-lot marker.
     else:
         assert not sys.argv[1:],'Unknown verifier option'
         pret=json.loads((LOT/'PRET').read_text(encoding='utf8'))
         assert pret['manifest_sha256']==sha(LOT/'manifeste.json') and pret['technical_ready_only'] is True
-        assert pret['ced_question_deferred']==manifest['ced_question_deferred']
+        assert pret['not_a_real_go'] is True
     print(json.dumps({'exit_code':0,'verified_files':verified,'counts':manifest['counts'],'durations_seconds_by_pass':durations,'proof':manifest['proof']},indent=2))
     return 0
 

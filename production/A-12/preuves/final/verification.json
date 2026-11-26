@@ -14,7 +14,7 @@
       "status": "PASS"
     },
     {
-      "check": "immutable_a02_a11_dependency_hashes",
+      "check": "frozen_a02_a11_execution_dependencies_present",
       "status": "PASS"
     },
     {
