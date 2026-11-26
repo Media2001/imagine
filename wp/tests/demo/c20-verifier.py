@@ -131,6 +131,13 @@ def historical_run(seal=False):
     return data
 
 def run(seal=False):
+    current = PROOF / 'fusion-V2/final.json'
+    if current.exists():
+        path = ROOT / 'wp/tests/demo/c20-fusion-verifier.py'
+        spec = importlib.util.spec_from_file_location('c20_fusion_current', path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module.run(seal)
     path = ROOT / 'wp/tests/demo/c20-closure-verifier.py'
     spec = importlib.util.spec_from_file_location('c20_closure', path)
     module = importlib.util.module_from_spec(spec)
