@@ -345,7 +345,16 @@
     "V-INSCRIT": 8,
     "V-DEC-FIN": 7,
     "P-NUMERO": 28,
-    "A-CARTE": 9
+    "A-CARTE": 9,
+    "A-VIR": 12,
+    "A-SUSP": 15,
+    "A-EXPIRE": 16,
+    "P-OFFRANT": 21,
+    "P-OFFERT": 22,
+    "P-GEST": 23,
+    "P-BENEF": 24,
+    "P-PRO": 25,
+    "P-COOP": 29
   },
   "guards": {
     "mail": true,
@@ -497,7 +506,7 @@
         "motif": "virement_non_valide",
         "bloc": "regularisation"
       },
-      "selected": false
+      "selected": true
     },
     {
       "code": "A-PAPIER",
@@ -542,7 +551,7 @@
         "motif": "suspendu",
         "bloc": "regularisation"
       },
-      "selected": false
+      "selected": true
     },
     {
       "code": "A-EXPIRE",
@@ -557,7 +566,7 @@
         "motif": "expire",
         "bloc": "abonnement"
       },
-      "selected": false
+      "selected": true
     },
     {
       "code": "A-NONRENOUV",
@@ -632,7 +641,7 @@
         "motif": "sans_droit",
         "bloc": "abonnement"
       },
-      "selected": false
+      "selected": true
     },
     {
       "code": "P-OFFERT",
@@ -647,7 +656,7 @@
         "motif": "sans_droit",
         "bloc": "abonnement"
       },
-      "selected": false
+      "selected": true
     },
     {
       "code": "P-GEST",
@@ -662,7 +671,7 @@
         "motif": "sans_droit",
         "bloc": "abonnement"
       },
-      "selected": false
+      "selected": true
     },
     {
       "code": "P-BENEF",
@@ -677,7 +686,7 @@
         "motif": "sans_droit",
         "bloc": "abonnement"
       },
-      "selected": false
+      "selected": true
     },
     {
       "code": "P-PRO",
@@ -692,7 +701,7 @@
         "motif": "sans_droit",
         "bloc": "abonnement"
       },
-      "selected": false
+      "selected": true
     },
     {
       "code": "P-SOL-ATT",
@@ -752,7 +761,7 @@
         "motif": "sans_droit",
         "bloc": "abonnement"
       },
-      "selected": false
+      "selected": true
     },
     {
       "code": "E-ADMIN",
@@ -800,6 +809,17 @@
       "selected": false
     }
   ],
+  "additional_publics": {
+    "profil-a-vir": "A-VIR",
+    "profil-a-susp": "A-SUSP",
+    "profil-a-expire": "A-EXPIRE",
+    "profil-p-offrant": "P-OFFRANT",
+    "profil-p-offert": "P-OFFERT",
+    "profil-p-gest": "P-GEST",
+    "profil-p-benef": "P-BENEF",
+    "profil-p-pro": "P-PRO",
+    "profil-p-coop": "P-COOP"
+  },
   "buyer_issues": [
     "11"
   ],

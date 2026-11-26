@@ -5,7 +5,7 @@
   "native_calls": [
     [
       "exec",
-      "imagine-a21-external-doors-c33da3c408fb",
+      "imagine-a21-external-doors-98147290f985",
       "python3",
       "/opt/a21/inside.py"
     ]

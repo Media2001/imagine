@@ -5,7 +5,7 @@
   "native_calls": [
     [
       "exec",
-      "imagine-a20-prices-39a29c7ada86",
+      "imagine-a20-prices-8776c5607d07",
       "python3",
       "/opt/a20/inside.py"
     ]

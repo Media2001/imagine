@@ -1,0 +1,42 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T15:03:09.865352+00:00",
+  "label": "publics-complets-01",
+  "mutation": false,
+  "primary_command": "python -B wp/outils/demo/c23.py publics-complets-01",
+  "auth": "sessions natives temporaires hors commande principale; aucun mot de passe ni POST",
+  "sources_sha256": {
+    "wp/outils/demo/c23-inventaire.php": "71c1438c333d6d44b07e38b9d5bc06c8940dd50518e9d0fa6d7699108cd9db96",
+    "wp/outils/demo/c23-preparer.py": "8d27493bca4ab32861e6e7b715a6b58328fb5f791e94fe452b974ee2a76a91e4",
+    "wp/outils/demo/c23.py": "7ee0118d3008e6aba014135b7cd6d665cef9bab3283a4b67514cd28e36b23ded",
+    "wp/tests/demo/c23-diagnostic.py": "326dbed125641a1b1664c67ad28a8fb806958c7f7f4cb5f47e7f43a259c3ae3c",
+    "wp/tests/demo/c23-recovery.py": "2d1cbc1681a08fbb25ef9571716d9031b9c97071fc2d9981dee2677eb17a0390",
+    "wp/tests/demo/c23-tests.py": "95ead80f5efd0ee8d0d284ed0fec8612ee4756ed27082126feaeff047cc67bbf"
+  },
+  "command_exit": 0,
+  "business_unchanged_during_GETs": true,
+  "metadata_restored_exactly": true,
+  "profiles_and_scheduled_actions_restored_exactly": true,
+  "schedule_before": {
+    "sha256": "4b8cb7133e9eb83d8b63c5d9f872764063b6021ebd6b37b0c1d7e0cadd17d775",
+    "action8793": {
+      "action_id": "8793",
+      "hook": "woocommerce_scheduled_subscription_payment",
+      "status": "pending",
+      "args": "{\"subscription_id\":101}",
+      "scheduled_date_gmt": "2026-11-26 02:13:28"
+    }
+  },
+  "schedule_after": {
+    "sha256": "4b8cb7133e9eb83d8b63c5d9f872764063b6021ebd6b37b0c1d7e0cadd17d775",
+    "action8793": {
+      "action_id": "8793",
+      "hook": "woocommerce_scheduled_subscription_payment",
+      "status": "pending",
+      "args": "{\"subscription_id\":101}",
+      "scheduled_date_gmt": "2026-11-26 02:13:28"
+    }
+  },
+  "native_before_sha256": "4d81b43e4958a067678b12bfe1fbf6d57f83dcd382f92404a457e5850a935351",
+  "native_after_sha256": "4d81b43e4958a067678b12bfe1fbf6d57f83dcd382f92404a457e5850a935351"
+}

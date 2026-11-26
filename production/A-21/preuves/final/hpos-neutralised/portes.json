@@ -2,7 +2,7 @@
     "schema": "imagine-a21-external-doors-v1",
     "read_only": true,
     "storage": "hpos",
-    "as_of_utc": "2026-11-26T14:14:41Z",
+    "as_of_utc": "2026-11-26T14:55:03Z",
     "api_keys": {
         "status": "inconnu après neutralisation",
         "counts": null
@@ -26,5 +26,5 @@
         "topics": "Identifiants standard fermés ; sujets libres et actions personnalisées regroupés sous unknown.",
         "store": "Déclaration locale auth.access_token ; aucune vérification distante."
     },
-    "audit_sha256": "a929ba599d63cf715c76ea1e5888d34c246c2f9ed60e01bebf8e4a60ec619ea6"
+    "audit_sha256": "04a35491d0e15b988a23b71611af88060d22bf6ce6fe9900d390ede61534c459"
 }
