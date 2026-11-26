@@ -1,0 +1,45 @@
+{
+    "exit_code": 0,
+    "checks": [
+        {
+            "check": "implementation_present",
+            "status": "PASS"
+        },
+        {
+            "check": "native_admin_capability",
+            "status": "PASS"
+        },
+        {
+            "check": "custom_management_capability",
+            "status": "PASS"
+        },
+        {
+            "check": "editor_capability",
+            "status": "PASS"
+        },
+        {
+            "check": "subscriber_not_management",
+            "status": "PASS"
+        },
+        {
+            "check": "literal_config_not_executed",
+            "status": "PASS"
+        },
+        {
+            "check": "literal_false",
+            "status": "PASS"
+        },
+        {
+            "check": "expression_is_unknown",
+            "status": "PASS"
+        },
+        {
+            "check": "conditional_definition_unknown",
+            "status": "PASS"
+        },
+        {
+            "check": "absent_constant_false_default",
+            "status": "PASS"
+        }
+    ]
+}

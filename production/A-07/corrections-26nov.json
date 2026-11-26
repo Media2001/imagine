@@ -1,0 +1,14 @@
+{
+  "scope": "documentation_only_no_network_probe",
+  "exit_code": 0,
+  "checks": {
+    "four_columns": true,
+    "cloudflare_and_ngrok_explicit_unknown": true,
+    "upnp_not_deduced_zero": true,
+    "outside_both_surfaces_ipv6": true,
+    "priority_mirror_public_rule": true,
+    "firewall_association_not_claimed_executed": true,
+    "dynamic_port_instant": true
+  },
+  "exposition_sha256": "cecf4c893f66c08b47eff6c8d85a701023569d47130e5e569a67a6f1d62954b8"
+}

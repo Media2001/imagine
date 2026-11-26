@@ -103,7 +103,7 @@
     "production/A-10/reception-common.json": "c36cfe0d41e251d3f51df99b7675aa8838bd59b4c6bfbd7d997b4238c6f6bbde",
     "production/A-10/rejeu-corrections.json": "48b6ccfd26bcae81f33708044ab53f5a25d2620764c230b2d40d11c85b38b65b",
     "production/A-10/sources-officielles.json": "53d1b9f2fa7fa636b8ca4fbe83a554b2a6ccbba11847a6b2ef23d8fb9f3ab5e2",
-    "production/A-10/verifier-reception.py": "bc4cdeabf8159450ba612d66d8fa654ac92c06843412e94872965aec2a9d1d26",
+    "production/A-10/verifier-reception.py": "d292c0f2c90d6d0d7ae38184cb2d20ca7d6ba244ca3be408e3931a9434670e7d",
     "wp/outils/bascule/a10/Command.php": "5dcacd8e36f1a0835950ef7a45131dd31fd59f328e2367aa62b7796eb3dacaf5",
     "wp/outils/bascule/a10/Inventory.php": "8e57fe06beb691e12ba52653303e78524cfb4362c1012bab54cc038dbed863ac",
     "wp/outils/bascule/a10/Projection.php": "1dbd61e2393ddc9ca3dd259be2c00a12ed5ec90a728cf34e08f714e0811748c9",

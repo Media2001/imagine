@@ -1,0 +1,30 @@
+{
+  "checked_at": "2026-11-26T05:01:49.047188+00:00",
+  "scope": "Public official documentation only; no real site/account",
+  "sources": [
+    {
+      "url": "https://developer.wordpress.org/reference/functions/get_post_meta/",
+      "http_status": 200,
+      "sha256": "8553ac6156c6782fbf29d7646ebb1059bf112b61562228612710cc069572c36f",
+      "bytes": 250612,
+      "title": "get_post_meta() \u2013 Function | Developer.WordPress.org",
+      "purpose": "Native metadata reading; no built-in issue-completeness report."
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/functions/get_object_taxonomies/",
+      "http_status": 200,
+      "sha256": "e3abc05902673f3c89d20a7f140f94eb8b70bd9759d2145a9503f0bc19f76d21",
+      "bytes": 202944,
+      "title": "get_object_taxonomies() \u2013 Function | Developer.WordPress.org",
+      "purpose": "Native taxonomy definitions; correspondence is operator-owned."
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/functions/get_term_meta/",
+      "http_status": 200,
+      "sha256": "0767fb2b0538505b314b4fbee464236c60854c7949b8a65b30e1f3084be08713",
+      "bytes": 183004,
+      "title": "get_term_meta() \u2013 Function | Developer.WordPress.org",
+      "purpose": "Native term metadata supports issue taxonomies."
+    }
+  ]
+}

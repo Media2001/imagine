@@ -1,0 +1,46 @@
+{
+  "checked_at": "2026-11-26T05:01:52.515696+00:00",
+  "scope": "Public official documentation only; no real site/account",
+  "sources": [
+    {
+      "url": "https://developer.wordpress.org/reference/classes/wp_roles/",
+      "http_status": 200,
+      "sha256": "7a4ed9d3f27adb648f866007723521237f2fe59b9a20e243cf7da4eb3cfe8593",
+      "bytes": 178462,
+      "title": "WP_Roles \u2013 Class | Developer.WordPress.org",
+      "purpose": "Native roles/capabilities registry."
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/classes/wp_application_passwords/get_user_application_passwords/",
+      "http_status": 200,
+      "sha256": "744d12ae76bc8cc98271427832e4ca995d17bfb635fbd80c658a92e9e2f6b5d3",
+      "bytes": 173555,
+      "title": "WP_Application_Passwords::get_user_application_passwords() \u2013 Method | Developer.WordPress.org",
+      "purpose": "Native stored application-password API; aggregate only."
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/functions/wp_is_application_passwords_available/",
+      "http_status": 200,
+      "sha256": "0db2a1684bb4f0c46d8615416c7b0e1a00f2fc2413e624a7838de328dde00e2d",
+      "bytes": 180786,
+      "title": "wp_is_application_passwords_available() \u2013 Function | Developer.WordPress.org",
+      "purpose": "Native availability API."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/WordPress/two-factor/master/class-two-factor-core.php",
+      "http_status": 200,
+      "sha256": "e5d8929250f9584bcb6b050151a0cc4292bf6fc55eed3c0301a0b45c1043f00e",
+      "bytes": 116204,
+      "title": null,
+      "purpose": "Two_Factor_Core::is_user_using_two_factor adapter contract; fixture API only, not real provider integration."
+    },
+    {
+      "url": "https://plugins.svn.wordpress.org/wp-last-login/trunk/wp-last-login.php",
+      "http_status": 200,
+      "sha256": "515dc5c868fdcf3bccd127df4e7461e3bc8ea8cb9177cb49577a6899a00c3d9b",
+      "bytes": 6628,
+      "title": null,
+      "purpose": "wp-last-login timestamp metadata used only with known active plugin."
+    }
+  ]
+}

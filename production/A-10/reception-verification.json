@@ -1,68 +1,30 @@
-{
-  "exit_code": 0,
-  "lots": [
-    "A-10",
-    "A-11",
-    "A-12",
-    "A-13"
-  ],
-  "status": "PRET",
-  "readme_original_and_exact_appends": true,
-  "readme_regression_tests": 4,
-  "parent_image_preparation": "verified",
-  "manifest_files": {
-    "A-10": 99,
-    "A-11": 164,
-    "A-12": 66,
-    "A-13": 16
-  },
-  "A10": {
-    "evidence": "production/A-10/preuves/3a27ca7aea7c",
+[
+  {
+    "console": "utf-8",
     "exit_code": 0,
-    "unit_assertions": 10,
-    "native_assertions": 187,
-    "runner_assertions": 7,
-    "source_files": 15,
-    "a02_original_bytes_preserved": true,
-    "cleanup_verified": true
+    "result": {
+      "evidence": "production/A-10/preuves/3a27ca7aea7c",
+      "exit_code": 0,
+      "unit_assertions": 10,
+      "native_assertions": 187,
+      "runner_assertions": 7,
+      "source_files": 15,
+      "a02_original_bytes_preserved": true,
+      "cleanup_verified": true
+    }
   },
-  "A11": {
-    "verified": true,
-    "unit_checks": 13,
-    "native_checks": 284,
-    "runner_checks": 7,
-    "source_files": 14,
-    "counts": {
-      "classic-pretty": 25,
-      "classic-plain": 26,
-      "classic-subdir": 25,
-      "classic-attachments-disabled": 22,
-      "classic-static-front": 24,
-      "hpos-pretty": 25,
-      "hpos-plain": 26,
-      "hpos-subdir": 25,
-      "hpos-attachments-disabled": 22,
-      "hpos-static-front": 24
-    },
-    "packet": "C:\\Users\\Ced\\imagine\\production\\A-11\\preuves\\f77a1fcd8945",
-    "runner_sha256": "4d86c40ce03e21cb3ac85345d581296a59ab3fa493673c42828d3b11442d8209"
-  },
-  "A12": {
-    "counts": {
-      "unit.json": 7,
-      "result.json": 118,
-      "runner.json": 7,
-      "style.json": 6
-    },
-    "checks": 41,
-    "exit_code": 0
-  },
-  "A13": {
-    "tests": 35,
-    "cli_exit_codes": [
-      0,
-      1,
-      2
-    ]
+  {
+    "console": "cp1252",
+    "exit_code": 0,
+    "result": {
+      "evidence": "production/A-10/preuves/3a27ca7aea7c",
+      "exit_code": 0,
+      "unit_assertions": 10,
+      "native_assertions": 187,
+      "runner_assertions": 7,
+      "source_files": 15,
+      "a02_original_bytes_preserved": true,
+      "cleanup_verified": true
+    }
   }
-}
+]

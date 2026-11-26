@@ -1,0 +1,289 @@
+{
+  "suite": "A02-real-commercial-fixture",
+  "checks": [
+    {
+      "check": "lint:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:seed.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:fingerprint.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:unit.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:readonly-probe.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": false,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "classic:seed_native_application_password",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:a02_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:cli_and_actual_readonly_guards",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "classic:exact_role_and_security_counts",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:known_2fa_adapter",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:actual_configuration_not_runtime_forced_values",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:security_plugins_names_versions_active_inactive",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_identity_secret_in_outputs",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:unknown_2fa_not_zero",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:replay_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:repo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:ancestor",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:unconfined_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:dropin_named_no_execution",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_tables_scheduler_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:config_not_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": true,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "hpos:seed_native_application_password",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:a02_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:cli_and_actual_readonly_guards",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "hpos:exact_role_and_security_counts",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:known_2fa_adapter",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:actual_configuration_not_runtime_forced_values",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:security_plugins_names_versions_active_inactive",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_identity_secret_in_outputs",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:unknown_2fa_not_zero",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:replay_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:repo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:ancestor",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:unconfined_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:dropin_named_no_execution",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_tables_scheduler_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:config_not_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "network_interfaces",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp6",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 0,
+  "licensed_sha256": {
+    "woocommerce-subscriptions.zip": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083",
+    "woocommerce-memberships.zip": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285"
+  },
+  "no_real_site": true
+}

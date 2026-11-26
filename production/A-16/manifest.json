@@ -2,7 +2,7 @@
   "lot": "A-16",
   "status": "PRET",
   "packet": "production/A-16/preuves/final",
-  "file_count": 75,
+  "file_count": 76,
   "files": {
     "production/A-16/LIVRAISON.md": "dc8e8fa5800607166192e066e32afbcba91f80649871aeafbbe2ff91341ade95",
     "production/A-16/PRET": "820b83171a19323d7d657691e44613b01533f3eb9954d4f7339a4d82dd9ff89d",
@@ -78,7 +78,8 @@
     "wp/tests/a16/style.py": "d856a2ea35f9a25c4be47e20fe5f3b8b9c2669b525f10b76cb35c1f6b0b8fe31",
     "wp/tests/a16/test_launcher.py": "a6175bcd0bd567f84a776705295502f4efe6ebb743db235afade4e80ed9105f6",
     "wp/tests/a16/unit.php": "d1ea1bd298d062159cc7cbf4fc90c8abb0353ebc38c13094a7ba160fa22db9c7",
-    "wp/tests/a16/verify.py": "e9109712130daf5683442b79080b6e45c37b5df82ff0b48ff62fe83948181c19"
+    "wp/tests/a16/verify.py": "e9109712130daf5683442b79080b6e45c37b5df82ff0b48ff62fe83948181c19",
+    "production/A-16/sources-officielles.json": "dbab79cdb146cd036c218d065f3ad08a02eb253a658889bc23675b02f7528fff"
   },
   "real_go": false
 }

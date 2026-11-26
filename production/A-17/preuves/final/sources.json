@@ -1,0 +1,14 @@
+{
+  "wp/outils/bascule/a17/Command.php": "7a42fcfdb759ccb84a8930488eca86228848c6e61eb79e2ca3288b67f3f531ad",
+  "wp/outils/bascule/a17/confine.py": "5063adc5145296ca9c65b3a64e5dddc461a346b1f3c64581fd89bca6f27d6943",
+  "wp/outils/bascule/a17/inventorier-securite": "39df5a81afa9d34b68e6d61703d18f8a7935a1e2cb49c03928aaf3d089c3cd12",
+  "wp/outils/bascule/a17/Inventory.php": "73ee8978ff8d491de3534d191feb19b315430ed49ca283e70b2f8654a1dcbb01",
+  "wp/outils/bascule/a17/README.md": "cf617e56ad0bde24bea8dfd30c102a781fc3ef0f7b9d3196ecd1ed58265ab3fd",
+  "wp/tests/a17/inside.py": "c915032507a214156f8ec1f5964fbf601dd98ec2a13b4c67b0ebb5367982b1c3",
+  "wp/tests/a17/run.py": "a4ba91b326abc6ce7de118ccf10cf6974c9aff5f9128d457767782076681002d",
+  "wp/tests/a17/seed.php": "2e8868ca0ecc40631b9e0d75098e2801293d3698d9a57ab5610d381a58c1109e",
+  "wp/tests/a17/style.py": "d856a2ea35f9a25c4be47e20fe5f3b8b9c2669b525f10b76cb35c1f6b0b8fe31",
+  "wp/tests/a17/test_launcher.py": "966bbdfa1923b2342ec00e2a25f39187bcf881487b263c95d7dda1e331c23474",
+  "wp/tests/a17/unit.php": "e02628bf68f213f7f974572421045286ce79f144e145e0b021e49aa3b9046b41",
+  "wp/tests/a17/verify.py": "0ffdce2e1e1c3f40d20fbc582688921dd132a685fac2a7772141e26103f05d5f"
+}
