@@ -33,6 +33,7 @@ add_action('init', function () {
     register_post_type('a12_article', ['public' => true]);
     register_post_type('a12_empty', ['public' => false]);
     register_taxonomy('a12_rubrique', ['a12_article'], ['public' => true]);
+    register_taxonomy('a12_mixed_tax', ['a12_article', 'link'], []);
     $dynamic = 'a12_dynamic';
     register_post_type($dynamic, []);
     register_taxonomy($dynamic . '_tax', ['a12_article'], []);
@@ -85,6 +86,10 @@ if (getenv('A12_CONFINED') === '1') {
     report = json.loads((target/'contenus.json').read_text())
     rows = {r['name']: r for r in report['post_types']}
     tax = {r['name']: r for r in report['taxonomies']}
+    b.check(storage+':link_collision_and_noncollision_fixture',oracle['link_cases']=={'collision_exists':True,'noncollision_post_absent':True,'links':2})
+    for taxonomy in ('link_category','a12_mixed_tax'):
+        item=tax[taxonomy]
+        b.check(storage+':non_posts_domain_unavailable:'+taxonomy,item.get('object_types')==(['link'] if taxonomy=='link_category' else ['a12_article','link']) and item.get('content_count') is None and item.get('states') is None and item.get('first_published_utc') is None and item.get('last_published_utc') is None and item.get('top_terms') is None and item.get('count_status')=='unavailable_non_posts_or_mixed')
     row = rows['a12_article']
     b.check(storage+':exact_states_and_distinct_content_count', row['states'] == oracle['states'] and row['content_count'] == 5)
     b.check(storage+':publication_utc_not_drafts_or_trash', row['first_published_utc'] == '2024-02-03T11:00:00Z' and row['last_published_utc'] == '2025-02-03T11:00:00Z')
@@ -136,6 +141,12 @@ if (getenv('A12_CONFINED') === '1') {
     bad = inventory(site, link/'forbidden', auditdir/'audit.json')
     b.check(storage+':guard:symlink_parent_web', bad.returncode == 1 and not (site/'forbidden').exists())
     link.unlink()
+    for label, destination in [('ancestor-site',site.parent/('a12-ancestor-'+storage)),('root',pathlib.Path('/a12-root-'+storage))]:
+        original_index=(site/'index.php').read_bytes()
+        bad=inventory(site,destination,auditdir/'audit.json')
+        b.check(storage+':guard:disjoint_launcher:'+label,bad.returncode==1 and bad.stderr=='A12_OUTPUT_UNSAFE\n' and not destination.exists() and (site/'index.php').read_bytes()==original_index)
+        bad=b.cmd(['php','/subject/a12/inventorier-contenus','--wp-path='+str(site),'--output='+str(destination),'--audit='+str(auditdir/'audit.json')],check=False)
+        b.check(storage+':guard:disjoint_php:'+label,bad.returncode==1 and bad.stderr=='A12_OUTPUT_UNSAFE\n' and not destination.exists() and (site/'index.php').read_bytes()==original_index)
     no_audit = b.cmd(['php', '/subject/a12/inventorier-contenus', '--wp-path='+str(site), '--output=/report/no-audit-'+storage], check=False)
     b.check(storage+':guard:missing_audit', no_audit.returncode == 1 and no_audit.stderr == 'A12_USAGE\n')
     raw = b.cmd(['php', '/subject/a12/inventorier-contenus', '--wp-path='+str(site), '--output='+str(OUT/(storage+'-raw')), '--audit='+str(auditdir/'audit.json')], check=False)

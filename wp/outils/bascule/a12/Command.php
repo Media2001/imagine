@@ -8,7 +8,13 @@ final class Command
 {
     private static function inside(string $path, string $root): bool
     {
-        return $path === $root || str_starts_with($path . '/', $root . '/');
+        return $path === $root || str_starts_with($path . '/', rtrim($root, '/') . '/');
+    }
+
+    public static function disjointOutput(string $parent, string $site, string $repository): bool
+    {
+        return $parent !== '/' && !self::inside($parent, $site) && !self::inside($site, $parent)
+            && !self::inside($parent, $repository) && !self::inside($repository, $parent);
     }
 
     public static function main(array $args): int
@@ -33,7 +39,7 @@ final class Command
         if (!is_file($repository . '/wp/outils/bascule/audit')) {
             $repository = dirname(__DIR__);
         }
-        if (self::inside($parent, $site) || self::inside($parent, $repository)) {
+        if (!self::disjointOutput($parent, $site, $repository)) {
             throw new \RuntimeException('A12_OUTPUT_UNSAFE');
         }
         $output = $parent . '/' . $base;

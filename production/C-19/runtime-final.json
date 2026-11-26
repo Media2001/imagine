@@ -14,7 +14,7 @@
     "droit_dedie_sans_droit_global": true,
     "rendu_tableau_simple": true,
     "aucun_formulaire": true,
-    "source_absente_pas_de_faux_zero": false,
+    "source_absente_pas_de_faux_zero": true,
     "capacite_revoquee_refuse": true,
     "aucune_ecriture_SQL": true,
     "aucun_appel_sortant": true
@@ -53,6 +53,12 @@
         "sorties": 1
       }
     }
+  },
+  "fault_queries": 1,
+  "fault_observation": {
+    "notice": true,
+    "numbers": 0,
+    "queries": 1
   },
   "native_unchanged": true
 }

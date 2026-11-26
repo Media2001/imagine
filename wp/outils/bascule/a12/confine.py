@@ -6,6 +6,11 @@ import pathlib
 import sys
 
 
+def disjoint_output(parent, site, repository):
+    return str(parent) != '/' and not any(parent == root or root in parent.parents or parent in root.parents
+                                         for root in (site, repository))
+
+
 def confine(write_root):
     if sys.platform != 'linux' or {p.name for p in pathlib.Path('/sys/class/net').iterdir()} != {'lo'}:
         raise RuntimeError('A12_DISCONNECTED_LINUX_REQUIRED')
@@ -58,7 +63,7 @@ def main():
     # Early checks before granting any output write rights. PHP repeats complete guards.
     candidate = source.parents[3] if len(source.parents) > 3 else source.parent
     repository = candidate if (candidate/'wp/outils/bascule/audit').is_file() else source.parent
-    if parent == site or site in parent.parents or parent == repository or repository in parent.parents:
+    if not disjoint_output(parent, site, repository):
         raise RuntimeError('A12_OUTPUT_UNSAFE')
     confine(parent)
     os.environ['A12_CONFINED'] = '1'

@@ -59,6 +59,9 @@ def main():
         (out/'unit.log').write_text(unit.stdout+unit.stderr, encoding='utf8')
         b.call(['cp', name+':/report/unit.json', b.local(out/'unit.json')])
         record('unit_return', unit.returncode == 0, {'exit_code': unit.returncode})
+        boundary = b.call(['exec', name, 'python3', '/opt/a12/test_confine.py'], check=False)
+        (out/'confinement-unit.log').write_text(boundary.stdout+boundary.stderr, encoding='utf8')
+        record('disjoint_confinement_unit', boundary.returncode == 0, {'exit_code': boundary.returncode})
         if not args.unit_only:
             for f in ['inside.py', 'seed.php', 'fingerprint.php', 'unit.php', 'readonly-probe.php']:
                 b.call(['cp', b.local(REPO/'wp/tests/a02-audit'/f), name+':/opt/a02/'+f])

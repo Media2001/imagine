@@ -28,6 +28,18 @@ foreach (['publish', 'publish', 'draft', 'private', 'trash'] as $i => $status) {
     add_post_meta(end($ids), 'a12_field', 'A12_FIELD_PRIVATE_CANARY');
 }
 add_post_meta($ids[0], 'a12_field', 'A12_SECOND_VALUE_PRIVATE_CANARY');
+global $wpdb;
+$linkTerm = wp_insert_term('Liens fictifs A12', 'link_category');
+$mixedTerm = wp_insert_term('Mixte fictif A12', 'a12_mixed_tax');
+if (is_wp_error($linkTerm) || is_wp_error($mixedTerm)) {
+    throw new RuntimeException('A12_LINK_TERM_FIXTURE_FAILED');
+}
+$linkIds = [(int) $ids[0], 200000];
+foreach ($linkIds as $linkId) {
+    $wpdb->insert($wpdb->links, ['link_id' => $linkId, 'link_url' => 'https://fiction.invalid/link', 'link_name' => 'Lien fictif A12']);
+    wp_set_object_terms($linkId, [(int) $linkTerm['term_id']], 'link_category');
+    wp_set_object_terms($linkId, [(int) $mixedTerm['term_id']], 'a12_mixed_tax');
+}
 $terms = [];
 foreach (range(1, 23) as $n) {
     $term = wp_insert_term(sprintf('Rubrique fictive %02d', $n), 'a12_rubrique');
@@ -102,6 +114,9 @@ $allOrphans = count(array_filter(
     static fn($post): bool => (int) $post->post_parent === 0 || get_post((int) $post->post_parent) === null
 ));
 $oracle = [
+    'link_cases' => ['collision_exists' => get_post($linkIds[0]) instanceof WP_Post,
+        'noncollision_post_absent' => get_post($linkIds[1]) === null,
+        'links' => (int) $wpdb->get_var('SELECT COUNT(*) FROM ' . $wpdb->links)],
     'all_attachment_count' => count($allAttachments), 'all_orphan_count' => $allOrphans,
     'wordpress' => get_bloginfo('version'), 'woocommerce' => WC_VERSION,
     'runtime_registered' => [

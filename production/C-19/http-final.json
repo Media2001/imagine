@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-26T01:41:42.103802+00:00",
+  "at": "2026-11-26T01:49:46.998714+00:00",
   "checks": {
     "referent_ecran_natif": true,
     "aucune_donnee_personnelle_dans_ecran": true,
@@ -28,12 +28,10 @@
     "navigateur_vrai_menu_Imagine": true,
     "navigateur_six_grises_visibles": true,
     "navigateur_quatre_tables_chiffrees": true,
-    "natif_et_options_inchanges": false
+    "natif_et_options_inchanges": true
   },
   "total": 28,
-  "failures": [
-    "natif_et_options_inchanges"
-  ],
+  "failures": [],
   "valeurs": {
     "actifs": {
       "total": 9,

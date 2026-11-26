@@ -30,7 +30,7 @@ def historical_files(lot):
             if p.is_file() and '-V2' not in p.name}
 
 
-def run(lot):
+def run(lot, output_dir=None):
     assert lot in ('C-17', 'C-18')
     c18.c17.profils.guard('imagine-test-demo')
     proof = ROOT / 'production' / lot
@@ -56,7 +56,12 @@ def run(lot):
         actual = repair.digest(ROOT / name)
         if lot == 'C-17' and name == 'wp/plugins/imagine-site/imagine-site.php':
             c18_historical = json.loads((ROOT / 'production/C-18/final.json').read_text(encoding='utf-8'))
-            assert actual == c18_historical['source_sha256'][name], 'C18 shared bootstrap successor drift'
+            expected = c18_historical['source_sha256'][name]
+        # Additive C19 shared sections are verified against the exact predecessor.
+        # Old manifests/receipts are never rewritten to bless a new digest.
+        if name in {'wp/plugins/imagine-site/imagine-site.php', 'wp/plugins/imagine-site/README.md'}:
+            import c19
+            assert c19.matches_predecessor(name, (ROOT / name).read_bytes(), expected), 'Shared predecessor drift: ' + name
         else:
             assert actual == expected, 'Functional source drift: ' + name
         sources_checked[name] = actual
@@ -103,7 +108,10 @@ def run(lot):
         'historical_tests_not_replayed': old['receipts'], 'CSV_reopened': csvs,
         'current_gate_source_sha256': {n:repair.digest(ROOT/n) for n in changed_gates},
         'visual_approval': False, 'fixture_reset': False}
-    path = proof / ('verification-successeur-' + stamp + '-V2.json')
+    destination = proof if output_dir is None else Path(output_dir)
+    assert destination.resolve() in {proof.resolve(), (ROOT / 'production/C-19').resolve()}
+    prefix = '' if output_dir is None else lot.lower() + '-'
+    path = destination / (prefix + 'verification-successeur-' + stamp + '-V2.json')
     repair.save_new(path, result)
     assert historical_files(lot) == historical_before
     print(json.dumps({'lot':lot,'status':result['status'],'checks':len(checks),'C09':'382/382',

@@ -10,6 +10,19 @@ BLOCK = "require_once __DIR__ . '/TableauBordRegles.php';\nrequire_once __DIR__ 
 wp = c18.wp
 
 
+def matches_predecessor(name, data, expected):
+    """Only the additive C19 shared sections may succeed old source seals."""
+    if hashlib.sha256(data).hexdigest() == expected:
+        return True
+    if name == 'wp/plugins/imagine-site/imagine-site.php' and data.count(BLOCK.encode()) == 1:
+        predecessor = data.replace(BLOCK.encode(), b'', 1)
+    elif name == 'wp/plugins/imagine-site/README.md' and data.count('\n## C-19 — tableau de bord\n'.encode()) == 1:
+        predecessor = data.split('\n## C-19 — tableau de bord\n'.encode(), 1)[0]
+    else:
+        return False
+    return hashlib.sha256(predecessor).hexdigest() == expected
+
+
 def save(name, data):
     PROOF.mkdir(parents=True, exist_ok=True)
     (PROOF / (name + '.json')).write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding='utf-8')
