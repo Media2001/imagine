@@ -14,7 +14,33 @@ update_user_meta($user, '_a18_canary', 'A18_PRIVATE_CANARY');
 $order = wc_create_order(['customer_id' => $user]);
 $order->add_meta_data('_a18_bank', 'BE68539007547034');
 $order->add_meta_data('_a18_bank', 'BE69539007547034');
+$order->add_meta_data('_a18_shared_bank', 'BE68539007547034');
 $order->save();
+// Residual physical rows in the inactive store: deliberately bypass the active CRUD API.
+global $wpdb;
+$activeHpos = get_option('woocommerce_custom_orders_table_enabled') === 'yes';
+foreach ([901801 => 'shop_order', 901802 => 'shop_subscription'] as $id => $type) {
+    if ($activeHpos) {
+        $wpdb->insert($wpdb->posts, ['ID' => $id, 'post_type' => $type, 'post_status' => 'wc-pending',
+            'post_content' => '', 'post_excerpt' => '', 'to_ping' => '', 'pinged' => '',
+            'post_content_filtered' => '']);
+        $table = $wpdb->postmeta;
+        $owner = 'post_id';
+    } else {
+        $wpdb->insert($wpdb->prefix . 'wc_orders', ['id' => $id, 'type' => $type,
+            'status' => 'wc-pending', 'currency' => 'EUR', 'customer_id' => 0]);
+        $table = $wpdb->prefix . 'wc_orders_meta';
+        $owner = 'order_id';
+    }
+    $wpdb->insert($table, [$owner => $id, 'meta_key' => '_a18_inactive_bank', 'meta_value' => 'BE68539007547034']);
+    $wpdb->insert($table, [$owner => $id, 'meta_key' => '_a18_inactive_bank', 'meta_value' => 'BE69539007547034']);
+    if ($type === 'shop_order') {
+        $wpdb->insert($table, [$owner => $id, 'meta_key' => '_a18_shared_bank', 'meta_value' => 'BE68539007547034']);
+    }
+    if ($wpdb->last_error !== '') {
+        throw new RuntimeException('A18_FIXTURE_INACTIVE_STORE');
+    }
+}
 $sub = wcs_create_subscription(['customer_id' => $user, 'status' => 'pending',
     'billing_period' => 'month', 'billing_interval' => 1]);
 $sub->update_meta_data('_a18_bank', 'BE68 5390 0754 7034');

@@ -25,8 +25,10 @@ final class Inventory
                 continue;
             }
             $key = self::technical($row['key']);
-            $index = $row['scope'] . ':' . $key;
-            $groups[$index] ??= ['scope' => $row['scope'], 'key' => $key, 'iban' => 0, 'card' => 0, 'national' => 0];
+            $store = in_array($row['store'] ?? '', ['classique', 'hpos'], true) ? $row['store'] : 'commun';
+            $index = $row['scope'] . ':' . $store . ':' . $key;
+            $groups[$index] ??= ['scope' => $row['scope'], 'store' => $store, 'key' => $key,
+                'iban' => 0, 'card' => 0, 'national' => 0];
             foreach ($flags as $type => $hit) {
                 $groups[$index][$type] += (int) $hit;
             }
@@ -46,36 +48,45 @@ final class Inventory
             }
             foreach ($rows as $row) {
                 $cursor = (int) $row['row_id'];
-                yield ['scope' => $row['scope'], 'key' => $row['field_key'], 'value' => $row['field_value']];
+                yield ['scope' => $row['scope'], 'store' => $row['store'],
+                    'key' => $row['field_key'], 'value' => $row['field_value']];
             }
         } while (count($rows) === 500);
     }
 
-    private static function database(bool $hpos): array
+    private static function database(): array
     {
         global $wpdb;
         $p = $wpdb->prefix;
+        $tables = $wpdb->get_col('SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE()');
+        if (!is_array($tables) || $wpdb->last_error !== '') {
+            throw new \RuntimeException('A18_QUERY_FAILED');
+        }
         $queries = [
-            "SELECT umeta_id row_id,'account' scope,meta_key field_key,meta_value field_value "
+            "SELECT umeta_id row_id,'account' scope,'commun' store,meta_key field_key,meta_value field_value "
                 . "FROM `{$p}usermeta` WHERE umeta_id>%d ORDER BY umeta_id LIMIT 500",
-            "SELECT option_id row_id,'option' scope,option_name field_key,option_value field_value "
+            "SELECT option_id row_id,'option' scope,'commun' store,option_name field_key,option_value field_value "
                 . "FROM `{$p}options` WHERE option_id>%d ORDER BY option_id LIMIT 500",
         ];
-        $queries[] = $hpos
-            ? "SELECT m.id row_id,IF(o.type='shop_subscription','subscription','order') scope,"
+        if (in_array($p . 'wc_orders', $tables, true) && in_array($p . 'wc_orders_meta', $tables, true)) {
+            $queries[] = "SELECT m.id row_id,IF(o.type='shop_subscription','subscription','order') scope,'hpos' store,"
                 . "m.meta_key field_key,m.meta_value field_value FROM `{$p}wc_orders_meta` m "
                 . "JOIN `{$p}wc_orders` o ON o.id=m.order_id WHERE m.id>%d "
-                . "AND o.type IN ('shop_order','shop_subscription') ORDER BY m.id LIMIT 500"
-            : "SELECT m.meta_id row_id,IF(o.post_type='shop_subscription','subscription','order') scope,"
+                . "AND o.type IN ('shop_order','shop_subscription') ORDER BY m.id LIMIT 500";
+        }
+        if (in_array($p . 'posts', $tables, true) && in_array($p . 'postmeta', $tables, true)) {
+            $queries[] = "SELECT m.meta_id row_id,IF(o.post_type='shop_subscription','subscription','order') scope,"
+                . "'classique' store,"
                 . "m.meta_key field_key,m.meta_value field_value FROM `{$p}postmeta` m "
                 . "JOIN `{$p}posts` o ON o.ID=m.post_id WHERE m.meta_id>%d "
                 . "AND o.post_type IN ('shop_order','shop_subscription') ORDER BY m.meta_id LIMIT 500";
+        }
         $aggregated = [];
         foreach ($queries as $query) {
             // Aggregate every value independently, bounded pagination without retaining values.
             foreach (self::rows($query) as $row) {
                 foreach (self::groups([$row]) as $group) {
-                    $index = $group['scope'] . ':' . $group['key'];
+                    $index = $group['scope'] . ':' . $group['store'] . ':' . $group['key'];
                     $aggregated[$index] ??= array_merge($group, ['iban' => 0, 'card' => 0, 'national' => 0]);
                     foreach (['iban', 'card', 'national'] as $type) {
                         $aggregated[$index][$type] += $group[$type];
@@ -132,7 +143,7 @@ final class Inventory
         $hpos = get_option('woocommerce_custom_orders_table_enabled') === 'yes';
         $neutralised = get_option('imagine_staging_disabled_plugins', null) !== null;
         $database = $neutralised
-            ? ['status' => 'inconnu après neutralisation', 'groups' => null] : self::database($hpos);
+            ? ['status' => 'inconnu après neutralisation', 'groups' => null] : self::database();
         $tokens = $wpdb->get_results(
             "SELECT gateway_id,type,COUNT(*) count FROM `{$wpdb->prefix}woocommerce_payment_tokens` "
                 . 'GROUP BY gateway_id,type ORDER BY gateway_id,type',
@@ -156,7 +167,9 @@ final class Inventory
         }
         return ['schema' => 'imagine-a18-retention-v1', 'read_only' => true, 'storage' => $hpos ? 'hpos' : 'classic',
             'database' => $database, 'payment_tokens' => array_values($tokenGroups), 'media' => self::media($uploads),
-            'count_basis' => 'Une valeur stockee compte au plus une fois par forme ; une cle est separee par portee.',
+            'count_basis' => 'Valeurs physiquement conservees dans les deux magasins presents, actif ou inactif ; '
+                . 'une ligne compte au plus une fois par forme, separee par portee, magasin et cle. '
+                . 'storage indique seulement le magasin actif ; store=commun pour comptes et options.',
             'server_rules' => 'Presence observee par nom technique ferme ; lecture effectivement interdite inconnue '
                 . 'sans ouvrir les fichiers ni lire la configuration serveur.',
             'token_basis' => 'References par passerelle et type ; jamais des numeros de carte ou IBAN.'];
