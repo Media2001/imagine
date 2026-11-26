@@ -74,7 +74,7 @@ for ($i = 0; $i < 9; $i++) {
     }
     $fresh = wcs_get_subscription($s->get_id());
     $observed[] = [$fresh->get_status('edit'), $fresh->get_billing_period('edit'),
-        $fresh->get_billing_interval('edit'), (string) $fresh->get_total('edit'),
+        (int) $fresh->get_billing_interval('edit'), (string) $fresh->get_total('edit'),
         $fresh->get_shipping_country('edit'), count($fresh->get_items('line_item'))];
 }
 echo 'A20_JSON=' . json_encode(['product' => $p->get_id(), 'parent' => $parent->get_id(),

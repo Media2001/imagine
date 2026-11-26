@@ -39,9 +39,11 @@ final class Analysis
     private static function host(string $url): ?string
     {
         $parts = parse_url($url);
-        if (!$parts || !in_array(strtolower($parts['scheme'] ?? ''), ['http', 'https'], true)
+        if (
+            !$parts || !in_array(strtolower($parts['scheme'] ?? ''), ['http', 'https'], true)
             || empty($parts['host']) || isset($parts['user']) || isset($parts['pass'])
-            || preg_match('/[\x00-\x20\x7f]/', $url)) {
+            || preg_match('/[\x00-\x20\x7f]/', $url)
+        ) {
             return null;
         }
         return strtolower(rtrim($parts['host'], '.'));
@@ -50,10 +52,12 @@ final class Analysis
     public static function webhooks(array $rows, string $home): array
     {
         $site = self::host($home);
-        $counts = ['total' => count($rows), 'by_status' => ['active' => 0, 'paused' => 0, 'disabled' => 0, 'unknown' => 0],
+        $counts = ['total' => count($rows),
+            'by_status' => ['active' => 0, 'paused' => 0, 'disabled' => 0, 'unknown' => 0],
             'by_topic' => [], 'active_destination' => ['same_domain' => 0, 'external_domain' => 0, 'unknown' => 0]];
         foreach ($rows as $row) {
-            $status = in_array($row['status'] ?? '', ['active', 'paused', 'disabled'], true) ? $row['status'] : 'unknown';
+            $status = in_array($row['status'] ?? '', ['active', 'paused', 'disabled'], true)
+                ? $row['status'] : 'unknown';
             $topic = in_array($row['topic'] ?? '', self::TOPICS, true) ? $row['topic'] : 'unknown';
             $counts['by_status'][$status]++;
             $counts['by_topic'][$topic] = ($counts['by_topic'][$topic] ?? 0) + 1;
@@ -74,7 +78,8 @@ final class Analysis
         $month = (int) $local->format('m');
         $days = (int) $local->setDate($year, $month, 1)->format('t');
         $cutoff = $local->setDate($year, $month, min((int) $local->format('d'), $days));
-        $counts = ['total' => count($rows), 'by_permission' => ['read' => 0, 'write' => 0, 'read_write' => 0, 'unknown' => 0],
+        $counts = ['total' => count($rows),
+            'by_permission' => ['read' => 0, 'write' => 0, 'read_write' => 0, 'unknown' => 0],
             'never_used' => 0, 'unused_twelve_months' => 0, 'last_access_unknown' => 0];
         foreach ($rows as $row) {
             $permission = in_array($row['permissions'] ?? '', ['read', 'write', 'read_write'], true)

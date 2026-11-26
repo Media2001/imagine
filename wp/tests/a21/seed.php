@@ -17,12 +17,14 @@ foreach ([['read', null], ['read_write', '2024-01-01 00:00:00']] as [$permission
         throw new RuntimeException('A21_FIXTURE_KEYS');
     }
 }
-foreach ([
+foreach (
+    [
     ['active', 'order.created', 'https://external.example.org/A21_DELIVERY_PRIVATE_CANARY'],
     ['paused', 'product.updated', 'https://paused.example.org/A21_PAUSED_PRIVATE_CANARY'],
     ['active', 'order.updated', home_url('/A21_SELF_PRIVATE_CANARY')],
     ['disabled', 'customer.created', 'https://disabled.example.org/A21_DISABLED_PRIVATE_CANARY'],
-] as [$status, $topic, $url]) {
+    ] as [$status, $topic, $url]
+) {
     $hook = new WC_Webhook();
     $hook->set_name('A21_WEBHOOK_DESCRIPTION_PRIVATE_CANARY');
     $hook->set_user_id(1);
@@ -33,8 +35,10 @@ foreach ([
     $hook->set_pending_delivery(false);
     $hook->save();
     $read = new WC_Webhook($hook->get_id());
-    if ($read->get_status('edit') !== $status || $read->get_topic('edit') !== $topic
-        || $read->get_delivery_url('edit') !== $url) {
+    if (
+        $read->get_status('edit') !== $status || $read->get_topic('edit') !== $topic
+        || $read->get_delivery_url('edit') !== $url
+    ) {
         throw new RuntimeException('A21_FIXTURE_WEBHOOK');
     }
 }

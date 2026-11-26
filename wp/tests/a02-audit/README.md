@@ -74,3 +74,7 @@ Complément A-18 (conservation, lecture seule) : python3 wp/outils/bascule/a18/c
 Formes par clé et références de jetons, médias sans ouvrir leurs fichiers ; règles serveur : présence seule, protection inconnue ; neutralisation et limites : wp/outils/bascule/a18/README.md
 Complément A-19 (cohérence, lecture seule) : python3 wp/outils/bascule/a19/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/coherence-date
 Comptes croisés par état et plan, jamais identités ni décisions ; liens natifs, références de paiement et dix lignes sur le standard : wp/outils/bascule/a19/README.md
+Complément A-20 (récurrences enregistrées, lecture seule) : python3 wp/outils/bascule/a20/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/tarifs-date
+Comptes par produit/variation, rythme, total récurrent et pays ; groupes de moins de cinq masqués, aucune correspondance ; bases et limites : wp/outils/bascule/a20/README.md
+Complément A-21 (portes vers l'extérieur, lecture seule) : python3 /chemin/du/depot/wp/outils/bascule/a21/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/portes-date
+Comptes de clés et webhooks, connexion locale oui/non, inconnus après neutralisation ; aucun secret ni domaine ; standard, confinement et limites : wp/outils/bascule/a21/README.md

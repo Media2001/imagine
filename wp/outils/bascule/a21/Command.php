@@ -25,8 +25,10 @@ final class Command
         if (!is_file($repo . '/wp/outils/bascule/audit')) {
             $repo = dirname(__DIR__);
         }
-        if (!$site || !$parent || !is_dir($site) || !preg_match('/\A[A-Za-z0-9_-]+\z/D', $base)
-            || !\Imagine\ContentInventory\Command::disjointOutput($parent, $site, $repo)) {
+        if (
+            !$site || !$parent || !is_dir($site) || !preg_match('/\A[A-Za-z0-9_-]+\z/D', $base)
+            || !\Imagine\ContentInventory\Command::disjointOutput($parent, $site, $repo)
+        ) {
             throw new \RuntimeException('A21_OUTPUT_UNSAFE');
         }
         $out = $parent . '/' . $base;
@@ -34,13 +36,17 @@ final class Command
             throw new \RuntimeException('A21_OUTPUT_EXISTS');
         }
         $audit = realpath($options['audit']);
-        if (!$audit || !is_file($audit) || is_link($options['audit']) || filesize($audit) > 16777216
-            || dirname(dirname($audit)) !== $parent) {
+        if (
+            !$audit || !is_file($audit) || is_link($options['audit']) || filesize($audit) > 16777216
+            || dirname(dirname($audit)) !== $parent
+        ) {
             throw new \RuntimeException('A21_AUDIT_GUARD');
         }
         $photo = json_decode(file_get_contents($audit), true, 64, JSON_THROW_ON_ERROR);
-        if (($photo['schema'] ?? null) !== 'imagine-a02-audit-v1' || ($photo['read_only'] ?? null) !== true
-            || !isset($photo['sections']['database']['tables'], $photo['sections']['commerce']['order_storage'])) {
+        if (
+            ($photo['schema'] ?? null) !== 'imagine-a02-audit-v1' || ($photo['read_only'] ?? null) !== true
+            || !isset($photo['sections']['database']['tables'], $photo['sections']['commerce']['order_storage'])
+        ) {
             throw new \RuntimeException('A21_AUDIT_GUARD');
         }
         if (getenv('A21_CONFINED') !== '1' || function_exists('mail') || function_exists('exec')) {
@@ -51,8 +57,10 @@ final class Command
             throw new \RuntimeException('A21_AUDIT_STORAGE_MISMATCH');
         }
         $report['audit_sha256'] = hash_file('sha256', $audit);
-        $json = json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR) . "\n";
-        $markdown = "# Portes vers l’extérieur — lecture seule\n\nComptes seulement ; aucune révocation ni décision.\n\n```json\n" . $json . "```\n";
+        $flags = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR;
+        $json = json_encode($report, $flags) . "\n";
+        $markdown = "# Portes vers l’extérieur — lecture seule\n\n"
+            . "Comptes seulement ; aucune révocation ni décision.\n\n```json\n" . $json . "```\n";
         if (!mkdir($out, 0700)) {
             throw new \RuntimeException('A21_OUTPUT_CREATE');
         }

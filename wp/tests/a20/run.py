@@ -15,7 +15,7 @@ spec=importlib.util.spec_from_file_location('a02_runner',ROOT/'wp/tests/a02-audi
 b=importlib.util.module_from_spec(spec);spec.loader.exec_module(b)
 b.LABEL='org.imagine.a20-prices'
 OWN=['wp/tests/a20','wp/outils/bascule/a20']
-DEPENDENCIES=['wp/tests/a02-audit','wp/outils/bascule/audit','wp/outils/bascule/a11','wp/outils/bascule/a12']
+DEPENDENCIES=['wp/tests/a02-audit/'+f for f in ['run.py','inside.py','seed.php','fingerprint.php','unit.php','readonly-probe.php']]+['wp/outils/bascule/audit','wp/outils/bascule/a11','wp/outils/bascule/a12']
 
 def manifest(roots):
     files=[]
