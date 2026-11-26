@@ -1,0 +1,47 @@
+{
+  "at": "2026-11-26T18:36:29.613583+00:00",
+  "scope": "imagine-test-demo",
+  "case": "privacy",
+  "mutation": "erase_noop",
+  "checks": {
+    "fixture_reelle": true,
+    "fiche_native_nonce": true,
+    "attribut_source_date": true,
+    "audit_ajout": true,
+    "sans_faux_changement": true,
+    "coop_lit": true,
+    "compte_natif_statut_source": true,
+    "auto_refus": true,
+    "nonce_refus": true,
+    "refus_sans_effet": true,
+    "journal_en_echec_refuse": true,
+    "journal_en_echec_restaure_statut": true,
+    "privacy_additive_c21": true,
+    "export_natif_exact": true,
+    "export_autre_personne_absente": true,
+    "sql_evenements_presents_avant_panne": true,
+    "sql_export_jamais_complet": true,
+    "sql_effacement_incomplet_retient": true,
+    "sql_evenement_non_perdu": true,
+    "sql_export_reprise_complete": true,
+    "effacement_natif_attribut_absent": false,
+    "audit_cible_anonymise": false,
+    "accroche_nommee_sans_ecouteur": true,
+    "aucun_mail_tente": true,
+    "aucun_http_tente": true
+  },
+  "total": 25,
+  "failures": [
+    "effacement_natif_attribut_absent",
+    "audit_cible_anonymise"
+  ],
+  "exit": 1,
+  "stderr": "",
+  "state_preserved": true,
+  "source_sha256": "63c9b7537bf1cd3cd27469f6edc676f9c7de63ae0732af630d76d65bec63ae8f",
+  "private_snapshot": {
+    "file": "b06-private-rlqq7oir/snapshot.json",
+    "sha256": "632d13a7492b75b0819b0974ce66162994a150b9f5250efa80587af62b807dc6",
+    "private": true
+  }
+}

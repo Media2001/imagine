@@ -1,0 +1,40 @@
+{
+  "at": "2026-11-26T18:37:38.565644+00:00",
+  "scope": "imagine-test-demo",
+  "case": "attribute",
+  "mutation": "mail",
+  "checks": {
+    "fixture_reelle": true,
+    "fiche_native_nonce": true,
+    "attribut_source_date": true,
+    "audit_ajout": true,
+    "sans_faux_changement": true,
+    "coop_lit": true,
+    "compte_natif_statut_source": true,
+    "auto_refus": true,
+    "nonce_refus": true,
+    "refus_sans_effet": true,
+    "journal_en_echec_refuse": true,
+    "journal_en_echec_restaure_statut": true,
+    "retrait_audite": true,
+    "retrait_referme": true,
+    "compte_retrait_sans_source_date": true,
+    "fiche_retrait_sans_source_date": true,
+    "accroche_nommee_sans_ecouteur": true,
+    "aucun_mail_tente": false,
+    "aucun_http_tente": true
+  },
+  "total": 19,
+  "failures": [
+    "aucun_mail_tente"
+  ],
+  "exit": 1,
+  "stderr": "",
+  "state_preserved": true,
+  "source_sha256": "63c9b7537bf1cd3cd27469f6edc676f9c7de63ae0732af630d76d65bec63ae8f",
+  "private_snapshot": {
+    "file": "b06-private-netiscrf/snapshot.json",
+    "sha256": "6d43457536cadea595cde708a77da6641e1e97fdb58f28a4b2ad4b1d3ca271ad",
+    "private": true
+  }
+}
