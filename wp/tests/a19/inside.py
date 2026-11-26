@@ -69,7 +69,7 @@ if (getenv('A19_CONFINED') === '1') {
     start=datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0)
     default=inventory(site,default_out,audit/'audit.json',as_of=None)
     end=datetime.datetime.now(datetime.timezone.utc)
-    b.check(storage+':three_paths_without_date_native',default.returncode==0 and default.stdout=='' and default.stderr=='' and default_out.is_dir())
+    b.check(storage+':three_paths_without_date_native',default.returncode==0 and default.stdout=='A19_OK coherence.json coherence.md\n' and default.stderr=='' and default_out.is_dir())
     if default.returncode==0:
         default_data=json.loads((default_out/'coherence.json').read_text())
         instant=datetime.datetime.strptime(default_data['as_of_utc'],'%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=datetime.timezone.utc)

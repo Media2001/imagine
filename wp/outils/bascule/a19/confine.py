@@ -13,7 +13,7 @@ def main():
         key,sep,value=arg.partition('=')
         if not sep or not value or key not in {'--wp-path','--output','--audit','--as-of'} or key in o:raise RuntimeError('A19_USAGE')
         o[key]=value
-    if not {'--wp-path','--output','--audit','--as-of'}.issubset(o):raise RuntimeError('A19_USAGE')
+    if not {'--wp-path','--output','--audit'}.issubset(o):raise RuntimeError('A19_USAGE')
     spec=importlib.util.spec_from_file_location('a12_fence',HERE.parent/'a12/confine.py');a12=importlib.util.module_from_spec(spec);spec.loader.exec_module(a12)
     site=Path(o['--wp-path']).resolve(strict=True);parent=Path(o['--output']).parent.resolve(strict=True)
     candidate=HERE.parents[3] if len(HERE.parents)>3 else HERE.parent
