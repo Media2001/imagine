@@ -28,6 +28,18 @@ final class Cooperateurs
             });
         }
         add_action('woocommerce_account_dashboard', [self::class, 'compte'], 25);
+        add_filter('the_posts', [self::class, 'protegerObjets'], -1000);
+        add_filter('the_content', [self::class, 'contenu'], -1000);
+        add_filter('get_the_excerpt', [self::class, 'extrait'], -1000, 2);
+        add_action('pre_get_posts', [self::class, 'requete'], -1000);
+        add_filter('rest_pre_dispatch', [self::class, 'rest'], -1000, 3);
+        add_filter('wp_sitemaps_posts_query_args', [self::class, 'sitemap'], 10, 2);
+        add_action('template_redirect', static function (): void {
+            if (in_array(get_queried_object_id(), self::ids(), true)) {
+                if (!defined('DONOTCACHEPAGE')) { define('DONOTCACHEPAGE', true); }
+                nocache_headers();
+            }
+        }, -1000);
         add_filter('wp_privacy_personal_data_exporters', static function (array $items): array {
             $items['imagine-cooperateurs'] = ['exporter_friendly_name' => __('Statut coopérateur', 'imagine-site'),
                 'callback' => [self::class, 'exporter']];
@@ -141,6 +153,120 @@ final class Cooperateurs
             }
         }
         return $out;
+    }
+
+    /** Racine, marqueurs persistants et descendants : aucune règle d'article. */
+    public static function ids(): array
+    {
+        global $wpdb;
+        $root = (int) get_option(self::PAGE);
+        $ids = $root ? [$root] : [];
+        $marked = $wpdb->get_col($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key=%s AND meta_value='1'", 'imagine_espace_cooperateurs'));
+        $ids = array_merge($ids, array_map('intval', $marked));
+        $pages = $wpdb->get_results("SELECT ID,post_parent,post_name FROM {$wpdb->posts} WHERE post_type='page'");
+        do {
+            $before = count($ids);
+            foreach ($pages as $page) {
+                if ($page->post_name === 'espace-cooperateurs' || in_array((int) $page->post_parent, $ids, true)) {
+                    $ids[] = (int) $page->ID;
+                }
+            }
+            $ids = array_values(array_unique($ids));
+        } while (count($ids) !== $before);
+        return $ids;
+    }
+
+    private static function reserve(int $id): bool
+    {
+        return in_array($id, self::ids(), true);
+    }
+
+    private static function refus(): string
+    {
+        return '<p data-imagine-cooperateurs-refus>' . esc_html__('Cet espace est réservé aux coopérateurs.', 'imagine-site') . '</p>';
+    }
+
+    public static function protegerObjets(array $posts): array
+    {
+        if (self::autorise()) {
+            return $posts;
+        }
+        foreach ($posts as &$post) {
+            if ($post instanceof \WP_Post && self::reserve($post->ID)) {
+                $post = clone $post; // Ne jamais empoisonner le cache partagé des objets.
+                $post->post_content = self::refus();
+                $post->post_excerpt = '';
+                $post->post_content_filtered = '';
+            }
+        }
+        return $posts;
+    }
+
+    public static function contenu(string $html): string
+    {
+        $id = (int) get_the_ID();
+        if (!self::reserve($id)) {
+            return $html;
+        }
+        if (!self::autorise()) {
+            return self::refus();
+        }
+        if ($id === (int) get_option(self::PAGE)) {
+            $html .= '<nav aria-label="' . esc_attr__('Espace coopérateurs', 'imagine-site') . '"><ul>';
+            foreach (get_pages(['parent' => $id, 'sort_column' => 'menu_order,post_title']) as $page) {
+                $html .= '<li><a href="' . esc_url(get_permalink($page->ID)) . '">' . esc_html($page->post_title) . '</a></li>';
+            }
+            $html .= '</ul></nav>';
+        }
+        return $html;
+    }
+
+    public static function extrait(string $html, mixed $post = null): string
+    {
+        $p = get_post($post);
+        return $p && self::reserve($p->ID) && !self::autorise() ? '' : $html;
+    }
+
+    private static function exclure(array $args): array
+    {
+        $ids = self::ids();
+        $args['post__not_in'] = array_values(array_unique(array_merge((array) ($args['post__not_in'] ?? []), $ids)));
+        if (!empty($args['post__in'])) {
+            $args['post__in'] = array_values(array_diff($args['post__in'], $ids)) ?: [0];
+        }
+        return $args;
+    }
+
+    public static function requete(\WP_Query $q): void
+    {
+        if (!self::autorise() && !$q->is_singular()) {
+            foreach (self::exclure($q->query_vars) as $name => $value) {
+                if (in_array($name, ['post__in', 'post__not_in'], true)) { $q->set($name, $value); }
+            }
+        }
+    }
+
+    public static function sitemap(array $args, string $type): array
+    {
+        return $type === 'page' ? self::exclure($args) : $args;
+    }
+
+    public static function rest(mixed $result, \WP_REST_Server $server, \WP_REST_Request $request): mixed
+    {
+        if (self::autorise()) {
+            return $result;
+        }
+        $route = $request->get_route();
+        $id = 0;
+        if (preg_match('~^/wp/v2/pages/([0-9]+)(?:/|$)~', $route, $match)) {
+            $id = (int) $match[1];
+        } elseif ($route === '/oembed/1.0/embed' && is_string($request->get_param('url'))) {
+            $id = (int) url_to_postid($request->get_param('url'));
+        }
+        if ($id && self::reserve($id)) {
+            return new \WP_Error('imagine_cooperateurs_reserve', __('Cet espace est réservé aux coopérateurs.', 'imagine-site'), ['status' => 403]);
+        }
+        return $result;
     }
 
     public static function exporter(string $email, int $page = 1): array

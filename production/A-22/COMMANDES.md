@@ -5,7 +5,7 @@ Toutes ces commandes ont été lancées depuis le poste Windows, avec `C:/Python
 ## Commandes ayant produit les reçus sélectionnés
 
 ```text
-C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a22/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-matrix-final-06
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a22/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-matrix-final-07
 C:/Python314/python.exe -B C:/Users/Ced/imagine/production/A-22/style.py C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-style-final-07
 C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a20/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a20-shared-final-04
 C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-shared-final-04
@@ -21,6 +21,20 @@ C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a22/run.py --lot=A18 --
 ```
 
 Les lots autorisés sont A02, A03, A10, A11, A12, A14 à A21. A13 reste un lecteur de fichier hors ligne sans bootstrap WordPress. A02/A10 ne chargent pas non plus le WordPress du site ; leurs suites existantes sont néanmoins rejouées. Le tableau de qualification est dans `notes.md`.
+
+## Assembler et sceller le paquet A22
+
+Après la vraie sortie verte de la matrice, publication d’un paquet neuf (un paquet déjà présent est refusé) :
+
+```text
+C:/Python314/python.exe -B C:/Users/Ced/imagine/production/A-22/finalise.py --matrix=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-matrix-final-07 --style=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-style-final-07
+```
+
+Après les dernières écritures des documents et reçus, scellement sans aucun gate parent :
+
+```text
+C:/Python314/python.exe -B C:/Users/Ced/imagine/production/A-22/finalise.py --seal-only
+```
 
 ## Vérifier les paquets livrés, sans Docker et sans écrire PRET
 

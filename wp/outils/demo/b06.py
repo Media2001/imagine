@@ -51,8 +51,9 @@ def deploy(label):
 
 def runtime(label, case='attribute', mutation=''):
     guard()
-    target = 'imagine-demo-build/b06-runtime.php'
-    source = ROOT/'wp/tests/demo/b06-runtime.php'
+    filename = 'b06-space.php' if case == 'space' else 'b06-runtime.php'
+    target = 'imagine-demo-build/' + filename
+    source = ROOT/'wp/tests/demo'/filename
     profils.b00.upload(target, source.read_bytes())
     assert hashes([target])[target] == hashlib.sha256(source.read_bytes()).hexdigest()
     before = state()

@@ -74,4 +74,12 @@ Les matrices **A20 04 et A21 04 sont terminées à code 0** (cinq et six command
 
 **Ne pas refaire A20/A21.** Seule la matrice A22 **06** reste en cours ; quinze reçus runner déjà observés à `2026-11-26T16:17:16+01:00`, aucun verdict final anticipé. Le finaliseur A22 est livré à `production/A-22/finalise.py` ; sa garde `--seal-only` a réellement refusé le paquet encore absent (code 1), sans créer de manifeste ni PRET. Il sera exercé sur la vraie matrice terminée avant remise.
 
+## Checkpoint — matrice 06 rouge pour banques Python inexistantes, sélection 07
+
+La matrice 06 a terminé normalement à **code 1**, avec sources stables. Ses **22 commandes natives sont toutes à code 0** : banques PHP, canaris, mutations et parcours documentés passent. Quatre invocations Python A03/A11 renvoient toutefois réellement **5 / NO TESTS RAN**, car ces deux lots n’ont **aucun** `test_*.py` ; leurs banques PHP existent et restent entièrement obligatoires. Ce résultat n’est pas maquillé en vert et le paquet 06 n’est pas livré.
+
+TDD d’applicabilité d’abord rouge, puis **17 tests Python A22 verts**. La matrice déclare et vérifie maintenant l’absence des deux seules banques Python inexistantes ; elle ne convertit aucun code 5 en 0. Le vérificateur exige la liste exacte des commandes effectivement applicables et garde toutes les banques PHP inchangées. Seuls `matrix.py`, `verify.py` et leur test A22 changent, **aucune source applicative**. A20/A21 revérifiés après ces changements : toujours **111 / 49 PASS par console**, sources/dépendances exactes, aucune nouvelle matrice de ces deux lots nécessaire.
+
+Nouveau rejeu **complet et neuf A22 07**, pas de recyclage des sorties/empreintes 06 : `proc_da07e2aa136d`, réellement lancé après cette correction. Il reste à attendre sa sortie réelle, publier via le finaliseur, vérifier/sceller le paquet et relire les suppressions exactes. PRET, préparation globale et T01 global toujours au parent.
+
 
