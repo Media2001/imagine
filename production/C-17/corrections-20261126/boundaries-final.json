@@ -1,0 +1,32 @@
+{
+  "checks": {
+    "png_complet_upload_persistant": true,
+    "png_lecture_type_octets_exacts": true,
+    "jpg_complet_upload_persistant": true,
+    "jpg_lecture_type_octets_exacts": true,
+    "plafond_exact_5Mio_depot_accepte": true,
+    "plafond_exact_5Mio_servi_integralement": true,
+    "date_fin_aujourdhui_acceptee_HTTP": true,
+    "cinq_champs_conserves_sans_arbitrage_RGPD": true,
+    "etat_natif_preserve": true,
+    "action8793_exacte_preservee": true
+  },
+  "total": 10,
+  "failures": [],
+  "evidence": {
+    "today_UTC": "2026-11-26",
+    "exact_max_size": 5242880,
+    "decision_readback": {
+      "state": {
+        "categorie": "à préciser",
+        "decision": "valide",
+        "date_decision": "2026-11-26T03:31:35Z",
+        "fin": "2026-11-26",
+        "operateur": "e-abo"
+      },
+      "path": null,
+      "exists": false,
+      "sha256": null
+    }
+  }
+}

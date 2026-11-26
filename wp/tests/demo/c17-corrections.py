@@ -70,11 +70,11 @@ def replacement(label):
         checks['compte_indisponibilite_sans_lien_mort'] = 'Document indisponible' in account_html and 'imagine_justificatif=' not in account_html
         checks['file_indisponibilite_sans_lien_ni_decision'] = 'Document indisponible' in queue_html and 'imagine_justificatif=' not in queue_html and 'imagine_justificatif_decider' not in queue_html
         checks['ancienne_URL_404'] = t.h.fetch(old_url, owner)[0] == 404
-        status,_,_ = t.decision(abo, opened)
-        checks['ancien_formulaire_referent_refuse_409'] = status == 409 and t.stored(uid) == current
+        stale_status,_,_ = t.decision(abo, opened)
+        checks['ancien_formulaire_referent_refuse_409'] = stale_status == 409 and t.stored(uid) == current
         status,_,_ = t.upload(owner, t.form(owner), t.dummy_pdf('C17 nouveau fictif'))
         checks['nouveau_depot_repare'] = status == 200 and t.stored(uid)['exists'] and 'indisponible' not in t.stored(uid)['state']
-        evidence = {'before':old,'after_failed_write':current,'old_form_status':status}
+        evidence = {'before':old,'after_failed_write':current,'old_form_status':stale_status, 'new_upload_status':status}
     finally:
         t.c17.reset()
         checks['etat_natif_preserve'] = before == t.c17.state()
@@ -156,8 +156,63 @@ def boundaries(label):
         checks['action8793_exacte_preservee'] = planned == action()
     return save(label, {'checks':checks,'total':len(checks),'failures':[k for k,v in checks.items() if v is not True],'evidence':evidence})
 
+def all_gates(label):
+    from datetime import datetime, timezone
+    import re, subprocess
+    def module(name, path):
+        spec = importlib.util.spec_from_file_location(name, path)
+        out = importlib.util.module_from_spec(spec); spec.loader.exec_module(out)
+        return out
+    def sources():
+        names = ['plugins/imagine-site/imagine-site.php','imagine-demo-build/c09-seed.php','themes/imagine/parts/mon-compte.php']
+        return t.c17.wp('$out=[];foreach(json_decode(' + json.dumps(json.dumps(names)) + ',true) as $n){$out[$n]=hash_file("sha256",WP_CONTENT_DIR."/".$n);}echo wp_json_encode($out);')
+    before = t.c17.state(); planned = action(); shared = sources()
+    t.c17.save('before-final', {'native':before,'action8793':planned,'shared_sources':shared})
+    outcomes = {}
+    for name, fn in [('b02-final',b02),('replacement-final',replacement),('deletion-final',deletion),('boundaries-final',boundaries)]:
+        outcomes[name] = fn(name)
+    outcomes['http-final'] = t.run('http-final')
+    legacy = module('c17_legacy_faults', ROOT/'wp/tests/demo/c17-faults.py')
+    outcomes['faults-final'] = legacy.run()
+    settings = module('c17_legacy_settings', ROOT/'wp/tests/demo/c17-reglages.py')
+    outcomes['reglages-final'] = settings.run('reglages-final')
+    # Reuse B02 real HTTP without overwriting its historical production receipts.
+    b02_http = module('c17_b02_http', ROOT/'wp/tests/demo/b02-http.py')
+    b02_http.b02.PROOF = PROOF
+    http_checks = b02_http.verify()
+    t.c17.save('b02-http-final',{'checks':http_checks,'total':len(http_checks),'failures':[k for k,v in http_checks.items() if v is not True]})
+    native = t.c17.profils.b00.wp('eval','require WP_CONTENT_DIR."/imagine-demo-build/c09-runtime.php";',check=False)
+    assert not native['stderr']
+    native = dict(json.loads(native['stdout']), exit=native['code'])
+    t.c17.save('c09-native-final',native)
+    after = t.c17.state(); after_action = action(); shared_after = sources()
+    t.c17.save('after-final',{'native':after,'action8793':after_action,'shared_sources':shared_after})
+    checks = {'native_exactement_preserve': before == after, 'action8793_pending101_exactement_preservee':planned == after_action and planned['status']=='pending' and json.loads(planned['args'])=={'subscription_id':101},
+        'bootstrap_seed_theme_partages_preserves':shared==shared_after,
+        'C09_382_sur_382':native['exit']==0 and native['total']==382 and len(native['checks'])==382 and not native['failures'] and all(x is True for x in native['checks'].values()),
+        'gates_sans_echec':all(x==0 for x in outcomes.values()) and all(v is True for v in http_checks.values())}
+    names = ['b02-final','replacement-final','deletion-final','boundaries-final','http-final','faults-final','reglages-final','b02-http-final']
+    receipts = {}
+    for name in names:
+        r = json.loads((PROOF/(name+'.json')).read_text())
+        assert r['total']==len(r['checks'])
+        receipts[name] = {'total':r['total'],'failures':r['failures']}
+        checks[name+'_tous_vrais'] = not r['failures'] and all(v is True for v in r['checks'].values())
+    current_source = ROOT/'wp/plugins/imagine-site/Justificatifs.php'
+    actual = t.c17.wp('echo wp_json_encode(hash_file("sha256",WP_PLUGIN_DIR."/imagine-site/Justificatifs.php"));')
+    checks['Justificatifs_source_readback_exact'] = actual == hashlib.sha256(current_source.read_bytes()).hexdigest()
+    cleanup = t.c17.wp('global $wpdb;echo wp_json_encode(["fixtures"=>(int)$wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->users} WHERE user_login LIKE \'c17-fictif-delete-%\'"),"files"=>array_map("basename",glob(Imagine\\Site\\PdfNumero::directory()."/c17-*.bin"))]);')
+    state = t.c17.wp('$f=get_option("imagine_c09_fixture");echo wp_json_encode(["att"=>Imagine\\Site\\Justificatifs::etat($f["users"]["P-SOL-ATT"]),"ok"=>Imagine\\Site\\Justificatifs::etat($f["users"]["P-SOL-OK"])]);')
+    checks['fixtures_nettoyees_un_fichier_C09_seul'] = cleanup['fixtures']==0 and cleanup['files']==['c17-'+state['att']['blob']+'.bin'] and state['ok']['decision']=='valide'
+    source_paths = [current_source,ROOT/'wp/tests/demo/b02-runtime.php',Path(__file__),ROOT/'wp/plugins/imagine-site/tests/JustificatifReglesTest.php'] + sorted((ROOT/'wp/tests/demo/fixtures').glob('c17-fictif.*'))
+    source_hashes = {p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in source_paths}
+    return save(label, {'at':datetime.now(timezone.utc).isoformat(),'scope':'imagine-test-demo','status':'PRET_TECHNIQUE_ATTENTE_ARBITRAGE_RGPD' if all(checks.values()) else 'ECHEC',
+        'checks':checks,'total':len(checks),'failures':[k for k,v in checks.items() if v is not True], 'receipts':receipts,'sha256_Justificatifs_readback':actual,'source_sha256':source_hashes,'shared_sha256_before':shared,'shared_sha256_after':shared_after,
+        'action8793_before':planned,'action8793_after':after_action,'final_documentary_state':state,'cleanup':cleanup,
+        'RGPD':'non arbitre; modele cinq champs conserve; aucune trace audit supplementaire', 'C18_treated':False,'C21_treated':False})
+
 if __name__ == '__main__':
     t.c17.profils.guard('imagine-test-demo')
     mode = sys.argv[1]
-    fn = {'b02': b02, 'replacement': replacement, 'deploy': deploy, 'deletion': deletion, 'boundaries': boundaries}[mode]
+    fn = {'b02': b02, 'replacement': replacement, 'deploy': deploy, 'deletion': deletion, 'boundaries': boundaries, 'all': all_gates}[mode]
     sys.exit(fn(sys.argv[2] if len(sys.argv)>2 else mode))

@@ -1,0 +1,88 @@
+{
+  "checks": {
+    "en_attente_compte_supprime_nativement": true,
+    "en_attente_option_supprimee": true,
+    "en_attente_fichier_absent": true,
+    "en_attente_fixture_nettoyee": true,
+    "valide_compte_supprime_nativement": true,
+    "valide_option_supprimee": true,
+    "valide_fichier_absent": true,
+    "valide_fixture_nettoyee": true,
+    "refuse_compte_supprime_nativement": true,
+    "refuse_option_supprimee": true,
+    "refuse_fichier_absent": true,
+    "refuse_fixture_nettoyee": true,
+    "suppression_physique_impossible_erreur_explicite": true,
+    "echec_physique_compte_option_reference_conserves": true,
+    "obstacle_fixture_nettoyee": true,
+    "etat_natif_preserve": true,
+    "action8793_exacte_preservee": true
+  },
+  "total": 17,
+  "failures": [],
+  "evidence": [
+    {
+      "state": "en_attente",
+      "user": 106,
+      "result": {
+        "deleted": true,
+        "error": null
+      },
+      "readback": {
+        "account_exists": false,
+        "option": null,
+        "file_or_directory": false,
+        "backup": false
+      }
+    },
+    {
+      "state": "valide",
+      "user": 107,
+      "result": {
+        "deleted": true,
+        "error": null
+      },
+      "readback": {
+        "account_exists": false,
+        "option": null,
+        "file_or_directory": false,
+        "backup": false
+      }
+    },
+    {
+      "state": "refuse",
+      "user": 108,
+      "result": {
+        "deleted": true,
+        "error": null
+      },
+      "readback": {
+        "account_exists": false,
+        "option": null,
+        "file_or_directory": false,
+        "backup": false
+      }
+    },
+    {
+      "state": "obstacle",
+      "user": 109,
+      "result": {
+        "deleted": null,
+        "error": {
+          "message": "Suppression du compte refusée : nettoyage du justificatif impossible. La référence est conservée ; réessayez après correction du stockage.",
+          "code": 409
+        }
+      },
+      "readback": {
+        "account_exists": true,
+        "option": {
+          "categorie": "à préciser",
+          "decision": "en_attente",
+          "blob": "c8f22587dcd81dd40dd1adfe7de9aa20"
+        },
+        "file_or_directory": true,
+        "backup": true
+      }
+    }
+  ]
+}
