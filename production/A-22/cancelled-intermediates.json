@@ -16,6 +16,11 @@
       "session": "proc_327a7f51c9cc",
       "observed_status": "killed",
       "normal_exit_observed": false
+    },
+    {
+      "session": "proc_f675114c3e07",
+      "observed_status": "killed",
+      "normal_exit_observed": false
     }
   ],
   "checks": [
@@ -79,6 +84,25 @@
     {
       "container": "imagine-a19-coherence-07adfce1b2c6",
       "label": "org.imagine.a19-coherence",
+      "isolation": {
+        "network": "none",
+        "mounts": [],
+        "ports": [],
+        "privileged": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2"
+      },
+      "remove_exit_code": 0,
+      "missing_inspect_exit_code": 1,
+      "absent_readback": true,
+      "status": "PASS"
+    },
+    {
+      "container": "imagine-a14-contacts-5620b5cfd1e6",
+      "label": "org.imagine.a14-contacts",
       "isolation": {
         "network": "none",
         "mounts": [],

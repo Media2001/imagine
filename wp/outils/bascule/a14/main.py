@@ -75,4 +75,5 @@ def cli():
     except Exception as error:
         guard=load('stream_guard',HERE.parent/'stream_guard.py')
         code=guard.public_error(error,'A14')
+        if code=='A14_CONFINEMENT_FAILED':code='A14_FAILED'
         print(code,file=sys.stderr);return 1
