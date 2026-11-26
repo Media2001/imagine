@@ -1,0 +1,14 @@
+{
+  "wp/outils/bascule/a15/Command.php": "962b68944ebe32d1691026293050e0b348bc98fbf5ed555bc71dbe7693ffba76",
+  "wp/outils/bascule/a15/confine.py": "c9a29eabc4378e2cdf9b5c20ebe089e77d4e963304b5a29380e56e7c9f409abc",
+  "wp/outils/bascule/a15/inventorier-emails": "33c829cab39803d5d6e5389ef908c03d13b9268c29e3556f36fe7271f99000be",
+  "wp/outils/bascule/a15/Inventory.php": "7ad4123b87eac8a57449b22cb9c9814e892ec58b5d3747e5772277c6c9de90f2",
+  "wp/outils/bascule/a15/README.md": "56f0f43dfe7b40c3d85d8ef273a5d9c93e90b1ae1145ffaf85cc1e2241790379",
+  "wp/tests/a15/inside.py": "84412b753a494971698746ab68bf4b225d2f7096a12d26b81b8f34e3cbd82c30",
+  "wp/tests/a15/oracle.php": "89a2734b6ba0fdb83b4b6b6ba697439e00d7af55505d7cd58c5a0a7765cfb52b",
+  "wp/tests/a15/run.py": "dd3bb74f7ee96fc7a6dda9c69f1a39823925efcfabc4f80f055b46f67ddb105d",
+  "wp/tests/a15/seed.php": "0b69ebeac49c4485c093612e00bf48b048252e459baa6ab4b73c67b8a25020b6",
+  "wp/tests/a15/style.py": "92b7e183b1771c94e35080227ffad8e4cf3775d4d8776b5e0060eae1f1d3b54c",
+  "wp/tests/a15/unit.php": "88b7f597a87c889274cbbe2e07ff46924cccae241314545cbe6d3bf735b552c7",
+  "wp/tests/a15/verify.py": "6e8131343bf5eb0f8cc298caf283eb45a12737b70d3de2339d6e1cece56c7ccd"
+}

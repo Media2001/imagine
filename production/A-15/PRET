@@ -1,0 +1,5 @@
+A-15 PRET — 2026-11-26. Inventaire natif en lecture seule, données fictives ; aucun GO réel.
+Paquet unique : production/A-15/preuves/final.
+Contrôle : python wp/tests/a15/verify.py production/A-15/preuves/final (code 0, 25 PASS).
+8 assertions PHP + 76 natives classique/HPOS + 7 gardes runner ; PSR12 strict 0 erreur/avertissement ; preparer-image.ps1 code 0.
+Mode d'emploi : wp/outils/bascule/a15/README.md ; décisions techniques et limite héritée A10 : production/A-15/notes.md.

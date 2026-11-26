@@ -66,7 +66,17 @@ def run():
     rest=c16.wp('$o=[];foreach(["shop_order","shop_subscription"] as $type){foreach(wc_get_orders(["type"=>$type,"limit"=>-1,"status"=>"any","meta_key"=>"_imagine_c16_fixture","meta_value"=>"1"]) as $v){$o[]=$v->get_id();}}echo wp_json_encode(["objects"=>$o,"users"=>get_users(["fields"=>"ID","meta_key"=>"_imagine_c16_fixture","meta_value"=>"1"]),"probe_absent"=>!file_exists(WP_CONTENT_DIR."/mu-plugins/imagine-c16-recette-v2.php"),"probe_state_absent"=>get_option("imagine_c16_recette_v2",null)===null]);')
     assert rest=={'objects':[],'users':[],'probe_absent':True,'probe_state_absent':True}
     evidence=['installation-V2.json','execution-V2.json','http-base-V2.json','http-corrections-V2.json','unit-focused-V2.json','unit-root-V2.json','preparer-image-V2.log','rejouer-t01-V2.log','c09-final-V2.json','red-concurrence-V2.json','red-adresse-apostrophes-V2.json']
+    source_names=['wp/plugins/imagine-site/'+name for name in c16.FILES]+['wp/plugins/imagine-site/README.md','wp/plugins/imagine-site/tests/CommandeReglesTest.php','wp/plugins/imagine-site/tests/SansEmailTest.php','wp/plugins/imagine-site/tests/fixtures/c16-sans-email-stubs.php','wp/outils/demo/c16.py','wp/outils/demo/c16-unit.py','wp/tests/demo/c16-concurrence-probe.php','wp/tests/demo/c16-corrections-http.py','wp/tests/demo/c16-baseline-V2.py','wp/tests/demo/c16-gates-V2.py','wp/tests/demo/c16-verifier-V2.py']
+    documents={name:(p/name).read_text(encoding='utf-8') for name in ['PRET','A-VOIR.md']}
+    for name,text in documents.items():
+        compact=text.replace(' ','').replace('\u00a0','').replace('\u202f','')
+        assert str(canonical['tests']) in compact and str(canonical['assertions']) in compact and '381/382' not in text, 'Stale current documentation: '+name
+    assert (p/'PRET').stat().st_mtime >= (c16.ROOT/'corrections/C-16.md').stat().st_mtime, 'New correction after PRET'
+    source_hashes={name:hashlib.sha256((c16.ROOT/name).read_bytes()).hexdigest() for name in source_names}
+    document_hashes={name:hashlib.sha256((p/name).read_bytes()).hexdigest() for name in documents}
     result={'at':datetime.now(timezone.utc).isoformat(),'status':'GATES_TECHNIQUES_VERTS','scope':'imagine-test-demo','C16_payload_sha256_readback':payload,'shared_current_contract':shared,'unit':counts,'http':http,'canonical_T01':canonical,'C09':{'checks':c09['total'],'failures':c09['failures'],'native_exit':raw['code'],'A_PAPIER':native},'strict_global_exit':0,'historical_C09_exception':False,'native_cleanup_readback':rest,'blockers':[],'evidence_sha256':{name:hashlib.sha256((p/name).read_bytes()).hexdigest() for name in evidence}}
+    result['source_sha256']=source_hashes
+    result['documentation_sha256']=document_hashes
     c16.save('final-V2',result)
     print(json.dumps({'status':result['status'],'unit':counts,'http':http,'canonical':canonical,'C09':c09['total'],'action':native['action'],'strict_global_exit':0},ensure_ascii=False))
     return 0

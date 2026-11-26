@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-26T02:45:04.269511+00:00",
+  "at": "2026-11-26T02:57:09.879293+00:00",
   "status": "GATES_TECHNIQUES_VERTS",
   "scope": "imagine-test-demo",
   "C16_payload_sha256_readback": {
@@ -174,16 +174,37 @@
   },
   "blockers": [],
   "evidence_sha256": {
-    "installation-V2.json": "d02c6d1a5909d7b4be66c3f8f5b0a76392760c62d4e3ffba4bfa6e1a820cd18b",
-    "execution-V2.json": "bcf280987e9510e93a1d436eec15012062658e3e8153692a3967d0e8b678f237",
-    "http-base-V2.json": "ab6915e5492fd474711d43733e7f8c5b4e0f4c819c5c4dc85ba86128ac6523f9",
-    "http-corrections-V2.json": "feead5bb279596adaafdcdc259031e7211f8fd18025318a98c07e8bebe36834b",
-    "unit-focused-V2.json": "7775507391c84d855b708ca9e7d78905a259304f56be15732eb84e94f5b8ecce",
-    "unit-root-V2.json": "4b8aef3b067934651680c73002c0096351fa3ac4fad6dfcb769f65c22384ad2d",
-    "preparer-image-V2.log": "e705b15684b6cda0af9e2e3bedb1c307ba2f2726a99efa1aa2bdceb4785bb96e",
-    "rejouer-t01-V2.log": "51c75de07d9560ef01dde896a6d0e11f00c263d6fd8ab4faa805ec6a061bdd2e",
+    "installation-V2.json": "19eec7e56dc094f026ceac4850266ce8395ee9588501f1cdd26c2488b3e37830",
+    "execution-V2.json": "0288600a6ef3349276e35b229c3490c30aec2e71ea12186e41087c0af596ec62",
+    "http-base-V2.json": "099a2b298880d6bfde604a28052ceaeee78670f0cc41ec1631c28e26a064ba55",
+    "http-corrections-V2.json": "bd1e2bc3a2d013429485fb95a67d8422d86315c09841557ac6d7b05da3734bd3",
+    "unit-focused-V2.json": "4ed774a69128a717af8693b4b2490d8fa922519fcbb1b27e15786cc2b8cbe571",
+    "unit-root-V2.json": "0040766db8c82937ec4e7345a7a1f9113b7c61ddf67a25dd3feb1aaf0c43c591",
+    "preparer-image-V2.log": "73ce936da072841537d772f2d95cac42b94d7713c7687c911777fe94ada5df19",
+    "rejouer-t01-V2.log": "d16cf15a30569b65db006c8ff0d44eb6c833a0b252e121089b6344fe9a55176d",
     "c09-final-V2.json": "999d56d638d30dd76d5dbe6630976b2d5016d1903757fd35ea2a202a57a55587",
     "red-concurrence-V2.json": "7e33594abf65dadefdeba71e99a4f5f0b92e764549adaa8a04df1dcd7840e857",
     "red-adresse-apostrophes-V2.json": "439d9b6dfec7725e5a1e27755d6b7686a71c23c49165125a69f3a8459037388e"
+  },
+  "source_sha256": {
+    "wp/plugins/imagine-site/CommandeRegles.php": "f679499d267a09e5102054cf49dfb5f8f78e0707a3778e4f5c70a6c0c565aeb2",
+    "wp/plugins/imagine-site/CommandeNative.php": "fa99f21ef9f7414f7b78f2e125e49d1e0ecba22c8196f5ed0480643aad308c61",
+    "wp/plugins/imagine-site/CommandeAdmin.php": "7e2c2b56048b50dc41e411cfcea21b18dcc4fd1f14a9e589b8c0170ea79dd896",
+    "wp/plugins/imagine-site/SansEmail.php": "720148ca8163849666a68ef968d6d552647bbc4d909c3a287d12ce1a98def59c",
+    "wp/plugins/imagine-site/README.md": "638da75e9e5e36372ab40d07c66b708ff27a5698165171e4c788af8d2bf40150",
+    "wp/plugins/imagine-site/tests/CommandeReglesTest.php": "a26c7028f57f2c01aac6ea8c51cabefc2a421359600674ca4fdeada66e3d8d2f",
+    "wp/plugins/imagine-site/tests/SansEmailTest.php": "e53847dfca69a55f00b7b724a58760b9fe3e5609243f893e706829e075d308cb",
+    "wp/plugins/imagine-site/tests/fixtures/c16-sans-email-stubs.php": "0c1207019f7423479e43bc2f9d4d81245dd183e399e8b6ab3d668057cb17c615",
+    "wp/outils/demo/c16.py": "cd5547561eb5abb648cab982c2984876c21ccfeab62ded0183ae0a5b1e48a6a3",
+    "wp/outils/demo/c16-unit.py": "193a208cf5526496daa279cad813312effb4a7c330136ea4a6ac152b257f784d",
+    "wp/tests/demo/c16-concurrence-probe.php": "a06ab6c32ecdb49ca56d452d3ee316252285dc4ff25c4e66fab3e0a18f0606d4",
+    "wp/tests/demo/c16-corrections-http.py": "7ffc1c7d723308389328a0bbf7c6bbaae4f499442d41e478542bb2a81a7f0383",
+    "wp/tests/demo/c16-baseline-V2.py": "9472e925320dca343aca60cb0f92c5cadc57ff23772e08d156dd0c8c97ddd5a7",
+    "wp/tests/demo/c16-gates-V2.py": "4344caa4c81d5e0dcbdff861318c5589f76f8753aa45b9bfef25d311ac852f1e",
+    "wp/tests/demo/c16-verifier-V2.py": "78a7a2a4c53ab8c6dd4ff193d3acb1d6de8a706f0b878f18f5a9400fe1fb1878"
+  },
+  "documentation_sha256": {
+    "PRET": "d0ab6ef6c97071ebf539682ee270744e75a38fe1cc1b2be945505318bc1d9ea8",
+    "A-VOIR.md": "742c614deffae25404adceca0b3db342c57355e9e2558a70c33c1adec5388562"
   }
 }

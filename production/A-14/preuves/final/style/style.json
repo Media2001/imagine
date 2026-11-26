@@ -1,0 +1,53 @@
+{
+  "container": "imagine-a14-style-8618102f12",
+  "checks": [
+    {
+      "check": "isolation_before",
+      "status": "PASS"
+    },
+    {
+      "check": "phpcs_strict_exit",
+      "status": "PASS"
+    },
+    {
+      "check": "isolation_after",
+      "status": "PASS"
+    },
+    {
+      "check": "cleanup",
+      "status": "PASS"
+    },
+    {
+      "check": "owned_sources_stable",
+      "status": "PASS"
+    },
+    {
+      "check": "dependencies_stable",
+      "status": "PASS"
+    }
+  ],
+  "exit_code": 0,
+  "phpcs_exit": 0,
+  "totals": {
+    "errors": 0,
+    "warnings": 0,
+    "fixable": 0
+  },
+  "sources": {
+    "wp/outils/bascule/a14/Accounts.php": "1623c8dc4cdd2c0409b614eeef4ee86c35b5aec9962c5e02f059c5b1f5942e2f",
+    "wp/outils/bascule/a14/command.php": "045cecee6bcea38259347b9d6dd8bcdaa03af76ca5ba09707e6ebbc00604566a",
+    "wp/outils/bascule/a14/correspondance.exemple.json": "2a71f7dba02ef9ff5c9f727f359b0103d16d1fcaa6b72cd39c03380056ccc3cf",
+    "wp/outils/bascule/a14/main.py": "a5852dda4798729000c21c5db8a63ec2910be98f0ec9f4ea4961f8f0ba1c38f4",
+    "wp/outils/bascule/a14/Matcher.php": "ab234134e96755065cc6d6ff4aaec79d9ad276303f778a9d6a207c5118414a5b",
+    "wp/outils/bascule/a14/README.md": "daff684b7590d14b422f5853b7d9adc05f99fc68c3fb109fddf209f784d5aa1d",
+    "wp/outils/bascule/rapprocher-contacts": "142985bd0caed34f84cef1cf88e582c2ae0a37ad4b8c020f745be1a9769ff3a9",
+    "wp/tests/a14/inside.py": "af3e78f589ce299cad8eaf0662655588f6a816a02e08569152e9104319f04bec",
+    "wp/tests/a14/run.py": "d052cc8fd5ed38f2809abd354697691ff3a55f77e419d91f3785a8152284de25",
+    "wp/tests/a14/seed.php": "0b4675f7f92241cba1f99e164e04a92baca33f71d92f1f5be50396ecdf9a81c4",
+    "wp/tests/a14/style.py": "92b7e183b1771c94e35080227ffad8e4cf3775d4d8776b5e0060eae1f1d3b54c",
+    "wp/tests/a14/test_input.py": "d72baa8a17cbfc0781e0893b19134737af3bcefff28a1c530114aeb65ec5d6ac",
+    "wp/tests/a14/unit.php": "1e9b5713b9e39f9d8fae9c086ee170a5e2ece3ddda3be1d798204ab0bab90907",
+    "wp/tests/a14/verify.py": "481d17a54e5d35501dfeba86eeea9aa37efe4a97c3592adb128136c15d2f87ef",
+    "wp/tests/fixtures/a14-contacts-fictifs.csv": "4e15ddf2f8d019e8c05c0a668feccb82f3e245f2cb510268e169b8d0c049a270"
+  }
+}

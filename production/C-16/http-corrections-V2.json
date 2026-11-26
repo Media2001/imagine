@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-26T02:44:26.487467+00:00",
+  "at": "2026-11-26T02:54:33.150604+00:00",
   "checks": {
     "deux_POST_synchronises_avant_verrou_connexions_distinctes": true,
     "deux_POST_meme_ID": true,
@@ -28,38 +28,38 @@
   "total": 23,
   "failures": [],
   "created_then_deleted": [
-    2698,
-    2700,
-    2702,
-    2704,
-    2706
+    2719,
+    2721,
+    2723,
+    2725,
+    2727
   ],
   "evidence": {
     "concurrence": {
       "responses": [
         {
           "status": 200,
-          "id": 2698
+          "id": 2719
         },
         {
           "status": 200,
-          "id": 2698
+          "id": 2719
         }
       ],
       "before_lock": [
         {
-          "connection": 67339,
-          "before_GET_LOCK": 1795661015.2466
+          "connection": 67654,
+          "before_GET_LOCK": 1795661624.4102
         },
         {
-          "connection": 67340,
-          "before_GET_LOCK": 1795661015.245
+          "connection": 67655,
+          "before_GET_LOCK": 1795661624.4121
         }
       ],
       "native_reread": {
         "shop_order": [
           {
-            "id": 2698,
+            "id": 2719,
             "uid": 8,
             "status": "pending",
             "parent": 0,
@@ -68,10 +68,10 @@
         ],
         "shop_subscription": [
           {
-            "id": 2699,
+            "id": 2720,
             "uid": 8,
             "status": "pending",
-            "parent": 2698,
+            "parent": 2719,
             "paid": false
           }
         ]
@@ -88,7 +88,7 @@
       "objects_before": {
         "shop_order": [
           {
-            "id": 2698,
+            "id": 2719,
             "uid": 8,
             "status": "pending",
             "parent": 0,
@@ -97,10 +97,10 @@
         ],
         "shop_subscription": [
           {
-            "id": 2699,
+            "id": 2720,
             "uid": 8,
             "status": "pending",
-            "parent": 2698,
+            "parent": 2719,
             "paid": false
           }
         ]
@@ -108,7 +108,7 @@
       "objects_after": {
         "shop_order": [
           {
-            "id": 2698,
+            "id": 2719,
             "uid": 8,
             "status": "pending",
             "parent": 0,
@@ -117,10 +117,10 @@
         ],
         "shop_subscription": [
           {
-            "id": 2699,
+            "id": 2720,
             "uid": 8,
             "status": "pending",
-            "parent": 2698,
+            "parent": 2719,
             "paid": false
           }
         ]
@@ -181,7 +181,7 @@
       ]
     },
     "avec_email": {
-      "uid": 89,
+      "uid": 95,
       "first_name": "Personnage",
       "last_name": "Fictif",
       "shipping": {
@@ -213,7 +213,7 @@
       "sans": "0"
     },
     "sans_email": {
-      "uid": 90,
+      "uid": 96,
       "first_name": "Personnage",
       "last_name": "Fictif",
       "shipping": {
@@ -241,11 +241,11 @@
         "email": "",
         "phone": ""
       },
-      "email": "d6e2be628c6c4a91a57d9ed57432706c@sans-email.imagine.invalid",
+      "email": "253b6ce9c51e4d7d9774d01dbadfda57@sans-email.imagine.invalid",
       "sans": "1"
     },
     "reglage_non": {
-      "uid": 91,
+      "uid": 97,
       "first_name": "",
       "last_name": "",
       "shipping": {

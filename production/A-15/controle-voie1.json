@@ -1,0 +1,596 @@
+{
+  "at": "2026-11-26T03:55:35.949635",
+  "checks": [
+    {
+      "lot": "A08",
+      "command": [
+        "python",
+        "-B",
+        "production/A-08/verifier.py"
+      ],
+      "exit_code": 0,
+      "result": {
+        "exit_code": 0,
+        "verified_files": {
+          "protected": 0,
+          "sources": 9,
+          "evidence": 176,
+          "history": 782,
+          "delivery": 19
+        },
+        "counts": {
+          "a08_unit": 21,
+          "a02_unit": 17,
+          "a03_unit": 10,
+          "a03_boundaries": 5,
+          "a04_unit": 48,
+          "a05_unit": 21,
+          "native_checks": 59,
+          "runner_checks": 11
+        },
+        "durations_seconds_by_pass": {
+          "classic": {
+            "1": {
+              "audit": 1.073,
+              "avant": 1.453,
+              "mise-a-jour": 76.074,
+              "nettoyage": 2.164,
+              "apres": 1.519,
+              "comparaison": 0.043
+            },
+            "2": {
+              "audit": 1.183,
+              "avant": 0.793,
+              "mise-a-jour": 3.627,
+              "nettoyage": 0.432,
+              "apres": 0.759,
+              "comparaison": 0.037
+            }
+          },
+          "hpos": {
+            "1": {
+              "audit": 1.268,
+              "avant": 1.727,
+              "mise-a-jour": 81.157,
+              "nettoyage": 2.527,
+              "apres": 1.634,
+              "comparaison": 0.043
+            },
+            "2": {
+              "audit": 1.456,
+              "avant": 0.982,
+              "mise-a-jour": 3.968,
+              "nettoyage": 0.48,
+              "apres": 1.016,
+              "comparaison": 0.045
+            }
+          }
+        },
+        "proof": "production/A-08/preuves/0bfc90415810"
+      }
+    },
+    {
+      "lot": "A09",
+      "command": [
+        "python",
+        "-B",
+        "production/A-09/verifier.py"
+      ],
+      "exit_code": 0,
+      "result": {
+        "exit_code": 0,
+        "scope": "A09 dedicated Python/real HTTP archived suite; no Docker by default; not a fresh execution",
+        "proof": {
+          "packet": "a1671ceb23d2",
+          "tests": 28,
+          "http_reports": 15,
+          "runner": "imagine-a09-27bef477e49b",
+          "requests": 70
+        },
+        "replay": null,
+        "protected_sources": 2,
+        "manifest_sha256": "facf55ae3f17cc42e0dccb27e71cf35c67ecf600b67d0cd35797c4d3c93be667",
+        "cleanup": "archived exact-owned cleanup receipt; live readback only with --replay",
+        "production_authorized": false
+      }
+    },
+    {
+      "lot": "A10_historique",
+      "command": [
+        "python",
+        "-B",
+        "wp/tests/a10/verifier.py"
+      ],
+      "exit_code": 1,
+      "result": {
+        "exit_code": 1,
+        "error": "README_APPENDIX"
+      }
+    },
+    {
+      "lot": "A11",
+      "command": [
+        "python",
+        "-B",
+        "wp/tests/a11/verifier.py",
+        "production/A-11/preuves/8b3b9bdcf308"
+      ],
+      "exit_code": 0,
+      "result": {
+        "verified": true,
+        "unit_checks": 19,
+        "native_checks": 300,
+        "runner_checks": 7,
+        "source_files": 14,
+        "counts": {
+          "classic-pretty": 25,
+          "classic-plain": 26,
+          "classic-subdir": 25,
+          "classic-attachments-disabled": 22,
+          "classic-static-front": 24,
+          "hpos-pretty": 25,
+          "hpos-plain": 26,
+          "hpos-subdir": 25,
+          "hpos-attachments-disabled": 22,
+          "hpos-static-front": 24
+        },
+        "packet": "C:\\Users\\Ced\\imagine\\production\\A-11\\preuves\\8b3b9bdcf308",
+        "runner_sha256": "c66bd0870a1b92a1d8687c02f016e910859fea2bd7bbc6273eb10f444fbbb546"
+      }
+    },
+    {
+      "lot": "A12",
+      "command": [
+        "python",
+        "-B",
+        "wp/tests/a12/verify.py",
+        "production/A-12/preuves/final"
+      ],
+      "exit_code": 0,
+      "result": {
+        "suite": "A12-final-evidence-integrity",
+        "verdict": "NATIVE_VERIFIE",
+        "readiness": true,
+        "counts": {
+          "unit.json": 15,
+          "result.json": 132,
+          "runner.json": 8,
+          "style.json": 6
+        },
+        "checks": [
+          {
+            "check": "exact_current_source_inventory_and_hashes",
+            "status": "PASS"
+          },
+          {
+            "check": "frozen_a02_a11_execution_dependencies_present",
+            "status": "PASS"
+          },
+          {
+            "check": "unit.json:actual_success",
+            "status": "PASS"
+          },
+          {
+            "check": "unit.json:no_duplicate_assertions",
+            "status": "PASS"
+          },
+          {
+            "check": "result.json:actual_success",
+            "status": "PASS"
+          },
+          {
+            "check": "result.json:no_duplicate_assertions",
+            "status": "PASS"
+          },
+          {
+            "check": "runner.json:actual_success",
+            "status": "PASS"
+          },
+          {
+            "check": "runner.json:no_duplicate_assertions",
+            "status": "PASS"
+          },
+          {
+            "check": "native_not_unit_only",
+            "status": "PASS"
+          },
+          {
+            "check": "mandatory_runner_gates",
+            "status": "PASS"
+          },
+          {
+            "check": "native_readiness_without_unmet_requirements",
+            "status": "PASS"
+          },
+          {
+            "check": "classic:mandatory_native_cases_present",
+            "status": "PASS"
+          },
+          {
+            "check": "classic:independent_all_table_snapshot_equality",
+            "status": "PASS"
+          },
+          {
+            "check": "classic:scheduler_in_snapshot",
+            "status": "PASS"
+          },
+          {
+            "check": "classic:schema_storage_readonly",
+            "status": "PASS"
+          },
+          {
+            "check": "classic:exact_native_runtime_sets",
+            "status": "PASS"
+          },
+          {
+            "check": "classic:dynamic_included_conditional_excluded",
+            "status": "PASS"
+          },
+          {
+            "check": "classic:exact_registered_totals",
+            "status": "PASS"
+          },
+          {
+            "check": "classic:real_link_collision_and_noncollision",
+            "status": "PASS"
+          },
+          {
+            "check": "classic:unavailable_not_posts_invented:link_category",
+            "status": "PASS"
+          },
+          {
+            "check": "classic:unavailable_not_posts_invented:a12_mixed_tax",
+            "status": "PASS"
+          },
+          {
+            "check": "classic:same_session_root_sql_kernel_and_early_guards",
+            "status": "PASS"
+          },
+          {
+            "check": "classic:audit_bound_by_exact_bytes",
+            "status": "PASS"
+          },
+          {
+            "check": "classic:empty_native_registry_gap",
+            "status": "PASS"
+          },
+          {
+            "check": "classic:privacy:contenus.json",
+            "status": "PASS"
+          },
+          {
+            "check": "classic:privacy:contenus.md",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos:mandatory_native_cases_present",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos:independent_all_table_snapshot_equality",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos:scheduler_in_snapshot",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos:schema_storage_readonly",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos:exact_native_runtime_sets",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos:dynamic_included_conditional_excluded",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos:exact_registered_totals",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos:real_link_collision_and_noncollision",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos:unavailable_not_posts_invented:link_category",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos:unavailable_not_posts_invented:a12_mixed_tax",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos:same_session_root_sql_kernel_and_early_guards",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos:audit_bound_by_exact_bytes",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos:empty_native_registry_gap",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos:privacy:contenus.json",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos:privacy:contenus.md",
+            "status": "PASS"
+          },
+          {
+            "check": "strict_psr12_pass",
+            "status": "PASS"
+          },
+          {
+            "check": "style_exact_source_binding",
+            "status": "PASS"
+          },
+          {
+            "check": "style_cleanup",
+            "status": "PASS"
+          },
+          {
+            "check": "real_kernel_landlock_abi",
+            "status": "PASS"
+          },
+          {
+            "check": "static_registry_parser_removed",
+            "status": "PASS"
+          },
+          {
+            "check": "exact_owned_runner_still_absent",
+            "status": "PASS"
+          }
+        ],
+        "exit_code": 0
+      }
+    },
+    {
+      "lot": "A13_manifeste",
+      "command": [
+        "python",
+        "-B",
+        "production/A-13/verifier_manifeste.py"
+      ],
+      "exit_code": 0,
+      "result": {
+        "lot": "A-13",
+        "exit_code": 0,
+        "manifest_files": 15,
+        "tests": 40,
+        "real_go": false
+      }
+    },
+    {
+      "lot": "A13_rejeu",
+      "command": [
+        "python",
+        "-B",
+        "wp/tests/a13/verifier_livraison.py",
+        "--preuve",
+        "C:/Users/Ced/AppData/Local/hermes/cache/scratch/a13-controle-final-voie1.json"
+      ],
+      "exit_code": 0,
+      "result": {
+        "horodatage": "2026-11-26T03:55:35.699636+01:00",
+        "python": "3.11.15",
+        "systeme": "Windows",
+        "date_reference": "2026-11-25",
+        "suite": {
+          "commande": "python -m unittest discover -s wp/tests/a13 -v",
+          "tests": 40,
+          "echecs": 0,
+          "erreurs": 0,
+          "ignores": 0
+        },
+        "cli": [
+          {
+            "fixture": "wp/tests/fixtures/a13-export-propre-fictif.csv",
+            "lignes": 30,
+            "code": 0,
+            "fichier_source_inchange": true,
+            "nombre_sorties": 2,
+            "sorties": {
+              "export.controle-rejets.csv": "8c8f8c3bed8f5112a9f7c82706afbe1a4f306fba08f99977b1f825edddf3979c",
+              "export.controle-resume.txt": "fd3527690cb597758d7df28ab80964af4ff9d6a1290d5ea9659aa53faf2a996e"
+            },
+            "lignes_rejetees": 0,
+            "motifs": 0,
+            "resume": "Date de référence : 2026-11-25\nEncodage : utf-8 (validé)\nSéparateur : point-virgule (détecté)\nLignes contrôlées : 30\nLignes sans défaut : 30\nLignes rejetées : 0\nLignes sans adresse électronique : 0\nLignes en doublon : 0\nMotifs (nombre de lignes par motif) :\n- Aucun\n"
+          },
+          {
+            "fixture": "wp/tests/fixtures/a13-export-defauts-fictif.csv",
+            "lignes": 30,
+            "code": 1,
+            "fichier_source_inchange": true,
+            "nombre_sorties": 2,
+            "sorties": {
+              "export.controle-rejets.csv": "158f1dc1f5ef55cfb7bdcc4cab2bbfe6e747459b27563fe49394bca90bb2c378",
+              "export.controle-resume.txt": "ef8b8f9eddd82e6cb4a7158991216336fb21965f4436c89a0561ef2471b21a95"
+            },
+            "lignes_rejetees": 25,
+            "motifs": 25,
+            "resume": "Date de référence : 2026-11-25\nEncodage : utf-8 (validé)\nSéparateur : point-virgule (détecté)\nLignes contrôlées : 30\nLignes sans défaut : 5\nLignes rejetées : 25\nLignes sans adresse électronique : 1\nLignes en doublon : 6\nMotifs (nombre de lignes par motif) :\n- Adresse postale incomplète : 4\n- Adresse électronique mal formée : 1\n- Champ obligatoire absent : cooperateur : 1\n- Champ obligatoire absent : echeance : 1\n- Champ obligatoire absent : mode_paiement : 1\n- Champ obligatoire absent : nom : 1\n- Champ obligatoire absent : numeros_dus : 1\n- Champ obligatoire absent : type_abonnement : 1\n- Date d’échéance illisible : 2\n- Date d’échéance passée : 1\n- Doublon de nom et adresse postale : 2\n- Doublon d’adresse électronique : 2\n- Mandat papier sans référence : 1\n- Mode de paiement non déclaré : 1\n- Nombre de numéros dus illisible : 2\n- Nombre de numéros dus négatif : 1\n- Référence de mandat en double : 2\n"
+          },
+          {
+            "fixture": "wp/tests/fixtures/a13-export-iban-fictif.csv",
+            "lignes": 30,
+            "code": 2,
+            "fichier_source_inchange": true,
+            "nombre_sorties": 0,
+            "sorties": {},
+            "valeur_iban_dans_sorties": false
+          }
+        ],
+        "sources_sha256": {
+          "wp/outils/bascule/controler-export": "cd20ddd7aa0716de9ca16ef6833b6118b11451bd09d61488e0677c2295fcc876",
+          "wp/outils/bascule/a13/correspondance.exemple.json": "1b6ad3e72c1a4b7c3ee04caef896c16b9c942a78ede10e568f465c31ab0d9528",
+          "wp/outils/bascule/controler-export.md": "c558e8773de0230c8c33dd5fbb164f93e1e13ea405547d59dd84fca440c492d6",
+          "wp/tests/a13/test_controler_export.py": "b94735250cbf5c99ccbc83144658306d21a8ae929ca0bb0263905b88c26d1645",
+          "wp/tests/a13/verifier_livraison.py": "a616176e37729aca054e13331949366e4eff538929fb5e24b39f835d30147b6e",
+          "wp/tests/fixtures/a13-export-defauts-fictif.csv": "a5d493007f27ab0b1989c0df1040d670f87bc517643b36aeaabab6f6bc6896ce",
+          "wp/tests/fixtures/a13-export-iban-fictif.csv": "54d0684fb8852b38e30c136b15841d970bcb29e740bed4bbc18cbc88920fd8b0",
+          "wp/tests/fixtures/a13-export-propre-fictif.csv": "ab1a093580aa226a47ad95c86cd6f593db28aa857f704b801d019c71e9dce373"
+        },
+        "statut": "A13_VERIFIE_LOCALEMENT",
+        "integration": "Reconstruction image partagée à vérifier par le parent avant PRET."
+      }
+    }
+  ],
+  "A10_note": "README_APPENDIX deja observe avant ajout documentaire A15; A10 clos, non requalifie.",
+  "corrections_finales": [
+    {
+      "lot": "A-00",
+      "correction": "2026-11-20T16:40:47.660278",
+      "PRET": "2026-11-21T10:55:19.289617",
+      "newer": false,
+      "historically_closed_in_queue": false
+    },
+    {
+      "lot": "A-01",
+      "correction": "2026-11-22T15:43:50.042459",
+      "PRET": "2026-11-26T02:29:29.074575",
+      "newer": false,
+      "historically_closed_in_queue": false
+    },
+    {
+      "lot": "A-02",
+      "correction": "2026-11-23T11:39:53.035800",
+      "PRET": "2026-11-23T12:47:24.807712",
+      "newer": false,
+      "historically_closed_in_queue": false
+    },
+    {
+      "lot": "A-03",
+      "correction": "2026-11-24T09:43:59.152585",
+      "PRET": "2026-11-25T14:52:31.464177",
+      "newer": false,
+      "historically_closed_in_queue": false
+    },
+    {
+      "lot": "A-04",
+      "correction": "2026-11-25T15:44:35.355516",
+      "PRET": "2026-11-25T17:35:02.953138",
+      "newer": false,
+      "historically_closed_in_queue": false
+    },
+    {
+      "lot": "A-05",
+      "correction": "2026-11-25T19:41:01.725626",
+      "PRET": "2026-11-25T19:59:37.605629",
+      "newer": false,
+      "historically_closed_in_queue": false
+    },
+    {
+      "lot": "A-07",
+      "correction": "2026-11-20T13:34:22.467489",
+      "PRET": "2026-11-20T13:22:50.595761",
+      "newer": true,
+      "historically_closed_in_queue": true
+    },
+    {
+      "lot": "A-08",
+      "correction": "2026-11-25T21:40:46.356829",
+      "PRET": "2026-11-26T02:44:18.097493",
+      "newer": false,
+      "historically_closed_in_queue": false
+    },
+    {
+      "lot": "A-09",
+      "correction": "2026-11-25T21:55:09.398219",
+      "PRET": "2026-11-26T02:44:19.257077",
+      "newer": false,
+      "historically_closed_in_queue": false
+    },
+    {
+      "lot": "A-10",
+      "correction": "2026-11-25T22:52:40.603101",
+      "PRET": "2026-11-26T00:54:54.151136",
+      "newer": false,
+      "historically_closed_in_queue": false
+    },
+    {
+      "lot": "A-11",
+      "correction": "2026-11-26T01:48:09.814316",
+      "PRET": "2026-11-26T02:37:13.125172",
+      "newer": false,
+      "historically_closed_in_queue": false
+    },
+    {
+      "lot": "A-12",
+      "correction": "2026-11-26T02:01:08.499336",
+      "PRET": "2026-11-26T03:06:12.046965",
+      "newer": false,
+      "historically_closed_in_queue": false
+    },
+    {
+      "lot": "A-13",
+      "correction": "2026-11-26T02:16:27.774386",
+      "PRET": "2026-11-26T03:08:08.848166",
+      "newer": false,
+      "historically_closed_in_queue": false
+    },
+    {
+      "lot": "C-01",
+      "correction": "2026-11-20T16:54:03.222793",
+      "PRET": "2026-11-21T10:29:59.051484",
+      "newer": false,
+      "historically_closed_in_queue": false
+    },
+    {
+      "lot": "C-02",
+      "correction": "2026-11-20T17:36:20.414712",
+      "PRET": "2026-11-21T10:42:56.746540",
+      "newer": false,
+      "historically_closed_in_queue": false
+    },
+    {
+      "lot": "C-03",
+      "correction": "2026-11-20T17:49:45.993952",
+      "PRET": "2026-11-21T10:54:36.872454",
+      "newer": false,
+      "historically_closed_in_queue": false
+    },
+    {
+      "lot": "C-04",
+      "correction": "2026-11-20T18:04:52.708218",
+      "PRET": "2026-11-21T10:41:32.585143",
+      "newer": false,
+      "historically_closed_in_queue": false
+    },
+    {
+      "lot": "C-05",
+      "correction": "2026-11-22T14:39:53.722070",
+      "PRET": "2026-11-22T17:18:10.500171",
+      "newer": false,
+      "historically_closed_in_queue": false
+    },
+    {
+      "lot": "C-06",
+      "correction": "2026-11-21T14:38:40.035752",
+      "PRET": "2026-11-22T13:50:08.928366",
+      "newer": false,
+      "historically_closed_in_queue": false
+    },
+    {
+      "lot": "C-07",
+      "correction": "2026-11-22T04:40:47.516780",
+      "PRET": "2026-11-22T14:55:56.748185",
+      "newer": false,
+      "historically_closed_in_queue": false
+    },
+    {
+      "lot": "T-01",
+      "correction": "2026-11-23T14:41:11.016531",
+      "PRET": "2026-11-23T16:58:21.519449",
+      "newer": false,
+      "historically_closed_in_queue": false
+    }
+  ],
+  "queue_unchanged_since_full_read": true
+}

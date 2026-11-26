@@ -49,6 +49,40 @@
         "unit-root-V2",
         "--root"
       ]
+    },
+    {
+      "name": "http-base-V2",
+      "started_at": "2026-11-26T02:52:17.270547+00:00",
+      "finished_at": "2026-11-26T02:53:14.916492+00:00",
+      "exit": 0,
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "wp/tests/demo/c16-baseline-V2.py"
+      ]
+    },
+    {
+      "name": "http-corrections-V2",
+      "started_at": "2026-11-26T02:53:14.916492+00:00",
+      "finished_at": "2026-11-26T02:54:33.164367+00:00",
+      "exit": 0,
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "wp/tests/demo/c16-corrections-http.py"
+      ]
+    },
+    {
+      "name": "rejouer-t01-V2",
+      "started_at": "2026-11-26T02:54:33.164367+00:00",
+      "finished_at": "2026-11-26T02:54:38.649101+00:00",
+      "exit": 0,
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "wp/tests/rejouer.ps1"
+      ]
     }
   ],
   "scope": "imagine-test-demo"
