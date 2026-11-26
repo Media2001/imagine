@@ -1,0 +1,220 @@
+[
+  {
+    "console": "utf-8",
+    "exit_code": 0,
+    "result": {
+      "exit_code": 0,
+      "checks": [
+        {
+          "check": "exact_owned_source_inventory",
+          "status": "PASS"
+        },
+        {
+          "check": "unit_actual_green",
+          "status": "PASS"
+        },
+        {
+          "check": "unit_unique_assertion_names",
+          "status": "PASS"
+        },
+        {
+          "check": "result_actual_green",
+          "status": "PASS"
+        },
+        {
+          "check": "result_unique_assertion_names",
+          "status": "PASS"
+        },
+        {
+          "check": "runner_actual_green",
+          "status": "PASS"
+        },
+        {
+          "check": "runner_unique_assertion_names",
+          "status": "PASS"
+        },
+        {
+          "check": "native_and_runner_cleanup",
+          "status": "PASS"
+        },
+        {
+          "check": "classic_mandatory_cases",
+          "status": "PASS"
+        },
+        {
+          "check": "classic_all_table_fingerprint",
+          "status": "PASS"
+        },
+        {
+          "check": "classic_exact_registry_and_summary",
+          "status": "PASS"
+        },
+        {
+          "check": "classic_audit_binding",
+          "status": "PASS"
+        },
+        {
+          "check": "classic_report_privacy",
+          "status": "PASS"
+        },
+        {
+          "check": "hpos_mandatory_cases",
+          "status": "PASS"
+        },
+        {
+          "check": "hpos_all_table_fingerprint",
+          "status": "PASS"
+        },
+        {
+          "check": "hpos_exact_registry_and_summary",
+          "status": "PASS"
+        },
+        {
+          "check": "hpos_audit_binding",
+          "status": "PASS"
+        },
+        {
+          "check": "hpos_report_privacy",
+          "status": "PASS"
+        },
+        {
+          "check": "strict_psr12_final_sources",
+          "status": "PASS"
+        },
+        {
+          "check": "real_preparer_image_success",
+          "status": "PASS"
+        },
+        {
+          "check": "shared_audit_doc_original_plus_exact_two_lines",
+          "status": "PASS"
+        },
+        {
+          "check": "doc_contract_owns_only_exact_two_lines",
+          "status": "PASS"
+        },
+        {
+          "check": "canary_absent_from_entire_packet",
+          "status": "PASS"
+        },
+        {
+          "check": "exact_sealed_own_files_and_one_packet",
+          "status": "PASS"
+        },
+        {
+          "check": "no_foreign_lot_pinned",
+          "status": "PASS"
+        }
+      ]
+    }
+  },
+  {
+    "console": "cp1252",
+    "exit_code": 0,
+    "result": {
+      "exit_code": 0,
+      "checks": [
+        {
+          "check": "exact_owned_source_inventory",
+          "status": "PASS"
+        },
+        {
+          "check": "unit_actual_green",
+          "status": "PASS"
+        },
+        {
+          "check": "unit_unique_assertion_names",
+          "status": "PASS"
+        },
+        {
+          "check": "result_actual_green",
+          "status": "PASS"
+        },
+        {
+          "check": "result_unique_assertion_names",
+          "status": "PASS"
+        },
+        {
+          "check": "runner_actual_green",
+          "status": "PASS"
+        },
+        {
+          "check": "runner_unique_assertion_names",
+          "status": "PASS"
+        },
+        {
+          "check": "native_and_runner_cleanup",
+          "status": "PASS"
+        },
+        {
+          "check": "classic_mandatory_cases",
+          "status": "PASS"
+        },
+        {
+          "check": "classic_all_table_fingerprint",
+          "status": "PASS"
+        },
+        {
+          "check": "classic_exact_registry_and_summary",
+          "status": "PASS"
+        },
+        {
+          "check": "classic_audit_binding",
+          "status": "PASS"
+        },
+        {
+          "check": "classic_report_privacy",
+          "status": "PASS"
+        },
+        {
+          "check": "hpos_mandatory_cases",
+          "status": "PASS"
+        },
+        {
+          "check": "hpos_all_table_fingerprint",
+          "status": "PASS"
+        },
+        {
+          "check": "hpos_exact_registry_and_summary",
+          "status": "PASS"
+        },
+        {
+          "check": "hpos_audit_binding",
+          "status": "PASS"
+        },
+        {
+          "check": "hpos_report_privacy",
+          "status": "PASS"
+        },
+        {
+          "check": "strict_psr12_final_sources",
+          "status": "PASS"
+        },
+        {
+          "check": "real_preparer_image_success",
+          "status": "PASS"
+        },
+        {
+          "check": "shared_audit_doc_original_plus_exact_two_lines",
+          "status": "PASS"
+        },
+        {
+          "check": "doc_contract_owns_only_exact_two_lines",
+          "status": "PASS"
+        },
+        {
+          "check": "canary_absent_from_entire_packet",
+          "status": "PASS"
+        },
+        {
+          "check": "exact_sealed_own_files_and_one_packet",
+          "status": "PASS"
+        },
+        {
+          "check": "no_foreign_lot_pinned",
+          "status": "PASS"
+        }
+      ]
+    }
+  }
+]

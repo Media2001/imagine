@@ -1,0 +1,118 @@
+{
+  "checks": {
+    "depot_natif_B02": true,
+    "P_SOL_OK_valide": true,
+    "file_referent_menu_unique": true,
+    "file_refuse_E-REDAC": true,
+    "file_refuse_A-CARTE": true,
+    "depot_PDF_contenu_pas_extension": true,
+    "octets_sur_disque": true,
+    "ancien_depot_remplace": true,
+    "hors_racine_C11": true,
+    "lecture_titulaire_hash": true,
+    "telechargement_pas_preview": true,
+    "lecture_no_store": true,
+    "lecture_referent_hash": true,
+    "lecture_refuse_anonyme": true,
+    "lecture_refuse_autre_abonne": true,
+    "lecture_refuse_redaction": true,
+    "HEAD_sans_corps": true,
+    "lecture_POST_refuse": true,
+    "depot_visible_file": true,
+    "refus_executable_conserve_document": true,
+    "refus_SVG_conserve_document": true,
+    "refus_PDF_actif_conserve_document": true,
+    "refus_trop_gros_conserve_document": true,
+    "depot_refus_nonce": true,
+    "depot_refus_categorie": true,
+    "ancien_formulaire_depot_refuse": true,
+    "depot_anonyme_refuse": true,
+    "decision_GET_refuse": true,
+    "decision_refus_nonce": true,
+    "decision_refus_sans_confirmation": true,
+    "decision_refus_date_invalide": true,
+    "decision_autre_abonne_refusee": true,
+    "remplacement_PNG_contenu": true,
+    "ancienne_URL_fermee": true,
+    "decision_ancienne_revision_refusee": true,
+    "PNG_lecture_hash": true,
+    "valider_supprime_disque": true,
+    "decision_champs_minimaux": false,
+    "validation_journal_C10_date_operateur": false,
+    "validation_journal_sans_reference_document": false,
+    "compte_valide_fin": true,
+    "URL_validee_fermee_referent": true,
+    "decision_rejeu_refuse": true,
+    "refuser_supprime_disque": true,
+    "refus_exactement_trois_champs": false,
+    "refus_journal_C10_date_operateur": false,
+    "journal_visible_C10_natif": false,
+    "compte_refuse": true,
+    "decision_retire_file": true,
+    "reset_document_test_supprime": true,
+    "reset_deux_profils": true,
+    "prix_commandes_abonnements_droits_options_PDF_preserves": true,
+    "reserve_C09_action8103_inchangee": true,
+    "un_seul_fichier_apres_reset": true
+  },
+  "total": 54,
+  "failures": [
+    "decision_champs_minimaux",
+    "validation_journal_C10_date_operateur",
+    "validation_journal_sans_reference_document",
+    "refus_exactement_trois_champs",
+    "refus_journal_C10_date_operateur",
+    "journal_visible_C10_natif"
+  ],
+  "evidence": {
+    "premier_depot": {
+      "state": {
+        "categorie": "à préciser",
+        "decision": "en_attente",
+        "blob": "dd8a18ad758a98591229f80d27aa3b96"
+      },
+      "path": "/var/www/imagine-private-pdf/site-1/c17-dd8a18ad758a98591229f80d27aa3b96.bin",
+      "exists": true,
+      "sha256": "d6182271c7791cea281dad7b9d6b6839e1b1f00206bafcbab68dce94a88197ab"
+    },
+    "remplacement": {
+      "state": {
+        "categorie": "à préciser",
+        "decision": "en_attente",
+        "blob": "616190daac824c00dca23d71d8ccc524"
+      },
+      "path": "/var/www/imagine-private-pdf/site-1/c17-616190daac824c00dca23d71d8ccc524.bin",
+      "exists": true,
+      "sha256": "49a3581a1d4107eec556b7fec973a02d8ca76ee5f51f899199282fcac7d4e22f"
+    },
+    "validation": {
+      "state": {
+        "categorie": "à préciser",
+        "decision": "valide",
+        "date_decision": "2026-11-26T04:20:06Z",
+        "fin": "2027-12-31",
+        "operateur": "e-abo"
+      },
+      "path": null,
+      "exists": false,
+      "sha256": null
+    },
+    "validation_journal_C10": [],
+    "refus": {
+      "state": {
+        "categorie": "à préciser",
+        "decision": "refuse",
+        "date_decision": "2026-11-26T04:20:12Z",
+        "fin": "",
+        "operateur": "e-abo"
+      },
+      "path": null,
+      "exists": false,
+      "sha256": null
+    },
+    "refus_journal_C10": []
+  },
+  "remaining_private_files": [
+    "c17-4b25254961950ed1b481d86cb16c7ad8.bin"
+  ]
+}

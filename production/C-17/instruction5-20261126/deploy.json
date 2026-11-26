@@ -1,0 +1,32 @@
+{
+  "at": "2026-11-26T04:22:24.874073+00:00",
+  "scope": "imagine-test-demo",
+  "owned_readback": {
+    "plugins/imagine-site/JustificatifRegles.php": "185d72a268c312373fd5db1e9cb5095919e730463ed81cd6992fa0a309c30f22",
+    "plugins/imagine-site/Justificatifs.php": "1459d9bf00107f9da92f4e3738fb7f2d4e2deeff39fb91106bd280b0845bb7a5"
+  },
+  "shared_preserved": {
+    "plugins/imagine-site/imagine-site.php": "fd08869ef6a5c5741e2b7a4340dd55664556591ed496f5cbebc865ded0f2f6d8",
+    "imagine-demo-build/c09-seed.php": "7b7ad355e03208cca739504ff64aef68969e4cfdd8a73fe94e4b3a10382fc382",
+    "imagine-demo-build/c17-profils.php": "cef60aa196026fd53569bcf2d67e95163697d145573801db8d0325469a4541fa",
+    "themes/imagine/parts/mon-compte.php": "4b2c6983c96ee8defafd4eba64e7ccb7dfa1009c48d6dba34478a9a4a1a58ad2",
+    "plugins/imagine-site/ExtractionsAdmin.php": "daf3ed8550b18e382b8a625cac73b2a0ca2545ac46cc10ce2365bc30aba5ad6d",
+    "plugins/imagine-site/ExtractionsRegles.php": "a6fc6d2609df0a0fe02fc8024bc8ee5561d03c31ee158b7f055db4abf897e9f1",
+    "plugins/imagine-pilotage/src/Administration/Reglages.php": "811968e2e48ccb286fb3d236392a30866871470c4aa1120de2b8f0dceaa7c8f2"
+  },
+  "native_preserved": true,
+  "action8793_preserved": true,
+  "profiles_readback": {
+    "P-SOL-ATT": {
+      "categorie": "à préciser",
+      "decision": "en_attente",
+      "blob": "0177d55fb76da870f6a70e420af3e0e4"
+    },
+    "P-SOL-OK": {
+      "categorie": "à préciser",
+      "decision": "valide",
+      "fin": "2027-01-10"
+    }
+  },
+  "failures": []
+}

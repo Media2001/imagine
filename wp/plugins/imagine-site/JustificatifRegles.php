@@ -72,7 +72,7 @@ final class JustificatifRegles
                 throw new \InvalidArgumentException('Date de fin invalide ou passée.');
             }
         }
-        return ['categorie' => $pending['categorie'], 'decision' => $decision, 'date_decision' => $quand,
-            'fin' => $decision === 'valide' ? $fin : '', 'operateur' => $operateur];
+        return ['categorie' => $pending['categorie'], 'decision' => $decision,
+            'fin' => $decision === 'valide' ? $fin : ''];
     }
 }

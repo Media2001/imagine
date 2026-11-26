@@ -21,6 +21,9 @@ class ReadmeContractTest(unittest.TestCase):
     def test_exact_integrated_bytes(self):
         self.assertEqual(v.readme_original_digest(self.current, self.appendix), v.A02_README_SHA256)
 
+    def test_other_lots_are_independent(self):
+        self.assertEqual(v.readme_original_digest(b'earlier\n'+self.appendix+b'later\n',self.appendix),v.A02_README_SHA256)
+
     def test_original_and_each_appended_byte_cannot_drift(self):
         # Every byte in the original and all authorized additions is protected.
         for position in range(len(self.current)):

@@ -1,5 +1,5 @@
 {
-  "container": "imagine-a15-style-5aaa29cfe6",
+  "container": "imagine-a15-style-d0f12fc931",
   "checks": [
     {
       "check": "isolation_before",
@@ -44,7 +44,8 @@
     "wp/tests/a15/run.py": "dd3bb74f7ee96fc7a6dda9c69f1a39823925efcfabc4f80f055b46f67ddb105d",
     "wp/tests/a15/seed.php": "0b69ebeac49c4485c093612e00bf48b048252e459baa6ab4b73c67b8a25020b6",
     "wp/tests/a15/style.py": "92b7e183b1771c94e35080227ffad8e4cf3775d4d8776b5e0060eae1f1d3b54c",
+    "wp/tests/a15/test_contract.py": "35139da99551f147e1da20bc3993d9c1c06162466e828a3becd63ecfa90bc155",
     "wp/tests/a15/unit.php": "88b7f597a87c889274cbbe2e07ff46924cccae241314545cbe6d3bf735b552c7",
-    "wp/tests/a15/verify.py": "6e8131343bf5eb0f8cc298caf283eb45a12737b70d3de2339d6e1cece56c7ccd"
+    "wp/tests/a15/verify.py": "ffcc0894cba736858877ab6631638d582e35b1c79cb892c9984564cb083646a4"
   }
 }

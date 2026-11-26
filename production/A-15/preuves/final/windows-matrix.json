@@ -1,0 +1,104 @@
+{
+  "rows": [
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+        "-B",
+        "-c",
+        "import sys,locale,json;print(json.dumps({'version':sys.version,'executable':sys.executable,'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode}))"
+      ],
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1"
+      },
+      "exit_code": 0,
+      "log": "utf8-environment.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+        "-B",
+        "wp/tests/a15/test_contract.py"
+      ],
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1"
+      },
+      "exit_code": 0,
+      "log": "utf8-python-tests.log"
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+        "-B",
+        "wp/tests/a15/run.py",
+        "--output",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a15-matrix-0520\\utf8"
+      ],
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1"
+      },
+      "exit_code": 0,
+      "log": "utf8-runner.log"
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+        "-B",
+        "-c",
+        "import sys,locale,json;print(json.dumps({'version':sys.version,'executable':sys.executable,'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode}))"
+      ],
+      "environment": {
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0"
+      },
+      "exit_code": 0,
+      "log": "cp1252-environment.json"
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+        "-B",
+        "wp/tests/a15/test_contract.py"
+      ],
+      "environment": {
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0"
+      },
+      "exit_code": 0,
+      "log": "cp1252-python-tests.log"
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+        "-B",
+        "wp/tests/a15/run.py",
+        "--output",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a15-matrix-0520\\cp1252"
+      ],
+      "environment": {
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0"
+      },
+      "exit_code": 0,
+      "log": "cp1252-runner.log"
+    },
+    {
+      "command": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+        "-B",
+        "wp/tests/a15/style.py",
+        "--output",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a15-matrix-0520\\style"
+      ],
+      "environment": {
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0"
+      },
+      "exit_code": 0,
+      "log": "style.log"
+    }
+  ],
+  "exit_code": 0
+}

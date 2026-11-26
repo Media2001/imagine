@@ -39,7 +39,7 @@ def raw(path,client):
 def stored(uid):
     return c17.wp('$s=Imagine\\Site\\Justificatifs::etat('+str(uid)+');$p=isset($s["blob"])?Imagine\\Site\\Justificatifs::chemin($s):null;echo wp_json_encode(["state"=>$s,"path"=>$p,"exists"=>$p?is_file($p):false,"sha256"=>$p&&is_file($p)?hash_file("sha256",$p):null]);')
 def audit(uid):
-    return c17.wp('global $wpdb;$key=Imagine\\Site\\Justificatifs::PREFIX.'+str(uid)+';$rows=$wpdb->get_col($wpdb->prepare("SELECT option_value FROM {$wpdb->options} WHERE option_name LIKE %s ORDER BY option_id DESC",$wpdb->esc_like(Imagine\\Pilotage\\Administration\\Reglages::JOURNAL)."%"));$out=[];foreach($rows as $row){$v=maybe_unserialize($row);if(($v["option"]??"")===$key)$out[]=$v;}echo wp_json_encode($out);')
+    return c17.wp('global $wpdb;$key=Imagine\\Site\\Justificatifs::PREFIX . '+str(uid)+';$rows=$wpdb->get_col($wpdb->prepare("SELECT option_value FROM {$wpdb->options} WHERE option_name LIKE %s ORDER BY option_id DESC",$wpdb->esc_like(Imagine\\Pilotage\\Administration\\Reglages::JOURNAL)."%"));$out=[];foreach($rows as $row){$v=maybe_unserialize($row);if(($v["option"]??"")===$key)$out[]=$v;}echo wp_json_encode($out);')
 def absent(path):
     return c17.wp('$p='+json.dumps(path)+';clearstatcache(true,$p);echo wp_json_encode(!file_exists($p)&&!is_link($p));')
 def file_url(text):

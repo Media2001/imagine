@@ -10,6 +10,7 @@ final class Justificatifs
     public const CAP = 'imagine_traiter_justificatifs';
     public const PREFIX = 'imagine_justificatif_';
     public const PAGE = 'imagine-justificatifs';
+    private static bool $restoring = false;
 
     public static function register(): void
     {
@@ -18,6 +19,9 @@ final class Justificatifs
             add_action('admin_post_nopriv_imagine_justificatif_' . $action, [self::class, $action]);
         }
         add_action('imagine_compte_justificatif', [self::class, 'compte']);
+        // Même extension par hooks du journal C10 que les catégories ; aucun moteur modifié.
+        add_action('updated_option', static fn ($key, $old, $new) => self::journalDecision($key, $old, $new), 20, 3);
+        add_action('added_option', static fn ($key, $new) => self::journalDecision($key, null, $new), 20, 2);
         // delete_user précède la disparition du titulaire exigé par verrou().
         add_action('delete_user', [self::class, 'supprimerCompte'], 0);
         add_action('template_redirect', [self::class, 'servir'], -101);
@@ -45,6 +49,49 @@ final class Justificatifs
             throw new \RuntimeException('État documentaire invalide.');
         }
         return $value;
+    }
+
+    /** Audit C10 séparé du dossier : jamais de blob, chemin ou révision dans le journal. */
+    private static function journalDecision(string $key, mixed $old, mixed $new): void
+    {
+        if (
+            self::$restoring || !preg_match('/\Aimagine_justificatif_[1-9][0-9]*\z/D', $key)
+            || !is_array($new) || !in_array($new['decision'] ?? '', ['valide', 'refuse'], true)
+            || $old === $new
+        ) {
+            return;
+        }
+        $projection = static fn (array $s): array => [
+            'categorie' => $s['categorie'] ?? '', 'decision' => $s['decision'] ?? '', 'fin' => $s['fin'] ?? '',
+        ];
+        if ($new !== $projection($new)) {
+            throw new \RuntimeException('Dossier décidé : trois champs exactement requis.');
+        }
+        $u = wp_get_current_user();
+        // Reprise ciblée d'une ancienne décision fictive : ne pas inventer son auteur ni sa date.
+        $migration = is_array($old) && ($old['decision'] ?? '') === $new['decision']
+            && isset($old['date_decision'], $old['operateur']);
+        $row = [
+            'quand_utc' => $migration ? $old['date_decision'] : gmdate('Y-m-d\TH:i:s\Z'),
+            'qui_id' => $migration ? (int) (get_user_by('login', $old['operateur'])->ID ?? 0) : $u->ID,
+            'qui_login' => $migration ? $old['operateur'] : ($u->ID ? $u->user_login : 'systeme'),
+            'option' => $key, 'avant' => is_array($old) ? $projection($old) : null, 'apres' => $new,
+        ];
+        $event = \Imagine\Pilotage\Administration\Reglages::JOURNAL . str_replace('-', '', wp_generate_uuid4());
+        if (add_option($event, $row, '', false) && get_option($event) === $row) {
+            return;
+        }
+        self::$restoring = true;
+        try {
+            $old === null ? delete_option($key) : update_option($key, $old, false);
+            wp_cache_delete($key, 'options');
+            if (get_option($key, null) !== $old) {
+                throw new \RuntimeException('Échec du journal et de la restauration documentaire.');
+            }
+        } finally {
+            self::$restoring = false;
+        }
+        throw new \RuntimeException('Journal indisponible : décision refusée, nouveau dépôt éventuellement nécessaire.');
     }
 
     public static function version(array $state): string

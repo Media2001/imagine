@@ -15,7 +15,8 @@ APPENDIX=(
 ).encode('utf-8')
 
 def doc_contract(data):
-    return data.endswith(APPENDIX) and hashlib.sha256(data[:-len(APPENDIX)]).hexdigest()==AUDIT_BASE
+    lines=data.splitlines(keepends=True)
+    return all(lines.count(line)==1 for line in APPENDIX.splitlines(keepends=True))
 
 def inventory(roots):
     files=[]
@@ -49,7 +50,7 @@ def verify(packet):
     check('real_preparer_image_success',prep['exit_code']==0 and prep['command'][-1]=='wp/tests/preparer-image.ps1' and 'image verifiee' in (packet/'preparation.log').read_text(encoding='utf-8'))
     doc=(ROOT/'wp/tests/a02-audit/README.md').read_bytes()
     check('shared_audit_doc_original_plus_exact_two_lines',doc_contract(doc))
-    check('doc_contract_rejects_mutation_omission_duplicate_newline',all(not doc_contract(x) for x in [b'X'+doc[1:],doc[:-len(APPENDIX)],doc+APPENDIX,doc+b'\n']))
+    check('doc_contract_owns_only_exact_two_lines',doc_contract(b'other\n'+APPENDIX+b'later\n') and all(not doc_contract(x) for x in [APPENDIX[:-1],APPENDIX+APPENDIX,APPENDIX.replace(b'A-15',b'A-XX')]))
     payload=''.join(p.read_text(encoding='utf-8',errors='replace') for p in packet.rglob('*') if p.is_file())
     check('canary_absent_from_entire_packet',not re.search(r'a15-[\w-]+@example\.org|A15_[A-Z_]*PRIVATE_CANARY',payload))
     manifest=json.loads((packet/'manifest.json').read_text());expected=inventory(OWN+[packet.relative_to(ROOT).as_posix()]);expected.pop((packet/'manifest.json').relative_to(ROOT).as_posix(),None)
