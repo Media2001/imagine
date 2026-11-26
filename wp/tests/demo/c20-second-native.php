@@ -50,7 +50,7 @@ $carte = transaction(static function () use ($f, &$checks): array {
     $before = \Imagine\Demo\C20\state('A-CARTE', $f);
     $s = wcs_get_subscription($before['id']);
     wp_set_current_user($s->get_customer_id());
-    $allowed = $s->can_be_updated_to('pending-cancel') && current_user_can('cancel_subscription', $s->get_id());
+    $allowed = $s->can_be_updated_to('pending-cancel') && current_user_can('edit_shop_subscription_status', $s->get_id());
     if (!$allowed) {
         throw new \RuntimeException('Existing fixture cannot cancel natively.');
     }
@@ -83,6 +83,12 @@ $four = transaction(static function () use ($f): array {
     }
     $planner = new Planificateur($engine);
     $margin = (new ReglagesAdministration())->lire()->margeJours;
+    if ($margin === null) {
+        return ['before' => $before, 'after' => $before, 'C05_block_end' => null,
+            'C05_remaining' => [], 'native_pending_payment_dates' => array_column(array_filter($before['actions'], static fn ($a) => $a['hook'] === 'woocommerce_scheduled_subscription_payment'), 'scheduled_date_gmt'),
+            'checks' => ['C05_end_available_without_invention' => false], 'supported' => false,
+            'reason' => 'MARGE_OBLIGATOIRE: C05 has no configured margin; no end date may be invented; native end write not attempted.'];
+    }
     $current = $planner->planifier($year, $margin);
     $last = $engine->dernier($year);
     if (!$last) {

@@ -29,6 +29,8 @@ def verify(packet):
     prep=json.loads((packet/'preparation.json').read_text())
     check('preparer_image_really_ran',prep['exit_code']==0 and prep['command'][-1]=='wp/tests/preparer-image.ps1' and 'image verifiee' in (packet/'preparation.log').read_text(encoding='utf-8'))
     for storage in ['classic','hpos']:
+        native_names={c['check'] for c in json.loads((packet/'result.json').read_text(encoding='utf-8'))['checks']}
+        check(storage+'_fusion_required_cases',all(storage+':'+k in native_names for k in ['french_summary_and_source_line_convention','pending_cancel_explicitly_not_active','reserved_domain_without_marker_excluded','two_active_subscriptions_one_account']))
         before=json.loads((packet/(storage+'-db-before.json')).read_text());after=json.loads((packet/(storage+'-db-after.json')).read_text())
         check(storage+'_all_tables_equal',before==after and bool(before['tables']))
         data=json.loads((packet/(storage+'-contacts/resume.json')).read_text())

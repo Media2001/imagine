@@ -73,7 +73,7 @@ if (getenv('A14_CONFINED') === '1') {
     payload=''.join(x.read_text() for x in dest.iterdir())+p.stdout+p.stderr
     b.check(storage+':no_emails_names_ids_private_values',not re.search(r'@|Fictif|PRIVATE_CANARY|DB_PASSWORD|/scratch',payload))
     b.check(storage+':permissions',dest.stat().st_mode&0o777==0o700 and all(x.stat().st_mode&0o777==0o600 for x in dest.iterdir()))
-    Path('/opt/a14/branches.csv').write_text('Courriel;Statut\nbob@example.org;oui\nfictif@sans-email.imagine.invalid;oui\nalice@example.org;oui\n')
+    Path('/opt/a14/branches.csv').write_text('Courriel;Statut\nbob@example.org;inscrit\nfictif@sans-email.imagine.invalid;inscrit\nalice@example.org;inscrit\n')
     branch=OUT/(storage+'-branches');q=inventory(site,branch,audit/'audit.json',contacts='/opt/a14/branches.csv')
     branch_rows=list(csv.DictReader(io.StringIO((branch/'rapproches.csv').read_text()),delimiter=';'))
     branch_counts=json.loads((branch/'resume.json').read_text())['counts']

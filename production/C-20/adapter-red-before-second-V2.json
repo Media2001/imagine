@@ -30,7 +30,7 @@
     },
     "wp_options": {
       "count": 2430,
-      "sha256": "fe5245a008441a819fd879f401332a632361e0b750ee97730c2b38618db66303"
+      "sha256": "c236be45f8ac5e337b8bb20a36d6af5ff8f8c745740591dd871d67d5805bdf97"
     },
     "wp_postmeta": {
       "count": 2250,
@@ -193,8 +193,8 @@
       "sha256": "35786c7117b4e38d0f169239752ce71158266ae2f6e4aa230fbbb87bd699c0e3"
     },
     "wp_woocommerce_sessions": {
-      "count": 117,
-      "sha256": "2255c1e62c121022f2e46e6eb35d597c71855ec775d0ab4f91c8d9b9a1a73d2a"
+      "count": 120,
+      "sha256": "561bd8d0f6559358cccce06d696e681f5434ee7a04ea0e9e385f963cd8edb9f5"
     },
     "wp_woocommerce_shipping_zone_locations": {
       "count": 0,

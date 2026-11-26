@@ -74,7 +74,10 @@ try {
         'schema' => 'imagine-a14-v1', 'read_only' => true, 'storage' => $native['storage'],
         'audit_sha256' => hash_file('sha256', $audit),
     ] + $result;
-    $summary = __("# Rapprochement — lecture seule\n\nAucune réinscription ; coopérateur et tarif inconnus.\n", 'imagine');
+    $summary = __(
+        "# Rapprochement — lecture seule\n\nAucune réinscription ; coopérateur et tarif inconnus.\n",
+        'imagine'
+    );
     $summary .= __("Les contacts sont comptés par ligne source, pas par personne distincte. ", 'imagine')
         . __("Le compteur technique duplicate_contact_lines indique les lignes concernées par un doublon ; ", 'imagine')
         . __("il ne donne pas, à lui seul, le nombre de personnes distinctes.\n\n", 'imagine');

@@ -1,0 +1,8 @@
+{
+  "prior_sha256": "4d850dd0d10b8cff2da98e84ddd5e9d4dfb23d57b0f280b5ce3686d945cf0373",
+  "sha256": "36cd92a29c942a4f210b6fad36eb75b5604e72dd69dcee115fac4ef2220c3d6f",
+  "checks": {
+    "source_exact": true,
+    "profiles_actions_exact": true
+  }
+}

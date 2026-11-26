@@ -20,9 +20,27 @@ def inspect():
 def inspect_more():
     c20.profils.guard('imagine-test-demo')
     data = wp(r'''$out=[];$i=wc_memberships()->get_integrations_instance()->get_subscriptions_instance();$r=new ReflectionClass($i);$path=dirname($r->getFileName());$out['integration_class']=$r->getName();foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path)) as $f){if($f->isFile()&&$f->getExtension()==='php'){$text=file_get_contents($f->getPathname());if(str_contains($text,"'pending-cancel'")||str_contains($text,"'pending'")){$out['integration_sources'][$f->getPathname()]=$text;}}}foreach(['WC_Subscription'=>['contains_unavailable_product','is_manual','calculate_next_payment_date'],'WCS_User_Change_Status_Handler'=>['change_users_subscription','can_user_change_status']] as $c=>$ms){foreach($ms as $m){if(!method_exists($c,$m)){continue;}$r=new ReflectionMethod($c,$m);$ls=file($r->getFileName());$out[$c.'::'.$m]=['file'=>$r->getFileName(),'line'=>$r->getStartLine(),'source'=>implode('',array_slice($ls,$r->getStartLine()-1,$r->getEndLine()-$r->getStartLine()+1))];}}$f=get_option('imagine_c09_fixture');foreach(['A-CARTE','A-SEPA4','A-VIR','A-PAPIER'] as $who){$s=wcs_get_subscription($f['subscriptions'][$who]);wp_set_current_user($s->get_customer_id());$out['profiles'][$who]=['id'=>$s->get_id(),'manual'=>$s->is_manual(),'method'=>$s->get_payment_method(),'products_unavailable'=>$s->contains_unavailable_product(),'status'=>$s->get_status(),'dates'=>['start'=>$s->get_date('start'),'end'=>$s->get_date('end'),'next_payment'=>$s->get_date('next_payment')],'actions'=>array_keys(wcs_get_all_user_actions_for_subscription($s,$s->get_customer_id())),'items'=>[]];foreach($s->get_items() as $item){$p=$item->get_product();$out['profiles'][$who]['items'][]=['id'=>$item->get_product_id(),'variation'=>$item->get_variation_id(),'exists'=>(bool)$p,'status'=>$p?$p->get_status():null,'purchasable'=>$p?$p->is_purchasable():null];}}echo wp_json_encode($out);''')
+    data['native_action_source'] = wp(r'''$out=[];foreach(['wcs_get_all_user_actions_for_subscription','wcs_can_user_change_status'] as $fn){if(function_exists($fn)){$r=new ReflectionFunction($fn);$ls=file($r->getFileName());$out[$fn]=implode('',array_slice($ls,$r->getStartLine()-1,$r->getEndLine()-$r->getStartLine()+1));}}$r=new ReflectionClass('WCS_User_Change_Status_Handler');$out['handler']=file_get_contents($r->getFileName());echo wp_json_encode($out);''')
     save('native-details', data)
-    print(json.dumps({k:v for k,v in data.items() if k!='integration_sources'}, ensure_ascii=False))
+    print(json.dumps({k:v for k,v in data.items() if k not in ('integration_sources','native_action_source')}, ensure_ascii=False))
     print('integration source files:', list(data.get('integration_sources',{})))
+
+def deploy_adapter():
+    c20.profils.guard('imagine-test-demo')
+    name = 'plugins/imagine-site/Paywall.php'
+    source = ROOT / 'wp' / name
+    baseline = json.loads((PROOF / 'protected-baseline-second-V2.json').read_text(encoding='utf-8'))
+    before = snapshot()
+    prior = wp('echo wp_json_encode(hash_file("sha256",WP_CONTENT_DIR . "/' + name + '"));')
+    current = hashlib.sha256(source.read_bytes()).hexdigest()
+    assert prior in (baseline['wp/' + name], current), 'Refuse overwriting unknown live source'
+    c20.profils.b00.upload(name, source.read_bytes())
+    actual = wp('token_get_all(file_get_contents(WP_CONTENT_DIR . "/' + name + '"),TOKEN_PARSE);echo wp_json_encode(hash_file("sha256",WP_CONTENT_DIR . "/' + name + '"));')
+    after = snapshot()
+    checks = {'source_exact': actual == current, 'profiles_actions_exact': before['profiles'] == after['profiles']}
+    save('adapter-installation', {'prior_sha256':prior, 'sha256':actual, 'checks':checks})
+    print(json.dumps(checks))
+    assert all(checks.values())
 
 def snapshot():
     return wp('define("IMAGINE_C20_READ_ONLY",true); require WP_CONTENT_DIR . "/imagine-demo-build/c20-native.php";')
@@ -47,7 +65,9 @@ def probe(label):
     return 1 if data['failures'] else 0
 
 if __name__ == '__main__':
-    if '--probe' in sys.argv:
+    if '--deploy-adapter' in sys.argv:
+        deploy_adapter()
+    elif '--probe' in sys.argv:
         sys.exit(probe(sys.argv[-1]))
     elif '--details' in sys.argv:
         inspect_more()

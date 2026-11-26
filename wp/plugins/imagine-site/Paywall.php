@@ -246,6 +246,11 @@ final class Paywall
                 ) {
                     // Première commande en attente : pas une suspension d'un abonnement actif.
                     $state = 'virement_non_valide';
+                } elseif ($subStatus === 'pending-cancel' && $status === 'pending'
+                    && $subscription->get_date('end', 'gmt') !== '') {
+                    // Memberships « pending cancellation », pas un premier virement.
+                    // Les bornes natives ci-dessus restent soumises au moteur C06.
+                    $state = 'actif';
                 } elseif (!in_array($subStatus, ['active', 'pending-cancel'], true)) {
                     $state = in_array($subStatus, ['expired', 'cancelled'], true) ? 'expire' : 'suspendu';
                 }
