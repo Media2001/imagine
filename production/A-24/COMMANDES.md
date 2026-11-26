@@ -35,15 +35,9 @@ PYTHONIOENCODING=utf-8 PYTHONUTF8=1 'C:/Python314/python.exe' -B wp/tests/a24/ru
 
 `run.py`, y compris `--unit-only`, utilise Docker/WSL et reste réservé au parent. Les deux commandes unittest seules n’en utilisent pas. Pas de site en argument au banc : exclusivement sa fixture fictive.
 
-### PHP pur local sans Docker/WSL
+### PHP : conteneur jetable uniquement
 
-PHP portable 8.2.36 a été préparé uniquement en scratch, sans installation système. Commande réelle, sans extensions optionnelles ni fonctions d’écriture/processus :
-
-```sh
-A24_PURE_PROBE=1 'C:/Users/Ced/AppData/Local/hermes/cache/scratch/a24-corrections-reveil/php-portable/php.exe' -n -d disable_functions=file_put_contents,fopen,mkdir,rename,unlink,mail,exec,shell_exec,system,passthru,popen,proc_open -r "require 'C:/Users/Ced/imagine/wp/outils/bascule/a24/Analysis.php'; require 'C:/Users/Ced/imagine/wp/tests/a24/unit.php';"
-```
-
-Résultat courant : `A24_PURE_OK 27`. Cela ne prouve ni les getters natifs ni Landlock. Pour le banc isolé du parent seulement, `run.py --unit-only` demeure disponible.
+La recette PHP portable Windows du réveil précédent est retirée : elle contrevenait à la consigne permanente, même en scratch. Son exécution historique reste déclarée dans `corrections-reveil.md`, sans être répétée ni validée comme méthode autorisée. Pour PHP pur comme pour le natif, employer le runner isolé ci-dessus (option `--unit-only` pour le pur) ; aucun PHP n'est exécuté sur Windows pendant la qualification finale.
 
 ## Scellement et réception
 

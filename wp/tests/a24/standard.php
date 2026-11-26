@@ -14,7 +14,8 @@ foreach (['BE', 'FR', 'US', 'AE', '', 'ZZ'] as $country) {
     sort($required, SORT_STRING);
     $native[$country === '' ? 'country_absent' : $country] = $required;
 }
-$base = ['shipping_address_1', 'shipping_city', 'shipping_country', 'shipping_first_name', 'shipping_last_name', 'shipping_postcode'];
+$base = ['shipping_address_1', 'shipping_city', 'shipping_country', 'shipping_first_name',
+    'shipping_last_name', 'shipping_postcode'];
 $us = array_merge($base, ['shipping_state']);
 sort($us, SORT_STRING);
 $ae = array_values(array_diff($base, ['shipping_postcode']));
@@ -31,7 +32,9 @@ $checks = [
     'closed_country_codes_equal_native' => $actual === $closed,
 ];
 require_once '/subject/a24/Analysis.php';
-foreach ([1 => 'case_only_ignored', 2 => 'space_only_ignored', 3 => 'actual_postcode_difference_counted'] as $index => $name) {
+foreach (
+    [1 => 'case_only_ignored', 2 => 'space_only_ignored', 3 => 'actual_postcode_difference_counted'] as $index => $name
+) {
     $user = get_user_by('email', 'a24-fictif-' . $index . '@example.org');
     $subscriptions = $user ? wcs_get_subscriptions(['customer_id' => $user->ID,
         'subscriptions_per_page' => -1, 'subscription_status' => 'any']) : [];
@@ -75,7 +78,10 @@ foreach (
     $source['woocommerce/' . $file] = hash_file('sha256', WC_ABSPATH . $file);
 }
 foreach (['includes/core/wcs-functions.php', 'includes/core/class-wc-subscription.php'] as $file) {
-    $source['woocommerce-subscriptions/' . $file] = hash_file('sha256', WP_PLUGIN_DIR . '/woocommerce-subscriptions/' . $file);
+    $source['woocommerce-subscriptions/' . $file] = hash_file(
+        'sha256',
+        WP_PLUGIN_DIR . '/woocommerce-subscriptions/' . $file
+    );
 }
 $source['staging/lib.php'] = hash_file('sha256', '/subject/staging/lib.php');
 $source['staging/pdo-store.php'] = hash_file('sha256', '/subject/staging/pdo-store.php');
@@ -88,7 +94,8 @@ $report = ['php' => PHP_VERSION, 'wordpress' => get_bloginfo('version'), 'woocom
         array_values($checks)
     ),
     'exit_code' => (int) in_array(false, $checks, true)];
-$file = '/report/' . (get_option('woocommerce_custom_orders_table_enabled') === 'yes' ? 'hpos' : 'classic') . '-standard.json';
+$storage = get_option('woocommerce_custom_orders_table_enabled') === 'yes' ? 'hpos' : 'classic';
+$file = '/report/' . $storage . '-standard.json';
 file_put_contents($file, json_encode($report, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR) . "\n");
 if ($report['exit_code'] !== 0) {
     throw new RuntimeException('A24_STANDARD_FAILED');

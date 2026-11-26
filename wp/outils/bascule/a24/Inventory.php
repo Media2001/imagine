@@ -42,7 +42,8 @@ final class Inventory
             // Woo's own locale overlay, shop visibility options and native filters.
             // Missing country uses Woo's own base-country fallback, not ours.
             foreach (WC()->countries->get_address_fields($shipping['country'], 'shipping_') as $key => $definition) {
-                if (!in_array($key, array_map(static fn(string $f): string => 'shipping_' . $f, Analysis::FIELDS), true)) {
+                $allowed = array_map(static fn(string $f): string => 'shipping_' . $f, Analysis::FIELDS);
+                if (!in_array($key, $allowed, true)) {
                     throw new \RuntimeException('A24_NATIVE_FIELDS_UNSUPPORTED');
                 }
                 if (!empty($definition['required'])) {

@@ -84,7 +84,8 @@ for ($i = 0; $i < 12; $i++) {
 }
 // Excluded terminal statuses: do not contaminate live counts.
 foreach (['cancelled', 'expired'] as $status) {
-    $s = wcs_create_subscription(['customer_id' => $customer->get_id(), 'status' => 'pending', 'billing_period' => 'year', 'billing_interval' => 1,
+    $s = wcs_create_subscription(['customer_id' => $customer->get_id(), 'status' => 'pending',
+        'billing_period' => 'year', 'billing_interval' => 1,
         'start_date' => '2026-01-01 00:00:00']);
     $s->set_address([], 'shipping');
     $s->save();

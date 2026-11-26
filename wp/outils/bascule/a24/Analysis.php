@@ -39,7 +39,10 @@ final class Analysis
                 $empty = $empty && trim($value) === '';
                 $billing = $billing || trim((string) ($row['billing'][$field] ?? '')) !== '';
                 if ($row['customer'] !== null) {
-                    $different = $different || !self::sameAddressValue($value, (string) ($row['customer'][$field] ?? ''));
+                    $different = $different || !self::sameAddressValue(
+                        $value,
+                        (string) ($row['customer'][$field] ?? '')
+                    );
                 }
             }
             $counts['shipping_empty'] += (int) $empty;
