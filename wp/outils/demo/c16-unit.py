@@ -9,7 +9,7 @@ PROOF = ROOT/'production/C-16'
 
 def run(label='final', selection='CommandeReglesTest'):
     def docker(*args, check=True):
-        p = subprocess.run(['wsl.exe','-d','Ubuntu','--','docker',*args],capture_output=True,text=True,encoding='utf-8')
+        p = subprocess.run(['wsl.exe','-d','Ubuntu','--exec','docker',*args],capture_output=True,text=True,encoding='utf-8')
         if check and p.returncode: raise RuntimeError(p.stderr+p.stdout)
         return p
     source=subprocess.run(['wsl.exe','-d','Ubuntu','--','wslpath','-a','-u',str(ROOT/'wp').replace('\\','/')],capture_output=True,text=True,check=True).stdout.strip()

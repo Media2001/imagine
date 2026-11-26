@@ -1,0 +1,32 @@
+{
+  "at": "2026-11-26T02:37:13.355445+00:00",
+  "scope": "imagine-test-demo",
+  "sha256_readback": {
+    "CommandeRegles.php": "f679499d267a09e5102054cf49dfb5f8f78e0707a3778e4f5c70a6c0c565aeb2",
+    "CommandeNative.php": "fa99f21ef9f7414f7b78f2e125e49d1e0ecba22c8196f5ed0480643aad308c61",
+    "CommandeAdmin.php": "7e2c2b56048b50dc41e411cfcea21b18dcc4fd1f14a9e589b8c0170ea79dd896",
+    "SansEmail.php": "720148ca8163849666a68ef968d6d552647bbc4d909c3a287d12ce1a98def59c",
+    "c16-reset.php": "c82dd0e082ceff2d8267444dbd9227f3299ee9ce1d4974bc7702f4b77a156193"
+  },
+  "shared_contract": {
+    "classes": {
+      "CommandeRegles": true,
+      "SansEmail": true,
+      "CommandeNative": true,
+      "CommandeAdmin": true,
+      "Justificatifs": true,
+      "ExtractionsAdmin": true,
+      "TableauBordAdmin": true,
+      "MonCompte": true
+    },
+    "C16_mail": true,
+    "C16_refus": true,
+    "shared_sha256": {
+      "plugins/imagine-site/imagine-site.php": "fd08869ef6a5c5741e2b7a4340dd55664556591ed496f5cbebc865ded0f2f6d8",
+      "imagine-demo-build/c09-seed.php": "7b7ad355e03208cca739504ff64aef68969e4cfdd8a73fe94e4b3a10382fc382"
+    }
+  },
+  "shared_files_uploaded": false,
+  "theme_uploaded": false,
+  "commercial_install": false
+}

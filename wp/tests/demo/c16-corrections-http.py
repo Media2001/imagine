@@ -9,6 +9,40 @@ import sys
 import threading
 import subprocess
 from urllib.parse import urlencode
+from html.parser import HTMLParser
+
+class SettingsForm(HTMLParser):
+    """Successful controls of the existing C10 form; preserve other lots' fields."""
+    def __init__(self, text):
+        super().__init__(convert_charrefs=True)
+        self.fields={};self.current=None;self.select=None;self.option=None;self.textarea=None
+        self.feed(text)
+    def handle_starttag(self,tag,attrs):
+        a=dict(attrs)
+        if tag=='form': self.current={}
+        if self.current is None: return
+        if tag=='input' and a.get('name') and a.get('type') not in ('submit','button') and (a.get('type') not in ('checkbox','radio') or 'checked' in a):
+            self.current[a['name']]=a.get('value','')
+        if tag=='select': self.select={'name':a.get('name'),'values':[]}
+        if tag=='option' and self.select is not None: self.option={'value':a.get('value'),'selected':'selected' in a,'text':''}
+        if tag=='textarea': self.textarea={'name':a.get('name'),'value':''}
+    def handle_data(self,data):
+        if self.option is not None: self.option['text']+=data
+        if self.textarea is not None: self.textarea['value']+=data
+    def handle_endtag(self,tag):
+        if tag=='option' and self.option is not None:
+            self.select['values'].append(self.option);self.option=None
+        if tag=='select' and self.select is not None:
+            values=self.select['values']
+            if values and self.select['name']:
+                selected=next((v for v in values if v['selected']),values[0])
+                self.current[self.select['name']]=selected['value'] if selected['value'] is not None else selected['text']
+            self.select=None
+        if tag=='textarea' and self.textarea is not None:
+            self.current[self.textarea['name']]=self.textarea['value'];self.textarea=None
+        if tag=='form' and self.current is not None:
+            if self.current.get('option_page')=='imagine_reglages': self.fields=self.current
+            self.current=None
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'outils/demo'))
 import c16
@@ -87,6 +121,18 @@ def run(label='http-corrections-V2', selection='all'):
             settings_client=h.login(accounts['E-ADMIN'])
             s,_,settings=h.fetch('/wp-admin/admin.php?page=imagine-reglages',settings_client)
             checks['reglage_C10_visible_defaut_prudent_question_Imagine']=s==200 and 'name="imagine_commande_adresse_nouveau"' in settings and 'Oui — nouveau compte seulement (défaut prudent)' in settings and 'à confirmer par Imagine' in settings
+            fields=SettingsForm(settings).fields
+            keys=sorted({k.split('[')[0] for k in fields if k.startswith('imagine_') and k!='imagine_commande_adresse_nouveau'})
+            options_code='$o=[];foreach(json_decode('+json.dumps(json.dumps(keys))+',true) as $k){$o[$k]=get_option($k,null);}echo wp_json_encode($o);'
+            other_settings_before=c16.wp(options_code)
+            for value in ['non','oui']:
+                _,_,settings=h.fetch('/wp-admin/admin.php?page=imagine-reglages',settings_client)
+                fields=SettingsForm(settings).fields
+                assert fields.get('option_page')=='imagine_reglages' and '_wpnonce' in fields
+                fields['imagine_commande_adresse_nouveau']=value
+                status,_,_=h.fetch('/wp-admin/options.php',settings_client,urlencode(fields).encode())
+                checks['reglage_C10_POST_natif_'+value+'_reread']=status==200 and c16.wp('echo wp_json_encode(get_option("imagine_commande_adresse_nouveau"));')==value
+            checks['reglages_autres_lots_preserves']=c16.wp(options_code)==other_settings_before
             existing_code = '$u=get_userdata('+str(native['customer'])+');$c=new WC_Customer($u->ID);echo wp_json_encode(["name"=>$u->display_name,"email"=>$u->user_email,"first_name"=>$c->get_first_name(),"last_name"=>$c->get_last_name(),"billing"=>$c->get_billing(),"shipping"=>$c->get_shipping()]);'
             existing_before = c16.wp(existing_code)
             for name,client,policy in [

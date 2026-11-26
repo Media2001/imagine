@@ -1,0 +1,188 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Imagine\EmailInventory;
+
+/** Project the actually loaded WC_Emails registry, never render or trigger an email. */
+final class Inventory
+{
+    public static function safeLabel(string $value): string
+    {
+        return strlen($value) <= 200 && !preg_match('/[@\x00-\x1f<>]|https?:\/\//i', $value)
+            ? $value : '[intitule masque]';
+    }
+
+    public static function shape(object $email, string $owner, ?array $stored = null): array
+    {
+        $settings = $stored ?? $email->settings;
+        $fields = $email->get_form_fields();
+        $changed = static function (string $key, string $default, bool $emptyFallback = false) use ($settings): bool {
+            if (!array_key_exists($key, $settings)) {
+                return false;
+            }
+            if (!is_scalar($settings[$key]) && $settings[$key] !== null) {
+                throw new \RuntimeException('A15_SETTINGS_SHAPE');
+            }
+            $value = (string) $settings[$key];
+            return !($emptyFallback && $value === '') && $value !== $default;
+        };
+        $subject = $changed('subject', (string) $email->get_default_subject(), true);
+        $content = $changed('heading', (string) $email->get_default_heading(), true);
+        foreach (['body', 'additional_content', 'preheader'] as $key) {
+            if (isset($fields[$key]) || array_key_exists($key, $settings)) {
+                $method = 'get_default_' . $key;
+                $default = method_exists($email, $method) ? $email->$method() : ($fields[$key]['default'] ?? '');
+                $content = $content || $changed($key, (string) $default);
+            }
+        }
+        $recipient = false;
+        foreach (['recipient', 'cc', 'bcc'] as $key) {
+            $recipient = $recipient || (isset($settings[$key]) && trim((string) $settings[$key]) !== '');
+        }
+        if (!preg_match('/\A[a-zA-Z0-9_-]{1,120}\z/D', (string) $email->id)) {
+            throw new \RuntimeException('A15_EMAIL_ID_UNSAFE');
+        }
+        return [
+            'id' => $email->id,
+            'title' => self::safeLabel((string) $email->get_title()),
+            'extension' => $owner,
+            'enabled' => (bool) $email->is_enabled(),
+            'recipient_nature' => $email->is_customer_email() ? 'client' : 'administration',
+            'recipient_customised' => $recipient,
+            'subject_customised' => $subject,
+            'content_customised' => $content,
+        ];
+    }
+
+    private static function owner(string $file, string $site): string
+    {
+        foreach (['plugin' => '/wp-content/plugins/', 'mu_plugin' => '/wp-content/mu-plugins/', 'theme' => '/wp-content/themes/'] as $kind => $part) {
+            if (str_starts_with($file, $site . $part)) {
+                $slug = explode('/', substr($file, strlen($site . $part)))[0];
+                if (!preg_match('/\A[a-zA-Z0-9_.-]+\z/D', $slug)) {
+                    throw new \RuntimeException('A15_OWNER_UNSAFE');
+                }
+                return $kind . ':' . $slug;
+            }
+        }
+        return str_starts_with($file, $site . '/wp-includes/') ? 'wordpress' : 'unattributed';
+    }
+
+    private static function overrides(object $email, string $site): array
+    {
+        $result = [];
+        foreach (['template_html', 'template_plain'] as $property) {
+            $template = (string) ($email->$property ?? '');
+            if ($template === '') {
+                continue;
+            }
+            if (!preg_match('/\A[a-zA-Z0-9_\/-]+\.php\z/D', $template) || str_contains($template, '..')) {
+                throw new \RuntimeException('A15_TEMPLATE_UNSAFE');
+            }
+            $located = wc_locate_template($template, 'woocommerce/', $email->template_base);
+            $file = realpath($located);
+            if (!$file || !is_file($file)) {
+                throw new \RuntimeException('A15_TEMPLATE_MISSING');
+            }
+            if (str_starts_with($file, $site . '/wp-content/themes/')) {
+                $relative = substr($file, strlen($site) + 1);
+                if (!preg_match('/\A[a-zA-Z0-9_.\/-]+\z/D', $relative)) {
+                    throw new \RuntimeException('A15_TEMPLATE_UNSAFE');
+                }
+                $result[] = $relative;
+            }
+        }
+        sort($result, SORT_STRING);
+        return array_values(array_unique($result));
+    }
+
+    private static function transports(string $site): array
+    {
+        require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        $hookOwners = [];
+        foreach (['phpmailer_init', 'pre_wp_mail', 'wp_mail'] as $hook) {
+            foreach (($GLOBALS['wp_filter'][$hook]->callbacks ?? []) as $callbacks) {
+                foreach ($callbacks as $item) {
+                    $fn = $item['function'];
+                    try {
+                        $ref = is_array($fn) ? new \ReflectionMethod($fn[0], $fn[1])
+                            : (is_object($fn) && !$fn instanceof \Closure ? new \ReflectionMethod($fn, '__invoke') : new \ReflectionFunction($fn));
+                        $file = $ref->getFileName();
+                        if ($file) {
+                            $hookOwners[self::owner($file, $site)] = true;
+                        }
+                    } catch (\ReflectionException) {
+                        // An unreflectable hook is not assigned to an invented provider.
+                    }
+                }
+            }
+        }
+        $rows = [];
+        foreach (['plugin' => get_plugins(), 'mu_plugin' => get_mu_plugins()] as $kind => $plugins) {
+            foreach ($plugins as $file => $data) {
+                $slug = explode('/', $file)[0];
+                $observed = isset($hookOwners[$kind . ':' . $slug]);
+                $named = preg_match('/smtp|brevo|sendinblue|sendgrid|mailgun|mailjet|postmark|amazon.?ses|sendmail/i', $file . ' ' . $data['Name']);
+                if (!$named && !$observed) {
+                    continue;
+                }
+                $rows[] = [
+                    'name' => self::safeLabel((string) $data['Name']),
+                    'version' => \Imagine\Audit\Audit::version($data['Version']),
+                    'active' => $kind === 'mu_plugin' || is_plugin_active($file),
+                    'runtime_mail_hook' => $observed,
+                ];
+            }
+        }
+        usort($rows, static fn(array $a, array $b): int => [$a['name'], $a['version']] <=> [$b['name'], $b['version']]);
+        return $rows;
+    }
+
+    public static function collect(string $site): array
+    {
+        \Imagine\PublicAddresses\Runtime::boot($site);
+        global $wpdb;
+        $engines = $wpdb->get_col("SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_TYPE='BASE TABLE'");
+        if (array_filter($engines, static fn($engine): bool => $engine !== 'InnoDB')) {
+            throw new \RuntimeException('A15_TRANSACTIONAL_TABLES_REQUIRED');
+        }
+        if (!did_action('wp_loaded') || !function_exists('WC')) {
+            throw new \RuntimeException('A15_NATIVE_REGISTRY_UNAVAILABLE');
+        }
+        $emails = [];
+        $summary = [];
+        $files = [];
+        foreach (WC()->mailer()->get_emails() as $email) {
+            if (!$email instanceof \WC_Email) {
+                throw new \RuntimeException('A15_REGISTRY_SHAPE');
+            }
+            $ref = new \ReflectionClass($email);
+            $owner = self::owner((string) $ref->getFileName(), $site);
+            $stored = get_option($email->get_option_key(), []);
+            if (!is_array($stored)) {
+                throw new \RuntimeException('A15_SETTINGS_SHAPE');
+            }
+            $row = self::shape($email, $owner, $stored);
+            $row['template_overrides'] = self::overrides($email, $site);
+            $row['template_overridden'] = $row['template_overrides'] !== [];
+            if (isset($emails[$row['id']])) {
+                throw new \RuntimeException('A15_DUPLICATE_ID');
+            }
+            $emails[$row['id']] = $row;
+            $summary[$owner] = ($summary[$owner] ?? 0) + (int) $row['enabled'];
+            foreach ($row['template_overrides'] as $file) {
+                $files[$file] = true;
+            }
+        }
+        ksort($emails, SORT_STRING);
+        ksort($summary, SORT_STRING);
+        return [
+            'schema' => 'imagine-a15-v1', 'read_only' => true,
+            'storage' => get_option('woocommerce_custom_orders_table_enabled') === 'yes' ? 'hpos' : 'classic',
+            'registry' => ['native_loaded' => true, 'email_count' => count($emails)],
+            'emails' => array_values($emails), 'transport_plugins' => self::transports($site),
+            'summary' => ['active_by_extension' => $summary, 'overridden_template_files' => count($files)],
+        ];
+    }
+}

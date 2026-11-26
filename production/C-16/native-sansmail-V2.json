@@ -1,0 +1,19 @@
+{
+  "id": 2670,
+  "uid": 81,
+  "email": "ee55860eb44b44829901dabef36370bc@sans-email.imagine.invalid",
+  "nom": "Personnage Fictif C16 Sansmail",
+  "sans": "1",
+  "etat": "pending",
+  "paid": false,
+  "date": null,
+  "method": "bacs",
+  "sub": {
+    "id": 2671,
+    "etat": "pending",
+    "manual": true,
+    "parent": 2670,
+    "uid": 81
+  },
+  "members": 0
+}

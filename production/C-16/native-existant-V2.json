@@ -1,0 +1,19 @@
+{
+  "id": 2666,
+  "uid": 8,
+  "email": "v-inscrit@example.org",
+  "nom": "Personnage Fictif C09 V-INSCRIT",
+  "sans": "",
+  "etat": "pending",
+  "paid": false,
+  "date": null,
+  "method": "bacs",
+  "sub": {
+    "id": 2667,
+    "etat": "pending",
+    "manual": true,
+    "parent": 2666,
+    "uid": 8
+  },
+  "members": 0
+}
