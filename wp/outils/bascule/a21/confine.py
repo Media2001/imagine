@@ -61,6 +61,37 @@ def supervise(command,env,write_root,fence):
             raise RuntimeError('A21_UNEXPECTED_OUTPUT')
         return code,bytes(buffers[child.stdout]),bytes(buffers[child.stderr])
 
+def public_projection(data):
+    # A shutdown handler can tamper with staged files as well as the two pipes.
+    # No untrusted names/text may become a public JSON key or string value.
+    basis={
+        'keys':'Droits déclarés ; accès local au fuseau WordPress ; jamais et plus de douze mois disjoints.',
+        'destinations':'Nom d’hôte exact sans DNS ; casse et point final neutralisés ; seuls les actifs.',
+        'topics':'Identifiants standard fermés ; sujets libres et actions personnalisées regroupés sous unknown.',
+        'store':'Déclaration locale auth.access_token ; aucune vérification distante.',
+    }
+    top={'schema','read_only','storage','as_of_utc','api_keys','webhooks','extension_store',
+         'outbound_attempts','basis','audit_sha256'}
+    if not isinstance(data,dict) or set(data)!=top or data.get('basis')!=basis:
+        return False
+    if not re.fullmatch(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z',str(data.get('as_of_utc'))):
+        return False
+    texts={'imagine-a21-external-doors-v1','classic','hpos','connu','inconnu après neutralisation',
+           data['as_of_utc'],data['audit_sha256'],*basis.values()}
+    keys=top|set(basis)|set('''status counts total by_permission read write read_write unknown
+        never_used unused_twelve_months last_access_unknown by_status active paused disabled
+        by_topic active_destination same_domain external_domain connected http mail scheduled'''.split())
+    keys.update('''coupon.created coupon.updated coupon.deleted coupon.restored customer.created
+        customer.updated customer.deleted order.created order.updated order.deleted order.restored
+        product.created product.updated product.deleted product.restored product.published'''.split())
+    def closed(value):
+        if isinstance(value,dict):
+            return set(value).issubset(keys) and all(closed(v) for v in value.values())
+        return (value is None or type(value) is bool or type(value) is int and value>=0
+                or type(value) is list and not value
+                or isinstance(value,str) and value in texts)
+    return closed(data)
+
 def complete_report(output,audit):
     try:
         if output.is_symlink() or not output.is_dir() or {p.name for p in output.iterdir()}!={'portes.json','portes.md'}:
@@ -70,7 +101,8 @@ def complete_report(output,audit):
                 return False
         raw=(output/'portes.json').read_bytes()
         data=json.loads(raw)
-        return (data['schema']=='imagine-a21-external-doors-v1' and data['read_only'] is True
+        return (public_projection(data) and raw==json.dumps(data,ensure_ascii=False,indent=4,allow_nan=False).encode()+b'\n'
+                and data['schema']=='imagine-a21-external-doors-v1' and data['read_only'] is True
                 and data['storage'] in {'classic','hpos'}
                 and data['audit_sha256']==hashlib.sha256(audit.read_bytes()).hexdigest()
                 and all(key in data for key in ('api_keys','webhooks','extension_store','as_of_utc','outbound_attempts','basis'))
@@ -122,7 +154,7 @@ def main():
             return 1
         if code!=0 or stdout!=SUCCESS or stderr!=b'':
             raise RuntimeError('A21_UNEXPECTED_OUTPUT')
-        if not complete_report(staged_output,staged_audit):
+        if not complete_report(staged_output,audit):
             raise RuntimeError('A21_SUCCESS_INCOMPLETE')
         staged_output.rename(output)
     sys.stdout.write(SUCCESS.decode('ascii'))

@@ -54,6 +54,17 @@ def main():
         (out/'unit.log').write_text(p.stdout+p.stderr,encoding='utf-8')
         b.call(['cp',name+':/report/unit.json',b.local(out/'unit.json')])
         check('unit_return',p.returncode==0,{'exit_code':p.returncode})
+        pure=b.call(['exec',name,'php','-r',
+            "$before=[]; foreach (glob('/report/*') as $file) { if (is_file($file)) { $before[$file]=hash_file('sha256',$file); } } "
+            "ob_start(); $checks=require '/opt/a21/unit.php'; $noise=ob_get_clean(); "
+            "$after=[]; foreach (glob('/report/*') as $file) { if (is_file($file)) { $after[$file]=hash_file('sha256',$file); } } "
+            "echo json_encode(['count'=>count($checks),'green'=>!in_array('FAIL',array_column($checks,'status'),true),"
+            "'quiet'=>$noise==='','files_unchanged'=>$before===$after,'native_absent'=>!function_exists('WC')"
+            "&&!class_exists('Imagine\\\\PublicAddresses\\\\Runtime',false)]);"],check=False)
+        pure_data=json.loads(pure.stdout)
+        (out/'pure-include.json').write_text(json.dumps(pure_data,indent=2)+'\n',encoding='utf-8')
+        check('pure_include_no_native_or_side_effect',pure.returncode==0 and pure.stderr=='' and pure_data['count']>0
+              and all(pure_data[key] is True for key in ['green','quiet','files_unchanged','native_absent']))
         if not a.unit_only and p.returncode == 0:
             for f in ['inside.py','seed.php','fingerprint.php','unit.php','readonly-probe.php']:
                 b.call(['cp',b.local(ROOT/'wp/tests/a02-audit'/f),name+':/opt/a02/'+f])

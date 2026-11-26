@@ -22,6 +22,12 @@ def readme_contract(document,appendix):
     lines=appendix.splitlines(keepends=True)
     return len(lines)==2 and len(set(lines))==2 and all(line.endswith(b'\n') and b'\r' not in line and document.splitlines(keepends=True).count(line)==1 for line in lines)
 
+def packet_manifest(packet):
+    expected=inventory(OWN+[packet.relative_to(ROOT).as_posix(),'production/A-21/readme-ajout.txt',
+                            'production/A-21/readme-delta.txt','production/A-21/notes.md'])
+    expected.pop((packet/'manifest.json').relative_to(ROOT).as_posix(),None)
+    return expected
+
 def verify(packet):
     checks=[]
     counts={}
@@ -48,13 +54,16 @@ def verify(packet):
     required += [kind+label for kind in ['supervised_bootstrap:','hostile_artifacts_absent:',
                  'hostile_confinement_unchanged:'] for label in ['stdout','stderr','early_exit','empty_exit',
                  'forged_success','shutdown_stdout','shutdown_stderr','oversized_stdout','binary_stderr',
-                 'shutdown_duplicate_success','shutdown_missing_json']]
+                 'shutdown_duplicate_success','shutdown_missing_json','shutdown_artifact_canary']]
     for console,folder in [('cp1252',packet),('utf8',packet/'utf8')]:
         for kind in ['unit','result','runner']:
             data=load(folder/(kind+'.json'))
             names=[r['check'] for r in data['checks']]
             counts[console+':'+kind]=len(names)
             check(console+':'+kind+':green_unique',data['exit_code']==0 and bool(names) and len(names)==len(set(names)) and all(r['status']=='PASS' for r in data['checks']))
+        pure=load(folder/'pure-include.json') if (folder/'pure-include.json').is_file() else {}
+        check(console+':pure_include_complete',pure.get('count')==counts[console+':unit']
+              and all(pure.get(key) is True for key in ['green','quiet','files_unchanged','native_absent']))
         pure_names={r['check'] for r in load(folder/'unit.json')['checks']}
         check(console+':literal_ip_ipv6_pure_cases',{'literal_ipv4_ipv6_external_by_exact_host',
               'literal_ipv6_string_not_dns_or_binary_equivalence','literal_ip_addresses_never_projected'}.issubset(pure_names))
@@ -87,9 +96,7 @@ def verify(packet):
     candidate=load(packet/'candidate.json')
     check('candidate_not_parent_gate_claim',candidate=={'status':'CANDIDAT_GATE_PARENT','parent_preparation':'pending','parent_global_T01':'pending','readiness_claimed':False})
     check('own_two_shared_lines_only',readme_contract((ROOT/'wp/tests/a02-audit/README.md').read_bytes(),(ROOT/'production/A-21/readme-ajout.txt').read_bytes()))
-    expected=inventory(OWN+[packet.relative_to(ROOT).as_posix(),'production/A-21/readme-ajout.txt','production/A-21/notes.md'])
-    expected.pop((packet/'manifest.json').relative_to(ROOT).as_posix(),None)
-    check('exact_final_packet_manifest',load(packet/'manifest.json')==expected)
+    check('exact_final_packet_manifest',load(packet/'manifest.json')==packet_manifest(packet))
     result={'status':'CANDIDAT_GATE_PARENT','readiness_claimed':False,'exit_code':int(any(r['status']!='PASS' for r in checks)),'counts':counts,'checks':checks}
     print(json.dumps(result,indent=2))
     return result['exit_code']
