@@ -35,6 +35,9 @@ throw new RuntimeException('A15_NEVER_LOAD_INACTIVE');
 ''')
     theme=site/'wp-content/themes/a02-child/woocommerce/emails';theme.mkdir()
     (theme/'customer-on-hold-order.php').write_text("<?php throw new RuntimeException('A15_NEVER_RENDER_PRIVATE_CANARY');")
+    parent=site/'wp-content/themes/a02-theme/woocommerce/emails';parent.mkdir()
+    for path in [theme/'email-header.php',parent/'email-header.php',parent/'email-footer.php',theme/'email-styles.php']:
+        path.write_text("<?php throw new RuntimeException('A15_NEVER_RENDER_COMMON_PRIVATE_CANARY');")
     (site/'wp-config.php').write_text(writable)
     try:
         p=b.wp(site,['eval-file','/opt/a15/seed.php','--use-include']);b.check(storage+':fixture_seed', 'A15_SEED_OK' in p.stdout)
@@ -63,7 +66,15 @@ if (getenv('A15_CONFINED') === '1') {
     add_action('wp_loaded', function () {
         $emails = WC()->mailer()->get_emails();
         $email = reset($emails);
-        if ($email->send('a15-woo-send-canary@example.org', 'A15_SEND_PRIVATE_CANARY', 'A15_SEND_PRIVATE_CANARY', '', []) !== false) {
+        // Exercise native send->wp_mail without rendering the canary HTML/CSS fixtures.
+        $originalType = $email->email_type;
+        $email->email_type = 'plain';
+        try {
+            $sent = $email->send('a15-woo-send-canary@example.org', 'A15_SEND_PRIVATE_CANARY', 'A15_SEND_PRIVATE_CANARY', '', []);
+        } finally {
+            $email->email_type = $originalType;
+        }
+        if ($sent !== false) {
             throw new RuntimeException('A15_WOO_SEND_NOT_BLOCKED');
         }
         echo 'A15_BOOT_PRIVATE_CANARY';
@@ -79,7 +90,12 @@ if (getenv('A15_CONFINED') === '1') {
     b.check(storage+':exact_active_counts_by_extension',data['summary']['active_by_extension']==oracle['summary'])
     row=rows['customer_on_hold_order']
     b.check(storage+':disabled_subject_body_client',row['enabled'] is False and row['subject_customised'] is True and row['content_customised'] is True and row['recipient_nature']=='client')
-    b.check(storage+':exact_theme_override',row['template_overrides']==['wp-content/themes/a02-child/woocommerce/emails/customer-on-hold-order.php'] and row['template_overridden'] is True and data['summary']['overridden_template_files']==1)
+    expected_overrides=['wp-content/themes/a02-child/woocommerce/emails/customer-on-hold-order.php','wp-content/themes/a02-child/woocommerce/emails/email-header.php','wp-content/themes/a02-child/woocommerce/emails/email-styles.php','wp-content/themes/a02-theme/woocommerce/emails/email-footer.php']
+    b.check(storage+':exact_theme_override',row['template_overrides']==expected_overrides and row['template_overridden'] is True and data['summary']['overridden_template_files']==4)
+    expected_cases={id+':'+mode:[mode=='modified',mode=='modified'] for id in ['customer_refunded_order','customer_invoice'] for mode in ['modified','default','empty']}
+    expected_cases.update({'recipient:absent':False,'recipient:saved_default':False,'recipient:different':True,'recipient:cc_addition':True})
+    b.check(storage+':native_variants_defaults_empty_and_recipient_defaults',oracle['native_shape_cases']==expected_cases)
+    b.check(storage+':collected_refund_variant_and_invoice_default',rows['customer_refunded_order']['subject_customised'] is True and rows['customer_refunded_order']['content_customised'] is True and rows['customer_invoice']['subject_customised'] is False and rows['customer_invoice']['content_customised'] is False)
     b.check(storage+':internal_custom_recipient_without_address',rows['new_order']['recipient_nature']=='administration' and rows['new_order']['recipient_customised'] is True)
     senders={r['name']:r for r in data['transport_plugins']}
     b.check(storage+':present_active_and_inactive_transport_versions',senders['A15 SMTP fictif']=={'name':'A15 SMTP fictif','version':'1.2.3','active':True,'runtime_mail_hook':True} and senders['A15 SMTP inactif fictif']=={'name':'A15 SMTP inactif fictif','version':'4.5.6','active':False,'runtime_mail_hook':False})
@@ -89,6 +105,16 @@ if (getenv('A15_CONFINED') === '1') {
     b.check(storage+':no_address_subject_body_canary_secret_path',not re.search(r'@|PRIVATE_CANARY|DB_PASSWORD|/scratch|a15-recipient-canary',payload))
     b.check(storage+':output_only_allowlisted_schema',set(data)=={'schema','read_only','storage','registry','emails','transport_plugins','summary','audit_sha256'} and all(set(r)=={'id','title','extension','enabled','recipient_nature','recipient_customised','subject_customised','content_customised','template_overrides','template_overridden'} for r in rows.values()))
     b.check(storage+':permissions',dest.stat().st_mode&0o777==0o700 and all(x.stat().st_mode&0o777==0o600 for x in dest.iterdir()))
+    main=theme/'customer-on-hold-order.php';hidden=main.with_suffix('.fixture-hidden');main.rename(hidden)
+    try:
+        only=OUT/(storage+'-common-only');q=inventory(site,only,audit/'audit.json');common_data=json.loads((only/'emails.json').read_text());common_row=next(r for r in common_data['emails'] if r['id']=='customer_on_hold_order')
+        b.check(storage+':common_templates_alone_counted_once_child_priority',q.returncode==0 and common_data['summary']['overridden_template_files']==3 and common_row['template_overrides']==expected_overrides[1:])
+    finally:hidden.rename(main)
+    header=theme/'email-header.php';hidden=header.with_suffix('.fixture-hidden');header.rename(hidden)
+    try:
+        fallback=OUT/(storage+'-parent-fallback');q=inventory(site,fallback,audit/'audit.json');fallback_data=json.loads((fallback/'emails.json').read_text());fallback_row=next(r for r in fallback_data['emails'] if r['id']=='customer_on_hold_order')
+        b.check(storage+':common_template_parent_fallback',q.returncode==0 and 'wp-content/themes/a02-theme/woocommerce/emails/email-header.php' in fallback_row['template_overrides'] and 'wp-content/themes/a02-child/woocommerce/emails/email-header.php' not in fallback_row['template_overrides'] and fallback_data['summary']['overridden_template_files']==4)
+    finally:hidden.rename(header)
     repeat=OUT/(storage+'-repeat');q=inventory(site,repeat,audit/'audit.json')
     b.check(storage+':replay_identical',q.returncode==0 and {x.name:x.read_bytes() for x in repeat.iterdir()}=={x.name:x.read_bytes() for x in dest.iterdir()})
     (site/'wp-config.php').write_text(cfg.replace("define('DB_USER', 'a02_"+storage+"')","define('DB_USER', 'root')"))

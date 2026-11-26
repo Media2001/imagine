@@ -110,15 +110,23 @@ final class Inventory
     private static function overrides(object $email, string $site): array
     {
         $result = [];
+        $templates = [];
         foreach (['template_html', 'template_plain'] as $property) {
             $template = (string) ($email->$property ?? '');
-            if ($template === '') {
-                continue;
+            if ($template !== '') {
+                $templates[$template] = $email->template_base;
             }
+        }
+        if (($email->template_html ?? '') !== '' && $email->get_email_type() !== 'plain') {
+            foreach (['emails/email-header.php', 'emails/email-footer.php', 'emails/email-styles.php'] as $template) {
+                $templates[$template] = WC()->plugin_path() . '/templates/';
+            }
+        }
+        foreach ($templates as $template => $defaultPath) {
             if (!preg_match('/\A[a-zA-Z0-9_\/-]+\.php\z/D', $template) || str_contains($template, '..')) {
                 throw new \RuntimeException('A15_TEMPLATE_UNSAFE');
             }
-            $located = wc_locate_template($template, 'woocommerce/', $email->template_base);
+            $located = wc_locate_template($template, 'woocommerce/', $defaultPath);
             $file = realpath($located);
             if (!$file || !is_file($file)) {
                 throw new \RuntimeException('A15_TEMPLATE_MISSING');

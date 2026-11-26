@@ -28,6 +28,7 @@ $nomme = static fn (?string $value, string $placeholder): string => $value !== n
 <dt><?php esc_html_e('Montant récurrent natif', 'imagine'); ?></dt><dd><?php echo wp_kses_post(wc_price($a['montant'], ['currency' => $a['devise']])); ?></dd>
 <dt><?php esc_html_e('Moyen de paiement', 'imagine'); ?></dt><dd><?php echo esc_html($a['paiement']); ?><?php if ($a['manuel']) : ?> — <?php esc_html_e('renouvellement manuel', 'imagine'); ?><?php endif; ?></dd>
 </dl>
+<?php if (function_exists('do_action')) { do_action('imagine_compte_renouvellement', $a); } ?>
 <?php if (!empty($a['bloc_indisponible'])) : ?><p data-imagine-bloc-indisponible><?php echo esc_html(__($a['bloc_indisponible'], 'imagine')); ?></p><?php endif; ?>
 <?php foreach ($a['avertissements'] ?? [] as $warning) : ?><p data-imagine-rattachement><?php echo esc_html(__($warning, 'imagine')); ?></p><?php endforeach; ?>
 <p><?php esc_html_e('La projection des numéros ne prouve ni règlement ni expédition. Les droits PDF ci-dessous sont contrôlés séparément.', 'imagine'); ?></p>

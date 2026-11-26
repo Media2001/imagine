@@ -30,6 +30,14 @@ final class RenouvellementReglesTest extends TestCase
         self::assertFalse($view['reprendre']);
     }
 
+    public function testAnnulationATermeAfficheLaFinSansPromettreLaReprise(): void
+    {
+        $view = RenouvellementRegles::presentation(['status'=>'pending-cancel','manual'=>true,'period'=>'year','interval'=>1,'end'=>'2026-12-25 18:01:50'], new \DateTimeImmutable('2026-11-26 UTC'));
+        self::assertSame('arret_a_terme', $view['mode']);
+        self::assertSame('2026-12-25 18:01:50', $view['fin']);
+        self::assertFalse($view['reprendre']);
+    }
+
     public function testManuelNeProposeAucunBouton(): void
     {
         self::assertTrue(class_exists(RenouvellementRegles::class), 'Présentation C20 absente');

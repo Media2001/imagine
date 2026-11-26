@@ -25,6 +25,21 @@ def inspect_more():
     print(json.dumps({k:v for k,v in data.items() if k not in ('integration_sources','native_action_source')}, ensure_ascii=False))
     print('integration source files:', list(data.get('integration_sources',{})))
 
+def ui(label):
+    c20.profils.guard('imagine-test-demo')
+    source = ROOT / 'wp/tests/demo/c20-ui.php'
+    target = 'imagine-demo-build/c20-ui.php'
+    c20.profils.b00.upload(target, source.read_bytes())
+    assert wp('echo wp_json_encode(hash_file("sha256",WP_CONTENT_DIR . "/' + target + '"));') == hashlib.sha256(source.read_bytes()).hexdigest()
+    before = snapshot()
+    data = wp('require WP_CONTENT_DIR . "/' + target + '";')
+    after = snapshot()
+    data['profiles_actions_unchanged'] = before['profiles'] == after['profiles']
+    save(label, data)
+    print(json.dumps(data, ensure_ascii=False))
+    assert data['profiles_actions_unchanged']
+    return 1 if data['failures'] else 0
+
 def deploy_adapter():
     c20.profils.guard('imagine-test-demo')
     name = 'plugins/imagine-site/Paywall.php'
@@ -65,7 +80,9 @@ def probe(label):
     return 1 if data['failures'] else 0
 
 if __name__ == '__main__':
-    if '--deploy-adapter' in sys.argv:
+    if '--ui' in sys.argv:
+        sys.exit(ui(sys.argv[-1]))
+    elif '--deploy-adapter' in sys.argv:
         deploy_adapter()
     elif '--probe' in sys.argv:
         sys.exit(probe(sys.argv[-1]))

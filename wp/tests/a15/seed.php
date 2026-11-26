@@ -25,3 +25,17 @@ if (
     throw new RuntimeException('A15_NATIVE_PLAN_SEED_FAILED');
 }
 echo "A15_SEED_OK\n";
+$emails = [];
+foreach (WC()->mailer()->get_emails() as $email) {
+    $emails[$email->id] = $email;
+}
+update_option($emails['customer_refunded_order']->get_option_key(), [
+    'subject_full' => 'A15_REFUND_SUBJECT_PRIVATE_CANARY',
+    'heading_partial' => 'A15_REFUND_HEADING_PRIVATE_CANARY',
+]);
+$invoice = $emails['customer_invoice'];
+$fields = $invoice->get_form_fields();
+update_option($invoice->get_option_key(), [
+    'subject_paid' => $fields['subject_paid']['placeholder'],
+    'heading_paid' => $fields['heading_paid']['placeholder'],
+]);

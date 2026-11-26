@@ -1,0 +1,38 @@
+{
+  "checks": {
+    "A-CARTE_presentation": false,
+    "A-CARTE_no_C20_button": true,
+    "A-CARTE_message": false,
+    "A-CARTE_native_cancel_button_hidden": false,
+    "A-SEPA4_presentation": false,
+    "A-SEPA4_no_C20_button": true,
+    "A-SEPA4_message": false,
+    "A-SEPA4_native_cancel_button_hidden": false,
+    "A-VIR_presentation": false,
+    "A-VIR_no_C20_button": true,
+    "A-VIR_message": false,
+    "A-VIR_native_cancel_button_hidden": false,
+    "A-PAPIER_presentation": false,
+    "A-PAPIER_no_C20_button": true,
+    "A-PAPIER_message": false,
+    "A-PAPIER_native_cancel_button_hidden": false,
+    "other_owner_no_presentation": true,
+    "native_other_owner_mutation_refused": true
+  },
+  "total": 18,
+  "failures": [
+    "A-CARTE_presentation",
+    "A-CARTE_message",
+    "A-CARTE_native_cancel_button_hidden",
+    "A-SEPA4_presentation",
+    "A-SEPA4_message",
+    "A-SEPA4_native_cancel_button_hidden",
+    "A-VIR_presentation",
+    "A-VIR_message",
+    "A-VIR_native_cancel_button_hidden",
+    "A-PAPIER_presentation",
+    "A-PAPIER_message",
+    "A-PAPIER_native_cancel_button_hidden"
+  ],
+  "profiles_actions_unchanged": true
+}
