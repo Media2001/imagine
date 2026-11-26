@@ -20,6 +20,9 @@ namespace {
         public function get_date_paid(): ?DateTimeImmutable { return $GLOBALS['retract_paid'] ? new DateTimeImmutable('2030-01-01 UTC') : null; }
         public function get_meta(string $key): mixed { return $this->meta[$key] ?? ''; }
         public function get_view_order_url(): string { return '/mon-compte/view-order/' . $this->id; }
+        public function get_edit_order_url(): string { return '/wp-admin/order/' . $this->id; }
+        public function update_meta_data(string $key, mixed $value): void { $this->meta[$key] = $value; }
+        public function save_meta_data(): void {}
         public function add_order_note(string $content, bool $customer = false): int
         {
             if ($customer) { $GLOBALS['retract_mail']++; }

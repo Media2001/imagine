@@ -1,6 +1,6 @@
 # A-26 — Ce que le site déclare charger chez des tiers
 
-**Candidat pour exécution parent. Aucun PHP, Docker ou WSL exécuté par le worker ; aucun PRET.** Ce complément de l'audit ne désactive rien, ne contacte aucun service et n'évalue ni les cookies réellement déposés ni la conformité.
+Ce complément de l'audit ne désactive rien, ne contacte aucun service et n'évalue ni les cookies réellement déposés ni la conformité. La qualification native déléguée et les portes finales sont décrites dans `production/A-26/FINALISATION.md` ; seul `production/A-26/PRET` annonce la disponibilité à la relecture, jamais un GO réel.
 
 ## Le standard d'abord — dix lignes
 
@@ -47,7 +47,7 @@ Un contenu compte au plus une fois par service, même avec plusieurs iframes, bl
 
 L'import existant (`staging/policy.php` et `lib.php`) n'est pas modifié. La marque `imagine_staging_disabled_plugins`, qui alimente aussi son rapport, est lue **dans la copie**, sans ouvrir une archive ou un ancien rapport libre. Si elle contient un chemin fermé désactivé, son nombre de famille et son identifiant donnent `inconnu après neutralisation`. Marque illisible : les familles mesure/pixel sont prudemment inconnues. Les nombres des familles non désactivées restent observés ; tout identifiant d'une famille encore active devient inconnu (le scrub peut effacer des réglages).
 
-**Tous les comptes de contenus-source deviennent inconnus sur copie neutralisée**, et non des zéros : `dangerous()` peut vider un `post_content` entier dès qu'il contient un motif sensible, y compris une ressource sans rapport avec le motif. L'ancien contenu n'est pas récupérable depuis cette copie. Le banc clone sa base fictive, exécute réellement `neutraliser()` puis `anonymiser()` inchangés, et prépare une preuve d'extension retirée, réglage effacé et article vidéo effacé. Cette couverture native reste à exécuter par le parent ; aucun reçu d'import n'est inventé ici.
+**Tous les comptes de contenus-source deviennent inconnus sur copie neutralisée**, et non des zéros : `dangerous()` peut vider un `post_content` entier dès qu'il contient un motif sensible, y compris une ressource sans rapport avec le motif. L'ancien contenu n'est pas récupérable depuis cette copie. Le banc clone sa base fictive, exécute réellement `neutraliser()` puis `anonymiser()` inchangés, et prépare une preuve d'extension retirée, réglage effacé et article vidéo effacé. La qualification native de cette couverture est liée au paquet final dans `production/A-26/FINALISATION.md` ; aucun reçu d'import n'est inventé.
 
 ## Sorties et refus
 

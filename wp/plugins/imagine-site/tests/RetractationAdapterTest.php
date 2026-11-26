@@ -139,6 +139,42 @@ final class RetractationAdapterTest extends TestCase
         self::assertSame(strtotime('2030-01-03 UTC'), Retractation::dateManuelle('2030-01-03'));
     }
 
+    public function testRaccordsEntreeAdministrationEtDateManuelle(): void
+    {
+        Retractation::register();
+        \Imagine\Site\RetractationConfidentialite::register();
+        \Imagine\Site\RetractationReglages::register();
+        foreach (['woocommerce_account_dashboard', 'woocommerce_view_order', 'woocommerce_subscription_details_after_subscription_table', 'admin_menu', 'wp_privacy_personal_data_exporters', 'wp_privacy_personal_data_erasers', 'woocommerce_process_shop_order_meta'] as $hook) {
+            self::assertNotEmpty($GLOBALS['retract_hooks'][$hook]);
+        }
+        ob_start(); Retractation::entree(10); $open = ob_get_clean();
+        self::assertStringContainsString('Me rétracter', $open);
+        $GLOBALS['retract_now'] = strtotime('2030-02-01 UTC');
+        ob_start(); Retractation::entree(10); $closed = ob_get_clean();
+        self::assertStringNotContainsString('Me rétracter', $closed);
+        $GLOBALS['retract_now'] = strtotime('2030-01-02 UTC');
+        self::assertIsArray(Retractation::demander(10, 7, 'confirmer', '<script>x</script>motif fictif'));
+        ob_start(); Retractation::administration(); $admin = ob_get_clean();
+        self::assertStringContainsString('#10', $admin);
+        self::assertStringContainsString('motif fictif', $admin);
+        self::assertStringNotContainsString('<script>', $admin);
+        $GLOBALS['wpdb']->fail = true;
+        ob_start(); Retractation::administration(); $failed = ob_get_clean();
+        self::assertStringContainsString('Lecture impossible', $failed);
+        $GLOBALS['wpdb']->fail = false;
+        $_POST = ['imagine_c25_date' => '2030-02-30', '_imagine_c25_date' => 'nonce'];
+        \Imagine\Site\RetractationReglages::sauverDate(10);
+        self::assertSame([], $GLOBALS['retract_orders'][10]->meta);
+        $_POST['imagine_c25_date'] = '2030-01-03';
+        $_POST['_imagine_c25_date'] = 'faux';
+        \Imagine\Site\RetractationReglages::sauverDate(10);
+        self::assertSame([], $GLOBALS['retract_orders'][10]->meta);
+        $_POST['_imagine_c25_date'] = 'nonce';
+        \Imagine\Site\RetractationReglages::sauverDate(10);
+        self::assertSame('2030-01-03', $GLOBALS['retract_orders'][10]->meta[Retractation::MANUELLE]);
+        self::assertSame(0, $GLOBALS['retract_financial']);
+    }
+
     public function testDemandeSeulePersistanteEtRejeuSansAucunEffet(): void
     {
         self::assertTrue(class_exists(Retractation::class), 'Adaptateur C25 absent');

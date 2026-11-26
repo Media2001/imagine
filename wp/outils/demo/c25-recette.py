@@ -65,6 +65,9 @@ def run(label):
         import urllib.parse
         account = urllib.parse.urlsplit(c25.wp('echo wp_json_encode(wc_get_page_permalink("myaccount"));')).path
         path = account + '?imagine_retractation=126'
+        access_code = '''$out=[];foreach([28,9] as $uid){wp_set_current_user($uid);foreach(get_posts(['post_type'=>'imagine_numero','post_status'=>'publish','numberposts'=>-1]) as $issue){$out[$uid][$issue->ID]=Imagine\\Site\\Paywall::decisionPdf($issue);}}echo wp_json_encode($out);'''
+        access_before = c25.wp(access_code)
+        checks['acces_temoin_positif'] = any(d['complet'] for per_user in access_before.values() for d in per_user.values())
         first = http(path)
         checks['HTTP_etape1_positive'] = 'id="imagine-retractation"' in first and 'Me rétracter' in first and 'facultatif' in first
         review = http(path, data={'etape': 'preparer', '_c25': nonce(first), 'raison': 'Motif HTTP fictif'})
@@ -81,6 +84,7 @@ def run(label):
         checks['HTTP_compte_tiers_refuse'] = 'Demande refusée' in http(path, user=auth['admin'])
         old = http(account + '?imagine_retractation=88', user=auth['admin'], data=post)
         checks['HTTP_POST_autrui_refuse'] = 'Demande refusée' in old
+        checks['acces_moteur_C06_inchanges'] = c25.wp(access_code) == access_before
         during = c25.b06.state()
         c25.private(label + '-demande-persistee', {'business': during})
         def diffpaths(a, b, path=''):
@@ -102,7 +106,7 @@ def run(label):
         current_meta = {row['umeta_id']: row for row in meta_during}
         changed_meta = [current_meta.get(key, previous_meta.get(key))['meta_key'] for key in previous_meta.keys() | current_meta.keys() if previous_meta.get(key) != current_meta.get(key)]
         outcome['during_meta_changed_keys'] = sorted(set(changed_meta))
-        transient_user_keys = {'session_tokens', '_woocommerce_persistent_cart_1', '_last_update', 'wc_last_active', 'last_update'}
+        transient_user_keys = {'session_tokens', '_woocommerce_persistent_cart_1', '_last_update', 'wc_last_active', '_wcs_subscription_ids_cache'}
         if set(changed_meta) <= transient_user_keys:
             during['native']['native_fingerprints']['usermeta'] = before['native']['native_fingerprints']['usermeta']
         checks['HTTP_commande_abonnements_acces_actions_inchanges'] = during == before and only_note_counter

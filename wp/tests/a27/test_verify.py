@@ -16,6 +16,36 @@ spec.loader.exec_module(v)
 
 
 class VerifyTests(unittest.TestCase):
+    def test_shared_document_contract_exact_lines(self):
+        original = v.ROOT
+        try:
+            with tempfile.TemporaryDirectory(prefix='a27-doc-', dir=os.environ.get('TMPDIR')) as tmp:
+                v.ROOT = Path(tmp)
+                expected = v.ROOT / 'production/A-27/readme-ajout.txt'
+                shared = v.ROOT / 'wp/tests/a02-audit/README.md'
+                expected.parent.mkdir(parents=True)
+                shared.parent.mkdir(parents=True)
+                expected.write_bytes(b'A27-FIRST\nA27-SECOND\n')
+                for good in (b'A27-FIRST\nA27-SECOND\n', b'earlier\nA27-FIRST\nA27-SECOND\nlater\n'):
+                    shared.write_bytes(good)
+                    self.assertTrue(v.shared_document_valid())
+                for bad in (b'A27-FIRST\n', b'A27-FIRST\nA27-SECOND\nA27-FIRST\n',
+                            b'A27-FIRST\nA27-SECOND\r\n', b'A27-FIRST\nA27-MUTATED\n'):
+                    shared.write_bytes(bad)
+                    self.assertFalse(v.shared_document_valid())
+        finally:
+            v.ROOT = original
+
+    def test_missing_or_empty_source_root_refused(self):
+        runner = v.load('a27_manifest_test', HERE / 'run.py')
+        with tempfile.TemporaryDirectory(prefix='a27-root-', dir=os.environ.get('TMPDIR')) as tmp:
+            runner.ROOT = Path(tmp)
+            with self.assertRaisesRegex(RuntimeError, 'A27_MISSING_SOURCE_ROOT'):
+                runner.manifest(['missing'])
+            (runner.ROOT / 'empty').mkdir()
+            with self.assertRaisesRegex(RuntimeError, 'A27_EMPTY_SOURCE_ROOT'):
+                runner.manifest(['empty'])
+
     def test_receipt_requires_real_nonempty_checks(self):
         for data in ({}, {'exit_code': 0}, {'exit_code': 0, 'tests': 42, 'checks': []},
                      {'exit_code': 1, 'checks': [{'check': 'x', 'status': 'PASS'}]},

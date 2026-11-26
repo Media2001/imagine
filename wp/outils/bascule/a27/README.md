@@ -1,6 +1,6 @@
 # A-27 — Moyens de paiement enregistrés, comptes en lecture seule
 
-**Candidat, sans PRET.** Aucun paiement, aucune passerelle interrogée, aucun avis sur la survie des renouvellements. Le lanceur ne fonctionne que dans l'enclos Linux déconnecté A-12 ; il refuse un lancement Windows ordinaire. Les tests Python, eux, tournent sur Windows sans PHP.
+Aucun paiement, aucune passerelle interrogée, aucun avis sur la survie des renouvellements. Le lanceur ne fonctionne que dans l'enclos Linux déconnecté A-12 ; il refuse un lancement Windows ordinaire. Les tests Python, eux, tournent sur Windows sans PHP. La qualification finale déléguée figure dans `production/A-27/FINALISATION.md` ; seul `production/A-27/PRET` annonce la disponibilité à la relecture, jamais un GO réel.
 
 ## Le standard d'abord — dix lignes
 
@@ -13,7 +13,7 @@
 7. `WC_Subscription`, ses getters `edit`, `get_meta()` et `get_payment_tokens()` lisent le magasin faisant autorité : pas de concaténation classique+HPOS [S1, S3].
 8. Le renouvellement Woo est dispatché à `woocommerce_scheduled_subscription_payment_{gateway_id}` ; c'est la passerelle qui lit sa référence locale, pas un format universel de mandat [S4].
 9. Le code officiel Stripe lit `_stripe_source_id`, avec repli historique `_stripe_card_id` ; une référence Stripe seule ne prouve ni carte ni conversion Bancontact→SEPA [S5].
-10. A-19 fournit le lecteur de présence/schéma natif ; `standard.php` doit confirmer les API Woo/WCS et la clé PayPal sur le code installé avant le sujet, porte réservée au parent et NON exécutée par ce worker.
+10. A-19 fournit le lecteur de présence/schéma natif ; `standard.php` confirme les API Woo/WCS et la clé PayPal sur le code installé avant le sujet, avec empreintes et assertions dans chaque paquet natif final.
 
 ### Sources effectivement consultées le 26 novembre 2026
 
@@ -55,4 +55,4 @@ Le gardien A-22 draine les deux pipes jusqu'à EOF et fin réelle du processus (
 - Matrice Python seule : `C:/Python314/python.exe -B wp/tests/a27/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a27-python-neuf`.
 - Réception parent, matrice native classique+HPOS, contrôle PSR-12, vérification du paquet, préparation d'image et gates restantes : `production/A-27/RECEPTION-PARENT.md`.
 
-Les tests Python prouvent les frontières de sortie, les refus et le validateur, pas l'exécution de PHP, le code installé, l'immutabilité native DB/fichiers ou l'isolation Docker. Les suites natives sont fournies, pas déclarées vertes avant leur rejeu parent. Aucun fichier commun, aucun Git, aucun verrou, aucun site ni donnée réelle n'a été modifié par le worker.
+Les tests Python prouvent les frontières de sortie, les refus et le validateur, pas l'exécution de PHP, le code installé, l'immutabilité native DB/fichiers ou l'isolation Docker. Ces preuves distinctes proviennent des matrices natives réelles décrites dans `production/A-27/FINALISATION.md`. Les assertions ne portent que sur des fixtures fictives ; aucun site ni donnée réelle n'est qualifié.

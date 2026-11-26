@@ -1,0 +1,115 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T22:04:22.795772+00:00",
+  "sources": {
+    "Retractation.php": "319da49a73da9d95b96cccb3f01711e121a07b05040a573cf634579babd43195",
+    "RetractationConfidentialite.php": "0089745076ed8797862f6abef47c49274d19dd17f2cfa21376f5de6a99995af8",
+    "RetractationReglages.php": "c5fcf23ff86929ef7c2fbb78c406514203e7340b8bd60012909f6ae82d41ad1e",
+    "RetractationRegles.php": "2bd47e957ade4d39b83210a0adc754c4efe6c4948e0772b64fcb2f337c2632e5"
+  },
+  "mutations": [
+    {
+      "mutation": "delai",
+      "exit": 1,
+      "required_failure": "testDelaiEtOriginesAvecBornesEtFermeturePrudente",
+      "failures": [
+        "testRefusHorsDelaiTitulaireConfirmationEtVerrou",
+        "testDelaiEtOriginesAvecBornesEtFermeturePrudente"
+      ],
+      "log": "mutations-02-V2-delai.log"
+    },
+    {
+      "mutation": "proprietaire",
+      "exit": 1,
+      "required_failure": "testRefusHorsDelaiTitulaireConfirmationEtVerrou",
+      "failures": [
+        "testRefusHorsDelaiTitulaireConfirmationEtVerrou"
+      ],
+      "log": "mutations-02-V2-proprietaire.log"
+    },
+    {
+      "mutation": "confirmation",
+      "exit": 1,
+      "required_failure": "testRefusHorsDelaiTitulaireConfirmationEtVerrou",
+      "failures": [
+        "testRefusHorsDelaiTitulaireConfirmationEtVerrou"
+      ],
+      "log": "mutations-02-V2-confirmation.log"
+    },
+    {
+      "mutation": "doublon",
+      "exit": 1,
+      "required_failure": "testDemandeSeulePersistanteEtRejeuSansAucunEffet",
+      "failures": [
+        "testConfidentialiteExportReprisePaginationEtEffacementSansTiers",
+        "testDemandeSeulePersistanteEtRejeuSansAucunEffet"
+      ],
+      "log": "mutations-02-V2-doublon.log"
+    },
+    {
+      "mutation": "export",
+      "exit": 1,
+      "required_failure": "testConfidentialiteExportReprisePaginationEtEffacementSansTiers",
+      "failures": [
+        "testConfidentialiteExportReprisePaginationEtEffacementSansTiers"
+      ],
+      "log": "mutations-02-V2-export.log"
+    },
+    {
+      "mutation": "effacement",
+      "exit": 1,
+      "required_failure": "testConfidentialiteExportReprisePaginationEtEffacementSansTiers",
+      "failures": [
+        "testConfidentialiteExportReprisePaginationEtEffacementSansTiers"
+      ],
+      "log": "mutations-02-V2-effacement.log"
+    },
+    {
+      "mutation": "export-tiers",
+      "exit": 1,
+      "required_failure": "testConfidentialiteExportReprisePaginationEtEffacementSansTiers",
+      "failures": [
+        "testConfidentialiteExportReprisePaginationEtEffacementSansTiers"
+      ],
+      "log": "mutations-02-V2-export-tiers.log"
+    },
+    {
+      "mutation": "nonce",
+      "exit": 1,
+      "required_failure": "testDeuxEtapesAbandonConfirmationEtOrigineManuelle",
+      "failures": [
+        "testDeuxEtapesAbandonConfirmationEtOrigineManuelle"
+      ],
+      "log": "mutations-02-V2-nonce.log"
+    },
+    {
+      "mutation": "mail",
+      "exit": 1,
+      "required_failure": "testDemandeSeulePersistanteEtRejeuSansAucunEffet",
+      "failures": [
+        "testDemandeSeulePersistanteEtRejeuSansAucunEffet"
+      ],
+      "log": "mutations-02-V2-mail.log"
+    },
+    {
+      "mutation": "http",
+      "exit": 1,
+      "required_failure": "testDemandeSeulePersistanteEtRejeuSansAucunEffet",
+      "failures": [
+        "testDemandeSeulePersistanteEtRejeuSansAucunEffet"
+      ],
+      "log": "mutations-02-V2-http.log"
+    },
+    {
+      "mutation": "financier",
+      "exit": 1,
+      "required_failure": "testDemandeSeulePersistanteEtRejeuSansAucunEffet",
+      "failures": [
+        "testDemandeSeulePersistanteEtRejeuSansAucunEffet"
+      ],
+      "log": "mutations-02-V2-financier.log"
+    }
+  ],
+  "total": 11,
+  "all_detected": true
+}
