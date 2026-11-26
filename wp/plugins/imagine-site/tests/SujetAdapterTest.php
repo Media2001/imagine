@@ -39,7 +39,7 @@ final class SujetAdapterTest extends TestCase
         self::assertSame('1', $GLOBALS['b08_meta'][101]['imagine_sujet_consentement']);
         self::assertSame('fictif@example.org', $GLOBALS['b08_meta'][100]['imagine_sujet_email']);
         self::assertSame(['mail' => 0, 'http' => 0], $GLOBALS['b08_calls']);
-        foreach ([['_b08' => 'faux'], ['_b08' => 'nonce', 'nom' => []], ['_b08' => 'nonce', 'nom' => 'a', 'email' => 'bad', 'sujet' => 'x']] as $bad) {
+        foreach ([['_b08' => 'faux', 'nom' => 'Fictif', 'email' => 'fictif@example.org', 'sujet' => 'Rejeu signé faux'], ['_b08' => 'nonce', 'nom' => []], ['_b08' => 'nonce', 'nom' => 'a', 'email' => 'bad', 'sujet' => 'x']] as $bad) {
             self::assertStringContainsString('refusée', Sujet::traiter($bad));
         }
         self::assertCount(2, $GLOBALS['b08_posts']);

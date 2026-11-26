@@ -45,13 +45,13 @@ def run(label):
         nav = re.search(r'<nav aria-label="Navigation principale">(.*?)</nav>', home, re.S).group(1)
         labels = [unescape(re.sub('<.*?>', '', a)).strip() for a in re.findall(r'<a\b[^>]*>(.*?)</a>', nav, re.S)]
         expected = ['Nos numéros', 'Thématiques', 'Nos newsletters', 'Nos événements', 'Notre coopérative', 'projet éditorial et manifeste', "charte d'indépendance", 'charte IA', 'baromètre égalité-diversité', 'équipe', 'gouvernance', 'Imagine COOP', 'Soutenir', "S'abonner", 'Connexion']
-        checks['menu_natif_intitules_ordre'] = labels == expected
+        checks['menu_natif_intitules_ordre'] = labels == [t.replace("'", '’') for t in expected]
         checks['sujet_hors_menu'] = 'Proposer un sujet' not in labels and len(labels) == 15
         checks['anciens_selecteurs_navigation'] = all('data-imagine-nav="' + key + '"' in nav for key in ['kiosque', 'agenda', 'compte'])
         pages = json.loads((b08.PROOF / 'pages-menu.json').read_text(encoding='utf-8'))['readback']
         for row in pages:
             code, html, url = http(urllib.parse.urlsplit(row['url']).path)
-            checks['page_publique_' + str(row['id'])] = code == 200 and unescape(re.search(r'<h1>(.*?)</h1>', html, re.S).group(1)) == row['title']
+            checks['page_publique_' + str(row['id'])] = code == 200 and unescape(re.search(r'<h1>(.*?)</h1>', html, re.S).group(1)) == row['title'].replace("'", '’')
         _, coop, _ = http('/notre-cooperative/')
         article = coop.split('<article>', 1)[1].split('</article>', 1)[0]
         checks['liens_sujet_B06'] = '/proposer-un-sujet/' in article and '/espace-cooperateurs/' in article
@@ -91,7 +91,7 @@ def run(label):
         _, search, _ = http('/?s=Notre+coop%C3%A9rative')
         checks['recherche_temoin_public'] = 'notre-cooperative/' in search
         _, hidden, _ = http('/?s=B08_SUJET_PRIVE_TEMOIN_2026')
-        checks['absence_recherche_privee'] = '<article' in search and '<article' not in hidden.split('<main', 1)[1].split('</main>', 1)[0]
+        checks['absence_recherche_privee'] = 'class="imagine-list"' in search and 'Aucun résultat pour votre recherche.' in hidden and 'class="imagine-list"' not in hidden.split('<main', 1)[1].split('</main>', 1)[0]
         checks['type_prive_hors_REST'] = b08.wp('echo wp_json_encode(get_post_type_object("imagine_sujet")->show_in_rest);') is False
         erased = b08.wp('echo wp_json_encode(Imagine\\Site\\SujetConfidentialite::effacer(' + b08.php(known) + '));')
         remaining = b08.wp('echo wp_json_encode([Imagine\\Site\\Sujet::ids(' + b08.php(known) + '),Imagine\\Site\\Sujet::ids("b08-inconnu@example.org")]);')
