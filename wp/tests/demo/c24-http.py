@@ -46,7 +46,8 @@ foreach($ids as $id){clean_user_cache($id);wp_cache_delete($id,'user_meta');}ech
     assert business_snapshot(after)==business_snapshot(before),'Readback métier comptes/options/actions divergent'
     return changed
 
-def run(label):
+def run(label,mutation=''):
+    assert mutation in ('','c10-section')
     assert not (c24.PROOF/(label+'.json')).exists()
     identity=c24.guard()
     cache=wp('echo wp_json_encode(["external"=>(bool)wp_using_ext_object_cache(),"dropin"=>is_file(WP_CONTENT_DIR."/object-cache.php"),"cron_disabled"=>defined("DISABLE_WP_CRON")&&DISABLE_WP_CRON]);')
@@ -138,11 +139,28 @@ def run(label):
                 anonymous=context();ap=anonymous.new_page();visit(ap,account_path)
                 checks['anonyme_pas_de_reponses']=ap.locator('#ma-personnalisation').count()==0 and ap.locator('form.woocommerce-form-login').count()==1
                 checks['anonyme_POST403']=anonymous.request.post(BASE+'/wp-admin/admin-post.php',form=fields).status==403
-                admin=context('admin');adm=admin.new_page();visit(adm,'/wp-admin/admin.php?page=imagine-reglages')
+                admin=context('admin');adm=admin.new_page()
+                if mutation:admin.set_extra_http_headers({'X-Imagine-C24':'recette-fictive','X-Imagine-C24-Failure':mutation})
+                visit(adm,'/wp-admin/admin.php?page=imagine-reglages')
                 form=adm.locator('form[action="options.php"]')
+                checks['C10_vraie_section_entre_ouverture_et_fermeture']=form.count()==1 and form.locator('#imagine-personnalisation-reglages').count()==1 and adm.locator('#imagine-personnalisation-reglages').count()==1
+                assert checks['C10_vraie_section_entre_ouverture_et_fermeture'],'Section absente du vrai formulaire C10'
                 checks['C10_meme_formulaire_nonce_unique']=form.locator('#imagine-personnalisation-reglages').count()==1 and form.locator('input[name=_wpnonce]').count()==1
                 checks['C10_insertion_sous_bouton_existante']=form.evaluate('(f)=>{let b=f.querySelector("[type=submit]"),s=f.querySelector("#imagine-personnalisation-reglages");return !!(b&&s&&(b.compareDocumentPosition(s)&Node.DOCUMENT_POSITION_FOLLOWING));}')
                 allowed_options=form.locator('[name]').evaluate_all('(xs)=>[...new Set(xs.map(x=>x.name.split("[")[0]).filter(n=>n.startsWith("imagine_")))]')
+                for failure_case in ['question','choix']:
+                    if failure_case=='question':adm.locator('#imagine-personnalisation-3-id').fill('')
+                    else:
+                        choices=json.loads(adm.locator('#imagine-personnalisation-0-choix').input_value())
+                        assert len(choices)>1
+                        adm.locator('#imagine-personnalisation-0-choix').fill(json.dumps(choices[:-1]))
+                    admin.set_extra_http_headers({'X-Imagine-C24':'recette-fictive','X-Imagine-C24-Failure':'journal'})
+                    with adm.expect_response(lambda r:r.request.method=='POST' and r.url.endswith('/wp-admin/options.php')) as posted:
+                        with adm.expect_navigation(wait_until='networkidle'):form.evaluate('(f)=>f.requestSubmit()')
+                    admin.set_extra_http_headers({'X-Imagine-C24':'recette-fictive'})
+                    checks['journal_'+failure_case+'_POST_reel_sans500']=posted.value.status in (302,303) and adm.locator('#setting-error-imagine_personnalisation_journal').count()==1
+                    checks['journal_'+failure_case+'_preimage_exacte_relecture_distincte']=wp('echo wp_json_encode(get_option("imagine_personnalisation_questions"));')==old_catalogue
+                    assert checks['journal_'+failure_case+'_preimage_exacte_relecture_distincte']
                 for key,value in {'id':fifth,'titre':'Cinquième question entièrement fictive','choix':json.dumps([{'id':choice,'titre':'Cinquième choix entièrement fictif'}],ensure_ascii=False)}.items():
                     adm.locator('#imagine-personnalisation-4-'+key).fill(value)
                 with adm.expect_navigation(wait_until='networkidle'):form.evaluate('(f)=>f.requestSubmit()')
@@ -198,10 +216,11 @@ def run(label):
         checks['aucun_mail_HTTP_tente']=bool(observations) and all(o['mail']==0 for o in observations)
         checks['HTTP_sortant_bloque']=bool(observations) and all(o['http']==o['http_blocked'] for o in observations)
         checks['aucun_HTTP_personnalisation_tente']=bool(observations) and all(o['personalisation_http']==0 for o in observations)
+        checks['journal_refus_SQL_deux_parcours']=sum(o.get('journal_refused',0) for o in observations)==(0 if mutation else 2)
         checks['requete_navigateur_hors_site_bloquee']=all(u.startswith('https://secure.gravatar.com/avatar/') for u in blocked)
         failures=[k for k,v in checks.items() if v is not True]
         c24.save(label,{'private_snapshot':{'file':scratch.name+'/before.json','sha256':snapshot_sha256,'retained':True},'baseline':'recovered-new-explicit','historical_initial_snapshot_restored':False,'source_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'identity':identity,'checks':checks,'total':len(checks),'failures':failures,'error':error,'restored':restored,'restored_option_names':changed,'observed_requests':len(observations),'mail_attempts':sum(o['mail'] for o in observations),'http_attempts':sum(o['http'] for o in observations),'http_blocked':sum(o['http_blocked'] for o in observations),'cache':cache,'before_digest':hashlib.sha256(json.dumps(before,sort_keys=True).encode()).hexdigest(),'after_digest':hashlib.sha256(json.dumps(snapshot(ids),sort_keys=True).encode()).hexdigest(),'visual_approval':False})
         print(json.dumps({'total':len(checks),'failures':failures,'error':error,'restored':restored},ensure_ascii=False))
     assert not failures and error is None
 
-if __name__=='__main__':run(sys.argv[1])
+if __name__=='__main__':run(*sys.argv[1:])
