@@ -63,13 +63,15 @@ foreach ([1 => 'case_only_ignored', 2 => 'space_only_ignored', 3 => 'actual_post
     $checks['native_comparison_' . $name] = $ok;
 }
 $source = [];
-foreach ([
+foreach (
+    [
     'includes/class-wc-countries.php', 'i18n/countries.php', 'includes/class-wc-order.php',
     'includes/class-wc-customer.php', 'includes/data-stores/class-wc-customer-data-store.php',
     'includes/data-stores/class-wc-order-data-store-cpt.php',
     'src/Internal/DataStores/Orders/OrdersTableDataStore.php',
     'packages/action-scheduler/functions.php',
-] as $file) {
+    ] as $file
+) {
     $source['woocommerce/' . $file] = hash_file('sha256', WC_ABSPATH . $file);
 }
 foreach (['includes/core/wcs-functions.php', 'includes/core/class-wc-subscription.php'] as $file) {
@@ -80,8 +82,11 @@ $source['staging/pdo-store.php'] = hash_file('sha256', '/subject/staging/pdo-sto
 $report = ['php' => PHP_VERSION, 'wordpress' => get_bloginfo('version'), 'woocommerce' => WC_VERSION,
     'subscriptions' => WC_Subscriptions::$version, 'native_required_fields' => $native,
     'native_country_count' => count($actual), 'source_sha256' => $source,
-    'checks' => array_map(static fn(string $name, bool $ok): array => ['check' => $name, 'status' => $ok ? 'PASS' : 'FAIL'],
-        array_keys($checks), array_values($checks)),
+    'checks' => array_map(
+        static fn(string $name, bool $ok): array => ['check' => $name, 'status' => $ok ? 'PASS' : 'FAIL'],
+        array_keys($checks),
+        array_values($checks)
+    ),
     'exit_code' => (int) in_array(false, $checks, true)];
 $file = '/report/' . (get_option('woocommerce_custom_orders_table_enabled') === 'yes' ? 'hpos' : 'classic') . '-standard.json';
 file_put_contents($file, json_encode($report, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR) . "\n");

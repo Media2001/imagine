@@ -50,7 +50,8 @@ if (class_exists(\Imagine\ShippingAddresses\Analysis::class)) {
     a24_check('case_and_space_only_rows_are_not_different', $o['different_from_account'] === 0);
     $comparison = $row;
     $comparison['customer'] = $comparison['shipping'];
-    foreach ([
+    foreach (
+        [
         'case_only_ignored' => ['Rue ÉCOLE', 'rue école', 0],
         'space_only_ignored' => ["  Rue\t Exemple \n", 'RueExemple', 0],
         'unicode_space_only_ignored' => ["Rue\u{00A0}Exemple\u{202F}", 'RueExemple', 0],
@@ -59,7 +60,8 @@ if (class_exists(\Imagine\ShippingAddresses\Analysis::class)) {
         'accent_not_removed' => ['École', 'Ecole', 1],
         'punctuation_not_removed' => ['Rue-Exemple', 'RueExemple', 1],
         'zero_not_empty' => ['0', '', 1],
-    ] as $name => [$shipping, $account, $expected]) {
+        ] as $name => [$shipping, $account, $expected]
+    ) {
         $field = $name === 'actual_postcode_difference_counted' ? 'postcode' : 'address_1';
         $case = $comparison;
         $case['shipping'][$field] = $shipping;
@@ -76,16 +78,20 @@ if (class_exists(\Imagine\ShippingAddresses\Analysis::class)) {
     $raw['shipping']['address_1'] = "\u{00A0}";
     $raw['customer']['address_1'] = '';
     $rawCounts = \Imagine\ShippingAddresses\Analysis::analyse([$raw], ['BE'])['overall'];
-    a24_check('comparison_does_not_normalise_raw_completeness_or_country',
+    a24_check(
+        'comparison_does_not_normalise_raw_completeness_or_country',
         $rawCounts['different_from_account'] === 0 && $rawCounts['country_unknown'] === 1
-        && $rawCounts['missing_required']['shipping_address_1'] === 0);
+        && $rawCounts['missing_required']['shipping_address_1'] === 0
+    );
     $rawEmpty = $row;
     $rawEmpty['shipping'] = array_fill_keys(\Imagine\ShippingAddresses\Analysis::FIELDS, "\u{00A0}");
     $rawEmpty['customer'] = [];
     $rawEmptyCounts = \Imagine\ShippingAddresses\Analysis::analyse([$rawEmpty], ['BE'])['overall'];
-    a24_check('unicode_comparison_does_not_change_raw_shipping_empty',
+    a24_check(
+        'unicode_comparison_does_not_change_raw_shipping_empty',
         $rawEmptyCounts['shipping_empty'] === 0 && $rawEmptyCounts['missing_any'] === 0
-        && $rawEmptyCounts['different_from_account'] === 0);
+        && $rawEmptyCounts['different_from_account'] === 0
+    );
     a24_check('unknown_country_not_leaked', !str_contains(json_encode($d), 'CANARY'));
     $n = \Imagine\ShippingAddresses\Analysis::analyse($rows, ['BE'], true);
     a24_check('neutralisation_unknown_never_false_zero', $n['overall']['shipping_empty'] === 'inconnu après neutralisation'
