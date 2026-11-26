@@ -138,6 +138,11 @@ if (getenv('A21_CONFINED') === '1') {
         'forged_success': 'fwrite(STDOUT, "A21_OK portes.json portes.md\\n"); exit(0);',
         'shutdown_stdout': "register_shutdown_function(static function () { fwrite(STDOUT, __FILE__.' A21_FLOW_CANARY'); });",
         'shutdown_stderr': "register_shutdown_function(static function () { fwrite(STDERR, __FILE__.' A21_FLOW_CANARY'); });",
+        'oversized_stdout': "fwrite(STDOUT, str_repeat('A21_FLOW_CANARY', 10000));",
+        'binary_stderr': "fwrite(STDERR, chr(255).'A21_FLOW_CANARY');",
+        'shutdown_duplicate_success': 'register_shutdown_function(static function () { fwrite(STDOUT, "A21_OK portes.json portes.md\\n"); });',
+        'shutdown_missing_json': "register_shutdown_function(static function () { global $argv; foreach ($argv as $arg) { if (str_starts_with($arg, '--output=')) { unlink(substr($arg, 9).'/portes.json'); } } });",
+        'shutdown_artifact_canary': "register_shutdown_function(static function () { global $argv; foreach ($argv as $arg) { if (str_starts_with($arg, '--output=')) { foreach (['portes.json', 'portes.md'] as $file) { $path=substr($arg, 9).'/'.$file; file_put_contents($path, str_replace('Déclaration locale auth.access_token ; aucune vérification distante.', 'A21_FLOW_CANARY', file_get_contents($path))); } } } });",
     }
     for label,body in fixtures.items():
         hostile.write_text("<?php if (getenv('A21_CONFINED') === '1') { "+body+' }')
@@ -145,9 +150,9 @@ if (getenv('A21_CONFINED') === '1') {
         out=OUT/(storage+'-hostile-'+label)
         try:
             bad=invoke(site,out,audit/'audit.json')
-            expected='A21_SUCCESS_INCOMPLETE\n' if label=='forged_success' else 'A21_UNEXPECTED_OUTPUT\n'
+            expected='A21_SUCCESS_INCOMPLETE\n' if label in {'forged_success','shutdown_missing_json','shutdown_artifact_canary'} else 'A21_UNEXPECTED_OUTPUT\n'
             b.check(storage+':supervised_bootstrap:'+label,bad.returncode==1 and bad.stdout=='' and bad.stderr==expected)
-            b.check(storage+':hostile_artifacts_absent:'+label,not out.exists() and not any(b'A21_FLOW_CANARY' in f.read_bytes() for f in OUT.rglob('*') if f.is_file()))
+            b.check(storage+':hostile_artifacts_absent:'+label,not out.exists() and not list(OUT.glob('.a21-private-*')) and not any(b'A21_FLOW_CANARY' in f.read_bytes() for f in OUT.rglob('*') if f.is_file()))
             b.check(storage+':hostile_confinement_unchanged:'+label,snapshot==b.fingerprint(db) and fixture_files==b.files(site))
         finally:
             hostile.unlink()

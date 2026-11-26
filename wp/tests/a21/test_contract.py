@@ -9,6 +9,16 @@ class ContractTest(unittest.TestCase):
         from verify import readme_contract
         appendix=(ROOT/'production/A-21/readme-ajout.txt').read_bytes()
         self.assertTrue(readme_contract((ROOT/'wp/tests/a02-audit/README.md').read_bytes(),appendix))
+    def test_store_option_is_direct_and_documented(self):
+        inventory=(ROOT/'wp/outils/bascule/a21/Inventory.php').read_text(encoding='utf-8')
+        analysis=(ROOT/'wp/outils/bascule/a21/Analysis.php').read_text(encoding='utf-8')
+        readme=(ROOT/'wp/outils/bascule/a21/README.md').read_text(encoding='utf-8')
+        self.assertIn("get_option('woocommerce_helper_data', [])",inventory)
+        self.assertIn("!empty($helper['auth']['access_token'])",analysis)
+        self.assertNotIn('WC_Helper::',inventory+analysis)
+        self.assertIn('lit directement cette option via `get_option()`',readme)
+        self.assertIn('sans appeler `WC_Helper::is_site_connected()`',readme)
+
     def test_adversarial_shared_document_contract(self):
         self.assertTrue((HERE/'verify.py').is_file(), 'A21 verifier missing')
         from verify import readme_contract

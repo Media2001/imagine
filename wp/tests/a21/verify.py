@@ -44,12 +44,20 @@ def verify(packet):
     required += ['output_guard:'+x for x in ['exists','site','repo','ancestor','root']]
     required += ['closed_dropin:'+str(i) for i in range(6)]
     required += [kind+str(i) for kind in ['closed_site_exception:','exception_database_unchanged:'] for i in range(3)]
+    required += ['neutralised_supervisor_return']
+    required += [kind+label for kind in ['supervised_bootstrap:','hostile_artifacts_absent:',
+                 'hostile_confinement_unchanged:'] for label in ['stdout','stderr','early_exit','empty_exit',
+                 'forged_success','shutdown_stdout','shutdown_stderr','oversized_stdout','binary_stderr',
+                 'shutdown_duplicate_success','shutdown_missing_json']]
     for console,folder in [('cp1252',packet),('utf8',packet/'utf8')]:
         for kind in ['unit','result','runner']:
             data=load(folder/(kind+'.json'))
             names=[r['check'] for r in data['checks']]
             counts[console+':'+kind]=len(names)
             check(console+':'+kind+':green_unique',data['exit_code']==0 and bool(names) and len(names)==len(set(names)) and all(r['status']=='PASS' for r in data['checks']))
+        pure_names={r['check'] for r in load(folder/'unit.json')['checks']}
+        check(console+':literal_ip_ipv6_pure_cases',{'literal_ipv4_ipv6_external_by_exact_host',
+              'literal_ipv6_string_not_dns_or_binary_equivalence','literal_ip_addresses_never_projected'}.issubset(pure_names))
         check(console+':executed_source_snapshot',load(folder/'sources.json')==source)
         check(console+':executed_dependency_snapshot',load(folder/'dependency-snapshot.json')==dependencies)
         names={r['check'] for r in load(folder/'result.json')['checks']}
@@ -67,7 +75,11 @@ def verify(packet):
         env=load(packet/(console+'-environment.json'))
         check(console+':windows_console_measured',env['platform']=='win32' and env['version_info'][:2]==[3,14] and env['stdout']==('cp1252' if console=='cp1252' else 'utf-8') and env['utf8_mode']==int(console=='utf8'))
         log=(packet/(console+'-python-tests.log')).read_text(encoding='utf-8')
-        check(console+':portable_python_tests_executed','Ran 7 tests' in log and '\nOK\n' in log)
+        tests=re.search(r'Ran (\d+) tests?\b',log)
+        counts[console+':python_tests']=int(tests[1]) if tests else 0
+        expected_tests=sum(len(re.findall(r'^    def test_',file.read_text(encoding='utf-8'),re.M))
+                           for file in (ROOT/'wp/tests/a21').glob('test_*.py'))
+        check(console+':portable_python_tests_executed',bool(tests) and counts[console+':python_tests']==expected_tests and '\nOK\n' in log)
     style=load(packet/'style/style.json')
     check('strict_psr12_sources_current',style['exit_code']==style['phpcs_exit']==0 and style['totals']['errors']==style['totals']['warnings']==0 and style['sources']==source)
     matrix=load(packet/'windows-matrix.json')

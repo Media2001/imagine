@@ -44,15 +44,30 @@ class DependencyTest(unittest.TestCase):
                     verifier.verify(packet)
                 return {row['check']:row['status'] for row in json.loads(text.getvalue())['checks']}
             baseline=inspect()
-            target=root/'wp/outils/bascule/a11/Runtime.php'
-            target.write_bytes(target.read_bytes()+b'\n// disposable dependency drift\n')
-            drift=inspect()
-            # Other stale-packet checks are independent; this test isolates the new
-            # live dependency seal. Full green/mutation probes run after final freeze.
             self.assertEqual(baseline.get('exact_current_dependencies'),'PASS')
-            self.assertEqual(drift.get('exact_current_dependencies'),'FAIL')
-            self.assertEqual(drift.get('utf8:executed_dependency_snapshot'),'FAIL')
-            self.assertEqual(drift.get('cp1252:executed_dependency_snapshot'),'FAIL')
+            targets=['wp/outils/bascule/a11/Runtime.php','wp/outils/bascule/a12/confine.py',
+                     'wp/outils/bascule/audit','wp/outils/staging/lib.php',
+                     'wp/tests/a02-audit/inside.py','wp/tests/a19/run.py']
+            for name in targets:
+                with self.subTest(dependency=name):
+                    target=root/name
+                    before=target.read_bytes()
+                    target.write_bytes(before+b'\n# disposable dependency drift\n')
+                    drift=inspect()
+                    self.assertEqual(drift.get('exact_current_dependencies'),'FAIL')
+                    self.assertEqual(drift.get('utf8:executed_dependency_snapshot'),'FAIL')
+                    self.assertEqual(drift.get('cp1252:executed_dependency_snapshot'),'FAIL')
+                    target.write_bytes(before)
+            readme=root/'wp/tests/a02-audit/README.md'
+            readme.write_bytes(readme.read_bytes()+b'\nUnrelated appendix from another lot.\n')
+            annex=inspect()
+            self.assertEqual(annex.get('exact_current_dependencies'),'PASS')
+            self.assertEqual(annex.get('own_two_shared_lines_only'),'PASS')
+
+    def test_dependency_roots_match_the_executed_runner(self):
+        import run
+        import verify
+        self.assertEqual(verify.DEPENDENCIES,run.DEPENDENCIES)
 
 if __name__=='__main__':
     unittest.main()

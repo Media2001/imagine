@@ -51,6 +51,29 @@ if (class_exists(Analysis::class)) {
         );
         $check('custom_topic_and_url_canary_absent', !str_contains(json_encode($hooks), 'CANARY'));
     }
+    $ip = Analysis::webhooks([
+        ['status' => 'active', 'topic' => 'order.created',
+            'delivery_url' => 'https://192.0.2.1/IP_ADDRESS_CANARY'],
+        ['status' => 'active', 'topic' => 'order.created',
+            'delivery_url' => 'https://[2001:db8::1]:8443/IPV6_ADDRESS_CANARY'],
+        ['status' => 'active', 'topic' => 'order.created',
+            'delivery_url' => 'https://192.0.2.2:8080/IP_ADDRESS_CANARY'],
+    ], 'http://192.0.2.1/base');
+    $check('literal_ipv4_ipv6_external_by_exact_host', $ip['active_destination'] === [
+        'same_domain' => 1, 'external_domain' => 2, 'unknown' => 0,
+    ]);
+    $ipv6 = Analysis::webhooks([
+        ['status' => 'active', 'topic' => 'order.created', 'delivery_url' => 'http://[2001:DB8::1]/CANARY'],
+        ['status' => 'active', 'topic' => 'order.created', 'delivery_url' => 'https://[2001:db8::2]/CANARY'],
+        ['status' => 'active', 'topic' => 'order.created', 'delivery_url' => 'https://[2001:db8:0:0:0:0:0:1]/CANARY'],
+    ], 'https://[2001:db8::1]:443');
+    $check('literal_ipv6_string_not_dns_or_binary_equivalence', $ipv6['active_destination'] === [
+        'same_domain' => 1, 'external_domain' => 2, 'unknown' => 0,
+    ]);
+    $check(
+        'literal_ip_addresses_never_projected',
+        !preg_match('/CANARY|192\\.0\\.2|2001:db8/i', json_encode([$ip, $ipv6]))
+    );
     $published = Analysis::webhooks([
         ['status' => 'active', 'topic' => 'product.published', 'delivery_url' => 'https://example.org']
     ], 'https://example.org');
