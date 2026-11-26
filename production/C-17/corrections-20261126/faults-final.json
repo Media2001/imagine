@@ -1,6 +1,6 @@
 {
   "checks": {
-    "decision_si_suppression_impossible_refusee": false,
+    "decision_si_suppression_impossible_refusee": true,
     "pas_de_decision_enregistree": true,
     "remplacement_si_suppression_impossible_refuse": true,
     "disque_exactement_restaure": true,
@@ -10,12 +10,10 @@
     "etat_commercial_acces_preserve": true
   },
   "total": 8,
-  "failures": [
-    "decision_si_suppression_impossible_refusee"
-  ],
+  "failures": [],
   "concurrent_statuses": [
     200,
     409
   ],
-  "physical_path_tested": "/var/www/imagine-private-pdf/site-1/c17-681e614369c4015f001b499c7cc8221a.bin"
+  "physical_path_tested": "/var/www/imagine-private-pdf/site-1/c17-31278dc7e3b3b6eea3f0284d4fc9d7a3.bin"
 }

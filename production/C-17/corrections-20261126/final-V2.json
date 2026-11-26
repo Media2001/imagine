@@ -1,0 +1,134 @@
+{
+  "at": "2026-11-26T03:41:03.587366+00:00",
+  "scope": "imagine-test-demo",
+  "status": "PRET_TECHNIQUE_ATTENTE_ARBITRAGE_RGPD",
+  "checks": {
+    "native_exactement_preserve": true,
+    "action8793_pending101_exactement_preservee": true,
+    "bootstrap_seed_theme_partages_preserves": true,
+    "C09_382_sur_382": true,
+    "gates_sans_echec": true,
+    "b02-final_tous_vrais": true,
+    "replacement-final_tous_vrais": true,
+    "deletion-final_tous_vrais": true,
+    "boundaries-final_tous_vrais": true,
+    "http-final_tous_vrais": true,
+    "faults-final_tous_vrais": true,
+    "reglages-final_tous_vrais": true,
+    "b02-http-final_tous_vrais": true,
+    "Justificatifs_source_readback_exact": true,
+    "fixtures_nettoyees_un_fichier_C09_seul": true
+  },
+  "total": 15,
+  "failures": [],
+  "receipts": {
+    "b02-final": {
+      "total": 84,
+      "failures": []
+    },
+    "replacement-final": {
+      "total": 10,
+      "failures": []
+    },
+    "deletion-final": {
+      "total": 17,
+      "failures": []
+    },
+    "boundaries-final": {
+      "total": 10,
+      "failures": []
+    },
+    "http-final": {
+      "total": 49,
+      "failures": []
+    },
+    "faults-final": {
+      "total": 8,
+      "failures": []
+    },
+    "reglages-final": {
+      "total": 8,
+      "failures": []
+    },
+    "b02-http-final": {
+      "total": 51,
+      "failures": []
+    }
+  },
+  "sha256_Justificatifs_readback": "454a651e8d0d7d185ce8976d0686dd276a9c38ce5812faa4763564b8b2a3a36a",
+  "source_sha256": {
+    "wp/plugins/imagine-site/Justificatifs.php": "454a651e8d0d7d185ce8976d0686dd276a9c38ce5812faa4763564b8b2a3a36a",
+    "wp/tests/demo/b02-runtime.php": "8afa7a44f16412f0d524e3323c883f5c8f36ad807d4c852080fa10aa7bb3e995",
+    "wp/tests/demo/c17-corrections.py": "3cf5ce42b8de62970b9ee87a257be9a6d745a5e2294d32c85b7877543ab0e22a",
+    "wp/tests/demo/c17-faults.py": "6f92a2329bf42829aca784a857fcb15326c49e18dad68aebde63071f3ec7e2a9",
+    "wp/plugins/imagine-site/tests/JustificatifReglesTest.php": "253286b4fc3e146c22bf4a61cb251f3b550a3af793fa3c782bffcc551dd14148",
+    "wp/plugins/imagine-site/tests/fixtures/c17-fictif.jpg": "47b30c5aaf495b5c0f0e97ea17116510ebd93f4e3a08d00a4a2a878cba30416e",
+    "wp/plugins/imagine-site/tests/fixtures/c17-fictif.pdf": "617ac0feef8218e673b3622e1fc6b922ebea27e8ae9658e0c938baa43f5d04bf",
+    "wp/plugins/imagine-site/tests/fixtures/c17-fictif.png": "b564a333573dc3041e48f86a00f4cd8e677f40d564f1ad6cd5fe136271afed13"
+  },
+  "shared_sha256_before": {
+    "plugins/imagine-site/imagine-site.php": "fd08869ef6a5c5741e2b7a4340dd55664556591ed496f5cbebc865ded0f2f6d8",
+    "imagine-demo-build/c09-seed.php": "7b7ad355e03208cca739504ff64aef68969e4cfdd8a73fe94e4b3a10382fc382",
+    "themes/imagine/parts/mon-compte.php": "4b2c6983c96ee8defafd4eba64e7ccb7dfa1009c48d6dba34478a9a4a1a58ad2"
+  },
+  "shared_sha256_after": {
+    "plugins/imagine-site/imagine-site.php": "fd08869ef6a5c5741e2b7a4340dd55664556591ed496f5cbebc865ded0f2f6d8",
+    "imagine-demo-build/c09-seed.php": "7b7ad355e03208cca739504ff64aef68969e4cfdd8a73fe94e4b3a10382fc382",
+    "themes/imagine/parts/mon-compte.php": "4b2c6983c96ee8defafd4eba64e7ccb7dfa1009c48d6dba34478a9a4a1a58ad2"
+  },
+  "action8793_before": {
+    "action_id": "8793",
+    "hook": "woocommerce_scheduled_subscription_payment",
+    "status": "pending",
+    "scheduled_date_gmt": "2026-11-26 02:13:28",
+    "scheduled_date_local": "2026-11-26 03:13:28",
+    "priority": "1",
+    "args": "{\"subscription_id\":101}",
+    "schedule": "O:30:\"ActionScheduler_SimpleSchedule\":2:{s:22:\"\u0000*\u0000scheduled_timestamp\";i:1795659208;s:41:\"\u0000ActionScheduler_SimpleSchedule\u0000timestamp\";i:1795659208;}",
+    "group_id": "6",
+    "attempts": "0",
+    "last_attempt_gmt": "0000-00-00 00:00:00",
+    "last_attempt_local": "0000-00-00 00:00:00",
+    "claim_id": "0",
+    "extended_args": null
+  },
+  "action8793_after": {
+    "action_id": "8793",
+    "hook": "woocommerce_scheduled_subscription_payment",
+    "status": "pending",
+    "scheduled_date_gmt": "2026-11-26 02:13:28",
+    "scheduled_date_local": "2026-11-26 03:13:28",
+    "priority": "1",
+    "args": "{\"subscription_id\":101}",
+    "schedule": "O:30:\"ActionScheduler_SimpleSchedule\":2:{s:22:\"\u0000*\u0000scheduled_timestamp\";i:1795659208;s:41:\"\u0000ActionScheduler_SimpleSchedule\u0000timestamp\";i:1795659208;}",
+    "group_id": "6",
+    "attempts": "0",
+    "last_attempt_gmt": "0000-00-00 00:00:00",
+    "last_attempt_local": "0000-00-00 00:00:00",
+    "claim_id": "0",
+    "extended_args": null
+  },
+  "final_documentary_state": {
+    "att": {
+      "categorie": "à préciser",
+      "decision": "en_attente",
+      "blob": "547469e5435d575592478c8b3feca3de"
+    },
+    "ok": {
+      "categorie": "à préciser",
+      "decision": "valide",
+      "date_decision": "2026-11-26T03:40:19Z",
+      "fin": "2027-01-10",
+      "operateur": "fixture-c09-fictive"
+    }
+  },
+  "cleanup": {
+    "fixtures": 0,
+    "files": [
+      "c17-547469e5435d575592478c8b3feca3de.bin"
+    ]
+  },
+  "RGPD": "non arbitre; modele cinq champs conserve; aucune trace audit supplementaire",
+  "C18_treated": false,
+  "C21_treated": false
+}
