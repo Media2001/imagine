@@ -1,0 +1,12 @@
+B-06 — PRET technique après les cinq corrections fusionnées, à relire ; pas clos.
+Preuve courante : fusion-livraison-V2.json — 916 contrôles verts, 13 mutations détectées.
+Vérification finale : verification-fusion-finale-V2.json ; manifeste FICHIERS-fusion-V2.json.
+Commande vérifiée : python -B wp/tests/demo/b06-verifier.py fusion-livraison-V2 (code 0).
+Horslive canonique : 1126 tests, 35550 assertions ; 311 contrôles d’outils ; aucun échec.
+CooperateursReglesTest réellement découvert : 3 tests, 981 assertions, sans WordPress ni base.
+Image préparée après nouveaux tests ; qualité PSR12 sans erreur. SQL initial/final en panne et reprises réellement exercés.
+Deux réglages indépendants, défaut Administrateur ; 64 configurations croisées vérifiées sans droit d’article nouveau.
+A-VOIR.md et corrections-fusion-V2.md donnent parcours, preuves, limites et commandes.
+Préimages privées durables hors dépôt ; restauration exacte relue. P-COOP garde son attribut vrai ; autres états restaurés.
+Bootstrap/C24, C21/C06, bibliothèques et runner clos non réécrits. Historiques conservés.
+Claude clôt le code ; Ced valide le visuel, dont la présentation UTC inchangée. Aucun GO sur le réel.

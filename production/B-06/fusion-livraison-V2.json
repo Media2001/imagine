@@ -1,0 +1,108 @@
+{
+  "at": "2026-11-26T18:39:57.587614+00:00",
+  "scope": "imagine-test-demo",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "sources": {
+    "wp/outils/demo/b06-finaliser.py": "63fb1bef6578e520b70f33ba2ecff42f58af98c15caccb897c78afa6183917cd",
+    "wp/outils/demo/b06-http.py": "44a0a128ad9a9bc722832dbd9aaef4306a5fda82913b71ac996d6f41f05e4666",
+    "wp/outils/demo/b06-recette.py": "f47247b5845c95545490d1cad001a405fb78fae801e39e9e10c07c930270c889",
+    "wp/outils/demo/b06-seed.php": "031e77c989f1f7a3a7e5a2c094177916e9aa10ac21e60a82f289a9be25e7b63c",
+    "wp/outils/demo/b06.py": "3995784bbfa0b2cdbd22ece7087d76e5ffd21a0b05927d04018aa989caba2cad",
+    "wp/plugins/imagine-site/Cooperateurs.php": "432d7e80200c4c3c83cd989542263ee6318bf8ef59be1d4288393906c6fbc23a",
+    "wp/plugins/imagine-site/CooperateursRegles.php": "7783568a54c22326279c0ae2ec6c911cbfcfaddf68e84c07f83da60d47f406b1",
+    "wp/plugins/imagine-site/README-B06.md": "3b2ab700cb3da12992e70feea9b9e90842ad02825fa4937d808ee7de59008fd0",
+    "wp/plugins/imagine-site/tests/CooperateursReglesTest.php": "3ef7185e162a4a365f2e00aa2f00065408dbcdcf8876e053caefe70ebb0bfe7b",
+    "wp/tests/demo/b06-rules.php": "25901cbc68f899982a1f6bd955014865544d97e5ffdc9528725211b73495c72f",
+    "wp/tests/demo/b06-runtime.php": "63c9b7537bf1cd3cd27469f6edc676f9c7de63ae0732af630d76d65bec63ae8f",
+    "wp/tests/demo/b06-settings.php": "2f4248d2d1497a931cf81e20967720f6a080069ab494dc0ff1d3d5db1a5b90a0",
+    "wp/tests/demo/b06-space.php": "5c4a287dc663e7e1f6647c92aea8c4a024ac5a90f07e562ddbe37eb8915e6ed5",
+    "wp/tests/demo/b06-verifier.py": "cde5d8b0165a6a2c22380d3c63baea0bea89dc67e230734a04a1e7274c462c2f"
+  },
+  "closed_sources": {
+    "plugins/imagine-site/Confidentialite.php": "39b4aa84a3bb565683d914073748b08eaf500f1d1fc8e42b03ee0e79dea450e5",
+    "plugins/imagine-site/Paywall.php": "36cd92a29c942a4f210b6fad36eb75b5604e72dd69dcee115fac4ef2220c3d6f"
+  },
+  "bootstrap_contract": true,
+  "normal_receipts": [
+    "fusion-livraison-rules-V2",
+    "fusion-livraison-attribute-V2",
+    "fusion-livraison-privacy-V2",
+    "fusion-livraison-space-V2",
+    "fusion-livraison-settings-V2",
+    "fusion-livraison-http-V2"
+  ],
+  "mutation_receipts": [
+    {
+      "receipt": "fusion-livraison-mutation-collection-V2",
+      "required_failure": "anonyme_collection_exclut_espace"
+    },
+    {
+      "receipt": "fusion-livraison-mutation-display-V2",
+      "required_failure": "compte_retrait_sans_source_date"
+    },
+    {
+      "receipt": "fusion-livraison-mutation-page-V2",
+      "required_failure": "anonyme_page_sans_contenu"
+    },
+    {
+      "receipt": "fusion-livraison-mutation-rest-V2",
+      "required_failure": "anonyme_rest_sans_contenu"
+    },
+    {
+      "receipt": "fusion-livraison-mutation-search-V2",
+      "required_failure": "anonyme_recherche_exclut_espace"
+    },
+    {
+      "receipt": "fusion-livraison-mutation-feed-V2",
+      "required_failure": "anonyme_flux_exclut_espace"
+    },
+    {
+      "receipt": "fusion-livraison-mutation-sitemap-V2",
+      "required_failure": "sitemap_fournisseur_natif_espace_absent"
+    },
+    {
+      "receipt": "fusion-livraison-mutation-edition-V2",
+      "required_failure": "ecran_edition_non_coop_interdit"
+    },
+    {
+      "receipt": "fusion-livraison-mutation-erase-noop-V2",
+      "required_failure": "effacement_natif_attribut_absent"
+    },
+    {
+      "receipt": "fusion-livraison-mutation-export-other-V2",
+      "required_failure": "export_autre_personne_absente"
+    },
+    {
+      "receipt": "fusion-livraison-mutation-mail-V2",
+      "required_failure": "aucun_mail_tente"
+    },
+    {
+      "receipt": "fusion-livraison-mutation-http-V2",
+      "required_failure": "aucun_http_tente"
+    },
+    {
+      "receipt": "fusion-livraison-mutation-listener-V2",
+      "required_failure": "accroche_nommee_sans_ecouteur"
+    }
+  ],
+  "total": 916,
+  "failures": [],
+  "mutation_count": 13,
+  "result": "VERIFIED",
+  "sources_remote": {
+    "plugins/imagine-site/CooperateursRegles.php": "7783568a54c22326279c0ae2ec6c911cbfcfaddf68e84c07f83da60d47f406b1",
+    "plugins/imagine-site/Cooperateurs.php": "432d7e80200c4c3c83cd989542263ee6318bf8ef59be1d4288393906c6fbc23a",
+    "plugins/imagine-site/imagine-site.php": "4f754ef601a2d2c23c30d0101a0eb897042f81dce76dad4b0d1a4474f8c0fd34"
+  },
+  "native_cases_restored": true,
+  "exception": "P-COOP garde son attribut, posé et relu par écran natif ; autres comptes/options/actions restaurés exactement."
+}

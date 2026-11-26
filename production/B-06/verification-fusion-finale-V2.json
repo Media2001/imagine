@@ -1,0 +1,31 @@
+{
+  "at": "2026-11-26T18:42:41.743519+00:00",
+  "scope": "imagine-test-demo",
+  "result": {
+    "result": "VERIFIED",
+    "B06_checks": 916,
+    "mutations": 13,
+    "regression_tests": 1126,
+    "regression_assertions": 35550,
+    "tool_checks": 311,
+    "pages": 5,
+    "P_COOP_retained": true,
+    "closure": "Claude/Ced uniquement"
+  },
+  "readback": {
+    "fixtures_absentes": {
+      "imagine-b06-fictif": true,
+      "b06-editeur-fictif": true,
+      "b06-reglages-fictif": true,
+      "b06-cible-reglages": true
+    },
+    "roles_attribut": [
+      "administrator"
+    ],
+    "roles_lecture": [
+      "administrator"
+    ],
+    "accroche_sans_ecouteur": true
+  },
+  "private_snapshots_readable_and_matching": true
+}
