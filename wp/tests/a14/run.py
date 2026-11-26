@@ -43,14 +43,16 @@ def main():
             '--security-opt','no-new-privileges','--pids-limit','256','--memory','1536m','--cpus','2','--log-driver','none',
             '--pull','never','--entrypoint','sleep',b.IMAGE,'infinity']);created=True
         check('isolation_before',True,b.validate(json.loads(b.call(['inspect',name]).stdout)[0],name))
-        b.call(['start',name]);b.call(['exec',name,'mkdir','-p','/subject/a14','/opt/a14','/opt/a02','/report'])
-        for source,destination in [(HERE,'/opt/a14'),(ROOT/'wp/outils/bascule/a14','/subject/a14')]:
+        b.call(['start',name]);b.call(['exec',name,'mkdir','-p','/checkout/wp/outils/bascule/a14','/opt/a14','/opt/a02','/report'])
+        for source,destination in [(HERE,'/opt/a14'),(ROOT/'wp/outils/bascule/a14','/checkout/wp/outils/bascule/a14')]:
             for p in sorted(source.glob('*')):
                 if p.is_file():b.call(['cp',b.local(p),name+':'+destination+'/'+p.name])
         for dependency in ['audit','a11','a12','controler-export']:
-            b.call(['cp',b.local(ROOT/'wp/outils/bascule'/dependency),name+':/subject/'+dependency])
+            b.call(['cp',b.local(ROOT/'wp/outils/bascule'/dependency),name+':/checkout/wp/outils/bascule/'+dependency])
+        b.call(['exec',name,'mkdir','-p','/subject'])
+        b.call(['cp',b.local(ROOT/'wp/outils/bascule/audit'),name+':/subject/audit'])
         entry=ROOT/'wp/outils/bascule/rapprocher-contacts'
-        if entry.exists():b.call(['cp',b.local(entry),name+':/subject/rapprocher-contacts'])
+        if entry.exists():b.call(['cp',b.local(entry),name+':/checkout/wp/outils/bascule/rapprocher-contacts'])
         unit=b.call(['exec',name,'php','/opt/a14/unit.php'],check=False)
         (out/'unit.log').write_text(unit.stdout+unit.stderr,encoding='utf-8')
         b.call(['cp',name+':/report/unit.json',b.local(out/'unit.json')])

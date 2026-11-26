@@ -8,7 +8,7 @@ import unittest
 
 class InputTest(unittest.TestCase):
     def test_reader_uses_mapping_and_preserves_physical_line(self):
-        source=Path('/subject/a14/main.py')
+        source=Path('/checkout/wp/outils/bascule/a14/main.py')
         self.assertTrue(source.is_file(), 'A14 reader missing')
         spec=importlib.util.spec_from_file_location('contacts_input',source)
         m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
@@ -22,5 +22,23 @@ class InputTest(unittest.TestCase):
             config['statuts']['bloque']=['oui'];(p/'mapping.json').write_text(json.dumps(config))
             with self.assertRaisesRegex(RuntimeError,'A14_MAPPING_INVALID'):
                 m.read_contacts(p/'input.csv',p/'mapping.json')
+
+    def test_refusals_and_decoders(self):
+        spec=importlib.util.spec_from_file_location('contacts_input','/checkout/wp/outils/bascule/a14/main.py')
+        m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+        with tempfile.TemporaryDirectory(dir='/report') as d:
+            p=Path(d); config={'version':1,'encodage':'auto','separateur':'auto','colonnes':{'email':'Courriel','statut':'Statut'},'statuts':{'inscrit':['oui'],'desinscrit':['non'],'bloque':['stop']}}
+            sample='Courriel;Statut\nfiction@example.org;inattendu\n'
+            for encoding in ['utf-8-sig','utf-16']:
+                with self.subTest(encoding=encoding):
+                    (p/'mapping.json').write_text(json.dumps(config));(p/'input.csv').write_bytes(sample.encode(encoding))
+                    self.assertEqual(m.read_contacts(p/'input.csv',p/'mapping.json')[0]['status'],'inconnu')
+            for text in ['Courriel;Statut\nfiction@example.org;oui;extra\n','Courriel;Statut\n"broken;oui\n','Courriel;IBAN;Statut\nfiction@example.org;x;oui\n','Courriel;Statut\nfiction@example.org;oui\n\n']:
+                with self.subTest(refusal=text[:20]):
+                    (p/'input.csv').write_text(text)
+                    with self.assertRaises(RuntimeError):m.read_contacts(p/'input.csv',p/'mapping.json')
+            (p/'input.csv').write_text(sample)
+            (p/'mapping.json').write_text('{"version":1,"version":1}')
+            with self.assertRaises(RuntimeError):m.read_contacts(p/'input.csv',p/'mapping.json')
 
 if __name__=='__main__':unittest.main()

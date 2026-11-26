@@ -9,6 +9,15 @@ use PHPUnit\Framework\TestCase;
 
 final class CommandeReglesTest extends TestCase
 {
+    public function testAdresseNouveauOuiParDefautEtNonExpliciteSeulement(): void
+    {
+        self::assertTrue(CommandeRegles::adresseNouveau('oui'));
+        self::assertFalse(CommandeRegles::adresseNouveau('non'));
+        foreach ([null, '', 'invalide', [], false] as $value) {
+            self::assertTrue(CommandeRegles::adresseNouveau($value));
+        }
+    }
+
     public function testSansEmailIgnoreAdresseSaisieEtNeCreePasAdresseEnPhpPur(): void
     {
         $client = CommandeRegles::client(['mode' => 'nouveau', 'nom' => 'Personnage Fictif', 'sans_email' => '1', 'email' => 'ignore@example.org']);

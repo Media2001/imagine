@@ -6,10 +6,10 @@ $checks = [];
 $check = static function (string $name, bool $ok) use (&$checks): void {
     $checks[] = ['check' => $name, 'status' => $ok ? 'PASS' : 'FAIL'];
 };
-$available = is_file('/subject/a14/Matcher.php');
+$available = is_file('/checkout/wp/outils/bascule/a14/Matcher.php');
 $check('matcher_exists', $available);
 if ($available) {
-    require '/subject/a14/Matcher.php';
+    require '/checkout/wp/outils/bascule/a14/Matcher.php';
     $result = \Imagine\Contacts\Matcher::build(
         [['line' => 2, 'email' => ' Alice @EXAMPLE.ORG ', 'status' => 'desinscrit']],
         [

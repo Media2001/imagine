@@ -89,7 +89,12 @@ final class CommandeNative
         return $client['email'] !== '' ? (get_user_by('email', $client['email']) ?: null) : null;
     }
 
-    private static function creerClient(array $client): object
+    public static function adresseNouveau(): bool
+    {
+        return CommandeRegles::adresseNouveau(get_option('imagine_commande_adresse_nouveau', 'oui'));
+    }
+
+    private static function creerClient(array $client, array $address): object
     {
         $user = self::clientExistant($client);
         if ($user) {
@@ -105,6 +110,20 @@ final class CommandeNative
             'meta_input' => [self::OWNED => '1', SansEmail::META => ($direct || $client['sans_email']) ? '1' : '0']]);
         if (is_wp_error($id)) {
             throw new \RuntimeException('Compte non créé.');
+        }
+        if (!$direct && self::adresseNouveau()) {
+            $customer = new \WC_Customer($id);
+            $props = ['first_name' => $address['first_name'], 'last_name' => $address['last_name']];
+            foreach (['billing', 'shipping'] as $kind) {
+                foreach ($address as $field => $value) {
+                    $props[$kind . '_' . $field] = $value;
+                }
+            }
+            $errors = $customer->set_props($props);
+            if (is_wp_error($errors)) {
+                throw new \RuntimeException('Adresse du nouveau compte refusée.');
+            }
+            $customer->save(); // CRUD natif, seulement après une insertion réellement nouvelle.
         }
         return get_userdata($id);
     }
@@ -127,7 +146,7 @@ final class CommandeNative
             throw new \RuntimeException('Client en cours de traitement.');
         }
         try {
-            $user = self::creerClient($client);
+            $user = self::creerClient($client, $draft['commande']['adresse']);
             $order = wc_create_order(['customer_id' => $user->ID, 'status' => 'pending', 'created_via' => 'imagine-c16']);
             if (is_wp_error($order)) {
                 throw new \RuntimeException('Commande non créée.');

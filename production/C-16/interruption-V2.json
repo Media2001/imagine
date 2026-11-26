@@ -1,0 +1,241 @@
+{
+  "at": "2026-11-26T02:23:32.740553+00:00",
+  "checks": {
+    "interruption_apres_commence_persistant": true,
+    "reprises_interruption_fermees_sans_nouvelle_creation": true,
+    "reglage_restaure_exactement": true,
+    "sonde_temporaire_supprimee_reread": true,
+    "objets_C16_supprimes_reread": true,
+    "C09_action_8793_pending_abo101_preserves": true
+  },
+  "total": 6,
+  "failures": [],
+  "created_then_deleted": [],
+  "evidence": {
+    "interruption": {
+      "first_status": 409,
+      "retries": [
+        409,
+        409
+      ],
+      "commence_reread": true,
+      "resultat_present": false,
+      "objects_before": {
+        "shop_order": [],
+        "shop_subscription": []
+      },
+      "objects_after": {
+        "shop_order": [],
+        "shop_subscription": []
+      }
+    },
+    "C09_before": {
+      "fixture": {
+        "plan": 86,
+        "product": 87,
+        "users": {
+          "V-DEC": 6,
+          "V-DEC-FIN": 7,
+          "V-INSCRIT": 8,
+          "A-CARTE": 9,
+          "A-SEPA4": 10,
+          "A-PAYPAL": 11,
+          "A-VIR": 12,
+          "A-PAPIER": 13,
+          "A-GRACE": 14,
+          "A-SUSP": 15,
+          "A-EXPIRE": 16,
+          "A-NONRENOUV": 17,
+          "A-ETRANGER": 18,
+          "A-SANSMAIL": 19,
+          "A-ECHEANCE": 20,
+          "P-OFFRANT": 21,
+          "P-OFFERT": 22,
+          "P-GEST": 23,
+          "P-BENEF": 24,
+          "P-PRO": 25,
+          "P-SOL-ATT": 26,
+          "P-SOL-OK": 27,
+          "P-NUMERO": 28,
+          "P-COOP": 29,
+          "E-ADMIN": 30,
+          "E-REDAC": 31,
+          "E-ABO": 32
+        },
+        "orders": {
+          "A-CARTE": 88,
+          "A-SEPA4": 91,
+          "A-PAYPAL": 94,
+          "A-VIR": 97,
+          "A-PAPIER": 100,
+          "A-GRACE": 103,
+          "A-SUSP": 106,
+          "A-EXPIRE": 109,
+          "A-NONRENOUV": 112,
+          "A-ETRANGER": 115,
+          "A-SANSMAIL": 118,
+          "A-ECHEANCE": 121,
+          "P-NUMERO": 126
+        },
+        "subscriptions": {
+          "A-CARTE": 89,
+          "A-SEPA4": 92,
+          "A-PAYPAL": 95,
+          "A-VIR": 98,
+          "A-PAPIER": 101,
+          "A-GRACE": 104,
+          "A-SUSP": 107,
+          "A-EXPIRE": 110,
+          "A-NONRENOUV": 113,
+          "A-ETRANGER": 116,
+          "A-SANSMAIL": 119,
+          "A-ECHEANCE": 122
+        },
+        "memberships": {
+          "A-CARTE": 90,
+          "A-SEPA4": 93,
+          "A-PAYPAL": 96,
+          "A-VIR": 99,
+          "A-PAPIER": 102,
+          "A-GRACE": 105,
+          "A-SUSP": 108,
+          "A-EXPIRE": 111,
+          "A-NONRENOUV": 114,
+          "A-ETRANGER": 117,
+          "A-SANSMAIL": 120,
+          "A-ECHEANCE": 123,
+          "P-SOL-ATT": 124,
+          "P-SOL-OK": 125
+        },
+        "tariffs": {
+          "normal-1": 192,
+          "normal-4": 193,
+          "solidaire-1": 194,
+          "solidaire-4": 195,
+          "soutien-1": 196,
+          "soutien-4": 197
+        },
+        "renewals": {
+          "A-SEPA4": 2419,
+          "A-GRACE": 2420,
+          "A-SUSP": 2421
+        }
+      },
+      "status": "active",
+      "id": 101,
+      "next": "2026-11-26 02:13:28",
+      "action": {
+        "id": 8793,
+        "status": "pending",
+        "args": {
+          "subscription_id": 101
+        },
+        "date": "2026-11-26 02:13:28"
+      }
+    },
+    "C09_after": {
+      "fixture": {
+        "plan": 86,
+        "product": 87,
+        "users": {
+          "V-DEC": 6,
+          "V-DEC-FIN": 7,
+          "V-INSCRIT": 8,
+          "A-CARTE": 9,
+          "A-SEPA4": 10,
+          "A-PAYPAL": 11,
+          "A-VIR": 12,
+          "A-PAPIER": 13,
+          "A-GRACE": 14,
+          "A-SUSP": 15,
+          "A-EXPIRE": 16,
+          "A-NONRENOUV": 17,
+          "A-ETRANGER": 18,
+          "A-SANSMAIL": 19,
+          "A-ECHEANCE": 20,
+          "P-OFFRANT": 21,
+          "P-OFFERT": 22,
+          "P-GEST": 23,
+          "P-BENEF": 24,
+          "P-PRO": 25,
+          "P-SOL-ATT": 26,
+          "P-SOL-OK": 27,
+          "P-NUMERO": 28,
+          "P-COOP": 29,
+          "E-ADMIN": 30,
+          "E-REDAC": 31,
+          "E-ABO": 32
+        },
+        "orders": {
+          "A-CARTE": 88,
+          "A-SEPA4": 91,
+          "A-PAYPAL": 94,
+          "A-VIR": 97,
+          "A-PAPIER": 100,
+          "A-GRACE": 103,
+          "A-SUSP": 106,
+          "A-EXPIRE": 109,
+          "A-NONRENOUV": 112,
+          "A-ETRANGER": 115,
+          "A-SANSMAIL": 118,
+          "A-ECHEANCE": 121,
+          "P-NUMERO": 126
+        },
+        "subscriptions": {
+          "A-CARTE": 89,
+          "A-SEPA4": 92,
+          "A-PAYPAL": 95,
+          "A-VIR": 98,
+          "A-PAPIER": 101,
+          "A-GRACE": 104,
+          "A-SUSP": 107,
+          "A-EXPIRE": 110,
+          "A-NONRENOUV": 113,
+          "A-ETRANGER": 116,
+          "A-SANSMAIL": 119,
+          "A-ECHEANCE": 122
+        },
+        "memberships": {
+          "A-CARTE": 90,
+          "A-SEPA4": 93,
+          "A-PAYPAL": 96,
+          "A-VIR": 99,
+          "A-PAPIER": 102,
+          "A-GRACE": 105,
+          "A-SUSP": 108,
+          "A-EXPIRE": 111,
+          "A-NONRENOUV": 114,
+          "A-ETRANGER": 117,
+          "A-SANSMAIL": 120,
+          "A-ECHEANCE": 123,
+          "P-SOL-ATT": 124,
+          "P-SOL-OK": 125
+        },
+        "tariffs": {
+          "normal-1": 192,
+          "normal-4": 193,
+          "solidaire-1": 194,
+          "solidaire-4": 195,
+          "soutien-1": 196,
+          "soutien-4": 197
+        },
+        "renewals": {
+          "A-SEPA4": 2419,
+          "A-GRACE": 2420,
+          "A-SUSP": 2421
+        }
+      },
+      "status": "active",
+      "id": 101,
+      "next": "2026-11-26 02:13:28",
+      "action": {
+        "id": 8793,
+        "status": "pending",
+        "args": {
+          "subscription_id": 101
+        },
+        "date": "2026-11-26 02:13:28"
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+# A-14 — Rapprocher sans agir
+
+Dans un conteneur Linux jetable **sans réseau**, avec Python 3 et PHP ≥ 8.2, le noyau Landlock ABI ≥ 3 et un compte SQL SELECT, utiliser les outils A02/A11/A12 inchangés à leurs chemins relatifs. Pas de bootstrap supplémentaire : A11 charge les registres sous transaction READ ONLY et coupe HTTP, mail et planification ; A12 interdit les modifications de fichiers hors du parent de sortie. Ni Brevo, ni import, ni attribution de droits.
+
+```sh
+python3 wp/outils/bascule/rapprocher-contacts --wp-path=/copie-verifiee --audit=/rapports/audit/audit.json --contacts=/entrees/contacts.csv --correspondance=/entrees/correspondance.json --output=/rapports/contacts
+```
+
+Le parent `/rapports` existe, est extérieur et disjoint du site, du dépôt et des fichiers d'entrée. La photographie A02 vient de la même copie et du même stockage (classique ou HPOS), dans `/rapports/audit`. Sortie neuve obligatoire : dossier 0700, trois fichiers 0600, jamais écrasés. Ne jamais versionner les résultats issus de données réelles ; ce lot ne donne aucun GO de lecture du réel. L'entrée PHP interne n'est pas une commande opérateur : lanceur confiné obligatoire.
+
+Exporter le tableur en CSV ; copier `correspondance.exemple.json` et adapter en-têtes, encodage, séparateur et valeurs des statuts. Lecture CSV stricte réemployée d'A13 : UTF-8/BOM, UTF-16/BOM ou encodage explicite ; séparateur ambigu, mauvais guillemets, colonnes irrégulières ou IBAN suspect refusés sans valeur affichée. Statut non configuré : `inconnu`, jamais réinscrit. Limite d'entrée : 16 Mio.
+
+`resume.json` et `resume.md` ne portent que des nombres et des anomalies par ligne physique de départ (en-tête = 1). `rapproches.csv` ne porte que ligne, abonnement actif oui/non, statut source et les colonnes **coopérateur/tarif vides**. Aucune adresse, nom, ID de compte ou texte source n'est recopié. Lignes invalides et ambiguës sont séparées des contacts sans compte ; doublons = tous les membres d'un groupe valide, chaque ligne conservant son statut (même bloqué/désinscrit). Les quatre catégories contact (rapproché/sans compte/invalide/ambigu) totalisent les lignes source.
+
+Seule comparaison : email sans casse et sans espaces, jamais nom, points ou suffixes fournisseur. Plusieurs comptes au même email normalisé : **aucun choix du premier**, ligne ambiguë sans statut d'abonnement inventé. Comptes sans contact = comptes joignables valides dont l'email n'est pas présent ; un groupe ambigu présent n'est pas « sans contact ». Compte marqué `imagine_sans_email=1` ou domaine réservé `@sans-email.imagine.invalid` exclu ; email invalide compté séparément. Abonnement actif signifie strictement état natif `active`, pas `on-hold` ni `pending-cancel`, sans déduction de coopérateur/tarif.
+
+Un refus `A11_DROPIN_UNSUPPORTED` / `A11_SYMLINK_UNSUPPORTED` nomme le chemin relatif : ne pas affaiblir la garde ni déplacer un fichier réel. Préparer une **nouvelle copie jetable neutralisée** sans cache/pare-feu/drop-in/liens puis refaire l'audit A02. Les constantes de configuration hors contrat sont refusées aussi.
+
+Rejeu Windows (aucun PHP hôte) : `python wp/tests/a14/run.py --output C:/Users/Ced/AppData/Local/hermes/cache/scratch/a14-rejeu-NOUVEAU`. Vérification livrée : `python wp/tests/a14/verify.py production/A-14/preuves/final`. Banc A02 WordPress/Woo/WCS/Memberships réels mais toutes les personnes sont fictives ; aucune preuve sur une sauvegarde réelle.

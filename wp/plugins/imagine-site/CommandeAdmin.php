@@ -206,7 +206,7 @@ final class CommandeAdmin
     private static function client(): void
     {
         echo '<h2>' . esc_html(self::t('1. Le client')) . '</h2><form method="get"><input type="hidden" name="page" value="' . esc_attr(self::PAGE) . '">';
-        $query = isset($_GET['recherche']) ? CommandeRegles::texte($_GET, 'recherche') : '';
+        $query = isset($_GET['recherche']) ? CommandeRegles::texte(wp_unslash($_GET), 'recherche') : '';
         self::champ('recherche', 'Rechercher par nom, email ou localité', $query);
         submit_button(self::t('Rechercher'), 'secondary', '', false);
         echo '</form>';
@@ -249,7 +249,10 @@ final class CommandeAdmin
         }
         echo '<p><label for="c16-paiement">' . esc_html(self::t('Mode de paiement hors ligne')) . '</label><br><select id="c16-paiement" name="paiement"><option value="bacs">'
             . esc_html(self::t('Virement')) . '</option><option value="imagine_papier">' . esc_html(self::t('Mandat papier')) . '</option></select></p>';
-        echo '<p>' . esc_html(self::t('Prix fictif du catalogue uniquement ; aucun port ni taxe Imagine inventé. Adresse enregistrée sur cette commande seulement. Sans identité : adresse facultative.')) . '</p>';
+        echo '<p>' . esc_html(self::t('Prix fictif du catalogue uniquement ; aucun port ni taxe Imagine inventé. Les coordonnées des comptes préexistants restent inchangées. Sans identité : adresse facultative.')) . '</p><p>'
+            . esc_html(self::t(CommandeNative::adresseNouveau()
+                ? 'Nouveau compte uniquement : adresse initialisée sur le compte à la confirmation, ainsi que sur la commande et la souscription. Réglage à confirmer par Imagine.'
+                : 'Adresse sur la commande et la souscription seulement ; pas de recherche par localité pour ce nouveau compte. Réglage à confirmer par Imagine.')) . '</p>';
         submit_button(self::t('Vérifier la commande'), 'primary', '', false);
         echo '</form>';
     }

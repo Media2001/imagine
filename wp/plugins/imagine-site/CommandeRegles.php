@@ -7,6 +7,12 @@ namespace Imagine\Site;
 /** Validation pure de la saisie, pas de calcul de droits ou de tarifs. */
 final class CommandeRegles
 {
+    /** Question Imagine : seul « non » explicite désactive l'initialisation du nouveau compte. */
+    public static function adresseNouveau(mixed $value): bool
+    {
+        return $value !== 'non';
+    }
+
     public static function texte(array $data, string $key, int $max = 200): string
     {
         $value = $data[$key] ?? '';

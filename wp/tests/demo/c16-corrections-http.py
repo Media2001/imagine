@@ -84,7 +84,8 @@ def run(label='http-corrections-V2', selection='all'):
             checks['reprises_interruption_fermees_sans_nouvelle_creation'] = retries==[409,409] and c16.wp(OBJECTS)==snapshot
             evidence['interruption'] = {'first_status':status,'retries':retries,'commence_reread':persisted.get('commence'),'resultat_present':'resultat' in persisted,'objects_before':snapshot,'objects_after':c16.wp(OBJECTS)}
         if selection in ('all','adresse'):
-            existing_before = c16.wp('echo wp_json_encode(get_user_meta('+str(native['customer'])+'));')
+            existing_code = '$u=get_userdata('+str(native['customer'])+');$c=new WC_Customer($u->ID);echo wp_json_encode(["name"=>$u->display_name,"email"=>$u->user_email,"first_name"=>$c->get_first_name(),"last_name"=>$c->get_last_name(),"billing"=>$c->get_billing(),"shipping"=>$c->get_shipping()]);'
+            existing_before = c16.wp(existing_code)
             for name,client,policy in [
                 ('avec_email',{'mode':'nouveau','nom':"Personnage O'Fictif Avec",'email':'c16-localite-v2@example.org'},'oui'),
                 ('sans_email',{'mode':'nouveau','nom':"Personnage O'Fictif Sans",'sans_email':'1'},'oui'),
@@ -110,7 +111,9 @@ def run(label='http-corrections-V2', selection='all'):
                 elif name=='reglage_non':
                     checks['reglage_non_pas_adresse_compte']=data['shipping']['city']==data['billing']['city']==''
                 else:
-                    checks['compte_preexistant_adresse_nom_email_inchanges']=c16.wp('echo wp_json_encode(get_user_meta('+str(native['customer'])+'));')==existing_before
+                    checks['compte_preexistant_adresse_nom_email_inchanges']=c16.wp(existing_code)==existing_before
+                    evidence['compte_preexistant_avant']=existing_before
+                    evidence['compte_preexistant_apres']=c16.wp(existing_code)
     finally:
         c16.wp(('delete_option("imagine_commande_adresse_nouveau");' if policy_before is None else 'update_option("imagine_commande_adresse_nouveau",'+json.dumps(policy_before)+',false);')+'echo "true";')
         checks['reglage_restaure_exactement']=c16.wp('echo wp_json_encode(get_option("imagine_commande_adresse_nouveau",null));')==policy_before
