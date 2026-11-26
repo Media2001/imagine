@@ -38,7 +38,30 @@ $check('non_belgian_iban_and_unicode_spaces', Forms::scan("GB82 WEST 1234 5698 7
     && !Forms::iban('ZZ68539007547034'));
 $check('unsafe_key_masked_no_value_output', Imagine\RetentionInventory\Inventory::groups([
     ['scope' => 'order', 'key' => '/A18_PRIVATE_CANARY', 'value' => 'BE68539007547034'],
-]) === [['scope' => 'order', 'key' => 'autre', 'iban' => 1, 'card' => 0, 'national' => 0]]);
+]) === [['scope' => 'order', 'store' => 'commun', 'key' => 'autre', 'iban' => 1, 'card' => 0, 'national' => 0]]);
+foreach ([
+    'multiple_spaces' => '  ',
+    'line_feed' => "\n",
+    'tabs' => "\t\t",
+    'crlf' => "\r\n",
+    'nbsp' => "\u{00a0}\u{00a0}",
+    'narrow_nbsp' => "\u{202f}\u{202f}",
+] as $label => $separator) {
+    $iban = implode($separator, ['BE68', '5390', '0754', '7034']);
+    $card = implode($separator, ['4242', '4242', '4242', '4242']);
+    $check('r3_iban_scan_to_groups_' . $label, Forms::iban($iban)
+        && Forms::scan($iban)['iban'] === true
+        && Imagine\RetentionInventory\Inventory::groups([
+            ['scope' => 'option', 'key' => '_r3_iban', 'value' => $iban . ';' . $iban],
+        ]) === [['scope' => 'option', 'store' => 'commun', 'key' => '_r3_iban',
+            'iban' => 1, 'card' => 0, 'national' => 0]]);
+    $check('r3_card_scan_to_groups_' . $label, Forms::card($card)
+        && Forms::scan($card)['card'] === true
+        && Imagine\RetentionInventory\Inventory::groups([
+            ['scope' => 'account', 'key' => '_r3_card', 'value' => $card . ';' . $card],
+        ]) === [['scope' => 'account', 'store' => 'commun', 'key' => '_r3_card',
+            'iban' => 0, 'card' => 1, 'national' => 0]]);
+}
 mkdir('/report/unit-media');
 mkdir('/report/unit-media/alpha');
 mkdir('/report/unit-media/beta');

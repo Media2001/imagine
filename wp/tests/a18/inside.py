@@ -48,6 +48,12 @@ if (getenv('A18_CONFINED') === '1') {
     b.check(storage+':cli_and_actual_readonly_guards',p.returncode==0,{'exit':p.returncode,'stderr':p.stderr[:120]})
     b.check(storage+':media_contents_never_opened',events==b'')
     d=json.loads((dest/'conservation.json').read_text());groups=d['database']['groups']
+    inactive = 'classique' if storage == 'hpos' else 'hpos'
+    for scope in ['order', 'subscription']:
+        residual=[r for r in groups if r['scope']==scope and r['key']=='_a18_inactive_bank']
+        b.check(storage+':r1_inactive_store:'+scope,len(residual)==1 and residual[0].get('store')==inactive and {k:residual[0][k] for k in ['iban','card','national']}=={'iban':1,'card':0,'national':0})
+    shared=[r for r in groups if r['scope']=='order' and r['key']=='_a18_shared_bank']
+    b.check(storage+':r1_physical_rows_not_logical_dedup',len(shared)==2 and {r.get('store') for r in shared}=={'classique','hpos'} and all(r['iban']==1 for r in shared))
     by={(r['scope'],r['key']):{k:r[k] for k in ['iban','card','national']} for r in groups}
     for scope,key,want in [('account','_a18_card',{'iban':0,'card':1,'national':0}),('account','_a18_rr',{'iban':0,'card':0,'national':1}),('order','_a18_bank',{'iban':1,'card':0,'national':0}),('subscription','_a18_bank',{'iban':1,'card':0,'national':0}),('option','a18_bank_setting',{'iban':1,'card':0,'national':0})]:
         b.check(storage+':exact_group:'+scope+':'+key,by.get((scope,key))==want)
