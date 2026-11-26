@@ -368,3 +368,30 @@ python -B wp/outils/demo/c24-mutations.py nouvelles-gardes-V2
 
 `c24.py rules` utilise seulement le conteneur local hors réseau ; les autres recettes de ce second bloc accèdent à la démonstration. Le parcours HTTP rend la vraie page C10 et vérifie la section entre ouverture/fermeture de son formulaire ; sa mutation témoin retire uniquement l'injection C24 de la requête d'essai. Les scripts historiques de récupération ne font pas partie du rejeu. Questions rangées : localité fermée par défaut, inscription par défaut exclue de la transmission, emplacement visuel à valider par Ced. Preuves courantes et limites : `production/C-24/{A-VOIR.md,TRANSMISSION.md,manifest-fusion2050-V2.json}`. PRET technique ne vaut ni clôture, ni validation visuelle, ni GO sur le réel.
 
+## C-25 — rétractation, demande seule
+
+Dans Mon compte, une commande admissible (ou la commande initiale de son abonnement, titulaires vérifiés) propose **Me rétracter**. Étape 1 : référence, délai UTC et motif libre facultatif, sans écriture. Étape 2 : confirmation explicite avec nonce lié à la cible et au motif. Une note WooCommerce **privée**, sa métadonnée et un événement du journal partagé C10 sont persistés ; l’accusé daté se retrouve ensuite. Rejeu : le premier accusé, pas une deuxième demande. Aucun remboursement, annulation, accès fermé, email ou transport extérieur. Un motif avec antislash est adapté à l’API WP par `wp_slash($record)` ; l’original sert à la comparaison stricte après lecture et sort à l’export natif C21 sans perte.
+
+Deux réglages dans le formulaire C10 existant : `imagine_retractation_reglages[jours]`, entier **1–365**, défaut **14** ; `imagine_retractation_reglages[origine]`, **paiement** par défaut ou **manuelle** (champ de date UTC sur la commande). Date absente/invalide : fermé. Borne finale incluse et trace anti-doublon dépersonnalisée conservées en attendant les arbitrages métier ; aucune règle légale validée. Les hooks additifs C25 `added_option`/`updated_option` journalisent avant/après, auteur et date UTC. Si le journal échoue, la préimage exacte (ou l’absence initiale) est restaurée et relue ; un échec de cette inverse interrompt la requête. Aucune modification de la bibliothèque close C10 : son injection HTML actuelle reste inchangée pour la démo, le hook de rendu dédié relève d’un prochain passage.
+
+Export/effacement : callbacks ajoutés aux outils natifs C21/WordPress, sans changer leur politique de conservation. Le motif et la note sont retirés, la trace métier date/référence est dépersonnalisée pour éviter le redépôt. **Suppression du compte (`delete_user`) : une panne SQL persistante empêchant le nettoyage provoque `wp_die` et refuse la suppression par prudence**, pour ne pas laisser de trace orpheline. Réparer le stockage puis réessayer ; ce refus n’est ni une suppression réussie, ni une durée légale de conservation.
+
+Depuis la racine du dépôt, contrôles **locaux hors réseau**, sans charger le site (image de tests déjà disponible ; aucune installation sur l’hôte) :
+
+```text
+python -B wp/outils/demo/c25.py local canonique-<nom-neuf>
+python -B wp/outils/demo/c25-mutations.py mutations-<nom-neuf>
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
+python -B wp/outils/demo/c25-finaliser.py verifier
+```
+
+Recette **live uniquement sur `imagine-test-demo`**, avec garde d’identité et coupe-circuit B00 vérifiés ; mutation puis restauration, jamais un audit du réel :
+
+```text
+python -B wp/outils/demo/c25-recette.py recette-<nom-neuf>
+```
+
+Cette recette écrit une préimage durable privée dans le scratch Hermes avant les sessions/mutations. Elle passe réellement par `options.php` (création/modification et refus SQL du journal dans les deux cas ; groupe de recette borné à C25 pour préserver les autres réglages), puis relit les valeurs, et traverse le POST du motif à antislash jusqu’à la métadonnée et au callback enregistré de l’export C21. Les profils, commandes classiques/HPOS, options et actions métier reviennent à leur état initial et sont relus ; caches et données temporaires ne sont pas des règles métier. Les anciens reçus restent historiques. Commandes exactes, preuves courantes et questions visuelles/juridiques : `production/C-25/{NOTE.md,A-VOIR.md}` ; PRET technique seulement.
+
+

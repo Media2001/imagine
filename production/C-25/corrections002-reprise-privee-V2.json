@@ -1,0 +1,74 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T23:47:58.524988+00:00",
+  "recovery_only": true,
+  "cause": "Transport Linux ARG_MAX dépassé par la liste complète des noms d’options ; inverse bornée par option_id, aucune préimage inventée.",
+  "snapshot_before_recovery": {
+    "file": "c25-private-25yg3fcm/snapshot.json",
+    "sha256": "6c5fc4e02db1d58f52698e649a0c5876e8ee8d6a840e390a2c099da0604393ed",
+    "private": true
+  },
+  "settings_journals_removed": [
+    "imagine_reglages_journal_9bb055a532b74605a9ad8cb234f4d5d8",
+    "imagine_reglages_journal_0dd2c007038a465baf5ab02d9a5b4b3f",
+    "imagine_reglages_journal_cddb00b0d2e64928b5fb5c70d80f8897",
+    "imagine_reglages_journal_28a8f18b2e9643ce856396706a8ef67f",
+    "imagine_reglages_journal_d437919cda154e80ac9f2872d37f2f51"
+  ],
+  "sources": {
+    "wp/outils/demo/c25-finaliser.py": "593387cef9d20305fd3faed080a727ae0c09c247ec2429128a927933845cf33b",
+    "wp/outils/demo/c25-mutations.py": "f864dc2fb1a35ad34bd89fcf4902308ec611d13f4b01018ddda5670d9cc069a9",
+    "wp/outils/demo/c25-recette.py": "915f65e00432d896473592bf71e513bf4afc9cc6bb25b4584cf57b08cbb7ecef",
+    "wp/outils/demo/c25-settings.py": "e1c71d83079cebce88bfef469932ef8c24c06f57cec8fa59e5c92f4a363a65f4",
+    "wp/outils/demo/c25.py": "f4315d9dbab2cdf7d443573258e1e3c9cb77741b848656dfb97b9780f4670b50",
+    "wp/plugins/imagine-site/Retractation.php": "61ab822800af0ff950fdcb2ef4b48d7c0465df73c62b6eb035ac729bbf602045",
+    "wp/plugins/imagine-site/RetractationConfidentialite.php": "0089745076ed8797862f6abef47c49274d19dd17f2cfa21376f5de6a99995af8",
+    "wp/plugins/imagine-site/RetractationReglages.php": "5f3435dafe6a55f9d92bd5c63a2cf3e44a21ec681a9af2b8cd7472ef44cfb573",
+    "wp/plugins/imagine-site/RetractationRegles.php": "2bd47e957ade4d39b83210a0adc754c4efe6c4948e0772b64fcb2f337c2632e5",
+    "wp/plugins/imagine-site/tests/RetractationAdapterTest.php": "c0f3cde6b2cf529722d2192c087a0a0a6a9b392b99dea3ed01ec6d8a22703a61",
+    "wp/plugins/imagine-site/tests/RetractationReglesTest.php": "15cb0c61ade78ab8873cdfe147b58e7518d789e8ea27abb39e1815518799d9f3",
+    "wp/plugins/imagine-site/tests/RetractationWPStubs.php": "e6f014a0b58b4375547505af38e2f2a871bff4497f75d580ea28356c14b15a0f",
+    "wp/tests/demo/c25-horslive.php": "342ef0fae0925f1c134990bb706d3ddc5186856874fa588271922e14a966c244",
+    "wp/tests/demo/c25-observer.php": "288af609e45ff7bdc20c748abeec6af07f66beeec137b119170b7c7b8f5063a0",
+    "wp/tests/demo/c25-runtime.php": "8e8413498149c6efbef414baf58e214180c4225cf344b2ff9ca42181424c05e8"
+  },
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "private_snapshot": {
+    "file": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\c25-private-b_2p1v7z\\snapshot.json",
+    "sha256": "6a9d82b20c84e99d028508c3f1454884f40ea7df3a1ef93dd5ba0cc266d2740e"
+  },
+  "restoration": {
+    "notes_absentes": true,
+    "demandes_absentes": true,
+    "reglage_absent": true
+  },
+  "tests_removed": {
+    "mu-plugins/c25-observer.php": true,
+    "imagine-demo-build/c25-runtime.php": true
+  },
+  "business_preserved": false,
+  "exact_rows_preserved": {
+    "users": true,
+    "usermeta": false,
+    "posts": true,
+    "postmeta": true,
+    "comments": true,
+    "commentmeta": true,
+    "wc_orders": true,
+    "wc_orders_meta": true,
+    "wc_order_addresses": true,
+    "wc_order_operational_data": true,
+    "woocommerce_order_items": true,
+    "woocommerce_order_itemmeta": true,
+    "business_options": true
+  }
+}

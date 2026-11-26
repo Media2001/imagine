@@ -80,7 +80,12 @@ $check('manuel_ancien_POST_refuse', is_wp_error(R::demander(94, 11, 'confirmer',
 $check('manuel_date_absente_fermee', !R::ouverte(wc_get_order(100)));
 update_option(R::OPTION, ['jours' => 30, 'origine' => 'paiement'], false);
 $check('reglage_30_valide', S::nettoyer(['jours' => '30', 'origine' => 'paiement']) === ['jours' => 30, 'origine' => 'paiement']);
-$check('motif_HTTP_relu', $receipt['raison'] === 'Motif HTTP fictif');
+$reasonHTTP = 'Motif HTTP fictif C:\\dossier\\fichier et \\\\double';
+$check('motif_HTTP_relu', $receipt['raison'] === $reasonHTTP);
+$check('motif_HTTP_meta_WP_exacte', get_comment_meta($receipt['note'], R::META, true) === $receipt);
+$exporters = apply_filters('wp_privacy_personal_data_exporters', []);
+$httpExport = ($exporters['imagine-retractation']['callback'])(get_userdata(28)->user_email, 1);
+$check('motif_HTTP_export_C21_registre_natif_exact', count($httpExport['data']) === 1 && in_array($reasonHTTP, array_column($httpExport['data'][0]['data'], 'value'), true));
 $counts = get_option('imagine_c25_observations');
 $check('aucune_sortie_ni_mutation_financiere_C25', array_filter($counts, static fn ($key) => str_starts_with($key, 'c25_'), ARRAY_FILTER_USE_KEY) === []);
 $out = ['total' => count($checks), 'checks' => $checks, 'failures' => array_keys(array_filter($checks, static fn ($v) => !$v))];

@@ -7,11 +7,11 @@ import xml.etree.ElementTree as ET
 import c25
 
 NAMES = {
-    'canonical': 'canonique-livraison-V2',
-    'mutations': 'mutations-livraison-V2',
-    'image': 'image-livraison-V2',
-    'regression': 'regression-livraison-V2',
-    'native': 'recette-livraison-V2',
+    'canonical': 'canonique-corrections002-V2',
+    'mutations': 'mutations-corrections002-V2',
+    'image': 'image-corrections002-V2',
+    'regression': 'regression-corrections002-V2',
+    'native': 'recette-corrections002-V2',
 }
 
 
@@ -32,7 +32,7 @@ def gates():
         row = receipts[key]
         assert row['exit'] == 0 and digest(c25.PROOF / row['log']) == row['log_sha256'], key
     canonical = receipts['canonical']['junit']
-    assert int(canonical['tests']) == 8 and int(canonical['assertions']) == 146
+    assert int(canonical['tests']) == 10 and int(canonical['assertions']) == 172
     assert all(int(canonical[k]) == 0 for k in ['errors', 'failures', 'skipped'])
     image = (c25.PROOF / receipts['image']['log']).read_text(encoding='utf-8')
     assert 'PREPARATION T01 : image verifiee sha256:' in image
@@ -43,10 +43,10 @@ def gates():
     assert all(regression[k] == 0 for k in ['errors', 'failures', 'skipped'])
     assert regression['tools']['failures'] == 0
     log = (c25.PROOF / receipts['regression']['log']).read_text(encoding='utf-8')
-    for name in ['testDemandeSeulePersistanteEtRejeuSansAucunEffet', 'testDelaiEtOriginesAvecBornesEtFermeturePrudente', 'testRaccordsEntreeAdministrationEtDateManuelle']:
+    for name in ['testAntislashWordPressReluEtExporteSansPerte', 'testReglagesJournalAjoutModificationEtRollbackPreimage', 'testDemandeSeulePersistanteEtRejeuSansAucunEffet', 'testDelaiEtOriginesAvecBornesEtFermeturePrudente', 'testRaccordsEntreeAdministrationEtDateManuelle']:
         assert '<testcase name="' + name + '"' in log
     mutations = receipts['mutations']
-    assert mutations['all_detected'] and mutations['total'] == len(mutations['mutations']) == 11
+    assert mutations['all_detected'] and mutations['total'] == len(mutations['mutations']) == 15
     for row in mutations['mutations']:
         proof = read(row['log'][:-4])
         assert proof['sources'] == sources and proof['exit'] == 1
@@ -86,19 +86,19 @@ def sceller():
             'http_checks': len(native['checks']), 'native_checks': native['native']['total'],
             'integration_checks': len(native['checks']) + native['native']['total'],
             'readback': state, 'business_restored': True, 'blockers': [], 'visual_validation_pending': True}
-    c25.save('livraison-V2', data)
+    c25.save('livraison-corrections002-V2', data)
     print(json.dumps({k: data[k] for k in ['result', 'canonical', 'regression', 'mutations_detected', 'integration_checks', 'business_restored', 'blockers']}, ensure_ascii=False))
 
 
 def verifier():
     sources, receipts, regression = gates()
-    final = read('livraison-V2')
+    final = read('livraison-corrections002-V2')
     assert final['result'] == 'PASS' and final['sources'] == sources and final['blockers'] == []
     for key in ['receipts', 'docs']:
         for name, expected in final[key].items():
             assert digest(c25.PROOF / name) == expected, name
     pret = (c25.PROOF / 'PRET').read_text(encoding='utf-8')
-    assert 'C-25' in pret and digest(c25.PROOF / 'livraison-V2.json') in pret
+    assert 'C-25' in pret and digest(c25.PROOF / 'livraison-corrections002-V2.json') in pret
     print(json.dumps({'result': 'PASS', 'sources': len(sources), 'canonical_tests': int(final['canonical']['tests']), 'canonical_assertions': int(final['canonical']['assertions']), 'integration_checks': final['integration_checks'], 'mutations': final['mutations_detected'], 'regression_tests': regression['tests'], 'regression_assertions': regression['assertions'], 'tools': regression['tools'], 'pret_verified': True}, ensure_ascii=False))
 
 
