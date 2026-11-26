@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-26T06:10:38.166012+00:00",
+  "scope": "imagine-test-demo",
+  "source_readback": {
+    "plugins/imagine-site/ConfidentialiteRegles.php": "1c8d7c6f043b4abe46ae7eff7636a718c1cdbc906ef0fe89055a47e0fcf0c410",
+    "plugins/imagine-site/Confidentialite.php": "e686a771693dfc87f50437d2972e754373e076cbec6340715821b3133712e67a",
+    "plugins/imagine-site/EnvoiNatif.php": "cea6a1135b5f41868cddbe02778bc7812af447c58858f39396e91c219fa56b94",
+    "plugins/imagine-site/imagine-site.php": "b70ae48dec46653ea9ffa8f82dd37a1eac8df4df706054a7cbac5c1ce3ce192d"
+  },
+  "native_preserved": true,
+  "registration": {
+    "exporter": true,
+    "eraser": true
+  }
+}

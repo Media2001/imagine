@@ -32,6 +32,21 @@ final class Confidentialite
             add_filter('woocommerce_privacy_export_' . $type . '_personal_data', [self::class, 'commerce'], 20, 2);
         }
         add_action('delete_user', [self::class, 'supprimerCompte'], 5);
+        add_filter('imagine_envoi_conserver_observation', [self::class, 'conserverObservation'], 10, 2);
+    }
+
+    /** Réutilise la demande d'effacement terminée native : pas de marqueur personnel ni durée ajoutée. */
+    public static function conserverObservation(bool $conserver, array $data): bool
+    {
+        $id = (int) ($data['user'] ?? 0);
+        if (!$conserver || !$id || !get_userdata($id)) { return false; }
+        global $wpdb;
+        $done = $wpdb->get_var($wpdb->prepare(
+            "SELECT ID FROM {$wpdb->posts} WHERE post_type='user_request' AND post_name='remove_personal_data' AND post_status='request-completed' AND post_author=%d LIMIT 1",
+            $id
+        ));
+        if ($wpdb->last_error) { throw new \RuntimeException('État de confidentialité indisponible.'); }
+        return $done === null;
     }
 
     private static function user(string $email): ?\WP_User

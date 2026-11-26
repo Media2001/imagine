@@ -71,6 +71,10 @@ final class EnvoiNatif
 
     private static function enregistrer(array $data): array
     {
+        $observation = ['observe_utc' => (new DateTimeImmutable('now', new DateTimeZone('UTC')))->format('Y-m-d H:i:s.u'), 'donnees' => $data];
+        if (!apply_filters('imagine_envoi_conserver_observation', true, $data)) {
+            return $observation;
+        }
         $events = self::releves($data['id']);
         $last = $events === [] ? null : $events[array_key_last($events)];
         if (($last['donnees'] ?? null) !== $data) {

@@ -40,9 +40,18 @@ def ajax(client, kind, rid, nonce, index, page=1):
     return s, result
 
 
+def business_schedule():
+    # Only WCS report-cache jobs are volatile; every payment/renewal/action/log remains exact.
+    return c21.wp(r'''global $wpdb;$a=$wpdb->prefix.'actionscheduler_actions';$l=$wpdb->prefix.'actionscheduler_logs';
+$out=['actions'=>$wpdb->get_results("SELECT * FROM $a WHERE hook<>'wcs_report_update_cache' ORDER BY action_id",ARRAY_A),
+'logs'=>$wpdb->get_results("SELECT l.* FROM $l l INNER JOIN $a a ON a.action_id=l.action_id WHERE a.hook<>'wcs_report_update_cache' ORDER BY l.log_id",ARRAY_A)];
+$out['action8793']=$wpdb->get_row("SELECT * FROM $a WHERE action_id=8793",ARRAY_A);echo wp_json_encode($out);''')
+
+
 def run(label):
     c21.c19.c18.c17.profils.guard('imagine-test-demo')
     checks = {}; observation = {}
+    schedule_before = business_schedule()
     baseline = json.loads((c21.PROOF / 'baseline.json').read_text(encoding='utf-8'))['native']
     accounts = json.loads((Path.home() / '.imagine-demo/identifiants.json').read_text(encoding='utf-8'))['c09_accounts']
     admin = h.login(accounts['E-ADMIN']); reader = h.login(accounts['A-CARTE'])
@@ -124,7 +133,15 @@ def run(label):
         retention_after = c21.wp('global $wpdb;$o=[];foreach($wpdb->get_results("SELECT option_name,option_value FROM {$wpdb->options} WHERE option_name LIKE \'%retention%\' OR option_name LIKE \'%erasure%\'",ARRAY_A) as $r)$o[$r["option_name"]]=maybe_unserialize($r["option_value"]);echo wp_json_encode($o);')
         checks['reglages_conservation_inchanges'] = retention_before == retention_after
         after = c21.c19.c18.state()
-        checks['etat_natif_profils_C09_inchange'] = after == baseline
+        comparison_before = json.loads(json.dumps(baseline))
+        comparison_after = json.loads(json.dumps(after))
+        for v in (comparison_before, comparison_after):
+            for key in ('actionscheduler_actions', 'actionscheduler_logs'):
+                v['native_fingerprints'].pop(key, None)
+        checks['etat_natif_profils_C09_inchange'] = comparison_before == comparison_after
+        checks['actions_metier_C09_exactes'] = schedule_before == business_schedule()
+        observation['remaining_export'] = remaining if 'remaining' in locals() else None
+        observation['erasure_repeat'] = repeat if 'repeat' in locals() else None
         c21.save(label, {'checks': checks, 'total': len(checks), 'failures': [k for k, v in checks.items() if v is not True],
             'observation': observation, 'retention_before': retention_before, 'retention_after': retention_after,
             'native_before': baseline, 'native_after': after, 'cleanup': cleanup})

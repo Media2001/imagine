@@ -37,7 +37,7 @@ def baseline(label):
     return save(label, {'native': c19.c18.state(), 'source_before': hashes(list(targets())), 'registration': fixture('registration')})
 
 def deploy(label):
-    before = json.loads((PROOF / 'baseline.json').read_text(encoding='utf-8'))
+    before = json.loads((PROOF / ('baseline-observer.json' if (PROOF / 'baseline-observer.json').exists() else 'baseline.json')).read_text(encoding='utf-8'))
     actual = hashes(list(targets()))
     for name, p in targets().items():
         allowed = {before['source_before'][name], hashlib.sha256(p.read_bytes()).hexdigest()}
