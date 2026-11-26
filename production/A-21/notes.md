@@ -1,6 +1,26 @@
-# A-21 — corrections R1 à R4, candidat enfant pour finalisation parent
+# A-21 — gardien commun intégré, nouveau paquet vérifié sans PRET
 
-**Checkpoint A22 : les résultats ci-dessous sont historiques.** Le gardien est maintenant commun ; nouvelle matrice `a21-shared-final-02` en cours. Ancien PRET retiré ; anciennes gates invalidées pour ces sources. Le paquet sera remplacé après retour réel, pas rescellé avec ses anciens instantanés. Voir `production/A-22/notes.md` pour la reprise.
+## Résultat courant — remplace les preuves antérieures
+
+Nouveau paquet unique `production/A-21/preuves/final`, entièrement issu de `a21-shared-final-02` après les dernières sources communes ; matrice réelle à **code 0**, six commandes vertes. Style rejoué dans `a21-shared-style-final-02` : zéro erreur/avertissement, syntaxe PHP verte. Windows `C:/Python314/python.exe`, **3.14.6**, cp1252 puis UTF-8 mesurés, encodage enfant et scratch explicitement fixés.
+
+Par console : **12 tests Python, 18 assertions PHP pures, 172 contrôles natifs classique+HPOS et 8 contrôles runner**, plus **21 contrôles additionnels du gardien commun**, tous PASS. Deux vraies mutations retirent le gardien uniquement dans les copies Docker : le canari sort alors effectivement ; aucun octet brut du témoin n’est écrit dans un reçu. Retour réel du finaliseur/vérificateur livré sur le nouveau paquet : **0**.
+
+Un seul lecteur des pipes, `wp/outils/bascule/stream_guard.py`, partagé avec A20 et les lots clos. Validation canonique JSON/Markdown, projection fermée, hash de l’audit, publication différée et confinement enfant conservés. Comptes d’inactivité disjoints, lecture directe de l’option magasin et trois tests IP/IPv6 conservés. Les dépendances réellement exécutées incluent désormais le gardien, son pont, sa liste fermée et le banc additionnel ; elles sont comparées aux sources courantes à chaque vérification. Le contrat des deux lignes A21 du README partagé et la ligne d’option directe ajoutée par le parent sont préservés ; aucune empreinte entière du README.
+
+Ancien paquet, anciennes gates et reçus racine conservés hors dépôt dans `C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-superseded-a21`. Ancien PRET retiré avant travail ; aucun nouveau PRET. Préparation de l’image commune, rejeu global T01 et décision finale réservés au parent, **non exécutés par cet enfant**. Le vérificateur fonctionne aussi après PRET et accepte `--parent-proof` optionnel (sources exactes et vrais reçus préparation/T01). Aucun ancien reçu d’exécution rescellé sur les nouvelles sources.
+
+Commandes réellement exécutées :
+
+```text
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-shared-final-02
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/style.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-shared-style-final-02
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/finalise.py --matrix=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-shared-final-02 --style=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-shared-style-final-02
+```
+
+Pour rejouer, choisir des noms de sorties **neufs**. Les environnements, commandes, noms exacts des conteneurs et suppressions relues figurent dans le paquet. Les rejeux des lots clos appartiennent seulement à A22 ; aucun de leurs paquets n’est modifié. Aucun réel, archive Imagine, compte, Novamira, Git, déploiement, verrou, README partagé, T02 ou A23 touché.
+
+## Historique avant gardien commun — non probant pour les sources actuelles
 
 - **Fait** : sorties PHP supervisées jusqu'à la fin, publication différée, dépendances courantes scellées, option magasin directe documentée, tests IP/IPv6.
 - **Prêt à relire** : dernier paquet vert unique `C:/Users/Ced/imagine/production/A-21/preuves/final` ; aucun `PRET` écrit ni modifié par l'enfant.

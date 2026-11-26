@@ -35,8 +35,9 @@
       "command": [
         "C:\\Python314\\python.exe",
         "-B",
-        "wp/tests/a21/run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a21-final-matrix-py314\\cp1252-native"
+        "wp/tests/a22/run.py",
+        "--lot=A21",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a21-shared-final-02\\cp1252-native"
       ],
       "child_encoding": "cp1252",
       "exit_code": 0
@@ -76,8 +77,9 @@
       "command": [
         "C:\\Python314\\python.exe",
         "-B",
-        "wp/tests/a21/run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a21-final-matrix-py314\\utf8-native"
+        "wp/tests/a22/run.py",
+        "--lot=A21",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a21-shared-final-02\\utf8-native"
       ],
       "child_encoding": "utf-8",
       "exit_code": 0

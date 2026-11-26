@@ -1,0 +1,14 @@
+{
+  "lot": "A21",
+  "runner": "wp/tests/a21/run.py",
+  "runner_sha256": "0a092e1f87e1788cd635dac6f7b411d97d5f7b11ebb5a8ce84102201236e37a2",
+  "native_calls": [
+    [
+      "exec",
+      "imagine-a21-external-doors-c33da3c408fb",
+      "python3",
+      "/opt/a21/inside.py"
+    ]
+  ],
+  "exit_code": 0
+}

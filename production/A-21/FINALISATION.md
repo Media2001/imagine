@@ -1,7 +1,7 @@
-# A-21 — finalisation parent
+# A-21 — gardien commun A22, candidat vérifié
 
-**État courant : sources intégrées au gardien commun A22, nouvelles matrices en cours ; aucun PRET.** L’ancien PRET a été retiré. Les lignes de préparation/rejeu ci-dessous sont historiques, invalidées pour les nouvelles sources ; elles ne sont pas des gates exécutées par cet enfant. Un nouveau paquet scellé remplacera l’ancien après le retour réel des matrices.
+**Nouveau paquet unique vérifié, sans PRET.** `preuves/final` est issu de `a21-shared-final-02` et du style `a21-shared-style-final-02`, codes réels 0 ; finaliseur/vérificateur livré code 0. Ancien paquet et anciennes gates archivés hors dépôt ; aucune ancienne empreinte recyclée.
 
-Préparation `wp/tests/preparer-image.ps1` : code 0. Rejeu `wp/tests/rejouer.ps1` : **1 123 tests PHPUnit, 34 569 assertions ; 13 outils, 242 contrôles ; zéro échec, erreur ou ignoré**, dans les deux contextes UTF8 et cp1252. Les matrices natives restent distinctes de ce rejeu. Aucune opération sur le réel, archive, compte ou déploiement.
+Par console Windows cp1252/UTF-8 : 12 tests Python, 18 assertions PHP pures, 172 contrôles natifs, 8 contrôles runner et 21 contrôles additionnels de flux/mutations, tous PASS. PHP 100 % conteneur ; PSR-12 strict : zéro erreur, zéro avertissement.
 
-Paquet unique : `production/A-21/preuves/final/`. Commandes et sorties intégrales de préparation/rejeu incluses. Python natif des matrices : `C:/Python314/python.exe`, **3.14.6**, encodages mesurés dans les reçus. Une vérification parent des sources courantes et des empreintes du paquet précède le marqueur PRET.
+Python mesuré : `C:/Python314/python.exe`, 3.14.6. Sources et dépendances courantes scellées, deux lignes communes contrôlées par contrat. **Préparation globale, T01 et PRET restent au parent ; aucun de ces gates n’est revendiqué ici.** Vérificateur compatible avec PRET ultérieur et preuve parent optionnelle. Aucun réel, archive Imagine, compte, Git, Novamira ou déploiement.

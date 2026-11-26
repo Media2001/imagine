@@ -1,31 +1,44 @@
 {
-  "exit_code": 0,
-  "historical_candidate_contract": true,
+  "lot": "A-21",
+  "status": "CANDIDAT_GATE_PARENT",
+  "readiness_claimed": false,
+  "executable": "C:\\Python314\\python.exe",
+  "version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "win32",
   "rows": [
     {
       "console": "utf8",
+      "encoding": "utf-8",
+      "utf8_mode": 1,
       "command": [
-        "C:/Python314/python.exe",
+        "C:\\Python314\\python.exe",
         "-B",
-        "wp/tests/a21/verify.py",
-        "production/A-21/preuves/final"
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\a21\\verify.py",
+        "C:\\Users\\Ced\\imagine\\production\\A-21\\preuves\\final"
       ],
       "exit_code": 0,
+      "stderr_empty": true,
       "result": {
         "status": "CANDIDAT_GATE_PARENT",
         "readiness_claimed": false,
         "exit_code": 0,
         "counts": {
-          "cp1252:unit": 15,
-          "cp1252:result": 98,
-          "cp1252:runner": 7,
-          "utf8:unit": 15,
-          "utf8:result": 98,
-          "utf8:runner": 7
+          "cp1252:unit": 18,
+          "cp1252:result": 172,
+          "cp1252:runner": 8,
+          "cp1252:python_tests": 12,
+          "utf8:unit": 18,
+          "utf8:result": 172,
+          "utf8:runner": 8,
+          "utf8:python_tests": 12
         },
         "checks": [
           {
             "check": "exact_current_sources",
+            "status": "PASS"
+          },
+          {
+            "check": "exact_current_dependencies",
             "status": "PASS"
           },
           {
@@ -41,7 +54,19 @@
             "status": "PASS"
           },
           {
+            "check": "cp1252:pure_include_complete",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:literal_ip_ipv6_pure_cases",
+            "status": "PASS"
+          },
+          {
             "check": "cp1252:executed_source_snapshot",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:executed_dependency_snapshot",
             "status": "PASS"
           },
           {
@@ -85,6 +110,10 @@
             "status": "PASS"
           },
           {
+            "check": "cp1252:common_guard_native_channels_and_mutation",
+            "status": "PASS"
+          },
+          {
             "check": "cp1252:owned_cleanup",
             "status": "PASS"
           },
@@ -109,7 +138,19 @@
             "status": "PASS"
           },
           {
+            "check": "utf8:pure_include_complete",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:literal_ip_ipv6_pure_cases",
+            "status": "PASS"
+          },
+          {
             "check": "utf8:executed_source_snapshot",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:executed_dependency_snapshot",
             "status": "PASS"
           },
           {
@@ -150,6 +191,10 @@
           },
           {
             "check": "utf8:hpos:unknown_never_zero",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:common_guard_native_channels_and_mutation",
             "status": "PASS"
           },
           {
@@ -189,28 +234,37 @@
     },
     {
       "console": "cp1252",
+      "encoding": "cp1252",
+      "utf8_mode": 0,
       "command": [
-        "C:/Python314/python.exe",
+        "C:\\Python314\\python.exe",
         "-B",
-        "wp/tests/a21/verify.py",
-        "production/A-21/preuves/final"
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\a21\\verify.py",
+        "C:\\Users\\Ced\\imagine\\production\\A-21\\preuves\\final"
       ],
       "exit_code": 0,
+      "stderr_empty": true,
       "result": {
         "status": "CANDIDAT_GATE_PARENT",
         "readiness_claimed": false,
         "exit_code": 0,
         "counts": {
-          "cp1252:unit": 15,
-          "cp1252:result": 98,
-          "cp1252:runner": 7,
-          "utf8:unit": 15,
-          "utf8:result": 98,
-          "utf8:runner": 7
+          "cp1252:unit": 18,
+          "cp1252:result": 172,
+          "cp1252:runner": 8,
+          "cp1252:python_tests": 12,
+          "utf8:unit": 18,
+          "utf8:result": 172,
+          "utf8:runner": 8,
+          "utf8:python_tests": 12
         },
         "checks": [
           {
             "check": "exact_current_sources",
+            "status": "PASS"
+          },
+          {
+            "check": "exact_current_dependencies",
             "status": "PASS"
           },
           {
@@ -226,7 +280,19 @@
             "status": "PASS"
           },
           {
+            "check": "cp1252:pure_include_complete",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:literal_ip_ipv6_pure_cases",
+            "status": "PASS"
+          },
+          {
             "check": "cp1252:executed_source_snapshot",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:executed_dependency_snapshot",
             "status": "PASS"
           },
           {
@@ -270,6 +336,10 @@
             "status": "PASS"
           },
           {
+            "check": "cp1252:common_guard_native_channels_and_mutation",
+            "status": "PASS"
+          },
+          {
             "check": "cp1252:owned_cleanup",
             "status": "PASS"
           },
@@ -294,7 +364,19 @@
             "status": "PASS"
           },
           {
+            "check": "utf8:pure_include_complete",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:literal_ip_ipv6_pure_cases",
+            "status": "PASS"
+          },
+          {
             "check": "utf8:executed_source_snapshot",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:executed_dependency_snapshot",
             "status": "PASS"
           },
           {
@@ -338,6 +420,10 @@
             "status": "PASS"
           },
           {
+            "check": "utf8:common_guard_native_channels_and_mutation",
+            "status": "PASS"
+          },
+          {
             "check": "utf8:owned_cleanup",
             "status": "PASS"
           },
@@ -372,5 +458,7 @@
         ]
       }
     }
-  ]
+  ],
+  "packet_manifest_sha256": "1b337f75dd45b9c874b1dafd5171f4b1ef1c3c78015e0f78035f77ce3f1e4e50",
+  "exit_code": 0
 }
