@@ -1,0 +1,15 @@
+{
+  "platform": "win32",
+  "executable": "C:\\Python314\\python.exe",
+  "version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+  "version_info": [
+    3,
+    14,
+    6
+  ],
+  "stdout": "cp1252",
+  "stderr": "cp1252",
+  "locale": "cp1252",
+  "preferred": "cp1252",
+  "utf8_mode": 0
+}

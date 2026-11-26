@@ -1,0 +1,12 @@
+{
+  "kind": "real full verifier refuses Python-only packet",
+  "command": [
+    "C:\\Python314\\python.exe",
+    "-B",
+    "wp/tests/a26/verify.py",
+    "--packet=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a26-python-final-20261126-2232"
+  ],
+  "exit_code": 1,
+  "stdout": "",
+  "stderr": "A26_MATRIX_INCOMPLETE\r\n"
+}

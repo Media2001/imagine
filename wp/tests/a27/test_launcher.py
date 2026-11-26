@@ -25,8 +25,9 @@ class LauncherTests(unittest.TestCase):
             self.assertEqual((p.returncode, p.stdout, p.stderr), (1, '', 'A27_USAGE\n'))
 
     def test_cp1252_refusal(self):
-        p = self.call(['--bad=A27_PRIVATE_CANARY'], 'cp1252')
-        self.assertEqual((p.returncode, p.stdout, p.stderr), (1, '', 'A27_USAGE\n'))
+        for value in ('A27_PRIVATE_CANARY', 'A27_PRIVÉ_🔐_CANARY'):
+            p = self.call(['--bad=' + value], 'cp1252')
+            self.assertEqual((p.returncode, p.stdout, p.stderr), (1, '', 'A27_USAGE\n'))
 
     def test_missing_supervisor(self):
         with tempfile.TemporaryDirectory(prefix='a27-missing-', dir=os.environ.get('TMPDIR')) as tmp:

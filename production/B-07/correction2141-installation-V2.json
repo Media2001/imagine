@@ -1,0 +1,33 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T21:16:03.836075+00:00",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "sources": {
+    "plugins/imagine-site/Agenda.php": "70e940beb68e95379a81793b5e8aeb0c34d20d2a6efdbd9d5b2dd09e3290c9bb",
+    "plugins/imagine-site/AgendaConfidentialite.php": "7bfd2b5c2639d48a12b095bbfd8b9c09f8b73f6ddb5a4d69babc0d6c30addef7",
+    "themes/imagine/single-imagine_evenement.php": "5e0f45044d7d7bd5bf6dea95a41a00c6e747fd1a774b3c44a3fafdc458dc5ac2",
+    "themes/imagine/archive-imagine_evenement.php": "e99387da9d90c2f258310502ec8f69f2651ffd0cc968d37b0769d7043b3628f1",
+    "themes/imagine/functions.php": "b078c25bb370c12cc555c4f10ddf0c462604580af6c68ccb1068ab757c939db6"
+  },
+  "checks": {
+    "sources_relues_exactes": true,
+    "etat_metier_preserve": true,
+    "B05_extension_seule": true
+  },
+  "total": 3,
+  "failures": [],
+  "private_snapshot": {
+    "file": "b07-private-qgtunjkk/snapshot.json",
+    "sha256": "d29275dab636c6ba5e32fc4ac9095bc0ada6e56583b34c1bad44c2ab01872676",
+    "private": true
+  }
+}

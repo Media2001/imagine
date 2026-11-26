@@ -82,7 +82,7 @@ def main():
             p = b.call(['exec', name, 'php', '-l', '/subject/a27/' + f], check=False)
             check('lint_' + f, p.returncode == 0)
         # Red witness is deliberately confined to the disposable copied PHP source.
-        mutation = "from pathlib import Path;p=Path('/subject/a27/Analysis.php');s=p.read_text();p.with_suffix('.original').write_text(s);assert \"'CC' => 'carte'\" in s;p.write_text(s.replace(\"'CC' => 'carte'\",\"'CC' => 'autre'\",1))"
+        mutation = "import re;from pathlib import Path;p=Path('/subject/a27/Analysis.php');s=p.read_text(encoding='utf-8');p.with_suffix('.original').write_text(s,encoding='utf-8');m=re.subn(r\"('CC'\\s*=>\\s*)'carte'\",r\"\\1'autre'\",s,count=1);assert m[1]==1;p.write_text(m[0],encoding='utf-8')"
         b.call(['exec', name, 'python3', '-c', mutation])
         red = b.call(['exec', name, 'php', '/opt/a27/unit.php'], check=False)
         b.call(['cp', name + ':/report/unit.json', b.local(out / 'red-unit.json')])

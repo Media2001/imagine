@@ -1,0 +1,70 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T21:17:48.232335+00:00",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "checks": {
+    "observateur_controle_positif": true,
+    "partenaire_fiche_reelle": true,
+    "partenaire_shortcode_execute_une_fois": true,
+    "partenaire_liens_corps_regle_B05": true,
+    "partenaire_passe_label_lien_sans_cloture": true,
+    "partenaire_passe_sans_formulaire": true,
+    "partenaire_POST_direct_refuse": true,
+    "rencontre_fiche_reelle": true,
+    "rencontre_shortcode_execute_une_fois": true,
+    "rencontre_liens_corps_regle_B05": true,
+    "rencontre_formulaire_reel": true,
+    "deux_POST_reels_meme_resultat": true,
+    "doublon_une_ligne_native": true,
+    "inscription_visible_admin": true,
+    "saisie_invalide_alerte_admin_reelle": true,
+    "agenda_non_vide_exclut_saisie_invalide": true,
+    "temoin_saisie_corrigee_reintegree": true,
+    "temoin_saisie_corrigee_alerte_retiree": true,
+    "temoin_partenaire_devenu_rencontre_formulaire_present": true,
+    "aucun_transport_sujet_reel": true,
+    "observateur_retire_relu": true,
+    "evenements_et_metadonnees_restaurees_exactement": true,
+    "etat_metier_exact": false,
+    "sources_exactes": true
+  },
+  "total": 24,
+  "failures": [
+    "etat_metier_exact"
+  ],
+  "error": null,
+  "sources": {
+    "plugins/imagine-site/Agenda.php": "70e940beb68e95379a81793b5e8aeb0c34d20d2a6efdbd9d5b2dd09e3290c9bb",
+    "plugins/imagine-site/AgendaConfidentialite.php": "7bfd2b5c2639d48a12b095bbfd8b9c09f8b73f6ddb5a4d69babc0d6c30addef7",
+    "themes/imagine/single-imagine_evenement.php": "5e0f45044d7d7bd5bf6dea95a41a00c6e747fd1a774b3c44a3fafdc458dc5ac2",
+    "themes/imagine/archive-imagine_evenement.php": "e99387da9d90c2f258310502ec8f69f2651ffd0cc968d37b0769d7043b3628f1",
+    "themes/imagine/functions.php": "b078c25bb370c12cc555c4f10ddf0c462604580af6c68ccb1068ab757c939db6"
+  },
+  "private_snapshot": {
+    "file": "b07-private-d_azz1kh/snapshot.json",
+    "sha256": "ecbbce7a64be41191eb04401a683cd13d2a9dccc5790afe8a4717532671b8051",
+    "private": true
+  },
+  "transport_counts": {
+    "mail": 0,
+    "http": 20,
+    "agenda_mail": 0,
+    "agenda_http": 0,
+    "transport_mail": 0,
+    "transport_http": 0
+  },
+  "created_ids": [
+    3104,
+    3105,
+    3106
+  ]
+}
