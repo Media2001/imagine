@@ -18,7 +18,7 @@ Le chemin réel découvert est `C:/Users/Ced/imagine` (voie 1), pas un dossier l
 
 La matrice **Python seule**, avec l'interpréteur réel `C:/Python314/python.exe`, exécute la banque en UTF-8 (`PYTHONUTF8=1`) et en cp1252 (`PYTHONUTF8=0`). Le reçu final livré figure dans `local-final/` et `local-final.json` ; il marque explicitement `native_executed=false`. Elle couvre schéma et fichiers, refus du lanceur, protocole, partition/sous-ensemble, manifests, contrôle documentaire à deux lignes et publication sur **doubles de frontière explicitement nommés**. Le gardien A-22 est aussi exercé avec un vrai enfant Python et ses deux flux binaires ; ce n'est pas un enfant PHP.
 
-RED conservés dans `local/` : absence du validateur, neutralisation non encore acceptée, absence du lanceur ; refus réel d'une preuve devenue périmée (`A26_SOURCE_DRIFT`). Aucun journal natif, compteur PHP, résultat d'import ou preuve DB n'est fabriqué. Les références officielles WordPress / WP Consent API / Google Site Kit sont récupérées sur le web dans `standard/`, avant le code PHP ; l'extracteur web indisponible a été contourné par des requêtes HTTPS directes aux sources officielles. Un 404 initial de documentation n'a pas été utilisé comme preuve.
+RED conservés dans `local/` : absence du validateur, neutralisation non encore acceptée, absence du lanceur ; refus réel d'une preuve devenue périmée (`A26_SOURCE_DRIFT`). Le témoin `local/python-red-green.json` retire seulement la gestion de l'inconnu dans un miroir jetable de profondeur canonique : la même assertion échoue réellement dans les deux encodages, puis les banques passent après restauration exacte ; sources et dépendances originales inchangées. Commande rejouable sans PHP : `C:/Python314/python.exe -B production/A-26/local/replay-python-red-green.py`. Aucun journal natif, compteur PHP, résultat d'import ou preuve DB n'est fabriqué. Les références officielles WordPress / WP Consent API / Google Site Kit sont récupérées sur le web dans `standard/`, avant le code PHP ; l'extracteur web indisponible a été contourné par des requêtes HTTPS directes aux sources officielles. Un 404 initial de documentation n'a pas été utilisé comme preuve.
 
 ## Ordre exact de réception (parent seul, sérialisé)
 
@@ -39,10 +39,10 @@ Ajouter **les octets exacts, une fois chacun**, de `production/A-26/readme-ajout
 ### 3. Préparation de l'image commune
 
 ```sh
-pwsh -NoProfile -File wp/tests/preparer-image.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1
 ```
 
-Porte permanente du parent avant tout futur PRET. Elle ne fait pas partie des droits de ce worker. L'image de fixture commerciale réemployée est celle d'A-02 (ID fixé dans son runner), et les deux ZIP commerciaux fictifs déjà locaux sont repris sans compte ni réseau. Le runner refuse l'image absente ; il ne prépare ni ne télécharge un substitut.
+Porte permanente du parent avant tout futur PRET. Elle ne fait pas partie des droits de ce worker. L'image de fixture commerciale réemployée est celle d'A-02 (ID fixé dans son runner), et les deux paquets logiciels commerciaux déjà locaux et épinglés sont repris sans compte ni réseau (ce ne sont pas des sauvegardes de site). Le runner refuse l'image absente ; il ne prépare ni ne télécharge un substitut.
 
 ### 4. Un seul paquet complet final, sur sources gelées
 

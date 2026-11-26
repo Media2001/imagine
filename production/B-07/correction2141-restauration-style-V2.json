@@ -1,0 +1,15 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T21:19:16.985962+00:00",
+  "checks": {
+    "style_natif_cree_par_visite_retire": true,
+    "etat_metier_exact_pre_recette": true
+  },
+  "total": 2,
+  "failures": [],
+  "private_snapshot": {
+    "file": "b07-private-ukff_uuj/snapshot.json",
+    "sha256": "273767db2d993d4ca8cc9b0d8e49c452e3b553cca16a087c31b31bd0d8b03375",
+    "private": true
+  }
+}

@@ -48,7 +48,8 @@ def privacy(label):
 def recipe(label):
     identity=b07.b06.guard(); before=business(); database=b07.snapshot(); initial=sources()
     admin=wp('echo wp_json_encode(get_user_by("login","admin")->ID);')
-    snap=b07.private(label,{'database':database,'business':before,'sources':initial,'admin':admin})
+    styles=wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE post_type=\'wp_global_styles\' ORDER BY ID",ARRAY_A));')
+    snap=b07.private(label,{'database':database,'business':before,'sources':initial,'admin':admin,'styles':styles})
     owned=[]; session=None; checks={}; error=None; observer='mu-plugins/b07-observer.php'
     assert wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR."/'+observer+'")&&get_option("imagine_b07_observer",null)===null);')
     raw=(b07.ROOT/'wp/tests/demo/b07-observer.php').read_bytes()+b'''\nadd_action('init', static function (): void { add_shortcode('imagine_b07_probe', static function (): string { $GLOBALS['b07_probe_count']=($GLOBALS['b07_probe_count']??0)+1; return '<strong id="b07-projection">Rendu fictif &amp; visible '.$GLOBALS['b07_probe_count'].'</strong>'; }); });\n'''
@@ -63,7 +64,7 @@ def recipe(label):
         b07.private(label+'-session',session)
         links='<p><a id="b07-externe" href="https://outside.example.org/" rel="nofollow">Externe</a><a id="b07-ambigu" href=" https:////outside.example.org/">Ambigu</a><a id="b07-interne" href="/evenements/">Interne</a></p>'
         for key,kind,date in [('partenaire','partenaire','2020-01-01'),('rencontre','rencontre','2030-01-01'),('invalide','rencontre','2030-02-30')]:
-            data={'post_type':'imagine_evenement','post_status':'publish','post_title':'B07 correction fictive '+key,'post_content':'[imagine_b07_probe]'+links,'meta_input':{'imagine_type':kind,'imagine_date':date,'imagine_heure':'12:00','imagine_lieu':'Lieu fictif correction B07','imagine_url_partenaire':'https://partner.example.org/b07/'}}
+            data={'post_type':'imagine_evenement','post_status':'publish','post_title':'B07 correction fictive '+key,'post_content':'<div id="b07-body">[imagine_b07_probe]'+links+'</div>','meta_input':{'imagine_type':kind,'imagine_date':date,'imagine_heure':'12:00','imagine_lieu':'Lieu fictif correction B07','imagine_url_partenaire':'https://partner.example.org/b07/'}}
             obj=wp('$id=wp_insert_post('+php(data)+',true);if(is_wp_error($id)){throw new RuntimeException("Fixture refusée");}echo wp_json_encode(["id"=>$id,"path"=>wp_parse_url(get_permalink($id),PHP_URL_PATH)]);')
             owned.append({**obj,'key':key})
         for event in owned[:2]:
@@ -72,6 +73,8 @@ def recipe(label):
             schema=json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>',body,re.S).group(1))
             visible=html.unescape(re.sub('<[^>]+>','',re.search(r'<strong id="b07-projection">(.*?)</strong>',body,re.S).group(1)))
             checks[event['key']+'_shortcode_execute_une_fois']=visible=='Rendu fictif & visible 1' and schema['description'].startswith(visible) and '[imagine_b07_probe]' not in schema['description']
+            bodytext=html.unescape(re.sub('<[^>]+>','',re.search(r'<div id="b07-body">(.*?)</div>',body,re.S).group(1))).strip()
+            checks[event['key']+'_schema_description_egale_corps_affiche']=schema['description']==bodytext
             anchors={a.get('id'):a for a in parser.links if a.get('id')}
             checks[event['key']+'_liens_corps_regle_B05']=all(('sponsored' in anchors[k].get('rel','').split())==(event['key']=='partenaire') for k in ['b07-externe','b07-ambigu']) and 'sponsored' not in anchors['b07-interne'].get('rel','').split()
             if event['key']=='partenaire':
@@ -123,11 +126,14 @@ def recipe(label):
         now=b07.snapshot()
         added=[r for r in now['usermeta'] if r not in database['usermeta'] and int(r['user_id'])==admin and r['meta_key'] in ['closedpostboxes_imagine_evenement','metaboxhidden_imagine_evenement','meta-box-order_imagine_evenement','screen_layout_imagine_evenement']]
         if added: wp('global $wpdb;foreach('+php(added)+' as $row){$wpdb->delete($wpdb->usermeta,["umeta_id"=>(int)$row["umeta_id"]]);}clean_user_cache('+str(admin)+');echo "true";')
+        # WP crée son post de styles à la première visite d'édition. Ne retirer
+        # que la création de cette recette, jamais un post présent avant elle.
+        wp('$old='+php([int(p['ID']) for p in styles])+';foreach(get_posts(["post_type"=>"wp_global_styles","post_status"=>"any","numberposts"=>-1]) as $p){if(!in_array($p->ID,$old,true)&&$p->post_name==="wp-global-styles-imagine"&&(int)$p->post_author==='+str(admin)+'){wp_delete_post($p->ID,true);}}echo "true";')
         now=b07.snapshot()
         checks['evenements_et_metadonnees_restaurees_exactement']=all(now[k]==database[k] for k in ['posts','meta'])
         checks['etat_metier_exact']=before==business()
         checks['sources_exactes']=initial==sources()
-    data={'identity':identity,'checks':checks,'total':len(checks),'failures':[k for k,v in checks.items() if not v],'error':error,'sources':initial,'private_snapshot':snap,'transport_counts':locals().get('counts'),'created_ids':[p['id'] for p in owned]}
+    data={'identity':identity,'checks':checks,'total':len(checks),'failures':[k for k,v in checks.items() if not v],'error':error,'sources':initial,'private_snapshot':snap,'transport_counts':locals().get('counts'),'created_ids':[p['id'] for p in owned],'runner_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'observer_sha256':digest}
     b07.save(label,data);print(json.dumps(data,ensure_ascii=False));assert not data['failures'] and not error
 if __name__=='__main__':
     assert sys.argv[1] in ['deploy','privacy','recipe']
