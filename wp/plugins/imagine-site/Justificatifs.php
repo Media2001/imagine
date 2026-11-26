@@ -118,8 +118,12 @@ final class Justificatifs
             if (!hash_equals(self::version($old), $version)) {
                 throw new \RuntimeException('État modifié : rechargez la page.');
             }
-            // Validation avant retrait, jamais deux fichiers persistants pour un compte.
+            // Invalider la révision détruite avant toute écriture du remplacement.
             self::supprimerFichier($old);
+            self::enregistrer($user, [
+                'categorie' => $new['categorie'], 'decision' => 'en_attente',
+                'indisponible' => true, 'revision' => bin2hex(random_bytes(16)),
+            ]);
             $new['blob'] = bin2hex(random_bytes(16));
             $path = self::chemin($new);
             $handle = @fopen($path, 'xb');
@@ -205,7 +209,7 @@ final class Justificatifs
             }
             self::verrou((int) $id, static function () use ($id): void {
                 $old = self::etat((int) $id);
-                if (!hash_equals(self::version($old), self::texte($_POST, 'version'))) {
+                if (!hash_equals(self::version($old), self::texte($_POST, 'version')) || !self::disponible($old)) {
                     throw new \RuntimeException('Document remplacé ou décision déjà prise.');
                 }
                 $new = JustificatifRegles::decider(
@@ -223,6 +227,20 @@ final class Justificatifs
         }
         wp_safe_redirect(admin_url('admin.php?page=' . self::PAGE), 303);
         exit;
+    }
+
+    public static function disponible(array $state): bool
+    {
+        if (($state['decision'] ?? '') !== 'en_attente' || !empty($state['indisponible'])) {
+            return false;
+        }
+        try {
+            $path = self::chemin($state);
+            clearstatcache(true, $path);
+            return is_file($path) && is_readable($path);
+        } catch (\Throwable) {
+            return false;
+        }
     }
 
     public static function url(int $user, array $state): string
@@ -286,13 +304,14 @@ final class Justificatifs
         }
         $s = self::etat($id);
         $label = match ($s['decision'] ?? '') {
-            'en_attente' => __('En attente', 'imagine-site'),
+            'en_attente' => self::disponible($s) ? __('En attente', 'imagine-site')
+                : __('Document indisponible — veuillez déposer un nouveau justificatif.', 'imagine-site'),
             'valide' => sprintf(__('Validé jusqu’au %s', 'imagine-site'), $s['fin']),
             'refuse' => __('Refusé', 'imagine-site'), default => __('Aucun', 'imagine-site'),
         };
         echo '<div data-imagine-justificatif><h3>' . esc_html__('Tarif solidaire — justificatif', 'imagine-site')
             . '</h3><p role="status">' . esc_html($label) . '</p>';
-        if (($s['decision'] ?? '') === 'en_attente') {
+        if (self::disponible($s)) {
             echo '<p><a href="' . esc_url(self::url($id, $s)) . '">' . esc_html__('Télécharger mon dépôt protégé', 'imagine-site') . '</a></p>';
         }
         echo '<p id="imagine-justificatif-aide">' . esc_html__('Masquez votre numéro de registre national. PDF, JPEG ou PNG uniquement, 5 Mio maximum. Le fichier est supprimé dès validation ou refus ; un nouveau dépôt remplace le précédent. Aucun changement de prix ou de droits dans cet écran.', 'imagine-site') . '</p>';
@@ -331,6 +350,13 @@ final class Justificatifs
             $s = self::etat($id);
             $u = get_userdata($id);
             if (!$u || ($s['decision'] ?? '') !== 'en_attente') {
+                continue;
+            }
+            if (!self::disponible($s)) {
+                echo '<article data-imagine-justificatif-titulaire="' . esc_attr((string) $id) . '"><h2>'
+                    . esc_html($u->display_name) . '</h2><p>'
+                    . esc_html__('Document indisponible — nouveau dépôt nécessaire, aucune décision possible.', 'imagine-site')
+                    . '</p></article>';
                 continue;
             }
             echo '<article data-imagine-justificatif-titulaire="' . esc_attr((string) $id) . '"><h2>' . esc_html($u->display_name)
