@@ -1,8 +1,8 @@
-PRET_TECHNIQUE_C20_PERIMETRE_REDUIT_0730
-26 novembre 2026 — consigne A-FAIRE-2 de 7 h 30 et arbitrage de 7 h.
-Livré : raccord pending Memberships + pending-cancel Subscriptions actif jusqu’au terme payé ; contre-exemples fermés ; présentations natives sans bouton ; phrase Imagine quatre-fois ; reprise absente sur produits privés.
-Postal attendu : terme payé 25/12/2026 18:01:50 UTC avant clôture 05/01/2027 00:00 Europe/Brussels ; retrait de la seule ligne 89 (8 vers 7), autres lignes exactes, C13 inchangé.
-Hors lot et reportés au branchement sur staging vérifié avec accord de Ced : bouton ne pas renouveler, confirmation, émission de imagine_non_renouvellement_confirme, preuve fin native quatre-fois. Marge C05 absente et inchangée. Aucun profil automatique fabriqué.
-Preuves : closure-0730-native-green-second-V2.json (11/11), closure-0730-ui-second-V2.json (18/18), closure-0730-regressions-second-V2.json (C08 30/30, C13 24/24, C09 382/382), final-closure-0730-successor-V2.json.
-Aucun code fonctionnel modifié ; profils/actions restaurés, action 8793 exacte ; C21 successeur conservé. Rouges et sceaux historiques conservés.
-Prêt à relire techniquement uniquement. Validation visuelle Ced attendue ; pas clôture du lot par l’agent ni GO réel.
+PRET_TECHNIQUE_C20_FUSION_PERIMETRE_REDUIT_0730
+26 novembre 2026 — fusion 1 à 3 appliquée ; 4 et 5 documentées pour le branchement, sans changement d’ordre ni méthode réelle inventée.
+Livré : sept cas de bornes sur le vrai Paywall et C06 ; codes de présentation traduits par littéraux WordPress puis échappés ; README aligné sur le périmètre réduit.
+Écrans sans bouton, quatre-fois fait demander à Imagine ; produits privés, pas de reprise. Postal 8 vers 7 attendu au terme antérieur à clôture ; C13 inchangé.
+Reportés : bouton ne pas renouveler, confirmation, émission de imagine_non_renouvellement_confirme, preuve fin native quatre-fois. C05 sans marge, aucune fin native quatre-fois essayée.
+Preuves : fusion-V2/final.json ; préparation puis T01 1111 tests / 34499 assertions, aucun échec ; natif 11, UI 18, HTTP 27 ; C08 30, C13 24, C09 382 ; profils/actions exacts (8793 pending, abonnement 101). Successeur C22 revérifié, C21/B05 préservés.
+Rouges et sceaux historiques conservés. Seules deux classes de présentation installées sur imagine-test-demo et relues. Aucun autre lot traité.
+Prêt à relire techniquement dans le périmètre réduit seulement ; ni clôture, ni validation visuelle de Ced, ni GO réel.

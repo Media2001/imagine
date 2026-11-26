@@ -58,7 +58,7 @@ def receipts():
     assert 'T01 CLEANUP : absence verifiee' in t01
     assert 'PREPARATION T01 : image verifiee' in (PROOF / 'preparer-image.log').read_text(encoding='utf-8-sig')
     native = load('fusion-native-second-V2.json')
-    assert native['checks'] and all(v is True for v in native['checks'].values()) and not native['failures']
+    assert len(native['checks']) == 11 and all(v is True for v in native['checks'].values()) and not native['failures']
     assert native['checks']['pending_cancel_paid_term_before_cutoff_excludes_only_this_subscription']
     assert native['effects'] == [] and native['fresh_profiles_actions_exact']
     assert not native['four']['result']['supported'] and native['four']['result']['C05_block_end'] is None
@@ -106,7 +106,7 @@ def run(seal=False):
     remote = live()
     pret = (ROOT / 'production/C-20/PRET').read_text(encoding='utf-8')
     assert 'PERIMETRE_REDUIT_0730' in pret and 'imagine_non_renouvellement_confirme' in pret
-    owned = OWN + ['files/rapports/2026-11-26-09h40-V2.md']
+    owned = OWN + ['files/rapports/2026-11-26-09h22-V2.md']
     data = {'status': 'PRET_TECHNIQUE_C20_FUSION_PERIMETRE_REDUIT_0730', 'scope': 'imagine-test-demo',
         'source_sha256': {n: sha(ROOT / n) for n in owned}, 'README_C20_contract': readme,
         'deployed_source_readback': remote, 'canonical': canonical,

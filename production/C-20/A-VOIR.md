@@ -1,6 +1,56 @@
-# C-20 — PRET technique, périmètre réduit par la consigne du 26/11/2026 à 7 h 30
+# C-20 — PRET technique corrigé, périmètre réduit accepté le 26 novembre 2026 à 7 h 30
 Visible : raccord actif jusqu’au terme payé ; Mon compte sans bouton ; quatre-fois : « faites la demande auprès d’Imagine ».
-Reporté au branchement sur staging vérifié avec accord de Ced : bouton « ne pas renouveler », confirmation, émission de `imagine_non_renouvellement_confirme` et preuve de fin native du quatre-fois.
+Reporté au branchement sur staging vérifié avec GO de Ced : bouton, confirmation, émission de `imagine_non_renouvellement_confirme` et preuve de fin native du quatre-fois.
+
+## État courant après la fusion — 26 novembre 2026, 9 h 22
+
+- **1. Bornes du vrai raccord** : `tests/C20PaywallAdapterTest.php`, doublures Memberships/WCS, horloge de requête contrôlée, véritable `Paywall::decisionPdf` et moteur C06. **7 cas / 21 assertions** : sans fin native fermé ; une seconde avant ouvert ; fin exacte/après fermés ; fin Memberships antérieure : juste avant ouvert, exacte/après fermés. Trois mutants jetables détectés (garde de fin, minimum Memberships, ouverture pending-cancel). Aucun changement Paywall/C06/C13, aucune règle recopiée.
+- **2. i18n** : quatre codes en PHP pur ; phrases littérales traduites puis échappées dans WordPress. Test du véritable `Renouvellement::afficher`, extraction des quatre littéraux et traduction contenant du HTML hostile jamais rendu brut. Rouges avant correction conservés.
+- **3. README** : état courant réduit ; ancien « Pas PRET : le point 2 reste bloqué » uniquement dans l’historique daté. Sections C21/B05/C22 identiques.
+- **4. Ordre au branchement** : défaut technique appliqué, ordre actuel `arret_a_terme` avant `quatre_fois` conservé. Priorité pour un quatre-fois natif pending-cancel à décider à ce branchement, pas dans ce lot.
+- **5. A-PAPIER hors démo** : méthode native vide ⇒ `EcheancesNatives::methode()` retourne `''`, le vrai papier reste inconnu et risque la présentation `quatre_fois`. Prévoir un raccord de méthode réelle validé au branchement ; aucun drapeau fictif promu en règle réelle.
+
+### À ouvrir maintenant
+
+Base `http://192.168.129.32:8085`, seule cible autorisée ; comptes fictifs C09 habituels, secrets hors dépôt. Route Mon compte native lue à l’exécution.
+
+- A-CARTE : manuel, mention « aucune carte ni passerelle raccordée », sans bouton.
+- A-SEPA4 : demande à Imagine, échéances du bloc dues, sans bouton.
+- A-VIR/A-PAPIER : manuel, sans bouton.
+- « Gérer cet abonnement dans WooCommerce » : vraie fiche native, Cancel/Reactivate absents sur la seule démo. Ne pas déclencher de paiement ni Renew now.
+- `/wp-admin/admin.php?page=imagine-liste-envoi` : C13 inchangé, huit lignes restaurées après la sonde.
+
+Nouvelles captures Chromium : `a-carte-fusion-http-1280.png`, `a-sepa4-fusion-http-390.png`. Validation visuelle de Ced toujours attendue.
+
+### Preuves courantes réellement rejouées
+
+- `fusion-V2/preparer-image.log` puis `fusion-V2/t01-final.log` : **1 111 tests, 34 499 assertions, 0 échec/erreur/ignoré**, PHP 8.2 ; conteneur hors réseau supprimé et absence vérifiée.
+- `fusion-native-second-V2.json` : **11/11**, accès/contre-exemples, retrait postal attendu de la seule ligne 89 **8 → 7**, aucune tentative mail/HTTP, rollbacks et relecture fraîche exacts.
+- `fusion-ui-second-V2.json` : **18/18**, vrais profils sans bouton et propriétaire tiers refusé.
+- `fusion-http-second-V2.json` : **27/27**, sessions réelles, quatre dashboards/fiches et deux navigations Chromium, requêtes hors site bloquées.
+- `fusion-regressions-second-V2.json` : **C08 30/30, C13 24/24, C09 382/382**, rollbacks et quatre profils/actions exacts.
+- `fusion-V2/c22-readback.log` : vérificateur C22 réellement relancé, sources/successeurs/reset exacts. Ses preuves historiques restent **1 102 / 34 454**, natif 19 et HTTP 33 ; ce n’est pas une nouvelle recette C22.
+- `fusion-V2/final.json` : nouveau reçu, sources installées relues, contrats partagés préservés. Aucun sceau historique réécrit ; ancien A-VOIR archivé sous `fusion-V2/A-VOIR.md.before`.
+
+**Limites maintenues** : terme payé 25/12/2026 18:01:50 UTC avant clôture 05/01/2027 00:00 Europe/Brussels : exclusion C13 attendue, pas un blocage. C05 sans marge : fin native quatre-fois non essayée, ni prouvée ni écartée. Produits 192/193 privés : pas de reprise. `restants=null` nommé non raccordé. A-PAPIER : abonnement **101**, action **8793 pending**, **2026-11-26 02:13:28 UTC**, exacts ; aucun reset C09.
+
+### Commande parent ciblée
+
+Depuis `C:/Users/Ced/imagine` :
+
+```sh
+PYTHONIOENCODING=utf-8 python -B wp/tests/demo/c20-fusion-verifier.py
+```
+
+Retour attendu **0**. L’ancien `python -B wp/outils/demo/c20-second.py --verify` dirige aussi vers ce reçu courant. Sans réinstallation ni mutation métier ; contrôle natif frais, C09 et successeur C22 compris. Rejeu unitaire facultatif avec labels neufs : `python -B wp/outils/demo/c20-unit.py LABEL C20`, puis sélection `RenouvellementRegles` avec un autre label.
+
+File voie 2 et fusion C20 relues avant redépôt. Seul C20 traité ; aucun autre lot, verrou, Git ou site touché. **PRET technique réduit uniquement : ni clôture par l’agent, ni validation visuelle, ni GO réel.**
+
+---
+
+## Historique daté — réception de 7 h 30 avant la présente fusion
+
+Tout ce qui suit est conservé pour traçabilité : anciens compteurs, commandes et conclusions ne décrivent pas le reçu courant ci-dessus.
 
 ## Preuves courantes après requalification
 
