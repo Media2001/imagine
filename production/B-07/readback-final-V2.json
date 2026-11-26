@@ -1,0 +1,104 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T20:03:45.214318+00:00",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "total": 10,
+  "checks": {
+    "bootstrap_ajout_B07_seul": true,
+    "sources_distantes_exactes": true,
+    "B00_deux_evenements_octets_preserves": true,
+    "B00_metadonnees_preexistantes_preservees": true,
+    "etat_metier_depuis_premiere_recette_exact": true,
+    "quatre_evenements_trois_types": true,
+    "deux_nouvelles_fixtures_B07_seules": true,
+    "aucune_inscription_essai": true,
+    "observateur_et_option_absents": true,
+    "aucune_extension_billetterie_active": true
+  },
+  "failures": [],
+  "sources": {
+    "plugins/imagine-site/AgendaRegles.php": "58c233dde6400f55a66d8c24c7d6175536815c5a8ce74cf43106ed138665949c",
+    "plugins/imagine-site/Agenda.php": "056ec6d16bba6b9e2e8e7cc0113c26dbaf0d79ca9f69cdf8e9d2ee61ea3ef877",
+    "plugins/imagine-site/AgendaConfidentialite.php": "0823e47a91d0fa1a468c34b3630d629369bb807f7f33406316c8188ec7e5bd1a",
+    "plugins/imagine-site/imagine-site.php": "91101084bda14cea394dfcee4fcaec39594dde97b105cf16bd70ecce92202345",
+    "themes/imagine/archive-imagine_evenement.php": "05c6eeec3ba01c5362eb955d55fcd923dd8ca6dbdb402d9e6fce5fae9517b955",
+    "themes/imagine/single-imagine_evenement.php": "856ebb1ee663586f41b711a376df7664a345b9013140b2addb2bfa84b9f6b429"
+  },
+  "readback": {
+    "events": {
+      "rencontre": {
+        "id": 46,
+        "type": "rencontre",
+        "debut": 1796923800,
+        "iso": "2026-12-10T18:30:00+01:00",
+        "date": "2026-12-10 18:30",
+        "lieu": "Maison fictive des Horizons",
+        "url": "",
+        "nom": "Rencontre au village Imaginaire",
+        "description": "Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial.",
+        "path": "/evenements/demo-events-1/",
+        "fixture_b07": ""
+      },
+      "sortie": {
+        "id": 47,
+        "type": "sortie",
+        "debut": 1797010200,
+        "iso": "2026-12-11T18:30:00+01:00",
+        "date": "2026-12-11 18:30",
+        "lieu": "Maison fictive des Horizons",
+        "url": "",
+        "nom": "Atelier des possibles inventés",
+        "description": "Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial.",
+        "path": "/evenements/demo-events-2/",
+        "fixture_b07": ""
+      },
+      "partenaire": {
+        "id": 2970,
+        "type": "partenaire",
+        "debut": 1797355800,
+        "iso": "2026-12-15T18:30:00+01:00",
+        "date": "2026-12-15 18:30",
+        "lieu": "Maison fictive des Horizons",
+        "url": "https://example.org/evenement-fictif",
+        "nom": "Rencontre partenaire des Nuages — fictive",
+        "description": "Événement entièrement inventé pour la démonstration Imagine. Aucun événement ni partenaire réel.",
+        "path": "/evenements/b07-partenaire-fictif/",
+        "fixture_b07": "1"
+      },
+      "passe": {
+        "id": 2971,
+        "type": "rencontre",
+        "debut": 1793554200,
+        "iso": "2026-11-01T18:30:00+01:00",
+        "date": "2026-11-01 18:30",
+        "lieu": "Maison fictive des Horizons",
+        "url": "",
+        "nom": "Rencontre passée des Horizons — fictive",
+        "description": "Événement entièrement inventé pour la démonstration Imagine. Aucun événement ni partenaire réel.",
+        "path": "/evenements/b07-rencontre-passee/",
+        "fixture_b07": "1"
+      }
+    },
+    "inscriptions": [],
+    "observer": false,
+    "observer_option": null,
+    "plugins": [
+      "imagine-pilotage/imagine-reglages.php",
+      "imagine-site/imagine-site.php",
+      "novamira-pro/novamira-pro.php",
+      "novamira/novamira.php",
+      "woocommerce-memberships/woocommerce-memberships.php",
+      "woocommerce-subscriptions/woocommerce-subscriptions.php",
+      "woocommerce/woocommerce.php"
+    ]
+  }
+}
