@@ -47,6 +47,15 @@ def oracle():
     return counts
 
 
+def protected(database):
+    condition = "post_type IN ('fiction_magazine','wpcf7_contact_form') OR (post_type='revision' AND post_parent IN (SELECT ID FROM wp_posts WHERE post_type='fiction_magazine'))"
+    sql = 'SELECT * FROM wp_posts WHERE ' + condition + ' ORDER BY ID;'
+    sql += 'SELECT m.* FROM wp_postmeta m JOIN wp_posts p ON p.ID=m.post_id WHERE p.ID IN (SELECT ID FROM wp_posts WHERE ' + condition + ') ORDER BY m.meta_id;'
+    raw = subject.command(['mariadb', '--socket=/scratch/mariadb.sock', '--user=root', '--batch',
+                           '--skip-column-names', database], data=sql.encode()).stdout
+    return hashlib.sha256(raw).hexdigest()
+
+
 def reset():
     if subject.SITE.exists():
         shutil.rmtree(subject.SITE)
@@ -68,8 +77,10 @@ def main():
         process = e2e.database_start()
         for storage in ('classic', 'hpos'):
             with contextlib.redirect_stdout(io.StringIO()):
-                source, database, _ = e2e.install(storage)
+                source, database, business_before = e2e.install(storage)
             e2e.wp(source, ['eval-file', '/opt/a28/seed.php'])
+            fidelity_before = e2e.wp_json(source, 'fidelity.php')
+            protected_before = protected(database)
             # A01's current archive gate requires operator review for CF7 temporary uploads.
             # This synthetic fixture has no attachments; remove only its generated empty/temp directory.
             shutil.rmtree(source / 'wp-content/uploads/wpcf7_uploads', ignore_errors=True)
@@ -94,6 +105,15 @@ def main():
                     check(storage + ':' + mode + ':three_native_phases', result.get('data_verified') is True)
                     counts = oracle()
                     case['oracle'] = counts
+                    case['protected_before'] = protected_before
+                    case['protected_after'] = protected(subject.DB)
+                    check(storage + ':' + mode + ':unknown_content_exact', case['protected_after'] == protected_before)
+                    check(storage + ':' + mode + ':form_seo_fields_exact', e2e.wp_json(subject.SITE, 'fidelity.php') == fidelity_before)
+                    check(storage + ':' + mode + ':business_orders_exact', e2e.wp_json(subject.SITE, 'snapshot.php')['orders'] == business_before['orders'])
+                    source_files = subject.manifest(source / 'wp-content')
+                    check(storage + ':' + mode + ':faithful_files', all(source_files[p] == digest for p, digest in result['restored_files_before_cleanup'].items()))
+                    check(storage + ':' + mode + ':retained_files_exact', all(result['files_after_cleanup'][p] == digest
+                        for p, digest in result['restored_files_before_cleanup'].items() if p in result['files_after_cleanup']))
                     for t in TABLES:
                         expected = 1 if baseline and mode == 'keep-known' and t == 'fluentform_submissions' else 0
                         check(storage + ':' + mode + ':dedicated:' + t, counts[t] == expected and counts['canary_rows'][t] == expected)

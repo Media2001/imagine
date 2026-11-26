@@ -73,12 +73,32 @@ def pool(n):
     return {'groups': [], 'autres': n}
 
 
+def expected_counts(repeats):
+    if repeats == 1:
+        return {'pending': {'groups': [{'family': 'renouvellement', 'count': 9}], 'autres': 6},
+                'overdue': pool(2), 'failed': pool(1), 'renewal_weeks': pool(7),
+                'other_tasks': 'moins de cinq', 'other_active_extensions': 'attribution indéterminée'}
+    return {'pending': {'groups': [{'family': family, 'count': n} for family, n in [
+                ('autre', 10), ('email', 5), ('entretien_wordpress', 5), ('fin_abonnement', 5),
+                ('nouvelle_tentative', 5), ('renouvellement', 45)]], 'autres': 0},
+            'overdue': {'groups': [{'family': 'entretien_wordpress', 'count': 5},
+                                  {'family': 'renouvellement', 'count': 5}], 'autres': 0},
+            'failed': {'groups': [{'family': 'renouvellement', 'count': 5}], 'autres': 0},
+            'renewal_weeks': {'groups': [{'week': week, 'count': n} for week, n in [(1, 10), (2, 15), (3, 5), (8, 5)]], 'autres': 0},
+            'other_tasks': 10, 'other_active_extensions': 'attribution indéterminée'}
+
+
 def run_storage(storage):
     site, db, _ = b.install(storage)
     (OUT / (storage + '-seed.json')).unlink()
     q = cmd(['php', '/opt/a29/standard.php', str(site)], check=False)
     b.check(storage + ':installed_standard_before_subject', q.returncode == 0 and q.stdout == q.stderr == '')
     cfg = (site / 'wp-config.php').read_text(encoding='utf-8')
+    plugin = site / 'wp-content/plugins/a29-inconnu/a29-inconnu.php'
+    plugin.parent.mkdir()
+    plugin.write_text("<?php\n/* Plugin Name: Extension fictive A29 */\n"
+                      "add_action('A29_UNKNOWN_ACTIVE_PRIVATE_CANARY', static function(){throw new RuntimeException('A29_ACTION_EXECUTED_PRIVATE_CANARY');});\n"
+                      "add_action('woocommerce_scheduled_subscription_payment', static function(){throw new RuntimeException('A29_RENEWAL_EXECUTED_PRIVATE_CANARY');});\n", encoding='utf-8')
     seed(site, cfg)
     mu = site / 'wp-content/mu-plugins/a29-probe.php'
     base_mu = '''<?php
@@ -113,11 +133,11 @@ if (getenv('A29_CONFINED') === '1') {
     p = inventory(site, dest, audit)
     b.check(storage + ':confined_success', (p.returncode, p.stdout, p.stderr) == (0, SUCCESS, ''))
     d = json.loads((dest / 'taches.json').read_text(encoding='utf-8'))
-    expected = {'automatic': pool(6), 'cards': pool(3), 'relations': pool(4)}
-    b.check(storage + ':six_exact_native_cases', d['counts'] == expected)
+    b.check(storage + ':exact_wpcron_as_pending_overdue_failed_weeks', d['counts'] == expected_counts(1))
+    b.check(storage + ':no_action_callback_executed', p.returncode == 0)
     b.check(storage + ':native_storage_and_audit_clock', d['storage'] == storage and d['as_of_utc'] == CLOCK)
     payload = p.stdout + p.stderr + ''.join(f.read_text(encoding='utf-8') for f in dest.iterdir())
-    b.check(storage + ':private_references_accounts_dates_absent', not re.search(r'CANARY|@|4242|/scratch|a29-fictif|2027-03', payload))
+    b.check(storage + ':private_hooks_arguments_ids_dates_absent', not re.search(r'CANARY|@|subscription_id|/scratch|a29-fictif|2027-03', payload))
     b.check(storage + ':private_permissions', dest.stat().st_mode & 0o777 == 0o700
             and all(f.stat().st_mode & 0o777 == 0o600 for f in dest.iterdir()))
     repeat = OUT / (storage + '-repeat')
@@ -145,7 +165,7 @@ if (getenv('A29_CONFINED') === '1') {
                '--audit=' + str(audit), '--output=/report/raw-' + storage], check=False)
     b.check(storage + ':unconfined_php_refused', (raw.returncode, raw.stdout, raw.stderr) == (1, '', 'A29_CONFINEMENT_REQUIRED\n'))
     target = "foreach ($_SERVER['argv'] as $arg) { if (str_starts_with($arg,'--output=')) { $dir=substr($arg,9); } }"
-    coherent = "$p=$dir.'/taches.json';$d=json_decode(file_get_contents($p),true);$d['counts']['automatic']['autres']=7;$j=json_encode($d,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES).\"\\n\";file_put_contents($p,$j);$m=file_get_contents($dir.'/taches.md');$pos=strpos($m,'```json');file_put_contents($dir.'/taches.md',substr($m,0,$pos).'```json'.\"\\n\".$j.\"```\\n\");"
+    coherent = "$p=$dir.'/taches.json';$d=json_decode(file_get_contents($p),true);$d['counts']['pending']['autres']=7;$j=json_encode($d,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES).\"\\n\";file_put_contents($p,$j);$m=file_get_contents($dir.'/taches.md');$pos=strpos($m,'```json');file_put_contents($dir.'/taches.md',substr($m,0,$pos).'```json'.\"\\n\".$j.\"```\\n\");"
     cases = [
         ('direct_stdout', "fwrite(STDOUT,'A29_STDOUT_PRIVATE_CANARY');", 'A29_PROCESS_OUTPUT_INVALID'),
         ('direct_stderr', "fwrite(STDERR,'A29_STDERR_PRIVATE_CANARY');", 'A29_PROCESS_OUTPUT_INVALID'),
@@ -196,7 +216,7 @@ if (getenv('A29_CONFINED') === '1') {
                     observed = b'CANARY' in witness.stdout + witness.stderr or any(
                         b'CANARY' in f.read_bytes() for f in (stage / 'result').rglob('*') if f.is_file())
                     if label == 'shutdown_valid_counts_and_markdown':
-                        observed = json.loads((stage / 'result/taches.json').read_bytes())['counts']['automatic']['autres'] == 7
+                        observed = json.loads((stage / 'result/taches.json').read_bytes())['counts']['pending']['autres'] == 7
                     b.check(storage + ':mutation_witness_' + label, observed)
     finally:
         mu.write_text(base_mu, encoding='utf-8')
@@ -230,8 +250,9 @@ if (getenv('A29_CONFINED') === '1') {
     q = cmd(['php', '/opt/a29/neutralise.php'], env={'A29_DB': clone})
     provenance = json.loads(q.stdout)
     (OUT / (storage + '-neutralisation.json')).write_text(json.dumps(provenance, indent=2) + '\n', encoding='utf-8')
-    b.check(storage + ':actual_import_purges_tokens', provenance == {'neutraliser_and_anonymiser_executed': True,
-            'tokens_before': 6, 'tokens_after': 0, 'tokenmeta_after': 0, 'marker_count': 1})
+    b.check(storage + ':actual_import_erases_cron_cancels_pending_deletes_failed', provenance == {
+            'neutraliser_and_anonymiser_executed': True, 'before': {'cron': 3, 'pending': 12, 'failed': 1},
+            'after': {'cron': 0, 'pending': 0, 'failed': 0, 'canceled': 12}, 'marker_count': 1})
     b.sql('mysql', "GRANT SELECT ON " + clone + ".* TO 'a02_" + storage + "'@'localhost'")
     (site / 'wp-config.php').write_text(cfg.replace("define('DB_NAME', '" + db + "')", "define('DB_NAME', '" + clone + "')"), encoding='utf-8')
     try:
@@ -242,7 +263,8 @@ if (getenv('A29_CONFINED') === '1') {
         b.check(storage + ':neutral_success', (p.returncode, p.stdout, p.stderr) == (0, SUCCESS, ''))
         data = json.loads((out / 'taches.json').read_text(encoding='utf-8'))
         b.check(storage + ':neutral_all_unknown_no_useful_number', data['neutralisation'] == UNKNOWN
-                and data['counts'] == dict.fromkeys(['automatic', 'cards', 'relations'], UNKNOWN))
+                and data['counts'] == dict.fromkeys(['pending', 'overdue', 'failed', 'renewal_weeks',
+                                                    'other_tasks', 'other_active_extensions'], UNKNOWN))
         n_after = b.fingerprint(clone)
         n_final_files = b.files(site)
         (OUT / (storage + '-neutral-files.json')).write_text(json.dumps({'before': n_files, 'after': n_final_files}), encoding='utf-8')
@@ -258,18 +280,7 @@ if (getenv('A29_CONFINED') === '1') {
     p = inventory(site, out, five_audit)
     b.check(storage + ':five_success', (p.returncode, p.stdout, p.stderr) == (0, SUCCESS, ''))
     data = json.loads((out / 'taches.json').read_text(encoding='utf-8'))
-    expected_five = {
-        'automatic': {'groups': [{'gateway': 'paypal', 'type': 'accord_paypal', 'count': 5},
-                                 {'gateway': 'stripe', 'type': 'carte', 'count': 15},
-                                 {'gateway': 'stripe', 'type': 'illisible', 'count': 5},
-                                 {'gateway': 'stripe_sepa', 'type': 'mandat_sepa', 'count': 5}], 'autres': 0},
-        'cards': {'groups': [{'gateway': 'stripe', 'expiry': 'expired', 'count': 5},
-                             {'gateway': 'stripe', 'expiry': 'within_six_months', 'count': 10}], 'autres': 0},
-        'relations': {'groups': [{'gateway': 'autre', 'metric': 'accounts_multiple_tokens', 'count': 5},
-                                 {'gateway': 'paypal', 'metric': 'subscriptions_unlinked', 'count': 5},
-                                 {'gateway': 'stripe', 'metric': 'subscriptions_unlinked', 'count': 5},
-                                 {'gateway': 'stripe', 'metric': 'tokens_without_living_subscription', 'count': 5}], 'autres': 0}}
-    b.check(storage + ':five_exact_gateway_type_expiry_relations', data['counts'] == expected_five)
+    b.check(storage + ':five_exact_families_utc_boundaries', data['counts'] == expected_counts(5))
     five_after = b.fingerprint(db)
     five_final_files = b.files(site)
     (OUT / (storage + '-five-files.json')).write_text(json.dumps({'before': five_files, 'after': five_final_files}), encoding='utf-8')

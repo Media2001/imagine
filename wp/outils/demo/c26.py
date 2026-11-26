@@ -37,12 +37,13 @@ def routes(f):
         add(family+'-prive-search', family, 'search', '/?'+urlencode({'s':f['markers'][family]}), reflected=f['markers'][family])
         add(family+'-admin', family, 'admin', '/wp-admin/edit.php?post_type='+typ, statuses=(200,403))
         add(family+'-admin-detail', family, 'admin', '/wp-admin/post.php?post='+str(ident)+'&action=edit', statuses=(200,403))
-    add('personnalisation-compte', 'personnalisation', 'account', '/mon-compte/', 'Mon compte')
+    account = f.get('account_path', '/mon-compte/')
+    add('personnalisation-compte', 'personnalisation', 'account', account, 'Mon compte')
     add('personnalisation-utilisateur-rest', 'personnalisation', 'rest-denied', '/wp-json/wp/v2/users/'+str(f.get('owner', 999999))+'?context=edit', statuses=(401,403))
     add('personnalisation-reglages', 'personnalisation', 'admin', '/wp-admin/admin.php?page=imagine-reglages', statuses=(200,403))
     add('personnalisation-action-GET', 'personnalisation', 'refusal', '/wp-admin/admin-post.php?action=imagine_personnalisation', statuses=(403,))
-    add('retractation-compte-tiers', 'retractation', 'account', '/mon-compte/?imagine_retractation='+str(f['order']), 'Mon compte')
-    add('retractation-commande-tiers', 'retractation', 'account', '/mon-compte/view-order/'+str(f['order'])+'/', 'Mon compte')
+    add('retractation-compte-tiers', 'retractation', 'account', account+'?imagine_retractation='+str(f['order']), 'Mon compte')
+    add('retractation-commande-tiers', 'retractation', 'account', account+'view-order/'+str(f['order'])+'/', 'Mon compte')
     add('retractation-admin', 'retractation', 'admin', '/wp-admin/admin.php?page=imagine-retractations', statuses=(200,403))
     add('retractation-rest', 'retractation', 'rest-denied', '/wp-json/wc/v3/orders/'+str(f['order']), statuses=(401,403,404))
     add('sujet-action-GET', 'sujet', 'refusal', '/wp-admin/admin-post.php?action=imagine_sujet', statuses=(405,))
@@ -66,7 +67,7 @@ def assess(route, response, markers):
         if kind == 'rest-denied':
             exists = isinstance(data, dict) and isinstance(data.get('code'), str) and isinstance(data.get('data'), dict)
         elif kind == 'oembed':
-            exists = isinstance(data, dict) and data.get('type') == 'rich' and bool(data.get('html')) and c23.canonical(route['title']) in c23.canonical(data.get('title', ''))
+            exists = isinstance(data, dict) and data.get('type') == 'rich' and bool(data.get('html')) and display_title(route['title']) in display_title(data.get('title', ''))
         else:
             exists = any(isinstance(x, dict) and x.get('id') == route.get('object_id') for x in (data if isinstance(data, list) else [data]))
     elif kind == 'feed':
@@ -80,9 +81,9 @@ def assess(route, response, markers):
     elif kind == 'private-page':
         exists = '<main' in text and ('<h1' in text or '<h2' in text)
     elif kind == 'embed':
-        exists = 'wp-embed' in text and c23.canonical(route['title']) in c23.canonical(body)
+        exists = 'wp-embed' in text and display_title(route['title']) in display_title(body)
     else:
-        exists = '<main' in text and (not route.get('title') or c23.canonical(route['title']) in c23.canonical(body))
+        exists = '<main' in text and (not route.get('title') or display_title(route['title']) in display_title(body))
     result['surface_present'] = bool(exists)
     result['ok'] &= bool(exists)
     return result
@@ -96,6 +97,19 @@ def privacy_assess(payload, markers, positive=False):
     return result
 
 
+def display_title(text):
+    return c23.canonical(text).replace("'", '’')
+
+
+def denied_markers(f, public):
+    markers = list(f['extension']['markers'].values())
+    if public != 'abonne-actif':
+        markers += [w for p in f['posts'] if p['reserved']
+                    and (public != 'acheteur-autre-numero' or str(p['issue']) not in f['buyer_issues'])
+                    for w in __import__('re').findall(r'CONTENU_FICTIF_RESERVE_[A-Z0-9_-]+', p['body'])]
+    return markers
+
+
 def matrix(context, label):
     f, sessions = context['fixture'], context['sessions']
     if f.get('scope') != 'imagine-test-demo' or f.get('base') != c23.BASE:
@@ -105,8 +119,7 @@ def matrix(context, label):
     extension = f['extension']
     catalog = routes(extension)
     publics = c23.audience_order(f) + ['abonne-actif']
-    markers = list(extension['markers'].values())
-    reserved = [w for p in f['posts'] if p['reserved'] for w in __import__('re').findall(r'CONTENU_FICTIF_RESERVE_[A-Z0-9_-]+', p['body'])]
+
     results = []
     def probe(item):
         r, public = item
@@ -117,7 +130,7 @@ def matrix(context, label):
         try:
             response = c23.fetch(r['path'], headers)
             status, _, body = response
-            verdict = assess(r, response, markers + ([] if public == 'abonne-actif' else reserved))
+            verdict = assess(r, response, denied_markers(f, public))
             return dict(name=r['name'], family=r['family'], public=public, path=r['path'], status=status,
                         bytes=len(body), body_sha256=hashlib.sha256(body).hexdigest(), **verdict)
         except Exception as e:

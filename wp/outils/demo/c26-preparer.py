@@ -68,7 +68,7 @@ def privacy(extension, f, mutation=''):
     rows = []
     for row in raw:
         positive = row['public'] == 'inverse-proprietaire'
-        verdict = c26.privacy_assess(row['payload'], [extension['markers'][row['family']]], positive)
+        verdict = c26.privacy_assess(row['payload'], [extension['markers'][row['family']]] if positive else list(extension['markers'].values()), positive)
         rows.append(dict(public=row['public'], family=row['family'], name='privacy-'+row['family'],
                          positive=positive, payload_sha256=hashlib.sha256(json.dumps(row['payload'],sort_keys=True).encode()).hexdigest(), **verdict))
     return dict(scope='imagine-test-demo', route='registered-native-exporter-callbacks', mutation=mutation,
@@ -97,6 +97,7 @@ def run(label, mutations=False):
     result = {'scope':'imagine-test-demo','identity':identity,'private_snapshot':private}
     try:
         extension = fixture('seed', {'owner':owner})
+        extension['account_path'] = f['account_path']
         save(label+'-extension', extension)
         prep.seed_cooperator_witness(pages)
         f = prep.inventory()
@@ -127,6 +128,20 @@ def run(label, mutations=False):
             finally:
                 prior = [r for r in saved['usermeta'] if int(r['user_id'])==user and r['meta_key']=='imagine_cooperateur']
                 wp('''global $wpdb;$wpdb->delete($wpdb->usermeta,['user_id'=>'''+str(user)+''','meta_key'=>'imagine_cooperateur']);foreach('''+php(prior)+''' as $r){$wpdb->insert($wpdb->usermeta,$r);}wp_cache_delete('''+str(user)+''','user_meta');echo 'true';''')
+            public_page = next(p for p in extension['pages'] if p['path']=='/soutenir/')
+            original_page = next(p for p in saved['posts'] if int(p['ID'])==public_page['id'])
+            assert original_page['post_content'] == ''
+            primary = 'CONTENU_FICTIF_RESERVE_DEMO-2026-T4_1'
+            wp('''global $wpdb;if($wpdb->query($wpdb->prepare("UPDATE {$wpdb->posts} SET post_content=%s WHERE ID=%d AND BINARY post_content=%s",'<p>'''+primary+'''</p>','''+str(public_page['id'])+''',''))!==1){throw new RuntimeException('C26 mutation publique refusée');}clean_post_cache('''+str(public_page['id'])+''');echo 'true';''')
+            try:
+                route = next(r for r in c26.routes(extension) if r['path']==public_page['path'])
+                response = c26.c23.fetch(route['path'])
+                verdict = c26.assess(route,response,[primary])
+                assert verdict['leak'] and not verdict['ok']
+                save(label+'-mutation-cooperative', {'scope':'imagine-test-demo','total':1,'results':[dict(name=route['name'],public='anonyme',status=response[0],bytes=len(response[2]),**verdict)],'persisted_fixture':True})
+                mutated.append('cooperative')
+            finally:
+                wp('''global $wpdb;$wpdb->update($wpdb->posts,['post_content'=>''],['ID'=>'''+str(public_page['id'])+''']);clean_post_cache('''+str(public_page['id'])+''');echo wp_json_encode($wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->posts} WHERE ID=%d",'''+str(public_page['id'])+'''),ARRAY_A));''') == original_page or (_ for _ in ()).throw(AssertionError('C26 page publique non restaurée'))
             result['mutations_detected'] = mutated
         prepared = b06.state()
         env = dict(os.environ, PYTHONIOENCODING='utf-8', PYTHONDONTWRITEBYTECODE='1')

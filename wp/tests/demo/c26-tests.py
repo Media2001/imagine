@@ -67,6 +67,23 @@ class ExtensionTest(unittest.TestCase):
         for invalid in [{}, {'error': True}, {'data': [], 'done': False}]:
             self.assertFalse(m.privacy_assess(invalid, ['C26_SECRET'])['ok'])
 
+    def test_chemin_compte_natif_et_titres_typographiques(self):
+        m, f = load('c26'), self.fixture()
+        f['account_path'] = '/compte/'
+        catalog = m.routes(f)
+        self.assertTrue(next(r for r in catalog if r['name']=='personnalisation-compte')['path'].startswith('/compte/'))
+        route = {'kind':'page','title':"charte d'indépendance",'statuses':[200]}
+        self.assertTrue(m.assess(route,(200,{},'<main><h1>charte d’indépendance</h1></main>'.encode()),[])['ok'])
+
+    def test_droit_numero_achete_non_qualifie_fuite(self):
+        m = load('c26')
+        f = {'extension':{'markers':{'sujet':'C26_PRIVE'}},'buyer_issues':['1'],
+             'posts':[{'reserved':True,'issue':1,'body':'CONTENU_FICTIF_RESERVE_T1'},
+                      {'reserved':True,'issue':4,'body':'CONTENU_FICTIF_RESERVE_T4'}]}
+        self.assertEqual(m.denied_markers(f,'acheteur-autre-numero'), ['C26_PRIVE','CONTENU_FICTIF_RESERVE_T4'])
+        self.assertIn('CONTENU_FICTIF_RESERVE_T1',m.denied_markers(f,'anonyme'))
+        self.assertEqual(m.denied_markers(f,'abonne-actif'), ['C26_PRIVE'])
+
     def test_scratch_sans_tmpdir_hors_systeme(self):
         m = load('c26-preparer')
         with patch.dict(os.environ, {}, clear=False):

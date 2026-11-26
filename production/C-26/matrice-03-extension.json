@@ -1,0 +1,90 @@
+{
+  "scope": "imagine-test-demo",
+  "pages": [
+    {
+      "id": 3115,
+      "path": "/notre-cooperative/",
+      "title": "Notre coopérative"
+    },
+    {
+      "id": 3116,
+      "path": "/soutenir/",
+      "title": "Soutenir"
+    },
+    {
+      "id": 3117,
+      "path": "/proposer-un-sujet/",
+      "title": "Proposer un sujet"
+    },
+    {
+      "id": 3118,
+      "path": "/notre-cooperative/projet-editorial-et-manifeste/",
+      "title": "projet éditorial et manifeste"
+    },
+    {
+      "id": 3119,
+      "path": "/notre-cooperative/charte-independance/",
+      "title": "charte d'indépendance"
+    },
+    {
+      "id": 3120,
+      "path": "/notre-cooperative/charte-ia/",
+      "title": "charte IA"
+    },
+    {
+      "id": 3121,
+      "path": "/notre-cooperative/barometre-egalite-diversite/",
+      "title": "baromètre égalité-diversité"
+    },
+    {
+      "id": 3122,
+      "path": "/notre-cooperative/equipe/",
+      "title": "équipe"
+    },
+    {
+      "id": 3123,
+      "path": "/notre-cooperative/gouvernance/",
+      "title": "gouvernance"
+    },
+    {
+      "id": 3124,
+      "path": "/notre-cooperative/imagine-coop/",
+      "title": "Imagine COOP"
+    }
+  ],
+  "events": [
+    {
+      "id": 2971,
+      "path": "/evenements/b07-rencontre-passee/",
+      "title": "Rencontre passée des Horizons — fictive"
+    },
+    {
+      "id": 2970,
+      "path": "/evenements/b07-partenaire-fictif/",
+      "title": "Rencontre partenaire des Nuages — fictive"
+    },
+    {
+      "id": 47,
+      "path": "/evenements/demo-events-2/",
+      "title": "Atelier des possibles inventés"
+    },
+    {
+      "id": 46,
+      "path": "/evenements/demo-events-1/",
+      "title": "Rencontre au village Imaginaire"
+    }
+  ],
+  "owner": 6,
+  "registration": 3149,
+  "subject": 3150,
+  "order": 3151,
+  "note": 6063,
+  "markers": {
+    "agenda": "C26_AGENDA_FICTIF",
+    "personnalisation": "2001-01-01T01:26:24Z",
+    "retractation": "C26_RETRACTATION_FICTIF",
+    "sujet": "C26_SUJET_FICTIF",
+    "accuse": "2026-11-26T23:01:05Z"
+  },
+  "account_path": "/my-account/"
+}

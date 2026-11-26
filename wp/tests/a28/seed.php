@@ -31,6 +31,6 @@ foreach (['flamingo_inbound', 'flamingo_contact', 'fiction_magazine'] as $type) 
         'post_type' => 'revision', 'post_status' => 'inherit', 'post_parent' => $id,
         'post_content' => 'A28_FICTIVE_REVISION_' . $type,
     ], true);
-    update_post_meta($revision, '_a28_message', 'A28_FICTIVE_REVISION_META_' . $type);
+    add_metadata('post', $revision, '_a28_message', 'A28_FICTIVE_REVISION_META_' . $type);
 }
 echo 'A28_SEED ' . json_encode(['posts' => $ids, 'tables' => $tables]) . "\n";
