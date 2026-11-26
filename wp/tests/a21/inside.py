@@ -158,6 +158,7 @@ if (getenv('A21_CONFINED') === '1') {
     (site/'wp-config.php').write_text(cfg.replace("define('DB_NAME', '"+db+"')","define('DB_NAME', '"+clone+"')"))
     neutral_before=b.fingerprint(clone);neutral_files=b.files(site)
     neutral_out=OUT/(storage+'-neutralised');np=invoke(site,neutral_out,audit/'audit.json')
+    b.check(storage+':neutralised_supervisor_return',np.returncode==0,{'exit_code':np.returncode,'closed_code':np.stderr.strip() if re.fullmatch(r'A(?:11|21)_[A-Z_]+\n',np.stderr) else 'NON_PROTOCOL'})
     nd=json.loads((neutral_out/'portes.json').read_text())
     b.check(storage+':neutralised_unknown_not_zero',np.returncode==0 and nd['api_keys']=={'status':'inconnu après neutralisation','counts':None} and nd['webhooks']=={'status':'inconnu après neutralisation','counts':None} and nd['extension_store']=={'status':'inconnu après neutralisation','connected':None})
     b.check(storage+':neutralised_database_unchanged',neutral_before==b.fingerprint(clone))

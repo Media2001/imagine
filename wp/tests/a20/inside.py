@@ -98,6 +98,31 @@ if (getenv('A20_CONFINED') === '1') {
         b.check(storage+':audit_guard:'+label,q.returncode==1 and q.stdout=='' and q.stderr==want+'\n' and not out.exists())
     # Invalid synthetic audit inputs are not retained as operator evidence.
     (bad_audit/'audit.json').unlink();bad_audit.rmdir()
+    # Adversarial plugins run only inside the owned disposable fixture. Raw streams
+    # are asserted in memory, never copied into receipts, even on a failing test.
+    original_mu=mu.read_text(encoding='utf-8')
+    target="foreach ($_SERVER['argv'] as $arg) { if (str_starts_with($arg, '--output=')) { $dir=substr($arg,9); } }"
+    cases=[
+        ('report_extra_field',"register_shutdown_function(function () { "+target+" $p=$dir.'/tarifs.json'; $d=json_decode(file_get_contents($p),true); $d['private']='A20_REPORT_PRIVATE_CANARY'; file_put_contents($p,json_encode($d)); });",'A20_REPORT_INVALID'),
+        ('markdown_extra',"register_shutdown_function(function () { "+target+" file_put_contents($dir.'/tarifs.md','A20_MARKDOWN_PRIVATE_CANARY',FILE_APPEND); });",'A20_REPORT_INVALID'),
+        ('direct_stdout',"fwrite(STDOUT, 'A20_STDOUT_PRIVATE_CANARY');",'A20_PROCESS_OUTPUT_INVALID'),
+        ('direct_stderr',"fwrite(STDERR, 'A20_STDERR_PRIVATE_CANARY');",'A20_PROCESS_OUTPUT_INVALID'),
+        ('echo_exit',"echo 'A20_EXIT_PRIVATE_CANARY'; exit(0);",'A20_PROCESS_OUTPUT_INVALID'),
+        ('silent_exit',"exit(0);",'A20_PROCESS_OUTPUT_INVALID'),
+        ('die_message',"die('A20_DIE_PRIVATE_CANARY');",'A20_PROCESS_OUTPUT_INVALID'),
+        ('shutdown_stdout',"register_shutdown_function(function () { fwrite(STDOUT,'A20_SHUTDOWN_STDOUT_PRIVATE_CANARY'); });",'A20_PROCESS_OUTPUT_INVALID'),
+        ('shutdown_stderr',"register_shutdown_function(function () { fwrite(STDERR,'A20_SHUTDOWN_STDERR_PRIVATE_CANARY'); });",'A20_PROCESS_OUTPUT_INVALID'),
+        ('shutdown_echo',"register_shutdown_function(function () { echo 'A20_SHUTDOWN_ECHO_PRIVATE_CANARY'; });",'A20_PROCESS_OUTPUT_INVALID'),
+        ('shutdown_partial',"register_shutdown_function(function () { "+target+" unlink($dir.'/tarifs.md'); });",'A20_REPORT_INVALID'),
+        ('shutdown_extra_file',"register_shutdown_function(function () { "+target+" file_put_contents($dir.'/extra.txt','A20_FILE_PRIVATE_CANARY'); });",'A20_REPORT_INVALID'),
+    ]
+    try:
+        for label,statement,want in cases:
+            mu.write_text("<?php if (getenv('A20_CONFINED') === '1') { "+statement+" }\n"+original_mu[5:],encoding='utf-8')
+            out=OUT/(storage+'-'+label);q=inventory(site,out,audit/'audit.json')
+            b.check(storage+':closed_process:'+label,q.returncode==1 and q.stdout=='' and q.stderr==want+'\n' and not out.exists())
+            b.check(storage+':closed_artifacts:'+label,not any(b'CANARY' in f.read_bytes() for f in OUT.rglob('*') if f.is_file()) and not list(OUT.glob('.a20-*')))
+    finally:mu.write_text(original_mu,encoding='utf-8')
     after=b.fingerprint(db);(OUT/(storage+'-db-after.json')).write_text(json.dumps(after),encoding='utf-8')
     b.check(storage+':all_tables_scheduler_identical',before==after)
     b.check(storage+':files_identical',files==b.files(site),{'before':files,'after':b.files(site)})
