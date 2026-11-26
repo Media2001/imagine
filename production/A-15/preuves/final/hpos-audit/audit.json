@@ -1,6 +1,6 @@
 {
     "schema": "imagine-a02-audit-v1",
-    "generated_at_utc": "2026-11-26T04:21:24+00:00",
+    "generated_at_utc": "2026-11-26T05:26:20+00:00",
     "read_only": true,
     "privacy": "structural_identifiers_versions_numeric_counts_only; no_titles_contacts_settings_arguments_or_raw_logs",
     "sections": {
@@ -210,8 +210,8 @@
                 }
             ],
             "update_source": "local_cache_only_not_a_live_check",
-            "plugin_cache_checked_epoch": 1795666882,
-            "theme_cache_checked_epoch": 1795666882
+            "plugin_cache_checked_epoch": 1795670775,
+            "theme_cache_checked_epoch": 1795670775
         },
         "commerce": {
             "order_storage": "hpos",
@@ -803,8 +803,8 @@
                 },
                 {
                     "name": "wp_options",
-                    "bytes": 49152,
-                    "rows": 411,
+                    "bytes": 1245184,
+                    "rows": 413,
                     "ownership": "wordpress"
                 },
                 {
@@ -821,7 +821,7 @@
                 },
                 {
                     "name": "wp_posts",
-                    "bytes": 98304,
+                    "bytes": 147456,
                     "rows": 23,
                     "ownership": "wordpress"
                 },
@@ -1090,7 +1090,7 @@
                     "ownership": "active_woocommerce"
                 }
             ],
-            "total_bytes": 3014656,
+            "total_bytes": 4259840,
             "largest_autoload": [
                 {
                     "name": "a02_heavy_secret_setting",
@@ -1145,12 +1145,20 @@
                     "bytes": 161
                 },
                 {
+                    "name": "woocommerce_customer_invoice_settings",
+                    "bytes": 144
+                },
+                {
                     "name": "woocommerce_new_order_settings",
                     "bytes": 140
                 },
                 {
                     "name": "woocommerce_customer_on_hold_order_settings",
                     "bytes": 134
+                },
+                {
+                    "name": "woocommerce_customer_refunded_order_settings",
+                    "bytes": 131
                 },
                 {
                     "name": "woocommerce_bacs_settings",
@@ -1163,14 +1171,6 @@
                 {
                     "name": "woocommerce_subscriptions_customer_notifications_offset",
                     "bytes": 49
-                },
-                {
-                    "name": "_transient_jetpack_autoloader_plugin_paths",
-                    "bytes": 47
-                },
-                {
-                    "name": "woocommerce_store_id",
-                    "bytes": 36
                 }
             ],
             "ownership_policy": "conservative_core_woo_wcs_as_registry; unknown_is_not_proof_of_orphan_never_delete",
@@ -1265,43 +1265,43 @@
                     "hook": "a02_fixture_cron",
                     "schedule": "daily",
                     "count": 1,
-                    "next_epoch": 1795670481
+                    "next_epoch": 1795674375
                 },
                 {
                     "hook": "action_scheduler_run_queue",
                     "schedule": "every_minute",
                     "count": 1,
-                    "next_epoch": 1795666872
+                    "next_epoch": 1795670763
                 },
                 {
                     "hook": "do_pings",
                     "schedule": "single",
                     "count": 1,
-                    "next_epoch": 1795666880
+                    "next_epoch": 1795670773
                 },
                 {
                     "hook": "jetpack_clean_nonces",
                     "schedule": "hourly",
                     "count": 1,
-                    "next_epoch": 1795666876
+                    "next_epoch": 1795670767
                 },
                 {
                     "hook": "jetpack_v2_heartbeat",
                     "schedule": "daily",
                     "count": 1,
-                    "next_epoch": 1795666876
+                    "next_epoch": 1795670767
                 },
                 {
                     "hook": "recovery_mode_clean_expired_keys",
                     "schedule": "daily",
                     "count": 1,
-                    "next_epoch": 1795666872
+                    "next_epoch": 1795670763
                 },
                 {
                     "hook": "wc_admin_process_orders_milestone",
                     "schedule": "hourly",
                     "count": 1,
-                    "next_epoch": 1795666876
+                    "next_epoch": 1795670767
                 },
                 {
                     "hook": "wc_memberships_jobs_cleanup",
@@ -1313,31 +1313,31 @@
                     "hook": "wp_privacy_delete_old_export_files",
                     "schedule": "hourly",
                     "count": 1,
-                    "next_epoch": 1795666872
+                    "next_epoch": 1795670763
                 },
                 {
                     "hook": "wp_site_health_scheduled_check",
                     "schedule": "weekly",
                     "count": 1,
-                    "next_epoch": 1795753272
+                    "next_epoch": 1795757163
                 },
                 {
                     "hook": "wp_update_plugins",
                     "schedule": "twicedaily",
                     "count": 1,
-                    "next_epoch": 1795672271
+                    "next_epoch": 1795676162
                 },
                 {
                     "hook": "wp_update_themes",
                     "schedule": "twicedaily",
                     "count": 1,
-                    "next_epoch": 1795674071
+                    "next_epoch": 1795677962
                 },
                 {
                     "hook": "wp_version_check",
                     "schedule": "twicedaily",
                     "count": 1,
-                    "next_epoch": 1795670471
+                    "next_epoch": 1795674362
                 }
             ],
             "arguments_excluded": true
@@ -1447,6 +1447,24 @@
                 },
                 {
                     "theme": "a02-child",
+                    "file": "emails/email-header.php",
+                    "effective": true,
+                    "resolution": "effective",
+                    "override_version": null,
+                    "installed_woo_template_version": "10.7.0",
+                    "outdated": null
+                },
+                {
+                    "theme": "a02-child",
+                    "file": "emails/email-styles.php",
+                    "effective": true,
+                    "resolution": "effective",
+                    "override_version": null,
+                    "installed_woo_template_version": "11.0.0",
+                    "outdated": null
+                },
+                {
+                    "theme": "a02-child",
                     "file": "myaccount/form-login.php",
                     "effective": true,
                     "resolution": "effective",
@@ -1462,6 +1480,24 @@
                     "override_version": "1.0.0",
                     "installed_woo_template_version": "9.4.0",
                     "outdated": true
+                },
+                {
+                    "theme": "a02-theme",
+                    "file": "emails/email-footer.php",
+                    "effective": true,
+                    "resolution": "effective",
+                    "override_version": null,
+                    "installed_woo_template_version": "10.4.0",
+                    "outdated": null
+                },
+                {
+                    "theme": "a02-theme",
+                    "file": "emails/email-header.php",
+                    "effective": false,
+                    "resolution": "masked_by_child",
+                    "override_version": null,
+                    "installed_woo_template_version": "10.7.0",
+                    "outdated": null
                 },
                 {
                     "theme": "a02-theme",

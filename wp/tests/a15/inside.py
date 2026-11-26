@@ -92,7 +92,7 @@ if (getenv('A15_CONFINED') === '1') {
     b.check(storage+':disabled_subject_body_client',row['enabled'] is False and row['subject_customised'] is True and row['content_customised'] is True and row['recipient_nature']=='client')
     expected_overrides=['wp-content/themes/a02-child/woocommerce/emails/customer-on-hold-order.php','wp-content/themes/a02-child/woocommerce/emails/email-header.php','wp-content/themes/a02-child/woocommerce/emails/email-styles.php','wp-content/themes/a02-theme/woocommerce/emails/email-footer.php']
     b.check(storage+':exact_theme_override',row['template_overrides']==expected_overrides and row['template_overridden'] is True and data['summary']['overridden_template_files']==4)
-    expected_cases={id+':'+mode:[mode=='modified',mode=='modified'] for id in ['customer_refunded_order','customer_invoice'] for mode in ['modified','default','empty']}
+    expected_cases={id+':'+mode:[mode in ['modified','subject_only'],mode in ['modified','heading_only']] for id in ['customer_refunded_order','customer_invoice'] for mode in ['modified','subject_only','heading_only','default','empty']}
     expected_cases.update({'recipient:absent':False,'recipient:saved_default':False,'recipient:different':True,'recipient:cc_addition':True})
     b.check(storage+':native_variants_defaults_empty_and_recipient_defaults',oracle['native_shape_cases']==expected_cases)
     b.check(storage+':collected_refund_variant_and_invoice_default',rows['customer_refunded_order']['subject_customised'] is True and rows['customer_refunded_order']['content_customised'] is True and rows['customer_invoice']['subject_customised'] is False and rows['customer_invoice']['content_customised'] is False)

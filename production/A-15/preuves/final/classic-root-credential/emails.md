@@ -5,7 +5,7 @@ Registre WC_Emails reellement charge, pas un historique d'envoi. Aucun email dec
 plugin:woocommerce : 12 actif(s)
 plugin:woocommerce-memberships : 1 actif(s)
 plugin:woocommerce-subscriptions : 16 actif(s)
-Gabarits surcharges distincts : 1
+Gabarits surcharges distincts : 4
 
 ```json
 {
@@ -26,8 +26,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "WC_Memberships_User_Membership_Activated_Email",
@@ -38,8 +42,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": true,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "WC_Memberships_User_Membership_Ended_Email",
@@ -50,8 +58,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "WC_Memberships_User_Membership_Ending_Soon_Email",
@@ -62,8 +74,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "WC_Memberships_User_Membership_Note_Email",
@@ -74,8 +90,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "WC_Memberships_User_Membership_Renewal_Reminder_Email",
@@ -86,8 +106,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "admin_payment_gateway_enabled",
@@ -98,8 +122,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "cancelled_order",
@@ -110,8 +138,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "cancelled_subscription",
@@ -122,8 +154,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_cancelled_order",
@@ -134,8 +170,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_cancelled_subscription",
@@ -146,8 +186,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_completed_order",
@@ -158,8 +202,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_completed_renewal_order",
@@ -170,8 +218,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_completed_switch_order",
@@ -182,8 +234,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_failed_order",
@@ -194,8 +250,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_invoice",
@@ -206,8 +266,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_new_account",
@@ -218,8 +282,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_note",
@@ -230,8 +298,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_notification_auto_renewal",
@@ -242,8 +314,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_notification_auto_trial_expiry",
@@ -254,8 +330,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_notification_manual_renewal",
@@ -266,8 +346,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_notification_manual_trial_expiry",
@@ -278,8 +362,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_notification_subscription_expiry",
@@ -290,8 +378,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_on_hold_order",
@@ -303,7 +395,10 @@ Gabarits surcharges distincts : 1
             "subject_customised": true,
             "content_customised": true,
             "template_overrides": [
-                "wp-content\/themes\/a02-child\/woocommerce\/emails\/customer-on-hold-order.php"
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/customer-on-hold-order.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
             ],
             "template_overridden": true
         },
@@ -316,8 +411,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_pos_completed_order",
@@ -328,8 +427,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_pos_refunded_order",
@@ -340,8 +443,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_processing_order",
@@ -352,8 +459,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_processing_renewal_order",
@@ -364,8 +475,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_refunded_order",
@@ -374,10 +489,14 @@ Gabarits surcharges distincts : 1
             "enabled": true,
             "recipient_nature": "client",
             "recipient_customised": false,
-            "subject_customised": false,
-            "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "subject_customised": true,
+            "content_customised": true,
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_renewal_invoice",
@@ -388,8 +507,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_reset_password",
@@ -400,8 +523,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "customer_verify_email",
@@ -412,8 +539,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "expired_subscription",
@@ -424,8 +555,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "failed_order",
@@ -436,8 +571,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "gift_recipient_processing_renewal_order",
@@ -448,8 +587,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "new_order",
@@ -460,8 +603,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": true,
             "subject_customised": true,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "new_renewal_order",
@@ -472,8 +619,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "new_switch_order",
@@ -484,8 +635,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "reactivated_subscription",
@@ -496,8 +651,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "recipient_completed_order",
@@ -508,8 +667,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "recipient_completed_renewal_order",
@@ -520,8 +683,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         },
         {
             "id": "suspended_subscription",
@@ -532,8 +699,12 @@ Gabarits surcharges distincts : 1
             "recipient_customised": false,
             "subject_customised": false,
             "content_customised": false,
-            "template_overrides": [],
-            "template_overridden": false
+            "template_overrides": [
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-header.php",
+                "wp-content\/themes\/a02-child\/woocommerce\/emails\/email-styles.php",
+                "wp-content\/themes\/a02-theme\/woocommerce\/emails\/email-footer.php"
+            ],
+            "template_overridden": true
         }
     ],
     "transport_plugins": [
@@ -556,8 +727,8 @@ Gabarits surcharges distincts : 1
             "plugin:woocommerce-memberships": 1,
             "plugin:woocommerce-subscriptions": 16
         },
-        "overridden_template_files": 1
+        "overridden_template_files": 4
     },
-    "audit_sha256": "350b04672f0c59371111c8ecd172460c24d1983c074e35917a1b17c62d1cc311"
+    "audit_sha256": "1689274b3532782bf85fb7b8fa6762680f773b1187975d7516f85640806ac4e4"
 }
 ```

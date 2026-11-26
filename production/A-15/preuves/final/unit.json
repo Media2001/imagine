@@ -30,6 +30,30 @@
             "status": "PASS"
         },
         {
+            "check": "declared_variants_only_modified",
+            "status": "PASS"
+        },
+        {
+            "check": "declared_variants_own_defaults",
+            "status": "PASS"
+        },
+        {
+            "check": "declared_empty_variants_native_fallback",
+            "status": "PASS"
+        },
+        {
+            "check": "saved_default_recipient_list_not_custom",
+            "status": "PASS"
+        },
+        {
+            "check": "different_recipient_custom",
+            "status": "PASS"
+        },
+        {
+            "check": "cc_addition_separate_from_default_recipient",
+            "status": "PASS"
+        },
+        {
             "check": "block_editor_not_misreported_as_unmodified",
             "status": "PASS"
         }

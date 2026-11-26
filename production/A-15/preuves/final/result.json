@@ -116,6 +116,16 @@
       "detail": null
     },
     {
+      "check": "classic:native_variants_defaults_empty_and_recipient_defaults",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:collected_refund_variant_and_invoice_default",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:internal_custom_recipient_without_address",
       "status": "PASS",
       "detail": null
@@ -147,6 +157,16 @@
     },
     {
       "check": "classic:permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:common_templates_alone_counted_once_child_priority",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:common_template_parent_fallback",
       "status": "PASS",
       "detail": null
     },
@@ -215,16 +235,16 @@
       "status": "PASS",
       "detail": {
         "tables": 55,
-        "before": "911bc088ff8861bfc2a420a3e99fe438dab881316bdd9ebaa4821479adef3733",
-        "after": "911bc088ff8861bfc2a420a3e99fe438dab881316bdd9ebaa4821479adef3733"
+        "before": "c821e1b3454c46b831b8745411f1bddae221d4dac5c53656dc863951d9d4a3cb",
+        "after": "c821e1b3454c46b831b8745411f1bddae221d4dac5c53656dc863951d9d4a3cb"
       }
     },
     {
       "check": "classic:files_identical",
       "status": "PASS",
       "detail": {
-        "before": "3018c3c8828b2af05233caeb8db5a7f17b03160ce3cca2f7b36ed2c49e466b3f",
-        "after": "3018c3c8828b2af05233caeb8db5a7f17b03160ce3cca2f7b36ed2c49e466b3f"
+        "before": "40379aa37e6732be5cb1ac60d0aa04427f3475322c5c07d7794a5e025596c988",
+        "after": "40379aa37e6732be5cb1ac60d0aa04427f3475322c5c07d7794a5e025596c988"
       }
     },
     {
@@ -292,6 +312,16 @@
       "detail": null
     },
     {
+      "check": "hpos:native_variants_defaults_empty_and_recipient_defaults",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:collected_refund_variant_and_invoice_default",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "hpos:internal_custom_recipient_without_address",
       "status": "PASS",
       "detail": null
@@ -323,6 +353,16 @@
     },
     {
       "check": "hpos:permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:common_templates_alone_counted_once_child_priority",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:common_template_parent_fallback",
       "status": "PASS",
       "detail": null
     },
@@ -391,16 +431,16 @@
       "status": "PASS",
       "detail": {
         "tables": 55,
-        "before": "28da5a35b56803bce70ac77f49afba14ee4295c22c28d43546400dd247782c78",
-        "after": "28da5a35b56803bce70ac77f49afba14ee4295c22c28d43546400dd247782c78"
+        "before": "6f15972e1b227cc975ed9fe93ffbd47b7007256c47e2e81180190c86a27c740c",
+        "after": "6f15972e1b227cc975ed9fe93ffbd47b7007256c47e2e81180190c86a27c740c"
       }
     },
     {
       "check": "hpos:files_identical",
       "status": "PASS",
       "detail": {
-        "before": "ea3321b536c796f75eb2dc2d9d7e1fa5dd6e345de5192bb354876b0ec85de1d1",
-        "after": "ea3321b536c796f75eb2dc2d9d7e1fa5dd6e345de5192bb354876b0ec85de1d1"
+        "before": "75fc629fe43282b29a19bc40af4483aa0522bfa6c62dfbec036072d8625cfb1b",
+        "after": "75fc629fe43282b29a19bc40af4483aa0522bfa6c62dfbec036072d8625cfb1b"
       }
     },
     {

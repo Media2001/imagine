@@ -211,8 +211,8 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         }
     ],
     "update_source": "local_cache_only_not_a_live_check",
-    "plugin_cache_checked_epoch": 1795666863,
-    "theme_cache_checked_epoch": 1795666863
+    "plugin_cache_checked_epoch": 1795670753,
+    "theme_cache_checked_epoch": 1795670753
 }
 ```
 
@@ -892,8 +892,8 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         },
         {
             "name": "wp_options",
-            "bytes": 1245184,
-            "rows": 411,
+            "bytes": 1261568,
+            "rows": 413,
             "ownership": "wordpress"
         },
         {
@@ -910,7 +910,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         },
         {
             "name": "wp_posts",
-            "bytes": 98304,
+            "bytes": 147456,
             "rows": 23,
             "ownership": "wordpress"
         },
@@ -1179,7 +1179,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "ownership": "active_woocommerce"
         }
     ],
-    "total_bytes": 4210688,
+    "total_bytes": 4276224,
     "largest_autoload": [
         {
             "name": "a02_heavy_secret_setting",
@@ -1195,7 +1195,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         },
         {
             "name": "cron",
-            "bytes": 2197
+            "bytes": 2216
         },
         {
             "name": "widget_block",
@@ -1234,12 +1234,20 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "bytes": 161
         },
         {
+            "name": "woocommerce_customer_invoice_settings",
+            "bytes": 144
+        },
+        {
             "name": "woocommerce_new_order_settings",
             "bytes": 140
         },
         {
             "name": "woocommerce_customer_on_hold_order_settings",
             "bytes": 134
+        },
+        {
+            "name": "woocommerce_customer_refunded_order_settings",
+            "bytes": 131
         },
         {
             "name": "woocommerce_bacs_settings",
@@ -1252,14 +1260,6 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "name": "woocommerce_subscriptions_customer_notifications_offset",
             "bytes": 49
-        },
-        {
-            "name": "_transient_jetpack_autoloader_plugin_paths",
-            "bytes": 47
-        },
-        {
-            "name": "woocommerce_store_id",
-            "bytes": 36
         }
     ],
     "ownership_policy": "conservative_core_woo_wcs_as_registry; unknown_is_not_proof_of_orphan_never_delete",
@@ -1359,43 +1359,43 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "hook": "a02_fixture_cron",
             "schedule": "daily",
             "count": 1,
-            "next_epoch": 1795670463
+            "next_epoch": 1795674353
         },
         {
             "hook": "action_scheduler_run_queue",
             "schedule": "every_minute",
             "count": 1,
-            "next_epoch": 1795666853
+            "next_epoch": 1795670742
         },
         {
             "hook": "do_pings",
             "schedule": "single",
             "count": 1,
-            "next_epoch": 1795666861
+            "next_epoch": 1795670751
         },
         {
             "hook": "jetpack_clean_nonces",
             "schedule": "hourly",
             "count": 1,
-            "next_epoch": 1795666857
+            "next_epoch": 1795670746
         },
         {
             "hook": "jetpack_v2_heartbeat",
             "schedule": "daily",
             "count": 1,
-            "next_epoch": 1795666857
+            "next_epoch": 1795670746
         },
         {
             "hook": "recovery_mode_clean_expired_keys",
             "schedule": "daily",
             "count": 1,
-            "next_epoch": 1795666853
+            "next_epoch": 1795670741
         },
         {
             "hook": "wc_admin_process_orders_milestone",
             "schedule": "hourly",
             "count": 1,
-            "next_epoch": 1795666857
+            "next_epoch": 1795670746
         },
         {
             "hook": "wc_memberships_jobs_cleanup",
@@ -1407,31 +1407,31 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "hook": "wp_privacy_delete_old_export_files",
             "schedule": "hourly",
             "count": 1,
-            "next_epoch": 1795666853
+            "next_epoch": 1795670742
         },
         {
             "hook": "wp_site_health_scheduled_check",
             "schedule": "weekly",
             "count": 1,
-            "next_epoch": 1795753253
+            "next_epoch": 1795757142
         },
         {
             "hook": "wp_update_plugins",
             "schedule": "twicedaily",
             "count": 1,
-            "next_epoch": 1795672252
+            "next_epoch": 1795676141
         },
         {
             "hook": "wp_update_themes",
             "schedule": "twicedaily",
             "count": 1,
-            "next_epoch": 1795674052
+            "next_epoch": 1795677941
         },
         {
             "hook": "wp_version_check",
             "schedule": "twicedaily",
             "count": 1,
-            "next_epoch": 1795670452
+            "next_epoch": 1795674341
         }
     ],
     "arguments_excluded": true
@@ -1546,6 +1546,24 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         },
         {
             "theme": "a02-child",
+            "file": "emails/email-header.php",
+            "effective": true,
+            "resolution": "effective",
+            "override_version": null,
+            "installed_woo_template_version": "10.7.0",
+            "outdated": null
+        },
+        {
+            "theme": "a02-child",
+            "file": "emails/email-styles.php",
+            "effective": true,
+            "resolution": "effective",
+            "override_version": null,
+            "installed_woo_template_version": "11.0.0",
+            "outdated": null
+        },
+        {
+            "theme": "a02-child",
             "file": "myaccount/form-login.php",
             "effective": true,
             "resolution": "effective",
@@ -1561,6 +1579,24 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "override_version": "1.0.0",
             "installed_woo_template_version": "9.4.0",
             "outdated": true
+        },
+        {
+            "theme": "a02-theme",
+            "file": "emails/email-footer.php",
+            "effective": true,
+            "resolution": "effective",
+            "override_version": null,
+            "installed_woo_template_version": "10.4.0",
+            "outdated": null
+        },
+        {
+            "theme": "a02-theme",
+            "file": "emails/email-header.php",
+            "effective": false,
+            "resolution": "masked_by_child",
+            "override_version": null,
+            "installed_woo_template_version": "10.7.0",
+            "outdated": null
         },
         {
             "theme": "a02-theme",

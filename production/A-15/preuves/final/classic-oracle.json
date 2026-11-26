@@ -222,5 +222,51 @@
     "plugin:woocommerce-subscriptions": 16
   },
   "count": 43,
+  "native_shape_cases": {
+    "customer_refunded_order:modified": [
+      true,
+      true
+    ],
+    "customer_refunded_order:subject_only": [
+      true,
+      false
+    ],
+    "customer_refunded_order:heading_only": [
+      false,
+      true
+    ],
+    "customer_refunded_order:default": [
+      false,
+      false
+    ],
+    "customer_refunded_order:empty": [
+      false,
+      false
+    ],
+    "customer_invoice:modified": [
+      true,
+      true
+    ],
+    "customer_invoice:subject_only": [
+      true,
+      false
+    ],
+    "customer_invoice:heading_only": [
+      false,
+      true
+    ],
+    "customer_invoice:default": [
+      false,
+      false
+    ],
+    "customer_invoice:empty": [
+      false,
+      false
+    ],
+    "recipient:absent": false,
+    "recipient:saved_default": false,
+    "recipient:different": true,
+    "recipient:cc_addition": true
+  },
   "hpos": false
 }

@@ -33,7 +33,7 @@
         "-B",
         "wp/tests/a15/run.py",
         "--output",
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a15-matrix-0520\\utf8"
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a15-matrix-corrections0628\\utf8"
       ],
       "environment": {
         "PYTHONIOENCODING": "utf-8",
@@ -75,7 +75,7 @@
         "-B",
         "wp/tests/a15/run.py",
         "--output",
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a15-matrix-0520\\cp1252"
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a15-matrix-corrections0628\\cp1252"
       ],
       "environment": {
         "PYTHONIOENCODING": "cp1252",
@@ -90,7 +90,7 @@
         "-B",
         "wp/tests/a15/style.py",
         "--output",
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a15-matrix-0520\\style"
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a15-matrix-corrections0628\\style"
       ],
       "environment": {
         "PYTHONIOENCODING": "cp1252",

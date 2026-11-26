@@ -58,7 +58,7 @@ $carte = transaction(static function () use ($f, &$checks): array {
     $after = \Imagine\Demo\C20\state('A-CARTE', $f);
     $checks['pending_cancel_native_membership_pending'] = $after['membership_status'] === 'pending';
     $checks['pending_cancel_access_unchanged'] = $after['access_C06'] === $before['access_C06'];
-    $checks['pending_cancel_shipping_unchanged'] = $after['shipping_C13'] === $before['shipping_C13'];
+    $checks['pending_cancel_shipping_unchanged'] = wp_json_encode($after['shipping_C13']) === wp_json_encode($before['shipping_C13']);
     $checks['B02_numbers_unchanged'] = array_intersect_key($after['account_B02'], array_flip(['premier','dernier','restants','echeances'])) === array_intersect_key($before['account_B02'], array_flip(['premier','dernier','restants','echeances']));
     $s = wcs_get_subscription($s->get_id());
     $resume = $s->can_be_updated_to('active');
@@ -67,6 +67,21 @@ $carte = transaction(static function () use ($f, &$checks): array {
         $s->update_status('active', 'C20 standard resumption');
         $details['resumed'] = \Imagine\Demo\C20\state('A-CARTE', $f);
     }
+    if (class_exists(\Imagine\Site\Renouvellement::class)) {
+        ob_start();
+        do_action('imagine_compte_renouvellement', $after['account_B02']);
+        $html = html_entity_decode(ob_get_clean());
+        $checks['pending_display_native_date_B02_numbers_no_false_resume'] = str_contains($html, wp_date('j F Y H:i', strtotime($after['end'] . ' UTC'), wp_timezone()))
+            && str_contains($html, (string) $after['account_B02']['premier'])
+            && str_contains($html, (string) $after['account_B02']['dernier'])
+            && str_contains($html, 'Compteur non raccordé') && !str_contains($html, '<button');
+    }
+    // Read-only counterexample: pending Memberships + active Subscriptions is NOT a paid right.
+    $activeRead = static fn ($value, $sub) => $sub->get_id() === $s->get_id() ? 'active' : $value;
+    add_filter('woocommerce_subscription_get_status', $activeRead, 10, 2);
+    Paywall::invalidate();
+    $checks['pending_linked_active_stays_closed'] = !Paywall::decision(get_post(get_option('imagine_c08_fixture')['article']))['complet'];
+    remove_filter('woocommerce_subscription_get_status', $activeRead, 10);
     // Same pending membership without native subscription must remain closed.
     delete_post_meta($f['memberships']['A-CARTE'], '_subscription_id');
     Paywall::invalidate();
@@ -118,7 +133,7 @@ $four = transaction(static function () use ($f): array {
         'no_payment_at_or_after_end' => count(array_filter($pendingDates, static fn ($date) => $date >= $end)) === 0,
         'expiration_native_scheduled' => count(array_filter($after['actions'], static fn ($a) => $a['hook'] === 'woocommerce_scheduled_subscription_expiration' && $a['scheduled_date_gmt'] === $end)) === 1,
         'access_unchanged' => $after['access_C06'] === $before['access_C06'],
-        'shipping_unchanged' => $after['shipping_C13'] === $before['shipping_C13'],
+        'shipping_unchanged' => wp_json_encode($after['shipping_C13']) === wp_json_encode($before['shipping_C13']),
         'B02_instalments_unchanged' => $after['account_B02']['echeances'] === $before['account_B02']['echeances'],
     ];
     return ['before' => $before, 'after' => $after, 'C05_block_end' => $end, 'C05_remaining' => $remaining, 'native_pending_payment_dates' => $pendingDates, 'checks' => $nativeChecks, 'supported' => !in_array(false, $nativeChecks, true)];

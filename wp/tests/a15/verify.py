@@ -36,6 +36,7 @@ def verify(packet):
     native=json.loads((packet/'result.json').read_text());names={c['check'] for c in native['checks']}
     for storage in ['classic','hpos']:
         required=['cli_and_actual_mail_sql_file_http_cron_guards','exact_native_registry','exact_active_counts_by_extension','disabled_subject_body_client','exact_theme_override','internal_custom_recipient_without_address','present_active_and_inactive_transport_versions','memberships_plan_body_customisation','native_formatter_not_transport','no_address_subject_body_canary_secret_path','transaction_blocks_even_privileged_root','canonical_repository_output_refused','storage_mismatch_refused','dropin_named_no_execution','all_tables_scheduler_identical','files_identical','config_not_executed']
+        required += ['native_variants_defaults_empty_and_recipient_defaults','collected_refund_variant_and_invoice_default','common_templates_alone_counted_once_child_priority','common_template_parent_fallback']
         check(storage+'_mandatory_cases',all(storage+':'+key in names for key in required))
         before=json.loads((packet/(storage+'-db-before.json')).read_text());after=json.loads((packet/(storage+'-db-after.json')).read_text())
         check(storage+'_all_table_fingerprint',before==after and {'wp_options','wp_actionscheduler_actions','wp_actionscheduler_logs'}.issubset(before['tables']))

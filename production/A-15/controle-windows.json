@@ -2,7 +2,7 @@
   {
     "console": "utf-8",
     "exit_code": 0,
-    "result": {
+    "verification": {
       "exit_code": 0,
       "checks": [
         {
@@ -111,7 +111,7 @@
   {
     "console": "cp1252",
     "exit_code": 0,
-    "result": {
+    "verification": {
       "exit_code": 0,
       "checks": [
         {

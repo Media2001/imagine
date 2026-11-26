@@ -25,6 +25,33 @@ def inspect_more():
     print(json.dumps({k:v for k,v in data.items() if k not in ('integration_sources','native_action_source')}, ensure_ascii=False))
     print('integration source files:', list(data.get('integration_sources',{})))
 
+def deploy_ui():
+    c20.profils.guard('imagine-test-demo')
+    names = ['plugins/imagine-site/RenouvellementRegles.php', 'plugins/imagine-site/Renouvellement.php',
+             'themes/imagine/parts/mon-compte.php', 'plugins/imagine-site/imagine-site.php']
+    baseline = json.loads((PROOF / 'protected-baseline-second-V2.json').read_text(encoding='utf-8'))
+    before = snapshot()
+    prior = {}
+    for name in names:
+        old = wp('$p=WP_CONTENT_DIR.' + json.dumps('/' + name) + ';echo wp_json_encode(is_file($p)?file_get_contents($p):null);')
+        digest = hashlib.sha256(old.encode()).hexdigest() if old is not None else None
+        local = hashlib.sha256((ROOT / 'wp' / name).read_bytes()).hexdigest()
+        assert digest in (baseline.get('wp/' + name), local), 'Refuse source drift: ' + name
+        prior[name] = digest
+        backup = PROOF / (Path(name).name + '.before-second')
+        if old is not None and not backup.exists():
+            backup.write_text(old, encoding='utf-8')
+    backup = wp(r'''$path='/var/www/.imagine-demo/c20-theme-before-second.tar';if(!is_file($path)){$tar=new PharData($path);$tar->buildFromDirectory(get_stylesheet_directory());}echo wp_json_encode(['private_archive'=>$path,'sha256'=>hash_file('sha256',$path),'public'=>str_starts_with($path,ABSPATH)]);''')
+    assert backup['public'] is False
+    for name in names:
+        c20.profils.b00.upload(name, (ROOT / 'wp' / name).read_bytes())
+    hashes = wp('$out=[];foreach(json_decode(' + json.dumps(json.dumps(names)) + ',true) as $name){$p=WP_CONTENT_DIR."/".$name;token_get_all(file_get_contents($p),TOKEN_PARSE);$out[$name]=hash_file("sha256",$p);}echo wp_json_encode($out);')
+    assert hashes == {n:hashlib.sha256((ROOT / 'wp' / n).read_bytes()).hexdigest() for n in names}
+    after = snapshot()
+    assert before['profiles'] == after['profiles'], 'Native profiles/actions drift on code installation'
+    save('presentation-installation', {'prior_sha256':prior, 'sha256_readback':hashes,'theme_backup':backup,'profiles_actions_unchanged':True})
+    print('C20 partial presentation installed; exact source readback; native profiles/actions unchanged')
+
 def ui(label):
     c20.profils.guard('imagine-test-demo')
     source = ROOT / 'wp/tests/demo/c20-ui.php'
@@ -80,7 +107,9 @@ def probe(label):
     return 1 if data['failures'] else 0
 
 if __name__ == '__main__':
-    if '--ui' in sys.argv:
+    if '--deploy-ui' in sys.argv:
+        deploy_ui()
+    elif '--ui' in sys.argv:
         sys.exit(ui(sys.argv[-1]))
     elif '--deploy-adapter' in sys.argv:
         deploy_adapter()
