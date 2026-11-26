@@ -30,7 +30,7 @@ La commande du mode d'emploi a été copiée et exécutée avec **ses seuls troi
 
 ## Fichiers et rejeu
 
-Sources : `wp/outils/bascule/a21/` et `wp/tests/a21/`. Deux lignes seulement ajoutées par patch ciblé à `wp/tests/a02-audit/README.md`, contrôlées par contrat exact, pas par empreinte entière. `readme-ajout.txt` contient ces lignes ; les annexes d'autres lots sont autorisées. `unit.php` s'inclut sans effet de bord, dépend seulement de `Analysis.php`, et reste autodécouvrable par T-02 sans nouvel adaptateur PHPUnit.
+Sources : `wp/outils/bascule/a21/` et `wp/tests/a21/`. Deux lignes seulement ajoutées par patch ciblé à `wp/tests/a02-audit/README.md`, contrôlées par contrat exact, pas par empreinte entière. `readme-ajout.txt` contient ces lignes ; les annexes d'autres lots sont autorisées. `unit.php` s'inclut sans effet de bord, dépend seulement de `Analysis.php`, et reste autodécouvrable par T-02 sans nouvel adaptateur PHPUnit. Preuve séparée `pure-include.json` : copie temporaire de ces deux seuls fichiers, 15 assertions vertes, sans API native chargée, sortie ni nouveau rapport. La première sonde supposait à tort que `/report` n'existait pas dans l'image ; l'oracle corrigé compare son contenu avant/après, sans changement du code testé.
 
 Vérification sans Docker ni écriture :
 
@@ -44,4 +44,4 @@ Nouveau rejeu complet, sortie scratch neuve :
 C:/Python314/python.exe -B wp/tests/a21/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-rejeu-matrice-nouveau
 ```
 
-Le vérificateur lie sources courantes, rapports et empreintes, cas natifs obligatoires, consoles réelles, nettoyage et manifeste. Son statut reste `CANDIDAT_GATE_PARENT`, sans allégation de préparation/T-01 global.
+Le vérificateur lie sources courantes, rapports et empreintes, cas natifs obligatoires, consoles réelles, nettoyage et manifeste. Huit sondes sur copie jetable sont vertes (`verification-probes.json`) : original/restauration acceptés, annexe étrangère acceptée, omission/duplication/fin de ligne du lot refusées, dérive source refusée, cas natif obligatoire manquant refusé même après rescellement de cette copie. Son statut reste `CANDIDAT_GATE_PARENT`, sans allégation de préparation/T-01 global.

@@ -39,6 +39,7 @@ Depuis le dépôt Windows, sans PHP hôte :
 
 ```text
 C:/Python314/python.exe -B wp/tests/a20/run.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a20-rejeu-neuf
+C:/Python314/python.exe -B wp/tests/a20/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a20-matrice-neuve
 C:/Python314/python.exe -B -m unittest discover -s wp/tests/a20 -p test_*.py -v
 C:/Python314/python.exe -B wp/tests/a20/verify.py production/A-20/preuves/final
 ```

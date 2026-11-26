@@ -1,0 +1,65 @@
+{
+    "checks": [
+        {
+            "check": "pure_analysis_available",
+            "status": "PASS"
+        },
+        {
+            "check": "permissions_exact",
+            "status": "PASS"
+        },
+        {
+            "check": "never_and_old_disjoint_strict_anniversary",
+            "status": "PASS"
+        },
+        {
+            "check": "webhook_analysis_available",
+            "status": "PASS"
+        },
+        {
+            "check": "webhook_state_and_topic_counts",
+            "status": "PASS"
+        },
+        {
+            "check": "active_destinations_domain_not_origin",
+            "status": "PASS"
+        },
+        {
+            "check": "custom_topic_and_url_canary_absent",
+            "status": "PASS"
+        },
+        {
+            "check": "native_product_published_topic_preserved",
+            "status": "PASS"
+        },
+        {
+            "check": "invalid_future_dates_and_permission_closed",
+            "status": "PASS"
+        },
+        {
+            "check": "last_access_interpreted_in_site_timezone",
+            "status": "PASS"
+        },
+        {
+            "check": "leap_anniversary_clamped_not_march",
+            "status": "PASS"
+        },
+        {
+            "check": "report_projection_available",
+            "status": "PASS"
+        },
+        {
+            "check": "neutralisation_never_projects_historical_zero",
+            "status": "PASS"
+        },
+        {
+            "check": "store_connection_boolean_only",
+            "status": "PASS"
+        },
+        {
+            "check": "unconnected_not_invented",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 0
+}

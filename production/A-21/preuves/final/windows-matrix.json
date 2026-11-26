@@ -1,0 +1,87 @@
+{
+  "rows": [
+    {
+      "console": "cp1252",
+      "label": "environment",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-c",
+        "import json,locale,sys; print(json.dumps({'executable':sys.executable,'version':sys.version,'version_info':list(sys.version_info[:3]),'platform':sys.platform,'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode}))"
+      ],
+      "child_encoding": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "console": "cp1252",
+      "label": "python-tests",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a21",
+        "-p",
+        "test_*.py"
+      ],
+      "child_encoding": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "console": "cp1252",
+      "label": "native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a21/run.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a21-final-matrix\\cp1252-native"
+      ],
+      "child_encoding": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "console": "utf8",
+      "label": "environment",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-c",
+        "import json,locale,sys; print(json.dumps({'executable':sys.executable,'version':sys.version,'version_info':list(sys.version_info[:3]),'platform':sys.platform,'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode}))"
+      ],
+      "child_encoding": "utf-8",
+      "exit_code": 0
+    },
+    {
+      "console": "utf8",
+      "label": "python-tests",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a21",
+        "-p",
+        "test_*.py"
+      ],
+      "child_encoding": "utf-8",
+      "exit_code": 0
+    },
+    {
+      "console": "utf8",
+      "label": "native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a21/run.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a21-final-matrix\\utf8-native"
+      ],
+      "child_encoding": "utf-8",
+      "exit_code": 0
+    }
+  ],
+  "exit_code": 0
+}

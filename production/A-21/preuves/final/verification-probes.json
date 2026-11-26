@@ -1,0 +1,65 @@
+{
+  "checks": [
+    {
+      "check": "pristine_copy_accepted",
+      "status": "PASS",
+      "observed_exit": 0,
+      "failures": []
+    },
+    {
+      "check": "unrelated_shared_appendix_accepted",
+      "status": "PASS",
+      "observed_exit": 0,
+      "failures": []
+    },
+    {
+      "check": "own_line_omission_rejected",
+      "status": "PASS",
+      "observed_exit": 1,
+      "failures": [
+        "own_two_shared_lines_only"
+      ]
+    },
+    {
+      "check": "own_line_duplication_rejected",
+      "status": "PASS",
+      "observed_exit": 1,
+      "failures": [
+        "own_two_shared_lines_only"
+      ]
+    },
+    {
+      "check": "own_newline_mutation_rejected",
+      "status": "PASS",
+      "observed_exit": 1,
+      "failures": [
+        "own_two_shared_lines_only"
+      ]
+    },
+    {
+      "check": "source_drift_rejected",
+      "status": "PASS",
+      "observed_exit": 1,
+      "failures": [
+        "exact_current_sources",
+        "exact_final_packet_manifest"
+      ]
+    },
+    {
+      "check": "missing_native_case_rejected_even_when_resealed",
+      "status": "PASS",
+      "observed_exit": 1,
+      "failures": [
+        "cp1252:classic:required_native_cases"
+      ]
+    },
+    {
+      "check": "restored_copy_accepted",
+      "status": "PASS",
+      "observed_exit": 0,
+      "failures": []
+    }
+  ],
+  "exit_code": 0,
+  "scope": "Disposable scratch copy only; actual verifier executed, no repository mutation."
+}
