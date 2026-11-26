@@ -19,7 +19,8 @@ b.LABEL = 'org.imagine.a21-external-doors'
 OWN = ['wp/tests/a21', 'wp/outils/bascule/a21']
 DEPENDENCIES = ['wp/tests/a02-audit', 'wp/tests/a19', 'wp/outils/bascule/audit', 'wp/outils/bascule/a11', 'wp/outils/bascule/a12', 'wp/outils/staging']
 def manifest(roots):
-    return r.manifest(roots)
+    # Shared documentation is a two-line contract, never a whole-file hash.
+    return {key:value for key,value in r.manifest(roots).items() if key != 'wp/tests/a02-audit/README.md'}
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--output', required=True, type=Path)

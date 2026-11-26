@@ -29,7 +29,8 @@ $observed = [];
 $user = wp_insert_user(['user_login' => 'a20-fictif', 'user_email' => 'a20-fictif@example.org',
     'user_pass' => wp_generate_password(40)]);
 for ($i = 0; $i < 9; $i++) {
-    $s = wcs_create_subscription(['customer_id' => $user, 'status' => 'pending', 'billing_period' => $i === 5 ? 'month' : 'year',
+    $s = wcs_create_subscription(['customer_id' => $user, 'status' => 'pending',
+        'billing_period' => $i === 5 ? 'month' : 'year',
         'billing_interval' => 1, 'start_date' => '2026-01-01 00:00:00']);
     if (is_wp_error($s)) {
         throw new RuntimeException('A20_FIXTURE_FAILED');
@@ -62,7 +63,8 @@ for ($i = 0; $i < 9; $i++) {
     }
     $s->set_total($i < 5 ? '100.00' : ($i === 5 ? '9.17' : ($i === 6 ? '0' : ($i === 7 ? '80.19' : '1234567.89'))));
     $s->save();
-    $status = $i < 5 ? 'active' : ($i === 5 ? 'pending' : ($i === 6 ? 'on-hold' : ($i === 7 ? 'pending-cancel' : 'expired')));
+    $status = ['active', 'active', 'active', 'active', 'active',
+        'pending', 'on-hold', 'pending-cancel', 'expired'][$i];
     if ($status !== 'pending' && $status !== 'active') {
         $s->update_status('active');
     }
@@ -79,4 +81,5 @@ for ($i = 0; $i < 9; $i++) {
 }
 echo 'A20_JSON=' . json_encode(['product' => $p->get_id(), 'parent' => $parent->get_id(),
     'variation' => $v->get_id(), 'observed' => $observed,
-    'native_count' => count(wcs_get_subscriptions(['subscriptions_per_page' => -1, 'subscription_status' => 'any']))]) . "\n";
+    'native_count' => count(wcs_get_subscriptions(['subscriptions_per_page' => -1,
+        'subscription_status' => 'any']))]) . "\n";

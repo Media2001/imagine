@@ -29,13 +29,15 @@ if (is_file($path)) {
     $p = $data['products'][0] ?? [];
     $check('live_status_scope', $data['live_subscriptions'] === 6);
     $check('product_states_distinct_subscriptions', ($p['product'] ?? null) === 11
-        && ($p['variation'] ?? null) === 0 && ($p['states'] ?? null) === ['active' => 5, 'pending' => 1, 'on-hold' => 0, 'pending-cancel' => 0]);
+        && ($p['variation'] ?? null) === 0 && ($p['states'] ?? null) === [
+            'active' => 5, 'pending' => 1, 'on-hold' => 0, 'pending-cancel' => 0]);
     $check('actual_subscription_schedule', ($p['schedules'] ?? null) === [
         ['interval' => 1, 'period' => 'month', 'count' => 1], ['interval' => 1, 'period' => 'year', 'count' => 5]]
         && ($p['non_annual'] ?? null) === 1);
     $check('threshold_five_visible_one_suppressed', ($p['amounts'] ?? null) === [
         ['currency' => 'EUR', 'amount' => '100.00', 'count' => 5]] && ($p['other_amounts'] ?? null) === 1);
-    $check('country_threshold_and_shipping', $data['countries'] === [['country' => 'BE', 'count' => 5, 'with_shipping' => 0]]
+    $check('country_threshold_and_shipping', $data['countries'] === [
+        ['country' => 'BE', 'count' => 5, 'with_shipping' => 0]]
         && $data['other_countries'] === ['count' => 1, 'with_shipping' => 1]);
     $check('fee_and_shipping_presence', $data['with_fee_line'] === 1 && $data['with_shipping_line'] === 1
         && $data['multiple_product_lines'] === 0);
@@ -62,12 +64,18 @@ if (is_file($path)) {
     $check('four_suppressed_threshold', $boundary['countries'] === []
         && $boundary['other_countries']['count'] === 4 && $boundary['products'][0]['amounts'] === []
         && $boundary['products'][0]['other_amounts'] === 4);
-    $mixed = Analysis::analyse(array_merge(array_fill(0, 3, $base), array_fill(0, 3,
-        array_replace($base, ['currency' => 'USD']))), 'EUR');
+    $mixed = Analysis::analyse(array_merge(array_fill(0, 3, $base), array_fill(
+        0,
+        3,
+        array_replace($base, ['currency' => 'USD'])
+    )), 'EUR');
     $check('same_amount_different_currency_not_pooled', $mixed['products'][0]['amounts'] === []
         && $mixed['products'][0]['other_amounts'] === 6);
-    foreach (['period' => 'A20_PRIVATE_CANARY', 'currency' => 'A20_PRIVATE_CANARY',
-        'interval' => 0, 'total' => '1e3', 'products' => [['product' => 'A20_PRIVATE_CANARY', 'variation' => 0]]] as $key => $bad) {
+    foreach (
+        ['period' => 'A20_PRIVATE_CANARY', 'currency' => 'A20_PRIVATE_CANARY',
+        'interval' => 0, 'total' => '1e3',
+        'products' => [['product' => 'A20_PRIVATE_CANARY', 'variation' => 0]]] as $key => $bad
+    ) {
         $refused = false;
         try {
             Analysis::analyse([array_replace($base, [$key => $bad])], 'EUR');

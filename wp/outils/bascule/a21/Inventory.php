@@ -23,7 +23,10 @@ final class Inventory
         if (!$neutralised) {
             global $wpdb;
             // Never read descriptions, keys, fragments, nonces, account IDs or webhook names/secrets.
-            $keys = $wpdb->get_results("SELECT permissions,last_access FROM `{$wpdb->prefix}woocommerce_api_keys`", ARRAY_A);
+            $keys = $wpdb->get_results(
+                "SELECT permissions,last_access FROM `{$wpdb->prefix}woocommerce_api_keys`",
+                ARRAY_A
+            );
             if (!is_array($keys) || $wpdb->last_error !== '') {
                 throw new \RuntimeException('A21_QUERY_FAILED');
             }
@@ -36,15 +39,26 @@ final class Inventory
                 throw new \RuntimeException('A21_STORE_SCHEMA_UNSUPPORTED');
             }
         }
-        $data = Analysis::report($keys, $hooks, $helper, $neutralised, $clock, wp_timezone(), (string) get_option('home'));
+        $data = Analysis::report(
+            $keys,
+            $hooks,
+            $helper,
+            $neutralised,
+            $clock,
+            wp_timezone(),
+            (string) get_option('home')
+        );
         return ['schema' => 'imagine-a21-external-doors-v1', 'read_only' => true,
             'storage' => get_option('woocommerce_custom_orders_table_enabled') === 'yes' ? 'hpos' : 'classic',
             'as_of_utc' => $asOf] + $data + [
                 'outbound_attempts' => \Imagine\PublicAddresses\Runtime::$guards,
                 'basis' => [
-                    'keys' => 'Droits déclarés ; accès local au fuseau WordPress ; jamais et plus de douze mois disjoints.',
-                    'destinations' => 'Nom d’hôte exact sans DNS ; casse et point final neutralisés ; seuls les actifs.',
-                    'topics' => 'Identifiants standard fermés ; sujets libres et actions personnalisées regroupés sous unknown.',
+                    'keys' => 'Droits déclarés ; accès local au fuseau WordPress ; '
+                        . 'jamais et plus de douze mois disjoints.',
+                    'destinations' => 'Nom d’hôte exact sans DNS ; casse et point final neutralisés ; '
+                        . 'seuls les actifs.',
+                    'topics' => 'Identifiants standard fermés ; '
+                        . 'sujets libres et actions personnalisées regroupés sous unknown.',
                     'store' => 'Déclaration locale auth.access_token ; aucune vérification distante.',
                 ],
             ];

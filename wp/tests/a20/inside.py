@@ -7,7 +7,6 @@ def cmd(args,check=True,env=None,data=None,timeout=240):
     p=subprocess.run(args,input=data,capture_output=True,text=True,encoding='utf-8',errors='strict',timeout=timeout,
         env={**os.environ,'PYTHONIOENCODING':'utf-8','PYTHONUTF8':'1','PYTHONDONTWRITEBYTECODE':'1',**(env or {})})
     if check and p.returncode:
-        Path('/report/fixture-command-error.log').write_text(p.stdout+p.stderr,encoding='utf-8')
         raise RuntimeError('A20_FIXTURE_COMMAND_FAILED')
     return p
 b.cmd=cmd
@@ -85,6 +84,20 @@ if (getenv('A20_CONFINED') === '1') {
         try:
             out=OUT/(storage+'-config-'+label);q=inventory(site,out,audit/'audit.json');b.check(storage+':config_closed:'+label,q.returncode==1 and q.stdout=='' and q.stderr=='A11_CONFIG_OVERRIDE_UNSUPPORTED\n' and not out.exists())
         finally:(site/'wp-config.php').write_text(cfg,encoding='utf-8')
+    rootcfg=cfg.replace("define('DB_USER', 'a02_"+storage+"')", "define('DB_USER', 'root')")
+    (site/'wp-config.php').write_text(rootcfg,encoding='utf-8')
+    try:
+        rootout=OUT/(storage+'-root-readonly');q=inventory(site,rootout,audit/'audit.json')
+        b.check(storage+':transaction_readonly_even_root',q.returncode==0 and q.stdout=='A20_OK tarifs.json tarifs.md\n' and q.stderr=='' and json.loads((rootout/'tarifs.json').read_text())==d and before==b.fingerprint(db))
+    finally:(site/'wp-config.php').write_text(cfg,encoding='utf-8')
+    bad_audit=OUT/(storage+'-invalid-audit');bad_audit.mkdir()
+    for label,photo,want in [('schema',{'schema':'A20_PRIVATE_CANARY'},'A20_AUDIT_GUARD'),('storage',json.loads((audit/'audit.json').read_text()),'A20_AUDIT_STORAGE_MISMATCH')]:
+        if label=='storage':photo['sections']['commerce']['order_storage']='classic' if storage=='hpos' else 'hpos'
+        file=bad_audit/'audit.json';file.write_text(json.dumps(photo),encoding='utf-8')
+        out=OUT/(storage+'-bad-audit-'+label);q=inventory(site,out,file)
+        b.check(storage+':audit_guard:'+label,q.returncode==1 and q.stdout=='' and q.stderr==want+'\n' and not out.exists())
+    # Invalid synthetic audit inputs are not retained as operator evidence.
+    (bad_audit/'audit.json').unlink();bad_audit.rmdir()
     after=b.fingerprint(db);(OUT/(storage+'-db-after.json')).write_text(json.dumps(after),encoding='utf-8')
     b.check(storage+':all_tables_scheduler_identical',before==after)
     b.check(storage+':files_identical',files==b.files(site));b.check(storage+':config_not_executed',not Path('/scratch/a02-bootstrap-trap').exists())

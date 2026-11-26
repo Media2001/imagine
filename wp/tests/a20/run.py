@@ -41,6 +41,14 @@ def main():
         for dependency in ['audit','a11','a12']:b.call(['cp',b.local(ROOT/'wp/outils/bascule'/dependency),name+':/subject/'+dependency])
         p=b.call(['exec',name,'php','/opt/a20/unit.php'],check=False);(out/'unit.log').write_text(p.stdout+p.stderr,encoding='utf-8')
         b.call(['cp',name+':/report/unit.json',b.local(out/'unit.json')]);check('unit_return',p.returncode==0,{'exit_code':p.returncode})
+        pure=b.call(['exec',name,'php','-n','-d','disable_functions=file_put_contents,fopen,mkdir,rename,unlink,mail,exec,shell_exec,system,passthru,popen,proc_open','/opt/a20/pure-probe.php'],check=False)
+        (out/'pure.log').write_text(pure.stdout+pure.stderr,encoding='utf-8')
+        check('pure_no_extensions_no_writes',pure.returncode==0 and pure.stderr=='' and pure.stdout=='A20_PURE_OK '+str(len(json.loads((out/'unit.json').read_text(encoding='utf-8'))['checks']))+'\n')
+        relocate="from pathlib import Path; import shutil; root=Path('/tmp/a20-pure'); (root/'wp/tests/a20').mkdir(parents=True); (root/'report').mkdir(); shutil.copytree('/subject/a20',root/'wp/outils/bascule/a20'); (root/'wp/tests/a20/unit.php').write_text(Path('/opt/a20/unit.php').read_text(encoding='utf-8').replace('/report/unit.json','/tmp/a20-pure/report/unit.json'),encoding='utf-8')"
+        b.call(['exec',name,'python3','-c',relocate])
+        p=b.call(['exec',name,'php','-n','/tmp/a20-pure/wp/tests/a20/unit.php'],check=False)
+        b.call(['cp',name+':/tmp/a20-pure/report/unit.json',b.local(out/'relocated-unit.json')])
+        check('temporary_layout_pure_receipt_identical',p.returncode==0 and p.stdout==p.stderr=='' and json.loads((out/'relocated-unit.json').read_text(encoding='utf-8'))==json.loads((out/'unit.json').read_text(encoding='utf-8')))
         if not a.unit_only:
             for f in ['inside.py','seed.php','fingerprint.php','unit.php','readonly-probe.php']:b.call(['cp',b.local(ROOT/'wp/tests/a02-audit'/f),name+':/opt/a02/'+f])
             for f in b.LICENSED:b.call(['cp','/home/ced/staging-wp/plugins/'+f,name+':/opt/a02/'+f])

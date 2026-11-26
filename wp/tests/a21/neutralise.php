@@ -13,11 +13,15 @@ $context = ['environment' => 'staging', 'isolated' => true, 'restored' => true,
     'database' => $db, 'production_hosts' => ['production.invalid'], 'target_url' => 'https://a02.synthetic.test'];
 $store = new Imagine\Staging\PdoStore($pdo, $context);
 (new Imagine\Staging\Engine($store, $context, 'wp_'))->neutraliser();
-$helper = unserialize((string) $pdo->query("SELECT option_value FROM wp_options WHERE option_name='woocommerce_helper_data'")->fetchColumn(), ['allowed_classes' => false]);
+$helperQuery = "SELECT option_value FROM wp_options WHERE option_name='woocommerce_helper_data'";
+$helper = unserialize((string) $pdo->query($helperQuery)->fetchColumn(), ['allowed_classes' => false]);
+$markQuery = "SELECT COUNT(*) FROM wp_options WHERE option_name='imagine_staging_disabled_plugins'";
+$disabledQuery = "SELECT COUNT(*) FROM wp_wc_webhooks WHERE status='disabled'";
+$emptyQuery = "SELECT COUNT(*) FROM wp_wc_webhooks WHERE delivery_url='' AND secret=''";
 echo json_encode([
-    'mark' => $pdo->query("SELECT COUNT(*) FROM wp_options WHERE option_name='imagine_staging_disabled_plugins'")->fetchColumn() == 1,
+    'mark' => $pdo->query($markQuery)->fetchColumn() == 1,
     'keys' => (int) $pdo->query('SELECT COUNT(*) FROM wp_woocommerce_api_keys')->fetchColumn(),
-    'disabled_webhooks' => (int) $pdo->query("SELECT COUNT(*) FROM wp_wc_webhooks WHERE status='disabled'")->fetchColumn(),
-    'empty_destinations' => (int) $pdo->query("SELECT COUNT(*) FROM wp_wc_webhooks WHERE delivery_url='' AND secret=''")->fetchColumn(),
+    'disabled_webhooks' => (int) $pdo->query($disabledQuery)->fetchColumn(),
+    'empty_destinations' => (int) $pdo->query($emptyQuery)->fetchColumn(),
     'store_token_empty' => empty($helper['auth']['access_token']),
 ]) . "\n";

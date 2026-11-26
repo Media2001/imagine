@@ -13,8 +13,10 @@ final class Inventory
             throw new \RuntimeException('A20_NATIVE_API_UNAVAILABLE');
         }
         $rows = [];
-        foreach (wcs_get_subscriptions(['subscriptions_per_page' => -1,
-            'subscription_status' => ['active', 'pending', 'on-hold', 'pending-cancel']]) as $subscription) {
+        foreach (
+            wcs_get_subscriptions(['subscriptions_per_page' => -1,
+            'subscription_status' => ['active', 'pending', 'on-hold', 'pending-cancel']]) as $subscription
+        ) {
             $items = $subscription->get_items('line_item');
             $products = [];
             foreach ($items as $item) {
@@ -35,6 +37,7 @@ final class Inventory
         return ['schema' => 'imagine-a20-recurring-prices-v1', 'read_only' => true,
             'storage' => get_option('woocommerce_custom_orders_table_enabled') === 'yes' ? 'hpos' : 'classic',
             'counts' => Analysis::analyse($rows, $currency),
-            'scope' => 'Magasin natif faisant autorite ; totaux recurrents enregistres, pas prelevements garantis ; aucune correspondance de tarif.'];
+            'scope' => 'Magasin natif faisant autorite ; totaux recurrents enregistres,'
+                . ' pas prelevements garantis ; aucune correspondance de tarif.'];
     }
 }
