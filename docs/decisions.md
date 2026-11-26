@@ -50,7 +50,7 @@ Ce qui est tranché par Ced, daté. Ce fichier précise ou corrige le cahier des
 Issues des relectures du 20/11 (`docs/arbitrages-2026-11-21.md`, questions non tranchées) : prélèvement SEPA obligatoire après une première carte ; retrait immédiat ou délai de grâce au premier rejet ; licence Teams pour les abonnements groupés ; forme de l'accès découverte ; recalcul du port en cours d'année ; emails SEPA de Stripe ; recherche de la dénomination d'entreprise ; PayPal sous condition d'approbation.
 
 
-Issues des lots de la voie 2, au 25/11 au soir (chacune est un réglage au défaut prudent, aucun lot n'attend) :
+Issues des lots, au 26/11 à 4 h (chacune est un réglage au défaut prudent, aucun lot n'attend) :
 
 | Question fermée pour Imagine | Défaut appliqué | Réglage |
 |---|---|---|
@@ -63,6 +63,10 @@ Issues des lots de la voie 2, au 25/11 au soir (chacune est un réglage au défa
 | Un abonnement sur mandat papier suspendu figure-t-il dans « mandats à lancer » dans tous les cas, ou seulement quand un renouvellement exigible est impayé ? | Seulement le renouvellement exigible impayé | Pas de réglage : périmètre de la vue (C-15) |
 | Dans « Mon compte », un abonnement suspendu avec adhésion en attente s'affiche-t-il « virement en attente de validation » ? | Non : ce libellé est réservé au circuit virement ; sinon « suspendu » ou « en délai de grâce » | Pas de réglage : libellé (B-02) |
 | Les articles portent-ils des couleurs de texte ou de fond posées à la main par la rédaction ? | Non : texte neutre, la couleur relève du thème. En vue de lecture, ces couleurs sont de toute façon neutralisées | Pas de réglage : garde-fou du mode lecture (B-03) |
+| Dans la commande pour un client, l'adresse de livraison saisie est-elle enregistrée sur le compte créé par ce parcours ? | Oui, sur le seul nouveau compte ; jamais sur un compte existant | Réglage oui ou non, dans l'écran de réglages (C-16) |
+| Dans le contrôle d'un export d'abonnés hors ligne, deux personnes de même nom à la même adresse sont-elles un doublon, ou faut-il aussi le même prénom (conjoints, colocataires) ? | Doublon : les deux lignes sont signalées, rien n'est fusionné | `doublon_prenom_identique`, désactivée, dans la correspondance des colonnes (A-13) |
+| Les extractions rendent-elles une ligne par abonnement (un compte à deux abonnements apparaît deux fois) ou une ligne par abonné ? | Une ligne par abonnement | Pas de réglage : dédoublonnage à ajouter à la demande (C-18) |
+| Dans les extractions, le filtre par localité doit-il accepter un début de code postal, une plage ou plusieurs pays ? | Non : pays et code postal exacts | Pas de réglage : filtre à affiner à la demande (C-18) |
 
 Rappel de règle, sans question : un abonnement actif dans l'administration mais **sans paiement validé** ne figure pas dans la liste d'envoi.
 

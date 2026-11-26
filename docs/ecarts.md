@@ -43,3 +43,10 @@ Toute demande hors cahier des charges, toute contradiction interne au cahier des
 - **B-02 · profil inexistant.** Le brief nommait `a-4x-j45` ; le profil « quatre fois » du catalogue est A-SEPA4. Erreur de brief.
 - **Diagnostic de l'archive (rappel pour A-05).** Le nettoyage du site réel se décidera sur un plan rempli par Ced après l'audit du staging ; l'outil ne retire rien d'office.
 
+
+## 26 novembre 2026 — lots C-17, C-20, A-11
+
+- **C-17 · brief contre §4.4.** Le brief faisait conserver cinq champs après la décision sur un justificatif (catégorie, décision, date de la décision, date de fin, opérateur) ; §4.4 dit « le site ne conserve que la catégorie et la date de fin ». Erreur de brief. Résolu par le cahier des charges : le dossier de l'abonné garde la catégorie, la date de fin et l'état (nécessaire au « statut » de §3.7) ; la date de la décision et l'opérateur vont au journal de l'administration. À défaire si Ced préfère (`docs/arbitrages-2026-11-26.md`).
+- **C-20 · le standard et le bloc de quatre numéros.** L'annulation en fin de période de Subscriptions arrête l'abonnement à la prochaine échéance et retire celle-ci. Pour un paiement en quatre fois, cela couperait le bloc en cours, contre la décision du 22/11. Piste retenue : la date de fin native de l'abonnement, posée à la fin du bloc ; à prouver. Si le standard ne le permet pas, le non-renouvellement en ligne d'un abonnement en quatre fois demandera un développement, à signaler à Imagine.
+- **C-20 · raccord de démonstration.** Le raccord du paywall lisait l'état « en attente d'annulation » de Memberships comme un virement non validé. Sans effet jusqu'ici (aucun profil n'était dans cet état) ; corrigé avec la deuxième passe de C-20.
+- **A-11 · site réel.** Les outils d'inventaire refusent un site qui porte un cache ou un pare-feu en fichier de remplacement, ce que la production a (Wordfence). L'inventaire réel se fera sur la copie de staging, ces fichiers écartés par l'opérateur ; à prévoir dans la marche à suivre de la bascule.
