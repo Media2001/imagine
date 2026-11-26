@@ -57,7 +57,12 @@ def deploy_ui():
         old = wp('$p=WP_CONTENT_DIR.' + json.dumps('/' + name) + ';echo wp_json_encode(is_file($p)?file_get_contents($p):null);')
         digest = hashlib.sha256(old.encode()).hexdigest() if old is not None else None
         local = hashlib.sha256((ROOT / 'wp' / name).read_bytes()).hexdigest()
-        assert digest in (baseline.get('wp/' + name), local), 'Refuse source drift: ' + name
+        previous = PROOF / 'presentation-installation-second-V2.json'
+        installed = json.loads(previous.read_text(encoding='utf-8'))['sha256_readback'].get(name) if previous.exists() else None
+        allowed = {baseline.get('wp/' + name), local}
+        if installed is not None:
+            allowed.add(installed)
+        assert digest in allowed, 'Refuse source drift: ' + name
         prior[name] = digest
         backup = PROOF / (Path(name).name + '.before-second')
         if old is not None and not backup.exists():
@@ -70,7 +75,8 @@ def deploy_ui():
     assert hashes == {n:hashlib.sha256((ROOT / 'wp' / n).read_bytes()).hexdigest() for n in names}
     after = snapshot()
     assert before['profiles'] == after['profiles'], 'Native profiles/actions drift on code installation'
-    save('presentation-installation', {'prior_sha256':prior, 'sha256_readback':hashes,'theme_backup':backup,'profiles_actions_unchanged':True})
+    label = 'presentation-installation' if not (PROOF / 'presentation-installation-second-V2.json').exists() else 'presentation-installation-final'
+    save(label, {'prior_sha256':prior, 'sha256_readback':hashes,'theme_backup':backup,'profiles_actions_unchanged':True})
     print('C20 partial presentation installed; exact source readback; native profiles/actions unchanged')
 
 def ui(label):

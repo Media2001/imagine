@@ -283,3 +283,22 @@ python wp/tests/demo/test_c19_contract.py
 Les tests PHP, dont l’adaptateur à horloge contrôlée à la borne 180 jours, sont découverts par le paquet racine existant ; aucun manifeste, lock ou runner fermé modifié. Le vrai parcours Chromium suit Imagine → Tableau de bord, avec requêtes hors démo bloquées. La recette native intercepte toute tentative SQL non SELECT ainsi que HTTP/email pendant calcul et rendu. Les empreintes commerciales, utilisateurs, rôles, actions/logs du planificateur et options métier sont inchangées. Pour les requêtes administratives complètes, trois seules options de bootstrap sont volatiles et explicitement exclues : expirations de cache de version WCS et de mise à jour Novamira, verrou du runner asynchrone Action Scheduler. Les sessions de connexion sont déjà exclues par la projection C18. Ce n’est pas une promesse d’absence d’écriture du cœur WordPress entier.
 
 Les reçus historiques, dont `final-V2.json`, restent immuables. Le successeur `production/C-19/corrections-V2/final.json` lie les nouveaux octets et vérifie le README partagé par contrat de section, pas par l’empreinte figée du fichier entier. Les sources des derniers reçus C17/C18 sont contrôlées séparément, sans réécriture de ces lots. Le reçu C09 restauré est exigé exactement, action A-PAPIER comprise ; aucun reset. Voir `production/C-19/A-VOIR.md`. Prêt technique seulement ; validation visuelle de Ced et arbitrage Q-1 attendus.
+
+## C-20 — deuxième passe partielle
+
+`Paywall` lit maintenant une adhésion Memberships `pending` liée nativement à une souscription `pending-cancel` avec fin renseignée comme active dans ses bornes natives. Les autres adhésions `pending` restent fermées. C06 et les règles/raccords C13 sont inchangés ; C13 traitait déjà `pending-cancel` correctement.
+
+**Pas PRET : le point 2 reste bloqué.** Sur A-CARTE, l’accès corrigé reste `abonnement_actif`, mais la fin native du terme payé (25 décembre 2026, 18:01:50 UTC) précède la clôture du prochain numéro (5 janvier 2027, Europe/Brussels) : C13 retire effectivement sa ligne. Aucun droit postal n’est forcé. Le profil est manuel, méthode vide, produit privé ; la reprise est refusée par `contains_unavailable_product()`, pas simplement par l’absence de passerelle.
+
+`RenouvellementRegles` est une présentation pure ; `Renouvellement` n’enregistre aucun contrôleur de mutation. Le bloc B02 annonce le manuel pour A-VIR/A-PAPIER et déclare honnêtement A-CARTE. A-SEPA4 affiche sans bouton une demande à Imagine, échéances dues conservées : C05 n’a pas sa marge obligatoire et ne fournit donc pas de date de fin calculable sans invention. La sonde s’arrête avant toute écriture de date sur ce cas ; elle ne prouve pas un échec du moteur de dates natif. Le filtre des boutons Woo est limité au seul site fictif local : Cancel/Reactivate sont retirés tant que ce parcours n’est pas livré. Il ne réécrit ni permission native ni état. Les autres actions standard ne sont pas présentées comme C20.
+
+`Renouvellement::HOOK_CONFIRMATION` réserve le nom `imagine_non_renouvellement_confirme`, non émis puisque le succès sûr reste non livré. Aucun email, paiement, remboursement ou rétractation. La présentation d’un état pending-cancel existant relit date native et valeurs B02, compteur manquant nommé ; ce n’est pas une confirmation d’action réussie.
+
+```powershell
+python wp/outils/demo/c20-unit.py unit-parent RenouvellementRegles
+python wp/outils/demo/c20-second.py --regressions parent-non-regression
+python wp/tests/demo/c20-http.py http-parent
+python wp/outils/demo/c20-second.py --verify
+```
+
+Les deux premières recettes natives C08/C13 sont rollbackées sur InnoDB ; les empreintes et profils sont relus dans un autre processus. La préparation d’image puis T01 complet ont été exécutés. Les sources partagées ont un contrat successeur C20 exact, sans réécriture des sceaux historiques. Preuves, blocages précis et captures : `production/C-20/A-VOIR.md`. Aucun C21/B05/C22 traité.

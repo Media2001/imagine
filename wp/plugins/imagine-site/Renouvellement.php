@@ -9,7 +9,7 @@ require_once __DIR__ . '/RenouvellementRegles.php';
 final class Renouvellement
 {
     /** Réservé au futur succès natif vérifié ; non émis dans cette livraison bloquée. */
-    public const HOOK_CONFIRMATION = 'imagine_renouvellement_confirme';
+    public const HOOK_CONFIRMATION = 'imagine_non_renouvellement_confirme';
 
     public static function register(): void
     {
