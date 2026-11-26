@@ -1,0 +1,70 @@
+# Données des visiteurs — lecture seule
+
+Comptes seulement ; aucune suppression ni durée de conservation.
+
+```json
+{
+    "schema": "imagine-a25-visitor-retention-v1",
+    "read_only": true,
+    "storage": "classic",
+    "neutralisation": "observe",
+    "counts": {
+        "comments": {
+            "all": {
+                "groups": [
+                    {
+                        "year": 1999,
+                        "state": "1",
+                        "count": 5
+                    }
+                ],
+                "autres": 3
+            },
+            "email": {
+                "groups": [
+                    {
+                        "year": 1999,
+                        "state": "1",
+                        "count": 5
+                    }
+                ],
+                "autres": 2
+            },
+            "ip": {
+                "groups": [
+                    {
+                        "year": 1999,
+                        "state": "1",
+                        "count": 5
+                    }
+                ],
+                "autres": 2
+            },
+            "account": {
+                "groups": [],
+                "autres": 1
+            }
+        },
+        "forms": {
+            "groups": [],
+            "autres": 2
+        },
+        "guests": {
+            "groups": [
+                {
+                    "year": 1999,
+                    "state": "guest",
+                    "count": 5
+                }
+            ],
+            "autres": 2
+        }
+    },
+    "forms": {
+        "listed_extensions": [],
+        "other_tables": 1,
+        "clear_messages_after_import": true
+    },
+    "audit_sha256": "ea982988f9fd29427b50c79fe2d1aae7fee9200dadb88a7d017325a3de52289c"
+}
+```

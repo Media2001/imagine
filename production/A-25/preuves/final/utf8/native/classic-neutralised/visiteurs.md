@@ -1,0 +1,39 @@
+# Données des visiteurs — lecture seule
+
+Comptes seulement ; aucune suppression ni durée de conservation.
+
+```json
+{
+    "schema": "imagine-a25-visitor-retention-v1",
+    "read_only": true,
+    "storage": "classic",
+    "neutralisation": "inconnu après neutralisation",
+    "counts": {
+        "comments": {
+            "all": {
+                "groups": [],
+                "autres": 3
+            },
+            "email": "inconnu après neutralisation",
+            "ip": "inconnu après neutralisation",
+            "account": {
+                "groups": [],
+                "autres": 1
+            }
+        },
+        "forms": "inconnu après neutralisation",
+        "guests": {
+            "groups": [],
+            "autres": 2
+        }
+    },
+    "forms": {
+        "listed_extensions": [
+            "Fluent Forms"
+        ],
+        "other_tables": 1,
+        "clear_messages_after_import": true
+    },
+    "audit_sha256": "91a0918c7d8b9ee6254fbc1ff0aa2b92dbd1762335e6f4e8566899dc73c11ec0"
+}
+```

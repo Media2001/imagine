@@ -12,13 +12,107 @@ class DetectorTest(unittest.TestCase):
         spec = importlib.util.spec_from_file_location('c23', SOURCE)
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
-        self.assertFalse(module.assess(200, b'<p>LE TEMOIN SECRET</p>', ['LE TEMOIN SECRET'], present='titre')['ok'])
+        body = b'<h1>titre</h1><p>LE TEMOIN SECRET</p>'
+        result = module.assess(200, body, ['LE TEMOIN SECRET'], present='titre')
+        self.assertTrue(result['surface_present'])
+        self.assertTrue(result['leak'])
+        self.assertFalse(result['ok'])
+        self.assertTrue(module.assess(200, b'<h1>titre</h1><p>extrait public</p>', ['LE TEMOIN SECRET'], present='titre')['ok'])
+
+    def test_temoins_attributs_et_commentaires_avec_surface_valide(self):
+        m = load()
+        for support in ['<meta property="og:description" content="{}">',
+                        '<meta name="twitter:description" content="{}">',
+                        '<meta name="description" content="{}">',
+                        '<div data-secret="{}"></div>', '<!-- {} -->']:
+            with self.subTest(support=support):
+                body = ('<h1>titre</h1>' + support.format('LE TEMOIN SECRET')).encode()
+                result = m.assess(200, body, ['LE TEMOIN SECRET'], present='titre')
+                self.assertTrue(result['surface_present'])
+                self.assertTrue(result['leak'])
+                self.assertFalse(result['ok'])
+                self.assertTrue(m.assess(200, body.replace(b'LE TEMOIN SECRET', b'extrait public'), ['LE TEMOIN SECRET'], present='titre')['ok'])
 
 def load():
     spec = importlib.util.spec_from_file_location('c23', SOURCE)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
+class RedirectTest(unittest.TestCase):
+    def test_corps_302_inspecte_avant_200(self):
+        import io
+        from email.message import Message
+        from unittest.mock import patch
+        m = load()
+        class Response(io.BytesIO):
+            def __init__(self, code, body, location=None):
+                super().__init__(body)
+                self.code = code
+                self.headers = Message()
+                if location:
+                    self.headers['Location'] = location
+        class Client:
+            def __init__(self):
+                self.paths = []
+            def open(self, request, timeout):
+                self.paths.append(request.full_url)
+                if len(self.paths) == 1:
+                    return Response(302, b'<p>LE TEMOIN SECRET</p>', '/arrivee')
+                return Response(200, b'<h1>titre</h1>extrait public')
+        client = Client()
+        with patch.object(m, 'build_opener', return_value=client):
+            response = m.fetch('/depart')
+        self.assertEqual(client.paths, [m.BASE+'/depart', m.BASE+'/arrivee'])
+        result = m.assess_response(response, ['LE TEMOIN SECRET'], present='titre')
+        self.assertTrue(result['surface_present'])
+        self.assertTrue(result['leak'])
+        self.assertFalse(result['ok'])
+        self.assertEqual(result['redirects_inspected'], 1)
+        self.assertNotIn('LE TEMOIN SECRET', str(result))
+
+    def test_redirection_externe_refusee(self):
+        from unittest.mock import patch
+        from urllib.request import Request
+        from io import BytesIO
+        m = load()
+        with self.assertRaises(ValueError):
+            m.DemoRedirect().redirect_request(Request(m.BASE+'/depart'), BytesIO(), 302, '', {}, 'https://example.org/')
+
+def load_preparer():
+    sys.path.insert(0, str(SOURCE.parent))
+    spec = importlib.util.spec_from_file_location('c23_preparer_tests', SOURCE.with_name('c23-preparer.py'))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+class DiscoveryTest(unittest.TestCase):
+    def test_preparation_normale_ne_recrit_aucune_politique(self):
+        from unittest.mock import patch
+        m = load_preparer()
+        policy = {'ouverture':'premiere_lecture','forme':'articles','jours':7,'nombre':2,'numeros':['11']}
+        f = {'discovery':{'debut':'2026-11-20 00:00:00','reglages':policy,'articles':[1,2]},
+             'discovery_policy':policy, 'discovery_relecture':'fermee',
+             'users':{'V-INSCRIT':1,'V-DEC-FIN':2,'P-NUMERO':3,'A-CARTE':4}}
+        calls = []
+        with patch.object(m, 'wp', side_effect=lambda code: calls.append(code) or {}):
+            m.prepare(f)
+        self.assertEqual(len(calls), 1)
+        self.assertNotIn('update_option', calls[0])
+        self.assertIn('WP_Session_Tokens', calls[0])
+
+    def test_prerequis_incompatible_refuse_avant_session(self):
+        from unittest.mock import patch
+        m = load_preparer()
+        for policy in [{'ouverture':'fermee','forme':'articles','nombre':2,'numeros':[]},
+                       {'ouverture':'premiere_lecture','forme':'articles','nombre':3,'numeros':['11']}]:
+            f = {'discovery_policy':policy, 'discovery_relecture':'fermee',
+                 'discovery':{'reglages':{'ouverture':'premiere_lecture','forme':'articles','nombre':2,'numeros':['11']},'articles':[1,2]}}
+            with patch.object(m, 'wp') as native:
+                with self.assertRaisesRegex(ValueError, 'découverte'):
+                    m.prepare(f)
+                native.assert_not_called()
 
 class ContractTest(unittest.TestCase):
     def test_voie_absente_ne_passe_pas_a_vide(self):

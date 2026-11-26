@@ -1,0 +1,72 @@
+{
+    "schema": "imagine-a25-visitor-retention-v1",
+    "read_only": true,
+    "storage": "classic",
+    "neutralisation": "observe",
+    "counts": {
+        "comments": {
+            "all": {
+                "groups": [
+                    {
+                        "year": 1999,
+                        "state": "1",
+                        "count": 5
+                    }
+                ],
+                "autres": 3
+            },
+            "email": {
+                "groups": [
+                    {
+                        "year": 1999,
+                        "state": "1",
+                        "count": 5
+                    }
+                ],
+                "autres": 2
+            },
+            "ip": {
+                "groups": [
+                    {
+                        "year": 1999,
+                        "state": "1",
+                        "count": 5
+                    }
+                ],
+                "autres": 2
+            },
+            "account": {
+                "groups": [],
+                "autres": 1
+            }
+        },
+        "forms": {
+            "groups": [
+                {
+                    "year": 1999,
+                    "state": "Fluent Forms",
+                    "count": 5
+                }
+            ],
+            "autres": 4
+        },
+        "guests": {
+            "groups": [
+                {
+                    "year": 1999,
+                    "state": "guest",
+                    "count": 5
+                }
+            ],
+            "autres": 2
+        }
+    },
+    "forms": {
+        "listed_extensions": [
+            "Fluent Forms"
+        ],
+        "other_tables": 1,
+        "clear_messages_after_import": true
+    },
+    "audit_sha256": "138bcb0a84452adcf5ea169d7f135b2f12ec45f6f9f6747e0572e3c41eb9b2e9"
+}

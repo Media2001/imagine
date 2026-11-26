@@ -1,0 +1,66 @@
+{
+    "suite": "A25-pure",
+    "checks": [
+        {
+            "check": "three_comments_two_years_pooled",
+            "status": "PASS"
+        },
+        {
+            "check": "email_count_exact",
+            "status": "PASS"
+        },
+        {
+            "check": "ip_count_exact",
+            "status": "PASS"
+        },
+        {
+            "check": "linked_count_exact",
+            "status": "PASS"
+        },
+        {
+            "check": "form_entries_exact_pooled",
+            "status": "PASS"
+        },
+        {
+            "check": "guest_orders_exact_pooled",
+            "status": "PASS"
+        },
+        {
+            "check": "neutral_email_unknown_never_zero",
+            "status": "PASS"
+        },
+        {
+            "check": "neutral_ip_unknown_never_zero",
+            "status": "PASS"
+        },
+        {
+            "check": "neutral_forms_conservative_unknown",
+            "status": "PASS"
+        },
+        {
+            "check": "neutral_counts_preserved",
+            "status": "PASS"
+        },
+        {
+            "check": "five_native_status_year_visible",
+            "status": "PASS"
+        },
+        {
+            "check": "five_guest_year_visible",
+            "status": "PASS"
+        },
+        {
+            "check": "unknown_native_status_closed",
+            "status": "PASS"
+        },
+        {
+            "check": "no_free_text",
+            "status": "PASS"
+        },
+        {
+            "check": "empty_means_zero_only_without_marker",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 0
+}

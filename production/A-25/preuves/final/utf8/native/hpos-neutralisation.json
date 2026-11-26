@@ -1,0 +1,13 @@
+{
+  "neutraliser_and_anonymiser_executed": true,
+  "marker_count": 1,
+  "comments_before": 3,
+  "comments_after": 3,
+  "emails_before": 2,
+  "emails_after": 3,
+  "ip_before": 2,
+  "ip_after": 0,
+  "known_message_preserved": true,
+  "unknown_message_preserved": true,
+  "guest_orders_preserved": true
+}

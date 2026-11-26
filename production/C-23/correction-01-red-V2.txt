@@ -1,0 +1,52 @@
+test_fuite_texte_reel_refusee (__main__.DetectorTest.test_fuite_texte_reel_refusee) ... ok
+test_temoins_attributs_et_commentaires_avec_surface_valide (__main__.DetectorTest.test_temoins_attributs_et_commentaires_avec_surface_valide) ... 
+  test_temoins_attributs_et_commentaires_avec_surface_valide (__main__.DetectorTest.test_temoins_attributs_et_commentaires_avec_surface_valide) (support='<meta property="og:description" content="{}">') ... FAIL
+  test_temoins_attributs_et_commentaires_avec_surface_valide (__main__.DetectorTest.test_temoins_attributs_et_commentaires_avec_surface_valide) (support='<meta name="twitter:description" content="{}">') ... FAIL
+  test_temoins_attributs_et_commentaires_avec_surface_valide (__main__.DetectorTest.test_temoins_attributs_et_commentaires_avec_surface_valide) (support='<meta name="description" content="{}">') ... FAIL
+  test_temoins_attributs_et_commentaires_avec_surface_valide (__main__.DetectorTest.test_temoins_attributs_et_commentaires_avec_surface_valide) (support='<div data-secret="{}"></div>') ... FAIL
+  test_temoins_attributs_et_commentaires_avec_surface_valide (__main__.DetectorTest.test_temoins_attributs_et_commentaires_avec_surface_valide) (support='<!-- {} -->') ... FAIL
+
+======================================================================
+FAIL: test_temoins_attributs_et_commentaires_avec_surface_valide (__main__.DetectorTest.test_temoins_attributs_et_commentaires_avec_surface_valide) (support='<meta property="og:description" content="{}">')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 32, in test_temoins_attributs_et_commentaires_avec_surface_valide
+    self.assertTrue(result['leak'])
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_temoins_attributs_et_commentaires_avec_surface_valide (__main__.DetectorTest.test_temoins_attributs_et_commentaires_avec_surface_valide) (support='<meta name="twitter:description" content="{}">')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 32, in test_temoins_attributs_et_commentaires_avec_surface_valide
+    self.assertTrue(result['leak'])
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_temoins_attributs_et_commentaires_avec_surface_valide (__main__.DetectorTest.test_temoins_attributs_et_commentaires_avec_surface_valide) (support='<meta name="description" content="{}">')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 32, in test_temoins_attributs_et_commentaires_avec_surface_valide
+    self.assertTrue(result['leak'])
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_temoins_attributs_et_commentaires_avec_surface_valide (__main__.DetectorTest.test_temoins_attributs_et_commentaires_avec_surface_valide) (support='<div data-secret="{}"></div>')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 32, in test_temoins_attributs_et_commentaires_avec_surface_valide
+    self.assertTrue(result['leak'])
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_temoins_attributs_et_commentaires_avec_surface_valide (__main__.DetectorTest.test_temoins_attributs_et_commentaires_avec_surface_valide) (support='<!-- {} -->')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 32, in test_temoins_attributs_et_commentaires_avec_surface_valide
+    self.assertTrue(result['leak'])
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.060s
+
+FAILED (failures=5)

@@ -22,7 +22,7 @@ def audience_order(f):
         raise ValueError('Public supplémentaire invalide')
     return PUBLICS+extra
 
-def canonical(text):
+def canonical(text, raw=False):
     if isinstance(text, bytes):
         text = text.decode('utf-8', 'replace')
     try:
@@ -31,12 +31,13 @@ def canonical(text):
         pass
     text = text.replace('<![CDATA[','').replace(']]>','')
     text = html.unescape(text)
-    text = html.unescape(re.sub(r'<[^>]*>', ' ', text))
+    text = html.unescape(text if raw else re.sub(r'<[^>]*>', ' ', text))
     return ' '.join(unicodedata.normalize('NFC', text).split())
 
 def assess(status, body, witnesses, present=None, expected=(200,), positive=False):
     text = canonical(body)
-    found = [w for w in witnesses if canonical(w) in text]
+    raw = canonical(body, raw=True)
+    found = [w for w in witnesses if canonical(w) in text or canonical(w, raw=True) in raw]
     exists = present is None or canonical(present) in text
     errors = any(x in text for x in ('Fatal error', 'Uncaught Error', 'critical error', 'Warning:'))
     return {'ok': status in expected and exists and not errors and (bool(found) if positive else not found),
@@ -62,20 +63,54 @@ class DemoRedirect(HTTPRedirectHandler):
         target = urlsplit(urljoin(req.full_url, newurl))
         if target.scheme != 'http' or target.netloc != '192.168.129.32:8085':
             raise ValueError('Redirection hors démonstration refusée')
-        return super().redirect_request(req, fp, code, msg, headers, newurl)
+        return None  # HTTPError conserve le corps, suivi manuel et borné ci-dessous.
+
+
+class ResponseChain(tuple):
+    def __new__(cls, responses):
+        value = super().__new__(cls, responses[-1])
+        value.history = responses[:-1]
+        return value
+
+
+def assess_response(response, witnesses, present=None, expected=(200,), positive=False, inspected=None):
+    status, _, body = response
+    verdict = assess(status, body if inspected is None else inspected, witnesses, present, expected, positive)
+    history = getattr(response, 'history', [])
+    for code, _, intermediate in history:
+        item = assess(code, intermediate, witnesses, expected=(code,))
+        verdict['leak'] |= item['leak'] and not positive
+        if item['leak'] and not positive:
+            verdict['ok'] = False
+        verdict['witnesses_found'] += item['witnesses_found']
+    verdict['redirects_inspected'] = len(history)
+    return verdict
 
 
 def fetch(path, headers=None):
     # Seul transport de la commande : GET, jamais de corps, POST, CLI ou écriture distante.
     validate_path(path)
     client = build_opener(DemoRedirect())
-    try:
-        response = client.open(Request(BASE + path, headers={'User-Agent':'Imagine-C23/1.0',
-            **(headers or {})}, method='GET'), timeout=45)
-    except HTTPError as error:
-        response = error
-    with response:
-        return response.code, {k.lower():v for k,v in response.headers.items()}, response.read()
+    responses = []
+    url = BASE + path
+    for _ in range(11):
+        try:
+            response = client.open(Request(url, headers={'User-Agent':'Imagine-C23/1.0',
+                **(headers or {})}, method='GET'), timeout=45)
+        except HTTPError as error:
+            response = error
+        with response:
+            hs = {k.lower():v for k,v in response.headers.items()}
+            responses.append((response.code, hs, response.read()))
+        if response.code not in (301,302,303,307,308):
+            return ResponseChain(responses)
+        if not hs.get('location'):
+            raise ValueError('Redirection sans destination')
+        target = urlsplit(urljoin(url, hs['location']))
+        if target.scheme != 'http' or target.netloc != urlsplit(BASE).netloc or target.username or target.password:
+            raise ValueError('Redirection hors démonstration refusée')
+        url = target.geturl()
+    raise ValueError('Trop de redirections')
 
 
 def build_routes(f):
@@ -222,7 +257,8 @@ def matrix(context, label='matrice'):
     results=[]
     def probe(name, public, route, headers, witnesses, positive=False, pdf_hash=None):
         try:
-            status, hs, body = fetch(route['path'], headers)
+            response = fetch(route['path'], headers)
+            status, hs, body = response
             inspected=body
             if route.get('reflected'):
                 # La recherche réaffiche légitimement le terme ; inspecter les cartes et leurs IDs.
@@ -230,7 +266,7 @@ def matrix(context, label='matrice'):
             present = route.get('present')
             # Une marque d'attribut doit exister dans le HTML brut, pas dans le texte visible.
             attr = present and present.startswith('data-')
-            verdict=assess(status, inspected, witnesses, None if attr else present, route.get('statuses',[200]),positive)
+            verdict=assess_response(response, witnesses, None if attr else present, route.get('statuses',[200]),positive,inspected)
             if attr:
                 verdict['surface_present'] = present.encode() in body
                 verdict['ok'] &= verdict['surface_present']

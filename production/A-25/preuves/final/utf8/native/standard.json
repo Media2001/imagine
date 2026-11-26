@@ -1,0 +1,49 @@
+{
+    "source_sha256": {
+        "comment": "67216778a97fc448fb404e7cafbf74e7027ca965d082e88f2a7c58e9a3d0f5a7",
+        "order": "bd7989763fe03479a5ac8968abbfa2b87c345a394a21dc1bdf7d9460fe7149d6",
+        "abstract_order": "2b3384b5e8a49ad8d6e948eaa40cd5492c7e8f0354617df6c6db9774b02fbe64",
+        "storage": "cd0f59582c6962cd5a8f5a0e7e97fba487590f1cb05df999cc4000dcd4875ea7",
+        "hooks": "a66fe7372af72876fc702e50943f9a2a8dff4ed7394163e07491b80a06e27f1d",
+        "scheduler": "54d690d01e46065e1083519a2368579f7a69ea3852c34a99988cb700462b21b6"
+    },
+    "checks": [
+        {
+            "check": "native_wp_comment",
+            "status": "PASS"
+        },
+        {
+            "check": "native_customer_getter",
+            "status": "PASS"
+        },
+        {
+            "check": "native_order_date_getter",
+            "status": "PASS"
+        },
+        {
+            "check": "native_authoritative_store",
+            "status": "PASS"
+        },
+        {
+            "check": "native_preinitialised_hooks",
+            "status": "PASS"
+        },
+        {
+            "check": "native_filter:pre_as_enqueue_async_action",
+            "status": "PASS"
+        },
+        {
+            "check": "native_filter:pre_as_schedule_single_action",
+            "status": "PASS"
+        },
+        {
+            "check": "native_filter:pre_as_schedule_recurring_action",
+            "status": "PASS"
+        },
+        {
+            "check": "native_filter:pre_as_schedule_cron_action",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 0
+}

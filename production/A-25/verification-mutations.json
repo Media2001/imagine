@@ -1,0 +1,42 @@
+{
+  "suite": "A25-real-verifier-mutations",
+  "checks": [
+    {
+      "check": "missing_channel",
+      "status": "PASS",
+      "observed_exit": 1,
+      "detected_by": [
+        "utf8:classic:mandatory_cases"
+      ]
+    },
+    {
+      "check": "dependency_drift",
+      "status": "PASS",
+      "observed_exit": 1,
+      "detected_by": [
+        "utf8:dependencies_equal"
+      ]
+    },
+    {
+      "check": "untrusted_report",
+      "status": "PASS",
+      "observed_exit": 1,
+      "detected_by": [
+        "utf8:classic:visitors_projection",
+        "utf8:classic:repeat_identical",
+        "utf8:classic:documented_identical",
+        "utf8:classic:root-readonly_identical",
+        "artifacts_clean"
+      ]
+    },
+    {
+      "check": "mixed_receipt",
+      "status": "PASS",
+      "observed_exit": 1,
+      "detected_by": [
+        "utf8:result_pass"
+      ]
+    }
+  ],
+  "exit_code": 0
+}
