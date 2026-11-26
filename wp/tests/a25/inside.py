@@ -265,6 +265,7 @@ if (getenv('A25_CONFINED') === '1') {
             and provenance['emails_before'] == 2 and provenance['emails_after'] == 3
             and provenance['ip_before'] == 2 and provenance['ip_after'] == 0
             and provenance['known_message_preserved'] and provenance['unknown_message_preserved']
+            and provenance['submission_pk_messages_preserved'] and provenance['submission_child_rows_preserved']
             and provenance['guest_orders_preserved'])
     b.sql('mysql', "GRANT SELECT ON " + clone + ".* TO 'a02_" + storage + "'@'localhost'")
     (site / 'wp-config.php').write_text(cfg.replace("define('DB_NAME', '" + db + "')",

@@ -1,4 +1,29 @@
-# C-24 — À voir : prêt pour relecture technique
+# C-24 — À voir : corrections de la fusion du 26 novembre 2026 à 20 h 50
+
+## État courant — paquet neuf `manifest-fusion2050-V2.json`
+
+**Cinq corrections appliquées ; PRET technique après portes vertes, pas de validation visuelle ni GO réel.** Le paquet précédent ci-dessous devient historique ; ses reçus restent intacts et ne sont pas réutilisés comme preuve du produit corrigé.
+
+- Restauration du journal : préimage interne validée, drapeau privé et égalité stricte, puis readback. Tests TDD RED réels (500 et catalogue perdu) avant correction ; GREEN : retrait de question et retrait de choix restaurent exactement l'ancienne option, aussi en lecture SQL. Deux vrais POST `options.php` échouent au journal, retournent une redirection normale sans 500, affichent le refus et conservent la préimage.
+- Newsletter : seule `origine=lecteur` compte. La vraie méthode `Newsletters::creation` produit une préférence `defaut_creation` qui reste non transmissible ; origines inconnue/absente également refusées, accord explicite du lecteur admis si consentement et email présents. RED original et mutant d'origine détectés.
+- C10 : vraie page rendue par Chromium ; section présente **dans** le formulaire existant, entre son ouverture et sa fermeture, sous le même bouton. Mutation de retrait de l'injection C24 réellement rouge, état métier remis exactement. Aucun déplacement visuel.
+- README du plugin complété par sa seule nouvelle section C24 ; autres sections préservées. Rôle des quatre classes, réglage, deux métadonnées, accroches et commandes locales/site distinctes.
+- Compteurs frais : **1 128 tests / 35 565 assertions**, zéro échec/erreur/ignoré ; **16 outils / 331 contrôles**, zéro échec. Préparation officielle d'image puis `rejouer.ps1` réellement exécutés, codes 0 (`fusion2050-preparation-V2`, `fusion2050-regression-V2`).
+
+Paquet C24 frais : **148 contrôles nominaux** (29 purs + 35 natifs + 44 HTTP + 8 gardes + 32 corrections), **16 mutations détectées** (7 historiques rejouées + 5 gardes + 3 corrections + 1 C10). Les compteurs sont recalculés depuis les JSON, non repris d'une ancienne annonce. HTTP : **51 requêtes observées, 0 tentative de mail, 69 tentatives HTTP WordPress bloquées sur 69**, aucune issue de Personnalisation. Observateur temporaire retiré, absence relue ; snapshots privés durables avant sessions/mutations et readback final des rôles/profils/commandes/abonnements/adhésions/réglages/actions métier. L'incident historique reste décrit une seule fois dans le relais ancien : aucune restauration des anciennes sessions perdue n'est prétendue.
+
+```bash
+PYTHONIOENCODING=utf-8 python -B production/C-24/verifier-fusion2050-V2.py
+```
+
+Adresses/profils : rubrique « Adresses » plus bas, inchangée. Captures fraîches : `fusion2050-http-V2-compte.png`, `fusion2050-http-V2-sans-email.png`, `fusion2050-http-V2-reglages.png` (données d'essai ensuite restaurées).
+
+Questions non bloquantes : Imagine, localité en choix fermés (défaut) et exclusion de l'inscription newsletter par défaut (défaut prudent) ; Ced, place des rubriques sous « Enregistrer » et ergonomie JSON. Style laissé en l'état selon la fusion ; aucune bibliothèque close, bootstrap partagé, C21/C22/B06/B07 ou autre site modifié. Aucun paiement ni transport extérieur.
+
+---
+
+# Historique de la qualification précédente — remplacé par le paquet fusion2050
+
 
 ## Qualification finale depuis la baseline récupérée
 

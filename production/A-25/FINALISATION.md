@@ -1,5 +1,7 @@
 # Finalisation parent du 2026-11-26T19:21:25.123860+01:00
 
+**État historique, antérieur à la fusion A-25 et à ses corrections.** Le `PRET` de ce passage a été sauvegardé hors dépôt puis retiré avant mutation. Aucune nouvelle finalisation native n'est revendiquée ici ; état actif : `corrections-reveil.md`. Les reçus anciens restent intacts.
+
 **Prêt à relire, non clos.** Préparation commune réellement relancée, rejeu global UTF-8/cp1252 vert : **1 126 tests, 35 550 assertions ; 16 outils, 311 contrôles ; zéro échec, erreur ou ignoré**. Le dernier arbre inclut les changements concurrents de la voie 2, sans modification de notre part.
 
 **Alerte import :** les soumissions de formulaires peuvent rester en clair après neutralisation/anonymisation ; cas prouvé sur données fictives. Import inchangé, aucun accès à la sauvegarde réelle.

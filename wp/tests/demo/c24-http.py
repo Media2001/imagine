@@ -57,7 +57,8 @@ def run(label,mutation=''):
     ids=list(accounts.values())
     before=snapshot(ids);native=c24.state()
     # Snapshot durable AVANT la première session ; jamais dans le dépôt.
-    scratch=Path(os.environ['TMPDIR'])/('c24-http-'+uuid.uuid4().hex)
+    scratch_root=Path(os.environ['LOCALAPPDATA'])/'hermes/cache/scratch'
+    scratch=scratch_root/('c24-http-'+uuid.uuid4().hex)
     scratch.mkdir(mode=0o700);snapshot_path=scratch/'before.json'
     raw=json.dumps({'scope':'imagine-test-demo','baseline':'Etat recupere pris explicitement comme nouvelle reference ; snapshot historique initial perdu, jamais reconstitue.','snapshot':before,'ids':ids,'native':native},ensure_ascii=False).encode('utf-8')
     with snapshot_path.open('xb') as stream:

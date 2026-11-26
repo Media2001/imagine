@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-26T20:38:05.881901+00:00",
+  "scope": "imagine-test-demo",
+  "kind": "prepare",
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "wp/tests/preparer-image.ps1"
+  ],
+  "exit": 0,
+  "checks": {
+    "exit_zero": true,
+    "image_verifiee": true
+  },
+  "failures": [],
+  "log": "fusion2050-preparation-V2.log",
+  "log_sha256": "23480948726c3ff25fb224e644da0045b9dacfef7d541a3695b717fe2a63b057",
+  "source_sha256": "3b1b8e2baf0f8388a9bffa8c44836b9d91bddc6736a10adb46fa7ef0298ae3dc"
+}

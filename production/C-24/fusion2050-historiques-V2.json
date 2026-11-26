@@ -1,0 +1,78 @@
+{
+  "at": "2026-11-26T20:38:02.400500+00:00",
+  "scope": "imagine-test-demo",
+  "result": "PASS",
+  "receipts": [
+    {
+      "receipt": "fusion2050-historiques-sansmail-V2",
+      "required_failure": "sansmail_rubrique_presente_sans_case",
+      "private_snapshot": {
+        "file": "b06-private-tze_apu3/snapshot.json",
+        "sha256": "a540ade3c4d858a1255fd972717222b919c009c7716a5fe9eacb6d073208bf78",
+        "private": true
+      },
+      "all_business_rows_preserved": true
+    },
+    {
+      "receipt": "fusion2050-historiques-listener-V2",
+      "required_failure": "accroche_sans_ecouteur",
+      "private_snapshot": {
+        "file": "b06-private-41ylhtr4/snapshot.json",
+        "sha256": "3e22a76123ef0c783f74bbfeb47da7e8f404271b00a00d44d100e37fd0061c5c",
+        "private": true
+      },
+      "all_business_rows_preserved": true
+    },
+    {
+      "receipt": "fusion2050-historiques-mail-V2",
+      "required_failure": "aucun_mail_tente",
+      "private_snapshot": {
+        "file": "b06-private-tc_q0byo/snapshot.json",
+        "sha256": "eb906dff52fbeeb61792234a0380700541f460bcb51e8d96e14e6c82682e1d76",
+        "private": true
+      },
+      "all_business_rows_preserved": true
+    },
+    {
+      "receipt": "fusion2050-historiques-http-V2",
+      "required_failure": "aucun_http_tente",
+      "private_snapshot": {
+        "file": "b06-private-wrrom5c6/snapshot.json",
+        "sha256": "e04ca683760852616ee266763e3542c7d7c8f34ccff5ce63a74064b4132aa2ad",
+        "private": true
+      },
+      "all_business_rows_preserved": true
+    },
+    {
+      "receipt": "fusion2050-historiques-export-empty-V2",
+      "required_failure": "export_reponses_consentement_resultat",
+      "private_snapshot": {
+        "file": "b06-private-_9vr75xw/snapshot.json",
+        "sha256": "849134c231d3fe408da2dc61a379c4ebce5e9b3ae750036efa3f05ebf9c685ac",
+        "private": true
+      },
+      "all_business_rows_preserved": true
+    },
+    {
+      "receipt": "fusion2050-historiques-export-other-V2",
+      "required_failure": "export_tiers_absent",
+      "private_snapshot": {
+        "file": "b06-private-6fj5iyyc/snapshot.json",
+        "sha256": "5c7f3fe71a9145ddcee2cbcc7ee4f89368183b6be9f2d9d90e020f15e6a0e63c",
+        "private": true
+      },
+      "all_business_rows_preserved": true
+    },
+    {
+      "receipt": "fusion2050-historiques-erase-noop-V2",
+      "required_failure": "effacement_resultat_absence_deux_metas",
+      "private_snapshot": {
+        "file": "b06-private-h84xtfar/snapshot.json",
+        "sha256": "498b50b2a694dbcb8c634b91d5502d1d590d4e75dcdb0f84ad32a508aa54f186",
+        "private": true
+      },
+      "all_business_rows_preserved": true
+    }
+  ],
+  "mutations": 7
+}

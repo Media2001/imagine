@@ -1,5 +1,36 @@
 # C-24 — Contrat technique et relais
 
+## État courant — fusion 20 h 50 corrigée le 26 novembre 2026
+
+**PRET technique sur preuves fraîches ; aucune clôture ni validation visuelle ni autorisation du réel.** Le nouveau paquet est `manifest-fusion2050-V2.json`, vérifié par `verifier-fusion2050-V2.py` (sans réseau). Les anciens sceaux et reçus restent immuables et historiques, pas des preuves réutilisées du produit modifié.
+
+1. `PersonnalisationReglages` : la restauration interne n'applique pas la règle d'interdiction de réutilisation à sa propre préimage, préalablement validée. Bypass limité à un drapeau privé **et** une égalité stricte avec cette préimage ; drapeau/préimage effacés dans `finally`, readback conservé. Nouvelle saisie réservée toujours refusée. Les deux RED d'origine ont reproduit réellement le 500 et la perte du catalogue (question et choix séparés), puis les deux GREEN lisent le catalogue exact via API et SQL.
+2. `Personnalisation::attributsConnecteur` ne compte que les newsletters actives avec `choix === true` et `origine === lecteur`. La vraie création C22, activée uniquement dans une transaction de test puis rollbackée, produit `defaut_creation` et reste fermée. Inconnue/absente refusées ; lecteur explicite admis avec consentement distinct et email. Aucun fichier C22 modifié.
+3. README : seule une nouvelle section C24 ajoutée par patch frais, les autres conservées. Quatre classes, réglage, deux métadonnées, deux accroches et commandes documentés ; vérification par contrat de section, jamais par empreinte globale du README partagé.
+4. C10 : rendu de la vraie page administrative, section unique dans le formulaire `options.php`, sous le bouton existant sans déplacement. Mutation d'absence de l'injection réellement rouge, restauration métier vraie. Deux POST supplémentaires injectent l'échec SQL du journal après retrait d'une question puis d'un choix : redirection 302/303 sans 500, message de refus, préimage exacte relue par un autre processus.
+5. Compteurs actuels : **1 128 tests / 35 565 assertions / zéro échec, erreur ou ignoré ; 16 outils / 331 contrôles / zéro échec**. `preparer-image.ps1` et `rejouer.ps1` frais à code 0, logs `fusion2050-preparation-V2.log` et `fusion2050-regression-V2.log`. Les anciens chiffres ci-dessous datent des reçus historiques.
+
+Qualification fraîche : **148 contrôles nominaux et 16 mutations détectées**, aucun nominal réutilisé du paquet précédent. Fichiers `fusion2050-*.json` : 29 purs, 35 natifs, 44 HTTP Chromium/POST, 8 gardes, 32 corrections ciblées ; 7 anciennes mutations rejouées, 5 gardes, 2 restaurations, 1 origine, 1 injection C10. HTTP : 51 requêtes observées, zéro tentative mail, 69/69 tentatives HTTP WordPress bloquées, aucune de Personnalisation. Snapshots privés durables écrits/relu/hachés avant sessions et mutations ; tous les readbacks métier exacts, observateur retiré. Pas de nouvelles exigences sur anciennes sessions/caches : arbitrage de 19 h inchangé.
+
+```bash
+# Contrôle hors réseau du nouveau paquet :
+PYTHONIOENCODING=utf-8 python -B production/C-24/verifier-fusion2050-V2.py
+# Nouveaux parcours seulement, étiquettes inédites -V2, démo seule :
+python -B wp/outils/demo/c24-corrections.py journal-question nouveau-question-V2
+python -B wp/outils/demo/c24-corrections.py journal-choix nouveau-choix-V2
+python -B wp/outils/demo/c24-corrections.py newsletter nouveau-newsletter-V2
+python -B wp/tests/demo/c24-http.py nouveau-http-V2
+```
+
+Choix techniques à défaut : origine lecteur uniquement ; style dense laissé en l'état (pas de chantier PSR-12). Questions Imagine : localité fermée et exclusion de l'inscription par défaut. Questions Ced : position inchangée et éditeur JSON. Aucun besoin de modifier bootstrap, C21/C22/B06/B07, bibliothèque close, rôle ou autre site. Aucun email extérieur, donnée réelle, Git ou installation hôte.
+
+Incident de banc non produit : invoquer tout `admin_init` en WP-CLI sans chargement d'écran Woo déclenchait une fonction d'administration absente. Le harnais exécute désormais le vrai callback d'enregistrement C24 seulement ; la page administrative complète est testée séparément par HTTP. Aucun faux RED métier compté pour cet incident.
+
+---
+
+## Historique — qualification précédente, remplacée par le paquet fusion2050
+
+
 **État courant : PRÊT pour relecture technique depuis une baseline récupérée explicite.** `A-VOIR.md` décrit les portes finales ; `manifest-final-V2.json` lie leurs reçus aux sources, et `verifier-V2.py` les vérifie hors réseau. L'incident initial reste documenté et `recovery-borned-V2.json` reste inchangé. Ce document n'autorise ni réel, ni email, ni autre site.
 
 ## Reprise finale V2

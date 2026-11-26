@@ -1,5 +1,7 @@
 # A-25 — Reprise / vérification exacte
 
+**Historique antérieur aux corrections du réveil du 26 novembre 2026.** Les attentes vertes ci-dessous concernaient les anciennes sources. La procédure active et le nouveau chemin de preuves sont dans `corrections-reveil.md` ; ne pas resceller ce paquet ancien comme s'il avait exécuté le correctif `submission_id`.
+
 Depuis `C:/Users/Ced/imagine`, avec `C:/Python314/python.exe` (3.14.6 mesuré). PHP n'est exécuté que par les conteneurs jetables du banc. Aucun Git, Novamira, site réel ou staging existant.
 
 ## Contrôle du paquet livré (lecture seule)

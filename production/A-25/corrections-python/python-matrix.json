@@ -1,0 +1,68 @@
+{
+  "scope": "Python tests and correction wiring only; no PHP, SQL, PSR12, Docker, WSL or native matrix executed",
+  "executed_at": "2026-11-26T20:40:35.497857+00:00",
+  "rows": [
+    {
+      "console": "utf-8",
+      "environment": {
+        "platform": "win32",
+        "executable": "C:\\Python314\\python.exe",
+        "version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+        "stdout": "utf-8",
+        "stderr": "utf-8",
+        "locale": "cp1252",
+        "preferred": "utf-8",
+        "utf8_mode": 1
+      },
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a25",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "tests_run": 33,
+      "all_pass": true,
+      "log": "utf8/python-tests.log",
+      "log_sha256": "71ae0952ac62b8c94a6ff6c11a6f1a9b51b4c88453783e1f52edd4c9deb0821f"
+    },
+    {
+      "console": "cp1252",
+      "environment": {
+        "platform": "win32",
+        "executable": "C:\\Python314\\python.exe",
+        "version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+        "stdout": "cp1252",
+        "stderr": "cp1252",
+        "locale": "cp1252",
+        "preferred": "cp1252",
+        "utf8_mode": 0
+      },
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a25",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "tests_run": 33,
+      "all_pass": true,
+      "log": "cp1252/python-tests.log",
+      "log_sha256": "79045a690c7004025fd64ac610283268b6fe4285797c28107394fdaed4b33b46"
+    }
+  ],
+  "exit_code": 0,
+  "readiness_claimed": false
+}
