@@ -105,41 +105,98 @@ def invoke(context, label):
     return result.returncode
 
 
-def run(label, mutation=False):
-    profils.guard('imagine-test-demo')
+def cooperator_snapshot(f):
+    ids = [p['id'] for p in f['cooperator_pages']]
+    return wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE ID IN (".implode(\',\','+php(ids)+').") ORDER BY ID",ARRAY_A));')
+
+
+def seed_cooperator_witness(rows):
+    if len(rows) != 5 or any(r['post_content'] != '' or r['post_excerpt'] != '' for r in rows):
+        raise ValueError('B06 cinq pages vides requises ; aucun contenu existant écrasé')
+    wp('''global $wpdb;$rows='''+php(rows)+''';foreach($rows as $r){
+$sql=$wpdb->prepare("UPDATE {$wpdb->posts} SET post_content=%s WHERE ID=%d AND BINARY post_content=%s AND BINARY post_excerpt=%s",'<p>C23_COOP_TEMOIN_'.$r['ID'].'</p>',$r['ID'],'','');
+if($wpdb->query($sql)!==1){throw new RuntimeException('C23 B06 témoin non écrit.');}clean_post_cache((int)$r['ID']);}echo 'true';''')
+
+
+def restore_cooperator(rows):
+    wp('''global $wpdb;$rows='''+php(rows)+''';foreach($rows as $r){
+$current=$wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->posts} WHERE ID=%d",$r['ID']),ARRAY_A);
+if($current===$r){continue;}$expected=$r;$expected['post_content']='<p>C23_COOP_TEMOIN_'.$r['ID'].'</p>';
+if($current!==$expected){throw new RuntimeException('C23 B06 dérive concurrente, restauration refusée.');}
+if($wpdb->update($wpdb->posts,['post_content'=>$r['post_content']],['ID'=>$r['ID']])===false){throw new RuntimeException('C23 B06 restauration impossible.');}clean_post_cache((int)$r['ID']);}echo 'true';''')
+
+
+def run(label, mutation=False, b06_only=False):
+    import re
+    if not re.fullmatch('[a-zA-Z0-9-]+', label):
+        raise ValueError('Nom de reçu refusé')
+    if any((PROOF/(label+suffix)).exists() for suffix in ['.json','.txt','.md','-restauration.json']):
+        raise ValueError('Reçu existe déjà ; nouveau nom requis')
+    import b06
+    b06.guard()
     PROOF.mkdir(parents=True,exist_ok=True)
     f = inventory()
     ids = list(f['users'].values())
     before = b05.state()
     original = metadata_snapshot(ids,f['article'])
+    pages = cooperator_snapshot(f)
     receipt = dict(scope='imagine-test-demo',at=datetime.now(timezone.utc).isoformat(),label=label,
+                   coverage='B06-only' if b06_only else 'livraison',
                    mutation=mutation,primary_command='python -B wp/outils/demo/c23.py '+label,
                    auth='sessions natives temporaires hors commande principale; aucun mot de passe ni POST')
     receipt['sources_sha256']={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()
         for folder in [ROOT/'wp/outils/demo',ROOT/'wp/tests/demo'] for p in folder.glob('c23*') if p.is_file()}
-    code=1
+    (PROOF/(label+'-etat.json')).write_text(json.dumps({'scope':'imagine-test-demo','state':before},ensure_ascii=False,indent=2),encoding='utf-8')
+    code, changed = 1, False
     try:
-        sessions = prepare(f)
-        f = inventory()
-        (PROOF/'inventaire-source.json').write_text(json.dumps(f,ensure_ascii=False,indent=2),encoding='utf-8')
-        context={'fixture':f,'sessions':sessions}
-        prepared = b05.state()
         if mutation:
-            # Mutation éditoriale bornée : ouvrir le seul article témoin T4, pas le paywall.
+            # Cette politique TEMPORAIRE appartient exclusivement à la recette de mutation.
+            changed = True
+            wp('update_option("imagine_decouverte_reglages",'+php(f['discovery']['reglages'])+');update_option("imagine_decouverte_relecture","fermee");echo "true";')
+            f = inventory()
+        if not b06_only:
+            validate_discovery(f)  # Avant la moindre écriture normale, même avant les sessions.
+        changed = True
+        seed_cooperator_witness(pages)
+        sessions = create_sessions(f)
+        f = inventory()
+        (PROOF/(label+'-inventaire.json')).write_text(json.dumps(f,ensure_ascii=False,indent=2),encoding='utf-8')
+        context={'fixture':f,'sessions':sessions,'coverage':'B06-only' if b06_only else 'livraison'}
+        if mutation:
             assert len(original['postmeta'])==1 and original['postmeta'][0]['meta_value']=='1'
             wp('update_post_meta('+str(f['article'])+',"imagine_reserve","0");echo "true";')
             assert wp('echo wp_json_encode(get_post_meta('+str(f['article'])+',"imagine_reserve",true));')=='0'
+        prepared = b05.state()
         code = invoke(context,label)
         receipt['command_exit']=code
-        if not mutation:
-            receipt['business_unchanged_during_GETs'] = prepared == b05.state()
-        else:
+        receipt['business_unchanged_during_GETs'] = prepared == b05.state()
+        if mutation:
             record=json.loads((PROOF/(label+'.json')).read_text(encoding='utf-8'))
             receipt['mutation_red_detected']=code==1 and any(r['name']=='article' and r['public']=='anonyme' and r['leak'] for r in record['results'])
+    except ValueError as error:
+        if changed:
+            raise
+        message = str(error)
+        receipt.update(command_exit=1, prerequisite=message, no_sessions_created=True,
+                       business_unchanged_during_GETs=True)
+        summary='ETANCHEITE : 0 contrôles, 0 fuites — FAIL ; '+message
+        (PROOF/(label+'.json')).write_text(json.dumps({'scope':'imagine-test-demo','coverage':'livraison',
+            'total':0,'leaks':0,'failures':1,'results':[],'prerequisite':message,'summary':summary,
+            'command_sha256':receipt['sources_sha256']['wp/outils/demo/c23.py']},ensure_ascii=False,indent=2),encoding='utf-8')
+        (PROOF/(label+'.txt')).write_text(summary+'\n',encoding='utf-8')
+        (PROOF/(label+'-inventaire.json')).write_text(json.dumps(f,ensure_ascii=False,indent=2),encoding='utf-8')
+        print(summary)
     finally:
-        restore(original,ids,f['article'])
+        if changed:
+            # Indépendants : une restauration défaillante ne saute jamais l'autre.
+            try:
+                restore_cooperator(pages)
+            finally:
+                restore(original,ids,f['article'])
         restored = metadata_snapshot(ids,f['article'])
         receipt['metadata_restored_exactly'] = restored == original
+        receipt['cooperator_pages_restored_exactly'] = cooperator_snapshot(f) == pages
+        receipt['cooperator_pages_sha256'] = hashlib.sha256(json.dumps(pages,sort_keys=True).encode()).hexdigest()
         after = b05.state()
         receipt['profiles_and_scheduled_actions_restored_exactly'] = before == after
         receipt['schedule_before'] = before['schedule_business']
@@ -147,7 +204,7 @@ def run(label, mutation=False):
         receipt['native_before_sha256'] = hashlib.sha256(json.dumps(before,sort_keys=True).encode()).hexdigest()
         receipt['native_after_sha256'] = hashlib.sha256(json.dumps(after,sort_keys=True).encode()).hexdigest()
         (PROOF/(label+'-restauration.json')).write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8')
-    assert receipt['metadata_restored_exactly'] and receipt['profiles_and_scheduled_actions_restored_exactly'], 'C23 restauration divergente'
+    assert receipt['metadata_restored_exactly'] and receipt['profiles_and_scheduled_actions_restored_exactly'] and receipt['cooperator_pages_restored_exactly'], 'C23 restauration divergente'
     if mutation:
         assert receipt['mutation_red_detected'], 'C23 mutation non détectée'
         return 0
@@ -157,9 +214,11 @@ def run(label, mutation=False):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--label',default='matrice')
+    parser.add_argument('--label',default='livraison-V2')
     parser.add_argument('--mutation',action='store_true',help='HORS commande GET : ouverture provisoire du témoin, strictement restaurée')
+    parser.add_argument('--b06-seul',action='store_true',help='Recette B06 seule, ne vaut jamais livraison C23 complète')
     args=parser.parse_args()
     import re
-    assert re.fullmatch('[a-z0-9-]+',args.label)
-    raise SystemExit(run(args.label,args.mutation))
+    assert re.fullmatch('[a-zA-Z0-9-]+',args.label)
+    assert not (args.mutation and args.b06_seul)
+    raise SystemExit(run(args.label,args.mutation,args.b06_seul))

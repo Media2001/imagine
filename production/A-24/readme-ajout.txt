@@ -1,0 +1,2 @@
+Adresses d’expédition (A-24) : `python3 wp/outils/bascule/a24/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/expedition-date` ; comptes seuls, classique/HPOS, lanceur confiné et gardien commun A-22 ; détails : `wp/outils/bascule/a24/README.md`.
+Après neutralisation, les comptes d’adresses effacées valent « inconnu après neutralisation » ; restent lisibles les effectifs, pays et liens de compte ; aucun repli facturation→livraison ni correction postale.

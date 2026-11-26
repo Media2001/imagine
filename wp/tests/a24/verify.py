@@ -54,7 +54,7 @@ def all_green(receipt, minimum=1):
             and len({c['check'] for c in checks}) == len(checks))
 
 
-def verify(root=ROOT, packet=None, require_shared=False):
+def verify(root=ROOT, packet=None, require_shared=False, require_controls=True):
     packet = packet or root / 'production/A-24/preuves/final'
     checks = []
 
@@ -128,6 +128,13 @@ def verify(root=ROOT, packet=None, require_shared=False):
                     check(context + ':' + storage + ':closed_report:' + label,
                           report.complete_report(folder / (storage + '-' + label), folder / photo / 'audit.json'))
             check(context + ':payload_canaries_absent', all(b'CANARY' not in p.read_bytes() for p in folder.rglob('*') if p.is_file()))
+        if require_controls:
+            controls = load(packet / 'utf8/reception-controls.json')
+            expected_controls = {'full_verifier_before_future_pret', 'full_verifier_after_future_pret',
+                                 'owned_source_mutation_refused', 'dependency_mutation_refused',
+                                 'report_payload_mutation_refused', 'all_mutations_restored_green'}
+            check('real_reception_controls', all_green(controls, 6)
+                  and {c['check'] for c in controls['checks']} == expected_controls)
         # No PRET read, hash or absence check: future owner readiness is orthogonal.
     except (OSError, ValueError, KeyError, TypeError, AssertionError, ImportError):
         check('packet_complete_and_parseable', False)

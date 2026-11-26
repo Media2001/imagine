@@ -216,6 +216,27 @@ class CooperatorsTest(unittest.TestCase):
             self.assertTrue(m.assess(200,clean+marker.encode(),[marker],positive=True)['ok'])
             self.assertFalse(m.assess(200,clean,[marker],positive=True)['ok'])
 
+class PreparationSafetyTest(unittest.TestCase):
+    def test_pages_non_vides_refusees_avant_ecriture(self):
+        from unittest.mock import patch
+        m = load_preparer()
+        with patch.object(m, 'wp') as native:
+            with self.assertRaisesRegex(ValueError, 'B06'):
+                m.seed_cooperator_witness([{'ID':1,'post_content':'contenu existant','post_excerpt':''}])
+            native.assert_not_called()
+
+    def test_label_V2_accepte_et_collision_refusee_sans_site(self):
+        import tempfile
+        from unittest.mock import patch
+        m = load_preparer()
+        with tempfile.TemporaryDirectory(dir=__import__('os').environ.get('TMPDIR')) as directory:
+            proof = Path(directory)
+            (proof/'livraison-V2.json').write_text('{}',encoding='utf-8')
+            with patch.object(m,'PROOF',proof), patch.object(m.profils,'guard') as guard, patch.object(m,'inventory',side_effect=AssertionError('site interdit au test')):
+                with self.assertRaisesRegex(ValueError,'existe'):
+                    m.run('livraison-V2')
+                guard.assert_not_called()
+
 class ContractTest(unittest.TestCase):
     def test_voie_absente_ne_passe_pas_a_vide(self):
         m = load()

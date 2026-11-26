@@ -1,0 +1,35 @@
+test_label_V2_accepte_et_collision_refusee_sans_site (__main__.PreparationSafetyTest.test_label_V2_accepte_et_collision_refusee_sans_site) ... FAIL
+test_pages_non_vides_refusees_avant_ecriture (__main__.PreparationSafetyTest.test_pages_non_vides_refusees_avant_ecriture) ... ERROR
+
+======================================================================
+ERROR: test_pages_non_vides_refusees_avant_ecriture (__main__.PreparationSafetyTest.test_pages_non_vides_refusees_avant_ecriture)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 225, in test_pages_non_vides_refusees_avant_ecriture
+    m.seed_cooperator_witness([{'ID':1,'post_content':'contenu existant','post_excerpt':''}])
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23_preparer_tests' has no attribute 'seed_cooperator_witness'
+
+======================================================================
+FAIL: test_label_V2_accepte_et_collision_refusee_sans_site (__main__.PreparationSafetyTest.test_label_V2_accepte_et_collision_refusee_sans_site)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 237, in test_label_V2_accepte_et_collision_refusee_sans_site
+    m.run('livraison-V2')
+  File "C:\Users\Ced\imagine\wp\outils\demo\c23-preparer.py", line 111, in run
+    f = inventory()
+        ^^^^^^^^^^^
+  File "C:\Users\Ced\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ced\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Ced\AppData\Roaming\uv\python\cpython-3.11-windows-x86_64-none\Lib\unittest\mock.py", line 1183, in _execute_mock_call
+    raise effect
+AssertionError: site interdit au test
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.087s
+
+FAILED (failures=1, errors=1)

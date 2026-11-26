@@ -1,0 +1,46 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T16:46:18.241746+00:00",
+  "label": "b06-diagnostic-V2",
+  "coverage": "B06-only",
+  "mutation": false,
+  "primary_command": "python -B wp/outils/demo/c23.py b06-diagnostic-V2",
+  "auth": "sessions natives temporaires hors commande principale; aucun mot de passe ni POST",
+  "sources_sha256": {
+    "wp/outils/demo/c23-inventaire.php": "3a1f7d88766ab08deb2e43e8d61be8bc030d61f18958b623227d8e9c0c857fae",
+    "wp/outils/demo/c23-preparer.py": "e02e28b7be760e69cd046cf9b26277cfca3b807709d0fff5cfcec21cb4f221e8",
+    "wp/outils/demo/c23.py": "8399826bbbdc40e04a127da67889d3fa5f084a2a23d06b4e9673eaed9499b58f",
+    "wp/tests/demo/c23-diagnostic.py": "326dbed125641a1b1664c67ad28a8fb806958c7f7f4cb5f47e7f43a259c3ae3c",
+    "wp/tests/demo/c23-recovery.py": "2d1cbc1681a08fbb25ef9571716d9031b9c97071fc2d9981dee2677eb17a0390",
+    "wp/tests/demo/c23-tests.py": "ddd44c826f201b427e4ec8f9e554fdacf28ff05e8029881ec3215fc7e6190d14",
+    "wp/tests/demo/c23-verifier.py": "398152f3a52e13352d60af10b9ff46d5071a89cba731df6525660f33b6abfe0e"
+  },
+  "command_exit": 1,
+  "business_unchanged_during_GETs": true,
+  "metadata_restored_exactly": true,
+  "cooperator_pages_restored_exactly": true,
+  "cooperator_pages_sha256": "394d20a8b44d880b014157f9cd618214d060c5693b64faea3ab2e25e5877df55",
+  "profiles_and_scheduled_actions_restored_exactly": true,
+  "schedule_before": {
+    "sha256": "4b8cb7133e9eb83d8b63c5d9f872764063b6021ebd6b37b0c1d7e0cadd17d775",
+    "action8793": {
+      "action_id": "8793",
+      "hook": "woocommerce_scheduled_subscription_payment",
+      "status": "pending",
+      "args": "{\"subscription_id\":101}",
+      "scheduled_date_gmt": "2026-11-26 02:13:28"
+    }
+  },
+  "schedule_after": {
+    "sha256": "4b8cb7133e9eb83d8b63c5d9f872764063b6021ebd6b37b0c1d7e0cadd17d775",
+    "action8793": {
+      "action_id": "8793",
+      "hook": "woocommerce_scheduled_subscription_payment",
+      "status": "pending",
+      "args": "{\"subscription_id\":101}",
+      "scheduled_date_gmt": "2026-11-26 02:13:28"
+    }
+  },
+  "native_before_sha256": "7f6bdd0646c61e84ee566fa64a32d8060b94ff1e63c87ba3f2ea0ddb163e1333",
+  "native_after_sha256": "7f6bdd0646c61e84ee566fa64a32d8060b94ff1e63c87ba3f2ea0ddb163e1333"
+}

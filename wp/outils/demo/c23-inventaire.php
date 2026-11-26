@@ -71,4 +71,22 @@ foreach($c09['users'] as $code=>$id){
         $out['profile_catalogue'][array_key_last($out['profile_catalogue'])]['selected']=true;
     }
 }
+$out['cooperator_pages'] = [];
+foreach (Imagine\Site\Cooperateurs::ids() as $id) {
+    $p = get_post($id);
+    if (!$p || $p->post_type !== 'page' || $p->post_status !== 'publish') {
+        throw new RuntimeException('C23 B06 page publiée absente.');
+    }
+    $out['cooperator_pages'][] = ['id' => $p->ID, 'path' => $local(get_permalink($id)),
+        'title' => $p->post_title, 'body' => $p->post_content];
+}
+if (count($out['cooperator_pages']) !== 5) { throw new RuntimeException('C23 B06 inventaire incomplet.'); }
+$mapping = ['connecte-sans-abonnement' => 'V-INSCRIT', 'decouverte-epuisee' => 'V-DEC-FIN',
+    'acheteur-autre-numero' => 'P-NUMERO', 'abonne-actif' => 'A-CARTE'] + $out['additional_publics'];
+$out['cooperator_publics'] = [];
+foreach ($mapping as $public => $code) {
+    wp_set_current_user($out['users'][$code]);
+    if (Imagine\Site\Cooperateurs::autorise()) { $out['cooperator_publics'][] = $public; }
+}
+if (!in_array('profil-p-coop', $out['cooperator_publics'], true)) { throw new RuntimeException('C23 B06 coopérateur témoin absent.'); }
 echo wp_json_encode($out);

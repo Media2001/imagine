@@ -2,6 +2,7 @@
 import importlib.util
 import os
 from pathlib import Path
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -49,6 +50,13 @@ class VerificationTests(unittest.TestCase):
                          '\n'.join([lines[0] + ' altered', lines[1]]) + '\n'):
                 shared.write_text(body, encoding='utf-8')
                 self.assertFalse(self.module.shared_contract(root))
+
+    def test_seal_missing_source_fails_closed(self):
+        with tempfile.TemporaryDirectory(prefix='a24-seal-refusal-', dir=os.environ.get('TMPDIR')) as tmp:
+            p = subprocess.run([sys.executable, '-B', str(HERE / 'seal.py'), '--source=' + str(Path(tmp) / 'missing')],
+                               capture_output=True, text=True, encoding='utf-8', errors='strict', timeout=30,
+                               env={**os.environ, 'PYTHONIOENCODING': 'utf-8', 'PYTHONUTF8': '1', 'PYTHONDONTWRITEBYTECODE': '1'})
+            self.assertEqual((p.returncode, p.stdout, p.stderr), (1, '', 'A24_SEAL_REFUSED\n'))
 
     def test_empty_fake_green_packet_is_refused(self):
         with tempfile.TemporaryDirectory(prefix='a24-forged-packet-', dir=os.environ.get('TMPDIR')) as tmp:

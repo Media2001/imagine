@@ -46,7 +46,7 @@ for ($i = 0; $i < 12; $i++) {
         'status' => 'pending', 'billing_period' => 'year', 'billing_interval' => 1,
         'start_date' => '2026-01-01 00:00:00']);
     if (is_wp_error($s)) {
-        throw new RuntimeException('A24_FIXTURE_CREATE_FAILED:' . $i . ':' . $s->get_error_code() . ':' . $s->get_error_message());
+        throw new RuntimeException('A24_FIXTURE_CREATE_FAILED');
     }
     if ($i === 1) {
         $a['address_1'] = strtolower($a['address_1']);

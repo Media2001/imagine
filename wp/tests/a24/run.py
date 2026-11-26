@@ -75,6 +75,17 @@ def main():
                 b.call(['cp', b.local(ROOT / 'wp/tests/a02-audit' / f), name + ':/opt/a02/' + f])
             for f in b.LICENSED:
                 b.call(['cp', '/home/ced/staging-wp/plugins/' + f, name + ':/opt/a02/' + f])
+        lint_checks = []
+        for source, target in [(HERE, '/opt/a24'), (ROOT / 'wp/outils/bascule/a24', '/subject/a24')]:
+            for file in sorted(source.iterdir()):
+                if file.is_file() and (file.suffix == '.php' or file.name == 'inventorier-expedition'):
+                    lint = b.call(['exec', name, 'php', '-l', target + '/' + file.name], check=False)
+                    lint_checks.append({'check': target + '/' + file.name,
+                                        'status': 'PASS' if lint.returncode == 0 and not lint.stderr else 'FAIL'})
+        lint_receipt = {'suite': 'A24-owned-PHP-lint', 'checks': lint_checks,
+                        'exit_code': int(not lint_checks or any(c['status'] != 'PASS' for c in lint_checks))}
+        (out / 'lint.json').write_text(json.dumps(lint_receipt, indent=2) + '\n', encoding='utf-8')
+        check('lint_all_owned_php', lint_receipt['exit_code'] == 0)
         p = b.call(['exec', name, 'php', '/opt/a24/unit.php'], check=False)
         (out / 'unit.log').write_text(p.stdout + p.stderr, encoding='utf-8')
         check('unit_return', p.returncode == 0)

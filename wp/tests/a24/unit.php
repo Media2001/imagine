@@ -57,6 +57,35 @@ if (class_exists(\Imagine\ShippingAddresses\Analysis::class)) {
         && $n['overall']['country_absent'] === 2 && $n['overall']['country_unknown'] === 1
         && $n['overall']['missing_required']['shipping_country'] === 2
         && $n['overall']['account_unavailable'] === 1);
+    $empty = \Imagine\ShippingAddresses\Analysis::analyse([], ['BE']);
+    a24_check('empty_population_has_closed_zero_counts', $empty['overall']['subscriptions'] === 0
+        && $empty['countries'] === [] && count($empty['overall']['missing_required']) === 10);
+    $five = \Imagine\ShippingAddresses\Analysis::analyse(array_fill(0, 5, $row), ['BE']);
+    $four = \Imagine\ShippingAddresses\Analysis::analyse(array_fill(0, 4, $row), ['BE']);
+    a24_check('threshold_five_exact', $five['countries'][0]['country'] === 'BE'
+        && $four['countries'][0]['country'] === 'autres pays');
+    $optional = $row;
+    $optional['shipping']['postcode'] = '';
+    $optional['required'] = array_values(array_diff($optional['required'], ['shipping_postcode']));
+    $optional['shipping']['phone'] = '0';
+    $optional['required'][] = 'shipping_phone';
+    $o = \Imagine\ShippingAddresses\Analysis::analyse([$optional], ['BE'])['overall'];
+    a24_check('native_optional_and_zero_string_respected', $o['missing_any'] === 0
+        && $o['missing_required']['shipping_postcode'] === 0 && $o['missing_required']['shipping_phone'] === 0);
+    $spaces = $row;
+    $spaces['shipping'] = array_fill_keys(\Imagine\ShippingAddresses\Analysis::FIELDS, '  ');
+    $spaces['billing'] = [];
+    $o = \Imagine\ShippingAddresses\Analysis::analyse([$spaces], ['BE'])['overall'];
+    a24_check('space_only_is_empty_not_unknown_country', $o['shipping_empty'] === 1
+        && $o['empty_with_billing'] === 0 && $o['country_absent'] === 1 && $o['country_unknown'] === 0);
+    $bad = $row;
+    $bad['required'][] = 'shipping_A24_FIELD_PRIVATE_CANARY';
+    try {
+        \Imagine\ShippingAddresses\Analysis::analyse([$bad], ['BE']);
+        a24_check('free_native_field_refused', false);
+    } catch (RuntimeException $error) {
+        a24_check('free_native_field_refused', $error->getMessage() === 'A24_NATIVE_FIELDS_UNSUPPORTED');
+    }
 }
 $result = ['suite' => 'A24-pure', 'checks' => $checks,
     'exit_code' => (int) in_array('FAIL', array_column($checks, 'status'), true)];
