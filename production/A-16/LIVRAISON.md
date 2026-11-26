@@ -1,11 +1,7 @@
-# A-16 — Corrections intégrées le 26/11/2026
+# A-16 — Candidat du 26 novembre 2026
 
-PRET à relire, non clos. Cinq instructions appliquées ; refus aligné sur l’arbitrage plus récent : `A16_MAPPING_KEY_ABSENT` seul, aucun nom de clé recopié. Les sources communes du refus et A-17 n’ont pas été retouchées par le coordinateur.
+Retouche de la file 10 h 30 appliquée : le refus nomme seulement le champ fermé de correspondance, jamais sa valeur. Rapport et commandes : `CANDIDAT.md`. Paquet unique : `preuves/final/` ; vérification candidat : `verification.json`.
 
-Deux matrices réelles sous Python **3.14.7 Windows** : UTF-8/UTF8=1 puis console **cp1252/UTF8=0**, locale cp1252 mesurée. Par contexte : **23 assertions PHP**, **68 assertions natives classic/HPOS**, **7 gardes runner**, 3 tests Python ; tous verts. PSR-12 strict zéro erreur/avertissement ; préparation d’image code 0 après dernière modification de tests. Commandes exactes et retours : `preuves/final/windows-matrix.json`. Le paquet unique contient le dernier run cp1252 à sa racine, le run UTF-8 dans `utf8/`, le style et la préparation.
+Deux contextes Windows natifs, Python 3.14.6, UTF-8 et cp1252 : chacun 23 assertions PHP, 78 contrôles natifs classic/HPOS, 7 gardes runner et 3 tests Python, tous verts. PSR-12 : zéro erreur, zéro avertissement. Huit RED probants puis GREEN ; commande du README réellement exécutée sans argument ajouté ; canaris absents des sorties.
 
-PDF privés présent et absent : réponses `pdf_public=false`, aucune fuite de racine. Ordre de clés libre, dates égales départagées par ID décroissant, article lié au numéro exclu de N non orphelin, un seul encodage après empreintes. Base entière et fichiers publics/privés inchangés, tentatives SQL/mail/HTTP/cron/fichiers réellement bloquées. Refus commun : 10 cas A16 (liens fichier/dossier, config, six drop-ins) dans `refus-commun-A17.json`, Runtime courant lié par SHA256, code retour du banc commun 0.
-
-Vérification : `python -B wp/tests/a16/verify.py production/A-16/preuves/final`. README partagé contrôlé sur les deux lignes A16 seulement. Manifestes restreints au lot. Essais intermédiaires et ancienne preuve hors dépôt. Aucun réel, archive, compte externe, staging ni déploiement ; PHP uniquement en conteneurs jetables supprimés.
-
-Limites : pas de passage sur Imagine réel ; le dossier public indique un emplacement, pas une preuve HTTP. Aucun rattachement, aucune suppression, aucun choix métier ni clôture. La note HANDOFF est historique, remplacée par cette livraison et les nouvelles preuves.
+**CANDIDAT, pas PRET.** Préparation d'image commune et décision de dépôt réservées au parent. Aucun `preparer-image.ps1` ni T01 global exécuté ici. L'ancien marqueur PRET et les preuves précédentes sont hors dépôt dans le scratch de retouche. Runtime partagé inchangé ; aucun réel, Git, verrou, archive, compte ni déploiement touché.

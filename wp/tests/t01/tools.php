@@ -104,14 +104,29 @@ function runT01Tools(string $wpRoot, string $workspace = '/tmp/t01-tools'): arra
         $failures = 0;
         $checks = 0;
         try {
+            if (!is_file($report . '/unit.json')) {
+                throw new RuntimeException('T02_UNIT_RECEIPT_MISSING');
+            }
             $receipt = json_decode(file_get_contents($report . '/unit.json'), true, 512, JSON_THROW_ON_ERROR);
-            foreach ($receipt['checks'] as $check) {
-                if (!is_array($check) || !is_string($check['check'] ?? null)
-                    || !in_array($check['status'] ?? null, ['PASS', 'FAIL'], true)) {
-                    throw new RuntimeException('T02_UNIT_RECEIPT_INVALID');
+            if (isset($receipt['tests']) && is_array($receipt['tests'])) {
+                foreach ($receipt['tests'] as $name => $ok) {
+                    if (!is_string($name) || !is_bool($ok)) {
+                        throw new RuntimeException('T02_UNIT_RECEIPT_INVALID');
+                    }
+                    $checks++;
+                    $failures += (int) !$ok;
                 }
-                $checks++;
-                $failures += (int) ($check['status'] === 'FAIL');
+            } elseif (isset($receipt['checks']) && is_array($receipt['checks'])) {
+                foreach ($receipt['checks'] as $check) {
+                    if (!is_array($check) || !is_string($check['check'] ?? null)
+                        || !in_array($check['status'] ?? null, ['PASS', 'FAIL'], true)) {
+                        throw new RuntimeException('T02_UNIT_RECEIPT_INVALID');
+                    }
+                    $checks++;
+                    $failures += (int) ($check['status'] === 'FAIL');
+                }
+            } else {
+                throw new RuntimeException('T02_UNIT_RECEIPT_INVALID');
             }
             if ($checks === 0) {
                 throw new RuntimeException('T02_UNIT_RECEIPT_EMPTY');

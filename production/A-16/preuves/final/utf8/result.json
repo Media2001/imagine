@@ -261,9 +261,59 @@
       "detail": null
     },
     {
-      "check": "classic:absent_mapping_key_code_only",
+      "check": "classic:absent_mapping_field:numero_type",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "A16_MAPPING_KEY_ABSENT {\"field\":\"numero_type\"}\n"
+      }
+    },
+    {
+      "check": "classic:absent_mapping_field:thematique",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "A16_MAPPING_KEY_ABSENT {\"field\":\"thematique\"}\n"
+      }
+    },
+    {
+      "check": "classic:absent_mapping_field:pdf_cle",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "A16_MAPPING_KEY_ABSENT {\"field\":\"pdf_cle\"}\n"
+      }
+    },
+    {
+      "check": "classic:absent_mapping_field:liaison.cle",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "A16_MAPPING_KEY_ABSENT {\"field\":\"liaison.cle\"}\n"
+      }
+    },
+    {
+      "check": "classic:symlink_canary_never_output",
       "status": "PASS",
       "detail": null
+    },
+    {
+      "check": "classic:readme_command_only_documented_arguments",
+      "status": "PASS",
+      "detail": {
+        "arguments": [
+          "--wp-path",
+          "--audit",
+          "--correspondance",
+          "--output",
+          "--limit"
+        ],
+        "exit": 0
+      }
     },
     {
       "check": "classic:mapping_required",
@@ -505,9 +555,59 @@
       "detail": null
     },
     {
-      "check": "hpos:absent_mapping_key_code_only",
+      "check": "hpos:absent_mapping_field:numero_type",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "A16_MAPPING_KEY_ABSENT {\"field\":\"numero_type\"}\n"
+      }
+    },
+    {
+      "check": "hpos:absent_mapping_field:thematique",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "A16_MAPPING_KEY_ABSENT {\"field\":\"thematique\"}\n"
+      }
+    },
+    {
+      "check": "hpos:absent_mapping_field:pdf_cle",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "A16_MAPPING_KEY_ABSENT {\"field\":\"pdf_cle\"}\n"
+      }
+    },
+    {
+      "check": "hpos:absent_mapping_field:liaison.cle",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "stdout": "",
+        "stderr": "A16_MAPPING_KEY_ABSENT {\"field\":\"liaison.cle\"}\n"
+      }
+    },
+    {
+      "check": "hpos:symlink_canary_never_output",
       "status": "PASS",
       "detail": null
+    },
+    {
+      "check": "hpos:readme_command_only_documented_arguments",
+      "status": "PASS",
+      "detail": {
+        "arguments": [
+          "--wp-path",
+          "--audit",
+          "--correspondance",
+          "--output",
+          "--limit"
+        ],
+        "exit": 0
+      }
     },
     {
       "check": "hpos:mapping_required",

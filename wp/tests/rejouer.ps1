@@ -8,6 +8,8 @@ $created = $false
 $name = 'imagine-t01-' + [Guid]::NewGuid().ToString('N')
 $owner = [Guid]::NewGuid().ToString('N')
 $result = @{ tests = 0; assertions = 0; failures = 0; errors = 0; skipped = 0 }
+$toolResult = @{ tools = 0; checks = 0; failures = 0 }
+$toolOutside = 'non evalue'
 try {
     if ($args.Count) { throw 'Cette commande ne prend aucun argument.' }
     [void](Assert-T01Success (Invoke-T01Docker @('info', '--format', '{{.ServerVersion}}')) 'Docker indisponible : demarrer Docker dans WSL Ubuntu ; aucune installation automatique.')
@@ -41,6 +43,18 @@ try {
         if ($null -eq $value -or $value -notmatch '^\d+$' -or [long]$value -gt [int]::MaxValue) { throw 'Bilan PHPUnit invalide.' }
         $result[$key] = [int]$value
     }
+    foreach ($key in @('tools', 'checks', 'failures')) {
+        $value = $data.tools.$key
+        if ($null -eq $value -or $value -notmatch '^\d+$' -or [long]$value -gt [int]::MaxValue) { throw 'Bilan des outils absent ou invalide.' }
+        $toolResult[$key] = [int]$value
+    }
+    if ($null -eq $data.tools.excluded) { throw 'Liste des outils hors rejeu absente.' }
+    $outside = @($data.tools.excluded | ForEach-Object {
+        if ($_.lot -notmatch '^[a-z0-9][a-z0-9-]*$' -or [string]::IsNullOrWhiteSpace($_.reason) -or $_.reason.Length -gt 120 -or $_.reason -match '[\r\n]') { throw 'Liste des outils hors rejeu invalide.' }
+        $_.lot + ' (' + $_.reason + ')'
+    })
+    $toolOutside = if ($outside.Count) { $outside -join ', ' } else { 'aucun' }
+    if ($toolResult.failures -gt 0) { throw 'Tests purs des outils en echec : consulter la sortie complete ci-dessus.' }
     if ($run.Code -ne 0 -or $after.State.ExitCode -ne 0 -or $data.pass -ne $true -or $result.tests -eq 0 -or $result.failures -gt 0 -or $result.errors -gt 0 -or $result.skipped -gt 0) { throw 'Suite PHP en echec : consulter la sortie complete ci-dessus.' }
     $exitCode = 0
 } catch {
@@ -54,5 +68,6 @@ try {
 $status = if ($exitCode -eq 0) { 'PASS' } else { 'FAIL' }
 # Accents use codepoints to keep this entry point parseable under Windows PowerShell 5.1.
 $e = [char]0x00e9; $dash = [char]0x2014
+Write-Output ('OUTILS : {0} outils, {1} contr{4}les, {2} {5}checs ; hors rejeu : {3}' -f $toolResult.tools, $toolResult.checks, $toolResult.failures, $toolOutside, [char]0x00f4, $e)
 Write-Output ('REJEU : {0} tests, {1} assertions, {2} {5}checs, {3} erreurs, {4} ignor{5}s {6} {7}' -f $result.tests, $result.assertions, $result.failures, $result.errors, $result.skipped, $e, $dash, $status)
 exit $exitCode

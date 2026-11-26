@@ -1,8 +1,9 @@
 {
+  "status": "CANDIDATE",
   "exit_code": 0,
   "counts": {
     "unit": 23,
-    "result": 68,
+    "result": 78,
     "runner": 7
   },
   "checks": [
@@ -63,7 +64,7 @@
       "status": "PASS"
     },
     {
-      "check": "preparer_image_executed",
+      "check": "candidate_parent_build_explicitly_pending",
       "status": "PASS"
     },
     {

@@ -4,8 +4,8 @@
     {
       "console": "utf8",
       "environment": {
-        "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
-        "version": "3.14.7 (main, Sep  1 2026, 14:17:30) [MSC v.1944 64 bit (AMD64)]",
+        "executable": "C:\\Python314\\python.exe",
+        "version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
         "platform": "win32",
         "stdout": "utf-8",
         "stderr": "utf-8",
@@ -15,7 +15,7 @@
         "PYTHONIOENCODING": "utf-8"
       },
       "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+        "C:/Python314/python.exe",
         "-B",
         "wp/tests/a16/test_launcher.py"
       ],
@@ -25,8 +25,8 @@
     {
       "console": "utf8",
       "environment": {
-        "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
-        "version": "3.14.7 (main, Sep  1 2026, 14:17:30) [MSC v.1944 64 bit (AMD64)]",
+        "executable": "C:\\Python314\\python.exe",
+        "version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
         "platform": "win32",
         "stdout": "utf-8",
         "stderr": "utf-8",
@@ -36,10 +36,10 @@
         "PYTHONIOENCODING": "utf-8"
       },
       "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+        "C:/Python314/python.exe",
         "-B",
         "wp/tests/a16/run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a16-integrated-green-20261126-0815\\utf8"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a16-retouche-green-20261126\\utf8"
       ],
       "exit_code": 0,
       "log": "utf8-runner.log"
@@ -47,8 +47,8 @@
     {
       "console": "cp1252",
       "environment": {
-        "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
-        "version": "3.14.7 (main, Sep  1 2026, 14:17:30) [MSC v.1944 64 bit (AMD64)]",
+        "executable": "C:\\Python314\\python.exe",
+        "version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
         "platform": "win32",
         "stdout": "cp1252",
         "stderr": "cp1252",
@@ -58,7 +58,7 @@
         "PYTHONIOENCODING": "cp1252"
       },
       "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+        "C:/Python314/python.exe",
         "-B",
         "wp/tests/a16/test_launcher.py"
       ],
@@ -68,8 +68,8 @@
     {
       "console": "cp1252",
       "environment": {
-        "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
-        "version": "3.14.7 (main, Sep  1 2026, 14:17:30) [MSC v.1944 64 bit (AMD64)]",
+        "executable": "C:\\Python314\\python.exe",
+        "version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
         "platform": "win32",
         "stdout": "cp1252",
         "stderr": "cp1252",
@@ -79,10 +79,10 @@
         "PYTHONIOENCODING": "cp1252"
       },
       "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+        "C:/Python314/python.exe",
         "-B",
         "wp/tests/a16/run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a16-integrated-green-20261126-0815\\cp1252"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a16-retouche-green-20261126\\cp1252"
       ],
       "exit_code": 0,
       "log": "cp1252-runner.log"
@@ -90,21 +90,10 @@
   ],
   "style": {
     "command": [
-      "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+      "C:/Python314/python.exe",
       "-B",
       "wp/tests/a16/style.py",
-      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a16-integrated-green-20261126-0815\\style"
-    ],
-    "exit_code": 0
-  },
-  "preparation": {
-    "command": [
-      "powershell.exe",
-      "-NoProfile",
-      "-ExecutionPolicy",
-      "Bypass",
-      "-File",
-      "wp/tests/preparer-image.ps1"
+      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a16-retouche-green-20261126\\style"
     ],
     "exit_code": 0
   }

@@ -59,7 +59,12 @@ function global:wsl.exe {
             if ($global:T01Mockcase -eq 'malformed') { return 'T01_RESULT {"tests":"unknown"}' }
             if ($global:T01Mockcase -eq 'fail') { $global:LASTEXITCODE = 1; return 'T01_RESULT {"tests":7,"assertions":19,"failures":2,"errors":1,"skipped":0,"pass":false}' }
             if ($global:T01Mockcase -eq 'skipped') { return 'T01_RESULT {"tests":7,"assertions":19,"failures":0,"errors":0,"skipped":1,"pass":true}' }
-            return 'T01_RESULT {"tests":7,"assertions":19,"failures":0,"errors":0,"skipped":0,"pass":true}'
+            if ($global:T01Mockcase -eq 'tool-fail') { $global:LASTEXITCODE = 1; return 'T01_RESULT {"tests":7,"assertions":19,"failures":0,"errors":0,"skipped":0,"tools":{"tools":2,"checks":5,"failures":1,"excluded":[]},"pass":false}' }
+            if ($global:T01Mockcase -eq 'tool-forged-pass') { return 'T01_RESULT {"tests":7,"assertions":19,"failures":0,"errors":0,"skipped":0,"tools":{"tools":2,"checks":5,"failures":1,"excluded":[]},"pass":true}' }
+            if ($global:T01Mockcase -eq 'tool-missing') { return 'T01_RESULT {"tests":7,"assertions":19,"failures":0,"errors":0,"skipped":0,"pass":true}' }
+            if ($global:T01Mockcase -eq 'tool-invalid') { return 'T01_RESULT {"tests":7,"assertions":19,"failures":0,"errors":0,"skipped":0,"tools":{"tools":2,"checks":"unknown","failures":0,"excluded":[]},"pass":true}' }
+            if ($global:T01Mockcase -eq 'tool-excluded') { return 'T01_RESULT {"tests":7,"assertions":19,"failures":0,"errors":0,"skipped":0,"tools":{"tools":2,"checks":5,"failures":0,"excluded":[{"lot":"a90","reason":"WordPress et base requis"}]},"pass":true}' }
+            return 'T01_RESULT {"tests":7,"assertions":19,"failures":0,"errors":0,"skipped":0,"tools":{"tools":2,"checks":5,"failures":0,"excluded":[]},"pass":true}'
         }
         'rm' {
             if (-not $global:T01Mockcreated) { throw 'Removal without ownership.' }

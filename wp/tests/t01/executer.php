@@ -189,6 +189,14 @@ try {
     $totals['errors']++;
     $pass = false;
 }
-$pass = $pass && $totals['tests'] > 0 && $totals['failures'] === 0 && $totals['errors'] === 0 && $totals['skipped'] === 0;
-echo 'T01_RESULT ' . json_encode($totals + ['pass' => $pass], JSON_THROW_ON_ERROR) . "\n";
+$toolTotals = ['tools' => 0, 'checks' => 0, 'failures' => 0, 'excluded' => []];
+try {
+    require_once __DIR__ . '/tools.php';
+    $toolTotals = runT01Tools('/repo/wp', '/tmp/t01-tools');
+} catch (Throwable $error) {
+    echo 'T01 TOOL ERROR : ' . $error->getMessage() . "\n";
+    $toolTotals['failures']++;
+}
+$pass = $pass && $totals['tests'] > 0 && $totals['failures'] === 0 && $totals['errors'] === 0 && $totals['skipped'] === 0 && $toolTotals['failures'] === 0;
+echo 'T01_RESULT ' . json_encode($totals + ['tools' => $toolTotals, 'pass' => $pass], JSON_THROW_ON_ERROR) . "\n";
 exit($pass ? 0 : 1);
