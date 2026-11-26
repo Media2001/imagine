@@ -47,13 +47,26 @@ def run(label):
     prefix = label[:-3]
     recorded = sources()
     closed = b06.hashes(['plugins/imagine-site/Confidentialite.php','plugins/imagine-site/Paywall.php'])
+    assert b06.wp('echo wp_json_encode([get_user_by("login","imagine-b06-fictif")===false,get_user_by("login","b06-editeur-fictif")===false]);') == [True, True], 'Fixture native résiduelle'
     before = b06.state()
     stages = []
     def stage(name):
         value = prefix+'-'+name+'-V2'; stages.append(value); return value
-    pure = rules(stage('rules'))
+    pure_label = stage('rules')
+    if not (b06.PROOF/(pure_label+'.json')).exists():
+        rules(pure_label)
+    else:
+        old = json.loads((b06.PROOF/(pure_label+'.json')).read_text(encoding='utf-8'))
+        assert old['exit']==0 and not old['failures'] and old['container_removed']
     for case in ['attribute','privacy','space']:
-        b06.runtime(stage(case),case)
+        name = stage(case)
+        path = b06.PROOF/(name+'.json')
+        if not path.exists():
+            b06.runtime(name,case)
+        else:
+            old=json.loads(path.read_text(encoding='utf-8'))
+            src=b06.ROOT/'wp/tests/demo'/('b06-space.php' if case=='space' else 'b06-runtime.php')
+            assert not old['exit'] and not old['failures'] and old['state_preserved'] and old['source_sha256']==hashlib.sha256(src.read_bytes()).hexdigest()
     mutations = {'page':('space','anonyme_page_sans_contenu'),
                  'rest':('space','anonyme_rest_sans_contenu'),
                  'search':('space','anonyme_recherche_exclut_espace'),
@@ -68,9 +81,12 @@ def run(label):
     mutation_records=[]
     for mutation,(case,expected) in mutations.items():
         name = stage('mutation-'+mutation.replace('_','-'))
-        try: b06.runtime(name,case,mutation)
-        except AssertionError: pass
+        if not (b06.PROOF/(name+'.json')).exists():
+            try: b06.runtime(name,case,mutation)
+            except AssertionError: pass
         r = json.loads((b06.PROOF/(name+'.json')).read_text(encoding='utf-8'))
+        src=b06.ROOT/'wp/tests/demo'/('b06-space.php' if case=='space' else 'b06-runtime.php')
+        assert r['source_sha256']==hashlib.sha256(src.read_bytes()).hexdigest()
         assert r['exit']==1 and expected in r['failures'] and r['state_preserved'] and not r['stderr'], (mutation,r['failures'])
         mutation_records.append({'receipt':name,'required_failure':expected})
     spec=importlib.util.spec_from_file_location('b06_http',Path(__file__).with_name('b06-http.py'))
