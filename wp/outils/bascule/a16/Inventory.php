@@ -53,8 +53,10 @@ final class Inventory
         $upload = get_option('upload_path', '');
         $base = $upload === '' ? $this->site . '/wp-content/uploads'
             : (str_starts_with($upload, '/') ? $upload : $this->site . '/' . $upload);
-        if (!str_starts_with($base . '/', $this->site . '/')
-            || preg_match('~(?:^|/)\.\.?(/|$)|[\x00-\x1f\\\\:]~', $base)) {
+        if (
+            !str_starts_with($base . '/', $this->site . '/')
+            || preg_match('~(?:^|/)\.\.?(/|$)|[\x00-\x1f\\\\:]~', $base)
+        ) {
             throw new \RuntimeException('A16_UPLOAD_PATH_UNSUPPORTED');
         }
         if ($relative === null || $relative === '') {
@@ -73,9 +75,11 @@ final class Inventory
     {
         Mapping::validate($m);
         $taxonomy = ($m['numero_source'] ?? 'post_type') === 'taxonomy';
-        if ($taxonomy && (!taxonomy_exists($m['numero_type'])
+        if (
+            $taxonomy && (!taxonomy_exists($m['numero_type'])
             || !is_object_in_taxonomy($m['article_type'], $m['numero_type'])
-            || $m['date_cle'] === 'post_date_gmt')) {
+            || $m['date_cle'] === 'post_date_gmt')
+        ) {
             throw new RuntimeRefusal('A16_MAPPING_KEY_ABSENT', ['key' => $m['numero_type']]);
         }
         foreach ([$m['article_type'], ...($taxonomy ? [] : [$m['numero_type']])] as $type) {
@@ -139,7 +143,8 @@ final class Inventory
                 ? array_map('intval', array_column($this->rows(
                     "SELECT DISTINCT t.term_id FROM {$this->db->term_relationships} r "
                     . "JOIN {$this->db->term_taxonomy} t ON t.term_taxonomy_id=r.term_taxonomy_id "
-                    . 'WHERE r.object_id=%d AND t.taxonomy=%s', [$id, $m['liaison']['cle']]
+                    . 'WHERE r.object_id=%d AND t.taxonomy=%s',
+                    [$id, $m['liaison']['cle']]
                 ), 'term_id'))
                 : [$m['liaison']['source'] === 'post_parent' ? (int) $a['post_parent']
                     : $this->canonical($this->value($id, $m['liaison']['cle']), $m['liaison']['cle'])];

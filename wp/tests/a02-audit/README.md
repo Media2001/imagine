@@ -66,3 +66,5 @@ Complément A-12 (registre natif, lecture seule) : python3 wp/outils/bascule/a12
 Conteneur Linux déconnecté + Landlock obligatoire ; types/taxos réellement enregistrés et comptes, jamais titres/valeurs ; rejeu dédié : python wp/tests/a12/run.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a12-rejeu-nouveau
 Complément A-15 (emails natifs, lecture seule) : python3 wp/outils/bascule/a15/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/emails-date
 Noms et oui/non uniquement, jamais destinataire/objet/corps ; conteneur déconnecté + Landlock, garde d'envoi éprouvée ; limites des services extérieurs et mode d'emploi : wp/outils/bascule/a15/README.md
+Complément A-16 (dix derniers numéros, lecture seule) : python3 wp/outils/bascule/a16/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --correspondance=/hors-web/correspondance.json --output=/hors-web/numeros-date
+Comptes et identifiants uniquement ; correspondance opérateur obligatoire, aucun rattachement ; confinement et limites : wp/outils/bascule/a16/README.md

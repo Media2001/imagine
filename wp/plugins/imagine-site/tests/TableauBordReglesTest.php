@@ -9,6 +9,34 @@ use PHPUnit\Framework\TestCase;
 
 final class TableauBordReglesTest extends TestCase
 {
+    public function testMeasureLabelsComeFromEachIndicatorIncludingDynamicMethods(): void
+    {
+        $data = ['abonnements' => array_map(static fn (string $mode): array =>
+            ['etat' => 'Actif', 'mode_paiement' => $mode], ['bacs', 'imagine_papier', '', 'paypal']),
+            'echeances' => [], 'echecs' => [], 'mouvements' => [], 'maintenant' => 1800000000];
+        foreach (TableauBordRegles::catalogue() as $id => $definition) {
+            self::assertArrayHasKey('libelles', $definition);
+            $metric = TableauBordRegles::calculer($id, $data);
+            self::assertSame(array_keys($metric['valeurs']), array_keys($metric['libelles']));
+            foreach ($metric['libelles'] as $label) {
+                self::assertIsString($label);
+                self::assertNotSame('', $label);
+            }
+        }
+        self::assertSame(['total' => 'Total', 'mode:bacs' => 'Virement', 'mode:imagine_papier' => 'Mandat papier',
+            'mode:inconnu' => 'Mode non renseigné', 'mode:paypal' => 'Mode natif : paypal'],
+            TableauBordRegles::calculer('actifs', $data)['libelles']);
+    }
+
+    public function testCatalogueIsMemoizedWithinRequest(): void
+    {
+        $first = TableauBordRegles::catalogue();
+        $second = TableauBordRegles::catalogue();
+        foreach ($first as $id => $definition) {
+            self::assertSame($definition['calcul'], $second[$id]['calcul'], 'Chaque fichier ne doit être exécuté qu’une fois.');
+        }
+    }
+
     public function testEntryUsesNativeCreationAsStandardNewSubscriptionsNotScheduleStart(): void
     {
         $now = strtotime('2026-11-26 12:00:00 UTC');

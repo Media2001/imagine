@@ -1,0 +1,6 @@
+{
+  "status": 200,
+  "expected": "Par moyen de paiement",
+  "present": false,
+  "grey_rows": 6
+}

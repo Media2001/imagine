@@ -6,6 +6,17 @@ use Imagine\Site\ExtractionsRegles;
 
 return [
     'titre' => 'Abonnés actifs — total et modes de paiement',
+    'libelles' => static function (array $values): array {
+        $labels = [];
+        foreach (array_keys($values) as $key) {
+            $labels[$key] = match ($key) {
+                'total' => 'Total', 'mode:inconnu' => 'Mode non renseigné',
+                'mode:bacs' => 'Virement', 'mode:imagine_papier' => 'Mandat papier',
+                default => 'Mode natif : ' . substr((string) $key, 5),
+            };
+        }
+        return $labels;
+    },
     'phrase' => 'Une ligne par abonnement dont l’état affiché est Actif dans C18 (Mon compte), pas une personne dédupliquée ni une décision d’accès ou de liste d’envoi C13. Total et répartition utilisent les mêmes lignes ; mode natif C15, vide = non renseigné, jamais déduit. Les autres états, dont la grâce, restent exclus comme dans le filtre Actif de C18.',
     'calcul' => static function (array $data): array {
         $rows = ExtractionsRegles::selectionner('etat', ['etat' => 'Actif'], $data['abonnements']);

@@ -78,12 +78,7 @@ final class TableauBordAdmin
                 echo '<section data-imagine-indicateur="' . esc_attr($id) . '"><h2>' . esc_html(self::t($metric['titre'])) . '</h2>';
                 echo '<table class="widefat striped"><thead><tr><th scope="col">' . esc_html(self::t('Mesure')) . '</th><th scope="col">' . esc_html(self::t('Nombre')) . '</th></tr></thead><tbody>';
                 foreach ($metric['valeurs'] as $key => $number) {
-                    $label = match ((string) $key) {
-                        'total' => 'Total', '30' => 'À un mois — 30 jours', '90' => 'À trois mois — 90 jours',
-                        '180' => 'À six mois — 180 jours', 'entrees' => 'Entrées — créations natives', 'sorties' => 'Sorties — fin native',
-                        'mode:inconnu' => 'Mode non renseigné', 'mode:bacs' => 'Virement', 'mode:imagine_papier' => 'Mandat papier',
-                        default => str_starts_with((string) $key, 'mode:') ? 'Mode natif : ' . substr((string) $key, 5) : (string) $key,
-                    };
+                    $label = $metric['libelles'][$key] ?? (string) $key;
                     echo '<tr><th scope="row">' . esc_html(self::t($label)) . '</th><td data-imagine-mesure="' . esc_attr((string) $key) . '">' . esc_html((string) $number) . '</td></tr>';
                 }
                 echo '</tbody></table><p>' . esc_html(self::t($metric['phrase'])) . '</p></section>';
@@ -94,6 +89,7 @@ final class TableauBordAdmin
         echo '<h2>' . esc_html(self::t('À venir — à discuter à l’atelier')) . '</h2><table class="widefat"><thead><tr><th scope="col">' . esc_html(self::t('Indicateur')) . '</th><th scope="col">' . esc_html(self::t('Ce qui manque')) . '</th></tr></thead><tbody>';
         $future = [
             'Par tarif' => 'Grille tarifaire non arrêtée.',
+            'Par moyen de paiement' => 'Distinction mode/moyen à arrêter à l’atelier.',
             'Taux de rétention annuel' => 'Définition à arrêter à l’atelier.',
             'Non-renouvellements et motifs déclarés' => 'Recueil des motifs et définition du suivi non raccordés.',
             'Passages de l’accès découverte à l’abonnement' => 'Lien de conversion non enregistré.',

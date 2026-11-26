@@ -10,7 +10,10 @@ final class Command
     {
         $o = [];
         foreach (array_slice($args, 1) as $arg) {
-            if (!preg_match('/\A--(wp-path|output|audit|correspondance|limit)=(.+)\z/D', $arg, $m) || isset($o[$m[1]])) {
+            if (
+                !preg_match('/\A--(wp-path|output|audit|correspondance|limit)=(.+)\z/D', $arg, $m)
+                || isset($o[$m[1]])
+            ) {
                 throw new \RuntimeException('A16_USAGE');
             }
             $o[$m[1]] = $m[2];
@@ -69,7 +72,8 @@ final class Command
         $json = json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n";
         $report['mapping_sha256'] = hash_file('sha256', $map);
         $json = json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n";
-        $markdown = "# Numeros — lecture seule\n\nComptes et identifiants uniquement ; aucun rattachement choisi.\n\n```json\n" . $json . "```\n";
+        $markdown = "# Numeros — lecture seule\n\n"
+            . "Comptes et identifiants uniquement ; aucun rattachement choisi.\n\n```json\n" . $json . "```\n";
         if (!mkdir($out, 0700)) {
             throw new \RuntimeException('A16_OUTPUT_CREATE');
         }

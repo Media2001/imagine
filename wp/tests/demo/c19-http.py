@@ -39,7 +39,8 @@ def run(label='http-final', browser=False):
     content = re.search(r'<div class="wrap" data-imagine-tableau>(.*?)</tbody></table></div>', page, re.S).group(1)
     checks['aucune_donnee_personnelle_dans_ecran'] = all(v not in content for v in ('@', 'Personnage', 'Fictif', 'data-abonnement', 'compte_id', 'Rue '))
     checks['aucun_formulaire_ni_script_ecran'] = '<form' not in content and '<script' not in content
-    checks['six_indicateurs_grises_sans_chiffre'] = len(re.findall('data-imagine-a-venir', content)) == 6 and len(re.findall('— à venir', content)) == 6 and 'color:#646970;background:#f0f0f1' in content
+    checks['sept_indicateurs_grises_sans_chiffre'] = len(re.findall('data-imagine-a-venir', content)) == 7 and len(re.findall('— à venir', content)) == 7 and 'color:#646970;background:#f0f0f1' in content
+    checks['moyen_paiement_grise_sans_formule'] = 'Par moyen de paiement' in content and 'Distinction mode/moyen à arrêter à l’atelier.' in content
     checks['prive_no_store'] = 'no-store' in headers.get('cache-control', '')
     checks['menu_sans_reglages'] = 'page=imagine-tableau-de-bord' in page and 'page=imagine-reglages' not in page
     for id, section in re.findall(r'<section data-imagine-indicateur="([^"]+)">(.*?)</section>', page, re.S):
@@ -90,7 +91,7 @@ def run(label='http-final', browser=False):
                 tab.locator('#adminmenu a[href="admin.php?page=imagine-tableau-de-bord"]').click()
                 tab.wait_for_load_state('networkidle')
                 checks['navigateur_vrai_menu_Imagine'] = tab.locator('[data-imagine-tableau] h1').inner_text() == 'Tableau de bord'
-                checks['navigateur_six_grises_visibles'] = tab.locator('[data-imagine-a-venir]').count() == 6
+                checks['navigateur_sept_grises_visibles'] = tab.locator('[data-imagine-a-venir]').count() == 7
                 checks['navigateur_quatre_tables_chiffrees'] = tab.locator('[data-imagine-indicateur] table').count() == 4
                 capture = 'tableau-de-bord-referent.png'
                 tab.screenshot(path=str(c19.PROOF / capture), full_page=True)

@@ -30,7 +30,8 @@ if ($checks['raccord_present']) {
     add_filter('pre_http_request', $http, PHP_INT_MAX);
     add_filter('pre_wp_mail', $mail, PHP_INT_MAX);
     try {
-        $out = TableauBordNatives::lire();
+        $now = time();
+        $out = TableauBordNatives::lire($now);
         $active = ExtractionsNatives::lire('etat', ['etat' => 'Actif']);
         $checks['actifs_egal_lignes_C18'] = $out['actifs']['valeurs']['total'] === count($active);
         foreach ($out['actifs']['valeurs'] as $key => $number) {
@@ -42,10 +43,9 @@ if ($checks['raccord_present']) {
                 $r['mode_paiement'] === ($mode === 'inconnu' ? '' : $mode)));
         }
         foreach ([30, 90, 180] as $days) {
-            $checks['echeances_' . $days . '_egal_lignes_C15'] = $out['echeances']['valeurs'][$days] === count(EcheancesNatives::lire('echeances', $days));
+            $checks['echeances_' . $days . '_egal_lignes_C15'] = $out['echeances']['valeurs'][$days] === count(EcheancesNatives::lire('echeances', $days, $now));
         }
         $checks['echecs_egal_lignes_C15'] = $out['echecs']['valeurs']['total'] === count(EcheancesNatives::lire('echecs', 30));
-        $now = time();
         $start = strtotime(gmdate('Y-m-01 00:00:00', $now) . ' UTC');
         $counts = ['entrees' => 0, 'sorties' => 0];
         foreach (wcs_get_subscriptions(['subscriptions_per_page' => -1, 'subscription_status' => 'any']) as $sub) {
@@ -59,7 +59,8 @@ if ($checks['raccord_present']) {
         $checks['sortie_sans_donnee_personnelle'] = true;
         foreach ($out as $metric) {
             $checks['sortie_sans_donnee_personnelle'] = $checks['sortie_sans_donnee_personnelle']
-                && array_keys($metric) === ['titre', 'phrase', 'valeurs']
+                && array_keys($metric) === ['titre', 'phrase', 'valeurs', 'libelles']
+                && array_keys($metric['libelles']) === array_keys($metric['valeurs'])
                 && count(array_filter($metric['valeurs'], 'is_int')) === count($metric['valeurs']);
         }
         $fixture = get_option('imagine_c09_fixture');

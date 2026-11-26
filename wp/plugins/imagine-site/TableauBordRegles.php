@@ -9,6 +9,10 @@ final class TableauBordRegles
 {
     public static function catalogue(): array
     {
+        static $out = null;
+        if ($out !== null) {
+            return $out;
+        }
         $out = [];
         foreach (glob(__DIR__ . '/indicateurs/*.php') as $path) {
             $out[basename($path, '.php')] = require $path;
@@ -22,7 +26,9 @@ final class TableauBordRegles
         if (!$definition) {
             throw new \InvalidArgumentException('Indicateur indisponible.');
         }
+        $values = ($definition['calcul'])($data);
+        $labels = $definition['libelles'] ?? [];
         return ['titre' => $definition['titre'], 'phrase' => $definition['phrase'],
-            'valeurs' => ($definition['calcul'])($data)];
+            'valeurs' => $values, 'libelles' => is_callable($labels) ? $labels($values) : $labels];
     }
 }

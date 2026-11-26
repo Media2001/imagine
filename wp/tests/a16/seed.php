@@ -31,7 +31,8 @@ foreach (['publish', 'draft', 'publish', 'publish'] as $i => $state) {
 $uploads = wp_upload_dir();
 $media = [];
 foreach (['present.pdf', 'missing.pdf', 'present.jpg', 'missing.jpg'] as $i => $file) {
-    $id = wp_insert_attachment(['post_status' => 'inherit', 'post_mime_type' => $i < 2 ? 'application/pdf' : 'image/jpeg',
+    $id = wp_insert_attachment(['post_status' => 'inherit',
+        'post_mime_type' => $i < 2 ? 'application/pdf' : 'image/jpeg',
         'post_title' => 'A16_MEDIA_PRIVATE_CANARY', 'post_parent' => $i < 2 ? 0 : $articles[0]]);
     add_post_meta($id, '_wp_attached_file', $file);
     if ($i % 2 === 0) {
@@ -54,4 +55,5 @@ for ($n = 0; $n < 3; $n++) {
 foreach (array_slice($articles, 0, 3) as $i => $aid) {
     wp_set_object_terms($aid, [$terms[$i < 2 ? 2 : 1]], 'a16_issue');
 }
-echo 'A16_JSON=' . json_encode(['issues' => $issues, 'terms' => $terms, 'articles' => $articles, 'media' => $media]) . "\n";
+echo 'A16_JSON=' . json_encode(['issues' => $issues, 'terms' => $terms,
+    'articles' => $articles, 'media' => $media]) . "\n";

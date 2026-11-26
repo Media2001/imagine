@@ -1,0 +1,11 @@
+{
+  "exit": 0,
+  "removed": true,
+  "selection": "TableauBordNativesTest",
+  "image": "sha256:9b2659c472b0f2bea56f8d089e65165f8ea406545eae5375d4c42f3c296b06f1",
+  "stdout": "PHPUnit 11.5.58 by Sebastian Bergmann and contributors.\n\nRuntime:       PHP 8.2.33\nConfiguration: /repo/wp/plugins/imagine-site/phpunit.xml\n\n..                                                                  2 / 2 (100%)\n\nTime: 00:01.061, Memory: 10.00 MB\n\nOK (2 tests, 12 assertions)\n\nC16_JUNIT\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<testsuites>\n  <testsuite name=\"/repo/wp/plugins/imagine-site/phpunit.xml\" tests=\"2\" assertions=\"12\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.912760\">\n    <testsuite name=\"Site-C11-C13\" tests=\"2\" assertions=\"12\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.912760\">\n      <testsuite name=\"Imagine\\Site\\Tests\\TableauBordNativesTest\" file=\"/repo/wp/plugins/imagine-site/tests/TableauBordNativesTest.php\" tests=\"2\" assertions=\"12\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.912760\">\n        <testcase name=\"testSharedInstantIncludesRowCrossing180DayBoundaryDuringRead\" file=\"/repo/wp/plugins/imagine-site/tests/TableauBordNativesTest.php\" line=\"23\" class=\"Imagine\\Site\\Tests\\TableauBordNativesTest\" classname=\"Imagine.Site.Tests.TableauBordNativesTest\" assertions=\"10\" time=\"0.382698\"/>\n        <testcase name=\"testDefaultDashboardCapturesClockOnceBeforeNativeReads\" file=\"/repo/wp/plugins/imagine-site/tests/TableauBordNativesTest.php\" line=\"38\" class=\"Imagine\\Site\\Tests\\TableauBordNativesTest\" classname=\"Imagine.Site.Tests.TableauBordNativesTest\" assertions=\"2\" time=\"0.530062\"/>\n      </testsuite>\n    </testsuite>\n  </testsuite>\n</testsuites>\n",
+  "stderr": "",
+  "network": "none",
+  "tests": 2,
+  "assertions": 12
+}
