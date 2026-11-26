@@ -1,0 +1,20 @@
+{
+  "source_manifest_verified": true,
+  "CSV_reopened": {
+    "extraction-1_localite.csv": 2,
+    "extraction-2_mode.csv": 1,
+    "extraction-3_mode.csv": 1,
+    "extraction-4_echeance.csv": 10,
+    "extraction-5_etat.csv": 4,
+    "extraction-6_etat.csv": 1,
+    "extraction-7_etat.csv": 1,
+    "extraction-8_etat.csv": 9,
+    "extraction-9_localite.csv": 16
+  },
+  "deliverables_sha256": {
+    "production/C-18/A-VOIR.md": "8d4a4d0c0b733b07de5add9cac489cede3ee4aa7b02e1ccde6edf6f24e2ff52a",
+    "production/C-18/PRET": "9611f8f0dade0ab5ad1bc9c17f7cbd74fbeac9bc04bba8bcf734eadbc40d3373",
+    "files/rapports/2026-11-26-02h04-V2.md": "963ff7fb227480cb391fb2ecd9ec0adbb6ba4a5ac0547a6ff1dff4de2a8684fc"
+  },
+  "PRET_technical_only": true
+}

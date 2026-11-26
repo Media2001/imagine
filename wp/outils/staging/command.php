@@ -11,6 +11,28 @@ require_once __DIR__ . '/runtime-probe.php';
 
 final class Command
 {
+    public static function diagnostic(\Throwable $error, string $phase): array
+    {
+        $file = str_replace('\\', '/', $error->getFile());
+        $relative = str_contains($file, '/wp-content/') ? explode('/wp-content/', $file, 2)[1] : null;
+        if ($relative !== null && (!preg_match('~^[a-zA-Z0-9_./-]{1,400}$~D', $relative)
+            || in_array('..', explode('/', $relative), true))) {
+            $relative = null;
+        }
+        $known = explode(' ', 'REFUS CONTEXTE_REFUSE RESEAU_REFUSE BASE_REFUSEE DECISIONS_AMBIGUES DECISIONS_INVALIDES DECISION_INVALIDE SCHEMA_INCOMPLET URL_ABSENTE OPTION_DUPLIQUEE SERIALISATION_REFUSEE SERIALISATION_INVALIDE OBJET_REFUSE STRUCTURE_REFUSEE SECRET_ADMIN_REFUSE ADMIN_DUPLIQUE ADMIN_NON_ECRIT ROLE_ADMIN_ABSENT CAPACITE_ADMIN_ABSENTE URL_NON_ECRITE URL_REFUSEE PRODUCTION_REFUSEE RACINE_HORS_LIGNE_REFUSEE LIEN_SYMBOLIQUE_REFUSE PURGE_ECHOUEE MU_REPERTOIRE_ECHOUE MU_ECRITURE_ECHOUEE ARCHIVE_IMPORT_OU_DROPIN_PRESENT MU_ABSENT_OU_MODIFIE IDENTIFIANT_SQL_REFUSE TABLE_NON_INVENTORIEE CAS_VIDE CAS_COLONNES CAS_ECHOUE INSERT_COLONNES');
+        $class = get_class($error);
+        $safeClass = preg_match('~^[a-zA-Z_][a-zA-Z0-9_\\\\]{0,150}$~D', $class) ? $class : 'Throwable';
+        $failure = ['stage' => 'native_' . (in_array($phase, ['neutraliser', 'anonymiser', 'verifier'], true) ? $phase : 'command'),
+            'code' => in_array($error->getMessage(), $known, true) ? $error->getMessage() : 'STAGING_REFUSE',
+            'php' => ['class' => $safeClass, 'file' => $relative, 'line' => $error->getLine()]];
+        if ($error instanceof \PDOException) {
+            $info = $error->errorInfo ?? [];
+            $failure['database'] = ['sqlstate' => isset($info[0]) && preg_match('/^[0-9A-Z]{5}$/D', (string) $info[0]) ? $info[0] : null,
+                'errno' => isset($info[1]) && is_numeric($info[1]) ? (int) $info[1] : null];
+        }
+        return $failure;
+    }
+
     public static function run(string $phase, array $args): int
     {
         ini_set('display_errors', '0');
@@ -76,9 +98,13 @@ final class Command
             }
             print("{\"ok\":true,\"scope\":\"offline-data-only\"}\n");
             return 0;
-        } catch (\Throwable) {
+        } catch (\Throwable $error) {
             // Pas de message d'exception, de chemin, d'adresse, d'argument, de secret ou de contenu de ligne.
-            print("{\"ok\":false,\"issues\":[\"STAGING_REFUSE\"]}\n");
+            $failure = self::diagnostic($error, $phase);
+            if (isset($worker['store']) && method_exists($worker['store'], 'failureCoordinate')) {
+                $failure['operation'] = $worker['store']->failureCoordinate();
+            }
+            print(json_encode(['ok' => false, 'issues' => [$failure['code']], 'failure' => $failure], JSON_THROW_ON_ERROR) . "\n");
             return 78;
         }
     }

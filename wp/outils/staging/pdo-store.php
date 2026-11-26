@@ -12,6 +12,12 @@ final class PdoStore implements Store
 {
     private array $tables = [];
     private array $details = [];
+    private array $coordinate = ['statement' => 'CONNECT', 'table' => null];
+
+    public function failureCoordinate(): array
+    {
+        return $this->coordinate;
+    }
     public function __construct(private PDO $pdo, array $context)
     {
         Guard::context($context);
@@ -34,9 +40,11 @@ final class PdoStore implements Store
     }
     public function schema(): array
     {
+        $this->coordinate = ['statement' => 'SHOW', 'table' => null];
         $out = [];
         $this->details = ['tables' => [], 'triggers' => [], 'events' => [], 'warnings' => []];
         foreach ($this->pdo->query('SHOW FULL TABLES')->fetchAll(PDO::FETCH_NUM) as [$name, $type]) {
+            $this->coordinate = ['statement' => 'SHOW', 'table' => preg_match('/^[a-zA-Z0-9_]{1,64}$/D', $name) ? $name : null];
             $statement = $this->pdo->prepare('SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ?');
             $statement->execute([$name]);
             $engine = (string) $statement->fetchColumn();
@@ -71,6 +79,7 @@ final class PdoStore implements Store
     }
     private function table(string $name): string
     {
+        $this->coordinate['table'] = preg_match('/^[a-zA-Z0-9_]{1,64}$/D', $name) ? $name : null;
         if (!isset($this->tables[$name])) {
             throw new RuntimeException('TABLE_NON_INVENTORIEE');
         }
@@ -78,6 +87,7 @@ final class PdoStore implements Store
     }
     public function rows(string $table): array
     {
+        $this->coordinate['statement'] = 'SELECT';
         return $this->pdo->query('SELECT * FROM ' . $this->table($table))->fetchAll(PDO::FETCH_ASSOC);
     }
     public function begin(): void
@@ -96,6 +106,7 @@ final class PdoStore implements Store
     }
     public function replace(string $table, array $before, ?array $after): void
     {
+        $this->coordinate['statement'] = $after === null ? 'DELETE' : 'UPDATE';
         if ($before === $after) {
             return;
         }
@@ -121,6 +132,7 @@ final class PdoStore implements Store
     }
     public function insert(string $table, array $row): int
     {
+        $this->coordinate['statement'] = 'INSERT';
         if (array_diff(array_keys($row), $this->tables[$table] ?? [])) {
             throw new RuntimeException('INSERT_COLONNES');
         }

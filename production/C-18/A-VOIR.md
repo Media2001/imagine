@@ -13,7 +13,7 @@ Seul site : **imagine-test-demo**, avec le compte fictif **e-abo**. Identifiants
 
 Le menu **Imagine → Extractions** affiche un nombre réel avant le bouton CSV. Les filtres sont conservés dans le formulaire ; aucune identité d’abonné n’est affichée dans l’aperçu ou le journal. Capture Chromium réelle : `extractions-referent.png`, contrôlée sans chevauchement visible ; ce n’est pas la validation visuelle de Ced.
 
-## Résultat réel du 26 novembre 2026, 01 h 59 CET
+## Résultat réel du 26 novembre 2026, 02 h 04 CET
 
 Neuf téléchargements HTTP ont été enregistrés **localement dans ce dossier de preuve**, puis rouverts avec `csv.DictReader` :
 

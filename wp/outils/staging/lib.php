@@ -730,8 +730,9 @@ final class Engine
                         $warnings[] = 'RUNTIME_' . strtoupper($check);
                     }
                 }
-            } catch (\Throwable) {
+            } catch (\Throwable $error) {
                 $issues[] = 'SONDE_RUNTIME_ECHOUEE';
+                $probeFailure = class_exists(Command::class) ? Command::diagnostic($error, 'verifier') : ['stage' => 'native_verifier', 'code' => 'SONDE_RUNTIME_ECHOUEE'];
             }
         }
         if ($probe !== null && !$issues) {
@@ -749,7 +750,7 @@ final class Engine
             'active_plugins' => is_array($plugins) ? array_values(array_filter($plugins, static fn (mixed $plugin): bool => is_string($plugin)
                 && !self::dangerous($plugin) && !str_contains($plugin, '@')
                 && (bool) preg_match('~^[a-zA-Z0-9_./-]+\.php$~D', $plugin))) : [],
-            'schema_details' => $schemaDetails, 'scope' => 'offline-data-only'];
+            'schema_details' => $schemaDetails, 'scope' => 'offline-data-only', 'failure' => $probeFailure ?? null];
     }
 
     private function checkUrls(): void

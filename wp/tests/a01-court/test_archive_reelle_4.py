@@ -49,6 +49,30 @@ class SQLCompatibility(unittest.TestCase):
         self.assertEqual([{'from':'utf8mb4_0900_ai_ci','to':'utf8mb4_unicode_520_ci'}], changes)
 
 
+    def test_closed_compatibility_accepts_settings_row_format_json_and_generated(self):
+        import diagnosis
+        from sql_stream import validate_file
+        ddl = (b"/*!40101 SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;"
+               b'CREATE TABLE `wp_options` (`option_name` varchar(100),`option_value` longtext) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;'
+               b'CREATE TABLE `wp_fiction_generated` (`id` bigint,`amount` int,`doubled` int GENERATED ALWAYS AS (`amount` + 1) STORED,`payload` JSON,KEY `pref` (`payload`(16))) ENGINE=InnoDB;')
+        with tempfile.TemporaryDirectory() as tmp:
+            src,dst=Path(tmp)/'src',Path(tmp)/'dst'; src.write_bytes(ddl)
+            plan=validate_file(src,diagnosis.parser_module(),dst)
+            self.assertIn(b'UTF8MB4_UNICODE_520_CI',dst.read_bytes())
+            self.assertTrue(plan['compatibility'])
+            self.assertEqual('NO_AUTO_VALUE_ON_ZERO',plan['source_sql_mode'])
+
+    def test_executable_object_is_explicitly_refused_not_executed(self):
+        import diagnosis
+        from sql_stream import validate_file
+        from archive import Refusal
+        with tempfile.TemporaryDirectory() as tmp:
+            src,dst=Path(tmp)/'src',Path(tmp)/'dst'
+            src.write_bytes(b'CREATE DEFINER=`fiction`@`localhost` VIEW `wp_view` AS SELECT 1;')
+            with self.assertRaisesRegex(Refusal,'SQL_EXECUTABLE_OBJECT_REFUSED'):
+                validate_file(src,diagnosis.parser_module(),dst)
+
+
 class DatabaseOnly(unittest.TestCase):
     def test_locator_reads_headers_and_sql_never_file_payloads(self):
         import io
@@ -67,7 +91,7 @@ class DatabaseOnly(unittest.TestCase):
                     raise AssertionError('non-database payload read')
         stream = Traced(data)
         where = database_only.locate_database(stream)
-        self.assertEqual(14, where['length'])
+        self.assertEqual(len(b'SELECT FICTION;'), where['length'])
         self.assertEqual(b'SELECT FICTION;', b''.join(database_only.database_chunks(stream, where)))
 
 

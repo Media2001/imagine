@@ -2,6 +2,7 @@
 import re
 from archive import Refusal
 from table_policy import Policy
+from sql_compat import compatible_tokens, unwrap_setting, mode_statement
 
 INSERT_HEAD = re.compile(rb"\s*(?:(?:--|\#)[^\n]*\n\s*)*INSERT\s+INTO\s+`([A-Za-z0-9_]+)`\s*", re.I)
 SKIP_MARK = re.compile(rb"['\"`\\;#/-]")
@@ -15,10 +16,10 @@ def binary_hex(literal):
     raw = re.sub(rb'\\(.)', lambda m: escapes.get(m[1], m[1]) if m[1] not in (b'%', b'_') else b'\\'+m[1], raw, flags=re.S)
     return '0x'+raw.hex() if raw else "X''"
 
-MAX_STATEMENT = 16 * 1024**2
+MAX_STATEMENT = 64 * 1024**2
 MARK = re.compile(rb"[;'\"`#]|--|/\*")
-QUOTED = {ord("'"): re.compile(rb"'(?:[^'\\]|\\.|'')*'", re.S),
-          ord('"'): re.compile(rb'"(?:[^"\\]|\\.|"")*"', re.S),
+QUOTED = {ord("'"): re.compile(rb"'(?:[^'\\]+|\\.|'')*'", re.S),
+          ord('"'): re.compile(rb'"(?:[^"\\]+|\\.|"")*"', re.S),
           ord('`'): re.compile(rb'`[^`]*`')}
 
 
@@ -129,7 +130,7 @@ class Framer:
 
 
 def canonical(tokens):
-    values = [v.upper() if k == 'word' else v for k, v in tokens]
+    values = [v.upper() if k == 'word' else v.replace('\r', r'\r').replace('\n', r'\n').replace('\0', r'\0') if k=='string' else v for k, v in tokens]
     statement = ' '.join(values)
     if values[:2] == ['CREATE', 'TABLE']:
         statement = re.sub(r'(\) ENGINE = (?:INNODB|MYISAM|ARIA|MEMORY)) AUTO_INCREMENT = ([0-9]+) (DEFAULT CHARSET = [A-Z0-9_]+(?: COLLATE = [A-Z0-9_]+)?)$', r'\1 \3 AUTO_INCREMENT = \2', statement)
@@ -147,6 +148,8 @@ class Validator:
         self.transaction = False
         self.statements = self.bytes = 0
         self.skipped_inserts = 0
+        self.compatibility = []
+        self.source_sql_mode = None
         from diagnosis import catalogue
         self.policy = Policy(catalogue(), decisions)
 
@@ -168,11 +171,17 @@ class Validator:
 
     def error(self, code, **schema):
         if self.findings is None:
-            raise Refusal(code)
+            raise Refusal(code, schema or getattr(self, 'current_coordinate', None))
         self.findings.add(code, **schema)
 
     def statement(self, payload):
         self.bytes += len(payload); self.statements += 1
+        payload = unwrap_setting(payload)
+        from diagnostics import statement_coordinate
+        self.current_coordinate = statement_coordinate(payload[:4096])
+        if re.match(rb'\s*(?:CREATE\s+(?:DEFINER|VIEW|TRIGGER|PROCEDURE|FUNCTION|EVENT)|DELIMITER)\b', payload, re.I):
+            self.error('SQL_EXECUTABLE_OBJECT_REFUSED')
+            return
         text = payload.decode('utf-8', 'surrogateescape')
         tokens, pos = [], 0
         while pos < len(text):
@@ -186,7 +195,7 @@ class Validator:
                 tokens.append(('hex', hexadecimal[0]))
                 pos = hexadecimal.end()
                 continue
-            match = self.module.TOKEN.match(text, pos)
+            match = re.compile(self.module.TOKEN.pattern.replace(r"[^'\\]", r"[^'\\]+"), re.S).match(text, pos)
             if not match:
                 self.error('SQL_GRAMMAR')
                 if self.findings:
@@ -201,8 +210,16 @@ class Validator:
             pos = match.end()
         if not tokens:
             return
+        tokens, changes = compatible_tokens(tokens)
+        for change in changes:
+            if change not in self.compatibility: self.compatibility.append(change)
         values = [v.upper() if k == 'word' else v for k, v in tokens]
         sql = canonical(tokens)
+        mode = mode_statement(tokens)
+        if mode is not None:
+            self.source_sql_mode = mode
+            if self.sink: self.sink.write(sql.encode())
+            return
         if values in (['START', 'TRANSACTION'], ['COMMIT']):
             starting = values == ['START', 'TRANSACTION']
             if starting == self.transaction:
@@ -214,7 +231,12 @@ class Validator:
         try:
             # Legacy closed grammar validates statement structure using inert
             # stand-ins only for the literal forms already lexed above.
-            checked = canonical([('string', "'BLOB'") if k == 'hex' else (k, v) for k, v in tokens])
+            checked = canonical([('string', "'BLOB'") if k in ('hex','string') else (k, v) for k, v in tokens])
+            if values[:2] == ['CREATE','TABLE']:
+                self.module.CREATE_WORDS.update({'GENERATED','ALWAYS','AS','STORED','VIRTUAL','PERSISTENT','CHECK','JSON_VALID'})
+                # Closed storage option; retain actual syntax in output while
+                # adapting the older shared parser's suffix only in memory.
+                checked = re.sub(r' ROW_FORMAT = (?:DYNAMIC|COMPACT|REDUNDANT|COMPRESSED|FIXED|DEFAULT)(?=\s*;)', '', checked)
             self.module.sql_plan(checked.encode(), table_engines={'INNODB', 'MYISAM', 'ARIA', 'MEMORY'})
         except self.module.Refusal as exc:
             if str(exc) not in ('SQL_PREFIX', 'SQL_TABLE'):
@@ -293,6 +315,7 @@ class Validator:
         decisions = {table: self.policy.resolve(table, self.prefix)[0] for table in self.schemas
                      if (table[len(self.prefix):] if self.prefix else '') not in self.policy.known}
         return {'prefix': self.prefix, 'table_engines': self.engines, 'statements_count': self.statements,
+                'compatibility':self.compatibility, 'source_sql_mode':self.source_sql_mode,
                 'table_decisions': decisions, 'skipped_inserts': self.skipped_inserts,
                 'table_policy_version': self.policy.data['version']}
 

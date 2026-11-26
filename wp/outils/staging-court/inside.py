@@ -250,7 +250,8 @@ FAILURE_STAGES = {
         'SQL_ENCODING', 'SQL_GRAMMAR', 'SQL_TERMINATOR', 'SQL_IDENTIFIER', 'SQL_TABLE',
         'SQL_DDL', 'SQL_DDL_UNSUPPORTED', 'SQL_INSERT', 'SQL_INSERT_LITERAL',
         'SQL_STATEMENT', 'SQL_PREFIX', 'SQL_STATEMENT_LIMIT', 'SQL_INSERT_COLUMN_COUNT', 'SQL_TRANSACTION',
-        'SQL_INSERT_FRAMING', 'TABLE_POLICY_REFUSED', 'DECISION_INVALIDE', 'TABLE_PERSONNELLE_A_TRANCHER')},
+        'SQL_INSERT_FRAMING', 'TABLE_POLICY_REFUSED', 'DECISION_INVALIDE', 'TABLE_PERSONNELLE_A_TRANCHER',
+        'SQL_COLLATION_UNSUPPORTED', 'SQL_MODE_UNSUPPORTED', 'SQL_EXECUTABLE_OBJECT_REFUSED')},
     **{code: 'request_validation' for code in (
         'FRESH_SITE_REQUIRED', 'TARGET_REFUSED', 'DECISIONS_REFUSED', 'ADMIN_PASSWORD_REFUSED', 'REQUEST_LIMIT')},
     **{code: 'isolation' for code in ('NETWORK_REFUSED', 'LISTENER_REFUSED')},
@@ -280,7 +281,7 @@ def failure_receipt(exc):
             code = 'IMPORT_REFUSED'
         receipt = {'status': 'refused', 'data_verified': False, 'issues': [code],
                    'failure': {'stage': FAILURE_STAGES.get(code, 'offline_restore'), 'code': code}}
-        if code in ARCHIVE_REFUSALS and isinstance(exc, Refusal) and exc.detail is not None:
+        if isinstance(exc, Refusal) and exc.detail is not None and code != 'IMPORT_REFUSED':
             receipt['failure']['detail'] = exc.detail
         if code in ('SOURCE_CORE_VERSION_MISMATCH', 'PINNED_CORE_EXPECTED_VERSION_MISMATCH'):
             receipt['core_versions'] = exc.core_versions
@@ -305,8 +306,7 @@ def main():
             output['issues'] = ['PUBLICATION_AND_UPDATE_EGRESS_NOT_IMPLEMENTED']
             output['full_staging_ready'] = False
     except Exception as exc:
-        tag = str(exc)
-        output['issues'] = [tag if re.fullmatch(r'[A-Z0-9_]{1,80}', tag) else 'IMPORT_REFUSED']
+        output = failure_receipt(exc)
     finally:
         if process:
             command(['mariadb-admin', '--socket=' + SOCKET, '--user=root', 'shutdown'], check=False)
