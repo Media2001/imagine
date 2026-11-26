@@ -1,0 +1,16 @@
+{
+  "wp/tests/a11/inside.py": "be442fae82bfa25f97071b3718c0d6238c8886a1f62961e418da367f862114db",
+  "wp/tests/a11/oracle.php": "ff4b40d89ba37b3e8b5ef4fd55fd5ffc24190173ae228456f03b94400fe1f6ee",
+  "wp/tests/a11/readonly-probe.php": "02bbf78dd291b966359afafe33d4b679ef5631a94d67bf3ce40cf519e74f5224",
+  "wp/tests/a11/run.py": "28c42610a1783bb1db0ba74bba11c518b0f3a1a99a142c4985f0250c7fa47ce0",
+  "wp/tests/a11/seed.php": "f195e70b77c83702fdd38ed7c54c2078f57f0d2dcf70b52ce6c34cec8396f5e9",
+  "wp/tests/a11/unit.php": "4922a86602e6b54a886fca6cbcc8010b9323d0b46899b918451484dca67a6083",
+  "wp/tests/a11/verifier.py": "e3dd6149dfc5f494d1c46f1a2bc40013529162660493f78a83d3a30c8613fe19",
+  "wp/outils/bascule/a11/Address.php": "d71f4339f7501ff86ef2146204612258e737ab841aef6fa5aac4bf4d59d11eaf",
+  "wp/outils/bascule/a11/Command.php": "64109bc4b93fdbd0d0e5730dbc95d5d22208dc00285a2c97f29edb7e272f53a8",
+  "wp/outils/bascule/a11/inventorier-adresses": "36327e7f1729beff41ccbb124ac1799737b0a9e4e9cb395a35a55f17635a2ee7",
+  "wp/outils/bascule/a11/Inventory.php": "43fe9c02cf25a8c8fa69b4abed02aacd680bda232120d6cfd59a4c8283efd49f",
+  "wp/outils/bascule/a11/README.md": "932817ae138b50404b98afec728710c048c33852e6cc53d15c5b782deaa2b198",
+  "wp/outils/bascule/a11/ReadOnlyDb.php": "b61650b4efd9826ad2196afda1548e77b829bcd2e4648566437fe49b8a72ce38",
+  "wp/outils/bascule/a11/Runtime.php": "e8ae75fdf5a31f37ec3996418e7d5be0ac21e424b54d31079dc60260b1c4071a"
+}

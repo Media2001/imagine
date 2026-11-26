@@ -9,6 +9,21 @@ use PHPUnit\Framework\TestCase;
 
 final class TableauBordReglesTest extends TestCase
 {
+    public function testEmptySourcesGiveRealZerosAndUnknownIndicatorIsRefused(): void
+    {
+        $data = ['abonnements' => [], 'echeances' => [], 'echecs' => [], 'mouvements' => [], 'maintenant' => 1800000000];
+        self::assertCount(4, TableauBordRegles::catalogue());
+        foreach (array_keys(TableauBordRegles::catalogue()) as $id) {
+            $r = TableauBordRegles::calculer($id, $data);
+            self::assertNotEmpty($r['phrase']);
+            foreach ($r['valeurs'] as $value) {
+                self::assertSame(0, $value);
+            }
+        }
+        $this->expectException(\InvalidArgumentException::class);
+        TableauBordRegles::calculer('../secret', $data);
+    }
+
     public function testMonthCountsNativeDatesWithoutInventingTransitions(): void
     {
         self::assertArrayHasKey('mouvements', TableauBordRegles::catalogue());

@@ -1,0 +1,57 @@
+{
+  "checks": {
+    "raccord_present": true,
+    "actifs_egal_lignes_C18": true,
+    "mode_inconnu_egal_lignes_C18": true,
+    "mode_imagine_papier_egal_lignes_C18": true,
+    "echeances_30_egal_lignes_C15": true,
+    "echeances_90_egal_lignes_C15": true,
+    "echeances_180_egal_lignes_C15": true,
+    "echecs_egal_lignes_C15": true,
+    "mouvements_egal_lignes_dates_natives": true,
+    "quatre_indicateurs": true,
+    "sortie_sans_donnee_personnelle": true,
+    "droit_dedie_sans_droit_global": true,
+    "rendu_tableau_simple": true,
+    "aucun_formulaire": true,
+    "capacite_revoquee_refuse": true,
+    "aucune_ecriture_SQL": true,
+    "aucun_appel_sortant": true
+  },
+  "indicateurs": {
+    "actifs": {
+      "titre": "Abonnés actifs — total et modes de paiement",
+      "phrase": "Une ligne par abonnement dont l’état affiché est Actif dans C18 (Mon compte), pas une personne dédupliquée ni une décision d’accès ou de liste d’envoi C13. Total et répartition utilisent les mêmes lignes ; mode natif C15, vide = non renseigné, jamais déduit. Les autres états, dont la grâce, restent exclus comme dans le filtre Actif de C18.",
+      "valeurs": {
+        "total": 9,
+        "mode:inconnu": 8,
+        "mode:imagine_papier": 1
+      }
+    },
+    "echeances": {
+      "titre": "Abonnements arrivant à échéance",
+      "phrase": "Nombre de lignes de la vue Échéances C15 à 30, 90 et 180 jours (ses fenêtres pour un, trois et six mois), cumulatives, pas des mois calendaires. Même règle C15 : états active, pending-cancel, on-hold ou pending, première date future entre prochain paiement et fin, bornes incluses. C18 filtre des jours UTC entiers tous états, et peut donc donner un autre nombre.",
+      "valeurs": {
+        "30": 11,
+        "90": 13,
+        "180": 13
+      }
+    },
+    "echecs": {
+      "titre": "Paiements échoués en cours",
+      "phrase": "Nombre de commandes natives liées à un abonnement du même titulaire, parent ou renouvellement, dans la vue Paiements échoués C15 : statut failed, non payées et sans date de paiement. Une commande compte une fois, pas un abonné ; aucun échec bancaire ni retard n’est déduit.",
+      "valeurs": {
+        "total": 2
+      }
+    },
+    "mouvements": {
+      "titre": "Entrées et sorties du mois civil UTC — dates natives",
+      "phrase": "Du premier jour du mois civil UTC à maintenant inclus : entrées = lignes dont la date de début native est dans la période, tous états, y compris en attente ; sorties = lignes terminées (cancelled ou expired) dont la fin native est dans la période. Dates absentes et fins futures exclues. Ce relevé des dates n’est ni une preuve de paiement ni un historique des activations, réactivations ou suspensions ; C18 n’extrait pas ces dates. Aucun taux de rétention ni motif n’en est déduit.",
+      "valeurs": {
+        "entrees": 2,
+        "sorties": 1
+      }
+    }
+  },
+  "native_unchanged": true
+}

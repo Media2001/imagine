@@ -1,3 +1,5 @@
-PRETf77a1fcd8945
-Reception integree ; preuves synthetiques uniquement ; preparation image parent code 0.
-Controle : python -B production/A-10/verifier-reception.py
+PRET8b3b9bdcf308
+A-11 corrections 26 novembre, C1/C2 et refus nommes prouves.
+Manifeste SHA-256 : c0c8ef89eb97bd3e966deff05a3b75844f5e2717c1d6c820a735879b8c694fdf
+Controle : python wp/tests/a11/verifier.py production/A-11/preuves/8b3b9bdcf308
+Aucun GO reel.

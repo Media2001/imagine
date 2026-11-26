@@ -76,6 +76,11 @@ require_once __DIR__ . '/ExtractionsNatives.php';
 require_once __DIR__ . '/ExtractionsAdmin.php';
 ExtractionsAdmin::register();
 
+require_once __DIR__ . '/TableauBordRegles.php';
+require_once __DIR__ . '/TableauBordNatives.php';
+require_once __DIR__ . '/TableauBordAdmin.php';
+TableauBordAdmin::register();
+
 require_once __DIR__ . '/MonCompte.php';
 MonCompte::register();
 

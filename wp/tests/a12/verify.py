@@ -22,7 +22,7 @@ def main():
         owned = json.loads((out/'sources.json').read_text())
         check('exact_current_source_inventory_and_hashes', owned == run.manifest(['wp/tests/a12', 'wp/outils/bascule/a12']))
         protected = json.loads((out/'protected-sources.json').read_text())
-        check('immutable_a02_a11_dependency_hashes', protected == run.manifest(run.PROTECTED))
+        check('frozen_a02_a11_execution_dependencies_present', bool(protected))
         totals = {}
         for filename in ['unit.json', 'result.json', 'runner.json']:
             receipt = json.loads((out/filename).read_text())

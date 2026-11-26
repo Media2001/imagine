@@ -71,6 +71,17 @@ if ($checks['raccord_present']) {
         $html = ob_get_clean();
         $checks['rendu_tableau_simple'] = str_contains($html, 'data-imagine-indicateur="actifs"') && !str_contains($html, '<script');
         $checks['aucun_formulaire'] = !str_contains($html, '<form');
+        $fault = static function (string $sql): never { throw new \RuntimeException('Source indisponible simulée.'); };
+        add_filter('query', $fault, PHP_INT_MAX);
+        try {
+            ob_start();
+            TableauBordAdmin::page();
+            $unavailable = ob_get_clean();
+            $checks['source_absente_pas_de_faux_zero'] = str_contains($unavailable, 'Indicateurs indisponibles')
+                && !str_contains($unavailable, 'data-imagine-mesure=');
+        } finally {
+            remove_filter('query', $fault, PHP_INT_MAX);
+        }
         $deny = static function (array $caps): array { $caps['imagine_referent_abonnements'] = false; return $caps; };
         add_filter('user_has_cap', $deny, PHP_INT_MAX);
         $checks['capacite_revoquee_refuse'] = !TableauBordAdmin::autorise();

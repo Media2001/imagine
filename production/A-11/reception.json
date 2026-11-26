@@ -1,13 +1,25 @@
 {
-  "schema": "imagine-integrated-reception-v1",
-  "lot": "A-11",
-  "at_utc": "2026-11-25T23:54:53.004966+00:00",
   "status": "PRET",
-  "readiness": true,
-  "parent_preparation_verified": true,
-  "shared_readme_verified": true,
-  "common_receipt": "production/A-10/reception-common.json",
-  "common_receipt_sha256": "c36cfe0d41e251d3f51df99b7675aa8838bd59b4c6bfbd7d997b4238c6f6bbde",
-  "unmet_requirements": [],
-  "verification": "production/A-11/verification.json"
+  "corrections": "C1,C2,3,4; refus nommes",
+  "verification": {
+    "verified": true,
+    "unit_checks": 19,
+    "native_checks": 300,
+    "runner_checks": 7,
+    "source_files": 14,
+    "counts": {
+      "classic-pretty": 25,
+      "classic-plain": 26,
+      "classic-subdir": 25,
+      "classic-attachments-disabled": 22,
+      "classic-static-front": 24,
+      "hpos-pretty": 25,
+      "hpos-plain": 26,
+      "hpos-subdir": 25,
+      "hpos-attachments-disabled": 22,
+      "hpos-static-front": 24
+    },
+    "packet": "C:\\Users\\Ced\\imagine\\production\\A-11\\preuves\\8b3b9bdcf308",
+    "runner_sha256": "c66bd0870a1b92a1d8687c02f016e910859fea2bd7bbc6273eb10f444fbbb546"
+  }
 }

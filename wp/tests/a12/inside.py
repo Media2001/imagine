@@ -172,7 +172,7 @@ if (getenv('A12_CONFINED') === '1') {
         b.check(storage+':missing_media_not_invented_size', bad.returncode == 0 and variant['attachments']['missing_files'] == 1 and next(x for x in variant['attachments']['by_mime'] if x['mime'] == 'application/pdf')['bytes'] == 28)
         pdfpath.symlink_to(held)
         bad = inventory(site, OUT/(storage+'-symlink-media'), auditdir/'audit.json')
-        b.check(storage+':guard:symlink_media', bad.returncode == 1 and bad.stderr == 'A11_SYMLINK_UNSUPPORTED\n' and not (OUT/(storage+'-symlink-media')).exists())
+        b.check(storage+':guard:symlink_media', bad.returncode == 1 and bad.stderr == 'A11_SYMLINK_UNSUPPORTED '+json.dumps({'file':pdfpath.relative_to(site).as_posix()},separators=(',',':'))+'\n' and not (OUT/(storage+'-symlink-media')).exists())
     finally:
         if pdfpath.is_symlink():
             pdfpath.unlink()
@@ -194,14 +194,14 @@ if (getenv('A12_CONFINED') === '1') {
         (site/'wp-config.php').write_text(config + "\ndefine('"+constant+"', '/forbidden-layout');\n")
         try:
             bad = inventory(site, OUT/(storage+'-layout-'+constant.lower()), auditdir/'audit.json')
-            b.check(storage+':guard:layout:'+constant, bad.returncode == 1 and bad.stderr == 'A12_CUSTOM_LAYOUT_UNSUPPORTED\n')
+            b.check(storage+':guard:layout:'+constant, bad.returncode == 1 and bad.stderr == 'A11_CONFIG_OVERRIDE_UNSUPPORTED '+json.dumps({'constant':constant},separators=(',',':'))+'\n')
         finally:
             (site/'wp-config.php').write_text(config)
     dropin = site/'wp-content/object-cache.php'
     dropin.write_text("<?php throw new RuntimeException('A12_NEVER_EXECUTE_DROPIN');")
     try:
         bad = inventory(site, OUT/(storage+'-dropin'), auditdir/'audit.json')
-        b.check(storage+':guard:dropin_before_execution', bad.returncode == 1 and bad.stderr == 'A11_DROPIN_UNSUPPORTED\n')
+        b.check(storage+':guard:dropin_before_execution', bad.returncode == 1 and bad.stderr == 'A11_DROPIN_UNSUPPORTED '+json.dumps({'file':'wp-content/object-cache.php'},separators=(',',':'))+'\n')
     finally:
         dropin.unlink()
     after = b.fingerprint(db)

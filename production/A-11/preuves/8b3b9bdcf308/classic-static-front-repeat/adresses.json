@@ -1,0 +1,366 @@
+{
+    "schema": "imagine-a11-public-addresses-v1",
+    "read_only": true,
+    "total": 24,
+    "par_nature": {
+        "archive d'auteur": 2,
+        "archive de type de contenu": 3,
+        "article": 3,
+        "page": 3,
+        "pièce jointe": 3,
+        "produit": 1,
+        "terme de taxonomie": 11
+    },
+    "exclus": {
+        "draft": 1,
+        "private": 1,
+        "password": 1,
+        "attachment_parent_not_public": 1,
+        "attachment_pages_disabled": 0
+    },
+    "autres_etats_non_listes": [],
+    "permaliens": {
+        "structure": "/%category%/%postname%/",
+        "base_categories": "rubriques",
+        "base_etiquettes": "mots",
+        "woocommerce": {
+            "product_base": "/boutique/%product_cat%",
+            "category_base": "familles",
+            "tag_base": "etiquettes",
+            "attribute_base": "attributs",
+            "use_verbose_page_rules": false,
+            "product_rewrite_slug": "/boutique/%product_cat%",
+            "category_rewrite_slug": "familles",
+            "tag_rewrite_slug": "etiquettes",
+            "attribute_rewrite_slug": "attributs"
+        }
+    },
+    "native_guards": {
+        "http": 0,
+        "mail": 0,
+        "scheduled": 0
+    },
+    "adresses": [
+        {
+            "ancienne": "/",
+            "nature": "page",
+            "type_contenu": "page",
+            "etat_publication": "publish",
+            "derniere_modification_utc": "2025-02-03T12:00:00Z",
+            "contextes": [
+                {
+                    "nature": "page",
+                    "type_contenu": "page"
+                }
+            ]
+        },
+        {
+            "ancienne": "/?attachment_id=37",
+            "nature": "pièce jointe",
+            "type_contenu": "attachment",
+            "etat_publication": "inherit",
+            "derniere_modification_utc": "2026-11-26T01:33:40Z",
+            "contextes": [
+                {
+                    "nature": "pièce jointe",
+                    "type_contenu": "attachment"
+                }
+            ]
+        },
+        {
+            "ancienne": "/a11-category/a11-article/",
+            "nature": "article",
+            "type_contenu": "post",
+            "etat_publication": "publish",
+            "derniere_modification_utc": "2025-02-03T12:00:00Z",
+            "contextes": [
+                {
+                    "nature": "article",
+                    "type_contenu": "post"
+                }
+            ]
+        },
+        {
+            "ancienne": "/a11-category/a11-article/attachment/a11-attachment/",
+            "nature": "pièce jointe",
+            "type_contenu": "attachment",
+            "etat_publication": "inherit",
+            "derniere_modification_utc": "2026-11-26T01:33:40Z",
+            "contextes": [
+                {
+                    "nature": "pièce jointe",
+                    "type_contenu": "attachment"
+                }
+            ]
+        },
+        {
+            "ancienne": "/a11-parent/a11-child/",
+            "nature": "page",
+            "type_contenu": "page",
+            "etat_publication": "publish",
+            "derniere_modification_utc": "2025-02-03T12:00:00Z",
+            "contextes": [
+                {
+                    "nature": "page",
+                    "type_contenu": "page"
+                },
+                {
+                    "nature": "archive de type de contenu",
+                    "type_contenu": "post"
+                }
+            ]
+        },
+        {
+            "ancienne": "/a11-shop/",
+            "nature": "page",
+            "type_contenu": "page",
+            "etat_publication": "publish",
+            "derniere_modification_utc": "2025-02-03T12:00:00Z",
+            "contextes": [
+                {
+                    "nature": "page",
+                    "type_contenu": "page"
+                },
+                {
+                    "nature": "archive de type de contenu",
+                    "type_contenu": "product"
+                }
+            ]
+        },
+        {
+            "ancienne": "/a11-unattached/",
+            "nature": "pièce jointe",
+            "type_contenu": "attachment",
+            "etat_publication": "inherit",
+            "derniere_modification_utc": "2026-11-26T01:33:40Z",
+            "contextes": [
+                {
+                    "nature": "pièce jointe",
+                    "type_contenu": "attachment"
+                }
+            ]
+        },
+        {
+            "ancienne": "/author/a11-product-writer/",
+            "nature": "archive d'auteur",
+            "type_contenu": "author",
+            "etat_publication": "public",
+            "derniere_modification_utc": null,
+            "contextes": [
+                {
+                    "nature": "archive d'auteur",
+                    "type_contenu": "author"
+                }
+            ]
+        },
+        {
+            "ancienne": "/author/a11-writer/",
+            "nature": "archive d'auteur",
+            "type_contenu": "author",
+            "etat_publication": "public",
+            "derniere_modification_utc": null,
+            "contextes": [
+                {
+                    "nature": "archive d'auteur",
+                    "type_contenu": "author"
+                }
+            ]
+        },
+        {
+            "ancienne": "/boutique/a11-product_cat/a11-product/",
+            "nature": "produit",
+            "type_contenu": "product",
+            "etat_publication": "publish",
+            "derniere_modification_utc": "2026-11-26T01:33:40Z",
+            "contextes": [
+                {
+                    "nature": "produit",
+                    "type_contenu": "product"
+                }
+            ]
+        },
+        {
+            "ancienne": "/etiquettes/a11-empty-product_tag/",
+            "nature": "terme de taxonomie",
+            "type_contenu": "product_tag",
+            "etat_publication": "public",
+            "derniere_modification_utc": null,
+            "contextes": [
+                {
+                    "nature": "terme de taxonomie",
+                    "type_contenu": "product_tag"
+                }
+            ]
+        },
+        {
+            "ancienne": "/etiquettes/a11-product_tag/",
+            "nature": "terme de taxonomie",
+            "type_contenu": "product_tag",
+            "etat_publication": "public",
+            "derniere_modification_utc": null,
+            "contextes": [
+                {
+                    "nature": "terme de taxonomie",
+                    "type_contenu": "product_tag"
+                }
+            ]
+        },
+        {
+            "ancienne": "/familles/a11-empty-product_cat/",
+            "nature": "terme de taxonomie",
+            "type_contenu": "product_cat",
+            "etat_publication": "public",
+            "derniere_modification_utc": null,
+            "contextes": [
+                {
+                    "nature": "terme de taxonomie",
+                    "type_contenu": "product_cat"
+                }
+            ]
+        },
+        {
+            "ancienne": "/familles/a11-product_cat/",
+            "nature": "terme de taxonomie",
+            "type_contenu": "product_cat",
+            "etat_publication": "public",
+            "derniere_modification_utc": null,
+            "contextes": [
+                {
+                    "nature": "terme de taxonomie",
+                    "type_contenu": "product_cat"
+                }
+            ]
+        },
+        {
+            "ancienne": "/histoires/",
+            "nature": "archive de type de contenu",
+            "type_contenu": "a11_story",
+            "etat_publication": "public",
+            "derniere_modification_utc": null,
+            "contextes": [
+                {
+                    "nature": "archive de type de contenu",
+                    "type_contenu": "a11_story"
+                }
+            ]
+        },
+        {
+            "ancienne": "/histoires/a11-story/?edition=a%2fb+z&host=a02.synthetic.test&ssl=yes",
+            "nature": "article",
+            "type_contenu": "a11_story",
+            "etat_publication": "publish",
+            "derniere_modification_utc": "2025-02-03T12:00:00Z",
+            "contextes": [
+                {
+                    "nature": "article",
+                    "type_contenu": "a11_story"
+                }
+            ]
+        },
+        {
+            "ancienne": "/mots/a11-empty-post_tag/",
+            "nature": "terme de taxonomie",
+            "type_contenu": "post_tag",
+            "etat_publication": "public",
+            "derniere_modification_utc": null,
+            "contextes": [
+                {
+                    "nature": "terme de taxonomie",
+                    "type_contenu": "post_tag"
+                }
+            ]
+        },
+        {
+            "ancienne": "/mots/a11-post_tag/",
+            "nature": "terme de taxonomie",
+            "type_contenu": "post_tag",
+            "etat_publication": "public",
+            "derniere_modification_utc": null,
+            "contextes": [
+                {
+                    "nature": "terme de taxonomie",
+                    "type_contenu": "post_tag"
+                }
+            ]
+        },
+        {
+            "ancienne": "/rubriques/a11-category/",
+            "nature": "terme de taxonomie",
+            "type_contenu": "category",
+            "etat_publication": "public",
+            "derniere_modification_utc": null,
+            "contextes": [
+                {
+                    "nature": "terme de taxonomie",
+                    "type_contenu": "category"
+                }
+            ]
+        },
+        {
+            "ancienne": "/rubriques/a11-empty-category/",
+            "nature": "terme de taxonomie",
+            "type_contenu": "category",
+            "etat_publication": "public",
+            "derniere_modification_utc": null,
+            "contextes": [
+                {
+                    "nature": "terme de taxonomie",
+                    "type_contenu": "category"
+                }
+            ]
+        },
+        {
+            "ancienne": "/rubriques/uncategorized/",
+            "nature": "terme de taxonomie",
+            "type_contenu": "category",
+            "etat_publication": "public",
+            "derniere_modification_utc": null,
+            "contextes": [
+                {
+                    "nature": "terme de taxonomie",
+                    "type_contenu": "category"
+                }
+            ]
+        },
+        {
+            "ancienne": "/sujets/a11-a11_topic/",
+            "nature": "terme de taxonomie",
+            "type_contenu": "a11_topic",
+            "etat_publication": "public",
+            "derniere_modification_utc": null,
+            "contextes": [
+                {
+                    "nature": "terme de taxonomie",
+                    "type_contenu": "a11_topic"
+                }
+            ]
+        },
+        {
+            "ancienne": "/sujets/a11-empty-a11_topic/",
+            "nature": "terme de taxonomie",
+            "type_contenu": "a11_topic",
+            "etat_publication": "public",
+            "derniere_modification_utc": null,
+            "contextes": [
+                {
+                    "nature": "terme de taxonomie",
+                    "type_contenu": "a11_topic"
+                }
+            ]
+        },
+        {
+            "ancienne": "/uncategorized/a11-ecole/",
+            "nature": "article",
+            "type_contenu": "post",
+            "etat_publication": "publish",
+            "derniere_modification_utc": "2025-02-03T12:00:00Z",
+            "contextes": [
+                {
+                    "nature": "article",
+                    "type_contenu": "post"
+                }
+            ]
+        }
+    ],
+    "audit_sha256": "c61054aae75c9d570ee78fde8232e19b8fba40907adb924ccb41549651f6cea6"
+}

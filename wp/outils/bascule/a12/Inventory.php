@@ -25,9 +25,7 @@ final class Inventory
             throw new \RuntimeException('A12_CONFIG_UNSAFE');
         }
         $config = file_get_contents($file);
-        if (preg_match('/[\'\"](?:WPMU_PLUGIN_DIR|UPLOADS)[\'\"]\s*,/', $config)) {
-            throw new \RuntimeException('A12_CUSTOM_LAYOUT_UNSUPPORTED');
-        }
+        \Imagine\PublicAddresses\Runtime::validateConfiguration($config);
         $this->registry = new Registry($site);
         $this->registry->listen();
         \Imagine\PublicAddresses\Runtime::boot($site);

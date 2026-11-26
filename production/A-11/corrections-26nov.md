@@ -1,0 +1,11 @@
+# A-11 — corrections du 26 novembre
+
+C1/C2 appliquées : constantes de disposition non reconnues (y compris MU personnalisés et `const`) refusées avant bootstrap ; aucune personnalisation silencieusement perdue. Toutes les lectures natives `wpdb` échouées refusent, au lieu de publier un inventaire vide ; contrôle explicite supplémentaire de la lecture `posts` et des objets relus. Périmètre des auteurs conservé, justification corrigée. `adresses.json` et son rôle preuve/empreinte A-02/outillage A-09 sont nommés dans le mode d'emploi partagé.
+
+Refus des six fichiers de remplacement/configuration (`db.php`, `object-cache.php`, `advanced-cache.php`, `sunrise.php`, `wordfence-waf.php`, `.user.ini`) **avec leur chemin relatif**, et des symlinks avec leur fichier. Le mode d'emploi interdit de les retirer sur le site source pour passer : garder le refus, faire préparer/qualifier explicitement une copie jetable standard et fidèle ; pas de force ni d'inventaire incomplet. A-12 transmet les mêmes diagnostics.
+
+Preuve : paquet unique `production/A-11/preuves/8b3b9bdcf308` ; vraie pile A-02 classique/HPOS, comptes exacts et empreintes de toutes les tables/fichiers/schedulers identiques. Vrais tests avant bootstrap avec MU personnalisé déclarant un type public, six fichiers piégés, symlink nommé et identité SQL pouvant lire `options` mais pas `posts` : refus non nul et aucune sortie validée. RED unitaires conservés hors dépôt. L'ancien paquet est conservé hors dépôt dans le scratch Hermes, pas réécrit.
+
+Rejeu : `python wp/tests/a11/run.py` ; contrôle pur : `python wp/tests/a11/verifier.py production/A-11/preuves/8b3b9bdcf308`. Préparation d'image réellement terminée à code 0 avant PRET. La preuve ne concerne que des fixtures ; aucune archive Imagine, aucun compte/site réel, aucune opération Git ni déploiement.
+
+La vérification globale T01 effectuée pendant A-01 est verte (1 062 tests) : les trois échecs WIP antérieurement signalés ne sont plus observés. Le vieux vérificateur de réception intégrée A-10/A-11/A-12/A-13 épingle des versions de plusieurs lots et des appendices exacts du README : il est historique, pas utilisé pour annuler les preuves propres des lots corrigés. Aucun fichier d'A-10 clos n'est modifié.

@@ -1,6 +1,6 @@
 # A-12 — inventaire de structure, lecture seule
 
-Collecteur natif : `registry.runtime_verified=true`. Il réutilise **sans modification** `a11/Runtime.php` et `a11/ReadOnlyDb.php`, ainsi que le parseur de configuration A-02. Le registre vient des objets WordPress réellement enregistrés après `wp_loaded`, pas d'une analyse statique des sources.
+Collecteur natif : `registry.runtime_verified=true`. Il réutilise `a11/Runtime.php` et `a11/ReadOnlyDb.php`, ainsi que le parseur de configuration A-02. Les corrections communes A-11 du 26 novembre (refus nommés et SELECT échoué distinct de zéro résultat) sont reprises sans runtime alternatif. Le registre vient des objets WordPress réellement enregistrés après `wp_loaded`, pas d'une analyse statique des sources.
 
 ## Commande opérateur (non exécutée sur Imagine)
 
@@ -22,7 +22,7 @@ Le lanceur `confine.py` est obligatoire : refus hors Linux déconnecté ou sans 
 - Pour chaque type/taxonomie : contenus distincts par état, tous états inclus ; premières/dernières dates UTC des seuls contenus actuellement `publish`. Ce n'est pas un historique de publication des contenus désormais privés ou supprimés.
 - Taxonomies : nombre de termes, vingt premiers par nombre réel de contenus reliés distincts, tous états ; noms des rubriques autorisés par le brief. Ex æquo : nom binaire puis identifiant interne non exporté. Ce compte n'est pas le cache natif `term_taxonomy.count`, qui peut suivre une politique de publication différente.
 - Métadonnées : **toutes** les clés postmeta par type, internes comprises, sans troncature ; nombre de contenus porteurs distincts, pas nombre de lignes. Aucune valeur de champ, titre, texte, auteur ou donnée client dans les sorties.
-- Pièces jointes : nombre/poids des fichiers locaux originaux par MIME enregistré, PDF, parents nuls/inexistants. Un parent nul ne prouve pas qu'un média n'est utilisé nulle part. Les miniatures ne sont pas additionnées. Fichier absent : compté séparément, jamais poids inventé ; chemin externe, traversée ou symlink : refus. Les chemins et noms de médias ne sortent pas.
+- Pièces jointes : nombre/poids des fichiers locaux originaux par MIME enregistré, PDF, parents nuls/inexistants. Un parent nul ne prouve pas qu'un média n'est utilisé nulle part. Les miniatures ne sont pas additionnées. Fichier absent : compté séparément, jamais poids inventé ; chemin externe, traversée ou symlink : refus. Les chemins et noms de médias ne sortent pas du rapport réussi ; le diagnostic d'un refus de lien symbolique nomme le fichier en cause.
 - Liaisons : clés reconnaissables contenant `product`, `produit`, `article`, `numero`, `issue`, distinguées par casse. Références scalaires canoniques exactes entre contenu et produit/variation, dans les deux sens, dédoublonnées par paire et contenu. Les données sérialisées/JSON ne sont pas interprétées ; leur nombre de lignes non scalaires est signalé. Les clés candidates à zéro ne sont pas une preuve de liaison. Aucun rattachement n'est choisi ou corrigé.
 
 ## Périmètre qualifié
