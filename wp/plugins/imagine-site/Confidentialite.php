@@ -17,12 +17,18 @@ final class Confidentialite
         add_filter('wp_privacy_personal_data_exporters', static function (array $exporters): array {
             // Aucun jeton ou référence de moyen de paiement dans une archive Imagine.
             unset($exporters['woocommerce-customer-tokens']);
-            $exporters['imagine-site'] = ['exporter_friendly_name' => __('Données Imagine', 'imagine-site'), 'callback' => [self::class, 'exporter']];
+            $exporters['imagine-site'] = [
+                'exporter_friendly_name' => __('Données Imagine', 'imagine-site'),
+                'callback' => [self::class, 'exporter'],
+            ];
             return $exporters;
         }, 100);
         add_filter('wp_privacy_personal_data_erasers', static function (array $erasers): array {
             // Dernier : un nettoyage natif de souscription peut produire une observation C13.
-            $erasers['imagine-site'] = ['eraser_friendly_name' => __('Données Imagine', 'imagine-site'), 'callback' => [self::class, 'effacer']];
+            $erasers['imagine-site'] = [
+                'eraser_friendly_name' => __('Données Imagine', 'imagine-site'),
+                'callback' => [self::class, 'effacer'],
+            ];
             return $erasers;
         }, 100);
         // Avant l'agrégateur natif (priorité 10), jamais après la génération de l'archive.
@@ -33,6 +39,7 @@ final class Confidentialite
         }
         add_action('delete_user', [self::class, 'supprimerCompte'], 5);
         add_filter('imagine_envoi_conserver_observation', [self::class, 'conserverObservation'], 10, 2);
+        add_filter('imagine_envoi_donnees_observation', [self::class, 'anonymiserObservation']);
     }
 
     /** Réutilise la demande d'effacement terminée native : pas de marqueur personnel ni durée ajoutée. */
@@ -42,15 +49,42 @@ final class Confidentialite
         if (!$conserver || !$id || !get_userdata($id)) {
             return false;
         }
+        return !self::demandeTerminee($id);
+    }
+
+    private static function demandeTerminee(int $id): bool
+    {
         global $wpdb;
         $done = $wpdb->get_var($wpdb->prepare(
-            "SELECT ID FROM {$wpdb->posts} WHERE post_type='user_request' AND post_name='remove_personal_data' AND post_status='request-completed' AND post_author=%d LIMIT 1",
+            "SELECT ID FROM {$wpdb->posts} WHERE post_type='user_request' "
+                . "AND post_name='remove_personal_data' AND post_status='request-completed' "
+                . 'AND post_author=%d LIMIT 1',
             $id
         ));
         if ($wpdb->last_error) {
             throw new \RuntimeException('État de confidentialité indisponible.');
         }
-        return $done === null;
+        return $done !== null;
+    }
+
+    public static function anonymiserObservation(array $data): array
+    {
+        $ids = array_map('intval', array_column($data['beneficiaires'] ?? [], 'id'));
+        $relations = $data['relation_native'] ?? [];
+        if (isset($relations['recipient_user'])) {
+            $ids[] = (int) $relations['recipient_user'];
+        } else {
+            $ids = array_merge($ids, array_map('intval', array_column($relations, 'user_id')));
+        }
+        foreach (array_unique($ids) as $id) {
+            if ($id > 0 && self::demandeTerminee($id)) {
+                $event = ConfidentialiteRegles::retirerPostal(['donnees' => $data], $id);
+                if ($event !== null) {
+                    $data = $event['donnees'];
+                }
+            }
+        }
+        return $data;
     }
 
     private static function user(string $email): ?\WP_User
@@ -66,17 +100,29 @@ final class Confidentialite
     private static function texte(mixed $value): string
     {
         $text = is_scalar($value) || $value === null ? (string) $value : wp_json_encode($value, JSON_UNESCAPED_UNICODE);
-        return preg_replace('/[a-z0-9.!#$%&\x27*+\/=?^_`{|}~-]+@[a-z0-9.-]+\.invalid\b/i', '[sans adresse électronique]', $text);
+        return preg_replace(
+            '/[a-z0-9.!#$%&\x27*+\/=?^_`{|}~-]+@[a-z0-9.-]+\.invalid\b/i',
+            '[sans adresse électronique]',
+            $text
+        );
     }
 
-    public static function filtrerPage(mixed $response, int $index, string $email, int $page, int $request, bool $send, string $key): mixed
-    {
+    public static function filtrerPage(
+        mixed $response,
+        int $index,
+        string $email,
+        int $page,
+        int $request,
+        bool $send,
+        string $key
+    ): mixed {
         if (!is_array($response) || !isset($response['data']) || !is_array($response['data'])) {
             return $response;
         }
         foreach ($response['data'] as &$row) {
             $row['data'] = array_values(array_filter($row['data'], static fn ($f): bool => !preg_match(
-                '/password|mot de passe|token|jeton|payment.*(?:method|reference)|moyen de paiement|transaction|(?:^|\s)notes?(?:\s|$)|iban|card.*(?:number|last)|numéro.*carte/i',
+                '/password|mot de passe|token|jeton|payment.*(?:method|reference)|moyen de paiement|transaction'
+                    . '|(?:^|\s)notes?(?:\s|$)|iban|card.*(?:number|last)|numéro.*carte/i',
                 (string) ($f['name'] ?? '')
             )));
             foreach ($row['data'] as &$field) {
@@ -102,7 +148,11 @@ final class Confidentialite
                     throw new \RuntimeException('Rapport indisponible.');
                 }
                 $filtered = self::texte($bytes);
-                if ($filtered !== $bytes && (!$zip->addFromString($member, $filtered) || file_put_contents($path, $filtered) !== strlen($filtered))) {
+                if (
+                    $filtered !== $bytes
+                    && (!$zip->addFromString($member, $filtered)
+                        || file_put_contents($path, $filtered) !== strlen($filtered))
+                ) {
                     throw new \RuntimeException('Rapport non neutralisé.');
                 }
             }
@@ -131,7 +181,11 @@ final class Confidentialite
         if ($numbers) {
             $fields[] = ['name' => __('Imagine — numéros achetés', 'imagine-site'), 'value' => implode(', ', $numbers)];
         }
-        foreach (['_imagine_envoi_bloc_debut' => 'Début de bloc postal', '_imagine_acces_grace_debut' => 'Début de grâce', '_imagine_acces_grace_fin' => 'Fin de grâce'] as $key => $name) {
+        foreach ([
+            '_imagine_envoi_bloc_debut' => 'Début de bloc postal',
+            '_imagine_acces_grace_debut' => 'Début de grâce',
+            '_imagine_acces_grace_fin' => 'Fin de grâce',
+        ] as $key => $name) {
             $v = $order->get_meta($key);
             if ($v !== '') {
                 $fields[] = ['name' => __($name, 'imagine-site'), 'value' => self::texte($v)];
@@ -149,7 +203,9 @@ final class Confidentialite
             $where[] = 'option_name LIKE %s';
             $params[] = $wpdb->esc_like($prefix) . '%';
         }
-        $rows = $wpdb->get_results($wpdb->prepare('SELECT option_name,option_value FROM ' . $wpdb->options . ' WHERE ' . implode(' OR ', $where) . ' ORDER BY option_id', ...$params), ARRAY_A);
+        $query = 'SELECT option_name,option_value FROM ' . $wpdb->options
+            . ' WHERE ' . implode(' OR ', $where) . ' ORDER BY option_id';
+        $rows = $wpdb->get_results($wpdb->prepare($query, ...$params), ARRAY_A);
         if ($wpdb->last_error) {
             throw new \RuntimeException('Lecture de confidentialité indisponible.');
         }
@@ -181,10 +237,14 @@ final class Confidentialite
         foreach ([Decouverte::key($id), Justificatifs::PREFIX . $id] as $key) {
             $v = get_option($key, null);
             if ($v !== null) {
-                $records[] = ['kind' => str_starts_with($key, Justificatifs::PREFIX) ? 'justificatif' : 'decouverte', 'key' => $key, 'value' => $v];
+                $records[] = [
+                    'kind' => str_starts_with($key, Justificatifs::PREFIX) ? 'justificatif' : 'decouverte',
+                    'key' => $key, 'value' => $v,
+                ];
             }
         }
-        foreach (self::options([EnvoiNatif::RELEVE, EnvoiNatif::GEL, ...self::JOURNAUX, '_transient_imagine_c16_brouillon_']) as $row) {
+        $prefixes = [EnvoiNatif::RELEVE, EnvoiNatif::GEL, ...self::JOURNAUX, '_transient_imagine_c16_brouillon_'];
+        foreach (self::options($prefixes) as $row) {
             $v = maybe_unserialize($row['option_value']);
             $key = $row['option_name'];
             if (!is_array($v)) {
@@ -230,7 +290,9 @@ final class Confidentialite
                 } elseif ($kind === 'decouverte') {
                     $fields = array_intersect_key($v, array_flip(['debut', 'reglages', 'articles']));
                 } elseif ($kind === 'justificatif') {
-                    $fields = array_intersect_key($v, array_flip(['categorie', 'decision', 'fin', 'depot_utc', 'mime', 'taille', 'indisponible']));
+                    $fields = array_intersect_key($v, array_flip([
+                        'categorie', 'decision', 'fin', 'indisponible',
+                    ]));
                     if (isset($v['blob'])) {
                         $bytes = file_get_contents(Justificatifs::chemin($v));
                         if (!is_string($bytes)) {
@@ -252,16 +314,27 @@ final class Confidentialite
                     if (($v['option'] ?? '') === Justificatifs::PREFIX . $user->ID) {
                         $fields['opérateur'] = $v['qui_login'] ?? '';
                         foreach (['avant', 'apres'] as $side) {
-                            $fields[$side] = array_intersect_key((array) ($v[$side] ?? []), array_flip(['categorie', 'decision', 'fin']));
+                            $fields[$side] = array_intersect_key(
+                                (array) ($v[$side] ?? []),
+                                array_flip(['categorie', 'decision', 'fin'])
+                            );
                         }
                     }
                     if ((int) ($v['qui_id'] ?? 0) === $user->ID) {
                         $fields['opérateur'] = $v['qui_login'] ?? '';
-                        $fields += array_intersect_key($v, array_flip(['extraction', 'numero', 'lignes', 'provisoire']));
+                        $fields += array_intersect_key($v, array_flip([
+                            'extraction', 'numero', 'lignes', 'provisoire',
+                        ]));
                     }
                 } elseif ($kind === 'brouillon') {
-                    $fields = ['etape' => $v['etape'] ?? '', 'client' => array_intersect_key($v['client'] ?? [], array_flip(['id', 'mode', 'nom', 'prenom', 'email', 'sans_email']))];
-                    $fields['commande'] = array_intersect_key($v['commande'] ?? [], array_flip(['adresse', 'produit', 'mode_paiement']));
+                    $fields = ['etape' => $v['etape'] ?? '', 'client' => array_intersect_key(
+                        $v['client'] ?? [],
+                        array_flip(['id', 'mode', 'nom', 'prenom', 'email', 'sans_email'])
+                    )];
+                    $fields['commande'] = array_intersect_key(
+                        $v['commande'] ?? [],
+                        array_flip(['adresse', 'produit', 'mode_paiement'])
+                    );
                 }
                 $pairs = [];
                 foreach ($fields as $name => $value) {
@@ -272,7 +345,10 @@ final class Confidentialite
             }
             return ['data' => $data, 'done' => $page * self::LIMIT >= count($all)];
         } catch (\Throwable) {
-            return new \WP_Error('imagine_export_indisponible', __('Export Imagine incomplet : réessayez après correction du stockage.', 'imagine-site'));
+            return new \WP_Error('imagine_export_indisponible', __(
+                'Export Imagine incomplet : réessayez après correction du stockage.',
+                'imagine-site'
+            ));
         }
     }
 
@@ -281,9 +357,19 @@ final class Confidentialite
     {
         global $wpdb;
         if ($new === null) {
-            $sql = $wpdb->prepare("DELETE FROM {$wpdb->options} WHERE option_name=%s AND BINARY option_value=BINARY %s", $key, maybe_serialize($old));
+            $sql = $wpdb->prepare(
+                "DELETE FROM {$wpdb->options} WHERE option_name=%s AND BINARY option_value=BINARY %s",
+                $key,
+                maybe_serialize($old)
+            );
         } else {
-            $sql = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value=%s WHERE option_name=%s AND BINARY option_value=BINARY %s", maybe_serialize($new), $key, maybe_serialize($old));
+            $sql = $wpdb->prepare(
+                "UPDATE {$wpdb->options} SET option_value=%s "
+                    . 'WHERE option_name=%s AND BINARY option_value=BINARY %s',
+                maybe_serialize($new),
+                $key,
+                maybe_serialize($old)
+            );
         }
         if ($wpdb->query($sql) !== 1) {
             throw new \RuntimeException('Donnée modifiée ou stockage indisponible.');
@@ -371,7 +457,10 @@ final class Confidentialite
             $result['done'] = self::records($user) === [];
         } catch (\Throwable) {
             $result['items_retained'] = true;
-            $result['messages'][] = __('Effacement Imagine incomplet : donnée conservée ou modifiée, réessayez après correction du stockage.', 'imagine-site');
+            $result['messages'][] = __(
+                'Effacement Imagine incomplet : donnée conservée ou modifiée, réessayez après correction du stockage.',
+                'imagine-site'
+            );
         }
         return $result;
     }
@@ -385,7 +474,11 @@ final class Confidentialite
         do {
             $r = self::effacer($user->user_email);
             if ($r['items_retained']) {
-                wp_die(esc_html__('Suppression du compte refusée : nettoyage Imagine incomplet.', 'imagine-site'), '', ['response' => 409]);
+                wp_die(
+                    esc_html__('Suppression du compte refusée : nettoyage Imagine incomplet.', 'imagine-site'),
+                    '',
+                    ['response' => 409]
+                );
             }
         } while (!$r['done']);
     }

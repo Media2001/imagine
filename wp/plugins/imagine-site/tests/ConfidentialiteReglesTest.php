@@ -35,6 +35,16 @@ final class ConfidentialiteReglesTest extends TestCase
             ConfidentialiteRegles::retirerPostal($event, 3)['donnees']['relation_native']);
     }
 
+    public function testCadeauEffaceAussiAdresseDuBeneficiaire(): void
+    {
+        $event = ['donnees' => ['user' => '2', 'origine' => 'offert', 'destinataire' => 'CIBLE',
+            'rue' => 'RUE CIBLE', 'beneficiaires' => [['id' => '3', 'nom' => 'CIBLE']],
+            'relation_native' => ['recipient_user' => 3]]];
+        $out = ConfidentialiteRegles::retirerPostal($event, 3);
+        self::assertStringNotContainsString('CIBLE', json_encode($out));
+        self::assertSame('2', $out['donnees']['user']);
+    }
+
     public function testExportPostalNeDivulguePasLesAutresBeneficiaires(): void
     {
         $event = ['observe_utc' => '2026-11-26', 'donnees' => [
