@@ -12,8 +12,12 @@ foreach ($f as $type=>$id) {
  $check($type.'_inscription',Agenda::ouvert((int)$id)===in_array($type,['rencontre','sortie'],true));
 }
 $cpt=get_post_type_object('imagine_inscription');
-$check('inscriptions_privees', $cpt!==null&&!$cpt->public&&!$cpt->show_in_rest&&!$cpt->publicly_queryable&&$cpt->exclude_from_search);
-$check('aucun_export_inscrits',$cpt!==null&&!$cpt->can_export);
+$private=static fn($o)=>$o!==null&&!$o->public&&!$o->show_in_rest&&!$o->publicly_queryable&&$o->exclude_from_search;
+$check('inscriptions_privees', $private($cpt));
+$bad=clone $cpt;$bad->show_in_rest=true;$check('mutation_inscriptions_REST',!$private($bad));
+$noexport=static fn($o)=>$o!==null&&!$o->can_export;
+$check('aucun_export_inscrits',$noexport($cpt));
+$bad=clone $cpt;$bad->can_export=true;$check('mutation_export_inscrits',!$noexport($bad));
 $check('admin_restreint',$cpt!==null&&$cpt->cap->edit_posts==='manage_options');
 $ex=apply_filters('wp_privacy_personal_data_exporters',[]);
 $er=apply_filters('wp_privacy_personal_data_erasers',[]);

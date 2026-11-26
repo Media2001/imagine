@@ -1,0 +1,32 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T20:01:38.184599+00:00",
+  "total": 15,
+  "checks": {
+    "adaptateur_agenda_charge": true,
+    "rencontre_champs_reels": true,
+    "rencontre_inscription": true,
+    "sortie_champs_reels": true,
+    "sortie_inscription": true,
+    "partenaire_champs_reels": true,
+    "partenaire_inscription": true,
+    "passe_champs_reels": true,
+    "passe_inscription": true,
+    "inscriptions_privees": true,
+    "mutation_inscriptions_REST": true,
+    "aucun_export_inscrits": true,
+    "mutation_export_inscrits": true,
+    "admin_restreint": true,
+    "callbacks_additifs": true
+  },
+  "failures": [],
+  "exit": 0,
+  "stderr": "",
+  "business_preserved": true,
+  "private_snapshot": {
+    "file": "b07-private-q50ajzkl/snapshot.json",
+    "sha256": "a7dbd54b76d9672232770f9f4e6e8e09b0abb4231d6a48177458ff4beef5ce74",
+    "private": true
+  },
+  "source_sha256": "5d24d02c1a0f225d7fa688f6eadc97725828ffbb03cddcde848e9b21e7156f5c"
+}

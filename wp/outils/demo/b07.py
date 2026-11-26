@@ -51,10 +51,12 @@ def seed(label):
  back=wp('$out=[];foreach(get_option("imagine_b07_fixture") as $k=>$id){$out[$k]=Imagine\\Site\\Agenda::evenement((int)$id);$out[$k]["path"]=wp_parse_url(get_permalink($id),PHP_URL_PATH);}echo wp_json_encode($out);')
  assert set(back)==set(['sortie','rencontre','partenaire','passe']) and all(e and e['lieu'] for e in back.values())
  save(label,{'fixture':out,'readback':back,'private_snapshot':durable})
-def runtime(label):
- b06.guard();src=ROOT/'wp/tests/demo/b07-runtime.php';target='imagine-demo-build/b07-runtime.php'
+def runtime(label,case='runtime'):
+ assert case in ['runtime','privacy']
+ b07identity=b06.guard();before=b06.state();durable=private(label,{'database':snapshot(),'business':before})
+ src=ROOT/('wp/tests/demo/b07-'+case+'.php');target='imagine-demo-build/b07-'+case+'.php'
  b06.profils.b00.upload(target,src.read_bytes());p=b06.profils.b00.wp('eval','require WP_CONTENT_DIR."/'+target+'";',check=False)
- d=json.loads(p['stdout']);d.update(exit=p['code'],stderr=p['stderr']);save(label,d);print(json.dumps(d));assert not p['code'] and not d['failures']
+ d=json.loads(p['stdout']);d.update(exit=p['code'],stderr=p['stderr'],business_preserved=before==b06.state(),private_snapshot=durable,source_sha256=hashlib.sha256(src.read_bytes()).hexdigest());save(label,d);print(json.dumps(d));assert not p['code'] and not d['failures'] and d['business_preserved']
 def rules(label):
  cmd=['wsl.exe','-d','Ubuntu','--','docker','run','--rm','--pull','never','--network','none','--read-only','--user','65534:65534','--cap-drop','ALL','--security-opt','no-new-privileges','--mount','type=bind,source=/mnt/c/Users/Ced/imagine/wp,target=/repo/wp,readonly','--entrypoint','php','imagine-tests-t01:1','/repo/wp/tests/demo/b07-rules.php']
  p=subprocess.run(cmd,capture_output=True,text=True,encoding='utf-8');d=json.loads(p.stdout);d.update(exit=p.returncode,stderr=p.stderr);save(label,d);print(json.dumps(d));assert p.returncode==0

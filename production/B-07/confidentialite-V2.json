@@ -1,0 +1,26 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T20:02:11.300935+00:00",
+  "total": 8,
+  "checks": {
+    "inscription_native": true,
+    "temoin_persistant": true,
+    "filtre_C21_preserve_export_B07": true,
+    "export_lecture_erreur_incomplet": true,
+    "effacement_lecture_erreur_incomplet": true,
+    "erreur_preserve_inscription": true,
+    "effacement_reel_apres_erreur": true,
+    "inscription_essai_retiree": true
+  },
+  "failures": [],
+  "error": null,
+  "exit": 0,
+  "stderr": "",
+  "business_preserved": true,
+  "private_snapshot": {
+    "file": "b07-private-dndrljed/snapshot.json",
+    "sha256": "f093db29ce9b5107b52a6bd93c9b155f54f35b76f81b0972611787af424f055a",
+    "private": true
+  },
+  "source_sha256": "f2366cab64bb1b14898f0214ba449ae4078d82e6d0767278bcef6f94f740efd9"
+}
