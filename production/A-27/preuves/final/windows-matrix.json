@@ -1,0 +1,92 @@
+{
+  "scope": "python_and_native",
+  "readiness_claimed": false,
+  "sources_stable": true,
+  "rows": [
+    {
+      "kind": "python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a27",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "console": "utf-8",
+      "exit_code": 0,
+      "log": "utf8/python-tests.log",
+      "log_sha256": "ab9ce14b1e69f93131188258cd133a5f0bd457a24fc089b33413396cb99e3377",
+      "tests_run": 38,
+      "all_pass": true
+    },
+    {
+      "kind": "native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a27/run.py",
+        "--parent-serialized",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\final-run2\\a27\\utf8\\native"
+      ],
+      "console": "utf-8",
+      "exit_code": 0,
+      "log": "utf8/runner-console.log",
+      "log_sha256": "2211e9e7bc1eea028fa1cbcefa09c7824f0ddad29fe893b9a1717a0adcda5956"
+    },
+    {
+      "kind": "python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a27",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "console": "cp1252",
+      "exit_code": 0,
+      "log": "cp1252/python-tests.log",
+      "log_sha256": "0c28b9e02ce3a9f2674304602c7d9b1c50d9175bc0d63ef1aa36107b3b52a6b9",
+      "tests_run": 38,
+      "all_pass": true
+    },
+    {
+      "kind": "native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a27/run.py",
+        "--parent-serialized",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\final-run2\\a27\\cp1252\\native"
+      ],
+      "console": "cp1252",
+      "exit_code": 0,
+      "log": "cp1252/runner-console.log",
+      "log_sha256": "f169e210b08fc312e39e965dc403dccb2548a141b057b7337683302c5e89d35d"
+    },
+    {
+      "kind": "style",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a27/style.py",
+        "--parent-serialized",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\final-run2\\a27\\style"
+      ],
+      "console": "utf-8",
+      "exit_code": 0,
+      "log": "style-console.log",
+      "log_sha256": "31bbf537148731e676cdfc61ed275754c055b4a4a77c822c1294e3c0d892002c"
+    }
+  ],
+  "exit_code": 0
+}

@@ -1,0 +1,33 @@
+{
+  "directory": "files/rapports/2026-11-26-23h42-qualification-A26-A27",
+  "files": {
+    "a20-readonly-cp1252.log": "234a66108aa5614d03b46099885eb8158e572f664776855dc2e07dd8ca31a9b0",
+    "a20-readonly-utf8.log": "234a66108aa5614d03b46099885eb8158e572f664776855dc2e07dd8ca31a9b0",
+    "a21-readonly-cp1252.log": "64eba54b1faac5152ee6b594fb08096bdf916a4e1352266840b53ae4c012b2a0",
+    "a21-readonly-utf8.log": "64eba54b1faac5152ee6b594fb08096bdf916a4e1352266840b53ae4c012b2a0",
+    "a22-readonly-cp1252.log": "1b25572a9abfd05f15d38453f5a944bcd35c54cbb9e7842fd381710a244ca8a2",
+    "a22-readonly-utf8.log": "1b25572a9abfd05f15d38453f5a944bcd35c54cbb9e7842fd381710a244ca8a2",
+    "a23-readonly-cp1252.log": "dabe859e43030e129dfbbd8f56af80c632210d1a3508dd9ea31741a4753eac8b",
+    "a23-readonly-utf8.log": "dabe859e43030e129dfbbd8f56af80c632210d1a3508dd9ea31741a4753eac8b",
+    "a24-readonly-cp1252.log": "5c2de46e95cd0e90bfac24e42b4d4a07c4d179e55e3c65ea8fa14930d1447058",
+    "a24-readonly-utf8.log": "5c2de46e95cd0e90bfac24e42b4d4a07c4d179e55e3c65ea8fa14930d1447058",
+    "a25-readonly-cp1252.log": "0514166dd9a9020c7fac6473c7b7ecb37db1663ecbabb913ed3125425f47c4bd",
+    "a25-readonly-utf8.log": "0514166dd9a9020c7fac6473c7b7ecb37db1663ecbabb913ed3125425f47c4bd",
+    "a26-candidate-verify.log": "8256bf0ee906ddf0af735baadf214c9e6f5e5e3ed0b7b71230667ccee8c77915",
+    "a26-matrix.log": "0362cc85a0b448e888270f68d570eea6e4b704709c191e2d2ee7747103507517",
+    "a27-candidate-verify.log": "ae4c7708184fc645cb8e8086eb4123719aac1d572c86497ff71149906a009dad",
+    "a27-matrix.log": "e7bb32ae3398090072754c61d4e8c11869ae6707ba69ad9d6f7797e1ccefc0ea",
+    "cancelled-final-controller.json": "9148014b2eaaaece34c0be9d3120374c59e8f7968600e32960b0a1fedeb62355",
+    "commands.json": "f617638dfb3835a00118e6cae147f4ae810697ed706b8e0ac7f2c3f3cb219149",
+    "freeze.json": "86405467b030c5a38b867535b999c9a78321bbb11c37c67d4da4ddfd33e6135e",
+    "global-cp1252.log": "2fbf15fb2421c1a08917dc01229ba2e48ea179ae0a6ac6c5e60328d8688542a1",
+    "global-utf8.log": "29043906905c9d7201daffbc0644032e8a23e836c9b6a14265dd5a1353d3e2fe",
+    "prepare-image.log": "cb93cad4497b66d000311d7a3dc985b1018892958bbe73e8d4394ace350c1db5",
+    "readme-readback.json": "681360b89ff8236963fc52efd7ed74a14a6073cfb52816395e98471bd1680c24",
+    "result.json": "e953a72329845b25017171c0343e7eeee7be2ddd461b34b13b7ea3124f2bb40c",
+    "timeout-recovery.json": "21cab6b7e31e51d669e78d9c9c8abea3caecb23257f7f12ce88f5d814d61da28"
+  },
+  "commands": 19,
+  "exit_code": 0,
+  "freeze": "2026-11-26T23:23:56.752314+01:00"
+}

@@ -1,0 +1,201 @@
+{
+  "lot": "A-26",
+  "at": "2026-11-26T23:42:28.782271+01:00",
+  "scope": "actual no-argument wrappers and native checker in disposable canonical mirror; no Docker/PHP",
+  "checks": 12,
+  "exit_code": 0,
+  "rows": [
+    {
+      "lot": "A-26",
+      "label": "mirror_genuine_packet_green",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-26\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:26.998336+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 0,
+      "exit_code": 0,
+      "stdout": "{\"lot\": \"A-26\", \"exit_code\": 0, \"package_and_inventory\": \"PASS\", \"frozen_sources\": \"PASS\", \"parent_gates\": 19, \"native_packet\": \"PASS\", \"pret_present\": false}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-26",
+      "label": "owned_source_mutation_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-26\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:27.121716+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "{\"lot\": \"A-26\", \"exit_code\": 1, \"code\": \"SEALED_VERIFICATION_FAILED\", \"class\": \"AssertionError\"}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-26",
+      "label": "owned_source_omission_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-26\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:27.201497+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "{\"lot\": \"A-26\", \"exit_code\": 1, \"code\": \"SEALED_VERIFICATION_FAILED\", \"class\": \"AssertionError\"}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-26",
+      "label": "owned_source_addition_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-26\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:27.303339+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "{\"lot\": \"A-26\", \"exit_code\": 1, \"code\": \"SEALED_VERIFICATION_FAILED\", \"class\": \"AssertionError\"}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-26",
+      "label": "native_red_receipt_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-26\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:27.387303+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "{\"lot\": \"A-26\", \"exit_code\": 1, \"code\": \"SEALED_VERIFICATION_FAILED\", \"class\": \"AssertionError\"}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-26",
+      "label": "native_verifier_red_receipt_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\wp\\tests\\a26\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:27.492914+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A26_NATIVE_CASES_INCOMPLETE\r\n"
+    },
+    {
+      "lot": "A-26",
+      "label": "owned_shared_line_omitted_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-26\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:27.732550+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "{\"lot\": \"A-26\", \"exit_code\": 1, \"code\": \"SEALED_VERIFICATION_FAILED\", \"class\": \"AssertionError\"}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-26",
+      "label": "owned_shared_line_duplicated_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-26\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:27.999531+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "{\"lot\": \"A-26\", \"exit_code\": 1, \"code\": \"SEALED_VERIFICATION_FAILED\", \"class\": \"AssertionError\"}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-26",
+      "label": "owned_shared_line_mutated_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-26\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:28.221928+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "{\"lot\": \"A-26\", \"exit_code\": 1, \"code\": \"SEALED_VERIFICATION_FAILED\", \"class\": \"AssertionError\"}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-26",
+      "label": "owned_shared_line_newline_changed_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-26\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:28.444945+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "{\"lot\": \"A-26\", \"exit_code\": 1, \"code\": \"SEALED_VERIFICATION_FAILED\", \"class\": \"AssertionError\"}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-26",
+      "label": "unrelated_shared_appendix_allowed",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-26\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:28.664742+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 0,
+      "exit_code": 0,
+      "stdout": "{\"lot\": \"A-26\", \"exit_code\": 0, \"package_and_inventory\": \"PASS\", \"frozen_sources\": \"PASS\", \"parent_gates\": 19, \"native_packet\": \"PASS\", \"pret_present\": false}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-26",
+      "label": "frozen_common_mutation_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-26\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:28.781866+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "{\"lot\": \"A-26\", \"exit_code\": 1, \"code\": \"SEALED_VERIFICATION_FAILED\", \"class\": \"AssertionError\"}\r\n",
+      "stderr": ""
+    }
+  ]
+}

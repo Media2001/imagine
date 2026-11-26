@@ -1,0 +1,9 @@
+{
+  "host_command": "final-replay.py",
+  "outcome": "tool watchdog killed process tree after 420 seconds; no final host exit observed",
+  "completed_a26_matrix_exit": 0,
+  "a27_interrupted_container": "imagine-a27-payments-3562992b9840",
+  "ownership_validated": true,
+  "cleanup_and_absence": true,
+  "a27_packet_not_accepted": true
+}

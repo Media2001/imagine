@@ -1,0 +1,58 @@
+{
+    "source_sha256": {
+        "parser": "fb7f9daf804867fe2d58212498754454a77021a40b68a3458886e146befe2cf0",
+        "shortcodes": "5f72df2c1d86e2e9c36f2f727a61c15c27a0b77bc2303d8b0de53197bc9de582",
+        "plugins": "9b5af52f5e1e36bb4a13cb14c9c548bbb8941a55244306c6c9829be032bdedcc",
+        "options": "d1daad9a1d19ee438eb6e3b6698b42a3682f6f7ab9626be02f2157a238ea3e2f",
+        "storage": "cd0f59582c6962cd5a8f5a0e7e97fba487590f1cb05df999cc4000dcd4875ea7",
+        "hooks": "a66fe7372af72876fc702e50943f9a2a8dff4ed7394163e07491b80a06e27f1d",
+        "scheduler": "54d690d01e46065e1083519a2368579f7a69ea3852c34a99988cb700462b21b6"
+    },
+    "checks": [
+        {
+            "check": "native_default_block_parser",
+            "status": "PASS"
+        },
+        {
+            "check": "native_shortcode_regex",
+            "status": "PASS"
+        },
+        {
+            "check": "native_shortcode_attributes",
+            "status": "PASS"
+        },
+        {
+            "check": "native_active_plugins_option",
+            "status": "PASS"
+        },
+        {
+            "check": "native_option_storage",
+            "status": "PASS"
+        },
+        {
+            "check": "native_authoritative_store",
+            "status": "PASS"
+        },
+        {
+            "check": "native_preinitialised_hooks",
+            "status": "PASS"
+        },
+        {
+            "check": "native_filter:pre_as_enqueue_async_action",
+            "status": "PASS"
+        },
+        {
+            "check": "native_filter:pre_as_schedule_single_action",
+            "status": "PASS"
+        },
+        {
+            "check": "native_filter:pre_as_schedule_recurring_action",
+            "status": "PASS"
+        },
+        {
+            "check": "native_filter:pre_as_schedule_cron_action",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 0
+}

@@ -1,0 +1,56 @@
+{
+    "source_sha256": {
+        "tokens": "e94a0f256859dfcf22b8a904323e9ef7a9d6e9593069adcee63b83781f3e9336",
+        "token_store": "5ccb3078169b52ec41df7e54fbd7108287f2e70b005d9874ef21676678deccd1",
+        "cc": "400976decb8a68f5ab722ba27920157bb494c8b43bf29778efb7f5c8591f9b7b",
+        "order": "2b3384b5e8a49ad8d6e948eaa40cd5492c7e8f0354617df6c6db9774b02fbe64",
+        "hpos": "197bf9ac40b0bca4332c4b85918d0bb9535e9a8b5012add1cd429ff0d3e5ab30",
+        "native_wcs_payment_meta_schema": "7d141f53f119b7757a52447e03370d150f539feed27952cfb2ba107d905ed00e",
+        "native_wcs_renewal_dispatch": "0bc919a98815057d99eaa804eb7079ff31970a4365c77aa292b4ee35bbf4d246",
+        "native_paypal_reference_key": "72be14370c91bbcb1baea2eb201a518e77ed92cf4ff07361b5bbcd53f337f1db",
+        "native_wcs_manual_flag": "50436292cbd84a9c6f1fa0830eb350616389888d8ed836caeebd29a72789ef93"
+    },
+    "checks": [
+        {
+            "check": "native_token_table",
+            "status": "PASS"
+        },
+        {
+            "check": "native_tokenmeta_table",
+            "status": "PASS"
+        },
+        {
+            "check": "native_single_token_read_not_customer_pagination",
+            "status": "PASS"
+        },
+        {
+            "check": "native_order_token_link",
+            "status": "PASS"
+        },
+        {
+            "check": "native_cc_expiry",
+            "status": "PASS"
+        },
+        {
+            "check": "native_hpos_metadata",
+            "status": "PASS"
+        },
+        {
+            "check": "native_wcs_manual_flag",
+            "status": "PASS"
+        },
+        {
+            "check": "native_wcs_payment_meta_schema",
+            "status": "PASS"
+        },
+        {
+            "check": "native_wcs_renewal_dispatch",
+            "status": "PASS"
+        },
+        {
+            "check": "native_paypal_reference_key",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 0
+}

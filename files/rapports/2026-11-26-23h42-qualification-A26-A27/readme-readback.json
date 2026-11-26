@@ -1,0 +1,7 @@
+{
+  "preserved_other_bytes": true,
+  "before_sha256": "4119994234129e7afbf4e19b91b6ef78115fda60d7a6a1effb055446c08592bd",
+  "after_sha256": "25785fb8b68a80ad3786f12a404cd25215e9f251b43a54556b5d0263069e4849",
+  "added_exact_lines": 4,
+  "path": "wp\\tests\\a02-audit\\README.md"
+}

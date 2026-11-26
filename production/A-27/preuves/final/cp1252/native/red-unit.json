@@ -1,0 +1,15 @@
+{
+    "suite": "A27-pure",
+    "checks": [
+        {
+            "check": "cc_native_type",
+            "status": "FAIL"
+        },
+        {
+            "check": "exception",
+            "status": "FAIL",
+            "detail": "RuntimeException"
+        }
+    ],
+    "exit_code": 1
+}

@@ -1,0 +1,50 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/b08-gates.py": "39bc0217f69392ff132217ac7a72bc466010bc1d4723251ca8b5887407c6c282",
+    "wp/outils/demo/b08-local.py": "8a6ed7d262964841f8bb7805269d78e13c1bbff297a5f6652c66bca47d93a11c",
+    "wp/outils/demo/b08-mutations.py": "ee52fbbf974b34aaf159c0e4b72f324a2f9556a7208e11f6d1ce14e0bf115a39",
+    "wp/outils/demo/b08-recette.py": "b4f1a34c9cdddf5a1f476759083a31930b4cd1eb319239eca16018c1999ec4e2",
+    "wp/outils/demo/b08-seed.php": "beb9fb2689318cb577196b045f35763843c29462396929c0551e0746d89774f1",
+    "wp/outils/demo/b08.py": "521b252f0534ca18d70c3b7c83c2480895581ea24256720eaa3f173aebcceb9c",
+    "wp/plugins/imagine-site/Cooperative.php": "866cc38d9cba7229039bace5d8184979a311b5a7c1a4068823171f6a26a2be03",
+    "wp/plugins/imagine-site/CooperativeRegles.php": "0d2f77d409c3513f4f2132ee6c5e580a32d15d30ea1fad94324efd6f18d5c35d",
+    "wp/plugins/imagine-site/Soutenir.php": "1c9654f6f7eda80c2476e683cebe168385b09eb8414f764135ca77b2b892e130",
+    "wp/plugins/imagine-site/Sujet.php": "b73f1fbe62f28099cd9d4b3699a60fec0c514f990198b1508ccb8a09fe70685d",
+    "wp/plugins/imagine-site/SujetConfidentialite.php": "c1c13411a654312f8d2578d5bbd5fa527356d937eb1c001d41a351236056a423",
+    "wp/plugins/imagine-site/SujetRegles.php": "99cd84ea2bb7a0979624cf5b2fd4c0c4e46feb3f1148050df73da3cb83ba8639",
+    "wp/plugins/imagine-site/tests/CooperativeReglesTest.php": "aae4f085a850e41bb8fcc08987aa5ad035d146cc56238e91714536f9873dd6fb",
+    "wp/plugins/imagine-site/tests/SoutenirAdapterTest.php": "c2b9581ceb7686f161585c3fc1a24ff9d0b0212ae8558380216552819abdbc63",
+    "wp/plugins/imagine-site/tests/SujetAdapterTest.php": "767c8a2b7279b492ce77969b6dfeac26cf68dc866ee60c1de1a5ec9ec823383d",
+    "wp/plugins/imagine-site/tests/SujetWPStubs.php": "809253b1a1b9d0f906a7bb819f4a7e89c27e6a7822a09c4e53fe43059f3e7dc9",
+    "wp/tests/demo/b08-horslive.php": "db7906a56926c03641b888fca2c2ee85aca213f5a117d5a2fdca7533bffac6eb",
+    "wp/tests/demo/b08-observer.php": "9fc8c5788994fa2267d36a058f608697074f6daa9fbb088220baae306f0683e4",
+    "wp/themes/imagine/header.php": "3320a7b7b958dfffb223e88913733e95c051ea40902d350f7116b5b58cdaba4a"
+  },
+  "references": [
+    {
+      "url": "https://developer.wordpress.org/reference/functions/wp_insert_post/",
+      "status": 200,
+      "title": "wp_insert_post() – Function | Developer.WordPress.org",
+      "sha256": "2afe0e5378c69fcc0353d1dfc2e54ac9b36560d0b26342e74c650b1f79ba7ef0"
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/functions/wp_nav_menu/",
+      "status": 200,
+      "title": "wp_nav_menu() – Function | Developer.WordPress.org",
+      "sha256": "3b97786c3bb31cf83712dbcdc83105eedd82879ef1eea287b9ffd3797588c96f"
+    },
+    {
+      "url": "https://developer.wordpress.org/plugins/privacy/adding-the-personal-data-exporter-to-your-plugin/",
+      "status": 200,
+      "title": "Adding the Personal Data Exporter to Your Plugin – Plugin Handbook | Developer.WordPress.org",
+      "sha256": "76c426ba6dcafcb7e00c3dfe1a16b05a3ed3c7bf2705e39196215fd30f36f7af"
+    },
+    {
+      "url": "https://developer.wordpress.org/plugins/privacy/adding-the-personal-data-eraser-to-your-plugin/",
+      "status": 200,
+      "title": "Adding the Personal Data Eraser to Your Plugin – Plugin Handbook | Developer.WordPress.org",
+      "sha256": "3153a92da1c1f2a1bc26990a3ff4804f61f689478eb5e2fc981ca555e399527d"
+    }
+  ]
+}

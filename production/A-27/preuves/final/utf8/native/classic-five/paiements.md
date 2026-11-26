@@ -1,0 +1,81 @@
+# Moyens de paiement enregistrés — lecture seule
+
+Comptes seulement ; aucune garantie de renouvellement.
+
+```json
+{
+    "schema": "imagine-a27-saved-payments-v1",
+    "read_only": true,
+    "storage": "classic",
+    "neutralisation": "observe",
+    "counts": {
+        "automatic": {
+            "groups": [
+                {
+                    "gateway": "paypal",
+                    "type": "accord_paypal",
+                    "count": 5
+                },
+                {
+                    "gateway": "stripe",
+                    "type": "carte",
+                    "count": 15
+                },
+                {
+                    "gateway": "stripe",
+                    "type": "illisible",
+                    "count": 5
+                },
+                {
+                    "gateway": "stripe_sepa",
+                    "type": "mandat_sepa",
+                    "count": 5
+                }
+            ],
+            "autres": 0
+        },
+        "cards": {
+            "groups": [
+                {
+                    "gateway": "stripe",
+                    "expiry": "expired",
+                    "count": 5
+                },
+                {
+                    "gateway": "stripe",
+                    "expiry": "within_six_months",
+                    "count": 10
+                }
+            ],
+            "autres": 0
+        },
+        "relations": {
+            "groups": [
+                {
+                    "gateway": "autre",
+                    "metric": "accounts_multiple_tokens",
+                    "count": 5
+                },
+                {
+                    "gateway": "paypal",
+                    "metric": "subscriptions_unlinked",
+                    "count": 5
+                },
+                {
+                    "gateway": "stripe",
+                    "metric": "subscriptions_unlinked",
+                    "count": 5
+                },
+                {
+                    "gateway": "stripe",
+                    "metric": "tokens_without_living_subscription",
+                    "count": 5
+                }
+            ],
+            "autres": 0
+        }
+    },
+    "as_of_utc": "2026-11-26T12:00:00+00:00",
+    "audit_sha256": "41f40cc6e534e27ed0eb3f28d7cd2de8befef98fb8b995dd4276dc7ba7eb444d"
+}
+```

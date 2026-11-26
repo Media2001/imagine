@@ -1,0 +1,146 @@
+{
+  "scope": "imagine-test-demo",
+  "sources": {
+    "wp/outils/demo/b08-gates.py": "39bc0217f69392ff132217ac7a72bc466010bc1d4723251ca8b5887407c6c282",
+    "wp/outils/demo/b08-local.py": "8a6ed7d262964841f8bb7805269d78e13c1bbff297a5f6652c66bca47d93a11c",
+    "wp/outils/demo/b08-mutations.py": "ee52fbbf974b34aaf159c0e4b72f324a2f9556a7208e11f6d1ce14e0bf115a39",
+    "wp/outils/demo/b08-recette.py": "b4f1a34c9cdddf5a1f476759083a31930b4cd1eb319239eca16018c1999ec4e2",
+    "wp/outils/demo/b08-seed.php": "beb9fb2689318cb577196b045f35763843c29462396929c0551e0746d89774f1",
+    "wp/outils/demo/b08.py": "521b252f0534ca18d70c3b7c83c2480895581ea24256720eaa3f173aebcceb9c",
+    "wp/plugins/imagine-site/Cooperative.php": "866cc38d9cba7229039bace5d8184979a311b5a7c1a4068823171f6a26a2be03",
+    "wp/plugins/imagine-site/CooperativeRegles.php": "0d2f77d409c3513f4f2132ee6c5e580a32d15d30ea1fad94324efd6f18d5c35d",
+    "wp/plugins/imagine-site/Soutenir.php": "1c9654f6f7eda80c2476e683cebe168385b09eb8414f764135ca77b2b892e130",
+    "wp/plugins/imagine-site/Sujet.php": "b73f1fbe62f28099cd9d4b3699a60fec0c514f990198b1508ccb8a09fe70685d",
+    "wp/plugins/imagine-site/SujetConfidentialite.php": "c1c13411a654312f8d2578d5bbd5fa527356d937eb1c001d41a351236056a423",
+    "wp/plugins/imagine-site/SujetRegles.php": "99cd84ea2bb7a0979624cf5b2fd4c0c4e46feb3f1148050df73da3cb83ba8639",
+    "wp/plugins/imagine-site/tests/CooperativeReglesTest.php": "aae4f085a850e41bb8fcc08987aa5ad035d146cc56238e91714536f9873dd6fb",
+    "wp/plugins/imagine-site/tests/SoutenirAdapterTest.php": "c2b9581ceb7686f161585c3fc1a24ff9d0b0212ae8558380216552819abdbc63",
+    "wp/plugins/imagine-site/tests/SujetAdapterTest.php": "767c8a2b7279b492ce77969b6dfeac26cf68dc866ee60c1de1a5ec9ec823383d",
+    "wp/plugins/imagine-site/tests/SujetWPStubs.php": "809253b1a1b9d0f906a7bb819f4a7e89c27e6a7822a09c4e53fe43059f3e7dc9",
+    "wp/tests/demo/b08-horslive.php": "db7906a56926c03641b888fca2c2ee85aca213f5a117d5a2fdca7533bffac6eb",
+    "wp/tests/demo/b08-observer.php": "9fc8c5788994fa2267d36a058f608697074f6daa9fbb088220baae306f0683e4",
+    "wp/themes/imagine/header.php": "3320a7b7b958dfffb223e88913733e95c051ea40902d350f7116b5b58cdaba4a"
+  },
+  "results": [
+    {
+      "mutation": "don",
+      "exit": 1,
+      "tests": 6,
+      "assertions": 169,
+      "errors": 0,
+      "failures": 1,
+      "log": "mutation-V2-don.log",
+      "sha256": "3dfcaa19868566b5e94e5261161e683e1b38dd3f6c61f4ad54bc2f16f54dd17b"
+    },
+    {
+      "mutation": "parts",
+      "exit": 1,
+      "tests": 6,
+      "assertions": 175,
+      "errors": 0,
+      "failures": 1,
+      "log": "mutation-V2-parts.log",
+      "sha256": "d46dfb3e680c1489b948b0aba84630d5d4fa13d4b44e2e11ac4302bf065f6e03"
+    },
+    {
+      "mutation": "consentement",
+      "exit": 1,
+      "tests": 6,
+      "assertions": 165,
+      "errors": 0,
+      "failures": 1,
+      "log": "mutation-V2-consentement.log",
+      "sha256": "26903077864ce1b10b243347179fa1ff2b03c248527e093932c448404b212620"
+    },
+    {
+      "mutation": "mail",
+      "exit": 1,
+      "tests": 6,
+      "assertions": 174,
+      "errors": 0,
+      "failures": 1,
+      "log": "mutation-V2-mail.log",
+      "sha256": "ba61d215fe56d79d6f401de79f4f0a80c007aa04ef5564104d1ef5f47bd66bef"
+    },
+    {
+      "mutation": "http",
+      "exit": 1,
+      "tests": 6,
+      "assertions": 174,
+      "errors": 0,
+      "failures": 1,
+      "log": "mutation-V2-http.log",
+      "sha256": "7c54d04817d7a1bff9dfdf0f13c5422b94f7360abc7f3aed3a5946b3e12ee94f"
+    },
+    {
+      "mutation": "prive",
+      "exit": 1,
+      "tests": 6,
+      "assertions": 170,
+      "errors": 0,
+      "failures": 1,
+      "log": "mutation-V2-prive.log",
+      "sha256": "af5c0bc27794bd4bed76e850bc18498ba5bf6e049aead151db2140f129954cb5"
+    },
+    {
+      "mutation": "rest",
+      "exit": 1,
+      "tests": 6,
+      "assertions": 180,
+      "errors": 0,
+      "failures": 1,
+      "log": "mutation-V2-rest.log",
+      "sha256": "e7006c924153e33d3f9c725a83b4fc1ec8ca64698cc137c19048260d8c78e881"
+    },
+    {
+      "mutation": "public",
+      "exit": 1,
+      "tests": 6,
+      "assertions": 179,
+      "errors": 0,
+      "failures": 1,
+      "log": "mutation-V2-public.log",
+      "sha256": "3df9565ec5c04bfedf74443be50941f28a13710698dcd4025701d0ef4b46158f"
+    },
+    {
+      "mutation": "export",
+      "exit": 1,
+      "tests": 6,
+      "assertions": 165,
+      "errors": 0,
+      "failures": 1,
+      "log": "mutation-V2-export.log",
+      "sha256": "880042ba9993d8d4310ce9c3e788a5ba419e624757b586dd3b4140c220c5460f"
+    },
+    {
+      "mutation": "effacement",
+      "exit": 1,
+      "tests": 6,
+      "assertions": 178,
+      "errors": 0,
+      "failures": 1,
+      "log": "mutation-V2-effacement.log",
+      "sha256": "697550f46e86fab1d81f57c69c6ec9f0e92d6798ea048eb77cd0b395309619a1"
+    },
+    {
+      "mutation": "lecture",
+      "exit": 1,
+      "tests": 6,
+      "assertions": 175,
+      "errors": 0,
+      "failures": 1,
+      "log": "mutation-V2-lecture.log",
+      "sha256": "09fa61557ed2d4450c352f4c332cb1610668e39c8ffedc1aa9c20a631a20b4d3"
+    },
+    {
+      "mutation": "nonce",
+      "exit": 1,
+      "tests": 6,
+      "assertions": 175,
+      "errors": 0,
+      "failures": 1,
+      "log": "mutation-V2-nonce.log",
+      "sha256": "0910e1fbe94aa0dd3f8de03b4e9d59410f272c3d287c8eaa8b245402830c7b2e"
+    }
+  ]
+}

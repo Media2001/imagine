@@ -1,0 +1,19 @@
+{
+  "suite": "A26-PHP-RED-GREEN",
+  "source_sha256": "04a4ddd6b069934c703f44cc0504fd0109dffc15bf9b9e7306b217266953b096",
+  "checks": [
+    {
+      "check": "neutralisation_mutant_red",
+      "status": "PASS"
+    },
+    {
+      "check": "owned_source_restored_exactly",
+      "status": "PASS"
+    },
+    {
+      "check": "final_source_green",
+      "status": "PASS"
+    }
+  ],
+  "exit_code": 0
+}

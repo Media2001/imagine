@@ -1,0 +1,327 @@
+[
+  {
+    "name": "a26-matrix",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a26/matrix.py",
+      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\final-run2\\a26"
+    ],
+    "start": "2026-11-26T23:23:56.769578+01:00",
+    "end": "2026-11-26T23:27:28.951506+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "utf8_mode_environment": "1",
+    "log": "a26-matrix.log",
+    "log_sha256": "0362cc85a0b448e888270f68d570eea6e4b704709c191e2d2ee7747103507517",
+    "sources_stable": true
+  },
+  {
+    "name": "a26-candidate-verify",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a26/verify.py",
+      "--packet=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\final-run2\\a26"
+    ],
+    "start": "2026-11-26T23:27:28.981177+01:00",
+    "end": "2026-11-26T23:27:29.131027+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "utf8_mode_environment": "1",
+    "log": "a26-candidate-verify.log",
+    "log_sha256": "8256bf0ee906ddf0af735baadf214c9e6f5e5e3ed0b7b71230667ccee8c77915",
+    "sources_stable": true
+  },
+  {
+    "name": "a27-matrix",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a27/matrix.py",
+      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\final-run2\\a27",
+      "--include-native",
+      "--parent-serialized"
+    ],
+    "start": "2026-11-26T23:32:02.066093+01:00",
+    "end": "2026-11-26T23:36:52.635169+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "utf8_mode_environment": "1",
+    "log": "a27-matrix.log",
+    "log_sha256": "e7bb32ae3398090072754c61d4e8c11869ae6707ba69ad9d6f7797e1ccefc0ea",
+    "sources_stable": true
+  },
+  {
+    "name": "a27-candidate-verify",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a27/verify.py",
+      "--evidence=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\final-run2\\a27"
+    ],
+    "start": "2026-11-26T23:36:52.667054+01:00",
+    "end": "2026-11-26T23:36:52.945490+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "utf8_mode_environment": "1",
+    "log": "a27-candidate-verify.log",
+    "log_sha256": "ae4c7708184fc645cb8e8086eb4123719aac1d572c86497ff71149906a009dad",
+    "sources_stable": true
+  },
+  {
+    "name": "prepare-image",
+    "command": [
+      "powershell.exe",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "wp/tests/preparer-image.ps1"
+    ],
+    "start": "2026-11-26T23:40:26.035270+01:00",
+    "end": "2026-11-26T23:40:28.861659+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "utf8_mode_environment": "1",
+    "log": "prepare-image.log",
+    "log_sha256": "cb93cad4497b66d000311d7a3dc985b1018892958bbe73e8d4394ace350c1db5",
+    "sources_stable": true
+  },
+  {
+    "name": "global-utf8",
+    "command": [
+      "powershell.exe",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "wp/tests/rejouer.ps1"
+    ],
+    "start": "2026-11-26T23:40:28.894101+01:00",
+    "end": "2026-11-26T23:40:37.516191+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "utf8_mode_environment": "1",
+    "log": "global-utf8.log",
+    "log_sha256": "29043906905c9d7201daffbc0644032e8a23e836c9b6a14265dd5a1353d3e2fe",
+    "sources_stable": true
+  },
+  {
+    "name": "a20-readonly-utf8",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a20/verify.py",
+      "production/A-20/preuves/final"
+    ],
+    "start": "2026-11-26T23:40:37.548041+01:00",
+    "end": "2026-11-26T23:40:37.738547+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "utf8_mode_environment": "1",
+    "log": "a20-readonly-utf8.log",
+    "log_sha256": "234a66108aa5614d03b46099885eb8158e572f664776855dc2e07dd8ca31a9b0",
+    "sources_stable": true
+  },
+  {
+    "name": "a21-readonly-utf8",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a21/verify.py",
+      "production/A-21/preuves/final"
+    ],
+    "start": "2026-11-26T23:40:37.766742+01:00",
+    "end": "2026-11-26T23:40:37.867163+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "utf8_mode_environment": "1",
+    "log": "a21-readonly-utf8.log",
+    "log_sha256": "64eba54b1faac5152ee6b594fb08096bdf916a4e1352266840b53ae4c012b2a0",
+    "sources_stable": true
+  },
+  {
+    "name": "a22-readonly-utf8",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a22/verify.py",
+      "production/A-22/preuves/final"
+    ],
+    "start": "2026-11-26T23:40:37.897281+01:00",
+    "end": "2026-11-26T23:40:38.292040+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "utf8_mode_environment": "1",
+    "log": "a22-readonly-utf8.log",
+    "log_sha256": "1b25572a9abfd05f15d38453f5a944bcd35c54cbb9e7842fd381710a244ca8a2",
+    "sources_stable": true
+  },
+  {
+    "name": "a23-readonly-utf8",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a23/verify.py"
+    ],
+    "start": "2026-11-26T23:40:38.320060+01:00",
+    "end": "2026-11-26T23:40:38.464083+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "utf8_mode_environment": "1",
+    "log": "a23-readonly-utf8.log",
+    "log_sha256": "dabe859e43030e129dfbbd8f56af80c632210d1a3508dd9ea31741a4753eac8b",
+    "sources_stable": true
+  },
+  {
+    "name": "a24-readonly-utf8",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a24/verify.py"
+    ],
+    "start": "2026-11-26T23:40:38.492768+01:00",
+    "end": "2026-11-26T23:40:38.710175+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "utf8_mode_environment": "1",
+    "log": "a24-readonly-utf8.log",
+    "log_sha256": "5c2de46e95cd0e90bfac24e42b4d4a07c4d179e55e3c65ea8fa14930d1447058",
+    "sources_stable": true
+  },
+  {
+    "name": "a25-readonly-utf8",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a25/verify.py"
+    ],
+    "start": "2026-11-26T23:40:38.737660+01:00",
+    "end": "2026-11-26T23:40:38.928600+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "utf-8",
+    "utf8_mode_environment": "1",
+    "log": "a25-readonly-utf8.log",
+    "log_sha256": "0514166dd9a9020c7fac6473c7b7ecb37db1663ecbabb913ed3125425f47c4bd",
+    "sources_stable": true
+  },
+  {
+    "name": "global-cp1252",
+    "command": [
+      "powershell.exe",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "wp/tests/rejouer.ps1"
+    ],
+    "start": "2026-11-26T23:40:38.959079+01:00",
+    "end": "2026-11-26T23:40:47.421589+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "cp1252",
+    "utf8_mode_environment": "0",
+    "log": "global-cp1252.log",
+    "log_sha256": "2fbf15fb2421c1a08917dc01229ba2e48ea179ae0a6ac6c5e60328d8688542a1",
+    "sources_stable": true
+  },
+  {
+    "name": "a20-readonly-cp1252",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a20/verify.py",
+      "production/A-20/preuves/final"
+    ],
+    "start": "2026-11-26T23:40:47.459958+01:00",
+    "end": "2026-11-26T23:40:47.579965+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "cp1252",
+    "utf8_mode_environment": "0",
+    "log": "a20-readonly-cp1252.log",
+    "log_sha256": "234a66108aa5614d03b46099885eb8158e572f664776855dc2e07dd8ca31a9b0",
+    "sources_stable": true
+  },
+  {
+    "name": "a21-readonly-cp1252",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a21/verify.py",
+      "production/A-21/preuves/final"
+    ],
+    "start": "2026-11-26T23:40:47.609059+01:00",
+    "end": "2026-11-26T23:40:47.775724+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "cp1252",
+    "utf8_mode_environment": "0",
+    "log": "a21-readonly-cp1252.log",
+    "log_sha256": "64eba54b1faac5152ee6b594fb08096bdf916a4e1352266840b53ae4c012b2a0",
+    "sources_stable": true
+  },
+  {
+    "name": "a22-readonly-cp1252",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a22/verify.py",
+      "production/A-22/preuves/final"
+    ],
+    "start": "2026-11-26T23:40:47.799459+01:00",
+    "end": "2026-11-26T23:40:48.178339+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "cp1252",
+    "utf8_mode_environment": "0",
+    "log": "a22-readonly-cp1252.log",
+    "log_sha256": "1b25572a9abfd05f15d38453f5a944bcd35c54cbb9e7842fd381710a244ca8a2",
+    "sources_stable": true
+  },
+  {
+    "name": "a23-readonly-cp1252",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a23/verify.py"
+    ],
+    "start": "2026-11-26T23:40:48.205907+01:00",
+    "end": "2026-11-26T23:40:48.334895+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "cp1252",
+    "utf8_mode_environment": "0",
+    "log": "a23-readonly-cp1252.log",
+    "log_sha256": "dabe859e43030e129dfbbd8f56af80c632210d1a3508dd9ea31741a4753eac8b",
+    "sources_stable": true
+  },
+  {
+    "name": "a24-readonly-cp1252",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a24/verify.py"
+    ],
+    "start": "2026-11-26T23:40:48.357113+01:00",
+    "end": "2026-11-26T23:40:48.515915+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "cp1252",
+    "utf8_mode_environment": "0",
+    "log": "a24-readonly-cp1252.log",
+    "log_sha256": "5c2de46e95cd0e90bfac24e42b4d4a07c4d179e55e3c65ea8fa14930d1447058",
+    "sources_stable": true
+  },
+  {
+    "name": "a25-readonly-cp1252",
+    "command": [
+      "C:/Python314/python.exe",
+      "-B",
+      "wp/tests/a25/verify.py"
+    ],
+    "start": "2026-11-26T23:40:48.538294+01:00",
+    "end": "2026-11-26T23:40:48.707308+01:00",
+    "exit_code": 0,
+    "python_encoding_environment": "cp1252",
+    "utf8_mode_environment": "0",
+    "log": "a25-readonly-cp1252.log",
+    "log_sha256": "0514166dd9a9020c7fac6473c7b7ecb37db1663ecbabb913ed3125425f47c4bd",
+    "sources_stable": true
+  }
+]

@@ -1,0 +1,323 @@
+{
+  "at": "2026-11-26T23:42:36.041253+01:00",
+  "exit_code": 0,
+  "before_PRET": [
+    {
+      "lot": "A-26",
+      "label": "sealed_before_PRET",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\production\\A-26\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:31.890337+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 0,
+      "exit_code": 0,
+      "stdout": "{\"lot\": \"A-26\", \"exit_code\": 0, \"package_and_inventory\": \"PASS\", \"frozen_sources\": \"PASS\", \"parent_gates\": 19, \"native_packet\": \"PASS\", \"pret_present\": false}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-27",
+      "label": "sealed_before_PRET",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\production\\A-27\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:32.139461+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 0,
+      "exit_code": 0,
+      "stdout": "{\"lot\": \"A-27\", \"exit_code\": 0, \"package_and_inventory\": \"PASS\", \"frozen_sources\": \"PASS\", \"parent_gates\": 19, \"native_packet\": \"PASS\", \"pret_present\": false}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-26",
+      "label": "sealed_before_PRET",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\production\\A-26\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:32.357019+01:00",
+      "encoding": "cp1252",
+      "utf8_mode": "0",
+      "expected_exit": 0,
+      "exit_code": 0,
+      "stdout": "{\"lot\": \"A-26\", \"exit_code\": 0, \"package_and_inventory\": \"PASS\", \"frozen_sources\": \"PASS\", \"parent_gates\": 19, \"native_packet\": \"PASS\", \"pret_present\": false}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-27",
+      "label": "sealed_before_PRET",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\production\\A-27\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:32.621552+01:00",
+      "encoding": "cp1252",
+      "utf8_mode": "0",
+      "expected_exit": 0,
+      "exit_code": 0,
+      "stdout": "{\"lot\": \"A-27\", \"exit_code\": 0, \"package_and_inventory\": \"PASS\", \"frozen_sources\": \"PASS\", \"parent_gates\": 19, \"native_packet\": \"PASS\", \"pret_present\": false}\r\n",
+      "stderr": ""
+    }
+  ],
+  "after_PRET": [
+    {
+      "lot": "A-26",
+      "label": "sealed_after_PRET",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\production\\A-26\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:32.855437+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 0,
+      "exit_code": 0,
+      "stdout": "{\"lot\": \"A-26\", \"exit_code\": 0, \"package_and_inventory\": \"PASS\", \"frozen_sources\": \"PASS\", \"parent_gates\": 19, \"native_packet\": \"PASS\", \"pret_present\": true}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-27",
+      "label": "sealed_after_PRET",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\production\\A-27\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:33.168066+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 0,
+      "exit_code": 0,
+      "stdout": "{\"lot\": \"A-27\", \"exit_code\": 0, \"package_and_inventory\": \"PASS\", \"frozen_sources\": \"PASS\", \"parent_gates\": 19, \"native_packet\": \"PASS\", \"pret_present\": true}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-20",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a20/verify.py",
+        "production/A-20/preuves/final"
+      ],
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "at": "2026-11-26T23:42:33.295568+01:00",
+      "exit_code": 0,
+      "stdout_sha256": "d5d25b71015b016f941d2bffc695af78a9e2050cd3b572721b77b5e4234e42fb",
+      "checks": 111
+    },
+    {
+      "lot": "A-21",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a21/verify.py",
+        "production/A-21/preuves/final"
+      ],
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "at": "2026-11-26T23:42:33.417746+01:00",
+      "exit_code": 0,
+      "stdout_sha256": "16a8ee043293b815161e08d4069460791dec8c8babfb4c07673bc8a1b956c12d",
+      "checks": 49
+    },
+    {
+      "lot": "A-22",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a22/verify.py",
+        "production/A-22/preuves/final"
+      ],
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "at": "2026-11-26T23:42:33.879368+01:00",
+      "exit_code": 0,
+      "stdout_sha256": "a5b01f4bc28d9c13fde8766bfe94a43ee7e52ef7db457b24238ff56a45885744",
+      "checks": 159
+    },
+    {
+      "lot": "A-23",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a23/verify.py"
+      ],
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "at": "2026-11-26T23:42:34.059318+01:00",
+      "exit_code": 0,
+      "stdout_sha256": "db5e27697944f1937c01febe1b725fd6145669e25e96fa193a9266f86b8a0938",
+      "checks": 70
+    },
+    {
+      "lot": "A-24",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a24/verify.py"
+      ],
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "at": "2026-11-26T23:42:34.224557+01:00",
+      "exit_code": 0,
+      "stdout_sha256": "d46a94417ce6d12d96391cf1d3df27471ec152ece22b414abf15c00baee96775",
+      "checks": 78
+    },
+    {
+      "lot": "A-25",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a25/verify.py"
+      ],
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "at": "2026-11-26T23:42:34.409005+01:00",
+      "exit_code": 0,
+      "stdout_sha256": "cbc843893b917f9c41d6cc8aa9fd3b67d849369de64b312fb152ca745781d486",
+      "checks": 136
+    },
+    {
+      "lot": "A-26",
+      "label": "sealed_after_PRET",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\production\\A-26\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:34.622272+01:00",
+      "encoding": "cp1252",
+      "utf8_mode": "0",
+      "expected_exit": 0,
+      "exit_code": 0,
+      "stdout": "{\"lot\": \"A-26\", \"exit_code\": 0, \"package_and_inventory\": \"PASS\", \"frozen_sources\": \"PASS\", \"parent_gates\": 19, \"native_packet\": \"PASS\", \"pret_present\": true}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-27",
+      "label": "sealed_after_PRET",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\production\\A-27\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:34.906444+01:00",
+      "encoding": "cp1252",
+      "utf8_mode": "0",
+      "expected_exit": 0,
+      "exit_code": 0,
+      "stdout": "{\"lot\": \"A-27\", \"exit_code\": 0, \"package_and_inventory\": \"PASS\", \"frozen_sources\": \"PASS\", \"parent_gates\": 19, \"native_packet\": \"PASS\", \"pret_present\": true}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-20",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a20/verify.py",
+        "production/A-20/preuves/final"
+      ],
+      "encoding": "cp1252",
+      "utf8_mode": "0",
+      "at": "2026-11-26T23:42:35.038766+01:00",
+      "exit_code": 0,
+      "stdout_sha256": "d5d25b71015b016f941d2bffc695af78a9e2050cd3b572721b77b5e4234e42fb",
+      "checks": 111
+    },
+    {
+      "lot": "A-21",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a21/verify.py",
+        "production/A-21/preuves/final"
+      ],
+      "encoding": "cp1252",
+      "utf8_mode": "0",
+      "at": "2026-11-26T23:42:35.142577+01:00",
+      "exit_code": 0,
+      "stdout_sha256": "16a8ee043293b815161e08d4069460791dec8c8babfb4c07673bc8a1b956c12d",
+      "checks": 49
+    },
+    {
+      "lot": "A-22",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a22/verify.py",
+        "production/A-22/preuves/final"
+      ],
+      "encoding": "cp1252",
+      "utf8_mode": "0",
+      "at": "2026-11-26T23:42:35.536361+01:00",
+      "exit_code": 0,
+      "stdout_sha256": "a5b01f4bc28d9c13fde8766bfe94a43ee7e52ef7db457b24238ff56a45885744",
+      "checks": 159
+    },
+    {
+      "lot": "A-23",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a23/verify.py"
+      ],
+      "encoding": "cp1252",
+      "utf8_mode": "0",
+      "at": "2026-11-26T23:42:35.673111+01:00",
+      "exit_code": 0,
+      "stdout_sha256": "db5e27697944f1937c01febe1b725fd6145669e25e96fa193a9266f86b8a0938",
+      "checks": 70
+    },
+    {
+      "lot": "A-24",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a24/verify.py"
+      ],
+      "encoding": "cp1252",
+      "utf8_mode": "0",
+      "at": "2026-11-26T23:42:35.841705+01:00",
+      "exit_code": 0,
+      "stdout_sha256": "d46a94417ce6d12d96391cf1d3df27471ec152ece22b414abf15c00baee96775",
+      "checks": 78
+    },
+    {
+      "lot": "A-25",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a25/verify.py"
+      ],
+      "encoding": "cp1252",
+      "utf8_mode": "0",
+      "at": "2026-11-26T23:42:36.028524+01:00",
+      "exit_code": 0,
+      "stdout_sha256": "cbc843893b917f9c41d6cc8aa9fd3b67d849369de64b312fb152ca745781d486",
+      "checks": 136
+    }
+  ],
+  "source_freeze_unchanged": true,
+  "readiness_markers": {
+    "A-26": {
+      "sha256": "593ae4733f90bf9963d0f2ef31fa967a23cfb971e9e1c368a4286fe7582acfdb",
+      "manifest_sha256": "54138b11c47d927a9b791e72ced154257399f9e928f0b7295a6b68094ad1f2ab"
+    },
+    "A-27": {
+      "sha256": "b251eefded7e61eb1c55274fe0fb3dd10b788cfc94d89d19650886e9069c9ad6",
+      "manifest_sha256": "fdbb047f83a79ce4e12055911f8023ffac5e1514dfe24aac456327f881a58317"
+    }
+  },
+  "mirror_removed": true,
+  "lock_preserved": true
+}

@@ -1,0 +1,1 @@
+{"version": 1, "numero_type": "imagine_numero", "article_type": "post", "date_cle": "post_date_gmt", "pdf_cle": "imagine_pdf", "thematique": "category", "liaison": {"source": "postmeta", "cle": "imagine_numero_id"}}

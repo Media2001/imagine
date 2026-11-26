@@ -1,0 +1,6 @@
+{
+  "reason": "A27 coherent shutdown count-tampering needs final digest binding; interrupted full controller not PASS",
+  "runner": "imagine-a26-tiers-c4e0ad778f82",
+  "ownership_checked": true,
+  "removed_and_absence_confirmed": true
+}

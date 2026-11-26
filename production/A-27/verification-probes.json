@@ -1,0 +1,201 @@
+{
+  "lot": "A-27",
+  "at": "2026-11-26T23:42:31.483646+01:00",
+  "scope": "actual no-argument wrappers and native checker in disposable canonical mirror; no Docker/PHP",
+  "checks": 12,
+  "exit_code": 0,
+  "rows": [
+    {
+      "lot": "A-27",
+      "label": "mirror_genuine_packet_green",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-27\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:29.463427+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 0,
+      "exit_code": 0,
+      "stdout": "{\"lot\": \"A-27\", \"exit_code\": 0, \"package_and_inventory\": \"PASS\", \"frozen_sources\": \"PASS\", \"parent_gates\": 19, \"native_packet\": \"PASS\", \"pret_present\": false}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-27",
+      "label": "owned_source_mutation_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-27\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:29.553196+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "{\"lot\": \"A-27\", \"exit_code\": 1, \"code\": \"SEALED_VERIFICATION_FAILED\", \"class\": \"AssertionError\"}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-27",
+      "label": "owned_source_omission_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-27\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:29.626122+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "{\"lot\": \"A-27\", \"exit_code\": 1, \"code\": \"SEALED_VERIFICATION_FAILED\", \"class\": \"AssertionError\"}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-27",
+      "label": "owned_source_addition_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-27\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:29.705808+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "{\"lot\": \"A-27\", \"exit_code\": 1, \"code\": \"SEALED_VERIFICATION_FAILED\", \"class\": \"AssertionError\"}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-27",
+      "label": "native_red_receipt_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-27\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:29.796184+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "{\"lot\": \"A-27\", \"exit_code\": 1, \"code\": \"SEALED_VERIFICATION_FAILED\", \"class\": \"AssertionError\"}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-27",
+      "label": "native_verifier_red_receipt_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\wp\\tests\\a27\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:29.951373+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "{\r\n  \"scope\": \"python_and_native\",\r\n  \"readiness_claimed\": false,\r\n  \"counts\": {\r\n    \"utf8:python\": 38,\r\n    \"utf8:unit\": 53,\r\n    \"utf8:result\": 166,\r\n    \"utf8:runner\": 13,\r\n    \"utf8:classic-standard\": 10,\r\n    \"utf8:hpos-standard\": 10,\r\n    \"cp1252:python\": 38,\r\n    \"cp1252:unit\": 53,\r\n    \"cp1252:result\": 166,\r\n    \"cp1252:runner\": 13,\r\n    \"cp1252:classic-standard\": 10,\r\n    \"cp1252:hpos-standard\": 10\r\n  },\r\n  \"checks\": [\r\n    {\r\n      \"check\": \"exact_current_sources\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"shared_document_exact_owned_lines\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"exact_current_dependencies\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"no_pret_claim\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"matrix_scope\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"exact_command_matrix\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"all_commands_pass\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"bound_log_python_utf-8\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"bound_log_native_utf-8\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"bound_log_python_cp1252\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"bound_log_native_cp1252\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"bound_log_style_utf-8\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:real_windows_console\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:real_python_tests\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:unit_pass\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:result_pass\",\r\n      \"status\": \"FAIL\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:runner_pass\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:classic-standard_pass\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:hpos-standard_pass\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:real_red_mutation\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:executed_sources\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:executed_dependencies\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:pure_no_extensions_no_writes\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:classic:required_native_cases\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:classic:all_db_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:classic:all_site_files_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:classic-neutral:all_db_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:classic-neutral:all_site_files_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:classic-five:all_db_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:classic-five:all_site_files_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:classic:payments_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:classic:repeat_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:classic:documented_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:classic:neutral_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:classic:five_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:classic:exact_base_counts\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:classic:all_neutral_unknown\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:classic:repeat_identical\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:classic:documented_identical\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:classic:five_reference_types_exact\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:classic:actual_engine_provenance\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:hpos:required_native_cases\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:hpos:all_db_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:hpos:all_site_files_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:hpos-neutral:all_db_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:hpos-neutral:all_site_files_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:hpos-five:all_db_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:hpos-five:all_site_files_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:hpos:payments_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:hpos:repeat_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:hpos:documented_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:hpos:neutral_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:hpos:five_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:hpos:exact_base_counts\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:hpos:all_neutral_unknown\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:hpos:repeat_identical\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:hpos:documented_identical\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:hpos:five_reference_types_exact\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"utf8:hpos:actual_engine_provenance\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:real_windows_console\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:real_python_tests\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:unit_pass\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:result_pass\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:runner_pass\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:classic-standard_pass\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:hpos-standard_pass\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:real_red_mutation\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:executed_sources\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:executed_dependencies\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:pure_no_extensions_no_writes\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:classic:required_native_cases\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:classic:all_db_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:classic:all_site_files_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:classic-neutral:all_db_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:classic-neutral:all_site_files_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:classic-five:all_db_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:classic-five:all_site_files_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:classic:payments_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:classic:repeat_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:classic:documented_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:classic:neutral_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:classic:five_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:classic:exact_base_counts\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:classic:all_neutral_unknown\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:classic:repeat_identical\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:classic:documented_identical\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:classic:five_reference_types_exact\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:classic:actual_engine_provenance\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:hpos:required_native_cases\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:hpos:all_db_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:hpos:all_site_files_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:hpos-neutral:all_db_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:hpos-neutral:all_site_files_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:hpos-five:all_db_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:hpos-five:all_site_files_immutable\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:hpos:payments_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:hpos:repeat_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:hpos:documented_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:hpos:neutral_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:hpos:five_valid_projection\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:hpos:exact_base_counts\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:hpos:all_neutral_unknown\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:hpos:repeat_identical\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:hpos:documented_identical\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:hpos:five_reference_types_exact\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"cp1252:hpos:actual_engine_provenance\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"strict_psr12\",\r\n      \"status\": \"PASS\"\r\n    },\r\n    {\r\n      \"check\": \"no_retained_private_canary\",\r\n      \"status\": \"PASS\"\r\n    }\r\n  ],\r\n  \"exit_code\": 1\r\n}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-27",
+      "label": "owned_shared_line_omitted_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-27\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:30.248627+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "{\"lot\": \"A-27\", \"exit_code\": 1, \"code\": \"SEALED_VERIFICATION_FAILED\", \"class\": \"AssertionError\"}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-27",
+      "label": "owned_shared_line_duplicated_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-27\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:30.507648+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "{\"lot\": \"A-27\", \"exit_code\": 1, \"code\": \"SEALED_VERIFICATION_FAILED\", \"class\": \"AssertionError\"}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-27",
+      "label": "owned_shared_line_mutated_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-27\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:30.781435+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "{\"lot\": \"A-27\", \"exit_code\": 1, \"code\": \"SEALED_VERIFICATION_FAILED\", \"class\": \"AssertionError\"}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-27",
+      "label": "owned_shared_line_newline_changed_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-27\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:31.037123+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "{\"lot\": \"A-27\", \"exit_code\": 1, \"code\": \"SEALED_VERIFICATION_FAILED\", \"class\": \"AssertionError\"}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-27",
+      "label": "unrelated_shared_appendix_allowed",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-27\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:31.298824+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 0,
+      "exit_code": 0,
+      "stdout": "{\"lot\": \"A-27\", \"exit_code\": 0, \"package_and_inventory\": \"PASS\", \"frozen_sources\": \"PASS\", \"parent_gates\": 19, \"native_packet\": \"PASS\", \"pret_present\": false}\r\n",
+      "stderr": ""
+    },
+    {
+      "lot": "A-27",
+      "label": "frozen_common_mutation_rejected",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\sealed-probes\\mirror\\production\\A-27\\verify.py"
+      ],
+      "at": "2026-11-26T23:42:31.483100+01:00",
+      "encoding": "utf-8",
+      "utf8_mode": "1",
+      "expected_exit": 1,
+      "exit_code": 1,
+      "stdout": "{\"lot\": \"A-27\", \"exit_code\": 1, \"code\": \"SEALED_VERIFICATION_FAILED\", \"class\": \"AssertionError\"}\r\n",
+      "stderr": ""
+    }
+  ]
+}

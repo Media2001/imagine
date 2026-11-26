@@ -1,0 +1,138 @@
+{
+    "suite": "A26-pure",
+    "checks": [
+        {
+            "check": "ten_closed_families",
+            "status": "PASS"
+        },
+        {
+            "check": "exact_count_mesure",
+            "status": "PASS"
+        },
+        {
+            "check": "exact_count_pixel",
+            "status": "PASS"
+        },
+        {
+            "check": "exact_count_consentement",
+            "status": "PASS"
+        },
+        {
+            "check": "exact_count_partage",
+            "status": "PASS"
+        },
+        {
+            "check": "exact_count_carte",
+            "status": "PASS"
+        },
+        {
+            "check": "exact_count_video",
+            "status": "PASS"
+        },
+        {
+            "check": "exact_count_audio",
+            "status": "PASS"
+        },
+        {
+            "check": "exact_count_polices",
+            "status": "PASS"
+        },
+        {
+            "check": "exact_count_formulaire_externe",
+            "status": "PASS"
+        },
+        {
+            "check": "exact_count_anti_robot",
+            "status": "PASS"
+        },
+        {
+            "check": "service_identifier_present_only_boolean",
+            "status": "PASS"
+        },
+        {
+            "check": "absent_identifier_non",
+            "status": "PASS"
+        },
+        {
+            "check": "empty_identifier_non",
+            "status": "PASS"
+        },
+        {
+            "check": "malformed_settings_illisible",
+            "status": "PASS"
+        },
+        {
+            "check": "object_settings_never_instantiated",
+            "status": "PASS"
+        },
+        {
+            "check": "array_identifier_illisible",
+            "status": "PASS"
+        },
+        {
+            "check": "unknown_plugin_not_classified",
+            "status": "PASS"
+        },
+        {
+            "check": "duplicate_active_not_counted_twice",
+            "status": "PASS"
+        },
+        {
+            "check": "disabled_import_not_zero",
+            "status": "PASS"
+        },
+        {
+            "check": "unaffected_family_count_preserved",
+            "status": "PASS"
+        },
+        {
+            "check": "unreadable_marker_conservative_unknown",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_service_once_per_content",
+            "status": "PASS"
+        },
+        {
+            "check": "host_boundary_no_spoof",
+            "status": "PASS"
+        },
+        {
+            "check": "case_trailing_dot_supported",
+            "status": "PASS"
+        },
+        {
+            "check": "html_resources_not_ordinary_links",
+            "status": "PASS"
+        },
+        {
+            "check": "plain_oembed_line",
+            "status": "PASS"
+        },
+        {
+            "check": "code_and_comments_not_resources",
+            "status": "PASS"
+        },
+        {
+            "check": "content_service_deduplicated",
+            "status": "PASS"
+        },
+        {
+            "check": "annual_fallback_sorted",
+            "status": "PASS"
+        },
+        {
+            "check": "last_ten_selection_no_ids",
+            "status": "PASS"
+        },
+        {
+            "check": "neutral_content_unknown_possible_whole_value_scrub",
+            "status": "PASS"
+        },
+        {
+            "check": "no_canary_in_any_aggregate",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 0
+}

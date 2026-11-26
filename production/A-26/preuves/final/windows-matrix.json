@@ -1,0 +1,82 @@
+{
+  "rows": [
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a26",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "console": "utf-8",
+      "exit_code": 0,
+      "log": "utf8/python-tests.log",
+      "log_sha256": "f094f1e7c4f3da8cfa8b4aaeb45407bd86aa42daddc09822ad7e7a2857f9ba8b",
+      "tests_run": 24,
+      "all_pass": true
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a26/run.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\final-run2\\a26\\utf8\\native"
+      ],
+      "console": "utf-8",
+      "exit_code": 0,
+      "log": "utf8/runner-console.log",
+      "log_sha256": "9b0ee2955f1fd03c64507f44950cc10d619789eebcc285bedba2acf20dbc4cef"
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a26",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "console": "cp1252",
+      "exit_code": 0,
+      "log": "cp1252/python-tests.log",
+      "log_sha256": "d71973c676ce68f15616de09532b1b08908cdf5fd4cf4e5ddbb4ece80a28d38c",
+      "tests_run": 24,
+      "all_pass": true
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a26/run.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\final-run2\\a26\\cp1252\\native"
+      ],
+      "console": "cp1252",
+      "exit_code": 0,
+      "log": "cp1252/runner-console.log",
+      "log_sha256": "bb6af18af82474f82132af33cb5b9129c5b372e85d670eda4f02cf97ceff5f31"
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a26/style.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a2627-parent-20261126\\final-run2\\a26\\style"
+      ],
+      "console": "utf-8",
+      "exit_code": 0,
+      "log": "style-console.log",
+      "log_sha256": "1ed338812788b5c443ac58e5491cbbccf30277aeae4bc0536031d0413e480f85"
+    }
+  ],
+  "native_executed": true,
+  "exit_code": 0
+}
