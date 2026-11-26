@@ -1,0 +1,7 @@
+{
+  "exit": 0,
+  "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1",
+  "TMPDIR": "C:/Users/Ced/imagine/production/C-23",
+  "stdout_sha256": "a1bdd9fd92a5d7fbd274f32f70ec57f89e6cde248288bf5ca9f350ae6c39f7ae",
+  "image": "sha256:283cadcac30626e5771f0d1ef72b9f9a5c8aeb42cbeb9ce5fcbe5af199bcf6f3"
+}

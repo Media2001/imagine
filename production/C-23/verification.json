@@ -1,0 +1,60 @@
+{
+  "scope": "imagine-test-demo",
+  "checks": {
+    "scope_exact": true,
+    "last_command_exit_0": true,
+    "count_exact": true,
+    "leaks_exact_zero": true,
+    "failures_exact_zero": true,
+    "route_count_exact": true,
+    "audience_count_exact": true,
+    "matrix_complete": true,
+    "matrix_pairs_unique": true,
+    "final_stdout_summary_exact": true,
+    "source_current": true,
+    "red_source_current": true,
+    "fixture_bound": true,
+    "restoration_exact": true,
+    "red_restoration_exact": true,
+    "schedule_exact": true,
+    "business_original_exact": true,
+    "red_detected": true,
+    "inverse_article_pdf": true,
+    "C14_owned_allowed_other_denied": true,
+    "all_recorded_own_sources_current": true,
+    "main_GET_only": true,
+    "no_session_dump": true,
+    "image_prepared": true,
+    "unit_tests_both_encodings": true
+  },
+  "total": 25,
+  "failures": [],
+  "last_matrix": {
+    "total": 1432,
+    "leaks": 0,
+    "failures": 0,
+    "routes": 101,
+    "publics": [
+      "anonyme",
+      "connecte-sans-abonnement",
+      "decouverte-epuisee",
+      "acheteur-autre-numero",
+      "faux-robot",
+      "profil-a-vir",
+      "profil-a-susp",
+      "profil-a-expire",
+      "profil-p-offrant",
+      "profil-p-offert",
+      "profil-p-gest",
+      "profil-p-benef",
+      "profil-p-pro",
+      "profil-p-coop"
+    ],
+    "summary": "ETANCHEITE : 1432 contrôles, 0 fuites — PASS"
+  },
+  "mutation": {
+    "total": 1432,
+    "leaks": 177,
+    "exit": 1
+  }
+}
