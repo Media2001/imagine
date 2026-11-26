@@ -13,7 +13,7 @@ final class RenouvellementReglesTest extends TestCase
         self::assertSame('quatre_fois', $view['mode']);
         self::assertFalse($view['arreter']);
         self::assertFalse($view['reprendre']);
-        self::assertSame('Pour ne pas renouveler votre engagement en quatre fois, faites la demande auprès d’Imagine ; les échéances du bloc en cours restent dues.', $view['message']);
+        self::assertSame('quatre_fois', $view['message']);
     }
 
     public function testMandatManuelPrimeSurLaPeriodiciteTrimestrielle(): void
@@ -45,6 +45,18 @@ final class RenouvellementReglesTest extends TestCase
         self::assertSame('manuel', $view['mode']);
         self::assertFalse($view['arreter']);
         self::assertFalse($view['reprendre']);
-        self::assertStringContainsString('manuel', $view['message']);
+        self::assertSame('manuel', $view['message']);
+    }
+
+    public function testToutesLesPresentationsRetournentUnCodeSansPhrase(): void
+    {
+        foreach (['manuel', 'indisponible', 'arret_a_terme'] as $mode) {
+            $view = RenouvellementRegles::presentation([
+                'status' => $mode === 'arret_a_terme' ? 'pending-cancel' : 'active',
+                'manual' => $mode !== 'indisponible', 'period' => 'year', 'interval' => 1,
+                'end' => '2027-01-01 00:00:00',
+            ], new \DateTimeImmutable('2026-11-26 UTC'));
+            self::assertSame($mode, $view['message']);
+        }
     }
 }
