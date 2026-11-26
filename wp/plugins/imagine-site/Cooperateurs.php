@@ -92,7 +92,7 @@ final class Cooperateurs
         echo '<input type="hidden" name="imagine_cooperateur_present" value="1"><label><input type="checkbox" name="imagine_cooperateur_oui" value="1"'
             . checked(is_array($state) && ($state['cooperateur'] ?? false) === true, true, false) . '> '
             . esc_html__('Ouvrir l’espace coopérateurs, jamais les articles', 'imagine-site') . '</label>';
-        if (is_array($state)) {
+        if (is_array($state) && ($state['cooperateur'] ?? null) === true) {
             echo '<p>' . esc_html__('Source : administration', 'imagine-site') . ' — <time>' . esc_html($state['date_utc'] ?? '') . '</time></p>';
         }
         echo '</td></tr></table>';
@@ -155,6 +155,9 @@ final class Cooperateurs
         global $wpdb;
         $prefix = \Imagine\Pilotage\Administration\Reglages::JOURNAL;
         $rows = $wpdb->get_results($wpdb->prepare("SELECT option_name,option_value FROM {$wpdb->options} WHERE option_name LIKE %s ORDER BY option_id", $wpdb->esc_like($prefix) . '%'));
+        if ($wpdb->last_error !== '' || !is_array($rows)) {
+            throw new \RuntimeException('Journal coopérateur indisponible.');
+        }
         $out = [];
         foreach ($rows as $row) {
             $value = maybe_unserialize($row->option_value);
@@ -300,7 +303,7 @@ final class Cooperateurs
         return $result;
     }
 
-    public static function exporter(string $email, int $page = 1): array
+    public static function exporter(string $email, int $page = 1): array|\WP_Error
     {
         $user = get_user_by('email', $email);
         $rows = [];
@@ -308,7 +311,12 @@ final class Cooperateurs
             if (metadata_exists('user', $user->ID, self::META)) {
                 $rows['statut'] = [self::META => get_user_meta($user->ID, self::META, true)];
             }
-            foreach (self::audits($user->ID) as $key => $event) {
+            try {
+                $audits = self::audits($user->ID);
+            } catch (\RuntimeException) {
+                return new \WP_Error('imagine_cooperateurs_export_incomplet', __('Export du statut coopérateur incomplet : réessayez.', 'imagine-site'));
+            }
+            foreach ($audits as $key => $event) {
                 // Ne jamais exporter le nom/login ni d'autres dossiers de l'opérateur.
                 $rows[$key] = array_intersect_key($event, array_flip(['quand_utc', 'avant', 'apres']));
             }
@@ -369,6 +377,7 @@ final class Cooperateurs
             $result['done'] = self::audits($u->ID) === [];
         } catch (\Throwable) {
             $result['items_retained'] = true;
+            $result['done'] = false;
             $result['messages'][] = __('Effacement du statut coopérateur incomplet : réessayez.', 'imagine-site');
         } finally {
             if ($locked) {
@@ -387,7 +396,7 @@ final class Cooperateurs
         $oui = CooperateursRegles::lecture($s, [], true);
         echo '<section id="mon-statut-cooperateur"><h2>' . esc_html__('Mon statut de coopérateur', 'imagine-site') . '</h2><p>'
             . esc_html($oui ? __('Coopérateur : oui', 'imagine-site') : __('Coopérateur : non', 'imagine-site'));
-        if (is_array($s)) {
+        if (is_array($s) && ($s['cooperateur'] ?? null) === true) {
             echo ' — ' . esc_html__('Source : administration', 'imagine-site') . ' — <time>' . esc_html($s['date_utc'] ?? '') . '</time>';
         }
         echo '</p>';

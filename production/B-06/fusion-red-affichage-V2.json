@@ -1,0 +1,41 @@
+{
+  "at": "2026-11-26T18:05:47.564621+00:00",
+  "scope": "imagine-test-demo",
+  "case": "attribute",
+  "mutation": "",
+  "checks": {
+    "fixture_reelle": true,
+    "fiche_native_nonce": true,
+    "attribut_source_date": true,
+    "audit_ajout": true,
+    "sans_faux_changement": true,
+    "coop_lit": true,
+    "compte_natif_statut_source": true,
+    "auto_refus": true,
+    "nonce_refus": true,
+    "refus_sans_effet": true,
+    "journal_en_echec_refuse": true,
+    "journal_en_echec_restaure_statut": true,
+    "retrait_audite": true,
+    "retrait_referme": true,
+    "compte_retrait_sans_source_date": false,
+    "fiche_retrait_sans_source_date": false,
+    "accroche_nommee_sans_ecouteur": true,
+    "aucun_mail_tente": true,
+    "aucun_http_tente": true
+  },
+  "total": 19,
+  "failures": [
+    "compte_retrait_sans_source_date",
+    "fiche_retrait_sans_source_date"
+  ],
+  "exit": 1,
+  "stderr": "",
+  "state_preserved": true,
+  "source_sha256": "798367bea4eb4b08dcbcfe397eb60b437eef66a59192b1ae7a14c163baffea88",
+  "private_snapshot": {
+    "file": "b06-private-mrf5z7qh/snapshot.json",
+    "sha256": "892a4fb166a74626b60c550d574c8c8826f0255c61c2188679bb51bfc7ed3b15",
+    "private": true
+  }
+}

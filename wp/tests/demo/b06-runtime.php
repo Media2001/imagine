@@ -80,6 +80,31 @@ try {
         }
         $checks['export_natif_exact'] = $r['done'] && json_decode($r['data'][0]['data'][0]['value'], true) === $state;
         $checks['export_autre_personne_absente'] = count($r['data']) === 2 && !str_contains(wp_json_encode($r), $admin->user_email);
+        $failRead = static function (string $sql): string {
+            return str_starts_with($sql, 'SELECT option_name,option_value FROM')
+                ? 'SELECT imagine_b06_select_inexistant' : $sql;
+        };
+        $checks['sql_evenements_presents_avant_panne'] = count(C::audits($id)) === 1;
+        $suppress = $wpdb->suppress_errors(true);
+        add_filter('query', $failRead);
+        try {
+            try {
+                $broken = call_user_func($cb, 'b06-fictif@example.org', 1);
+                $checks['sql_export_jamais_complet'] = is_wp_error($broken) || ($broken['done'] ?? true) === false;
+            } catch (RuntimeException) {
+                $checks['sql_export_jamais_complet'] = true;
+            }
+            $broken = call_user_func($erasers['imagine-cooperateurs']['callback'], 'b06-fictif@example.org', 1);
+            $checks['sql_effacement_incomplet_retient'] = $broken['items_retained'] === true && $broken['done'] === false && $broken['messages'] !== [];
+        } finally {
+            remove_filter('query', $failRead);
+            $wpdb->suppress_errors($suppress);
+        }
+        $checks['sql_evenement_non_perdu'] = count(C::audits($id)) === 1;
+        // Le premier essai peut avoir retiré l'attribut : reposer la même préimage sans nouvel audit.
+        update_user_meta($id, C::META, $state);
+        $reprise = call_user_func($cb, 'b06-fictif@example.org', 1);
+        $checks['sql_export_reprise_complete'] = !is_wp_error($reprise) && $reprise['done'] === true && count($reprise['data']) === 2;
         if ($mutation !== 'erase_noop') { $e = call_user_func($erasers['imagine-cooperateurs']['callback'], 'b06-fictif@example.org', 1); }
         else { $e = ['items_removed' => true, 'items_retained' => false, 'done' => true]; }
         wp_cache_delete($id, 'user_meta');
@@ -93,6 +118,11 @@ try {
         $checks['retrait_audite'] = $off['cooperateur'] === false && count(C::audits($id)) === 2;
         wp_set_current_user($id);
         $checks['retrait_referme'] = !C::autorise();
+        ob_start(); C::compte(); $offAccount = ob_get_clean();
+        $checks['compte_retrait_sans_source_date'] = str_contains($offAccount, 'Coopérateur : non') && !str_contains($offAccount, 'administration') && !str_contains($offAccount, '<time>');
+        wp_set_current_user($admin->ID);
+        ob_start(); C::fiche(get_userdata($id)); $offForm = ob_get_clean();
+        $checks['fiche_retrait_sans_source_date'] = str_contains($offForm, 'imagine_cooperateur_oui') && !str_contains($offForm, 'Source : administration') && !str_contains($offForm, '<time>');
     }
     if ($mutation === 'listener') { add_action(C::ACCROCHE, '__return_null'); }
     $checks['accroche_nommee_sans_ecouteur'] = C::ACCROCHE === 'imagine_cooperateur_modifie' && has_action(C::ACCROCHE) === false;

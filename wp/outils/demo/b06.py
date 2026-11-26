@@ -1,7 +1,7 @@
 """B06 : cible fictive gardée, installation additive et reçus immuables V2."""
 from pathlib import Path
 from datetime import datetime, timezone
-import hashlib, json, sys
+import hashlib, json, sys, os, tempfile
 sys.dont_write_bytecode = True
 import b05
 ROOT, wp, profils, hashes, state = b05.ROOT, b05.wp, b05.profils, b05.hashes, b05.state
@@ -27,11 +27,24 @@ def guard():
 def baseline(label):
     save(label, {'identity':guard(), 'state':state(), 'sources':hashes(NAMES)})
 
+def private_snapshot(label, payload=None):
+    """Préimage durable PRIVÉE avant mutation ; jamais de session dans le dépôt."""
+    if payload is None:
+        payload = wp('''global $wpdb;echo wp_json_encode(['users'=>$wpdb->get_results("SELECT * FROM {$wpdb->users} ORDER BY ID",ARRAY_A),'meta'=>$wpdb->get_results("SELECT * FROM {$wpdb->usermeta} ORDER BY umeta_id",ARRAY_A),'options'=>$wpdb->get_results("SELECT * FROM {$wpdb->options} WHERE option_name LIKE 'imagine_%' OR option_name='cron' ORDER BY option_id",ARRAY_A),'pages'=>$wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE post_type='page' ORDER BY ID",ARRAY_A)]);''')
+    folder = Path(tempfile.mkdtemp(prefix='b06-private-', dir=os.environ['TMPDIR']))
+    path = folder/'snapshot.json'
+    raw = json.dumps({'label':label,'scope':'imagine-test-demo','payload':payload},ensure_ascii=False).encode('utf-8')
+    with path.open('xb') as stream:
+        stream.write(raw); stream.flush(); os.fsync(stream.fileno())
+    os.chmod(path, 0o600)
+    assert path.read_bytes() == raw
+    return {'file':folder.name+'/snapshot.json','sha256':hashlib.sha256(raw).hexdigest(),'private':True}
+
 def deploy(label):
     identity = guard()
     prior = hashes(NAMES)
     base = json.loads((PROOF/'baseline-V2.json').read_text(encoding='utf-8'))['sources']
-    for n in NAMES:
+    for n in NAMES[:-1]:
         allowed = {base[n], hashlib.sha256((ROOT/'wp'/n).read_bytes()).hexdigest()}
         for p in PROOF.glob('deploy*-V2.json'):
             allowed.add(json.loads(p.read_text(encoding='utf-8'))['sources'][n])
@@ -40,12 +53,13 @@ def deploy(label):
     bootstrap = NAMES[-1]
     remote = wp('echo wp_json_encode(file_get_contents(WP_CONTENT_DIR."/'+bootstrap+'"));')
     local = (ROOT/'wp'/bootstrap).read_text(encoding='utf-8')
-    assert remote == local or remote == local.replace(BLOCK, ''), 'Bootstrap partagé divergent'
+    assert remote.count(BLOCK) == 1, 'Bloc B06 absent : aucune réécriture du bootstrap partagé'
     before = state()
-    for n in NAMES:
+    private_snapshot(label)
+    for n in NAMES[:-1]:
         profils.b00.upload(n, (ROOT/'wp'/n).read_bytes())
     actual = hashes(NAMES)
-    assert actual == {n:hashlib.sha256((ROOT/'wp'/n).read_bytes()).hexdigest() for n in NAMES}
+    assert actual == {**{n:hashlib.sha256((ROOT/'wp'/n).read_bytes()).hexdigest() for n in NAMES[:-1]}, NAMES[-1]:prior[NAMES[-1]]}
     assert before == state()
     save(label, {'identity':identity, 'sources':actual, 'state_preserved':True})
 
@@ -57,9 +71,10 @@ def runtime(label, case='attribute', mutation=''):
     profils.b00.upload(target, source.read_bytes())
     assert hashes([target])[target] == hashlib.sha256(source.read_bytes()).hexdigest()
     before = state()
+    snapshot = private_snapshot(label)
     p = profils.b00.wp('eval', '$GLOBALS["imagine_b06_case"]='+json.dumps(case)+';$GLOBALS["imagine_b06_mutation"]='+json.dumps(mutation)+';require WP_CONTENT_DIR."/'+target+'";',check=False)
     data = json.loads(p['stdout'])
-    data.update(exit=p['code'], stderr=p['stderr'], state_preserved=state()==before, source_sha256=hashlib.sha256(source.read_bytes()).hexdigest())
+    data.update(exit=p['code'], stderr=p['stderr'], state_preserved=state()==before, source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(), private_snapshot=snapshot)
     save(label, data)
     print(json.dumps(data, ensure_ascii=False))
     assert not data['failures'] and not data['exit'] and not data['stderr'] and data['state_preserved']
