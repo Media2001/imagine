@@ -8,6 +8,7 @@ namespace Imagine\Site;
 final class PersonnalisationReglages
 {
     private static bool $restoring = false;
+    private static ?array $preimage = null;
 
     public static function register(): void
     {
@@ -43,6 +44,10 @@ final class PersonnalisationReglages
 
     public static function nettoyer(mixed $value): array
     {
+        // Seule l'inverse interne de cette préimage vérifiée évite les réserves.
+        if (self::$restoring && self::$preimage !== null && $value === self::$preimage) {
+            return self::$preimage;
+        }
         if ($value === null) { return Personnalisation::catalogue(); }
         try {
             if (!is_array($value)) { throw new \InvalidArgumentException(); }
@@ -139,13 +144,17 @@ final class PersonnalisationReglages
             self::reserver(PersonnalisationRegles::catalogue($new));
             if (add_option($name, $event, '', false) && get_option($name) === $event) { return; }
         } catch (\InvalidArgumentException) { /* La configuration n'est pas utilisable sans réserve. */ }
+        self::$preimage = $old === null ? null : PersonnalisationRegles::catalogue($old);
+        if (self::$preimage !== $old) {
+            wp_die(esc_html__('Préimage de personnalisation invalide.', 'imagine-site'), '', ['response' => 500]);
+        }
         self::$restoring = true;
         try {
             $old === null ? delete_option($key) : update_option($key, $old, false);
             if (get_option($key, null) !== $old) {
                 wp_die(esc_html__('Restauration de la personnalisation impossible.', 'imagine-site'), '', ['response' => 500]);
             }
-        } finally { self::$restoring = false; }
+        } finally { self::$restoring = false; self::$preimage = null; }
         add_settings_error($key, 'imagine_personnalisation_journal', __('Journal ou réserve indisponible : réglage inchangé.', 'imagine-site'));
     }
 

@@ -1,0 +1,49 @@
+{
+  "at": "2026-11-26T20:15:54.295665+00:00",
+  "scope": "imagine-test-demo",
+  "case": "journal-choix",
+  "mutation": "",
+  "mutation_replacements": 0,
+  "total": 10,
+  "checks": {
+    "preimage_reelle_presente": true,
+    "sanitize_callback_reel": true,
+    "echec_journal_reel_injecte": true,
+    "aucun_500_reel": true,
+    "preimage_restauree_exacte": true,
+    "readback_SQL_preimage_exacte": true,
+    "erreur_journal_signalee": true,
+    "nouvelle_saisie_reservee_toujours_refusee": true,
+    "aucun_mail": true,
+    "aucun_http": true
+  },
+  "failures": [],
+  "dies": [],
+  "journal_inserts_refused": 1,
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "exit": 0,
+  "stderr": "",
+  "state_preserved": true,
+  "all_business_rows_preserved": true,
+  "private_snapshot": {
+    "file": "b06-private-mlf0tuqn/snapshot.json",
+    "sha256": "680cee1095c4c34dee8c50d9069e1ea9074df7fcecccaf9f4c91f769e98c44ba",
+    "private": true
+  },
+  "source_sha256": "8da0579f6bccb6716485252a88402eb538b1e17a1dbbce0c095c03e9ca08f3e8",
+  "product_sources": {
+    "plugins/imagine-site/PersonnalisationRegles.php": "100fea3d108327455d050f15114dc225fbc8dbb09ab64e166945db5c43a174cc",
+    "plugins/imagine-site/Personnalisation.php": "9de27a41ecbb4c85c84faa85984dfa4ee291583f9fa7c71246b88a16afa6e24e",
+    "plugins/imagine-site/PersonnalisationReglages.php": "c0ca6b7a6f7fdfe1c3e5ff92eb666b2fc37ffe820a7fa07b9bc8d38f8d42ad76",
+    "plugins/imagine-site/PersonnalisationConfidentialite.php": "4b101d16b0931950730168dbe785e3a7e0f2013b22833be659c52eb3128477b4"
+  }
+}

@@ -48,8 +48,11 @@ final class Personnalisation
     public static function attributsConnecteur(int $id): array
     {
         $newsletter = false;
+        $preferences = Newsletters::preferences($id);
         foreach (Newsletters::catalogue() as $row) {
-            $newsletter = $newsletter || (Newsletters::preferences($id)[$row['id']]['choix'] ?? null) === true;
+            $preference = $preferences[$row['id']] ?? [];
+            $newsletter = $newsletter || (($preference['choix'] ?? null) === true
+                && ($preference['origine'] ?? null) === 'lecteur');
         }
         if (!PersonnalisationRegles::transmissible(self::consentement($id), $newsletter, Newsletters::admissible($id))) {
             return [];
