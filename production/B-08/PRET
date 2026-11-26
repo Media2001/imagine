@@ -1,0 +1,9 @@
+B-08 — PRET à relire, 26 novembre 2026.
+Cible exclusive : imagine-test-demo ; aucune action réelle ni service raccordé.
+A-VOIR.md et NOTE.md présents ; python production/B-08/verifier.py : code 0.
+6 tests / 181 assertions ; 12 mutations sources détectées sans erreur PHP.
+31 contrôles HTTP/native ; état métier exact restauré (comptes, classique, HPOS, actions, navigation, options).
+Image canonique préparée puis 1 149 tests / 36 036 assertions, 0 échec/erreur/ignoré ; 18 outils / 417 contrôles, code 0.
+10 pages vides et 15 items natifs conservés ; don OFF, URL vide, propositions/observateur/exécutable de seed d’essai retirés.
+Bootstrap B08 additif, blocs antérieurs préservés ; aucune bibliothèque close ni matrice C23 modifiée.
+Validation visuelle de Ced et deux relectures du circuit attendues ; aucun GO réel implicite.

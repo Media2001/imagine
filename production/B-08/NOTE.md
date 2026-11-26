@@ -20,7 +20,7 @@ Les propositions sont des lignes `wp_posts`, type `imagine_sujet`, statut `priva
 
 ## Commandes réellement exécutées
 
-Depuis `C:\Users\Ced\imagine`, Python 3.14.7, sorties UTF-8 ; PHP de tests 8.2.33, PHPUnit 11.5.58 :
+Depuis `C:\Users\Ced\imagine`, Python 3.11.15 (interpréteur réellement exécuté), sorties UTF-8 ; PHP de tests 8.2.33, PHPUnit 11.5.58 :
 
 ```text
 python wp/outils/demo/b08-local.py horslive-final
@@ -45,6 +45,6 @@ Les reçus finaux, leur empreinte, le lien aux sources exécutées, la restaurat
 
 ## Limites et décisions à défaut
 
-Aucun framework ajouté ; pas de conception graphique, de texte éditorial, de paiement, de don même d’essai, d’installation sur l’hôte ni d’action Git dans la livraison. Le don activé n’est qu’un emplacement de démonstration sans action. L’URL de parts est volontairement vide : aucun accès CoopHub n’a été tenté. Consentement de recontact facultatif, conforme à la seule case demandée ; aucune réutilisation commerciale.
+Aucun framework ajouté ; pas de conception graphique, de texte éditorial, de paiement, de don même d’essai, d’installation sur l’hôte ni d’écriture Git dans la livraison. Le don activé n’est qu’un emplacement de démonstration sans action. L’URL de parts est volontairement vide : aucun accès CoopHub n’a été tenté. Consentement de recontact facultatif, conforme à la seule case demandée ; aucune réutilisation commerciale.
 
 Le « S’abonner » existant est un emplacement B-01, pas un tunnel livré par B08. Les titres enregistrés sont exactement ceux du §3.12 ; les apostrophes d’affichage suivent WordPress. La protection B06 reste indépendante. Ces pages publiques ne sont pas ajoutées à C23 ; l’extension transversale C26 demeure le lot suivant. Validation visuelle à Ced ; aucun blocage métier retenu.
