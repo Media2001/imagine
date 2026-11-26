@@ -1,0 +1,20 @@
+{
+  "command": [
+    "C:/Python314/python.exe",
+    "-B",
+    "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\runner_absence.py"
+  ],
+  "encoding": "utf-8",
+  "environment": {
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONUTF8": "1",
+    "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+    "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+    "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+  },
+  "started": "2026-11-26T22:56:54.350542+01:00",
+  "finished": "2026-11-26T22:56:55.404712+01:00",
+  "exit_code": 0,
+  "log": "runner-absence-command.log",
+  "log_sha256": "de4ab1611b333452ad45ac5e5c3f544f7faadc7478ae5a3956ef2949b5ded7fd"
+}

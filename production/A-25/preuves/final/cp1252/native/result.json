@@ -68,6 +68,11 @@
       "detail": null
     },
     {
+      "check": "classic:submission_pk_five_child_excluded",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:all_private_values_absent",
       "status": "PASS",
       "detail": null
@@ -501,6 +506,46 @@
       "detail": null
     },
     {
+      "check": "classic:pk_only_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pk_only_confined_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pk_only_no_silent_zero_or_child_double_count",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pk_only_tables_files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:ambiguous_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:ambiguous_confined_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:ambiguous_coverage_never_zero",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:ambiguous_tables_files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:all_output_artifacts_clean",
       "status": "PASS",
       "detail": null
@@ -543,6 +588,11 @@
     },
     {
       "check": "hpos:closed_form_adapter_and_other",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:submission_pk_five_child_excluded",
       "status": "PASS",
       "detail": null
     },
@@ -976,6 +1026,46 @@
     },
     {
       "check": "hpos:nodate_tables_files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pk_only_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pk_only_confined_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pk_only_no_silent_zero_or_child_double_count",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pk_only_tables_files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:ambiguous_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:ambiguous_confined_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:ambiguous_coverage_never_zero",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:ambiguous_tables_files_identical",
       "status": "PASS",
       "detail": null
     },

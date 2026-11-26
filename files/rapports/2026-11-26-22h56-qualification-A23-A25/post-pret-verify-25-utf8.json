@@ -1,0 +1,20 @@
+{
+  "command": [
+    "C:/Python314/python.exe",
+    "-B",
+    "wp/tests/a25/verify.py"
+  ],
+  "encoding": "utf-8",
+  "environment": {
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONUTF8": "1",
+    "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+    "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+    "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+  },
+  "started": "2026-11-26T22:56:56.151955+01:00",
+  "finished": "2026-11-26T22:56:56.347819+01:00",
+  "exit_code": 0,
+  "log": "post-pret-verify-25-utf8.log",
+  "log_sha256": "6f25109c6345b32a19640aba6045c886c07fffcb5d6838fe378d848ffefef6de"
+}

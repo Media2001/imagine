@@ -46,6 +46,11 @@
                     "year": 1999,
                     "state": "Fluent Forms",
                     "count": 5
+                },
+                {
+                    "year": 2022,
+                    "state": "autre",
+                    "count": 5
                 }
             ],
             "autres": 4
@@ -65,8 +70,10 @@
         "listed_extensions": [
             "Fluent Forms"
         ],
-        "other_tables": 1,
-        "clear_messages_after_import": true
+        "other_tables": 2,
+        "coverage": "heuristique bornée",
+        "clear_messages_after_import": true,
+        "clear_messages_after_import_label": "avertissement éditorial permanent, non mesuré sur la copie inspectée"
     },
-    "audit_sha256": "51d46eef1e86624a917595fe6fe4dcb4e996a120c76aeb836606f2763c56ca14"
+    "audit_sha256": "429506a66f37c80824e56fe58cd17022a20201581f774f91a7dec230d6d7375a"
 }

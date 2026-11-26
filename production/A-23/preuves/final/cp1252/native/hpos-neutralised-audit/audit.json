@@ -1,6 +1,6 @@
 {
     "schema": "imagine-a02-audit-v1",
-    "generated_at_utc": "2026-11-26T18:08:04+00:00",
+    "generated_at_utc": "2026-11-26T21:35:25+00:00",
     "read_only": true,
     "privacy": "structural_identifiers_versions_numeric_counts_only; no_titles_contacts_settings_arguments_or_raw_logs",
     "sections": {
@@ -182,8 +182,8 @@
                 }
             ],
             "update_source": "local_cache_only_not_a_live_check",
-            "plugin_cache_checked_epoch": 1795716450,
-            "theme_cache_checked_epoch": 1795716450
+            "plugin_cache_checked_epoch": 1795728891,
+            "theme_cache_checked_epoch": 1795728891
         },
         "commerce": {
             "order_storage": "hpos",
@@ -425,7 +425,7 @@
                     "status": "wc-pending",
                     "period": "year",
                     "interval": 1,
-                    "count": 6
+                    "count": 10
                 },
                 {
                     "status": "wc-pending-cancel",
@@ -566,7 +566,7 @@
                 },
                 {
                     "name": "shop_order_placehold",
-                    "count": 36
+                    "count": 40
                 },
                 {
                     "name": "wc_membership_plan",
@@ -830,7 +830,7 @@
                 {
                     "name": "wp_posts",
                     "bytes": 147456,
-                    "rows": 53,
+                    "rows": 57,
                     "ownership": "wordpress"
                 },
                 {
@@ -860,13 +860,13 @@
                 {
                     "name": "wp_usermeta",
                     "bytes": 131072,
-                    "rows": 602,
+                    "rows": 692,
                     "ownership": "wordpress"
                 },
                 {
                     "name": "wp_users",
                     "bytes": 65536,
-                    "rows": 41,
+                    "rows": 47,
                     "ownership": "wordpress"
                 },
                 {
@@ -920,19 +920,19 @@
                 {
                     "name": "wp_wc_orders",
                     "bytes": 163840,
-                    "rows": 36,
+                    "rows": 40,
                     "ownership": "active_woocommerce"
                 },
                 {
                     "name": "wp_wc_orders_meta",
-                    "bytes": 163840,
-                    "rows": 602,
+                    "bytes": 180224,
+                    "rows": 670,
                     "ownership": "active_woocommerce"
                 },
                 {
                     "name": "wp_wc_order_addresses",
                     "bytes": 81920,
-                    "rows": 25,
+                    "rows": 29,
                     "ownership": "active_woocommerce"
                 },
                 {
@@ -944,7 +944,7 @@
                 {
                     "name": "wp_wc_order_operational_data",
                     "bytes": 49152,
-                    "rows": 36,
+                    "rows": 40,
                     "ownership": "active_woocommerce"
                 },
                 {
@@ -1098,7 +1098,7 @@
                     "ownership": "active_woocommerce"
                 }
             ],
-            "total_bytes": 3604480,
+            "total_bytes": 3620864,
             "largest_autoload": [
                 {
                     "name": "a02_heavy_secret_setting",

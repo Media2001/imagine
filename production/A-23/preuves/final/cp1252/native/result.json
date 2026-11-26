@@ -48,6 +48,16 @@
       "detail": null
     },
     {
+      "check": "classic:role_negative_override_fixture",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:role_multi_management_fixture",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:audit_success",
       "status": "PASS",
       "detail": null
@@ -268,7 +278,22 @@
       }
     },
     {
+      "check": "classic:role_negative_override_excluded",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:role_multi_management_excluded",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:all_private_values_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:role_private_values_absent",
       "status": "PASS",
       "detail": null
     },
@@ -503,6 +528,16 @@
       "detail": null
     },
     {
+      "check": "classic:closed_channel:unsafe_management_role",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:unsafe_management_role",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:closed_channel:forged_success",
       "status": "PASS",
       "detail": null
@@ -633,6 +668,16 @@
     },
     {
       "check": "hpos:native_seed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:role_negative_override_fixture",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:role_multi_management_fixture",
       "status": "PASS",
       "detail": null
     },
@@ -857,7 +902,22 @@
       }
     },
     {
+      "check": "hpos:role_negative_override_excluded",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:role_multi_management_excluded",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "hpos:all_private_values_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:role_private_values_absent",
       "status": "PASS",
       "detail": null
     },
@@ -1088,6 +1148,16 @@
     },
     {
       "check": "hpos:no_retained_payload:plugin_exception",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:unsafe_management_role",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:unsafe_management_role",
       "status": "PASS",
       "detail": null
     },

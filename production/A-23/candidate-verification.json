@@ -1,663 +1,305 @@
 {
   "status": "CANDIDAT_GATE_PARENT",
   "readiness_claimed": false,
-  "parent_preparation": "pending",
-  "parent_global_T01": "pending",
-  "seal_command": [
-    "C:/Python314/python.exe",
-    "-B",
-    "-c",
-    "import importlib.util,json; from pathlib import Path; s=importlib.util.spec_from_file_location('a23_verify','wp/tests/a23/verify.py'); v=importlib.util.module_from_spec(s); s.loader.exec_module(v); Path('production/A-23/manifest.json').write_text(json.dumps(v.inventory(v.PACKAGE),indent=2)+'\\n',encoding='utf-8')"
-  ],
-  "seal_exit_code": 0,
-  "manifest_sha256": "22dd6d3969f2c8cb242c84bdcb314dbb19214419234661e513418cfe4cb4b7a1",
-  "replay_receipt": "C:/Users/Ced/AppData/Local/hermes/cache/scratch/a23-finalisation-20261126-1710/replay-receipt.json",
-  "consoles": [
-    {
-      "console": "utf8",
-      "environment": {
-        "platform": "win32",
-        "executable": "C:\\Python314\\python.exe",
-        "version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
-        "stdout": "utf-8",
-        "stderr": "utf-8",
-        "utf8_mode": 1,
-        "locale": "cp1252"
-      },
-      "command": [
-        "C:/Python314/python.exe",
-        "-B",
-        "wp/tests/a23/verify.py",
-        "--require-shared-doc"
-      ],
-      "process_exit_code": 0,
-      "stdout": "C:/Users/Ced/AppData/Local/hermes/cache/scratch/a23-finalisation-20261126-1710/utf8-sealed.stdout",
-      "stdout_sha256": "3c2c29c3b965bafe62e7f73e4a77625f714ebabe64d7d5a99b50fe663076d366",
-      "stderr": "C:/Users/Ced/AppData/Local/hermes/cache/scratch/a23-finalisation-20261126-1710/utf8-sealed.stderr",
-      "pass": 67,
-      "fail": 0,
-      "result": {
-        "status": "CANDIDAT_GATE_PARENT",
-        "readiness_claimed": false,
-        "counts": {
-          "utf8:python": 23,
-          "utf8:unit": 34,
-          "utf8:standard": 14,
-          "utf8:result": 160,
-          "utf8:runner": 9,
-          "cp1252:python": 23,
-          "cp1252:unit": 34,
-          "cp1252:standard": 14,
-          "cp1252:result": 160,
-          "cp1252:runner": 9
-        },
-        "checks": [
-          {
-            "check": "current_owned_sources",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:measured_windows_console",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:python_tests_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:unit_all_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:standard_all_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:result_all_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:runner_all_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:executed_current_sources",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:current_dependencies",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:pure_no_writes",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:all_mandatory_cases",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:all_table_hashes_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:neutralised_all_table_hashes_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:strict_report_projection",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:authoritative_storage",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:exact_population_counts",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:repeat_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:documented_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:root-readonly_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:neutralised_strict_projection",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:all_mandatory_cases",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:all_table_hashes_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:neutralised_all_table_hashes_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:strict_report_projection",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:authoritative_storage",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:exact_population_counts",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:repeat_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:documented_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:root-readonly_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:neutralised_strict_projection",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:measured_windows_console",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:python_tests_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:unit_all_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:standard_all_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:result_all_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:runner_all_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:executed_current_sources",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:current_dependencies",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:pure_no_writes",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:all_mandatory_cases",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:all_table_hashes_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:neutralised_all_table_hashes_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:strict_report_projection",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:authoritative_storage",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:exact_population_counts",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:repeat_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:documented_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:root-readonly_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:neutralised_strict_projection",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:all_mandatory_cases",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:all_table_hashes_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:neutralised_all_table_hashes_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:strict_report_projection",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:authoritative_storage",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:exact_population_counts",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:repeat_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:documented_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:root-readonly_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:neutralised_strict_projection",
-            "status": "PASS"
-          },
-          {
-            "check": "strict_psr12_current_sources",
-            "status": "PASS"
-          },
-          {
-            "check": "five_commands_all_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "command_log_hashes",
-            "status": "PASS"
-          },
-          {
-            "check": "retained_artifacts_clean",
-            "status": "PASS"
-          },
-          {
-            "check": "parent_gates_not_claimed",
-            "status": "PASS"
-          },
-          {
-            "check": "two_line_delta",
-            "status": "PASS"
-          },
-          {
-            "check": "only_own_shared_lines",
-            "status": "PASS"
-          },
-          {
-            "check": "exact_final_inventory_and_hashes",
-            "status": "PASS"
-          }
-        ],
-        "exit_code": 0
-      }
-    },
-    {
-      "console": "cp1252",
-      "environment": {
-        "platform": "win32",
-        "executable": "C:\\Python314\\python.exe",
-        "version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
-        "stdout": "cp1252",
-        "stderr": "cp1252",
-        "utf8_mode": 0,
-        "locale": "cp1252"
-      },
-      "command": [
-        "C:/Python314/python.exe",
-        "-B",
-        "wp/tests/a23/verify.py",
-        "--require-shared-doc"
-      ],
-      "process_exit_code": 0,
-      "stdout": "C:/Users/Ced/AppData/Local/hermes/cache/scratch/a23-finalisation-20261126-1710/cp1252-sealed.stdout",
-      "stdout_sha256": "3c2c29c3b965bafe62e7f73e4a77625f714ebabe64d7d5a99b50fe663076d366",
-      "stderr": "C:/Users/Ced/AppData/Local/hermes/cache/scratch/a23-finalisation-20261126-1710/cp1252-sealed.stderr",
-      "pass": 67,
-      "fail": 0,
-      "result": {
-        "status": "CANDIDAT_GATE_PARENT",
-        "readiness_claimed": false,
-        "counts": {
-          "utf8:python": 23,
-          "utf8:unit": 34,
-          "utf8:standard": 14,
-          "utf8:result": 160,
-          "utf8:runner": 9,
-          "cp1252:python": 23,
-          "cp1252:unit": 34,
-          "cp1252:standard": 14,
-          "cp1252:result": 160,
-          "cp1252:runner": 9
-        },
-        "checks": [
-          {
-            "check": "current_owned_sources",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:measured_windows_console",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:python_tests_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:unit_all_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:standard_all_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:result_all_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:runner_all_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:executed_current_sources",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:current_dependencies",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:pure_no_writes",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:all_mandatory_cases",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:all_table_hashes_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:neutralised_all_table_hashes_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:strict_report_projection",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:authoritative_storage",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:exact_population_counts",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:repeat_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:documented_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:root-readonly_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:classic:neutralised_strict_projection",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:all_mandatory_cases",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:all_table_hashes_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:neutralised_all_table_hashes_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:strict_report_projection",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:authoritative_storage",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:exact_population_counts",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:repeat_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:documented_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:root-readonly_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "utf8:hpos:neutralised_strict_projection",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:measured_windows_console",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:python_tests_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:unit_all_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:standard_all_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:result_all_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:runner_all_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:executed_current_sources",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:current_dependencies",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:pure_no_writes",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:all_mandatory_cases",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:all_table_hashes_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:neutralised_all_table_hashes_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:strict_report_projection",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:authoritative_storage",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:exact_population_counts",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:repeat_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:documented_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:root-readonly_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:classic:neutralised_strict_projection",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:all_mandatory_cases",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:all_table_hashes_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:neutralised_all_table_hashes_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:strict_report_projection",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:authoritative_storage",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:exact_population_counts",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:repeat_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:documented_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:root-readonly_identical",
-            "status": "PASS"
-          },
-          {
-            "check": "cp1252:hpos:neutralised_strict_projection",
-            "status": "PASS"
-          },
-          {
-            "check": "strict_psr12_current_sources",
-            "status": "PASS"
-          },
-          {
-            "check": "five_commands_all_pass",
-            "status": "PASS"
-          },
-          {
-            "check": "command_log_hashes",
-            "status": "PASS"
-          },
-          {
-            "check": "retained_artifacts_clean",
-            "status": "PASS"
-          },
-          {
-            "check": "parent_gates_not_claimed",
-            "status": "PASS"
-          },
-          {
-            "check": "two_line_delta",
-            "status": "PASS"
-          },
-          {
-            "check": "only_own_shared_lines",
-            "status": "PASS"
-          },
-          {
-            "check": "exact_final_inventory_and_hashes",
-            "status": "PASS"
-          }
-        ],
-        "exit_code": 0
-      }
-    }
-  ],
-  "cleanup": [
-    {
-      "container": "imagine-a23-readers-f5e0733f7bf8",
-      "inspect_exit_code": 1,
-      "absent": true
-    },
-    {
-      "container": "imagine-a23-readers-b12b30f09da0",
-      "inspect_exit_code": 1,
-      "absent": true
-    },
-    {
-      "container": "imagine-a23-style-6a422ed912",
-      "inspect_exit_code": 1,
-      "absent": true
-    }
-  ],
-  "exit_code": 0,
-  "stability": {
-    "owned_sources": true,
-    "dependencies": true,
-    "protected_A20_A21_A22_and_shared": true
+  "counts": {
+    "utf8:python": 30,
+    "utf8:unit": 34,
+    "utf8:standard": 14,
+    "utf8:result": 174,
+    "utf8:runner": 10,
+    "utf8:role-definitions": 28,
+    "cp1252:python": 30,
+    "cp1252:unit": 34,
+    "cp1252:standard": 14,
+    "cp1252:result": 174,
+    "cp1252:runner": 10,
+    "cp1252:role-definitions": 28
   },
-  "finished": "2026-11-26T17:16:28.303111+01:00"
+  "checks": [
+    {
+      "check": "current_owned_sources",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:measured_windows_console",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:python_tests_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:unit_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:standard_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:result_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:runner_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:role-definitions_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:mandatory_role_boundary_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:executed_current_sources",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:current_dependencies",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:pure_no_writes",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:all_mandatory_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:all_table_hashes_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:neutralised_all_table_hashes_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:strict_report_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:authoritative_storage",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:exact_population_counts",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:repeat_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:documented_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:root-readonly_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:neutralised_strict_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:all_mandatory_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:all_table_hashes_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:neutralised_all_table_hashes_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:strict_report_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:authoritative_storage",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:exact_population_counts",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:repeat_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:documented_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:root-readonly_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:neutralised_strict_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:measured_windows_console",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:python_tests_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:unit_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:standard_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:result_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:runner_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:role-definitions_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:mandatory_role_boundary_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:executed_current_sources",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:current_dependencies",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:pure_no_writes",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:all_mandatory_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:all_table_hashes_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:neutralised_all_table_hashes_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:strict_report_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:authoritative_storage",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:exact_population_counts",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:repeat_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:documented_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:root-readonly_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:neutralised_strict_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:all_mandatory_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:all_table_hashes_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:neutralised_all_table_hashes_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:strict_report_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:authoritative_storage",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:exact_population_counts",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:repeat_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:documented_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:root-readonly_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:neutralised_strict_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "strict_psr12_current_sources",
+      "status": "PASS"
+    },
+    {
+      "check": "five_commands_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "command_log_hashes",
+      "status": "PASS"
+    },
+    {
+      "check": "retained_artifacts_clean",
+      "status": "PASS"
+    },
+    {
+      "check": "parent_gates_not_claimed",
+      "status": "PASS"
+    },
+    {
+      "check": "two_line_delta",
+      "status": "PASS"
+    },
+    {
+      "check": "only_own_shared_lines",
+      "status": "PASS"
+    },
+    {
+      "check": "exact_final_inventory_and_hashes",
+      "status": "PASS"
+    }
+  ],
+  "exit_code": 0
 }

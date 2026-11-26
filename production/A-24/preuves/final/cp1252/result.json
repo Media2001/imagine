@@ -53,6 +53,21 @@
       "detail": null
     },
     {
+      "check": "classic:native_comparison_case_only_ignored",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:native_comparison_space_only_ignored",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:native_comparison_actual_postcode_difference_counted",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:audit_success",
       "status": "PASS",
       "detail": null
@@ -645,6 +660,21 @@
     },
     {
       "check": "hpos:native_standard",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_comparison_case_only_ignored",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_comparison_space_only_ignored",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_comparison_actual_postcode_difference_counted",
       "status": "PASS",
       "detail": null
     },

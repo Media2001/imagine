@@ -2,15 +2,15 @@
   "status": "CANDIDAT_GATE_PARENT",
   "readiness_claimed": false,
   "counts": {
-    "utf8:python": 21,
-    "utf8:unit": 15,
+    "utf8:python": 33,
+    "utf8:unit": 25,
     "utf8:standard": 9,
-    "utf8:result": 194,
+    "utf8:result": 212,
     "utf8:runner": 9,
-    "cp1252:python": 21,
-    "cp1252:unit": 15,
+    "cp1252:python": 33,
+    "cp1252:unit": 25,
     "cp1252:standard": 9,
-    "cp1252:result": 194,
+    "cp1252:result": 212,
     "cp1252:runner": 9
   },
   "checks": [
@@ -40,6 +40,10 @@
     },
     {
       "check": "utf8:runner_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:corrected_pure_cases",
       "status": "PASS"
     },
     {
@@ -83,7 +87,19 @@
       "status": "PASS"
     },
     {
+      "check": "utf8:classic:pk-only_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:ambiguous_tables_identical",
+      "status": "PASS"
+    },
+    {
       "check": "utf8:classic:visitors_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:visitors_exact_form_observation",
       "status": "PASS"
     },
     {
@@ -91,7 +107,15 @@
       "status": "PASS"
     },
     {
+      "check": "utf8:classic:neutralised_exact_form_observation",
+      "status": "PASS"
+    },
+    {
       "check": "utf8:classic:five_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:five_exact_form_observation",
       "status": "PASS"
     },
     {
@@ -99,7 +123,31 @@
       "status": "PASS"
     },
     {
+      "check": "utf8:classic:absent_exact_form_observation",
+      "status": "PASS"
+    },
+    {
       "check": "utf8:classic:nodate_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:nodate_exact_form_observation",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:pk-only_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:pk-only_exact_form_observation",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:ambiguous_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:ambiguous_exact_form_observation",
       "status": "PASS"
     },
     {
@@ -147,7 +195,19 @@
       "status": "PASS"
     },
     {
+      "check": "utf8:hpos:pk-only_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:ambiguous_tables_identical",
+      "status": "PASS"
+    },
+    {
       "check": "utf8:hpos:visitors_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:visitors_exact_form_observation",
       "status": "PASS"
     },
     {
@@ -155,7 +215,15 @@
       "status": "PASS"
     },
     {
+      "check": "utf8:hpos:neutralised_exact_form_observation",
+      "status": "PASS"
+    },
+    {
       "check": "utf8:hpos:five_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:five_exact_form_observation",
       "status": "PASS"
     },
     {
@@ -163,7 +231,31 @@
       "status": "PASS"
     },
     {
+      "check": "utf8:hpos:absent_exact_form_observation",
+      "status": "PASS"
+    },
+    {
       "check": "utf8:hpos:nodate_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:nodate_exact_form_observation",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:pk-only_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:pk-only_exact_form_observation",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:ambiguous_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:ambiguous_exact_form_observation",
       "status": "PASS"
     },
     {
@@ -207,6 +299,10 @@
       "status": "PASS"
     },
     {
+      "check": "cp1252:corrected_pure_cases",
+      "status": "PASS"
+    },
+    {
       "check": "cp1252:executed_sources_equal",
       "status": "PASS"
     },
@@ -247,7 +343,19 @@
       "status": "PASS"
     },
     {
+      "check": "cp1252:classic:pk-only_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:ambiguous_tables_identical",
+      "status": "PASS"
+    },
+    {
       "check": "cp1252:classic:visitors_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:visitors_exact_form_observation",
       "status": "PASS"
     },
     {
@@ -255,7 +363,15 @@
       "status": "PASS"
     },
     {
+      "check": "cp1252:classic:neutralised_exact_form_observation",
+      "status": "PASS"
+    },
+    {
       "check": "cp1252:classic:five_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:five_exact_form_observation",
       "status": "PASS"
     },
     {
@@ -263,7 +379,31 @@
       "status": "PASS"
     },
     {
+      "check": "cp1252:classic:absent_exact_form_observation",
+      "status": "PASS"
+    },
+    {
       "check": "cp1252:classic:nodate_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:nodate_exact_form_observation",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:pk-only_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:pk-only_exact_form_observation",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:ambiguous_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:ambiguous_exact_form_observation",
       "status": "PASS"
     },
     {
@@ -311,7 +451,19 @@
       "status": "PASS"
     },
     {
+      "check": "cp1252:hpos:pk-only_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:ambiguous_tables_identical",
+      "status": "PASS"
+    },
+    {
       "check": "cp1252:hpos:visitors_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:visitors_exact_form_observation",
       "status": "PASS"
     },
     {
@@ -319,7 +471,15 @@
       "status": "PASS"
     },
     {
+      "check": "cp1252:hpos:neutralised_exact_form_observation",
+      "status": "PASS"
+    },
+    {
       "check": "cp1252:hpos:five_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:five_exact_form_observation",
       "status": "PASS"
     },
     {
@@ -327,7 +487,31 @@
       "status": "PASS"
     },
     {
+      "check": "cp1252:hpos:absent_exact_form_observation",
+      "status": "PASS"
+    },
+    {
       "check": "cp1252:hpos:nodate_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:nodate_exact_form_observation",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:pk-only_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:pk-only_exact_form_observation",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:ambiguous_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:ambiguous_exact_form_observation",
       "status": "PASS"
     },
     {
@@ -368,6 +552,10 @@
     },
     {
       "check": "two_delta_lines",
+      "status": "PASS"
+    },
+    {
+      "check": "own_shared_contract_only",
       "status": "PASS"
     },
     {

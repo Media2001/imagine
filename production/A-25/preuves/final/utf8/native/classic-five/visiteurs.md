@@ -51,6 +51,11 @@ Comptes seulement ; aucune suppression ni durée de conservation.
                     "year": 1999,
                     "state": "Fluent Forms",
                     "count": 5
+                },
+                {
+                    "year": 2022,
+                    "state": "autre",
+                    "count": 5
                 }
             ],
             "autres": 4
@@ -70,9 +75,11 @@ Comptes seulement ; aucune suppression ni durée de conservation.
         "listed_extensions": [
             "Fluent Forms"
         ],
-        "other_tables": 1,
-        "clear_messages_after_import": true
+        "other_tables": 2,
+        "coverage": "heuristique bornée",
+        "clear_messages_after_import": true,
+        "clear_messages_after_import_label": "avertissement éditorial permanent, non mesuré sur la copie inspectée"
     },
-    "audit_sha256": "f8a0358e571df75913a70fd07e329b03f879c08d7ac04b0ad565b628436aa676"
+    "audit_sha256": "ef1fee4699c557528b3af12993dbab638c1e2e4281065ceb9c71190b0d2756b5"
 }
 ```

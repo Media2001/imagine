@@ -80,7 +80,8 @@ $check('manuel_ancien_POST_refuse', is_wp_error(R::demander(94, 11, 'confirmer',
 $check('manuel_date_absente_fermee', !R::ouverte(wc_get_order(100)));
 update_option(R::OPTION, ['jours' => 30, 'origine' => 'paiement'], false);
 $check('reglage_30_valide', S::nettoyer(['jours' => '30', 'origine' => 'paiement']) === ['jours' => 30, 'origine' => 'paiement']);
-$check('raison_vide_acceptee', $receipt['raison'] === 'Motif HTTP fictif');
-$check('aucune_sortie_ni_mutation_financiere', get_option('imagine_c25_observations') === []);
+$check('motif_HTTP_relu', $receipt['raison'] === 'Motif HTTP fictif');
+$counts = get_option('imagine_c25_observations');
+$check('aucune_sortie_ni_mutation_financiere_C25', array_filter($counts, static fn ($key) => str_starts_with($key, 'c25_'), ARRAY_FILTER_USE_KEY) === []);
 $out = ['total' => count($checks), 'checks' => $checks, 'failures' => array_keys(array_filter($checks, static fn ($v) => !$v))];
 echo wp_json_encode($out);

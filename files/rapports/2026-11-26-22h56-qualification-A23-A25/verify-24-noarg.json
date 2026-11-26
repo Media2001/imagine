@@ -1,0 +1,20 @@
+{
+  "command": [
+    "C:/Python314/python.exe",
+    "-B",
+    "wp/tests/a24/verify.py"
+  ],
+  "encoding": "utf-8",
+  "environment": {
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONUTF8": "1",
+    "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+    "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+    "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+  },
+  "started": "2026-11-26T22:56:44.722670+01:00",
+  "finished": "2026-11-26T22:56:44.904477+01:00",
+  "exit_code": 0,
+  "log": "verify-24-noarg.log",
+  "log_sha256": "e9b466934bdd8a7c1dd547e0ed1931a78f6995789ffd04a4dfaccdf242a188f2"
+}

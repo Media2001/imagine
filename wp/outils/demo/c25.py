@@ -39,7 +39,7 @@ def private(label, payload):
 
 
 def snapshot():
-    return wp('''global $wpdb;$out=[];foreach(['users','usermeta','posts','postmeta','comments','commentmeta','options'] as $name){$table=$wpdb->$name;$out[$name]=$wpdb->get_results("SELECT * FROM $table",ARRAY_A);if($wpdb->last_error){throw new RuntimeException('Snapshot incomplet');}}foreach($wpdb->get_col("SHOW TABLES LIKE '{$wpdb->prefix}actionscheduler_%'") as $table){$out[$table]=$wpdb->get_results("SELECT * FROM `$table`",ARRAY_A);}echo wp_json_encode($out);''')
+    return wp('''global $wpdb;$out=[];foreach(['users','usermeta','posts','postmeta','comments','commentmeta','options'] as $name){$table=$wpdb->$name;$out[$name]=$wpdb->get_results("SELECT * FROM $table",ARRAY_A);if($wpdb->last_error){throw new RuntimeException('Snapshot incomplet');}}foreach(['wc_orders','wc_order_addresses','wc_orders_meta','wc_order_operational_data','woocommerce_order_items','woocommerce_order_itemmeta','actionscheduler_actions','actionscheduler_logs','actionscheduler_groups','actionscheduler_claims'] as $suffix){$table=$wpdb->prefix.$suffix;if($wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s',$wpdb->esc_like($table)))!==$table){continue;}$out[$suffix]=$wpdb->get_results("SELECT * FROM `$table`",ARRAY_A);if($wpdb->last_error){throw new RuntimeException('Snapshot natif incomplet');}}echo wp_json_encode($out);''')
 
 
 def local(label, mutation=''):

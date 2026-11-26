@@ -1,0 +1,21 @@
+{
+  "command": [
+    "C:/Python314/python.exe",
+    "-B",
+    "wp/tests/a24/verify.py",
+    "--require-shared"
+  ],
+  "encoding": "cp1252",
+  "environment": {
+    "PYTHONIOENCODING": "cp1252",
+    "PYTHONUTF8": "0",
+    "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+    "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+    "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+  },
+  "started": "2026-11-26T22:56:44.547187+01:00",
+  "finished": "2026-11-26T22:56:44.721380+01:00",
+  "exit_code": 0,
+  "log": "verify-24-cp1252.log",
+  "log_sha256": "057ff6b51cbbc957ccd61825e7d533c56f8c1163b9fb499bdd75b8b6c763e116"
+}

@@ -2,6 +2,46 @@
     "suite": "A25-pure",
     "checks": [
         {
+            "check": "submission_pk_is_entry",
+            "status": "PASS"
+        },
+        {
+            "check": "own_id_submission_reference_is_child",
+            "status": "PASS"
+        },
+        {
+            "check": "unindexed_submission_reference_is_child",
+            "status": "PASS"
+        },
+        {
+            "check": "composite_submission_pk_is_ambiguous",
+            "status": "PASS"
+        },
+        {
+            "check": "unkeyed_submission_is_ambiguous",
+            "status": "PASS"
+        },
+        {
+            "check": "unique_submission_not_assumed_primary",
+            "status": "PASS"
+        },
+        {
+            "check": "unkeyed_entry_is_ambiguous",
+            "status": "PASS"
+        },
+        {
+            "check": "own_id_is_entry",
+            "status": "PASS"
+        },
+        {
+            "check": "meta_child_excluded",
+            "status": "PASS"
+        },
+        {
+            "check": "not_form_structure_ignored",
+            "status": "PASS"
+        },
+        {
             "check": "three_comments_two_years_pooled",
             "status": "PASS"
         },

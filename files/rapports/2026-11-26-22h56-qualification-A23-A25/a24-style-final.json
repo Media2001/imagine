@@ -1,0 +1,21 @@
+{
+  "command": [
+    "C:/Python314/python.exe",
+    "-B",
+    "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\a24-style.py",
+    "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\a24-style-final"
+  ],
+  "encoding": "utf-8",
+  "environment": {
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONUTF8": "1",
+    "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+    "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+    "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+  },
+  "started": "2026-11-26T22:40:19.494246+01:00",
+  "finished": "2026-11-26T22:40:22.418496+01:00",
+  "exit_code": 0,
+  "log": "a24-style-final.log",
+  "log_sha256": "e21a4ec846fde95a8d27815b505a81077859ae467d1b071fb53955987229a673"
+}

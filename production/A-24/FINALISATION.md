@@ -1,10 +1,26 @@
-# Finalisation parent du 2026-11-26T19:21:25.123860+01:00
+# A-24 — qualification finale déléguée du 2026-11-26T22:56:39.447669+01:00
 
-**Historique, antérieur aux corrections du réveil suivant.** Cette finalisation ne vaut pas validation des sources maintenant corrigées. Le PRET correspondant a été sauvegardé en scratch puis retiré ; `corrections-reveil.md` décrit les tests locaux et les commandes de matrice/reseal restant au parent. Aucun nouveau résultat natif/global n’est revendiqué ici.
+Gel exact des sources : **2026-11-26T22:56:09.803345+01:00** ; inventaire `wp/` de voie 1, hors les quatre racines dédiées voie 2 (1327 fichiers hors __pycache__) dans `files/rapports/2026-11-26-22h56-qualification-A23-A25/freeze.json`, égalité relue avant/après gates. Gardien A-22 et communs inchangés depuis le début de cette qualification.
 
-**Prêt à relire, non clos.** Préparation commune réellement relancée, rejeu global UTF-8/cp1252 vert : **1 126 tests, 35 550 assertions ; 16 outils, 311 contrôles ; zéro échec, erreur ou ignoré**. Le dernier arbre inclut les changements concurrents de la voie 2, sans modification de notre part.
+Le premier gel volontairement trop large a détecté uniquement la création externe de `wp/outils/demo/c25-diagnostic.py`, sans changement A23/A24/A25 ni dépendance. Ses reçus restent intacts en scratch. Le gel final explicite exclut les quatre racines dédiées de l'autre voie ; toutes les gates communes ont été exécutées à nouveau après ce gel. Aucune modification de la voie 2 par ce travail. PowerShell impose lui-même une émission UTF-8 ; ses deux passages conservent respectivement les environnements Python UTF-8 et cp1252, mesurés nativement dans les matrices.
 
-Preuves parent : `files/rapports/2026-11-26-19h21-verification/`. Les passages enfant ci-dessous sont historiques : leurs portes parent en attente sont maintenant accomplies. Les matrices A23/A24/A25 ont été réellement rejouées après la correction A22 de 17 h 53 ; les premiers essais parent interrompus/rouges restent en scratch, pas dans les paquets retenus. Aucun Git, archive Imagine, compte réel, Novamira, déploiement ou autorisation sur le réel.
+Comparaison Unicode casse/espaces et vraies divergences natives confirmées. Nettoyage PSR-12 par wrapper isolé, découpe de lignes et fermeture locale du helper de tests, sans changement de règle. La recette PHP portable Windows antérieure contrevenait à la consigne : signalée, retirée de COMMANDES.md et jamais répétée ici. PHP pur, lint et natif exclusivement dans Docker jetable.
 
----
+Paquet standard unique : `production/A-24/preuves/final/`. Essais rouges, passages de style intermédiaires et anciens paquets conservés intacts hors dépôt dans `C:/Users/Ced/AppData/Local/hermes/cache/scratch/a232425-final-20261126/historical/A-24` (les rouges antérieurs restent également au scratch indiqué dans corrections-reveil.md). Aucun reçu ancien n'est présenté comme rejoué.
 
+## Tests réellement exécutés
+
+Windows `C:/Python314/python.exe` **3.14.6**, UTF-8/mode 1 puis cp1252/mode 0, mesurés dans les reçus.
+
+- utf8 : unit=27, result=212, runner=9, python=15, lint=9 ; tous PASS, codes 0.
+- cp1252 : unit=27, result=212, runner=9, python=15, lint=9 ; tous PASS, codes 0.
+- PSR-12 réellement exécuté : zéro erreur, zéro avertissement. Empreintes de toutes les tables, planification et fichiers avant/après vérifiées sur les deux stockages ; recette avec ses seuls arguments exécutée.
+- Cinquième canal : JSON invalide, JSON valide avec champ privé, Markdown altéré, fichier supplémentaire et projection partielle au shutdown : refus fermé sans publication, dans chaque contexte et stockage. Aucun canari retenu.
+
+## Gates communes et sceau
+
+`preparer-image.ps1` exécuté réellement, puis `rejouer.ps1` UTF-8/cp1252, puis vérificateurs 20/21/22 dans les deux consoles : tous codes 0 après le gel. Commandes complètes, heures et logs : `files/rapports/2026-11-26-22h56-qualification-A23-A25/`. Le rejeu global ne remplace pas la matrice native propre.
+
+Notes finalisées avant scellement. Les reçus candidats conservant CANDIDAT_GATE_PARENT/pending décrivent leur frontière technique initiale, non une gate encore manquante : les gates parent réellement exécutées sont liées séparément dans parent-gates.json. PRET n'est déposé qu'après les réceptions scellées vertes dans les deux encodages et le contrôle sans argument ; le marqueur final fait foi. Prêt à relire, pas clos ni GO réel.
+
+Aucune opération Git, archive, donnée/compte réel, site existant, Novamira, voie 2 ou commun modifié. Verrou laissé au parent pour sa libération.

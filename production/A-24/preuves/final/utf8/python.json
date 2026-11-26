@@ -11,7 +11,7 @@
     "preferred": "utf-8",
     "utf8_mode": 1
   },
-  "tests": 14,
+  "tests": 15,
   "exit_code": 0,
-  "log_sha256": "b1fc5953ce1e39f6ab292681cfd0ed879e9c39eb4535606566dc8a29a99a3129"
+  "log_sha256": "71af0c90f1ba406eeb06c8996c620e40252b85e9c5a24cef30f6528e4bc7bda0"
 }

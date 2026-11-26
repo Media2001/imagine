@@ -1,0 +1,21 @@
+{
+  "command": [
+    "C:/Python314/python.exe",
+    "-B",
+    "wp/tests/a24/matrix.py",
+    "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\a24-matrix-01"
+  ],
+  "encoding": "utf-8",
+  "environment": {
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONUTF8": "1",
+    "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+    "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+    "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+  },
+  "started": "2026-11-26T22:40:22.425142+01:00",
+  "finished": "2026-11-26T22:44:06.462514+01:00",
+  "exit_code": 0,
+  "log": "a24-matrix-01.log",
+  "log_sha256": "6ee33ca3ed1076e913d6f5e42d4f93cb7f609f858e354663170aec7b36ab2a02"
+}

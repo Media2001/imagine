@@ -97,6 +97,18 @@
         {
             "check": "closed_country_codes_equal_native",
             "status": "PASS"
+        },
+        {
+            "check": "native_comparison_case_only_ignored",
+            "status": "PASS"
+        },
+        {
+            "check": "native_comparison_space_only_ignored",
+            "status": "PASS"
+        },
+        {
+            "check": "native_comparison_actual_postcode_difference_counted",
+            "status": "PASS"
         }
     ],
     "exit_code": 0

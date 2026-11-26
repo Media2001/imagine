@@ -9,5 +9,7 @@
   "ip_after": 0,
   "known_message_preserved": true,
   "unknown_message_preserved": true,
+  "submission_pk_messages_preserved": true,
+  "submission_child_rows_preserved": true,
   "guest_orders_preserved": true
 }

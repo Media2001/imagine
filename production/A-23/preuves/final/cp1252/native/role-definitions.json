@@ -1,0 +1,118 @@
+{
+  "suite": "A23-role-definitions-boundary-doubles",
+  "checks": [
+    {
+      "check": "classic:role_negative_override_excluded",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:role_multi_management_excluded",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:management_without_commerce_excluded",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:no_false_published_family",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:private_values_absent",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:authoritative_storage",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:false_capability_keeps_reader",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:unsafe_non_management_role_ignored",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:unsafe_management_role_closed:0",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:unsafe_management_role_closed:1",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:unsafe_management_role_closed:2",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:unsafe_management_role_closed:3",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:valid_role_boundary:0",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:valid_role_boundary:1",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:role_negative_override_excluded",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:role_multi_management_excluded",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:management_without_commerce_excluded",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:no_false_published_family",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:private_values_absent",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:authoritative_storage",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:false_capability_keeps_reader",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:unsafe_non_management_role_ignored",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:unsafe_management_role_closed:0",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:unsafe_management_role_closed:1",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:unsafe_management_role_closed:2",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:unsafe_management_role_closed:3",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:valid_role_boundary:0",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:valid_role_boundary:1",
+      "status": "PASS"
+    }
+  ],
+  "exit_code": 0
+}

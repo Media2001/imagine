@@ -7,7 +7,15 @@ foreach (['pre_wp_mail' => 'mail', 'pre_http_request' => 'http', 'woocommerce_or
     'woocommerce_subscription_status_updated' => 'abonnement', 'woocommerce_order_refunded' => 'remboursement'] as $hook => $kind) {
     $fn = static function ($value = null) use ($kind) {
         $counts = get_option('imagine_c25_observations', []);
-        $counts[$kind] = ($counts[$kind] ?? 0) + 1;
+        $source = 'ambiance_';
+        foreach (debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 40) as $frame) {
+            if (isset($frame['file']) && in_array(basename($frame['file']), ['Retractation.php', 'RetractationConfidentialite.php', 'RetractationReglages.php'], true)) {
+                $source = 'c25_';
+                break;
+            }
+        }
+        $key = $source . $kind;
+        $counts[$key] = ($counts[$key] ?? 0) + 1;
         update_option('imagine_c25_observations', $counts, false);
         return $value;
     };

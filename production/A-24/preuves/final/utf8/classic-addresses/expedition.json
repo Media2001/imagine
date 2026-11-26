@@ -23,7 +23,7 @@
             },
             "country_absent": 2,
             "country_unknown": 1,
-            "different_from_account": 2,
+            "different_from_account": 1,
             "account_unavailable": 1
         },
         "countries": [
@@ -48,7 +48,7 @@
                     },
                     "country_absent": 0,
                     "country_unknown": 0,
-                    "different_from_account": 2,
+                    "different_from_account": 1,
                     "account_unavailable": 1
                 }
             },
@@ -79,5 +79,5 @@
             }
         ]
     },
-    "audit_sha256": "052bd4acbbe456a5d8b799a50b01533f0554668e0da0f1c2379d57b8e12f7e4a"
+    "audit_sha256": "b47123a3ba100cbabc007f3d446005a8e2e68cab2e3951aba5eaacf89f0f1275"
 }

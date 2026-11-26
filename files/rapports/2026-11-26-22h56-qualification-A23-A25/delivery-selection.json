@@ -1,0 +1,53 @@
+{
+  "at": "2026-11-26T22:56:39.447669+01:00",
+  "report_root": "files/rapports/2026-11-26-22h56-qualification-A23-A25",
+  "report_key": "2026-11-26-22h56",
+  "counts": {
+    "23": {
+      "utf8": {
+        "unit": 34,
+        "result": 174,
+        "runner": 10,
+        "python": 30
+      },
+      "cp1252": {
+        "unit": 34,
+        "result": 174,
+        "runner": 10,
+        "python": 30
+      }
+    },
+    "24": {
+      "utf8": {
+        "unit": 27,
+        "result": 212,
+        "runner": 9,
+        "python": 15,
+        "lint": 9
+      },
+      "cp1252": {
+        "unit": 27,
+        "result": 212,
+        "runner": 9,
+        "python": 15,
+        "lint": 9
+      }
+    },
+    "25": {
+      "utf8": {
+        "unit": 25,
+        "result": 212,
+        "runner": 9,
+        "python": 33
+      },
+      "cp1252": {
+        "unit": 25,
+        "result": 212,
+        "runner": 9,
+        "python": 33
+      }
+    }
+  },
+  "histories": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\historical",
+  "exit_code": 0
+}

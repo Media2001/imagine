@@ -28,7 +28,13 @@ Comptes seulement ; aucune suppression ni durée de conservation.
             }
         },
         "forms": {
-            "groups": [],
+            "groups": [
+                {
+                    "year": 2022,
+                    "state": "autre",
+                    "count": 5
+                }
+            ],
             "autres": 4
         },
         "guests": {
@@ -40,9 +46,11 @@ Comptes seulement ; aucune suppression ni durée de conservation.
         "listed_extensions": [
             "Fluent Forms"
         ],
-        "other_tables": 1,
-        "clear_messages_after_import": true
+        "other_tables": 2,
+        "coverage": "heuristique bornée",
+        "clear_messages_after_import": true,
+        "clear_messages_after_import_label": "avertissement éditorial permanent, non mesuré sur la copie inspectée"
     },
-    "audit_sha256": "4c9985f027dc1a0050efe9f47a31055faa2445fccd719479b1af76b1a7b2451f"
+    "audit_sha256": "f90a4edf10fce37c1fb17266aeeb1faee513144c1012de4dac9053fe2ae2e945"
 }
 ```

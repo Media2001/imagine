@@ -183,8 +183,8 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         }
     ],
     "update_source": "local_cache_only_not_a_live_check",
-    "plugin_cache_checked_epoch": 1795716339,
-    "theme_cache_checked_epoch": 1795716339
+    "plugin_cache_checked_epoch": 1795728777,
+    "theme_cache_checked_epoch": 1795728777
 }
 ```
 
@@ -431,7 +431,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "status": "wc-pending",
             "period": "year",
             "interval": 1,
-            "count": 6
+            "count": 10
         },
         {
             "status": "wc-pending-cancel",
@@ -582,7 +582,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         },
         {
             "name": "shop_order_placehold",
-            "count": 36
+            "count": 40
         },
         {
             "name": "wc_membership_plan",
@@ -851,7 +851,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "name": "wp_posts",
             "bytes": 147456,
-            "rows": 53,
+            "rows": 57,
             "ownership": "wordpress"
         },
         {
@@ -881,13 +881,13 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "name": "wp_usermeta",
             "bytes": 131072,
-            "rows": 602,
+            "rows": 692,
             "ownership": "wordpress"
         },
         {
             "name": "wp_users",
             "bytes": 65536,
-            "rows": 41,
+            "rows": 47,
             "ownership": "wordpress"
         },
         {
@@ -941,19 +941,19 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "name": "wp_wc_orders",
             "bytes": 163840,
-            "rows": 36,
+            "rows": 40,
             "ownership": "active_woocommerce"
         },
         {
             "name": "wp_wc_orders_meta",
-            "bytes": 163840,
-            "rows": 602,
+            "bytes": 180224,
+            "rows": 670,
             "ownership": "active_woocommerce"
         },
         {
             "name": "wp_wc_order_addresses",
             "bytes": 81920,
-            "rows": 25,
+            "rows": 29,
             "ownership": "active_woocommerce"
         },
         {
@@ -965,7 +965,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         {
             "name": "wp_wc_order_operational_data",
             "bytes": 49152,
-            "rows": 36,
+            "rows": 40,
             "ownership": "active_woocommerce"
         },
         {
@@ -1119,7 +1119,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "ownership": "active_woocommerce"
         }
     ],
-    "total_bytes": 3604480,
+    "total_bytes": 3620864,
     "largest_autoload": [
         {
             "name": "a02_heavy_secret_setting",

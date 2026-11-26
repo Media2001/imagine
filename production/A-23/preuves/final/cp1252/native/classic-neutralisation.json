@@ -1,9 +1,9 @@
 {
-  "before_accounts": 40,
+  "before_accounts": 46,
   "changed": {
-    "login_changed": 40,
-    "email_changed": 40,
-    "hash_changed": 40
+    "login_changed": 46,
+    "email_changed": 46,
+    "hash_changed": 46
   },
   "marker_count": 1,
   "neutraliser_and_anonymiser_executed": true

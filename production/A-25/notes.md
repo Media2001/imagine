@@ -1,3 +1,9 @@
+# État actif — qualification finale 2026-11-26T22:56:39.447669+01:00
+
+Voir `FINALISATION.md` : matrices natives complètes et gates communes réellement vertes sur le gel **2026-11-26T22:56:09.803345+01:00**. Un seul paquet retenu `preuves/final`, vérification sans argument ; anciens paragraphes et chiffres ci-dessous **historiques**, pas une nouvelle attestation. Clé primaire submission_id comptée, vraie table-fille exclue, variante pk-only sans zéro silencieux et ambiguïté fermée réellement prouvées sur classique/HPOS. L'étiquette éditoriale et la source Fluent Forms restent explicites ; import inchangé.
+
+---
+
 # A-25 — checkpoints
 
 - Début 26/11/2026 17:08 CET ; échéance ferme 20:08 CET.

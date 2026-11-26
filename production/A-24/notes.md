@@ -1,3 +1,9 @@
+# État actif — qualification finale 2026-11-26T22:56:39.447669+01:00
+
+Voir `FINALISATION.md` : matrices natives complètes et gates communes réellement vertes sur le gel **2026-11-26T22:56:09.803345+01:00**. Un seul paquet retenu `preuves/final`, vérification sans argument ; anciens paragraphes et chiffres ci-dessous **historiques**, pas une nouvelle attestation. Comparaison Unicode casse/espaces et vraies divergences natives confirmées. Nettoyage PSR-12 par wrapper isolé, découpe de lignes et fermeture locale du helper de tests, sans changement de règle. La recette PHP portable Windows antérieure contrevenait à la consigne : signalée, retirée de COMMANDES.md et jamais répétée ici. PHP pur, lint et natif exclusivement dans Docker jetable.
+
+---
+
 # A-24 — notes et checkpoints
 
 **État courant du réveil correctif du 26 novembre 2026 :** les paragraphes ci-dessous sont historiques. Leur comparaison littérale est remplacée par la comparaison Unicode casse/espaces en mémoire décrite au README. Les comptes de complétude restent bruts. Voir `corrections-reveil.md` : 15 tests Python par encodage et 27 contrôles purs locaux au vert ; nouveau banc natif et reseal réservés au parent, non exécutés par l’enfant. Le paquet natif antérieur est conservé sans le requalifier ; PRET retiré après sauvegarde scratch.

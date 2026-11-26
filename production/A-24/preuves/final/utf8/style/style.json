@@ -1,0 +1,62 @@
+{
+  "container": "imagine-a24-style-30c284bd9c",
+  "checks": [
+    {
+      "check": "isolation_before",
+      "status": "PASS"
+    },
+    {
+      "check": "phpcs_strict_exit",
+      "status": "PASS"
+    },
+    {
+      "check": "isolation_after",
+      "status": "PASS"
+    },
+    {
+      "check": "cleanup_exact_owned_container",
+      "status": "PASS"
+    },
+    {
+      "check": "owned_sources_stable",
+      "status": "PASS"
+    },
+    {
+      "check": "dependencies_stable",
+      "status": "PASS"
+    }
+  ],
+  "exit_code": 0,
+  "phpcs_exit": 0,
+  "totals": {
+    "errors": 0,
+    "warnings": 0,
+    "fixable": 0
+  },
+  "sources": {
+    "wp/outils/bascule/a24/Analysis.php": "05de8d40473f9e1ee2149852306c2bf861a02db197428470f2d5502b289c30ed",
+    "wp/outils/bascule/a24/Command.php": "f44f18d1786343859167c318e070d99ecac87b2e5f6712a56d1c67b407dbea3d",
+    "wp/outils/bascule/a24/confine.py": "a82d5db9b9904da791991cd1e31deac52640fab3534dd354b2bb14bb8a849018",
+    "wp/outils/bascule/a24/country_codes.json": "2c310cac8e25853d80b5167d1183ff483553edcdc406c38397d66c882cf2fbcc",
+    "wp/outils/bascule/a24/inventorier-expedition": "b405a15b2a4f561e1fef0ec0c5a1766845171df143cfa5d4ca822052034cfe51",
+    "wp/outils/bascule/a24/Inventory.php": "2d856791b4e3ec0b6c518aa61892ed05b7d7ff08e440bb3d40a7ff2274a2a0e8",
+    "wp/outils/bascule/a24/README.md": "4b8ddc58b53f28052cc10a89dab96a5c5ca59ee7a1457db2e5e1aca1a4569c10",
+    "wp/outils/bascule/a24/refusals.json": "d80e4ed274c8ee8b01553c0bb48793ec66a0c82e4071172aa4bfbe5461c8c711",
+    "wp/outils/bascule/a24/report.py": "a9e8cae0cbf3bcae708fb91e59ef67bda9f139e543189355655ac2e105b94a37",
+    "wp/tests/a24/boundaries.py": "549eae962707be39702bddf86d07feaa6aa1bdb98ae16faf4e62d80e9382b1b8",
+    "wp/tests/a24/extended.py": "bdae433de5ac9f86d5e914cffed2291fc1542cd7940364a18dc1863e9a645450",
+    "wp/tests/a24/guards.php": "f289dfc69082e17362ce718e36627af0440596fd580e1f1f69f7547fa1d47266",
+    "wp/tests/a24/inside.py": "ce456497ca6d2a04a5d08ae1ae5359764f0450f74da79d7b3223835a9941286f",
+    "wp/tests/a24/matrix.py": "9f72356aed2a3d178750338c21eb8835e49cb2b06a324a15a758b1e4c0e8306e",
+    "wp/tests/a24/neutralise.php": "4ae63500cb782e1b732ace0302b181d7263edee334167cf40177c1af8d8c6d27",
+    "wp/tests/a24/run.py": "8fe4a4712a7bbc6b651d0ec5317bb6e015c5f742cf9dac7598db348827e422c9",
+    "wp/tests/a24/seal.py": "44c0fbdd908369e04639f15ca992ff84cae79c27e8090f44e83622036b0dbb8f",
+    "wp/tests/a24/seed.php": "b7c090d74c5299e927793022b0c826c41f02459f166c89d461004d01f4e30cd9",
+    "wp/tests/a24/standard.php": "19f4d9b84c5fedd93ffc34d09e4efdb84605699bd854aafa736be46cbc5c22fc",
+    "wp/tests/a24/test_launcher.py": "eccdb7adccb63bb090d3d58ba26b4c29bd673ada859897be8e82a9cc8d4be7ce",
+    "wp/tests/a24/test_report.py": "225d8e658fe7f02e6ee8dd7abad35634c8a5b83fbaef2fae72c999a6c4a0b8f0",
+    "wp/tests/a24/test_verify.py": "1a2ee61dbde0d7183feb5ab0584d9da8f06b91fe788886b5a36e2d8583542b88",
+    "wp/tests/a24/unit.php": "192000701481a978799ec93ffc230a8f3923f71b51dd65eac350ef37721f8dc0",
+    "wp/tests/a24/verify.py": "e13ba89d8de222ff7e7a9d547c8c435df81b8d57c66bc5bb1fa6ece54dac8b8e"
+  }
+}

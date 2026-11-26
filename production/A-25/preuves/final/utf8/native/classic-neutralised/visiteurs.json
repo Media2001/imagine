@@ -26,8 +26,10 @@
         "listed_extensions": [
             "Fluent Forms"
         ],
-        "other_tables": 1,
-        "clear_messages_after_import": true
+        "other_tables": 2,
+        "coverage": "heuristique bornée",
+        "clear_messages_after_import": true,
+        "clear_messages_after_import_label": "avertissement éditorial permanent, non mesuré sur la copie inspectée"
     },
-    "audit_sha256": "6cf20d893aee7a1d78c592780dfb2cf0a231881484358ba88c6e651122ce380a"
+    "audit_sha256": "27eeac0696e37420c2539ffa4185beb7bbacc2697fc6dd46483154f760a45785"
 }

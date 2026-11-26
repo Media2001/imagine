@@ -41,7 +41,13 @@
             }
         },
         "forms": {
-            "groups": [],
+            "groups": [
+                {
+                    "year": 2022,
+                    "state": "autre",
+                    "count": 5
+                }
+            ],
             "autres": 2
         },
         "guests": {
@@ -57,8 +63,10 @@
     },
     "forms": {
         "listed_extensions": [],
-        "other_tables": 1,
-        "clear_messages_after_import": true
+        "other_tables": 2,
+        "coverage": "heuristique bornée",
+        "clear_messages_after_import": true,
+        "clear_messages_after_import_label": "avertissement éditorial permanent, non mesuré sur la copie inspectée"
     },
-    "audit_sha256": "a02595bd598c0ec4e119b0e656567283475b6c34a42038a4e0e2361bfe6a0f45"
+    "audit_sha256": "6ec9bbcad6e0d8c5ed1e0d2d0978a74ef59e85423754ed7aa80c662622dc2eab"
 }

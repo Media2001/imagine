@@ -1,6 +1,6 @@
 {
   "suite": "A24-final-replay",
-  "started": "2026-11-26T18:12:27.994087+00:00",
+  "started": "2026-11-26T21:40:22.511167+00:00",
   "platform": "win32",
   "python": {
     "executable": "C:\\Python314\\python.exe",
@@ -10,13 +10,13 @@
     "utf8": {
       "native_exit": 0,
       "python_exit": 0,
-      "python_tests": 14,
+      "python_tests": 15,
       "encoding": "utf-8",
       "command": [
         "C:\\Python314\\python.exe",
         "-B",
         "C:\\Users\\Ced\\imagine\\wp\\tests\\a24\\run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\parent-replay-final-1915\\a24\\utf8"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\a24-matrix-01\\utf8"
       ],
       "encoding_runtime": {
         "executable": "C:\\Python314\\python.exe",
@@ -32,13 +32,13 @@
     "cp1252": {
       "native_exit": 0,
       "python_exit": 0,
-      "python_tests": 14,
+      "python_tests": 15,
       "encoding": "cp1252",
       "command": [
         "C:\\Python314\\python.exe",
         "-B",
         "C:\\Users\\Ced\\imagine\\wp\\tests\\a24\\run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\parent-replay-final-1915\\a24\\cp1252"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\a24-matrix-01\\cp1252"
       ],
       "encoding_runtime": {
         "executable": "C:\\Python314\\python.exe",

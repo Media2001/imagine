@@ -1,0 +1,24 @@
+{
+  "command": [
+    "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+    "-NoProfile",
+    "-NonInteractive",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "wp/tests/rejouer.ps1"
+  ],
+  "encoding": "cp1252",
+  "environment": {
+    "PYTHONIOENCODING": "cp1252",
+    "PYTHONUTF8": "0",
+    "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+    "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+    "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+  },
+  "started": "2026-11-26T22:56:28.851550+01:00",
+  "finished": "2026-11-26T22:56:37.496962+01:00",
+  "exit_code": 0,
+  "log": "replay-cp1252.log",
+  "log_sha256": "4c452c762b18315fad4199ed2e04a101f0688653d82f83ebf7a9dfa1b7163a91"
+}

@@ -1,0 +1,178 @@
+{
+  "at": "2026-11-26T22:56:55.389882+01:00",
+  "containers": 9,
+  "checks": [
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu",
+        "--",
+        "docker",
+        "inspect",
+        "imagine-a23-readers-5aed20ca61e6"
+      ],
+      "container": "imagine-a23-readers-5aed20ca61e6",
+      "source_receipts": [
+        "production\\A-23\\preuves\\final\\utf8\\native\\runner.json"
+      ],
+      "docker_exit": 1,
+      "stderr": "error: no such object: imagine-a23-readers-5aed20ca61e6\n",
+      "stdout": "[]\n",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu",
+        "--",
+        "docker",
+        "inspect",
+        "imagine-a23-readers-9f8a905a9782"
+      ],
+      "container": "imagine-a23-readers-9f8a905a9782",
+      "source_receipts": [
+        "production\\A-23\\preuves\\final\\cp1252\\native\\runner.json"
+      ],
+      "docker_exit": 1,
+      "stderr": "error: no such object: imagine-a23-readers-9f8a905a9782\n",
+      "stdout": "[]\n",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu",
+        "--",
+        "docker",
+        "inspect",
+        "imagine-a23-style-9d363083cd"
+      ],
+      "container": "imagine-a23-style-9d363083cd",
+      "source_receipts": [
+        "production\\A-23\\preuves\\final\\style\\style.json"
+      ],
+      "docker_exit": 1,
+      "stderr": "error: no such object: imagine-a23-style-9d363083cd\n",
+      "stdout": "[]\n",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu",
+        "--",
+        "docker",
+        "inspect",
+        "imagine-a24-addresses-7eceb8802abb"
+      ],
+      "container": "imagine-a24-addresses-7eceb8802abb",
+      "source_receipts": [
+        "production\\A-24\\preuves\\final\\cp1252\\runner.json"
+      ],
+      "docker_exit": 1,
+      "stderr": "error: no such object: imagine-a24-addresses-7eceb8802abb\n",
+      "stdout": "[]\n",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu",
+        "--",
+        "docker",
+        "inspect",
+        "imagine-a24-addresses-8b8ee6009476"
+      ],
+      "container": "imagine-a24-addresses-8b8ee6009476",
+      "source_receipts": [
+        "production\\A-24\\preuves\\final\\utf8\\runner.json"
+      ],
+      "docker_exit": 1,
+      "stderr": "error: no such object: imagine-a24-addresses-8b8ee6009476\n",
+      "stdout": "[]\n",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu",
+        "--",
+        "docker",
+        "inspect",
+        "imagine-a24-style-30c284bd9c"
+      ],
+      "container": "imagine-a24-style-30c284bd9c",
+      "source_receipts": [
+        "production\\A-24\\preuves\\final\\utf8\\style\\style.json"
+      ],
+      "docker_exit": 1,
+      "stderr": "error: no such object: imagine-a24-style-30c284bd9c\n",
+      "stdout": "[]\n",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu",
+        "--",
+        "docker",
+        "inspect",
+        "imagine-a25-style-d38b8c468d"
+      ],
+      "container": "imagine-a25-style-d38b8c468d",
+      "source_receipts": [
+        "production\\A-25\\preuves\\final\\style\\style.json"
+      ],
+      "docker_exit": 1,
+      "stderr": "error: no such object: imagine-a25-style-d38b8c468d\n",
+      "stdout": "[]\n",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu",
+        "--",
+        "docker",
+        "inspect",
+        "imagine-a25-visitors-1592003ad2a7"
+      ],
+      "container": "imagine-a25-visitors-1592003ad2a7",
+      "source_receipts": [
+        "production\\A-25\\preuves\\final\\cp1252\\native\\runner.json"
+      ],
+      "docker_exit": 1,
+      "stderr": "error: no such object: imagine-a25-visitors-1592003ad2a7\n",
+      "stdout": "[]\n",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu",
+        "--",
+        "docker",
+        "inspect",
+        "imagine-a25-visitors-a0cb9d23a432"
+      ],
+      "container": "imagine-a25-visitors-a0cb9d23a432",
+      "source_receipts": [
+        "production\\A-25\\preuves\\final\\utf8\\native\\runner.json"
+      ],
+      "docker_exit": 1,
+      "stderr": "error: no such object: imagine-a25-visitors-a0cb9d23a432\n",
+      "stdout": "[]\n",
+      "status": "PASS"
+    }
+  ],
+  "exit_code": 0
+}

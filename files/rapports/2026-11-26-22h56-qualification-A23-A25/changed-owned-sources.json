@@ -1,0 +1,21 @@
+{
+  "23": [
+    "wp/tests/a23/RoleDatabaseDouble.php",
+    "wp/tests/a23/RoleRuntimeDouble.php",
+    "wp/tests/a23/RoleUserDouble.php",
+    "wp/tests/a23/inside.py",
+    "wp/tests/a23/role-probe.php"
+  ],
+  "24": [
+    "wp/outils/bascule/a24/Analysis.php",
+    "wp/outils/bascule/a24/Inventory.php",
+    "wp/tests/a24/guards.php",
+    "wp/tests/a24/neutralise.php",
+    "wp/tests/a24/seed.php",
+    "wp/tests/a24/standard.php",
+    "wp/tests/a24/unit.php"
+  ],
+  "25": [
+    "wp/tests/a25/seed.php"
+  ]
+}

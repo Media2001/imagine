@@ -31,9 +31,11 @@ Comptes seulement ; aucune suppression ni durée de conservation.
         "listed_extensions": [
             "Fluent Forms"
         ],
-        "other_tables": 1,
-        "clear_messages_after_import": true
+        "other_tables": 2,
+        "coverage": "heuristique bornée",
+        "clear_messages_after_import": true,
+        "clear_messages_after_import_label": "avertissement éditorial permanent, non mesuré sur la copie inspectée"
     },
-    "audit_sha256": "95a0c62b44ec920a9843e288f1b86ce43cbfb081ab55c781f4d38cb53db5da19"
+    "audit_sha256": "ec0c0523b9bec4c79aa9d9784b9ed7539af12fe7173cbab816df0e89a70a938a"
 }
 ```

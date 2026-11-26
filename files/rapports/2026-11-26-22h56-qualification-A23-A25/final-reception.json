@@ -1,0 +1,805 @@
+{
+  "frozen_at": "2026-11-26T22:56:09.803345+01:00",
+  "counts": {
+    "23": {
+      "utf8": {
+        "unit": 34,
+        "result": 174,
+        "runner": 10,
+        "python": 30
+      },
+      "cp1252": {
+        "unit": 34,
+        "result": 174,
+        "runner": 10,
+        "python": 30
+      }
+    },
+    "24": {
+      "utf8": {
+        "unit": 27,
+        "result": 212,
+        "runner": 9,
+        "python": 15,
+        "lint": 9
+      },
+      "cp1252": {
+        "unit": 27,
+        "result": 212,
+        "runner": 9,
+        "python": 15,
+        "lint": 9
+      }
+    },
+    "25": {
+      "utf8": {
+        "unit": 25,
+        "result": 212,
+        "runner": 9,
+        "python": 33
+      },
+      "cp1252": {
+        "unit": 25,
+        "result": 212,
+        "runner": 9,
+        "python": 33
+      }
+    }
+  },
+  "commands": {
+    "a23-matrix-02": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a23/matrix.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\a23-matrix-02"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:31:42.108999+01:00",
+      "finished": "2026-11-26T22:35:32.843099+01:00",
+      "exit_code": 0,
+      "log": "a23-matrix-02.log",
+      "log_sha256": "86e3307fc86a6912ba34ec5463611732168ee7546241091d97de5435b8eb1818"
+    },
+    "a23-unsealed-verify": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a23/verify.py",
+        "--unsealed",
+        "--require-shared-doc",
+        "--evidence=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\a23-matrix-02"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:35:32.849728+01:00",
+      "finished": "2026-11-26T22:35:33.055850+01:00",
+      "exit_code": 0,
+      "log": "a23-unsealed-verify.log",
+      "log_sha256": "f3bb936b42836804c9f715cb97f3a13afb77317611aad168ee49820e7240fca7"
+    },
+    "a24-matrix-01": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a24/matrix.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\a24-matrix-01"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:40:22.425142+01:00",
+      "finished": "2026-11-26T22:44:06.462514+01:00",
+      "exit_code": 0,
+      "log": "a24-matrix-01.log",
+      "log_sha256": "6ee33ca3ed1076e913d6f5e42d4f93cb7f609f858e354663170aec7b36ab2a02"
+    },
+    "a24-preflight": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\a24-preflight.py"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:44:06.468045+01:00",
+      "finished": "2026-11-26T22:44:07.168994+01:00",
+      "exit_code": 0,
+      "log": "a24-preflight.log",
+      "log_sha256": "6e572988591f54b32726044ec81cd3400db520b05c9ea5a49839c9b7233ab23e"
+    },
+    "a24-seal": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a24/seal.py",
+        "--source=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\a24-seal-source"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:40.088628+01:00",
+      "finished": "2026-11-26T22:56:42.394697+01:00",
+      "exit_code": 0,
+      "log": "a24-seal.log",
+      "log_sha256": "cd9b6f6377bccfaa7aa3e21ed10d6ef39dac3477cf4cb3afdfce94c761aecede"
+    },
+    "a24-style-final": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\a24-style.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\a24-style-final"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:40:19.494246+01:00",
+      "finished": "2026-11-26T22:40:22.418496+01:00",
+      "exit_code": 0,
+      "log": "a24-style-final.log",
+      "log_sha256": "e21a4ec846fde95a8d27815b505a81077859ae467d1b071fb53955987229a673"
+    },
+    "a25-matrix-02": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a25/matrix.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\a25-matrix-02"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:49:19.322727+01:00",
+      "finished": "2026-11-26T22:53:33.417197+01:00",
+      "exit_code": 0,
+      "log": "a25-matrix-02.log",
+      "log_sha256": "a6ef841088ecb461e496bccca2579c3faed4225ac2436ef0dc1252f151fa1957"
+    },
+    "a25-unsealed-verify": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a25/verify.py",
+        "--unsealed",
+        "--require-shared-doc",
+        "--evidence=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\a25-matrix-02"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:53:33.425147+01:00",
+      "finished": "2026-11-26T22:53:33.628127+01:00",
+      "exit_code": 0,
+      "log": "a25-unsealed-verify.log",
+      "log_sha256": "02ff2e1919a8613172f4a6475d7cf1d097225aa38df5814cd9815a9b85cd9df9"
+    },
+    "audit-final-command": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\audit_sources.py",
+        "audit"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:54.007549+01:00",
+      "finished": "2026-11-26T22:56:54.344522+01:00",
+      "exit_code": 0,
+      "log": "audit-final-command.log",
+      "log_sha256": "a1d71d55451a8842bc751513b3bd890185b3d95a1fc50850da8138af33b6dec5"
+    },
+    "frozen-readback": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\audit_sources.py",
+        "readback"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:53.725106+01:00",
+      "finished": "2026-11-26T22:56:54.001861+01:00",
+      "exit_code": 0,
+      "log": "frozen-readback.log",
+      "log_sha256": "4f29f6e3eba5322042b193321a7e9774d06cc3bd2161748046b443eebb2cddc7"
+    },
+    "post-pret-verify-23-cp1252": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a23/verify.py"
+      ],
+      "encoding": "cp1252",
+      "environment": {
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:55.610933+01:00",
+      "finished": "2026-11-26T22:56:55.739426+01:00",
+      "exit_code": 0,
+      "log": "post-pret-verify-23-cp1252.log",
+      "log_sha256": "75e437d20ec9fa763fec2cfe776dd40b500af7b4947b200cb9e266fc74641c2d"
+    },
+    "post-pret-verify-23-utf8": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a23/verify.py"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:55.470814+01:00",
+      "finished": "2026-11-26T22:56:55.609659+01:00",
+      "exit_code": 0,
+      "log": "post-pret-verify-23-utf8.log",
+      "log_sha256": "75e437d20ec9fa763fec2cfe776dd40b500af7b4947b200cb9e266fc74641c2d"
+    },
+    "post-pret-verify-24-cp1252": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a24/verify.py"
+      ],
+      "encoding": "cp1252",
+      "environment": {
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:55.982327+01:00",
+      "finished": "2026-11-26T22:56:56.150467+01:00",
+      "exit_code": 0,
+      "log": "post-pret-verify-24-cp1252.log",
+      "log_sha256": "e9b466934bdd8a7c1dd547e0ed1931a78f6995789ffd04a4dfaccdf242a188f2"
+    },
+    "post-pret-verify-24-utf8": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a24/verify.py"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:55.740501+01:00",
+      "finished": "2026-11-26T22:56:55.980371+01:00",
+      "exit_code": 0,
+      "log": "post-pret-verify-24-utf8.log",
+      "log_sha256": "e9b466934bdd8a7c1dd547e0ed1931a78f6995789ffd04a4dfaccdf242a188f2"
+    },
+    "post-pret-verify-25-cp1252": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a25/verify.py"
+      ],
+      "encoding": "cp1252",
+      "environment": {
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:56.353774+01:00",
+      "finished": "2026-11-26T22:56:56.545602+01:00",
+      "exit_code": 0,
+      "log": "post-pret-verify-25-cp1252.log",
+      "log_sha256": "6f25109c6345b32a19640aba6045c886c07fffcb5d6838fe378d848ffefef6de"
+    },
+    "post-pret-verify-25-utf8": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a25/verify.py"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:56.151955+01:00",
+      "finished": "2026-11-26T22:56:56.347819+01:00",
+      "exit_code": 0,
+      "log": "post-pret-verify-25-utf8.log",
+      "log_sha256": "6f25109c6345b32a19640aba6045c886c07fffcb5d6838fe378d848ffefef6de"
+    },
+    "preparation": {
+      "command": [
+        "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "wp/tests/preparer-image.ps1"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:17.670724+01:00",
+      "finished": "2026-11-26T22:56:20.556937+01:00",
+      "exit_code": 0,
+      "log": "preparation.log",
+      "log_sha256": "16a659ca0d5ae8af53e843a368c38f09dfd6511ce44aff9e051a32172a82d806"
+    },
+    "replay-cp1252": {
+      "command": [
+        "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "wp/tests/rejouer.ps1"
+      ],
+      "encoding": "cp1252",
+      "environment": {
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:28.851550+01:00",
+      "finished": "2026-11-26T22:56:37.496962+01:00",
+      "exit_code": 0,
+      "log": "replay-cp1252.log",
+      "log_sha256": "4c452c762b18315fad4199ed2e04a101f0688653d82f83ebf7a9dfa1b7163a91"
+    },
+    "replay-utf8": {
+      "command": [
+        "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "wp/tests/rejouer.ps1"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:20.564602+01:00",
+      "finished": "2026-11-26T22:56:28.840941+01:00",
+      "exit_code": 0,
+      "log": "replay-utf8.log",
+      "log_sha256": "573c980c0ef7db6545308d70f80af7f5e9ed059780c66656d29258e15c10a0ca"
+    },
+    "runner-absence-command": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126\\runner_absence.py"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:54.350542+01:00",
+      "finished": "2026-11-26T22:56:55.404712+01:00",
+      "exit_code": 0,
+      "log": "runner-absence-command.log",
+      "log_sha256": "de4ab1611b333452ad45ac5e5c3f544f7faadc7478ae5a3956ef2949b5ded7fd"
+    },
+    "verify-20-cp1252": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a20/verify.py",
+        "production/A-20/preuves/final"
+      ],
+      "encoding": "cp1252",
+      "environment": {
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:37.647322+01:00",
+      "finished": "2026-11-26T22:56:37.768572+01:00",
+      "exit_code": 0,
+      "log": "verify-20-cp1252.log",
+      "log_sha256": "e3a643ce235d3a732dac56089118d493df17bb9f6ff01f52e9a4ad49a5a8e729"
+    },
+    "verify-20-utf8": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a20/verify.py",
+        "production/A-20/preuves/final"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:37.506800+01:00",
+      "finished": "2026-11-26T22:56:37.641279+01:00",
+      "exit_code": 0,
+      "log": "verify-20-utf8.log",
+      "log_sha256": "e3a643ce235d3a732dac56089118d493df17bb9f6ff01f52e9a4ad49a5a8e729"
+    },
+    "verify-21-cp1252": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a21/verify.py",
+        "production/A-21/preuves/final"
+      ],
+      "encoding": "cp1252",
+      "environment": {
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:37.887148+01:00",
+      "finished": "2026-11-26T22:56:37.992532+01:00",
+      "exit_code": 0,
+      "log": "verify-21-cp1252.log",
+      "log_sha256": "ec5ec375ac82d751f4474e428d4e9cb2b3695e8c5dd0894a8e1db262d79f338e"
+    },
+    "verify-21-utf8": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a21/verify.py",
+        "production/A-21/preuves/final"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:37.775008+01:00",
+      "finished": "2026-11-26T22:56:37.880103+01:00",
+      "exit_code": 0,
+      "log": "verify-21-utf8.log",
+      "log_sha256": "ec5ec375ac82d751f4474e428d4e9cb2b3695e8c5dd0894a8e1db262d79f338e"
+    },
+    "verify-22-cp1252": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a22/verify.py",
+        "production/A-22/preuves/final"
+      ],
+      "encoding": "cp1252",
+      "environment": {
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:38.387129+01:00",
+      "finished": "2026-11-26T22:56:38.763878+01:00",
+      "exit_code": 0,
+      "log": "verify-22-cp1252.log",
+      "log_sha256": "6a7c120d857bb24ef9e918522ef17521d4e1bd7ff2e3b2e3aa3484ead38423f3"
+    },
+    "verify-22-utf8": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a22/verify.py",
+        "production/A-22/preuves/final"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:37.993563+01:00",
+      "finished": "2026-11-26T22:56:38.381230+01:00",
+      "exit_code": 0,
+      "log": "verify-22-utf8.log",
+      "log_sha256": "6a7c120d857bb24ef9e918522ef17521d4e1bd7ff2e3b2e3aa3484ead38423f3"
+    },
+    "verify-23-cp1252": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a23/verify.py",
+        "--require-shared-doc"
+      ],
+      "encoding": "cp1252",
+      "environment": {
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:44.030373+01:00",
+      "finished": "2026-11-26T22:56:44.178595+01:00",
+      "exit_code": 0,
+      "log": "verify-23-cp1252.log",
+      "log_sha256": "e7bc38d0775e4ee90913d7141395ff433fd0386f92ea443779b810ed8f5ca51a"
+    },
+    "verify-23-noarg": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a23/verify.py"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:44.179876+01:00",
+      "finished": "2026-11-26T22:56:44.336812+01:00",
+      "exit_code": 0,
+      "log": "verify-23-noarg.log",
+      "log_sha256": "75e437d20ec9fa763fec2cfe776dd40b500af7b4947b200cb9e266fc74641c2d"
+    },
+    "verify-23-utf8": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a23/verify.py",
+        "--require-shared-doc"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:43.796020+01:00",
+      "finished": "2026-11-26T22:56:44.024109+01:00",
+      "exit_code": 0,
+      "log": "verify-23-utf8.log",
+      "log_sha256": "e7bc38d0775e4ee90913d7141395ff433fd0386f92ea443779b810ed8f5ca51a"
+    },
+    "verify-24-cp1252": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a24/verify.py",
+        "--require-shared"
+      ],
+      "encoding": "cp1252",
+      "environment": {
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:44.547187+01:00",
+      "finished": "2026-11-26T22:56:44.721380+01:00",
+      "exit_code": 0,
+      "log": "verify-24-cp1252.log",
+      "log_sha256": "057ff6b51cbbc957ccd61825e7d533c56f8c1163b9fb499bdd75b8b6c763e116"
+    },
+    "verify-24-noarg": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a24/verify.py"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:44.722670+01:00",
+      "finished": "2026-11-26T22:56:44.904477+01:00",
+      "exit_code": 0,
+      "log": "verify-24-noarg.log",
+      "log_sha256": "e9b466934bdd8a7c1dd547e0ed1931a78f6995789ffd04a4dfaccdf242a188f2"
+    },
+    "verify-24-utf8": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a24/verify.py",
+        "--require-shared"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:44.343885+01:00",
+      "finished": "2026-11-26T22:56:44.540401+01:00",
+      "exit_code": 0,
+      "log": "verify-24-utf8.log",
+      "log_sha256": "057ff6b51cbbc957ccd61825e7d533c56f8c1163b9fb499bdd75b8b6c763e116"
+    },
+    "verify-25-cp1252": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a25/verify.py",
+        "--require-shared-doc"
+      ],
+      "encoding": "cp1252",
+      "environment": {
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:45.125900+01:00",
+      "finished": "2026-11-26T22:56:45.323941+01:00",
+      "exit_code": 0,
+      "log": "verify-25-cp1252.log",
+      "log_sha256": "0a692be1f7b396e9c86b525468f7e67387d29daa82891a450c8f5b75a8b8a7a5"
+    },
+    "verify-25-noarg": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a25/verify.py"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:45.330612+01:00",
+      "finished": "2026-11-26T22:56:45.537655+01:00",
+      "exit_code": 0,
+      "log": "verify-25-noarg.log",
+      "log_sha256": "6f25109c6345b32a19640aba6045c886c07fffcb5d6838fe378d848ffefef6de"
+    },
+    "verify-25-utf8": {
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a25/verify.py",
+        "--require-shared-doc"
+      ],
+      "encoding": "utf-8",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TEMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126",
+        "TMP": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a232425-final-20261126"
+      },
+      "started": "2026-11-26T22:56:44.915837+01:00",
+      "finished": "2026-11-26T22:56:45.119228+01:00",
+      "exit_code": 0,
+      "log": "verify-25-utf8.log",
+      "log_sha256": "0a692be1f7b396e9c86b525468f7e67387d29daa82891a450c8f5b75a8b8a7a5"
+    }
+  },
+  "markers": {
+    "production\\A-23\\PRET": {
+      "sha256": "939bcfc36f6878ef7526290afa158ea217a0cb9e0f8bacd0b9c905aaf4196914",
+      "content": "2026-11-26T22:56:55.426959+01:00 pr\u00eat \u00e0 relire, non clos ; preuves files/rapports/2026-11-26-22h56-qualification-A23-A25 ; paquet production/A-23/preuves/final ; aucun GO r\u00e9el\n"
+    },
+    "production\\A-24\\PRET": {
+      "sha256": "2be3caf90c9a215fea9d7e33b8af21f3124eb09fbc5e0ff2679ba9a92e98b794",
+      "content": "2026-11-26T22:56:55.446702+01:00 pr\u00eat \u00e0 relire, non clos ; preuves files/rapports/2026-11-26-22h56-qualification-A23-A25 ; paquet production/A-24/preuves/final ; aucun GO r\u00e9el\n"
+    },
+    "production\\A-25\\PRET": {
+      "sha256": "1ef467f6b2ca397284441e3d3573c8a021a989eb870eb06d6553c0283dcb630d",
+      "content": "2026-11-26T22:56:55.466799+01:00 pr\u00eat \u00e0 relire, non clos ; preuves files/rapports/2026-11-26-22h56-qualification-A23-A25 ; paquet production/A-25/preuves/final ; aucun GO r\u00e9el\n"
+    }
+  },
+  "fifth_channel_audit": "audit-final.json",
+  "runner_absence": "runner-absence.json",
+  "exit_code": 0
+}

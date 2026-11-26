@@ -1,0 +1,20 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T21:55:40.145296+00:00",
+  "private_snapshot": {
+    "file": "c25-private-ek1nfdsp/snapshot.json",
+    "sha256": "6a3f17a11fc8999dc270a1f9faac0979db0f855b068ad00c1dc4342e2d2a02e0",
+    "private": true
+  },
+  "matched_dates_by_original_digest": {
+    "88": {
+      "matched": true,
+      "date": "2026-11-25 19:08:59"
+    },
+    "94": {
+      "matched": true,
+      "date": "2026-11-25 19:08:59"
+    }
+  },
+  "business_equal_original": true
+}

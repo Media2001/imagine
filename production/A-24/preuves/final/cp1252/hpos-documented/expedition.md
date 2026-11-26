@@ -28,7 +28,7 @@ Comptes seulement ; aucune adresse ni décision postale.
             },
             "country_absent": 2,
             "country_unknown": 1,
-            "different_from_account": 2,
+            "different_from_account": 1,
             "account_unavailable": 1
         },
         "countries": [
@@ -53,7 +53,7 @@ Comptes seulement ; aucune adresse ni décision postale.
                     },
                     "country_absent": 0,
                     "country_unknown": 0,
-                    "different_from_account": 2,
+                    "different_from_account": 1,
                     "account_unavailable": 1
                 }
             },
@@ -84,6 +84,6 @@ Comptes seulement ; aucune adresse ni décision postale.
             }
         ]
     },
-    "audit_sha256": "cb5d81c9ebb690d18cfbad33cd4993b9e47f7db9d6f2c044ccbba89288582fed"
+    "audit_sha256": "d9ff1c171e615c91a99a0d47b52fc71e433c7216b18e63aca07715470ade27c3"
 }
 ```

@@ -51,6 +51,11 @@ Comptes seulement ; aucune suppression ni durée de conservation.
                     "year": 0,
                     "state": "autre",
                     "count": 5
+                },
+                {
+                    "year": 2022,
+                    "state": "autre",
+                    "count": 5
                 }
             ],
             "autres": 2
@@ -68,9 +73,11 @@ Comptes seulement ; aucune suppression ni durée de conservation.
     },
     "forms": {
         "listed_extensions": [],
-        "other_tables": 2,
-        "clear_messages_after_import": true
+        "other_tables": 3,
+        "coverage": "heuristique bornée",
+        "clear_messages_after_import": true,
+        "clear_messages_after_import_label": "avertissement éditorial permanent, non mesuré sur la copie inspectée"
     },
-    "audit_sha256": "d0f1a03bbed8ed2097beb81738511b848df5b68ca6afd8e36901084a94df98ed"
+    "audit_sha256": "88dc12e7bfc5a59da79ca77a14ba17a517d97836ca1e1a46596ef517ee2dd815"
 }
 ```

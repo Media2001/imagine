@@ -183,8 +183,8 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         }
     ],
     "update_source": "local_cache_only_not_a_live_check",
-    "plugin_cache_checked_epoch": 1795716994,
-    "theme_cache_checked_epoch": 1795716994
+    "plugin_cache_checked_epoch": 1795729784,
+    "theme_cache_checked_epoch": 1795729784
 }
 ```
 
@@ -825,6 +825,18 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
 {
     "tables": [
         {
+            "name": "wp_a25_submission_details",
+            "bytes": 32768,
+            "rows": 10,
+            "ownership": "unattributed_candidate"
+        },
+        {
+            "name": "wp_a25_submission_entries",
+            "bytes": 16384,
+            "rows": 5,
+            "ownership": "unattributed_candidate"
+        },
+        {
             "name": "wp_a25_unknown_entries",
             "bytes": 16384,
             "rows": 2,
@@ -1167,7 +1179,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "ownership": "active_woocommerce"
         }
     ],
-    "total_bytes": 3424256,
+    "total_bytes": 3473408,
     "largest_autoload": [
         {
             "name": "a02_heavy_secret_setting",
@@ -1464,4 +1476,4 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
 
 4. Relire les surcharges WooCommerce: 1 perimee(s) par rapport au Woo installe; traiter les fonctions depreciees extraites.
 
-5. Qualifier 3 table(s) non attribuee(s) et les options autoload lourdes avant tout nettoyage; ne rien supprimer sur cette seule indication.
+5. Qualifier 5 table(s) non attribuee(s) et les options autoload lourdes avant tout nettoyage; ne rien supprimer sur cette seule indication.

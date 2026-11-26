@@ -34,7 +34,47 @@
             "status": "PASS"
         },
         {
-            "check": "literal_case_and_space_comparison",
+            "check": "case_and_space_only_rows_are_not_different",
+            "status": "PASS"
+        },
+        {
+            "check": "case_only_ignored",
+            "status": "PASS"
+        },
+        {
+            "check": "space_only_ignored",
+            "status": "PASS"
+        },
+        {
+            "check": "unicode_space_only_ignored",
+            "status": "PASS"
+        },
+        {
+            "check": "actual_street_difference_counted",
+            "status": "PASS"
+        },
+        {
+            "check": "actual_postcode_difference_counted",
+            "status": "PASS"
+        },
+        {
+            "check": "accent_not_removed",
+            "status": "PASS"
+        },
+        {
+            "check": "punctuation_not_removed",
+            "status": "PASS"
+        },
+        {
+            "check": "zero_not_empty",
+            "status": "PASS"
+        },
+        {
+            "check": "comparison_does_not_normalise_raw_completeness_or_country",
+            "status": "PASS"
+        },
+        {
+            "check": "unicode_comparison_does_not_change_raw_shipping_empty",
             "status": "PASS"
         },
         {

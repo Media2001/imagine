@@ -1,0 +1,113 @@
+{
+  "23": {
+    "contexts": {
+      "utf8": {
+        "native_checks": 174,
+        "fifth_channel": {
+          "classic:closed_channel:shutdown_invalid_json": "PASS",
+          "classic:closed_channel:shutdown_extra_string": "PASS",
+          "classic:closed_channel:shutdown_markdown": "PASS",
+          "classic:closed_channel:shutdown_extra_file": "PASS",
+          "classic:closed_channel:shutdown_partial": "PASS",
+          "hpos:closed_channel:shutdown_invalid_json": "PASS",
+          "hpos:closed_channel:shutdown_extra_string": "PASS",
+          "hpos:closed_channel:shutdown_markdown": "PASS",
+          "hpos:closed_channel:shutdown_extra_file": "PASS",
+          "hpos:closed_channel:shutdown_partial": "PASS"
+        }
+      },
+      "cp1252": {
+        "native_checks": 174,
+        "fifth_channel": {
+          "classic:closed_channel:shutdown_invalid_json": "PASS",
+          "classic:closed_channel:shutdown_extra_string": "PASS",
+          "classic:closed_channel:shutdown_markdown": "PASS",
+          "classic:closed_channel:shutdown_extra_file": "PASS",
+          "classic:closed_channel:shutdown_partial": "PASS",
+          "hpos:closed_channel:shutdown_invalid_json": "PASS",
+          "hpos:closed_channel:shutdown_extra_string": "PASS",
+          "hpos:closed_channel:shutdown_markdown": "PASS",
+          "hpos:closed_channel:shutdown_extra_file": "PASS",
+          "hpos:closed_channel:shutdown_partial": "PASS"
+        }
+      }
+    },
+    "artifacts": 113,
+    "packet_canaries_absent": true
+  },
+  "24": {
+    "contexts": {
+      "utf8": {
+        "native_checks": 212,
+        "fifth_channel": {
+          "classic:closed_channel:shutdown_invalid_json": "PASS",
+          "classic:closed_channel:shutdown_extra_string": "PASS",
+          "classic:closed_channel:shutdown_markdown": "PASS",
+          "classic:closed_channel:shutdown_extra_file": "PASS",
+          "classic:closed_channel:shutdown_partial": "PASS",
+          "hpos:closed_channel:shutdown_invalid_json": "PASS",
+          "hpos:closed_channel:shutdown_extra_string": "PASS",
+          "hpos:closed_channel:shutdown_markdown": "PASS",
+          "hpos:closed_channel:shutdown_extra_file": "PASS",
+          "hpos:closed_channel:shutdown_partial": "PASS"
+        }
+      },
+      "cp1252": {
+        "native_checks": 212,
+        "fifth_channel": {
+          "classic:closed_channel:shutdown_invalid_json": "PASS",
+          "classic:closed_channel:shutdown_extra_string": "PASS",
+          "classic:closed_channel:shutdown_markdown": "PASS",
+          "classic:closed_channel:shutdown_extra_file": "PASS",
+          "classic:closed_channel:shutdown_partial": "PASS",
+          "hpos:closed_channel:shutdown_invalid_json": "PASS",
+          "hpos:closed_channel:shutdown_extra_string": "PASS",
+          "hpos:closed_channel:shutdown_markdown": "PASS",
+          "hpos:closed_channel:shutdown_extra_file": "PASS",
+          "hpos:closed_channel:shutdown_partial": "PASS"
+        }
+      }
+    },
+    "artifacts": 126,
+    "packet_canaries_absent": true
+  },
+  "25": {
+    "contexts": {
+      "utf8": {
+        "native_checks": 212,
+        "fifth_channel": {
+          "classic:closed_channel:shutdown_invalid_json": "PASS",
+          "classic:closed_channel:shutdown_extra_string": "PASS",
+          "classic:closed_channel:shutdown_markdown": "PASS",
+          "classic:closed_channel:shutdown_extra_file": "PASS",
+          "classic:closed_channel:shutdown_partial": "PASS",
+          "hpos:closed_channel:shutdown_invalid_json": "PASS",
+          "hpos:closed_channel:shutdown_extra_string": "PASS",
+          "hpos:closed_channel:shutdown_markdown": "PASS",
+          "hpos:closed_channel:shutdown_extra_file": "PASS",
+          "hpos:closed_channel:shutdown_partial": "PASS"
+        }
+      },
+      "cp1252": {
+        "native_checks": 212,
+        "fifth_channel": {
+          "classic:closed_channel:shutdown_invalid_json": "PASS",
+          "classic:closed_channel:shutdown_extra_string": "PASS",
+          "classic:closed_channel:shutdown_markdown": "PASS",
+          "classic:closed_channel:shutdown_extra_file": "PASS",
+          "classic:closed_channel:shutdown_partial": "PASS",
+          "hpos:closed_channel:shutdown_invalid_json": "PASS",
+          "hpos:closed_channel:shutdown_extra_string": "PASS",
+          "hpos:closed_channel:shutdown_markdown": "PASS",
+          "hpos:closed_channel:shutdown_extra_file": "PASS",
+          "hpos:closed_channel:shutdown_partial": "PASS"
+        }
+      }
+    },
+    "artifacts": 233,
+    "packet_canaries_absent": true
+  },
+  "frozen_at": "2026-11-26T22:56:09.803345+01:00",
+  "source_count": 1327,
+  "shared_untouched": true
+}

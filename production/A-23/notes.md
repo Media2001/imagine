@@ -1,3 +1,9 @@
+# État actif — qualification finale 2026-11-26T22:56:39.447669+01:00
+
+Voir `FINALISATION.md` : matrices natives complètes et gates communes réellement vertes sur le gel **2026-11-26T22:56:09.803345+01:00**. Un seul paquet retenu `preuves/final`, vérification sans argument ; anciens paragraphes et chiffres ci-dessous **historiques**, pas une nouvelle attestation. Le premier natif rouge provenait de l'injection au hook plugins_loaded : wp-settings.php réinitialise ensuite wp_roles (ligne native 690, après plugins_loaded 622). Injection au hook init final, sans modifier le moteur : refus fermé réellement prouvé. Banc de rôles réparti en trois classes de doubles, alias WP_User explicite ; seule exception de nommage get_results justifiée par l'API wpdb. PSR-12 strict vert après phpcbf et corrections propres.
+
+---
+
 # A-23 — notes de construction
 
 ## Correction en cours — fusion A-23, 26 novembre 2026
