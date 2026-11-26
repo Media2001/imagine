@@ -24,7 +24,7 @@ final class Agenda
         register_post_type(self::INSCRIPTION, [
             'label' => __('Inscriptions aux événements', 'imagine-site'), 'public' => false,
             'publicly_queryable' => false, 'exclude_from_search' => true, 'show_in_rest' => false,
-            'show_ui' => true, 'show_in_menu' => 'edit.php?post_type=imagine_evenement',
+            'show_ui' => true, 'show_in_menu' => 'edit.php?post_type=imagine_evenement', 'can_export' => false,
             'supports' => [], 'map_meta_cap' => false, 'rewrite' => false, 'query_var' => false,
             'capabilities' => array_fill_keys(['edit_post', 'read_post', 'delete_post', 'edit_posts', 'edit_others_posts',
                 'publish_posts', 'read_private_posts', 'delete_posts', 'delete_private_posts', 'delete_published_posts',

@@ -1,0 +1,12 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T19:49:17.017605+00:00",
+  "business_restored": true,
+  "exact_target_absent": true,
+  "private_snapshot": {
+    "file": "b07-private-i1h575rt/snapshot.json",
+    "sha256": "3793f66be0f841024f4ef276a212c312ca4147e80826cb7d530b8409d8fd1012",
+    "private": true
+  },
+  "difference": "Préférence UI native meta-box-order_product ajoutée au compte fictif administrateur à sa première visite ; remise à absence initiale. Sessions et wc_last_active hors état métier."
+}

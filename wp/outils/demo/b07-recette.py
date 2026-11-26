@@ -56,7 +56,7 @@ def run(label):
  assert email.endswith('@example.org')
  before=b07.snapshot()
  for address in ['b07-visiteur@example.org',email]:
-  assert wp('echo wp_json_encode(Imagine\\\\Site\\\\Agenda::inscriptions('+php(address)+'));')==[], 'Inscription préexistante : refus sans mutation'
+  assert wp(r'echo wp_json_encode(Imagine\Site\Agenda::inscriptions('+php(address)+'));')==[], 'Inscription préexistante : refus sans mutation'
  oldobs=wp('echo wp_json_encode(["exists"=>file_exists(WP_CONTENT_DIR."/mu-plugins/b07-observer.php"),"option"=>get_option("imagine_b07_observer",null)]);')
  assert not oldobs['exists'] and oldobs['option'] is None
  durable=b07.private(label,{'database':before,'business':baseline,'sources':sources,'accounts':accounts})
@@ -84,7 +84,10 @@ def run(label):
    checks[key+'_formulaire']=('id="imagine-agenda-inscription"' in body)==(key in ['rencontre','sortie'])
    schema=json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>',body,re.S).group(1))
    checks[key+'_schema_champs_visibles']=schema['@type']=='Event' and schema['name']==e['nom'] and schema['startDate']==e['iso'] and schema['location']['name']==e['lieu'] and schema['description']==e['description'] and schema['description'] in html.unescape(re.sub('<[^>]+>','',body))
-   checks[key+'_schema_sans_billet']=all(k not in schema for k in ['offers','maximumAttendeeCapacity','remainingAttendeeCapacity'])
+   no_ticket=lambda s:all(k not in s for k in ['offers','maximumAttendeeCapacity','remainingAttendeeCapacity'])
+   checks[key+'_schema_sans_billet']=no_ticket(schema)
+   for field in ['offers','maximumAttendeeCapacity','remainingAttendeeCapacity']:
+    checks['mutation_'+key+'_schema_'+field]=not no_ticket({**schema,field:1})
    if key in ['rencontre','sortie']:
     checks[key+'_consentement_facultatif_non_coche']=len(p.checkboxes)==1 and 'checked' not in p.checkboxes[0] and 'required' not in p.checkboxes[0]
    if key=='partenaire':checks['partenaire_sponsored']=any(a.get('href')==e['url'] and 'sponsored' in a.get('rel','').split() for a in p.links)
@@ -94,11 +97,14 @@ def run(label):
   checks['inscription_http']=first[0]==200 and 'Votre demande a été enregistrée.' in html.unescape(first[2])
   stable=lambda response:(response[0],response[2],response[3])
   checks['doublon_meme_reponse']=stable(first)==stable(second)
+  checks['mutation_doublon_reponse']=stable(first)!=stable((second[0],second[1],second[2]+'Adresse déjà inscrite',second[3]))
   stored=wp('echo wp_json_encode(Imagine\\Site\\Agenda::inscriptions("b07-visiteur@example.org",'+str(e['id'])+'));')
   created+=stored;checks['doublon_une_ligne']=len(stored)==1
+  checks['mutation_doublon_deux_lignes']=len(stored+[stored[0]+1])!=1
   checks['consentement_non_exige']=wp('echo wp_json_encode(get_post_meta('+str(stored[0])+',"imagine_agenda_consentement",true));')=='0'
   result=request('/wp-admin/admin-post.php',data={**data,'email':email,'consentement':'1'})
   checks['adresse_compte_meme_reponse']=stable(result)==stable(first)
+  checks['mutation_fuite_compte']=stable(result)!=stable((first[0],first[1],first[2]+email,first[3]))
   userids=wp('echo wp_json_encode(Imagine\\Site\\Agenda::inscriptions('+php(email)+','+str(e['id'])+'));');created+=userids
   checks['consentement_coche_persistant']=len(userids)==1 and wp('echo wp_json_encode(get_post_meta('+str(userids[0])+',"imagine_agenda_consentement",true));')=='1'
   code,h,body,url=request('/wp-admin/edit.php?post_type=imagine_inscription',sessions['admin'])
@@ -110,18 +116,31 @@ def run(label):
   nonces=wp('wp_set_current_user(0);$out=[];foreach('+php({k:v['id'] for k,v in fixture.items()})+' as $k=>$id){$out[$k]=wp_create_nonce("imagine_agenda_".$id);}echo wp_json_encode($out);')
   for key in ['passe','partenaire']:
    response=request('/wp-admin/admin-post.php',data={**data,'evenement':fixture[key]['id'],'imagine_agenda_nonce':nonces[key]})
-   checks[key+'_POST_direct_refuse']=response[0]==400
-   checks[key+'_POST_sans_ligne']=wp('echo wp_json_encode(Imagine\\Site\\Agenda::inscriptions("b07-visiteur@example.org",'+str(fixture[key]['id'])+'));')==[]
+   refused=lambda r:r[0]==400
+   checks[key+'_POST_direct_refuse']=refused(response)
+   checks['mutation_'+key+'_POST_accepte']=not refused((200,*response[1:]))
+   absent=lambda rows:rows==[]
+   posted_rows=wp('echo wp_json_encode(Imagine\\Site\\Agenda::inscriptions("b07-visiteur@example.org",'+str(fixture[key]['id'])+'));')
+   checks[key+'_POST_sans_ligne']=absent(posted_rows)
+   checks['mutation_'+key+'_POST_avec_ligne']=not absent(posted_rows+[fixture[key]['id']])
   checks['nonce_invalide_refuse']=request('/wp-admin/admin-post.php',data={**data,'imagine_agenda_nonce':'invalide'})[0]==403
   # Les callbacks réellement enregistrés sont appelés comme le fait le pipeline natif.
   exported=wp('$ex=apply_filters("wp_privacy_personal_data_exporters",[]);echo wp_json_encode(call_user_func($ex["imagine-agenda"]["callback"],'+php(email)+',1));')
   checks['export_compte_donnees']=exported['done'] and len(exported['data'])==1 and email in json.dumps(exported) and 'Visiteur fictif B07' in json.dumps(exported)
-  checks['export_preserve_tiers']='b07-visiteur@example.org' not in json.dumps(exported)
+  sans_tiers=lambda x:bool(x['data']) and 'b07-visiteur@example.org' not in json.dumps(x)
+  checks['export_preserve_tiers']=sans_tiers(exported)
+  checks['mutation_export_tiers']=not sans_tiers({**exported,'fuite':'b07-visiteur@example.org'})
   erased=wp('$er=apply_filters("wp_privacy_personal_data_erasers",[]);echo wp_json_encode(call_user_func($er["imagine-agenda"]["callback"],'+php(email)+',1));')
   checks['effacement_compte']=erased['done'] and erased['items_removed'] and not erased['items_retained'] and wp('echo wp_json_encode(Imagine\\Site\\Agenda::inscriptions('+php(email)+'));')==[]
-  checks['effacement_preserve_tiers']=wp('echo wp_json_encode(Imagine\\Site\\Agenda::inscriptions("b07-visiteur@example.org"));')==stored
+  tiers_intacts=lambda rows:bool(stored) and rows==stored
+  checks['effacement_preserve_tiers']=tiers_intacts(wp('echo wp_json_encode(Imagine\\Site\\Agenda::inscriptions("b07-visiteur@example.org"));'))
+  checks['mutation_effacement_detruit_tiers']=not tiers_intacts([])
+  erase_complete=lambda x:x['done'] and x['items_removed'] and not x['items_retained']
+  checks['mutation_effacement_incomplet']=not erase_complete({**erased,'items_retained':True})
   for path in ['/?p='+str(stored[0]),'/wp-json/wp/v2/imagine_inscription','/?rest_route=/wp/v2/imagine_inscription']:
    code,h,body,url=request(path);checks['prive_'+str(len(checks))]=code in [403,404] and 'b07-visiteur@example.org' not in body
+   detector=lambda c,s:c in [403,404] and 'b07-visiteur@example.org' not in s
+   checks['mutation_prive_'+str(len(checks))]=not detector(code,body+'b07-visiteur@example.org')
   mut=mutations(evidence);checks.update({'mutation_'+k:v for k,v in mut.items()})
   # Contrôle d'absence qualifié sur les vrais compteurs et leur mutation témoin.
   counts=wp('echo wp_json_encode(get_option("imagine_b07_observer"));')
@@ -146,6 +165,6 @@ def run(label):
    checks['observateur_retire']=removed and wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR."/mu-plugins/b07-observer.php")&&get_option("imagine_b07_observer",null)===null);')
   checks['etat_metier_exact']=baseline==b07.b06.state()
   checks['sources_inchangees']=sources==b07.b06.hashes(b07.FILES)
- d={'identity':identity,'total':len(checks),'checks':checks,'failures':[k for k,v in checks.items() if not v],'error':error,'sources':sources,'private_snapshot':durable,'mutations':{k:v for k,v in checks.items() if k.startswith('mutation_')}}
+ d={'identity':identity,'total':len(checks),'checks':checks,'failures':[k for k,v in checks.items() if not v],'error':error,'sources':sources,'private_snapshot':durable,'transport_counts':locals().get('counts'),'mutations':{k:v for k,v in checks.items() if k.startswith('mutation_')}}
  b07.save(label,d);print(json.dumps(d,ensure_ascii=False));assert not error and not d['failures']
 if __name__=='__main__':run(sys.argv[1])

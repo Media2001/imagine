@@ -13,6 +13,7 @@ foreach ($f as $type=>$id) {
 }
 $cpt=get_post_type_object('imagine_inscription');
 $check('inscriptions_privees', $cpt!==null&&!$cpt->public&&!$cpt->show_in_rest&&!$cpt->publicly_queryable&&$cpt->exclude_from_search);
+$check('aucun_export_inscrits',$cpt!==null&&!$cpt->can_export);
 $check('admin_restreint',$cpt!==null&&$cpt->cap->edit_posts==='manage_options');
 $ex=apply_filters('wp_privacy_personal_data_exporters',[]);
 $er=apply_filters('wp_privacy_personal_data_erasers',[]);

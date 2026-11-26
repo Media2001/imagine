@@ -1,0 +1,25 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T19:51:37.014996+00:00",
+  "total": 13,
+  "checks": {
+    "adaptateur_agenda_charge": true,
+    "rencontre_champs_reels": true,
+    "rencontre_inscription": true,
+    "sortie_champs_reels": true,
+    "sortie_inscription": true,
+    "partenaire_champs_reels": true,
+    "partenaire_inscription": true,
+    "passe_champs_reels": true,
+    "passe_inscription": true,
+    "inscriptions_privees": true,
+    "aucun_export_inscrits": false,
+    "admin_restreint": true,
+    "callbacks_additifs": true
+  },
+  "failures": [
+    "aucun_export_inscrits"
+  ],
+  "exit": 1,
+  "stderr": ""
+}
