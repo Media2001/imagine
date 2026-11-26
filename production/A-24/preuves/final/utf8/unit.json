@@ -1,0 +1,74 @@
+{
+    "suite": "A24-pure",
+    "checks": [
+        {
+            "check": "analysis_available",
+            "status": "PASS"
+        },
+        {
+            "check": "complete_shipping_not_missing",
+            "status": "PASS"
+        },
+        {
+            "check": "no_account_is_not_a_difference",
+            "status": "PASS"
+        },
+        {
+            "check": "small_country_is_pooled",
+            "status": "PASS"
+        },
+        {
+            "check": "private_address_never_in_analysis",
+            "status": "PASS"
+        },
+        {
+            "check": "empty_shipping_and_billing_present_exact",
+            "status": "PASS"
+        },
+        {
+            "check": "native_missing_counts_exact",
+            "status": "PASS"
+        },
+        {
+            "check": "absent_and_unknown_countries_separate",
+            "status": "PASS"
+        },
+        {
+            "check": "literal_case_and_space_comparison",
+            "status": "PASS"
+        },
+        {
+            "check": "unknown_country_not_leaked",
+            "status": "PASS"
+        },
+        {
+            "check": "neutralisation_unknown_never_false_zero",
+            "status": "PASS"
+        },
+        {
+            "check": "neutralisation_preserves_country_and_totals",
+            "status": "PASS"
+        },
+        {
+            "check": "empty_population_has_closed_zero_counts",
+            "status": "PASS"
+        },
+        {
+            "check": "threshold_five_exact",
+            "status": "PASS"
+        },
+        {
+            "check": "native_optional_and_zero_string_respected",
+            "status": "PASS"
+        },
+        {
+            "check": "space_only_is_empty_not_unknown_country",
+            "status": "PASS"
+        },
+        {
+            "check": "free_native_field_refused",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 0
+}

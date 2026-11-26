@@ -1,0 +1,1243 @@
+{
+  "suite": "A02-real-commercial-fixture",
+  "checks": [
+    {
+      "check": "lint:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:seed.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:fingerprint.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:unit.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:readonly-probe.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": false,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "classic:native_seed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:native_standard",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:audit_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:confined_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:twelve_live_subscriptions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:select_only_account",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:exact_all_metrics_and_country_groups",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_private_values_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:private_report_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:replay_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:documented_only_given_arguments",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:repo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:ancestor",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:unconfined_php_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:symlink_closed:False",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A11_SYMLINK_UNSUPPORTED"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:symlink_closed:False",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:symlink_closed:True",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A11_SYMLINK_UNSUPPORTED"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:symlink_closed:True",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:0",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "NON_CODE"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_dropin:0",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:1",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "NON_CODE"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_dropin:1",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:2",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "NON_CODE"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_dropin:2",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:3",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "NON_CODE"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_dropin:3",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:4",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "NON_CODE"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_dropin:4",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:5",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "NON_CODE"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_dropin:5",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:config_closed:define",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A11_CONFIG_OVERRIDE_UNSUPPORTED"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:config_closed:define",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:config_closed:const",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A11_CONFIG_OVERRIDE_UNSUPPORTED"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:config_closed:const",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:transaction_readonly_even_root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:audit_guard:schema",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:audit_guard:storage",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:direct_stdout",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_PROCESS_OUTPUT_INVALID"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_channel:direct_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:mutation_without_guard_detected:direct_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:direct_stderr",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_PROCESS_OUTPUT_INVALID"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_channel:direct_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:mutation_without_guard_detected:direct_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:display_early_exit",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_PROCESS_OUTPUT_INVALID"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_channel:display_early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:mutation_without_guard_detected:display_early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:silent_early_exit",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_PROCESS_OUTPUT_INVALID"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_channel:silent_early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_stdout",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_PROCESS_OUTPUT_INVALID"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_channel:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:mutation_without_guard_detected:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_stderr",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_PROCESS_OUTPUT_INVALID"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_channel:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:mutation_without_guard_detected:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_display",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_PROCESS_OUTPUT_INVALID"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_channel:shutdown_display",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:mutation_without_guard_detected:shutdown_display",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:invalid_utf8",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_PROCESS_OUTPUT_INVALID"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_channel:invalid_utf8",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:oversize_output",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_PROCESS_OUTPUT_INVALID"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_channel:oversize_output",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:plugin_exception",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_INVENTORY_FAILED"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_channel:plugin_exception",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:forged_refusal",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_INVENTORY_FAILED"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_channel:forged_refusal",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:forged_success",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_REPORT_INVALID"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_channel:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_invalid_json",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_REPORT_INVALID"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_channel:shutdown_invalid_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_extra_string",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_REPORT_INVALID"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_channel:shutdown_extra_string",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_markdown",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_REPORT_INVALID"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_channel:shutdown_markdown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_extra_file",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_REPORT_INVALID"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_channel:shutdown_extra_file",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_partial",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_REPORT_INVALID"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_channel:shutdown_partial",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:native_free_field",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_NATIVE_FIELDS_UNSUPPORTED"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_channel:native_free_field",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:native_free_country",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_NATIVE_COUNTRIES_UNSUPPORTED"
+      }
+    },
+    {
+      "check": "classic:no_retained_payload:closed_channel:native_free_country",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:native_filter_requirements_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:native_filter_requirements_not_hardcoded",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_tables_and_scheduler_identical_before_neutralisation",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:site_files_identical_before_neutralisation",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:config_never_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:actual_import_preserves_three_country_columns",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:actual_import_erases_non_country_fields",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:neutralised_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:neutralised_success",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "closed_code": "NON_CODE"
+      }
+    },
+    {
+      "check": "classic:unknown_for_every_erased_count_country_counts_preserved",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:neutralised_all_tables_files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_output_artifacts_clean",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_tables_and_scheduler_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:site_files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": true,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "hpos:native_seed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_standard",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:audit_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:confined_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:twelve_live_subscriptions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:select_only_account",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:exact_all_metrics_and_country_groups",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_private_values_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:private_report_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:replay_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:documented_only_given_arguments",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:repo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:ancestor",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:unconfined_php_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:symlink_closed:False",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A11_SYMLINK_UNSUPPORTED"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:symlink_closed:False",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:symlink_closed:True",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A11_SYMLINK_UNSUPPORTED"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:symlink_closed:True",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:0",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "NON_CODE"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_dropin:0",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:1",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "NON_CODE"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_dropin:1",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:2",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "NON_CODE"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_dropin:2",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:3",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "NON_CODE"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_dropin:3",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:4",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "NON_CODE"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_dropin:4",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:5",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "NON_CODE"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_dropin:5",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:config_closed:define",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A11_CONFIG_OVERRIDE_UNSUPPORTED"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:config_closed:define",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:config_closed:const",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A11_CONFIG_OVERRIDE_UNSUPPORTED"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:config_closed:const",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:transaction_readonly_even_root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:audit_guard:schema",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:audit_guard:storage",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:direct_stdout",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_PROCESS_OUTPUT_INVALID"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_channel:direct_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:mutation_without_guard_detected:direct_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:direct_stderr",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_PROCESS_OUTPUT_INVALID"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_channel:direct_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:mutation_without_guard_detected:direct_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:display_early_exit",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_PROCESS_OUTPUT_INVALID"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_channel:display_early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:mutation_without_guard_detected:display_early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:silent_early_exit",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_PROCESS_OUTPUT_INVALID"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_channel:silent_early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_stdout",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_PROCESS_OUTPUT_INVALID"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_channel:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:mutation_without_guard_detected:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_stderr",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_PROCESS_OUTPUT_INVALID"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_channel:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:mutation_without_guard_detected:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_display",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_PROCESS_OUTPUT_INVALID"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_channel:shutdown_display",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:mutation_without_guard_detected:shutdown_display",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:invalid_utf8",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_PROCESS_OUTPUT_INVALID"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_channel:invalid_utf8",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:oversize_output",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_PROCESS_OUTPUT_INVALID"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_channel:oversize_output",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:plugin_exception",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_INVENTORY_FAILED"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_channel:plugin_exception",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:forged_refusal",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_INVENTORY_FAILED"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_channel:forged_refusal",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:forged_success",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_REPORT_INVALID"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_channel:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_invalid_json",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_REPORT_INVALID"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_channel:shutdown_invalid_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_extra_string",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_REPORT_INVALID"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_channel:shutdown_extra_string",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_markdown",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_REPORT_INVALID"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_channel:shutdown_markdown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_extra_file",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_REPORT_INVALID"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_channel:shutdown_extra_file",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_partial",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_REPORT_INVALID"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_channel:shutdown_partial",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:native_free_field",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_NATIVE_FIELDS_UNSUPPORTED"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_channel:native_free_field",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:native_free_country",
+      "status": "PASS",
+      "detail": {
+        "exit": 1,
+        "closed_code": "A24_NATIVE_COUNTRIES_UNSUPPORTED"
+      }
+    },
+    {
+      "check": "hpos:no_retained_payload:closed_channel:native_free_country",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_filter_requirements_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_filter_requirements_not_hardcoded",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_tables_and_scheduler_identical_before_neutralisation",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:site_files_identical_before_neutralisation",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:config_never_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:actual_import_preserves_three_country_columns",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:actual_import_erases_non_country_fields",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:neutralised_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:neutralised_success",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "closed_code": "NON_CODE"
+      }
+    },
+    {
+      "check": "hpos:unknown_for_every_erased_count_country_counts_preserved",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:neutralised_all_tables_files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_output_artifacts_clean",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_tables_and_scheduler_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:site_files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "network_interfaces",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp6",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 0,
+  "licensed_sha256": {
+    "woocommerce-subscriptions.zip": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083",
+    "woocommerce-memberships.zip": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285"
+  },
+  "no_real_site": true
+}

@@ -148,8 +148,7 @@ def cooperator_routes(f):
                 'collection':'/wp-json/wp/v2/pages?include='+str(p['id']),
                 'oembed':'/wp-json/oembed/1.0/embed?'+urlencode({'url':BASE+p['path']}),
                 'embed':p['path']+'embed/',
-                'recherche':'/?'+urlencode({'s':p['title'],'post_type':'page'}),
-                'flux':'/?'+urlencode({'feed':'rss2','post_type':'page','posts_per_rss':100})}
+                'recherche':'/?'+urlencode({'s':p['title'],'post_type':'page'})}
         for kind, path in urls.items():
             routes.append(dict(name='b06-'+str(p['id'])+'-'+kind,path=path,present=p['title'],
                                statuses=[200],cooperator_page=p['id'],cooperator_kind=kind,
@@ -176,8 +175,7 @@ def assess_cooperator(route, response, allowed):
         exists = isinstance(data,dict) and data.get('id')==route['cooperator_page']
     elif kind == 'oembed':
         exists = isinstance(data,dict) and data.get('type')=='rich' and bool(data.get('html')) and route['present'] in data.get('title','')
-    elif kind == 'flux':
-        exists = '<rss' in text and '<channel>' in text
+
     elif kind == 'recherche':
         exists = '<main' in text and ('Aucun r' in text if not allowed else marker in text)
     elif kind == 'embed':

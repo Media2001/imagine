@@ -172,8 +172,9 @@ class CooperatorsTest(unittest.TestCase):
         self.assertEqual(len({r['cooperator_page'] for r in rows}), 5)
         for page in f['cooperator_pages']:
             names = [r['name'] for r in rows if r['cooperator_page']==page['id']]
-            for suffix in ['html','rest','rest-route','collection','oembed','embed','recherche','flux']:
+            for suffix in ['html','rest','rest-route','collection','oembed','embed','recherche']:
                 self.assertIn('b06-'+str(page['id'])+'-'+suffix, names)
+        self.assertNotIn('flux', [r['cooperator_kind'] for r in rows], 'Ne pas créditer un flux de posts comme un flux des pages B06')
         all_names = [r['name'] for r in m.build_routes(f)]
         self.assertTrue(all(r['name'] in all_names for r in rows))
 
@@ -184,15 +185,12 @@ class CooperatorsTest(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'B06'):
                     m.cooperator_routes(dict(f, cooperator_pages=pages))
 
-    def test_embed_natif_expurge_et_flux_de_pages_pas_commentaires(self):
+    def test_embed_natif_expurge_reste_inspectable(self):
         m, f = load(), self.fixture()
         route = next(r for r in m.cooperator_routes(f) if r['cooperator_kind']=='embed')
         body = ('<h1>'+route['present']+'</h1><div class="wp-embed-excerpt"></div>').encode()
         self.assertTrue(m.assess_cooperator(route,(200,{},body),False)['ok'])
-        for r in m.cooperator_routes(f):
-            if r['cooperator_kind']=='flux':
-                self.assertNotIn('page_id=',r['path'])
-                self.assertIn('post_type=page',r['path'])
+
 
     def test_controle_B06_reel_non_vide_mutation_par_sortie(self):
         import json
@@ -206,9 +204,7 @@ class CooperatorsTest(unittest.TestCase):
             elif kind == 'collection':
                 body, status = b'[]', 200
                 leaking = json.dumps([{'id':route['cooperator_page'],'content':marker}]).encode()
-            elif kind == 'flux':
-                body, status = b'<rss><channel><title>Pages</title></channel></rss>', 200
-                leaking = body.replace(b'</channel>',b'<item>'+marker.encode()+b'</item></channel>')
+
             elif kind == 'recherche':
                 body, status = b'<main><h1>Recherche</h1><p>Aucun resultat</p></main>', 200
                 leaking = body.replace(b'</main>',marker.encode()+b'</main>')
@@ -258,6 +254,23 @@ class PreparationSafetyTest(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError,'existe'):
                     m.run('livraison-V2')
                 guard.assert_not_called()
+
+class LiveMutationHarnessTest(unittest.TestCase):
+    def test_mutation_de_vrais_corps_preserve_json_et_restaure_source(self):
+        import json
+        source = Path(__file__).with_name('c23-mutations.py')
+        self.assertTrue(source.is_file(), 'Recette de mutations des réponses natives à construire')
+        spec = importlib.util.spec_from_file_location('c23_live_mutations',source)
+        m = importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+        for body in [b'[]',b'{"code":"imagine_cooperateurs_reserve","data":{"status":403}}',b'<h1>Page</h1>']:
+            original = bytes(body)
+            changed = m.inject(body,'C23_COOP_TEMOIN_1')
+            self.assertIn(b'C23_COOP_TEMOIN_1',changed)
+            self.assertEqual(body,original)
+            if body.startswith(b'{'):
+                self.assertEqual(json.loads(changed)['code'],json.loads(body)['code'])
+            if body.startswith(b'['):
+                self.assertIsInstance(json.loads(changed),list)
 
 class ContractTest(unittest.TestCase):
     def test_voie_absente_ne_passe_pas_a_vide(self):

@@ -1,0 +1,14 @@
+test_cinq_pages_reellement_inventoriees_et_sorties_ajoutees (__main__.CooperatorsTest.test_cinq_pages_reellement_inventoriees_et_sorties_ajoutees) ... FAIL
+
+======================================================================
+FAIL: test_cinq_pages_reellement_inventoriees_et_sorties_ajoutees (__main__.CooperatorsTest.test_cinq_pages_reellement_inventoriees_et_sorties_ajoutees)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 177, in test_cinq_pages_reellement_inventoriees_et_sorties_ajoutees
+    self.assertNotIn('flux', [r['cooperator_kind'] for r in rows], 'Ne pas créditer un flux de posts comme un flux des pages B06')
+AssertionError: 'flux' unexpectedly found in ['html', 'rest', 'rest-route', 'collection', 'oembed', 'embed', 'recherche', 'flux', 'html', 'rest', 'rest-route', 'collection', 'oembed', 'embed', 'recherche', 'flux', 'html', 'rest', 'rest-route', 'collection', 'oembed', 'embed', 'recherche', 'flux', 'html', 'rest', 'rest-route', 'collection', 'oembed', 'embed', 'recherche', 'flux', 'html', 'rest', 'rest-route', 'collection', 'oembed', 'embed', 'recherche', 'flux'] : Ne pas créditer un flux de posts comme un flux des pages B06
+
+----------------------------------------------------------------------
+Ran 1 test in 0.055s
+
+FAILED (failures=1)

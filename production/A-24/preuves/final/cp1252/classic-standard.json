@@ -1,0 +1,103 @@
+{
+    "php": "8.2.36",
+    "wordpress": "7.0.9",
+    "woocommerce": "11.1.1",
+    "subscriptions": "9.4.1",
+    "native_required_fields": {
+        "BE": [
+            "shipping_address_1",
+            "shipping_city",
+            "shipping_country",
+            "shipping_first_name",
+            "shipping_last_name",
+            "shipping_postcode"
+        ],
+        "FR": [
+            "shipping_address_1",
+            "shipping_city",
+            "shipping_country",
+            "shipping_first_name",
+            "shipping_last_name",
+            "shipping_postcode"
+        ],
+        "US": [
+            "shipping_address_1",
+            "shipping_city",
+            "shipping_country",
+            "shipping_first_name",
+            "shipping_last_name",
+            "shipping_postcode",
+            "shipping_state"
+        ],
+        "AE": [
+            "shipping_address_1",
+            "shipping_city",
+            "shipping_country",
+            "shipping_first_name",
+            "shipping_last_name"
+        ],
+        "country_absent": [
+            "shipping_address_1",
+            "shipping_city",
+            "shipping_country",
+            "shipping_first_name",
+            "shipping_last_name",
+            "shipping_postcode"
+        ],
+        "ZZ": [
+            "shipping_address_1",
+            "shipping_city",
+            "shipping_country",
+            "shipping_first_name",
+            "shipping_last_name",
+            "shipping_postcode",
+            "shipping_state"
+        ]
+    },
+    "native_country_count": 250,
+    "source_sha256": {
+        "woocommerce\/includes\/class-wc-countries.php": "29baa6b2a8281ef142493471e4f2f8bfe6d2548a2290928f89c9e8d78475f24a",
+        "woocommerce\/i18n\/countries.php": "dc6f4956f59ea64eca724ebd80caee3fa96bd25dd51499569c59689dcb9f0e0d",
+        "woocommerce\/includes\/class-wc-order.php": "bd7989763fe03479a5ac8968abbfa2b87c345a394a21dc1bdf7d9460fe7149d6",
+        "woocommerce\/includes\/class-wc-customer.php": "db6922e2ed434262431d33f2f797478d4b21ff00b98c851d08b437b9904be165",
+        "woocommerce\/includes\/data-stores\/class-wc-customer-data-store.php": "343569f227b87d7572128cec956d8763fcc4204df67566621cad6aa8cd975114",
+        "woocommerce\/includes\/data-stores\/class-wc-order-data-store-cpt.php": "4e04bfb82d3e108ef4607ad7f0361d3c8dc8a5c280b4dbfbc1b23c7b01ff932f",
+        "woocommerce\/src\/Internal\/DataStores\/Orders\/OrdersTableDataStore.php": "197bf9ac40b0bca4332c4b85918d0bb9535e9a8b5012add1cd429ff0d3e5ab30",
+        "woocommerce\/packages\/action-scheduler\/functions.php": "54d690d01e46065e1083519a2368579f7a69ea3852c34a99988cb700462b21b6",
+        "woocommerce-subscriptions\/includes\/core\/wcs-functions.php": "70f61d3049628023a027b099065034abefae18be4408014e3c824ceebff450ca",
+        "woocommerce-subscriptions\/includes\/core\/class-wc-subscription.php": "50436292cbd84a9c6f1fa0830eb350616389888d8ed836caeebd29a72789ef93",
+        "staging\/lib.php": "612943583f01c1e0bad63f76546eaf9f8d00c86d972fb69d59e26b4834f1d8c3",
+        "staging\/pdo-store.php": "13bbd64697114071eda76b84438a6a1c9adf6135a8a5a92de0b70aa7930cd8d1"
+    },
+    "checks": [
+        {
+            "check": "native_BE_fields",
+            "status": "PASS"
+        },
+        {
+            "check": "native_FR_fields",
+            "status": "PASS"
+        },
+        {
+            "check": "native_US_state_required",
+            "status": "PASS"
+        },
+        {
+            "check": "native_AE_postcode_not_required",
+            "status": "PASS"
+        },
+        {
+            "check": "native_missing_country_fallback",
+            "status": "PASS"
+        },
+        {
+            "check": "native_unknown_country_defaults",
+            "status": "PASS"
+        },
+        {
+            "check": "closed_country_codes_equal_native",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 0
+}

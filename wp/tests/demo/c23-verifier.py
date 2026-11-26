@@ -75,7 +75,7 @@ def verify(label='livraison-V2', b06_label='b06-livraison-V2', mutation_label='m
             checks.update({role+'_'+k:v for k,v in matrix_checks(core,record,fixture,role=='B06').items()})
             if role=='B06':
                 checks['B06_explicit_scope'] = record['coverage']=='B06-only' and restoration['command_exit']==0
-                checks['B06_inverse_nonempty'] = all(any(r['name']=='b06-'+str(p['id'])+'-'+kind and r['public']=='profil-p-coop' and r['ok'] and r['witnesses_found']>0 for r in record['results']) for p in fixture['cooperator_pages'] for kind in ['html','rest','rest-route','collection','embed','recherche','flux'])
+                checks['B06_inverse_nonempty'] = all(any(r['name']=='b06-'+str(p['id'])+'-'+kind and r['public']=='profil-p-coop' and r['ok'] and r['witnesses_found']>0 for r in record['results']) for p in fixture['cooperator_pages'] for kind in ['html','rest','rest-route','collection','embed','recherche'])
         except (OSError,KeyError,ValueError,TypeError) as error:
             checks[role+'_receipt_complete']=False
             details[role+'_error']=type(error).__name__

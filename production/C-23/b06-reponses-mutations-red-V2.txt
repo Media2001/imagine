@@ -1,0 +1,14 @@
+test_mutation_de_vrais_corps_preserve_json_et_restaure_source (__main__.LiveMutationHarnessTest.test_mutation_de_vrais_corps_preserve_json_et_restaure_source) ... FAIL
+
+======================================================================
+FAIL: test_mutation_de_vrais_corps_preserve_json_et_restaure_source (__main__.LiveMutationHarnessTest.test_mutation_de_vrais_corps_preserve_json_et_restaure_source)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 266, in test_mutation_de_vrais_corps_preserve_json_et_restaure_source
+    self.assertTrue(source.is_file(), 'Recette de mutations des réponses natives à construire')
+AssertionError: False is not true : Recette de mutations des réponses natives à construire
+
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+FAILED (failures=1)

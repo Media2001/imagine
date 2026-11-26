@@ -1,0 +1,30 @@
+{
+  "suite": "A24-real-reception-controls",
+  "checks": [
+    {
+      "check": "full_verifier_before_future_pret",
+      "status": "PASS"
+    },
+    {
+      "check": "full_verifier_after_future_pret",
+      "status": "PASS"
+    },
+    {
+      "check": "owned_source_mutation_refused",
+      "status": "PASS"
+    },
+    {
+      "check": "dependency_mutation_refused",
+      "status": "PASS"
+    },
+    {
+      "check": "report_payload_mutation_refused",
+      "status": "PASS"
+    },
+    {
+      "check": "all_mutations_restored_green",
+      "status": "PASS"
+    }
+  ],
+  "exit_code": 0
+}

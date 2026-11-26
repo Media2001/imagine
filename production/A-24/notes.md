@@ -11,5 +11,12 @@ Deux tranches pures TDD RED→GREEN observées (5 puis 12 contrôles). Le parcou
 
 Qualification standard : WordPress 7.0.9, Woo 11.1.1, WCS 9.4.1, Memberships 1.30.3 (pile du banc, pas prétendue dernière). Documentation officielle consultée. Premier problème de fixture résolu par lecture de WCS : la fabrique exige un compte positif ; l’anomalie sans compte est créée après sa création native. Aucun code tiers modifié. Deux refus d’écrasement du tool write_file ont été respectés ; modifications ciblées ensuite.
 
-Reste : compléter cas limites purs, réception future-PRET et intégrité sources/dépendances, matrice Windows 3.14 UTF-8/cp1252 et paquet unique dernier vert, delta README parent. Pas de PRET enfant.
+## 2026-11-26 17:54 CET — checkpoint final avant scellement
+
+Matrice finale `a24-final-matrice-01` exécutée normalement jusqu’au code 0 : sources/deps inchangées pendant les deux contextes. Windows effectif **Python 3.14.6**, pas 3.14.7 annoncé ; UTF-8 (mode UTF8=1) et cp1252 (mode UTF8=0), métadonnées mesurées conservées. Par contexte : Python 14, PHP pur 17, lint PHP 9, natif classique+HPOS 206, portes du runner 9 ; tous verts. Six témoins sans gardien par stockage et par contexte. Aucun défaut de l’outil dans le dernier rejeu. Les essais de préparation ont été conservés en scratch, jamais rebaptisés ni déposés comme paquet vert.
+
+Vérificateur et scellement testés en TDD (refus source absente RED puis GREEN) ; contrat des seules deux lignes partagées et inventaire indépendant du futur PRET couverts. `seal.py` est chargé de prouver encore la réception complète sur miroir avec/sans PRET et après trois mutations restaurées avant de publier le paquet unique ; le vert final est son préalable. Rapports et commandes propres au lot rédigés. Le conteneur de développement exact `imagine-a24-addresses-dev-20261126` a été supprimé après contrôle de son étiquette, puis absence sémantique confirmée ; les deux runners finaux sont nettoyés par leur banc.
+
+Aucun blocage restant pour le périmètre enfant. Intégration README, portes globales et PRET réservés au parent ; aucune revendication d’intégration ou de préparation globale. Durée depuis 17:08 : moins d’une heure, très en deçà du plafond 20:08. Les empreintes de livraison figent ces notes ; la réception finale est lisible dans le paquet, sans re-rédiger ces notes après scellement.
+
 

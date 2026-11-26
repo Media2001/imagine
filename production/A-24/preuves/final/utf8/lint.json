@@ -1,0 +1,42 @@
+{
+  "suite": "A24-owned-PHP-lint",
+  "checks": [
+    {
+      "check": "/opt/a24/guards.php",
+      "status": "PASS"
+    },
+    {
+      "check": "/opt/a24/neutralise.php",
+      "status": "PASS"
+    },
+    {
+      "check": "/opt/a24/seed.php",
+      "status": "PASS"
+    },
+    {
+      "check": "/opt/a24/standard.php",
+      "status": "PASS"
+    },
+    {
+      "check": "/opt/a24/unit.php",
+      "status": "PASS"
+    },
+    {
+      "check": "/subject/a24/Analysis.php",
+      "status": "PASS"
+    },
+    {
+      "check": "/subject/a24/Command.php",
+      "status": "PASS"
+    },
+    {
+      "check": "/subject/a24/inventorier-expedition",
+      "status": "PASS"
+    },
+    {
+      "check": "/subject/a24/Inventory.php",
+      "status": "PASS"
+    }
+  ],
+  "exit_code": 0
+}

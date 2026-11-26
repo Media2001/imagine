@@ -1,0 +1,17 @@
+{
+  "suite": "A24-Windows-unittest",
+  "encoding": "utf-8",
+  "python": {
+    "executable": "C:\\Python314\\python.exe",
+    "version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "win32",
+    "stdout_encoding": "utf-8",
+    "stderr_encoding": "utf-8",
+    "locale": "cp1252",
+    "preferred": "utf-8",
+    "utf8_mode": 1
+  },
+  "tests": 14,
+  "exit_code": 0,
+  "log_sha256": "f1c46585a709e24b63f98ef371aadc4067b32a8db3326789401a280023cdae28"
+}
