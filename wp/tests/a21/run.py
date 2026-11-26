@@ -54,13 +54,10 @@ def main():
         (out/'unit.log').write_text(p.stdout+p.stderr,encoding='utf-8')
         b.call(['cp',name+':/report/unit.json',b.local(out/'unit.json')])
         check('unit_return',p.returncode==0,{'exit_code':p.returncode})
-        pure=b.call(['exec',name,'php','-r',
-            "$before=[]; foreach (glob('/report/*') as $file) { if (is_file($file)) { $before[$file]=hash_file('sha256',$file); } } "
-            "ob_start(); $checks=require '/opt/a21/unit.php'; $noise=ob_get_clean(); "
-            "$after=[]; foreach (glob('/report/*') as $file) { if (is_file($file)) { $after[$file]=hash_file('sha256',$file); } } "
-            "echo json_encode(['count'=>count($checks),'green'=>!in_array('FAIL',array_column($checks,'status'),true),"
-            "'quiet'=>$noise==='','files_unchanged'=>$before===$after,'native_absent'=>!function_exists('WC')"
-            "&&!class_exists('Imagine\\\\PublicAddresses\\\\Runtime',false)]);"],check=False)
+        pure=b.call(['exec',name,'php','/opt/a21/pure-include.php'],check=False)
+        (out/'pure-include.log').write_text(pure.stdout+pure.stderr,encoding='utf-8')
+        if pure.returncode!=0 or pure.stderr:
+            raise RuntimeError('A21_PURE_INCLUDE_FAILED')
         pure_data=json.loads(pure.stdout)
         (out/'pure-include.json').write_text(json.dumps(pure_data,indent=2)+'\n',encoding='utf-8')
         check('pure_include_no_native_or_side_effect',pure.returncode==0 and pure.stderr=='' and pure_data['count']>0
