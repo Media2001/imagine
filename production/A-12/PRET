@@ -1,0 +1,6 @@
+PRET
+A-12 B1/I1 + propagation des refus nommes A-11, 26 novembre 2026.
+Paquet unique : production/A-12/preuves/final
+Controle : python wp/tests/a12/verify.py production/A-12/preuves/final
+Manifeste SHA-256 : 4f0513169f9856a437a47b0b04778150f4743178783ebd1ee5405d13db3901b2
+Aucun GO reel.

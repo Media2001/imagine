@@ -3,9 +3,9 @@
   "verdict": "NATIVE_VERIFIE",
   "readiness": true,
   "counts": {
-    "unit.json": 7,
-    "result.json": 118,
-    "runner.json": 7,
+    "unit.json": 15,
+    "result.json": 132,
+    "runner.json": 8,
     "style.json": 6
   },
   "checks": [
@@ -82,6 +82,18 @@
       "status": "PASS"
     },
     {
+      "check": "classic:real_link_collision_and_noncollision",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:unavailable_not_posts_invented:link_category",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:unavailable_not_posts_invented:a12_mixed_tax",
+      "status": "PASS"
+    },
+    {
       "check": "classic:same_session_root_sql_kernel_and_early_guards",
       "status": "PASS"
     },
@@ -127,6 +139,18 @@
     },
     {
       "check": "hpos:exact_registered_totals",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:real_link_collision_and_noncollision",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:unavailable_not_posts_invented:link_category",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:unavailable_not_posts_invented:a12_mixed_tax",
       "status": "PASS"
     },
     {

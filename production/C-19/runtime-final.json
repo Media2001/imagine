@@ -47,9 +47,9 @@
     },
     "mouvements": {
       "titre": "Entrées et sorties du mois civil UTC — dates natives",
-      "phrase": "Du premier jour du mois civil UTC à maintenant inclus : entrées = lignes dont la date de début native est dans la période, tous états, y compris en attente ; sorties = lignes terminées (cancelled ou expired) dont la fin native est dans la période. Dates absentes et fins futures exclues. Ce relevé des dates n’est ni une preuve de paiement ni un historique des activations, réactivations ou suspensions ; C18 n’extrait pas ces dates. Aucun taux de rétention ni motif n’en est déduit.",
+      "phrase": "Du premier jour du mois civil UTC à maintenant inclus : entrées = lignes dont la date de création native est dans la période, tous états, y compris en attente ; sorties = lignes terminées (cancelled ou expired) dont la fin native est dans la période. Dates absentes et fins futures exclues. Ce relevé des dates n’est ni une preuve de paiement ni un historique des activations, réactivations ou suspensions ; C18 n’extrait pas ces dates. Aucun taux de rétention ni motif n’en est déduit.",
       "valeurs": {
-        "entrees": 2,
+        "entrees": 12,
         "sorties": 1
       }
     }

@@ -27,6 +27,10 @@ def digest(path):
 
 
 def verifier():
+    inputs = [TOOL, CONFIG, ROOT/'wp/outils/bascule/controler-export.md']
+    inputs += [p for p in TESTS.rglob('*') if p.is_file() and '__pycache__' not in p.parts]
+    inputs += list(FIXTURES.glob('a13-*-fictif.csv'))
+    source_hashes = {p.relative_to(ROOT).as_posix():digest(p) for p in inputs}
     log = io.StringIO()
     suite = unittest.defaultTestLoader.discover(str(TESTS), pattern='test_*.py')
     result = unittest.TextTestRunner(stream=log, verbosity=2).run(suite)
@@ -38,7 +42,7 @@ def verifier():
         'suite': {'commande': 'python -m unittest discover -s wp/tests/a13 -v',
                   'tests': result.testsRun, 'echecs': len(result.failures),
                   'erreurs': len(result.errors), 'ignores': len(result.skipped)},
-        'cli': [],
+        'cli': [], 'sources_sha256': source_hashes,
     }
     scratch = Path(os.environ.get('TMPDIR', tempfile.gettempdir()))
     with tempfile.TemporaryDirectory(prefix='a13-livraison-', dir=scratch) as temporary:
@@ -77,6 +81,7 @@ def verifier():
                 assert f'Lignes rejetées : {rejected}\n' in summary
                 case.update({'lignes_rejetees': rejected, 'motifs': len(errors), 'resume': summary})
             evidence['cli'].append(case)
+    assert source_hashes == {p.relative_to(ROOT).as_posix():digest(p) for p in inputs}
     evidence['statut'] = 'A13_VERIFIE_LOCALEMENT'
     evidence['integration'] = 'Reconstruction image partagée à vérifier par le parent avant PRET.'
     return evidence, log.getvalue()

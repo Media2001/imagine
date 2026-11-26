@@ -1,4 +1,9 @@
 {
+  "link_cases": {
+    "collision_exists": true,
+    "noncollision_post_absent": true,
+    "links": 2
+  },
   "all_attachment_count": 4,
   "all_orphan_count": 2,
   "wordpress": "7.0.9",
@@ -60,6 +65,7 @@
     "product_shipping_class",
     "pos_product_visibility",
     "a12_rubrique",
+    "a12_mixed_tax",
     "a12_dynamic_tax"
   ],
   "states": {

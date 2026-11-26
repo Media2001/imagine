@@ -43,7 +43,11 @@ def main():
                 'native_core_and_woocommerce_declarants', 'dynamic_declarant_is_executed_mu',
                 'root_transaction_blocks_writes_and_system_confines_bootstrap',
                 'metadata_distinct_owners_not_row_count', 'two_pdfs_exact_sizes_one_orphan',
-                'all_tables_identical_including_scheduler', 'site_files_identical', 'config_never_executed']
+                'all_tables_identical_including_scheduler', 'site_files_identical', 'config_never_executed',
+                'guard:disjoint_launcher:ancestor-site', 'guard:disjoint_php:ancestor-site',
+                'guard:disjoint_launcher:root', 'guard:disjoint_php:root',
+                'link_collision_and_noncollision_fixture', 'non_posts_domain_unavailable:link_category',
+                'non_posts_domain_unavailable:a12_mixed_tax']
             check(storage+':mandatory_native_cases_present', all(storage+':'+key in names for key in required))
             before = json.loads((out/(storage+'-db-before.json')).read_text())
             after = json.loads((out/(storage+'-db-after.json')).read_text())
@@ -57,8 +61,15 @@ def main():
             check(storage+':exact_native_runtime_sets', data['registry']['runtime_verified'] is True and types == set(oracle['runtime_post_types']) and tax == set(oracle['runtime_taxonomies']))
             check(storage+':dynamic_included_conditional_excluded', 'a12_dynamic' in types and 'a12_never' not in types and 'a12_dynamic_tax' in tax and 'a12_never_tax' not in tax)
             check(storage+':exact_registered_totals', data['registry']['post_type_count'] == len(types) and data['registry']['taxonomy_count'] == len(tax))
+            check(storage+':real_link_collision_and_noncollision',oracle['link_cases']=={'collision_exists':True,'noncollision_post_absent':True,'links':2})
+            for taxonomy, domains in [('link_category',['link']),('a12_mixed_tax',['a12_article','link'])]:
+                row=next(x for x in data['taxonomies'] if x['name']==taxonomy)
+                check(storage+':unavailable_not_posts_invented:'+taxonomy,row['object_types']==domains
+                    and row['count_status']=='unavailable_non_posts_or_mixed'
+                    and all(row[k] is None for k in ['content_count','states','first_published_utc','last_published_utc','top_terms']))
             safety = json.loads((out/(storage+'-readonly-probe.json')).read_text())
-            check(storage+':same_session_root_sql_kernel_and_early_guards', len(safety) >= 9 and all(value is True for value in safety.values()))
+            check(storage+':same_session_root_sql_kernel_and_early_guards', len(safety) >= 14 and all(value is True for value in safety.values())
+                and {'site_create','site_truncate','site_rename','site_unlink','site_mkdir'}.issubset(safety))
             check(storage+':audit_bound_by_exact_bytes', data['audit_sha256'] == hashlib.sha256((out/(storage+'-audit')/'audit.json').read_bytes()).hexdigest())
             gap = json.loads((out/(storage+'-registry-gap.json')).read_text())
             check(storage+':empty_native_registry_gap', gap == {'runtime_missing_from_snapshot': [], 'source_candidates_not_runtime': []})

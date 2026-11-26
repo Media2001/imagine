@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-26T01:56:35.891134+00:00",
+  "at": "2026-11-26T02:03:56.156573+00:00",
   "checks": {
     "referent_ecran_natif": true,
     "aucune_donnee_personnelle_dans_ecran": true,
@@ -47,7 +47,7 @@
       "total": 2
     },
     "mouvements": {
-      "entrees": 2,
+      "entrees": 12,
       "sorties": 1
     }
   },

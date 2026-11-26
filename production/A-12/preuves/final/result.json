@@ -106,6 +106,21 @@
       }
     },
     {
+      "check": "classic:link_collision_and_noncollision_fixture",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:non_posts_domain_unavailable:link_category",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:non_posts_domain_unavailable:a12_mixed_tax",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:exact_states_and_distinct_content_count",
       "status": "PASS",
       "detail": null
@@ -256,6 +271,26 @@
       "detail": null
     },
     {
+      "check": "classic:guard:disjoint_launcher:ancestor-site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:disjoint_php:ancestor-site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:disjoint_launcher:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:disjoint_php:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:guard:missing_audit",
       "status": "PASS",
       "detail": null
@@ -327,8 +362,8 @@
       "check": "classic:all_tables_identical_including_scheduler",
       "status": "PASS",
       "detail": {
-        "before": "c5adb9df632d29a9b4f8c5f90320ecab89cb11ad11f2ef16fef6fb92734ddab1",
-        "after": "c5adb9df632d29a9b4f8c5f90320ecab89cb11ad11f2ef16fef6fb92734ddab1",
+        "before": "1fa1712c1607561e53607be66afc4fe2f635d681c137cd7ede2f9563f8a8c9f7",
+        "after": "1fa1712c1607561e53607be66afc4fe2f635d681c137cd7ede2f9563f8a8c9f7",
         "tables": 55
       }
     },
@@ -336,8 +371,8 @@
       "check": "classic:site_files_identical",
       "status": "PASS",
       "detail": {
-        "before": "57497b554611308b32fc7c3c2cf68848de9a823114e133c6264a9b3164323c08",
-        "after": "57497b554611308b32fc7c3c2cf68848de9a823114e133c6264a9b3164323c08"
+        "before": "eb34dfccc95b05c6d0721f22593ae5c5461c46899da5cd059eb4a6a900b2f3e7",
+        "after": "eb34dfccc95b05c6d0721f22593ae5c5461c46899da5cd059eb4a6a900b2f3e7"
       }
     },
     {
@@ -383,6 +418,21 @@
         "exit_code": 0,
         "stderr": "suppressed"
       }
+    },
+    {
+      "check": "hpos:link_collision_and_noncollision_fixture",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:non_posts_domain_unavailable:link_category",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:non_posts_domain_unavailable:a12_mixed_tax",
+      "status": "PASS",
+      "detail": null
     },
     {
       "check": "hpos:exact_states_and_distinct_content_count",
@@ -535,6 +585,26 @@
       "detail": null
     },
     {
+      "check": "hpos:guard:disjoint_launcher:ancestor-site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:disjoint_php:ancestor-site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:disjoint_launcher:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:disjoint_php:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "hpos:guard:missing_audit",
       "status": "PASS",
       "detail": null
@@ -606,8 +676,8 @@
       "check": "hpos:all_tables_identical_including_scheduler",
       "status": "PASS",
       "detail": {
-        "before": "93f5714e517096f1e6d332d44f6c901e49067eeb785e8a0339aa7574ad91cd10",
-        "after": "93f5714e517096f1e6d332d44f6c901e49067eeb785e8a0339aa7574ad91cd10",
+        "before": "486ae842467571e9d8dbd4474afb77f6f19461215721eeae55728985faefb636",
+        "after": "486ae842467571e9d8dbd4474afb77f6f19461215721eeae55728985faefb636",
         "tables": 55
       }
     },
@@ -615,8 +685,8 @@
       "check": "hpos:site_files_identical",
       "status": "PASS",
       "detail": {
-        "before": "eb6e33b51683f6a7dfd27ebfd5815863ef751210be1d3ab15c3530f74f1e2c75",
-        "after": "eb6e33b51683f6a7dfd27ebfd5815863ef751210be1d3ab15c3530f74f1e2c75"
+        "before": "c485c32972e94857e61d3c8ef054acb89ed7d557c59dd3a2c0fd32493c98bc59",
+        "after": "c485c32972e94857e61d3c8ef054acb89ed7d557c59dd3a2c0fd32493c98bc59"
       }
     },
     {

@@ -11,7 +11,7 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
         "runtime_verified": true,
         "coverage": "native_registry_after_wp_loaded_plus_separately_marked_stored_only_objects",
         "post_type_count": 30,
-        "taxonomy_count": 18,
+        "taxonomy_count": 19,
         "session": "same_readonly_wpdb_from_before_bootstrap_through_all_aggregates"
     },
     "post_types": [
@@ -197,8 +197,8 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                 "draft": 2,
                 "publish": 5
             },
-            "first_published_utc": "2026-11-26T01:36:15Z",
-            "last_published_utc": "2026-11-26T01:36:19Z",
+            "first_published_utc": "2026-11-26T02:04:04Z",
+            "last_published_utc": "2026-11-26T02:04:08Z",
             "metadata_keys": [
                 {
                     "key": "_wp_page_template",
@@ -220,7 +220,7 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                 "publish": 4
             },
             "first_published_utc": "2023-12-31T23:30:00Z",
-            "last_published_utc": "2026-11-26T01:36:15Z",
+            "last_published_utc": "2026-11-26T02:04:04Z",
             "metadata_keys": [
                 {
                     "key": "_encloseme",
@@ -249,8 +249,8 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
             "states": {
                 "publish": 2
             },
-            "first_published_utc": "2026-11-26T01:36:24Z",
-            "last_published_utc": "2026-11-26T01:36:26Z",
+            "first_published_utc": "2026-11-26T02:04:13Z",
+            "last_published_utc": "2026-11-26T02:04:15Z",
             "metadata_keys": [
                 {
                     "key": "_a12_article_id",
@@ -500,8 +500,8 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
             "states": {
                 "publish": 1
             },
-            "first_published_utc": "2026-11-26T01:36:23Z",
-            "last_published_utc": "2026-11-26T01:36:23Z",
+            "first_published_utc": "2026-11-26T02:04:12Z",
+            "last_published_utc": "2026-11-26T02:04:12Z",
             "metadata_keys": [
                 {
                     "key": "_access_length",
@@ -657,12 +657,37 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "file": "wp-content\/mu-plugins\/a12-declarations.php"
                 }
             ],
+            "object_types": [
+                "a12_article"
+            ],
+            "count_status": "qualified_posts_domain",
             "content_count": 0,
             "states": [],
             "first_published_utc": null,
             "last_published_utc": null,
-            "term_count": 0,
-            "top_terms": []
+            "top_terms": [],
+            "term_count": 0
+        },
+        {
+            "name": "a12_mixed_tax",
+            "registration": "runtime_registered",
+            "declarations": [
+                {
+                    "owner": "mu_plugin",
+                    "file": "wp-content\/mu-plugins\/a12-declarations.php"
+                }
+            ],
+            "object_types": [
+                "a12_article",
+                "link"
+            ],
+            "count_status": "unavailable_non_posts_or_mixed",
+            "content_count": null,
+            "states": null,
+            "first_published_utc": null,
+            "last_published_utc": null,
+            "top_terms": null,
+            "term_count": 1
         },
         {
             "name": "a12_rubrique",
@@ -673,6 +698,10 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "file": "wp-content\/mu-plugins\/a12-declarations.php"
                 }
             ],
+            "object_types": [
+                "a12_article"
+            ],
+            "count_status": "qualified_posts_domain",
             "content_count": 4,
             "states": {
                 "draft": 1,
@@ -681,7 +710,6 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
             },
             "first_published_utc": "2024-02-03T11:00:00Z",
             "last_published_utc": "2025-02-03T11:00:00Z",
-            "term_count": 23,
             "top_terms": [
                 {
                     "name": "Rubrique fictive 01",
@@ -763,7 +791,8 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "name": "Rubrique fictive 20",
                     "content_count": 0
                 }
-            ]
+            ],
+            "term_count": 23
         },
         {
             "name": "action-group",
@@ -774,12 +803,16 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "file": "wp-content\/plugins\/woocommerce\/packages\/action-scheduler\/classes\/data-stores\/ActionScheduler_wpPostStore_TaxonomyRegistrar.php"
                 }
             ],
+            "object_types": [
+                "scheduled-action"
+            ],
+            "count_status": "qualified_posts_domain",
             "content_count": 0,
             "states": [],
             "first_published_utc": null,
             "last_published_utc": null,
-            "term_count": 0,
-            "top_terms": []
+            "top_terms": [],
+            "term_count": 0
         },
         {
             "name": "category",
@@ -790,13 +823,16 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "file": "wp-includes\/taxonomy.php"
                 }
             ],
+            "object_types": [
+                "post"
+            ],
+            "count_status": "qualified_posts_domain",
             "content_count": 4,
             "states": {
                 "publish": 4
             },
             "first_published_utc": "2023-12-31T23:30:00Z",
-            "last_published_utc": "2026-11-26T01:36:15Z",
-            "term_count": 2,
+            "last_published_utc": "2026-11-26T02:04:04Z",
             "top_terms": [
                 {
                     "name": "Uncategorized",
@@ -806,7 +842,8 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "name": "Rubrique A02 fictive",
                     "content_count": 0
                 }
-            ]
+            ],
+            "term_count": 2
         },
         {
             "name": "link_category",
@@ -817,12 +854,16 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "file": "wp-includes\/taxonomy.php"
                 }
             ],
-            "content_count": 0,
-            "states": [],
+            "object_types": [
+                "link"
+            ],
+            "count_status": "unavailable_non_posts_or_mixed",
+            "content_count": null,
+            "states": null,
             "first_published_utc": null,
             "last_published_utc": null,
-            "term_count": 0,
-            "top_terms": []
+            "top_terms": null,
+            "term_count": 1
         },
         {
             "name": "nav_menu",
@@ -833,12 +874,16 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "file": "wp-includes\/taxonomy.php"
                 }
             ],
+            "object_types": [
+                "nav_menu_item"
+            ],
+            "count_status": "qualified_posts_domain",
             "content_count": 0,
             "states": [],
             "first_published_utc": null,
             "last_published_utc": null,
-            "term_count": 0,
-            "top_terms": []
+            "top_terms": [],
+            "term_count": 0
         },
         {
             "name": "pos_product_visibility",
@@ -849,12 +894,17 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "file": "wp-content\/plugins\/woocommerce\/includes\/class-wc-post-types.php"
                 }
             ],
+            "object_types": [
+                "product",
+                "product_variation"
+            ],
+            "count_status": "qualified_posts_domain",
             "content_count": 0,
             "states": [],
             "first_published_utc": null,
             "last_published_utc": null,
-            "term_count": 0,
-            "top_terms": []
+            "top_terms": [],
+            "term_count": 0
         },
         {
             "name": "post_format",
@@ -865,12 +915,16 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "file": "wp-includes\/taxonomy.php"
                 }
             ],
+            "object_types": [
+                "post"
+            ],
+            "count_status": "qualified_posts_domain",
             "content_count": 0,
             "states": [],
             "first_published_utc": null,
             "last_published_utc": null,
-            "term_count": 0,
-            "top_terms": []
+            "top_terms": [],
+            "term_count": 0
         },
         {
             "name": "post_tag",
@@ -881,12 +935,16 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "file": "wp-includes\/taxonomy.php"
                 }
             ],
+            "object_types": [
+                "post"
+            ],
+            "count_status": "qualified_posts_domain",
             "content_count": 0,
             "states": [],
             "first_published_utc": null,
             "last_published_utc": null,
-            "term_count": 0,
-            "top_terms": []
+            "top_terms": [],
+            "term_count": 0
         },
         {
             "name": "product_brand",
@@ -897,12 +955,16 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "file": "wp-content\/plugins\/woocommerce\/includes\/class-wc-brands.php"
                 }
             ],
+            "object_types": [
+                "product"
+            ],
+            "count_status": "qualified_posts_domain",
             "content_count": 0,
             "states": [],
             "first_published_utc": null,
             "last_published_utc": null,
-            "term_count": 0,
-            "top_terms": []
+            "top_terms": [],
+            "term_count": 0
         },
         {
             "name": "product_cat",
@@ -913,19 +975,23 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "file": "wp-content\/plugins\/woocommerce\/includes\/class-wc-post-types.php"
                 }
             ],
+            "object_types": [
+                "product"
+            ],
+            "count_status": "qualified_posts_domain",
             "content_count": 2,
             "states": {
                 "publish": 2
             },
-            "first_published_utc": "2026-11-26T01:36:24Z",
-            "last_published_utc": "2026-11-26T01:36:26Z",
-            "term_count": 1,
+            "first_published_utc": "2026-11-26T02:04:13Z",
+            "last_published_utc": "2026-11-26T02:04:15Z",
             "top_terms": [
                 {
                     "name": "Uncategorized",
                     "content_count": 2
                 }
-            ]
+            ],
+            "term_count": 1
         },
         {
             "name": "product_shipping_class",
@@ -936,12 +1002,17 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "file": "wp-content\/plugins\/woocommerce\/includes\/class-wc-post-types.php"
                 }
             ],
+            "object_types": [
+                "product",
+                "product_variation"
+            ],
+            "count_status": "qualified_posts_domain",
             "content_count": 0,
             "states": [],
             "first_published_utc": null,
             "last_published_utc": null,
-            "term_count": 0,
-            "top_terms": []
+            "top_terms": [],
+            "term_count": 0
         },
         {
             "name": "product_tag",
@@ -952,12 +1023,16 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "file": "wp-content\/plugins\/woocommerce\/includes\/class-wc-post-types.php"
                 }
             ],
+            "object_types": [
+                "product"
+            ],
+            "count_status": "qualified_posts_domain",
             "content_count": 0,
             "states": [],
             "first_published_utc": null,
             "last_published_utc": null,
-            "term_count": 0,
-            "top_terms": []
+            "top_terms": [],
+            "term_count": 0
         },
         {
             "name": "product_type",
@@ -968,13 +1043,16 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "file": "wp-content\/plugins\/woocommerce\/includes\/class-wc-post-types.php"
                 }
             ],
+            "object_types": [
+                "product"
+            ],
+            "count_status": "qualified_posts_domain",
             "content_count": 2,
             "states": {
                 "publish": 2
             },
-            "first_published_utc": "2026-11-26T01:36:24Z",
-            "last_published_utc": "2026-11-26T01:36:26Z",
-            "term_count": 6,
+            "first_published_utc": "2026-11-26T02:04:13Z",
+            "last_published_utc": "2026-11-26T02:04:15Z",
             "top_terms": [
                 {
                     "name": "simple",
@@ -1000,7 +1078,8 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "name": "variable",
                     "content_count": 0
                 }
-            ]
+            ],
+            "term_count": 6
         },
         {
             "name": "product_visibility",
@@ -1011,11 +1090,15 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "file": "wp-content\/plugins\/woocommerce\/includes\/class-wc-post-types.php"
                 }
             ],
+            "object_types": [
+                "product",
+                "product_variation"
+            ],
+            "count_status": "qualified_posts_domain",
             "content_count": 0,
             "states": [],
             "first_published_utc": null,
             "last_published_utc": null,
-            "term_count": 9,
             "top_terms": [
                 {
                     "name": "exclude-from-catalog",
@@ -1053,7 +1136,8 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "name": "rated-5",
                     "content_count": 0
                 }
-            ]
+            ],
+            "term_count": 9
         },
         {
             "name": "wp_pattern_category",
@@ -1064,12 +1148,16 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "file": "wp-includes\/taxonomy.php"
                 }
             ],
+            "object_types": [
+                "wp_block"
+            ],
+            "count_status": "qualified_posts_domain",
             "content_count": 0,
             "states": [],
             "first_published_utc": null,
             "last_published_utc": null,
-            "term_count": 0,
-            "top_terms": []
+            "top_terms": [],
+            "term_count": 0
         },
         {
             "name": "wp_template_part_area",
@@ -1080,12 +1168,16 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "file": "wp-includes\/taxonomy.php"
                 }
             ],
+            "object_types": [
+                "wp_template_part"
+            ],
+            "count_status": "qualified_posts_domain",
             "content_count": 0,
             "states": [],
             "first_published_utc": null,
             "last_published_utc": null,
-            "term_count": 0,
-            "top_terms": []
+            "top_terms": [],
+            "term_count": 0
         },
         {
             "name": "wp_theme",
@@ -1096,12 +1188,18 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
                     "file": "wp-includes\/taxonomy.php"
                 }
             ],
+            "object_types": [
+                "wp_global_styles",
+                "wp_template",
+                "wp_template_part"
+            ],
+            "count_status": "qualified_posts_domain",
             "content_count": 0,
             "states": [],
             "first_published_utc": null,
             "last_published_utc": null,
-            "term_count": 0,
-            "top_terms": []
+            "top_terms": [],
+            "term_count": 0
         }
     ],
     "attachments": {
@@ -1182,6 +1280,6 @@ Registre natif apres wp_loaded. Declarants observes pendant les enregistrements 
         "Les seuls textes libres permis sont les noms des termes; valeurs suspectes masquees. Aucun titre, contenu, auteur, contact, identifiant de client, valeur de champ ou chemin de media exporte.",
         "Les comptes editoriaux restent dans posts\/postmeta dans les deux magasins; aucune lecture des coordonnees de commande HPOS ni interpretation des droits."
     ],
-    "audit_sha256": "d16fd6bd32dcca854b34f1cd2a845326666f58fabf32c394c9752a343bfbf72d"
+    "audit_sha256": "c95c4a81a387a9d46af040429936c0c95d9469517c517c652f8473eaa8821e0e"
 }
 ```

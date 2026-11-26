@@ -1,16 +1,16 @@
 {
-  "at": "2026-11-26T01:56:52.156564+00:00",
+  "at": "2026-11-26T02:04:10.943839+00:00",
   "status": "PRET_TECHNIQUE_C19",
   "scope": "imagine-test-demo",
   "receipts": {
     "unit-final": {
-      "tests": 5,
-      "assertions": 30,
+      "tests": 6,
+      "assertions": 32,
       "container_removed": true
     },
     "unit-root-final": {
-      "tests": 103,
-      "assertions": 553,
+      "tests": 104,
+      "assertions": 555,
       "container_removed": true
     },
     "native": {
@@ -23,8 +23,8 @@
     }
   },
   "canonical_T01": {
-    "tests": 1067,
-    "assertions": 34301,
+    "tests": 1068,
+    "assertions": 34303,
     "failures": 0,
     "errors": 0,
     "skipped": 0,
@@ -50,35 +50,35 @@
       "total": 2
     },
     "mouvements": {
-      "entrees": 2,
+      "entrees": 12,
       "sorties": 1
     }
   },
   "sha256_readback": {
     "plugins/imagine-site/TableauBordRegles.php": "6801e6323e2d38d3920373fc3156cec87435cdfb25b3560e00d5600ab5c0b74b",
-    "plugins/imagine-site/TableauBordNatives.php": "663523a2dc4a5871fbdb4490daf5ae3dfb6688412afb92df48ff2e1bc299a0cb",
-    "plugins/imagine-site/TableauBordAdmin.php": "c9f7a3fdd9f4ad615c934591dc74ca01f4fdde11cdd76b42d5d00fd66d2e6ecb",
+    "plugins/imagine-site/TableauBordNatives.php": "8344f4e49f0b2e1d606e77734164e5163f1bc7d43f20f4ff2e4299013fe7790d",
+    "plugins/imagine-site/TableauBordAdmin.php": "aae8a43908d13d9e65638641873ff64e41545bd462824e20355bf9c101838257",
     "plugins/imagine-site/indicateurs/actifs.php": "4750cb13765f632f20f7eb071f8e5a3f84a25aa8a0f16ec795d86cd02337d763",
     "plugins/imagine-site/indicateurs/echeances.php": "c61b22dd26702eb79ff5aaa3a27783a63ddd203ab02d6d2adedc97d189127887",
     "plugins/imagine-site/indicateurs/echecs.php": "89676be0067fa59aacd92a9231cee736d05511094270cd0f3c436216be5e427f",
-    "plugins/imagine-site/indicateurs/mouvements.php": "72fd61ce5d8b3e4c3469f19cbd7c03073104630a76d9f4a45fcac8a8b5f0e627",
+    "plugins/imagine-site/indicateurs/mouvements.php": "f38c0c6614d500c5fa14ed3e0fea2dbfaa0c947f4086ee63e0c5e287148deb67",
     "plugins/imagine-site/imagine-site.php": "fd08869ef6a5c5741e2b7a4340dd55664556591ed496f5cbebc865ded0f2f6d8"
   },
   "source_sha256": {
     "wp/plugins/imagine-site/TableauBordRegles.php": "6801e6323e2d38d3920373fc3156cec87435cdfb25b3560e00d5600ab5c0b74b",
-    "wp/plugins/imagine-site/TableauBordNatives.php": "663523a2dc4a5871fbdb4490daf5ae3dfb6688412afb92df48ff2e1bc299a0cb",
-    "wp/plugins/imagine-site/TableauBordAdmin.php": "c9f7a3fdd9f4ad615c934591dc74ca01f4fdde11cdd76b42d5d00fd66d2e6ecb",
+    "wp/plugins/imagine-site/TableauBordNatives.php": "8344f4e49f0b2e1d606e77734164e5163f1bc7d43f20f4ff2e4299013fe7790d",
+    "wp/plugins/imagine-site/TableauBordAdmin.php": "aae8a43908d13d9e65638641873ff64e41545bd462824e20355bf9c101838257",
     "wp/plugins/imagine-site/indicateurs/actifs.php": "4750cb13765f632f20f7eb071f8e5a3f84a25aa8a0f16ec795d86cd02337d763",
     "wp/plugins/imagine-site/indicateurs/echeances.php": "c61b22dd26702eb79ff5aaa3a27783a63ddd203ab02d6d2adedc97d189127887",
     "wp/plugins/imagine-site/indicateurs/echecs.php": "89676be0067fa59aacd92a9231cee736d05511094270cd0f3c436216be5e427f",
-    "wp/plugins/imagine-site/indicateurs/mouvements.php": "72fd61ce5d8b3e4c3469f19cbd7c03073104630a76d9f4a45fcac8a8b5f0e627",
+    "wp/plugins/imagine-site/indicateurs/mouvements.php": "f38c0c6614d500c5fa14ed3e0fea2dbfaa0c947f4086ee63e0c5e287148deb67",
     "wp/plugins/imagine-site/imagine-site.php": "fd08869ef6a5c5741e2b7a4340dd55664556591ed496f5cbebc865ded0f2f6d8",
-    "wp/plugins/imagine-site/tests/TableauBordReglesTest.php": "f8a631a43d8ca544fa7101be8ce6431a1e7ed71dac4eee88ea75c73f95aa26d7",
-    "wp/plugins/imagine-site/README.md": "69828a7e5206930f69cb22782405a3738133ad3c14da563541fd90969c500c6a",
+    "wp/plugins/imagine-site/tests/TableauBordReglesTest.php": "6adc6dc476ef91ce84315e9c0d281d56f37ce219e142da423b0ff9bd2ecb6a5d",
+    "wp/plugins/imagine-site/README.md": "2bdc71aeb9427bb5263d3ba23d109d7446cd8f0eecf6fa51723d01bd0005f6e9",
     "wp/outils/demo/c19-unit.py": "3dd343371ca076a032bcc20cc5fd8e4900a03f7002bb3e8259cd88065f0e8ef2",
     "wp/outils/demo/c19.py": "e9b1a23260a96984fb12b060aafb04eea570495f5f2b63e0f8e6ba44223ef864",
     "wp/tests/demo/c19-http.py": "5b79278e2384d286e41b1da7aa269ce64159c815154bba4908ac9eaaae9f5aac",
-    "wp/tests/demo/c19-runtime.php": "9504a929fc287d980fce9ae8ecad461087d92000cfe039325f0c36e85e4af079",
+    "wp/tests/demo/c19-runtime.php": "5cb71f2d584944fd681393e36d44dc18c7f3b9bab63d0ed520aac4c2d7262521",
     "wp/tests/demo/c19-verifier.py": "08c67cc2af7819514368643c5c5c8161ee88248626cd13b04d0230b2dc1159c0",
     "wp/tests/demo/test_c19_contract.py": "2a06cff0bab2f5878148aba84ce957190d2e7e54167b395d5a0593bea7e8188f",
     "wp/tests/demo/c09-successor-gates.py": "7cd5b8c777f3dc0cc3f3e717adaf50209b206a37604bcd1d3ea53c64d10bff34"
@@ -96,7 +96,7 @@
     },
     "C-18:wp/plugins/imagine-site/README.md": {
       "historical": "cddfbb225e7121f1c459fb2869327b16000c17503f490a2667d1c57458913b9a",
-      "current": "69828a7e5206930f69cb22782405a3738133ad3c14da563541fd90969c500c6a",
+      "current": "2bdc71aeb9427bb5263d3ba23d109d7446cd8f0eecf6fa51723d01bd0005f6e9",
       "predecessor_exact_after_C19_section_removal": true
     }
   },

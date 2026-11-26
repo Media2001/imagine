@@ -1,7 +1,7 @@
 {
   "suite": "A12-owned-runner",
-  "container": "imagine-a12-content-679bea7f8bdc",
-  "at_utc": "2026-11-26T01:35:43.926771+00:00",
+  "container": "imagine-a12-content-2f8a60c142ed",
+  "at_utc": "2026-11-26T02:03:32.962990+00:00",
   "mode": "native",
   "checks": [
     {
@@ -21,6 +21,13 @@
     },
     {
       "check": "unit_return",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "disjoint_confinement_unit",
       "status": "PASS",
       "detail": {
         "exit_code": 0
