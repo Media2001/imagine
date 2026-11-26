@@ -1,0 +1,67 @@
+{
+  "rows": [
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a20",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "console": "utf-8",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a20/run.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a20-work\\final-matrix\\utf8\\native"
+      ],
+      "console": "utf-8",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a20",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a20/run.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a20-work\\final-matrix\\cp1252\\native"
+      ],
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a20/style.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a20-work\\final-matrix\\style"
+      ],
+      "console": "utf-8",
+      "exit_code": 0
+    }
+  ],
+  "exit_code": 0
+}

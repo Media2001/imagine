@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://woocommerce.com/document/subscriptions/develop/functions/",
+    "final": "https://woocommerce.com/document/subscriptions/develop/functions/",
+    "http": 200,
+    "sha256": "a353a8a068511f3b60359226ca0e0967bf910f79d8936dbfbce1db7d7507e3d1"
+  },
+  {
+    "url": "https://woocommerce.com/document/subscriptions/statuses/",
+    "final": "https://woocommerce.com/document/subscriptions/statuses/",
+    "http": 200,
+    "sha256": "9b5ab4119f9a881a8f42ed81a5e75c45aa5075e8bd6dbd907333b2074e334777"
+  },
+  {
+    "url": "https://developer.woocommerce.com/docs/features/high-performance-order-storage/recipe-book/",
+    "final": "https://developer.woocommerce.com/docs/features/orders/high-performance-order-storage/recipe-book/",
+    "http": 200,
+    "sha256": "c7c611ddbb3202ed96f3605e7c074e74304584470a5960efe84d3f391a49bcc1"
+  },
+  {
+    "url": "https://woocommerce.github.io/code-reference/classes/WC-Abstract-Order.html",
+    "final": "https://woocommerce.github.io/code-reference/classes/WC-Abstract-Order.html",
+    "http": 200,
+    "sha256": "e681c23f0ed2566ff5ccf51bb07d8827039a3c7df5932b18db3b975b9d8d820b"
+  }
+]
