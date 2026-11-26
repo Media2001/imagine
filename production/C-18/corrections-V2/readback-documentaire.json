@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-26T04:12:10.658178+00:00",
+  "status": "C18_FINAL_READBACK_DOCUMENTAIRE_VERIFIE",
+  "technical_final_sha256": "8e28fa4fecac8559fa424263e271420843e01a271455b835f4cc0203e1dfaf6b",
+  "runtime_checks": 62,
+  "documents_sha256": {
+    "production/C-18/A-VOIR.md": "884d1feb44089c1be38396e322215a5eec9270b50fe392a2133075d55a7dd037",
+    "production/C-18/PRET": "a7abade4e34caf748bc7bf52253d59eacfee199f6abe8be744b65b44a9c71868",
+    "files/rapports/2026-11-26-05h06-V2.md": "24430f499906bb690cd938795d9ed7cecde21a65933c3fdb2cd9fbff3560e196"
+  },
+  "sources_readback_exact": true,
+  "native_preserved": true,
+  "action8793_pending_subscription101_preserved": true,
+  "historical_proofs_preserved": true,
+  "C19_read_only_preserved": true,
+  "visual_approval": false
+}

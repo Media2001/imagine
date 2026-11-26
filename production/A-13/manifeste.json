@@ -1,38 +1,38 @@
 {
   "lot": "A-13",
   "status": "PRET",
-  "horodatage": "2026-11-26T03:08:08.841336+01:00",
+  "horodatage": "2026-11-26T05:09:17.692308+01:00",
   "nombre_fichiers": 15,
   "fichiers": [
     {
       "chemin": "production/A-13/LIVRAISON.md",
-      "octets": 4811,
-      "sha256": "a687f11f1341ed0f06254098e6715834ead7411ab55718166a01c70767cb0b9e"
+      "octets": 6564,
+      "sha256": "9732732decdc8e76db57240d0c98206a3cf9dd9ae6f6710b4ea0d40a5c90f810"
     },
     {
       "chemin": "production/A-13/preparer-image-corrections-26nov.log",
-      "octets": 4103,
-      "sha256": "8762feb1fe9840cbf14de9e87585574e3611e9fbd09c716ac3e4382fabec10b0"
+      "octets": 4196,
+      "sha256": "2f11ba6eb64329007945d87bac63de4bdd459fedb2d2584cf0fcdf9828e1b046"
     },
     {
       "chemin": "production/A-13/reception.json",
-      "octets": 262,
-      "sha256": "5bab2e56167605f32250f7910f91b8fb9760c2c20fe0c852397d1560e7e24400"
+      "octets": 317,
+      "sha256": "69f7b0767a51c50da135bf18af8c53875b800b3d4e4ca4a78f1247aa88fe1e33"
     },
     {
       "chemin": "production/A-13/seal-corrections-26nov.py",
-      "octets": 2953,
-      "sha256": "4129a223137584bb8f9563177361d4e95b6c59b9bef97a4c76e37d92bccdedd9"
+      "octets": 4012,
+      "sha256": "6cddf5dafccf6d6b1c102fd45c2e81bcc82ae846ec7ad2e3f7337c083e6f6eac"
     },
     {
       "chemin": "production/A-13/verification.json",
-      "octets": 3939,
-      "sha256": "2c82d5de9cbb556342f454d3f25661f898719de9ddd14895bb5d29676516212d"
+      "octets": 30574,
+      "sha256": "3362b3c53a737068620441085acfe677cacb2d67ef12cffc0ffa4c6107ddd754"
     },
     {
       "chemin": "production/A-13/verification.tests.txt",
-      "octets": 5710,
-      "sha256": "03464b42b1250e3b54a10b6ec207e1295e3244c0e6d4d7c35c5214b6a61ec4f6"
+      "octets": 36594,
+      "sha256": "5eeb6960712088dd2437f825cfa32bf2401a25b3687651f3bfcc6037764b4103"
     },
     {
       "chemin": "production/A-13/verifier_manifeste.py",
@@ -46,18 +46,18 @@
     },
     {
       "chemin": "wp/outils/bascule/controler-export",
-      "octets": 15403,
-      "sha256": "cd20ddd7aa0716de9ca16ef6833b6118b11451bd09d61488e0677c2295fcc876"
+      "octets": 15795,
+      "sha256": "0386bf05feec6e7dc38b9c821c50996455c438f31bde538e49d39d1ca922f17d"
     },
     {
       "chemin": "wp/outils/bascule/controler-export.md",
-      "octets": 5741,
-      "sha256": "c558e8773de0230c8c33dd5fbb164f93e1e13ea405547d59dd84fca440c492d6"
+      "octets": 6993,
+      "sha256": "0a1131427077d4223b229216ed61680c2f92a5638d7ba10a1ca330a4df32c59a"
     },
     {
       "chemin": "wp/tests/a13/test_controler_export.py",
-      "octets": 20996,
-      "sha256": "b94735250cbf5c99ccbc83144658306d21a8ae929ca0bb0263905b88c26d1645"
+      "octets": 25730,
+      "sha256": "94dc64c4bad81acdcc434220db00b13b1af8172f0776ee7395b6cb6d1a241fc0"
     },
     {
       "chemin": "wp/tests/a13/verifier_livraison.py",
@@ -84,6 +84,6 @@
     "production/A-13/PRET",
     "production/A-13/manifeste.json"
   ],
-  "report": "files/rapports/2026-11-26-03h08.md",
+  "report": "files/rapports/2026-11-26-05h05-A13.md",
   "real_go": false
 }

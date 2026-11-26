@@ -1,11 +1,11 @@
 {
-  "horodatage": "2026-11-26T03:08:08.437393+01:00",
-  "python": "3.11.15",
+  "horodatage": "2026-11-26T05:08:50.112291+01:00",
+  "python": "3.14.7",
   "systeme": "Windows",
   "date_reference": "2026-11-25",
   "suite": {
     "commande": "python -m unittest discover -s wp/tests/a13 -v",
-    "tests": 40,
+    "tests": 46,
     "echecs": 0,
     "erreurs": 0,
     "ignores": 0
@@ -50,15 +50,464 @@
     }
   ],
   "sources_sha256": {
-    "wp/outils/bascule/controler-export": "cd20ddd7aa0716de9ca16ef6833b6118b11451bd09d61488e0677c2295fcc876",
+    "wp/outils/bascule/controler-export": "0386bf05feec6e7dc38b9c821c50996455c438f31bde538e49d39d1ca922f17d",
     "wp/outils/bascule/a13/correspondance.exemple.json": "1b6ad3e72c1a4b7c3ee04caef896c16b9c942a78ede10e568f465c31ab0d9528",
-    "wp/outils/bascule/controler-export.md": "c558e8773de0230c8c33dd5fbb164f93e1e13ea405547d59dd84fca440c492d6",
-    "wp/tests/a13/test_controler_export.py": "b94735250cbf5c99ccbc83144658306d21a8ae929ca0bb0263905b88c26d1645",
+    "wp/outils/bascule/controler-export.md": "0a1131427077d4223b229216ed61680c2f92a5638d7ba10a1ca330a4df32c59a",
+    "wp/tests/a13/test_controler_export.py": "94dc64c4bad81acdcc434220db00b13b1af8172f0776ee7395b6cb6d1a241fc0",
     "wp/tests/a13/verifier_livraison.py": "a616176e37729aca054e13331949366e4eff538929fb5e24b39f835d30147b6e",
     "wp/tests/fixtures/a13-export-defauts-fictif.csv": "a5d493007f27ab0b1989c0df1040d670f87bc517643b36aeaabab6f6bc6896ce",
     "wp/tests/fixtures/a13-export-iban-fictif.csv": "54d0684fb8852b38e30c136b15841d970bcb29e740bed4bbc18cbc88920fd8b0",
     "wp/tests/fixtures/a13-export-propre-fictif.csv": "ab1a093580aa226a47ad95c86cd6f593db28aa857f704b801d019c71e9dce373"
   },
   "statut": "A13_VERIFIE_LOCALEMENT",
-  "integration": "Reconstruction image partagée à vérifier par le parent avant PRET."
+  "integration": "Préparation image exécutée séparément ; voir reception.json et son journal courant.",
+  "matrice_encodages": [
+    {
+      "contexte": "habituel-3.11.15",
+      "environnement": {
+        "python": "3.11.15",
+        "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "systeme": "Windows",
+        "stdout": "utf-8",
+        "stderr": "utf-8",
+        "locale": "cp1252",
+        "preferred": "utf-8",
+        "utf8_mode": 1,
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:/Users/Ced/AppData/Local/hermes/cache/scratch"
+      },
+      "commande": [
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+        "-B",
+        "wp/tests/a13/verifier_livraison.py",
+        "--preuve",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a13-prioritaire-20261126\\habituel-3.11.15.json"
+      ],
+      "exit_code": 0,
+      "preuve": {
+        "horodatage": "2026-11-26T05:08:44.988075+01:00",
+        "python": "3.11.15",
+        "systeme": "Windows",
+        "date_reference": "2026-11-25",
+        "suite": {
+          "commande": "python -m unittest discover -s wp/tests/a13 -v",
+          "tests": 46,
+          "echecs": 0,
+          "erreurs": 0,
+          "ignores": 0
+        },
+        "cli": [
+          {
+            "fixture": "wp/tests/fixtures/a13-export-propre-fictif.csv",
+            "lignes": 30,
+            "code": 0,
+            "fichier_source_inchange": true,
+            "nombre_sorties": 2,
+            "sorties": {
+              "export.controle-rejets.csv": "8c8f8c3bed8f5112a9f7c82706afbe1a4f306fba08f99977b1f825edddf3979c",
+              "export.controle-resume.txt": "fd3527690cb597758d7df28ab80964af4ff9d6a1290d5ea9659aa53faf2a996e"
+            },
+            "lignes_rejetees": 0,
+            "motifs": 0,
+            "resume": "Date de référence : 2026-11-25\nEncodage : utf-8 (validé)\nSéparateur : point-virgule (détecté)\nLignes contrôlées : 30\nLignes sans défaut : 30\nLignes rejetées : 0\nLignes sans adresse électronique : 0\nLignes en doublon : 0\nMotifs (nombre de lignes par motif) :\n- Aucun\n"
+          },
+          {
+            "fixture": "wp/tests/fixtures/a13-export-defauts-fictif.csv",
+            "lignes": 30,
+            "code": 1,
+            "fichier_source_inchange": true,
+            "nombre_sorties": 2,
+            "sorties": {
+              "export.controle-rejets.csv": "158f1dc1f5ef55cfb7bdcc4cab2bbfe6e747459b27563fe49394bca90bb2c378",
+              "export.controle-resume.txt": "ef8b8f9eddd82e6cb4a7158991216336fb21965f4436c89a0561ef2471b21a95"
+            },
+            "lignes_rejetees": 25,
+            "motifs": 25,
+            "resume": "Date de référence : 2026-11-25\nEncodage : utf-8 (validé)\nSéparateur : point-virgule (détecté)\nLignes contrôlées : 30\nLignes sans défaut : 5\nLignes rejetées : 25\nLignes sans adresse électronique : 1\nLignes en doublon : 6\nMotifs (nombre de lignes par motif) :\n- Adresse postale incomplète : 4\n- Adresse électronique mal formée : 1\n- Champ obligatoire absent : cooperateur : 1\n- Champ obligatoire absent : echeance : 1\n- Champ obligatoire absent : mode_paiement : 1\n- Champ obligatoire absent : nom : 1\n- Champ obligatoire absent : numeros_dus : 1\n- Champ obligatoire absent : type_abonnement : 1\n- Date d’échéance illisible : 2\n- Date d’échéance passée : 1\n- Doublon de nom et adresse postale : 2\n- Doublon d’adresse électronique : 2\n- Mandat papier sans référence : 1\n- Mode de paiement non déclaré : 1\n- Nombre de numéros dus illisible : 2\n- Nombre de numéros dus négatif : 1\n- Référence de mandat en double : 2\n"
+          },
+          {
+            "fixture": "wp/tests/fixtures/a13-export-iban-fictif.csv",
+            "lignes": 30,
+            "code": 2,
+            "fichier_source_inchange": true,
+            "nombre_sorties": 0,
+            "sorties": {},
+            "valeur_iban_dans_sorties": false
+          }
+        ],
+        "sources_sha256": {
+          "wp/outils/bascule/controler-export": "0386bf05feec6e7dc38b9c821c50996455c438f31bde538e49d39d1ca922f17d",
+          "wp/outils/bascule/a13/correspondance.exemple.json": "1b6ad3e72c1a4b7c3ee04caef896c16b9c942a78ede10e568f465c31ab0d9528",
+          "wp/outils/bascule/controler-export.md": "0a1131427077d4223b229216ed61680c2f92a5638d7ba10a1ca330a4df32c59a",
+          "wp/tests/a13/test_controler_export.py": "94dc64c4bad81acdcc434220db00b13b1af8172f0776ee7395b6cb6d1a241fc0",
+          "wp/tests/a13/verifier_livraison.py": "a616176e37729aca054e13331949366e4eff538929fb5e24b39f835d30147b6e",
+          "wp/tests/fixtures/a13-export-defauts-fictif.csv": "a5d493007f27ab0b1989c0df1040d670f87bc517643b36aeaabab6f6bc6896ce",
+          "wp/tests/fixtures/a13-export-iban-fictif.csv": "54d0684fb8852b38e30c136b15841d970bcb29e740bed4bbc18cbc88920fd8b0",
+          "wp/tests/fixtures/a13-export-propre-fictif.csv": "ab1a093580aa226a47ad95c86cd6f593db28aa857f704b801d019c71e9dce373"
+        },
+        "statut": "A13_VERIFIE_LOCALEMENT",
+        "integration": "Reconstruction image partagée à vérifier par le parent avant PRET."
+      },
+      "journal_sha256": "37bb641d901fe60b6194028f2fb88282e2b494e3cee1635020661978543d060b"
+    },
+    {
+      "contexte": "cible-3.14.7-utf8",
+      "environnement": {
+        "python": "3.14.7",
+        "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+        "systeme": "Windows",
+        "stdout": "utf-8",
+        "stderr": "utf-8",
+        "locale": "cp1252",
+        "preferred": "utf-8",
+        "utf8_mode": 1,
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:/Users/Ced/AppData/Local/hermes/cache/scratch"
+      },
+      "commande": [
+        "C:/Users/Ced/AppData/Local/hermes/tools/python-3.14.7+20260901-win32-x64/python.exe",
+        "-B",
+        "wp/tests/a13/verifier_livraison.py",
+        "--preuve",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a13-prioritaire-20261126\\cible-3.14.7-utf8.json"
+      ],
+      "exit_code": 0,
+      "preuve": {
+        "horodatage": "2026-11-26T05:08:50.112291+01:00",
+        "python": "3.14.7",
+        "systeme": "Windows",
+        "date_reference": "2026-11-25",
+        "suite": {
+          "commande": "python -m unittest discover -s wp/tests/a13 -v",
+          "tests": 46,
+          "echecs": 0,
+          "erreurs": 0,
+          "ignores": 0
+        },
+        "cli": [
+          {
+            "fixture": "wp/tests/fixtures/a13-export-propre-fictif.csv",
+            "lignes": 30,
+            "code": 0,
+            "fichier_source_inchange": true,
+            "nombre_sorties": 2,
+            "sorties": {
+              "export.controle-rejets.csv": "8c8f8c3bed8f5112a9f7c82706afbe1a4f306fba08f99977b1f825edddf3979c",
+              "export.controle-resume.txt": "fd3527690cb597758d7df28ab80964af4ff9d6a1290d5ea9659aa53faf2a996e"
+            },
+            "lignes_rejetees": 0,
+            "motifs": 0,
+            "resume": "Date de référence : 2026-11-25\nEncodage : utf-8 (validé)\nSéparateur : point-virgule (détecté)\nLignes contrôlées : 30\nLignes sans défaut : 30\nLignes rejetées : 0\nLignes sans adresse électronique : 0\nLignes en doublon : 0\nMotifs (nombre de lignes par motif) :\n- Aucun\n"
+          },
+          {
+            "fixture": "wp/tests/fixtures/a13-export-defauts-fictif.csv",
+            "lignes": 30,
+            "code": 1,
+            "fichier_source_inchange": true,
+            "nombre_sorties": 2,
+            "sorties": {
+              "export.controle-rejets.csv": "158f1dc1f5ef55cfb7bdcc4cab2bbfe6e747459b27563fe49394bca90bb2c378",
+              "export.controle-resume.txt": "ef8b8f9eddd82e6cb4a7158991216336fb21965f4436c89a0561ef2471b21a95"
+            },
+            "lignes_rejetees": 25,
+            "motifs": 25,
+            "resume": "Date de référence : 2026-11-25\nEncodage : utf-8 (validé)\nSéparateur : point-virgule (détecté)\nLignes contrôlées : 30\nLignes sans défaut : 5\nLignes rejetées : 25\nLignes sans adresse électronique : 1\nLignes en doublon : 6\nMotifs (nombre de lignes par motif) :\n- Adresse postale incomplète : 4\n- Adresse électronique mal formée : 1\n- Champ obligatoire absent : cooperateur : 1\n- Champ obligatoire absent : echeance : 1\n- Champ obligatoire absent : mode_paiement : 1\n- Champ obligatoire absent : nom : 1\n- Champ obligatoire absent : numeros_dus : 1\n- Champ obligatoire absent : type_abonnement : 1\n- Date d’échéance illisible : 2\n- Date d’échéance passée : 1\n- Doublon de nom et adresse postale : 2\n- Doublon d’adresse électronique : 2\n- Mandat papier sans référence : 1\n- Mode de paiement non déclaré : 1\n- Nombre de numéros dus illisible : 2\n- Nombre de numéros dus négatif : 1\n- Référence de mandat en double : 2\n"
+          },
+          {
+            "fixture": "wp/tests/fixtures/a13-export-iban-fictif.csv",
+            "lignes": 30,
+            "code": 2,
+            "fichier_source_inchange": true,
+            "nombre_sorties": 0,
+            "sorties": {},
+            "valeur_iban_dans_sorties": false
+          }
+        ],
+        "sources_sha256": {
+          "wp/outils/bascule/controler-export": "0386bf05feec6e7dc38b9c821c50996455c438f31bde538e49d39d1ca922f17d",
+          "wp/outils/bascule/a13/correspondance.exemple.json": "1b6ad3e72c1a4b7c3ee04caef896c16b9c942a78ede10e568f465c31ab0d9528",
+          "wp/outils/bascule/controler-export.md": "0a1131427077d4223b229216ed61680c2f92a5638d7ba10a1ca330a4df32c59a",
+          "wp/tests/a13/test_controler_export.py": "94dc64c4bad81acdcc434220db00b13b1af8172f0776ee7395b6cb6d1a241fc0",
+          "wp/tests/a13/verifier_livraison.py": "a616176e37729aca054e13331949366e4eff538929fb5e24b39f835d30147b6e",
+          "wp/tests/fixtures/a13-export-defauts-fictif.csv": "a5d493007f27ab0b1989c0df1040d670f87bc517643b36aeaabab6f6bc6896ce",
+          "wp/tests/fixtures/a13-export-iban-fictif.csv": "54d0684fb8852b38e30c136b15841d970bcb29e740bed4bbc18cbc88920fd8b0",
+          "wp/tests/fixtures/a13-export-propre-fictif.csv": "ab1a093580aa226a47ad95c86cd6f593db28aa857f704b801d019c71e9dce373"
+        },
+        "statut": "A13_VERIFIE_LOCALEMENT",
+        "integration": "Reconstruction image partagée à vérifier par le parent avant PRET."
+      },
+      "journal_sha256": "ece2421b439b10f7327ed09af559f649aee6ab4ec460c33fe65062f0cb59688e"
+    },
+    {
+      "contexte": "cible-3.14.7-console-cp1252",
+      "environnement": {
+        "python": "3.14.7",
+        "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+        "systeme": "Windows",
+        "stdout": "cp1252",
+        "stderr": "cp1252",
+        "locale": "cp1252",
+        "preferred": "utf-8",
+        "utf8_mode": 1,
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "1",
+        "TMPDIR": "C:/Users/Ced/AppData/Local/hermes/cache/scratch"
+      },
+      "commande": [
+        "C:/Users/Ced/AppData/Local/hermes/tools/python-3.14.7+20260901-win32-x64/python.exe",
+        "-B",
+        "wp/tests/a13/verifier_livraison.py",
+        "--preuve",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a13-prioritaire-20261126\\cible-3.14.7-console-cp1252.json"
+      ],
+      "exit_code": 0,
+      "preuve": {
+        "horodatage": "2026-11-26T05:08:55.102336+01:00",
+        "python": "3.14.7",
+        "systeme": "Windows",
+        "date_reference": "2026-11-25",
+        "suite": {
+          "commande": "python -m unittest discover -s wp/tests/a13 -v",
+          "tests": 46,
+          "echecs": 0,
+          "erreurs": 0,
+          "ignores": 0
+        },
+        "cli": [
+          {
+            "fixture": "wp/tests/fixtures/a13-export-propre-fictif.csv",
+            "lignes": 30,
+            "code": 0,
+            "fichier_source_inchange": true,
+            "nombre_sorties": 2,
+            "sorties": {
+              "export.controle-rejets.csv": "8c8f8c3bed8f5112a9f7c82706afbe1a4f306fba08f99977b1f825edddf3979c",
+              "export.controle-resume.txt": "fd3527690cb597758d7df28ab80964af4ff9d6a1290d5ea9659aa53faf2a996e"
+            },
+            "lignes_rejetees": 0,
+            "motifs": 0,
+            "resume": "Date de référence : 2026-11-25\nEncodage : utf-8 (validé)\nSéparateur : point-virgule (détecté)\nLignes contrôlées : 30\nLignes sans défaut : 30\nLignes rejetées : 0\nLignes sans adresse électronique : 0\nLignes en doublon : 0\nMotifs (nombre de lignes par motif) :\n- Aucun\n"
+          },
+          {
+            "fixture": "wp/tests/fixtures/a13-export-defauts-fictif.csv",
+            "lignes": 30,
+            "code": 1,
+            "fichier_source_inchange": true,
+            "nombre_sorties": 2,
+            "sorties": {
+              "export.controle-rejets.csv": "158f1dc1f5ef55cfb7bdcc4cab2bbfe6e747459b27563fe49394bca90bb2c378",
+              "export.controle-resume.txt": "ef8b8f9eddd82e6cb4a7158991216336fb21965f4436c89a0561ef2471b21a95"
+            },
+            "lignes_rejetees": 25,
+            "motifs": 25,
+            "resume": "Date de référence : 2026-11-25\nEncodage : utf-8 (validé)\nSéparateur : point-virgule (détecté)\nLignes contrôlées : 30\nLignes sans défaut : 5\nLignes rejetées : 25\nLignes sans adresse électronique : 1\nLignes en doublon : 6\nMotifs (nombre de lignes par motif) :\n- Adresse postale incomplète : 4\n- Adresse électronique mal formée : 1\n- Champ obligatoire absent : cooperateur : 1\n- Champ obligatoire absent : echeance : 1\n- Champ obligatoire absent : mode_paiement : 1\n- Champ obligatoire absent : nom : 1\n- Champ obligatoire absent : numeros_dus : 1\n- Champ obligatoire absent : type_abonnement : 1\n- Date d’échéance illisible : 2\n- Date d’échéance passée : 1\n- Doublon de nom et adresse postale : 2\n- Doublon d’adresse électronique : 2\n- Mandat papier sans référence : 1\n- Mode de paiement non déclaré : 1\n- Nombre de numéros dus illisible : 2\n- Nombre de numéros dus négatif : 1\n- Référence de mandat en double : 2\n"
+          },
+          {
+            "fixture": "wp/tests/fixtures/a13-export-iban-fictif.csv",
+            "lignes": 30,
+            "code": 2,
+            "fichier_source_inchange": true,
+            "nombre_sorties": 0,
+            "sorties": {},
+            "valeur_iban_dans_sorties": false
+          }
+        ],
+        "sources_sha256": {
+          "wp/outils/bascule/controler-export": "0386bf05feec6e7dc38b9c821c50996455c438f31bde538e49d39d1ca922f17d",
+          "wp/outils/bascule/a13/correspondance.exemple.json": "1b6ad3e72c1a4b7c3ee04caef896c16b9c942a78ede10e568f465c31ab0d9528",
+          "wp/outils/bascule/controler-export.md": "0a1131427077d4223b229216ed61680c2f92a5638d7ba10a1ca330a4df32c59a",
+          "wp/tests/a13/test_controler_export.py": "94dc64c4bad81acdcc434220db00b13b1af8172f0776ee7395b6cb6d1a241fc0",
+          "wp/tests/a13/verifier_livraison.py": "a616176e37729aca054e13331949366e4eff538929fb5e24b39f835d30147b6e",
+          "wp/tests/fixtures/a13-export-defauts-fictif.csv": "a5d493007f27ab0b1989c0df1040d670f87bc517643b36aeaabab6f6bc6896ce",
+          "wp/tests/fixtures/a13-export-iban-fictif.csv": "54d0684fb8852b38e30c136b15841d970bcb29e740bed4bbc18cbc88920fd8b0",
+          "wp/tests/fixtures/a13-export-propre-fictif.csv": "ab1a093580aa226a47ad95c86cd6f593db28aa857f704b801d019c71e9dce373"
+        },
+        "statut": "A13_VERIFIE_LOCALEMENT",
+        "integration": "Reconstruction image partagée à vérifier par le parent avant PRET."
+      },
+      "journal_sha256": "97076c6f8b91def178495063322ce552d37778fb88aa31e792a6635bea4286b0"
+    },
+    {
+      "contexte": "cible-3.14.7-locale-cp1252",
+      "environnement": {
+        "python": "3.14.7",
+        "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+        "systeme": "Windows",
+        "stdout": "cp1252",
+        "stderr": "cp1252",
+        "locale": "cp1252",
+        "preferred": "cp1252",
+        "utf8_mode": 0,
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0",
+        "TMPDIR": "C:/Users/Ced/AppData/Local/hermes/cache/scratch"
+      },
+      "commande": [
+        "C:/Users/Ced/AppData/Local/hermes/tools/python-3.14.7+20260901-win32-x64/python.exe",
+        "-B",
+        "wp/tests/a13/verifier_livraison.py",
+        "--preuve",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a13-prioritaire-20261126\\cible-3.14.7-locale-cp1252.json"
+      ],
+      "exit_code": 0,
+      "preuve": {
+        "horodatage": "2026-11-26T05:09:00.105816+01:00",
+        "python": "3.14.7",
+        "systeme": "Windows",
+        "date_reference": "2026-11-25",
+        "suite": {
+          "commande": "python -m unittest discover -s wp/tests/a13 -v",
+          "tests": 46,
+          "echecs": 0,
+          "erreurs": 0,
+          "ignores": 0
+        },
+        "cli": [
+          {
+            "fixture": "wp/tests/fixtures/a13-export-propre-fictif.csv",
+            "lignes": 30,
+            "code": 0,
+            "fichier_source_inchange": true,
+            "nombre_sorties": 2,
+            "sorties": {
+              "export.controle-rejets.csv": "8c8f8c3bed8f5112a9f7c82706afbe1a4f306fba08f99977b1f825edddf3979c",
+              "export.controle-resume.txt": "fd3527690cb597758d7df28ab80964af4ff9d6a1290d5ea9659aa53faf2a996e"
+            },
+            "lignes_rejetees": 0,
+            "motifs": 0,
+            "resume": "Date de référence : 2026-11-25\nEncodage : utf-8 (validé)\nSéparateur : point-virgule (détecté)\nLignes contrôlées : 30\nLignes sans défaut : 30\nLignes rejetées : 0\nLignes sans adresse électronique : 0\nLignes en doublon : 0\nMotifs (nombre de lignes par motif) :\n- Aucun\n"
+          },
+          {
+            "fixture": "wp/tests/fixtures/a13-export-defauts-fictif.csv",
+            "lignes": 30,
+            "code": 1,
+            "fichier_source_inchange": true,
+            "nombre_sorties": 2,
+            "sorties": {
+              "export.controle-rejets.csv": "158f1dc1f5ef55cfb7bdcc4cab2bbfe6e747459b27563fe49394bca90bb2c378",
+              "export.controle-resume.txt": "ef8b8f9eddd82e6cb4a7158991216336fb21965f4436c89a0561ef2471b21a95"
+            },
+            "lignes_rejetees": 25,
+            "motifs": 25,
+            "resume": "Date de référence : 2026-11-25\nEncodage : utf-8 (validé)\nSéparateur : point-virgule (détecté)\nLignes contrôlées : 30\nLignes sans défaut : 5\nLignes rejetées : 25\nLignes sans adresse électronique : 1\nLignes en doublon : 6\nMotifs (nombre de lignes par motif) :\n- Adresse postale incomplète : 4\n- Adresse électronique mal formée : 1\n- Champ obligatoire absent : cooperateur : 1\n- Champ obligatoire absent : echeance : 1\n- Champ obligatoire absent : mode_paiement : 1\n- Champ obligatoire absent : nom : 1\n- Champ obligatoire absent : numeros_dus : 1\n- Champ obligatoire absent : type_abonnement : 1\n- Date d’échéance illisible : 2\n- Date d’échéance passée : 1\n- Doublon de nom et adresse postale : 2\n- Doublon d’adresse électronique : 2\n- Mandat papier sans référence : 1\n- Mode de paiement non déclaré : 1\n- Nombre de numéros dus illisible : 2\n- Nombre de numéros dus négatif : 1\n- Référence de mandat en double : 2\n"
+          },
+          {
+            "fixture": "wp/tests/fixtures/a13-export-iban-fictif.csv",
+            "lignes": 30,
+            "code": 2,
+            "fichier_source_inchange": true,
+            "nombre_sorties": 0,
+            "sorties": {},
+            "valeur_iban_dans_sorties": false
+          }
+        ],
+        "sources_sha256": {
+          "wp/outils/bascule/controler-export": "0386bf05feec6e7dc38b9c821c50996455c438f31bde538e49d39d1ca922f17d",
+          "wp/outils/bascule/a13/correspondance.exemple.json": "1b6ad3e72c1a4b7c3ee04caef896c16b9c942a78ede10e568f465c31ab0d9528",
+          "wp/outils/bascule/controler-export.md": "0a1131427077d4223b229216ed61680c2f92a5638d7ba10a1ca330a4df32c59a",
+          "wp/tests/a13/test_controler_export.py": "94dc64c4bad81acdcc434220db00b13b1af8172f0776ee7395b6cb6d1a241fc0",
+          "wp/tests/a13/verifier_livraison.py": "a616176e37729aca054e13331949366e4eff538929fb5e24b39f835d30147b6e",
+          "wp/tests/fixtures/a13-export-defauts-fictif.csv": "a5d493007f27ab0b1989c0df1040d670f87bc517643b36aeaabab6f6bc6896ce",
+          "wp/tests/fixtures/a13-export-iban-fictif.csv": "54d0684fb8852b38e30c136b15841d970bcb29e740bed4bbc18cbc88920fd8b0",
+          "wp/tests/fixtures/a13-export-propre-fictif.csv": "ab1a093580aa226a47ad95c86cd6f593db28aa857f704b801d019c71e9dce373"
+        },
+        "statut": "A13_VERIFIE_LOCALEMENT",
+        "integration": "Reconstruction image partagée à vérifier par le parent avant PRET."
+      },
+      "journal_sha256": "97076c6f8b91def178495063322ce552d37778fb88aa31e792a6635bea4286b0"
+    },
+    {
+      "contexte": "controle-3.14.6-locale-cp1252",
+      "environnement": {
+        "python": "3.14.6",
+        "executable": "C:\\Python314\\python.exe",
+        "systeme": "Windows",
+        "stdout": "cp1252",
+        "stderr": "cp1252",
+        "locale": "cp1252",
+        "preferred": "cp1252",
+        "utf8_mode": 0,
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0",
+        "TMPDIR": "C:/Users/Ced/AppData/Local/hermes/cache/scratch"
+      },
+      "commande": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a13/verifier_livraison.py",
+        "--preuve",
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a13-prioritaire-20261126\\controle-3.14.6-locale-cp1252.json"
+      ],
+      "exit_code": 0,
+      "preuve": {
+        "horodatage": "2026-11-26T05:09:05.262057+01:00",
+        "python": "3.14.6",
+        "systeme": "Windows",
+        "date_reference": "2026-11-25",
+        "suite": {
+          "commande": "python -m unittest discover -s wp/tests/a13 -v",
+          "tests": 46,
+          "echecs": 0,
+          "erreurs": 0,
+          "ignores": 0
+        },
+        "cli": [
+          {
+            "fixture": "wp/tests/fixtures/a13-export-propre-fictif.csv",
+            "lignes": 30,
+            "code": 0,
+            "fichier_source_inchange": true,
+            "nombre_sorties": 2,
+            "sorties": {
+              "export.controle-rejets.csv": "8c8f8c3bed8f5112a9f7c82706afbe1a4f306fba08f99977b1f825edddf3979c",
+              "export.controle-resume.txt": "fd3527690cb597758d7df28ab80964af4ff9d6a1290d5ea9659aa53faf2a996e"
+            },
+            "lignes_rejetees": 0,
+            "motifs": 0,
+            "resume": "Date de référence : 2026-11-25\nEncodage : utf-8 (validé)\nSéparateur : point-virgule (détecté)\nLignes contrôlées : 30\nLignes sans défaut : 30\nLignes rejetées : 0\nLignes sans adresse électronique : 0\nLignes en doublon : 0\nMotifs (nombre de lignes par motif) :\n- Aucun\n"
+          },
+          {
+            "fixture": "wp/tests/fixtures/a13-export-defauts-fictif.csv",
+            "lignes": 30,
+            "code": 1,
+            "fichier_source_inchange": true,
+            "nombre_sorties": 2,
+            "sorties": {
+              "export.controle-rejets.csv": "158f1dc1f5ef55cfb7bdcc4cab2bbfe6e747459b27563fe49394bca90bb2c378",
+              "export.controle-resume.txt": "ef8b8f9eddd82e6cb4a7158991216336fb21965f4436c89a0561ef2471b21a95"
+            },
+            "lignes_rejetees": 25,
+            "motifs": 25,
+            "resume": "Date de référence : 2026-11-25\nEncodage : utf-8 (validé)\nSéparateur : point-virgule (détecté)\nLignes contrôlées : 30\nLignes sans défaut : 5\nLignes rejetées : 25\nLignes sans adresse électronique : 1\nLignes en doublon : 6\nMotifs (nombre de lignes par motif) :\n- Adresse postale incomplète : 4\n- Adresse électronique mal formée : 1\n- Champ obligatoire absent : cooperateur : 1\n- Champ obligatoire absent : echeance : 1\n- Champ obligatoire absent : mode_paiement : 1\n- Champ obligatoire absent : nom : 1\n- Champ obligatoire absent : numeros_dus : 1\n- Champ obligatoire absent : type_abonnement : 1\n- Date d’échéance illisible : 2\n- Date d’échéance passée : 1\n- Doublon de nom et adresse postale : 2\n- Doublon d’adresse électronique : 2\n- Mandat papier sans référence : 1\n- Mode de paiement non déclaré : 1\n- Nombre de numéros dus illisible : 2\n- Nombre de numéros dus négatif : 1\n- Référence de mandat en double : 2\n"
+          },
+          {
+            "fixture": "wp/tests/fixtures/a13-export-iban-fictif.csv",
+            "lignes": 30,
+            "code": 2,
+            "fichier_source_inchange": true,
+            "nombre_sorties": 0,
+            "sorties": {},
+            "valeur_iban_dans_sorties": false
+          }
+        ],
+        "sources_sha256": {
+          "wp/outils/bascule/controler-export": "0386bf05feec6e7dc38b9c821c50996455c438f31bde538e49d39d1ca922f17d",
+          "wp/outils/bascule/a13/correspondance.exemple.json": "1b6ad3e72c1a4b7c3ee04caef896c16b9c942a78ede10e568f465c31ab0d9528",
+          "wp/outils/bascule/controler-export.md": "0a1131427077d4223b229216ed61680c2f92a5638d7ba10a1ca330a4df32c59a",
+          "wp/tests/a13/test_controler_export.py": "94dc64c4bad81acdcc434220db00b13b1af8172f0776ee7395b6cb6d1a241fc0",
+          "wp/tests/a13/verifier_livraison.py": "a616176e37729aca054e13331949366e4eff538929fb5e24b39f835d30147b6e",
+          "wp/tests/fixtures/a13-export-defauts-fictif.csv": "a5d493007f27ab0b1989c0df1040d670f87bc517643b36aeaabab6f6bc6896ce",
+          "wp/tests/fixtures/a13-export-iban-fictif.csv": "54d0684fb8852b38e30c136b15841d970bcb29e740bed4bbc18cbc88920fd8b0",
+          "wp/tests/fixtures/a13-export-propre-fictif.csv": "ab1a093580aa226a47ad95c86cd6f593db28aa857f704b801d019c71e9dce373"
+        },
+        "statut": "A13_VERIFIE_LOCALEMENT",
+        "integration": "Reconstruction image partagée à vérifier par le parent avant PRET."
+      },
+      "journal_sha256": "ead190b3c1773d7506c0047a0f6b1cb1a60be744f88f81dbdf3d4f2631545f3a"
+    }
+  ],
+  "execution_totale_tests": 230,
+  "nombre_contextes": 5
 }

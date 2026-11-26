@@ -1,9 +1,11 @@
 {
   "status": "PRET",
-  "date": "2026-11-26T03:08:08.827032+01:00",
+  "date": "2026-11-26T05:09:17.664074+01:00",
   "preparer_image_exit": 0,
   "verification_exit": 0,
-  "tests": 40,
-  "scope": "B1 IBAN cellule normalisee; I1 nom/adresse; I3 console; donnees fictives seulement",
+  "tests": 46,
+  "contextes": 5,
+  "executions_tests": 230,
+  "scope": "Consigne 0 : encodage test, filtre types, dedoublonnage postal, Python et encodages exacts",
   "real_go": false
 }

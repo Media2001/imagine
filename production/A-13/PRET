@@ -1,0 +1,6 @@
+PRET
+A-13 consigne 0 : 46 tests verts dans cinq contextes Windows, preparation image code 0.
+Controle : python production/A-13/verifier_manifeste.py
+Rejeu : python wp/tests/a13/verifier_livraison.py --preuve <scratch>/verification.json
+Manifeste SHA-256 : f5b39eba09159ab4b24027e85db6758681e80baf629875f30c733df9e70eedf4
+Aucun reel ni GO de migration.

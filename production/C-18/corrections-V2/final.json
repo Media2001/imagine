@@ -1,19 +1,19 @@
 {
-  "at": "2026-11-26T04:04:31.080913+00:00",
+  "at": "2026-11-26T04:10:21.172435+00:00",
   "status": "C18_CORRECTIONS_TECHNIQUES_VERIFIEES",
   "scope": "imagine-test-demo",
   "unit": {
     "unit-c18": {
       "exit": 0,
       "removed": true,
-      "image": "sha256:44a1fa1c379c8d3c7b330c6ba40f149027d2a59d91ca6feeb6ae91024bf5a6a3",
+      "image": "sha256:5405161e5055ca8defa9d1973bbe867726f777c925a12fc228577c2526c7f984",
       "tests": 22,
       "assertions": 55
     },
     "unit-root": {
       "exit": 0,
       "removed": true,
-      "image": "sha256:44a1fa1c379c8d3c7b330c6ba40f149027d2a59d91ca6feeb6ae91024bf5a6a3",
+      "image": "sha256:5405161e5055ca8defa9d1973bbe867726f777c925a12fc228577c2526c7f984",
       "tests": 120,
       "assertions": 614
     }
@@ -159,7 +159,7 @@
     "wp/plugins/imagine-site/extractions/etat.php": "8d4b2768f4f56c61a45d60aba07ab69683b84a08f6d9d31828678f62ab46005d",
     "wp/plugins/imagine-site/tests/ExtractionsNativesTest.php": "7f34299f4e741f3c699d6a8eff474450a99b943709aa5cbf7ff6c29608c21d84",
     "wp/plugins/imagine-site/tests/fixtures/c18-faux-natif.php": "5c3454ecab25cd293ab7cdf712e5b0c91898ccb7553139b98a265f988b2ace69",
-    "wp/tests/demo/c18-corrections.py": "5d4c067e3b389fc19dac1b07bf0c8adec4b38d7af30cc4f88833deaa749cf9c5",
+    "wp/tests/demo/c18-corrections.py": "c1dfc9815a4d0cf3800976fb9d8078cc6a37dd7a509c05e7c5e5449ef33b7bbb",
     "wp/tests/demo/c18-corrections-runtime.php": "a1bb9169f548281a8f9e91e76850fca1c0bc3f55c364e9410701b39f63d47957"
   },
   "sha256_readback": {
