@@ -24,7 +24,9 @@ class Redirect(HTTPRedirectHandler):
 def request(path,session=None,data=None):
  assert path.startswith('/') and not path.startswith('//')
  h={'User-Agent':'Imagine-B07/1.0'}
- if session:h['Cookie']=session['cookie']
+ if session:
+  h['Cookie']=session['cookie']
+  if session.get('nonce'):h['X-WP-Nonce']=session['nonce']
  try:r=build_opener(Redirect()).open(Request(BASE+path,data=None if data is None else urlencode(data).encode(),headers=h),timeout=45)
  except HTTPError as e:r=e
  with r:return r.code,dict(r.headers),r.read().decode('utf-8','replace'),r.url

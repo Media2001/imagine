@@ -1,0 +1,46 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T19:57:04.081713+00:00",
+  "checks": {
+    "abonne_0": true,
+    "abonne_1": false,
+    "abonne_2": false,
+    "anonyme_3": true,
+    "mutation_article_4": true,
+    "anonyme_5": true,
+    "mutation_article_6": true,
+    "anonyme_7": true,
+    "mutation_article_8": true,
+    "sans-droit_9": true,
+    "mutation_article_10": true,
+    "sans-droit_11": true,
+    "mutation_article_12": true,
+    "sans-droit_13": true,
+    "mutation_article_14": true,
+    "cooperateur_15": true,
+    "mutation_article_16": true,
+    "cooperateur_17": true,
+    "mutation_article_18": true,
+    "cooperateur_19": true,
+    "mutation_article_20": true,
+    "anonyme_surface_21": true,
+    "mutation_surface_22": true,
+    "anonyme_surface_23": true,
+    "mutation_surface_24": true,
+    "anonyme_surface_25": true,
+    "mutation_surface_26": true,
+    "REST_edit_ferme": true,
+    "etat_metier_exact": true
+  },
+  "total": 29,
+  "failures": [
+    "abonne_1",
+    "abonne_2"
+  ],
+  "error": null,
+  "private_snapshot": {
+    "file": "b07-private-rveey_xc/snapshot.json",
+    "sha256": "89bfc27bca75287b7a987f54effdb306132c20ab28b54ce9e083acb5e1e6844c",
+    "private": true
+  }
+}
