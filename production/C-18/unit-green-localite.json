@@ -1,0 +1,9 @@
+{
+  "exit": 0,
+  "stdout": "PHPUnit 11.5.58 by Sebastian Bergmann and contributors.\n\nRuntime:       PHP 8.2.33\nConfiguration: /repo/wp/plugins/imagine-site/phpunit.xml\n\n.                                                                   1 / 1 (100%)\n\nTime: 00:00.018, Memory: 8.00 MB\n\nOK (1 test, 1 assertion)\n\nC16_JUNIT\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<testsuites>\n  <testsuite name=\"/repo/wp/plugins/imagine-site/phpunit.xml\" tests=\"1\" assertions=\"1\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.015278\">\n    <testsuite name=\"Site-C11-C13\" tests=\"1\" assertions=\"1\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.015278\">\n      <testsuite name=\"Imagine\\Site\\Tests\\ExtractionsReglesTest\" file=\"/repo/wp/plugins/imagine-site/tests/ExtractionsReglesTest.php\" tests=\"1\" assertions=\"1\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.015278\">\n        <testcase name=\"testLocaliteUsesExactCountryAndPostalCode\" file=\"/repo/wp/plugins/imagine-site/tests/ExtractionsReglesTest.php\" line=\"12\" class=\"Imagine\\Site\\Tests\\ExtractionsReglesTest\" classname=\"Imagine.Site.Tests.ExtractionsReglesTest\" assertions=\"1\" time=\"0.015278\"/>\n      </testsuite>\n    </testsuite>\n  </testsuite>\n</testsuites>\n",
+  "stderr": "",
+  "network": "none",
+  "image": "sha256:37b43a5be38474fbeca8fdc4b710d8ab3aaa053fa9202877a2dd215c1674739d",
+  "selection": "ExtractionsReglesTest",
+  "removed": true
+}
