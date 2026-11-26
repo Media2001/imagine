@@ -1,0 +1,164 @@
+{
+  "at": "2026-11-26T06:32:55.492292+00:00",
+  "scope": "imagine-test-demo",
+  "versions": {
+    "WordPress": "7.0.9",
+    "WooCommerce": "11.2.2",
+    "Subscriptions": "9.4.1"
+  },
+  "settings": {
+    "woocommerce_erasure_request_removes_order_data": {
+      "stored": "no",
+      "default": "no",
+      "effective": "no"
+    },
+    "woocommerce_erasure_request_removes_subscription_data": {
+      "stored": null,
+      "default": "no",
+      "effective": "no"
+    },
+    "woocommerce_erasure_request_removes_download_data": {
+      "stored": "no",
+      "default": "no",
+      "effective": "no"
+    },
+    "woocommerce_allow_bulk_remove_personal_data": {
+      "stored": "no",
+      "default": "no",
+      "effective": "no"
+    },
+    "woocommerce_delete_inactive_accounts": {
+      "stored": {
+        "number": "",
+        "unit": "months"
+      },
+      "default": {
+        "number": "",
+        "unit": "months"
+      },
+      "effective": {
+        "number": "",
+        "unit": "months"
+      },
+      "parsed": {
+        "number": "",
+        "unit": "months"
+      }
+    },
+    "woocommerce_trash_pending_orders": {
+      "stored": "",
+      "default": "",
+      "effective": "",
+      "parsed": {
+        "number": "",
+        "unit": "days",
+        "0": ""
+      }
+    },
+    "woocommerce_trash_failed_orders": {
+      "stored": "",
+      "default": "",
+      "effective": "",
+      "parsed": {
+        "number": "",
+        "unit": "days",
+        "0": ""
+      }
+    },
+    "woocommerce_trash_cancelled_orders": {
+      "stored": "",
+      "default": "",
+      "effective": "",
+      "parsed": {
+        "number": "",
+        "unit": "days",
+        "0": ""
+      }
+    },
+    "woocommerce_anonymize_refunded_orders": {
+      "stored": {
+        "number": "",
+        "unit": "months"
+      },
+      "default": {
+        "number": "",
+        "unit": "months"
+      },
+      "effective": {
+        "number": "",
+        "unit": "months"
+      },
+      "parsed": {
+        "number": "",
+        "unit": "months"
+      }
+    },
+    "woocommerce_anonymize_completed_orders": {
+      "stored": {
+        "number": "",
+        "unit": "months"
+      },
+      "default": {
+        "number": "",
+        "unit": "months"
+      },
+      "effective": {
+        "number": "",
+        "unit": "months"
+      },
+      "parsed": {
+        "number": "",
+        "unit": "months"
+      }
+    },
+    "woocommerce_anonymize_ended_subscriptions": {
+      "stored": null,
+      "default": {
+        "number": "",
+        "unit": "months"
+      },
+      "effective": {
+        "number": "",
+        "unit": "months"
+      },
+      "parsed": {
+        "number": "",
+        "unit": "months"
+      }
+    },
+    "wc_memberships_privacy_erasure_request_delete_user_memberships": {
+      "stored": "no",
+      "effective": "no"
+    }
+  },
+  "native_hooks": {
+    "exporters": {
+      "wordpress-user": "wp_user_personal_data_exporter",
+      "woocommerce-customer-data": "WC_Privacy_Exporters::customer_data_exporter",
+      "woocommerce-customer-orders": "WC_Privacy_Exporters::order_data_exporter",
+      "woocommerce-customer-downloads": "WC_Privacy_Exporters::download_data_exporter",
+      "woocommerce-shopper-lists": "Automattic\\WooCommerce\\Internal\\ShopperLists\\Privacy\\Privacy::export_data",
+      "woocommerce-subscriptions-data": "WCS_Privacy_Exporters::subscription_data_exporter",
+      "woocommerce-gifted-subscriptions-data": "WCSG_Privacy_Exporters::subscription_data_exporter",
+      "woocommerce-gifted-order-data": "WCSG_Privacy_Exporters::order_data_exporter",
+      "woocommerce-memberships-user-memberships": "WC_Memberships::export_personal_data",
+      "wordpress-comments": "wp_comments_personal_data_exporter",
+      "wordpress-media": "wp_media_personal_data_exporter",
+      "imagine-site": "Imagine\\Site\\Confidentialite::exporter"
+    },
+    "erasers": {
+      "wordpress-comments": "wp_comments_personal_data_eraser",
+      "woocommerce-customer-data": "WC_Privacy_Erasers::customer_data_eraser",
+      "woocommerce-customer-orders": "WC_Privacy_Erasers::order_data_eraser",
+      "woocommerce-customer-downloads": "WC_Privacy_Erasers::download_data_eraser",
+      "woocommerce-customer-tokens": "WC_Privacy_Erasers::customer_tokens_eraser",
+      "woocommerce-shopper-lists": "Automattic\\WooCommerce\\Internal\\ShopperLists\\Privacy\\Privacy::erase_data",
+      "woocommerce-memberships-user-memberships": "WC_Memberships::erase_personal_data",
+      "woocommerce-subscriptions-health-check-data": "Automattic\\WooCommerce_Subscriptions\\Internal\\HealthCheck\\PrivacyEraser::erase_by_email",
+      "woocommerce-subscriptions-data": "WCS_Privacy_Erasers::subscription_data_eraser",
+      "woocommerce-gifted-subscriptions-data": "WCSG_Privacy_Erasers::subscription_data_eraser",
+      "woocommerce-gifted-order-data": "WCSG_Privacy_Erasers::order_data_eraser",
+      "imagine-site": "Imagine\\Site\\Confidentialite::effacer"
+    }
+  }
+}

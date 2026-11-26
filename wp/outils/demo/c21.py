@@ -77,26 +77,42 @@ def security(label):
     return result
 
 
+def schedule_business():
+    return wp(r'''global $wpdb;$a=$wpdb->prefix.'actionscheduler_actions';$l=$wpdb->prefix.'actionscheduler_logs';
+$actions=$wpdb->get_results("SELECT * FROM $a WHERE hook<>'wcs_report_update_cache' ORDER BY action_id",ARRAY_A);
+$logs=$wpdb->get_results("SELECT l.* FROM $l l INNER JOIN $a a ON a.action_id=l.action_id WHERE a.hook<>'wcs_report_update_cache' ORDER BY l.log_id",ARRAY_A);
+echo wp_json_encode(['sha256'=>hash('sha256',serialize([$actions,$logs])),
+'action8793'=>$wpdb->get_row("SELECT action_id,hook,status,args,scheduled_date_gmt FROM $a WHERE action_id=8793",ARRAY_A)]);''')
+
+
 def regressions(label):
     paths = ['c20-regressions.php', 'c20-native.php', 'c08-runtime.php', 'c13-runtime.php', 'c09-runtime.php']
     names = ['imagine-demo-build/' + p for p in paths]
     actual = hashes(names)
     assert actual == {n: hashlib.sha256((ROOT / 'wp/tests/demo' / p).read_bytes()).hexdigest() for n, p in zip(names, paths)}
     before = c19.c18.state()
+    scheduled_before = schedule_business()
     native = wp('require WP_CONTENT_DIR."/imagine-demo-build/c20-regressions.php";')
     c09 = wp('require WP_CONTENT_DIR."/imagine-demo-build/c09-runtime.php";')
     after = c19.c18.state()
-    assert before == after, 'Native readback drift'
+    scheduled_after = schedule_business()
+    import copy
+    a, b = copy.deepcopy(before), copy.deepcopy(after)
+    for state in (a, b):
+        for key in ('actionscheduler_actions', 'actionscheduler_logs'):
+            state['native_fingerprints'].pop(key, None)
+    assert a == b and scheduled_before == scheduled_after, 'Native business readback drift'
     assert all(not r['failures'] and r['all_tables_rollback_exact'] and r['total'] == len(r['checks']) for r in native.values())
     assert c09['total'] == len(c09['checks']) == 382 and not c09['failures'] and all(c09['checks'].values())
-    return save(label, {'native': native, 'C09': c09, 'state_preserved': True, 'sources_readback': actual})
+    return save(label, {'native': native, 'C09': c09, 'state_preserved_except_native_report_cache_jobs': True,
+        'schedule_business': scheduled_after, 'sources_readback': actual})
 
 
 if __name__ == '__main__':
     c19.c18.c17.profils.guard('imagine-test-demo')
     mode = sys.argv[1]
     label = sys.argv[2] if len(sys.argv) > 2 else mode
-    if mode in ('baseline', 'deploy', 'regressions'):
+    if mode in ('baseline', 'deploy', 'regressions', 'security'):
         globals()[mode](label)
     else:
         save(label, {'phase': mode, 'result': fixture(mode)})

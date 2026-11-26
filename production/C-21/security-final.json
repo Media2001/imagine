@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-26T06:30:19.807234+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "sans_email_marque_meme_hors_invalid": true,
+    "notes_et_jetons_retires": true,
+    "reponse_invalide_preservee_pour_erreur_native": true,
+    "email_non_marque_conserve": true,
+    "mail_coupe": true,
+    "HTTP_externe_coupe": true,
+    "passerelles_coupees": true,
+    "fixture_absente": true,
+    "native_inchange": true
+  },
+  "total": 9,
+  "failures": []
+}

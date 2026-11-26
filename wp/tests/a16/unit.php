@@ -13,6 +13,29 @@ if (is_file('/subject/a16/Mapping.php')) {
         'liaison' => ['source' => 'postmeta', 'cle' => '_a16_numero_id'],
         'thematique' => 'a16_theme', 'pdf_cle' => '_a16_pdf_id', 'date_cle' => 'post_date_gmt'];
     $check('explicit_operator_mapping_accepted', \Imagine\IssueInventory\Mapping::validate($mapping) === $mapping);
+    $reordered = $mapping;
+    $reordered['liaison'] = ['cle' => '_a16_numero_id', 'source' => 'postmeta'];
+    try {
+        $accepted = \Imagine\IssueInventory\Mapping::validate($reordered) === $reordered;
+    } catch (RuntimeException $error) {
+        $accepted = false;
+    }
+    $check('liaison_keys_order_independent', $accepted);
+    foreach (['missing', 'extra'] as $variant) {
+        $bad = $mapping;
+        if ($variant === 'missing') {
+            unset($bad['liaison']['cle']);
+        } else {
+            $bad['liaison']['extra'] = 'forbidden';
+        }
+        try {
+            \Imagine\IssueInventory\Mapping::validate($bad);
+            $refused = false;
+        } catch (RuntimeException $error) {
+            $refused = $error->getMessage() === 'A16_MAPPING_INVALID';
+        }
+        $check('liaison_exact_keys:' . $variant, $refused);
+    }
     foreach (['version', 'thematique', 'liaison'] as $key) {
         $bad = $mapping;
         unset($bad[$key]);
