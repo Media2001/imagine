@@ -12,11 +12,26 @@ final class ConfidentialiteRegles
         if (self::postal($event, $id) === null) {
             return $event;
         }
-        if ((int) ($event['donnees']['user'] ?? 0) === $id) {
-            return null;
-        }
         $d = &$event['donnees'];
-        if (($d['origine'] ?? '') === 'offert') {
+        if ((int) ($d['user'] ?? 0) === $id) {
+            $others = array_filter($d['beneficiaires'] ?? [], static fn ($p): bool => (int) ($p['id'] ?? 0) !== $id);
+            $links = $d['relation_native'] ?? [];
+            $otherLinks = isset($links['recipient_user'])
+                ? ((int) $links['recipient_user'] !== $id ? [$links] : [])
+                : array_filter($links, static fn ($p): bool => is_array($p) && (int) ($p['user_id'] ?? 0) !== $id);
+            if (!$others && !$otherLinks) {
+                return null;
+            }
+            // L'identité du payeur n'est pas l'attribution postale des tiers.
+            $d['user'] = '0';
+            if (($d['origine'] ?? '') !== 'offert') {
+                foreach (['destinataire', 'rue', 'complement', 'code_postal', 'ville', 'pays'] as $field) {
+                    $d[$field] = '';
+                }
+            }
+        }
+        if (($d['origine'] ?? '') === 'offert'
+            && (int) ($d['relation_native']['recipient_user'] ?? 0) === $id) {
             foreach (['destinataire', 'rue', 'complement', 'code_postal', 'ville', 'pays'] as $field) {
                 $d[$field] = '';
             }
@@ -35,7 +50,8 @@ final class ConfidentialiteRegles
             ));
         }
         $d['relation_native'] = $relations;
-        $d['beneficiaires_resolus'] = false;
+        // Un retrait certain ne transforme jamais les attributions restantes en inconnues.
+        // Une origine initialement non résolue reste non résolue : aucun droit nouveau.
         return $event;
     }
 

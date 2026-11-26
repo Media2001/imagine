@@ -19,7 +19,13 @@ final class ConfidentialiteReglesTest extends TestCase
         $out = ConfidentialiteRegles::retirerPostal($shared, 3);
         self::assertSame([['id' => '4']], $out['donnees']['beneficiaires']);
         self::assertSame([['user_id' => 4]], $out['donnees']['relation_native']);
-        self::assertFalse($out['donnees']['beneficiaires_resolus']);
+        self::assertTrue($out['donnees']['beneficiaires_resolus']);
+        self::assertNull(ConfidentialiteRegles::postal($out, 3));
+        $owner = ConfidentialiteRegles::retirerPostal($shared, 2);
+        self::assertSame('0', $owner['donnees']['user']);
+        self::assertSame($shared['donnees']['beneficiaires'], $owner['donnees']['beneficiaires']);
+        self::assertSame($shared['donnees']['relation_native'], $owner['donnees']['relation_native']);
+        self::assertTrue($owner['donnees']['beneficiaires_resolus']);
     }
 
     public function testRelationInactiveEstExporteeEtRetireeSansAdresseDUnTiers(): void
