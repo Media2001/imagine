@@ -1,0 +1,33 @@
+{
+    "exit_code": 0,
+    "checks": [
+        {
+            "check": "mapping_implementation_present",
+            "status": "PASS"
+        },
+        {
+            "check": "explicit_operator_mapping_accepted",
+            "status": "PASS"
+        },
+        {
+            "check": "missing_mapping_field:version",
+            "status": "PASS"
+        },
+        {
+            "check": "missing_mapping_field:thematique",
+            "status": "PASS"
+        },
+        {
+            "check": "missing_mapping_field:liaison",
+            "status": "PASS"
+        },
+        {
+            "check": "explicit_taxonomy_issue_source",
+            "status": "PASS"
+        },
+        {
+            "check": "never_guess_links",
+            "status": "PASS"
+        }
+    ]
+}

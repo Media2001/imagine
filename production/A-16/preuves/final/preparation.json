@@ -1,0 +1,1 @@
+{"command": ["powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "wp/tests/preparer-image.ps1"], "exit_code": 0}

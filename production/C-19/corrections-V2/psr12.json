@@ -1,0 +1,44 @@
+{
+  "totals": {
+    "errors": 0,
+    "warnings": 0,
+    "fixable": 0
+  },
+  "files": {
+    "/repo/wp/plugins/imagine-site/TableauBordAdmin.php": {
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    "/repo/wp/plugins/imagine-site/TableauBordNatives.php": {
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    "/repo/wp/plugins/imagine-site/TableauBordRegles.php": {
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    "/repo/wp/plugins/imagine-site/indicateurs/actifs.php": {
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    "/repo/wp/plugins/imagine-site/indicateurs/echeances.php": {
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    "/repo/wp/plugins/imagine-site/indicateurs/echecs.php": {
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    "/repo/wp/plugins/imagine-site/indicateurs/mouvements.php": {
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    }
+  }
+}

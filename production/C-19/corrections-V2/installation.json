@@ -1,0 +1,26 @@
+{
+  "before": {
+    "plugins/imagine-site/TableauBordAdmin.php": "aae8a43908d13d9e65638641873ff64e41545bd462824e20355bf9c101838257",
+    "plugins/imagine-site/TableauBordNatives.php": "8344f4e49f0b2e1d606e77734164e5163f1bc7d43f20f4ff2e4299013fe7790d",
+    "plugins/imagine-site/TableauBordRegles.php": "6801e6323e2d38d3920373fc3156cec87435cdfb25b3560e00d5600ab5c0b74b",
+    "plugins/imagine-site/indicateurs/actifs.php": "4750cb13765f632f20f7eb071f8e5a3f84a25aa8a0f16ec795d86cd02337d763",
+    "plugins/imagine-site/indicateurs/echeances.php": "c61b22dd26702eb79ff5aaa3a27783a63ddd203ab02d6d2adedc97d189127887",
+    "plugins/imagine-site/indicateurs/echecs.php": "89676be0067fa59aacd92a9231cee736d05511094270cd0f3c436216be5e427f",
+    "plugins/imagine-site/indicateurs/mouvements.php": "f38c0c6614d500c5fa14ed3e0fea2dbfaa0c947f4086ee63e0c5e287148deb67",
+    "plugins/imagine-site/EcheancesNatives.php": "5c989a61516c5f391f6597afcb3f55e169867e6ce77bdd1603f4a5f7bbfdda0a"
+  },
+  "after": {
+    "plugins/imagine-site/TableauBordAdmin.php": "5f7596195dd476e1bede9c93f6624146284a6f3a08292a56912c7ec4a9b4ec18",
+    "plugins/imagine-site/TableauBordNatives.php": "39f6363db05bae31d05bd64c4d909e12a0a76db2cb254c9aaf69eb26af48f1e7",
+    "plugins/imagine-site/TableauBordRegles.php": "16bd1411a111ffe1d0c7cd10d43a34fb6b35bebae7039ce4ebc8e5748f97b6d9",
+    "plugins/imagine-site/indicateurs/actifs.php": "09676f99f883a9bd7c073aef28034f76862a51d5b35eff9f2b839b0aff6d5cf4",
+    "plugins/imagine-site/indicateurs/echeances.php": "df9586cbc0e0d7cb07a5e0c903c822d21e1cced5fbb804d24af08728ec6d86f8",
+    "plugins/imagine-site/indicateurs/echecs.php": "a21bbac5af14867b0553355a3930f3f8b8088f4455a9ef7027fd1e7777e5cf6b",
+    "plugins/imagine-site/indicateurs/mouvements.php": "d049ff86f3fad692b04a7973399867754d8b499171275d24c6ebbb6b6aa39181",
+    "plugins/imagine-site/EcheancesNatives.php": "768928d8a74bb211b2ff4533730334995a29ae9e7e5a480598c3e003ddb97bc1"
+  },
+  "scope": "imagine-test-demo",
+  "native_preserved": true,
+  "role_write": false,
+  "fixture_reset": false
+}
