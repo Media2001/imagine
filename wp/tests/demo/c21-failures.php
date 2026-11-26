@@ -34,6 +34,26 @@ try {
     $r = call_user_func($erasers['imagine-site']['callback'], 'c21-defaut-fictif@example.org', 1);
     $checks['echec_physique_signale_sans_faux_succes'] = $r['items_retained'] && count($r['messages']) === 1;
     $checks['reference_conservee_si_fichier_non_supprimable'] = Justificatifs::etat((int) $id) === $doc && is_dir($path);
+    $response = null;
+    $handler = static function () use (&$response): callable {
+        return static function ($message, $title, $args) use (&$response): never {
+            $response = ['message' => $message, 'title' => $title, 'args' => $args];
+            throw new \RuntimeException('C21 wp_die capturé');
+        };
+    };
+    add_filter('wp_die_handler', $handler, PHP_INT_MAX);
+    try {
+        wp_delete_user((int) $id); // Vraie suppression native : le hook C21 doit interrompre le chemin.
+        $checks['suppression_compte_refusee_409_reelle'] = false;
+    } catch (\RuntimeException $e) {
+        $checks['suppression_compte_refusee_409_reelle'] = $e->getMessage() === 'C21 wp_die capturé'
+            && ($response['args']['response'] ?? null) === 409
+            && str_contains($response['message'] ?? '', 'nettoyage Imagine incomplet');
+    } finally {
+        remove_filter('wp_die_handler', $handler, PHP_INT_MAX);
+    }
+    $checks['refus_409_conserve_compte_et_document'] = (bool) get_userdata((int) $id)
+        && Justificatifs::etat((int) $id) === $doc && is_dir($path) && is_file($backup);
     if (!rmdir($path) || !rename($backup, $path)) {
         throw new \RuntimeException('Restauration documentaire impossible.');
     }

@@ -120,7 +120,10 @@ try {
     $groupsFilter = static fn () => 'liens_memberships';
     add_filter('option_imagine_envoi_groupes', $groupsFilter);
     add_filter('default_option_imagine_envoi_groupes', $groupsFilter);
-    $sub = wcs_create_subscription(['customer_id' => $owner, 'status' => 'active', 'start_date' => '2026-01-01 00:00:00',
+    $parent = wc_create_order(['customer_id' => $owner, 'status' => 'completed']);
+    $parent->set_date_paid('2026-01-01 00:00:00');
+    $parent->save();
+    $sub = wcs_create_subscription(['customer_id' => $owner, 'order_id' => $parent->get_id(), 'status' => 'active', 'start_date' => '2026-01-01 00:00:00',
         'billing_period' => 'year', 'billing_interval' => 1]);
     $sub->set_date_created('2026-01-01 00:00:00');
     $sub->set_date_paid('2026-01-01 00:00:00');
@@ -165,7 +168,10 @@ try {
         'export_tiers_before' => $beforeOther, 'export_tiers_after' => Confidentialite::exporter(get_userdata($other)->user_email)];
     // Cadeau natif : l'adresse de livraison est celle du bénéficiaire, non du payeur.
     $giftOwner = $make('offrant');
-    $gift = wcs_create_subscription(['customer_id' => $giftOwner, 'status' => 'active', 'start_date' => '2026-01-01 00:00:00',
+    $giftParent = wc_create_order(['customer_id' => $giftOwner, 'status' => 'completed']);
+    $giftParent->set_date_paid('2026-01-01 00:00:00');
+    $giftParent->save();
+    $gift = wcs_create_subscription(['customer_id' => $giftOwner, 'order_id' => $giftParent->get_id(), 'status' => 'active', 'start_date' => '2026-01-01 00:00:00',
         'billing_period' => 'year', 'billing_interval' => 1]);
     $gift->set_date_created('2026-01-01 00:00:00');
     $gift->set_date_paid('2026-01-01 00:00:00');

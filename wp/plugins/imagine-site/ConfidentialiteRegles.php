@@ -41,8 +41,10 @@ final class ConfidentialiteRegles
             static fn ($p): bool => (int) ($p['id'] ?? 0) !== $id
         ));
         $relations = $d['relation_native'] ?? [];
-        if (isset($relations['recipient_user']) && (int) $relations['recipient_user'] === $id) {
-            $relations = [];
+        if (isset($relations['recipient_user'])) {
+            if ((int) $relations['recipient_user'] === $id) {
+                $relations = [];
+            }
         } else {
             $relations = array_values(array_filter(
                 $relations,

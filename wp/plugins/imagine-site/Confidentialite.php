@@ -46,6 +46,9 @@ final class Confidentialite
     public static function conserverObservation(bool $conserver, array $data): bool
     {
         $id = (int) ($data['user'] ?? 0);
+        if ($conserver && !$id && in_array($data['origine'] ?? '', ['groupe', 'offert'], true)) {
+            return !empty($data['beneficiaires']); // Identité du seul payeur retirée, tiers inchangés.
+        }
         if (!$conserver || !$id || !get_userdata($id)) {
             return false;
         }
@@ -70,6 +73,7 @@ final class Confidentialite
     public static function anonymiserObservation(array $data): array
     {
         $ids = array_map('intval', array_column($data['beneficiaires'] ?? [], 'id'));
+        $ids[] = (int) ($data['user'] ?? 0);
         $relations = $data['relation_native'] ?? [];
         if (isset($relations['recipient_user'])) {
             $ids[] = (int) $relations['recipient_user'];
@@ -77,7 +81,7 @@ final class Confidentialite
             $ids = array_merge($ids, array_map('intval', array_column($relations, 'user_id')));
         }
         foreach (array_unique($ids) as $id) {
-            if ($id > 0 && self::demandeTerminee($id)) {
+            if ($id > 0 && (!get_userdata($id) || self::demandeTerminee($id))) {
                 $event = ConfidentialiteRegles::retirerPostal(['donnees' => $data], $id);
                 if ($event !== null) {
                     $data = $event['donnees'];

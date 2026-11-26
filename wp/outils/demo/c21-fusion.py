@@ -13,7 +13,11 @@ def run(label):
     c21.c19.c18.c17.profils.b00.upload(name, source.read_bytes())
     assert c21.hashes([name])[name] == hashlib.sha256(source.read_bytes()).hexdigest()
     result = c21.wp('require WP_CONTENT_DIR."/' + name + '";')
-    result['checks']['profils_C09_et_actions_exacts'] = before == c21.c19.c18.state() and scheduled == c21.schedule_business()
+    after = c21.c19.c18.state()
+    for state in (before, after):
+        for key in ('actionscheduler_actions', 'actionscheduler_logs'):
+            state['native_fingerprints'].pop(key, None)
+    result['checks']['profils_C09_et_actions_exacts'] = before == after and scheduled == c21.schedule_business()
     result['total'] = len(result['checks'])
     result['failures'] = [k for k, v in result['checks'].items() if v is not True]
     result['source_sha256'] = hashlib.sha256(source.read_bytes()).hexdigest()

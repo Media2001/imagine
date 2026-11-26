@@ -1,0 +1,969 @@
+{
+  "at": "2026-11-26T08:46:14.990560+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "operateur_sans_aucune_PII_client": true,
+    "operateur_activite_propre_exportee": true,
+    "effacement_operateur_preserve_dossier_client_exact": true,
+    "titulaire_resultat_client_exporte_adresse_exacte": true,
+    "mode_reglement_reel_exporte": true,
+    "titulaire_efface_brouillon": true,
+    "C16_sans_email_effacement_rattachement_reel": true,
+    "C16_sans_email_effacement_transient": true,
+    "C16_sans_email_suppression_rattachement_reel": true,
+    "C16_sans_email_suppression_native_transient": true,
+    "groupe_liens_memberships_natifs_actifs": true,
+    "gel_reel_retrait_membre_tiers_lignes_exactes": true,
+    "CSV_reel_retrait_membre_tiers_servi": true,
+    "export_beneficiaire_retrait_autre_sans_perte_exact": true,
+    "gel_reel_retrait_payeur_groupe_tiers_exact": true,
+    "export_beneficiaire_retrait_payeur_sans_perte_exact": true,
+    "offrant_efface_cadeau_postal_exact": true,
+    "offrant_efface_export_beneficiaire_exact": true,
+    "export_tiers_pas_identite_payeur_ni_autre_membre": true,
+    "recollecte_payeur_et_membre_effaces_ne_reviennent_pas": false,
+    "meta_constantes_connues_couvertes": true,
+    "meta_C22_effacee": true,
+    "rollback_toutes_tables_exact": true,
+    "profils_C09_et_actions_exacts": true
+  },
+  "total": 24,
+  "failures": [
+    "recollecte_payeur_et_membre_effaces_ne_reviennent_pas"
+  ],
+  "evidence": {
+    "operator_export": {
+      "data": [
+        {
+          "group_id": "imagine-brouillon",
+          "group_label": "Imagine — brouillon de commande",
+          "item_id": "imagine-7488bfa2e4d15ae45c9777d436b4a1586d4d8e4e9c26c33b293378b2df732eaa",
+          "data": [
+            {
+              "name": "Activité",
+              "value": "A préparé un brouillon"
+            }
+          ]
+        }
+      ],
+      "done": true
+    },
+    "client_export": {
+      "data": [
+        {
+          "group_id": "imagine-brouillon",
+          "group_label": "Imagine — brouillon de commande",
+          "item_id": "imagine-7488bfa2e4d15ae45c9777d436b4a1586d4d8e4e9c26c33b293378b2df732eaa",
+          "data": [
+            {
+              "name": "etape",
+              "value": "3"
+            },
+            {
+              "name": "client",
+              "value": "{\"mode\":\"nouveau\",\"nom\":\"C21NOMCLIENT\",\"email\":\"c21-fusion-client@example.org\",\"sans_email\":false}"
+            },
+            {
+              "name": "commande",
+              "value": "{\"produit\":192,\"adresse\":{\"first_name\":\"C21PRENOMCLIENT\",\"last_name\":\"C21NOMCLIENT\",\"address_1\":\"21 RUE CLIENT FICTIVE\",\"address_2\":\"\",\"postcode\":\"1000\",\"city\":\"C21VILLECLIENT\",\"country\":\"BE\"}}"
+            },
+            {
+              "name": "Mode de règlement",
+              "value": "Virement"
+            }
+          ]
+        }
+      ],
+      "done": true
+    },
+    "draft_after_operator_erasure": {
+      "qui": 0,
+      "token": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "etape": 3,
+      "client": {
+        "mode": "nouveau",
+        "nom": "C21NOMCLIENT",
+        "email": "c21-fusion-client@example.org",
+        "sans_email": false
+      },
+      "commande": {
+        "produit": 192,
+        "paiement": "bacs",
+        "adresse": {
+          "first_name": "C21PRENOMCLIENT",
+          "last_name": "C21NOMCLIENT",
+          "address_1": "21 RUE CLIENT FICTIVE",
+          "address_2": "",
+          "postcode": "1000",
+          "city": "C21VILLECLIENT",
+          "country": "BE"
+        }
+      },
+      "resultat": {
+        "client": 151
+      }
+    },
+    "C16_effacement": {
+      "resultat": {
+        "commande": 2791,
+        "souscription": 2792,
+        "client": 152
+      },
+      "export": {
+        "data": [
+          {
+            "group_id": "imagine-meta",
+            "group_label": "Imagine — marqueurs personnels",
+            "item_id": "imagine-b3ebbbcd962d223fcc72f07901d7c6ffb7ed95a318a3c8dfac4d4d8e0940a8b7",
+            "data": [
+              {
+                "name": "imagine_sans_email",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-4f82ea7fcddbed047b3b226b459164d5fc7de546981b30cd173f0838180cbdf2",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:46:09.231102"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2792\",\"creation\":1795682769,\"debut\":\"2026-11-26 08:46:09\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"\",\"rue\":\"\",\"complement\":\"\",\"code_postal\":\"\",\"ville\":\"\",\"pays\":\"\"}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-8df399311b793d95cd92f3072021608a5ca831e94abea633e177eb58970d4c01",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:46:09.268524"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2792\",\"creation\":1795682769,\"debut\":\"2026-11-26 08:46:09\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21PRENOMCLIENT C21NOMCLIENT\",\"rue\":\"21 RUE CLIENT FICTIVE\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-bfbc5e10ddea5bd60420e3c23732ed563530bf22baa8a6798d7ab1371b8d3843",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:46:09.297451"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2792\",\"creation\":1795682769,\"debut\":\"2026-11-26 08:46:09\",\"fin\":\"2027-11-26 08:46:09\",\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21PRENOMCLIENT C21NOMCLIENT\",\"rue\":\"21 RUE CLIENT FICTIVE\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-brouillon",
+            "group_label": "Imagine — brouillon de commande",
+            "item_id": "imagine-942509a714ac55e6c4790e137a3fd323efb2eef8585cc9fba52424c5e2d2cfba",
+            "data": [
+              {
+                "name": "etape",
+                "value": "3"
+              },
+              {
+                "name": "client",
+                "value": "{\"mode\":\"nouveau\",\"nom\":\"C21 SANS EMAIL FICTIF effacement\",\"email\":\"\",\"sans_email\":true}"
+              },
+              {
+                "name": "commande",
+                "value": "{\"produit\":192,\"adresse\":{\"first_name\":\"C21PRENOMCLIENT\",\"last_name\":\"C21NOMCLIENT\",\"address_1\":\"21 RUE CLIENT FICTIVE\",\"address_2\":\"\",\"postcode\":\"1000\",\"city\":\"C21VILLECLIENT\",\"country\":\"BE\"}}"
+              },
+              {
+                "name": "Mode de règlement",
+                "value": "Virement"
+              }
+            ]
+          }
+        ],
+        "done": true
+      }
+    },
+    "C16_suppression": {
+      "resultat": {
+        "commande": 2793,
+        "souscription": 2794,
+        "client": 153
+      },
+      "export": {
+        "data": [
+          {
+            "group_id": "imagine-meta",
+            "group_label": "Imagine — marqueurs personnels",
+            "item_id": "imagine-b3ebbbcd962d223fcc72f07901d7c6ffb7ed95a318a3c8dfac4d4d8e0940a8b7",
+            "data": [
+              {
+                "name": "imagine_sans_email",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-dc0906a5108f3d534878f20639a7562fa8112893a39c03951c4058e47080cd64",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:46:09.510812"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2794\",\"creation\":1795682769,\"debut\":\"2026-11-26 08:46:09\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"\",\"rue\":\"\",\"complement\":\"\",\"code_postal\":\"\",\"ville\":\"\",\"pays\":\"\"}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-c92ec1dc176db89de8951c673334d6cdc4ad3ac6c48b12aa98f79aad06c5ed87",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:46:09.545765"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2794\",\"creation\":1795682769,\"debut\":\"2026-11-26 08:46:09\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21PRENOMCLIENT C21NOMCLIENT\",\"rue\":\"21 RUE CLIENT FICTIVE\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-a0fd3f01b2884de996b76d0f8039f1ec41889b297d76b7a9bf6c2881df254680",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:46:09.574831"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2794\",\"creation\":1795682769,\"debut\":\"2026-11-26 08:46:09\",\"fin\":\"2027-11-26 08:46:09\",\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21PRENOMCLIENT C21NOMCLIENT\",\"rue\":\"21 RUE CLIENT FICTIVE\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-brouillon",
+            "group_label": "Imagine — brouillon de commande",
+            "item_id": "imagine-35ae977c69be0310f9822ceec812c965827d76d22c646d2b67b095328d3c4cea",
+            "data": [
+              {
+                "name": "etape",
+                "value": "3"
+              },
+              {
+                "name": "client",
+                "value": "{\"mode\":\"nouveau\",\"nom\":\"C21 SANS EMAIL FICTIF suppression\",\"email\":\"\",\"sans_email\":true}"
+              },
+              {
+                "name": "commande",
+                "value": "{\"produit\":192,\"adresse\":{\"first_name\":\"C21PRENOMCLIENT\",\"last_name\":\"C21NOMCLIENT\",\"address_1\":\"21 RUE CLIENT FICTIVE\",\"address_2\":\"\",\"postcode\":\"1000\",\"city\":\"C21VILLECLIENT\",\"country\":\"BE\"}}"
+              },
+              {
+                "name": "Mode de règlement",
+                "value": "Virement"
+              }
+            ]
+          }
+        ],
+        "done": true
+      }
+    },
+    "groupe": {
+      "native": {
+        "observe_utc": "2026-01-02 00:00:00.000000",
+        "donnees": {
+          "id": "2798",
+          "user": "154",
+          "creation": 1767222000,
+          "debut": "2026-01-01 00:00:00",
+          "fin": 0,
+          "etat": "active",
+          "paiement": 1767222000,
+          "grace_debut": "",
+          "grace_fin": "",
+          "destinataire": "",
+          "rue": "",
+          "complement": "",
+          "code_postal": "",
+          "ville": "",
+          "pays": "",
+          "renouvellements": [],
+          "origine": "groupe",
+          "beneficiaires": [
+            {
+              "id": "155",
+              "nom": "C21 BENEF 155 FICTIF",
+              "rue": "21 RUE BENEF 155",
+              "complement": "",
+              "code_postal": "1000",
+              "ville": "FICTIF",
+              "pays": "BE"
+            },
+            {
+              "id": "156",
+              "nom": "C21 BENEF 156 FICTIF",
+              "rue": "21 RUE BENEF 156",
+              "complement": "",
+              "code_postal": "1000",
+              "ville": "FICTIF",
+              "pays": "BE"
+            }
+          ],
+          "beneficiaires_resolus": true,
+          "places": 3,
+          "relation_native": [
+            {
+              "membership_id": 2799,
+              "user_id": 155,
+              "etat": "active",
+              "debut": "2026-11-26 08:46:10",
+              "fin": null
+            },
+            {
+              "membership_id": 2800,
+              "user_id": 156,
+              "etat": "active",
+              "debut": "2026-11-26 08:46:10",
+              "fin": null
+            }
+          ]
+        }
+      },
+      "gel_before": {
+        "version": 1,
+        "numero": "C21-FUSION-GROUPE",
+        "calendrier": [
+          {
+            "code": "C21-FUSION-GROUPE",
+            "type": "regulier",
+            "sortie": "2026-01-15",
+            "cloture": "2026-01-05"
+          },
+          {
+            "code": "DEMO-2026-T2",
+            "type": "regulier",
+            "sortie": "2026-04-15",
+            "cloture": "2026-04-05"
+          },
+          {
+            "code": "DEMO-2026-T3",
+            "type": "regulier",
+            "sortie": "2026-07-15",
+            "cloture": "2026-07-05"
+          },
+          {
+            "code": "DEMO-2026-HS",
+            "type": "hors-serie",
+            "sortie": "2026-08-15",
+            "cloture": "2026-08-05"
+          },
+          {
+            "code": "DEMO-2026-T4",
+            "type": "regulier",
+            "sortie": "2026-10-15",
+            "cloture": "2026-10-05"
+          },
+          {
+            "code": "DEMO-2027-T1",
+            "type": "regulier",
+            "sortie": "2027-01-15",
+            "cloture": "2027-01-05"
+          },
+          {
+            "code": "DEMO-2027-T2",
+            "type": "regulier",
+            "sortie": "2027-04-15",
+            "cloture": "2027-04-05"
+          },
+          {
+            "code": "DEMO-2027-T3",
+            "type": "regulier",
+            "sortie": "2027-07-15",
+            "cloture": "2027-07-05"
+          },
+          {
+            "code": "DEMO-2027-HS",
+            "type": "hors-serie",
+            "sortie": "2027-08-15",
+            "cloture": "2027-08-05"
+          },
+          {
+            "code": "DEMO-2027-T4",
+            "type": "regulier",
+            "sortie": "2027-10-15",
+            "cloture": "2027-10-05"
+          },
+          {
+            "code": "DEMO-2028-T1",
+            "type": "regulier",
+            "sortie": "2028-01-15",
+            "cloture": "2028-01-05"
+          },
+          {
+            "code": "DEMO-2028-T2",
+            "type": "regulier",
+            "sortie": "2028-04-15",
+            "cloture": "2028-04-05"
+          },
+          {
+            "code": "DEMO-2028-T3",
+            "type": "regulier",
+            "sortie": "2028-07-15",
+            "cloture": "2028-07-05"
+          },
+          {
+            "code": "DEMO-2028-HS",
+            "type": "hors-serie",
+            "sortie": "2028-08-15",
+            "cloture": "2028-08-05"
+          },
+          {
+            "code": "DEMO-2028-T4",
+            "type": "regulier",
+            "sortie": "2028-10-15",
+            "cloture": "2028-10-05"
+          }
+        ],
+        "observations": [
+          {
+            "observe_utc": "2026-01-02 00:00:00.000000",
+            "donnees": {
+              "id": "2798",
+              "user": "154",
+              "creation": 1767222000,
+              "debut": "2026-01-01 00:00:00",
+              "fin": 0,
+              "etat": "active",
+              "paiement": 1767222000,
+              "grace_debut": "",
+              "grace_fin": "",
+              "destinataire": "",
+              "rue": "",
+              "complement": "",
+              "code_postal": "",
+              "ville": "",
+              "pays": "",
+              "renouvellements": [],
+              "origine": "groupe",
+              "beneficiaires": [
+                {
+                  "id": "155",
+                  "nom": "C21 BENEF 155 FICTIF",
+                  "rue": "21 RUE BENEF 155",
+                  "complement": "",
+                  "code_postal": "1000",
+                  "ville": "FICTIF",
+                  "pays": "BE"
+                },
+                {
+                  "id": "156",
+                  "nom": "C21 BENEF 156 FICTIF",
+                  "rue": "21 RUE BENEF 156",
+                  "complement": "",
+                  "code_postal": "1000",
+                  "ville": "FICTIF",
+                  "pays": "BE"
+                }
+              ],
+              "beneficiaires_resolus": true,
+              "places": 3,
+              "relation_native": [
+                {
+                  "membership_id": 2799,
+                  "user_id": 155,
+                  "etat": "active",
+                  "debut": "2026-11-26 08:46:10",
+                  "fin": null
+                },
+                {
+                  "membership_id": 2800,
+                  "user_id": 156,
+                  "etat": "active",
+                  "debut": "2026-11-26 08:46:10",
+                  "fin": null
+                }
+              ]
+            }
+          }
+        ],
+        "cloture": "2026-01-05T00:00:00+01:00",
+        "blocs": {
+          "2798": [
+            {
+              "debut": "2026-01-01T01:00:00+01:00",
+              "numeros": [
+                "C21-FUSION-GROUPE",
+                "DEMO-2026-T2",
+                "DEMO-2026-T3",
+                "DEMO-2026-T4",
+                "DEMO-2026-HS"
+              ],
+              "non_resolus": 0
+            }
+          ]
+        }
+      },
+      "lines_before": [
+        {
+          "abonnement_id": "2798",
+          "destinataire_id": "155",
+          "destinataire": "C21 BENEF 155 FICTIF",
+          "rue": "21 RUE BENEF 155",
+          "complement": "",
+          "code_postal": "1000",
+          "ville": "FICTIF",
+          "pays": "BE",
+          "origine": "groupe"
+        },
+        {
+          "abonnement_id": "2798",
+          "destinataire_id": "156",
+          "destinataire": "C21 BENEF 156 FICTIF",
+          "rue": "21 RUE BENEF 156",
+          "complement": "",
+          "code_postal": "1000",
+          "ville": "FICTIF",
+          "pays": "BE",
+          "origine": "groupe"
+        }
+      ],
+      "CSV_before": "abonnement_id,destinataire_id,destinataire,rue,complement,code_postal,ville,pays,origine\n2798,155,\"C21 BENEF 155 FICTIF\",\"21 RUE BENEF 155\",,1000,FICTIF,BE,groupe\n2798,156,\"C21 BENEF 156 FICTIF\",\"21 RUE BENEF 156\",,1000,FICTIF,BE,groupe\n",
+      "lines_after": [
+        {
+          "abonnement_id": "2798",
+          "destinataire_id": "156",
+          "destinataire": "C21 BENEF 156 FICTIF",
+          "rue": "21 RUE BENEF 156",
+          "complement": "",
+          "code_postal": "1000",
+          "ville": "FICTIF",
+          "pays": "BE",
+          "origine": "groupe"
+        }
+      ],
+      "CSV_after": "abonnement_id,destinataire_id,destinataire,rue,complement,code_postal,ville,pays,origine\n2798,156,\"C21 BENEF 156 FICTIF\",\"21 RUE BENEF 156\",,1000,FICTIF,BE,groupe\n",
+      "export_tiers_before": {
+        "data": [
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-fafa5eb609489455c0bc241e95319ebabcd24e89205444353fce34ae7bc2941f",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:46:10.934487"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2798\",\"creation\":1767222000,\"debut\":\"2026-01-01 00:00:00\",\"fin\":0,\"etat\":\"active\",\"paiement\":1767222000,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"groupe\",\"beneficiaires\":[{\"id\":\"156\",\"nom\":\"C21 BENEF 156 FICTIF\",\"rue\":\"21 RUE BENEF 156\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"FICTIF\",\"pays\":\"BE\"}],\"attribution\":[{\"membership_id\":2800,\"user_id\":156,\"etat\":\"active\",\"debut\":\"2026-11-26 08:46:10\",\"fin\":null}]}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-gel",
+            "group_label": "Imagine — liste postale figée",
+            "item_id": "imagine-e20a4f77e0e3843bfac60a2800f6a7bde0cee94a78a9c7ebab55a34bbe4227c7",
+            "data": [
+              {
+                "name": "numero",
+                "value": "C21-FUSION-GROUPE"
+              },
+              {
+                "name": "cloture",
+                "value": "2026-01-05T00:00:00+01:00"
+              },
+              {
+                "name": "observations",
+                "value": "[{\"observe_utc\":\"2026-01-02 00:00:00.000000\",\"donnees\":{\"id\":\"2798\",\"creation\":1767222000,\"debut\":\"2026-01-01 00:00:00\",\"fin\":0,\"etat\":\"active\",\"paiement\":1767222000,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"groupe\",\"beneficiaires\":[{\"id\":\"156\",\"nom\":\"C21 BENEF 156 FICTIF\",\"rue\":\"21 RUE BENEF 156\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"FICTIF\",\"pays\":\"BE\"}],\"attribution\":[{\"membership_id\":2800,\"user_id\":156,\"etat\":\"active\",\"debut\":\"2026-11-26 08:46:10\",\"fin\":null}]}}]"
+              }
+            ]
+          }
+        ],
+        "done": true
+      },
+      "export_tiers_after": {
+        "data": [
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-fafa5eb609489455c0bc241e95319ebabcd24e89205444353fce34ae7bc2941f",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:46:10.934487"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2798\",\"creation\":1767222000,\"debut\":\"2026-01-01 00:00:00\",\"fin\":0,\"etat\":\"active\",\"paiement\":1767222000,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"groupe\",\"beneficiaires\":[{\"id\":\"156\",\"nom\":\"C21 BENEF 156 FICTIF\",\"rue\":\"21 RUE BENEF 156\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"FICTIF\",\"pays\":\"BE\"}],\"attribution\":[{\"membership_id\":2800,\"user_id\":156,\"etat\":\"active\",\"debut\":\"2026-11-26 08:46:10\",\"fin\":null}]}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-gel",
+            "group_label": "Imagine — liste postale figée",
+            "item_id": "imagine-e20a4f77e0e3843bfac60a2800f6a7bde0cee94a78a9c7ebab55a34bbe4227c7",
+            "data": [
+              {
+                "name": "numero",
+                "value": "C21-FUSION-GROUPE"
+              },
+              {
+                "name": "cloture",
+                "value": "2026-01-05T00:00:00+01:00"
+              },
+              {
+                "name": "observations",
+                "value": "[{\"observe_utc\":\"2026-01-02 00:00:00.000000\",\"donnees\":{\"id\":\"2798\",\"creation\":1767222000,\"debut\":\"2026-01-01 00:00:00\",\"fin\":0,\"etat\":\"active\",\"paiement\":1767222000,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"groupe\",\"beneficiaires\":[{\"id\":\"156\",\"nom\":\"C21 BENEF 156 FICTIF\",\"rue\":\"21 RUE BENEF 156\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"FICTIF\",\"pays\":\"BE\"}],\"attribution\":[{\"membership_id\":2800,\"user_id\":156,\"etat\":\"active\",\"debut\":\"2026-11-26 08:46:10\",\"fin\":null}]}}]"
+              }
+            ]
+          }
+        ],
+        "done": true
+      }
+    },
+    "cadeau": {
+      "native": {
+        "observe_utc": "2026-01-02 00:00:00.000000",
+        "donnees": {
+          "id": "2802",
+          "user": "157",
+          "creation": 1767222000,
+          "debut": "2026-01-01 00:00:00",
+          "fin": 0,
+          "etat": "active",
+          "paiement": 1767222000,
+          "grace_debut": "",
+          "grace_fin": "",
+          "destinataire": "C21PRENOMCLIENT C21NOMCLIENT",
+          "rue": "21 RUE CLIENT FICTIVE",
+          "complement": "",
+          "code_postal": "1000",
+          "ville": "C21VILLECLIENT",
+          "pays": "BE",
+          "renouvellements": [],
+          "origine": "offert",
+          "beneficiaires": [
+            {
+              "id": "156",
+              "nom": "C21PRENOMCLIENT C21NOMCLIENT",
+              "rue": "21 RUE CLIENT FICTIVE",
+              "complement": "",
+              "code_postal": "1000",
+              "ville": "C21VILLECLIENT",
+              "pays": "BE"
+            }
+          ],
+          "beneficiaires_resolus": true,
+          "relation_native": {
+            "recipient_user": 156
+          }
+        }
+      },
+      "lines_before": [
+        {
+          "abonnement_id": "2802",
+          "destinataire_id": "156",
+          "destinataire": "C21PRENOMCLIENT C21NOMCLIENT",
+          "rue": "21 RUE CLIENT FICTIVE",
+          "complement": "",
+          "code_postal": "1000",
+          "ville": "C21VILLECLIENT",
+          "pays": "BE",
+          "origine": "offert"
+        }
+      ],
+      "CSV_before": "abonnement_id,destinataire_id,destinataire,rue,complement,code_postal,ville,pays,origine\n2802,156,\"C21PRENOMCLIENT C21NOMCLIENT\",\"21 RUE CLIENT FICTIVE\",,1000,C21VILLECLIENT,BE,offert\n",
+      "lines_after": [
+        {
+          "abonnement_id": "2802",
+          "destinataire_id": "156",
+          "destinataire": "C21PRENOMCLIENT C21NOMCLIENT",
+          "rue": "21 RUE CLIENT FICTIVE",
+          "complement": "",
+          "code_postal": "1000",
+          "ville": "C21VILLECLIENT",
+          "pays": "BE",
+          "origine": "offert"
+        }
+      ],
+      "CSV_after": "abonnement_id,destinataire_id,destinataire,rue,complement,code_postal,ville,pays,origine\n2802,156,\"C21PRENOMCLIENT C21NOMCLIENT\",\"21 RUE CLIENT FICTIVE\",,1000,C21VILLECLIENT,BE,offert\n",
+      "export_before": {
+        "data": [
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-fafa5eb609489455c0bc241e95319ebabcd24e89205444353fce34ae7bc2941f",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:46:10.934487"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2798\",\"creation\":1767222000,\"debut\":\"2026-01-01 00:00:00\",\"fin\":0,\"etat\":\"active\",\"paiement\":1767222000,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"groupe\",\"beneficiaires\":[{\"id\":\"156\",\"nom\":\"C21 BENEF 156 FICTIF\",\"rue\":\"21 RUE BENEF 156\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"FICTIF\",\"pays\":\"BE\"}],\"attribution\":[{\"membership_id\":2800,\"user_id\":156,\"etat\":\"active\",\"debut\":\"2026-11-26 08:46:10\",\"fin\":null}]}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-gel",
+            "group_label": "Imagine — liste postale figée",
+            "item_id": "imagine-e20a4f77e0e3843bfac60a2800f6a7bde0cee94a78a9c7ebab55a34bbe4227c7",
+            "data": [
+              {
+                "name": "numero",
+                "value": "C21-FUSION-GROUPE"
+              },
+              {
+                "name": "cloture",
+                "value": "2026-01-05T00:00:00+01:00"
+              },
+              {
+                "name": "observations",
+                "value": "[{\"observe_utc\":\"2026-01-02 00:00:00.000000\",\"donnees\":{\"id\":\"2798\",\"creation\":1767222000,\"debut\":\"2026-01-01 00:00:00\",\"fin\":0,\"etat\":\"active\",\"paiement\":1767222000,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"groupe\",\"beneficiaires\":[{\"id\":\"156\",\"nom\":\"C21 BENEF 156 FICTIF\",\"rue\":\"21 RUE BENEF 156\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"FICTIF\",\"pays\":\"BE\"}],\"attribution\":[{\"membership_id\":2800,\"user_id\":156,\"etat\":\"active\",\"debut\":\"2026-11-26 08:46:10\",\"fin\":null}]}}]"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-fb7cc1c3fe1e32ba8a1cc03eab01131df7ea7918b86396937d51a218c2cfb898",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:46:11.142758"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2798\",\"creation\":1767222000,\"debut\":\"2026-01-01 00:00:00\",\"fin\":0,\"etat\":\"active\",\"paiement\":1767222000,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"groupe\",\"beneficiaires\":[{\"id\":\"156\",\"nom\":\"C21 BENEF 156 FICTIF\",\"rue\":\"21 RUE BENEF 156\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"FICTIF\",\"pays\":\"BE\"}],\"attribution\":[{\"membership_id\":2800,\"user_id\":156,\"etat\":\"active\",\"debut\":\"2026-11-26 08:46:10\",\"fin\":null}]}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-dbc4652f9112560dbe899c0b7bcab3df164cb6835821e4cc1b60b63c4d86c2d7",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:46:11.273540"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2802\",\"creation\":1767222000,\"debut\":\"2026-01-01 00:00:00\",\"fin\":0,\"etat\":\"active\",\"paiement\":1767222000,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"offert\",\"beneficiaires\":[{\"id\":\"156\",\"nom\":\"C21PRENOMCLIENT C21NOMCLIENT\",\"rue\":\"21 RUE CLIENT FICTIVE\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}],\"attribution\":[{\"user_id\":156}]}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-gel",
+            "group_label": "Imagine — liste postale figée",
+            "item_id": "imagine-e67afc9f69cc843e67fc84703746b7e4567290735518ac877afcfe806e235c9d",
+            "data": [
+              {
+                "name": "numero",
+                "value": "C21-FUSION-CADEAU"
+              },
+              {
+                "name": "cloture",
+                "value": "2026-01-05T00:00:00+01:00"
+              },
+              {
+                "name": "observations",
+                "value": "[{\"observe_utc\":\"2026-01-02 00:00:00.000000\",\"donnees\":{\"id\":\"2802\",\"creation\":1767222000,\"debut\":\"2026-01-01 00:00:00\",\"fin\":0,\"etat\":\"active\",\"paiement\":1767222000,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"offert\",\"beneficiaires\":[{\"id\":\"156\",\"nom\":\"C21PRENOMCLIENT C21NOMCLIENT\",\"rue\":\"21 RUE CLIENT FICTIVE\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}],\"attribution\":[{\"user_id\":156}]}}]"
+              }
+            ]
+          }
+        ],
+        "done": true
+      },
+      "export_after": {
+        "data": [
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-fafa5eb609489455c0bc241e95319ebabcd24e89205444353fce34ae7bc2941f",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:46:10.934487"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2798\",\"creation\":1767222000,\"debut\":\"2026-01-01 00:00:00\",\"fin\":0,\"etat\":\"active\",\"paiement\":1767222000,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"groupe\",\"beneficiaires\":[{\"id\":\"156\",\"nom\":\"C21 BENEF 156 FICTIF\",\"rue\":\"21 RUE BENEF 156\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"FICTIF\",\"pays\":\"BE\"}],\"attribution\":[{\"membership_id\":2800,\"user_id\":156,\"etat\":\"active\",\"debut\":\"2026-11-26 08:46:10\",\"fin\":null}]}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-gel",
+            "group_label": "Imagine — liste postale figée",
+            "item_id": "imagine-e20a4f77e0e3843bfac60a2800f6a7bde0cee94a78a9c7ebab55a34bbe4227c7",
+            "data": [
+              {
+                "name": "numero",
+                "value": "C21-FUSION-GROUPE"
+              },
+              {
+                "name": "cloture",
+                "value": "2026-01-05T00:00:00+01:00"
+              },
+              {
+                "name": "observations",
+                "value": "[{\"observe_utc\":\"2026-01-02 00:00:00.000000\",\"donnees\":{\"id\":\"2798\",\"creation\":1767222000,\"debut\":\"2026-01-01 00:00:00\",\"fin\":0,\"etat\":\"active\",\"paiement\":1767222000,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"groupe\",\"beneficiaires\":[{\"id\":\"156\",\"nom\":\"C21 BENEF 156 FICTIF\",\"rue\":\"21 RUE BENEF 156\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"FICTIF\",\"pays\":\"BE\"}],\"attribution\":[{\"membership_id\":2800,\"user_id\":156,\"etat\":\"active\",\"debut\":\"2026-11-26 08:46:10\",\"fin\":null}]}}]"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-fb7cc1c3fe1e32ba8a1cc03eab01131df7ea7918b86396937d51a218c2cfb898",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:46:11.142758"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2798\",\"creation\":1767222000,\"debut\":\"2026-01-01 00:00:00\",\"fin\":0,\"etat\":\"active\",\"paiement\":1767222000,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"groupe\",\"beneficiaires\":[{\"id\":\"156\",\"nom\":\"C21 BENEF 156 FICTIF\",\"rue\":\"21 RUE BENEF 156\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"FICTIF\",\"pays\":\"BE\"}],\"attribution\":[{\"membership_id\":2800,\"user_id\":156,\"etat\":\"active\",\"debut\":\"2026-11-26 08:46:10\",\"fin\":null}]}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-dbc4652f9112560dbe899c0b7bcab3df164cb6835821e4cc1b60b63c4d86c2d7",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:46:11.273540"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2802\",\"creation\":1767222000,\"debut\":\"2026-01-01 00:00:00\",\"fin\":0,\"etat\":\"active\",\"paiement\":1767222000,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"offert\",\"beneficiaires\":[{\"id\":\"156\",\"nom\":\"C21PRENOMCLIENT C21NOMCLIENT\",\"rue\":\"21 RUE CLIENT FICTIVE\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}],\"attribution\":[{\"user_id\":156}]}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-gel",
+            "group_label": "Imagine — liste postale figée",
+            "item_id": "imagine-e67afc9f69cc843e67fc84703746b7e4567290735518ac877afcfe806e235c9d",
+            "data": [
+              {
+                "name": "numero",
+                "value": "C21-FUSION-CADEAU"
+              },
+              {
+                "name": "cloture",
+                "value": "2026-01-05T00:00:00+01:00"
+              },
+              {
+                "name": "observations",
+                "value": "[{\"observe_utc\":\"2026-01-02 00:00:00.000000\",\"donnees\":{\"id\":\"2802\",\"creation\":1767222000,\"debut\":\"2026-01-01 00:00:00\",\"fin\":0,\"etat\":\"active\",\"paiement\":1767222000,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"offert\",\"beneficiaires\":[{\"id\":\"156\",\"nom\":\"C21PRENOMCLIENT C21NOMCLIENT\",\"rue\":\"21 RUE CLIENT FICTIVE\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}],\"attribution\":[{\"user_id\":156}]}}]"
+              }
+            ]
+          }
+        ],
+        "done": true
+      }
+    },
+    "fresh_after_completed_requests": [
+      {
+        "observe_utc": "2026-11-26 08:46:11.343385",
+        "donnees": {
+          "id": "2798",
+          "user": "154",
+          "creation": 1767222000,
+          "debut": "2026-01-01 00:00:00",
+          "fin": 0,
+          "etat": "active",
+          "paiement": 1767222000,
+          "grace_debut": "",
+          "grace_fin": "",
+          "destinataire": "",
+          "rue": "",
+          "complement": "",
+          "code_postal": "",
+          "ville": "",
+          "pays": "",
+          "renouvellements": [],
+          "origine": "groupe",
+          "beneficiaires": [
+            {
+              "id": "156",
+              "nom": "C21 BENEF 156 FICTIF",
+              "rue": "21 RUE BENEF 156",
+              "complement": "",
+              "code_postal": "1000",
+              "ville": "FICTIF",
+              "pays": "BE"
+            }
+          ],
+          "beneficiaires_resolus": true,
+          "places": 3,
+          "relation_native": [
+            {
+              "membership_id": 2800,
+              "user_id": 156,
+              "etat": "active",
+              "debut": "2026-11-26 08:46:10",
+              "fin": null
+            }
+          ]
+        }
+      },
+      {
+        "observe_utc": "2026-11-26 08:46:11.345323",
+        "donnees": {
+          "id": "2802",
+          "user": "157",
+          "creation": 1767222000,
+          "debut": "2026-01-01 00:00:00",
+          "fin": 0,
+          "etat": "active",
+          "paiement": 1767222000,
+          "grace_debut": "",
+          "grace_fin": "",
+          "destinataire": "C21PRENOMCLIENT C21NOMCLIENT",
+          "rue": "21 RUE CLIENT FICTIVE",
+          "complement": "",
+          "code_postal": "1000",
+          "ville": "C21VILLECLIENT",
+          "pays": "BE",
+          "renouvellements": [],
+          "origine": "offert",
+          "beneficiaires": [
+            {
+              "id": "156",
+              "nom": "C21PRENOMCLIENT C21NOMCLIENT",
+              "rue": "21 RUE CLIENT FICTIVE",
+              "complement": "",
+              "code_postal": "1000",
+              "ville": "C21VILLECLIENT",
+              "pays": "BE"
+            }
+          ],
+          "beneficiaires_resolus": true,
+          "relation_native": {
+            "recipient_user": 156
+          }
+        }
+      }
+    ]
+  },
+  "source_sha256": "b7349a1a90a85441f89bf74949ccc015eb75a7909e9536bf2640dfe63284f414"
+}
