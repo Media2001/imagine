@@ -129,14 +129,14 @@ def boundaries(label):
     before = t.c17.state(); planned = action(); checks = {}; evidence = {}
     try:
         for extension, mime in [('png','image/png'),('jpg','image/jpeg')]:
-            data = (ROOT / ('wp/tests/demo/fixtures/c17-fictif.' + extension)).read_bytes()
+            data = (ROOT / ('wp/plugins/imagine-site/tests/fixtures/c17-fictif.' + extension)).read_bytes()
             Image.open(io.BytesIO(data)).verify()
             status,_,_ = t.upload(owner,t.form(owner),data,name='fictif.pdf')
             stored = t.stored(uid)
             served,headers,body = t.raw(t.file_url(t.form(owner)),owner)
             checks[extension+'_complet_upload_persistant'] = status == 200 and stored['exists'] and stored['sha256'] == hashlib.sha256(data).hexdigest()
             checks[extension+'_lecture_type_octets_exacts'] = served == 200 and headers['content-type'] == mime and body == data
-        pdf = (ROOT/'wp/tests/demo/fixtures/c17-fictif.pdf').read_bytes()
+        pdf = (ROOT/'wp/plugins/imagine-site/tests/fixtures/c17-fictif.pdf').read_bytes()
         pdf = pdf.replace(b'%%EOF', b'%' + b' '*(5242880-len(pdf)-2) + b'\n%%EOF')
         assert len(pdf) == 5242880
         status,_,_ = t.upload(owner,t.form(owner),pdf)
@@ -204,15 +204,50 @@ def all_gates(label):
     cleanup = t.c17.wp('global $wpdb;echo wp_json_encode(["fixtures"=>(int)$wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->users} WHERE user_login LIKE \'c17-fictif-delete-%\'"),"files"=>array_map("basename",glob(Imagine\\Site\\PdfNumero::directory()."/c17-*.bin"))]);')
     state = t.c17.wp('$f=get_option("imagine_c09_fixture");echo wp_json_encode(["att"=>Imagine\\Site\\Justificatifs::etat($f["users"]["P-SOL-ATT"]),"ok"=>Imagine\\Site\\Justificatifs::etat($f["users"]["P-SOL-OK"])]);')
     checks['fixtures_nettoyees_un_fichier_C09_seul'] = cleanup['fixtures']==0 and cleanup['files']==['c17-'+state['att']['blob']+'.bin'] and state['ok']['decision']=='valide'
-    source_paths = [current_source,ROOT/'wp/tests/demo/b02-runtime.php',Path(__file__),ROOT/'wp/plugins/imagine-site/tests/JustificatifReglesTest.php'] + sorted((ROOT/'wp/tests/demo/fixtures').glob('c17-fictif.*'))
+    source_paths = [current_source,ROOT/'wp/tests/demo/b02-runtime.php',Path(__file__),ROOT/'wp/tests/demo/c17-faults.py',ROOT/'wp/plugins/imagine-site/tests/JustificatifReglesTest.php'] + sorted((ROOT/'wp/plugins/imagine-site/tests/fixtures').glob('c17-fictif.*'))
     source_hashes = {p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in source_paths}
     return save(label, {'at':datetime.now(timezone.utc).isoformat(),'scope':'imagine-test-demo','status':'PRET_TECHNIQUE_ATTENTE_ARBITRAGE_RGPD' if all(checks.values()) else 'ECHEC',
         'checks':checks,'total':len(checks),'failures':[k for k,v in checks.items() if v is not True], 'receipts':receipts,'sha256_Justificatifs_readback':actual,'source_sha256':source_hashes,'shared_sha256_before':shared,'shared_sha256_after':shared_after,
         'action8793_before':planned,'action8793_after':after_action,'final_documentary_state':state,'cleanup':cleanup,
         'RGPD':'non arbitre; modele cinq champs conserve; aucune trace audit supplementaire', 'C18_treated':False,'C21_treated':False})
 
+def seal(label):
+    from datetime import datetime, timezone
+    import re
+    result = json.loads((PROOF/'final-V2.json').read_text())
+    assert not result['failures'] and all(result['checks'].values())
+    for name,digest in result['source_sha256'].items():
+        assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest() == digest, 'Source drift: '+name
+    receipts = {}
+    for name,expected in result['receipts'].items():
+        receipt = json.loads((PROOF/(name+'.json')).read_text())
+        assert receipt['total'] == len(receipt['checks']) == expected['total'] and not receipt['failures'] and all(x is True for x in receipt['checks'].values())
+        receipts[name] = expected
+    for name in ['unit-rules','unit-root']:
+        unit = json.loads((PROOF/(name+'.json')).read_text())
+        assert unit['exit']==0 and unit['removed']
+        counts = re.search(r'OK \((\d+) tests?, (\d+) assertions?\)',unit['stdout'])
+        assert counts
+        receipts[name] = {'tests':int(counts[1]),'assertions':int(counts[2]),'container_removed':True}
+    text = (PROOF/'rejouer.log').read_text(encoding='utf-8-sig')
+    markers = re.findall(r'^T01_RESULT (\{[^\r\n]+\})',text,re.M)
+    assert len(markers)==1
+    canonical = json.loads(markers[0]); assert canonical['pass']
+    assert 'T01 IMAGE READY' in (PROOF/'preparer-image.log').read_text(encoding='utf-8-sig')
+    readback = t.c17.wp('echo wp_json_encode(hash_file("sha256",WP_PLUGIN_DIR."/imagine-site/Justificatifs.php"));')
+    assert readback == result['sha256_Justificatifs_readback']
+    native = json.loads((PROOF/'c09-native-final.json').read_text())
+    assert native['exit']==0 and native['total']==len(native['checks'])==382 and not native['failures']
+    assert action() == result['action8793_after']
+    remote = t.c17.wp('$out=[];foreach(json_decode(' + json.dumps(json.dumps(list(result['shared_sha256_after']))) + ',true) as $n){$out[$n]=hash_file("sha256",WP_CONTENT_DIR."/".$n);}echo wp_json_encode($out);')
+    assert remote == result['shared_sha256_after']
+    assert t.c17.state() == json.loads((PROOF/'after-final.json').read_text())['native']
+    return save(label,{'at':datetime.now(timezone.utc).isoformat(),'scope':'imagine-test-demo','status':'PRET_TECHNIQUE_ATTENTE_ARBITRAGE_RGPD','receipts':receipts,'canonical_T01':canonical,'native_C09':{'total':382,'failures':[]},
+        'source_sha256':result['source_sha256'],'sha256_readback_Justificatifs':readback,'shared_sha256_successor_preserved':remote,'action8793_exactly_preserved':True,
+        'RGPD_question5':'ATTENTE_CED_SANS_ARBITRAGE; cinq champs inchanges; aucun audit invente','failures':[]})
+
 if __name__ == '__main__':
     t.c17.profils.guard('imagine-test-demo')
     mode = sys.argv[1]
-    fn = {'b02': b02, 'replacement': replacement, 'deploy': deploy, 'deletion': deletion, 'boundaries': boundaries, 'all': all_gates}[mode]
+    fn = {'b02': b02, 'replacement': replacement, 'deploy': deploy, 'deletion': deletion, 'boundaries': boundaries, 'all': all_gates, 'seal': seal}[mode]
     sys.exit(fn(sys.argv[2] if len(sys.argv)>2 else mode))

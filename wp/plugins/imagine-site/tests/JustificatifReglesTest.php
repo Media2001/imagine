@@ -36,7 +36,7 @@ final class JustificatifReglesTest extends TestCase
     public function testCompletePngAndJpegAreAcceptedFromContent(): void
     {
         foreach (['png' => 'image/png', 'jpg' => 'image/jpeg'] as $extension => $mime) {
-            $bytes = file_get_contents(dirname(__DIR__, 3) . '/tests/demo/fixtures/c17-fictif.' . $extension);
+            $bytes = file_get_contents(__DIR__ . '/fixtures/c17-fictif.' . $extension);
             self::assertSame($mime, JustificatifRegles::mime($bytes));
             self::assertSame([2, 2], array_slice(getimagesizefromstring($bytes), 0, 2));
         }
@@ -44,7 +44,7 @@ final class JustificatifReglesTest extends TestCase
 
     public function testCompletePdfAtExactlyFiveMibIsAccepted(): void
     {
-        $pdf = file_get_contents(dirname(__DIR__, 3) . '/tests/demo/fixtures/c17-fictif.pdf');
+        $pdf = file_get_contents(__DIR__ . '/fixtures/c17-fictif.pdf');
         $pdf = str_replace('%%EOF', '%' . str_repeat(' ', JustificatifRegles::MAX - strlen($pdf) - 2) . "\n%%EOF", $pdf);
         self::assertSame(JustificatifRegles::MAX, strlen($pdf));
         self::assertSame('application/pdf', JustificatifRegles::mime($pdf));

@@ -13,9 +13,9 @@ def run():
     before=t.c17.state();checks={};source=t.stored(uid);path=source['path'];backup=path+'.c17-owned-backup'
     assert source['exists']
     def disk(code):return t.c17.wp('$p='+json.dumps(path)+';$b='+json.dumps(backup)+';'+code)
+    q=t.form(abo,uid)
     try:
         disk('if(file_exists($b)||!is_file($p)||is_link($p))throw new RuntimeException("Unowned target");if(!rename($p,$b)||!mkdir($p,0700))throw new RuntimeException("Probe setup failed");echo "true";')
-        q=t.form(abo,uid)
         s,_,_=t.decision(abo,q)
         checks['decision_si_suppression_impossible_refusee']=s==409
         checks['pas_de_decision_enregistree']=t.stored(uid)['state']==source['state']

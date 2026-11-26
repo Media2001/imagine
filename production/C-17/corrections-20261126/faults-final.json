@@ -1,0 +1,21 @@
+{
+  "checks": {
+    "decision_si_suppression_impossible_refusee": false,
+    "pas_de_decision_enregistree": true,
+    "remplacement_si_suppression_impossible_refuse": true,
+    "disque_exactement_restaure": true,
+    "decision_concurrente_une_seule_reussite": true,
+    "decision_concurrente_disque_supprime": true,
+    "reset_C09_cible": true,
+    "etat_commercial_acces_preserve": true
+  },
+  "total": 8,
+  "failures": [
+    "decision_si_suppression_impossible_refusee"
+  ],
+  "concurrent_statuses": [
+    200,
+    409
+  ],
+  "physical_path_tested": "/var/www/imagine-private-pdf/site-1/c17-681e614369c4015f001b499c7cc8221a.bin"
+}
