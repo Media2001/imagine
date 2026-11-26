@@ -22,6 +22,19 @@ final class ConfidentialiteReglesTest extends TestCase
         self::assertFalse($out['donnees']['beneficiaires_resolus']);
     }
 
+    public function testRelationInactiveEstExporteeEtRetireeSansAdresseDUnTiers(): void
+    {
+        $event = ['donnees' => ['id' => '70', 'user' => '2', 'destinataire' => 'AUTRE',
+            'beneficiaires' => [], 'relation_native' => [['user_id' => 3, 'membership_id' => 80, 'etat' => 'paused'],
+                ['user_id' => 4, 'membership_id' => 81, 'etat' => 'active']]]];
+        $out = ConfidentialiteRegles::postal($event, 3);
+        self::assertNotNull($out);
+        self::assertStringContainsString('paused', json_encode($out));
+        self::assertStringNotContainsString('AUTRE', json_encode($out));
+        self::assertSame([['user_id' => 4, 'membership_id' => 81, 'etat' => 'active']],
+            ConfidentialiteRegles::retirerPostal($event, 3)['donnees']['relation_native']);
+    }
+
     public function testExportPostalNeDivulguePasLesAutresBeneficiaires(): void
     {
         $event = ['observe_utc' => '2026-11-26', 'donnees' => [

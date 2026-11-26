@@ -81,6 +81,7 @@ def run(label):
                 if data['done']: break
             else: raise RuntimeError('Exporter pagination did not finish')
         checks['export_natif_tous_callbacks'] = len(set(c[0] for c in calls)) == len(exporters)
+        checks['export_Imagine_deux_pages_reelles'] = [c[1:] for c in calls if c[0] == 'imagine-site'] == [[1, False], [2, True]]
         assert url and url.startswith(h.BASE + '/')
         from urllib.request import Request
         response = admin.open(Request(url), timeout=45)

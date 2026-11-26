@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-26T06:13:18.509903+00:00",
+  "scope": "imagine-test-demo",
+  "settings": {
+    "woocommerce_erasure_request_removes_order_data": {
+      "stored": "no",
+      "default": "no",
+      "effective": "no"
+    },
+    "woocommerce_erasure_request_removes_subscription_data": {
+      "stored": null,
+      "default": "no",
+      "effective": "no"
+    },
+    "woocommerce_erasure_request_removes_download_data": {
+      "stored": "no",
+      "default": "no",
+      "effective": "no"
+    },
+    "woocommerce_allow_bulk_remove_personal_data": {
+      "stored": "no",
+      "default": "no",
+      "effective": "no"
+    },
+    "personal_data_retention": {
+      "stored": null,
+      "default": null,
+      "effective": null
+    },
+    "wc_memberships_privacy_erasure_request_delete_user_memberships": {
+      "stored": "no",
+      "effective": "no"
+    }
+  }
+}

@@ -41,6 +41,11 @@ def deploy(label):
     actual = hashes(list(targets()))
     for name, p in targets().items():
         allowed = {before['source_before'][name], hashlib.sha256(p.read_bytes()).hexdigest()}
+        for receipt in PROOF.glob('installation*.json'):
+            prior = json.loads(receipt.read_text(encoding='utf-8'))
+            if prior.get('scope') != 'imagine-test-demo':
+                raise RuntimeError('Foreign receipt')
+            allowed.add(prior.get('source_readback', {}).get(name))
         if actual[name] not in allowed:
             raise RuntimeError('Source drift: ' + name)
     native = c19.c18.state()

@@ -54,6 +54,15 @@ if ($phase === 'setup') {
         if (!add_option($key, $v, '', false)) { throw new \RuntimeException('Collision fixture.'); }
         $f['options'][] = $key; update_option('imagine_c21_fixture', $f, false);
     };
+    for ($i = 0; $i < 51; $i++) {
+        $historical = $record;
+        $historical['observe_utc'] = sprintf('2026-11-01 00:00:%02d.000000', $i);
+        $put(EnvoiNatif::RELEVE . $s->get_id() . '_C21-' . $i, $historical);
+    }
+    $put('imagine_extraction_journal_C21-OPERATEUR', ['qui_id' => $id, 'qui_login' => 'imagine-c21-fictif',
+        'quand_utc' => '2026-11-26T00:00:00Z', 'extraction' => 'etat', 'lignes' => 2]);
+    $put('imagine_extraction_journal_C21-SANS-ABONNE', ['qui_id' => 1, 'qui_login' => 'admin',
+        'quand_utc' => '2026-11-26T00:00:00Z', 'extraction' => 'etat', 'lignes' => 7]);
     $put(Decouverte::key($id), ['debut' => '2026-11-01 00:00:00', 'reglages' => Decouverte::defauts(), 'articles' => [167]]);
     // Exercer une décision complète puis un nouveau dépôt : audit + fichier en attente sur le même compte.
     $put(Justificatifs::PREFIX . $id, ['categorie' => 'à préciser', 'decision' => 'valide', 'fin' => '2027-12-31']);

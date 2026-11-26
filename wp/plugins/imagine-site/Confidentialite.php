@@ -39,19 +39,25 @@ final class Confidentialite
     public static function conserverObservation(bool $conserver, array $data): bool
     {
         $id = (int) ($data['user'] ?? 0);
-        if (!$conserver || !$id || !get_userdata($id)) { return false; }
+        if (!$conserver || !$id || !get_userdata($id)) {
+            return false;
+        }
         global $wpdb;
         $done = $wpdb->get_var($wpdb->prepare(
             "SELECT ID FROM {$wpdb->posts} WHERE post_type='user_request' AND post_name='remove_personal_data' AND post_status='request-completed' AND post_author=%d LIMIT 1",
             $id
         ));
-        if ($wpdb->last_error) { throw new \RuntimeException('État de confidentialité indisponible.'); }
+        if ($wpdb->last_error) {
+            throw new \RuntimeException('État de confidentialité indisponible.');
+        }
         return $done === null;
     }
 
     private static function user(string $email): ?\WP_User
     {
-        if (!is_email($email)) { return null; }
+        if (!is_email($email)) {
+            return null;
+        }
         $user = get_user_by('email', $email);
         return $user instanceof \WP_User ? $user : null;
     }
@@ -65,13 +71,17 @@ final class Confidentialite
 
     public static function filtrerPage(mixed $response, int $index, string $email, int $page, int $request, bool $send, string $key): mixed
     {
-        if (!is_array($response) || !isset($response['data']) || !is_array($response['data'])) { return $response; }
+        if (!is_array($response) || !isset($response['data']) || !is_array($response['data'])) {
+            return $response;
+        }
         foreach ($response['data'] as &$row) {
             $row['data'] = array_values(array_filter($row['data'], static fn ($f): bool => !preg_match(
                 '/password|mot de passe|token|jeton|payment.*(?:method|reference)|moyen de paiement|transaction|(?:^|\s)notes?(?:\s|$)|iban|card.*(?:number|last)|numéro.*carte/i',
                 (string) ($f['name'] ?? '')
             )));
-            foreach ($row['data'] as &$field) { $field['value'] = self::texte($field['value']); }
+            foreach ($row['data'] as &$field) {
+                $field['value'] = self::texte($field['value']);
+            }
             unset($field);
         }
         unset($row);
@@ -83,16 +93,22 @@ final class Confidentialite
     {
         $zip = new \ZipArchive();
         try {
-            if ($zip->open($archive) !== true) { throw new \RuntimeException('Archive indisponible.'); }
+            if ($zip->open($archive) !== true) {
+                throw new \RuntimeException('Archive indisponible.');
+            }
             foreach (['index.html' => $html, 'export.json' => $json] as $member => $path) {
                 $bytes = file_get_contents($path);
-                if (!is_string($bytes)) { throw new \RuntimeException('Rapport indisponible.'); }
+                if (!is_string($bytes)) {
+                    throw new \RuntimeException('Rapport indisponible.');
+                }
                 $filtered = self::texte($bytes);
                 if ($filtered !== $bytes && (!$zip->addFromString($member, $filtered) || file_put_contents($path, $filtered) !== strlen($filtered))) {
                     throw new \RuntimeException('Rapport non neutralisé.');
                 }
             }
-            if (!$zip->close()) { throw new \RuntimeException('Archive non enregistrée.'); }
+            if (!$zip->close()) {
+                throw new \RuntimeException('Archive non enregistrée.');
+            }
         } catch (\Throwable $e) {
             @$zip->close();
             wp_delete_file($archive);
@@ -108,12 +124,18 @@ final class Confidentialite
         $numbers = [];
         foreach ($order->get_items() as $item) {
             $n = $item->get_meta('_imagine_achat_numero_id');
-            if ($n !== '') { $numbers[] = (string) $n; }
+            if ($n !== '') {
+                $numbers[] = (string) $n;
+            }
         }
-        if ($numbers) { $fields[] = ['name' => __('Imagine — numéros achetés', 'imagine-site'), 'value' => implode(', ', $numbers)]; }
+        if ($numbers) {
+            $fields[] = ['name' => __('Imagine — numéros achetés', 'imagine-site'), 'value' => implode(', ', $numbers)];
+        }
         foreach (['_imagine_envoi_bloc_debut' => 'Début de bloc postal', '_imagine_acces_grace_debut' => 'Début de grâce', '_imagine_acces_grace_fin' => 'Fin de grâce'] as $key => $name) {
             $v = $order->get_meta($key);
-            if ($v !== '') { $fields[] = ['name' => __($name, 'imagine-site'), 'value' => self::texte($v)]; }
+            if ($v !== '') {
+                $fields[] = ['name' => __($name, 'imagine-site'), 'value' => self::texte($v)];
+            }
         }
         return $fields;
     }
@@ -123,9 +145,14 @@ final class Confidentialite
         global $wpdb;
         $where = [];
         $params = [];
-        foreach ($prefixes as $prefix) { $where[] = 'option_name LIKE %s'; $params[] = $wpdb->esc_like($prefix) . '%'; }
+        foreach ($prefixes as $prefix) {
+            $where[] = 'option_name LIKE %s';
+            $params[] = $wpdb->esc_like($prefix) . '%';
+        }
         $rows = $wpdb->get_results($wpdb->prepare('SELECT option_name,option_value FROM ' . $wpdb->options . ' WHERE ' . implode(' OR ', $where) . ' ORDER BY option_id', ...$params), ARRAY_A);
-        if ($wpdb->last_error) { throw new \RuntimeException('Lecture de confidentialité indisponible.'); }
+        if ($wpdb->last_error) {
+            throw new \RuntimeException('Lecture de confidentialité indisponible.');
+        }
         return $rows;
     }
 
@@ -147,24 +174,40 @@ final class Confidentialite
         $id = $user->ID;
         $records = [];
         foreach (self::META as $key) {
-            if (metadata_exists('user', $id, $key)) { $records[] = ['kind' => 'meta', 'key' => $key, 'value' => get_user_meta($id, $key, true)]; }
+            if (metadata_exists('user', $id, $key)) {
+                $records[] = ['kind' => 'meta', 'key' => $key, 'value' => get_user_meta($id, $key, true)];
+            }
         }
         foreach ([Decouverte::key($id), Justificatifs::PREFIX . $id] as $key) {
             $v = get_option($key, null);
-            if ($v !== null) { $records[] = ['kind' => str_starts_with($key, Justificatifs::PREFIX) ? 'justificatif' : 'decouverte', 'key' => $key, 'value' => $v]; }
+            if ($v !== null) {
+                $records[] = ['kind' => str_starts_with($key, Justificatifs::PREFIX) ? 'justificatif' : 'decouverte', 'key' => $key, 'value' => $v];
+            }
         }
         foreach (self::options([EnvoiNatif::RELEVE, EnvoiNatif::GEL, ...self::JOURNAUX, '_transient_imagine_c16_brouillon_']) as $row) {
-            $v = maybe_unserialize($row['option_value']); $key = $row['option_name'];
-            if (!is_array($v)) { continue; }
+            $v = maybe_unserialize($row['option_value']);
+            $key = $row['option_name'];
+            if (!is_array($v)) {
+                continue;
+            }
             $kind = null;
-            if (str_starts_with($key, EnvoiNatif::RELEVE) && ConfidentialiteRegles::postal($v, $id) !== null) { $kind = 'postal'; }
-            elseif (str_starts_with($key, EnvoiNatif::GEL)) {
+            if (str_starts_with($key, EnvoiNatif::RELEVE) && ConfidentialiteRegles::postal($v, $id) !== null) {
+                $kind = 'postal';
+            } elseif (str_starts_with($key, EnvoiNatif::GEL)) {
                 foreach ($v['observations'] ?? [] as $event) {
-                    if (ConfidentialiteRegles::postal($event, $id) !== null) { $kind = 'gel'; break; }
+                    if (ConfidentialiteRegles::postal($event, $id) !== null) {
+                        $kind = 'gel';
+                        break;
+                    }
                 }
-            } elseif (str_starts_with($key, '_transient_imagine_c16_brouillon_') && self::draft($v, $user)) { $kind = 'brouillon'; }
-            elseif (self::audit($v, $id)) { $kind = 'audit'; }
-            if ($kind !== null) { $records[] = ['kind' => $kind, 'key' => $key, 'value' => $v]; }
+            } elseif (str_starts_with($key, '_transient_imagine_c16_brouillon_') && self::draft($v, $user)) {
+                $kind = 'brouillon';
+            } elseif (self::audit($v, $id)) {
+                $kind = 'audit';
+            }
+            if ($kind !== null) {
+                $records[] = ['kind' => $kind, 'key' => $key, 'value' => $v];
+            }
         }
         return $records;
     }
@@ -172,32 +215,45 @@ final class Confidentialite
     public static function exporter(string $email, int $page = 1): array|\WP_Error
     {
         $user = self::user($email);
-        if (!$user || $page < 1) { return ['data' => [], 'done' => true]; }
+        if (!$user || $page < 1) {
+            return ['data' => [], 'done' => true];
+        }
         try {
-            $all = self::records($user); $data = [];
+            $all = self::records($user);
+            $data = [];
             foreach (array_slice($all, ($page - 1) * self::LIMIT, self::LIMIT) as $row) {
-                $v = $row['value']; $kind = $row['kind'];
+                $v = $row['value'];
+                $kind = $row['kind'];
                 $fields = [];
-                if ($kind === 'meta') { $fields = [$row['key'] => $v]; }
-                elseif ($kind === 'decouverte') { $fields = array_intersect_key($v, array_flip(['debut', 'reglages', 'articles'])); }
-                elseif ($kind === 'justificatif') {
+                if ($kind === 'meta') {
+                    $fields = [$row['key'] => $v];
+                } elseif ($kind === 'decouverte') {
+                    $fields = array_intersect_key($v, array_flip(['debut', 'reglages', 'articles']));
+                } elseif ($kind === 'justificatif') {
                     $fields = array_intersect_key($v, array_flip(['categorie', 'decision', 'fin', 'depot_utc', 'mime', 'taille', 'indisponible']));
                     if (isset($v['blob'])) {
                         $bytes = file_get_contents(Justificatifs::chemin($v));
-                        if (!is_string($bytes)) { throw new \RuntimeException('Document indisponible.'); }
+                        if (!is_string($bytes)) {
+                            throw new \RuntimeException('Document indisponible.');
+                        }
                         $fields['Document déposé (base64)'] = base64_encode($bytes);
                     }
-                } elseif ($kind === 'postal') { $fields = ConfidentialiteRegles::postal($v, $user->ID); }
-                elseif ($kind === 'gel') {
+                } elseif ($kind === 'postal') {
+                    $fields = ConfidentialiteRegles::postal($v, $user->ID);
+                } elseif ($kind === 'gel') {
                     $fields = ['numero' => $v['numero'], 'cloture' => $v['cloture'], 'observations' => []];
                     foreach ($v['observations'] as $event) {
-                        if (($p = ConfidentialiteRegles::postal($event, $user->ID)) !== null) { $fields['observations'][] = $p; }
+                        if (($p = ConfidentialiteRegles::postal($event, $user->ID)) !== null) {
+                            $fields['observations'][] = $p;
+                        }
                     }
                 } elseif ($kind === 'audit') {
                     $fields = ['quand_utc' => $v['quand_utc'] ?? ''];
                     if (($v['option'] ?? '') === Justificatifs::PREFIX . $user->ID) {
                         $fields['opérateur'] = $v['qui_login'] ?? '';
-                        foreach (['avant', 'apres'] as $side) { $fields[$side] = array_intersect_key((array) ($v[$side] ?? []), array_flip(['categorie', 'decision', 'fin'])); }
+                        foreach (['avant', 'apres'] as $side) {
+                            $fields[$side] = array_intersect_key((array) ($v[$side] ?? []), array_flip(['categorie', 'decision', 'fin']));
+                        }
                     }
                     if ((int) ($v['qui_id'] ?? 0) === $user->ID) {
                         $fields['opérateur'] = $v['qui_login'] ?? '';
@@ -208,12 +264,16 @@ final class Confidentialite
                     $fields['commande'] = array_intersect_key($v['commande'] ?? [], array_flip(['adresse', 'produit', 'mode_paiement']));
                 }
                 $pairs = [];
-                foreach ($fields as $name => $value) { $pairs[] = ['name' => (string) $name, 'value' => self::texte($value)]; }
+                foreach ($fields as $name => $value) {
+                    $pairs[] = ['name' => (string) $name, 'value' => self::texte($value)];
+                }
                 $data[] = ['group_id' => 'imagine-' . $kind, 'group_label' => __('Imagine — ', 'imagine-site') . $kind,
                     'item_id' => 'imagine-' . hash('sha256', $row['key']), 'data' => $pairs];
             }
             return ['data' => $data, 'done' => $page * self::LIMIT >= count($all)];
-        } catch (\Throwable) { return new \WP_Error('imagine_export_indisponible', __('Export Imagine incomplet : réessayez après correction du stockage.', 'imagine-site')); }
+        } catch (\Throwable) {
+            return new \WP_Error('imagine_export_indisponible', __('Export Imagine incomplet : réessayez après correction du stockage.', 'imagine-site'));
+        }
     }
 
     /** Compare-and-swap explicite : exception de confidentialité sur le gel, sans réécrire son métier. */
@@ -225,45 +285,71 @@ final class Confidentialite
         } else {
             $sql = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value=%s WHERE option_name=%s AND BINARY option_value=BINARY %s", maybe_serialize($new), $key, maybe_serialize($old));
         }
-        if ($wpdb->query($sql) !== 1) { throw new \RuntimeException('Donnée modifiée ou stockage indisponible.'); }
-        wp_cache_delete($key, 'options'); wp_cache_delete('alloptions', 'options'); wp_cache_delete('notoptions', 'options');
-        if (get_option($key, null) !== $new) { throw new \RuntimeException('Effacement non relu.'); }
+        if ($wpdb->query($sql) !== 1) {
+            throw new \RuntimeException('Donnée modifiée ou stockage indisponible.');
+        }
+        wp_cache_delete($key, 'options');
+        wp_cache_delete('alloptions', 'options');
+        wp_cache_delete('notoptions', 'options');
+        if (get_option($key, null) !== $new) {
+            throw new \RuntimeException('Effacement non relu.');
+        }
     }
 
     private static function retirer(array $row, \WP_User $user): void
     {
-        $id = $user->ID; $v = $row['value']; $key = $row['key']; $new = null;
+        $id = $user->ID;
+        $v = $row['value'];
+        $key = $row['key'];
+        $new = null;
         if ($row['kind'] === 'meta') {
             delete_user_meta($id, $key);
-            if (metadata_exists('user', $id, $key)) { throw new \RuntimeException('Marqueur non effacé.'); }
+            if (metadata_exists('user', $id, $key)) {
+                throw new \RuntimeException('Marqueur non effacé.');
+            }
             return;
         }
         if ($row['kind'] === 'justificatif') {
             Justificatifs::verrou($id, static function () use ($key, $v): void {
-                if (get_option($key, null) !== $v) { throw new \RuntimeException('Dossier modifié.'); }
-                Justificatifs::supprimerFichier($v); self::replace($key, $v, null);
+                if (get_option($key, null) !== $v) {
+                    throw new \RuntimeException('Dossier modifié.');
+                }
+                Justificatifs::supprimerFichier($v);
+                self::replace($key, $v, null);
             });
             return;
         }
-        if ($row['kind'] === 'postal') { $new = ConfidentialiteRegles::retirerPostal($v, $id); }
-        elseif ($row['kind'] === 'gel') {
-            $new = $v; $events = [];
+        if ($row['kind'] === 'postal') {
+            $new = ConfidentialiteRegles::retirerPostal($v, $id);
+        } elseif ($row['kind'] === 'gel') {
+            $new = $v;
+            $events = [];
             foreach ($v['observations'] as $event) {
                 $next = ConfidentialiteRegles::retirerPostal($event, $id);
-                if ($next === null) { unset($new['blocs'][(string) $event['donnees']['id']]); }
-                else { $events[] = $next; }
+                if ($next === null) {
+                    unset($new['blocs'][(string) $event['donnees']['id']]);
+                } else {
+                    $events[] = $next;
+                }
             }
             $new['observations'] = $events;
         } elseif ($row['kind'] === 'audit') {
             $new = $v;
             if (($v['option'] ?? '') === Justificatifs::PREFIX . $id) {
-                $new['option'] = 'imagine_justificatif_efface'; $new['avant'] = null; $new['apres'] = null;
+                $new['option'] = 'imagine_justificatif_efface';
+                $new['avant'] = null;
+                $new['apres'] = null;
             }
-            if ((int) ($v['qui_id'] ?? 0) === $id) { $new['qui_id'] = 0; $new['qui_login'] = 'efface'; }
+            if ((int) ($v['qui_id'] ?? 0) === $id) {
+                $new['qui_id'] = 0;
+                $new['qui_login'] = 'efface';
+            }
         } elseif ($row['kind'] === 'brouillon') {
             $transient = substr($key, strlen('_transient_'));
             delete_transient($transient);
-            if (get_transient($transient) !== false) { throw new \RuntimeException('Brouillon non effacé.'); }
+            if (get_transient($transient) !== false) {
+                throw new \RuntimeException('Brouillon non effacé.');
+            }
             return;
         }
         self::replace($key, $v, $new);
@@ -273,10 +359,15 @@ final class Confidentialite
     {
         $result = ['items_removed' => false, 'items_retained' => false, 'messages' => [], 'done' => true];
         $user = self::user($email);
-        if (!$user || $page < 1) { return $result; }
+        if (!$user || $page < 1) {
+            return $result;
+        }
         try {
             $rows = array_slice(self::records($user), 0, self::LIMIT);
-            foreach ($rows as $row) { self::retirer($row, $user); $result['items_removed'] = true; }
+            foreach ($rows as $row) {
+                self::retirer($row, $user);
+                $result['items_removed'] = true;
+            }
             $result['done'] = self::records($user) === [];
         } catch (\Throwable) {
             $result['items_retained'] = true;
@@ -288,10 +379,14 @@ final class Confidentialite
     public static function supprimerCompte(int $id): void
     {
         $user = get_userdata($id);
-        if (!$user) { return; }
+        if (!$user) {
+            return;
+        }
         do {
             $r = self::effacer($user->user_email);
-            if ($r['items_retained']) { wp_die(esc_html__('Suppression du compte refusée : nettoyage Imagine incomplet.', 'imagine-site'), '', ['response' => 409]); }
+            if ($r['items_retained']) {
+                wp_die(esc_html__('Suppression du compte refusée : nettoyage Imagine incomplet.', 'imagine-site'), '', ['response' => 409]);
+            }
         } while (!$r['done']);
     }
 }
