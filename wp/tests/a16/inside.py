@@ -23,6 +23,7 @@ def run_storage(storage):
 register_post_type('a16_numero', ['public'=>false]);
 register_post_type('a16_article', ['public'=>false]);
 register_taxonomy('a16_theme', 'a16_article');
+register_taxonomy('a16_issue', 'a16_article');
 if (getenv('A16_CONFINED') === '1') {
  global $wpdb; require_once ABSPATH.'wp-includes/pluggable.php';
  if ($wpdb->query('UPDATE wp_posts SET ID=ID WHERE 1=0') !== false
@@ -55,6 +56,13 @@ if (getenv('A16_CONFINED') === '1') {
     b.check(storage+':absent_mapping_key_named',bad.returncode==1 and bad.stderr=='A16_MAPPING_KEY_ABSENT {"key":"absent_key"}\n')
     missing=b.cmd(['python3','/subject/a16/confine.py','--wp-path='+str(site),'--output=/report/'+storage+'-nomap','--audit='+str(audit/'audit.json')],check=False)
     b.check(storage+':mapping_required',missing.returncode==1 and missing.stderr=='A16_MAPPING_REQUIRED\n')
+    variants=[('parent',{'liaison':{'source':'post_parent','cle':'post_parent'}}),('taxonomy',{'numero_source':'taxonomy','numero_type':'a16_issue','date_cle':'_a16_date','liaison':{'source':'taxonomy','cle':'a16_issue'}})]
+    for label,updates in variants:
+        config=json.loads(Path('/subject/a16/correspondance.exemple.json').read_text());config.update(updates);f=OUT/(storage+'-'+label+'.json');f.write_text(json.dumps(config));vout=OUT/(storage+'-'+label)
+        q=inventory(site,vout,audit/'audit.json',f);expected_variant=[dict(row) for row in expected]
+        if label=='taxonomy':
+            for row,tid in zip(expected_variant,reversed(oracle['terms'])):row['id']=tid
+        b.check(storage+':explicit_link_variant:'+label,q.returncode==0 and json.loads((vout/'numeros.json').read_text())['issues']==expected_variant,{'exit':q.returncode,'stderr':q.stderr[:180]})
     repeat=OUT/(storage+'-repeat');p=inventory(site,repeat,audit/'audit.json');b.check(storage+':replay_identical',p.returncode==0 and {x.name:x.read_bytes() for x in repeat.iterdir()}=={x.name:x.read_bytes() for x in dest.iterdir()})
     for label,path in [('exists',dest),('site',site/'forbidden'),('repo',Path('/subject/forbidden')),('ancestor',site.parent/'forbidden'),('root',Path('/forbidden'))]:
         bad=inventory(site,path,audit/'audit.json');b.check(storage+':guard:'+label,bad.returncode==1 and (path==dest or not path.exists()))

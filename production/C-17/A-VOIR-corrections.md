@@ -1,4 +1,40 @@
-# C-17 — réception actuelle après les quatre corrections
+# C-17 — réception actuelle, instructions 1 à 5
+
+**PRET technique. Question 5 résolue par `A-FAIRE-2.md` à 4 h 30 (26 novembre 2026).** La conservation après **validation et refus** est limitée à `categorie`, `decision` (l'état affiché) et `fin` : trois champs, pas un de plus. Date UTC et opérateur sont dans le journal natif C10, ajouté par les hooks `updated_option` / `added_option` existants ; aucune bibliothèque close ni capacité n'a changé. L'écran référent n'affichait pas ces métadonnées et n'en a pas besoin pour sa file en attente : aucune copie n'est recréée dans le dossier. Le journal C10 les affiche déjà.
+
+## À ouvrir maintenant — seul site fictif `http://192.168.129.32:8085`
+
+- `p-sol-att` : `/my-account/#imagine-compte-factures`, **En attente**, dépôt fictif protégé ; `p-sol-ok` : **Validé jusqu'au…**, sans fichier. Le reset documentaire restaure ces deux seuls profils.
+- `e-abo` : `/wp-admin/admin.php?page=imagine-justificatifs`, **Imagine → Justificatifs solidaires**. Valider ou refuser supprime le fichier ; le compte affiche l'état et, si validé, la fin. Ni date de décision ni opérateur ne sont stockés dans le dossier.
+- `e-admin` : `/wp-admin/admin.php?page=imagine-reglages`, **Journal des modifications** : lignes `imagine_justificatif_26` / `27`, date UTC et opérateur dans les colonnes C10. Avant/après ne contiennent aucune référence de fichier. Les catégories restent dans le formulaire C10 existant.
+- Identifiants C09 hors dépôt : `C:\Users\Ced\.imagine-demo\identifiants.json`, clé `c09_accounts`. Ne déposer aucune vraie pièce, aucun compte ou email réel.
+
+## Preuves actuelles — `instruction5-20261126/`
+
+- **`verification-successeur-V2.json`**, sceau en lecture seule des sources, empreintes natives et reçus. Les preuves antérieures ne sont pas réécrites.
+- **`green-final-http.json` : 54/54**, vrais POST de validation et refus, puis relecture WP-CLI dans un autre processus : objet strictement égal aux trois champs attendus. Le journal C10 conserve l'auteur `e-abo` et la date UTC pour les deux décisions ; son écran natif les rend réellement. Fichiers absents après décision, ancien formulaire refusé et reset vérifié.
+- **`journal-failure.json` : 6/6**, panne de l'ajout au journal injectée seulement dans le processus de recette : refus explicite, option restaurée sans fausse décision, compte indisponible sans lien mort, ancien formulaire HTTP refusé 409 ; redépôt/reset réparateur. Aucun mécanisme de panne dans le plugin.
+- **`green-final-b02.json` : 84/84** avec C17 chargé ; **`green-final-c09.json` : 382/382**. Action 8793 `pending`, arguments `{"subscription_id":101}` : ligne entière inchangée. Aucun seed global ni replanification.
+- **`unit-green.json` : 8 tests / 27 assertions** ; **`unit-root.json` : 120 / 615**. **`preparer-image.log`**, puis **`rejouer.log` : T01 canonique 1084 tests / 34363 assertions, zéro échec/erreur/saut**. Conteneurs unitaires hors réseau retirés.
+- Déploiement limité à `JustificatifRegles.php` et `Justificatifs.php`, relus par SHA-256. Ancienne décision fictive P-SOL-OK transférée en trois champs ; **son auteur et sa date initiaux** retrouvés dans C10, non réinventés. Bootstrap, seed global, extension de reset C17, template, C18 et adaptateur C10 inchangés.
+- RED pur et HTTP conservés ; essais de banc initiaux conservés (dossier de sortie absent puis concaténation PHP sans espace corrigés). Ce ne sont pas des échecs applicatifs résiduels.
+
+## Commandes parent — depuis `C:\Users\Ced\imagine`
+
+```powershell
+# Relecture seule du sceau courant ; choisir un nom neuf à chaque passage.
+python wp/tests/demo/c17-instruction5.py seal verification-parent-V2
+
+# Rejouer les parcours réels sous un nom neuf (reset ciblé inclus), puis relecture seule.
+python wp/tests/demo/c17-instruction5.py run parent-parcours
+python wp/tests/demo/c17-instruction5.py seal verification-apres-parcours-V2
+```
+
+`seal` contrôle l'état natif exact et les sources, pas le blob aléatoire régénéré par le reset. Les anciens lanceurs ci-dessous sont historiques : **ne pas les rejouer vers leurs anciens noms**, afin de conserver les reçus. Les quatre instructions techniques antérieures n'ont pas été réimplémentées. Capacité accordée uniquement par le jeu démo, aucune règle tarifaire/d'accès touchée. Aucun traitement de C19, C20 ou C21 ; validation visuelle et relecture restent attendues, aucun GO réel.
+
+---
+
+# Historique du rendu à quatre corrections — attente alors déclarée, désormais résolue
 
 **PRET technique / ATTENTE Ced pour la question RGPD.** `ATTENTE-ARBITRAGE-RGPD.md` isole la question : deux ou cinq champs après décision ? Le modèle existant à cinq champs est conservé, sans audit supplémentaire. Aucun GO réel, clôture ou validation visuelle.
 

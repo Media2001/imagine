@@ -1,4 +1,10 @@
-# C-17 — question 5 en attente de Ced
+# C-17 — question 5 résolue par la consigne de 4 h 30
+
+**26 novembre 2026 : RÉSOLUE.** `A-FAIRE-2.md`, mise à jour de 4 h 30, consigne 0, et `docs/arbitrages-2026-11-26.md`, passage de 4 h, tranchent explicitement : le dossier conserve **catégorie, date de fin et état**, exactement trois champs ; date de décision et opérateur sont dans le **journal C10**, pas dans la fiche. Correction appliquée et éprouvée : `instruction5-20261126/verification-successeur-V2.json`. La capacité dédiée reste attribuée seulement par le jeu de démonstration. Aucun arbitrage supplémentaire n'est attendu sur cette question pour C17 ; l'effacement du journal reste hors de ce lot.
+
+## Historique antérieur conservé, désormais caduc — ne pas appliquer
+
+# C-17 — question 5 en attente de Ced (ancien rendu)
 
 26 novembre 2026. **ATTENTE : donnée personnelle / conservation RGPD. Aucun arbitrage appliqué.** Cette attente reste limitée à C-17 ; les quatre corrections techniques sont prêtes à relire. Elle ne vaut pas autorisation de toucher à une donnée réelle.
 

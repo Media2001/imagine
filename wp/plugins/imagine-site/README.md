@@ -229,17 +229,17 @@ Don, pack, offert et groupé restent des emplacements nommés. Parcours et reçu
 
 Le stockage réutilise `PdfNumero::directory()` et `PdfNumero::privateHeaders()` (seule visibilité de cette méthode passée à public). Les octets sont hors document root, nom aléatoire `c17-<128 bits>.bin`, mode 0600 ; aucun média WordPress ni chemin public créé. Chaque GET/HEAD contrôle à nouveau titulaire ou capacité du référent ; téléchargement en pièce jointe, `nosniff`, CSP sandbox et privé/no-store, jamais de prévisualisation. Les PDF actifs usuels, SVG et contenus exécutables identifiés sont refusés ; ce contrôle n'est pas un antivirus ou une désinfection PDF universelle.
 
-Les opérations et lectures d'un titulaire partagent un verrou MySQL. Les formulaires portent la version de l'état, en plus du nonce natif : un dépôt ou une décision périmé(e) est refusé(e). Validation et refus suppriment le fichier, relisent son absence, puis enregistrent seulement catégorie, décision, date UTC, fin et login de l'opérateur. La suppression impossible interdit aussi le remplacement ; un échec de persistance n'annonce jamais de succès (ancien état éventuellement sans fichier : recharger et redéposer). Le nouveau fichier n'est pas écrit avant retrait du précédent.
+Les opérations et lectures d'un titulaire partagent un verrou MySQL. Les formulaires portent la version de l'état, en plus du nonce natif : un dépôt ou une décision périmé(e) est refusé(e). Validation et refus suppriment le fichier, relisent son absence, puis enregistrent **exactement catégorie, état (`decision`) et fin**, conformément à la consigne du 26 novembre 2026 à 4 h 30. Les hooks d'options ajoutent séparément date UTC et opérateur au **journal C10**, dont les avant/après ne portent aucun blob ou chemin. Si l'audit échoue, la décision est refusée et l'option restaurée ; un fichier déjà retiré impose alors un nouveau dépôt, sans lien mort ni validation possible. Le nouveau fichier n'est pas écrit avant retrait du précédent. La capacité dédiée reste attribuée uniquement par le seed démo.
 
 `imagine_solidaire_categories` est une liste du formulaire **C10 existant**, via hooks, Settings API et journal C10, défaut unique **à préciser**, une catégorie par ligne, inconnue refusée. Une modification de liste ne réécrit pas les décisions anciennes. Les conséquences tarifaires/de droits et la conduite après échéance restent hors de ce raccord, ouvertes chez Imagine.
 
 ```powershell
-python wp/tests/demo/c17-verifier.py --prepare --deploy
+python wp/tests/demo/c17-instruction5.py seal verification-parent-V2
 python wp/tests/demo/c17-visuel.py
 python wp/outils/demo/c17.py --reset
 ```
 
-Le vérificateur exerce PHPUnit ciblé et racine, les vrais formulaires HTTP, les réglages natifs C10, une suppression physiquement impossible et deux décisions concurrentes, puis T01 canonique et les empreintes lues sur le site. `--reset` appelle seulement l'extension documentaire des deux profils C09, aussi appelée par `c09-seed.php` ; il ne rejoue pas le seed global, les échéances ou le reset C16. Le reçu final distingue **C17 prêt techniquement** et la réserve historique C09 A-PAPIER/action 8103 annulée avant C16, inchangée. Les anciens sceaux C16/B04 ne sont pas réécrits pour masquer les nouveaux hashes des entrées partagées. Parcours, captures et limites : `production/C-17/A-VOIR.md`.
+Les recettes historiques couvrent aussi réglages natifs C10, suppression physiquement impossible et décisions concurrentes. La preuve courante de l'instruction 5, dans `production/C-17/instruction5-20261126/`, ajoute les trois champs stricts après validation/refus, journal C10 séparé et refus si ce journal échoue ; `seal` relit les sources, reçus et état natif sans mutation. `--reset` appelle seulement l'extension documentaire des deux profils C09, aussi appelée par `c09-seed.php` ; il ne rejoue pas le seed global, les échéances ou le reset C16. C09 est désormais 382/382, son action 8793 strictement préservée. Les anciens sceaux et reçus restent historiques, sans réécriture. Parcours, captures et limites : `production/C-17/A-VOIR.md`.
 
 ## C-18 — extractions en lecture seule
 

@@ -1,8 +1,8 @@
 # C-17 — réception actuelle
 
-**PRET TECHNIQUE instructions 1–4 / ATTENTE CED question 5 RGPD.** Voir **`A-VOIR-corrections.md`** pour les adresses, commandes et preuves courantes ; **`ATTENTE-ARBITRAGE-RGPD.md`** pour la question non arbitrée. Modèle cinq champs inchangé, aucun audit ajouté. Aucun GO réel.
+**PRET TECHNIQUE instructions 1–5.** La question 5 est **résolue par la consigne de 4 h 30** : après validation comme refus, exactement `categorie`, `decision` (état) et `fin` dans le dossier ; date UTC et opérateur dans le journal C10 via ses hooks natifs. Voir **`A-VOIR-corrections.md`**, section actuelle. Aucun GO réel ni validation visuelle.
 
-Reçu actuel : `corrections-20261126/verification-successeur-V2.json`. B02 : 84 natifs + 51 HTTP, tous verts ; C17 nominal 49 + 8 + 8, corrections 10 + 17 + 10, tous verts. Pur 8/26, plugin 116/587, T01 1080/34335 zéro échec/erreur/saut ; C09 382/382, action 8793 pending pour subscription_id 101 exactement préservée. Bootstrap partagé non réécrit. C18/C21 non touchés.
+Reçu actuel : **`instruction5-20261126/verification-successeur-V2.json`**. Delta instruction 5 : **54/54 HTTP**, B02 **84/84 natifs**, panne du journal **6/6**, C09 **382/382** ; pur **8/27**, plugin **120/615**, T01 canonique **1084/34363**, zéro échec/erreur/saut, image préparée. Action 8793 `pending` pour `subscription_id=101` strictement préservée, deux profils documentaires remis en état. Bootstrap, seed, thème et sources C18 préservés par empreintes. Les quatre corrections précédentes restent acquises et leurs reçus historiques dans `corrections-20261126/` sont intacts. Aucun travail sur C19/C20/C21.
 
 ---
 

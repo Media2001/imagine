@@ -1,0 +1,85 @@
+{
+  "at": "2026-11-26T04:32:07.804150+00:00",
+  "scope": "imagine-test-demo",
+  "status": "PRET_C17_INSTRUCTIONS_1_A_5",
+  "failures": [],
+  "receipts": {
+    "green-final-http": {
+      "checks": 54,
+      "failures": []
+    },
+    "green-final-b02": {
+      "checks": 84,
+      "failures": []
+    },
+    "green-final-c09": {
+      "checks": 382,
+      "failures": []
+    },
+    "journal-failure": {
+      "checks": 6,
+      "failures": []
+    },
+    "unit-green": {
+      "tests": 8,
+      "assertions": 27,
+      "removed": true
+    },
+    "unit-root": {
+      "tests": 120,
+      "assertions": 615,
+      "removed": true
+    }
+  },
+  "canonical_T01": {
+    "tests": 1084,
+    "assertions": 34363,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass": true
+  },
+  "source_sha256": {
+    "wp/plugins/imagine-site/JustificatifRegles.php": "185d72a268c312373fd5db1e9cb5095919e730463ed81cd6992fa0a309c30f22",
+    "wp/plugins/imagine-site/Justificatifs.php": "1459d9bf00107f9da92f4e3738fb7f2d4e2deeff39fb91106bd280b0845bb7a5",
+    "wp/tests/demo/c17-instruction5.py": "d19ac3c4de0c64bd843c613e49a1c1ad0990166007fd0001d06e10e1e7680e53",
+    "wp/tests/demo/c17_http.py": "9a4e2bb2909abea3cd7f40dfd3c5bfbf3be388f51c89c21968555e3b653acff4",
+    "wp/tests/demo/c17-corrections.py": "50638614e4c8f1ad302ebf769eedb70acd55e47310c8f26d2aa645b033b23164",
+    "wp/outils/demo/c17.py": "45716611a3ff8002498f1ddbacefd86e02d4133c4fb6dc5cab7edccbd7dfc8d0",
+    "wp/outils/demo/c17-unit.py": "74e83eaf4845715963a3223c20c9278d9fab82e0f0e4e583db851c553d296899",
+    "wp/plugins/imagine-site/tests/JustificatifReglesTest.php": "3d420ee92e6dc1aa63204eacce9c89d203b4f53375bd940bb624097d0b7e0e15"
+  },
+  "owned_readback": {
+    "plugins/imagine-site/JustificatifRegles.php": "185d72a268c312373fd5db1e9cb5095919e730463ed81cd6992fa0a309c30f22",
+    "plugins/imagine-site/Justificatifs.php": "1459d9bf00107f9da92f4e3738fb7f2d4e2deeff39fb91106bd280b0845bb7a5"
+  },
+  "shared_contract_preserved": {
+    "plugins/imagine-site/imagine-site.php": "fd08869ef6a5c5741e2b7a4340dd55664556591ed496f5cbebc865ded0f2f6d8",
+    "imagine-demo-build/c09-seed.php": "7b7ad355e03208cca739504ff64aef68969e4cfdd8a73fe94e4b3a10382fc382",
+    "imagine-demo-build/c17-profils.php": "cef60aa196026fd53569bcf2d67e95163697d145573801db8d0325469a4541fa",
+    "themes/imagine/parts/mon-compte.php": "4b2c6983c96ee8defafd4eba64e7ccb7dfa1009c48d6dba34478a9a4a1a58ad2",
+    "plugins/imagine-site/ExtractionsAdmin.php": "daf3ed8550b18e382b8a625cac73b2a0ca2545ac46cc10ce2365bc30aba5ad6d",
+    "plugins/imagine-site/ExtractionsRegles.php": "a6fc6d2609df0a0fe02fc8024bc8ee5561d03c31ee158b7f055db4abf897e9f1",
+    "plugins/imagine-pilotage/src/Administration/Reglages.php": "811968e2e48ccb286fb3d236392a30866871470c4aa1120de2b8f0dceaa7c8f2"
+  },
+  "native_exact": true,
+  "action8793_exact": {
+    "action_id": "8793",
+    "hook": "woocommerce_scheduled_subscription_payment",
+    "status": "pending",
+    "scheduled_date_gmt": "2026-11-26 02:13:28",
+    "scheduled_date_local": "2026-11-26 03:13:28",
+    "priority": "1",
+    "args": "{\"subscription_id\":101}",
+    "schedule": "O:30:\"ActionScheduler_SimpleSchedule\":2:{s:22:\"\u0000*\u0000scheduled_timestamp\";i:1795659208;s:41:\"\u0000ActionScheduler_SimpleSchedule\u0000timestamp\";i:1795659208;}",
+    "group_id": "6",
+    "attempts": "0",
+    "last_attempt_gmt": "0000-00-00 00:00:00",
+    "last_attempt_local": "0000-00-00 00:00:00",
+    "claim_id": "0",
+    "extended_args": null
+  },
+  "arbitrage": "A-FAIRE-2 26/11/2026 4h30 consigne 0; trois champs dossier, audit C10",
+  "visual_approval": false,
+  "historical_proofs_rewritten": false
+}

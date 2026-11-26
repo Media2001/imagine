@@ -24,6 +24,14 @@ if (is_file('/subject/a16/Mapping.php')) {
         }
         $check('missing_mapping_field:' . $key, $refused);
     }
+    $taxonomyMapping = $mapping;
+    $taxonomyMapping['numero_source'] = 'taxonomy';
+    try {
+        $accepted = \Imagine\IssueInventory\Mapping::validate($taxonomyMapping) === $taxonomyMapping;
+    } catch (RuntimeException $error) {
+        $accepted = false;
+    }
+    $check('explicit_taxonomy_issue_source', $accepted);
     $bad = $mapping;
     $bad['liaison']['source'] = 'guess';
     try {

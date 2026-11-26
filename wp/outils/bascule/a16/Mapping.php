@@ -9,6 +9,10 @@ final class Mapping
     public static function validate(array $m): array
     {
         $keys = array_keys($m);
+        $keys = array_values(array_diff($keys, ['numero_source']));
+        if (!in_array($m['numero_source'] ?? 'post_type', ['post_type', 'taxonomy'], true)) {
+            throw new \RuntimeException('A16_MAPPING_INVALID');
+        }
         sort($keys);
         if ($keys !== ['article_type', 'date_cle', 'liaison', 'numero_type', 'pdf_cle', 'thematique', 'version']
             || $m['version'] !== 1 || !is_array($m['liaison'])
