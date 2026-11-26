@@ -33,7 +33,8 @@ foreach ([2023, 2024] as $year) {
     }
 }
 $wpdb->query("CREATE TABLE {$wpdb->prefix}fluentform_submissions (id bigint unsigned PRIMARY KEY AUTO_INCREMENT,
-    form_id int unsigned NULL, response longtext NULL, created_at timestamp NULL, updated_at timestamp NULL) ENGINE=InnoDB");
+    form_id int unsigned NULL, response longtext NULL, created_at timestamp NULL,
+    updated_at timestamp NULL) ENGINE=InnoDB");
 $wpdb->query("CREATE TABLE {$wpdb->prefix}a25_unknown_entries (id bigint PRIMARY KEY, form_id int,
     message longtext, submitted_at datetime) ENGINE=InnoDB");
 foreach ([2023, 2024] as $i => $year) {

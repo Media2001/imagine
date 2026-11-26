@@ -19,7 +19,7 @@ def cmd(args, check=True, env=None, data=None, timeout=240):
                        timeout=timeout, env={**os.environ, 'PYTHONIOENCODING': 'utf-8', 'PYTHONUTF8': '1',
                                              'PYTHONDONTWRITEBYTECODE': '1', **(env or {})})
     if check and p.returncode:
-        raise RuntimeError('A24_FIXTURE_COMMAND_FAILED:' + p.stderr[:3000] + p.stdout[:3000])
+        raise RuntimeError('A24_FIXTURE_COMMAND_FAILED')
     return p
 
 

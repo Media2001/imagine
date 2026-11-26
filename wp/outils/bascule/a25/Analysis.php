@@ -45,6 +45,9 @@ final class Analysis
                 : self::pool(array_values(array_filter($comments, static fn(array $row): bool => $row[$field])));
         }
         return ['comments' => $counts, 'forms' => $neutralised ? self::UNKNOWN : self::pool($forms),
-            'guests' => self::pool(array_map(static fn(int $year): array => ['year' => $year, 'state' => 'guest'], $guests))];
+            'guests' => self::pool(array_map(
+                static fn(int $year): array => ['year' => $year, 'state' => 'guest'],
+                $guests
+            ))];
     }
 }

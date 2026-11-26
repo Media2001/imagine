@@ -35,12 +35,15 @@ final class Inventory
         \Imagine\PublicAddresses\Runtime::boot($site);
         global $wpdb;
         $p = $wpdb->prefix;
-        $storage = \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled() ? 'hpos' : 'classic';
+        $hpos = \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+        $storage = $hpos ? 'hpos' : 'classic';
         $neutralised = count(self::select("SELECT option_id FROM `{$p}options`"
             . " WHERE option_name='imagine_staging_disabled_plugins'")) > 0;
         $comments = [];
         // Enumerate all native comments, including custom types/states, but not Woo order notes.
-        foreach (self::select("SELECT comment_ID FROM `{$p}comments` WHERE comment_type <> 'order_note' ORDER BY comment_ID") as $row) {
+        $commentIds = self::select("SELECT comment_ID FROM `{$p}comments`"
+            . " WHERE comment_type <> 'order_note' ORDER BY comment_ID");
+        foreach ($commentIds as $row) {
             $c = get_comment((int) $row['comment_ID']);
             if (!$c instanceof \WP_Comment) {
                 throw new \RuntimeException('A25_NATIVE_OBJECT_UNSUPPORTED');
@@ -66,14 +69,16 @@ final class Inventory
         $forms = [];
         $listed = [];
         $other = 0;
-        $tables = self::select("SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_TYPE='BASE TABLE' ORDER BY TABLE_NAME");
+        $tables = self::select("SELECT TABLE_NAME FROM information_schema.TABLES"
+            . " WHERE TABLE_SCHEMA=DATABASE() AND TABLE_TYPE='BASE TABLE' ORDER BY TABLE_NAME");
         foreach ($tables as $record) {
             $table = $record['TABLE_NAME'];
             if (!str_starts_with($table, $p) || !preg_match('/\A[A-Za-z0-9_]{1,64}\z/D', $table)) {
                 continue;
             }
             $suffix = substr($table, strlen($p));
-            $columns = array_column(self::select("SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='{$table}'"), 'COLUMN_NAME');
+            $columns = array_column(self::select("SELECT COLUMN_NAME FROM information_schema.COLUMNS"
+                . " WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='{$table}'"), 'COLUMN_NAME');
             $known = self::FORMS[$suffix] ?? null;
             // Unknown entry tables: structural evidence, not arbitrary names/values.
             // Avoid field-detail/meta child tables, which would count one message more than once.
@@ -94,8 +99,10 @@ final class Inventory
                 $other++;
             }
             $expr = $date ? "COALESCE(YEAR(`{$date}`),0)" : '0';
-            foreach (self::select("SELECT {$expr} AS year,COUNT(*) AS count FROM `{$table}` GROUP BY {$expr}") as $count) {
-                $forms[] = ['year' => (int) $count['year'], 'state' => $known['name'] ?? 'autre', 'count' => (int) $count['count']];
+            $buckets = self::select("SELECT {$expr} AS year,COUNT(*) AS count FROM `{$table}` GROUP BY {$expr}");
+            foreach ($buckets as $count) {
+                $forms[] = ['year' => (int) $count['year'], 'state' => $known['name'] ?? 'autre',
+                    'count' => (int) $count['count']];
             }
         }
         return ['schema' => 'imagine-a25-visitor-retention-v1', 'read_only' => true, 'storage' => $storage,

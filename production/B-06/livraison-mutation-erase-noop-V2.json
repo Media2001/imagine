@@ -1,0 +1,37 @@
+{
+  "at": "2026-11-26T16:25:30.458260+00:00",
+  "scope": "imagine-test-demo",
+  "case": "privacy",
+  "mutation": "erase_noop",
+  "checks": {
+    "fixture_reelle": true,
+    "fiche_native_nonce": true,
+    "attribut_source_date": true,
+    "audit_ajout": true,
+    "sans_faux_changement": true,
+    "coop_lit": true,
+    "compte_natif_statut_source": true,
+    "auto_refus": true,
+    "nonce_refus": true,
+    "refus_sans_effet": true,
+    "journal_en_echec_refuse": true,
+    "journal_en_echec_restaure_statut": true,
+    "privacy_additive_c21": true,
+    "export_natif_exact": true,
+    "export_autre_personne_absente": true,
+    "effacement_natif_attribut_absent": false,
+    "audit_cible_anonymise": false,
+    "accroche_nommee_sans_ecouteur": true,
+    "aucun_mail_tente": true,
+    "aucun_http_tente": true
+  },
+  "total": 20,
+  "failures": [
+    "effacement_natif_attribut_absent",
+    "audit_cible_anonymise"
+  ],
+  "exit": 1,
+  "stderr": "",
+  "state_preserved": true,
+  "source_sha256": "e94f412f2a7313114a50d6af475195b1a0d5f843268047c8229b1ec350013639"
+}
