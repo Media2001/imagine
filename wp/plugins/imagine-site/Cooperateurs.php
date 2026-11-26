@@ -28,6 +28,27 @@ final class Cooperateurs
             });
         }
         add_action('woocommerce_account_dashboard', [self::class, 'compte'], 25);
+        add_filter('wp_privacy_personal_data_exporters', static function (array $items): array {
+            $items['imagine-cooperateurs'] = ['exporter_friendly_name' => __('Statut coopérateur', 'imagine-site'),
+                'callback' => [self::class, 'exporter']];
+            return $items;
+        });
+        add_filter('wp_privacy_personal_data_erasers', static function (array $items): array {
+            $items['imagine-cooperateurs'] = ['eraser_friendly_name' => __('Statut coopérateur', 'imagine-site'),
+                'callback' => [self::class, 'effacer']];
+            return $items;
+        });
+        add_action('delete_user', static function (int $id): void {
+            $user = get_userdata($id);
+            if ($user) {
+                do {
+                    $r = self::effacer($user->user_email);
+                    if ($r['items_retained']) {
+                        throw new \RuntimeException('Effacement coopérateur incomplet.');
+                    }
+                } while (!$r['done']);
+            }
+        }, 4);
     }
 
     public static function administration(): bool
@@ -120,6 +141,80 @@ final class Cooperateurs
             }
         }
         return $out;
+    }
+
+    public static function exporter(string $email, int $page = 1): array
+    {
+        $user = get_user_by('email', $email);
+        $rows = [];
+        if ($user) {
+            if (metadata_exists('user', $user->ID, self::META)) {
+                $rows['statut'] = [self::META => get_user_meta($user->ID, self::META, true)];
+            }
+            foreach (self::audits($user->ID) as $key => $event) {
+                // Ne jamais exporter le nom/login ni d'autres dossiers de l'opérateur.
+                $rows[$key] = array_intersect_key($event, array_flip(['quand_utc', 'avant', 'apres']));
+            }
+        }
+        $items = [];
+        foreach (array_slice($rows, (max(1, $page) - 1) * 50, 50, true) as $key => $fields) {
+            $data = [];
+            foreach ($fields as $name => $value) {
+                $data[] = ['name' => $name, 'value' => wp_json_encode($value, JSON_UNESCAPED_UNICODE)];
+            }
+            $items[] = ['group_id' => 'imagine-cooperateurs', 'group_label' => __('Statut coopérateur', 'imagine-site'),
+                'item_id' => 'imagine-cooperateur-' . hash('sha256', $key), 'data' => $data];
+        }
+        return ['data' => $items, 'done' => max(1, $page) * 50 >= count($rows)];
+    }
+
+    public static function effacer(string $email, int $page = 1): array
+    {
+        $result = ['items_removed' => false, 'items_retained' => false, 'messages' => [], 'done' => true];
+        $u = get_user_by('email', $email);
+        if (!$u) {
+            return $result;
+        }
+        global $wpdb;
+        $lock = 'imagine_cooperateur_' . $u->ID;
+        $locked = (int) $wpdb->get_var($wpdb->prepare('SELECT GET_LOCK(%s,3)', $lock)) === 1;
+        try {
+            if (!$locked) {
+                throw new \RuntimeException('Statut occupé.');
+            }
+            if (metadata_exists('user', $u->ID, self::META)) {
+                delete_user_meta($u->ID, self::META);
+                wp_cache_delete($u->ID, 'user_meta');
+                if (metadata_exists('user', $u->ID, self::META)) {
+                    throw new \RuntimeException('Attribut non effacé.');
+                }
+                $result['items_removed'] = true;
+            }
+            foreach (array_slice(self::audits($u->ID), 0, 50, true) as $key => $old) {
+                $new = $old;
+                $new['option'] = 'imagine_cooperateur_efface';
+                $new['avant'] = $new['apres'] = null;
+                $sql = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value=%s WHERE option_name=%s AND BINARY option_value=BINARY %s",
+                    maybe_serialize($new), $key, maybe_serialize($old));
+                if ($wpdb->query($sql) !== 1) {
+                    throw new \RuntimeException('Audit modifié.');
+                }
+                wp_cache_delete($key, 'options');
+                if (get_option($key) !== $new) {
+                    throw new \RuntimeException('Audit non relu.');
+                }
+                $result['items_removed'] = true;
+            }
+            $result['done'] = self::audits($u->ID) === [];
+        } catch (\Throwable) {
+            $result['items_retained'] = true;
+            $result['messages'][] = __('Effacement du statut coopérateur incomplet : réessayez.', 'imagine-site');
+        } finally {
+            if ($locked) {
+                $wpdb->get_var($wpdb->prepare('SELECT RELEASE_LOCK(%s)', $lock));
+            }
+        }
+        return $result;
     }
 
     public static function compte(): void

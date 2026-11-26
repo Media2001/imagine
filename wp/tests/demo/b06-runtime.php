@@ -59,6 +59,7 @@ try {
         $exporters = apply_filters('wp_privacy_personal_data_exporters', []);
         $erasers = apply_filters('wp_privacy_personal_data_erasers', []);
         $checks['privacy_additive_c21'] = isset($exporters['imagine-site'], $erasers['imagine-site'], $exporters['imagine-cooperateurs'], $erasers['imagine-cooperateurs']);
+        if ($checks['privacy_additive_c21']) {
         $cb = $exporters['imagine-cooperateurs']['callback'];
         $r = call_user_func($cb, 'b06-fictif@example.org', 1);
         $checks['export_natif_exact'] = $r['done'] && json_decode($r['data'][0]['data'][0]['value'], true) === $state;
@@ -68,6 +69,7 @@ try {
         wp_cache_delete($id, 'user_meta');
         $checks['effacement_natif_attribut_absent'] = $e['items_removed'] && $e['done'] && !metadata_exists('user', $id, C::META);
         $checks['audit_cible_anonymise'] = C::audits($id) === [];
+        }
     } else {
         $_POST = $savedPost; unset($_POST['imagine_cooperateur_oui']);
         C::enregistrer($id);
