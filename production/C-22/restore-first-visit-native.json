@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-26T07:53:55.154588+00:00",
+  "scope": "imagine-test-demo",
+  "removed_first_visit_cache_key": {
+    "umeta_id": "10470",
+    "user_id": "13",
+    "meta_key": "_woocommerce_tracks_anon_id"
+  },
+  "usermeta_exact_original": true,
+  "schedule_business_exact_original": true
+}

@@ -24,7 +24,7 @@ def run(label):
     baseline=c22.state()
     ids=c22.wp('echo wp_json_encode(get_option("imagine_c09_fixture")["users"]);')
     uid=ids['A-PAPIER']; other=ids['A-SEPA4']
-    meta_sql='global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->usermeta} WHERE meta_key=\''+META+'\' ORDER BY umeta_id",ARRAY_A));'
+    meta_sql='global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->usermeta} WHERE meta_key=\''+META+'\' OR (meta_key=\'_woocommerce_tracks_anon_id\' AND user_id='+str(uid)+') ORDER BY umeta_id",ARRAY_A));'
     old_meta=c22.wp(meta_sql)
     checks,blocked,old,observations={},[],None,[]
     observer='mu-plugins/imagine-c22-observer.php'
@@ -120,7 +120,7 @@ def run(label):
             finally:browser.close()
     finally:
         # Restore exact raw rows/absences; retain native append-only C10 audit events.
-        c22.wp('global $wpdb;$wpdb->delete($wpdb->usermeta,["meta_key"=>"'+META+'"]);foreach('+c22.php_json(old_meta)+' as $r){$wpdb->insert($wpdb->usermeta,$r);}wp_cache_flush();echo "true";')
+        c22.wp('global $wpdb;$wpdb->delete($wpdb->usermeta,["meta_key"=>"'+META+'"]);$wpdb->delete($wpdb->usermeta,["meta_key"=>"_woocommerce_tracks_anon_id","user_id"=>'+str(uid)+']);foreach('+c22.php_json(old_meta)+' as $r){$wpdb->insert($wpdb->usermeta,$r);}wp_cache_flush();echo "true";')
         if old is not None:
             c22.wp('global $wpdb;foreach('+c22.php_json(old)+' as $n=>$r){$wpdb->delete($wpdb->options,["option_name"=>$n]);if($r!==null)$wpdb->insert($wpdb->options,$r);}wp_cache_flush();echo "true";')
             checks['C10_restauration_lignes_et_absences']=rows(list(old))==old

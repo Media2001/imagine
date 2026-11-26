@@ -10,15 +10,17 @@ final class NewslettersRegles
     public static function choisir(array $catalogue, array $old, array $selected, string $now, string $origin): array
     {
         self::catalogue($catalogue);
-        if (array_diff($selected, array_column($catalogue, 'id'))
+        if (
+            array_diff($selected, array_column($catalogue, 'id'))
             || !in_array($origin, ['lecteur', 'defaut_creation'], true)
-            || !preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/D', $now)) {
+            || !preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/D', $now)
+        ) {
             throw new \InvalidArgumentException('Choix invalide.');
         }
         foreach ($catalogue as $row) {
             $id = $row['id'];
             $choice = in_array($id, $selected, true);
-            if (!isset($old[$id]) || $old[$id]['choix'] !== $choice) {
+            if (!isset($old[$id]) || $old[$id]['choix'] !== $choice || $old[$id]['origine'] !== $origin) {
                 $old[$id] = ['choix' => $choice, 'date_utc' => $now, 'origine' => $origin];
             }
         }
@@ -34,10 +36,12 @@ final class NewslettersRegles
         $ids = [];
         $main = 0;
         foreach ($rows as $row) {
-            if (!is_array($row) || count($row) !== 4
+            if (
+                !is_array($row) || count($row) !== 4
                 || !is_string($row['id'] ?? null) || !preg_match('/^[a-z][a-z0-9_-]{0,49}$/D', $row['id'])
                 || isset($ids[$row['id']]) || !is_string($row['titre'] ?? null)
-                || !is_string($row['presentation'] ?? null) || !is_bool($row['principale'] ?? null)) {
+                || !is_string($row['presentation'] ?? null) || !is_bool($row['principale'] ?? null)
+            ) {
                 throw new \InvalidArgumentException('Newsletter invalide.');
             }
             foreach (['titre' => 150, 'presentation' => 500] as $key => $max) {

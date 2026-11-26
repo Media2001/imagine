@@ -78,8 +78,10 @@ final class Newsletters
 
     public static function creation(int $id): void
     {
-        if (get_option(self::CREATION, 'non') !== 'oui' || !self::admissible($id)
-            || metadata_exists('user', $id, self::META)) {
+        if (
+            get_option(self::CREATION, 'non') !== 'oui' || !self::admissible($id)
+            || metadata_exists('user', $id, self::META)
+        ) {
             return;
         }
         $main = array_column(array_filter(self::catalogue(), static fn ($r) => $r['principale']), 'id');
@@ -104,11 +106,13 @@ final class Newsletters
         nocache_headers();
         $id = get_current_user_id();
         $post = wp_unslash($_POST);
-        if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST' || !$id
+        if (
+            ($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST' || !$id
             || !isset($post['compte'], $post['_wpnonce'], $post['version'])
             || !is_scalar($post['compte']) || (string) $id !== (string) $post['compte']
             || !is_string($post['_wpnonce']) || !wp_verify_nonce($post['_wpnonce'], 'imagine_newsletters_' . $id)
-            || !is_string($post['version']) || !is_array($post['choix'] ?? [])) {
+            || !is_string($post['version']) || !is_array($post['choix'] ?? [])
+        ) {
             wp_die(esc_html__('Modification des newsletters refusée.', 'imagine-site'), '', ['response' => 403]);
         }
         try {
@@ -134,7 +138,8 @@ final class Newsletters
         }
         if (!self::admissible($id)) {
             echo '<p data-imagine-newsletters-sans-email>' . esc_html__(
-                'Ce compte sans email ne propose pas de préférences de newsletters.', 'imagine-site'
+                'Ce compte sans email ne propose pas de préférences de newsletters.',
+                'imagine-site'
             ) . '</p>';
             return;
         }

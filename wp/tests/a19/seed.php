@@ -31,11 +31,11 @@ foreach ([[$users[0], false, 'a19_fixture'], [$users[0], true, 'cheque'],
     $s->set_billing_first_name('A19_PERSONAL_CANARY');
     $s->update_meta_data('_a19_payment_reference', $i === 0 ? 'A19_TOKEN_PRIVATE_CANARY' : '');
     $s->save();
-    $s->update_dates(['next_payment' => $i === 2 ? '2026-10-01 00:00:00' : '2026-12-26 00:00:00']);
     $s->update_status('active');
     if ($i === 3) {
         $s->update_status('on-hold');
     }
+    $s->update_dates(['next_payment' => $i === 2 ? '2026-10-01 00:00:00' : '2026-12-26 00:00:00']);
     $subs[] = $s;
 }
 $paidParent = wc_create_order(['customer_id' => $users[0]]);
@@ -79,6 +79,8 @@ $token->save();
 $subs[0]->add_payment_token($token);
 update_option('a19_fixture_schema_enabled', 'yes');
 $oracle = [
+    'past_next_native' => wcs_get_subscription($subs[2]->get_id())->get_time('next_payment', 'gmt')
+        === strtotime('2026-10-01 00:00:00 UTC'),
     'plan' => $plan,
     'coherent_link_native' => $link->get_subscription_id() === $subs[0]->get_id(),
     'stale_native_absent' => (new WC_Memberships_Integration_Subscriptions_User_Membership($stale->get_id()))

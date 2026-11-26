@@ -25,10 +25,14 @@ final class NewslettersReglages
                     $fn = $callback['function'];
                     remove_action($hook, $fn, $priority);
                     add_action($hook, static function () use ($fn): void {
-                        ob_start(); $fn(); $html = ob_get_clean();
+                        ob_start();
+                        $fn();
+                        $html = ob_get_clean();
                         $end = strpos($html, '</form>');
-                        if ($end !== false && (str_contains($html, 'value="imagine_reglages"')
-                            || str_contains($html, "value='imagine_reglages'"))) {
+                        if (
+                            $end !== false && (str_contains($html, 'value="imagine_reglages"')
+                            || str_contains($html, "value='imagine_reglages'"))
+                        ) {
                             $html = substr_replace($html, self::champs(), $end, 0);
                         }
                         echo $html;
@@ -65,8 +69,11 @@ final class NewslettersReglages
             }
             return NewslettersRegles::catalogue($rows);
         } catch (\InvalidArgumentException) {
-            add_settings_error(Newsletters::CATALOGUE, 'imagine_newsletters_catalogue_invalide',
-                __('Catalogue invalide : valeur conservée. Identifiants uniques et une seule principale requis.', 'imagine-site'));
+            add_settings_error(
+                Newsletters::CATALOGUE,
+                'imagine_newsletters_catalogue_invalide',
+                __('Catalogue invalide : valeur conservée. Identifiants uniques et une seule principale requis.', 'imagine-site')
+            );
             return Newsletters::catalogue();
         }
     }
@@ -77,8 +84,11 @@ final class NewslettersReglages
             return get_option(Newsletters::CREATION, 'non') === 'oui' ? 'oui' : 'non';
         }
         if (!in_array($value, ['non', 'oui'], true)) {
-            add_settings_error(Newsletters::CREATION, 'imagine_newsletters_creation_invalide',
-                __('Réglage invalide : inscription par défaut fermée.', 'imagine-site'));
+            add_settings_error(
+                Newsletters::CREATION,
+                'imagine_newsletters_creation_invalide',
+                __('Réglage invalide : inscription par défaut fermée.', 'imagine-site')
+            );
             return 'non';
         }
         return $value;

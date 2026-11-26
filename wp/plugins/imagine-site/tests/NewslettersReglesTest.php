@@ -9,6 +9,16 @@ use PHPUnit\Framework\TestCase;
 
 final class NewslettersReglesTest extends TestCase
 {
+    public function testConfirmerUnDefautNInferePasUnConsentementAvantAction(): void
+    {
+        $catalogue = [['id' => 'main', 'titre' => 'Fictif', 'presentation' => 'Fictif.', 'principale' => true]];
+        $old = NewslettersRegles::choisir($catalogue, [], ['main'], '2026-11-26T10:00:00Z', 'defaut_creation');
+        $new = NewslettersRegles::choisir($catalogue, $old, ['main'], '2026-11-26T10:01:00Z', 'lecteur');
+        self::assertSame('defaut_creation', $old['main']['origine']);
+        self::assertSame('lecteur', $new['main']['origine']);
+        self::assertSame('2026-11-26T10:01:00Z', $new['main']['date_utc']);
+    }
+
     public function testChoixDateEtRechargement(): void
     {
         $catalogue = [['id' => 'main', 'titre' => 'Fictif', 'presentation' => 'Fictif.', 'principale' => true]];

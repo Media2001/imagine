@@ -37,6 +37,22 @@ $check('active_payment_date_and_paid_order_counts', ($data['automatic_without_sa
     === [['gateway' => 'fixture', 'count' => 1]] && ($data['active_past_next_payment'] ?? null) === 1
     && ($data['active_without_paid_order'] ?? null) === 1
     && ($data['manual_by_gateway'] ?? null) === [['gateway' => 'cheque', 'count' => 1]]);
+$empty = Analysis::analyse([], [], 200);
+$check('empty_site_has_zero_not_missing_counts', $empty['cross'] === []
+    && $empty['multiple_active_subscription_accounts'] === 0 && $empty['active_without_paid_order'] === 0);
+$boundary = $subs;
+$boundary[11]['next'] = 200;
+$boundary[11]['reference'] = 'unknown';
+$boundary[11]['user'] = 0;
+$boundary[11]['gateway'] = '/PRIVATE_CANARY';
+$edge = Analysis::analyse($boundary, $members, 200);
+$check('strict_clock_boundary_and_guests', $edge['active_past_next_payment'] === 0
+    && $edge['multiple_active_subscription_accounts'] === 0);
+$check('unknown_not_false_payment_absence', $edge['automatic_without_saved_payment'] === []
+    && $edge['automatic_payment_reference_unknown'] === [['gateway' => 'autre', 'count' => 1]]);
+$check('privacy_schema_contains_no_person_identifiers', !str_contains(json_encode($edge), 'CANARY')
+    && !preg_match('/"(?:user|customer|subscription_id|order_id|id)"/', json_encode($edge)));
+$check('every_metric_has_definition', count($data['definitions']) === count($data) - 1);
 $result = ['checks' => $checks, 'exit_code' => (int) in_array('FAIL', array_column($checks, 'status'), true)];
 file_put_contents('/report/unit.json', json_encode($result, JSON_PRETTY_PRINT) . "\n");
 exit($result['exit_code']);

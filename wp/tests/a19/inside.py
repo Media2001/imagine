@@ -19,7 +19,7 @@ def run_storage(storage):
         p=b.wp(site,['eval-file','/opt/a19/seed.php','--use-include']);oracle=json.loads(next(x[9:] for x in p.stdout.splitlines() if x.startswith('A19_JSON=')))
     finally:(site/'wp-config.php').write_text(cfg)
     (OUT/(storage+'-oracle.json')).write_text(json.dumps(oracle))
-    b.check(storage+':native_fixture_relationships',oracle['subscriptions_native']==4 and all(oracle[k] for k in ['coherent_link_native','stale_native_absent','paid_parent_native','paid_renewal_native','renewal_native_link']))
+    b.check(storage+':native_fixture_relationships',oracle['subscriptions_native']==4 and all(oracle[k] for k in ['past_next_native','coherent_link_native','stale_native_absent','paid_parent_native','paid_renewal_native','renewal_native_link']))
     mu=site/'wp-content/mu-plugins/a19-runtime.php';mu.write_text('''<?php
 add_filter('woocommerce_subscription_payment_meta', static function ($meta, $sub) {
  if (get_option('a19_fixture_schema_enabled') === 'yes') {
@@ -76,6 +76,15 @@ if (getenv('A19_CONFINED') === '1') {
             out=OUT/(storage+'-dropin-'+str(index));bad=inventory(site,out,audit/'audit.json')
             b.check(storage+':closed_dropin:'+str(index),bad.returncode==1 and bad.stdout=='' and bad.stderr=='A11_DROPIN_UNSUPPORTED '+json.dumps({'file':name},separators=(',',':'))+'\n' and not out.exists())
         finally:f.unlink()
+    for label,statement in [('define',"define('A19_CONFIG_PRIVATE_CANARY', 'A19_VALUE_PRIVATE_CANARY');"),('const',"const A19_CONFIG_PRIVATE_CANARY = 'A19_VALUE_PRIVATE_CANARY';")]:
+        (site/'wp-config.php').write_text(cfg+'\n'+statement+'\n')
+        try:
+            out=OUT/(storage+'-config-'+label);bad=inventory(site,out,audit/'audit.json')
+            b.check(storage+':config_private_code_only:'+label,bad.returncode==1 and bad.stdout=='' and bad.stderr=='A11_CONFIG_OVERRIDE_UNSUPPORTED\n' and not out.exists())
+        finally:(site/'wp-config.php').write_text(cfg)
+    clockout=OUT/(storage+'-clock')
+    bad=b.cmd(['python3','/subject/a19/confine.py','--wp-path='+str(site),'--output='+str(clockout),'--audit='+str(audit/'audit.json'),'--as-of=2026-02-30T00:00:00Z'],check=False)
+    b.check(storage+':invalid_clock_code_only',bad.returncode==1 and bad.stdout=='' and bad.stderr=='A19_CLOCK_INVALID\n' and not clockout.exists())
     after=b.fingerprint(db);(OUT/(storage+'-db-after.json')).write_text(json.dumps(after));b.check(storage+':all_tables_scheduler_identical',before==after);b.check(storage+':files_identical',files==b.files(site));b.check(storage+':config_not_executed',not Path('/scratch/a02-bootstrap-trap').exists())
     b.sql(db,"UPDATE wp_options SET option_value='no' WHERE option_name='a19_fixture_schema_enabled'")
     variant_before=b.fingerprint(db);variant_out=OUT/(storage+'-unknown');p=inventory(site,variant_out,audit/'audit.json');vd=json.loads((variant_out/'coherence.json').read_text())
