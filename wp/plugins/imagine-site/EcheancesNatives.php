@@ -56,7 +56,7 @@ final class EcheancesNatives
         return $order;
     }
 
-    public static function lire(string $view, int $days): array
+    public static function lire(string $view, int $days, ?int $maintenant = null): array
     {
         if (!function_exists('wc_get_orders') || !function_exists('wcs_get_subscriptions')) {
             throw new \RuntimeException('WooCommerce Subscriptions indisponible.');
@@ -111,6 +111,7 @@ final class EcheancesNatives
                 break;
             }
         }
-        return $view === 'mandats' ? EcheancesRegles::mandats($rows, time(), $days) : EcheancesRegles::echeances($rows, time(), $days);
+        $maintenant ??= time();
+        return $view === 'mandats' ? EcheancesRegles::mandats($rows, $maintenant, $days) : EcheancesRegles::echeances($rows, $maintenant, $days);
     }
 }
