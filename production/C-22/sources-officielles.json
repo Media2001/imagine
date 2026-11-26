@@ -1,0 +1,17 @@
+[
+  {
+    "url": "https://developer.wordpress.org/plugins/settings/settings-api/",
+    "HTTP": 200,
+    "excerpt": "<!DOCTYPE html>\n<html lang=\"en-US\">\n<head>\n\t<meta charset=\"UTF-8\" />\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n<link rel='preload' href='https://developer.wordpress.org/wp-content/mu-plugins/pub-sync/global-fonts/Inter/Inter-latin.woff2' as='font' crossorigin='crossorigin' type='font/woff2' />\n<link rel='preload' href='https://developer.wordpress.org/wp-content/mu-plugins/pub-sync/global-fonts/EB-Garamond/EBGaramond-latin.woff2' as='font' crossorigin='crossorigin' type='font/woff2' />\n<meta name='robots' content='max-image-preview:large' />\n<title>Settings API \u2013 Plugin Handbook | Developer.WordPress.org</title>\n<link rel='dns-prefetch' href='//www.googletagmanager.com' />\n<link rel='preconnect' href='//i0.wp.com' />\n<link rel='preconnect' href='//c0.wp.com' />\n<link rel=\"alternate\" type=\"application/rss+xml\" title=\"WordPress Developer Resources &raquo; Feed\" href=\"https://developer.wordpress.org/feed/\" />\n<link rel=\"alternate\" type=\"application/rss+xml\" ti"
+  },
+  {
+    "url": "https://developer.wordpress.org/reference/hooks/wp_privacy_personal_data_exporters/",
+    "HTTP": 200,
+    "excerpt": "<!DOCTYPE html>\n<html lang=\"en-US\">\n<head>\n\t<meta charset=\"UTF-8\" />\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n<link rel='preload' href='https://developer.wordpress.org/wp-content/mu-plugins/pub-sync/global-fonts/Inter/Inter-latin.woff2' as='font' crossorigin='crossorigin' type='font/woff2' />\n<link rel='preload' href='https://developer.wordpress.org/wp-content/mu-plugins/pub-sync/global-fonts/EB-Garamond/EBGaramond-latin.woff2' as='font' crossorigin='crossorigin' type='font/woff2' />\n<meta name='robots' content='max-image-preview:large' />\n<title>wp_privacy_personal_data_exporters \u2013 Hook | Developer.WordPress.org</title>\n<link rel='dns-prefetch' href='//www.googletagmanager.com' />\n<link rel='preconnect' href='//i0.wp.com' />\n<link rel='preconnect' href='//c0.wp.com' />\n<link rel=\"alternate\" type=\"application/rss+xml\" title=\"WordPress Developer Resources &raquo; Feed\" href=\"https://developer.wordpress.org/feed/\" />\n<link rel=\"alternate\" type=\"application/"
+  },
+  {
+    "url": "https://developer.wordpress.org/reference/hooks/wp_privacy_personal_data_erasers/",
+    "HTTP": 200,
+    "excerpt": "<!DOCTYPE html>\n<html lang=\"en-US\">\n<head>\n\t<meta charset=\"UTF-8\" />\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n<link rel='preload' href='https://developer.wordpress.org/wp-content/mu-plugins/pub-sync/global-fonts/Inter/Inter-latin.woff2' as='font' crossorigin='crossorigin' type='font/woff2' />\n<link rel='preload' href='https://developer.wordpress.org/wp-content/mu-plugins/pub-sync/global-fonts/EB-Garamond/EBGaramond-latin.woff2' as='font' crossorigin='crossorigin' type='font/woff2' />\n<meta name='robots' content='max-image-preview:large' />\n<title>wp_privacy_personal_data_erasers \u2013 Hook | Developer.WordPress.org</title>\n<link rel='dns-prefetch' href='//www.googletagmanager.com' />\n<link rel='preconnect' href='//i0.wp.com' />\n<link rel='preconnect' href='//c0.wp.com' />\n<link rel=\"alternate\" type=\"application/rss+xml\" title=\"WordPress Developer Resources &raquo; Feed\" href=\"https://developer.wordpress.org/feed/\" />\n<link rel=\"alternate\" type=\"application/rs"
+  }
+]

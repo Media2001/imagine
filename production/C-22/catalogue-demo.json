@@ -1,0 +1,51 @@
+{
+  "at": "2026-11-26T07:43:45.560565+00:00",
+  "scope": "imagine-test-demo",
+  "catalogue": [
+    {
+      "id": "lettre-fictive",
+      "titre": "La lettre fictive Imagine",
+      "presentation": "Les nouvelles de la rédaction de démonstration.",
+      "principale": true
+    },
+    {
+      "id": "rencontres-fictives",
+      "titre": "Les rencontres fictives",
+      "presentation": "Des rencontres entièrement inventées pour la démonstration.",
+      "principale": false
+    },
+    {
+      "id": "cooperateurs-fictifs",
+      "titre": "La lettre des coopérateurs fictifs",
+      "presentation": "Une lettre de démonstration pour les coopérateurs.",
+      "principale": false
+    }
+  ],
+  "page": {
+    "ID": 2758,
+    "post_author": "0",
+    "post_date": "2026-11-26 08:43:45",
+    "post_date_gmt": "2026-11-26 07:43:45",
+    "post_content": "[imagine_newsletters]",
+    "post_title": "Nos newsletters",
+    "post_excerpt": "",
+    "post_status": "publish",
+    "comment_status": "closed",
+    "ping_status": "closed",
+    "post_password": "",
+    "post_name": "nos-newsletters",
+    "to_ping": "",
+    "pinged": "",
+    "post_modified": "2026-11-26 08:43:45",
+    "post_modified_gmt": "2026-11-26 07:43:45",
+    "post_content_filtered": "",
+    "post_parent": 0,
+    "guid": "http://192.168.129.32:8085/nos-newsletters/",
+    "menu_order": 0,
+    "post_type": "page",
+    "post_mime_type": "",
+    "comment_count": "0",
+    "filter": "raw"
+  },
+  "auto": "non"
+}

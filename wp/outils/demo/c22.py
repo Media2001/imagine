@@ -16,6 +16,17 @@ def save(label, data):
     assert not p.exists(), p
     p.write_text(json.dumps(dict(at=datetime.now(timezone.utc).isoformat(), scope='imagine-test-demo', **data), ensure_ascii=False, indent=2), encoding='utf-8')
 
+def remove_observer():
+    import subprocess
+    # Only the exact owned, hash-checked temporary observer; no chmod or sibling deletion.
+    name = 'mu-plugins/imagine-c22-observer.php'
+    expected = hashlib.sha256((ROOT/'wp/tests/demo/c22-observer.php').read_bytes()).hexdigest()
+    assert hashes([name])[name] == expected
+    code = '<?php $p="/var/www/html/wp-content/' + name + '";if(hash_file("sha256",$p)!=="' + expected + '"){exit(3);}if(!unlink($p)){exit(4);}echo "removed";'
+    p = subprocess.run(['wsl.exe','-d','Ubuntu','--','docker','exec','-i','--user','root','wp-imagine-test-demo','php'],input=code,capture_output=True,text=True,encoding='utf-8')
+    assert p.returncode == 0 and p.stdout == 'removed', p.stderr
+    assert hashes([name])[name] is None
+
 def baseline(label):
     save(label, {'state':state(), 'source_before':hashes(NAMES)})
 
