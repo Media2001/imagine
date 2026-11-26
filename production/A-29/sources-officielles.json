@@ -1,0 +1,36 @@
+{
+  "scope": "official_documentation_and_public_upstream_only",
+  "installed_code_qualified": false,
+  "sources": [
+    {
+      "url": "https://developer.wordpress.org/plugins/cron/",
+      "bytes": 184857,
+      "sha256": "702a277a68a76cb0806e6227afee21527dfe8828797bd48f8a717a1fdec455e9",
+      "fetched_at_local": "2026-11-26T23:53:17.879812+01:00"
+    },
+    {
+      "url": "https://actionscheduler.org/api/",
+      "bytes": 35497,
+      "sha256": "359a729e0b5b9112f8843bbb4223ce62122adefe7a51263b3079a0f100f613af",
+      "fetched_at_local": "2026-11-26T23:53:18.041230+01:00"
+    },
+    {
+      "url": "https://woocommerce.com/document/subscriptions/develop/action-reference/",
+      "bytes": 270797,
+      "sha256": "92b4cb0e0ee0e07e3d56a2d3f05f4a37c73fb42f16d55b0b4a1702a304e4b713",
+      "fetched_at_local": "2026-11-26T23:53:18.774157+01:00"
+    },
+    {
+      "url": "https://woocommerce.com/document/subscriptions/develop/complete-guide-to-scheduled-events-with-subscriptions/",
+      "bytes": 304592,
+      "sha256": "af401103c9efb845262c62e07881840775900775cdf52e4840294abe6783691c",
+      "fetched_at_local": "2026-11-26T23:53:19.373628+01:00"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/plugins/woocommerce/includes/class-wc-background-emailer.php",
+      "bytes": 4766,
+      "sha256": "eb6de113fc67a43bf4ee5e4dde493f9ec925b85000124b83ba8fbee11eb45842",
+      "fetched_at_local": "2026-11-26T23:53:19.592882+01:00"
+    }
+  ]
+}

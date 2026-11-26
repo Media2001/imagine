@@ -20,6 +20,19 @@ interface Store
     public function insert(string $table, array $row): int;
 }
 
+/** The suffix is validated against the closed, repository-owned policy, never site text. */
+final class FormDecisionRefused extends RuntimeException
+{
+    public function __construct(public readonly string $table)
+    {
+        $policy = json_decode(file_get_contents(__DIR__ . '/form-policy.json'), true, 32, JSON_THROW_ON_ERROR);
+        if (!in_array($table, $policy['tables'], true)) {
+            throw new RuntimeException('FORM_POLICY_REFUSED');
+        }
+        parent::__construct('FORM_MESSAGES_DECISION_REFUSED');
+    }
+}
+
 final class Engine
 {
     private string $target;
@@ -29,6 +42,8 @@ final class Engine
     private array $unknownTypes = [];
     private array $decisions;
     private array $policy;
+    private array $formTables;
+    private array $formTypes;
     public function __construct(private Store $store, private array $context, private string $prefix, array $decisions = [])
     {
         $this->target = Guard::context($context);
@@ -37,6 +52,9 @@ final class Engine
         }
         $catalogue = require __DIR__ . '/schema.php';
         $this->policy = require __DIR__ . '/policy.php';
+        $forms = json_decode(file_get_contents(__DIR__ . '/form-policy.json'), true, 32, JSON_THROW_ON_ERROR);
+        $this->formTables = $forms['tables'];
+        $this->formTypes = $forms['post_types'];
         $this->decisions = $decisions ?: ($context['table_decisions'] ?? []);
         if (!is_array($this->decisions)) {
             throw new RuntimeException('DECISIONS_INVALIDES');
@@ -44,6 +62,9 @@ final class Engine
         $this->inventory = $store->schema();
         foreach ($this->inventory as $table => $columns) {
             $name = str_starts_with($table, $prefix) ? substr($table, strlen($prefix)) : '';
+            if (in_array($name, $this->formTables, true)) {
+                continue; // Known message stores have a mandatory policy, not an unknown-table decision.
+            }
             if (!isset($catalogue[$name])) {
                 $this->unknownTables[$table] = $columns;
             } elseif ($extra = array_values(array_diff($columns, explode(' ', $catalogue[$name])))) {
@@ -60,6 +81,13 @@ final class Engine
             }
         }
         foreach ($this->decisions as $table => $decision) {
+            $kind = str_starts_with($table, $prefix) ? substr($table, strlen($prefix)) : '';
+            if (isset($this->inventory[$table]) && in_array($kind, $this->formTables, true)) {
+                if ($decision !== ['action' => 'vider']) {
+                    throw new FormDecisionRefused($kind);
+                }
+                continue;
+            }
             if (!isset($this->unknownTables[$table]) || !is_array($decision)
                 || array_diff(array_keys($decision), ['action', 'columns'])
                 || !in_array($decision['action'] ?? '', ['garder', 'vider', 'anonymiser'], true)
@@ -86,6 +114,9 @@ final class Engine
             Guard::context(array_replace($context, ['target_url' => $urls[$key]]));
         }
         foreach ($store->rows($prefix . 'posts') as $post) {
+            if (in_array($post['post_type'] ?? '', $this->formTypes, true)) {
+                continue;
+            }
             if (!in_array($post['post_type'] ?? '', ['post', 'page', 'attachment', 'revision', 'nav_menu_item', 'custom_css', 'customize_changeset', 'oembed_cache', 'wp_block', 'wp_template', 'wp_template_part', 'wp_global_styles', 'wp_navigation', 'wp_font_family', 'wp_font_face', 'shop_order', 'shop_order_placehold', 'shop_order_refund', 'shop_subscription', 'shop_coupon', 'product', 'product_variation', 'wc_membership_plan', 'wc_user_membership'], true)) {
                 $this->unknownTypes[] = (string) ($post['post_type'] ?? '');
             }
@@ -317,17 +348,45 @@ final class Engine
         return $ids;
     }
 
+    /** Include only revisions of known messages, never arbitrary magazine descendants. */
+    private function formPostIds(): array
+    {
+        $posts = $this->store->rows($this->prefix . 'posts');
+        $ids = [];
+        foreach ($posts as $post) {
+            if (in_array($post['post_type'] ?? '', $this->formTypes, true)) {
+                $ids[(int) $post['ID']] = true;
+            }
+        }
+        do {
+            $before = count($ids);
+            foreach ($posts as $post) {
+                if (($post['post_type'] ?? '') === 'revision' && isset($ids[(int) ($post['post_parent'] ?? 0)])) {
+                    $ids[(int) $post['ID']] = true;
+                }
+            }
+        } while (count($ids) !== $before);
+        return $ids;
+    }
+
     private function transform(bool $privacy): void
     {
         $disabled = self::decode($this->options()['imagine_staging_disabled_plugins'] ?? serialize([]));
         $disabled = is_array($disabled) ? array_values(array_intersect($disabled, $this->disabledPlugins())) : [];
         $personalPosts = $this->personalPostIds();
+        $formPosts = $this->formPostIds();
         foreach ($this->inventory as $table => $_) {
             if ($this->readOnly($table)) {
                 continue; // Une vue est inventoriée et inspectée, pas réécrite.
             }
             $kind = str_starts_with($table, $this->prefix) ? substr($table, strlen($this->prefix)) : '';
             foreach ($this->store->rows($table) as $row) {
+                if (in_array($kind, $this->formTables, true)
+                    || ($kind === 'posts' && isset($formPosts[(int) ($row['ID'] ?? 0)]))
+                    || ($kind === 'postmeta' && isset($formPosts[(int) ($row['post_id'] ?? 0)]))) {
+                    $this->store->replace($table, $row, null);
+                    continue;
+                }
                 if (isset($this->unknownTables[$table]) && ($this->decisions[$table]['action'] ?? '') === 'vider') {
                     $this->store->replace($table, $row, null);
                     continue;
@@ -601,10 +660,14 @@ final class Engine
             $warnings[] = 'EXTENSION_A_DESACTIVER';
         }
         $transactionPosts = $this->personalPostIds();
+        $formResidues = count($this->formPostIds());
         $admins = 0;
         foreach ($this->inventory as $table => $columns) {
             $kind = str_starts_with($table, $this->prefix) ? substr($table, strlen($this->prefix)) : '';
             $rows = $this->store->rows($table);
+            if (in_array($kind, $this->formTables, true)) {
+                $formResidues += count($rows);
+            }
             if (isset($this->unknownTables[$table])) {
                 $personal = array_values(array_filter($columns, self::personalColumn(...)));
                 $decision = $this->decisions[$table] ?? null;
@@ -697,6 +760,9 @@ final class Engine
                 }
             }
         }
+        if ($formResidues > 0) {
+            $issues[] = 'FORM_MESSAGES_REMAIN';
+        }
         if ($this->unknownColumns) {
             $warnings[] = 'COLONNES_INCONNUES_CONSERVEES';
         }
@@ -740,9 +806,11 @@ final class Engine
             $issues = array_values(array_diff($after['issues'], ['PREUVE_RUNTIME_ABSENTE']));
             $warnings = array_merge($warnings, $after['warnings']);
             $unknown = $after['unknown_tables'];
+            $formResidues = $after['form_message_residues'];
         }
         $disabled = self::decode($this->options()['imagine_staging_disabled_plugins'] ?? serialize([]));
         return ['ok' => !$issues, 'issues' => array_values(array_unique($issues)),
+            'form_message_residues' => $formResidues,
             'warnings' => array_values(array_unique($warnings)), 'unknown_tables' => $unknown,
             'unknown_columns' => $this->unknownColumns,
             'unknown_post_types' => array_values(array_unique($this->unknownTypes)),

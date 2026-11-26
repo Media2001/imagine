@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Imagine\ScheduledTasks\Tests;
 
+use Imagine\ScheduledTasks\Analysis;
+
 $library = dirname(__DIR__, 2) . '/outils/bascule/a29/Analysis.php';
 require is_file($library) ? $library : '/subject/a29/Analysis.php';
-
-use Imagine\ScheduledTasks\Analysis;
 
 $checks = [];
 $check = static function (string $name, bool $ok) use (&$checks): void {

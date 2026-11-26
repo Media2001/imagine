@@ -33,11 +33,12 @@ def read(path):
                 raise ValueError('duplicate receipt')
             d[key] = value
         return d
-    return json.loads(path.read_text(encoding='utf-8'), object_pairs_hook=unique)
+    return json.loads(path.read_text(encoding='utf-8'), object_pairs_hook=unique,
+                      parse_constant=lambda _: (_ for _ in ()).throw(ValueError('nonfinite receipt')))
 
 
 def receipt_valid(data):
-    if type(data) is not dict or type(data.get('exit_code')) is not int or data['exit_code'] != 0:
+    if type(data) is not dict or 'tests' in data or type(data.get('exit_code')) is not int or data['exit_code'] != 0:
         return False
     rows = data.get('checks')
     if type(rows) is not list or not rows:

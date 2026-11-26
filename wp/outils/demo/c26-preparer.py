@@ -121,7 +121,7 @@ def run(label, mutations=False):
                 route = c26.c23.cooperator_routes(f)[0]
                 session = sessions['connecte-sans-abonnement']
                 response = c26.c23.fetch(route['path'], {'Cookie':session['cookie'],'X-WP-Nonce':session['nonce']})
-                verdict = c26.c23.assess_cooperator(route,response,False)
+                verdict = c26.c23.assess_response(response,[route['cooperator_marker']],present=route['present'])
                 assert verdict['leak'] and not verdict['ok']
                 save(label+'-mutation-cooperateurs', {'scope':'imagine-test-demo','total':1,'results':[dict(name=route['name'], public='connecte-sans-abonnement',status=response[0],bytes=len(response[2]),**verdict)],'persisted_fixture':True})
                 mutated.append('cooperateurs')
@@ -141,7 +141,8 @@ def run(label, mutations=False):
                 save(label+'-mutation-cooperative', {'scope':'imagine-test-demo','total':1,'results':[dict(name=route['name'],public='anonyme',status=response[0],bytes=len(response[2]),**verdict)],'persisted_fixture':True})
                 mutated.append('cooperative')
             finally:
-                wp('''global $wpdb;$wpdb->update($wpdb->posts,['post_content'=>''],['ID'=>'''+str(public_page['id'])+''']);clean_post_cache('''+str(public_page['id'])+''');echo wp_json_encode($wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->posts} WHERE ID=%d",'''+str(public_page['id'])+'''),ARRAY_A));''') == original_page or (_ for _ in ()).throw(AssertionError('C26 page publique non restaurée'))
+                restored_page = wp('''global $wpdb;$wpdb->update($wpdb->posts,['post_content'=>''],['ID'=>'''+str(public_page['id'])+''']);clean_post_cache('''+str(public_page['id'])+''');echo wp_json_encode($wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->posts} WHERE ID=%d",'''+str(public_page['id'])+'''),ARRAY_A));''')
+                assert restored_page == original_page, 'C26 page publique non restaurée'
             result['mutations_detected'] = mutated
         prepared = b06.state()
         env = dict(os.environ, PYTHONIOENCODING='utf-8', PYTHONDONTWRITEBYTECODE='1')

@@ -94,6 +94,30 @@ class ExtensionTest(unittest.TestCase):
         self.assertNotEqual(p, Path(os.environ.get('LOCALAPPDATA', str(Path.home()/'AppData/Local'))) / 'Temp')
 
 
+    def test_fermeture_paquet_compte_cases_unique_et_non_vide(self):
+        m = load('c26-verifier', 'wp/tests/demo')
+        routes = [{'name':'page','path':'/soutenir/'}]
+        row = {'name':'page','public':'anonyme','path':'/soutenir/','ok':True,'leak':False,'surface_present':True,'status':200,'bytes':1,'body_sha256':'a'*64}
+        good = {'total':1,'leaks':0,'failures':0,'results':[row]}
+        self.assertTrue(all(m.matrix_checks(good,routes,['anonyme']).values()))
+        for bad in [dict(good,total=2),dict(good,results=[]),dict(good,results=[row,row]),dict(good,results=[dict(row,ok=False)])]:
+            self.assertFalse(all(m.matrix_checks(bad,routes,['anonyme']).values()))
+        self.assertFalse(m.restored({'exact_restoration':{},'business_preserved':True}))
+
+    def test_commande_visiteur_ne_lance_pas_de_mutation(self):
+        import ast
+        m = load('c26')
+        tree = ast.parse(Path(m.__file__).read_text(encoding='utf-8'))
+        self.assertFalse(any(isinstance(n,ast.alias) and n.name in ['subprocess','b05','b06','b08','profils'] for n in ast.walk(tree)))
+        self.assertNotIn('update_option',Path(m.__file__).read_text(encoding='utf-8'))
+
+
+def load_tests(loader, suite, pattern):
+    old = load('c23-tests','wp/tests/demo')
+    suite.addTests(loader.loadTestsFromModule(old))
+    return suite
+
+
 if __name__ == '__main__':
     with patch.object(socket.socket, 'connect', side_effect=AssertionError('réseau interdit')):
         unittest.main(verbosity=2)

@@ -44,6 +44,8 @@ def oracle():
     # Inspect real restored values, but never put canaries into the receipt.
     counts['canary_rows'] = {t: int(query("SELECT COUNT(*) FROM `wp_" + t + "` WHERE payload LIKE 'A28_FICTIVE%';"))
                              for t in TABLES + ['fiction_messages']}
+    counts['post_canary_rows'] = {t: int(query("SELECT COUNT(*) FROM wp_posts WHERE post_type='" + t
+        + "' AND post_content LIKE 'A28_FICTIVE%';")) for t in TYPES + ['fiction_magazine']}
     return counts
 
 
@@ -62,11 +64,21 @@ def reset():
     query('DROP DATABASE ' + subject.DB)
 
 
-def verifier():
-    p = subject.command(['php', '/subject/verifier', '--worker-bridge', '/opt/court/bridge.php'],
+def native(phase):
+    p = subject.command(['php', '/subject/' + phase, '--worker-bridge', '/opt/court/bridge.php'],
         env={'A01_CONTEXT': '/scratch/a01-context.json', 'WP_ENVIRONMENT_TYPE': 'staging'}, check=False)
     report = json.loads(p.stdout)
     return {'exit': p.returncode, 'report': report, 'stderr_empty': not p.stderr}
+
+
+def verifier():
+    return native('verifier')
+
+
+def database_digest():
+    raw = subject.command(['mariadb-dump', '--socket=/scratch/mariadb.sock', '--user=root',
+                           '--skip-comments', '--skip-dump-date', '--compact', subject.DB]).stdout
+    return hashlib.sha256(raw).hexdigest()
 
 
 def main():
@@ -126,12 +138,31 @@ def main():
                     if not baseline and mode == 'default':
                         before = verifier()
                         check(storage + ':clean_verifier_exit_zero', before['exit'] == 0 and before['stderr_empty'])
+                        context_file = Path('/scratch/a01-context.json')
+                        context_original = context_file.read_bytes()
+                        for item in TABLES:
+                            context = json.loads(context_original)
+                            context['table_decisions']['wp_' + item] = {'action': 'garder'}
+                            context_file.write_text(json.dumps(context))
+                            db_before = database_digest()
+                            files_before = subject.manifest(subject.SITE)
+                            try:
+                                refused = native('neutraliser')
+                            finally:
+                                context_file.write_bytes(context_original)
+                            expected = {'ok': False, 'issues': ['STAGING_REFUSE', 'FORM_MESSAGES_DECISION_REFUSED'],
+                                'failure': {'stage': 'native_neutraliser', 'code': 'FORM_MESSAGES_DECISION_REFUSED', 'table': item}}
+                            case.setdefault('native_keep_probes', []).append({'kind': item, 'refused': refused,
+                                'database_unchanged': db_before == database_digest(), 'files_unchanged': files_before == subject.manifest(subject.SITE)})
+                            check(storage + ':native_keep_closed:' + item, refused == {'exit': 78, 'report': expected, 'stderr_empty': True})
+                            check(storage + ':native_keep_immutable:' + item,
+                                  db_before == database_digest() and files_before == subject.manifest(subject.SITE))
                         residue_cases = TABLES + TYPES
                         for item in residue_cases:
                             if item in TABLES:
                                 query("INSERT INTO `wp_" + item + "` VALUES (42,'A28_RESIDUE_FICTIVE');")
                             else:
-                                query("INSERT INTO wp_posts (ID,post_type,post_title,post_content) VALUES (424242,'" + item + "','A28_RESIDUE_FICTIVE','A28_RESIDUE_FICTIVE');")
+                                query("SET SESSION sql_mode=''; INSERT INTO wp_posts (ID,post_type,post_title,post_content) VALUES (424242,'" + item + "','A28_RESIDUE_FICTIVE','A28_RESIDUE_FICTIVE');")
                             refused = verifier()
                             check(storage + ':residue_refused:' + item,
                                   refused['exit'] == 1 and 'FORM_MESSAGES_REMAIN' in refused['report']['issues']

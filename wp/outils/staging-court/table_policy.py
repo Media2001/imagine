@@ -1,4 +1,4 @@
-"""Versioned schema-name policy. Exact operator decisions always win."""
+"""Versioned schema policy; known form messages cannot be retained by a decision."""
 import fnmatch
 import json
 from pathlib import Path
@@ -21,9 +21,21 @@ class Policy:
         self.data = load()
         self.known = known
         self.decisions = decisions or {}
+        try:
+            forms = json.loads((Path(__file__).resolve().parent.parent / 'staging/form-policy.json').read_text(encoding='utf-8'))
+            assert forms['version'] == 1 and set(forms) == {'version', 'tables', 'post_types'}
+            assert isinstance(forms['tables'], list) and forms['tables']
+            assert all(isinstance(t, str) and t.isascii() and t.replace('_', '').isalnum() for t in forms['tables'])
+            self.form_tables = forms['tables']
+        except (OSError, ValueError, KeyError, TypeError, AssertionError):
+            raise Refusal('TABLE_POLICY_REFUSED') from None
 
     def resolve(self, table, prefix):
         kind = table[len(prefix):] if prefix and table.startswith(prefix) else ''
+        if kind in self.form_tables:
+            if table in self.decisions and self.decisions[table] != {'action': 'vider'}:
+                raise Refusal('FORM_MESSAGES_DECISION_REFUSED', {'table': kind})
+            return {'action': 'vider'}, 'formulaires'
         family = next((r['pattern'] for r in self.data['families'] if fnmatch.fnmatchcase(kind, r['pattern'])), None)
         if table in self.decisions:
             value = self.decisions[table]

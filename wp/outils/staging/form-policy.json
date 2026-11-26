@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "tables": [
+    "fluentform_submissions",
+    "fluentform_entry_details",
+    "fluentform_submission_meta",
+    "fluentform_logs",
+    "fluentform_draft_submissions",
+    "ff_scheduled_actions"
+  ],
+  "post_types": [
+    "flamingo_inbound",
+    "flamingo_contact"
+  ]
+}

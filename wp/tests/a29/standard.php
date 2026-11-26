@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
+use Imagine\ScheduledTasks\Analysis;
+
 // Parent-only installed-source gate. No WordPress bootstrap or provider call.
 require '/subject/a29/Analysis.php';
-
-use Imagine\ScheduledTasks\Analysis;
 
 $site = $argv[1] ?? '';
 $woo = $site . '/wp-content/plugins/woocommerce';

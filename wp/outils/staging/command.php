@@ -13,6 +13,10 @@ final class Command
 {
     public static function diagnostic(\Throwable $error, string $phase): array
     {
+        if ($error instanceof FormDecisionRefused) {
+            return ['stage' => 'native_' . (in_array($phase, ['neutraliser', 'anonymiser', 'verifier'], true) ? $phase : 'command'),
+                'code' => 'FORM_MESSAGES_DECISION_REFUSED', 'table' => $error->table];
+        }
         $file = str_replace('\\', '/', $error->getFile());
         $relative = str_contains($file, '/wp-content/') ? explode('/wp-content/', $file, 2)[1] : null;
         if ($relative !== null && (!preg_match('~^[a-zA-Z0-9_./-]{1,400}$~D', $relative)

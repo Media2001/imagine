@@ -19,7 +19,7 @@ LABEL = 'org.imagine.a01-court'
 DOCKER = ['wsl.exe', '-d', 'Ubuntu', '--', 'docker'] if os.name == 'nt' else ['docker']
 DEFAULT_IMAGE = 'sha256:b2ffa6ad01ffacc6d31b176232c8d0779c0320daba381e05cbbd80f56d5327a0'
 SUBJECT = ['neutraliser', 'anonymiser', 'verifier', 'command.php', 'lib.php', 'schema.php',
-           'files.php', 'pdo-store.php', 'runtime-probe.php', 'policy.php', 'mu-plugins/000-imagine-staging-safety.php']
+           'files.php', 'pdo-store.php', 'runtime-probe.php', 'policy.php', 'form-policy.json', 'mu-plugins/000-imagine-staging-safety.php']
 FIXTURE = ['inside.py', 'fixture.php', 'snapshot.php', 'oracle.php', 'mutate.php', 'db-probe.php',
            'mail-probe.php', 'worker-bridge.php', 'subject-preflight.php', 'fidelity.php', 'fidelity-mu.php',
            'licensed-fixture.php', 'subject-adapter.json']
@@ -47,6 +47,7 @@ def payload(test):
               for f in ['archive.py', 'archive_policy.py', 'sql_stream.py', 'sql_compat.py', 'sql_diagnostic.py', 'diagnosis.py', 'table_policy.py', 'politique-tables.json', 'inside.py', 'bridge.php', 'core_source.py', 'diagnostics.py', 'database_only.py']]
     pairs.append((ROOT / 'wp/outils/staging-wp-integration/worker/worker.py', 'opt/court/legacy_importer.py'))
     pairs.append((ROOT / 'wp/outils/staging/schema.php', 'opt/staging/schema.php'))
+    pairs.append((ROOT / 'wp/outils/staging/form-policy.json', 'opt/staging/form-policy.json'))
     if test:
         pairs += [(ROOT / 'wp/tests/staging-e2e' / f, 'opt/e2e/' + f) for f in FIXTURE + ['harness.py', 'test_harness.py']]
         pairs += [(ROOT / 'wp/tests/a01-court' / f, 'opt/court/' + f)

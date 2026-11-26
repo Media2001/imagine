@@ -54,6 +54,9 @@ def main():
             '--pids-limit', '256', '--no-healthcheck', '--log-driver', 'none', '--entrypoint', 'sleep', image['Id'], 'infinity'])
         created = True
         receipt['isolation_before'] = publish.offline_isolation(name)
+        (out / 'handle.json').write_text(json.dumps({'name': name, 'label': LABEL, 'value': 'true',
+            'image': image['Id'], 'isolation': receipt['isolation_before']}, indent=2), encoding='utf-8')
+        print('A28_RUNNER ' + name, flush=True)
         publish.call(['start', name])
         payload, manifest = publish.offline_runner.payload(True)
         publish.call(['exec', '-i', name, 'tar', '-xf', '-', '-C', '/'], payload)
