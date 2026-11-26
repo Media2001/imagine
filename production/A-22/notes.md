@@ -1,5 +1,13 @@
 # A-22 — checkpoints de reprise
 
+## 2026-11-26 18 h 30 CET — dernier gardien figé ; A20 livré, autres rejeux en cours
+
+Le dernier contrôle a ajouté une borne **avant** le calcul des empreintes finales (RED réel : fichier de 16 Mio + 1 accepté par le lieur, puis refus après garde). Les 25 tests Python A22 passent réellement. Pour ne pas livrer de photographie périmée, les trois premières matrices de cette correction ont été annulées, sans revendiquer un retour normal ; aucun descendant contrôleur restant. Un seul orphelin exact, `imagine-a20-prices-ab27160d5efc`, a été vérifié par nom/label/image/isolation puis supprimé et son absence sémantique relue ; reçu en scratch `cancelled-first-matrices.json`.
+
+**Seules les matrices `*-final-02` de `a22-corrections-1753/` sont candidates.** Processus : A22 proc_230fc2e7ee80, A20 proc_7a749d70b784, A21 proc_0dc9ddc05e9f. Aucun changement de source depuis leurs lancements. Les 120 répertoires nominaux historiques sont aussi acceptés par les contrats corrigés ; ce contrôle de compatibilité ne remplace pas les rejeux natifs neufs.
+
+A20 02 est terminé à **code réel 0**, paquet neuf publié après comparaison exacte des sources/dépendances exécutées, vérificateur 111 PASS par console, sept mutations/sondes de miroir vertes et manifeste racine relu exact après les dernières notes. Canaris additionnels : 25 par console. A21 et A22 poursuivent leurs vraies matrices ; aucun résultat anticipé. Styles finaux A22 (quatre fichiers PHP) et A21 réellement verts, zéro erreur/avertissement et suppressions exactes relues. Aucun PRET ni gate parent.
+
 ## 2026-11-26 18 h 16 CET — fusion de 17 h 53, reprise non PRET
 
 Les PRET A20/A21/A22 de 17 h 06 sont retirés, conservés sous `C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/`. Aucun PRET ne sera créé par cet enfant. Les paquets 07/04 ci-dessous sont désormais **historiques**, pas des preuves des sources corrigées.

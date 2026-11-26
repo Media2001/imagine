@@ -6,8 +6,17 @@ use Imagine\Site\Personnalisation as P;
 
 if (!defined('WP_CLI') || !WP_CLI || wp_get_environment_type() !== 'local'
     || get_option('imagine_demo_site') !== 'imagine-test-demo') { throw new RuntimeException('Démo seule.'); }
+if (!class_exists(P::class) && is_file(WP_PLUGIN_DIR . '/imagine-site/Personnalisation.php')) {
+    require_once WP_PLUGIN_DIR . '/imagine-site/PersonnalisationRegles.php';
+    require_once WP_PLUGIN_DIR . '/imagine-site/Personnalisation.php';
+    P::register();
+}
 if (!class_exists(P::class)) {
     echo wp_json_encode(['total'=>1,'failures'=>['formulaire_natif_absent']]); WP_CLI::halt(1);
+}
+if (!class_exists(Imagine\Site\PersonnalisationReglages::class) && is_file(WP_PLUGIN_DIR . '/imagine-site/PersonnalisationReglages.php')) {
+    require_once WP_PLUGIN_DIR . '/imagine-site/PersonnalisationReglages.php';
+    Imagine\Site\PersonnalisationReglages::register();
 }
 $checks = [];
 $mutation = $GLOBALS['imagine_c24_mutation'] ?? '';
@@ -58,6 +67,28 @@ try {
     $checks['sansmail_rubrique_presente_sans_case']=str_contains($html,'id="ma-personnalisation"') && str_contains($html,'sans email') && !str_contains($html,'name="consentement"');
     try { P::enregistrer($sans,[],true,P::version($sans),'consentement');$checks['sansmail_consentement_refuse']=false; }
     catch (RuntimeException) { $checks['sansmail_consentement_refuse']=true; }
+    $checks['reglages_additifs_presents']=class_exists(Imagine\Site\PersonnalisationReglages::class);
+    if ($checks['reglages_additifs_presents']) {
+        $settings=Imagine\Site\PersonnalisationReglages::class;
+        $fifth=['id'=>'cinquieme-c24-fictive','titre'=>'Cinquième fictive','multiple'=>true,'choix'=>[['id'=>'cinquieme-choix-c24','titre'=>'Choix fictif']]];
+        $next=[...$rows,$fifth];
+        $clean=$settings::nettoyer($next); update_option(P::CATALOGUE,$clean,false);
+        $checks['cinquieme_par_donnee']=P::catalogue()===$next;
+        ob_start();P::compte();$html=ob_get_clean();
+        $checks['cinquieme_dans_formulaire']=str_contains($html,'data-question="cinquieme-c24-fictive"');
+        update_option(P::CATALOGUE,$settings::nettoyer($rows),false);
+        $checks['identifiant_question_retire_reserve']=$settings::nettoyer($next)===$rows;
+        $recycle=$rows;$recycle[0]['choix'][]=$fifth['choix'][0];
+        $checks['identifiant_choix_retire_reserve']=$settings::nettoyer($recycle)===$rows;
+        $historical=['historique-question-c24'=>['choix'=>['historique-choix-c24'],'date_utc'=>'2026-11-26T17:00:00Z']];
+        update_user_meta($id,P::META,$historical);
+        delete_user_meta($id,P::META);
+        $reuse=[...$rows,['id'=>'historique-question-c24','titre'=>'Recyclage interdit','multiple'=>false,'choix'=>[['id'=>'historique-choix-c24','titre'=>'Interdit']]]];
+        $checks['historique_efface_reserve']=$settings::nettoyer($reuse)===$rows;
+        $choicesOnly=$rows;$choicesOnly[0]['choix'][]=['id'=>'historique-choix-c24','titre'=>'Autre interdit'];
+        $checks['choix_historique_efface_reserve']=$settings::nettoyer($choicesOnly)===$rows;
+        $checks['champ_C10_dans_formulaire']=str_contains($settings::champs(),'id="imagine-personnalisation-reglages"');
+    }
     if ($mutation==='listener') { add_action(P::ACCROCHE,'__return_null'); }
     $checks['accroche_sans_ecouteur']=P::ACCROCHE==='imagine_personnalisation_attributs_modifies' && has_action(P::ACCROCHE)===false;
     if ($mutation==='mail') { wp_mail('c24-fictif@example.org','FICTIF','FICTIF'); }

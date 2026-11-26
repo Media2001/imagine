@@ -1,36 +1,38 @@
 {
   "lot": "A-21",
-  "real_sources_and_PRET_untouched": true,
+  "mutations_only_in_scratch": true,
   "checks": [
     {
-      "check": "disposable_exact_baseline",
-      "status": "PASS",
-      "verifier_exit_code": 0
+      "check": "actual_verifier_baseline_green",
+      "status": "PASS"
     },
     {
-      "check": "future_PRET_does_not_break_verifier_scratch_only",
-      "status": "PASS",
-      "verifier_exit_code": 0
+      "check": "future_parent_PRET_does_not_invalidate_packet",
+      "status": "PASS"
     },
     {
-      "check": "altered_packet_file_refused",
-      "status": "PASS",
-      "verifier_exit_code": 1
+      "check": "actual_post_PRET_seal_wrapper_green",
+      "status": "PASS"
     },
     {
-      "check": "resealed_required_native_case_omission_refused",
-      "status": "PASS",
-      "verifier_exit_code": 1
+      "check": "shared_guard_source_mutation_refused",
+      "status": "PASS"
     },
     {
-      "check": "current_shared_guard_dependency_drift_refused",
-      "status": "PASS",
-      "verifier_exit_code": 1
+      "check": "packet_content_mutation_refused",
+      "status": "PASS"
+    },
+    {
+      "check": "omitted_file_canary_refused_even_after_reseal",
+      "status": "PASS"
+    },
+    {
+      "check": "resealed_omission_fails_named_channel_gate",
+      "status": "PASS"
     },
     {
       "check": "restored_mirror_green",
-      "status": "PASS",
-      "verifier_exit_code": 0
+      "status": "PASS"
     }
   ],
   "exit_code": 0

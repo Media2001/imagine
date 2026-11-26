@@ -15,8 +15,10 @@
   "wp/outils/bascule/a12/Registry.php": "ea9f653e7a66e5267f93bd40a2c87d77e26dbf9bdd9a45c763fd1d38172dd530",
   "wp/outils/bascule/audit": "7eb2b4bfa450e37d3f4265e3055cdba61a877b056f4feb0bfce06f681659c6dc",
   "wp/outils/bascule/stream_bridge.php": "53a17450882b9398127fd3121da1635ee33126e18cd120c58874a40c90a1cff4",
-  "wp/outils/bascule/stream_guard.py": "ce62d8268bdc8bb3a25c75a6453409d4d6bfd4b7c1c38ebdc027ad38a0d78db9",
+  "wp/outils/bascule/stream_contract.php": "5527741159a8f1398603d4677bbaaf25cc955f6931154000bf1080a31b713f9f",
+  "wp/outils/bascule/stream_guard.py": "c913c79206b6e7b54b8ecb42284952bf5a82d2d9075639f98eddf5479efade97",
   "wp/outils/bascule/stream_refusals.json": "3dd8b55931ac566f047403b22f7e21b2d1002d628667a41d831fb6659a13479b",
+  "wp/outils/bascule/stream_reports.py": "95c0abd63d48d4a2f29200ed0dcaf9fe23f2f8bcb29e25c2e2ed5a64c6332cd8",
   "wp/outils/staging/anonymiser": "2d8ee8c6afc3b586b49393db1c99bfb5049f568ed6d506fc1ad29db38eb0de1d",
   "wp/outils/staging/command.php": "cb6a089fdf43d3e561d3e53b0a884463690bfa1ecd16e0e3b2ed31a05bf4e5d1",
   "wp/outils/staging/files.php": "97aa0aeecfb13dca77b97b93d1a147f33962889044f26a9ff06a2cd8a621baeb",
@@ -50,8 +52,8 @@
   "wp/tests/a19/test_launcher.py": "50ad997246b860d3b23c4b44539969e994552460d92f4f5ede8c7e5ad189379f",
   "wp/tests/a19/unit.php": "a6c5468afb136deaa971f6c5db34df63c253a802e1aded78e537e973ec38545f",
   "wp/tests/a19/verify.py": "1792f0f1d1c623db68d356aaff77932da5a1548b055c9e0e72fa37be5cbef335",
-  "wp/tests/a22/channels.py": "fdeb5ab67b82504fe491af1bc1b2314eeb365bd126fa769cee8e9f0838329a6c",
+  "wp/tests/a22/channels.py": "d3c06a2c9ec94581b8aa53a31c8ddb221c31f878e71c3f92cd93829289e1c947",
   "wp/tests/a22/documented.json": "dad17f7508312e05511e1ba7bdbc70f9e237ac696e54a078b53685eb1f6d00da",
-  "wp/tests/a22/replay.py": "d156f9800507c11eb0073f9ff936d5985b2e5af12a73723ef21ec179240bef10",
-  "wp/tests/a22/run.py": "f0a17c6e8793e024311420995abc53dff4ee5c313d6e4c59f7b877b6721a6e3f"
+  "wp/tests/a22/replay.py": "a70c678462513373f4a4666e1c2ebd52d4c3d67372d4988477f1b4be9a1e0e1f",
+  "wp/tests/a22/run.py": "9f77f319b3ef9dc6fcb5e236f000b34e4f4e8ecd04a030123de7b228d670ee15"
 }

@@ -1,4 +1,12 @@
-# Finalisation parent — 2026-11-26T17:06:28.715375+01:00
+# A21 — nouvelle exécution après fusion A22 de 17 h 53, NON PRET
+
+Paquet unique neuf : `a22-corrections-1753/a21-matrix-final-02` et `a21-style-final`, codes réels 0 ; sources et dépendances exécutées contrôlées par le finaliseur existant. 25 contrôles additionnels par console, canaris de fichiers compris ; huit sondes de miroir vertes dont le vrai scellement après PRET futur. Aucun marqueur créé dans le dépôt. Notes et reçus courants dans ce dossier.
+
+Préparation globale, T01 et décision de PRET restent au parent. Le constat de 17 h 06 ci-dessous est **historique et invalidé pour ces nouvelles sources** ; il ne constitue pas un gate courant. Aucun GO réel.
+
+---
+
+# Finalisation parent historique — 2026-11-26T17:06:28.715375+01:00
 
 **PRET : prêt à relire, non clos.** Préparation commune et rejeu global exécutés par le parent sur les sources finales, en UTF-8 et cp1252 : 1 123 tests, 34 569 assertions ; 14 outils, 279 contrôles ; zéro échec, erreur ou ignoré. Vérificateur propre relancé vert dans les deux contextes. Preuve des commandes et sources : `files/rapports/2026-11-26-17h06-portes-parent.json`. Les portes en attente décrites ci-dessous sont le constat historique de l’enfant, désormais accomplies par le parent. Aucun GO réel.
 

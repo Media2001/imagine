@@ -1,5 +1,15 @@
 # A-21 — gardien commun intégré, nouveau paquet vérifié sans PRET
 
+## 26 novembre 2026 — reprise après fusion A22 de 17 h 53
+
+**Résultat courant : paquet neuf `a22-corrections-1753/a21-matrix-final-02`, six commandes réellement vertes, gardien corrigé figé.** Par console cp1252/UTF-8 Windows Python 3.14.6 : 12 tests Python, 18 assertions PHP pures, 172 contrôles natifs, 8 contrôles runner et **25 contrôles additionnels**, dont les deux contaminations silencieuses de fichiers. Style final neuf `a21-style-final`, zéro erreur/avertissement. Le finaliseur existant est réellement à code 0 et contrôle les sources/dépendances exécutées.
+
+Huit sondes du vérificateur en miroir jetable passent, dont **le vrai wrapper `finalise.py --seal-only` après ajout d'un PRET futur uniquement dans le miroir**. Dérive du gardien, altération du contenu et retrait du canari fichier (même rescellé) sont refusés ; restauration verte. Ancien paquet et reçus sous `C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/superseded/A-21/`. Aucun PRET réel créé et aucun gate global revendiqué pour ces sources ; les portes du parent de 17 h 06 sont historiques.
+
+Commande exécutée : `C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/a21-matrix-final-02`. Vérification directe : `C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/verify.py C:/Users/Ced/imagine/production/A-21/preuves/final`. Aucun compte, format de rapport, source métier, README partagé, archive, Git, Novamira, réel ou voie2 modifié.
+
+## Historique précédent — non probant pour les sources corrigées ci-dessus
+
 ## Résultat courant — remplace les preuves antérieures
 
 Nouveau paquet unique `production/A-21/preuves/final`, entièrement issu de `a21-shared-final-04` après les dernières sources communes et la restauration des refus d’arguments avant staging ; matrice réelle à **code 0**, six commandes vertes. Style rejoué dans `a21-shared-style-final-04` : zéro erreur/avertissement, syntaxe PHP verte. Windows `C:/Python314/python.exe`, **3.14.6**, cp1252 puis UTF-8 mesurés, encodage enfant et scratch explicitement fixés.

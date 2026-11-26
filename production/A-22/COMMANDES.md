@@ -5,11 +5,11 @@ Toutes ces commandes ont été lancées depuis le poste Windows, avec `C:/Python
 ## Commandes ayant produit les reçus sélectionnés
 
 ```text
-C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a22/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-matrix-final-07
-C:/Python314/python.exe -B C:/Users/Ced/imagine/production/A-22/style.py C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-style-final-07
-C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a20/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a20-shared-final-04
-C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-shared-final-04
-C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/style.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-shared-style-final-04
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a22/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/matrix-final-02
+C:/Python314/python.exe -B C:/Users/Ced/imagine/production/A-22/style.py C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/style-final
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a20/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/a20-matrix-final-02
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/a21-matrix-final-02
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/style.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/a21-style-final
 ```
 
 `windows-matrix.json` contient les commandes enfants **réellement exécutées**, leur encodage et leur code de sortie. Les journaux de tests, reçus natifs, instantanés de sources/dépendances et noms exacts des conteneurs sont conservés dans le paquet de chaque lot. Les verdicts courants sont dans les notes/checkpoints, pas déduits de cette liste de commandes.
@@ -27,7 +27,7 @@ Les lots autorisés sont A02, A03, A10, A11, A12, A14 à A21. A13 reste un lecte
 Après la vraie sortie verte de la matrice, publication d’un paquet neuf (un paquet déjà présent est refusé) :
 
 ```text
-C:/Python314/python.exe -B C:/Users/Ced/imagine/production/A-22/finalise.py --matrix=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-matrix-final-07 --style=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-style-final-07
+C:/Python314/python.exe -B C:/Users/Ced/imagine/production/A-22/finalise.py --matrix=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/matrix-final-02 --style=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/style-final
 ```
 
 Après les dernières écritures des documents et reçus, scellement sans aucun gate parent :
@@ -48,8 +48,18 @@ Aucun vérificateur n’impose l’absence perpétuelle de PRET. La présence fu
 
 ## Au parent uniquement
 
-- Ajouter au README partagé la ligne exacte de `production/A-22/readme-ajout.txt`. Ne pas refaire les lignes A20/A21 ni la ligne d’option directe A21 déjà préservées.
+- Ajouter au README partagé la deuxième ligne exacte de `production/A-22/readme-ajout.txt` (`error_log` et `/dev/null`) ; la première ligne existe déjà. Le contrat exige chacune des deux lignes une seule fois, jamais l'empreinte du README entier. Ne pas refaire les lignes A20/A21 ni la ligne d’option directe A21 déjà préservées.
 - Exécuter la préparation globale et le rejeu T01 sur les dernières sources, puis décider des PRET. Les anciennes gates ne couvrent pas ces changements.
 - Facultatif : passer `--parent-proof=C:/chemin/preuve-parent.json` au vérificateur. Ce JSON contient `sources` (l’objet exact de `sources.json` du paquet), `preparation` et `T01` (chemins de vrais reçus JSON à `exit_code: 0`, avec des contrôles `checks`/`tests` tous verts). A22 vérifie aussi alors la ligne exacte du README partagé. Aucun reçu parent n’est synthétisé ni exécuté par cet enfant.
 
 Images et dépendances natives doivent déjà exister ; aucun téléchargement, reconstruction globale, archive Imagine, accès réel, compte, Novamira, déploiement ou Git dans ces commandes.
+
+## Sondes de réception jetables
+
+Après publication vérifiée, le banc suivant copie sources et paquet sous scratch ; seul ce miroir reçoit un PRET futur et les mutations. Pour A22 : la mutation réelle de `a03/Policy.php` et l'absence de sa racine doivent faire refuser le vrai vérificateur. Le vrai wrapper `--seal-only` doit rester fonctionnel après PRET dans ce miroir.
+
+```text
+C:/Python314/python.exe -B C:/Users/Ced/imagine/production/A-22/probes.py --lot=A-22 --output=C:/Users/Ced/imagine/production/A-22/verification-probes.json
+```
+
+Les variantes `--lot=A-20` et `--lot=A-21` exercent leurs vérificateurs et leurs dépendances. Ne pas interpréter ces sondes de réception comme une nouvelle matrice native ni comme les portes globales du parent. Les noms de sorties de matrice sont neufs ; les essais RED et les matrices annulées ne sont jamais publiés.
