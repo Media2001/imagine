@@ -68,4 +68,10 @@ Dernières exécutions sélectionnées, réellement lancées après les dernièr
 
 Les replays A20/A21 03 éventuels restent aussi historiques après le dernier changement du gardien commun. Les nouveaux paquets ne seront publiés qu’après les vrais retours et comparaison exacte des dépendances exécutées. **Style commun 07 et style A21 04 déjà verts**, avec zéro erreur/avertissement et suppression du runner exact relue. README partagé, verrou, T02 et A23 laissés à leurs propriétaires. Préparation globale, T01 global et PRET toujours non exécutés par cet enfant.
 
+## Checkpoint — A20/A21 04 publiés et définitivement revérifiés
+
+Les matrices **A20 04 et A21 04 sont terminées à code 0** (cinq et six commandes respectivement). Leurs nouveaux paquets ont été publiés après comparaison exacte des sources et dépendances exécutées ; anciens paquets et reçus copiés hors dépôt, un seul `preuves/final` par lot. A20 : **111 contrôles PASS** du vérificateur dans chacune des consoles UTF-8/cp1252 ; A21 : **49 PASS** dans chacune. Six sondes de miroir jetable sont vertes par vérificateur, notamment PRET futur accepté uniquement dans le miroir, omission rescellée refusée et dérive du gardien refusée. Dernière vérification effectuée après les notes/FINALISATION corrigées ; manifestes racine relus et exacts, **PRET réel absent**.
+
+**Ne pas refaire A20/A21.** Seule la matrice A22 **06** reste en cours ; quinze reçus runner déjà observés à `2026-11-26T16:17:16+01:00`, aucun verdict final anticipé. Le finaliseur A22 est livré à `production/A-22/finalise.py` ; sa garde `--seal-only` a réellement refusé le paquet encore absent (code 1), sans créer de manifeste ni PRET. Il sera exercé sur la vraie matrice terminée avant remise.
+
 

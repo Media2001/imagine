@@ -1,0 +1,17 @@
+{
+  "scope": "imagine-test-demo",
+  "policy": "Uniquement fichiers possédés par C-23 ; aucune empreinte de fichier partagé ou de file.",
+  "files": {
+    "wp/outils/demo/c23-inventaire.php": "71c1438c333d6d44b07e38b9d5bc06c8940dd50518e9d0fa6d7699108cd9db96",
+    "wp/outils/demo/c23-preparer.py": "8d27493bca4ab32861e6e7b715a6b58328fb5f791e94fe452b974ee2a76a91e4",
+    "wp/outils/demo/c23.py": "7ee0118d3008e6aba014135b7cd6d665cef9bab3283a4b67514cd28e36b23ded",
+    "wp/tests/demo/c23-diagnostic.py": "326dbed125641a1b1664c67ad28a8fb806958c7f7f4cb5f47e7f43a259c3ae3c",
+    "wp/tests/demo/c23-recovery.py": "2d1cbc1681a08fbb25ef9571716d9031b9c97071fc2d9981dee2677eb17a0390",
+    "wp/tests/demo/c23-tests.py": "95ead80f5efd0ee8d0d284ed0fec8612ee4756ed27082126feaeff047cc67bbf",
+    "wp/tests/demo/c23-verifier.py": "77a152ae6eaca3081e14bd60dbafea0253001d5764ce1a0e6bd83b00604e2300",
+    "production/C-23/A-VOIR.md": "cc4f5a5657d4b74d144c36f9cb300c98e6ef671a61c8dea2bc0108b5b2ad6de1",
+    "production/C-23/INVENTAIRE.md": "a0661617350ca2d3ce144780928ee466162cac66760e56ad14e6cc7023cea304",
+    "production/C-23/INCIDENTS.md": "673135d8949c1d7afe22d41d40f164f86e14a18fcd0b63ca542b945b6782e51e",
+    "production/C-23/PRET": "5cde95804a68779259cc709c239cfc8332d35693c81bcbd5b267ca93804fe87c"
+  }
+}
