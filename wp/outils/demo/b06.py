@@ -64,6 +64,18 @@ def runtime(label, case='attribute', mutation=''):
     print(json.dumps(data, ensure_ascii=False))
     assert not data['failures'] and not data['exit'] and not data['stderr'] and data['state_preserved']
 
+def seed(label):
+    guard()
+    target = 'imagine-demo-build/b06-seed.php'
+    source = ROOT/'wp/outils/demo/b06-seed.php'
+    profils.b00.upload(target, source.read_bytes())
+    assert hashes([target])[target] == hashlib.sha256(source.read_bytes()).hexdigest()
+    data = wp('require WP_CONTENT_DIR."/'+target+'";')
+    reread = wp('$out=[];foreach(Imagine\\Site\\Cooperateurs::ids() as $id){$p=get_post($id);$out[]=["id"=>$id,"path"=>wp_parse_url(get_permalink($id),PHP_URL_PATH),"title"=>$p->post_title,"content"=>$p->post_content,"parent"=>$p->post_parent];}echo wp_json_encode($out);')
+    assert len(reread) == len(data['pages']) == 5 and all(p['content'] == '' for p in reread)
+    assert sorted((p['id'],p['path'],p['title']) for p in reread) == sorted((p['id'],p['path'],p['title']) for p in data['pages'])
+    save(label, {'fixture':data,'readback':reread})
+
 if __name__=='__main__':
-    assert sys.argv[1] in ('baseline','deploy','runtime')
+    assert sys.argv[1] in ('baseline','deploy','runtime','seed')
     globals()[sys.argv[1]](*sys.argv[2:])

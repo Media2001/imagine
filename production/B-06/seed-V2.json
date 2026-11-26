@@ -1,0 +1,71 @@
+{
+  "at": "2026-11-26T15:41:18.993843+00:00",
+  "scope": "imagine-test-demo",
+  "fixture": {
+    "pages": [
+      {
+        "id": 2867,
+        "path": "/espace-cooperateurs/",
+        "title": "Espace coopérateurs"
+      },
+      {
+        "id": 2868,
+        "path": "/espace-cooperateurs/appels-a-benevolat/",
+        "title": "Appels à bénévolat"
+      },
+      {
+        "id": 2869,
+        "path": "/espace-cooperateurs/lettre-de-missions/",
+        "title": "Lettre de missions"
+      },
+      {
+        "id": 2870,
+        "path": "/espace-cooperateurs/cadastre-des-competences/",
+        "title": "Cadastre des compétences"
+      },
+      {
+        "id": 2871,
+        "path": "/espace-cooperateurs/relais-des-evenements/",
+        "title": "Relais des événements"
+      }
+    ],
+    "root": 2867
+  },
+  "readback": [
+    {
+      "id": 2867,
+      "path": "/espace-cooperateurs/",
+      "title": "Espace coopérateurs",
+      "content": "",
+      "parent": 0
+    },
+    {
+      "id": 2868,
+      "path": "/espace-cooperateurs/appels-a-benevolat/",
+      "title": "Appels à bénévolat",
+      "content": "",
+      "parent": 2867
+    },
+    {
+      "id": 2869,
+      "path": "/espace-cooperateurs/lettre-de-missions/",
+      "title": "Lettre de missions",
+      "content": "",
+      "parent": 2867
+    },
+    {
+      "id": 2870,
+      "path": "/espace-cooperateurs/cadastre-des-competences/",
+      "title": "Cadastre des compétences",
+      "content": "",
+      "parent": 2867
+    },
+    {
+      "id": 2871,
+      "path": "/espace-cooperateurs/relais-des-evenements/",
+      "title": "Relais des événements",
+      "content": "",
+      "parent": 2867
+    }
+  ]
+}
