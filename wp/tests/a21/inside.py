@@ -39,6 +39,7 @@ if (getenv('A21_CONFINED') === '1') {
     if ($forced !== '') { throw new RuntimeException($forced); }
     add_action('woocommerce_webhook_delivery', static function () { throw new RuntimeException('A21_DELIVERY_ATTEMPT_CANARY'); });
     if (get_option('a21_probe_guards') === 'yes') {
+        add_action('plugins_loaded', static function () {
         global $wpdb; require_once ABSPATH.'wp-includes/pluggable.php';
         if ($wpdb->query('UPDATE wp_posts SET ID=ID WHERE 1=0') !== false
             || @mysqli_query($wpdb->dbh,'UPDATE wp_posts SET ID=ID WHERE 1=0') !== false
@@ -46,7 +47,12 @@ if (getenv('A21_CONFINED') === '1') {
             || wp_mail('fictif@example.org','CANARY','CANARY') !== false
             || !is_wp_error(wp_remote_get('https://forbidden.invalid/'))
             || wp_schedule_single_event(time()+9999,'a21_forbidden') !== false
+            || as_enqueue_async_action('a21_forbidden', [], 'a21') !== 0
+            || as_schedule_single_action(time()+9999, 'a21_forbidden', [], 'a21') !== 0
+            || as_schedule_recurring_action(time()+9999, 3600, 'a21_forbidden', [], 'a21') !== 0
+            || as_schedule_cron_action(time()+9999, '* * * * *', 'a21_forbidden', [], 'a21') !== 0
             || function_exists('mail') || function_exists('exec')) { throw new RuntimeException('A21_GUARDS_FAILED'); }
+        }, PHP_INT_MAX);
     }
 }
 ''')
@@ -113,7 +119,7 @@ if (getenv('A21_CONFINED') === '1') {
     b.sql(db,"INSERT INTO wp_options (option_name,option_value,autoload) VALUES ('a21_probe_guards','yes','no')")
     guard_before=b.fingerprint(db)
     guard=OUT/(storage+'-guards');gp=invoke(site,guard,audit/'audit.json')
-    b.check(storage+':real_kernel_sql_mail_http_cron_guards',gp.returncode==0 and json.loads((guard/'portes.json').read_text())['outbound_attempts']=={'http':1,'mail':1,'scheduled':1})
+    b.check(storage+':real_kernel_sql_mail_http_cron_guards',gp.returncode==0 and json.loads((guard/'portes.json').read_text())['outbound_attempts']=={'http':1,'mail':1,'scheduled':5})
     b.check(storage+':guard_probe_database_unchanged',guard_before==b.fingerprint(db))
     b.sql(db,"DELETE FROM wp_options WHERE option_name='a21_probe_guards'")
     for index,exception in enumerate(['A21_SITE_DERIVED_CANARY','A21_PRIVATE_CANARY_PATH','A21_USAGE CANARY']):

@@ -12,6 +12,17 @@ final class Inventory
         if (!$clock || $clock->format('Y-m-d\TH:i:s\Z') !== $asOf) {
             throw new \RuntimeException('A21_CLOCK_INVALID');
         }
+        // Native Action Scheduler pre-filters also cover a neutralised empty queue.
+        // WordPress converts these preinitialised hooks before loading site plugins.
+        foreach (['enqueue_async', 'schedule_single', 'schedule_recurring', 'schedule_cron'] as $kind) {
+            $GLOBALS['wp_filter']['pre_as_' . $kind . '_action'][PHP_INT_MAX][] = [
+                'function' => static function (): int {
+                    \Imagine\PublicAddresses\Runtime::$guards['scheduled']++;
+                    return 0;
+                },
+                'accepted_args' => 0,
+            ];
+        }
         \Imagine\PublicAddresses\Runtime::boot($site);
         if (!function_exists('WC') || !class_exists('WC_Webhook')) {
             throw new \RuntimeException('A21_NATIVE_API_UNAVAILABLE');
