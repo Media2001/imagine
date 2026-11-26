@@ -1,0 +1,15 @@
+{
+  "scope": "isolated-offline-B05",
+  "image": "sha256:99ec55b49811ceecdac8c4ac6cc1bc95f61d564e9769cb598f6498a817047a61",
+  "case": "selection",
+  "isolation_verified": true,
+  "exit": 0,
+  "stdout": "{\n    \"checks\": {\n        \"selection_1\": true,\n        \"selection_0\": true,\n        \"selection_2\": true,\n        \"selection_3\": true,\n        \"selection_99\": true,\n        \"selection_bogus\": true,\n        \"clean_valid\": true,\n        \"clean_zero\": true,\n        \"clean_draft\": true,\n        \"clean_not_partner\": true,\n        \"clean_invalid\": true,\n        \"clean_null\": true\n    },\n    \"total\": 12,\n    \"failures\": []\n}\n",
+  "stderr": "",
+  "source_sha256": {
+    "wp/tests/demo/b05-offline.php": "21f8dd79af438311c3e0b75c783843f0b60b286e20a967067f648c5d9c94b82c",
+    "wp/themes/imagine/functions.php": "aedb715dcb4e654a8870859b51eaf74fd5bb12a8c604599e809b183ca33f3a41",
+    "wp/plugins/imagine-site/Partenaires.php": "1416080d19878270270828291e9d734afb6b0c9c118d4625dd232a0545e4989f"
+  },
+  "owned_container_removed": true
+}

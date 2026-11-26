@@ -75,6 +75,9 @@ if __name__ == '__main__':
     try:
         main()
     except Exception as error:
-        code = str(error) if isinstance(error, RuntimeError) and str(error).startswith('A12_') else 'A12_CONFINEMENT_FAILED'
+        import importlib.util
+        spec=importlib.util.spec_from_file_location('stream_guard',pathlib.Path(__file__).resolve().parent.parent/'stream_guard.py')
+        guard=importlib.util.module_from_spec(spec);spec.loader.exec_module(guard)
+        code=guard.public_error(error,'A12')
         print(code, file=sys.stderr)
         sys.exit(1)

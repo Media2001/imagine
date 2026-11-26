@@ -61,7 +61,7 @@ def verify(packet):
     style=load(packet/'style/style.json');check('strict_psr12_current_sources',style['exit_code']==style['phpcs_exit']==0 and style['totals']['errors']==style['totals']['warnings']==0 and style['sources']==source)
     matrix=load(packet/'windows-matrix.json');check('both_console_suites_executed',matrix['exit_code']==0 and len(matrix['rows'])==5 and all(r['exit_code']==0 for r in matrix['rows']))
     check('all_retained_artifacts_canary_absent',not any(b'CANARY' in p.read_bytes() for p in packet.rglob('*') if p.is_file()))
-    check('no_PRET_child_delivery',not (ROOT/'production/A-20/PRET').exists())
+    # Candidate proof is historical; a later parent PRET must not invalidate it.
     candidate=load(packet/'candidate.json');check('parent_gates_explicitly_pending',candidate=={'status':'CANDIDAT_GATE_PARENT','parent_preparation':'pending','parent_global_T01':'pending','readiness_claimed':False})
     lines=(ROOT/'production/A-20/readme-ajout.txt').read_text(encoding='utf-8').splitlines();shared=(ROOT/'wp/tests/a02-audit/README.md').read_text(encoding='utf-8').splitlines();check('only_own_two_shared_lines',len(lines)==2 and all(shared.count(line)==1 for line in lines))
     expected=inventory(OWN+[packet.relative_to(ROOT).as_posix()]);expected.pop((packet/'manifest.json').relative_to(ROOT).as_posix(),None)

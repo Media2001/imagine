@@ -1,0 +1,15 @@
+{
+  "scope": "isolated-offline-B05",
+  "image": "sha256:99ec55b49811ceecdac8c4ac6cc1bc95f61d564e9769cb598f6498a817047a61",
+  "case": "links",
+  "isolation_verified": true,
+  "exit": 255,
+  "stdout": "",
+  "stderr": "[26-Nov-2026 13:21:24 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function wp_kses_uri_attributes() in /usr/src/wordpress/wp-includes/html-api/class-wp-html-tag-processor.php:4372\nStack trace:\n#0 /repo/wp/themes/imagine/functions.php(168): WP_HTML_Tag_Processor->set_attribute('rel', 'noopener nofoll...')\n#1 /repo/wp/tests/demo/b05-offline.php(44): Imagine\\Theme\\imagine_partner_content('<a href=\"https:...')\n#2 {main}\n  thrown in /usr/src/wordpress/wp-includes/html-api/class-wp-html-tag-processor.php on line 4372\n",
+  "source_sha256": {
+    "wp/tests/demo/b05-offline.php": "f66a4bed2f702aecae587de56c49692cf6130797fc0605d01f22670b11c59021",
+    "wp/themes/imagine/functions.php": "612f023a78b077eab598dad6f2b691110ab4d2a96d091926e87699925a2d0516",
+    "wp/plugins/imagine-site/Partenaires.php": "1416080d19878270270828291e9d734afb6b0c9c118d4625dd232a0545e4989f"
+  },
+  "owned_container_removed": true
+}

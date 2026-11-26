@@ -71,6 +71,11 @@ final class Partenaires
                             ob_start();
                             self::champ();
                             $html = substr_replace($html, ob_get_clean(), $end, 0);
+                        } else {
+                            // Never silently lose the manual designation if C10 markup drifts.
+                            $html = '<div class="notice notice-error imagine-partenaire-injection-erreur"><p>'
+                                . esc_html__('Le champ Partenaire du mois est indisponible : le formulaire de réglages a changé. Contactez l’administration du site.', 'imagine-site')
+                                . '</p></div>' . $html;
                         }
                         echo $html;
                     }, $priority);

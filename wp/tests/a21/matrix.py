@@ -29,7 +29,7 @@ def main():
         probe=run('environment',['-c',PROBE],30)
         (out/(console+'-environment.json')).write_text(json.dumps(json.loads(probe.stdout),indent=2)+'\n',encoding='utf-8')
         run('python-tests',['-m','unittest','discover','-s','wp/tests/a21','-p','test_*.py'],90)
-        run('native',['wp/tests/a21/run.py','--output='+str(out/(console+'-native'))],1800)
+        run('native',['wp/tests/a22/run.py','--lot=A21','--output='+str(out/(console+'-native'))],1800)
     receipt={'rows':rows,'exit_code':int(any(r['exit_code']!=0 for r in rows))}
     (out/'windows-matrix.json').write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(receipt,indent=2))

@@ -159,8 +159,21 @@ function imagine_partner_content(string $content): string
     }
     $tags = new \WP_HTML_Tag_Processor($content);
     while ($tags->next_tag('A')) {
-        $host = wp_parse_url((string) $tags->get_attribute('href'), PHP_URL_HOST);
-        if (!$host || $host === wp_parse_url(home_url('/'), PHP_URL_HOST)) {
+        // Match the browser's ASCII trimming and HTTP backslash handling before
+        // inspecting authority. Unknown/ambiguous destinations fail commercial.
+        $href = trim((string) $tags->get_attribute('href'), "\x00..\x20");
+        $href = str_replace(["\t", "\r", "\n"], '', $href);
+        $destination = str_replace('\\', '/', $href);
+        $http = preg_match('~^(?:https?:)?/{2,}~i', $destination) === 1;
+        if ($http) {
+            $destination = preg_replace('~^((?:https?:)?)/{2,}~i', '$1//', $destination);
+            $host = wp_parse_url($destination, PHP_URL_HOST);
+            $homeHost = wp_parse_url(home_url('/'), PHP_URL_HOST);
+            if (is_string($host) && is_string($homeHost) && strcasecmp($host, $homeHost) === 0) {
+                continue;
+            }
+        } elseif ($href === '' || (!str_contains($href, ':') && !str_contains($href, '\\'))) {
+            // Ordinary relative navigation and fragments are known internal.
             continue;
         }
         $rel = preg_split('/\s+/', trim((string) $tags->get_attribute('rel')), -1, PREG_SPLIT_NO_EMPTY);

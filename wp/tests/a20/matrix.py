@@ -22,7 +22,7 @@ def main():
         if p.returncode:raise RuntimeError('A20_ENVIRONMENT_PROBE_FAILED')
         (folder/'environment.json').write_text(json.dumps(json.loads(p.stdout),indent=2)+'\n',encoding='utf-8')
         execute([sys.executable,'-B','-m','unittest','discover','-s','wp/tests/a20','-p','test_*.py','-v'],env,encoding,folder/'launcher-tests.log')
-        execute([sys.executable,'-B','wp/tests/a20/run.py','--output='+str(folder/'native')],env,encoding,folder/'runner-console.log')
+        execute([sys.executable,'-B','wp/tests/a22/run.py','--lot=A20','--output='+str(folder/'native')],env,encoding,folder/'runner-console.log')
     env={**os.environ,'PYTHONIOENCODING':'utf-8','PYTHONUTF8':'1','PYTHONDONTWRITEBYTECODE':'1'}
     execute([sys.executable,'-B','wp/tests/a20/style.py','--output='+str(out/'style')],env,'utf-8',out/'style-console.log')
     spec=importlib.util.spec_from_file_location('runner',HERE/'run.py');r=importlib.util.module_from_spec(spec);spec.loader.exec_module(r)

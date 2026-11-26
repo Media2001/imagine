@@ -1,0 +1,15 @@
+{
+  "scope": "isolated-offline-B05",
+  "image": "sha256:99ec55b49811ceecdac8c4ac6cc1bc95f61d564e9769cb598f6498a817047a61",
+  "case": "links",
+  "isolation_verified": true,
+  "exit": 255,
+  "stdout": "",
+  "stderr": "[26-Nov-2026 13:21:02 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function _wp_can_use_pcre_u() in /usr/src/wordpress/wp-includes/utf8.php:137\nStack trace:\n#0 /repo/wp/tests/demo/b05-offline.php(9): require()\n#1 {main}\n  thrown in /usr/src/wordpress/wp-includes/utf8.php on line 137\n",
+  "source_sha256": {
+    "wp/tests/demo/b05-offline.php": "445ba5aead6af5042cada4c71f558e771d757b55380604a6304d7e788654166e",
+    "wp/themes/imagine/functions.php": "612f023a78b077eab598dad6f2b691110ab4d2a96d091926e87699925a2d0516",
+    "wp/plugins/imagine-site/Partenaires.php": "1416080d19878270270828291e9d734afb6b0c9c118d4625dd232a0545e4989f"
+  },
+  "owned_container_removed": true
+}

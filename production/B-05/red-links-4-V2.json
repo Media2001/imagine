@@ -1,0 +1,15 @@
+{
+  "scope": "isolated-offline-B05",
+  "image": "sha256:99ec55b49811ceecdac8c4ac6cc1bc95f61d564e9769cb598f6498a817047a61",
+  "case": "links",
+  "isolation_verified": true,
+  "exit": 1,
+  "stdout": "{\n    \"checks\": {\n        \"external\": true,\n        \"external_preserve_rel\": true,\n        \"external_unique\": true,\n        \"external_idempotent\": true,\n        \"protocol_relative\": true,\n        \"protocol_relative_preserve_rel\": true,\n        \"protocol_relative_unique\": true,\n        \"protocol_relative_idempotent\": true,\n        \"leading_space\": false,\n        \"leading_space_preserve_rel\": true,\n        \"leading_space_unique\": true,\n        \"leading_space_idempotent\": true,\n        \"extra_slashes\": false,\n        \"extra_slashes_preserve_rel\": true,\n        \"extra_slashes_unique\": true,\n        \"extra_slashes_idempotent\": true,\n        \"ambiguous_http\": false,\n        \"ambiguous_http_preserve_rel\": true,\n        \"ambiguous_http_unique\": true,\n        \"ambiguous_http_idempotent\": true,\n        \"backslash_authority\": false,\n        \"backslash_authority_preserve_rel\": true,\n        \"backslash_authority_unique\": true,\n        \"backslash_authority_idempotent\": true,\n        \"internal\": true,\n        \"internal_preserve_rel\": true,\n        \"internal_unique\": true,\n        \"internal_idempotent\": true,\n        \"internal_case\": false,\n        \"internal_case_preserve_rel\": true,\n        \"internal_case_unique\": true,\n        \"internal_case_idempotent\": true,\n        \"relative\": true,\n        \"relative_preserve_rel\": true,\n        \"relative_unique\": true,\n        \"relative_idempotent\": true,\n        \"anchor\": true,\n        \"anchor_preserve_rel\": true,\n        \"anchor_unique\": true,\n        \"anchor_idempotent\": true,\n        \"editorial_unchanged\": true\n    },\n    \"total\": 41,\n    \"failures\": [\n        \"leading_space\",\n        \"extra_slashes\",\n        \"ambiguous_http\",\n        \"backslash_authority\",\n        \"internal_case\"\n    ]\n}\n",
+  "stderr": "",
+  "source_sha256": {
+    "wp/tests/demo/b05-offline.php": "21f8dd79af438311c3e0b75c783843f0b60b286e20a967067f648c5d9c94b82c",
+    "wp/themes/imagine/functions.php": "612f023a78b077eab598dad6f2b691110ab4d2a96d091926e87699925a2d0516",
+    "wp/plugins/imagine-site/Partenaires.php": "1416080d19878270270828291e9d734afb6b0c9c118d4625dd232a0545e4989f"
+  },
+  "owned_container_removed": true
+}

@@ -9,7 +9,7 @@ sys.dont_write_bytecode=True
 ROOT=Path(__file__).resolve().parents[3]
 OWN=['wp/tests/a21','wp/outils/bascule/a21']
 DEPENDENCIES=['wp/tests/a02-audit','wp/tests/a19','wp/outils/bascule/audit',
-              'wp/outils/bascule/a11','wp/outils/bascule/a12','wp/outils/staging']
+              'wp/outils/bascule/a11','wp/outils/bascule/a12','wp/outils/staging','wp/outils/bascule/stream_guard.py','wp/outils/bascule/stream_refusals.json','wp/outils/bascule/stream_bridge.php','wp/tests/a22/run.py','wp/tests/a22/replay.py','wp/tests/a22/channels.py']
 
 def inventory(roots):
     paths=[]

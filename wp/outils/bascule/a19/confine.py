@@ -26,5 +26,7 @@ if __name__=='__main__':
     try:main()
     except Exception as error:
         import re
-        code=str(error) if isinstance(error,RuntimeError) and re.fullmatch(r'A(?:19|12)_[A-Z_]+',str(error)) else 'A19_CONFINEMENT_FAILED'
+        spec=importlib.util.spec_from_file_location('stream_guard',HERE.parent/'stream_guard.py')
+        guard=importlib.util.module_from_spec(spec);spec.loader.exec_module(guard)
+        code=guard.public_error(error,'A19')
         print(code,file=sys.stderr);sys.exit(1)
