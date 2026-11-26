@@ -1,0 +1,18 @@
+{
+  "utf8": {
+    "exit": 0,
+    "tests": 42,
+    "TMPDIR_present": false,
+    "network_blocked": true,
+    "encoding": "utf-8",
+    "python": "3.11.15 (main, Jun 23 2026, 15:20:37) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "cp1252": {
+    "exit": 0,
+    "tests": 42,
+    "TMPDIR_present": false,
+    "network_blocked": true,
+    "encoding": "cp1252",
+    "python": "3.11.15 (main, Jun 23 2026, 15:20:37) [MSC v.1944 64 bit (AMD64)]"
+  }
+}

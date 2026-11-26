@@ -151,6 +151,12 @@ def verify(packet, python_only=False):
             c['check'] == 'closed_family_renewal' and c['status'] == 'FAIL' for c in red['checks']))
         check(console + ':executed_sources', read(native / 'sources.json') == source)
         check(console + ':executed_dependencies', read(native / 'dependencies.json') == runner.manifest(runner.DEPS))
+        remote = read(native / 'executed-files.json')
+        snapshot = {**source, **read(native / 'dependencies.json')}
+        check(console + ':remote_executed_bytes_equal_snapshot',
+              remote['before'] == remote['after'] == remote['expected']
+              and set(source).issubset(remote['expected'])
+              and remote['expected'] == {key: snapshot[key] for key in remote['expected']})
         check(console + ':pure_no_extensions_no_writes', (native / 'pure.log').read_text(encoding='utf-8')
               == 'A29_PURE_OK ' + str(counts[console + ':unit']) + '\n')
         actual = {c['check'] for c in read(native / 'result.json')['checks']}

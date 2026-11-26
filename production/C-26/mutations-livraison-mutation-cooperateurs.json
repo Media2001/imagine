@@ -1,0 +1,18 @@
+{
+  "scope": "imagine-test-demo",
+  "total": 1,
+  "results": [
+    {
+      "name": "b06-2867-html",
+      "public": "connecte-sans-abonnement",
+      "status": 200,
+      "bytes": 29007,
+      "ok": false,
+      "leak": true,
+      "witnesses_found": 1,
+      "surface_present": true,
+      "redirects_inspected": 0
+    }
+  ],
+  "persisted_fixture": true
+}

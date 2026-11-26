@@ -52,6 +52,19 @@ def main():
     out.mkdir(parents=True, exist_ok=False)
     name = 'imagine-a29-tasks-' + uuid.uuid4().hex[:12]
     owned, deps = manifest(OWN), manifest(DEPS)
+    copied_roots = {'wp/outils/bascule/a29': '/subject/a29', 'wp/tests/a29': '/opt/a29'}
+    if not a.unit_only:
+        copied_roots.update({'wp/outils/bascule/' + key: '/subject/' + key for key in SHARED})
+        copied_roots['wp/outils/staging'] = '/subject/staging'
+        copied_roots.update({'wp/tests/a02-audit/' + f: '/opt/a02/' + f
+                             for f in ['inside.py', 'seed.php', 'fingerprint.php', 'unit.php', 'readonly-probe.php']})
+    mapping = {}
+    for key in {**owned, **deps}:
+        for prefix, destination in copied_roots.items():
+            if key == prefix or key.startswith(prefix + '/'):
+                mapping[key] = destination + key[len(prefix):]
+    expected_remote = {key: {**owned, **deps}[key] for key in mapping}
+    executed = {'expected': expected_remote}
     receipt = {'suite': 'A29-owned-runner', 'container': name,
                'at': datetime.datetime.now(datetime.timezone.utc).isoformat(), 'checks': [], 'exit_code': 1}
     created = False
@@ -60,6 +73,12 @@ def main():
         receipt['checks'].append({'check': key, 'status': 'PASS' if ok else 'FAIL', 'detail': detail})
         if not ok:
             raise RuntimeError('A29_PARENT_GATE_FAILED')
+
+    def remote_sources():
+        script = ('import hashlib,json;from pathlib import Path\nmapping=' + repr(mapping)
+                  + '\nprint(json.dumps({key:hashlib.sha256(Path(path).read_bytes()).hexdigest() for key,path in mapping.items()}))\n')
+        result = b.call(['exec', '-i', name, 'python3', '-'], input_text=script)
+        return json.loads(result.stdout)
 
     try:
         image = json.loads(b.call(['image', 'inspect', b.IMAGE]).stdout)[0]
@@ -84,6 +103,8 @@ def main():
                 b.call(['cp', b.local(ROOT / 'wp/tests/a02-audit' / f), name + ':/opt/a02/' + f])
             for f in b.LICENSED:
                 b.call(['cp', '/home/ced/staging-wp/plugins/' + f, name + ':/opt/a02/' + f])
+        executed['before'] = remote_sources()
+        check('executed_files_before_match_source_snapshot', executed['before'] == expected_remote)
         for f in ['Analysis.php', 'Inventory.php', 'Command.php', 'inventorier-taches']:
             p = b.call(['exec', name, 'php', '-l', '/subject/a29/' + f], check=False)
             check('lint_' + f, p.returncode == 0)
@@ -116,6 +137,8 @@ def main():
             b.call(['cp', name + ':/report/.', b.local(out)])
             inner = json.loads((out / 'result.json').read_text(encoding='utf-8'))
             check('native_green', p.returncode == 0 and inner['exit_code'] == 0 and bool(inner['checks']))
+        executed['after'] = remote_sources()
+        check('executed_files_after_match_source_snapshot', executed['after'] == expected_remote)
         check('isolation_after', True, b.validate(json.loads(b.call(['inspect', name]).stdout)[0], name))
     except Exception as error:
         receipt['checks'].append({'check': 'exception', 'status': 'FAIL', 'detail': {'class': type(error).__name__}})
@@ -132,7 +155,8 @@ def main():
         for key, ok in [('owned_sources_stable', owned == manifest(OWN)), ('dependencies_stable', deps == manifest(DEPS))]:
             receipt['checks'].append({'check': key, 'status': 'PASS' if ok else 'FAIL', 'detail': None})
         receipt['exit_code'] = int(any(x['status'] != 'PASS' for x in receipt['checks']))
-        for filename, data in [('runner.json', receipt), ('sources.json', owned), ('dependencies.json', deps)]:
+        for filename, data in [('runner.json', receipt), ('sources.json', owned), ('dependencies.json', deps),
+                               ('executed-files.json', executed)]:
             (out / filename).write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
         print(json.dumps(receipt, indent=2))
     return receipt['exit_code']

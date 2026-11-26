@@ -113,6 +113,15 @@ class ExtensionTest(unittest.TestCase):
         self.assertFalse(m.assess(search,(200,{},b'<main><h1>Recherche Soutenir</h1><p>Aucun resultat</p></main>'),[])['ok'])
         self.assertTrue(m.assess(search,(200,{},b'<main><h1>Recherche</h1><h2><a href="/soutenir/">Soutenir</a></h2></main>'),[])['ok'])
 
+    def test_recherche_date_reflexion_feed_encodee_et_commentaire_fuyant(self):
+        m = load('c26')
+        marker = '2001-01-01T01:26:24Z'
+        body = ('<link rel="alternate" type="application/rss+xml" title="Flux '+marker+'" href="'+m.c23.BASE+'/search/2001-01-01T01%3A26%3A24Z/feed/rss2/">'
+                '<main><h1>Recherche '+marker+'</h1><input type="search" name="s" value="'+marker+'"><p>Aucun résultat pour votre recherche.</p></main>').encode()
+        route = {'kind':'search','reflected':marker,'statuses':[200]}
+        self.assertTrue(m.assess(route,(200,{},body),[marker])['ok'])
+        self.assertTrue(m.assess(route,(200,{},body+b'<!-- '+marker.encode()+b' -->'),[marker])['leak'])
+
     def test_commande_visiteur_ne_lance_pas_de_mutation(self):
         import ast
         m = load('c26')

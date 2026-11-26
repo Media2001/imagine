@@ -48,18 +48,37 @@ def gates_valid(path, sources, deps):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--evidence', required=True, type=Path)
+    parser.add_argument('--evidence', type=Path)
+    parser.add_argument('--check', action='store_true')
     parser.add_argument('--python-only', action='store_true')
     parser.add_argument('--gates', type=Path)
     a = parser.parse_args()
+    name = 'manifest-python-partiel.json' if a.python_only else 'manifest.json'
+    target = PRODUCTION / name
+    if a.check:
+        sealed = v.read(target)
+        current = {}
+        for folder in (ROOT / 'wp/outils/bascule/a29', HERE, PRODUCTION):
+            current.update(inventory(folder))
+        packet = PRODUCTION / 'preuves' / ('partiel-python' if a.python_only else 'final')
+        p = subprocess.run([sys.executable, '-B', str(HERE / 'verify.py'), '--evidence=' + str(packet),
+                            *(['--python-only'] if a.python_only else [])], capture_output=True, timeout=240,
+                           env={**os.environ, 'PYTHONIOENCODING': 'utf-8', 'PYTHONUTF8': '1', 'PYTHONDONTWRITEBYTECODE': '1'})
+        ok = (sealed.get('readiness_claimed') is False and sealed.get('exit_code') == 0
+              and sealed.get('scope') == ('python_only_partial' if a.python_only else 'python_and_native_parent_gates')
+              and sealed['files'] == current and p.returncode == 0 and not p.stderr
+              and v.receipt_valid(json.loads(p.stdout.decode('utf-8'))))
+        print(json.dumps({'exit_code': int(not ok), 'scope': sealed.get('scope'),
+                          'exact_files': len(current), 'readiness_claimed': False}))
+        return int(not ok)
+    if a.evidence is None:
+        parser.error('--evidence required unless --check')
     packet = a.evidence.resolve(strict=True)
     expected = PRODUCTION / 'preuves' / ('partiel-python' if a.python_only else 'final')
     if packet != expected.resolve() or a.evidence.is_symlink() or expected.is_symlink():
         raise RuntimeError('A29_OWNED_PACKET_REQUIRED')
     if not a.python_only and (PRODUCTION / 'preuves/partiel-python').exists():
         raise RuntimeError('A29_SINGLE_PACKET_REQUIRED')
-    name = 'manifest-python-partiel.json' if a.python_only else 'manifest.json'
-    target = PRODUCTION / name
     if target.exists():
         raise RuntimeError('A29_NEW_SEAL_REQUIRED')
     p = subprocess.run([sys.executable, '-B', str(HERE / 'verify.py'), '--evidence=' + str(packet),

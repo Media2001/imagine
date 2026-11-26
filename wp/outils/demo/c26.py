@@ -6,7 +6,7 @@ import json
 import re
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
-from urllib.parse import urlencode
+from urllib.parse import urlencode, quote
 import c23
 PROOF = Path(__file__).resolve().parents[3] / 'production/C-26'
 FAMILIES = ['agenda', 'personnalisation', 'retractation', 'sujet']
@@ -60,9 +60,21 @@ def routes(f):
     return rows
 
 
+def search_body(body, term):
+    body = c23.search_results_body(body, term)
+    # Seule la variante native encodée du lien RSS réfléchi, pas la tête entière.
+    expected = (c23.BASE+'/search/'+quote(term,safe='')+'/feed/rss2/').encode()
+    def feed(match):
+        tag = match[0]
+        if b'application/rss+xml' in tag and expected in tag:
+            tag = re.sub(rb'(\btitle=[\"\'])([^\"\']*)([\"\'])',lambda m:m[1]+m[2].replace(term.encode(),b'[terme recherche]')+m[3],tag)
+        return tag
+    return re.sub(rb'<link\b[^>]*>',feed,body,flags=re.I)
+
+
 def assess(route, response, markers):
     status, _, body = response
-    inspected = c23.search_results_body(body, route['reflected']) if route.get('reflected') else body
+    inspected = search_body(body, route['reflected']) if route.get('reflected') else body
     result = c23.assess_response(response, markers, expected=route['statuses'], inspected=inspected)
     text = body.decode('utf-8', 'replace')
     kind = route['kind']
@@ -98,7 +110,7 @@ def assess(route, response, markers):
         else:
             exists = bool(main and re.search(r'<h2\b[^>]*>\s*<a\b[^>]*href=[\"\'][^\"\']*'+re.escape(route['target_path']),main[1]))
     elif kind == 'account':
-        exists = '<main' in text and ('woocommerce-MyAccount' in text or 'id="loginform"' in text)
+        exists = '<main' in text and ('woocommerce-MyAccount' in text or 'id="loginform"' in text or 'woocommerce-form-login' in text and 'woocommerce-login-nonce' in text)
     elif kind == 'common-page':
         exists = '<main' in text and 'data-imagine-id=' in text
     else:

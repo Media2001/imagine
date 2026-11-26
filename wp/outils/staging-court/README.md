@@ -185,3 +185,6 @@ Le chemin archive -> fichiers fidèles -> neutraliser -> anonymiser -> verifier 
 Le code de l'importeur partagé fidèle n'est pas fourni dans ce checkout ; son prototype disponible supprime les fichiers. Le rechercher hors checkout ou le modifier dans le service partagé est exclu par la consigne. Une nouvelle orchestration frontend/proxy/réseaux dépasserait le chemin court : arrêt de cette extension au titre de la proportion, sans inventer d'adoption ni de GO. Aucun PRET A-01 n'est déposé. Les fichiers ci-dessus sont un sous-lot vérifié, pas une commande d'import réel adoptée.
 
 Les couches overlay/API, bascule, Novamira et worker runtime de staging-wp-integration restent non déployées et non développées. Seul le parseur SQL pur de worker.py est réutilisé en lecture ; aucune écriture partagée, recherche de site ou d'archive extérieure.
+A-28 : l'import vide automatiquement les six tables Fluent Forms et les messages/contacts Flamingo, leurs révisions et métadonnées liées (liste fermée : ../staging/form-policy.json).
+A-28 : garder ou anonymiser une table de cette liste est refusé avec FORM_MESSAGES_DECISION_REFUSED, l'étape et le suffixe fermé de table ; aucune valeur n'est rendue.
+A-28 : la vérification refuse les résidus connus avec FORM_MESSAGES_REMAIN et un nombre ; A-28 ne change pas le traitement des types inconnus, qui restent à qualifier.
