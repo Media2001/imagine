@@ -75,8 +75,11 @@ final class Analysis
         foreach ($rows as $row) {
             if (
                 !is_string($row['hook'] ?? null) || !is_int($row['timestamp'] ?? null)
-                || $row['timestamp'] < 0 || !in_array($row['status'] ?? null,
-                    ['pending', 'failed', 'complete', 'canceled', 'in-progress'], true)
+                || $row['timestamp'] < 0 || !in_array(
+                    $row['status'] ?? null,
+                    ['pending', 'failed', 'complete', 'canceled', 'in-progress'],
+                    true
+                )
             ) {
                 throw new \RuntimeException('A29_DATA_UNSUPPORTED');
             }

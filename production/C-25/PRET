@@ -1,0 +1,12 @@
+C-25 — PRET technique, corrections de la fusion de 00 h 02 du 27 novembre 2026
+
+Quatre instructions appliquées ; aucune nouvelle fonction métier.
+Sceau courant : livraison-corrections002-V2.json
+SHA-256 : 705e639fe34a95c2bb61474164d3429863396ef75956d26b24169661c3c8b536
+
+Canonique : 10 tests / 172 assertions ; global : 1151 / 36062 ; 20 outils / 521 contrôles ; zéro échec/erreur/ignoré.
+Live imagine-test-demo seulement : 57 contrôles verts, dont options.php création/modification/pannes SQL et retour effectif aux préimages ; motif à antislash relu et exporté C21 à l’identique. Restauration métier et retrait des instruments vérifiés. 15/15 mutations témoins détectées ; rouges historiques conservés.
+
+Vérifier : python -B wp/outils/demo/c25-finaliser.py verifier
+Voir : A-VOIR.md, CORRECTIONS-002-V2.md, NOTE.md (historique distingué).
+README du plugin complété, y compris le refus delete_user/wp_die en panne SQL persistante. C10/C21 clos et markup C10 inchangés ; aucun nouveau hook C10. Borne incluse et trace anti-doublon conservées à défaut. Validation visuelle de Ced et avis juridique attendus ; PRET ne vaut ni clôture ni GO sur le réel.

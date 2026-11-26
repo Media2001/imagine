@@ -1,5 +1,8 @@
 # C-25 — Demande de rétractation seule
 
+> **État courant — 27 novembre 2026, corrections de la fusion de 00 h 02 :** les quatre instructions sont appliquées. Dossier actuel : `CORRECTIONS-002-V2.md`, sceau `livraison-corrections002-V2.json`. Canonique : **10 tests / 172 assertions** ; global : **1151 / 36062**, **20 outils / 521 contrôles** ; live : **57 contrôles**, rollback réel des deux réglages par `options.php`, motif à antislash jusqu’à l’export natif C21, readbacks métier verts ; **15/15 mutations** détectées. Le README est complété, y compris `delete_user`/`wp_die` en panne SQL persistante. C10/C21 clos et markup C10 inchangés. Validation visuelle/juridique et arbitrages métier restent dus. Les sections ci-dessous décrivent **l’historique de la livraison précédente**, dont les reçus ne sont pas écrasés.
+
+
 ## Standard d’abord — dix lignes, documentation officielle consultée le 26 novembre 2026
 
 1. WooCommerce conserve les événements et remarques dans les notes de commande natives.

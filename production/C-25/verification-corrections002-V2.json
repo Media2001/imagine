@@ -1,0 +1,25 @@
+{
+  "result": "PASS",
+  "sources": 15,
+  "canonical_tests": 10,
+  "canonical_assertions": 172,
+  "integration_checks": 57,
+  "mutations": 15,
+  "regression_tests": 1151,
+  "regression_assertions": 36062,
+  "tools": {
+    "tools": 20,
+    "checks": 521,
+    "failures": 0,
+    "excluded": []
+  },
+  "pret_verified": true,
+  "exit": 0,
+  "commands": [
+    "python -B wp/outils/demo/c25-finaliser.py verifier"
+  ],
+  "additional_docs_sha256": {
+    "CORRECTIONS-002-V2.md": "ecb1cfd94a1b50e6e23c24d55751a01ed53f77c2c5fc33f3f8b596dda58a23dd",
+    "PRET": "55792cc428aec4daa072eb600a11208651b5f6fd94f16c5d15db4db66b7f6d0e"
+  }
+}
