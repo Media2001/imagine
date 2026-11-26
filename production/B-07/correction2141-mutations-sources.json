@@ -1,0 +1,56 @@
+{
+  "scope": "imagine-test-demo",
+  "cases": {
+    "r1": {
+      "exit": 1,
+      "failures": [
+        "testLiensDuCorpsPartenaireEtContreExemples"
+      ],
+      "errors": 0,
+      "detected": true
+    },
+    "r2": {
+      "exit": 1,
+      "failures": [
+        "testProjectionFicheSchemaExecuteLeContenuUneSeuleFois"
+      ],
+      "errors": 0,
+      "detected": true
+    },
+    "double-contenu": {
+      "exit": 1,
+      "failures": [
+        "testProjectionFicheSchemaExecuteLeContenuUneSeuleFois"
+      ],
+      "errors": 0,
+      "detected": true
+    },
+    "r4": {
+      "exit": 1,
+      "failures": [
+        "testExportErreurArreteEtRepriseNeSauteAucunePage"
+      ],
+      "errors": 0,
+      "detected": true
+    },
+    "formulaire": {
+      "exit": 1,
+      "failures": [
+        "testPartenairePasseConserveSonLienSansInscription"
+      ],
+      "errors": 0,
+      "detected": true
+    },
+    "alerte": {
+      "exit": 1,
+      "failures": [
+        "testAdministrationSignaleLaSaisieInvalideSansMasquerLeDefaut"
+      ],
+      "errors": 0,
+      "detected": true
+    }
+  },
+  "total": 6,
+  "all_detected": true,
+  "kind": "sources jetables executees; aucune mutation de reponse en memoire"
+}

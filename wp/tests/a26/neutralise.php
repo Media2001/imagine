@@ -13,7 +13,8 @@ $option = static fn(string $name): mixed => unserialize((string) $pdo->query(
     'SELECT option_value FROM wp_options WHERE option_name=' . $pdo->quote($name)
 )->fetchColumn(), ['allowed_classes' => false]);
 $before = $option('active_plugins');
-$contents = $pdo->query("SELECT ID,post_content FROM wp_posts WHERE post_type='post' ORDER BY ID")->fetchAll(PDO::FETCH_KEY_PAIR);
+$contentSql = "SELECT ID,post_content FROM wp_posts WHERE post_type='post' ORDER BY ID";
+$contents = $pdo->query($contentSql)->fetchAll(PDO::FETCH_KEY_PAIR);
 $engine = new Imagine\Staging\Engine(new Imagine\Staging\PdoStore($pdo, $context), $context, 'wp_');
 $engine->neutraliser();
 $engine->anonymiser(bin2hex(random_bytes(24)));
@@ -21,7 +22,8 @@ $after = $option('active_plugins');
 $disabled = $option('imagine_staging_disabled_plugins');
 $settings = $option('googlesitekit_analytics-4_settings');
 $erased = 0;
-foreach ($pdo->query("SELECT ID,post_content FROM wp_posts WHERE post_type='post'")->fetchAll(PDO::FETCH_ASSOC) as $row) {
+$afterContents = $pdo->query($contentSql)->fetchAll(PDO::FETCH_ASSOC);
+foreach ($afterContents as $row) {
     if (($contents[$row['ID']] ?? '') !== '' && $row['post_content'] === '') {
         $erased++;
     }

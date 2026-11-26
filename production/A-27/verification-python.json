@@ -1,0 +1,67 @@
+{
+  "lot": "A-27",
+  "status": "CANDIDAT_GATES_NATIVES_PARENT",
+  "proof_scope": "python_only",
+  "readiness_claimed": false,
+  "evidence": "C:/Users/Ced/AppData/Local/hermes/cache/scratch/a27-python-final-02",
+  "matrix_command": "C:/Python314/python.exe -B wp/tests/a27/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a27-python-final-02",
+  "matrix_exit_code": 0,
+  "verifier_command": "C:/Python314/python.exe -B wp/tests/a27/verify.py --python-only --evidence=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a27-python-final-02",
+  "verifier_exit_code": 0,
+  "sources_stable_during_matrix": true,
+  "source_manifest_sha256": "b01c7b2daa890322e03a395ac3584bafbeb6a77299c80c33e6e6d00d9c8728c1",
+  "dependency_manifest_sha256": "64d048075df64d05ae85f8a240e7da19a4d27249b682171876b59473d24e1971",
+  "matrix_sha256": "f3c4ff6fe333d2aae11dc17b5bd01f42efbbd634d5cbeabc56de5e86430a39b4",
+  "environment": {
+    "platform": "win32",
+    "executable": "C:/Python314/python.exe",
+    "version_observed": "3.14.6",
+    "locale": "cp1252"
+  },
+  "runs": [
+    {
+      "console": "utf-8",
+      "stdout_encoding": "utf-8",
+      "stderr_encoding": "utf-8",
+      "utf8_mode": 1,
+      "tests_run": 35,
+      "all_pass": true,
+      "exit_code": 0,
+      "log": "utf8/python-tests.log",
+      "log_sha256": "7fb7f3e2831a1ad2c56f73f5302427efcfe202f968b078e7c7dcbfe46a58a4a5"
+    },
+    {
+      "console": "cp1252",
+      "stdout_encoding": "cp1252",
+      "stderr_encoding": "cp1252",
+      "utf8_mode": 0,
+      "tests_run": 35,
+      "all_pass": true,
+      "exit_code": 0,
+      "log": "cp1252/python-tests.log",
+      "log_sha256": "5a6afde9b37ff606d23c3e5988b10697ca4ae32d42817284fdcf7961da649a76"
+    }
+  ],
+  "python_red_observed": [
+    "Launcher absent: 3 failures, followed by green refusals",
+    "Audit-storage binding absent: 17 tests, 1 failure, followed by green binding",
+    "Disposable mutations of storage and Markdown guards replayed within the green suite"
+  ],
+  "executed_native_php_tests": false,
+  "executed_installed_source_gate": false,
+  "executed_native_classic_hpos": false,
+  "executed_psr12": false,
+  "executed_docker_or_wsl": false,
+  "host_php_invoked": false,
+  "remaining_gates": [
+    "Parent serialized image preparation",
+    "Installed Woo/WCS source inspection before subject bootstrap",
+    "Actual PHP pure mutation RED and restored GREEN",
+    "Native classic and HPOS fixtures in both consoles",
+    "Actual import-neutralisation provenance and native DB/file fingerprints",
+    "Native stream/file canaries and omitted-guardian witnesses",
+    "Strict PSR-12",
+    "Full packet verifier and parent global gates",
+    "Two independent reviews, fusion and final verification"
+  ]
+}

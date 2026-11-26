@@ -19,10 +19,12 @@ try {
  try {
   $ex=AgendaConfidentialite::exporter($email);
   $er=AgendaConfidentialite::effacer($email);
-  $checks['export_lecture_erreur_incomplet']=$ex['done']===false;
+  $checks['export_lecture_erreur_incomplet']=is_wp_error($ex)&&$ex->get_error_code()==='imagine_agenda_export_lecture';
   $checks['effacement_lecture_erreur_incomplet']=$er['done']===false&&$er['items_retained']===true&&!$er['items_removed'];
  } finally {remove_filter('query',$break);$wpdb->suppress_errors($old);}
  $checks['erreur_preserve_inscription']=Agenda::inscriptions($email)===$ids;
+ $reprise=AgendaConfidentialite::exporter($email,1);
+ $checks['export_reprise_meme_page_sans_omission']=!is_wp_error($reprise)&&$reprise['done']&&count($reprise['data'])===1;
  $er=AgendaConfidentialite::effacer($email);
  $checks['effacement_reel_apres_erreur']=$er['done']&&$er['items_removed']&&!$er['items_retained'];
 } catch(Throwable $e){$error=get_class($e);} finally {

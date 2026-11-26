@@ -1,0 +1,42 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T21:16:47.601276+00:00",
+  "checks": {
+    "inscription_vrai_adaptateur": true,
+    "premier_temoin_persistant": true,
+    "page1_panne_WP_Error": true,
+    "effacement_panne_incomplet": true,
+    "reprise_page1_inscription_non_omise": true,
+    "121_inscriptions_reelles": true,
+    "page1_taille_et_fin": true,
+    "page1_C21_preserve": true,
+    "page2_panne_WP_Error": true,
+    "page2_taille_et_fin": true,
+    "page2_C21_preserve": true,
+    "page3_taille_et_fin": true,
+    "page3_C21_preserve": true,
+    "pagination_complete_sans_omission_ni_doublon": true,
+    "effacement_121_apres_pagination": true,
+    "inscriptions_essai_retirees": true,
+    "etat_metier_exact": true,
+    "evenements_et_metadonnees_exacts": true
+  },
+  "total": 18,
+  "failures": [],
+  "error": null,
+  "exit": 0,
+  "stderr": "",
+  "sources": {
+    "plugins/imagine-site/Agenda.php": "70e940beb68e95379a81793b5e8aeb0c34d20d2a6efdbd9d5b2dd09e3290c9bb",
+    "plugins/imagine-site/AgendaConfidentialite.php": "7bfd2b5c2639d48a12b095bbfd8b9c09f8b73f6ddb5a4d69babc0d6c30addef7",
+    "themes/imagine/single-imagine_evenement.php": "5e0f45044d7d7bd5bf6dea95a41a00c6e747fd1a774b3c44a3fafdc458dc5ac2",
+    "themes/imagine/archive-imagine_evenement.php": "e99387da9d90c2f258310502ec8f69f2651ffd0cc968d37b0769d7043b3628f1",
+    "themes/imagine/functions.php": "b078c25bb370c12cc555c4f10ddf0c462604580af6c68ccb1068ab757c939db6"
+  },
+  "source_sha256": "c5792290328e4ebe9d543f8fc73ebacbfdbe1ce50b43eaeb7758db082bb5eb42",
+  "private_snapshot": {
+    "file": "b07-private-1zgvq76f/snapshot.json",
+    "sha256": "c48e125710ccdad86c6fc02ec06b60a2deb9d3dd628286b3a921672abfa2609e",
+    "private": true
+  }
+}

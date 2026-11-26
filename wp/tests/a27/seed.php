@@ -68,14 +68,26 @@ for ($n = 0; $n < $repetitions; $n++) {
         $s->set_payment_method($gateway);
         $s->set_requires_manual_renewal(false);
         $s->set_billing_first_name('A27_ACCOUNT_PRIVATE_CANARY');
-        if ($i === 3) {
+        if ($i === 0) {
+            // Exact native metadata match, WITHOUT an order-token link. The old
+            // legacy key is stale: native Stripe gives the source key priority.
+            $s->update_meta_data('_stripe_source_id', $nativeTokens[$i]->get_token());
+            $s->update_meta_data('_stripe_card_id', 'A27_STALE_CARD_PRIVATE_CANARY_' . $n);
+        } elseif ($i === 3) {
             $s->update_meta_data('_paypal_subscription_id', 'A27_PAYPAL_PRIVATE_CANARY_' . $n);
         } elseif ($i === 4) {
             $s->update_meta_data('_stripe_source_id', 'A27_UNMATCHED_PRIVATE_CANARY_' . $n);
         }
         $s->save();
-        if ($nativeTokens[$i]) {
+        if ($nativeTokens[$i] && $i !== 0) {
             $s->add_payment_token($nativeTokens[$i]);
+        }
+        if ($i === 0) {
+            $reloaded = wcs_get_subscription($s->get_id());
+            if ($reloaded->get_payment_tokens() !== []
+                || $reloaded->get_meta('_stripe_source_id', true, 'edit') !== $nativeTokens[$i]->get_token()) {
+                throw new RuntimeException('A27_SEED_METADATA');
+            }
         }
         if ($state !== 'pending') {
             $s->update_status($state);

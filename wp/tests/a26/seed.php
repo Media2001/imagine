@@ -22,7 +22,12 @@ foreach (Imagine\ThirdParties\Analysis::plugins() as $path => $family) {
 update_option('active_plugins', $active);
 update_option('googlesitekit_analytics-4_settings', ['measurementID' => 'A26_ID_PRIVATE_CANARY',
     'client_id' => 'A26_SCRUB_PRIVATE_CANARY']);
-$publish = static function (string $content, string $date = '2026-01-01 00:00:00', string $type = 'post', string $status = 'publish'): int {
+$publish = static function (
+    string $content,
+    string $date = '2026-01-01 00:00:00',
+    string $type = 'post',
+    string $status = 'publish'
+): int {
     return (int) wp_insert_post(['post_type' => $type, 'post_status' => $status,
         'post_title' => 'A26_TITLE_PRIVATE_CANARY', 'post_content' => $content,
         'post_date' => $date, 'post_date_gmt' => $date]);
@@ -35,9 +40,13 @@ $issues = [];
 for ($i = 1; $i <= 11; $i++) {
     $issues[] = $publish('', sprintf('2025-%02d-01 00:00:00', $i), 'imagine_numero');
 }
-$old = $publish('<iframe src="https://www.youtube.com/embed/A26_VIDEO_PRIVATE_CANARY"></iframe>', '2024-01-01 00:00:00');
+$old = $publish(
+    '<iframe src="https://www.youtube.com/embed/A26_VIDEO_PRIVATE_CANARY"></iframe>',
+    '2024-01-01 00:00:00'
+);
 update_post_meta($old, 'imagine_numero_id', $issues[0]);
-$video = $publish('<!-- wp:embed {"url":"https://youtu.be/A26_BLOCK_PRIVATE_CANARY","type":"video","providerNameSlug":"youtube"} -->'
+$video = $publish('<!-- wp:embed {"url":"https://youtu.be/A26_BLOCK_PRIVATE_CANARY",'
+    . '"type":"video","providerNameSlug":"youtube"} -->'
     . '<figure><div>https://youtu.be/A26_BLOCK_PRIVATE_CANARY</div></figure><!-- /wp:embed -->');
 update_post_meta($video, 'imagine_numero_id', $issues[10]);
 $other = $publish('<iframe src="https://A26_DOMAIN_PRIVATE_CANARY.invalid/embed"></iframe>'
@@ -58,10 +67,19 @@ for ($i = 0; $i < 11; $i++) {
 }
 $publish('<iframe src="https://vimeo.com/A26_DRAFT_PRIVATE_CANARY"></iframe>', '2026-01-01 00:00:00', 'post', 'draft');
 $publish('[embed]https://vimeo.com/123[/embed]', '2023-01-01 00:00:00');
-$block = $publish('<iframe src="https://open.spotify.com/embed/track/A26_AUDIO_PRIVATE_CANARY"></iframe>', '2023-01-01 00:00:00', 'wp_block');
+$block = $publish(
+    '<iframe src="https://open.spotify.com/embed/track/A26_AUDIO_PRIVATE_CANARY"></iframe>',
+    '2023-01-01 00:00:00',
+    'wp_block'
+);
 $publish('<!-- wp:block {"ref":' . $block . '} /-->', '2023-01-01 00:00:00');
 // Import dangerous() blanks this whole content: all source service counts must become unknown.
-$publish('<iframe src="https://www.youtube.com/embed/A26_THIRD_PRIVATE_CANARY"></iframe> pi_a26fictiononly', '2022-01-01 00:00:00');
+$publish(
+    '<iframe src="https://www.youtube.com/embed/A26_THIRD_PRIVATE_CANARY"></iframe> pi_a26fictiononly',
+    '2022-01-01 00:00:00'
+);
 $mu = WPMU_PLUGIN_DIR . '/a26-register.php';
-file_put_contents($mu, "<?php add_action('init', static function () { register_post_type('imagine_numero', ['public'=>true]); register_taxonomy('a26_issue', ['post'], ['public'=>false]); });\n");
+file_put_contents($mu, "<?php add_action('init', static function () { "
+    . "register_post_type('imagine_numero', ['public'=>true]); "
+    . "register_taxonomy('a26_issue', ['post'], ['public'=>false]); });\n");
 echo 'A26_SEED_OK';

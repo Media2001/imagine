@@ -41,7 +41,7 @@ for name, url in urls:
             parser = Text()
             parser.feed(text)
             text = '\n'.join(parser.parts)
-        (out / (name + '.txt')).write_text(text, encoding='utf-8')
+        (out / (name + '.txt')).write_bytes(text.encode('utf-8'))
         rows.append({'name': name, 'url': url, 'retrieved_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
                      'source_sha256': hashlib.sha256(data).hexdigest(), 'text_sha256': hashlib.sha256(text.encode()).hexdigest(), 'status': 'retrieved'})
         print(name, 'OK')
