@@ -28,8 +28,10 @@ final class Command
         if (!is_file($repository . '/wp/outils/bascule/audit')) {
             $repository = dirname(__DIR__);
         }
-        if (!$site || !$parent || !is_dir($site) || !preg_match('/\A[A-Za-z0-9_-]+\z/D', $base)
-            || !\Imagine\ContentInventory\Command::disjointOutput($parent, $site, $repository)) {
+        if (
+            !$site || !$parent || !is_dir($site) || !preg_match('/\A[A-Za-z0-9_-]+\z/D', $base)
+            || !\Imagine\ContentInventory\Command::disjointOutput($parent, $site, $repository)
+        ) {
             throw new \RuntimeException('A23_OUTPUT_UNSAFE');
         }
         $out = $parent . '/' . $base;
@@ -37,13 +39,17 @@ final class Command
             throw new \RuntimeException('A23_OUTPUT_EXISTS');
         }
         $audit = realpath($options['audit']);
-        if (!$audit || !is_file($audit) || is_link($options['audit']) || filesize($audit) > 16777216
-            || dirname(dirname($audit)) !== $parent) {
+        if (
+            !$audit || !is_file($audit) || is_link($options['audit']) || filesize($audit) > 16777216
+            || dirname(dirname($audit)) !== $parent
+        ) {
             throw new \RuntimeException('A23_AUDIT_GUARD');
         }
         $photo = json_decode(file_get_contents($audit), true, 64, JSON_THROW_ON_ERROR);
-        if (($photo['schema'] ?? null) !== 'imagine-a02-audit-v1' || ($photo['read_only'] ?? null) !== true
-            || !isset($photo['sections']['database']['tables'], $photo['sections']['commerce']['order_storage'])) {
+        if (
+            ($photo['schema'] ?? null) !== 'imagine-a02-audit-v1' || ($photo['read_only'] ?? null) !== true
+            || !isset($photo['sections']['database']['tables'], $photo['sections']['commerce']['order_storage'])
+        ) {
             throw new \RuntimeException('A23_AUDIT_GUARD');
         }
         $report = Inventory::collect($site);
@@ -51,7 +57,8 @@ final class Command
             throw new \RuntimeException('A23_AUDIT_STORAGE_MISMATCH');
         }
         $report['audit_sha256'] = hash_file('sha256', $audit);
-        $json = json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n";
+        $flags = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR;
+        $json = json_encode($report, $flags) . "\n";
         $markdown = "# Comptes des lecteurs — lecture seule\n\n"
             . "Comptes seulement ; aucune activation ni décision de reprise.\n\n```json\n" . $json . "```\n";
         if (!mkdir($out, 0700)) {

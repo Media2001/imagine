@@ -40,6 +40,13 @@ final class NewslettersReglages
                 }
             }
         }, 140);
+        add_action('delete_user_meta', static function ($metaIds, $id, $key): void {
+            if ($key === Newsletters::META) {
+                foreach (get_user_meta((int) $id, $key, false) as $value) {
+                    self::reserverPreferences($value);
+                }
+            }
+        }, 10, 3);
         add_action('updated_option', static fn ($key, $old, $new) => self::journal($key, $old, $new), 20, 3);
         add_action('added_option', static fn ($key, $new) => self::journal($key, null, $new), 20, 2);
     }
@@ -82,6 +89,22 @@ final class NewslettersReglages
             foreach ($values as $value) {
                 self::reserverPreferences(maybe_unserialize($value));
             }
+            // Récupère aussi les lettres retirées avant cette correction, sans choix restant.
+            $events = $wpdb->get_col($wpdb->prepare(
+                "SELECT option_value FROM {$wpdb->options} WHERE option_name LIKE %s",
+                $wpdb->esc_like(\Imagine\Pilotage\Administration\Reglages::JOURNAL) . '%'
+            ));
+            if ($wpdb->last_error) {
+                throw new \InvalidArgumentException('Journal indisponible.');
+            }
+            foreach ($events as $event) {
+                $event = maybe_unserialize($event);
+                if (is_array($event) && ($event['option'] ?? '') === Newsletters::CATALOGUE) {
+                    foreach (['avant', 'apres'] as $side) {
+                        self::reserver(NewslettersRegles::catalogue($event[$side] ?? []));
+                    }
+                }
+            }
             $active = array_column($current, 'id');
             foreach ($rows as $row) {
                 if (!in_array($row['id'], $active, true) && get_option(self::reserve($row['id']), false)) {
@@ -93,7 +116,7 @@ final class NewslettersReglages
             add_settings_error(
                 Newsletters::CATALOGUE,
                 'imagine_newsletters_catalogue_invalide',
-                __('Catalogue invalide : valeur conservée. Identifiants uniques et une seule principale requis.', 'imagine-site')
+                __('Catalogue invalide : valeur conservée. Identifiants uniques, jamais réutilisés après retrait, et une seule principale requis.', 'imagine-site')
             );
             return Newsletters::catalogue();
         }

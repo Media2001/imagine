@@ -9,11 +9,13 @@ final class Analysis
     public static function family(string $value): string
     {
         // Prefix recognition only. No validation, password trial or compatibility verdict.
-        foreach ([
+        foreach (
+            [
             '$wp$2y$' => 'wordpress_bcrypt', '$P$' => 'phpass', '$H$' => 'phpass_h',
             '$2a$' => 'bcrypt', '$2b$' => 'bcrypt', '$2y$' => 'bcrypt',
             '$argon2i$' => 'argon2i', '$argon2id$' => 'argon2id',
-        ] as $prefix => $label) {
+            ] as $prefix => $label
+        ) {
             if (str_starts_with($value, $prefix)) {
                 return $label;
             }

@@ -19,7 +19,8 @@ def main():
     out.mkdir(exist_ok=False,parents=True)
     rows=[]
     for console,encoding,utf8 in [('cp1252','cp1252','0'),('utf8','utf-8','1')]:
-        env={**os.environ,'PYTHONIOENCODING':encoding,'PYTHONUTF8':utf8,'PYTHONDONTWRITEBYTECODE':'1'}
+        env={**os.environ,'PYTHONIOENCODING':encoding,'PYTHONUTF8':utf8,'PYTHONDONTWRITEBYTECODE':'1',
+             'TMPDIR':'C:/Users/Ced/AppData/Local/hermes/cache/scratch'}
         def run(label,arguments,timeout):
             command=[sys.executable,'-B',*arguments]
             p=subprocess.run(command,env=env,text=True,encoding=encoding,capture_output=True,timeout=timeout,cwd=ROOT)

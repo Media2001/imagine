@@ -40,7 +40,8 @@ def main():
     probe="import sys,locale,json; print(json.dumps({'platform':sys.platform,'executable':sys.executable,'version':sys.version,'version_info':list(sys.version_info[:3]),'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode}))"
     for console,encoding,mode in [('utf8','utf-8','1'),('cp1252','cp1252','0')]:
         folder=out/console;folder.mkdir()
-        env={**os.environ,'PYTHONIOENCODING':encoding,'PYTHONUTF8':mode,'PYTHONDONTWRITEBYTECODE':'1'}
+        env={**os.environ,'PYTHONIOENCODING':encoding,'PYTHONUTF8':mode,'PYTHONDONTWRITEBYTECODE':'1',
+             'TMPDIR':'C:/Users/Ced/AppData/Local/hermes/cache/scratch'}
         def execute(label,command,timeout=1800):
             p=subprocess.run(command,env=env,cwd=ROOT,capture_output=True,text=True,encoding=encoding,errors='strict',timeout=timeout)
             (folder/(label+'.log')).write_text(p.stdout+p.stderr,encoding='utf-8')

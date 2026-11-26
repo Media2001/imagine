@@ -48,7 +48,9 @@ def supervise(command,env,write_root,fence,*,input_data=None,timeout=120,
     def feed():
         try:child.stdin.write(input_data)
         except (BrokenPipeError,OSError):pass
-        finally:child.stdin.close()
+        finally:
+            try:child.stdin.close()
+            except (BrokenPipeError,OSError):pass
     if input_data is not None:threading.Thread(target=feed,daemon=True).start()
     try:
         code=child.wait(timeout=max(.001,deadline-time.monotonic()))
@@ -144,7 +146,7 @@ def inventory(tool,entry,options,*,fence=None,input_data=None,arguments=None):
             shutil.copyfile(audit,stage/'audit/audit.json');staged['--audit']=str(stage/'audit/audit.json')
         args=[key+'='+value for key,value in staged.items()]
         if arguments:args.extend(arguments)
-        command=['php','-d','display_errors=0','-d','log_errors=0']
+        command=['php','-d','display_errors=0','-d','log_errors=0','-d','error_log=/dev/null']
         if fence is not None:command+=['-d','disable_functions=mail,exec,shell_exec,system,passthru,popen,proc_open,pcntl_exec']
         command += [str(entry),*args]
         code,stdout,stderr=supervise(command,{**os.environ,tool+'_CONFINED':'1','A22_SUPERVISED':tool},

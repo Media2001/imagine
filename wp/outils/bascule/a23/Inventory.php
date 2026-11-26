@@ -21,8 +21,10 @@ final class Inventory
         // Native pre-initialised hooks: plugin.php converts these to WP_Hook.
         // Avoid attempts to recreate erased Action Scheduler work on a neutralised copy.
         // SQL READ ONLY remains the non-bypassable backstop, including direct APIs.
-        foreach (['pre_as_enqueue_async_action', 'pre_as_schedule_single_action',
-            'pre_as_schedule_recurring_action', 'pre_as_schedule_cron_action'] as $hook) {
+        foreach (
+            ['pre_as_enqueue_async_action', 'pre_as_schedule_single_action',
+            'pre_as_schedule_recurring_action', 'pre_as_schedule_cron_action'] as $hook
+        ) {
             $GLOBALS['wp_filter'][$hook][PHP_INT_MAX][] = ['function' => static fn(): int => 0, 'accepted_args' => 0];
         }
         \Imagine\PublicAddresses\Runtime::boot($site);

@@ -40,6 +40,17 @@ def confine(write_root):
         rule = PathRule(rights, parent)
         if libc.syscall(445, ruleset, 1, ctypes.byref(rule), 0) != 0:
             raise RuntimeError('A12_LANDLOCK_RULE_FAILED')
+        # Explicit PHP error_log() calls ignore log_errors=0. Their only sink is
+        # the fixed discard device, never a retained log or a site/output file.
+        sink = os.open('/dev/null', os.O_PATH | os.O_CLOEXEC)
+        try:
+            if os.fstat(sink).st_rdev != os.makedev(1, 3):
+                raise RuntimeError('A12_LANDLOCK_RULE_FAILED')
+            discard = PathRule(2, sink)  # WRITE_FILE only, exact character device.
+            if libc.syscall(445, ruleset, 1, ctypes.byref(discard), 0) != 0:
+                raise RuntimeError('A12_LANDLOCK_RULE_FAILED')
+        finally:
+            os.close(sink)
         if libc.prctl(38, 1, 0, 0, 0) != 0 or libc.syscall(446, ruleset, 0) != 0:
             raise RuntimeError('A12_LANDLOCK_RESTRICT_FAILED')
     finally:

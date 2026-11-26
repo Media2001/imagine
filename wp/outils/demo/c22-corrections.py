@@ -5,10 +5,12 @@ sys.dont_write_bytecode = True
 import c22
 
 
-def runtime(label, case):
+def runtime(label, case, mutation=''):
     c22.profils.guard('imagine-test-demo')
     assert case in ('retired', 'history', 'utf8', 'privacy')
-    assert not (c22.PROOF/(label+'.json')).exists()
+    assert mutation in ('', 'export_omit', 'erase_noop') and (not mutation or case == 'privacy')
+    if label:
+        assert not (c22.PROOF/(label+'.json')).exists()
     source = c22.ROOT/'wp/tests/demo/c22-corrections.php'
     target = 'imagine-demo-build/c22-corrections.php'
     c22.profils.b00.upload(target, source.read_bytes())
@@ -16,7 +18,7 @@ def runtime(label, case):
     before = c22.state()
     own_options = '''global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->options} WHERE option_name IN ('imagine_newsletters_catalogue','imagine_newsletters_creation') OR option_name LIKE 'imagine_newsletters_reserve_%' ORDER BY option_id",ARRAY_A));'''
     prior = c22.wp(own_options)
-    p = c22.profils.b00.wp('eval', '$GLOBALS["imagine_c22_case"]="'+case+'";require WP_CONTENT_DIR."/'+target+'";', check=False)
+    p = c22.profils.b00.wp('eval', '$GLOBALS["imagine_c22_case"]="'+case+'";$GLOBALS["imagine_c22_mutation"]="'+mutation+'";require WP_CONTENT_DIR."/'+target+'";', check=False)
     try:
         data = json.loads(p['stdout'])
     except ValueError:

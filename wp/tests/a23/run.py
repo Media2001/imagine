@@ -84,6 +84,13 @@ def main():
         (out / 'unit.log').write_text(p.stdout + p.stderr, encoding='utf-8')
         check('unit_return', p.returncode == 0)
         b.call(['cp', name + ':/report/unit.json', b.local(out / 'unit.json')], check=False)
+        pure = b.call(['exec', name, 'php', '-n', '-d',
+                       'disable_functions=file_put_contents,fopen,mkdir,rename,unlink,mail,exec,shell_exec,system,passthru,popen,proc_open',
+                       '/opt/a23/pure-probe.php'], check=False)
+        (out / 'pure.log').write_text(pure.stdout + pure.stderr, encoding='utf-8')
+        unit_count = len(json.loads((out / 'unit.json').read_text(encoding='utf-8'))['checks'])
+        check('pure_inclusion_no_extensions_no_writes', pure.returncode == 0 and pure.stderr == ''
+              and pure.stdout == 'A23_PURE_OK ' + str(unit_count) + '\n')
         if not a.unit_only and p.returncode == 0:
             standard = b.call(['exec', name, 'php', '/opt/a23/standard.php'], check=False)
             (out / 'standard.log').write_text(standard.stdout + standard.stderr, encoding='utf-8')

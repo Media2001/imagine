@@ -1,0 +1,5 @@
+{
+  "exit": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"C:\\Users\\Ced\\imagine\\wp\\tests\\demo\\c22-verifier.py\", line 101, in <module>\n    run('--seal' in sys.argv)\n  File \"C:\\Users\\Ced\\imagine\\wp\\tests\\demo\\c22-verifier.py\", line 79, in run\n    result={'at':datetime.now(timezone.utc).isoformat(),'scope':'imagine-test-demo','T01':check_receipts(),'shared_contract':shared(),'site':live()}\n                                                                                                                             ^^^^^^^^\n  File \"C:\\Users\\Ced\\imagine\\wp\\tests\\demo\\c22-verifier.py\", line 42, in shared\n    assert privacy.count(\"'imagine_newsletters_preferences'\")==1\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+}

@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-26T13:53:52.314689+00:00",
+  "scope": "imagine-test-demo",
+  "source_readback": {
+    "plugins/imagine-site/NewslettersRegles.php": "0f8c6d04c6a326e940fbb8919d0e89187b9bbd560d8151df2a9bcf9d36b91e8a",
+    "plugins/imagine-site/Newsletters.php": "4ad7646c5c8d529c99558541cee2ff4ee29f500d3a9346222a937645d6458b2a",
+    "plugins/imagine-site/NewslettersReglages.php": "93bf69efe8f77a5e64f470b50b4aab91e55be0e3e1db5ca6479d14b0ecc7c4cf"
+  },
+  "native_preserved": true
+}

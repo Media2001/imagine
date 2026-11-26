@@ -74,6 +74,19 @@ try {
         wp_cache_flush();
         update_option(N::CATALOGUE, [$main, $other], false);
         $checks['reserve_historique_survit_effacement'] = N::catalogue() === [$main];
+        $legacyId = 'c22-correction-efface-avant';
+        update_user_meta($id, N::META, [$legacyId => $historic[$other['id']]]);
+        delete_user_meta($id, N::META);
+        wp_cache_flush();
+        $other['id'] = $legacyId;
+        update_option(N::CATALOGUE, [$main, $other], false);
+        $checks['historique_efface_avant_edition_reste_reserve'] = N::catalogue() === [$main];
+        // Ancient accepted Settings API catalogue, retired before the reserve existed.
+        $other['id'] = 'c22-correction-journal-seul';
+        add_option('imagine_reglages_journal_c22_legacy', ['option' => N::CATALOGUE,
+            'avant' => [$main, $other], 'apres' => [$main]], '', false);
+        update_option(N::CATALOGUE, [$main, $other], false);
+        $checks['identifiant_historique_journal_seul_refuse'] = N::catalogue() === [$main];
     } elseif ($case === 'utf8') {
         $main['titre'] = str_repeat('é', 150);
         $main['presentation'] = str_repeat('à', 500);

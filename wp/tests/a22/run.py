@@ -56,7 +56,7 @@ def main():
         # Cross-process lease affects only our proof runners, never a site/daemon.
         import msvcrt
         import time
-        lock=Path(os.environ['TMPDIR'])/'a22-docker-call.lock'
+        lock=Path(os.environ.get('TMPDIR',str(Path.home()/'AppData/Local/hermes/cache/scratch')))/'a22-docker-call.lock'
         with lock.open('a+b') as handle:
             handle.seek(0,2)
             if handle.tell()==0:handle.write(b'0');handle.flush()

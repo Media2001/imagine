@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-26T13:57:26.140357+00:00",
+  "scope": "imagine-test-demo",
+  "case": "history",
+  "checks": {
+    "catalogue_temoin_non_vide": true,
+    "ancien_consentement_hors_catalogue_refuse": true,
+    "ancien_consentement_inchange": true,
+    "reserve_historique_survit_effacement": true,
+    "historique_efface_avant_edition_reste_reserve": true,
+    "identifiant_historique_journal_seul_refuse": true,
+    "aucun_mail_tente": true,
+    "aucun_HTTP_tente": true
+  },
+  "total": 8,
+  "failures": [],
+  "exit": 0,
+  "stderr": "",
+  "state_preserved": true,
+  "own_options_exact": true,
+  "source_sha256": "cf942cb6f9958c69ae7e2ab153b2d8cd84c02919004ce65c30e7e263e5b71545"
+}

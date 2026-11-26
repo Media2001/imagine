@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-26T13:54:26.893064+00:00",
+  "scope": "imagine-test-demo",
+  "case": "utf8",
+  "checks": {
+    "catalogue_temoin_non_vide": true,
+    "bornes_utf8_acceptees": true,
+    "titre_hors_borne_refuse": true,
+    "presentation_hors_borne_refuse": true,
+    "aucun_mail_tente": true,
+    "aucun_HTTP_tente": true
+  },
+  "total": 6,
+  "failures": [],
+  "exit": 0,
+  "stderr": "",
+  "state_preserved": true,
+  "own_options_exact": true,
+  "source_sha256": "cf942cb6f9958c69ae7e2ab153b2d8cd84c02919004ce65c30e7e263e5b71545"
+}

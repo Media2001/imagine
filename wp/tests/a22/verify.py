@@ -68,6 +68,11 @@ def verify(packet,parent_proof=None):
             counts[console+':'+lot+':python']=int(match[1]) if match else -1
         log=(folder/'A22-python.log').read_text(encoding='utf-8')
         check(console+':A22_python_tests','\nOK\n' in log)
+    style=load(packet/'style/style.json')
+    php=['wp/outils/bascule/non-regression','wp/outils/bascule/a11/inventorier-adresses','wp/outils/bascule/stream_bridge.php']
+    check('strict_psr12_current_common_entrypoints',green(style) and style['phpcs_exit']==0
+          and style['totals']['errors']==style['totals']['warnings']==0
+          and style['sources']=={key:source[key] for key in php})
     check('no_retained_untrusted_payload',not any(b'A22_PRIVATE_FLOW_CANARY' in p.read_bytes() for p in packet.rglob('*') if p.is_file()))
     check('exact_packet_inventory_and_hashes',load(packet/'manifest.json')==hashes(packet))
     # Optional, never inferred from PRET or substituted for actual execution.
