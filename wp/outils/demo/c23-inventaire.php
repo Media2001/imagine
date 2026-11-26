@@ -32,7 +32,10 @@ $out = ['scope' => 'imagine-test-demo', 'base' => home_url(), 'article' => $arti
     'discovery' => get_option('imagine_decouverte_compte_' . $c09['users']['V-DEC-FIN']),
     'discovery_policy' => Imagine\Site\Decouverte::reglages(), 'discovery_relecture' => get_option('imagine_decouverte_relecture', 'fermee'),
     'account_path' => $local(wc_get_page_permalink('myaccount')),
-    'sitemap_enabled' => wp_sitemaps_get_server()->sitemaps_enabled()];
+    'sitemap_enabled' => wp_sitemaps_get_server()->sitemaps_enabled(),
+    'admin_pages' => ['imagine-reglages', Imagine\Site\ListeEnvoiAdmin::PAGE, Imagine\Site\EcheancesAdmin::PAGE,
+        Imagine\Site\CommandeAdmin::PAGE, Imagine\Site\Justificatifs::PAGE, Imagine\Site\ExtractionsAdmin::PAGE,
+        Imagine\Site\TableauBordAdmin::PAGE], 'profile_catalogue' => []];
 foreach (get_posts(['post_type' => 'post', 'post_status' => 'publish', 'numberposts' => -1]) as $post) {
     $out['posts'][] = ['id' => $post->ID, 'slug' => $post->post_name, 'title' => $post->post_title,
         'path' => $local(get_permalink($post->ID)), 'issue' => (int) get_post_meta($post->ID, 'imagine_numero_id', true),
@@ -56,4 +59,11 @@ foreach (['V-INSCRIT', 'V-DEC-FIN', 'P-NUMERO', 'A-CARTE'] as $key) {
     $out['users'][$key] = $id;
 }
 $out['buyer_issues'] = array_values(array_map(static fn ($right) => $right['numero'], Imagine\Site\AchatsNumeros::droits($out['users']['P-NUMERO'])));
+foreach($c09['users'] as $code=>$id){
+    wp_set_current_user((int)$id); Imagine\Site\Paywall::invalidate();
+    $articleDecision=Imagine\Site\Paywall::decision(get_post($article));
+    $pdfDecision=Imagine\Site\Paywall::decisionPdf(get_post($issue));
+    $out['profile_catalogue'][]=['code'=>$code,'id'=>(int)$id,'article_T4'=>$articleDecision,'pdf_T4'=>$pdfDecision,
+        'selected'=>in_array($code,['V-INSCRIT','V-DEC-FIN','P-NUMERO','A-CARTE'],true)];
+}
 echo wp_json_encode($out);

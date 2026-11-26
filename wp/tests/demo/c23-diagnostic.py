@@ -21,7 +21,7 @@ try:
                 primary_present=f['article_path'].encode() in body,
                 open_present=b'/demo-2026-t4-ouvert/' in body,
                 c08_present=b'/c08-article-reserve-article/' in body,
-                known_post_slugs=sorted(set(re.findall(rb'(?:demo-2026-[a-z0-9-]+|c08-article-reserve-[a-z]+)',body)[0:60])[0:30])))
+                known_post_slugs=sorted(set(re.findall(rb'(?:demo-2026-[a-z0-9-]+|c08-article-reserve-[a-z]+)',body)))[:30]))
     text=json.dumps(out,default=lambda x:x.decode(),indent=2)
     (p.PROOF/'diagnostic-listes.json').write_text(text,encoding='utf-8');print(text)
 finally:

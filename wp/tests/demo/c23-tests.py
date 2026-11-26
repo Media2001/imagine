@@ -52,6 +52,19 @@ class ContractTest(unittest.TestCase):
         m=load()
         for kind in ['sitemap','cards','rest-item','rest-list','rest-error','oembed','empty-search','feed','sharing','pdf-denied','admin-denied']:
             self.assertFalse(m.structure_ok({'structure':kind,'name':'archives'},200,b'<html><p>Tout va bien</p></html>',{'article':42}),kind)
+    def test_tous_pdf_inventories_retenus_et_commande_GET_seule(self):
+        m=load()
+        f={'article':42,'article_path':'/article/','issue':39,'issue_slug':'demo-2026-t4','pdf':41,
+           'issue_path':'/numeros/demo-2026-t4/','auto':82,'auto_path':'/auto/','term_path':'/thematique/',
+           'c08':81,'c12':235,'posts_archive':'/2026/','partners':[],
+           'issues':[{'id':18,'slug':'demo-2026-t2','pdf':20,'title':'Numero 2'}]}
+        rows=m.build_routes(f)
+        self.assertIn('pdf-inventorie-18-direct',[r['name'] for r in rows])
+        import ast
+        tree=ast.parse(SOURCE.read_text(encoding='utf-8'))
+        methods=[k.value.value for n in ast.walk(tree) if isinstance(n,ast.Call) for k in n.keywords if k.arg=='method' and isinstance(k.value,ast.Constant)]
+        self.assertEqual(methods,['GET'])
+        self.assertNotIn('subprocess',[n.name for n in ast.walk(tree) if isinstance(n,ast.alias)])
     def test_catalogue_routes_non_vide_et_complet(self):
         m = load()
         self.assertTrue(callable(getattr(m, 'build_routes', None)), 'Inventaire des voies à construire')

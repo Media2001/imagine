@@ -1,0 +1,122 @@
+[
+  {
+    "name": "archives",
+    "public": "connecte-sans-abonnement",
+    "status": 200,
+    "primary_present": false,
+    "open_present": false,
+    "c08_present": false,
+    "known_post_slugs": [
+      "c08-article-reserve-automatique",
+      "demo-2026-t1-ouvert",
+      "demo-2026-t1-reserve-2",
+      "demo-2026-t1-reserve-3",
+      "demo-2026-t2-ouvert",
+      "demo-2026-t2-reserve-1",
+      "demo-2026-t2-reserve-2",
+      "demo-2026-t2-reserve-3",
+      "demo-2026-t3-reserve-1",
+      "demo-2026-t3-reserve-2"
+    ]
+  },
+  {
+    "name": "archives",
+    "public": "acheteur-autre-numero",
+    "status": 200,
+    "primary_present": false,
+    "open_present": false,
+    "c08_present": false,
+    "known_post_slugs": [
+      "c08-article-reserve-automatique",
+      "demo-2026-t1-ouvert",
+      "demo-2026-t1-reserve-2",
+      "demo-2026-t1-reserve-3",
+      "demo-2026-t2-ouvert",
+      "demo-2026-t2-reserve-1",
+      "demo-2026-t2-reserve-2",
+      "demo-2026-t2-reserve-3",
+      "demo-2026-t3-reserve-1",
+      "demo-2026-t3-reserve-2"
+    ]
+  },
+  {
+    "name": "rss2",
+    "public": "connecte-sans-abonnement",
+    "status": 200,
+    "primary_present": false,
+    "open_present": false,
+    "c08_present": false,
+    "known_post_slugs": [
+      "c08-article-reserve-automatique",
+      "demo-2026-t1-ouvert",
+      "demo-2026-t1-reserve-1",
+      "demo-2026-t1-reserve-2",
+      "demo-2026-t1-reserve-3",
+      "demo-2026-t2-ouvert",
+      "demo-2026-t2-reserve-1",
+      "demo-2026-t2-reserve-3",
+      "demo-2026-t3-reserve-1",
+      "demo-2026-t3-reserve-2"
+    ]
+  },
+  {
+    "name": "rss2",
+    "public": "acheteur-autre-numero",
+    "status": 200,
+    "primary_present": false,
+    "open_present": false,
+    "c08_present": false,
+    "known_post_slugs": [
+      "c08-article-reserve-automatique",
+      "demo-2026-t1-ouvert",
+      "demo-2026-t1-reserve-1",
+      "demo-2026-t1-reserve-2",
+      "demo-2026-t1-reserve-3",
+      "demo-2026-t2-ouvert",
+      "demo-2026-t2-reserve-1",
+      "demo-2026-t2-reserve-3",
+      "demo-2026-t3-reserve-1",
+      "demo-2026-t3-reserve-2"
+    ]
+  },
+  {
+    "name": "atom",
+    "public": "connecte-sans-abonnement",
+    "status": 200,
+    "primary_present": false,
+    "open_present": false,
+    "c08_present": false,
+    "known_post_slugs": [
+      "c08-article-reserve-automatique",
+      "demo-2026-t1-ouvert",
+      "demo-2026-t1-reserve-1",
+      "demo-2026-t1-reserve-2",
+      "demo-2026-t1-reserve-3",
+      "demo-2026-t2-ouvert",
+      "demo-2026-t2-reserve-1",
+      "demo-2026-t2-reserve-3",
+      "demo-2026-t3-reserve-1",
+      "demo-2026-t3-reserve-2"
+    ]
+  },
+  {
+    "name": "atom",
+    "public": "acheteur-autre-numero",
+    "status": 200,
+    "primary_present": false,
+    "open_present": false,
+    "c08_present": false,
+    "known_post_slugs": [
+      "c08-article-reserve-automatique",
+      "demo-2026-t1-ouvert",
+      "demo-2026-t1-reserve-1",
+      "demo-2026-t1-reserve-2",
+      "demo-2026-t1-reserve-3",
+      "demo-2026-t2-ouvert",
+      "demo-2026-t2-reserve-1",
+      "demo-2026-t2-reserve-3",
+      "demo-2026-t3-reserve-1",
+      "demo-2026-t3-reserve-2"
+    ]
+  }
+]

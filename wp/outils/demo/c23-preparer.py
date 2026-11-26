@@ -31,6 +31,7 @@ def inventory():
     for i in value['issues']:
         i['pdf_marker'] = 'Numero '+labels[i['slug']]+' - PDF factice'
     value['pdf_sha256'] = hashlib.sha256(dummy_pdf(labels[value['issue_slug']])).hexdigest()
+    value['pdf_hashes'] = {str(i['id']):hashlib.sha256(dummy_pdf(labels[i['slug']])).hexdigest() for i in value['issues']}
     return value
 
 

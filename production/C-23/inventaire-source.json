@@ -384,9 +384,432 @@
   "discovery_relecture": "fermee",
   "account_path": "/my-account/",
   "sitemap_enabled": false,
+  "admin_pages": [
+    "imagine-reglages",
+    "imagine-liste-envoi",
+    "imagine-echeances",
+    "imagine-commandes",
+    "imagine-justificatifs",
+    "imagine-extractions",
+    "imagine-tableau-de-bord"
+  ],
+  "profile_catalogue": [
+    {
+      "code": "V-DEC",
+      "id": 6,
+      "article_T4": {
+        "complet": false,
+        "motif": "sans_droit",
+        "bloc": "abonnement"
+      },
+      "pdf_T4": {
+        "complet": false,
+        "motif": "sans_droit",
+        "bloc": "abonnement"
+      },
+      "selected": false
+    },
+    {
+      "code": "V-DEC-FIN",
+      "id": 7,
+      "article_T4": {
+        "complet": false,
+        "motif": "sans_droit",
+        "bloc": "abonnement"
+      },
+      "pdf_T4": {
+        "complet": false,
+        "motif": "sans_droit",
+        "bloc": "abonnement"
+      },
+      "selected": true
+    },
+    {
+      "code": "V-INSCRIT",
+      "id": 8,
+      "article_T4": {
+        "complet": false,
+        "motif": "sans_droit",
+        "bloc": "abonnement"
+      },
+      "pdf_T4": {
+        "complet": false,
+        "motif": "sans_droit",
+        "bloc": "abonnement"
+      },
+      "selected": true
+    },
+    {
+      "code": "A-CARTE",
+      "id": 9,
+      "article_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "pdf_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "selected": true
+    },
+    {
+      "code": "A-SEPA4",
+      "id": 10,
+      "article_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "pdf_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "selected": false
+    },
+    {
+      "code": "A-PAYPAL",
+      "id": 11,
+      "article_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "pdf_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "selected": false
+    },
+    {
+      "code": "A-VIR",
+      "id": 12,
+      "article_T4": {
+        "complet": false,
+        "motif": "virement_non_valide",
+        "bloc": "regularisation"
+      },
+      "pdf_T4": {
+        "complet": false,
+        "motif": "virement_non_valide",
+        "bloc": "regularisation"
+      },
+      "selected": false
+    },
+    {
+      "code": "A-PAPIER",
+      "id": 13,
+      "article_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "pdf_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "selected": false
+    },
+    {
+      "code": "A-GRACE",
+      "id": 14,
+      "article_T4": {
+        "complet": true,
+        "motif": "delai_grace",
+        "bloc": "regularisation"
+      },
+      "pdf_T4": {
+        "complet": true,
+        "motif": "delai_grace",
+        "bloc": "regularisation"
+      },
+      "selected": false
+    },
+    {
+      "code": "A-SUSP",
+      "id": 15,
+      "article_T4": {
+        "complet": false,
+        "motif": "suspendu",
+        "bloc": "regularisation"
+      },
+      "pdf_T4": {
+        "complet": false,
+        "motif": "suspendu",
+        "bloc": "regularisation"
+      },
+      "selected": false
+    },
+    {
+      "code": "A-EXPIRE",
+      "id": 16,
+      "article_T4": {
+        "complet": false,
+        "motif": "expire",
+        "bloc": "abonnement"
+      },
+      "pdf_T4": {
+        "complet": false,
+        "motif": "expire",
+        "bloc": "abonnement"
+      },
+      "selected": false
+    },
+    {
+      "code": "A-NONRENOUV",
+      "id": 17,
+      "article_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "pdf_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "selected": false
+    },
+    {
+      "code": "A-ETRANGER",
+      "id": 18,
+      "article_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "pdf_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "selected": false
+    },
+    {
+      "code": "A-SANSMAIL",
+      "id": 19,
+      "article_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "pdf_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "selected": false
+    },
+    {
+      "code": "A-ECHEANCE",
+      "id": 20,
+      "article_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "pdf_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "selected": false
+    },
+    {
+      "code": "P-OFFRANT",
+      "id": 21,
+      "article_T4": {
+        "complet": false,
+        "motif": "sans_droit",
+        "bloc": "abonnement"
+      },
+      "pdf_T4": {
+        "complet": false,
+        "motif": "sans_droit",
+        "bloc": "abonnement"
+      },
+      "selected": false
+    },
+    {
+      "code": "P-OFFERT",
+      "id": 22,
+      "article_T4": {
+        "complet": false,
+        "motif": "sans_droit",
+        "bloc": "abonnement"
+      },
+      "pdf_T4": {
+        "complet": false,
+        "motif": "sans_droit",
+        "bloc": "abonnement"
+      },
+      "selected": false
+    },
+    {
+      "code": "P-GEST",
+      "id": 23,
+      "article_T4": {
+        "complet": false,
+        "motif": "sans_droit",
+        "bloc": "abonnement"
+      },
+      "pdf_T4": {
+        "complet": false,
+        "motif": "sans_droit",
+        "bloc": "abonnement"
+      },
+      "selected": false
+    },
+    {
+      "code": "P-BENEF",
+      "id": 24,
+      "article_T4": {
+        "complet": false,
+        "motif": "sans_droit",
+        "bloc": "abonnement"
+      },
+      "pdf_T4": {
+        "complet": false,
+        "motif": "sans_droit",
+        "bloc": "abonnement"
+      },
+      "selected": false
+    },
+    {
+      "code": "P-PRO",
+      "id": 25,
+      "article_T4": {
+        "complet": false,
+        "motif": "sans_droit",
+        "bloc": "abonnement"
+      },
+      "pdf_T4": {
+        "complet": false,
+        "motif": "sans_droit",
+        "bloc": "abonnement"
+      },
+      "selected": false
+    },
+    {
+      "code": "P-SOL-ATT",
+      "id": 26,
+      "article_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "pdf_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "selected": false
+    },
+    {
+      "code": "P-SOL-OK",
+      "id": 27,
+      "article_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "pdf_T4": {
+        "complet": true,
+        "motif": "abonnement_actif",
+        "bloc": "aucun"
+      },
+      "selected": false
+    },
+    {
+      "code": "P-NUMERO",
+      "id": 28,
+      "article_T4": {
+        "complet": false,
+        "motif": "autre_numero",
+        "bloc": "abonnement"
+      },
+      "pdf_T4": {
+        "complet": false,
+        "motif": "autre_numero",
+        "bloc": "abonnement"
+      },
+      "selected": true
+    },
+    {
+      "code": "P-COOP",
+      "id": 29,
+      "article_T4": {
+        "complet": false,
+        "motif": "sans_droit",
+        "bloc": "abonnement"
+      },
+      "pdf_T4": {
+        "complet": false,
+        "motif": "sans_droit",
+        "bloc": "abonnement"
+      },
+      "selected": false
+    },
+    {
+      "code": "E-ADMIN",
+      "id": 30,
+      "article_T4": {
+        "complet": true,
+        "motif": "equipe",
+        "bloc": "aucun"
+      },
+      "pdf_T4": {
+        "complet": true,
+        "motif": "equipe",
+        "bloc": "aucun"
+      },
+      "selected": false
+    },
+    {
+      "code": "E-REDAC",
+      "id": 31,
+      "article_T4": {
+        "complet": true,
+        "motif": "equipe",
+        "bloc": "aucun"
+      },
+      "pdf_T4": {
+        "complet": true,
+        "motif": "equipe",
+        "bloc": "aucun"
+      },
+      "selected": false
+    },
+    {
+      "code": "E-ABO",
+      "id": 32,
+      "article_T4": {
+        "complet": true,
+        "motif": "equipe",
+        "bloc": "aucun"
+      },
+      "pdf_T4": {
+        "complet": true,
+        "motif": "equipe",
+        "bloc": "aucun"
+      },
+      "selected": false
+    }
+  ],
   "buyer_issues": [
     "11"
   ],
   "issue_title": "Numéro fictif 4 — 2026",
-  "pdf_sha256": "2446e6975b2d0d9b6067e0c2b0cbbd44939d5dcccf600c10519cce84ab0f742f"
+  "pdf_sha256": "2446e6975b2d0d9b6067e0c2b0cbbd44939d5dcccf600c10519cce84ab0f742f",
+  "pdf_hashes": {
+    "39": "2446e6975b2d0d9b6067e0c2b0cbbd44939d5dcccf600c10519cce84ab0f742f",
+    "32": "8c43b4ce454696908d600b7a2726a76129b1bbd4ffba6ad00f3abfd8b8076700",
+    "25": "88c7e76f7bd7249af59bf79e6739d658590e29f945eea99f7e2d42980d615fa5",
+    "18": "e167c40428d2557c933c34d82545c833612b482d02a964248baba619d45f92d3",
+    "11": "665395b60dafff2b32b1c3989166a9b17bb6028c592aa46e9d03fbe62140902e"
+  }
 }

@@ -83,7 +83,7 @@ def build_routes(f):
     add('numero', f['issue_path'], title, structure='cards')
     add('kiosque', '/numeros/', f.get('issue_title','Numéro fictif 4'), structure='cards')
     add('thematique', f['term_path'], title, structure='cards')
-    add('archives', f['posts_archive'], title, structure='archive')
+    add('archives', f['posts_archive'], 'C08', structure='archive')
     add('rest-contenu', '/wp-json/wp/v2/posts/'+a, title, structure='rest-item')
     add('rest-collection', '/wp-json/wp/v2/posts?include='+a+'&_embed=1', title, structure='rest-list')
     add('rest-champs', '/wp-json/wp/v2/posts/'+a+'?_fields=id,content,excerpt', str(f['article']), structure='rest-item')
@@ -93,8 +93,8 @@ def build_routes(f):
     add('rest-revisions', '/wp-json/wp/v2/posts/'+a+'/revisions', denied=True, statuses=(401,403), structure='rest-error')
     add('rest-edition', '/wp-json/wp/v2/posts/'+a+'?context=edit', denied=True, statuses=(401,403), structure='rest-error')
     for feed in ['rss2','rss','atom','rdf']:
-        add(feed, '/?feed='+feed+'&posts_per_rss=100', f['article_path'], structure='feed')
-    add('flux-article', '/?feed=rss2&post_type=post&include='+a, f['article_path'], structure='feed')
+        add(feed, '/?feed='+feed+'&posts_per_rss=100', '/c08-article-reserve-automatique/', structure='feed')
+    add('flux-article', '/?feed=rss2&post_type=post&include='+a, '/c08-article-reserve-automatique/', structure='feed')
     add('oembed', '/wp-json/oembed/1.0/embed?'+urlencode({'url':BASE+f['article_path']}), title, structure='oembed')
     add('embed', f['article_path']+'embed/', title)
     add('recherche', '/?'+urlencode({'s':slug}), title, structure='cards')
@@ -134,11 +134,22 @@ def build_routes(f):
     add('mon-compte', f.get('account_path','/mon-compte/'), 'Mon compte')
     # Toutes les nouvelles entrées d'administration/export depuis C08 : lecture GET
     # sans les nonces, sans jamais déclencher une exportation/effacement/gel.
-    for page in ['imagine-reglages','imagine-liste-envoi','imagine-echeances','imagine-commande-client',
-                 'imagine-justificatifs','imagine-extractions','imagine-tableau-bord']:
+    for page in f.get('admin_pages',['imagine-reglages','imagine-liste-envoi','imagine-echeances','imagine-commandes',
+                 'imagine-justificatifs','imagine-extractions','imagine-tableau-de-bord']):
         add('admin-'+page, '/wp-admin/admin.php?page='+page, denied=True, statuses=(200,302,403), structure='admin-denied')
     add('export-c21', '/wp-admin/export-personal-data.php', denied=True, statuses=(200,302,403), structure='admin-denied')
     add('effacement-c21', '/wp-admin/erase-personal-data.php', denied=True, statuses=(200,302,403), structure='admin-denied')
+    for action in ['imagine_exporter_liste_envoi','imagine_extraire_abonnes']:
+        add('export-'+action,'/wp-admin/admin-post.php?action='+action,denied=True,statuses=(403,))
+    for other in f.get('issues',[]):
+        if other['id']==f['issue']:
+            continue
+        prefix='pdf-inventorie-'+str(other['id'])
+        add(prefix+'-direct','/wp-content/uploads/imagine-demo/'+other['slug']+'.pdf',denied=True,statuses=(403,404))
+        add(prefix+'-source','/wp-content/imagine-demo-build/assets/'+other['slug']+'.pdf',denied=True,statuses=(403,404))
+        add(prefix+'-attachment','/?attachment_id='+str(other['pdf']),denied=True,statuses=(404,))
+        add(prefix+'-REST','/wp-json/wp/v2/media/'+str(other['pdf']),denied=True,statuses=(401,403,404),structure='rest-error')
+        add(prefix+'-endpoint','/?imagine_pdf='+str(other['id']),other['title'],structure='pdf-denied',pdf_issue=other['id'])
     for post in f.get('posts', []):
         if post['reserved'] and post['id'] not in [f['article'], f['auto'], f['c08'], f['c12']]:
             add('article-inventorie-'+str(post['id']), post['path'], post['title'], issue=post['issue'])
@@ -182,7 +193,7 @@ def structure_ok(route, status, body, f):
 
 def matrix(context, label='matrice'):
     f, sessions = context['fixture'], context['sessions']
-    if f.get('scope') != 'imagine-test-demo' or f.get('base') != BASE or not all(f.get('guards',{}).values()):
+    if f.get('scope') != 'imagine-test-demo' or f.get('base') != BASE or f.get('guards') != {'mail':True,'network':True,'payments':True}:
         raise ValueError('Identité/coupe-circuits non prouvés')
     if not f['posts'] or not f['issues'] or str(f['issue']) in f['buyer_issues'] or not f['buyer_issues']:
         raise ValueError('Inventaire ou témoin acheteur invalide')
@@ -193,7 +204,9 @@ def matrix(context, label='matrice'):
     markers = []
     for p in f['posts']:
         if p['reserved']:
-            matches = re.findall(r'CONTENU_FICTIF_RESERVE_[A-Z0-9_-]+|Les lucioles violettes de C08 gardent le secret du village fictif\.|Les lanternes argentées de C08 composent un autre récit fictif\.|Le texte réservé C12 [^<]+', p['body'])
+            matches = re.findall(r'CONTENU_FICTIF_RESERVE_[A-Z0-9_-]+|Les lucioles violettes de C08 gardent le secret du village fictif\.|Les lanternes argentées de C08 composent un autre récit fictif\.|Le texte réservé C12 [^<]+|Les lanternes turquoise de C10 éclairent le jardin imaginaire\.', p['body'])
+            if not matches:
+                raise ValueError('Article réservé inventorié sans témoin')
             markers.extend((w,p['issue']) for w in matches)
     primary = 'CONTENU_FICTIF_RESERVE_DEMO-2026-T4_1'
     if not any(w == primary for w,_ in markers) or not any('lucioles' in w for w,_ in markers):
@@ -249,6 +262,12 @@ def matrix(context, label='matrice'):
             denied_markers=[w for w,issue in markers if public!='acheteur-autre-numero' or str(issue) not in f['buyer_issues']]
             denied_markers+=['IMAGINE - DEMONSTRATION FICTIVE','%PDF-']
             effective=dict(route)
+            if public=='acheteur-autre-numero' and str(route.get('pdf_issue','')) in f['buyer_issues']:
+                effective.pop('structure',None)
+                effective['present']=None
+                row=probe(route['name'],public,effective,publics[public],['IMAGINE - DEMONSTRATION FICTIVE'],True,f['pdf_hashes'][str(route['pdf_issue'])])
+                cells.append('DROIT-C14' if row['ok'] else 'ECHEC')
+                continue
             # C14 est un vrai droit : le numéro T1 possédé peut être lu, mais aucun témoin T4 ne doit sortir.
             if public=='acheteur-autre-numero' and (route.get('allow_buyer_c08') or str(route.get('issue','')) in f['buyer_issues']):
                 effective['present']=route['present']
