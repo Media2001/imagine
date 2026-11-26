@@ -48,8 +48,14 @@ final class ExtractionsAdmin
     public static function menu(): void
     {
         if (self::autorise()) {
-            add_submenu_page('imagine', self::t('Extractions'), self::t('Extractions'),
-                current_user_can('manage_options') ? 'manage_options' : self::CAP, self::PAGE, [self::class, 'page']);
+            add_submenu_page(
+                'imagine',
+                self::t('Extractions'),
+                self::t('Extractions'),
+                current_user_can('manage_options') ? 'manage_options' : self::CAP,
+                self::PAGE,
+                [self::class, 'page']
+            );
         }
     }
 

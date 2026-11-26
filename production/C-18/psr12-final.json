@@ -1,0 +1,54 @@
+{
+  "totals": {
+    "errors": 0,
+    "warnings": 0,
+    "fixable": 0
+  },
+  "files": {
+    "/repo/wp/plugins/imagine-site/ExtractionsRegles.php": {
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    "/repo/wp/plugins/imagine-site/ExtractionsNatives.php": {
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    "/repo/wp/plugins/imagine-site/ExtractionsAdmin.php": {
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    "/repo/wp/plugins/imagine-site/extractions/age.php": {
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    "/repo/wp/plugins/imagine-site/extractions/echeance.php": {
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    "/repo/wp/plugins/imagine-site/extractions/etat.php": {
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    "/repo/wp/plugins/imagine-site/extractions/etiquette.php": {
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    "/repo/wp/plugins/imagine-site/extractions/localite.php": {
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    "/repo/wp/plugins/imagine-site/extractions/mode.php": {
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    }
+  }
+}

@@ -15,7 +15,7 @@ final class ExtractionsNatives
             throw new \RuntimeException('Subscriptions indisponible.');
         }
         $rows = [];
-        for ($page = 1; ; $page++) {
+        for ($page = 1;; $page++) {
             $subscriptions = wcs_get_subscriptions($definition['requete'] + [
                 'subscriptions_per_page' => 100, 'paged' => $page, 'orderby' => 'ID', 'order' => 'ASC',
             ]);
@@ -24,8 +24,10 @@ final class ExtractionsNatives
                 if (!$user) {
                     throw new \LogicException('Titulaire natif absent : extraction refusée.');
                 }
-                $dates = array_filter([(int) $sub->get_time('next_payment'), (int) $sub->get_time('end')],
-                    static fn (int $date): bool => $date > 0);
+                $dates = array_filter(
+                    [(int) $sub->get_time('next_payment'), (int) $sub->get_time('end')],
+                    static fn (int $date): bool => $date > 0
+                );
                 $row = [
                     'abonnement_id' => (string) $sub->get_id(), 'compte_id' => (string) $user->ID,
                     'prenom' => (string) $user->first_name, 'nom' => (string) $user->last_name,

@@ -238,5 +238,21 @@ python wp/outils/demo/c17.py --reset
 
 Le vérificateur exerce PHPUnit ciblé et racine, les vrais formulaires HTTP, les réglages natifs C10, une suppression physiquement impossible et deux décisions concurrentes, puis T01 canonique et les empreintes lues sur le site. `--reset` appelle seulement l'extension documentaire des deux profils C09, aussi appelée par `c09-seed.php` ; il ne rejoue pas le seed global, les échéances ou le reset C16. Le reçu final distingue **C17 prêt techniquement** et la réserve historique C09 A-PAPIER/action 8103 annulée avant C16, inchangée. Les anciens sceaux C16/B04 ne sont pas réécrits pour masquer les nouveaux hashes des entrées partagées. Parcours, captures et limites : `production/C-17/A-VOIR.md`.
 
+## C-18 — extractions en lecture seule
+
+**Imagine → Extractions**, capacité C09 existante `imagine_extraire_abonnes` (ou administrateur), présente localité, mode de paiement, période d’échéance et état ; âge/étiquette sont désactivés « à venir ». Aucun rôle ou droit global ajouté. Deux formulaires GET choisissent l’extraction et ses filtres ; l’aperçu compte réellement les lignes natives, sans les mémoriser. Le POST CSV recontrôle capacité, jeton lié à l’extraction et à tous ses filtres, puis relit l’état courant. Un changement intervenu entre aperçu et téléchargement peut changer le nombre, explicitement signalé dans l’écran.
+
+`ExtractionsRegles` est pur. Chaque fichier `extractions/*.php` contient titre, colonnes, filtres typés, requête native et prédicat ; ajouter une extraction de même source revient à ajouter un fichier, découvert automatiquement. `ExtractionsNatives` parcourt les abonnements WCS par pages de 100, lit l’identité du titulaire et la livraison de la souscription, les libellés de formule natifs, le mode C15 et l’état B02 existants. Aucun save, paiement, note, droit, relevé postal ou échéance n’est créé. Une ligne représente un abonnement (tous états), pas une personne dédupliquée. Échéance = minimum des dates natives non vides prochain paiement/fin, UTC ; une date absente reste vide et les bornes de période sont inclusives. Les modes C09 non raccordés restent vides, hormis les deux marqueurs fictifs A-VIR/A-PAPIER déjà reconnus par C15. Offerts/groupés absents non reconstruits.
+
+Le flux `php://output` applique directement `Imagine\Connecteur\CsvProtection::cellule`, la primitive sécurisée partagée de C13/C04, puis `fputcsv` avec échappement explicite vide. Colonnes fermées ; adresse électronique vide quand `SansEmail::META` vaut `1`. Aucun mot de passe, jeton, référence bancaire, IBAN ou note n’est lu pour constituer une ligne. Aucun fichier produit par le contrôleur sur disque. Réponse privée/no-store, pièce jointe, `nosniff`. L’unique écriture est une option non autoloadée `imagine_extraction_journal_UUID` : opérateur, date UTC, extraction, nombre ; aucune sélection ni ligne d’abonné conservée. Elle est relue avant le flux ; son échec refuse le téléchargement. Le journal signifie « lignes préparées pour ce téléchargement », pas preuve de réception sur le poste client ; cinquante dernières lignes affichées, sans purge.
+
+```powershell
+python wp/tests/demo/c18-verifier.py                 # ciblé, aucun reset ni installation
+python wp/tests/demo/c18-verifier.py --prepare --deploy --canonical
+python wp/tests/demo/c18-visuel.py                  # capture Chromium, requêtes hors démo bloquées
+```
+
+Les tests purs sont ajoutés au paquet racine existant, sans manifeste/lock nouveau ; T01 les découvre. Le lanceur ciblé réemploie le runtime PHPUnit C16 et le bootstrap B04 en lecture seule, sans changer leurs octets. Préparation d’image réellement exécutée. Les recettes natives/HTTP n’ajoutent aucun profil et vérifient les empreintes avant/après ; seuls les événements d’extraction s’ajoutent. Les CSV de preuve fictifs sont relus depuis `production/C-18/`, jamais téléversés dans une racine publique. Parcours, décomptes exacts, réserve C09 historique inchangée et succession des empreintes partagées : `production/C-18/{A-VOIR.md,final.json}`. Prêt technique n’est ni validation visuelle de Ced ni GO sur du réel.
+
 
 
