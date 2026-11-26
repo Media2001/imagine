@@ -11,6 +11,10 @@ if (is_wp_error($user)) {
 update_user_meta($user, '_a18_card', '4242 4242 4242 4242');
 update_user_meta($user, '_a18_rr', '85.07.30-033.28');
 update_user_meta($user, '_a18_canary', 'A18_PRIVATE_CANARY');
+update_user_meta($user, '_a18_r2_card', '4242 4242 4242 4242 123');
+update_user_meta($user, '_a18_r2_rr', '85.07.30-033.28 2026');
+update_user_meta($user, '_a18_r3_card', "4242  4242\n4242\u{202f}\u{00a0}4242");
+update_option('a18_r3_bank_setting', "BE68  5390\n0754\u{202f}\u{00a0}7034");
 $order = wc_create_order(['customer_id' => $user]);
 $order->add_meta_data('_a18_bank', 'BE68539007547034');
 $order->add_meta_data('_a18_bank', 'BE69539007547034');

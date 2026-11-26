@@ -54,9 +54,17 @@ if (getenv('A18_CONFINED') === '1') {
         b.check(storage+':r1_inactive_store:'+scope,len(residual)==1 and residual[0].get('store')==inactive and {k:residual[0][k] for k in ['iban','card','national']}=={'iban':1,'card':0,'national':0})
     shared=[r for r in groups if r['scope']=='order' and r['key']=='_a18_shared_bank']
     b.check(storage+':r1_physical_rows_not_logical_dedup',len(shared)==2 and {r.get('store') for r in shared}=={'classique','hpos'} and all(r['iban']==1 for r in shared))
+    b.check(storage+':r1_closed_store_labels',all(r.get('store') in {'commun','classique','hpos'} for r in groups) and all(r['store']=='commun' for r in groups if r['scope'] in {'account','option'}))
     by={(r['scope'],r['key']):{k:r[k] for k in ['iban','card','national']} for r in groups}
     for scope,key,want in [('account','_a18_card',{'iban':0,'card':1,'national':0}),('account','_a18_rr',{'iban':0,'card':0,'national':1}),('order','_a18_bank',{'iban':1,'card':0,'national':0}),('subscription','_a18_bank',{'iban':1,'card':0,'national':0}),('option','a18_bank_setting',{'iban':1,'card':0,'national':0})]:
         b.check(storage+':exact_group:'+scope+':'+key,by.get((scope,key))==want)
+    for label,scope,key,want in [
+        ('r2_card','account','_a18_r2_card',{'iban':0,'card':1,'national':0}),
+        ('r2_register','account','_a18_r2_rr',{'iban':0,'card':0,'national':1}),
+        ('r3_card','account','_a18_r3_card',{'iban':0,'card':1,'national':0}),
+        ('r3_iban','option','a18_r3_bank_setting',{'iban':1,'card':0,'national':0}),
+    ]:
+        b.check(storage+':'+label+':scan_to_groups',by.get((scope,key))==want)
     b.check(storage+':invalid_and_canary_values_not_counted',not any(k in {'a18_invalid_setting','_a18_canary'} for _,k in by))
     b.check(storage+':tokens_references_separate',d['payment_tokens']==[{'gateway':'a18_fixture','type':'CC','count':1}])
     b.check(storage+':known_and_other_folders_exact',d['media']==[

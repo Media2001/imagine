@@ -19,6 +19,7 @@ $check('card_luhn_and_length', method_exists(Forms::class, 'card')
 $check('belgian_register_both_centuries_checksum_only', method_exists(Forms::class, 'national')
     && Forms::national('85.07.30-033.28') && Forms::national('00.01.01-001.05')
     && !Forms::national('85073003329'));
+$check('national_11_digits_not_a_card', Forms::national('85073003328') && !Forms::card('85073003328'));
 $check('embedded_serialized_counted_once_per_form', method_exists(Forms::class, 'scan')
     && Forms::scan('a:2:{s:4:"iban";s:16:"BE68539007547034";s:5:"again";s:16:"BE68539007547034";}')
     === ['iban' => true, 'card' => false, 'national' => false]);
@@ -62,6 +63,47 @@ foreach ([
         ]) === [['scope' => 'account', 'store' => 'commun', 'key' => '_r3_card',
             'iban' => 0, 'card' => 1, 'national' => 0]]);
 }
+foreach ([
+    'card_trailing_digits' => ['4242 4242 4242 4242 123', 'card'],
+    'card_leading_digits' => ['123 4242 4242 4242 4242', 'card'],
+    'card_both_sides' => ['987 4242 4242 4242 4242 123', 'card'],
+    'register_trailing_year' => ['85.07.30-033.28 2026', 'national'],
+    'register_leading_year' => ['2026 85.07.30-033.28', 'national'],
+    'register_both_sides' => ['2026 85.07.30-033.28 2027', 'national'],
+] as $label => [$text, $form]) {
+    $flags = Forms::scan($text);
+    $groups = Imagine\RetentionInventory\Inventory::groups([
+        ['scope' => 'account', 'key' => '_r2', 'value' => $text . ';' . $text],
+    ]);
+    $check('r2_' . $label, $flags[$form] && count($groups) === 1 && $groups[0][$form] === 1);
+}
+foreach ([
+    'card_contiguous_suffix' => ['424242424242424212345678901', 'card'],
+    'card_contiguous_prefix' => ['1234567894242424242424242', 'card'],
+    'register_contiguous_suffix' => ['850730033282026', 'national'],
+    'register_contiguous_prefix' => ['202685073003328', 'national'],
+    'card_attached_letters' => ['x4242424242424242y', 'card'],
+    'register_attached_letters' => ['x85073003328y', 'national'],
+] as $label => [$text, $form]) {
+    $check('r2_no_arbitrary_fragment_' . $label, !Forms::scan($text)[$form]);
+}
+// The JSON is really loaded once, then made unavailable in a disposable class copy.
+mkdir('/report/memo');
+file_put_contents('/report/memo/Forms.php', str_replace(
+    'namespace Imagine\\RetentionInventory;',
+    'namespace Imagine\\RetentionMemoProbe;',
+    file_get_contents('/subject/a18/Forms.php')
+));
+copy('/subject/a18/iban-structures.json', '/report/memo/iban-structures.json');
+require '/report/memo/Forms.php';
+$memoFirst = Imagine\RetentionMemoProbe\Forms::iban('BE68539007547034');
+file_put_contents('/report/memo/iban-structures.json', '{}');
+$check('memo_iban_registry_single_load', $memoFirst
+    && Imagine\RetentionMemoProbe\Forms::iban('BE68539007547034')
+    && Imagine\RetentionMemoProbe\Forms::scan('BE68 5390 0754 7034')['iban']);
+unlink('/report/memo/Forms.php');
+unlink('/report/memo/iban-structures.json');
+rmdir('/report/memo');
 mkdir('/report/unit-media');
 mkdir('/report/unit-media/alpha');
 mkdir('/report/unit-media/beta');
