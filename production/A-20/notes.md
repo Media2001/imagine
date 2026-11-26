@@ -1,6 +1,25 @@
-# A-20 — B1 corrigé, candidat vérifié sans PRET
+# A-20 — gardien commun intégré, nouveau paquet vérifié sans PRET
 
-**Checkpoint A22 : les résultats ci-dessous sont historiques.** Le gardien est maintenant commun à tous les inventaires ; nouvelles matrices `a20-shared-final-02` en cours, aucun PRET. Le paquet précédent reste à remplacer après retour réel, pas de recyclage de ses empreintes. Voir `production/A-22/notes.md` pour la reprise.
+## Résultat courant — remplace les preuves antérieures
+
+`production/A-20/preuves/final` provient intégralement de la nouvelle matrice `a20-shared-final-02`, exécutée après les dernières sources communes. Code réel de la matrice : **0**, cinq commandes vertes. Windows `C:/Python314/python.exe`, **3.14.6**, consoles UTF-8 puis cp1252 mesurées ; encodage enfant explicite et scratch Hermes explicite.
+
+Par console : **34 tests Python, 23 assertions PHP pures, 158 contrôles natifs classique+HPOS, 9 contrôles runner**, plus **21 contrôles additionnels du gardien commun**. Tous PASS. Deux mutations réelles (une par magasin) retirent uniquement le gardien dans les copies jetables : le canari fuit alors effectivement ; aucune sortie brute du témoin n’est conservée. Les gardiens et fixtures sont restaurés octet pour octet. Syntaxe/PSR-12 : zéro erreur, zéro avertissement. Le vérificateur livré est passé à code **0** sur le nouveau paquet courant.
+
+Une seule implémentation des pipes : `wp/outils/bascule/stream_guard.py`, partagée avec A21 et les outils clos. A20 garde son contrôle strict `report.py` / `report-contract.json`, sa publication privée différée et ses refus fermés. Comptage `without_product_line` et annuel `1 year` / `12 month` inchangés. Toutes les dépendances exécutées, gardien commun inclus, sont maintenant comparées aux sources courantes ; README partagé contrôlé uniquement par ses deux lignes exactes.
+
+L’ancien paquet et les anciens reçus racine sont conservés hors dépôt dans `C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-superseded-a20`. Aucun PRET créé. Préparation globale, T01 global et décision de PRET restent au parent ; aucune des anciennes gates n’est revendiquée pour les nouvelles sources. Le vérificateur n’exige plus l’absence perpétuelle de PRET et accepte une preuve parent optionnelle `--parent-proof` (sources exactes, chemins vers vrais reçus préparation/T01 à code zéro). Aucun réel, archive Imagine, compte, Novamira, déploiement, Git, verrou ou README partagé touché.
+
+Commandes effectivement exécutées, indépendantes du dossier courant :
+
+```text
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a20/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a20-shared-final-02
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a20/verify.py C:/Users/Ced/imagine/production/A-20/preuves/final
+```
+
+Pour rejouer, choisir un nom de sortie **neuf**. Les cinq commandes enfants, environnements, noms exacts des conteneurs et suppressions relues sont dans le paquet. Aucun paquet d’un lot clos n’a été réécrit : leurs rejeux appartiennent à A22.
+
+## Historique avant gardien commun — non probant pour les sources actuelles
 
 1. **Fait** : inventaire natif en lecture seule des récurrences enregistrées, par produit/variation, état, rythme, montant et pays ; seuil de confidentialité de cinq, aucune correspondance ni anomalie proposée.
 2. **Prêt à relire** : candidat dans `production/A-20/preuves/final/`, vérificateur à code 0 ; **pas de PRET** déposé par cet enfant.

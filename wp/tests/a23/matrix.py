@@ -14,6 +14,12 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
 
 
+def python_summary(text, returncode):
+    match = re.search(r'Ran (\d+) tests? in ', text)
+    total = int(match[1]) if match else 0
+    return {'tests_run': total, 'all_pass': returncode == 0 and 'OK' in text.splitlines() and total > 0}
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--output', required=True, type=Path)
@@ -28,14 +34,12 @@ def main():
 
     def execute(command, env, encoding, log):
         p = subprocess.run(command, cwd=ROOT, env=env, capture_output=True, timeout=1800)
-        text = p.stdout.decode(encoding, errors='strict') + p.stderr.decode(encoding, errors='strict')
-        log.write_text(text, encoding='utf-8')
+        text = (p.stdout.decode(encoding, errors='strict') + p.stderr.decode(encoding, errors='strict')).replace('\r\n', '\n')
+        log.write_text(text, encoding='utf-8', newline='\n')
         row = {'command': command, 'console': encoding, 'exit_code': p.returncode,
                'log': log.relative_to(out).as_posix(), 'log_sha256': hashlib.sha256(log.read_bytes()).hexdigest()}
         if '-m' in command and 'unittest' in command:
-            m = re.search(r'Ran (\d+) tests? in ', text)
-            row['tests_run'] = int(m[1]) if m else 0
-            row['all_pass'] = p.returncode == 0 and '\nOK\n' in text and row['tests_run'] > 0
+            row.update(python_summary(text, p.returncode))
         rows.append(row)
         return p
 

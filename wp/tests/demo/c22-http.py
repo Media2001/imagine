@@ -116,7 +116,7 @@ def run(label):
                 for key,val in {'id':fourth,'titre':'Nouvelle lettre recyclée interdite','presentation':'Ne doit jamais reprendre le choix historique.'}.items():
                     adm.locator('#imagine-newsletter-3-'+key).fill(val)
                 with adm.expect_navigation(wait_until='networkidle'):adm.locator('form[action="options.php"]').evaluate('(f)=>f.requestSubmit()')
-                checks['C10_recyclage_refuse_erreur_visible']=adm.locator('.settings-error.error').count()>0 and len(c22.wp('echo wp_json_encode(get_option("'+CAT+'"));'))==3
+                checks['C10_recyclage_refuse_erreur_visible']=adm.locator('#setting-error-imagine_newsletters_catalogue_invalide').count()==1 and len(c22.wp('echo wp_json_encode(get_option("'+CAT+'"));'))==3
                 visit(page,account_path);visit(ap,'/nos-newsletters/')
                 checks['recyclage_compte_sans_case_ni_choix_reaffecte']=page.locator('#mes-newsletters input[type=checkbox]').count()==3 and page.locator('#mes-newsletters input:checked').count()==0 and page.get_by_text('Nouvelle lettre recyclée interdite',exact=True).count()==0
                 checks['recyclage_page_sans_nouvelle_lettre']=ap.locator('[data-newsletter]').count()==3 and ap.locator('[data-newsletter='+fourth+']').count()==0

@@ -12,21 +12,21 @@ OWN+=['wp/outils/demo/'+n for n in ['c22.py','c22-unit.py','c22-quality.py','c22
 OWN+=['wp/tests/demo/'+n for n in ['c22-runtime.php','c22-observer.php','c22-http.py','c22-verifier.py','c22-corrections.php']]
 OWN+=['production/C-22/A-VOIR.md','production/C-22/inventaire-confidentialite.md']
 FINAL,MANIFEST='correction-final-V2.json','correction-manifest-V2.json'
-RECEIPTS=['correction-native-V2.json','correction-http-V2.json','correction-quality-V2.json','installation-correction-reserve-V2.json','correction-t01-V2.log','correction-preparation-V2.log','correction-baseline-V2.json']
+RECEIPTS=['correction-native-V2.json','correction-http-rejeu-V2.json','correction-quality-V2.json','installation-correction-reserve-V2.json','correction-t01-V2.log','correction-preparation-V2.log','correction-baseline-V2.json']
 RECEIPTS+=['correction-final-'+x+'-V2.json' for x in ['retired','history','utf8','privacy']]
 RECEIPTS+=['correction-mutation-'+x+'-V2.json' for x in ['export','erase']]
-RECEIPTS+=['correction-http-V2-'+n+'.png' for n in ['nos-newsletters','mes-newsletters','sans-email','reglages-newsletters']]
+RECEIPTS+=['correction-http-rejeu-V2-'+n+'.png' for n in ['nos-newsletters','mes-newsletters','sans-email','reglages-newsletters']]
 
 def load(name):return json.loads((PROOF/name).read_text(encoding='utf-8'))
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 
 def check_receipts():
-    for label,count in [('correction-native-V2.json',19),('correction-http-V2.json',40)]:
+    for label,count in [('correction-native-V2.json',19),('correction-http-rejeu-V2.json',40)]:
         r=load(label)
         assert r['scope']=='imagine-test-demo' and r['total']==len(r['checks'])==count
         assert not r['failures'] and all(v is True for v in r['checks'].values())
     n=load('correction-native-V2.json');assert n['native_preserved'] and n['exit']==0 and n['stderr']==''
-    h=load('correction-http-V2.json');assert h['before']==h['after'] and h['mail_attempts']==0 and h['http_attempts']==h['http_blocked']
+    h=load('correction-http-rejeu-V2.json');assert h['before']==h['after'] and h['mail_attempts']==0 and h['http_attempts']==h['http_blocked']
     assert all(h['checks'][k] for k in ['C10_champs_meme_formulaire','C10_section_sous_bouton_inchangee','C10_recyclage_refuse_erreur_visible','historique_retire_exact_HTTP','reserves_restaurees_lignes_exactes'])
     for case in ['retired','history','utf8','privacy']:
         n=load('correction-final-'+case+'-V2.json')
