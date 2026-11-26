@@ -91,8 +91,16 @@ for ($n = 0; $n < $repetitions; $n++) {
                 throw new RuntimeException('A27_SEED_METADATA');
             }
         }
+        if (in_array($state, ['on-hold', 'pending-cancel'], true)) {
+            // Native Subscriptions refuses pending -> on-hold; enter via active.
+            $s->update_status('active');
+        }
         if ($state !== 'pending') {
             $s->update_status($state);
+        }
+        $stored = wcs_get_subscription($s->get_id());
+        if ($stored->get_status('edit') !== $state || $stored->get_requires_manual_renewal('edit')) {
+            throw new RuntimeException('A27_SEED_NATIVE_STATE');
         }
     }
     foreach ([['active', true], ['cancelled', false]] as [$status, $manual]) {

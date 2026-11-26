@@ -18,6 +18,14 @@ NAMES = ['plugins/imagine-site/' + n for n in ['RetractationRegles.php', 'Retrac
 BLOCK = "// C25 — demande seule, sans effet financier ni accès.\nrequire_once __DIR__ . '/RetractationRegles.php';\nrequire_once __DIR__ . '/Retractation.php';\nrequire_once __DIR__ . '/RetractationReglages.php';\nrequire_once __DIR__ . '/RetractationConfidentialite.php';\nRetractation::register();\nRetractationReglages::register();\nRetractationConfidentialite::register();\n\n"
 
 
+def sources():
+    files = list((ROOT / 'wp/plugins/imagine-site').glob('Retractation*.php'))
+    files += list((ROOT / 'wp/plugins/imagine-site/tests').glob('Retractation*'))
+    files += list((ROOT / 'wp/outils/demo').glob('c25*.py'))
+    files += list((ROOT / 'wp/tests/demo').glob('c25*.php'))
+    return {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(files) if p.is_file()}
+
+
 def save(label, data):
     PROOF.mkdir(exist_ok=True)
     path = PROOF / (label + '.json')
@@ -53,6 +61,10 @@ def local(label, mutation=''):
     path.write_text(p.stdout + p.stderr, encoding='utf-8')
     print(p.stdout + p.stderr)
     print('C25 EXIT', p.returncode)
+    import xml.etree.ElementTree as ET
+    match = __import__('re').search(r'C25 JUNIT BEGIN\s*(.*?)C25 JUNIT END', p.stdout, __import__('re').S)
+    junit = ET.fromstring(match.group(1)).find('testsuite').attrib if match else None
+    save(label, {'sources': sources(), 'exit': p.returncode, 'junit': junit, 'log': path.name, 'log_sha256': hashlib.sha256(path.read_bytes()).hexdigest()})
     return p.returncode
 
 
@@ -90,7 +102,7 @@ def gates(kind, label):
     text = result.stdout + result.stderr
     path.write_text(text, encoding='utf-8')
     print(text[-2000:])
-    save(label, {'command': cmd, 'exit': result.returncode, 'log': path.name, 'log_sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'results': [json.loads(line[11:]) for line in text.splitlines() if line.startswith('T01_RESULT ')]})
+    save(label, {'sources': sources(), 'command': cmd, 'exit': result.returncode, 'log': path.name, 'log_sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'results': [json.loads(line[11:]) for line in text.splitlines() if line.startswith('T01_RESULT ')]})
     assert result.returncode == 0
 
 

@@ -142,7 +142,7 @@ def run(label):
         exact = {key: current[key] == saved[key] for key in ['users', 'usermeta', 'posts', 'postmeta', 'comments', 'commentmeta', 'wc_orders', 'wc_orders_meta', 'wc_order_addresses', 'wc_order_operational_data', 'woocommerce_order_items', 'woocommerce_order_itemmeta']}
         business_options = lambda db: [row for row in db['options'] if row['option_name'].startswith('imagine_') or row['option_name'] == 'cron']
         exact['business_options'] = business_options(current) == business_options(saved)
-        outcome.update(identity=identity, private_snapshot=durable, restoration=restored, tests_removed=removed, business_preserved=after == before, exact_rows_preserved=exact)
+        outcome.update(sources=c25.sources(), identity=identity, private_snapshot=durable, restoration=restored, tests_removed=removed, business_preserved=after == before, exact_rows_preserved=exact)
         c25.save(label, outcome)
         print(json.dumps({'checks': checks, 'native': outcome.get('native'), 'restoration': restored, 'business_preserved': after == before, 'exact_rows_preserved': exact}, ensure_ascii=False))
         assert all(restored.values()) and after == before and all(exact.values()), 'Restauration non prouvée'

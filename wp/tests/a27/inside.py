@@ -59,6 +59,8 @@ def audit_at(site, output):
 def seed(site, cfg, repeats=1):
     writable = cfg.replace("define('DB_USER', 'a02_" + site.name + "')", "define('DB_USER', 'root')").split(
         "\nfile_put_contents('/scratch/a02-bootstrap-trap'")[0]
+    # WP-CLI already defines ABSPATH; only the writable oracle config is adapted.
+    writable = writable.replace("define('ABSPATH', __DIR__.'/');", "if (!defined('ABSPATH')) { define('ABSPATH', __DIR__.'/'); }")
     (site / 'wp-config.php').write_text(writable, encoding='utf-8')
     try:
         q = b.wp(site, ['eval-file', '/opt/a27/seed.php', '--use-include'], env={'A27_REPETITIONS': str(repeats)})
