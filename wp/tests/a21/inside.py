@@ -48,7 +48,6 @@ if (getenv('A21_CONFINED') === '1') {
             || wp_schedule_single_event(time()+9999,'a21_forbidden') !== false
             || function_exists('mail') || function_exists('exec')) { throw new RuntimeException('A21_GUARDS_FAILED'); }
     }
-    echo 'A21_BOOT_PRIVATE_CANARY';
 }
 ''')
     audit=OUT/(storage+'-audit')
@@ -123,6 +122,29 @@ if (getenv('A21_CONFINED') === '1') {
         b.check(storage+':closed_site_exception:'+str(index),bad.returncode==1 and bad.stdout=='' and bad.stderr=='A21_INVENTORY_FAILED\n' and not out.exists())
         b.check(storage+':exception_database_unchanged:'+str(index),refusal_before==b.fingerprint(db))
         b.sql(db,"DELETE FROM wp_options WHERE option_name='a21_forced_exception'")
+    # Untrusted bootstrap output must never escape the PHP subprocess supervisor.
+    hostile=site/'wp-content/mu-plugins/a21-hostile.php'
+    fixtures={
+        'stdout': "fwrite(STDOUT, __FILE__.' A21_FLOW_CANARY');",
+        'stderr': "fwrite(STDERR, __FILE__.' A21_FLOW_CANARY');",
+        'early_exit': "exit('A21_FLOW_CANARY');",
+        'empty_exit': "exit(0);",
+        'forged_success': 'fwrite(STDOUT, "A21_OK portes.json portes.md\\n"); exit(0);',
+        'shutdown_stdout': "register_shutdown_function(static function () { fwrite(STDOUT, __FILE__.' A21_FLOW_CANARY'); });",
+        'shutdown_stderr': "register_shutdown_function(static function () { fwrite(STDERR, __FILE__.' A21_FLOW_CANARY'); });",
+    }
+    for label,body in fixtures.items():
+        hostile.write_text("<?php if (getenv('A21_CONFINED') === '1') { "+body+' }')
+        snapshot=b.fingerprint(db);fixture_files=b.files(site)
+        out=OUT/(storage+'-hostile-'+label)
+        try:
+            bad=invoke(site,out,audit/'audit.json')
+            expected='A21_SUCCESS_INCOMPLETE\n' if label=='forged_success' else 'A21_UNEXPECTED_OUTPUT\n'
+            b.check(storage+':supervised_bootstrap:'+label,bad.returncode==1 and bad.stdout=='' and bad.stderr==expected)
+            b.check(storage+':hostile_artifacts_absent:'+label,not out.exists() and not any(b'A21_FLOW_CANARY' in f.read_bytes() for f in OUT.rglob('*') if f.is_file()))
+            b.check(storage+':hostile_confinement_unchanged:'+label,snapshot==b.fingerprint(db) and fixture_files==b.files(site))
+        finally:
+            hostile.unlink()
     # Actual unmodified neutraliser, on a cloned synthetic database only.
     clone='a21_'+storage+'_test'
     b.sql('mysql','CREATE DATABASE '+clone)
