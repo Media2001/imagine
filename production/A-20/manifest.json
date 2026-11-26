@@ -1,7 +1,7 @@
 {
   "lot": "A-20",
-  "status": "CANDIDAT_GATE_PARENT",
-  "readiness_claimed": false,
+  "status": "PRET_A_RELIRE_NON_CLOS",
+  "readiness_claimed": true,
   "PRET_created_by_child": false,
   "packet": "production/A-20/preuves/final",
   "file_count": 111,
@@ -25,7 +25,7 @@
     "wp/outils/bascule/a20/report-contract.json": "51a205db3470bf897b8702a3e5e051ae02d32528bcd4d46b517d9e4f872ad5d4",
     "wp/outils/bascule/a20/report.py": "a30437cfa9b7ff99b12f961bcbe8479d4647ec6e1a8a15339cfbb5f262517bbc",
     "production/A-20/candidate-verification.json": "d5d25b71015b016f941d2bffc695af78a9e2050cd3b572721b77b5e4234e42fb",
-    "production/A-20/FINALISATION.md": "aacdd342cc30d13a174b0efa961a02a3883ceceb9e64b2c8eb75608f330c4b9b",
+    "production/A-20/FINALISATION.md": "ec83f6a301234a44b0e745582e6fa89b6443afc25ffd180c5627d4dada1cb2be",
     "production/A-20/notes.md": "50678f57baed69023662478c4c6c5cd3ba0a812609f452fcb7bfd356ea2f1c4d",
     "production/A-20/preuves/final/candidate.json": "006db92bdc3be2da3ba5f361d89c31938faa6c1f3f14b65f620d6dfad4ba7b97",
     "production/A-20/preuves/final/cp1252/environment.json": "b02d3d5247023a7d138eb84c52afc268fc25380c1b8e04213250024199825daf",
@@ -117,5 +117,7 @@
     "production/A-20/preuves/final/windows-matrix.json": "e0cd020a2a4dfe6b9f5f57fd0829f3aa1181461cdf484f8367962bcda1aca33f",
     "production/A-20/readme-ajout.txt": "d1fca0e93110bf42488d5b0ad7f8dda4a0de1fe221f24ecbfd8ea30d8be73069",
     "production/A-20/verification-probes.json": "942af4e17d1ae2dacc81ab661bbc77f70b14e9cfc2d64ff26e04d61234965648"
-  }
+  },
+  "parent_preparation": "files/rapports/2026-11-26-19h21-verification",
+  "parent_global_T01": "files/rapports/2026-11-26-19h21-verification"
 }

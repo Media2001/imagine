@@ -8,6 +8,7 @@ import b06
 
 def sources():
     paths = [b06.ROOT/'wp/plugins/imagine-site'/n for n in ['CooperateursRegles.php','Cooperateurs.php','README-B06.md']]
+    paths += [b06.ROOT/'wp/plugins/imagine-site/tests/CooperateursReglesTest.php']
     for d in ['wp/outils/demo','wp/tests/demo']:
         paths += [p for p in (b06.ROOT/d).glob('b06*') if p.is_file()]
     return {p.relative_to(b06.ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(set(paths))}
@@ -58,16 +59,18 @@ def run(label):
     else:
         old = json.loads((b06.PROOF/(pure_label+'.json')).read_text(encoding='utf-8'))
         assert old['exit']==0 and not old['failures'] and old['container_removed']
-    for case in ['attribute','privacy','space']:
+    for case in ['attribute','privacy','space','settings']:
         name = stage(case)
         path = b06.PROOF/(name+'.json')
         if not path.exists():
             b06.runtime(name,case)
         else:
             old=json.loads(path.read_text(encoding='utf-8'))
-            src=b06.ROOT/'wp/tests/demo'/('b06-space.php' if case=='space' else 'b06-runtime.php')
+            src=b06.ROOT/'wp/tests/demo'/('b06-space.php' if case=='space' else ('b06-settings.php' if case=='settings' else 'b06-runtime.php'))
             assert not old['exit'] and not old['failures'] and old['state_preserved'] and old['source_sha256']==hashlib.sha256(src.read_bytes()).hexdigest()
-    mutations = {'page':('space','anonyme_page_sans_contenu'),
+    mutations = {'collection':('space','anonyme_collection_exclut_espace'),
+                 'display':('attribute','compte_retrait_sans_source_date'),
+                 'page':('space','anonyme_page_sans_contenu'),
                  'rest':('space','anonyme_rest_sans_contenu'),
                  'search':('space','anonyme_recherche_exclut_espace'),
                  'feed':('space','anonyme_flux_exclut_espace'),

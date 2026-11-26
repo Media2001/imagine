@@ -1,0 +1,307 @@
+{
+  "suite": "A24-offline-reception",
+  "checks": [
+    {
+      "check": "schema",
+      "status": "PASS"
+    },
+    {
+      "check": "owned_sources_exact",
+      "status": "PASS"
+    },
+    {
+      "check": "dependencies_exact",
+      "status": "PASS"
+    },
+    {
+      "check": "delivery_exact",
+      "status": "PASS"
+    },
+    {
+      "check": "packet_inventory_and_bytes_exact",
+      "status": "PASS"
+    },
+    {
+      "check": "shared_delta_two_complete_lines",
+      "status": "PASS"
+    },
+    {
+      "check": "shared_readme_owned_lines_only",
+      "status": "PASS"
+    },
+    {
+      "check": "matrix_real_windows_two_encodings",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:runner",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:sources_executed_current",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:dependencies_executed_current",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:isolated_owned_cleanup",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:pure_nonempty",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:lint_all_owned_php",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:python_real_console",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:native_all_green",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:named_native_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:standard",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:complete_db_fingerprints",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:neutralised_db_fingerprints",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:files",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:neutralised-files",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:closed_report:addresses",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:closed_report:documented",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:closed_report:repeat",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:closed_report:root-readonly",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:closed_report:native-required-override",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:closed_report:neutralised",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:named_native_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:standard",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:complete_db_fingerprints",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:neutralised_db_fingerprints",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:files",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:neutralised-files",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:closed_report:addresses",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:closed_report:documented",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:closed_report:repeat",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:closed_report:root-readonly",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:closed_report:native-required-override",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:closed_report:neutralised",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:payload_canaries_absent",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:runner",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:sources_executed_current",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:dependencies_executed_current",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:isolated_owned_cleanup",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:pure_nonempty",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:lint_all_owned_php",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:python_real_console",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:native_all_green",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:named_native_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:standard",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:complete_db_fingerprints",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:neutralised_db_fingerprints",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:files",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:neutralised-files",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:closed_report:addresses",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:closed_report:documented",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:closed_report:repeat",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:closed_report:root-readonly",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:closed_report:native-required-override",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:closed_report:neutralised",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:named_native_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:standard",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:complete_db_fingerprints",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:neutralised_db_fingerprints",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:files",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:neutralised-files",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:closed_report:addresses",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:closed_report:documented",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:closed_report:repeat",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:closed_report:root-readonly",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:closed_report:native-required-override",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:closed_report:neutralised",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:payload_canaries_absent",
+      "status": "PASS"
+    },
+    {
+      "check": "real_reception_controls",
+      "status": "PASS"
+    }
+  ],
+  "shared_readme": "verified",
+  "exit_code": 0
+}

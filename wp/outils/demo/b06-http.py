@@ -3,8 +3,8 @@ import sys
 sys.dont_write_bytecode = True
 import json, re, html, os, hashlib
 from pathlib import Path
-from urllib.parse import urlencode
-from urllib.request import Request, build_opener
+from urllib.parse import urlencode, urljoin, urlsplit
+from urllib.request import Request, build_opener, HTTPRedirectHandler
 from urllib.error import HTTPError
 from html.parser import HTMLParser
 import b06, c23
@@ -20,6 +20,13 @@ class Inputs(HTMLParser):
         if tag == 'input' and a.get('name'):
             self.values[a['name']] = a.get('value', '')
 
+class DemoRedirect(HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        target = urlsplit(urljoin(req.full_url, newurl))
+        if target.scheme != 'http' or target.netloc != '192.168.129.32:8085':
+            raise ValueError('Redirection hors démonstration refusée')
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
 def request(path, session=None, data=None):
     c23.validate_path(path)
     headers = {'User-Agent':'Imagine-B06/1.0'}
@@ -27,7 +34,7 @@ def request(path, session=None, data=None):
         headers['Cookie'] = session['cookie']
         if 'wp-json' in path or 'rest_route' in path: headers['X-WP-Nonce'] = session['nonce']
     req = Request(BASE+path, data=urlencode(data).encode() if data is not None else None, headers=headers, method='POST' if data is not None else 'GET')
-    try: r = build_opener(c23.DemoRedirect()).open(req, timeout=45)
+    try: r = build_opener(DemoRedirect()).open(req, timeout=45)
     except HTTPError as e: r=e
     with r:
         return r.code, dict(r.headers), r.read().decode('utf-8','replace'), r.url
@@ -121,12 +128,12 @@ def run(label):
             code,headers,body,url = request('/?feed=rss2&post_type=page&posts_per_rss=100',session)
             checks[audience+'_flux_existant_sans_temoin'] = code==200 and '<item>' in body and MARKER not in body and child['path'] not in body
             code,headers,body,url = request('/?s='+MARKER,session)
-            main = c23.search_results_body(body.encode()).decode()
+            main = c23.search_results_body(body.encode(),MARKER).decode()
             checks[audience+'_recherche_existe_sans_temoin'] = code==200 and '<main' in body and MARKER not in main and child['path'] not in main
             code,headers,body,url = request('/wp-json/wp/v2/search?search='+MARKER,session)
             checks[audience+'_rest_recherche_exclut'] = code==200 and json.loads(body)==[]
         code,headers,body,url = request('/?s='+MARKER,sessions['coop'])
-        checks['recherche_inverse_non_vide'] = code==200 and child['path'] in c23.search_results_body(body.encode()).decode()
+        checks['recherche_inverse_non_vide'] = code==200 and child['path'] in c23.search_results_body(body.encode(),MARKER).decode()
         for audience in ['coop','active','plain']:
             code,headers,body,url = request(account_path, sessions[audience])
             checks[audience+'_compte_natif'] = code==200 and 'id="mon-statut-cooperateur"' in body and ('Coopérateur : oui' if audience=='coop' else 'Coopérateur : non') in html.unescape(body)

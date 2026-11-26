@@ -144,9 +144,11 @@ try {
         wp_set_current_user($id);
         $checks['retrait_referme'] = !C::autorise();
         ob_start(); C::compte(); $offAccount = ob_get_clean();
+        if ($mutation === 'display') { $offAccount .= 'Source : administration<time>' . $off['date_utc'] . '</time>'; }
         $checks['compte_retrait_sans_source_date'] = str_contains($offAccount, 'Coopérateur : non') && !str_contains($offAccount, 'administration') && !str_contains($offAccount, '<time>');
         wp_set_current_user($admin->ID);
         ob_start(); C::fiche(get_userdata($id)); $offForm = ob_get_clean();
+        if ($mutation === 'display') { $offForm .= 'Source : administration<time>' . $off['date_utc'] . '</time>'; }
         $checks['fiche_retrait_sans_source_date'] = str_contains($offForm, 'imagine_cooperateur_oui') && !str_contains($offForm, 'Source : administration') && !str_contains($offForm, '<time>');
     }
     if ($mutation === 'listener') { add_action(C::ACCROCHE, '__return_null'); }
