@@ -25,7 +25,15 @@ def manifest(roots):
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--output',required=True,type=Path);ap.add_argument('--unit-only',action='store_true')
-    a=ap.parse_args();out=a.output.resolve();assert not out.is_relative_to(ROOT);out.mkdir(parents=True,exist_ok=False)
+    ap.add_argument('--style-only',action='store_true');ap.add_argument('--fix',action='store_true')
+    a=ap.parse_args()
+    if a.fix and not a.style_only or a.style_only and a.unit_only:ap.error('incompatible modes')
+    if a.style_only:
+        style_spec=importlib.util.spec_from_file_location('a18_owned_style',HERE/'style.py')
+        style=importlib.util.module_from_spec(style_spec);style_spec.loader.exec_module(style)
+        sys.argv=[str(HERE/'style.py'),'--output='+str(a.output)]+(['--fix'] if a.fix else [])
+        return style.main()
+    out=a.output.resolve();assert not out.is_relative_to(ROOT);out.mkdir(parents=True,exist_ok=False)
     name='imagine-a18-retention-'+uuid.uuid4().hex[:12];owned=manifest(OWN);deps=manifest(DEPENDENCIES)
     receipt={'suite':'A18-owned-runner','container':name,'at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'mode':'unit' if a.unit_only else 'native','checks':[],'exit_code':1}
     created=False
