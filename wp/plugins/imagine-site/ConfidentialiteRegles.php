@@ -7,6 +7,20 @@ namespace Imagine\Site;
 /** Projections explicites : aucune copie générique de métadonnées personnelles. */
 final class ConfidentialiteRegles
 {
+    public static function retirerPostal(array $event, int $id): ?array
+    {
+        if (self::postal($event, $id) === null) { return $event; }
+        if ((int) ($event['donnees']['user'] ?? 0) === $id) { return null; }
+        $d = &$event['donnees'];
+        $d['beneficiaires'] = array_values(array_filter($d['beneficiaires'] ?? [], static fn ($p): bool => (int) ($p['id'] ?? 0) !== $id));
+        $relations = $d['relation_native'] ?? [];
+        if (isset($relations['recipient_user']) && (int) $relations['recipient_user'] === $id) { $relations = []; }
+        else { $relations = array_values(array_filter($relations, static fn ($p): bool => !is_array($p) || (int) ($p['user_id'] ?? 0) !== $id)); }
+        $d['relation_native'] = $relations;
+        $d['beneficiaires_resolus'] = false;
+        return $event;
+    }
+
     public static function postal(array $event, int $user): ?array
     {
         $d = $event['donnees'] ?? [];

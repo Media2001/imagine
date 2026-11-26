@@ -57,7 +57,8 @@ if ($phase === 'setup') {
     $put(Decouverte::key($id), ['debut' => '2026-11-01 00:00:00', 'reglages' => Decouverte::defauts(), 'articles' => [167]]);
     // Exercer une décision complète puis un nouveau dépôt : audit + fichier en attente sur le même compte.
     $put(Justificatifs::PREFIX . $id, ['categorie' => 'à préciser', 'decision' => 'valide', 'fin' => '2027-12-31']);
-    $bytes = file_get_contents(WP_PLUGIN_DIR . '/imagine-site/tests/fixtures/c17-fictif.pdf');
+    $fixturePath = WP_PLUGIN_DIR . '/imagine-site/tests/fixtures/c17-fictif.pdf';
+    $bytes = is_file($fixturePath) ? file_get_contents($fixturePath) : false;
     if (!$bytes) { $bytes = "%PDF-1.4\nC21 FICTIF\n%%EOF\n"; }
     $doc = Justificatifs::recevoir($id, 'à préciser', $bytes, Justificatifs::version(Justificatifs::etat($id)));
     $f['doc'] = Justificatifs::chemin($doc); $f['document_sha256'] = hash('sha256', $bytes);
