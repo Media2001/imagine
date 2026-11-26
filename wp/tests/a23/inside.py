@@ -217,7 +217,7 @@ if (getenv('A23_CONFINED') === '1') {
         ('invalid_utf8', 'fwrite(STDERR, chr(255));', 'A23_PROCESS_OUTPUT_INVALID', False),
         ('oversize_output', "fwrite(STDOUT, str_repeat('A23_PRIVATE_CANARY', 8192));", 'A23_PROCESS_OUTPUT_INVALID', False),
         ('plugin_exception', "throw new RuntimeException('A23_PERSON_PATH_PRIVATE_CANARY');", 'A23_INVENTORY_FAILED', False),
-        ('unsafe_management_role', "add_action('plugins_loaded', static function () { wp_roles()->roles['A23_ROLE_PRIVATE_CANARY@example.org'] = ['capabilities' => ['edit_users' => true]]; });", 'A23_ROLE_IDENTIFIER_UNSAFE', False),
+        ('unsafe_management_role', "add_action('init', static function () { wp_roles()->roles['A23_ROLE_PRIVATE_CANARY@example.org'] = ['capabilities' => ['edit_users' => true]]; }, PHP_INT_MAX);",  'A23_ROLE_IDENTIFIER_UNSAFE', False),
         ('forged_success', 'fwrite(STDOUT, "A23_OK comptes.json comptes.md\\n"); exit(0);', 'A23_REPORT_INVALID', False),
         ('shutdown_invalid_json', "register_shutdown_function(function () { " + target + " file_put_contents($dir.'/comptes.json', '{'); });", 'A23_REPORT_INVALID', False),
         ('shutdown_extra_string', "register_shutdown_function(function () { " + target + " $p=$dir.'/comptes.json'; $d=json_decode(file_get_contents($p),true); $d['private']='A23_JSON_PRIVATE_CANARY'; file_put_contents($p,json_encode($d)); });", 'A23_REPORT_INVALID', False),

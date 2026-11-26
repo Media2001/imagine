@@ -1,0 +1,27 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T21:26:03.767389+00:00",
+  "total": 9,
+  "checks": {
+    "inscription_native": true,
+    "temoin_persistant": true,
+    "filtre_C21_preserve_export_B07": true,
+    "export_lecture_erreur_incomplet": true,
+    "effacement_lecture_erreur_incomplet": true,
+    "erreur_preserve_inscription": true,
+    "export_reprise_meme_page_sans_omission": true,
+    "effacement_reel_apres_erreur": true,
+    "inscription_essai_retiree": true
+  },
+  "failures": [],
+  "error": null,
+  "exit": 0,
+  "stderr": "",
+  "business_preserved": true,
+  "private_snapshot": {
+    "file": "b07-private-ntb0vcpj/snapshot.json",
+    "sha256": "eb0eb68553c78e7631fba91da0843d766481cc7a7fd6bb5145457ca14567144a",
+    "private": true
+  },
+  "source_sha256": "ffafb322bf1966d97c05ef132eaa067339a102fab56d45db914b464c0c4081d6"
+}

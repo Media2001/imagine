@@ -1,0 +1,33 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T21:25:00.192558+00:00",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "checks": {
+    "sources_corrigees_relues_exactes": true,
+    "etat_metier_exact_avant_installation": true,
+    "evenements_et_metadonnees_anterieurs_exacts": true,
+    "reglages_metier_exacts": true,
+    "aucune_inscription_essai": true,
+    "observateur_et_option_absents": true
+  },
+  "total": 6,
+  "failures": [],
+  "sources": {
+    "plugins/imagine-site/Agenda.php": "70e940beb68e95379a81793b5e8aeb0c34d20d2a6efdbd9d5b2dd09e3290c9bb",
+    "plugins/imagine-site/AgendaConfidentialite.php": "7bfd2b5c2639d48a12b095bbfd8b9c09f8b73f6ddb5a4d69babc0d6c30addef7",
+    "themes/imagine/single-imagine_evenement.php": "5e0f45044d7d7bd5bf6dea95a41a00c6e747fd1a774b3c44a3fafdc458dc5ac2",
+    "themes/imagine/archive-imagine_evenement.php": "e99387da9d90c2f258310502ec8f69f2651ffd0cc968d37b0769d7043b3628f1",
+    "themes/imagine/functions.php": "b078c25bb370c12cc555c4f10ddf0c462604580af6c68ccb1068ab757c939db6"
+  },
+  "filter_contract_sha256": "7607c58ec8fe997f5786900171a8e985515782d20daf2282518fa43d63106c21",
+  "runner_sha256": "e42c211d174403ea208385d22919c79e4432f4b51db6eef02916be55bc3d3d75"
+}
