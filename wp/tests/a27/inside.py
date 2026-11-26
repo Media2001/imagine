@@ -157,7 +157,7 @@ if (getenv('A27_CONFINED') === '1') {
         ('invalid_utf8', 'fwrite(STDERR,chr(255));', 'A27_PROCESS_OUTPUT_INVALID'),
         ('oversize', "fwrite(STDOUT,str_repeat('A27_PRIVATE_CANARY',8192));", 'A27_PROCESS_OUTPUT_INVALID'),
         ('exception', "throw new RuntimeException('A27_EXCEPTION_PRIVATE_CANARY');", 'A27_INVENTORY_FAILED'),
-        ('forged_success', 'fwrite(STDOUT,"A27_OK paiements.json paiements.md\\n"); exit(0);', 'A27_REPORT_INVALID'),
+        ('forged_success', 'fwrite(STDOUT,"A27_OK paiements.json paiements.md\\n"); exit(0);', 'A27_PROCESS_OUTPUT_INVALID'),
         ('shutdown_invalid_json', "register_shutdown_function(function(){" + target + " file_put_contents($dir.'/paiements.json','{');});", 'A27_REPORT_INVALID'),
         ('shutdown_json_canary', "register_shutdown_function(function(){" + target + " $p=$dir.'/paiements.json';$d=json_decode(file_get_contents($p),true);$d['private']='A27_JSON_PRIVATE_CANARY';file_put_contents($p,json_encode($d));});", 'A27_REPORT_INVALID'),
         ('shutdown_markdown', "register_shutdown_function(function(){" + target + " file_put_contents($dir.'/paiements.md','A27_MARKDOWN_PRIVATE_CANARY',FILE_APPEND);});", 'A27_REPORT_INVALID'),

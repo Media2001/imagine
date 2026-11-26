@@ -84,3 +84,19 @@ def complete_report(output, audit):
                 and (output / 'paiements.md').read_bytes() == MARKDOWN.encode('utf-8') + raw + b'```\n')
     except (OSError, ValueError, KeyError, TypeError, UnicodeError):
         return False
+
+
+def final_binding(stdout, output):
+    prefix = b'A27_OK paiements.json paiements.md\nA27_FINAL '
+    files = {'paiements.json', 'paiements.md'}
+    try:
+        if not stdout.startswith(prefix) or not stdout.endswith(b'\n') or output.is_symlink() or not output.is_dir():
+            return False
+        if {p.name for p in output.iterdir()} != files or any(
+                p.is_symlink() or not p.is_file() or not 0 < p.stat().st_size <= 1048576 for p in output.iterdir()):
+            return False
+        digest = read(stdout[len(prefix):-1])
+        return type(digest) is dict and set(digest) == files and digest == {
+            p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in output.iterdir()}
+    except (OSError, ValueError, TypeError):
+        return False

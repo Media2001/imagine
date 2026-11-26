@@ -29,6 +29,17 @@ try {
         ob_end_clean();
     }
     fwrite(STDOUT, "A27_OK paiements.json paiements.md\n");
+    $directory = '';
+    foreach (array_slice($argv, 1) as $argument) {
+        if (str_starts_with($argument, '--output=')) {
+            $directory = substr($argument, 9);
+        }
+    }
+    $binding = [];
+    foreach (['paiements.json', 'paiements.md'] as $name) {
+        $binding[$name] = hash_file('sha256', $directory . '/' . $name);
+    }
+    fwrite(STDOUT, 'A27_FINAL ' . json_encode($binding, JSON_THROW_ON_ERROR) . "\n");
     exit($code);
 } catch (\Throwable $error) {
     while (ob_get_level() > $level) {

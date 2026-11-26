@@ -66,9 +66,10 @@ def main():
                    '--audit=' + str(staged_audit), '--output=' + str(staged_output)]
         code, stdout, stderr = guard.supervise(command, {**os.environ, 'A27_CONFINED': '1'}, stage, fence,
                                                invalid='A27_PROCESS_OUTPUT_INVALID', expired='A27_PROCESS_TIMEOUT')
-        if code != 0 or stdout != SUCCESS or stderr:
+        protocol = rb'A27_OK paiements\.json paiements\.md\nA27_FINAL \{"paiements\.json":"[a-f0-9]{64}","paiements\.md":"[a-f0-9]{64}"\}\n'
+        if code != 0 or stderr or re.fullmatch(protocol, stdout) is None:
             raise RuntimeError(guard.closed_refusal(code, stdout, stderr, REFUSALS, 'A27_PROCESS_OUTPUT_INVALID'))
-        if not report.complete_report(staged_output, audit):
+        if not report.final_binding(stdout, staged_output) or not report.complete_report(staged_output, audit):
             raise RuntimeError('A27_REPORT_INVALID')
         staged_output.rename(output)
     sys.stdout.write(SUCCESS.decode('ascii'))

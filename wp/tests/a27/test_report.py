@@ -123,6 +123,19 @@ class ReportTests(unittest.TestCase):
             self.publish(out, data)
             self.assertFalse(r.complete_report(out, audit))
 
+    def test_coherent_shutdown_counts_require_pre_shutdown_binding(self):
+        with tempfile.TemporaryDirectory(prefix='a27-binding-', dir=os.environ.get('TMPDIR')) as tmp:
+            out, audit, data = self.make_report(Path(tmp))
+            digest = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in out.iterdir()}
+            protocol = b'A27_OK paiements.json paiements.md\nA27_FINAL ' + json.dumps(digest).encode('ascii') + b'\n'
+            self.assertTrue(r.final_binding(protocol, out))
+            self.assertFalse(r.final_binding(b'A27_OK paiements.json paiements.md\n', out))
+            self.assertFalse(r.final_binding(protocol + b'PRIVATE', out))
+            data['counts']['automatic']['autres'] = 7
+            self.publish(out, data)
+            self.assertTrue(r.complete_report(out, audit))
+            self.assertFalse(r.final_binding(protocol, out))
+
     def test_canary_in_each_report_and_extra_file(self):
         for channel in ('paiements.json', 'paiements.md', 'extra.txt'):
             with self.subTest(channel=channel), tempfile.TemporaryDirectory(prefix='a27-files-', dir=os.environ.get('TMPDIR')) as tmp:
