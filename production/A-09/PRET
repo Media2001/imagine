@@ -1,5 +1,6 @@
-A-09 — corrections techniques R1/R2/R3 prêtes à relire.
-Preuve Docker/HTTP : a1671ceb23d2 ; 28 tests réussis, 0 échec.
-Manifeste SHA-256 : ccbd4d6bceb205bc9d9410f0c127d6c85a8d19c8c184699c5d92e12f6e77fd6b
-Historique préservé ; aucun GO production.
-Rejeu parent : python -B production/A-09/verifier.py --replay
+A-09 — PRET, correction des manifestes du 26 novembre.
+Code et preuves natives inchanges ; aucun rejeu Docker.
+Manifeste SHA-256 : facf55ae3f17cc42e0dccb27e71cf35c67ecf600b67d0cd35797c4d3c93be667
+Paquet : a1671ceb23d2
+Controle pur : python production/A-09/verifier.py
+Aucun GO reel.

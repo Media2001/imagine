@@ -1,0 +1,72 @@
+{
+  "exit_code": 0,
+  "runtime_and_tests_unchanged": true,
+  "runtime_source_files": 7,
+  "removed_counts": {
+    "protected": 1041,
+    "sources": 61,
+    "evidence": 0,
+    "history": 0,
+    "delivery": 2
+  },
+  "no_docker": true,
+  "verification": {
+    "exit_code": 0,
+    "verified_files": {
+      "protected": 0,
+      "sources": 9,
+      "evidence": 176,
+      "history": 782,
+      "delivery": 19
+    },
+    "counts": {
+      "a08_unit": 21,
+      "a02_unit": 17,
+      "a03_unit": 10,
+      "a03_boundaries": 5,
+      "a04_unit": 48,
+      "a05_unit": 21,
+      "native_checks": 59,
+      "runner_checks": 11
+    },
+    "durations_seconds_by_pass": {
+      "classic": {
+        "1": {
+          "audit": 1.073,
+          "avant": 1.453,
+          "mise-a-jour": 76.074,
+          "nettoyage": 2.164,
+          "apres": 1.519,
+          "comparaison": 0.043
+        },
+        "2": {
+          "audit": 1.183,
+          "avant": 0.793,
+          "mise-a-jour": 3.627,
+          "nettoyage": 0.432,
+          "apres": 0.759,
+          "comparaison": 0.037
+        }
+      },
+      "hpos": {
+        "1": {
+          "audit": 1.268,
+          "avant": 1.727,
+          "mise-a-jour": 81.157,
+          "nettoyage": 2.527,
+          "apres": 1.634,
+          "comparaison": 0.043
+        },
+        "2": {
+          "audit": 1.456,
+          "avant": 0.982,
+          "mise-a-jour": 3.968,
+          "nettoyage": 0.48,
+          "apres": 1.016,
+          "comparaison": 0.045
+        }
+      }
+    },
+    "proof": "production/A-08/preuves/0bfc90415810"
+  }
+}

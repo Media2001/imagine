@@ -5,25 +5,19 @@
   "tests": 28,
   "production_authorized": false,
   "sources": {
-    "A-FAIRE.md": "188f3a6ecad00003becd67ef9cdd36ae75c2ba032c70e3cd23cfa30aa8370b55",
-    "briefs/A-09-test-des-redirections.md": "23c8d95dd996271b9eaded9c27d779d66adb0706079c869a46d357e6035c75a9",
-    "corrections/A-09.md": "7dc15f6d34fd166235b575c9635e5475e6b4008869be0db43d874a6663744e5f",
-    "doctrine/doctrine.md": "ae514798a7135c54fcf4e95e2ad455d84bb66b36220fb5ceb7c1358b13c5e68d",
-    "files/rapports/2026-11-25-21h08.md": "9dc03d11a71590797c286e7985af0dc5234c8c472709dd97a2edf95f4d339c46",
-    "files/rapports/2026-11-25-22h11-A09.md": "41f7970b3157dd9729768246e7443521c3870d7b126db2952b19c99e70ab82f0",
     "production/A-09/notes-corrections.md": "7c4d21fd9368502f0449821c6bb8dcb9dbf78ab32dca1b787be2177236da7d92",
     "production/A-09/notes.md": "0b43d746caa1791f98dd402a42695fcbf6f9459f0d91fcc9ad3834531cb258f3",
     "production/A-09/preparer-corrections.py": "b5404bbd8435618bfd53802759b4732a61d2aaacb18ca41fb49312e399464938",
     "production/A-09/sceller-corrections.py": "fe95d6eda1c2470e31f9b8f886ca67c0132f2cd9122a06552fbe1a6e79c85645",
-    "production/A-09/verifier.py": "acf438abbe8a638286b38f6e4f3d46b6efdf83d82dda77a8fb3ee293f62dfe45",
-    "prompts/consigne-permanente.md": "9d0ecd9ac39a7381e96eb6f982c427939472421fa33caa0b7bfd36ba8257a102",
+    "production/A-09/verifier.py": "db04a91869df9d36d55a6806a3d3ac9234738fce7ac04caa21549db56e71c49d",
     "wp/outils/bascule/a09/check.py": "f18b5a364e5964347b3de812f15695a519ee86c0533e5579022e3340dc693f38",
     "wp/outils/bascule/plan-redirections.exemple.csv": "40db839a6ab51d83206dc182ccd4870a5732a9c3138c4169f991afb30282ceb1",
     "wp/outils/bascule/tester-redirections": "8df7a554fbe4c56f284affeba2f58723fc9448e5692b32cfe1545bfc57eece41",
     "wp/outils/bascule/tester-redirections.md": "50a391d9e333cfa9be218e3dab50bfa389b76a0c0090eb3f412bb14b24ae7f07",
     "wp/tests/a09/run.py": "0e5c0daa9eea8ed6599ec987ffe67bb90903e98411640c2a8a3412f1f049a68c",
     "wp/tests/a09/test_check.py": "26669ce14de92a81b3151748a4e30a3fbc770776a2c780976306313240f8c291",
-    "wp/tests/a09/test_http.py": "7e9f62e5e88c07b2c57248a0a3fa10939aa8a7d57d2aa4a50ae5945256581f6d"
+    "wp/tests/a09/test_http.py": "7e9f62e5e88c07b2c57248a0a3fa10939aa8a7d57d2aa4a50ae5945256581f6d",
+    "production/A-09/seal-packaging-26nov.py": "1b9adf6e82795dc00a46fd6d5f75b59b159d2e4ef9e0105d023f1387c673f272"
   },
   "evidence": {
     "production/A-09/avant-corrections/PRET": "683f09b852158a3203fa907b58b7cc6eaf2f13061f20712cad0bdbd92822beec",
@@ -990,9 +984,16 @@
     "Only own ownership label cleaned; no shared orphan sweep"
   ],
   "correction_file": "corrections/A-09.md",
-  "report": "files/rapports/2026-11-25-22h11-A09.md",
+  "report": "files/rapports/2026-11-26-02h45.md",
   "new_test_package": false,
   "preparation": "Historical receipt retained; existing A09 package extended, no new test package.",
   "historical_files_preserved": 722,
-  "protected_current_files": 95
+  "protected_current_files": 95,
+  "packaging_policy": "own-lot paths only; shared audit README by contract; frozen dependency snapshots not current pins",
+  "packaging_removed_counts": {
+    "sources": 7,
+    "evidence": 0
+  },
+  "runtime_and_tests_unchanged": true,
+  "packaging_verifier_no_docker": true
 }

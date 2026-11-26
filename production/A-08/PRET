@@ -1,10 +1,11 @@
 {
   "lot": "A-08",
   "manifest": "production/A-08/manifeste.json",
-  "manifest_sha256": "53e96a0e0e6f469e874accbee98f8cd7f240cbc3672cd7e9af46c8f58787663f",
+  "manifest_sha256": "2a9880895d525e1a377be578ad656f1bb804b4ef04300c0004438ba139556726",
   "scope": "Chaîne fictive classique+HPOS ; idempotence métier, contrôles techniques natifs rafraîchissables ; deux rendez-vous opérateur.",
   "technical_ready_only": true,
   "not_a_real_go": true,
   "documentation_introductions": "Consigne 1 appliquée : ajouts de prose seulement, commandes inchangées, sans rejeu Docker.",
-  "at": "2026-11-26T00:45:26.521576+01:00"
+  "at": "2026-11-26T00:45:26.521576+01:00",
+  "packaging": "26 novembre : manifeste propre au lot, aucun code ni preuve native rejouee"
 }

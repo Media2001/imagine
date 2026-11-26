@@ -72,8 +72,9 @@ if ($checks['raccord_present']) {
         $checks['rendu_tableau_simple'] = str_contains($html, 'data-imagine-indicateur="actifs"') && !str_contains($html, '<script');
         $checks['aucun_formulaire'] = !str_contains($html, '<form');
         $faultQueries = 0;
-        $fault = static function (string $sql) use (&$faultQueries): never { $faultQueries++; throw new \RuntimeException('Source indisponible simulée.'); };
-        add_filter('query', $fault, PHP_INT_MAX);
+        $fault = static function (array $args) use (&$faultQueries): never { $faultQueries++; throw new \RuntimeException('Source indisponible simulée.'); };
+        // Throw at the documented WCS query seam, outside Woo's SQL-error recovery.
+        add_filter('woocommerce_get_subscriptions_query_args', $fault, PHP_INT_MAX);
         try {
             ob_start();
             TableauBordAdmin::page();
@@ -82,9 +83,9 @@ if ($checks['raccord_present']) {
                 && !str_contains($unavailable, 'data-imagine-mesure=');
             $faultObservation = ['notice' => str_contains($unavailable, 'Indicateurs indisponibles'), 'numbers' => substr_count($unavailable, 'data-imagine-mesure='), 'queries' => $faultQueries];
         } finally {
-            remove_filter('query', $fault, PHP_INT_MAX);
+            remove_filter('woocommerce_get_subscriptions_query_args', $fault, PHP_INT_MAX);
         }
-        $deny = static function (array $caps): array { $caps['imagine_referent_abonnements'] = false; return $caps; };
+        $deny = static function (array $caps): array { $caps['imagine_extraire_abonnes'] = false; return $caps; };
         add_filter('user_has_cap', $deny, PHP_INT_MAX);
         $checks['capacite_revoquee_refuse'] = !TableauBordAdmin::autorise();
         remove_filter('user_has_cap', $deny, PHP_INT_MAX);

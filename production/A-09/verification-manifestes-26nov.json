@@ -1,0 +1,26 @@
+{
+  "exit_code": 0,
+  "runtime_and_tests_unchanged": true,
+  "runtime_source_files": 7,
+  "removed_counts": {
+    "sources": 7,
+    "evidence": 0
+  },
+  "no_docker": true,
+  "verification": {
+    "exit_code": 0,
+    "scope": "A09 dedicated Python/real HTTP archived suite; no Docker by default; not a fresh execution",
+    "proof": {
+      "packet": "a1671ceb23d2",
+      "tests": 28,
+      "http_reports": 15,
+      "runner": "imagine-a09-27bef477e49b",
+      "requests": 70
+    },
+    "replay": null,
+    "protected_sources": 2,
+    "manifest_sha256": "facf55ae3f17cc42e0dccb27e71cf35c67ecf600b67d0cd35797c4d3c93be667",
+    "cleanup": "archived exact-owned cleanup receipt; live readback only with --replay",
+    "production_authorized": false
+  }
+}

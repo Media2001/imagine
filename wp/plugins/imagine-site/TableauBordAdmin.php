@@ -29,9 +29,9 @@ final class TableauBordAdmin
 
     public static function register(): void
     {
-        // Méta-capacité WP dédiée, résolue vers le rôle C09 existant, sans le réécrire.
+        // Méta-capacité WP dédiée : les deux droits des sources, sans mutation du rôle C09.
         add_filter('map_meta_cap', static function (array $caps, string $cap): array {
-            return $cap === self::CAP ? ['imagine_referent_abonnements'] : $caps;
+            return $cap === self::CAP ? ['imagine_extraire_abonnes', 'imagine_gerer_echeances'] : $caps;
         }, 10, 2);
         add_action('admin_menu', [self::class, 'menu'], 120);
         add_action('admin_init', static function (): void {
