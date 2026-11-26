@@ -19,9 +19,10 @@ class DependencyTest(unittest.TestCase):
         spec=importlib.util.spec_from_file_location('isolated_a21_verifier',HERE/'verify.py')
         verifier=importlib.util.module_from_spec(spec)
         spec.loader.exec_module(verifier)
+        dependencies=verifier.DEPENDENCIES
         with tempfile.TemporaryDirectory(prefix='a21-dependency-test-',dir=os.environ.get('TMPDIR')) as directory:
             root=Path(directory)
-            for name in verifier.OWN+DEPENDENCIES:
+            for name in verifier.OWN+dependencies:
                 source=ROOT/name
                 if source.is_dir():
                     shutil.copytree(source,root/name,ignore=shutil.ignore_patterns('__pycache__'))
@@ -34,7 +35,7 @@ class DependencyTest(unittest.TestCase):
             packet=root/'production/A-21/preuves/final'
             shutil.copytree(ROOT/'production/A-21/preuves/final',packet)
             verifier.ROOT=root
-            snapshot=verifier.inventory(DEPENDENCIES)
+            snapshot=verifier.inventory(dependencies)
             snapshot.pop('wp/tests/a02-audit/README.md',None)
             for folder in [packet,packet/'utf8']:
                 (folder/'dependency-snapshot.json').write_text(json.dumps(snapshot),encoding='utf-8')

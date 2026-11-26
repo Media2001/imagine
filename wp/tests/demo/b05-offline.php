@@ -23,6 +23,19 @@ function esc_attr(string $s): string { return htmlspecialchars($s, ENT_QUOTES); 
 function add_settings_error(...$args): void { $GLOBALS['settings_errors'][] = $args; }
 function get_plugin_page_hookname(...$args): string { return 'imagine_page_imagine-reglages'; }
 function get_posts(array $args): array { return []; }
+class WP_Query {
+    private int $index = 0;
+    public function __construct(private array $rows = []) {}
+    public function have_posts(): bool { return $this->index < count($this->rows); }
+    public function the_post(): void { $GLOBALS['current'] = $this->rows[$this->index++]; $GLOBALS['type'] = $GLOBALS['current']['post_type']; }
+}
+function get_the_ID(): int { return $GLOBALS['current']['ID']; }
+function get_permalink(): string { return home_url('/?p=' . get_the_ID()); }
+function get_the_title(): string { return 'Titre fictif ' . get_the_ID(); }
+function get_the_excerpt(): string { return 'Extrait fictif'; }
+function esc_url(string $url): string { return htmlspecialchars($url, ENT_QUOTES); }
+function wp_reset_postdata(): void {}
+function is_search(): bool { return false; }
 require '/repo/wp/themes/imagine/functions.php';
 require '/repo/wp/plugins/imagine-site/Partenaires.php';
 $checks = [];

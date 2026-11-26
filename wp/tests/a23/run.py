@@ -85,6 +85,10 @@ def main():
         check('unit_return', p.returncode == 0)
         b.call(['cp', name + ':/report/unit.json', b.local(out / 'unit.json')], check=False)
         if not a.unit_only and p.returncode == 0:
+            standard = b.call(['exec', name, 'php', '/opt/a23/standard.php'], check=False)
+            (out / 'standard.log').write_text(standard.stdout + standard.stderr, encoding='utf-8')
+            check('installed_standard', standard.returncode == 0 and standard.stdout == standard.stderr == '')
+            b.call(['cp', name + ':/report/standard.json', b.local(out / 'standard.json')])
             p = b.call(['exec', name, 'python3', '/opt/a23/inside.py'], check=False, timeout=1500)
             (out / 'native.log').write_text(p.stdout + p.stderr, encoding='utf-8')
             b.call(['cp', name + ':/report/.', b.local(out)])

@@ -1,0 +1,30 @@
+{
+  "at": "2026-11-26T13:31:21.883720+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "nonce_invalide_refuse": true,
+    "redacteur_sans_droit_refuse": true,
+    "refus_sans_mutation": true,
+    "champ_formulaire_C10_unique": true,
+    "nonce_et_groupe_natifs": true,
+    "choix_manuel_non_multiple": true,
+    "injection_sans_avertissement": true,
+    "lecture_sans_sauvegarde_C10": true,
+    "accueil_canonique_selectionne": true,
+    "fiche_canonique_visible": true,
+    "profils_et_action_metier_exacts": true,
+    "choix_final_manuel_48": true
+  },
+  "total": 12,
+  "failures": [],
+  "option_before": "48",
+  "option_after": 48,
+  "outside_demo_blocked": [
+    "https://secure.gravatar.com/avatar/bd25992cf05fd751d035283b38aa8d121bb3d541dd8906110e31d79e7eff512b"
+  ],
+  "captures": [
+    "accueil-partenaire-V2.png",
+    "fiche-partenaire-V2.png"
+  ],
+  "visual_approval": false
+}

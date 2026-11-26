@@ -17,7 +17,7 @@ spec.loader.exec_module(r)
 b = r.b
 b.LABEL = 'org.imagine.a21-external-doors'
 OWN = ['wp/tests/a21', 'wp/outils/bascule/a21']
-DEPENDENCIES = ['wp/tests/a02-audit', 'wp/tests/a19', 'wp/outils/bascule/audit', 'wp/outils/bascule/a11', 'wp/outils/bascule/a12', 'wp/outils/staging','wp/outils/bascule/stream_guard.py','wp/outils/bascule/stream_refusals.json','wp/outils/bascule/stream_bridge.php','wp/tests/a22/run.py','wp/tests/a22/replay.py','wp/tests/a22/channels.py']
+DEPENDENCIES = ['wp/tests/a02-audit', 'wp/tests/a19', 'wp/outils/bascule/audit', 'wp/outils/bascule/a11', 'wp/outils/bascule/a12', 'wp/outils/staging','wp/outils/bascule/stream_guard.py','wp/outils/bascule/stream_refusals.json','wp/outils/bascule/stream_bridge.php','wp/tests/a22/run.py','wp/tests/a22/replay.py','wp/tests/a22/channels.py','wp/tests/a22/documented.json']
 def manifest(roots):
     # Shared documentation is a two-line contract, never a whole-file hash.
     return {key:value for key,value in r.manifest(roots).items() if key != 'wp/tests/a02-audit/README.md'}

@@ -14,7 +14,7 @@ def rows(names):
     return b05.wp('global $wpdb;$out=[];foreach(' + b05.php_json(names) + ' as $n){$out[$n]=$wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->options} WHERE option_name=%s",$n),ARRAY_A);}echo wp_json_encode($out);')
 
 
-def run(label, capture=False):
+def run(label, capture=False, read_only=False):
     b05.profils.guard('imagine-test-demo')
     assert not (b05.PROOF / (label + '.json')).exists()
     spec = importlib.util.spec_from_file_location('b05_transport', Path(__file__).with_name('c18-http.py'))
@@ -53,13 +53,17 @@ def run(label, capture=False):
                 checks['nonce_et_groupe_natifs'] = form.locator('input[name=_wpnonce]').count() == 1 and form.locator('input[name=option_page]').input_value() == 'imagine_reglages'
                 names = form.locator('[name]').evaluate_all('(xs)=>[...new Set(xs.map(x=>x.name.split("[")[0]).filter(x=>x.startsWith("imagine_")))]')
                 assert OPTION in names
-                old = rows(names)
                 checks['choix_manuel_non_multiple'] = field.get_attribute('multiple') is None and field.locator('option').count() == 3
-                field.select_option('48')
-                with page.expect_navigation(wait_until='networkidle'):
-                    form.evaluate('(f)=>f.requestSubmit()')
-                checks['sauvegarde_native_C10'] = b05.wp('echo wp_json_encode((int) get_option("' + OPTION + '"));') == 48
-                checks['choix_relu_ecran'] = page.locator('#imagine-partenaire-du-mois').input_value() == '48'
+                checks['injection_sans_avertissement'] = page.locator('.imagine-partenaire-injection-erreur').count() == 0
+                if read_only:
+                    checks['lecture_sans_sauvegarde_C10'] = field.input_value() == str(selected_before)
+                else:
+                    old = rows(names)
+                    field.select_option('48')
+                    with page.expect_navigation(wait_until='networkidle'):
+                        form.evaluate('(f)=>f.requestSubmit()')
+                    checks['sauvegarde_native_C10'] = b05.wp('echo wp_json_encode((int) get_option("' + OPTION + '"));') == 48
+                    checks['choix_relu_ecran'] = page.locator('#imagine-partenaire-du-mois').input_value() == '48'
                 context.close()
                 if capture:
                     public = browser.new_context(viewport={'width':1280,'height':1000},locale='fr-BE')
@@ -69,10 +73,10 @@ def run(label, capture=False):
                     block = page.locator('[data-imagine-partenaire-mois="48"]')
                     checks['accueil_canonique_selectionne'] = block.count() == 1
                     block.scroll_into_view_if_needed()
-                    page.screenshot(path=str(b05.PROOF / 'accueil-partenaire.png'))
+                    page.screenshot(path=str(b05.PROOF / 'accueil-partenaire-V2.png'))
                     page.goto(BASE + '/partenaires/demo-partners-1/',wait_until='networkidle')
                     checks['fiche_canonique_visible'] = page.locator('.imagine-partnership-label',has_text='Partenariat').is_visible()
-                    page.screenshot(path=str(b05.PROOF / 'fiche-partenaire.png'))
+                    page.screenshot(path=str(b05.PROOF / 'fiche-partenaire-V2.png'))
                     public.close()
             finally:
                 browser.close()
@@ -86,10 +90,10 @@ def run(label, capture=False):
     checks['profils_et_action_metier_exacts'] = b05.state() == before
     checks['choix_final_manuel_48'] = b05.wp('echo wp_json_encode((int) get_option("' + OPTION + '"));') == 48
     failures = [k for k,v in checks.items() if v is not True]
-    b05.save(label, {'checks':checks,'total':len(checks),'failures':failures,'option_before':selected_before,'option_after':48,'outside_demo_blocked':blocked,'captures':['accueil-partenaire.png','fiche-partenaire.png'] if capture else [],'visual_approval':False})
+    b05.save(label, {'checks':checks,'total':len(checks),'failures':failures,'option_before':selected_before,'option_after':48,'outside_demo_blocked':blocked,'captures':['accueil-partenaire-V2.png','fiche-partenaire-V2.png'] if capture else [],'visual_approval':False})
     print(json.dumps({'total':len(checks),'failures':failures},ensure_ascii=False))
     assert not failures
 
 
 if __name__ == '__main__':
-    run(sys.argv[1], '--capture' in sys.argv)
+    run(sys.argv[1], '--capture' in sys.argv, '--read-only' in sys.argv)

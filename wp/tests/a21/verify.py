@@ -9,7 +9,7 @@ sys.dont_write_bytecode=True
 ROOT=Path(__file__).resolve().parents[3]
 OWN=['wp/tests/a21','wp/outils/bascule/a21']
 DEPENDENCIES=['wp/tests/a02-audit','wp/tests/a19','wp/outils/bascule/audit',
-              'wp/outils/bascule/a11','wp/outils/bascule/a12','wp/outils/staging','wp/outils/bascule/stream_guard.py','wp/outils/bascule/stream_refusals.json','wp/outils/bascule/stream_bridge.php','wp/tests/a22/run.py','wp/tests/a22/replay.py','wp/tests/a22/channels.py']
+              'wp/outils/bascule/a11','wp/outils/bascule/a12','wp/outils/staging','wp/outils/bascule/stream_guard.py','wp/outils/bascule/stream_refusals.json','wp/outils/bascule/stream_bridge.php','wp/tests/a22/run.py','wp/tests/a22/replay.py','wp/tests/a22/channels.py','wp/tests/a22/documented.json']
 
 def inventory(roots):
     paths=[]
@@ -28,7 +28,7 @@ def packet_manifest(packet):
     expected.pop((packet/'manifest.json').relative_to(ROOT).as_posix(),None)
     return expected
 
-def verify(packet):
+def verify(packet,parent_proof=None):
     checks=[]
     counts={}
     load=lambda p:json.loads(p.read_text(encoding='utf-8'))
@@ -80,8 +80,8 @@ def verify(packet):
             nd=load(folder/(storage+'-neutralised/portes.json'))
             check(console+':'+storage+':unknown_never_zero',nd['api_keys']=={'status':'inconnu après neutralisation','counts':None} and nd['webhooks']=={'status':'inconnu après neutralisation','counts':None} and nd['extension_store']=={'status':'inconnu après neutralisation','connected':None})
         runner=load(folder/'runner.json')
-        channels=load(folder/'a22-channels.json')
-        check(console+':common_guard_native_channels_and_mutation',channels['exit_code']==0 and len(channels['checks'])==21 and all(x['status']=='PASS' for x in channels['checks']))
+        channels=load(folder/'a22-channels.json') if (folder/'a22-channels.json').is_file() else {}
+        check(console+':common_guard_native_channels_and_mutation',channels.get('exit_code')==0 and len(channels.get('checks',[]))==21 and all(x['status']=='PASS' for x in channels['checks']))
         check(console+':owned_cleanup',runner['mode']=='native' and any(r['check']=='cleanup_exact_owned_runner' and r['status']=='PASS' for r in runner['checks']))
         env=load(packet/(console+'-environment.json'))
         check(console+':windows_console_measured',env['platform']=='win32' and env['version_info'][:2]==[3,14] and env['stdout']==('cp1252' if console=='cp1252' else 'utf-8') and env['utf8_mode']==int(console=='utf8'))
@@ -99,15 +99,22 @@ def verify(packet):
     check('candidate_not_parent_gate_claim',candidate=={'status':'CANDIDAT_GATE_PARENT','parent_preparation':'pending','parent_global_T01':'pending','readiness_claimed':False})
     check('own_two_shared_lines_only',readme_contract((ROOT/'wp/tests/a02-audit/README.md').read_bytes(),(ROOT/'production/A-21/readme-ajout.txt').read_bytes()))
     check('exact_final_packet_manifest',load(packet/'manifest.json')==packet_manifest(packet))
+    if parent_proof is not None:
+        proof=load(parent_proof)
+        check('optional_parent_sources_current',proof['sources']==source)
+        for gate in ['preparation','T01']:
+            receipt=load(Path(proof[gate]));rows=[row for key in ['checks','tests'] for row in receipt.get(key,[])]
+            check('optional_parent_'+gate,receipt.get('exit_code')==0 and bool(rows) and all(row.get('status')=='PASS' if 'status' in row else row.get('ok') is True for row in rows))
     result={'status':'CANDIDAT_GATE_PARENT','readiness_claimed':False,'exit_code':int(any(r['status']!='PASS' for r in checks)),'counts':counts,'checks':checks}
     print(json.dumps(result,indent=2))
     return result['exit_code']
 if __name__=='__main__':
     ap=argparse.ArgumentParser(description=__doc__)
     ap.add_argument('packet',type=Path)
+    ap.add_argument('--parent-proof',type=Path)
     args=ap.parse_args()
     try:
-        sys.exit(verify(args.packet.resolve()))
+        sys.exit(verify(args.packet.resolve(),args.parent_proof))
     except Exception as error:
         print(json.dumps({'exit_code':1,'error':type(error).__name__}))
         sys.exit(1)

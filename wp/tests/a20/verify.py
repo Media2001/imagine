@@ -10,7 +10,7 @@ def inventory(roots):
         p=ROOT/key
         files.extend([p] if p.is_file() else [x for x in p.rglob('*') if x.is_file() and '__pycache__' not in x.parts])
     return {p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(set(files))}
-def verify(packet):
+def verify(packet,parent_proof=None):
     checks=[];counts={}
     def check(name,ok):checks.append({'check':name,'status':'PASS' if ok else 'FAIL'})
     def load(p):return json.loads(p.read_text(encoding='utf-8'))
@@ -71,9 +71,15 @@ def verify(packet):
     lines=(ROOT/'production/A-20/readme-ajout.txt').read_text(encoding='utf-8').splitlines();shared=(ROOT/'wp/tests/a02-audit/README.md').read_text(encoding='utf-8').splitlines();check('only_own_two_shared_lines',len(lines)==2 and all(shared.count(line)==1 for line in lines))
     expected=inventory(OWN+[packet.relative_to(ROOT).as_posix()]);expected.pop((packet/'manifest.json').relative_to(ROOT).as_posix(),None)
     check('exact_packet_inventory_and_hashes',load(packet/'manifest.json')==expected)
+    if parent_proof is not None:
+        proof=load(parent_proof)
+        check('optional_parent_sources_current',proof['sources']==source)
+        for gate in ['preparation','T01']:
+            receipt=load(Path(proof[gate]));rows=[row for key in ['checks','tests'] for row in receipt.get(key,[])]
+            check('optional_parent_'+gate,receipt.get('exit_code')==0 and bool(rows) and all(row.get('status')=='PASS' if 'status' in row else row.get('ok') is True for row in rows))
     result={'status':'CANDIDAT_GATE_PARENT','readiness_claimed':False,'exit_code':int(any(c['status']!='PASS' for c in checks)),'counts':counts,'checks':checks}
     print(json.dumps(result,indent=2));return result['exit_code']
 if __name__=='__main__':
-    ap=argparse.ArgumentParser();ap.add_argument('packet',type=Path);a=ap.parse_args()
-    try:sys.exit(verify(a.packet.resolve()))
+    ap=argparse.ArgumentParser();ap.add_argument('packet',type=Path);ap.add_argument('--parent-proof',type=Path);a=ap.parse_args()
+    try:sys.exit(verify(a.packet.resolve(),a.parent_proof))
     except Exception:print(json.dumps({'exit_code':1,'code':'A20_PACKET_INVALID'}));sys.exit(1)

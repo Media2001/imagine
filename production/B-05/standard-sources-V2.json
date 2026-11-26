@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-26T13:31:37.934489+00:00",
+  "scope": "imagine-test-demo",
+  "sources": [
+    {
+      "url": "https://developer.wordpress.org/reference/classes/wp_html_tag_processor/",
+      "status": 200,
+      "sha256": "67c44633b42fadfb6b4c79285aa0ac102ecd8fe05117db3221f4dd65bc2fb5b4"
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/functions/wp_parse_url/",
+      "status": 200,
+      "sha256": "327b684e2ddea5506e62123467154f623bdfee1d8b2f5b329254b4d7b13bfeef"
+    },
+    {
+      "url": "https://developer.wordpress.org/reference/hooks/admin_notices/",
+      "status": 200,
+      "sha256": "c4f0680eea955b2e5a174b54bb9db057e83a2d3a3f3fcb58686e739e05051ead"
+    }
+  ]
+}

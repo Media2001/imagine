@@ -1,0 +1,1 @@
+A22 — gardien commun : les inventaires chargeant WordPress retiennent les deux flux jusqu’à la fin ; un flux imprévu ou un succès incomplet est refusé sans recopier son contenu. Rejeu transversal : `wp/tests/a22/matrix.py` ; vérification : `wp/tests/a22/verify.py`.

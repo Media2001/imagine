@@ -41,7 +41,7 @@ def main():
     bench=getattr(runner,'b',getattr(runner,'bench',runner))
     original_call=bench.call
     native_executions=[]
-    def call(command,**kw):
+    def dispatch(command,**kw):
         if len(command)>=4 and command[0]=='exec' and command[2]=='python3' and command[3].endswith('/inside.py'):
             name=command[1]
             if args.lot not in {'A02','A10'}:
@@ -51,6 +51,20 @@ def main():
                 native_executions.append(command)
                 command=[*command[:3],'/opt/a22/replay.py',command[3],args.lot]
         return original_call(command,**kw)
+    def call(command,**kw):
+        # WSL service cannot reliably dispatch many concurrent Windows clients.
+        # Cross-process lease affects only our proof runners, never a site/daemon.
+        import msvcrt
+        import time
+        lock=Path(os.environ['TMPDIR'])/'a22-docker-call.lock'
+        with lock.open('a+b') as handle:
+            handle.seek(0,2)
+            if handle.tell()==0:handle.write(b'0');handle.flush()
+            while True:
+                try:handle.seek(0);msvcrt.locking(handle.fileno(),msvcrt.LK_NBLCK,1);break
+                except OSError:time.sleep(.1)
+            try:return dispatch(command,**kw)
+            finally:handle.seek(0);msvcrt.locking(handle.fileno(),msvcrt.LK_UNLCK,1)
     bench.call=call
     argv=[str(path)]
     if args.lot=='A03':argv+=['--name',out.name,'--output-root',str(out.parent)]
