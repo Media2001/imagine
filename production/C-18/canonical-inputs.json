@@ -1,0 +1,13 @@
+{
+  "wp/plugins/imagine-site/ExtractionsRegles.php": "a6fc6d2609df0a0fe02fc8024bc8ee5561d03c31ee158b7f055db4abf897e9f1",
+  "wp/plugins/imagine-site/ExtractionsNatives.php": "1c9ed322dc3de28f374b544e0c1001d76288272822c7a10f5a6db690392e6114",
+  "wp/plugins/imagine-site/ExtractionsAdmin.php": "67c0e08daf172fda148e2d4ffc2394f46e690db27a863cf3f4eb1f679a737326",
+  "wp/plugins/imagine-site/extractions/age.php": "88f4a538f1b713d0118cfc9fdba2f0e4c72e2b6fa5e8b8841c4dba6899b0a499",
+  "wp/plugins/imagine-site/extractions/echeance.php": "439c4304ecec1f574cc11ab852899e1eedde4ee23429f1a81794d96e8c9d5c14",
+  "wp/plugins/imagine-site/extractions/etat.php": "780d7bbd6a9902067fb6554d552d2f41445368d09043a8dacc759e658c154786",
+  "wp/plugins/imagine-site/extractions/etiquette.php": "48e4fedbdfa883f3467db957f69ad31b9f7b3114b981c2ea429413381be789b2",
+  "wp/plugins/imagine-site/extractions/localite.php": "734b7840a9fb4f368b32ffc1693b3764b7f5e9b1983ff209fc4c12a3094ec240",
+  "wp/plugins/imagine-site/extractions/mode.php": "892a780573b79fb01e2f636e5f49269e29694d31390593597c1e8939b2b706b6",
+  "wp/plugins/imagine-site/imagine-site.php": "b2d7fc769912377a970f3e9907d81118dfaa29f530cdaac7b44fd10d628371b1",
+  "wp/plugins/imagine-site/tests/ExtractionsReglesTest.php": "e3dd83b09e216df409dc78d8bf71c9dff81cd3b5803b88f2a805527c28e462f4"
+}

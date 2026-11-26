@@ -1,0 +1,7 @@
+{
+  "exit": 1,
+  "total": 382,
+  "failures": [
+    "A-PAPIER:action_native_planifiee_ou_absente_selon_statut"
+  ]
+}

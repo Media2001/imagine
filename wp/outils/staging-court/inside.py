@@ -15,6 +15,7 @@ from urllib.parse import urlsplit
 from archive import Refusal, restore, audit, check_space, ARCHIVE_REFUSALS
 from core_source import plugin_warnings, manifest_settings_values
 from legacy_importer import sql_plan, CREATE_WORDS
+from diagnostics import execute, CommandFailure, php_error
 
 # Narrow grammar additions required by SHOW CREATE from the existing synthetic baseline.
 # No new statement type, trigger, procedure, executable comment or general SQL fallback.
@@ -27,11 +28,12 @@ DB = 'imagine_a01_staging'
 SOCKET = '/scratch/mariadb.sock'
 
 
-def command(args, *, data=None, env=None, check=True):
-    p = subprocess.run(args, input=data, capture_output=True, env={**os.environ, **(env or {})}, timeout=300)
-    if check and p.returncode:
-        raise Refusal('COMMAND_REFUSED')
-    return p
+def command(args, *, data=None, env=None, check=True, stage=None, timeout=300):
+    stage = stage or {'mariadb-install-db':'database_initialize', 'mariadb-admin':'database_control',
+                      'mariadb':'database_query', 'php':'native_phase'}.get(args[0], 'offline_command')
+    return execute(args, input=data, capture_output=True, env={**os.environ, **(env or {})},
+                   timeout=timeout, stage=stage, check=check,
+                   database=args[0] == 'mariadb', php=args[0] == 'php')
 
 
 def database_start():
@@ -41,7 +43,8 @@ def database_start():
              '--skip-test-db', '--user=root'])
     process = subprocess.Popen(['mariadbd', '--user=root', '--datadir=' + str(data), '--socket=' + SOCKET,
                                 '--skip-networking', '--skip-log-bin', '--pid-file=/scratch/court.pid',
-                                '--log-error=/scratch/court-db.log'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                                '--log-error=/scratch/court-db.log', '--max-allowed-packet=256M',
+                                '--sql-mode=NO_AUTO_VALUE_ON_ZERO'], stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
     for _ in range(100):
         if process.poll() is not None:
             raise Refusal('DATABASE_START_REFUSED')
@@ -148,30 +151,25 @@ def restore_and_verify(archive, request):
         normalized.unlink()
     plan = validate_file(sql, legacy_importer, normalized, decisions=request.get('decisions', {}))
     prefix = plan['prefix']
-    command(['mariadb', '--socket=' + SOCKET, '--user=root', '-e', 'CREATE DATABASE ' + DB])
-    with normalized.open('rb') as source:
-        imported = subprocess.run(['mariadb', '--socket=' + SOCKET, '--user=root', DB], stdin=source,
-                                  stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=1200)
-    if imported.returncode:
-        raise Refusal('COMMAND_REFUSED')
+    import_report = import_database(normalized)
     sql.unlink(); normalized.unlink()
     # Independent engine readback: the import must preserve, not convert, engines.
     engine_rows = command(['mariadb', '--socket=' + SOCKET, '--user=root', '--skip-column-names', '-e',
-                           "SELECT TABLE_NAME,ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA='" + DB + "'"]).stdout.decode().splitlines()
+                           "SELECT TABLE_NAME,ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA='" + DB + "'"], stage='database_engine_readback').stdout.decode().splitlines()
     engines = {row.split('\t')[0]: row.split('\t')[1].upper() for row in engine_rows}
     if engines != plan['table_engines']:
         raise Refusal('TABLE_ENGINE_READBACK_REFUSED')
     for option, value in manifest_settings.items():
         encoded = value.encode().hex()
         sql = "UPDATE `" + prefix + "options` SET option_value=0x" + encoded + " WHERE option_name='" + option + "';"
-        command(['mariadb', '--socket=' + SOCKET, '--user=root', DB], data=sql.encode())
+        command(['mariadb', '--socket=' + SOCKET, '--user=root', DB], data=sql.encode(), stage='manifest_settings_restore')
         readback = command(['mariadb', '--socket=' + SOCKET, '--user=root', '--skip-column-names', DB,
-            '-e', "SELECT HEX(option_value) FROM `" + prefix + "options` WHERE option_name='" + option + "'"]).stdout.decode().strip().lower()
+            '-e', "SELECT HEX(option_value) FROM `" + prefix + "options` WHERE option_name='" + option + "'"], stage='manifest_settings_readback').stdout.decode().strip().lower()
         if readback != encoded:
             raise Refusal('SOURCE_SETTINGS_METADATA_REFUSED')
     # Only target home/siteurl are rewritten before the native context guard. No WP bootstrap yet.
     update = "UPDATE `" + prefix + "options` SET option_value='" + target.replace("'", "''") + "' WHERE option_name IN ('home','siteurl');"
-    command(['mariadb', '--socket=' + SOCKET, '--user=root', DB], data=update.encode())
+    command(['mariadb', '--socket=' + SOCKET, '--user=root', DB], data=update.encode(), stage='target_url_rewrite')
     config = """<?php
     define('DB_NAME','imagine_a01_staging'); define('DB_USER','root'); define('DB_PASSWORD','');
     define('DB_HOST','localhost:/scratch/mariadb.sock'); define('DB_CHARSET','utf8mb4'); define('DB_COLLATE','');
@@ -193,11 +191,15 @@ def restore_and_verify(archive, request):
     for phase in ('neutraliser', 'anonymiser', 'verifier'):
         p = command(['php', '/subject/' + phase, '--worker-bridge', str(BASE / 'bridge.php')],
                     data=(password + '\n').encode() if phase == 'anonymiser' else b'',
-                    env={'A01_CONTEXT': '/scratch/a01-context.json', 'WP_ENVIRONMENT_TYPE': 'staging'}, check=False)
+                    env={'A01_CONTEXT': '/scratch/a01-context.json', 'WP_ENVIRONMENT_TYPE': 'staging'}, check=False, stage='native_' + phase)
         try:
             report = json.loads(p.stdout)
         except ValueError:
-            report = {'ok': False, 'issues': ['REPORT_INVALID']}
+            report = {'ok': False, 'issues': ['REPORT_INVALID'], 'failure': {
+                'stage': 'native_' + phase, 'code': 'PHP_REPORT_INVALID', 'php': php_error(p.stderr), 'exit': p.returncode}}
+        if p.returncode and 'failure' not in report:
+            report['failure'] = {'stage':'native_' + phase, 'code':'NATIVE_PHASE_REFUSED', 'exit':p.returncode,
+                                 'php':php_error(p.stderr)}
         steps.append({'phase': phase, 'exit': p.returncode, 'report': report})
         if p.returncode or report.get('ok') is not True:
             break
@@ -207,6 +209,7 @@ def restore_and_verify(archive, request):
               'manifest_settings_restored_readback': sorted(manifest_settings),
               'table_engines': engines,
               'sql_policy': plan,
+              'database_import': import_report,
               'warnings': ([{'code': 'NON_INNODB_TABLE', 'table': table, 'engine': engine}
                            for table, engine in sorted(engines.items()) if engine != 'INNODB']
                            + plugin_warnings(SITE / 'wp-content', core_versions['source'], request.get('php_version', '8.2'))),
@@ -216,6 +219,20 @@ def restore_and_verify(archive, request):
               'publication': 'NOT_IMPLEMENTED: no port or egress is opened; site remains stopped',
               'shared_tool_modified': False, 'no_Novamira': True}
     return result
+
+
+def import_database(normalized):
+    """One bounded import contract shared by publication and base-only diagnosis."""
+    command(['mariadb', '--socket=' + SOCKET, '--user=root', '-e', 'CREATE DATABASE ' + DB], stage='database_create')
+    started = time.monotonic()
+    with normalized.open('rb') as source:
+        execute(['mariadb', '--socket=' + SOCKET, '--user=root', '--binary-mode',
+                 '--max-allowed-packet=256M', '--init-command=SET SESSION sql_mode=\'NO_AUTO_VALUE_ON_ZERO\'', DB],
+                stdin=source, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, timeout=3600,
+                stage='database_import', database=True, sql_path=normalized)
+    return {'elapsed_seconds':round(time.monotonic()-started, 3), 'timeout_seconds':3600,
+            'max_allowed_packet_bytes':268435456, 'fallback_sql_mode':'NO_AUTO_VALUE_ON_ZERO',
+            'source_mode_policy':'explicit supported SET SQL_MODE retained; exporter without mode uses non-strict fallback'}
 
 
 # Closed diagnostics: imported text, SQL identifiers and exception messages are
@@ -249,6 +266,12 @@ def execute_offline_request(archive, request, start_database):
             database_start()
         return restore_and_verify(archive, request)
     except Exception as exc:
+        return failure_receipt(exc)
+
+
+def failure_receipt(exc):
+        if isinstance(exc, CommandFailure):
+            return {'status':'refused', 'data_verified':False, 'issues':[str(exc)], 'failure':exc.failure}
         from legacy_importer import Refusal as SQLRefusal
         code = str(exc) if isinstance(exc, (Refusal, SQLRefusal)) else 'IMPORT_REFUSED'
         if code.startswith('SQL_DDL_UNSUPPORTED_'):

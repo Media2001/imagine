@@ -1,0 +1,154 @@
+{
+  "at": "2026-11-26T00:59:50.264393+00:00",
+  "status": "PRET_TECHNIQUE_C18_AVEC_RESERVE_HISTORIQUE_C09",
+  "scope": "imagine-test-demo",
+  "receipts": {
+    "unit-final": {
+      "tests": 17,
+      "assertions": 24,
+      "container_removed": true
+    },
+    "unit-root-final": {
+      "tests": 98,
+      "assertions": 523,
+      "container_removed": true
+    },
+    "runtime": {
+      "checks": 14,
+      "failures": []
+    },
+    "HTTP": {
+      "checks": 95,
+      "failures": []
+    }
+  },
+  "canonical_T01": {
+    "tests": 1062,
+    "assertions": 34271,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass": true
+  },
+  "PSR12_errors_only": {
+    "errors": 0,
+    "warnings": 0,
+    "fixable": 0
+  },
+  "sha256_readback": {
+    "plugins/imagine-site/ExtractionsRegles.php": "a6fc6d2609df0a0fe02fc8024bc8ee5561d03c31ee158b7f055db4abf897e9f1",
+    "plugins/imagine-site/ExtractionsNatives.php": "1c9ed322dc3de28f374b544e0c1001d76288272822c7a10f5a6db690392e6114",
+    "plugins/imagine-site/ExtractionsAdmin.php": "67c0e08daf172fda148e2d4ffc2394f46e690db27a863cf3f4eb1f679a737326",
+    "plugins/imagine-site/extractions/age.php": "88f4a538f1b713d0118cfc9fdba2f0e4c72e2b6fa5e8b8841c4dba6899b0a499",
+    "plugins/imagine-site/extractions/echeance.php": "439c4304ecec1f574cc11ab852899e1eedde4ee23429f1a81794d96e8c9d5c14",
+    "plugins/imagine-site/extractions/etat.php": "780d7bbd6a9902067fb6554d552d2f41445368d09043a8dacc759e658c154786",
+    "plugins/imagine-site/extractions/etiquette.php": "48e4fedbdfa883f3467db957f69ad31b9f7b3114b981c2ea429413381be789b2",
+    "plugins/imagine-site/extractions/localite.php": "734b7840a9fb4f368b32ffc1693b3764b7f5e9b1983ff209fc4c12a3094ec240",
+    "plugins/imagine-site/extractions/mode.php": "892a780573b79fb01e2f636e5f49269e29694d31390593597c1e8939b2b706b6",
+    "plugins/imagine-site/imagine-site.php": "b2d7fc769912377a970f3e9907d81118dfaa29f530cdaac7b44fd10d628371b1"
+  },
+  "source_sha256": {
+    "wp/plugins/imagine-site/ExtractionsRegles.php": "a6fc6d2609df0a0fe02fc8024bc8ee5561d03c31ee158b7f055db4abf897e9f1",
+    "wp/plugins/imagine-site/ExtractionsNatives.php": "1c9ed322dc3de28f374b544e0c1001d76288272822c7a10f5a6db690392e6114",
+    "wp/plugins/imagine-site/ExtractionsAdmin.php": "67c0e08daf172fda148e2d4ffc2394f46e690db27a863cf3f4eb1f679a737326",
+    "wp/plugins/imagine-site/extractions/age.php": "88f4a538f1b713d0118cfc9fdba2f0e4c72e2b6fa5e8b8841c4dba6899b0a499",
+    "wp/plugins/imagine-site/extractions/echeance.php": "439c4304ecec1f574cc11ab852899e1eedde4ee23429f1a81794d96e8c9d5c14",
+    "wp/plugins/imagine-site/extractions/etat.php": "780d7bbd6a9902067fb6554d552d2f41445368d09043a8dacc759e658c154786",
+    "wp/plugins/imagine-site/extractions/etiquette.php": "48e4fedbdfa883f3467db957f69ad31b9f7b3114b981c2ea429413381be789b2",
+    "wp/plugins/imagine-site/extractions/localite.php": "734b7840a9fb4f368b32ffc1693b3764b7f5e9b1983ff209fc4c12a3094ec240",
+    "wp/plugins/imagine-site/extractions/mode.php": "892a780573b79fb01e2f636e5f49269e29694d31390593597c1e8939b2b706b6",
+    "wp/plugins/imagine-site/imagine-site.php": "b2d7fc769912377a970f3e9907d81118dfaa29f530cdaac7b44fd10d628371b1",
+    "wp/plugins/imagine-site/README.md": "cddfbb225e7121f1c459fb2869327b16000c17503f490a2667d1c57458913b9a",
+    "wp/plugins/imagine-site/tests/ExtractionsReglesTest.php": "e3dd83b09e216df409dc78d8bf71c9dff81cd3b5803b88f2a805527c28e462f4",
+    "wp/outils/demo/c18-unit.py": "827c58fc0c3f60678cf74bacc88d87ff342f8bb7843e3b70f511eac287af5db4",
+    "wp/outils/demo/c18.py": "4c6b6546e82875cfee3c20233453c7e571c7e51976b2ffc58d37a1287685ada6",
+    "wp/tests/demo/c18-http.py": "4c21ca66d88990a7f00aec65875ccbedc6a60b47dabdbb76978b823738a5d592",
+    "wp/tests/demo/c18-runtime.php": "e6a66a8668c385a50fafdbaae33a99e773902aa55a15fcfbe961f6152550d0e3",
+    "wp/tests/demo/c18-verifier.py": "2bfe2a242ae22249d185a8a46aa9c823867ba04c538969132b26c4c652677f12",
+    "wp/tests/demo/c18-visuel.py": "5e2f4b330a2af98389b3384b49b8c9477bb4a5d4a28d22b007f7f9c3a1164eef"
+  },
+  "shared_runtime_readonly_sha256": {
+    "wp/tests/demo/c16-unit-runtime.php": "52a855098f9105cd0e170318030ef7ceb339fa97d21338d10d58609fa0ea2d42",
+    "wp/tests/demo/b04-unit-bootstrap.php": "bd670578cd3c60620a0f0347fa3e9b65118a2e2b6d81c1f301f41e2839983bfb"
+  },
+  "shared_digest_successor_no_historical_rewrite": {
+    "plugins/imagine-site/imagine-site.php": {
+      "historical_C17": "ce6750241cd7749c0c101668c7f9ea6f19ded1c2128ef4373a790ac8ad254708",
+      "successor_C18": "b2d7fc769912377a970f3e9907d81118dfaa29f530cdaac7b44fd10d628371b1"
+    },
+    "README_local_C18_sha256": "cddfbb225e7121f1c459fb2869327b16000c17503f490a2667d1c57458913b9a"
+  },
+  "C17_nonshared_sources_unchanged": {
+    "plugins/imagine-site/JustificatifRegles.php": "74ed17ed47a89f20b71d7684d88e54c708cd6fe602978cd751e028314646f764",
+    "plugins/imagine-site/Justificatifs.php": "de2fe4b3c8fc0fbc733ba1a92a90622ae7b5b92468bdfc492b603c2986e98fee",
+    "plugins/imagine-site/JustificatifsReglages.php": "112891b7711f1e3a7f0382ed5ee6cf96bc9a4d09872fc591767b593c6b2feee0",
+    "plugins/imagine-site/PdfNumero.php": "dbb32496968b9e93c1ed90678ddf477b80bebd703019abff92149b327d2e0d49",
+    "themes/imagine/parts/mon-compte.php": "4b2c6983c96ee8defafd4eba64e7ccb7dfa1009c48d6dba34478a9a4a1a58ad2",
+    "imagine-demo-build/c09-seed.php": "7b7ad355e03208cca739504ff64aef68969e4cfdd8a73fe94e4b3a10382fc382",
+    "imagine-demo-build/c17-profils.php": "cef60aa196026fd53569bcf2d67e95163697d145573801db8d0325469a4541fa"
+  },
+  "CSV_reopened": {
+    "extraction-1_localite.csv": {
+      "rows": 2,
+      "sha256": "155b648cb2ad919e14c34cf81cfacb9c5398e9a8585d87839d3b452279b503c9",
+      "reopened": true
+    },
+    "extraction-2_mode.csv": {
+      "rows": 1,
+      "sha256": "1f6896de58cbb91de7ef7e074bc8d693dbac6dd2fdc584959318501ad69e7c66",
+      "reopened": true
+    },
+    "extraction-3_mode.csv": {
+      "rows": 1,
+      "sha256": "dc6468f264efdaf9500b423c85f4cdbd6d9c2790279587ea01b79973ec369c47",
+      "reopened": true
+    },
+    "extraction-4_echeance.csv": {
+      "rows": 10,
+      "sha256": "9b9eac0fb0ca25d073266315ae02c461cdad9cf308b346a09f9e102150f72962",
+      "reopened": true
+    },
+    "extraction-5_etat.csv": {
+      "rows": 4,
+      "sha256": "afd0b5870cd106971f094d10cbbeb93d460f6b7132fd695c77c248dcf59f1811",
+      "reopened": true
+    },
+    "extraction-6_etat.csv": {
+      "rows": 1,
+      "sha256": "63d7e9dce49d901a766f8ee80bb9ad5707d3f706b70f1fb77460d399c9dbb2da",
+      "reopened": true
+    },
+    "extraction-7_etat.csv": {
+      "rows": 1,
+      "sha256": "eecfca3a919cfc8f5e3a60df36db6d8cb6f20adee94b6f817076c55512b21062",
+      "reopened": true
+    },
+    "extraction-8_etat.csv": {
+      "rows": 9,
+      "sha256": "7018d2bae8e2aa0cec8302eef00658613fc361b8d7884cec81e4ef889a35612d",
+      "reopened": true
+    },
+    "extraction-9_localite.csv": {
+      "rows": 16,
+      "sha256": "9e2b7c4f778c0def444fea288590c94c1a297cdc654659f30a84967096a9e92c",
+      "reopened": true
+    }
+  },
+  "native_state_preserved": true,
+  "native_C09": {
+    "exit": 1,
+    "total": 382,
+    "failures": [
+      "A-PAPIER:action_native_planifiee_ou_absente_selon_statut"
+    ],
+    "historical_action_unchanged": {
+      "action_id": "8103",
+      "status": "canceled",
+      "scheduled_date_gmt": "2026-11-25 19:01:50",
+      "last_attempt_gmt": "0000-00-00 00:00:00"
+    }
+  },
+  "global_C09_green": false,
+  "visual_approval": false,
+  "fixture_reset": false
+}

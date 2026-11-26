@@ -12,6 +12,7 @@ import subprocess
 import sys
 import tarfile
 import uuid
+from diagnostics import execute
 
 ROOT = Path(__file__).resolve().parents[3]
 LABEL = 'org.imagine.a01-court'
@@ -25,10 +26,8 @@ FIXTURE = ['inside.py', 'fixture.php', 'snapshot.php', 'oracle.php', 'mutate.php
 
 
 def docker(args, data=None, check=True, timeout=600):
-    p = subprocess.run(DOCKER + args, input=data, capture_output=True, timeout=timeout)
-    if check and p.returncode:
-        raise RuntimeError('DOCKER_' + args[0].upper() + '_REFUSED')
-    return p
+    return execute(DOCKER + args, input=data, capture_output=True, timeout=timeout,
+                   stage='docker_' + args[0], check=check)
 
 
 def inspect(name):
@@ -45,7 +44,7 @@ def inspect(name):
 def payload(test):
     pairs = [(ROOT / 'wp/outils/staging' / f, 'subject/' + f) for f in SUBJECT]
     pairs += [(ROOT / 'wp/outils/staging-court' / f, 'opt/court/' + f)
-              for f in ['archive.py', 'archive_policy.py', 'sql_stream.py', 'sql_diagnostic.py', 'diagnosis.py', 'table_policy.py', 'politique-tables.json', 'inside.py', 'bridge.php', 'core_source.py']]
+              for f in ['archive.py', 'archive_policy.py', 'sql_stream.py', 'sql_compat.py', 'sql_diagnostic.py', 'diagnosis.py', 'table_policy.py', 'politique-tables.json', 'inside.py', 'bridge.php', 'core_source.py', 'diagnostics.py', 'database_only.py']]
     pairs.append((ROOT / 'wp/outils/staging-wp-integration/worker/worker.py', 'opt/court/legacy_importer.py'))
     pairs.append((ROOT / 'wp/outils/staging/schema.php', 'opt/staging/schema.php'))
     if test:

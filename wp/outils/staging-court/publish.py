@@ -23,6 +23,7 @@ sys.path.insert(0, str(HERE))
 import run as offline_runner
 from publication import guarded_publish, validate_name
 from core_source import prepare_core
+from diagnostics import execute, CommandFailure
 
 ROOT = HERE.parents[2]
 IMAGE = 'sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2'
@@ -32,16 +33,15 @@ WSL = ['wsl.exe', '-d', 'Ubuntu', '--'] if os.name == 'nt' else []
 
 
 def call(args, data=None, check=True, timeout=600):
-    p = subprocess.run(DOCKER + args, input=data, capture_output=True, timeout=timeout)
-    if check and p.returncode:
-        raise RuntimeError('DOCKER_' + args[0].upper() + '_REFUSED')
-    return p
+    return execute(DOCKER + args, input=data, capture_output=True, timeout=timeout,
+                   stage='docker_' + args[0], check=check)
 
 
 def wsl_python(code, data=None):
     # Stdin transport avoids Windows/WSL quote and newline rewriting entirely.
     program = 'import io,sys\nsys.stdin=io.StringIO(' + repr((data or b'{}').decode()) + ')\n' + code
-    p = subprocess.run(WSL + ['python3', '-'], input=program.encode(), capture_output=True, timeout=60)
+    p = execute(WSL + ['python3', '-'], input=program.encode(), capture_output=True, timeout=60,
+                stage='wsl_transport')
     if p.returncode:
         raise RuntimeError('WSL_TRANSPORT_REFUSED')
     return json.loads(p.stdout)
@@ -506,6 +506,7 @@ def main():
     group.add_argument('--archive')
     parser.add_argument('--operator-ced', action='store_true')
     parser.add_argument('--diagnose', action='store_true', help='Lecture seule intégrale : aucun site, extraction ou téléchargement')
+    parser.add_argument('--diagnose-database', action='store_true', help='Base seule dans un runner jetable, aucun site ni fichier wp-content')
     parser.add_argument('--detail', action='store_true', help='Diagnostic JSON complet, toutes localisations')
     from archive import DEFAULT_MAX_BYTES, DEFAULT_MAX_ENTRIES, DEFAULT_MAX_SQL_BYTES
     parser.add_argument('--max-bytes', type=int, default=DEFAULT_MAX_BYTES)
@@ -524,6 +525,13 @@ def main():
     limits = dict(max_bytes=args.max_bytes, max_entries=args.max_entries, max_sql_bytes=args.max_sql_bytes)
     if any(value <= 0 for value in limits.values()):
         parser.error('Les plafonds doivent etre des entiers strictement positifs')
+    if args.diagnose_database:
+        if not args.operator_ced or not args.archive or args.diagnose or args.password_stdin or args.case or args.name:
+            parser.error('--diagnose-database exige --operator-ced --archive, sans site/mot de passe/self-test')
+        from database_only import diagnose_database_path
+        result = diagnose_database_path(args.archive, limits, args.table_decisions)
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return 0 if result.get('status') == 'DATABASE_IMPORTED_NATIVE_DEFERRED' and result.get('cleanup',{}).get('absent') else 1
     if args.detail and not args.diagnose:
         parser.error('--detail est reserve au diagnostic')
     if args.diagnose:
@@ -665,7 +673,7 @@ raise SystemExit(1 if 'failure' in r else 0)
 '''
                 request.update(start_database=not args.self_test_publication, archive=archive_path)
                 input_program = 'import io,sys\nsys.stdin=io.StringIO(' + repr(json.dumps(request)) + ')\n' + program
-                execution = call(['exec', '-i', runner, 'python3', '-'], input_program.encode(), check=False)
+                execution = call(['exec', '-i', runner, 'python3', '-'], input_program.encode(), check=False, timeout=5400)
                 del request['password']
                 try:
                     offline = read_json(runner, '/report/offline.json')
@@ -761,6 +769,7 @@ except Exception as e: print(json.dumps({'reachable':False,'error_class':type(e)
             except Exception as exc:
                 receipt['status'] = 'FAIL'
                 receipt['error'] = str(exc) if re.fullmatch(r'[A-Z0-9_]{1,100}', str(exc)) else type(exc).__name__
+                receipt['failure'] = exc.failure if isinstance(exc, CommandFailure) else {'stage':'publication', 'code':receipt['error']}
                 receipt['frames'] = [{'file': Path(f.filename).name, 'line': f.lineno, 'function': f.name}
                                      for f in __import__('traceback').extract_tb(exc.__traceback__)]
             finally:
@@ -808,6 +817,7 @@ except Exception as e: print(json.dumps({'reachable':False,'error_class':type(e)
         result['status'] = 'PASS' if all(c['status'] == 'PASS' for c in result['cases']) and not result.get('cleanup_errors') else 'FAIL'
     except Exception as exc:
         result['blocker'] = str(exc) if re.fullmatch(r'[A-Z0-9_]{1,100}', str(exc)) else type(exc).__name__
+        result['failure'] = exc.failure if isinstance(exc, CommandFailure) else {'stage':'publication_preflight', 'code':result['blocker']}
     finally:
         result['finished_utc'] = datetime.datetime.now(datetime.timezone.utc).isoformat()
         result['command_sources'] = {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
