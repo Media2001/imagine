@@ -49,5 +49,30 @@ if ($checks['raccord_present']) {
     } finally {
         remove_filter('query', $guard, PHP_INT_MAX);
     }
+    wp_set_current_user($fixture['users']['E-ABO']);
+    $checks['capacite_dediee_sans_droits_globaux'] = \Imagine\Site\ExtractionsAdmin::autorise()
+        && !current_user_can('manage_options') && !current_user_can('manage_woocommerce');
+    $attempted = 0;
+    global $wpdb;
+    $fault = static function (string $sql) use (&$attempted, $wpdb): string {
+        if (preg_match('/^\s*INSERT\b/i', $sql) && str_contains($sql, \Imagine\Site\ExtractionsAdmin::JOURNAL)) {
+            $attempted++;
+            return "SELECT option_id FROM {$wpdb->options} WHERE 1=0";
+        }
+        if (!preg_match('/^\s*(SELECT|SHOW|DESCRIBE|EXPLAIN)\b/i', $sql)) {
+            throw new \RuntimeException('Écriture autre que le journal.');
+        }
+        return $sql;
+    };
+    $checks['journal_indisponible_refus_sans_CSV'] = false;
+    add_filter('query', $fault, PHP_INT_MAX);
+    try {
+        \Imagine\Site\ExtractionsAdmin::preparer('localite', []);
+    } catch (\RuntimeException $error) {
+        $checks['journal_indisponible_refus_sans_CSV'] = $attempted === 1 && str_contains($error->getMessage(), 'Journal indisponible');
+    } finally {
+        remove_filter('query', $fault, PHP_INT_MAX);
+    }
+    wp_set_current_user(0);
 }
 echo wp_json_encode(['checks' => $checks]);

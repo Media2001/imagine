@@ -31,7 +31,9 @@ def run(label='http-final'):
         raise RuntimeError('C18 extraction screen absent')
     before = c18.state()
     journal = lambda: c18.wp(r'echo wp_json_encode(Imagine\Site\ExtractionsAdmin::journal());')
+    journal_count = lambda: c18.wp(r'global $wpdb;echo wp_json_encode((int)$wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name LIKE %s",$wpdb->esc_like(Imagine\Site\ExtractionsAdmin::JOURNAL)."%")));')
     events_before = journal()
+    count_before = journal_count()
     checks['pas_reglages_referent'] = 'page=imagine-reglages' not in page and 'page=imagine-extractions' in page
     checks['age_et_etiquette_grises'] = all(re.search(r'<option[^>]*value="'+v+r'"[^>]*disabled[^>]*>[^<]*à venir', page) for v in ['age','etiquette'])
     fields = {'action': 'imagine_extraire_abonnes', 'extraction': 'localite', 'pays': 'FR', 'code_postal': ''}
@@ -103,6 +105,9 @@ def run(label='http-final'):
         if i == 0:
             good_payload = payload
     if 'good_payload' in locals():
+        for profile in ('E-REDAC', 'A-CARTE'):
+            s, head, _ = h.fetch(endpoint, clients[profile], urlencode(good_payload).encode())
+            checks['capacite_independante_jeton_' + profile] = s == 403 and 'text/csv' not in head.get('content-type','')
         for name, change in [('jeton_lie_filtres', {'pays':'BE'}), ('jeton_lie_extraction', {'extraction':'mode','mode_paiement':'bacs'}), ('age_indisponible', {'extraction':'age'}), ('filtre_tableau', {'pays[]':'FR','pays':None})]:
             bad = dict(good_payload)
             bad.update(change)
@@ -115,7 +120,7 @@ def run(label='http-final'):
     checks['administrateur_autorise'] = s == 200 and '<h1>Extractions</h1>' in admin
     journal_html = re.search(r'Journal des extractions.*?</table>', admin, re.S)
     checks['journal_affiche_sans_contenu'] = bool(journal_html) and 'Personnage Fictif' not in journal_html.group(0) and '@example.org' not in journal_html.group(0)
-    checks['journal_exactement_un_par_export'] = len(journal()) == len(events_before) + len(exports)
+    checks['journal_exactement_un_par_export'] = journal_count() == count_before + len(exports)
     checks['natif_exactement_preserve'] = before == c18.state()
     c18.readback()
     result = {'at': datetime.now(timezone.utc).isoformat(), 'checks': checks, 'total': len(checks), 'failures': [k for k,v in checks.items() if v is not True], 'exports': exports}
