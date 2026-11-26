@@ -1,3 +1,9 @@
+## Livraison courante — consigne du 26 novembre 2026 à 7 h 30
+
+Le périmètre est réduit : raccord actif jusqu’au terme payé et écrans sans bouton. La sortie postale de la seule ligne 89 (8 → 7), terme payé 25/12/2026 avant clôture 05/01/2027, est **attendue** selon C13 et l’arbitrage de 7 h ; l’ancien critère était faux. `closure-0730-native-green-second-V2.json` prouve désormais ce critère exact, les autres lignes identiques, accès/B02 inchangés, rollbacks et relecture fraîche. La marge C05 reste absente ; aucune fin native écrite. Produits privés, pas de reprise proposée. Bouton, confirmation et émission de `imagine_non_renouvellement_confirme` sont reportés au branchement sur staging vérifié avec accord de Ced. **PRET technique dans ce seul périmètre**, pas de code fonctionnel ajouté. C21 successeur conservé et relu ; rouges et sceaux historiques ci-dessous intacts.
+
+## Historique — références et constat antérieurs (conclusions de blocage remplacées ci-dessus)
+
 1. Subscriptions distingue l’annulation en fin de période prépayée (`pending-cancel`) de l’annulation effective (`cancelled`) ; documentation officielle : https://woocommerce.com/document/subscriptions/statuses/.
 2. Une annulation demandée par le client conserve normalement la période déjà payée, pas un engagement de quatre numéros : même documentation.
 3. À son terme l’abonnement devient `cancelled` ; une réactivation n’est alors plus disponible : même documentation.

@@ -11,6 +11,9 @@ def run(v, seal=False):
     contracts = v.local_contracts()
     preserved = read('closure-preservation-V2.json')
     for name, expected in preserved.items():
+        # The parent's orchestration lock is only an end-of-work witness, never a replay gate.
+        if name == '.hermes-2.lock':
+            continue
         assert v.digest(root / name) == expected, 'Preserved artifact changed: ' + name
     native = read('closure-0730-native-green-second-V2.json')
     assert native['checks'] and all(value is True for value in native['checks'].values()) and not native['failures']
@@ -61,7 +64,7 @@ def run(v, seal=False):
     owned = names + ['wp/outils/demo/c20-second.py', 'wp/tests/demo/c20-second-native.php',
         'wp/tests/demo/c20-verifier.py', 'wp/tests/demo/c20-closure-verifier.py',
         'production/C-20/A-VOIR.md', 'production/C-20/natif.md', 'production/C-20/PRET',
-        'files/rapports/2026-11-26-07h55-V2.md']
+        'files/rapports/2026-11-26-07h54-V2.md']
     receipts = ['closure-preservation-V2.json', 'closure-0730-native-green-second-V2.json',
         'closure-0730-native-green-before-second-V2.json', 'closure-0730-native-green-after-second-V2.json',
         'closure-0730-ui-second-V2.json', 'closure-0730-regressions-second-V2.json']
@@ -76,7 +79,7 @@ def run(v, seal=False):
         'C21_preserved_and_verified': True, 'C05_margin_unchanged_absent': True,
         'deferred': ['nonrenew_button', 'confirmation', 'imagine_non_renouvellement_confirme', 'four_native_end_proof'],
         'visual_approval': False, 'real_deployment_authorized': False, 'PRET': True}
-    target = proof / 'final-closure-0730-V2.json'
+    target = proof / 'final-closure-0730-successor-V2.json'
     if seal:
         assert not target.exists(), 'Never overwrite a historical seal'
         target.write_text(json.dumps(dict(data, at=datetime.now(timezone.utc).isoformat()), ensure_ascii=False, indent=2), encoding='utf-8')

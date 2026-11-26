@@ -1,4 +1,29 @@
-# C-20 — deuxième passe partielle, pas PRET
+# C-20 — PRET technique, périmètre réduit par la consigne du 26/11/2026 à 7 h 30
+Visible : raccord actif jusqu’au terme payé ; Mon compte sans bouton ; quatre-fois : « faites la demande auprès d’Imagine ».
+Reporté au branchement sur staging vérifié avec accord de Ced : bouton « ne pas renouveler », confirmation, émission de `imagine_non_renouvellement_confirme` et preuve de fin native du quatre-fois.
+
+## Preuves courantes après requalification
+
+- `closure-0730-native-green-second-V2.json` : **11/11**, accès, contre-exemples fermés, postal attendu, aucune tentative mail/HTTP, rollbacks exacts et relecture fraîche des quatre profils/actions.
+- `closure-0730-ui-second-V2.json` : **18/18**, vrais profils sans bouton, propriétaire tiers refusé.
+- `closure-0730-regressions-second-V2.json` : **C08 30/30, C13 24/24, C09 382/382**, rollback exact et profils/actions inchangés.
+- Canonique courant déjà exécuté par C21 : **1 097 tests, 34 443 assertions**, sans échec/erreur/ignoré (`production/C-21/rejouer-final.log`). Aucun paquet ajouté ici : pas de nouvelle préparation d’image.
+- `final-closure-0730-successor-V2.json` : nouveau sceau du périmètre réduit, sources installées relues, C21 revérifié par ses contrats propres, fixtures absentes. Aucun payload ancien réinstallé.
+
+**Postal attendu** : le terme payé du 25 décembre 2026 à 18:01:50 UTC précède la clôture du 5 janvier 2027 à 00:00 Europe/Brussels ; la seule ligne 89 sort (**8 → 7**, motif `expire`), les sept autres restent exactement identiques. Accès actif et B02 restent inchangés. Après rollback, la liste retrouve huit lignes. Assertion courante : `pending_cancel_paid_term_before_cutoff_excludes_only_this_subscription`. Règles C13 inchangées ; ancien rouge et `final-second-V2.json` conservés, pas réécrits.
+
+**Commandes parent, depuis C:/Users/Ced/imagine** :
+
+```sh
+PYTHONIOENCODING=utf-8 python -B wp/outils/demo/c20-second.py --verify
+PYTHONIOENCODING=utf-8 python -B wp/tests/demo/c21-verifier.py
+```
+
+Retour attendu **0**, prêt technique sur le seul périmètre réduit, pas clôture/validation visuelle/GO réel. Rejeu facultatif : `--probe parent-0730-native`, `--ui parent-0730-ui`, `--regressions parent-0730-regressions` sur `c20-second.py`, labels neufs, retour attendu 0. Aucun code fonctionnel modifié, aucune nouvelle capture. Premier essai de la nouvelle assertion : objet ListeEnvoi rencontré ; normalisation JSON corrigée dans le test seul, puis rejeu vert et restauration relue.
+
+## Historique deuxième passe — ci-dessous remplacé par la consigne de 7 h 30
+
+Les mentions « pas PRET », l’arrêt postal et les anciennes commandes/compteurs ci-dessous décrivent uniquement la réception antérieure, conservée pour traçabilité. La section courante ci-dessus et PRET font foi pour cette livraison.
 
 ## À ouvrir sur imagine-test-demo seulement
 

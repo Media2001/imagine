@@ -45,7 +45,7 @@ def matches_predecessor(name, data, expected):
     """Read-only bridge for parent gates; bound to the exact sealed C20 successor."""
     if hashlib.sha256(data).hexdigest() == expected:
         return True
-    seal = PROOF / 'final-closure-0730-V2.json'
+    seal = PROOF / 'final-closure-0730-successor-V2.json'
     receipt = json.loads((seal if seal.exists() else FINAL).read_text(encoding='utf-8'))
     if hashlib.sha256(data).hexdigest() != receipt['source_sha256'].get(name):
         return False
