@@ -84,6 +84,9 @@ def run(label='http-corrections-V2', selection='all'):
             checks['reprises_interruption_fermees_sans_nouvelle_creation'] = retries==[409,409] and c16.wp(OBJECTS)==snapshot
             evidence['interruption'] = {'first_status':status,'retries':retries,'commence_reread':persisted.get('commence'),'resultat_present':'resultat' in persisted,'objects_before':snapshot,'objects_after':c16.wp(OBJECTS)}
         if selection in ('all','adresse'):
+            settings_client=h.login(accounts['E-ADMIN'])
+            s,_,settings=h.fetch('/wp-admin/admin.php?page=imagine-reglages',settings_client)
+            checks['reglage_C10_visible_defaut_prudent_question_Imagine']=s==200 and 'name="imagine_commande_adresse_nouveau"' in settings and 'Oui — nouveau compte seulement (défaut prudent)' in settings and 'à confirmer par Imagine' in settings
             existing_code = '$u=get_userdata('+str(native['customer'])+');$c=new WC_Customer($u->ID);echo wp_json_encode(["name"=>$u->display_name,"email"=>$u->user_email,"first_name"=>$c->get_first_name(),"last_name"=>$c->get_last_name(),"billing"=>$c->get_billing(),"shipping"=>$c->get_shipping()]);'
             existing_before = c16.wp(existing_code)
             for name,client,policy in [

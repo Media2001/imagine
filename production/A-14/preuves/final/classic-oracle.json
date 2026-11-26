@@ -1,0 +1,9 @@
+{
+  "active": {
+    "alice": true,
+    "bob": false,
+    "carol": false
+  },
+  "accounts": 14,
+  "hpos": false
+}

@@ -1,0 +1,5 @@
+A-14 PRET — 2026-11-26. Outil et preuves fictives lecture seule, pas de GO réel.
+Paquet unique : production/A-14/preuves/final.
+Vérification : python wp/tests/a14/verify.py production/A-14/preuves/final (code 0, 12 PASS).
+Rejeu : python wp/tests/a14/run.py --output C:/Users/Ced/AppData/Local/hermes/cache/scratch/a14-rejeu-NOUVEAU
+8 assertions PHP, 2 méthodes unittest, 55 assertions natives classique/HPOS, 8 gardes runner : verts. preparer-image.ps1 code 0.

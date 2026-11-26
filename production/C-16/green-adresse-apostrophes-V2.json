@@ -1,0 +1,428 @@
+{
+  "at": "2026-11-26T02:31:09.782241+00:00",
+  "checks": {
+    "reglage_C10_visible_defaut_prudent_question_Imagine": true,
+    "avec_email_adresse_native_reread": true,
+    "avec_email_localite_distincte_retrouve": true,
+    "avec_email_GET_nom_apostrophe_reel_sans_slash": true,
+    "avec_email_GET_localite_apostrophe_reel_sans_slash": true,
+    "sans_email_adresse_native_reread": true,
+    "sans_email_localite_distincte_retrouve": true,
+    "sans_email_GET_nom_apostrophe_reel_sans_slash": true,
+    "sans_email_GET_localite_apostrophe_reel_sans_slash": true,
+    "reglage_non_pas_adresse_compte": true,
+    "compte_preexistant_adresse_nom_email_inchanges": true,
+    "reglage_restaure_exactement": true,
+    "sonde_temporaire_supprimee_reread": true,
+    "objets_C16_supprimes_reread": true,
+    "C09_action_8793_pending_abo101_preserves": true
+  },
+  "total": 15,
+  "failures": [],
+  "created_then_deleted": [
+    2658,
+    2660,
+    2662,
+    2664
+  ],
+  "evidence": {
+    "avec_email": {
+      "uid": 77,
+      "first_name": "Personnage",
+      "last_name": "Fictif",
+      "shipping": {
+        "first_name": "Personnage",
+        "last_name": "Fictif",
+        "company": "",
+        "address_1": "16 rue Imaginaire",
+        "address_2": "",
+        "city": "Localite O'Fictif V2",
+        "postcode": "1000",
+        "country": "BE",
+        "state": "",
+        "phone": ""
+      },
+      "billing": {
+        "first_name": "Personnage",
+        "last_name": "Fictif",
+        "company": "",
+        "address_1": "16 rue Imaginaire",
+        "address_2": "",
+        "city": "Localite O'Fictif V2",
+        "postcode": "1000",
+        "country": "BE",
+        "state": "",
+        "email": "",
+        "phone": ""
+      },
+      "email": "c16-localite-v2@example.org",
+      "sans": "0"
+    },
+    "sans_email": {
+      "uid": 78,
+      "first_name": "Personnage",
+      "last_name": "Fictif",
+      "shipping": {
+        "first_name": "Personnage",
+        "last_name": "Fictif",
+        "company": "",
+        "address_1": "16 rue Imaginaire",
+        "address_2": "",
+        "city": "Localite O'Fictif V2",
+        "postcode": "1000",
+        "country": "BE",
+        "state": "",
+        "phone": ""
+      },
+      "billing": {
+        "first_name": "Personnage",
+        "last_name": "Fictif",
+        "company": "",
+        "address_1": "16 rue Imaginaire",
+        "address_2": "",
+        "city": "Localite O'Fictif V2",
+        "postcode": "1000",
+        "country": "BE",
+        "state": "",
+        "email": "",
+        "phone": ""
+      },
+      "email": "1a39a4bbc7954655a28f4d3d95572494@sans-email.imagine.invalid",
+      "sans": "1"
+    },
+    "reglage_non": {
+      "uid": 79,
+      "first_name": "",
+      "last_name": "",
+      "shipping": {
+        "first_name": "",
+        "last_name": "",
+        "company": "",
+        "address_1": "",
+        "address_2": "",
+        "city": "",
+        "postcode": "",
+        "country": "",
+        "state": "",
+        "phone": ""
+      },
+      "billing": {
+        "first_name": "",
+        "last_name": "",
+        "company": "",
+        "address_1": "",
+        "address_2": "",
+        "city": "",
+        "postcode": "",
+        "country": "",
+        "state": "",
+        "email": "",
+        "phone": ""
+      },
+      "email": "c16-non-v2@example.org",
+      "sans": "0"
+    },
+    "preexistant": {
+      "uid": 8,
+      "first_name": "Personnage Fictif",
+      "last_name": "V-INSCRIT",
+      "shipping": {
+        "first_name": "Personnage Fictif",
+        "last_name": "V-INSCRIT",
+        "company": "",
+        "address_1": "1 rue Imaginaire",
+        "address_2": "",
+        "city": "Ville Fictive",
+        "postcode": "1000",
+        "country": "BE",
+        "state": "",
+        "phone": ""
+      },
+      "billing": {
+        "first_name": "Personnage Fictif",
+        "last_name": "V-INSCRIT",
+        "company": "",
+        "address_1": "1 rue Imaginaire",
+        "address_2": "",
+        "city": "Ville Fictive",
+        "postcode": "1000",
+        "country": "BE",
+        "state": "",
+        "email": "v-inscrit@example.org",
+        "phone": ""
+      },
+      "email": "v-inscrit@example.org",
+      "sans": ""
+    },
+    "compte_preexistant_avant": {
+      "name": "Personnage Fictif C09 V-INSCRIT",
+      "email": "v-inscrit@example.org",
+      "first_name": "Personnage Fictif",
+      "last_name": "V-INSCRIT",
+      "billing": {
+        "first_name": "Personnage Fictif",
+        "last_name": "V-INSCRIT",
+        "company": "",
+        "address_1": "1 rue Imaginaire",
+        "address_2": "",
+        "city": "Ville Fictive",
+        "postcode": "1000",
+        "country": "BE",
+        "state": "",
+        "email": "v-inscrit@example.org",
+        "phone": ""
+      },
+      "shipping": {
+        "first_name": "Personnage Fictif",
+        "last_name": "V-INSCRIT",
+        "company": "",
+        "address_1": "1 rue Imaginaire",
+        "address_2": "",
+        "city": "Ville Fictive",
+        "postcode": "1000",
+        "country": "BE",
+        "state": "",
+        "phone": ""
+      }
+    },
+    "compte_preexistant_apres": {
+      "name": "Personnage Fictif C09 V-INSCRIT",
+      "email": "v-inscrit@example.org",
+      "first_name": "Personnage Fictif",
+      "last_name": "V-INSCRIT",
+      "billing": {
+        "first_name": "Personnage Fictif",
+        "last_name": "V-INSCRIT",
+        "company": "",
+        "address_1": "1 rue Imaginaire",
+        "address_2": "",
+        "city": "Ville Fictive",
+        "postcode": "1000",
+        "country": "BE",
+        "state": "",
+        "email": "v-inscrit@example.org",
+        "phone": ""
+      },
+      "shipping": {
+        "first_name": "Personnage Fictif",
+        "last_name": "V-INSCRIT",
+        "company": "",
+        "address_1": "1 rue Imaginaire",
+        "address_2": "",
+        "city": "Ville Fictive",
+        "postcode": "1000",
+        "country": "BE",
+        "state": "",
+        "phone": ""
+      }
+    },
+    "C09_before": {
+      "fixture": {
+        "plan": 86,
+        "product": 87,
+        "users": {
+          "V-DEC": 6,
+          "V-DEC-FIN": 7,
+          "V-INSCRIT": 8,
+          "A-CARTE": 9,
+          "A-SEPA4": 10,
+          "A-PAYPAL": 11,
+          "A-VIR": 12,
+          "A-PAPIER": 13,
+          "A-GRACE": 14,
+          "A-SUSP": 15,
+          "A-EXPIRE": 16,
+          "A-NONRENOUV": 17,
+          "A-ETRANGER": 18,
+          "A-SANSMAIL": 19,
+          "A-ECHEANCE": 20,
+          "P-OFFRANT": 21,
+          "P-OFFERT": 22,
+          "P-GEST": 23,
+          "P-BENEF": 24,
+          "P-PRO": 25,
+          "P-SOL-ATT": 26,
+          "P-SOL-OK": 27,
+          "P-NUMERO": 28,
+          "P-COOP": 29,
+          "E-ADMIN": 30,
+          "E-REDAC": 31,
+          "E-ABO": 32
+        },
+        "orders": {
+          "A-CARTE": 88,
+          "A-SEPA4": 91,
+          "A-PAYPAL": 94,
+          "A-VIR": 97,
+          "A-PAPIER": 100,
+          "A-GRACE": 103,
+          "A-SUSP": 106,
+          "A-EXPIRE": 109,
+          "A-NONRENOUV": 112,
+          "A-ETRANGER": 115,
+          "A-SANSMAIL": 118,
+          "A-ECHEANCE": 121,
+          "P-NUMERO": 126
+        },
+        "subscriptions": {
+          "A-CARTE": 89,
+          "A-SEPA4": 92,
+          "A-PAYPAL": 95,
+          "A-VIR": 98,
+          "A-PAPIER": 101,
+          "A-GRACE": 104,
+          "A-SUSP": 107,
+          "A-EXPIRE": 110,
+          "A-NONRENOUV": 113,
+          "A-ETRANGER": 116,
+          "A-SANSMAIL": 119,
+          "A-ECHEANCE": 122
+        },
+        "memberships": {
+          "A-CARTE": 90,
+          "A-SEPA4": 93,
+          "A-PAYPAL": 96,
+          "A-VIR": 99,
+          "A-PAPIER": 102,
+          "A-GRACE": 105,
+          "A-SUSP": 108,
+          "A-EXPIRE": 111,
+          "A-NONRENOUV": 114,
+          "A-ETRANGER": 117,
+          "A-SANSMAIL": 120,
+          "A-ECHEANCE": 123,
+          "P-SOL-ATT": 124,
+          "P-SOL-OK": 125
+        },
+        "tariffs": {
+          "normal-1": 192,
+          "normal-4": 193,
+          "solidaire-1": 194,
+          "solidaire-4": 195,
+          "soutien-1": 196,
+          "soutien-4": 197
+        },
+        "renewals": {
+          "A-SEPA4": 2419,
+          "A-GRACE": 2420,
+          "A-SUSP": 2421
+        }
+      },
+      "status": "active",
+      "id": 101,
+      "next": "2026-11-26 02:13:28",
+      "action": {
+        "id": 8793,
+        "status": "pending",
+        "args": {
+          "subscription_id": 101
+        },
+        "date": "2026-11-26 02:13:28"
+      }
+    },
+    "C09_after": {
+      "fixture": {
+        "plan": 86,
+        "product": 87,
+        "users": {
+          "V-DEC": 6,
+          "V-DEC-FIN": 7,
+          "V-INSCRIT": 8,
+          "A-CARTE": 9,
+          "A-SEPA4": 10,
+          "A-PAYPAL": 11,
+          "A-VIR": 12,
+          "A-PAPIER": 13,
+          "A-GRACE": 14,
+          "A-SUSP": 15,
+          "A-EXPIRE": 16,
+          "A-NONRENOUV": 17,
+          "A-ETRANGER": 18,
+          "A-SANSMAIL": 19,
+          "A-ECHEANCE": 20,
+          "P-OFFRANT": 21,
+          "P-OFFERT": 22,
+          "P-GEST": 23,
+          "P-BENEF": 24,
+          "P-PRO": 25,
+          "P-SOL-ATT": 26,
+          "P-SOL-OK": 27,
+          "P-NUMERO": 28,
+          "P-COOP": 29,
+          "E-ADMIN": 30,
+          "E-REDAC": 31,
+          "E-ABO": 32
+        },
+        "orders": {
+          "A-CARTE": 88,
+          "A-SEPA4": 91,
+          "A-PAYPAL": 94,
+          "A-VIR": 97,
+          "A-PAPIER": 100,
+          "A-GRACE": 103,
+          "A-SUSP": 106,
+          "A-EXPIRE": 109,
+          "A-NONRENOUV": 112,
+          "A-ETRANGER": 115,
+          "A-SANSMAIL": 118,
+          "A-ECHEANCE": 121,
+          "P-NUMERO": 126
+        },
+        "subscriptions": {
+          "A-CARTE": 89,
+          "A-SEPA4": 92,
+          "A-PAYPAL": 95,
+          "A-VIR": 98,
+          "A-PAPIER": 101,
+          "A-GRACE": 104,
+          "A-SUSP": 107,
+          "A-EXPIRE": 110,
+          "A-NONRENOUV": 113,
+          "A-ETRANGER": 116,
+          "A-SANSMAIL": 119,
+          "A-ECHEANCE": 122
+        },
+        "memberships": {
+          "A-CARTE": 90,
+          "A-SEPA4": 93,
+          "A-PAYPAL": 96,
+          "A-VIR": 99,
+          "A-PAPIER": 102,
+          "A-GRACE": 105,
+          "A-SUSP": 108,
+          "A-EXPIRE": 111,
+          "A-NONRENOUV": 114,
+          "A-ETRANGER": 117,
+          "A-SANSMAIL": 120,
+          "A-ECHEANCE": 123,
+          "P-SOL-ATT": 124,
+          "P-SOL-OK": 125
+        },
+        "tariffs": {
+          "normal-1": 192,
+          "normal-4": 193,
+          "solidaire-1": 194,
+          "solidaire-4": 195,
+          "soutien-1": 196,
+          "soutien-4": 197
+        },
+        "renewals": {
+          "A-SEPA4": 2419,
+          "A-GRACE": 2420,
+          "A-SUSP": 2421
+        }
+      },
+      "status": "active",
+      "id": 101,
+      "next": "2026-11-26 02:13:28",
+      "action": {
+        "id": 8793,
+        "status": "pending",
+        "args": {
+          "subscription_id": 101
+        },
+        "date": "2026-11-26 02:13:28"
+      }
+    }
+  }
+}

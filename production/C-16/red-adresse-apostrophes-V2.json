@@ -1,6 +1,7 @@
 {
-  "at": "2026-11-26T02:24:36.902019+00:00",
+  "at": "2026-11-26T02:29:08.039388+00:00",
   "checks": {
+    "reglage_C10_visible_defaut_prudent_question_Imagine": false,
     "avec_email_adresse_native_reread": false,
     "avec_email_localite_distincte_retrouve": false,
     "avec_email_GET_nom_apostrophe_reel_sans_slash": false,
@@ -10,14 +11,15 @@
     "sans_email_GET_nom_apostrophe_reel_sans_slash": false,
     "sans_email_GET_localite_apostrophe_reel_sans_slash": false,
     "reglage_non_pas_adresse_compte": true,
-    "compte_preexistant_adresse_nom_email_inchanges": false,
+    "compte_preexistant_adresse_nom_email_inchanges": true,
     "reglage_restaure_exactement": true,
     "sonde_temporaire_supprimee_reread": true,
     "objets_C16_supprimes_reread": true,
     "C09_action_8793_pending_abo101_preserves": true
   },
-  "total": 14,
+  "total": 15,
   "failures": [
+    "reglage_C10_visible_defaut_prudent_question_Imagine",
     "avec_email_adresse_native_reread",
     "avec_email_localite_distincte_retrouve",
     "avec_email_GET_nom_apostrophe_reel_sans_slash",
@@ -25,18 +27,17 @@
     "sans_email_adresse_native_reread",
     "sans_email_localite_distincte_retrouve",
     "sans_email_GET_nom_apostrophe_reel_sans_slash",
-    "sans_email_GET_localite_apostrophe_reel_sans_slash",
-    "compte_preexistant_adresse_nom_email_inchanges"
+    "sans_email_GET_localite_apostrophe_reel_sans_slash"
   ],
   "created_then_deleted": [
-    2642,
-    2644,
-    2646,
-    2648
+    2650,
+    2652,
+    2654,
+    2656
   ],
   "evidence": {
     "avec_email": {
-      "uid": 71,
+      "uid": 74,
       "first_name": "",
       "last_name": "",
       "shipping": {
@@ -68,7 +69,7 @@
       "sans": "0"
     },
     "sans_email": {
-      "uid": 72,
+      "uid": 75,
       "first_name": "",
       "last_name": "",
       "shipping": {
@@ -96,11 +97,11 @@
         "email": "",
         "phone": ""
       },
-      "email": "67848527f09c4588a1665db053dbf3f3@sans-email.imagine.invalid",
+      "email": "9b37449a34a940a8a335db00401d3cbc@sans-email.imagine.invalid",
       "sans": "1"
     },
     "reglage_non": {
-      "uid": 73,
+      "uid": 76,
       "first_name": "",
       "last_name": "",
       "shipping": {
@@ -162,6 +163,68 @@
       },
       "email": "v-inscrit@example.org",
       "sans": ""
+    },
+    "compte_preexistant_avant": {
+      "name": "Personnage Fictif C09 V-INSCRIT",
+      "email": "v-inscrit@example.org",
+      "first_name": "Personnage Fictif",
+      "last_name": "V-INSCRIT",
+      "billing": {
+        "first_name": "Personnage Fictif",
+        "last_name": "V-INSCRIT",
+        "company": "",
+        "address_1": "1 rue Imaginaire",
+        "address_2": "",
+        "city": "Ville Fictive",
+        "postcode": "1000",
+        "country": "BE",
+        "state": "",
+        "email": "v-inscrit@example.org",
+        "phone": ""
+      },
+      "shipping": {
+        "first_name": "Personnage Fictif",
+        "last_name": "V-INSCRIT",
+        "company": "",
+        "address_1": "1 rue Imaginaire",
+        "address_2": "",
+        "city": "Ville Fictive",
+        "postcode": "1000",
+        "country": "BE",
+        "state": "",
+        "phone": ""
+      }
+    },
+    "compte_preexistant_apres": {
+      "name": "Personnage Fictif C09 V-INSCRIT",
+      "email": "v-inscrit@example.org",
+      "first_name": "Personnage Fictif",
+      "last_name": "V-INSCRIT",
+      "billing": {
+        "first_name": "Personnage Fictif",
+        "last_name": "V-INSCRIT",
+        "company": "",
+        "address_1": "1 rue Imaginaire",
+        "address_2": "",
+        "city": "Ville Fictive",
+        "postcode": "1000",
+        "country": "BE",
+        "state": "",
+        "email": "v-inscrit@example.org",
+        "phone": ""
+      },
+      "shipping": {
+        "first_name": "Personnage Fictif",
+        "last_name": "V-INSCRIT",
+        "company": "",
+        "address_1": "1 rue Imaginaire",
+        "address_2": "",
+        "city": "Ville Fictive",
+        "postcode": "1000",
+        "country": "BE",
+        "state": "",
+        "phone": ""
+      }
     },
     "C09_before": {
       "fixture": {

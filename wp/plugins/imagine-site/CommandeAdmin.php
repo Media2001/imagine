@@ -23,6 +23,39 @@ final class CommandeAdmin
 
     public static function register(): void
     {
+        add_action('admin_init', static function (): void {
+            register_setting('imagine_reglages', 'imagine_commande_adresse_nouveau', ['type' => 'string',
+                'sanitize_callback' => static fn ($v) => CommandeRegles::adresseNouveau($v) ? 'oui' : 'non',
+                'show_in_rest' => false]);
+        }, 36);
+        // Raccord au formulaire Settings API C10, sans changer sa bibliothèque close.
+        add_action('admin_menu', static function (): void {
+            global $wp_filter;
+            $hook = get_plugin_page_hookname('imagine-reglages', 'imagine');
+            foreach (($wp_filter[$hook]->callbacks ?? []) as $priority => $callbacks) {
+                foreach ($callbacks as $callback) {
+                    $fn = $callback['function'];
+                    remove_action($hook, $fn, $priority);
+                    add_action($hook, static function () use ($fn): void {
+                        ob_start();
+                        $fn();
+                        $html = ob_get_clean();
+                        $end = strpos($html, '</form>');
+                        if ($end !== false && (str_contains($html, 'value="imagine_reglages"') || str_contains($html, "value='imagine_reglages'"))) {
+                            $field = '<h2>' . esc_html(self::t('Commande pour un client')) . '</h2><p><label for="imagine-commande-adresse">'
+                                . esc_html(self::t('Initialiser l’adresse du nouveau compte — à confirmer par Imagine'))
+                                . '</label><br><select id="imagine-commande-adresse" name="imagine_commande_adresse_nouveau">';
+                            foreach (['oui' => 'Oui — nouveau compte seulement (défaut prudent)', 'non' => 'Non — commande et souscription seulement'] as $value => $label) {
+                                $field .= '<option value="' . esc_attr($value) . '"' . selected(CommandeNative::adresseNouveau(), $value === 'oui', false) . '>' . esc_html(self::t($label)) . '</option>';
+                            }
+                            $field .= '</select></p><p>' . esc_html(self::t('Jamais de réécriture des coordonnées d’un compte préexistant. Avec « Non », la localité ne retrouve pas le nouveau compte. Aucun prix ni droit modifié.')) . '</p>';
+                            $html = substr_replace($html, $field, $end, 0);
+                        }
+                        echo $html;
+                    }, $priority);
+                }
+            }
+        }, 120);
         // Traiter les écritures avant admin-header.php : vrais statuts HTTP de refus.
         add_action('admin_init', static function (): void {
             global $pagenow;

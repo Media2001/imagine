@@ -9,7 +9,7 @@ sys.dont_write_bytecode=True
 import profils
 ROOT=profils.b00.ROOT
 PROOF=ROOT/'production/C-16'
-FILES=['CommandeRegles.php','CommandeNative.php','CommandeAdmin.php','SansEmail.php','imagine-site.php']
+FILES=['CommandeRegles.php','CommandeNative.php','CommandeAdmin.php','SansEmail.php']
 
 def wp(code):
     r=profils.b00.wp('eval',code)
@@ -27,22 +27,22 @@ def upload(target,source):
     assert digest==hashlib.sha256(data).hexdigest()
     return digest
 
+def shared_contract():
+    result=wp(r'''$out=['classes'=>[],'C16_mail'=>has_filter('pre_wp_mail',['Imagine\\Site\\SansEmail','filtrer'])!==false,'C16_refus'=>has_action('admin_post_imagine_c16_creer',['Imagine\\Site\\CommandeAdmin','refus'])!==false,'shared_sha256'=>[]];foreach(['CommandeRegles','SansEmail','CommandeNative','CommandeAdmin','Justificatifs','ExtractionsAdmin','TableauBordAdmin','MonCompte'] as $c){$out['classes'][$c]=class_exists('Imagine\\Site\\'.$c);}foreach(['plugins/imagine-site/imagine-site.php','imagine-demo-build/c09-seed.php'] as $p){$out['shared_sha256'][$p]=hash_file('sha256',WP_CONTENT_DIR.'/'.$p);}echo wp_json_encode($out);''')
+    assert all(result['classes'].values()) and result['C16_mail'] and result['C16_refus'], 'Shared bootstrap contract missing; never overwrite successor lots'
+    return result
+
+
 def deploy():
     profils.guard('imagine-test-demo')
+    before=shared_contract()
     hashes={}
-    bootstrap=ROOT/'wp/plugins/imagine-site/imagine-site.php'
-    before=wp('echo wp_json_encode(hash_file("sha256",WP_PLUGIN_DIR."/imagine-site/imagine-site.php"));')
-    block="\nrequire_once __DIR__ . '/CommandeRegles.php';\nrequire_once __DIR__ . '/SansEmail.php';\nrequire_once __DIR__ . '/CommandeNative.php';\nrequire_once __DIR__ . '/CommandeAdmin.php';\nSansEmail::register();\nCommandeAdmin::register();\n"
-    allowed={hashlib.sha256(bootstrap.read_bytes()).hexdigest(),hashlib.sha256(bootstrap.read_bytes().replace(block.encode(),b'')).hexdigest()}
-    if before not in allowed: raise RuntimeError('Shared bootstrap drift: no overwrite')
     for name in FILES:
         hashes[name]=upload('plugins/imagine-site/'+name,ROOT/'wp/plugins/imagine-site'/name)
     hashes['c16-reset.php']=upload('imagine-demo-build/c16-reset.php',ROOT/'wp/outils/demo/c16-reset.php')
-    hashes['c09-seed.php']=upload('imagine-demo-build/c09-seed.php',ROOT/'wp/outils/demo/c09-seed.php')
-    # Idempotent marker upgrade only; never replay C09/C12/C14 seeds to deploy.
-    marked=wp('$f=get_option("imagine_c09_fixture");$id=(int)$f["users"]["A-SANSMAIL"];if(get_user_meta($id,"_imagine_c09_fixture",true)!=="A-SANSMAIL")throw new RuntimeException("Foreign profile");update_user_meta($id,"imagine_sans_email","1");echo wp_json_encode(get_user_meta($id,"imagine_sans_email",true)==="1");')
-    assert marked
-    save('installation',{'at':datetime.now(timezone.utc).isoformat(),'scope':'imagine-test-demo','sha256_readback':hashes,'A-SANSMAIL_marker':marked,'theme_uploaded':False,'commercial_install':False})
+    after=shared_contract()
+    assert before==after, 'Shared contract drift during C16-only deployment'
+    save('installation-V2',{'at':datetime.now(timezone.utc).isoformat(),'scope':'imagine-test-demo','sha256_readback':hashes,'shared_contract':after,'shared_files_uploaded':False,'theme_uploaded':False,'commercial_install':False})
 
 if __name__=='__main__':
     if '--deploy' in sys.argv: deploy()
