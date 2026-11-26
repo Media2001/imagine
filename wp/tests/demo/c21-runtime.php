@@ -62,6 +62,11 @@ if ($phase === 'setup') {
     if (!$bytes) { $bytes = "%PDF-1.4\nC21 FICTIF\n%%EOF\n"; }
     $doc = Justificatifs::recevoir($id, 'à préciser', $bytes, Justificatifs::version(Justificatifs::etat($id)));
     $f['doc'] = Justificatifs::chemin($doc); $f['document_sha256'] = hash('sha256', $bytes);
+    global $wpdb;
+    foreach ($wpdb->get_results("SELECT option_name,option_value FROM {$wpdb->options} WHERE option_name LIKE 'imagine_reglages_journal_%'", ARRAY_A) as $audit) {
+        $v = maybe_unserialize($audit['option_value']);
+        if (($v['option'] ?? '') === Justificatifs::PREFIX . $id) { $f['options'][] = $audit['option_name']; }
+    }
     update_option('imagine_c21_fixture', $f, false);
     $put(EnvoiNatif::GEL . 'C21-FICTIF', ['version' => 1, 'numero' => '167',
         'calendrier' => get_option(EnvoiNatif::CALENDRIER), 'observations' => [$record],

@@ -21,7 +21,7 @@ def save(label, data):
     return data
 
 def targets():
-    return { 'plugins/imagine-site/' + n: ROOT / 'wp/plugins/imagine-site' / n for n in ('ConfidentialiteRegles.php', 'Confidentialite.php', 'imagine-site.php') }
+    return { 'plugins/imagine-site/' + n: ROOT / 'wp/plugins/imagine-site' / n for n in ('ConfidentialiteRegles.php', 'Confidentialite.php', 'EnvoiNatif.php', 'imagine-site.php') }
 
 def hashes(names):
     return wp('$out=[];foreach(json_decode(' + json.dumps(json.dumps(names)) + ',true) as $n){$p=WP_CONTENT_DIR."/".$n;$out[$n]=is_file($p)?hash_file("sha256",$p):null;}echo wp_json_encode($out);')
