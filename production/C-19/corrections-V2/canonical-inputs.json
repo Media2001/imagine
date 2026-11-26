@@ -1,0 +1,16 @@
+{
+  "wp/plugins/imagine-site/TableauBordAdmin.php": "5f7596195dd476e1bede9c93f6624146284a6f3a08292a56912c7ec4a9b4ec18",
+  "wp/plugins/imagine-site/TableauBordNatives.php": "39f6363db05bae31d05bd64c4d909e12a0a76db2cb254c9aaf69eb26af48f1e7",
+  "wp/plugins/imagine-site/TableauBordRegles.php": "16bd1411a111ffe1d0c7cd10d43a34fb6b35bebae7039ce4ebc8e5748f97b6d9",
+  "wp/plugins/imagine-site/indicateurs/actifs.php": "09676f99f883a9bd7c073aef28034f76862a51d5b35eff9f2b839b0aff6d5cf4",
+  "wp/plugins/imagine-site/indicateurs/echeances.php": "df9586cbc0e0d7cb07a5e0c903c822d21e1cced5fbb804d24af08728ec6d86f8",
+  "wp/plugins/imagine-site/indicateurs/echecs.php": "a21bbac5af14867b0553355a3930f3f8b8088f4455a9ef7027fd1e7777e5cf6b",
+  "wp/plugins/imagine-site/indicateurs/mouvements.php": "d049ff86f3fad692b04a7973399867754d8b499171275d24c6ebbb6b6aa39181",
+  "wp/plugins/imagine-site/EcheancesNatives.php": "768928d8a74bb211b2ff4533730334995a29ae9e7e5a480598c3e003ddb97bc1",
+  "wp/plugins/imagine-site/tests/TableauBordNativesTest.php": "1683c7ee22c7fbc94c7729c99fc6a17af5a37007e0d382191931053340de95f6",
+  "wp/plugins/imagine-site/tests/TableauBordReglesTest.php": "ab2922f2549fcfffeb7d91e9d00dccee00317d5c24a5d1a3285dab09b76d85f1",
+  "wp/plugins/imagine-site/tests/fixtures/c19-horloge.php": "3c7538ccf0e2562a5eca5682bc3ea365ffb1a8fcaa983f4ecf4be3246457b649",
+  "wp/tests/demo/c19-runtime.php": "356c43bd31336829715e7392e1dac9192f641215905fa6efbb08bb3d5cfd053d",
+  "wp/tests/demo/c19-http.py": "c5afecc07e2ef24600c1eb32d4eca96de3b0f147baad130dd24b700ce81ab7fc",
+  "wp/tests/demo/c19-corrections.py": "ebe86e703cf84cba767e1f47d5921d92f41e23f920743511654b9371543f82f5"
+}

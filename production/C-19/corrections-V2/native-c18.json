@@ -1,0 +1,128 @@
+{
+  "checks": {
+    "raccord_present": true,
+    "C09_etranger_seul_FR": true,
+    "mode_A-VIR": true,
+    "mode_A-PAPIER": true,
+    "etat_A-GRACE": true,
+    "etat_A-SUSP": true,
+    "etat_A-EXPIRE": true,
+    "etat_A-CARTE": true,
+    "A_ECHEANCE_30_jours": true,
+    "sans_email_colonne_vide": true,
+    "colonnes_strictes": true,
+    "aucune_ecriture_natif": true,
+    "capacite_dediee_sans_droits_globaux": true,
+    "journal_indisponible_refus_sans_CSV": true,
+    "gettext_reel_Actif_Active": true,
+    "meme_filtre_memes_identifiants_et_lignes": true,
+    "cles_natives_stables_C19": true,
+    "affichage_traduit_seulement": true,
+    "CSV_traduit_colonnes_fermees_meme_selection": true,
+    "option_valeur_stable_label_traduit": true,
+    "apercu_traduit_meme_nombre": true,
+    "POST_conserve_cle_stable": true,
+    "C19_memes_indicateurs_avec_gettext": true,
+    "C19_actifs_egal_apercu_C18": true,
+    "seam_C19_normal_raccord_present": true,
+    "seam_C19_normal_actifs_egal_lignes_C18": true,
+    "seam_C19_normal_mode_inconnu_egal_lignes_C18": true,
+    "seam_C19_normal_mode_imagine_papier_egal_lignes_C18": true,
+    "seam_C19_normal_echeances_30_egal_lignes_C15": true,
+    "seam_C19_normal_echeances_90_egal_lignes_C15": true,
+    "seam_C19_normal_echeances_180_egal_lignes_C15": true,
+    "seam_C19_normal_echecs_egal_lignes_C15": true,
+    "seam_C19_normal_mouvements_egal_lignes_dates_natives": true,
+    "seam_C19_normal_quatre_indicateurs": true,
+    "seam_C19_normal_sortie_sans_donnee_personnelle": true,
+    "seam_C19_normal_droit_dedie_sans_droit_global": true,
+    "seam_C19_normal_rendu_tableau_simple": true,
+    "seam_C19_normal_aucun_formulaire": true,
+    "seam_C19_normal_source_absente_pas_de_faux_zero": true,
+    "seam_C19_normal_capacite_revoquee_refuse": true,
+    "seam_C19_normal_aucune_ecriture_SQL": true,
+    "seam_C19_normal_aucun_appel_sortant": true,
+    "seam_C19_gettext_raccord_present": true,
+    "seam_C19_gettext_actifs_egal_lignes_C18": true,
+    "seam_C19_gettext_mode_inconnu_egal_lignes_C18": true,
+    "seam_C19_gettext_mode_imagine_papier_egal_lignes_C18": true,
+    "seam_C19_gettext_echeances_30_egal_lignes_C15": true,
+    "seam_C19_gettext_echeances_90_egal_lignes_C15": true,
+    "seam_C19_gettext_echeances_180_egal_lignes_C15": true,
+    "seam_C19_gettext_echecs_egal_lignes_C15": true,
+    "seam_C19_gettext_mouvements_egal_lignes_dates_natives": true,
+    "seam_C19_gettext_quatre_indicateurs": true,
+    "seam_C19_gettext_sortie_sans_donnee_personnelle": true,
+    "seam_C19_gettext_droit_dedie_sans_droit_global": true,
+    "seam_C19_gettext_rendu_tableau_simple": true,
+    "seam_C19_gettext_aucun_formulaire": true,
+    "seam_C19_gettext_source_absente_pas_de_faux_zero": true,
+    "seam_C19_gettext_capacite_revoquee_refuse": true,
+    "seam_C19_gettext_aucune_ecriture_SQL": true,
+    "seam_C19_gettext_aucun_appel_sortant": true,
+    "aucune_ecriture_dans_seam": true,
+    "aucun_email_ni_appel_sortant": true
+  },
+  "total": 62,
+  "failures": [],
+  "actifs_ids_avant": [
+    "77",
+    "89",
+    "92",
+    "95",
+    "101",
+    "113",
+    "116",
+    "119",
+    "122"
+  ],
+  "actifs_ids_gettext": [
+    "77",
+    "89",
+    "92",
+    "95",
+    "101",
+    "113",
+    "116",
+    "119",
+    "122"
+  ],
+  "C19_valeurs_avant": {
+    "actifs": {
+      "total": 9,
+      "mode:inconnu": 8,
+      "mode:imagine_papier": 1
+    },
+    "echeances": {
+      "30": 10,
+      "90": 12,
+      "180": 12
+    },
+    "echecs": {
+      "total": 2
+    },
+    "mouvements": {
+      "entrees": 12,
+      "sorties": 1
+    }
+  },
+  "C19_valeurs_gettext": {
+    "actifs": {
+      "total": 9,
+      "mode:inconnu": 8,
+      "mode:imagine_papier": 1
+    },
+    "echeances": {
+      "30": 10,
+      "90": 12,
+      "180": 12
+    },
+    "echecs": {
+      "total": 2
+    },
+    "mouvements": {
+      "entrees": 12,
+      "sorties": 1
+    }
+  }
+}

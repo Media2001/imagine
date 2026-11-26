@@ -1,0 +1,111 @@
+{
+  "at": "2026-11-26T04:51:57.202807+00:00",
+  "scope": "imagine-test-demo",
+  "status": "C19_PRET_TECHNIQUE_CORRIGE",
+  "unit": {
+    "unit-c19": {
+      "exit": 0,
+      "removed": true,
+      "image": "sha256:0326cc20dbf5defb9ea86d972ad952edde52043843af5413128092c8dbe48b9a",
+      "tests": 10,
+      "assertions": 79
+    },
+    "unit-root": {
+      "exit": 0,
+      "removed": true,
+      "image": "sha256:0326cc20dbf5defb9ea86d972ad952edde52043843af5413128092c8dbe48b9a",
+      "tests": 124,
+      "assertions": 662
+    }
+  },
+  "canonical": {
+    "tests": 1088,
+    "assertions": 34410,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass": true
+  },
+  "runtime_checks": 18,
+  "HTTP_browser_checks": 29,
+  "native_C09": {
+    "total": 382,
+    "failures": [],
+    "exit": 0
+  },
+  "native_C18_checks": 62,
+  "PSR12_errors": 0,
+  "PSR12_shared_existing_errors_unchanged": 9,
+  "sha256_readback": {
+    "plugins/imagine-site/TableauBordAdmin.php": "5f7596195dd476e1bede9c93f6624146284a6f3a08292a56912c7ec4a9b4ec18",
+    "plugins/imagine-site/TableauBordNatives.php": "39f6363db05bae31d05bd64c4d909e12a0a76db2cb254c9aaf69eb26af48f1e7",
+    "plugins/imagine-site/TableauBordRegles.php": "16bd1411a111ffe1d0c7cd10d43a34fb6b35bebae7039ce4ebc8e5748f97b6d9",
+    "plugins/imagine-site/indicateurs/actifs.php": "09676f99f883a9bd7c073aef28034f76862a51d5b35eff9f2b839b0aff6d5cf4",
+    "plugins/imagine-site/indicateurs/echeances.php": "df9586cbc0e0d7cb07a5e0c903c822d21e1cced5fbb804d24af08728ec6d86f8",
+    "plugins/imagine-site/indicateurs/echecs.php": "a21bbac5af14867b0553355a3930f3f8b8088f4455a9ef7027fd1e7777e5cf6b",
+    "plugins/imagine-site/indicateurs/mouvements.php": "d049ff86f3fad692b04a7973399867754d8b499171275d24c6ebbb6b6aa39181",
+    "plugins/imagine-site/EcheancesNatives.php": "768928d8a74bb211b2ff4533730334995a29ae9e7e5a480598c3e003ddb97bc1"
+  },
+  "source_sha256": {
+    "wp/plugins/imagine-site/TableauBordAdmin.php": "5f7596195dd476e1bede9c93f6624146284a6f3a08292a56912c7ec4a9b4ec18",
+    "wp/plugins/imagine-site/TableauBordNatives.php": "39f6363db05bae31d05bd64c4d909e12a0a76db2cb254c9aaf69eb26af48f1e7",
+    "wp/plugins/imagine-site/TableauBordRegles.php": "16bd1411a111ffe1d0c7cd10d43a34fb6b35bebae7039ce4ebc8e5748f97b6d9",
+    "wp/plugins/imagine-site/indicateurs/actifs.php": "09676f99f883a9bd7c073aef28034f76862a51d5b35eff9f2b839b0aff6d5cf4",
+    "wp/plugins/imagine-site/indicateurs/echeances.php": "df9586cbc0e0d7cb07a5e0c903c822d21e1cced5fbb804d24af08728ec6d86f8",
+    "wp/plugins/imagine-site/indicateurs/echecs.php": "a21bbac5af14867b0553355a3930f3f8b8088f4455a9ef7027fd1e7777e5cf6b",
+    "wp/plugins/imagine-site/indicateurs/mouvements.php": "d049ff86f3fad692b04a7973399867754d8b499171275d24c6ebbb6b6aa39181",
+    "wp/plugins/imagine-site/EcheancesNatives.php": "768928d8a74bb211b2ff4533730334995a29ae9e7e5a480598c3e003ddb97bc1",
+    "wp/plugins/imagine-site/tests/TableauBordNativesTest.php": "1683c7ee22c7fbc94c7729c99fc6a17af5a37007e0d382191931053340de95f6",
+    "wp/plugins/imagine-site/tests/TableauBordReglesTest.php": "ab2922f2549fcfffeb7d91e9d00dccee00317d5c24a5d1a3285dab09b76d85f1",
+    "wp/plugins/imagine-site/tests/fixtures/c19-horloge.php": "3c7538ccf0e2562a5eca5682bc3ea365ffb1a8fcaa983f4ecf4be3246457b649",
+    "wp/tests/demo/c19-runtime.php": "356c43bd31336829715e7392e1dac9192f641215905fa6efbb08bb3d5cfd053d",
+    "wp/tests/demo/c19-http.py": "c5afecc07e2ef24600c1eb32d4eca96de3b0f147baad130dd24b700ce81ab7fc",
+    "wp/tests/demo/c19-corrections.py": "ebe86e703cf84cba767e1f47d5921d92f41e23f920743511654b9371543f82f5"
+  },
+  "shared_contracts": {
+    "latest_C17_C18_receipts": {
+      "production/C-17/instruction5-20261126/verification-readback-final-V2.json": "92e81cec2e8a5d5cc8da337f1e3a5232eb86159552d61ed9f64d4a296915c35c",
+      "production/C-18/corrections-V2/final.json": "8e28fa4fecac8559fa424263e271420843e01a271455b835f4cc0203e1dfaf6b"
+    },
+    "README_contract": [
+      "libelles",
+      "Catalogue mémoïsé",
+      "Un instant unique",
+      "Par moyen de paiement",
+      "Q-1 reste en attente",
+      "c19-corrections.py --readback-only",
+      "reçus historiques",
+      "contrat de section"
+    ],
+    "historical_C19_unchanged": true,
+    "historical_README_sha256": "2bdc71aeb9427bb5263d3ba23d109d7446cd8f0eecf6fa51723d01bd0005f6e9",
+    "shared_README_gate": "section contract, not frozen whole-file digest"
+  },
+  "README_at_receipt_observation_sha256": "69b8df6178d04b5a2bc6cd67c122d62728c23e08b14fa321fc5c67cb99137237",
+  "native_preserved": true,
+  "action8793_pending_subscription101_preserved": true,
+  "fixture_reset": false,
+  "role_write": false,
+  "Q1": "awaiting explicit access-rights decision; existing composition unchanged",
+  "Q2": "default: seventh grey row, no value or formula",
+  "visual_approval": false,
+  "values": {
+    "actifs": {
+      "total": 9,
+      "mode:inconnu": 8,
+      "mode:imagine_papier": 1
+    },
+    "echeances": {
+      "30": 10,
+      "90": 12,
+      "180": 12
+    },
+    "echecs": {
+      "total": 2
+    },
+    "mouvements": {
+      "entrees": 12,
+      "sorties": 1
+    }
+  }
+}
