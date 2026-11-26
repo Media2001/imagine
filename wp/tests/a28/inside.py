@@ -70,12 +70,15 @@ def main():
             with contextlib.redirect_stdout(io.StringIO()):
                 source, database, _ = e2e.install(storage)
             e2e.wp(source, ['eval-file', '/opt/a28/seed.php'])
+            # A01's current archive gate requires operator review for CF7 temporary uploads.
+            # This synthetic fixture has no attachments; remove only its generated empty/temp directory.
+            shutil.rmtree(source / 'wp-content/uploads/wpcf7_uploads', ignore_errors=True)
             sql = subject.command(['php', '/opt/court/export.php'], env={'E2E_DATABASE': database}).stdout
             archive = Path('/scratch/a28-' + storage + '.wpress')
             write_archive(archive, source, sql)
             modes = ['default', 'keep-unknown', 'keep-known'] if baseline else ['default', 'keep-unknown', 'keep-known', 'anonymise-known']
             for mode in modes:
-                decisions = {'wp_yoast_primary_term': {'action': 'garder'}}
+                decisions = {}
                 if mode == 'keep-unknown':
                     decisions['wp_fiction_messages'] = {'action': 'garder'}
                 if mode in ('keep-known', 'anonymise-known'):
@@ -86,6 +89,7 @@ def main():
                 result = subject.execute_offline_request(archive, request, False)
                 case = {'storage': storage, 'mode': mode, 'archive_sha256': hashlib.sha256(archive.read_bytes()).hexdigest(),
                         'result': result}
+                receipt['cases'].append(case)
                 if baseline or mode in ('default', 'keep-unknown'):
                     check(storage + ':' + mode + ':three_native_phases', result.get('data_verified') is True)
                     counts = oracle()
@@ -137,7 +141,6 @@ def main():
                     check(storage + ':' + mode + ':no_database_import', not subject.command(
                         ['mariadb', '--socket=/scratch/mariadb.sock', '--user=root', '--skip-column-names'],
                         data=b"SHOW DATABASES LIKE 'imagine_a01_staging'", check=False).stdout.strip())
-                receipt['cases'].append(case)
                 if result.get('data_verified'):
                     reset()
                 elif subject.SITE.exists():

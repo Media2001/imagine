@@ -13,7 +13,6 @@ final class Analysis
     public const HOOKS = [
         'woocommerce_scheduled_subscription_payment' => 'renouvellement',
         'woocommerce_scheduled_subscription_payment_retry' => 'nouvelle_tentative',
-        'woocommerce_scheduled_subscription_trial_end' => 'fin_abonnement',
         'woocommerce_scheduled_subscription_end_of_prepaid_term' => 'fin_abonnement',
         'woocommerce_scheduled_subscription_expiration' => 'fin_abonnement',
         'wp_1_wc_emailer_cron' => 'email',

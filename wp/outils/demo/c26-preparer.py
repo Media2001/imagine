@@ -36,7 +36,7 @@ def save(name, data):
 
 def fixture(operation, data):
     source = (ROOT/'wp/tests/demo/c26-fixture.php').read_text(encoding='utf-8').split('<?php', 1)[1]
-    return wp('$GLOBALS["c26_operation"]='+php(operation)+';$GLOBALS["c26_input"]='+php(data)+';'+source)
+    return wp('$GLOBALS["c26_operation"]='+php(operation)+';$GLOBALS["c26_input"]='+php(data)+';eval('+php(source)+');')
 
 
 def own_sources():

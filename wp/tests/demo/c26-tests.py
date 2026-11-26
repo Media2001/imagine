@@ -74,7 +74,7 @@ class ExtensionTest(unittest.TestCase):
             p = m.scratch()
         self.assertTrue(p.is_dir())
         self.assertIn('hermes', str(p).lower())
-        self.assertNotEqual(p, Path(os.environ.get('TEMP', '/tmp')))
+        self.assertNotEqual(p, Path(os.environ.get('LOCALAPPDATA', str(Path.home()/'AppData/Local'))) / 'Temp')
 
 
 if __name__ == '__main__':
