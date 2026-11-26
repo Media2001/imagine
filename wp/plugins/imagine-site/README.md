@@ -220,4 +220,23 @@ python wp/tests/demo/c16-http.py http-final
 
 Aucun réglage métier supplémentaire ni modification C10 ; don, pack, offert et groupé restent des emplacements nommés. Parcours, preuves exactes et blocages de qualification globale : `production/C-16/A-VOIR.md`. Ce lot n'appelle jamais `payment_complete()` et ne valide aucun paiement. Les 70 contrôles HTTP/natifs du dernier parcours sont verts, mais la qualification globale est signalée séparément : pas de faux PRET quand un gate reste rouge.
 
+## C-17 — justificatifs solidaires
+
+`JustificatifRegles` vérifie catégories, contenu PDF/JPEG/PNG et plafond de 5 Mio, puis produit une décision documentaire pure. `Justificatifs` branche le dépôt dans le seul emplacement B02 « Mes factures et justificatifs » par `imagine_compte_justificatif`, et ajoute **Imagine → Justificatifs solidaires** sous la capacité dédiée existante `imagine_traiter_justificatifs`. Aucun prix, commande, abonnement, adhésion, droit numérique ou email n'est modifié.
+
+Le stockage réutilise `PdfNumero::directory()` et `PdfNumero::privateHeaders()` (seule visibilité de cette méthode passée à public). Les octets sont hors document root, nom aléatoire `c17-<128 bits>.bin`, mode 0600 ; aucun média WordPress ni chemin public créé. Chaque GET/HEAD contrôle à nouveau titulaire ou capacité du référent ; téléchargement en pièce jointe, `nosniff`, CSP sandbox et privé/no-store, jamais de prévisualisation. Les PDF actifs usuels, SVG et contenus exécutables identifiés sont refusés ; ce contrôle n'est pas un antivirus ou une désinfection PDF universelle.
+
+Les opérations et lectures d'un titulaire partagent un verrou MySQL. Les formulaires portent la version de l'état, en plus du nonce natif : un dépôt ou une décision périmé(e) est refusé(e). Validation et refus suppriment le fichier, relisent son absence, puis enregistrent seulement catégorie, décision, date UTC, fin et login de l'opérateur. La suppression impossible interdit aussi le remplacement ; un échec de persistance n'annonce jamais de succès (ancien état éventuellement sans fichier : recharger et redéposer). Le nouveau fichier n'est pas écrit avant retrait du précédent.
+
+`imagine_solidaire_categories` est une liste du formulaire **C10 existant**, via hooks, Settings API et journal C10, défaut unique **à préciser**, une catégorie par ligne, inconnue refusée. Une modification de liste ne réécrit pas les décisions anciennes. Les conséquences tarifaires/de droits et la conduite après échéance restent hors de ce raccord, ouvertes chez Imagine.
+
+```powershell
+python wp/tests/demo/c17-verifier.py --prepare --deploy
+python wp/tests/demo/c17-visuel.py
+python wp/outils/demo/c17.py --reset
+```
+
+Le vérificateur exerce PHPUnit ciblé et racine, les vrais formulaires HTTP, les réglages natifs C10, une suppression physiquement impossible et deux décisions concurrentes, puis T01 canonique et les empreintes lues sur le site. `--reset` appelle seulement l'extension documentaire des deux profils C09, aussi appelée par `c09-seed.php` ; il ne rejoue pas le seed global, les échéances ou le reset C16. Le reçu final distingue **C17 prêt techniquement** et la réserve historique C09 A-PAPIER/action 8103 annulée avant C16, inchangée. Les anciens sceaux C16/B04 ne sont pas réécrits pour masquer les nouveaux hashes des entrées partagées. Parcours, captures et limites : `production/C-17/A-VOIR.md`.
+
+
 

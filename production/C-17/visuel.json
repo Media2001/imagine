@@ -1,0 +1,34 @@
+{
+  "screens": {
+    "P-SOL-ATT": {
+      "route": "/my-account/",
+      "selector": "[data-imagine-justificatif]",
+      "capture": "compte-attente.png",
+      "visible": true
+    },
+    "P-SOL-OK": {
+      "route": "/my-account/",
+      "selector": "[data-imagine-justificatif]",
+      "capture": "compte-valide.png",
+      "visible": true
+    },
+    "E-ABO": {
+      "route": "/wp-admin/admin.php?page=imagine-justificatifs",
+      "selector": "[data-imagine-file-justificatifs]",
+      "capture": "file-referent.png",
+      "visible": true
+    },
+    "E-ADMIN": {
+      "route": "/wp-admin/admin.php?page=imagine-reglages",
+      "selector": "#imagine-solidaire-categories",
+      "capture": "reglage-categories.png",
+      "visible": true
+    }
+  },
+  "native_state_preserved": true,
+  "outside_demo_requests_blocked": [
+    "https://secure.gravatar.com/avatar/5b9987ee962642e78332349ffdb19c6a7bd443c26de02417cb43389b1e743cb3",
+    "https://secure.gravatar.com/avatar/bd25992cf05fd751d035283b38aa8d121bb3d541dd8906110e31d79e7eff512b"
+  ],
+  "visual_approval": false
+}

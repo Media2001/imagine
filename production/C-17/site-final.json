@@ -1,0 +1,25 @@
+{
+  "P-SOL-ATT": {
+    "user_id": 26,
+    "state": {
+      "categorie": "à préciser",
+      "decision": "en_attente",
+      "blob": "abc856d5328a9d2a752c7a9d138f838b"
+    },
+    "physical_path": "/var/www/imagine-private-pdf/site-1/c17-abc856d5328a9d2a752c7a9d138f838b.bin",
+    "sha256": "d3da00dbc0fb5e99491e93d735d9e0c66ffa8d8530b2e12d446d3bf415474845"
+  },
+  "P-SOL-OK": {
+    "user_id": 27,
+    "state": {
+      "categorie": "à préciser",
+      "decision": "valide",
+      "date_decision": "2026-11-26T00:22:24Z",
+      "fin": "2027-01-10",
+      "operateur": "fixture-c09-fictive"
+    },
+    "physical_path": null,
+    "sha256": null
+  },
+  "private_file_count": 1
+}
