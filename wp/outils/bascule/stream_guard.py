@@ -126,15 +126,20 @@ def complete(output,files):
 
 
 def inventory(tool,entry,options,*,fence=None,input_data=None,arguments=None):
-    site=Path(options['--wp-path']).resolve(strict=True)
-    parent=Path(options['--output']).parent.resolve(strict=True)
+    legacy_path={'A03':'A03_PATH_UNSAFE_OR_EXISTS','A11':'A11_PATH_INVALID'}.get(tool)
+    try:
+        site=Path(options['--wp-path']).resolve(strict=True)
+        parent=Path(options['--output']).parent.resolve(strict=True)
+    except OSError:
+        raise RuntimeError(legacy_path or tool+'_CONFINEMENT_FAILED') from None
     output=parent/Path(options['--output']).name
     candidate=HERE.parents[2] if len(HERE.parents)>2 else HERE
     repository=candidate if (candidate/'wp/outils/bascule/audit').is_file() else HERE
-    if (not re.fullmatch(r'[A-Za-z0-9_-]+',output.name) or str(parent)=='/'
+    if not re.fullmatch(r'[A-Za-z0-9_-]+',output.name):raise RuntimeError(legacy_path or tool+'_OUTPUT_UNSAFE')
+    if (str(parent)=='/'
         or any(parent==root or root in parent.parents or parent in root.parents for root in (site,repository))):
-        raise RuntimeError(tool+'_OUTPUT_UNSAFE')
-    if output.exists() or output.is_symlink():raise RuntimeError(tool+'_OUTPUT_EXISTS')
+        raise RuntimeError('A03_PATH_UNSAFE_OR_EXISTS' if tool=='A03' else tool+'_OUTPUT_UNSAFE')
+    if output.exists() or output.is_symlink():raise RuntimeError('A03_PATH_UNSAFE_OR_EXISTS' if tool=='A03' else tool+'_OUTPUT_EXISTS')
     audit=Path(options['--audit']) if '--audit' in options else None
     if audit is not None and (audit.is_symlink() or not audit.is_file() or audit.stat().st_size>16777216
                               or audit.resolve().parent.parent!=parent):raise RuntimeError(tool+'_AUDIT_GUARD')
@@ -176,7 +181,8 @@ def cli():
         message=str(error)
         if tool=='A03' and isinstance(error,OSError):message='A03_OUTPUT_FAILED'
         codes=set(allowed_messages())|{tool+x for x in ('_OUTPUT_UNSAFE','_OUTPUT_EXISTS','_PROCESS_OUTPUT_INVALID','_PROCESS_TIMEOUT','_SUCCESS_INCOMPLETE')}
-        print(message if message in codes and isinstance(error,(RuntimeError,OSError)) else tool+'_EXECUTION_FAILED',file=sys.stderr)
+        fallback='A11_FAILED' if tool=='A11' else 'A03_EXECUTION_FAILED'
+        print(message if message in codes and isinstance(error,(RuntimeError,OSError)) else fallback,file=sys.stderr)
         return 1
 
 if __name__=='__main__':sys.exit(cli())

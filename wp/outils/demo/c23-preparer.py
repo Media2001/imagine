@@ -74,7 +74,7 @@ def prepare(f):
 foreach($mapping as $public=>$id){$expiration=time()+7200;$token=WP_Session_Tokens::get_instance($id)->create($expiration);
 $logged=wp_generate_auth_cookie($id,$expiration,'logged_in',$token);$auth=wp_generate_auth_cookie($id,$expiration,'auth',$token);
 $_COOKIE[LOGGED_IN_COOKIE]=$logged;wp_set_current_user($id);
-$out[$public]=['id'=>$id,'cookie'=>LOGGED_IN_COOKIE.'='.$logged.'; '.AUTH_COOKIE.'='.$auth,'nonce'=>wp_create_nonce('wp_rest')];}
+$out[$public]=['id'=>$id,'cookie'=>LOGGED_IN_COOKIE.'='.$logged.'; '.AUTH_COOKIE.'='.$auth.'; tk_ai='.bin2hex(random_bytes(16)),'nonce'=>wp_create_nonce('wp_rest')];}
 echo wp_json_encode($out);''')
 
 

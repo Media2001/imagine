@@ -77,6 +77,46 @@ class ContractTest(unittest.TestCase):
             self.assertEqual((p.returncode,p.stdout,p.stderr),(1,'','A20_OUTPUT_UNSAFE\n'))
             self.assertFalse((reports/'invalid.name').exists())
 
+    def test_legacy_php_path_refusals_are_preserved_by_the_proxy(self):
+        import subprocess
+        import sys
+        with tempfile.TemporaryDirectory(dir=os.environ.get('TMPDIR')) as tmp:
+            root=Path(tmp)
+            for tool,extra,want in [('A03','--config=none','A03_PATH_UNSAFE_OR_EXISTS'),
+                                    ('A11','--audit=none','A11_PATH_INVALID')]:
+                with self.subTest(tool=tool):
+                    p=subprocess.run([sys.executable,'-B',str(ROOT/'wp/outils/bascule/stream_guard.py'),tool,
+                        '--wp-path='+str(root/'missing'),'--output='+str(root/'out'),extra],
+                        env={**os.environ,'PYTHONIOENCODING':'utf-8','PYTHONUTF8':'1'},
+                        capture_output=True,text=True,encoding='utf-8',timeout=30)
+                    self.assertEqual((p.returncode,p.stdout,p.stderr),(1,'',want+'\n'))
+
+    def test_legacy_php_basename_and_exists_codes_are_preserved(self):
+        import subprocess
+        import sys
+        with tempfile.TemporaryDirectory(dir=os.environ.get('TMPDIR')) as tmp:
+            root=Path(tmp);site=root/'site';site.mkdir();reports=root/'reports';reports.mkdir();(reports/'existing').mkdir()
+            for tool,extra,badname,exists in [('A03','--config=none','A03_PATH_UNSAFE_OR_EXISTS','A03_PATH_UNSAFE_OR_EXISTS'),
+                                            ('A11','--audit=none','A11_PATH_INVALID','A11_OUTPUT_EXISTS')]:
+                for name,want in [('invalid.name',badname),('existing',exists)]:
+                    with self.subTest(tool=tool,name=name):
+                        p=subprocess.run([sys.executable,'-B',str(ROOT/'wp/outils/bascule/stream_guard.py'),tool,
+                            '--wp-path='+str(site),'--output='+str(reports/name),extra],
+                            env={**os.environ,'PYTHONIOENCODING':'utf-8','PYTHONUTF8':'1'},
+                            capture_output=True,text=True,encoding='utf-8',timeout=30)
+                        self.assertEqual((p.returncode,p.stdout,p.stderr),(1,'',want+'\n'))
+
+    def test_a14_legacy_generic_refusal_is_preserved(self):
+        import subprocess
+        import sys
+        with tempfile.TemporaryDirectory(dir=os.environ.get('TMPDIR')) as tmp:
+            p=subprocess.run([sys.executable,'-B',str(ROOT/'wp/outils/bascule/rapprocher-contacts'),
+                '--wp-path='+str(Path(tmp)/'missing'),'--output='+str(Path(tmp)/'out'),
+                '--audit=none','--contacts=none','--correspondance=none'],
+                env={**os.environ,'PYTHONIOENCODING':'utf-8','PYTHONUTF8':'1'},
+                capture_output=True,text=True,encoding='utf-8',timeout=30)
+            self.assertEqual((p.returncode,p.stdout,p.stderr),(1,'','A14_FAILED\n'))
+
     def test_partial_report_is_not_complete(self):
         guard=load(ROOT/'wp/outils/bascule/stream_guard.py','guard_files')
         with tempfile.TemporaryDirectory(dir=os.environ.get('TMPDIR')) as tmp:

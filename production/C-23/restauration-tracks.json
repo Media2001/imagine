@@ -1,0 +1,10 @@
+{
+  "scope": "imagine-test-demo",
+  "removed_temporary_rows": [
+    12169,
+    12170
+  ],
+  "native_sha256_restored": "4d81b43e4958a067678b12bfe1fbf6d57f83dcd382f92404a457e5850a935351",
+  "expected": "4d81b43e4958a067678b12bfe1fbf6d57f83dcd382f92404a457e5850a935351",
+  "cause": "WC_Tracks_Client utilise tk_ai si fourni; cookie ajout\u00e9 \u00e0 la pr\u00e9paration hors commande"
+}
