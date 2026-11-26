@@ -18,6 +18,17 @@ def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 def predecessor(name, data):
+    # C21 is an additive, sealed successor; remove only its exact verified sections.
+    c21seal = ROOT / 'production/C-21/final.json'
+    if c21seal.exists():
+        shared = json.loads(c21seal.read_text(encoding='utf-8'))['shared_contracts']
+        key = {'wp/plugins/imagine-site/imagine-site.php': 'bootstrap_block',
+               'wp/plugins/imagine-site/EnvoiNatif.php': 'envoi_block',
+               'wp/plugins/imagine-site/README.md': 'readme_section'}.get(name)
+        if key:
+            block21 = shared[key].encode()
+            assert data.count(block21) == 1, 'C21 successor section absent/repeated: ' + name
+            data = data.replace(block21, b'', 1)
     if name in BLOCKS:
         block = BLOCKS[name].encode()
         assert data.count(block) == 1, 'C20 shared delta absent/repeated: ' + name
@@ -34,7 +45,8 @@ def matches_predecessor(name, data, expected):
     """Read-only bridge for parent gates; bound to the exact sealed C20 successor."""
     if hashlib.sha256(data).hexdigest() == expected:
         return True
-    receipt = json.loads(FINAL.read_text(encoding='utf-8'))
+    seal = PROOF / 'final-closure-0730-V2.json'
+    receipt = json.loads((seal if seal.exists() else FINAL).read_text(encoding='utf-8'))
     if hashlib.sha256(data).hexdigest() != receipt['source_sha256'].get(name):
         return False
     previous = predecessor(name,data)
@@ -50,7 +62,7 @@ def local_contracts():
     out = {}
     for name, old in baseline.items():
         data = (ROOT/name).read_bytes()
-        previous = predecessor(name,data) if name in BLOCKS else data
+        previous = predecessor(name,data) if name in BLOCKS or name == 'wp/plugins/imagine-site/EnvoiNatif.php' else data
         assert hashlib.sha256(previous).hexdigest() == old, 'Protected/source predecessor drift: ' + name
         out[name] = {'before':old,'after':hashlib.sha256(data).hexdigest(),'changed':old!=hashlib.sha256(data).hexdigest()}
     name = 'wp/plugins/imagine-site/README.md'
@@ -70,7 +82,7 @@ def local_contracts():
         assert digest(path) == expected, 'Historical predecessor changed: ' + name
     return out
 
-def run(seal=False):
+def historical_run(seal=False):
     contracts = local_contracts()
     names = list(BLOCKS) + ['wp/plugins/imagine-site/Renouvellement.php','wp/plugins/imagine-site/RenouvellementRegles.php']
     c20.c20.profils.guard('imagine-test-demo')
@@ -117,6 +129,14 @@ def run(seal=False):
         assert data['deployed_source_sha256']==prior['deployed_source_sha256']
     print(json.dumps({k:v for k,v in data.items() if k not in ('source_sha256','successor_contracts','deployed_source_sha256')},ensure_ascii=False))
     return data
+
+def run(seal=False):
+    path = ROOT / 'wp/tests/demo/c20-closure-verifier.py'
+    spec = importlib.util.spec_from_file_location('c20_closure', path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    from types import SimpleNamespace
+    return module.run(SimpleNamespace(**globals()), seal)
 
 if __name__=='__main__':
     run('--seal' in sys.argv)

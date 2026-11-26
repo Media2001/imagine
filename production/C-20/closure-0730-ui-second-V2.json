@@ -1,0 +1,25 @@
+{
+  "checks": {
+    "A-CARTE_presentation": true,
+    "A-CARTE_no_C20_button": true,
+    "A-CARTE_message": true,
+    "A-CARTE_native_cancel_button_hidden": true,
+    "A-SEPA4_presentation": true,
+    "A-SEPA4_no_C20_button": true,
+    "A-SEPA4_message": true,
+    "A-SEPA4_native_cancel_button_hidden": true,
+    "A-VIR_presentation": true,
+    "A-VIR_no_C20_button": true,
+    "A-VIR_message": true,
+    "A-VIR_native_cancel_button_hidden": true,
+    "A-PAPIER_presentation": true,
+    "A-PAPIER_no_C20_button": true,
+    "A-PAPIER_message": true,
+    "A-PAPIER_native_cancel_button_hidden": true,
+    "other_owner_no_presentation": true,
+    "native_other_owner_mutation_refused": true
+  },
+  "total": 18,
+  "failures": [],
+  "profiles_actions_unchanged": true
+}

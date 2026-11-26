@@ -27,6 +27,7 @@ if (!getenv('A17_UNKNOWN_PROVIDER')) {
 ''','wp-last-login/wp-last-login.php':'''<?php
 /* Plugin Name: WP Last Login fixture
 Version: 1.3.0 */
+if (getenv('A17_NO_LAST_LOGIN')) { throw new RuntimeException('LAST_LOGIN_MUST_NOT_LOAD'); }
 ''','other-2fa/other-2fa.php':'''<?php
 /* Plugin Name: Other 2FA fixture
 Version: 1.0.0 */

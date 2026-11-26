@@ -14,7 +14,7 @@ Exporter le tableur en CSV ; copier `correspondance.exemple.json` et adapter en-
 
 Seule comparaison : email sans casse et sans espaces, jamais nom, points ou suffixes fournisseur. Plusieurs comptes au même email normalisé : **aucun choix du premier**, ligne ambiguë sans statut d'abonnement inventé. Comptes sans contact = comptes joignables valides dont l'email n'est pas présent ; un groupe ambigu présent n'est pas « sans contact ». Compte marqué `imagine_sans_email=1` ou domaine réservé `@sans-email.imagine.invalid` exclu ; email invalide compté séparément. Abonnement actif signifie strictement état natif `active`, pas `on-hold` ni `pending-cancel`, sans déduction de coopérateur/tarif.
 
-Un refus `A11_DROPIN_UNSUPPORTED` / `A11_SYMLINK_UNSUPPORTED` nomme le chemin relatif : ne pas affaiblir la garde ni déplacer un fichier réel. Préparer une **nouvelle copie jetable neutralisée** sans cache/pare-feu/drop-in/liens puis refaire l'audit A02. Les constantes de configuration hors contrat sont refusées aussi.
+Un refus donne un code fixe ; seul `A11_DROPIN_UNSUPPORTED` nomme un fichier de la liste fermée A-11. Aucun chemin arbitraire ni nom de constante issu du site ne sort, même sur stderr. `A11_SYMLINK_UNSUPPORTED` signale un lien sans le nommer ; l'opérateur peut les lister avec `find /copie-verifiee -type l -print`, hors sorties de l'outil. Ne pas affaiblir la garde ni déplacer un fichier réel : préparer une **nouvelle copie jetable neutralisée** sans ces particularités puis refaire A02. Les constantes hors contrat restent refusées.
 
 ## Standard d'abord : pourquoi cette projection SQL
 

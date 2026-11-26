@@ -137,14 +137,14 @@ def run_storage(storage):
             try:
                 target_mu=OUT/(stem+'-custom-mu')
                 blocked=inventory(site,target_mu,auditdir/'audit.json')
-                b.check(key+':custom_mu_before_bootstrap',blocked.returncode==1 and 'A11_CONFIG_OVERRIDE_UNSUPPORTED' in blocked.stderr and 'WPMU_PLUGIN_DIR' in blocked.stderr and not target_mu.exists() and not pathlib.Path('/scratch/a11-never-execute').exists())
+                b.check(key+':custom_mu_before_bootstrap',blocked.returncode==1 and blocked.stderr=='A11_CONFIG_OVERRIDE_UNSUPPORTED\n' and not target_mu.exists() and not pathlib.Path('/scratch/a11-never-execute').exists())
             finally:
                 (site/'wp-config.php').write_text(config); (custom/'fiction.php').unlink(); custom.rmdir()
-            linked=site/'wp-content/a11-owned-link'; linked.symlink_to(site/'wp-includes',target_is_directory=True)
+            linked=site/'wp-content/A11_IDENTITY_PRIVATE_CANARY'; linked.symlink_to(site/'wp-includes',target_is_directory=True)
             try:
                 target_link=OUT/(stem+'-site-link')
                 blocked=inventory(site,target_link,auditdir/'audit.json')
-                b.check(key+':site_symlink_named',blocked.returncode==1 and 'A11_SYMLINK_UNSUPPORTED' in blocked.stderr and 'wp-content/a11-owned-link' in blocked.stderr and not target_link.exists())
+                b.check(key+':site_symlink_private',blocked.returncode==1 and blocked.stdout=='' and blocked.stderr=='A11_SYMLINK_UNSUPPORTED\n' and not target_link.exists())
             finally: linked.unlink()
             partial='a11_partial_'+storage
             b.sql('mysql',"CREATE USER '"+partial+"'@'localhost' IDENTIFIED BY ''")

@@ -162,8 +162,10 @@ final class Inventory
                 continue;
             }
             $previous = $tokens[$i - 1] ?? null;
-            if ($uncertain || $depth !== 0
-                || !($previous === ';' || (is_array($previous) && $previous[0] === T_OPEN_TAG))) {
+            if (
+                $uncertain || $depth !== 0
+                || !($previous === ';' || (is_array($previous) && $previous[0] === T_OPEN_TAG))
+            ) {
                 $found[] = null;
                 continue;
             }

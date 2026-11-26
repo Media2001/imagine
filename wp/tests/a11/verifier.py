@@ -27,7 +27,7 @@ def main():
     names={c['check'] for c in native['checks']}
     counts={}
     for storage in ['classic','hpos']:
-        for name in ['custom_mu_before_bootstrap','site_symlink_named','failed_select_no_validated_packet']:
+        for name in ['custom_mu_before_bootstrap','site_symlink_private','failed_select_no_validated_packet']:
             assert storage+':pretty:'+name in names
         for filename in ['object-cache.php','advanced-cache.php','db.php','sunrise.php','wordfence-waf.php','.user.ini']:
             assert storage+':pretty:dropin_refused_before_execution:'+filename in names

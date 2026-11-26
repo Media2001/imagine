@@ -14,7 +14,9 @@ $before = (int) $pdo->query("SELECT COUNT(*) FROM wp_usermeta WHERE meta_key='_a
 $engine = new Imagine\Staging\Engine(new Imagine\Staging\PdoStore($pdo, $context), $context, 'wp_');
 $engine->neutraliser();
 $after = (int) $pdo->query("SELECT COUNT(*) FROM wp_usermeta WHERE meta_key='_application_passwords'")->fetchColumn();
-$marker = (int) $pdo->query("SELECT COUNT(*) FROM wp_options WHERE option_name='imagine_staging_disabled_plugins'")->fetchColumn();
+$marker = (int) $pdo->query(
+    "SELECT COUNT(*) FROM wp_options WHERE option_name='imagine_staging_disabled_plugins'"
+)->fetchColumn();
 $engine->anonymiser(bin2hex(random_bytes(24)));
 echo json_encode(['application_password_rows_before' => $before, 'application_password_rows_after' => $after,
     'neutralisation_marker_count' => $marker, 'neutraliser_and_anonymiser_executed' => true], JSON_THROW_ON_ERROR);

@@ -72,7 +72,7 @@ $carte = transaction(static function () use ($f, &$checks): array {
         && new \DateTimeImmutable($after['end'], new \DateTimeZone('UTC')) < $cutoffDate
         && count($beforeLines) === 8 && count($afterLines) === 7
         && wp_json_encode($afterLines) === wp_json_encode($withoutThis)
-        && count(array_filter($after['shipping_C13']['exclus'], static fn ($line) =>
+        && count(array_filter($afterShipping['exclus'], static fn ($line) =>
             (string) $line['abonnement_id'] === (string) $s->get_id() && $line['motif'] === 'expire')) === 1;
     $checks['B02_numbers_unchanged'] = array_intersect_key($after['account_B02'], array_flip(['premier','dernier','restants','echeances'])) === array_intersect_key($before['account_B02'], array_flip(['premier','dernier','restants','echeances']));
     $s = wcs_get_subscription($s->get_id());

@@ -21,8 +21,10 @@ final class Runtime
     public static function refusalMessage(\Throwable $error, string $code): string
     {
         // Site-controlled details are never output, even for future refusal types.
-        if ($error instanceof RuntimeRefusal && $code === 'A11_DROPIN_UNSUPPORTED'
-            && in_array($error->details['file'] ?? null, self::DROPINS, true)) {
+        if (
+            $error instanceof RuntimeRefusal && $code === 'A11_DROPIN_UNSUPPORTED'
+            && in_array($error->details['file'] ?? null, self::DROPINS, true)
+        ) {
             return $code . ' ' . json_encode(['file' => $error->details['file']], JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
         }
         return $code;
@@ -36,8 +38,10 @@ final class Runtime
             if (is_array($token) && $token[0] === T_CONST) {
                 throw new RuntimeRefusal('A11_CONFIG_OVERRIDE_UNSUPPORTED', []);
             }
-            if (!is_array($token) || !in_array($token[0], [T_STRING, T_NAME_FULLY_QUALIFIED, T_NAME_QUALIFIED], true)
-                || strtolower(ltrim($token[1], '\\')) !== 'define' || ($tokens[$index + 1] ?? '') !== '(') {
+            if (
+                !is_array($token) || !in_array($token[0], [T_STRING, T_NAME_FULLY_QUALIFIED, T_NAME_QUALIFIED], true)
+                || strtolower(ltrim($token[1], '\\')) !== 'define' || ($tokens[$index + 1] ?? '') !== '('
+            ) {
                 continue;
             }
             $name = $tokens[$index + 2] ?? null;

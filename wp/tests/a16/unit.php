@@ -49,9 +49,11 @@ if (is_file('/subject/a16/Mapping.php')) {
     }
     $privateMapping = $mapping;
     $privateMapping['racine_privee'] = '/scratch/a16-private';
-    $check('optional_private_root_accepted', \Imagine\IssueInventory\Mapping::validate($privateMapping) === $privateMapping);
-    foreach ([null, '', '/', 'relative', 'https://example.org/private', '/scratch/../private',
-        '/scratch/private/', '/scratch//private', '/scratch/private' . "\n", 12, []] as $index => $root) {
+    $accepted = \Imagine\IssueInventory\Mapping::validate($privateMapping) === $privateMapping;
+    $check('optional_private_root_accepted', $accepted);
+    $invalidRoots = [null, '', '/', 'relative', 'https://example.org/private', '/scratch/../private',
+        '/scratch/private/', '/scratch//private', '/scratch/private' . "\n", 12, []];
+    foreach ($invalidRoots as $index => $root) {
         $bad = $mapping;
         $bad['racine_privee'] = $root;
         try {
