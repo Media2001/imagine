@@ -35,7 +35,7 @@ Fichiers de code modifiés : `Forms.php`, `Inventory.php`, `README.md` sous `wp/
 
 Défaut prudent confirmé par la fusion : `server_rule_file_present` = présence d’un nom technique fermé ; `reading_denied=null` = protection effective inconnue. Aucun contenu média/configuration serveur ni requête HTTP. **Écart à reporter par Claude dans `docs/ecarts.md`** (non modifié ici conformément au périmètre) : contradiction du brief A-18, oui/non effectif exigé contre interdiction d’ouvrir les fichiers. Aucun blocage ni demande de GO au réel.
 
-Proxy de neutralisation conservé à défaut. Question pour Imagine : la marque `imagine_staging_disabled_plugins` correspond-elle exactement, et seulement, à la neutralisation des formes de paiement ? **Oui/non.** Aucun changement de métier ni compte réel en attendant.
+Arbitrage de la file de 10 h 30 appliqué : marque de neutralisation conservée telle quelle ; cette question relève de notre import, pas d’Imagine. L’import demeure inchangé. Le défaut sur les règles serveur est acquis et Claude a déjà reporté l’écart ; aucune action dans `docs/` ni question sur ce point.
 
 Les colonnes sont indépendantes et leur somme n’est pas un nombre de lignes distinctes ; une ligne contenant plusieurs formes peut alimenter deux colonnes. **Rectification factuelle de la fusion : un seul nombre de 11 chiffres ne peut pas être une carte ici (minimum 13).** Cette limite et le cumul possible sur une même ligne sont documentés et testés, sans élargir artificiellement le détecteur carte.
 
