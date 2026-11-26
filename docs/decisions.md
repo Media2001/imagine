@@ -50,7 +50,7 @@ Ce qui est tranché par Ced, daté. Ce fichier précise ou corrige le cahier des
 Issues des relectures du 20/11 (`docs/arbitrages-2026-11-21.md`, questions non tranchées) : prélèvement SEPA obligatoire après une première carte ; retrait immédiat ou délai de grâce au premier rejet ; licence Teams pour les abonnements groupés ; forme de l'accès découverte ; recalcul du port en cours d'année ; emails SEPA de Stripe ; recherche de la dénomination d'entreprise ; PayPal sous condition d'approbation.
 
 
-Issues des lots, au 26/11 à 4 h (chacune est un réglage au défaut prudent, aucun lot n'attend) :
+Issues des lots, au 26/11 à 7 h (chacune est un réglage au défaut prudent, aucun lot n'attend) :
 
 | Question fermée pour Imagine | Défaut appliqué | Réglage |
 |---|---|---|
@@ -67,6 +67,10 @@ Issues des lots, au 26/11 à 4 h (chacune est un réglage au défaut prudent, au
 | Dans le contrôle d'un export d'abonnés hors ligne, deux personnes de même nom à la même adresse sont-elles un doublon, ou faut-il aussi le même prénom (conjoints, colocataires) ? | Doublon : les deux lignes sont signalées, rien n'est fusionné | `doublon_prenom_identique`, désactivée, dans la correspondance des colonnes (A-13) |
 | Les extractions rendent-elles une ligne par abonnement (un compte à deux abonnements apparaît deux fois) ou une ligne par abonné ? | Une ligne par abonnement | Pas de réglage : dédoublonnage à ajouter à la demande (C-18) |
 | Dans les extractions, le filtre par localité doit-il accepter un début de code postal, une plage ou plusieurs pays ? | Non : pays et code postal exacts | Pas de réglage : filtre à affiner à la demande (C-18) |
+| Dans le rapprochement des contacts de la newsletter, un abonné qui a désactivé le renouvellement mais dont la période payée court encore compte-t-il comme « abonné » ? | Non : seul l'état actif compte. À accorder avec le paywall, qui garde l'accès jusqu'au terme (§3.4) | Pas de réglage : périmètre du compte (A-14) |
+| Qui peut ouvrir le tableau de bord (des nombres, aucune identité) : seulement ceux qui ont déjà les extractions et les échéances, ou aussi quelqu'un qui n'a ni l'un ni l'autre ? | Seulement ceux qui ont les deux droits | Pas de réglage : un droit à part serait à créer (C-19) |
+| Le tableau de bord doit-il distinguer le « mode » de paiement (une ou quatre fois) du « moyen » de paiement (carte, SEPA, virement…), comme l'écrit §3.13 ? | Un seul axe chiffré ; « par moyen de paiement » affiché grisé, sans chiffre | Pas de réglage : indicateur à ajouter (C-19) |
+| Un abonné qui ne renouvelle pas reçoit-il encore le numéro dont la liste d'envoi se clôt après la fin de sa période payée ? | Non : règles de la liste d'envoi inchangées | Pas de réglage : règle de C-13 |
 
 Rappel de règle, sans question : un abonnement actif dans l'administration mais **sans paiement validé** ne figure pas dans la liste d'envoi.
 
