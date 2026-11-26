@@ -1,13 +1,15 @@
-C-22 — prêt technique à relire, 26 novembre 2026.
+C-22 — corrections prêtes techniquement à relire, 26 novembre 2026.
 
-Catalogue de trois newsletters fictives piloté par C10, préférences locales datées dans le compte, page publique sans formulaire anonyme, sans-email sans choix, export/effacement C21 étendu. Réglage d'inscription à la création fermé, deux valeurs testées ; aucun consentement inventé ni connecteur branché.
+Trois corrections appliquées en TDD rouge puis vert : identifiants retirés durablement réservés (anciens choix, effacement et journaux historiques compris), longueurs UTF-8 en caractères, vérificateur de confidentialité par vrais callbacks et non syntaxe d'un fichier partagé. La section C10 et sa place sous Enregistrer sont inchangées et couvertes. Aucun changement de Confidentialite.php ni du bootstrap.
 
 Réception : production/C-22/A-VOIR.md.
-Sceau : production/C-22/final-V2.json ; manifest-V2.json.
+Sceau courant : production/C-22/correction-final-V2.json ; correction-manifest-V2.json. Reçus et sceaux historiques conservés.
 Vérification : python -B wp/tests/demo/c22-verifier.py
-T01 réel : 1102 tests / 34454 assertions, zéro échec/erreur/ignoré.
-Natif : 19/19 ; HTTP/Chromium : 33/33 ; C09 : 382/382 ; action 8793 pending / subscription 101, état initial exact.
+Préparation réelle de l'image exécutée après ajout des parcours : code 0, correction-preparation-V2.log.
+T01 réel : 1123 tests / 34569 assertions ; 14 outils / 279 contrôles ; zéro échec/erreur/ignoré.
+Corrections natives ciblées : 29/29 ; régression native : 19/19 ; HTTP/Chromium : 40/40 ; C09 : 382/382. Deux mutations de confidentialité rouges attendues, chacune détectée. PSR12 : zéro erreur.
+Commande de vérification ci-dessus exécutée avec --seal puis sans argument : code 0 dans les deux cas, après les gates verts.
 
-Aucun email tenté ; 45 tentatives HTTP natives de bootstrap toutes bloquées avant transport, zéro appel issu du raccord newsletters ; 5 demandes Gravatar bloquées dans Chromium. Observateur retiré et absence relue. Profils, réglages et données préexistantes exacts, seule la page C22 ajoutée reste ; journaux C10 append-only conservés.
+Aucun email tenté ; 54 tentatives HTTP natives de bootstrap toutes bloquées avant transport, zéro appel issu du raccord newsletters ; 6 demandes Gravatar bloquées dans Chromium. Observateur retiré et absence relue. Profils, préférences, options/réservations, cache et données préexistantes restaurés exactement et relus ; journaux C10 append-only conservés. Action 8793 toujours pending / subscription 101, date GMT 2026-11-26 02:13:28 inchangée. 39 reçus historiques préservés octet pour octet.
 
-Validation visuelle de Ced et question de consentement Imagine attendues, sans empêcher la relecture technique. Ce PRET ne vaut ni clôture, ni mise en ligne, ni GO sur le réel. Correction C-20 nouvellement reçue signalée au parent, non traitée dans ce lot.
+Validation visuelle de Ced (section sous le bouton) et question de consentement Imagine attendues, sans empêcher la relecture technique ; défaut de création Non. Ce PRET ne vaut ni clôture, ni mise en ligne, ni GO sur le réel. Aucun Git, autre lot, autre site, donnée réelle ou transport externe.

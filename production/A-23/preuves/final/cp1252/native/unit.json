@@ -1,0 +1,142 @@
+{
+    "suite": "A23-pure",
+    "checks": [
+        {
+            "check": "prefix_only:wordpress_bcrypt:0",
+            "status": "PASS"
+        },
+        {
+            "check": "prefix_only:phpass:1",
+            "status": "PASS"
+        },
+        {
+            "check": "prefix_only:phpass_h:2",
+            "status": "PASS"
+        },
+        {
+            "check": "prefix_only:bcrypt:3",
+            "status": "PASS"
+        },
+        {
+            "check": "prefix_only:bcrypt:4",
+            "status": "PASS"
+        },
+        {
+            "check": "prefix_only:bcrypt:5",
+            "status": "PASS"
+        },
+        {
+            "check": "prefix_only:argon2i:6",
+            "status": "PASS"
+        },
+        {
+            "check": "prefix_only:argon2id:7",
+            "status": "PASS"
+        },
+        {
+            "check": "prefix_only:autre:8",
+            "status": "PASS"
+        },
+        {
+            "check": "prefix_only:vide:9",
+            "status": "PASS"
+        },
+        {
+            "check": "prefix_only:autre:10",
+            "status": "PASS"
+        },
+        {
+            "check": "prefix_only:autre:11",
+            "status": "PASS"
+        },
+        {
+            "check": "privacy_threshold",
+            "status": "PASS"
+        },
+        {
+            "check": "empty_threshold",
+            "status": "PASS"
+        },
+        {
+            "check": "families_exact",
+            "status": "PASS"
+        },
+        {
+            "check": "accounts_unique",
+            "status": "PASS"
+        },
+        {
+            "check": "login_equals_exact",
+            "status": "PASS"
+        },
+        {
+            "check": "without_any_commerce",
+            "status": "PASS"
+        },
+        {
+            "check": "live_families_exact",
+            "status": "PASS"
+        },
+        {
+            "check": "emails_empty",
+            "status": "PASS"
+        },
+        {
+            "check": "rare_email_metrics_pooled",
+            "status": "PASS"
+        },
+        {
+            "check": "rare_login_metrics_pooled",
+            "status": "PASS"
+        },
+        {
+            "check": "admin_excluded_but_collision_included",
+            "status": "PASS"
+        },
+        {
+            "check": "no_private_output",
+            "status": "PASS"
+        },
+        {
+            "check": "neutralisation_unknown:readers:families",
+            "status": "PASS"
+        },
+        {
+            "check": "neutralisation_unknown:readers:emails",
+            "status": "PASS"
+        },
+        {
+            "check": "neutralisation_unknown:readers:logins",
+            "status": "PASS"
+        },
+        {
+            "check": "neutralisation_preserves_count:readers",
+            "status": "PASS"
+        },
+        {
+            "check": "neutralisation_unknown:live_readers:families",
+            "status": "PASS"
+        },
+        {
+            "check": "neutralisation_unknown:live_readers:emails",
+            "status": "PASS"
+        },
+        {
+            "check": "neutralisation_unknown:live_readers:logins",
+            "status": "PASS"
+        },
+        {
+            "check": "neutralisation_preserves_count:live_readers",
+            "status": "PASS"
+        },
+        {
+            "check": "neutralisation_preserves_links",
+            "status": "PASS"
+        },
+        {
+            "check": "empty_population",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 0
+}

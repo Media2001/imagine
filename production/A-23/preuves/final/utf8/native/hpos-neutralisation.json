@@ -1,0 +1,10 @@
+{
+  "before_accounts": 40,
+  "changed": {
+    "login_changed": 40,
+    "email_changed": 40,
+    "hash_changed": 40
+  },
+  "marker_count": 1,
+  "neutraliser_and_anonymiser_executed": true
+}

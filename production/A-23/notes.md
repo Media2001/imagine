@@ -83,5 +83,22 @@ par une extension fictive ; leurs sources installées sont scellées dans
 neutralisée : laissé au parent, aucun changement au Runtime, au gardien ou aux
 autres lots. Ce raccord local ne modifie pas l'import.
 
+Dernière lecture de la frontière A-22 : son checkpoint de 14 h 56 a déjà choisi,
+pour les anciens inventaires, de rejeter ces diagnostics explicites dans le
+seul périphérique `/dev/null`, avec un droit noyau limité à ce périphérique.
+A-23 ne change ni ce choix partagé ni sa mise en œuvre : il empêche localement
+les tentatives de planification par les filtres natifs ci-dessus. Ses canaris
+directs sur les deux flux restent observés et refusés par le gardien commun.
+La matrice finale A-23 et son contrôle de dépendances ont réellement porté sur
+ces dernières sources partagées ; aucun besoin de recoller un superviseur.
+
+Dernier paquet sélectionné : `a23-final-matrix-02` du scratch, copié seul dans
+`preuves/final`. Par console : 23 tests Python, 34 contrôles purs, 14 contrôles
+statiques du standard, 160 contrôles natifs et 9 contrôles runner, tous verts ;
+PSR-12 : zéro erreur et zéro avertissement. Python mesuré : 3.14.6 sous Windows,
+UTF-8 puis cp1252, UTF-8 mode respectivement 1 et 0. Le vérificateur scellé a
+retourné 66 PASS, zéro FAIL et code 0 avant cette seule actualisation de notes ;
+le manifeste de packaging est rescellé et le contrôle rejoué ensuite.
+
 Delta partagé séparé : `readme-ajout.txt`, non appliqué. Reprise et vérification :
 `FINALISATION.md`. Aucun PRET ni accord de bascule réelle.

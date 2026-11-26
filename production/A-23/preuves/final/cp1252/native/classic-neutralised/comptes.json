@@ -1,0 +1,25 @@
+{
+    "schema": "imagine-a23-reader-accounts-v1",
+    "read_only": true,
+    "storage": "classic",
+    "neutralisation": "inconnu après neutralisation",
+    "counts": {
+        "readers": {
+            "accounts": 32,
+            "families": "inconnu après neutralisation",
+            "emails": "inconnu après neutralisation",
+            "logins": "inconnu après neutralisation"
+        },
+        "live_readers": {
+            "accounts": 20,
+            "families": "inconnu après neutralisation",
+            "emails": "inconnu après neutralisation",
+            "logins": "inconnu après neutralisation"
+        },
+        "without_commerce": {
+            "groups": [],
+            "autres": 3
+        }
+    },
+    "audit_sha256": "1b4867c19e96b8a5bb3ea90bd15b4df552fca5d23377122264c5630195f6f6d0"
+}

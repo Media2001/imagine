@@ -1,0 +1,71 @@
+{
+    "wordpress": "7.0.9",
+    "source_sha256": {
+        "wp-includes\/pluggable.php": "c50d95cc208711745a7a8931584155169b50c8d91473a5e731ac22efb3fa30db",
+        "wp-includes\/class-phpass.php": "eac68d6268d6704c8ca3195a731a6cc476e6dbfc6a604adb784886e3a0b10221",
+        "wp-includes\/class-wp-hook.php": "a66fe7372af72876fc702e50943f9a2a8dff4ed7394163e07491b80a06e27f1d",
+        "wp-includes\/plugin.php": "2e06902ae7d65d7dad37cbafd8e8feff83e4aeeff3a7839885ce7fe4f0c94d68",
+        "woocommerce\/packages\/action-scheduler\/functions.php": "54d690d01e46065e1083519a2368579f7a69ea3852c34a99988cb700462b21b6",
+        "wp-includes\/version.php": "c510396d7d36e113f45791b0704b52dee93a3e069e1644ec16492a6c7895b7f8"
+    },
+    "checks": [
+        {
+            "check": "native_user_pass_storage",
+            "status": "PASS"
+        },
+        {
+            "check": "legacy_md5_branch",
+            "status": "PASS"
+        },
+        {
+            "check": "overridden_hasher",
+            "status": "PASS"
+        },
+        {
+            "check": "wordpress_prefixed_branch",
+            "status": "PASS"
+        },
+        {
+            "check": "sha384_hmac",
+            "status": "PASS"
+        },
+        {
+            "check": "phpass_branch",
+            "status": "PASS"
+        },
+        {
+            "check": "compat_password_verify",
+            "status": "PASS"
+        },
+        {
+            "check": "default_bcrypt_filter",
+            "status": "PASS"
+        },
+        {
+            "check": "phpass_p_and_h_recognition",
+            "status": "PASS"
+        },
+        {
+            "check": "native_preinitialised_hooks",
+            "status": "PASS"
+        },
+        {
+            "check": "native_short_circuit:pre_as_enqueue_async_action",
+            "status": "PASS"
+        },
+        {
+            "check": "native_short_circuit:pre_as_schedule_single_action",
+            "status": "PASS"
+        },
+        {
+            "check": "native_short_circuit:pre_as_schedule_recurring_action",
+            "status": "PASS"
+        },
+        {
+            "check": "native_short_circuit:pre_as_schedule_cron_action",
+            "status": "PASS"
+        }
+    ],
+    "no_password_check_executed": true,
+    "exit_code": 0
+}

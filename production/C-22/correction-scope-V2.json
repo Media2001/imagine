@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-26T14:16:28.054340+00:00",
+  "scope": "imagine-test-demo",
+  "shared_sources_untouched": true,
+  "shared_source_readback": {
+    "plugins/imagine-site/Confidentialite.php": "39b4aa84a3bb565683d914073748b08eaf500f1d1fc8e42b03ee0e79dea450e5",
+    "plugins/imagine-site/imagine-site.php": "7a5cde3ffefcd9d907c400401add9b6ec16a76e42cfa3d8e58af6ca5f9eabdc6"
+  },
+  "network": {
+    "observed_requests": 41,
+    "mail_attempts": 0,
+    "http_attempts": 54,
+    "http_blocked": 54,
+    "outside_demo_blocked": [
+      "https://secure.gravatar.com/avatar/bd25992cf05fd751d035283b38aa8d121bb3d541dd8906110e31d79e7eff512b",
+      "https://secure.gravatar.com/avatar/bd25992cf05fd751d035283b38aa8d121bb3d541dd8906110e31d79e7eff512b",
+      "https://secure.gravatar.com/avatar/bd25992cf05fd751d035283b38aa8d121bb3d541dd8906110e31d79e7eff512b",
+      "https://secure.gravatar.com/avatar/bd25992cf05fd751d035283b38aa8d121bb3d541dd8906110e31d79e7eff512b",
+      "https://secure.gravatar.com/avatar/bd25992cf05fd751d035283b38aa8d121bb3d541dd8906110e31d79e7eff512b",
+      "https://secure.gravatar.com/avatar/bd25992cf05fd751d035283b38aa8d121bb3d541dd8906110e31d79e7eff512b"
+    ]
+  },
+  "correction_checks": 29,
+  "historical_receipts_preserved": 39
+}

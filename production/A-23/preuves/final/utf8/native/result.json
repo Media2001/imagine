@@ -1,0 +1,1229 @@
+{
+  "suite": "A02-real-commercial-fixture",
+  "checks": [
+    {
+      "check": "lint:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:seed.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:fingerprint.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:unit.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:readonly-probe.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": false,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "classic:native_seed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:audit_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:confined_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:exact:readers",
+      "status": "PASS",
+      "detail": {
+        "actual": {
+          "accounts": 32,
+          "families": {
+            "groups": [
+              {
+                "label": "phpass",
+                "accounts": 10
+              },
+              {
+                "label": "wordpress_bcrypt",
+                "accounts": 20
+              }
+            ],
+            "autres": 2
+          },
+          "emails": {
+            "groups": [
+              {
+                "label": "email_empty",
+                "accounts": 5
+              },
+              {
+                "label": "email_malformed",
+                "accounts": 5
+              },
+              {
+                "label": "email_shared_case_insensitive",
+                "accounts": 11
+              }
+            ],
+            "autres": 0
+          },
+          "logins": {
+            "groups": [
+              {
+                "label": "login_equals_email",
+                "accounts": 10
+              },
+              {
+                "label": "login_case_collision",
+                "accounts": 10
+              }
+            ],
+            "autres": 0
+          }
+        },
+        "expected": {
+          "accounts": 32,
+          "families": {
+            "groups": [
+              {
+                "label": "phpass",
+                "accounts": 10
+              },
+              {
+                "label": "wordpress_bcrypt",
+                "accounts": 20
+              }
+            ],
+            "autres": 2
+          },
+          "emails": {
+            "groups": [
+              {
+                "label": "email_empty",
+                "accounts": 5
+              },
+              {
+                "label": "email_malformed",
+                "accounts": 5
+              },
+              {
+                "label": "email_shared_case_insensitive",
+                "accounts": 11
+              }
+            ],
+            "autres": 0
+          },
+          "logins": {
+            "groups": [
+              {
+                "label": "login_equals_email",
+                "accounts": 10
+              },
+              {
+                "label": "login_case_collision",
+                "accounts": 10
+              }
+            ],
+            "autres": 0
+          }
+        }
+      }
+    },
+    {
+      "check": "classic:exact:live_readers",
+      "status": "PASS",
+      "detail": {
+        "actual": {
+          "accounts": 20,
+          "families": {
+            "groups": [
+              {
+                "label": "phpass",
+                "accounts": 10
+              },
+              {
+                "label": "wordpress_bcrypt",
+                "accounts": 10
+              }
+            ],
+            "autres": 0
+          },
+          "emails": {
+            "groups": [
+              {
+                "label": "email_empty",
+                "accounts": 5
+              },
+              {
+                "label": "email_malformed",
+                "accounts": 5
+              },
+              {
+                "label": "email_shared_case_insensitive",
+                "accounts": 10
+              }
+            ],
+            "autres": 0
+          },
+          "logins": {
+            "groups": [
+              {
+                "label": "login_equals_email",
+                "accounts": 5
+              },
+              {
+                "label": "login_case_collision",
+                "accounts": 5
+              }
+            ],
+            "autres": 0
+          }
+        },
+        "expected": {
+          "accounts": 20,
+          "families": {
+            "groups": [
+              {
+                "label": "phpass",
+                "accounts": 10
+              },
+              {
+                "label": "wordpress_bcrypt",
+                "accounts": 10
+              }
+            ],
+            "autres": 0
+          },
+          "emails": {
+            "groups": [
+              {
+                "label": "email_empty",
+                "accounts": 5
+              },
+              {
+                "label": "email_malformed",
+                "accounts": 5
+              },
+              {
+                "label": "email_shared_case_insensitive",
+                "accounts": 10
+              }
+            ],
+            "autres": 0
+          },
+          "logins": {
+            "groups": [
+              {
+                "label": "login_equals_email",
+                "accounts": 5
+              },
+              {
+                "label": "login_case_collision",
+                "accounts": 5
+              }
+            ],
+            "autres": 0
+          }
+        }
+      }
+    },
+    {
+      "check": "classic:exact:without_commerce",
+      "status": "PASS",
+      "detail": {
+        "actual": {
+          "groups": [],
+          "autres": 3
+        },
+        "expected": {
+          "groups": [],
+          "autres": 3
+        }
+      }
+    },
+    {
+      "check": "classic:all_private_values_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:private_report_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:replay_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:documented_only_given_arguments",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:repo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:ancestor",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:unconfined_php_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:symlink_closed:False",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:symlink_closed:True",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:0",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:1",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:2",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:3",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:4",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:5",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:config_closed:define",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:config_closed:const",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:transaction_readonly_even_root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:audit_guard:schema",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:audit_guard:storage",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:direct_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:direct_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:mutation_without_guard_detected:direct_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:direct_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:direct_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:mutation_without_guard_detected:direct_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:display_early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:display_early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:mutation_without_guard_detected:display_early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:silent_early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:silent_early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:mutation_without_guard_detected:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_display",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:shutdown_display",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:invalid_utf8",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:invalid_utf8",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:oversize_output",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:oversize_output",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:plugin_exception",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:plugin_exception",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_invalid_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:shutdown_invalid_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_extra_string",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:shutdown_extra_string",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_markdown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:shutdown_markdown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_extra_file",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:shutdown_extra_file",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_channel:shutdown_partial",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_retained_payload:shutdown_partial",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_tables_and_scheduler_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:site_files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:config_never_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:actual_import_replaces_three_fields",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:neutralised_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:neutralised_success",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "code": "NON_CODE"
+      }
+    },
+    {
+      "check": "classic:six_unknown_blocks_never_zero",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:useful_counts_preserved_after_import",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:neutralised_all_tables_files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_output_artifacts_clean",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": true,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "hpos:native_seed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:audit_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:confined_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:exact:readers",
+      "status": "PASS",
+      "detail": {
+        "actual": {
+          "accounts": 32,
+          "families": {
+            "groups": [
+              {
+                "label": "phpass",
+                "accounts": 10
+              },
+              {
+                "label": "wordpress_bcrypt",
+                "accounts": 20
+              }
+            ],
+            "autres": 2
+          },
+          "emails": {
+            "groups": [
+              {
+                "label": "email_empty",
+                "accounts": 5
+              },
+              {
+                "label": "email_malformed",
+                "accounts": 5
+              },
+              {
+                "label": "email_shared_case_insensitive",
+                "accounts": 11
+              }
+            ],
+            "autres": 0
+          },
+          "logins": {
+            "groups": [
+              {
+                "label": "login_equals_email",
+                "accounts": 10
+              },
+              {
+                "label": "login_case_collision",
+                "accounts": 10
+              }
+            ],
+            "autres": 0
+          }
+        },
+        "expected": {
+          "accounts": 32,
+          "families": {
+            "groups": [
+              {
+                "label": "phpass",
+                "accounts": 10
+              },
+              {
+                "label": "wordpress_bcrypt",
+                "accounts": 20
+              }
+            ],
+            "autres": 2
+          },
+          "emails": {
+            "groups": [
+              {
+                "label": "email_empty",
+                "accounts": 5
+              },
+              {
+                "label": "email_malformed",
+                "accounts": 5
+              },
+              {
+                "label": "email_shared_case_insensitive",
+                "accounts": 11
+              }
+            ],
+            "autres": 0
+          },
+          "logins": {
+            "groups": [
+              {
+                "label": "login_equals_email",
+                "accounts": 10
+              },
+              {
+                "label": "login_case_collision",
+                "accounts": 10
+              }
+            ],
+            "autres": 0
+          }
+        }
+      }
+    },
+    {
+      "check": "hpos:exact:live_readers",
+      "status": "PASS",
+      "detail": {
+        "actual": {
+          "accounts": 20,
+          "families": {
+            "groups": [
+              {
+                "label": "phpass",
+                "accounts": 10
+              },
+              {
+                "label": "wordpress_bcrypt",
+                "accounts": 10
+              }
+            ],
+            "autres": 0
+          },
+          "emails": {
+            "groups": [
+              {
+                "label": "email_empty",
+                "accounts": 5
+              },
+              {
+                "label": "email_malformed",
+                "accounts": 5
+              },
+              {
+                "label": "email_shared_case_insensitive",
+                "accounts": 10
+              }
+            ],
+            "autres": 0
+          },
+          "logins": {
+            "groups": [
+              {
+                "label": "login_equals_email",
+                "accounts": 5
+              },
+              {
+                "label": "login_case_collision",
+                "accounts": 5
+              }
+            ],
+            "autres": 0
+          }
+        },
+        "expected": {
+          "accounts": 20,
+          "families": {
+            "groups": [
+              {
+                "label": "phpass",
+                "accounts": 10
+              },
+              {
+                "label": "wordpress_bcrypt",
+                "accounts": 10
+              }
+            ],
+            "autres": 0
+          },
+          "emails": {
+            "groups": [
+              {
+                "label": "email_empty",
+                "accounts": 5
+              },
+              {
+                "label": "email_malformed",
+                "accounts": 5
+              },
+              {
+                "label": "email_shared_case_insensitive",
+                "accounts": 10
+              }
+            ],
+            "autres": 0
+          },
+          "logins": {
+            "groups": [
+              {
+                "label": "login_equals_email",
+                "accounts": 5
+              },
+              {
+                "label": "login_case_collision",
+                "accounts": 5
+              }
+            ],
+            "autres": 0
+          }
+        }
+      }
+    },
+    {
+      "check": "hpos:exact:without_commerce",
+      "status": "PASS",
+      "detail": {
+        "actual": {
+          "groups": [],
+          "autres": 3
+        },
+        "expected": {
+          "groups": [],
+          "autres": 3
+        }
+      }
+    },
+    {
+      "check": "hpos:all_private_values_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:private_report_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:replay_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:documented_only_given_arguments",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:repo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:ancestor",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:unconfined_php_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:symlink_closed:False",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:symlink_closed:True",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:0",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:1",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:2",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:3",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:4",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:5",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:config_closed:define",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:config_closed:const",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:transaction_readonly_even_root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:audit_guard:schema",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:audit_guard:storage",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:direct_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:direct_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:mutation_without_guard_detected:direct_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:direct_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:direct_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:mutation_without_guard_detected:direct_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:display_early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:display_early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:mutation_without_guard_detected:display_early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:silent_early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:silent_early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:mutation_without_guard_detected:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_display",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:shutdown_display",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:invalid_utf8",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:invalid_utf8",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:oversize_output",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:oversize_output",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:plugin_exception",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:plugin_exception",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_invalid_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:shutdown_invalid_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_extra_string",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:shutdown_extra_string",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_markdown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:shutdown_markdown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_extra_file",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:shutdown_extra_file",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_channel:shutdown_partial",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_retained_payload:shutdown_partial",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_tables_and_scheduler_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:site_files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:config_never_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:actual_import_replaces_three_fields",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:neutralised_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:neutralised_success",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "code": "NON_CODE"
+      }
+    },
+    {
+      "check": "hpos:six_unknown_blocks_never_zero",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:useful_counts_preserved_after_import",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:neutralised_all_tables_files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_output_artifacts_clean",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "network_interfaces",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp6",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 0,
+  "licensed_sha256": {
+    "woocommerce-subscriptions.zip": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083",
+    "woocommerce-memberships.zip": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285"
+  },
+  "no_real_site": true
+}

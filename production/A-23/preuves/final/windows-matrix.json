@@ -1,0 +1,81 @@
+{
+  "rows": [
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a23",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "console": "utf-8",
+      "exit_code": 0,
+      "log": "utf8/python-tests.log",
+      "log_sha256": "4eae22bfb42ec2a40be9a684acf24a69de9d6ad0f4cce22bd3854d210b43f959",
+      "tests_run": 23,
+      "all_pass": true
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a23/run.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a23-final-matrix-02\\utf8\\native"
+      ],
+      "console": "utf-8",
+      "exit_code": 0,
+      "log": "utf8/runner-console.log",
+      "log_sha256": "090f77421ea2e8e73e5722500045656a7f8933796576d5133707f7b3c7572af1"
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a23",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "console": "cp1252",
+      "exit_code": 0,
+      "log": "cp1252/python-tests.log",
+      "log_sha256": "710a959174d43cf3c983d0799be87ad5840f2f2589b7adae7bbf5780797d60ec",
+      "tests_run": 23,
+      "all_pass": true
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a23/run.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a23-final-matrix-02\\cp1252\\native"
+      ],
+      "console": "cp1252",
+      "exit_code": 0,
+      "log": "cp1252/runner-console.log",
+      "log_sha256": "1096ba135bde7adde79585a77007851174158a320a8ae332d53f1d1e704c9fd4"
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a23/style.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a23-final-matrix-02\\style"
+      ],
+      "console": "utf-8",
+      "exit_code": 0,
+      "log": "style-console.log",
+      "log_sha256": "deb9e629fbc6b90a265116cff72c057f483cd29def2b63906ce9b2b2dd46e539"
+    }
+  ],
+  "exit_code": 0
+}
