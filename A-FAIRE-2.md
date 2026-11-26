@@ -2,7 +2,7 @@
 
 File de la **deuxième session d'Hermès**. Tenue par Claude. **Hermès ne modifie pas ce fichier.**
 
-Mis à jour le 26 novembre 2026, 13 h 30 (passage automatique).
+Mis à jour le 26 novembre 2026, 16 h 30 (passage automatique).
 
 Consigne permanente : `prompts/consigne-permanente.md` (section « Les deux voies »). Doctrine : `doctrine/doctrine.md`.
 
@@ -10,20 +10,15 @@ La voie 1 (`A-FAIRE.md`) s'occupe de l'existant : import, audit, mise à jour. L
 
 ## Consignes actives, par ordre de priorité
 
-File du 26/11, 13 h 30. Aucun rapport de ta part depuis 10 h 05 : si tu lis ceci, la file ci-dessous a du travail, et **un rapport court à la fin de ce réveil**, même pour dire ce qui t'a arrêté. **C-21 est code clos** (vérification de 10 h 18 : sept corrections, les tiers préservés). C-22 est relu « à corriger » : sa fusion est arrivée à 10 h 33. Arbitrages : `docs/arbitrages-2026-11-26.md`, passages de 10 h et de 13 h.
+File du 26/11, 16 h 30. Tes rapports de 14 h 43, 15 h 20 et 16 h 19 sont lus, merci pour eux. **B-05 et C-22 sont code clos** (vérifications de 15 h 33 et 15 h 38 : sept et trois corrections appliquées). **C-23 est rendu**, en relecture : 1 432 contrôles, aucune fuite, la mutation fait rougir. Arbitrages : `docs/arbitrages-2026-11-26.md`, passage de 16 h.
 
-**0. Corrections de B-05** (`corrections/B-05.md`) : deux importants, les sept instructions comme la fusion les écrit. Dans le contenu d'un partenaire, un lien dont on ne sait pas dire s'il sort du site est déclaré commercial plutôt qu'oublié. Les liens internes vers la fiche d'un partenaire ne le sont pas : confirmé. Le contrôle de l'accueil doit d'abord trouver des liens d'articles (plus de zéro) avant de dire qu'aucun n'est déclaré commercial.
+**0. `briefs/B-06-espace-cooperateurs.md`** — en cours chez toi. L'attribut « coopérateur » posé par l'administration, avec sa source, et l'espace réservé qu'il ouvre (§3.9, §3.12). Il n'ouvre pas les articles. Rien de CoopHub. Quand il est rendu, **ajoute ses pages à la matrice de C-23** (le contenu de l'espace, pour un non-coopérateur) : le test de livraison suit ce qu'on construit.
 
-**1. Corrections de C-22** (`corrections/C-22.md`) : deux importants, un mineur, les trois instructions comme la fusion les écrit.
-   - un identifiant de lettre déjà employé, même retiré, est réservé et refusé : c'est une donnée de consentement, l'avertissement d'écran ne suffit pas ;
-   - ton vérificateur échoue sur l'arbre livré parce qu'il contrôle l'écriture d'un fichier partagé (que C-21 a légitimement changée) : il contrôle le résultat, la préférence qui sort à l'export et disparaît à l'effacement ;
-   - longueurs comptées en caractères ;
-   - l'injection dans l'écran de C-10 reste comme elle est, avec un test de présence de la section ;
-   - **la place de la section sous le bouton « Enregistrer » ne bouge pas** : c'est une question visuelle posée à Ced.
+**1. `briefs/C-24-formulaire-de-personnalisation.md`** — « Personnalisez ce que vous recevez » dans Mon compte : des questions qui sont un réglage, des réponses qui deviennent des étiquettes sur le compte, un consentement distinct (§3.7, §3.10, §4.4). Rien ne part vers Brevo. Une demi-journée.
 
-**2. `briefs/C-23-test-d-etancheite-de-livraison.md`** — une seule commande qui rejoue l'étanchéité de tout ce qui a été construit depuis C-08 : toutes les voies, tous les publics sans droit, le contrôle inverse (§3.9, §4.4). Lecture seule ; ce lot ne modifie pas le paywall, il rapporte. Une demi-journée.
+**2. `briefs/B-07-agenda.md`** — l'agenda : trois types d'événements, inscription simple aux rencontres gratuites, lien externe pour les événements partenaires, balisage minimal (§3.11). Pas de billetterie. Une demi-journée.
 
-**3. `briefs/B-06-espace-cooperateurs.md`** — l'attribut « coopérateur » posé par l'administration, avec sa source, et l'espace réservé qu'il ouvre (§3.9, §3.12). Il n'ouvre pas les articles. Rien de CoopHub. Une demi-journée.
+**Sur C-23, en attendant sa relecture** : ton choix de ne pas corriger le paywall dans ce lot est le bon ; le script de récupération reste hors du rejeu courant, comme tu l'as écrit. Les plans de site sont fermés sur la démonstration : le jour où ils s'ouvrent, ces quatre lignes de la matrice changent de sens, et le test devra y chercher les témoins. **Rangement** : un relecteur signale `production/B-05/correction-preparation-V2.log` ; si ce n'est pas une preuve du paquet, sors-le.
 
 **Règle rappelée par B-05 et C-21 : un contrôle qui ne peut pas échouer ne prouve rien.** Un contrôle d'absence vérifie d'abord que ce qu'il inspecte existe (la liste n'est pas vide, la page est bien celle attendue) ; un jeu d'essai traverse le vrai chemin (un vrai brouillon de C-16, pas une forme écrite à la main). Une mutation témoin pour chaque contrôle d'absence nouveau.
 
@@ -66,5 +61,6 @@ Les liens « offert » et « groupé » absents des profils (C-13 et B-02 en mod
 | C-19 Tableau de bord | 26/11, corrigé le 26/11 | **Code clos le 26/11** : quatre corrections vérifiées ; droit d'accès laissé tel quel (les deux droits), « par moyen de paiement » grisé. Validation visuelle de Ced attendue |
 | C-20 Ne pas renouveler | 26/11, corrigé le 26/11 | **Code clos le 26/11**, périmètre réduit : raccord corrigé et couvert sur le vrai adaptateur, écrans sans bouton. §3.4 n'est pas tenu : le bouton passe au branchement sur le staging vérifié. Validation visuelle de Ced attendue |
 | C-21 Export et effacement | 26/11, corrigé le 26/11 | **Code clos le 26/11** : sept corrections vérifiées (l'export d'un opérateur ne contient plus rien de son client ; l'effacement préserve les tiers). Validation visuelle de Ced attendue |
-| B-05 Partenaires | 26/11 | Relu « à corriger » : deux importants (consigne 0) |
-| C-22 Préférences des newsletters | 26/11 | Relu « à corriger » : deux importants (consigne 1). Une question visuelle pour Ced : la section sous le bouton « Enregistrer » |
+| B-05 Partenaires | 26/11, corrigé le 26/11 | **Code clos le 26/11** : sept corrections vérifiées (un lien dont on ne sait pas dire s'il sort du site est déclaré commercial ; le contrôle de l'accueil trouve d'abord des liens). Validation visuelle de Ced attendue ; la distinction graphique de l'étiquette « Partenariat » relève du designer |
+| C-22 Préférences des newsletters | 26/11, corrigé le 26/11 | **Code clos le 26/11** : trois corrections vérifiées (un identifiant déjà employé est réservé et refusé, même après effacement du compte ; longueurs en caractères). Validation visuelle de Ced attendue, avec une question : la section sous le bouton « Enregistrer » |
+| C-23 Test d'étanchéité de livraison | 26/11 | Rendu, en relecture : 101 voies, 14 publics, aucune fuite. Limites : cache d'hébergement et robots réellement vérifiés hors de portée de la démonstration ; plans de site fermés |

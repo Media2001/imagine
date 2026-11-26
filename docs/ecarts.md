@@ -67,3 +67,11 @@ Toute demande hors cahier des charges, toute contradiction interne au cahier des
 - **C-21 · « l'export ne divulgue jamais un tiers ».** La première livraison le contredisait sur trois chemins (export de l'opérateur d'une commande, effacement du payeur d'un cadeau, retrait d'un membre d'un groupe), sous une suite verte. Corrigé ; vérification attendue. Rappel de méthode : une suite verte ne prouve que les chemins que ses jeux d'essai traversent.
 - **Outils de la voie 1 · rejeu par les relecteurs.** La commande de rejeu autorisée ne joue aucun test des outils d'inventaire ; les relecteurs contrôlent les reçus sans rejouer. Lot T-02 ouvert pour les tests purs ; les matrices natives resteront hors de portée des relecteurs.
 - **Outils de la voie 1 · « aucune sortie ne recopie un nom ou un chemin du site ».** Les briefs l'exigent depuis A-17 ; le lanceur commun laissait PHP hériter des deux flux, si bien qu'une extension du site pouvait écrire à l'opérateur hors du tampon (écriture directe, arrêt pendant le chargement, fonction de fin de processus). Trouvé par une relecture sur deux, sur A-20 et A-21 ; les bancs ne posaient qu'un canari affiché. Corrigé par un gardien commun (A-20, A-21), étendu aux outils clos par A-22. Rappel de méthode : un canari se pose sur chaque canal, pas sur le plus commode.
+
+
+## 26 novembre 2026, 16 h — lots C-23, A-22
+
+- **C-23 · ce que le test d'étanchéité ne prouve pas sur la démonstration.** §4.4 demande que le cache de pages distingue connectés et anonymes, et que les robots soient vérifiés par résolution inverse. Ni l'un ni l'autre ne se démontre sur le site fictif (pas de cache d'hébergement, aucun appel extérieur). Le test couvre les faux robots et les faux en-têtes ; le reste se prouvera chez l'hébergeur, qui n'est pas choisi.
+- **C-23 · plans de site.** Ils sont fermés sur la démonstration : le test vérifie leur fermeture, pas leur contenu. À reprendre quand le référenceur les fera ouvrir.
+- **A-22 · le brief sous-estimait le périmètre.** Le brief citait A-12 et A-15 à A-19 « au moins » ; l'inventaire d'Hermès ajoute A-03, A-11 et A-14, qui chargent aussi le WordPress du site. A-02 et A-10 n'en chargent rien.
+
