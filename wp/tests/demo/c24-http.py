@@ -54,9 +54,13 @@ def run(label):
     # Snapshot durable AVANT la première session ; jamais dans le dépôt.
     scratch=Path(os.environ['TMPDIR'])/('c24-http-'+uuid.uuid4().hex)
     scratch.mkdir(mode=0o700);snapshot_path=scratch/'before.json'
-    snapshot_path.write_text(json.dumps({'scope':'imagine-test-demo','snapshot':before,'ids':ids,'native':native},ensure_ascii=False),encoding='utf-8')
+    raw=json.dumps({'scope':'imagine-test-demo','baseline':'Etat recupere pris explicitement comme nouvelle reference ; snapshot historique initial perdu, jamais reconstitue.','snapshot':before,'ids':ids,'native':native},ensure_ascii=False).encode('utf-8')
+    with snapshot_path.open('xb') as stream:
+        stream.write(raw);stream.flush();os.fsync(stream.fileno())
     os.chmod(snapshot_path,0o600)
-    assert json.loads(snapshot_path.read_text(encoding='utf-8'))['snapshot']==before
+    snapshot_sha256=hashlib.sha256(raw).hexdigest()
+    assert hashlib.sha256(snapshot_path.read_bytes()).hexdigest()==snapshot_sha256
+    assert json.loads(snapshot_path.read_bytes())['snapshot']==before
     account_path=wp('echo wp_json_encode(wp_parse_url(wc_get_page_permalink("myaccount"),PHP_URL_PATH));')
     old_catalogue=wp('echo wp_json_encode(Imagine\\Site\\Personnalisation::catalogue());')
     assert len(old_catalogue)==4
@@ -178,19 +182,21 @@ def run(label):
             error=(error or '')+'; retrait observateur : '+type(exc).__name__+': '+str(exc)
         changed=[]
         try:
-            changed=restore(before,ids,allowed_options);restored=True
+            assert hashlib.sha256(snapshot_path.read_bytes()).hexdigest()==snapshot_sha256
+            durable=json.loads(snapshot_path.read_bytes())
+            changed=restore(durable['snapshot'],durable['ids'],allowed_options);restored=True
         except Exception as exc:
             error=(error or '')+'; restauration : '+type(exc).__name__+': '+str(exc)
         checks['comptes_sessions_options_cache_actions_exacts']=restored and snapshot(ids)==before and c24.state()==native
-        if checks['comptes_sessions_options_cache_actions_exacts']:
-            snapshot_path.unlink();scratch.rmdir()
+        # Conserver la préimage privée et son empreinte, même après succès.
+        checks['snapshot_durable_relu']=hashlib.sha256(snapshot_path.read_bytes()).hexdigest()==snapshot_sha256
         checks['observation_non_vide']=len(observations)>20
         checks['aucun_mail_HTTP_tente']=bool(observations) and all(o['mail']==0 for o in observations)
         checks['HTTP_sortant_bloque']=bool(observations) and all(o['http']==o['http_blocked'] for o in observations)
         checks['aucun_HTTP_personnalisation_tente']=bool(observations) and all(o['personalisation_http']==0 for o in observations)
         checks['requete_navigateur_hors_site_bloquee']=all(u.startswith('https://secure.gravatar.com/avatar/') for u in blocked)
         failures=[k for k,v in checks.items() if v is not True]
-        c24.save(label,{'identity':identity,'checks':checks,'total':len(checks),'failures':failures,'error':error,'restored':restored,'restored_option_names':changed,'observed_requests':len(observations),'mail_attempts':sum(o['mail'] for o in observations),'http_attempts':sum(o['http'] for o in observations),'http_blocked':sum(o['http_blocked'] for o in observations),'cache':cache,'before_digest':hashlib.sha256(json.dumps(before,sort_keys=True).encode()).hexdigest(),'after_digest':hashlib.sha256(json.dumps(snapshot(ids),sort_keys=True).encode()).hexdigest(),'visual_approval':False})
+        c24.save(label,{'private_snapshot':{'file':scratch.name+'/before.json','sha256':snapshot_sha256,'retained':True},'baseline':'recovered-new-explicit','historical_initial_snapshot_restored':False,'source_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'identity':identity,'checks':checks,'total':len(checks),'failures':failures,'error':error,'restored':restored,'restored_option_names':changed,'observed_requests':len(observations),'mail_attempts':sum(o['mail'] for o in observations),'http_attempts':sum(o['http'] for o in observations),'http_blocked':sum(o['http_blocked'] for o in observations),'cache':cache,'before_digest':hashlib.sha256(json.dumps(before,sort_keys=True).encode()).hexdigest(),'after_digest':hashlib.sha256(json.dumps(snapshot(ids),sort_keys=True).encode()).hexdigest(),'visual_approval':False})
         print(json.dumps({'total':len(checks),'failures':failures,'error':error,'restored':restored},ensure_ascii=False))
     assert not failures and error is None
 
