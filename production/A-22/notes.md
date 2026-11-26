@@ -55,4 +55,17 @@ La revue du passage par un dossier privé a trouvé deux validations à faire **
 
 Ces **deux lignes applicatives** changent les dépendances : les paquets A20/A21 de matrice 02 et A22 de matrices 02/03 sont désormais historiques, non rescellables sur les nouvelles sources. Leurs FINALISATION portent le checkpoint ; PRET reste absent. Les nouvelles matrices complètes sont réellement lancées : **`a22-matrix-final-04`, `a20-shared-final-03`, `a21-shared-final-03`**. Seules celles-ci seront publiées si leurs retours réels sont verts. Style A21 `a21-shared-style-final-03` déjà vert ; style commun `a22-style-final-06` reste exact, ses trois fichiers PHP étant inchangés. Aucun gate parent exécuté.
 
+## Checkpoint — compatibilité des refus et sélection finale 06 / 04
+
+Six sous-échecs TDD supplémentaires ont montré que le proxy devait garder les refus historiques de chemin A03/A11 et le refus générique A14, au lieu de les rebaptiser par des codes techniques nouveaux. Mappages fermés restaurés, sans recopier les arguments ni une exception brute. **Les 16 tests Python A22 sont réellement verts** après ces corrections ; le gardien est toujours unique. Sources applicatives désormais identiques à celles lancées pour la sélection ci-dessous.
+
+Pour ne pas laisser les replays obsolètes consommer le délai, les quatre contrôleurs intermédiaires A22 02/03/04/05 ont été arrêtés via le gestionnaire de processus possédés, **sans revendiquer une sortie normale**. Relecture CIM : leurs interpréteurs et wrappers ne restent pas actifs. Cinq conteneurs orphelins précis, identifiés par nom, label de propriétaire, image, absence de montage/réseau et protections avant action, ont été retirés puis leur absence a été relue sémantiquement. `cancelled-intermediates.json` conserve ces noms et le reçu de récupération ; ce n’est pas une preuve de tests verts et aucun de ces replays n’entre dans le paquet final.
+
+Dernières exécutions sélectionnées, réellement lancées après les dernières écritures applicatives :
+- A22 `a22-matrix-final-06` — suivi `proc_cacc6f7aa504` ;
+- A20 `a20-shared-final-04` — suivi `proc_56bcf265268d` ;
+- A21 `a21-shared-final-04` — suivi `proc_d733a019bf04`.
+
+Les replays A20/A21 03 éventuels restent aussi historiques après le dernier changement du gardien commun. Les nouveaux paquets ne seront publiés qu’après les vrais retours et comparaison exacte des dépendances exécutées. **Style commun 07 et style A21 04 déjà verts**, avec zéro erreur/avertissement et suppression du runner exact relue. README partagé, verrou, T02 et A23 laissés à leurs propriétaires. Préparation globale, T01 global et PRET toujours non exécutés par cet enfant.
+
 

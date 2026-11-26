@@ -1,0 +1,24 @@
+{
+  "scope": "imagine-test-demo",
+  "interrupted_receipt": "matrice-finale",
+  "sessions_removed_counts": {
+    "8": 1,
+    "7": 1,
+    "28": 1,
+    "9": 1
+  },
+  "business_native_state_restored_sha256": "4d81b43e4958a067678b12bfe1fbf6d57f83dcd382f92404a457e5850a935351",
+  "scheduled_action_restored": {
+    "sha256": "4b8cb7133e9eb83d8b63c5d9f872764063b6021ebd6b37b0c1d7e0cadd17d775",
+    "action8793": {
+      "action_id": "8793",
+      "hook": "woocommerce_scheduled_subscription_payment",
+      "status": "pending",
+      "args": "{\"subscription_id\":101}",
+      "scheduled_date_gmt": "2026-11-26 02:13:28"
+    }
+  },
+  "all_interrupted_sessions_removed": true,
+  "policy_absent_restored": true,
+  "limit": "Session antérieure expirée éventuellement purgée par WordPress non reconstituable sans le snapshot mémoire perdu ; aucun droit natif ni action planifiée modifié."
+}
