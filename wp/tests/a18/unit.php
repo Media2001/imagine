@@ -41,6 +41,27 @@ check('non_belgian_iban_and_unicode_spaces', Forms::scan("GB82 WEST 1234 5698 76
 check('unsafe_key_masked_no_value_output', Imagine\RetentionInventory\Inventory::groups([
     ['scope' => 'order', 'key' => '/A18_PRIVATE_CANARY', 'value' => 'BE68539007547034'],
 ]) === [['scope' => 'order', 'key' => 'autre', 'iban' => 1, 'card' => 0, 'national' => 0]]);
+mkdir('/report/unit-media');
+mkdir('/report/unit-media/alpha');
+mkdir('/report/unit-media/beta');
+$dirs = [];
+foreach (new DirectoryIterator('/report/unit-media') as $entry) {
+    if (!$entry->isDot()) {
+        $dirs[] = $entry->getPathname();
+    }
+}
+file_put_contents($dirs[1] . '/probe.txt', 'XXX');
+try {
+    $media = Imagine\RetentionInventory\Inventory::media('/report/unit-media');
+    check('empty_unknown_before_nonempty_merges', count($media) === 1
+        && $media[0]['directories'] === 2 && $media[0]['files'] === ['txt' => 1] && $media[0]['bytes'] === 3);
+} catch (Throwable) {
+    check('empty_unknown_before_nonempty_merges', false);
+}
+unlink($dirs[1] . '/probe.txt');
+rmdir($dirs[0]);
+rmdir($dirs[1]);
+rmdir('/report/unit-media');
 $result = ['checks' => $checks, 'exit_code' => (int) in_array('FAIL', array_column($checks, 'status'), true)];
 file_put_contents('/report/unit.json', json_encode($result, JSON_PRETTY_PRINT) . "\n");
 exit($result['exit_code']);

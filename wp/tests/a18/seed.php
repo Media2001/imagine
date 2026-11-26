@@ -31,7 +31,7 @@ $token->set_expiry_month('12');
 $token->set_expiry_year('2030');
 $token->save();
 $uploads = wp_upload_dir(null, true, true)['basedir'];
-foreach (['exports', 'A18_PERSONAL_FOLDER_CANARY', '2026'] as $dir) {
+foreach (['exports', 'A18_EMPTY_CANARY', 'A18_PERSONAL_FOLDER_CANARY', '2026'] as $dir) {
     wp_mkdir_p($uploads . '/' . $dir);
 }
 foreach (['a.csv' => 'ABC', 'b.csv' => 'DEFG', 'c.log' => 'HIJKL'] as $name => $text) {

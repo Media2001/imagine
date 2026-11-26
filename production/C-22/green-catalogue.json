@@ -1,0 +1,11 @@
+{
+  "exit": 0,
+  "removed": true,
+  "selection": "NewslettersReglesTest",
+  "image": "sha256:ae1b1861e86d93515dd3aced567d10f70e398cc5bf328db9bad227d9cc65111b",
+  "stdout": "PHPUnit 11.5.58 by Sebastian Bergmann and contributors.\n\nRuntime:       PHP 8.2.33\nConfiguration: /repo/wp/plugins/imagine-site/phpunit.xml\n\n.                                                                   1 / 1 (100%)\n\nTime: 00:00.008, Memory: 10.00 MB\n\nOK (1 test, 2 assertions)\n\nC16_JUNIT\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<testsuites>\n  <testsuite name=\"/repo/wp/plugins/imagine-site/phpunit.xml\" tests=\"1\" assertions=\"2\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.005191\">\n    <testsuite name=\"Site-C11-C13\" tests=\"1\" assertions=\"2\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.005191\">\n      <testsuite name=\"Imagine\\Site\\Tests\\NewslettersReglesTest\" file=\"/repo/wp/plugins/imagine-site/tests/NewslettersReglesTest.php\" tests=\"1\" assertions=\"2\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.005191\">\n        <testcase name=\"testCatalogueEtQuatriemeSansCode\" file=\"/repo/wp/plugins/imagine-site/tests/NewslettersReglesTest.php\" line=\"12\" class=\"Imagine\\Site\\Tests\\NewslettersReglesTest\" classname=\"Imagine.Site.Tests.NewslettersReglesTest\" assertions=\"2\" time=\"0.005191\"/>\n      </testsuite>\n    </testsuite>\n  </testsuite>\n</testsuites>\n",
+  "stderr": "",
+  "network": "none",
+  "tests": 1,
+  "assertions": 2
+}

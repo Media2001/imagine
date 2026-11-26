@@ -47,11 +47,11 @@ if (getenv('A18_CONFINED') === '1') {
     d=json.loads((dest/'conservation.json').read_text());groups=d['database']['groups']
     by={(r['scope'],r['key']):{k:r[k] for k in ['iban','card','national']} for r in groups}
     for scope,key,want in [('account','_a18_card',{'iban':0,'card':1,'national':0}),('account','_a18_rr',{'iban':0,'card':0,'national':1}),('order','_a18_bank',{'iban':1,'card':0,'national':0}),('subscription','_a18_bank',{'iban':1,'card':0,'national':0}),('option','a18_bank_setting',{'iban':1,'card':0,'national':0})]:
-        b.check(storage+':exact_group:'+scope,by.get((scope,key))==want)
+        b.check(storage+':exact_group:'+scope+':'+key,by.get((scope,key))==want)
     b.check(storage+':invalid_and_canary_values_not_counted',not any(k in {'a18_invalid_setting','_a18_canary'} for _,k in by))
     b.check(storage+':tokens_references_separate',d['payment_tokens']==[{'gateway':'a18_fixture','type':'CC','count':1}])
     b.check(storage+':known_and_other_folders_exact',d['media']==[
-        {'folder':'autre','directories':1,'files':{'txt':1},'bytes':4,'server_rule_file_present':False,'reading_denied':None},
+        {'folder':'autre','directories':2,'files':{'txt':1},'bytes':4,'server_rule_file_present':False,'reading_denied':None},
         {'folder':'exports','directories':1,'files':{'csv':2,'log':1},'bytes':12,'server_rule_file_present':False,'reading_denied':None},
         {'folder':'woocommerce_uploads','directories':1,'files':{'html':1,'regles':1},'bytes':13,'server_rule_file_present':True,'reading_denied':None}])
     payload=p.stdout+p.stderr+''.join(x.read_text() for x in dest.iterdir())
