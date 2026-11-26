@@ -156,8 +156,9 @@ def run(label='http-corrections-V2', selection='all'):
                     found,text=search(address['city'],data['uid'])
                     checks[name+'_adresse_native_reread']=data['first_name']==address['first_name'] and data['last_name']==address['last_name'] and all(data[k].get(f)==v for k in ('shipping','billing') for f,v in address.items())
                     checks[name+'_localite_distincte_retrouve']=found and address['city'] not in client['nom'] and address['city'] not in data['email']
-                    found,text=search("O'Fictif",data['uid'])
-                    checks[name+'_GET_nom_apostrophe_reel_sans_slash']=found and ('value="O&#039;Fictif"' in text or 'value="O\'Fictif"' in text) and "O\\&#039;Fictif" not in text
+                    found,text=search(client['nom'],data['uid'])
+                    shown=re.search(r'name="recherche"[^>]*value="([^"]*)"',text)
+                    checks[name+'_GET_nom_apostrophe_reel_sans_slash']=found and shown is not None and base.unescape(shown.group(1))==client['nom']
                     found,text=search(address['city'],data['uid'])
                     checks[name+'_GET_localite_apostrophe_reel_sans_slash']=found and '\\&#039;' not in text
                 elif name=='reglage_non':

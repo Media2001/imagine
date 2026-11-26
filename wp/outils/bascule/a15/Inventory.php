@@ -60,7 +60,9 @@ final class Inventory
 
     private static function owner(string $file, string $site): string
     {
-        foreach (['plugin' => '/wp-content/plugins/', 'mu_plugin' => '/wp-content/mu-plugins/', 'theme' => '/wp-content/themes/'] as $kind => $part) {
+        $parts = ['plugin' => '/wp-content/plugins/', 'mu_plugin' => '/wp-content/mu-plugins/',
+            'theme' => '/wp-content/themes/'];
+        foreach ($parts as $kind => $part) {
             if (str_starts_with($file, $site . $part)) {
                 $slug = explode('/', substr($file, strlen($site . $part)))[0];
                 if (!preg_match('/\A[a-zA-Z0-9_.-]+\z/D', $slug)) {
@@ -109,11 +111,18 @@ final class Inventory
                 foreach ($callbacks as $item) {
                     $fn = $item['function'];
                     try {
-                        $ref = is_array($fn) ? new \ReflectionMethod($fn[0], $fn[1])
-                            : (is_object($fn) && !$fn instanceof \Closure ? new \ReflectionMethod($fn, '__invoke') : new \ReflectionFunction($fn));
+                        if (is_array($fn)) {
+                            $ref = new \ReflectionMethod($fn[0], $fn[1]);
+                        } elseif (is_object($fn) && !$fn instanceof \Closure) {
+                            $ref = new \ReflectionMethod($fn, '__invoke');
+                        } else {
+                            $ref = new \ReflectionFunction($fn);
+                        }
                         // Core email MIME formatting is not an SMTP/provider implementation.
-                        if ($ref instanceof \ReflectionMethod && $ref->getDeclaringClass()->getName() === 'WC_Email'
-                            && $ref->getName() === 'handle_multipart') {
+                        if (
+                            $ref instanceof \ReflectionMethod && $ref->getDeclaringClass()->getName() === 'WC_Email'
+                            && $ref->getName() === 'handle_multipart'
+                        ) {
                             continue;
                         }
                         $file = $ref->getFileName();
@@ -131,7 +140,10 @@ final class Inventory
             foreach ($plugins as $file => $data) {
                 $slug = explode('/', $file)[0];
                 $observed = isset($hookOwners[$kind . ':' . $slug]);
-                $named = preg_match('/smtp|brevo|sendinblue|sendgrid|mailgun|mailjet|postmark|amazon.?ses|sendmail/i', $file . ' ' . $data['Name']);
+                $named = preg_match(
+                    '/smtp|brevo|sendinblue|sendgrid|mailgun|mailjet|postmark|amazon.?ses|sendmail/i',
+                    $file . ' ' . $data['Name']
+                );
                 if (!$named && !$observed) {
                     continue;
                 }
@@ -151,7 +163,10 @@ final class Inventory
     {
         \Imagine\PublicAddresses\Runtime::boot($site);
         global $wpdb;
-        $engines = $wpdb->get_col("SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_TYPE='BASE TABLE'");
+        $engines = $wpdb->get_col(
+            "SELECT ENGINE FROM information_schema.TABLES "
+            . "WHERE TABLE_SCHEMA=DATABASE() AND TABLE_TYPE='BASE TABLE'"
+        );
         if (array_filter($engines, static fn($engine): bool => $engine !== 'InnoDB')) {
             throw new \RuntimeException('A15_TRANSACTIONAL_TABLES_REQUIRED');
         }

@@ -1,0 +1,189 @@
+{
+  "at": "2026-11-26T02:45:04.269511+00:00",
+  "status": "GATES_TECHNIQUES_VERTS",
+  "scope": "imagine-test-demo",
+  "C16_payload_sha256_readback": {
+    "CommandeRegles.php": "f679499d267a09e5102054cf49dfb5f8f78e0707a3778e4f5c70a6c0c565aeb2",
+    "CommandeNative.php": "fa99f21ef9f7414f7b78f2e125e49d1e0ecba22c8196f5ed0480643aad308c61",
+    "CommandeAdmin.php": "7e2c2b56048b50dc41e411cfcea21b18dcc4fd1f14a9e589b8c0170ea79dd896",
+    "SansEmail.php": "720148ca8163849666a68ef968d6d552647bbc4d909c3a287d12ce1a98def59c",
+    "c16-reset.php": "c82dd0e082ceff2d8267444dbd9227f3299ee9ce1d4974bc7702f4b77a156193"
+  },
+  "shared_current_contract": {
+    "classes": {
+      "CommandeRegles": true,
+      "SansEmail": true,
+      "CommandeNative": true,
+      "CommandeAdmin": true,
+      "Justificatifs": true,
+      "ExtractionsAdmin": true,
+      "TableauBordAdmin": true,
+      "MonCompte": true
+    },
+    "C16_mail": true,
+    "C16_refus": true,
+    "shared_sha256": {
+      "plugins/imagine-site/imagine-site.php": "fd08869ef6a5c5741e2b7a4340dd55664556591ed496f5cbebc865ded0f2f6d8",
+      "imagine-demo-build/c09-seed.php": "7b7ad355e03208cca739504ff64aef68969e4cfdd8a73fe94e4b3a10382fc382"
+    }
+  },
+  "unit": {
+    "unit-focused-V2": {
+      "tests": 15,
+      "assertions": 38
+    },
+    "unit-root-V2": {
+      "tests": 113,
+      "assertions": 579
+    }
+  },
+  "http": {
+    "http-base-V2": {
+      "total": 70,
+      "failures": []
+    },
+    "http-corrections-V2": {
+      "total": 23,
+      "failures": []
+    }
+  },
+  "canonical_T01": {
+    "tests": 1077,
+    "assertions": 34327,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass": true
+  },
+  "C09": {
+    "checks": 382,
+    "failures": [],
+    "native_exit": 0,
+    "A_PAPIER": {
+      "fixture": {
+        "plan": 86,
+        "product": 87,
+        "users": {
+          "V-DEC": 6,
+          "V-DEC-FIN": 7,
+          "V-INSCRIT": 8,
+          "A-CARTE": 9,
+          "A-SEPA4": 10,
+          "A-PAYPAL": 11,
+          "A-VIR": 12,
+          "A-PAPIER": 13,
+          "A-GRACE": 14,
+          "A-SUSP": 15,
+          "A-EXPIRE": 16,
+          "A-NONRENOUV": 17,
+          "A-ETRANGER": 18,
+          "A-SANSMAIL": 19,
+          "A-ECHEANCE": 20,
+          "P-OFFRANT": 21,
+          "P-OFFERT": 22,
+          "P-GEST": 23,
+          "P-BENEF": 24,
+          "P-PRO": 25,
+          "P-SOL-ATT": 26,
+          "P-SOL-OK": 27,
+          "P-NUMERO": 28,
+          "P-COOP": 29,
+          "E-ADMIN": 30,
+          "E-REDAC": 31,
+          "E-ABO": 32
+        },
+        "orders": {
+          "A-CARTE": 88,
+          "A-SEPA4": 91,
+          "A-PAYPAL": 94,
+          "A-VIR": 97,
+          "A-PAPIER": 100,
+          "A-GRACE": 103,
+          "A-SUSP": 106,
+          "A-EXPIRE": 109,
+          "A-NONRENOUV": 112,
+          "A-ETRANGER": 115,
+          "A-SANSMAIL": 118,
+          "A-ECHEANCE": 121,
+          "P-NUMERO": 126
+        },
+        "subscriptions": {
+          "A-CARTE": 89,
+          "A-SEPA4": 92,
+          "A-PAYPAL": 95,
+          "A-VIR": 98,
+          "A-PAPIER": 101,
+          "A-GRACE": 104,
+          "A-SUSP": 107,
+          "A-EXPIRE": 110,
+          "A-NONRENOUV": 113,
+          "A-ETRANGER": 116,
+          "A-SANSMAIL": 119,
+          "A-ECHEANCE": 122
+        },
+        "memberships": {
+          "A-CARTE": 90,
+          "A-SEPA4": 93,
+          "A-PAYPAL": 96,
+          "A-VIR": 99,
+          "A-PAPIER": 102,
+          "A-GRACE": 105,
+          "A-SUSP": 108,
+          "A-EXPIRE": 111,
+          "A-NONRENOUV": 114,
+          "A-ETRANGER": 117,
+          "A-SANSMAIL": 120,
+          "A-ECHEANCE": 123,
+          "P-SOL-ATT": 124,
+          "P-SOL-OK": 125
+        },
+        "tariffs": {
+          "normal-1": 192,
+          "normal-4": 193,
+          "solidaire-1": 194,
+          "solidaire-4": 195,
+          "soutien-1": 196,
+          "soutien-4": 197
+        },
+        "renewals": {
+          "A-SEPA4": 2419,
+          "A-GRACE": 2420,
+          "A-SUSP": 2421
+        }
+      },
+      "status": "active",
+      "id": 101,
+      "next": "2026-11-26 02:13:28",
+      "action": {
+        "id": 8793,
+        "status": "pending",
+        "args": {
+          "subscription_id": 101
+        },
+        "date": "2026-11-26 02:13:28"
+      }
+    }
+  },
+  "strict_global_exit": 0,
+  "historical_C09_exception": false,
+  "native_cleanup_readback": {
+    "objects": [],
+    "users": [],
+    "probe_absent": true,
+    "probe_state_absent": true
+  },
+  "blockers": [],
+  "evidence_sha256": {
+    "installation-V2.json": "d02c6d1a5909d7b4be66c3f8f5b0a76392760c62d4e3ffba4bfa6e1a820cd18b",
+    "execution-V2.json": "bcf280987e9510e93a1d436eec15012062658e3e8153692a3967d0e8b678f237",
+    "http-base-V2.json": "ab6915e5492fd474711d43733e7f8c5b4e0f4c819c5c4dc85ba86128ac6523f9",
+    "http-corrections-V2.json": "feead5bb279596adaafdcdc259031e7211f8fd18025318a98c07e8bebe36834b",
+    "unit-focused-V2.json": "7775507391c84d855b708ca9e7d78905a259304f56be15732eb84e94f5b8ecce",
+    "unit-root-V2.json": "4b8aef3b067934651680c73002c0096351fa3ac4fad6dfcb769f65c22384ad2d",
+    "preparer-image-V2.log": "e705b15684b6cda0af9e2e3bedb1c307ba2f2726a99efa1aa2bdceb4785bb96e",
+    "rejouer-t01-V2.log": "51c75de07d9560ef01dde896a6d0e11f00c263d6fd8ab4faa805ec6a061bdd2e",
+    "c09-final-V2.json": "999d56d638d30dd76d5dbe6630976b2d5016d1903757fd35ea2a202a57a55587",
+    "red-concurrence-V2.json": "7e33594abf65dadefdeba71e99a4f5f0b92e764549adaa8a04df1dcd7840e857",
+    "red-adresse-apostrophes-V2.json": "439d9b6dfec7725e5a1e27755d6b7686a71c23c49165125a69f3a8459037388e"
+  }
+}

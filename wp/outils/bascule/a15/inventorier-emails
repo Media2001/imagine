@@ -32,8 +32,10 @@ try {
     while (ob_get_level() > $level) {
         ob_end_clean();
     }
-    $code = preg_match('/\AA(?:15|12|11|02)_[A-Z_]+\z/D', $error->getMessage()) ? $error->getMessage() : 'A15_INVENTORY_FAILED';
-    $message = class_exists(\Imagine\PublicAddresses\Runtime::class) ? \Imagine\PublicAddresses\Runtime::refusalMessage($error, $code) : $code;
+    $code = preg_match('/\AA(?:15|12|11|02)_[A-Z_]+\z/D', $error->getMessage())
+        ? $error->getMessage() : 'A15_INVENTORY_FAILED';
+    $message = class_exists(\Imagine\PublicAddresses\Runtime::class)
+        ? \Imagine\PublicAddresses\Runtime::refusalMessage($error, $code) : $code;
     fwrite(STDERR, $message . "\n");
     exit(1);
 }

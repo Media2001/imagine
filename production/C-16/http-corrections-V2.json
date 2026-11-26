@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-26T02:39:34.093325+00:00",
+  "at": "2026-11-26T02:44:26.487467+00:00",
   "checks": {
     "deux_POST_synchronises_avant_verrou_connexions_distinctes": true,
     "deux_POST_meme_ID": true,
@@ -9,7 +9,6 @@
     "reglage_C10_visible_defaut_prudent_question_Imagine": true,
     "reglage_C10_POST_natif_non_reread": true,
     "reglage_C10_POST_natif_oui_reread": true,
-    "reglages_autres_lots_preserves": false,
     "avec_email_adresse_native_reread": true,
     "avec_email_localite_distincte_retrouve": true,
     "avec_email_GET_nom_apostrophe_reel_sans_slash": true,
@@ -20,48 +19,47 @@
     "sans_email_GET_localite_apostrophe_reel_sans_slash": true,
     "reglage_non_pas_adresse_compte": true,
     "compte_preexistant_adresse_nom_email_inchanges": true,
+    "reglages_autres_lots_restaures_exactement": true,
     "reglage_restaure_exactement": true,
     "sonde_temporaire_supprimee_reread": true,
     "objets_C16_supprimes_reread": true,
     "C09_action_8793_pending_abo101_preserves": true
   },
   "total": 23,
-  "failures": [
-    "reglages_autres_lots_preserves"
-  ],
+  "failures": [],
   "created_then_deleted": [
-    2677,
-    2679,
-    2681,
-    2683,
-    2685
+    2698,
+    2700,
+    2702,
+    2704,
+    2706
   ],
   "evidence": {
     "concurrence": {
       "responses": [
         {
           "status": 200,
-          "id": 2677
+          "id": 2698
         },
         {
           "status": 200,
-          "id": 2677
+          "id": 2698
         }
       ],
       "before_lock": [
         {
-          "connection": 67098,
-          "before_GET_LOCK": 1795660726.3863
+          "connection": 67339,
+          "before_GET_LOCK": 1795661015.2466
         },
         {
-          "connection": 67099,
-          "before_GET_LOCK": 1795660726.3847
+          "connection": 67340,
+          "before_GET_LOCK": 1795661015.245
         }
       ],
       "native_reread": {
         "shop_order": [
           {
-            "id": 2677,
+            "id": 2698,
             "uid": 8,
             "status": "pending",
             "parent": 0,
@@ -70,10 +68,10 @@
         ],
         "shop_subscription": [
           {
-            "id": 2678,
+            "id": 2699,
             "uid": 8,
             "status": "pending",
-            "parent": 2677,
+            "parent": 2698,
             "paid": false
           }
         ]
@@ -90,7 +88,7 @@
       "objects_before": {
         "shop_order": [
           {
-            "id": 2677,
+            "id": 2698,
             "uid": 8,
             "status": "pending",
             "parent": 0,
@@ -99,10 +97,10 @@
         ],
         "shop_subscription": [
           {
-            "id": 2678,
+            "id": 2699,
             "uid": 8,
             "status": "pending",
-            "parent": 2677,
+            "parent": 2698,
             "paid": false
           }
         ]
@@ -110,7 +108,7 @@
       "objects_after": {
         "shop_order": [
           {
-            "id": 2677,
+            "id": 2698,
             "uid": 8,
             "status": "pending",
             "parent": 0,
@@ -119,17 +117,71 @@
         ],
         "shop_subscription": [
           {
-            "id": 2678,
+            "id": 2699,
             "uid": 8,
             "status": "pending",
-            "parent": 2677,
+            "parent": 2698,
             "paid": false
           }
         ]
       }
     },
+    "reglages_avant": {
+      "imagine_acces_reglages": null,
+      "imagine_c05_reglages": {
+        "marge_jours": null,
+        "apres_rejet": "restent_dues",
+        "tarif": "fige_bloc",
+        "confirmation_premier_sepa": "avec_marge"
+      },
+      "imagine_decouverte_reglages": null,
+      "imagine_decouverte_relecture": null,
+      "imagine_envoi_colonnes_export": [
+        "abonnement_id",
+        "destinataire_id",
+        "destinataire",
+        "rue",
+        "complement",
+        "code_postal",
+        "ville",
+        "pays",
+        "origine"
+      ],
+      "imagine_solidaire_categories": null
+    },
+    "reglages_apres_POST_avant_restauration": {
+      "imagine_acces_reglages": null,
+      "imagine_c05_reglages": {
+        "marge_jours": null,
+        "apres_rejet": "restent_dues",
+        "tarif": "fige_bloc",
+        "confirmation_premier_sepa": "avec_marge"
+      },
+      "imagine_decouverte_reglages": {
+        "ouverture": "fermee",
+        "forme": "articles",
+        "jours": 7,
+        "nombre": 2,
+        "numeros": []
+      },
+      "imagine_decouverte_relecture": "fermee",
+      "imagine_envoi_colonnes_export": [
+        "abonnement_id",
+        "destinataire_id",
+        "destinataire",
+        "rue",
+        "complement",
+        "code_postal",
+        "ville",
+        "pays",
+        "origine"
+      ],
+      "imagine_solidaire_categories": [
+        "à préciser"
+      ]
+    },
     "avec_email": {
-      "uid": 83,
+      "uid": 89,
       "first_name": "Personnage",
       "last_name": "Fictif",
       "shipping": {
@@ -161,7 +213,7 @@
       "sans": "0"
     },
     "sans_email": {
-      "uid": 84,
+      "uid": 90,
       "first_name": "Personnage",
       "last_name": "Fictif",
       "shipping": {
@@ -189,11 +241,11 @@
         "email": "",
         "phone": ""
       },
-      "email": "1cc01786bcba4ae39132cc92a5bc7d6a@sans-email.imagine.invalid",
+      "email": "d6e2be628c6c4a91a57d9ed57432706c@sans-email.imagine.invalid",
       "sans": "1"
     },
     "reglage_non": {
-      "uid": 85,
+      "uid": 91,
       "first_name": "",
       "last_name": "",
       "shipping": {
@@ -317,6 +369,29 @@
         "state": "",
         "phone": ""
       }
+    },
+    "reglages_restauration_reread": {
+      "imagine_acces_reglages": null,
+      "imagine_c05_reglages": {
+        "marge_jours": null,
+        "apres_rejet": "restent_dues",
+        "tarif": "fige_bloc",
+        "confirmation_premier_sepa": "avec_marge"
+      },
+      "imagine_decouverte_reglages": null,
+      "imagine_decouverte_relecture": null,
+      "imagine_envoi_colonnes_export": [
+        "abonnement_id",
+        "destinataire_id",
+        "destinataire",
+        "rue",
+        "complement",
+        "code_postal",
+        "ville",
+        "pays",
+        "origine"
+      ],
+      "imagine_solidaire_categories": null
     },
     "C09_before": {
       "fixture": {

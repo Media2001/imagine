@@ -1,0 +1,23 @@
+{
+  "imagine_acces_reglages": null,
+  "imagine_c05_reglages": {
+    "marge_jours": null,
+    "apres_rejet": "restent_dues",
+    "tarif": "fige_bloc",
+    "confirmation_premier_sepa": "avec_marge"
+  },
+  "imagine_decouverte_reglages": null,
+  "imagine_decouverte_relecture": null,
+  "imagine_envoi_colonnes_export": [
+    "abonnement_id",
+    "destinataire_id",
+    "destinataire",
+    "rue",
+    "complement",
+    "code_postal",
+    "ville",
+    "pays",
+    "origine"
+  ],
+  "imagine_solidaire_categories": null
+}

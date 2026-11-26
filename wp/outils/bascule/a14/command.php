@@ -37,8 +37,10 @@ try {
     if (!is_file($repository . '/wp/outils/bascule/audit')) {
         $repository = dirname(__DIR__);
     }
-    if (!$site || !$parent || !is_dir($site) || !preg_match('/\A[A-Za-z0-9_-]+\z/D', basename($o['output']))
-        || !\Imagine\ContentInventory\Command::disjointOutput($parent, $site, $repository)) {
+    if (
+        !$site || !$parent || !is_dir($site) || !preg_match('/\A[A-Za-z0-9_-]+\z/D', basename($o['output']))
+        || !\Imagine\ContentInventory\Command::disjointOutput($parent, $site, $repository)
+    ) {
         throw new \RuntimeException('A14_OUTPUT_UNSAFE');
     }
     $out = $parent . '/' . basename($o['output']);

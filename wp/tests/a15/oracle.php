@@ -14,4 +14,7 @@ foreach (WC()->mailer()->get_emails() as $email) {
 }
 usort($rows, static fn(array $a, array $b): int => $a['id'] <=> $b['id']);
 ksort($summary);
-echo 'A15_JSON=' . json_encode(['emails' => $rows, 'summary' => $summary, 'count' => count($rows), 'hpos' => Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled()]) . "\n";
+echo 'A15_JSON=' . json_encode([
+    'emails' => $rows, 'summary' => $summary, 'count' => count($rows),
+    'hpos' => Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled(),
+]) . "\n";
