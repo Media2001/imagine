@@ -1,0 +1,31 @@
+<?php
+
+declare(strict_types=1);
+
+use Imagine\Site\PersonnalisationRegles as R;
+
+$root = '/repo/wp/plugins/imagine-site/';
+$checks = [];
+$checks['regles_presentes'] = is_file($root . 'PersonnalisationRegles.php');
+if ($checks['regles_presentes']) {
+    require $root . 'PersonnalisationRegles.php';
+    $q = [['id' => 'situation-fictive', 'titre' => 'Situation fictive', 'multiple' => false,
+        'choix' => [['id' => 'explorateur-fictif', 'titre' => 'Explorateur fictif'], ['id' => 'reveur-fictif', 'titre' => 'Rêveur fictif']]]];
+    $checks['catalogue_ferme_valide'] = R::catalogue($q) === $q;
+    foreach (['question_duplicate', 'choice_duplicate', 'html', 'libre', 'type', 'id'] as $case) {
+        $bad = $q;
+        if ($case === 'question_duplicate') { $bad[] = $q[0]; }
+        if ($case === 'choice_duplicate') { $bad[0]['choix'][] = $q[0]['choix'][0]; }
+        if ($case === 'html') { $bad[0]['titre'] = '<b>Texte</b>'; }
+        if ($case === 'libre') { $bad[0]['libre'] = true; }
+        if ($case === 'type') { $bad[0]['multiple'] = 'oui'; }
+        if ($case === 'id') { $bad[0]['id'] = 'réparé'; }
+        try { R::catalogue($bad); $checks['refus_'.$case] = false; }
+        catch (InvalidArgumentException) { $checks['refus_'.$case] = true; }
+    }
+    $utf = $q; $utf[0]['titre'] = str_repeat('é', 150);
+    $checks['utf8_caracteres'] = R::catalogue($utf) === $utf;
+}
+$bad = array_keys(array_filter($checks, static fn ($v) => $v !== true));
+echo json_encode(['checks'=>$checks,'total'=>count($checks),'failures'=>$bad], JSON_UNESCAPED_UNICODE);
+exit($bad ? 1 : 0);

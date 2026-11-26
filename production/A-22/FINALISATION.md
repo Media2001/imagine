@@ -1,3 +1,9 @@
+# Reprise fusion 17 h 53 — NON PRET, sources corrigées en cours de rejeu
+
+Le constat de 17 h 06 ci-dessous est historique : la fusion A22 impose une nouvelle exécution A20/A21/A22 sur le gardien corrigé. Les trois marqueurs ont été déplacés en scratch avant changement des sources. Aucune ancienne porte globale ni ancien paquet n'est revendiqué pour les sources courantes. Voir `rapport-corrections-1753.md` et le premier checkpoint de `notes.md`.
+
+---
+
 # Finalisation parent — 2026-11-26T17:06:28.715375+01:00
 
 **PRET : prêt à relire, non clos.** Préparation commune et rejeu global exécutés par le parent sur les sources finales, en UTF-8 et cp1252 : 1 123 tests, 34 569 assertions ; 14 outils, 279 contrôles ; zéro échec, erreur ou ignoré. Vérificateur propre relancé vert dans les deux contextes. Preuve des commandes et sources : `files/rapports/2026-11-26-17h06-portes-parent.json`. Les portes en attente décrites ci-dessous sont le constat historique de l’enfant, désormais accomplies par le parent. Aucun GO réel.
