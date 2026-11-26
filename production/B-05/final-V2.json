@@ -1,0 +1,97 @@
+{
+  "at": "2026-11-26T13:40:27.769980+00:00",
+  "scope": "imagine-test-demo",
+  "status": "PRET_TECHNIQUE_B05_V2",
+  "counts": {
+    "final-runtime-V2": 15,
+    "final-http-V2": 50,
+    "final-admin-V2": 12,
+    "c09-final-V2": 382,
+    "browser-offline-green-V2": 9,
+    "quality-green-V2": 8,
+    "offline-final-V2": 64
+  },
+  "canonical": {
+    "tests": 1123,
+    "assertions": 34569,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "tools": {
+      "tools": 14,
+      "checks": 279,
+      "failures": 0,
+      "excluded": []
+    },
+    "pass": true
+  },
+  "source_sha256": {
+    "production/B-05/A-VOIR.md": "5f94ba0088d180b8d98dccd1740525b21a392457599580fc194ff69aa9f1012c",
+    "production/B-05/CORRECTIONS-V2.md": "0749781a7af2aeab947b5a0fce08338d7e7702db8b3ff325af9f29339045f413",
+    "wp/outils/demo/b05-quality.py": "2a2e2fdcafce5fe6eb978a1dd1593574e175990639023f713159c5812c144c34",
+    "wp/outils/demo/b05-unit.py": "573bb1b49e32163afd8f487e875d97d85152ac176f4026e3a2ef682203db3594",
+    "wp/outils/demo/b05.py": "fe53a3491b28f39d5b97864f5a75ce62018013229b37f2b2c9fac5192ce5d047",
+    "wp/plugins/imagine-site/Partenaires.php": "c5401d354ec742ff9334d6473ad83975ac4c1162ef738c9b779219e4f2a42620",
+    "wp/tests/demo/b05-admin.py": "226e035ed5925653d3c61baff693ccaeb870eb67df78279a512aafff03cf792c",
+    "wp/tests/demo/b05-browser-unit.py": "f1650040a7e5077eded8d0c6b458699c7886583511ddccf3380ea13500b8a031",
+    "wp/tests/demo/b05-http.py": "0f9f23a3d4f0c6a7b13d876bd89099b679d0bf8a9fb76c05500a2180ba4729b7",
+    "wp/tests/demo/b05-offline.php": "1404150b5f5baa2f19b52db9313026400f18e177821cbeec62f8efb697e74682",
+    "wp/tests/demo/b05-runtime.php": "f8beda4a044342da8947b0a55e17dc2a0c5c5e2e030f934c3a6bd51bb1e23f5d",
+    "wp/tests/demo/b05-verifier-v2.py": "37c83cebf900a96434c1c9165320275c7111d9da7a27b948f8580383ccb5d167",
+    "wp/tests/demo/b05-verifier.py": "27dc019bd782f210d4da61784a5cfad580b47d1b807cc574652d2b23c1f6e790",
+    "wp/themes/imagine/archive-imagine_partenaire.php": "1a4d23db1ed39a80f52e0f83ae1836e829b1de5fac17404f475c019148793cba",
+    "wp/themes/imagine/inc/partenaires.php": "9cce0863e4023dd903394862c533e05c65b7f56eb923a12e2dc58699c860de5d"
+  },
+  "receipt_sha256": {
+    "offline-final-V2.json": "3a4c14bbfc3a310929785cc79c01e420f4794cffc0d4f951705a2f7b716087ff",
+    "browser-offline-green-V2.json": "e7772da57fed1d516a88406bc3e20756c019e9032e1847ecfc34331855cd12e4",
+    "quality-green-V2.json": "fcee354bdb8647a378a35ad599d455bf4a754e0a806fe7f9621e366085cd9227",
+    "quality-green-V2.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "final-runtime-V2.json": "1d55bb48a5e0e0584c931cb87e3c9125e00f3cc3f9573dce3d9991d43058d8fd",
+    "final-http-V2.json": "8c938db0a5cbec1b6715741481b6e7f1f458e0fa5f196f6852fe7086f5050ca8",
+    "final-admin-V2.json": "af48300b4c50163df4b646b9252efe0ab554abcf636427b8fdcb8bda9c659ee7",
+    "c09-final-V2.json": "3411315c27bc92fef7413fd8c8a0c453ab30201a2b67ac8444489c5765c8a184",
+    "installation-corrections-V2.json": "ca3b4c43668889d63e83d94e82225911a325903a72bf5779185e784eb71f239a",
+    "corrections-baseline-V2.json": "626dd24884fd0d603cdbf89735410bca3a8f105aefccf05f8fa900943973b180",
+    "preparer-image-V2.log": "eee1be0b3618f6afe236e82fcf3dab73562ab172927970f2f753a5f580e5d349",
+    "rejouer-final-V2.log": "f6b7ce93cd165880f30d9574b9db1d99667037a77377ffb77503876f371d98ea",
+    "standard-sources-V2.json": "766bd657eb0a942e9801369bf8a21692585f388e53382bb0d8c3938edd75fa57",
+    "accueil-partenaire-V2.png": "4483282cf4722deb35f2386a2effc6caddcfaa0d4eefa2eafe5cebdaa11ab2c5",
+    "fiche-partenaire-V2.png": "2415cb0a5d8c7e604c1dabc6e5b73ba2e726e5b02553b6ce3548b61b64ac2ca9"
+  },
+  "shared_contracts": {
+    "bootstrap": "require_once __DIR__ . '/Partenaires.php';\nPartenaires::register();\n\n",
+    "partner_filter": "function imagine_partner_content(string $content): string\n{\n    if (get_post_type() !== 'imagine_partenaire') {\n        return $content;\n    }\n    $tags = new \\WP_HTML_Tag_Processor($content);\n    while ($tags->next_tag('A')) {\n        // Match the browser's ASCII trimming and HTTP backslash handling before\n        // inspecting authority. Unknown/ambiguous destinations fail commercial.\n        $href = trim((string) $tags->get_attribute('href'), \"\\x00..\\x20\");\n        $href = str_replace([\"\\t\", \"\\r\", \"\\n\"], '', $href);\n        $destination = str_replace('\\\\', '/', $href);\n        $http = preg_match('~^(?:https?:)?/{2,}~i', $destination) === 1;\n        if ($http) {\n            $destination = preg_replace('~^((?:https?:)?)/{2,}~i', '$1//', $destination);\n            $host = wp_parse_url($destination, PHP_URL_HOST);\n            $homeHost = wp_parse_url(home_url('/'), PHP_URL_HOST);\n            if (is_string($host) && is_string($homeHost) && strcasecmp($host, $homeHost) === 0) {\n                continue;\n            }\n        } elseif ($href === '' || (!str_contains($href, ':') && !str_contains($href, '\\\\'))) {\n            // Ordinary relative navigation and fragments are known internal.\n            continue;\n        }\n        $rel = preg_split('/\\s+/', trim((string) $tags->get_attribute('rel')), -1, PREG_SPLIT_NO_EMPTY);\n        $rel[] = 'sponsored';\n        $tags->set_attribute('rel', implode(' ', array_unique($rel)));\n    }\n    return $tags->get_updated_html();\n}\n",
+    "README_section": "\n## B-05 — partenaires\n\n`Partenaires` enregistre `imagine_partenaire_du_mois` dans le formulaire Settings API **C10 existant**, via les hooks administratifs, sans modifier la bibliothèque close. Un seul identifiant de partenaire publié, choix manuel ; absent, zéro, invalide ou dépublié : pas de bloc. Les valeurs invalides soumises conservent le choix valide courant. Nonce, contrôle `manage_options` et sauvegarde restent ceux de `options.php`. Pas de rotation, nouveau rôle, service ni règle d'acceptation.\n\nLe thème conserve le gabarit individuel B01 et son filtre natif `WP_HTML_Tag_Processor` : `sponsored` ajouté aux liens HTTP(S) sortants du corps partenaire, avec conservation des autres relations. Les fiches internes restent ordinaires ; aucun lien d'article n'est touché. Bloc, cartes de liste et fiche portent la classe structurelle `imagine-partnership` et le texte **Partenariat** ; aucun CSS ajouté. Le designer doit encore dessiner leur distinction.\n\nLe CPT est exclu de la recherche ; les requêtes publiques de recherche/flux sont également fermées lorsqu'un visiteur force explicitement son type. Les requêtes éditoriales du thème restent sur `post`. Rejeu ciblé : `python -B wp/tests/demo/b05-verifier.py` ; installation autorisée sur la seule démo : `python -B wp/outils/demo/b05.py deploy LABEL`. Tests natifs/Chromium et deux captures, sources officielles et limites : `production/B-05/`. Les reçus antérieurs et les sections partagées sont préservés par contrat, pas par un hash global de README.\n"
+  },
+  "native": {
+    "source_readback": {
+      "plugins/imagine-site/Partenaires.php": "c5401d354ec742ff9334d6473ad83975ac4c1162ef738c9b779219e4f2a42620",
+      "themes/imagine/functions.php": "fdfc8886d7719ddbb28cee1ac644847a45f843d466b5c1c948dc9790f9bc9f3b",
+      "themes/imagine/archive-imagine_partenaire.php": "1a4d23db1ed39a80f52e0f83ae1836e829b1de5fac17404f475c019148793cba"
+    },
+    "safety": {
+      "bootstrap_B05": true,
+      "manual_48": true,
+      "mail_blocked": true,
+      "HTTP_blocked": true,
+      "payments_blocked": true
+    },
+    "shared_bootstrap_observed_sha256": {
+      "plugins/imagine-site/imagine-site.php": "7a5cde3ffefcd9d907c400401add9b6ec16a76e42cfa3d8e58af6ca5f9eabdc6"
+    },
+    "historical_bootstrap_sha256": "16ee4439656f6ddb172a75bcd95302ee6a0cad304409fa8c931735005d55c54c",
+    "shared_bootstrap_pinned": false,
+    "business_state_preserved": true,
+    "action8793": {
+      "action_id": "8793",
+      "hook": "woocommerce_scheduled_subscription_payment",
+      "status": "pending",
+      "args": "{\"subscription_id\":101}",
+      "scheduled_date_gmt": "2026-11-26 02:13:28"
+    }
+  },
+  "visual_approval": false,
+  "real_deployment_authorized": false,
+  "historical_receipt": "final.json preserved; superseded by final-V2.json"
+}

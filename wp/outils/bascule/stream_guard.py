@@ -14,6 +14,7 @@ import subprocess
 import sys
 import tempfile
 import threading
+import time
 sys.dont_write_bytecode=True
 HERE=Path(__file__).resolve().parent
 
@@ -28,9 +29,13 @@ def supervise(command,env,write_root,fence,*,input_data=None,timeout=120,
                           env=env,**options) as child:
         buffers=[bytearray(),bytearray()]
         overflow=threading.Event()
+        stopped=threading.Event()
+        deadline=time.monotonic()+timeout
         def drain(stream,index):
-            while True:
-                block=stream.read(8192)
+            descriptor=stream.fileno()
+            while not stopped.is_set():
+                try:block=os.read(descriptor,8192)
+                except OSError:return
                 if not block:return
                 if len(buffers[index])+len(block)<=65536:buffers[index].extend(block)
                 else:overflow.set()
@@ -42,12 +47,12 @@ def supervise(command,env,write_root,fence,*,input_data=None,timeout=120,
             except (BrokenPipeError,OSError):pass
         if input_data is not None:threading.Thread(target=feed,daemon=True).start()
         try:
-            code=child.wait(timeout=timeout)
-            for reader in readers:reader.join(timeout=timeout)
+            code=child.wait(timeout=max(.001,deadline-time.monotonic()))
+            for reader in readers:reader.join(timeout=max(0,deadline-time.monotonic()))
             if any(reader.is_alive() for reader in readers):raise subprocess.TimeoutExpired(command,timeout)
         except subprocess.TimeoutExpired:
+            stopped.set()
             child.kill();child.wait()
-            for reader in readers:reader.join(timeout=1)
             raise RuntimeError(expired) from None
         if overflow.is_set():raise RuntimeError(invalid)
         return code,bytes(buffers[0]),bytes(buffers[1])

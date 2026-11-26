@@ -21,7 +21,9 @@ def exercise(b,tool,command,site,output,*,input_data=None):
     """Use the real tool command and native MU boundary, never a fake PHP child."""
     env={**os.environ,'PYTHONIOENCODING':'utf-8','PYTHONUTF8':'1','PYTHONDONTWRITEBYTECODE':'1'}
     plugin=site/'wp-content/mu-plugins/000-a22-hostile.php'
-    photograph=lambda:{p.relative_to(site).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()
+    # Metadata only here: A18's kernel media-read watch surrounds the nominal call.
+    # The unchanged bank separately hashes the complete site before/after execution.
+    photograph=lambda:{p.relative_to(site).as_posix():(p.stat().st_size,p.stat().st_mtime_ns,p.stat().st_mode)
                        for p in site.rglob('*') if p.is_file()}
     baseline=photograph()
     channel_rows=[]

@@ -261,6 +261,36 @@ if (getenv('A23_CONFINED') === '1') {
         b.check(storage + ':neutralised_audit', b.audit(site, neutral_audit).returncode == 0)
         neutral = OUT / (storage + '-neutralised')
         q = inventory(site, neutral, neutral_audit / 'audit.json')
+        if q.returncode:
+            probe = r'''import importlib.util,json,sys
+from pathlib import Path
+spec=importlib.util.spec_from_file_location('subject','/subject/a23/confine.py'); s=importlib.util.module_from_spec(spec);spec.loader.exec_module(s)
+original=s.load
+facts={}
+def load(name,path):
+    m=original(name,path)
+    if name=='a23_common_guard':
+        call=m.supervise
+        def observe(*args,**kwargs):
+            rc,out,err=call(*args,**kwargs)
+            facts.update({'php_exit':rc,'stdout_bytes':len(out),'stderr_bytes':len(err),
+                'stdout_is_success':out==s.SUCCESS,
+                'stderr_known_codes':[c for c in sorted(s.CODES) if c.encode() in err],
+                'fixed_signals':[k for k in ['Fatal error','Warning','Uncaught','TypeError','Error','RuntimeException','wp_die','READONLY','is_email','wp_mail','pluggable','get_role','password','WP_Error','SELECT','WordPress database error','cron','Cron','could_not_set','not_scheduled','schedule_event','Unable','action_scheduler','transient','shutdown','UPDATE','INSERT','DELETE','options','theme','stylesheet','template','update_option','wp_maybe_auto_update','wp_check','wp_scheduled_delete','wp_cache'] if k.encode() in err],
+                'stdout_signals':[k for k in ['DISPLAY','CANARY','Error','WordPress','database','DOCTYPE','html','install','A23_OK'] if k.encode() in out]})
+            return rc,out,err
+        m.supervise=observe
+    return m
+s.load=load
+sys.argv=['confine.py',*sys.argv[1:]]
+try:s.main()
+except Exception:pass
+print(json.dumps(facts))
+'''
+            diagnostic = cmd(['python3', '-c', probe, '--wp-path=' + str(site),
+                              '--audit=' + str(neutral_audit / 'audit.json'),
+                              '--output=' + str(OUT / (storage + '-neutral-probe'))], check=False)
+            (OUT / (storage + '-diagnostic.json')).write_text(diagnostic.stdout, encoding='utf-8')
         b.check(storage + ':neutralised_success', q.returncode == 0 and q.stderr == '',
                 {'exit': q.returncode, 'code': q.stderr.strip() if re.fullmatch(r'A(?:23|11|12|02)_[A-Z_]+\n', q.stderr) else 'NON_CODE'})
         n = json.loads((neutral / 'comptes.json').read_text(encoding='utf-8'))

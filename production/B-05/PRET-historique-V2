@@ -1,0 +1,13 @@
+B-05 — PRET TECHNIQUE
+Cible unique : imagine-test-demo ; aucune autorisation de déploiement réel.
+Reçu : production/B-05/final.json
+SHA256 : d361b17a460515fe8b192fc7f07add671736af7386b0148207707be7992945c3
+Gates : natif 15/15 ; pages Chromium/HTTP 38/38 ; C10 et captures 13/13 ; PSR12 ciblé sans erreur.
+T01 : 1097 tests, 34443 assertions, 0 échec/erreur/ignoré ; image préparée.
+C09 : 382/382 ; action 8793 pending / abonnement 101 et état métier exacts.
+À voir : production/B-05/A-VOIR.md ; accueil-partenaire.png ; fiche-partenaire.png.
+Rapport : files/rapports/2026-11-26-08h24-V2.md.
+Relecture parent : PYTHONIOENCODING=utf-8 python -B wp/tests/demo/b05-verifier.py
+Validation visuelle Ced attendue ; distinction graphique réservée au designer.
+File voie 2 relue à la frontière finale : révision 26/11/2026 7h30 inchangée ; aucune correction B05/C20/C21 nouvelle.
+C22 non traité ; verrou du parent laissé intact.

@@ -37,6 +37,15 @@ class CommonGuardTest(unittest.TestCase):
             guard.supervise(self.child('import time; time.sleep(2)'),
                 {**os.environ,'PYTHONIOENCODING':'utf-8'},None,None,timeout=.1)
 
+    def test_descendant_holding_pipes_cannot_extend_deadline(self):
+        import time
+        guard=self.load()
+        command=self.child("import subprocess,sys; subprocess.Popen([sys.executable,'-c','import time; time.sleep(2)'],stdout=sys.stdout,stderr=sys.stderr)")
+        start=time.monotonic()
+        with self.assertRaisesRegex(RuntimeError,'PROCESS_TIMEOUT'):
+            guard.supervise(command,{**os.environ,'PYTHONIOENCODING':'utf-8'},None,None,timeout=.1)
+        self.assertLess(time.monotonic()-start,1)
+
     def test_stdin_unicode_transport_explicit_child_encoding(self):
         guard=self.load()
         code,out,err=guard.supervise(self.child('import sys; sys.stdout.buffer.write(sys.stdin.buffer.read())'),

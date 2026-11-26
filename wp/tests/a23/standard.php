@@ -9,7 +9,7 @@ $phpass = file_get_contents($root . 'class-phpass.php');
 $version = file_get_contents($root . 'version.php');
 preg_match('/\$wp_version\s*=\s*\'([^\']+)\'/', $version, $m);
 $checks = [
-    'native_user_pass_storage' => preg_match('/\'user_pass\'\s*=>\s*\$hashed/', $source) === 1,
+    'native_user_pass_storage' => preg_match('/\'user_pass\'\s*=>\s*\$hash/', $source) === 1,
     'legacy_md5_branch' => str_contains($source, 'strlen( $hash ) <= 32')
         && str_contains($source, 'hash_equals( $hash, md5( $password ) )'),
     'overridden_hasher' => str_contains($source, '$wp_hasher->CheckPassword( $password, $hash )'),
