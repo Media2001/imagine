@@ -40,7 +40,7 @@ if ($checks['raccord_present']) {
         $checks['choix_publie'] = \Imagine\Site\Partenaires::selection()?->ID === $one;
         update_option($option, (string) $two, false);
         $checks['un_seul_choix_remplace'] = \Imagine\Site\Partenaires::selection()?->ID === $two;
-        foreach (['-1', [$one, $two], '12abc', (string) $manifest['demo-article-1'], '999999999'] as $i => $invalid) {
+        foreach (['-1', [$one, $two], '12abc', (string) $manifest['demo-2026-t1-ouvert'], '999999999'] as $i => $invalid) {
             $checks['invalide_conserve_' . $i] = \Imagine\Site\Partenaires::nettoyer($invalid) === $two;
         }
         $checks['formulaire_ancien_conserve'] = \Imagine\Site\Partenaires::nettoyer(null) === $two;

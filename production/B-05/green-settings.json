@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-26T07:09:17.509624+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "raccord_present": true,
+    "settings_API_C10": true,
+    "defaut_sans_selection": true,
+    "choix_publie": true,
+    "un_seul_choix_remplace": true,
+    "invalide_conserve_0": true,
+    "invalide_conserve_1": true,
+    "invalide_conserve_2": true,
+    "invalide_conserve_3": true,
+    "invalide_conserve_4": true,
+    "formulaire_ancien_conserve": true,
+    "effacement_explicite": true,
+    "depublie_ferme": true,
+    "depublie_refuse": true,
+    "champ_label_aucun_deux_choix": true
+  },
+  "total": 15,
+  "failures": [],
+  "exit": 0,
+  "stderr": "",
+  "state_preserved": true
+}

@@ -87,7 +87,7 @@ if (getenv('A16_CONFINED') === '1') {
     after=b.fingerprint(db);(OUT/(storage+'-db-after.json')).write_text(json.dumps(after));b.check(storage+':all_tables_scheduler_identical',before==after);b.check(storage+':files_identical',files==b.files(site));b.check(storage+':config_not_executed',not Path('/scratch/a02-bootstrap-trap').exists())
     mapping=json.loads(Path('/subject/a16/correspondance.exemple.json').read_text());mapping['liaison']['cle']='absent_key';badmap=OUT/(storage+'-absent.json');badmap.write_text(json.dumps(mapping))
     bad=inventory(site,OUT/(storage+'-missing'),audit/'audit.json',badmap)
-    b.check(storage+':absent_mapping_key_named',bad.returncode==1 and bad.stderr=='A16_MAPPING_KEY_ABSENT {"key":"absent_key"}\n')
+    b.check(storage+':absent_mapping_key_code_only',bad.returncode==1 and bad.stdout=='' and bad.stderr=='A16_MAPPING_KEY_ABSENT\n' and not (OUT/(storage+'-missing')).exists())
     missing=b.cmd(['python3','/subject/a16/confine.py','--wp-path='+str(site),'--output=/report/'+storage+'-nomap','--audit='+str(audit/'audit.json')],check=False)
     b.check(storage+':mapping_required',missing.returncode==1 and missing.stderr=='A16_MAPPING_REQUIRED\n')
 b.run_storage=run_storage
