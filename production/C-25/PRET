@@ -1,0 +1,15 @@
+C-25 — PRÊT À RELIRE — 26 novembre 2026
+
+Demande seule en deux étapes ; aucun effet financier ni sur l’accès.
+Sources et readback scellés dans livraison-V2.json.
+SHA-256 livraison-V2.json : 1d5b203e0fe2e6864d16fe8fb7740fc4476264039b02b8ddc183275a60f9026d
+
+8 tests C25 / 146 assertions ; 11 mutations détectées ; 48 contrôles HTTP/natifs.
+Image T01 repréparée ; suite réelle : 1143 tests / 35855 assertions ; 18 outils / 417 contrôles ; aucun échec, erreur ou ignoré.
+État métier et lignes brutes restaurés, sessions comprises ; observateur et essais distants retirés.
+
+Ouvrir A-VOIR.md. Commandes et écarts : NOTE.md.
+Questions accès/remboursement/départ du délai rangées pour Imagine ; aucun effet choisi.
+Validation visuelle de Ced attendue. Aucune validation juridique ni autorisation de déploiement.
+
+Contrôle : python wp/outils/demo/c25-finaliser.py verifier

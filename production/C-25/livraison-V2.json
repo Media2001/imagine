@@ -1,0 +1,89 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T22:14:59.462438+00:00",
+  "result": "PASS",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "sources": {
+    "wp/outils/demo/c25-finaliser.py": "a0d3e293b9cfcf603750f7834747b6f21e2d1c9593b8c5b02a0ec80d7495e021",
+    "wp/outils/demo/c25-mutations.py": "2585214ec1e1e6a9fc5c3645d8f63982aeed246b57aac55bf4e7de72c1a883b1",
+    "wp/outils/demo/c25-recette.py": "63a499559ffc076015f7060eb4da8443dc746958ed551b1ca188f09a6e79f981",
+    "wp/outils/demo/c25.py": "0516223cf778ff95f25009ea10ef7f9de87b20e318f98174ed0a7a4cb13e78ac",
+    "wp/plugins/imagine-site/Retractation.php": "319da49a73da9d95b96cccb3f01711e121a07b05040a573cf634579babd43195",
+    "wp/plugins/imagine-site/RetractationConfidentialite.php": "0089745076ed8797862f6abef47c49274d19dd17f2cfa21376f5de6a99995af8",
+    "wp/plugins/imagine-site/RetractationReglages.php": "c5fcf23ff86929ef7c2fbb78c406514203e7340b8bd60012909f6ae82d41ad1e",
+    "wp/plugins/imagine-site/RetractationRegles.php": "2bd47e957ade4d39b83210a0adc754c4efe6c4948e0772b64fcb2f337c2632e5",
+    "wp/plugins/imagine-site/tests/RetractationAdapterTest.php": "6b49f2ead94970284267e1dacda4d9b2d1999f99a3e3ff8ce382043997f5439d",
+    "wp/plugins/imagine-site/tests/RetractationReglesTest.php": "15cb0c61ade78ab8873cdfe147b58e7518d789e8ea27abb39e1815518799d9f3",
+    "wp/plugins/imagine-site/tests/RetractationWPStubs.php": "80f2710ef6b347c9384b794eb720a7004e7e9a6ab4d4f43d15f3a78c078d5ae6",
+    "wp/tests/demo/c25-horslive.php": "43f44019b38254fd200bc75be5f1314a6d2fdd5ee039ea3366f6aec096265d6b",
+    "wp/tests/demo/c25-observer.php": "e8b98201118ac8b13e0fc47c6736f07137f608cc22e3f13b621d5b166b01a649",
+    "wp/tests/demo/c25-runtime.php": "14b186c2966c608ecdda6b8e0652f3c104f4be6e6b042df75e491c40d55eb0e6"
+  },
+  "remote_sources": {
+    "plugins/imagine-site/RetractationRegles.php": "2bd47e957ade4d39b83210a0adc754c4efe6c4948e0772b64fcb2f337c2632e5",
+    "plugins/imagine-site/Retractation.php": "319da49a73da9d95b96cccb3f01711e121a07b05040a573cf634579babd43195",
+    "plugins/imagine-site/RetractationReglages.php": "c5fcf23ff86929ef7c2fbb78c406514203e7340b8bd60012909f6ae82d41ad1e",
+    "plugins/imagine-site/RetractationConfidentialite.php": "0089745076ed8797862f6abef47c49274d19dd17f2cfa21376f5de6a99995af8"
+  },
+  "bootstrap_contract": true,
+  "receipts": {
+    "canonique-livraison-V2.json": "f856d5306caef44e9aa95775498045b2a5eebab8cdcb1705a4ff3abe7aa40e86",
+    "mutations-livraison-V2.json": "67d8aa63c74fdae2eddca0ef153ec961ecf0b7032dba231bd233ab2200918b19",
+    "image-livraison-V2.json": "39c5405852235d082f35c845dfeff434c5f6eccc50a97fbfe71b4cb432ec897d",
+    "regression-livraison-V2.json": "a2c67222cbd87ee799e2448907dc102a0b6feb1930902573b4fcb53840856d75",
+    "recette-livraison-V2.json": "b0f4043908d0df0514817bbdcb01c239050bf29a38cc67f12dc65203cdecb0ff"
+  },
+  "docs": {
+    "A-VOIR.md": "6ae9f3509019f805fe1e487432d2d98d0e59310de2b617ddd46aae35ba49f18d",
+    "NOTE.md": "df97f4f535297c32c4c9db3f225df50b5423d4848d8af29932298c7a0b7eb65c"
+  },
+  "canonical": {
+    "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+    "tests": "8",
+    "assertions": "146",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "time": "0.025661"
+  },
+  "regression": {
+    "tests": 1143,
+    "assertions": 35855,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "tools": {
+      "tools": 18,
+      "checks": 417,
+      "failures": 0,
+      "excluded": []
+    },
+    "pass": true
+  },
+  "mutations_detected": 11,
+  "http_checks": 16,
+  "native_checks": 32,
+  "integration_checks": 48,
+  "readback": {
+    "default": {
+      "jours": 14,
+      "origine": "paiement"
+    },
+    "requests_empty": true,
+    "observer_absent": true,
+    "runtime_absent": true,
+    "bootstrap_contract": true
+  },
+  "business_restored": true,
+  "blockers": [],
+  "visual_validation_pending": true
+}

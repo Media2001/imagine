@@ -11,9 +11,11 @@ sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[3]
 CHANNELS = ('direct_stdout', 'direct_stderr', 'display_exit', 'silent_exit', 'shutdown_stdout', 'shutdown_stderr',
             'shutdown_display', 'invalid_utf8', 'oversize', 'exception', 'forged_success', 'shutdown_invalid_json',
-            'shutdown_json_canary', 'shutdown_markdown', 'shutdown_extra_file', 'shutdown_partial')
+            'shutdown_json_canary', 'shutdown_markdown', 'shutdown_extra_file', 'shutdown_partial',
+            'shutdown_valid_counts_and_markdown')
 WITNESSES = ('direct_stdout', 'direct_stderr', 'display_exit', 'shutdown_stdout', 'shutdown_stderr',
-             'shutdown_display', 'oversize', 'shutdown_json_canary', 'shutdown_markdown', 'shutdown_extra_file')
+             'shutdown_display', 'oversize', 'shutdown_json_canary', 'shutdown_markdown', 'shutdown_extra_file',
+             'shutdown_valid_counts_and_markdown')
 
 
 def load(name, path):

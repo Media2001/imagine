@@ -145,6 +145,7 @@ if (getenv('A27_CONFINED') === '1') {
                '--audit=' + str(audit), '--output=/report/raw-' + storage], check=False)
     b.check(storage + ':unconfined_php_refused', (raw.returncode, raw.stdout, raw.stderr) == (1, '', 'A27_CONFINEMENT_REQUIRED\n'))
     target = "foreach ($_SERVER['argv'] as $arg) { if (str_starts_with($arg,'--output=')) { $dir=substr($arg,9); } }"
+    coherent = "$p=$dir.'/paiements.json';$d=json_decode(file_get_contents($p),true);$d['counts']['automatic']['autres']=7;$j=json_encode($d,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES).\"\\n\";file_put_contents($p,$j);$m=file_get_contents($dir.'/paiements.md');$pos=strpos($m,'```json');file_put_contents($dir.'/paiements.md',substr($m,0,$pos).'```json'.\"\\n\".$j.\"```\\n\");"
     cases = [
         ('direct_stdout', "fwrite(STDOUT,'A27_STDOUT_PRIVATE_CANARY');", 'A27_PROCESS_OUTPUT_INVALID'),
         ('direct_stderr', "fwrite(STDERR,'A27_STDERR_PRIVATE_CANARY');", 'A27_PROCESS_OUTPUT_INVALID'),
@@ -162,12 +163,14 @@ if (getenv('A27_CONFINED') === '1') {
         ('shutdown_markdown', "register_shutdown_function(function(){" + target + " file_put_contents($dir.'/paiements.md','A27_MARKDOWN_PRIVATE_CANARY',FILE_APPEND);});", 'A27_REPORT_INVALID'),
         ('shutdown_extra_file', "register_shutdown_function(function(){" + target + " file_put_contents($dir.'/extra.txt','A27_FILE_PRIVATE_CANARY');});", 'A27_REPORT_INVALID'),
         ('shutdown_partial', "register_shutdown_function(function(){" + target + " unlink($dir.'/paiements.md');});", 'A27_REPORT_INVALID'),
+        ('shutdown_valid_counts_and_markdown', "register_shutdown_function(function(){" + target + coherent + "});", 'A27_REPORT_INVALID'),
     ]
     fence_spec = importlib.util.spec_from_file_location('a27_native_fence', '/subject/a12/confine.py')
     fence = importlib.util.module_from_spec(fence_spec)
     fence_spec.loader.exec_module(fence)
     witnesses = {'direct_stdout', 'direct_stderr', 'display_exit', 'shutdown_stdout', 'shutdown_stderr',
-                 'shutdown_display', 'oversize', 'shutdown_json_canary', 'shutdown_markdown', 'shutdown_extra_file'}
+                 'shutdown_display', 'oversize', 'shutdown_json_canary', 'shutdown_markdown', 'shutdown_extra_file',
+                 'shutdown_valid_counts_and_markdown'}
     try:
         for label, statement, want in cases:
             mu.write_text("<?php if (getenv('A27_CONFINED') === '1') {" + statement + '}\n' + base_mu[5:], encoding='utf-8')
@@ -192,6 +195,8 @@ if (getenv('A27_CONFINED') === '1') {
                                              preexec_fn=lambda: fence.confine(stage))
                     observed = b'CANARY' in witness.stdout + witness.stderr or any(
                         b'CANARY' in f.read_bytes() for f in (stage / 'result').rglob('*') if f.is_file())
+                    if label == 'shutdown_valid_counts_and_markdown':
+                        observed = json.loads((stage / 'result/paiements.json').read_bytes())['counts']['automatic']['autres'] == 7
                     b.check(storage + ':mutation_witness_' + label, observed)
     finally:
         mu.write_text(base_mu, encoding='utf-8')
