@@ -1,0 +1,56 @@
+{
+  "at": "2026-11-26T20:12:15.279640+00:00",
+  "scope": "imagine-test-demo",
+  "case": "journal-question",
+  "mutation": "",
+  "mutation_replacements": 0,
+  "total": 10,
+  "checks": {
+    "preimage_reelle_presente": true,
+    "sanitize_callback_reel": true,
+    "echec_journal_reel_injecte": true,
+    "aucun_500_reel": false,
+    "preimage_restauree_exacte": false,
+    "readback_SQL_preimage_exacte": false,
+    "erreur_journal_signalee": false,
+    "nouvelle_saisie_reservee_toujours_refusee": true,
+    "aucun_mail": true,
+    "aucun_http": true
+  },
+  "failures": [
+    "aucun_500_reel",
+    "preimage_restauree_exacte",
+    "readback_SQL_preimage_exacte",
+    "erreur_journal_signalee"
+  ],
+  "dies": [
+    500
+  ],
+  "journal_inserts_refused": 1,
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "exit": 1,
+  "stderr": "",
+  "state_preserved": true,
+  "all_business_rows_preserved": true,
+  "private_snapshot": {
+    "file": "b06-private-b8k2fvjv/snapshot.json",
+    "sha256": "f5aa48895c9337940548ddc0c0d41218a09e60b16c0e3dda88080283f755cbb7",
+    "private": true
+  },
+  "source_sha256": "8da0579f6bccb6716485252a88402eb538b1e17a1dbbce0c095c03e9ca08f3e8",
+  "product_sources": {
+    "plugins/imagine-site/PersonnalisationRegles.php": "100fea3d108327455d050f15114dc225fbc8dbb09ab64e166945db5c43a174cc",
+    "plugins/imagine-site/Personnalisation.php": "9de27a41ecbb4c85c84faa85984dfa4ee291583f9fa7c71246b88a16afa6e24e",
+    "plugins/imagine-site/PersonnalisationReglages.php": "0f1ff2428f5c57a546d650be25fde4b9f4252488acd76ef6559669d2e891d266",
+    "plugins/imagine-site/PersonnalisationConfidentialite.php": "4b101d16b0931950730168dbe785e3a7e0f2013b22833be659c52eb3128477b4"
+  }
+}
