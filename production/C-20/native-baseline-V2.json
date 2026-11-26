@@ -1,0 +1,81 @@
+{
+  "A-CARTE": {
+    "id": 89,
+    "status": "active",
+    "method": "",
+    "manual": true,
+    "dates": {
+      "start": "2026-08-27 18:01:50",
+      "end": "2027-11-25 18:01:50",
+      "next_payment": "2026-12-25 18:01:50",
+      "cancelled": 0,
+      "trial_end": 0
+    },
+    "period": "year",
+    "interval": "1",
+    "term": "2026-12-25 18:01:50",
+    "actions": [
+      "cancel",
+      "subscription_renewal_early"
+    ]
+  },
+  "A-SEPA4": {
+    "id": 92,
+    "status": "active",
+    "method": "",
+    "manual": true,
+    "dates": {
+      "start": "2026-05-29 18:01:50",
+      "end": "2027-11-25 18:01:50",
+      "next_payment": "2026-12-25 18:01:50",
+      "cancelled": 0,
+      "trial_end": 0
+    },
+    "period": "month",
+    "interval": "3",
+    "term": "2026-12-25 18:01:50",
+    "actions": [
+      "cancel",
+      "subscription_renewal_early"
+    ]
+  },
+  "A-VIR": {
+    "id": 98,
+    "status": "pending",
+    "method": "",
+    "manual": true,
+    "dates": {
+      "start": "2025-12-25 18:01:50",
+      "end": "2027-11-25 18:01:50",
+      "next_payment": "2026-12-25 18:01:50",
+      "cancelled": 0,
+      "trial_end": 0
+    },
+    "period": "year",
+    "interval": "1",
+    "term": "2026-12-25 18:01:50",
+    "actions": [
+      "cancel"
+    ]
+  },
+  "A-PAPIER": {
+    "id": 101,
+    "status": "active",
+    "method": "",
+    "manual": true,
+    "dates": {
+      "start": "2026-08-27 18:01:50",
+      "end": "2027-11-25 18:01:50",
+      "next_payment": "2026-11-26 02:13:28",
+      "cancelled": 0,
+      "trial_end": 0
+    },
+    "period": "month",
+    "interval": "3",
+    "term": "2027-11-25 18:01:50",
+    "actions": [
+      "cancel",
+      "subscription_renewal_early"
+    ]
+  }
+}
