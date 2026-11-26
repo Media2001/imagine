@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-26T13:49:26.784665+00:00",
+  "scope": "imagine-test-demo",
+  "case": "history",
+  "checks": {
+    "catalogue_temoin_non_vide": true,
+    "ancien_consentement_hors_catalogue_refuse": false,
+    "ancien_consentement_inchange": true,
+    "reserve_historique_survit_effacement": false,
+    "aucun_mail_tente": true,
+    "aucun_HTTP_tente": true
+  },
+  "total": 6,
+  "failures": [
+    "ancien_consentement_hors_catalogue_refuse",
+    "reserve_historique_survit_effacement"
+  ],
+  "exit": 1,
+  "stderr": "",
+  "state_preserved": true,
+  "own_options_exact": true,
+  "source_sha256": "0f62040db29e810a55237000855af948000e58ee54d6153055590a0394b08158"
+}

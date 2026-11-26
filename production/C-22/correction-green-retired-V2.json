@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-26T13:48:51.649038+00:00",
+  "scope": "imagine-test-demo",
+  "case": "retired",
+  "checks": {
+    "catalogue_temoin_non_vide": true,
+    "consentement_temoin_reel": true,
+    "identifiant_retire_refuse": true,
+    "compte_present_sans_ancien_choix_reaffecte": true,
+    "page_presente_sans_lettre_recyclee": true,
+    "historique_conserve_exact": true,
+    "reserve_durable_sans_catalogue_ni_preferences": true,
+    "aucun_mail_tente": true,
+    "aucun_HTTP_tente": true
+  },
+  "total": 9,
+  "failures": [],
+  "exit": 0,
+  "stderr": "",
+  "state_preserved": true,
+  "own_options_exact": true,
+  "source_sha256": "0f62040db29e810a55237000855af948000e58ee54d6153055590a0394b08158"
+}

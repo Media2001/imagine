@@ -70,6 +70,18 @@ final class NewslettersReglages
             $rows = NewslettersRegles::catalogue($rows);
             $current = Newsletters::catalogue();
             self::reserver($current);
+            // Les choix antérieurs à la réserve peuvent déjà viser une lettre retirée.
+            global $wpdb;
+            $values = $wpdb->get_col($wpdb->prepare(
+                "SELECT meta_value FROM {$wpdb->usermeta} WHERE meta_key=%s",
+                Newsletters::META
+            ));
+            if ($wpdb->last_error) {
+                throw new \InvalidArgumentException('Historique indisponible.');
+            }
+            foreach ($values as $value) {
+                self::reserverPreferences(maybe_unserialize($value));
+            }
             $active = array_column($current, 'id');
             foreach ($rows as $row) {
                 if (!in_array($row['id'], $active, true) && get_option(self::reserve($row['id']), false)) {
@@ -145,6 +157,19 @@ final class NewslettersReglages
         }
         echo '</select></p><p>' . esc_html__('Question pour Imagine : à la création du compte, souhaitez-vous cette inscription et avec quel consentement explicite ? Le réglage ne prouve aucun consentement et ne modifie pas les comptes existants. Aucun envoi ni raccord Brevo.', 'imagine-site') . '</p>';
         return ob_get_clean();
+    }
+
+    private static function reserverPreferences(mixed $value): void
+    {
+        if (!is_array($value)) {
+            throw new \InvalidArgumentException('Préférences historiques invalides.');
+        }
+        foreach (array_keys($value) as $id) {
+            if (!is_string($id) || !preg_match('/^[a-z][a-z0-9_-]{0,49}$/D', $id)) {
+                throw new \InvalidArgumentException('Identifiant historique invalide.');
+            }
+            self::reserver([['id' => $id]]);
+        }
     }
 
     private static function reserve(string $id): string

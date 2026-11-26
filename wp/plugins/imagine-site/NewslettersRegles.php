@@ -45,7 +45,10 @@ final class NewslettersRegles
                 throw new \InvalidArgumentException('Newsletter invalide.');
             }
             foreach (['titre' => 150, 'presentation' => 500] as $key => $max) {
-                if (trim($row[$key]) === '' || strlen($row[$key]) > $max || strip_tags($row[$key]) !== $row[$key]) {
+                if (
+                    trim($row[$key]) === '' || mb_strlen($row[$key], 'UTF-8') > $max
+                    || strip_tags($row[$key]) !== $row[$key]
+                ) {
                     throw new \InvalidArgumentException('Texte invalide.');
                 }
             }

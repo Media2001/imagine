@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Imagine\StreamGuard;
 
+function auditLibrary(): void
+{
+    define('IMAGINE_AUDIT_LIBRARY_ONLY', true);
+}
+
 /** Preserve the existing PHP command line; no site code runs in this process. */
 function launch(string $tool, array $arguments): int
 {

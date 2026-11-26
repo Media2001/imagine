@@ -3,20 +3,19 @@
 
 declare(strict_types=1);
 
-define('IMAGINE_AUDIT_LIBRARY_ONLY', true);
-if (getenv('A22_SUPERVISED') !== 'A11') {
-    require_once dirname(__DIR__) . '/stream_bridge.php';
-    exit(Imagine\StreamGuard\launch('A11', $argv));
-}
-require_once dirname(__DIR__) . '/audit';
-require_once __DIR__ . '/Address.php';
-require_once __DIR__ . '/Runtime.php';
-require_once __DIR__ . '/Inventory.php';
-require_once __DIR__ . '/Command.php';
-
 $level = ob_get_level();
 ob_start();
 try {
+    require_once dirname(__DIR__) . '/stream_bridge.php';
+    if (getenv('A22_SUPERVISED') !== 'A11') {
+        exit(Imagine\StreamGuard\launch('A11', $argv));
+    }
+    Imagine\StreamGuard\auditLibrary();
+    require_once dirname(__DIR__) . '/audit';
+    require_once __DIR__ . '/Address.php';
+    require_once __DIR__ . '/Runtime.php';
+    require_once __DIR__ . '/Inventory.php';
+    require_once __DIR__ . '/Command.php';
     $code = Imagine\PublicAddresses\Command::main($argv);
     while (ob_get_level() > $level) {
         ob_end_clean();
