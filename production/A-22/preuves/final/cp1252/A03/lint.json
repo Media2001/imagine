@@ -1,0 +1,14 @@
+{
+  "/opt/a03/unit.php": true,
+  "/opt/a03/output-boundary.php": true,
+  "/subject/non-regression": true,
+  "/subject/comparer": true,
+  "/subject/a03/Policy.php": true,
+  "/subject/a03/Report.php": true,
+  "/subject/a03/Site.php": true,
+  "/plugins/imagine-non-regression/src/PhpLog.php": true,
+  "/plugins/imagine-non-regression/src/Policy.php": true,
+  "/plugins/imagine-non-regression/src/Report.php": true,
+  "/opt/a03/http-rollback.php": true,
+  "/opt/a03/seed.php": true
+}

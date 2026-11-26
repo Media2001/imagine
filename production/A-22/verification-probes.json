@@ -1,0 +1,37 @@
+{
+  "lot": "A-22",
+  "real_sources_and_PRET_untouched": true,
+  "checks": [
+    {
+      "check": "disposable_exact_baseline",
+      "status": "PASS",
+      "verifier_exit_code": 0
+    },
+    {
+      "check": "future_PRET_does_not_break_verifier_scratch_only",
+      "status": "PASS",
+      "verifier_exit_code": 0
+    },
+    {
+      "check": "altered_packet_file_refused",
+      "status": "PASS",
+      "verifier_exit_code": 1
+    },
+    {
+      "check": "resealed_required_native_case_omission_refused",
+      "status": "PASS",
+      "verifier_exit_code": 1
+    },
+    {
+      "check": "current_shared_guard_dependency_drift_refused",
+      "status": "PASS",
+      "verifier_exit_code": 1
+    },
+    {
+      "check": "restored_mirror_green",
+      "status": "PASS",
+      "verifier_exit_code": 0
+    }
+  ],
+  "exit_code": 0
+}

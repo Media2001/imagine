@@ -1,0 +1,40 @@
+{
+    "schema": "imagine-a14-v1",
+    "read_only": true,
+    "storage": "classic",
+    "audit_sha256": "707ab80de30041ed785957eea45516dc7c421ea31c72a27b92c9e88217239a3c",
+    "counts": {
+        "contacts_total": 30,
+        "contacts_with_account": 4,
+        "contacts_without_account": 23,
+        "ambiguous_contact_lines": 1,
+        "accounts_without_contact": 7,
+        "accounts_unmatchable": 1,
+        "invalid_contact_lines": 2,
+        "duplicate_contact_lines": 2,
+        "unsubscribed_contacts": 1,
+        "blocked_contacts": 1
+    },
+    "anomalies": [
+        {
+            "line": 2,
+            "reason": "Doublon dans le fichier"
+        },
+        {
+            "line": 3,
+            "reason": "Doublon dans le fichier"
+        },
+        {
+            "line": 7,
+            "reason": "Adresse \u00e9lectronique invalide"
+        },
+        {
+            "line": 8,
+            "reason": "Adresse \u00e9lectronique invalide"
+        },
+        {
+            "line": 11,
+            "reason": "Plusieurs comptes pour cette adresse"
+        }
+    ]
+}

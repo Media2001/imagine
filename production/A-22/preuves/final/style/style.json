@@ -1,0 +1,49 @@
+{
+  "container": "imagine-a22-style-51a66f9d19a0",
+  "checks": [
+    {
+      "check": "isolation_before",
+      "status": "PASS"
+    },
+    {
+      "check": "lint:wp/outils/bascule/non-regression",
+      "status": "PASS"
+    },
+    {
+      "check": "lint:wp/outils/bascule/a11/inventorier-adresses",
+      "status": "PASS"
+    },
+    {
+      "check": "lint:wp/outils/bascule/stream_bridge.php",
+      "status": "PASS"
+    },
+    {
+      "check": "strict_psr12",
+      "status": "PASS"
+    },
+    {
+      "check": "isolation_after",
+      "status": "PASS"
+    },
+    {
+      "check": "cleanup_exact_owned_runner",
+      "status": "PASS"
+    },
+    {
+      "check": "executed_sources_stable",
+      "status": "PASS"
+    }
+  ],
+  "exit_code": 0,
+  "sources": {
+    "wp/outils/bascule/non-regression": "bdc99542b30cf92e758ea052c514dc9819871ff8cf02d46834daa664919f4d99",
+    "wp/outils/bascule/a11/inventorier-adresses": "198d3b9f0214dc99418196767bc939d1e0348c0dd8696ad227b2f4aa08ba4db3",
+    "wp/outils/bascule/stream_bridge.php": "53a17450882b9398127fd3121da1635ee33126e18cd120c58874a40c90a1cff4"
+  },
+  "totals": {
+    "errors": 0,
+    "warnings": 0,
+    "fixable": 0
+  },
+  "phpcs_exit": 0
+}

@@ -1,0 +1,14 @@
+{
+  "lot": "A12",
+  "runner": "wp/tests/a12/run.py",
+  "runner_sha256": "b75d1e3192ac34414187c2a18ca69b90dd971588b55d5814cbfe66c8f954ba27",
+  "native_calls": [
+    [
+      "exec",
+      "imagine-a12-content-b6d0aae86084",
+      "python3",
+      "/opt/a12/inside.py"
+    ]
+  ],
+  "exit_code": 0
+}

@@ -1,0 +1,42 @@
+{
+  "container": "imagine-a03-4894104ed106",
+  "checks": [
+    {
+      "check": "isolated_before",
+      "ok": true
+    },
+    {
+      "check": "php_lint",
+      "ok": true
+    },
+    {
+      "check": "unit",
+      "ok": true
+    },
+    {
+      "check": "output_boundary",
+      "ok": true
+    },
+    {
+      "check": "classic_hpos",
+      "ok": true
+    },
+    {
+      "check": "isolated_after",
+      "ok": true
+    },
+    {
+      "check": "owned_cleanup",
+      "ok": true
+    },
+    {
+      "check": "accepted_sources_unchanged",
+      "ok": true
+    },
+    {
+      "check": "tested_sources_unchanged",
+      "ok": true
+    }
+  ],
+  "exit_code": 0
+}

@@ -1,0 +1,66 @@
+{
+    "suite": "A12-pure-unit",
+    "checks": [
+        {
+            "check": "real_origin:core",
+            "status": "PASS"
+        },
+        {
+            "check": "real_origin:plugin",
+            "status": "PASS"
+        },
+        {
+            "check": "real_origin:theme",
+            "status": "PASS"
+        },
+        {
+            "check": "real_origin:mu_plugin",
+            "status": "PASS"
+        },
+        {
+            "check": "unreadable_origin_not_invented",
+            "status": "PASS"
+        },
+        {
+            "check": "outside_origin_never_exports_absolute_path",
+            "status": "PASS"
+        },
+        {
+            "check": "missing_stack_origin_explicit",
+            "status": "PASS"
+        },
+        {
+            "check": "disjoint_output_refusal:\/",
+            "status": "PASS"
+        },
+        {
+            "check": "disjoint_output_refusal:\/work",
+            "status": "PASS"
+        },
+        {
+            "check": "disjoint_output_refusal:\/work\/site",
+            "status": "PASS"
+        },
+        {
+            "check": "disjoint_output_refusal:\/work\/site\/reports",
+            "status": "PASS"
+        },
+        {
+            "check": "disjoint_output_refusal:\/code",
+            "status": "PASS"
+        },
+        {
+            "check": "disjoint_output_refusal:\/code\/repo",
+            "status": "PASS"
+        },
+        {
+            "check": "disjoint_output_refusal:\/code\/repo\/reports",
+            "status": "PASS"
+        },
+        {
+            "check": "disjoint_output_accepted",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 0
+}

@@ -1,0 +1,14 @@
+{
+  "lot": "A11",
+  "runner": "wp/tests/a11/run.py",
+  "runner_sha256": "353ed8d50b1f1da21f8fdae05bb1f9a0c1581f89a193f1461c96a7c31833e355",
+  "native_calls": [
+    [
+      "exec",
+      "imagine-a11-addresses-02896ce0d574",
+      "python3",
+      "/opt/a11/inside.py"
+    ]
+  ],
+  "exit_code": 0
+}

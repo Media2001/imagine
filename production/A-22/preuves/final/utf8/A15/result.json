@@ -1,0 +1,443 @@
+{
+  "suite": "A02-real-commercial-fixture",
+  "checks": [
+    {
+      "check": "lint:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:seed.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:fingerprint.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:unit.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:readonly-probe.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": false,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "classic:fixture_seed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:oracle_commercial_registry_and_storage",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:a02_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:cli_and_actual_mail_sql_file_http_cron_guards",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "classic:exact_native_registry",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:exact_active_counts_by_extension",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:disabled_subject_body_client",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:exact_theme_override",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:native_variants_defaults_empty_and_recipient_defaults",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:collected_refund_variant_and_invoice_default",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:internal_custom_recipient_without_address",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:present_active_and_inactive_transport_versions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:memberships_plan_body_customisation",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:native_formatter_not_transport",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_address_subject_body_canary_secret_path",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:output_only_allowlisted_schema",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:common_templates_alone_counted_once_child_priority",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:common_template_parent_fallback",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:replay_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:transaction_blocks_even_privileged_root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:canonical_repository_output_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:source",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:ancestor",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:argument",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:unconfined_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:storage_mismatch_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:dropin_named_no_execution",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_tables_scheduler_identical",
+      "status": "PASS",
+      "detail": {
+        "tables": 55,
+        "before": "6a46e3cf22490cc711a05e11c440534107cc225333137c8a991df7f54cdb7d0e",
+        "after": "6a46e3cf22490cc711a05e11c440534107cc225333137c8a991df7f54cdb7d0e"
+      }
+    },
+    {
+      "check": "classic:files_identical",
+      "status": "PASS",
+      "detail": {
+        "before": "40379aa37e6732be5cb1ac60d0aa04427f3475322c5c07d7794a5e025596c988",
+        "after": "40379aa37e6732be5cb1ac60d0aa04427f3475322c5c07d7794a5e025596c988"
+      }
+    },
+    {
+      "check": "classic:config_not_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": true,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "hpos:fixture_seed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:oracle_commercial_registry_and_storage",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:a02_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:cli_and_actual_mail_sql_file_http_cron_guards",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "hpos:exact_native_registry",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:exact_active_counts_by_extension",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:disabled_subject_body_client",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:exact_theme_override",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_variants_defaults_empty_and_recipient_defaults",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:collected_refund_variant_and_invoice_default",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:internal_custom_recipient_without_address",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:present_active_and_inactive_transport_versions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:memberships_plan_body_customisation",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:native_formatter_not_transport",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_address_subject_body_canary_secret_path",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:output_only_allowlisted_schema",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:common_templates_alone_counted_once_child_priority",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:common_template_parent_fallback",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:replay_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:transaction_blocks_even_privileged_root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:canonical_repository_output_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:source",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:ancestor",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:argument",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:unconfined_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:storage_mismatch_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:dropin_named_no_execution",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_tables_scheduler_identical",
+      "status": "PASS",
+      "detail": {
+        "tables": 55,
+        "before": "ee6177ab7a2fe51fe305f90bc8ec2f94911020603b9403f2a8ac2ce7392cf45b",
+        "after": "ee6177ab7a2fe51fe305f90bc8ec2f94911020603b9403f2a8ac2ce7392cf45b"
+      }
+    },
+    {
+      "check": "hpos:files_identical",
+      "status": "PASS",
+      "detail": {
+        "before": "75fc629fe43282b29a19bc40af4483aa0522bfa6c62dfbec036072d8625cfb1b",
+        "after": "75fc629fe43282b29a19bc40af4483aa0522bfa6c62dfbec036072d8625cfb1b"
+      }
+    },
+    {
+      "check": "hpos:config_not_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "network_interfaces",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp6",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 0,
+  "licensed_sha256": {
+    "woocommerce-subscriptions.zip": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083",
+    "woocommerce-memberships.zip": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285"
+  },
+  "no_real_site": true
+}

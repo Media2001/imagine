@@ -1,0 +1,497 @@
+{
+  "suite": "A03-real-classic-hpos",
+  "checks": [
+    {
+      "check": "classic:real_plugins",
+      "ok": true,
+      "detail": {
+        "wordpress": "7.0.9",
+        "woocommerce": "11.1.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3"
+      }
+    },
+    {
+      "check": "classic:dropin_refused_before_bootstrap",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:snapshot_cli",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "classic:php_log_checked_bounded_and_clean",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:ordinary_not_admin_represents_none",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:storage",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:rights_matrix",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:subscriptions_dates_counts",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:orders_twelve_months",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:http_pages",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:readonly_database_and_files",
+      "ok": true,
+      "detail": {
+        "row_changes": [],
+        "schema_changes": [],
+        "file_changes": []
+      }
+    },
+    {
+      "check": "classic:output_failure_cli_is_nonzero_and_readonly",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:repeat_cli",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:identical_no_diff",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:log_missing_blocks_report",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:log_not-configured_blocks_report",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:log_format_blocks_report_without_pii",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:log_unreadable_blocks_report_without_pii",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:silent_php_warning_detected_with_display_off_and_http_200",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:http_collection_failure_blocks_report",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:http_short_blocks_partial_report",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:http_large_blocks_partial_report",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:http_redirect_blocks_partial_report",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:nested_failed_read_cannot_be_cleared",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:sql_memberships_failure_is_not_empty",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "stderr": "A03_SQL_READ\n"
+      }
+    },
+    {
+      "check": "classic:sql_users_failure_is_not_empty",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "stderr": "A03_SQL_READ\n"
+      }
+    },
+    {
+      "check": "classic:sql_actions_failure_is_not_empty",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "stderr": "A03_SQL_READ\n"
+      }
+    },
+    {
+      "check": "classic:legitimate_empty_actions_accepted",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:only_ordinary_right_changed_and_detected",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:fault_probes_readonly",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:native_hook_expected_classification",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:native_hook_not-expected_classification",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:altered_cli",
+      "ok": true,
+      "detail": {
+        "stderr": ""
+      }
+    },
+    {
+      "check": "classic:two_mutations_detected",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:privacy",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:renewal_unverified_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:default_requires_select_account",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:renewal_runtime_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:renewal_cli",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "classic:manual_renewal_created_and_cleaned",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "classic:renewal_business_rows_restored",
+      "ok": true,
+      "detail": {
+        "changed_tables": []
+      }
+    },
+    {
+      "check": "classic:renewal_failure_rolls_back",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:real_plugins",
+      "ok": true,
+      "detail": {
+        "wordpress": "7.0.9",
+        "woocommerce": "11.1.1",
+        "subscriptions": "9.4.1",
+        "memberships": "1.30.3"
+      }
+    },
+    {
+      "check": "hpos:dropin_refused_before_bootstrap",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:snapshot_cli",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "hpos:php_log_checked_bounded_and_clean",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:ordinary_not_admin_represents_none",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:storage",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:rights_matrix",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:subscriptions_dates_counts",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:orders_twelve_months",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:http_pages",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:readonly_database_and_files",
+      "ok": true,
+      "detail": {
+        "row_changes": [],
+        "schema_changes": [],
+        "file_changes": []
+      }
+    },
+    {
+      "check": "hpos:output_failure_cli_is_nonzero_and_readonly",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:repeat_cli",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:identical_no_diff",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:log_missing_blocks_report",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:log_not-configured_blocks_report",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:log_format_blocks_report_without_pii",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:log_unreadable_blocks_report_without_pii",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:silent_php_warning_detected_with_display_off_and_http_200",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:http_collection_failure_blocks_report",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:http_short_blocks_partial_report",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:http_large_blocks_partial_report",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:http_redirect_blocks_partial_report",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:nested_failed_read_cannot_be_cleared",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:sql_memberships_failure_is_not_empty",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "stderr": "A03_SQL_READ\n"
+      }
+    },
+    {
+      "check": "hpos:sql_users_failure_is_not_empty",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "stderr": "A03_SQL_READ\n"
+      }
+    },
+    {
+      "check": "hpos:sql_actions_failure_is_not_empty",
+      "ok": true,
+      "detail": {
+        "exit": 1,
+        "stderr": "A03_SQL_READ\n"
+      }
+    },
+    {
+      "check": "hpos:legitimate_empty_actions_accepted",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:only_ordinary_right_changed_and_detected",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:fault_probes_readonly",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:native_hook_expected_classification",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:native_hook_not-expected_classification",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:altered_cli",
+      "ok": true,
+      "detail": {
+        "stderr": ""
+      }
+    },
+    {
+      "check": "hpos:two_mutations_detected",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:privacy",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:renewal_unverified_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:default_requires_select_account",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:renewal_runtime_refused",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:renewal_cli",
+      "ok": true,
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "hpos:manual_renewal_created_and_cleaned",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "hpos:renewal_business_rows_restored",
+      "ok": true,
+      "detail": {
+        "changed_tables": []
+      }
+    },
+    {
+      "check": "hpos:renewal_failure_rolls_back",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "network_none",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp6",
+      "ok": true,
+      "detail": null
+    }
+  ],
+  "exit_code": 0
+}

@@ -1,0 +1,222 @@
+{
+  "purpose": "read_only_final_runner_absence",
+  "command": [
+    "wsl.exe",
+    "-d",
+    "Ubuntu",
+    "--",
+    "docker",
+    "inspect",
+    "imagine-a02-audit-94ef72f17dea",
+    "imagine-a02-audit-999766520cf4",
+    "imagine-a03-4894104ed106",
+    "imagine-a03-5252cd760d3a",
+    "imagine-a10-coupons-15abffac325e",
+    "imagine-a10-coupons-daad4743ab41",
+    "imagine-a11-addresses-02896ce0d574",
+    "imagine-a11-addresses-4c352a012976",
+    "imagine-a12-content-2113f55d86ff",
+    "imagine-a12-content-b6d0aae86084",
+    "imagine-a14-contacts-570616c3ab02",
+    "imagine-a14-contacts-b42e13cc0ae6",
+    "imagine-a15-emails-9cde15c4f2d4",
+    "imagine-a15-emails-e7c10cfd394b",
+    "imagine-a16-issues-44c97afb610a",
+    "imagine-a16-issues-a24d172d8a8c",
+    "imagine-a17-security-0addfc821af5",
+    "imagine-a17-security-e9735162286b",
+    "imagine-a18-retention-3944af1a09cb",
+    "imagine-a18-retention-74fa59ed5384",
+    "imagine-a19-coherence-7596ce6d54c9",
+    "imagine-a19-coherence-d66afb07d9c3",
+    "imagine-a20-prices-8776c5607d07",
+    "imagine-a20-prices-df8d5f785dfd",
+    "imagine-a20-style-35e0e55423",
+    "imagine-a21-external-doors-98147290f985",
+    "imagine-a21-external-doors-a43ab5a38543",
+    "imagine-a21-style-0946108fb038",
+    "imagine-a22-style-51a66f9d19a0"
+  ],
+  "owned_runners": [
+    {
+      "lot": "A-20",
+      "receipt": "production/A-20/preuves/final/cp1252/native/runner.json",
+      "container": "imagine-a20-prices-df8d5f785dfd"
+    },
+    {
+      "lot": "A-20",
+      "receipt": "production/A-20/preuves/final/utf8/native/runner.json",
+      "container": "imagine-a20-prices-8776c5607d07"
+    },
+    {
+      "lot": "A-20",
+      "receipt": "production/A-20/preuves/final/style/style.json",
+      "container": "imagine-a20-style-35e0e55423"
+    },
+    {
+      "lot": "A-21",
+      "receipt": "production/A-21/preuves/final/runner.json",
+      "container": "imagine-a21-external-doors-98147290f985"
+    },
+    {
+      "lot": "A-21",
+      "receipt": "production/A-21/preuves/final/utf8/runner.json",
+      "container": "imagine-a21-external-doors-a43ab5a38543"
+    },
+    {
+      "lot": "A-21",
+      "receipt": "production/A-21/preuves/final/style/style.json",
+      "container": "imagine-a21-style-0946108fb038"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/cp1252/A02/runner.json",
+      "container": "imagine-a02-audit-999766520cf4"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/cp1252/A03/runner.json",
+      "container": "imagine-a03-5252cd760d3a"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/cp1252/A10/runner.json",
+      "container": "imagine-a10-coupons-daad4743ab41"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/cp1252/A11/runner.json",
+      "container": "imagine-a11-addresses-4c352a012976"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/cp1252/A12/runner.json",
+      "container": "imagine-a12-content-b6d0aae86084"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/cp1252/A14/runner.json",
+      "container": "imagine-a14-contacts-570616c3ab02"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/cp1252/A15/runner.json",
+      "container": "imagine-a15-emails-9cde15c4f2d4"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/cp1252/A16/runner.json",
+      "container": "imagine-a16-issues-a24d172d8a8c"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/cp1252/A17/runner.json",
+      "container": "imagine-a17-security-0addfc821af5"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/cp1252/A18/runner.json",
+      "container": "imagine-a18-retention-3944af1a09cb"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/cp1252/A19/runner.json",
+      "container": "imagine-a19-coherence-d66afb07d9c3"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/utf8/A02/runner.json",
+      "container": "imagine-a02-audit-94ef72f17dea"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/utf8/A03/runner.json",
+      "container": "imagine-a03-4894104ed106"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/utf8/A10/runner.json",
+      "container": "imagine-a10-coupons-15abffac325e"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/utf8/A11/runner.json",
+      "container": "imagine-a11-addresses-02896ce0d574"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/utf8/A12/runner.json",
+      "container": "imagine-a12-content-2113f55d86ff"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/utf8/A14/runner.json",
+      "container": "imagine-a14-contacts-b42e13cc0ae6"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/utf8/A15/runner.json",
+      "container": "imagine-a15-emails-e7c10cfd394b"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/utf8/A16/runner.json",
+      "container": "imagine-a16-issues-44c97afb610a"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/utf8/A17/runner.json",
+      "container": "imagine-a17-security-e9735162286b"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/utf8/A18/runner.json",
+      "container": "imagine-a18-retention-74fa59ed5384"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/utf8/A19/runner.json",
+      "container": "imagine-a19-coherence-7596ce6d54c9"
+    },
+    {
+      "lot": "A-22",
+      "receipt": "production/A-22/preuves/final/style/style.json",
+      "container": "imagine-a22-style-51a66f9d19a0"
+    }
+  ],
+  "expected_runner_count": 29,
+  "inspect_exit_code": 1,
+  "missing_names": [
+    "imagine-a02-audit-94ef72f17dea",
+    "imagine-a02-audit-999766520cf4",
+    "imagine-a03-4894104ed106",
+    "imagine-a03-5252cd760d3a",
+    "imagine-a10-coupons-15abffac325e",
+    "imagine-a10-coupons-daad4743ab41",
+    "imagine-a11-addresses-02896ce0d574",
+    "imagine-a11-addresses-4c352a012976",
+    "imagine-a12-content-2113f55d86ff",
+    "imagine-a12-content-b6d0aae86084",
+    "imagine-a14-contacts-570616c3ab02",
+    "imagine-a14-contacts-b42e13cc0ae6",
+    "imagine-a15-emails-9cde15c4f2d4",
+    "imagine-a15-emails-e7c10cfd394b",
+    "imagine-a16-issues-44c97afb610a",
+    "imagine-a16-issues-a24d172d8a8c",
+    "imagine-a17-security-0addfc821af5",
+    "imagine-a17-security-e9735162286b",
+    "imagine-a18-retention-3944af1a09cb",
+    "imagine-a18-retention-74fa59ed5384",
+    "imagine-a19-coherence-7596ce6d54c9",
+    "imagine-a19-coherence-d66afb07d9c3",
+    "imagine-a20-prices-8776c5607d07",
+    "imagine-a20-prices-df8d5f785dfd",
+    "imagine-a20-style-35e0e55423",
+    "imagine-a21-external-doors-98147290f985",
+    "imagine-a21-external-doors-a43ab5a38543",
+    "imagine-a21-style-0946108fb038",
+    "imagine-a22-style-51a66f9d19a0"
+  ],
+  "all_exact_names_semantically_absent": true,
+  "exit_code": 0
+}

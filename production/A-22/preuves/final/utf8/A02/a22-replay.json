@@ -1,0 +1,7 @@
+{
+  "lot": "A02",
+  "runner": "wp/tests/a02-audit/run.py",
+  "runner_sha256": "a058397668da8a971e00ae15faf283fef6188825d9fffd0c99d2b2c2e3a1823f",
+  "native_calls": [],
+  "exit_code": 0
+}

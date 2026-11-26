@@ -1,0 +1,14 @@
+{
+  "lot": "A18",
+  "runner": "wp/tests/a18/run.py",
+  "runner_sha256": "b5f93ad795dc75591cde8cdb38c8b6773b610b4ff65aef2711c3398d2c281bf0",
+  "native_calls": [
+    [
+      "exec",
+      "imagine-a18-retention-3944af1a09cb",
+      "python3",
+      "/opt/a18/inside.py"
+    ]
+  ],
+  "exit_code": 0
+}

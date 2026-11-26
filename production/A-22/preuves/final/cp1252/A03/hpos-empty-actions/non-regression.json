@@ -1,0 +1,229 @@
+{
+    "schema": "imagine-a03-v1",
+    "generated_at_utc": "2026-11-26T15:46:33+00:00",
+    "versions": {
+        "wordpress": "7.0.9",
+        "php": "8.2.36",
+        "woocommerce": "11.1.1",
+        "memberships": "1.30.3",
+        "subscriptions": "9.4.1"
+    },
+    "storage": "hpos",
+    "sample_states": {
+        "membership": {
+            "active": true,
+            "cancelled": true,
+            "expired": true,
+            "none": true,
+            "paused": true,
+            "pending": true
+        },
+        "subscription": {
+            "active": true,
+            "cancelled": true,
+            "expired": true,
+            "none": true,
+            "on-hold": true,
+            "pending": true,
+            "pending-cancel": true
+        }
+    },
+    "samples": {
+        "active:active": 3,
+        "cancelled:cancelled": 6,
+        "expired:expired": 5,
+        "none:none": 2,
+        "none:pending-cancel": 8,
+        "paused:on-hold": 4,
+        "pending:pending": 7
+    },
+    "memberships": {
+        "13": {
+            "user_id": 3,
+            "plan_id": 12,
+            "status": "active"
+        },
+        "15": {
+            "user_id": 4,
+            "plan_id": 12,
+            "status": "paused"
+        },
+        "17": {
+            "user_id": 5,
+            "plan_id": 12,
+            "status": "expired"
+        },
+        "19": {
+            "user_id": 6,
+            "plan_id": 12,
+            "status": "cancelled"
+        },
+        "21": {
+            "user_id": 7,
+            "plan_id": 12,
+            "status": "pending"
+        }
+    },
+    "access": {
+        "0:10": false,
+        "2:10": false,
+        "3:10": true,
+        "4:10": false,
+        "5:10": false,
+        "6:10": false,
+        "7:10": true,
+        "8:10": false
+    },
+    "subscriptions": {
+        "14": {
+            "status": "active",
+            "gateway": "manual",
+            "period": "month",
+            "interval": 1,
+            "next_payment_utc": "2027-02-01 10:00:00"
+        },
+        "16": {
+            "status": "on-hold",
+            "gateway": "bacs",
+            "period": "year",
+            "interval": 2,
+            "next_payment_utc": "2027-02-01 10:00:00"
+        },
+        "18": {
+            "status": "expired",
+            "gateway": "manual",
+            "period": "month",
+            "interval": 3,
+            "next_payment_utc": 0
+        },
+        "20": {
+            "status": "cancelled",
+            "gateway": "bacs",
+            "period": "year",
+            "interval": 4,
+            "next_payment_utc": 0
+        },
+        "22": {
+            "status": "pending",
+            "gateway": "manual",
+            "period": "month",
+            "interval": 5,
+            "next_payment_utc": 0
+        },
+        "23": {
+            "status": "pending-cancel",
+            "gateway": "bacs",
+            "period": "year",
+            "interval": 6,
+            "next_payment_utc": 0
+        }
+    },
+    "subscription_counts": {
+        "status": {
+            "active": 1,
+            "cancelled": 1,
+            "expired": 1,
+            "on-hold": 1,
+            "pending": 1,
+            "pending-cancel": 1
+        },
+        "gateway": {
+            "bacs": 3,
+            "manual": 3
+        },
+        "period": {
+            "1-month": 1,
+            "2-year": 1,
+            "3-month": 1,
+            "4-year": 1,
+            "5-month": 1,
+            "6-year": 1
+        }
+    },
+    "actions": [],
+    "action_days": [],
+    "order_months": [
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+    ],
+    "orders": {
+        "2025-12:cancelled:EUR": {
+            "count": 1,
+            "amount_minor": 999,
+            "decimals": 2
+        },
+        "2026-10:processing:EUR": {
+            "count": 1,
+            "amount_minor": 2015,
+            "decimals": 2
+        },
+        "2026-11:completed:EUR": {
+            "count": 1,
+            "amount_minor": 1230,
+            "decimals": 2
+        }
+    },
+    "php_log": {
+        "checked": true,
+        "from_utc": "2026-11-26T15:46:33Z",
+        "until_utc": "2026-11-26T15:46:33Z",
+        "errors": 0
+    },
+    "pages": {
+        "home": {
+            "status": 200,
+            "final_status": 200,
+            "marker": true,
+            "php_error": false
+        },
+        "open": {
+            "status": 200,
+            "final_status": 200,
+            "marker": true,
+            "php_error": false
+        },
+        "restricted": {
+            "status": 200,
+            "final_status": 200,
+            "marker": true,
+            "php_error": false
+        },
+        "shop": {
+            "status": 200,
+            "final_status": 200,
+            "marker": true,
+            "php_error": false
+        },
+        "cart": {
+            "status": 200,
+            "final_status": 200,
+            "marker": true,
+            "php_error": false
+        },
+        "checkout": {
+            "status": 302,
+            "final_status": 200,
+            "marker": true,
+            "php_error": false
+        },
+        "account": {
+            "status": 200,
+            "final_status": 200,
+            "marker": true,
+            "php_error": false
+        }
+    },
+    "renewal": {
+        "enabled": false
+    }
+}

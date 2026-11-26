@@ -55,6 +55,19 @@ try {
     $_POST = $savedPost; $_POST['imagine_cooperateur_nonce'] = 'faux';
     try { C::enregistrer($id); $checks['nonce_refus'] = false; } catch (RuntimeException) { $checks['nonce_refus'] = true; }
     $checks['refus_sans_effet'] = get_user_meta($id, C::META, true) === $state && count(C::audits($id)) === 1;
+    $_POST = $savedPost;
+    unset($_POST['imagine_cooperateur_oui']);
+    $failAudit = static function (string $sql): string {
+        return str_starts_with($sql, 'INSERT INTO') && str_contains($sql, 'imagine_reglages_journal_')
+            ? 'SELECT imagine_b06_colonne_inexistante' : $sql;
+    };
+    $suppress = $wpdb->suppress_errors(true);
+    add_filter('query', $failAudit);
+    try { C::enregistrer($id); $checks['journal_en_echec_refuse'] = false; }
+    catch (RuntimeException) { $checks['journal_en_echec_refuse'] = true; }
+    finally { remove_filter('query', $failAudit); $wpdb->suppress_errors($suppress); }
+    wp_cache_delete($id, 'user_meta');
+    $checks['journal_en_echec_restaure_statut'] = get_user_meta($id, C::META, true) === $state && count(C::audits($id)) === 1;
     if ($case === 'privacy') {
         $exporters = apply_filters('wp_privacy_personal_data_exporters', []);
         $erasers = apply_filters('wp_privacy_personal_data_erasers', []);
@@ -62,6 +75,9 @@ try {
         if ($checks['privacy_additive_c21']) {
         $cb = $exporters['imagine-cooperateurs']['callback'];
         $r = call_user_func($cb, 'b06-fictif@example.org', 1);
+        if ($mutation === 'export_other') {
+            $r['data'][0]['data'][] = ['name' => 'tiers_interdit', 'value' => $admin->user_email];
+        }
         $checks['export_natif_exact'] = $r['done'] && json_decode($r['data'][0]['data'][0]['value'], true) === $state;
         $checks['export_autre_personne_absente'] = count($r['data']) === 2 && !str_contains(wp_json_encode($r), $admin->user_email);
         if ($mutation !== 'erase_noop') { $e = call_user_func($erasers['imagine-cooperateurs']['callback'], 'b06-fictif@example.org', 1); }
@@ -78,6 +94,8 @@ try {
         wp_set_current_user($id);
         $checks['retrait_referme'] = !C::autorise();
     }
+    if ($mutation === 'mail') { wp_mail('b06-fictif@example.org', 'FICTIF B06', 'FICTIF'); }
+    if ($mutation === 'http') { wp_remote_get('https://example.org/b06-fictif'); }
 } finally {
     $wpdb->query('ROLLBACK'); wp_cache_flush(); wp_set_current_user($original);
     remove_filter('pre_wp_mail', $fm, 1); remove_filter('pre_http_request', $fh, 1);

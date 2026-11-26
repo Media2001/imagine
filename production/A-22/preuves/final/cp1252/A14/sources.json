@@ -1,0 +1,17 @@
+{
+  "wp/outils/bascule/a14/Accounts.php": "1623c8dc4cdd2c0409b614eeef4ee86c35b5aec9962c5e02f059c5b1f5942e2f",
+  "wp/outils/bascule/a14/command.php": "df6ba1e20f2c92de7ec4d7b64e1564d3648b302e25f782909ca4843befb6f628",
+  "wp/outils/bascule/a14/correspondance.exemple.json": "2a71f7dba02ef9ff5c9f727f359b0103d16d1fcaa6b72cd39c03380056ccc3cf",
+  "wp/outils/bascule/a14/main.py": "2ff285a1b541eeaa7b4a8d1e567f3c844362b010a6030118b6c50450b6c2497f",
+  "wp/outils/bascule/a14/Matcher.php": "ab234134e96755065cc6d6ff4aaec79d9ad276303f778a9d6a207c5118414a5b",
+  "wp/outils/bascule/a14/README.md": "a07c0ba49ed901e7a414bf78094e2be9af0e5ae72b6e8bd4864956949c68df7f",
+  "wp/outils/bascule/rapprocher-contacts": "142985bd0caed34f84cef1cf88e582c2ae0a37ad4b8c020f745be1a9769ff3a9",
+  "wp/tests/a14/inside.py": "4ddd0a9940e1db8e397b5bafdec6fa6549ac27bd81db62709b6267ae14c375ed",
+  "wp/tests/a14/run.py": "cb4ea6c95a06974d9c575f699f32ae3b32dd8aaa462504870ca15d36742fc5e5",
+  "wp/tests/a14/seed.php": "8641c6da10fedb8c26f607269e721171d11a974b6e206c13594ece23359efc93",
+  "wp/tests/a14/style.py": "92b7e183b1771c94e35080227ffad8e4cf3775d4d8776b5e0060eae1f1d3b54c",
+  "wp/tests/a14/test_input.py": "6f883544311003aaad0f0ce4415c8d9805e8ff2c0451f9f2596406d45cf4e1ac",
+  "wp/tests/a14/unit.php": "1e9b5713b9e39f9d8fae9c086ee170a5e2ece3ddda3be1d798204ab0bab90907",
+  "wp/tests/a14/verify.py": "2e283afefb93e96e09784fd869f3c35a7d882bf85dd873bd9051f002254e0153",
+  "wp/tests/fixtures/a14-contacts-fictifs.csv": "4e15ddf2f8d019e8c05c0a668feccb82f3e245f2cb510268e169b8d0c049a270"
+}

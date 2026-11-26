@@ -1,0 +1,30 @@
+{
+  "at": "2026-11-26T15:55:36.716108+00:00",
+  "scope": "imagine-test-demo",
+  "case": "attribute",
+  "mutation": "",
+  "checks": {
+    "fixture_reelle": true,
+    "fiche_native_nonce": true,
+    "attribut_source_date": true,
+    "audit_ajout": true,
+    "sans_faux_changement": true,
+    "coop_lit": true,
+    "compte_natif_statut_source": true,
+    "auto_refus": true,
+    "nonce_refus": true,
+    "refus_sans_effet": true,
+    "journal_en_echec_refuse": true,
+    "journal_en_echec_restaure_statut": true,
+    "retrait_audite": true,
+    "retrait_referme": true,
+    "aucun_mail_tente": true,
+    "aucun_http_tente": true
+  },
+  "total": 16,
+  "failures": [],
+  "exit": 0,
+  "stderr": "",
+  "state_preserved": true,
+  "source_sha256": "d25ba2800cb01d85d487e7a7d61df551b39e33647f49c5c9c5f66204a0a6a09f"
+}

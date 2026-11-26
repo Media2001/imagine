@@ -1,0 +1,14 @@
+{
+  "lot": "A19",
+  "runner": "wp/tests/a19/run.py",
+  "runner_sha256": "66feef1b2d6e86b24d9b2664b291255e06b7a27c1dfc8b1c703f3193b3007c3a",
+  "native_calls": [
+    [
+      "exec",
+      "imagine-a19-coherence-d66afb07d9c3",
+      "python3",
+      "/opt/a19/inside.py"
+    ]
+  ],
+  "exit_code": 0
+}

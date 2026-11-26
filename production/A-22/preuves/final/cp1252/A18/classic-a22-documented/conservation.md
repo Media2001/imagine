@@ -1,0 +1,165 @@
+# Conservation — lecture seule
+
+Comptes uniquement ; aucune valeur ni decision de suppression.
+
+```json
+{
+    "schema": "imagine-a18-retention-v1",
+    "read_only": true,
+    "storage": "classic",
+    "database": {
+        "status": "observe",
+        "groups": [
+            {
+                "scope": "account",
+                "store": "commun",
+                "key": "_a18_card",
+                "iban": 0,
+                "card": 1,
+                "national": 0
+            },
+            {
+                "scope": "account",
+                "store": "commun",
+                "key": "_a18_r2_card",
+                "iban": 0,
+                "card": 1,
+                "national": 0
+            },
+            {
+                "scope": "account",
+                "store": "commun",
+                "key": "_a18_r2_rr",
+                "iban": 0,
+                "card": 0,
+                "national": 1
+            },
+            {
+                "scope": "account",
+                "store": "commun",
+                "key": "_a18_r3_card",
+                "iban": 0,
+                "card": 1,
+                "national": 0
+            },
+            {
+                "scope": "account",
+                "store": "commun",
+                "key": "_a18_rr",
+                "iban": 0,
+                "card": 0,
+                "national": 1
+            },
+            {
+                "scope": "option",
+                "store": "commun",
+                "key": "a18_bank_setting",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            },
+            {
+                "scope": "option",
+                "store": "commun",
+                "key": "a18_r3_bank_setting",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            },
+            {
+                "scope": "order",
+                "store": "classique",
+                "key": "_a18_bank",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            },
+            {
+                "scope": "order",
+                "store": "classique",
+                "key": "_a18_shared_bank",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            },
+            {
+                "scope": "order",
+                "store": "hpos",
+                "key": "_a18_inactive_bank",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            },
+            {
+                "scope": "order",
+                "store": "hpos",
+                "key": "_a18_shared_bank",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            },
+            {
+                "scope": "subscription",
+                "store": "classique",
+                "key": "_a18_bank",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            },
+            {
+                "scope": "subscription",
+                "store": "hpos",
+                "key": "_a18_inactive_bank",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            }
+        ]
+    },
+    "payment_tokens": [
+        {
+            "gateway": "a18_fixture",
+            "type": "CC",
+            "count": 1
+        }
+    ],
+    "media": [
+        {
+            "folder": "autre",
+            "directories": 2,
+            "files": {
+                "txt": 1
+            },
+            "bytes": 4,
+            "server_rule_file_present": false,
+            "reading_denied": null
+        },
+        {
+            "folder": "exports",
+            "directories": 1,
+            "files": {
+                "csv": 2,
+                "log": 1
+            },
+            "bytes": 12,
+            "server_rule_file_present": false,
+            "reading_denied": null
+        },
+        {
+            "folder": "woocommerce_uploads",
+            "directories": 1,
+            "files": {
+                "html": 1,
+                "regles": 1
+            },
+            "bytes": 13,
+            "server_rule_file_present": true,
+            "reading_denied": null
+        }
+    ],
+    "count_basis": "Valeurs physiquement conservees dans les deux magasins presents, actif ou inactif ; une ligne compte au plus une fois par forme, separee par portee, magasin et cle. storage indique seulement le magasin actif ; store=commun pour comptes et options.",
+    "server_rules": "Presence observee par nom technique ferme ; lecture effectivement interdite inconnue sans ouvrir les fichiers ni lire la configuration serveur.",
+    "token_basis": "References par passerelle et type ; jamais des numeros de carte ou IBAN.",
+    "audit_sha256": "862047a8219de6682b114cc4e5dde9cf7a4f740eb4e7c168db6a358276de0589"
+}
+```

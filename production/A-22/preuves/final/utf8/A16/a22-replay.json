@@ -1,0 +1,14 @@
+{
+  "lot": "A16",
+  "runner": "wp/tests/a16/run.py",
+  "runner_sha256": "e7c3d6b6939c5a952a82e10cc898a7c5340017e3a5105f56cf6e8c2fa3b3932f",
+  "native_calls": [
+    [
+      "exec",
+      "imagine-a16-issues-44c97afb610a",
+      "python3",
+      "/opt/a16/inside.py"
+    ]
+  ],
+  "exit_code": 0
+}

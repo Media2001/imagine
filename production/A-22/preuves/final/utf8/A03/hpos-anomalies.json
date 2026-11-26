@@ -1,0 +1,34 @@
+{
+    "schema": "imagine-a03-comparison-v1",
+    "changes": [
+        {
+            "path": "sample_states.[masque]",
+            "class": "anormal"
+        },
+        {
+            "path": "samples.[masque]",
+            "class": "anormal"
+        },
+        {
+            "path": "samples.[masque]",
+            "class": "anormal"
+        },
+        {
+            "path": "memberships.13.status",
+            "class": "anormal"
+        },
+        {
+            "path": "access.3:10",
+            "class": "anormal"
+        },
+        {
+            "path": "actions.28",
+            "class": "anormal"
+        },
+        {
+            "path": "action_days.[masque]",
+            "class": "anormal"
+        }
+    ],
+    "anormal": 7
+}

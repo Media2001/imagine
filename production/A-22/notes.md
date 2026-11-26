@@ -83,3 +83,7 @@ TDD d’applicabilité d’abord rouge, puis **17 tests Python A22 verts**. La m
 Nouveau rejeu **complet et neuf A22 07**, pas de recyclage des sorties/empreintes 06 : `proc_da07e2aa136d`, réellement lancé après cette correction. Il reste à attendre sa sortie réelle, publier via le finaliseur, vérifier/sceller le paquet et relire les suppressions exactes. PRET, préparation globale et T01 global toujours au parent.
 
 
+
+## Remise finale du paquet 07
+
+Matrice complète réellement terminée à **code 0**, 42 commandes, sources stables. Paquet 07 publié et vérificateur livré réellement exécuté sous les deux consoles : **159 / 159 PASS**, code 0. Les comptes détaillés, absence explicite des banques Python A03/A11, mutations et frontière parent sont dans `FINALISATION.md` et `execution-summary.json`. A20/A21 04 restent les paquets courants, 111 / 49 contrôles PASS par console. Aucun PRET ni gate global créé/exécuté par cet enfant.

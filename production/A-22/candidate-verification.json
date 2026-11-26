@@ -1,0 +1,1504 @@
+{
+  "lot": "A-22",
+  "status": "CANDIDAT_GATE_PARENT",
+  "readiness_claimed": false,
+  "executable": "C:\\Python314\\python.exe",
+  "version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "win32",
+  "rows": [
+    {
+      "console": "utf8",
+      "encoding": "utf-8",
+      "utf8_mode": 1,
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\a22\\verify.py",
+        "C:\\Users\\Ced\\imagine\\production\\A-22\\preuves\\final"
+      ],
+      "exit_code": 0,
+      "stderr_empty": true,
+      "result": {
+        "status": "CANDIDAT_GATE_PARENT",
+        "readiness_claimed": false,
+        "counts": {
+          "utf8:A02:unit": 17,
+          "utf8:A02:result": 120,
+          "utf8:A02:runner": 7,
+          "utf8:A02:python": 1,
+          "utf8:A03:unit": 10,
+          "utf8:A03:result": 87,
+          "utf8:A03:runner": 9,
+          "utf8:A03:python": 0,
+          "utf8:A10:unit": 10,
+          "utf8:A10:result": 187,
+          "utf8:A10:runner": 7,
+          "utf8:A10:python": 5,
+          "utf8:A11:unit": 19,
+          "utf8:A11:result": 290,
+          "utf8:A11:runner": 7,
+          "utf8:A11:python": 0,
+          "utf8:A12:unit": 15,
+          "utf8:A12:result": 124,
+          "utf8:A12:runner": 8,
+          "utf8:A12:python": 1,
+          "utf8:A14:unit": 8,
+          "utf8:A14:result": 58,
+          "utf8:A14:runner": 8,
+          "utf8:A14:python": 3,
+          "utf8:A15:unit": 14,
+          "utf8:A15:result": 78,
+          "utf8:A15:runner": 7,
+          "utf8:A15:python": 2,
+          "utf8:A16:unit": 23,
+          "utf8:A16:result": 78,
+          "utf8:A16:runner": 7,
+          "utf8:A16:python": 3,
+          "utf8:A17:unit": 42,
+          "utf8:A17:result": 66,
+          "utf8:A17:runner": 7,
+          "utf8:A17:python": 3,
+          "utf8:A18:unit": 37,
+          "utf8:A18:result": 100,
+          "utf8:A18:runner": 7,
+          "utf8:A18:python": 3,
+          "utf8:A19:unit": 9,
+          "utf8:A19:result": 108,
+          "utf8:A19:runner": 7,
+          "utf8:A19:python": 5,
+          "cp1252:A02:unit": 17,
+          "cp1252:A02:result": 120,
+          "cp1252:A02:runner": 7,
+          "cp1252:A02:python": 1,
+          "cp1252:A03:unit": 10,
+          "cp1252:A03:result": 87,
+          "cp1252:A03:runner": 9,
+          "cp1252:A03:python": 0,
+          "cp1252:A10:unit": 10,
+          "cp1252:A10:result": 187,
+          "cp1252:A10:runner": 7,
+          "cp1252:A10:python": 5,
+          "cp1252:A11:unit": 19,
+          "cp1252:A11:result": 290,
+          "cp1252:A11:runner": 7,
+          "cp1252:A11:python": 0,
+          "cp1252:A12:unit": 15,
+          "cp1252:A12:result": 124,
+          "cp1252:A12:runner": 8,
+          "cp1252:A12:python": 1,
+          "cp1252:A14:unit": 8,
+          "cp1252:A14:result": 58,
+          "cp1252:A14:runner": 8,
+          "cp1252:A14:python": 3,
+          "cp1252:A15:unit": 14,
+          "cp1252:A15:result": 78,
+          "cp1252:A15:runner": 7,
+          "cp1252:A15:python": 2,
+          "cp1252:A16:unit": 23,
+          "cp1252:A16:result": 78,
+          "cp1252:A16:runner": 7,
+          "cp1252:A16:python": 3,
+          "cp1252:A17:unit": 42,
+          "cp1252:A17:result": 66,
+          "cp1252:A17:runner": 7,
+          "cp1252:A17:python": 3,
+          "cp1252:A18:unit": 37,
+          "cp1252:A18:result": 100,
+          "cp1252:A18:runner": 7,
+          "cp1252:A18:python": 3,
+          "cp1252:A19:unit": 9,
+          "cp1252:A19:result": 108,
+          "cp1252:A19:runner": 7,
+          "cp1252:A19:python": 5
+        },
+        "checks": [
+          {
+            "check": "exact_current_executed_sources",
+            "status": "PASS"
+          },
+          {
+            "check": "complete_real_windows_matrix",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:measured_windows_console",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A02:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A02:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A02:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A02:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A02:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A02:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A03:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A03:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A03:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A03:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A03:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A03:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A03:python_bank_absent_not_fake_pass",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A10:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A10:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A10:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A10:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A10:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A10:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A11:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A11:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A11:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A11:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A11:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A11:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A11:python_bank_absent_not_fake_pass",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A12:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A12:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A12:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A12:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A12:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A12:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A12:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A14:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A14:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A14:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A14:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A14:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A14:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A14:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A15:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A15:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A15:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A15:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A15:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A15:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A15:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A16:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A16:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A16:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A16:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A16:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A16:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A16:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A17:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A17:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A17:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A17:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A17:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A17:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A17:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A18:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A18:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A18:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A18:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A18:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A18:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A18:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A19:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A19:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A19:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A19:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A19:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A19:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A19:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A22_python_tests",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:measured_windows_console",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A02:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A02:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A02:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A02:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A02:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A02:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A03:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A03:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A03:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A03:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A03:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A03:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A03:python_bank_absent_not_fake_pass",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A10:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A10:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A10:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A10:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A10:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A10:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A11:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A11:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A11:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A11:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A11:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A11:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A11:python_bank_absent_not_fake_pass",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A12:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A12:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A12:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A12:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A12:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A12:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A12:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A14:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A14:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A14:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A14:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A14:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A14:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A14:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A15:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A15:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A15:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A15:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A15:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A15:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A15:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A16:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A16:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A16:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A16:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A16:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A16:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A16:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A17:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A17:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A17:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A17:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A17:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A17:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A17:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A18:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A18:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A18:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A18:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A18:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A18:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A18:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A19:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A19:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A19:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A19:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A19:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A19:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A19:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A22_python_tests",
+            "status": "PASS"
+          },
+          {
+            "check": "strict_psr12_current_common_entrypoints",
+            "status": "PASS"
+          },
+          {
+            "check": "no_retained_untrusted_payload",
+            "status": "PASS"
+          },
+          {
+            "check": "exact_packet_inventory_and_hashes",
+            "status": "PASS"
+          }
+        ],
+        "exit_code": 0
+      }
+    },
+    {
+      "console": "cp1252",
+      "encoding": "cp1252",
+      "utf8_mode": 0,
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\a22\\verify.py",
+        "C:\\Users\\Ced\\imagine\\production\\A-22\\preuves\\final"
+      ],
+      "exit_code": 0,
+      "stderr_empty": true,
+      "result": {
+        "status": "CANDIDAT_GATE_PARENT",
+        "readiness_claimed": false,
+        "counts": {
+          "utf8:A02:unit": 17,
+          "utf8:A02:result": 120,
+          "utf8:A02:runner": 7,
+          "utf8:A02:python": 1,
+          "utf8:A03:unit": 10,
+          "utf8:A03:result": 87,
+          "utf8:A03:runner": 9,
+          "utf8:A03:python": 0,
+          "utf8:A10:unit": 10,
+          "utf8:A10:result": 187,
+          "utf8:A10:runner": 7,
+          "utf8:A10:python": 5,
+          "utf8:A11:unit": 19,
+          "utf8:A11:result": 290,
+          "utf8:A11:runner": 7,
+          "utf8:A11:python": 0,
+          "utf8:A12:unit": 15,
+          "utf8:A12:result": 124,
+          "utf8:A12:runner": 8,
+          "utf8:A12:python": 1,
+          "utf8:A14:unit": 8,
+          "utf8:A14:result": 58,
+          "utf8:A14:runner": 8,
+          "utf8:A14:python": 3,
+          "utf8:A15:unit": 14,
+          "utf8:A15:result": 78,
+          "utf8:A15:runner": 7,
+          "utf8:A15:python": 2,
+          "utf8:A16:unit": 23,
+          "utf8:A16:result": 78,
+          "utf8:A16:runner": 7,
+          "utf8:A16:python": 3,
+          "utf8:A17:unit": 42,
+          "utf8:A17:result": 66,
+          "utf8:A17:runner": 7,
+          "utf8:A17:python": 3,
+          "utf8:A18:unit": 37,
+          "utf8:A18:result": 100,
+          "utf8:A18:runner": 7,
+          "utf8:A18:python": 3,
+          "utf8:A19:unit": 9,
+          "utf8:A19:result": 108,
+          "utf8:A19:runner": 7,
+          "utf8:A19:python": 5,
+          "cp1252:A02:unit": 17,
+          "cp1252:A02:result": 120,
+          "cp1252:A02:runner": 7,
+          "cp1252:A02:python": 1,
+          "cp1252:A03:unit": 10,
+          "cp1252:A03:result": 87,
+          "cp1252:A03:runner": 9,
+          "cp1252:A03:python": 0,
+          "cp1252:A10:unit": 10,
+          "cp1252:A10:result": 187,
+          "cp1252:A10:runner": 7,
+          "cp1252:A10:python": 5,
+          "cp1252:A11:unit": 19,
+          "cp1252:A11:result": 290,
+          "cp1252:A11:runner": 7,
+          "cp1252:A11:python": 0,
+          "cp1252:A12:unit": 15,
+          "cp1252:A12:result": 124,
+          "cp1252:A12:runner": 8,
+          "cp1252:A12:python": 1,
+          "cp1252:A14:unit": 8,
+          "cp1252:A14:result": 58,
+          "cp1252:A14:runner": 8,
+          "cp1252:A14:python": 3,
+          "cp1252:A15:unit": 14,
+          "cp1252:A15:result": 78,
+          "cp1252:A15:runner": 7,
+          "cp1252:A15:python": 2,
+          "cp1252:A16:unit": 23,
+          "cp1252:A16:result": 78,
+          "cp1252:A16:runner": 7,
+          "cp1252:A16:python": 3,
+          "cp1252:A17:unit": 42,
+          "cp1252:A17:result": 66,
+          "cp1252:A17:runner": 7,
+          "cp1252:A17:python": 3,
+          "cp1252:A18:unit": 37,
+          "cp1252:A18:result": 100,
+          "cp1252:A18:runner": 7,
+          "cp1252:A18:python": 3,
+          "cp1252:A19:unit": 9,
+          "cp1252:A19:result": 108,
+          "cp1252:A19:runner": 7,
+          "cp1252:A19:python": 5
+        },
+        "checks": [
+          {
+            "check": "exact_current_executed_sources",
+            "status": "PASS"
+          },
+          {
+            "check": "complete_real_windows_matrix",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:measured_windows_console",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A02:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A02:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A02:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A02:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A02:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A02:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A03:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A03:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A03:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A03:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A03:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A03:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A03:python_bank_absent_not_fake_pass",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A10:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A10:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A10:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A10:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A10:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A10:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A11:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A11:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A11:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A11:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A11:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A11:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A11:python_bank_absent_not_fake_pass",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A12:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A12:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A12:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A12:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A12:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A12:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A12:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A14:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A14:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A14:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A14:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A14:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A14:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A14:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A15:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A15:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A15:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A15:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A15:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A15:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A15:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A16:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A16:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A16:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A16:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A16:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A16:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A16:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A17:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A17:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A17:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A17:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A17:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A17:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A17:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A18:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A18:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A18:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A18:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A18:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A18:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A18:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A19:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A19:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A19:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A19:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A19:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A19:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A19:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:A22_python_tests",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:measured_windows_console",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A02:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A02:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A02:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A02:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A02:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A02:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A03:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A03:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A03:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A03:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A03:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A03:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A03:python_bank_absent_not_fake_pass",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A10:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A10:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A10:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A10:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A10:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A10:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A11:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A11:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A11:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A11:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A11:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A11:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A11:python_bank_absent_not_fake_pass",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A12:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A12:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A12:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A12:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A12:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A12:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A12:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A14:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A14:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A14:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A14:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A14:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A14:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A14:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A15:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A15:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A15:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A15:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A15:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A15:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A15:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A16:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A16:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A16:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A16:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A16:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A16:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A16:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A17:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A17:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A17:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A17:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A17:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A17:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A17:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A18:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A18:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A18:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A18:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A18:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A18:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A18:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A19:unit:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A19:result:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A19:runner:green",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A19:owned_cleanup_sources_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A19:actual_legacy_bank",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A19:all_channels_mutation_documentation",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A19:python_bank_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:A22_python_tests",
+            "status": "PASS"
+          },
+          {
+            "check": "strict_psr12_current_common_entrypoints",
+            "status": "PASS"
+          },
+          {
+            "check": "no_retained_untrusted_payload",
+            "status": "PASS"
+          },
+          {
+            "check": "exact_packet_inventory_and_hashes",
+            "status": "PASS"
+          }
+        ],
+        "exit_code": 0
+      }
+    }
+  ],
+  "packet_manifest_sha256": "e0cf00e5df87176030906121113dfc8f523a7e3a52e5109f27ff1c90a0c3f13a",
+  "exit_code": 0
+}

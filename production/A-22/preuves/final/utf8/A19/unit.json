@@ -1,0 +1,41 @@
+{
+    "checks": [
+        {
+            "check": "cross_table_counted_per_linked_membership",
+            "status": "PASS"
+        },
+        {
+            "check": "no_link_separate_from_dangling",
+            "status": "PASS"
+        },
+        {
+            "check": "multiple_active_accounts_not_number_of_records",
+            "status": "PASS"
+        },
+        {
+            "check": "active_payment_date_and_paid_order_counts",
+            "status": "PASS"
+        },
+        {
+            "check": "empty_site_has_zero_not_missing_counts",
+            "status": "PASS"
+        },
+        {
+            "check": "strict_clock_boundary_and_guests",
+            "status": "PASS"
+        },
+        {
+            "check": "unknown_not_false_payment_absence",
+            "status": "PASS"
+        },
+        {
+            "check": "privacy_schema_contains_no_person_identifiers",
+            "status": "PASS"
+        },
+        {
+            "check": "every_metric_has_definition",
+            "status": "PASS"
+        }
+    ],
+    "exit_code": 0
+}

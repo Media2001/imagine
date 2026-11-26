@@ -1,0 +1,7 @@
+{
+  "lot": "A10",
+  "runner": "wp/tests/a10/run.py",
+  "runner_sha256": "96fb1da9798814abf99f74d2e3ab80d6198043a070eb1186532aec2d0d0b1693",
+  "native_calls": [],
+  "exit_code": 0
+}

@@ -1,0 +1,656 @@
+{
+  "rows": [
+    {
+      "label": "A02-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a02-audit",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A10-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a10",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A12-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a12",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A14-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a14",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A15-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a15",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A16-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a16",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A17-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a17",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A18-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a18",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A19-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a19",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A22-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a22",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A02-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A02",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\utf8\\A02"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A03-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A03",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\utf8\\A03"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A10-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A10",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\utf8\\A10"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A11-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A11",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\utf8\\A11"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A12-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A12",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\utf8\\A12"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A14-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A14",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\utf8\\A14"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A15-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A15",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\utf8\\A15"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A16-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A16",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\utf8\\A16"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A17-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A17",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\utf8\\A17"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A18-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A18",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\utf8\\A18"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A19-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A19",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\utf8\\A19"
+      ],
+      "encoding": "utf-8",
+      "console": "utf8",
+      "exit_code": 0
+    },
+    {
+      "label": "A02-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a02-audit",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A10-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a10",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A12-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a12",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A14-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a14",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A15-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a15",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A16-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a16",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A17-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a17",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A18-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a18",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A19-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a19",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A22-python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a22",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A02-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A02",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\cp1252\\A02"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A03-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A03",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\cp1252\\A03"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A10-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A10",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\cp1252\\A10"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A11-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A11",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\cp1252\\A11"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A12-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A12",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\cp1252\\A12"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A14-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A14",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\cp1252\\A14"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A15-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A15",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\cp1252\\A15"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A16-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A16",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\cp1252\\A16"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A17-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A17",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\cp1252\\A17"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A18-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A18",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\cp1252\\A18"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "label": "A19-native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/run.py",
+        "--lot=A19",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a22-matrix-final-07\\cp1252\\A19"
+      ],
+      "encoding": "cp1252",
+      "console": "cp1252",
+      "exit_code": 0
+    }
+  ],
+  "sources_stable": true,
+  "python_not_applicable": {
+    "A03": true,
+    "A11": true
+  },
+  "exit_code": 0
+}

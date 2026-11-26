@@ -1,0 +1,14 @@
+{
+  "lot": "A14",
+  "runner": "wp/tests/a14/run.py",
+  "runner_sha256": "cb4ea6c95a06974d9c575f699f32ae3b32dd8aaa462504870ca15d36742fc5e5",
+  "native_calls": [
+    [
+      "exec",
+      "imagine-a14-contacts-570616c3ab02",
+      "python3",
+      "/opt/a14/inside.py"
+    ]
+  ],
+  "exit_code": 0
+}

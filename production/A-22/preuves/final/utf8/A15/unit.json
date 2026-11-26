@@ -1,0 +1,61 @@
+{
+    "exit_code": 0,
+    "checks": [
+        {
+            "check": "inventory_exists",
+            "status": "PASS"
+        },
+        {
+            "check": "disabled_and_internal_personalised",
+            "status": "PASS"
+        },
+        {
+            "check": "subject_body_flags_only",
+            "status": "PASS"
+        },
+        {
+            "check": "private_values_absent",
+            "status": "PASS"
+        },
+        {
+            "check": "explicit_default_not_custom",
+            "status": "PASS"
+        },
+        {
+            "check": "address_in_title_masked",
+            "status": "PASS"
+        },
+        {
+            "check": "absent_settings_not_custom",
+            "status": "PASS"
+        },
+        {
+            "check": "declared_variants_only_modified",
+            "status": "PASS"
+        },
+        {
+            "check": "declared_variants_own_defaults",
+            "status": "PASS"
+        },
+        {
+            "check": "declared_empty_variants_native_fallback",
+            "status": "PASS"
+        },
+        {
+            "check": "saved_default_recipient_list_not_custom",
+            "status": "PASS"
+        },
+        {
+            "check": "different_recipient_custom",
+            "status": "PASS"
+        },
+        {
+            "check": "cc_addition_separate_from_default_recipient",
+            "status": "PASS"
+        },
+        {
+            "check": "block_editor_not_misreported_as_unmodified",
+            "status": "PASS"
+        }
+    ]
+}

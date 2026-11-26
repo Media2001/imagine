@@ -1,0 +1,37 @@
+{
+    "exit_code": 0,
+    "checks": [
+        {
+            "check": "matcher_exists",
+            "status": "PASS"
+        },
+        {
+            "check": "case_spaces_match_only",
+            "status": "PASS"
+        },
+        {
+            "check": "unmatched_account_and_technical_excluded",
+            "status": "PASS"
+        },
+        {
+            "check": "status_and_unknown_fields_preserved",
+            "status": "PASS"
+        },
+        {
+            "check": "no_email_in_any_output",
+            "status": "PASS"
+        },
+        {
+            "check": "duplicates_all_members_and_invalid_lines",
+            "status": "PASS"
+        },
+        {
+            "check": "invalid_not_counted_as_unmatched",
+            "status": "PASS"
+        },
+        {
+            "check": "ambiguous_accounts_never_pick_first",
+            "status": "PASS"
+        }
+    ]
+}

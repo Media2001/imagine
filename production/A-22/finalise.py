@@ -13,7 +13,7 @@ import tempfile
 sys.dont_write_bytecode=True
 ROOT=Path(__file__).resolve().parents[2]
 PACKET=ROOT/'production/A-22/preuves/final'
-SCRATCH=Path(os.environ.get('TMPDIR','C:/Users/Ced/AppData/Local/hermes/cache/scratch'))
+SCRATCH=ROOT.parent/'AppData/Local/hermes/cache/scratch'
 spec=importlib.util.spec_from_file_location('a22_verify',ROOT/'wp/tests/a22/verify.py')
 v=importlib.util.module_from_spec(spec);spec.loader.exec_module(v)
 

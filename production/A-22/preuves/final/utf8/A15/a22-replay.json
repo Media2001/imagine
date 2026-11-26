@@ -1,0 +1,14 @@
+{
+  "lot": "A15",
+  "runner": "wp/tests/a15/run.py",
+  "runner_sha256": "f4f90d5ac78adbb1ebc4f3e202a28f377c2c7ed1aec5af230ab0eaceda3fa54c",
+  "native_calls": [
+    [
+      "exec",
+      "imagine-a15-emails-e7c10cfd394b",
+      "python3",
+      "/opt/a15/inside.py"
+    ]
+  ],
+  "exit_code": 0
+}

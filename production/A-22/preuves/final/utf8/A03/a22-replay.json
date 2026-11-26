@@ -1,0 +1,14 @@
+{
+  "lot": "A03",
+  "runner": "wp/tests/a03-non-regression/run.py",
+  "runner_sha256": "961c584372335e90d0391a7f61dee61bc4276040a075ebab560d681335b314df",
+  "native_calls": [
+    [
+      "exec",
+      "imagine-a03-4894104ed106",
+      "python3",
+      "/opt/a03/inside.py"
+    ]
+  ],
+  "exit_code": 0
+}

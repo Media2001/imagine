@@ -1,0 +1,14 @@
+{
+  "lot": "A17",
+  "runner": "wp/tests/a17/run.py",
+  "runner_sha256": "34c82dfbfc841988977024c1a4d75e1360fa0c0f6557bc5df8001af5589fd310",
+  "native_calls": [
+    [
+      "exec",
+      "imagine-a17-security-0addfc821af5",
+      "python3",
+      "/opt/a17/inside.py"
+    ]
+  ],
+  "exit_code": 0
+}

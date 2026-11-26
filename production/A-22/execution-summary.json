@@ -1,0 +1,263 @@
+{
+  "status": "CANDIDAT_GATE_PARENT",
+  "readiness_claimed": false,
+  "recorded_at": "2026-11-26T16:57:43.546233+01:00",
+  "matrix": "a22-matrix-final-07",
+  "matrix_exit_code": 0,
+  "matrix_commands": 42,
+  "native_commands": 22,
+  "verifier_checks_per_console": {
+    "utf8": 159,
+    "cp1252": 159
+  },
+  "per_console": {
+    "utf8": {
+      "lots": [
+        {
+          "lot": "A02",
+          "python": 1,
+          "unit": 17,
+          "result": 120,
+          "runner": 7,
+          "python_applicable": true,
+          "guard": 0
+        },
+        {
+          "lot": "A03",
+          "python": 0,
+          "unit": 10,
+          "result": 87,
+          "runner": 9,
+          "python_applicable": false,
+          "guard": 23
+        },
+        {
+          "lot": "A10",
+          "python": 5,
+          "unit": 10,
+          "result": 187,
+          "runner": 7,
+          "python_applicable": true,
+          "guard": 0
+        },
+        {
+          "lot": "A11",
+          "python": 0,
+          "unit": 19,
+          "result": 290,
+          "runner": 7,
+          "python_applicable": false,
+          "guard": 23
+        },
+        {
+          "lot": "A12",
+          "python": 1,
+          "unit": 15,
+          "result": 124,
+          "runner": 8,
+          "python_applicable": true,
+          "guard": 23
+        },
+        {
+          "lot": "A14",
+          "python": 3,
+          "unit": 8,
+          "result": 58,
+          "runner": 8,
+          "python_applicable": true,
+          "guard": 23
+        },
+        {
+          "lot": "A15",
+          "python": 2,
+          "unit": 14,
+          "result": 78,
+          "runner": 7,
+          "python_applicable": true,
+          "guard": 23
+        },
+        {
+          "lot": "A16",
+          "python": 3,
+          "unit": 23,
+          "result": 78,
+          "runner": 7,
+          "python_applicable": true,
+          "guard": 23
+        },
+        {
+          "lot": "A17",
+          "python": 3,
+          "unit": 42,
+          "result": 66,
+          "runner": 7,
+          "python_applicable": true,
+          "guard": 23
+        },
+        {
+          "lot": "A18",
+          "python": 3,
+          "unit": 37,
+          "result": 100,
+          "runner": 7,
+          "python_applicable": true,
+          "guard": 23
+        },
+        {
+          "lot": "A19",
+          "python": 5,
+          "unit": 9,
+          "result": 108,
+          "runner": 7,
+          "python_applicable": true,
+          "guard": 23
+        }
+      ],
+      "A22_python": 17,
+      "totals": {
+        "python": 43,
+        "unit": 204,
+        "result": 1296,
+        "runner": 81,
+        "guard": 207
+      }
+    },
+    "cp1252": {
+      "lots": [
+        {
+          "lot": "A02",
+          "python": 1,
+          "unit": 17,
+          "result": 120,
+          "runner": 7,
+          "python_applicable": true,
+          "guard": 0
+        },
+        {
+          "lot": "A03",
+          "python": 0,
+          "unit": 10,
+          "result": 87,
+          "runner": 9,
+          "python_applicable": false,
+          "guard": 23
+        },
+        {
+          "lot": "A10",
+          "python": 5,
+          "unit": 10,
+          "result": 187,
+          "runner": 7,
+          "python_applicable": true,
+          "guard": 0
+        },
+        {
+          "lot": "A11",
+          "python": 0,
+          "unit": 19,
+          "result": 290,
+          "runner": 7,
+          "python_applicable": false,
+          "guard": 23
+        },
+        {
+          "lot": "A12",
+          "python": 1,
+          "unit": 15,
+          "result": 124,
+          "runner": 8,
+          "python_applicable": true,
+          "guard": 23
+        },
+        {
+          "lot": "A14",
+          "python": 3,
+          "unit": 8,
+          "result": 58,
+          "runner": 8,
+          "python_applicable": true,
+          "guard": 23
+        },
+        {
+          "lot": "A15",
+          "python": 2,
+          "unit": 14,
+          "result": 78,
+          "runner": 7,
+          "python_applicable": true,
+          "guard": 23
+        },
+        {
+          "lot": "A16",
+          "python": 3,
+          "unit": 23,
+          "result": 78,
+          "runner": 7,
+          "python_applicable": true,
+          "guard": 23
+        },
+        {
+          "lot": "A17",
+          "python": 3,
+          "unit": 42,
+          "result": 66,
+          "runner": 7,
+          "python_applicable": true,
+          "guard": 23
+        },
+        {
+          "lot": "A18",
+          "python": 3,
+          "unit": 37,
+          "result": 100,
+          "runner": 7,
+          "python_applicable": true,
+          "guard": 23
+        },
+        {
+          "lot": "A19",
+          "python": 5,
+          "unit": 9,
+          "result": 108,
+          "runner": 7,
+          "python_applicable": true,
+          "guard": 23
+        }
+      ],
+      "A22_python": 17,
+      "totals": {
+        "python": 43,
+        "unit": 204,
+        "result": 1296,
+        "runner": 81,
+        "guard": 207
+      }
+    }
+  },
+  "other_candidates": {
+    "A-20": {
+      "packet": "production/A-20/preuves/final",
+      "packet_manifest_sha256": "17fcf310d18d87bcbd393d6dfdf50c4b7f94b81f951143d7d5199037026ee5ff",
+      "verifier_checks_per_console": {
+        "utf8": 111,
+        "cp1252": 111
+      }
+    },
+    "A-21": {
+      "packet": "production/A-21/preuves/final",
+      "packet_manifest_sha256": "4616ebe994633fb4dfb2f1b5f1ef53540550513a99d5869f3477b7820df5cc97",
+      "verifier_checks_per_console": {
+        "utf8": 49,
+        "cp1252": 49
+      }
+    }
+  },
+  "parent_gates_performed_by_child": false,
+  "PRET_created_by_child": false,
+  "PRET_presence_at_readback": {
+    "A-20": false,
+    "A-21": false,
+    "A-22": false
+  },
+  "shared_line_occurrences_at_readback": 0
+}

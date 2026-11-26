@@ -34,6 +34,7 @@ try {
         remove_filter('the_posts', [C::class,'protegerObjets'], -1000);
     } elseif ($mutation === 'rest') {
         remove_filter('rest_pre_dispatch', [C::class,'rest'], -1000);
+        remove_filter('map_meta_cap', [C::class,'capacites'], 20);
         remove_filter('the_content', [C::class,'contenu'], -1000);
         remove_filter('get_the_excerpt', [C::class,'extrait'], -1000);
         remove_filter('the_posts', [C::class,'protegerObjets'], -1000);
@@ -72,6 +73,10 @@ try {
     }
     $args = apply_filters('wp_sitemaps_posts_query_args', ['post_type'=>'page','posts_per_page'=>-1,'fields'=>'ids'], 'page');
     $ids = get_posts($args);
+    $provider = new WP_Sitemaps_Posts();
+    $urls = array_column($provider->get_url_list(1, 'page'), 'loc');
+    $checks['sitemap_fournisseur_natif_public_present'] = in_array(get_permalink($public), $urls, true);
+    $checks['sitemap_fournisseur_natif_espace_absent'] = !in_array(get_permalink($id), $urls, true) && !in_array(get_permalink($child), $urls, true);
     $checks['sitemap_public_existe'] = in_array($public,$ids,true);
     $checks['sitemap_exclut_espace'] = !in_array($id,$ids,true) && !in_array($child,$ids,true);
     wp_set_current_user(0);

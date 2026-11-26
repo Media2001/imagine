@@ -1,0 +1,847 @@
+{
+  "suite": "A02-real-commercial-fixture",
+  "checks": [
+    {
+      "check": "lint:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:seed.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:fingerprint.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:unit.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:readonly-probe.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": false,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "classic:native_fixture_relationships",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:a02_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:cli_and_actual_readonly_guards",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "classic:exact_count:cross",
+      "status": "PASS",
+      "detail": {
+        "actual": [
+          {
+            "plan": 24,
+            "subscription_status": "active",
+            "membership_status": "active",
+            "count": 1
+          }
+        ],
+        "expected": [
+          {
+            "plan": 24,
+            "subscription_status": "active",
+            "membership_status": "active",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "check": "classic:exact_count:subscriptions_without_membership",
+      "status": "PASS",
+      "detail": {
+        "actual": [
+          {
+            "status": "active",
+            "count": 2
+          },
+          {
+            "status": "on-hold",
+            "count": 1
+          }
+        ],
+        "expected": [
+          {
+            "status": "active",
+            "count": 2
+          },
+          {
+            "status": "on-hold",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "check": "classic:exact_count:memberships_without_subscription",
+      "status": "PASS",
+      "detail": {
+        "actual": [
+          {
+            "plan": 24,
+            "status": "active",
+            "count": 2
+          }
+        ],
+        "expected": [
+          {
+            "plan": 24,
+            "status": "active",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "check": "classic:exact_count:memberships_missing_subscription",
+      "status": "PASS",
+      "detail": {
+        "actual": [
+          {
+            "plan": 24,
+            "status": "active",
+            "count": 1
+          }
+        ],
+        "expected": [
+          {
+            "plan": 24,
+            "status": "active",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "check": "classic:exact_count:multiple_active_subscription_accounts",
+      "status": "PASS",
+      "detail": {
+        "actual": 1,
+        "expected": 1
+      }
+    },
+    {
+      "check": "classic:exact_count:multiple_active_membership_accounts",
+      "status": "PASS",
+      "detail": {
+        "actual": 1,
+        "expected": 1
+      }
+    },
+    {
+      "check": "classic:exact_count:multiple_active_membership_accounts_by_plan",
+      "status": "PASS",
+      "detail": {
+        "actual": [
+          {
+            "plan": 24,
+            "count": 1
+          }
+        ],
+        "expected": [
+          {
+            "plan": 24,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "check": "classic:exact_count:automatic_without_saved_payment",
+      "status": "PASS",
+      "detail": {
+        "actual": [
+          {
+            "gateway": "a19_fixture",
+            "count": 1
+          }
+        ],
+        "expected": [
+          {
+            "gateway": "a19_fixture",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "check": "classic:exact_count:automatic_payment_reference_unknown",
+      "status": "PASS",
+      "detail": {
+        "actual": [],
+        "expected": []
+      }
+    },
+    {
+      "check": "classic:exact_count:active_past_next_payment",
+      "status": "PASS",
+      "detail": {
+        "actual": 1,
+        "expected": 1
+      }
+    },
+    {
+      "check": "classic:exact_count:active_without_paid_order",
+      "status": "PASS",
+      "detail": {
+        "actual": 1,
+        "expected": 1
+      }
+    },
+    {
+      "check": "classic:exact_count:manual_by_gateway",
+      "status": "PASS",
+      "detail": {
+        "actual": [
+          {
+            "gateway": "bacs",
+            "count": 1
+          },
+          {
+            "gateway": "cheque",
+            "count": 1
+          }
+        ],
+        "expected": [
+          {
+            "gateway": "bacs",
+            "count": 1
+          },
+          {
+            "gateway": "cheque",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "check": "classic:all_counts_explained",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_account_subscription_order_identifiers_names_paths",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:private_output_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:replay_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:explicit_clock_retained",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:three_paths_without_date_native",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:default_clock_is_current_utc",
+      "status": "PASS",
+      "detail": {
+        "before_utc": "2026-11-26T15:52:47+00:00",
+        "as_of_utc": "2026-11-26T15:52:47Z",
+        "after_utc": "2026-11-26T15:52:48.299780+00:00"
+      }
+    },
+    {
+      "check": "classic:default_clock_single_frozen_reference",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:repeated_clock_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:repo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:ancestor",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:unconfined_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:symlink_private_code_only:False",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:symlink_private_code_only:True",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:0",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:1",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:2",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:3",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:4",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:5",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:config_private_code_only:define",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:config_private_code_only:const",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:invalid_clock_code_only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_tables_scheduler_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:config_not_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:unknown_reference_not_counted_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:unknown_variant_database_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plugin_exception_code_closed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plugin_exception_variant_database_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_produced_artifacts_canary_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": true,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "hpos:native_fixture_relationships",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:a02_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:cli_and_actual_readonly_guards",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "hpos:exact_count:cross",
+      "status": "PASS",
+      "detail": {
+        "actual": [
+          {
+            "plan": 24,
+            "subscription_status": "active",
+            "membership_status": "active",
+            "count": 1
+          }
+        ],
+        "expected": [
+          {
+            "plan": 24,
+            "subscription_status": "active",
+            "membership_status": "active",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "check": "hpos:exact_count:subscriptions_without_membership",
+      "status": "PASS",
+      "detail": {
+        "actual": [
+          {
+            "status": "active",
+            "count": 2
+          },
+          {
+            "status": "on-hold",
+            "count": 1
+          }
+        ],
+        "expected": [
+          {
+            "status": "active",
+            "count": 2
+          },
+          {
+            "status": "on-hold",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "check": "hpos:exact_count:memberships_without_subscription",
+      "status": "PASS",
+      "detail": {
+        "actual": [
+          {
+            "plan": 24,
+            "status": "active",
+            "count": 2
+          }
+        ],
+        "expected": [
+          {
+            "plan": 24,
+            "status": "active",
+            "count": 2
+          }
+        ]
+      }
+    },
+    {
+      "check": "hpos:exact_count:memberships_missing_subscription",
+      "status": "PASS",
+      "detail": {
+        "actual": [
+          {
+            "plan": 24,
+            "status": "active",
+            "count": 1
+          }
+        ],
+        "expected": [
+          {
+            "plan": 24,
+            "status": "active",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "check": "hpos:exact_count:multiple_active_subscription_accounts",
+      "status": "PASS",
+      "detail": {
+        "actual": 1,
+        "expected": 1
+      }
+    },
+    {
+      "check": "hpos:exact_count:multiple_active_membership_accounts",
+      "status": "PASS",
+      "detail": {
+        "actual": 1,
+        "expected": 1
+      }
+    },
+    {
+      "check": "hpos:exact_count:multiple_active_membership_accounts_by_plan",
+      "status": "PASS",
+      "detail": {
+        "actual": [
+          {
+            "plan": 24,
+            "count": 1
+          }
+        ],
+        "expected": [
+          {
+            "plan": 24,
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "check": "hpos:exact_count:automatic_without_saved_payment",
+      "status": "PASS",
+      "detail": {
+        "actual": [
+          {
+            "gateway": "a19_fixture",
+            "count": 1
+          }
+        ],
+        "expected": [
+          {
+            "gateway": "a19_fixture",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "check": "hpos:exact_count:automatic_payment_reference_unknown",
+      "status": "PASS",
+      "detail": {
+        "actual": [],
+        "expected": []
+      }
+    },
+    {
+      "check": "hpos:exact_count:active_past_next_payment",
+      "status": "PASS",
+      "detail": {
+        "actual": 1,
+        "expected": 1
+      }
+    },
+    {
+      "check": "hpos:exact_count:active_without_paid_order",
+      "status": "PASS",
+      "detail": {
+        "actual": 1,
+        "expected": 1
+      }
+    },
+    {
+      "check": "hpos:exact_count:manual_by_gateway",
+      "status": "PASS",
+      "detail": {
+        "actual": [
+          {
+            "gateway": "bacs",
+            "count": 1
+          },
+          {
+            "gateway": "cheque",
+            "count": 1
+          }
+        ],
+        "expected": [
+          {
+            "gateway": "bacs",
+            "count": 1
+          },
+          {
+            "gateway": "cheque",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "check": "hpos:all_counts_explained",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_account_subscription_order_identifiers_names_paths",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:private_output_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:replay_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:explicit_clock_retained",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:three_paths_without_date_native",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:default_clock_is_current_utc",
+      "status": "PASS",
+      "detail": {
+        "before_utc": "2026-11-26T15:53:15+00:00",
+        "as_of_utc": "2026-11-26T15:53:15Z",
+        "after_utc": "2026-11-26T15:53:16.010155+00:00"
+      }
+    },
+    {
+      "check": "hpos:default_clock_single_frozen_reference",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:repeated_clock_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:repo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:ancestor",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:unconfined_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:symlink_private_code_only:False",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:symlink_private_code_only:True",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:0",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:1",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:2",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:3",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:4",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:5",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:config_private_code_only:define",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:config_private_code_only:const",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:invalid_clock_code_only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_tables_scheduler_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:config_not_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:unknown_reference_not_counted_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:unknown_variant_database_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plugin_exception_code_closed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plugin_exception_variant_database_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_produced_artifacts_canary_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "network_interfaces",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp6",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 0,
+  "licensed_sha256": {
+    "woocommerce-subscriptions.zip": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083",
+    "woocommerce-memberships.zip": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285"
+  },
+  "no_real_site": true
+}

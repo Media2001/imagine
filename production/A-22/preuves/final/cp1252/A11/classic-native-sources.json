@@ -1,0 +1,8 @@
+{
+  "wp-includes/link-template.php": "7a3161d051b78c6eb5128b31e5f255f8c39b2ebfe162045bc48c8c1483cbbf35",
+  "wp-includes/post.php": "e4ca37fca71b55eb48c5124bcdfa48f05d7fa97518316e426cbf66c31056b8de",
+  "wp-includes/load.php": "4ba2945b862d4f48113df428768da6256fd229f8c77ee504041a54ecbb3560e0",
+  "wp-includes/class-wpdb.php": "99a30801ae7ed3ddb6faf5feef3b564210c8dc681fc42b8cd1ea7da0904218b5",
+  "wp-includes/sitemaps/providers/class-wp-sitemaps-users.php": "4a993c84258f4b57a4a28d86f59877e3487fa181f3e1a6f872820419d4f52da3",
+  "wp-content/plugins/woocommerce/includes/class-wc-post-types.php": "0af7f4588433edf92436d9c9186fa23186a2b56edea85ac52d3c5629e464e81d"
+}

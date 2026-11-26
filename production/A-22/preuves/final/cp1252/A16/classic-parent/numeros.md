@@ -1,0 +1,92 @@
+# Numeros — lecture seule
+
+Comptes et identifiants uniquement ; aucun rattachement choisi.
+
+```json
+{
+    "schema": "imagine-a16-issues-v1",
+    "read_only": true,
+    "storage": "classic",
+    "limit": 10,
+    "issues": [
+        {
+            "id": 26,
+            "date_utc": "2026-03-01T12:00:00Z",
+            "articles": 2,
+            "published_articles": 1,
+            "unpublished_articles": 1,
+            "without_theme": 1,
+            "multiple_themes": 1,
+            "without_featured_image": 1,
+            "attached_media": 2,
+            "missing_media_files": 1,
+            "pdf": "oui",
+            "pdf_public": true
+        },
+        {
+            "id": 25,
+            "date_utc": "2026-02-01T12:00:00Z",
+            "articles": 1,
+            "published_articles": 1,
+            "unpublished_articles": 0,
+            "without_theme": 0,
+            "multiple_themes": 0,
+            "without_featured_image": 1,
+            "attached_media": 0,
+            "missing_media_files": 0,
+            "pdf": "declare_mais_fichier_absent",
+            "pdf_public": true
+        },
+        {
+            "id": 24,
+            "date_utc": "2026-01-01T12:00:00Z",
+            "articles": 1,
+            "published_articles": 1,
+            "unpublished_articles": 0,
+            "without_theme": 0,
+            "multiple_themes": 0,
+            "without_featured_image": 1,
+            "attached_media": 0,
+            "missing_media_files": 0,
+            "pdf": "non",
+            "pdf_public": null
+        },
+        {
+            "id": 28,
+            "date_utc": "2025-12-01T12:00:00Z",
+            "articles": 0,
+            "published_articles": 0,
+            "unpublished_articles": 0,
+            "without_theme": 0,
+            "multiple_themes": 0,
+            "without_featured_image": 0,
+            "attached_media": 0,
+            "missing_media_files": 0,
+            "pdf": "non",
+            "pdf_public": null
+        },
+        {
+            "id": 27,
+            "date_utc": "2025-12-01T12:00:00Z",
+            "articles": 0,
+            "published_articles": 0,
+            "unpublished_articles": 0,
+            "without_theme": 0,
+            "multiple_themes": 0,
+            "without_featured_image": 0,
+            "attached_media": 0,
+            "missing_media_files": 0,
+            "pdf": "non",
+            "pdf_public": null
+        }
+    ],
+    "orphan_published_by_year": [
+        {
+            "year": 2025,
+            "articles": 1
+        }
+    ],
+    "audit_sha256": "e0c8c50bb56d5496d9b9707f019d4041e336f82f790dba59b731034d653f461f",
+    "mapping_sha256": "e67a11065b7df1dbd3c73d220ae6b1e71cb9110c4b62ce1875becefcaaf37b55"
+}
+```

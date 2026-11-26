@@ -1,0 +1,1699 @@
+{
+  "suite": "A02-real-commercial-fixture",
+  "checks": [
+    {
+      "check": "lint:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:seed.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:fingerprint.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:unit.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:readonly-probe.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": false,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "classic:command_exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:cli",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "classic:pretty:a09_exact_convention",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:exact_native_urls_and_natures",
+      "status": "PASS",
+      "detail": {
+        "expected": 25,
+        "actual": 25
+      }
+    },
+    {
+      "check": "classic:pretty:excluded_exact",
+      "status": "PASS",
+      "detail": {
+        "draft": 1,
+        "private": 1,
+        "password": 1,
+        "attachment_parent_not_public": 1,
+        "attachment_pages_disabled": 0
+      }
+    },
+    {
+      "check": "classic:pretty:dates_and_status_native",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:summary_counts_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:native_permalink_bases",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:author_slug_only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:spreadsheet_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:unique_sorted",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:publication_and_dates",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:no_private_fields",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:output_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:no_http_mail_scheduling",
+      "status": "PASS",
+      "detail": {
+        "http": 0,
+        "mail": 0,
+        "scheduled": 0
+      }
+    },
+    {
+      "check": "classic:pretty:repeat",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:refuse:web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:refuse:source",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:refuse:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:refuse:unknown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:symlink_web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:canonical_repository_guard",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:missing_audit_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:invalid_audit_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:external_native_url_not_invented",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:dynamic_config_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:dropin_refused_before_execution:object-cache.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:dropin_refused_before_execution:advanced-cache.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:dropin_refused_before_execution:db.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:dropin_refused_before_execution:sunrise.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:dropin_refused_before_execution:wordfence-waf.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:dropin_refused_before_execution:.user.ini",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:custom_mu_before_bootstrap",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:site_symlink_private",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:failed_select_no_validated_packet",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 1,
+        "code": "A11_READ_FAILED"
+      }
+    },
+    {
+      "check": "classic:pretty:root_write_denied",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pretty:all_tables_unchanged",
+      "status": "PASS",
+      "detail": {
+        "before": "d2a4ace6036b3d37b63d812dc08426f315f3d747a06cfa2c24a844df50431d00",
+        "after": "d2a4ace6036b3d37b63d812dc08426f315f3d747a06cfa2c24a844df50431d00",
+        "tables": 55
+      }
+    },
+    {
+      "check": "classic:pretty:files_unchanged",
+      "status": "PASS",
+      "detail": {
+        "sha256": "64a9c74a145467a0f836b7bdff2c237479702b9b24feedd982cabdf372b27fab"
+      }
+    },
+    {
+      "check": "classic:pretty:config_never_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plain:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plain:cli",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "classic:plain:a09_exact_convention",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plain:exact_native_urls_and_natures",
+      "status": "PASS",
+      "detail": {
+        "expected": 26,
+        "actual": 26
+      }
+    },
+    {
+      "check": "classic:plain:excluded_exact",
+      "status": "PASS",
+      "detail": {
+        "draft": 1,
+        "private": 1,
+        "password": 1,
+        "attachment_parent_not_public": 1,
+        "attachment_pages_disabled": 0
+      }
+    },
+    {
+      "check": "classic:plain:dates_and_status_native",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plain:summary_counts_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plain:native_permalink_bases",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plain:author_slug_only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plain:spreadsheet_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plain:unique_sorted",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plain:publication_and_dates",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plain:no_private_fields",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plain:output_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plain:no_http_mail_scheduling",
+      "status": "PASS",
+      "detail": {
+        "http": 0,
+        "mail": 0,
+        "scheduled": 0
+      }
+    },
+    {
+      "check": "classic:plain:repeat",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plain:refuse:web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plain:refuse:source",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plain:refuse:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plain:refuse:unknown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plain:symlink_web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plain:root_write_denied",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plain:all_tables_unchanged",
+      "status": "PASS",
+      "detail": {
+        "before": "d8f3cacb287a39749a495a4288ab1876f8b592b2020033fffb7654af92de6634",
+        "after": "d8f3cacb287a39749a495a4288ab1876f8b592b2020033fffb7654af92de6634",
+        "tables": 55
+      }
+    },
+    {
+      "check": "classic:plain:files_unchanged",
+      "status": "PASS",
+      "detail": {
+        "sha256": "64a9c74a145467a0f836b7bdff2c237479702b9b24feedd982cabdf372b27fab"
+      }
+    },
+    {
+      "check": "classic:plain:config_never_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subdir:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subdir:cli",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "classic:subdir:a09_exact_convention",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subdir:exact_native_urls_and_natures",
+      "status": "PASS",
+      "detail": {
+        "expected": 25,
+        "actual": 25
+      }
+    },
+    {
+      "check": "classic:subdir:excluded_exact",
+      "status": "PASS",
+      "detail": {
+        "draft": 1,
+        "private": 1,
+        "password": 1,
+        "attachment_parent_not_public": 1,
+        "attachment_pages_disabled": 0
+      }
+    },
+    {
+      "check": "classic:subdir:dates_and_status_native",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subdir:summary_counts_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subdir:native_permalink_bases",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subdir:author_slug_only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subdir:spreadsheet_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subdir:unique_sorted",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subdir:publication_and_dates",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subdir:no_private_fields",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subdir:output_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subdir:no_http_mail_scheduling",
+      "status": "PASS",
+      "detail": {
+        "http": 0,
+        "mail": 0,
+        "scheduled": 0
+      }
+    },
+    {
+      "check": "classic:subdir:repeat",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subdir:refuse:web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subdir:refuse:source",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subdir:refuse:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subdir:refuse:unknown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subdir:symlink_web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subdir:root_write_denied",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:subdir:all_tables_unchanged",
+      "status": "PASS",
+      "detail": {
+        "before": "6c6ea93d831f7e8cfcc5315d4668c45a672e866d9b43b0bca8d7021d8893c018",
+        "after": "6c6ea93d831f7e8cfcc5315d4668c45a672e866d9b43b0bca8d7021d8893c018",
+        "tables": 55
+      }
+    },
+    {
+      "check": "classic:subdir:files_unchanged",
+      "status": "PASS",
+      "detail": {
+        "sha256": "64a9c74a145467a0f836b7bdff2c237479702b9b24feedd982cabdf372b27fab"
+      }
+    },
+    {
+      "check": "classic:subdir:config_never_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:attachments-disabled:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:attachments-disabled:cli",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "classic:attachments-disabled:a09_exact_convention",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:attachments-disabled:exact_native_urls_and_natures",
+      "status": "PASS",
+      "detail": {
+        "expected": 22,
+        "actual": 22
+      }
+    },
+    {
+      "check": "classic:attachments-disabled:excluded_exact",
+      "status": "PASS",
+      "detail": {
+        "draft": 1,
+        "private": 1,
+        "password": 1,
+        "attachment_parent_not_public": 1,
+        "attachment_pages_disabled": 3
+      }
+    },
+    {
+      "check": "classic:attachments-disabled:dates_and_status_native",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:attachments-disabled:summary_counts_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:attachments-disabled:native_permalink_bases",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:attachments-disabled:author_slug_only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:attachments-disabled:spreadsheet_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:attachments-disabled:unique_sorted",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:attachments-disabled:publication_and_dates",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:attachments-disabled:no_private_fields",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:attachments-disabled:output_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:attachments-disabled:no_http_mail_scheduling",
+      "status": "PASS",
+      "detail": {
+        "http": 0,
+        "mail": 0,
+        "scheduled": 0
+      }
+    },
+    {
+      "check": "classic:attachments-disabled:repeat",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:attachments-disabled:refuse:web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:attachments-disabled:refuse:source",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:attachments-disabled:refuse:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:attachments-disabled:refuse:unknown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:attachments-disabled:symlink_web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:attachments-disabled:root_write_denied",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:attachments-disabled:all_tables_unchanged",
+      "status": "PASS",
+      "detail": {
+        "before": "3611d002f205bbbf739e5ab5b1e002819d430bf42cb7b6a1c8fc137d3b3534fe",
+        "after": "3611d002f205bbbf739e5ab5b1e002819d430bf42cb7b6a1c8fc137d3b3534fe",
+        "tables": 55
+      }
+    },
+    {
+      "check": "classic:attachments-disabled:files_unchanged",
+      "status": "PASS",
+      "detail": {
+        "sha256": "64a9c74a145467a0f836b7bdff2c237479702b9b24feedd982cabdf372b27fab"
+      }
+    },
+    {
+      "check": "classic:attachments-disabled:config_never_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:static-front:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:static-front:cli",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "classic:static-front:a09_exact_convention",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:static-front:exact_native_urls_and_natures",
+      "status": "PASS",
+      "detail": {
+        "expected": 24,
+        "actual": 24
+      }
+    },
+    {
+      "check": "classic:static-front:excluded_exact",
+      "status": "PASS",
+      "detail": {
+        "draft": 1,
+        "private": 1,
+        "password": 1,
+        "attachment_parent_not_public": 1,
+        "attachment_pages_disabled": 0
+      }
+    },
+    {
+      "check": "classic:static-front:dates_and_status_native",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:static-front:summary_counts_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:static-front:native_permalink_bases",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:static-front:author_slug_only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:static-front:spreadsheet_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:static-front:unique_sorted",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:static-front:publication_and_dates",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:static-front:no_private_fields",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:static-front:output_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:static-front:no_http_mail_scheduling",
+      "status": "PASS",
+      "detail": {
+        "http": 0,
+        "mail": 0,
+        "scheduled": 0
+      }
+    },
+    {
+      "check": "classic:static-front:repeat",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:static-front:refuse:web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:static-front:refuse:source",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:static-front:refuse:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:static-front:refuse:unknown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:static-front:symlink_web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:static-front:root_write_denied",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:static-front:all_tables_unchanged",
+      "status": "PASS",
+      "detail": {
+        "before": "b97235e075522ca4603cedb471ad11820e2621165bdbbed32db37c1e25bcdb7e",
+        "after": "b97235e075522ca4603cedb471ad11820e2621165bdbbed32db37c1e25bcdb7e",
+        "tables": 55
+      }
+    },
+    {
+      "check": "classic:static-front:files_unchanged",
+      "status": "PASS",
+      "detail": {
+        "sha256": "64a9c74a145467a0f836b7bdff2c237479702b9b24feedd982cabdf372b27fab"
+      }
+    },
+    {
+      "check": "classic:static-front:config_never_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": true,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "hpos:command_exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:cli",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "hpos:pretty:a09_exact_convention",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:exact_native_urls_and_natures",
+      "status": "PASS",
+      "detail": {
+        "expected": 25,
+        "actual": 25
+      }
+    },
+    {
+      "check": "hpos:pretty:excluded_exact",
+      "status": "PASS",
+      "detail": {
+        "draft": 1,
+        "private": 1,
+        "password": 1,
+        "attachment_parent_not_public": 1,
+        "attachment_pages_disabled": 0
+      }
+    },
+    {
+      "check": "hpos:pretty:dates_and_status_native",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:summary_counts_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:native_permalink_bases",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:author_slug_only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:spreadsheet_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:unique_sorted",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:publication_and_dates",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:no_private_fields",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:output_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:no_http_mail_scheduling",
+      "status": "PASS",
+      "detail": {
+        "http": 0,
+        "mail": 0,
+        "scheduled": 0
+      }
+    },
+    {
+      "check": "hpos:pretty:repeat",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:refuse:web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:refuse:source",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:refuse:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:refuse:unknown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:symlink_web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:canonical_repository_guard",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:missing_audit_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:invalid_audit_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:external_native_url_not_invented",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:dynamic_config_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:dropin_refused_before_execution:object-cache.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:dropin_refused_before_execution:advanced-cache.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:dropin_refused_before_execution:db.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:dropin_refused_before_execution:sunrise.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:dropin_refused_before_execution:wordfence-waf.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:dropin_refused_before_execution:.user.ini",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:custom_mu_before_bootstrap",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:site_symlink_private",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:failed_select_no_validated_packet",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 1,
+        "code": "A11_READ_FAILED"
+      }
+    },
+    {
+      "check": "hpos:pretty:root_write_denied",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pretty:all_tables_unchanged",
+      "status": "PASS",
+      "detail": {
+        "before": "94d6c3f089804c4a332557a44dfe31f73ed66c1441b3e67618b5d8d2510f914e",
+        "after": "94d6c3f089804c4a332557a44dfe31f73ed66c1441b3e67618b5d8d2510f914e",
+        "tables": 55
+      }
+    },
+    {
+      "check": "hpos:pretty:files_unchanged",
+      "status": "PASS",
+      "detail": {
+        "sha256": "259dcaf66bc45e5af0ccf932f168c08b442d5460a618930f617911c9a046be64"
+      }
+    },
+    {
+      "check": "hpos:pretty:config_never_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plain:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plain:cli",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "hpos:plain:a09_exact_convention",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plain:exact_native_urls_and_natures",
+      "status": "PASS",
+      "detail": {
+        "expected": 26,
+        "actual": 26
+      }
+    },
+    {
+      "check": "hpos:plain:excluded_exact",
+      "status": "PASS",
+      "detail": {
+        "draft": 1,
+        "private": 1,
+        "password": 1,
+        "attachment_parent_not_public": 1,
+        "attachment_pages_disabled": 0
+      }
+    },
+    {
+      "check": "hpos:plain:dates_and_status_native",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plain:summary_counts_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plain:native_permalink_bases",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plain:author_slug_only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plain:spreadsheet_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plain:unique_sorted",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plain:publication_and_dates",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plain:no_private_fields",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plain:output_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plain:no_http_mail_scheduling",
+      "status": "PASS",
+      "detail": {
+        "http": 0,
+        "mail": 0,
+        "scheduled": 0
+      }
+    },
+    {
+      "check": "hpos:plain:repeat",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plain:refuse:web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plain:refuse:source",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plain:refuse:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plain:refuse:unknown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plain:symlink_web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plain:root_write_denied",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plain:all_tables_unchanged",
+      "status": "PASS",
+      "detail": {
+        "before": "e93a1758bbd8741836d21de91bff2f0347ce56272d22b769fa13027e65924cdd",
+        "after": "e93a1758bbd8741836d21de91bff2f0347ce56272d22b769fa13027e65924cdd",
+        "tables": 55
+      }
+    },
+    {
+      "check": "hpos:plain:files_unchanged",
+      "status": "PASS",
+      "detail": {
+        "sha256": "259dcaf66bc45e5af0ccf932f168c08b442d5460a618930f617911c9a046be64"
+      }
+    },
+    {
+      "check": "hpos:plain:config_never_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subdir:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subdir:cli",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "hpos:subdir:a09_exact_convention",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subdir:exact_native_urls_and_natures",
+      "status": "PASS",
+      "detail": {
+        "expected": 25,
+        "actual": 25
+      }
+    },
+    {
+      "check": "hpos:subdir:excluded_exact",
+      "status": "PASS",
+      "detail": {
+        "draft": 1,
+        "private": 1,
+        "password": 1,
+        "attachment_parent_not_public": 1,
+        "attachment_pages_disabled": 0
+      }
+    },
+    {
+      "check": "hpos:subdir:dates_and_status_native",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subdir:summary_counts_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subdir:native_permalink_bases",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subdir:author_slug_only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subdir:spreadsheet_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subdir:unique_sorted",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subdir:publication_and_dates",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subdir:no_private_fields",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subdir:output_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subdir:no_http_mail_scheduling",
+      "status": "PASS",
+      "detail": {
+        "http": 0,
+        "mail": 0,
+        "scheduled": 0
+      }
+    },
+    {
+      "check": "hpos:subdir:repeat",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subdir:refuse:web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subdir:refuse:source",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subdir:refuse:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subdir:refuse:unknown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subdir:symlink_web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subdir:root_write_denied",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:subdir:all_tables_unchanged",
+      "status": "PASS",
+      "detail": {
+        "before": "4d826f74229d8b5ce569fed4c90d6e76dc9c10fa442f8c3bb75e8adf9433d6fd",
+        "after": "4d826f74229d8b5ce569fed4c90d6e76dc9c10fa442f8c3bb75e8adf9433d6fd",
+        "tables": 55
+      }
+    },
+    {
+      "check": "hpos:subdir:files_unchanged",
+      "status": "PASS",
+      "detail": {
+        "sha256": "259dcaf66bc45e5af0ccf932f168c08b442d5460a618930f617911c9a046be64"
+      }
+    },
+    {
+      "check": "hpos:subdir:config_never_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:attachments-disabled:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:attachments-disabled:cli",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "hpos:attachments-disabled:a09_exact_convention",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:attachments-disabled:exact_native_urls_and_natures",
+      "status": "PASS",
+      "detail": {
+        "expected": 22,
+        "actual": 22
+      }
+    },
+    {
+      "check": "hpos:attachments-disabled:excluded_exact",
+      "status": "PASS",
+      "detail": {
+        "draft": 1,
+        "private": 1,
+        "password": 1,
+        "attachment_parent_not_public": 1,
+        "attachment_pages_disabled": 3
+      }
+    },
+    {
+      "check": "hpos:attachments-disabled:dates_and_status_native",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:attachments-disabled:summary_counts_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:attachments-disabled:native_permalink_bases",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:attachments-disabled:author_slug_only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:attachments-disabled:spreadsheet_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:attachments-disabled:unique_sorted",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:attachments-disabled:publication_and_dates",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:attachments-disabled:no_private_fields",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:attachments-disabled:output_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:attachments-disabled:no_http_mail_scheduling",
+      "status": "PASS",
+      "detail": {
+        "http": 0,
+        "mail": 0,
+        "scheduled": 0
+      }
+    },
+    {
+      "check": "hpos:attachments-disabled:repeat",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:attachments-disabled:refuse:web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:attachments-disabled:refuse:source",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:attachments-disabled:refuse:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:attachments-disabled:refuse:unknown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:attachments-disabled:symlink_web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:attachments-disabled:root_write_denied",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:attachments-disabled:all_tables_unchanged",
+      "status": "PASS",
+      "detail": {
+        "before": "4dff04e0360a64f69745ee7e8b4e9ad55d0428a6d779617a70ad640f70e0f5cb",
+        "after": "4dff04e0360a64f69745ee7e8b4e9ad55d0428a6d779617a70ad640f70e0f5cb",
+        "tables": 55
+      }
+    },
+    {
+      "check": "hpos:attachments-disabled:files_unchanged",
+      "status": "PASS",
+      "detail": {
+        "sha256": "259dcaf66bc45e5af0ccf932f168c08b442d5460a618930f617911c9a046be64"
+      }
+    },
+    {
+      "check": "hpos:attachments-disabled:config_never_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:static-front:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:static-front:cli",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0
+      }
+    },
+    {
+      "check": "hpos:static-front:a09_exact_convention",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:static-front:exact_native_urls_and_natures",
+      "status": "PASS",
+      "detail": {
+        "expected": 24,
+        "actual": 24
+      }
+    },
+    {
+      "check": "hpos:static-front:excluded_exact",
+      "status": "PASS",
+      "detail": {
+        "draft": 1,
+        "private": 1,
+        "password": 1,
+        "attachment_parent_not_public": 1,
+        "attachment_pages_disabled": 0
+      }
+    },
+    {
+      "check": "hpos:static-front:dates_and_status_native",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:static-front:summary_counts_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:static-front:native_permalink_bases",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:static-front:author_slug_only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:static-front:spreadsheet_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:static-front:unique_sorted",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:static-front:publication_and_dates",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:static-front:no_private_fields",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:static-front:output_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:static-front:no_http_mail_scheduling",
+      "status": "PASS",
+      "detail": {
+        "http": 0,
+        "mail": 0,
+        "scheduled": 0
+      }
+    },
+    {
+      "check": "hpos:static-front:repeat",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:static-front:refuse:web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:static-front:refuse:source",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:static-front:refuse:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:static-front:refuse:unknown",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:static-front:symlink_web",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:static-front:root_write_denied",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:static-front:all_tables_unchanged",
+      "status": "PASS",
+      "detail": {
+        "before": "37ed51ec8f3e72078b77fe1dc95a804cf9668afd05a8fc35c216d8cba7eb64e6",
+        "after": "37ed51ec8f3e72078b77fe1dc95a804cf9668afd05a8fc35c216d8cba7eb64e6",
+        "tables": 55
+      }
+    },
+    {
+      "check": "hpos:static-front:files_unchanged",
+      "status": "PASS",
+      "detail": {
+        "sha256": "259dcaf66bc45e5af0ccf932f168c08b442d5460a618930f617911c9a046be64"
+      }
+    },
+    {
+      "check": "hpos:static-front:config_never_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "network_interfaces",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp6",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 0,
+  "licensed_sha256": {
+    "woocommerce-subscriptions.zip": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083",
+    "woocommerce-memberships.zip": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285"
+  },
+  "no_real_site": true
+}
