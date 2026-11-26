@@ -48,7 +48,7 @@ def main():
                 for p in sorted(source.glob('*')):
                     if p.is_file():
                         b.call(['cp',b.local(p),name+':'+dest+'/'+p.name])
-        for dependency in ['audit','a11','a12']:
+        for dependency in ['audit','a11','a12','stream_guard.py','stream_refusals.json','stream_bridge.php']:
             b.call(['cp',b.local(ROOT/'wp/outils/bascule'/dependency),name+':/subject/'+dependency])
         p = b.call(['exec',name,'php','/opt/a21/unit.php'],check=False)
         (out/'unit.log').write_text(p.stdout+p.stderr,encoding='utf-8')

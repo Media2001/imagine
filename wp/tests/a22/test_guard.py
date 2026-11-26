@@ -21,7 +21,7 @@ class CommonGuardTest(unittest.TestCase):
 
     def test_common_guard_waits_for_real_child_termination(self):
         guard=self.load()
-        code,out,err=guard.supervise(self.child("import atexit,sys; print('OK'); atexit.register(lambda:sys.stderr.write('LATE'))"),
+        code,out,err=guard.supervise(self.child("import atexit,sys,os; os.write(1,b'OK\\n'); atexit.register(lambda:sys.stderr.write('LATE'))"),
             {**os.environ,'PYTHONIOENCODING':'utf-8'},None,None)
         self.assertEqual((code,out,err),(0,b'OK\n',b'LATE'))
 

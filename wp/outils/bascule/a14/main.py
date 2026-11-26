@@ -64,21 +64,15 @@ def main(argv=None):
     inputs=[Path(options[k]).resolve(strict=True) for k in ('--contacts','--correspondance')]
     if any(p==parent or parent in p.parents for p in inputs):raise RuntimeError('A14_INPUT_OUTPUT_OVERLAP')
     rows=read_contacts(*inputs)
-    a12.confine(parent)
-    env={**os.environ,'A14_CONFINED':'1'}
-    args=['php','-d','display_errors=0','-d','log_errors=0','-d','disable_functions=mail,exec,shell_exec,system,passthru,popen,proc_open,pcntl_exec',str(HERE/'command.php')]
-    args.extend(k+'='+options[k] for k in ('--wp-path','--output','--audit'))
-    result=subprocess.run(args,input=json.dumps(rows),text=True,encoding='utf-8',capture_output=True,env={**env,'PYTHONIOENCODING':'utf-8','PYTHONUTF8':'1'},timeout=240)
-    # Never forward untrusted bootstrap output or raw exception messages.
-    if result.returncode:
-        diagnostic=result.stderr if re.fullmatch(r'A(?:14|12|11|02)_[A-Z_]+(?: \{[^\n]*\})?\n',result.stderr) else 'A14_COMMAND_FAILED\n'
-        sys.stderr.write(diagnostic);return 1
-    if result.stdout!='A14_OK\n' or result.stderr:raise RuntimeError('A14_PROTOCOL_FAILED')
-    print('A14_OK');return 0
+    guard=load('stream_guard',HERE.parent/'stream_guard.py')
+    return guard.inventory('A14',HERE/'command.php',
+        {key:options[key] for key in ('--wp-path','--output','--audit')},
+        fence=a12,input_data=json.dumps(rows).encode('utf-8'))
 
 
 def cli():
     try:return main()
     except Exception as error:
-        code=str(error) if isinstance(error,RuntimeError) and re.fullmatch(r'A(?:14|12)_[A-Z_]+',str(error)) else 'A14_FAILED'
+        guard=load('stream_guard',HERE.parent/'stream_guard.py')
+        code=guard.public_error(error,'A14')
         print(code,file=sys.stderr);return 1

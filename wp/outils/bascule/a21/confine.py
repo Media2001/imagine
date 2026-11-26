@@ -28,38 +28,9 @@ REFUSALS={ (code+'\n').encode():code+'\n' for code in CODES }
 REFUSALS.update({('A11_DROPIN_UNSUPPORTED '+json.dumps({'file':name},separators=(',',':'))+'\n').encode():
                  'A11_DROPIN_UNSUPPORTED '+json.dumps({'file':name},separators=(',',':'))+'\n' for name in DROPINS})
 
-def supervise(command,env,write_root,fence):
-    # No site PHP runs in this supervisor. Only the child gets staging write rights.
-    with subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.PIPE,env=env,
-                          preexec_fn=lambda:fence.confine(write_root)) as child:
-        buffers={child.stdout:bytearray(),child.stderr:bytearray()}
-        overflow=False
-        deadline=time.monotonic()+120
-        with selectors.DefaultSelector() as streams:
-            for stream in buffers:
-                streams.register(stream,selectors.EVENT_READ)
-            while streams.get_map():
-                if time.monotonic()>deadline:
-                    child.kill()
-                    child.wait()
-                    raise RuntimeError('A21_PROCESS_TIMEOUT')
-                for key,_ in streams.select(0.1):
-                    block=os.read(key.fileobj.fileno(),8192)
-                    if not block:
-                        streams.unregister(key.fileobj)
-                    elif len(buffers[key.fileobj])+len(block)<=65536:
-                        buffers[key.fileobj].extend(block)
-                    else:
-                        overflow=True
-        try:
-            code=child.wait(timeout=max(0.01,deadline-time.monotonic()))
-        except subprocess.TimeoutExpired:
-            child.kill()
-            child.wait()
-            raise RuntimeError('A21_PROCESS_TIMEOUT') from None
-        if overflow:
-            raise RuntimeError('A21_UNEXPECTED_OUTPUT')
-        return code,bytes(buffers[child.stdout]),bytes(buffers[child.stderr])
+spec=importlib.util.spec_from_file_location('stream_guard',HERE.parent/'stream_guard.py')
+guard=importlib.util.module_from_spec(spec);spec.loader.exec_module(guard)
+supervise=guard.supervise
 
 def public_projection(data):
     # A shutdown handler can tamper with staged files as well as the two pipes.
@@ -148,7 +119,8 @@ def main():
         command=['php','-d','display_errors=0','-d','log_errors=0','-d',
                  'disable_functions=mail,exec,shell_exec,system,passthru,popen,proc_open,pcntl_exec',
                  str(HERE/'inventorier-portes'),*args]
-        code,stdout,stderr=supervise(command,{**os.environ,'A21_CONFINED':'1'},stage,fence)
+        code,stdout,stderr=supervise(command,{**os.environ,'A21_CONFINED':'1'},stage,fence,
+            invalid='A21_UNEXPECTED_OUTPUT',expired='A21_PROCESS_TIMEOUT')
         if code==1 and stdout==b'' and stderr in REFUSALS:
             sys.stderr.write(REFUSALS[stderr])
             return 1

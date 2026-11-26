@@ -10,6 +10,10 @@ require_once __DIR__ . '/a03/Report.php';
 require_once __DIR__ . '/a03/Site.php';
 
 if (!defined('IMAGINE_A03_LIBRARY_ONLY')) {
+    if (getenv('A22_SUPERVISED') !== 'A03') {
+        require_once __DIR__ . '/stream_bridge.php';
+        exit(\Imagine\StreamGuard\launch('A03', $argv));
+    }
     ini_set('display_errors', '0');
     ini_set('log_errors', '0');
     ini_set('error_log', '/dev/null');

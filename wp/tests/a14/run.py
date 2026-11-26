@@ -47,7 +47,7 @@ def main():
         for source,destination in [(HERE,'/opt/a14'),(ROOT/'wp/outils/bascule/a14','/checkout/wp/outils/bascule/a14')]:
             for p in sorted(source.glob('*')):
                 if p.is_file():b.call(['cp',b.local(p),name+':'+destination+'/'+p.name])
-        for dependency in ['audit','a11','a12','controler-export']:
+        for dependency in ['audit','a11','a12','controler-export','stream_guard.py','stream_refusals.json','stream_bridge.php']:
             b.call(['cp',b.local(ROOT/'wp/outils/bascule'/dependency),name+':/checkout/wp/outils/bascule/'+dependency])
         b.call(['exec',name,'mkdir','-p','/subject'])
         b.call(['cp',b.local(ROOT/'wp/outils/bascule/audit'),name+':/subject/audit'])

@@ -54,6 +54,8 @@ def main():
             for p in root.iterdir():
                 if p.is_file(): b.call(['cp',b.local(p),name+':'+dest+p.name])
         b.call(['cp',b.local(REPO/'wp/outils/bascule/audit'),name+':/subject/audit'])
+        for common in ['stream_guard.py','stream_refusals.json','stream_bridge.php']:
+            b.call(['cp',b.local(REPO/'wp/outils/bascule'/common),name+':/subject/'+common])
         b.call(['cp',b.local(REPO/'wp/outils/bascule/a09/check.py'),name+':/reference/wp/outils/bascule/a09/check.py'])
         unit = b.call(['exec',name,'php','/opt/a11/unit.php'],check=False)
         (out/'unit.log').write_text(unit.stdout+unit.stderr,encoding='utf-8')

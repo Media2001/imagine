@@ -38,7 +38,7 @@ def main():
         for source,dest in [(HERE,'/opt/a20'),(ROOT/'wp/outils/bascule/a20','/subject/a20')]:
             for p in sorted(source.glob('*')):
                 if p.is_file():b.call(['cp',b.local(p),name+':'+dest+'/'+p.name])
-        for dependency in ['audit','a11','a12']:b.call(['cp',b.local(ROOT/'wp/outils/bascule'/dependency),name+':/subject/'+dependency])
+        for dependency in ['audit','a11','a12','stream_guard.py','stream_refusals.json','stream_bridge.php']:b.call(['cp',b.local(ROOT/'wp/outils/bascule'/dependency),name+':/subject/'+dependency])
         p=b.call(['exec',name,'php','/opt/a20/unit.php'],check=False);(out/'unit.log').write_text(p.stdout+p.stderr,encoding='utf-8')
         b.call(['cp',name+':/report/unit.json',b.local(out/'unit.json')]);check('unit_return',p.returncode==0,{'exit_code':p.returncode})
         pure=b.call(['exec',name,'php','-n','-d','disable_functions=file_put_contents,fopen,mkdir,rename,unlink,mail,exec,shell_exec,system,passthru,popen,proc_open','/opt/a20/pure-probe.php'],check=False)

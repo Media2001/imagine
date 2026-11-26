@@ -65,11 +65,10 @@ def main():
     repository = candidate if (candidate/'wp/outils/bascule/audit').is_file() else source.parent
     if not disjoint_output(parent, site, repository):
         raise RuntimeError('A12_OUTPUT_UNSAFE')
-    confine(parent)
-    os.environ['A12_CONFINED'] = '1'
-    os.execvp('php', ['php', '-d', 'display_errors=0', '-d', 'log_errors=0', '-d',
-        'disable_functions=mail,exec,shell_exec,system,passthru,popen,proc_open,pcntl_exec',
-        str(source/'inventorier-contenus'), *sys.argv[1:]])
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('stream_guard', source.parent/'stream_guard.py')
+    guard = importlib.util.module_from_spec(spec); spec.loader.exec_module(guard)
+    guard.inventory('A12', source/'inventorier-contenus', options, fence=sys.modules[__name__])
 
 
 if __name__ == '__main__':

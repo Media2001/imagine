@@ -20,8 +20,9 @@ def main():
     candidate=HERE.parents[3] if len(HERE.parents)>3 else HERE.parent
     repo=candidate if (candidate/'wp/outils/bascule/audit').is_file() else HERE.parent
     if not a12.disjoint_output(parent,site,repo):raise RuntimeError('A16_OUTPUT_UNSAFE')
-    a12.confine(parent);os.environ['A16_CONFINED']='1'
-    os.execvp('php',['php','-d','display_errors=0','-d','log_errors=0','-d','disable_functions=mail,exec,shell_exec,system,passthru,popen,proc_open,pcntl_exec',str(HERE/'inventorier-numeros'),*sys.argv[1:]])
+    spec=importlib.util.spec_from_file_location('stream_guard',HERE.parent/'stream_guard.py')
+    guard=importlib.util.module_from_spec(spec);spec.loader.exec_module(guard)
+    guard.inventory('A16',HERE/'inventorier-numeros',o,fence=a12)
 if __name__=='__main__':
     try:main()
     except Exception as error:

@@ -60,6 +60,9 @@ def main():
             files += [(p, '/opt/a03/' + p.name) for p in ROOT.iterdir() if p.suffix in ('.php', '.py') and p.name not in ('run.py', 'unit.php', 'output-boundary.php')]
             files += [(REPO / 'wp/outils/staging/runtime-probe.php', '/staging/runtime-probe.php'), (REPO / 'wp/outils/staging/mu-plugins/000-imagine-staging-safety.php', '/staging/mu-plugins/000-imagine-staging-safety.php'), (REPO / 'wp/outils/staging/mu-plugins/000-imagine-staging-safety.php', '/subject/000-imagine-staging-safety.php'), (ROOT.parent / 'a02-audit/fingerprint.php', '/opt/a03/fingerprint.php')]
         for source, destination in files:
+            pass
+        files += [(REPO/'wp/outils/bascule'/common,'/subject/'+common) for common in ['stream_guard.py','stream_refusals.json','stream_bridge.php']]
+        for source, destination in files:
             bench.call(['cp', bench.local(source), name + ':' + destination])
         if not args.unit_only:
             for file in bench.LICENSED:

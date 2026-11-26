@@ -4,6 +4,10 @@
 declare(strict_types=1);
 
 define('IMAGINE_AUDIT_LIBRARY_ONLY', true);
+if (getenv('A22_SUPERVISED') !== 'A11') {
+    require_once dirname(__DIR__) . '/stream_bridge.php';
+    exit(Imagine\StreamGuard\launch('A11', $argv));
+}
 require_once dirname(__DIR__) . '/audit';
 require_once __DIR__ . '/Address.php';
 require_once __DIR__ . '/Runtime.php';

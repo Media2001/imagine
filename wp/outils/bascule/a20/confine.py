@@ -55,7 +55,8 @@ def main():
     if out.exists() or out.is_symlink():raise RuntimeError('A20_OUTPUT_EXISTS')
     audit=Path(o['--audit'])
     if audit.is_symlink() or not audit.is_file() or audit.stat().st_size>16777216 or audit.resolve().parent.parent!=parent:raise RuntimeError('A20_AUDIT_GUARD')
-    a12.confine(parent);os.environ['A20_CONFINED']='1'
+    spec=importlib.util.spec_from_file_location('stream_guard',HERE.parent/'stream_guard.py')
+    guard=importlib.util.module_from_spec(spec);spec.loader.exec_module(guard)
     # The outer process owns publication. Never preserve raw PHP streams or a partial report.
     with tempfile.TemporaryDirectory(prefix='.a20-',dir=parent) as temporary:
         stage=Path(temporary);os.chmod(stage,0o700)
@@ -63,7 +64,10 @@ def main():
         staged_audit=stage/'audit/audit.json';shutil.copyfile(audit,staged_audit)
         staged_out=stage/'result'
         args=['--wp-path='+str(site),'--audit='+str(staged_audit),'--output='+str(staged_out)]
-        result=subprocess.run(['php','-d','display_errors=0','-d','log_errors=0','-d','disable_functions=mail,exec,shell_exec,system,passthru,popen,proc_open,pcntl_exec',str(HERE/'inventorier-tarifs'),*args],capture_output=True)
+        command=['php','-d','display_errors=0','-d','log_errors=0','-d','disable_functions=mail,exec,shell_exec,system,passthru,popen,proc_open,pcntl_exec',str(HERE/'inventorier-tarifs'),*args]
+        code,stdout,stderr=guard.supervise(command,{**os.environ,'A20_CONFINED':'1'},stage,a12,
+            invalid='A20_PROCESS_OUTPUT_INVALID',expired='A20_PROCESS_OUTPUT_INVALID')
+        result=subprocess.CompletedProcess(command,code,stdout,stderr)
         # run() waits for termination and both pipe EOFs, including shutdown callbacks.
         if result.returncode!=0 or result.stdout!=b'A20_OK tarifs.json tarifs.md\n' or result.stderr:
             message=closed_refusal(result)
