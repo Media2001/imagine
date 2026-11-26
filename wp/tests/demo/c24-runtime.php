@@ -89,6 +89,38 @@ try {
         $checks['choix_historique_efface_reserve']=$settings::nettoyer($choicesOnly)===$rows;
         $checks['champ_C10_dans_formulaire']=str_contains($settings::champs(),'id="imagine-personnalisation-reglages"');
     }
+    $exporters=apply_filters('wp_privacy_personal_data_exporters',[]);
+    $erasers=apply_filters('wp_privacy_personal_data_erasers',[]);
+    $checks['privacy_additive_C21']=isset($exporters['imagine-site'],$erasers['imagine-site'],$exporters['imagine-personnalisation'],$erasers['imagine-personnalisation']);
+    if ($checks['privacy_additive_C21']) {
+        wp_set_current_user($id);
+        P::enregistrer($id,['situation-c24-fictive'=>['reveur-c24-fictif']],null,P::version($id));
+        P::enregistrer($id,[],true,P::version($id),'consentement');
+        $beforeAnswers=P::reponses($id);$beforeConsent=P::consentement($id);
+        update_user_meta($other,P::META,['tiers-c24'=>['choix'=>['tiers-choix-c24'],'date_utc'=>gmdate('Y-m-d\\TH:i:s\\Z')]]);
+        $otherBefore=P::reponses($other);
+        $email=get_userdata($id)->user_email;
+        $export=call_user_func($exporters['imagine-personnalisation']['callback'],$email,1);
+        if ($mutation==='export_empty') {$export['data']=[];}
+        if ($mutation==='export_other') {$export['data'][]=['data'=>[['name'=>'tiers','value'=>wp_json_encode($otherBefore)]]];}
+        $export=Imagine\Site\Confidentialite::filtrerPage($export,1,$email,1,0,false,'imagine-personnalisation');
+        $checks['export_reponses_consentement_resultat']=count($export['data'])===1 && $export['done']===true
+            && json_decode($export['data'][0]['data'][0]['value'],true)===$beforeAnswers
+            && json_decode($export['data'][0]['data'][1]['value'],true)===$beforeConsent;
+        $checks['export_tiers_absent']=count($export['data'])===1 && !str_contains(wp_json_encode($export),'tiers-choix-c24');
+        $unknown=call_user_func($exporters['imagine-personnalisation']['callback'],'c24-inconnu@example.org',1);
+        $checks['export_inconnu_vide']=$unknown===['data'=>[],'done'=>true];
+        if ($mutation!=='erase_noop') {$erase=call_user_func($erasers['imagine-personnalisation']['callback'],$email,1);}
+        else {$erase=['items_removed'=>true,'items_retained'=>false,'done'=>true];}
+        wp_cache_delete($id,'user_meta');
+        $checks['effacement_resultat_absence_deux_metas']=$beforeAnswers!==[] && $beforeConsent!==[] && $erase['items_removed']===true && $erase['items_retained']===false && $erase['done']===true
+            && !metadata_exists('user',$id,P::META) && !metadata_exists('user',$id,P::CONSENTEMENT);
+        $checks['effacement_preserve_tiers']=P::reponses($other)===$otherBefore;
+        $again=call_user_func($exporters['imagine-personnalisation']['callback'],$email,1);
+        $checks['export_apres_effacement_vide']=$again===['data'=>[],'done'=>true];
+        $checks['reserve_apres_privacy_reste']=get_option('imagine_personnalisation_reserve_q_situation-c24-fictive')==='1'
+            && get_option('imagine_personnalisation_reserve_c_reveur-c24-fictif')==='1';
+    }
     if ($mutation==='listener') { add_action(P::ACCROCHE,'__return_null'); }
     $checks['accroche_sans_ecouteur']=P::ACCROCHE==='imagine_personnalisation_attributs_modifies' && has_action(P::ACCROCHE)===false;
     if ($mutation==='mail') { wp_mail('c24-fictif@example.org','FICTIF','FICTIF'); }

@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-26T17:36:52.809609+00:00",
+  "scope": "imagine-test-demo",
+  "success": false,
+  "data": "ID non valide lors de la fusion des données personnelles à exporter.",
+  "exit": 0,
+  "stderr": "",
+  "state_preserved": true,
+  "source_sha256": "691c3e1b1dd0c98aa47dbc61d5a6d18154e92ca88c3e81fb4fecf60b0db67cfe"
+}

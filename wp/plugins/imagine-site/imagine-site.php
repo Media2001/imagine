@@ -104,6 +104,14 @@ require_once __DIR__ . '/CooperateursRegles.php';
 require_once __DIR__ . '/Cooperateurs.php';
 Cooperateurs::register();
 
+require_once __DIR__ . '/PersonnalisationRegles.php';
+require_once __DIR__ . '/Personnalisation.php';
+require_once __DIR__ . '/PersonnalisationReglages.php';
+require_once __DIR__ . '/PersonnalisationConfidentialite.php';
+Personnalisation::register();
+PersonnalisationReglages::register();
+PersonnalisationConfidentialite::register();
+
 add_action('init', static function (): void {
     foreach ([
         'imagine_numero' => [__('Numéros fictifs', 'imagine-site'), 'numeros'],
