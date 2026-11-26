@@ -37,6 +37,12 @@ try {
         ? $error->getMessage() : 'A16_INVENTORY_FAILED';
     $message = class_exists(\Imagine\PublicAddresses\Runtime::class)
         ? \Imagine\PublicAddresses\Runtime::refusalMessage($error, $code) : $code;
+    if (
+        $error instanceof \Imagine\PublicAddresses\RuntimeRefusal && $code === 'A16_MAPPING_KEY_ABSENT'
+        && in_array($error->details['field'] ?? null, ['numero_type', 'thematique', 'pdf_cle', 'liaison.cle'], true)
+    ) {
+        $message = $code . ' ' . json_encode(['field' => $error->details['field']], JSON_THROW_ON_ERROR);
+    }
     fwrite(STDERR, $message . "\n");
     exit(1);
 }

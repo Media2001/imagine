@@ -98,24 +98,25 @@ final class Inventory
             || !is_object_in_taxonomy($m['article_type'], $m['numero_type'])
             || $m['date_cle'] === 'post_date_gmt')
         ) {
-            throw new RuntimeRefusal('A16_MAPPING_KEY_ABSENT', ['key' => $m['numero_type']]);
+            throw new RuntimeRefusal('A16_MAPPING_KEY_ABSENT', ['field' => 'numero_type']);
         }
-        foreach ([$m['article_type'], ...($taxonomy ? [] : [$m['numero_type']])] as $type) {
+        foreach (['article_type', ...($taxonomy ? [] : ['numero_type'])] as $field) {
+            $type = $m[$field];
             if (!post_type_exists($type)) {
-                throw new RuntimeRefusal('A16_MAPPING_KEY_ABSENT', ['key' => $type]);
+                throw new RuntimeRefusal('A16_MAPPING_KEY_ABSENT', ['field' => $field]);
             }
         }
         if (!taxonomy_exists($m['thematique']) || !is_object_in_taxonomy($m['article_type'], $m['thematique'])) {
-            throw new RuntimeRefusal('A16_MAPPING_KEY_ABSENT', ['key' => $m['thematique']]);
+            throw new RuntimeRefusal('A16_MAPPING_KEY_ABSENT', ['field' => 'thematique']);
         }
-        $keys = [[$m['pdf_cle'], $m['numero_type']]];
+        $keys = [[$m['pdf_cle'], $m['numero_type'], 'pdf_cle']];
         if ($m['date_cle'] !== 'post_date_gmt') {
-            $keys[] = [$m['date_cle'], $m['numero_type']];
+            $keys[] = [$m['date_cle'], $m['numero_type'], 'date_cle'];
         }
         if ($m['liaison']['source'] === 'postmeta') {
-            $keys[] = [$m['liaison']['cle'], $m['article_type']];
+            $keys[] = [$m['liaison']['cle'], $m['article_type'], 'liaison.cle'];
         }
-        foreach ($keys as [$key, $type]) {
+        foreach ($keys as [$key, $type, $field]) {
             $exists = $taxonomy && $type === $m['numero_type']
                 ? $this->rows("SELECT m.term_id FROM {$this->db->termmeta} m "
                     . "JOIN {$this->db->term_taxonomy} t ON t.term_id=m.term_id "
@@ -124,7 +125,7 @@ final class Inventory
                     . "JOIN {$this->db->posts} p ON p.ID=m.post_id "
                     . 'WHERE p.post_type=%s AND BINARY m.meta_key=BINARY %s LIMIT 1', [$type, $key]);
             if (!$exists) {
-                throw new RuntimeRefusal('A16_MAPPING_KEY_ABSENT', ['key' => $key]);
+                throw new RuntimeRefusal('A16_MAPPING_KEY_ABSENT', ['field' => $field]);
             }
         }
         if ($m['liaison']['source'] === 'taxonomy' && (!$taxonomy || $m['liaison']['cle'] !== $m['numero_type'])) {

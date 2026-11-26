@@ -90,9 +90,11 @@ if (getenv('A16_CONFINED') === '1') {
         target=mapping['liaison'] if field=='liaison.cle' else mapping
         target['cle' if field=='liaison.cle' else field]='A16_MAPPING_PRIVATE_CANARY'
         badmap=OUT/(storage+'-absent-'+field+'.json');badmap.write_text(json.dumps(mapping))
-        missing_out=OUT/(storage+'-missing-'+field)
+        missing_out=OUT/(storage+'-missing-'+field.replace('.','-'))
         bad=inventory(site,missing_out,audit/'audit.json',badmap)
-        b.check(storage+':absent_mapping_field:'+field,bad.returncode==1 and bad.stdout=='' and bad.stderr=='A16_MAPPING_KEY_ABSENT '+json.dumps({'field':field},separators=(',',':'))+'\n' and 'CANARY' not in bad.stdout+bad.stderr and not missing_out.exists())
+        field_ok=bad.returncode==1 and bad.stdout=='' and bad.stderr=='A16_MAPPING_KEY_ABSENT '+json.dumps({'field':field},separators=(',',':'))+'\n' and 'CANARY' not in bad.stdout+bad.stderr and not missing_out.exists()
+        # Record every independent field before the fixture's final verdict.
+        b.CHECKS.append({'check':storage+':absent_mapping_field:'+field,'status':'PASS' if field_ok else 'FAIL','detail':{'exit':bad.returncode,'stdout':bad.stdout,'stderr':bad.stderr}})
     link=site/'A16_IDENTITY_PRIVATE_CANARY';link.symlink_to(site/'wp-config.php')
     try:
         refused_out=OUT/(storage+'-symlink')
