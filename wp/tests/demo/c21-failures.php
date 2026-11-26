@@ -34,26 +34,6 @@ try {
     $r = call_user_func($erasers['imagine-site']['callback'], 'c21-defaut-fictif@example.org', 1);
     $checks['echec_physique_signale_sans_faux_succes'] = $r['items_retained'] && count($r['messages']) === 1;
     $checks['reference_conservee_si_fichier_non_supprimable'] = Justificatifs::etat((int) $id) === $doc && is_dir($path);
-    $response = null;
-    $handler = static function () use (&$response): callable {
-        return static function ($message, $title, $args) use (&$response): never {
-            $response = ['message' => $message, 'title' => $title, 'args' => $args];
-            throw new \RuntimeException('C21 wp_die capturé');
-        };
-    };
-    add_filter('wp_die_handler', $handler, PHP_INT_MAX);
-    try {
-        wp_delete_user((int) $id); // Vraie suppression native : le hook C21 doit interrompre le chemin.
-        $checks['suppression_compte_refusee_409_reelle'] = false;
-    } catch (\RuntimeException $e) {
-        $checks['suppression_compte_refusee_409_reelle'] = $e->getMessage() === 'C21 wp_die capturé'
-            && ($response['args']['response'] ?? null) === 409
-            && str_contains($response['message'] ?? '', 'nettoyage Imagine incomplet');
-    } finally {
-        remove_filter('wp_die_handler', $handler, PHP_INT_MAX);
-    }
-    $checks['refus_409_conserve_compte_et_document'] = (bool) get_userdata((int) $id)
-        && Justificatifs::etat((int) $id) === $doc && is_dir($path) && is_file($backup);
     if (!rmdir($path) || !rename($backup, $path)) {
         throw new \RuntimeException('Restauration documentaire impossible.');
     }
@@ -61,6 +41,35 @@ try {
     add_option(Decouverte::key((int) $id), ['debut' => '2026-11-01 00:00:00', 'reglages' => Decouverte::defauts(), 'articles' => []], '', false);
     add_option($key, ['observe_utc' => '2026-11-26', 'donnees' => ['id' => '999997', 'user' => (string) $id]], '', false);
     update_user_meta((int) $id, 'imagine_email_confirme', '1');
+    $discovery = Decouverte::key((int) $id);
+    $value = get_option($discovery);
+    // C17 passe avant C21 : panne CAS sur la seule découverte fictive, pas sur son document.
+    $failure = static function (string $sql) use ($discovery): string {
+        return str_starts_with($sql, 'DELETE FROM ') && str_contains($sql, 'BINARY option_value')
+            && str_contains($sql, "option_name='" . $discovery . "'") ? 'SELECT 0 WHERE 1=0' : $sql;
+    };
+    $response = null;
+    $handler = static function () use (&$response): callable {
+        return static function ($message, $title, $args) use (&$response): never {
+            $response = ['message' => $message, 'title' => $title, 'args' => $args];
+            throw new \RuntimeException('C21 wp_die capturé');
+        };
+    };
+    add_filter('query', $failure, PHP_INT_MAX);
+    add_filter('wp_die_handler', $handler, PHP_INT_MAX);
+    try {
+        wp_delete_user((int) $id);
+        $checks['suppression_compte_refusee_409_reelle'] = false;
+    } catch (\RuntimeException $e) {
+        $checks['suppression_compte_refusee_409_reelle'] = $e->getMessage() === 'C21 wp_die capturé'
+            && ($response['args']['response'] ?? null) === 409
+            && str_contains($response['message'] ?? '', 'nettoyage Imagine incomplet');
+    } finally {
+        remove_filter('wp_die_handler', $handler, PHP_INT_MAX);
+        remove_filter('query', $failure, PHP_INT_MAX);
+    }
+    $checks['refus_409_conserve_compte_et_donnee_non_retiree'] = (bool) get_userdata((int) $id)
+        && get_option($discovery, null) === $value;
     $checks['suppression_compte_native_reussit'] = wp_delete_user((int) $id);
     $checks['hook_suppression_retire_decouverte_et_historique'] = get_option(Decouverte::key((int) $id), null) === null
         && get_option($key, null) === null;

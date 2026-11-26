@@ -115,6 +115,7 @@ def run(label):
             and documentary['categorie'] == 'à préciser' and documentary['decision'] == 'en_attente'
             and draft['etape'] == '3' and json.loads(draft['client']) == {'mode': 'existant', 'id': fixture['user']}
             and json.loads(draft['commande'])['adresse']['address_1'] == '21 Rue FICTIVE'
+            and draft['Mode de règlement'] == 'Virement'
             and frozen['numero'] == '167' and json.loads(frozen['observations'])[0]['donnees']['rue'] == '21 Rue FICTIVE'
             and any(json.loads(a['apres']) == {'categorie': 'à préciser', 'decision': 'valide', 'fin': '2027-12-31'} for a in audits if 'apres' in a)
             and any(a.get('extraction') == 'etat' and a.get('lignes') == '2' and a.get('opérateur') == 'imagine-c21-fictif' for a in audits)

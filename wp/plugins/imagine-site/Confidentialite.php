@@ -81,7 +81,8 @@ final class Confidentialite
             $ids = array_merge($ids, array_map('intval', array_column($relations, 'user_id')));
         }
         foreach (array_unique($ids) as $id) {
-            if ($id > 0 && (!get_userdata($id) || self::demandeTerminee($id))) {
+            if ($id > 0 && (self::demandeTerminee($id)
+                || ($id === (int) ($data['user'] ?? 0) && !get_userdata($id)))) {
                 $event = ConfidentialiteRegles::retirerPostal(['donnees' => $data], $id);
                 if ($event !== null) {
                     $data = $event['donnees'];

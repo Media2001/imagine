@@ -89,9 +89,11 @@ if ($phase === 'setup') {
     $put(EnvoiNatif::RELEVE . 'C21-PARTAGE', $shared);
     $token = str_repeat('a', 32);
     $f['draft'] = 'imagine_c16_brouillon_1_' . $token;
+    $commande = \Imagine\Site\CommandeRegles::commande(['first_name' => 'C21', 'last_name' => 'FICTIF',
+        'address_1' => '21 Rue FICTIVE', 'address_2' => '', 'postcode' => '1000', 'city' => 'FICTIF', 'country' => 'BE',
+        'produit' => (string) get_option('imagine_c09_fixture')['tariffs']['normal-1'], 'paiement' => 'bacs'], false);
     set_transient($f['draft'], ['qui' => 1, 'token' => $token, 'client' => ['mode' => 'existant', 'id' => $id],
-        'commande' => ['adresse' => ['first_name' => 'C21', 'last_name' => 'FICTIF', 'address_1' => '21 Rue FICTIVE'],
-            'produit' => 0, 'mode_paiement' => 'bacs'], 'etape' => 3, 'empreinte' => 'C21-TOKEN-PRIVE'], HOUR_IN_SECONDS);
+        'commande' => $commande, 'etape' => 3, 'empreinte' => 'C21-TOKEN-PRIVE'], HOUR_IN_SECONDS);
     update_option('imagine_c21_fixture', $f, false);
     echo wp_json_encode(['user' => $id, 'email' => get_userdata($id)->user_email, 'orders' => $f['orders'], 'document_sha256' => $f['document_sha256']]);
     return;
