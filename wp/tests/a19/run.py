@@ -14,7 +14,7 @@ ROOT=HERE.parents[2]
 spec=importlib.util.spec_from_file_location('a02_runner',ROOT/'wp/tests/a02-audit/run.py')
 b=importlib.util.module_from_spec(spec);spec.loader.exec_module(b)
 b.LABEL='org.imagine.a19-coherence'
-OWN=['wp/tests/a19','wp/outils/bascule/a19']
+OWN=['wp/tests/a19','wp/outils/bascule/a19','wp/plugins/imagine-pilotage/tests/Administration/A19SubscriptionCoherenceTest.php']
 DEPENDENCIES=['wp/tests/a02-audit','wp/outils/bascule/audit','wp/outils/bascule/a11','wp/outils/bascule/a12']
 
 def manifest(roots):

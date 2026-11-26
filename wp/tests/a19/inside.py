@@ -73,7 +73,7 @@ if (getenv('A19_CONFINED') === '1') {
     if default.returncode==0:
         default_data=json.loads((default_out/'coherence.json').read_text())
         instant=datetime.datetime.strptime(default_data['as_of_utc'],'%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=datetime.timezone.utc)
-        b.check(storage+':default_clock_is_current_utc',start<=instant<=end)
+        b.check(storage+':default_clock_is_current_utc',start<=instant<=end,{'before_utc':start.isoformat(),'as_of_utc':default_data['as_of_utc'],'after_utc':end.isoformat()})
         frozen=OUT/(storage+'-default-frozen');again=inventory(site,frozen,audit/'audit.json',as_of=default_data['as_of_utc'])
         b.check(storage+':default_clock_single_frozen_reference',again.returncode==0 and default_data['counts']==v and {x.name:x.read_bytes() for x in frozen.iterdir()}=={x.name:x.read_bytes() for x in default_out.iterdir()})
     repeated=OUT/(storage+'-repeated-clock');bad=inventory(site,repeated,audit/'audit.json','--as-of=2026-11-27T00:00:00Z')

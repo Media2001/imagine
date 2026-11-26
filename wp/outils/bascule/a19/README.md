@@ -44,4 +44,14 @@ python -B wp/tests/a19/run.py --output=C:/Users/Ced/AppData/Local/hermes/cache/s
 python -B wp/tests/a19/verify.py production/A-19/preuves/final
 ```
 
+## Couverture T01 et gate commune
+
+`wp/plugins/imagine-pilotage/tests/Administration/A19SubscriptionCoherenceTest.php` importe les **neuf mêmes assertions** de `wp/tests/a19/unit.php` : cas nommés dans PHPUnit, sans copie des règles. Le fichier est découvert par la suite `Administration` existante, sans modifier sa configuration. En inclusion, `unit.php` retourne les résultats sans écrire ni sortir du processus ; en exécution autonome, il conserve son reçu JSON dans le conteneur. Une sonde `php -n`, écritures et processus désactivés, prouve cette frontière PHP pure sans extensions, WordPress ni base.
+
+```text
+python -B wp/tests/a19/t01.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a19-t01-NOUVEAU
+```
+
+Ce rejeu filtré emploie la configuration racine T01 inchangée et le cache déjà préparé, dans un conteneur jetable sans réseau ; il ne reconstruit pas l’image et ne remplace **pas** la suite globale. Les matrices natives classic/HPOS restent hors T01, comme pour les bancs A02/A11/A12. Le vérificateur du paquet atteste seulement le **candidat** ; préparation commune `wp/tests/preparer-image.ps1`, suite globale `wp/tests/rejouer.ps1` et éventuel `PRET` restent à la charge du parent après ces corrections.
+
 Banc sans argument de site : vrais WordPress/Woo/Subscriptions/Memberships, classique et HPOS, couple cohérent, absence de lien, lien pendant, doublons de compte et d’adhésion, référence présente/absente/inconnue, commande parent et renouvellement réellement payés, échéance passée relue par getter natif. Canaris, refus symboliques/configuration/drop-ins, date impossible, gardes SQL/mail/HTTP/cron/fichiers et empreintes toutes tables/fichiers. Python Windows UTF8 et cp1252 ; PHP seulement en conteneurs jetables dont la suppression est vérifiée. Aucun réel, archive Imagine, compte externe, staging, droit d’accès ou déploiement.

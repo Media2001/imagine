@@ -15,7 +15,7 @@ sys.dont_write_bytecode=True
 HERE=Path(__file__).resolve().parent
 spec=importlib.util.spec_from_file_location('a19_runner',HERE/'run.py');r=importlib.util.module_from_spec(spec);spec.loader.exec_module(r)
 TEST='wp/plugins/imagine-pilotage/tests/Administration/A19SubscriptionCoherenceTest.php'
-OWN=r.OWN+[TEST]
+OWN=r.OWN
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--output',required=True,type=Path);a=ap.parse_args()
@@ -31,11 +31,15 @@ def main():
         b.call(['create','--name',name,'--label',b.LABEL+'='+name,'--network','none','--no-healthcheck','--cap-drop','ALL','--security-opt','no-new-privileges','--pull','never','--entrypoint','sleep',image['Id'],'infinity']);created=True
         check('isolation_before',True,b.validate(json.loads(b.call(['inspect',name]).stdout)[0],name))
         b.call(['start',name]);b.call(['exec','-u','0',name,'mkdir','-p','/repo/wp/tests/a19','/repo/wp/outils/bascule/a19','/report','/work/wp/plugins','/opt/a19','/repo/wp/tests/t01'])
+        b.call(['exec','-u','0',name,'chmod','0777','/report'])
         for p,dest in [(HERE/'unit.php','/repo/wp/tests/a19/unit.php'),(r.ROOT/'wp/outils/bascule/a19/Analysis.php','/repo/wp/outils/bascule/a19/Analysis.php'),(HERE/'t01-probe.php','/opt/a19/t01-probe.php')]:
             b.call(['cp',b.local(p),name+':'+dest])
         for f in ['executer.php','discovery.php']:b.call(['cp',b.local(r.ROOT/'wp/tests/t01'/f),name+':/repo/wp/tests/t01/'+f])
         b.call(['cp',b.local(r.ROOT/'wp/plugins/imagine-pilotage'),name+':/work/wp/plugins/imagine-pilotage'])
         b.call(['exec','-u','0',name,'cp','-a','/opt/t01/imagine-pilotage/vendor','/work/wp/plugins/imagine-pilotage/vendor'])
+        pure=b.call(['exec',name,'php','-n','-d','disable_functions=file_put_contents,fopen,mkdir,rename,unlink,mail,exec,shell_exec,system,passthru,popen,proc_open','/opt/a19/t01-probe.php','--pure'],check=False)
+        (out/'pure.log').write_text(pure.stdout+pure.stderr,encoding='utf-8')
+        check('pure_no_extensions_database_network_writes',pure.returncode==0 and pure.stdout=='A19_PURE_NO_EXTENSIONS_NO_WRITES_OK\n' and pure.stderr=='')
         probe=b.call(['exec',name,'php','/opt/a19/t01-probe.php'],check=False)
         (out/'discovery.log').write_text(probe.stdout+probe.stderr,encoding='utf-8');check('unchanged_t01_discovery_and_full_coverage',probe.returncode==0)
         command=['php','vendor/bin/phpunit','--configuration','phpunit.xml','--filter','A19SubscriptionCoherenceTest','--fail-on-warning','--fail-on-risky','--fail-on-deprecation','--fail-on-skipped','--fail-on-incomplete','--do-not-cache-result','--colors=never','--log-junit','/report/t01-junit.xml']

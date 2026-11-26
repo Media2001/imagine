@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-require '/subject/a19/Analysis.php';
+$analysis = dirname(__DIR__, 2) . '/outils/bascule/a19/Analysis.php';
+require_once is_file($analysis) ? $analysis : '/subject/a19/Analysis.php';
 
 use Imagine\SubscriptionCoherence\Analysis;
 
@@ -53,6 +54,10 @@ $check('unknown_not_false_payment_absence', $edge['automatic_without_saved_payme
 $check('privacy_schema_contains_no_person_identifiers', !str_contains(json_encode($edge), 'CANARY')
     && !preg_match('/"(?:user|customer|subscription_id|order_id|id)"/', json_encode($edge)));
 $check('every_metric_has_definition', count($data['definitions']) === count($data) - 1);
+// T01 imports exactly these nine pure checks, with no output, writes or exit.
+if (realpath($_SERVER['SCRIPT_FILENAME'] ?? '') !== __FILE__) {
+    return $checks;
+}
 $result = ['checks' => $checks, 'exit_code' => (int) in_array('FAIL', array_column($checks, 'status'), true)];
 file_put_contents('/report/unit.json', json_encode($result, JSON_PRETTY_PRINT) . "\n");
 exit($result['exit_code']);

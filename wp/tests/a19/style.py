@@ -26,6 +26,7 @@ def main():
         b.call(['start',name]);b.call(['exec','-u','0',name,'mkdir','/subject'])
         tool=json.loads(b.call(['exec',name,'php','-r',"echo json_encode(glob('/opt/t01/*/vendor/bin/phpcs'));"]).stdout)[0]
         files=sorted((r.ROOT/'wp/outils/bascule'/LOT).glob('*.php'))+sorted(HERE.glob('*.php'))
+        files.append(r.ROOT/'wp/plugins/imagine-pilotage/tests/Administration/A19SubscriptionCoherenceTest.php')
         for p in (r.ROOT/'wp/outils/bascule'/LOT).glob('inventorier-*'):files.append(p)
         mapping={}
         for i,p in enumerate(files):
