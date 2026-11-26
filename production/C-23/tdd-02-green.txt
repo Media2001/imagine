@@ -1,0 +1,12 @@
+test_500_ne_passe_pas (__main__.ContractTest.test_500_ne_passe_pas) ... ok
+test_catalogue_routes_non_vide_et_complet (__main__.ContractTest.test_catalogue_routes_non_vide_et_complet) ... ok
+test_inverse_est_necessaire (__main__.ContractTest.test_inverse_est_necessaire) ... ok
+test_reseau_hors_demo_refuse_avant_requete (__main__.ContractTest.test_reseau_hors_demo_refuse_avant_requete) ... ok
+test_temoin_encode_json_et_html_detecte (__main__.ContractTest.test_temoin_encode_json_et_html_detecte) ... ok
+test_voie_absente_ne_passe_pas_a_vide (__main__.ContractTest.test_voie_absente_ne_passe_pas_a_vide) ... ok
+test_fuite_texte_reel_refusee (__main__.DetectorTest.test_fuite_texte_reel_refusee) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.071s
+
+OK

@@ -1,0 +1,34 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T14:30:35.223618+00:00",
+  "label": "diagnostic-01",
+  "mutation": false,
+  "primary_command": "python -B wp/outils/demo/c23.py diagnostic-01",
+  "auth": "sessions natives temporaires hors commande principale; aucun mot de passe ni POST",
+  "command_exit": 1,
+  "business_unchanged_during_GETs": true,
+  "metadata_restored_exactly": true,
+  "profiles_and_scheduled_actions_restored_exactly": true,
+  "schedule_before": {
+    "sha256": "4b8cb7133e9eb83d8b63c5d9f872764063b6021ebd6b37b0c1d7e0cadd17d775",
+    "action8793": {
+      "action_id": "8793",
+      "hook": "woocommerce_scheduled_subscription_payment",
+      "status": "pending",
+      "args": "{\"subscription_id\":101}",
+      "scheduled_date_gmt": "2026-11-26 02:13:28"
+    }
+  },
+  "schedule_after": {
+    "sha256": "4b8cb7133e9eb83d8b63c5d9f872764063b6021ebd6b37b0c1d7e0cadd17d775",
+    "action8793": {
+      "action_id": "8793",
+      "hook": "woocommerce_scheduled_subscription_payment",
+      "status": "pending",
+      "args": "{\"subscription_id\":101}",
+      "scheduled_date_gmt": "2026-11-26 02:13:28"
+    }
+  },
+  "native_before_sha256": "4d81b43e4958a067678b12bfe1fbf6d57f83dcd382f92404a457e5850a935351",
+  "native_after_sha256": "4d81b43e4958a067678b12bfe1fbf6d57f83dcd382f92404a457e5850a935351"
+}

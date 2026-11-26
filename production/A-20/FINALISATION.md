@@ -1,5 +1,7 @@
 # A-20 — gardien commun A22, candidat vérifié
 
+**Checkpoint : revalidation neuve en cours après deux gardes d’arguments.** Le dossier temporaire ne doit ni convertir un `--wp-path=` vide en dossier courant (A12), ni masquer un nom de sortie final invalide (A20). Deux tests rouges ont prouvé ces écarts ; corrections minimales en place. Les résultats de la matrice 02 ci-dessous restent historiques jusqu’au nouveau paquet 03. Aucun PRET.
+
 Nouveau paquet unique `production/A-20/preuves/final`, issu de `a20-shared-final-02` : matrice code 0, vérificateur code 0. Ancien paquet archivé hors dépôt ; aucune ancienne empreinte d’exécution recyclée. **Aucun PRET.**
 
 **Image commune, rejeu global et dépôt éventuel de PRET restent au parent.** Ne pas interpréter les anciennes gates comme couvrant le code corrigé. Aucune préparation d'image commune lancée par cet enfant, aucun T-02 ni fichier partagé modifié.

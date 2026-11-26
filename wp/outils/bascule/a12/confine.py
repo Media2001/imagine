@@ -63,7 +63,7 @@ def main():
     options = {}
     for arg in sys.argv[1:]:
         key, sep, value = arg.partition('=')
-        if not sep or key not in {'--wp-path', '--output', '--audit'} or key in options:
+        if not sep or not value or key not in {'--wp-path', '--output', '--audit'} or key in options:
             raise RuntimeError('A12_USAGE')
         options[key] = value
     if len(options) != 3:

@@ -50,7 +50,7 @@ def main():
     site=Path(o['--wp-path']).resolve(strict=True);parent=Path(o['--output']).parent.resolve(strict=True)
     candidate=HERE.parents[3] if len(HERE.parents)>3 else HERE.parent
     repo=candidate if (candidate/'wp/outils/bascule/audit').is_file() else HERE.parent
-    if not a12.disjoint_output(parent,site,repo):raise RuntimeError('A20_OUTPUT_UNSAFE')
+    if not re.fullmatch(r'[A-Za-z0-9_-]+',Path(o['--output']).name) or not a12.disjoint_output(parent,site,repo):raise RuntimeError('A20_OUTPUT_UNSAFE')
     out=parent/Path(o['--output']).name
     if out.exists() or out.is_symlink():raise RuntimeError('A20_OUTPUT_EXISTS')
     audit=Path(o['--audit'])

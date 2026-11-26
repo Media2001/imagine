@@ -54,6 +54,29 @@ class ContractTest(unittest.TestCase):
         good='A16_MAPPING_KEY_ABSENT {"field":"pdf_cle"}'
         self.assertEqual(guard.closed_refusal(1,b'',(good+'\n').encode(),values,'CLOSED'),good)
 
+    def test_empty_wp_path_is_not_promoted_to_the_current_directory(self):
+        import subprocess
+        import sys
+        with tempfile.TemporaryDirectory(dir=os.environ.get('TMPDIR')) as tmp:
+            p=subprocess.run([sys.executable,'-B',str(ROOT/'wp/outils/bascule/a12/confine.py'),
+                '--wp-path=','--audit='+str(Path(tmp)/'audit.json'),'--output='+str(Path(tmp)/'result')],
+                cwd=ROOT,env={**os.environ,'PYTHONIOENCODING':'utf-8','PYTHONUTF8':'1'},
+                capture_output=True,text=True,encoding='utf-8',timeout=30)
+            self.assertEqual((p.returncode,p.stdout,p.stderr),(1,'','A12_USAGE\n'))
+
+    def test_a20_invalid_final_basename_cannot_be_hidden_by_staging(self):
+        import subprocess
+        import sys
+        with tempfile.TemporaryDirectory(dir=os.environ.get('TMPDIR')) as tmp:
+            root=Path(tmp);site=root/'site';site.mkdir();reports=root/'reports';reports.mkdir()
+            audit=reports/'audit';audit.mkdir();(audit/'audit.json').write_text('{}',encoding='utf-8')
+            p=subprocess.run([sys.executable,'-B',str(ROOT/'wp/outils/bascule/a20/confine.py'),
+                '--wp-path='+str(site),'--audit='+str(audit/'audit.json'),'--output='+str(reports/'invalid.name')],
+                env={**os.environ,'PYTHONIOENCODING':'utf-8','PYTHONUTF8':'1'},
+                capture_output=True,text=True,encoding='utf-8',timeout=30)
+            self.assertEqual((p.returncode,p.stdout,p.stderr),(1,'','A20_OUTPUT_UNSAFE\n'))
+            self.assertFalse((reports/'invalid.name').exists())
+
     def test_partial_report_is_not_complete(self):
         guard=load(ROOT/'wp/outils/bascule/stream_guard.py','guard_files')
         with tempfile.TemporaryDirectory(dir=os.environ.get('TMPDIR')) as tmp:

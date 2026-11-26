@@ -293,7 +293,7 @@
       "slug": "demo-2026-t4",
       "title": "Numéro fictif 4 — 2026",
       "pdf": 41,
-      "pdf_marker": "Numero  - PDF factice",
+      "pdf_marker": "Numero 4 - PDF factice",
       "private_present": true
     },
     {
@@ -301,7 +301,7 @@
       "slug": "demo-2026-hs",
       "title": "Hors-série fictif — été 2026",
       "pdf": 34,
-      "pdf_marker": "Numero  - PDF factice",
+      "pdf_marker": "Numero HS - PDF factice",
       "private_present": true
     },
     {
@@ -309,7 +309,7 @@
       "slug": "demo-2026-t3",
       "title": "Numéro fictif 3 — 2026",
       "pdf": 27,
-      "pdf_marker": "Numero  - PDF factice",
+      "pdf_marker": "Numero 3 - PDF factice",
       "private_present": true
     },
     {
@@ -317,7 +317,7 @@
       "slug": "demo-2026-t2",
       "title": "Numéro fictif 2 — 2026",
       "pdf": 20,
-      "pdf_marker": "Numero  - PDF factice",
+      "pdf_marker": "Numero 2 - PDF factice",
       "private_present": true
     },
     {
@@ -325,7 +325,7 @@
       "slug": "demo-2026-t1",
       "title": "Numéro fictif 1 — 2026",
       "pdf": 13,
-      "pdf_marker": "Numero  - PDF factice",
+      "pdf_marker": "Numero 1 - PDF factice",
       "private_present": true
     }
   ],
@@ -371,14 +371,20 @@
     ]
   },
   "discovery_policy": {
-    "ouverture": "fermee",
+    "ouverture": "premiere_lecture",
     "forme": "articles",
     "jours": 7,
     "nombre": 2,
-    "numeros": []
+    "numeros": [
+      "39",
+      "25",
+      "18"
+    ]
   },
   "discovery_relecture": "fermee",
   "buyer_issues": [
     "11"
-  ]
+  ],
+  "issue_title": "Numéro fictif 4 — 2026",
+  "pdf_sha256": "2446e6975b2d0d9b6067e0c2b0cbbd44939d5dcccf600c10519cce84ab0f742f"
 }
