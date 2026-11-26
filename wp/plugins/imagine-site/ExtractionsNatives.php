@@ -37,10 +37,11 @@ final class ExtractionsNatives
                     'code_postal' => $sub->get_shipping_postcode(), 'ville' => $sub->get_shipping_city(),
                     'pays' => $sub->get_shipping_country(),
                     'formule' => implode(', ', array_map(static fn ($item): string => $item->get_name(), array_values($sub->get_items()))),
-                    'mode_paiement' => EcheancesNatives::methode($sub), 'etat' => MonCompte::etat($sub),
+                    'mode_paiement' => EcheancesNatives::methode($sub), 'etat' => MonCompte::etatCle($sub),
                     'echeance_utc' => $dates === [] ? '' : gmdate('Y-m-d H:i:s', min($dates)),
                 ];
-                $rows[] = $row;
+                // Identifiant natif, pas titulaire : un éventuel chevauchement de page ne double pas la ligne.
+                $rows[(string) $sub->get_id()] = $row;
             }
             if (count($subscriptions) < 100) {
                 break;

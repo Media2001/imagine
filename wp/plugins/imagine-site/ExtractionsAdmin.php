@@ -98,7 +98,16 @@ final class ExtractionsAdmin
         if (!add_option($key, $event, '', false) || get_option($key) !== $event) {
             throw new \RuntimeException('Journal indisponible : export refusé.');
         }
-        return $rows;
+        return self::affichage($rows);
+    }
+
+    /** Traduction en bordure d'affichage seulement ; lire() garde son contrat stable C19. */
+    public static function affichage(array $rows): array
+    {
+        return array_map(static function (array $row): array {
+            $row['etat'] = self::t($row['etat']);
+            return $row;
+        }, $rows);
     }
 
     public static function exporter(): void

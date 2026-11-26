@@ -31,6 +31,12 @@ final class MonCompte
 
     public static function etat(\WC_Subscription $sub): string
     {
+        return __(self::etatCle($sub), 'imagine-site');
+    }
+
+    /** Même projection B02, avant traduction : clé stable pour C18 et ses consommateurs. */
+    public static function etatCle(\WC_Subscription $sub): string
+    {
         $available = function_exists('wc_memberships_get_user_memberships');
         $pending = false;
         if ($sub->has_status('on-hold') && $available) {
@@ -41,13 +47,13 @@ final class MonCompte
                 }
             }
         }
-        return __(MonCompteRegles::etat([
+        return MonCompteRegles::etat([
             'status' => $sub->get_status(), 'end' => $sub->get_date('end', 'gmt'),
             'method' => $sub->get_payment_method(), 'membership_pending' => $pending,
             'memberships_available' => $available,
             'grace_from' => (string) $sub->get_meta('_imagine_acces_grace_debut'),
             'grace_until' => (string) $sub->get_meta('_imagine_acces_grace_fin'),
-        ], new DateTimeImmutable('now', new DateTimeZone('UTC'))), 'imagine-site');
+        ], new DateTimeImmutable('now', new DateTimeZone('UTC')));
     }
 
     /** Le seul paramètre d'identité est la session WP. Aucun ID venant de GET/POST. */
