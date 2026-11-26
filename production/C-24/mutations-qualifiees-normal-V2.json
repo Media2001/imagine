@@ -1,0 +1,29 @@
+{
+  "at": "2026-11-26T18:55:19.786980+00:00",
+  "scope": "imagine-test-demo",
+  "mutation": "",
+  "mutation_replacements": 0,
+  "mutated_source_sha256": null,
+  "total": 8,
+  "checks": {
+    "temoin_catalogue_present": true,
+    "question_reservee_refusee": true,
+    "choix_reserve_refuse": true,
+    "temoin_newsletter_present": true,
+    "temoin_conjonction_ouvre": true,
+    "sans_consentement_ferme": true,
+    "sans_newsletter_ferme": true,
+    "sans_email_ferme": true
+  },
+  "failures": [],
+  "exit": 0,
+  "stderr": "",
+  "state_preserved": true,
+  "all_business_rows_preserved": true,
+  "private_snapshot": {
+    "file": "b06-private-la2m8iva/snapshot.json",
+    "sha256": "8058e55c4e0303e8840c043a30e733148315807cdca7d0351ea6c8e5c21c05e5",
+    "private": true
+  },
+  "source_sha256": "fbe2ae5f9031d61c449a3e266f8a4c6e667dfcbbb9614b8ca2bc9cf8b9d3ccb5"
+}

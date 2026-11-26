@@ -1,4 +1,29 @@
-# C-24 — À voir, livraison partielle BLOQUÉE (pas de PRET)
+# C-24 — À voir : prêt pour relecture technique
+
+## Qualification finale depuis la baseline récupérée
+
+**PRET technique ; validation visuelle de Ced non acquise.** Les adresses et profils ci-dessous restent valables. Captures actuelles : `http-metier-final-V2-compte.png`, `http-metier-final-V2-sans-email.png`, `http-metier-final-V2-reglages.png`. Leurs réponses d'essai ont ensuite été restaurées.
+
+- HTTP réel Chromium + POST : `http-metier-final-V2.json`, **38 contrôles verts**, 45 requêtes observées, 0 tentative de mail, 53 appels HTTP WordPress bloqués sur 53, 0 appel HTTP de Personnalisation. Observateur retiré et absence relue.
+- Qualification native : `mutations-qualifiees-V2.json`, **8 contrôles nominaux verts et 5 mutants de vraies sources détectés séparément** : garde de question, garde de choix, consentement, newsletter, admissibilité email. Classes mutées évaluées uniquement en mémoire, jamais installées ; rollback et readback métier pour chaque exécution.
+- **29 contrôles purs + 35 natifs et 7 mutations déjà acquis** : reçus historiques réutilisés après vérification des empreintes inchangées des quatre classes produit et des deux tests. Pas de faux rejeu annoncé. Paquet : **110 contrôles nominaux, 12 mutations détectées**, dont 46 contrôles et 5 mutations exécutés pendant cette reprise.
+- `preparation-finale-V2.json` : commande officielle `wp/tests/preparer-image.ps1`, code 0, image vérifiée, rien installé sur l'hôte.
+- `regression-finale-V2.json` : `wp/tests/rejouer.ps1`, **1 126 tests, 35 550 assertions, 0 échec/erreur/ignoré ; 16 outils, 311 contrôles, 0 échec** ; conteneur hors réseau retiré et absence vérifiée.
+- Sources, reçus et readback : `manifest-final-V2.json`. Vérification hors réseau : `PYTHONIOENCODING=utf-8 python -B production/C-24/verifier-V2.py`.
+
+**L'état récupéré est explicitement une nouvelle baseline.** Avant toute session, snapshot privé écrit avec `fsync`, relu et haché dans le scratch privé ; conservé après succès, identifié seulement par nom opaque et empreinte dans le reçu. Restauration depuis les octets relus. Rôles, profils, comptes/métadonnées, commandes, abonnements, adhésions, réglages et actions métier retrouvés ; réserves C22 antérieures conservées exactement. Le snapshot initial historique perdu n'est **jamais** annoncé retrouvé : `recovery-borned-V2.json` reste inchangé et `exact_initial_snapshot_restored: false`.
+
+Le reçu rouge `http-requalification-final-V2.json` est conservé : il confondait le délai d'expiration recréé du cache `_transient_timeout_wcs_woocommerce_active_version` avec l'état métier. Diagnostic : comptes/métadonnées/actions et état natif exacts. Harnais corrigé pour exclure seulement caches transitoires et verrou AS du contrôle métier ; nouveau rejeu vert. Les inverses ne ciblent que les lignes constatées de l'exécution présente, pas les anciennes sessions perdues.
+
+`mutations-finales-id-question-V2.json` conserve un mutant intermédiaire non détecté : l'ancien test sollicitait deux gardes ensemble, celle des choix masquait celle des questions. Le test final les isole ; chacune est réellement détectée. Aucun correctif produit nécessaire.
+
+**Questions non bloquantes conservées :** Imagine, localité libre ou fermée ? Défaut : choix fermés. Ced, place des sections C22/C24 sous « Enregistrer » ? Inchangée. Aucun email, réel, paiement, connecteur, politique de découverte, code C23/B06 ni bibliothèque close modifiés par cette reprise.
+
+---
+
+# Historique de la livraison partielle — conservé, remplacé par la qualification ci-dessus
+
+Les mentions de blocage et d'absence de rejeu ci-dessous décrivent exclusivement la livraison initiale, pas l'état courant.
 
 Site fictif unique : `imagine-test-demo`. Aucune validation visuelle de Ced acquise.
 

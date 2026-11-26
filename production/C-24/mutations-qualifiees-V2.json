@@ -1,0 +1,42 @@
+{
+  "at": "2026-11-26T18:56:10.325119+00:00",
+  "scope": "imagine-test-demo",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "receipts": [
+    {
+      "receipt": "mutations-qualifiees-normal-V2",
+      "required_failure": null
+    },
+    {
+      "receipt": "mutations-qualifiees-id-question-V2",
+      "required_failure": "question_reservee_refusee"
+    },
+    {
+      "receipt": "mutations-qualifiees-id-choix-V2",
+      "required_failure": "choix_reserve_refuse"
+    },
+    {
+      "receipt": "mutations-qualifiees-consentement-V2",
+      "required_failure": "sans_consentement_ferme"
+    },
+    {
+      "receipt": "mutations-qualifiees-newsletter-V2",
+      "required_failure": "sans_newsletter_ferme"
+    },
+    {
+      "receipt": "mutations-qualifiees-email-V2",
+      "required_failure": "sans_email_ferme"
+    }
+  ],
+  "mutations": 5,
+  "result": "PASS"
+}

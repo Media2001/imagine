@@ -36,7 +36,9 @@ try {
     add_option('imagine_personnalisation_reserve_q_'.$extra['id'],'1','',false);
     add_option('imagine_personnalisation_reserve_c_'.$extra['choix'][0]['id'],'1','',false);
     $reuse=[$q];$reuse[0]['choix'][]=$extra['choix'][0];
-    $checks['question_reservee_refusee']=$settings::nettoyer([$q,$extra])===[$q];
+    // Isoler les deux gardes : la question recyclée reçoit un choix inédit.
+    $questionOnly=$extra;$questionOnly['choix'][0]['id']='choix-inedit-question-c24-v2';
+    $checks['question_reservee_refusee']=$settings::nettoyer([$q,$questionOnly])===[$q];
     $checks['choix_reserve_refuse']=$settings::nettoyer($reuse)===[$q];
     $now=gmdate('Y-m-d\TH:i:s\Z');$answers=[$q['id']=>['choix'=>[$q['choix'][0]['id']],'date_utc'=>$now]];
     $nl=Imagine\Site\Newsletters::catalogue();$checks['temoin_newsletter_present']=count($nl)>0;

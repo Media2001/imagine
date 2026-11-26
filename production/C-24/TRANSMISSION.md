@@ -1,6 +1,28 @@
 # C-24 — Contrat technique et relais
 
-**État : BLOQUÉ, sans PRET.** Lire d'abord `A-VOIR.md` et `recovery-borned-V2.json`. Ce document n'autorise ni réel, ni email, ni déploiement autre qu'au site fictif déjà gardé.
+**État courant : PRÊT pour relecture technique depuis une baseline récupérée explicite.** `A-VOIR.md` décrit les portes finales ; `manifest-final-V2.json` lie leurs reçus aux sources, et `verifier-V2.py` les vérifie hors réseau. L'incident initial reste documenté et `recovery-borned-V2.json` reste inchangé. Ce document n'autorise ni réel, ni email, ni autre site.
+
+## Reprise finale V2
+
+- Le snapshot privé durable du HTTP final a été écrit, `fsync`, relu et haché **avant** toute session. Il est conservé dans le scratch privé ; le reçu n'expose qu'un identifiant opaque et SHA-256. La restauration relit ses octets. L'état récupéré est une **nouvelle référence**, jamais la récupération du snapshot initial perdu.
+- `http-metier-final-V2` : 38 contrôles navigateur/POST verts, état métier restauré. Le rouge intermédiaire lié au timeout d'un cache reste conservé ; seuls transients/cache et verrou AS sont exclus de la comparaison métier. Les anciennes sessions historiques ne sont pas reconstruite.
+- `mutations-qualifiees-V2` : 8 contrôles natifs verts, 5 mutants réels détectés, gardes de question et de choix isolées ; consentement/newsletter/email testés séparément. Copies de classes en mémoire, transactions annulées, readbacks distincts. Le mutant masqué intermédiaire reste conservé.
+- Les 64 contrôles et 7 mutations de la livraison partielle sont réutilisés uniquement si leurs classes et tests sont strictement identiques par empreinte. Aucune réexécution inutile ni verdict historique modifié.
+- Préparation officielle d'image et régression rejouées : code 0 ; 1 126 tests/35 550 assertions, 16 outils/311 contrôles, aucun échec.
+- Aucun fichier produit, bibliothèque close, C23/B06 ou bootstrap partagé modifié pendant cette reprise. Seuls harnais C24 et dossier de preuve évoluent. Les scripts de récupération historique restent hors rejeu.
+
+Commandes de contrôle :
+
+```bash
+PYTHONIOENCODING=utf-8 python -B production/C-24/verifier-V2.py
+# Pour une NOUVELLE qualification seulement, étiquettes inédites -V2 :
+# python -B wp/tests/demo/c24-http.py <nouvelle-etiquette-V2>
+# python -B wp/outils/demo/c24-mutations.py <nouvelle-etiquette-V2>
+```
+
+Questions visuelles à Ced et localité en choix fermés pour Imagine : conservées dans `A-VOIR.md`, non arbitrées par le code.
+
+**Les sections ci-dessous conservent le relais initial ; leur « à terminer » est historique et remplacé par la qualification ci-dessus.**
 
 ## Fichiers et standard
 
