@@ -1,0 +1,87 @@
+{
+  "at": "2026-11-26T09:10:14.767915+00:00",
+  "scope": "imagine-test-demo",
+  "status": "PRET_TECHNIQUE_C21_FUSION",
+  "failures": [],
+  "historical_chain": {
+    "C21_historical_seal_sha256": "2d33570101d44e9b08bdb3a2b046248160eab9f18992ee96a2dda81bf81e773a",
+    "C21_Confidentialite_historical_sha256": "ca240ef50f433db3ff977bfbb464c2ce4a5c9997f7a4da98b00050db4a52c695",
+    "C22_installation_receipt_sha256": "505b0b249d539bbe679c8cd8fd4fad9183ef61f8d9c9fe9bc93ce2b1af1a9dde",
+    "C22_Confidentialite_installed_sha256": "f4a6916e10425b82b881a7859ab41f9df80de587e48ec8896c46917ea67fbfc3",
+    "authorized_delta": "C22 ajoute imagine_newsletters_preferences ; fusion C21 remplace les littéraux par SansEmail::META et Newsletters::META, valeurs identiques",
+    "historical_receipts_unchanged": true
+  },
+  "counts": {
+    "fusion-native-final.json": 24,
+    "fusion-http-green.json": 16,
+    "fusion-http-complet.json": 33,
+    "fusion-security-final.json": 9,
+    "fusion-failures-final.json": 10,
+    "fusion-unit-cible.json": {
+      "tests": 7,
+      "assertions": 78
+    },
+    "fusion-unit-root.json": {
+      "tests": 150,
+      "assertions": 812
+    },
+    "C08": 30,
+    "C13": 24,
+    "C09": 382
+  },
+  "canonical": {
+    "tests": 1114,
+    "assertions": 34560,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass": true
+  },
+  "source_sha256": {
+    "wp/plugins/imagine-site/Confidentialite.php": "39b4aa84a3bb565683d914073748b08eaf500f1d1fc8e42b03ee0e79dea450e5",
+    "wp/plugins/imagine-site/ConfidentialiteRegles.php": "7cb39873ecba83ced90769c9eede9af54a9acbeb173db41af3d5f6881da22092",
+    "wp/plugins/imagine-site/tests/ConfidentialiteReglesTest.php": "a199d69642143cbe12412573d9a75a5f8f174d7693068872066bb08c9326bbc3",
+    "wp/outils/demo/c21.py": "373c14339c8d327b13a00a35c7066d2a38205543ec221be0c2109814071cfcda",
+    "wp/outils/demo/c21-unit.py": "1370d5a31aad6bfd7bb756e9b8fecb8a1402c8753fcf5c5e2a619ea10a33463b",
+    "wp/outils/demo/c21-fusion.py": "cf02f5ea949d771c333d6c8f133456cd66bb69c79effb574b0dd2abfca1c7ae9",
+    "wp/tests/demo/c21-runtime.php": "b943cb679f00389230a07624af6a4d959ca3a5934754ac92dcb5102e33da41f2",
+    "wp/tests/demo/c21-security.php": "9ee973e67c2115a0de25ce409836dcb71fcf6597169d7b9b57547932854d9a42",
+    "wp/tests/demo/c21-failures.php": "897820f47ec0239b12b7190723f9bebe164a5a678e0e74468e2e8981bfe0a619",
+    "wp/tests/demo/c21-http.py": "e3a16de04ead63c0575a20c541255349f9665f3dabd27026c4ceb5be8117e85c",
+    "wp/tests/demo/c21-fusion-native.php": "b7349a1a90a85441f89bf74949ccc015eb75a7909e9536bf2640dfe63284f414",
+    "wp/tests/demo/c21-fusion-http.py": "51287c8b1a8aa7f779bf5cc7c8da159979c8ff03d40d62b681f723679328244e",
+    "wp/tests/demo/c21-verifier.py": "c86191689b4f8131b7b2b506b3656ca586f29626f08614ce79bc9032916eb957",
+    "wp/tests/demo/c21-fusion-verifier.py": "1990e9335bb6f4d5206beb57481cf9b63c2362dc0514ef8744cf8bfa689b5ab8",
+    "production/C-21/A-VOIR.md": "7d96840eb25fd2af69705c8d1b026b26b0bc031f01454c63d05798d34efa23fe",
+    "production/C-21/fusion-contrat.md": "b26c5ec869b887c4ec3e18b8d097e3b22b2bc2b4ed13bc3b439a03a5bea0c003",
+    "production/C-21/PRET": "46764b35d85557b8667d1952ed3aff6c755faa977f5af1752398693d7583f710",
+    "files/rapports/2026-11-26-10h05-V2.md": "e59a93333fa0febb0fe9d12514f67ad114b0bb50e53985352b70821540b60bae"
+  },
+  "receipt_sha256": {
+    "fusion-native-final.json": "98be2bfeb67a1c0226171de8794ee73d7d950f1d1cbc1f6341abb875bfede126",
+    "fusion-http-green.json": "a855edf2ecf2096f526485e6fd61910037f20fa0af443d050cb4b9e3efe97b72",
+    "fusion-http-complet.json": "5b3df8f6532616c415e624b81067dee943aa25b0d7590cf3842d7abf14757ce9",
+    "fusion-security-final.json": "cd3c2429a2f1ca2d40061ad527cf432fab5a9dfb01e994f3049e707628e5333f",
+    "fusion-failures-final.json": "144c95e5e8c5ca68a767873d0bdf34a1d6ee05c6ab396e5a6b4278bde653bff6",
+    "fusion-regressions-final.json": "0ed92f5eeb857913533c42eefdd19313f18bbe17101353fdae7a284ede206f1a",
+    "fusion-unit-cible.json": "bda42de34a5bc42e616557333a98d3deb58796b6b7380fa7f1131451f38f14eb",
+    "fusion-unit-root.json": "bcb1363037b23240db0da69c9f0e5706322759bb54797047b375ecf0d2b365eb",
+    "fusion-quality.json": "d531bf3f0d18461b3923c8a371e00abfb2711e1e66fd08632ba7d1a0a7bcc596",
+    "fusion-preparer-image.log": "19c91a490d9814d2d44358b0762e44d73aac76a8b309946f94737e652c48424c",
+    "fusion-rejouer.log": "ab998c699d1cb2c5d2e16a21522e0583b811c360f986ef82521dcae6a91cdfbe",
+    "installation-fusion-psr.json": "f838c16c50617d933ecf2d07d9b7a6cf6049d3cf50f3caf0b2c543aadbacf147"
+  },
+  "installed_source_sha256": {
+    "plugins/imagine-site/ConfidentialiteRegles.php": "7cb39873ecba83ced90769c9eede9af54a9acbeb173db41af3d5f6881da22092",
+    "plugins/imagine-site/Confidentialite.php": "39b4aa84a3bb565683d914073748b08eaf500f1d1fc8e42b03ee0e79dea450e5",
+    "plugins/imagine-site/EnvoiNatif.php": "f47f2872c9c8e335b33ded4e213fa7c23781f7f4e037eb2a204a5e727dcd39d2",
+    "plugins/imagine-site/imagine-site.php": "7a5cde3ffefcd9d907c400401add9b6ec16a76e42cfa3d8e58af6ca5f9eabdc6",
+    "imagine-demo-build/c21-runtime.php": "b943cb679f00389230a07624af6a4d959ca3a5934754ac92dcb5102e33da41f2",
+    "imagine-demo-build/c21-security.php": "9ee973e67c2115a0de25ce409836dcb71fcf6597169d7b9b57547932854d9a42",
+    "imagine-demo-build/c21-failures.php": "897820f47ec0239b12b7190723f9bebe164a5a678e0e74468e2e8981bfe0a619",
+    "imagine-demo-build/c21-fusion-native.php": "b7349a1a90a85441f89bf74949ccc015eb75a7909e9536bf2640dfe63284f414"
+  },
+  "retention_settings_changed": false,
+  "C09_profiles_preserved": true,
+  "real_authorization": false
+}

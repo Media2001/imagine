@@ -130,4 +130,11 @@ def run(seal=False):
 
 if __name__ == '__main__':
     assert sys.argv[1:] in ([], ['--seal'])
-    run('--seal' in sys.argv)
+    if not sys.argv[1:] and (PROOF / 'final-fusion.json').exists():
+        import importlib.util
+        spec = importlib.util.spec_from_file_location('c21_fusion_successor', Path(__file__).with_name('c21-fusion-verifier.py'))
+        successor = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(successor)
+        successor.run()
+    else:
+        run('--seal' in sys.argv)

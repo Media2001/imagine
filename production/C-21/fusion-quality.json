@@ -1,0 +1,60 @@
+{
+  "exit": 0,
+  "stderr": "",
+  "report": {
+    "totals": {
+      "errors": 0,
+      "warnings": 0,
+      "fixable": 0
+    },
+    "files": {
+      "/repo/wp/plugins/imagine-site/Confidentialite.php": {
+        "errors": 0,
+        "warnings": 0,
+        "messages": []
+      },
+      "/repo/wp/plugins/imagine-site/ConfidentialiteRegles.php": {
+        "errors": 0,
+        "warnings": 0,
+        "messages": []
+      },
+      "/repo/wp/plugins/imagine-site/tests/ConfidentialiteReglesTest.php": {
+        "errors": 0,
+        "warnings": 0,
+        "messages": []
+      }
+    }
+  },
+  "command": [
+    "wsl.exe",
+    "-d",
+    "Ubuntu",
+    "--",
+    "docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--read-only",
+    "--user",
+    "65534:65534",
+    "--cap-drop",
+    "ALL",
+    "--security-opt",
+    "no-new-privileges",
+    "--tmpfs",
+    "/tmp:rw,nosuid,nodev,size=64m,mode=1777",
+    "--mount",
+    "type=bind,source=/mnt/c/Users/Ced/imagine/wp,target=/repo/wp,readonly",
+    "--entrypoint",
+    "php",
+    "imagine-tests-t01:1",
+    "/opt/t01/imagine-site/vendor/bin/phpcs",
+    "--standard=PSR12",
+    "--report=json",
+    "-n",
+    "/repo/wp/plugins/imagine-site/Confidentialite.php",
+    "/repo/wp/plugins/imagine-site/ConfidentialiteRegles.php",
+    "/repo/wp/plugins/imagine-site/tests/ConfidentialiteReglesTest.php"
+  ]
+}

@@ -1,5 +1,11 @@
 # C-21 — Export et effacement natifs
 
+**Fusion du 26/11 appliquée :** le ZIP de l'opérateur ne contient plus les données du client ; un compte créé par C16, avec ou sans email, retrouve son brouillon par `resultat.client`. Effacer l'opérateur ne supprime pas le dossier du client. Un retrait postal conserve exactement les bénéficiaires et leur service existants, sans résoudre un droit inconnu.
+
+**Preuves intégrées actuelles :** `fusion-contrat.md`, `final-fusion.json`. Vérification : `python -B wp/tests/demo/c21-verifier.py`. Les empreintes/reçus historiques de `final.json` sont conservés, non réécrits. Le nouveau contrat couvre l'ajout autorisé de la préférence C22 et ses constantes. Les parcours C16 passent réellement par les POST administratifs ; les archives ZIP natives sont relues avec valeurs exactes, puis les comptes jetables supprimés. Les cadeaux/groupes n'existent que dans une fixture C21 sous transaction, avec rollback exact de toutes les tables, jamais dans C09.
+
+**Décisions à défaut :** les autres membres et le bénéficiaire du cadeau continuent à être servis à droit inchangé ; seule la part du demandeur est retirée. Le masquage natif large « payment method » reste ; le brouillon exporte séparément « Mode de règlement : Virement / Mandat papier ». Aucun réglage de conservation changé. Les questions d'organisation restent à confirmer par Imagine, sans bloquer cette correction technique.
+
 Site entièrement fictif : **imagine-test-demo**, `http://192.168.129.32:8085`. Compte C09 **E-ADMIN** pour les outils WordPress, droits natifs inchangés ; identifiants privés habituels hors dépôt. Aucun compte réel, email, paiement ni service externe.
 
 ## Où ouvrir

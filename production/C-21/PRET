@@ -1,6 +1,9 @@
-C-21 — prêt technique à relire, le 26 novembre 2026.
-Sceau : final.json ; vérification : python -B wp/tests/demo/c21-verifier.py
-Export/effacement natifs exercés ; fixture supprimée ; conservation et profils C09 préservés.
-Limite explicite : garder la demande native d’effacement terminée jusqu’à suppression du compte (A-VOIR.md).
-File de 7 h 30 relue : priorité C-20 consigne 0 signalée au parent, non traitée par ce lot.
+C-21 — fusion appliquée, prêt technique à relire, 26 novembre 2026.
+Sceau successeur : final-fusion.json ; historique final.json et anciens reçus conservés.
+Commande : python -B wp/tests/demo/c21-verifier.py
+Instructions 1–7, constantes META et traductions : preuves natives et HTTP authentifiées vertes.
+ZIP opérateur sans données client ; C16 nouveau sans email exporté/effacé/supprimé ; tiers postaux préservés.
+A-VOIR.md et fusion-contrat.md : défauts prudents, limites natives, conservation inchangée.
+T01 : 1114 tests / 34560 assertions ; C09 : 382/382, action 8793 pending / subscription_id=101 exacte.
+Aucun autre lot, bibliothèque close, profil C09, réglage de conservation ou verrou modifié.
 Ni clôture, ni validation visuelle, ni GO pour le réel.
