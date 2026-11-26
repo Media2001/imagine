@@ -1,0 +1,10 @@
+abonnement_id,compte_id,prenom,nom,email,destinataire,rue,complement,code_postal,ville,pays,formule,mode_paiement,etat,echeance_utc
+77,3,,,imagine-c08-actif@example.org,,,,,,,,,Actif,"2027-01-01 00:00:00"
+89,9,"Personnage Fictif",A-CARTE,a-carte@example.org,"Personnage Fictif A-CARTE","1 rue Imaginaire",,1000,"Ville Fictive",BE,"C09 FICTIF — normal-1 — pas une offre Imagine",,Actif,"2026-12-25 18:01:50"
+92,10,"Personnage Fictif",A-SEPA4,a-sepa4@example.org,"Personnage Fictif A-SEPA4","1 rue Imaginaire",,1000,"Ville Fictive",BE,"C09 FICTIF — normal-4 — pas une offre Imagine",,Actif,"2026-12-25 18:01:50"
+95,11,"Personnage Fictif",A-PAYPAL,a-paypal@example.org,"Personnage Fictif A-PAYPAL","1 rue Imaginaire",,1000,"Ville Fictive",BE,"C09 FICTIF — normal-1 — pas une offre Imagine",,Actif,"2026-12-25 18:01:50"
+101,13,"Personnage Fictif",A-PAPIER,a-papier@example.org,"Personnage Fictif A-PAPIER","1 rue Imaginaire",,1000,"Ville Fictive",BE,"C09 FICTIF — normal-4 — pas une offre Imagine",imagine_papier,Actif,"2026-11-26 02:13:28"
+113,17,"Personnage Fictif",A-NONRENOUV,a-nonrenouv@example.org,"Personnage Fictif A-NONRENOUV","1 rue Imaginaire",,1000,"Ville Fictive",BE,"C09 — Abonnement de fixture sans paiement (pas une offre)",,Actif,"2026-12-25 18:01:50"
+116,18,"Personnage Fictif",A-ETRANGER,a-etranger@example.org,"Personnage Fictif A-ETRANGER","1 rue Imaginaire",,75000,"Ville Fictive",FR,"C09 — Abonnement de fixture sans paiement (pas une offre)",,Actif,"2026-12-25 18:01:50"
+119,19,"Personnage Fictif",A-SANSMAIL,,"Personnage Fictif A-SANSMAIL","1 rue Imaginaire",,1000,"Ville Fictive",BE,"C09 — Abonnement de fixture sans paiement (pas une offre)",,Actif,"2026-12-25 18:01:50"
+122,20,"Personnage Fictif",A-ECHEANCE,a-echeance@example.org,"Personnage Fictif A-ECHEANCE","1 rue Imaginaire",,1000,"Ville Fictive",BE,"C09 — Abonnement de fixture sans paiement (pas une offre)",,Actif,"2026-12-24 18:01:50"

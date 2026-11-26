@@ -1,0 +1,2 @@
+abonnement_id,compte_id,prenom,nom,email,destinataire,rue,complement,code_postal,ville,pays,formule,mode_paiement,etat,echeance_utc
+110,16,"Personnage Fictif",A-EXPIRE,a-expire@example.org,"Personnage Fictif A-EXPIRE","1 rue Imaginaire",,1000,"Ville Fictive",BE,"C09 — Abonnement de fixture sans paiement (pas une offre)",,Expiré,"2026-11-24 18:01:50"

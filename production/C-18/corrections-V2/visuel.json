@@ -1,0 +1,9 @@
+{
+  "capture": "extractions-referent.png",
+  "actual_browser": "Chromium",
+  "native_preserved": true,
+  "outside_demo_requests_blocked": [
+    "https://secure.gravatar.com/avatar/5b9987ee962642e78332349ffdb19c6a7bd443c26de02417cb43389b1e743cb3"
+  ],
+  "visual_approval": false
+}

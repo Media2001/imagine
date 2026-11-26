@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-26T03:54:56.670275+00:00",
+  "scope": "imagine-test-demo",
+  "before": {
+    "plugins/imagine-site/MonCompte.php": "1fec9e338d5a319e6cad2308c984a4dbc405f773d3a20a6454c1f9418ac7b498",
+    "plugins/imagine-site/ExtractionsNatives.php": "1c9ed322dc3de28f374b544e0c1001d76288272822c7a10f5a6db690392e6114",
+    "plugins/imagine-site/ExtractionsAdmin.php": "67c0e08daf172fda148e2d4ffc2394f46e690db27a863cf3f4eb1f679a737326",
+    "plugins/imagine-site/extractions/etat.php": "780d7bbd6a9902067fb6554d552d2f41445368d09043a8dacc759e658c154786"
+  },
+  "after": {
+    "plugins/imagine-site/MonCompte.php": "8ebf22bb6b809d8efcbf47d39fab0bbf4058f0f338704459ef4bf294563ee2ae",
+    "plugins/imagine-site/ExtractionsNatives.php": "97e84ee2e02a17a07350e6460ee086861abde54244ff805c9e199327ddf035c6",
+    "plugins/imagine-site/ExtractionsAdmin.php": "daf3ed8550b18e382b8a625cac73b2a0ca2545ac46cc10ce2365bc30aba5ad6d",
+    "plugins/imagine-site/extractions/etat.php": "8d4b2768f4f56c61a45d60aba07ab69683b84a08f6d9d31828678f62ab46005d"
+  },
+  "native_preserved": true,
+  "allowlist": [
+    "plugins/imagine-site/MonCompte.php",
+    "plugins/imagine-site/ExtractionsNatives.php",
+    "plugins/imagine-site/ExtractionsAdmin.php",
+    "plugins/imagine-site/extractions/etat.php"
+  ],
+  "fixture_reset": false
+}

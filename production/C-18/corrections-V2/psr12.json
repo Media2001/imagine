@@ -1,0 +1,24 @@
+{
+  "totals": {
+    "errors": 0,
+    "warnings": 0,
+    "fixable": 0
+  },
+  "files": {
+    "/repo/wp/plugins/imagine-site/ExtractionsNatives.php": {
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    "/repo/wp/plugins/imagine-site/ExtractionsAdmin.php": {
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    "/repo/wp/plugins/imagine-site/extractions/etat.php": {
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    }
+  }
+}
