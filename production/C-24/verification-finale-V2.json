@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-26T17:59:28.902863+00:00",
+  "scope": "imagine-test-demo",
+  "sources_local_remote_equal": true,
+  "bootstrap_additive_only": true,
+  "closed_sources_preserved": true,
+  "initial_native_fingerprints_equal": true,
+  "observer_absent": true,
+  "positive_checks": 64,
+  "detected_mutations": 7,
+  "exact_initial_HTTP_snapshot_proven": false,
+  "PRET": false,
+  "result": "BLOCKED",
+  "documents": {
+    "A-VOIR.md": "57ebbea30b6c4216ee6881cf747732a592b174e02f7e15d01247e5c0ddfae049",
+    "TRANSMISSION.md": "c0b8673c19a19d3b80b37cf235c0d19a82d25bb9ca211130ddbff30c2f42f1a8"
+  }
+}
