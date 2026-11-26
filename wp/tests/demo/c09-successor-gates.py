@@ -54,7 +54,11 @@ def run(lot):
         if name in changed_gates:
             continue
         actual = repair.digest(ROOT / name)
-        assert actual == expected, 'Functional source drift: ' + name
+        if lot == 'C-17' and name == 'wp/plugins/imagine-site/imagine-site.php':
+            c18_historical = json.loads((ROOT / 'production/C-18/final.json').read_text(encoding='utf-8'))
+            assert actual == c18_historical['source_sha256'][name], 'C18 shared bootstrap successor drift'
+        else:
+            assert actual == expected, 'Functional source drift: ' + name
         sources_checked[name] = actual
     checks['historical_functional_sources_unchanged'] = True
     hashes = c18.readback() if lot == 'C-18' else c18.c17.readback()

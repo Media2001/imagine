@@ -1,0 +1,204 @@
+{
+  "status": "DATABASE_IMPORTED_NATIVE_DEFERRED",
+  "mode": "diagnose-database",
+  "created_sites": [],
+  "downloads": 0,
+  "extracted_wp_content_files": 0,
+  "data_verified": false,
+  "full_staging_ready": false,
+  "capacity": {
+    "required_bytes": 3148507477,
+    "free_bytes": 771116224512,
+    "before_any_creation": true
+  },
+  "isolation_before": {
+    "network": "none",
+    "mounts": [],
+    "ports": [],
+    "privileged": false,
+    "cap_drop": [
+      "ALL"
+    ],
+    "no_new_privileges": true,
+    "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
+    "name": "imagine-a01-db-only-246131158667"
+  },
+  "source_manifest": {
+    "wp/outils/staging/neutraliser": "3bd131154ce850d2427d164ec3d33f12fa372fe65b3f2888ff926c779100ff2d",
+    "wp/outils/staging/anonymiser": "2d8ee8c6afc3b586b49393db1c99bfb5049f568ed6d506fc1ad29db38eb0de1d",
+    "wp/outils/staging/verifier": "d0f3e5728411faa22e20109636d684f551fe937600eebb5839382d205c42b9d6",
+    "wp/outils/staging/command.php": "cb6a089fdf43d3e561d3e53b0a884463690bfa1ecd16e0e3b2ed31a05bf4e5d1",
+    "wp/outils/staging/lib.php": "612943583f01c1e0bad63f76546eaf9f8d00c86d972fb69d59e26b4834f1d8c3",
+    "wp/outils/staging/schema.php": "81dfe75642c7a267fe92d23336fe14353de2d479700f8c97415702e14ae45d2a",
+    "wp/outils/staging/files.php": "97aa0aeecfb13dca77b97b93d1a147f33962889044f26a9ff06a2cd8a621baeb",
+    "wp/outils/staging/pdo-store.php": "13bbd64697114071eda76b84438a6a1c9adf6135a8a5a92de0b70aa7930cd8d1",
+    "wp/outils/staging/runtime-probe.php": "3c8a98d1db5714e1944194f558a1df3a3c512e14e3aa370308a60a97f5889140",
+    "wp/outils/staging/policy.php": "5a4465fa3b1e566c1962db253c64eb0ab43e488af69c048d5ab58af233214ef8",
+    "wp/outils/staging/mu-plugins/000-imagine-staging-safety.php": "c16f048f3fd2587ba719924eec53b07651ea3b6a495a8125746a157582f5474f",
+    "wp/outils/staging-court/archive.py": "f965e6764cffacd34faba77682a2a944ce76c666aa337e896fa7737de79884f4",
+    "wp/outils/staging-court/archive_policy.py": "d687f649173d0bca9679450b2b682d145b1fc53b2de674be7eb665768b7af7f3",
+    "wp/outils/staging-court/sql_stream.py": "ab8775020098595f5695c927deb47c26e5bc8d2d8b01688d1ace66826436c937",
+    "wp/outils/staging-court/sql_compat.py": "85d968f6cbc435ab68052cef295ccc459ad5f3d4cd6e5e5492d956897d730040",
+    "wp/outils/staging-court/sql_diagnostic.py": "8198852780b5e4d647b72a1b48c87a6ce5fa81386b0fa87aa29498aa1931c737",
+    "wp/outils/staging-court/diagnosis.py": "17530f6ac02e0dd4536bfddc86390b44c130169f41bba0e705ffbfad43a7f927",
+    "wp/outils/staging-court/table_policy.py": "fd24e3cfe1b2ce3500dfd72fc49b2ff0fa2f4c58dd8a818d67f48c7d98e14d11",
+    "wp/outils/staging-court/politique-tables.json": "66a15c7c0c8711a20af83ac234fc4f402e170e1e12c1d8d5a93a9e1433ea8b4b",
+    "wp/outils/staging-court/inside.py": "854a9767b8b6da3c4145296750accc02357f66835a7aca6bcaba1102c57dc965",
+    "wp/outils/staging-court/bridge.php": "5c13515a5ca50d3e2991a7d595a2499d53cd29b75ce95880c5291f69046d0a22",
+    "wp/outils/staging-court/core_source.py": "4333875f38c2d87eb4f9b8f247d30b799e99ab7f4bd99530a22fb11b70b1f29e",
+    "wp/outils/staging-court/diagnostics.py": "32522f9d8f0e8461ffe774b7a97fd0ea9e908c4c6dc52eb43f31fd3a71ea9d28",
+    "wp/outils/staging-court/database_only.py": "4b0345664ca4825e3627bc70af69b7f167f130a1378d4581583a5052d015832d",
+    "wp/outils/staging-wp-integration/worker/worker.py": "1cdb5f85db2d2c0e3aecba4828785794e03c1a3a383b4c3a67075b1426e4f293"
+  },
+  "database_import": {
+    "elapsed_seconds": 1.502,
+    "timeout_seconds": 3600,
+    "max_allowed_packet_bytes": 268435456,
+    "fallback_sql_mode": "NO_AUTO_VALUE_ON_ZERO",
+    "source_mode_policy": "explicit supported SET SQL_MODE retained; exporter without mode uses non-strict fallback"
+  },
+  "sql_policy": {
+    "prefix": "SERVMASK_PREFIX_",
+    "table_engines": {
+      "SERVMASK_PREFIX_actionscheduler_actions": "INNODB",
+      "SERVMASK_PREFIX_actionscheduler_logs": "INNODB",
+      "SERVMASK_PREFIX_ahm_emails": "INNODB",
+      "SERVMASK_PREFIX_commentmeta": "INNODB",
+      "SERVMASK_PREFIX_comments": "INNODB",
+      "SERVMASK_PREFIX_fiction_blob": "INNODB",
+      "SERVMASK_PREFIX_fiction_compat": "INNODB",
+      "SERVMASK_PREFIX_fiction_email": "INNODB",
+      "SERVMASK_PREFIX_fiction_kept_blob": "INNODB",
+      "SERVMASK_PREFIX_fiction_memory": "MEMORY",
+      "SERVMASK_PREFIX_fiction_myisam": "MYISAM",
+      "SERVMASK_PREFIX_fiction_volume": "INNODB",
+      "SERVMASK_PREFIX_fsmpt_email_logs": "INNODB",
+      "SERVMASK_PREFIX_links": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_01": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_07": "INNODB",
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_08": "INNODB",
+      "SERVMASK_PREFIX_options": "INNODB",
+      "SERVMASK_PREFIX_pmxe_exports": "INNODB",
+      "SERVMASK_PREFIX_pmxi_posts": "INNODB",
+      "SERVMASK_PREFIX_postmeta": "INNODB",
+      "SERVMASK_PREFIX_posts": "INNODB",
+      "SERVMASK_PREFIX_term_relationships": "INNODB",
+      "SERVMASK_PREFIX_term_taxonomy": "INNODB",
+      "SERVMASK_PREFIX_termmeta": "INNODB",
+      "SERVMASK_PREFIX_terms": "INNODB",
+      "SERVMASK_PREFIX_usermeta": "INNODB",
+      "SERVMASK_PREFIX_users": "INNODB",
+      "SERVMASK_PREFIX_wfls_role_counts": "INNODB"
+    },
+    "statements_count": 766,
+    "compatibility": [],
+    "source_sql_mode": null,
+    "table_decisions": {
+      "SERVMASK_PREFIX_ahm_emails": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_fiction_blob": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_fiction_compat": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_fiction_email": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_fiction_kept_blob": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_fiction_memory": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_fiction_myisam": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_fiction_volume": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_fsmpt_email_logs": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_01": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_07": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_matomo_archive_blob_2024_08": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_pmxe_exports": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_pmxi_posts": {
+        "action": "vider"
+      },
+      "SERVMASK_PREFIX_wfls_role_counts": {
+        "action": "vider"
+      }
+    },
+    "skipped_inserts": 496,
+    "table_policy_version": 1
+  },
+  "table_engines": {
+    "SERVMASK_PREFIX_term_taxonomy": "INNODB",
+    "SERVMASK_PREFIX_options": "INNODB",
+    "SERVMASK_PREFIX_fiction_myisam": "MYISAM",
+    "SERVMASK_PREFIX_ahm_emails": "INNODB",
+    "SERVMASK_PREFIX_commentmeta": "INNODB",
+    "SERVMASK_PREFIX_posts": "INNODB",
+    "SERVMASK_PREFIX_wfls_role_counts": "INNODB",
+    "SERVMASK_PREFIX_fiction_memory": "MEMORY",
+    "SERVMASK_PREFIX_terms": "INNODB",
+    "SERVMASK_PREFIX_usermeta": "INNODB",
+    "SERVMASK_PREFIX_pmxi_posts": "INNODB",
+    "SERVMASK_PREFIX_comments": "INNODB",
+    "SERVMASK_PREFIX_pmxe_exports": "INNODB",
+    "SERVMASK_PREFIX_postmeta": "INNODB",
+    "SERVMASK_PREFIX_fiction_compat": "INNODB",
+    "SERVMASK_PREFIX_termmeta": "INNODB",
+    "SERVMASK_PREFIX_actionscheduler_logs": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2024_07": "INNODB",
+    "SERVMASK_PREFIX_users": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2024_01": "INNODB",
+    "SERVMASK_PREFIX_term_relationships": "INNODB",
+    "SERVMASK_PREFIX_fsmpt_email_logs": "INNODB",
+    "SERVMASK_PREFIX_fiction_email": "INNODB",
+    "SERVMASK_PREFIX_fiction_volume": "INNODB",
+    "SERVMASK_PREFIX_actionscheduler_actions": "INNODB",
+    "SERVMASK_PREFIX_links": "INNODB",
+    "SERVMASK_PREFIX_fiction_kept_blob": "INNODB",
+    "SERVMASK_PREFIX_fiction_blob": "INNODB",
+    "SERVMASK_PREFIX_matomo_archive_blob_2024_08": "INNODB"
+  },
+  "native_phases": {
+    "executed": false,
+    "code": "FILES_REQUIRED_NATIVE_PHASES",
+    "reason": "Native verification requires the exact archived plugins/core/settings; no surrogate bootstrap is used."
+  },
+  "elapsed_seconds": 9.277,
+  "database_bytes": 522327313,
+  "non_database_payloads_read": false,
+  "isolation_after": {
+    "network": "none",
+    "mounts": [],
+    "ports": [],
+    "privileged": false,
+    "cap_drop": [
+      "ALL"
+    ],
+    "no_new_privileges": true,
+    "image_id": "sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2",
+    "name": "imagine-a01-db-only-246131158667"
+  },
+  "sources_unchanged": true,
+  "cleanup": {
+    "name": "imagine-a01-db-only-246131158667",
+    "absent": true
+  },
+  "recorded_utc": "2026-11-26T01:23:00.737179+00:00",
+  "report": "C:\\Users\\Ced\\imagine\\production\\A-01\\archive-reelle-4\\database-246131158667\\result.json"
+}

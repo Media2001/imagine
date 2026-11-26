@@ -23,7 +23,7 @@ sys.path.insert(0, str(HERE))
 import run as offline_runner
 from publication import guarded_publish, validate_name
 from core_source import prepare_core
-from diagnostics import execute, CommandFailure
+from diagnostics import execute, CommandFailure, database_error
 
 ROOT = HERE.parents[2]
 IMAGE = 'sha256:2fa44089da3ca9aeaba5da0b74bbb3e9e1592b14c07d114c6a635b5c814208f2'
@@ -251,13 +251,23 @@ def pipe_sanitized_database(runner, db_helper):
                  '--skip-comments', '--skip-dump-date', '--single-transaction', 'imagine_a01_staging'],
                  stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     try:
-        receiver = subprocess.run(DOCKER + ['exec', '-i', db_helper, 'mariadb', '--socket=/tmp/a01.sock', '--user=root', 'wordpress'],
-                     stdin=sender.stdout, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, timeout=1200)
+        receiver = execute(DOCKER + ['exec', '-i', db_helper, 'mariadb', '--socket=/tmp/a01.sock', '--user=root', 'wordpress'],
+                     stdin=sender.stdout, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, timeout=3600,
+                     stage='target_database_import',check=False)
     finally:
         sender.stdout.close()
-    sender.stderr.read(); sender.wait(timeout=60)
-    if sender.returncode or receiver.returncode:
-        raise RuntimeError('TARGET_DATABASE_TRANSFER_REFUSED')
+    sender_error = sender.stderr.read()
+    try:
+        sender.wait(timeout=60)
+    except subprocess.TimeoutExpired:
+        sender.kill(); sender.wait(timeout=30)
+        raise CommandFailure('COMMAND_TIMEOUT','source_database_dump',timeout_seconds=60) from None
+    if sender.returncode:
+        raise CommandFailure('DATABASE_COMMAND_REFUSED','source_database_dump',exit=sender.returncode,
+                             database=database_error(sender_error))
+    if receiver.returncode:
+        raise CommandFailure('DATABASE_COMMAND_REFUSED','target_database_import',exit=receiver.returncode,
+                             database=database_error(receiver.stderr))
 
 
 def inject(slug, runner, offline, target, helpers):
@@ -303,9 +313,11 @@ for p in root.iterdir():
                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     receiver = subprocess.run(DOCKER + ['exec', '-i', file_helper, 'tar', '--no-same-owner', '--touch', '-xf', '-', '-C', '/target'],
                               stdin=sender.stdout, capture_output=True, timeout=600)
-    sender.stdout.close(); sender.stderr.read(); sender.wait(timeout=60)
+    sender.stdout.close(); sender_error = sender.stderr.read(); sender.wait(timeout=60)
     if sender.returncode or receiver.returncode:
-        raise RuntimeError('EMPTY_TARGET_CORE_TRANSFER_REFUSED')
+        raise CommandFailure('EMPTY_TARGET_CORE_TRANSFER_REFUSED','empty_target_core_transfer',
+                             sender_exit=sender.returncode,receiver_exit=receiver.returncode,
+                             sender_error_present=bool(sender_error),receiver_error_present=bool(receiver.stderr))
     core_check = '''from pathlib import Path
 import json,re
 root=Path('/target')

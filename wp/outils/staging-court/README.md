@@ -1,3 +1,50 @@
+# A-01 — quatrième passe : diagnostics de base, 26 novembre 2026
+
+Mode court opérateur (Ced seul, aucun site créé, aucun mot de passe) :
+
+```powershell
+python .\wp\outils\staging-court\publish.py --diagnose-database --operator-ced --archive "$ARCHIVE_WPRESS"
+# Facultatif : --table-decisions "$DECISIONS_CED" ; aucune décision réelle préremplie.
+```
+
+Seuls les en-têtes et `database.sql` sont lus ; tous les autres payloads sont sautés,
+sans restauration ni copie de l'archive entière. La base est validée et importée dans
+un runner neuf hors réseau, puis le runner entier est détruit et son absence relue.
+Les trois phases natives sont **différées explicitement** : elles exigent les fichiers
+et extensions exacts de l'archive. Un succès de ce diagnostic n'est ni un staging
+vérifié ni une preuve d'anonymisation. Le rapport indique `data_verified=false`.
+
+Les échecs d'import donnent étape, errno, SQLSTATE, ligne du **fichier normalisé**,
+type d'instruction et table ; aucun message SQL/valeur. Les échecs PHP donnent
+classe, chemin relatif à `wp-content` quand applicable et ligne, sans message.
+Les délais dépassés donnent la durée. Import : paquet 256 Mio et borne 3 600 s ;
+restauration globale : borne externe 5 400 s, sans raccourcir la borne interne.
+
+Correspondances explicites : `utf8mb4_0900_ai_ci` et `utf8mb4_0900_as_ci` →
+`utf8mb4_unicode_520_ci` ; `utf8mb4_0900_as_cs` et `utf8mb4_0900_bin` → `utf8mb4_bin`.
+Ce n'est **pas une équivalence de tri** : une contrainte unique devenue incompatible
+refuse avec ses coordonnées. Autres variantes linguistiques MySQL 8 : refus explicite.
+Un `SET SQL_MODE` fermé et supporté est conservé ; si l'exporteur n'en fournit pas,
+repli non strict explicite `NO_AUTO_VALUE_ON_ZERO`, jamais présenté comme le mode
+source inconnu. `ANSI_QUOTES`/`NO_BACKSLASH_ESCAPES` restent refusés (lexer différent).
+Commentaires conditionnels : uniquement un SET fermé entier. DEFINER, vues,
+triggers, procédures/événements : refus `SQL_EXECUTABLE_OBJECT_REFUSED`, pas
+exécution arbitraire ni suppression silencieuse. DDL généré/JSON et ROW_FORMAT
+fermés acceptés ; les expressions hors grammaire restent un refus documenté.
+
+Après un échec complet, le site créé est arrêté et conserve **la baseline vide de
+l'outil** si l'injection n'a jamais commencé ; les fichiers restaurés et la base de
+travail du runner sont détruits. Un nouveau lancement exige toujours un **nouveau
+nom** et refait fichiers + base. Aucune reprise de base sur un site existant : un
+checkpoint sûr impliquerait de conserver une copie non anonymisée et de vérifier
+sa provenance, ce qui n'est pas ajouté. Faire d'abord le diagnostic base seul.
+Le site `imagine-test-a01-ced-02` n'est pas supprimé par l'agent : l'absence
+complète d'injection n'est pas établie indépendamment sans lire ses données.
+
+Rejeu fictif : `python wp/tests/a01-court/exercise_fourth.py` ; aucune archive
+Imagine ni compte/site partagé n'est utilisé. Résultats et limites mesurés :
+`production/A-01/archive-reelle-4-notes.md`. Aucun nouveau GO.
+
 # A-01 — troisième passe base du 25 novembre
 
 Politique courante : `politique-tables.json` v1, inconnues en structure seule,

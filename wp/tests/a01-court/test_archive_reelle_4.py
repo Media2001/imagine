@@ -30,6 +30,19 @@ class DatabaseFailure(unittest.TestCase):
         self.assertEqual('COMMAND_TIMEOUT', str(caught.exception))
         self.assertEqual({'stage': 'database_import', 'code': 'COMMAND_TIMEOUT', 'timeout_seconds': 17}, caught.exception.failure)
 
+    def test_target_database_transfer_preserves_sanitized_error_metadata(self):
+        import io
+        import diagnostics
+        import publish
+        sender=mock.Mock(stdout=io.BytesIO(b''),stderr=io.BytesIO(b''),returncode=0)
+        receiver=subprocess.CompletedProcess([],1,b'',b"ERROR 1062 (23000) at line 8: Duplicate entry 'PRIVATE' for key 'x'")
+        with mock.patch.object(publish.subprocess,'Popen',return_value=sender), mock.patch.object(publish.subprocess,'run',return_value=receiver):
+            with self.assertRaises(diagnostics.CommandFailure) as caught:
+                publish.pipe_sanitized_database('fixture-runner','fixture-helper')
+        self.assertEqual('target_database_import',caught.exception.failure['stage'])
+        self.assertEqual(1062,caught.exception.failure['database']['errno'])
+        self.assertNotIn('PRIVATE',json.dumps(caught.exception.failure))
+
     def test_untrusted_stderr_and_exception_never_escape(self):
         import diagnostics
         with mock.patch.object(diagnostics.subprocess, 'run', return_value=subprocess.CompletedProcess([], 2, b'FICTION', b'PRIVATE')):

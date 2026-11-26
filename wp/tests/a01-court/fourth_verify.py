@@ -45,11 +45,16 @@ try:
     # MySQL8 syntax cannot be emitted by this MariaDB source. Derive a separate
     # explicit fixture from its exact real exporter DDL, never claim MySQL8 ran.
     adapted=Path('/scratch/fourth-mysql8.sql')
+    from sql_stream import Framer
     with raw.open('rb') as source,adapted.open('xb') as sink:
-        for line in source:
-            if line.startswith(b'CREATE TABLE'):
-                line=line.replace(b'utf8mb4_unicode_520_ci',b'utf8mb4_0900_ai_ci').replace(b'utf8mb4_unicode_ci',b'utf8mb4_0900_ai_ci')
-            sink.write(line)
+        sink.write(b"/*!40101 SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;\n")
+        def emit(payload):
+            if payload.lstrip().upper().startswith(b'CREATE TABLE'):
+                payload=payload.replace(b'utf8mb4_unicode_520_ci',b'utf8mb4_0900_ai_ci').replace(b'utf8mb4_unicode_ci',b'utf8mb4_0900_ai_ci')
+            sink.write(payload)
+        framer=Framer(emit)
+        while block:=source.read(1048576): framer.feed(block)
+        framer.finish()
     compat=Path('/scratch/fourth-mysql8-normalized.sql')
     cp=validate_file(adapted,legacy_importer,compat)
     assert cp['compatibility']
