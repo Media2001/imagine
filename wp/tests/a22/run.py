@@ -42,6 +42,10 @@ def main():
     original_call=bench.call
     native_executions=[]
     def dispatch(command,**kw):
+        if command[0]=='cp' and command[2].endswith('/stream_guard.py'):
+            base=command[2].rsplit('/',1)[0]
+            for common in ['stream_reports.py','stream_contract.php']:
+                original_call(['cp',bench.local(ROOT/'wp/outils/bascule'/common),base+'/'+common])
         if len(command)>=4 and command[0]=='exec' and command[2]=='python3' and command[3].endswith('/inside.py'):
             name=command[1]
             if args.lot not in {'A02','A10'}:

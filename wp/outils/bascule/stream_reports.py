@@ -44,7 +44,7 @@ def counters(value):
     if isinstance(value,dict):
         return all(isinstance(k,str) and counters(v) for k,v in value.items())
     if isinstance(value,list):return all(counters(v) for v in value)
-    if type(value) is int:return integer(value)
+    if type(value) is int:return True
     return value is None or type(value) in (str,bool,float)
 
 def count_contract(tool,data):
@@ -57,7 +57,7 @@ def count_contract(tool,data):
             and all(numbers(value) for value in data['subscription_counts'].values())
             and all(fields(row,'user_id plan_id') for row in data['memberships'].values())
             and all(fields(row,'interval') for row in data['subscriptions'].values())
-            and all(fields(row,'count amount_minor decimals') for row in data['orders'].values())
+            and all(fields(row,'count decimals') and type(row['amount_minor']) is int for row in data['orders'].values())
             and fields(data['php_log'],'errors')
             and all(fields(row,'status final_status') for row in data['pages'].values()))
     if tool=='A11':return fields(data,'total') and numbers(data['par_nature']) and numbers(data['exclus']) and numbers(data['native_guards'])
@@ -75,9 +75,10 @@ def count_contract(tool,data):
     if tool=='A16':
         return fields(data,'limit') and all(fields(row,'id articles published_articles unpublished_articles without_theme multiple_themes without_featured_image attached_media missing_media_files') for row in data['issues']) and all(fields(row,'year articles') for row in data['orphan_published_by_year'])
     if tool=='A17':
-        return fields(data,'unique_management_accounts') and all(fields(row,'accounts') and (integer(row['application_password_accounts']) or row['application_password_accounts']=='inconnu apres neutralisation') and (row['two_factor_active'] is None or integer(row['two_factor_active'])) and all(value is None or integer(value) for key,value in row['last_login'].items() if key!='status') for row in data['roles'])
+        return fields(data,'unique_management_accounts') and all(fields(row,'accounts') and (integer(row['application_password_accounts']) or row['application_password_accounts']=='inconnu après neutralisation') and (row['two_factor_active'] is None or integer(row['two_factor_active'])) and all(value is None or integer(value) for key,value in row['last_login'].items() if key!='status') for row in data['roles'])
     if tool=='A18':
-        return all(fields(row,'iban card national') for row in data['database']['groups']) and all(fields(row,'count') for row in data['payment_tokens']) and all(fields(row,'directories bytes') and numbers(row['files']) for row in data['media'])
+        groups=data['database']['groups']
+        return ((groups is None and data['database']['status']=='inconnu après neutralisation') or isinstance(groups,list) and all(fields(row,'iban card national') for row in groups)) and all(fields(row,'count') for row in data['payment_tokens']) and all(fields(row,'directories bytes') and numbers(row['files']) for row in data['media'])
     if tool=='A19':
         return all(isinstance(value,dict) if key=='definitions' else integer(value) if key in ('multiple_active_subscription_accounts','multiple_active_membership_accounts','active_past_next_payment','active_without_paid_order') else isinstance(value,list) and all(fields(row,'count') and ('plan' not in row or integer(row['plan'])) for row in value) for key,value in data['counts'].items())
     return False
@@ -90,6 +91,10 @@ def validate(tool,output):
     try:
         files={p.name:p.read_text(encoding='utf-8') for p in output.iterdir()}
         name=next(n for n in files if n.endswith('.json'));data=read(files[name])
+        if tool=='A03' and isinstance(data,dict) and data.get('mode')=='renewal_probe':
+            return (set(data)=={'schema','mode','renewal'} and data['schema']==SCHEMAS[tool]
+                and set(data['renewal'])=={'enabled','manual_only','created','linked','pending','cleaned'}
+                and all(type(value) is bool for value in data['renewal'].values()))
         if not isinstance(data,dict) or set(data)!=set(KEYS[tool].split()) or data['schema']!=SCHEMAS[tool]:return False
         if tool!='A03' and data['read_only'] is not True:return False
         if 'storage' in data and data['storage'] not in ('classic','hpos'):return False

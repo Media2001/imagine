@@ -105,7 +105,7 @@ def assess_response(response, witnesses, present=None, expected=(200,), positive
     return verdict
 
 
-def fetch(path, headers=None):
+def fetch(path, headers=None, on_redirect=None):
     # Seul transport de la commande : GET, jamais de corps, POST, CLI ou écriture distante.
     validate_path(path)
     client = build_opener(DemoRedirect())
@@ -122,6 +122,8 @@ def fetch(path, headers=None):
             responses.append((response.code, hs, response.read()))
         if response.code not in (301,302,303,307,308):
             return ResponseChain(responses)
+        if on_redirect is not None:
+            on_redirect(*responses[-1])  # Inspection avant toute requête suivante.
         if not hs.get('location'):
             raise ValueError('Redirection sans destination')
         target = urlsplit(urljoin(url, hs['location']))
@@ -334,8 +336,11 @@ def matrix(context, label='matrice'):
         raise ValueError('Témoins existants absents')
     results=[]
     def probe(name, public, route, headers, witnesses, positive=False, pdf_hash=None):
+        observed = []
+        def inspect_redirect(code, hs, body):
+            observed.append(assess(code,body,witnesses,expected=(code,),positive=False))
         try:
-            response = fetch(route['path'], headers)
+            response = fetch(route['path'], headers, on_redirect=inspect_redirect)
             status, hs, body = response
             inspected=body
             if route.get('reflected'):
@@ -369,7 +374,9 @@ def matrix(context, label='matrice'):
             row=dict(name=name,public=public,path=route['path'],status=status,bytes=len(body),
                      body_sha256=hashlib.sha256(body).hexdigest(),**verdict)
         except Exception as error:
-            row=dict(name=name,public=public,path=route['path'],status=0,ok=False,leak=False,error=type(error).__name__)
+            row=dict(name=name,public=public,path=route['path'],status=0,ok=False,
+                     leak=not positive and any(x['leak'] for x in observed),
+                     redirects_inspected=len(observed),error=type(error).__name__)
         results.append(row)
         return row
     # Les cookies/nonces restent en mémoire et n'entrent jamais dans le reçu.

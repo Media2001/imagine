@@ -1,0 +1,36 @@
+{
+  "scope": "imagine-test-demo",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "native_matches_before_each_run": {
+    "mutation-V2": true,
+    "b06-livraison-V2": true,
+    "livraison-V2": true
+  },
+  "all_five_pages_empty": true,
+  "page_ids": [
+    2867,
+    2868,
+    2869,
+    2870,
+    2871
+  ],
+  "cooperator_attribute_preserved": true,
+  "discovery_policy": {
+    "ouverture": "fermee",
+    "forme": "articles",
+    "jours": 7,
+    "nombre": 2,
+    "numeros": []
+  },
+  "discovery_relecture": "fermee",
+  "native_sha256": "7f6bdd0646c61e84ee566fa64a32d8060b94ff1e63c87ba3f2ea0ddb163e1333"
+}

@@ -18,6 +18,7 @@ PYTHON_LOTS=[lot for lot in LOTS if lot not in NO_PYTHON]+['A22']
 
 def sources():
     paths=['wp/tests/a22','wp/outils/bascule/stream_guard.py','wp/outils/bascule/stream_refusals.json',
+           'wp/outils/bascule/stream_reports.py','wp/outils/bascule/stream_contract.php',
            'wp/outils/bascule/stream_bridge.php','wp/outils/bascule/non-regression','wp/outils/bascule/audit',
            'wp/outils/bascule/inventorier-codes','wp/outils/bascule/rapprocher-contacts','wp/outils/bascule/controler-export',
            'wp/outils/staging','wp/plugins/imagine-non-regression',

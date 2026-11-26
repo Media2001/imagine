@@ -214,7 +214,7 @@ def run(label, mutation=False, b06_only=False):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--label',default='livraison-V2')
+    parser.add_argument('--label',default='livraison-finale-V2')
     parser.add_argument('--mutation',action='store_true',help='HORS commande GET : ouverture provisoire du témoin, strictement restaurée')
     parser.add_argument('--b06-seul',action='store_true',help='Recette B06 seule, ne vaut jamais livraison C23 complète')
     args=parser.parse_args()

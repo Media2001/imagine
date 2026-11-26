@@ -1,5 +1,6 @@
 """Fusion 17:53 regressions; all mutation targets are disposable scratch copies."""
 import importlib.util
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -17,6 +18,18 @@ def load(relative,name):
     return module
 
 class CorrectionsTest(unittest.TestCase):
+    def test_private_completion_binds_every_final_byte(self):
+        guard=load('wp/outils/bascule/stream_guard.py','binding_fusion')
+        with tempfile.TemporaryDirectory(dir=SCRATCH) as tmp:
+            out=Path(tmp)/'result';shutil.copytree(ROOT/'production/A-22/preuves/final/utf8/A03/classic-a22-documented',out)
+            hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in out.iterdir()}
+            message=guard.SUCCESS['A03'].encode()+b'A22_FINAL '+json.dumps(hashes,separators=(',',':')).encode()+b'\n'
+            self.assertTrue(guard.final_binding('A03',message,out))
+            p=out/'non-regression.json';data=json.loads(p.read_bytes());data['samples'][next(iter(data['samples']))]+=1
+            p.write_text(json.dumps(data),encoding='utf-8')
+            self.assertFalse(guard.final_binding('A03',message,out))
+            self.assertFalse(guard.final_binding('A03',guard.SUCCESS['A03'].encode(),out))
+
     def test_every_historical_invalid_final_name(self):
         guard=load('wp/outils/bascule/stream_guard.py','codes_fusion')
         with tempfile.TemporaryDirectory(dir=SCRATCH) as tmp:

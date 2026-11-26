@@ -1,0 +1,16 @@
+test_corps_302_inspecte_avant_200 (__main__.RedirectTest.test_corps_302_inspecte_avant_200) ... ERROR
+test_redirection_externe_refusee (__main__.RedirectTest.test_redirection_externe_refusee) ... ok
+
+======================================================================
+ERROR: test_corps_302_inspecte_avant_200 (__main__.RedirectTest.test_corps_302_inspecte_avant_200)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 74, in test_corps_302_inspecte_avant_200
+    response = m.fetch('/depart', on_redirect=inspected)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: fetch() got an unexpected keyword argument 'on_redirect'
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.089s
+
+FAILED (errors=1)

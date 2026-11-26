@@ -1,0 +1,1 @@
+ETANCHEITE : 0 contrôles, 0 fuites — FAIL ; Prérequis découverte incompatible : politique livrée fermée ou sans numéro ; aucun réglage forcé

@@ -5,6 +5,7 @@ bounded memory and are discarded, including shutdown output. Publication follows
 both pipe EOFs, process termination and report validation.
 """
 import importlib.util
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -115,6 +116,16 @@ def public_error(error,tool):
     return str(error) if isinstance(error,RuntimeError) and str(error) in allowed else tool+'_CONFINEMENT_FAILED'
 
 
+def final_binding(tool,stdout,output):
+    prefix=SUCCESS[tool].encode()+b'A22_FINAL '
+    try:
+        if not stdout.startswith(prefix) or not stdout.endswith(b'\n'):return False
+        value=load('stream_reports',HERE/'stream_reports.py').read(stdout[len(prefix):-1])
+        return (isinstance(value,dict) and set(value)==FILES[tool]
+            and value=={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in output.iterdir() if p.is_file() and not p.is_symlink()})
+    except (ValueError,TypeError,OSError):return False
+
+
 def complete(output,files):
     if output.is_symlink() or not output.is_dir() or {p.name for p in output.iterdir()}!=files:return False
     for p in output.iterdir():
@@ -152,12 +163,13 @@ def inventory(tool,entry,options,*,fence=None,input_data=None,arguments=None):
             shutil.copyfile(audit,stage/'audit/audit.json');staged['--audit']=str(stage/'audit/audit.json')
         args=[key+'='+value for key,value in staged.items()]
         if arguments:args.extend(arguments)
-        command=['php','-d','display_errors=0','-d','log_errors=0','-d','error_log=/dev/null']
+        command=['php','-d','display_errors=0','-d','log_errors=0','-d','error_log=/dev/null',
+                 '-d','auto_prepend_file='+str(HERE/'stream_contract.php')]
         if fence is not None:command+=['-d','disable_functions=mail,exec,shell_exec,system,passthru,popen,proc_open,pcntl_exec']
         command += [str(entry),*args]
         code,stdout,stderr=supervise(command,{**os.environ,tool+'_CONFINED':'1','A22_SUPERVISED':tool},
             stage,fence,input_data=input_data,invalid=tool+'_PROCESS_OUTPUT_INVALID',expired=tool+'_PROCESS_TIMEOUT')
-        if code!=0 or stdout!=SUCCESS[tool].encode() or stderr:
+        if code!=0 or not final_binding(tool,stdout,stage/'result') or stderr:
             raise RuntimeError(closed_refusal(code,stdout,stderr,allowed_messages(),tool+'_PROCESS_OUTPUT_INVALID'))
         if not complete(stage/'result',FILES[tool]):raise RuntimeError(tool+'_SUCCESS_INCOMPLETE')
         (stage/'result').rename(output)

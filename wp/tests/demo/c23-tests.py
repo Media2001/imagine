@@ -61,8 +61,18 @@ class RedirectTest(unittest.TestCase):
                     return Response(302, b'<p>LE TEMOIN SECRET</p>', '/arrivee')
                 return Response(200, b'<h1>titre</h1>extrait public')
         client = Client()
+        events = []
+        original_open = client.open
+        def opened(request, timeout):
+            events.append('open:'+request.full_url)
+            return original_open(request, timeout)
+        def inspected(status, headers, body):
+            events.append('inspect:'+str(status))
+            self.assertTrue(m.assess(status,body,['LE TEMOIN SECRET'],expected=(status,))['leak'])
+        client.open = opened
         with patch.object(m, 'build_opener', return_value=client):
-            response = m.fetch('/depart')
+            response = m.fetch('/depart', on_redirect=inspected)
+        self.assertEqual(events,['open:'+m.BASE+'/depart','inspect:302','open:'+m.BASE+'/arrivee'])
         self.assertEqual(client.paths, [m.BASE+'/depart', m.BASE+'/arrivee'])
         result = m.assess_response(response, ['LE TEMOIN SECRET'], present='titre')
         self.assertTrue(result['surface_present'])

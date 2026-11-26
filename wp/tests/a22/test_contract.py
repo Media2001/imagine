@@ -133,7 +133,7 @@ class ContractTest(unittest.TestCase):
             (p/'contenus.json').write_text('{}',encoding='utf-8')
             self.assertFalse(guard.complete(p,guard.FILES['A12']))
             (p/'contenus.md').write_text('report',encoding='utf-8')
-            self.assertTrue(guard.complete(p,guard.FILES['A12']))
+            self.assertFalse(guard.complete(p,guard.FILES['A12']))  # Names alone no longer constitute a report.
             (p/'extra').write_text('private',encoding='utf-8')
             self.assertFalse(guard.complete(p,guard.FILES['A12']))
 

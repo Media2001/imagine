@@ -36,7 +36,7 @@ def matrix_checks(core, record, fixture, only_b06=False):
     }
 
 
-def verify(label='livraison-V2', b06_label='b06-livraison-V2', mutation_label='mutation-V2'):
+def verify(label='livraison-finale-V2', b06_label='b06-livraison-finale-V2', mutation_label='mutation-finale-V2'):
     import re
     checks, details = {}, {}
     spec=importlib.util.spec_from_file_location('c23_delivery',ROOT/'wp/outils/demo/c23.py')
@@ -83,7 +83,7 @@ def verify(label='livraison-V2', b06_label='b06-livraison-V2', mutation_label='m
     methods=[k.value.value for n in ast.walk(tree) if isinstance(n,ast.Call) for k in n.keywords if k.arg=='method' and isinstance(k.value,ast.Constant)]
     checks['main_GET_only']=methods==['GET'] and not any(isinstance(n,ast.alias) and n.name in ['subprocess','profils','construire','b05','b06'] for n in ast.walk(tree))
     checks['no_session_dump']=not any('wordpress_logged_in_' in p.read_text(encoding='utf-8',errors='replace') or 'X-WP-Nonce' in p.read_text(encoding='utf-8',errors='replace') for p in PROOF.glob('*.json'))
-    for key,filename in [('tests','tests-finaux-V2.json'),('image','image-preparation-V2.json')]:
+    for key,filename in [('tests','tests-finaux-final-V2.json'),('image','image-preparation-V2.json')]:
         try:
             value=read(filename)
             checks[key]=all(value[k]['exit']==0 for k in ['utf8','cp1252']) if key=='tests' else value['exit']==0 and 'T01 IMAGE READY' in (PROOF/'image-preparation-V2.txt').read_text(encoding='utf-8')
@@ -96,4 +96,4 @@ def verify(label='livraison-V2', b06_label='b06-livraison-V2', mutation_label='m
 
 
 if __name__=='__main__':
-    raise SystemExit(0 if verify() else 1)
+    raise SystemExit(0 if verify(*sys.argv[1:]) else 1)

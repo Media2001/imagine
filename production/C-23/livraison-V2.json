@@ -1,0 +1,11 @@
+{
+  "scope": "imagine-test-demo",
+  "coverage": "livraison",
+  "total": 0,
+  "leaks": 0,
+  "failures": 1,
+  "results": [],
+  "prerequisite": "Prérequis découverte incompatible : politique livrée fermée ou sans numéro ; aucun réglage forcé",
+  "summary": "ETANCHEITE : 0 contrôles, 0 fuites — FAIL ; Prérequis découverte incompatible : politique livrée fermée ou sans numéro ; aucun réglage forcé",
+  "command_sha256": "f2368b6333a66a5bfa1fad88b6b2d2075978bb39f2a5a7c00db7178a0c8a5740"
+}

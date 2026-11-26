@@ -30,7 +30,9 @@ def wrapped(args,*pos,**kw):
             seen.add(site)
             command=[('--output={output}' if part.startswith('--output=') else part) for part in args]
             original_check=b.check;b.check=lambda name,ok,detail=None:check(site.name+':'+name,ok)
-            try:c.exercise(b,tool,command,site,Path('/report'))
+            try:
+                c.exercise(b,tool,command,site,Path('/report'))
+                if tool=='A12':check(site.name+':A12:discard_device_only_write_exception',c.discard_fence_probe())
             finally:b.check=original_check
             # Positive witness: bypass ONLY the common guard in a disposable copy.
             roots=[Path('/checkout/wp/outils/bascule'),Path('/subject')] if any(str(x).startswith('/checkout/') for x in command) else [Path('/subject')]
@@ -62,6 +64,19 @@ def wrapped(args,*pos,**kw):
                 for p in Path('/report').glob('.a22-private-*'):shutil.rmtree(p)
             check(site.name+':'+tool+':guard_restored',guard.read_bytes()==source)
             if tool not in {'A20','A21'}:
+                try:
+                    mutant_source=source.replace(b"not final_binding(tool,stdout,stage/'result')",b'False').replace(b"not complete(stage/'result',FILES[tool])",b'False')
+                    assert mutant_source!=source
+                    guard.write_bytes(mutant_source)
+                    hostile.write_text("<?php "+c.CASES['shutdown_file'],encoding='utf-8')
+                    dest=Path('/report')/(site.name+'-file-mutation')
+                    witness=subprocess.run([x.replace('{output}',str(dest)) for x in command],capture_output=True,timeout=180,
+                        env={**os.environ,'PYTHONIOENCODING':'utf-8','PYTHONUTF8':'1'})
+                    leaked=dest.is_dir() and any(b'A22_PRIVATE_FLOW_CANARY' in p.read_bytes() for p in dest.iterdir() if p.is_file())
+                    check(site.name+':'+tool+':mutation_without_final_contract_leaks',witness.returncode==0 and leaked)
+                finally:
+                    guard.write_bytes(source);hostile.unlink(missing_ok=True)
+                    if dest.exists():shutil.rmtree(dest)
                 import shlex
                 literal=json.loads(Path('/opt/a22/documented.json').read_text(encoding='utf-8'))[tool]
                 documented=shlex.split(literal)

@@ -1,0 +1,49 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T17:03:14.063159+00:00",
+  "label": "livraison-V2",
+  "coverage": "livraison",
+  "mutation": false,
+  "primary_command": "python -B wp/outils/demo/c23.py livraison-V2",
+  "auth": "sessions natives temporaires hors commande principale; aucun mot de passe ni POST",
+  "sources_sha256": {
+    "wp/outils/demo/c23-inventaire.php": "3a1f7d88766ab08deb2e43e8d61be8bc030d61f18958b623227d8e9c0c857fae",
+    "wp/outils/demo/c23-preparer.py": "e02e28b7be760e69cd046cf9b26277cfca3b807709d0fff5cfcec21cb4f221e8",
+    "wp/outils/demo/c23.py": "f2368b6333a66a5bfa1fad88b6b2d2075978bb39f2a5a7c00db7178a0c8a5740",
+    "wp/tests/demo/c23-diagnostic.py": "326dbed125641a1b1664c67ad28a8fb806958c7f7f4cb5f47e7f43a259c3ae3c",
+    "wp/tests/demo/c23-mutations.py": "6037c4eb567b3da632eda690aaa093759c7849b67de6cdbdf1f4548f3e334310",
+    "wp/tests/demo/c23-recovery.py": "2d1cbc1681a08fbb25ef9571716d9031b9c97071fc2d9981dee2677eb17a0390",
+    "wp/tests/demo/c23-tests.py": "88e11c88d20244e7cd29d8cae43b4cf969b1eafd3d752e4415a41270a29f3697",
+    "wp/tests/demo/c23-verifier.py": "65afdf45e57b03f51b80620c38a6619270a3d3c805a47591a668c59b30736421"
+  },
+  "command_exit": 1,
+  "prerequisite": "Prérequis découverte incompatible : politique livrée fermée ou sans numéro ; aucun réglage forcé",
+  "no_sessions_created": true,
+  "business_unchanged_during_GETs": true,
+  "metadata_restored_exactly": true,
+  "cooperator_pages_restored_exactly": true,
+  "cooperator_pages_sha256": "394d20a8b44d880b014157f9cd618214d060c5693b64faea3ab2e25e5877df55",
+  "profiles_and_scheduled_actions_restored_exactly": true,
+  "schedule_before": {
+    "sha256": "4b8cb7133e9eb83d8b63c5d9f872764063b6021ebd6b37b0c1d7e0cadd17d775",
+    "action8793": {
+      "action_id": "8793",
+      "hook": "woocommerce_scheduled_subscription_payment",
+      "status": "pending",
+      "args": "{\"subscription_id\":101}",
+      "scheduled_date_gmt": "2026-11-26 02:13:28"
+    }
+  },
+  "schedule_after": {
+    "sha256": "4b8cb7133e9eb83d8b63c5d9f872764063b6021ebd6b37b0c1d7e0cadd17d775",
+    "action8793": {
+      "action_id": "8793",
+      "hook": "woocommerce_scheduled_subscription_payment",
+      "status": "pending",
+      "args": "{\"subscription_id\":101}",
+      "scheduled_date_gmt": "2026-11-26 02:13:28"
+    }
+  },
+  "native_before_sha256": "7f6bdd0646c61e84ee566fa64a32d8060b94ff1e63c87ba3f2ea0ddb163e1333",
+  "native_after_sha256": "7f6bdd0646c61e84ee566fa64a32d8060b94ff1e63c87ba3f2ea0ddb163e1333"
+}
