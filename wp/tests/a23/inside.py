@@ -67,6 +67,14 @@ if (getenv('A23_CONFINED') === '1') {
     require_once ABSPATH.'wp-includes/pluggable.php';
     add_filter('check_password', function () { throw new RuntimeException('A23_PASSWORD_TRIAL_PRIVATE_CANARY'); }, -999999);
     add_filter('authenticate', function () { throw new RuntimeException('A23_LOGIN_TRIAL_PRIVATE_CANARY'); }, -999999);
+    add_action('plugins_loaded', static function () {
+        if (as_enqueue_async_action('a23_forbidden') !== 0
+            || as_schedule_single_action(time()+9999, 'a23_forbidden') !== 0
+            || as_schedule_recurring_action(time()+9999, 3600, 'a23_forbidden') !== 0
+            || as_schedule_cron_action(time()+9999, '* * * * *', 'a23_forbidden') !== 0) {
+            throw new RuntimeException('A23_AS_GUARD_PRIVATE_CANARY');
+        }
+    }, PHP_INT_MAX);
     if ($wpdb->query('UPDATE wp_users SET ID=ID WHERE 1=0') !== false
         || @mysqli_query($wpdb->dbh, 'UPDATE wp_users SET ID=ID WHERE 1=0') !== false
         || @file_put_contents(ABSPATH.'forbidden', 'NO') !== false

@@ -67,7 +67,16 @@ final class NewslettersReglages
                 };
                 $rows[] = $row;
             }
-            return NewslettersRegles::catalogue($rows);
+            $rows = NewslettersRegles::catalogue($rows);
+            $current = Newsletters::catalogue();
+            self::reserver($current);
+            $active = array_column($current, 'id');
+            foreach ($rows as $row) {
+                if (!in_array($row['id'], $active, true) && get_option(self::reserve($row['id']), false)) {
+                    throw new \InvalidArgumentException();
+                }
+            }
+            return $rows;
         } catch (\InvalidArgumentException) {
             add_settings_error(
                 Newsletters::CATALOGUE,
@@ -136,6 +145,22 @@ final class NewslettersReglages
         }
         echo '</select></p><p>' . esc_html__('Question pour Imagine : à la création du compte, souhaitez-vous cette inscription et avec quel consentement explicite ? Le réglage ne prouve aucun consentement et ne modifie pas les comptes existants. Aucun envoi ni raccord Brevo.', 'imagine-site') . '</p>';
         return ob_get_clean();
+    }
+
+    private static function reserve(string $id): string
+    {
+        return 'imagine_newsletters_reserve_' . $id;
+    }
+
+    /** Réservations sans identité de lecteur, conservées même après effacement personnel. */
+    private static function reserver(array $rows): void
+    {
+        foreach ($rows as $row) {
+            $key = self::reserve($row['id']);
+            if (!get_option($key, false) && !add_option($key, '1', '', false) && !get_option($key, false)) {
+                throw new \InvalidArgumentException('Réservation indisponible.');
+            }
+        }
     }
 
     private static function journal(string $key, mixed $old, mixed $new): void

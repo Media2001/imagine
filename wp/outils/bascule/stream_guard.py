@@ -24,38 +24,41 @@ def supervise(command,env,write_root,fence,*,input_data=None,timeout=120,
     # Reader threads retain A21's 64 KiB bound and drain both pipes concurrently;
     # unlike select on pipes, this also exercises the real Windows interpreter.
     options={'preexec_fn':lambda:fence.confine(write_root)} if fence is not None else {}
-    with subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.PIPE,
-                          stdin=subprocess.PIPE if input_data is not None else subprocess.DEVNULL,
-                          env=env,**options) as child:
-        buffers=[bytearray(),bytearray()]
-        overflow=threading.Event()
-        stopped=threading.Event()
-        deadline=time.monotonic()+timeout
-        def drain(stream,index):
-            descriptor=stream.fileno()
+    child=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.PIPE,
+        stdin=subprocess.PIPE if input_data is not None else subprocess.DEVNULL,env=env,**options)
+    buffers=[bytearray(),bytearray()]
+    overflow=threading.Event();stopped=threading.Event()
+    deadline=time.monotonic()+timeout
+    def drain(stream,index):
+        descriptor=stream.fileno()
+        try:
             while not stopped.is_set():
                 try:block=os.read(descriptor,8192)
                 except OSError:return
                 if not block:return
                 if len(buffers[index])+len(block)<=65536:buffers[index].extend(block)
                 else:overflow.set()
-        readers=[threading.Thread(target=drain,args=(stream,i),daemon=True)
-                 for i,stream in enumerate([child.stdout,child.stderr])]
-        for reader in readers:reader.start()
-        def feed():
-            try:child.stdin.write(input_data);child.stdin.close()
-            except (BrokenPipeError,OSError):pass
-        if input_data is not None:threading.Thread(target=feed,daemon=True).start()
-        try:
-            code=child.wait(timeout=max(.001,deadline-time.monotonic()))
-            for reader in readers:reader.join(timeout=max(0,deadline-time.monotonic()))
-            if any(reader.is_alive() for reader in readers):raise subprocess.TimeoutExpired(command,timeout)
-        except subprocess.TimeoutExpired:
-            stopped.set()
-            child.kill();child.wait()
-            raise RuntimeError(expired) from None
-        if overflow.is_set():raise RuntimeError(invalid)
-        return code,bytes(buffers[0]),bytes(buffers[1])
+        finally:
+            # Only the reader closes its pipe: on Windows a concurrent close can
+            # wait for a descendant's inherited handle past the deadline.
+            stream.close()
+    readers=[threading.Thread(target=drain,args=(stream,i),daemon=True)
+             for i,stream in enumerate([child.stdout,child.stderr])]
+    for reader in readers:reader.start()
+    def feed():
+        try:child.stdin.write(input_data)
+        except (BrokenPipeError,OSError):pass
+        finally:child.stdin.close()
+    if input_data is not None:threading.Thread(target=feed,daemon=True).start()
+    try:
+        code=child.wait(timeout=max(.001,deadline-time.monotonic()))
+        for reader in readers:reader.join(timeout=max(0,deadline-time.monotonic()))
+        if any(reader.is_alive() for reader in readers):raise subprocess.TimeoutExpired(command,timeout)
+    except subprocess.TimeoutExpired:
+        stopped.set();child.kill();child.wait()
+        raise RuntimeError(expired) from None
+    if overflow.is_set():raise RuntimeError(invalid)
+    return code,bytes(buffers[0]),bytes(buffers[1])
 
 
 def load(name,path):

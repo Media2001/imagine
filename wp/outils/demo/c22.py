@@ -7,7 +7,8 @@ import b05
 ROOT = b05.ROOT
 PROOF = ROOT / 'production/C-22'
 wp, profils, php_json, state, hashes = b05.wp, b05.profils, b05.php_json, b05.state, b05.hashes
-NAMES = ['plugins/imagine-site/' + n for n in ('NewslettersRegles.php','Newsletters.php','NewslettersReglages.php','Confidentialite.php','imagine-site.php')]
+NAMES = ['plugins/imagine-site/' + n for n in ('NewslettersRegles.php','Newsletters.php','NewslettersReglages.php')]
+# Shared C21/bootstrap are contract-only: never rewritten by C22 corrections.
 
 def save(label, data):
     assert label.replace('-', '').isalnum()
