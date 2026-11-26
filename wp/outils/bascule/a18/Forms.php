@@ -59,19 +59,20 @@ final class Forms
     {
         $found = ['iban' => false, 'card' => false, 'national' => false];
         // Search textual/serialized bytes, never instantiate serialized objects.
-        $space = '[ \t\x{00a0}\x{202f}-]?';
+        $value = str_replace(["\xc2\xa0", "\xe2\x80\xaf"], ' ', $value);
+        $space = '[ \t-]?';
         $formats = json_decode(file_get_contents(__DIR__ . '/iban-structures.json'), true, 8, JSON_THROW_ON_ERROR);
         foreach ($formats as $country => $format) {
             preg_match_all('/([0-9]+)!/', $format, $parts);
             $size = array_sum(array_map('intval', $parts[1])) + 4;
             $pattern = '/(?<![A-Za-z0-9])' . $country . $space . '[0-9]' . $space . '[0-9](?:'
-                . $space . '[A-Z0-9]){' . ($size - 4) . '}(?![A-Za-z0-9])/iu';
+                . $space . '[A-Z0-9]){' . ($size - 4) . '}(?![A-Za-z0-9])/i';
             preg_match_all($pattern, $value, $matches);
             foreach ($matches[0] as $candidate) {
                 $found['iban'] = $found['iban'] || self::iban($candidate);
             }
         }
-        preg_match_all('/(?<![A-Za-z0-9])(?:[0-9][ .\t\x{00a0}\x{202f}-]?){10,18}[0-9](?![A-Za-z0-9])/u', $value, $matches);
+        preg_match_all('/(?<![A-Za-z0-9])(?:[0-9][ .\t-]?){10,18}[0-9](?![A-Za-z0-9])/', $value, $matches);
         foreach ($matches[0] as $candidate) {
             $found['card'] = $found['card'] || self::card($candidate);
             $found['national'] = $found['national'] || self::national($candidate);

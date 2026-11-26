@@ -34,6 +34,13 @@ try {
 } catch (Throwable) {
     check('native_nullable_meta_not_fatal', false);
 }
+check('binary_prefix_does_not_hide_payment_shape', Forms::scan("\xff;4242424242424242;")['card'] === true);
+check('non_belgian_iban_and_unicode_spaces', Forms::scan("GB82 WEST 1234 5698 7654 32")['iban']
+    && Forms::iban("BE68\u{202f}5390\u{00a0}0754 7034")
+    && !Forms::iban('ZZ68539007547034'));
+check('unsafe_key_masked_no_value_output', Imagine\RetentionInventory\Inventory::groups([
+    ['scope' => 'order', 'key' => '/A18_PRIVATE_CANARY', 'value' => 'BE68539007547034'],
+]) === [['scope' => 'order', 'key' => 'autre', 'iban' => 1, 'card' => 0, 'national' => 0]]);
 $result = ['checks' => $checks, 'exit_code' => (int) in_array('FAIL', array_column($checks, 'status'), true)];
 file_put_contents('/report/unit.json', json_encode($result, JSON_PRETTY_PRINT) . "\n");
 exit($result['exit_code']);

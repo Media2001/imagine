@@ -20,7 +20,7 @@ final class Inventory
     {
         $groups = [];
         foreach ($rows as $row) {
-            $flags = Forms::scan($row['value']);
+            $flags = Forms::scan((string) $row['value']);
             if (!in_array(true, $flags, true)) {
                 continue;
             }

@@ -52,7 +52,8 @@ if (getenv('A18_CONFINED') === '1') {
     b.check(storage+':tokens_references_separate',d['payment_tokens']==[{'gateway':'a18_fixture','type':'CC','count':1}])
     b.check(storage+':known_and_other_folders_exact',d['media']==[
         {'folder':'autre','directories':1,'files':{'txt':1},'bytes':4,'server_rule_file_present':False,'reading_denied':None},
-        {'folder':'exports','directories':1,'files':{'csv':2,'log':1},'bytes':12,'server_rule_file_present':False,'reading_denied':None}])
+        {'folder':'exports','directories':1,'files':{'csv':2,'log':1},'bytes':12,'server_rule_file_present':False,'reading_denied':None},
+        {'folder':'woocommerce_uploads','directories':1,'files':{'html':1,'regles':1},'bytes':13,'server_rule_file_present':True,'reading_denied':None}])
     payload=p.stdout+p.stderr+''.join(x.read_text() for x in dest.iterdir())
     b.check(storage+':no_values_names_ids_or_paths',not re.search(r'CANARY|4242|5390|850730|@|/scratch|DB_PASSWORD',payload))
     repeat=OUT/(storage+'-repeat');p=inventory(site,repeat,audit/'audit.json');b.check(storage+':replay_identical',p.returncode==0 and {x.name:x.read_bytes() for x in repeat.iterdir()}=={x.name:x.read_bytes() for x in dest.iterdir()})
