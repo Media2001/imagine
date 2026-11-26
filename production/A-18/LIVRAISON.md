@@ -4,12 +4,14 @@ Outil et banc fictif prêts à relire, **non clos**. Lecture seule : formes IBAN
 
 ## Preuves et commandes réelles
 
-Paquet unique `preuves/final`, dernier rejeu cp1252 à la racine et UTF8 sous `utf8/`. Par console : **10 assertions PHP, 80 assertions natives classic/HPOS, 7 gardes runner, 3 tests Python**, tous verts. Python **3.14.7 Windows** natif, locale cp1252 ; stdout/stderr cp1252 et UTF8=0 mesurés, puis contexte UTF8 distinct. Sous-processus des tests à encodage explicitement fixé. PSR12 strict zéro erreur/avertissement ; `wp/tests/preparer-image.ps1` relancé code 0 après ajout des tests. Commandes exactes, environnements et codes retour : `preuves/final/windows-matrix.json`.
+Paquet unique `preuves/final`, dernier rejeu cp1252 à la racine et UTF8 sous `utf8/`. Par console : **10 assertions PHP, 84 assertions natives classic/HPOS, 7 gardes runner, 3 tests Python**, tous verts. Python **3.14.7 Windows** natif, locale cp1252 ; stdout/stderr cp1252 et UTF8=0 mesurés, puis contexte UTF8 distinct. Sous-processus des tests à encodage explicitement fixé. PSR12 strict zéro erreur/avertissement ; `wp/tests/preparer-image.ps1` relancé code 0 après ajout des tests. Commandes exactes, environnements et codes retour : `preuves/final/windows-matrix.json`.
 
 Vérifier : `python -B wp/tests/a18/verify.py production/A-18/preuves/final`.
 Rejouer : `python -B wp/tests/a18/run.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a18-rejeu-NOUVEAU`.
 
 Deux stockages natifs, métadonnée IBAN valide/invalide, carte de test, registre belge, option sérialisée, jeton natif, trois fichiers exports et dossiers inconnus dont un vide, année exclue. Canaris absents de toutes les sorties et de tous les fichiers produits. Refus symboliques fichier/dossier par code seul ; six drop-ins par liste fermée, sorties disjointes, PHP non confiné refusé. Runtime commun inchangé. Tentatives SQL/mail/HTTP/cron/fichiers bloquées ; empreintes de **toutes** les tables et fichiers inchangées, y compris Action Scheduler. Marque de neutralisation : « inconnu après neutralisation », jamais zéro. Les deux lignes du README partagé seules font contrat ; manifeste limité au lot. Essais RED et intermédiaires exclusivement en scratch.
+
+Le point de sortie n’accepte qu’une **liste littérale fermée de codes**, pas un préfixe ressemblant à un code : une exception d’extension contenant `A18_...` et un canari est réduite à `A18_INVENTORY_FAILED`. Le test natif a d’abord échoué sur les deux stockages, puis les deux consoles finales l’ont repassé ; aucune source commune ou A17 n’a changé. L’ancien paquet vert a été retiré du dépôt avant le nouveau scellement.
 
 ## Décision prudente et écart à faire relire
 

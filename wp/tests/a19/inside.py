@@ -27,6 +27,9 @@ add_filter('woocommerce_subscription_payment_meta', static function ($meta, $sub
  }
  return $meta;
 }, 10, 2);
+if (getenv('A19_CONFINED') === '1' && ($forced = get_option('a19_forced_exception', '')) !== '') {
+ throw new RuntimeException($forced);
+}
 if (getenv('A19_CONFINED') === '1') {
  global $wpdb; require_once ABSPATH.'wp-includes/pluggable.php';
  if ($wpdb->query('UPDATE wp_posts SET ID=ID WHERE 1=0') !== false
@@ -90,6 +93,10 @@ if (getenv('A19_CONFINED') === '1') {
     variant_before=b.fingerprint(db);variant_out=OUT/(storage+'-unknown');p=inventory(site,variant_out,audit/'audit.json');vd=json.loads((variant_out/'coherence.json').read_text())
     b.check(storage+':unknown_reference_not_counted_absent',p.returncode==0 and vd['counts']['automatic_without_saved_payment']==[] and vd['counts']['automatic_payment_reference_unknown']==[{'gateway':'a19_fixture','count':1}])
     b.check(storage+':unknown_variant_database_unchanged',variant_before==b.fingerprint(db))
+    b.sql(db,"INSERT INTO wp_options (option_name,option_value,autoload) VALUES ('a19_forced_exception','A19_PLUGIN_PRIVATE_CANARY','no')")
+    refusal_before=b.fingerprint(db);refusal_out=OUT/(storage+'-plugin-exception');bad=inventory(site,refusal_out,audit/'audit.json')
+    b.check(storage+':plugin_exception_code_closed',bad.returncode==1 and bad.stdout=='' and bad.stderr=='A19_INVENTORY_FAILED\n' and not refusal_out.exists())
+    b.check(storage+':plugin_exception_variant_database_unchanged',refusal_before==b.fingerprint(db))
     b.check(storage+':all_produced_artifacts_canary_absent',not any(b'CANARY' in f.read_bytes() for f in OUT.rglob('*') if f.is_file()))
 b.run_storage=run_storage
 if __name__=='__main__':sys.exit(b.main())

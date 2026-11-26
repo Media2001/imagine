@@ -2,10 +2,10 @@
   "exit_code": 0,
   "counts": {
     "cp1252:unit": 10,
-    "cp1252:result": 80,
+    "cp1252:result": 84,
     "cp1252:runner": 7,
     "utf8:unit": 10,
-    "utf8:result": 80,
+    "utf8:result": 84,
     "utf8:runner": 7
   },
   "checks": [

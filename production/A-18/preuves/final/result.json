@@ -216,6 +216,16 @@
       "detail": null
     },
     {
+      "check": "classic:plugin_exception_code_closed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plugin_exception_variant_database_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:all_produced_artifacts_canary_absent",
       "status": "PASS",
       "detail": null
@@ -406,6 +416,16 @@
     },
     {
       "check": "hpos:rule_variant_files_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plugin_exception_code_closed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plugin_exception_variant_database_unchanged",
       "status": "PASS",
       "detail": null
     },

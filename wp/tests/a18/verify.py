@@ -12,6 +12,7 @@ def verify(packet):
     def check(name,ok):checks.append({'check':name,'status':'PASS' if ok else 'FAIL'})
     source=load(packet/'sources.json');check('exact_current_sources',source==inventory(OWN));counts={}
     required=['cli_and_actual_readonly_guards','media_contents_never_opened','exact_group:account:_a18_card','exact_group:account:_a18_rr','exact_group:order:_a18_bank','exact_group:subscription:_a18_bank','exact_group:option:a18_bank_setting','invalid_and_canary_values_not_counted','tokens_references_separate','known_and_other_folders_exact','no_values_names_ids_or_paths','replay_identical','unconfined_refused','all_tables_scheduler_identical','files_identical','config_not_executed','neutralised_unknown_not_zero','neutralised_database_unchanged','rule_presence_not_false_assurance','rule_variant_files_unchanged','all_produced_artifacts_canary_absent','symlink_private_code_only:False','symlink_private_code_only:True']
+    required += ['plugin_exception_code_closed','plugin_exception_variant_database_unchanged']
     required += ['closed_dropin:'+str(i) for i in range(6)]
     for console,folder in [('cp1252',packet),('utf8',packet/'utf8')]:
         for kind in ['unit','result','runner']:

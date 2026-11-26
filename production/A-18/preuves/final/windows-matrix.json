@@ -39,7 +39,7 @@
         "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
         "-B",
         "wp/tests/a18/run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a18-final-owned-py3147-20261126-v1\\utf8"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a18-final-owned-py3147-20261126-v2\\utf8"
       ],
       "exit_code": 0,
       "log": "utf8-runner.log"
@@ -82,7 +82,7 @@
         "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
         "-B",
         "wp/tests/a18/run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a18-final-owned-py3147-20261126-v1\\cp1252"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a18-final-owned-py3147-20261126-v2\\cp1252"
       ],
       "exit_code": 0,
       "log": "cp1252-runner.log"
@@ -93,7 +93,7 @@
       "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
       "-B",
       "wp/tests/a18/style.py",
-      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a18-final-owned-py3147-20261126-v1\\style"
+      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a18-final-owned-py3147-20261126-v2\\style"
     ],
     "exit_code": 0
   },

@@ -86,6 +86,10 @@ if (getenv('A18_CONFINED') === '1') {
     rule_before=b.files(site);rules_out=OUT/(storage+'-rules');p=inventory(site,rules_out,audit/'audit.json');rd=json.loads((rules_out/'conservation.json').read_text())
     b.check(storage+':rule_presence_not_false_assurance',p.returncode==0 and rd['media'][1]['server_rule_file_present'] is True and rd['media'][1]['reading_denied'] is None)
     b.check(storage+':rule_variant_files_unchanged',rule_before==b.files(site))
+    b.sql(db,"INSERT INTO wp_options (option_name,option_value,autoload) VALUES ('a18_forced_exception','A18_PLUGIN_PRIVATE_CANARY','no')")
+    refusal_before=b.fingerprint(db);refusal_out=OUT/(storage+'-plugin-exception');bad=inventory(site,refusal_out,audit/'audit.json')
+    b.check(storage+':plugin_exception_code_closed',bad.returncode==1 and bad.stdout=='' and bad.stderr=='A18_INVENTORY_FAILED\n' and not refusal_out.exists())
+    b.check(storage+':plugin_exception_variant_database_unchanged',refusal_before==b.fingerprint(db))
     b.check(storage+':all_produced_artifacts_canary_absent',not any(b'CANARY' in f.read_bytes() for f in OUT.rglob('*') if f.is_file()))
 b.run_storage=run_storage
 if __name__=='__main__':sys.exit(b.main())

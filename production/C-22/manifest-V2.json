@@ -1,0 +1,31 @@
+{
+  "scope": "C-22",
+  "exclusive_sha256": {
+    "wp/plugins/imagine-site/Newsletters.php": "4ad7646c5c8d529c99558541cee2ff4ee29f500d3a9346222a937645d6458b2a",
+    "wp/plugins/imagine-site/NewslettersRegles.php": "06d760725c8a2c8f00cc8841f0ef093b7ba674fc8977894daf1ae904de24754e",
+    "wp/plugins/imagine-site/NewslettersReglages.php": "22b8d112cbc4cef7de4961faa31375d395ea17fd7ca3bbbeb688bc430c03b7e3",
+    "wp/plugins/imagine-site/tests/NewslettersReglesTest.php": "45f2a2e47792c2fd97966e890ab287e70fecb17efc6887ccb1c9c4f33569501b",
+    "wp/outils/demo/c22.py": "80dd8b780fe937e1e2e9ec20e8337ca1cede8d9beb7613766a5b7ce84b3b7e18",
+    "wp/outils/demo/c22-unit.py": "3cae5f7ee4f1ce7067e768c5e2d279fa3fb539573a9517fcfeb3481e8e0b391f",
+    "wp/outils/demo/c22-quality.py": "dd5b393d46a412a3748b04df72bad11048f42f157fee9ff7bf68a7a449fb9cc7",
+    "wp/tests/demo/c22-runtime.php": "ddc2686f38e09107b25b805b9d8924d7308eac7ce938662814076781b0a8e87b",
+    "wp/tests/demo/c22-observer.php": "22c409e622308c37391d1a18ce3089b6ad102f0024e8fb184728ebe9d445fb8f",
+    "wp/tests/demo/c22-http.py": "4d1f589cf3093c5e3618534ddddbb53dbc46d1594a29a16c7c1a4d9f65dd5839",
+    "wp/tests/demo/c22-verifier.py": "fdba7a9c8964cc093a9d89f48a1905db0c243ba592dcd6b39d4d640390673b4c",
+    "production/C-22/A-VOIR.md": "1acd53b862493c46e846f453d5c926a471fadc5ef71f3420fea293ee3c56b703",
+    "production/C-22/inventaire-confidentialite.md": "3efc1ccbba4359f48cd3cf31024a02b232e53d2f4ba2bf798f58478a28218146",
+    "production/C-22/native-final-V2.json": "d3b3a87b789e6f9c7fdbb3c7d5fee641941c6c021e66014620a91edec70401aa",
+    "production/C-22/http-final-V2.json": "8f8644927ab371d69b7aca12fc8dbdad42d535a76b445cf58029878af3590a38",
+    "production/C-22/quality-final-V2.json": "3d99833efa8408581bb28898ae96bf141889410555b448bd0179164be5a1b53e",
+    "production/C-22/installation-final-V2.json": "505b0b249d539bbe679c8cd8fd4fad9183ef61f8d9c9fe9bc93ce2b1af1a9dde",
+    "production/C-22/t01-final-V2.log": "4ab352ca5422ce88e8e421644a7e4ea5aa9b81ff2939b234101a14ba7c40cc33",
+    "production/C-22/preparation.log": "b6d7d87e75022c9d49565252ed31a0c8fbfd5db1b04320df9dd7ad39821eb274",
+    "production/C-22/sources-officielles.json": "3f6dabadc8676c9aa17146e3fe6dbf697adba0ab3a5292d683005a19ff59e6c3",
+    "production/C-22/http-final-V2-nos-newsletters.png": "6bd6d5abc40451728eb7acc94d82f172150fb489df14885a809a4402db75500d",
+    "production/C-22/http-final-V2-mes-newsletters.png": "70940ab9f61e0ff9ea16139b1d3c57b990e7c63270bb101f851fc6da99f92b9d",
+    "production/C-22/http-final-V2-sans-email.png": "3a5e3d3e11d0132595b8702237f8df0d647b26d40a3ad02a0f627b15de389b19",
+    "production/C-22/http-final-V2-reglages-newsletters.png": "573420d5ae5f3c62643be9f6dfe57cb96ad77fc1078c496ed7357f99bee774b9",
+    "production/C-22/final-V2.json": "5a0659093f0a7abe9ad2577bbb80d57003d50def88543102fc0153ffdc2b8472"
+  },
+  "shared": "contract, not whole-file historical hash"
+}
