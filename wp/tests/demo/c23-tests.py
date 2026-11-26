@@ -6,6 +6,16 @@ import unittest
 sys.dont_write_bytecode = True
 SOURCE = Path(__file__).resolve().parents[2] / 'outils/demo/c23.py'
 
+
+def test_scratch():
+    """Scratch Hermes réel, y compris sans TMPDIR ; jamais tempfile système."""
+    import os
+    root = Path(os.environ.get('TMPDIR') or
+                str(Path(os.environ.get('LOCALAPPDATA', str(Path.home() / 'AppData/Local'))) /
+                    'hermes/cache/scratch'))
+    root.mkdir(parents=True, exist_ok=True)
+    return root
+
 class DetectorTest(unittest.TestCase):
     def test_fuite_texte_reel_refusee(self):
         self.assertTrue(SOURCE.is_file(), 'Le détecteur C23 reste à construire')
@@ -264,7 +274,7 @@ class PreparationSafetyTest(unittest.TestCase):
         import tempfile, os, json
         from unittest.mock import patch
         m = load_preparer()
-        with tempfile.TemporaryDirectory(dir=os.environ['TMPDIR']) as directory:
+        with tempfile.TemporaryDirectory(dir=test_scratch()) as directory:
             payload = {'metadata':{'session_tokens':'SECRET-FICTIF'},'pages':[]}
             with patch.object(m, 'PRIVATE_ROOT', Path(directory), create=True):
                 proof = m.private_snapshot('test-prive', payload)
@@ -296,7 +306,7 @@ class PreparationSafetyTest(unittest.TestCase):
         import tempfile
         from unittest.mock import patch
         m = load_preparer()
-        with tempfile.TemporaryDirectory(dir=__import__('os').environ.get('TMPDIR')) as directory:
+        with tempfile.TemporaryDirectory(dir=test_scratch()) as directory:
             proof = Path(directory)
             (proof/'livraison-V2.json').write_text('{}',encoding='utf-8')
             with patch.object(m,'PROOF',proof), patch.object(m.profils,'guard') as guard, patch.object(m,'inventory',side_effect=AssertionError('site interdit au test')):
