@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 import sys
 sys.dont_write_bytecode=True
+os.environ.update({'PYTHONIOENCODING':'utf-8','PYTHONUTF8':'1','PYTHONDONTWRITEBYTECODE':'1'})
 spec=importlib.util.spec_from_file_location('channels','/opt/a22/channels.py')
 c=importlib.util.module_from_spec(spec);spec.loader.exec_module(c)
 original_path,tool=sys.argv[1:]

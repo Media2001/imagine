@@ -1,0 +1,7 @@
+{
+  "at": "2026-11-26T13:35:01.699422+00:00",
+  "scope": "imagine-test-demo",
+  "exit": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"C:\\Users\\Ced\\imagine\\wp\\tests\\demo\\b05-verifier.py\", line 118, in <module>\n    run('--seal' in sys.argv)\n  File \"C:\\Users\\Ced\\imagine\\wp\\tests\\demo\\b05-verifier.py\", line 108, in run\n    for name,value in data['source_sha256'].items(): assert sha(ROOT/name) == value,name\n                                                            ^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: wp/plugins/imagine-site/Partenaires.php\n"
+}

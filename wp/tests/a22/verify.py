@@ -74,6 +74,9 @@ def verify(packet,parent_proof=None):
     if parent_proof is not None:
         proof=load(parent_proof)
         check('optional_parent_sources_current',proof['sources']==source)
+        line=(ROOT/'production/A-22/readme-ajout.txt').read_bytes()
+        shared=(ROOT/'wp/tests/a02-audit/README.md').read_bytes()
+        check('optional_parent_shared_line_contract',line.endswith(b'\n') and shared.splitlines(keepends=True).count(line)==1)
         for gate in ['preparation','T01']:
             check('optional_parent_'+gate,green(load(Path(proof[gate]))))
     result={'status':'CANDIDAT_GATE_PARENT','readiness_claimed':False,'counts':counts,'checks':rows,

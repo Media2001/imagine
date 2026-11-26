@@ -261,7 +261,8 @@ if (getenv('A23_CONFINED') === '1') {
         b.check(storage + ':neutralised_audit', b.audit(site, neutral_audit).returncode == 0)
         neutral = OUT / (storage + '-neutralised')
         q = inventory(site, neutral, neutral_audit / 'audit.json')
-        b.check(storage + ':neutralised_success', q.returncode == 0 and q.stderr == '')
+        b.check(storage + ':neutralised_success', q.returncode == 0 and q.stderr == '',
+                {'exit': q.returncode, 'code': q.stderr.strip() if re.fullmatch(r'A(?:23|11|12|02)_[A-Z_]+\n', q.stderr) else 'NON_CODE'})
         n = json.loads((neutral / 'comptes.json').read_text(encoding='utf-8'))
         b.check(storage + ':six_unknown_blocks_never_zero', n['neutralisation'] == 'inconnu après neutralisation'
                 and all(n['counts'][scope][key] == 'inconnu après neutralisation'

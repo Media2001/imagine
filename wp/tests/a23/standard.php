@@ -9,7 +9,7 @@ $phpass = file_get_contents($root . 'class-phpass.php');
 $version = file_get_contents($root . 'version.php');
 preg_match('/\$wp_version\s*=\s*\'([^\']+)\'/', $version, $m);
 $checks = [
-    'native_user_pass_storage' => str_contains($source, "'user_pass' => \$hashed"),
+    'native_user_pass_storage' => preg_match('/\'user_pass\'\s*=>\s*\$hashed/', $source) === 1,
     'legacy_md5_branch' => str_contains($source, 'strlen( $hash ) <= 32')
         && str_contains($source, 'hash_equals( $hash, md5( $password ) )'),
     'overridden_hasher' => str_contains($source, '$wp_hasher->CheckPassword( $password, $hash )'),
@@ -18,7 +18,7 @@ $checks = [
     'phpass_branch' => str_contains($source, "str_starts_with( \$hash, '\$P\$' )"),
     'compat_password_verify' => str_contains($source, 'password_verify( $password, $hash )'),
     'default_bcrypt_filter' => str_contains($source, "apply_filters( 'wp_hash_password_algorithm', PASSWORD_BCRYPT )"),
-    'phpass_p_and_h_recognition' => str_contains($phpass, "\$id != '\$P\$' && \$id != '\$H\$'"),
+    'phpass_p_and_h_recognition' => preg_match('/\$id\s*!==?\s*\'\$P\$\'\s*&&\s*\$id\s*!==?\s*\'\$H\$\'/', $phpass) === 1,
 ];
 $report = ['wordpress' => $m[1] ?? null, 'source_sha256' => [
     'wp-includes/pluggable.php' => hash('sha256', $source),

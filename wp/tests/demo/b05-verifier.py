@@ -114,5 +114,7 @@ def run(seal=False):
 
 
 if __name__ == '__main__':
-    assert sys.argv[1:] in ([],['--seal'])
-    run('--seal' in sys.argv)
+    # Historical helpers above describe V1 receipts. The current entry point is V2,
+    # which validates shared files by contract and does not need the live demo.
+    import runpy
+    runpy.run_path(str(Path(__file__).with_name('b05-verifier-v2.py')), run_name='__main__')

@@ -97,10 +97,15 @@ if (in_array($case, ['copy','all'], true)) {
     $checks['archive_copy_internal_navigation']=str_contains($source, 'Les fiches ci-dessous sont des liens internes') && !str_contains($source, 'Les liens vers les partenaires sont déclarés');
 }
 if (in_array($case, ['list','all'], true)) {
-    // The only B05-specific branch in this shared renderer must not sponsor internal permalinks.
-    $source=file_get_contents('/repo/wp/themes/imagine/functions.php');
-    $start=strpos($source, 'function imagine_list('); $end=strpos($source, 'function imagine_date(', $start);
-    $checks['list_no_commercial_internal_permalink']=!str_contains(substr($source,$start,$end-$start),'sponsored');
+    foreach (['post', 'imagine_partenaire'] as $type) {
+        ob_start();
+        Imagine\Theme\imagine_list(new WP_Query([['ID' => 1, 'post_type' => $type]]));
+        $html = ob_get_clean();
+        $tags = new WP_HTML_Tag_Processor($html);
+        $present = $tags->next_tag('A');
+        $checks['list_' . $type . '_present'] = $present && str_contains($html, 'Titre fictif 1');
+        $checks['list_' . $type . '_ordinary_navigation'] = $present && !str_contains((string)$tags->get_attribute('rel'), 'sponsored');
+    }
 }
 $failures=array_keys(array_filter($checks,static fn($v)=>$v!==true));
 echo json_encode(['checks'=>$checks,'total'=>count($checks),'failures'=>$failures],JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT),"\n";

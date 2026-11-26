@@ -1,0 +1,17 @@
+{
+  "checks": {
+    "lint:plugins/imagine-site/Partenaires.php": true,
+    "lint:themes/imagine/functions.php": true,
+    "lint:themes/imagine/archive-imagine_partenaire.php": true,
+    "lint:themes/imagine/inc/partenaires.php": true,
+    "lint:tests/demo/b05-runtime.php": true,
+    "lint:tests/demo/b05-offline.php": true,
+    "PSR12_production_et_runtime": false,
+    "owned_container_removed": true
+  },
+  "total": 8,
+  "failures": [
+    "PSR12_production_et_runtime"
+  ],
+  "image": "sha256:ccc0420adffbb9d3b96a18415b04309442ae9843cb8b067bd44233bbbd5be985"
+}

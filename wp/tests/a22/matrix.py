@@ -18,7 +18,8 @@ def sources():
     paths=['wp/tests/a22','wp/outils/bascule/stream_guard.py','wp/outils/bascule/stream_refusals.json',
            'wp/outils/bascule/stream_bridge.php','wp/outils/bascule/non-regression','wp/outils/bascule/audit',
            'wp/outils/bascule/inventorier-codes','wp/outils/bascule/rapprocher-contacts','wp/outils/bascule/controler-export',
-           'wp/outils/staging','wp/plugins/imagine-non-regression']
+           'wp/outils/staging','wp/plugins/imagine-non-regression',
+           'wp/outils/bascule/a20/confine.py','wp/outils/bascule/a21/confine.py']
     paths+=['wp/tests/'+DIRS[x] for x in LOTS]
     paths+=['wp/outils/bascule/a'+str(x) for x in [3,10,11,12,13,14,15,16,17,18,19]]
     files=[]
