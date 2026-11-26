@@ -72,7 +72,8 @@ def main():
             command.append('--a16-map=' + str(stage / 'audit/a16.json'))
         code, stdout, stderr = guard.supervise(command, {**os.environ, 'A26_CONFINED': '1'}, stage, fence,
                                                invalid='A26_PROCESS_OUTPUT_INVALID', expired='A26_PROCESS_TIMEOUT')
-        if code != 0 or stderr:
+        protocol = rb'A26_OK tiers\.json tiers\.md\nA26_FINAL \{"tiers\.json":"[a-f0-9]{64}","tiers\.md":"[a-f0-9]{64}"\}\n'
+        if code != 0 or stderr or re.fullmatch(protocol, stdout) is None:
             raise RuntimeError(guard.closed_refusal(code, stdout, stderr, REFUSALS, 'A26_PROCESS_OUTPUT_INVALID'))
         if not report.final_binding(stdout, staged_output) or not report.complete_report(staged_output, audit):
             raise RuntimeError('A26_REPORT_INVALID')

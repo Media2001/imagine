@@ -79,6 +79,7 @@ def complete_report(output, audit):
         photo = read(audit.read_bytes())
         data = read(raw)
         return (projection(data, hashlib.sha256(audit.read_bytes()).hexdigest(), photo['generated_at_utc'])
+                and data['storage'] == photo['sections']['commerce']['order_storage']
                 and raw == (json.dumps(data, ensure_ascii=False, indent=4, allow_nan=False) + '\n').encode('utf-8')
                 and (output / 'paiements.md').read_bytes() == MARKDOWN.encode('utf-8') + raw + b'```\n')
     except (OSError, ValueError, KeyError, TypeError, UnicodeError):

@@ -1,0 +1,260 @@
+{
+  "at": "2026-11-26T20:57:19.064474+00:00",
+  "scope": "imagine-test-demo",
+  "result": "PASS",
+  "pret_eligible": true,
+  "baseline": "recovered-new-explicit",
+  "historical_initial_snapshot_restored": false,
+  "production_authorized": false,
+  "visual_approval": false,
+  "sources": {
+    "production/C-24/A-VOIR.md": "f8aa7ebbeb75f59530c90622362975bcc69ec51197fd9609ef2286e6bc8e1a02",
+    "production/C-24/fusion2050-final-choix-V2.json": "7e878acb2dfe3f22cd927ee36b79a488d9bdd089dee189bd2036645ed2f867ca",
+    "production/C-24/fusion2050-final-mut-choix-V2.json": "a025e9f87af2aa82cff40887d0d87ba21d5118c930588e440c2a39ccf0c0f1f1",
+    "production/C-24/fusion2050-final-mut-origine-V2.json": "78d39ddde8685745b36b750ff39a523a0ba2de1ed933f01dd29dff55fbe2fffb",
+    "production/C-24/fusion2050-final-mut-question-V2.json": "84f71985c6ca028e06f2b5aac3abb433faf8c7ac4913e2ca0820d254e5a43daa",
+    "production/C-24/fusion2050-final-newsletter-V2.json": "aa355769a67e6f56a6f5ddf28e9e3680ae3ced9bec1963f0c0ee27ebc701af56",
+    "production/C-24/fusion2050-final-question-V2.json": "c3185e1950dfdc191662d9f7fed140515cc3a7025a2ed6c3bcda31bf6ea08b8a",
+    "production/C-24/fusion2050-gardes-consentement-V2.json": "aefe8c4d1bfa4fdeb96d175bbedb29a128b23da9ef511a6a1fd16744d30f2a47",
+    "production/C-24/fusion2050-gardes-email-V2.json": "62ef1bc964de18862b9d7e848f7f2e948ba659b5c101b031f8ce985dca861208",
+    "production/C-24/fusion2050-gardes-id-choix-V2.json": "6ae6ec09e7e26f3202f82b291d5cd09a72b94af36c0d020922a34760d429d53f",
+    "production/C-24/fusion2050-gardes-id-question-V2.json": "9b72d446c65e5e135bdab4de90e7c408b422ac9e8b53f40deaa1ffddc7e90476",
+    "production/C-24/fusion2050-gardes-newsletter-V2.json": "d7d4ef90f7b37b2babd99fcf8fd1bfb8f28ff2422f9d88b4a7f15b01799ff2de",
+    "production/C-24/fusion2050-gardes-normal-V2.json": "0d2c9ba442009e5890d424c3e5cca7f5523a640ac147ffdbc89ea1ea6a6e8b2b",
+    "production/C-24/fusion2050-gardes-V2.json": "ce147d52b68ccb263f0664916660085eba60a0185142234ee43600c93df26481",
+    "production/C-24/fusion2050-green-choix-V2.json": "66f90f181020e736fd841c07b7a14345eb7f65b9a516a3d77cfab3e99ba7e034",
+    "production/C-24/fusion2050-green-newsletter-V2.json": "7f4a842341be64c510a94e7c52c5e7431a6ea217b9fa980a004f354bc2887384",
+    "production/C-24/fusion2050-green-question-V2.json": "4c16f6f467132af6158457eeec639878ea8d012f79f93de88a08a06ad2f759eb",
+    "production/C-24/fusion2050-historiques-erase-noop-V2.json": "d7195c82f5d669cbe811c740c5ea58844d1669a540136c6dae250b417a658e7e",
+    "production/C-24/fusion2050-historiques-export-empty-V2.json": "725042f687f4a90d655b1246f2f787b3c772221b79cfbd8796ce754d505862bf",
+    "production/C-24/fusion2050-historiques-export-other-V2.json": "f0818e3ae7f7a28a5f0c68465231bf913f1152f7b9470e8d879cbaf7c172f270",
+    "production/C-24/fusion2050-historiques-http-V2.json": "251e01c4e9922c3b3ff5332b4ce1a067fc54b8cdccf54c98a9535119dc51448a",
+    "production/C-24/fusion2050-historiques-listener-V2.json": "176dce1145de4ee96a8431b84d288e76390ab81817688ece3dface33fcf24547",
+    "production/C-24/fusion2050-historiques-mail-V2.json": "028845fcffa00b07a6ec882c56321c79126ce723fe7f1af2bd22d651ed49bec2",
+    "production/C-24/fusion2050-historiques-sansmail-V2.json": "65fd58bf694e113441c396ef2c69e59a1733118cd0091aeb33bcf5c31fd687ff",
+    "production/C-24/fusion2050-historiques-V2.json": "a4e8654acb9db16736c3cba930dcaf789f01c00bc57888fcbdf3118a4fa6f8ea",
+    "production/C-24/fusion2050-historiques-V2.log": "078efcad4b705d0d1b6ed9e923f343837832cbc84c5ac9e013ce066cfb7207ab",
+    "production/C-24/fusion2050-http-durable-V2-compte.png": "deb6d51aa50fe778ddff8e13e7caae3ed10762d22d2709896868ca11f8cb59c6",
+    "production/C-24/fusion2050-http-durable-V2-reglages.png": "40d8915ae5a01b963d8b7b81b95e6b29c4def9355637527353c79bac602b0bcb",
+    "production/C-24/fusion2050-http-durable-V2-sans-email.png": "10ba6e1c4f801438629dec0c11ce7cb758c386282e12560098b3479630eb9687",
+    "production/C-24/fusion2050-http-durable-V2.json": "01fa67ab9c18b4ccc89a9880c6ffaed1c07a694697745aab2b5b57dca0915675",
+    "production/C-24/fusion2050-http-V2-compte.png": "17e5e05637b3622870ead4db8031810b32dc19d8ce2e16f0d57131cda3b36f2c",
+    "production/C-24/fusion2050-http-V2-reglages.png": "03a130e8f2990085d522ecfe69e3326a75ea57dfc810207b03ba0ef7cc99c16a",
+    "production/C-24/fusion2050-http-V2-sans-email.png": "d64a5a07519b13f82ead5c878ea10263ed329e73f26ac0ffe6f0c89a7ed8fb73",
+    "production/C-24/fusion2050-http-V2.json": "806cc90cc6c577deadcabea5291ff05abbd36773fb20d9fc0bb2938ce780bc0c",
+    "production/C-24/fusion2050-mut-c10-durable-V2-compte.png": "8e60ab7b24ddaae14b72674c38039d32524da0a8af344b4d7c23d8ff6317faa5",
+    "production/C-24/fusion2050-mut-c10-durable-V2-sans-email.png": "f9ef31aff87205a676ee1ddbd03a2b056d84d642449ab0a74d24a1910996ec0a",
+    "production/C-24/fusion2050-mut-c10-durable-V2.json": "ec4e9c17f647b6219c2c16cde33a81e080b1947941a8efb0c904cc7e20bf928a",
+    "production/C-24/fusion2050-mut-c10-V2-compte.png": "6eb6f556987db2ada37dc67a71d626dcf540fd5bea7e9237d87cf7ac70b2d318",
+    "production/C-24/fusion2050-mut-c10-V2-sans-email.png": "4d439d6415433ecc95a621d1fc7c805d049d520430455f189a1e38c8709a00a4",
+    "production/C-24/fusion2050-mut-c10-V2.json": "b9b37da3ae2e9bbcf351f41f5c03588ade0fa875d3001135d02f8315ae147f63",
+    "production/C-24/fusion2050-mut-origine-V2.json": "e0fb525c2ced56fb7ef1b45a402c27e5f4fed77eb240cb2664cf599cea2bb3fa",
+    "production/C-24/fusion2050-mut-restauration-choix-V2.json": "aa86fa4a0b7b8e754ebaa78b0fed09c6aacf3cbc60308280daf7c461045c1aff",
+    "production/C-24/fusion2050-mut-restauration-question-V2.json": "b19d03cf8936384fdb69127597b41f4bd7c30a33f8d9fba47ea2ec290019067f",
+    "production/C-24/fusion2050-preparation-V2.json": "6f788df8a414fbee4261f478a3be344a71637372f8894f006ac2002d888d0bfa",
+    "production/C-24/fusion2050-preparation-V2.log": "23480948726c3ff25fb224e644da0045b9dacfef7d541a3695b717fe2a63b057",
+    "production/C-24/fusion2050-prives-V2.json": "b0b3bdb5f0e3b60dfbfdd6d3247fe8045041592a08b7ed40acce34a7de38d4cb",
+    "production/C-24/fusion2050-readback-V2.json": "a89a702d65d481a4455eef560d1005d134d9f327c75f0bd3efe03de1907d899c",
+    "production/C-24/fusion2050-red-choix-V2.json": "41438eba5c14b0d225c0b41fcdb2885d83b9885d62eafd9b96b679d60b2faa0b",
+    "production/C-24/fusion2050-red-newsletter-V2.json": "f2fb449f20472d6c661bd2156206c637f6ce303c9d2b6f8cd7a8c98734e6b29d",
+    "production/C-24/fusion2050-red-question2-V2.json": "656dcbb3982b00e1b7738dd81e6612cbd471edf05541b5b2e347c15ecce506db",
+    "production/C-24/fusion2050-regression-durable-V2.json": "0ee9d4eb8fdd4e2c2eb2e3ce5900972d21d8fcc8199f7faed64be3a7a1b7780f",
+    "production/C-24/fusion2050-regression-durable-V2.log": "341bedd132fa6144aff56e4255c47bc48da5f86b68f1f5ee1cb8d6e82d3a2156",
+    "production/C-24/fusion2050-regression-V2.json": "bde9ae2eda49b0b790e2e6639facc0105de4cf20f58ef81c0d918dfe2c44a05a",
+    "production/C-24/fusion2050-regression-V2.log": "0c91febe6cbf9bf15b7e165349981cf25721c229eaf48c6ec6df1444166c671c",
+    "production/C-24/fusion2050-rules-V2.json": "4648c23dd4f0ac59fa1cdd3501440aecba25342731903a86cf5f32a561392cf2",
+    "production/C-24/fusion2050-runtime-V2.json": "247fa37433db286302eda41ba680b412a3c842b643ba345c67c9055cc31afe10",
+    "production/C-24/fusion2050-scratch-choix.log": "b1e186b909a5bccf067d7e3266921c3f708c32d2d2a59148feffc5ef7086556b",
+    "production/C-24/fusion2050-scratch-final-choix-V2.json": "7cc6efd9f470ad7273ec8fb182665baf1dcc966ccc240e458f517937bb4adb3a",
+    "production/C-24/fusion2050-scratch-final-mut-choix-V2.json": "135c28a72919bf63e857c5218104f722bba62a96fc3ae8fdfd5852be8c6eee03",
+    "production/C-24/fusion2050-scratch-final-mut-origine-V2.json": "b5af6c58b086f8611b7e79044f9d1ba6a19b1a718a83d9889faaa595e9e28564",
+    "production/C-24/fusion2050-scratch-final-mut-question-V2.json": "7f888db64512d2f430205d8dfae18466e52ddf78c8ac27938de613e91048472a",
+    "production/C-24/fusion2050-scratch-final-newsletter-V2.json": "b0900218dde451bfde1a91ec71b194372a4126436c53ec59e4c850481d2449b1",
+    "production/C-24/fusion2050-scratch-final-question-V2.json": "c0c87845e33fd2784bef0b4213888de95c4e12e09555bcfa7a273c7320fe0c50",
+    "production/C-24/fusion2050-scratch-gardes-consentement-V2.json": "51d4a54732d4e71edf04efd827fe393cc5f19389a4d469ad8362b5ee2ddc1f8a",
+    "production/C-24/fusion2050-scratch-gardes-email-V2.json": "be43c835c5e0230fe92660243e6f2383349c530d8e2367c1cbab7c49a8223072",
+    "production/C-24/fusion2050-scratch-gardes-id-choix-V2.json": "00f2d5c8e6b8ace13063324cd54f70d1a701f425869607f4c9af130fa625e92a",
+    "production/C-24/fusion2050-scratch-gardes-id-question-V2.json": "d86451e156f9d81abfae00e03010e914492ad91c96cc3028e559967c8a2fe520",
+    "production/C-24/fusion2050-scratch-gardes-newsletter-V2.json": "4db1f65c210000e90dcd9971632229f96435c74c5d012319b373e0ebb1c0b67a",
+    "production/C-24/fusion2050-scratch-gardes-normal-V2.json": "e7c07f7ec904f5d705b5403ffa33da47484eee39eaccb7ff218ac32b8995e687",
+    "production/C-24/fusion2050-scratch-gardes-V2.json": "4874cb2ed3462e89180b41f43cca98e5cd1fbcb50fd5176e37e97e62025e1f29",
+    "production/C-24/fusion2050-scratch-historiques-sansmail-V2.json": "1c7405cf076f0a95b3ce8abd5d0006c0a5645ca103668a00c59148ccf7ad79b7",
+    "production/C-24/fusion2050-scratch-historiques.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "production/C-24/fusion2050-scratch-mut-choix.log": "024b3f5ad04c0d2fe2acc73294cf5e1c9e8007ce3538a06eb21f5a06fa4ae931",
+    "production/C-24/fusion2050-scratch-mut-origine.log": "d8aa35c88af49f840f27af2be4369bf67cfe3288ea803f3286c96df47ddea88d",
+    "production/C-24/fusion2050-scratch-mut-question.log": "06ff5efd6e3160d0b681bee8f12d63ef251786f5cbfd9430c0d2cc12ec9c0064",
+    "production/C-24/fusion2050-scratch-newsletter.log": "571d34314c89183ca186a0b38b18847ac0a12d6d7b68118ae81e80dbd2ecedbb",
+    "production/C-24/fusion2050-scratch-question.log": "217a0d249422aa7633cc00bea22220bb35f0ffef3cb8e5bebf0b2a32125b4069",
+    "production/C-24/manifest-final-V2.json": "9005e677a0238e9830acfb3f4f2c7288efef325561b1ca2706b14456dedd0e55",
+    "production/C-24/README-C24-section.md": "c05528757d4898fceafd2f8456ce420d415a498b9a400b7f2fabfa171c3cc07c",
+    "production/C-24/recovery-borned-V2.json": "a1eea5bb8b1b8ef03697a2a031d3220b0a36d4c4e5e62cb502526430427ffea0",
+    "production/C-24/TRANSMISSION.md": "47dd3987f5e6a21fe4761f34dee798e8c54804130ac2e00f800325486170ae70",
+    "production/C-24/verifier-fusion2050-V2.py": "89165c7bd3c308ff969468bd3569d8496c2cbc9102dfe668cc3f1461052944d4",
+    "wp/outils/demo/c24-corrections.py": "9c5a123e23db6078fd78f30c99463b07761b9a69f1dba5c455e474992002beb7",
+    "wp/outils/demo/c24-diagnostic.py": "2de533b3232c12d06a8480982666b52a672778ea5b4da1cdbc13c29ecb4d8bf7",
+    "wp/outils/demo/c24-finaliser.py": "c404c96229daae66b15b3d892d18dd836783912c800181abfd3e2701b1bfbf1b",
+    "wp/outils/demo/c24-fusion-prives.py": "919e73e9a613640ede62fd193bfa794152e09e19404b8840597325f71e8ed0f7",
+    "wp/outils/demo/c24-fusion-requalifier.py": "a090da7c6ee14e5ec42880e47c849e692cd35f56db94245e4f271c88c9067b0f",
+    "wp/outils/demo/c24-fusion-sceller.py": "0d6bdd847af3915cad18c37204f2daba3241881d022020b7423e104668c88935",
+    "wp/outils/demo/c24-gates.py": "493be7b1147efa53decbb3319cb7429c0769b58324e5f09395cf4536915790d2",
+    "wp/outils/demo/c24-mutations.py": "5714717eac9da2fba40be8233495cc72be31d2c7cb4b58ea206ef507ab78141c",
+    "wp/outils/demo/c24-recette.py": "d35c55d92893595f2046e534c5e5322ee226431f40fda790eb11febc19b4f1f7",
+    "wp/outils/demo/c24-recovery-plan.py": "00372e4848a6302755e450eb7030da20ef1d869edb8a1039a8d2b35e9d26ad7f",
+    "wp/outils/demo/c24-recovery.py": "052b5767c37b6d9961fef03372f47fb2a7b44565336d3d2683e6c2ef7466e7d7",
+    "wp/outils/demo/c24-seed.py": "a3fdf8b567dbca7fb59ed98795fc3b713dcc1e421679f1e38ec81bdf116cdadd",
+    "wp/outils/demo/c24.py": "8e74adf4c6efbafb81e5c796f84d84f16d527c0202ed093999c00709a0854622",
+    "wp/plugins/imagine-site/Personnalisation.php": "649f66416bf27c0936db4b1341547b8636d713c5dba82d57d9b59f8e822728ce",
+    "wp/plugins/imagine-site/PersonnalisationConfidentialite.php": "4b101d16b0931950730168dbe785e3a7e0f2013b22833be659c52eb3128477b4",
+    "wp/plugins/imagine-site/PersonnalisationReglages.php": "c0ca6b7a6f7fdfe1c3e5ff92eb666b2fc37ffe820a7fa07b9bc8d38f8d42ad76",
+    "wp/plugins/imagine-site/PersonnalisationRegles.php": "100fea3d108327455d050f15114dc225fbc8dbb09ab64e166945db5c43a174cc",
+    "wp/tests/demo/c24-corrections.php": "3b10eb0140aa502303b04114bbf180bcf0c2f1050c3e7ca2ae38ac7a0e4e0e31",
+    "wp/tests/demo/c24-http.py": "e3b38d1031a689b1c995437b50daa1ee0a603758f81cfc9fa53eeeb956bd9714",
+    "wp/tests/demo/c24-mutations.php": "fbe2ae5f9031d61c449a3e266f8a4c6e667dfcbbb9614b8ca2bc9cf8b9d3ccb5",
+    "wp/tests/demo/c24-observer.php": "1354f900b34898dc64b7efea1229780abc8c52d48e2e2e479b96ea8930ba5d5a",
+    "wp/tests/demo/c24-rules.php": "a8ba1d8e0c6a9bc62d602d0b6cdbdced33ed96af3b8b17692650b90c680c8f35",
+    "wp/tests/demo/c24-runtime.php": "a2534f0418bea00e6a042e10ce874a329dc522d3a39dcdbba170d4d12de18094"
+  },
+  "normal_receipts": [
+    "fusion2050-rules-V2",
+    "fusion2050-runtime-V2",
+    "fusion2050-http-durable-V2",
+    "fusion2050-scratch-gardes-normal-V2",
+    "fusion2050-scratch-final-question-V2",
+    "fusion2050-scratch-final-choix-V2",
+    "fusion2050-scratch-final-newsletter-V2"
+  ],
+  "positive_checks": 148,
+  "mutations": [
+    {
+      "receipt": "fusion2050-historiques-sansmail-V2",
+      "required_failure": "sansmail_rubrique_presente_sans_case",
+      "private_snapshot": {
+        "file": "b06-private-tze_apu3/snapshot.json",
+        "sha256": "a540ade3c4d858a1255fd972717222b919c009c7716a5fe9eacb6d073208bf78",
+        "private": true
+      },
+      "all_business_rows_preserved": true
+    },
+    {
+      "receipt": "fusion2050-historiques-listener-V2",
+      "required_failure": "accroche_sans_ecouteur",
+      "private_snapshot": {
+        "file": "b06-private-41ylhtr4/snapshot.json",
+        "sha256": "3e22a76123ef0c783f74bbfeb47da7e8f404271b00a00d44d100e37fd0061c5c",
+        "private": true
+      },
+      "all_business_rows_preserved": true
+    },
+    {
+      "receipt": "fusion2050-historiques-mail-V2",
+      "required_failure": "aucun_mail_tente",
+      "private_snapshot": {
+        "file": "b06-private-tc_q0byo/snapshot.json",
+        "sha256": "eb906dff52fbeeb61792234a0380700541f460bcb51e8d96e14e6c82682e1d76",
+        "private": true
+      },
+      "all_business_rows_preserved": true
+    },
+    {
+      "receipt": "fusion2050-historiques-http-V2",
+      "required_failure": "aucun_http_tente",
+      "private_snapshot": {
+        "file": "b06-private-wrrom5c6/snapshot.json",
+        "sha256": "e04ca683760852616ee266763e3542c7d7c8f34ccff5ce63a74064b4132aa2ad",
+        "private": true
+      },
+      "all_business_rows_preserved": true
+    },
+    {
+      "receipt": "fusion2050-historiques-export-empty-V2",
+      "required_failure": "export_reponses_consentement_resultat",
+      "private_snapshot": {
+        "file": "b06-private-_9vr75xw/snapshot.json",
+        "sha256": "849134c231d3fe408da2dc61a379c4ebce5e9b3ae750036efa3f05ebf9c685ac",
+        "private": true
+      },
+      "all_business_rows_preserved": true
+    },
+    {
+      "receipt": "fusion2050-historiques-export-other-V2",
+      "required_failure": "export_tiers_absent",
+      "private_snapshot": {
+        "file": "b06-private-6fj5iyyc/snapshot.json",
+        "sha256": "5c7f3fe71a9145ddcee2cbcc7ee4f89368183b6be9f2d9d90e020f15e6a0e63c",
+        "private": true
+      },
+      "all_business_rows_preserved": true
+    },
+    {
+      "receipt": "fusion2050-historiques-erase-noop-V2",
+      "required_failure": "effacement_resultat_absence_deux_metas",
+      "private_snapshot": {
+        "file": "b06-private-h84xtfar/snapshot.json",
+        "sha256": "498b50b2a694dbcb8c634b91d5502d1d590d4e75dcdb0f84ad32a508aa54f186",
+        "private": true
+      },
+      "all_business_rows_preserved": true
+    },
+    {
+      "receipt": "fusion2050-scratch-gardes-id-question-V2",
+      "required_failure": "question_reservee_refusee"
+    },
+    {
+      "receipt": "fusion2050-scratch-gardes-id-choix-V2",
+      "required_failure": "choix_reserve_refuse"
+    },
+    {
+      "receipt": "fusion2050-scratch-gardes-consentement-V2",
+      "required_failure": "sans_consentement_ferme"
+    },
+    {
+      "receipt": "fusion2050-scratch-gardes-newsletter-V2",
+      "required_failure": "sans_newsletter_ferme"
+    },
+    {
+      "receipt": "fusion2050-scratch-gardes-email-V2",
+      "required_failure": "sans_email_ferme"
+    },
+    {
+      "receipt": "fusion2050-scratch-final-mut-question-V2",
+      "required_failure": "preimage_restauree_exacte",
+      "test": "wp/tests/demo/c24-corrections.php"
+    },
+    {
+      "receipt": "fusion2050-scratch-final-mut-choix-V2",
+      "required_failure": "preimage_restauree_exacte",
+      "test": "wp/tests/demo/c24-corrections.php"
+    },
+    {
+      "receipt": "fusion2050-scratch-final-mut-origine-V2",
+      "required_failure": "origine_defaut_creation",
+      "test": "wp/tests/demo/c24-corrections.php"
+    },
+    {
+      "receipt": "fusion2050-mut-c10-durable-V2",
+      "required_failure": "C10_vraie_section_entre_ouverture_et_fermeture",
+      "test": "wp/tests/demo/c24-http.py",
+      "http_mutation": true
+    }
+  ],
+  "mutation_count": 16,
+  "readback": "fusion2050-readback-V2",
+  "http": "fusion2050-http-durable-V2",
+  "prepare": "fusion2050-preparation-V2",
+  "regression": "fusion2050-regression-durable-V2",
+  "suite": {
+    "tests": 1128,
+    "assertions": 35565,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "tools": {
+      "tools": 16,
+      "checks": 331,
+      "failures": 0,
+      "excluded": []
+    },
+    "pass": true
+  },
+  "README_contract": "production/C-24/README-C24-section.md"
+}

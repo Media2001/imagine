@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-26T20:57:18.944410+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "snapshot_prive_intact": true,
+    "metier_exact": true,
+    "natif_exact": true,
+    "classes_installees_exactes": true,
+    "observateur_absent": true
+  },
+  "failures": [],
+  "private_snapshot": {
+    "file": "c24-http-9f53d67fc967478bb9c4bdae40685eb7/before.json",
+    "sha256": "47fd4a8bc8b4f126c543931dd987b3f6a38fe4ccaa3a941a36d43d6a9accd400",
+    "retained": true
+  },
+  "remote_product_sources": {
+    "plugins/imagine-site/PersonnalisationRegles.php": "100fea3d108327455d050f15114dc225fbc8dbb09ab64e166945db5c43a174cc",
+    "plugins/imagine-site/Personnalisation.php": "649f66416bf27c0936db4b1341547b8636d713c5dba82d57d9b59f8e822728ce",
+    "plugins/imagine-site/PersonnalisationReglages.php": "c0ca6b7a6f7fdfe1c3e5ff92eb666b2fc37ffe820a7fa07b9bc8d38f8d42ad76",
+    "plugins/imagine-site/PersonnalisationConfidentialite.php": "4b101d16b0931950730168dbe785e3a7e0f2013b22833be659c52eb3128477b4"
+  }
+}

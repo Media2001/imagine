@@ -1,0 +1,6 @@
+C-24 — PRET technique après les cinq corrections de la fusion du 26/11/2026 à 20 h 50.
+Paquet : manifest-fusion2050-V2.json ; vérificateur hors réseau verifier-fusion2050-V2.py : PASS, 318 contrôles.
+148 contrôles nominaux frais ; 16 mutations détectées ; readback métier exact ; observateur absent.
+Préparation officielle code 0 ; rejeu complet code 0 : 1128 tests, 35565 assertions, zéro échec/erreur/ignoré ; 16 outils, 331 contrôles, zéro échec.
+Seul site imagine-test-demo. Aucun envoi extérieur. Historiques conservés ; snapshot initial historique jamais prétendu récupéré.
+Validation visuelle de Ced et questions métier rangées non acquises ; aucune clôture ni GO sur le réel.

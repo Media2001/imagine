@@ -50,9 +50,9 @@ def main():
         check(r['source_sha256']==digest(ROOT/test),'source mutant '+item['receipt'])
     check(len(m['mutations'])==m['mutation_count']==16,'total mutants')
     for case in ['question','choix']:
-        r=read('fusion2050-final-'+case+'-V2')
+        r=read('fusion2050-scratch-final-'+case+'-V2')
         check(r['journal_inserts_refused']==1 and r['dies']==[] and r['checks']['preimage_restauree_exacte'] and r['checks']['readback_SQL_preimage_exacte'],'journal réel '+case)
-    nl=read('fusion2050-final-newsletter-V2')
+    nl=read('fusion2050-scratch-final-newsletter-V2')
     check(nl['checks']['vraie_creation_newsletter_defaut'] and nl['checks']['vraie_creation_defaut_projection_fermee'] and nl['checks']['origine_lecteur'],'création newsletter et lecteur')
     h=read(m['http'])
     check(h['source_sha256']==digest(ROOT/'wp/tests/demo/c24-http.py'),'source HTTP')
