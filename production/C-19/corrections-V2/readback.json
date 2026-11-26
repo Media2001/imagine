@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-26T04:57:22.680213+00:00",
+  "final_sha256": "1583d6d77aff63e625b56a6b276987427a09316faf385ace11f23789cb0d5720",
+  "documents": {
+    "production/C-19/A-VOIR.md": "bafd9169b2f595afca8ae9350ff289d50f3abc68f0ec6f860b3b3dc311e62952",
+    "production/C-19/PRET": "8a9689046b3f0d40188a44028109d2130655be42daed19ce41ac4d33721242a1",
+    "production/C-19/QUESTIONS.md": "249714a89b2f616e662a531b7a2b44cca27fe702bac76ff433aeb5c21552bf65"
+  },
+  "source_readback_exact": true,
+  "native_preserved": true,
+  "role_write": false,
+  "historical_proofs_preserved": true,
+  "visual_approval": false
+}

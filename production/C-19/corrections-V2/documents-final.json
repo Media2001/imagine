@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-26T04:56:25.708027+00:00",
+  "scope": "C19_ONLY",
+  "status": "FINAL_ARTIFACTS_VERIFIED",
+  "files_sha256": {
+    "production/C-19/A-VOIR.md": "bafd9169b2f595afca8ae9350ff289d50f3abc68f0ec6f860b3b3dc311e62952",
+    "production/C-19/PRET": "8a9689046b3f0d40188a44028109d2130655be42daed19ce41ac4d33721242a1",
+    "production/C-19/QUESTIONS.md": "249714a89b2f616e662a531b7a2b44cca27fe702bac76ff433aeb5c21552bf65",
+    "files/rapports/2026-11-26-05h52-V2.md": "e379bb02c3f957999f9266c8555049b94d77427a379e8a72ded2ef88c98594cd",
+    "production/C-19/corrections-V2/final.json": "1583d6d77aff63e625b56a6b276987427a09316faf385ace11f23789cb0d5720",
+    "production/C-19/corrections-V2/readback.json": "8ceca6fbe1a791c2800c7ea3be432589f36eab48336cbf3688d31b20774e0495",
+    "production/C-19/corrections-V2/tableau-de-bord-referent.png": "a94b70ebab93ef9a0d53fdcd69efd5ef8ac9dd2d259ec8a7974bb9e373cf2cd4",
+    "production/C-19/corrections-V2/canonical.log": "bf5876673b486691fb2c4a02de2613ee0581aa12e344f1168d3bba060076df68",
+    "production/C-19/corrections-V2/preparer-image.log": "392ad5afafb161fca752396f9504b59002efe1ac14f0ef9ac8dfbdd086509ec9"
+  },
+  "readback_after_documents": true,
+  "historical_C19_unchanged": true,
+  "technical_only": true,
+  "visual_approval": false,
+  "Q1_pending": true,
+  "Q2_grey_default": true
+}

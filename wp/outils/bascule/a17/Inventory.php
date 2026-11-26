@@ -24,10 +24,10 @@ final class Inventory
     }
     public static function collect(string $site, string $asOf): array
     {
+        \Imagine\PublicAddresses\Runtime::boot($site);
         $source = file_get_contents($site . '/wp-config.php');
         $fileEdit = self::configBoolean($source, 'DISALLOW_FILE_EDIT');
         $fileMods = self::configBoolean($source, 'DISALLOW_FILE_MODS');
-        \Imagine\PublicAddresses\Runtime::boot($site);
         require_once ABSPATH . 'wp-admin/includes/plugin.php';
         $active = get_option('active_plugins', []);
         $protections = [];
@@ -125,7 +125,13 @@ final class Inventory
         $tokens = array_values(array_filter(token_get_all($source), static fn($t): bool => !is_array($t)
             || !in_array($t[0], [T_WHITESPACE, T_COMMENT, T_DOC_COMMENT], true)));
         $found = [];
+        $depth = 0;
         foreach ($tokens as $i => $token) {
+            if ($token === '{') {
+                $depth++;
+            } elseif ($token === '}') {
+                $depth--;
+            }
             if (
                 !is_array($token) || !in_array($token[0], [T_STRING, T_NAME_FULLY_QUALIFIED], true)
                 || strtolower(ltrim($token[1], '\\')) !== 'define' || ($tokens[$i + 1] ?? '') !== '('
@@ -137,6 +143,11 @@ final class Inventory
                 !is_array($literal) || $literal[0] !== T_CONSTANT_ENCAPSED_STRING
                 || substr($literal[1], 1, -1) !== $name || ($tokens[$i + 3] ?? '') !== ','
             ) {
+                continue;
+            }
+            $previous = $tokens[$i - 1] ?? null;
+            if ($depth !== 0 || !($previous === ';' || (is_array($previous) && $previous[0] === T_OPEN_TAG))) {
+                $found[] = null;
                 continue;
             }
             $value = $tokens[$i + 4] ?? null;

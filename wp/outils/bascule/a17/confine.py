@@ -29,5 +29,5 @@ if __name__=='__main__':
     try:main()
     except Exception as error:
         import re
-        code=str(error) if isinstance(error,RuntimeError) and re.fullmatch(r'A(?:15|12)_[A-Z_]+',str(error)) else 'A17_CONFINEMENT_FAILED'
+        code=str(error) if isinstance(error,RuntimeError) and re.fullmatch(r'A(?:17|12)_[A-Z_]+',str(error)) else 'A17_CONFINEMENT_FAILED'
         print(code,file=sys.stderr);sys.exit(1)

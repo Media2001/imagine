@@ -15,7 +15,7 @@ class LauncherTest(unittest.TestCase):
             capture_output=True,text=True,encoding='utf-8',timeout=30)
     def test_required_arguments(self):
         p=self.invoke();self.assertEqual(p.returncode,1);self.assertEqual(p.stdout,'')
-        self.assertEqual(p.stderr,CODE+('_MAPPING_REQUIRED\n' if LOT=='a17' else '_USAGE\n'))
+        self.assertEqual(p.stderr,CODE+'_USAGE\n')
     def test_unknown_argument_never_bootstraps_php(self):
         p=self.invoke('--inconnu=été-漢');self.assertEqual(p.returncode,1);self.assertEqual(p.stderr,CODE+'_USAGE\n');self.assertEqual(p.stdout,'')
     def test_duplicate_argument_refused(self):

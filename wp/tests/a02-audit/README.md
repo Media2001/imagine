@@ -68,3 +68,5 @@ Complément A-15 (emails natifs, lecture seule) : python3 wp/outils/bascule/a15/
 Noms et oui/non uniquement, jamais destinataire/objet/corps ; conteneur déconnecté + Landlock, garde d'envoi éprouvée ; limites des services extérieurs et mode d'emploi : wp/outils/bascule/a15/README.md
 Complément A-16 (dix derniers numéros, lecture seule) : python3 wp/outils/bascule/a16/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --correspondance=/hors-web/correspondance.json --output=/hors-web/numeros-date
 Comptes et identifiants uniquement ; correspondance opérateur obligatoire, aucun rattachement ; confinement et limites : wp/outils/bascule/a16/README.md
+Complément A-17 (sécurité des comptes, lecture seule) : python3 wp/outils/bascule/a17/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/securite-date
+Comptes par rôle et oui/non, jamais identités/secrets ; adaptateurs 2FA et dernières connexions limités et inconnus explicites : wp/outils/bascule/a17/README.md
