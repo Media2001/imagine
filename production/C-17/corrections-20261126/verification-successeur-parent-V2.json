@@ -1,0 +1,80 @@
+{
+  "at": "2026-11-26T03:47:20.969667+00:00",
+  "scope": "imagine-test-demo",
+  "status": "PRET_TECHNIQUE_ATTENTE_ARBITRAGE_RGPD",
+  "receipts": {
+    "b02-final": {
+      "total": 84,
+      "failures": []
+    },
+    "replacement-final": {
+      "total": 10,
+      "failures": []
+    },
+    "deletion-final": {
+      "total": 17,
+      "failures": []
+    },
+    "boundaries-final": {
+      "total": 10,
+      "failures": []
+    },
+    "http-final": {
+      "total": 49,
+      "failures": []
+    },
+    "faults-final": {
+      "total": 8,
+      "failures": []
+    },
+    "reglages-final": {
+      "total": 8,
+      "failures": []
+    },
+    "b02-http-final": {
+      "total": 51,
+      "failures": []
+    },
+    "unit-rules": {
+      "tests": 8,
+      "assertions": 26,
+      "container_removed": true
+    },
+    "unit-root": {
+      "tests": 116,
+      "assertions": 587,
+      "container_removed": true
+    }
+  },
+  "canonical_T01": {
+    "tests": 1080,
+    "assertions": 34335,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass": true
+  },
+  "native_C09": {
+    "total": 382,
+    "failures": []
+  },
+  "source_sha256": {
+    "wp/plugins/imagine-site/Justificatifs.php": "454a651e8d0d7d185ce8976d0686dd276a9c38ce5812faa4763564b8b2a3a36a",
+    "wp/tests/demo/b02-runtime.php": "8afa7a44f16412f0d524e3323c883f5c8f36ad807d4c852080fa10aa7bb3e995",
+    "wp/tests/demo/c17-corrections.py": "3cf5ce42b8de62970b9ee87a257be9a6d745a5e2294d32c85b7877543ab0e22a",
+    "wp/tests/demo/c17-faults.py": "6f92a2329bf42829aca784a857fcb15326c49e18dad68aebde63071f3ec7e2a9",
+    "wp/plugins/imagine-site/tests/JustificatifReglesTest.php": "253286b4fc3e146c22bf4a61cb251f3b550a3af793fa3c782bffcc551dd14148",
+    "wp/plugins/imagine-site/tests/fixtures/c17-fictif.jpg": "47b30c5aaf495b5c0f0e97ea17116510ebd93f4e3a08d00a4a2a878cba30416e",
+    "wp/plugins/imagine-site/tests/fixtures/c17-fictif.pdf": "617ac0feef8218e673b3622e1fc6b922ebea27e8ae9658e0c938baa43f5d04bf",
+    "wp/plugins/imagine-site/tests/fixtures/c17-fictif.png": "b564a333573dc3041e48f86a00f4cd8e677f40d564f1ad6cd5fe136271afed13"
+  },
+  "sha256_readback_Justificatifs": "454a651e8d0d7d185ce8976d0686dd276a9c38ce5812faa4763564b8b2a3a36a",
+  "shared_sha256_successor_preserved": {
+    "plugins/imagine-site/imagine-site.php": "fd08869ef6a5c5741e2b7a4340dd55664556591ed496f5cbebc865ded0f2f6d8",
+    "imagine-demo-build/c09-seed.php": "7b7ad355e03208cca739504ff64aef68969e4cfdd8a73fe94e4b3a10382fc382",
+    "themes/imagine/parts/mon-compte.php": "4b2c6983c96ee8defafd4eba64e7ccb7dfa1009c48d6dba34478a9a4a1a58ad2"
+  },
+  "action8793_exactly_preserved": true,
+  "RGPD_question5": "ATTENTE_CED_SANS_ARBITRAGE; cinq champs inchanges; aucun audit invente",
+  "failures": []
+}

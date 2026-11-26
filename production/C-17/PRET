@@ -1,9 +1,10 @@
-C-17 — PRÊT TECHNIQUEMENT À RELIRE — 26 novembre 2026
+C-17 — PRET TECHNIQUE instructions 1 à 4 / ATTENTE CED question 5 — 26 novembre 2026
 
-Gates C17 satisfaits sur imagine-test-demo : 49 contrôles HTTP/natifs, 8 réglages C10 et 8 refus/concurrence, tous verts ; règles pures 5 tests/18 assertions ; racine imagine-site 81/499 ; image préparée et T01 canonique 1045/34247, zéro échec/erreur/saut. Huit fichiers déployés relus par SHA-256. Suppression disque à validation/refus/remplacement, refus de suppression impossible, propriétaires et états natifs préservés, reset documentaire ciblé C09 exercés. Quatre captures Chromium réelles, pas de validation visuelle.
+Les quatre corrections techniques de corrections/C-17.md sont appliquées et rejouées sur imagine-test-demo uniquement. Conservation RGPD NON ARBITRÉE : modèle existant à cinq champs inchangé, aucun audit ajouté. Voir ATTENTE-ARBITRAGE-RGPD.md. Lot non clos, aucun GO réel.
 
-Preuves : final.json, http-final.json, reglages-final.json, faults-final.json, rejouer-t01-final.log, preparer-image-final.log, site-final.json et visuel.json. Parcours/commandes : A-VOIR.md. Visuel : besoins-designer.md.
+Preuve actuelle : corrections-20261126/verification-successeur-V2.json ; détail site final-V2.json dans le même dossier. B02 avec C17 chargé : 84/84 natifs et 51/51 HTTP. C17 : 49/49 HTTP, 8/8 réglages, 8/8 refus/concurrence ; corrections remplacement 10/10, suppression native 17/17, bornes 10/10. Règles pures 8 tests/26 assertions ; plugin complet 116/587. Image préparée ; T01 canonique 1080 tests/34335 assertions, zéro échec/erreur/saut. C09 382/382 ; action 8793 pending, subscription_id 101, ligne exacte préservée. Sources déployées relues par SHA-256 ; bootstrap, seed partagé et template préservés, reçus historiques inchangés.
 
-Réserve héritée, non bloquante pour C17 selon la consigne du parent : C09 381/382, A-PAPIER/action 8103 annulée le 25 novembre 2026 à 20:38:22 UTC, avant C16, strictement inchangée. Pas de qualification globale verte revendiquée. Empreintes historiques C16/B04 conservées ; nouveaux hashes des deux points d'entrée partagés documentés dans final.json, sans falsifier leurs reçus.
+Échec fopen injecté dans un processus de recette seulement : ancien fichier réel supprimé, révision invalidée, compte/file indisponibles sans lien mort ni décision ; ancien formulaire HTTP refusé 409, redépôt réparateur. Suppression native wp_delete_user : hook delete_user avant disparition du titulaire, fichier et option nettoyés ; obstacle physique => refus explicite 409 et référence conservée. JPEG/PNG complets, 5 Mio exactement et fin aujourd'hui acceptés en pur et HTTP.
 
-Aucune modification de prix, paiement, commande, abonnement ou droit ; aucune donnée réelle, compte externe, licence ou email. Bibliothèques closes intactes. C18 non traité. Relectures indépendantes et validation visuelle restent au parent/Ced ; ce PRET n'est ni une clôture ni un GO sur le réel.
+Parcours et commandes : A-VOIR.md. Relectures et validation visuelle restent attendues. Aucun prix, paiement, commande, abonnement ou droit modifié ; aucune donnée réelle ni email. C18/C21 non touchés.
+

@@ -1,3 +1,15 @@
+# C-17 — réception actuelle
+
+**PRET TECHNIQUE instructions 1–4 / ATTENTE CED question 5 RGPD.** Voir **`A-VOIR-corrections.md`** pour les adresses, commandes et preuves courantes ; **`ATTENTE-ARBITRAGE-RGPD.md`** pour la question non arbitrée. Modèle cinq champs inchangé, aucun audit ajouté. Aucun GO réel.
+
+Reçu actuel : `corrections-20261126/verification-successeur-V2.json`. B02 : 84 natifs + 51 HTTP, tous verts ; C17 nominal 49 + 8 + 8, corrections 10 + 17 + 10, tous verts. Pur 8/26, plugin 116/587, T01 1080/34335 zéro échec/erreur/saut ; C09 382/382, action 8793 pending pour subscription_id 101 exactement préservée. Bootstrap partagé non réécrit. C18/C21 non touchés.
+
+---
+
+# Historique avant corrections — ne pas utiliser pour le rendu actuel
+
+**La suite de ce fichier conserve l'ancien état documentaire. Ses nombres, réserve C09 et commandes sont historiques ; les commandes à rejouer sont uniquement celles de `A-VOIR-corrections.md`.**
+
 # C-17 — justificatifs solidaires à voir
 
 **Prêt techniquement à relire, pas de validation visuelle ni de clôture.** Site uniquement fictif : `http://192.168.129.32:8085`. Identifiants C09 déjà hors dépôt, `C:\Users\Ced\.imagine-demo\identifiants.json`, clé `c09_accounts`. Aucun mot de passe dans les preuves.
