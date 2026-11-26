@@ -18,12 +18,12 @@ PYTHONIOENCODING=utf-8 python -B wp/tests/demo/c23-verifier.py
 
 Les noms de reçus sont immuables : choisir un nom nouveau, jamais réécrire les preuves ci-dessous. La commande GET reste `python -B wp/outils/demo/c23.py <nom>` avec son contexte privé sur stdin, jamais enregistré. Préparation/restauration et mutations ne sont pas prétendues lecture seule.
 
-- **Tests : 28/28 dans chaque encodage**, Python réellement utilisé 3.11.15. `tests-finaux-V2.json`, `tests-utf8-V2.txt`, `tests-cp1252-V2.txt`.
-- **B06 : 503 contrôles, zéro fuite, PASS, code 0**, `b06-livraison-V2.json`, matrice complète `b06-livraison-V2.md`. **35 voies (cinq pages × sept sorties), 14 publics** ; 490 cases plus 13 identités. Le coopérateur est un contrôle inverse, pas un refus. Cette recette **B06-only ne vaut pas livraison C23 complète**.
-- **35 mutations des réponses HTTP natives B06**, une par voie : propre vert → témoin injecté en mémoire rouge (`leak=true`, `ok=false`) → octets d’origine restaurés verts. `b06-reponses-mutations-final-V2.json`, code 0, 35/35. Ce n’est pas une fuite injectée sur le site.
-- **Mutation réelle séparée C23** : `python -B wp/outils/demo/c23-preparer.py --mutation --label mutation-V2` a produit **1 922 contrôles, 177 fuites, FAIL**, code du détecteur 1 ; lanceur 0 parce que le rouge attendu et la restauration sont vérifiés. Les quatre contrôles inverses article/PDF/C08/achat passent. Le changement temporaire de politique découverte appartient exclusivement à cette mutation.
-- **Dernier rejeu normal** `--label livraison-V2` : **code 1**, `ETANCHEITE : 0 contrôles, 0 fuites — FAIL ; Prérequis découverte incompatible : politique livrée fermée ou sans numéro ; aucun réglage forcé`. Aucun cookie/session créé, aucun témoin B06 écrit dans ce refus.
-- **Vérificateur** : JSON sur stdout, code 1 ; **36/39 contrôles vrais**, les trois rouges désignent uniquement ce prérequis, le code de livraison et la matrice vide. `verification-V2.json`. Rejeu réel sans aucune écriture dans `production/` vérifié par inventaire avant/après : `verification-sans-ecriture-V2.json`.
+- **Tests : 28/28 dans chaque encodage**, Python réellement utilisé 3.11.15. Dernières preuves : `tests-finaux-final-V2.json`, `tests-utf8-final-V2.txt`, `tests-cp1252-final-V2.txt`.
+- **B06 : 503 contrôles, zéro fuite, PASS, code 0**, `b06-livraison-finale-V2.json`, matrice complète `b06-livraison-finale-V2.md`. **35 voies (cinq pages × sept sorties), 14 publics** ; 490 cases plus 13 identités. Le coopérateur est un contrôle inverse, pas un refus. Cette recette **B06-only ne vaut pas livraison C23 complète**.
+- **35 mutations des réponses HTTP natives B06**, une par voie : propre vert → témoin injecté en mémoire rouge (`leak=true`, `ok=false`) → octets d’origine restaurés verts. `b06-reponses-mutations-post-redirection-V2.json`, code 0, 35/35. Ce n’est pas une fuite injectée sur le site.
+- **Mutation réelle séparée C23** : `python -B wp/outils/demo/c23-preparer.py --mutation --label mutation-finale-V2` a produit **1 922 contrôles, 177 fuites, FAIL**, code du détecteur 1 ; lanceur 0 parce que le rouge attendu et la restauration sont vérifiés. Les quatre contrôles inverses article/PDF/C08/achat passent. Le changement temporaire de politique découverte appartient exclusivement à cette mutation.
+- **Dernier rejeu normal** `--label livraison-finale-V2` : **code 1**, `ETANCHEITE : 0 contrôles, 0 fuites — FAIL ; Prérequis découverte incompatible : politique livrée fermée ou sans numéro ; aucun réglage forcé`. Aucun cookie/session créé, aucun témoin B06 écrit dans ce refus.
+- **Vérificateur** : JSON sur stdout, code 1 ; **36/39 contrôles vrais**, les trois rouges désignent uniquement ce prérequis, le code de livraison et la matrice vide. `verification-finale-V2.json`. Rejeu réel sans aucune écriture dans `production/` vérifié par inventaire avant/après : `verification-sans-ecriture-finale-V2.json`.
 - **Image** : `powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1`, code 0, `T01 IMAGE READY`, preuve `image-preparation-V2.*`. Aucun paquet installé sur Windows.
 
 ## Ce qui manque pour redéposer PRET
@@ -38,7 +38,7 @@ Les cinq pages étaient vides. **Cela n’a jamais été crédité comme une pre
 
 Sorties : HTML, REST unitaire, alias `rest_route`, collection incluse, oEmbed, embed, recherche. L’oEmbed autorisé prouve l’objet riche et le bon titre ; les six autres sorties prouvent aussi le témoin. Un flux forcé `post_type=page` retournait en réalité des articles, pas les pages B06 : il a été retiré des prétendues preuves B06 après un vrai rouge de non-vacuité. Les flux d’articles restent dans la matrice générale et recherchent aussi les témoins B06 quand celle-ci est exécutée. Aucun flux de pages non vide n’est prétendu prouvé.
 
-`readback-final-V2.json` : état natif identique avant/après chacun des trois rejeux, cinq pages 2867–2871 remises vides, attribut administratif de `P-COOP` conservé, profils et actions planifiées inchangés. Toutes les restaurations possèdent leur reçu distinct `*-restauration.json`.
+`readback-final-post-redirection-V2.json` : état natif identique avant/après chacun des trois derniers rejeux, cinq pages 2867–2871 remises vides, attribut administratif de `P-COOP` conservé, profils et actions planifiées inchangés. Toutes les restaurations possèdent leur reçu distinct `*-restauration.json`.
 
 ## Corrections du détecteur
 

@@ -32,6 +32,14 @@ class CorrectionsTest(unittest.TestCase):
             self.assertFalse(guard.final_binding('A03',message,out))
             self.assertFalse(guard.final_binding('A03',guard.SUCCESS['A03'].encode(),out))
 
+    def test_private_binding_refuses_oversized_file_before_publication(self):
+        guard=load('wp/outils/bascule/stream_guard.py','bounded_binding_fusion')
+        with tempfile.TemporaryDirectory(dir=SCRATCH) as tmp:
+            out=Path(tmp);file=out/'non-regression.json'
+            file.write_bytes(b'x'*16777217)
+            message=guard.SUCCESS['A03'].encode()+b'A22_FINAL '+json.dumps({file.name:hashlib.sha256(file.read_bytes()).hexdigest()},separators=(',',':')).encode()+b'\n'
+            self.assertFalse(guard.final_binding('A03',message,out))
+
     def test_every_historical_invalid_final_name(self):
         guard=load('wp/outils/bascule/stream_guard.py','codes_fusion')
         with tempfile.TemporaryDirectory(dir=SCRATCH) as tmp:

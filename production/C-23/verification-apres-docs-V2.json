@@ -1,0 +1,74 @@
+{
+  "scope": "imagine-test-demo",
+  "checks": {
+    "delivery_scope": true,
+    "delivery_source": true,
+    "delivery_all_sources": true,
+    "delivery_restoration": true,
+    "delivery_native_derived": true,
+    "delivery_schedule": true,
+    "delivery_summary": true,
+    "delivery_prerequisites": false,
+    "delivery_exit": false,
+    "delivery_nonempty": false,
+    "B06_scope": true,
+    "B06_source": true,
+    "B06_all_sources": true,
+    "B06_restoration": true,
+    "B06_native_derived": true,
+    "B06_schedule": true,
+    "B06_summary": true,
+    "B06_nonempty": true,
+    "B06_counts": true,
+    "B06_audiences": true,
+    "B06_complete": true,
+    "B06_unique": true,
+    "B06_no_leaks": true,
+    "B06_no_failures": true,
+    "B06_fixture_bound": true,
+    "B06_explicit_scope": true,
+    "B06_inverse_nonempty": true,
+    "mutation_scope": true,
+    "mutation_source": true,
+    "mutation_all_sources": true,
+    "mutation_restoration": true,
+    "mutation_native_derived": true,
+    "mutation_schedule": true,
+    "mutation_summary": true,
+    "mutation_red": true,
+    "main_GET_only": true,
+    "no_session_dump": true,
+    "tests": true,
+    "image": true
+  },
+  "total": 39,
+  "failures": [
+    "delivery_prerequisites",
+    "delivery_exit",
+    "delivery_nonempty"
+  ],
+  "details": {
+    "delivery": {
+      "total": 0,
+      "leaks": 0,
+      "failures": 1,
+      "summary": "ETANCHEITE : 0 contr\u00f4les, 0 fuites \u2014 FAIL ; Pr\u00e9requis d\u00e9couverte incompatible : politique livr\u00e9e ferm\u00e9e ou sans num\u00e9ro ; aucun r\u00e9glage forc\u00e9",
+      "coverage": "livraison"
+    },
+    "prerequisite": "Pr\u00e9requis d\u00e9couverte incompatible : politique livr\u00e9e ferm\u00e9e ou sans num\u00e9ro ; aucun r\u00e9glage forc\u00e9",
+    "B06": {
+      "total": 503,
+      "leaks": 0,
+      "failures": 0,
+      "summary": "ETANCHEITE : 503 contr\u00f4les, 0 fuites \u2014 PASS",
+      "coverage": "B06-only"
+    },
+    "mutation": {
+      "total": 1922,
+      "leaks": 177,
+      "failures": 205,
+      "summary": "ETANCHEITE : 1922 contr\u00f4les, 177 fuites \u2014 FAIL",
+      "coverage": "livraison"
+    }
+  }
+}

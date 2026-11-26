@@ -1,0 +1,15 @@
+{
+  "verifier_total": 39,
+  "verifier_true": 36,
+  "B06_routes": 35,
+  "B06_publics": 14,
+  "B06_cells": 490,
+  "B06_identities": 13,
+  "B06_total": 503,
+  "mutation_routes": 136,
+  "mutation_total": 1922,
+  "mutation_leaks": 177,
+  "mutation_failures_without_leak": 28,
+  "tests_sources_current": true,
+  "PRET_absent": true
+}

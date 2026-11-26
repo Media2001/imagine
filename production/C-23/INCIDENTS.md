@@ -1,5 +1,23 @@
 # C-23 — Incidents et décisions techniques
 
+## Corrections V2 — état courant
+
+**Pas de PRET V2.** Le rejeu `livraison-finale-V2` refuse honnêtement le réglage livré `ouverture=fermee`, `numeros=[]` sans aucune écriture de préparation ni création de session. Un personnage ne peut pas épuiser cette politique globalement fermée ; le forçage de la politique qui rendait la V1 verte a été retiré du rejeu normal. La préparation durable est donc impossible sous les réglages livrés sans choisir un nouveau réglage métier, ce qui n’a pas été fait. Le PRET V1 est conservé dans `PRET-historique-V1.txt`, et retiré du chemin de publication.
+
+Les autres corrections sont couvertes : brut/attributs/commentaires (cinq supports devenus rouges), inspection des redirections **avant** la requête suivante, exception précise des termes de recherche réfléchis sans retirer la tête ni les formulaires, première régression non vacante, vérificateur JSON sur stdout sans écriture et SHA natif dérivé de chaque snapshot. 28 tests passent en UTF-8 et en vraie console cp1252 sous Python 3.11.15. La dernière série `*-finale-V2` a été rejouée après le renforcement de l’ordre d’inspection des 302 ; les reçus V2 précédents restent historiques et ne sont pas rescellés.
+
+### B06 : deux faux rouges utiles, aucun contournement du code fermé
+
+- L’embed natif refuse en expurgeant l’extrait : il ne porte pas la marque HTML du refus de la page normale. Sa vraie structure `wp-embed-excerpt`, son titre et l’inverse coopérateur sont maintenant contrôlés ; l’extrait vide ne passe jamais seul sans l’inverse réellement non vide.
+- La première URL de flux singulier retournait un flux de commentaires ; la seconde, malgré `post_type=page`, retournait des **articles**. L’inverse coopérateur restait rouge pour les cinq pages. Ces voies ont été exclues des prétendues preuves de flux B06 au lieu de supprimer leur inverse. Reçus rouges conservés : `b06-diagnostic-V2.*`, `b06-reponses-mutations-V2.json`. La recette retenue possède **35 voies réelles**, pas 40 : cinq pages × sept sorties.
+- `b06-livraison-finale-V2` : **503 contrôles, 0 fuite, 0 échec**, code 0 ; `b06-reponses-mutations-post-redirection-V2.json` : **35/35 réponses réelles** mutées en mémoire, chacune avec témoin détecté et restauration des octets. Cette dernière preuve ne prétend pas injecter une fuite sur le site.
+- La vraie mutation séparée `mutation-finale-V2` ouvre uniquement l’article T4 par sa métadonnée éditoriale et applique temporairement la politique existante du personnage épuisé : **1 922 contrôles, 177 fuites, 205 échecs**, code détecteur 1, lanceur 0 après restauration prouvée. Les 28 échecs sans fuite sont les deux recherches qui retrouvent désormais l’article volontairement rendu public (14 publics × 2), pas des pannes ni des fuites supplémentaires. Les quatre inverses article/PDF/C08/achat passent.
+- Readback final indépendant : même état natif avant/après chacun des trois derniers rejeux, cinq pages remises vides, `P-COOP` conservé, sessions/métadonnées/options et actions planifiées restaurées exactement. Aucun autre profil, code de plugin/thème/paywall ou site n’a été modifié.
+
+Décision prudente : garder la politique métier livrée et rendre un refus opposable, pas fabriquer un vert en la changeant. La preuve B06-only n’est jamais rebaptisée livraison C23. Les vérifications locales finales sont dans `verification-finale-V2.json` et `verification-sans-ecriture-finale-V2.json` : 36/39 contrôles vrais, trois rouges liés uniquement au prérequis et à l’absence de matrice complète. Aucun rapport parent écrit, aucun verrou lu ou touché.
+
+## Historique V1 (non opposable au code corrigé)
+
 ## Résultat actuel
 
 Aucune fuite constatée sur le corpus livré, hors mutation volontaire. Dernier rejeu opposable : `livraison.json` — 1 432 contrôles, zéro fuite, zéro échec. La mutation séparée rend le même détecteur rouge : 177 fuites, dont la page d’article pour l’anonyme, puis restauration et rejeu vert. Aucun code de paywall, plugin ou thème n’a été modifié.

@@ -120,6 +120,9 @@ def final_binding(tool,stdout,output):
     prefix=SUCCESS[tool].encode()+b'A22_FINAL '
     try:
         if not stdout.startswith(prefix) or not stdout.endswith(b'\n'):return False
+        if output.is_symlink() or not output.is_dir():return False
+        files=list(output.iterdir())
+        if {p.name for p in files}!=FILES[tool] or any(p.is_symlink() or not p.is_file() or not 0<p.stat().st_size<=16777216 for p in files):return False
         value=load('stream_reports',HERE/'stream_reports.py').read(stdout[len(prefix):-1])
         return (isinstance(value,dict) and set(value)==FILES[tool]
             and value=={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in output.iterdir() if p.is_file() and not p.is_symlink()})

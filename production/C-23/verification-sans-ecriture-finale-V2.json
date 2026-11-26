@@ -1,0 +1,12 @@
+{
+  "exit": 1,
+  "stdout_json": true,
+  "production_unchanged": true,
+  "stderr_empty": true,
+  "checks": 39,
+  "failures": [
+    "delivery_prerequisites",
+    "delivery_exit",
+    "delivery_nonempty"
+  ]
+}

@@ -1,5 +1,7 @@
 # Fichiers livrés par C-23
 
+**Tableau historique V1 ci-dessous, non opposable aux corrections V2.** Les empreintes actuelles des seuls fichiers C23 et reçus V2 sont publiées dans `manifest-V2.json`. L’ancien PRET est archivé ; le rejeu normal V2 reste bloqué sur la politique découverte livrée. Lire `A-VOIR.md` et `BLOQUE-V2.md`.
+
 Inventaire généré après les écritures finales. Ne liste aucun fichier d’un autre lot.
 
 Fichier | Octets | SHA-256

@@ -1,5 +1,19 @@
 # A-22 — checkpoints de reprise
 
+## 2026-11-26 18 h 16 CET — fusion de 17 h 53, reprise non PRET
+
+Les PRET A20/A21/A22 de 17 h 06 sont retirés, conservés sous `C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/`. Aucun PRET ne sera créé par cet enfant. Les paquets 07/04 ci-dessous sont désormais **historiques**, pas des preuves des sources corrigées.
+
+TDD réel sous `C:/Python314/python.exe` : onze sous-échecs reproduits (nom A12, couverture A03, contamination des neuf rapports), puis refus de compteur JSON A03 et absence du lien final reproduits ; reçus RED en scratch. Les **24 tests Python A22 passent réellement** après correction. Les commandes réelles des sept frontends A12/A14–19 gardent leurs codes invalid-name ; A14 garde son repli fermé A14_FAILED. A03 est empreinté sous `a03`, chaque racine attendue absente est refusée, mutation Policy.php sur miroir détectée.
+
+Rapports : contrats propres de format/comptes JSON, cohérence Markdown/JSON et CSV/comptes ; aucun contenu inconnu n'est publié. Un callback commun enregistré par auto_prepend **avant le code du site** lie les octets des fichiers terminés ; le parent vérifie ce lien seulement après les deux EOF et la fin de PHP. Une contamination en shutdown, même valide syntaxiquement, invalide le lien. Le petit protocole interne n'est jamais réémis à l'opérateur. Deux canaris fichiers réels (Markdown/CSV/JSON et JSON valide contaminé) et un témoin sans validations finales s'ajoutent aux sept canaris de flux. Les comptes métier et les rapports nominaux restent inchangés.
+
+Sondes natives A03 et A12 terminées à code réel 0 ; A12 prouve aussi le droit exclusif WRITE_FILE sur /dev/null hors sortie privée, douze opérations noyau dont création, troncature, ajout, renommage, unlink, mkdir/rmdir et second périphérique interdit. Tous ces chemins sont synthétiques jetables ; aucun test RED ne vise un site. Les mutations témoins n'existent qu'en conteneur/scratch et aucun octet canari brut n'est gardé.
+
+Sources figées pour les matrices **neuves**, réellement lancées : `matrix-final` (proc_58099c8cc9dd), `a20-matrix-final` (proc_c48317d807d0), `a21-matrix-final` (proc_3e619b22b55d), sous le même scratch. En cours, aucun verdict anticipé. Style initial : trois erreurs PSR12 réelles de mise en page du nouveau fichier PHP, corrigées ; nouveau style final réellement lancé (proc_8b2274d7a1d2), pas encore déclaré vert. Aucune préparation globale, T01 global, écriture README partagé, verrou parent, A23/24/25 ou voie2.
+
+Rattachement §4.4/§2.5 **analogique** à la promesse de confidentialité des sorties, pas une règle métier/comptable nouvelle. Dette laissée conformément à la fusion : duplication des enclos A20/A21 et granularité de délai A20. La ligne error_log est fournie dans `readme-ajout.txt` (deux lignes exactes au total), à intégrer par le parent, jamais par empreinte du README entier.
+
 ## 2026-11-26 14:18 CET — périmètre et décisions
 
 Lecture intégrale : A-FAIRE révision 13h30, arbitrages passage 13h, doctrine, consigne permanente, brief A22, corrections A20/A21. Parent possède verrou et README partagé : aucun changement enfant sur ces deux fichiers. Aucun Git, réel, archive, compte, Novamira, déploiement, voie2, A23 ou T02.

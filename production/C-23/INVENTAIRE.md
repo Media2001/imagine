@@ -1,5 +1,7 @@
 # Inventaire C-23 — sorties et publics
 
+**Mise à jour V2 :** les nombres de la partie historique décrivent la V1. La livraison complète V2 est refusée avant les GET : politique découverte livrée fermée, sans numéro. La matrice B06 seule, explicitement bornée, passe 503 contrôles. Voir `A-VOIR.md` et `b06-livraison-finale-V2-inventaire.json`. B06 ajoute cinq pages × sept sorties aux 101 voies historiques, soit 136 voies potentielles du rejeu complet. La mutation séparée a réellement parcouru ces 136 voies ; elle ne remplace pas une livraison normale verte.
+
 La cible et les coupe-circuits sont relus via l’outillage B-00/C-09 existant avant toute préparation. La commande visiteur ne connaît que l’origine fixe `http://192.168.129.32:8085`, refuse les chemins d’origine différente et les redirections extérieures. Tous ses appels sont GET ; elle ne charge pas les ressources tierces des pages.
 
 ## Sorties construites depuis C-08
@@ -12,7 +14,7 @@ La cible et les coupe-circuits sont relus via l’outillage B-00/C-09 existant a
 | C-09 — personnages de test | Inventaire des 30 profils du catalogue, état des 27 comptes natifs, 13 sessions inspectées dont l’abonné actif ; deux publics sans compte | Les rôles, adhésions et abonnements ne sont jamais créés/réparés par C-23. Restauration des sessions et relecture C-09 existante |
 | C-10 — écran de réglages | GET de `admin.php?page=imagine-reglages` et article témoin C-10 existant | Vérification de fermeture au public sans capacité, aucun POST de réglages dans la commande principale |
 | C-11 — téléchargement PDF et médias | Cinq numéros : endpoints contrôlés, anciens chemins uploads/source, pièces jointes et médias REST ; variantes supplémentaires pour le T4 | Inverse actif sur les octets exacts du T4 ; inverse achat sur le T1. Aucune copie publique nouvellement créée |
-| C-12 — découverte | Véritable personnage épuisé, articles désignés existants et article non désigné, inclus dans l’inventaire et dans les lectures singulières | Politique existante du personnage appliquée temporairement hors commande, bloc `decouverte_epuisee` réellement observé ; aucun crédit ajouté ni consommé |
+| C-12 — découverte | Personnage épuisé à rapprocher des réglages effectivement livrés | V2 : aucun forçage au rejeu normal. Refus explicite si politique fermée/sans numéro ou personnage incompatible. Le réglage temporaire n’est permis que dans la mutation séparée, puis restauré ; préparation durable actuellement bloquée |
 | C-13 — liste d’envoi | Écran exact `imagine-liste-envoi`, GET sans nonce de l’action d’export `imagine_exporter_liste_envoi` | Refus natif 403 attendu pour l’export ; pas de génération CSV, gel ou nouvel événement d’envoi |
 | C-14 — achat au numéro | Vrai `P-NUMERO`, commandes et droits existants ; T1 lisible, T4 inaccessible | Aucune nouvelle commande ou transaction, pas de droit fictif fabriqué pour obtenir un vert |
 | B-02 — Mon compte | Chemin natif réel `/my-account/`, lu comme chaque public | Pas le faux chemin `/mon-compte/` ; aucune modification de coordonnées, adresse ou abonnement |
@@ -27,6 +29,7 @@ La cible et les coupe-circuits sont relus via l’outillage B-00/C-09 existant a
 | C-21 — export et effacement | Écrans natifs `export-personal-data.php` / `erase-personal-data.php`, refus d’administration | Aucune demande d’export, email de confirmation, export effectif ou effacement. Ces opérations exigeraient une mutation et ne sont pas des canaux publics de texte réservé. Les garanties de données personnelles restent celles de C-21 |
 | B-05 — partenaires | Accueil/bloc partenaire, archive, deux fiches natives | Réponses complètes inspectées sans suivre les liens commerciaux ni charger de service extérieur |
 | C-22 — newsletters | `/nos-newsletters/` et section de préférences dans le compte | Aucun changement de consentement, pas d’appel Brevo, pas d’envoi ; les invariants d’identifiant/effacement restent couverts par C-22 |
+| B-06 — espace coopérateurs | Cinq pages natives 2867–2871 ; HTML, REST item/alias/collection, oEmbed, embed et recherche | Cinq témoins fictifs temporaires hors commande GET, réception réelle par le coopérateur et absence pour les 13 publics non coopérateurs. Corps vides refusés comme preuve. 35 mutations de réponses HTTP distinctes détectées, puis octets et site restaurés. Le flux forcé retournant des posts n’est pas crédité comme flux de ces pages |
 | WordPress — plans de site | Index, articles, numéros et pièces jointes | Leur désactivation native est constatée ; 404 obligatoire. Un plan activé sera contrôlé comme un vrai XML non vide par le même code, mais cette configuration activée n’a pas été exécutée ici |
 
 ### Témoins et corpus réellement lus
