@@ -63,7 +63,7 @@ def main():
     matrix['sources_stable'] = initial == v.inventory(ROOT, v.OWN)
     matrix['dependencies_stable'] = deps == v.inventory(ROOT, v.DEPS)
     matrix['exit_code'] = int(not matrix['sources_stable'] or not matrix['dependencies_stable'] or
-                              any(c['native_exit'] or c['python_exit'] or c['python_tests'] < 13 for c in matrix['contexts'].values()))
+                              any(c['native_exit'] or c['python_exit'] or c['python_tests'] < 15 for c in matrix['contexts'].values()))
     save(out / 'matrix.json', matrix)
     print(json.dumps({'suite': matrix['suite'], 'exit_code': matrix['exit_code']}))
     return matrix['exit_code']

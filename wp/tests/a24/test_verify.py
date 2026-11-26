@@ -51,6 +51,19 @@ class VerificationTests(unittest.TestCase):
                 shared.write_text(body, encoding='utf-8')
                 self.assertFalse(self.module.shared_contract(root))
 
+    def test_comparison_receipts_require_named_green_cases(self):
+        names = ('case_only_ignored', 'space_only_ignored', 'actual_postcode_difference_counted')
+        qualify = getattr(self.module, 'comparison_receipt', lambda *args: False)
+        for prefix in ('', 'native_comparison_', 'classic:native_comparison_', 'hpos:native_comparison_'):
+            receipt = {'exit_code': 0, 'checks': [{'check': prefix + n, 'status': 'PASS'} for n in names]}
+            self.assertTrue(qualify(receipt, prefix))
+            for missing in names:
+                removed = {'exit_code': 0, 'checks': [c for c in receipt['checks'] if c['check'] != prefix + missing]}
+                self.assertFalse(qualify(removed, prefix))
+            red = {'exit_code': 0, 'checks': [dict(c) for c in receipt['checks']]}
+            red['checks'][0]['status'] = 'FAIL'
+            self.assertFalse(qualify(red, prefix))
+
     def test_seal_missing_source_fails_closed(self):
         with tempfile.TemporaryDirectory(prefix='a24-seal-refusal-', dir=os.environ.get('TMPDIR')) as tmp:
             p = subprocess.run([sys.executable, '-B', str(HERE / 'seal.py'), '--source=' + str(Path(tmp) / 'missing')],

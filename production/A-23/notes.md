@@ -1,5 +1,29 @@
 # A-23 — notes de construction
 
+## Correction en cours — fusion A-23, 26 novembre 2026
+
+La fusion est appliquée dans le code : exclusion inclusive par définitions de
+rôles + trois rôles fixes + capacités effectives/directes, y compris surcharge
+individuelle négative. Un rôle de gestion à identifiant invalide provoque le refus
+fermé local `A23_ROLE_IDENTIFIER_UNSAFE`, sans recopier l'identifiant.
+Le banc ajoute cinq titulaires masqués et un multirôle masqué, avec et sans
+commerce ; il exige les mêmes 32 lecteurs / 20 vivants / 3 sans historique.
+
+**Les preuves et finalisations ci-dessous sont historiques, antérieures à cette
+correction : elles n'attestent pas les nouvelles sources.** Elles ne sont ni
+retouchées ni présentées comme rejouées. PRET a été sauvegardé en scratch puis
+retiré avant modification ; pas de nouveau PRET, manifeste ou reçu parent ici.
+Voir `corrections-reveil.md` pour les seuls tests effectivement exécutés et les
+commandes de matrice/rescellage réservées au parent. Docker/WSL non lancés.
+
+Décisions prises à défaut : i-1 conservé (collisions contre tous les comptes,
+administration comprise) ; t-1 conservé (présence de
+`imagine_staging_disabled_plugins` => inconnu). Si cette marque d'import change,
+requalifier sa lecture ; l'import n'est pas modifié. La question i-1 touchant
+les nombres réels reste à Imagine/Ced, sans accès au réel dans ce travail.
+
+---
+
 Périmètre : nouveaux fichiers A-23 uniquement. Aucun PRET, fichier partagé, Git,
 site existant, archive de production, compte externe ni voie 2 touché.
 

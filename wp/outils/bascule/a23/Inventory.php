@@ -61,11 +61,25 @@ final class Inventory
                 && in_array($record['status'], ['wc-active', 'wc-pending', 'wc-on-hold', 'wc-pending-cancel'], true);
             $links[$id] = ($links[$id] ?? false) || $live;
         }
+        // Inclusive A17 rule: a user's negative override cannot erase role ownership.
+        $managementRoles = ['administrator', 'editor', 'shop_manager'];
+        foreach (wp_roles()->roles as $role => $definition) {
+            $management = \Imagine\AccountSecurity\Inventory::management($definition['capabilities']);
+            if (!preg_match('/\A[a-zA-Z_][a-zA-Z0-9_-]{0,99}\z/D', $role)) {
+                if ($management) {
+                    throw new \RuntimeException('A23_ROLE_IDENTIFIER_UNSAFE');
+                }
+                continue;
+            }
+            if ($management) {
+                $managementRoles[] = $role;
+            }
+        }
         $rows = [];
         foreach (self::select("SELECT ID,user_login,user_email,user_pass FROM `{$p}users` ORDER BY ID") as $record) {
             $id = (int) $record['ID'];
             $user = new \WP_User($id);
-            $admin = count(array_intersect($user->roles, ['administrator', 'editor', 'shop_manager'])) > 0
+            $admin = count(array_intersect($user->roles, $managementRoles)) > 0
                 || \Imagine\AccountSecurity\Inventory::management($user->allcaps);
             $rows[] = ['id' => $id, 'hash' => $record['user_pass'], 'email' => $record['user_email'],
                 'email_valid' => is_email($record['user_email']) !== false, 'login' => $record['user_login'],

@@ -48,9 +48,14 @@ Aucun flux PHP brut n'est persisté. Le gardien est celui d'A-22
 
 ## Définitions et limites
 
-- Lecteur : compte hors des rôles `administrator`, `editor`, `shop_manager`, sans
-  capacité de gestion reconnue par la règle inclusive A-17 (capacités directes
-  comprises). Un compte ayant plusieurs rôles est exclu dès qu'un est de gestion.
+- Lecteur : compte hors des rôles `administrator`, `editor`, `shop_manager`, hors
+  de tout rôle dont la **définition** porte une capacité de gestion reconnue par
+  la règle inclusive A-17, et sans capacité effective de gestion (`allcaps`, y
+  compris les ajouts directs). L'union est inclusive : une surcharge individuelle
+  négative ne transforme pas un titulaire de rôle de gestion en lecteur. Un compte
+  ayant plusieurs rôles est exclu dès qu'un est de gestion. Un identifiant de rôle
+  de gestion non conforme à la règle A-17 est refusé par le code fermé
+  `A23_ROLE_IDENTIFIER_UNSAFE` ; aucun identifiant ni détail du site n'est recopié.
 - Abonné vivant : lecteur avec au moins un abonnement `active`, `pending`,
   `on-hold` ou `pending-cancel`. Le compte est dédupliqué. Ce n'est pas un droit
   d'accès ni une prédiction de paiement. Les statuts expiré/annulé n'en font pas
@@ -84,6 +89,8 @@ Aucun flux PHP brut n'est persisté. Le gardien est celui d'A-22
   champs. La marque existante peut être posée dès la neutralisation seule : on
   reste prudent. Restent utiles le nombre de lecteurs, de lecteurs avec abonnement
   vivant et de lecteurs sans historique commercial. L'import n'a pas été modifié.
+  Dépendance à surveiller : si l'import change la marque
+  `imagine_staging_disabled_plugins`, requalifier cette détection avant utilisation.
 - Les quatre filtres natifs `pre_as_*` empêchent de recréer des tâches Action
   Scheduler effacées par la neutralisation. Ils sont préinitialisés suivant le
   mécanisme natif de `WP_Hook`, avant le chargement des extensions ; aucun fichier
@@ -114,3 +121,13 @@ le paquet livré : le parent choisit explicitement le dernier paquet vert.
 `verify.py` vérifie le paquet livré ; `--require-shared-doc` ajoute le contrat des
 deux lignes du README partagé après leur intégration par le parent.
 Aucun PRET ni préparation de l'image globale n'est fait par le présent enfant.
+
+Correction de la fusion A-23 : le banc natif ajoute cinq titulaires de rôle de
+gestion avec `edit_users=false` et un compte multirôle dont le seul rôle de
+gestion est masqué de la même façon. Les totaux attendus restent 32 lecteurs,
+20 vivants, 3 sans historique ; une famille bcrypt ne doit pas apparaître à tort.
+`role-probe.php` exerce aussi le vrai adaptateur PHP, avec doubles de frontières
+WordPress/SQL dans un **processus séparé**, sans site ni base. Ce n'est pas une
+preuve native. Le runner en conserve `role-definitions.json`, et le vérificateur
+exige ses cas nommés ainsi que les nouvelles assertions natives des deux magasins.
+État du réveil et commandes parent : `production/A-23/corrections-reveil.md`.

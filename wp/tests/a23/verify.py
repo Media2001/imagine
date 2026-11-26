@@ -15,7 +15,7 @@ RESERVED = {'production/A-23/PRET', 'production/A-23/manifest.json', 'production
 CHANNELS = ['direct_stdout', 'direct_stderr', 'display_early_exit', 'silent_early_exit', 'shutdown_stdout',
             'shutdown_stderr', 'shutdown_display', 'invalid_utf8', 'oversize_output', 'plugin_exception',
             'forged_success', 'shutdown_invalid_json', 'shutdown_extra_string', 'shutdown_markdown',
-            'shutdown_extra_file', 'shutdown_partial']
+            'shutdown_extra_file', 'shutdown_partial', 'unsafe_management_role']
 
 
 def load_module(name, path):
@@ -47,6 +47,18 @@ def receipt_valid(d):
     return len({c['check'] for c in rows}) == len(rows)
 
 
+def role_receipt_valid(d):
+    if not receipt_valid(d) or d.get('suite') != 'A23-role-definitions-boundary-doubles':
+        return False
+    cases = ['role_negative_override_excluded', 'role_multi_management_excluded',
+             'management_without_commerce_excluded', 'no_false_published_family', 'private_values_absent',
+             'authoritative_storage', 'false_capability_keeps_reader', 'unsafe_non_management_role_ignored']
+    cases += ['unsafe_management_role_closed:' + str(i) for i in range(4)]
+    cases += ['valid_role_boundary:' + str(i) for i in range(2)]
+    required = {storage + ':' + case for storage in ('classic', 'hpos') for case in cases}
+    return required.issubset({row['check'] for row in d['checks']})
+
+
 def shared_contract(shared, expected):
     lines = expected.splitlines(keepends=True)
     return len(lines) == 2 and all(line.endswith(b'\n') and shared.splitlines(keepends=True).count(line) == 1 for line in lines)
@@ -69,7 +81,9 @@ def verify(packet, sealed=True, require_shared=False):
                 'all_tables_and_scheduler_identical', 'site_files_identical', 'config_never_executed',
                 'actual_import_replaces_three_fields', 'neutralised_audit', 'neutralised_success',
                 'six_unknown_blocks_never_zero', 'useful_counts_preserved_after_import',
-                'neutralised_all_tables_files_identical', 'all_output_artifacts_clean']
+                'neutralised_all_tables_files_identical', 'all_output_artifacts_clean',
+                'role_negative_override_fixture', 'role_multi_management_fixture',
+                'role_negative_override_excluded', 'role_multi_management_excluded', 'role_private_values_absent']
     required += ['guard:' + name for name in ('exists', 'site', 'repo', 'ancestor', 'root')]
     required += ['symlink_closed:' + name for name in ('False', 'True')]
     required += ['closed_dropin:' + str(i) for i in range(6)]
@@ -86,10 +100,11 @@ def verify(packet, sealed=True, require_shared=False):
         match = re.search(r'Ran (\d+) tests in ', text)
         counts[console + ':python'] = int(match[1]) if match else 0
         check(console + ':python_tests_pass', counts[console + ':python'] >= 22 and '\nOK\n' in text)
-        for kind in ('unit', 'standard', 'result', 'runner'):
+        for kind in ('unit', 'standard', 'result', 'runner', 'role-definitions'):
             d = read(folder / (kind + '.json'))
             counts[console + ':' + kind] = len(d.get('checks', []))
             check(console + ':' + kind + '_all_pass', receipt_valid(d))
+        check(console + ':mandatory_role_boundary_cases', role_receipt_valid(read(folder / 'role-definitions.json')))
         native = {c['check']: c for c in read(folder / 'result.json')['checks']}
         check(console + ':executed_current_sources', read(folder / 'sources.json') == source)
         check(console + ':current_dependencies', read(folder / 'dependencies.json') == runner_module.manifest(runner_module.DEPS))

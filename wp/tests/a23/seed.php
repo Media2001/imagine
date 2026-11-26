@@ -78,4 +78,48 @@ foreach (['editor', 'shop_manager', 'a23_operator', 'subscriber'] as $i => $role
         $wpdb->update($wpdb->users, ['user_email' => 'a23-fictif-31@example.org'], ['ID' => $id]);
     }
 }
+// Regression P1: five masked role holders would wrongly publish a bcrypt group.
+$roleFixtures = ['negative_override' => true, 'multi_role' => false];
+for ($i = 0; $i < 6; $i++) {
+    $multiple = $i === 5;
+    $id = wp_insert_user(['user_login' => 'a23-role-fictif-' . $i,
+        'user_email' => 'a23-role-fictif-' . $i . '@example.org',
+        'role' => $multiple ? 'customer' : 'a23_operator',
+        'user_pass' => wp_generate_password(40), 'display_name' => 'A23_ROLE_NAME_PRIVATE_CANARY']);
+    if (is_wp_error($id)) {
+        throw new RuntimeException('A23_SEED_FAILED');
+    }
+    $user = new WP_User($id);
+    if ($multiple) {
+        $user->add_role('a23_operator');
+    }
+    $user->add_cap('edit_users', false);
+    $wpdb->update($wpdb->users, ['user_pass' => '$2y$A23_ROLE_HASH_PRIVATE_CANARY'], ['ID' => $id]);
+    clean_user_cache($id);
+    $user = new WP_User($id);
+    $masked = in_array('a23_operator', $user->roles, true)
+        && ($user->allcaps['edit_users'] ?? null) === false
+        && wp_roles()->roles['a23_operator']['capabilities']['edit_users'] === true;
+    if ($multiple) {
+        $roleFixtures['multi_role'] = $masked && count($user->roles) === 2
+            && in_array('customer', $user->roles, true);
+    } else {
+        $roleFixtures['negative_override'] = $roleFixtures['negative_override'] && $masked;
+    }
+    // Three masked users and the multiple-role user have a living contract;
+    // two masked users have no commerce. Both published totals must stay unchanged.
+    if ($i < 3 || $multiple) {
+        $s = wcs_create_subscription(['customer_id' => $id, 'status' => 'pending',
+            'billing_period' => 'year', 'billing_interval' => 1]);
+        if (is_wp_error($s)) {
+            throw new RuntimeException('A23_SEED_FAILED');
+        }
+        $s->set_requires_manual_renewal(true);
+        $s->save();
+    }
+}
+if (in_array(false, $roleFixtures, true)) {
+    throw new RuntimeException('A23_SEED_FAILED');
+}
+echo 'A23_ROLE_FIXTURES ' . json_encode($roleFixtures, JSON_THROW_ON_ERROR) . "\n";
 echo "A23_SEED_OK\n";

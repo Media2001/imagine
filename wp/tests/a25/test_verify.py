@@ -13,6 +13,24 @@ spec.loader.exec_module(v)
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_corrected_native_form_observations_are_required(self):
+        self.assertTrue(callable(getattr(v, 'form_observation_valid', None)), 'missing corrected observation validator')
+        forms = {'listed_extensions': [], 'other_tables': 1, 'coverage': 'heuristique bornée',
+                 'clear_messages_after_import': True,
+                 'clear_messages_after_import_label': 'avertissement éditorial permanent, non mesuré sur la copie inspectée'}
+        data = {'forms': forms, 'counts': {'forms': {
+            'groups': [{'year': 2022, 'state': 'autre', 'count': 5}], 'autres': 0}}}
+        self.assertTrue(v.form_observation_valid(data, 'pk-only'))
+        for n in (0, 10, 15):
+            bad = copy.deepcopy(data)
+            bad['counts']['forms'] = {'groups': [], 'autres': n}
+            self.assertFalse(v.form_observation_valid(bad, 'pk-only'))
+        data['forms']['coverage'] = 'couverture indéterminée'
+        data['counts']['forms'] = 'couverture indéterminée'
+        self.assertTrue(v.form_observation_valid(data, 'ambiguous'))
+        data['counts']['forms'] = {'groups': [], 'autres': 0}
+        self.assertFalse(v.form_observation_valid(data, 'ambiguous'))
+
     def test_genuine_receipt(self):
         self.assertTrue(v.receipt_valid({'exit_code': 0, 'checks': [{'check': 'x', 'status': 'PASS'}]}))
 

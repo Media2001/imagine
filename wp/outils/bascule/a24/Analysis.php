@@ -11,6 +11,19 @@ final class Analysis
         'address_2', 'city', 'state', 'postcode', 'phone'];
     public const UNKNOWN = 'inconnu après neutralisation';
 
+    /** Comparison-only Unicode simple case folding; never used for completeness or grouping. */
+    private static function sameAddressValue(string $left, string $right): bool
+    {
+        $left = preg_replace('/[\p{Z}\s]+/u', '', $left);
+        $right = preg_replace('/[\p{Z}\s]+/u', '', $right);
+        if ($left === null || $right === null) {
+            return false;
+        }
+        // Core PCRE Unicode caseless matching needs neither mbstring nor intl.
+        // Invalid/unmatchable input remains a divergence, without echoing site-controlled text.
+        return $left === $right || @preg_match('/\A' . preg_quote($left, '/') . '\z/iu', $right) === 1;
+    }
+
     private static function metrics(array $rows, array $countries, bool $neutralised): array
     {
         $missing = array_fill_keys(array_map(static fn(string $f): string => 'shipping_' . $f, self::FIELDS), 0);
@@ -26,7 +39,7 @@ final class Analysis
                 $empty = $empty && trim($value) === '';
                 $billing = $billing || trim((string) ($row['billing'][$field] ?? '')) !== '';
                 if ($row['customer'] !== null) {
-                    $different = $different || $value !== (string) ($row['customer'][$field] ?? '');
+                    $different = $different || !self::sameAddressValue($value, (string) ($row['customer'][$field] ?? ''));
                 }
             }
             $counts['shipping_empty'] += (int) $empty;

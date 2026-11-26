@@ -3,8 +3,10 @@
 declare(strict_types=1);
 
 require '/subject/a25/Analysis.php';
+require '/subject/a25/Inventory.php';
 
 use Imagine\VisitorRetention\Analysis;
+use Imagine\VisitorRetention\Inventory;
 
 $checks = [];
 $check = static function (string $name, bool $ok) use (&$checks): void {
@@ -15,6 +17,37 @@ $check = static function (string $name, bool $ok) use (&$checks): void {
 };
 
 try {
+    $metadata = static fn(array $keys): array => array_map(
+        static fn(string $name, string $key): array => ['COLUMN_NAME' => $name, 'COLUMN_KEY' => $key],
+        array_keys($keys),
+        array_values($keys)
+    );
+    $base = ['form_id' => '', 'message' => '', 'submitted_at' => ''];
+    $check('submission_pk_is_entry', Inventory::formStructure($metadata($base + ['submission_id' => 'PRI']))
+        === 'entry');
+    $check('own_id_submission_reference_is_child', Inventory::formStructure($metadata(
+        $base + ['id' => 'PRI', 'submission_id' => 'MUL']
+    )) === 'child');
+    $check('unindexed_submission_reference_is_child', Inventory::formStructure($metadata(
+        $base + ['id' => 'PRI', 'submission_id' => '']
+    )) === 'child');
+    $check('composite_submission_pk_is_ambiguous', Inventory::formStructure($metadata(
+        $base + ['id' => 'PRI', 'submission_id' => 'PRI']
+    )) === 'ambiguous');
+    $check('unkeyed_submission_is_ambiguous', Inventory::formStructure($metadata(
+        $base + ['submission_id' => '']
+    )) === 'ambiguous');
+    $check('unique_submission_not_assumed_primary', Inventory::formStructure($metadata(
+        $base + ['submission_id' => 'UNI']
+    )) === 'ambiguous');
+    $check('unkeyed_entry_is_ambiguous', Inventory::formStructure($metadata($base)) === 'ambiguous');
+    $check('own_id_is_entry', Inventory::formStructure($metadata($base + ['id' => 'PRI'])) === 'entry');
+    $check('meta_child_excluded', Inventory::formStructure($metadata(
+        $base + ['id' => 'PRI', 'meta_key' => '']
+    )) === 'child');
+    $check('not_form_structure_ignored', Inventory::formStructure($metadata(
+        ['id' => 'PRI', 'message' => '']
+    )) === 'irrelevant');
     $rows = [
         ['year' => 2023, 'state' => '1', 'email' => true, 'ip' => true, 'account' => false],
         ['year' => 2024, 'state' => '0', 'email' => false, 'ip' => false, 'account' => true],

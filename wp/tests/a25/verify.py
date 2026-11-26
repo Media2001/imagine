@@ -51,6 +51,27 @@ def shared_contract(shared, expected):
     return len(lines) == 2 and all(line.endswith(b'\n') and shared.splitlines(keepends=True).count(line) == 1 for line in lines)
 
 
+def form_observation_valid(data, variant):
+    """Require actual new observations; historic PASS labels alone are insufficient."""
+    pk = {'year': 2022, 'state': 'autre', 'count': 5}
+    profiles = {
+        'visitors': (['Fluent Forms'], 2, [pk], 4),
+        'neutralised': (['Fluent Forms'], 2, [], None),
+        'five': (['Fluent Forms'], 2, [{'year': 1999, 'state': 'Fluent Forms', 'count': 5}, pk], 4),
+        'absent': ([], 2, [pk], 2),
+        'nodate': ([], 3, [{'year': 0, 'state': 'autre', 'count': 5}, pk], 2),
+        'pk-only': ([], 1, [pk], 0),
+        'ambiguous': ([], 1, [], None),
+    }
+    listed, other, groups, pooled = profiles[variant]
+    coverage = 'couverture indéterminée' if variant == 'ambiguous' else 'heuristique bornée'
+    counts = ('inconnu après neutralisation' if variant == 'neutralised' else coverage) if pooled is None else {
+        'groups': groups, 'autres': pooled}
+    return data['forms'] == {'listed_extensions': listed, 'other_tables': other, 'coverage': coverage,
+        'clear_messages_after_import': True,
+        'clear_messages_after_import_label': 'avertissement éditorial permanent, non mesuré sur la copie inspectée'} and data['counts']['forms'] == counts
+
+
 def verify(packet, sealed=True, require_shared=False):
     checks, counts = [], {}
 
@@ -73,7 +94,11 @@ def verify(packet, sealed=True, require_shared=False):
                 'five_tables_files_identical', 'absent_audit', 'absent_confined_success',
                 'absent_known_extension_explicit', 'absent_tables_files_identical',
                 'nodate_audit', 'nodate_confined_success', 'nodate_closed_zero_not_invented_year',
-                'nodate_tables_files_identical', 'all_output_artifacts_clean']
+                'nodate_tables_files_identical', 'all_output_artifacts_clean',
+                'submission_pk_five_child_excluded', 'pk_only_audit', 'pk_only_confined_success',
+                'pk_only_no_silent_zero_or_child_double_count', 'pk_only_tables_files_identical',
+                'ambiguous_audit', 'ambiguous_confined_success', 'ambiguous_coverage_never_zero',
+                'ambiguous_tables_files_identical']
     required += ['guard:' + key for key in ('exists', 'site', 'repo', 'ancestor', 'root')]
     required += ['symlink_closed:' + key for key in ('False', 'True')]
     required += ['closed_dropin:' + str(i) for i in range(6)]
@@ -96,6 +121,12 @@ def verify(packet, sealed=True, require_shared=False):
             d = read(folder / (kind + '.json'))
             counts[console + ':' + kind] = len(d.get('checks', []))
             check(console + ':' + kind + '_pass', receipt_valid(d))
+        pure_names = {c['check'] for c in read(folder / 'unit.json')['checks']}
+        check(console + ':corrected_pure_cases', {'submission_pk_is_entry',
+              'own_id_submission_reference_is_child', 'unindexed_submission_reference_is_child',
+              'composite_submission_pk_is_ambiguous', 'unkeyed_submission_is_ambiguous',
+              'unique_submission_not_assumed_primary', 'unkeyed_entry_is_ambiguous',
+              'own_id_is_entry', 'meta_child_excluded', 'not_form_structure_ignored'}.issubset(pure_names))
         native = {c['check']: c for c in read(folder / 'result.json')['checks']}
         check(console + ':executed_sources_equal', read(folder / 'sources.json') == source)
         check(console + ':dependencies_equal', read(folder / 'dependencies.json') == runner.manifest(runner.DEPS))
@@ -107,22 +138,27 @@ def verify(packet, sealed=True, require_shared=False):
             before = read(folder / (storage + '-db-before.json'))
             check(prefix + ':all_tables_identical', before == read(folder / (storage + '-db-after.json'))
                   and {'wp_comments', 'wp_fluentform_submissions', 'wp_a25_unknown_entries',
+                       'wp_a25_submission_entries', 'wp_a25_submission_details',
                        'wp_options', 'wp_actionscheduler_actions', 'wp_actionscheduler_logs'}.issubset(before['tables']))
             files = read(folder / (storage + '-files.json'))
             check(prefix + ':files_identical', files['before'] == files['after'])
-            for variant in ('neutralised', 'five', 'absent', 'nodate'):
+            for variant in ('neutralised', 'five', 'absent', 'nodate', 'pk-only', 'ambiguous'):
                 check(prefix + ':' + variant + '_tables_identical',
                       read(folder / (storage + '-' + variant + '-db-before.json'))
                       == read(folder / (storage + '-' + variant + '-db-after.json')))
             for suffix, audit_suffix in [('visitors', 'audit'), ('neutralised', 'neutralised-audit'),
-                                         ('five', 'five-audit'), ('absent', 'absent-audit'), ('nodate', 'nodate-audit')]:
+                                         ('five', 'five-audit'), ('absent', 'absent-audit'), ('nodate', 'nodate-audit'),
+                                         ('pk-only', 'pk-only-audit'), ('ambiguous', 'ambiguous-audit')]:
                 check(prefix + ':' + suffix + '_projection', report.complete_report(
                     folder / (storage + '-' + suffix), folder / (storage + '-' + audit_suffix + '/audit.json')))
+                check(prefix + ':' + suffix + '_exact_form_observation', form_observation_valid(
+                    read(folder / (storage + '-' + suffix) / 'visiteurs.json'), suffix))
             nominal = folder / (storage + '-visitors/visiteurs.json')
             d = read(nominal)
             check(prefix + ':storage_and_exact_counts', d['storage'] == storage and d['counts'] == {
                 'comments': {key: {'groups': [], 'autres': n} for key, n in [('all', 3), ('email', 2), ('ip', 2), ('account', 1)]},
-                'forms': {'groups': [], 'autres': 4}, 'guests': {'groups': [], 'autres': 2}})
+                'forms': {'groups': [{'year': 2022, 'state': 'autre', 'count': 5}], 'autres': 4},
+                'guests': {'groups': [], 'autres': 2}})
             for suffix in ('repeat', 'documented', 'root-readonly'):
                 check(prefix + ':' + suffix + '_identical', (folder / (storage + '-' + suffix) / 'visiteurs.json').read_bytes()
                       == nominal.read_bytes())

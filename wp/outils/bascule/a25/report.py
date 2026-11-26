@@ -3,6 +3,8 @@ import hashlib
 import json
 
 UNKNOWN = 'inconnu après neutralisation'
+INDETERMINATE = 'couverture indéterminée'
+EDITORIAL_WARNING = 'avertissement éditorial permanent, non mesuré sur la copie inspectée'
 MARKDOWN = '# Données des visiteurs — lecture seule\n\nComptes seulement ; aucune suppression ni durée de conservation.\n\n```json\n'
 STATES = ('0', '1', 'spam', 'trash', 'post-trashed', 'autre')
 
@@ -35,9 +37,12 @@ def projection(data, audit_hash):
             or data['audit_sha256'] != audit_hash):
         return False
     forms = data['forms']
-    if (type(forms) is not dict or set(forms) != {'listed_extensions', 'other_tables', 'clear_messages_after_import'}
+    if (type(forms) is not dict or set(forms) != {'listed_extensions', 'other_tables', 'coverage',
+                                                'clear_messages_after_import', 'clear_messages_after_import_label'}
             or forms['listed_extensions'] not in ([], ['Fluent Forms']) or not number(forms['other_tables'])
-            or forms['clear_messages_after_import'] is not True):
+            or forms['coverage'] not in ('heuristique bornée', INDETERMINATE)
+            or forms['clear_messages_after_import'] is not True
+            or forms['clear_messages_after_import_label'] != EDITORIAL_WARNING):
         return False
     counts = data['counts']
     if type(counts) is not dict or set(counts) != {'comments', 'forms', 'guests'}:
@@ -53,6 +58,9 @@ def projection(data, audit_hash):
             return False
     if data['neutralisation'] == UNKNOWN:
         if counts['forms'] != UNKNOWN:
+            return False
+    elif forms['coverage'] == INDETERMINATE:
+        if counts['forms'] != INDETERMINATE:
             return False
     elif not pool_valid(counts['forms'], ('Fluent Forms', 'autre')):
         return False

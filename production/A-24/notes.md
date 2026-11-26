@@ -1,5 +1,7 @@
 # A-24 — notes et checkpoints
 
+**État courant du réveil correctif du 26 novembre 2026 :** les paragraphes ci-dessous sont historiques. Leur comparaison littérale est remplacée par la comparaison Unicode casse/espaces en mémoire décrite au README. Les comptes de complétude restent bruts. Voir `corrections-reveil.md` : 15 tests Python par encodage et 27 contrôles purs locaux au vert ; nouveau banc natif et reseal réservés au parent, non exécutés par l’enfant. Le paquet natif antérieur est conservé sans le requalifier ; PRET retiré après sauvegarde scratch.
+
 ## 2026-11-26 17:12 CET — démarrage (limite ferme 20:08 CET)
 Brief entier, consigne permanente, doctrine, file 16 h 30, arbitrages passage 16 h et CDC §3.13/§4.3 lus. Travail délégué, sans verrou, PRET ni rapport partagé ; périmètre seulement `wp/outils/bascule/a24/`, `wp/tests/a24/`, `production/A-24/`. Le chemin `production/A24/notes.md` du message est compris comme `production/A-24/notes.md` pour respecter le scope explicite.
 

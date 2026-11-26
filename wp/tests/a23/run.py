@@ -68,13 +68,13 @@ def main():
                 for p in sorted(source.iterdir()):
                     if p.is_file():
                         b.call(['cp', b.local(p), name + ':' + dest + '/' + p.name])
+        b.call(['exec', name, 'mkdir', '-p', '/subject/a17'])
+        b.call(['cp', b.local(ROOT / 'wp/outils/bascule/a17/Inventory.php'), name + ':/subject/a17/Inventory.php'])
         if not a.unit_only:
             for key in ['audit', 'a11', 'a12', 'stream_guard.py', 'stream_refusals.json']:
                 p = ROOT / 'wp/outils/bascule' / key
                 if p.exists():
                     b.call(['cp', b.local(p), name + ':/subject/' + key])
-            b.call(['exec', name, 'mkdir', '-p', '/subject/a17'])
-            b.call(['cp', b.local(ROOT / 'wp/outils/bascule/a17/Inventory.php'), name + ':/subject/a17/Inventory.php'])
             b.call(['cp', b.local(ROOT / 'wp/outils/staging'), name + ':/subject/staging'])
             for f in ['inside.py', 'seed.php', 'fingerprint.php', 'unit.php', 'readonly-probe.php']:
                 b.call(['cp', b.local(ROOT / 'wp/tests/a02-audit' / f), name + ':/opt/a02/' + f])
@@ -91,6 +91,15 @@ def main():
         unit_count = len(json.loads((out / 'unit.json').read_text(encoding='utf-8'))['checks'])
         check('pure_inclusion_no_extensions_no_writes', pure.returncode == 0 and pure.stderr == ''
               and pure.stdout == 'A23_PURE_OK ' + str(unit_count) + '\n')
+        roles = b.call(['exec', name, 'php', '-d',
+                        'disable_functions=file_put_contents,fopen,mkdir,rename,unlink,mail,exec,shell_exec,system,passthru,popen,proc_open',
+                        '/opt/a23/role-probe.php'], check=False)
+        (out / 'role-definitions.log').write_text(roles.stdout + roles.stderr, encoding='utf-8')
+        role_receipt = json.loads(roles.stdout)
+        (out / 'role-definitions.json').write_text(json.dumps(role_receipt, indent=2) + '\n', encoding='utf-8')
+        check('role_definitions_pure', roles.returncode == 0 and roles.stderr == ''
+              and role_receipt['exit_code'] == 0 and bool(role_receipt['checks'])
+              and all(row['status'] == 'PASS' for row in role_receipt['checks']))
         if not a.unit_only and p.returncode == 0:
             standard = b.call(['exec', name, 'php', '/opt/a23/standard.php'], check=False)
             (out / 'standard.log').write_text(standard.stdout + standard.stderr, encoding='utf-8')

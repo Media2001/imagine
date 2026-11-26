@@ -30,6 +30,38 @@ $checks = [
     'native_unknown_country_defaults' => $native['ZZ'] === $us,
     'closed_country_codes_equal_native' => $actual === $closed,
 ];
+require_once '/subject/a24/Analysis.php';
+foreach ([1 => 'case_only_ignored', 2 => 'space_only_ignored', 3 => 'actual_postcode_difference_counted'] as $index => $name) {
+    $user = get_user_by('email', 'a24-fictif-' . $index . '@example.org');
+    $subscriptions = $user ? wcs_get_subscriptions(['customer_id' => $user->ID,
+        'subscriptions_per_page' => -1, 'subscription_status' => 'any']) : [];
+    $ok = count($subscriptions) === 1;
+    if ($ok) {
+        $subscription = reset($subscriptions);
+        $customer = new WC_Customer($user->ID);
+        $row = ['shipping' => [], 'customer' => [], 'billing' => [], 'required' => $native['BE']];
+        foreach (\Imagine\ShippingAddresses\Analysis::FIELDS as $field) {
+            $getter = 'get_shipping_' . $field;
+            $row['shipping'][$field] = (string) $subscription->$getter('edit');
+            $row['customer'][$field] = (string) $customer->$getter('edit');
+        }
+        $snapshot = $row;
+        $s = $row['shipping']['address_1'];
+        $c = $row['customer']['address_1'];
+        // Prove native storage actually contains each distinct fixture, not an already-equal pair.
+        $fixture = match ($index) {
+            1 => $s !== $c && strtolower($s) === strtolower($c),
+            2 => $s !== $c && trim($s) === trim($c),
+            3 => $row['shipping']['postcode'] === '1001' && $row['customer']['postcode'] === '1000',
+        };
+        $counts = \Imagine\ShippingAddresses\Analysis::analyse([$row], $actual);
+        $expectedDifference = $index === 3 ? 1 : 0;
+        $ok = $fixture && $row === $snapshot
+            && $counts['overall']['different_from_account'] === $expectedDifference
+            && $counts['countries'][0]['counts']['different_from_account'] === $expectedDifference;
+    }
+    $checks['native_comparison_' . $name] = $ok;
+}
 $source = [];
 foreach ([
     'includes/class-wc-countries.php', 'i18n/countries.php', 'includes/class-wc-order.php',

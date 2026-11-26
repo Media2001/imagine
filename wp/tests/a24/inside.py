@@ -53,7 +53,11 @@ def run_storage(storage):
         b.check(storage + ':native_seed', 'A24_SEED_OK' in p.stdout)
         b.wp(site, ['eval-file', '/opt/a24/standard.php', '--use-include'])
         standard = json.loads((OUT / (storage + '-standard.json')).read_text())
-        b.check(storage + ':native_standard', standard['exit_code'] == 0 and len(standard['checks']) == 7)
+        b.check(storage + ':native_standard', standard['exit_code'] == 0 and len(standard['checks']) == 10)
+        standard_checks = {c['check']: c['status'] for c in standard['checks']}
+        for name in ('case_only_ignored', 'space_only_ignored', 'actual_postcode_difference_counted'):
+            b.check(storage + ':native_comparison_' + name,
+                    standard_checks.get('native_comparison_' + name) == 'PASS')
     finally:
         (site / 'wp-config.php').write_text(cfg, encoding='utf-8')
     spec = importlib.util.spec_from_file_location('a24_extensions', '/opt/a24/extended.py')

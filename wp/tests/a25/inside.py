@@ -99,10 +99,16 @@ if (getenv('A25_CONFINED') === '1') {
     d = json.loads((dest / 'visiteurs.json').read_text(encoding='utf-8'))
     expected = {'comments': {'all': group(autres=3), 'email': group(autres=2),
                               'ip': group(autres=2), 'account': group(autres=1)},
-                'forms': group(autres=4), 'guests': group(autres=2)}
+                'forms': {'groups': [{'year': 2022, 'state': 'autre', 'count': 5}], 'autres': 4},
+                'guests': group(autres=2)}
     b.check(storage + ':exact_native_counts', d['counts'] == expected)
     b.check(storage + ':closed_form_adapter_and_other', d['forms'] == {
-        'listed_extensions': ['Fluent Forms'], 'other_tables': 1, 'clear_messages_after_import': True})
+        'listed_extensions': ['Fluent Forms'], 'other_tables': 2, 'coverage': 'heuristique bornée',
+        'clear_messages_after_import': True,
+        'clear_messages_after_import_label': 'avertissement éditorial permanent, non mesuré sur la copie inspectée'})
+    b.check(storage + ':submission_pk_five_child_excluded', d['counts']['forms'] == expected['forms']
+            and int(b.sql(db, 'SELECT COUNT(*) FROM wp_a25_submission_entries').stdout.splitlines()[-1]) == 5
+            and int(b.sql(db, 'SELECT COUNT(*) FROM wp_a25_submission_details').stdout.splitlines()[-1]) == 10)
     payload = p.stdout + p.stderr + ''.join(f.read_text(encoding='utf-8') for f in dest.iterdir())
     b.check(storage + ':all_private_values_absent', not re.search(r'CANARY|@|/scratch|a25_unknown|a25-fictif|a02-admin|192\.0\.2', payload))
     b.check(storage + ':private_report_permissions', dest.stat().st_mode & 0o777 == 0o700
@@ -303,7 +309,8 @@ if (getenv('A25_CONFINED') === '1') {
     b.check(storage + ':five_native_year_state_utc', five['counts']['comments']['all'] == {
         'groups': [{'year': 1999, 'state': '1', 'count': 5}], 'autres': 3})
     b.check(storage + ':five_native_form_year', five['counts']['forms'] == {
-        'groups': [{'year': 1999, 'state': 'Fluent Forms', 'count': 5}], 'autres': 4})
+        'groups': [{'year': 1999, 'state': 'Fluent Forms', 'count': 5},
+                   {'year': 2022, 'state': 'autre', 'count': 5}], 'autres': 4})
     b.check(storage + ':five_native_guests_year', five['counts']['guests'] == {
         'groups': [{'year': 1999, 'state': 'guest', 'count': 5}], 'autres': 2})
     five_after = b.fingerprint(db)
@@ -320,7 +327,8 @@ if (getenv('A25_CONFINED') === '1') {
     b.check(storage + ':absent_confined_success', q.returncode == 0 and q.stderr == '')
     absent = json.loads((absent_out / 'visiteurs.json').read_text(encoding='utf-8'))
     b.check(storage + ':absent_known_extension_explicit', absent['forms']['listed_extensions'] == []
-            and absent['forms']['other_tables'] == 1 and absent['counts']['forms'] == {'groups': [], 'autres': 2})
+            and absent['forms']['other_tables'] == 2 and absent['counts']['forms'] == {
+                'groups': [{'year': 2022, 'state': 'autre', 'count': 5}], 'autres': 2})
     absent_after = b.fingerprint(db)
     for suffix, value in [('before', absent_before), ('after', absent_after)]:
         (OUT / (storage + '-absent-db-' + suffix + '.json')).write_text(json.dumps(value), encoding='utf-8')
@@ -335,11 +343,46 @@ if (getenv('A25_CONFINED') === '1') {
     b.check(storage + ':nodate_confined_success', q.returncode == 0 and q.stderr == '')
     nodate = json.loads((nodate_out / 'visiteurs.json').read_text(encoding='utf-8'))
     b.check(storage + ':nodate_closed_zero_not_invented_year', nodate['counts']['forms'] == {
-        'groups': [{'year': 0, 'state': 'autre', 'count': 5}], 'autres': 2})
+        'groups': [{'year': 0, 'state': 'autre', 'count': 5},
+                   {'year': 2022, 'state': 'autre', 'count': 5}], 'autres': 2})
     nodate_after = b.fingerprint(db)
     for suffix, value in [('before', nodate_before), ('after', nodate_after)]:
         (OUT / (storage + '-nodate-db-' + suffix + '.json')).write_text(json.dumps(value), encoding='utf-8')
     b.check(storage + ':nodate_tables_files_identical', nodate_before == nodate_after and nodate_files == b.files(site))
+    # Isolate the counterexample: only the submission-PK parent and its ten detail rows remain.
+    b.sql(db, 'DROP TABLE wp_a25_unknown_entries, wp_a25_nodate_entries')
+    pk_before, pk_files = b.fingerprint(db), b.files(site)
+    pk_audit = OUT / (storage + '-pk-only-audit')
+    b.check(storage + ':pk_only_audit', b.audit(site, pk_audit).returncode == 0)
+    pk_out = OUT / (storage + '-pk-only')
+    q = inventory(site, pk_out, pk_audit / 'audit.json')
+    b.check(storage + ':pk_only_confined_success', q.returncode == 0 and q.stderr == '')
+    pk = json.loads((pk_out / 'visiteurs.json').read_text(encoding='utf-8'))
+    b.check(storage + ':pk_only_no_silent_zero_or_child_double_count', pk['forms']['listed_extensions'] == []
+            and pk['forms']['other_tables'] == 1 and pk['forms']['coverage'] == 'heuristique bornée'
+            and pk['counts']['forms'] == {'groups': [{'year': 2022, 'state': 'autre', 'count': 5}], 'autres': 0})
+    pk_after = b.fingerprint(db)
+    for suffix, value in [('before', pk_before), ('after', pk_after)]:
+        (OUT / (storage + '-pk-only-db-' + suffix + '.json')).write_text(json.dumps(value), encoding='utf-8')
+    b.check(storage + ':pk_only_tables_files_identical', pk_before == pk_after and pk_files == b.files(site))
+    # Missing primary role: presence is known, a complete numeric message total is not.
+    b.sql(db, 'CREATE TABLE wp_a25_ambiguous_entries (submission_id bigint,form_id int,response longtext,created_at datetime) ENGINE=InnoDB')
+    b.sql(db, "INSERT INTO wp_a25_ambiguous_entries VALUES (1,1,'A25_AMBIGUOUS_PRIVATE_CANARY','2021-01-01'),"
+          "(2,1,'opaque','2021-01-01'),(3,1,'opaque','2021-01-01'),(4,1,'opaque','2021-01-01'),(5,1,'opaque','2021-01-01')")
+    ambiguous_before, ambiguous_files = b.fingerprint(db), b.files(site)
+    ambiguous_audit = OUT / (storage + '-ambiguous-audit')
+    b.check(storage + ':ambiguous_audit', b.audit(site, ambiguous_audit).returncode == 0)
+    ambiguous_out = OUT / (storage + '-ambiguous')
+    q = inventory(site, ambiguous_out, ambiguous_audit / 'audit.json')
+    b.check(storage + ':ambiguous_confined_success', q.returncode == 0 and q.stderr == '')
+    ambiguous = json.loads((ambiguous_out / 'visiteurs.json').read_text(encoding='utf-8'))
+    b.check(storage + ':ambiguous_coverage_never_zero', ambiguous['forms']['coverage'] == 'couverture indéterminée'
+            and ambiguous['counts']['forms'] == 'couverture indéterminée' and ambiguous['forms']['other_tables'] == 1)
+    ambiguous_after = b.fingerprint(db)
+    for suffix, value in [('before', ambiguous_before), ('after', ambiguous_after)]:
+        (OUT / (storage + '-ambiguous-db-' + suffix + '.json')).write_text(json.dumps(value), encoding='utf-8')
+    b.check(storage + ':ambiguous_tables_files_identical', ambiguous_before == ambiguous_after
+            and ambiguous_files == b.files(site))
     b.check(storage + ':all_output_artifacts_clean', not any(b'CANARY' in f.read_bytes() for f in OUT.rglob('*') if f.is_file()))
 
 

@@ -54,6 +54,11 @@ def all_green(receipt, minimum=1):
             and len({c['check'] for c in checks}) == len(checks))
 
 
+def comparison_receipt(receipt, prefix=''):
+    required = {prefix + n for n in ('case_only_ignored', 'space_only_ignored', 'actual_postcode_difference_counted')}
+    return all_green(receipt, 3) and required <= {c['check'] for c in receipt['checks']}
+
+
 def verify(root=ROOT, packet=None, require_shared=False, require_controls=True):
     packet = packet or root / 'production/A-24/preuves/final'
     checks = []
@@ -85,18 +90,19 @@ def verify(root=ROOT, packet=None, require_shared=False, require_controls=True):
             check(context + ':dependencies_executed_current', load(folder / 'dependencies.json') == seal['dependency_sources'])
             check(context + ':isolated_owned_cleanup', any(c['check'] == 'cleanup_exact_owned_container' for c in run['checks']))
             unit = load(folder / 'unit.json')
-            check(context + ':pure_nonempty', all_green(unit, 12))
+            check(context + ':pure_nonempty', all_green(unit, 27) and comparison_receipt(unit))
             lint = load(folder / 'lint.json')
             check(context + ':lint_all_owned_php', all_green(lint, 5))
             py = load(folder / 'python.json')
             check(context + ':python_real_console', py['exit_code'] == 0 and py['encoding'] == encoding
                   and py['python']['platform'] == 'win32' and py['python']['stdout_encoding'] == encoding
-                  and py['python']['version'].startswith('3.14.') and py['tests'] >= 13
+                  and py['python']['version'].startswith('3.14.') and py['tests'] >= 15
                   and py['log_sha256'] == sha(folder / 'python.log'))
             native = load(folder / 'result.json')
             check(context + ':native_all_green', all_green(native, 200) and native['no_real_site'] is True)
             names = {c['check'] for c in native['checks']}
             for storage in ('classic', 'hpos'):
+                check(context + ':' + storage + ':comparison_cases', comparison_receipt(native, storage + ':native_comparison_'))
                 mandatory = ['commercial_fixture', 'native_seed', 'native_standard', 'confined_success',
                              'select_only_account', 'exact_all_metrics_and_country_groups', 'all_private_values_absent',
                              'private_report_permissions', 'documented_only_given_arguments', 'replay_identical',
@@ -108,7 +114,8 @@ def verify(root=ROOT, packet=None, require_shared=False, require_controls=True):
                 mandatory += ['mutation_without_guard_detected:' + c for c in MUTATIONS]
                 check(context + ':' + storage + ':named_native_cases', all(storage + ':' + n in names for n in mandatory))
                 standard = load(folder / (storage + '-standard.json'))
-                check(context + ':' + storage + ':standard', all_green(standard, 7)
+                check(context + ':' + storage + ':standard', all_green(standard, 10)
+                      and comparison_receipt(standard, 'native_comparison_')
                       and standard['woocommerce'] == '11.1.1' and standard['subscriptions'] == '9.4.1'
                       and len(standard['source_sha256']) >= 12)
                 check(context + ':' + storage + ':complete_db_fingerprints', load(folder / (storage + '-db-before.json'))

@@ -30,8 +30,8 @@ def exercise(b, cmd, inventory, site, db, storage, audit, dest, cfg, base_mu, be
     check('select_only_account', grants.stdout.splitlines() == ['PRIVILEGE_TYPE', 'SELECT'])
     d = json.loads((dest / 'expedition.json').read_text(encoding='utf-8'))
     required = {'first_name': 1, 'last_name': 1, 'country': 2, 'address_1': 1, 'city': 1, 'state': 2, 'postcode': 2}
-    expected = {'overall': metrics(12, 1, 5, 2, 1, 2, 1, required), 'countries': [
-        {'country': 'BE', 'counts': metrics(6, different=2, unavailable=1)},
+    expected = {'overall': metrics(12, 1, 5, 2, 1, 1, 1, required), 'countries': [
+        {'country': 'BE', 'counts': metrics(6, different=1, unavailable=1)},
         {'country': 'autres pays', 'counts': metrics(6, 1, 5, 2, 1, fields=required)}]}
     check('exact_all_metrics_and_country_groups', d['counts'] == expected)
     payload = ''.join(f.read_text(encoding='utf-8') for f in dest.iterdir())

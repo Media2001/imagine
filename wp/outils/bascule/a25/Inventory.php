@@ -24,6 +24,33 @@ final class Inventory
         return preg_match('/\A([1-9][0-9]{3})-[0-9]{2}-[0-9]{2}/D', $date, $m) ? (int) $m[1] : 0;
     }
 
+    public static function formStructure(array $metadata): string
+    {
+        $keys = array_column($metadata, 'COLUMN_KEY', 'COLUMN_NAME');
+        $columns = array_keys($keys);
+        if (
+            !in_array('form_id', $columns, true)
+            || count(array_intersect(['response', 'message', 'submission', 'fields'], $columns)) === 0
+        ) {
+            return 'irrelevant';
+        }
+        $primary = array_keys(array_filter($keys, static fn(string $key): bool => $key === 'PRI'));
+        if (in_array('submission_id', $columns, true)) {
+            if ($primary === ['submission_id'] && !in_array('meta_key', $columns, true)) {
+                return 'entry';
+            }
+            // A separate row PK plus a non-PK submission reference is a detail row.
+            if ($primary === ['id'] && $keys['submission_id'] !== 'PRI') {
+                return 'child';
+            }
+            return 'ambiguous';
+        }
+        if (in_array('meta_key', $columns, true)) {
+            return 'child';
+        }
+        return $primary === ['id'] ? 'entry' : 'ambiguous';
+    }
+
     public static function collect(string $site): array
     {
         foreach (
@@ -69,6 +96,7 @@ final class Inventory
         $forms = [];
         $listed = [];
         $other = 0;
+        $ambiguous = false;
         $tables = self::select("SELECT TABLE_NAME FROM information_schema.TABLES"
             . " WHERE TABLE_SCHEMA=DATABASE() AND TABLE_TYPE='BASE TABLE' ORDER BY TABLE_NAME");
         foreach ($tables as $record) {
@@ -77,15 +105,16 @@ final class Inventory
                 continue;
             }
             $suffix = substr($table, strlen($p));
-            $columns = array_column(self::select("SELECT COLUMN_NAME FROM information_schema.COLUMNS"
-                . " WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='{$table}'"), 'COLUMN_NAME');
+            $metadata = self::select("SELECT COLUMN_NAME,COLUMN_KEY FROM information_schema.COLUMNS"
+                . " WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='{$table}' ORDER BY ORDINAL_POSITION");
+            $columns = array_column($metadata, 'COLUMN_NAME');
             $known = self::FORMS[$suffix] ?? null;
-            // Unknown entry tables: structural evidence, not arbitrary names/values.
-            // Avoid field-detail/meta child tables, which would count one message more than once.
-            $candidate = in_array('form_id', $columns, true)
-                && count(array_intersect(['response', 'message', 'submission', 'fields'], $columns)) > 0
-                && !in_array('submission_id', $columns, true) && !in_array('meta_key', $columns, true);
-            if (!$known && !$candidate) {
+            $structure = self::formStructure($metadata);
+            if (!$known && $structure === 'ambiguous') {
+                $ambiguous = true;
+                continue;
+            }
+            if (!$known && $structure !== 'entry') {
                 continue;
             }
             $dates = array_values(array_intersect(['created_at', 'date_created', 'submitted_at'], $columns));
@@ -105,10 +134,17 @@ final class Inventory
                     'count' => (int) $count['count']];
             }
         }
+        $counts = Analysis::analyse($comments, $forms, $guests, $neutralised);
+        if ($ambiguous && !$neutralised) {
+            $counts['forms'] = 'couverture indéterminée';
+        }
         return ['schema' => 'imagine-a25-visitor-retention-v1', 'read_only' => true, 'storage' => $storage,
             'neutralisation' => $neutralised ? Analysis::UNKNOWN : 'observe',
-            'counts' => Analysis::analyse($comments, $forms, $guests, $neutralised),
+            'counts' => $counts,
             'forms' => ['listed_extensions' => array_values(array_unique($listed)), 'other_tables' => $other,
-                'clear_messages_after_import' => true]];
+                'coverage' => $ambiguous ? 'couverture indéterminée' : 'heuristique bornée',
+                'clear_messages_after_import' => true,
+                'clear_messages_after_import_label' =>
+                    'avertissement éditorial permanent, non mesuré sur la copie inspectée']];
     }
 }

@@ -52,6 +52,9 @@ for ($i = 0; $i < 12; $i++) {
         $a['address_1'] = strtolower($a['address_1']);
     } elseif ($i === 2) {
         $a['address_1'] .= ' ';
+    } elseif ($i === 3) {
+        // A real content difference survives comparison-only case/space normalisation.
+        $a['postcode'] = '1001';
     }
     if ($i === 11) {
         $s->set_customer_id(0);

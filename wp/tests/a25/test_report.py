@@ -20,10 +20,59 @@ def fixture():
     return {'schema': 'imagine-a25-visitor-retention-v1', 'read_only': True, 'storage': 'classic',
             'neutralisation': 'observe', 'counts': {'comments': {key: pool(n) for key, n in [('all', 3), ('email', 2), ('ip', 2), ('account', 1)]},
             'forms': pool(4), 'guests': pool(2)}, 'forms': {'listed_extensions': ['Fluent Forms'], 'other_tables': 1,
-            'clear_messages_after_import': True}, 'audit_sha256': '0' * 64}
+            'clear_messages_after_import': True, 'coverage': 'heuristique bornée',
+            'clear_messages_after_import_label': 'avertissement éditorial permanent, non mesuré sur la copie inspectée'},
+            'audit_sha256': '0' * 64}
 
 
 class ProjectionTests(unittest.TestCase):
+    def test_editorial_warning_label_is_mandatory_and_literal(self):
+        d = fixture()
+        d['forms']['coverage'] = 'heuristique bornée'
+        d['forms']['clear_messages_after_import_label'] = 'avertissement éditorial permanent, non mesuré sur la copie inspectée'
+        self.assertTrue(r.projection(d, '0' * 64))
+        for value in (None, '', 'A25_PRIVATE_CANARY', True):
+            d['forms']['clear_messages_after_import_label'] = value
+            self.assertFalse(r.projection(d, '0' * 64))
+
+    def test_ambiguous_coverage_forbids_a_numeric_total(self):
+        d = fixture()
+        d['forms']['coverage'] = 'couverture indéterminée'
+        d['forms']['clear_messages_after_import_label'] = 'avertissement éditorial permanent, non mesuré sur la copie inspectée'
+        d['counts']['forms'] = 'couverture indéterminée'
+        self.assertTrue(r.projection(d, '0' * 64))
+        for value in ({'groups': [], 'autres': 0}, {'groups': [], 'autres': 9}, 'A25_PRIVATE_CANARY'):
+            d['counts']['forms'] = value
+            self.assertFalse(r.projection(d, '0' * 64))
+
+    def test_coverage_and_editorial_fields_cannot_be_omitted(self):
+        for key in ('coverage', 'clear_messages_after_import_label'):
+            d = fixture()
+            del d['forms'][key]
+            self.assertFalse(r.projection(d, '0' * 64))
+
+    def test_coverage_is_a_closed_value(self):
+        for value in (None, True, 0, [], {}, '', 'A25_PRIVATE_CANARY'):
+            d = fixture()
+            d['forms']['coverage'] = value
+            self.assertFalse(r.projection(d, '0' * 64))
+
+    def test_ambiguous_total_cannot_claim_bounded_coverage(self):
+        d = fixture()
+        d['counts']['forms'] = 'couverture indéterminée'
+        self.assertFalse(r.projection(d, '0' * 64))
+
+    def test_neutralisation_has_priority_over_ambiguous_total(self):
+        d = fixture()
+        d['neutralisation'] = r.UNKNOWN
+        d['forms']['coverage'] = 'couverture indéterminée'
+        for key in ('email', 'ip'):
+            d['counts']['comments'][key] = r.UNKNOWN
+        d['counts']['forms'] = r.UNKNOWN
+        self.assertTrue(r.projection(d, '0' * 64))
+        d['counts']['forms'] = 'couverture indéterminée'
+        self.assertFalse(r.projection(d, '0' * 64))
+
     def test_nominal(self):
         self.assertTrue(r.projection(fixture(), '0' * 64))
 

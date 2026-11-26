@@ -23,7 +23,9 @@ def run(case,label,mutation=''):
     r.update(identity=identity,exit=p['code'],stderr=p['stderr'],state_preserved=c24.state()==native,all_business_rows_preserved=m['business_snapshot'](before)==m['business_snapshot'](after),private_snapshot=private,source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),product_sources=c24.hashes(c24.NAMES[:-1]))
     c24.save(label,r);print(json.dumps(r,ensure_ascii=False))
     assert r['state_preserved'] and r['all_business_rows_preserved'] and not r['stderr']
-    if mutation:assert r['exit']==1 and r['failures'] and r['mutation_replacements']==1
+    if mutation:
+        expected={'restauration':'preimage_restauree_exacte','origine':'origine_defaut_creation'}[mutation]
+        assert r['exit']==1 and expected in r['failures'] and r['mutation_replacements']==1
     else:assert r['exit']==0 and not r['failures']
 
 if __name__=='__main__':run(*sys.argv[1:])

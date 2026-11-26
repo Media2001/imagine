@@ -1,0 +1,10 @@
+{
+  "url": "https://developers.fluentforms.com/database/",
+  "consulted_at": "2026-11-26T20:35:35.074652+00:00",
+  "method": "live browser document.body.innerText",
+  "section": "fluentform_submissions",
+  "exact_sentence": "Storing the form submissions",
+  "exact_date_row": "created_at\ttimestamp NULL\t",
+  "source_kind": "official publisher documentation",
+  "scope": "documented minimal storage adapter, not installed plugin qualification"
+}

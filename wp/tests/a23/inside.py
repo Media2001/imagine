@@ -58,6 +58,10 @@ def run_storage(storage):
     try:
         p = b.wp(site, ['eval-file', '/opt/a23/seed.php', '--use-include'])
         b.check(storage + ':native_seed', 'A23_SEED_OK' in p.stdout)
+        fixture_line = next(line for line in p.stdout.splitlines() if line.startswith('A23_ROLE_FIXTURES '))
+        role_fixtures = json.loads(fixture_line.split(' ', 1)[1])
+        b.check(storage + ':role_negative_override_fixture', role_fixtures['negative_override'] is True)
+        b.check(storage + ':role_multi_management_fixture', role_fixtures['multi_role'] is True)
     finally:
         (site / 'wp-config.php').write_text(cfg, encoding='utf-8')
     mu = site / 'wp-content/mu-plugins/a23-probe.php'
@@ -109,8 +113,13 @@ if (getenv('A23_CONFINED') === '1') {
     }
     for key, value in expected.items():
         b.check(storage + ':exact:' + key, d['counts'][key] == value, {'actual': d['counts'][key], 'expected': value})
+    b.check(storage + ':role_negative_override_excluded', d['counts']['readers'] == expected['readers']
+            and d['counts']['live_readers'] == expected['live_readers']
+            and d['counts']['without_commerce'] == expected['without_commerce'])
+    b.check(storage + ':role_multi_management_excluded', d['counts'] == expected)
     payload = p.stdout + p.stderr + ''.join(f.read_text(encoding='utf-8') for f in dest.iterdir())
     b.check(storage + ':all_private_values_absent', not re.search(r'CANARY|@|/scratch|user_pass|user_email|user_login|a23-fictif|a02-admin', payload))
+    b.check(storage + ':role_private_values_absent', not re.search(r'CANARY|a23-role-fictif|a23_operator|\$2y\$', payload))
     b.check(storage + ':private_report_permissions', dest.stat().st_mode & 0o777 == 0o700
             and all(f.stat().st_mode & 0o777 == 0o600 for f in dest.iterdir()))
     repeat = OUT / (storage + '-repeat')
@@ -208,6 +217,7 @@ if (getenv('A23_CONFINED') === '1') {
         ('invalid_utf8', 'fwrite(STDERR, chr(255));', 'A23_PROCESS_OUTPUT_INVALID', False),
         ('oversize_output', "fwrite(STDOUT, str_repeat('A23_PRIVATE_CANARY', 8192));", 'A23_PROCESS_OUTPUT_INVALID', False),
         ('plugin_exception', "throw new RuntimeException('A23_PERSON_PATH_PRIVATE_CANARY');", 'A23_INVENTORY_FAILED', False),
+        ('unsafe_management_role', "add_action('plugins_loaded', static function () { wp_roles()->roles['A23_ROLE_PRIVATE_CANARY@example.org'] = ['capabilities' => ['edit_users' => true]]; });", 'A23_ROLE_IDENTIFIER_UNSAFE', False),
         ('forged_success', 'fwrite(STDOUT, "A23_OK comptes.json comptes.md\\n"); exit(0);', 'A23_REPORT_INVALID', False),
         ('shutdown_invalid_json', "register_shutdown_function(function () { " + target + " file_put_contents($dir.'/comptes.json', '{'); });", 'A23_REPORT_INVALID', False),
         ('shutdown_extra_string', "register_shutdown_function(function () { " + target + " $p=$dir.'/comptes.json'; $d=json_decode(file_get_contents($p),true); $d['private']='A23_JSON_PRIVATE_CANARY'; file_put_contents($p,json_encode($d)); });", 'A23_REPORT_INVALID', False),
