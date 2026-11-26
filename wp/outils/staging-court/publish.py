@@ -493,9 +493,11 @@ def refusal_summary(result):
             detail = case.get('offline_failure', {}).get('detail')
         if detail:
             first = next(iter(detail.get('locations', [])), {})
-            values.append({'code': detail['code'], 'count': detail['count'],
+            values.append({'code': detail.get('code', case.get('offline_failure',{}).get('code','SQL_PREFLIGHT_REFUSED')), 'count': detail.get('count',1),
                            'first_zone': first.get('zone', '(indeterminee)'),
                            'extension': first.get('extension', '(autre)')})
+        elif case.get('offline_failure'):
+            values.append(case['offline_failure'])
     return values
 
 

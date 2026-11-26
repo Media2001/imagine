@@ -47,11 +47,11 @@ def database_start():
                                 '--sql-mode=NO_AUTO_VALUE_ON_ZERO'], stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
     for _ in range(100):
         if process.poll() is not None:
-            raise Refusal('DATABASE_START_REFUSED')
+            raise CommandFailure('DATABASE_START_REFUSED', 'database_start', exit=process.returncode)
         if command(['mariadb-admin', '--socket=' + SOCKET, '--user=root', 'ping'], check=False).returncode == 0:
             return process
         time.sleep(.1)
-    raise Refusal('DATABASE_START_TIMEOUT')
+    raise CommandFailure('DATABASE_START_TIMEOUT', 'database_start', timeout_seconds=10)
 
 
 def isolation():

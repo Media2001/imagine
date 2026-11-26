@@ -233,7 +233,7 @@ class Validator:
             # stand-ins only for the literal forms already lexed above.
             checked = canonical([('string', "'BLOB'") if k in ('hex','string') else (k, v) for k, v in tokens])
             if values[:2] == ['CREATE','TABLE']:
-                self.module.CREATE_WORDS.update({'GENERATED','ALWAYS','AS','STORED','VIRTUAL','PERSISTENT','CHECK','JSON_VALID'})
+                self.module.CREATE_WORDS.update({'GENERATED','ALWAYS','AS','STORED','VIRTUAL','PERSISTENT','CHECK','JSON_VALID','UTF8MB4_BIN'})
                 # Closed storage option; retain actual syntax in output while
                 # adapting the older shared parser's suffix only in memory.
                 checked = re.sub(r' ROW_FORMAT = (?:DYNAMIC|COMPACT|REDUNDANT|COMPRESSED|FIXED|DEFAULT)(?=\s*;)', '', checked)

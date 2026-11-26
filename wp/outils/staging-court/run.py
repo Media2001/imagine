@@ -12,7 +12,7 @@ import subprocess
 import sys
 import tarfile
 import uuid
-from diagnostics import execute
+from diagnostics import execute, CommandFailure
 
 ROOT = Path(__file__).resolve().parents[3]
 LABEL = 'org.imagine.a01-court'
@@ -140,7 +140,8 @@ def main():
             docker(['cp', archive_path, name + ':/input/source.wpress'])
         path = '/opt/court/roundtrip.py' if args.self_test else '/opt/court/inside.py'
         p = docker(['exec', '-i', name, 'python3', path], json.dumps(request).encode() if request else b'', check=False)
-        (out / 'execution.log').write_bytes(p.stdout + p.stderr)
+        (out / 'execution.json').write_text(json.dumps({'exit':p.returncode,'stage':'offline_execution',
+            'raw_output_omitted':True}))
         code = p.returncode
         data = docker(['exec', name, 'cat', '/report/court.json'], check=False)
         if data.returncode == 0:
@@ -156,6 +157,7 @@ def main():
         result['no_ports_no_mounts_network_none'] = True
     except Exception as exc:
         result = {'status': 'BLOCKED', 'issues': [str(exc) if re.fullmatch(r'[A-Z0-9_]{1,80}', str(exc)) else 'EXECUTION_REFUSED']}
+        result['failure'] = exc.failure if isinstance(exc,CommandFailure) else {'stage':'offline_runner','code':result['issues'][0]}
         code = 1
     finally:
         if created:
