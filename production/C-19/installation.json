@@ -1,10 +1,10 @@
 {
-  "at": "2026-11-26T01:48:36.022253+00:00",
+  "at": "2026-11-26T01:55:12.236741+00:00",
   "scope": "imagine-test-demo",
   "sha256_before": {
     "plugins/imagine-site/TableauBordRegles.php": "6801e6323e2d38d3920373fc3156cec87435cdfb25b3560e00d5600ab5c0b74b",
     "plugins/imagine-site/TableauBordNatives.php": "663523a2dc4a5871fbdb4490daf5ae3dfb6688412afb92df48ff2e1bc299a0cb",
-    "plugins/imagine-site/TableauBordAdmin.php": "b0e11863e74a5e666eb2f0c7e8588ca27cf5e851102a4d6db01212ed5fcd6102",
+    "plugins/imagine-site/TableauBordAdmin.php": "c10fbc235f575c66b216a3ad6bac585e86cbfea8f3cffbcd24cfd83af21c67cd",
     "plugins/imagine-site/indicateurs/actifs.php": "4750cb13765f632f20f7eb071f8e5a3f84a25aa8a0f16ec795d86cd02337d763",
     "plugins/imagine-site/indicateurs/echeances.php": "c61b22dd26702eb79ff5aaa3a27783a63ddd203ab02d6d2adedc97d189127887",
     "plugins/imagine-site/indicateurs/echecs.php": "89676be0067fa59aacd92a9231cee736d05511094270cd0f3c436216be5e427f",
@@ -14,7 +14,7 @@
   "sha256_readback": {
     "plugins/imagine-site/TableauBordRegles.php": "6801e6323e2d38d3920373fc3156cec87435cdfb25b3560e00d5600ab5c0b74b",
     "plugins/imagine-site/TableauBordNatives.php": "663523a2dc4a5871fbdb4490daf5ae3dfb6688412afb92df48ff2e1bc299a0cb",
-    "plugins/imagine-site/TableauBordAdmin.php": "c10fbc235f575c66b216a3ad6bac585e86cbfea8f3cffbcd24cfd83af21c67cd",
+    "plugins/imagine-site/TableauBordAdmin.php": "c9f7a3fdd9f4ad615c934591dc74ca01f4fdde11cdd76b42d5d00fd66d2e6ecb",
     "plugins/imagine-site/indicateurs/actifs.php": "4750cb13765f632f20f7eb071f8e5a3f84a25aa8a0f16ec795d86cd02337d763",
     "plugins/imagine-site/indicateurs/echeances.php": "c61b22dd26702eb79ff5aaa3a27783a63ddd203ab02d6d2adedc97d189127887",
     "plugins/imagine-site/indicateurs/echecs.php": "89676be0067fa59aacd92a9231cee736d05511094270cd0f3c436216be5e427f",

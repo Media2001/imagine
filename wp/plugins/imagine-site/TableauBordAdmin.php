@@ -92,14 +92,15 @@ final class TableauBordAdmin
             echo '<div class="notice notice-error"><p>' . esc_html(self::t('Indicateurs indisponibles : lecture native impossible. Aucun nombre de remplacement.')) . '</p></div>';
         }
         echo '<h2>' . esc_html(self::t('À venir — à discuter à l’atelier')) . '</h2><table class="widefat"><thead><tr><th scope="col">' . esc_html(self::t('Indicateur')) . '</th><th scope="col">' . esc_html(self::t('Ce qui manque')) . '</th></tr></thead><tbody>';
-        foreach ([
+        $future = [
             'Par tarif' => 'Grille tarifaire non arrêtée.',
             'Taux de rétention annuel' => 'Définition à arrêter à l’atelier.',
             'Non-renouvellements et motifs déclarés' => 'Recueil des motifs et définition du suivi non raccordés.',
             'Passages de l’accès découverte à l’abonnement' => 'Lien de conversion non enregistré.',
             'Part du tarif solidaire et de soutien' => 'Grille et rattachement tarifaire non arrêtés ; un justificatif ne prouve pas un tarif.',
             'Étiquettes de persona' => 'Questions et étiquettes non arrêtées.',
-        ] as $title => $missing) {
+        ];
+        foreach ($future as $title => $missing) {
             echo '<tr class="description" style="color:#646970;background:#f0f0f1" data-imagine-a-venir><th scope="row">' . esc_html(self::t($title)) . ' — ' . esc_html(self::t('à venir')) . '</th><td>' . esc_html(self::t($missing)) . '</td></tr>';
         }
         echo '</tbody></table></div>';

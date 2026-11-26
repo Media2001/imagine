@@ -309,6 +309,61 @@ class ExportTests(unittest.TestCase):
         self.assert_refused(result, source, 'Correspondance')
         self.assertNotIn('Traceback', result.stderr)
 
+    def test_iban_typographic_variants_in_one_unmapped_cell(self):
+        for marker in ('ZZ00.0000.0000.0000.0000', 'ZZ00\u200b0000\u200b0000\u200b0000\u200b0000',
+                       'ZZ00\u202f0000\u202f0000\u202f0000\u202f0000', 'ZZ00·0000·0000·0000·0000',
+                       'ＺＺ００.００００.００００.００００.００００'):
+            with self.subTest(marker_type=ascii(marker)[:20]):
+                rows = list(csv.reader(io.StringIO(self.clean_bytes().decode()), delimiter=';'))
+                rows[0].append('Note')
+                for row in rows[1:]: row.append('')
+                rows[-1][-1] = marker
+                stream = io.StringIO(newline=''); csv.writer(stream, delimiter=';').writerows(rows)
+                content = stream.getvalue().encode()
+                result, source = self.run_cli(content=content)
+                self.assert_refused(result, source, 'IBAN suspect : colonne 14')
+                self.assertNotIn('ZZ00', result.stdout + result.stderr)
+                self.assertEqual(content, source.read_bytes())
+
+    def test_iban_scan_never_joins_two_columns(self):
+        rows = list(csv.reader(io.StringIO(self.clean_bytes().decode()), delimiter=';'))
+        rows[0].extend(['Note A', 'Note B'])
+        for row in rows[1:]: row.extend(['ZZ00', '0000000000000000'])
+        stream = io.StringIO(newline=''); csv.writer(stream, delimiter=';').writerows(rows)
+        result, _ = self.run_cli(content=stream.getvalue().encode())
+        self.assertEqual(0, result.returncode, result.stderr)
+
+    def duplicate_name_address(self):
+        rows = list(csv.reader(io.StringIO(self.clean_bytes().decode()), delimiter=';'))[:3]
+        rows[2][0] = rows[1][0]; rows[2][2:6] = rows[1][2:6]
+        rows[2][1] = 'Autre prenom fictif'
+        stream = io.StringIO(newline=''); csv.writer(stream, delimiter=';').writerows(rows)
+        return stream.getvalue().encode()
+
+    def test_same_name_address_different_firstname_duplicate_by_default(self):
+        result, source = self.run_cli(content=self.duplicate_name_address())
+        self.assertEqual(1, result.returncode, result.stderr)
+        self.assertEqual([{'ligne': str(n), 'motif': 'Doublon de nom et adresse postale'} for n in (2,3)], self.rejects(source))
+
+    def test_explicit_firstname_duplicate_option_is_off_by_default(self):
+        config = self.config(); config['doublon_prenom_identique'] = True
+        result, source = self.run_cli(content=self.duplicate_name_address(), config=config)
+        self.assertEqual(0, result.returncode, result.stderr)
+        self.assertEqual([], self.rejects(source))
+
+    def test_console_cp1252_or_ascii_does_not_fail_after_outputs(self):
+        for encoding in ('cp1252', 'ascii'):
+            with self.subTest(encoding=encoding):
+                work = self.work / encoding; work.mkdir()
+                source = work / 'export.csv'; source.write_bytes(self.clean_bytes())
+                result = subprocess.run([sys.executable, str(TOOL), str(source), '--correspondance', str(CONFIG), '--au', '2026-11-25'],
+                    capture_output=True, env={**os.environ, 'PYTHONIOENCODING': encoding, 'PYTHONDONTWRITEBYTECODE':'1'}, timeout=20)
+                self.assertEqual(0, result.returncode, result.stderr.decode(encoding))
+                self.assertEqual(b'', result.stderr)
+                self.assertNotIn(b'Traceback', result.stdout + result.stderr)
+                self.assertIn('Lignes contrôlées : 30', self.summary(source))
+                self.assertEqual([], self.rejects(source))
+
     def test_clean_file_returns_zero_and_thirty_clean_rows(self):
         result, source = self.run_cli()
         self.assertEqual(0, result.returncode, result.stderr)

@@ -245,29 +245,49 @@ final class Inventory
         ));
         sort($taxonomies);
         $taxRows = [];
+        $postDomains = array_keys(get_post_types());
         foreach ($taxonomies as $name) {
-            $row = $this->shape(
-                $name,
-                "JOIN $tr r ON r.object_id=p.ID JOIN $tt tt ON tt.term_taxonomy_id=r.term_taxonomy_id",
-                'tt.taxonomy=?',
-                [$name],
-                $declarations['taxonomies'][$name] ?? []
-            );
-            $row['term_count'] = (int) $this->select("SELECT COUNT(*) AS n FROM $tt WHERE taxonomy=?", [$name])[0]['n'];
-            $row['top_terms'] = [];
-            $topTerms = $this->select(
-                "SELECT t.name,COUNT(DISTINCT p.ID) AS n FROM $tt tt JOIN $terms t ON t.term_id=tt.term_id "
-                . "LEFT JOIN $tr r ON r.term_taxonomy_id=tt.term_taxonomy_id LEFT JOIN $post p ON p.ID=r.object_id "
-                . 'WHERE tt.taxonomy=? GROUP BY tt.term_taxonomy_id,t.name '
-                . 'ORDER BY n DESC,BINARY t.name,tt.term_taxonomy_id LIMIT 20',
-                [$name]
-            );
-            foreach ($topTerms as $term) {
-                $termName = strlen($term['name']) <= 200
-                    && !preg_match('/[\x00-\x1f@]|(?:sk_|pk_|rk_|whsec_|xkeysib-|[a-f0-9]{40})/i', $term['name'])
-                    ? $term['name'] : '[masque]';
-                $row['top_terms'][] = ['name' => $termName, 'content_count' => (int) $term['n']];
+            $definition = get_taxonomy($name);
+            $objectTypes = $definition ? array_values($definition->object_type) : [];
+            sort($objectTypes, SORT_STRING);
+            $postsOnly = $objectTypes !== [] && array_diff($objectTypes, $postDomains) === [];
+            $row = [
+                'name' => Audit::identifier($name),
+                'registration' => isset($declarations['taxonomies'][$name])
+                    ? 'runtime_registered' : 'stored_only_unregistered',
+                'declarations' => $declarations['taxonomies'][$name] ?? [],
+                'object_types' => array_map([Audit::class, 'identifier'], $objectTypes),
+                'count_status' => $postsOnly ? 'qualified_posts_domain'
+                    : ($objectTypes ? 'unavailable_non_posts_or_mixed' : 'unavailable_unknown_object_domain'),
+                'content_count' => null, 'states' => null,
+                'first_published_utc' => null, 'last_published_utc' => null, 'top_terms' => null,
+            ];
+            if ($postsOnly) {
+                $typeList = implode(',', array_fill(0, count($objectTypes), '?'));
+                $row = array_merge($row, $this->shape(
+                    $name,
+                    "JOIN $tr r ON r.object_id=p.ID JOIN $tt tt ON tt.term_taxonomy_id=r.term_taxonomy_id",
+                    "tt.taxonomy=? AND p.post_type IN ($typeList)",
+                    array_merge([$name], $objectTypes),
+                    $declarations['taxonomies'][$name] ?? []
+                ));
+                $row['top_terms'] = [];
+                $topTerms = $this->select(
+                    "SELECT t.name,COUNT(DISTINCT p.ID) AS n FROM $tt tt JOIN $terms t ON t.term_id=tt.term_id "
+                    . "LEFT JOIN $tr r ON r.term_taxonomy_id=tt.term_taxonomy_id "
+                    . "LEFT JOIN $post p ON p.ID=r.object_id AND p.post_type IN ($typeList) "
+                    . 'WHERE tt.taxonomy=? GROUP BY tt.term_taxonomy_id,t.name '
+                    . 'ORDER BY n DESC,BINARY t.name,tt.term_taxonomy_id LIMIT 20',
+                    array_merge($objectTypes, [$name])
+                );
+                foreach ($topTerms as $term) {
+                    $termName = strlen($term['name']) <= 200
+                        && !preg_match('/[\x00-\x1f@]|(?:sk_|pk_|rk_|whsec_|xkeysib-|[a-f0-9]{40})/i', $term['name'])
+                        ? $term['name'] : '[masque]';
+                    $row['top_terms'][] = ['name' => $termName, 'content_count' => (int) $term['n']];
+                }
             }
+            $row['term_count'] = (int) $this->select("SELECT COUNT(*) AS n FROM $tt WHERE taxonomy=?", [$name])[0]['n'];
             $taxRows[] = $row;
         }
         return [

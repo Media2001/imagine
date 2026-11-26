@@ -1,0 +1,11 @@
+{
+  "wp/plugins/imagine-site/TableauBordRegles.php": "6801e6323e2d38d3920373fc3156cec87435cdfb25b3560e00d5600ab5c0b74b",
+  "wp/plugins/imagine-site/TableauBordNatives.php": "663523a2dc4a5871fbdb4490daf5ae3dfb6688412afb92df48ff2e1bc299a0cb",
+  "wp/plugins/imagine-site/TableauBordAdmin.php": "c9f7a3fdd9f4ad615c934591dc74ca01f4fdde11cdd76b42d5d00fd66d2e6ecb",
+  "wp/plugins/imagine-site/indicateurs/actifs.php": "4750cb13765f632f20f7eb071f8e5a3f84a25aa8a0f16ec795d86cd02337d763",
+  "wp/plugins/imagine-site/indicateurs/echeances.php": "c61b22dd26702eb79ff5aaa3a27783a63ddd203ab02d6d2adedc97d189127887",
+  "wp/plugins/imagine-site/indicateurs/echecs.php": "89676be0067fa59aacd92a9231cee736d05511094270cd0f3c436216be5e427f",
+  "wp/plugins/imagine-site/indicateurs/mouvements.php": "72fd61ce5d8b3e4c3469f19cbd7c03073104630a76d9f4a45fcac8a8b5f0e627",
+  "wp/plugins/imagine-site/imagine-site.php": "fd08869ef6a5c5741e2b7a4340dd55664556591ed496f5cbebc865ded0f2f6d8",
+  "wp/plugins/imagine-site/tests/TableauBordReglesTest.php": "f8a631a43d8ca544fa7101be8ce6431a1e7ed71dac4eee88ea75c73f95aa26d7"
+}

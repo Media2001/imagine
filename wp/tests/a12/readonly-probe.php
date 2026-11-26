@@ -29,6 +29,15 @@ $results = [
     'early_bootstrap_guards_all_pass' => count($GLOBALS['a12_early_guards'] ?? []) === 9
         && !in_array(false, $GLOBALS['a12_early_guards'], true),
 ];
+$site = getenv('A12_SITE');
+$index = $site . '/index.php';
+$before = hash_file('sha256', $index);
+$results['site_create'] = @file_put_contents($site . '/a12-create-must-fail', 'X') === false;
+$results['site_truncate'] = @file_put_contents($index, 'A12_TRUNCATE_MUST_FAIL') === false
+    && hash_file('sha256', $index) === $before;
+$results['site_rename'] = @rename($index, $site . '/a12-rename-must-fail') === false;
+$results['site_unlink'] = @unlink($index) === false;
+$results['site_mkdir'] = @mkdir($site . '/a12-mkdir-must-fail') === false;
 ob_end_clean();
 echo json_encode($results, JSON_THROW_ON_ERROR) . "\n";
 exit(in_array(false, $results, true) ? 1 : 0);

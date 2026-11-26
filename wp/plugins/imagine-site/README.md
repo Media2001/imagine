@@ -256,3 +256,27 @@ Les tests purs sont ajoutés au paquet racine existant, sans manifeste/lock nouv
 
 
 
+
+## C-19 — tableau de bord
+
+**Imagine → Tableau de bord**, droit dédié `imagine_voir_tableau_bord`. C’est une méta-capacité WordPress résolue par `map_meta_cap` vers les deux capacités sources C18/C15 (`imagine_extraire_abonnes` et `imagine_gerer_echeances`) ; administrateur `manage_options` également admis. Le référent C09 est donc lecteur sans mutation de son rôle ni de ses capacités enregistrées. Le refus est contrôlé avant le rendu et avant le menu ; l’exception Woo d’accès administratif reste limitée à cette seule page. GET/HEAD seulement, POST 405 pour un lecteur autorisé, 403 sans droit.
+
+Chaque fichier `indicateurs/*.php` contient son titre, son calcul pur et sa phrase affichée. Découverte automatique, aucune bibliothèque de graphiques ni script propre. `TableauBordNatives` réutilise les lignes C18 et les projections C15 ; sa sortie ne contient que titres, phrases et entiers, pas d’identité. Aucun journal, cache persistant, option, note, droit, paiement ou tâche planifiée n’est écrit par C19.
+
+- Actifs : exactement les lignes du filtre **Actif** C18, donc des abonnements et non des personnes distinctes. Répartition par méthode native C15 ; vide reste « non renseigné ». Ni un paiement validé, ni un droit d’accès ou d’envoi C13 n’est déduit de cet état d’affichage.
+- Échéances : mêmes fenêtres cumulatives C15 **30/90/180 jours**, nommées ainsi sous les libellés un/trois/six mois ; pas une nouvelle convention calendaire. La phrase explique pourquoi le filtre de jours entiers tous états de C18 peut différer.
+- Échecs : mêmes commandes liées et impayées que la vue C15, pas un nombre de personnes.
+- Mouvements : simple relevé des dates natives début/fin du mois civil **UTC**, jusqu’à maintenant ; fins seulement sur abonnements cancelled/expired, jamais une fin future. Les entrées incluent les débuts en attente et ne prétendent pas être des activations payées. C18 ne fournit pas ces dates ; aucun historique manquant, taux ou motif n’est reconstruit. Interprétation explicite à discuter à l’atelier, pas une formule de rétention.
+
+Les six emplacements du brief restent grisés « à venir », avec leurs données/définitions manquantes. Une exception native remontée affiche « indisponibles », jamais un zéro de remplacement. Cela ne prétend pas détecter une erreur SQL que WooCommerce absorberait lui-même en une liste vide.
+
+```powershell
+python wp/tests/demo/c19-verifier.py --prepare --deploy --canonical
+python wp/tests/demo/c19-verifier.py
+python wp/outils/demo/c19-unit.py unit-final
+python wp/tests/demo/test_c19_contract.py
+```
+
+Les cinq tests PHP sont découverts par le paquet racine existant ; aucun manifeste, lock ou runner fermé modifié. Le vrai parcours Chromium suit Imagine → Tableau de bord, avec requêtes hors démo bloquées. La recette native intercepte toute tentative SQL non SELECT ainsi que HTTP/email pendant calcul et rendu. Les empreintes commerciales, utilisateurs, rôles, actions/logs du planificateur et options métier sont inchangées. Pour les requêtes administratives complètes, trois seules options de bootstrap sont volatiles et explicitement exclues : expirations de cache de version WCS et de mise à jour Novamira, verrou du runner asynchrone Action Scheduler. Les sessions de connexion sont déjà exclues par la projection C18. Ce n’est pas une promesse d’absence d’écriture du cœur WordPress entier.
+
+L’ajout C19 du bootstrap et cette section sont des successeurs additifs vérifiés contre les octets C18, sans réécrire les anciennes preuves. Le reçu C09 restauré est exigé exactement, action A-PAPIER comprise ; aucun reset. `c09-successor-gates.py` accepte la seule suppression de ces sections pour comparer les anciens sceaux et peut ranger son nouveau reçu sous C19. Voir `production/C-19/{A-VOIR.md,final-V2.json}`. Prêt technique seulement ; validation visuelle de Ced attendue.
