@@ -1,0 +1,17 @@
+{
+  "checks": {
+    "raccord_present": true,
+    "C09_etranger_seul_FR": true,
+    "mode_A-VIR": true,
+    "mode_A-PAPIER": true,
+    "etat_A-GRACE": true,
+    "etat_A-SUSP": true,
+    "etat_A-EXPIRE": true,
+    "etat_A-CARTE": true,
+    "A_ECHEANCE_30_jours": true,
+    "sans_email_colonne_vide": true,
+    "colonnes_strictes": true,
+    "aucune_ecriture_natif": true
+  },
+  "native_unchanged": true
+}

@@ -57,6 +57,24 @@ final class ExtractionsRegles
         return $out;
     }
 
+    /** Même primitive CsvProtection que C13 ; flux fourni par le contrôleur, aucun fichier. */
+    public static function csv(mixed $stream, string $id, array $rows): void
+    {
+        $columns = self::definition($id)['colonnes'];
+        if (array_diff($columns, self::COLONNES) !== []) {
+            throw new \LogicException('Colonne non autorisée.');
+        }
+        if (fputcsv($stream, $columns, escape: '', eol: "\r\n") === false) {
+            throw new \RuntimeException('Flux CSV indisponible.');
+        }
+        foreach ($rows as $row) {
+            $values = array_map(static fn (string $key): mixed => \Imagine\Connecteur\CsvProtection::cellule($row[$key] ?? ''), $columns);
+            if (fputcsv($stream, $values, escape: '', eol: "\r\n") === false) {
+                throw new \RuntimeException('Flux CSV interrompu.');
+            }
+        }
+    }
+
     public static function selectionner(string $id, array $filters, array $rows): array
     {
         $definition = self::definition($id);
