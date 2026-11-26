@@ -1,0 +1,41 @@
+{
+  "at": "2026-11-26T18:32:27.603879+00:00",
+  "scope": "imagine-test-demo",
+  "case": "attribute",
+  "mutation": "display",
+  "checks": {
+    "fixture_reelle": true,
+    "fiche_native_nonce": true,
+    "attribut_source_date": true,
+    "audit_ajout": true,
+    "sans_faux_changement": true,
+    "coop_lit": true,
+    "compte_natif_statut_source": true,
+    "auto_refus": true,
+    "nonce_refus": true,
+    "refus_sans_effet": true,
+    "journal_en_echec_refuse": true,
+    "journal_en_echec_restaure_statut": true,
+    "retrait_audite": true,
+    "retrait_referme": true,
+    "compte_retrait_sans_source_date": false,
+    "fiche_retrait_sans_source_date": false,
+    "accroche_nommee_sans_ecouteur": true,
+    "aucun_mail_tente": true,
+    "aucun_http_tente": true
+  },
+  "total": 19,
+  "failures": [
+    "compte_retrait_sans_source_date",
+    "fiche_retrait_sans_source_date"
+  ],
+  "exit": 1,
+  "stderr": "",
+  "state_preserved": true,
+  "source_sha256": "63c9b7537bf1cd3cd27469f6edc676f9c7de63ae0732af630d76d65bec63ae8f",
+  "private_snapshot": {
+    "file": "b06-private-d4absagg/snapshot.json",
+    "sha256": "550d7e94e79020ae2420c983ed353ba86b44a87aff689e4ff827c095d8e98422",
+    "private": true
+  }
+}

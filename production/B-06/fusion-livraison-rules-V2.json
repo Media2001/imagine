@@ -1,0 +1,28 @@
+{
+  "at": "2026-11-26T18:28:58.979648+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "refus_role_": true,
+    "refus_role_subscriber": true,
+    "refus_role_editor": true,
+    "refus_role_shop_manager": true,
+    "refus_role_manage_options": true,
+    "admin_seul": true,
+    "coop_ouvre": true,
+    "anonyme_ferme": true,
+    "abonne_ferme": true,
+    "admin_ouvre": true,
+    "etat_invalide_0": true,
+    "etat_invalide_1": true,
+    "etat_invalide_2": true,
+    "etat_invalide_3": true,
+    "etat_invalide_4": true,
+    "etat_invalide_5": true
+  },
+  "total": 16,
+  "failures": [],
+  "exit": 0,
+  "stderr": "",
+  "image": "sha256:7349f03c0aa8c594a4b898a629fe6dc30c9af15cb3182fe1f0b294bfe49927fe",
+  "container_removed": true
+}
