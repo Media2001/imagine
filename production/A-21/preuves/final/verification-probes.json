@@ -1,65 +1,101 @@
 {
+  "suite": "A21-independent-verifier-probes",
   "checks": [
     {
-      "check": "pristine_copy_accepted",
+      "check": "complete_current_copy_green",
       "status": "PASS",
-      "observed_exit": 0,
-      "failures": []
+      "detail": null
     },
     {
-      "check": "unrelated_shared_appendix_accepted",
+      "check": "unrelated_readme_appendix_accepted",
       "status": "PASS",
-      "observed_exit": 0,
-      "failures": []
+      "detail": null
     },
     {
-      "check": "own_line_omission_rejected",
+      "check": "dependency_drift_refused:wp/outils/bascule/a11/Runtime.php",
       "status": "PASS",
-      "observed_exit": 1,
-      "failures": [
-        "own_two_shared_lines_only"
+      "detail": [
+        "exact_current_dependencies",
+        "cp1252:executed_dependency_snapshot",
+        "utf8:executed_dependency_snapshot"
       ]
     },
     {
-      "check": "own_line_duplication_rejected",
+      "check": "real_red_false_green_without_dependency_seals",
       "status": "PASS",
-      "observed_exit": 1,
-      "failures": [
-        "own_two_shared_lines_only"
+      "detail": null
+    },
+    {
+      "check": "dependency_drift_refused:wp/outils/bascule/a12/confine.py",
+      "status": "PASS",
+      "detail": [
+        "exact_current_dependencies",
+        "cp1252:executed_dependency_snapshot",
+        "utf8:executed_dependency_snapshot"
       ]
     },
     {
-      "check": "own_newline_mutation_rejected",
+      "check": "dependency_drift_refused:wp/outils/bascule/audit",
       "status": "PASS",
-      "observed_exit": 1,
-      "failures": [
-        "own_two_shared_lines_only"
+      "detail": [
+        "exact_current_dependencies",
+        "cp1252:executed_dependency_snapshot",
+        "utf8:executed_dependency_snapshot"
       ]
     },
     {
-      "check": "source_drift_rejected",
+      "check": "dependency_drift_refused:wp/outils/staging/lib.php",
       "status": "PASS",
-      "observed_exit": 1,
-      "failures": [
-        "exact_current_sources",
-        "exact_final_packet_manifest"
+      "detail": [
+        "exact_current_dependencies",
+        "cp1252:executed_dependency_snapshot",
+        "utf8:executed_dependency_snapshot"
       ]
     },
     {
-      "check": "missing_native_case_rejected_even_when_resealed",
+      "check": "dependency_drift_refused:wp/tests/a02-audit/inside.py",
       "status": "PASS",
-      "observed_exit": 1,
-      "failures": [
-        "cp1252:classic:required_native_cases"
+      "detail": [
+        "exact_current_dependencies",
+        "cp1252:executed_dependency_snapshot",
+        "utf8:executed_dependency_snapshot"
       ]
     },
     {
-      "check": "restored_copy_accepted",
+      "check": "dependency_drift_refused:wp/tests/a19/run.py",
       "status": "PASS",
-      "observed_exit": 0,
-      "failures": []
+      "detail": [
+        "exact_current_dependencies",
+        "cp1252:executed_dependency_snapshot",
+        "utf8:executed_dependency_snapshot"
+      ]
+    },
+    {
+      "check": "readme_contract_refused:omitted",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "readme_contract_refused:duplicate",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "readme_contract_refused:crlf",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "required_shutdown_case_missing_even_after_reseal",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "restored_copy_green",
+      "status": "PASS",
+      "detail": null
     }
   ],
   "exit_code": 0,
-  "scope": "Disposable scratch copy only; actual verifier executed, no repository mutation."
+  "red_log_scratch_only": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a21-final-probes-py314\\red-drift.json"
 }

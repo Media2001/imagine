@@ -2,7 +2,7 @@
     "schema": "imagine-a21-external-doors-v1",
     "read_only": true,
     "storage": "hpos",
-    "as_of_utc": "2026-11-26T10:56:16Z",
+    "as_of_utc": "2026-11-26T13:01:42Z",
     "api_keys": {
         "status": "inconnu après neutralisation",
         "counts": null
@@ -18,7 +18,7 @@
     "outbound_attempts": {
         "http": 0,
         "mail": 0,
-        "scheduled": 15
+        "scheduled": 17
     },
     "basis": {
         "keys": "Droits déclarés ; accès local au fuseau WordPress ; jamais et plus de douze mois disjoints.",
@@ -26,5 +26,5 @@
         "topics": "Identifiants standard fermés ; sujets libres et actions personnalisées regroupés sous unknown.",
         "store": "Déclaration locale auth.access_token ; aucune vérification distante."
     },
-    "audit_sha256": "7ce05e83c1de703191d500131afaf07b339b93733046c33e9a466d27207cd88f"
+    "audit_sha256": "8bfe345a6732b8c6601686295eea534923781c364b7290216294d379b49a8e2e"
 }

@@ -26,6 +26,8 @@ La capture stricte a découvert des `error_log()` natifs d'Action Scheduler sur 
 
 **R2.** Les 48 dépendances exécutées sont comparées aux fichiers courants, pour l'instantané principal et celui de chaque console ; A-11, A-12, audit/A-02, neutralisation et helpers A-19 sont couverts. Le README commun reste exclu des empreintes et contrôlé exclusivement par `readme_contract`. Les trois tests IP/IPv6 conservent le classement par chaîne sans DNS ; même adresse IPv6 écrite autrement = chaîne extérieure, sans adresse publiée. Lecture directe `get_option('woocommerce_helper_data', [])` gardée et testée, sans appel à `WC_Helper`.
 
+**Vérification indépendante réellement exécutée** : 14 sondes vertes sur copie jetable ; copie complète verte, six dérives de dépendances refusées, annexe étrangère acceptée, ligne A-21 absente/dupliquée/CRLF refusée, cas shutdown obligatoire retiré refusé même après rescellement, restauration verte. Un mutant qui neutralise seulement les trois scellements de dépendances laisse réellement passer la dérive A-11 (faux vert reproduit, journal rouge uniquement au scratch) ; le vérificateur courant la refuse sur les trois contrôles attendus.
+
 ## Décisions prises à défaut et limites
 
 - Les sujets standards sont une liste fermée issue du code installé ; les sujets libres et actions personnalisées sont regroupés sous `unknown`, plutôt que de laisser sortir un nom pouvant porter une identité. Pas de regroupement détaillé de ces sujets non standards.
@@ -36,18 +38,32 @@ La capture stricte a découvert des `error_log()` natifs d'Action Scheduler sur 
 
 ## Fichiers et rejeu
 
-Sources : `wp/outils/bascule/a21/` et `wp/tests/a21/`. Deux lignes seulement ajoutées par patch ciblé à `wp/tests/a02-audit/README.md`, contrôlées par contrat exact, pas par empreinte entière. `readme-ajout.txt` contient ces lignes ; les annexes d'autres lots sont autorisées. `unit.php` s'inclut sans effet de bord, dépend seulement de `Analysis.php`, et reste autodécouvrable par T-02 sans nouvel adaptateur PHPUnit. Preuve séparée `pure-include.json` : copie temporaire de ces deux seuls fichiers, 15 assertions vertes, sans API native chargée, sortie ni nouveau rapport. La première sonde supposait à tort que `/report` n'existait pas dans l'image ; l'oracle corrigé compare son contenu avant/après, sans changement du code testé.
+Sources : `C:/Users/Ced/imagine/wp/outils/bascule/a21/` et `C:/Users/Ced/imagine/wp/tests/a21/`. Documentation et paquet : `C:/Users/Ced/imagine/production/A-21/`. Aucune écriture hors de ces trois périmètres dans le dépôt. Le README commun est réservé au parent ; `readme-delta.txt` fournit l'ajout exact sans changer les deux lignes de `readme-ajout.txt`, donc sans changer le contrat ni les instantanés. `unit.php` reste pur et autodécouvrable par T-02 ; `pure-include.php` est seulement sa sonde autonome dans le conteneur.
 
-Vérification sans Docker ni écriture :
-
-```text
-C:/Python314/python.exe -B wp/tests/a21/verify.py production/A-21/preuves/final
-```
-
-Nouveau rejeu complet, sortie scratch neuve :
+Vérification indépendante sans Docker, lecture seule (depuis n'importe quel dossier) :
 
 ```text
-C:/Python314/python.exe -B wp/tests/a21/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-rejeu-matrice-nouveau
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/verify.py C:/Users/Ced/imagine/production/A-21/preuves/final
 ```
 
-Le vérificateur lie sources courantes, rapports et empreintes, cas natifs obligatoires, consoles réelles, nettoyage et manifeste. Huit sondes sur copie jetable sont vertes (`verification-probes.json`) : original/restauration acceptés, annexe étrangère acceptée, omission/duplication/fin de ligne du lot refusées, dérive source refusée, cas natif obligatoire manquant refusé même après rescellement de cette copie. Son statut reste `CANDIDAT_GATE_PARENT`, sans allégation de préparation/T-01 global.
+Reprise exacte, sans refaire les matrices déjà vertes, tant que les sources et dépendances n'ont pas changé :
+
+```text
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/finalise.py --matrix=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-final-matrix-py314 --style=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-final-style-py314
+```
+
+Cette commande remplace le paquet final uniquement : ne pas la relancer après que le parent y a ajouté ses reçus. Pour sceller seulement après une modification des notes ou un ajout de reçu parent (sources et dépendances inchangées), puis vérifier :
+
+```text
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/finalise.py --seal-only
+```
+
+Rejeu indépendant complet, depuis `C:/Users/Ced/imagine`, avec une sortie scratch **neuve** (ne pas réutiliser les noms déjà pris) :
+
+```text
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-independent-matrix-nouveau
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/style.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-independent-style-nouveau
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/probes.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-independent-probes-nouveau
+```
+
+`windows-matrix.json` conserve les six commandes et encodages réellement exécutés ; `runner.json` et `style/style.json` nomment les conteneurs exacts, contrôlent confinement avant/après et attestent leur suppression relue. `verification-probes.json` contient les sondes réelles de vérificateur sur copie jetable ; le journal du mutant volontairement rouge reste au scratch, jamais dans le paquet. Le candidat ne prétend à aucun gate global du parent. Limites : 120 s par processus PHP supervisé, deux tampons bornés à 64 Kio (surplus drainé et refusé), Linux déconnecté et Landlock ABI 3 minimum ; pas de preuve sur le site réel ni de validation distante de compte. Le JSON public utilise une projection fermée ; des extensions anciennes ou bavardes peuvent être refusées plutôt que laisser fuiter une sortie.

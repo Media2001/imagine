@@ -241,9 +241,197 @@
       "detail": null
     },
     {
+      "check": "classic:supervised_bootstrap:stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_artifacts_absent:stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_confinement_unchanged:stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:supervised_bootstrap:stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_artifacts_absent:stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_confinement_unchanged:stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:supervised_bootstrap:early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_artifacts_absent:early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_confinement_unchanged:early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:supervised_bootstrap:empty_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_artifacts_absent:empty_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_confinement_unchanged:empty_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:supervised_bootstrap:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_artifacts_absent:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_confinement_unchanged:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:supervised_bootstrap:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_artifacts_absent:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_confinement_unchanged:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:supervised_bootstrap:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_artifacts_absent:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_confinement_unchanged:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:supervised_bootstrap:oversized_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_artifacts_absent:oversized_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_confinement_unchanged:oversized_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:supervised_bootstrap:binary_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_artifacts_absent:binary_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_confinement_unchanged:binary_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:supervised_bootstrap:shutdown_duplicate_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_artifacts_absent:shutdown_duplicate_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_confinement_unchanged:shutdown_duplicate_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:supervised_bootstrap:shutdown_missing_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_artifacts_absent:shutdown_missing_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_confinement_unchanged:shutdown_missing_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:supervised_bootstrap:shutdown_artifact_canary",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_artifacts_absent:shutdown_artifact_canary",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:hostile_confinement_unchanged:shutdown_artifact_canary",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:real_neutraliser_observed",
       "status": "PASS",
       "detail": null
+    },
+    {
+      "check": "classic:neutralised_supervisor_return",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0,
+        "closed_code": "NON_PROTOCOL"
+      }
     },
     {
       "check": "classic:neutralised_unknown_not_zero",
@@ -480,9 +668,197 @@
       "detail": null
     },
     {
+      "check": "hpos:supervised_bootstrap:stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_artifacts_absent:stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_confinement_unchanged:stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:supervised_bootstrap:stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_artifacts_absent:stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_confinement_unchanged:stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:supervised_bootstrap:early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_artifacts_absent:early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_confinement_unchanged:early_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:supervised_bootstrap:empty_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_artifacts_absent:empty_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_confinement_unchanged:empty_exit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:supervised_bootstrap:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_artifacts_absent:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_confinement_unchanged:forged_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:supervised_bootstrap:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_artifacts_absent:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_confinement_unchanged:shutdown_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:supervised_bootstrap:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_artifacts_absent:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_confinement_unchanged:shutdown_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:supervised_bootstrap:oversized_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_artifacts_absent:oversized_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_confinement_unchanged:oversized_stdout",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:supervised_bootstrap:binary_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_artifacts_absent:binary_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_confinement_unchanged:binary_stderr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:supervised_bootstrap:shutdown_duplicate_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_artifacts_absent:shutdown_duplicate_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_confinement_unchanged:shutdown_duplicate_success",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:supervised_bootstrap:shutdown_missing_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_artifacts_absent:shutdown_missing_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_confinement_unchanged:shutdown_missing_json",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:supervised_bootstrap:shutdown_artifact_canary",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_artifacts_absent:shutdown_artifact_canary",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:hostile_confinement_unchanged:shutdown_artifact_canary",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "hpos:real_neutraliser_observed",
       "status": "PASS",
       "detail": null
+    },
+    {
+      "check": "hpos:neutralised_supervisor_return",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0,
+        "closed_code": "NON_PROTOCOL"
+      }
     },
     {
       "check": "hpos:neutralised_unknown_not_zero",

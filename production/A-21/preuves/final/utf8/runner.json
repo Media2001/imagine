@@ -1,7 +1,7 @@
 {
   "suite": "A21-owned-runner",
-  "at": "2026-11-26T10:55:18.847193+00:00",
-  "container": "imagine-a21-external-doors-6a9f62b5282f",
+  "at": "2026-11-26T13:00:11.082578+00:00",
+  "container": "imagine-a21-external-doors-9db532283bc7",
   "mode": "native",
   "checks": [
     {
@@ -25,6 +25,11 @@
       "detail": {
         "exit_code": 0
       }
+    },
+    {
+      "check": "pure_include_no_native_or_side_effect",
+      "status": "PASS",
+      "detail": null
     },
     {
       "check": "native_return",

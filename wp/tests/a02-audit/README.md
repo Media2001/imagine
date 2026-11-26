@@ -78,3 +78,4 @@ Complément A-20 (récurrences enregistrées, lecture seule) : python3 wp/outils
 Comptes par produit/variation, rythme, total récurrent et pays ; groupes de moins de cinq masqués, aucune correspondance ; bases et limites : wp/outils/bascule/a20/README.md
 Complément A-21 (portes vers l'extérieur, lecture seule) : python3 /chemin/du/depot/wp/outils/bascule/a21/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/portes-date
 Comptes de clés et webhooks, connexion locale oui/non, inconnus après neutralisation ; aucun secret ni domaine ; standard, confinement et limites : wp/outils/bascule/a21/README.md
+Magasin d’extensions A-21 : lecture directe de l’option native `woocommerce_helper_data` via `get_option()`, présence de `auth.access_token` seulement ; aucun appel à `WC_Helper::is_site_connected()`, aucune vérification distante.

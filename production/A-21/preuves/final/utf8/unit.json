@@ -29,6 +29,18 @@
             "status": "PASS"
         },
         {
+            "check": "literal_ipv4_ipv6_external_by_exact_host",
+            "status": "PASS"
+        },
+        {
+            "check": "literal_ipv6_string_not_dns_or_binary_equivalence",
+            "status": "PASS"
+        },
+        {
+            "check": "literal_ip_addresses_never_projected",
+            "status": "PASS"
+        },
+        {
             "check": "native_product_published_topic_preserved",
             "status": "PASS"
         },

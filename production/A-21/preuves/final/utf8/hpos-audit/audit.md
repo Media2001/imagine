@@ -183,8 +183,8 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         }
     ],
     "update_source": "local_cache_only_not_a_live_check",
-    "plugin_cache_checked_epoch": 1795690566,
-    "theme_cache_checked_epoch": 1795690566
+    "plugin_cache_checked_epoch": 1795698075,
+    "theme_cache_checked_epoch": 1795698075
 }
 ```
 
@@ -792,7 +792,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         },
         {
             "name": "wp_options",
-            "bytes": 1245184,
+            "bytes": 147456,
             "rows": 409,
             "ownership": "wordpress"
         },
@@ -810,7 +810,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         },
         {
             "name": "wp_posts",
-            "bytes": 147456,
+            "bytes": 98304,
             "rows": 23,
             "ownership": "wordpress"
         },
@@ -1079,7 +1079,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "ownership": "active_woocommerce"
         }
     ],
-    "total_bytes": 4259840,
+    "total_bytes": 3112960,
     "largest_autoload": [
         {
             "name": "a02_heavy_secret_setting",
@@ -1095,7 +1095,7 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
         },
         {
             "name": "cron",
-            "bytes": 2197
+            "bytes": 2216
         },
         {
             "name": "widget_block",
@@ -1259,43 +1259,43 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "hook": "a02_fixture_cron",
             "schedule": "daily",
             "count": 1,
-            "next_epoch": 1795694166
+            "next_epoch": 1795701675
         },
         {
             "hook": "action_scheduler_run_queue",
             "schedule": "every_minute",
             "count": 1,
-            "next_epoch": 1795690555
+            "next_epoch": 1795698065
         },
         {
             "hook": "do_pings",
             "schedule": "single",
             "count": 1,
-            "next_epoch": 1795690564
+            "next_epoch": 1795698073
         },
         {
             "hook": "jetpack_clean_nonces",
             "schedule": "hourly",
             "count": 1,
-            "next_epoch": 1795690559
+            "next_epoch": 1795698069
         },
         {
             "hook": "jetpack_v2_heartbeat",
             "schedule": "daily",
             "count": 1,
-            "next_epoch": 1795690559
+            "next_epoch": 1795698069
         },
         {
             "hook": "recovery_mode_clean_expired_keys",
             "schedule": "daily",
             "count": 1,
-            "next_epoch": 1795690555
+            "next_epoch": 1795698064
         },
         {
             "hook": "wc_admin_process_orders_milestone",
             "schedule": "hourly",
             "count": 1,
-            "next_epoch": 1795690559
+            "next_epoch": 1795698069
         },
         {
             "hook": "wc_memberships_jobs_cleanup",
@@ -1307,31 +1307,31 @@ Aucune valeur personnelle ou de reglage sensible. Inconnue signifie non observab
             "hook": "wp_privacy_delete_old_export_files",
             "schedule": "hourly",
             "count": 1,
-            "next_epoch": 1795690555
+            "next_epoch": 1795698064
         },
         {
             "hook": "wp_site_health_scheduled_check",
             "schedule": "weekly",
             "count": 1,
-            "next_epoch": 1795776955
+            "next_epoch": 1795784464
         },
         {
             "hook": "wp_update_plugins",
             "schedule": "twicedaily",
             "count": 1,
-            "next_epoch": 1795695955
+            "next_epoch": 1795703464
         },
         {
             "hook": "wp_update_themes",
             "schedule": "twicedaily",
             "count": 1,
-            "next_epoch": 1795697755
+            "next_epoch": 1795705264
         },
         {
             "hook": "wp_version_check",
             "schedule": "twicedaily",
             "count": 1,
-            "next_epoch": 1795694155
+            "next_epoch": 1795701664
         }
     ],
     "arguments_excluded": true

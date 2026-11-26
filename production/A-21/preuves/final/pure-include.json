@@ -1,28 +1,7 @@
 {
-  "checks": [
-    {
-      "check": "isolation",
-      "status": "PASS"
-    },
-    {
-      "check": "temporary_copy_two_files_only_pure_include",
-      "status": "PASS"
-    },
-    {
-      "check": "cleanup_exact_owned_runner",
-      "status": "PASS"
-    }
-  ],
-  "exit_code": 0,
-  "observation": {
-    "count": 15,
-    "green": true,
-    "no_output": true,
-    "no_native": true,
-    "no_report": true
-  },
-  "sources": {
-    "wp/tests/a21/unit.php": "31d089c0c4f6949f047044a9357d5166c28cf0fb3b16b677a77f2fd239b5f490",
-    "wp/outils/bascule/a21/Analysis.php": "073e0747ac4b9cb63fdfe93d7a8de1c98404c0bd01217b0d4be8afa6793cf90e"
-  }
+  "count": 18,
+  "green": true,
+  "quiet": true,
+  "files_unchanged": true,
+  "native_absent": true
 }

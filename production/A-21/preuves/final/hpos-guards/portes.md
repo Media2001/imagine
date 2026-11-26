@@ -7,7 +7,7 @@ Comptes seulement ; aucune révocation ni décision.
     "schema": "imagine-a21-external-doors-v1",
     "read_only": true,
     "storage": "hpos",
-    "as_of_utc": "2026-11-26T10:55:09Z",
+    "as_of_utc": "2026-11-26T12:59:44Z",
     "api_keys": {
         "status": "connu",
         "counts": {
@@ -53,7 +53,7 @@ Comptes seulement ; aucune révocation ni décision.
     "outbound_attempts": {
         "http": 1,
         "mail": 1,
-        "scheduled": 1
+        "scheduled": 5
     },
     "basis": {
         "keys": "Droits déclarés ; accès local au fuseau WordPress ; jamais et plus de douze mois disjoints.",
@@ -61,6 +61,6 @@ Comptes seulement ; aucune révocation ni décision.
         "topics": "Identifiants standard fermés ; sujets libres et actions personnalisées regroupés sous unknown.",
         "store": "Déclaration locale auth.access_token ; aucune vérification distante."
     },
-    "audit_sha256": "e4f03d41039d005800c268d64fe2e524207c8bafed059dafdf0cb4eee981d781"
+    "audit_sha256": "9a947669717615cc49dcc2dae45dfafa84631971ccc846c104745d5ab7db6131"
 }
 ```
