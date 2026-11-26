@@ -1,7 +1,7 @@
 """C24 : vrais formulaires C10/Mon compte, navigation Chromium et inverses ciblés."""
 import sys
 sys.dont_write_bytecode = True
-import json, hashlib, subprocess
+import json, hashlib, subprocess, os, uuid
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'outils/demo'))
@@ -26,7 +26,9 @@ def restore(before, ids, allowed_options):
     old={r['option_name']:r for r in before['options']}
     new={r['option_name']:r for r in current['options']}
     changed=[n for n in old.keys()|new.keys() if old.get(n)!=new.get(n)]
-    allowed=lambda n:n in allowed_options or n.startswith(('imagine_personnalisation_reserve_','imagine_c24_observation_','imagine_reglages_journal_','_transient_','_site_transient_'))
+    # C10 fait aussi réserver ses anciens identifiants C22 ; le lanceur AS peut
+    # rafraîchir son option-verrou sans traiter de tâche. Restaurer leurs octets observés.
+    allowed=lambda n:n in allowed_options or n=='action_scheduler_lock_async-request-runner' or n.startswith(('imagine_personnalisation_reserve_','imagine_newsletters_reserve_','imagine_c24_observation_','imagine_reglages_journal_','_transient_','_site_transient_'))
     # No reset: inverses only for the exact changed keys of this owned run.
     forbidden=[n for n in changed if not allowed(n)]
     assert not forbidden,'Options non attribuables : '+','.join(forbidden)
@@ -49,6 +51,12 @@ def run(label):
     accounts={'reader':fixture['A-PAPIER'],'other':fixture['A-SEPA4'],'sans':fixture['A-SANSMAIL'],'admin':fixture['E-ADMIN']}
     ids=list(accounts.values())
     before=snapshot(ids);native=c24.state()
+    # Snapshot durable AVANT la première session ; jamais dans le dépôt.
+    scratch=Path(os.environ['TMPDIR'])/('c24-http-'+uuid.uuid4().hex)
+    scratch.mkdir(mode=0o700);snapshot_path=scratch/'before.json'
+    snapshot_path.write_text(json.dumps({'scope':'imagine-test-demo','snapshot':before,'ids':ids,'native':native},ensure_ascii=False),encoding='utf-8')
+    os.chmod(snapshot_path,0o600)
+    assert json.loads(snapshot_path.read_text(encoding='utf-8'))['snapshot']==before
     account_path=wp('echo wp_json_encode(wp_parse_url(wc_get_page_permalink("myaccount"),PHP_URL_PATH));')
     old_catalogue=wp('echo wp_json_encode(Imagine\\Site\\Personnalisation::catalogue());')
     assert len(old_catalogue)==4
@@ -160,12 +168,22 @@ def run(label):
         error=type(exc).__name__+': '+str(exc)
     finally:
         observations=wp('''global $wpdb;$out=[];foreach($wpdb->get_results("SELECT option_value FROM {$wpdb->options} WHERE option_name LIKE 'imagine_c24_observation_%'",ARRAY_A) as $r){$out[]=maybe_unserialize($r['option_value']);}echo wp_json_encode($out);''')
-        assert c24.hashes([observer])[observer]==expected
-        p=subprocess.run(['wsl.exe','-d','Ubuntu','--','docker','exec','-i','--user','root','wp-imagine-test-demo','php'],input='<?php $p="/var/www/html/wp-content/'+observer+'";if(hash_file("sha256",$p)!=="'+expected+'")exit(3);if(!unlink($p))exit(4);echo "removed";',capture_output=True,text=True,encoding='utf-8')
-        assert p.returncode==0 and p.stdout=='removed',p.stderr
-        checks['instrumentation_retiree']=c24.hashes([observer])[observer] is None
-        changed=restore(before,ids,allowed_options);restored=True
-        checks['comptes_sessions_options_cache_actions_exacts']=snapshot(ids)==before and c24.state()==native
+        try:
+            assert c24.hashes([observer])[observer]==expected
+            p=subprocess.run(['wsl.exe','-d','Ubuntu','--','docker','exec','-i','--user','root','wp-imagine-test-demo','php'],input='<?php $p="/var/www/html/wp-content/'+observer+'";if(hash_file("sha256",$p)!=="'+expected+'")exit(3);if(!unlink($p))exit(4);echo "removed";',capture_output=True,text=True,encoding='utf-8')
+            assert p.returncode==0 and p.stdout=='removed',p.stderr
+            checks['instrumentation_retiree']=c24.hashes([observer])[observer] is None
+        except Exception as exc:
+            checks['instrumentation_retiree']=False
+            error=(error or '')+'; retrait observateur : '+type(exc).__name__+': '+str(exc)
+        changed=[]
+        try:
+            changed=restore(before,ids,allowed_options);restored=True
+        except Exception as exc:
+            error=(error or '')+'; restauration : '+type(exc).__name__+': '+str(exc)
+        checks['comptes_sessions_options_cache_actions_exacts']=restored and snapshot(ids)==before and c24.state()==native
+        if checks['comptes_sessions_options_cache_actions_exacts']:
+            snapshot_path.unlink();scratch.rmdir()
         checks['observation_non_vide']=len(observations)>20
         checks['aucun_mail_HTTP_tente']=bool(observations) and all(o['mail']==0 for o in observations)
         checks['HTTP_sortant_bloque']=bool(observations) and all(o['http']==o['http_blocked'] for o in observations)

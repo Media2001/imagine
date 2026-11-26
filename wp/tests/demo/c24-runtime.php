@@ -126,7 +126,9 @@ try {
     if ($mutation==='mail') { wp_mail('c24-fictif@example.org','FICTIF','FICTIF'); }
     if ($mutation==='http') { wp_remote_get('https://example.org/c24-fictif'); }
 } finally {
-    $wpdb->query('ROLLBACK');wp_cache_flush();wp_set_current_user($original);
+    $wpdb->query('ROLLBACK');
+    foreach ([$id,$other,$sans] as $uid) { wp_cache_delete($uid,'user_meta'); }
+    wp_set_current_user($original);
     remove_filter('pre_wp_mail',$fm,1);remove_filter('pre_http_request',$fh,1);
 }
 $checks['aucun_mail_tente']=$mail===0;$checks['aucun_http_tente']=$http===0;
