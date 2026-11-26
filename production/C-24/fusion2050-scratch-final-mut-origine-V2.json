@@ -1,0 +1,56 @@
+{
+  "at": "2026-11-26T20:52:26.466900+00:00",
+  "scope": "imagine-test-demo",
+  "case": "newsletter",
+  "mutation": "origine",
+  "mutation_replacements": 1,
+  "total": 12,
+  "checks": {
+    "preimage_reelle_presente": true,
+    "sanitize_callback_reel": true,
+    "newsletter_active_presente": true,
+    "vraie_creation_newsletter_defaut": true,
+    "vraie_creation_defaut_projection_fermee": false,
+    "origine_defaut_creation": false,
+    "origine_inconnue": false,
+    "origine_absente": false,
+    "origine_lecteur": true,
+    "lecteur_sans_consentement_ferme": true,
+    "aucun_mail": true,
+    "aucun_http": true
+  },
+  "failures": [
+    "vraie_creation_defaut_projection_fermee",
+    "origine_defaut_creation",
+    "origine_inconnue",
+    "origine_absente"
+  ],
+  "dies": [],
+  "journal_inserts_refused": 0,
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "exit": 1,
+  "stderr": "",
+  "state_preserved": true,
+  "all_business_rows_preserved": true,
+  "private_snapshot": {
+    "file": "b06-private-2789twiu/snapshot.json",
+    "sha256": "46dfc0afd3b2ead28478ce31cd3b6036000fc18ed702101badcbc6a34678d49d",
+    "private": true
+  },
+  "source_sha256": "3b10eb0140aa502303b04114bbf180bcf0c2f1050c3e7ca2ae38ac7a0e4e0e31",
+  "product_sources": {
+    "plugins/imagine-site/PersonnalisationRegles.php": "100fea3d108327455d050f15114dc225fbc8dbb09ab64e166945db5c43a174cc",
+    "plugins/imagine-site/Personnalisation.php": "649f66416bf27c0936db4b1341547b8636d713c5dba82d57d9b59f8e822728ce",
+    "plugins/imagine-site/PersonnalisationReglages.php": "c0ca6b7a6f7fdfe1c3e5ff92eb666b2fc37ffe820a7fa07b9bc8d38f8d42ad76",
+    "plugins/imagine-site/PersonnalisationConfidentialite.php": "4b101d16b0931950730168dbe785e3a7e0f2013b22833be659c52eb3128477b4"
+  }
+}

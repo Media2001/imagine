@@ -1,0 +1,381 @@
+get_plugins() – Function | Developer.WordPress.org
+Skip to content
+WordPress.org
+Showcase
+Plugins
+Themes
+Hosting
+News
+Resources
+Learn WordPress
+Documentation
+Education
+Forums
+Developers
+Blocks
+Patterns
+Photos
+Openverse
+↗
+︎
+WordPress.tv
+↗
+︎
+About
+About WordPress
+Make WordPress
+Events
+Five for the Future
+Enterprise
+Gutenberg
+↗
+︎
+Job Board
+↗
+︎
+Swag
+↗
+︎
+Get WordPress
+Search in WordPress.org
+Get WordPress
+WordPress.org
+WordPress Developer Resources
+get_plugins()
+Developer Blog
+Code Reference
+WP-CLI Commands
+Developer Blog
+Code Reference
+WP-CLI Commands
+Home
+Reference
+Functions
+get_plugins()
+Search
+get_plugins(
+string
+$plugin_folder
+=
+''
+):
+array[]
+In this article
+Table of Contents
+Description
+Parameters
+Return
+More Information
+Source
+Related
+Changelog
+User Contributed Notes
+Copy page
+View as Markdown
+Back to top
+Checks the plugins directory and retrieve all plugin files with plugin data.
+Description
+WordPress only supports plugin files in the base plugins directory (wp-content/plugins) and in one directory above the plugins directory (wp-content/plugins/my-plugin). The file it looks for has the plugin data and must be found in those two locations. It is recommended to keep your plugin files in their own directories.
+The file with the plugin data is the file that will be included and therefore needs to have the main execution for the plugin. This does not mean everything must be contained in the file and it is recommended that the file be split for maintainability. Keep everything in one file for extreme optimization purposes.
+Parameters
+$plugin_folder
+string
+optional
+Relative path to single plugin folder.
+Default:
+''
+Return
+array[]
+Array of arrays of plugin data, keyed by plugin file name. See
+get_plugin_data()
+.
+More Information
+If you have `
+PHP Fatal error: Call to undefined function get_plugins()
+` then you must include the file ‘
+wp-admin/includes/plugin.php
+‘ like in example.
+Results are cached on the first run of the function, therefore it is recommended to call the function at least after the ‘
+after_setup_theme
+‘ action so that plugins and themes have the ability to filter the results.
+Source
+function get_plugins( $plugin_folder = '' ) {
+
+	$cache_plugins = wp_cache_get( 'plugins', 'plugins' );
+	if ( ! $cache_plugins ) {
+		$cache_plugins = array();
+	}
+
+	if ( isset( $cache_plugins[ $plugin_folder ] ) ) {
+		return $cache_plugins[ $plugin_folder ];
+	}
+
+	$wp_plugins  = array();
+	$plugin_root = WP_PLUGIN_DIR;
+	if ( ! empty( $plugin_folder ) ) {
+		$plugin_root .= $plugin_folder;
+	}
+
+	// Files in wp-content/plugins directory.
+	$plugins_dir  = @opendir( $plugin_root );
+	$plugin_files = array();
+
+	if ( $plugins_dir ) {
+		while ( ( $file = readdir( $plugins_dir ) ) !== false ) {
+			if ( str_starts_with( $file, '.' ) ) {
+				continue;
+			}
+
+			if ( is_dir( $plugin_root . '/' . $file ) ) {
+				$plugins_subdir = @opendir( $plugin_root . '/' . $file );
+
+				if ( $plugins_subdir ) {
+					while ( ( $subfile = readdir( $plugins_subdir ) ) !== false ) {
+						if ( str_starts_with( $subfile, '.' ) ) {
+							continue;
+						}
+
+						if ( str_ends_with( $subfile, '.php' ) ) {
+							$plugin_files[] = "$file/$subfile";
+						}
+					}
+
+					closedir( $plugins_subdir );
+				}
+			} elseif ( str_ends_with( $file, '.php' ) ) {
+				$plugin_files[] = $file;
+			}
+		}
+
+		closedir( $plugins_dir );
+	}
+
+	if ( empty( $plugin_files ) ) {
+		return $wp_plugins;
+	}
+
+	foreach ( $plugin_files as $plugin_file ) {
+		if ( ! is_readable( "$plugin_root/$plugin_file" ) ) {
+			continue;
+		}
+
+		// Do not apply markup/translate as it will be cached.
+		$plugin_data = get_plugin_data( "$plugin_root/$plugin_file", false, false );
+
+		if ( empty( $plugin_data['Name'] ) ) {
+			continue;
+		}
+
+		$wp_plugins[ plugin_basename( $plugin_file ) ] = $plugin_data;
+	}
+
+	uasort( $wp_plugins, '_sort_uname_callback' );
+
+	$cache_plugins[ $plugin_folder ] = $wp_plugins;
+	wp_cache_set( 'plugins', $cache_plugins, 'plugins' );
+
+	return $wp_plugins;
+}
+View all references
+View on Trac
+View on GitHub
+Related
+Uses
+Description
+get_plugin_data()
+wp-admin/includes/plugin.php
+Parses the plugin contents to retrieve plugin’s metadata.
+wp_cache_set()
+wp-includes/cache.php
+Saves the data to the cache.
+plugin_basename()
+wp-includes/plugin.php
+Gets the basename of a plugin.
+wp_cache_get()
+wp-includes/cache.php
+Retrieves the cache contents from the cache by key and group.
+Show 1 more
+Show less
+Used by
+Description
+_wp_get_entity_view_config_posttype_wp_template()
+wp-includes/view-config.php
+Provides the view configuration for the
+wp_template
+post type.
+WP_Debug_Data::get_wp_plugins_raw_data()
+wp-admin/includes/class-wp-debug-data.php
+Gets the raw plugin data for the WordPress active and inactive sections of the debug data.
+WP_Plugin_Dependencies::get_plugins()
+wp-includes/class-wp-plugin-dependencies.php
+Gets data for installed plugins.
+WP_REST_Templates_Controller::get_wp_templates_author_text_field()
+wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php
+Returns a human readable text for the author of the template.
+wp_get_plugin_action_button()
+wp-admin/includes/plugin-install.php
+Gets the markup for the plugin install action button.
+WP_REST_Block_Directory_Controller::find_plugin_for_slug()
+wp-includes/rest-api/endpoints/class-wp-rest-block-directory-controller.php
+Finds an installed plugin for the given slug.
+WP_REST_Plugins_Controller::get_plugin_data()
+wp-includes/rest-api/endpoints/class-wp-rest-plugins-controller.php
+Gets the plugin header data for a plugin.
+WP_REST_Plugins_Controller::get_items()
+wp-includes/rest-api/endpoints/class-wp-rest-plugins-controller.php
+Retrieves a collection of plugins.
+Plugin_Installer_Skin::do_overwrite()
+wp-admin/includes/class-plugin-installer-skin.php
+Checks if the plugin can be overwritten and outputs the HTML for overwriting a plugin on upload.
+wp_ajax_toggle_auto_updates()
+wp-admin/includes/ajax-actions.php
+Handles enabling or disable plugin and theme auto-updates via AJAX.
+WP_Recovery_Mode_Email_Service::get_plugin()
+wp-includes/class-wp-recovery-mode-email-service.php
+Return the details for a single plugin based on the extension data from an error.
+WP_Site_Health::get_test_plugin_version()
+wp-admin/includes/class-wp-site-health.php
+Tests if plugins are outdated, or unnecessary.
+do_block_editor_incompatible_meta_box()
+wp-admin/includes/template.php
+Renders a “fake” meta box with an information message, shown on the block editor, when an incompatible meta box is found.
+_get_plugin_from_callback()
+wp-admin/includes/template.php
+Internal helper function to find the plugin from a meta box callback.
+wp_edit_theme_plugin_file()
+wp-admin/includes/file.php
+Attempts to edit a file for a theme or plugin.
+wp_ajax_update_plugin()
+wp-admin/includes/ajax-actions.php
+Handles updating a plugin via AJAX.
+Language_Pack_Upgrader::get_name_for_update()
+wp-admin/includes/class-language-pack-upgrader.php
+Gets the name of an item being updated.
+Plugin_Upgrader::plugin_info()
+wp-admin/includes/class-plugin-upgrader.php
+Retrieves the path to the file that contains the plugin info.
+WP_Plugins_List_Table::prepare_items()
+wp-admin/includes/class-wp-plugins-list-table.php
+Prepares the list of items for displaying.
+get_plugin_updates()
+wp-admin/includes/update.php
+Retrieves plugins with updates available.
+install_plugin_install_status()
+wp-admin/includes/plugin-install.php
+Determines the status we can perform on a plugin.
+wp_dashboard_plugins_output()
+wp-admin/includes/deprecated.php
+Display plugins text for the WordPress news widget.
+validate_plugin()
+wp-admin/includes/plugin.php
+Validates the plugin path.
+wp_link_manager_disabled_message()
+wp-admin/includes/bookmark.php
+Outputs the ‘disabled’ message for the WordPress Link Manager.
+wp_update_plugins()
+wp-includes/update.php
+Checks for available updates to plugins based on the latest versions hosted on WordPress.org.
+Show 20 more
+Show less
+Changelog
+Version
+Description
+1.5.0
+Introduced.
+User Contributed Notes
+Skip to note 3 content
+Codex
+11 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+6
+You must log in to vote on the helpfulness of this note
+Get All Plugins
+The following code snippet returns all plugins installed on your site (not just activated ones).
+<?php 
+
+// Check if get_plugins() function exists. This is required on the front end of the
+// site, since it is in a file that is normally only loaded in the admin.
+if ( ! function_exists( 'get_plugins' ) ) {
+	require_once ABSPATH . 'wp-admin/includes/plugin.php';
+}
+
+$all_plugins = get_plugins();
+
+// Save the data to the error log so you can see what the array format is like.
+error_log( print_r( $all_plugins, true ) );
+Example output:
+Array
+(
+    [hello-dolly/hello.php] => Array
+        (
+            [Name] => Hello Dolly
+            [PluginURI] =>
+https://wordpress.org/extend/plugins/hello-dolly/
+[Version] => 1.6
+            [Description] => This is not just a plugin, it symbolizes the hope and enthusiasm of an entire generation summed up in two words sung most famously by Louis Armstrong: Hello, Dolly. When activated you will randomly see a lyric from <cite>Hello, Dolly</cite> in the upper right of your admin screen on every page.
+            [Author] => Matt Mullenweg
+            [AuthorURI] =>
+http://ma.tt/
+[TextDomain] => 
+            [DomainPath] => 
+            [Network] => 
+            [Title] => Hello Dolly
+            [AuthorName] => Matt Mullenweg
+
+)
+Log in to add feedback
+Skip to note 4 content
+Stiofan
+8 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+2
+You must log in to vote on the helpfulness of this note
+Results are cached on the first run of the function, therefore
+it is recommended to call the function at least after the ‘after_setup_theme’
+action so that plugins and themes have the ability to filter the results.
+Log in to add feedback
+You must
+log in
+before being able to contribute a note or feedback.
+About
+News
+Hosting
+Privacy
+Showcase
+Themes
+Plugins
+Patterns
+Learn
+Documentation
+Developers
+WordPress.tv
+↗
+Get Involved
+Events
+Donate
+↗
+Swag
+↗
+WordPress.com
+↗
+Matt
+↗
+bbPress
+↗
+BuddyPress
+↗
+WordPress.org
+The WordPress® trademark is the intellectual property of the WordPress Foundation.
+Visit our X (formerly Twitter) account
+Visit our Bluesky account
+Visit our Mastodon account
+Visit our Threads account
+Visit our Facebook page
+Visit our Instagram account
+Visit our LinkedIn account
+Visit our TikTok account
+Visit our YouTube channel
+Visit our Tumblr account
+Code is Poetry

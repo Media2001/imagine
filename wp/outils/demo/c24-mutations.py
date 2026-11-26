@@ -5,6 +5,8 @@ import json,hashlib,runpy,os
 import c24
 
 def run(prefix):
+    from pathlib import Path
+    os.environ['TMPDIR']=str(Path(os.environ['LOCALAPPDATA'])/'hermes/cache/scratch')
     assert prefix.endswith('-V2')
     identity=c24.guard()
     m=runpy.run_path(str(c24.ROOT/'wp/tests/demo/c24-http.py'))

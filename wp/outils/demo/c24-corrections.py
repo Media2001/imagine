@@ -1,10 +1,12 @@
 """C24 fusion : reçus frais, snapshot durable et readbacks métier."""
 import sys
 sys.dont_write_bytecode=True
-import json,hashlib,runpy
+import json,hashlib,runpy,os
+from pathlib import Path
 import c24
 
 def run(case,label,mutation=''):
+    os.environ['TMPDIR']=str(Path(os.environ['LOCALAPPDATA'])/'hermes/cache/scratch')
     assert case in ['journal-question','journal-choix','newsletter']
     assert not (c24.PROOF/(label+'.json')).exists()
     identity=c24.guard()

@@ -1,10 +1,12 @@
 """Requalification des sept mutations natives C24 historiques, reçus neufs."""
 import sys
 sys.dont_write_bytecode=True
-import json,runpy
+import json,runpy,os
+from pathlib import Path
 import c24
 
 def run(prefix):
+    os.environ['TMPDIR']=str(Path(os.environ['LOCALAPPDATA'])/'hermes/cache/scratch')
     c24.guard()
     m=runpy.run_path(str(c24.ROOT/'wp/tests/demo/c24-http.py'))
     fixture=c24.wp('echo wp_json_encode(get_option("imagine_c09_fixture")["users"]);')

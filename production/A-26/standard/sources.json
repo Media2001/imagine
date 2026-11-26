@@ -1,0 +1,66 @@
+[
+  {
+    "name": "parse_blocks",
+    "url": "https://developer.wordpress.org/reference/functions/parse_blocks/",
+    "retrieved_utc": "2026-11-26T20:51:41.412136+00:00",
+    "source_sha256": "4ea20ea7d5382d0e80435e7250e48f96e4a8811da7968a65309c0a0e99d7c24b",
+    "text_sha256": "cc1a9ce2261616ec6c0b02d5ef7767254befaf4415b5bc6366af47323fbbd5d2",
+    "status": "retrieved"
+  },
+  {
+    "name": "get_shortcode_regex",
+    "url": "https://developer.wordpress.org/reference/functions/get_shortcode_regex/",
+    "retrieved_utc": "2026-11-26T20:51:42.372912+00:00",
+    "source_sha256": "a45b05ed5b7c91ab04ff99f963cbffac467f8aeab9258189933c1645cb01026e",
+    "text_sha256": "ef9834f68b0bb42fb6a2b81e495286b2349f388ac371b4cd265748cbe6b02806",
+    "status": "retrieved"
+  },
+  {
+    "name": "get_option",
+    "url": "https://developer.wordpress.org/reference/functions/get_option/",
+    "retrieved_utc": "2026-11-26T20:51:44.318548+00:00",
+    "source_sha256": "99a57d4fe0390e19546bccabbc6d579c8790c842739b845c0172b7efb33dca21",
+    "text_sha256": "79a4a425b5c4010f5965569308724b782db7b56c471c7f066c6a0d272b150784",
+    "status": "retrieved"
+  },
+  {
+    "name": "get_plugins",
+    "url": "https://developer.wordpress.org/reference/functions/get_plugins/",
+    "retrieved_utc": "2026-11-26T20:51:45.344505+00:00",
+    "source_sha256": "fe46c9882a789a25ea525eec96e4f0f6d0c54ee2cf5870db07930bad1eeaff91",
+    "text_sha256": "0276ab814a6e36bd935282050d00396ed38e6fee1554f9a2166c59fd95826054",
+    "status": "retrieved"
+  },
+  {
+    "name": "privacy",
+    "url": "https://developer.wordpress.org/plugins/privacy/",
+    "retrieved_utc": "2026-11-26T20:51:46.183934+00:00",
+    "source_sha256": "8ab696f16d4070be9fff387824f86cb9772fea8a818cc29c1ee8d6000dddba66",
+    "text_sha256": "66820d986628fe40eb9701c5bd689ab13ddf9c4fbd140a226c78981e59a7cdbd",
+    "status": "retrieved"
+  },
+  {
+    "name": "sitekit_settings",
+    "url": "https://raw.githubusercontent.com/google/site-kit-wp/develop/includes/Modules/Analytics_4/Settings.php",
+    "retrieved_utc": "2026-11-26T20:51:46.209350+00:00",
+    "source_sha256": "747409ddd35a9b5c3db658e4d9cea9e26171355b2abaabc053ab50f45e70aefd",
+    "text_sha256": "747409ddd35a9b5c3db658e4d9cea9e26171355b2abaabc053ab50f45e70aefd",
+    "status": "retrieved"
+  },
+  {
+    "name": "embeds",
+    "url": "https://wordpress.org/documentation/article/embeds/",
+    "retrieved_utc": "2026-11-26T20:51:47.021868+00:00",
+    "source_sha256": "9e3b4e4fcc7761e3bf1370bf31c2694b001931c999afdee2e3f02176a8ae58b6",
+    "text_sha256": "5d2ec24abfaa1b9e2c99d24b139bb337ee2f8e65dbba35eea31fddb8229beb19",
+    "status": "retrieved"
+  },
+  {
+    "name": "consent_api",
+    "url": "https://wordpress.org/plugins/wp-consent-api/",
+    "retrieved_utc": "2026-11-26T20:51:47.602948+00:00",
+    "source_sha256": "01b1ac33f7aad1226a665fb674db397168b25a08599ea4fccd77ead8c7304d43",
+    "text_sha256": "535842d71322d80d33a80868792319ce557778348b8b694e23be4e9fe391546f",
+    "status": "retrieved"
+  }
+]

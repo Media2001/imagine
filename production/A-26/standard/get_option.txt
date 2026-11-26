@@ -1,0 +1,1920 @@
+get_option() – Function | Developer.WordPress.org
+Skip to content
+WordPress.org
+Showcase
+Plugins
+Themes
+Hosting
+News
+Resources
+Learn WordPress
+Documentation
+Education
+Forums
+Developers
+Blocks
+Patterns
+Photos
+Openverse
+↗
+︎
+WordPress.tv
+↗
+︎
+About
+About WordPress
+Make WordPress
+Events
+Five for the Future
+Enterprise
+Gutenberg
+↗
+︎
+Job Board
+↗
+︎
+Swag
+↗
+︎
+Get WordPress
+Search in WordPress.org
+Get WordPress
+WordPress.org
+WordPress Developer Resources
+get_option()
+Developer Blog
+Code Reference
+WP-CLI Commands
+Developer Blog
+Code Reference
+WP-CLI Commands
+Home
+Reference
+Functions
+get_option()
+Search
+get_option(
+string
+$option
+,
+mixed
+$default_value
+=
+false
+):
+mixed
+In this article
+Table of Contents
+Description
+Parameters
+Return
+More Information
+Source
+Hooks
+Related
+Changelog
+User Contributed Notes
+Copy page
+View as Markdown
+Back to top
+Retrieves an option value based on an option name.
+Description
+If the option does not exist, and a default value is not provided, boolean false is returned. This could be used to check whether you need to initialize an option during installation of a plugin, however that can be done better by using
+add_option()
+which will not overwrite existing options.
+Not initializing an option and using boolean
+false
+as a return value is a bad practice as it triggers an additional database query.
+The type of the returned value can be different from the type that was passed when saving or updating the option. If the option value was serialized, then it will be unserialized when it is returned. In this case the type will be the same. For example, storing a non-scalar value like an array will return the same array.
+In most cases non-string scalar and null values will be converted and returned as string equivalents.
+Exceptions:
+When the option has not been saved in the database, the
+$default_value
+value is returned if provided. If not, boolean
+false
+is returned.
+When one of the Options API filters is used:
+‘pre_option_$option’
+,
+‘default_option_$option’
+, or
+‘option_$option’
+, the returned value may not match the expected type.
+When the option has just been saved in the database, and
+get_option()
+is used right after, non-string scalar and null values are not converted to string equivalents and the original type is returned.
+Examples:
+When adding options like this:
+add_option( 'my_option_name', 'value' )
+and then retrieving them with
+get_option( 'my_option_name' )
+, the returned values will be:
+false
+returns
+string(0) ""
+true
+returns
+string(1) "1"
+0
+returns
+string(1) "0"
+1
+returns
+string(1) "1"
+'0'
+returns
+string(1) "0"
+'1'
+returns
+string(1) "1"
+null
+returns
+string(0) ""
+When adding options with non-scalar values like
+add_option( 'my_array', array( false, 'str', null ) )
+, the returned value will be identical to the original as it is serialized before saving it in the database:
+array(3) {
+    [0] => bool(false)
+    [1] => string(3) "str"
+    [2] => NULL
+}
+Parameters
+$option
+string
+required
+Name of the option to retrieve. Expected to not be SQL-escaped.
+$default_value
+mixed
+optional
+Default value to return if the option does not exist.
+Default:
+false
+Return
+mixed
+Value of the option. A value of any type may be returned, including               scalar (string, boolean, float, integer), null, array, object.
+Scalar and null values will be returned as strings as long as they originate               from a database stored option value. If there is no option in the database,               boolean
+false
+is returned.
+More Information
+A concise list of commonly-used options is below.
+'admin_email'
+– E-mail address of blog administrator.
+'blogname'
+– Weblog title; set in General Settings.
+'blogdescription'
+– Tagline for your blog; set in General Settings.
+'blog_charset'
+– Character encoding for your blog; set in Reading Settings.
+'date_format'
+– Default date format; set in General Settings.
+'default_category'
+– Default post category; set in Writing Settings.
+'home'
+– The blog’s home web address; set in General Settings.
+'posts_per_page'
+– Maximum number of posts to show on a page; set in Reading Settings.
+'posts_per_rss'
+– Maximum number of most recent posts to show in the syndication feed; set in Reading Settings.
+'siteurl'
+– WordPress web address; set in General Settings. Warning: This is not the same as
+get_bloginfo( 'url' )
+(which will return the homepage url), but as get_bloginfo( ‘wpurl’ ).
+'template'
+– The current theme’s name.
+'start_of_week'
+– Day of week calendar should start on; set in General Settings.
+'upload_path'
+– Default upload location; set in Media Settings.
+'users_can_register'
+– Whether users can register; set in General Settings.
+There are many more options available, a lot of which depend on what plugins you have installed.
+Source
+function get_option( $option, $default_value = false ) {
+	global $wpdb;
+
+	if ( is_scalar( $option ) ) {
+		$option = trim( $option );
+	}
+
+	if ( empty( $option ) ) {
+		return false;
+	}
+
+	/*
+	 * Until a proper _deprecated_option() function can be introduced,
+	 * redirect requests to deprecated keys to the new, correct ones.
+	 */
+	$deprecated_keys = array(
+		'blacklist_keys'    => 'disallowed_keys',
+		'comment_whitelist' => 'comment_previously_approved',
+	);
+
+	if ( isset( $deprecated_keys[ $option ] ) && ! wp_installing() ) {
+		_deprecated_argument(
+			__FUNCTION__,
+			'5.5.0',
+			sprintf(
+				/* translators: 1: Deprecated option key, 2: New option key. */
+				__( 'The "%1$s" option key has been renamed to "%2$s".' ),
+				$option,
+				$deprecated_keys[ $option ]
+			)
+		);
+		return get_option( $deprecated_keys[ $option ], $default_value );
+	}
+
+	/**
+	 * Filters the value of an existing option before it is retrieved.
+	 *
+	 * The dynamic portion of the hook name, `$option`, refers to the option name.
+	 *
+	 * Returning a value other than false from the filter will short-circuit retrieval
+	 * and return that value instead.
+	 *
+	 * @since 1.5.0
+	 * @since 4.4.0 The `$option` parameter was added.
+	 * @since 4.9.0 The `$default_value` parameter was added.
+	 *
+	 * @param mixed  $pre_option    The value to return instead of the option value. This differs from
+	 *                              `$default_value`, which is used as the fallback value in the event
+	 *                              the option doesn't exist elsewhere in get_option().
+	 *                              Default false (to skip past the short-circuit).
+	 * @param string $option        Option name.
+	 * @param mixed  $default_value The fallback value to return if the option does not exist.
+	 *                              Default false.
+	 */
+	$pre = apply_filters( "pre_option_{$option}", false, $option, $default_value );
+
+	/**
+	 * Filters the value of any existing option before it is retrieved.
+	 *
+	 * Returning a value other than false from the filter will short-circuit retrieval
+	 * and return that value instead.
+	 *
+	 * @since 6.1.0
+	 *
+	 * @param mixed  $pre_option    The value to return instead of the option value. This differs from
+	 *                              `$default_value`, which is used as the fallback value in the event
+	 *                              the option doesn't exist elsewhere in get_option().
+	 *                              Default false (to skip past the short-circuit).
+	 * @param string $option        Name of the option.
+	 * @param mixed  $default_value The fallback value to return if the option does not exist.
+	 *                              Default false.
+	 */
+	$pre = apply_filters( 'pre_option', $pre, $option, $default_value );
+
+	if ( false !== $pre ) {
+		return $pre;
+	}
+
+	if ( defined( 'WP_SETUP_CONFIG' ) ) {
+		return false;
+	}
+
+	// Distinguish between `false` as a default, and not passing one.
+	$passed_default = func_num_args() > 1;
+
+	if ( ! wp_installing() ) {
+		$alloptions = wp_load_alloptions();
+		/*
+		 * When getting an option value, we check in the following order for performance:
+		 *
+		 * 1. Check the 'alloptions' cache first to prioritize existing loaded options.
+		 * 2. Check the 'notoptions' cache before a cache lookup or DB hit.
+		 * 3. Check the 'options' cache prior to a DB hit.
+		 * 4. Check the DB for the option and cache it in either the 'options' or 'notoptions' cache.
+		 */
+		if ( isset( $alloptions[ $option ] ) ) {
+			$value = $alloptions[ $option ];
+		} else {
+			// Check for non-existent options first to avoid unnecessary object cache lookups and DB hits.
+			$notoptions = wp_cache_get( 'notoptions', 'options' );
+
+			if ( ! is_array( $notoptions ) ) {
+				$notoptions = array();
+				wp_cache_set( 'notoptions', $notoptions, 'options' );
+			}
+
+			if ( isset( $notoptions[ $option ] ) ) {
+				/**
+				 * Filters the default value for an option.
+				 *
+				 * The dynamic portion of the hook name, `$option`, refers to the option name.
+				 *
+				 * @since 3.4.0
+				 * @since 4.4.0 The `$option` parameter was added.
+				 * @since 4.7.0 The `$passed_default` parameter was added to distinguish between a `false` value and the default parameter value.
+				 *
+				 * @param mixed  $default_value  The default value to return if the option does not exist
+				 *                               in the database.
+				 * @param string $option         Option name.
+				 * @param bool   $passed_default Was `get_option()` passed a default value?
+				 */
+				return apply_filters( "default_option_{$option}", $default_value, $option, $passed_default );
+			}
+
+			$value = wp_cache_get( $option, 'options' );
+
+			if ( false === $value ) {
+
+				$row = $wpdb->get_row( $wpdb->prepare( "SELECT option_value FROM $wpdb->options WHERE option_name = %s LIMIT 1", $option ) );
+
+				// Has to be get_row() instead of get_var() because of funkiness with 0, false, null values.
+				if ( is_object( $row ) ) {
+					$value = $row->option_value;
+					wp_cache_add( $option, $value, 'options' );
+				} else { // Option does not exist, so we must cache its non-existence.
+					$notoptions[ $option ] = true;
+					wp_cache_set( 'notoptions', $notoptions, 'options' );
+
+					/** This filter is documented in wp-includes/option.php */
+					return apply_filters( "default_option_{$option}", $default_value, $option, $passed_default );
+				}
+			}
+		}
+	} else {
+		$suppress = $wpdb->suppress_errors();
+		$row      = $wpdb->get_row( $wpdb->prepare( "SELECT option_value FROM $wpdb->options WHERE option_name = %s LIMIT 1", $option ) );
+		$wpdb->suppress_errors( $suppress );
+
+		if ( is_object( $row ) ) {
+			$value = $row->option_value;
+		} else {
+			/** This filter is documented in wp-includes/option.php */
+			return apply_filters( "default_option_{$option}", $default_value, $option, $passed_default );
+		}
+	}
+
+	// If home is not set, use siteurl.
+	if ( 'home' === $option && '' === $value ) {
+		return get_option( 'siteurl' );
+	}
+
+	if ( in_array( $option, array( 'siteurl', 'home', 'category_base', 'tag_base' ), true ) ) {
+		$value = untrailingslashit( $value );
+	}
+
+	/**
+	 * Filters the value of an existing option.
+	 *
+	 * The dynamic portion of the hook name, `$option`, refers to the option name.
+	 *
+	 * @since 1.5.0 As `option_{$setting}`.
+	 * @since 3.0.0
+	 * @since 4.4.0 The `$option` parameter was added.
+	 *
+	 * @param mixed  $value  Value of the option. If stored serialized, it will be
+	 *                       unserialized prior to being returned.
+	 * @param string $option Option name.
+	 */
+	return apply_filters( "option_{$option}", maybe_unserialize( $value ), $option );
+}
+View all references
+View on Trac
+View on GitHub
+Hooks
+apply_filters
+( “default_option_{$option}”,
+mixed
+$default_value
+,
+string
+$option
+,
+bool
+$passed_default
+)
+Filters the default value for an option.
+apply_filters
+( “option_{$option}”,
+mixed
+$value
+,
+string
+$option
+)
+Filters the value of an existing option.
+apply_filters
+( ‘pre_option’,
+mixed
+$pre_option
+,
+string
+$option
+,
+mixed
+$default_value
+)
+Filters the value of any existing option before it is retrieved.
+apply_filters
+( “pre_option_{$option}”,
+mixed
+$pre_option
+,
+string
+$option
+,
+mixed
+$default_value
+)
+Filters the value of an existing option before it is retrieved.
+Related
+Uses
+Description
+wp_installing()
+wp-includes/load.php
+Checks or sets whether WordPress is in “installation” mode.
+wp_cache_set()
+wp-includes/cache.php
+Saves the data to the cache.
+wp_cache_add()
+wp-includes/cache.php
+Adds data to the cache, if the cache key doesn’t already exist.
+untrailingslashit()
+wp-includes/formatting.php
+Removes trailing forward slashes and backslashes if they exist.
+maybe_unserialize()
+wp-includes/functions.php
+Unserializes data only if it was serialized.
+wp_load_alloptions()
+wp-includes/option.php
+Loads and caches all autoloaded options, if available or all options.
+wpdb::get_row()
+wp-includes/class-wpdb.php
+Retrieves one row from the database.
+wpdb::suppress_errors()
+wp-includes/class-wpdb.php
+Enables or disables suppressing of database errors.
+wp_cache_get()
+wp-includes/cache.php
+Retrieves the cache contents from the cache by key and group.
+__()
+wp-includes/l10n.php
+Retrieves the translation of $text.
+_deprecated_argument()
+wp-includes/functions.php
+Marks a function argument as deprecated and inform when it has been used.
+apply_filters()
+wp-includes/plugin.php
+Calls the callback functions that have been added to a filter hook.
+get_option()
+wp-includes/option.php
+Retrieves an option value based on an option name.
+wpdb::prepare()
+wp-includes/class-wpdb.php
+Prepares a SQL query for safe execution.
+Show 9 more
+Show less
+Used by
+Description
+_reset_privacy_policy_page_for_post()
+wp-includes/post.php
+Resets the Privacy Policy page ID option when the Privacy Policy page is permanently deleted, to prevent uncached database queries for a non-existent page.
+wp_connectors_sanitize_application_password_credentials()
+wp-includes/connectors.php
+Sanitizes stored application-password credentials for a connector.
+wp_connectors_get_application_password_credentials()
+wp-includes/connectors.php
+Resolves application-password credentials for a connector.
+wp_notify_note_mentions()
+wp-includes/comment.php
+Notifies mentioned users about a new note.
+wp_send_note_notification()
+wp-includes/comment.php
+Sends a single note mention notification email.
+_wp_connectors_pass_default_keys_to_ai_client()
+wp-includes/connectors.php
+Passes stored connector API keys to the WP AI client.
+_wp_connectors_get_api_key_source()
+wp-includes/connectors.php
+Determines the source of an API key for a given connector.
+WP_Site_Health::get_test_insecure_registration()
+wp-admin/includes/class-wp-site-health.php
+Tests if registration is open to everyone and the default role is privileged.
+WP_Debug_Data::get_wp_core()
+wp-admin/includes/class-wp-debug-data.php
+Gets the WordPress core section of the debug data.
+WP_Site_Health::get_test_search_engine_visibility()
+wp-admin/includes/class-wp-site-health.php
+Tests whether search engine indexing is enabled.
+wp_get_speculation_rules_configuration()
+wp-includes/speculative-loading.php
+Returns the speculation rules configuration.
+wp_get_speculation_rules()
+wp-includes/speculative-loading.php
+Returns the full speculation rules data based on the configuration.
+is_utf8_charset()
+wp-includes/functions.php
+Indicates if a given slug for a character set represents the UTF-8 text encoding. If not provided, examines the current blog’s charset.
+wp_get_plugin_action_button()
+wp-admin/includes/plugin-install.php
+Gets the markup for the plugin install action button.
+get_options()
+wp-includes/option.php
+Retrieves multiple options.
+wp_delete_all_temp_backups()
+wp-includes/update.php
+Schedules the removal of all contents in the temporary backup directory.
+IXR_Server::output()
+wp-includes/IXR/class-IXR-server.php
+_resolve_home_block_template()
+wp-includes/deprecated.php
+Returns the correct template for the site’s home page.
+build_comment_query_vars_from_block()
+wp-includes/blocks.php
+Helper function that constructs a comment query vars array from the passed block properties.
+WP_REST_Server::add_site_icon_to_index()
+wp-includes/rest-api/class-wp-rest-server.php
+Exposes the site icon through the WordPress REST API.
+WP_REST_Menus_Controller::get_menu_auto_add()
+wp-includes/rest-api/endpoints/class-wp-rest-menus-controller.php
+Returns the value of a menu’s auto_add setting.
+WP_REST_Menus_Controller::handle_auto_add()
+wp-includes/rest-api/endpoints/class-wp-rest-menus-controller.php
+Updates the menu’s auto add from a REST request.
+get_block_editor_settings()
+wp-includes/block-editor.php
+Returns the contextualized block editor settings for a selected editor context.
+get_default_block_editor_settings()
+wp-includes/block-editor.php
+Returns the default block editor settings.
+build_query_vars_from_query_block()
+wp-includes/blocks.php
+Helper function that constructs a
+WP_Query
+args array from a
+Query
+block properties.
+deactivated_plugins_notice()
+wp-admin/includes/plugin.php
+Renders an admin notice when a plugin was deactivated during an update.
+wp_robots_noindex()
+wp-includes/robots-template.php
+Adds
+noindex
+to the robots meta tag if required by the site configuration.
+wp_robots_no_robots()
+wp-includes/robots-template.php
+Adds
+noindex
+to the robots meta tag.
+wp_robots_max_image_preview_large()
+wp-includes/robots-template.php
+Adds
+max-image-preview:large
+to the robots meta tag.
+wp_is_site_url_using_https()
+wp-includes/https-detection.php
+Checks whether the current site’s URL where WordPress is stored is using HTTPS.
+wp_should_replace_insecure_home_url()
+wp-includes/https-migration.php
+Checks whether WordPress should replace old HTTP URLs to the site with their HTTPS counterpart.
+wp_update_urls_to_https()
+wp-includes/https-migration.php
+Update the ‘home’ and ‘siteurl’ option to use the HTTPS variant of their URL.
+wp_update_https_migration_required()
+wp-includes/https-migration.php
+Updates the ‘https_migration_required’ option if needed when the given URL has been updated from HTTP to HTTPS.
+get_media_states()
+wp-admin/includes/template.php
+Retrieves an array of media states from an attachment.
+_wp_batch_update_comment_type()
+wp-includes/comment.php
+Updates the comment type for a batch of comments.
+wp_check_comment_disallowed_list()
+wp-includes/comment.php
+Checks if a comment contains disallowed characters or words.
+WP_Sitemaps::sitemaps_enabled()
+wp-includes/sitemaps/class-wp-sitemaps.php
+Determines whether sitemaps are enabled or not.
+WP_Sitemaps_Posts::get_url_list()
+wp-includes/sitemaps/providers/class-wp-sitemaps-posts.php
+Gets a URL list for a post type sitemap.
+WP_Sitemaps_Posts::get_max_num_pages()
+wp-includes/sitemaps/providers/class-wp-sitemaps-posts.php
+Gets the max number of pages available for the object type.
+WP_Automatic_Updater::send_plugin_theme_email()
+wp-admin/includes/class-wp-automatic-updater.php
+Sends an email upon the completion or failure of a plugin or theme background update.
+wp_timezone_string()
+wp-includes/functions.php
+Retrieves the timezone of the site as a string.
+wp_get_registered_image_subsizes()
+wp-includes/media.php
+Returns a normalized list of all currently registered image sub-sizes.
+get_post_states()
+wp-admin/includes/template.php
+Retrieves an array of post states from a post.
+WP_Recovery_Mode_Key_Service::get_keys()
+wp-includes/class-wp-recovery-mode-key-service.php
+Gets the recovery key records.
+WP_Recovery_Mode_Email_Service::maybe_send_recovery_mode_email()
+wp-includes/class-wp-recovery-mode-email-service.php
+Sends the recovery mode email if the rate limit has not been sent.
+WP_Recovery_Mode_Email_Service::send_recovery_mode_email()
+wp-includes/class-wp-recovery-mode-email-service.php
+Sends the Recovery Mode email to the site admin email address.
+WP_Recovery_Mode_Email_Service::get_recovery_mode_email_address()
+wp-includes/class-wp-recovery-mode-email-service.php
+Gets the email address to send the recovery mode link to.
+WP_Query::is_privacy_policy()
+wp-includes/class-wp-query.php
+Determines whether the query is for the Privacy Policy page.
+WP_Paused_Extensions_Storage::set()
+wp-includes/class-wp-paused-extensions-storage.php
+Records an extension error.
+WP_Paused_Extensions_Storage::delete()
+wp-includes/class-wp-paused-extensions-storage.php
+Forgets a previously recorded extension error.
+WP_Paused_Extensions_Storage::get_all()
+wp-includes/class-wp-paused-extensions-storage.php
+Gets the paused extensions with their errors.
+WP_Paused_Extensions_Storage::delete_all()
+wp-includes/class-wp-paused-extensions-storage.php
+Remove all paused extensions.
+populate_network_meta()
+wp-admin/includes/schema.php
+Creates WordPress network meta and sets the default values.
+wp_check_term_meta_support_prefilter()
+wp-includes/taxonomy.php
+Aborts calls to term meta if it is not supported.
+wp_default_packages_vendor()
+wp-includes/script-loader.php
+Registers all the WordPress vendor scripts that are in the standardized
+js/dist/vendor/
+location.
+wp_default_packages_inline_scripts()
+wp-includes/script-loader.php
+Adds inline scripts required for the WordPress JavaScript packages.
+_wp_privacy_send_request_confirmation_notification()
+wp-includes/user.php
+Notifies the site administrator via email when a request is confirmed.
+_wp_privacy_send_erasure_fulfillment_notification()
+wp-includes/user.php
+Notifies the user when their erasure request is fulfilled.
+wp_send_user_request()
+wp-includes/user.php
+Send a confirmation request email to confirm an action.
+get_the_privacy_policy_link()
+wp-includes/link-template.php
+Returns the privacy policy link with formatting, when applicable.
+get_privacy_policy_url()
+wp-includes/link-template.php
+Retrieves the URL to the privacy policy page.
+WP_Privacy_Policy_Content::get_suggested_policy_text()
+wp-admin/includes/class-wp-privacy-policy-content.php
+Checks for updated, added or removed privacy policy information from plugins.
+WP_Privacy_Policy_Content::notice()
+wp-admin/includes/class-wp-privacy-policy-content.php
+Adds a notice with a link to the guide when editing the privacy policy page.
+WP_Privacy_Policy_Content::text_change_check()
+wp-admin/includes/class-wp-privacy-policy-content.php
+Performs a quick check to determine whether any privacy info has changed.
+WP_Privacy_Policy_Content::_policy_page_updated()
+wp-admin/includes/class-wp-privacy-policy-content.php
+Updates the cached policy info when the policy page is updated.
+wp_privacy_send_personal_data_export_email()
+wp-admin/includes/privacy-tools.php
+Send an email to the user with a link to the personal data export file
+WP_Customize_Manager::get_lock_user_data()
+wp-includes/class-wp-customize-manager.php
+Gets lock user data.
+WP_Roles::get_roles_data()
+wp-includes/class-wp-roles.php
+Gets the available roles data.
+_wp_menus_changed()
+wp-includes/nav-menu.php
+Handles menu config after theme change.
+wp_site_admin_email_change_notification()
+wp-includes/functions.php
+Sends an email to the old site admin email address when the site admin email address changes.
+WP_Customize_Date_Time_Control::content_template()
+wp-includes/customize/class-wp-customize-date-time-control.php
+Renders a JS template for the content of date time control.
+WP_Customize_Date_Time_Control::get_timezone_info()
+wp-includes/customize/class-wp-customize-date-time-control.php
+Get timezone info.
+wp_edit_theme_plugin_file()
+wp-admin/includes/file.php
+Attempts to edit a file for a theme or plugin.
+wp_localize_community_events()
+wp-includes/script-loader.php
+Localizes community events data that needs to be passed to dashboard.js.
+WP_Community_Events::format_event_data_time()
+wp-admin/includes/class-wp-community-events.php
+Adds formatted date and time items for each event in an API response.
+WP_Customize_Manager::update_stashed_theme_mod_settings()
+wp-includes/class-wp-customize-manager.php
+Updates stashed theme mod settings.
+WP_Customize_Manager::import_theme_starter_content()
+wp-includes/class-wp-customize-manager.php
+Imports theme starter content into the customized state.
+WP_REST_Users_Controller::get_item_schema()
+wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php
+Retrieves the user’s schema, conforming to JSON Schema.
+WP_REST_Settings_Controller::get_item()
+wp-includes/rest-api/endpoints/class-wp-rest-settings-controller.php
+Retrieves the settings.
+WP_REST_Settings_Controller::update_item()
+wp-includes/rest-api/endpoints/class-wp-rest-settings-controller.php
+Updates settings for the settings object.
+WP_REST_Posts_Controller::prepare_item_for_response()
+wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php
+Prepares a single post output for response.
+WP_REST_Posts_Controller::get_items()
+wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php
+Retrieves a collection of posts.
+WP_REST_Comments_Controller::get_item_schema()
+wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php
+Retrieves the comment’s schema, conforming to JSON Schema.
+WP_REST_Comments_Controller::create_item_permissions_check()
+wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php
+Checks if a given request has access to create a comment.
+WP_REST_Comments_Controller::create_item()
+wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php
+Creates a comment.
+WP_Taxonomy::set_props()
+wp-includes/class-wp-taxonomy.php
+Sets taxonomy properties.
+WP_Taxonomy::add_rewrite_rules()
+wp-includes/class-wp-taxonomy.php
+Adds the necessary rewrite rules for the taxonomy.
+wp_localize_jquery_ui_datepicker()
+wp-includes/script-loader.php
+Localizes the jQuery UI datepicker.
+WP_Post_Type::add_rewrite_rules()
+wp-includes/class-wp-post-type.php
+Adds the necessary rewrite rules for the post type.
+WP_Post_Type::set_props()
+wp-includes/class-wp-post-type.php
+Sets post type properties.
+WP_Site::get_details()
+wp-includes/class-wp-site.php
+Retrieves the details for this site.
+wp_get_canonical_url()
+wp-includes/link-template.php
+Returns the canonical URL for a post.
+get_custom_logo()
+wp-includes/general-template.php
+Returns a custom logo, linked to home unless the theme supports removing the link on the home page.
+WP_REST_Request::from_url()
+wp-includes/rest-api/class-wp-rest-request.php
+Retrieves a
+WP_REST_Request
+object from a full URL.
+_wp_upload_dir()
+wp-includes/functions.php
+A non-filtered, non-cached version of
+wp_upload_dir()
+that doesn’t check the path.
+WP_Upgrader::create_lock()
+wp-admin/includes/class-wp-upgrader.php
+Creates a lock using WordPress options.
+get_rest_url()
+wp-includes/rest-api.php
+Retrieves the URL to a REST endpoint on a site.
+_oembed_rest_pre_serve_request()
+wp-includes/embed.php
+Hooks into the REST API output to print XML instead of JSON.
+get_post_embed_url()
+wp-includes/embed.php
+Retrieves the URL to embed a specific post in an iframe.
+WP_Customize_Manager::customize_pane_settings()
+wp-includes/class-wp-customize-manager.php
+Prints JavaScript settings for parent window.
+WP_Customize_Setting::get_root_value()
+wp-includes/class-wp-customize-setting.php
+Get the root value for a setting, especially for multidimensional ones.
+wp_term_is_shared()
+wp-includes/taxonomy.php
+Determines whether a term is shared between multiple taxonomies.
+WP_REST_Request::get_params()
+wp-includes/rest-api/class-wp-rest-request.php
+Retrieves merged parameters from the request.
+WP_REST_Server::get_index()
+wp-includes/rest-api/class-wp-rest-server.php
+Retrieves the site index.
+WP_REST_Server::serve_request()
+wp-includes/rest-api/class-wp-rest-server.php
+Handles serving a REST API request.
+wp_handle_comment_submission()
+wp-includes/comment.php
+Handles the submission of a comment, usually posted to wp-comments-post.php via a comment form.
+wp_new_comment_notify_postauthor()
+wp-includes/comment.php
+Sends a notification of a new comment to the post author.
+get_network_option()
+wp-includes/option.php
+Retrieves a network’s option value based on the option name.
+WP_Screen::render_meta_boxes_preferences()
+wp-admin/includes/class-wp-screen.php
+Renders the meta boxes preferences.
+wp_ajax_delete_inactive_widgets()
+wp-admin/includes/ajax-actions.php
+Handles removing inactive widgets via AJAX.
+WP_Customize_Nav_Menu_Setting::update()
+wp-includes/customize/class-wp-customize-nav-menu-setting.php
+Create/update the nav_menu term for this setting.
+WP_Customize_Nav_Menu_Setting::value()
+wp-includes/customize/class-wp-customize-nav-menu-setting.php
+Get the instance data for a given widget setting.
+_wp_batch_split_terms()
+wp-includes/taxonomy.php
+Splits a batch of shared taxonomy terms.
+get_language_attributes()
+wp-includes/general-template.php
+Gets the language attributes for the ‘html’ tag.
+get_site_icon_url()
+wp-includes/general-template.php
+Returns the Site Icon URL.
+format_for_editor()
+wp-includes/formatting.php
+Formats text for the editor.
+get_default_comment_status()
+wp-includes/comment.php
+Gets the default comment status for a post type.
+WP_Customize_Nav_Menus::search_available_items_query()
+wp-includes/class-wp-customize-nav-menus.php
+Performs post queries for available-item searching.
+WP_Customize_Nav_Menus::customize_register()
+wp-includes/class-wp-customize-nav-menus.php
+Adds the customizer settings and controls.
+WP_Customize_Nav_Menus::load_available_items_query()
+wp-includes/class-wp-customize-nav-menus.php
+Performs the post_type and taxonomy queries for loading available menu items.
+wp_resolve_numeric_slug_conflicts()
+wp-includes/rewrite.php
+Resolves numeric slugs that collide with date permalinks.
+WP_MS_Themes_List_Table::column_name()
+wp-admin/includes/class-wp-ms-themes-list-table.php
+Handles the name column output.
+WP_Site_Icon::delete_attachment_data()
+wp-admin/includes/class-wp-site-icon.php
+Deletes the Site Icon when the image file is deleted.
+WP_Site_Icon::get_post_metadata()
+wp-admin/includes/class-wp-site-icon.php
+Adds custom image sizes when meta data for an image is requested, that happens to be used as Site Icon.
+WP_MS_Sites_List_Table::column_blogname()
+wp-admin/includes/class-wp-ms-sites-list-table.php
+Handles the site name column output.
+WP_Customize_Manager::unsanitized_post_values()
+wp-includes/class-wp-customize-manager.php
+Gets dirty pre-sanitized setting values in the current customized state.
+wp_get_split_terms()
+wp-includes/taxonomy.php
+Gets data about terms that previously shared a single term_id, but have since been split.
+get_avatar_data()
+wp-includes/link-template.php
+Retrieves default data about the avatar.
+wp_install_maybe_enable_pretty_permalinks()
+wp-admin/includes/upgrade.php
+Maybe enable pretty permalinks on installation.
+retrieve_password()
+wp-includes/user.php
+Handles sending a password retrieval email to a user.
+trackback_response()
+wp-trackback.php
+Response to a trackback.
+allow_subdomain_install()
+wp-admin/includes/network.php
+Allow subdomain installation
+get_clean_basedomain()
+wp-admin/includes/network.php
+Get base domain of network.
+network_step1()
+wp-admin/includes/network.php
+Prints step 1 for Network installation process.
+network_step2()
+wp-admin/includes/network.php
+Prints step 2 for Network installation process.
+WP_Automatic_Updater::send_email()
+wp-admin/includes/class-wp-automatic-updater.php
+Sends an email upon the completion or failure of a background core update.
+Plugin_Upgrader::bulk_upgrade()
+wp-admin/includes/class-plugin-upgrader.php
+Upgrades several plugins at once.
+Theme_Upgrader::upgrade()
+wp-admin/includes/class-theme-upgrader.php
+Upgrades a theme.
+Theme_Upgrader::bulk_upgrade()
+wp-admin/includes/class-theme-upgrader.php
+Upgrades several themes at once.
+Plugin_Upgrader::upgrade()
+wp-admin/includes/class-plugin-upgrader.php
+Upgrades a plugin.
+WP_Plugins_List_Table::prepare_items()
+wp-admin/includes/class-wp-plugins-list-table.php
+Prepares the list of items for displaying.
+export_wp()
+wp-admin/includes/export.php
+Generates the WXR export file for download.
+Theme_Installer_Skin::after()
+wp-admin/includes/class-theme-installer-skin.php
+Performs an action following a single theme install.
+update_option_new_admin_email()
+wp-admin/includes/misc.php
+Sends a confirmation request email when a change of site admin email address is attempted.
+upload_space_setting()
+wp-admin/includes/ms.php
+Displays the site upload space quota setting form on the Edit Site Settings screen.
+send_confirmation_on_profile_email()
+wp-includes/user.php
+Sends a confirmation request email when a change of user email address is attempted.
+wp_save_image()
+wp-admin/includes/image-edit.php
+Saves image to post, along with enqueued changes in
+$_REQUEST['history']
+.
+wpmu_delete_blog()
+wp-admin/includes/ms.php
+Deletes a site.
+wp_check_locked_posts()
+wp-admin/includes/misc.php
+Checks lock status for posts displayed on the Posts screen.
+wp_refresh_post_lock()
+wp-admin/includes/misc.php
+Checks lock status on the New/Edit Post screen and refresh the lock.
+update_recently_edited()
+wp-admin/includes/misc.php
+Updates the “recently-edited” file for the plugin or theme file editor.
+wp_dashboard_rss_output()
+wp-admin/includes/dashboard.php
+Display generic dashboard RSS widget feed.
+wp_dashboard_cached_rss_widget()
+wp-admin/includes/dashboard.php
+Checks to see if all of the feed url in $check_urls are cached.
+wp_dashboard_rss_control()
+wp-admin/includes/dashboard.php
+Sets up the RSS dashboard widget control and $args to be used as input to
+wp_widget_rss_form()
+.
+wp_dashboard_right_now()
+wp-admin/includes/dashboard.php
+Dashboard widget that displays some basic stats about the site.
+_wp_dashboard_recent_comments_row()
+wp-admin/includes/dashboard.php
+Outputs a row for the Recent Comments widget.
+maybe_disable_link_manager()
+wp-admin/includes/upgrade.php
+Disables the Link Manager on upgrade if, at the time of upgrade, no links exist in the DB.
+wp_install_defaults()
+wp-admin/includes/upgrade.php
+Creates the initial content for a newly-installed site.
+is_uninstallable_plugin()
+wp-admin/includes/plugin.php
+Determines whether the plugin can be uninstalled.
+uninstall_plugin()
+wp-admin/includes/plugin.php
+Uninstalls a single plugin.
+is_plugin_active()
+wp-admin/includes/plugin.php
+Determines whether a plugin is active.
+activate_plugin()
+wp-admin/includes/plugin.php
+Attempts activation of plugin in a “sandbox” and redirects on success.
+deactivate_plugins()
+wp-admin/includes/plugin.php
+Deactivates a single plugin or multiple plugins.
+validate_active_plugins()
+wp-admin/includes/plugin.php
+Validates active plugins.
+_wp_admin_html_begin()
+wp-admin/includes/template.php
+Prints out the beginning of the admin HTML header.
+iframe_header()
+wp-admin/includes/template.php
+Generic Iframe header for use with Thickbox.
+get_settings_errors()
+wp-admin/includes/template.php
+Fetches settings errors registered by
+add_settings_error()
+.
+WP_Themes_List_Table::prepare_items()
+wp-admin/includes/class-wp-themes-list-table.php
+wp_media_insert_url_form()
+wp-admin/includes/media.php
+Creates the form for external url.
+media_upload_max_image_resize()
+wp-admin/includes/media.php
+Displays the checkbox to scale images.
+get_attachment_fields_to_edit()
+wp-admin/includes/media.php
+Retrieves the attachment fields to edit form fields.
+media_upload_form()
+wp-admin/includes/media.php
+Outputs the legacy media upload form.
+get_sample_permalink_html()
+wp-admin/includes/post.php
+Returns the HTML of the sample permalink slug editor.
+_fix_attachment_links()
+wp-admin/includes/post.php
+Replaces hrefs of attachment anchors with up-to-date permalinks.
+wp_edit_posts_query()
+wp-admin/includes/post.php
+Runs the query to fetch the posts for listing on the edit posts page.
+get_default_post_to_edit()
+wp-admin/includes/post.php
+Returns default post information to use when populating the “Write Post” form.
+wp_prepare_revisions_for_js()
+wp-admin/includes/revision.php
+Prepare revisions for JavaScript.
+page_attributes_meta_box()
+wp-admin/includes/meta-boxes.php
+Displays page attributes form fields.
+wp_insert_link()
+wp-admin/includes/bookmark.php
+Inserts a link into the database, or updates an existing link.
+wp_set_link_cats()
+wp-admin/includes/bookmark.php
+Updates link with the specified link categories.
+WP_Media_List_Table::get_columns()
+wp-admin/includes/class-wp-media-list-table.php
+WP_Comments_List_Table::__construct()
+wp-admin/includes/class-wp-comments-list-table.php
+Constructor.
+wp_nav_menu_update_menu_items()
+wp-admin/includes/nav-menu.php
+Saves nav menu items.
+wp_nav_menu_item_post_type_meta_box()
+wp-admin/includes/nav-menu.php
+Displays a meta box for a post type menu item.
+request_filesystem_credentials()
+wp-admin/includes/file.php
+Displays a form to the user to request for their FTP/SSH details in order to connect to the filesystem.
+get_home_path()
+wp-admin/includes/file.php
+Gets the absolute filesystem path to the root of the WordPress installation.
+WP_Posts_List_Table::__construct()
+wp-admin/includes/class-wp-posts-list-table.php
+Constructor.
+edit_comment()
+wp-admin/includes/comment.php
+Updates a comment with values provided in $_POST.
+options_reading_blog_charset()
+wp-admin/includes/options.php
+Render the site charset setting.
+Custom_Background::wp_set_background_image()
+wp-admin/includes/class-custom-background.php
+Custom_Background::handle_upload()
+wp-admin/includes/class-custom-background.php
+Handles an Image upload for the background image.
+WP_Roles::remove_role()
+wp-includes/class-wp-roles.php
+Removes a role by name.
+WP_Customize_Manager::register_controls()
+wp-includes/class-wp-customize-manager.php
+Registers some default controls.
+map_meta_cap()
+wp-includes/capabilities.php
+Maps a capability to the primitive capabilities required of the given user to satisfy the capability being checked.
+WP_Customize_Manager::setup_theme()
+wp-includes/class-wp-customize-manager.php
+Starts preview and customize theme.
+_get_cron_array()
+wp-includes/cron.php
+Retrieves cron info array option.
+wp_list_categories()
+wp-includes/category-template.php
+Displays or retrieves the HTML list of categories.
+_delete_attachment_theme_mod()
+wp-includes/theme.php
+Checks an attachment being deleted to see if it’s a header or background image.
+check_theme_switched()
+wp-includes/theme.php
+Checks if a theme has been changed and runs ‘after_switch_theme’ hook on the next WP load.
+set_theme_mod()
+wp-includes/theme.php
+Updates theme modification value for the active theme.
+remove_theme_mod()
+wp-includes/theme.php
+Removes theme modification name from active theme list.
+remove_theme_mods()
+wp-includes/theme.php
+Removes theme modifications option for the active theme.
+get_uploaded_header_images()
+wp-includes/theme.php
+Gets the header images uploaded for the active theme.
+get_theme_root_uri()
+wp-includes/theme.php
+Retrieves URI for themes directory.
+get_raw_theme_root()
+wp-includes/theme.php
+Gets the raw theme root relative to the content directory with no filters applied.
+switch_theme()
+wp-includes/theme.php
+Switches the theme.
+get_theme_mods()
+wp-includes/theme.php
+Retrieves all theme modifications.
+get_template()
+wp-includes/theme.php
+Retrieves name of the active theme.
+get_stylesheet()
+wp-includes/theme.php
+Retrieves name of the current stylesheet.
+get_locale()
+wp-includes/l10n.php
+Retrieves the current locale.
+esc_textarea()
+wp-includes/formatting.php
+Escaping for textarea values.
+sanitize_option()
+wp-includes/formatting.php
+Sanitizes various option values based on the nature of the option.
+wp_htmledit_pre()
+wp-includes/deprecated.php
+Formats text for the HTML editor.
+wp_richedit_pre()
+wp-includes/deprecated.php
+Formats text for the rich text editor.
+wp_trim_words()
+wp-includes/formatting.php
+Trims text to a certain number of words.
+convert_smilies()
+wp-includes/formatting.php
+Converts text equivalent of smilies to images.
+balanceTags()
+wp-includes/formatting.php
+Balances tags if forced to, or if the ‘use_balanceTags’ option is set to true.
+_wp_specialchars()
+wp-includes/formatting.php
+Converts a number of special characters into their HTML entities.
+get_avatar()
+wp-includes/pluggable.php
+Retrieves the avatar
+<img>
+tag for a user, email address, MD5 hash, comment, or post.
+wp_password_change_notification()
+wp-includes/pluggable.php
+Notifies the blog admin of a user changing password, normally via email.
+wp_new_user_notification()
+wp-includes/pluggable.php
+Emails login credentials to a newly-registered user.
+wp_notify_postauthor()
+wp-includes/pluggable.php
+Notifies an author (and/or others) of a comment/trackback/pingback on a post.
+wp_notify_moderator()
+wp-includes/pluggable.php
+Notifies the moderator of the site about a new comment that is awaiting approval.
+wp_set_auth_cookie()
+wp-includes/pluggable.php
+Sets the authentication cookies for a given user ID.
+noindex()
+wp-includes/deprecated.php
+Displays a
+noindex
+meta tag if required by the blog configuration.
+wp_no_robots()
+wp-includes/deprecated.php
+Display a
+noindex
+meta tag.
+get_the_modified_date()
+wp-includes/general-template.php
+Retrieves the date on which the post was last modified.
+get_the_time()
+wp-includes/general-template.php
+Retrieves the time of the post.
+get_the_modified_time()
+wp-includes/general-template.php
+Retrieves the time at which the post was last modified.
+wp_get_archives()
+wp-includes/general-template.php
+Displays archive links based on type and format.
+get_calendar()
+wp-includes/general-template.php
+Displays calendar with days that have posts as links.
+get_the_date()
+wp-includes/general-template.php
+Retrieves the date of the post.
+get_bloginfo()
+wp-includes/general-template.php
+Retrieves information about the current site.
+wp_register()
+wp-includes/general-template.php
+Displays the Registration or Admin link.
+get_boundary_post_rel_link()
+wp-includes/deprecated.php
+Get boundary post relational link.
+get_parent_post_rel_link()
+wp-includes/deprecated.php
+Get parent post relational link.
+get_current_theme()
+wp-includes/deprecated.php
+Retrieve current theme name.
+make_url_footnote()
+wp-includes/deprecated.php
+Strip HTML and put links at the bottom of stripped content.
+get_settings()
+wp-includes/deprecated.php
+Get value based on option.
+get_links()
+wp-includes/deprecated.php
+Gets the links associated with category by ID.
+WP_Theme::get_allowed_on_site()
+wp-includes/class-wp-theme.php
+Returns array of stylesheet names of themes allowed on the site.
+WP::send_headers()
+wp-includes/class-wp.php
+Sends additional HTTP headers for caching, content type, etc.
+WP_Query::is_front_page()
+wp-includes/class-wp-query.php
+Determines whether the query is for the front page of the site.
+WP_Query::get_queried_object()
+wp-includes/class-wp-query.php
+Retrieves the currently queried object.
+WP_Query::get_posts()
+wp-includes/class-wp-query.php
+Retrieves an array of posts based on query variables.
+WP_Query::parse_query()
+wp-includes/class-wp-query.php
+Parses a query string and sets query type booleans.
+wp_set_internal_encoding()
+wp-includes/load.php
+Sets internal encoding.
+wp_get_active_and_valid_plugins()
+wp-includes/load.php
+Retrieves an array of active and valid plugin files.
+WP_HTTP_Proxy::send_through_proxy()
+wp-includes/class-wp-http-proxy.php
+Determines whether the request should be sent through a proxy.
+WP_Http::block_request()
+wp-includes/class-wp-http.php
+Determines whether an HTTP API request to the given URL should be blocked.
+wp_timezone_override_offset()
+wp-includes/functions.php
+Modifies gmt_offset for smart timezone handling.
+wp_send_json()
+wp-includes/functions.php
+Sends a JSON response back to an Ajax request.
+smilies_init()
+wp-includes/functions.php
+Converts smiley code to the icon graphic file equivalent.
+do_robots()
+wp-includes/functions.php
+Displays the default robots.txt file content.
+get_weekstartend()
+wp-includes/functions.php
+Gets the week start and end from the datetime or date string from MySQL.
+current_time()
+wp-includes/functions.php
+Retrieves the current time based on specified type.
+WP_Widget_RSS::widget()
+wp-includes/widgets/class-wp-widget-rss.php
+Outputs the content for the current RSS widget instance.
+WP_Widget_Recent_Comments::widget()
+wp-includes/widgets/class-wp-widget-recent-comments.php
+Outputs the content for the current Recent Comments widget instance.
+wp_widget_rss_output()
+wp-includes/widgets.php
+Displays the RSS entries in a list.
+wp_widgets_init()
+wp-includes/widgets.php
+Registers all of the default WordPress widgets on startup.
+_get_term_hierarchy()
+wp-includes/taxonomy.php
+Retrieves children of taxonomy as term IDs.
+wp_unique_term_slug()
+wp-includes/taxonomy.php
+Makes term slug unique, if it isn’t already.
+wp_delete_term()
+wp-includes/taxonomy.php
+Removes a term from the database.
+wp_cookie_constants()
+wp-includes/default-constants.php
+Defines cookie-related WordPress constants.
+wp_ssl_constants()
+wp-includes/default-constants.php
+Defines SSL-related WordPress constants.
+create_initial_taxonomies()
+wp-includes/taxonomy.php
+Creates the initial taxonomies.
+wp_plugin_directory_constants()
+wp-includes/default-constants.php
+Defines plugin directory WordPress constants.
+wp_get_shortlink()
+wp-includes/link-template.php
+Returns a shortlink for a post, page, attachment, or site.
+get_comments_pagenum_link()
+wp-includes/link-template.php
+Retrieves the comments page number link.
+get_home_url()
+wp-includes/link-template.php
+Retrieves the URL for a given site where the front end is accessible.
+get_site_url()
+wp-includes/link-template.php
+Retrieves the URL for a given site where WordPress application files (e.g. wp-blog-header.php or the wp-admin/ folder) are accessible.
+get_adjacent_post_link()
+wp-includes/link-template.php
+Retrieves the adjacent post link.
+get_adjacent_post_rel_link()
+wp-includes/link-template.php
+Retrieves the adjacent post relational link.
+get_post_type_archive_link()
+wp-includes/link-template.php
+Retrieves the permalink for a post type archive.
+get_post_type_archive_feed_link()
+wp-includes/link-template.php
+Retrieves the permalink for a post type archive feed.
+get_term_feed_link()
+wp-includes/link-template.php
+Retrieves the feed link for a term.
+get_post_comments_feed_link()
+wp-includes/link-template.php
+Retrieves the permalink for the post comments feed.
+get_author_feed_link()
+wp-includes/link-template.php
+Retrieves the feed link for a given author.
+get_permalink()
+wp-includes/link-template.php
+Retrieves the full permalink for the current post or post ID.
+get_page_link()
+wp-includes/link-template.php
+Retrieves the permalink for the current page or page ID.
+get_attachment_link()
+wp-includes/link-template.php
+Retrieves the permalink for an attachment.
+WP_Ajax_Response::send()
+wp-includes/class-wp-ajax-response.php
+Display XML formatted responses.
+wp_http_validate_url()
+wp-includes/http.php
+Validates a URL as safe for use in the HTTP API.
+wp_update_plugins()
+wp-includes/update.php
+Checks for available updates to plugins based on the latest versions hosted on WordPress.org.
+wp_update_themes()
+wp-includes/update.php
+Checks for available updates to themes based on the latest versions hosted on WordPress.org.
+wp_admin_bar_edit_menu()
+wp-includes/admin-bar.php
+Provides an edit link for posts and terms.
+register_uninstall_hook()
+wp-includes/plugin.php
+Sets the uninstallation hook for a plugin.
+get_the_category_rss()
+wp-includes/feed.php
+Retrieves all of the post categories, formatted for use in feeds.
+get_transient()
+wp-includes/option.php
+Retrieves the value of a transient.
+set_transient()
+wp-includes/option.php
+Sets/updates the value of a transient.
+update_option()
+wp-includes/option.php
+Updates the value of an option that was already added.
+add_option()
+wp-includes/option.php
+Adds a new option.
+get_option()
+wp-includes/option.php
+Retrieves an option value based on an option name.
+form_option()
+wp-includes/option.php
+Prints option value after sanitizing for forms.
+wp_update_user()
+wp-includes/user.php
+Updates a user in the database.
+register_new_user()
+wp-includes/user.php
+Handles registering a new user.
+wp_insert_user()
+wp-includes/user.php
+Inserts a user into the database.
+get_blogs_of_user()
+wp-includes/user.php
+Gets the sites a user belongs to.
+_walk_bookmarks()
+wp-includes/bookmark-template.php
+The formatted output of a list of bookmarks.
+_wp_menu_item_classes_by_context()
+wp-includes/nav-menu-template.php
+Adds the class property classes for the current context, if applicable.
+Walker_Page::start_el()
+wp-includes/class-walker-page.php
+Outputs the beginning of the current element in the tree.
+_wp_link_page()
+wp-includes/post-template.php
+Helper function for
+wp_link_pages()
+.
+wp_list_pages()
+wp-includes/post-template.php
+Retrieves or displays a list of pages (or hierarchical post type items) in list (li) format.
+wp_page_menu()
+wp-includes/post-template.php
+Displays or retrieves a list of pages with an optional home link.
+wp_enqueue_media()
+wp-includes/media.php
+Enqueues all scripts, styles, settings, and templates necessary to use all media JS APIs.
+image_constrain_size_for_editor()
+wp-includes/media.php
+Scales down the default size of an image.
+_publish_post_hook()
+wp-includes/post.php
+Hook to schedule pings and enclosures when a post is published.
+wp_publish_post()
+wp-includes/post.php
+Publishes a post by transitioning the post status.
+wp_unique_post_slug()
+wp-includes/post.php
+Computes a unique slug for the post, when given the desired slug and some post details.
+wp_set_post_categories()
+wp-includes/post.php
+Sets categories for a post.
+wp_insert_post()
+wp-includes/post.php
+Inserts or updates a post in the database.
+_reset_front_page_settings_for_post()
+wp-includes/post.php
+Resets the page_on_front, show_on_front, and page_for_post settings when a linked page is deleted or trashed.
+is_sticky()
+wp-includes/post.php
+Determines whether a post is sticky.
+stick_post()
+wp-includes/post.php
+Makes a post sticky.
+unstick_post()
+wp-includes/post.php
+Un-sticks a post.
+WP_Rewrite::init()
+wp-includes/class-wp-rewrite.php
+Sets up the object’s properties.
+WP_Rewrite::set_category_base()
+wp-includes/class-wp-rewrite.php
+Sets the category base for the category permalink.
+WP_Rewrite::set_tag_base()
+wp-includes/class-wp-rewrite.php
+Sets the tag base for the tag permalink.
+create_initial_post_types()
+wp-includes/post.php
+Creates the initial post types when ‘init’ action is fired.
+WP_Rewrite::wp_rewrite_rules()
+wp-includes/class-wp-rewrite.php
+Retrieves the rewrite rules.
+WP_Rewrite::generate_rewrite_rules()
+wp-includes/class-wp-rewrite.php
+Generates rewrite rules from a permalink structure.
+redirect_canonical()
+wp-includes/canonical.php
+Redirects incoming links to the proper URL based on the site url.
+url_to_postid()
+wp-includes/rewrite.php
+Examines a URL and try to determine the post ID it represents.
+_wp_upgrade_revisions_of_post()
+wp-includes/revision.php
+Upgrades the revisions author, adds the current post as a revision and sets the revisions version to 1.
+get_space_allowed()
+wp-includes/ms-functions.php
+Returns the upload quota for the current blog.
+maybe_add_existing_user_to_blog()
+wp-includes/ms-functions.php
+Adds a new user to a blog by visiting /newbloguser/{key}/.
+wpmu_welcome_user_notification()
+wp-includes/ms-functions.php
+Notifies a user that their account activation has been successful.
+newblog_notify_siteadmin()
+wp-includes/ms-functions.php
+Notifies the network admin that a new site has been activated.
+wpmu_welcome_notification()
+wp-includes/ms-functions.php
+Notifies the site administrator that their site activation was successful.
+wpmu_signup_blog_notification()
+wp-includes/ms-functions.php
+Sends a confirmation request email to a user when they sign up for a new site. The new site will not become active until the confirmation link is clicked.
+wpmu_signup_user_notification()
+wp-includes/ms-functions.php
+Sends a confirmation request email to a user when they sign up for a new user account (without signing up for a site at the same time). The user account will not become active until the confirmation link is clicked.
+get_blog_option()
+wp-includes/ms-blogs.php
+Retrieves option value for a given blog id based on name of option.
+get_blog_details()
+wp-includes/ms-blogs.php
+Retrieves the details for a blog from the blogs table and blog options.
+_wp_auto_add_pages_to_menu()
+wp-includes/nav-menu.php
+Automatically add newly published page objects to menus with that as an option.
+wp_xmlrpc_server::pingback_ping()
+wp-includes/class-wp-xmlrpc-server.php
+Retrieves a pingback and registers it.
+wp_xmlrpc_server::_getOptions()
+wp-includes/class-wp-xmlrpc-server.php
+Retrieves blog options value from list.
+wp_xmlrpc_server::blogger_getUsersBlogs()
+wp-includes/class-wp-xmlrpc-server.php
+Retrieves blogs that user owns.
+wp_xmlrpc_server::wp_newComment()
+wp-includes/class-wp-xmlrpc-server.php
+Creates a new comment.
+wp_xmlrpc_server::wp_getUsersBlogs()
+wp-includes/class-wp-xmlrpc-server.php
+Retrieves the blogs of the user.
+ms_cookie_constants()
+wp-includes/ms-default-constants.php
+Defines Multisite cookie constants.
+WP_Widget::get_settings()
+wp-includes/class-wp-widget.php
+Retrieves the settings for all instances of the widget class.
+is_dynamic_sidebar()
+wp-includes/widgets.php
+Determines whether the dynamic sidebar is enabled and used by the theme.
+wp_get_sidebars_widgets()
+wp-includes/widgets.php
+Retrieves the full list of sidebars and their widget instance IDs.
+wp_convert_widget_settings()
+wp-includes/widgets.php
+Converts the widget settings from single to multi-widget format.
+get_post_reply_link()
+wp-includes/comment-template.php
+Retrieves HTML content for reply to post link.
+wp_list_comments()
+wp-includes/comment-template.php
+Displays a list of comments.
+comment_form()
+wp-includes/comment-template.php
+Outputs a complete commenting form for use within a template.
+get_trackback_url()
+wp-includes/comment-template.php
+Retrieves the current post’s trackback URL.
+get_comment_reply_link()
+wp-includes/comment-template.php
+Retrieves HTML content for reply to comment link.
+comments_template()
+wp-includes/comment-template.php
+Loads the comment template specified in $file.
+get_comment_link()
+wp-includes/comment-template.php
+Retrieves the link to a given comment.
+get_comment_time()
+wp-includes/comment-template.php
+Retrieves the comment time of the current comment.
+get_comment_date()
+wp-includes/comment-template.php
+Retrieves the comment date of the current comment.
+WP_Customize_Widgets::preview_sidebars_widgets()
+wp-includes/class-wp-customize-widgets.php
+When previewing, ensures the proper previewing widgets are used.
+privacy_ping_filter()
+wp-includes/comment.php
+Checks whether blog is public before returning sites.
+trackback()
+wp-includes/comment.php
+Sends a Trackback.
+weblog_ping()
+wp-includes/comment.php
+Sends a pingback.
+_close_comments_for_old_posts()
+wp-includes/comment.php
+Closes comments on old posts on the fly, without any extra DB queries. Hooked to the_posts.
+_close_comments_for_old_post()
+wp-includes/comment.php
+Closes comments on an old post. Hooked to comments_open and pings_open.
+generic_ping()
+wp-includes/comment.php
+Sends pings to all of the ping site services.
+get_comment_pages_count()
+wp-includes/comment.php
+Calculates the total number of comment pages.
+get_page_of_comment()
+wp-includes/comment.php
+Calculates what page number a comment will appear on for comment paging.
+check_comment()
+wp-includes/comment.php
+Checks whether a comment passes internal checks to be allowed to add.
+wp_print_media_templates()
+wp-includes/media-template.php
+Prints the templates used in the media manager.
+Show 359 more
+Show less
+Changelog
+Version
+Description
+1.5.0
+Introduced.
+User Contributed Notes
+Skip to note 17 content
+Codex
+11 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+9
+You must log in to vote on the helpfulness of this note
+Handling of non-existing options
+$no_exists_value = get_option( 'no_exists_value' );
+var_dump( $no_exists_value ); /* outputs false */
+
+$no_exists_value = get_option( 'no_exists_value', 'default_value' );
+var_dump( $no_exists_value ); /* outputs 'default_value' */
+Log in to add feedback
+Skip to note 18 content
+Codex
+11 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+4
+You must log in to vote on the helpfulness of this note
+Show Blog Title
+Displays your blog’s title in a
+<h1>
+tag.
+<h1><?php echo get_option( 'blogname' ); ?></h1>
+Log in to add feedback
+Skip to note 19 content
+Codex
+11 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+4
+You must log in to vote on the helpfulness of this note
+Show Character Set
+Displays the character set your blog is using (ex: UTF-8)
+<p><?php echo esc_html( sprintf( __( 'Character set: %s', 'textdomain' ), get_option( 'blog_charset' ) ) ); ?></p>
+Log in to add feedback
+Skip to note 20 content
+Codex
+11 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+4
+You must log in to vote on the helpfulness of this note
+Retrieve Administrator E-mail
+Retrieve the e-mail of the blog administrator, storing it in a variable.
+<?php $admin_email = get_option( 'admin_email' ); ?>
+Log in to add feedback
+Skip to note 21 content
+ptasker
+9 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+4
+You must log in to vote on the helpfulness of this note
+A quick tip that the output of
+get_option()
+is filterable:
+return apply_filters( "option_{$option}", maybe_unserialize( $value ), $option );
+So you can change the output of
+get_option()
+at run time.
+//Outputs an array of all plugins
+ var_dump( get_option('active_plugins') );
+
+ add_filter( 'option_active_plugins', function( $plugins ){
+	return [];
+});
+
+//Outputs an empty array
+var_dump( get_option('active_plugins') );
+Helpful for disabling specific plugins when required.
+https://developer.wordpress.org/reference/hooks/option_option/
+Log in to add feedback
+Skip to note 22 content
+Sergio Scabuzzo
+7 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+3
+You must log in to vote on the helpfulness of this note
+Check if option is set to avoid warnings.
+Was getting Illegal Offset warnings when the checkbox was not selected on a plugin’s option page.
+Adding isset() inside
+checked()
+sorted it all out.
+function comment_author_url_render() {
+
+	$options = get_option( 'plugin_settings' );
+	?>
+	<input type='checkbox' name='plugin_settings[setting]' <?php checked( isset( $options['setting'] ) ); ?> value='1'>
+	
+	<?php
+
+}
+Hope this helps somebody else out.
+Log in to add feedback
+Skip to note 23 content
+Anurag soni
+9 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+2
+You must log in to vote on the helpfulness of this note
+Just like we use
+get_option('date_format')
+to incorporate the date format defined in Settings -> General,
+We can also use
+get_option('time_format')
+to incorporate the time format defined in Settings -> General.
+for example
+<?php the_time(get_option('date_format')); ?>
+<?php the_time(get_option('time_format')); ?>
+Log in to add feedback
+Skip to note 24 content
+ancawonka
+10 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+0
+You must log in to vote on the helpfulness of this note
+If you want to get a network-wide option, use the get_site_option function instead.
+https://developer.wordpress.org/reference/functions/get_site_option
+Log in to add feedback
+Skip to note 25 content
+tradesouthwest
+8 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+0
+You must log in to vote on the helpfulness of this note
+There is a “long-hand” format for creating option settings-field parameter in one line that is harder to read/follow semantically, but provides a single string to a options setting instead of two strings for every option.
+$wpdevref_text_2 = esc_attr( get_option( 'wpdevref_options' )['wpdevref_text_field_2'] );
+The above returns false, so technically there is no default to setup unless you require a value.
+And there are just a bit less parameter parsing than
+$options = get_option('wpdevref_options'); 
+$wpdevref_text_2 = (empty($options['wpdevref_text_2'] )) 
+                 ? 'Default Text' : $options['wpdevref_text_2'];
+Alternatively (if default required):
+$wpdevref_text_2 = (empty( get_option( 'wpdevref_options' )['wpdevref_text_field_2']) )
+                 ? 'Default Text' : get_option( 'wpdevref_options' )['wpdevref_text_field_2'];
+And for a checkbox in a settings array, try:
+'value'   => get_option('wpdevref_fields')['wpdevref_dashnews_widgetcheck'],
+'checked' => esc_attr( checked( 1, 
+             get_option('wpdevref_fields')['wpdevref_dashnews_widgetcheck'], false ) );
+Log in to add feedback
+Skip to note 26 content
+Shadi G شادي جـ
+8 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+0
+You must log in to vote on the helpfulness of this note
+This is helpful for assigning defaults values to multiple options:
+/**
+ * Retrieves multiple options values as an associative array based on an option name.
+ * @param string $option_name (Required) Name of option to retrieve.
+ * @param array $defaults (Optional) Default values to return if the option does not exist.
+ */
+function wporg_prfex_get_theme_option( $option_name, $defaults = array() ) {
+  $options = get_option( $option_name );
+  //checking if options exists
+  if ( ! empty( $options ) ) {
+    $it = new MultipleIterator();
+    $it->attachIterator( new ArrayIterator( $options ) );
+    $it->attachIterator( new ArrayIterator( $defaults ) );
+
+    foreach ( $it as $setting_name => $value ) {
+      if ( empty( $value[0] ) ) {
+        $optionsArray[ $setting_name[1] ] = $value[1];
+      } else {
+        $optionsArray[ $setting_name[0] ] = $value[0];
+      }
+    }// end loop
+    return $optionsArray;
+  } else {
+    // if no options then set the defaults
+    $optionsArray = $defaults;
+    return $optionsArray;
+  }
+}
+Usage as the following:
+$defaults = array(
+      'settings_name1' => 'rgba(255, 0, 0, 0.7)',
+      'settings_name1' => 'rgba(31, 200, 219, 0.7)',
+      'settings_name1' => 'rgba(44, 181, 232, 0.7)'
+    );
+$colors = wporg_prfex_get_theme_option( 'option_name', $defaults );
+Displaying the option:
+echo $colors['settings_name1'];
+Log in to add feedback
+Skip to note 27 content
+A WP Life
+7 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+0
+You must log in to vote on the helpfulness of this note
+Simply way to check the option value set or not.
+For Example, I have a plugin version 1.0 that is installed on the user site. The plugin version is set on the plugin activation. If I released a new plugin version 2.0 and need to check the installed plugin version and new apply changes on the new version update.
+For it, you need to set default value in function:
+get_option( 'key_name', 'default_value' )
+So, if option value not set or avaiable than default value assigned to variable.
+Sample code:
+$my_plugin_version = get_option('plugin_name_version', '2.0');
+if($my_plugin_version == '1.0') {
+	// do something or apply changes and update the plugin version into option value
+} else {
+	// do nothing
+}
+Log in to add feedback
+Skip to note 28 content
+WP SITES
+6 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+0
+You must log in to vote on the helpfulness of this note
+For use with images includes a default image in child theme folder named default.png and option when adding image using the customizer.
+$image = get_option( 'genesis-customizer-image', sprintf( '%s/default.png', get_stylesheet_directory_uri() ) );
+Log in to add feedback
+Skip to note 29 content
+Nick Elpedes
+4 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+0
+You must log in to vote on the helpfulness of this note
+Keep in mind that if you use Settings API along with Options API, the database row for the option will NOT be created until the setting page form is submitted with an updated value for that setting.
+If a default value is set when registering your settings, and you try to test if the option exists,
+if there is no database entry for the option, the default value set with Settings API will be returned instead of
+false
+.
+Keep this in mind when writing your code.
+Log in to add feedback
+Skip to note 30 content
+Roy Orbitson
+2 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+0
+You must log in to vote on the helpfulness of this note
+To preserve the original type of a scalar option, deliberately wrap it, and any default value, in an array literal to force serialization + unserialization:
+$option = 'my_opt';
+$value = 87;
+update_option( $option, array( $value ), false );
+...
+$default = 0;
+$wrapped_value = get_option( $option, array( $default ) );
+if ( ! is_array( $wrapped_value ) ) {
+	throw new Exception( 'Failed to get option.' );
+}
+list( $value ) = $wrapped_value;
+Log in to add feedback
+Skip to note 31 content
+Christopher Ocen
+12 months ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+0
+You must log in to vote on the helpfulness of this note
+You can use an existing option as a default value for another option.
+$sender_email = get_option( 'my_sender_email', get_option( 'admin_email' ) );
+Log in to add feedback
+Skip to note 32 content
+bhvreddy88
+9 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+-4
+You must log in to vote on the helpfulness of this note
+check options exists or not, use isset to check
+if value exists then checked box appear, if there is no option then unchecked box appears
+$checkbox = get_option('options');
+
+    if ( isset( $checkbox['check_box'] ) ) {
+        echo 'value exists- so return checked box ';
+    } else {
+        echo ' no value  - so return unchecked box ';
+    }
+Log in to add feedback
+You must
+log in
+before being able to contribute a note or feedback.
+About
+News
+Hosting
+Privacy
+Showcase
+Themes
+Plugins
+Patterns
+Learn
+Documentation
+Developers
+WordPress.tv
+↗
+Get Involved
+Events
+Donate
+↗
+Swag
+↗
+WordPress.com
+↗
+Matt
+↗
+bbPress
+↗
+BuddyPress
+↗
+WordPress.org
+The WordPress® trademark is the intellectual property of the WordPress Foundation.
+Visit our X (formerly Twitter) account
+Visit our Bluesky account
+Visit our Mastodon account
+Visit our Threads account
+Visit our Facebook page
+Visit our Instagram account
+Visit our LinkedIn account
+Visit our TikTok account
+Visit our YouTube channel
+Visit our Tumblr account
+Code is Poetry

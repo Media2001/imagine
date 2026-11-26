@@ -1,0 +1,399 @@
+parse_blocks() – Function | Developer.WordPress.org
+Skip to content
+WordPress.org
+Showcase
+Plugins
+Themes
+Hosting
+News
+Resources
+Learn WordPress
+Documentation
+Education
+Forums
+Developers
+Blocks
+Patterns
+Photos
+Openverse
+↗
+︎
+WordPress.tv
+↗
+︎
+About
+About WordPress
+Make WordPress
+Events
+Five for the Future
+Enterprise
+Gutenberg
+↗
+︎
+Job Board
+↗
+︎
+Swag
+↗
+︎
+Get WordPress
+Search in WordPress.org
+Get WordPress
+WordPress.org
+WordPress Developer Resources
+parse_blocks()
+Developer Blog
+Code Reference
+WP-CLI Commands
+Developer Blog
+Code Reference
+WP-CLI Commands
+Home
+Reference
+Functions
+parse_blocks()
+Search
+parse_blocks(
+string
+$content
+):
+array[]
+In this article
+Table of Contents
+Description
+Parameters
+Return
+Source
+Hooks
+Related
+Changelog
+User Contributed Notes
+Copy page
+View as Markdown
+Back to top
+Parses blocks out of a content string.
+Description
+Given an HTML document, this function fully-parses block content, producing a tree of blocks and their contents, as well as top-level non-block content, which will appear as a block with no
+blockName
+.
+This function can be memory heavy for certain documents, particularly those with deeply-nested blocks or blocks with extensive attribute values. Further, this function must parse an entire document in one atomic operation.
+If the entire parsed document is not necessary, consider using
+WP_Block_Processor
+instead, as it provides a streaming and low-overhead interface for finding blocks.
+Parameters
+$content
+string
+required
+Post content.
+Return
+array[]
+Array of block structures.
+...$0
+array
+An associative array of a single parsed block object. See
+WP_Block_Parser_Block
+.
+blockName
+string|null
+Name of block.
+attrs
+array
+Attributes from block comment delimiters.
+innerBlocks
+array[]
+List of inner blocks. An array of arrays that have the same structure as this one.
+innerHTML
+string
+HTML from inside block comment delimiters.
+innerContent
+array
+List of string fragments and null markers where inner blocks were found.
+Source
+function parse_blocks( $content ) {
+	/**
+	 * Filter to allow plugins to replace the server-side block parser.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param string $parser_class Name of block parser class.
+	 */
+	$parser_class = apply_filters( 'block_parser_class', 'WP_Block_Parser' );
+
+	$parser = new $parser_class();
+	return $parser->parse( $content );
+}
+View all references
+View on Trac
+View on GitHub
+Hooks
+apply_filters
+( ‘block_parser_class’,
+string
+$parser_class
+)
+Filter to allow plugins to replace the server-side block parser.
+Related
+Uses
+Description
+apply_filters()
+wp-includes/plugin.php
+Calls the callback functions that have been added to a filter hook.
+Used by
+Description
+apply_block_hooks_to_content_from_post_object()
+wp-includes/blocks.php
+Run the Block Hooks algorithm on a post object’s content.
+resolve_pattern_blocks()
+wp-includes/blocks.php
+Replaces patterns in a block tree with their content.
+apply_block_hooks_to_content()
+wp-includes/blocks.php
+Runs the hooked blocks algorithm on the given content.
+update_ignored_hooked_blocks_postmeta()
+wp-includes/blocks.php
+Updates the wp_postmeta with the list of ignored hooked blocks where the inner blocks are stored as post content.
+inject_ignored_hooked_blocks_metadata_attributes()
+wp-includes/block-template-utils.php
+Inject ignoredHookedBlocks metadata attributes into a template or template part.
+wp_get_post_content_block_attributes()
+wp-includes/block-editor.php
+Retrieves Post Content block attributes from the current post template.
+WP_REST_Block_Patterns_Controller::prepare_item_for_response()
+wp-includes/rest-api/endpoints/class-wp-rest-block-patterns-controller.php
+Prepare a raw block pattern before it gets output in a REST API response.
+wp_generate_block_templates_export_file()
+wp-includes/block-template-utils.php
+Creates an export of the current templates and template parts from the site editor at the specified path in a ZIP file.
+_inject_theme_attribute_in_block_template_content()
+wp-includes/deprecated.php
+Parses wp_template content and injects the active theme’s stylesheet as a theme attribute into each wp_template_part
+_remove_theme_attribute_in_block_template_content()
+wp-includes/deprecated.php
+Parses a block template and removes the theme attribute from each template part.
+WP_Widget_Block::get_dynamic_classname()
+wp-includes/widgets/class-wp-widget-block.php
+Calculates the classname to use in the block widget’s container HTML.
+WP_REST_Templates_Controller::prepare_item_for_response()
+wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php
+Prepare a single template output for response
+filter_block_content()
+wp-includes/blocks.php
+Filters and sanitizes block content to remove non-allowable HTML from parsed block attribute values.
+do_blocks()
+wp-includes/blocks.php
+Parses dynamic blocks out of
+post_content
+and re-renders them.
+excerpt_remove_blocks()
+wp-includes/blocks.php
+Parses blocks out of a content string, and renders those appropriate for the excerpt.
+get_post_galleries()
+wp-includes/media.php
+Retrieves galleries from the passed post’s content.
+Show 11 more
+Show less
+Changelog
+Version
+Description
+5.0.0
+Introduced.
+User Contributed Notes
+Skip to note 6 content
+Joseph Dickson
+6 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+6
+You must log in to vote on the helpfulness of this note
+Example using
+parse_blocks()
+to display a block from a post
+<?php
+function wpdocs_display_post_youtube_block() {
+
+	global $post;
+	
+	$blocks = parse_blocks( $post->post_content );
+	
+	foreach ( $blocks as $block ) {
+
+		// YouTube's block name
+		if ( 'core-embed/youtube' === $block['blockName'] ) {
+			
+			echo apply_filters( 'the_content', render_block( $block ) );
+			
+			break;
+			
+		}
+		
+	}
+	
+}
+
+?>
+Place within
+The Loop
+<?php
+// Add within the loop
+
+// Check if the YouTube block is used in the post using the blockName
+if ( has_block( 'core-embed/youtube' ) ) {
+ 
+	// Display the YouTube block from the post
+	wpdocs_display_post_youtube_block();
+ 
+}
+
+?>
+If used in The Loop it renders the first YouTube video embedded within a post. Can be used with other blocks by assigning their blockName.
+This embed example is now defunct as of WordPress 5.6 changing to the block name to core/embed and adding variations. I’ll submit a new sample.
+Joseph Dickson
+6 years ago
+Log in to add feedback
+Skip to note 7 content
+Ulrich
+5 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+5
+You must log in to vote on the helpfulness of this note
+Use
+serialize_blocks()
+to convert the parsed block back to content.
+Log in to add feedback
+Skip to note 8 content
+Jb Audras
+7 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+2
+You must log in to vote on the helpfulness of this note
+Example of returned array for a Paragraph block:
+array ( 
+	0 => array ( 
+		'blockName' => 'core/paragraph', 
+		'attrs' => array ( 
+			'textColor' => 'vivid-red', 
+			'backgroundColor' => 'luminous-vivid-amber',
+		), 
+		'innerBlocks' => array (
+			/* Child blocks if they exists (used in Column Block for example) */
+		), 
+		'innerHTML' => 'This is a block content!', 
+		'innerContent' => array (
+			0 => 'This is a block content!',
+		), 
+	),
+)
+Log in to add feedback
+Skip to note 9 content
+André Maneiro
+7 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+1
+You must log in to vote on the helpfulness of this note
+As of Gutenberg 7.7, for this input:
+<!-- wp:paragraph {
+    "placeholder":"Summary",
+    "textColor":"accent",
+    "backgroundColor":"secondary"
+} -->
+<p class="has-text-color has-background has-accent-color has-secondary-background-color">
+This is a new paragraph.
+</p>
+<!-- /wp:paragraph -->
+the output of
+parse_blocks
+will be:
+Array
+(
+  [0] => Array
+    (
+      [blockName] => core/paragraph
+      [attrs] => Array
+        (
+          [placeholder] => Summary
+          [textColor] => accent
+          [backgroundColor] => secondary
+        )
+      [innerBlocks] => Array()
+      [innerHTML] => <p class="has-text-color has-background has-accent-color has-secondary-background-color">This is a new paragraph.</p>
+      [innerContent] => Array
+        (
+          [0] => <p class="has-text-color has-background has-accent-color has-secondary-background-color">This is a new paragraph.</p>
+        )
+      )
+)
+Log in to add feedback
+Skip to note 10 content
+Khoi Pro
+5 years ago
+You must log in to vote on the helpfulness of this note
+Vote results for this note:
+0
+You must log in to vote on the helpfulness of this note
+In case you wish to check if current post content is Gutenberg-blocks or using Classic editor:
+global $post;
+    $blocks = parse_blocks( $post->post_content );
+    $is_gutenberg_page = ( ! empty( $blocks ) && '' !== $blocks[0]['blockName'] );
+If post content is Classic Editor, it has only one block, but
+blockName
+is empty.
+There is a better way for this. Function
+has_blocks()
+.
+Lovro Hrust
+4 years ago
+Currently, a much less costly method would use the
+has_blocks()
+function, which accepts either the unparsed post content or a wp_post object.
+$fullContent = get_the_content( $pid );     if ( has_blocks( $fullContent ) ) { doit(); }
+or
+if ( has_blocks( $post ) ) { doit(); }
+Brian Layman
+4 years ago
+Log in to add feedback
+You must
+log in
+before being able to contribute a note or feedback.
+About
+News
+Hosting
+Privacy
+Showcase
+Themes
+Plugins
+Patterns
+Learn
+Documentation
+Developers
+WordPress.tv
+↗
+Get Involved
+Events
+Donate
+↗
+Swag
+↗
+WordPress.com
+↗
+Matt
+↗
+bbPress
+↗
+BuddyPress
+↗
+WordPress.org
+The WordPress® trademark is the intellectual property of the WordPress Foundation.
+Visit our X (formerly Twitter) account
+Visit our Bluesky account
+Visit our Mastodon account
+Visit our Threads account
+Visit our Facebook page
+Visit our Instagram account
+Visit our LinkedIn account
+Visit our TikTok account
+Visit our YouTube channel
+Visit our Tumblr account
+Code is Poetry
