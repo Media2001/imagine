@@ -65,6 +65,10 @@ def main():
         if a.include_native:
             execute([sys.executable, '-B', 'wp/tests/a29/run.py', '--parent-serialized', '--output=' + str(folder / 'native')],
                     env, encoding, folder / 'runner-console.log', 'native')
+    red_spec = importlib.util.spec_from_file_location('a29_red_python', HERE / 'red_python.py')
+    red_module = importlib.util.module_from_spec(red_spec)
+    red_spec.loader.exec_module(red_module)
+    red = red_module.run(out / 'red-python')
     if a.include_native:
         env = {**os.environ, 'PYTHONIOENCODING': 'utf-8', 'PYTHONUTF8': '1', 'PYTHONDONTWRITEBYTECODE': '1'}
         execute([sys.executable, '-B', 'wp/tests/a29/style.py', '--parent-serialized', '--output=' + str(out / 'style')],
@@ -73,8 +77,8 @@ def main():
     for filename, data in [('sources.json', before), ('dependencies.json', deps)]:
         (out / filename).write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
     result = {'scope': 'python_and_native' if a.include_native else 'python_only', 'readiness_claimed': False,
-              'sources_stable': stable, 'rows': rows,
-              'exit_code': int(not stable or any(row['exit_code'] != 0 or row.get('all_pass') is False for row in rows))}
+              'sources_stable': stable, 'rows': rows, 'red_python': 'red-python/red-python.json',
+              'exit_code': int(not stable or red['exit_code'] != 0 or any(row['exit_code'] != 0 or row.get('all_pass') is False for row in rows))}
     (out / 'windows-matrix.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
     print(json.dumps(result, indent=2))
     return result['exit_code']

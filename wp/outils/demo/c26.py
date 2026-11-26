@@ -3,6 +3,7 @@ import sys
 sys.dont_write_bytecode = True
 import hashlib
 import json
+import re
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urlencode
@@ -27,7 +28,7 @@ def routes(f):
             add(prefix+'-alias', family, 'rest', '/?rest_route=/wp/v2/'+rest+'/'+str(p['id']), p['title'], object_id=p['id'])
             add(prefix+'-oembed', family, 'oembed', '/wp-json/oembed/1.0/embed?'+urlencode({'url':c23.BASE+p['path']}), p['title'])
             add(prefix+'-embed', family, 'embed', p['path']+'embed/', p['title'])
-            add(prefix+'-search', family, 'search', '/?'+urlencode({'s':p['title'], 'post_type':'page' if rest=='pages' else rest}), p['title'])
+            add(prefix+'-search', family, 'search', '/?'+urlencode({'s':p['title'], 'post_type':'page' if rest=='pages' else rest}), p['title'], target_path=p['path'])
     add('agenda-flux', 'agenda', 'feed', '/?feed=rss2&post_type=imagine_evenement&posts_per_rss=100', object_id=f['events'][0]['id'])
     for family, typ, ident in [('agenda', 'imagine_inscription', f['registration']), ('sujet', 'imagine_sujet', f['subject'])]:
         add(family+'-prive-page', family, 'private-page', '/?p='+str(ident), statuses=(200,404))
@@ -50,6 +51,12 @@ def routes(f):
     add('agenda-action-GET', 'agenda', 'refusal', '/wp-admin/admin-post.php?action=imagine_agenda', statuses=(403,))
     for name in ['export-personal-data', 'erase-personal-data']:
         add('privacy-'+name, 'personnalisation', 'admin', '/wp-admin/'+name+'.php', statuses=(200,403))
+    add('commun-accueil', 'commun', 'common-page', '/')
+    add('commun-flux-articles', 'commun', 'common-feed', '/?feed=rss2&posts_per_rss=100')
+    add('commun-rest-articles', 'commun', 'rest', '/wp-json/wp/v2/posts?per_page=100', object_id=f.get('article',42))
+    add('commun-rest-pages', 'commun', 'rest', '/wp-json/wp/v2/pages?per_page=100', object_id=f['pages'][0]['id'])
+    for family in ['personnalisation','retractation']:
+        add(family+'-search',family,'search','/?'+urlencode({'s':f['markers'][family]}),reflected=f['markers'][family])
     return rows
 
 
@@ -72,6 +79,8 @@ def assess(route, response, markers):
             exists = any(isinstance(x, dict) and x.get('id') == route.get('object_id') for x in (data if isinstance(data, list) else [data]))
     elif kind == 'feed':
         exists = ('<item>' in text or '<entry>' in text) and all(p in text for p in ['<rss', '/evenements/'])
+    elif kind == 'common-feed':
+        exists = ('<item>' in text or '<entry>' in text) and '<rss' in text
     elif kind == 'private-feed':
         exists = ('<rss' in text or '<feed' in text) if status == 200 else '<html' in text.lower()
     elif kind == 'admin':
@@ -82,8 +91,20 @@ def assess(route, response, markers):
         exists = '<main' in text and ('<h1' in text or '<h2' in text)
     elif kind == 'embed':
         exists = 'wp-embed' in text and display_title(route['title']) in display_title(body)
+    elif kind == 'search':
+        main = re.search(r'<main\b[^>]*>(.*?)</main>',text,re.S)
+        if route.get('reflected'):
+            exists = bool(main and 'Aucun résultat pour votre recherche.' in main[1])
+        else:
+            exists = bool(main and re.search(r'<h2\b[^>]*>\s*<a\b[^>]*href=[\"\'][^\"\']*'+re.escape(route['target_path']),main[1]))
+    elif kind == 'account':
+        exists = '<main' in text and ('woocommerce-MyAccount' in text or 'id="loginform"' in text)
+    elif kind == 'common-page':
+        exists = '<main' in text and 'data-imagine-id=' in text
     else:
-        exists = '<main' in text and (not route.get('title') or display_title(route['title']) in display_title(body))
+        main = re.search(r'<main\b[^>]*>(.*?)</main>',text,re.S)
+        h1 = re.search(r'<h1\b[^>]*>(.*?)</h1>',main[1],re.S) if main else None
+        exists = bool(h1 and display_title(route.get('title',''))==display_title(h1[1]))
     result['surface_present'] = bool(exists)
     result['ok'] &= bool(exists)
     return result

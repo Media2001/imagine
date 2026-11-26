@@ -4,6 +4,9 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+import tempfile
+import time
+import signal
 import unittest
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -47,6 +50,24 @@ class GuardTests(unittest.TestCase):
     def test_timeout_closed(self):
         with self.assertRaisesRegex(RuntimeError, '^A29_PROCESS_TIMEOUT$'):
             self.run_child('import time; time.sleep(10)', timeout=0.1)
+
+    def test_descendant_inherited_pipes_share_one_deadline(self):
+        with tempfile.TemporaryDirectory(prefix='a29-pipe-', dir=os.environ.get('TMPDIR')) as tmp:
+            pidfile = Path(tmp) / 'owned-descendant.pid'
+            code = ("import subprocess,sys;from pathlib import Path;"
+                    "p=subprocess.Popen([sys.executable,'-B','-c','import time;time.sleep(8)'],stdout=sys.stdout,stderr=sys.stderr);"
+                    "Path(" + repr(str(pidfile)) + ").write_text(str(p.pid),encoding='ascii')")
+            started = time.monotonic()
+            try:
+                with self.assertRaisesRegex(RuntimeError, '^A29_PROCESS_TIMEOUT$'):
+                    self.run_child(code, timeout=0.4)
+                self.assertLess(time.monotonic() - started, 2.0)
+            finally:
+                if pidfile.exists():
+                    try:
+                        os.kill(int(pidfile.read_text(encoding='ascii')), signal.SIGTERM)
+                    except ProcessLookupError:
+                        pass
 
 
 if __name__ == '__main__':

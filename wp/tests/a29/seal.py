@@ -18,6 +18,8 @@ spec.loader.exec_module(v)
 
 
 def inventory(folder):
+    if folder.is_symlink() or any(p.is_symlink() for p in folder.rglob('*')):
+        raise RuntimeError('A29_SEAL_REFUSED')
     return {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
             for p in sorted(folder.rglob('*')) if p.is_file() and '__pycache__' not in p.parts
             and p.name not in {'PRET', 'manifest.json', 'manifest-python-partiel.json'}}
@@ -52,7 +54,7 @@ def main():
     a = parser.parse_args()
     packet = a.evidence.resolve(strict=True)
     expected = PRODUCTION / 'preuves' / ('partiel-python' if a.python_only else 'final')
-    if packet != expected.resolve() or packet.is_symlink():
+    if packet != expected.resolve() or a.evidence.is_symlink() or expected.is_symlink():
         raise RuntimeError('A29_OWNED_PACKET_REQUIRED')
     if not a.python_only and (PRODUCTION / 'preuves/partiel-python').exists():
         raise RuntimeError('A29_SINGLE_PACKET_REQUIRED')

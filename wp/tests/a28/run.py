@@ -98,6 +98,7 @@ def main():
                     run('a01-' + f[:-4], ['php', '/checkout/wp/tests/a01-court/' + f])
                 if (Path(__file__).parent / 'unit.php').is_file():
                     run('unit', ['php', '/opt/a28/unit.php'], '/report/unit.json')
+                run('lint', ['python3', '/opt/a28/lint.py'], '/report/a28-lint.json')
         receipt['isolation_after'] = publish.offline_isolation(name)
         receipt['sources_unchanged'] = all(hashlib.sha256((ROOT / rel).read_bytes()).hexdigest() == digest for rel, digest in manifest.items())
         assert receipt['sources_unchanged']

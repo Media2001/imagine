@@ -81,7 +81,7 @@ final class Engine
             }
         }
         foreach ($this->decisions as $table => $decision) {
-            $kind = str_starts_with($table, $prefix) ? substr($table, strlen($prefix)) : '';
+            $kind = is_string($table) && str_starts_with($table, $prefix) ? substr($table, strlen($prefix)) : '';
             if (isset($this->inventory[$table]) && in_array($kind, $this->formTables, true)) {
                 if ($decision !== ['action' => 'vider']) {
                     throw new FormDecisionRefused($kind);

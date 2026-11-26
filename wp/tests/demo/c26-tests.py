@@ -104,6 +104,15 @@ class ExtensionTest(unittest.TestCase):
             self.assertFalse(all(m.matrix_checks(bad,routes,['anonyme']).values()))
         self.assertFalse(m.restored({'exact_restoration':{},'business_preserved':True}))
 
+    def test_mauvaise_page_et_recherche_vide_refusees(self):
+        m = load('c26')
+        page = {'kind':'page','title':'Soutenir','statuses':[200]}
+        body = b'<nav>Soutenir</nav><main><h1>Autre page</h1></main>'
+        self.assertFalse(m.assess(page,(200,{},body),[])['ok'])
+        search = {'kind':'search','title':'Soutenir','target_path':'/soutenir/','statuses':[200]}
+        self.assertFalse(m.assess(search,(200,{},b'<main><h1>Recherche Soutenir</h1><p>Aucun resultat</p></main>'),[])['ok'])
+        self.assertTrue(m.assess(search,(200,{},b'<main><h1>Recherche</h1><h2><a href="/soutenir/">Soutenir</a></h2></main>'),[])['ok'])
+
     def test_commande_visiteur_ne_lance_pas_de_mutation(self):
         import ast
         m = load('c26')

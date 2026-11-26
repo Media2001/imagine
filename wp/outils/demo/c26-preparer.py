@@ -98,6 +98,7 @@ def run(label, mutations=False):
     try:
         extension = fixture('seed', {'owner':owner})
         extension['account_path'] = f['account_path']
+        extension['article'] = f['article']
         save(label+'-extension', extension)
         prep.seed_cooperator_witness(pages)
         f = prep.inventory()

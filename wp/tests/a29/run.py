@@ -87,6 +87,9 @@ def main():
         for f in ['Analysis.php', 'Inventory.php', 'Command.php', 'inventorier-taches']:
             p = b.call(['exec', name, 'php', '-l', '/subject/a29/' + f], check=False)
             check('lint_' + f, p.returncode == 0)
+        for source in sorted(HERE.glob('*.php')):
+            p = b.call(['exec', name, 'php', '-l', '/opt/a29/' + source.name], check=False)
+            check('lint_bank_' + source.name, p.returncode == 0)
         # Red witness is deliberately confined to the disposable copied PHP source.
         mutation = "from pathlib import Path;p=Path('/subject/a29/Analysis.php');s=p.read_text(encoding='utf-8');p.with_suffix('.original').write_text(s,encoding='utf-8');a=\"'woocommerce_scheduled_subscription_payment' => 'renouvellement'\";assert s.count(a)==1;p.write_text(s.replace(a,\"'woocommerce_scheduled_subscription_payment' => 'autre'\"),encoding='utf-8')"
         b.call(['exec', name, 'python3', '-c', mutation])

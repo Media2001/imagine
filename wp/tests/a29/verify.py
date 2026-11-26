@@ -96,6 +96,23 @@ def verify(packet, python_only=False):
         check('shared_document_exact_owned_lines', shared_document_valid())
     check('exact_current_dependencies', read(packet / 'dependencies.json') == runner.manifest(runner.DEPS))
     check('no_pret_claim', matrix.get('readiness_claimed') is False)
+    check('red_python_pointer', matrix.get('red_python') == 'red-python/red-python.json')
+    red_python = read(packet / 'red-python/red-python.json')
+    check('real_python_red_green_both_consoles', receipt_valid(red_python)
+          and red_python.get('scope') == 'python_closed_schema_mutation_only'
+          and red_python.get('readiness_claimed') is False
+          and [(r['console'], r['phase'], r['exit_code']) for r in red_python['rows']] == [
+              (console, phase, 1 if phase == 'mutation-red' else 0)
+              for console in ('utf-8', 'cp1252') for phase in ('baseline-green', 'mutation-red', 'restored-green')])
+    for row in red_python['rows']:
+        log = packet / 'red-python' / row['log']
+        text = log.read_text(encoding='utf-8')
+        red_ok = ('FAIL: test_k5_and_closed_family' in text and 'FAILED (failures=1)' in text
+                  if row['phase'] == 'mutation-red' else text.endswith('\nOK\n'))
+        check('python_witness_' + row['console'] + '_' + row['phase'],
+              log.resolve().is_relative_to((packet / 'red-python').resolve()) and not log.is_symlink()
+              and hashlib.sha256(log.read_bytes()).hexdigest() == row['log_sha256']
+              and 'Ran 1 test in ' in text and red_ok)
     check('matrix_scope', matrix['scope'] == ('python_only' if python_only else 'python_and_native'))
     rows = matrix['rows']
     expected = [('python', 'utf-8'), ('python', 'cp1252')] if python_only else [

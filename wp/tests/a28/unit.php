@@ -111,6 +111,13 @@ try {
         return $proof();
     });
     $check('residue_introduced_during_bootstrap_refused', !$report['ok'] && $report['form_message_residues'] === 1);
+    $refusal = null;
+    try {
+        new Engine(new MemoryStore(), $context, 'x_', [0 => ['action' => 'garder']]);
+    } catch (Throwable $error) {
+        $refusal = Command::diagnostic($error, 'neutraliser');
+    }
+    $check('non_form_numeric_decision_keeps_A01_code', ($refusal['code'] ?? '') === 'DECISION_INVALIDE');
 } catch (Throwable $error) {
     $checks[] = ['check' => 'exception', 'status' => 'FAIL', 'class' => get_class($error)];
 }

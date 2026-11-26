@@ -98,7 +98,7 @@ def verify(packet=PROOF):
                     m = read(label+'-mutation-'+family+'.json')
                     check('mutation_'+family,m.get('persisted_fixture') is True and m['total']==len(m['results'])==1 and all(x['leak'] is True and x['ok'] is False and x['witnesses_found']>0 and x['surface_present'] is True and x['status']==200 and x['bytes']>0 for x in m['results']))
         tests,image = read('tests.json'),read('image.json')
-        check('tests',all(tests[k]['exit']==0 and tests[k]['tests']==40 and tests[k]['TMPDIR_present'] is False and tests[k]['network_blocked'] is True and 'Ran 40 tests' in (packet/('tests-'+k+'.log')).read_text(encoding='utf-8') and '\nOK\n' in (packet/('tests-'+k+'.log')).read_text(encoding='utf-8') for k in ['utf8','cp1252']))
+        check('tests',all(tests[k]['exit']==0 and tests[k]['tests']==41 and tests[k]['TMPDIR_present'] is False and tests[k]['network_blocked'] is True and 'Ran 41 tests' in (packet/('tests-'+k+'.log')).read_text(encoding='utf-8') and '\nOK\n' in (packet/('tests-'+k+'.log')).read_text(encoding='utf-8') for k in ['utf8','cp1252']))
         check('image',image['exit']==0 and 'T01 IMAGE READY' in (packet/'image.log').read_text(encoding='utf-8'))
         check('no_session_dump',not any('wordpress_logged_in_' in (packet/n).read_text(encoding='utf-8',errors='replace') or 'X-WP-Nonce' in (packet/n).read_text(encoding='utf-8',errors='replace') for n in artifacts if n.endswith('.json')))
     except Exception as error:

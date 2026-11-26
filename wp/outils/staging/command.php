@@ -105,7 +105,7 @@ final class Command
         } catch (\Throwable $error) {
             // Pas de message d'exception, de chemin, d'adresse, d'argument, de secret ou de contenu de ligne.
             $failure = self::diagnostic($error, $phase);
-            if (isset($worker['store']) && method_exists($worker['store'], 'failureCoordinate')) {
+            if (!($error instanceof FormDecisionRefused) && isset($worker['store']) && method_exists($worker['store'], 'failureCoordinate')) {
                 $failure['operation'] = $worker['store']->failureCoordinate();
             }
             print(json_encode(['ok' => false, 'issues' => array_values(array_unique(['STAGING_REFUSE', $failure['code']])), 'failure' => $failure], JSON_THROW_ON_ERROR) . "\n");
