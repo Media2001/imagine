@@ -117,6 +117,7 @@ final class Inventory
             'as_of_utc' => $asOf, 'cutoff_utc' => gmdate('Y-m-d\TH:i:s\Z', $cutoff),
             'unique_management_accounts' => count($unique), 'roles' => array_values($roles),
             'two_factor_adapter' => $knownTwoFactor ? 'Two_Factor_Core::is_user_using_two_factor' : 'inconnu',
+            'two_factor_coverage' => $knownTwoFactor ? 'supported_adapter_only' : 'inconnu',
             'last_login_adapter' => $loginKnown ? 'WP Last Login:wp-last-login' : 'inconnu',
             'protections' => $protections, 'configuration' => [
                 'public_registration' => (bool) get_option('users_can_register'), 'default_role' => $defaultRole,

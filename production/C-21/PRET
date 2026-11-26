@@ -1,0 +1,6 @@
+C-21 — prêt technique à relire, le 26 novembre 2026.
+Sceau : final.json ; vérification : python -B wp/tests/demo/c21-verifier.py
+Export/effacement natifs exercés ; fixture supprimée ; conservation et profils C09 préservés.
+Limite explicite : garder la demande native d’effacement terminée jusqu’à suppression du compte (A-VOIR.md).
+File de 7 h 30 relue : priorité C-20 consigne 0 signalée au parent, non traitée par ce lot.
+Ni clôture, ni validation visuelle, ni GO pour le réel.

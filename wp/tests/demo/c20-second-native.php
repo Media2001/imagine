@@ -58,7 +58,22 @@ $carte = transaction(static function () use ($f, &$checks): array {
     $after = \Imagine\Demo\C20\state('A-CARTE', $f);
     $checks['pending_cancel_native_membership_pending'] = $after['membership_status'] === 'pending';
     $checks['pending_cancel_access_unchanged'] = $after['access_C06'] === $before['access_C06'];
-    $checks['pending_cancel_shipping_unchanged'] = wp_json_encode($after['shipping_C13']) === wp_json_encode($before['shipping_C13']);
+    // Arbitrage 26/11 7 h: paid term precedes the next issue cutoff; C13 must exclude 89.
+    $beforeShipping = json_decode(wp_json_encode($before['shipping_C13']), true);
+    $afterShipping = json_decode(wp_json_encode($after['shipping_C13']), true);
+    $beforeLines = $beforeShipping['liste']['lignes'];
+    $afterLines = $afterShipping['liste']['lignes'];
+    $withoutThis = array_values(array_filter($beforeLines, static fn ($line) => (string) $line['abonnement_id'] !== (string) $s->get_id()));
+    $cutoff = $afterShipping['liste']['cloture'];
+    $cutoffDate = new \DateTimeImmutable($cutoff['date'], new \DateTimeZone($cutoff['timezone']));
+    $checks['pending_cancel_paid_term_before_cutoff_excludes_only_this_subscription'] =
+        $after['end'] === '2026-12-25 18:01:50'
+        && $cutoffDate->format('Y-m-d H:i:s T') === '2027-01-05 00:00:00 CET'
+        && new \DateTimeImmutable($after['end'], new \DateTimeZone('UTC')) < $cutoffDate
+        && count($beforeLines) === 8 && count($afterLines) === 7
+        && wp_json_encode($afterLines) === wp_json_encode($withoutThis)
+        && count(array_filter($after['shipping_C13']['exclus'], static fn ($line) =>
+            (string) $line['abonnement_id'] === (string) $s->get_id() && $line['motif'] === 'expire')) === 1;
     $checks['B02_numbers_unchanged'] = array_intersect_key($after['account_B02'], array_flip(['premier','dernier','restants','echeances'])) === array_intersect_key($before['account_B02'], array_flip(['premier','dernier','restants','echeances']));
     $s = wcs_get_subscription($s->get_id());
     $resume = $s->can_be_updated_to('active');

@@ -33,6 +33,8 @@ update_option('users_can_register', 1);
 update_option('default_role', 'subscriber');
 $active = get_option('active_plugins');
 $active[] = 'two-factor/two-factor.php';
+$active[] = 'other-2fa/other-2fa.php';
+update_user_meta(get_users(['role' => 'shop_manager'])[0]->ID, '_other_2fa_enabled', true);
 $active[] = 'wp-last-login/wp-last-login.php';
 $active[] = 'limit-login-attempts-reloaded/limit-login-attempts-reloaded.php';
 update_option('active_plugins', $active);

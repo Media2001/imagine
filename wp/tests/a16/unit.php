@@ -47,6 +47,21 @@ if (is_file('/subject/a16/Mapping.php')) {
         }
         $check('missing_mapping_field:' . $key, $refused);
     }
+    $privateMapping = $mapping;
+    $privateMapping['racine_privee'] = '/scratch/a16-private';
+    $check('optional_private_root_accepted', \Imagine\IssueInventory\Mapping::validate($privateMapping) === $privateMapping);
+    foreach ([null, '', '/', 'relative', 'https://example.org/private', '/scratch/../private',
+        '/scratch/private/', '/scratch//private', '/scratch/private' . "\n", 12, []] as $index => $root) {
+        $bad = $mapping;
+        $bad['racine_privee'] = $root;
+        try {
+            \Imagine\IssueInventory\Mapping::validate($bad);
+            $refused = false;
+        } catch (RuntimeException $error) {
+            $refused = $error->getMessage() === 'A16_MAPPING_INVALID';
+        }
+        $check('private_root_strict_local_syntax:' . $index, $refused);
+    }
     $taxonomyMapping = $mapping;
     $taxonomyMapping['numero_source'] = 'taxonomy';
     try {

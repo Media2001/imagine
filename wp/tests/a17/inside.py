@@ -27,6 +27,10 @@ if (!getenv('A17_UNKNOWN_PROVIDER')) {
 ''','wp-last-login/wp-last-login.php':'''<?php
 /* Plugin Name: WP Last Login fixture
 Version: 1.3.0 */
+''','other-2fa/other-2fa.php':'''<?php
+/* Plugin Name: Other 2FA fixture
+Version: 1.0.0 */
+// Deliberately no Two_Factor_Core API: its protected accounts are outside the adapter.
 ''','limit-login-attempts-reloaded/limit-login-attempts-reloaded.php':'''<?php
 /* Plugin Name: Limit Login Attempts Reloaded fixture
 Version: 2.26.0 */
@@ -40,6 +44,9 @@ throw new RuntimeException('NEVER_LOAD_INACTIVE');
     try:p=b.wp(site,['eval-file','/opt/a17/seed.php','--use-include']);b.check(storage+':seed_native_application_password','A17_SEED_OK' in p.stdout)
     finally:(site/'wp-config.php').write_text(cfg)
     mu=site/'wp-content/mu-plugins/a17-probe.php';mu.write_text('''<?php
+if (getenv('A17_NO_LAST_LOGIN')) {
+ add_filter('option_active_plugins', static fn($active) => array_values(array_diff($active, ['wp-last-login/wp-last-login.php'])));
+}
 if (getenv('A17_CONFINED') === '1') {
  global $wpdb; require_once ABSPATH.'wp-includes/pluggable.php';
  add_action('authenticate', function(){ throw new RuntimeException('A17_LOGIN_ATTEMPT_FORBIDDEN'); }, -99999);
@@ -65,8 +72,11 @@ if (getenv('A17_CONFINED') === '1') {
     b.check(storage+':known_2fa_adapter',d['two_factor_adapter']=='Two_Factor_Core::is_user_using_two_factor' and rows['administrator']['two_factor_active']==1 and all(rows[k]['two_factor_active']==0 for k in ['a17_gestion','editor','shop_manager']))
     b.check(storage+':actual_configuration_not_runtime_forced_values',d['configuration']=={'public_registration':True,'default_role':'subscriber','admin_file_editing':True,'xmlrpc_authenticated_methods':True,'application_passwords_available':True})
     protections={r['name']:r for r in d['protections']};b.check(storage+':security_plugins_names_versions_active_inactive',protections['Wordfence fixture inactive']['active'] is False and protections['Two-Factor fixture']['version']=='0.17.0' and protections['Limit Login Attempts Reloaded fixture']['active'] is True)
+    b.check(storage+':coexisting_2fa_supported_scope_not_global_total',protections['Other 2FA fixture']['active'] is True and sum(r['kind']=='double_authentification' and r['active'] for r in d['protections'])==2 and d.get('two_factor_coverage')=='supported_adapter_only' and rows['shop_manager']['two_factor_active']==0)
     payload=''.join(x.read_text() for x in dest.iterdir())+p.stdout+p.stderr;b.check(storage+':no_identity_secret_in_outputs',not re.search(r'CANARY|@|/scratch|user_login|user_email|password_hash|user_pass|a02-admin|a17-fictif',payload))
     unknown=OUT/(storage+'-unknown');p=inventory(site,unknown,audit/'audit.json',{'A17_UNKNOWN_PROVIDER':'1'});u=json.loads((unknown/'securite.json').read_text());b.check(storage+':unknown_2fa_not_zero',p.returncode==0 and u['two_factor_adapter']=='inconnu' and all(r['two_factor_active'] is None for r in u['roles']))
+    no_login=OUT/(storage+'-no-last-login');p=inventory(site,no_login,audit/'audit.json',{'A17_NO_LAST_LOGIN':'1'});u=json.loads((no_login/'securite.json').read_text())
+    b.check(storage+':no_last_login_native_unknown_not_estimated',p.returncode==0 and u['last_login_adapter']=='inconnu' and all(r['last_login']=={'status':'inconnu','no_recent_record':None,'unknown_accounts':r['accounts']} for r in u['roles']))
     repeat=OUT/(storage+'-repeat');p=inventory(site,repeat,audit/'audit.json');b.check(storage+':replay_identical',p.returncode==0 and {x.name:x.read_bytes() for x in repeat.iterdir()}=={x.name:x.read_bytes() for x in dest.iterdir()})
     for label,path in [('exists',dest),('site',site/'forbidden'),('repo',Path('/subject/forbidden')),('ancestor',site.parent/'forbidden'),('root',Path('/forbidden'))]:
         p=inventory(site,path,audit/'audit.json');b.check(storage+':guard:'+label,p.returncode==1 and (path==dest or not path.exists()))
