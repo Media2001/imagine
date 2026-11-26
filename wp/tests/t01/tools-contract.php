@@ -112,6 +112,14 @@ toolContract('real failing tool vetoes real PHPUnit success without changing its
     toolExpect($result['tests'] === 1 && $result['assertions'] === 1 && $result['failures'] === 0, 'PHPUnit totals changed');
 });
 
+toolContract('a mixed tests and checks receipt vetoes real PHPUnit success', static function (): void {
+    [$code, $result, $output] = toolReplayFixture('<?php file_put_contents("/report/unit.json", \'{"tests":{"ancien":true},"checks":[{"check":"nouveau","status":"FAIL"}],"exit_code":0}\');');
+    toolExpect($code === 1 && $result['pass'] === false
+        && ($result['tools']['failures'] ?? 0) >= 1, 'Mixed receipt hid a failed check: ' . $output);
+    toolExpect($result['tests'] === 1 && $result['assertions'] === 1
+        && $result['failures'] === 0 && $result['errors'] === 0, 'PHPUnit totals changed');
+});
+
 toolContract('a dangling symbolic unit is refused instead of silently omitted', static function (): void {
     $root = toolFixture();
     unlink($root . '/tests/a90/unit.php');
@@ -140,6 +148,11 @@ foreach ([
     'empty receipt' => '<?php file_put_contents("/report/unit.json", json_encode(["checks" => []]));',
     'invalid status' => '<?php file_put_contents("/report/unit.json", json_encode(["checks" => [["check" => "bad", "status" => "UNKNOWN"]]]));',
     'boolean false' => '<?php file_put_contents("/report/unit.json", json_encode(["tests" => ["red" => false]]));',
+    'mixed all green families' => '<?php file_put_contents("/report/unit.json", json_encode(["tests" => ["green" => true], "checks" => [["check" => "green", "status" => "PASS"]]]));',
+    'mixed reversed families' => '<?php file_put_contents("/report/unit.json", json_encode(["checks" => [["check" => "red", "status" => "FAIL"]], "tests" => ["green" => true]]));',
+    'mixed null tests family' => '<?php file_put_contents("/report/unit.json", json_encode(["tests" => null, "checks" => [["check" => "green", "status" => "PASS"]]]));',
+    'mixed null checks family' => '<?php file_put_contents("/report/unit.json", json_encode(["tests" => ["green" => true], "checks" => null]));',
+    'scalar receipt' => '<?php file_put_contents("/report/unit.json", "true");',
     'php warning' => '<?php trigger_error("synthetic warning", E_USER_WARNING); file_put_contents("/report/unit.json", json_encode(["checks" => [["check" => "green", "status" => "PASS"]]]));',
 ] as $name => $unit) {
     toolContract('fail closed: ' . $name, static function () use ($unit): void {

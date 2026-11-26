@@ -121,6 +121,11 @@ function runT01Tools(string $wpRoot, string $workspace = '/tmp/t01-tools'): arra
                 throw new RuntimeException('T02_UNIT_RECEIPT_MISSING');
             }
             $receipt = json_decode(file_get_contents($report . '/unit.json'), true, 512, JSON_THROW_ON_ERROR);
+            // Exactly one receipt family is allowed, even if the other value is null.
+            if (!is_array($receipt)
+                || (array_key_exists('tests', $receipt) && array_key_exists('checks', $receipt))) {
+                throw new RuntimeException('T02_UNIT_RECEIPT_INVALID');
+            }
             if (isset($receipt['tests']) && is_array($receipt['tests'])) {
                 foreach ($receipt['tests'] as $name => $ok) {
                     if (!is_string($name) || !is_bool($ok)) {
