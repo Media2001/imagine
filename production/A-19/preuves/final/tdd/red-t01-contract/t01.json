@@ -1,0 +1,104 @@
+{
+  "scope": "A19-only; not the global T01 gate",
+  "checks": [
+    {
+      "check": "isolation_before",
+      "status": "PASS",
+      "detail": {
+        "network": "none",
+        "mounts": [],
+        "ports": [],
+        "privileged": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:9a95dcbe8a15f9bf6560bd60f0144d8c85fc1a4e023cd45cb968071c26ca67dc"
+      }
+    },
+    {
+      "check": "unchanged_t01_discovery_and_full_coverage",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "real_phpunit_exit",
+      "status": "FAIL",
+      "detail": {
+        "exit_code": 2
+      }
+    },
+    {
+      "check": "nine_named_pure_cases_discovered",
+      "status": "FAIL",
+      "detail": null
+    },
+    {
+      "check": "nine_assertions_no_failures_errors_skips",
+      "status": "FAIL",
+      "detail": null
+    },
+    {
+      "check": "isolation_after",
+      "status": "PASS",
+      "detail": {
+        "network": "none",
+        "mounts": [],
+        "ports": [],
+        "privileged": false,
+        "cap_drop": [
+          "ALL"
+        ],
+        "no_new_privileges": true,
+        "image_id": "sha256:9a95dcbe8a15f9bf6560bd60f0144d8c85fc1a4e023cd45cb968071c26ca67dc"
+      }
+    },
+    {
+      "check": "cleanup_exact_owned_runner",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "owned_sources_stable",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 1,
+  "command": [
+    "php",
+    "vendor/bin/phpunit",
+    "--configuration",
+    "phpunit.xml",
+    "--filter",
+    "A19SubscriptionCoherenceTest",
+    "--fail-on-warning",
+    "--fail-on-risky",
+    "--fail-on-deprecation",
+    "--fail-on-skipped",
+    "--fail-on-incomplete",
+    "--do-not-cache-result",
+    "--colors=never",
+    "--log-junit",
+    "/report/t01-junit.xml"
+  ],
+  "cases": [],
+  "sources": {
+    "wp/outils/bascule/a19/Analysis.php": "d3b39ec4165cbce3bb72f40c1a9dbeae4758a17250a5efbe778e6b0cad239024",
+    "wp/outils/bascule/a19/Command.php": "f62a1d6bd5fa54c890d50d43e6398516a03a01eef1a2ffe1448d78e7bbcc45f8",
+    "wp/outils/bascule/a19/confine.py": "e79202496a60f61c8d7202c51eecceb1a52b0ecf994da58b8a7e48b5dfa60d83",
+    "wp/outils/bascule/a19/inventorier-coherence": "aa2123fb27a4e6c7e1873a628dccc30fd2269140e49d0302183c9b8eb92285ab",
+    "wp/outils/bascule/a19/Inventory.php": "355835b22c1a6f33c6c33899a8d76b5b2ad44dda0448536749da33a05060b8a2",
+    "wp/outils/bascule/a19/README.md": "f676187f1795062feb05abceabc58b2c93087199c3bee3e902fc1acccb7b2ceb",
+    "wp/plugins/imagine-pilotage/tests/Administration/A19SubscriptionCoherenceTest.php": "782fda5060dc7a2b2a0b899d4b5a6dbdf0d0291e54dea92f10bf62af27ddaca7",
+    "wp/tests/a19/inside.py": "3df0d91420db0bae14dc3cd6e9a400496c46dd05f753b87908a0d5a2820722af",
+    "wp/tests/a19/run.py": "844db7cff531fe6e5e5ab724cf0514e94ea8ab0cce1ce8ab8978c4f1d76f3436",
+    "wp/tests/a19/seed.php": "8cecdf1e427ca62a8081a79e23f311102f674690360b0ef48b8dc095a4274ddb",
+    "wp/tests/a19/style.py": "d856a2ea35f9a25c4be47e20fe5f3b8b9c2669b525f10b76cb35c1f6b0b8fe31",
+    "wp/tests/a19/t01-probe.php": "590cfc7b7b2dbb4e4c5fa62e5676d2133294bc5bb4c04f8ff102c7af09044397",
+    "wp/tests/a19/t01.py": "b05f1a703d4f7f738f8e36210afbdd4ec91d3d9862cc53134007be5932821362",
+    "wp/tests/a19/test_launcher.py": "50ad997246b860d3b23c4b44539969e994552460d92f4f5ede8c7e5ad189379f",
+    "wp/tests/a19/unit.php": "3db90406bbb1566e32865f9621c158ad161eeec98df87497c41410e73a8c2f46",
+    "wp/tests/a19/verify.py": "a22c4f6d6272322e2e52aab99ab8c1dddcdb02618b585451982e95ee232ecefc"
+  }
+}

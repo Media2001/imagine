@@ -86,6 +86,6 @@ Comptes uniquement ; aucune valeur ni decision de suppression.
     "payment_reference_basis": "Reference Woo liee ou champs du schema natif de passerelle ; sinon inconnu.",
     "mode_basis": "Drapeau manuel enregistre, pas bascule manuelle effective du staging.",
     "scope": "Magasin natif faisant autorite ; liens explicites ; aucun rapprochement par identite.",
-    "audit_sha256": "907d0aee52cd11993b0369db277e0b4cade285a176f93a250e147459e5e9a9ad"
+    "audit_sha256": "8e316d15c562f9b793139091a87c9ce4d586665646402398fa728362cafd0d17"
 }
 ```

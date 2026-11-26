@@ -1,0 +1,8 @@
+{
+  "lot": "A-19",
+  "status": "CANDIDAT_GATE_PARENT",
+  "parent_preparation": "pending",
+  "parent_global_T01": "pending",
+  "PRET": false,
+  "historic_packet_preserved_outside_repository": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a19-corrections-20261126\\historical-delivered-packet"
+}

@@ -1,11 +1,15 @@
 {
-  "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
-  "version": "3.14.7 (main, Sep  1 2026, 14:17:30) [MSC v.1944 64 bit (AMD64)]",
+  "executable": "C:\\Python314\\python.exe",
+  "version": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+  "version_info": [
+    3,
+    14,
+    6
+  ],
   "platform": "win32",
   "stdout": "cp1252",
   "stderr": "cp1252",
   "locale": "cp1252",
   "preferred": "cp1252",
-  "utf8_mode": 0,
-  "PYTHONIOENCODING": "cp1252"
+  "utf8_mode": 0
 }

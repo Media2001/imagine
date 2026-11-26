@@ -271,6 +271,35 @@
       "detail": null
     },
     {
+      "check": "classic:explicit_clock_retained",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:three_paths_without_date_native",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:default_clock_is_current_utc",
+      "status": "PASS",
+      "detail": {
+        "before_utc": "2026-11-26T09:57:20+00:00",
+        "as_of_utc": "2026-11-26T09:57:20Z",
+        "after_utc": "2026-11-26T09:57:21.365423+00:00"
+      }
+    },
+    {
+      "check": "classic:default_clock_single_frozen_reference",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:repeated_clock_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:guard:exists",
       "status": "PASS",
       "detail": null
@@ -636,6 +665,35 @@
     },
     {
       "check": "hpos:replay_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:explicit_clock_retained",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:three_paths_without_date_native",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:default_clock_is_current_utc",
+      "status": "PASS",
+      "detail": {
+        "before_utc": "2026-11-26T09:57:42+00:00",
+        "as_of_utc": "2026-11-26T09:57:42Z",
+        "after_utc": "2026-11-26T09:57:42.724021+00:00"
+      }
+    },
+    {
+      "check": "hpos:default_clock_single_frozen_reference",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:repeated_clock_refused",
       "status": "PASS",
       "detail": null
     },

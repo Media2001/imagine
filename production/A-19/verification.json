@@ -1,12 +1,15 @@
 {
+  "status": "CANDIDAT_GATE_PARENT",
+  "readiness_claimed": false,
   "exit_code": 0,
   "counts": {
     "cp1252:unit": 9,
-    "cp1252:result": 98,
+    "cp1252:result": 108,
     "cp1252:runner": 7,
     "utf8:unit": 9,
-    "utf8:result": 98,
-    "utf8:runner": 7
+    "utf8:result": 108,
+    "utf8:runner": 7,
+    "t01:rules": 9
   },
   "checks": [
     {
@@ -42,6 +45,10 @@
       "status": "PASS"
     },
     {
+      "check": "cp1252:classic:default_and_explicit_frozen_reports_identical",
+      "status": "PASS"
+    },
+    {
       "check": "cp1252:hpos:required_native_cases",
       "status": "PASS"
     },
@@ -51,6 +58,10 @@
     },
     {
       "check": "cp1252:hpos:audit_bound",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:default_and_explicit_frozen_reports_identical",
       "status": "PASS"
     },
     {
@@ -90,6 +101,10 @@
       "status": "PASS"
     },
     {
+      "check": "utf8:classic:default_and_explicit_frozen_reports_identical",
+      "status": "PASS"
+    },
+    {
       "check": "utf8:hpos:required_native_cases",
       "status": "PASS"
     },
@@ -99,6 +114,10 @@
     },
     {
       "check": "utf8:hpos:audit_bound",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:default_and_explicit_frozen_reports_identical",
       "status": "PASS"
     },
     {
@@ -114,7 +133,15 @@
       "status": "PASS"
     },
     {
-      "check": "preparer_image_actual_exit",
+      "check": "candidate_only_parent_gate_not_claimed",
+      "status": "PASS"
+    },
+    {
+      "check": "t01_current_sources_and_genuine_nine_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "t01_junit_nine_assertions_zero_skipped",
       "status": "PASS"
     },
     {
