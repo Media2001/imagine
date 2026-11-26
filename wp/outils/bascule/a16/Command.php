@@ -69,7 +69,6 @@ final class Command
             throw new \RuntimeException('A16_AUDIT_STORAGE_MISMATCH');
         }
         $report['audit_sha256'] = hash_file('sha256', $audit);
-        $json = json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n";
         $report['mapping_sha256'] = hash_file('sha256', $map);
         $json = json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n";
         $markdown = "# Numeros — lecture seule\n\n"

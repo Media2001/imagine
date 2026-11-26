@@ -76,17 +76,20 @@ final class Inventory
         ) {
             throw new \RuntimeException('A16_ATTACHMENT_PATH_UNSAFE');
         }
-        return ['exists' => is_file($path), 'public' => $public, 'pdf' => $a[0]['post_mime_type'] === 'application/pdf'];
+        return ['exists' => is_file($path), 'public' => $public,
+            'pdf' => $a[0]['post_mime_type'] === 'application/pdf'];
     }
     public function collect(array $m, int $limit): array
     {
         Mapping::validate($m);
         $this->privateRoot = $m['racine_privee'] ?? null;
-        if ($this->privateRoot !== null && (!is_dir($this->privateRoot)
+        if (
+            $this->privateRoot !== null && (!is_dir($this->privateRoot)
             || realpath($this->privateRoot) !== $this->privateRoot
             || $this->privateRoot === $this->site
             || str_starts_with($this->privateRoot, $this->site . '/')
-            || str_starts_with($this->site, $this->privateRoot . '/'))) {
+            || str_starts_with($this->site, $this->privateRoot . '/'))
+        ) {
             throw new \RuntimeException('A16_PRIVATE_ROOT_UNSAFE');
         }
         $taxonomy = ($m['numero_source'] ?? 'post_type') === 'taxonomy';

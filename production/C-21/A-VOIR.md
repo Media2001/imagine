@@ -53,6 +53,7 @@ Depuis la racine du dépôt, commandes sans modification de la file ou d’un au
 python -B wp/outils/demo/c21-unit.py unit-relecture
 python -B wp/tests/demo/c21-http.py http-relecture
 python -B wp/outils/demo/c21.py security security-relecture
+python -B wp/outils/demo/c21.py failures failures-relecture
 python -B wp/outils/demo/c21.py regressions regressions-relecture
 python -B wp/tests/demo/c21-verifier.py
 ```

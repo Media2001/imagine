@@ -51,6 +51,8 @@ final class Inventory
         usort($protections, static fn(array $a, array $b): int => strcmp($a['name'], $b['name']));
         $knownTwoFactor = is_callable(['Two_Factor_Core', 'is_user_using_two_factor']);
         $loginKnown = in_array('wp-last-login/wp-last-login.php', $active, true);
+        // Existing import provenance only: never infer the erased pre-import count.
+        $neutralised = get_option('imagine_staging_disabled_plugins', null) !== null;
         $clock = \DateTimeImmutable::createFromFormat('!Y-m-d\TH:i:s\Z', $asOf, new \DateTimeZone('UTC'));
         if (!$clock || $clock->format('Y-m-d\TH:i:s\Z') !== $asOf) {
             throw new \RuntimeException('A17_CLOCK_INVALID');
@@ -70,7 +72,8 @@ final class Inventory
             ) {
                 continue;
             }
-            $roles[$role] = ['role' => $role, 'accounts' => 0, 'application_password_accounts' => 0,
+            $roles[$role] = ['role' => $role, 'accounts' => 0,
+                'application_password_accounts' => $neutralised ? 'inconnu après neutralisation' : 0,
                 'two_factor_active' => $knownTwoFactor ? 0 : null,
                 'last_login' => ['status' => $loginKnown ? 'observe' : 'inconnu',
                     'no_recent_record' => $loginKnown ? 0 : null, 'unknown_accounts' => 0]];
@@ -84,14 +87,16 @@ final class Inventory
             }
             $id = (int) $record->ID;
             $unique[$id] = true;
-            $apps = \WP_Application_Passwords::get_user_application_passwords($id);
+            $apps = $neutralised ? [] : \WP_Application_Passwords::get_user_application_passwords($id);
             $twoFactor = $knownTwoFactor ? (bool) \Two_Factor_Core::is_user_using_two_factor($id) : null;
             $last = $loginKnown ? get_user_meta($id, 'wp-last-login', true) : '';
             $last = (is_int($last) || (is_string($last) && ctype_digit($last))) && (int) $last > 0
                 && (int) $last <= $clock->getTimestamp() ? (int) $last : null;
             foreach ($memberships as $role) {
                 $roles[$role]['accounts']++;
-                $roles[$role]['application_password_accounts'] += (int) (count($apps) > 0);
+                if (!$neutralised) {
+                    $roles[$role]['application_password_accounts'] += (int) (count($apps) > 0);
+                }
                 if ($knownTwoFactor) {
                     $roles[$role]['two_factor_active'] += (int) $twoFactor;
                 }
@@ -128,7 +133,15 @@ final class Inventory
             || !in_array($t[0], [T_WHITESPACE, T_COMMENT, T_DOC_COMMENT], true)));
         $found = [];
         $depth = 0;
+        $uncertain = false;
+        $control = [T_IF, T_ELSEIF, T_ELSE, T_FOR, T_FOREACH, T_WHILE, T_DO, T_SWITCH,
+            T_TRY, T_CATCH, T_FINALLY, T_FUNCTION, T_FN, T_CLASS, T_INTERFACE, T_TRAIT,
+            T_ENUM, T_RETURN, T_THROW, T_EXIT, T_GOTO, T_YIELD, T_YIELD_FROM, T_MATCH, T_HALT_COMPILER];
         foreach ($tokens as $i => $token) {
+            // Not an interpreter: after control flow, unconditional execution is unproven.
+            if (is_array($token) && in_array($token[0], $control, true)) {
+                $uncertain = true;
+            }
             if ($token === '{') {
                 $depth++;
             } elseif ($token === '}') {
@@ -148,7 +161,8 @@ final class Inventory
                 continue;
             }
             $previous = $tokens[$i - 1] ?? null;
-            if ($depth !== 0 || !($previous === ';' || (is_array($previous) && $previous[0] === T_OPEN_TAG))) {
+            if ($uncertain || $depth !== 0
+                || !($previous === ';' || (is_array($previous) && $previous[0] === T_OPEN_TAG))) {
                 $found[] = null;
                 continue;
             }

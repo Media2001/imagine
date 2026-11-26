@@ -99,6 +99,26 @@ def run(label):
         checks['aucun_secret_note_ou_reference_paiement'] = not any(x in text for x in ['C21-SECRET-TOKEN', 'C21-NOTE-INTERNE-INTERDITE', 'C21-TOKEN-PRIVE', fixture['doc'], 'c17-' + Path(fixture['doc']).stem[4:]])
         checks['email_technique_absent_archive_entete_comprise'] = '.invalid' not in text and '[sans adresse électronique]' in text
         own_text = json.dumps([r for r in all_rows if r['group_id'].startswith('imagine-')], ensure_ascii=False)
+        by_group = {}
+        for row in all_rows:
+            by_group.setdefault(row['group_id'], []).append({f['name']: f['value'] for f in row['data']})
+        markers = {k: v for row in by_group['imagine-meta'] for k, v in row.items()}
+        discovery = by_group['imagine-decouverte'][0]
+        documentary = by_group['imagine-justificatif'][0]
+        draft = by_group['imagine-brouillon'][0]
+        frozen = by_group['imagine-gel'][0]
+        audits = by_group['imagine-audit']
+        checks['valeurs_de_chaque_famille_fideles'] = (
+            markers == {'imagine_sans_email': '1', 'imagine_email_confirme': '1'}
+            and discovery['debut'] == '2026-11-01 00:00:00' and json.loads(discovery['articles']) == [167]
+            and json.loads(discovery['reglages']) == {'ouverture': 'fermee', 'forme': 'articles', 'jours': 7, 'nombre': 2, 'numeros': []}
+            and documentary['categorie'] == 'à préciser' and documentary['decision'] == 'en_attente'
+            and draft['etape'] == '3' and json.loads(draft['client']) == {'mode': 'existant', 'id': fixture['user']}
+            and json.loads(draft['commande'])['adresse']['address_1'] == '21 Rue FICTIVE'
+            and frozen['numero'] == '167' and json.loads(frozen['observations'])[0]['donnees']['rue'] == '21 Rue FICTIVE'
+            and any(json.loads(a['apres']) == {'categorie': 'à préciser', 'decision': 'valide', 'fin': '2027-12-31'} for a in audits if 'apres' in a)
+            and any(a.get('extraction') == 'etat' and a.get('lignes') == '2' and a.get('opérateur') == 'imagine-c21-fictif' for a in audits)
+        )
         checks['autres_personnes_non_divulguees'] = 'C21-AUTRE-PERSONNE' not in own_text and 'C21-AUTRE-BENEFICIAIRE' not in own_text
         observation.update(exporters=exporters, export_calls=calls, zip_sha256=hashlib.sha256(archive).hexdigest(), zip_members=z.namelist(), groups=sorted(set(r['group_id'] for r in all_rows)))
         rem, nonce, _ = request(admin, 'erase', fixture['user'])

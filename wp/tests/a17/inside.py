@@ -58,8 +58,10 @@ if (getenv('A17_CONFINED') === '1') {
     before=b.fingerprint(db);files=b.files(site);(OUT/(storage+'-db-before.json')).write_text(json.dumps(before))
     dest=OUT/(storage+'-security');p=inventory(site,dest,audit/'audit.json');b.check(storage+':cli_and_actual_readonly_guards',p.returncode==0,{'exit':p.returncode,'stderr':p.stderr[:180]})
     d=json.loads((dest/'securite.json').read_text());rows={r['role']:r for r in d['roles']}
-    expected={'administrator':2,'a17_gestion':1,'editor':1,'shop_manager':1}
-    b.check(storage+':exact_role_and_security_counts',{k:r['accounts'] for k,r in rows.items()}==expected and d['unique_management_accounts']==5 and rows['administrator']['application_password_accounts']==1 and rows['administrator']['last_login']=={'status':'observe','no_recent_record':1,'unknown_accounts':0} and all(rows[k]['last_login']['unknown_accounts']==1 for k in ['a17_gestion','editor','shop_manager']))
+    expected={'administrator':2,'a17_gestion':1,'editor':3,'shop_manager':1,'a17_edit_users':1,'a17_update_plugins':1,'a17_switch_themes':1}
+    b.check(storage+':exact_role_and_security_counts',{k:r['accounts'] for k,r in rows.items()}==expected and d['unique_management_accounts']==10 and rows['administrator']['application_password_accounts']==1 and rows['administrator']['last_login']=={'status':'observe','no_recent_record':1,'unknown_accounts':0} and all(rows[k]['last_login']['unknown_accounts']==1 for k in ['a17_gestion','shop_manager']))
+    b.check(storage+':isolated_management_roles_included_content_excluded', all(rows['a17_'+cap]['accounts']==1 for cap in ['edit_users','update_plugins','switch_themes']) and 'a17_content_only' not in rows)
+    b.check(storage+':exact_boundary_not_old_and_future_unknown',rows['editor']['last_login']=={'status':'observe','no_recent_record':0,'unknown_accounts':2})
     b.check(storage+':known_2fa_adapter',d['two_factor_adapter']=='Two_Factor_Core::is_user_using_two_factor' and rows['administrator']['two_factor_active']==1 and all(rows[k]['two_factor_active']==0 for k in ['a17_gestion','editor','shop_manager']))
     b.check(storage+':actual_configuration_not_runtime_forced_values',d['configuration']=={'public_registration':True,'default_role':'subscriber','admin_file_editing':True,'xmlrpc_authenticated_methods':True,'application_passwords_available':True})
     protections={r['name']:r for r in d['protections']};b.check(storage+':security_plugins_names_versions_active_inactive',protections['Wordfence fixture inactive']['active'] is False and protections['Two-Factor fixture']['version']=='0.17.0' and protections['Limit Login Attempts Reloaded fixture']['active'] is True)
@@ -73,5 +75,24 @@ if (getenv('A17_CONFINED') === '1') {
     try:p=inventory(site,OUT/(storage+'-dropin'),audit/'audit.json');b.check(storage+':dropin_named_no_execution',p.returncode==1 and p.stderr=='A11_DROPIN_UNSUPPORTED {"file":"wp-content/object-cache.php"}\n')
     finally:dropin.unlink()
     after=b.fingerprint(db);(OUT/(storage+'-db-after.json')).write_text(json.dumps(after));b.check(storage+':all_tables_scheduler_identical',before==after);b.check(storage+':files_identical',files==b.files(site));b.check(storage+':config_not_executed',not Path('/scratch/a02-bootstrap-trap').exists())
+    # A separate disposable copy crosses the unchanged real neutraliser and anonymiser.
+    clone='a17_'+storage+'_test';b.sql('mysql','CREATE DATABASE '+clone)
+    dump=b.cmd(['mariadb-dump','--socket='+b.SOCKET,'-uroot',db]).stdout
+    b.cmd(['mariadb','--socket='+b.SOCKET,'-uroot',clone],data=dump)
+    phase=b.cmd(['php','/opt/a17/neutralise.php'],env={'A17_DB':clone})
+    provenance=json.loads(phase.stdout);(OUT/(storage+'-neutralisation.json')).write_text(json.dumps(provenance,indent=2)+'\n')
+    b.check(storage+':real_neutralisation_erases_application_passwords',provenance=={'application_password_rows_before':1,'application_password_rows_after':0,'neutralisation_marker_count':1,'neutraliser_and_anonymiser_executed':True})
+    b.sql('mysql',"GRANT SELECT ON "+clone+".* TO 'a02_"+storage+"'@'localhost'")
+    original_cfg=(site/'wp-config.php').read_text();(site/'wp-config.php').write_text(original_cfg.replace("define('DB_NAME', '"+db+"')","define('DB_NAME', '"+clone+"')"))
+    try:
+        clone_before=b.fingerprint(clone);clone_files=b.files(site)
+        neutral_audit=OUT/(storage+'-neutralised-audit');b.check(storage+':neutralised_audit',b.audit(site,neutral_audit).returncode==0)
+        neutral=OUT/(storage+'-neutralised');p=inventory(site,neutral,neutral_audit/'audit.json')
+        n=json.loads((neutral/'securite.json').read_text())
+        b.check(storage+':neutralised_application_passwords_unknown_never_zero',p.returncode==0 and all(r['application_password_accounts']=='inconnu après neutralisation' for r in n['roles']))
+        clone_after=b.fingerprint(clone)
+        (OUT/(storage+'-neutralised-db-before.json')).write_text(json.dumps(clone_before));(OUT/(storage+'-neutralised-db-after.json')).write_text(json.dumps(clone_after))
+        b.check(storage+':neutralised_all_tables_and_files_readonly',clone_before==clone_after and clone_files==b.files(site))
+    finally:(site/'wp-config.php').write_text(original_cfg)
 b.run_storage=run_storage
 if __name__=='__main__':sys.exit(b.main())

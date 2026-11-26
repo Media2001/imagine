@@ -10,9 +10,11 @@ final class Mapping
     {
         $keys = array_keys($m);
         $keys = array_values(array_diff($keys, ['numero_source', 'racine_privee']));
-        if (isset($m['racine_privee']) && (!is_string($m['racine_privee'])
+        if (
+            isset($m['racine_privee']) && (!is_string($m['racine_privee'])
             || !preg_match('~\A/(?:[^/\x00-\x1f\\\\:]+/)*[^/\x00-\x1f\\\\:]+\z~D', $m['racine_privee'])
-            || preg_match('~(?:^|/)\.\.?(/|$)~', $m['racine_privee']))) {
+            || preg_match('~(?:^|/)\.\.?(/|$)~', $m['racine_privee']))
+        ) {
             throw new \RuntimeException('A16_MAPPING_INVALID');
         }
         if (array_key_exists('racine_privee', $m) && $m['racine_privee'] === null) {

@@ -15,7 +15,7 @@ spec=importlib.util.spec_from_file_location('a02_runner',ROOT/'wp/tests/a02-audi
 b=importlib.util.module_from_spec(spec);spec.loader.exec_module(b)
 b.LABEL='org.imagine.a17-security'
 OWN=['wp/tests/a17','wp/outils/bascule/a17']
-DEPENDENCIES=['wp/tests/a02-audit','wp/outils/bascule/audit','wp/outils/bascule/a11','wp/outils/bascule/a12']
+DEPENDENCIES=['wp/tests/a02-audit','wp/outils/bascule/audit','wp/outils/bascule/a11','wp/outils/bascule/a12','wp/outils/staging']
 
 def manifest(roots):
     files=[]
@@ -39,6 +39,7 @@ def main():
             for p in sorted(source.glob('*')):
                 if p.is_file():b.call(['cp',b.local(p),name+':'+dest+'/'+p.name])
         for dependency in ['audit','a11','a12']:b.call(['cp',b.local(ROOT/'wp/outils/bascule'/dependency),name+':/subject/'+dependency])
+        b.call(['cp',b.local(ROOT/'wp/outils/staging'),name+':/subject/staging'])
         p=b.call(['exec',name,'php','/opt/a17/unit.php'],check=False);(out/'unit.log').write_text(p.stdout+p.stderr,encoding='utf-8')
         b.call(['cp',name+':/report/unit.json',b.local(out/'unit.json')]);check('unit_return',p.returncode==0,{'exit_code':p.returncode})
         if not a.unit_only:

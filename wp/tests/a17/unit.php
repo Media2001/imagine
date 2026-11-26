@@ -38,6 +38,18 @@ if (is_file('/subject/a17/Inventory.php')) {
         "<?php if (false) { define('DISALLOW_FILE_EDIT', true); }",
         'DISALLOW_FILE_EDIT'
     ) === null);
+    foreach ([
+        "if (false): ; define('DISALLOW_FILE_EDIT', true); endif;",
+        "foreach ([] as \$x): ; define('DISALLOW_FILE_EDIT', true); endforeach;",
+        "while (false): ; define('DISALLOW_FILE_EDIT', true); endwhile;",
+        "switch (0): case 1: ; define('DISALLOW_FILE_EDIT', true); endswitch;",
+        "if (false) ; define('DISALLOW_FILE_EDIT', true);",
+        "return; define('DISALLOW_FILE_EDIT', true);",
+        "function fixture() { ; define('DISALLOW_FILE_EDIT', true); }",
+    ] as $index => $statement) {
+        $check('non_demonstrated_context_unknown:' . $index,
+            $class::configBoolean('<?php ' . $statement, 'DISALLOW_FILE_EDIT') === null);
+    }
     $check('absent_constant_false_default', $class::configBoolean('<?php // nothing', 'DISALLOW_FILE_EDIT') === false);
 }
 $exit = in_array('FAIL', array_column($checks, 'status'), true) ? 1 : 0;

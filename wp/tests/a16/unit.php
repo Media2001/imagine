@@ -65,6 +65,9 @@ if (is_file('/subject/a16/Mapping.php')) {
     }
     $check('never_guess_links', $refused);
 }
+$command = file_get_contents('/subject/a16/Command.php');
+$check('report_encoded_once_after_both_hashes', substr_count($command, 'json_encode($report,') === 1
+    && strpos($command, "'mapping_sha256'") < strpos($command, 'json_encode($report,'));
 $exit = in_array('FAIL', array_column($checks, 'status'), true) ? 1 : 0;
 file_put_contents('/report/unit.json', json_encode(['exit_code' => $exit, 'checks' => $checks], JSON_PRETTY_PRINT));
 exit($exit);

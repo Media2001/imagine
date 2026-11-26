@@ -15,6 +15,20 @@ update_user_meta($admin, '_a17_fixture_two_factor', true);
 update_user_meta($admin, 'wp-last-login', strtotime('2025-01-01T12:00:00Z'));
 $first = get_users(['role' => 'administrator', 'exclude' => [$admin]])[0];
 update_user_meta($first->ID, 'wp-last-login', strtotime('2026-11-01T12:00:00Z'));
+foreach (['edit_users', 'update_plugins', 'switch_themes'] as $cap) {
+    $role = 'a17_' . $cap;
+    add_role($role, 'Fictif', ['read' => true, $cap => true]);
+    wp_insert_user(['user_login' => 'a17-fictif-' . $role, 'user_email' => $role . '@example.org',
+        'user_pass' => wp_generate_password(40), 'role' => $role]);
+}
+add_role('a17_content_only', 'Fictif contenu', ['read' => true, 'edit_posts' => true, 'publish_posts' => true]);
+wp_insert_user(['user_login' => 'a17-fictif-contenu', 'user_email' => 'contenu@example.org',
+    'user_pass' => wp_generate_password(40), 'role' => 'a17_content_only']);
+foreach (['boundary' => '2025-11-26T12:00:00Z', 'future' => '2026-11-26T12:00:01Z'] as $label => $date) {
+    $id = wp_insert_user(['user_login' => 'a17-fictif-' . $label, 'user_email' => $label . '@example.org',
+        'user_pass' => wp_generate_password(40), 'role' => 'editor']);
+    update_user_meta($id, 'wp-last-login', strtotime($date));
+}
 update_option('users_can_register', 1);
 update_option('default_role', 'subscriber');
 $active = get_option('active_plugins');
