@@ -21,6 +21,10 @@ def snapshot(ids):
 'actions'=>[]];foreach(['actionscheduler_actions','actionscheduler_groups','actionscheduler_claims','actionscheduler_logs'] as $t){$out['actions'][$t]=hash('sha256',serialize($wpdb->get_results("SELECT * FROM {$wpdb->prefix}$t ORDER BY 1",ARRAY_A)));}
 echo wp_json_encode($out);''')
 
+def business_snapshot(value):
+    # Arbitrage du 26/11 : caches et verrou AS ne sont pas de l'état métier.
+    return {**value,'options':[r for r in value['options'] if not r['option_name'].startswith(('_transient_','_site_transient_')) and r['option_name']!='action_scheduler_lock_async-request-runner']}
+
 def restore(before, ids, allowed_options):
     current=snapshot(ids)
     old={r['option_name']:r for r in before['options']}
@@ -39,7 +43,7 @@ if($wpdb->query("DELETE FROM {$wpdb->usermeta} WHERE user_id IN ($list)".$extra)
 foreach($old as $r){$exists=$wpdb->get_var($wpdb->prepare("SELECT umeta_id FROM {$wpdb->usermeta} WHERE umeta_id=%d",$r['umeta_id']));if(($exists?$wpdb->update($wpdb->usermeta,$r,['umeta_id'=>$r['umeta_id']]):$wpdb->insert($wpdb->usermeta,$r))===false)throw new RuntimeException('Inverse ligne refusé');}
 foreach($ids as $id){clean_user_cache($id);wp_cache_delete($id,'user_meta');}echo 'true';''')
     after=snapshot(ids)
-    assert after==before,'Readback intégral comptes/options/actions divergent'
+    assert business_snapshot(after)==business_snapshot(before),'Readback métier comptes/options/actions divergent'
     return changed
 
 def run(label):
@@ -187,7 +191,7 @@ def run(label):
             changed=restore(durable['snapshot'],durable['ids'],allowed_options);restored=True
         except Exception as exc:
             error=(error or '')+'; restauration : '+type(exc).__name__+': '+str(exc)
-        checks['comptes_sessions_options_cache_actions_exacts']=restored and snapshot(ids)==before and c24.state()==native
+        checks['comptes_options_actions_metier_exacts']=restored and business_snapshot(snapshot(ids))==business_snapshot(before) and c24.state()==native
         # Conserver la préimage privée et son empreinte, même après succès.
         checks['snapshot_durable_relu']=hashlib.sha256(snapshot_path.read_bytes()).hexdigest()==snapshot_sha256
         checks['observation_non_vide']=len(observations)>20

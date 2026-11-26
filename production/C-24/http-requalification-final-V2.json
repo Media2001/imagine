@@ -1,0 +1,81 @@
+{
+  "at": "2026-11-26T18:49:10.403234+00:00",
+  "scope": "imagine-test-demo",
+  "private_snapshot": {
+    "file": "c24-http-ee1f553de198415aaec1c4590bb8258d/before.json",
+    "sha256": "45b54697839c986dbd0de1ffa4ba37acbe2a2da3f785c592b4f78554bf25436f",
+    "retained": true
+  },
+  "baseline": "recovered-new-explicit",
+  "historical_initial_snapshot_restored": false,
+  "source_sha256": "688038da7e29e681b65911662a3ec4c75d48d882db6b7dd35ea28a3f60f41861",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "checks": {
+    "compte_no_store": true,
+    "quatre_questions_fictives": true,
+    "pas_de_champ_libre_ni_obligation": true,
+    "consentement_separe_initial_non_coche": true,
+    "reponses_persistantes_datees": true,
+    "sans_consentement_etiquettes_locales": true,
+    "rechargement_reponses_dates": true,
+    "tiers_HTTP403_sans_effet": true,
+    "nonce_HTTP403_sans_effet": true,
+    "consentement_donne_date_separe": true,
+    "consentement_seul_newsletter_absente_ferme": true,
+    "conjonction_newsletter_et_consentement": true,
+    "retrait_consentement_garde_etiquettes": true,
+    "modifier_recharger": true,
+    "effacer_recharger_sans_consentement_perdu": true,
+    "sansmail_questions_sans_case": true,
+    "sansmail_peut_repondre_sans_envoi": true,
+    "anonyme_pas_de_reponses": true,
+    "anonyme_POST403": true,
+    "C10_meme_formulaire_nonce_unique": true,
+    "C10_insertion_sous_bouton_existante": true,
+    "C10_ajout_cinquieme_persistant": true,
+    "cinquieme_rendue_par_reglage": true,
+    "cinquieme_reponse_datee": true,
+    "retiree_absente_historique_non_reattribue": true,
+    "C10_question_recyclee_refusee": true,
+    "C10_choix_recycle_refuse": true,
+    "effacer_inclut_historique_retire": true,
+    "C10_nonce_faux_403": true,
+    "C10_lecteur_interdit": true,
+    "instrumentation_retiree": true,
+    "comptes_sessions_options_cache_actions_exacts": false,
+    "snapshot_durable_relu": true,
+    "observation_non_vide": true,
+    "aucun_mail_HTTP_tente": true,
+    "HTTP_sortant_bloque": true,
+    "aucun_HTTP_personnalisation_tente": true,
+    "requete_navigateur_hors_site_bloquee": true
+  },
+  "total": 38,
+  "failures": [
+    "comptes_sessions_options_cache_actions_exacts"
+  ],
+  "error": "; restauration : AssertionError: Readback intégral comptes/options/actions divergent",
+  "restored": false,
+  "restored_option_names": [],
+  "observed_requests": 45,
+  "mail_attempts": 0,
+  "http_attempts": 53,
+  "http_blocked": 53,
+  "cache": {
+    "external": false,
+    "dropin": false,
+    "cron_disabled": true
+  },
+  "before_digest": "b327516abfe1790ea527a96628c6b645ab0db8212346eff2278567cf2de77d8a",
+  "after_digest": "ee430432b1e2f94245d44460b5b0a50319b4eadf4beada838b680dc7322be4e9",
+  "visual_approval": false
+}
