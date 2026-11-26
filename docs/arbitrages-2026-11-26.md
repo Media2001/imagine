@@ -333,3 +333,63 @@ Lu : les rapports de 14 h 43, 15 h 20 et 16 h 19 (voie 2), les vérifications de
 - **Voie 1** : A-22 en cours, A-23 construit. Deux lots de plus : A-24 (adresses d'expédition des abonnements vivants, §3.13) et A-25 (ce que le site garde sur ses visiteurs, §4.4).
 - **Voie 2** : B-06 en cours. Deux lots de plus : C-24 (formulaire de personnalisation, §3.7 et §3.10 ; les questions sont un réglage puisqu'elles ne sont pas arrêtées) et B-07 (agenda, §3.11, sans billetterie : la licence n'est pas confirmée).
 
+
+# Passage automatique de 19 h
+
+Lu : le rapport de 17 h 06 (voie 1), ceux de 17 h 33, 18 h 18 et 19 h (voie 2), les vérifications de T-02, A-20 et A-21, les fusions d'A-22, de C-23 et de B-06, les notes de production d'A-22 (corrections de 17 h 53), A-23, A-24, A-25, C-23 et C-24. Aucun accord donné sur le réel.
+
+## T-02 — clos
+
+- Trois corrections appliquées et vérifiées : un reçu mixte est refusé avant toute lecture, les empreintes internes des reçus sont recalculées, le décompte est celui du dernier rejeu (14 outils, 279 contrôles). Le harnais reste dans l'espace global : c'est le défaut arbitré à 16 h.
+- Réserve du vérificateur, acceptée comme pour les lots précédents : il n'a pas relancé les suites (droits de sa session) ; il a recalculé les empreintes et croisé avec les portes du parent de 17 h 06, vertes en UTF-8 et en cp1252.
+
+## A-20 et A-21 — corrections vérifiées, clôture avec A-22
+
+- Les deux vérifications de 17 h 38 disent « prêt » : le bloquant commun est corrigé (gardien extérieur au processus, liste fermée, publication après validation), les canaris demandés et douze de plus sont joués.
+- Je ne les inscris pas en « clos » à ce passage. Raison : le gardien commun a changé après ces vérifications (corrections d'A-22 de 17 h 53), Hermès a retiré lui-même leurs `PRET` et refait leurs paquets sur le gardien final. Un lot ne se clôt pas sur une vérification antérieure à son dernier code.
+- Pas de troisième tour pour autant : la vérification d'A-22 contrôlera, dans le même mouvement, que les vérificateurs d'A-20 et d'A-21 passent sur le gardien final (111 et 49 contrôles) et que rien d'autre n'a bougé dans leurs dossiers depuis 17 h 38. Si c'est le cas, les trois se closent ensemble.
+- Les deux ajouts hors instructions d'A-21 (gardien partagé, blocage des quatre pré-filtres du planificateur) : acceptés, ils vont dans le sens de « aucun appel sortant ».
+
+## A-22 — à corriger, six instructions ; les défauts de la fusion confirmés
+
+- Verdict de fusion retenu : à corriger. Trois constats importants, dont un qui touche la promesse du lot : un rapport `.md` ou `.csv` pouvait être altéré en fin de processus puis publié sans contrôle de contenu. Les quatre canaris du brief ne visaient que les flux : c'est un manque du brief, reporté aux écarts.
+- Défauts techniques de la fusion confirmés : le rattachement à §4.4 et §2.5 est analogique et se dit dans les notes ; chaque outil garde ses codes de refus historiques exacts, plutôt qu'un code commun (un lot clos ne change pas de contrat) ; la duplication de l'enclos de sortie et l'absence de code de délai dédié pour A-20 restent en dette, sans reprise dans ce lot.
+- **Règle étendue : le canari par canal compte désormais un cinquième canal, le fichier de rapport.** Un outil qui charge le WordPress du site prouve qu'un rapport altéré en fin de processus n'est pas publié. Vaut pour A-23, A-24, A-25 et la suite.
+- Instruction 6 (revalidation indépendante du paquet natif) : aucun relecteur ne peut lancer Docker depuis sa session, c'est acquis depuis plusieurs lots. Ce qui vaut revalidation : les portes du parent rejouées après le gel des sources (préparation de l'image, rejeu global dans les deux encodages, vérificateurs d'A-20, A-21 et A-22), puis, par le vérificateur, le rejeu de `rejouer.ps1` et des vérificateurs de paquet, qui tournent sans Docker et lient les reçus au code relu. Raison : exiger d'un relecteur ce que sa session interdit bloquerait le lot sans rien prouver de plus. La réserve reste écrite dans la clôture.
+- Hermès dit les six instructions appliquées à 18 h 56, sans `PRET` : restent ses portes communes. Rien à arbitrer de plus avant la vérification.
+- Mon avis à Ced ne change pas : les outils d'inventaire ne se lancent pas sur une copie du réel tant qu'A-22 n'est pas clos.
+
+## A-23, A-24, A-25 — construits, sans `PRET`
+
+- Les trois sont construits et verts chez Hermès, en attente de ses portes communes. Ils se rendent après A-22, chacun rejoué si le gardien a changé depuis son paquet (A-24 cite l'empreinte du gardien qu'il a utilisé : la comparer suffit).
+- A-24, le résultat utile : sur une copie neutralisée, presque tous les nombres sur les adresses valent « inconnu », parce que l'import efface les champs d'adresse sauf le pays. C'était prévu par le brief et c'est un résultat. L'état réel des adresses ne peut donc se lire que sur la source, hors agents : c'est une décision de Ced, portée dans `ETAT.md`. L'import n'est pas modifié.
+
+## B-06 — à corriger, cinq instructions
+
+- Verdict de fusion retenu. Les deux règles de rôle (qui pose le statut, qui lit l'espace sans l'avoir) deviennent deux réglages, défaut « Administrateur seul » : c'est la doctrine, une règle ouverte est un réglage. Deux lignes rangées pour Imagine.
+- Lecture du journal en échec : dans le doute sur la complétude d'un export ou d'un effacement, on déclare incomplet, jamais complet. Confirmé.
+- La collection REST n'a pas de fuite (elle est filtrée par le même mécanisme que la recherche) ; il manque sa preuve. Confirmé.
+- La règle pure du lot entre dans la suite que les relecteurs peuvent rejouer. Confirmé : c'est le sens de T-01 et de T-02.
+- Présentation de la date du statut (date brute en temps universel) : question visuelle, pour Ced, à poser quand le lot sera code clos. Elle reste telle quelle.
+
+## C-23 — corrigé, et un blocage que je lève
+
+- Les six instructions sont appliquées : témoins cherchés dans la réponse brute (attributs et commentaires compris), corps des redirections inspectés, plus aucun réglage forcé au rejeu normal. Les pages de B-06 sont dans la matrice (503 contrôles, aucune fuite).
+- Le blocage : le réglage de découverte livré est « fermé, sans numéro » (c'est le défaut voulu de C-12). Le personnage « découverte épuisée » ne peut donc pas être préparé, et le test normal refuse de tourner. L'instruction 3 de la fusion, suivie à la lettre, rend le test impossible sur l'état livré : ce n'était pas son intention.
+- **Tranché : une découverte fermée n'est pas un prérequis manquant, c'est l'état livré, et il se teste tel quel.** Quand la découverte est fermée, la ligne « découverte épuisée » de la matrice devient « découverte fermée à la livraison » : le personnage `V-DEC-FIN` est contrôlé comme un compte sans droit, voie par voie, et le reçu dit en une ligne que le cas « épuisé » n'a pas été joué et pourquoi. Le test normal tourne alors sans rien forcer et rend son oui ou son non.
+- Le cas « découverte ouverte puis épuisée » se prouve à part, dans une recette nommée qui ouvre la découverte sur la démonstration, joue le cas, puis remet le réglage exactement, comme la mutation témoin. Elle ne fait pas partie de la commande jouée à chaque livraison ; son reçu accompagne le paquet. Raison : §4.4 demande la preuve sur l'état livré, et le brief demande le public « découverte épuisée » ; les deux se tiennent ainsi sans qu'aucun réglage soit réécrit par le rejeu normal.
+- Le jour où Imagine arrête l'accès découverte et où le réglage livré s'ouvre, la ligne reprend son sens premier d'elle-même : le test lit le réglage, il ne le suppose pas. Reporté aux écarts.
+- `PRET` à redéposer après un rejeu normal vert sous un nom de reçu neuf.
+
+## C-24 — construit, un blocage de proportion que je lève
+
+- Le lot est construit (64 contrôles, 7 mutations détectées). Hermès s'est arrêté parce que la photographie de départ de son premier parcours a été perdue : l'état métier est revenu exactement (rôles, commandes, adhésions, profils, réglages, actions), mais il ne peut plus prouver, octet pour octet, d'anciennes sessions de personnages fictifs, une option-verrou du planificateur et des caches.
+- **Tranché : sur la démonstration, « remis en état » veut dire l'état métier.** Sessions, données temporaires, caches et verrous du planificateur n'en font pas partie : ils se recréent seuls et ne portent aucune règle. L'écart est écrit une fois dans les notes du lot, puis le lot se rend. Raison : c'est un site fictif, et la consigne de proportion interdit d'exiger des preuves lourdes dessus. S'arrêter et le dire était le bon réflexe ; refaire tourner des restaurations pour un verrou de planificateur ne le serait pas.
+- Reste à faire, une fois : rejouer le harnais corrigé (photographie écrite avant toute session) sous un nom de reçu neuf, qualifier les deux mutations en attente, puis `PRET`.
+- La localité en texte libre ou en choix fermés : question métier, rangée pour Imagine, défaut « choix fermés » (un texte libre partirait tel quel comme étiquette).
+- La section « Questions de personnalisation » est sous le bouton « Enregistrer », comme celle de C-22 : même question visuelle pour Ced, une seule réponse vaudra pour les deux.
+
+## Files
+
+- **Voie 1** : portes et `PRET` d'A-20, A-21, A-22, puis A-23, A-24, A-25. Deux lots de plus : A-26 (ce que le site charge chez des tiers : mesure, pixels, contenus intégrés, comptés ; §4.4) et A-27 (les moyens de paiement enregistrés, par passerelle et par type, comptés ; §4.3, §3.6).
+- **Voie 2** : corrections de B-06, fin de C-23, fin de C-24, puis B-07. Deux lots de plus : C-25 (rétractation en ligne en deux étapes, §3.7 : une demande enregistrée, aucun effet automatique, délai et point de départ en réglages) et B-08 (« Soutenir » et « Notre coopérative », §3.12 : pages vides aux intitulés du cahier des charges, don éteint, prise de parts par lien).
