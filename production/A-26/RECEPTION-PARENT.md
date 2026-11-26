@@ -1,6 +1,6 @@
 # A-26 — Réception par le parent
 
-**Statut : code et bancs préparés, réception native non exécutée, aucun PRET.**
+**Réception initiale du worker, conservée comme historique.** La réception native déléguée, les corrections, compteurs, portes et statut actuels sont exclusivement dans `FINALISATION.md`, `manifest.json`, `preuves/final/` et l'éventuel `PRET`. Les paquets locaux initiaux ont été déplacés intacts en scratch `a2627-parent-20261126/historical/A-26/` ; ils ne qualifient pas la livraison actuelle.
 
 Le chemin réel découvert est `C:/Users/Ced/imagine` (voie 1), pas un dossier littéral `imagine voie1`. Aucun Git, verrou, README partagé, site, compte, archive, Novamira ou voie 2 touché. Les seules écritures projet sont `wp/outils/bascule/a26/`, `wp/tests/a26/`, `production/A-26/` ; les expériences jetables sont sous le scratch Hermes. Aucun PHP Windows, Docker ou WSL lancé par ce worker.
 

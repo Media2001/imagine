@@ -1,6 +1,6 @@
 # A-27 — Réception réservée au parent
 
-**État : candidat construit, sans PRET et sans preuve native inventée.** Écritures du worker limitées à `wp/outils/bascule/a27/`, `wp/tests/a27/`, `production/A-27/`. Chemin effectif du dépôt : `C:/Users/Ced/imagine` (le « voie1 » du contexte désigne la voie, pas un dossier existant). Aucun Git, Docker, WSL, PHP Windows, site, compte, archive de production, Novamira, fichier partagé ou verrou utilisé par ce worker.
+**Réception initiale du worker, conservée comme historique.** La réception native déléguée, les corrections, compteurs, portes et statut actuels sont exclusivement dans `FINALISATION.md`, `manifest.json`, `preuves/final/` et l'éventuel `PRET`. Le reçu Python initial a été déplacé intact en scratch `a2627-parent-20261126/historical/A-27/`. Le vrai mode d'emploi partagé est `wp/tests/a02-audit/README.md` ; contrat strict des deux lignes, jamais son empreinte entière. Écritures initiales du worker limitées à `wp/outils/bascule/a27/`, `wp/tests/a27/`, `production/A-27/`. Chemin effectif du dépôt : `C:/Users/Ced/imagine` (le « voie1 » du contexte désigne la voie, pas un dossier existant).
 
 ## Ce qui est réellement exécuté
 

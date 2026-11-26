@@ -11,6 +11,13 @@ wp = c25.wp
 php = c25.php
 NAMES = ['plugins/imagine-site/' + n for n in ['CooperativeRegles.php', 'Cooperative.php', 'Soutenir.php', 'SujetRegles.php', 'Sujet.php', 'SujetConfidentialite.php']]
 BLOCK = "// B08 — pages publiques et propositions locales privées.\n" + ''.join("require_once __DIR__ . '/" + n.split('/')[-1] + "';\n" for n in NAMES) + "Cooperative::register();\nSoutenir::register();\nSujet::register();\nSujetConfidentialite::register();\n\n"
+NAMES.append('themes/imagine/header.php')
+
+
+def snapshot():
+    data = c25.snapshot()
+    data['navigation'] = wp('''global $wpdb;$v=[];foreach(['terms','term_taxonomy','term_relationships','termmeta'] as $k){$v[$k]=$wpdb->get_results("SELECT * FROM {$wpdb->$k}",ARRAY_A);if($wpdb->last_error){throw new RuntimeException('Navigation illisible');}}echo wp_json_encode($v);''')
+    return data
 
 
 def sources():
@@ -44,7 +51,18 @@ def deploy(label):
     before = c25.b06.state()
     snapshot = c25.private('b08-' + label, {'files': old, 'database': c25.snapshot(), 'business': before})
     for name in NAMES:
-        assert old[name] is None or old[name] == (ROOT / 'wp' / name).read_text(encoding='utf-8')
+        source = (ROOT / 'wp' / name).read_text(encoding='utf-8')
+        if name == 'themes/imagine/header.php':
+            native = """            <?php
+            if (has_nav_menu('imagine-principal')) {
+                wp_nav_menu(['theme_location' => 'imagine-principal', 'container' => false, 'fallback_cb' => false]);
+            } else {
+                imagine_navigation();
+            }
+            ?>"""
+            assert old[name] in [source, source.replace(native, '            <?php imagine_navigation(); ?>')]
+        else:
+            assert old[name] is None or old[name] == source
         c25.b06.profils.b00.upload(name, (ROOT / 'wp' / name).read_bytes())
     assert wp('echo wp_json_encode(file_get_contents(WP_CONTENT_DIR."/' + boot + '"));') == old[boot]
     c25.b06.profils.b00.upload(boot, p.read_bytes())
@@ -56,7 +74,7 @@ def deploy(label):
 
 def seed(label):
     c25.b06.guard()
-    snapshot = c25.private('b08-' + label, {'database': c25.snapshot(), 'business': c25.b06.state()})
+    snapshot = c25.private('b08-' + label, {'database': globals()['snapshot'](), 'business': c25.b06.state()})
     target = 'imagine-demo-build/b08-seed.php'
     source = ROOT / 'wp/outils/demo/b08-seed.php'
     c25.b06.profils.b00.upload(target, source.read_bytes())
