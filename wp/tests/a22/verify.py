@@ -94,11 +94,14 @@ def verify(packet,parent_proof=None):
             check(console+':'+lot+':actual_legacy_bank',replay['exit_code']==0 and replay['lot']==lot and replay['runner_sha256']==hashlib.sha256(path.read_bytes()).hexdigest())
             if lot not in {'A02','A10'}:
                 d=load(base/'a22-channels.json');names={r['check'] for r in d['checks']}
-                check(console+':'+lot+':all_channels_mutation_documentation',green(d) and len(d['checks'])==23 and len(names)==23
+                total=31 if lot=='A12' else 29
+                check(console+':'+lot+':all_channels_mutation_documentation',green(d) and len(d['checks'])==total and len(names)==total
                       and all(any(name.endswith(':'+lot+':channels:'+c) for name in names) for c in
-                              ['direct_stdout','direct_stderr','echo_exit','silent_exit','shutdown_stdout','shutdown_stderr','shutdown_echo'])
+                              ['direct_stdout','direct_stderr','echo_exit','silent_exit','shutdown_stdout','shutdown_stderr','shutdown_echo','shutdown_file','shutdown_json'])
                       and sum(name.endswith(':mutation_without_guard_leaks') for name in names)==2
-                      and sum(name.endswith(':documented_only_literal_arguments') for name in names)==2)
+                      and sum(name.endswith(':documented_only_literal_arguments') for name in names)==2
+                      and sum(name.endswith(':mutation_without_final_contract_leaks') for name in names)==2
+                      and (lot!='A12' or sum(name.endswith(':discard_device_only_write_exception') for name in names)==2))
             if lot in m.NO_PYTHON:
                 check(console+':'+lot+':python_bank_absent_not_fake_pass',
                     matrix.get('python_not_applicable',{}).get(lot) is True
@@ -113,7 +116,7 @@ def verify(packet,parent_proof=None):
         log=(folder/'A22-python.log').read_text(encoding='utf-8')
         check(console+':A22_python_tests','\nOK\n' in log)
     style=load(packet/'style/style.json')
-    php=['wp/outils/bascule/non-regression','wp/outils/bascule/a11/inventorier-adresses','wp/outils/bascule/stream_bridge.php']
+    php=['wp/outils/bascule/non-regression','wp/outils/bascule/a11/inventorier-adresses','wp/outils/bascule/stream_bridge.php','wp/outils/bascule/stream_contract.php']
     check('strict_psr12_current_common_entrypoints',green(style) and style['phpcs_exit']==0
           and style['totals']['errors']==style['totals']['warnings']==0
           and style['sources']=={key:source[key] for key in php})
@@ -123,9 +126,9 @@ def verify(packet,parent_proof=None):
     if parent_proof is not None:
         proof=load(parent_proof)
         check('optional_parent_sources_current',proof['sources']==source)
-        line=(ROOT/'production/A-22/readme-ajout.txt').read_bytes()
+        lines=(ROOT/'production/A-22/readme-ajout.txt').read_bytes().splitlines(keepends=True)
         shared=(ROOT/'wp/tests/a02-audit/README.md').read_bytes()
-        check('optional_parent_shared_line_contract',line.endswith(b'\n') and shared.splitlines(keepends=True).count(line)==1)
+        check('optional_parent_shared_line_contract',len(lines)==2 and len(set(lines))==2 and all(line.endswith(b'\n') and shared.splitlines(keepends=True).count(line)==1 for line in lines))
         for gate in ['preparation','T01']:
             check('optional_parent_'+gate,green(load(Path(proof[gate]))))
     result={'status':'CANDIDAT_GATE_PARENT','readiness_claimed':False,'counts':counts,'checks':rows,

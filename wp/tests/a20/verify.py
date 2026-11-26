@@ -62,7 +62,7 @@ def verify(packet,parent_proof=None):
         runner_module=importlib.util.module_from_spec(spec);spec.loader.exec_module(runner_module)
         deps=load(folder/'dependency-snapshot.json');check(console+':all_executed_dependencies_unchanged',deps==runner_module.manifest(runner_module.DEPENDENCIES))
         channels=load(folder/'a22-channels.json')
-        check(console+':common_guard_native_channels_and_mutation',channels['exit_code']==0 and len(channels['checks'])==21 and all(x['status']=='PASS' for x in channels['checks']))
+        check(console+':common_guard_native_channels_and_mutation',channels['exit_code']==0 and len(channels['checks'])==25 and all(x['status']=='PASS' for x in channels['checks']) and sum(x['check'].endswith(':channels:shutdown_file') for x in channels['checks'])==2 and sum(x['check'].endswith(':channels:shutdown_json') for x in channels['checks'])==2)
     style=load(packet/'style/style.json');check('strict_psr12_current_sources',style['exit_code']==style['phpcs_exit']==0 and style['totals']['errors']==style['totals']['warnings']==0 and style['sources']==source)
     matrix=load(packet/'windows-matrix.json');check('both_console_suites_executed',matrix['exit_code']==0 and len(matrix['rows'])==5 and all(r['exit_code']==0 for r in matrix['rows']))
     check('all_retained_artifacts_canary_absent',not any(b'CANARY' in p.read_bytes() for p in packet.rglob('*') if p.is_file()))

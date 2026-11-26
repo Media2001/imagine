@@ -15,7 +15,7 @@ spec=importlib.util.spec_from_file_location('a02_runner',ROOT/'wp/tests/a02-audi
 b=importlib.util.module_from_spec(spec);spec.loader.exec_module(b)
 b.LABEL='org.imagine.a20-prices'
 OWN=['wp/tests/a20','wp/outils/bascule/a20']
-DEPENDENCIES=['wp/tests/a02-audit/'+f for f in ['run.py','inside.py','seed.php','fingerprint.php','unit.php','readonly-probe.php']]+['wp/outils/bascule/audit','wp/outils/bascule/a11','wp/outils/bascule/a12','wp/outils/bascule/stream_guard.py','wp/outils/bascule/stream_refusals.json','wp/outils/bascule/stream_bridge.php','wp/tests/a22/run.py','wp/tests/a22/replay.py','wp/tests/a22/channels.py','wp/tests/a22/documented.json']
+DEPENDENCIES=['wp/tests/a02-audit/'+f for f in ['run.py','inside.py','seed.php','fingerprint.php','unit.php','readonly-probe.php']]+['wp/outils/bascule/audit','wp/outils/bascule/a11','wp/outils/bascule/a12','wp/outils/bascule/stream_guard.py','wp/outils/bascule/stream_refusals.json','wp/outils/bascule/stream_bridge.php','wp/outils/bascule/stream_reports.py','wp/outils/bascule/stream_contract.php','wp/tests/a22/run.py','wp/tests/a22/replay.py','wp/tests/a22/channels.py','wp/tests/a22/documented.json']
 
 def manifest(roots):
     files=[]

@@ -25,13 +25,15 @@ register_shutdown_function(static function () use ($output): void {
         if ($file === '.' || $file === '..') {
             continue;
         }
-        if (!in_array($file, [
-            'non-regression.json', 'adresses.csv', 'adresses.json', 'resume.md',
-            'contenus.json', 'contenus.md', 'resume.json', 'rapproches.csv',
-            'emails.json', 'emails.md', 'numeros.json', 'numeros.md',
-            'securite.json', 'securite.md', 'conservation.json', 'conservation.md',
-            'coherence.json', 'coherence.md',
-        ], true) || is_link($output . '/' . $file) || !is_file($output . '/' . $file)) {
+        if (
+            !in_array($file, [
+                'non-regression.json', 'adresses.csv', 'adresses.json', 'resume.md',
+                'contenus.json', 'contenus.md', 'resume.json', 'rapproches.csv',
+                'emails.json', 'emails.md', 'numeros.json', 'numeros.md',
+                'securite.json', 'securite.md', 'conservation.json', 'conservation.md',
+                'coherence.json', 'coherence.md',
+            ], true) || is_link($output . '/' . $file) || !is_file($output . '/' . $file)
+        ) {
             return;
         }
         $hashes[$file] = hash_file('sha256', $output . '/' . $file);

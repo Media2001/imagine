@@ -15,7 +15,7 @@ try:
  b.validate(json.loads(b.call(['inspect',name]).stdout)[0],name);check('isolation_before',True)
  b.call(['start',name]);b.call(['exec','-u','0',name,'mkdir','/subject'])
  tool=json.loads(b.call(['exec',name,'php','-r',"echo json_encode(glob('/opt/t01/*/vendor/bin/phpcs'));"]).stdout)[0]
- files=['wp/outils/bascule/non-regression','wp/outils/bascule/a11/inventorier-adresses','wp/outils/bascule/stream_bridge.php'];mapping={}
+ files=['wp/outils/bascule/non-regression','wp/outils/bascule/a11/inventorier-adresses','wp/outils/bascule/stream_bridge.php','wp/outils/bascule/stream_contract.php'];mapping={}
  receipt['sources']={key:hashlib.sha256((ROOT/key).read_bytes()).hexdigest() for key in files}
  for i,p in enumerate(files):
   target='/subject/'+str(i)+'.php';b.call(['cp',b.local(ROOT/p),name+':'+target]);mapping[target]=p

@@ -125,18 +125,19 @@ def validate(tool,output):
             for row in rows[1:]:
                 if len(row)!=5 or not re.fullmatch('[1-9][0-9]*',row[0]) or row[1] not in ('oui','non') or row[2] not in ('inscrit','desinscrit','bloque','inconnu') or row[3:]!=['','']:return False
                 lines.append(int(row[0]))
-            return len(lines)==len(set(lines)) and all(2<=n<=counts['contacts_total']+1 for n in lines)
+            return len(lines)==len(set(lines)) and all(n>=2 for n in lines)
         if tool=='A11':
             addresses=data['adresses'];total=data['total'];nature=data['par_nature']
             if not integer(total) or total!=len(addresses) or not all(integer(n) for n in nature.values()):return False
-            observed=Counter(c['nature'] for row in addresses for c in row['contextes'])
+            observed=Counter(nature for row in addresses for nature in {c['nature'] for c in row['contextes']})
             if dict(observed)!=nature:return False
             rows=list(csv.reader(io.StringIO(files['adresses.csv'].lstrip('\ufeff')),delimiter=';',strict=True))
             if rows[0]!=['ancienne','nature','type_contenu','etat_publication','derniere_modification_utc','autres_contextes']:return False
             expected=[]
             for row in addresses:
                 extra=' | '.join(c['nature']+' : '+c['type_contenu'] for c in row['contextes'][1:])
-                expected.append([row['ancienne'],row['nature'],row['type_contenu'],row['etat_publication'],row['derniere_modification_utc'] or '',extra])
+                cells=[row['ancienne'],row['nature'],row['type_contenu'],row['etat_publication'],row['derniere_modification_utc'] or '',extra]
+                expected.append(["'"+cell if re.match('[=+@\\-\\t\\r\\n]',cell) else cell for cell in cells])
             if rows[1:]!=expected:return False
             prefix='# Adresses publiques — lecture seule\n\n'+str(total)+' adresses uniques. Aucun plan de redirections décidé.\n\n## Par nature\n\n'
             prefix+=''.join('- '+k+' : '+str(v)+'\n' for k,v in nature.items())

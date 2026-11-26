@@ -7,6 +7,8 @@ from pathlib import Path
 import shutil
 import tempfile
 import unittest
+import subprocess
+import sys
 from unittest.mock import patch
 
 ROOT=Path(__file__).resolve().parents[3]
@@ -40,6 +42,21 @@ class CorrectionsTest(unittest.TestCase):
                     with self.assertRaisesRegex(RuntimeError,'^'+expected+'$'):
                         guard.inventory(tool,Path('unused'),{'--wp-path':str(site),'--output':str(out/'invalid.name')})
 
+    def test_historical_invalid_names_at_real_python_entrypoints(self):
+        with tempfile.TemporaryDirectory(dir=SCRATCH) as tmp:
+            root=Path(tmp);site=root/'site';site.mkdir();out=root/'reports';out.mkdir()
+            mapping=root/'map.json';mapping.write_text(json.dumps({'version':1,'encodage':'utf-8','separateur':';','colonnes':{'email':'email','statut':'statut'},'statuts':{'inscrit':['yes'],'desinscrit':['no'],'bloque':['blocked']}}),encoding='utf-8')
+            contacts=root/'contacts.csv';contacts.write_text('email;statut\nfictive@example.org;yes\n',encoding='utf-8')
+            for tool in ['A12','A14','A15','A16','A17','A18','A19']:
+                command=[sys.executable,'-B',str(ROOT/('wp/outils/bascule/rapprocher-contacts' if tool=='A14' else 'wp/outils/bascule/'+tool.lower()+'/confine.py')),'--wp-path='+str(site),'--output='+str(out/'invalid.name'),'--audit=none']
+                if tool=='A14':command+=['--correspondance='+str(mapping),'--contacts='+str(contacts)]
+                if tool=='A16':command+=['--correspondance='+str(mapping)]
+                p=subprocess.run(command,capture_output=True,text=True,encoding='utf-8',timeout=30,
+                    env={**os.environ,'PYTHONIOENCODING':'utf-8','PYTHONUTF8':'1'})
+                expected='A12_PATH_INVALID' if tool=='A12' else tool+'_OUTPUT_UNSAFE'
+                with self.subTest(tool=tool):self.assertEqual((p.returncode,p.stdout,p.stderr),(1,'',expected+'\n'))
+                self.assertFalse((out/'invalid.name').exists())
+
     def test_a03_source_roots_are_present_and_required(self):
         matrix=load('wp/tests/a22/matrix.py','roots_fusion')
         values=matrix.sources()
@@ -49,6 +66,20 @@ class CorrectionsTest(unittest.TestCase):
             with patch.object(matrix,'ROOT',Path(tmp)):
                 with self.assertRaisesRegex(RuntimeError,'A22_SOURCE_ROOT_MISSING'):
                     matrix.sources()
+
+    def test_a03_policy_mutation_changes_executed_source_snapshot(self):
+        matrix=load('wp/tests/a22/matrix.py','mutation_fusion')
+        baseline=matrix.sources()
+        with tempfile.TemporaryDirectory(dir=SCRATCH) as tmp:
+            mirror=Path(tmp)/'mirror';mirror.mkdir()
+            for name in baseline:
+                target=mirror/name;target.parent.mkdir(parents=True,exist_ok=True)
+                shutil.copyfile(ROOT/name,target)
+            with patch.object(matrix,'ROOT',mirror):
+                self.assertEqual(matrix.sources(),baseline)
+                policy=mirror/'wp/outils/bascule/a03/Policy.php'
+                policy.write_bytes(policy.read_bytes()+b'\n// disposable source-drift witness\n')
+                self.assertNotEqual(matrix.sources(),baseline)
 
     def test_json_numeric_slots_cannot_be_replaced_by_site_text(self):
         guard=load('wp/outils/bascule/stream_guard.py','counts_fusion')

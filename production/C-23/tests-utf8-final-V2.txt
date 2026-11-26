@@ -1,0 +1,33 @@
+test_500_ne_passe_pas (__main__.ContractTest.test_500_ne_passe_pas) ... ok
+test_catalogue_routes_non_vide_et_complet (__main__.ContractTest.test_catalogue_routes_non_vide_et_complet) ... ok
+test_cdata_ne_masque_jamais_temoin (__main__.ContractTest.test_cdata_ne_masque_jamais_temoin) ... ok
+test_faux_sitemap_html_et_archive_vide_refuses (__main__.ContractTest.test_faux_sitemap_html_et_archive_vide_refuses) ... ok
+test_inverse_est_necessaire (__main__.ContractTest.test_inverse_est_necessaire) ... ok
+test_profils_sans_droit_supplementaires_inclus (__main__.ContractTest.test_profils_sans_droit_supplementaires_inclus) ... ok
+test_recherche_reflechie_n_est_pas_fuite (__main__.ContractTest.test_recherche_reflechie_n_est_pas_fuite) ... ok
+test_reseau_hors_demo_refuse_avant_requete (__main__.ContractTest.test_reseau_hors_demo_refuse_avant_requete) ... ok
+test_temoin_encode_json_et_html_detecte (__main__.ContractTest.test_temoin_encode_json_et_html_detecte) ... ok
+test_tous_pdf_inventories_retenus_et_commande_GET_seule (__main__.ContractTest.test_tous_pdf_inventories_retenus_et_commande_GET_seule) ... ok
+test_voie_absente_ne_passe_pas_a_vide (__main__.ContractTest.test_voie_absente_ne_passe_pas_a_vide) ... ok
+test_cinq_pages_reellement_inventoriees_et_sorties_ajoutees (__main__.CooperatorsTest.test_cinq_pages_reellement_inventoriees_et_sorties_ajoutees) ... ok
+test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) ... ok
+test_embed_natif_expurge_reste_inspectable (__main__.CooperatorsTest.test_embed_natif_expurge_reste_inspectable) ... ok
+test_mutation_par_voie_B06_surface_presente_et_inverse (__main__.CooperatorsTest.test_mutation_par_voie_B06_surface_presente_et_inverse) ... ok
+test_pages_vides_ou_absentes_ne_prouvent_pas_absence (__main__.CooperatorsTest.test_pages_vides_ou_absentes_ne_prouvent_pas_absence) ... ok
+test_fuite_texte_reel_refusee (__main__.DetectorTest.test_fuite_texte_reel_refusee) ... ok
+test_temoins_attributs_et_commentaires_avec_surface_valide (__main__.DetectorTest.test_temoins_attributs_et_commentaires_avec_surface_valide) ... ok
+test_preparation_normale_ne_recrit_aucune_politique (__main__.DiscoveryTest.test_preparation_normale_ne_recrit_aucune_politique) ... ok
+test_prerequis_incompatible_refuse_avant_session (__main__.DiscoveryTest.test_prerequis_incompatible_refuse_avant_session) ... ok
+test_mutation_de_vrais_corps_preserve_json_et_restaure_source (__main__.LiveMutationHarnessTest.test_mutation_de_vrais_corps_preserve_json_et_restaure_source) ... ok
+test_label_V2_accepte_et_collision_refusee_sans_site (__main__.PreparationSafetyTest.test_label_V2_accepte_et_collision_refusee_sans_site) ... ok
+test_pages_non_vides_refusees_avant_ecriture (__main__.PreparationSafetyTest.test_pages_non_vides_refusees_avant_ecriture) ... ok
+test_corps_302_inspecte_avant_200 (__main__.RedirectTest.test_corps_302_inspecte_avant_200) ... ok
+test_redirection_externe_refusee (__main__.RedirectTest.test_redirection_externe_refusee) ... ok
+test_matrice_vide_total_et_case_manquante_refuses (__main__.VerifierTest.test_matrice_vide_total_et_case_manquante_refuses) ... ok
+test_sha_etat_derive_accepte_evolution_legitime_refuse_derive (__main__.VerifierTest.test_sha_etat_derive_accepte_evolution_legitime_refuse_derive) ... ok
+test_sortie_json_sans_ecriture (__main__.VerifierTest.test_sortie_json_sans_ecriture) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.354s
+
+OK
