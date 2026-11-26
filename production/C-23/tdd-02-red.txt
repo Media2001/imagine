@@ -1,0 +1,28 @@
+test_500_ne_passe_pas (__main__.ContractTest.test_500_ne_passe_pas) ... ok
+test_catalogue_routes_non_vide_et_complet (__main__.ContractTest.test_catalogue_routes_non_vide_et_complet) ... FAIL
+test_inverse_est_necessaire (__main__.ContractTest.test_inverse_est_necessaire) ... ok
+test_reseau_hors_demo_refuse_avant_requete (__main__.ContractTest.test_reseau_hors_demo_refuse_avant_requete) ... FAIL
+test_temoin_encode_json_et_html_detecte (__main__.ContractTest.test_temoin_encode_json_et_html_detecte) ... ok
+test_voie_absente_ne_passe_pas_a_vide (__main__.ContractTest.test_voie_absente_ne_passe_pas_a_vide) ... ok
+test_fuite_texte_reel_refusee (__main__.DetectorTest.test_fuite_texte_reel_refusee) ... ok
+
+======================================================================
+FAIL: test_catalogue_routes_non_vide_et_complet (__main__.ContractTest.test_catalogue_routes_non_vide_et_complet)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 44, in test_catalogue_routes_non_vide_et_complet
+    self.assertTrue(callable(getattr(m, 'build_routes', None)), 'Inventaire des voies à construire')
+AssertionError: False is not true : Inventaire des voies à construire
+
+======================================================================
+FAIL: test_reseau_hors_demo_refuse_avant_requete (__main__.ContractTest.test_reseau_hors_demo_refuse_avant_requete)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 38, in test_reseau_hors_demo_refuse_avant_requete
+    self.assertTrue(callable(getattr(m, 'validate_path', None)), 'Garde réseau à construire')
+AssertionError: False is not true : Garde réseau à construire
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.010s
+
+FAILED (failures=2)

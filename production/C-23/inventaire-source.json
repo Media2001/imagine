@@ -1,0 +1,384 @@
+{
+  "scope": "imagine-test-demo",
+  "base": "http://192.168.129.32:8085",
+  "article": 42,
+  "article_path": "/demo-2026-t4-reserve-1/",
+  "article_title": "Article fictif réservé 1 — DEMO-2026-T4",
+  "issue": 39,
+  "issue_path": "/numeros/demo-2026-t4/",
+  "issue_slug": "demo-2026-t4",
+  "pdf": 41,
+  "attachment_path": "/?attachment_id=41",
+  "auto": 82,
+  "auto_path": "/c08-article-reserve-automatique/",
+  "c08": 81,
+  "c12": 235,
+  "posts_archive": "/2026/",
+  "term_path": "/thematiques/demo-thematique-1/",
+  "posts": [
+    {
+      "id": 82,
+      "slug": "c08-article-reserve-automatique",
+      "title": "C08 — Article réservé fictif automatique",
+      "path": "/c08-article-reserve-automatique/",
+      "issue": 11,
+      "reserved": true,
+      "body": "<p>Début fictif C08. Aucune donnée réelle.</p><p>La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. </p><p>Les lanternes argentées de C08 composent un autre récit fictif.</p><p>La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. </p><p>Fin fictive C08.</p>",
+      "excerpt": ""
+    },
+    {
+      "id": 81,
+      "slug": "c08-article-reserve-article",
+      "title": "C08 — Article réservé fictif article",
+      "path": "/c08-article-reserve-article/",
+      "issue": 11,
+      "reserved": true,
+      "body": "<p>Début fictif C08. Aucune donnée réelle.</p><p>La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. La place imaginaire accueille des histoires inventées. </p><p>Les lucioles violettes de C08 gardent le secret du village fictif.</p><p>La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. La rivière des nuages termine ce récit fictif. </p><p>Fin fictive C08.</p>",
+      "excerpt": "Extrait public C08 : une histoire entièrement fictive, réservée aux tests de lecture."
+    },
+    {
+      "id": 45,
+      "slug": "demo-2026-t4-ouvert",
+      "title": "Reportage fictif en accès libre — DEMO-2026-T4",
+      "path": "/demo-2026-t4-ouvert/",
+      "issue": 39,
+      "reserved": false,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_OUVERT_DEMO-2026-T4_4</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 44,
+      "slug": "demo-2026-t4-reserve-3",
+      "title": "Article fictif réservé 3 — DEMO-2026-T4",
+      "path": "/demo-2026-t4-reserve-3/",
+      "issue": 39,
+      "reserved": true,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_RESERVE_DEMO-2026-T4_3</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 43,
+      "slug": "demo-2026-t4-reserve-2",
+      "title": "Article fictif réservé 2 — DEMO-2026-T4",
+      "path": "/demo-2026-t4-reserve-2/",
+      "issue": 39,
+      "reserved": true,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_RESERVE_DEMO-2026-T4_2</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 42,
+      "slug": "demo-2026-t4-reserve-1",
+      "title": "Article fictif réservé 1 — DEMO-2026-T4",
+      "path": "/demo-2026-t4-reserve-1/",
+      "issue": 39,
+      "reserved": true,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_RESERVE_DEMO-2026-T4_1</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 38,
+      "slug": "demo-2026-hs-ouvert",
+      "title": "Reportage fictif en accès libre — DEMO-2026-HS",
+      "path": "/demo-2026-hs-ouvert/",
+      "issue": 32,
+      "reserved": false,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_OUVERT_DEMO-2026-HS_4</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 37,
+      "slug": "demo-2026-hs-reserve-3",
+      "title": "Article fictif réservé 3 — DEMO-2026-HS",
+      "path": "/demo-2026-hs-reserve-3/",
+      "issue": 32,
+      "reserved": true,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_RESERVE_DEMO-2026-HS_3</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 36,
+      "slug": "demo-2026-hs-reserve-2",
+      "title": "Article fictif réservé 2 — DEMO-2026-HS",
+      "path": "/demo-2026-hs-reserve-2/",
+      "issue": 32,
+      "reserved": true,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_RESERVE_DEMO-2026-HS_2</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 35,
+      "slug": "demo-2026-hs-reserve-1",
+      "title": "Article fictif réservé 1 — DEMO-2026-HS",
+      "path": "/demo-2026-hs-reserve-1/",
+      "issue": 32,
+      "reserved": true,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_RESERVE_DEMO-2026-HS_1</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 31,
+      "slug": "demo-2026-t3-ouvert",
+      "title": "Reportage fictif en accès libre — DEMO-2026-T3",
+      "path": "/demo-2026-t3-ouvert/",
+      "issue": 25,
+      "reserved": false,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_OUVERT_DEMO-2026-T3_4</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 30,
+      "slug": "demo-2026-t3-reserve-3",
+      "title": "Article fictif réservé 3 — DEMO-2026-T3",
+      "path": "/demo-2026-t3-reserve-3/",
+      "issue": 25,
+      "reserved": true,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_RESERVE_DEMO-2026-T3_3</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 29,
+      "slug": "demo-2026-t3-reserve-2",
+      "title": "Article fictif réservé 2 — DEMO-2026-T3",
+      "path": "/demo-2026-t3-reserve-2/",
+      "issue": 25,
+      "reserved": true,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_RESERVE_DEMO-2026-T3_2</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 28,
+      "slug": "demo-2026-t3-reserve-1",
+      "title": "Article fictif réservé 1 — DEMO-2026-T3",
+      "path": "/demo-2026-t3-reserve-1/",
+      "issue": 25,
+      "reserved": true,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_RESERVE_DEMO-2026-T3_1</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 24,
+      "slug": "demo-2026-t2-ouvert",
+      "title": "Reportage fictif en accès libre — DEMO-2026-T2",
+      "path": "/demo-2026-t2-ouvert/",
+      "issue": 18,
+      "reserved": false,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_OUVERT_DEMO-2026-T2_4</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 23,
+      "slug": "demo-2026-t2-reserve-3",
+      "title": "Article fictif réservé 3 — DEMO-2026-T2",
+      "path": "/demo-2026-t2-reserve-3/",
+      "issue": 18,
+      "reserved": true,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_RESERVE_DEMO-2026-T2_3</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 22,
+      "slug": "demo-2026-t2-reserve-2",
+      "title": "Article fictif réservé 2 — DEMO-2026-T2",
+      "path": "/demo-2026-t2-reserve-2/",
+      "issue": 18,
+      "reserved": true,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_RESERVE_DEMO-2026-T2_2</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 21,
+      "slug": "demo-2026-t2-reserve-1",
+      "title": "Article fictif réservé 1 — DEMO-2026-T2",
+      "path": "/demo-2026-t2-reserve-1/",
+      "issue": 18,
+      "reserved": true,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_RESERVE_DEMO-2026-T2_1</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 17,
+      "slug": "demo-2026-t1-ouvert",
+      "title": "Reportage fictif en accès libre — DEMO-2026-T1",
+      "path": "/demo-2026-t1-ouvert/",
+      "issue": 11,
+      "reserved": false,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_OUVERT_DEMO-2026-T1_4</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 16,
+      "slug": "demo-2026-t1-reserve-3",
+      "title": "Article fictif réservé 3 — DEMO-2026-T1",
+      "path": "/demo-2026-t1-reserve-3/",
+      "issue": 11,
+      "reserved": true,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_RESERVE_DEMO-2026-T1_3</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 15,
+      "slug": "demo-2026-t1-reserve-2",
+      "title": "Article fictif réservé 2 — DEMO-2026-T1",
+      "path": "/demo-2026-t1-reserve-2/",
+      "issue": 11,
+      "reserved": true,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_RESERVE_DEMO-2026-T1_2</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 14,
+      "slug": "demo-2026-t1-reserve-1",
+      "title": "Article fictif réservé 1 — DEMO-2026-T1",
+      "path": "/demo-2026-t1-reserve-1/",
+      "issue": 11,
+      "reserved": true,
+      "body": "<p>Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 1.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 2.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 3.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 4.)</p><p>À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial. (Scène fictive 5.)</p><p>CONTENU_FICTIF_RESERVE_DEMO-2026-T1_1</p>",
+      "excerpt": "Extrait de démonstration : un récit inventé sur les solidarités du village Imaginaire. La suite, beaucoup plus longue, sert uniquement aux tests de lecture."
+    },
+    {
+      "id": 263,
+      "slug": "c12-decouverte-non-designe",
+      "title": "Découverte fictive C12 — non-designe",
+      "path": "/c12-decouverte-non-designe/",
+      "issue": 39,
+      "reserved": true,
+      "body": "<p>Le texte réservé C12 non-designe révèle des comètes turquoise entièrement fictives.</p>",
+      "excerpt": "Extrait public de la démonstration C12 non-designe."
+    },
+    {
+      "id": 235,
+      "slug": "c12-decouverte-trois",
+      "title": "Découverte fictive C12 — trois",
+      "path": "/c12-decouverte-trois/",
+      "issue": 18,
+      "reserved": true,
+      "body": "<p>Le texte réservé C12 trois révèle des comètes turquoise entièrement fictives.</p>",
+      "excerpt": "Extrait public de la démonstration C12 trois."
+    },
+    {
+      "id": 234,
+      "slug": "c12-decouverte-deux",
+      "title": "Découverte fictive C12 — deux",
+      "path": "/c12-decouverte-deux/",
+      "issue": 25,
+      "reserved": true,
+      "body": "<p>Le texte réservé C12 deux révèle des comètes turquoise entièrement fictives.</p>",
+      "excerpt": "Extrait public de la démonstration C12 deux."
+    },
+    {
+      "id": 233,
+      "slug": "c12-decouverte-un",
+      "title": "Découverte fictive C12 — un",
+      "path": "/c12-decouverte-un/",
+      "issue": 39,
+      "reserved": true,
+      "body": "<p>Le texte réservé C12 un révèle des comètes turquoise entièrement fictives.</p>",
+      "excerpt": "Extrait public de la démonstration C12 un."
+    },
+    {
+      "id": 188,
+      "slug": "temoin-c10-acces-equipe",
+      "title": "Témoin C10 — lecture de l’équipe avant parution",
+      "path": "/temoin-c10-acces-equipe/",
+      "issue": 187,
+      "reserved": true,
+      "body": "<p>Contenu fictif C10.</p><p>Les lanternes turquoise de C10 éclairent le jardin imaginaire.</p>",
+      "excerpt": "Article entièrement fictif pour vérifier le réglage des contenus pas encore parus."
+    }
+  ],
+  "issues": [
+    {
+      "id": 39,
+      "slug": "demo-2026-t4",
+      "title": "Numéro fictif 4 — 2026",
+      "pdf": 41,
+      "pdf_marker": "Numero  - PDF factice",
+      "private_present": true
+    },
+    {
+      "id": 32,
+      "slug": "demo-2026-hs",
+      "title": "Hors-série fictif — été 2026",
+      "pdf": 34,
+      "pdf_marker": "Numero  - PDF factice",
+      "private_present": true
+    },
+    {
+      "id": 25,
+      "slug": "demo-2026-t3",
+      "title": "Numéro fictif 3 — 2026",
+      "pdf": 27,
+      "pdf_marker": "Numero  - PDF factice",
+      "private_present": true
+    },
+    {
+      "id": 18,
+      "slug": "demo-2026-t2",
+      "title": "Numéro fictif 2 — 2026",
+      "pdf": 20,
+      "pdf_marker": "Numero  - PDF factice",
+      "private_present": true
+    },
+    {
+      "id": 11,
+      "slug": "demo-2026-t1",
+      "title": "Numéro fictif 1 — 2026",
+      "pdf": 13,
+      "pdf_marker": "Numero  - PDF factice",
+      "private_present": true
+    }
+  ],
+  "partners": [
+    {
+      "id": 49,
+      "path": "/partenaires/demo-partners-2/",
+      "title": "Coopérative des Horizons inventés"
+    },
+    {
+      "id": 48,
+      "path": "/partenaires/demo-partners-1/",
+      "title": "Association des Nuages fictifs"
+    }
+  ],
+  "users": {
+    "V-INSCRIT": 8,
+    "V-DEC-FIN": 7,
+    "P-NUMERO": 28,
+    "A-CARTE": 9
+  },
+  "guards": {
+    "mail": true,
+    "network": true,
+    "payments": true
+  },
+  "discovery": {
+    "debut": "2026-11-24 18:01:51",
+    "reglages": {
+      "ouverture": "premiere_lecture",
+      "forme": "articles",
+      "jours": 7,
+      "nombre": 2,
+      "numeros": [
+        "39",
+        "25",
+        "18"
+      ]
+    },
+    "articles": [
+      233,
+      234
+    ]
+  },
+  "discovery_policy": {
+    "ouverture": "fermee",
+    "forme": "articles",
+    "jours": 7,
+    "nombre": 2,
+    "numeros": []
+  },
+  "discovery_relecture": "fermee",
+  "buyer_issues": [
+    "11"
+  ]
+}

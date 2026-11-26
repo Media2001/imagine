@@ -1,0 +1,6 @@
+test_fuite_texte_reel_refusee (__main__.DetectorTest.test_fuite_texte_reel_refusee) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.007s
+
+OK
