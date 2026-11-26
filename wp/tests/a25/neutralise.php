@@ -1,0 +1,42 @@
+<?php
+
+declare(strict_types=1);
+
+require '/subject/staging/lib.php';
+require '/subject/staging/pdo-store.php';
+
+$db = getenv('A25_DB');
+$pdo = new PDO('mysql:unix_socket=/scratch/mariadb.sock;dbname=' . $db, 'root', '');
+$context = ['environment' => 'staging', 'isolated' => true, 'restored' => true,
+    'database' => $db, 'target_url' => 'https://a02.synthetic.test',
+    'production_hosts' => ['production.invalid'], 'table_policy_version' => 1,
+    'table_decisions' => ['wp_fluentform_submissions' => ['action' => 'garder'],
+        'wp_a25_unknown_entries' => ['action' => 'garder']]];
+function imagine_a25_counts(PDO $pdo): array
+{
+    return $pdo->query("SELECT COUNT(*) AS n,SUM(comment_author_email <> '') AS emails,
+        SUM(comment_author_IP <> '') AS ips FROM wp_comments WHERE comment_type <> 'order_note'")
+        ->fetch(PDO::FETCH_ASSOC);
+}
+$before = imagine_a25_counts($pdo);
+$known = $pdo->query('SELECT response FROM wp_fluentform_submissions ORDER BY id')->fetchAll(PDO::FETCH_COLUMN);
+$unknown = $pdo->query('SELECT message FROM wp_a25_unknown_entries ORDER BY id')->fetchAll(PDO::FETCH_COLUMN);
+$orders = $pdo->query("SELECT ID FROM wp_posts WHERE post_type='shop_order' ORDER BY ID")->fetchAll(PDO::FETCH_COLUMN);
+$customers = $pdo->query("SELECT post_id,meta_value FROM wp_postmeta WHERE meta_key='_customer_user' ORDER BY meta_id")
+    ->fetchAll(PDO::FETCH_ASSOC);
+$hpos = $pdo->query("SELECT id,customer_id FROM wp_wc_orders WHERE type='shop_order' ORDER BY id")->fetchAll(PDO::FETCH_ASSOC);
+$engine = new Imagine\Staging\Engine(new Imagine\Staging\PdoStore($pdo, $context), $context, 'wp_');
+$engine->neutraliser();
+$engine->anonymiser(bin2hex(random_bytes(24)));
+$after = imagine_a25_counts($pdo);
+$guestPreserved = $orders === $pdo->query("SELECT ID FROM wp_posts WHERE post_type='shop_order' ORDER BY ID")->fetchAll(PDO::FETCH_COLUMN)
+    && $customers === $pdo->query("SELECT post_id,meta_value FROM wp_postmeta WHERE meta_key='_customer_user' ORDER BY meta_id")->fetchAll(PDO::FETCH_ASSOC)
+    && $hpos === $pdo->query("SELECT id,customer_id FROM wp_wc_orders WHERE type='shop_order' ORDER BY id")->fetchAll(PDO::FETCH_ASSOC);
+echo json_encode(['neutraliser_and_anonymiser_executed' => true,
+    'marker_count' => (int) $pdo->query("SELECT COUNT(*) FROM wp_options WHERE option_name='imagine_staging_disabled_plugins'")->fetchColumn(),
+    'comments_before' => (int) $before['n'], 'comments_after' => (int) $after['n'],
+    'emails_before' => (int) $before['emails'], 'emails_after' => (int) $after['emails'],
+    'ip_before' => (int) $before['ips'], 'ip_after' => (int) $after['ips'],
+    'known_message_preserved' => $known === $pdo->query('SELECT response FROM wp_fluentform_submissions ORDER BY id')->fetchAll(PDO::FETCH_COLUMN),
+    'unknown_message_preserved' => $unknown === $pdo->query('SELECT message FROM wp_a25_unknown_entries ORDER BY id')->fetchAll(PDO::FETCH_COLUMN),
+    'guest_orders_preserved' => $guestPreserved], JSON_THROW_ON_ERROR) . "\n";

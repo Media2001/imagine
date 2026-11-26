@@ -11,7 +11,7 @@ final class Analysis
         'address_2', 'city', 'state', 'postcode', 'phone'];
     public const UNKNOWN = 'inconnu après neutralisation';
 
-    private static function metrics(array $rows, array $countries): array
+    private static function metrics(array $rows, array $countries, bool $neutralised): array
     {
         $missing = array_fill_keys(array_map(static fn(string $f): string => 'shipping_' . $f, self::FIELDS), 0);
         $counts = ['subscriptions' => count($rows), 'shipping_empty' => 0, 'empty_with_billing' => 0,
@@ -48,10 +48,20 @@ final class Analysis
             }
             $counts['missing_any'] += (int) $any;
         }
+        if ($neutralised) {
+            foreach (['shipping_empty', 'empty_with_billing', 'missing_any', 'different_from_account'] as $key) {
+                $counts[$key] = self::UNKNOWN;
+            }
+            foreach ($counts['missing_required'] as $key => $value) {
+                if ($key !== 'shipping_country') {
+                    $counts['missing_required'][$key] = self::UNKNOWN;
+                }
+            }
+        }
         return $counts;
     }
 
-    public static function analyse(array $rows, array $countries): array
+    public static function analyse(array $rows, array $countries, bool $neutralised = false): array
     {
         $groups = [];
         foreach ($rows as $row) {
@@ -67,12 +77,12 @@ final class Analysis
             if (count($members) < 5) {
                 array_push($others, ...$members);
             } else {
-                $result[] = ['country' => $label, 'counts' => self::metrics($members, $countries)];
+                $result[] = ['country' => $label, 'counts' => self::metrics($members, $countries, $neutralised)];
             }
         }
         if ($others !== []) {
-            $result[] = ['country' => 'autres pays', 'counts' => self::metrics($others, $countries)];
+            $result[] = ['country' => 'autres pays', 'counts' => self::metrics($others, $countries, $neutralised)];
         }
-        return ['overall' => self::metrics($rows, $countries), 'countries' => $result];
+        return ['overall' => self::metrics($rows, $countries, $neutralised), 'countries' => $result];
     }
 }

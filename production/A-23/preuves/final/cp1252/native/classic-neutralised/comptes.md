@@ -26,6 +26,6 @@ Comptes seulement ; aucune activation ni décision de reprise.
             "autres": 3
         }
     },
-    "audit_sha256": "1b4867c19e96b8a5bb3ea90bd15b4df552fca5d23377122264c5630195f6f6d0"
+    "audit_sha256": "c74cf217e448d7dca071edd174cc287c59ec94f78cc663a6eaa38b488c8a1067"
 }
 ```

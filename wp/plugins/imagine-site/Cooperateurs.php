@@ -37,7 +37,9 @@ final class Cooperateurs
         add_filter('wp_sitemaps_posts_query_args', [self::class, 'sitemap'], 10, 2);
         add_action('template_redirect', static function (): void {
             if (in_array(get_queried_object_id(), self::ids(), true)) {
-                if (!defined('DONOTCACHEPAGE')) { define('DONOTCACHEPAGE', true); }
+                if (!defined('DONOTCACHEPAGE')) {
+                    define('DONOTCACHEPAGE', true);
+                }
                 nocache_headers();
             }
         }, -1000);
@@ -71,8 +73,11 @@ final class Cooperateurs
 
     public static function autorise(): bool
     {
-        return CooperateursRegles::lecture(get_user_meta(get_current_user_id(), self::META, true),
-            wp_get_current_user()->roles, is_user_logged_in());
+        return CooperateursRegles::lecture(
+            get_user_meta(get_current_user_id(), self::META, true),
+            wp_get_current_user()->roles,
+            is_user_logged_in()
+        );
     }
 
     public static function fiche(\WP_User $user): void
@@ -96,11 +101,13 @@ final class Cooperateurs
     public static function enregistrer(int $id): void
     {
         $nonce = $_POST['imagine_cooperateur_nonce'] ?? null;
-        if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST' || !self::administration()
+        if (
+            ($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST' || !self::administration()
             || !get_userdata($id) || !current_user_can('edit_user', $id)
             || !is_string($nonce) || !wp_verify_nonce($nonce, 'imagine_cooperateur_' . $id)
             || ($_POST['imagine_cooperateur_present'] ?? '') !== '1'
-            || (isset($_POST['imagine_cooperateur_oui']) && $_POST['imagine_cooperateur_oui'] !== '1')) {
+            || (isset($_POST['imagine_cooperateur_oui']) && $_POST['imagine_cooperateur_oui'] !== '1')
+        ) {
             throw new \RuntimeException('Modification refusée.');
         }
         global $wpdb;
@@ -113,8 +120,10 @@ final class Cooperateurs
             $old = get_user_meta($id, self::META, true);
             $existed = metadata_exists('user', $id, self::META);
             $oui = isset($_POST['imagine_cooperateur_oui']);
-            if ((!$existed && !$oui) || (is_array($old) && ($old['cooperateur'] ?? null) === $oui
-                && ($old['source'] ?? '') === 'administration')) {
+            if (
+                (!$existed && !$oui) || (is_array($old) && ($old['cooperateur'] ?? null) === $oui
+                && ($old['source'] ?? '') === 'administration')
+            ) {
                 return;
             }
             $new = ['cooperateur' => $oui, 'source' => 'administration', 'date_utc' => gmdate('Y-m-d\TH:i:s\Z')];
@@ -242,7 +251,9 @@ final class Cooperateurs
     {
         if (!self::autorise() && !$q->is_singular()) {
             foreach (self::exclure($q->query_vars) as $name => $value) {
-                if (in_array($name, ['post__in', 'post__not_in'], true)) { $q->set($name, $value); }
+                if (in_array($name, ['post__in', 'post__not_in'], true)) {
+                    $q->set($name, $value);
+                }
             }
         }
     }
@@ -253,8 +264,13 @@ final class Cooperateurs
             $id = (int) $args[0];
             $id = (int) (wp_is_post_revision($id) ?: $id);
             $u = get_userdata($userId);
-            if (self::reserve($id) && !CooperateursRegles::lecture(get_user_meta($userId, self::META, true),
-                $u ? $u->roles : [], $userId > 0)) {
+            if (
+                self::reserve($id) && !CooperateursRegles::lecture(
+                    get_user_meta($userId, self::META, true),
+                    $u ? $u->roles : [],
+                    $userId > 0
+                )
+            ) {
                 return ['do_not_allow'];
             }
         }
@@ -335,8 +351,12 @@ final class Cooperateurs
                 $new = $old;
                 $new['option'] = 'imagine_cooperateur_efface';
                 $new['avant'] = $new['apres'] = null;
-                $sql = $wpdb->prepare("UPDATE {$wpdb->options} SET option_value=%s WHERE option_name=%s AND BINARY option_value=BINARY %s",
-                    maybe_serialize($new), $key, maybe_serialize($old));
+                $sql = $wpdb->prepare(
+                    "UPDATE {$wpdb->options} SET option_value=%s WHERE option_name=%s AND BINARY option_value=BINARY %s",
+                    maybe_serialize($new),
+                    $key,
+                    maybe_serialize($old)
+                );
                 if ($wpdb->query($sql) !== 1) {
                     throw new \RuntimeException('Audit modifié.');
                 }

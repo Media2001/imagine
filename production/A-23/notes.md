@@ -92,13 +92,32 @@ directs sur les deux flux restent observés et refusés par le gardien commun.
 La matrice finale A-23 et son contrôle de dépendances ont réellement porté sur
 ces dernières sources partagées ; aucun besoin de recoller un superviseur.
 
-Dernier paquet sélectionné : `a23-final-matrix-02` du scratch, copié seul dans
-`preuves/final`. Par console : 23 tests Python, 34 contrôles purs, 14 contrôles
-statiques du standard, 160 contrôles natifs et 9 contrôles runner, tous verts ;
-PSR-12 : zéro erreur et zéro avertissement. Python mesuré : 3.14.6 sous Windows,
-UTF-8 puis cp1252, UTF-8 mode respectivement 1 et 0. Le vérificateur scellé a
-retourné 66 PASS, zéro FAIL et code 0 avant cette seule actualisation de notes ;
-le manifeste de packaging est rescellé et le contrôle rejoué ensuite.
+Dernier paquet sélectionné : `a23-final-matrix-20261126-1710` du scratch,
+rejoué réellement le 26 novembre 2026 de 17 h 10 min 11 s à 17 h 13 min 53 s,
+puis copié seul dans `preuves/final`. Les cinq commandes de la matrice existante
+ont rendu code 0 contre les dépendances courantes figées. Par console : 23 tests
+Python, 34 contrôles purs, 14 contrôles statiques du standard, 160 contrôles
+natifs et 9 contrôles runner, tous verts ; PSR-12 : zéro erreur et zéro
+avertissement. Python mesuré : `C:/Python314/python.exe`, 3.14.6 sous Windows,
+UTF-8 puis cp1252, UTF-8 mode respectivement 1 et 0. Le contrôle scratch
+`verify.py --unsealed` a rendu 65 PASS, zéro FAIL et code 0 avant sélection.
+L'ancien paquet a été sorti en scratch, sans garder de deuxième preuve livrée.
+Les 109 fichiers du nouveau paquet ont été comparés octet pour octet après copie.
 
-Delta partagé séparé : `readme-ajout.txt`, non appliqué. Reprise et vérification :
-`FINALISATION.md`. Aucun PRET ni accord de bascule réelle.
+Le contrôle avant reprise échouait seulement sur les deux
+`current_dependencies` ; aucune empreinte d'exécution n'a été retouchée pour
+masquer cet écart. Aucun fichier de code ou de test n'a nécessité de modification.
+Sources propres, dépendances et périmètres protégés A-20/A-21/A-22 sont demeurés
+identiques à leur photographie initiale pendant le rejeu.
+
+Delta partagé : les deux lignes de `readme-ajout.txt` ont déjà été intégrées
+par le parent ; aucun README partagé n'est modifié par cette finalisation.
+Les commandes exactes et les reçus sont indiqués dans `FINALISATION.md` ; le
+readback final scellé des deux consoles est `candidate-verification.json`.
+Ce reçu est réservé hors manifeste par le vérificateur existant.
+
+**Porte parent A-23 toujours en attente** : `CANDIDAT_GATE_PARENT`,
+`readiness_claimed=false`, préparation et T01 parent `pending` dans le candidat.
+Les portes communes précédemment annoncées par le parent pour les autres lots
+ne valent pas réception d'A-23 par l'enfant. Aucun nouveau PRET, préparation
+commune ou rejeu T01 global exécuté ici. Aucun accord de bascule réelle.

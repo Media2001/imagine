@@ -7,7 +7,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]/'outils/demo'))
 import b06
 
 
-def verify(label='recette-finale-V2'):
+def verify(label='livraison-V2'):
     p = b06.PROOF/(label+'.json')
     final=json.loads(p.read_text(encoding='utf-8'))
     assert final['scope']=='imagine-test-demo' and final['result']=='VERIFIED' and final['failures']==[]
