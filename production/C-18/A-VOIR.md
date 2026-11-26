@@ -1,5 +1,17 @@
 # C-18 — Extractions : prêt technique, validation visuelle attendue
 
+## Mise à jour du 26 novembre 2026 — trois corrections techniques appliquées
+
+**État courant : C09 natif 382/382, code 0**, à distinguer de la réserve historique ci-dessous. Le reçu `verification-successeur-20261126T012310784456-V2.json` atteste la restauration ciblée ; le nouveau `corrections-V2/final.json` la revérifie après correction, sans réinitialiser les profils. L'action **8793** reste **pending** pour l'abonnement **101**, état natif relu avant/après.
+
+- État : `MonCompte::etatCle()` expose la même projection de `MonCompteRegles::etat()` avant traduction, sans toucher aux droits ni à la règle métier. Les valeurs d'options, filtres et lignes natives restent stables ; seul l'affichage (Mon compte, labels, CSV préparé par l'administration) est traduit. Le vrai filtre `gettext` **Actif → Active** conserve les neuf mêmes IDs ; le nombre aperçu et le total C19 restent **9**. C19 est exercé en lecture seule, sans modifier ses sources ni ses preuves.
+- Pagination de `ExtractionsNatives::lire()` éprouvée avec **100 puis 101 abonnements au total** : appels pages 1/2 (100+0, puis 100+1), unique correspondance ID 101 en deuxième page, arrêt sur page incomplète ; chevauchement ID 100 testé séparément et dédoublonné par abonnement, jamais par titulaire.
+- Preuves courantes : `corrections-V2/` uniquement ; **22 tests C18 / 55 assertions**, racine site **120 / 614**, **62 contrôles natifs/gettext/seam C19**, **95 contrôles HTTP**, neuf nouveaux CSV téléchargés et rouverts. Image repréparée ; canonique **1084 tests / 34362 assertions**, zéro échec, erreur ou ignoré. `corrections-V2/installation.json` et `final.json` lient sources et octets installés.
+- Résultats actuels des neuf téléchargements (même ordre que le tableau historique) : **2, 1, 1, 11, 4, 1, 1, 9, 16**. L'échéance à 11 lignes inclut désormais A-PAPIER après sa restauration ciblée ; les 10 lignes ci-dessous restent le constat historique antérieur, pas le nombre courant. La capture courante est `corrections-V2/extractions-referent.png` ; celle de la racine reste historique. Aucun fichier CSV historique n'est réécrit.
+- PSR12 : zéro erreur sur les trois fichiers C18 vérifiés ; le fichier partagé MonCompte conserve ses constats de style antérieurs (deux scans stdin comparés, aucune erreur nouvelle : `corrections-V2/psr12-shared-preexisting.json`). Pas de remise en forme d'un autre lot. Journal sans purge et marqueur sans-email conservés conformément à la fusion.
+
+La validation visuelle de Ced reste attendue ; cette correction technique n'est ni une clôture ni un GO.
+
 ## À ouvrir
 
 Seul site : **imagine-test-demo**, avec le compte fictif **e-abo**. Identifiants déjà présents hors dépôt dans `C:\Users\Ced\.imagine-demo\identifiants.json` ; aucun mot de passe dans ce document.
@@ -13,7 +25,7 @@ Seul site : **imagine-test-demo**, avec le compte fictif **e-abo**. Identifiants
 
 Le menu **Imagine → Extractions** affiche un nombre réel avant le bouton CSV. Les filtres sont conservés dans le formulaire ; aucune identité d’abonné n’est affichée dans l’aperçu ou le journal. Capture Chromium réelle : `extractions-referent.png`, contrôlée sans chevauchement visible ; ce n’est pas la validation visuelle de Ced.
 
-## Résultat réel du 26 novembre 2026, 02 h 04 CET
+## Résultat historique réel du 26 novembre 2026, 02 h 04 CET
 
 Neuf téléchargements HTTP ont été enregistrés **localement dans ce dossier de preuve**, puis rouverts avec `csv.DictReader` :
 
@@ -42,21 +54,24 @@ Ces nombres décrivent l’état fictif observé, pas une statistique d’Imagin
 
 Documentation officielle consultée : `https://developer.wordpress.org/apis/security/nonces/` (capacité indépendante du nonce) et `https://developer.woocommerce.com/docs/best-practices/data-management/crud-objects/` (lecture par objets CRUD ; pas de sauvegarde dans ce lot). Le sur-mesure se limite au catalogue, au filtrage pur et à cet écran d’extraction demandé par le CDC §3.13.
 
-## Preuves et rejeu ciblé
+## Preuves historiques et rejeu courant ciblé
 
 À la racine du dépôt, sans reset ni autre lot :
 
 ```powershell
-python wp/tests/demo/c18-verifier.py
+python wp/tests/demo/c18-corrections.py --canonical
+python wp/tests/demo/c18-corrections.py --readback-only
 ```
 
 Réinstallation du seul code C18, préparation publique de l’image et suite canonique, si nécessaire :
 
 ```powershell
-python wp/tests/demo/c18-verifier.py --prepare --deploy --canonical
+python wp/tests/demo/c18-corrections.py --prepare --deploy --canonical
 ```
 
 Le rejeu ajoute neuf événements d’extraction au journal, pas des abonnements. Les refus et les aperçus n’ajoutent rien. Il ne rejoue aucun seed C09 et ne replanifie aucune action.
+
+Les reçus racine suivants sont **historiques, non réécrits** ; `corrections-V2/final.json` est le reçu technique courant.
 
 - `final.json` : empreintes exactes relues sur le site, colonnes/fichiers CSV rouverts, conservation native et succession du bootstrap partagé C17 → C18.
 - `unit-final.json` : **17 tests / 24 assertions** ; `unit-root-final.json` : **98 / 523**, zéro échec.
@@ -66,6 +81,6 @@ Le rejeu ajoute neuf événements d’extraction au journal, pas des abonnements
 
 ## Limites conservées, pas de faux vert global
 
-C09 natif reste **381/382**, code **1**, seul échec `A-PAPIER:action_native_planifiee_ou_absente_selon_statut`. L’action historique **8103**, annulée le 25 novembre à 20:38:22 UTC avant C16, n’est pas replanifiée par C18 et son état est inchangé. C18 ne modifie ni profils, paiements, échéances, droits, fichiers privés C17, ni ressources d’un autre site. Pas de données réelles ni d’email. La capture navigateur a bloqué l’avatar Gravatar demandé par l’administration WordPress.
+**État historique du 26 novembre 2026, 02 h 04 CET, avant restauration ciblée :** C09 natif était **381/382**, code **1**, seul échec `A-PAPIER:action_native_planifiee_ou_absente_selon_statut`. Cette réserve n'est **plus courante** : mise à jour du 26 novembre 2026, reçu `verification-successeur-20261126T012310784456-V2.json`, **382/382** après restauration ciblée, confirmé à nouveau par `corrections-V2/final.json`. L’action historique **8103**, annulée le 25 novembre à 20:38:22 UTC avant C16, reste inchangée ; l'action courante **8793 pending**, abonnement **101**, est préservée exactement. C18 ne modifie ni profils, paiements, échéances, droits, fichiers privés C17, ni ressources d’un autre site. Pas de données réelles ni d’email. La capture navigateur a bloqué l’avatar Gravatar demandé par l’administration WordPress.
 
 Les modes C09 non raccordés, les liens offert/groupé et les champs âge/étiquette absents ne sont pas fabriqués. Pas de qualification volumétrique en production ; pagination native de 100 et constitution en mémoire sur cette démo. Bootstrap partagé et README ont des empreintes successeurs documentées, pas des historiques C16/C17 réécrits. Validation visuelle de Ced et relectures restent attendues ; ce PRET n’est pas une clôture ni un GO sur le réel.

@@ -181,9 +181,44 @@ def run(args):
     return result
 
 
+def readback_documents():
+    c18.c17.profils.guard('imagine-test-demo')
+    result = json.loads((PROOF / 'final.json').read_text(encoding='utf-8'))
+    before = json.loads((PROOF / 'before.json').read_text(encoding='utf-8'))
+    assert all(digest(ROOT / name) == expected for name, expected in result['source_sha256'].items())
+    assert live_hashes(list(result['sha256_readback'])) == result['sha256_readback']
+    assert c18.state() == before['native'] and action() == before['paper']
+    assert historical() == result['historical_receipts_unchanged']
+    assert protected_sources() == result['C19_read_only_sources_unchanged']
+    target = 'imagine-demo-build/c18-corrections-runtime.php'
+    assert live_hashes([target]) == {target: digest(ROOT / 'wp/tests/demo/c18-corrections-runtime.php')}
+    runtime = c18.wp('require WP_CONTENT_DIR."/' + target + '";')
+    assert runtime['total'] == len(runtime['checks']) == result['runtime_checks'] and runtime['failures'] == []
+    documents = [ROOT / 'production/C-18' / n for n in ('A-VOIR.md', 'PRET')]
+    documents += [ROOT / 'files/rapports/2026-11-26-05h06-V2.md']
+    for path in documents:
+        text = path.read_text(encoding='utf-8')
+        assert all(term in text for term in ('382/382', '381/382', '1084', '34362', 'C19'))
+    assert all(result['canonical'][k] == 0 for k in ('failures', 'errors', 'skipped'))
+    assert c18.state() == before['native'] and action() == before['paper']
+    receipt = {'at': datetime.now(timezone.utc).isoformat(), 'status': 'C18_FINAL_READBACK_DOCUMENTAIRE_VERIFIE',
+        'technical_final_sha256': digest(PROOF / 'final.json'), 'runtime_checks': runtime['total'],
+        'documents_sha256': {p.relative_to(ROOT).as_posix(): digest(p) for p in documents},
+        'sources_readback_exact': True, 'native_preserved': True, 'action8793_pending_subscription101_preserved': True,
+        'historical_proofs_preserved': True, 'C19_read_only_preserved': True, 'visual_approval': False}
+    save('readback-documentaire', receipt)
+    print(json.dumps(receipt, ensure_ascii=False))
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--prepare', action='store_true')
     parser.add_argument('--deploy', action='store_true')
     parser.add_argument('--canonical', action='store_true')
-    run(parser.parse_args())
+    parser.add_argument('--readback-only', action='store_true')
+    args = parser.parse_args()
+    if args.readback_only:
+        assert not (args.prepare or args.deploy or args.canonical)
+        readback_documents()
+    else:
+        run(args)

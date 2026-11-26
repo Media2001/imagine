@@ -59,6 +59,9 @@ aucune adresse n'est inventée (création future selon CDC §3.13, hors de cet o
 - `types_abonnement_autorises` : `[]` par défaut, filtre **désactivé**. Le remplir
   est une option de contrôle uniquement ; aucune correspondance vers un produit,
   règle de coopérateur, décision d'import des échus ou écriture comptable.
+  Une liste non vide exige une colonne `type_abonnement` mappée ; sinon la
+  correspondance est refusée en français, sans fichier produit. Une liste vide
+  continue d'autoriser ce champ facultatif non mappé (`null`).
 
 Adresse complète = rue, code postal, ville, pays renseignés ; pas de géocodage.
 Email = contrôle syntaxique ASCII usuel (domaines internationalisés en punycode),
@@ -67,6 +70,16 @@ Casse, accents et espaces sont normalisés pour les comparaisons uniquement.
 **Tous** les membres d'un doublon sont signalés, pas seulement le deuxième.
 Le résumé distingue lignes rejetées et motifs : une ligne peut porter plusieurs
 motifs ; « lignes en doublon » compte les lignes uniques concernées.
+Un champ postal absent placé dans `obligatoires` produit seulement « Champ
+obligatoire absent : <champ> », pas un deuxième motif pour cette même absence.
+« Adresse postale incomplète » reste présent si un autre champ postal manquant
+n'est pas dans `obligatoires` : deux motifs désignent alors deux absences distinctes.
+
+Les fichiers produits sont toujours en UTF-8, indépendamment de la console.
+La console conserve son encodage ; un caractère non encodable (console ASCII)
+est échappé avec `backslashreplace`, en succès **et** en refus. Ce garde-fou de
+l'outil ne fixe pas l'encodage des sous-processus de test : chaque appel le déclare
+dans `env` et utilise le même encodage pour lire la sortie.
 
 ## Rejouer les preuves fictives
 
@@ -78,5 +91,9 @@ python wp/tests/a13/verifier_livraison.py --preuve production/A-13/verification.
 Les trois fixtures `a13-export-*-fictif.csv` ont chacune trente lignes. La suite et
 le vérificateur les copient dans un dossier temporaire hors du dépôt, y exécutent
 réellement la CLI, puis nettoient ce dossier. Ne pas lancer le contrôleur directement
-sur une fixture du dépôt : il doit refuser ses sorties. Le lot ajoute une suite ;
-le parent doit aussi rejouer `wp/tests/preparer-image.ps1` avant de déposer `PRET`.
+sur une fixture du dépôt : il doit refuser ses sorties. Après ajout des tests,
+rejouer `wp/tests/preparer-image.ps1` avant de déposer `PRET` (exécuté pour ce
+correctif ; résultat dans `production/A-13/preparer-image-corrections-26nov.log`).
+`wp/tests/rejouer.ps1` exécute la non-régression PHP et ne couvre pas A-13 ;
+la preuve A-13 est sa suite Python distincte. Versions et encodages réellement
+éprouvés : `production/A-13/LIVRAISON.md` et son paquet de preuves courant.

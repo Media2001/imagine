@@ -1,62 +1,106 @@
-# A-13 — Paquet de contrôle CSV hors ligne, corrigé le 26 novembre 2026
+# A-13 — Correctif prioritaire du 26 novembre 2026
 
-**B1** : sonde IBAN NFKC par cellule, ponctuation/espaces/format invisible retirés de la seule sonde, jamais de la source ; aucun assemblage des colonnes. Points, points médians, caractère sans chasse, espace fin insécable et caractères pleine chasse sont éprouvés en colonne non mappée, dernière ligne.
+## Corrections appliquées
 
-**I1** : nom + adresse suffit par défaut même si les prénoms diffèrent. Option explicite `doublon_prenom_identique=false` (aussi par défaut quand absente) ; `true` ajoute volontairement le prénom. **I3** : consoles cp1252 et ASCII éprouvées sans exception après les sorties UTF-8 ; remplacement explicite des caractères non encodables. L'échec initial reproduit sur ce code était ASCII, pas cp1252 sur le cas nominal.
+1. **Encodage fixé dans le test**, à l'appel `subprocess.run` de
+   `test_repository_output_refused_without_touching_fixture` :
+   `env={**os.environ, 'PYTHONIOENCODING': 'utf-8', 'PYTHONDONTWRITEBYTECODE': '1'}`,
+   lecture également en UTF-8. L'erreur cp1252 a été reproduite avant correction,
+   puis le même test est passé sous Python 3.14.7, mode UTF-8 désactivé et console
+   cp1252. L'outil n'impose pas UTF-8 à la console.
+2. **Garde `reconfigure(errors='backslashreplace')` conservé**, car justifié par
+   `test_console_cp1252_or_ascii_does_not_fail_after_outputs` : sans ce garde dans
+   une copie jetable, le succès ASCII lève `UnicodeEncodeError` après écriture des
+   fichiers. Ce n'est **pas** le correctif du défaut cp1252 ci-dessus.
+   `test_console_cp1252_or_ascii_refusal_without_traceback_or_outputs` vérifie aussi
+   le refus, son encodage et l'absence de traceback ou de fichiers ; stderr Python
+   échappe déjà les caractères non encodables indépendamment du garde.
+3. Une liste `types_abonnement_autorises` non vide avec
+   `colonnes.type_abonnement=null` est **refusée en français, sans sortie**.
+   Le filtre vide accepte toujours ce champ facultatif non mappé. Les deux
+   combinaisons sont testées ; aucun mapping vers un produit n'est ajouté.
+4. **Libellés postaux dédoublonnés** : une absence signalée par « Champ obligatoire
+   absent : <champ> » n'ajoute pas « Adresse postale incomplète ». Ce dernier motif
+   reste présent pour un autre champ postal absent non obligatoire. Tests sur les
+   quatre champs postaux et le cas mixte ; mode d'emploi aligné.
+5. Corrections IBAN et doublons acquises intactes : sonde NFKC par cellule sans
+   joindre les colonnes ; nom + adresse sans exiger le prénom par défaut, option
+   `doublon_prenom_identique=false`. Le prénom absent est désormais testé à part.
 
-## Résultat vérifié localement
+## Dernier rejeu vert — un seul paquet de preuves
 
-Outil Python pur livré dans `wp/outils/bascule/controler-export`, sans WordPress,
-sans import, sans compte et sans réseau. Correspondance dédiée :
-`wp/outils/bascule/a13/correspondance.exemple.json`.
-Mode d'emploi : `wp/outils/bascule/controler-export.md`.
+**46 tests, 0 échec, 0 erreur, 0 ignoré dans chacun des cinq contextes Windows**.
+Chaque contexte exécute ensuite les trois vraies CLI fictives, codes **0, 1 et 2**.
+La locale Windows mesurée est `cp1252` ; ces encodages sont mesurés dans Python.
 
-Preuves : `verification.json` (chiffres et empreintes des sorties fictives),
-`verification.tests.txt` (transcription intégrale du dernier passage de la suite).
-`manifeste.json` lie les fichiers livrés à leurs octets SHA-256 ; il ne se contient
-pas lui-même et ne couvre pas un futur marqueur de validation.
+| Python exécuté | stdout / stderr | PYTHONIOENCODING | PYTHONUTF8 / mode UTF-8 | Encodage préféré |
+|---|---|---|---|---|
+| 3.11.15, environnement habituel du terminal | utf-8 / utf-8 | utf-8 | 1 / 1 | utf-8 |
+| 3.14.7, cible | utf-8 / utf-8 | utf-8 | 1 / 1 | utf-8 |
+| 3.14.7, console forcée | cp1252 / cp1252 | cp1252 | 1 / 1 | utf-8 |
+| 3.14.7, console et locale héritées | cp1252 / cp1252 | cp1252 | 0 / 0 | cp1252 |
+| 3.14.6, interpréteur du poste de contrôle | cp1252 / cp1252 | cp1252 | 0 / 0 | cp1252 |
 
-- Suite A-13 : 40 tests exécutés, 0 échec, 0 erreur, 0 ignoré, Python 3.11.15 Windows.
-- Trois fixtures de 30 lignes, exclusivement fictives ; copies de travail en scratch.
-- Propre : code 0, 30 lignes sans défaut, 0 rejet.
-- Défauts : code 1, 5 lignes sans défaut, 25 lignes rejetées / 25 motifs,
-  6 lignes en doublon, 1 ligne sans email (non rejetée pour son absence d'email).
-- IBAN fictif : code 2, colonne 14, aucune sortie créée, aucune valeur recopiée.
-- Les 25 diagnostics attendus sont vérifiés sur leur ligne physique exacte.
-- Préflight intégral avant analyse métier : tests de dernière ligne, colonne non
-  mappée, en-tête suspect même vide, contenu seul, CSV cassé et champ entre guillemets.
-- Encodage/séparateur ambigus, sortie dans un dépôt synthétique de scratch,
-  sortie existante et correspondance invalide : refus explicites testés.
+**230 exécutions de tests**, sous-tests non additionnés, et quinze CLI supplémentaires.
+`verification.json` contient les cinq contextes, commandes exactes, versions,
+encodages, résultats et empreintes ; `verification.tests.txt` rassemble leurs cinq
+transcriptions intégrales UTF-8. Les sources A-13 sont identiques avant/après
+chaque rejeu et entre les contextes.
 
-## Rejouer
+- Propre : 30 lignes sans défaut, code 0.
+- Défauts : 25 lignes rejetées / 25 motifs, 5 sans défaut, 6 lignes en doublon,
+  1 sans email, non rejetée pour la seule absence d'email.
+- IBAN fictif : colonne 14 refusée, code 2, aucune sortie ni valeur recopiée.
+- Les 25 diagnostics attendus tombent sur leur ligne physique exacte.
+- Les preuves ne conservent que résumés sans données, compteurs et empreintes.
+  Fixtures copiées en scratch puis nettoyées, aucun export réel.
 
-```text
-python -m unittest discover -s wp/tests/a13 -v
-python wp/tests/a13/verifier_livraison.py --preuve production/A-13/verification.json
+`wp/tests/preparer-image.ps1` relancé **après ajout des tests**, code 0 ; journal
+courant : `preparer-image-corrections-26nov.log`. Vérification hors réseau après
+construction. Avertissement partagé « T01 sans tests : themes/imagine » et lignes
+de transport PowerShell `System.Management.Automation.RemoteException` présents ;
+la commande termine néanmoins sur `T01 IMAGE READY` et `PREPARATION T01 : image
+verifiee`, code 0. Aucune validation du thème ou de la voie 2 n'est revendiquée.
+
+**`wp/tests/rejouer.ps1` ne couvre pas A-13** : c'est la non-régression PHP.
+A-13 est validé séparément par sa suite Python. Aucun rejeu PHP global revendiqué
+pour ce correctif ; préparer l'image n'exécute pas ce rejeu.
+
+## Rejouer à la racine C:/Users/Ced/imagine
+
+Commandes bash de vérification directe exécutées ; les preuves de relecture
+parent vont hors dépôt :
+
+```bash
+export TMPDIR='C:/Users/Ced/AppData/Local/hermes/cache/scratch'
+PY3147='C:/Users/Ced/AppData/Local/hermes/tools/python-3.14.7+20260901-win32-x64/python.exe'
+PYTHONIOENCODING=utf-8 PYTHONUTF8=1 "$PY3147" -B -m unittest discover -s wp/tests/a13 -v
+PYTHONIOENCODING=cp1252 PYTHONUTF8=1 "$PY3147" -B -m unittest discover -s wp/tests/a13 -v
+PYTHONIOENCODING=cp1252 PYTHONUTF8=0 "$PY3147" -B -m unittest discover -s wp/tests/a13 -v
+PYTHONIOENCODING=cp1252 PYTHONUTF8=0 C:/Python314/python.exe -B -m unittest discover -s wp/tests/a13 -v
+python -B -m unittest discover -s wp/tests/a13 -v
+PYTHONIOENCODING=cp1252 PYTHONUTF8=0 "$PY3147" -B wp/tests/a13/verifier_livraison.py --preuve "$TMPDIR/a13-relecture-parent.json"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ./wp/tests/preparer-image.ps1
+python -B production/A-13/verifier_manifeste.py
 ```
 
-Le vérificateur lance toute la suite puis trois commandes CLI séparées, vérifie
-les codes, les quantités, l'absence de recopie et l'intégrité des sources. Les
-sorties de contrôle sont nettoyées avec leur répertoire temporaire, pas stockées
-dans le dépôt. Le JSON ne conserve que les résumés sans données et les empreintes.
-Après un rejeu qui change les preuves, régénérer le manifeste de livraison.
+Le paquet a été produit par cinq appels à `verifier_livraison.py` (suite entière
+puis trois CLI chacun). Leurs commandes exactes et exécutables absolus figurent
+dans le JSON. Les cinq appels directs `unittest` ci-dessus vérifient aussi la suite,
+sans ajouter de paquet au dépôt. Ne pas contrôler une fixture directement dans
+le dépôt : les sorties y sont refusées.
+
+`manifeste.json` ne couvre que les fichiers A-13 et leurs octets SHA-256, ni
+orchestration ni lot frère ; il exclut lui-même et `PRET`. `reception.json` lie ce
+paquet à la préparation image réussie ; `PRET` désigne l'empreinte du manifeste.
+Essais rouges et anciens paquets conservés hors dépôt, dans le scratch Hermes.
 
 ## Décisions prises à défaut
 
-CDC §2.3, §3.13, §4.3 et brief A-13 : aucun import ni décision d'éligibilité.
-L'échéance passée est signalée, pas une décision de migration. Les obligations,
-les codes de paiement et les modes demandant un mandat sont déclarés. Aucun
-mappage de produit ni interprétation du statut de coopérateur. Le filtre facultatif
-de types est désactivé par défaut et testé activé/désactivé. La casse, les accents
-et les espaces sont neutralisés pour les comparaisons, jamais pour réécrire la source.
-Le défaut nom/adresse n'exige pas le prénom. La syntaxe email est
-contrôlée sans réseau, pas la délivrabilité. Les outils WordPress ne sont pas
-appelés : le besoin est précisément un contrôle préalable autonome, pas un importeur.
+Garde console conservé avec sa contre-épreuve ASCII ; dédoublonnage postal précis ;
+filtre contradictoire refusé. Aucun arbitrage technique en attente. Le défaut
+ignore le prénom conformément au brief ; Imagine peut demander l'activation de
+l'option existante, sans bloquer le lot.
 
-## Intégration reçue
-
-Le writer délégué a exécuté `wp/tests/preparer-image.ps1`, code **0**, après ajout des tests. Journal courant : `preparer-image-corrections-26nov.log`. `reception.json` porte cette intégration acquise ; la mention générique d'attente parent du vérificateur autonome n'est pas réécrite dans ses preuves.
-
-Un seul jeu courant : `verification.json` et `verification.tests.txt`, suite de **40 tests** puis trois CLI fictives, codes **0, 1 et 2**. Les fichiers d'entrée source/test/fixture A-13 sont empreintés avant/après le rejeu. Les anciennes preuves ont été conservées intactes hors dépôt dans le scratch Hermes. Le manifeste est borné au lot, sans empreinte d'orchestration, de document partagé ou de lot frère.
-
-Contrôle courant : `python production/A-13/verifier_manifeste.py`. Rejeu réel : `python wp/tests/a13/verifier_livraison.py --preuve <scratch>/verification.json`, puis rescellage. L'ancien contrôle consolidé A-10/A-13 est historique ; le PRET courant ne le désigne plus. Aucun test PHP global, accès à un export réel, import ou GO de migration n'est revendiqué.
+Aucun compte, archive ou site réel ouvert ; aucun import, droit d'accès, paiement
+ou écriture comptable. Aucun GO de migration ou de déploiement.

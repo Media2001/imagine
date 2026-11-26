@@ -1,0 +1,8 @@
+{
+  "wp/plugins/imagine-site/MonCompte.php": "8ebf22bb6b809d8efcbf47d39fab0bbf4058f0f338704459ef4bf294563ee2ae",
+  "wp/plugins/imagine-site/ExtractionsNatives.php": "97e84ee2e02a17a07350e6460ee086861abde54244ff805c9e199327ddf035c6",
+  "wp/plugins/imagine-site/ExtractionsAdmin.php": "daf3ed8550b18e382b8a625cac73b2a0ca2545ac46cc10ce2365bc30aba5ad6d",
+  "wp/plugins/imagine-site/extractions/etat.php": "8d4b2768f4f56c61a45d60aba07ab69683b84a08f6d9d31828678f62ab46005d",
+  "wp/plugins/imagine-site/tests/ExtractionsNativesTest.php": "7f34299f4e741f3c699d6a8eff474450a99b943709aa5cbf7ff6c29608c21d84",
+  "wp/plugins/imagine-site/tests/fixtures/c18-faux-natif.php": "5c3454ecab25cd293ab7cdf712e5b0c91898ccb7553139b98a265f988b2ace69"
+}

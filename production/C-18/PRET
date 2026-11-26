@@ -1,7 +1,11 @@
-C-18 — PRET TECHNIQUE À RELIRE
-Vérification réelle finale : 2026-11-26T01:04:47.908657+00:00.
-Site unique : imagine-test-demo. A-VOIR.md et final.json font foi.
-17 tests purs / 24 assertions ; racine site 98 / 523 ; 14 contrôles natifs ; 95 contrôles HTTP ; neuf CSV téléchargés puis rouverts.
-Préparation d’image exécutée ; T01 canonique 1062 tests / 34271 assertions, zéro échec, erreur ou ignoré.
-État natif préservé. Réserve historique C09 maintenue : 381/382, action A-PAPIER 8103 annulée avant C16, inchangée et non replanifiée. Pas de vert global C09.
-Validation visuelle de Ced et relectures attendues. Aucun GO sur du réel.
+C-18 — PRET TECHNIQUE CORRIGÉ À RELIRE — 26 novembre 2026
+Les trois instructions de corrections/C-18.md sont appliquées ; validation visuelle de Ced toujours attendue.
+État courant : production/C-18/A-VOIR.md et corrections-V2/final.json ; reçus historiques racine conservés.
+Filtre sur clé stable de MonCompteRegles, traduction d'affichage seule ; vrai gettext Actif→Active : neuf mêmes IDs, aperçu/C19 = 9.
+Pagination native exercée : 100 puis 101 abonnements totaux, correspondance en page 2, arrêt après page incomplète et absence de doublon y compris chevauchement.
+22 tests C18 / 55 assertions ; racine site 120 / 614 ; 62 contrôles natifs/gettext/seam C19 ; 95 contrôles HTTP ; neuf nouveaux CSV rouverts.
+Image repréparée ; canonique 1084 tests / 34362 assertions, zéro échec, erreur ou ignoré. Contrôles rejouables : python wp/tests/demo/c18-corrections.py --canonical
+C09 natif 382/382, code 0. Action 8793 pending, abonnement 101, profils et état natif préservés exactement ; aucun seed ni reset.
+381/382 n'est que l'état historique du 26 novembre 2026 avant restauration ciblée : reçu verification-successeur-20261126T012310784456-V2.json. L'action historique 8103 reste annulée.
+C19 contrôlé en lecture seule ; aucune source ni preuve C19 modifiée. Bootstrap/README partagés et MonCompteRegles inchangés ; MonCompte n'expose que la projection existante avant traduction.
+Journal sans purge et marqueur sans-email conservés conformément à la fusion. Aucun autre lot, aucune donnée réelle, aucun email ni GO sur le réel.
