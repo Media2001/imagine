@@ -40,7 +40,7 @@ try {
         remove_filter('the_posts', [C::class,'protegerObjets'], -1000);
     } elseif ($mutation === 'edition') {
         remove_filter('map_meta_cap', [C::class,'capacites'], 20);
-    } elseif (in_array($mutation, ['search','feed'], true)) {
+    } elseif (in_array($mutation, ['search','feed','collection'], true)) {
         remove_action('pre_get_posts', [C::class,'requete'], -1000);
         remove_filter('the_posts', [C::class,'protegerObjets'], -1000);
     } elseif ($mutation === 'sitemap') {
@@ -64,6 +64,17 @@ try {
         $checks[$publicName.'_page_sans_contenu'] = str_contains($content, 'réservé aux coopérateurs') && !str_contains($content, $marker);
         $r = rest_do_request(new WP_REST_Request('GET','/wp/v2/pages/'.$child));
         $checks[$publicName.'_rest_sans_contenu'] = $r->get_status() === 403 && !str_contains(wp_json_encode($r->get_data()), $marker);
+        foreach (['/wp/v2/pages', '/wp/v2/pages/'] as $route) {
+            $request = new WP_REST_Request('GET', $route);
+            $request->set_param('include', [$id, $child, $public]);
+            $request->set_param('per_page', 100);
+            $collection = rest_do_request($request);
+            $data = $collection->get_data();
+            $present = is_array($data) ? array_column($data, 'id') : [];
+            $suffix = str_ends_with($route, '/') ? '_slash' : '';
+            $checks[$publicName.'_collection_publique_presente'.$suffix] = $collection->get_status() === 200 && in_array($public, $present, true);
+            $checks[$publicName.'_collection_exclut_espace'.$suffix] = $collection->get_status() === 200 && in_array($public, $present, true) && !in_array($id, $present, true) && !in_array($child, $present, true);
+        }
         $q = new WP_Query(['post_type'=>'page','s'=>'B06','posts_per_page'=>-1]);
         $ids = wp_list_pluck($q->posts,'ID');
         $checks[$publicName.'_recherche_existe'] = in_array($public,$ids,true);

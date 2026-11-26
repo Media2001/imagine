@@ -110,6 +110,31 @@ try {
         wp_cache_delete($id, 'user_meta');
         $checks['effacement_natif_attribut_absent'] = $e['items_removed'] && $e['done'] && !metadata_exists('user', $id, C::META);
         $checks['audit_cible_anonymise'] = C::audits($id) === [];
+        // Plus d'un lot : la relecture finale échoue avec un événement encore présent.
+        if ($mutation !== 'erase_noop') {
+            foreach (range(1, 51) as $n) {
+                add_option('imagine_reglages_journal_b06reprise' . $id . '_' . $n, [
+                    'option'=>C::META . '_' . $id, 'avant'=>$state, 'apres'=>$state,
+                    'quand_utc'=>$state['date_utc'], 'qui_id'=>$admin->ID, 'qui_login'=>$admin->user_login,
+                ], '', false);
+            }
+            $checks['sql_relecture_51_evenements_presents'] = count(C::audits($id)) === 51;
+            $reads = 0;
+            $failSecond = static function (string $sql) use (&$reads): string {
+                if (str_starts_with($sql, 'SELECT option_name,option_value FROM') && ++$reads === 2) {
+                    return 'SELECT imagine_b06_relecture_inexistante';
+                }
+                return $sql;
+            };
+            $suppress = $wpdb->suppress_errors(true);
+            add_filter('query', $failSecond);
+            try { $partial = C::effacer('b06-fictif@example.org'); }
+            finally { remove_filter('query', $failSecond); $wpdb->suppress_errors($suppress); }
+            $checks['sql_relecture_finale_incomplete'] = $reads === 2 && $partial['items_removed'] && $partial['items_retained'] && !$partial['done'];
+            $checks['sql_relecture_evenement_restant'] = count(C::audits($id)) === 1;
+            $retry = C::effacer('b06-fictif@example.org');
+            $checks['sql_effacement_reprise_complete'] = $retry['items_removed'] && !$retry['items_retained'] && $retry['done'] && C::audits($id) === [];
+        }
         }
     } else {
         $_POST = $savedPost; unset($_POST['imagine_cooperateur_oui']);

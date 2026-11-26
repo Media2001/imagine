@@ -1,7 +1,8 @@
 """B06 : vrais GET/POST natifs, sessions éphémères, restauration exacte hors attribut P-COOP."""
 import sys
 sys.dont_write_bytecode = True
-import json, re, html
+import json, re, html, os, hashlib
+from pathlib import Path
 from urllib.parse import urlencode
 from urllib.request import Request, build_opener
 from urllib.error import HTTPError
@@ -76,16 +77,20 @@ def run(label):
     fixture = json.loads((b06.PROOF/'seed-V2.json').read_text(encoding='utf-8'))['fixture']
     accounts = wp('''$f=get_option('imagine_c09_fixture');$a=get_option('imagine_c08_fixture');echo wp_json_encode(['admin'=>get_user_by('login','admin')->ID,'coop'=>$f['users']['P-COOP'],'active'=>$f['users']['A-CARTE'],'plain'=>$f['users']['V-INSCRIT'],'article'=>$a['article'],'article_path'=>wp_parse_url(get_permalink($a['article']),PHP_URL_PATH)]);''')
     account_path = wp('echo wp_json_encode(wp_parse_url(wc_get_page_permalink("myaccount"),PHP_URL_PATH));')
+    public_id = wp('echo wp_json_encode(wc_get_page_id("myaccount"));')
     ids = [accounts[k] for k in ['admin','coop','active','plain']]
     prior = snapshot(ids)
     baseline = invariant(accounts['coop'])
     child = fixture['pages'][2]
     original_page = wp('global $wpdb;echo wp_json_encode($wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->posts} WHERE ID=%d",'+str(child['id'])+'),ARRAY_A));')
+    durable = b06.private_snapshot(label, {'accounts':accounts,'ids':ids,'prior':prior,'page':original_page,'baseline':baseline})
     checks = {}
     sources = b06.hashes(b06.NAMES)
     error = None
     try:
         sessions = wp('''$ids='''+php({k:accounts[k] for k in ['admin','coop','active','plain']})+''';$out=[];foreach($ids as $key=>$id){$expiration=time()+3600;$token=WP_Session_Tokens::get_instance($id)->create($expiration);$logged=wp_generate_auth_cookie($id,$expiration,'logged_in',$token);$auth=wp_generate_auth_cookie($id,$expiration,'auth',$token);$_COOKIE[LOGGED_IN_COOKIE]=$logged;wp_set_current_user($id);$out[$key]=['cookie'=>LOGGED_IN_COOKIE.'='.$logged.'; '.AUTH_COOKIE.'='.$auth.'; tk_ai='.bin2hex(random_bytes(16)),'nonce'=>wp_create_nonce('wp_rest')];}echo wp_json_encode($out);''')
+        code,headers,body,url = request('/wp-admin/admin.php?page=imagine-reglages',sessions['admin'])
+        checks['reglages_deux_champs_dans_formulaire_natif'] = code==200 and 'id="imagine-cooperateurs-reglages"' in body and 'imagine_cooperateurs_roles_attribut[]' in body and 'imagine_cooperateurs_roles_lecture[]' in body and body.index('imagine-cooperateurs-reglages') < body.index('</form>',body.index('imagine-cooperateurs-reglages'))
         checks['ecran_admin_pose_native'] = profile(sessions['admin'], accounts['coop'], True)
         attr = wp('echo wp_json_encode(get_user_meta('+str(accounts['coop'])+',"imagine_cooperateur",true));')
         checks['attribut_persistant_relu'] = attr['cooperateur'] is True and attr['source']=='administration'
@@ -108,8 +113,11 @@ def run(label):
             for route in ['/wp-json/wp/v2/pages/'+str(child['id']), '/?rest_route=/wp/v2/pages/'+str(child['id']), '/wp-json/wp/v2/pages/'+str(child['id'])+'?context=edit']:
                 code,headers,body,url = request(route,session)
                 checks[audience+'_rest_'+str(len(checks))] = code==403 and json.loads(body).get('code')=='imagine_cooperateurs_reserve' and MARKER not in body
-            code,headers,body,url = request('/wp-json/wp/v2/pages?include='+str(child['id']),session)
-            checks[audience+'_rest_liste_exclut'] = code==200 and json.loads(body)==[]
+            for route in ['/wp-json/wp/v2/pages?include=', '/?rest_route=/wp/v2/pages&include=']:
+                code,headers,body,url = request(route+str(child['id'])+','+str(public_id),session)
+                rows = json.loads(body)
+                present = [r['id'] for r in rows] if isinstance(rows,list) else []
+                checks[audience+'_rest_liste_exclut_'+str(len(checks))] = code==200 and public_id in present and child['id'] not in present and MARKER not in body
             code,headers,body,url = request('/?feed=rss2&post_type=page&posts_per_rss=100',session)
             checks[audience+'_flux_existant_sans_temoin'] = code==200 and '<item>' in body and MARKER not in body and child['path'] not in body
             code,headers,body,url = request('/?s='+MARKER,session)
@@ -133,10 +141,21 @@ def run(label):
         checks['ecran_admin_retrait_natif'] = profile(sessions['admin'],accounts['coop'],False)
         code,headers,body,url = request(child['path'],sessions['coop'])
         checks['retrait_referme_http'] = code==200 and 'data-imagine-cooperateurs-refus' in body and MARKER not in body
+        code,headers,body,url = request(account_path,sessions['coop'])
+        section = body.split('id="mon-statut-cooperateur"',1)[-1].split('</section>',1)[0]
+        checks['retrait_compte_source_absente_http'] = code==200 and 'Coopérateur : non' in html.unescape(section) and 'Source : administration' not in section and '<time>' not in section
+        code,headers,body,url = request('/wp-admin/user-edit.php?user_id='+str(accounts['coop']),sessions['admin'])
+        section = body.split('name="imagine_cooperateur_present"',1)[-1].split('</table>',1)[0]
+        checks['retrait_fiche_source_absente_http'] = code==200 and 'imagine_cooperateur_oui' in section and 'Source : administration' not in section and '<time>' not in section
         checks['ecran_admin_repose_native'] = profile(sessions['admin'],accounts['coop'],True)
     except Exception as exc:
         error = type(exc).__name__ + ': ' + str(exc)
     finally:
+        raw = (Path(os.environ['TMPDIR'])/durable['file']).read_bytes()
+        assert hashlib.sha256(raw).hexdigest()==durable['sha256']
+        persisted = json.loads(raw)['payload']
+        assert persisted['prior']==prior and persisted['page']==original_page
+        prior, original_page = persisted['prior'], persisted['page']
         # La seule page temporairement remplie revient à ses octets exacts.
         wp('global $wpdb;$p='+php(original_page)+';if($wpdb->update($wpdb->posts,$p,["ID"=>$p["ID"]])===false)throw new RuntimeException("Restauration page refusée");clean_post_cache((int)$p["ID"]);echo "true";')
         restored = wp('global $wpdb;echo wp_json_encode($wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->posts} WHERE ID=%d",'+str(child['id'])+'),ARRAY_A));')
@@ -147,7 +166,7 @@ def run(label):
         retained = wp('echo wp_json_encode(get_user_meta('+str(accounts['coop'])+',"imagine_cooperateur",true));')
         checks['P_COOP_seule_exception_conservee'] = isinstance(retained,dict) and retained['cooperateur'] is True and retained['source']=='administration'
         failures = [k for k,v in checks.items() if v is not True]
-        b06.save(label, {'identity':identity,'checks':checks,'total':len(checks),'failures':failures,'error':error,'sources':sources,'pages':fixture['pages'],'retained':retained})
+        b06.save(label, {'identity':identity,'checks':checks,'total':len(checks),'failures':failures,'error':error,'sources':sources,'pages':fixture['pages'],'retained':retained,'private_snapshot':durable})
         print(json.dumps({'total':len(checks),'failures':failures,'error':error},ensure_ascii=False))
     assert not failures and error is None
 

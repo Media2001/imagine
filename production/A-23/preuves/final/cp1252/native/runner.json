@@ -1,7 +1,7 @@
 {
   "suite": "A23-owned-runner",
-  "container": "imagine-a23-readers-b12b30f09da0",
-  "at": "2026-11-26T16:12:00.784390+00:00",
+  "container": "imagine-a23-readers-796ea86c6968",
+  "at": "2026-11-26T18:06:17.488979+00:00",
   "checks": [
     {
       "check": "isolation_before",

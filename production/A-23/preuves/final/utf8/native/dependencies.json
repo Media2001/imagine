@@ -15,7 +15,7 @@
   "wp/outils/bascule/a12/Registry.php": "ea9f653e7a66e5267f93bd40a2c87d77e26dbf9bdd9a45c763fd1d38172dd530",
   "wp/outils/bascule/a17/Inventory.php": "aef97cccf5d4795a10e82fff96a2e3f911bb9d21ea2a645cc2a311b9ed81a9aa",
   "wp/outils/bascule/audit": "7eb2b4bfa450e37d3f4265e3055cdba61a877b056f4feb0bfce06f681659c6dc",
-  "wp/outils/bascule/stream_guard.py": "ce62d8268bdc8bb3a25c75a6453409d4d6bfd4b7c1c38ebdc027ad38a0d78db9",
+  "wp/outils/bascule/stream_guard.py": "c913c79206b6e7b54b8ecb42284952bf5a82d2d9075639f98eddf5479efade97",
   "wp/outils/bascule/stream_refusals.json": "3dd8b55931ac566f047403b22f7e21b2d1002d628667a41d831fb6659a13479b",
   "wp/outils/staging/anonymiser": "2d8ee8c6afc3b586b49393db1c99bfb5049f568ed6d506fc1ad29db38eb0de1d",
   "wp/outils/staging/command.php": "cb6a089fdf43d3e561d3e53b0a884463690bfa1ecd16e0e3b2ed31a05bf4e5d1",

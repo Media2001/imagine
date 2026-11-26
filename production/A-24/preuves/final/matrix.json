@@ -1,6 +1,6 @@
 {
   "suite": "A24-final-replay",
-  "started": "2026-11-26T16:48:39.803021+00:00",
+  "started": "2026-11-26T18:12:27.994087+00:00",
   "platform": "win32",
   "python": {
     "executable": "C:\\Python314\\python.exe",
@@ -16,7 +16,7 @@
         "C:\\Python314\\python.exe",
         "-B",
         "C:\\Users\\Ced\\imagine\\wp\\tests\\a24\\run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a24-final-matrice-01\\utf8"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\parent-replay-final-1915\\a24\\utf8"
       ],
       "encoding_runtime": {
         "executable": "C:\\Python314\\python.exe",
@@ -38,7 +38,7 @@
         "C:\\Python314\\python.exe",
         "-B",
         "C:\\Users\\Ced\\imagine\\wp\\tests\\a24\\run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a24-final-matrice-01\\cp1252"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\parent-replay-final-1915\\a24\\cp1252"
       ],
       "encoding_runtime": {
         "executable": "C:\\Python314\\python.exe",
