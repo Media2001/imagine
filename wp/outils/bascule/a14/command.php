@@ -74,9 +74,24 @@ try {
         'schema' => 'imagine-a14-v1', 'read_only' => true, 'storage' => $native['storage'],
         'audit_sha256' => hash_file('sha256', $audit),
     ] + $result;
-    $summary = "# Rapprochement fictif — lecture seule\n\nAucune réinscription ; coopérateur et tarif inconnus.\n";
+    $summary = __("# Rapprochement — lecture seule\n\nAucune réinscription ; coopérateur et tarif inconnus.\n", 'imagine');
+    $summary .= __("Les contacts sont comptés par ligne source, pas par personne distincte. ", 'imagine')
+        . __("Le compteur technique duplicate_contact_lines indique les lignes concernées par un doublon ; ", 'imagine')
+        . __("il ne donne pas, à lui seul, le nombre de personnes distinctes.\n\n", 'imagine');
+    $labels = [
+        'contacts_total' => __('Total des contacts', 'imagine'),
+        'contacts_with_account' => __('Contacts avec compte', 'imagine'),
+        'contacts_without_account' => __('Contacts sans compte', 'imagine'),
+        'ambiguous_contact_lines' => __('Lignes ambiguës', 'imagine'),
+        'accounts_without_contact' => __('Comptes sans contact', 'imagine'),
+        'accounts_unmatchable' => __('Comptes injoignables', 'imagine'),
+        'invalid_contact_lines' => __('Lignes avec adresse invalide', 'imagine'),
+        'duplicate_contact_lines' => __('Lignes concernées par un doublon', 'imagine'),
+        'unsubscribed_contacts' => __('Contacts désinscrits', 'imagine'),
+        'blocked_contacts' => __('Contacts bloqués', 'imagine'),
+    ];
     foreach ($result['counts'] as $name => $count) {
-        $summary .= $name . ' : ' . $count . "\n";
+        $summary .= $labels[$name] . ' : ' . $count . "\n";
     }
     $csv = "ligne;abonnement_actif;statut;cooperateur;tarif\n";
     foreach ($matched as $row) {

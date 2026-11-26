@@ -24,8 +24,32 @@ def inspect_more():
     print(json.dumps({k:v for k,v in data.items() if k!='integration_sources'}, ensure_ascii=False))
     print('integration source files:', list(data.get('integration_sources',{})))
 
+def snapshot():
+    return wp('define("IMAGINE_C20_READ_ONLY",true); require WP_CONTENT_DIR . "/imagine-demo-build/c20-native.php";')
+
+def probe(label):
+    c20.profils.guard('imagine-test-demo')
+    src = ROOT / 'wp/tests/demo/c20-second-native.php'
+    target = 'imagine-demo-build/c20-second-native.php'
+    c20.profils.b00.upload(target, src.read_bytes())
+    actual = wp('echo wp_json_encode(hash_file("sha256",WP_CONTENT_DIR . "/' + target + '"));')
+    assert actual == hashlib.sha256(src.read_bytes()).hexdigest()
+    before = snapshot()
+    save(label + '-before', before)
+    data = wp('token_get_all(file_get_contents(WP_CONTENT_DIR . "/' + target + '"),TOKEN_PARSE);require WP_CONTENT_DIR . "/' + target + '";')
+    after = snapshot()
+    data['source_sha256'] = actual
+    data['fresh_profiles_actions_exact'] = before['profiles'] == after['profiles']
+    save(label, data)
+    save(label + '-after', after)
+    print(json.dumps({'checks':data['checks'], 'failures':data['failures'], 'fresh_profiles_actions_exact':data['fresh_profiles_actions_exact'], 'four':data['four']['result']['checks'], 'four_supported':data['four']['result']['supported'], 'four_C05_end':data['four']['result']['C05_block_end'], 'four_C05_remaining':data['four']['result']['C05_remaining'], 'four_native_dates':data['four']['result']['native_pending_payment_dates'], 'resumption':data['carte']['result']['resumption']}, ensure_ascii=False))
+    assert data['fresh_profiles_actions_exact'], 'STOP: profile/action drift'
+    return 1 if data['failures'] else 0
+
 if __name__ == '__main__':
-    if '--details' in sys.argv:
+    if '--probe' in sys.argv:
+        sys.exit(probe(sys.argv[-1]))
+    elif '--details' in sys.argv:
         inspect_more()
     else:
         inspect()

@@ -38,19 +38,10 @@
         "end": "2027-11-25 18:01:50",
         "next_payment": "2026-12-25 18:01:50"
       },
-      "actions": {
-        "cancel": {
-          "url": "?subscription_id=89&amp;change_subscription_to=cancelled&amp;_wpnonce=21fd3e1580",
-          "name": "Cancel",
-          "block_ui": true,
-          "role": "button"
-        },
-        "subscription_renewal_early": {
-          "url": "http://192.168.129.32:8085/my-account/?subscription_renewal_early=89&subscription_renewal=true&woocommerce_subscriptions_early_renewal_nonce=cb3518be95",
-          "name": "Renew now",
-          "role": "link"
-        }
-      },
+      "actions": [
+        "cancel",
+        "subscription_renewal_early"
+      ],
       "items": [
         {
           "id": 192,
@@ -72,19 +63,10 @@
         "end": "2027-11-25 18:01:50",
         "next_payment": "2026-12-25 18:01:50"
       },
-      "actions": {
-        "cancel": {
-          "url": "?subscription_id=92&amp;change_subscription_to=cancelled&amp;_wpnonce=16236ef94e",
-          "name": "Cancel",
-          "block_ui": true,
-          "role": "button"
-        },
-        "subscription_renewal_early": {
-          "url": "http://192.168.129.32:8085/my-account/?subscription_renewal_early=92&subscription_renewal=true&woocommerce_subscriptions_early_renewal_nonce=21627145bd",
-          "name": "Renew now",
-          "role": "link"
-        }
-      },
+      "actions": [
+        "cancel",
+        "subscription_renewal_early"
+      ],
       "items": [
         {
           "id": 193,
@@ -106,14 +88,9 @@
         "end": "2027-11-25 18:01:50",
         "next_payment": "2026-12-25 18:01:50"
       },
-      "actions": {
-        "cancel": {
-          "url": "?subscription_id=98&amp;change_subscription_to=cancelled&amp;_wpnonce=0023aaf83c",
-          "name": "Cancel",
-          "block_ui": true,
-          "role": "button"
-        }
-      },
+      "actions": [
+        "cancel"
+      ],
       "items": [
         {
           "id": 87,
@@ -135,19 +112,10 @@
         "end": "2027-11-25 18:01:50",
         "next_payment": "2026-11-26 02:13:28"
       },
-      "actions": {
-        "cancel": {
-          "url": "?subscription_id=101&amp;change_subscription_to=cancelled&amp;_wpnonce=090931c0af",
-          "name": "Cancel",
-          "block_ui": true,
-          "role": "button"
-        },
-        "subscription_renewal_early": {
-          "url": "http://192.168.129.32:8085/my-account/?subscription_renewal_early=101&subscription_renewal=true&woocommerce_subscriptions_early_renewal_nonce=5dd830aaf9",
-          "name": "Renew now",
-          "role": "link"
-        }
-      },
+      "actions": [
+        "cancel",
+        "subscription_renewal_early"
+      ],
       "items": [
         {
           "id": 193,
