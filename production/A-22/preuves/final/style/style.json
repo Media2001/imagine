@@ -1,5 +1,5 @@
 {
-  "container": "imagine-a22-style-51a66f9d19a0",
+  "container": "imagine-a22-style-47cf7f7ebd5e",
   "checks": [
     {
       "check": "isolation_before",
@@ -15,6 +15,10 @@
     },
     {
       "check": "lint:wp/outils/bascule/stream_bridge.php",
+      "status": "PASS"
+    },
+    {
+      "check": "lint:wp/outils/bascule/stream_contract.php",
       "status": "PASS"
     },
     {
@@ -38,7 +42,8 @@
   "sources": {
     "wp/outils/bascule/non-regression": "bdc99542b30cf92e758ea052c514dc9819871ff8cf02d46834daa664919f4d99",
     "wp/outils/bascule/a11/inventorier-adresses": "198d3b9f0214dc99418196767bc939d1e0348c0dd8696ad227b2f4aa08ba4db3",
-    "wp/outils/bascule/stream_bridge.php": "53a17450882b9398127fd3121da1635ee33126e18cd120c58874a40c90a1cff4"
+    "wp/outils/bascule/stream_bridge.php": "53a17450882b9398127fd3121da1635ee33126e18cd120c58874a40c90a1cff4",
+    "wp/outils/bascule/stream_contract.php": "5527741159a8f1398603d4677bbaaf25cc955f6931154000bf1080a31b713f9f"
   },
   "totals": {
     "errors": 0,

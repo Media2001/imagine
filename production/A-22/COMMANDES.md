@@ -6,10 +6,10 @@ Toutes ces commandes ont été lancées depuis le poste Windows, avec `C:/Python
 
 ```text
 C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a22/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/matrix-final-02
-C:/Python314/python.exe -B C:/Users/Ced/imagine/production/A-22/style.py C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/style-final
+C:/Python314/python.exe -B C:/Users/Ced/imagine/production/A-22/style.py C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/style-final-02
 C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a20/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/a20-matrix-final-02
 C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/a21-matrix-final-02
-C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/style.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/a21-style-final
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/style.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/a21-style-final-02
 ```
 
 `windows-matrix.json` contient les commandes enfants **réellement exécutées**, leur encodage et leur code de sortie. Les journaux de tests, reçus natifs, instantanés de sources/dépendances et noms exacts des conteneurs sont conservés dans le paquet de chaque lot. Les verdicts courants sont dans les notes/checkpoints, pas déduits de cette liste de commandes.
@@ -27,7 +27,7 @@ Les lots autorisés sont A02, A03, A10, A11, A12, A14 à A21. A13 reste un lecte
 Après la vraie sortie verte de la matrice, publication d’un paquet neuf (un paquet déjà présent est refusé) :
 
 ```text
-C:/Python314/python.exe -B C:/Users/Ced/imagine/production/A-22/finalise.py --matrix=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/matrix-final-02 --style=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/style-final
+C:/Python314/python.exe -B C:/Users/Ced/imagine/production/A-22/finalise.py --matrix=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/matrix-final-02 --style=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/style-final-02
 ```
 
 Après les dernières écritures des documents et reçus, scellement sans aucun gate parent :

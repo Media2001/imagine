@@ -322,8 +322,8 @@
       "check": "classic:all_tables_identical_including_scheduler",
       "status": "PASS",
       "detail": {
-        "before": "b1abbc2fcba31151a4eade83fb1e635fd4fc538fd8874dd1fb1dd9168acd58f7",
-        "after": "b1abbc2fcba31151a4eade83fb1e635fd4fc538fd8874dd1fb1dd9168acd58f7",
+        "before": "b99f5e71799d068cfff110f3aec749f9883aacf8332a22c9432d765836ab7c1f",
+        "after": "b99f5e71799d068cfff110f3aec749f9883aacf8332a22c9432d765836ab7c1f",
         "tables": 55
       }
     },
@@ -636,8 +636,8 @@
       "check": "hpos:all_tables_identical_including_scheduler",
       "status": "PASS",
       "detail": {
-        "before": "967e12538de4864a5801b27d446a44f150cda7d72c9984d23d0c6396ad35fb3a",
-        "after": "967e12538de4864a5801b27d446a44f150cda7d72c9984d23d0c6396ad35fb3a",
+        "before": "ac2c25eb2f4cfdbbda0c1e0178e4fe7421f580cb8edb767ea8f4c5396a987bb4",
+        "after": "ac2c25eb2f4cfdbbda0c1e0178e4fe7421f580cb8edb767ea8f4c5396a987bb4",
         "tables": 55
       }
     },

@@ -5,7 +5,7 @@
   "native_calls": [
     [
       "exec",
-      "imagine-a14-contacts-b42e13cc0ae6",
+      "imagine-a14-contacts-a1bfec710925",
       "python3",
       "/opt/a14/inside.py"
     ]

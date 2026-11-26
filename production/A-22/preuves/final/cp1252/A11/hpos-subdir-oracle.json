@@ -182,19 +182,19 @@
     },
     "/magazine/boutique/a11-product_cat/a11-product/": {
       "etat_publication": "publish",
-      "derniere_modification_utc": "2026-11-26T15:44:25Z"
+      "derniere_modification_utc": "2026-11-26T17:41:37Z"
     },
     "/magazine/a11-category/a11-article/attachment/a11-attachment/": {
       "etat_publication": "inherit",
-      "derniere_modification_utc": "2026-11-26T15:44:25Z"
+      "derniere_modification_utc": "2026-11-26T17:41:37Z"
     },
     "/magazine/a11-unattached/": {
       "etat_publication": "inherit",
-      "derniere_modification_utc": "2026-11-26T15:44:25Z"
+      "derniere_modification_utc": "2026-11-26T17:41:37Z"
     },
     "/magazine/?attachment_id=37": {
       "etat_publication": "inherit",
-      "derniere_modification_utc": "2026-11-26T15:44:25Z"
+      "derniere_modification_utc": "2026-11-26T17:41:37Z"
     },
     "/magazine/rubriques/a11-empty-category/": {
       "etat_publication": "public",

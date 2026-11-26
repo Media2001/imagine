@@ -1,14 +1,14 @@
 ﻿ancienne;nature;type_contenu;etat_publication;derniere_modification_utc;autres_contextes
 /;page;page;publish;2025-02-03T12:00:00Z;
-/?attachment_id=37;"pièce jointe";attachment;inherit;2026-11-26T15:43:36Z;
+/?attachment_id=37;"pièce jointe";attachment;inherit;2026-11-26T17:40:45Z;
 /a11-category/a11-article/;article;post;publish;2025-02-03T12:00:00Z;
-/a11-category/a11-article/attachment/a11-attachment/;"pièce jointe";attachment;inherit;2026-11-26T15:43:36Z;
+/a11-category/a11-article/attachment/a11-attachment/;"pièce jointe";attachment;inherit;2026-11-26T17:40:44Z;
 /a11-parent/a11-child/;page;page;publish;2025-02-03T12:00:00Z;"archive de type de contenu : post"
 /a11-shop/;page;page;publish;2025-02-03T12:00:00Z;"archive de type de contenu : product"
-/a11-unattached/;"pièce jointe";attachment;inherit;2026-11-26T15:43:36Z;
+/a11-unattached/;"pièce jointe";attachment;inherit;2026-11-26T17:40:44Z;
 /author/a11-product-writer/;"archive d'auteur";author;public;;
 /author/a11-writer/;"archive d'auteur";author;public;;
-/boutique/a11-product_cat/a11-product/;produit;product;publish;2026-11-26T15:43:36Z;
+/boutique/a11-product_cat/a11-product/;produit;product;publish;2026-11-26T17:40:44Z;
 /etiquettes/a11-empty-product_tag/;"terme de taxonomie";product_tag;public;;
 /etiquettes/a11-product_tag/;"terme de taxonomie";product_tag;public;;
 /familles/a11-empty-product_cat/;"terme de taxonomie";product_cat;public;;

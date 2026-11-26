@@ -284,9 +284,9 @@
       "check": "classic:default_clock_is_current_utc",
       "status": "PASS",
       "detail": {
-        "before_utc": "2026-11-26T15:52:47+00:00",
-        "as_of_utc": "2026-11-26T15:52:47Z",
-        "after_utc": "2026-11-26T15:52:48.299780+00:00"
+        "before_utc": "2026-11-26T17:49:24+00:00",
+        "as_of_utc": "2026-11-26T17:49:24Z",
+        "after_utc": "2026-11-26T17:49:25.462631+00:00"
       }
     },
     {
@@ -682,9 +682,9 @@
       "check": "hpos:default_clock_is_current_utc",
       "status": "PASS",
       "detail": {
-        "before_utc": "2026-11-26T15:53:15+00:00",
-        "as_of_utc": "2026-11-26T15:53:15Z",
-        "after_utc": "2026-11-26T15:53:16.010155+00:00"
+        "before_utc": "2026-11-26T17:49:54+00:00",
+        "as_of_utc": "2026-11-26T17:49:54Z",
+        "after_utc": "2026-11-26T17:49:55.347245+00:00"
       }
     },
     {

@@ -322,8 +322,8 @@
       "check": "classic:all_tables_identical_including_scheduler",
       "status": "PASS",
       "detail": {
-        "before": "278651d404ffdfe1bc657fe05d666e01c615907c1314f40e3c7abf9d88792c15",
-        "after": "278651d404ffdfe1bc657fe05d666e01c615907c1314f40e3c7abf9d88792c15",
+        "before": "f3b39b63817c171e33f4e016994c287d38f5a8790d8a1d302acd47c6a472f8a8",
+        "after": "f3b39b63817c171e33f4e016994c287d38f5a8790d8a1d302acd47c6a472f8a8",
         "tables": 55
       }
     },
@@ -636,8 +636,8 @@
       "check": "hpos:all_tables_identical_including_scheduler",
       "status": "PASS",
       "detail": {
-        "before": "6e8ed579a19158db9a59a8a9bf5288eb00b30f899d4a9e8b133e27a6c329e19d",
-        "after": "6e8ed579a19158db9a59a8a9bf5288eb00b30f899d4a9e8b133e27a6c329e19d",
+        "before": "a9e26bcd293aca938d6e87f3930a48ac1b688bb040b4993f70479d1d78578e62",
+        "after": "a9e26bcd293aca938d6e87f3930a48ac1b688bb040b4993f70479d1d78578e62",
         "tables": 55
       }
     },

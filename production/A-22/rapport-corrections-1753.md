@@ -1,5 +1,19 @@
 # Corrections fusion A22 du 26 novembre 2026, 17 h 53
 
+## Résultat final — 18 h 56, NON PRET
+
+1. **Fait** : six instructions corrigées ; refus historiques, A03 empreinté strictement, contrats FINAL JSON/Markdown/CSV et canaris fichiers silencieux, droit /dev/null éprouvé. TDD réel, mutations uniquement en copies jetables.
+2. **Vérifié** : A22 matrice 42 commandes / 22 banques natives, code 0, sources stables ; 25 tests Python A22 par console. Vérificateurs UTF-8/cp1252 : **A20 111, A21 49, A22 159 PASS**. Paquets tous neufs sur gardien final ; 7 / 8 / 10 sondes de miroir vertes, wrappers post-PRET fonctionnels. 29 runners exacts relus absents.
+3. **À arbitrer par Ced** : rien. Aucun réel, archive, compte, Git, Novamira, A23/24/25, voie2 ou fichier partagé touché.
+4. **Reste au parent** : deuxième ligne de `readme-ajout.txt`, portes globales et PRET, puis ses rejeux A23/24/25. Les anciens PRET sont en scratch ; aucun marqueur créé ici. Aucun ancien gate revendiqué.
+5. **Commande directe** : `C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a22/verify.py C:/Users/Ced/imagine/production/A-22/preuves/final`. Sources, reçus et comptes : `execution-summary.json` ; commandes et limites : `COMMANDES.md`, `FINALISATION.md`.
+
+Incidents résolus : mise en page PSR12 du nouveau PHP (trois erreurs réelles puis vert) ; borne avant empreinte ajoutée après RED réel. Trois premières matrices annulées, un orphelin exact contrôlé/récupéré ; aucun faux retour normal ni recyclage d'empreinte. Scratch : `C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-corrections-1753/`.
+
+---
+
+## Checkpoints historiques
+
 ## 18 h 02 — reprise (non PRET)
 
 Lecture intégrale fusion, brief, doctrine, consigne, file voie 1 et arbitrages (16 h inclus). Délai ferme : fin au plus tard 20 h 56 CET. Scope gardien/contrats/pont, tests A22, adaptations nécessaires A12/A14–19 et nouveaux replays A20/A21 après sources figées. Parent conserve verrou, modes d'emploi partagés et gates globaux ; aucun A23/24/25, voie 2, Git, archive, compte, réel ou Novamira.

@@ -120,5 +120,5 @@
         "xmlrpc_authenticated_methods": true,
         "application_passwords_available": true
     },
-    "audit_sha256": "b1e04747b0bb1545e8e33288f98c03a04d9ce5f5870dda3458a70158ad0a1a50"
+    "audit_sha256": "1d4a70684bcb8c8e3bc6bf55260108729bf4eea2bb2749d3001d570aa55abee0"
 }

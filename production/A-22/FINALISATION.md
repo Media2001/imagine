@@ -1,4 +1,31 @@
-# Reprise fusion 17 h 53 — NON PRET, sources corrigées en cours de rejeu
+# A22 — fusion de 17 h 53 corrigée et réellement rejouée, NON PRET
+
+## Résultat courant — 26 novembre 2026, 18 h 56 CET
+
+Paquet unique neuf `preuves/final`, issu de `a22-corrections-1753/matrix-final-02` : **42 commandes réellement à code 0, sources stables, 22 banques natives** classique+HPOS. Windows `C:/Python314/python.exe` **3.14.6**, consoles UTF-8 et cp1252 mesurées ; encodage enfant explicite, PHP uniquement en conteneurs exacts jetables. **25 tests Python A22 par console ; vérificateur 159 PASS dans chaque console**, code 0. Style final réellement rejoué après gel : quatre fichiers PHP, zéro erreur/avertissement.
+
+### Six instructions appliquées
+
+1. Nom final A12 invalide : `A12_PATH_INVALID` rétabli avant substitution du dossier privé ; commandes réelles des sept frontends testées.
+2. A14–A19 : codes historiques invalid-name conservés et repli générique `A14_FAILED` contrôlé ; aucun compte ni format métier réécrit.
+3. Racine A03 `a03/` corrigée, trois sources liées aux exécutions ; racine attendue absente refusée. Le **vrai vérificateur**, lancé sur miroir, refuse une mutation de `a03/Policy.php` sur son gate des sources exécutées et refuse la racine A03 retirée.
+4. Contrats propres de contenu FINAL JSON/Markdown/CSV (formats, types de comptes, cohérence des projections/comptes) et défaut fermé ; taille bornée avant empreinte. Un callback commun enregistré avant le code du site lie les fichiers terminés ; validation des octets seulement après terminaison et deux EOF, sans réémettre le protocole interne.
+5. Deux canaris fichiers silencieux par outil s'ajoutent aux sept canaris de flux : fichier rapport contaminé au shutdown et JSON valide contaminé. Refus et absence de publication ; un témoin sans contrôles finaux fait réellement sortir le contenu contaminé dans la copie jetable. A22 : 29 contrôles additionnels par outil concerné/console, 31 pour A12 avec les sondes noyau.
+6. Matrice et bancs natifs entièrement rejoués sur sources finales, pas de changement d'empreinte sans exécution. A20/A21 ont aussi leurs paquets neufs : matrices **5 / 6 commandes à code 0**, vérificateurs **111 / 49 PASS par console**, 25 contrôles additionnels par console.
+
+La sonde A12 prouve douze opérations noyau : `/dev/null` et sortie privée inscriptibles, autre périphérique et créations/troncatures/ajouts/renommages/suppressions/répertoires/liens hors sortie interdits, arbre fictif inchangé. Ligne de mode d'emploi fournie dans `readme-ajout.txt` ; README partagé non modifié. Rattachement §4.4/§2.5 **analogique**, sans règle métier/comptable nouvelle. Dettes mineures de la fusion laissées explicites dans les notes.
+
+### Réception et frontière parent
+
+**10 sondes A22 en miroir jetable vertes**, dont PRET futur et vrai wrapper `finalise.py --seal-only` après ce PRET, mutation A03 refusée, canari fichier omis refusé même après rescellement, restauration verte. A20/A21 : 7 / 8 sondes, wrapper A21 post-PRET également exercé. **29 noms exacts des runners finaux relus : tous absents sémantiquement**, liés aux reçus réellement exécutés (`runner-absence.json`).
+
+Les anciens PRET A20/A21/A22 ont été déplacés en scratch avant les sources ; **aucun nouveau PRET, aucune préparation globale ni aucun rejeu T01 global exécuté par cet enfant**. Parent : intégrer la deuxième ligne exacte de `readme-ajout.txt` (première présente une fois, deuxième absente au contrôle), refaire ses gates, décider des PRET puis rejouer ses A23/24/25. Aucun A23/24/25, voie2, verrou, fichier partagé, Git, réel, archive, compte, Novamira ou déploiement touché.
+
+Vérification directe : `C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a22/verify.py C:/Users/Ced/imagine/production/A-22/preuves/final`. Commandes, comptes et preuves : `COMMANDES.md`, `execution-summary.json`, `candidate-verification.json`, `verification-probes.json`. **CANDIDAT_GATE_PARENT, pas de clôture indépendante ni de GO réel.**
+
+---
+
+## Historique de la remise précédente — invalidé pour les sources corrigées
 
 Le constat de 17 h 06 ci-dessous est historique : la fusion A22 impose une nouvelle exécution A20/A21/A22 sur le gardien corrigé. Les trois marqueurs ont été déplacés en scratch avant changement des sources. Aucune ancienne porte globale ni ancien paquet n'est revendiqué pour les sources courantes. Voir `rapport-corrections-1753.md` et le premier checkpoint de `notes.md`.
 

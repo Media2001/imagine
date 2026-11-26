@@ -1,0 +1,96 @@
+{
+  "at": "2026-11-26T17:55:52.156379+00:00",
+  "scope": "imagine-test-demo",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "sources": {
+    "wp/outils/demo/c24-diagnostic.py": "2de533b3232c12d06a8480982666b52a672778ea5b4da1cdbc13c29ecb4d8bf7",
+    "wp/outils/demo/c24-recette.py": "d35c55d92893595f2046e534c5e5322ee226431f40fda790eb11febc19b4f1f7",
+    "wp/outils/demo/c24-recovery-plan.py": "00372e4848a6302755e450eb7030da20ef1d869edb8a1039a8d2b35e9d26ad7f",
+    "wp/outils/demo/c24-recovery.py": "052b5767c37b6d9961fef03372f47fb2a7b44565336d3d2683e6c2ef7466e7d7",
+    "wp/outils/demo/c24-seed.py": "a3fdf8b567dbca7fb59ed98795fc3b713dcc1e421679f1e38ec81bdf116cdadd",
+    "wp/outils/demo/c24.py": "8e74adf4c6efbafb81e5c796f84d84f16d527c0202ed093999c00709a0854622",
+    "wp/plugins/imagine-site/Personnalisation.php": "9de27a41ecbb4c85c84faa85984dfa4ee291583f9fa7c71246b88a16afa6e24e",
+    "wp/plugins/imagine-site/PersonnalisationConfidentialite.php": "4b101d16b0931950730168dbe785e3a7e0f2013b22833be659c52eb3128477b4",
+    "wp/plugins/imagine-site/PersonnalisationReglages.php": "0f1ff2428f5c57a546d650be25fde4b9f4252488acd76ef6559669d2e891d266",
+    "wp/plugins/imagine-site/PersonnalisationRegles.php": "100fea3d108327455d050f15114dc225fbc8dbb09ab64e166945db5c43a174cc",
+    "wp/tests/demo/c24-http.py": "dd70eba7540b86b8cea30ea0791831e9abe20f0ca9bf746a001ed30509f8614d",
+    "wp/tests/demo/c24-observer.php": "de098d2d5f35dd5f4f13e648ac3536fd85979531fbdd97a6c642c3d570306b44",
+    "wp/tests/demo/c24-rules.php": "a8ba1d8e0c6a9bc62d602d0b6cdbdced33ed96af3b8b17692650b90c680c8f35",
+    "wp/tests/demo/c24-runtime.php": "a2534f0418bea00e6a042e10ce874a329dc522d3a39dcdbba170d4d12de18094"
+  },
+  "bootstrap_contract": true,
+  "remote_sources": {
+    "plugins/imagine-site/PersonnalisationRegles.php": "100fea3d108327455d050f15114dc225fbc8dbb09ab64e166945db5c43a174cc",
+    "plugins/imagine-site/Personnalisation.php": "9de27a41ecbb4c85c84faa85984dfa4ee291583f9fa7c71246b88a16afa6e24e",
+    "plugins/imagine-site/PersonnalisationReglages.php": "0f1ff2428f5c57a546d650be25fde4b9f4252488acd76ef6559669d2e891d266",
+    "plugins/imagine-site/PersonnalisationConfidentialite.php": "4b101d16b0931950730168dbe785e3a7e0f2013b22833be659c52eb3128477b4",
+    "plugins/imagine-site/imagine-site.php": "4f754ef601a2d2c23c30d0101a0eb897042f81dce76dad4b0d1a4474f8c0fd34"
+  },
+  "closed_sources": {
+    "plugins/imagine-site/Confidentialite.php": "39b4aa84a3bb565683d914073748b08eaf500f1d1fc8e42b03ee0e79dea450e5",
+    "plugins/imagine-site/ConfidentialiteRegles.php": "7cb39873ecba83ced90769c9eede9af54a9acbeb173db41af3d5f6881da22092",
+    "plugins/imagine-site/Newsletters.php": "4ad7646c5c8d529c99558541cee2ff4ee29f500d3a9346222a937645d6458b2a",
+    "plugins/imagine-site/NewslettersReglages.php": "3249ef1812d50ce3f40b607b268b3d9ede442294da78f2fd5c0abb70c3c4062c",
+    "plugins/imagine-site/NewslettersRegles.php": "0f8c6d04c6a326e940fbb8919d0e89187b9bbd560d8151df2a9bcf9d36b91e8a",
+    "plugins/imagine-site/Cooperateurs.php": "b6866dc220ce2339819264c05fea81a9aff865db8559d699df7e5284f5d6313d",
+    "plugins/imagine-site/CooperateursRegles.php": "5548fcf0fcc07cf9dbdb1d3f3c58af30b7f9e0b5f90b04125f674b0b1f10a8ca",
+    "plugins/imagine-site/Paywall.php": "36cd92a29c942a4f210b6fad36eb75b5604e72dd69dcee115fac4ef2220c3d6f"
+  },
+  "normal_receipts": [
+    {
+      "receipt": "livraison-partielle-rules-V2",
+      "total": 29
+    },
+    {
+      "receipt": "livraison-partielle-runtime-V2",
+      "total": 35
+    }
+  ],
+  "positive_checks": 64,
+  "mutations": [
+    {
+      "receipt": "livraison-partielle-mutation-sansmail-V2",
+      "required_failure": "sansmail_rubrique_presente_sans_case"
+    },
+    {
+      "receipt": "livraison-partielle-mutation-listener-V2",
+      "required_failure": "accroche_sans_ecouteur"
+    },
+    {
+      "receipt": "livraison-partielle-mutation-mail-V2",
+      "required_failure": "aucun_mail_tente"
+    },
+    {
+      "receipt": "livraison-partielle-mutation-http-V2",
+      "required_failure": "aucun_http_tente"
+    },
+    {
+      "receipt": "livraison-partielle-mutation-export-empty-V2",
+      "required_failure": "export_reponses_consentement_resultat"
+    },
+    {
+      "receipt": "livraison-partielle-mutation-export-other-V2",
+      "required_failure": "export_tiers_absent"
+    },
+    {
+      "receipt": "livraison-partielle-mutation-erase-noop-V2",
+      "required_failure": "effacement_resultat_absence_deux_metas"
+    }
+  ],
+  "mutation_count": 7,
+  "result": "BLOCKED",
+  "pret": false,
+  "blockers": [
+    "Premier inverse HTTP refusé avant restauration ; ancien snapshot uniquement en mémoire perdu. Les sessions antérieures, le verrou natif action_scheduler_lock_async-request-runner et les caches ne peuvent plus être prouvés octet pour octet. Aucun PRET.",
+    "Parcours HTTP corrigé mais non rejoué après la récupération ; mutations des gardes de réutilisation d’identifiants et du consentement encore à qualifier. Image T01 non repréparée : aucun PRET."
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "suite": "A19-owned-runner",
-  "container": "imagine-a19-coherence-7596ce6d54c9",
-  "at": "2026-11-26T15:37:50.294274+00:00",
+  "container": "imagine-a19-coherence-0ae22a49e0dc",
+  "at": "2026-11-26T17:34:36.392425+00:00",
   "mode": "native",
   "checks": [
     {

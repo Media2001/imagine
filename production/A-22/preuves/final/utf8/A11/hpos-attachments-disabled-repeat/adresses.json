@@ -140,7 +140,7 @@
             "nature": "produit",
             "type_contenu": "product",
             "etat_publication": "publish",
-            "derniere_modification_utc": "2026-11-26T15:29:56Z",
+            "derniere_modification_utc": "2026-11-26T17:26:26Z",
             "contextes": [
                 {
                     "nature": "produit",
@@ -331,5 +331,5 @@
             ]
         }
     ],
-    "audit_sha256": "514f9a8f45a4733a57d95eee288f27a07bc280409bae5f5430477af58e063aa6"
+    "audit_sha256": "8cbdedaa03689f1b1e1d98387207e7c0088d4a06a0232711493c365bd3e22404"
 }

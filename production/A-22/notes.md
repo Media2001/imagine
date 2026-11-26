@@ -1,5 +1,13 @@
 # A-22 — checkpoints de reprise
 
+## 2026-11-26 18 h 56 CET — correction terminée sur le périmètre enfant
+
+File voie 1 (16 h 30) et arbitrages (16 h) relus au checkpoint, inchangés. **Les trois matrices finales 02 sont réellement terminées à code 0** ; A22 : 42 commandes, 22 banques natives, sources stables. Paquet A22 neuf publié par le wrapper existant, vérificateur **159 PASS par console**, 25 tests Python A22 par console. A20/A21 : nouveaux paquets réellement exécutés, **111 / 49 PASS par console**. Styles finaux rejoués après la dernière source : zéro erreur/avertissement ; quatre PHP communs.
+
+Les **10 sondes A22** sur miroir sont vertes : vrai vérificateur refusant Policy.php A03 modifié et racine attendue absente, PRET futur accepté, vrai scellement post-PRET fonctionnel, contamination et omission de canari fichier même rescellée refusées, restauration verte. A20/A21 : 7 / 8 sondes vertes. Les **29 noms exacts** des runners finaux sont absents après relecture Docker sémantique, noms liés aux vrais reçus ; aucun nettoyage global.
+
+Les anciennes preuves et leurs reçus racine sont en scratch `a22-corrections-1753/superseded/A-20`, `A-21`, `A-22`. Les essais rouges et les trois contrôleurs annulés ne sont pas livrés comme verts. Aucun nouveau PRET et aucun gate global exécuté. **Reste uniquement au parent** : deuxième ligne README exacte, portes communes, décision des PRET, rejeux A23/24/25. Rapport bref courant : `rapport-corrections-1753.md` ; détail et commandes directs : `FINALISATION.md` et `COMMANDES.md`. Les checkpoints suivants sont historiques, pas un état courant.
+
 ## 2026-11-26 18 h 30 CET — dernier gardien figé ; A20 livré, autres rejeux en cours
 
 Le dernier contrôle a ajouté une borne **avant** le calcul des empreintes finales (RED réel : fichier de 16 Mio + 1 accepté par le lieur, puis refus après garde). Les 25 tests Python A22 passent réellement. Pour ne pas livrer de photographie périmée, les trois premières matrices de cette correction ont été annulées, sans revendiquer un retour normal ; aucun descendant contrôleur restant. Un seul orphelin exact, `imagine-a20-prices-ab27160d5efc`, a été vérifié par nom/label/image/isolation puis supprimé et son absence sémantique relue ; reçu en scratch `cancelled-first-matrices.json`.
