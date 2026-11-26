@@ -1,0 +1,12 @@
+[
+  {
+    "url": "https://plugins.svn.wordpress.org/event-tickets/trunk/readme.txt",
+    "sha256": "b9d4f2ca4dbf7ce3cfcd93a90ce3033cc9a3c9571347a29047323fab92d7727b",
+    "bytes": 48719
+  },
+  {
+    "url": "https://plugins.svn.wordpress.org/the-events-calendar/trunk/readme.txt",
+    "sha256": "d12208ba7bb53002d5693c9d365a8eba6522da20a9a2bf89d93bde8829ecd0c6",
+    "bytes": 39336
+  }
+]

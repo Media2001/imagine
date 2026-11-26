@@ -1,0 +1,65 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T19:39:01.339554+00:00",
+  "fixture": {
+    "rencontre": 46,
+    "sortie": 47,
+    "partenaire": 2970,
+    "passe": 2971
+  },
+  "readback": {
+    "rencontre": {
+      "id": 46,
+      "type": "rencontre",
+      "debut": 1796923800,
+      "iso": "2026-12-10T18:30:00+01:00",
+      "date": "2026-12-10 18:30",
+      "lieu": "Maison fictive des Horizons",
+      "url": "",
+      "nom": "Rencontre au village Imaginaire",
+      "description": "Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial.",
+      "path": "/evenements/demo-events-1/"
+    },
+    "sortie": {
+      "id": 47,
+      "type": "sortie",
+      "debut": 1797010200,
+      "iso": "2026-12-11T18:30:00+01:00",
+      "date": "2026-12-11 18:30",
+      "lieu": "Maison fictive des Horizons",
+      "url": "",
+      "nom": "Atelier des possibles inventés",
+      "description": "Cette histoire est entièrement inventée pour la démonstration Imagine. Dans le village Imaginaire, des personnages fictifs discutent de projets qui n’existent pas. Aucun nom, événement ni reportage ne provient du magazine réel.À la maison des possibles, les habitants inventés construisent ensemble une carte de leur territoire imaginaire. Les discussions traversent la place des Nuages et le jardin des Horizons. Ce texte de remplissage en français permet de distinguer un court extrait du corps complet de l’article, de tester la lecture, les liens et les futures présentations. Il ne rapporte aucun fait réel et ne propose aucun service commercial.",
+      "path": "/evenements/demo-events-2/"
+    },
+    "partenaire": {
+      "id": 2970,
+      "type": "partenaire",
+      "debut": 1797355800,
+      "iso": "2026-12-15T18:30:00+01:00",
+      "date": "2026-12-15 18:30",
+      "lieu": "Maison fictive des Horizons",
+      "url": "https://example.org/evenement-fictif",
+      "nom": "Rencontre partenaire des Nuages — fictive",
+      "description": "Événement entièrement inventé pour la démonstration Imagine. Aucun événement ni partenaire réel.",
+      "path": "/evenements/b07-partenaire-fictif/"
+    },
+    "passe": {
+      "id": 2971,
+      "type": "rencontre",
+      "debut": 1793554200,
+      "iso": "2026-11-01T18:30:00+01:00",
+      "date": "2026-11-01 18:30",
+      "lieu": "Maison fictive des Horizons",
+      "url": "",
+      "nom": "Rencontre passée des Horizons — fictive",
+      "description": "Événement entièrement inventé pour la démonstration Imagine. Aucun événement ni partenaire réel.",
+      "path": "/evenements/b07-rencontre-passee/"
+    }
+  },
+  "private_snapshot": {
+    "file": "b07-private-9ij91v6r/snapshot.json",
+    "sha256": "25bd7e6bfb3fd5773c35fdb3046f5b68c6f63fea1063f318ffd692a6c483009f",
+    "private": true
+  }
+}

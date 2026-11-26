@@ -16,6 +16,6 @@ $check('inscriptions_privees', $cpt!==null&&!$cpt->public&&!$cpt->show_in_rest&&
 $check('admin_restreint',$cpt!==null&&$cpt->cap->edit_posts==='manage_options');
 $ex=apply_filters('wp_privacy_personal_data_exporters',[]);
 $er=apply_filters('wp_privacy_personal_data_erasers',[]);
-$check('callbacks_additifs',isset($ex['imagine-agenda'],$er['imagine-agenda'],$ex['imagine-personnalisation'],$ex['imagine-confidentialite']));
+$check('callbacks_additifs',isset($ex['imagine-agenda'],$er['imagine-agenda'],$ex['imagine-personnalisation'],$ex['imagine-site']));
 $fail=array_keys(array_filter($checks,static fn($v)=>!$v));
 echo wp_json_encode(['total'=>count($checks),'checks'=>$checks,'failures'=>$fail]); exit($fail?1:0);
