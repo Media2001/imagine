@@ -25,6 +25,27 @@ def inspect_more():
     print(json.dumps({k:v for k,v in data.items() if k not in ('integration_sources','native_action_source')}, ensure_ascii=False))
     print('integration source files:', list(data.get('integration_sources',{})))
 
+def regressions(label):
+    c20.profils.guard('imagine-test-demo')
+    name = 'imagine-demo-build/c20-regressions.php'
+    source = ROOT / 'wp/tests/demo/c20-regressions.php'
+    c20.profils.b00.upload(name, source.read_bytes())
+    hashes = {}
+    for file in ['c20-regressions.php', 'c20-native.php', 'c08-runtime.php', 'c13-runtime.php', 'c09-runtime.php']:
+        actual = wp('echo wp_json_encode(hash_file("sha256",WP_CONTENT_DIR . "/imagine-demo-build/' + file + '"));')
+        assert actual == hashlib.sha256((ROOT / 'wp/tests/demo' / file).read_bytes()).hexdigest(), 'Probe source drift: ' + file
+        hashes[file] = actual
+    before = snapshot()
+    data = wp('require WP_CONTENT_DIR . "/' + name + '";')
+    c09 = wp('require WP_CONTENT_DIR . "/imagine-demo-build/c09-runtime.php";')
+    after = snapshot()
+    result = {'native':data,'C09':c09,'source_sha256_readback':hashes,'fresh_profiles_actions_exact':before['profiles'] == after['profiles']}
+    save(label, result)
+    print(json.dumps({'native':{k:{'total':v['total'],'failures':v['failures'],'rollback':v['all_tables_rollback_exact']} for k,v in data.items()}, 'C09':{'total':c09['total'],'failures':c09['failures']}, 'fresh_profiles_actions_exact':result['fresh_profiles_actions_exact']}, ensure_ascii=False))
+    assert all(v['total'] == len(v['checks']) and not v['failures'] for v in data.values())
+    assert c09['total'] == len(c09['checks']) == 382 and not c09['failures']
+    assert result['fresh_profiles_actions_exact']
+
 def deploy_ui():
     c20.profils.guard('imagine-test-demo')
     names = ['plugins/imagine-site/RenouvellementRegles.php', 'plugins/imagine-site/Renouvellement.php',
@@ -107,7 +128,9 @@ def probe(label):
     return 1 if data['failures'] else 0
 
 if __name__ == '__main__':
-    if '--deploy-ui' in sys.argv:
+    if '--regressions' in sys.argv:
+        regressions(sys.argv[-1])
+    elif '--deploy-ui' in sys.argv:
         deploy_ui()
     elif '--ui' in sys.argv:
         sys.exit(ui(sys.argv[-1]))

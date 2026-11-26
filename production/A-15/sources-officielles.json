@@ -1,0 +1,26 @@
+{
+  "checked_at": "2026-11-26T05:28:04.406573+00:00",
+  "sources": [
+    {
+      "url": "https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/plugins/woocommerce/includes/emails/class-wc-email-customer-refunded-order.php",
+      "sha256": "28cf474c3b317d6a5f13c61b01f5d8dc817eea3d111417df63450c2a81ea98ae",
+      "bytes": 12198,
+      "confirmed_class": "class WC_Email_Customer_Refunded_Order",
+      "scope": "Source officielle WooCommerce publique; defauts/variantes et pipeline send/style_inline examines, pas de rendu par le collecteur."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/plugins/woocommerce/includes/emails/class-wc-email-customer-invoice.php",
+      "sha256": "79f0103b23b348cf5ca8c18a9c32f583ce8c19ea0e3c2b201a185f43ab6b9b1a",
+      "bytes": 9393,
+      "confirmed_class": "class WC_Email_Customer_Invoice",
+      "scope": "Source officielle WooCommerce publique; defauts/variantes et pipeline send/style_inline examines, pas de rendu par le collecteur."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/plugins/woocommerce/includes/emails/class-wc-email.php",
+      "sha256": "27675507fd97477696052026ae3e787f65c069fe698cda1ffca2631965c47d8a",
+      "bytes": 60397,
+      "confirmed_class": "class WC_Email",
+      "scope": "Source officielle WooCommerce publique; defauts/variantes et pipeline send/style_inline examines, pas de rendu par le collecteur."
+    }
+  ]
+}

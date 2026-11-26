@@ -2,7 +2,7 @@
   "lot": "A-15",
   "status": "PRET",
   "packet": "production/A-15/preuves/final",
-  "file_count": 70,
+  "file_count": 71,
   "files": {
     "production/A-15/controle-voie1.json": "fc528dff718634f7cf5dac3139b55234a4aa78d0ee8980f9caf6b7a6dbf72c66",
     "production/A-15/controle-windows.json": "fc528dff718634f7cf5dac3139b55234a4aa78d0ee8980f9caf6b7a6dbf72c66",
@@ -73,7 +73,8 @@
     "wp/tests/a15/style.py": "92b7e183b1771c94e35080227ffad8e4cf3775d4d8776b5e0060eae1f1d3b54c",
     "wp/tests/a15/test_contract.py": "35139da99551f147e1da20bc3993d9c1c06162466e828a3becd63ecfa90bc155",
     "wp/tests/a15/unit.php": "97753d967c07c48925dc8b0015e6e0b9017efeb3c9ae147e3061d0b726a91df3",
-    "wp/tests/a15/verify.py": "5316a4fc21e2aa39ca5f170e99451f3b92bbcbd1ad57abcdb358eb58e289cb45"
+    "wp/tests/a15/verify.py": "5316a4fc21e2aa39ca5f170e99451f3b92bbcbd1ad57abcdb358eb58e289cb45",
+    "production/A-15/sources-officielles.json": "3cf309785829b749beb9331f5eab94eb73decaa5aea31e50a005a5157d55207b"
   },
   "real_go": false
 }
