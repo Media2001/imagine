@@ -77,7 +77,7 @@ def main():
             for file in publish.offline_runner.SUBJECT:
                 source = ROOT / 'wp/outils/staging' / file
                 if file in ('lib.php', 'command.php'):
-                    source = Path('C:/Users/Ced/AppData/Local/hermes/cache/scratch/a28-work/original/wp/outils/staging') / file
+                    source = ROOT / 'production/A-28/reference' / file
                 raw = source.read_bytes()
                 receipt['reference_manifest'][file] = hashlib.sha256(raw).hexdigest()
                 info = tarfile.TarInfo('reference/' + file)

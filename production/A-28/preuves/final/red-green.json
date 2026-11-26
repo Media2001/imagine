@@ -64,6 +64,6 @@
       "contains_real_assertion_failure": true
     }
   ],
-  "final_green_and_real_mutation_witnesses": "native/native.json",
+  "final_green_and_real_mutation_witnesses": ["native/utf8/native.json", "native/cp1252/native.json"],
   "before_correction": "before/native.json"
 }

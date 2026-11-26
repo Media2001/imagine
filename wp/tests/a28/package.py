@@ -70,7 +70,7 @@ def setup():
         path = SCRATCH / (key + '.stderr.log')
         red.append({'handle': str(path), 'sha256': digest(path), 'contains_real_assertion_failure': b'AssertionError' in path.read_bytes()})
     write(PACKET / 'red-green.json', {'experiments_kept_outside_repository': True, 'receipts': red,
-        'final_green_and_real_mutation_witnesses': 'native/native.json', 'before_correction': 'before/native.json'})
+        'final_green_and_real_mutation_witnesses': ['native/utf8/native.json', 'native/cp1252/native.json'], 'before_correction': 'before/native.json'})
 
 
 def scope():
@@ -141,8 +141,7 @@ def seal():
     assert not (BASE / 'manifest.json').exists(), 'A28_ALREADY_SEALED'
     v.runner_contract(PACKET / 'before', ROOT, baseline=True)
     v.native_contract(v.load(PACKET / 'before/native.json'), baseline=True)
-    v.runner_contract(PACKET / 'native', ROOT)
-    v.native_contract(v.load(PACKET / 'native/native.json'))
+    v.matrix_contract(PACKET / 'native', ROOT, v.load(PACKET / 'before/runner.json')['source_manifest'])
     v.gates_contract(PACKET / 'gates', ROOT)
     review = v.load(PACKET / 'dependency-invalidations.json')
     assert all(digest(ROOT / rel) == old for rel, old in review['import_sources'].items())

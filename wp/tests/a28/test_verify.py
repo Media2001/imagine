@@ -107,6 +107,13 @@ class VerifierControls(unittest.TestCase):
             v.native_contract({'status': 'PASS', 'synthetic_only': True, 'baseline': False,
                                'checks': [{'pass': True}], 'failed': 0, 'passed': 1, 'cases': []})
 
+    def test_unexecuted_encoding_matrix_refused(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'matrix.json').write_text(json.dumps({'status': 'FAIL', 'contexts': [], 'commands': []}), encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'MATRIX_STATUS'):
+                v.matrix_contract(root, root, {})
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

@@ -18,6 +18,7 @@ def sources():
         files += [p for p in (ROOT / folder).rglob('*') if p.is_file() and p.suffix in ('.py', '.php', '.json')
                   and '__pycache__' not in p.parts]
     files += list((ROOT / 'production/A-28').glob('*.py'))
+    files += list((ROOT / 'production/A-28/reference').glob('*.php'))
     return {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(set(files))}
 
 

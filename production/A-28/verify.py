@@ -139,6 +139,31 @@ def gates_contract(base, root):
         need(hashlib.sha256((root / rel).read_bytes()).hexdigest() == digest, 'FROZEN_SOURCE_DRIFT')
 
 
+def matrix_contract(base, root, historical):
+    matrix = load(base / 'matrix.json')
+    need(matrix['status'] == 'PASS' and matrix['contexts'] == ['utf8', 'cp1252'] and len(matrix['commands']) == 2, 'MATRIX_STATUS')
+    total_cases = total_mutations = 0
+    for context, encoding, mode in [('utf8', 'utf-8', 1), ('cp1252', 'cp1252', 0)]:
+        command = next(r for r in matrix['commands'] if r['context'] == context)
+        need(command['exit'] == 0 and command['sources_stable'] is True, 'MATRIX_EXIT')
+        for stream in ('stdout', 'stderr'):
+            need(hashlib.sha256((base / (context + '.' + stream + '.log')).read_bytes()).hexdigest() == command[stream + '_sha256'], 'MATRIX_LOG')
+        folder = base / context
+        env = load(folder / 'environment.json')
+        need(env['platform'] == 'win32' and env['version'].startswith('3.14.6 ') and env['stdout'] == encoding
+             and env['stderr'] == encoding and env['utf8'] == mode, 'MATRIX_ENCODING')
+        runner = runner_contract(folder, root)
+        need(all(runner['reference_manifest'][name] == historical['wp/outils/staging/' + name]
+                 for name in ('lib.php', 'command.php')), 'REFERENCE_SOURCE')
+        data = load(folder / 'native.json')
+        native_contract(data)
+        total_cases += len(data['cases'])
+        total_mutations += sum(len(c.get('residue_probes', [])) for c in data['cases'])
+    for rel, digest in load(base / 'freeze.json').items():
+        need(hashlib.sha256((root / rel).read_bytes()).hexdigest() == digest, 'MATRIX_SOURCE_DRIFT')
+    return {'cases': total_cases, 'mutations': total_mutations}
+
+
 def inventory(root):
     files = []
     for folder in ('wp/tests/a28', 'production/A-28'):
@@ -159,18 +184,15 @@ def verify(root=ROOT):
     packet = root / PACKET
     runner_contract(packet / 'before', root, baseline=True)
     native_contract(load(packet / 'before/native.json'), baseline=True)
-    runner_contract(packet / 'native', root)
-    reference = load(packet / 'native/runner.json')['reference_manifest']
     historical = load(packet / 'before/runner.json')['source_manifest']
-    need(all(reference[name] == historical['wp/outils/staging/' + name] for name in ('lib.php', 'command.php')), 'REFERENCE_SOURCE')
-    native_contract(load(packet / 'native/native.json'))
+    matrix = matrix_contract(packet / 'native', root, historical)
     gates_contract(packet / 'gates', root)
     scope = load(packet / 'scope.json')
     need(scope['out_of_scope_changed'] == [] and scope['out_of_scope_added'] == [] and scope['ced_commands_unchanged'] is True
          and scope['readme_exact_three_lines'] is True and scope['common_guardian_unchanged'] is True
          and scope['old_packets_A23_A27_preserved'] is True, 'SCOPE_DRIFT')
     return {'lot': 'A-28', 'status': 'PASS', 'exit': 0, 'packet': PACKET.as_posix(),
-            'native_cases': 8, 'baseline_cases': 6, 'residue_mutations': 16, 'pret_present': (base / 'PRET').is_file()}
+            'native_cases': matrix['cases'], 'baseline_cases': 6, 'residue_mutations': matrix['mutations'], 'pret_present': (base / 'PRET').is_file()}
 
 
 def main():

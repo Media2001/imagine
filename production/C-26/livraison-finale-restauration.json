@@ -1,0 +1,41 @@
+{
+  "scope": "imagine-test-demo",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "private_snapshot": {
+    "file": "c23-private-5w_36xns/snapshot.json",
+    "sha256": "1874b2d5f08167e3359342fb97a40330dce4f5e7d4ffc4cecd6dffd1c61e62b5",
+    "private": true
+  },
+  "command_exit": 0,
+  "privacy_green": true,
+  "business_unchanged_during_GETs": true,
+  "exact_restoration": {
+    "users": true,
+    "usermeta": true,
+    "posts": true,
+    "postmeta": true,
+    "comments": true,
+    "commentmeta": true,
+    "wc_orders": true,
+    "wc_orders_meta": true,
+    "wc_order_addresses": true,
+    "wc_order_operational_data": true,
+    "woocommerce_order_items": true,
+    "woocommerce_order_itemmeta": true,
+    "navigation": true,
+    "business_options": true
+  },
+  "business_preserved": true,
+  "before_sha256": "5b4af14c906959e5c83bc8758a55040472e89b7791b750cab4dd98078ab180f4",
+  "after_sha256": "5b4af14c906959e5c83bc8758a55040472e89b7791b750cab4dd98078ab180f4",
+  "live_sources_preserved": true
+}
