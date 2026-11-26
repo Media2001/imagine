@@ -1,0 +1,337 @@
+{
+  "at": "2026-11-26T19:21:25.123860+01:00",
+  "exit_code": 0,
+  "checks": [
+    {
+      "check": "preparation",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252",
+      "status": "PASS"
+    },
+    {
+      "check": "T-02-utf8",
+      "status": "PASS",
+      "controls": 0
+    },
+    {
+      "check": "A-20-utf8",
+      "status": "PASS",
+      "controls": 111
+    },
+    {
+      "check": "A-21-utf8",
+      "status": "PASS",
+      "controls": 49
+    },
+    {
+      "check": "A-22-utf8",
+      "status": "PASS",
+      "controls": 159
+    },
+    {
+      "check": "A-23-utf8",
+      "status": "PASS",
+      "controls": 67
+    },
+    {
+      "check": "A-24-utf8",
+      "status": "PASS",
+      "controls": 75
+    },
+    {
+      "check": "A-25-utf8",
+      "status": "PASS",
+      "controls": 91
+    },
+    {
+      "check": "T-02-cp1252",
+      "status": "PASS",
+      "controls": 0
+    },
+    {
+      "check": "A-20-cp1252",
+      "status": "PASS",
+      "controls": 111
+    },
+    {
+      "check": "A-21-cp1252",
+      "status": "PASS",
+      "controls": 49
+    },
+    {
+      "check": "A-22-cp1252",
+      "status": "PASS",
+      "controls": 159
+    },
+    {
+      "check": "A-23-cp1252",
+      "status": "PASS",
+      "controls": 67
+    },
+    {
+      "check": "A-24-cp1252",
+      "status": "PASS",
+      "controls": 75
+    },
+    {
+      "check": "A-25-cp1252",
+      "status": "PASS",
+      "controls": 91
+    }
+  ],
+  "global_results": {
+    "utf8": {
+      "tests": 1126,
+      "assertions": 35550,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "tools": {
+        "tools": 16,
+        "checks": 311,
+        "failures": 0,
+        "excluded": []
+      },
+      "pass": true
+    },
+    "cp1252": {
+      "tests": 1126,
+      "assertions": 35550,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "tools": {
+        "tools": 16,
+        "checks": 311,
+        "failures": 0,
+        "excluded": []
+      },
+      "pass": true
+    }
+  },
+  "commands": [
+    {
+      "name": "preparation",
+      "exit_code": 0,
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "wp/tests/preparer-image.ps1"
+      ]
+    },
+    {
+      "name": "utf8",
+      "exit_code": 0,
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "wp/tests/rejouer.ps1"
+      ]
+    },
+    {
+      "name": "cp1252",
+      "exit_code": 0,
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "wp/tests/rejouer.ps1"
+      ]
+    },
+    {
+      "name": "T-02-utf8",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "production/T-02/verifier.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "A-20-utf8",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a20/verify.py",
+        "production/A-20/preuves/final"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "A-21-utf8",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a21/verify.py",
+        "production/A-21/preuves/final"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "A-22-utf8",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/verify.py",
+        "production/A-22/preuves/final"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "A-23-utf8",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a23/verify.py",
+        "--require-shared-doc"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "A-24-utf8",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a24/verify.py",
+        "--require-shared"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "A-25-utf8",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a25/verify.py",
+        "--require-shared-doc"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "T-02-cp1252",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "production/T-02/verifier.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "A-20-cp1252",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a20/verify.py",
+        "production/A-20/preuves/final"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "A-21-cp1252",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a21/verify.py",
+        "production/A-21/preuves/final"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "A-22-cp1252",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a22/verify.py",
+        "production/A-22/preuves/final"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "A-23-cp1252",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a23/verify.py",
+        "--require-shared-doc"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "A-24-cp1252",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a24/verify.py",
+        "--require-shared"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "A-25-cp1252",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "wp/tests/a25/verify.py",
+        "--require-shared-doc"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "common_sources": {
+    "wp/outils/bascule/stream_bridge.php": "53a17450882b9398127fd3121da1635ee33126e18cd120c58874a40c90a1cff4",
+    "wp/outils/bascule/stream_contract.php": "5527741159a8f1398603d4677bbaaf25cc955f6931154000bf1080a31b713f9f",
+    "wp/outils/bascule/stream_guard.py": "c913c79206b6e7b54b8ecb42284952bf5a82d2d9075639f98eddf5479efade97",
+    "wp/outils/bascule/stream_refusals.json": "3dd8b55931ac566f047403b22f7e21b2d1002d628667a41d831fb6659a13479b",
+    "wp/outils/bascule/stream_reports.py": "95c0abd63d48d4a2f29200ed0dcaf9fe23f2f8bcb29e25c2e2ed5a64c6332cd8"
+  },
+  "files": {
+    "A-20-cp1252.json": "d5d25b71015b016f941d2bffc695af78a9e2050cd3b572721b77b5e4234e42fb",
+    "A-20-cp1252.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "A-20-utf8.json": "d5d25b71015b016f941d2bffc695af78a9e2050cd3b572721b77b5e4234e42fb",
+    "A-20-utf8.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "A-21-cp1252.json": "16a8ee043293b815161e08d4069460791dec8c8babfb4c07673bc8a1b956c12d",
+    "A-21-cp1252.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "A-21-utf8.json": "16a8ee043293b815161e08d4069460791dec8c8babfb4c07673bc8a1b956c12d",
+    "A-21-utf8.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "A-22-cp1252.json": "a5b01f4bc28d9c13fde8766bfe94a43ee7e52ef7db457b24238ff56a45885744",
+    "A-22-cp1252.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "A-22-utf8.json": "a5b01f4bc28d9c13fde8766bfe94a43ee7e52ef7db457b24238ff56a45885744",
+    "A-22-utf8.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "A-23-cp1252.json": "3c2c29c3b965bafe62e7f73e4a77625f714ebabe64d7d5a99b50fe663076d366",
+    "A-23-cp1252.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "A-23-utf8.json": "3c2c29c3b965bafe62e7f73e4a77625f714ebabe64d7d5a99b50fe663076d366",
+    "A-23-utf8.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "A-24-cp1252.json": "17ed704e1e6fbd5172fc12fc22e2ad6664068e26499362a34b215263737d8a4e",
+    "A-24-cp1252.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "A-24-utf8.json": "17ed704e1e6fbd5172fc12fc22e2ad6664068e26499362a34b215263737d8a4e",
+    "A-24-utf8.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "A-25-cp1252.json": "023495f92e7f443b8be92914b526ba1f6e0353c9c81ed0a6e5155a02f996583a",
+    "A-25-cp1252.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "A-25-utf8.json": "023495f92e7f443b8be92914b526ba1f6e0353c9c81ed0a6e5155a02f996583a",
+    "A-25-utf8.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cp1252.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cp1252.stdout": "d8696dc8c655b3223485899ece59663f20846a98f3bc9634c8b6fa7078ade558",
+    "preparation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "preparation.stdout": "e4a28c3690277cb391a69145c32b793817aedeef8476e35a34a2158555595deb",
+    "T-02-cp1252.json": "321dffdf77c64819618ceadfb6fa2e6daf97890fd17fedbb6dca5beb22b66de0",
+    "T-02-cp1252.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "T-02-utf8.json": "321dffdf77c64819618ceadfb6fa2e6daf97890fd17fedbb6dca5beb22b66de0",
+    "T-02-utf8.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "utf8.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "utf8.stdout": "cab2283ff8e773aa10b35e4c37d44068af86451ff435fe7cd4f6299993a37c67"
+  }
+}

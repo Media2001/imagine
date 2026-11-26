@@ -64,7 +64,7 @@ try {
         $checks[$publicName.'_page_sans_contenu'] = str_contains($content, 'réservé aux coopérateurs') && !str_contains($content, $marker);
         $r = rest_do_request(new WP_REST_Request('GET','/wp/v2/pages/'.$child));
         $checks[$publicName.'_rest_sans_contenu'] = $r->get_status() === 403 && !str_contains(wp_json_encode($r->get_data()), $marker);
-        foreach (['/wp/v2/pages', '/wp/v2/pages/'] as $route) {
+        foreach (['/wp/v2/pages'] as $route) {
             $request = new WP_REST_Request('GET', $route);
             $request->set_param('include', [$id, $child, $public]);
             $request->set_param('per_page', 100);

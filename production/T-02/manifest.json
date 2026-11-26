@@ -4,7 +4,7 @@
   "packet": "production/T-02/preuves/final",
   "file_count": 43,
   "files": {
-    "production/T-02/FINALISATION.md": "127a21fb27cf3034fb4b77e3a95b578e7cf804d53c0f669916c2404fc686cc0c",
+    "production/T-02/FINALISATION.md": "375ab4a16e779073e50db593180041ac1434bd6f440e902cdab043dd1a4210ac",
     "production/T-02/notes.md": "07fb96b9e20d5ff4f9c6091ec845d0d49e8ea5633721c24addd0b041238d54db",
     "production/T-02/preuves/final/cp1252/assertion-rouge.log": "0c796d43d504a1200a12b5abb239f03a1cca698b71385604ade7439a2b1cebb1",
     "production/T-02/preuves/final/cp1252/cleanup.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -51,6 +51,6 @@
   "PRET_excluded_parent_owned": true,
   "documentation": "T01 three owned lines checked by contract only",
   "readiness_claimed": true,
-  "parent_preparation": "files\\rapports\\2026-11-26-17h06-portes-parent.json",
-  "parent_global_T01": "files\\rapports\\2026-11-26-17h06-portes-parent.json"
+  "parent_preparation": "files/rapports/2026-11-26-19h21-verification",
+  "parent_global_T01": "files/rapports/2026-11-26-19h21-verification"
 }

@@ -1,0 +1,459 @@
+{
+  "status": "CANDIDAT_GATE_PARENT",
+  "readiness_claimed": false,
+  "exit_code": 0,
+  "counts": {
+    "utf8:unit": 23,
+    "utf8:result": 158,
+    "utf8:runner": 9,
+    "cp1252:unit": 23,
+    "cp1252:result": 158,
+    "cp1252:runner": 9
+  },
+  "checks": [
+    {
+      "check": "exact_current_owned_sources",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:measured_windows_console",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:thirty_four_python_tests",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:unit_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:result_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:runner_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:sources_really_executed",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:pure_relocated_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:all_named_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:independent_all_tables_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:file_hash_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:audit_bound_storage",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:exact_live_and_products",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:rare_amounts_and_countries_hidden",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:repeat_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:documented_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:root-readonly_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:report_private_values_absent",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:live_subscriptions",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:products",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:countries",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:other_countries",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:unknown_country",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:multiple_product_lines",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:without_product_line",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:with_fee_line",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:with_shipping_line",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:foreign_currency",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:zero_recurring_total",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:all_named_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:independent_all_tables_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:file_hash_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:audit_bound_storage",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:exact_live_and_products",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:rare_amounts_and_countries_hidden",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:repeat_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:documented_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:root-readonly_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:report_private_values_absent",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:live_subscriptions",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:products",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:countries",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:other_countries",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:unknown_country",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:multiple_product_lines",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:without_product_line",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:with_fee_line",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:with_shipping_line",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:foreign_currency",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:zero_recurring_total",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:owned_cleanup_and_purity",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:all_executed_dependencies_unchanged",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:common_guard_native_channels_and_mutation",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:measured_windows_console",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:thirty_four_python_tests",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:unit_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:result_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:runner_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:sources_really_executed",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:pure_relocated_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:all_named_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:independent_all_tables_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:file_hash_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:audit_bound_storage",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:exact_live_and_products",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:rare_amounts_and_countries_hidden",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:repeat_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:documented_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:root-readonly_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:report_private_values_absent",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:live_subscriptions",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:products",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:countries",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:other_countries",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:unknown_country",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:multiple_product_lines",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:without_product_line",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:with_fee_line",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:with_shipping_line",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:foreign_currency",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:zero_recurring_total",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:all_named_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:independent_all_tables_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:file_hash_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:audit_bound_storage",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:exact_live_and_products",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:rare_amounts_and_countries_hidden",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:repeat_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:documented_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:root-readonly_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:report_private_values_absent",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:live_subscriptions",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:products",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:countries",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:other_countries",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:unknown_country",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:multiple_product_lines",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:without_product_line",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:with_fee_line",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:with_shipping_line",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:foreign_currency",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:zero_recurring_total",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:owned_cleanup_and_purity",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:all_executed_dependencies_unchanged",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:common_guard_native_channels_and_mutation",
+      "status": "PASS"
+    },
+    {
+      "check": "strict_psr12_current_sources",
+      "status": "PASS"
+    },
+    {
+      "check": "both_console_suites_executed",
+      "status": "PASS"
+    },
+    {
+      "check": "all_retained_artifacts_canary_absent",
+      "status": "PASS"
+    },
+    {
+      "check": "parent_gates_explicitly_pending",
+      "status": "PASS"
+    },
+    {
+      "check": "only_own_two_shared_lines",
+      "status": "PASS"
+    },
+    {
+      "check": "exact_packet_inventory_and_hashes",
+      "status": "PASS"
+    }
+  ]
+}

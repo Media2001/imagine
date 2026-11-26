@@ -1,0 +1,383 @@
+{
+  "status": "CANDIDAT_GATE_PARENT",
+  "readiness_claimed": false,
+  "counts": {
+    "utf8:python": 21,
+    "utf8:unit": 15,
+    "utf8:standard": 9,
+    "utf8:result": 194,
+    "utf8:runner": 9,
+    "cp1252:python": 21,
+    "cp1252:unit": 15,
+    "cp1252:standard": 9,
+    "cp1252:result": 194,
+    "cp1252:runner": 9
+  },
+  "checks": [
+    {
+      "check": "current_owned_sources",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:real_windows_encoding",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:python_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:unit_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:standard_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:result_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:runner_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:executed_sources_equal",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:dependencies_equal",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:pure_no_extensions_writes",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:mandatory_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:all_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:files_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:neutralised_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:five_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:absent_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:nodate_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:visitors_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:neutralised_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:five_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:absent_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:nodate_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:storage_and_exact_counts",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:repeat_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:documented_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:root-readonly_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:mandatory_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:all_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:files_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:neutralised_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:five_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:absent_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:nodate_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:visitors_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:neutralised_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:five_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:absent_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:nodate_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:storage_and_exact_counts",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:repeat_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:documented_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:root-readonly_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:real_windows_encoding",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:python_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:unit_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:standard_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:result_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:runner_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:executed_sources_equal",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:dependencies_equal",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:pure_no_extensions_writes",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:mandatory_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:all_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:files_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:neutralised_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:five_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:absent_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:nodate_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:visitors_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:neutralised_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:five_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:absent_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:nodate_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:storage_and_exact_counts",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:repeat_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:documented_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:root-readonly_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:mandatory_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:all_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:files_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:neutralised_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:five_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:absent_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:nodate_tables_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:visitors_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:neutralised_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:five_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:absent_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:nodate_projection",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:storage_and_exact_counts",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:repeat_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:documented_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:root-readonly_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "strict_psr12",
+      "status": "PASS"
+    },
+    {
+      "check": "five_real_commands_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "command_logs_bound",
+      "status": "PASS"
+    },
+    {
+      "check": "artifacts_clean",
+      "status": "PASS"
+    },
+    {
+      "check": "parent_gates_not_claimed",
+      "status": "PASS"
+    },
+    {
+      "check": "two_delta_lines",
+      "status": "PASS"
+    },
+    {
+      "check": "own_shared_contract_only",
+      "status": "PASS"
+    },
+    {
+      "check": "current_exact_package",
+      "status": "PASS"
+    }
+  ],
+  "exit_code": 0
+}

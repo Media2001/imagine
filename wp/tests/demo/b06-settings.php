@@ -31,6 +31,16 @@ if ($checks['deux_reglages_exposes']) {
         $editor->add_cap('manage_options');
         $editor->add_cap('edit_users');
         $roles = ['administrator', 'editor', 'shop_manager'];
+        $fixture = get_option('imagine_c08_fixture');
+        $articleWitness = 'Les lucioles violettes de C08 gardent le secret du village fictif.';
+        $articleAccess = [];
+        foreach ($roles as $role) {
+            wp_set_current_user(0); $editor->set_role($role); wp_set_current_user($id);
+            $GLOBALS['post'] = get_post($fixture['article']);
+            $articleAccess[$role] = str_contains(apply_filters('the_content', $GLOBALS['post']->post_content), $articleWitness);
+        }
+        $space = wp_insert_post(['post_type'=>'page','post_status'=>'publish','post_title'=>'B06 réglages espace fictif']);
+        update_option(C::PAGE, $space, false);
         foreach (range(0, 7) as $write) {
             $writers = array_values(array_filter($roles, static fn ($r, $i) => (bool) ($write & (1 << $i)), ARRAY_FILTER_USE_BOTH));
             foreach (range(0, 7) as $read) {
@@ -44,6 +54,9 @@ if ($checks['deux_reglages_exposes']) {
                     $editor->set_role($role);
                     wp_set_current_user($id);
                     $checks["config_{$write}_{$read}_{$role}"] = C::administration() === in_array($role, $writers, true) && C::autorise() === in_array($role, $readers, true);
+                    $checks["config_{$write}_{$read}_{$role}_capacite_native"] = current_user_can('read_post', $space) === in_array($role, $readers, true);
+                    $GLOBALS['post'] = get_post($fixture['article']);
+                    $checks["config_{$write}_{$read}_{$role}_article_inchange"] = str_contains(apply_filters('the_content', $GLOBALS['post']->post_content), $articleWitness) === $articleAccess[$role];
                 }
                 // Le véritable adaptateur d'article ne reçoit aucun de ces réglages.
                 $fixture = get_option('imagine_c08_fixture');

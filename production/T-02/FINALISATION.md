@@ -1,3 +1,11 @@
+# Finalisation parent du 2026-11-26T19:21:25.123860+01:00
+
+**Prêt à relire, non clos.** Préparation commune réellement relancée, rejeu global UTF-8/cp1252 vert : **1 126 tests, 35 550 assertions ; 16 outils, 311 contrôles ; zéro échec, erreur ou ignoré**. Le dernier arbre inclut les changements concurrents de la voie 2, sans modification de notre part.
+
+Preuves parent : `files/rapports/2026-11-26-19h21-verification/`. Les passages enfant ci-dessous sont historiques : leurs portes parent en attente sont maintenant accomplies. Les matrices A23/A24/A25 ont été réellement rejouées après la correction A22 de 17 h 53 ; les premiers essais parent interrompus/rouges restent en scratch, pas dans les paquets retenus. Aucun Git, archive Imagine, compte réel, Novamira, déploiement ou autorisation sur le réel.
+
+---
+
 # Finalisation parent — 2026-11-26T17:06:28.715375+01:00
 
 **PRET : prêt à relire, non clos.** Préparation commune et rejeu global exécutés par le parent sur les sources finales, en UTF-8 et cp1252 : 1 123 tests, 34 569 assertions ; 14 outils, 279 contrôles ; zéro échec, erreur ou ignoré. Vérificateur propre relancé vert dans les deux contextes. Preuve des commandes et sources : `files/rapports/2026-11-26-17h06-portes-parent.json`. Les portes en attente décrites ci-dessous sont le constat historique de l’enfant, désormais accomplies par le parent. Aucun GO réel.

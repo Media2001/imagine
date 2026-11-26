@@ -1,7 +1,7 @@
 {
   "lot": "A-21",
-  "status": "CANDIDAT_GATE_PARENT",
-  "readiness_claimed": false,
+  "status": "PRET_A_RELIRE_NON_CLOS",
+  "readiness_claimed": true,
   "PRET_created_by_child": false,
   "packet": "production/A-21/preuves/final",
   "file_count": 119,
@@ -28,7 +28,7 @@
     "wp/outils/bascule/a21/Inventory.php": "1cd09c30e01a079eeb478e84c906151cf93d0e48a512ecaad025013e673fcb3d",
     "wp/outils/bascule/a21/README.md": "a508d17a9366d8e6f487b59e76ece448b7ce6d3133a0aa859f86aedc8247e62c",
     "production/A-21/candidate-verification.json": "16a8ee043293b815161e08d4069460791dec8c8babfb4c07673bc8a1b956c12d",
-    "production/A-21/FINALISATION.md": "cf52ad07235d9535ce8eaac7568ebf48d9d517b46bab2a47b12982302ca937c1",
+    "production/A-21/FINALISATION.md": "e2314533b32bc34e4db62f427895d5330024f046a8fc10cb4ac427da9ee18805",
     "production/A-21/notes.md": "397f42056b412aaaf1381896cd7f39456c1baa7ef67f8d595f159c9b91a2972d",
     "production/A-21/preuves/final/a22-channels.json": "d03b16f64925230ab60ab662d7d6af4507b2a5306cb09cd07efefa9990af1dba",
     "production/A-21/preuves/final/a22-replay.json": "588829f84eeae7a1f3efee7ad7465d7e1b3e680e393042cf8658c2a2e7c0fbe2",
@@ -125,5 +125,7 @@
     "production/A-21/readme-ajout.txt": "fd98bec08d8a24b7796acd866007c1e46af6fde714935bab8929fd4f8a2818df",
     "production/A-21/readme-delta.txt": "56c65ae3590bad2b468e770295177a14472125333e8cc4c7c1a8183b80dcb438",
     "production/A-21/verification-probes.json": "1ae9d0f956ade71d6c35903c168af12fc1905c46c6e8ab5f309b11f855fd6538"
-  }
+  },
+  "parent_preparation": "files/rapports/2026-11-26-19h21-verification",
+  "parent_global_T01": "files/rapports/2026-11-26-19h21-verification"
 }
