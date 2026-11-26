@@ -16,6 +16,7 @@ $checks['date_absente']=!AgendaRegles::inscription('sortie',0,100);
 $checks['email_normalise']=AgendaRegles::email(' FICTIF@EXAMPLE.ORG ')==='fictif@example.org';
 $checks['cle_doublon']=AgendaRegles::cle(42,' FICTIF@EXAMPLE.ORG ')===AgendaRegles::cle(42,'fictif@example.org');
 $checks['autre_evenement']=AgendaRegles::cle(42,'fictif@example.org')!==AgendaRegles::cle(43,'fictif@example.org');
+$checks['cle_mysql_max64']=strlen(AgendaRegles::cle(42,'fictif@example.org'))<=64;
 $checks['cle_sans_email']=!str_contains(AgendaRegles::cle(42,'fictif@example.org'),'fictif');
 $fail=array_keys(array_filter($checks,fn($v)=>!$v));
 echo json_encode(['total'=>count($checks),'checks'=>$checks,'failures'=>$fail]); exit($fail?1:0);

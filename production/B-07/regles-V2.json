@@ -1,0 +1,24 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T19:37:38.719100+00:00",
+  "total": 14,
+  "checks": {
+    "sortie_futur": true,
+    "sortie_passe": true,
+    "sortie_borne": true,
+    "rencontre_futur": true,
+    "rencontre_passe": true,
+    "rencontre_borne": true,
+    "partenaire": true,
+    "inconnu": true,
+    "date_absente": true,
+    "email_normalise": true,
+    "cle_doublon": true,
+    "autre_evenement": true,
+    "cle_mysql_max64": true,
+    "cle_sans_email": true
+  },
+  "failures": [],
+  "exit": 0,
+  "stderr": ""
+}

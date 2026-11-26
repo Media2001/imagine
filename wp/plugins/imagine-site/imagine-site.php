@@ -112,6 +112,13 @@ Personnalisation::register();
 PersonnalisationReglages::register();
 PersonnalisationConfidentialite::register();
 
+// B07 — raccord agenda additif.
+require_once __DIR__ . '/AgendaRegles.php';
+require_once __DIR__ . '/Agenda.php';
+require_once __DIR__ . '/AgendaConfidentialite.php';
+Agenda::register();
+AgendaConfidentialite::register();
+
 add_action('init', static function (): void {
     foreach ([
         'imagine_numero' => [__('Numéros fictifs', 'imagine-site'), 'numeros'],

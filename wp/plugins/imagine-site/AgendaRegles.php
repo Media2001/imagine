@@ -18,6 +18,6 @@ final class AgendaRegles
 
     public static function cle(int $evenement, string $email): string
     {
-        return 'imagine_agenda_' . hash('sha256', $evenement . ':' . self::email($email));
+        return 'imagine_agenda_' . substr(hash('sha256', $evenement . ':' . self::email($email)), 0, 48);
     }
 }

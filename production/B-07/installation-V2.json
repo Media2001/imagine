@@ -1,0 +1,33 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T19:37:37.763210+00:00",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "sources": {
+    "plugins/imagine-site/AgendaRegles.php": "58c233dde6400f55a66d8c24c7d6175536815c5a8ce74cf43106ed138665949c",
+    "plugins/imagine-site/Agenda.php": "12fe40c1932e0cbf6efb5305babcaea813092fe70e990a330563a9ad7bbd8c33",
+    "plugins/imagine-site/AgendaConfidentialite.php": "0823e47a91d0fa1a468c34b3630d629369bb807f7f33406316c8188ec7e5bd1a",
+    "plugins/imagine-site/imagine-site.php": "91101084bda14cea394dfcee4fcaec39594dde97b105cf16bd70ecce92202345",
+    "themes/imagine/archive-imagine_evenement.php": "05c6eeec3ba01c5362eb955d55fcd923dd8ca6dbdb402d9e6fce5fae9517b955",
+    "themes/imagine/single-imagine_evenement.php": "856ebb1ee663586f41b711a376df7664a345b9013140b2addb2bfa84b9f6b429"
+  },
+  "private_snapshot": {
+    "file": "b07-private-eb81lxzh/snapshot.json",
+    "sha256": "940ddba8e5d8bc59c598f259450a379bb2e30a2d85cd49910215e232588b4120",
+    "private": true
+  },
+  "canary_parse": {
+    "plugins/imagine-site/AgendaRegles.php": true,
+    "plugins/imagine-site/Agenda.php": true,
+    "plugins/imagine-site/AgendaConfidentialite.php": true
+  },
+  "business_preserved": true
+}
