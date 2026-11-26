@@ -7,7 +7,7 @@ namespace Imagine\Site;
 /** Uniquement des hooks des outils de confidentialité WordPress ; aucun écran parallèle. */
 final class Confidentialite
 {
-    private const META = ['imagine_sans_email', 'imagine_email_confirme', 'imagine_newsletters_preferences'];
+    private const META = [SansEmail::META, 'imagine_email_confirme', Newsletters::META];
     private const JOURNAL = 'imagine_reglages_journal_';
     private const JOURNAUX = [self::JOURNAL, 'imagine_extraction_journal_', 'imagine_envoi_export_journal_'];
     private const LIMIT = 50;
@@ -194,14 +194,14 @@ final class Confidentialite
         }
         foreach (
             [
-            '_imagine_envoi_bloc_debut' => 'Début de bloc postal',
-            '_imagine_acces_grace_debut' => 'Début de grâce',
-            '_imagine_acces_grace_fin' => 'Fin de grâce',
+            '_imagine_envoi_bloc_debut' => __('Début de bloc postal', 'imagine-site'),
+            '_imagine_acces_grace_debut' => __('Début de grâce', 'imagine-site'),
+            '_imagine_acces_grace_fin' => __('Fin de grâce', 'imagine-site'),
             ] as $key => $name
         ) {
             $v = $order->get_meta($key);
             if ($v !== '') {
-                $fields[] = ['name' => __($name, 'imagine-site'), 'value' => self::texte($v)];
+                $fields[] = ['name' => $name, 'value' => self::texte($v)];
             }
         }
         return $fields;
@@ -237,11 +237,31 @@ final class Confidentialite
         return (int) ($row['qui_id'] ?? 0) === $id || ($row['option'] ?? '') === Justificatifs::PREFIX . $id;
     }
 
-    private static function draft(array $row, \WP_User $user): bool
+    private static function clientBrouillon(array $row, \WP_User $user): bool
     {
         $c = $row['client'] ?? [];
-        return (int) ($c['id'] ?? 0) === $user->ID || (int) ($row['qui'] ?? 0) === $user->ID
-            || (isset($c['email']) && strcasecmp((string) $c['email'], $user->user_email) === 0);
+        $id = (int) ($row['resultat']['client'] ?? $c['id'] ?? 0);
+        return $id > 0 ? $id === $user->ID
+            : (!empty($c['email']) && strcasecmp((string) $c['email'], $user->user_email) === 0);
+    }
+
+    private static function draft(array $row, \WP_User $user): bool
+    {
+        return self::clientBrouillon($row, $user) || (int) ($row['qui'] ?? 0) === $user->ID;
+    }
+
+    private static function groupe(string $kind): string
+    {
+        return match ($kind) {
+            'meta' => __('Imagine — marqueurs personnels', 'imagine-site'),
+            'decouverte' => __('Imagine — accès découverte', 'imagine-site'),
+            'justificatif' => __('Imagine — justificatif solidaire', 'imagine-site'),
+            'postal' => __('Imagine — historique postal', 'imagine-site'),
+            'gel' => __('Imagine — liste postale figée', 'imagine-site'),
+            'audit' => __('Imagine — activité administrative', 'imagine-site'),
+            'brouillon' => __('Imagine — brouillon de commande', 'imagine-site'),
+            default => __('Données Imagine', 'imagine-site'),
+        };
     }
 
     /** Liste de travaux personnels. L'effaceur relit toujours le début : aucun saut après retrait. */
@@ -347,21 +367,30 @@ final class Confidentialite
                         ]));
                     }
                 } elseif ($kind === 'brouillon') {
-                    $fields = ['etape' => $v['etape'] ?? '', 'client' => array_intersect_key(
+                    if (!self::clientBrouillon($v, $user)) {
+                        $fields = [__('Activité', 'imagine-site') => __('A préparé un brouillon', 'imagine-site')];
+                    } else {
+                        $fields = ['etape' => $v['etape'] ?? '', 'client' => array_intersect_key(
                         $v['client'] ?? [],
                         array_flip(['id', 'mode', 'nom', 'prenom', 'email', 'sans_email'])
                     )];
-                    $fields['commande'] = array_intersect_key(
+                        $fields['commande'] = array_intersect_key(
                         $v['commande'] ?? [],
-                        array_flip(['adresse', 'produit', 'mode_paiement'])
+                        array_flip(['adresse', 'produit'])
                     );
+                        $fields[__('Mode de règlement', 'imagine-site')] = match ($v['commande']['paiement'] ?? '') {
+                            'bacs' => __('Virement', 'imagine-site'),
+                            'imagine_papier' => __('Mandat papier', 'imagine-site'),
+                            default => __('Non renseigné', 'imagine-site'),
+                        };
+                    }
                 }
                 $pairs = [];
                 foreach ($fields as $name => $value) {
                     $privateEmail = self::adressePrivee($email) ? $email : '';
                     $pairs[] = ['name' => (string) $name, 'value' => self::texte($value, $privateEmail)];
                 }
-                $data[] = ['group_id' => 'imagine-' . $kind, 'group_label' => __('Imagine — ', 'imagine-site') . $kind,
+                $data[] = ['group_id' => 'imagine-' . $kind, 'group_label' => self::groupe($kind),
                     'item_id' => 'imagine-' . hash('sha256', $row['key']), 'data' => $pairs];
             }
             return ['data' => $data, 'done' => $page * self::LIMIT >= count($all)];
@@ -452,6 +481,12 @@ final class Confidentialite
                 $new['qui_login'] = 'efface';
             }
         } elseif ($row['kind'] === 'brouillon') {
+            if (!self::clientBrouillon($v, $user)) {
+                $new = $v;
+                $new['qui'] = 0;
+                self::replace($key, $v, $new);
+                return;
+            }
             $transient = substr($key, strlen('_transient_'));
             delete_transient($transient);
             if (get_transient($transient) !== false) {

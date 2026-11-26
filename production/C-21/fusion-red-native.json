@@ -1,0 +1,196 @@
+{
+  "at": "2026-11-26T08:38:25.704085+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "operateur_sans_aucune_PII_client": false,
+    "operateur_activite_propre_exportee": false,
+    "effacement_operateur_preserve_dossier_client_exact": false,
+    "titulaire_resultat_client_exporte_adresse_exacte": false,
+    "mode_reglement_reel_exporte": false,
+    "titulaire_efface_brouillon": true,
+    "C16_sans_email_effacement_rattachement_reel": true,
+    "C16_sans_email_effacement_transient": false,
+    "C16_sans_email_suppression_rattachement_reel": true,
+    "C16_sans_email_suppression_native_transient": false,
+    "meta_constantes_connues_couvertes": true,
+    "meta_C22_effacee": true,
+    "rollback_toutes_tables_exact": true
+  },
+  "total": 13,
+  "failures": [
+    "operateur_sans_aucune_PII_client",
+    "operateur_activite_propre_exportee",
+    "effacement_operateur_preserve_dossier_client_exact",
+    "titulaire_resultat_client_exporte_adresse_exacte",
+    "mode_reglement_reel_exporte",
+    "C16_sans_email_effacement_transient",
+    "C16_sans_email_suppression_native_transient"
+  ],
+  "evidence": {
+    "operator_export": {
+      "data": [
+        {
+          "group_id": "imagine-brouillon",
+          "group_label": "Imagine — brouillon",
+          "item_id": "imagine-d5ecce7f94972a816f6744c96c157d13dbbd0ae7355c44b1b31969e289f59758",
+          "data": [
+            {
+              "name": "etape",
+              "value": "3"
+            },
+            {
+              "name": "client",
+              "value": "{\"mode\":\"nouveau\",\"nom\":\"C21NOMCLIENT\",\"email\":\"c21-fusion-client@example.org\",\"sans_email\":false}"
+            },
+            {
+              "name": "commande",
+              "value": "{\"produit\":192,\"adresse\":{\"first_name\":\"C21PRENOMCLIENT\",\"last_name\":\"C21NOMCLIENT\",\"address_1\":\"21 RUE CLIENT FICTIVE\",\"address_2\":\"\",\"postcode\":\"1000\",\"city\":\"C21VILLECLIENT\",\"country\":\"BE\"}}"
+            }
+          ]
+        }
+      ],
+      "done": true
+    },
+    "client_export": {
+      "data": [],
+      "done": true
+    },
+    "draft_after_operator_erasure": false,
+    "C16_effacement": {
+      "resultat": {
+        "commande": 2761,
+        "souscription": 2762,
+        "client": 129
+      },
+      "export": {
+        "data": [
+          {
+            "group_id": "imagine-meta",
+            "group_label": "Imagine — meta",
+            "item_id": "imagine-b3ebbbcd962d223fcc72f07901d7c6ffb7ed95a318a3c8dfac4d4d8e0940a8b7",
+            "data": [
+              {
+                "name": "imagine_sans_email",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — postal",
+            "item_id": "imagine-0dfd4c8712a8e3f7b926d45a464574beb5e2a399240736085f5f9ac03abbfd16",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:38:24.846768"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2762\",\"creation\":1795682304,\"debut\":\"2026-11-26 08:38:24\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"\",\"rue\":\"\",\"complement\":\"\",\"code_postal\":\"\",\"ville\":\"\",\"pays\":\"\"}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — postal",
+            "item_id": "imagine-777800d8c62e23ac0dbc9863f35e9308b20d935bc5483586d5f3c0e49cf4cc95",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:38:24.879745"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2762\",\"creation\":1795682304,\"debut\":\"2026-11-26 08:38:24\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21PRENOMCLIENT C21NOMCLIENT\",\"rue\":\"21 RUE CLIENT FICTIVE\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — postal",
+            "item_id": "imagine-c07203807bcd07159b45f0e07ff3abebac244b382db3dac86d347613eedfd799",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:38:24.913840"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2762\",\"creation\":1795682304,\"debut\":\"2026-11-26 08:38:24\",\"fin\":\"2027-11-26 08:38:24\",\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21PRENOMCLIENT C21NOMCLIENT\",\"rue\":\"21 RUE CLIENT FICTIVE\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+              }
+            ]
+          }
+        ],
+        "done": true
+      }
+    },
+    "C16_suppression": {
+      "resultat": {
+        "commande": 2763,
+        "souscription": 2764,
+        "client": 130
+      },
+      "export": {
+        "data": [
+          {
+            "group_id": "imagine-meta",
+            "group_label": "Imagine — meta",
+            "item_id": "imagine-b3ebbbcd962d223fcc72f07901d7c6ffb7ed95a318a3c8dfac4d4d8e0940a8b7",
+            "data": [
+              {
+                "name": "imagine_sans_email",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — postal",
+            "item_id": "imagine-971396643161740eef63dbc62b3466d7913844ab6d0f029591cb188e431ea058",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:38:25.113709"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2764\",\"creation\":1795682305,\"debut\":\"2026-11-26 08:38:25\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"\",\"rue\":\"\",\"complement\":\"\",\"code_postal\":\"\",\"ville\":\"\",\"pays\":\"\"}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — postal",
+            "item_id": "imagine-9e2d2f489b87c3a0ea4ab7533d0a35b6fc06a43a5bb31f74842d3a309035936f",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:38:25.147641"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2764\",\"creation\":1795682305,\"debut\":\"2026-11-26 08:38:25\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21PRENOMCLIENT C21NOMCLIENT\",\"rue\":\"21 RUE CLIENT FICTIVE\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — postal",
+            "item_id": "imagine-7aac557d5973f4b754016ac511613241e94a38a406789da5cbcb5ab607c71826",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:38:25.177557"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2764\",\"creation\":1795682305,\"debut\":\"2026-11-26 08:38:25\",\"fin\":\"2027-11-26 08:38:25\",\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21PRENOMCLIENT C21NOMCLIENT\",\"rue\":\"21 RUE CLIENT FICTIVE\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+              }
+            ]
+          }
+        ],
+        "done": true
+      }
+    }
+  }
+}

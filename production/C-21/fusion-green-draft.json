@@ -1,0 +1,276 @@
+{
+  "at": "2026-11-26T08:40:08.574628+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "operateur_sans_aucune_PII_client": true,
+    "operateur_activite_propre_exportee": true,
+    "effacement_operateur_preserve_dossier_client_exact": true,
+    "titulaire_resultat_client_exporte_adresse_exacte": true,
+    "mode_reglement_reel_exporte": true,
+    "titulaire_efface_brouillon": true,
+    "C16_sans_email_effacement_rattachement_reel": true,
+    "C16_sans_email_effacement_transient": true,
+    "C16_sans_email_suppression_rattachement_reel": true,
+    "C16_sans_email_suppression_native_transient": true,
+    "meta_constantes_connues_couvertes": true,
+    "meta_C22_effacee": true,
+    "rollback_toutes_tables_exact": true
+  },
+  "total": 13,
+  "failures": [],
+  "evidence": {
+    "operator_export": {
+      "data": [
+        {
+          "group_id": "imagine-brouillon",
+          "group_label": "Imagine — brouillon de commande",
+          "item_id": "imagine-31dbcb46dc591f5f907e1c0c94b77d37808f3684b80c995664b25da7b7bdd4f2",
+          "data": [
+            {
+              "name": "Activité",
+              "value": "A préparé un brouillon"
+            }
+          ]
+        }
+      ],
+      "done": true
+    },
+    "client_export": {
+      "data": [
+        {
+          "group_id": "imagine-brouillon",
+          "group_label": "Imagine — brouillon de commande",
+          "item_id": "imagine-31dbcb46dc591f5f907e1c0c94b77d37808f3684b80c995664b25da7b7bdd4f2",
+          "data": [
+            {
+              "name": "etape",
+              "value": "3"
+            },
+            {
+              "name": "client",
+              "value": "{\"mode\":\"nouveau\",\"nom\":\"C21NOMCLIENT\",\"email\":\"c21-fusion-client@example.org\",\"sans_email\":false}"
+            },
+            {
+              "name": "commande",
+              "value": "{\"produit\":192,\"adresse\":{\"first_name\":\"C21PRENOMCLIENT\",\"last_name\":\"C21NOMCLIENT\",\"address_1\":\"21 RUE CLIENT FICTIVE\",\"address_2\":\"\",\"postcode\":\"1000\",\"city\":\"C21VILLECLIENT\",\"country\":\"BE\"}}"
+            },
+            {
+              "name": "Mode de règlement",
+              "value": "Virement"
+            }
+          ]
+        }
+      ],
+      "done": true
+    },
+    "draft_after_operator_erasure": {
+      "qui": 0,
+      "token": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "etape": 3,
+      "client": {
+        "mode": "nouveau",
+        "nom": "C21NOMCLIENT",
+        "email": "c21-fusion-client@example.org",
+        "sans_email": false
+      },
+      "commande": {
+        "produit": 192,
+        "paiement": "bacs",
+        "adresse": {
+          "first_name": "C21PRENOMCLIENT",
+          "last_name": "C21NOMCLIENT",
+          "address_1": "21 RUE CLIENT FICTIVE",
+          "address_2": "",
+          "postcode": "1000",
+          "city": "C21VILLECLIENT",
+          "country": "BE"
+        }
+      },
+      "resultat": {
+        "client": 132
+      }
+    },
+    "C16_effacement": {
+      "resultat": {
+        "commande": 2765,
+        "souscription": 2766,
+        "client": 133
+      },
+      "export": {
+        "data": [
+          {
+            "group_id": "imagine-meta",
+            "group_label": "Imagine — marqueurs personnels",
+            "item_id": "imagine-b3ebbbcd962d223fcc72f07901d7c6ffb7ed95a318a3c8dfac4d4d8e0940a8b7",
+            "data": [
+              {
+                "name": "imagine_sans_email",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-aa6919ea02875257426a15f26e7404bcaf350912c862cf46aaa231a0ebd5405e",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:40:07.652316"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2766\",\"creation\":1795682407,\"debut\":\"2026-11-26 08:40:07\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"\",\"rue\":\"\",\"complement\":\"\",\"code_postal\":\"\",\"ville\":\"\",\"pays\":\"\"}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-7b4791e1f9e4b1c97896299f315c054e2d96ac696fd0c2cfc6bb0c28ae6f3b09",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:40:07.691071"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2766\",\"creation\":1795682407,\"debut\":\"2026-11-26 08:40:07\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21PRENOMCLIENT C21NOMCLIENT\",\"rue\":\"21 RUE CLIENT FICTIVE\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-5326501de51adfd65889a5f8b1259cc7a87888aeac7b3da7cbc548b85bf3fe85",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:40:07.721996"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2766\",\"creation\":1795682407,\"debut\":\"2026-11-26 08:40:07\",\"fin\":\"2027-11-26 08:40:07\",\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21PRENOMCLIENT C21NOMCLIENT\",\"rue\":\"21 RUE CLIENT FICTIVE\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-brouillon",
+            "group_label": "Imagine — brouillon de commande",
+            "item_id": "imagine-f51baec70b00d63f0d0b838b67ee07ee6d8cf2c49d2db2a3f8ce7376aca6400c",
+            "data": [
+              {
+                "name": "etape",
+                "value": "3"
+              },
+              {
+                "name": "client",
+                "value": "{\"mode\":\"nouveau\",\"nom\":\"C21 SANS EMAIL FICTIF effacement\",\"email\":\"\",\"sans_email\":true}"
+              },
+              {
+                "name": "commande",
+                "value": "{\"produit\":192,\"adresse\":{\"first_name\":\"C21PRENOMCLIENT\",\"last_name\":\"C21NOMCLIENT\",\"address_1\":\"21 RUE CLIENT FICTIVE\",\"address_2\":\"\",\"postcode\":\"1000\",\"city\":\"C21VILLECLIENT\",\"country\":\"BE\"}}"
+              },
+              {
+                "name": "Mode de règlement",
+                "value": "Virement"
+              }
+            ]
+          }
+        ],
+        "done": true
+      }
+    },
+    "C16_suppression": {
+      "resultat": {
+        "commande": 2767,
+        "souscription": 2768,
+        "client": 134
+      },
+      "export": {
+        "data": [
+          {
+            "group_id": "imagine-meta",
+            "group_label": "Imagine — marqueurs personnels",
+            "item_id": "imagine-b3ebbbcd962d223fcc72f07901d7c6ffb7ed95a318a3c8dfac4d4d8e0940a8b7",
+            "data": [
+              {
+                "name": "imagine_sans_email",
+                "value": "1"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-01e2a6c4980edc90ce94d0c47c9fff9de5551bd6ec49197a9755280f81f1853d",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:40:07.954742"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2768\",\"creation\":1795682407,\"debut\":\"2026-11-26 08:40:07\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"\",\"rue\":\"\",\"complement\":\"\",\"code_postal\":\"\",\"ville\":\"\",\"pays\":\"\"}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-ebe932c5c75e474c9d2627966d94593b44794957656d6adc06a3df90d550b37c",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:40:07.992613"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2768\",\"creation\":1795682407,\"debut\":\"2026-11-26 08:40:07\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21PRENOMCLIENT C21NOMCLIENT\",\"rue\":\"21 RUE CLIENT FICTIVE\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-postal",
+            "group_label": "Imagine — historique postal",
+            "item_id": "imagine-f206b9ca07536fe13f63f9b651538ed86feac8a4f0d81c1cd6c9f4706d6a5bda",
+            "data": [
+              {
+                "name": "observe_utc",
+                "value": "2026-11-26 08:40:08.036856"
+              },
+              {
+                "name": "donnees",
+                "value": "{\"id\":\"2768\",\"creation\":1795682407,\"debut\":\"2026-11-26 08:40:07\",\"fin\":\"2027-11-26 08:40:07\",\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21PRENOMCLIENT C21NOMCLIENT\",\"rue\":\"21 RUE CLIENT FICTIVE\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+              }
+            ]
+          },
+          {
+            "group_id": "imagine-brouillon",
+            "group_label": "Imagine — brouillon de commande",
+            "item_id": "imagine-a31062845bb4b944ac7b50ef11d79e71950fee722542d62c006396e9ecf9d046",
+            "data": [
+              {
+                "name": "etape",
+                "value": "3"
+              },
+              {
+                "name": "client",
+                "value": "{\"mode\":\"nouveau\",\"nom\":\"C21 SANS EMAIL FICTIF suppression\",\"email\":\"\",\"sans_email\":true}"
+              },
+              {
+                "name": "commande",
+                "value": "{\"produit\":192,\"adresse\":{\"first_name\":\"C21PRENOMCLIENT\",\"last_name\":\"C21NOMCLIENT\",\"address_1\":\"21 RUE CLIENT FICTIVE\",\"address_2\":\"\",\"postcode\":\"1000\",\"city\":\"C21VILLECLIENT\",\"country\":\"BE\"}}"
+              },
+              {
+                "name": "Mode de règlement",
+                "value": "Virement"
+              }
+            ]
+          }
+        ],
+        "done": true
+      }
+    }
+  }
+}

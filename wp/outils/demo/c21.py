@@ -46,6 +46,10 @@ def deploy(label):
             if prior.get('scope') != 'imagine-test-demo':
                 raise RuntimeError('Foreign receipt')
             allowed.add(prior.get('source_readback', {}).get(name))
+        if name in ('plugins/imagine-site/Confidentialite.php', 'plugins/imagine-site/imagine-site.php'):
+            successor = json.loads((ROOT / 'production/C-22/installation-final-V2.json').read_text(encoding='utf-8'))
+            assert successor['scope'] == 'imagine-test-demo' and successor['native_preserved'] is True
+            allowed.add(successor['source_readback'][name])
         if actual[name] not in allowed:
             raise RuntimeError('Source drift: ' + name)
     native = c19.c18.state()
