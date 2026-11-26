@@ -16,7 +16,7 @@ Paquet C24 frais : **148 contrôles nominaux** (29 purs + 35 natifs + 44 HTTP + 
 PYTHONIOENCODING=utf-8 python -B production/C-24/verifier-fusion2050-V2.py
 ```
 
-Adresses/profils : rubrique « Adresses » plus bas, inchangée. Captures fraîches : `fusion2050-http-V2-compte.png`, `fusion2050-http-V2-sans-email.png`, `fusion2050-http-V2-reglages.png` (données d'essai ensuite restaurées).
+Adresses/profils : rubrique « Adresses » plus bas, inchangée. Captures fraîches : `fusion2050-http-durable-V2-compte.png`, `fusion2050-http-durable-V2-sans-email.png`, `fusion2050-http-durable-V2-reglages.png` (données d'essai ensuite restaurées).
 
 Questions non bloquantes : Imagine, localité en choix fermés (défaut) et exclusion de l'inscription newsletter par défaut (défaut prudent) ; Ced, place des rubriques sous « Enregistrer » et ergonomie JSON. Style laissé en l'état selon la fusion ; aucune bibliothèque close, bootstrap partagé, C21/C22/B06/B07 ou autre site modifié. Aucun paiement ni transport extérieur.
 

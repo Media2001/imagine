@@ -1,0 +1,37 @@
+{
+  "at": "2026-11-26T20:47:57.316043+00:00",
+  "scope": "imagine-test-demo",
+  "kind": "regression",
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "wp/tests/rejouer.ps1"
+  ],
+  "exit": 0,
+  "checks": {
+    "exit_zero": true,
+    "unique_bilan": true,
+    "suite_verte": true
+  },
+  "failures": [],
+  "log": "fusion2050-regression-durable-V2.log",
+  "log_sha256": "341bedd132fa6144aff56e4255c47bc48da5f86b68f1f5ee1cb8d6e82d3a2156",
+  "source_sha256": "2e11e76c14fe7ec445dc8f95adabe9f77413a44378893f3b1fb2f86dd04e30b1",
+  "result": {
+    "tests": 1128,
+    "assertions": 35565,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "tools": {
+      "tools": 16,
+      "checks": 331,
+      "failures": 0,
+      "excluded": []
+    },
+    "pass": true
+  }
+}

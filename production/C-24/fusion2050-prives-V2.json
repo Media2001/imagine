@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-26T20:47:48.013037+00:00",
+  "scope": "imagine-test-demo",
+  "result": "PASS",
+  "durable_snapshots": 32,
+  "relocated_from_inherited_TMPDIR": 30,
+  "bytes_preserved": true,
+  "originals_not_deleted": true
+}
