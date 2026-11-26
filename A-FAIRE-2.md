@@ -2,7 +2,7 @@
 
 File de la **deuxième session d'Hermès**. Tenue par Claude. **Hermès ne modifie pas ce fichier.**
 
-Mis à jour le 26 novembre 2026, 4 h 30 (passage automatique).
+Mis à jour le 26 novembre 2026, 7 h 30 (passage automatique).
 
 Consigne permanente : `prompts/consigne-permanente.md` (section « Les deux voies »). Doctrine : `doctrine/doctrine.md`.
 
@@ -10,21 +10,25 @@ La voie 1 (`A-FAIRE.md`) s'occupe de l'existant : import, audit, mise à jour. L
 
 ## Consignes actives, par ordre de priorité
 
-Tes rapports de 1 h 26 à 4 h 11 sont lus, merci pour eux : C-17, C-18 et C-19 rendus, huit corrections de C-16, profil A-PAPIER remis en état (C-09 : 382 sur 382), arrêt sur C-20. Ton arrêt sur C-20 était le bon. Arbitrages : `docs/arbitrages-2026-11-26.md`, passage de 4 h.
+Tes rapports de 4 h 45 à 6 h 46 sont lus, merci pour eux. **C-16, C-17, C-18 et C-19 sont code clos** ; il ne leur manque que l'œil de Ced. Ton second arrêt sur C-20 était encore le bon : tu n'as forcé ni un droit postal ni une marge. Arbitrages : `docs/arbitrages-2026-11-26.md`, passage de 7 h.
 
-**0. Corrections de C-17** (`corrections/C-17.md`, fusion de 4 h 08) : les quatre instructions, dans l'ordre. Plus une cinquième, tranchée ici : **ce que le site conserve après la décision.** Mon brief disait cinq champs ; le cahier des charges (§4.4) dit « la catégorie et la date de fin », et c'est lui la référence. Le dossier de l'abonné ne garde donc que **la catégorie, la date de fin et l'état** (l'état sert au statut affiché dans Mon compte, §3.7). La date de la décision et le nom de l'opérateur vont dans le journal de l'administration de C-10, pas dans la fiche de la personne ; l'écran du référent les relit depuis le journal s'il en a besoin. Un test relit le dossier après validation et après refus : trois champs, pas un de plus. La capacité « traiter les justificatifs » reste donnée par le seul jeu de démonstration.
+**0. C-20 : dépose `PRET` sur l'état actuel, sans rien y ajouter.** Un quart d'heure. Le périmètre du lot est réduit par arbitrage :
+   - le raccord corrigé (adhésion « en attente d'annulation » liée à un abonnement en annulation à terme : active jusqu'à la date de fin) est le livrable principal ;
+   - **mon critère sur la liste d'envoi était faux** : quand le terme payé tombe avant la clôture du prochain numéro, l'abonné qui ne renouvelle pas sort de la liste, et c'est ce que disent les règles de C-13. Ta réception « rouge » sur ce point devient le comportement attendu : renomme-la ou retourne son assertion, sans toucher aux règles ;
+   - quatre-fois : pas de bouton, la phrase « faites la demande auprès d'Imagine ». On ne donne pas de valeur à la marge de C-05 pour les besoins d'une preuve ;
+   - reprise : pas de bouton, les produits de la démonstration sont privés ;
+   - le bouton « ne pas renouveler », sa confirmation et l'émission de `imagine_non_renouvellement_confirme` **ne sont pas dans ce lot** : aucun profil de la démonstration n'est en renouvellement automatique, et on ne fabrique pas de passerelle. Ils passent au branchement sur le staging vérifié.
+   `A-VOIR.md` dit en tête, en trois lignes, ce que Ced voit et ce qui est reporté. Les relecteurs jugeront ce périmètre-là, pas le brief d'origine.
 
-**1. Corrections de C-18** (`corrections/C-18.md`, fusion de 4 h 18) : le filtre par état s'appuie sur la clé d'état, pas sur le libellé traduit (important) ; pagination native éprouvée avec une correspondance en deuxième page ; `A-VOIR.md` mis à jour ; les autres mineurs comme la fusion les écrit. Une ligne par abonnement et filtre de localité exact : confirmés, les deux questions sont rangées pour Imagine.
+**1. Relectures de C-20, puis de C-21** : si l'une revient « à corriger », elle passe avant la suite.
 
-**2. Relectures de C-16 (corrigé à 3 h 57) et de C-19** : si l'une revient « à corriger », elle passe avant la suite. Adresse enregistrée sur le seul compte créé, réglage oui ou non : confirmé, question rangée pour Imagine.
+**2. `briefs/C-21-export-et-effacement.md`** — en cours chez toi. L'export et l'effacement des données d'un compte par les outils natifs de WordPress, étendus à ce que nos lots ont ajouté (§4.4). Aucun réglage de conservation modifié. Depuis C-17, la date d'une décision sur un justificatif et son opérateur vivent dans le journal de l'administration : dis dans l'inventaire ce que ce journal garde d'une personne et ce que l'effacement en fait. Une demi-journée.
 
-**3. `briefs/C-20-ne-pas-renouveler-2.md`** — deuxième passe. L'accès qui se fermait venait de notre raccord, qui lit mal un état de Memberships : l'interdiction de toucher au raccord est levée, pas celle de toucher à la bibliothèque C-06 ni aux règles de C-13. Le quatre-fois passe par la date de fin native de l'abonnement, à prouver d'abord par ta sonde. Une demi-journée.
+**3. `briefs/B-05-partenaires.md`** — le bloc « partenaire du mois », la page « Nos partenaires », l'étiquette « Partenariat », les liens déclarés commerciaux (§3.12). Une demi-journée.
 
-**4. `briefs/C-21-export-et-effacement.md`** — l'export et l'effacement des données d'un compte par les outils natifs de WordPress, étendus à ce que nos lots ont ajouté (§4.4). Aucun réglage de conservation modifié. Inclut le justificatif de C-17 (son nettoyage à la suppression du compte est l'instruction 3 de la fusion) ; dis dans l'inventaire ce que le journal de l'administration garde d'une personne. Une demi-journée.
+**4. `briefs/C-22-preferences-newsletters.md`** — le centre de préférences des newsletters dans Mon compte et la page « Nos newsletters » (§3.10). Les choix restent sur le site : aucun appel à Brevo, aucun email. Une demi-journée.
 
-**5. `briefs/B-05-partenaires.md`** — le bloc « partenaire du mois », la page « Nos partenaires », l'étiquette « Partenariat », les liens déclarés commerciaux (§3.12). Une demi-journée.
-
-**6. `briefs/C-22-preferences-newsletters.md`** — le centre de préférences des newsletters dans Mon compte et la page « Nos newsletters » (§3.10). Les choix restent sur le site : aucun appel à Brevo, aucun email. Une demi-journée.
+**C-19, pour mémoire.** Q-1 est tranchée au plus fermé : la composition actuelle des deux droits reste, aucun rôle n'est modifié ; la question est rangée pour Imagine. Q-2 : la ligne grisée « Par moyen de paiement » reste. Tu n'as rien à faire.
 
 **Kiosque de B-04** : l'étiquette d'accès reste telle quelle, c'est une question visuelle posée à Ced ; ne la retire pas de toi-même. **Profils de C-09** : un lot qui fait changer d'état un profil le remet dans son état de départ, action planifiée comprise, et le relit avant de rendre.
 
@@ -59,8 +63,8 @@ Les liens « offert » et « groupé » absents des profils (C-13 et B-02 en mod
 | B-03 Mode lecture | 25/11, corrigé le 25/11 | **Code clos le 25/11** : couleurs du contenu neutralisées sur les trois fonds, position de lecture conservée. Validation visuelle de Ced attendue, contraste à revoir après le choix des couleurs par le designer |
 | B-04 Page numéro, kiosque, thématiques | 25/11, corrigé le 26/11 | **Code clos le 26/11** : six corrections vérifiées (découverte lisible dans les listes sans être consommée, possession séparée de la lecture du PDF). Validation visuelle de Ced attendue, avec une question : étiquette d'accès sur le kiosque, oui ou non |
 | C-15 Écran des échéances | 25/11, corrigé le 25/11 | **Code clos le 26/11** : huit corrections vérifiées. Validation visuelle de Ced attendue |
-| C-16 Commande pour un client | 26/11, corrigé le 26/11 | Huit corrections rendues à 3 h 57 ; vérification attendue |
-| C-17 Justificatifs du tarif solidaire | 26/11 | Relu « à corriger » : trois importants, et les champs conservés alignés sur §4.4 (consigne 0) |
-| C-18 Extractions | 26/11 | Relu « à corriger » : un important, trois mineurs (consigne 1) |
-| C-19 Tableau de bord | 26/11 | Rendu ; relecture attendue |
-| C-20 Ne pas renouveler | — | Arrêté à 4 h 11 sur un blocage démontré ; deuxième passe en file (consigne 3) |
+| C-16 Commande pour un client | 26/11, corrigé le 26/11 | **Code clos le 26/11** : huit corrections vérifiées, double création sous concurrence fermée. Validation visuelle de Ced attendue |
+| C-17 Justificatifs du tarif solidaire | 26/11, corrigé le 26/11 | **Code clos le 26/11** : cinq corrections vérifiées ; le dossier ne garde que catégorie, date de fin et état (§4.4), à défaire si Ced préfère. Validation visuelle de Ced attendue |
+| C-18 Extractions | 26/11, corrigé le 26/11 | **Code clos le 26/11** : trois corrections vérifiées, filtre sur la clé d'état. Validation visuelle de Ced attendue |
+| C-19 Tableau de bord | 26/11, corrigé le 26/11 | **Code clos le 26/11** : quatre corrections vérifiées ; droit d'accès laissé tel quel (les deux droits), « par moyen de paiement » grisé. Validation visuelle de Ced attendue |
+| C-20 Ne pas renouveler | 26/11, en partie | Raccord corrigé, écrans sans bouton ; `PRET` à déposer tel quel (consigne 0). Le bouton passe au branchement sur le staging vérifié |

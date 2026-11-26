@@ -127,3 +127,68 @@ Deuxième passe : `briefs/C-20-ne-pas-renouveler-2.md`.
 - **Voie 1**, arrêtée file vide à 3 h 55. En tête : le correctif d'A-13, puis deux retouches d'empaquetage et de rédaction (A-10, A-12). Ensuite deux lots en lecture seule, dans l'ordre du §4.3 et du §4.4 : A-16 (état des lieux des dix derniers numéros : ce qui est rattaché à chaque numéro et ce qui manque, sans rien rattacher) et A-17 (état des lieux de la sécurité des comptes de l'administration : des comptes par rôle et des oui ou non, aucun nom).
 - **Voie 2.** En tête : corrections de C-17 et de C-18, puis la deuxième passe de C-20, puis C-21. Ajoutés : B-05 (partenaires : bloc « partenaire du mois », page « Nos partenaires », étiquette « Partenariat », liens déclarés commerciaux, §3.12) et C-22 (centre de préférences des newsletters dans Mon compte, §3.10 ; les choix sont gardés sur le site, rien ne part vers Brevo).
 - Toujours écartés, parce qu'ils demanderaient d'inventer ou de sortir du fictif : tunnel et emails (grille tarifaire), formulaire de personnalisation, rétractation, agenda et billetterie (licence), appel à renouvellement des abonnés hors ligne, carte des points de vente (pas de base, et un fond de carte est un service extérieur), don et prise de parts.
+
+# Passage automatique de 7 h
+
+Lu : rapports de 4 h 45 à 6 h 46 (dix-sept), vérifications A-07, A-12 (n° 2), A-13 (n° 2), A-14, A-15, C-16, C-17, C-18 et C-19, fusions A-14, A-15, A-16, A-17 et C-19, livraison partielle de C-20.
+
+## A-13, A-14, A-15 — clos
+
+A-13 : vérification n° 2 « prêt pour la clôture ». Le test fixe lui-même l'encodage de son sous-processus ; 46 tests verts sous Python 3.14 en UTF-8 et en cp1252. La garde de console de l'outil est gardée parce qu'un test la justifie (sans elle, une console ASCII échoue) : accepté. A-14 et A-15 : fusions « à corriger » sans bloquant, corrections appliquées et vérifiées. Les vérificateurs écrivent « prêt pour la validation de Ced » ; ces trois lots lisent seulement, n'ont rien de visuel et ne touchent à rien de réel : clôture sur preuves (doctrine §6). Réserve gardée : la suite native d'A-14 et d'A-15 n'a été rejouée par aucun relecteur (pas de Docker dans leur session) ; les preuves sont celles d'Hermès, liées au code par empreintes.
+
+La remarque « suite générale rouge sur `TableauBordReglesTest` » des fusions d'A-14 et d'A-15 est levée : c'était C-19 en cours ; la suite est verte depuis (1 088 puis 1 093 tests, rejouée aussi par le vérificateur de C-16).
+
+Question métier rangée (`docs/decisions.md`) : dans le rapprochement des contacts de la newsletter, un abonné qui a désactivé le renouvellement mais dont la période payée court encore compte-t-il comme abonné ? Défaut de la fusion gardé : non, seul l'état actif compte. À noter pour Imagine : le paywall, lui, garde l'accès jusqu'au terme (§3.4) ; les deux lectures devront être accordées.
+
+## A-07, A-10, A-12 — retouches faites, lots toujours clos
+
+A-12 : la ligne « Liaisons » du mode d'emploi décrit le code (vérification n° 2). A-10 : son contrôle de réception ne juge plus que ses deux lignes et ses preuves ; code 0 en UTF-8 et en cp1252. A-07 : Hermès a retrouvé une fusion plus récente que son `PRET` (règle de 4 h 30) et appliqué sept retouches de rédaction ; vérifié. Le document se lit comme un constat du 20/11 annoté, pas comme un contrôle réseau refait : rien n'a été rejoué, c'est dit. Le coup d'œil à la box et le port 7000 restent à Ced (déjà dans `ETAT.md`).
+
+## A-16 — à corriger
+
+Fusion de 6 h 48, arrivée après l'arrêt de la voie 1 : aucun bloquant, deux importants. Corrections en tête de la voie 1, défauts de la fusion confirmés :
+
+- un refus ne recopie jamais un chemin tiré du site (un lien symbolique peut porter un titre ou un nom) : code de refus fixe, détails limités à une liste fermée ;
+- la présence du PDF et son emplacement public se calculent séparément ; « présent mais hors du dossier public » est une réponse, pas un arrêt de tout l'inventaire ;
+- l'ordre des propriétés de la correspondance ne compte pas ; deux cas limites ajoutés au banc ; une ligne morte retirée.
+
+## A-17 — à corriger, et une question qui n'en est pas une pour Ced
+
+Fusion de 7 h 03 : un bloquant (le même chemin de refus que pour A-16 : un lien symbolique au nom porteur d'identité sort sur la sortie d'erreur), trois importants. Corrections en tête de la voie 1.
+
+La fusion demande à Ced si l'outil tourne avant ou après l'anonymisation. La doctrine répond déjà (§3) : un agent ne travaille que sur la copie anonymisée, jamais avant. Reste le point technique : l'import retire les mots de passe d'application, donc leur compte vaut zéro après import, et mon brief avait tort d'écrire que « les nombres restent justes ». Tranché au plus simple et au plus prudent :
+
+- **on ne touche pas à l'import** (A-01, clos, et que Ced s'apprête à lancer sur l'archive réelle) : pas de compteur ajouté à l'anonymisation ;
+- quand la copie porte la marque de la neutralisation, A-17 répond **« inconnu après neutralisation »** pour ce compte, jamais zéro ; un test le prouve sur un jeu fictif qui est passé par la neutralisation ;
+- le mode d'emploi le dit en une phrase. Si Ced veut ce nombre pour le site réel, ce sera une lecture à faire par lui sur la source, hors des agents : noté dans `ETAT.md`, sans urgence.
+
+Les autres défauts de la fusion sont confirmés : la liste des capacités de gestion est complétée (`edit_users`, `update_plugins`, `switch_themes`), le préfixe `manage_` reste inclusif (on signale trop plutôt que pas assez) ; une constante de configuration placée sous une condition se lit « inconnu » ; la bascule du 29 février est documentée telle quelle.
+
+**Règle ajoutée pour la voie 1** (elle vaut pour A-11, A-12 et A-14 à A-17, qui passent par le chemin de refus d'A-11) : aucune sortie, y compris la sortie d'erreur, ne recopie un chemin ou un nom tiré du contenu du site. Seuls sortent un code de refus et des noms pris dans une liste fermée écrite dans le code. Cela précise l'arbitrage de 4 h sur A-11, qui acceptait le refus « en nommant le fichier » : il reste vrai pour les fichiers de remplacement (cache, pare-feu : noms techniques, liste fermée), il ne l'est plus pour un lien symbolique, dont le nom vient du site ; le refus dit alors qu'il y a un lien symbolique et le mode d'emploi donne à l'opérateur la commande pour les lister lui-même. Raison : la fusion d'A-17 montre qu'un tel nom peut porter une identité. Correction faite une fois, au point commun, avec un test au canari par outil ; les lots clos le restent.
+
+## C-16, C-17, C-18 — code clos, validation visuelle de Ced attendue
+
+C-16 : huit instructions vérifiées, le bloquant de double création fermé à la racine et reprouvé. C-17 : quatre instructions vérifiées, plus la cinquième (trois champs conservés après la décision, date et opérateur au journal de l'administration). Le vérificateur renvoie ce dernier point à Ced : il est déjà tranché depuis 4 h sur le cahier des charges (§4.4), signalé à Ced dans `ETAT.md` et défaisable ; il ne retient pas la clôture du code. C-18 : trois instructions vérifiées, le filtre s'appuie sur la clé d'état. Réserve commune : les preuves faites sur le site de démonstration sont celles d'Hermès, les relecteurs n'ayant pas accès au site.
+
+## C-19 — code clos, deux questions rangées
+
+Quatre corrections techniques vérifiées (un seul instant de référence, libellés portés par chaque indicateur). Le reçu ne fige plus l'empreinte du mode d'emploi partagé mais contrôle sa section : même règle que pour A-09 et A-10, accepté.
+
+- **Q-1, le droit d'ouvrir le tableau de bord.** La fusion proposait un droit à part, donnable seul ; il faudrait écrire dans les rôles du jeu de profils. Qui, chez Imagine, peut voir ces nombres sans avoir les extractions ni les échéances est une question d'organisation : métier, pas technique. Défaut prudent, donc le plus fermé : **on garde la composition actuelle** (il faut les deux droits), aucun rôle modifié. Question rangée pour Imagine. Le mot « dédié » du brief était de trop : écart noté.
+- **Q-2, « par mode » et « par moyen » de paiement** (§3.13) : le brief n'avait gardé qu'un axe. Ligne grisée « à venir » sans chiffre, comme la fusion le proposait ; question rangée, écart noté.
+
+## C-20 — périmètre réduit, à rendre tel quel
+
+Deuxième passe livrée en partie, sans `PRET`. Lecture point par point :
+
+1. **Le raccord est corrigé** : une adhésion « en attente d'annulation » liée à un abonnement en annulation à terme se lit active jusqu'à la date de fin ; les autres cas restent fermés. C'était le défaut réel. Acquis.
+2. **La liste d'envoi : mon critère était faux.** Je demandais que la liste du prochain numéro reste « la même ». Sur le profil essayé, le terme payé tombe le 25/12/2026 et la liste du prochain numéro se clôt le 05/01/2027 : l'abonné qui ne renouvelle pas n'y figure plus, et c'est ce que disent les règles de C-13, que personne n'a changées. Hermès a eu raison de ne pas forcer un droit postal. Savoir si un abonné qui ne renouvelle pas reçoit encore le numéro suivant son terme est une question pour Imagine (rangée) ; défaut : les règles actuelles, donc non.
+3. **Paiement en quatre fois** : la date de fin native n'a pas pu être essayée, parce que la marge de l'échéancier (réglage de C-05) n'a pas de valeur et qu'Hermès a refusé d'en choisir une. Bon réflexe. On ne fixe pas cette marge pour les besoins d'une preuve : le quatre-fois reste **sans bouton, avec la phrase « faites la demande auprès d'Imagine »**. La piste de la date de fin native n'est ni prouvée ni écartée.
+4. **La reprise** est refusée par le standard parce que les produits de la démonstration sont privés : limite des données fictives, pas de bouton.
+
+Reste le bouton lui-même. Sur la démonstration, aucun abonnement n'est en renouvellement automatique : il n'y a pas de passerelle, et on n'en fabrique pas. Un bouton « ne pas renouveler » n'y aurait donc aucun profil honnête. Tranché, au plus simple : **C-20 se rend dans son état actuel** (raccord corrigé, écrans sans bouton qui disent la vérité de chaque profil). Le bouton, sa confirmation et la preuve du quatre-fois passent au lot de branchement, sur le staging vérifié avec Stripe en mode test, donc après un accord de Ced. §3.4 n'est pas encore tenu sur ce point : écart noté, ligne ajoutée dans « En attente ».
+
+## Files
+
+- **Voie 1**, arrêtée file vide à 6 h 30. En tête : corrections d'A-17 (un bloquant) puis d'A-16, avec le contrôle du chemin de refus sur A-11 à A-15. Ensuite deux lots en lecture seule, sur banc fictif, dans l'ordre du §4.4 et du §4.3 : A-18 (ce que le site garde qu'il ne devrait pas garder : traces de données de paiement, fichiers d'abonnés dans le dossier des médias ; des comptes par clé et par dossier, aucune valeur) et A-19 (cohérence des abonnements et des adhésions avant la mise à niveau : combien d'abonnements sans adhésion, d'adhésions sans abonnement, de renouvellements automatiques sans moyen de paiement ; des comptes seulement).
+- **Voie 2** : C-21 en cours. En tête, un quart d'heure : déposer `PRET` sur C-20 tel quel. Puis C-21, B-05, C-22, déjà en file : plus d'un lot d'avance, aucun brief ajouté.
