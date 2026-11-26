@@ -1,0 +1,527 @@
+{
+  "at": "2026-11-26T17:45:45.611322+00:00",
+  "scope": "imagine-test-demo",
+  "native_comparison": {
+    "commandes": true,
+    "produits": true,
+    "adherents": true,
+    "profils": true,
+    "options": false,
+    "pdf": true,
+    "manifeste": true,
+    "reserve_native_C09_action8103": true,
+    "native_fingerprints": false
+  },
+  "business_schedule_equal": true,
+  "profiles": {
+    "A-PAPIER": {
+      "id": 13,
+      "sessions": [
+        {
+          "login": 1795671099,
+          "expiration": 1795843899
+        },
+        {
+          "login": 1795671209,
+          "expiration": 1795844009
+        },
+        {
+          "login": 1795671762,
+          "expiration": 1795844562
+        },
+        {
+          "login": 1795679184,
+          "expiration": 1795851984
+        },
+        {
+          "login": 1795679325,
+          "expiration": 1795852125
+        },
+        {
+          "login": 1795679494,
+          "expiration": 1795852294
+        },
+        {
+          "login": 1795680105,
+          "expiration": 1795852905
+        },
+        {
+          "login": 1795681139,
+          "expiration": 1795853939
+        },
+        {
+          "login": 1795702027,
+          "expiration": 1795874827
+        },
+        {
+          "login": 1795702171,
+          "expiration": 1795874971
+        },
+        {
+          "login": 1795714988,
+          "expiration": 1795718588
+        }
+      ],
+      "c24_answers": [],
+      "c24_consent": {
+        "accord": false,
+        "date_utc": "2026-11-26T17:43:29Z"
+      },
+      "newsletters": {
+        "lettre-fictive": {
+          "choix": true,
+          "date_utc": "2026-11-26T17:43:27Z",
+          "origine": "lecteur"
+        },
+        "rencontres-fictives": {
+          "choix": false,
+          "date_utc": "2026-11-26T17:43:27Z",
+          "origine": "lecteur"
+        },
+        "cooperateurs-fictifs": {
+          "choix": false,
+          "date_utc": "2026-11-26T17:43:27Z",
+          "origine": "lecteur"
+        }
+      }
+    },
+    "A-SEPA4": {
+      "id": 10,
+      "sessions": [
+        {
+          "login": 1795640004,
+          "expiration": 1795812804
+        },
+        {
+          "login": 1795640162,
+          "expiration": 1795812962
+        },
+        {
+          "login": 1795641303,
+          "expiration": 1795814103
+        },
+        {
+          "login": 1795664061,
+          "expiration": 1795836861
+        },
+        {
+          "login": 1795664446,
+          "expiration": 1795837246
+        },
+        {
+          "login": 1795671098,
+          "expiration": 1795843898
+        },
+        {
+          "login": 1795671208,
+          "expiration": 1795844008
+        },
+        {
+          "login": 1795671761,
+          "expiration": 1795844561
+        },
+        {
+          "login": 1795679185,
+          "expiration": 1795851985
+        },
+        {
+          "login": 1795679326,
+          "expiration": 1795852126
+        },
+        {
+          "login": 1795679494,
+          "expiration": 1795852294
+        },
+        {
+          "login": 1795680106,
+          "expiration": 1795852906
+        },
+        {
+          "login": 1795681138,
+          "expiration": 1795853938
+        },
+        {
+          "login": 1795702028,
+          "expiration": 1795874828
+        },
+        {
+          "login": 1795702172,
+          "expiration": 1795874972
+        },
+        {
+          "login": 1795714988,
+          "expiration": 1795718588
+        }
+      ],
+      "c24_answers": [],
+      "c24_consent": [],
+      "newsletters": []
+    },
+    "A-SANSMAIL": {
+      "id": 19,
+      "sessions": [
+        {
+          "login": 1795679185,
+          "expiration": 1795851985
+        },
+        {
+          "login": 1795679326,
+          "expiration": 1795852126
+        },
+        {
+          "login": 1795679495,
+          "expiration": 1795852295
+        },
+        {
+          "login": 1795680106,
+          "expiration": 1795852906
+        },
+        {
+          "login": 1795702029,
+          "expiration": 1795874829
+        },
+        {
+          "login": 1795702172,
+          "expiration": 1795874972
+        },
+        {
+          "login": 1795714988,
+          "expiration": 1795718588
+        }
+      ],
+      "c24_answers": {
+        "situation-fictive": {
+          "choix": [
+            "reveur-fictif"
+          ],
+          "date_utc": "2026-11-26T17:43:41Z"
+        }
+      },
+      "c24_consent": [],
+      "newsletters": []
+    },
+    "E-ADMIN": {
+      "id": 30,
+      "sessions": [
+        {
+          "login": 1795633791,
+          "expiration": 1795806591
+        },
+        {
+          "login": 1795634874,
+          "expiration": 1795807674
+        },
+        {
+          "login": 1795639339,
+          "expiration": 1795812139
+        },
+        {
+          "login": 1795639434,
+          "expiration": 1795812234
+        },
+        {
+          "login": 1795639637,
+          "expiration": 1795812437
+        },
+        {
+          "login": 1795639793,
+          "expiration": 1795812593
+        },
+        {
+          "login": 1795639914,
+          "expiration": 1795812714
+        },
+        {
+          "login": 1795639957,
+          "expiration": 1795812757
+        },
+        {
+          "login": 1795640616,
+          "expiration": 1795813416
+        },
+        {
+          "login": 1795640672,
+          "expiration": 1795813472
+        },
+        {
+          "login": 1795640714,
+          "expiration": 1795813514
+        },
+        {
+          "login": 1795640802,
+          "expiration": 1795813602
+        },
+        {
+          "login": 1795641369,
+          "expiration": 1795814169
+        },
+        {
+          "login": 1795648903,
+          "expiration": 1795821703
+        },
+        {
+          "login": 1795649010,
+          "expiration": 1795821810
+        },
+        {
+          "login": 1795649755,
+          "expiration": 1795822555
+        },
+        {
+          "login": 1795651532,
+          "expiration": 1795824332
+        },
+        {
+          "login": 1795651562,
+          "expiration": 1795824362
+        },
+        {
+          "login": 1795651628,
+          "expiration": 1795824428
+        },
+        {
+          "login": 1795651668,
+          "expiration": 1795824468
+        },
+        {
+          "login": 1795651678,
+          "expiration": 1795824478
+        },
+        {
+          "login": 1795651903,
+          "expiration": 1795824703
+        },
+        {
+          "login": 1795652494,
+          "expiration": 1795825294
+        },
+        {
+          "login": 1795652607,
+          "expiration": 1795825407
+        },
+        {
+          "login": 1795653830,
+          "expiration": 1795826630
+        },
+        {
+          "login": 1795654021,
+          "expiration": 1795826821
+        },
+        {
+          "login": 1795654198,
+          "expiration": 1795826998
+        },
+        {
+          "login": 1795654724,
+          "expiration": 1795827524
+        },
+        {
+          "login": 1795655028,
+          "expiration": 1795827828
+        },
+        {
+          "login": 1795655286,
+          "expiration": 1795828086
+        },
+        {
+          "login": 1795657286,
+          "expiration": 1795830086
+        },
+        {
+          "login": 1795657474,
+          "expiration": 1795830274
+        },
+        {
+          "login": 1795657772,
+          "expiration": 1795830572
+        },
+        {
+          "login": 1795658178,
+          "expiration": 1795830978
+        },
+        {
+          "login": 1795658617,
+          "expiration": 1795831417
+        },
+        {
+          "login": 1795658885,
+          "expiration": 1795831685
+        },
+        {
+          "login": 1795659184,
+          "expiration": 1795831984
+        },
+        {
+          "login": 1795660118,
+          "expiration": 1795832918
+        },
+        {
+          "login": 1795660240,
+          "expiration": 1795833040
+        },
+        {
+          "login": 1795660407,
+          "expiration": 1795833207
+        },
+        {
+          "login": 1795660667,
+          "expiration": 1795833467
+        },
+        {
+          "login": 1795660737,
+          "expiration": 1795833537
+        },
+        {
+          "login": 1795660958,
+          "expiration": 1795833758
+        },
+        {
+          "login": 1795661027,
+          "expiration": 1795833827
+        },
+        {
+          "login": 1795661566,
+          "expiration": 1795834366
+        },
+        {
+          "login": 1795661635,
+          "expiration": 1795834435
+        },
+        {
+          "login": 1795664018,
+          "expiration": 1795836818
+        },
+        {
+          "login": 1795664403,
+          "expiration": 1795837203
+        },
+        {
+          "login": 1795665400,
+          "expiration": 1795838200
+        },
+        {
+          "login": 1795665609,
+          "expiration": 1795838409
+        },
+        {
+          "login": 1795665804,
+          "expiration": 1795838604
+        },
+        {
+          "login": 1795666149,
+          "expiration": 1795838949
+        },
+        {
+          "login": 1795666816,
+          "expiration": 1795839616
+        },
+        {
+          "login": 1795667030,
+          "expiration": 1795839830
+        },
+        {
+          "login": 1795667302,
+          "expiration": 1795840102
+        },
+        {
+          "login": 1795668509,
+          "expiration": 1795841309
+        },
+        {
+          "login": 1795668680,
+          "expiration": 1795841480
+        },
+        {
+          "login": 1795673113,
+          "expiration": 1795845913
+        },
+        {
+          "login": 1795673461,
+          "expiration": 1795846261
+        },
+        {
+          "login": 1795673914,
+          "expiration": 1795846714
+        },
+        {
+          "login": 1795674355,
+          "expiration": 1795847155
+        },
+        {
+          "login": 1795674557,
+          "expiration": 1795847357
+        },
+        {
+          "login": 1795675195,
+          "expiration": 1795847995
+        },
+        {
+          "login": 1795677511,
+          "expiration": 1795850311
+        },
+        {
+          "login": 1795677593,
+          "expiration": 1795850393
+        },
+        {
+          "login": 1795678129,
+          "expiration": 1795850929
+        },
+        {
+          "login": 1795679184,
+          "expiration": 1795851984
+        },
+        {
+          "login": 1795679325,
+          "expiration": 1795852125
+        },
+        {
+          "login": 1795679493,
+          "expiration": 1795852293
+        },
+        {
+          "login": 1795680105,
+          "expiration": 1795852905
+        },
+        {
+          "login": 1795683389,
+          "expiration": 1795856189
+        },
+        {
+          "login": 1795683580,
+          "expiration": 1795856380
+        },
+        {
+          "login": 1795683687,
+          "expiration": 1795856487
+        },
+        {
+          "login": 1795699804,
+          "expiration": 1795872604
+        },
+        {
+          "login": 1795702027,
+          "expiration": 1795874827
+        },
+        {
+          "login": 1795702171,
+          "expiration": 1795874971
+        },
+        {
+          "login": 1795714988,
+          "expiration": 1795718588
+        }
+      ],
+      "c24_answers": [],
+      "c24_consent": [],
+      "newsletters": []
+    }
+  },
+  "observation": {
+    "requests": 45,
+    "mail": 0,
+    "http": 53,
+    "blocked": 53,
+    "subject_http": 0
+  }
+}
