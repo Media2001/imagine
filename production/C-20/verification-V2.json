@@ -1,5 +1,6 @@
 {
   "checks": {
+    "probe_source_exact": true,
     "profiles_actions_exact_fresh_process": true,
     "rollback_tables_exact_each_case": true,
     "external_drift_limited_to_cache_session_tables": true,
