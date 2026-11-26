@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "encodage": "auto",
+  "separateur": "auto",
+  "colonnes": {"email": "Courriel", "statut": "Statut"},
+  "statuts": {"inscrit": ["inscrit"], "desinscrit": ["desinscrit"], "bloque": ["bloque"]}
+}

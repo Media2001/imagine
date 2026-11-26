@@ -24,6 +24,19 @@ if ($available) {
         ['line' => 2, 'active_subscription' => true, 'status' => 'desinscrit', 'cooperateur' => '', 'tarif' => ''],
     ]);
     $check('no_email_in_any_output', !str_contains(json_encode($result, JSON_THROW_ON_ERROR), '@'));
+    $more = \Imagine\Contacts\Matcher::build([
+        ['line' => 2, 'email' => 'same@example.org', 'status' => 'inscrit'],
+        ['line' => 3, 'email' => ' SAME @EXAMPLE.ORG ', 'status' => 'bloque'],
+        ['line' => 4, 'email' => 'not-an-email', 'status' => 'inscrit'],
+        ['line' => 5, 'email' => '', 'status' => 'inscrit'],
+    ], []);
+    $check('duplicates_all_members_and_invalid_lines', ($more['anomalies'] ?? null) === [
+        ['line' => 2, 'reason' => 'Doublon dans le fichier'],
+        ['line' => 3, 'reason' => 'Doublon dans le fichier'],
+        ['line' => 4, 'reason' => 'Adresse électronique invalide'],
+        ['line' => 5, 'reason' => 'Adresse électronique invalide'],
+    ]);
+    $check('invalid_not_counted_as_unmatched', $more['counts']['contacts_without_account'] === 2);
 }
 $exit = in_array('FAIL', array_column($checks, 'status'), true) ? 1 : 0;
 file_put_contents('/report/unit.json', json_encode(['exit_code' => $exit, 'checks' => $checks], JSON_PRETTY_PRINT));

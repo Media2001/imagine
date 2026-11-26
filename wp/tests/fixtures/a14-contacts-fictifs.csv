@@ -1,0 +1,31 @@
+Nom;Courriel;Statut
+Fictif 01;alice@example.org;inscrit
+Fictif 02; ALICE @EXAMPLE.ORG ;desinscrit
+Fictif 03;bob@example.org;bloque
+Fictif 04;carol@example.org;inscrit
+Fictif 05;technical@example.org;inscrit
+Fictif 06;not-an-email;inscrit
+Fictif 07;;inscrit
+Fictif 08;local+tag@example.org;inscrit
+Fictif 09;first.last@example.org;inscrit
+Fictif 10;absent10@example.org;inscrit
+Fictif 11;absent11@example.org;inscrit
+Fictif 12;absent12@example.org;inscrit
+Fictif 13;absent13@example.org;inscrit
+Fictif 14;absent14@example.org;inscrit
+Fictif 15;absent15@example.org;inscrit
+Fictif 16;absent16@example.org;inscrit
+Fictif 17;absent17@example.org;inscrit
+Fictif 18;absent18@example.org;inscrit
+Fictif 19;absent19@example.org;inscrit
+Fictif 20;absent20@example.org;inscrit
+Fictif 21;absent21@example.org;inscrit
+Fictif 22;absent22@example.org;inscrit
+Fictif 23;absent23@example.org;inscrit
+Fictif 24;absent24@example.org;inscrit
+Fictif 25;absent25@example.org;inscrit
+Fictif 26;absent26@example.org;inscrit
+Fictif 27;absent27@example.org;inscrit
+Fictif 28;absent28@example.org;inscrit
+Fictif 29;absent29@example.org;inscrit
+Fictif 30;absent30@example.org;inscrit
