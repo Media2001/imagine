@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-26T18:26:58.887470+00:00",
+  "scope": "imagine-test-demo",
+  "exit": 0,
+  "report": {
+    "totals": {
+      "errors": 0,
+      "warnings": 0,
+      "fixable": 0
+    },
+    "files": {
+      "/repo/wp/plugins/imagine-site/Cooperateurs.php": {
+        "errors": 0,
+        "warnings": 0,
+        "messages": []
+      },
+      "/repo/wp/plugins/imagine-site/CooperateursRegles.php": {
+        "errors": 0,
+        "warnings": 0,
+        "messages": []
+      }
+    }
+  },
+  "stderr": ""
+}

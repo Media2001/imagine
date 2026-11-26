@@ -80,6 +80,24 @@ if ($checks['deux_reglages_exposes']) {
         }
         $html = C::champsReglages();
         $checks['champs_separes_non_vides'] = str_contains($html, 'imagine-cooperateurs-reglages') && str_contains($html, $keys[0]) && str_contains($html, $keys[1]);
+        // Vrai chemin d'écriture de la fiche : rôle configuré, sans dérogation de lecture.
+        update_option($keys[0], ['editor'], false);
+        update_option($keys[1], ['administrator'], false);
+        wp_set_current_user(0); $editor->set_role('editor'); wp_set_current_user($id);
+        $target = wp_insert_user(['user_login'=>'b06-cible-reglages','user_email'=>'b06-cible@example.org','user_pass'=>wp_generate_password(40),'role'=>'subscriber']);
+        if (is_wp_error($target)) { throw new RuntimeException('Cible absente.'); }
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+        $_POST = ['imagine_cooperateur_present'=>'1','imagine_cooperateur_nonce'=>wp_create_nonce('imagine_cooperateur_'.$target),'imagine_cooperateur_oui'=>'1'];
+        C::enregistrer($target);
+        $checks['role_configure_pose_sans_lire_espace'] = (get_user_meta($target, C::META, true)['cooperateur'] ?? false) === true && !C::autorise();
+        wp_set_current_user($admin->ID);
+        update_option($keys[0], ['administrator'], false);
+        $old = C::roles($keys[0]);
+        $journalFail = static fn (string $sql): string => str_starts_with($sql, 'INSERT INTO') && str_contains($sql, 'imagine_reglages_journal_') ? 'SELECT imagine_b06_journal_reglage_inexistant' : $sql;
+        $suppress = $wpdb->suppress_errors(true); add_filter('query', $journalFail);
+        try { update_option($keys[0], ['editor'], false); }
+        finally { remove_filter('query', $journalFail); $wpdb->suppress_errors($suppress); }
+        $checks['reglage_journal_sql_echec_restaure'] = C::roles($keys[0]) === $old;
     } finally {
         $wpdb->query('ROLLBACK'); wp_cache_flush(); wp_set_current_user($original);
     }

@@ -23,19 +23,22 @@ def verify(label='livraison-V2'):
         assert len(r['checks'])==r['total'] and all(v is True for v in r['checks'].values())
         total+=r['total']
     assert total==final['total'] and total>100
-    assert len(final['mutation_receipts'])==final['mutation_count']==11
+    assert len(final['mutation_receipts'])==final['mutation_count']==(13 if label.startswith('fusion-') else 11)
     for item in final['mutation_receipts']:
         r=json.loads((b06.PROOF/(item['receipt']+'.json')).read_text(encoding='utf-8'))
         assert r['exit']==1 and item['required_failure'] in r['failures'] and r['state_preserved'] and not r['stderr']
-    image=json.loads((b06.PROOF/'image-final-V2.json').read_text(encoding='utf-8'))
+    prefix = 'fusion-' if label.startswith('fusion-') else ''
+    image=json.loads((b06.PROOF/(prefix+'image-final-V2.json')).read_text(encoding='utf-8'))
     assert image['exit']==0 and 'T01 IMAGE READY' in image['stdout'] and 'image verifiee sha256:' in image['stdout']
-    quality=json.loads((b06.PROOF/'quality-V2.json').read_text(encoding='utf-8'))
+    quality=json.loads((b06.PROOF/(prefix+'quality-V2.json')).read_text(encoding='utf-8'))
     assert quality['exit']==0 and quality['report']['totals']['errors']==0
-    regression=json.loads((b06.PROOF/'regression-final-V2.json').read_text(encoding='utf-8'))
+    regression=json.loads((b06.PROOF/(prefix+'regression-final-V2.json')).read_text(encoding='utf-8'))
     matches=re.findall(r'^T01_RESULT (.+)$',regression['stdout'],re.M)
     assert regression['exit']==0 and len(matches)==1
     data=json.loads(matches[0]);assert data['pass'] and data['tests']>1000 and data['failures']==data['errors']==data['skipped']==0
     assert data['tools']['failures']==0
+    if prefix:
+        assert 'CooperateursReglesTest' in regression['stdout'], 'Règle pure B06 non découverte par le runner canonique'
     assert (b06.PROOF/'A-VOIR.md').is_file() and (b06.PROOF/'standard-V2.md').is_file()
     b06.guard()
     live=b06.hashes(b06.NAMES)
@@ -47,7 +50,7 @@ def verify(label='livraison-V2'):
     own=b06.wp('''$ids=Imagine\\Site\\Cooperateurs::ids();$f=get_option('imagine_c09_fixture');$pages=[];foreach($ids as $id){$p=get_post($id);$pages[]=['id'=>$id,'content'=>$p->post_content,'parent'=>$p->post_parent];}echo wp_json_encode(['pages'=>$pages,'state'=>get_user_meta($f['users']['P-COOP'],'imagine_cooperateur',true)]);''')
     assert len(own['pages'])==5 and all(p['content']=='' for p in own['pages'])
     assert own['state']['cooperateur'] is True and own['state']['source']=='administration'
-    result={'result':'VERIFIED','B06_checks':total,'mutations':11,'regression_tests':data['tests'],
+    result={'result':'VERIFIED','B06_checks':total,'mutations':final['mutation_count'],'regression_tests':data['tests'],
             'regression_assertions':data['assertions'],'tool_checks':data['tools']['checks'],'pages':len(own['pages']),
             'P_COOP_retained':True,'closure':'Claude/Ced uniquement'}
     print(json.dumps(result,ensure_ascii=False))

@@ -124,8 +124,10 @@ final class Cooperateurs
         if ($value === null) {
             return self::roles($key); // Formulaire antérieur : ne pas effacer un réglage absent.
         }
-        if (!current_user_can('manage_options') || !in_array('administrator', wp_get_current_user()->roles, true)
-            || !self::rolesValides($value)) {
+        if (
+            !current_user_can('manage_options') || !in_array('administrator', wp_get_current_user()->roles, true)
+            || !self::rolesValides($value)
+        ) {
             add_settings_error($key, 'imagine_cooperateurs_roles_refuses', __('Rôles coopérateurs invalides ou modification non autorisée : réglage conservé.', 'imagine-site'));
             return self::roles($key);
         }
@@ -136,11 +138,15 @@ final class Cooperateurs
     {
         $html = '<section id="imagine-cooperateurs-reglages"><h2>' . esc_html__('Espace coopérateurs', 'imagine-site') . '</h2><p>'
             . esc_html__('Deux règles distinctes, provisoires. Défaut : Administrateur seul. Aucune ne donne accès aux articles. Sans case cochée, aucun rôle dérogatoire.', 'imagine-site') . '</p>';
-        foreach ([self::ROLES_ATTRIBUT => __('Rôles autorisés à poser ou retirer le statut', 'imagine-site'),
-            self::ROLES_LECTURE => __('Rôles autorisés à lire l’espace sans statut', 'imagine-site')] as $key => $label) {
+        foreach (
+            [self::ROLES_ATTRIBUT => __('Rôles autorisés à poser ou retirer le statut', 'imagine-site'),
+            self::ROLES_LECTURE => __('Rôles autorisés à lire l’espace sans statut', 'imagine-site')] as $key => $label
+        ) {
             $html .= '<fieldset><legend>' . esc_html($label) . '</legend><input type="hidden" name="' . esc_attr($key) . '[]" value="">';
-            foreach (['administrator' => __('Administrateur', 'imagine-site'), 'editor' => __('Éditeur', 'imagine-site'),
-                'shop_manager' => __('Gestionnaire de boutique', 'imagine-site')] as $role => $title) {
+            foreach (
+                ['administrator' => __('Administrateur', 'imagine-site'), 'editor' => __('Éditeur', 'imagine-site'),
+                'shop_manager' => __('Gestionnaire de boutique', 'imagine-site')] as $role => $title
+            ) {
                 $html .= '<label><input type="checkbox" name="' . esc_attr($key) . '[]" value="' . esc_attr($role) . '"'
                     . checked(in_array($role, self::roles($key), true), true, false) . '> ' . esc_html($title) . '</label> ';
             }
