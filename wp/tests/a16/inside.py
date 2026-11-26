@@ -1,5 +1,5 @@
 """A16 native fixture, same read-only A11 bootstrap in classic and HPOS."""
-import importlib.util,json,re,sys
+import importlib.util,json,re,shlex,sys
 from pathlib import Path
 sys.dont_write_bytecode=True
 spec=importlib.util.spec_from_file_location('fixture','/opt/a02/inside.py');b=importlib.util.module_from_spec(spec);spec.loader.exec_module(b)
@@ -85,9 +85,29 @@ if (getenv('A16_CONFINED') === '1') {
         bad=inventory(site,OUT/(storage+'-dropin'),audit/'audit.json');b.check(storage+':dropin_named_no_execution',bad.returncode==1 and bad.stderr=='A11_DROPIN_UNSUPPORTED {"file":"wp-content/object-cache.php"}\n')
     finally:dropin.unlink()
     after=b.fingerprint(db);(OUT/(storage+'-db-after.json')).write_text(json.dumps(after));b.check(storage+':all_tables_scheduler_identical',before==after);b.check(storage+':files_identical',files==b.files(site));b.check(storage+':config_not_executed',not Path('/scratch/a02-bootstrap-trap').exists())
-    mapping=json.loads(Path('/subject/a16/correspondance.exemple.json').read_text());mapping['liaison']['cle']='absent_key';badmap=OUT/(storage+'-absent.json');badmap.write_text(json.dumps(mapping))
-    bad=inventory(site,OUT/(storage+'-missing'),audit/'audit.json',badmap)
-    b.check(storage+':absent_mapping_key_code_only',bad.returncode==1 and bad.stdout=='' and bad.stderr=='A16_MAPPING_KEY_ABSENT\n' and not (OUT/(storage+'-missing')).exists())
+    for field in ['numero_type','thematique','pdf_cle','liaison.cle']:
+        mapping=json.loads(Path('/subject/a16/correspondance.exemple.json').read_text())
+        target=mapping['liaison'] if field=='liaison.cle' else mapping
+        target['cle' if field=='liaison.cle' else field]='A16_MAPPING_PRIVATE_CANARY'
+        badmap=OUT/(storage+'-absent-'+field+'.json');badmap.write_text(json.dumps(mapping))
+        missing_out=OUT/(storage+'-missing-'+field)
+        bad=inventory(site,missing_out,audit/'audit.json',badmap)
+        b.check(storage+':absent_mapping_field:'+field,bad.returncode==1 and bad.stdout=='' and bad.stderr=='A16_MAPPING_KEY_ABSENT '+json.dumps({'field':field},separators=(',',':'))+'\n' and 'CANARY' not in bad.stdout+bad.stderr and not missing_out.exists())
+    link=site/'A16_IDENTITY_PRIVATE_CANARY';link.symlink_to(site/'wp-config.php')
+    try:
+        refused_out=OUT/(storage+'-symlink')
+        bad=inventory(site,refused_out,audit/'audit.json')
+        b.check(storage+':symlink_canary_never_output',bad.returncode==1 and bad.stdout=='' and bad.stderr=='A11_SYMLINK_UNSUPPORTED\n' and not refused_out.exists())
+    finally:link.unlink()
+    documented=next(line for line in Path('/subject/a16/README.md').read_text().splitlines() if line.startswith('python3 '))
+    replacements={'wp/outils/bascule/a16/confine.py':'/subject/a16/confine.py','/copie-verifiee':str(site),'/hors-web/audit-date/audit.json':str(audit/'audit.json'),'/hors-web/correspondance.json':'/subject/a16/correspondance.exemple.json','/hors-web/numeros-date':str(OUT/(storage+'-documented'))}
+    command=shlex.split(documented)
+    for index,token in enumerate(command):
+        for placeholder,value in replacements.items():token=token.replace(placeholder,value)
+        command[index]=token
+    documented_run=b.cmd(command,check=False)
+    documented_report=OUT/(storage+'-documented/numeros.json')
+    b.check(storage+':readme_command_only_documented_arguments',documented_run.returncode==0 and documented_report.is_file() and json.loads(documented_report.read_text())['issues']==expected,{'arguments':[token.split('=',1)[0] for token in command[2:]],'exit':documented_run.returncode})
     missing=b.cmd(['python3','/subject/a16/confine.py','--wp-path='+str(site),'--output=/report/'+storage+'-nomap','--audit='+str(audit/'audit.json')],check=False)
     b.check(storage+':mapping_required',missing.returncode==1 and missing.stderr=='A16_MAPPING_REQUIRED\n')
 b.run_storage=run_storage
