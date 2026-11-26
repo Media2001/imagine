@@ -154,7 +154,9 @@ function imagine_date(string $key): void
 /** Sponsored outbound links only in partner-authored content; never editorial posts. */
 function imagine_partner_content(string $content): string
 {
-    if (get_post_type() !== 'imagine_partenaire') {
+    $type = get_post_type();
+    if ($type !== 'imagine_partenaire'
+        && !($type === 'imagine_evenement' && get_post_meta(get_the_ID(), 'imagine_type', true) === 'partenaire')) {
         return $content;
     }
     $tags = new \WP_HTML_Tag_Processor($content);

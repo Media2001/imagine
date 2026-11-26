@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 // Fixture-only seeding, before SELECT credentials and confinement. No real plugin is impersonated as a qualification.
+kses_remove_filters();
 require '/subject/a26/Analysis.php';
 $families = [];
 $active = get_option('active_plugins', []);
@@ -62,5 +63,5 @@ $publish('<!-- wp:block {"ref":' . $block . '} /-->', '2023-01-01 00:00:00');
 // Import dangerous() blanks this whole content: all source service counts must become unknown.
 $publish('<iframe src="https://www.youtube.com/embed/A26_THIRD_PRIVATE_CANARY"></iframe> pi_a26fictiononly', '2022-01-01 00:00:00');
 $mu = WPMU_PLUGIN_DIR . '/a26-register.php';
-file_put_contents($mu, "<?php add_action('init', static function () { register_post_type('imagine_numero', ['public'=>true]); });\n");
+file_put_contents($mu, "<?php add_action('init', static function () { register_post_type('imagine_numero', ['public'=>true]); register_taxonomy('a26_issue', ['post'], ['public'=>false]); });\n");
 echo 'A26_SEED_OK';
