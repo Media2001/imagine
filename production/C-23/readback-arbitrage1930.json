@@ -1,0 +1,69 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T19:24:38.069576+00:00",
+  "guard": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "discovery_policy": {
+    "ouverture": "fermee",
+    "forme": "articles",
+    "jours": 7,
+    "nombre": 2,
+    "numeros": []
+  },
+  "discovery_relecture": "fermee",
+  "native_current_sha256": "52451af990506f92a45c63122ffe07677c0778708eb726730e53475bb2793f27",
+  "recipes": {
+    "livraison-arbitrage1930": {
+      "private_preimage_present": true,
+      "private_sha256_exact": true,
+      "business_equals_private_original": true,
+      "captured_metadata_equals_private_original": true,
+      "pages_equal_private_original": true
+    },
+    "b06-arbitrage1930": {
+      "private_preimage_present": true,
+      "private_sha256_exact": true,
+      "business_equals_private_original": true,
+      "captured_metadata_equals_private_original": true,
+      "pages_equal_private_original": true
+    },
+    "mutation-arbitrage1930": {
+      "private_preimage_present": true,
+      "private_sha256_exact": true,
+      "business_equals_private_original": true,
+      "captured_metadata_equals_private_original": true,
+      "pages_equal_private_original": true
+    },
+    "decouverte-ouverte-epuisee-arbitrage1930": {
+      "private_preimage_present": true,
+      "private_sha256_exact": true,
+      "business_equals_private_original": true,
+      "captured_metadata_equals_private_original": true,
+      "pages_equal_private_original": true
+    },
+    "b06-reponses-arbitrage1930": {
+      "private_preimage_present": true,
+      "private_sha256_exact": true,
+      "business_equals_private_original": true,
+      "captured_metadata_equals_private_original": true,
+      "pages_equal_private_original": true
+    }
+  },
+  "volatile_boundary": "Business state excludes the three existing cache/scheduler-lock options and wcs_report_update_cache actions/logs; captured sessions are compared separately exactly.",
+  "five_pages_empty": true,
+  "shared_source_readback": {
+    "plugins/imagine-site/imagine-site.php": "4f754ef601a2d2c23c30d0101a0eb897042f81dce76dad4b0d1a4474f8c0fd34",
+    "plugins/imagine-site/Cooperateurs.php": "432d7e80200c4c3c83cd989542263ee6318bf8ef59be1d4288393906c6fbc23a",
+    "plugins/imagine-site/CooperateursRegles.php": "7783568a54c22326279c0ae2ec6c911cbfcfaddf68e84c07f83da60d47f406b1"
+  },
+  "shared_sources_equal_local": true,
+  "success": true
+}

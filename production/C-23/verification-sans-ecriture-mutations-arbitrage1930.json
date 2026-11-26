@@ -1,0 +1,72 @@
+{
+  "scope": "imagine-test-demo",
+  "exit": 0,
+  "total": 74,
+  "failures": [],
+  "production_unchanged": true,
+  "stderr_empty": true,
+  "stdout_json_only": true,
+  "mutations": [
+    {
+      "case": "total-invente",
+      "expected_gate": "delivery_counts",
+      "detected": true,
+      "failures": [
+        "delivery_counts"
+      ]
+    },
+    {
+      "case": "matrice-vide",
+      "expected_gate": "delivery_nonempty",
+      "detected": true,
+      "failures": [
+        "delivery_nonempty",
+        "delivery_counts",
+        "delivery_complete"
+      ]
+    },
+    {
+      "case": "fermee-presentee-epuisee",
+      "expected_gate": "delivery_discovery_actual_policy",
+      "detected": true,
+      "failures": [
+        "delivery_discovery_actual_policy"
+      ]
+    },
+    {
+      "case": "case-VDEC-manquante",
+      "expected_gate": "delivery_complete",
+      "detected": true,
+      "failures": [
+        "delivery_counts",
+        "delivery_complete"
+      ]
+    },
+    {
+      "case": "recette-rebaptisee-livraison",
+      "expected_gate": "discovery_separate_open_exhausted",
+      "detected": true,
+      "failures": [
+        "discovery_separate_open_exhausted"
+      ]
+    },
+    {
+      "case": "restauration-fausse",
+      "expected_gate": "delivery_restoration",
+      "detected": true,
+      "failures": [
+        "delivery_restoration"
+      ]
+    },
+    {
+      "case": "sha-etat-derive",
+      "expected_gate": "delivery_native_derived",
+      "detected": true,
+      "failures": [
+        "delivery_native_derived"
+      ]
+    }
+  ],
+  "mutations_total": 7,
+  "all_mutations_detected": true
+}

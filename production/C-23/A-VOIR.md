@@ -28,6 +28,7 @@ Si le réglage lu s’ouvre, la colonne et la voie reprennent automatiquement `d
 | Suite Python 3.11.15 | `tests-arbitrage1930.json`, `tests-{utf8,cp1252}-arbitrage1930.txt` | **31/31 dans chaque encodage réel, deux codes 0** |
 | Préparation de l’image | `image-preparation-arbitrage1930.*` | **code 0, T01 IMAGE READY** |
 | Vérificateur local JSON stdout | `verification-arbitrage1930.json` | **74/74 vrais, code 0** |
+| Vérificateur sans écriture + altérations en copie scratch | `verification-sans-ecriture-mutations-arbitrage1930.json` | **production inchangée, stderr vide ; 7/7 altérations refusées** |
 
 **Matrice complète actuelle : `livraison-arbitrage1930.md`**, résultats élémentaires : `livraison-arbitrage1930.json` ; **136 voies × 14 publics**, plus identités et inverses. Les cinq pages B06 sont incluses dans cette livraison complète. Inverses article/PDF (témoin, SHA exact, type PDF), C08 et achat C14 verts. Les 28 échecs supplémentaires sans fuite dans la mutation sont les deux recherches qui retrouvent l’article volontairement public pour 14 publics ; ni pannes ni fuites supplémentaires. Le rejeu normal est postérieur aux restaurations des recettes.
 

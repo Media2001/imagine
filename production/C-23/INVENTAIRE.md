@@ -40,7 +40,7 @@ Le témoin principal est `CONTENU_FICTIF_RESERVE_DEMO-2026-T4_1` (article 42, nu
 
 ## Publics
 
-Les cinq publics imposés sont : anonyme ; `V-INSCRIT` connecté ; `V-DEC-FIN` réellement épuisé ; `P-NUMERO` acheteur d’un autre numéro ; faux robot sans adresse vérifiée. S’ajoutent tous les personnages natifs de ce catalogue sans droit article/PDF sur le T4, sauf la découverte encore ouvrable explicitée ci-dessous : `A-VIR`, `A-SUSP`, `A-EXPIRE`, `P-OFFRANT`, `P-OFFERT`, `P-GEST`, `P-BENEF`, `P-PRO`, `P-COOP`.
+Les cinq publics imposés sont : anonyme ; `V-INSCRIT` connecté ; `V-DEC-FIN` sans droit en découverte livrée fermée (vrai épuisé dans la recette séparée ouverte) ; `P-NUMERO` acheteur d’un autre numéro ; faux robot sans adresse vérifiée. S’ajoutent tous les personnages natifs de ce catalogue sans droit article/PDF sur le T4, sauf la découverte encore ouvrable explicitée ci-dessous : `A-VIR`, `A-SUSP`, `A-EXPIRE`, `P-OFFRANT`, `P-OFFERT`, `P-GEST`, `P-BENEF`, `P-PRO`, `P-COOP`.
 
 La situation actuelle de chaque compte est relue par le vrai adaptateur, sans fabriquer les liens offert/groupé manquants. Les comptes de l’équipe et les abonnements qui ont un droit ne sont pas classés comme des refus. `A-CARTE` sert de contrôle inverse actif.
 

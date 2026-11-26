@@ -1,0 +1,11 @@
+C-23 — PRÊT — 26 novembre 2026 — arbitrage de 19 h 30 appliqué
+
+Livraison normale : livraison-arbitrage1930.json, 1 922 contrôles, 0 fuite, 0 échec, code 0.
+Découverte effectivement livrée fermée ; V-DEC-FIN sans droit contrôlé sur les 136 voies. Cas épuisé non joué au normal, motif tracé, aucun réglage forcé.
+Recette séparée : decouverte-ouverte-epuisee-arbitrage1930.json, 1 922 contrôles verts ; vraie fixture épuisée, ouverture temporaire et restauration exacte des réglages prouvées.
+Mutation réelle : mutation-arbitrage1930.json, détecteur code 1 et 177 fuites attendues ; restauration prouvée, lanceur code 0.
+B06 : 503 contrôles verts, 35/35 mutations de réponses détectées. Suite : 31 tests × UTF-8/cp1252, deux codes 0. Image préparée, code 0, T01 IMAGE READY.
+Vérificateur courant : 74/74, code 0 ; stdout JSON seul sans écriture, 7/7 altérations de paquet refusées.
+Readback indépendant : readback-arbitrage1930.json, état métier et métadonnées/pages capturées égaux aux cinq préimages privées durables.
+Documentation actuelle : A-VOIR.md ; matrice complète : livraison-arbitrage1930.md ; empreintes : manifest-arbitrage1930.json.
+Limites maintenues : cache partagé d’hébergement, robots réellement vérifiés, plans de site activés non prouvés ; incident historique conservé. Aucun accord ni intervention sur le réel.

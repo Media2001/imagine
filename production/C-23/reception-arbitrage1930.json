@@ -1,0 +1,13 @@
+{
+  "scope": "imagine-test-demo",
+  "status": "PRET",
+  "verifier_exit": 0,
+  "verifier_checks": 74,
+  "verifier_failures": [],
+  "manifest_files": 59,
+  "manifest_all_exact": true,
+  "manifest_sha256": "ac5313816338773f462d0334ede5cf957d91d0b4133a60ef105f08297120bf11",
+  "business_readback_success": true,
+  "packet_mutations_detected": 7,
+  "pret_present": true
+}

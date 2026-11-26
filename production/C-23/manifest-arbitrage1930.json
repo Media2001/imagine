@@ -1,0 +1,245 @@
+{
+  "scope": "imagine-test-demo",
+  "status": "PRET",
+  "at": "2026-11-26T19:26:07.429495+00:00",
+  "policy": "Only C23-owned sources, current documentation and arbitration receipts. Historical manifests are not current gates; no shared-file or orchestration pin. Private snapshots are outside this package.",
+  "files": {
+    "production/C-23/A-VOIR-historique-V2.md": {
+      "bytes": 23237,
+      "sha256": "a085516a75b2eb0733386446179919dcab4ccaf5e0b3f64cffb0c2dec9e23153"
+    },
+    "production/C-23/A-VOIR.md": {
+      "bytes": 29644,
+      "sha256": "e2732a55c1bb2ce91107b049eaff04a9c9eb488fd11f82386894017e308711a7"
+    },
+    "production/C-23/arbitrage1930-green-02.txt": {
+      "bytes": 522,
+      "sha256": "48f06ee58f4015c105ca1ebdda2c7a197cf1153747225c0d04fe49ede3a2b3d5"
+    },
+    "production/C-23/arbitrage1930-green-suite-01.txt": {
+      "bytes": 4047,
+      "sha256": "9d806b2944c57b236b64409e5046b7e7472362892d401f8ce4c8ddaffb7020ac"
+    },
+    "production/C-23/arbitrage1930-green.txt": {
+      "bytes": 1882,
+      "sha256": "7a217079a21998365c0eb510d627a1464c5e103d0c311c9ab124b7b7c319e570"
+    },
+    "production/C-23/arbitrage1930-red.txt": {
+      "bytes": 1472,
+      "sha256": "773cde3a469a764da7cb2bf2ffa4447cf1fce301d90d26ad8b4b381aefec837c"
+    },
+    "production/C-23/arbitrage1930-separe-prive-red.txt": {
+      "bytes": 2587,
+      "sha256": "c3c4b304e8a74176141887042077583c17d79f53458a2fde92855191794ece6a"
+    },
+    "production/C-23/b06-arbitrage1930-etat.json": {
+      "bytes": 16867,
+      "sha256": "78cb997e71c676ba7397cb86044e53bf5997085d6730673aab1f4d2390230e6f"
+    },
+    "production/C-23/b06-arbitrage1930-inventaire.json": {
+      "bytes": 79140,
+      "sha256": "4f4492392f59201a05557148f56b3963605edbcb326b1c404b90c1bbf572d5aa"
+    },
+    "production/C-23/b06-arbitrage1930-restauration.json": {
+      "bytes": 2624,
+      "sha256": "74cd531c87fef7d0299f5acbb5e951e028ec2b5a57195f17acbb7b431bdeca72"
+    },
+    "production/C-23/b06-arbitrage1930.json": {
+      "bytes": 224715,
+      "sha256": "892ba38c7db9690578689c55c1e9630fdfa93ce9a8b5167d7aa1ca6ef326d102"
+    },
+    "production/C-23/b06-arbitrage1930.md": {
+      "bytes": 3579,
+      "sha256": "bf91accb4ca11caeb4bd78898a0ebb58a5b9dd816828a828d8f8b53abed937d1"
+    },
+    "production/C-23/b06-arbitrage1930.txt": {
+      "bytes": 3235,
+      "sha256": "d2c0f49b0f314b2fb36d03d98e092257420aeca036df714f225cbe5e1eb58e47"
+    },
+    "production/C-23/b06-reponses-arbitrage1930.json": {
+      "bytes": 19009,
+      "sha256": "8f769171f9dd28f1f775c40fb199e976a8240fde5aff9ad7064d7d593eff771d"
+    },
+    "production/C-23/BLOQUE-V2.md": {
+      "bytes": 4253,
+      "sha256": "b699a6c1c53fda31dce9b4b647704c87027b8cca0e9445c828e0e071aac36e27"
+    },
+    "production/C-23/decouverte-ouverte-epuisee-arbitrage1930-etat.json": {
+      "bytes": 16867,
+      "sha256": "78cb997e71c676ba7397cb86044e53bf5997085d6730673aab1f4d2390230e6f"
+    },
+    "production/C-23/decouverte-ouverte-epuisee-arbitrage1930-inventaire.json": {
+      "bytes": 79194,
+      "sha256": "ed5ce06d93035f4ca45f3bd0e94a96b6685c365399624f81e6b26c29597b8874"
+    },
+    "production/C-23/decouverte-ouverte-epuisee-arbitrage1930-restauration.json": {
+      "bytes": 2739,
+      "sha256": "bdf95401a9a5ea4cd07f661cbbf35c531a7f7d27ea0d0ad47e0ec15a85cda094"
+    },
+    "production/C-23/decouverte-ouverte-epuisee-arbitrage1930.json": {
+      "bytes": 835609,
+      "sha256": "74af332a52301c64472b019aa69d878901fcf73483b4659ce2ab06ee481305fe"
+    },
+    "production/C-23/decouverte-ouverte-epuisee-arbitrage1930.md": {
+      "bytes": 12557,
+      "sha256": "257398e4fa9b5b3137882d9a45b00f644c53ffc01949594490201f922a74cfe6"
+    },
+    "production/C-23/decouverte-ouverte-epuisee-arbitrage1930.txt": {
+      "bytes": 12229,
+      "sha256": "487aa3a5c8db85173510acc4767dd384f542b4268b8c4935cce591f94a4d4d86"
+    },
+    "production/C-23/image-preparation-arbitrage1930.json": {
+      "bytes": 318,
+      "sha256": "575fd7fa03aee6cb62c833cd9c94b516068297ec9c020db559c4bd0b6cbf2423"
+    },
+    "production/C-23/image-preparation-arbitrage1930.txt": {
+      "bytes": 4132,
+      "sha256": "319652d4bec37eb5e8b03251eba11706bd0616fc4ed5f16e98db409fdfed8a3e"
+    },
+    "production/C-23/INCIDENTS.md": {
+      "bytes": 11823,
+      "sha256": "e8126a3c9ec594979d87011a6ba86c1e427452f7809094e6ba669fed0a7465a3"
+    },
+    "production/C-23/INVENTAIRE.md": {
+      "bytes": 12278,
+      "sha256": "3b0f675317f4e981fdea4662317164434648bf8e2bf396381cc0dd4b08131025"
+    },
+    "production/C-23/lancement-b06-arbitrage1930.txt": {
+      "bytes": 3235,
+      "sha256": "d2c0f49b0f314b2fb36d03d98e092257420aeca036df714f225cbe5e1eb58e47"
+    },
+    "production/C-23/lancement-b06-reponses-arbitrage1930.txt": {
+      "bytes": 78,
+      "sha256": "3f563b6a67add1995c586ab57aa18bf5cdbd2f645ba6f0e87b591797985dca80"
+    },
+    "production/C-23/lancement-decouverte-arbitrage1930.txt": {
+      "bytes": 12229,
+      "sha256": "487aa3a5c8db85173510acc4767dd384f542b4268b8c4935cce591f94a4d4d86"
+    },
+    "production/C-23/lancement-livraison-arbitrage1930.txt": {
+      "bytes": 12244,
+      "sha256": "47e7dd2fa42c53d965ba16b6ea77bfef6936a68df0d4c12bf3ccd2363d1e253c"
+    },
+    "production/C-23/lancement-mutation-arbitrage1930.txt": {
+      "bytes": 12843,
+      "sha256": "90bb7f20db49bec1700c7d52c6d606b406315142bb0e72f68fbddfaa40da83ac"
+    },
+    "production/C-23/LIVRABLES.md": {
+      "bytes": 9743,
+      "sha256": "e6804a482442f9e62f4ff4e2ae1243689f943584a9b4565cb01b4b5d8e4c6497"
+    },
+    "production/C-23/livraison-arbitrage1930-etat.json": {
+      "bytes": 16867,
+      "sha256": "78cb997e71c676ba7397cb86044e53bf5997085d6730673aab1f4d2390230e6f"
+    },
+    "production/C-23/livraison-arbitrage1930-inventaire.json": {
+      "bytes": 79140,
+      "sha256": "4f4492392f59201a05557148f56b3963605edbcb326b1c404b90c1bbf572d5aa"
+    },
+    "production/C-23/livraison-arbitrage1930-restauration.json": {
+      "bytes": 2637,
+      "sha256": "6663571a118b8b6d737909c579f1cdd47493e1f4d62495d84b9394578072b117"
+    },
+    "production/C-23/livraison-arbitrage1930.json": {
+      "bytes": 836906,
+      "sha256": "018a829b6519421ab84cdd5cbb877c014c4f8d8ea68ab333ee18c67f88ee1b96"
+    },
+    "production/C-23/livraison-arbitrage1930.md": {
+      "bytes": 12581,
+      "sha256": "0a7c6d30c795446121d981b9a9210a7f8650d2a8dd54d8dfdf7b4fc0d5ac6c6d"
+    },
+    "production/C-23/livraison-arbitrage1930.txt": {
+      "bytes": 12244,
+      "sha256": "47e7dd2fa42c53d965ba16b6ea77bfef6936a68df0d4c12bf3ccd2363d1e253c"
+    },
+    "production/C-23/mutation-arbitrage1930-etat.json": {
+      "bytes": 16867,
+      "sha256": "78cb997e71c676ba7397cb86044e53bf5997085d6730673aab1f4d2390230e6f"
+    },
+    "production/C-23/mutation-arbitrage1930-inventaire.json": {
+      "bytes": 79194,
+      "sha256": "ed5ce06d93035f4ca45f3bd0e94a96b6685c365399624f81e6b26c29597b8874"
+    },
+    "production/C-23/mutation-arbitrage1930-restauration.json": {
+      "bytes": 2674,
+      "sha256": "f1c7856e6b77c9aaba3cc58955fc91893dd99c635b0631f81e4a89d5b2fd0415"
+    },
+    "production/C-23/mutation-arbitrage1930.json": {
+      "bytes": 835792,
+      "sha256": "978665e1151318d583704df462ca4319c65d2a4762a18b9ffe8c0d79c8efd61e"
+    },
+    "production/C-23/mutation-arbitrage1930.md": {
+      "bytes": 13171,
+      "sha256": "8d74ffc525d8aae2d560fef40832dd9b1310cd326fe9606e01c1e40efb5365c9"
+    },
+    "production/C-23/mutation-arbitrage1930.txt": {
+      "bytes": 12843,
+      "sha256": "90bb7f20db49bec1700c7d52c6d606b406315142bb0e72f68fbddfaa40da83ac"
+    },
+    "production/C-23/PRET": {
+      "bytes": 1394,
+      "sha256": "7a4ea605cd03bae2cc550f519aa2ea01bad0685b8a5552be210a45ee38b03d97"
+    },
+    "production/C-23/readback-arbitrage1930.json": {
+      "bytes": 2683,
+      "sha256": "9247e0527d1640bf94ff98513891d0f4a3abfe624a71ef72090567b5c5918edf"
+    },
+    "production/C-23/tests-arbitrage1930.json": {
+      "bytes": 1957,
+      "sha256": "6bb5f710b27425367c1558d483b4813370be674fe838b3831a5476a4097a5dda"
+    },
+    "production/C-23/tests-cp1252-arbitrage1930.txt": {
+      "bytes": 4083,
+      "sha256": "cdc192bf7623f58a0015f424b69e4e26d277d4ecca7d24b882e2c02a9cb5520c"
+    },
+    "production/C-23/tests-utf8-arbitrage1930.txt": {
+      "bytes": 4083,
+      "sha256": "05cc2881060fe446e8360062541f2050f388986fb4d749f5eb4db3295ecae1de"
+    },
+    "production/C-23/verification-apres-docs-arbitrage1930.json": {
+      "bytes": 3370,
+      "sha256": "0e11c926ca5109e7da9d931f100e554264ceb72f39be02d2656bb3d9e45f2706"
+    },
+    "production/C-23/verification-arbitrage1930.json": {
+      "bytes": 3370,
+      "sha256": "0e11c926ca5109e7da9d931f100e554264ceb72f39be02d2656bb3d9e45f2706"
+    },
+    "production/C-23/verification-sans-ecriture-mutations-arbitrage1930.json": {
+      "bytes": 1688,
+      "sha256": "d1041720363e8a74b6f738badf38cd82ae32bcd768e5c7ebdf82c92ac9f457b3"
+    },
+    "wp/outils/demo/c23-inventaire.php": {
+      "bytes": 6361,
+      "sha256": "3a1f7d88766ab08deb2e43e8d61be8bc030d61f18958b623227d8e9c0c857fae"
+    },
+    "wp/outils/demo/c23-preparer.py": {
+      "bytes": 15620,
+      "sha256": "f2ea63a5e6f29c1a17cc964e8c9dad6159e0c057a19cce46d703c25fe5a25c87"
+    },
+    "wp/outils/demo/c23.py": {
+      "bytes": 28871,
+      "sha256": "5b946c12314f8f4155683067bcbfa0d2dad61e4ff6ee893838834b6136c9d0cd"
+    },
+    "wp/tests/demo/c23-diagnostic.py": {
+      "bytes": 1545,
+      "sha256": "326dbed125641a1b1664c67ad28a8fb806958c7f7f4cb5f47e7f43a259c3ae3c"
+    },
+    "wp/tests/demo/c23-mutations.py": {
+      "bytes": 4439,
+      "sha256": "54d1988462e513b572df3e1ac5ec160e85b43fb49c0e4f16ed216a55775b1d0f"
+    },
+    "wp/tests/demo/c23-recovery.py": {
+      "bytes": 2686,
+      "sha256": "2d1cbc1681a08fbb25ef9571716d9031b9c97071fc2d9981dee2677eb17a0390"
+    },
+    "wp/tests/demo/c23-tests.py": {
+      "bytes": 23083,
+      "sha256": "36bf479419b05d30a7714203aacddb94c200d9a2d8b8a474627105ec260cc431"
+    },
+    "wp/tests/demo/c23-verifier.py": {
+      "bytes": 7759,
+      "sha256": "ce91358e85582320a15da26ce1f598c2ef99434994f1b5fbc2f3043cdce2f685"
+    }
+  },
+  "total": 59
+}
