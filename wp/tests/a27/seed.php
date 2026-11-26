@@ -14,7 +14,14 @@ $repetitions = (int) (getenv('A27_REPETITIONS') ?: 1);
 if (!in_array($repetitions, [1, 5], true)) {
     throw new RuntimeException('A27_SEED_REPETITIONS');
 }
-$makeToken = static function (int $user, string $gateway, string $kind, string $year, string $month, string $value): WC_Payment_Token {
+$makeToken = static function (
+    int $user,
+    string $gateway,
+    string $kind,
+    string $year,
+    string $month,
+    string $value
+): WC_Payment_Token {
     $token = $kind === 'CC' ? new WC_Payment_Token_CC() : new WC_Payment_Token_eCheck();
     $token->set_user_id($user);
     $token->set_gateway_id($gateway);

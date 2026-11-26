@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Imagine\ThirdParties;
 
+use Automattic\WooCommerce\Utilities\OrderUtil;
+
 final class Inventory
 {
     private const SHORTCODES = ['embed', 'video', 'audio', 'youtube', 'vimeo', 'dailymotion',
@@ -71,7 +73,11 @@ final class Inventory
                     if (!is_int($id) || $id < 1 || in_array($id, $seen, true)) {
                         throw new \RuntimeException('A26_CONTENT_UNSUPPORTED');
                     }
-                    $rows = self::rows("SELECT post_content FROM {$wpdb->posts} WHERE ID=%d AND post_type='wp_block' AND post_status='publish'", [$id]);
+                    $rows = self::rows(
+                        "SELECT post_content FROM {$wpdb->posts}"
+                        . " WHERE ID=%d AND post_type='wp_block' AND post_status='publish'",
+                        [$id]
+                    );
                     if (count($rows) !== 1) {
                         throw new \RuntimeException('A26_CONTENT_UNSUPPORTED');
                     }
@@ -92,10 +98,11 @@ final class Inventory
         }
         \Imagine\PublicAddresses\Runtime::boot($site);
         global $wpdb;
-        $storage = \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled() ? 'hpos' : 'classic';
+        $storage = OrderUtil::custom_orders_table_usage_is_enabled() ? 'hpos' : 'classic';
         $activeRaw = self::option('active_plugins');
         $active = Analysis::decode($activeRaw[0]['option_value'] ?? null);
-        if (!is_array($active) || !array_is_list($active) || count(array_filter($active, 'is_string')) !== count($active)) {
+        if (!is_array($active) || !array_is_list($active)
+            || count(array_filter($active, 'is_string')) !== count($active)) {
             throw new \RuntimeException('A26_QUERY_FAILED');
         }
         $marker = self::option('imagine_staging_disabled_plugins');
@@ -118,10 +125,15 @@ final class Inventory
                 throw new \RuntimeException('A26_QUERY_FAILED');
             }
             foreach ($types as $type) {
-                $posts = self::rows("SELECT ID,post_date_gmt,post_content FROM {$wpdb->posts} WHERE post_status='publish' AND post_type=%s ORDER BY ID", [$type]);
+                $posts = self::rows(
+                    "SELECT ID,post_date_gmt,post_content FROM {$wpdb->posts}"
+                    . " WHERE post_status='publish' AND post_type=%s ORDER BY ID",
+                    [$type]
+                );
                 foreach ($posts as $post) {
-                    $year = preg_match('/\A([1-9][0-9]{3})-[0-9]{2}-[0-9]{2}/D', $post['post_date_gmt'], $m) ? (int) $m[1] : 0;
-                    $rows[] = ['year' => $year, 'services' => Analysis::services(self::urls($post['post_content']), $localHost),
+                    $dated = preg_match('/\A([1-9][0-9]{3})-[0-9]{2}-[0-9]{2}/D', $post['post_date_gmt'], $m);
+                    $rows[] = ['year' => $dated ? (int) $m[1] : 0,
+                        'services' => Analysis::services(self::urls($post['post_content']), $localHost),
                         'selected' => in_array((int) $post['ID'], $selected, true)];
                 }
             }

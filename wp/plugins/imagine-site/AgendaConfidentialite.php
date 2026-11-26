@@ -27,8 +27,8 @@ final class AgendaConfidentialite
         foreach (array_slice($ids, (max(1, $page) - 1) * 50, 50) as $id) {
             $p = get_post($id);
             $fields = [['name' => __('Événement', 'imagine-site'), 'value' => get_the_title($p->post_parent)]];
-            foreach (['imagine_agenda_nom' => 'Nom', 'imagine_agenda_email' => 'Adresse email', 'imagine_agenda_consentement' => 'Consentement (1 = oui, 0 = non)', 'imagine_agenda_date' => 'Date UTC'] as $key => $label) {
-                $fields[] = ['name' => __($label, 'imagine-site'), 'value' => (string)get_post_meta($id, $key, true)];
+            foreach (['imagine_agenda_nom' => __('Nom', 'imagine-site'), 'imagine_agenda_email' => __('Adresse email', 'imagine-site'), 'imagine_agenda_consentement' => __('Consentement (1 = oui, 0 = non)', 'imagine-site'), 'imagine_agenda_date' => __('Date UTC', 'imagine-site')] as $key => $label) {
+                $fields[] = ['name' => $label, 'value' => (string)get_post_meta($id, $key, true)];
             }
             $data[] = ['group_id' => 'imagine-agenda', 'group_label' => __('Inscriptions aux événements', 'imagine-site'), 'item_id' => 'imagine-agenda-' . $id, 'data' => $fields];
         }

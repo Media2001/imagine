@@ -14,6 +14,8 @@ use PHPUnit\Framework\TestCase;
 #[PreserveGlobalState(false)]
 final class AgendaAdapterTest extends TestCase
 {
+    private string $theme;
+
     protected function setUp(): void
     {
         require __DIR__ . '/AgendaWPStubs.php';
@@ -25,7 +27,9 @@ final class AgendaAdapterTest extends TestCase
         $GLOBALS['agenda_loop'] = 0;
         $GLOBALS['wpdb'] = new \AgendaWPDB();
         if (!defined('ABSPATH')) { define('ABSPATH', '/offline/'); }
-        require dirname(__DIR__, 3) . '/themes/imagine/functions.php';
+        $this->theme = dirname(__DIR__, 3) . '/themes/imagine';
+        if (!is_file($this->theme . '/functions.php')) { $this->theme = '/repo/wp/themes/imagine'; }
+        require $this->theme . '/functions.php';
     }
 
     public function testExportErreurArreteEtRepriseNeSauteAucunePage(): void
@@ -64,7 +68,7 @@ final class AgendaAdapterTest extends TestCase
             return str_replace('[agenda_test]', '<strong>Texte rendu &amp; visible ' . $calls . '</strong>', $html);
         }, 11);
         ob_start();
-        require dirname(__DIR__, 3) . '/themes/imagine/single-imagine_evenement.php';
+        require $this->theme . '/single-imagine_evenement.php';
         $html = ob_get_clean();
         self::assertSame(1, $calls, 'Un shortcode à effet ne doit pas être exécuté deux fois.');
         self::assertStringNotContainsString('[agenda_test]', $html);
@@ -79,7 +83,7 @@ final class AgendaAdapterTest extends TestCase
     {
         $GLOBALS['agenda_meta'][1]['imagine_date'] = '2020-01-01';
         ob_start();
-        require dirname(__DIR__, 3) . '/themes/imagine/single-imagine_evenement.php';
+        require $this->theme . '/single-imagine_evenement.php';
         $html = ob_get_clean();
         self::assertStringContainsString('id="evenement-1"', $html);
         self::assertStringContainsString('Partenariat', $html);
@@ -107,10 +111,55 @@ final class AgendaAdapterTest extends TestCase
             }
         }
         foreach (['single', 'archive'] as $name) {
-            $source = file_get_contents(dirname(__DIR__, 3) . '/themes/imagine/' . $name . '-imagine_evenement.php');
+            $source = file_get_contents($this->theme . '/' . $name . '-imagine_evenement.php');
             self::assertStringNotContainsString("'imagine-site'", $source);
             self::assertStringNotContainsString("=== 'partenaire' ?", $source);
         }
+    }
+
+    public function testAdministrationSignaleLaSaisieInvalideSansMasquerLeDefaut(): void
+    {
+        Agenda::boites();
+        $box = $GLOBALS['agenda_boxes']['imagine-agenda-champs'];
+        foreach ([['imagine_type', 'inconnu'], ['imagine_date', '2030-02-30'], ['imagine_heure', '25:00']] as [$key, $bad]) {
+            $old = $GLOBALS['agenda_meta'][1][$key]; $GLOBALS['agenda_meta'][1][$key] = $bad;
+            self::assertNull(Agenda::evenement(1));
+            self::assertFalse(Agenda::ouvert(1));
+            self::assertSame([], Agenda::schema(1));
+            ob_start(); $box(get_post(1)); $html = ob_get_clean();
+            self::assertStringContainsString('imagine-agenda-incomplet', $html);
+            self::assertStringContainsString('Type, date ou heure invalide', $html);
+            $GLOBALS['agenda_meta'][1][$key] = $old;
+        }
+        // Un brouillon correctement saisi ne doit pas recevoir une fausse alerte.
+        $GLOBALS['agenda_posts'][1]->post_status = 'draft';
+        ob_start(); $box(get_post(1)); $html = ob_get_clean();
+        self::assertStringNotContainsString('imagine-agenda-incomplet', $html);
+    }
+
+    public function testBorneOuvertEtDoublonTraversentLeVraiAdaptateur(): void
+    {
+        $GLOBALS['agenda_meta'][1]['imagine_type'] = 'rencontre';
+        $start = Agenda::evenement(1)['debut'];
+        foreach ([$start - 1 => true, $start => false, $start + 1 => false] as $instant => $expected) {
+            $GLOBALS['agenda_now'] = $instant;
+            self::assertSame($expected, Agenda::ouvert(1));
+        }
+        $GLOBALS['agenda_now'] = $start - 1;
+        self::assertTrue(Agenda::inscrire(1, 'Fictif doublon', ' FICTIF@EXAMPLE.ORG ', false));
+        $ids = Agenda::inscriptions('fictif@example.org', 1);
+        self::assertCount(1, $ids);
+        self::assertTrue(Agenda::inscrire(1, 'Autre nom', 'fictif@example.org', true));
+        self::assertSame($ids, Agenda::inscriptions('fictif@example.org', 1));
+        self::assertSame('0', get_post_meta($ids[0], 'imagine_agenda_consentement', true));
+        self::assertCount(4, $GLOBALS['wpdb']->locks);
+        $GLOBALS['wpdb']->fail = true;
+        self::assertFalse(Agenda::inscrire(1, 'Panne fictive', 'panne@example.org', false));
+        self::assertCount(2, $GLOBALS['agenda_posts']);
+        $GLOBALS['wpdb']->fail = false;
+        $GLOBALS['agenda_now'] = $start;
+        self::assertFalse(Agenda::inscrire(1, 'Trop tard', 'tard@example.org', false));
+        self::assertCount(2, $GLOBALS['agenda_posts']);
     }
 
     public function testLiensDuCorpsPartenaireEtContreExemples(): void

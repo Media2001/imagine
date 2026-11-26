@@ -35,7 +35,8 @@ final class Inventory
         }
         global $wpdb;
         $p = $wpdb->prefix;
-        $storage = \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled() ? 'hpos' : 'classic';
+        $storage = \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled()
+            ? 'hpos' : 'classic';
         $neutralised = (bool) self::select("SELECT option_id FROM `{$p}options`"
             . " WHERE option_name='imagine_staging_disabled_plugins'");
         $subscriptions = [];
@@ -44,7 +45,8 @@ final class Inventory
             // Native schemas may be supplied by installed gateway constructors. No charge handler is called.
             WC()->payment_gateways();
             // Native get_customer_tokens() can limit the page; enumerate ALL raw IDs first.
-            $rows = self::select("SELECT token_id,user_id,gateway_id,type,token FROM `{$p}woocommerce_payment_tokens` ORDER BY token_id");
+            $rows = self::select("SELECT token_id,user_id,gateway_id,type,token"
+                . " FROM `{$p}woocommerce_payment_tokens` ORDER BY token_id");
             foreach ($rows as $row) {
                 $id = (int) $row['token_id'];
                 $token = \WC_Payment_Tokens::get($id);

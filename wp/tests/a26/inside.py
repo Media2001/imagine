@@ -93,6 +93,7 @@ if (getenv('A26_CONFINED') === '1') {
     add_shortcode('embed', static function () { throw new RuntimeException('A26_RENDER_PRIVATE_CANARY'); });
     add_filter('render_block', static function () { throw new RuntimeException('A26_RENDER_PRIVATE_CANARY'); });
     echo 'A26_DISPLAY_PRIVATE_CANARY';
+    error_log('A26_LOG_PRIVATE_CANARY');
 }
 '''
     mu.write_text(base_mu, encoding='utf-8')

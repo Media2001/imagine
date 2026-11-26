@@ -73,7 +73,8 @@ final class Command
         $flags = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR;
         $json = json_encode($report, $flags) . "\n";
         $markdown = "# Ressources tierces — lecture seule\n\n"
-            . "Déclarations et intégrations statiques ; ni requêtes observées ni conformité.\n\n```json\n" . $json . "```\n";
+            . "Déclarations et intégrations statiques ; ni requêtes observées ni conformité.\n\n```json\n"
+            . $json . "```\n";
         if (!mkdir($out, 0700)) {
             throw new \RuntimeException('A26_OUTPUT_CREATE');
         }

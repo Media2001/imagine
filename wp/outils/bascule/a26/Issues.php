@@ -29,7 +29,10 @@ final class Issues
         $meta = static function (int $id, string $key, bool $term) use ($read, $db): ?string {
             $table = $term ? $db->termmeta : $db->postmeta;
             $owner = $term ? 'term_id' : 'post_id';
-            $rows = $read("SELECT meta_value FROM {$table} WHERE {$owner}=%d AND BINARY meta_key=BINARY %s", [$id, $key]);
+            $rows = $read(
+                "SELECT meta_value FROM {$table} WHERE {$owner}=%d AND BINARY meta_key=BINARY %s",
+                [$id, $key]
+            );
             if (count($rows) > 1) {
                 throw new \RuntimeException('A26_MAPPING_INVALID');
             }
@@ -55,7 +58,10 @@ final class Issues
         usort($issues, static fn(array $a, array $b): int => strcmp($b['date'], $a['date'])
             ?: ((int) $b['ID'] <=> (int) $a['ID']));
         $recent = array_map('intval', array_column(array_slice($issues, 0, 10), 'ID'));
-        $articles = $read("SELECT ID,post_parent FROM {$db->posts} WHERE post_status='publish' AND post_type=%s", [$mapping['article_type']]);
+        $articles = $read(
+            "SELECT ID,post_parent FROM {$db->posts} WHERE post_status='publish' AND post_type=%s",
+            [$mapping['article_type']]
+        );
         $selected = [];
         foreach ($articles as $article) {
             $id = (int) $article['ID'];

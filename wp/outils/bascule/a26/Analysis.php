@@ -88,8 +88,8 @@ final class Analysis
                 // Only this exact official storage schema is qualified, not guessed option names.
                 $supported = in_array('google-site-kit/google-site-kit.php', $present, true)
                     ? self::siteKitIdentifier($settings) : 'illisible';
-                $identifier = $supported === 'oui' ? 'oui'
-                    : ($count === 1 && $present[0] === 'google-site-kit/google-site-kit.php' ? $supported : 'illisible');
+                $singleSupported = $count === 1 && $present[0] === 'google-site-kit/google-site-kit.php';
+                $identifier = $supported === 'oui' ? 'oui' : ($singleSupported ? $supported : 'illisible');
             }
             $affected = $neutralised && ($disabled === null
                 ? in_array($family, ['mesure', 'pixel'], true)
@@ -141,9 +141,12 @@ final class Analysis
     {
         $urls = [];
         $content = preg_replace('~<(pre|code)\b[^>]*>.*?</\1\s*>|<!--.*?-->~is', '', $content) ?? '';
-        preg_match_all('~<(iframe|embed|object|script|img|audio|video|source|link|blockquote)\b([^>]*)>~is', $content, $tags, PREG_SET_ORDER);
+        $resourcePattern = '~<(iframe|embed|object|script|img|audio|video|source|link|blockquote)\b([^>]*)>~is';
+        preg_match_all($resourcePattern, $content, $tags, PREG_SET_ORDER);
         foreach ($tags as $tag) {
-            preg_match_all('~\b(src|data-src|data|href|cite|data-instgrm-permalink)\s*=\s*(?:"([^"]*)"|\x27([^\x27]*)\x27|([^\s>]+))~i', $tag[2], $attrs, PREG_SET_ORDER);
+            $attributePattern = '~\b(src|data-src|data|href|cite|data-instgrm-permalink)\s*=\s*'
+                . '(?:"([^"]*)"|\x27([^\x27]*)\x27|([^\s>]+))~i';
+            preg_match_all($attributePattern, $tag[2], $attrs, PREG_SET_ORDER);
             foreach ($attrs as $attr) {
                 $key = strtolower($attr[1]);
                 if (($key === 'href' && strtolower($tag[1]) !== 'link')

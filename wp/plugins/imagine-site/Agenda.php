@@ -10,6 +10,13 @@ final class Agenda
     public const INSCRIPTION = 'imagine_inscription';
     public const TYPES = ['sortie' => 'Sortie de numéro', 'rencontre' => 'Rencontre gratuite', 'partenaire' => 'Événement partenaire'];
 
+    public static function libellesTypes(): array
+    {
+        return ['sortie' => __('Sortie de numéro', 'imagine-site'),
+            'rencontre' => __('Rencontre gratuite', 'imagine-site'),
+            'partenaire' => __('Événement partenaire', 'imagine-site')];
+    }
+
     public static function register(): void
     {
         add_action('init', [self::class, 'types']);
@@ -45,16 +52,24 @@ final class Agenda
         if (!$p || $p->post_type !== 'imagine_evenement' || $p->post_status !== 'publish' || $p->post_password !== '') {
             return null;
         }
+        $date = self::dateSaisie($id);
+        if (!$date) {
+            return null;
+        }
+        $type = (string)get_post_meta($id, 'imagine_type', true);
+        return ['id' => $id, 'type' => $type, 'debut' => $date->getTimestamp(), 'iso' => $date->format(DATE_ATOM),
+            'date' => $date->format('Y-m-d H:i'), 'lieu' => (string)get_post_meta($id, 'imagine_lieu', true),
+            'url' => (string)get_post_meta($id, 'imagine_url_partenaire', true),
+            'nom' => $p->post_title, 'description' => trim(wp_strip_all_tags($p->post_content))];
+    }
+
+    /** Même validation sur la fiche publique et dans la boîte d'édition, brouillon compris. */
+    private static function dateSaisie(int $id): ?\DateTimeImmutable
+    {
         $type = (string)get_post_meta($id, 'imagine_type', true);
         $raw = get_post_meta($id, 'imagine_date', true) . ' ' . get_post_meta($id, 'imagine_heure', true);
         $date = \DateTimeImmutable::createFromFormat('!Y-m-d H:i', $raw, wp_timezone());
-        if (!isset(self::TYPES[$type]) || !$date || $date->format('Y-m-d H:i') !== $raw) {
-            return null;
-        }
-        return ['id' => $id, 'type' => $type, 'debut' => $date->getTimestamp(), 'iso' => $date->format(DATE_ATOM),
-            'date' => $raw, 'lieu' => (string)get_post_meta($id, 'imagine_lieu', true),
-            'url' => (string)get_post_meta($id, 'imagine_url_partenaire', true),
-            'nom' => $p->post_title, 'description' => trim(wp_strip_all_tags($p->post_content))];
+        return isset(self::TYPES[$type]) && $date && $date->format('Y-m-d H:i') === $raw ? $date : null;
     }
 
     public static function ouvert(int $id): bool
@@ -178,21 +193,24 @@ final class Agenda
     public static function boites(): void
     {
         add_meta_box('imagine-agenda-champs', __('Événement', 'imagine-site'), static function ($post): void {
+            if (!self::dateSaisie((int)$post->ID)) {
+                echo '<p id="imagine-agenda-incomplet" role="alert">' . esc_html__('Type, date ou heure invalide : cet événement est absent de l’agenda et ses inscriptions sont fermées. Corrigez les champs ci-dessous.', 'imagine-site') . '</p>';
+            }
             wp_nonce_field('imagine_agenda_champs', 'imagine_agenda_champs_nonce');
             echo '<p><label>' . esc_html__('Type', 'imagine-site') . ' <select name="imagine_type">';
-            foreach (self::TYPES as $value => $label) {
-                echo '<option value="' . esc_attr($value) . '"' . selected(get_post_meta($post->ID, 'imagine_type', true), $value, false) . '>' . esc_html__($label, 'imagine-site') . '</option>';
+            foreach (self::libellesTypes() as $value => $label) {
+                echo '<option value="' . esc_attr($value) . '"' . selected(get_post_meta($post->ID, 'imagine_type', true), $value, false) . '>' . esc_html($label) . '</option>';
             }
             echo '</select></label></p>';
-            foreach (['imagine_date' => ['Date', 'date'], 'imagine_heure' => ['Heure locale du site', 'time'], 'imagine_lieu' => ['Lieu', 'text'], 'imagine_url_partenaire' => ['Lien du partenaire', 'url']] as $key => [$label, $type]) {
-                echo '<p><label>' . esc_html__($label, 'imagine-site') . ' <input type="' . esc_attr($type) . '" name="' . esc_attr($key) . '" value="' . esc_attr((string)get_post_meta($post->ID, $key, true)) . '"></label></p>';
+            foreach (['imagine_date' => [__('Date', 'imagine-site'), 'date'], 'imagine_heure' => [__('Heure locale du site', 'imagine-site'), 'time'], 'imagine_lieu' => [__('Lieu', 'imagine-site'), 'text'], 'imagine_url_partenaire' => [__('Lien du partenaire', 'imagine-site'), 'url']] as $key => [$label, $type]) {
+                echo '<p><label>' . esc_html($label) . ' <input type="' . esc_attr($type) . '" name="' . esc_attr($key) . '" value="' . esc_attr((string)get_post_meta($post->ID, $key, true)) . '"></label></p>';
             }
         }, 'imagine_evenement');
         add_meta_box('imagine-agenda-personne', __('Inscription enregistrée', 'imagine-site'), static function ($post): void {
             if (!current_user_can('manage_options')) { return; }
             echo '<dl id="imagine-agenda-admin">';
-            foreach (['imagine_agenda_nom' => 'Nom', 'imagine_agenda_email' => 'Adresse email', 'imagine_agenda_consentement' => 'Consentement à être recontacté (1 = oui, 0 = non)', 'imagine_agenda_date' => 'Date UTC'] as $key => $label) {
-                echo '<dt>' . esc_html__($label, 'imagine-site') . '</dt><dd>' . esc_html((string)get_post_meta($post->ID, $key, true)) . '</dd>';
+            foreach (['imagine_agenda_nom' => __('Nom', 'imagine-site'), 'imagine_agenda_email' => __('Adresse email', 'imagine-site'), 'imagine_agenda_consentement' => __('Consentement à être recontacté (1 = oui, 0 = non)', 'imagine-site'), 'imagine_agenda_date' => __('Date UTC', 'imagine-site')] as $key => $label) {
+                echo '<dt>' . esc_html($label) . '</dt><dd>' . esc_html((string)get_post_meta($post->ID, $key, true)) . '</dd>';
             }
             echo '<dt>' . esc_html__('Événement', 'imagine-site') . '</dt><dd>' . esc_html(get_the_title($post->post_parent)) . '</dd></dl>';
         }, self::INSCRIPTION);
