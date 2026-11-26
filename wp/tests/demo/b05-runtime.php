@@ -1,11 +1,15 @@
 <?php
+
 /** B05 native, transactional probes; no fictional profile is reset. */
+
 declare(strict_types=1);
 
 namespace Imagine\Demo\B05;
 
-if (!defined('WP_CLI') || !WP_CLI || wp_get_environment_type() !== 'local'
-    || get_option('imagine_demo_site') !== 'imagine-test-demo') {
+if (
+    !defined('WP_CLI') || !WP_CLI || wp_get_environment_type() !== 'local'
+    || get_option('imagine_demo_site') !== 'imagine-test-demo'
+) {
     throw new \RuntimeException('Cible fictive B05 requise.');
 }
 $checks = ['raccord_present' => class_exists('Imagine\\Site\\Partenaires')];
@@ -25,8 +29,10 @@ if ($checks['raccord_present']) {
         foreach ($wp_filter['admin_init']->callbacks as $callbacks) {
             foreach ($callbacks as $callback) {
                 $fn = $callback['function'];
-                if ($fn instanceof \Closure
-                    && (new \ReflectionFunction($fn))->getFileName() === WP_PLUGIN_DIR . '/imagine-site/Partenaires.php') {
+                if (
+                    $fn instanceof \Closure
+                    && (new \ReflectionFunction($fn))->getFileName() === WP_PLUGIN_DIR . '/imagine-site/Partenaires.php'
+                ) {
                     $fn();
                 }
             }

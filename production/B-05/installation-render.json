@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-26T07:14:16.463204+00:00",
+  "scope": "imagine-test-demo",
+  "source_before": {
+    "plugins/imagine-site/Partenaires.php": "e46b0474e12c212381f006f72aebc7c52b3cd568216a9b26f71ea6b88262e881",
+    "plugins/imagine-site/imagine-site.php": "16ee4439656f6ddb172a75bcd95302ee6a0cad304409fa8c931735005d55c54c",
+    "themes/imagine/inc/partenaires.php": null,
+    "themes/imagine/functions.php": "f1ca667e6b807bc1a54fcb725c9a1f24754e9efa791ba4728bdaf35a612485bb",
+    "themes/imagine/front-page.php": "9b47c94a640c68cd47c62c3247ae594679652f3c0461ce49a1347750e2c8bb16",
+    "themes/imagine/archive-imagine_partenaire.php": "0dbdc899111ca70b07a4ade724be3d075bdef50aa2d1d311f7568c10172f60d9",
+    "themes/imagine/single-imagine_partenaire.php": "832e427a9680c42deebe9810a9dd2f5597f67558dba8dacc252b6b9593e0b365"
+  },
+  "source_readback": {
+    "plugins/imagine-site/Partenaires.php": "dcddbf6c9b0552b9be294cc769b659d731148427b0dd5978a465c182062ebaed",
+    "plugins/imagine-site/imagine-site.php": "16ee4439656f6ddb172a75bcd95302ee6a0cad304409fa8c931735005d55c54c",
+    "themes/imagine/inc/partenaires.php": "9cce0863e4023dd903394862c533e05c65b7f56eb923a12e2dc58699c860de5d",
+    "themes/imagine/functions.php": "612f023a78b077eab598dad6f2b691110ab4d2a96d091926e87699925a2d0516",
+    "themes/imagine/front-page.php": "5d1d62a541a785373d5061b9ea194e34a7472febeefae098a58a112bf9cae7b9",
+    "themes/imagine/archive-imagine_partenaire.php": "0ae00bc5fb6959abd4d055e8dafed862fb4cadae9ba0afa91d9f16086e2dfd98",
+    "themes/imagine/single-imagine_partenaire.php": "fbea830a75492e9dd4813f92d1a84d9fe8f61e7e5814164d00e6e47322ef91a7"
+  },
+  "native_preserved": true
+}

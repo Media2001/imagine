@@ -40,6 +40,34 @@ Comptes et identifiants uniquement ; aucun rattachement choisi.
         {
             "id": 21,
             "date_utc": "2026-01-01T12:00:00Z",
+            "articles": 1,
+            "published_articles": 1,
+            "unpublished_articles": 0,
+            "without_theme": 0,
+            "multiple_themes": 0,
+            "without_featured_image": 1,
+            "attached_media": 0,
+            "missing_media_files": 0,
+            "pdf": "non",
+            "pdf_public": null
+        },
+        {
+            "id": 25,
+            "date_utc": "2025-12-01T12:00:00Z",
+            "articles": 0,
+            "published_articles": 0,
+            "unpublished_articles": 0,
+            "without_theme": 0,
+            "multiple_themes": 0,
+            "without_featured_image": 0,
+            "attached_media": 0,
+            "missing_media_files": 0,
+            "pdf": "non",
+            "pdf_public": null
+        },
+        {
+            "id": 24,
+            "date_utc": "2025-12-01T12:00:00Z",
             "articles": 0,
             "published_articles": 0,
             "unpublished_articles": 0,
@@ -58,7 +86,7 @@ Comptes et identifiants uniquement ; aucun rattachement choisi.
             "articles": 1
         }
     ],
-    "audit_sha256": "a0a9e33cf932197ec114ffba71666ec8debfec2d5fb1a744ae9dea41546befdb",
-    "mapping_sha256": "e5145faa82fcca83c9ef5f7f1610ae12d2fe813e8355ad9b652bba139d5704f9"
+    "audit_sha256": "fbc1bfa25d13567728fc548ccdf361d264c3b54e0e71660d56a2b7722738762d",
+    "mapping_sha256": "9e6b0ffdead0b5cbee98b700cd654b3c4900153fc9e6f9d59b6c6a5294f9778f"
 }
 ```

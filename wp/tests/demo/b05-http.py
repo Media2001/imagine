@@ -16,7 +16,7 @@ def run(label):
     checks, blocked, pages = {}, [], {}
     baseline = b05.state()
     fixture = b05.wp(r'''global $wpdb;echo wp_json_encode(['option'=>$wpdb->get_row("SELECT * FROM {$wpdb->options} WHERE option_name='imagine_partenaire_du_mois'",ARRAY_A),
-        'partners'=>get_posts(['post_type'=>'imagine_partenaire','post_status'=>'publish','numberposts'=>-1,'orderby'=>'ID','order'=>'ASC'])]);''')
+        'article'=>get_post(17), 'partners'=>get_posts(['post_type'=>'imagine_partenaire','post_status'=>'publish','numberposts'=>-1,'orderby'=>'ID','order'=>'ASC'])]);''')
     partners = fixture['partners']
     assert len(partners) == 2
     one, two = partners
@@ -27,7 +27,10 @@ def run(label):
         canary = '<p><a href="https://example.org/b05-fictif" rel="noopener nofollow">Partenaire fictif externe</a> <a href="//example.org/b05-autre">Autre lien fictif</a> <a href="/partenaires/">Interne</a> <a href="#suite">Ancre</a></p>'
         for partner in partners:
             content = partner['post_content'] + canary
-            b05.wp('global $wpdb;$wpdb->update($wpdb->posts,["post_content"=>' + json.dumps(content, ensure_ascii=False) + '],["ID"=>' + str(partner['ID']) + ']);clean_post_cache(' + str(partner['ID']) + ');echo wp_json_encode(true);')
+            b05.wp('global $wpdb;$wpdb->update($wpdb->posts,["post_content"=>' + b05.php_json(content) + '],["ID"=>' + str(partner['ID']) + ']);clean_post_cache(' + str(partner['ID']) + ');echo wp_json_encode(true);')
+        article = fixture['article']
+        content = article['post_content'] + '<p><a href="https://example.org/editorial-b05" rel="noopener">Source éditoriale témoin</a></p>'
+        b05.wp('global $wpdb;$wpdb->update($wpdb->posts,["post_content"=>' + b05.php_json(content) + '],["ID"=>17]);clean_post_cache(17);echo wp_json_encode(true);')
         with sync_playwright() as pw:
             browser = pw.chromium.launch(headless=True)
             try:
@@ -73,19 +76,14 @@ def run(label):
                     text = page.content()
                     checks[kind + '_sans_partenaire'] = all(p['post_title'] not in text and ('?p=' + str(p['ID'])) not in text and ('/partenaires/' + p['post_name'] + '/') not in text for p in partners)
                 visit('article', '/?p=17')
-                checks['fiche_article_non_sponsored'] = page.locator('main a[rel~=sponsored]').count() == 0
+                checks['fiche_article_non_sponsored'] = page.locator('main a[href="https://example.org/editorial-b05"]').count() == 1 and page.locator('main a[rel~=sponsored]').count() == 0
                 select(one['ID'])
-                if label.startswith('final'):
-                    visit('capture_accueil', '/')
-                    page.screenshot(path=str(b05.PROOF / 'accueil-partenaire.png'), full_page=True)
-                    visit('capture_fiche', '/?p=' + str(one['ID']))
-                    page.screenshot(path=str(b05.PROOF / 'fiche-partenaire.png'), full_page=True)
                 context.close()
             finally:
                 browser.close()
     finally:
-        for partner in partners:
-            b05.wp('global $wpdb;$wpdb->update($wpdb->posts,["post_content"=>' + json.dumps(partner['post_content'], ensure_ascii=False) + '],["ID"=>' + str(partner['ID']) + ']);clean_post_cache(' + str(partner['ID']) + ');echo wp_json_encode(true);')
+        for partner in partners + [fixture['article']]:
+            b05.wp('global $wpdb;$wpdb->update($wpdb->posts,["post_content"=>' + b05.php_json(partner['post_content']) + '],["ID"=>' + str(partner['ID']) + ']);clean_post_cache(' + str(partner['ID']) + ');echo wp_json_encode(true);')
         raw = fixture['option']
         code = 'global $wpdb;$wpdb->delete($wpdb->options,["option_name"=>"' + OPTION + '"]);'
         if raw:

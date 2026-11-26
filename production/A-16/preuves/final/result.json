@@ -56,6 +56,11 @@
       }
     },
     {
+      "check": "classic:equal_dates_id_descending",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:exact_all_issue_counts_dates_pdf_media_themes",
       "status": "PASS",
       "detail": [
@@ -90,6 +95,34 @@
         {
           "id": 24,
           "date_utc": "2026-01-01T12:00:00Z",
+          "articles": 1,
+          "published_articles": 1,
+          "unpublished_articles": 0,
+          "without_theme": 0,
+          "multiple_themes": 0,
+          "without_featured_image": 1,
+          "attached_media": 0,
+          "missing_media_files": 0,
+          "pdf": "non",
+          "pdf_public": null
+        },
+        {
+          "id": 28,
+          "date_utc": "2025-12-01T12:00:00Z",
+          "articles": 0,
+          "published_articles": 0,
+          "unpublished_articles": 0,
+          "without_theme": 0,
+          "multiple_themes": 0,
+          "without_featured_image": 0,
+          "attached_media": 0,
+          "missing_media_files": 0,
+          "pdf": "non",
+          "pdf_public": null
+        },
+        {
+          "id": 27,
+          "date_utc": "2025-12-01T12:00:00Z",
           "articles": 0,
           "published_articles": 0,
           "unpublished_articles": 0,
@@ -124,12 +157,35 @@
       "detail": null
     },
     {
-      "check": "classic:absent_mapping_key_named",
+      "check": "classic:excluded_number_article_not_orphan",
       "status": "PASS",
       "detail": null
     },
     {
-      "check": "classic:mapping_required",
+      "check": "classic:private_root_inventory_succeeds",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "classic:private_pdf_present",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:private_pdf_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:private_root_paths_never_output",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:private_files_unchanged",
       "status": "PASS",
       "detail": null
     },
@@ -205,6 +261,16 @@
       "detail": null
     },
     {
+      "check": "classic:absent_mapping_key_code_only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:mapping_required",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "hpos:commercial_fixture",
       "status": "PASS",
       "detail": {
@@ -232,6 +298,11 @@
         "exit": 0,
         "stderr": ""
       }
+    },
+    {
+      "check": "hpos:equal_dates_id_descending",
+      "status": "PASS",
+      "detail": null
     },
     {
       "check": "hpos:exact_all_issue_counts_dates_pdf_media_themes",
@@ -268,6 +339,34 @@
         {
           "id": 24,
           "date_utc": "2026-01-01T12:00:00Z",
+          "articles": 1,
+          "published_articles": 1,
+          "unpublished_articles": 0,
+          "without_theme": 0,
+          "multiple_themes": 0,
+          "without_featured_image": 1,
+          "attached_media": 0,
+          "missing_media_files": 0,
+          "pdf": "non",
+          "pdf_public": null
+        },
+        {
+          "id": 28,
+          "date_utc": "2025-12-01T12:00:00Z",
+          "articles": 0,
+          "published_articles": 0,
+          "unpublished_articles": 0,
+          "without_theme": 0,
+          "multiple_themes": 0,
+          "without_featured_image": 0,
+          "attached_media": 0,
+          "missing_media_files": 0,
+          "pdf": "non",
+          "pdf_public": null
+        },
+        {
+          "id": 27,
+          "date_utc": "2025-12-01T12:00:00Z",
           "articles": 0,
           "published_articles": 0,
           "unpublished_articles": 0,
@@ -302,12 +401,35 @@
       "detail": null
     },
     {
-      "check": "hpos:absent_mapping_key_named",
+      "check": "hpos:excluded_number_article_not_orphan",
       "status": "PASS",
       "detail": null
     },
     {
-      "check": "hpos:mapping_required",
+      "check": "hpos:private_root_inventory_succeeds",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "hpos:private_pdf_present",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:private_pdf_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:private_root_paths_never_output",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:private_files_unchanged",
       "status": "PASS",
       "detail": null
     },
@@ -379,6 +501,16 @@
     },
     {
       "check": "hpos:config_not_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:absent_mapping_key_code_only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:mapping_required",
       "status": "PASS",
       "detail": null
     },

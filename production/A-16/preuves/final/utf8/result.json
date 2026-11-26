@@ -1,0 +1,539 @@
+{
+  "suite": "A02-real-commercial-fixture",
+  "checks": [
+    {
+      "check": "lint:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:seed.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:fingerprint.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:unit.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:readonly-probe.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": false,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "classic:a02_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:cli_and_actual_readonly_guards",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "classic:equal_dates_id_descending",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:exact_all_issue_counts_dates_pdf_media_themes",
+      "status": "PASS",
+      "detail": [
+        {
+          "id": 26,
+          "date_utc": "2026-03-01T12:00:00Z",
+          "articles": 2,
+          "published_articles": 1,
+          "unpublished_articles": 1,
+          "without_theme": 1,
+          "multiple_themes": 1,
+          "without_featured_image": 1,
+          "attached_media": 2,
+          "missing_media_files": 1,
+          "pdf": "oui",
+          "pdf_public": true
+        },
+        {
+          "id": 25,
+          "date_utc": "2026-02-01T12:00:00Z",
+          "articles": 1,
+          "published_articles": 1,
+          "unpublished_articles": 0,
+          "without_theme": 0,
+          "multiple_themes": 0,
+          "without_featured_image": 1,
+          "attached_media": 0,
+          "missing_media_files": 0,
+          "pdf": "declare_mais_fichier_absent",
+          "pdf_public": true
+        },
+        {
+          "id": 24,
+          "date_utc": "2026-01-01T12:00:00Z",
+          "articles": 1,
+          "published_articles": 1,
+          "unpublished_articles": 0,
+          "without_theme": 0,
+          "multiple_themes": 0,
+          "without_featured_image": 1,
+          "attached_media": 0,
+          "missing_media_files": 0,
+          "pdf": "non",
+          "pdf_public": null
+        },
+        {
+          "id": 28,
+          "date_utc": "2025-12-01T12:00:00Z",
+          "articles": 0,
+          "published_articles": 0,
+          "unpublished_articles": 0,
+          "without_theme": 0,
+          "multiple_themes": 0,
+          "without_featured_image": 0,
+          "attached_media": 0,
+          "missing_media_files": 0,
+          "pdf": "non",
+          "pdf_public": null
+        },
+        {
+          "id": 27,
+          "date_utc": "2025-12-01T12:00:00Z",
+          "articles": 0,
+          "published_articles": 0,
+          "unpublished_articles": 0,
+          "without_theme": 0,
+          "multiple_themes": 0,
+          "without_featured_image": 0,
+          "attached_media": 0,
+          "missing_media_files": 0,
+          "pdf": "non",
+          "pdf_public": null
+        }
+      ]
+    },
+    {
+      "check": "classic:orphan_published_by_utc_year",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_titles_text_author_paths",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:private_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:configurable_last_n_and_deterministic_order",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:excluded_number_article_not_orphan",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:private_root_inventory_succeeds",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "classic:private_pdf_present",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:private_pdf_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:private_root_paths_never_output",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:private_files_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:explicit_link_variant:parent",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "classic:explicit_link_variant:taxonomy",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "classic:replay_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:repo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:ancestor",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:unconfined_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:dropin_named_no_execution",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_tables_scheduler_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:config_not_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:absent_mapping_key_code_only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:mapping_required",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": true,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "hpos:a02_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:cli_and_actual_readonly_guards",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "hpos:equal_dates_id_descending",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:exact_all_issue_counts_dates_pdf_media_themes",
+      "status": "PASS",
+      "detail": [
+        {
+          "id": 26,
+          "date_utc": "2026-03-01T12:00:00Z",
+          "articles": 2,
+          "published_articles": 1,
+          "unpublished_articles": 1,
+          "without_theme": 1,
+          "multiple_themes": 1,
+          "without_featured_image": 1,
+          "attached_media": 2,
+          "missing_media_files": 1,
+          "pdf": "oui",
+          "pdf_public": true
+        },
+        {
+          "id": 25,
+          "date_utc": "2026-02-01T12:00:00Z",
+          "articles": 1,
+          "published_articles": 1,
+          "unpublished_articles": 0,
+          "without_theme": 0,
+          "multiple_themes": 0,
+          "without_featured_image": 1,
+          "attached_media": 0,
+          "missing_media_files": 0,
+          "pdf": "declare_mais_fichier_absent",
+          "pdf_public": true
+        },
+        {
+          "id": 24,
+          "date_utc": "2026-01-01T12:00:00Z",
+          "articles": 1,
+          "published_articles": 1,
+          "unpublished_articles": 0,
+          "without_theme": 0,
+          "multiple_themes": 0,
+          "without_featured_image": 1,
+          "attached_media": 0,
+          "missing_media_files": 0,
+          "pdf": "non",
+          "pdf_public": null
+        },
+        {
+          "id": 28,
+          "date_utc": "2025-12-01T12:00:00Z",
+          "articles": 0,
+          "published_articles": 0,
+          "unpublished_articles": 0,
+          "without_theme": 0,
+          "multiple_themes": 0,
+          "without_featured_image": 0,
+          "attached_media": 0,
+          "missing_media_files": 0,
+          "pdf": "non",
+          "pdf_public": null
+        },
+        {
+          "id": 27,
+          "date_utc": "2025-12-01T12:00:00Z",
+          "articles": 0,
+          "published_articles": 0,
+          "unpublished_articles": 0,
+          "without_theme": 0,
+          "multiple_themes": 0,
+          "without_featured_image": 0,
+          "attached_media": 0,
+          "missing_media_files": 0,
+          "pdf": "non",
+          "pdf_public": null
+        }
+      ]
+    },
+    {
+      "check": "hpos:orphan_published_by_utc_year",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_titles_text_author_paths",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:private_permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:configurable_last_n_and_deterministic_order",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:excluded_number_article_not_orphan",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:private_root_inventory_succeeds",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "hpos:private_pdf_present",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:private_pdf_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:private_root_paths_never_output",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:private_files_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:explicit_link_variant:parent",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "hpos:explicit_link_variant:taxonomy",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "hpos:replay_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:repo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:ancestor",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:unconfined_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:dropin_named_no_execution",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_tables_scheduler_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:config_not_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:absent_mapping_key_code_only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:mapping_required",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "network_interfaces",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp6",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 0,
+  "licensed_sha256": {
+    "woocommerce-subscriptions.zip": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083",
+    "woocommerce-memberships.zip": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285"
+  },
+  "no_real_site": true
+}

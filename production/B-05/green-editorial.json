@@ -1,0 +1,105 @@
+{
+  "at": "2026-11-26T07:21:05.276137+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "accueil_sans_HTTP200": true,
+    "bloc_absent_sans_choix": true,
+    "accueil_0_HTTP200": true,
+    "bloc_unique_choix_0": true,
+    "etiquette_accueil_0": true,
+    "conteneur_accueil_0": true,
+    "articles_accueil_non_sponsored_0": true,
+    "accueil_1_HTTP200": true,
+    "bloc_unique_choix_1": true,
+    "etiquette_accueil_1": true,
+    "conteneur_accueil_1": true,
+    "articles_accueil_non_sponsored_1": true,
+    "liste_HTTP200": true,
+    "titre_nos_partenaires": true,
+    "liste_deux_fiches_distinctes": true,
+    "etiquettes_liste": true,
+    "fiche_0_HTTP200": true,
+    "fiche_classe_et_etiquette_0": true,
+    "tous_sortants_sponsored_0": true,
+    "rel_preexistant_conserve_0": true,
+    "liens_internes_non_commerciaux_0": true,
+    "fiche_1_HTTP200": true,
+    "fiche_classe_et_etiquette_1": true,
+    "tous_sortants_sponsored_1": true,
+    "rel_preexistant_conserve_1": true,
+    "liens_internes_non_commerciaux_1": true,
+    "recherche_HTTP200": true,
+    "recherche_sans_partenaire": true,
+    "recherche_type_force_HTTP200": true,
+    "recherche_type_force_sans_partenaire": true,
+    "flux_HTTP200": true,
+    "flux_sans_partenaire": true,
+    "flux_type_force_HTTP200": true,
+    "flux_type_force_sans_partenaire": true,
+    "article_HTTP200": true,
+    "fiche_article_non_sponsored": true,
+    "restauration_profils_et_corps_exacte": true,
+    "option_restauree_exactement": true
+  },
+  "total": 38,
+  "failures": [],
+  "pages": {
+    "accueil_sans": {
+      "path": "/",
+      "sha256": "db410bea45e4f61c5f8a36ed3b03ed44747bb95c24f0452fa0cd97e4004b8139",
+      "status": 200
+    },
+    "accueil_0": {
+      "path": "/",
+      "sha256": "8cce6682e9f555015a476c29eb60bd73c0b9e9b89853597fc33df966d97a6e3b",
+      "status": 200
+    },
+    "accueil_1": {
+      "path": "/",
+      "sha256": "46c753cdfe2c962959a1033f0b3e386f2f5aa3446a0f0133971fee071c32f408",
+      "status": 200
+    },
+    "liste": {
+      "path": "/partenaires/",
+      "sha256": "18ced3ff74b2842cf377641f7a19b4fb8d10adfcf21c18c3fb048976cef54167",
+      "status": 200
+    },
+    "fiche_0": {
+      "path": "/?p=48",
+      "sha256": "1f65b0287386fc55c546c3bd0f9d38a52212535868565395ec16afc35dd9022c",
+      "status": 200
+    },
+    "fiche_1": {
+      "path": "/?p=49",
+      "sha256": "d7db102992481ad03834713bf8ad6aa45ea1d4d029b7f3813a6af1e09e7184b5",
+      "status": 200
+    },
+    "recherche": {
+      "path": "/?s=fictifs",
+      "sha256": "9bb8a784f2643adfee72768528e0258b0aedb4e8e37fc0d3f81d3ae398a464c2",
+      "status": 200
+    },
+    "recherche_type_force": {
+      "path": "/?s=fictifs&post_type=imagine_partenaire",
+      "sha256": "942415016213a3c0003f59cf427b807290b42beeed3339189e8ea482c26f52b0",
+      "status": 200
+    },
+    "flux": {
+      "path": "/?feed=rss2",
+      "sha256": "bbefa254761178a1a098a541dc27d8f90f5c19f65594ffe0842699cd6503107d",
+      "status": 200
+    },
+    "flux_type_force": {
+      "path": "/?feed=rss2&post_type=imagine_partenaire",
+      "sha256": "3176ea70c7d7827c51ae9b556f77c98ff3ba330a9d077de99e0e7b35813b4116",
+      "status": 200
+    },
+    "article": {
+      "path": "/?p=17",
+      "sha256": "8eadc867ba8fabff2274797313ab939beebc356be6c742cb95da75de4e2011eb",
+      "status": 200
+    }
+  },
+  "outside_demo_blocked": [],
+  "canaries_restored": true
+}

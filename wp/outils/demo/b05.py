@@ -1,7 +1,7 @@
 """B05 scoped code install and immutable receipts, fictional target only."""
 from pathlib import Path
 from datetime import datetime, timezone
-import copy, hashlib, json, re, subprocess, sys
+import base64, copy, hashlib, json, re, subprocess, sys
 sys.dont_write_bytecode = True
 import c21
 import profils
@@ -22,6 +22,10 @@ def save(label, data):
     assert not path.exists(), 'Receipt already exists: ' + str(path)
     path.write_text(json.dumps(dict(at=datetime.now(timezone.utc).isoformat(), scope='imagine-test-demo', **data), ensure_ascii=False, indent=2), encoding='utf-8')
     return data
+
+
+def php_json(value):
+    return 'json_decode(base64_decode("' + base64.b64encode(json.dumps(value, ensure_ascii=False).encode()).decode() + '"),true)'
 
 
 def normalize(state):

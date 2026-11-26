@@ -10,6 +10,18 @@
             "status": "PASS"
         },
         {
+            "check": "liaison_keys_order_independent",
+            "status": "PASS"
+        },
+        {
+            "check": "liaison_exact_keys:missing",
+            "status": "PASS"
+        },
+        {
+            "check": "liaison_exact_keys:extra",
+            "status": "PASS"
+        },
+        {
             "check": "missing_mapping_field:version",
             "status": "PASS"
         },
@@ -22,11 +34,63 @@
             "status": "PASS"
         },
         {
+            "check": "optional_private_root_accepted",
+            "status": "PASS"
+        },
+        {
+            "check": "private_root_strict_local_syntax:0",
+            "status": "PASS"
+        },
+        {
+            "check": "private_root_strict_local_syntax:1",
+            "status": "PASS"
+        },
+        {
+            "check": "private_root_strict_local_syntax:2",
+            "status": "PASS"
+        },
+        {
+            "check": "private_root_strict_local_syntax:3",
+            "status": "PASS"
+        },
+        {
+            "check": "private_root_strict_local_syntax:4",
+            "status": "PASS"
+        },
+        {
+            "check": "private_root_strict_local_syntax:5",
+            "status": "PASS"
+        },
+        {
+            "check": "private_root_strict_local_syntax:6",
+            "status": "PASS"
+        },
+        {
+            "check": "private_root_strict_local_syntax:7",
+            "status": "PASS"
+        },
+        {
+            "check": "private_root_strict_local_syntax:8",
+            "status": "PASS"
+        },
+        {
+            "check": "private_root_strict_local_syntax:9",
+            "status": "PASS"
+        },
+        {
+            "check": "private_root_strict_local_syntax:10",
+            "status": "PASS"
+        },
+        {
             "check": "explicit_taxonomy_issue_source",
             "status": "PASS"
         },
         {
             "check": "never_guess_links",
+            "status": "PASS"
+        },
+        {
+            "check": "report_encoded_once_after_both_hashes",
             "status": "PASS"
         }
     ]

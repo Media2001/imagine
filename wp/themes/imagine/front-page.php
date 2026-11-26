@@ -38,5 +38,6 @@ get_header();
     <h2 id="imagine-abonnement"><?php esc_html_e('S’abonner', 'imagine'); ?></h2>
     <p><?php esc_html_e('Emplacement du futur lien d’abonnement. Le tunnel n’est pas réalisé dans B-01 ; aucun achat n’est possible.', 'imagine'); ?></p>
 </section>
+<?php imagine_partner_month(); ?>
 <?php get_search_form(); ?>
 <?php get_footer(); ?>

@@ -41,6 +41,13 @@ final class Partenaires
 
     public static function register(): void
     {
+        add_action('pre_get_posts', [self::class, 'exclureRechercheFlux']);
+        add_filter('register_post_type_args', static function (array $args, string $type): array {
+            if ($type === 'imagine_partenaire') {
+                $args['exclude_from_search'] = true;
+            }
+            return $args;
+        }, 10, 2);
         add_action('admin_init', static function (): void {
             register_setting('imagine_reglages', self::OPTION, [
                 'type' => 'integer', 'sanitize_callback' => [self::class, 'nettoyer'], 'show_in_rest' => false,
@@ -72,14 +79,34 @@ final class Partenaires
         }, 130);
     }
 
+    /** Also close explicitly forced partner types, without changing editorial queries. */
+    public static function exclureRechercheFlux(\WP_Query $query): void
+    {
+        if (is_admin() || (!$query->is_search() && !$query->is_feed())) {
+            return;
+        }
+        $types = $query->get('post_type');
+        if (!$types || $types === 'any' || (is_array($types) && in_array('any', $types, true))) {
+            $types = $query->is_feed() && !$types ? ['post']
+                : array_values(get_post_types(['exclude_from_search' => false]));
+        }
+        $types = array_values(array_diff((array) $types, ['imagine_partenaire']));
+        $query->set('post_type', $types ?: ['post']);
+        if (!$types) {
+            $query->set('post__in', [0]);
+        }
+    }
+
     public static function champ(): void
     {
         echo '<h2>' . esc_html__('Partenaires', 'imagine-site') . '</h2><p><label for="imagine-partenaire-du-mois">'
             . esc_html__('Partenaire du mois', 'imagine-site') . '</label></p><select id="imagine-partenaire-du-mois" name="'
             . esc_attr(self::OPTION) . '"><option value="0">' . esc_html__('Aucun — bloc masqué', 'imagine-site') . '</option>';
         $selected = self::selection()?->ID ?? 0;
-        foreach (get_posts(['post_type' => 'imagine_partenaire', 'post_status' => 'publish',
-            'numberposts' => -1, 'orderby' => ['title' => 'ASC', 'ID' => 'ASC']]) as $post) {
+        foreach (
+            get_posts(['post_type' => 'imagine_partenaire', 'post_status' => 'publish',
+            'numberposts' => -1, 'orderby' => ['title' => 'ASC', 'ID' => 'ASC']]) as $post
+        ) {
             echo '<option value="' . esc_attr((string) $post->ID) . '"' . selected($selected, $post->ID, false) . '>'
                 . esc_html($post->post_title) . '</option>';
         }
