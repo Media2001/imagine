@@ -1,0 +1,101 @@
+{
+  "at": "2026-11-26T00:22:42.777548+00:00",
+  "status": "PRET_TECHNIQUE_C17_AVEC_RESERVE_HISTORIQUE_C09",
+  "scope": "imagine-test-demo",
+  "receipts": {
+    "http-final": {
+      "checks": 49,
+      "failures": []
+    },
+    "reglages-final": {
+      "checks": 8,
+      "failures": []
+    },
+    "faults-final": {
+      "checks": 8,
+      "failures": []
+    },
+    "unit-final": {
+      "tests": 5,
+      "assertions": 18,
+      "container_removed": true
+    },
+    "unit-root-final": {
+      "tests": 81,
+      "assertions": 499,
+      "container_removed": true
+    }
+  },
+  "canonical_T01": {
+    "tests": 1045,
+    "assertions": 34247,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pass": true
+  },
+  "sha256_readback": {
+    "plugins/imagine-site/JustificatifRegles.php": "74ed17ed47a89f20b71d7684d88e54c708cd6fe602978cd751e028314646f764",
+    "plugins/imagine-site/Justificatifs.php": "de2fe4b3c8fc0fbc733ba1a92a90622ae7b5b92468bdfc492b603c2986e98fee",
+    "plugins/imagine-site/JustificatifsReglages.php": "112891b7711f1e3a7f0382ed5ee6cf96bc9a4d09872fc591767b593c6b2feee0",
+    "plugins/imagine-site/PdfNumero.php": "dbb32496968b9e93c1ed90678ddf477b80bebd703019abff92149b327d2e0d49",
+    "plugins/imagine-site/imagine-site.php": "ce6750241cd7749c0c101668c7f9ea6f19ded1c2128ef4373a790ac8ad254708",
+    "themes/imagine/parts/mon-compte.php": "4b2c6983c96ee8defafd4eba64e7ccb7dfa1009c48d6dba34478a9a4a1a58ad2",
+    "imagine-demo-build/c09-seed.php": "7b7ad355e03208cca739504ff64aef68969e4cfdd8a73fe94e4b3a10382fc382",
+    "imagine-demo-build/c17-profils.php": "cef60aa196026fd53569bcf2d67e95163697d145573801db8d0325469a4541fa"
+  },
+  "source_sha256": {
+    "wp/plugins/imagine-site/JustificatifRegles.php": "74ed17ed47a89f20b71d7684d88e54c708cd6fe602978cd751e028314646f764",
+    "wp/plugins/imagine-site/Justificatifs.php": "de2fe4b3c8fc0fbc733ba1a92a90622ae7b5b92468bdfc492b603c2986e98fee",
+    "wp/plugins/imagine-site/JustificatifsReglages.php": "112891b7711f1e3a7f0382ed5ee6cf96bc9a4d09872fc591767b593c6b2feee0",
+    "wp/plugins/imagine-site/PdfNumero.php": "dbb32496968b9e93c1ed90678ddf477b80bebd703019abff92149b327d2e0d49",
+    "wp/plugins/imagine-site/imagine-site.php": "ce6750241cd7749c0c101668c7f9ea6f19ded1c2128ef4373a790ac8ad254708",
+    "wp/themes/imagine/parts/mon-compte.php": "4b2c6983c96ee8defafd4eba64e7ccb7dfa1009c48d6dba34478a9a4a1a58ad2",
+    "wp/outils/demo/c09-seed.php": "7b7ad355e03208cca739504ff64aef68969e4cfdd8a73fe94e4b3a10382fc382",
+    "wp/outils/demo/c17-profils.php": "cef60aa196026fd53569bcf2d67e95163697d145573801db8d0325469a4541fa",
+    "wp/outils/demo/profils.py": "dcf771533e4937ad4a182496679c75af64f8347cf5e61f6ca137ecebcc7c9e29",
+    "wp/outils/demo/c17.py": "45716611a3ff8002498f1ddbacefd86e02d4133c4fb6dc5cab7edccbd7dfc8d0",
+    "wp/outils/demo/c17-unit.py": "74e83eaf4845715963a3223c20c9278d9fab82e0f0e4e583db851c553d296899",
+    "wp/plugins/imagine-site/tests/JustificatifReglesTest.php": "f713c97f5083da89fc1947307942db8a4d29620fc65ad93bdea2cd327e48a467",
+    "wp/tests/demo/c17-faults.py": "de4f38287b84760077a086244bb5cc9a88508981b8f77ed37fbb680d9173cc74",
+    "wp/tests/demo/c17-http.py": "991c8dea777e4f7984c46e153ddceec40455eac8b438923dc7afbfe6cfbcce3a",
+    "wp/tests/demo/c17-reglages.py": "cf1ae957b39a942e9be53e8368e46b0040e9e350091e963c270e54e79d285a4e",
+    "wp/tests/demo/c17-verifier.py": "ca9121fe22cc214be7a860b2f3703ca5640e17f35b166cf99b70e03a260f0245",
+    "wp/tests/demo/c17-visuel.py": "e3a1a46bd53c622f57018ebcc12e2fa66b44a9f8a98b7ad00573c3694d3234b9",
+    "wp/tests/demo/c17_http.py": "fa917e8d738c12f68c46a64dfdc6ee6d375a5540018ce74025cf6a8cb0557b19"
+  },
+  "native_state_exactly_preserved": true,
+  "C16_nonshared_sources_unchanged": {
+    "CommandeRegles.php": "a49b51d864bd46e2d59b381abb1bfd4ac1a0c1e4bcb03d9d0402d7ecf7ec0006",
+    "CommandeNative.php": "3c3724e034488be0ce0a338d3cebb839da29ac053bc17e348ebec1764a309d17",
+    "CommandeAdmin.php": "6d033e01249479efaddc12c59884e9bf2525dec8b482693e6cae6636ce0a4c47",
+    "SansEmail.php": "720148ca8163849666a68ef968d6d552647bbc4d909c3a287d12ce1a98def59c",
+    "c16-reset.php": "c82dd0e082ceff2d8267444dbd9227f3299ee9ce1d4974bc7702f4b77a156193"
+  },
+  "shared_digest_successor_not_historical_rewrite": {
+    "imagine-site.php": {
+      "historical_C16_sha256": "080a979aa5b40258f181e761298850d14ae1c07856782c1d19bad2fe774500a8",
+      "current_C17_sha256": "ce6750241cd7749c0c101668c7f9ea6f19ded1c2128ef4373a790ac8ad254708"
+    },
+    "c09-seed.php": {
+      "historical_C16_sha256": "55aeb3d11504d845798ddfbc2107212785a090a322072f22a8cf281a3ecb0714",
+      "current_C17_sha256": "7b7ad355e03208cca739504ff64aef68969e4cfdd8a73fe94e4b3a10382fc382"
+    }
+  },
+  "native_C09": {
+    "exit": 1,
+    "total": 382,
+    "failures": [
+      "A-PAPIER:action_native_planifiee_ou_absente_selon_statut"
+    ],
+    "historical_action_unchanged": {
+      "action_id": "8103",
+      "status": "canceled",
+      "scheduled_date_gmt": "2026-11-25 19:01:50",
+      "last_attempt_gmt": "0000-00-00 00:00:00"
+    }
+  },
+  "global_C09_green": false,
+  "visual_approval": false,
+  "C18_treated": false
+}

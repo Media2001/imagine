@@ -1,6 +1,6 @@
 {
   "checks": {
-    "champ_dans_formulaire_C10": false,
+    "champ_dans_formulaire_C10": true,
     "POST_C10_persistant": true,
     "categorie_configuree_depot": true,
     "vide_refuse_liste_conservee": true,
@@ -10,7 +10,5 @@
     "autres_options_commercial_acces_preserves": true
   },
   "total": 8,
-  "failures": [
-    "champ_dans_formulaire_C10"
-  ]
+  "failures": []
 }

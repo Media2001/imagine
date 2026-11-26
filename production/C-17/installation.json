@@ -1,9 +1,9 @@
 {
-  "at": "2026-11-26T00:14:24.696188+00:00",
+  "at": "2026-11-26T00:20:05.266235+00:00",
   "scope": "imagine-test-demo",
   "sha256_before": {
     "plugins/imagine-site/JustificatifRegles.php": "aa032ec0a86b7b794ee105877648885b4d8dc734928723dcc9bba83fd4aa2cd3",
-    "plugins/imagine-site/Justificatifs.php": "c1675f81a693f1db64d969222052bb467cfbfdbc2e15fea597063ae45b69e9cc",
+    "plugins/imagine-site/Justificatifs.php": "0df7bce829a7385d91d8a6e230ff5f9385b673471ca8f374c5dca0fc4ef192ff",
     "plugins/imagine-site/JustificatifsReglages.php": "620a939fc00d99d96a7255586765183e85539f29991c422c2b4360d95dfd81fc",
     "plugins/imagine-site/PdfNumero.php": "dbb32496968b9e93c1ed90678ddf477b80bebd703019abff92149b327d2e0d49",
     "plugins/imagine-site/imagine-site.php": "ce6750241cd7749c0c101668c7f9ea6f19ded1c2128ef4373a790ac8ad254708",
@@ -12,9 +12,9 @@
     "imagine-demo-build/c17-profils.php": "cef60aa196026fd53569bcf2d67e95163697d145573801db8d0325469a4541fa"
   },
   "sha256_readback": {
-    "plugins/imagine-site/JustificatifRegles.php": "aa032ec0a86b7b794ee105877648885b4d8dc734928723dcc9bba83fd4aa2cd3",
-    "plugins/imagine-site/Justificatifs.php": "0df7bce829a7385d91d8a6e230ff5f9385b673471ca8f374c5dca0fc4ef192ff",
-    "plugins/imagine-site/JustificatifsReglages.php": "620a939fc00d99d96a7255586765183e85539f29991c422c2b4360d95dfd81fc",
+    "plugins/imagine-site/JustificatifRegles.php": "74ed17ed47a89f20b71d7684d88e54c708cd6fe602978cd751e028314646f764",
+    "plugins/imagine-site/Justificatifs.php": "de2fe4b3c8fc0fbc733ba1a92a90622ae7b5b92468bdfc492b603c2986e98fee",
+    "plugins/imagine-site/JustificatifsReglages.php": "112891b7711f1e3a7f0382ed5ee6cf96bc9a4d09872fc591767b593c6b2feee0",
     "plugins/imagine-site/PdfNumero.php": "dbb32496968b9e93c1ed90678ddf477b80bebd703019abff92149b327d2e0d49",
     "plugins/imagine-site/imagine-site.php": "ce6750241cd7749c0c101668c7f9ea6f19ded1c2128ef4373a790ac8ad254708",
     "themes/imagine/parts/mon-compte.php": "4b2c6983c96ee8defafd4eba64e7ccb7dfa1009c48d6dba34478a9a4a1a58ad2",
@@ -996,12 +996,12 @@
     "P-SOL-ATT": {
       "categorie": "à préciser",
       "decision": "en_attente",
-      "blob": "ad23f195a7e3b330cb0e36590622163b"
+      "blob": "350c9ef1b0eab8eeefd97be55117d122"
     },
     "P-SOL-OK": {
       "categorie": "à préciser",
       "decision": "valide",
-      "date_decision": "2026-11-26T00:12:00Z",
+      "date_decision": "2026-11-26T00:15:00Z",
       "fin": "2027-01-10",
       "operateur": "fixture-c09-fictive"
     }
