@@ -1,3 +1,9 @@
+# Finalisation parent — 2026-11-26T17:06:28.715375+01:00
+
+**PRET : prêt à relire, non clos.** Préparation commune et rejeu global exécutés par le parent sur les sources finales, en UTF-8 et cp1252 : 1 123 tests, 34 569 assertions ; 14 outils, 279 contrôles ; zéro échec, erreur ou ignoré. Vérificateur propre relancé vert dans les deux contextes. Preuve des commandes et sources : `files/rapports/2026-11-26-17h06-portes-parent.json`. Les portes en attente décrites ci-dessous sont le constat historique de l’enfant, désormais accomplies par le parent. Aucun GO réel.
+
+---
+
 # A22 — gardien commun livré, candidat vérifié
 
 **Un seul gardien** `wp/outils/bascule/stream_guard.py` est utilisé par A20/A21 et tous les inventaires concernés. Leurs validations propres de rapports restent en place. A03/A11 gardent leurs commandes PHP publiques via le pont minimal ; les autres commandes et arguments documentés sont conservés. Les refus historiques d’arguments sont contrôlés avant staging.

@@ -3,6 +3,7 @@ import sys
 sys.dont_write_bytecode = True
 from pathlib import Path
 import importlib.util, hashlib, json, re
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]/'outils/demo'))
 import b06
 
 

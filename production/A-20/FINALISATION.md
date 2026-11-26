@@ -1,3 +1,9 @@
+# Finalisation parent — 2026-11-26T17:06:28.715375+01:00
+
+**PRET : prêt à relire, non clos.** Préparation commune et rejeu global exécutés par le parent sur les sources finales, en UTF-8 et cp1252 : 1 123 tests, 34 569 assertions ; 14 outils, 279 contrôles ; zéro échec, erreur ou ignoré. Vérificateur propre relancé vert dans les deux contextes. Preuve des commandes et sources : `files/rapports/2026-11-26-17h06-portes-parent.json`. Les portes en attente décrites ci-dessous sont le constat historique de l’enfant, désormais accomplies par le parent. Aucun GO réel.
+
+---
+
 # A-20 — gardien commun A22, candidat vérifié
 
 **Revalidation terminée après les dernières écritures applicatives.** Arguments d’origine contrôlés avant staging, refus historiques préservés, gardien unique. Deux gardes d’arguments et six sous-échecs de compatibilité ont été corrigés avec TDD réel ; dix-sept tests A22 verts. Aucun PRET créé.

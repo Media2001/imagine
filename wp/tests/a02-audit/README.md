@@ -79,3 +79,9 @@ Comptes par produit/variation, rythme, total récurrent et pays ; groupes de moi
 Complément A-21 (portes vers l'extérieur, lecture seule) : python3 /chemin/du/depot/wp/outils/bascule/a21/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/portes-date
 Comptes de clés et webhooks, connexion locale oui/non, inconnus après neutralisation ; aucun secret ni domaine ; standard, confinement et limites : wp/outils/bascule/a21/README.md
 Magasin d’extensions A-21 : lecture directe de l’option native `woocommerce_helper_data` via `get_option()`, présence de `auth.access_token` seulement ; aucun appel à `WC_Helper::is_site_connected()`, aucune vérification distante.
+
+A22 — gardien commun : les inventaires chargeant WordPress retiennent les deux flux jusqu’à la fin ; un flux imprévu ou un succès incomplet est refusé sans recopier son contenu. Rejeu transversal : `wp/tests/a22/matrix.py` ; vérification : `wp/tests/a22/verify.py`.
+
+Complément A-23 (comptes des lecteurs, lecture seule) : python3 wp/outils/bascule/a23/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/comptes-date
+
+Familles au préfixe seul, adresses et identifiants comptés sans aucune valeur ; groupes <5 fondus dans autres, six blocs inconnus après neutralisation ; définitions, standard WordPress et reprise : wp/outils/bascule/a23/README.md ; gardien commun A-22 obligatoire, aucune décision de reconnexion.

@@ -1,10 +1,10 @@
 {
   "lot": "T-02",
-  "status": "CORRECTION_VERIFIED_PARENT_GATES_PENDING",
+  "status": "PRET_A_RELIRE_NON_CLOS",
   "packet": "production/T-02/preuves/final",
   "file_count": 43,
   "files": {
-    "production/T-02/FINALISATION.md": "4927fceaa05d04af7bbe15c463f17d9672350afe444d9ee66d6b7f090f293382",
+    "production/T-02/FINALISATION.md": "127a21fb27cf3034fb4b77e3a95b578e7cf804d53c0f669916c2404fc686cc0c",
     "production/T-02/notes.md": "07fb96b9e20d5ff4f9c6091ec845d0d49e8ea5633721c24addd0b041238d54db",
     "production/T-02/preuves/final/cp1252/assertion-rouge.log": "0c796d43d504a1200a12b5abb239f03a1cca698b71385604ade7439a2b1cebb1",
     "production/T-02/preuves/final/cp1252/cleanup.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -49,5 +49,8 @@
     "wp/tests/t01/tools.php": "81c2de07ab265cddf530d74b8cf18315ca717e40d45a27a5781329e75b74d805"
   },
   "PRET_excluded_parent_owned": true,
-  "documentation": "T01 three owned lines checked by contract only"
+  "documentation": "T01 three owned lines checked by contract only",
+  "readiness_claimed": true,
+  "parent_preparation": "files\\rapports\\2026-11-26-17h06-portes-parent.json",
+  "parent_global_T01": "files\\rapports\\2026-11-26-17h06-portes-parent.json"
 }
