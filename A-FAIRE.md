@@ -2,7 +2,7 @@
 
 Tenu à jour par Claude à chaque session avec Ced. **Hermès ne modifie pas ce fichier** : il signale dans son rapport ce qu'il a fait et ce qui bloque, et la consigne passe en « Terminé » à la session suivante.
 
-Mis à jour le 26 novembre 2026, 10 h 30 (passage automatique).
+Mis à jour le 26 novembre 2026, 13 h 30 (passage automatique).
 
 **Deux voies depuis le 23/11.** Ce fichier est la file de la voie 1. Une deuxième session d'Hermès suit `A-FAIRE-2.md` (site de démonstration, squelette du thème, paywall sur article, profils, écran de réglages). Lis la section « Les deux voies » de la consigne permanente. Ne touche ni au site `imagine-test-demo`, ni aux dossiers `wp/themes/imagine/`, `wp/plugins/imagine-site/`, `wp/outils/demo/`, `wp/tests/demo/`.
 
@@ -12,24 +12,24 @@ Le projet a trois chantiers indépendants. Un lot porte la lettre de son chantie
 
 ## Consignes actives, par ordre de priorité
 
-File du 26/11, 10 h 30. Tes rapports de 7 h 54 à 9 h 13 sont lus, merci pour eux. **A-17 est clos** : le correctif au point commun est le bon, et ton rejeu d'A-11, A-12, A-14 et A-15 suffit, ces lots restent clos. A-18 et A-19 sont relus « à corriger » : leurs fusions sont arrivées à 9 h 43 et 9 h 53, après ton arrêt. A-16 est à une retouche de sa clôture. Arbitrages : `docs/arbitrages-2026-11-26.md`, passage de 10 h.
+File du 26/11, 13 h 30. Tes rapports de 11 h 29 et 12 h 15 sont lus, merci pour eux. **A-16, A-18 et A-19 sont clos** (vérifications de 12 h 33 à 12 h 43) ; ta remarque sur la carte et le registre (longueurs disjointes) est acquise. T-02 est relu, sa fusion n'est pas encore arrivée. A-20 et A-21 sont relus « à corriger » : leurs fusions sont arrivées à 12 h 53 et 13 h 08, après ton arrêt. Arbitrages : `docs/arbitrages-2026-11-26.md`, passage de 13 h.
 
-**0. Corrections d'A-19** (`corrections/A-19.md`) : un bloquant. La commande du mode d'emploi, copiée telle quelle, est refusée : le lanceur exige `--as-of`, que le mode d'emploi dit facultatif. Instructions 1 et 2 comme la fusion les écrit. **L'instruction 3 n'est pas pour ce lot** (voir T-02, consigne 3). Instruction 4 confirmée : le compte « schéma de passerelle inconnu » reste, séparé de « moyen absent ».
+**0. Corrections d'A-20 et d'A-21, ensemble** (`corrections/A-20.md`, `corrections/A-21.md`) : le même bloquant dans les deux. Le lanceur passe la main à PHP sans surveiller ses flux ; une extension du site qui écrit directement sur la sortie ou la sortie d'erreur, qui s'arrête pendant le chargement, ou qui imprime en fin de processus, contourne le tampon. Toutes les instructions des deux fusions, avec ces précisions :
+   - **un seul gardien des flux, écrit une fois, à un endroit commun**, utilisé par les deux outils ; pas deux copies ;
+   - un arrêt avant la fin, même en code zéro, est un refus ; une sortie apparue après l'annonce de succès est un refus ; ce qui a été retenu n'est écrit nulle part ;
+   - les quatre canaris (sortie directe, sortie d'erreur directe, affichage puis arrêt au chargement, fonction de fin de processus) dans les deux bancs, avec une mutation témoin : sans le gardien, un canari sort ;
+   - défauts techniques confirmés : A-20 garde `without_product_line` et « annuel » = un an ou douze mois ; A-21 garde les comptes d'inactivité séparés, garde la lecture directe de l'option et corrige son mode d'emploi pour le dire, ajoute le test d'hôte en adresse IP, et son vérificateur scelle les dépendances ;
+   - tu rejoues la matrice native après correction ; les relecteurs contrôleront le paquet.
 
-**1. Corrections d'A-18** (`corrections/A-18.md`) : trois importants, tous des oublis de détection. Les sept instructions, avec ces précisions :
-   - instruction 1 : les deux magasins de commandes sont lus quand leurs tables existent, quel que soit celui qui est actif ;
-   - instruction 6 : ton défaut sur les règles du serveur est **acquis** (présence du fichier oui ou non, interdiction « inconnu »). C'est mon brief qui se contredisait ; l'écart est reporté par moi dans `docs/ecarts.md`, tu n'as rien à écrire ;
-   - la question de la fusion sur la marque de la neutralisation n'ira pas à Imagine : c'est notre import. Tu gardes la marque telle quelle, tu ne touches pas à l'import.
+**1. Fusion de T-02, quand elle arrive** (`corrections/T-02.md`) : si elle dit « à corriger », elle passe ici, avant la suite. Tu peux déjà savoir ce qu'une relecture a vu : un reçu qui porterait à la fois `tests` et `checks` serait lu sur `tests` seul, et un contrôle rouge passerait inaperçu.
 
-**2. A-16, une retouche** (un quart d'heure). Le vérificateur a raison sur un point, et la faute est dans mes textes : le brief voulait qu'une clé absente soit refusée « en la nommant », ma règle de 7 h disait « code seul ». Tranché : le refus `A16_MAPPING_KEY_ABSENT` **nomme le champ de la correspondance en cause**, pris dans une liste fermée écrite dans le code (`numero_type`, `thematique`, `pdf_cle`, `liaison.cle`), **jamais la valeur** que l'opérateur y a mise. Le point commun garde sa forme : un code, et des noms d'une liste fermée. Un test par champ, le canari toujours absent, `PRET` redéposé ; les autres outils ne bougent pas.
+**2. `briefs/A-22-superviseur-des-sorties.md`** — le gardien d'A-20 et d'A-21 devient le point commun de tous les outils d'inventaire qui chargent le WordPress du site (A-12, A-15 à A-19 au moins ; à vérifier pour A-02, A-03, A-10, A-11, A-14). Les lots clos le restent : rejeu de leur suite, un seul paquet de preuves, celui d'A-22. Trois heures.
 
-**Règle nouvelle : le parcours du mode d'emploi.** Pour chaque outil, un test lance la commande du mode d'emploi avec **les seuls arguments que sa ligne donne**. A-19 avait un banc vert et une commande documentée qui échouait. Vaut pour les lots à venir et pour ceux que tu corriges ; les lots clos ne sont pas repris pour cela.
+**3. `briefs/A-23-comptes-des-abonnes.md`** — les comptes des lecteurs, comptés : familles d'empreintes de mots de passe (au préfixe seul), adresses vides, mal formées ou en double, identifiants (§4.3). Lecture seule, aucune empreinte ni adresse ne sort. Trois heures.
 
-**3. `briefs/T-02-rejeu-des-outils.md`** — la commande de rejeu des relecteurs joue aussi les tests purs de tes outils (`unit.php`), sans changer de nom, d'isolation ni de dernière ligne. Deux heures.
+**Règle nouvelle : un canari par canal.** Un outil qui charge le WordPress du site prouve son silence sur chaque canal par lequel du code tiers peut parler : affichage, écriture directe sur les deux flux, arrêt anticipé, fin de processus. Un seul canari affiché ne prouve rien des autres.
 
-**4. `briefs/A-20-ce-que-paient-les-abonnes.md`** — ce que paient aujourd'hui les abonnés en ligne : par produit, rythme, montant et pays de livraison (§3.4, §4.3). Lecture seule, des comptes, aucune correspondance proposée. Trois heures.
-
-**5. `briefs/A-21-portes-vers-l-exterieur.md`** — les clés d'interface et les envois automatiques de WooCommerce, comptés (§4.4). Lecture seule, aucune clé, aucune adresse. Deux heures.
+**Règle du parcours du mode d'emploi** (passage de 10 h) : pour chaque outil, un test lance la commande du mode d'emploi avec **les seuls arguments que sa ligne donne**. Vaut pour les lots à venir et pour ceux que tu corriges.
 
 **La règle du chemin de refus reste** (passage de 7 h) : aucune sortie d'un outil de la voie 1, sortie d'erreur comprise, ne recopie un chemin ou un nom tiré du contenu du site ; seuls sortent un code de refus et des noms pris dans une liste fermée écrite dans le code.
 
@@ -110,10 +110,13 @@ Tu n'ouvres toujours pas l'archive d'Imagine ; c'est Ced qui lance le diagnostic
 | A-01 Quatrième passe (refus muets, base réelle, répétition de la base seule) | 26/11 | **Clos le 26/11** (vérification n° 6, suite rejouée : 1 069 tests). Limites : MySQL 8 non exécuté, objets exécutables refusés en les nommant. Le diagnostic de la base et l'import sont à lancer par Ced. Ce n'est pas un accord d'import |
 | A-14 Rapprochement des contacts de la newsletter | 26/11, corrigé le 26/11 | **Clos le 26/11** (quatre corrections vérifiées). N'appelle pas Brevo, n'écrit rien ; un abonné en annulation à terme n'est pas compté actif, question rangée pour Imagine |
 | A-15 Inventaire des emails | 26/11, corrigé le 26/11 | **Clos le 26/11** (trois corrections vérifiées). Aucun texte ni adresse ; les emails des services extérieurs lui échappent |
-| A-16 État des lieux des dix derniers numéros | 26/11, corrigé le 26/11 | Cinq corrections vérifiées. Une retouche avant clôture : le refus d'une clé absente nomme le champ de la correspondance (consigne 2) |
+| A-16 État des lieux des dix derniers numéros | 26/11, corrigé le 26/11 | **Clos le 26/11** (cinq corrections et la retouche vérifiées : le refus d'une clé absente nomme le champ, liste fermée de quatre noms, jamais la valeur). Ne rattache rien |
 | A-17 Sécurité des comptes de l'administration | 26/11, corrigé le 26/11 | **Clos le 26/11** (neuf corrections vérifiées ; chemin de refus corrigé au point commun, 60 refus au canari verts). Le compte des mots de passe d'application vaut « inconnu après neutralisation » ; l'import n'est pas modifié |
-| A-18 Ce que le site garde et ne devrait pas garder | 26/11 | Relu « à corriger » : trois importants (consigne 1). Défaut sur les règles du serveur acquis |
-| A-19 Cohérence des abonnements et des adhésions | 26/11 | Relu « à corriger » : un bloquant, la commande du mode d'emploi est refusée (consigne 0) |
+| A-18 Ce que le site garde et ne devrait pas garder | 26/11, corrigé le 26/11 | **Clos le 26/11** (sept corrections vérifiées : les deux magasins de commandes lus, détection des formes bruitées). Ne dit pas si le serveur protège les fichiers ; ne supprime rien |
+| A-19 Cohérence des abonnements et des adhésions | 26/11, corrigé le 26/11 | **Clos le 26/11** (quatre corrections vérifiées ; la commande du mode d'emploi passe sans date). Des comptes seulement, ne corrige rien |
+| T-02 Rejeu des tests purs des outils | 26/11 | Relu (un « conforme », un « à corriger ») ; fusion attendue (consigne 1) |
+| A-20 Ce que paient les abonnés en ligne | 26/11 | Relu « à corriger » : un bloquant, les flux du processus ne sont pas surveillés (consigne 0) |
+| A-21 Les portes vers l'extérieur | 26/11 | Relu « à corriger » : le même bloquant, deux mineurs (consigne 0) |
 | A-07 Retouches de rédaction | 26/11 | Sept retouches vérifiées ; constat du 20/11 annoté, rien de rejoué. Reste clos |
 | T-01 Commande de rejeu | 23/11, corrigé le 23/11 | **Clos le 23/11** ; autorisation ajoutée au script de relecture |
 | A-02 Script d'audit | 23/11, corrigé le 23/11 | **Clos le 23/11** (outil et banc fictif). L'audit réel reste à lancer |

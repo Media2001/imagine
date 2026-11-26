@@ -248,3 +248,45 @@ Une question rangée pour Imagine : l'inscription à la newsletter principale à
 
 - **Voie 1**, arrêtée file vide à 9 h 13. En tête : A-19 (bloquant), A-18, la retouche d'A-16. Puis trois lots : T-02 (la commande de rejeu joue aussi les tests purs des outils), A-20 (ce que paient aujourd'hui les abonnés en ligne : par produit, rythme, montant, pays ; pour la décision d'Imagine sur la grille, §3.4) et A-21 (les portes vers l'extérieur : clés d'interface et envois automatiques de WooCommerce, comptés, §4.4).
 - **Voie 2**, sans lot devant elle à 10 h 05. En tête : B-05. Puis deux lots : C-23 (le test d'étanchéité de livraison, une commande pour toutes les voies et tous les publics, §4.4) et B-06 (l'espace coopérateurs et l'attribut posé par l'administration, §3.12, sans rien attendre de CoopHub).
+
+# Passage automatique de 13 h
+
+Lu : les rapports de 11 h 29 et 12 h 15 (voie 1), les vérifications d'A-16, d'A-18, d'A-19 et de C-21, les fusions d'A-20, d'A-21 et de C-22, les deux relectures de T-02. Aucun rapport de la voie 2 depuis 10 h 05. Aucun accord donné sur le réel.
+
+## A-16, A-18, A-19 — clos
+
+- **A-16** : la retouche est faite comme arbitré à 10 h (le refus nomme le champ, liste fermée de quatre noms, jamais la valeur ; un test par champ). Le vérificateur note que deux autres champs de la correspondance (`article_type`, `date_cle`) sortent en code seul : c'est la lettre de l'arbitrage, on ne rouvre pas le lot pour cela. Si l'outil est retouché un jour, la liste passera à six.
+- **A-18** : sept instructions appliquées. La septième corrige la fusion : un même nombre ne peut pas être compté à la fois comme carte (treize chiffres au moins) et comme numéro de registre (onze exactement) ; le mode d'emploi dit seulement de ne pas additionner les colonnes. Acquis.
+- **A-19** : quatre instructions appliquées ; la commande du mode d'emploi passe sans date, les neuf règles pures entrent dans la commande de rejeu (portées par T-02).
+- Réserve commune aux trois, déjà acceptée pour les lots précédents : les relecteurs ne rejouent pas la matrice native (pas de Docker avec les extensions sous licence) ; ils contrôlent le paquet, lié au code par empreintes, et rejouent la suite pure (1 123 tests).
+
+## C-21 — code clos
+
+Sept corrections et deux décisions techniques vérifiées, suite rejouée par le vérificateur. Les trois « questions pour Ced » de la vérification sont celles tranchées à 10 h (les tiers sont préservés, masquage large) : rien de nouveau. Validation visuelle de Ced attendue.
+
+## A-20 et A-21 — à corriger, et le défaut dépasse ces deux lots
+
+Les deux fusions retiennent le même bloquant, vu par un seul des deux relecteurs : le lanceur passe la main à PHP sans surveiller ses flux. Une extension du site qui écrit directement sur la sortie ou la sortie d'erreur, qui s'arrête pendant le chargement, ou qui imprime en fin de processus, contourne le tampon. La règle « aucune sortie ne recopie un nom ou un chemin du site » n'est donc pas démontrée.
+
+- **Un seul gardien, pas deux.** Les corrections d'A-20 et d'A-21 demandent chacune un superviseur des flux. Il est écrit une fois, à un endroit commun, et les deux lots l'utilisent. Raison : c'est le même défaut, et deux copies divergeraient.
+- **Les outils clos ont le même lanceur** (A-12, A-15 à A-19 au moins ; à vérifier pour A-02, A-03, A-10, A-11). On ne rouvre pas ces lots un par un : un lot transversal, A-22, les fait passer par le gardien commun, et le rejeu de leur suite existante suffit, comme pour la correction commune d'A-17 à 7 h. Aucun de ces outils n'a tourné sur une copie du site réel.
+- **Conséquence pour le réel, sans décision de ma part** : les inventaires ne devraient pas être lancés sur la copie de staging d'Imagine avant qu'A-22 soit clos. Écrit pour Ced dans `ETAT.md`.
+- Défauts techniques des fusions, confirmés : A-20 garde le compte « sans ligne de produit » et « annuel » vaut un an ou douze mois ; A-21 garde les comptes d'inactivité séparés, lit l'option directement pour le magasin d'extensions et corrige son mode d'emploi pour le dire, classe un hôte en adresse IP par comparaison de chaînes avec un test ; son vérificateur scelle aussi les dépendances. Le rejeu natif après correction est fait par Hermès, les relecteurs contrôlent le paquet.
+
+## C-22 — à corriger
+
+Fusion de 10 h 33, arrivée après la mise à jour de la file : deux importants, un mineur. Les trois instructions comme la fusion les écrit.
+
+- **Identifiant de lettre réutilisé** : un identifiant déjà employé, même retiré, est réservé et refusé. Raison : c'est une donnée de consentement, un avertissement d'écran ne suffit pas.
+- **Vérificateur du lot** : il contrôle le résultat (la préférence sort à l'export et disparaît à l'effacement), pas l'écriture d'un fichier partagé.
+- **Injection de la section dans l'écran de C-10** : on garde le mécanisme, avec un test de présence de la section.
+- **Place de la section, sous le bouton « Enregistrer »** : question visuelle, pour Ced. Laissée en place.
+
+## T-02 — relu, fusion attendue
+
+Une relecture dit conforme, l'autre à corriger (un reçu qui porterait à la fois l'ancien et le nouveau format pourrait masquer un contrôle rouge). Pas de clôture avant la fusion. Si elle dit « à corriger », elle passe en tête de la voie 1.
+
+## Files
+
+- **Voie 1**, arrêtée file vide à 12 h 15 ; les fusions d'A-20 et d'A-21 sont arrivées à 12 h 53 et 13 h 08. En tête : A-20 et A-21 (avec le gardien commun). Puis deux lots : A-22 (le gardien pour tous les outils d'inventaire) et A-23 (les comptes des abonnés : familles d'empreintes de mots de passe, adresses vides ou en double, comptés, pour la promesse du §4.3 « identifiant et mot de passe conservés sauf impossibilité »).
+- **Voie 2**, silencieuse depuis 10 h 05 alors que sa file a du travail depuis 10 h 30. Je ne peux pas savoir pourquoi d'ici ; signalé à Ced. File inchangée sur le fond : B-05, puis C-22 (corrections), C-23, B-06. Pas de nouveau brief : elle a plus d'un lot devant elle.
