@@ -124,11 +124,40 @@ def run_storage(storage):
                 dynamic=inventory(site,OUT/(stem+'-dynamic'),auditdir/'audit.json')
                 b.check(key+':dynamic_config_refused',dynamic.returncode==1 and dynamic.stderr=='A02_CONFIG_NON_LITERAL\n' and not (OUT/(stem+'-dynamic')).exists())
             finally: (site/'wp-config.php').write_text(config)
-            dropin=site/'wp-content/object-cache.php'; dropin.write_text('<?php throw new RuntimeException("NEVER_EXECUTE");')
+            for index,relative in enumerate(['wp-content/object-cache.php','wp-content/advanced-cache.php','wp-content/db.php','wp-content/sunrise.php','wordfence-waf.php','.user.ini']):
+                dropin=site/relative; dropin.write_text('<?php throw new RuntimeException("NEVER_EXECUTE");')
+                try:
+                    target_drop=OUT/(stem+'-dropin-'+str(index))
+                    blocked=inventory(site,target_drop,auditdir/'audit.json')
+                    b.check(key+':dropin_refused_before_execution:'+dropin.name,blocked.returncode==1 and blocked.stderr=='A11_DROPIN_UNSUPPORTED '+json.dumps({'file':relative},separators=(',',':'))+'\n' and not target_drop.exists())
+                finally: dropin.unlink()
+            custom=site/'custom-mu'; custom.mkdir()
+            (custom/'fiction.php').write_text("<?php register_post_type('a11_custom_mandatory',['public'=>true]); file_put_contents('/scratch/a11-never-execute','BAD');")
+            (site/'wp-config.php').write_text(config+"\ndefine('WPMU_PLUGIN_DIR',"+repr(str(custom))+");\n")
             try:
-                blocked=inventory(site,OUT/(stem+'-dropin'),auditdir/'audit.json')
-                b.check(key+':dropin_refused_before_execution',blocked.returncode==1 and blocked.stderr=='A11_DROPIN_UNSUPPORTED\n' and not (OUT/(stem+'-dropin')).exists())
-            finally: dropin.unlink()
+                target_mu=OUT/(stem+'-custom-mu')
+                blocked=inventory(site,target_mu,auditdir/'audit.json')
+                b.check(key+':custom_mu_before_bootstrap',blocked.returncode==1 and 'A11_CONFIG_OVERRIDE_UNSUPPORTED' in blocked.stderr and 'WPMU_PLUGIN_DIR' in blocked.stderr and not target_mu.exists() and not pathlib.Path('/scratch/a11-never-execute').exists())
+            finally:
+                (site/'wp-config.php').write_text(config); (custom/'fiction.php').unlink(); custom.rmdir()
+            linked=site/'wp-content/a11-owned-link'; linked.symlink_to(site/'wp-includes',target_is_directory=True)
+            try:
+                target_link=OUT/(stem+'-site-link')
+                blocked=inventory(site,target_link,auditdir/'audit.json')
+                b.check(key+':site_symlink_named',blocked.returncode==1 and 'A11_SYMLINK_UNSUPPORTED' in blocked.stderr and 'wp-content/a11-owned-link' in blocked.stderr and not target_link.exists())
+            finally: linked.unlink()
+            partial='a11_partial_'+storage
+            b.sql('mysql',"CREATE USER '"+partial+"'@'localhost' IDENTIFIED BY ''")
+            tables=b.sql(db,'SHOW TABLES').stdout.splitlines()[1:]
+            for table in tables:
+                if table!='wp_posts': b.sql('mysql',"GRANT SELECT ON `"+db+"`.`"+table+"` TO '"+partial+"'@'localhost'")
+            (site/'wp-config.php').write_text(config.replace("define('DB_USER', 'a02_"+storage+"')", "define('DB_USER', '"+partial+"')"))
+            try:
+                refused=OUT/(stem+'-read-denied')
+                failed=inventory(site,refused,auditdir/'audit.json')
+                b.check(key+':failed_select_no_validated_packet',failed.returncode==1 and failed.stderr in ('A11_READ_FAILED\n','A11_POSTS_FAILED\n') and not refused.exists(),{'exit_code':failed.returncode,'code':failed.stderr.strip()})
+            finally:
+                (site/'wp-config.php').write_text(config); b.sql('mysql',"DROP USER '"+partial+"'@'localhost'")
         # The subject's DB fence is also enforced with privileged synthetic credentials.
         (site/'wp-config.php').write_text(config.replace("define('DB_USER', 'a02_"+storage+"')", "define('DB_USER', 'root')"))
         try:

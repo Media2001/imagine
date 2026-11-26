@@ -20,10 +20,17 @@ def main():
     source=read(packet/'sources.json')
     assert source and all(hashlib.sha256((REPO/p).read_bytes()).hexdigest()==h for p,h in source.items())
     before=read(packet/'protected-before.json'); after=read(packet/'protected-after.json')
-    assert before==after and all(hashlib.sha256((REPO/p).read_bytes()).hexdigest()==h for p,h in before.items())
+    assert before==after  # Frozen execution non-regression, not a current sibling pin.
+    assert all(p.startswith(('wp/tests/a11/','wp/outils/bascule/a11/')) for p in source)
+    doc=(REPO/'wp/tests/a02-audit/README.md').read_text(encoding='utf-8')
+    assert all(s in doc for s in ('a11/inventorier-adresses','adresses.csv','adresses.json','empreinte du rapport A-02','A-09','a11/README.md'))
     names={c['check'] for c in native['checks']}
     counts={}
     for storage in ['classic','hpos']:
+        for name in ['custom_mu_before_bootstrap','site_symlink_named','failed_select_no_validated_packet']:
+            assert storage+':pretty:'+name in names
+        for filename in ['object-cache.php','advanced-cache.php','db.php','sunrise.php','wordfence-waf.php','.user.ini']:
+            assert storage+':pretty:dropin_refused_before_execution:'+filename in names
         for variant in ['pretty','plain','subdir','attachments-disabled','static-front']:
             stem=storage+'-'+variant
             key=storage+':'+variant+':'

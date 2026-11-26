@@ -26,6 +26,10 @@ final class Runtime
         $known = explode(' ', 'DB_NAME DB_USER DB_PASSWORD DB_HOST DB_CHARSET DB_COLLATE ABSPATH AUTH_KEY SECURE_AUTH_KEY LOGGED_IN_KEY NONCE_KEY AUTH_SALT SECURE_AUTH_SALT LOGGED_IN_SALT NONCE_SALT WP_DEBUG WP_DEBUG_LOG WP_DEBUG_DISPLAY WP_ENVIRONMENT_TYPE WP_HTTP_BLOCK_EXTERNAL DISABLE_WP_CRON AUTOMATIC_UPDATER_DISABLED WP_AUTO_UPDATE_CORE DISALLOW_FILE_MODS DISALLOW_FILE_EDIT WP_MEMORY_LIMIT WP_MAX_MEMORY_LIMIT WP_CACHE WP_POST_REVISIONS AUTOSAVE_INTERVAL EMPTY_TRASH_DAYS');
         $tokens = array_values(array_filter(token_get_all($source), static fn ($token): bool => !is_array($token) || !in_array($token[0], [T_WHITESPACE, T_COMMENT, T_DOC_COMMENT], true)));
         foreach ($tokens as $index => $token) {
+            if (is_array($token) && $token[0] === T_CONST) {
+                $name = $tokens[$index + 1] ?? null;
+                throw new RuntimeRefusal('A11_CONFIG_OVERRIDE_UNSUPPORTED', ['constant' => is_array($name) && $name[0] === T_STRING ? $name[1] : '[const non prise en charge]']);
+            }
             if (!is_array($token) || !in_array($token[0], [T_STRING, T_NAME_FULLY_QUALIFIED, T_NAME_QUALIFIED], true)
                 || strtolower(ltrim($token[1], '\\')) !== 'define' || ($tokens[$index + 1] ?? '') !== '(') {
                 continue;
@@ -47,9 +51,9 @@ final class Runtime
         $source = file_get_contents($file);
         $config = \Imagine\Audit\Audit::config($source);
         self::validateConfiguration($source);
-        foreach (['db.php', 'object-cache.php', 'advanced-cache.php', 'sunrise.php'] as $dropin) {
-            if (file_exists($site . '/wp-content/' . $dropin) || is_link($site . '/wp-content/' . $dropin)) {
-                throw new RuntimeRefusal('A11_DROPIN_UNSUPPORTED', ['file' => 'wp-content/' . $dropin]);
+        foreach (['wp-content/db.php', 'wp-content/object-cache.php', 'wp-content/advanced-cache.php', 'wp-content/sunrise.php', 'wordfence-waf.php', '.user.ini'] as $dropin) {
+            if (file_exists($site . '/' . $dropin) || is_link($site . '/' . $dropin)) {
+                throw new RuntimeRefusal('A11_DROPIN_UNSUPPORTED', ['file' => $dropin]);
             }
         }
         foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($site, \FilesystemIterator::SKIP_DOTS), \RecursiveIteratorIterator::SELF_FIRST) as $path) {

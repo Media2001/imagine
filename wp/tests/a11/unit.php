@@ -26,7 +26,7 @@ if (is_file($file)) {
     }
 }
 require '/subject/a11/Runtime.php';
-foreach (["define('WPMU_PLUGIN_DIR','/fiction/custom-mu');", "define('WP_PLUGIN_URL','https://fiction.invalid/plugins');", "define('FICTION_PATH_OVERRIDE','/fiction');"] as $declaration) {
+foreach (["define('WPMU_PLUGIN_DIR','/fiction/custom-mu');", "define('WP_PLUGIN_URL','https://fiction.invalid/plugins');", "define('FICTION_PATH_OVERRIDE','/fiction');", "const WPMU_PLUGIN_DIR = '/fiction/custom-mu';"] as $declaration) {
     try {
         Imagine\PublicAddresses\Runtime::validateConfiguration('<?php ' . $declaration);
         check('unknown-layout-refused:' . substr($declaration, 8, 20), false);

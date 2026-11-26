@@ -9,6 +9,39 @@ use PHPUnit\Framework\TestCase;
 
 final class TableauBordReglesTest extends TestCase
 {
+    public function testMonthCountsNativeDatesWithoutInventingTransitions(): void
+    {
+        self::assertArrayHasKey('mouvements', TableauBordRegles::catalogue());
+        $now = strtotime('2026-11-26 12:00:00 UTC');
+        $begin = strtotime('2026-11-01 UTC');
+        $rows = [
+            ['debut' => $begin, 'fin' => 0, 'etat' => 'active'],
+            ['debut' => $begin - 1, 'fin' => $begin, 'etat' => 'expired'],
+            ['debut' => $now, 'fin' => $now, 'etat' => 'cancelled'],
+            ['debut' => $now + 1, 'fin' => $now + 1, 'etat' => 'expired'],
+            ['debut' => 0, 'fin' => $now, 'etat' => 'pending-cancel'],
+            ['debut' => strtotime('2026-12-01 UTC'), 'fin' => 0, 'etat' => 'pending'],
+        ];
+        $data = ['mouvements' => $rows, 'maintenant' => $now];
+        $saved = $data;
+        $r = TableauBordRegles::calculer('mouvements', $data);
+        self::assertSame(['entrees' => 2, 'sorties' => 2], $r['valeurs']);
+        self::assertSame($saved, $data);
+        self::assertStringContainsString('UTC', $r['phrase']);
+        self::assertStringContainsString('historique', $r['phrase']);
+    }
+
+    public function testFailedPaymentsReuseC15UnpaidSelection(): void
+    {
+        self::assertArrayHasKey('echecs', TableauBordRegles::catalogue());
+        $base = ['id' => 1, 'etat' => 'failed', 'paye' => false, 'date_payee' => 0, 'creation' => 10];
+        $rows = [$base, array_replace($base, ['id' => 2, 'paye' => true]),
+            array_replace($base, ['id' => 3, 'date_payee' => 20]), array_replace($base, ['id' => 4, 'etat' => 'pending'])];
+        $r = TableauBordRegles::calculer('echecs', ['echecs' => $rows]);
+        self::assertSame(['total' => 1], $r['valeurs']);
+        self::assertSame(count(\Imagine\Site\EcheancesRegles::paiements($rows, 'echecs')), $r['valeurs']['total']);
+    }
+
     public function testDueWindowsReuseC15BoundsAndStatuses(): void
     {
         self::assertArrayHasKey('echeances', TableauBordRegles::catalogue());

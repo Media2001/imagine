@@ -61,6 +61,6 @@ Complement A-10 : php wp/outils/bascule/inventorier-codes --wp-path=/copie-verif
 Lecture seule ; sortie soeur du rapport A-02, hors site et depot ; noms de codes autorises, emails comptes uniquement ; rejeu : python wp/tests/a10/run.py
 
 Après l'audit, lancer `php wp/outils/bascule/a11/inventorier-adresses --wp-path=/copie-verifiee/site --audit=/rapports/audit-001/audit.json --output=/rapports/adresses-001` dans la même copie confinée, avec un dossier de sortie neuf, frère du rapport d'audit et hors racine web/dépôt.
-Le fichier `adresses.csv` (UTF-8, séparateur `;`) donne la colonne `ancienne` selon A-09; `resume.md` donne les nombres, les exclus et les bases de permaliens, sans client ni décision de redirection; voir `a11/README.md` pour les gardes et le rejeu dédié.
+`adresses.csv` (UTF-8, `;`) fournit `ancienne` pour A-09 ; `adresses.json` porte les données structurées, la preuve et l'empreinte du rapport A-02 pour l'outillage A-09 ; `resume.md` donne les comptes/bases, sans client ni décision ; refus de cache/pare-feu/lien nommé et marche à suivre : `a11/README.md`.
 Complément A-12 (registre natif, lecture seule) : python3 wp/outils/bascule/a12/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/contenus-date
 Conteneur Linux déconnecté + Landlock obligatoire ; types/taxos réellement enregistrés et comptes, jamais titres/valeurs ; rejeu dédié : python wp/tests/a12/run.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a12-rejeu-nouveau
