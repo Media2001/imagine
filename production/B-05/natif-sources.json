@@ -1,0 +1,23 @@
+[
+  {
+    "url": "https://developer.wordpress.org/reference/functions/register_setting/",
+    "status": 200,
+    "excerpts": {
+      "sanitize_callback": "setting. description string A description of the data attached to this setting. sanitize_callback callable A callback function that sanitizes the option&#8217;s value. show_in_rest bool|array Whether data associated with this setting should be included in the REST API. When registering complex settings, this argument may optionally be an array with a 'schema' key. default mixed Default value when calling get_option() . Default"
+    }
+  },
+  {
+    "url": "https://developer.wordpress.org/reference/hooks/pre_get_posts/",
+    "status": 200,
+    "excerpts": {
+      "pre_get_posts": "pre_get_posts – Hook | Developer.WordPress.org (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,documen"
+    }
+  },
+  {
+    "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
+    "status": 200,
+    "excerpts": {
+      "sponsored": "p&gt; For other links, use one or more of the following values: rel values rel=\"sponsored\" Mark links that are advertisements or paid placements (commonly called paid links ) with the sponsored value. Read more about Google's stance on paid links . &lt;a rel=\"sponsored\" href=\"https://cheese.example.com/Appenzeller_cheese\"&gt;Appenzeller&lt;/a&gt; Note: The nofollow attribute was previously recommended for these types of links "
+    }
+  }
+]

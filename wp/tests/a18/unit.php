@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require '/subject/a18/Forms.php';
+require '/subject/a18/Inventory.php';
 
 use Imagine\RetentionInventory\Forms;
 
@@ -26,6 +27,13 @@ check('embedded_serialized_counted_once_per_form', method_exists(Forms::class, '
 check('embedded_card_and_canary_not_returned', method_exists(Forms::class, 'scan')
     && Forms::scan('PRIVATE_CANARY card=4242424242424242; end')
     === ['iban' => false, 'card' => true, 'national' => false]);
+try {
+    check('native_nullable_meta_not_fatal', Imagine\RetentionInventory\Inventory::groups([
+        ['scope' => 'order', 'key' => '_nullable', 'value' => null],
+    ]) === []);
+} catch (Throwable) {
+    check('native_nullable_meta_not_fatal', false);
+}
 $result = ['checks' => $checks, 'exit_code' => (int) in_array('FAIL', array_column($checks, 'status'), true)];
 file_put_contents('/report/unit.json', json_encode($result, JSON_PRETTY_PRINT) . "\n");
 exit($result['exit_code']);
