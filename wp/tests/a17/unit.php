@@ -13,6 +13,14 @@ if (is_file('/subject/a17/Inventory.php')) {
     $check('native_admin_capability', $class::management(['manage_options' => true]));
     $check('custom_management_capability', $class::management(['manage_imagine' => true]));
     $check('editor_capability', $class::management(['edit_others_posts' => true]));
+    foreach (['edit_users', 'update_plugins', 'switch_themes', 'delete_plugins', 'delete_themes',
+        'install_themes', 'update_themes', 'edit_theme_options', 'export', 'import', 'remove_users'] as $cap) {
+        $check('isolated_management:' . $cap, $class::management(['read' => true, $cap => true]));
+        $check('disabled_management:' . $cap, !$class::management(['read' => true, $cap => false]));
+    }
+    $check('content_only_excluded', !$class::management(['read' => true, 'edit_posts' => true,
+        'publish_posts' => true, 'upload_files' => true, 'delete_posts' => true]));
+    $check('manage_prefix_stays_inclusive', $class::management(['manage_categories' => true]));
     $check('subscriber_not_management', !$class::management(['read' => true, 'manage_options' => false]));
     $check('literal_config_not_executed', $class::configBoolean(
         "<?php define('DISALLOW_FILE_EDIT', true);",

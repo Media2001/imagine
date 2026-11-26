@@ -8,9 +8,10 @@ register_post_type('a16_article', ['public' => false]);
 register_taxonomy('a16_theme', 'a16_article');
 register_taxonomy('a16_issue', 'a16_article');
 $issues = [];
-for ($n = 1; $n <= 3; $n++) {
+for ($n = 1; $n <= 5; $n++) {
+    $date = $n <= 3 ? '2026-0' . $n . '-01 12:00:00' : '2025-12-01 12:00:00';
     $issues[] = wp_insert_post(['post_type' => 'a16_numero', 'post_status' => 'publish',
-        'post_title' => 'A16_TITLE_PRIVATE_CANARY', 'post_date_gmt' => '2026-0' . $n . '-01 12:00:00']);
+        'post_title' => 'A16_TITLE_PRIVATE_CANARY', 'post_date_gmt' => $date]);
 }
 $one = wp_insert_term('Theme fictif', 'a16_theme')['term_id'];
 $two = wp_insert_term('Autre theme fictif', 'a16_theme')['term_id'];
@@ -54,6 +55,19 @@ for ($n = 0; $n < 3; $n++) {
 }
 foreach (array_slice($articles, 0, 3) as $i => $aid) {
     wp_set_object_terms($aid, [$terms[$i < 2 ? 2 : 1]], 'a16_issue');
+}
+$private = '/scratch/a16-private';
+if (!is_dir($private)) {
+    mkdir($private, 0700);
+}
+foreach (['A16_PRIVATE_PRESENT_CANARY.pdf', 'A16_PRIVATE_MISSING_CANARY.pdf'] as $i => $name) {
+    $id = wp_insert_attachment(['post_status' => 'inherit', 'post_mime_type' => 'application/pdf',
+        'post_title' => 'A16_PRIVATE_PDF_CANARY']);
+    add_post_meta($id, '_wp_attached_file', $private . '/' . $name);
+    add_post_meta($issues[$i === 0 ? 2 : 1], '_a16_private_pdf_id', (string) $id);
+    if ($i === 0) {
+        file_put_contents($private . '/' . $name, 'fictif prive');
+    }
 }
 echo 'A16_JSON=' . json_encode(['issues' => $issues, 'terms' => $terms,
     'articles' => $articles, 'media' => $media]) . "\n";

@@ -77,6 +77,21 @@ def security(label):
     return result
 
 
+def failures(label):
+    before = c19.c18.state()
+    name = 'imagine-demo-build/c21-failures.php'
+    source = ROOT / 'wp/tests/demo/c21-failures.php'
+    c19.c18.c17.profils.b00.upload(name, source.read_bytes())
+    assert hashes([name])[name] == hashlib.sha256(source.read_bytes()).hexdigest()
+    result = wp('require WP_CONTENT_DIR."/imagine-demo-build/c21-failures.php";')
+    result['checks']['native_inchange'] = before == c19.c18.state()
+    result['total'] = len(result['checks'])
+    result['failures'] = [k for k,v in result['checks'].items() if v is not True]
+    save(label, result)
+    assert not result['failures']
+    return result
+
+
 def schedule_business():
     return wp(r'''global $wpdb;$a=$wpdb->prefix.'actionscheduler_actions';$l=$wpdb->prefix.'actionscheduler_logs';
 $actions=$wpdb->get_results("SELECT * FROM $a WHERE hook<>'wcs_report_update_cache' ORDER BY action_id",ARRAY_A);
@@ -112,7 +127,7 @@ if __name__ == '__main__':
     c19.c18.c17.profils.guard('imagine-test-demo')
     mode = sys.argv[1]
     label = sys.argv[2] if len(sys.argv) > 2 else mode
-    if mode in ('baseline', 'deploy', 'regressions', 'security'):
+    if mode in ('baseline', 'deploy', 'regressions', 'security', 'failures'):
         globals()[mode](label)
     else:
         save(label, {'phase': mode, 'result': fixture(mode)})

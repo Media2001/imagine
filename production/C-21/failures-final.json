@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-26T06:37:26.410929+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "echec_physique_signale_sans_faux_succes": true,
+    "reference_conservee_si_fichier_non_supprimable": true,
+    "document_restaure_octets_exacts": true,
+    "suppression_compte_native_reussit": true,
+    "hook_suppression_retire_decouverte_et_historique": true,
+    "hook_C17_et_C21_retire_reference_et_document": true,
+    "fixture_finalement_absente": true,
+    "native_inchange": true
+  },
+  "total": 8,
+  "failures": []
+}

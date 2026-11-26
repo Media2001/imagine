@@ -10,6 +10,7 @@ use Imagine\PublicAddresses\RuntimeRefusal;
 final class Inventory
 {
     private object $db;
+    private ?string $privateRoot = null;
     public function __construct(private string $site)
     {
         Runtime::boot($site);
@@ -63,17 +64,31 @@ final class Inventory
             return ['exists' => false, 'public' => null, 'pdf' => $a[0]['post_mime_type'] === 'application/pdf'];
         }
         $path = str_starts_with($relative, '/') ? $relative : $base . '/' . $relative;
+        $public = str_starts_with($path, $base . '/');
+        $private = $this->privateRoot !== null && str_starts_with($path, $this->privateRoot . '/');
+        $existing = $path;
+        while (!file_exists($existing) && !is_link($existing) && $existing !== dirname($existing)) {
+            $existing = dirname($existing);
+        }
         if (
-            !str_starts_with($path, $base . '/') || preg_match('~(?:^|/)\.\.?(/|$)|[\x00-\x1f\\\\:]~', $path)
-            || is_link($path) || (realpath($path) !== false && realpath($path) !== $path)
+            (!$public && !$private) || preg_match('~(?:^|/)\.\.?(/|$)|[\x00-\x1f\\\\:]~', $path)
+            || is_link($existing) || realpath($existing) !== $existing
         ) {
             throw new \RuntimeException('A16_ATTACHMENT_PATH_UNSAFE');
         }
-        return ['exists' => is_file($path), 'public' => true, 'pdf' => $a[0]['post_mime_type'] === 'application/pdf'];
+        return ['exists' => is_file($path), 'public' => $public, 'pdf' => $a[0]['post_mime_type'] === 'application/pdf'];
     }
     public function collect(array $m, int $limit): array
     {
         Mapping::validate($m);
+        $this->privateRoot = $m['racine_privee'] ?? null;
+        if ($this->privateRoot !== null && (!is_dir($this->privateRoot)
+            || realpath($this->privateRoot) !== $this->privateRoot
+            || $this->privateRoot === $this->site
+            || str_starts_with($this->privateRoot, $this->site . '/')
+            || str_starts_with($this->site, $this->privateRoot . '/'))) {
+            throw new \RuntimeException('A16_PRIVATE_ROOT_UNSAFE');
+        }
         $taxonomy = ($m['numero_source'] ?? 'post_type') === 'taxonomy';
         if (
             $taxonomy && (!taxonomy_exists($m['numero_type'])

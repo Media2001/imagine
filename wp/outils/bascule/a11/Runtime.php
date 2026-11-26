@@ -16,9 +16,16 @@ final class Runtime
 {
     public static array $guards = ['http' => 0, 'mail' => 0, 'scheduled' => 0];
 
+    private const DROPINS = ['wp-content/db.php', 'wp-content/object-cache.php', 'wp-content/advanced-cache.php', 'wp-content/sunrise.php', 'wordfence-waf.php', '.user.ini'];
+
     public static function refusalMessage(\Throwable $error, string $code): string
     {
-        return $code . ($error instanceof RuntimeRefusal ? ' ' . json_encode($error->details, JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_SUBSTITUTE | JSON_THROW_ON_ERROR) : '');
+        // Site-controlled details are never output, even for future refusal types.
+        if ($error instanceof RuntimeRefusal && $code === 'A11_DROPIN_UNSUPPORTED'
+            && in_array($error->details['file'] ?? null, self::DROPINS, true)) {
+            return $code . ' ' . json_encode(['file' => $error->details['file']], JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
+        }
+        return $code;
     }
 
     public static function validateConfiguration(string $source): void
@@ -27,8 +34,7 @@ final class Runtime
         $tokens = array_values(array_filter(token_get_all($source), static fn ($token): bool => !is_array($token) || !in_array($token[0], [T_WHITESPACE, T_COMMENT, T_DOC_COMMENT], true)));
         foreach ($tokens as $index => $token) {
             if (is_array($token) && $token[0] === T_CONST) {
-                $name = $tokens[$index + 1] ?? null;
-                throw new RuntimeRefusal('A11_CONFIG_OVERRIDE_UNSUPPORTED', ['constant' => is_array($name) && $name[0] === T_STRING ? $name[1] : '[const non prise en charge]']);
+                throw new RuntimeRefusal('A11_CONFIG_OVERRIDE_UNSUPPORTED', []);
             }
             if (!is_array($token) || !in_array($token[0], [T_STRING, T_NAME_FULLY_QUALIFIED, T_NAME_QUALIFIED], true)
                 || strtolower(ltrim($token[1], '\\')) !== 'define' || ($tokens[$index + 1] ?? '') !== '(') {
@@ -37,7 +43,7 @@ final class Runtime
             $name = $tokens[$index + 2] ?? null;
             $constant = is_array($name) && $name[0] === T_CONSTANT_ENCAPSED_STRING ? substr($name[1], 1, -1) : '';
             if (!in_array($constant, $known, true)) {
-                throw new RuntimeRefusal('A11_CONFIG_OVERRIDE_UNSUPPORTED', ['constant' => preg_match('/^[A-Z_][A-Z0-9_]{0,100}$/D', $constant) ? $constant : '[non litterale]']);
+                throw new RuntimeRefusal('A11_CONFIG_OVERRIDE_UNSUPPORTED', []);
             }
         }
     }
@@ -51,14 +57,14 @@ final class Runtime
         $source = file_get_contents($file);
         $config = \Imagine\Audit\Audit::config($source);
         self::validateConfiguration($source);
-        foreach (['wp-content/db.php', 'wp-content/object-cache.php', 'wp-content/advanced-cache.php', 'wp-content/sunrise.php', 'wordfence-waf.php', '.user.ini'] as $dropin) {
+        foreach (self::DROPINS as $dropin) {
             if (file_exists($site . '/' . $dropin) || is_link($site . '/' . $dropin)) {
                 throw new RuntimeRefusal('A11_DROPIN_UNSUPPORTED', ['file' => $dropin]);
             }
         }
         foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($site, \FilesystemIterator::SKIP_DOTS), \RecursiveIteratorIterator::SELF_FIRST) as $path) {
             if ($path->isLink()) {
-                throw new RuntimeRefusal('A11_SYMLINK_UNSUPPORTED', ['file' => substr($path->getPathname(), strlen($site) + 1)]);
+                throw new RuntimeRefusal('A11_SYMLINK_UNSUPPORTED', []);
             }
         }
         define('ABSPATH', $site . '/');

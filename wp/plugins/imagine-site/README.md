@@ -302,3 +302,11 @@ python wp/outils/demo/c20-second.py --verify
 ```
 
 Les deux premières recettes natives C08/C13 sont rollbackées sur InnoDB ; les empreintes et profils sont relus dans un autre processus. La préparation d’image puis T01 complet ont été exécutés. Les sources partagées ont un contrat successeur C20 exact, sans réécriture des sceaux historiques. Preuves, blocages précis et captures : `production/C-20/A-VOIR.md`. Aucun C21/B05/C22 traité.
+
+## C-21 — confidentialité native
+
+`Confidentialite` déclare un exporteur et un effaceur dans les outils natifs WordPress, par pages de 50. Il étend l’export Woo/WCS pour les numéros acquis et dates Imagine, sans réécrire commandes, souscriptions ou réglages de conservation. Options personnelles, marqueurs, brouillons, justificatifs et données personnelles des journaux sont projetés explicitement ; jamais de copie brute des metas, notes, jetons ou références de paiement. L’archive native masque les emails techniques, y compris son en-tête.
+
+Le raccord C13 ajoute seulement deux filtres d’observation : empêcher la recollecte après une demande native d’effacement terminée et expurger les bénéficiaires concernés. La demande native reste nécessaire tant que le compte est conservé ; aucune durée ou table personnelle supplémentaire n’est créée. Le nettoyage des gels est un compare-and-swap relu, limité aux données de la personne. Les règles pures C13, les commandes et les abonnements restent sous leurs comportements natifs. Le hook de suppression du compte retire aussi les ajouts Imagine restants.
+
+Rejeu : `python -B wp/outils/demo/c21-unit.py LABEL`, `python -B wp/tests/demo/c21-http.py LABEL`, `python -B wp/outils/demo/c21.py security LABEL`, `python -B wp/tests/demo/c21-verifier.py`. Le parcours réel crée puis supprime un seul compte fictif et vérifie les autres profils, actions métier comprises. Inventaire, limites de conservation, outils à ouvrir et preuves : `production/C-21/`. Les sections historiques de ce README et les sceaux des lots précédents ne sont pas réécrits ; C21 vérifie ses seules sections partagées par contrat.

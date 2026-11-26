@@ -10,7 +10,9 @@ final class Inventory
     {
         foreach ($caps as $cap => $enabled) {
             $pattern = '/\A(?:manage_|edit_others_|delete_others_|activate_plugins\z|edit_plugins\z'
-                . '|edit_themes\z|install_plugins\z|update_core\z|promote_users\z|create_users\z|delete_users\z)/';
+                . '|edit_themes\z|install_plugins\z|update_core\z|promote_users\z|create_users\z|delete_users\z'
+                . '|edit_users\z|update_plugins\z|switch_themes\z|delete_plugins\z|delete_themes\z'
+                . '|install_themes\z|update_themes\z|edit_theme_options\z|export\z|import\z|remove_users\z)/';
             if ($enabled && preg_match($pattern, (string) $cap)) {
                 return true;
             }
