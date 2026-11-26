@@ -1,6 +1,6 @@
 # A-20 — gardien commun A22, candidat vérifié
 
-**Revalidation terminée après les dernières écritures applicatives.** Arguments d’origine contrôlés avant staging, refus historiques préservés, gardien unique. Deux gardes d’arguments et six sous-échecs de compatibilité ont été corrigés avec TDD réel ; seize tests A22 verts. Aucun PRET créé.
+**Revalidation terminée après les dernières écritures applicatives.** Arguments d’origine contrôlés avant staging, refus historiques préservés, gardien unique. Deux gardes d’arguments et six sous-échecs de compatibilité ont été corrigés avec TDD réel ; dix-sept tests A22 verts. Aucun PRET créé.
 
 Nouveau paquet unique `production/A-20/preuves/final`, issu de `a20-shared-final-04` : matrice code 0, vérificateur **111 contrôles PASS, code 0 dans chaque console**. Anciens paquets conservés hors dépôt ; aucune ancienne empreinte d’exécution recyclée. **Aucun PRET.**
 

@@ -30,6 +30,10 @@ Sept canaux réels par outil concerné, sur les deux magasins : stdout direct, s
 
 A20 et A21 ont de nouveaux paquets **04** après la modification du gardien, non des empreintes recyclées : vérificateurs **111 / 49 PASS par console**, mutations réelles et contrôles stricts propres conservés. Leurs notes donnent les comptes détaillés. Les anciens paquets sont hors dépôt ; aucun nouveau paquet par lot fermé.
 
+Six sondes du vérificateur sont vertes sur un miroir jetable : base identique, PRET futur accepté, corruption refusée, omission native rescellée refusée, dérive du gardien refusée et restauration verte. Le dépôt réel et ses marqueurs ne sont pas modifiés par ces sondes.
+
+Relecture indépendante des **29 noms exacts** des runners finaux A20/A21/A22 : tous absents sémantiquement (`docker inspect` retourne 1 avec un diagnostic de disparition pour chaque nom). Ce n’est pas une inférence tirée d’un échec quelconque du service Docker. Noms, commandes et reçu dans `runner-absence.json`.
+
 ## Frontière parent
 
 **CANDIDAT_GATE_PARENT : aucun PRET créé par cet enfant.** Préparation globale, T01 global et décision de PRET restent au parent, non exécutés ici. Leurs anciennes gates ne prouvent pas les sources corrigées. Tous les vérificateurs permettent un PRET futur et une preuve parent optionnelle ; compatibilité testée seulement sur miroir jetable. La ligne commune exacte est livrée dans `readme-ajout.txt`, à intégrer/vérifier par son propriétaire. Le verrou et le README partagé n’ont pas été modifiés par cet enfant.

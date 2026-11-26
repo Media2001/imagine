@@ -1,6 +1,6 @@
 # A-21 — gardien commun A22, candidat vérifié
 
-**Revalidation terminée après les dernières écritures applicatives.** Arguments d’origine contrôlés avant staging et refus historiques préservés ; seize tests A22 verts. Aucun compte ni rapport ne change. Aucun PRET créé.
+**Revalidation terminée après les dernières écritures applicatives.** Arguments d’origine contrôlés avant staging et refus historiques préservés ; dix-sept tests A22 verts. Aucun compte ni rapport ne change. Aucun PRET créé.
 
 **Nouveau paquet unique vérifié, sans PRET.** `preuves/final` est issu de `a21-shared-final-04` et du style `a21-shared-style-final-04`, codes réels 0 ; finaliseur livré code 0, vérificateur **49 contrôles PASS, code 0 dans chaque console**. Anciens paquets et anciennes gates conservés hors dépôt ; aucune ancienne empreinte recyclée.
 

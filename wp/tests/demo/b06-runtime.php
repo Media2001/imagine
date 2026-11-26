@@ -94,6 +94,8 @@ try {
         wp_set_current_user($id);
         $checks['retrait_referme'] = !C::autorise();
     }
+    if ($mutation === 'listener') { add_action(C::ACCROCHE, '__return_null'); }
+    $checks['accroche_nommee_sans_ecouteur'] = C::ACCROCHE === 'imagine_cooperateur_modifie' && has_action(C::ACCROCHE) === false;
     if ($mutation === 'mail') { wp_mail('b06-fictif@example.org', 'FICTIF B06', 'FICTIF'); }
     if ($mutation === 'http') { wp_remote_get('https://example.org/b06-fictif'); }
 } finally {

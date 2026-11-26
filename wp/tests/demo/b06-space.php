@@ -38,6 +38,8 @@ try {
         remove_filter('the_content', [C::class,'contenu'], -1000);
         remove_filter('get_the_excerpt', [C::class,'extrait'], -1000);
         remove_filter('the_posts', [C::class,'protegerObjets'], -1000);
+    } elseif ($mutation === 'edition') {
+        remove_filter('map_meta_cap', [C::class,'capacites'], 20);
     } elseif (in_array($mutation, ['search','feed'], true)) {
         remove_action('pre_get_posts', [C::class,'requete'], -1000);
         remove_filter('the_posts', [C::class,'protegerObjets'], -1000);
