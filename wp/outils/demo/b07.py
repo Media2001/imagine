@@ -21,6 +21,12 @@ def private(label,payload):
  with path.open('xb') as s:s.write(raw);s.flush();os.fsync(s.fileno())
  os.chmod(path,0o600);assert path.read_bytes()==raw
  return {'file':folder.name+'/snapshot.json','sha256':hashlib.sha256(raw).hexdigest(),'private':True}
+def remove_observer(expected):
+ code='import pathlib,hashlib,json; p=pathlib.Path("/app/sites/imagine-test-demo/wp-content/mu-plugins/b07-observer.php"); assert not p.exists() or hashlib.sha256(p.read_bytes()).hexdigest()=="'+expected+'"; p.unlink(missing_ok=True); print(json.dumps({"absent":not p.exists()}))'
+ p=subprocess.run(['wsl.exe','docker','exec','staging-wp-dashboard','python','-c',code],capture_output=True,text=True,encoding='utf-8')
+ assert not p.returncode,p.stderr
+ return json.loads(p.stdout)['absent']
+
 def snapshot():
  return wp('''global $wpdb; $ids=$wpdb->get_col("SELECT ID FROM {$wpdb->posts} WHERE post_type IN ('imagine_evenement','imagine_inscription')");$in=implode(',',array_map('intval',$ids))?:'0';echo wp_json_encode(['posts'=>$wpdb->get_results("SELECT * FROM {$wpdb->posts} WHERE ID IN ($in) ORDER BY ID",ARRAY_A),'meta'=>$wpdb->get_results("SELECT * FROM {$wpdb->postmeta} WHERE post_id IN ($in) ORDER BY meta_id",ARRAY_A),'users'=>$wpdb->get_results("SELECT * FROM {$wpdb->users} ORDER BY ID",ARRAY_A),'usermeta'=>$wpdb->get_results("SELECT * FROM {$wpdb->usermeta} ORDER BY umeta_id",ARRAY_A),'options'=>$wpdb->get_results("SELECT * FROM {$wpdb->options} WHERE option_name LIKE 'imagine_%' OR option_name='cron' ORDER BY option_id",ARRAY_A)]);''')
 def deploy(label):

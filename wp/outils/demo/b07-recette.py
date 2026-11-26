@@ -54,16 +54,20 @@ def run(label):
  accounts=wp('$f=get_option("imagine_c09_fixture");echo wp_json_encode(["admin"=>get_user_by("login","admin")->ID,"plain"=>$f["users"]["V-INSCRIT"]]);')
  email=wp('echo wp_json_encode(get_userdata('+str(accounts['plain'])+')->user_email);')
  assert email.endswith('@example.org')
- before=b07.snapshot();oldobs=wp('echo wp_json_encode(["exists"=>file_exists(WP_CONTENT_DIR."/mu-plugins/b07-observer.php"),"option"=>get_option("imagine_b07_observer",null)]);')
+ before=b07.snapshot()
+ for address in ['b07-visiteur@example.org',email]:
+  assert wp('echo wp_json_encode(Imagine\\\\Site\\\\Agenda::inscriptions('+php(address)+'));')==[], 'Inscription préexistante : refus sans mutation'
+ oldobs=wp('echo wp_json_encode(["exists"=>file_exists(WP_CONTENT_DIR."/mu-plugins/b07-observer.php"),"option"=>get_option("imagine_b07_observer",null)]);')
  assert not oldobs['exists'] and oldobs['option'] is None
  durable=b07.private(label,{'database':before,'business':baseline,'sources':sources,'accounts':accounts})
  sessions={};checks={};evidence={};error=None;created=[]
  src=b07.ROOT/'wp/tests/demo/b07-observer.php';observer='mu-plugins/b07-observer.php';observer_hash=hashlib.sha256(src.read_bytes()).hexdigest()
  try:
   b07.b06.profils.b00.upload(observer,src.read_bytes());assert b07.b06.hashes([observer])[observer]==observer_hash
-  control=wp('''update_option('imagine_b07_observer',['mail'=>0,'http'=>0],false);wp_mail('b07-transport-fictif@example.org','Sonde fictive','Aucun envoi');wp_remote_get('https://example.org/b07-sonde');echo wp_json_encode(get_option('imagine_b07_observer'));''')
-  checks['observateur_controle_positif']=control=={'mail':1,'http':1}
-  wp('update_option("imagine_b07_observer",["mail"=>0,"http"=>0],false);echo "true";')
+  empty={'mail':0,'http':0,'agenda_mail':0,'agenda_http':0,'transport_mail':0,'transport_http':0}
+  control=wp('update_option("imagine_b07_observer",'+php(empty)+',false);wp_mail("b07-transport-fictif@example.org","Sonde fictive","Aucun envoi");wp_remote_get("https://example.org/b07-sonde");echo wp_json_encode(get_option("imagine_b07_observer"));')
+  checks['observateur_controle_positif']=control=={**empty,'mail':1,'http':1}
+  wp('update_option("imagine_b07_observer",'+php(empty)+',false);echo "true";')
   sessions=wp('$out=[];foreach('+php(accounts)+' as $key=>$id){$exp=time()+3600;$token=WP_Session_Tokens::get_instance($id)->create($exp);$out[$key]=["token"=>$token,"cookie"=>LOGGED_IN_COOKIE."=".wp_generate_auth_cookie($id,$exp,"logged_in",$token)."; ".AUTH_COOKIE."=".wp_generate_auth_cookie($id,$exp,"auth",$token)];}echo wp_json_encode($out);')
   b07.private(label+'-sessions',sessions)
   code,headers,body,url=request('/evenements/')
@@ -88,12 +92,13 @@ def run(label):
   data={k:p.values[k] for k in ['action','evenement','imagine_agenda_nonce']};data.update(nom='Visiteur fictif B07',email='b07-visiteur@example.org')
   first=request('/wp-admin/admin-post.php',data=data);second=request('/wp-admin/admin-post.php',data={**data,'email':'B07-VISITEUR@EXAMPLE.ORG'})
   checks['inscription_http']=first[0]==200 and 'Votre demande a été enregistrée.' in html.unescape(first[2])
-  checks['doublon_meme_reponse']=first==second
+  stable=lambda response:(response[0],response[2],response[3])
+  checks['doublon_meme_reponse']=stable(first)==stable(second)
   stored=wp('echo wp_json_encode(Imagine\\Site\\Agenda::inscriptions("b07-visiteur@example.org",'+str(e['id'])+'));')
   created+=stored;checks['doublon_une_ligne']=len(stored)==1
   checks['consentement_non_exige']=wp('echo wp_json_encode(get_post_meta('+str(stored[0])+',"imagine_agenda_consentement",true));')=='0'
   result=request('/wp-admin/admin-post.php',data={**data,'email':email,'consentement':'1'})
-  checks['adresse_compte_meme_reponse']=result==first
+  checks['adresse_compte_meme_reponse']=stable(result)==stable(first)
   userids=wp('echo wp_json_encode(Imagine\\Site\\Agenda::inscriptions('+php(email)+','+str(e['id'])+'));');created+=userids
   checks['consentement_coche_persistant']=len(userids)==1 and wp('echo wp_json_encode(get_post_meta('+str(userids[0])+',"imagine_agenda_consentement",true));')=='1'
   code,h,body,url=request('/wp-admin/edit.php?post_type=imagine_inscription',sessions['admin'])
@@ -120,19 +125,25 @@ def run(label):
   mut=mutations(evidence);checks.update({'mutation_'+k:v for k,v in mut.items()})
   # Contrôle d'absence qualifié sur les vrais compteurs et leur mutation témoin.
   counts=wp('echo wp_json_encode(get_option("imagine_b07_observer"));')
-  checks['aucun_transport_pendant_parcours']=set(counts)=={'mail','http'} and counts=={'mail':0,'http':0}
-  checks['mutation_observateur_mail']={**counts,'mail':1}!={'mail':0,'http':0}
-  checks['mutation_observateur_http']={**counts,'http':1}!={'mail':0,'http':0}
+  expected_keys=set(empty)
+  closed=lambda c:set(c)==expected_keys and all(c[k]==0 for k in ['agenda_mail','agenda_http','transport_mail','transport_http'])
+  checks['aucun_transport_pendant_parcours']=closed(counts)
+  for key in ['agenda_mail','agenda_http','transport_mail','transport_http']:
+   checks['mutation_observateur_'+key]=not closed({**counts,key:1})
  except Exception as exc:error=type(exc).__name__+': '+str(exc)
  finally:
   # Inverses indépendants : les sessions ne se trouvent jamais dans les preuves publiques.
   try:
    wp('$f=get_option("imagine_b07_fixture");foreach(get_posts(["post_type"=>"imagine_inscription","post_status"=>"any","numberposts"=>-1]) as $p){$email=get_post_meta($p->ID,"imagine_agenda_email",true);if(in_array($p->post_parent,array_values($f))&&in_array($email,["b07-visiteur@example.org",'+php(email)+'])){wp_delete_post($p->ID,true);}}echo "true";')
    if sessions:wp('$sessions='+php(sessions)+';$ids='+php(accounts)+';foreach($sessions as $key=>$s){WP_Session_Tokens::get_instance($ids[$key])->destroy($s["token"]);}echo "true";')
+   # La première visite de l'écran Woo natif ajoute cette préférence UI seulement.
+   if not any(int(r['user_id'])==accounts['admin'] and r['meta_key']=='meta-box-order_product' for r in before['usermeta']):
+    wp('delete_user_meta('+str(accounts['admin'])+',"meta-box-order_product");echo wp_json_encode(!metadata_exists("user",'+str(accounts['admin'])+',"meta-box-order_product"));')
    checks['inscriptions_essai_retirees']=wp('echo wp_json_encode(Imagine\\Site\\Agenda::inscriptions("b07-visiteur@example.org"));')==[] and wp('echo wp_json_encode(Imagine\\Site\\Agenda::inscriptions('+php(email)+'));')==[]
   finally:
-   removed=wp('$p=WP_CONTENT_DIR."/mu-plugins/b07-observer.php";if(is_file($p)&&hash_file("sha256",$p)==="'+observer_hash+'"){unlink($p);}delete_option("imagine_b07_observer");echo wp_json_encode(!file_exists($p)&&get_option("imagine_b07_observer",null)===null);')
-   checks['observateur_retire']=removed
+   removed=b07.remove_observer(observer_hash)
+   wp('delete_option("imagine_b07_observer");echo "true";')
+   checks['observateur_retire']=removed and wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR."/mu-plugins/b07-observer.php")&&get_option("imagine_b07_observer",null)===null);')
   checks['etat_metier_exact']=baseline==b07.b06.state()
   checks['sources_inchangees']=sources==b07.b06.hashes(b07.FILES)
  d={'identity':identity,'total':len(checks),'checks':checks,'failures':[k for k,v in checks.items() if not v],'error':error,'sources':sources,'private_snapshot':durable,'mutations':{k:v for k,v in checks.items() if k.startswith('mutation_')}}
