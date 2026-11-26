@@ -207,6 +207,36 @@
       "expected_exit": 0,
       "output_sha256": "f3a9689831eaeaac61e41558d10197a1cf6ae00ab39e3b56b0f7921cf605b28c",
       "last_line": "REJEU : 1123 tests, 34569 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS"
+    },
+    "t02-packet-tests": {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "wp/tests/t01/test-t02-package.py"
+      ],
+      "cwd": "C:\\Users\\Ced\\imagine",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "output_sha256": "0e5841c35bd378f5809ab0e42ab2a03afb3824647b37b6e4f8d119d383dfc3d4",
+      "last_line": "OK",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1"
+      }
+    },
+    "t02-packet-verifier": {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "production/T-02/verifier.py"
+      ],
+      "cwd": "C:\\Users\\Ced\\imagine",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "output_sha256": "321dffdf77c64819618ceadfb6fa2e6daf97890fd17fedbb6dca5beb22b66de0",
+      "last_line": "{\"contexts\": {\"cp1252\": {\"assertions\": 34569, \"errors\": 0, \"failures\": 0, \"pass\": true, \"skipped\": 0, \"tests\": 1123, \"tools\": {\"checks\": 279, \"excluded\": [], \"failures\": 0, \"tools\": 14}}, \"utf8\": {\"assertions\": 34569, \"errors\": 0, \"failures\": 0, \"pass\": true, \"skipped\": 0, \"tests\": 1123, \"tools\": {\"checks\": 279, \"excluded\": [], \"failures\": 0, \"tools\": 14}}}, \"parent_gates_claimed\": false, \"pret_is_parent_owned_and_not_a_verification_condition\": true, \"verified\": true}",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1"
+      }
     }
   },
   "source_sha256": {

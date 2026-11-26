@@ -57,7 +57,12 @@ def verify(packet):
             for top in ['live_subscriptions','products','countries','other_countries','unknown_country','multiple_product_lines','without_product_line','with_fee_line','with_shipping_line','foreign_currency','zero_recurring_total']:
                 check(prefix+':definition:'+top,bool(v['definitions'].get(top)))
         runner=load(folder/'runner.json');check(console+':owned_cleanup_and_purity',runner['mode']=='native' and all(any(x['check']==key and x['status']=='PASS' for x in runner['checks']) for key in ['cleanup_exact_owned_runner','pure_no_extensions_no_writes','temporary_layout_pure_receipt_identical','isolation_before','isolation_after']))
-        deps=load(folder/'dependency-snapshot.json');check(console+':runtime_dependency_unchanged',deps['wp/outils/bascule/a11/Runtime.php']==hashlib.sha256((ROOT/'wp/outils/bascule/a11/Runtime.php').read_bytes()).hexdigest())
+        import importlib.util
+        spec=importlib.util.spec_from_file_location('a20_runner',ROOT/'wp/tests/a20/run.py')
+        runner_module=importlib.util.module_from_spec(spec);spec.loader.exec_module(runner_module)
+        deps=load(folder/'dependency-snapshot.json');check(console+':all_executed_dependencies_unchanged',deps==runner_module.manifest(runner_module.DEPENDENCIES))
+        channels=load(folder/'a22-channels.json')
+        check(console+':common_guard_native_channels_and_mutation',channels['exit_code']==0 and len(channels['checks'])==21 and all(x['status']=='PASS' for x in channels['checks']))
     style=load(packet/'style/style.json');check('strict_psr12_current_sources',style['exit_code']==style['phpcs_exit']==0 and style['totals']['errors']==style['totals']['warnings']==0 and style['sources']==source)
     matrix=load(packet/'windows-matrix.json');check('both_console_suites_executed',matrix['exit_code']==0 and len(matrix['rows'])==5 and all(r['exit_code']==0 for r in matrix['rows']))
     check('all_retained_artifacts_canary_absent',not any(b'CANARY' in p.read_bytes() for p in packet.rglob('*') if p.is_file()))

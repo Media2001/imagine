@@ -127,8 +127,8 @@ function imagine_list(\WP_Query $query, int $heading = 2, bool $covers = false):
     while ($query->have_posts()) {
         $query->the_post();
         echo '<li data-imagine-id="' . esc_attr((string) get_the_ID()) . '">';
-        $rel = get_post_type() === 'imagine_partenaire' ? ' rel="sponsored"' : '';
-        echo '<' . $tag . '><a href="' . esc_url(get_permalink()) . '"' . $rel . '>' . esc_html(get_the_title()) . '</a></' . $tag . '>';
+        // These are internal navigation permalinks, never commercial destinations.
+        echo '<' . $tag . '><a href="' . esc_url(get_permalink()) . '">' . esc_html(get_the_title()) . '</a></' . $tag . '>';
         if ($covers) {
             echo '<div class="imagine-cover">' . get_the_post_thumbnail(get_the_ID(), 'medium') . '</div>';
             imagine_date('imagine_sortie');

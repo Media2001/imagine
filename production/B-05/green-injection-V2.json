@@ -1,0 +1,15 @@
+{
+  "scope": "isolated-offline-B05",
+  "image": "sha256:99ec55b49811ceecdac8c4ac6cc1bc95f61d564e9769cb598f6498a817047a61",
+  "case": "injection",
+  "isolation_verified": true,
+  "exit": 0,
+  "stdout": "{\n    \"checks\": {\n        \"normal_visible_result\": true,\n        \"normal_preserves_form\": true,\n        \"missing_end_visible_result\": true,\n        \"missing_end_preserves_form\": true,\n        \"missing_group_visible_result\": true,\n        \"missing_group_preserves_form\": true\n    },\n    \"total\": 6,\n    \"failures\": []\n}\n",
+  "stderr": "",
+  "source_sha256": {
+    "wp/tests/demo/b05-offline.php": "21f8dd79af438311c3e0b75c783843f0b60b286e20a967067f648c5d9c94b82c",
+    "wp/themes/imagine/functions.php": "aedb715dcb4e654a8870859b51eaf74fd5bb12a8c604599e809b183ca33f3a41",
+    "wp/plugins/imagine-site/Partenaires.php": "c5401d354ec742ff9334d6473ad83975ac4c1162ef738c9b779219e4f2a42620"
+  },
+  "owned_container_removed": true
+}

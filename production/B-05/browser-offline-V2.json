@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-26T13:25:58.117614+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "articles_accueil_presents": true,
+    "articles_accueil_non_sponsored": true,
+    "articles_accueil_sans_partenaire": true,
+    "mutation_sponsored_detectee": true,
+    "mutation_partenaire_detectee": false,
+    "mutation_liste_vide_detectee": true,
+    "DOM_restaure": true,
+    "ancien_selecteur_passe_a_tort": true,
+    "nouveau_selecteur_refuse_mutation": true
+  },
+  "total": 9,
+  "failures": [
+    "mutation_partenaire_detectee"
+  ],
+  "network": "all requests blocked"
+}

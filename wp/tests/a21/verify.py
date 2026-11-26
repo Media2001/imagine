@@ -80,6 +80,8 @@ def verify(packet):
             nd=load(folder/(storage+'-neutralised/portes.json'))
             check(console+':'+storage+':unknown_never_zero',nd['api_keys']=={'status':'inconnu après neutralisation','counts':None} and nd['webhooks']=={'status':'inconnu après neutralisation','counts':None} and nd['extension_store']=={'status':'inconnu après neutralisation','connected':None})
         runner=load(folder/'runner.json')
+        channels=load(folder/'a22-channels.json')
+        check(console+':common_guard_native_channels_and_mutation',channels['exit_code']==0 and len(channels['checks'])==21 and all(x['status']=='PASS' for x in channels['checks']))
         check(console+':owned_cleanup',runner['mode']=='native' and any(r['check']=='cleanup_exact_owned_runner' and r['status']=='PASS' for r in runner['checks']))
         env=load(packet/(console+'-environment.json'))
         check(console+':windows_console_measured',env['platform']=='win32' and env['version_info'][:2]==[3,14] and env['stdout']==('cp1252' if console=='cp1252' else 'utf-8') and env['utf8_mode']==int(console=='utf8'))

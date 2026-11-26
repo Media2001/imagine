@@ -60,6 +60,22 @@ def wrapped(args,*pos,**kw):
                 if dest.exists():shutil.rmtree(dest)
                 for p in Path('/report').glob('.a22-private-*'):shutil.rmtree(p)
             check(site.name+':'+tool+':guard_restored',guard.read_bytes()==source)
+            if tool not in {'A20','A21'}:
+                import shlex
+                literal=json.loads(Path('/opt/a22/documented.json').read_text(encoding='utf-8'))[tool]
+                documented=shlex.split(literal)
+                base='/checkout/wp/outils/bascule' if any(str(x).startswith('/checkout/') for x in command) else '/subject'
+                documented[1]=base+'/'+documented[1].split('wp/outils/bascule/',1)[1]
+                docout=Path('/report')/(site.name+'-a22-documented')
+                paths={'--wp-path','--audit','--config','--correspondance','--contacts'}
+                for index,part in enumerate(documented):
+                    key=part.partition('=')[0]
+                    if key in paths:documented[index]=key+'='+options[key]
+                    if key=='--output':documented[index]='--output='+str(docout)
+                p=subprocess.run(documented,capture_output=True,timeout=180,
+                    env={**os.environ,'PYTHONIOENCODING':'utf-8','PYTHONUTF8':'1'})
+                check(site.name+':'+tool+':documented_only_literal_arguments',p.returncode==0 and
+                      p.stdout.startswith((tool+'_OK').encode()) and p.stderr==b'' and docout.is_dir())
     return result
 
 b.cmd=wrapped

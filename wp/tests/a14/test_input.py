@@ -52,10 +52,13 @@ class InputTest(unittest.TestCase):
         import ast
         tree=ast.parse(SOURCE.read_text(encoding='utf-8'))
         calls=[n for n in ast.walk(tree) if isinstance(n,ast.Call) and isinstance(n.func,ast.Attribute)
-               and isinstance(n.func.value,ast.Name) and n.func.value.id=='subprocess' and n.func.attr=='run']
+               and isinstance(n.func.value,ast.Name) and n.func.value.id=='guard' and n.func.attr=='inventory']
         self.assertEqual(len(calls),1)
         keywords={k.arg:k.value for k in calls[0].keywords}
-        self.assertEqual(ast.literal_eval(keywords.get('encoding',ast.Constant(None))),'utf-8')
-        self.assertIn('env',keywords)
+        transport=keywords['input_data']
+        self.assertIsInstance(transport,ast.Call)
+        self.assertEqual(transport.func.attr,'encode')
+        self.assertEqual(ast.literal_eval(transport.args[0]),'utf-8')
+        self.assertIn('fence',keywords)
 
 if __name__=='__main__':unittest.main()

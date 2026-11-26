@@ -18,7 +18,7 @@ b = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(b)
 b.LABEL = 'org.imagine.a23-readers'
 OWN = ['wp/outils/bascule/a23', 'wp/tests/a23']
-DEPS = ['wp/outils/bascule/' + f for f in ['audit', 'a11', 'a12', 'a17/Inventory.php', 'common']] + [
+DEPS = ['wp/outils/bascule/' + f for f in ['audit', 'a11', 'a12', 'a17/Inventory.php', 'stream_guard.py', 'stream_refusals.json']] + [
     'wp/tests/a02-audit/' + f for f in ['run.py', 'inside.py', 'seed.php', 'fingerprint.php', 'unit.php', 'readonly-probe.php']
 ] + ['wp/outils/staging']
 
@@ -69,7 +69,7 @@ def main():
                     if p.is_file():
                         b.call(['cp', b.local(p), name + ':' + dest + '/' + p.name])
         if not a.unit_only:
-            for key in ['audit', 'a11', 'a12', 'common']:
+            for key in ['audit', 'a11', 'a12', 'stream_guard.py', 'stream_refusals.json']:
                 p = ROOT / 'wp/outils/bascule' / key
                 if p.exists():
                     b.call(['cp', b.local(p), name + ':/subject/' + key])

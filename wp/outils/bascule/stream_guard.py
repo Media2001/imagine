@@ -164,8 +164,9 @@ def cli():
         return inventory(tool,entry,options,arguments=flags)
     except Exception as error:
         message=str(error)
+        if tool=='A03' and isinstance(error,OSError):message='A03_OUTPUT_FAILED'
         codes=set(allowed_messages())|{tool+x for x in ('_OUTPUT_UNSAFE','_OUTPUT_EXISTS','_PROCESS_OUTPUT_INVALID','_PROCESS_TIMEOUT','_SUCCESS_INCOMPLETE')}
-        print(message if isinstance(error,RuntimeError) and message in codes else tool+'_EXECUTION_FAILED',file=sys.stderr)
+        print(message if message in codes and isinstance(error,(RuntimeError,OSError)) else tool+'_EXECUTION_FAILED',file=sys.stderr)
         return 1
 
 if __name__=='__main__':sys.exit(cli())

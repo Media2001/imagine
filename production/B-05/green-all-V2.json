@@ -1,0 +1,15 @@
+{
+  "scope": "isolated-offline-B05",
+  "image": "sha256:99ec55b49811ceecdac8c4ac6cc1bc95f61d564e9769cb598f6498a817047a61",
+  "case": "all",
+  "isolation_verified": true,
+  "exit": 0,
+  "stdout": "{\n    \"checks\": {\n        \"external\": true,\n        \"external_preserve_rel\": true,\n        \"external_unique\": true,\n        \"external_idempotent\": true,\n        \"protocol_relative\": true,\n        \"protocol_relative_preserve_rel\": true,\n        \"protocol_relative_unique\": true,\n        \"protocol_relative_idempotent\": true,\n        \"leading_space\": true,\n        \"leading_space_preserve_rel\": true,\n        \"leading_space_unique\": true,\n        \"leading_space_idempotent\": true,\n        \"extra_slashes\": true,\n        \"extra_slashes_preserve_rel\": true,\n        \"extra_slashes_unique\": true,\n        \"extra_slashes_idempotent\": true,\n        \"ambiguous_http\": true,\n        \"ambiguous_http_preserve_rel\": true,\n        \"ambiguous_http_unique\": true,\n        \"ambiguous_http_idempotent\": true,\n        \"backslash_authority\": true,\n        \"backslash_authority_preserve_rel\": true,\n        \"backslash_authority_unique\": true,\n        \"backslash_authority_idempotent\": true,\n        \"internal\": true,\n        \"internal_preserve_rel\": true,\n        \"internal_unique\": true,\n        \"internal_idempotent\": true,\n        \"internal_case\": true,\n        \"internal_case_preserve_rel\": true,\n        \"internal_case_unique\": true,\n        \"internal_case_idempotent\": true,\n        \"relative\": true,\n        \"relative_preserve_rel\": true,\n        \"relative_unique\": true,\n        \"relative_idempotent\": true,\n        \"anchor\": true,\n        \"anchor_preserve_rel\": true,\n        \"anchor_unique\": true,\n        \"anchor_idempotent\": true,\n        \"editorial_unchanged\": true,\n        \"selection_1\": true,\n        \"selection_0\": true,\n        \"selection_2\": true,\n        \"selection_3\": true,\n        \"selection_99\": true,\n        \"selection_bogus\": true,\n        \"clean_valid\": true,\n        \"clean_zero\": true,\n        \"clean_draft\": true,\n        \"clean_not_partner\": true,\n        \"clean_invalid\": true,\n        \"clean_null\": true,\n        \"normal_visible_result\": true,\n        \"normal_preserves_form\": true,\n        \"missing_end_visible_result\": true,\n        \"missing_end_preserves_form\": true,\n        \"missing_group_visible_result\": true,\n        \"missing_group_preserves_form\": true,\n        \"archive_copy_internal_navigation\": true,\n        \"list_no_commercial_internal_permalink\": true\n    },\n    \"total\": 61,\n    \"failures\": []\n}\n",
+  "stderr": "",
+  "source_sha256": {
+    "wp/tests/demo/b05-offline.php": "21f8dd79af438311c3e0b75c783843f0b60b286e20a967067f648c5d9c94b82c",
+    "wp/themes/imagine/functions.php": "fdfc8886d7719ddbb28cee1ac644847a45f843d466b5c1c948dc9790f9bc9f3b",
+    "wp/plugins/imagine-site/Partenaires.php": "c5401d354ec742ff9334d6473ad83975ac4c1162ef738c9b779219e4f2a42620"
+  },
+  "owned_container_removed": true
+}

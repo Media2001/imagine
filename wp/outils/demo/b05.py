@@ -9,10 +9,9 @@ ROOT = profils.b00.ROOT
 PROOF = ROOT / 'production/B-05'
 wp = c21.wp
 BLOCK = "require_once __DIR__ . '/Partenaires.php';\nPartenaires::register();\n\n"
-NAMES = ['plugins/imagine-site/Partenaires.php', 'plugins/imagine-site/imagine-site.php',
-         'themes/imagine/inc/partenaires.php', 'themes/imagine/functions.php',
-         'themes/imagine/front-page.php', 'themes/imagine/archive-imagine_partenaire.php',
-         'themes/imagine/single-imagine_partenaire.php']
+NAMES = ['plugins/imagine-site/Partenaires.php', 'themes/imagine/functions.php',
+         'themes/imagine/archive-imagine_partenaire.php']
+# Shared plugin bootstrap is read by contract only; never deployed by B05 corrections.
 
 
 def save(label, data):

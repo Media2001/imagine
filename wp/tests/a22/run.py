@@ -46,7 +46,7 @@ def main():
             name=command[1]
             if args.lot not in {'A02','A10'}:
                 original_call(['exec',name,'mkdir','-p','/opt/a22'])
-                for file in ['replay.py','channels.py']:
+                for file in ['replay.py','channels.py','documented.json']:
                     original_call(['cp',bench.local(HERE/file),name+':/opt/a22/'+file])
                 native_executions.append(command)
                 command=[*command[:3],'/opt/a22/replay.py',command[3],args.lot]

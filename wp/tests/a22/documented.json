@@ -1,0 +1,11 @@
+{
+"A03": "php wp/outils/bascule/non-regression --wp-path=/site-verifie --config=/travail/config.json --output=/travail/avant",
+"A11": "php wp/outils/bascule/a11/inventorier-adresses --wp-path=/copie-verifiee/site --audit=/rapports/audit-001/audit.json --output=/rapports/adresses-001",
+"A12": "python3 /depot/wp/outils/bascule/a12/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/contenus-date",
+"A14": "python3 wp/outils/bascule/rapprocher-contacts --wp-path=/copie-verifiee --audit=/rapports/audit/audit.json --contacts=/entrees/contacts.csv --correspondance=/entrees/correspondance.json --output=/rapports/contacts",
+"A15": "python3 wp/outils/bascule/a15/confine.py --wp-path=/copie-verifiee --audit=/rapports/audit/audit.json --output=/rapports/emails",
+"A16": "python3 wp/outils/bascule/a16/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --correspondance=/hors-web/correspondance.json --output=/hors-web/numeros-date --limit=10",
+"A17": "python3 wp/outils/bascule/a17/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/securite-date",
+"A18": "python3 wp/outils/bascule/a18/confine.py --wp-path=/copie-verifiee --audit=/rapports/audit-date/audit.json --output=/rapports/conservation-date",
+"A19": "python3 wp/outils/bascule/a19/confine.py --wp-path=/copie-verifiee --audit=/rapports/audit-date/audit.json --output=/rapports/coherence-date --as-of=2026-11-26T00:00:00Z"
+}
