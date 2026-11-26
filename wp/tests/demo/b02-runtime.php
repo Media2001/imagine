@@ -40,7 +40,18 @@ foreach (['A-CARTE', 'A-SEPA4', 'A-SUSP', 'P-NUMERO', 'V-INSCRIT'] as $who) {
     foreach (['abonnement', 'echeances', 'numeros', 'coordonnees', 'factures'] as $section) {
         $checks[$who . '_section_' . $section] = str_contains($html, 'id="imagine-compte-' . $section . '"');
     }
-    $checks[$who . '_factures_vides_explicites'] = $v['factures'] === [] && str_contains($html, 'Aucune facture ou justificatif disponible');
+    preg_match('/<ul data-imagine-factures>(.*?)<\/ul>/s', $html, $factures);
+    preg_match('/<div data-imagine-justificatif>(.*?)<\/div>/s', $html, $justificatif);
+    $checks[$who . '_factures_vides_explicites'] = $v['factures'] === []
+        && isset($factures[1]) && str_contains($factures[1], 'Aucune facture disponible')
+        && str_contains($factures[1], 'raccord documentaire Odoo non disponible');
+    $checks[$who . '_justificatif_session_distinct'] = isset($justificatif[1])
+        && str_contains($justificatif[1], 'name="justificatif"')
+        && str_contains($justificatif[1], 'value="' . Imagine\Site\Justificatifs::version(Imagine\Site\Justificatifs::etat($v['user'])) . '"');
+    $checks[$who . '_factures_sans_melange_justificatif'] = isset($factures[1], $justificatif[1])
+        && !str_contains($factures[1], 'justificatif') && !str_contains($factures[1], '<a ')
+        && !str_contains($justificatif[1], 'data-imagine-factures')
+        && str_contains($html, 'Les commandes ne sont pas présentées comme des factures.');
     if ($who === 'A-CARTE') {
         $checks['gel_postal_non_atteste_par_B02'] = !str_contains($html, 'Une liste déjà close conserve son instantané.');
         $checks['carte_actif_natif_sans_carte_inventee'] = $v['abonnements'][0]['etat'] === 'Actif';
