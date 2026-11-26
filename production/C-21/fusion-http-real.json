@@ -1,0 +1,1573 @@
+{
+  "at": "2026-11-26T08:57:17.063455+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "C16_POST_email_vrai_resultat_client": true,
+    "ZIP_operateur_absence_toutes_PII_client": true,
+    "ZIP_operateur_activite_seule_exacte": true,
+    "AJAX_effacement_operateur_ne_detruit_pas_client": true,
+    "ZIP_client_email_valeurs_exactes": true,
+    "ZIP_client_email_sans_note_ni_jeton_ni_operateur": true,
+    "AJAX_client_email_brouillon_efface_relecture": true,
+    "conservation_native_email_inchangee": true,
+    "C16_POST_sansmail_vrai_resultat_client": true,
+    "ZIP_client_sansmail_valeurs_exactes": true,
+    "ZIP_client_sansmail_sans_note_ni_jeton_ni_operateur": true,
+    "ZIP_sansmail_entete_ne_divulgue_pas_technique": true,
+    "AJAX_client_sansmail_brouillon_efface_relecture": true,
+    "conservation_native_sansmail_inchangee": true,
+    "comptes_jetables_supprimes": true,
+    "profils_C09_et_actions_metier_exacts": false
+  },
+  "total": 16,
+  "failures": [
+    "profils_C09_et_actions_metier_exacts"
+  ],
+  "evidence": {
+    "archives": [
+      {
+        "user": 168,
+        "sha256": "d287b9b07bd63b169be0dd1f9ecfcbd8de5afe4ccf53bc1ffd051d30947bf253",
+        "export_json": {
+          "Exportation de données personnelles pour c21-http-operateur@example.org": {
+            "about": {
+              "group_label": "À propos",
+              "group_description": "Vue globale du rapport sur les exportations.",
+              "items": {
+                "about-1": [
+                  {
+                    "name": "Rapport généré pour",
+                    "value": "c21-http-operateur@example.org"
+                  },
+                  {
+                    "name": "Pour le site",
+                    "value": "Imagine — démonstration entièrement fictive"
+                  },
+                  {
+                    "name": "À l’URL",
+                    "value": "http://192.168.129.32:8085"
+                  },
+                  {
+                    "name": "Le",
+                    "value": "2026-11-26 09:56:38"
+                  }
+                ]
+              }
+            },
+            "user": {
+              "group_label": "Compte",
+              "group_description": "Données de profil du compte.",
+              "items": {
+                "user-168": [
+                  {
+                    "name": "ID du compte",
+                    "value": "168"
+                  },
+                  {
+                    "name": "Nom de connexion du compte",
+                    "value": "imagine-c21-http-operateur"
+                  },
+                  {
+                    "name": "Nom du compte formaté sous forme de slug",
+                    "value": "imagine-c21-http-operateur"
+                  },
+                  {
+                    "name": "E-mail du compte",
+                    "value": "c21-http-operateur@example.org"
+                  },
+                  {
+                    "name": "Date d’inscription du compte",
+                    "value": "2026-11-26 08:56:28"
+                  },
+                  {
+                    "name": "Nom affiché du compte",
+                    "value": "imagine-c21-http-operateur"
+                  },
+                  {
+                    "name": "Pseudonyme du compte",
+                    "value": "imagine-c21-http-operateur"
+                  }
+                ]
+              }
+            },
+            "session-tokens": {
+              "group_label": "Jetons de session",
+              "group_description": "Données des jetons de session du compte.",
+              "items": {
+                "session-tokens-168-27ccc1cf573ab548a4d918e05976a6f8c875249bc1901f565b00cbe495f6a4a9": [
+                  {
+                    "name": "Expiration",
+                    "value": "novembre 28, 2026 08:56 AM"
+                  },
+                  {
+                    "name": "IP",
+                    "value": "192.168.129.32"
+                  },
+                  {
+                    "name": "Agent utilisateur",
+                    "value": "Imagine-C12/1.0"
+                  },
+                  {
+                    "name": "Dernière connexion",
+                    "value": "novembre 26, 2026 08:56 AM"
+                  }
+                ]
+              }
+            },
+            "imagine-brouillon": {
+              "group_label": "Imagine — brouillon de commande",
+              "group_description": "",
+              "items": {
+                "imagine-900309a29ae46588dfd97fafb348f02e1f8f20c5e144318e081da15c26a9bfc6": [
+                  {
+                    "name": "Activité",
+                    "value": "A préparé un brouillon"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "html_sha256": "eba4a07422ca4dbd06e7c6ec1e64bda10f11f0362a1919e76a5936acd8900b71",
+        "calls": [
+          {
+            "key": "wordpress-user",
+            "page": 1,
+            "data": [
+              {
+                "group_id": "user",
+                "group_label": "Compte",
+                "group_description": "Données de profil du compte.",
+                "item_id": "user-168",
+                "data": [
+                  {
+                    "name": "ID du compte",
+                    "value": "168"
+                  },
+                  {
+                    "name": "Nom de connexion du compte",
+                    "value": "imagine-c21-http-operateur"
+                  },
+                  {
+                    "name": "Nom du compte formaté sous forme de slug",
+                    "value": "imagine-c21-http-operateur"
+                  },
+                  {
+                    "name": "E-mail du compte",
+                    "value": "c21-http-operateur@example.org"
+                  },
+                  {
+                    "name": "Date d’inscription du compte",
+                    "value": "2026-11-26 08:56:28"
+                  },
+                  {
+                    "name": "Nom affiché du compte",
+                    "value": "imagine-c21-http-operateur"
+                  },
+                  {
+                    "name": "Pseudonyme du compte",
+                    "value": "imagine-c21-http-operateur"
+                  }
+                ]
+              },
+              {
+                "group_id": "session-tokens",
+                "group_label": "Jetons de session",
+                "group_description": "Données des jetons de session du compte.",
+                "item_id": "session-tokens-168-27ccc1cf573ab548a4d918e05976a6f8c875249bc1901f565b00cbe495f6a4a9",
+                "data": [
+                  {
+                    "name": "Expiration",
+                    "value": "novembre 28, 2026 08:56 AM"
+                  },
+                  {
+                    "name": "IP",
+                    "value": "192.168.129.32"
+                  },
+                  {
+                    "name": "Agent utilisateur",
+                    "value": "Imagine-C12/1.0"
+                  },
+                  {
+                    "name": "Dernière connexion",
+                    "value": "novembre 26, 2026 08:56 AM"
+                  }
+                ]
+              }
+            ],
+            "done": true
+          },
+          {
+            "key": "woocommerce-customer-data",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "woocommerce-customer-orders",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "woocommerce-customer-downloads",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "woocommerce-shopper-lists",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "woocommerce-subscriptions-data",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "woocommerce-gifted-subscriptions-data",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "woocommerce-gifted-order-data",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "woocommerce-memberships-user-memberships",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "wordpress-comments",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "wordpress-media",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "imagine-site",
+            "page": 1,
+            "data": [
+              {
+                "group_id": "imagine-brouillon",
+                "group_label": "Imagine — brouillon de commande",
+                "item_id": "imagine-900309a29ae46588dfd97fafb348f02e1f8f20c5e144318e081da15c26a9bfc6",
+                "data": [
+                  {
+                    "name": "Activité",
+                    "value": "A préparé un brouillon"
+                  }
+                ]
+              }
+            ],
+            "done": true,
+            "url": "http://192.168.129.32:8085/wp-content/uploads/wp-personal-data-exports/wp-personal-data-file-rsGWPNt34B6VWC21Tn1CyMV8gl6kqQFR.zip"
+          }
+        ]
+      },
+      {
+        "user": 169,
+        "sha256": "e5feb016107061ffdeaa8947b99c76b9b1ed04dc3a2dc7a627c150bd03dab983",
+        "export_json": {
+          "Exportation de données personnelles pour c21-http-client@example.org": {
+            "about": {
+              "group_label": "À propos",
+              "group_description": "Vue globale du rapport sur les exportations.",
+              "items": {
+                "about-1": [
+                  {
+                    "name": "Rapport généré pour",
+                    "value": "c21-http-client@example.org"
+                  },
+                  {
+                    "name": "Pour le site",
+                    "value": "Imagine — démonstration entièrement fictive"
+                  },
+                  {
+                    "name": "À l’URL",
+                    "value": "http://192.168.129.32:8085"
+                  },
+                  {
+                    "name": "Le",
+                    "value": "2026-11-26 09:56:50"
+                  }
+                ]
+              }
+            },
+            "user": {
+              "group_label": "Compte",
+              "group_description": "Données de profil du compte.",
+              "items": {
+                "user-169": [
+                  {
+                    "name": "ID du compte",
+                    "value": "169"
+                  },
+                  {
+                    "name": "Nom de connexion du compte",
+                    "value": "imagine-c16-97e229c0c28748849f3e6b62ba723cfd"
+                  },
+                  {
+                    "name": "Nom du compte formaté sous forme de slug",
+                    "value": "imagine-c16-97e229c0c28748849f3e6b62ba723cfd"
+                  },
+                  {
+                    "name": "E-mail du compte",
+                    "value": "c21-http-client@example.org"
+                  },
+                  {
+                    "name": "Date d’inscription du compte",
+                    "value": "2026-11-26 08:56:31"
+                  },
+                  {
+                    "name": "Nom affiché du compte",
+                    "value": "C21CLIENTNOM HTTP email"
+                  },
+                  {
+                    "name": "Pseudonyme du compte",
+                    "value": "imagine-c16-97e229c0c28748849f3e6b62ba723cfd"
+                  },
+                  {
+                    "name": "Prénom associé au compte",
+                    "value": "C21CLIENTPRENOM"
+                  },
+                  {
+                    "name": "Nom associé au compte",
+                    "value": "C21CLIENTNOM"
+                  }
+                ]
+              }
+            },
+            "woocommerce_customer": {
+              "group_label": "Customer Data",
+              "group_description": "User&#8217;s WooCommerce customer data.",
+              "items": {
+                "user": [
+                  {
+                    "name": "Billing First Name",
+                    "value": "C21CLIENTPRENOM"
+                  },
+                  {
+                    "name": "Billing Last Name",
+                    "value": "C21CLIENTNOM"
+                  },
+                  {
+                    "name": "Billing Address 1",
+                    "value": "21 RUE HTTP CLIENT FICTIF"
+                  },
+                  {
+                    "name": "Billing City",
+                    "value": "C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Billing Postal/Zip Code",
+                    "value": "1000"
+                  },
+                  {
+                    "name": "Billing Country / Region",
+                    "value": "BE"
+                  },
+                  {
+                    "name": "Shipping First Name",
+                    "value": "C21CLIENTPRENOM"
+                  },
+                  {
+                    "name": "Shipping Last Name",
+                    "value": "C21CLIENTNOM"
+                  },
+                  {
+                    "name": "Shipping Address 1",
+                    "value": "21 RUE HTTP CLIENT FICTIF"
+                  },
+                  {
+                    "name": "Shipping City",
+                    "value": "C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Shipping Postal/Zip Code",
+                    "value": "1000"
+                  },
+                  {
+                    "name": "Shipping Country / Region",
+                    "value": "BE"
+                  }
+                ]
+              }
+            },
+            "woocommerce_orders": {
+              "group_label": "Orders",
+              "group_description": "User&#8217;s WooCommerce orders data.",
+              "items": {
+                "order-2821": [
+                  {
+                    "name": "Order Number",
+                    "value": "2821"
+                  },
+                  {
+                    "name": "Order Date",
+                    "value": "novembre 26, 2026, 9:56 am"
+                  },
+                  {
+                    "name": "Order Total",
+                    "value": "120.00"
+                  },
+                  {
+                    "name": "Items Purchased",
+                    "value": "C09 FICTIF — normal-1 — pas une offre Imagine x 1"
+                  },
+                  {
+                    "name": "IP Address",
+                    "value": "192.168.129.32"
+                  },
+                  {
+                    "name": "Browser User Agent",
+                    "value": "Imagine-C12/1.0"
+                  },
+                  {
+                    "name": "Billing Address",
+                    "value": "C21CLIENTPRENOM C21CLIENTNOM, 21 RUE HTTP CLIENT FICTIF, 1000 C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Shipping Address",
+                    "value": "C21CLIENTPRENOM C21CLIENTNOM, 21 RUE HTTP CLIENT FICTIF, 1000 C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Email Address",
+                    "value": "c21-http-client@example.org"
+                  },
+                  {
+                    "name": "Imagine — numéros achetés",
+                    "value": "0"
+                  }
+                ]
+              }
+            },
+            "woocommerce_subscriptions": {
+              "group_label": "Subscriptions",
+              "group_description": "",
+              "items": {
+                "subscription-2822": [
+                  {
+                    "name": "Subscription Number",
+                    "value": "2822"
+                  },
+                  {
+                    "name": "Created Date",
+                    "value": "novembre 26, 2026, 9:56 am"
+                  },
+                  {
+                    "name": "Recurring Total",
+                    "value": "120.00"
+                  },
+                  {
+                    "name": "Subscription Items",
+                    "value": "C09 FICTIF — normal-1 — pas une offre Imagine x 1"
+                  },
+                  {
+                    "name": "Billing Address",
+                    "value": "C21CLIENTPRENOM C21CLIENTNOM, 21 RUE HTTP CLIENT FICTIF, 1000 C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Shipping Address",
+                    "value": "C21CLIENTPRENOM C21CLIENTNOM, 21 RUE HTTP CLIENT FICTIF, 1000 C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Email Address",
+                    "value": "c21-http-client@example.org"
+                  },
+                  {
+                    "name": "Imagine — numéros achetés",
+                    "value": "0"
+                  }
+                ]
+              }
+            },
+            "imagine-meta": {
+              "group_label": "Imagine — marqueurs personnels",
+              "group_description": "",
+              "items": {
+                "imagine-b3ebbbcd962d223fcc72f07901d7c6ffb7ed95a318a3c8dfac4d4d8e0940a8b7": [
+                  {
+                    "name": "imagine_sans_email",
+                    "value": "0"
+                  }
+                ]
+              }
+            },
+            "imagine-brouillon": {
+              "group_label": "Imagine — brouillon de commande",
+              "group_description": "",
+              "items": {
+                "imagine-900309a29ae46588dfd97fafb348f02e1f8f20c5e144318e081da15c26a9bfc6": [
+                  {
+                    "name": "etape",
+                    "value": "3"
+                  },
+                  {
+                    "name": "client",
+                    "value": "{\"mode\":\"nouveau\",\"nom\":\"C21CLIENTNOM HTTP email\",\"email\":\"c21-http-client@example.org\",\"sans_email\":false}"
+                  },
+                  {
+                    "name": "commande",
+                    "value": "{\"produit\":192,\"adresse\":{\"first_name\":\"C21CLIENTPRENOM\",\"last_name\":\"C21CLIENTNOM\",\"address_1\":\"21 RUE HTTP CLIENT FICTIF\",\"address_2\":\"\",\"postcode\":\"1000\",\"city\":\"C21VILLECLIENT\",\"country\":\"BE\"}}"
+                  },
+                  {
+                    "name": "Mode de règlement",
+                    "value": "Mandat papier"
+                  }
+                ]
+              }
+            },
+            "imagine-postal": {
+              "group_label": "Imagine — historique postal",
+              "group_description": "",
+              "items": {
+                "imagine-0935821671ea1652adc1de8add17b504b92c1ad53430e52317010215f2501869": [
+                  {
+                    "name": "observe_utc",
+                    "value": "2026-11-26 08:56:32.215841"
+                  },
+                  {
+                    "name": "donnees",
+                    "value": "{\"id\":\"2822\",\"creation\":1795683391,\"debut\":\"2026-11-26 08:56:32\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"\",\"rue\":\"\",\"complement\":\"\",\"code_postal\":\"\",\"ville\":\"\",\"pays\":\"\"}"
+                  }
+                ],
+                "imagine-9b425d7eb175d48cff9fd8e426e6b78898f1d73af5314b33dfc0dbbd0528fa87": [
+                  {
+                    "name": "observe_utc",
+                    "value": "2026-11-26 08:56:32.352540"
+                  },
+                  {
+                    "name": "donnees",
+                    "value": "{\"id\":\"2822\",\"creation\":1795683391,\"debut\":\"2026-11-26 08:56:32\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21CLIENTPRENOM C21CLIENTNOM\",\"rue\":\"21 RUE HTTP CLIENT FICTIF\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+                  }
+                ],
+                "imagine-fc26538ed1b71eab4a8ecc1570764d5ba11b53646fb55e243c45d3f8e3b5497e": [
+                  {
+                    "name": "observe_utc",
+                    "value": "2026-11-26 08:56:32.454599"
+                  },
+                  {
+                    "name": "donnees",
+                    "value": "{\"id\":\"2822\",\"creation\":1795683391,\"debut\":\"2026-11-26 08:56:32\",\"fin\":\"2027-11-26 08:56:32\",\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21CLIENTPRENOM C21CLIENTNOM\",\"rue\":\"21 RUE HTTP CLIENT FICTIF\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "html_sha256": "2983fa8f459384256cb061af590b20824442a017045065562cfa7f3d92cac891",
+        "calls": [
+          {
+            "key": "wordpress-user",
+            "page": 1,
+            "data": [
+              {
+                "group_id": "user",
+                "group_label": "Compte",
+                "group_description": "Données de profil du compte.",
+                "item_id": "user-169",
+                "data": [
+                  {
+                    "name": "ID du compte",
+                    "value": "169"
+                  },
+                  {
+                    "name": "Nom de connexion du compte",
+                    "value": "imagine-c16-97e229c0c28748849f3e6b62ba723cfd"
+                  },
+                  {
+                    "name": "Nom du compte formaté sous forme de slug",
+                    "value": "imagine-c16-97e229c0c28748849f3e6b62ba723cfd"
+                  },
+                  {
+                    "name": "E-mail du compte",
+                    "value": "c21-http-client@example.org"
+                  },
+                  {
+                    "name": "Date d’inscription du compte",
+                    "value": "2026-11-26 08:56:31"
+                  },
+                  {
+                    "name": "Nom affiché du compte",
+                    "value": "C21CLIENTNOM HTTP email"
+                  },
+                  {
+                    "name": "Pseudonyme du compte",
+                    "value": "imagine-c16-97e229c0c28748849f3e6b62ba723cfd"
+                  },
+                  {
+                    "name": "Prénom associé au compte",
+                    "value": "C21CLIENTPRENOM"
+                  },
+                  {
+                    "name": "Nom associé au compte",
+                    "value": "C21CLIENTNOM"
+                  }
+                ]
+              }
+            ],
+            "done": true
+          },
+          {
+            "key": "woocommerce-customer-data",
+            "page": 1,
+            "data": [
+              {
+                "group_id": "woocommerce_customer",
+                "group_label": "Customer Data",
+                "group_description": "User&#8217;s WooCommerce customer data.",
+                "item_id": "user",
+                "data": [
+                  {
+                    "name": "Billing First Name",
+                    "value": "C21CLIENTPRENOM"
+                  },
+                  {
+                    "name": "Billing Last Name",
+                    "value": "C21CLIENTNOM"
+                  },
+                  {
+                    "name": "Billing Address 1",
+                    "value": "21 RUE HTTP CLIENT FICTIF"
+                  },
+                  {
+                    "name": "Billing City",
+                    "value": "C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Billing Postal/Zip Code",
+                    "value": "1000"
+                  },
+                  {
+                    "name": "Billing Country / Region",
+                    "value": "BE"
+                  },
+                  {
+                    "name": "Shipping First Name",
+                    "value": "C21CLIENTPRENOM"
+                  },
+                  {
+                    "name": "Shipping Last Name",
+                    "value": "C21CLIENTNOM"
+                  },
+                  {
+                    "name": "Shipping Address 1",
+                    "value": "21 RUE HTTP CLIENT FICTIF"
+                  },
+                  {
+                    "name": "Shipping City",
+                    "value": "C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Shipping Postal/Zip Code",
+                    "value": "1000"
+                  },
+                  {
+                    "name": "Shipping Country / Region",
+                    "value": "BE"
+                  }
+                ]
+              }
+            ],
+            "done": true
+          },
+          {
+            "key": "woocommerce-customer-orders",
+            "page": 1,
+            "data": [
+              {
+                "group_id": "woocommerce_orders",
+                "group_label": "Orders",
+                "group_description": "User&#8217;s WooCommerce orders data.",
+                "item_id": "order-2821",
+                "data": [
+                  {
+                    "name": "Order Number",
+                    "value": "2821"
+                  },
+                  {
+                    "name": "Order Date",
+                    "value": "novembre 26, 2026, 9:56 am"
+                  },
+                  {
+                    "name": "Order Total",
+                    "value": "120.00"
+                  },
+                  {
+                    "name": "Items Purchased",
+                    "value": "C09 FICTIF — normal-1 — pas une offre Imagine x 1"
+                  },
+                  {
+                    "name": "IP Address",
+                    "value": "192.168.129.32"
+                  },
+                  {
+                    "name": "Browser User Agent",
+                    "value": "Imagine-C12/1.0"
+                  },
+                  {
+                    "name": "Billing Address",
+                    "value": "C21CLIENTPRENOM C21CLIENTNOM, 21 RUE HTTP CLIENT FICTIF, 1000 C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Shipping Address",
+                    "value": "C21CLIENTPRENOM C21CLIENTNOM, 21 RUE HTTP CLIENT FICTIF, 1000 C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Email Address",
+                    "value": "c21-http-client@example.org"
+                  },
+                  {
+                    "name": "Imagine — numéros achetés",
+                    "value": "0"
+                  }
+                ]
+              }
+            ],
+            "done": true
+          },
+          {
+            "key": "woocommerce-customer-downloads",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "woocommerce-shopper-lists",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "woocommerce-subscriptions-data",
+            "page": 1,
+            "data": [
+              {
+                "group_id": "woocommerce_subscriptions",
+                "group_label": "Subscriptions",
+                "item_id": "subscription-2822",
+                "data": [
+                  {
+                    "name": "Subscription Number",
+                    "value": "2822"
+                  },
+                  {
+                    "name": "Created Date",
+                    "value": "novembre 26, 2026, 9:56 am"
+                  },
+                  {
+                    "name": "Recurring Total",
+                    "value": "120.00"
+                  },
+                  {
+                    "name": "Subscription Items",
+                    "value": "C09 FICTIF — normal-1 — pas une offre Imagine x 1"
+                  },
+                  {
+                    "name": "Billing Address",
+                    "value": "C21CLIENTPRENOM C21CLIENTNOM, 21 RUE HTTP CLIENT FICTIF, 1000 C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Shipping Address",
+                    "value": "C21CLIENTPRENOM C21CLIENTNOM, 21 RUE HTTP CLIENT FICTIF, 1000 C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Email Address",
+                    "value": "c21-http-client@example.org"
+                  },
+                  {
+                    "name": "Imagine — numéros achetés",
+                    "value": "0"
+                  }
+                ]
+              }
+            ],
+            "done": true
+          },
+          {
+            "key": "woocommerce-gifted-subscriptions-data",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "woocommerce-gifted-order-data",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "woocommerce-memberships-user-memberships",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "wordpress-comments",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "wordpress-media",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "imagine-site",
+            "page": 1,
+            "data": [
+              {
+                "group_id": "imagine-meta",
+                "group_label": "Imagine — marqueurs personnels",
+                "item_id": "imagine-b3ebbbcd962d223fcc72f07901d7c6ffb7ed95a318a3c8dfac4d4d8e0940a8b7",
+                "data": [
+                  {
+                    "name": "imagine_sans_email",
+                    "value": "0"
+                  }
+                ]
+              },
+              {
+                "group_id": "imagine-brouillon",
+                "group_label": "Imagine — brouillon de commande",
+                "item_id": "imagine-900309a29ae46588dfd97fafb348f02e1f8f20c5e144318e081da15c26a9bfc6",
+                "data": [
+                  {
+                    "name": "etape",
+                    "value": "3"
+                  },
+                  {
+                    "name": "client",
+                    "value": "{\"mode\":\"nouveau\",\"nom\":\"C21CLIENTNOM HTTP email\",\"email\":\"c21-http-client@example.org\",\"sans_email\":false}"
+                  },
+                  {
+                    "name": "commande",
+                    "value": "{\"produit\":192,\"adresse\":{\"first_name\":\"C21CLIENTPRENOM\",\"last_name\":\"C21CLIENTNOM\",\"address_1\":\"21 RUE HTTP CLIENT FICTIF\",\"address_2\":\"\",\"postcode\":\"1000\",\"city\":\"C21VILLECLIENT\",\"country\":\"BE\"}}"
+                  },
+                  {
+                    "name": "Mode de règlement",
+                    "value": "Mandat papier"
+                  }
+                ]
+              },
+              {
+                "group_id": "imagine-postal",
+                "group_label": "Imagine — historique postal",
+                "item_id": "imagine-0935821671ea1652adc1de8add17b504b92c1ad53430e52317010215f2501869",
+                "data": [
+                  {
+                    "name": "observe_utc",
+                    "value": "2026-11-26 08:56:32.215841"
+                  },
+                  {
+                    "name": "donnees",
+                    "value": "{\"id\":\"2822\",\"creation\":1795683391,\"debut\":\"2026-11-26 08:56:32\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"\",\"rue\":\"\",\"complement\":\"\",\"code_postal\":\"\",\"ville\":\"\",\"pays\":\"\"}"
+                  }
+                ]
+              },
+              {
+                "group_id": "imagine-postal",
+                "group_label": "Imagine — historique postal",
+                "item_id": "imagine-9b425d7eb175d48cff9fd8e426e6b78898f1d73af5314b33dfc0dbbd0528fa87",
+                "data": [
+                  {
+                    "name": "observe_utc",
+                    "value": "2026-11-26 08:56:32.352540"
+                  },
+                  {
+                    "name": "donnees",
+                    "value": "{\"id\":\"2822\",\"creation\":1795683391,\"debut\":\"2026-11-26 08:56:32\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21CLIENTPRENOM C21CLIENTNOM\",\"rue\":\"21 RUE HTTP CLIENT FICTIF\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+                  }
+                ]
+              },
+              {
+                "group_id": "imagine-postal",
+                "group_label": "Imagine — historique postal",
+                "item_id": "imagine-fc26538ed1b71eab4a8ecc1570764d5ba11b53646fb55e243c45d3f8e3b5497e",
+                "data": [
+                  {
+                    "name": "observe_utc",
+                    "value": "2026-11-26 08:56:32.454599"
+                  },
+                  {
+                    "name": "donnees",
+                    "value": "{\"id\":\"2822\",\"creation\":1795683391,\"debut\":\"2026-11-26 08:56:32\",\"fin\":\"2027-11-26 08:56:32\",\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21CLIENTPRENOM C21CLIENTNOM\",\"rue\":\"21 RUE HTTP CLIENT FICTIF\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+                  }
+                ]
+              }
+            ],
+            "done": true,
+            "url": "http://192.168.129.32:8085/wp-content/uploads/wp-personal-data-exports/wp-personal-data-file-gKhL6xGxAlOaiVjdv1URVWiXF0gyfa4N.zip"
+          }
+        ]
+      },
+      {
+        "user": 170,
+        "sha256": "6b8abf6da4ac16a19d5c63ce7183dd8c07c46a296726cfbfad2988b1ac5e1855",
+        "export_json": {
+          "Exportation de données personnelles pour [sans adresse électronique]": {
+            "about": {
+              "group_label": "À propos",
+              "group_description": "Vue globale du rapport sur les exportations.",
+              "items": {
+                "about-1": [
+                  {
+                    "name": "Rapport généré pour",
+                    "value": "[sans adresse électronique]"
+                  },
+                  {
+                    "name": "Pour le site",
+                    "value": "Imagine — démonstration entièrement fictive"
+                  },
+                  {
+                    "name": "À l’URL",
+                    "value": "http://192.168.129.32:8085"
+                  },
+                  {
+                    "name": "Le",
+                    "value": "2026-11-26 09:57:05"
+                  }
+                ]
+              }
+            },
+            "user": {
+              "group_label": "Compte",
+              "group_description": "Données de profil du compte.",
+              "items": {
+                "user-170": [
+                  {
+                    "name": "ID du compte",
+                    "value": "170"
+                  },
+                  {
+                    "name": "Nom de connexion du compte",
+                    "value": "imagine-c16-572e0877b41b4517bbdd4e48dc7aaff2"
+                  },
+                  {
+                    "name": "Nom du compte formaté sous forme de slug",
+                    "value": "imagine-c16-572e0877b41b4517bbdd4e48dc7aaff2"
+                  },
+                  {
+                    "name": "E-mail du compte",
+                    "value": "[sans adresse électronique]"
+                  },
+                  {
+                    "name": "Date d’inscription du compte",
+                    "value": "2026-11-26 08:56:58"
+                  },
+                  {
+                    "name": "Nom affiché du compte",
+                    "value": "C21CLIENTNOM HTTP sansmail"
+                  },
+                  {
+                    "name": "Pseudonyme du compte",
+                    "value": "imagine-c16-572e0877b41b4517bbdd4e48dc7aaff2"
+                  },
+                  {
+                    "name": "Prénom associé au compte",
+                    "value": "C21CLIENTPRENOM"
+                  },
+                  {
+                    "name": "Nom associé au compte",
+                    "value": "C21CLIENTNOM"
+                  }
+                ]
+              }
+            },
+            "woocommerce_customer": {
+              "group_label": "Customer Data",
+              "group_description": "User&#8217;s WooCommerce customer data.",
+              "items": {
+                "user": [
+                  {
+                    "name": "Billing First Name",
+                    "value": "C21CLIENTPRENOM"
+                  },
+                  {
+                    "name": "Billing Last Name",
+                    "value": "C21CLIENTNOM"
+                  },
+                  {
+                    "name": "Billing Address 1",
+                    "value": "21 RUE HTTP CLIENT FICTIF"
+                  },
+                  {
+                    "name": "Billing City",
+                    "value": "C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Billing Postal/Zip Code",
+                    "value": "1000"
+                  },
+                  {
+                    "name": "Billing Country / Region",
+                    "value": "BE"
+                  },
+                  {
+                    "name": "Shipping First Name",
+                    "value": "C21CLIENTPRENOM"
+                  },
+                  {
+                    "name": "Shipping Last Name",
+                    "value": "C21CLIENTNOM"
+                  },
+                  {
+                    "name": "Shipping Address 1",
+                    "value": "21 RUE HTTP CLIENT FICTIF"
+                  },
+                  {
+                    "name": "Shipping City",
+                    "value": "C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Shipping Postal/Zip Code",
+                    "value": "1000"
+                  },
+                  {
+                    "name": "Shipping Country / Region",
+                    "value": "BE"
+                  }
+                ]
+              }
+            },
+            "woocommerce_orders": {
+              "group_label": "Orders",
+              "group_description": "User&#8217;s WooCommerce orders data.",
+              "items": {
+                "order-2827": [
+                  {
+                    "name": "Order Number",
+                    "value": "2827"
+                  },
+                  {
+                    "name": "Order Date",
+                    "value": "novembre 26, 2026, 9:56 am"
+                  },
+                  {
+                    "name": "Order Total",
+                    "value": "120.00"
+                  },
+                  {
+                    "name": "Items Purchased",
+                    "value": "C09 FICTIF — normal-1 — pas une offre Imagine x 1"
+                  },
+                  {
+                    "name": "IP Address",
+                    "value": "192.168.129.32"
+                  },
+                  {
+                    "name": "Browser User Agent",
+                    "value": "Imagine-C12/1.0"
+                  },
+                  {
+                    "name": "Billing Address",
+                    "value": "C21CLIENTPRENOM C21CLIENTNOM, 21 RUE HTTP CLIENT FICTIF, 1000 C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Shipping Address",
+                    "value": "C21CLIENTPRENOM C21CLIENTNOM, 21 RUE HTTP CLIENT FICTIF, 1000 C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Email Address",
+                    "value": "[sans adresse électronique]"
+                  },
+                  {
+                    "name": "Imagine — numéros achetés",
+                    "value": "0"
+                  }
+                ]
+              }
+            },
+            "woocommerce_subscriptions": {
+              "group_label": "Subscriptions",
+              "group_description": "",
+              "items": {
+                "subscription-2828": [
+                  {
+                    "name": "Subscription Number",
+                    "value": "2828"
+                  },
+                  {
+                    "name": "Created Date",
+                    "value": "novembre 26, 2026, 9:56 am"
+                  },
+                  {
+                    "name": "Recurring Total",
+                    "value": "120.00"
+                  },
+                  {
+                    "name": "Subscription Items",
+                    "value": "C09 FICTIF — normal-1 — pas une offre Imagine x 1"
+                  },
+                  {
+                    "name": "Billing Address",
+                    "value": "C21CLIENTPRENOM C21CLIENTNOM, 21 RUE HTTP CLIENT FICTIF, 1000 C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Shipping Address",
+                    "value": "C21CLIENTPRENOM C21CLIENTNOM, 21 RUE HTTP CLIENT FICTIF, 1000 C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Email Address",
+                    "value": "[sans adresse électronique]"
+                  },
+                  {
+                    "name": "Imagine — numéros achetés",
+                    "value": "0"
+                  }
+                ]
+              }
+            },
+            "imagine-meta": {
+              "group_label": "Imagine — marqueurs personnels",
+              "group_description": "",
+              "items": {
+                "imagine-b3ebbbcd962d223fcc72f07901d7c6ffb7ed95a318a3c8dfac4d4d8e0940a8b7": [
+                  {
+                    "name": "imagine_sans_email",
+                    "value": "1"
+                  }
+                ]
+              }
+            },
+            "imagine-brouillon": {
+              "group_label": "Imagine — brouillon de commande",
+              "group_description": "",
+              "items": {
+                "imagine-b866ee5fdb9b589dee2e010960107307cab5fd434bcba57080878d773e1835b2": [
+                  {
+                    "name": "etape",
+                    "value": "3"
+                  },
+                  {
+                    "name": "client",
+                    "value": "{\"mode\":\"nouveau\",\"nom\":\"C21CLIENTNOM HTTP sansmail\",\"email\":\"\",\"sans_email\":true}"
+                  },
+                  {
+                    "name": "commande",
+                    "value": "{\"produit\":192,\"adresse\":{\"first_name\":\"C21CLIENTPRENOM\",\"last_name\":\"C21CLIENTNOM\",\"address_1\":\"21 RUE HTTP CLIENT FICTIF\",\"address_2\":\"\",\"postcode\":\"1000\",\"city\":\"C21VILLECLIENT\",\"country\":\"BE\"}}"
+                  },
+                  {
+                    "name": "Mode de règlement",
+                    "value": "Mandat papier"
+                  }
+                ]
+              }
+            },
+            "imagine-postal": {
+              "group_label": "Imagine — historique postal",
+              "group_description": "",
+              "items": {
+                "imagine-ad836cfd36fe8cc17fa156cca07ded44a1b042e2a4412fe0bb6973bce2444202": [
+                  {
+                    "name": "observe_utc",
+                    "value": "2026-11-26 08:56:58.748248"
+                  },
+                  {
+                    "name": "donnees",
+                    "value": "{\"id\":\"2828\",\"creation\":1795683418,\"debut\":\"2026-11-26 08:56:58\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"\",\"rue\":\"\",\"complement\":\"\",\"code_postal\":\"\",\"ville\":\"\",\"pays\":\"\"}"
+                  }
+                ],
+                "imagine-7a2ef05423b271a6b8f8fc6b6befb0ff0d974f540d9a69a258ebc63968b4a5a5": [
+                  {
+                    "name": "observe_utc",
+                    "value": "2026-11-26 08:56:58.886643"
+                  },
+                  {
+                    "name": "donnees",
+                    "value": "{\"id\":\"2828\",\"creation\":1795683418,\"debut\":\"2026-11-26 08:56:58\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21CLIENTPRENOM C21CLIENTNOM\",\"rue\":\"21 RUE HTTP CLIENT FICTIF\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+                  }
+                ],
+                "imagine-2e738c1ba356a0864206c3827464b145c06e3e8f83aa74a534aeaed7addff4b8": [
+                  {
+                    "name": "observe_utc",
+                    "value": "2026-11-26 08:56:58.971023"
+                  },
+                  {
+                    "name": "donnees",
+                    "value": "{\"id\":\"2828\",\"creation\":1795683418,\"debut\":\"2026-11-26 08:56:58\",\"fin\":\"2027-11-26 08:56:58\",\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21CLIENTPRENOM C21CLIENTNOM\",\"rue\":\"21 RUE HTTP CLIENT FICTIF\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "html_sha256": "37fa0965ff8b1193b3bbec1308b6a52b2879c1c37fa9c78dc7f6f27f7615e8e6",
+        "calls": [
+          {
+            "key": "wordpress-user",
+            "page": 1,
+            "data": [
+              {
+                "group_id": "user",
+                "group_label": "Compte",
+                "group_description": "Données de profil du compte.",
+                "item_id": "user-170",
+                "data": [
+                  {
+                    "name": "ID du compte",
+                    "value": "170"
+                  },
+                  {
+                    "name": "Nom de connexion du compte",
+                    "value": "imagine-c16-572e0877b41b4517bbdd4e48dc7aaff2"
+                  },
+                  {
+                    "name": "Nom du compte formaté sous forme de slug",
+                    "value": "imagine-c16-572e0877b41b4517bbdd4e48dc7aaff2"
+                  },
+                  {
+                    "name": "E-mail du compte",
+                    "value": "[sans adresse électronique]"
+                  },
+                  {
+                    "name": "Date d’inscription du compte",
+                    "value": "2026-11-26 08:56:58"
+                  },
+                  {
+                    "name": "Nom affiché du compte",
+                    "value": "C21CLIENTNOM HTTP sansmail"
+                  },
+                  {
+                    "name": "Pseudonyme du compte",
+                    "value": "imagine-c16-572e0877b41b4517bbdd4e48dc7aaff2"
+                  },
+                  {
+                    "name": "Prénom associé au compte",
+                    "value": "C21CLIENTPRENOM"
+                  },
+                  {
+                    "name": "Nom associé au compte",
+                    "value": "C21CLIENTNOM"
+                  }
+                ]
+              }
+            ],
+            "done": true
+          },
+          {
+            "key": "woocommerce-customer-data",
+            "page": 1,
+            "data": [
+              {
+                "group_id": "woocommerce_customer",
+                "group_label": "Customer Data",
+                "group_description": "User&#8217;s WooCommerce customer data.",
+                "item_id": "user",
+                "data": [
+                  {
+                    "name": "Billing First Name",
+                    "value": "C21CLIENTPRENOM"
+                  },
+                  {
+                    "name": "Billing Last Name",
+                    "value": "C21CLIENTNOM"
+                  },
+                  {
+                    "name": "Billing Address 1",
+                    "value": "21 RUE HTTP CLIENT FICTIF"
+                  },
+                  {
+                    "name": "Billing City",
+                    "value": "C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Billing Postal/Zip Code",
+                    "value": "1000"
+                  },
+                  {
+                    "name": "Billing Country / Region",
+                    "value": "BE"
+                  },
+                  {
+                    "name": "Shipping First Name",
+                    "value": "C21CLIENTPRENOM"
+                  },
+                  {
+                    "name": "Shipping Last Name",
+                    "value": "C21CLIENTNOM"
+                  },
+                  {
+                    "name": "Shipping Address 1",
+                    "value": "21 RUE HTTP CLIENT FICTIF"
+                  },
+                  {
+                    "name": "Shipping City",
+                    "value": "C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Shipping Postal/Zip Code",
+                    "value": "1000"
+                  },
+                  {
+                    "name": "Shipping Country / Region",
+                    "value": "BE"
+                  }
+                ]
+              }
+            ],
+            "done": true
+          },
+          {
+            "key": "woocommerce-customer-orders",
+            "page": 1,
+            "data": [
+              {
+                "group_id": "woocommerce_orders",
+                "group_label": "Orders",
+                "group_description": "User&#8217;s WooCommerce orders data.",
+                "item_id": "order-2827",
+                "data": [
+                  {
+                    "name": "Order Number",
+                    "value": "2827"
+                  },
+                  {
+                    "name": "Order Date",
+                    "value": "novembre 26, 2026, 9:56 am"
+                  },
+                  {
+                    "name": "Order Total",
+                    "value": "120.00"
+                  },
+                  {
+                    "name": "Items Purchased",
+                    "value": "C09 FICTIF — normal-1 — pas une offre Imagine x 1"
+                  },
+                  {
+                    "name": "IP Address",
+                    "value": "192.168.129.32"
+                  },
+                  {
+                    "name": "Browser User Agent",
+                    "value": "Imagine-C12/1.0"
+                  },
+                  {
+                    "name": "Billing Address",
+                    "value": "C21CLIENTPRENOM C21CLIENTNOM, 21 RUE HTTP CLIENT FICTIF, 1000 C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Shipping Address",
+                    "value": "C21CLIENTPRENOM C21CLIENTNOM, 21 RUE HTTP CLIENT FICTIF, 1000 C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Email Address",
+                    "value": "[sans adresse électronique]"
+                  },
+                  {
+                    "name": "Imagine — numéros achetés",
+                    "value": "0"
+                  }
+                ]
+              }
+            ],
+            "done": true
+          },
+          {
+            "key": "woocommerce-customer-downloads",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "woocommerce-shopper-lists",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "woocommerce-subscriptions-data",
+            "page": 1,
+            "data": [
+              {
+                "group_id": "woocommerce_subscriptions",
+                "group_label": "Subscriptions",
+                "item_id": "subscription-2828",
+                "data": [
+                  {
+                    "name": "Subscription Number",
+                    "value": "2828"
+                  },
+                  {
+                    "name": "Created Date",
+                    "value": "novembre 26, 2026, 9:56 am"
+                  },
+                  {
+                    "name": "Recurring Total",
+                    "value": "120.00"
+                  },
+                  {
+                    "name": "Subscription Items",
+                    "value": "C09 FICTIF — normal-1 — pas une offre Imagine x 1"
+                  },
+                  {
+                    "name": "Billing Address",
+                    "value": "C21CLIENTPRENOM C21CLIENTNOM, 21 RUE HTTP CLIENT FICTIF, 1000 C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Shipping Address",
+                    "value": "C21CLIENTPRENOM C21CLIENTNOM, 21 RUE HTTP CLIENT FICTIF, 1000 C21VILLECLIENT"
+                  },
+                  {
+                    "name": "Email Address",
+                    "value": "[sans adresse électronique]"
+                  },
+                  {
+                    "name": "Imagine — numéros achetés",
+                    "value": "0"
+                  }
+                ]
+              }
+            ],
+            "done": true
+          },
+          {
+            "key": "woocommerce-gifted-subscriptions-data",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "woocommerce-gifted-order-data",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "woocommerce-memberships-user-memberships",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "wordpress-comments",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "wordpress-media",
+            "page": 1,
+            "data": [],
+            "done": true
+          },
+          {
+            "key": "imagine-site",
+            "page": 1,
+            "data": [
+              {
+                "group_id": "imagine-meta",
+                "group_label": "Imagine — marqueurs personnels",
+                "item_id": "imagine-b3ebbbcd962d223fcc72f07901d7c6ffb7ed95a318a3c8dfac4d4d8e0940a8b7",
+                "data": [
+                  {
+                    "name": "imagine_sans_email",
+                    "value": "1"
+                  }
+                ]
+              },
+              {
+                "group_id": "imagine-brouillon",
+                "group_label": "Imagine — brouillon de commande",
+                "item_id": "imagine-b866ee5fdb9b589dee2e010960107307cab5fd434bcba57080878d773e1835b2",
+                "data": [
+                  {
+                    "name": "etape",
+                    "value": "3"
+                  },
+                  {
+                    "name": "client",
+                    "value": "{\"mode\":\"nouveau\",\"nom\":\"C21CLIENTNOM HTTP sansmail\",\"email\":\"\",\"sans_email\":true}"
+                  },
+                  {
+                    "name": "commande",
+                    "value": "{\"produit\":192,\"adresse\":{\"first_name\":\"C21CLIENTPRENOM\",\"last_name\":\"C21CLIENTNOM\",\"address_1\":\"21 RUE HTTP CLIENT FICTIF\",\"address_2\":\"\",\"postcode\":\"1000\",\"city\":\"C21VILLECLIENT\",\"country\":\"BE\"}}"
+                  },
+                  {
+                    "name": "Mode de règlement",
+                    "value": "Mandat papier"
+                  }
+                ]
+              },
+              {
+                "group_id": "imagine-postal",
+                "group_label": "Imagine — historique postal",
+                "item_id": "imagine-ad836cfd36fe8cc17fa156cca07ded44a1b042e2a4412fe0bb6973bce2444202",
+                "data": [
+                  {
+                    "name": "observe_utc",
+                    "value": "2026-11-26 08:56:58.748248"
+                  },
+                  {
+                    "name": "donnees",
+                    "value": "{\"id\":\"2828\",\"creation\":1795683418,\"debut\":\"2026-11-26 08:56:58\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"\",\"rue\":\"\",\"complement\":\"\",\"code_postal\":\"\",\"ville\":\"\",\"pays\":\"\"}"
+                  }
+                ]
+              },
+              {
+                "group_id": "imagine-postal",
+                "group_label": "Imagine — historique postal",
+                "item_id": "imagine-7a2ef05423b271a6b8f8fc6b6befb0ff0d974f540d9a69a258ebc63968b4a5a5",
+                "data": [
+                  {
+                    "name": "observe_utc",
+                    "value": "2026-11-26 08:56:58.886643"
+                  },
+                  {
+                    "name": "donnees",
+                    "value": "{\"id\":\"2828\",\"creation\":1795683418,\"debut\":\"2026-11-26 08:56:58\",\"fin\":0,\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21CLIENTPRENOM C21CLIENTNOM\",\"rue\":\"21 RUE HTTP CLIENT FICTIF\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+                  }
+                ]
+              },
+              {
+                "group_id": "imagine-postal",
+                "group_label": "Imagine — historique postal",
+                "item_id": "imagine-2e738c1ba356a0864206c3827464b145c06e3e8f83aa74a534aeaed7addff4b8",
+                "data": [
+                  {
+                    "name": "observe_utc",
+                    "value": "2026-11-26 08:56:58.971023"
+                  },
+                  {
+                    "name": "donnees",
+                    "value": "{\"id\":\"2828\",\"creation\":1795683418,\"debut\":\"2026-11-26 08:56:58\",\"fin\":\"2027-11-26 08:56:58\",\"etat\":\"pending\",\"paiement\":null,\"grace_debut\":\"\",\"grace_fin\":\"\",\"renouvellements\":[],\"origine\":\"abonnement\",\"destinataire\":\"C21CLIENTPRENOM C21CLIENTNOM\",\"rue\":\"21 RUE HTTP CLIENT FICTIF\",\"complement\":\"\",\"code_postal\":\"1000\",\"ville\":\"C21VILLECLIENT\",\"pays\":\"BE\"}"
+                  }
+                ]
+              }
+            ],
+            "done": true,
+            "url": "http://192.168.129.32:8085/wp-content/uploads/wp-personal-data-exports/wp-personal-data-file-256bQlAPo6anJRjSxJSOvMwCMULE6VzT.zip"
+          }
+        ]
+      }
+    ]
+  },
+  "created_then_deleted": [
+    {
+      "commande": 2821,
+      "souscription": 2822,
+      "client": 169
+    },
+    {
+      "commande": 2827,
+      "souscription": 2828,
+      "client": 170
+    }
+  ]
+}

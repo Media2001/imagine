@@ -53,6 +53,48 @@ final class ConfidentialiteReglesTest extends TestCase
         self::assertSame('2', $out['donnees']['user']);
     }
 
+    public function testEffacementOffrantPreserveAttributionEtAdresseExactesDuBeneficiaire(): void
+    {
+        $event = ['donnees' => ['id' => '70', 'user' => '2', 'origine' => 'offert',
+            'destinataire' => 'CIBLE', 'rue' => 'RUE CIBLE', 'beneficiaires_resolus' => true,
+            'beneficiaires' => [['id' => '3', 'nom' => 'CIBLE', 'rue' => 'RUE CIBLE']],
+            'relation_native' => ['recipient_user' => 3]]];
+        $before = ConfidentialiteRegles::postal($event, 3);
+        $out = ConfidentialiteRegles::retirerPostal($event, 2);
+        self::assertSame('0', $out['donnees']['user']);
+        self::assertSame($before, ConfidentialiteRegles::postal($out, 3));
+        self::assertSame($event['donnees']['relation_native'], $out['donnees']['relation_native']);
+        self::assertSame('RUE CIBLE', $out['donnees']['rue']);
+        self::assertNull(ConfidentialiteRegles::postal($out, 2));
+    }
+
+    public function testRetraitNeResoutJamaisUnGroupeInconnu(): void
+    {
+        $event = ['donnees' => ['user' => '2', 'origine' => 'groupe', 'beneficiaires_resolus' => false,
+            'beneficiaires' => [['id' => '3'], ['id' => '4']], 'relation_native' => [['user_id' => 3], ['user_id' => 4]]]];
+        $out = ConfidentialiteRegles::retirerPostal($event, 3);
+        self::assertFalse($out['donnees']['beneficiaires_resolus']);
+        self::assertSame([['id' => '4']], $out['donnees']['beneficiaires']);
+    }
+
+    public function testTraductionsConfidentialiteOntToutesUnPremierArgumentLitteral(): void
+    {
+        $source = file_get_contents(dirname(__DIR__) . '/Confidentialite.php');
+        $tokens = array_values(array_filter(token_get_all($source), static fn ($t): bool =>
+            !is_array($t) || !in_array($t[0], [T_WHITESPACE, T_COMMENT, T_DOC_COMMENT], true)));
+        $count = 0;
+        foreach ($tokens as $i => $t) {
+            if (is_array($t) && $t[0] === T_STRING && in_array($t[1], ['__', 'esc_html__'], true)) {
+                self::assertSame('(', $tokens[$i + 1]);
+                self::assertSame(T_CONSTANT_ENCAPSED_STRING, $tokens[$i + 2][0]);
+                $count++;
+            }
+        }
+        self::assertGreaterThan(15, $count);
+        self::assertStringContainsString('SansEmail::META', $source);
+        self::assertStringContainsString('Newsletters::META', $source);
+    }
+
     public function testExportPostalNeDivulguePasLesAutresBeneficiaires(): void
     {
         $event = ['observe_utc' => '2026-11-26', 'donnees' => [

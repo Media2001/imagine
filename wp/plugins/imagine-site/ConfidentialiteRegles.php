@@ -30,8 +30,10 @@ final class ConfidentialiteRegles
                 }
             }
         }
-        if (($d['origine'] ?? '') === 'offert'
-            && (int) ($d['relation_native']['recipient_user'] ?? 0) === $id) {
+        if (
+            ($d['origine'] ?? '') === 'offert'
+            && (int) ($d['relation_native']['recipient_user'] ?? 0) === $id
+        ) {
             foreach (['destinataire', 'rue', 'complement', 'code_postal', 'ville', 'pays'] as $field) {
                 $d[$field] = '';
             }

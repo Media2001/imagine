@@ -81,8 +81,10 @@ final class Confidentialite
             $ids = array_merge($ids, array_map('intval', array_column($relations, 'user_id')));
         }
         foreach (array_unique($ids) as $id) {
-            if ($id > 0 && (self::demandeTerminee($id)
-                || ($id === (int) ($data['user'] ?? 0) && !get_userdata($id)))) {
+            if (
+                $id > 0 && (self::demandeTerminee($id)
+                || ($id === (int) ($data['user'] ?? 0) && !get_userdata($id)))
+            ) {
                 $event = ConfidentialiteRegles::retirerPostal(['donnees' => $data], $id);
                 if ($event !== null) {
                     $data = $event['donnees'];
@@ -376,13 +378,13 @@ final class Confidentialite
                         $fields = [__('Activité', 'imagine-site') => __('A préparé un brouillon', 'imagine-site')];
                     } else {
                         $fields = ['etape' => $v['etape'] ?? '', 'client' => array_intersect_key(
-                        $v['client'] ?? [],
-                        array_flip(['id', 'mode', 'nom', 'prenom', 'email', 'sans_email'])
-                    )];
+                            $v['client'] ?? [],
+                            array_flip(['id', 'mode', 'nom', 'prenom', 'email', 'sans_email'])
+                        )];
                         $fields['commande'] = array_intersect_key(
-                        $v['commande'] ?? [],
-                        array_flip(['adresse', 'produit'])
-                    );
+                            $v['commande'] ?? [],
+                            array_flip(['adresse', 'produit'])
+                        );
                         $fields[__('Mode de règlement', 'imagine-site')] = match ($v['commande']['paiement'] ?? '') {
                             'bacs' => __('Virement', 'imagine-site'),
                             'imagine_papier' => __('Mandat papier', 'imagine-site'),
