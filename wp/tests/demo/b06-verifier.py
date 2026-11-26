@@ -29,7 +29,9 @@ def verify(label='livraison-V2'):
         assert r['exit']==1 and item['required_failure'] in r['failures'] and r['state_preserved'] and not r['stderr']
     image=json.loads((b06.PROOF/'image-final-V2.json').read_text(encoding='utf-8'))
     assert image['exit']==0 and 'T01 IMAGE READY' in image['stdout'] and 'image verifiee sha256:' in image['stdout']
-    regression=json.loads((b06.PROOF/'regression-V2.json').read_text(encoding='utf-8'))
+    quality=json.loads((b06.PROOF/'quality-V2.json').read_text(encoding='utf-8'))
+    assert quality['exit']==0 and quality['report']['totals']['errors']==0
+    regression=json.loads((b06.PROOF/'regression-final-V2.json').read_text(encoding='utf-8'))
     matches=re.findall(r'^T01_RESULT (.+)$',regression['stdout'],re.M)
     assert regression['exit']==0 and len(matches)==1
     data=json.loads(matches[0]);assert data['pass'] and data['tests']>1000 and data['failures']==data['errors']==data['skipped']==0
@@ -51,4 +53,4 @@ def verify(label='livraison-V2'):
     print(json.dumps(result,ensure_ascii=False))
     return result
 
-if __name__=='__main__': verify(sys.argv[1] if len(sys.argv)>1 else 'recette-finale-V2')
+if __name__=='__main__': verify(sys.argv[1] if len(sys.argv)>1 else 'livraison-V2')

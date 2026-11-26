@@ -9,8 +9,10 @@ foreach ($wpdb->get_col("SELECT comment_ID FROM {$wpdb->comments}") as $id) {
     wp_delete_comment((int) $id, true);
 }
 $person = (int) get_user_by('login', 'a02-fictif')->ID;
-foreach ([['2023-12-31 23:30:00', '1', true, false], ['2024-06-01 12:00:00', '0', false, true],
-    ['2024-07-01 12:00:00', 'spam', true, false]] as [$date, $state, $address, $account]) {
+foreach (
+    [['2023-12-31 23:30:00', '1', true, false], ['2024-06-01 12:00:00', '0', false, true],
+    ['2024-07-01 12:00:00', 'spam', true, false]] as [$date, $state, $address, $account]
+) {
     $id = wp_insert_comment(['comment_post_ID' => 1, 'comment_author' => 'A25_PERSON_PRIVATE_CANARY',
         'comment_author_email' => $address ? 'a25-fictif@example.org' : '',
         'comment_author_IP' => $address ? '192.0.2.41' : '', 'comment_content' => 'A25_COMMENT_PRIVATE_CANARY',

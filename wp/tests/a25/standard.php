@@ -19,8 +19,10 @@ $rules = ['native_wp_comment' => str_contains($sources['comment'], 'class WP_Com
     'native_order_date_getter' => str_contains($sources['abstract_order'], 'function get_date_created('),
     'native_authoritative_store' => str_contains($sources['storage'], 'function custom_orders_table_usage_is_enabled('),
     'native_preinitialised_hooks' => str_contains($sources['hooks'], 'function build_preinitialized_hooks(')];
-foreach (['pre_as_enqueue_async_action', 'pre_as_schedule_single_action',
-    'pre_as_schedule_recurring_action', 'pre_as_schedule_cron_action'] as $hook) {
+foreach (
+    ['pre_as_enqueue_async_action', 'pre_as_schedule_single_action',
+    'pre_as_schedule_recurring_action', 'pre_as_schedule_cron_action'] as $hook
+) {
     $rules['native_filter:' . $hook] = str_contains($sources['scheduler'], "apply_filters( '" . $hook . "', null,");
 }
 $report = ['source_sha256' => $hashes, 'checks' => array_map(static fn(string $key, bool $ok): array => [

@@ -285,6 +285,46 @@ if (getenv('A25_CONFINED') === '1') {
         b.check(storage + ':neutralised_all_tables_files_identical', clone_before == clone_after and clone_files == b.files(site))
     finally:
         (site / 'wp-config.php').write_text(cfg, encoding='utf-8')
+    # A second native variant proves disclosure at exactly five and the UTC boundary.
+    writable = cfg.replace("define('DB_USER', 'a02_" + storage + "')", "define('DB_USER', 'root')").split(
+        "\nfile_put_contents('/scratch/a02-bootstrap-trap'")[0]
+    (site / 'wp-config.php').write_text(writable, encoding='utf-8')
+    try:
+        b.check(storage + ':five_native_seed', 'A25_FIVE_OK' in b.wp(site, ['eval-file', '/opt/a25/seed-five.php', '--use-include']).stdout)
+    finally:
+        (site / 'wp-config.php').write_text(cfg, encoding='utf-8')
+    five_before, five_files = b.fingerprint(db), b.files(site)
+    five_audit = OUT / (storage + '-five-audit')
+    b.check(storage + ':five_audit', b.audit(site, five_audit).returncode == 0)
+    five_out = OUT / (storage + '-five')
+    q = inventory(site, five_out, five_audit / 'audit.json')
+    b.check(storage + ':five_confined_success', q.returncode == 0 and q.stderr == '')
+    five = json.loads((five_out / 'visiteurs.json').read_text(encoding='utf-8'))
+    b.check(storage + ':five_native_year_state_utc', five['counts']['comments']['all'] == {
+        'groups': [{'year': 1999, 'state': '1', 'count': 5}], 'autres': 3})
+    b.check(storage + ':five_native_form_year', five['counts']['forms'] == {
+        'groups': [{'year': 1999, 'state': 'Fluent Forms', 'count': 5}], 'autres': 4})
+    b.check(storage + ':five_native_guests_year', five['counts']['guests'] == {
+        'groups': [{'year': 1999, 'state': 'guest', 'count': 5}], 'autres': 2})
+    five_after = b.fingerprint(db)
+    for suffix, value in [('before', five_before), ('after', five_after)]:
+        (OUT / (storage + '-five-db-' + suffix + '.json')).write_text(json.dumps(value), encoding='utf-8')
+    b.check(storage + ':five_tables_files_identical', five_before == five_after and five_files == b.files(site))
+    # No known extension store: this is a legitimate observed result, not a refusal.
+    b.sql(db, 'DROP TABLE wp_fluentform_submissions')
+    absent_before, absent_files = b.fingerprint(db), b.files(site)
+    absent_audit = OUT / (storage + '-absent-audit')
+    b.check(storage + ':absent_audit', b.audit(site, absent_audit).returncode == 0)
+    absent_out = OUT / (storage + '-absent')
+    q = inventory(site, absent_out, absent_audit / 'audit.json')
+    b.check(storage + ':absent_confined_success', q.returncode == 0 and q.stderr == '')
+    absent = json.loads((absent_out / 'visiteurs.json').read_text(encoding='utf-8'))
+    b.check(storage + ':absent_known_extension_explicit', absent['forms']['listed_extensions'] == []
+            and absent['forms']['other_tables'] == 1 and absent['counts']['forms'] == {'groups': [], 'autres': 2})
+    absent_after = b.fingerprint(db)
+    for suffix, value in [('before', absent_before), ('after', absent_after)]:
+        (OUT / (storage + '-absent-db-' + suffix + '.json')).write_text(json.dumps(value), encoding='utf-8')
+    b.check(storage + ':absent_tables_files_identical', absent_before == absent_after and absent_files == b.files(site))
     b.check(storage + ':all_output_artifacts_clean', not any(b'CANARY' in f.read_bytes() for f in OUT.rglob('*') if f.is_file()))
 
 
