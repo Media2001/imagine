@@ -28,8 +28,10 @@ final class Command
         if (!is_file($repository . '/wp/outils/bascule/audit')) {
             $repository = dirname(__DIR__);
         }
-        if (!$site || !$parent || !is_dir($site) || !preg_match('/\A[A-Za-z0-9_-]+\z/D', $base)
-            || !\Imagine\ContentInventory\Command::disjointOutput($parent, $site, $repository)) {
+        if (
+            !$site || !$parent || !is_dir($site) || !preg_match('/\A[A-Za-z0-9_-]+\z/D', $base)
+            || !\Imagine\ContentInventory\Command::disjointOutput($parent, $site, $repository)
+        ) {
             throw new \RuntimeException('A27_OUTPUT_UNSAFE');
         }
         $out = $parent . '/' . $base;
@@ -37,14 +39,18 @@ final class Command
             throw new \RuntimeException('A27_OUTPUT_EXISTS');
         }
         $audit = realpath($options['audit']);
-        if (!$audit || !is_file($audit) || is_link($options['audit']) || filesize($audit) > 16777216
-            || dirname(dirname($audit)) !== $parent) {
+        if (
+            !$audit || !is_file($audit) || is_link($options['audit']) || filesize($audit) > 16777216
+            || dirname(dirname($audit)) !== $parent
+        ) {
             throw new \RuntimeException('A27_AUDIT_GUARD');
         }
         $photo = json_decode(file_get_contents($audit), true, 64, JSON_THROW_ON_ERROR);
-        if (($photo['schema'] ?? null) !== 'imagine-a02-audit-v1' || ($photo['read_only'] ?? null) !== true
+        if (
+            ($photo['schema'] ?? null) !== 'imagine-a02-audit-v1' || ($photo['read_only'] ?? null) !== true
             || !isset($photo['sections']['database']['tables'], $photo['sections']['commerce']['order_storage'])
-            || !is_string($photo['generated_at_utc'] ?? null)) {
+            || !is_string($photo['generated_at_utc'] ?? null)
+        ) {
             throw new \RuntimeException('A27_AUDIT_GUARD');
         }
         Analysis::clock($photo['generated_at_utc']);

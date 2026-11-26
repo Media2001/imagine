@@ -40,7 +40,7 @@ def named(receipt, required):
 
 def shared_document_valid():
     expected = (ROOT / 'production/A-26/readme-ajout.txt').read_bytes().splitlines(keepends=True)
-    shared = (ROOT / 'wp/outils/bascule/README.md').read_bytes().splitlines(keepends=True)
+    shared = (ROOT / 'wp/tests/a02-audit/README.md').read_bytes().splitlines(keepends=True)
     return len(expected) == 2 and all(line.endswith(b'\n') and shared.count(line) == 1 for line in expected)
 
 
@@ -135,12 +135,12 @@ def verify(packet, python_only=False, require_shared=False):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--packet', required=True, type=Path)
+    parser.add_argument('--packet', default=ROOT / 'production/A-26/preuves/final', type=Path)
     parser.add_argument('--python-only', action='store_true')
     parser.add_argument('--require-shared-doc', action='store_true')
     args = parser.parse_args()
     try:
-        result = verify(args.packet.resolve(strict=True), args.python_only, args.require_shared_doc)
+        result = verify(args.packet.resolve(strict=True), args.python_only, args.require_shared_doc or not args.python_only)
         print(json.dumps(result))
         return 0
     except Exception as error:

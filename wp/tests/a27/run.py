@@ -29,8 +29,13 @@ def manifest(roots):
         p = ROOT / key
         if p.is_file():
             files.append(p)
-        elif p.exists():
-            files.extend(f for f in p.rglob('*') if f.is_file() and '__pycache__' not in f.parts)
+        elif p.is_dir():
+            entries = [f for f in p.rglob('*') if f.is_file() and '__pycache__' not in f.parts]
+            if not entries:
+                raise RuntimeError('A27_EMPTY_SOURCE_ROOT')
+            files.extend(entries)
+        else:
+            raise RuntimeError('A27_MISSING_SOURCE_ROOT')
     return {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(files)}
 
 

@@ -55,8 +55,10 @@ final class Command
         $mapping = null;
         if (isset($options['a16-map'])) {
             $map = realpath($options['a16-map']);
-            if (!$map || !is_file($map) || is_link($options['a16-map']) || filesize($map) > 1048576
-                || dirname($map) !== dirname($audit)) {
+            if (
+                !$map || !is_file($map) || is_link($options['a16-map']) || filesize($map) > 1048576
+                || dirname($map) !== dirname($audit)
+            ) {
                 throw new \RuntimeException('A26_MAPPING_INVALID');
             }
             $mapping = json_decode(file_get_contents($map), true, 32, JSON_THROW_ON_ERROR);

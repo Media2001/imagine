@@ -22,8 +22,10 @@ $rules = ['native_default_block_parser' => str_contains($sources['parser'], 'cla
     'native_option_storage' => str_contains($sources['options'], 'function get_option('),
     'native_authoritative_store' => str_contains($sources['storage'], 'function custom_orders_table_usage_is_enabled('),
     'native_preinitialised_hooks' => str_contains($sources['hooks'], 'function build_preinitialized_hooks(')];
-foreach (['pre_as_enqueue_async_action', 'pre_as_schedule_single_action',
-    'pre_as_schedule_recurring_action', 'pre_as_schedule_cron_action'] as $hook) {
+foreach (
+    ['pre_as_enqueue_async_action', 'pre_as_schedule_single_action',
+    'pre_as_schedule_recurring_action', 'pre_as_schedule_cron_action'] as $hook
+) {
     $rules['native_filter:' . $hook] = str_contains($sources['scheduler'], "apply_filters( '" . $hook . "', null,");
 }
 $report = ['source_sha256' => $hashes, 'checks' => array_map(static fn(string $key, bool $ok): array => [

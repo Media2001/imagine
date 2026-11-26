@@ -18,12 +18,14 @@ final class Issues
         };
         $taxonomy = ($mapping['numero_source'] ?? 'post_type') === 'taxonomy';
         $link = $mapping['liaison'];
-        if (!post_type_exists($mapping['article_type'])
+        if (
+            !post_type_exists($mapping['article_type'])
             || ($taxonomy && (!taxonomy_exists($mapping['numero_type'])
                 || !is_object_in_taxonomy($mapping['article_type'], $mapping['numero_type'])
                 || $mapping['date_cle'] === 'post_date_gmt' || $link['source'] === 'post_parent'))
             || (!$taxonomy && !post_type_exists($mapping['numero_type']))
-            || ($link['source'] === 'taxonomy' && (!$taxonomy || $link['cle'] !== $mapping['numero_type']))) {
+            || ($link['source'] === 'taxonomy' && (!$taxonomy || $link['cle'] !== $mapping['numero_type']))
+        ) {
             throw new \RuntimeException('A26_MAPPING_INVALID');
         }
         $meta = static function (int $id, string $key, bool $term) use ($read, $db): ?string {

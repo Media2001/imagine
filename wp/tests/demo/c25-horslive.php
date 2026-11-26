@@ -14,12 +14,15 @@ foreach (discoverT01Packages('/repo/wp')['packages'] as $package) {
     $mutation = $argv[1] ?? '';
     $mutants = [
         'delai' => ['RetractationRegles.php', '$now <= $end', 'true'],
-        'proprietaire' => ['Retractation.php', '$order->get_customer_id() !== $user', 'false'],
+        'proprietaire' => ['Retractation.php', 'if (!$order || $user < 1 || $order->get_customer_id() !== $user) {', 'if (!$order || $user < 1) {'],
         'confirmation' => ['Retractation.php', "\$confirmation !== 'confirmer'", 'false'],
         'doublon' => ['Retractation.php', 'if ($existing !== null) {', 'if (false) {'],
         'export' => ['RetractationConfidentialite.php', "'data' => \$data,", "'data' => [],"],
         'effacement' => ['RetractationConfidentialite.php', 'wp_delete_comment((int)$row[\'note\'], true)', 'true'],
         'mail' => ['Retractation.php', '$note = (int)$order->add_order_note(', "wp_mail('fictif@example.org', 'Mutation', 'Fictif');\n            \$note = (int)\$order->add_order_note("],
+        'financier' => ['Retractation.php', '$note = (int)$order->add_order_note(', "\$order->update_status('cancelled');\n            \$note = (int)\$order->add_order_note("],
+        'export-tiers' => ['RetractationConfidentialite.php', '$owner === null || (int)$data[\'compte\'] === $owner', 'true'],
+        'nonce' => ['Retractation.php', "\$step !== '' && !wp_verify_nonce(", "false && !wp_verify_nonce("],
         'http' => ['Retractation.php', '$note = (int)$order->add_order_note(', "wp_remote_get('https://example.org/');\n            \$note = (int)\$order->add_order_note("],
     ];
     if ($mutation !== '') {

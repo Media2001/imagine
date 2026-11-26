@@ -49,7 +49,7 @@ def run(label):
         # Témoins positifs : les observateurs voient les appels, toujours bloqués par B00.
         witness = c25.wp('''wp_mail('fictif@example.org','Test fictif','Fictif');wp_remote_get('https://example.org/');global $wp_filter;foreach(['woocommerce_order_status_changed','woocommerce_subscription_status_updated','woocommerce_order_refunded'] as $hook){foreach($wp_filter[$hook]->callbacks[-1000] as $item){($item['function'])(null);}}$v=get_option('imagine_c25_observations');update_option('imagine_c25_observations',[],false);echo wp_json_encode($v);''')
         checks['observateurs_positifs_non_vacuite'] = witness == {'ambiance_mail': 1, 'ambiance_http': 1, 'ambiance_statut': 1, 'ambiance_abonnement': 1, 'ambiance_remboursement': 1}
-        auth = c25.wp('''$admin=get_users(['role'=>'administrator','number'=>1])[0]->ID;$out=['admin'=>$admin,'cookies'=>[]];foreach([28,$admin] as $id){$token=WP_Session_Tokens::get_instance($id)->create(time()+3600);$out['cookies'][$id]=LOGGED_IN_COOKIE.'='.wp_generate_auth_cookie($id,time()+3600,'logged_in',$token).'; '.AUTH_COOKIE.'='.wp_generate_auth_cookie($id,time()+3600,'auth',$token).'; '.SECURE_AUTH_COOKIE.'='.wp_generate_auth_cookie($id,time()+3600,'secure_auth',$token);}echo wp_json_encode($out);''')
+        auth = c25.wp('''$admin=get_users(['role'=>'administrator','number'=>1])[0]->ID;$out=['admin'=>$admin,'cookies'=>[]];foreach([28,9,$admin] as $id){$token=WP_Session_Tokens::get_instance($id)->create(time()+3600);$out['cookies'][$id]=LOGGED_IN_COOKIE.'='.wp_generate_auth_cookie($id,time()+3600,'logged_in',$token).'; '.AUTH_COOKIE.'='.wp_generate_auth_cookie($id,time()+3600,'auth',$token).'; '.SECURE_AUTH_COOKIE.'='.wp_generate_auth_cookie($id,time()+3600,'secure_auth',$token);}echo wp_json_encode($out);''')
         c25.private(label + '-auth', auth)
         base = identity['url']
         def http(path, user=28, data=None):
@@ -81,13 +81,43 @@ def run(label):
         checks['HTTP_compte_tiers_refuse'] = 'Demande refusée' in http(path, user=auth['admin'])
         old = http(account + '?imagine_retractation=88', user=auth['admin'], data=post)
         checks['HTTP_POST_autrui_refuse'] = 'Demande refusée' in old
+        during = c25.b06.state()
+        c25.private(label + '-demande-persistee', {'business': during})
+        def diffpaths(a, b, path=''):
+            if isinstance(a, dict) and isinstance(b, dict):
+                return [p for key in a.keys() | b.keys() for p in (diffpaths(a.get(key), b.get(key), path + '/' + str(key)))]
+            return [path] if a != b else []
+        outcome['during_difference_paths'] = diffpaths(before, during)
+        posts_during = c25.wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->posts}",ARRAY_A));')
+        for row in posts_during:
+            if int(row['ID']) == 126:
+                old_row = next(r for r in database['posts'] if int(r['ID']) == 126)
+                assert int(row['comment_count']) in [int(old_row['comment_count']), int(old_row['comment_count']) + 1]
+                row['comment_count'] = old_row['comment_count']
+        only_note_counter = posts_during == database['posts']
+        if only_note_counter:
+            during['native']['native_fingerprints']['posts'] = before['native']['native_fingerprints']['posts']
+        meta_during = c25.wp('global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->usermeta}",ARRAY_A));')
+        previous_meta = {row['umeta_id']: row for row in database['usermeta']}
+        current_meta = {row['umeta_id']: row for row in meta_during}
+        changed_meta = [current_meta.get(key, previous_meta.get(key))['meta_key'] for key in previous_meta.keys() | current_meta.keys() if previous_meta.get(key) != current_meta.get(key)]
+        outcome['during_meta_changed_keys'] = sorted(set(changed_meta))
+        transient_user_keys = {'session_tokens', '_woocommerce_persistent_cart_1', '_last_update', 'wc_last_active', 'last_update'}
+        if set(changed_meta) <= transient_user_keys:
+            during['native']['native_fingerprints']['usermeta'] = before['native']['native_fingerprints']['usermeta']
+        checks['HTTP_commande_abonnements_acces_actions_inchanges'] = during == before and only_note_counter
+        expired = http(account + '?imagine_retractation=88', user=9)
+        checks['HTTP_hors_delai_sans_formulaire'] = 'id="imagine-retractation"' not in expired
+        signed = c25.wp('wp_set_current_user(9);$pairs=explode("; ",' + c25.php(auth['cookies']['9']) + ');foreach($pairs as $pair){[$k,$v]=explode("=",$pair,2);$_COOKIE[$k]=$v;}echo wp_json_encode(wp_create_nonce("imagine_c25_88_confirmer_".hash("sha256","")));')
+        refused = http(account + '?imagine_retractation=88', user=9, data={'etape': 'confirmer', '_c25': signed, 'raison': '', 'confirmation': 'confirmer'})
+        checks['HTTP_hors_delai_POST_signe_refuse'] = 'Demande refusée' in refused and c25.wp('echo wp_json_encode(Imagine\\Site\\Retractation::lire(88));') is None
         admin = http('/wp-admin/admin.php?page=imagine-retractations', user=auth['admin'])
         checks['HTTP_admin_liste_native'] = 'Motif HTTP fictif' in admin and '#126' in admin
         settings = http('/wp-admin/admin.php?page=imagine-reglages', user=auth['admin'])
         checks['HTTP_C10_deux_champs_dans_formulaire'] = 'name="imagine_retractation_reglages[jours]"' in settings and 'name="imagine_retractation_reglages[origine]"' in settings
         result = c25.b06.profils.b00.wp('eval', 'require WP_CONTENT_DIR."/' + runtime + '";', check=False)
         native = json.loads(result['stdout'])
-        outcome = {'checks': checks, 'native': native, 'native_exit': result['code'], 'native_stderr': result['stderr'], 'http_statuses': statuses, 'observer_counts': c25.wp('echo wp_json_encode(get_option("imagine_c25_observations"));')}
+        outcome.update({'checks': checks, 'native': native, 'native_exit': result['code'], 'native_stderr': result['stderr'], 'http_statuses': statuses, 'observer_counts': c25.wp('echo wp_json_encode(get_option("imagine_c25_observations"));')})
         assert result['code'] == 0 and not result['stderr'] and not native['failures'], native
         assert all(checks.values()), checks
     finally:
@@ -95,7 +125,7 @@ def run(label):
         assert hashlib.sha256(raw).hexdigest() == durable['sha256']
         saved = json.loads(raw)['payload']['database']
         admin_ids = {int(x['ID']) for x in saved['users'] if x['ID'] == str(auth['admin'])} if 'auth' in locals() else set()
-        users = {28, *admin_ids}
+        users = {28, 9, *admin_ids}
         rows = [row for row in saved['usermeta'] if int(row['user_id']) in users]
         dates = [row for row in saved['postmeta'] if int(row['post_id']) in [88, 94] and row['meta_key'] == '_imagine_retractation_debut']
         hpos_orders = [row for row in saved['wc_orders'] if int(row['id']) in [88, 94]]

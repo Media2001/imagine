@@ -92,8 +92,10 @@ final class Inventory
 
     public static function collect(string $site, ?array $mapping = null): array
     {
-        foreach (['pre_as_enqueue_async_action', 'pre_as_schedule_single_action',
-            'pre_as_schedule_recurring_action', 'pre_as_schedule_cron_action'] as $hook) {
+        foreach (
+            ['pre_as_enqueue_async_action', 'pre_as_schedule_single_action',
+            'pre_as_schedule_recurring_action', 'pre_as_schedule_cron_action'] as $hook
+        ) {
             $GLOBALS['wp_filter'][$hook][PHP_INT_MAX][] = ['function' => static fn(): int => 0, 'accepted_args' => 0];
         }
         \Imagine\PublicAddresses\Runtime::boot($site);
@@ -101,8 +103,10 @@ final class Inventory
         $storage = OrderUtil::custom_orders_table_usage_is_enabled() ? 'hpos' : 'classic';
         $activeRaw = self::option('active_plugins');
         $active = Analysis::decode($activeRaw[0]['option_value'] ?? null);
-        if (!is_array($active) || !array_is_list($active)
-            || count(array_filter($active, 'is_string')) !== count($active)) {
+        if (
+            !is_array($active) || !array_is_list($active)
+            || count(array_filter($active, 'is_string')) !== count($active)
+        ) {
             throw new \RuntimeException('A26_QUERY_FAILED');
         }
         $marker = self::option('imagine_staging_disabled_plugins');

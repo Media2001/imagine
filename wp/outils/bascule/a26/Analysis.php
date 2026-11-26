@@ -109,8 +109,10 @@ final class Analysis
             }
             $url = html_entity_decode(trim($url), ENT_QUOTES | ENT_HTML5, 'UTF-8');
             $parsed = parse_url(str_starts_with($url, '//') ? 'https:' . $url : $url);
-            if (!is_array($parsed) || !in_array(strtolower($parsed['scheme'] ?? ''), ['http', 'https'], true)
-                || !isset($parsed['host']) || isset($parsed['user']) || isset($parsed['pass'])) {
+            if (
+                !is_array($parsed) || !in_array(strtolower($parsed['scheme'] ?? ''), ['http', 'https'], true)
+                || !isset($parsed['host']) || isset($parsed['user']) || isset($parsed['pass'])
+            ) {
                 continue;
             }
             $host = strtolower(rtrim($parsed['host'], '.'));
@@ -119,8 +121,10 @@ final class Analysis
             }
             $service = 'autre';
             $path = $parsed['path'] ?? '';
-            if (in_array($host, ['google.com', 'www.google.com', 'google.fr', 'www.google.fr'], true)
-                && ($path === '/maps' || str_starts_with($path, '/maps/'))) {
+            if (
+                in_array($host, ['google.com', 'www.google.com', 'google.fr', 'www.google.fr'], true)
+                && ($path === '/maps' || str_starts_with($path, '/maps/'))
+            ) {
                 $service = 'google_maps';
             } else {
                 foreach (self::HOSTS as $label => $domains) {
@@ -149,8 +153,10 @@ final class Analysis
             preg_match_all($attributePattern, $tag[2], $attrs, PREG_SET_ORDER);
             foreach ($attrs as $attr) {
                 $key = strtolower($attr[1]);
-                if (($key === 'href' && strtolower($tag[1]) !== 'link')
-                    || ($key === 'data' && strtolower($tag[1]) !== 'object')) {
+                if (
+                    ($key === 'href' && strtolower($tag[1]) !== 'link')
+                    || ($key === 'data' && strtolower($tag[1]) !== 'object')
+                ) {
                     continue;
                 }
                 $urls[] = $attr[2] !== '' ? $attr[2] : (($attr[3] ?? '') !== '' ? $attr[3] : ($attr[4] ?? ''));

@@ -38,7 +38,7 @@ class VerifierTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix='a26-shared-doc-', dir=os.environ.get('TMPDIR')) as tmp:
             v.ROOT = Path(tmp)
             expected = v.ROOT / 'production/A-26/readme-ajout.txt'
-            shared = v.ROOT / 'wp/outils/bascule/README.md'
+            shared = v.ROOT / 'wp/tests/a02-audit/README.md'
             expected.parent.mkdir(parents=True)
             shared.parent.mkdir(parents=True)
             expected.write_bytes(b'A26-FIRST\nA26-SECOND\n')

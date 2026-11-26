@@ -84,8 +84,10 @@ for ($n = 0; $n < $repetitions; $n++) {
         }
         if ($i === 0) {
             $reloaded = wcs_get_subscription($s->get_id());
-            if ($reloaded->get_payment_tokens() !== []
-                || $reloaded->get_meta('_stripe_source_id', true, 'edit') !== $nativeTokens[$i]->get_token()) {
+            if (
+                $reloaded->get_payment_tokens() !== []
+                || $reloaded->get_meta('_stripe_source_id', true, 'edit') !== $nativeTokens[$i]->get_token()
+            ) {
                 throw new RuntimeException('A27_SEED_METADATA');
             }
         }

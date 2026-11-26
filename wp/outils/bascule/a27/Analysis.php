@@ -49,8 +49,11 @@ final class Analysis
         }
         // Six calendar months, clamped day, same UTC time; not 180 days.
         $target = $now->modify('first day of this month')->modify('+6 months');
-        $target = $target->setDate((int) $target->format('Y'), (int) $target->format('m'),
-            min((int) $now->format('d'), (int) $target->format('t')));
+        $target = $target->setDate(
+            (int) $target->format('Y'),
+            (int) $target->format('m'),
+            min((int) $now->format('d'), (int) $target->format('t'))
+        );
         return $end <= $target ? 'within_six_months' : 'later';
     }
 

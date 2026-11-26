@@ -34,8 +34,10 @@ try {
     $check('fifth_month', Analysis::expiry('2027', '04', $date) === 'within_six_months');
     $check('sixth_month_end_after_exact_window', Analysis::expiry('2027', '05', $date) === 'later');
     $check('later_card', Analysis::expiry('2030', '01', $date) === 'later');
-    $check('six_months_end_of_month_clamp',
-        Analysis::expiry('2027', '02', '2026-08-31T23:59:59+00:00') === 'within_six_months');
+    $check(
+        'six_months_end_of_month_clamp',
+        Analysis::expiry('2027', '02', '2026-08-31T23:59:59+00:00') === 'within_six_months'
+    );
     $check('utc_end_second_valid', Analysis::expiry('2026', '11', '2026-11-30T23:59:59+00:00') !== 'expired');
     $check('utc_next_second_expired', Analysis::expiry('2026', '11', '2026-12-01T00:00:00+00:00') === 'expired');
     foreach ([['', ''], ['2027', '13'], ['A27_PRIVATE_CANARY', '01'], ['2027', '1']] as $i => [$year, $month]) {
@@ -63,8 +65,10 @@ try {
     $r = Analysis::reference($sub(1, 'stripe', [], ['_stripe_source_id' => 'A27_TOKEN_1']), [$t]);
     $check('native_metadata_matched_without_order_token_id', $r['type'] === 'carte' && $r['link'] === 'linked');
     $r = Analysis::reference($sub(1, 'stripe', [], ['_stripe_source_id' => 'A27_UNMATCHED_CANARY']), [$t]);
-    $check('unmatched_stripe_type_unreadable_not_invented_card',
-        $r['type'] === 'illisible' && $r['link'] === 'unlinked');
+    $check(
+        'unmatched_stripe_type_unreadable_not_invented_card',
+        $r['type'] === 'illisible' && $r['link'] === 'unlinked'
+    );
     $r = Analysis::reference($sub(1, 'paypal', [], ['_paypal_subscription_id' => 'A27_AGREEMENT_CANARY']), []);
     $check('paypal_native_reference_without_token', $r['type'] === 'accord_paypal' && $r['link'] === 'unlinked');
     $r = Analysis::reference($sub(1, 'stripe_sepa', [], ['_stripe_source_id' => 'A27_MANDATE_CANARY']), []);
@@ -110,8 +114,10 @@ try {
     $a = Analysis::analyse([], [$unknown], $date, false);
     $check('missing_account_is_unknown_not_orphan', $a['relations']['autres'] === 1);
     $n = Analysis::analyse([$sub()], [$t], $date, true);
-    $check('all_neutralised_unknown_never_zero',
-        $n === array_fill_keys(['automatic', 'cards', 'relations'], Analysis::UNKNOWN));
+    $check(
+        'all_neutralised_unknown_never_zero',
+        $n === array_fill_keys(['automatic', 'cards', 'relations'], Analysis::UNKNOWN)
+    );
     $check('no_private_values', !str_contains(json_encode([$a, $n]), 'CANARY'));
 } catch (Throwable $error) {
     $checks[] = ['check' => 'exception', 'status' => 'FAIL', 'detail' => get_class($error)];

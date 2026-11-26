@@ -1,0 +1,122 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T22:01:57.689180+00:00",
+  "during_difference_paths": [
+    "/native/native_fingerprints/usermeta/count",
+    "/native/native_fingerprints/usermeta/sha256",
+    "/native/native_fingerprints/posts/sha256"
+  ],
+  "checks": {
+    "observateurs_positifs_non_vacuite": true,
+    "HTTP_etape1_positive": true,
+    "HTTP_etape2_explicite": true,
+    "HTTP_abandon_ne_persiste_rien": true,
+    "HTTP_nonce_etape1_pas_confirmation": true,
+    "HTTP_concurrence_deux_accuses": true,
+    "HTTP_accuse_retrouve_GET": true,
+    "HTTP_compte_tiers_refuse": true,
+    "HTTP_POST_autrui_refuse": true,
+    "HTTP_commande_abonnements_acces_actions_inchanges": false,
+    "HTTP_hors_delai_sans_formulaire": true,
+    "HTTP_hors_delai_POST_signe_refuse": true,
+    "HTTP_admin_liste_native": true,
+    "HTTP_C10_deux_champs_dans_formulaire": true
+  },
+  "native": {
+    "total": 32,
+    "checks": {
+      "default_14_paiement": true,
+      "http_accuse_persistant": true,
+      "une_note_par_commande": true,
+      "note_native_privee": true,
+      "journal_C10_present": true,
+      "rejeu_montre_premiere": true,
+      "tiers_refuse": true,
+      "ancien_refuse_POST": true,
+      "sub_sans_parent_fermee": true,
+      "manuel_un_jour_ouvert": true,
+      "abonnement_lie_commande": true,
+      "sub_cible_tiers_refuse": true,
+      "abandon_etape1_sans_note": true,
+      "journal_panne_pas_succes": true,
+      "journal_panne_note_annulee": true,
+      "sub_demande_sur_commande_initiale": true,
+      "sub_et_commande_meme_accuse": true,
+      "export_positif_motif": true,
+      "export_tiers_absent": true,
+      "export_SQL_erreur_pas_page_vide": true,
+      "erase_SQL_incomplet": true,
+      "export_reprise_page_preservee": true,
+      "effacement_note_et_motif": true,
+      "journal_depersonnalise": true,
+      "effacement_tiers_preserve": true,
+      "export_et_eraser_inscrits": true,
+      "manuel_ancien_ferme": true,
+      "manuel_ancien_POST_refuse": true,
+      "manuel_date_absente_fermee": true,
+      "reglage_30_valide": true,
+      "motif_HTTP_relu": true,
+      "aucune_sortie_ni_mutation_financiere_C25": true
+    },
+    "failures": []
+  },
+  "native_exit": 0,
+  "native_stderr": "",
+  "http_statuses": [
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200
+  ],
+  "observer_counts": {
+    "ambiance_http": 15
+  },
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "private_snapshot": {
+    "file": "c25-private-d4v5fgji/snapshot.json",
+    "sha256": "ffb7a581fe9a083fb3a89aa013bd5509451385cdd0998b736a1632157be3954e",
+    "private": true
+  },
+  "restoration": {
+    "notes_absentes": true,
+    "demandes_absentes": true,
+    "reglage_absent": true
+  },
+  "tests_removed": {
+    "mu-plugins/c25-observer.php": true,
+    "imagine-demo-build/c25-runtime.php": true
+  },
+  "business_preserved": true,
+  "exact_rows_preserved": {
+    "users": true,
+    "usermeta": true,
+    "posts": true,
+    "postmeta": true,
+    "comments": true,
+    "commentmeta": true,
+    "wc_orders": true,
+    "wc_orders_meta": true,
+    "wc_order_addresses": true,
+    "wc_order_operational_data": true,
+    "woocommerce_order_items": true,
+    "woocommerce_order_itemmeta": true,
+    "business_options": true
+  }
+}

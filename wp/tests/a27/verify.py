@@ -43,6 +43,12 @@ def log_summary(text):
     return total, total > 0 and text.endswith('\nOK\n')
 
 
+def shared_document_valid():
+    expected = (ROOT / 'production/A-27/readme-ajout.txt').read_bytes().splitlines(keepends=True)
+    shared = (ROOT / 'wp/tests/a02-audit/README.md').read_bytes().splitlines(keepends=True)
+    return len(expected) == 2 and all(line.endswith(b'\n') and shared.count(line) == 1 for line in expected)
+
+
 def verify(packet, python_only=False):
     runner = load('a27_runner_verify', ROOT / 'wp/tests/a27/run.py')
     report = load('a27_report_verify', ROOT / 'wp/outils/bascule/a27/report.py')
@@ -55,6 +61,8 @@ def verify(packet, python_only=False):
 
     source = read(packet / 'sources.json')
     check('exact_current_sources', source == runner.manifest(runner.OWN))
+    if not python_only:
+        check('shared_document_exact_owned_lines', shared_document_valid())
     check('exact_current_dependencies', read(packet / 'dependencies.json') == runner.manifest(runner.DEPS))
     check('no_pret_claim', matrix.get('readiness_claimed') is False)
     check('matrix_scope', matrix['scope'] == ('python_only' if python_only else 'python_and_native'))
@@ -148,7 +156,7 @@ def verify(packet, python_only=False):
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('--evidence', type=Path, required=True)
+    ap.add_argument('--evidence', type=Path, default=ROOT / 'production/A-27/preuves/final')
     ap.add_argument('--python-only', action='store_true')
     a = ap.parse_args()
     try:

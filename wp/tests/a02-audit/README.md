@@ -95,3 +95,7 @@ Après neutralisation, les comptes d’adresses effacées valent « inconnu apr�
 A-25 — Visiteurs : `python3 wp/outils/bascule/a25/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/visiteurs-date` ; lecture seule via le gardien A-22, nombres par année et état, cellules de moins de cinq fondues dans autres, aucun texte ni adresse ni identifiant.
 
 A-25 — Attention : les messages de formulaires peuvent rester en clair après import ; email/IP des commentaires et nombres de formulaires deviennent « inconnu après neutralisation ». Adaptateur fermé Fluent Forms, tables candidates inconnues sous autre (couverture bornée) ; aucune suppression ni durée fixée. Voir `wp/outils/bascule/a25/README.md`.
+A-26 — Ressources tierces : comptes fermés en lecture seule, limites et prérequis dans a26/README.md ; aucun verdict de conformité ni désactivation.
+python3 wp/outils/bascule/a26/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/tiers-date
+A-27 : compter les références de paiement enregistrées via wp/outils/bascule/a27/confine.py ; mode d'emploi dans wp/outils/bascule/a27/README.md.
+Sur copie neutralisée, tous ces comptes sont « inconnu après neutralisation » ; réception native et portes parent : production/A-27/RECEPTION-PARENT.md.

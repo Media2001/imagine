@@ -34,7 +34,7 @@ Ce wrapper ne touche que le PHP A-26, via un conteneur jetable étiqueté A-26, 
 
 ### 2. Intégration des deux lignes partagées par le parent
 
-Ajouter **les octets exacts, une fois chacun**, de `production/A-26/readme-ajout.txt` au mode d'emploi de l'audit `wp/outils/bascule/README.md`. Le worker ne l'a pas modifié. Le vérificateur exige les deux lignes complètes, y compris LF, sans imposer une empreinte du README entier ou un suffixe exclusif : les ajouts des autres lots restent permis.
+Ajouter **les octets exacts, une fois chacun**, de `production/A-26/readme-ajout.txt` au vrai mode d'emploi de l'audit `wp/tests/a02-audit/README.md`. Le chemin `wp/outils/bascule/README.md` indiqué initialement était erroné. Le vérificateur exige les deux lignes complètes, y compris LF, sans imposer une empreinte du README entier ou un suffixe exclusif : les ajouts des autres lots restent permis.
 
 ### 3. Préparation de l'image commune
 
