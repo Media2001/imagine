@@ -1,0 +1,54 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T19:11:33.766754+00:00",
+  "label": "mutation-arbitrage1930",
+  "coverage": "mutation-temoin",
+  "private_snapshot": {
+    "file": "c23-private-wk517drv/snapshot.json",
+    "sha256": "34280c9d5a8d31db4f01a6f842a16aeadbd263fa74201dc3154c57cd5be407c3",
+    "private": true
+  },
+  "discovery_recipe": false,
+  "mutation": true,
+  "primary_command": "python -B wp/outils/demo/c23.py mutation-arbitrage1930",
+  "auth": "sessions natives temporaires hors commande principale; aucun mot de passe ni POST",
+  "sources_sha256": {
+    "wp/outils/demo/c23-inventaire.php": "3a1f7d88766ab08deb2e43e8d61be8bc030d61f18958b623227d8e9c0c857fae",
+    "wp/outils/demo/c23-preparer.py": "f2ea63a5e6f29c1a17cc964e8c9dad6159e0c057a19cce46d703c25fe5a25c87",
+    "wp/outils/demo/c23.py": "5b946c12314f8f4155683067bcbfa0d2dad61e4ff6ee893838834b6136c9d0cd",
+    "wp/tests/demo/c23-diagnostic.py": "326dbed125641a1b1664c67ad28a8fb806958c7f7f4cb5f47e7f43a259c3ae3c",
+    "wp/tests/demo/c23-mutations.py": "54d1988462e513b572df3e1ac5ec160e85b43fb49c0e4f16ed216a55775b1d0f",
+    "wp/tests/demo/c23-recovery.py": "2d1cbc1681a08fbb25ef9571716d9031b9c97071fc2d9981dee2677eb17a0390",
+    "wp/tests/demo/c23-tests.py": "36bf479419b05d30a7714203aacddb94c200d9a2d8b8a474627105ec260cc431",
+    "wp/tests/demo/c23-verifier.py": "ce91358e85582320a15da26ce1f598c2ef99434994f1b5fbc2f3043cdce2f685"
+  },
+  "command_exit": 1,
+  "business_unchanged_during_GETs": true,
+  "mutation_red_detected": true,
+  "metadata_restored_exactly": true,
+  "cooperator_pages_restored_exactly": true,
+  "cooperator_pages_sha256": "394d20a8b44d880b014157f9cd618214d060c5693b64faea3ab2e25e5877df55",
+  "profiles_and_scheduled_actions_restored_exactly": true,
+  "schedule_before": {
+    "sha256": "4b8cb7133e9eb83d8b63c5d9f872764063b6021ebd6b37b0c1d7e0cadd17d775",
+    "action8793": {
+      "action_id": "8793",
+      "hook": "woocommerce_scheduled_subscription_payment",
+      "status": "pending",
+      "args": "{\"subscription_id\":101}",
+      "scheduled_date_gmt": "2026-11-26 02:13:28"
+    }
+  },
+  "schedule_after": {
+    "sha256": "4b8cb7133e9eb83d8b63c5d9f872764063b6021ebd6b37b0c1d7e0cadd17d775",
+    "action8793": {
+      "action_id": "8793",
+      "hook": "woocommerce_scheduled_subscription_payment",
+      "status": "pending",
+      "args": "{\"subscription_id\":101}",
+      "scheduled_date_gmt": "2026-11-26 02:13:28"
+    }
+  },
+  "native_before_sha256": "52451af990506f92a45c63122ffe07677c0778708eb726730e53475bb2793f27",
+  "native_after_sha256": "52451af990506f92a45c63122ffe07677c0778708eb726730e53475bb2793f27"
+}
