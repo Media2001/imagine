@@ -117,6 +117,11 @@ def run(label):
                 if data['done']: break
             else: raise RuntimeError('Eraser pagination did not finish')
         readback = c21.fixture('inspect')
+        checks['effacement_Imagine_deux_pages_sans_saut'] = [[r['page'], r['done']] for r in erasure if r['key'] == 'imagine-site'] == [[1, False], [2, True]]
+        journals = c21.wp('echo wp_json_encode([get_option("imagine_extraction_journal_C21-OPERATEUR"),get_option("imagine_extraction_journal_C21-SANS-ABONNE")]);')
+        checks['journal_C18_operateur_anonymise_compte_conserve'] = journals[0]['qui_id'] == 0 and journals[0]['qui_login'] == 'efface' and journals[0]['lignes'] == 2
+        checks['journal_C18_sans_abonne_inchange'] = journals[1] == {'qui_id': 1, 'qui_login': 'admin', 'quand_utc': '2026-11-26T00:00:00Z', 'extraction': 'etat', 'lignes': 7}
+        checks['beneficiaire_efface_pas_recollecte'] = c21.wp('$f=get_option("imagine_c21_fixture");$d=["user"=>1,"beneficiaires"=>[["id"=>(string)$f["user"]],["id"=>"999998"]],"relation_native"=>[["user_id"=>$f["user"]],["user_id"=>999998]]];$n=apply_filters("imagine_envoi_donnees_observation",$d);echo wp_json_encode(!in_array((string)$f["user"],array_column($n["beneficiaires"],"id"),true)&&!in_array($f["user"],array_column($n["relation_native"],"user_id"),true)&&$n["beneficiaires"]===[["id"=>"999998"]]);')
         checks['options_et_marqueurs_effaces'] = readback['imagine_sans_email'] == readback['imagine_email_confirme'] == '' and readback['decouverte'] is None and readback['justificatif'] is None
         checks['document_et_brouillon_effaces'] = not readback['document_exists'] and not readback['draft_exists']
         remaining = c21.wp('$f=get_option("imagine_c21_fixture");$e=apply_filters("wp_privacy_personal_data_exporters",[]);echo wp_json_encode(call_user_func($e["imagine-site"]["callback"],get_userdata($f["user"])->user_email,1));')

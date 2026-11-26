@@ -16,12 +16,23 @@ final class ConfidentialiteRegles
             return null;
         }
         $d = &$event['donnees'];
-        $d['beneficiaires'] = array_values(array_filter($d['beneficiaires'] ?? [], static fn ($p): bool => (int) ($p['id'] ?? 0) !== $id));
+        if (($d['origine'] ?? '') === 'offert') {
+            foreach (['destinataire', 'rue', 'complement', 'code_postal', 'ville', 'pays'] as $field) {
+                $d[$field] = '';
+            }
+        }
+        $d['beneficiaires'] = array_values(array_filter(
+            $d['beneficiaires'] ?? [],
+            static fn ($p): bool => (int) ($p['id'] ?? 0) !== $id
+        ));
         $relations = $d['relation_native'] ?? [];
         if (isset($relations['recipient_user']) && (int) $relations['recipient_user'] === $id) {
             $relations = [];
         } else {
-            $relations = array_values(array_filter($relations, static fn ($p): bool => !is_array($p) || (int) ($p['user_id'] ?? 0) !== $id));
+            $relations = array_values(array_filter(
+                $relations,
+                static fn ($p): bool => !is_array($p) || (int) ($p['user_id'] ?? 0) !== $id
+            ));
         }
         $d['relation_native'] = $relations;
         $d['beneficiaires_resolus'] = false;
@@ -32,7 +43,10 @@ final class ConfidentialiteRegles
     {
         $d = $event['donnees'] ?? [];
         $own = (int) ($d['user'] ?? 0) === $user;
-        $people = array_values(array_filter($d['beneficiaires'] ?? [], static fn ($p): bool => (int) ($p['id'] ?? 0) === $user));
+        $people = array_values(array_filter(
+            $d['beneficiaires'] ?? [],
+            static fn ($p): bool => (int) ($p['id'] ?? 0) === $user
+        ));
         $relations = $d['relation_native'] ?? [];
         $links = isset($relations['recipient_user'])
             ? ((int) $relations['recipient_user'] === $user ? [['user_id' => $user]] : [])
@@ -43,12 +57,19 @@ final class ConfidentialiteRegles
         if (!$own && !$people && !$links) {
             return null;
         }
-        $out = array_intersect_key($d, array_flip(['id', 'creation', 'debut', 'fin', 'etat', 'paiement', 'grace_debut', 'grace_fin', 'origine', 'renouvellements']));
+        $out = array_intersect_key($d, array_flip([
+            'id', 'creation', 'debut', 'fin', 'etat', 'paiement', 'grace_debut', 'grace_fin',
+            'origine', 'renouvellements',
+        ]));
         if ($own && ($d['origine'] ?? 'abonnement') === 'abonnement') {
-            $out += array_intersect_key($d, array_flip(['destinataire', 'rue', 'complement', 'code_postal', 'ville', 'pays']));
+            $out += array_intersect_key($d, array_flip([
+                'destinataire', 'rue', 'complement', 'code_postal', 'ville', 'pays',
+            ]));
         }
         if ($people) {
-            $out['beneficiaires'] = array_map(static fn ($p): array => array_intersect_key($p, array_flip(['id', 'nom', 'rue', 'complement', 'code_postal', 'ville', 'pays'])), $people);
+            $out['beneficiaires'] = array_map(static fn ($p): array => array_intersect_key($p, array_flip([
+                'id', 'nom', 'rue', 'complement', 'code_postal', 'ville', 'pays',
+            ])), $people);
         }
         if ($links) {
             $out['attribution'] = array_map(static fn ($p): array => array_intersect_key($p, array_flip([

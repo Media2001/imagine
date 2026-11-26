@@ -1,0 +1,11 @@
+{
+  "exit": 0,
+  "removed": true,
+  "selection": "ConfidentialiteReglesTest",
+  "image": "sha256:f536a1357f67f2fdedc05b394890b9d56fefe8f82d36a54ea02b72d3a49d6718",
+  "stdout": "PHPUnit 11.5.58 by Sebastian Bergmann and contributors.\n\nRuntime:       PHP 8.2.33\nConfiguration: /repo/wp/plugins/imagine-site/phpunit.xml\n\n...                                                                 3 / 3 (100%)\n\nTime: 00:00.009, Memory: 10.00 MB\n\nOK (3 tests, 15 assertions)\n\nC16_JUNIT\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<testsuites>\n  <testsuite name=\"/repo/wp/plugins/imagine-site/phpunit.xml\" tests=\"3\" assertions=\"15\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.006316\">\n    <testsuite name=\"Site-C11-C13\" tests=\"3\" assertions=\"15\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.006316\">\n      <testsuite name=\"Imagine\\Site\\Tests\\ConfidentialiteReglesTest\" file=\"/repo/wp/plugins/imagine-site/tests/ConfidentialiteReglesTest.php\" tests=\"3\" assertions=\"15\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.006316\">\n        <testcase name=\"testEffacementNeModifiePasUneObservationEtrangereDuGel\" file=\"/repo/wp/plugins/imagine-site/tests/ConfidentialiteReglesTest.php\" line=\"12\" class=\"Imagine\\Site\\Tests\\ConfidentialiteReglesTest\" classname=\"Imagine.Site.Tests.ConfidentialiteReglesTest\" assertions=\"5\" time=\"0.005833\"/>\n        <testcase name=\"testRelationInactiveEstExporteeEtRetireeSansAdresseDUnTiers\" file=\"/repo/wp/plugins/imagine-site/tests/ConfidentialiteReglesTest.php\" line=\"25\" class=\"Imagine\\Site\\Tests\\ConfidentialiteReglesTest\" classname=\"Imagine.Site.Tests.ConfidentialiteReglesTest\" assertions=\"4\" time=\"0.000410\"/>\n        <testcase name=\"testExportPostalNeDivulguePasLesAutresBeneficiaires\" file=\"/repo/wp/plugins/imagine-site/tests/ConfidentialiteReglesTest.php\" line=\"38\" class=\"Imagine\\Site\\Tests\\ConfidentialiteReglesTest\" classname=\"Imagine.Site.Tests.ConfidentialiteReglesTest\" assertions=\"6\" time=\"0.000073\"/>\n      </testsuite>\n    </testsuite>\n  </testsuite>\n</testsuites>\n",
+  "stderr": "",
+  "network": "none",
+  "tests": 3,
+  "assertions": 15
+}

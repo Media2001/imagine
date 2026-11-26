@@ -71,6 +71,7 @@ final class EnvoiNatif
 
     private static function enregistrer(array $data): array
     {
+        $data = apply_filters('imagine_envoi_donnees_observation', $data);
         $observation = ['observe_utc' => (new DateTimeImmutable('now', new DateTimeZone('UTC')))->format('Y-m-d H:i:s.u'), 'donnees' => $data];
         if (!apply_filters('imagine_envoi_conserver_observation', true, $data)) {
             return $observation;
