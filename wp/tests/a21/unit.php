@@ -39,6 +39,19 @@ if (class_exists(Analysis::class)) {
         $check('active_destinations_domain_not_origin', $hooks['active_destination'] === ['same_domain' => 1, 'external_domain' => 1, 'unknown' => 1]);
         $check('custom_topic_and_url_canary_absent', !str_contains(json_encode($hooks), 'CANARY'));
     }
+    $check('report_projection_available', method_exists(Analysis::class, 'report'));
+    if (method_exists(Analysis::class, 'report')) {
+        $unknown = Analysis::report([], [], [], true, $clock, new DateTimeZone('UTC'), 'https://example.org');
+        $check('neutralisation_never_projects_historical_zero', $unknown === [
+            'api_keys' => ['status' => 'inconnu après neutralisation', 'counts' => null],
+            'webhooks' => ['status' => 'inconnu après neutralisation', 'counts' => null],
+            'extension_store' => ['status' => 'inconnu après neutralisation', 'connected' => null],
+        ]);
+        $known = Analysis::report([], [], ['auth' => ['access_token' => 'CANARY']], false, $clock, new DateTimeZone('UTC'), 'https://example.org');
+        $check('store_connection_boolean_only', $known['extension_store'] === ['status' => 'connu', 'connected' => true] && !str_contains(json_encode($known), 'CANARY'));
+        $empty = Analysis::report([], [], [], false, $clock, new DateTimeZone('UTC'), 'https://example.org');
+        $check('unconnected_not_invented', $empty['extension_store'] === ['status' => 'connu', 'connected' => false] && $empty['api_keys']['counts']['total'] === 0 && $empty['webhooks']['counts']['total'] === 0);
+    }
 }
 if (realpath($_SERVER['SCRIPT_FILENAME'] ?? '') !== __FILE__) {
     return $checks;

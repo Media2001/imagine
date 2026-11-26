@@ -23,6 +23,18 @@ final class Analysis
             if (!in_array($row['status'], $states, true)) {
                 continue;
             }
+            if (!in_array($row['period'], ['day', 'week', 'month', 'year'], true)
+                || !is_int($row['interval']) || $row['interval'] < 1
+                || !preg_match('/\A[A-Z]{3}\z/D', $row['currency'])
+                || !preg_match('/\A[A-Z]{3}\z/D', $siteCurrency)) {
+                throw new \RuntimeException('A20_DATA_UNSUPPORTED');
+            }
+            foreach ($row['products'] as $item) {
+                if (!is_int($item['product']) || $item['product'] < 0
+                    || !is_int($item['variation']) || $item['variation'] < 0) {
+                    throw new \RuntimeException('A20_DATA_UNSUPPORTED');
+                }
+            }
             $result['live_subscriptions']++;
             $result['multiple_product_lines'] += (int) ($row['line_count'] > 1);
             $result['without_product_line'] += (int) ($row['line_count'] === 0);
@@ -31,7 +43,7 @@ final class Analysis
             $result['foreign_currency'] += (int) ($row['currency'] !== $siteCurrency);
             $amount = self::decimal($row['total']);
             $result['zero_recurring_total'] += (int) ($amount === '0.00');
-            $country = $row['country'];
+            $country = in_array($row['country'], explode(' ', self::COUNTRIES), true) ? $row['country'] : '';
             $countries[$country] ??= ['country' => $country, 'count' => 0, 'with_shipping' => 0];
             $countries[$country]['count']++;
             $countries[$country]['with_shipping'] += (int) $row['shipping'];
@@ -80,13 +92,33 @@ final class Analysis
             [$a['product'], $a['variation']] <=> [$b['product'], $b['variation']]);
         ksort($countries, SORT_STRING);
         foreach ($countries as $country) {
-            if ($country['count'] < 5) {
+            if ($country['country'] === '') {
+                $result['unknown_country'] = ['count' => $country['count'], 'with_shipping' => $country['with_shipping']];
+            } elseif ($country['count'] < 5) {
                 $result['other_countries']['count'] += $country['count'];
                 $result['other_countries']['with_shipping'] += $country['with_shipping'];
             } else {
                 $result['countries'][] = $country;
             }
         }
+        $result['definitions'] = [
+            'live_subscriptions' => 'Un abonnement natif actif, en attente, suspendu ou en annulation a terme ; pas un compte ni un paiement constate.',
+            'products' => 'Une fois par abonnement et couple produit/variation ; variation 0 sans variation, produit 0 reference absente. Les groupes peuvent se recouper.',
+            'states' => 'Etat natif enregistre ; aucune qualification en anomalie.',
+            'schedules' => 'Intervalle/periode enregistres sur l abonnement, jamais le rythme du catalogue.',
+            'non_annual' => 'Autre que 1 year ou 12 month ; week/day ne sont pas convertis. Pas une duree d engagement.',
+            'amounts' => 'Total recurrent enregistre sur l abonnement : taxes/frais/port/remises inclus selon Woo. Pas un paiement constate ni un prix catalogue. Pour plusieurs produits, total entier dans chaque groupe, sans repartition. Visible par couple devise/montant porte par au moins cinq abonnements du groupe produit.',
+            'other_amounts' => 'Autres montants : somme des effectifs des couples devise/montant portes par moins de cinq abonnements du groupe produit ; aucune valeur.',
+            'countries' => 'Pays de livraison enregistre sur l abonnement, pas le pays de facturation ou du compte. Codes visibles a partir de cinq abonnements, tous produits reunis ; with_shipping compte ceux avec une ligne de port.',
+            'other_countries' => 'Autres pays : effectif des pays a moins de cinq abonnements et nombre avec ligne de port ; aucun code rare.',
+            'unknown_country' => 'Pays absent ou non reconnu par la liste ISO fermee : effectif et nombre avec ligne de port, sans valeur source.',
+            'multiple_product_lines' => 'Au moins deux lignes produit, independamment des quantites et du nombre de produits distincts.',
+            'without_product_line' => 'Aucune ligne produit ; inclus dans les comptes globaux et pays, sans produit invente.',
+            'with_fee_line' => 'Au moins une ligne de frais, meme de montant nul.',
+            'with_shipping_line' => 'Au moins une ligne de port, meme de montant nul ; pas une preuve de livraison.',
+            'foreign_currency' => 'Devise enregistree differente de la devise enregistree du site ; aucune conversion.',
+            'zero_recurring_total' => 'Total recurrent exactement nul, toutes devises confondues.',
+        ];
         return $result;
     }
 

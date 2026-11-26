@@ -6,6 +6,29 @@ namespace Imagine\ExternalDoors;
 
 final class Analysis
 {
+    public static function report(
+        array $keys,
+        array $hooks,
+        array $helper,
+        bool $neutralised,
+        \DateTimeImmutable $clock,
+        \DateTimeZone $zone,
+        string $home
+    ): array {
+        if ($neutralised) {
+            return [
+                'api_keys' => ['status' => 'inconnu après neutralisation', 'counts' => null],
+                'webhooks' => ['status' => 'inconnu après neutralisation', 'counts' => null],
+                'extension_store' => ['status' => 'inconnu après neutralisation', 'connected' => null],
+            ];
+        }
+        return [
+            'api_keys' => ['status' => 'connu', 'counts' => self::keys($keys, $clock, $zone)],
+            'webhooks' => ['status' => 'connu', 'counts' => self::webhooks($hooks, $home)],
+            'extension_store' => ['status' => 'connu', 'connected' => !empty($helper['auth']['access_token'])],
+        ];
+    }
+
     private const TOPICS = [
         'coupon.created', 'coupon.updated', 'coupon.deleted', 'coupon.restored',
         'customer.created', 'customer.updated', 'customer.deleted',
