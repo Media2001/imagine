@@ -39,6 +39,18 @@ if (class_exists(Analysis::class)) {
         $check('active_destinations_domain_not_origin', $hooks['active_destination'] === ['same_domain' => 1, 'external_domain' => 1, 'unknown' => 1]);
         $check('custom_topic_and_url_canary_absent', !str_contains(json_encode($hooks), 'CANARY'));
     }
+    $published = Analysis::webhooks([['status' => 'active', 'topic' => 'product.published', 'delivery_url' => 'https://example.org']], 'https://example.org');
+    $check('native_product_published_topic_preserved', $published['by_topic'] === ['product.published' => 1]);
+    $edge = Analysis::keys([
+        ['permissions' => 'CANARY', 'last_access' => '2026-02-30 00:00:00'],
+        ['permissions' => 'read', 'last_access' => '2027-01-01 00:00:00'],
+        ['permissions' => 'write', 'last_access' => '0000-00-00 00:00:00'],
+    ], $clock, new DateTimeZone('UTC'));
+    $check('invalid_future_dates_and_permission_closed', $edge['by_permission']['unknown'] === 1 && $edge['last_access_unknown'] === 2 && $edge['never_used'] === 1 && !str_contains(json_encode($edge), 'CANARY'));
+    $local = Analysis::keys([['permissions' => 'read', 'last_access' => '2025-11-26 00:30:00']], $clock, new DateTimeZone('Europe/Paris'));
+    $check('last_access_interpreted_in_site_timezone', $local['unused_twelve_months'] === 1);
+    $leap = Analysis::keys([['permissions' => 'read', 'last_access' => '2023-02-28 00:00:00']], new DateTimeImmutable('2024-02-29T00:00:00Z'), new DateTimeZone('UTC'));
+    $check('leap_anniversary_clamped_not_march', $leap['unused_twelve_months'] === 0);
     $check('report_projection_available', method_exists(Analysis::class, 'report'));
     if (method_exists(Analysis::class, 'report')) {
         $unknown = Analysis::report([], [], [], true, $clock, new DateTimeZone('UTC'), 'https://example.org');

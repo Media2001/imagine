@@ -6,7 +6,9 @@ spec=importlib.util.spec_from_file_location('fixture','/opt/a02/inside.py');b=im
 def cmd(args,check=True,env=None,data=None,timeout=240):
     p=subprocess.run(args,input=data,capture_output=True,text=True,encoding='utf-8',errors='strict',timeout=timeout,
         env={**os.environ,'PYTHONIOENCODING':'utf-8','PYTHONUTF8':'1','PYTHONDONTWRITEBYTECODE':'1',**(env or {})})
-    if check and p.returncode:raise RuntimeError('A20_FIXTURE_COMMAND_FAILED')
+    if check and p.returncode:
+        Path('/report/fixture-command-error.log').write_text(p.stdout+p.stderr,encoding='utf-8')
+        raise RuntimeError('A20_FIXTURE_COMMAND_FAILED')
     return p
 b.cmd=cmd
 original=b.check

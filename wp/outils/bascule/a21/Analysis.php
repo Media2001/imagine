@@ -33,7 +33,7 @@ final class Analysis
         'coupon.created', 'coupon.updated', 'coupon.deleted', 'coupon.restored',
         'customer.created', 'customer.updated', 'customer.deleted',
         'order.created', 'order.updated', 'order.deleted', 'order.restored',
-        'product.created', 'product.updated', 'product.deleted', 'product.restored',
+        'product.created', 'product.updated', 'product.deleted', 'product.restored', 'product.published',
     ];
 
     private static function host(string $url): ?string
