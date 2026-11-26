@@ -1,0 +1,20 @@
+{
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "wp/tests/preparer-image.ps1"
+  ],
+  "exit_code": 0,
+  "at": "2026-11-26T12:14:26.708526+01:00",
+  "environment": {
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONUTF8": "1"
+  },
+  "summary": [
+    "T01 IMAGE READY : PHP 8.2.33; 4 packages; no site or commercial extension",
+    "PREPARATION T01 : image verifiee sha256:46b2fb81ea31a5a0661f619e8b159594be577444531e9fd680f118ac7f12c017 ; lancer .\\wp\\tests\\rejouer.ps1"
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "exit_code": 0,
+  "historical_candidate_contract": false,
+  "rows": [
+    {
+      "console": "utf8",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a16/verify.py",
+        "production/A-16/preuves/final"
+      ],
+      "exit_code": 0,
+      "result": {
+        "status": "FINAL",
+        "exit_code": 0,
+        "counts": {
+          "unit": 23,
+          "result": 78,
+          "runner": 7
+        },
+        "checks": [
+          {
+            "check": "exact_current_sources",
+            "status": "PASS"
+          },
+          {
+            "check": "unit_actual_green_unique",
+            "status": "PASS"
+          },
+          {
+            "check": "result_actual_green_unique",
+            "status": "PASS"
+          },
+          {
+            "check": "runner_actual_green_unique",
+            "status": "PASS"
+          },
+          {
+            "check": "classic_mandatory_cases",
+            "status": "PASS"
+          },
+          {
+            "check": "classic_all_table_snapshots",
+            "status": "PASS"
+          },
+          {
+            "check": "classic_audit_bound",
+            "status": "PASS"
+          },
+          {
+            "check": "classic_privacy",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos_mandatory_cases",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos_all_table_snapshots",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos_audit_bound",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos_privacy",
+            "status": "PASS"
+          },
+          {
+            "check": "native_runner_cleanup",
+            "status": "PASS"
+          },
+          {
+            "check": "strict_psr12_final_sources",
+            "status": "PASS"
+          },
+          {
+            "check": "preparer_image_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "windows_utf8_and_cp1252_matrix",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8_native_python_and_measured_encoding",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252_native_python_and_measured_encoding",
+            "status": "PASS"
+          },
+          {
+            "check": "own_two_readme_lines_only",
+            "status": "PASS"
+          },
+          {
+            "check": "exact_packet_manifest",
+            "status": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "console": "cp1252",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a16/verify.py",
+        "production/A-16/preuves/final"
+      ],
+      "exit_code": 0,
+      "result": {
+        "status": "FINAL",
+        "exit_code": 0,
+        "counts": {
+          "unit": 23,
+          "result": 78,
+          "runner": 7
+        },
+        "checks": [
+          {
+            "check": "exact_current_sources",
+            "status": "PASS"
+          },
+          {
+            "check": "unit_actual_green_unique",
+            "status": "PASS"
+          },
+          {
+            "check": "result_actual_green_unique",
+            "status": "PASS"
+          },
+          {
+            "check": "runner_actual_green_unique",
+            "status": "PASS"
+          },
+          {
+            "check": "classic_mandatory_cases",
+            "status": "PASS"
+          },
+          {
+            "check": "classic_all_table_snapshots",
+            "status": "PASS"
+          },
+          {
+            "check": "classic_audit_bound",
+            "status": "PASS"
+          },
+          {
+            "check": "classic_privacy",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos_mandatory_cases",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos_all_table_snapshots",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos_audit_bound",
+            "status": "PASS"
+          },
+          {
+            "check": "hpos_privacy",
+            "status": "PASS"
+          },
+          {
+            "check": "native_runner_cleanup",
+            "status": "PASS"
+          },
+          {
+            "check": "strict_psr12_final_sources",
+            "status": "PASS"
+          },
+          {
+            "check": "preparer_image_executed",
+            "status": "PASS"
+          },
+          {
+            "check": "windows_utf8_and_cp1252_matrix",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8_native_python_and_measured_encoding",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252_native_python_and_measured_encoding",
+            "status": "PASS"
+          },
+          {
+            "check": "own_two_readme_lines_only",
+            "status": "PASS"
+          },
+          {
+            "check": "exact_packet_manifest",
+            "status": "PASS"
+          }
+        ]
+      }
+    }
+  ]
+}

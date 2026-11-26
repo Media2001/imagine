@@ -1,0 +1,48 @@
+{
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "wp/tests/rejouer.ps1"
+  ],
+  "exit_code": 0,
+  "at": "2026-11-26T12:14:34.420070+01:00",
+  "environment": {
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONUTF8": "1"
+  },
+  "phpunit": {
+    "tests": 1123,
+    "assertions": 34569,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "tools": {
+      "tools": 13,
+      "checks": 242,
+      "failures": 0,
+      "excluded": []
+    },
+    "pass": true
+  },
+  "tools": null,
+  "summary": [
+    "T01 TOOL : a02-audit ; 17 controls ; 0 failures ; exit=0",
+    "T01 TOOL : a03-non-regression ; 10 controls ; 0 failures ; exit=0",
+    "T01 TOOL : a10 ; 10 controls ; 0 failures ; exit=0",
+    "T01 TOOL : a11 ; 19 controls ; 0 failures ; exit=0",
+    "T01 TOOL : a12 ; 15 controls ; 0 failures ; exit=0",
+    "T01 TOOL : a14 ; 8 controls ; 0 failures ; exit=0",
+    "T01 TOOL : a15 ; 14 controls ; 0 failures ; exit=0",
+    "T01 TOOL : a16 ; 23 controls ; 0 failures ; exit=0",
+    "T01 TOOL : a17 ; 42 controls ; 0 failures ; exit=0",
+    "T01 TOOL : a18 ; 37 controls ; 0 failures ; exit=0",
+    "T01 TOOL : a19 ; 9 controls ; 0 failures ; exit=0",
+    "T01 TOOL : a20 ; 23 controls ; 0 failures ; exit=0",
+    "T01 TOOL : a21 ; 15 controls ; 0 failures ; exit=0",
+    "OUTILS : 13 outils, 242 contr\u00f4les, 0 \u00e9checs ; hors rejeu : aucun",
+    "REJEU : 1123 tests, 34569 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS"
+  ]
+}

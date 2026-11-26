@@ -277,16 +277,152 @@
     },
     {
       "check": "classic:three_paths_without_date_native",
-      "status": "FAIL",
+      "status": "PASS",
       "detail": null
     },
     {
-      "check": "classic:exception",
-      "status": "FAIL",
+      "check": "classic:default_clock_is_current_utc",
+      "status": "PASS",
       "detail": {
-        "class": "AssertionError",
-        "code": "classic:three_paths_without_date_native"
+        "before_utc": "2026-11-26T10:04:57+00:00",
+        "as_of_utc": "2026-11-26T10:04:57Z",
+        "after_utc": "2026-11-26T10:04:57.863432+00:00"
       }
+    },
+    {
+      "check": "classic:default_clock_single_frozen_reference",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:repeated_clock_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:repo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:ancestor",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:unconfined_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:symlink_private_code_only:False",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:symlink_private_code_only:True",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:0",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:1",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:2",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:3",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:4",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:5",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:config_private_code_only:define",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:config_private_code_only:const",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:invalid_clock_code_only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_tables_scheduler_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:config_not_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:unknown_reference_not_counted_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:unknown_variant_database_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plugin_exception_code_closed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plugin_exception_variant_database_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_produced_artifacts_canary_absent",
+      "status": "PASS",
+      "detail": null
     },
     {
       "check": "hpos:commercial_fixture",
@@ -539,16 +675,152 @@
     },
     {
       "check": "hpos:three_paths_without_date_native",
-      "status": "FAIL",
+      "status": "PASS",
       "detail": null
     },
     {
-      "check": "hpos:exception",
-      "status": "FAIL",
+      "check": "hpos:default_clock_is_current_utc",
+      "status": "PASS",
       "detail": {
-        "class": "AssertionError",
-        "code": "hpos:three_paths_without_date_native"
+        "before_utc": "2026-11-26T10:05:21+00:00",
+        "as_of_utc": "2026-11-26T10:05:21Z",
+        "after_utc": "2026-11-26T10:05:21.744749+00:00"
       }
+    },
+    {
+      "check": "hpos:default_clock_single_frozen_reference",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:repeated_clock_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:repo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:ancestor",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:unconfined_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:symlink_private_code_only:False",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:symlink_private_code_only:True",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:0",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:1",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:2",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:3",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:4",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:5",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:config_private_code_only:define",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:config_private_code_only:const",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:invalid_clock_code_only",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_tables_scheduler_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:config_not_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:unknown_reference_not_counted_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:unknown_variant_database_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plugin_exception_code_closed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plugin_exception_variant_database_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_produced_artifacts_canary_absent",
+      "status": "PASS",
+      "detail": null
     },
     {
       "check": "network_interfaces",
@@ -566,7 +838,7 @@
       "detail": null
     }
   ],
-  "exit_code": 1,
+  "exit_code": 0,
   "licensed_sha256": {
     "woocommerce-subscriptions.zip": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083",
     "woocommerce-memberships.zip": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285"

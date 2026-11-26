@@ -1,9 +1,9 @@
 {
   "candidate_verified": true,
-  "ready": false,
-  "parent_preparation_required": true,
-  "preparer_image_executed": false,
-  "pret_written": false,
+  "ready": true,
+  "parent_preparation_required": false,
+  "preparer_image_executed": true,
+  "pret_written": true,
   "time_utc": "2026-11-26T10:28:01.170563+00:00",
   "python": {
     "executable": "C:\\Python314\\python.exe",
@@ -30,8 +30,8 @@
     "errors": 0,
     "skipped": 0,
     "tools": {
-      "tools": 11,
-      "checks": 204,
+      "tools": 13,
+      "checks": 242,
       "failures": 0,
       "excluded": []
     },
@@ -156,7 +156,7 @@
       "exit_code": 1,
       "expected_exit": 1,
       "output_sha256": "ce28c849dbe923c362d8666eb44e8cb95032e0645faf16bb63b6eda9698227d1",
-      "last_line": "REJEU : 1123 tests, 34569 assertions, 0 échecs, 1 erreurs, 0 ignorés — FAIL"
+      "last_line": "REJEU : 1123 tests, 34569 assertions, 0 \u00e9checs, 1 erreurs, 0 ignor\u00e9s \u2014 FAIL"
     },
     "outil-restaure": {
       "command": [
@@ -171,7 +171,7 @@
       "exit_code": 0,
       "expected_exit": 0,
       "output_sha256": "d9409ccca88857ad2e715df49715a0f7b6f7991fb41c4226c768f3474e5932f2",
-      "last_line": "REJEU : 1123 tests, 34569 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS"
+      "last_line": "REJEU : 1123 tests, 34569 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS"
     },
     "rejeu": {
       "command": [
@@ -185,8 +185,8 @@
       "cwd": "C:\\Users\\Ced\\imagine",
       "exit_code": 0,
       "expected_exit": 0,
-      "output_sha256": "bb6edf337c60a9f5ea1b3706c8e8938a22648622c76a6d5db9c68f16c88ae4be",
-      "last_line": "REJEU : 1123 tests, 34569 assertions, 0 échecs, 0 erreurs, 0 ignorés — PASS"
+      "output_sha256": "d0b5913b627dd1b1a4377236d4ec3ef43a5380ca6d1c8786cbc6de9ed5ab644b",
+      "last_line": "REJEU : 1123 tests, 34569 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS"
     }
   },
   "source_sha256": {
@@ -200,9 +200,9 @@
     "wp/tests/t01/corrections-php.php": "9cd136e2aa67c3c0da099d420c2441b766dc24318bdba25b8baa0b77ecfff11b"
   },
   "t01_documentation_contract": [
-    "- T-02 : tout `wp/tests/<lot>/unit.php` est découvert automatiquement ; s’il exige WordPress, une base ou une extension commerciale, ajouter à côté `unit.hors-rejeu` contenant une courte raison sur une ligne : il sera nommé « hors rejeu », jamais lancé.",
-    "- Les banques pures sont lancées dans des sous-processus PHP séparés du même conteneur ; leurs anciens chemins de fixture `/subject`, `/checkout`, `/report`, `/unit-origin-fixture` sont relocalisés uniquement dans leurs copies temporaires ; elles produisent un `unit.json` (`checks` PASS/FAIL ou `tests` booléens), compté sur la ligne `OUTILS` avant le bilan `REJEU` inchangé.",
-    "- Les matrices natives classique/HPOS et commerciales restent hors de cette commande ; T-02 ne change ni l’image ni son isolation, mais la préparation finale `preparer-image.ps1` après ajout de tests et l’éventuel `PRET` sont réservés au parent (preuves candidates : `production/T-02/preuves/final`)."
+    "- T-02 : tout `wp/tests/<lot>/unit.php` est d\u00e9couvert automatiquement ; s\u2019il exige WordPress, une base ou une extension commerciale, ajouter \u00e0 c\u00f4t\u00e9 `unit.hors-rejeu` contenant une courte raison sur une ligne : il sera nomm\u00e9 \u00ab hors rejeu \u00bb, jamais lanc\u00e9.",
+    "- Les banques pures sont lanc\u00e9es dans des sous-processus PHP s\u00e9par\u00e9s du m\u00eame conteneur ; leurs anciens chemins de fixture `/subject`, `/checkout`, `/report`, `/unit-origin-fixture` sont relocalis\u00e9s uniquement dans leurs copies temporaires ; elles produisent un `unit.json` (`checks` PASS/FAIL ou `tests` bool\u00e9ens), compt\u00e9 sur la ligne `OUTILS` avant le bilan `REJEU` inchang\u00e9.",
+    "- Les matrices natives classique/HPOS et commerciales restent hors de cette commande ; T-02 ne change ni l\u2019image ni son isolation, mais la pr\u00e9paration finale `preparer-image.ps1` apr\u00e8s ajout de tests et l\u2019\u00e9ventuel `PRET` sont r\u00e9serv\u00e9s au parent (preuves candidates : `production/T-02/preuves/final`)."
   ],
   "unit_discovery_contract": [
     {
@@ -248,6 +248,14 @@
     {
       "path": "wp/tests/a19/unit.php",
       "pure_php": true
+    },
+    {
+      "path": "wp/tests/a20/unit.php",
+      "pure_php": true
+    },
+    {
+      "path": "wp/tests/a21/unit.php",
+      "pure_php": true
     }
   ],
   "a16_contract_only_no_unstable_hash": true,
@@ -270,5 +278,20 @@
   "limitations": [
     "Native classic/HPOS/commercial matrices not replayed by T01.",
     "No real data, archive, account, Git operation or deployment."
-  ]
+  ],
+  "historical_candidate_result": {
+    "tests": 1123,
+    "assertions": 34569,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "tools": {
+      "tools": 11,
+      "checks": 204,
+      "failures": 0,
+      "excluded": []
+    },
+    "pass": true
+  },
+  "parent_readback_at": "2026-11-26T12:14:34.420070+01:00"
 }

@@ -1,0 +1,539 @@
+{
+  "suite": "A02-real-commercial-fixture",
+  "checks": [
+    {
+      "check": "lint:audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:seed.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:fingerprint.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:unit.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "lint:readonly-probe.php",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": false,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "classic:a02_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:cli_and_actual_readonly_guards",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "classic:media_contents_never_opened",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:r1_inactive_store:order",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:r1_inactive_store:subscription",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:r1_physical_rows_not_logical_dedup",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:r1_closed_store_labels",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:exact_group:account:_a18_card",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:exact_group:account:_a18_rr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:exact_group:order:_a18_bank",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:exact_group:subscription:_a18_bank",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:exact_group:option:a18_bank_setting",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:r2_card:scan_to_groups",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:r2_register:scan_to_groups",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:r3_card:scan_to_groups",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:r3_iban:scan_to_groups",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:invalid_and_canary_values_not_counted",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:tokens_references_separate",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:known_and_other_folders_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:no_values_names_ids_or_paths",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:replay_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:repo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:ancestor",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:guard:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:unconfined_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:symlink_private_code_only:False",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:symlink_private_code_only:True",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:0",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:1",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:2",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:3",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:4",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:closed_dropin:5",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_tables_scheduler_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:config_not_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:neutralised_unknown_not_zero",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:neutralised_database_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:rule_presence_not_false_assurance",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:rule_variant_files_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plugin_exception_code_closed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:plugin_exception_variant_database_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:all_produced_artifacts_canary_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:commercial_fixture",
+      "status": "PASS",
+      "detail": {
+        "versions": {
+          "wordpress": "7.0.9",
+          "woocommerce": "11.1.1",
+          "subscriptions": "9.4.1",
+          "memberships": "1.30.3"
+        },
+        "hpos": true,
+        "subscriptions": 3,
+        "rules": 2,
+        "restriction_real": true
+      }
+    },
+    {
+      "check": "hpos:a02_audit",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:cli_and_actual_readonly_guards",
+      "status": "PASS",
+      "detail": {
+        "exit": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "hpos:media_contents_never_opened",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:r1_inactive_store:order",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:r1_inactive_store:subscription",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:r1_physical_rows_not_logical_dedup",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:r1_closed_store_labels",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:exact_group:account:_a18_card",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:exact_group:account:_a18_rr",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:exact_group:order:_a18_bank",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:exact_group:subscription:_a18_bank",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:exact_group:option:a18_bank_setting",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:r2_card:scan_to_groups",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:r2_register:scan_to_groups",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:r3_card:scan_to_groups",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:r3_iban:scan_to_groups",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:invalid_and_canary_values_not_counted",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:tokens_references_separate",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:known_and_other_folders_exact",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:no_values_names_ids_or_paths",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:replay_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:exists",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:site",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:repo",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:ancestor",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:guard:root",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:unconfined_refused",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:symlink_private_code_only:False",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:symlink_private_code_only:True",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:0",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:1",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:2",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:3",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:4",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:closed_dropin:5",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_tables_scheduler_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:files_identical",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:config_not_executed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:neutralised_unknown_not_zero",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:neutralised_database_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:rule_presence_not_false_assurance",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:rule_variant_files_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plugin_exception_code_closed",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:plugin_exception_variant_database_unchanged",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:all_produced_artifacts_canary_absent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "network_interfaces",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "no_listener:tcp6",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "exit_code": 0,
+  "licensed_sha256": {
+    "woocommerce-subscriptions.zip": "ed8c529d1382e2d06fa6e605e799c9db5607d8459806c229e74a20571f871083",
+    "woocommerce-memberships.zip": "d3a858a8d6ebc7153248a10d665c6752948ea4fa8a1836d6bdd8a8f267ee3285"
+  },
+  "no_real_site": true
+}

@@ -1,11 +1,7 @@
 {
-  "status": "CANDIDATE",
+  "status": "PARENT_GATES_PASSED",
   "exit_code": 0,
-  "counts": {
-    "unit": 23,
-    "result": 78,
-    "runner": 7
-  },
+  "closed": false,
   "checks": [
     {
       "check": "exact_current_sources",
@@ -64,7 +60,7 @@
       "status": "PASS"
     },
     {
-      "check": "candidate_parent_build_explicitly_pending",
+      "check": "preparer_image_executed",
       "status": "PASS"
     },
     {
@@ -87,5 +83,125 @@
       "check": "exact_packet_manifest",
       "status": "PASS"
     }
-  ]
+  ],
+  "counts": {
+    "unit": 23,
+    "result": 78,
+    "runner": 7
+  },
+  "preparation_exit": 0,
+  "global_replay": [
+    {
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "wp/tests/rejouer.ps1"
+      ],
+      "exit_code": 0,
+      "at": "2026-11-26T12:14:34.420070+01:00",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1"
+      },
+      "phpunit": {
+        "tests": 1123,
+        "assertions": 34569,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "tools": {
+          "tools": 13,
+          "checks": 242,
+          "failures": 0,
+          "excluded": []
+        },
+        "pass": true
+      },
+      "tools": null,
+      "summary": [
+        "T01 TOOL : a02-audit ; 17 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a03-non-regression ; 10 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a10 ; 10 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a11 ; 19 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a12 ; 15 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a14 ; 8 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a15 ; 14 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a16 ; 23 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a17 ; 42 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a18 ; 37 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a19 ; 9 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a20 ; 23 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a21 ; 15 controls ; 0 failures ; exit=0",
+        "OUTILS : 13 outils, 242 contr\u00f4les, 0 \u00e9checs ; hors rejeu : aucun",
+        "REJEU : 1123 tests, 34569 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS"
+      ]
+    },
+    {
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "wp/tests/rejouer.ps1"
+      ],
+      "exit_code": 0,
+      "at": "2026-11-26T12:14:42.354133+01:00",
+      "environment": {
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0"
+      },
+      "phpunit": {
+        "tests": 1123,
+        "assertions": 34569,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "tools": {
+          "tools": 13,
+          "checks": 242,
+          "failures": 0,
+          "excluded": []
+        },
+        "pass": true
+      },
+      "tools": null,
+      "summary": [
+        "T01 TOOL : a02-audit ; 17 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a03-non-regression ; 10 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a10 ; 10 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a11 ; 19 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a12 ; 15 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a14 ; 8 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a15 ; 14 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a16 ; 23 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a17 ; 42 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a18 ; 37 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a19 ; 9 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a20 ; 23 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a21 ; 15 controls ; 0 failures ; exit=0",
+        "OUTILS : 13 outils, 242 contr\u00f4les, 0 \u00e9checs ; hors rejeu : aucun",
+        "REJEU : 1123 tests, 34569 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS"
+      ]
+    }
+  ],
+  "current_sources": {
+    "wp/outils/bascule/a16/Command.php": "ad2ba6e4fb5d5555c22655e03377cd9e10724d92d5ffc4467553898686286fc1",
+    "wp/outils/bascule/a16/confine.py": "c4732873354ed241cec749046c14e6886c9c836acd165d835de141fd159dc327",
+    "wp/outils/bascule/a16/correspondance.exemple.json": "bd53386b30c31a8da179dcb1c289dcdf13308a37767fa7a010e710da1dcda5ce",
+    "wp/outils/bascule/a16/inventorier-numeros": "1beb4989fca6fefe846a51f70f4a329788262bad500a7677c236d6d3f948b973",
+    "wp/outils/bascule/a16/Inventory.php": "f0c37dc7fcdefcaaaec681b416cef32233feaf923e58ebacffaaf617fa7c61cf",
+    "wp/outils/bascule/a16/Mapping.php": "66bdbe895a06c4307644aa38eda03ca8f8e4369bbe77a3ba14734468cc099738",
+    "wp/outils/bascule/a16/README.md": "1cf1b6f60a431eaa8b011ba23cf338e5e95d7ae3f07e820e86507febb58a62a2",
+    "wp/tests/a16/inside.py": "448035f27e3771e19d703be87856f4d22701143176d92a0d46ca38f4f9d20dfb",
+    "wp/tests/a16/run.py": "23345370021f1da3ce223da7168ff181e7b43b974ea9b41126fb7702eb53f46c",
+    "wp/tests/a16/seed.php": "d36abbade7942d316aa436c26c26a177b91e9824da2b7f9561b00758fdd29201",
+    "wp/tests/a16/style.py": "d856a2ea35f9a25c4be47e20fe5f3b8b9c2669b525f10b76cb35c1f6b0b8fe31",
+    "wp/tests/a16/test_launcher.py": "a6175bcd0bd567f84a776705295502f4efe6ebb743db235afade4e80ed9105f6",
+    "wp/tests/a16/unit.php": "5f33396a8aa9192262ee4442590cdc3f9958616692126d37cdd27233babe8451",
+    "wp/tests/a16/verify.py": "2954b45ffcb55f29979e709a769787c397012888de43c13118b2be695b48a2c8"
+  }
 }

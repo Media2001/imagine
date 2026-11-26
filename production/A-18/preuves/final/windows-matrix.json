@@ -46,7 +46,7 @@
         "C:\\Python314\\python.exe",
         "-B",
         "C:\\Users\\Ced\\imagine\\wp\\tests\\a18\\run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a18-corrections-20261126-101833\\matrix-final-v2\\cp1252-run"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\imagine-wake-20261126-parent\\a18-final-matrix\\cp1252-run"
       ],
       "environment": {
         "PYTHONIOENCODING": "cp1252",
@@ -79,7 +79,7 @@
         "C:\\Python314\\python.exe",
         "-B",
         "C:\\Users\\Ced\\imagine\\wp\\tests\\a18\\run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a18-corrections-20261126-101833\\matrix-final-v2\\utf8"
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\imagine-wake-20261126-parent\\a18-final-matrix\\utf8"
       ],
       "environment": {
         "PYTHONIOENCODING": "utf-8",

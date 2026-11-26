@@ -1,0 +1,563 @@
+{
+  "status": "PARENT_GATES_PASSED",
+  "exit_code": 0,
+  "closed": false,
+  "checks": [
+    {
+      "check": "exact_current_owned_sources",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:measured_windows_console",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:eight_python_tests",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:unit_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:result_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:runner_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:sources_really_executed",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:pure_relocated_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:all_named_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:independent_all_tables_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:file_hash_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:audit_bound_storage",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:exact_live_and_products",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:rare_amounts_and_countries_hidden",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:repeat_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:documented_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:root-readonly_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:report_private_values_absent",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:live_subscriptions",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:products",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:countries",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:other_countries",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:unknown_country",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:multiple_product_lines",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:without_product_line",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:with_fee_line",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:with_shipping_line",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:foreign_currency",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:classic:definition:zero_recurring_total",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:all_named_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:independent_all_tables_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:file_hash_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:audit_bound_storage",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:exact_live_and_products",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:rare_amounts_and_countries_hidden",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:repeat_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:documented_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:root-readonly_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:report_private_values_absent",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:live_subscriptions",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:products",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:countries",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:other_countries",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:unknown_country",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:multiple_product_lines",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:without_product_line",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:with_fee_line",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:with_shipping_line",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:foreign_currency",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:hpos:definition:zero_recurring_total",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:owned_cleanup_and_purity",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:runtime_dependency_unchanged",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:measured_windows_console",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:eight_python_tests",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:unit_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:result_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:runner_all_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:sources_really_executed",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:pure_relocated_identical",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:all_named_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:independent_all_tables_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:file_hash_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:audit_bound_storage",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:exact_live_and_products",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:rare_amounts_and_countries_hidden",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:repeat_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:documented_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:root-readonly_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:report_private_values_absent",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:live_subscriptions",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:products",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:countries",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:other_countries",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:unknown_country",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:multiple_product_lines",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:without_product_line",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:with_fee_line",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:with_shipping_line",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:foreign_currency",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:classic:definition:zero_recurring_total",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:all_named_cases",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:independent_all_tables_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:file_hash_equality",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:audit_bound_storage",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:exact_live_and_products",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:rare_amounts_and_countries_hidden",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:repeat_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:documented_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:root-readonly_same_report",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:report_private_values_absent",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:live_subscriptions",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:products",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:countries",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:other_countries",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:unknown_country",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:multiple_product_lines",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:without_product_line",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:with_fee_line",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:with_shipping_line",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:foreign_currency",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:hpos:definition:zero_recurring_total",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:owned_cleanup_and_purity",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:runtime_dependency_unchanged",
+      "status": "PASS"
+    },
+    {
+      "check": "strict_psr12_current_sources",
+      "status": "PASS"
+    },
+    {
+      "check": "both_console_suites_executed",
+      "status": "PASS"
+    },
+    {
+      "check": "parent_gates_explicitly_pending",
+      "status": "PASS"
+    },
+    {
+      "check": "only_own_two_shared_lines",
+      "status": "PASS"
+    },
+    {
+      "check": "exact_packet_inventory_and_hashes",
+      "status": "PASS"
+    }
+  ],
+  "counts": {
+    "utf8:unit": 23,
+    "utf8:result": 98,
+    "utf8:runner": 9,
+    "cp1252:unit": 23,
+    "cp1252:result": 98,
+    "cp1252:runner": 9
+  },
+  "preparation_exit": 0,
+  "global_replay": [
+    {
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "wp/tests/rejouer.ps1"
+      ],
+      "exit_code": 0,
+      "at": "2026-11-26T12:14:34.420070+01:00",
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1"
+      },
+      "phpunit": {
+        "tests": 1123,
+        "assertions": 34569,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "tools": {
+          "tools": 13,
+          "checks": 242,
+          "failures": 0,
+          "excluded": []
+        },
+        "pass": true
+      },
+      "tools": null,
+      "summary": [
+        "T01 TOOL : a02-audit ; 17 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a03-non-regression ; 10 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a10 ; 10 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a11 ; 19 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a12 ; 15 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a14 ; 8 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a15 ; 14 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a16 ; 23 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a17 ; 42 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a18 ; 37 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a19 ; 9 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a20 ; 23 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a21 ; 15 controls ; 0 failures ; exit=0",
+        "OUTILS : 13 outils, 242 contr\u00f4les, 0 \u00e9checs ; hors rejeu : aucun",
+        "REJEU : 1123 tests, 34569 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS"
+      ]
+    },
+    {
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "wp/tests/rejouer.ps1"
+      ],
+      "exit_code": 0,
+      "at": "2026-11-26T12:14:42.354133+01:00",
+      "environment": {
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0"
+      },
+      "phpunit": {
+        "tests": 1123,
+        "assertions": 34569,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "tools": {
+          "tools": 13,
+          "checks": 242,
+          "failures": 0,
+          "excluded": []
+        },
+        "pass": true
+      },
+      "tools": null,
+      "summary": [
+        "T01 TOOL : a02-audit ; 17 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a03-non-regression ; 10 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a10 ; 10 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a11 ; 19 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a12 ; 15 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a14 ; 8 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a15 ; 14 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a16 ; 23 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a17 ; 42 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a18 ; 37 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a19 ; 9 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a20 ; 23 controls ; 0 failures ; exit=0",
+        "T01 TOOL : a21 ; 15 controls ; 0 failures ; exit=0",
+        "OUTILS : 13 outils, 242 contr\u00f4les, 0 \u00e9checs ; hors rejeu : aucun",
+        "REJEU : 1123 tests, 34569 assertions, 0 \u00e9checs, 0 erreurs, 0 ignor\u00e9s \u2014 PASS"
+      ]
+    }
+  ],
+  "current_sources": {
+    "wp/outils/bascule/a20/Analysis.php": "4189fa5669e7819cc88f12ac8545d67fe2f63ca18bd6942c41a1371bb522efe7",
+    "wp/outils/bascule/a20/Command.php": "0492ceeffc422efe7596469b21df7b89d625e5e312bbf9dc87dfcb5612e6699a",
+    "wp/outils/bascule/a20/confine.py": "78574aee3b876836ecc9314587b7018bbdfff7650d3793569f6471b15e26a527",
+    "wp/outils/bascule/a20/inventorier-tarifs": "30564ede8d5ade7aa3ad5850111da4aa7ee583b6d218feb5d4ac3d01069f40dd",
+    "wp/outils/bascule/a20/Inventory.php": "255eee53a01d60f9212357ff8b72ac845b68c02bda1344f2b23b49056cfb7d41",
+    "wp/outils/bascule/a20/README.md": "3e78a7c59d6cb3037efcb668c2bf171de86a32e13f8a7e340d649f71d7b5997d",
+    "wp/tests/a20/inside.py": "2eb095fae53e8b92e9b362674717f8b3c45eeed2c6bd86f2848983920421ab51",
+    "wp/tests/a20/matrix.py": "836157e97a16115fc4e076918a4f10bb2ce09801dd28109d5da7f8354d1336bf",
+    "wp/tests/a20/pure-probe.php": "90896b6da84f4ecad19ab11544ce319f2cdf26733ea749f06c3b25c2a50903c9",
+    "wp/tests/a20/run.py": "0fed22114a18c5d3f528d075f2a0b7a68bfe3aa402c54552a135580cdbf5beb2",
+    "wp/tests/a20/seed.php": "5d2c056f847a9fe3cdf3cc0d2eb223be4026534aed0679f4e565f0205d300ba3",
+    "wp/tests/a20/style.py": "d856a2ea35f9a25c4be47e20fe5f3b8b9c2669b525f10b76cb35c1f6b0b8fe31",
+    "wp/tests/a20/test_launcher.py": "dba1512b121458352856f3f783a6f9087aece1c67cf61d04fbe637d536a92ebc",
+    "wp/tests/a20/unit.php": "1aeb2b4b781ddc25a8c6d6262565977bc248b34c695afc1aab3181741f6c0601",
+    "wp/tests/a20/verify.py": "b3e7b1f101a3eeaf04895e09f74ea569205d6799d2ec23e537e5141686ee38a0"
+  }
+}

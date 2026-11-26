@@ -1,0 +1,18 @@
+{
+  "wp/outils/bascule/a19/Analysis.php": "d3b39ec4165cbce3bb72f40c1a9dbeae4758a17250a5efbe778e6b0cad239024",
+  "wp/outils/bascule/a19/Command.php": "f62a1d6bd5fa54c890d50d43e6398516a03a01eef1a2ffe1448d78e7bbcc45f8",
+  "wp/outils/bascule/a19/confine.py": "e79202496a60f61c8d7202c51eecceb1a52b0ecf994da58b8a7e48b5dfa60d83",
+  "wp/outils/bascule/a19/inventorier-coherence": "aa2123fb27a4e6c7e1873a628dccc30fd2269140e49d0302183c9b8eb92285ab",
+  "wp/outils/bascule/a19/Inventory.php": "355835b22c1a6f33c6c33899a8d76b5b2ad44dda0448536749da33a05060b8a2",
+  "wp/outils/bascule/a19/README.md": "8e77aeb7750f6660695bdebab723264bb7b77cb38457ac0abff3ef31b5d40ee5",
+  "wp/plugins/imagine-pilotage/tests/Administration/A19SubscriptionCoherenceTest.php": "782fda5060dc7a2b2a0b899d4b5a6dbdf0d0291e54dea92f10bf62af27ddaca7",
+  "wp/tests/a19/inside.py": "0ebf258132c2a297698239ec588b5d54d766593a5ff83147c26d6bf140d192af",
+  "wp/tests/a19/run.py": "49c31b379720f6bb67368d0fb13f0d12aa0672046d1f1c823debd1de81504da5",
+  "wp/tests/a19/seed.php": "8cecdf1e427ca62a8081a79e23f311102f674690360b0ef48b8dc095a4274ddb",
+  "wp/tests/a19/style.py": "4f5a3151a8eaf6696ff069edbe47ef5cc2b807bc573f2ba90e6c0c951be18eee",
+  "wp/tests/a19/t01-probe.php": "7a762f4f62397a9b7dc78c2fea7a2aced079a0f7d7ad5625cafeff93535f6f19",
+  "wp/tests/a19/t01.py": "ab33595bba630740fa75b20580811c4d431770580f541898cbb7028da05c18f0",
+  "wp/tests/a19/test_launcher.py": "50ad997246b860d3b23c4b44539969e994552460d92f4f5ede8c7e5ad189379f",
+  "wp/tests/a19/unit.php": "a6c5468afb136deaa971f6c5db34df63c253a802e1aded78e537e973ec38545f",
+  "wp/tests/a19/verify.py": "1792f0f1d1c623db68d356aaff77932da5a1548b055c9e0e72fa37be5cbef335"
+}

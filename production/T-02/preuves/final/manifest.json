@@ -1,8 +1,8 @@
 {
   "candidate_verified": true,
-  "ready": false,
-  "preparer_image_executed": false,
-  "pret_written": false,
+  "ready": true,
+  "preparer_image_executed": true,
+  "pret_written": true,
   "contexts": {
     "utf8": {
       "python": {
@@ -22,8 +22,8 @@
         "errors": 0,
         "skipped": 0,
         "tools": {
-          "tools": 11,
-          "checks": 204,
+          "tools": 13,
+          "checks": 242,
           "failures": 0,
           "excluded": []
         },
@@ -93,6 +93,18 @@
         {
           "lot": "a19",
           "checks": 9,
+          "failures": 0,
+          "exit": 0
+        },
+        {
+          "lot": "a20",
+          "checks": 23,
+          "failures": 0,
+          "exit": 0
+        },
+        {
+          "lot": "a21",
+          "checks": 15,
           "failures": 0,
           "exit": 0
         }
@@ -116,8 +128,8 @@
         "errors": 0,
         "skipped": 0,
         "tools": {
-          "tools": 11,
-          "checks": 204,
+          "tools": 13,
+          "checks": 242,
           "failures": 0,
           "excluded": []
         },
@@ -189,6 +201,18 @@
           "checks": 9,
           "failures": 0,
           "exit": 0
+        },
+        {
+          "lot": "a20",
+          "checks": 23,
+          "failures": 0,
+          "exit": 0
+        },
+        {
+          "lot": "a21",
+          "checks": 15,
+          "failures": 0,
+          "exit": 0
         }
       ]
     }
@@ -204,16 +228,16 @@
     "wp/tests/t01/corrections-php.php": "9cd136e2aa67c3c0da099d420c2441b766dc24318bdba25b8baa0b77ecfff11b"
   },
   "documentation_contract": [
-    "- T-02 : tout `wp/tests/<lot>/unit.php` est découvert automatiquement ; s’il exige WordPress, une base ou une extension commerciale, ajouter à côté `unit.hors-rejeu` contenant une courte raison sur une ligne : il sera nommé « hors rejeu », jamais lancé.",
-    "- Les banques pures sont lancées dans des sous-processus PHP séparés du même conteneur ; leurs anciens chemins de fixture `/subject`, `/checkout`, `/report`, `/unit-origin-fixture` sont relocalisés uniquement dans leurs copies temporaires ; elles produisent un `unit.json` (`checks` PASS/FAIL ou `tests` booléens), compté sur la ligne `OUTILS` avant le bilan `REJEU` inchangé.",
-    "- Les matrices natives classique/HPOS et commerciales restent hors de cette commande ; T-02 ne change ni l’image ni son isolation, mais la préparation finale `preparer-image.ps1` après ajout de tests et l’éventuel `PRET` sont réservés au parent (preuves candidates : `production/T-02/preuves/final`)."
+    "- T-02 : tout `wp/tests/<lot>/unit.php` est d\u00e9couvert automatiquement ; s\u2019il exige WordPress, une base ou une extension commerciale, ajouter \u00e0 c\u00f4t\u00e9 `unit.hors-rejeu` contenant une courte raison sur une ligne : il sera nomm\u00e9 \u00ab hors rejeu \u00bb, jamais lanc\u00e9.",
+    "- Les banques pures sont lanc\u00e9es dans des sous-processus PHP s\u00e9par\u00e9s du m\u00eame conteneur ; leurs anciens chemins de fixture `/subject`, `/checkout`, `/report`, `/unit-origin-fixture` sont relocalis\u00e9s uniquement dans leurs copies temporaires ; elles produisent un `unit.json` (`checks` PASS/FAIL ou `tests` bool\u00e9ens), compt\u00e9 sur la ligne `OUTILS` avant le bilan `REJEU` inchang\u00e9.",
+    "- Les matrices natives classique/HPOS et commerciales restent hors de cette commande ; T-02 ne change ni l\u2019image ni son isolation, mais la pr\u00e9paration finale `preparer-image.ps1` apr\u00e8s ajout de tests et l\u2019\u00e9ventuel `PRET` sont r\u00e9serv\u00e9s au parent (preuves candidates : `production/T-02/preuves/final`)."
   ],
   "proof_sha256": {
     "avant-raccord.log": "e0bef6b440fcfbbe8ad344651e9caac8304ce44fd6d5543923ca9c502f2a006c",
     "cp1252/cleanup.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "cp1252/outil-restaure.log": "089c4d3f441e42f5e454efca02ffd17549604b31f39c205b2747d8e56ea2a7d1",
     "cp1252/outil-rouge.log": "265f51db556745ae2634803c3a667d26379ce351f9b25aea305224e19786d6e2",
-    "cp1252/rejeu.log": "e7b4bce86bdbb70f7f4f7182dea956eeca27640e57c901efb7b7fac5281a5cb5",
+    "cp1252/rejeu.log": "79cba07735b3c51c0efe6fbede7a984b0c683bd4a9b8c159488ef9412865a7e9",
     "cp1252/t01-boundary.log": "f698574beb695708d3fd1d5f1c9ae46b421e27a71a386e5d3d54b3c0d0ac2282",
     "cp1252/t01-discovery.log": "616f6b9780d310c2cb78dec88a1cecf0872e122094627df299b96c776ac5cbd9",
     "cp1252/t01-interruption.log": "13943b9ccd0a9de1beb62949a8c394ab28434b31ff5fc0553753c989f2e60663",
@@ -221,11 +245,17 @@
     "cp1252/t01-php-regressions.log": "4ddf1116a7877c4ea9baf2fe495d455ee47ca750eddbab7064968641207605cb",
     "cp1252/t02-contracts.log": "080aa332fa0970d55a2639ce76c0cea97271332a24d818bbe65e7f31732740d0",
     "cp1252/t02-output.log": "5930daae1975f52f2ce6318be8572cf09e39c60e110c4c31dd36755ca3cc1417",
-    "cp1252/verification.json": "02b1681dc814c5b4ba3ece38e8c95bfe0ecc630387304242b4d1c8c5464d65f1",
+    "cp1252/verification.json": "6d58918ab4805d056eec1d10d9417a704e6d04c5e8be95200f0c4b8de32d55ca",
+    "cp1252-rejeu.json": "b858f4db3af717d2747af2620f8fbb2480473cabd4f464e4b3c21211d6dbfb6b",
+    "cp1252-rejeu.log": "9e33346832f26bb77ee09a085cc926859e09f4ca122abb1ec3c07600be79701d",
+    "matrix.json": "258ec3bc8d6a5de7664564f4eeea6143ba6d494345ec087fa0efccc391e9a9fa",
+    "parent-final.json": "b1f79daa5f67f323d6a064e91bd541d803c774ee9853d758449e3824e727fafe",
+    "preparation.json": "1d5818f47b9687a47178ffb18b545479aa75447a0f039e373ebc247f8807b5c3",
+    "preparation.log": "34a25aa763862db539b60a51a5a289ff470e5b3400d64ee872e594aa7a4c0eeb",
     "utf8/cleanup.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "utf8/outil-restaure.log": "d9409ccca88857ad2e715df49715a0f7b6f7991fb41c4226c768f3474e5932f2",
     "utf8/outil-rouge.log": "ce28c849dbe923c362d8666eb44e8cb95032e0645faf16bb63b6eda9698227d1",
-    "utf8/rejeu.log": "bb6edf337c60a9f5ea1b3706c8e8938a22648622c76a6d5db9c68f16c88ae4be",
+    "utf8/rejeu.log": "441655b5058bf82451149acf93894316db6d41300b2733d02946469f99d93387",
     "utf8/t01-boundary.log": "f698574beb695708d3fd1d5f1c9ae46b421e27a71a386e5d3d54b3c0d0ac2282",
     "utf8/t01-discovery.log": "616f6b9780d310c2cb78dec88a1cecf0872e122094627df299b96c776ac5cbd9",
     "utf8/t01-interruption.log": "f1ee96acb9cdd16aab43a1177dc7f505a5fdf039108185074b1169a7c765016a",
@@ -233,7 +263,9 @@
     "utf8/t01-php-regressions.log": "27c9d85ad534af9a6bf37d1c1ce534fe2140227c3667a048205a902ddc02bd86",
     "utf8/t02-contracts.log": "6bddd029050e047722268ce159f1a126185d24c1429bc7701a2e6d08ede1d190",
     "utf8/t02-output.log": "5930daae1975f52f2ce6318be8572cf09e39c60e110c4c31dd36755ca3cc1417",
-    "utf8/verification.json": "3fc22bdc8369054168794a9213c41a2b7da824744d6233c5c4a1f15f513826cf"
+    "utf8/verification.json": "ba4b866c438a7853cd61c369b485a56c53f19307eb50f17a9afc4d19c5d008e3",
+    "utf8-rejeu.json": "1490385180e9153c8be8536203c0fec75996a7594d72ff9250f65617d487f898",
+    "utf8-rejeu.log": "b3a76ba91c5c21a796f8049ede679b55ef4d8aacc7563d9711d04b0cc85898f9"
   },
-  "proof_file_count_before_manifest": 25
+  "proof_file_count_before_manifest": 33
 }

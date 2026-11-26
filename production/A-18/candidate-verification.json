@@ -1,0 +1,346 @@
+{
+  "exit_code": 0,
+  "historical_candidate_contract": false,
+  "rows": [
+    {
+      "console": "utf8",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a18/verify.py",
+        "production/A-18/preuves/final"
+      ],
+      "exit_code": 0,
+      "result": {
+        "exit_code": 0,
+        "mode": "full",
+        "pending_gates": [],
+        "check_count": 36,
+        "counts": {
+          "cp1252:unit": 37,
+          "cp1252:result": 100,
+          "cp1252:runner": 7,
+          "utf8:unit": 37,
+          "utf8:result": 100,
+          "utf8:runner": 7
+        },
+        "checks": [
+          {
+            "check": "exact_current_sources",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:unit_green_unique",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:result_green_unique",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:runner_green_unique",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:executed_source_snapshot",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:required_unit_regressions",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:classic:required_native_cases",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:classic:all_table_equality",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:classic:audit_bound",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:hpos:required_native_cases",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:hpos:all_table_equality",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:hpos:audit_bound",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:cleanup_owned_runner",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:common_refusal_runtime_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:unit_green_unique",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:result_green_unique",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:runner_green_unique",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:executed_source_snapshot",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:required_unit_regressions",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:classic:required_native_cases",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:classic:all_table_equality",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:classic:audit_bound",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:hpos:required_native_cases",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:hpos:all_table_equality",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:hpos:audit_bound",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:cleanup_owned_runner",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:common_refusal_runtime_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "strict_psr12_current_sources",
+            "status": "PASS"
+          },
+          {
+            "check": "preparer_image_actual_exit",
+            "status": "PASS"
+          },
+          {
+            "check": "matrix_actual_green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:windows_measured_console",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:python_launcher_tests_actual",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:windows_measured_console",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:python_launcher_tests_actual",
+            "status": "PASS"
+          },
+          {
+            "check": "own_two_shared_readme_lines",
+            "status": "PASS"
+          },
+          {
+            "check": "exact_final_packet_manifest",
+            "status": "PASS"
+          }
+        ]
+      }
+    },
+    {
+      "console": "cp1252",
+      "command": [
+        "C:/Python314/python.exe",
+        "-B",
+        "wp/tests/a18/verify.py",
+        "production/A-18/preuves/final"
+      ],
+      "exit_code": 0,
+      "result": {
+        "exit_code": 0,
+        "mode": "full",
+        "pending_gates": [],
+        "check_count": 36,
+        "counts": {
+          "cp1252:unit": 37,
+          "cp1252:result": 100,
+          "cp1252:runner": 7,
+          "utf8:unit": 37,
+          "utf8:result": 100,
+          "utf8:runner": 7
+        },
+        "checks": [
+          {
+            "check": "exact_current_sources",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:unit_green_unique",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:result_green_unique",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:runner_green_unique",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:executed_source_snapshot",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:required_unit_regressions",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:classic:required_native_cases",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:classic:all_table_equality",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:classic:audit_bound",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:hpos:required_native_cases",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:hpos:all_table_equality",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:hpos:audit_bound",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:cleanup_owned_runner",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:common_refusal_runtime_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:unit_green_unique",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:result_green_unique",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:runner_green_unique",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:executed_source_snapshot",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:required_unit_regressions",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:classic:required_native_cases",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:classic:all_table_equality",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:classic:audit_bound",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:hpos:required_native_cases",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:hpos:all_table_equality",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:hpos:audit_bound",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:cleanup_owned_runner",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:common_refusal_runtime_unchanged",
+            "status": "PASS"
+          },
+          {
+            "check": "strict_psr12_current_sources",
+            "status": "PASS"
+          },
+          {
+            "check": "preparer_image_actual_exit",
+            "status": "PASS"
+          },
+          {
+            "check": "matrix_actual_green",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:windows_measured_console",
+            "status": "PASS"
+          },
+          {
+            "check": "utf8:python_launcher_tests_actual",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:windows_measured_console",
+            "status": "PASS"
+          },
+          {
+            "check": "cp1252:python_launcher_tests_actual",
+            "status": "PASS"
+          },
+          {
+            "check": "own_two_shared_readme_lines",
+            "status": "PASS"
+          },
+          {
+            "check": "exact_final_packet_manifest",
+            "status": "PASS"
+          }
+        ]
+      }
+    }
+  ]
+}
