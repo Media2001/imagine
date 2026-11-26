@@ -56,6 +56,9 @@ def action():
 def deploy():
     expected = {n: digest(ROOT / 'wp' / n) for n in CODE}
     before = live_hashes(CODE)
+    if before == expected and (PROOF / 'installation.json').is_file():
+        assert json.loads((PROOF / 'installation.json').read_text(encoding='utf-8'))['after'] == expected
+        return
     historical_install = json.loads((ROOT / 'production/C-18/installation.json').read_text(encoding='utf-8'))['sha256_readback']
     mon = (ROOT / 'wp/plugins/imagine-site/MonCompte.php').read_text(encoding='utf-8')
     old_mon = mon.replace("        return __(self::etatCle($sub), 'imagine-site');\n    }\n\n    /** Même projection B02, avant traduction : clé stable pour C18 et ses consommateurs. */\n    public static function etatCle(\\WC_Subscription $sub): string\n    {\n", '')
@@ -100,6 +103,25 @@ def run(args):
     style = json.loads(style)
     assert style['totals']['errors'] == 0
     save('psr12', style)
+    # Shared B02 formatting predates this seam. Compare real PHPCS stdin runs,
+    # rather than rewriting unrelated methods or pretending the whole file is clean.
+    mon = (ROOT / 'wp/plugins/imagine-site/MonCompte.php').read_text(encoding='utf-8')
+    predecessor = mon.replace("        return __(self::etatCle($sub), 'imagine-site');\n    }\n\n    /** Même projection B02, avant traduction : clé stable pour C18 et ses consommateurs. */\n    public static function etatCle(\\WC_Subscription $sub): string\n    {\n", '')
+    predecessor = predecessor.replace('return MonCompteRegles::etat([', 'return __(MonCompteRegles::etat([').replace("], new DateTimeImmutable('now', new DateTimeZone('UTC')));", "], new DateTimeImmutable('now', new DateTimeZone('UTC'))), 'imagine-site');")
+    installation = json.loads((PROOF / 'installation.json').read_text(encoding='utf-8'))
+    assert hashlib.sha256(predecessor.encode()).hexdigest() == installation['before']['plugins/imagine-site/MonCompte.php']
+    shared_style = {}
+    for name, text in [('before', predecessor), ('after', mon)]:
+        p = subprocess.run(['wsl.exe', '-d', 'Ubuntu', '--', 'docker', 'run', '--rm', '-i', '--pull', 'never', '--network', 'none', '--read-only',
+            '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--user', '65534:65534', '--tmpfs', '/tmp:rw,nosuid,nodev,size=64m,mode=1777',
+            '--entrypoint', 'php', 'imagine-tests-t01:1', '/opt/t01/imagine-site/vendor/bin/phpcs', '--standard=PSR12', '-n', '--report=json',
+            '--stdin-path=MonCompte.php', '-'], input=text, capture_output=True, text=True, encoding='utf-8')
+        assert p.returncode == 2 and not p.stderr
+        shared_style[name] = json.loads(p.stdout)
+    normalize = lambda report: [{k:v for k,v in m.items() if k not in {'line','column'}} for f in report['files'].values() for m in f['messages']]
+    assert normalize(shared_style['before']) == normalize(shared_style['after'])
+    shared_style['no_new_style_errors'] = True
+    save('psr12-shared-preexisting', shared_style)
     # New C18 probe only. Existing native C18/C19 probes are byte-verified, not rewritten.
     existing = ['imagine-demo-build/c18-runtime.php', 'imagine-demo-build/c19-runtime.php']
     assert live_hashes(existing) == {n: digest(ROOT / 'wp/tests/demo' / Path(n).name) for n in existing}
@@ -115,8 +137,13 @@ def run(args):
     c18.PROOF = PROOF
     http_result = http.run('http')
     visual_result = visual.run()
+    canonical_paths = [ROOT / 'wp' / n for n in CODE] + [ROOT / 'wp/plugins/imagine-site/tests/ExtractionsNativesTest.php', ROOT / 'wp/plugins/imagine-site/tests/fixtures/c18-faux-natif.php']
+    canonical_inputs = {p.relative_to(ROOT).as_posix(): digest(p) for p in canonical_paths}
     if args.canonical:
         command(['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', 'wp/tests/rejouer.ps1'], 'canonical')
+        save('canonical-inputs', canonical_inputs)
+    else:
+        assert json.loads((PROOF / 'canonical-inputs.json').read_text(encoding='utf-8')) == canonical_inputs, 'Run --canonical after source changes'
     markers = re.findall(r'^T01_RESULT (\{[^\r\n]+\})', (PROOF / 'canonical.log').read_text(encoding='utf-8'), re.M)
     assert len(markers) == 1
     canonical = json.loads(markers[0])
@@ -140,7 +167,7 @@ def run(args):
         assert len(rows) == entry['rows']
         csvs[path.name] = {'rows': len(rows), 'sha256': digest(path), 'reopened': True}
     sources = [ROOT / 'wp' / n for n in CODE]
-    sources += [ROOT / 'wp/plugins/imagine-site/tests/ExtractionsNativesTest.php', ROOT / 'wp/tests/demo/c18-faux-natif.php', Path(__file__), probe]
+    sources += [ROOT / 'wp/plugins/imagine-site/tests/ExtractionsNativesTest.php', ROOT / 'wp/plugins/imagine-site/tests/fixtures/c18-faux-natif.php', Path(__file__), probe]
     result = {'at': datetime.now(timezone.utc).isoformat(), 'status': 'C18_CORRECTIONS_TECHNIQUES_VERIFIEES', 'scope': 'imagine-test-demo',
         'unit': {label: {k:v for k,v in json.loads((PROOF / (label + '.json')).read_text(encoding='utf-8')).items() if k in ['tests','assertions','exit','removed','image']} for label in ['unit-c18','unit-root']},
         'canonical': canonical, 'runtime_checks': runtime['total'], 'HTTP_checks': http_result['total'], 'CSV_reopened': csvs,

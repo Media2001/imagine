@@ -88,7 +88,9 @@ class ExportTests(unittest.TestCase):
         before = self.clean_bytes()
         source.write_bytes(before)
         result = subprocess.run([sys.executable, str(clone), str(source), '--correspondance', str(CONFIG)],
-                                capture_output=True, encoding='utf-8', timeout=20)
+                                capture_output=True, encoding='utf-8',
+                                env={**os.environ, 'PYTHONIOENCODING': 'utf-8', 'PYTHONDONTWRITEBYTECODE': '1'},
+                                timeout=20)
         self.assert_refused(result, source, 'dépôt')
         self.assertEqual(before, source.read_bytes())
 
@@ -254,6 +256,25 @@ class ExportTests(unittest.TestCase):
         self.assertEqual(0, result.returncode, result.stderr)
         self.assertEqual([], self.rejects(source))
 
+    def test_subscription_type_filter_without_mapped_column_is_refused(self):
+        config = self.config()
+        config['colonnes']['type_abonnement'] = None
+        config['obligatoires'].remove('type_abonnement')
+        config['types_abonnement_autorises'] = ['numerique']
+        result, source = self.run_cli(config=config)
+        self.assert_refused(result, source,
+                            'Correspondance : types_abonnement_autorises exige une colonne type_abonnement mappée')
+        self.assertNotIn('Traceback', result.stderr)
+
+    def test_empty_subscription_type_filter_allows_unmapped_optional_column(self):
+        config = self.config()
+        config['colonnes']['type_abonnement'] = None
+        config['obligatoires'].remove('type_abonnement')
+        self.assertEqual([], config['types_abonnement_autorises'])
+        result, source = self.run_cli(config=config)
+        self.assertEqual(0, result.returncode, result.stderr)
+        self.assertEqual([], self.rejects(source))
+
     def test_optional_subscription_type_filter_when_enabled(self):
         config = self.config()
         config['types_abonnement_autorises'] = ['numerique']
@@ -268,6 +289,36 @@ class ExportTests(unittest.TestCase):
         result, source = self.run_cli(content=text.encode())
         self.assertEqual(1, result.returncode, result.stderr)
         self.assertEqual([{'ligne': '4', 'motif': 'Adresse électronique mal formée'}], self.rejects(source))
+
+    def test_missing_mandatory_postal_field_has_only_specific_reason(self):
+        for field, index in (('rue', 2), ('code_postal', 3), ('ville', 4), ('pays', 5)):
+            with self.subTest(field=field):
+                config = self.config()
+                config['obligatoires'].append(field)
+                rows = list(csv.reader(io.StringIO(self.clean_bytes().decode()), delimiter=';'))
+                rows[1][index] = ''
+                stream = io.StringIO(newline='')
+                csv.writer(stream, delimiter=';').writerows(rows)
+                work = self.work / field
+                work.mkdir()
+                result, source = self.run_cli(content=stream.getvalue().encode(), config=config, work=work)
+                self.assertEqual(1, result.returncode, result.stderr)
+                self.assertEqual([{'ligne': '2', 'motif': 'Champ obligatoire absent : ' + field}],
+                                 self.rejects(source))
+                self.assertIn('Lignes rejetées : 1', self.summary(source))
+
+    def test_other_missing_postal_field_keeps_generic_reason(self):
+        config = self.config()
+        config['obligatoires'].append('rue')
+        rows = list(csv.reader(io.StringIO(self.clean_bytes().decode()), delimiter=';'))
+        rows[1][2] = rows[1][4] = ''
+        stream = io.StringIO(newline='')
+        csv.writer(stream, delimiter=';').writerows(rows)
+        result, source = self.run_cli(content=stream.getvalue().encode(), config=config)
+        self.assertEqual(1, result.returncode, result.stderr)
+        self.assertEqual([{'ligne': '2', 'motif': 'Champ obligatoire absent : rue'},
+                          {'ligne': '2', 'motif': 'Adresse postale incomplète'}], self.rejects(source))
+        self.assertIn('Lignes rejetées : 1', self.summary(source))
 
     def test_multiple_defects_count_one_rejected_row(self):
         text = self.clean_bytes().decode().replace('a13-fictif-01@example.org', 'email-invalide').replace('1 rue Imaginaire;', ';', 1)
@@ -347,6 +398,16 @@ class ExportTests(unittest.TestCase):
         self.assertEqual(1, result.returncode, result.stderr)
         self.assertEqual([{'ligne': str(n), 'motif': 'Doublon de nom et adresse postale'} for n in (2,3)], self.rejects(source))
 
+    def test_same_name_address_missing_firstname_duplicate_by_default(self):
+        rows = list(csv.reader(io.StringIO(self.duplicate_name_address().decode()), delimiter=';'))
+        rows[2][1] = ''
+        stream = io.StringIO(newline='')
+        csv.writer(stream, delimiter=';').writerows(rows)
+        result, source = self.run_cli(content=stream.getvalue().encode())
+        self.assertEqual(1, result.returncode, result.stderr)
+        self.assertEqual([{'ligne': str(n), 'motif': 'Doublon de nom et adresse postale'}
+                          for n in (2, 3)], self.rejects(source))
+
     def test_explicit_firstname_duplicate_option_is_off_by_default(self):
         config = self.config(); config['doublon_prenom_identique'] = True
         result, source = self.run_cli(content=self.duplicate_name_address(), config=config)
@@ -365,6 +426,26 @@ class ExportTests(unittest.TestCase):
                 self.assertNotIn(b'Traceback', result.stdout + result.stderr)
                 self.assertIn('Lignes contrôlées : 30', self.summary(source))
                 self.assertEqual([], self.rejects(source))
+
+    def test_console_cp1252_or_ascii_refusal_without_traceback_or_outputs(self):
+        for encoding in ('cp1252', 'ascii'):
+            with self.subTest(encoding=encoding):
+                work = self.work / encoding
+                work.mkdir()
+                source = work / 'export.csv'
+                before = (FIXTURES / 'a13-export-iban-fictif.csv').read_bytes()
+                source.write_bytes(before)
+                result = subprocess.run(
+                    [sys.executable, str(TOOL), str(source), '--correspondance', str(CONFIG)],
+                    capture_output=True, encoding=encoding,
+                    env={**os.environ, 'PYTHONIOENCODING': encoding, 'PYTHONDONTWRITEBYTECODE': '1'},
+                    timeout=20)
+                self.assert_refused(result, source, 'IBAN suspect : colonne 14')
+                expected = 'à contrôler'.encode(encoding, errors='backslashreplace').decode(encoding)
+                self.assertIn(expected, result.stderr)
+                self.assertNotIn('Traceback', result.stderr)
+                self.assertNotIn('ZZ00', result.stdout + result.stderr)
+                self.assertEqual(before, source.read_bytes())
 
     def test_clean_file_returns_zero_and_thirty_clean_rows(self):
         result, source = self.run_cli()

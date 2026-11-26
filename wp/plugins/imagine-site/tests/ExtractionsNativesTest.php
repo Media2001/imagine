@@ -14,7 +14,7 @@ final class ExtractionsNativesTest extends TestCase
 {
     protected function setUp(): void
     {
-        require dirname(__DIR__, 3) . '/tests/demo/c18-faux-natif.php';
+        require __DIR__ . '/fixtures/c18-faux-natif.php';
         $GLOBALS['c18_queries'] = [];
         $GLOBALS['c18_pages'] = [];
         $GLOBALS['c18_translate'] = false;

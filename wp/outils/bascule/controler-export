@@ -98,6 +98,8 @@ def lire_config(path):
         value = config[key]
         if not isinstance(value, list) or any(not isinstance(item, str) or not item.strip() for item in value) or len(value) != len(set(value)):
             raise Refus('Correspondance : listes invalides.')
+    if config['types_abonnement_autorises'] and cols['type_abonnement'] is None:
+        raise Refus('Correspondance : types_abonnement_autorises exige une colonne type_abonnement mappée.')
     if 'email' in config['obligatoires']:
         raise Refus('Correspondance : email ne peut pas être obligatoire.')
     if not set(config['obligatoires']) <= set(FIELDS) or any(cols[key] is None for key in config['obligatoires']):
@@ -225,7 +227,9 @@ def analyser(records, config, au):
             elif issues.startswith('-') and any(c != '0' for c in issues[1:]):
                 errors.append('Nombre de numéros dus négatif')
         postal_fields = ('rue', 'code_postal', 'ville', 'pays')
-        if not all(fields[key] for key in postal_fields):
+        # Un champ obligatoire absent a déjà son motif précis. Le motif postal
+        # couvre seulement les autres champs manquants, sans doubler ce défaut.
+        if any(not fields[key] and key not in config['obligatoires'] for key in postal_fields):
             errors.append('Adresse postale incomplète')
         email = fields['email']
         if not email:
