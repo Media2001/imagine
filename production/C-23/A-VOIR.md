@@ -1,7 +1,66 @@
-# C-23 — Corrections V2, 26 novembre 2026
+# C-23 — Livraison selon l’arbitrage du 26 novembre 2026, 19 h 30
 
-**NON PRÊT : le rejeu normal refuse le prérequis découverte livré, sans le forcer.**
-L’ancien `PRET` est archivé dans `PRET-historique-V1.txt` et retiré. Aucune fuite hors mutation n’est établie par ce refus ; il ne constitue pas une matrice de livraison verte.
+**PRÊT : 1 922 contrôles, aucune fuite ni échec sur l’état livré.** Cible unique : `imagine-test-demo`, fictive et hors ligne. Aucun code de paywall/plugin/thème modifié.
+
+## Commande normale à chaque livraison
+
+Depuis `C:/Users/Ced/imagine`, bash Windows ; prendre un **nom de reçu neuf** :
+
+```bash
+TMPDIR='C:/Users/Ced/AppData/Local/hermes/cache/scratch' PYTHONIOENCODING=utf-8 python -B wp/outils/demo/c23-preparer.py --label livraison-nouvelle
+```
+
+Le lanceur prépare et restaure sessions et témoins B06 **hors commande visiteur**. Cette dernière reste `python -B wp/outils/demo/c23.py livraison-nouvelle`, strictement GET vers la démo, contexte privé sur stdin en mémoire (ne jamais l’enregistrer), **aucun réglage forcé**. Une préimage durable privée sous le scratch Hermes est persistée avant toute session/mutation ; le reçu public n’en contient que l’identifiant et le SHA-256.
+
+Réglage natif réellement lu et restauré : `{"ouverture":"fermee","forme":"articles","jours":7,"nombre":2,"numeros":[]}`. La colonne est `decouverte-fermee-livraison` (`V-DEC-FIN` sans droit, sur chacune des 136 voies), la voie C12 devient `c12-fermee-livraison`. JSON, Markdown et stdout disent : **Cas épuisé non joué : découverte fermée à la livraison ; V-DEC-FIN contrôlé sans droit, voie par voie.**
+
+Si le réglage lu s’ouvre, la colonne et la voie reprennent automatiquement `decouverte-epuisee` / `c12-epuisee` ; le vrai personnage compatible et épuisé, relecture fermée, est alors exigé. Un prérequis incompatible reste un refus avant toute session, pas un réglage imposé.
+
+## Gates sur les sources finales
+
+| Gate | Reçu actuel | Résultat |
+|---|---|---|
+| Livraison normale, découverte fermée | `livraison-arbitrage1930.*` | **1 922 contrôles, 0 fuite, 0 échec ; code 0** |
+| Recette séparée découverte ouverte épuisée | `decouverte-ouverte-epuisee-arbitrage1930.*` | **1 922 contrôles, 0 fuite, 0 échec ; code 0** |
+| Mutation réelle du témoin d’article | `mutation-arbitrage1930.*` | **1 922 contrôles, 177 fuites, 205 échecs ; détecteur 1, lanceur 0 après restauration** |
+| B06 seul, cinq pages × sept sorties | `b06-arbitrage1930.*` | **503 contrôles, 0 fuite, 0 échec ; code 0** |
+| Mutations des corps HTTP natifs B06 | `b06-reponses-arbitrage1930.json` | **35/35 détectées ; restauration exacte ; code 0** |
+| Suite Python 3.11.15 | `tests-arbitrage1930.json`, `tests-{utf8,cp1252}-arbitrage1930.txt` | **31/31 dans chaque encodage réel, deux codes 0** |
+| Préparation de l’image | `image-preparation-arbitrage1930.*` | **code 0, T01 IMAGE READY** |
+| Vérificateur local JSON stdout | `verification-arbitrage1930.json` | **74/74 vrais, code 0** |
+
+**Matrice complète actuelle : `livraison-arbitrage1930.md`**, résultats élémentaires : `livraison-arbitrage1930.json` ; **136 voies × 14 publics**, plus identités et inverses. Les cinq pages B06 sont incluses dans cette livraison complète. Inverses article/PDF (témoin, SHA exact, type PDF), C08 et achat C14 verts. Les 28 échecs supplémentaires sans fuite dans la mutation sont les deux recherches qui retrouvent l’article volontairement public pour 14 publics ; ni pannes ni fuites supplémentaires. Le rejeu normal est postérieur aux restaurations des recettes.
+
+## Recettes séparées, jamais dans la commande normale
+
+```bash
+TMPDIR='C:/Users/Ced/AppData/Local/hermes/cache/scratch' PYTHONIOENCODING=utf-8 python -B wp/outils/demo/c23-preparer.py --decouverte-ouverte-epuisee --label decouverte-preuve-nouvelle
+TMPDIR='C:/Users/Ced/AppData/Local/hermes/cache/scratch' PYTHONIOENCODING=utf-8 python -B wp/outils/demo/c23-preparer.py --mutation --label mutation-preuve-nouvelle
+```
+
+La première ouvre provisoirement la politique du personnage natif déjà épuisé, joue le cas puis restaure les lignes exactes. Couverture **`recette-decouverte-ouverte-epuisee`, pas `livraison`** ; son réglage ouvert décrit seulement la fixture temporaire. C12 exige réellement `data-imagine-bloc="decouverte_epuisee"`. La seconde ouvre l’article témoin, rouge attendu, couverture `mutation-temoin`. Ces options sont mutuellement exclusives avec `--b06-seul`.
+
+## Contrôles locaux et préservation
+
+```bash
+TMPDIR='C:/Users/Ced/AppData/Local/hermes/cache/scratch' PYTHONIOENCODING=utf-8 python -B wp/tests/demo/c23-tests.py
+TMPDIR='C:/Users/Ced/AppData/Local/hermes/cache/scratch' PYTHONIOENCODING=cp1252 PYTHONUTF8=0 python -B wp/tests/demo/c23-tests.py
+PYTHONIOENCODING=utf-8 python -B wp/tests/demo/c23-verifier.py
+```
+
+Le vérificateur sans argument contrôle les quatre reçus actuels. Autre paquet : donner dans l’ordre les labels livraison, B06, mutation, découverte ouverte épuisée. Il écrit exclusivement son JSON sur stdout, jamais dans `production/`.
+
+- État métier exact identique avant/après chaque recette et entre recettes ; sessions/métadonnées/options capturées et cinq pages restaurées exactement. Readback indépendant : `readback-arbitrage1930.json`. Aucune anomalie de restauration dans cette série ; l’ancien incident demeure documenté sans être transformé en réussite exacte.
+- Détecteur brut/normalisé, attributs/commentaires, corps intermédiaires inspectés avant suivi, refus d’origine extérieure, exclusion précise de la recherche réfléchie et SHA d’état dérivé des snapshots conservés.
+- B06 : pages vides insuffisantes ; témoins temporaires et vrais inverses coopérateurs obligatoires. Le faux flux de pages retournant des articles reste exclu. Les flux d’articles inspectent aussi les témoins B06.
+- Cache partagé d’hébergement et robots réellement vérifiés hors de portée ; plans de site fermés nativement, sans preuve d’une configuration activée. Aucun export, effacement, email, paiement, service extérieur ni autre site déclenché.
+- Paquet actuel : `manifest-arbitrage1930.json`. Manifestes et reçus V1/V2 historiques, non opposables au code courant. Ancien A-VOIR sauvegardé exactement dans `A-VOIR-historique-V2.md`. `BLOQUE-V2.md` est historique : blocage levé.
+
+---
+
+# Historique V2 — blocage levé par l’arbitrage de 19 h 30
+
+Le texte ci-dessous est conservé pour traçabilité, **pas comme statut actuel**. L’ancien `PRET` V1 reste archivé dans `PRET-historique-V1.txt`. Le PRET courant repose exclusivement sur les gates `arbitrage1930` ci-dessus.
 
 ## Commandes et résultats V2
 

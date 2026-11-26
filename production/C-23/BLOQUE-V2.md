@@ -1,6 +1,10 @@
-# C-23 — Blocage V2 après corrections, 26 novembre 2026
+# C-23 — Historique du blocage V2, levé le 26 novembre 2026
 
-**Statut : NON PRÊT. L’ancien PRET est archivé, pas conservé comme promesse verte.**
+**Statut actuel : PRÊT selon l’arbitrage de 19 h 30.** `livraison-arbitrage1930` teste la découverte réellement fermée : 1 922 contrôles, 0 fuite, code 0. La recette distincte `decouverte-ouverte-epuisee-arbitrage1930` prouve le vrai cas épuisé, puis la restauration exacte. Vérificateur courant : 74/74, code 0. Lire `A-VOIR.md` ; les instructions d’attente ci-dessous sont historiques, remplacées par cet arbitrage.
+
+## État historique avant arbitrage (conservé, non opposable)
+
+**Ancien statut : NON PRÊT. L’ancien PRET V1 est archivé.**
 
 ## Fait et vérifié
 

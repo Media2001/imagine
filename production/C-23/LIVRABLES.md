@@ -1,6 +1,6 @@
 # Fichiers livrés par C-23
 
-**Tableau historique V1 ci-dessous, non opposable aux corrections V2.** Les empreintes actuelles des seuls fichiers C23 et reçus V2 sont publiées dans `manifest-V2.json`. L’ancien PRET est archivé ; le rejeu normal V2 reste bloqué sur la politique découverte livrée. Lire `A-VOIR.md` et `BLOQUE-V2.md`.
+**Paquet actuel PRÊT : `manifest-arbitrage1930.json`**, uniquement fichiers C23, documentation et reçus de la reprise de l’arbitrage de 19 h 30. Livraison normale : 1 922 contrôles, 0 fuite, code 0 ; recette séparée découverte ouverte épuisée restaurée ; vérificateur 74/74, code 0. Lire `A-VOIR.md`. **Le tableau V1 et `manifest-V2.json` ci-dessous sont historiques, non opposables au code courant.** L’ancien PRET V1 reste archivé ; le PRET courant est déposé sur les nouveaux gates verts. `BLOQUE-V2.md` décrit un blocage levé.
 
 Inventaire généré après les écritures finales. Ne liste aucun fichier d’un autre lot.
 

@@ -1,6 +1,14 @@
 # C-23 — Incidents et décisions techniques
 
-## Corrections V2 — état courant
+## Arbitrage de 19 h 30 — état courant, PRÊT
+
+La découverte fermée est l’état livré, pas un prérequis absent. `livraison-arbitrage1930` : **1 922 contrôles, 0 fuite, 0 échec, code 0**, colonne `decouverte-fermee-livraison`, V-DEC-FIN sans droit sur toutes les voies et motif explicite du cas épuisé non joué. `decouverte-ouverte-epuisee-arbitrage1930` est une recette séparée : vraie fixture C09 déjà épuisée, politique provisoirement ouverte, **1 922 contrôles verts**, puis réglages remis exactement ; elle n’est pas appelée par le rejeu normal.
+
+Le témoin réel reste opposable : **177 fuites détectées** dans la mutation séparée ; B06 **503 contrôles verts et 35/35 mutations de réponses détectées**. **31 tests × deux encodages**, image préparée et vérificateur **74/74** verts sur les sources finales. Les préimages brutes sont désormais persistées sous scratch privé avant sessions/mutations. Readback indépendant `readback-arbitrage1930.json` : état métier et lignes capturées retrouvés exactement après chaque recette, sans écart des sessions capturées ; caches et verrous temporaires ne deviennent pas un prérequis de restauration métier. L’incident historique ci-dessous est conservé tel quel : aucune ancienne session manquante n’est reconstituée ou prétendue prouvée. Aucun code de plugin/thème/paywall, bootstrap partagé C24 compris, modifié par cette reprise.
+
+Un premier contrôle unitaire de cette reprise cherchait le nom de public en clair dans le PHP alors que le mapping est transmis en base64 : faux rouge conservé dans `arbitrage1930-green.txt`, assertion corrigée pour décoder le mapping ; `arbitrage1930-green-02.txt` vert. Ce n’était ni une fuite ni une correction du site.
+
+## Historique des corrections V2 — ancien état avant arbitrage
 
 **Pas de PRET V2.** Le rejeu `livraison-finale-V2` refuse honnêtement le réglage livré `ouverture=fermee`, `numeros=[]` sans aucune écriture de préparation ni création de session. Un personnage ne peut pas épuiser cette politique globalement fermée ; le forçage de la politique qui rendait la V1 verte a été retiré du rejeu normal. La préparation durable est donc impossible sous les réglages livrés sans choisir un nouveau réglage métier, ce qui n’a pas été fait. Le PRET V1 est conservé dans `PRET-historique-V1.txt`, et retiré du chemin de publication.
 
