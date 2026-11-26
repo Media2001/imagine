@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-26T19:08:02.199604+00:00",
+  "exit": 0,
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "wp/tests/preparer-image.ps1"
+  ],
+  "ready": true,
+  "log_sha256": "319652d4bec37eb5e8b03251eba11706bd0616fc4ed5f16e98db409fdfed8a3e"
+}

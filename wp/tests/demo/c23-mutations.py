@@ -45,8 +45,9 @@ def run(label='b06-reponses-mutations-V2'):
     original = prep.metadata_snapshot(ids,f['article'])
     pages = prep.cooperator_snapshot(f)
     before = prep.b05.state()
+    private = prep.private_snapshot(label, {'metadata':original,'pages':pages,'business':before})
     result = {'scope':'imagine-test-demo','coverage':'B06-mutations-reponses',
-              'site_leak_injected':False,'rows':[]}
+              'site_leak_injected':False,'private_snapshot':private,'rows':[]}
     try:
         prep.seed_cooperator_witness(pages)
         sessions = prep.create_sessions(f)

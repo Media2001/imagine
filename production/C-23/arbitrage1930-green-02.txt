@@ -1,0 +1,8 @@
+test_fermee_livree_acceptee_sans_forcage_et_public_renomme (__main__.DiscoveryTest.test_fermee_livree_acceptee_sans_forcage_et_public_renomme) ... ok
+test_preparation_normale_ne_recrit_aucune_politique (__main__.DiscoveryTest.test_preparation_normale_ne_recrit_aucune_politique) ... ok
+test_prerequis_incompatible_refuse_avant_session (__main__.DiscoveryTest.test_prerequis_incompatible_refuse_avant_session) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.095s
+
+OK

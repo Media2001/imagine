@@ -11,13 +11,28 @@ import hashlib
 import json
 import os
 import subprocess
+import tempfile
 from datetime import datetime, timezone
 import profils
 import b05
+import c23
 from b00_fixtures import fixture_data, dummy_pdf
 ROOT = profils.b00.ROOT
 PROOF = ROOT / 'production/C-23'
 wp = b05.wp
+PRIVATE_ROOT = Path(os.environ.get('LOCALAPPDATA', str(Path.home() / 'AppData/Local'))) / 'hermes/cache/scratch'
+
+
+def private_snapshot(label, payload):
+    PRIVATE_ROOT.mkdir(parents=True, exist_ok=True)
+    folder = Path(tempfile.mkdtemp(prefix='c23-private-', dir=PRIVATE_ROOT))
+    path = folder / 'snapshot.json'
+    raw = json.dumps({'scope':'imagine-test-demo','label':label,'payload':payload},ensure_ascii=False).encode('utf-8')
+    with path.open('xb') as stream:
+        stream.write(raw); stream.flush(); os.fsync(stream.fileno())
+    os.chmod(path, 0o600)
+    assert path.read_bytes() == raw
+    return {'file':folder.name+'/snapshot.json','sha256':hashlib.sha256(raw).hexdigest(),'private':True}
 
 
 def php(value):
@@ -65,6 +80,8 @@ echo 'true';''')
 
 def validate_discovery(f):
     policy, exhausted = f.get('discovery_policy', {}), f.get('discovery')
+    if policy.get('ouverture') == 'fermee':
+        return
     if policy.get('ouverture') != 'premiere_lecture' or not policy.get('numeros'):
         raise ValueError('Prérequis découverte incompatible : politique livrée fermée ou sans numéro ; aucun réglage forcé')
     if not exhausted or exhausted.get('reglages') != policy:
@@ -82,7 +99,7 @@ def prepare(f):
 
 def create_sessions(f):
     # Authentification seule, également utilisée par la recette B06 séparée.
-    mapping = {'connecte-sans-abonnement':'V-INSCRIT','decouverte-epuisee':'V-DEC-FIN',
+    mapping = {'connecte-sans-abonnement':'V-INSCRIT',c23.discovery_audience(f):'V-DEC-FIN',
                'acheteur-autre-numero':'P-NUMERO','abonne-actif':'A-CARTE'}
     mapping.update(f.get('additional_publics',{}))
     return wp('''$mapping='''+php({p:f['users'][k] for p,k in mapping.items()})+''';$out=[];
@@ -126,7 +143,7 @@ if($current!==$expected){throw new RuntimeException('C23 B06 dérive concurrente
 if($wpdb->update($wpdb->posts,['post_content'=>$r['post_content']],['ID'=>$r['ID']])===false){throw new RuntimeException('C23 B06 restauration impossible.');}clean_post_cache((int)$r['ID']);}echo 'true';''')
 
 
-def run(label, mutation=False, b06_only=False):
+def run(label, mutation=False, b06_only=False, discovery_recipe=False):
     import re
     if not re.fullmatch('[a-zA-Z0-9-]+', label):
         raise ValueError('Nom de reçu refusé')
@@ -140,8 +157,10 @@ def run(label, mutation=False, b06_only=False):
     before = b05.state()
     original = metadata_snapshot(ids,f['article'])
     pages = cooperator_snapshot(f)
+    private = private_snapshot(label, {'metadata':original,'pages':pages,'business':before})
     receipt = dict(scope='imagine-test-demo',at=datetime.now(timezone.utc).isoformat(),label=label,
-                   coverage='B06-only' if b06_only else 'livraison',
+                   coverage='recette-decouverte-ouverte-epuisee' if discovery_recipe else 'mutation-temoin' if mutation else 'B06-only' if b06_only else 'livraison',
+                   private_snapshot=private, discovery_recipe=discovery_recipe,
                    mutation=mutation,primary_command='python -B wp/outils/demo/c23.py '+label,
                    auth='sessions natives temporaires hors commande principale; aucun mot de passe ni POST')
     receipt['sources_sha256']={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()
@@ -149,8 +168,8 @@ def run(label, mutation=False, b06_only=False):
     (PROOF/(label+'-etat.json')).write_text(json.dumps({'scope':'imagine-test-demo','state':before},ensure_ascii=False,indent=2),encoding='utf-8')
     code, changed = 1, False
     try:
-        if mutation:
-            # Cette politique TEMPORAIRE appartient exclusivement à la recette de mutation.
+        if mutation or discovery_recipe:
+            # Politique TEMPORAIRE : recettes nommées seulement, jamais le rejeu normal.
             changed = True
             wp('update_option("imagine_decouverte_reglages",'+php(f['discovery']['reglages'])+');update_option("imagine_decouverte_relecture","fermee");echo "true";')
             f = inventory()
@@ -161,7 +180,7 @@ def run(label, mutation=False, b06_only=False):
         sessions = create_sessions(f)
         f = inventory()
         (PROOF/(label+'-inventaire.json')).write_text(json.dumps(f,ensure_ascii=False,indent=2),encoding='utf-8')
-        context={'fixture':f,'sessions':sessions,'coverage':'B06-only' if b06_only else 'livraison'}
+        context={'fixture':f,'sessions':sessions,'coverage':receipt['coverage']}
         if mutation:
             assert len(original['postmeta'])==1 and original['postmeta'][0]['meta_value']=='1'
             wp('update_post_meta('+str(f['article'])+',"imagine_reserve","0");echo "true";')
@@ -169,6 +188,10 @@ def run(label, mutation=False, b06_only=False):
         prepared = b05.state()
         code = invoke(context,label)
         receipt['command_exit']=code
+        if discovery_recipe:
+            record=json.loads((PROOF/(label+'.json')).read_text(encoding='utf-8'))
+            case=next(r for r in record['results'] if r['name']=='c12-epuisee' and r['public']=='decouverte-epuisee')
+            receipt['discovery_open_exhausted_proved']=case['ok'] and not case['leak'] and record['discovery']['exhausted_played'] is True
         receipt['business_unchanged_during_GETs'] = prepared == b05.state()
         if mutation:
             record=json.loads((PROOF/(label+'.json')).read_text(encoding='utf-8'))
@@ -209,16 +232,19 @@ def run(label, mutation=False, b06_only=False):
         assert receipt['mutation_red_detected'], 'C23 mutation non détectée'
         return 0
     assert receipt['business_unchanged_during_GETs'], 'C23 GET a modifié un état métier'
+    if discovery_recipe:
+        assert receipt['discovery_open_exhausted_proved'], 'C23 découverte ouverte épuisée non prouvée'
     return code
 
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--label',default='livraison-finale-V2')
+    parser.add_argument('--label',default='livraison-arbitrage1930')
     parser.add_argument('--mutation',action='store_true',help='HORS commande GET : ouverture provisoire du témoin, strictement restaurée')
     parser.add_argument('--b06-seul',action='store_true',help='Recette B06 seule, ne vaut jamais livraison C23 complète')
+    parser.add_argument('--decouverte-ouverte-epuisee',action='store_true',help='Recette séparée : ouvre temporairement la découverte, vérifie V-DEC-FIN épuisé, restaure exactement')
     args=parser.parse_args()
     import re
     assert re.fullmatch('[a-zA-Z0-9-]+',args.label)
-    assert not (args.mutation and args.b06_seul)
-    raise SystemExit(run(args.label,args.mutation,args.b06_seul))
+    assert sum([args.mutation,args.b06_seul,args.decouverte_ouverte_epuisee]) <= 1
+    raise SystemExit(run(args.label,args.mutation,args.b06_seul,args.decouverte_ouverte_epuisee))

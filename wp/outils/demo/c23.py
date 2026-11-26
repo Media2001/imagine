@@ -16,11 +16,14 @@ BASE = 'http://192.168.129.32:8085'
 PROOF = Path(__file__).resolve().parents[3] / 'production/C-23'
 PUBLICS = ['anonyme', 'connecte-sans-abonnement', 'decouverte-epuisee', 'acheteur-autre-numero', 'faux-robot']
 
+def discovery_audience(f):
+    return 'decouverte-fermee-livraison' if f.get('discovery_policy', {}).get('ouverture') == 'fermee' else 'decouverte-epuisee'
+
 def audience_order(f):
     extra=list(f.get('additional_publics',{}))
     if any(not re.fullmatch('profil-[a-z0-9-]+',p) for p in extra) or set(extra)&set(PUBLICS):
         raise ValueError('Public supplémentaire invalide')
-    return PUBLICS+extra
+    return [discovery_audience(f) if p == 'decouverte-epuisee' else p for p in PUBLICS]+extra
 
 def canonical(text, raw=False):
     if isinstance(text, bytes):
@@ -223,7 +226,7 @@ def build_routes(f):
     add('partage', f['article_path'], title, structure='sharing')
     add('extrait-automatique', f['auto_path'], 'C08', allow_buyer_c08=True)
     add('c08-article', '/?p='+str(f['c08']), 'C08', allow_buyer_c08=True)
-    add('c12-epuisee', '/?p='+str(f['c12']), 'C12', discovery=True)
+    add('c12-fermee-livraison' if discovery_audience(f) == 'decouverte-fermee-livraison' else 'c12-epuisee', '/?p='+str(f['c12']), 'C12', discovery=True)
     add('apercu', '/?p='+a+'&preview=true', title)
     add('multipage', f['article_path']+'?page=2', title, statuses=(200,404))
     add('amp-inactif', f['article_path']+'?amp=1', title)
@@ -315,6 +318,10 @@ def structure_ok(route, status, body, f):
 def matrix(context, label='matrice'):
     f, sessions = context['fixture'], context['sessions']
     public_order=audience_order(f)
+    discovery_closed = discovery_audience(f) == 'decouverte-fermee-livraison'
+    discovery = {'audience':discovery_audience(f), 'policy':f.get('discovery_policy',{}),
+                 'exhausted_played':not discovery_closed,
+                 'note':'Cas épuisé non joué : découverte fermée à la livraison ; V-DEC-FIN contrôlé sans droit, voie par voie.' if discovery_closed else 'Découverte livrée ouverte : V-DEC-FIN épuisé contrôlé, sans politique forcée par la commande GET.'}
     if f.get('scope') != 'imagine-test-demo' or f.get('base') != BASE or f.get('guards') != {'mail':True,'network':True,'payments':True}:
         raise ValueError('Identité/coupe-circuits non prouvés')
     if not f['posts'] or not f['issues'] or str(f['issue']) in f['buyer_issues'] or not f['buyer_issues']:
@@ -421,14 +428,15 @@ def matrix(context, label='matrice'):
     leaks=sum(bool(r['leak']) for r in results)
     failures=sum(not r['ok'] for r in results)
     summary=f'ETANCHEITE : {len(results)} contrôles, {leaks} fuites — '+('PASS' if not failures else 'FAIL')
-    receipt=dict(scope=f['scope'],coverage='B06-only' if only_b06 else 'livraison',at=datetime.now(timezone.utc).isoformat(),routes=len(routes),publics=public_order,
+    receipt=dict(scope=f['scope'],coverage=context.get('coverage','livraison'),discovery=discovery,at=datetime.now(timezone.utc).isoformat(),routes=len(routes),publics=public_order,
                  total=len(results),leaks=leaks,failures=failures,summary=summary,results=results,
                  command_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                  fixture_sha256=hashlib.sha256(json.dumps(f,sort_keys=True).encode()).hexdigest())
     PROOF.mkdir(parents=True,exist_ok=True)
     (PROOF/(label+'.json')).write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8')
-    (PROOF/(label+'.md')).write_text('# Matrice C-23\n\nVoie | '+' | '.join(public_order)+'\n---|'+'---|'*len(public_order)+'\n'+
+    (PROOF/(label+'.md')).write_text('# Matrice C-23\n\n'+discovery['note']+'\n\nVoie | '+' | '.join(public_order)+'\n---|'+'---|'*len(public_order)+'\n'+
         '\n'.join(r['name']+' | '+' | '.join(next(('FUITE' if x['leak'] else 'OK' if x['ok'] else 'ECHEC') for x in results if x['name']==r['name'] and x['public']==p) for p in public_order) for r in routes)+'\n\n'+summary+'\n',encoding='utf-8')
+    print(discovery['note'],flush=True)
     print(summary,flush=True)
     return 0 if not failures else 1
 

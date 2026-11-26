@@ -98,6 +98,21 @@ def load_preparer():
 
 
 class DiscoveryTest(unittest.TestCase):
+    def test_fermee_livree_acceptee_sans_forcage_et_public_renomme(self):
+        from unittest.mock import patch
+        m, core = load_preparer(), load()
+        f = {'discovery_policy':{'ouverture':'fermee','forme':'articles','jours':7,'nombre':2,'numeros':[]},
+             'users':{'V-INSCRIT':1,'V-DEC-FIN':2,'P-NUMERO':3,'A-CARTE':4}}
+        with patch.object(m, 'wp', return_value={}) as native:
+            m.prepare(f)
+        self.assertEqual(native.call_count, 1)
+        self.assertNotIn('update_option', native.call_args.args[0])
+        import base64, json, re
+        mapping = json.loads(base64.b64decode(re.search(r'base64_decode\("([^"]+)"\)', native.call_args.args[0])[1]))
+        self.assertEqual(mapping['decouverte-fermee-livraison'], 2)
+        self.assertIn('decouverte-fermee-livraison', core.audience_order(f))
+        self.assertNotIn('decouverte-epuisee', core.audience_order(f))
+
     def test_preparation_normale_ne_recrit_aucune_politique(self):
         from unittest.mock import patch
         m = load_preparer()
@@ -115,7 +130,7 @@ class DiscoveryTest(unittest.TestCase):
     def test_prerequis_incompatible_refuse_avant_session(self):
         from unittest.mock import patch
         m = load_preparer()
-        for policy in [{'ouverture':'fermee','forme':'articles','nombre':2,'numeros':[]},
+        for policy in [{'ouverture':'premiere_lecture','forme':'articles','nombre':2,'numeros':[]},
                        {'ouverture':'premiere_lecture','forme':'articles','nombre':3,'numeros':['11']}]:
             f = {'discovery_policy':policy, 'discovery_relecture':'fermee',
                  'users':{'V-INSCRIT':1,'V-DEC-FIN':2,'P-NUMERO':3,'A-CARTE':4},
@@ -245,6 +260,30 @@ class CooperatorsTest(unittest.TestCase):
             self.assertFalse(m.assess(200,clean,[marker],positive=True)['ok'])
 
 class PreparationSafetyTest(unittest.TestCase):
+    def test_snapshot_prive_persistant_avant_sessions_sans_secret_dans_recu(self):
+        import tempfile, os, json
+        from unittest.mock import patch
+        m = load_preparer()
+        with tempfile.TemporaryDirectory(dir=os.environ['TMPDIR']) as directory:
+            payload = {'metadata':{'session_tokens':'SECRET-FICTIF'},'pages':[]}
+            with patch.object(m, 'PRIVATE_ROOT', Path(directory), create=True):
+                proof = m.private_snapshot('test-prive', payload)
+            path = Path(directory)/proof['file']
+            self.assertEqual(json.loads(path.read_text(encoding='utf-8'))['payload'], payload)
+            self.assertNotIn('SECRET-FICTIF', json.dumps(proof))
+        import ast
+        tree = ast.parse(SOURCE.with_name('c23-preparer.py').read_text(encoding='utf-8'))
+        run = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == 'run')
+        calls = [(n.lineno, n.func.id) for n in ast.walk(run) if isinstance(n, ast.Call) and isinstance(n.func, ast.Name)]
+        self.assertLess(min(line for line,name in calls if name=='private_snapshot'), min(line for line,name in calls if name in ['create_sessions','seed_cooperator_witness']))
+
+    def test_recette_decouverte_nomme_separee_du_rejeu_normal(self):
+        import subprocess, os
+        result = subprocess.run([sys.executable,'-B',str(SOURCE.with_name('c23-preparer.py')),'--help'],
+            capture_output=True,text=True,encoding='utf-8',env=dict(os.environ,PYTHONIOENCODING='utf-8'))
+        self.assertEqual(result.returncode,0)
+        self.assertIn('--decouverte-ouverte-epuisee',result.stdout)
+
     def test_pages_non_vides_refusees_avant_ecriture(self):
         from unittest.mock import patch
         m = load_preparer()

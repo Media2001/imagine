@@ -36,13 +36,13 @@ def matrix_checks(core, record, fixture, only_b06=False):
     }
 
 
-def verify(label='livraison-finale-V2', b06_label='b06-livraison-finale-V2', mutation_label='mutation-finale-V2'):
+def verify(label='livraison-arbitrage1930', b06_label='b06-arbitrage1930', mutation_label='mutation-arbitrage1930', discovery_label='decouverte-ouverte-epuisee-arbitrage1930'):
     import re
     checks, details = {}, {}
     spec=importlib.util.spec_from_file_location('c23_delivery',ROOT/'wp/outils/demo/c23.py')
     core=importlib.util.module_from_spec(spec);spec.loader.exec_module(core)
     current=hashlib.sha256((ROOT/'wp/outils/demo/c23.py').read_bytes()).hexdigest()
-    for name, role in [(label,'delivery'),(b06_label,'B06'),(mutation_label,'mutation')]:
+    for name, role in [(label,'delivery'),(b06_label,'B06'),(mutation_label,'mutation'),(discovery_label,'discovery')]:
         if not re.fullmatch('[a-zA-Z0-9-]+',name):
             raise ValueError('Nom de reçu refusé')
         try:
@@ -58,6 +58,7 @@ def verify(label='livraison-finale-V2', b06_label='b06-livraison-finale-V2', mut
                 'business_unchanged_during_GETs','cooperator_pages_restored_exactly'])
             checks[role+'_native_derived'] = business_original_exact(read(name+'-etat.json')['state'],restoration)
             checks[role+'_schedule'] = restoration['schedule_before']==restoration['schedule_after']
+            checks[role+'_private_preimage'] = restoration.get('private_snapshot',{}).get('private') is True
             checks[role+'_summary'] = record['summary'] in (PROOF/(name+'.txt')).read_text(encoding='utf-8')
             details[role] = {k:record[k] for k in ['total','leaks','failures','summary','coverage']}
             if role=='delivery':
@@ -73,6 +74,16 @@ def verify(label='livraison-finale-V2', b06_label='b06-livraison-finale-V2', mut
                     r['name']=='article' and r['public']=='anonyme' and r['leak'] for r in record['results'])
                 continue
             checks.update({role+'_'+k:v for k,v in matrix_checks(core,record,fixture,role=='B06').items()})
+            if role in ['delivery','discovery']:
+                closed=fixture['discovery_policy']['ouverture']=='fermee'
+                case=record.get('discovery',{})
+                checks[role+'_discovery_actual_policy'] = case.get('policy')==fixture['discovery_policy'] and case.get('exhausted_played') is (not closed)
+                checks[role+'_discovery_audience'] = case.get('audience')==core.discovery_audience(fixture) and case.get('audience') in record['publics']
+                checks[role+'_discovery_trace'] = bool(case.get('note')) and (not closed or 'non joué' in case['note'])
+            if role=='discovery':
+                checks['discovery_separate_open_exhausted'] = record['coverage']=='recette-decouverte-ouverte-epuisee' and not closed and restoration.get('discovery_recipe') is True and restoration.get('discovery_open_exhausted_proved') is True and restoration['command_exit']==0
+            if role=='delivery':
+                checks['delivery_no_forced_policy'] = restoration.get('mutation') is False and restoration.get('discovery_recipe') is False
             if role=='B06':
                 checks['B06_explicit_scope'] = record['coverage']=='B06-only' and restoration['command_exit']==0
                 checks['B06_inverse_nonempty'] = all(any(r['name']=='b06-'+str(p['id'])+'-'+kind and r['public']=='profil-p-coop' and r['ok'] and r['witnesses_found']>0 for r in record['results']) for p in fixture['cooperator_pages'] for kind in ['html','rest','rest-route','collection','embed','recherche'])
@@ -83,10 +94,10 @@ def verify(label='livraison-finale-V2', b06_label='b06-livraison-finale-V2', mut
     methods=[k.value.value for n in ast.walk(tree) if isinstance(n,ast.Call) for k in n.keywords if k.arg=='method' and isinstance(k.value,ast.Constant)]
     checks['main_GET_only']=methods==['GET'] and not any(isinstance(n,ast.alias) and n.name in ['subprocess','profils','construire','b05','b06'] for n in ast.walk(tree))
     checks['no_session_dump']=not any('wordpress_logged_in_' in p.read_text(encoding='utf-8',errors='replace') or 'X-WP-Nonce' in p.read_text(encoding='utf-8',errors='replace') for p in PROOF.glob('*.json'))
-    for key,filename in [('tests','tests-finaux-final-V2.json'),('image','image-preparation-V2.json')]:
+    for key,filename in [('tests','tests-arbitrage1930.json'),('image','image-preparation-arbitrage1930.json')]:
         try:
             value=read(filename)
-            checks[key]=all(value[k]['exit']==0 for k in ['utf8','cp1252']) if key=='tests' else value['exit']==0 and 'T01 IMAGE READY' in (PROOF/'image-preparation-V2.txt').read_text(encoding='utf-8')
+            checks[key]=all(value[k]['exit']==0 for k in ['utf8','cp1252']) if key=='tests' else value['exit']==0 and 'T01 IMAGE READY' in (PROOF/'image-preparation-arbitrage1930.txt').read_text(encoding='utf-8')
         except (OSError,KeyError,ValueError):
             checks[key]=False
     result={'scope':'imagine-test-demo','checks':checks,'total':len(checks),

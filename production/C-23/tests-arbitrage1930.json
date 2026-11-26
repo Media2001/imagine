@@ -1,0 +1,48 @@
+{
+  "at": "2026-11-26T19:07:57.574019+00:00",
+  "python": "3.11.15 (main, Jun 23 2026, 15:20:37) [MSC v.1944 64 bit (AMD64)]",
+  "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+  "scope": "imagine-test-demo",
+  "sources_sha256": {
+    "wp/outils/demo/c23-inventaire.php": "3a1f7d88766ab08deb2e43e8d61be8bc030d61f18958b623227d8e9c0c857fae",
+    "wp/outils/demo/c23-preparer.py": "f2ea63a5e6f29c1a17cc964e8c9dad6159e0c057a19cce46d703c25fe5a25c87",
+    "wp/outils/demo/c23.py": "5b946c12314f8f4155683067bcbfa0d2dad61e4ff6ee893838834b6136c9d0cd",
+    "wp/tests/demo/c23-diagnostic.py": "326dbed125641a1b1664c67ad28a8fb806958c7f7f4cb5f47e7f43a259c3ae3c",
+    "wp/tests/demo/c23-mutations.py": "54d1988462e513b572df3e1ac5ec160e85b43fb49c0e4f16ed216a55775b1d0f",
+    "wp/tests/demo/c23-recovery.py": "2d1cbc1681a08fbb25ef9571716d9031b9c97071fc2d9981dee2677eb17a0390",
+    "wp/tests/demo/c23-tests.py": "36bf479419b05d30a7714203aacddb94c200d9a2d8b8a474627105ec260cc431",
+    "wp/tests/demo/c23-verifier.py": "ce91358e85582320a15da26ce1f598c2ef99434994f1b5fbc2f3043cdce2f685"
+  },
+  "utf8": {
+    "exit": 0,
+    "encoding": "utf-8",
+    "PYTHONUTF8": "1",
+    "command": [
+      "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+      "-B",
+      "wp/tests/demo/c23-tests.py"
+    ],
+    "tail": [
+      "----------------------------------------------------------------------",
+      "Ran 31 tests in 0.464s",
+      "",
+      "OK"
+    ]
+  },
+  "cp1252": {
+    "exit": 0,
+    "encoding": "cp1252",
+    "PYTHONUTF8": "0",
+    "command": [
+      "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
+      "-B",
+      "wp/tests/demo/c23-tests.py"
+    ],
+    "tail": [
+      "----------------------------------------------------------------------",
+      "Ran 31 tests in 0.453s",
+      "",
+      "OK"
+    ]
+  }
+}

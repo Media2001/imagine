@@ -1,0 +1,26 @@
+test_label_V2_accepte_et_collision_refusee_sans_site (__main__.PreparationSafetyTest.test_label_V2_accepte_et_collision_refusee_sans_site) ... ok
+test_pages_non_vides_refusees_avant_ecriture (__main__.PreparationSafetyTest.test_pages_non_vides_refusees_avant_ecriture) ... ok
+test_recette_decouverte_nomme_separee_du_rejeu_normal (__main__.PreparationSafetyTest.test_recette_decouverte_nomme_separee_du_rejeu_normal) ... FAIL
+test_snapshot_prive_persistant_avant_sessions_sans_secret_dans_recu (__main__.PreparationSafetyTest.test_snapshot_prive_persistant_avant_sessions_sans_secret_dans_recu) ... ERROR
+
+======================================================================
+ERROR: test_snapshot_prive_persistant_avant_sessions_sans_secret_dans_recu (__main__.PreparationSafetyTest.test_snapshot_prive_persistant_avant_sessions_sans_secret_dans_recu)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 270, in test_snapshot_prive_persistant_avant_sessions_sans_secret_dans_recu
+    proof = m.private_snapshot('test-prive', payload)
+            ^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23_preparer_tests' has no attribute 'private_snapshot'
+
+======================================================================
+FAIL: test_recette_decouverte_nomme_separee_du_rejeu_normal (__main__.PreparationSafetyTest.test_recette_decouverte_nomme_separee_du_rejeu_normal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 285, in test_recette_decouverte_nomme_separee_du_rejeu_normal
+    self.assertIn('--decouverte-ouverte-epuisee',result.stdout)
+AssertionError: '--decouverte-ouverte-epuisee' not found in "usage: c23-preparer.py [-h] [--label LABEL] [--mutation] [--b06-seul]\n\nPréparation C23 HORS commande visiteur : sessions natives éphémères,\nrestaurées. La commande c23.py reçoit son contexte sur stdin, ne fait que des\nGET vers la démo. Ce lanceur n'utilise aucun identifiant/mot de passe et ne\nfait aucun POST HTTP.\n\noptions:\n  -h, --help     show this help message and exit\n  --label LABEL\n  --mutation     HORS commande GET : ouverture provisoire du témoin,\n                 strictement restaurée\n  --b06-seul     Recette B06 seule, ne vaut jamais livraison C23 complète\n"
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.235s
+
+FAILED (failures=1, errors=1)

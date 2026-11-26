@@ -1,0 +1,16 @@
+test_fermee_livree_acceptee_sans_forcage_et_public_renomme (__main__.DiscoveryTest.test_fermee_livree_acceptee_sans_forcage_et_public_renomme) ... FAIL
+test_preparation_normale_ne_recrit_aucune_politique (__main__.DiscoveryTest.test_preparation_normale_ne_recrit_aucune_politique) ... ok
+test_prerequis_incompatible_refuse_avant_session (__main__.DiscoveryTest.test_prerequis_incompatible_refuse_avant_session) ... ok
+
+======================================================================
+FAIL: test_fermee_livree_acceptee_sans_forcage_et_public_renomme (__main__.DiscoveryTest.test_fermee_livree_acceptee_sans_forcage_et_public_renomme)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 110, in test_fermee_livree_acceptee_sans_forcage_et_public_renomme
+    self.assertIn('decouverte-fermee-livraison', native.call_args.args[0])
+AssertionError: 'decouverte-fermee-livraison' not found in '$mapping=json_decode(base64_decode("eyJjb25uZWN0ZS1zYW5zLWFib25uZW1lbnQiOiAxLCAiZGVjb3V2ZXJ0ZS1mZXJtZWUtbGl2cmFpc29uIjogMiwgImFjaGV0ZXVyLWF1dHJlLW51bWVybyI6IDMsICJhYm9ubmUtYWN0aWYiOiA0fQ=="),true);$out=[];\nforeach($mapping as $public=>$id){$expiration=time()+7200;$token=WP_Session_Tokens::get_instance($id)->create($expiration);\n$logged=wp_generate_auth_cookie($id,$expiration,\'logged_in\',$token);$auth=wp_generate_auth_cookie($id,$expiration,\'auth\',$token);\n$_COOKIE[LOGGED_IN_COOKIE]=$logged;wp_set_current_user($id);\n$out[$public]=[\'id\'=>$id,\'cookie\'=>LOGGED_IN_COOKIE.\'=\'.$logged.\'; \'.AUTH_COOKIE.\'=\'.$auth.\'; tk_ai=\'.bin2hex(random_bytes(16)),\'nonce\'=>wp_create_nonce(\'wp_rest\')];}\necho wp_json_encode($out);'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.095s
+
+FAILED (failures=1)
