@@ -70,6 +70,7 @@ def prepare(f):
     wp('update_option("imagine_decouverte_reglages",'+php(exhausted['reglages'])+');update_option("imagine_decouverte_relecture","fermee");echo "true";')
     mapping = {'connecte-sans-abonnement':'V-INSCRIT','decouverte-epuisee':'V-DEC-FIN',
                'acheteur-autre-numero':'P-NUMERO','abonne-actif':'A-CARTE'}
+    mapping.update(f.get('additional_publics',{}))
     return wp('''$mapping='''+php({p:f['users'][k] for p,k in mapping.items()})+''';$out=[];
 foreach($mapping as $public=>$id){$expiration=time()+7200;$token=WP_Session_Tokens::get_instance($id)->create($expiration);
 $logged=wp_generate_auth_cookie($id,$expiration,'logged_in',$token);$auth=wp_generate_auth_cookie($id,$expiration,'auth',$token);
@@ -81,7 +82,7 @@ echo wp_json_encode($out);''')
 def invoke(context, label):
     env = dict(os.environ, PYTHONIOENCODING='utf-8', PYTHONDONTWRITEBYTECODE='1')
     result = subprocess.run([sys.executable,'-B',str(Path(__file__).with_name('c23.py')),label],
-        input=json.dumps(context), text=True, encoding='utf-8', capture_output=True, env=env, cwd=ROOT, timeout=5400)
+        input=json.dumps(context), text=True, encoding='utf-8', capture_output=True, env=env, cwd=ROOT, timeout=240)
     # Le contexte secret n'est ni fichier ni argv ni reçu. Seule la sortie expurgée est sauvée.
     (PROOF/(label+'.txt')).write_text(result.stdout+result.stderr,encoding='utf-8')
     print(result.stdout, end='',flush=True)
@@ -100,6 +101,8 @@ def run(label, mutation=False):
     receipt = dict(scope='imagine-test-demo',at=datetime.now(timezone.utc).isoformat(),label=label,
                    mutation=mutation,primary_command='python -B wp/outils/demo/c23.py '+label,
                    auth='sessions natives temporaires hors commande principale; aucun mot de passe ni POST')
+    receipt['sources_sha256']={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()
+        for folder in [ROOT/'wp/outils/demo',ROOT/'wp/tests/demo'] for p in folder.glob('c23*') if p.is_file()}
     code=1
     try:
         sessions = prepare(f)

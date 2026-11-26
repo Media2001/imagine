@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 from datetime import datetime, timezone
 import hashlib
+from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urlencode, urlsplit, urljoin
 from urllib.error import HTTPError
 from urllib.request import Request, build_opener, HTTPRedirectHandler
@@ -14,6 +15,12 @@ sys.dont_write_bytecode = True
 BASE = 'http://192.168.129.32:8085'
 PROOF = Path(__file__).resolve().parents[3] / 'production/C-23'
 PUBLICS = ['anonyme', 'connecte-sans-abonnement', 'decouverte-epuisee', 'acheteur-autre-numero', 'faux-robot']
+
+def audience_order(f):
+    extra=list(f.get('additional_publics',{}))
+    if any(not re.fullmatch('profil-[a-z0-9-]+',p) for p in extra) or set(extra)&set(PUBLICS):
+        raise ValueError('Public supplémentaire invalide')
+    return PUBLICS+extra
 
 def canonical(text):
     if isinstance(text, bytes):
@@ -193,6 +200,7 @@ def structure_ok(route, status, body, f):
 
 def matrix(context, label='matrice'):
     f, sessions = context['fixture'], context['sessions']
+    public_order=audience_order(f)
     if f.get('scope') != 'imagine-test-demo' or f.get('base') != BASE or f.get('guards') != {'mail':True,'network':True,'payments':True}:
         raise ValueError('Identité/coupe-circuits non prouvés')
     if not f['posts'] or not f['issues'] or str(f['issue']) in f['buyer_issues'] or not f['buyer_issues']:
@@ -244,7 +252,7 @@ def matrix(context, label='matrice'):
         return row
     # Les cookies/nonces restent en mémoire et n'entrent jamais dans le reçu.
     publics={'anonyme':{},'faux-robot':{'User-Agent':'Googlebot/2.1','X-Forwarded-For':'66.249.66.1','X-Real-IP':'66.249.66.1'}}
-    for public in PUBLICS[1:4]+['abonne-actif']:
+    for public in [p for p in public_order if p not in ['anonyme','faux-robot']]+['abonne-actif']:
         session=sessions[public]
         headers={'Cookie':session['cookie'],'X-WP-Nonce':session['nonce']}
         publics[public]=headers
@@ -257,8 +265,7 @@ def matrix(context, label='matrice'):
     probe('inverse-pdf','abonne-actif',dict(path='/?imagine_pdf='+str(f['issue']),present=None),publics['abonne-actif'],['IMAGINE - DEMONSTRATION FICTIVE'],True,f['pdf_sha256'])
     probe('inverse-C08','abonne-actif',dict(path='/?p='+str(f['c08']),present='C08'),publics['abonne-actif'],['Les lucioles violettes de C08 gardent le secret du village fictif.'],True)
     for route in routes:
-        cells=[]
-        for public in PUBLICS:
+        def evaluate(public):
             denied_markers=[w for w,issue in markers if public!='acheteur-autre-numero' or str(issue) not in f['buyer_issues']]
             denied_markers+=['IMAGINE - DEMONSTRATION FICTIVE','%PDF-']
             effective=dict(route)
@@ -266,13 +273,14 @@ def matrix(context, label='matrice'):
                 effective.pop('structure',None)
                 effective['present']=None
                 row=probe(route['name'],public,effective,publics[public],['IMAGINE - DEMONSTRATION FICTIVE'],True,f['pdf_hashes'][str(route['pdf_issue'])])
-                cells.append('DROIT-C14' if row['ok'] else 'ECHEC')
-                continue
+                return 'DROIT-C14' if row['ok'] else 'ECHEC'
             # C14 est un vrai droit : le numéro T1 possédé peut être lu, mais aucun témoin T4 ne doit sortir.
             if public=='acheteur-autre-numero' and (route.get('allow_buyer_c08') or str(route.get('issue','')) in f['buyer_issues']):
                 effective['present']=route['present']
             row=probe(route['name'],public,effective,{**publics[public],**route.get('extra',{})},denied_markers)
-            cells.append('FUITE' if row['leak'] else 'OK' if row['ok'] else 'ECHEC')
+            return 'FUITE' if row['leak'] else 'OK' if row['ok'] else 'ECHEC'
+        with ThreadPoolExecutor(max_workers=4) as pool:
+            cells=list(pool.map(evaluate,public_order))
         print(route['name']+' | '+' | '.join(cells),flush=True)
     # Deuxième faux moteur et contrôle du numéro effectivement acheté.
     probe('faux-bing','faux-robot',dict(path=f['article_path'],present=f['article_title']),{'User-Agent':'bingbot/2.0'},[w for w,_ in markers]+['%PDF-'])
@@ -280,13 +288,14 @@ def matrix(context, label='matrice'):
     leaks=sum(bool(r['leak']) for r in results)
     failures=sum(not r['ok'] for r in results)
     summary=f'ETANCHEITE : {len(results)} contrôles, {leaks} fuites — '+('PASS' if not failures else 'FAIL')
-    receipt=dict(scope=f['scope'],at=datetime.now(timezone.utc).isoformat(),routes=len(routes),publics=PUBLICS,
+    receipt=dict(scope=f['scope'],at=datetime.now(timezone.utc).isoformat(),routes=len(routes),publics=public_order,
                  total=len(results),leaks=leaks,failures=failures,summary=summary,results=results,
+                 command_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                  fixture_sha256=hashlib.sha256(json.dumps(f,sort_keys=True).encode()).hexdigest())
     PROOF.mkdir(parents=True,exist_ok=True)
     (PROOF/(label+'.json')).write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8')
-    (PROOF/(label+'.md')).write_text('# Matrice C-23\n\nVoie | '+' | '.join(PUBLICS)+'\n---|'+'---|'*5+'\n'+
-        '\n'.join(r['name']+' | '+' | '.join(next(('FUITE' if x['leak'] else 'OK' if x['ok'] else 'ECHEC') for x in results if x['name']==r['name'] and x['public']==p) for p in PUBLICS) for r in routes)+'\n\n'+summary+'\n',encoding='utf-8')
+    (PROOF/(label+'.md')).write_text('# Matrice C-23\n\nVoie | '+' | '.join(public_order)+'\n---|'+'---|'*len(public_order)+'\n'+
+        '\n'.join(r['name']+' | '+' | '.join(next(('FUITE' if x['leak'] else 'OK' if x['ok'] else 'ECHEC') for x in results if x['name']==r['name'] and x['public']==p) for p in public_order) for r in routes)+'\n\n'+summary+'\n',encoding='utf-8')
     print(summary,flush=True)
     return 0 if not failures else 1
 

@@ -35,7 +35,7 @@ $out = ['scope' => 'imagine-test-demo', 'base' => home_url(), 'article' => $arti
     'sitemap_enabled' => wp_sitemaps_get_server()->sitemaps_enabled(),
     'admin_pages' => ['imagine-reglages', Imagine\Site\ListeEnvoiAdmin::PAGE, Imagine\Site\EcheancesAdmin::PAGE,
         Imagine\Site\CommandeAdmin::PAGE, Imagine\Site\Justificatifs::PAGE, Imagine\Site\ExtractionsAdmin::PAGE,
-        Imagine\Site\TableauBordAdmin::PAGE], 'profile_catalogue' => []];
+        Imagine\Site\TableauBordAdmin::PAGE], 'profile_catalogue' => [], 'additional_publics' => []];
 foreach (get_posts(['post_type' => 'post', 'post_status' => 'publish', 'numberposts' => -1]) as $post) {
     $out['posts'][] = ['id' => $post->ID, 'slug' => $post->post_name, 'title' => $post->post_title,
         'path' => $local(get_permalink($post->ID)), 'issue' => (int) get_post_meta($post->ID, 'imagine_numero_id', true),
@@ -65,5 +65,10 @@ foreach($c09['users'] as $code=>$id){
     $pdfDecision=Imagine\Site\Paywall::decisionPdf(get_post($issue));
     $out['profile_catalogue'][]=['code'=>$code,'id'=>(int)$id,'article_T4'=>$articleDecision,'pdf_T4'=>$pdfDecision,
         'selected'=>in_array($code,['V-INSCRIT','V-DEC-FIN','P-NUMERO','A-CARTE'],true)];
+    if(!$articleDecision['complet'] && !$pdfDecision['complet'] && !in_array($code,['V-DEC','V-INSCRIT','V-DEC-FIN','P-NUMERO'],true)){
+        $out['additional_publics']['profil-'.strtolower($code)]=$code;
+        $out['users'][$code]=(int)$id;
+        $out['profile_catalogue'][array_key_last($out['profile_catalogue'])]['selected']=true;
+    }
 }
 echo wp_json_encode($out);

@@ -65,6 +65,10 @@ class ContractTest(unittest.TestCase):
         methods=[k.value.value for n in ast.walk(tree) if isinstance(n,ast.Call) for k in n.keywords if k.arg=='method' and isinstance(k.value,ast.Constant)]
         self.assertEqual(methods,['GET'])
         self.assertNotIn('subprocess',[n.name for n in ast.walk(tree) if isinstance(n,ast.alias)])
+    def test_profils_sans_droit_supplementaires_inclus(self):
+        m=load()
+        self.assertTrue(callable(getattr(m,'audience_order',None)), 'Publics de la matrice à compléter')
+        self.assertEqual(m.audience_order({'additional_publics':{'profil-a-vir':'A-VIR','profil-p-coop':'P-COOP'}}),m.PUBLICS+['profil-a-vir','profil-p-coop'])
     def test_catalogue_routes_non_vide_et_complet(self):
         m = load()
         self.assertTrue(callable(getattr(m, 'build_routes', None)), 'Inventaire des voies à construire')
