@@ -1,0 +1,125 @@
+{
+  "at": "2026-11-26T18:59:46.270844+00:00",
+  "scope": "imagine-test-demo",
+  "result": "PASS",
+  "pret_eligible": true,
+  "baseline": "recovered-new-explicit",
+  "historical_initial_snapshot_restored": false,
+  "visual_approval": false,
+  "production_authorized": false,
+  "sources": {
+    "production/C-24/A-VOIR.md": "544ace4870fa882c4b77ff470059292d7d4103af50e21a72aa0d4eeecc3d2dc9",
+    "production/C-24/http-metier-final-V2-compte.png": "2bc1f52c9c60fdbbf81556f9794774e55069516541816bc63aae6d3400fb89c4",
+    "production/C-24/http-metier-final-V2-reglages.png": "8499394dcff5907db411da9be10bf2d708c3b64f409378b4e4cf73a3942e4675",
+    "production/C-24/http-metier-final-V2-sans-email.png": "8ca5b3d48322b9dbf0cdf596f0b1c71846763ee5daa63859e0341cd4012c2f76",
+    "production/C-24/http-metier-final-V2.json": "1b8c30601671402acd49a26d0ebb91a7e638233f3741cfa1d257600670e61800",
+    "production/C-24/http-requalification-final-V2.json": "bf9b95363e67742d333d294e5d2cbf017d57b383c1eb72467e7876a9dc37d9f7",
+    "production/C-24/livraison-partielle-mutation-erase-noop-V2.json": "5335b9d5c09262d41494d1faac50cf40133f7c8727d4e5666f20ed00c926242f",
+    "production/C-24/livraison-partielle-mutation-export-empty-V2.json": "d18e7df3503ce369853a5f79871192220eaf5b420bc1b865ca4e9288183481ed",
+    "production/C-24/livraison-partielle-mutation-export-other-V2.json": "31cb05793c7aca3884328fbd5db92856708dc61df3722bce65f1f500e8aacfb4",
+    "production/C-24/livraison-partielle-mutation-http-V2.json": "df34bcc0008c333bed72052d55e83dbc2a3fa887337f2777d12249414b82e5b6",
+    "production/C-24/livraison-partielle-mutation-listener-V2.json": "9e672c3e0453df0de43b14ce7b2367cedab8f9cc3f6f2dca832aa52cce647528",
+    "production/C-24/livraison-partielle-mutation-mail-V2.json": "373469eea819d8e2af04b2be1359a33bbae10386e55d84b9b4d02bd63ef0206e",
+    "production/C-24/livraison-partielle-mutation-sansmail-V2.json": "91b94b729d97305b5468d407fa46e2dd20e6aaf03074104c97474c4903e23a2b",
+    "production/C-24/livraison-partielle-rules-V2.json": "b7ec506a408495f80cf928b2c6297319202c2806e9242de52d6c02261da88e4a",
+    "production/C-24/livraison-partielle-runtime-V2.json": "b2cd21ff70d78b113759513e69120602f944af4a3457da4c23807dabe0ebb838",
+    "production/C-24/livraison-partielle-V2.json": "86895f6e8c1dd90fa44376b175e4cca576117035a1b4fb6f68708f7297a0688d",
+    "production/C-24/mutations-finales-id-question-V2.json": "4d685e33cb7690e59ced03e882d983ba4ae1441d2f42c1be3ad9695a20bc1a62",
+    "production/C-24/mutations-finales-normal-V2.json": "f267ddca19bdb386829cd36b7b465f6632bc562de265410644e57475a5d436f4",
+    "production/C-24/mutations-qualifiees-consentement-V2.json": "8f743ecd42b65dcfef67ed394111fad0210b8aa560c1cfd43f3f24ac359c7d90",
+    "production/C-24/mutations-qualifiees-email-V2.json": "cd99b6e18b5a86ec1e6fff00b5ad32a686c9de0bb04bde305ee746b0aa469631",
+    "production/C-24/mutations-qualifiees-id-choix-V2.json": "0dcc5c77631a10e9fa74758f203e90b81063d8f26164b722a38626bc5199dc9b",
+    "production/C-24/mutations-qualifiees-id-question-V2.json": "304ed6c1c0c72779a546fbda66b3c95f32a19a351e55d79fad260d155a59c862",
+    "production/C-24/mutations-qualifiees-newsletter-V2.json": "5212cbae0b30412904631cf878e5dc490cb36653cd889c4d525d231a06ae0354",
+    "production/C-24/mutations-qualifiees-normal-V2.json": "0ff5f238a2a897b9bcd1589c2dc417be0cb75bfc62151c7ce1991085683adbd5",
+    "production/C-24/mutations-qualifiees-V2.json": "f9b4d7200cf98ebaec7bb50f969dc5e880e0ca827f091de40681c1d1990b6f56",
+    "production/C-24/preparation-finale-V2.json": "2e206c8f27156b02848b557e3593b3811e3e04fd90f9e4395a95988faf7c0b6e",
+    "production/C-24/preparation-finale-V2.log": "ed66e4ee137488efe9adb7872cb9dcfb42993c139bfaf7d4f16b8e81aefc2fe9",
+    "production/C-24/readback-final-V2.json": "37ea037ae0d32b781ac06628875dd57087fbb0ae930a3f7ee570294e40318fdb",
+    "production/C-24/recovery-borned-V2.json": "a1eea5bb8b1b8ef03697a2a031d3220b0a36d4c4e5e62cb502526430427ffea0",
+    "production/C-24/regression-finale-V2.json": "3664f10ab52b6594c6e04d0f882c85df0a97a300e03c72e22a637a0d7675e4f7",
+    "production/C-24/regression-finale-V2.log": "519ae3b496fc5a7e4a4059fd98b4f1c1c879af2b14acbab5c0f14834a4e239fc",
+    "production/C-24/TRANSMISSION.md": "0c1786e15e9eff2c0db3fce897d52075cbe8b99a52fa8a1b584c6c2e35410086",
+    "production/C-24/verifier-V2.py": "b4933758509f2470d9dc4c35f269bd180062f95d1a0b863a1442e5a5c0d1d298",
+    "wp/outils/demo/c24-diagnostic.py": "2de533b3232c12d06a8480982666b52a672778ea5b4da1cdbc13c29ecb4d8bf7",
+    "wp/outils/demo/c24-finaliser.py": "c404c96229daae66b15b3d892d18dd836783912c800181abfd3e2701b1bfbf1b",
+    "wp/outils/demo/c24-gates.py": "493be7b1147efa53decbb3319cb7429c0769b58324e5f09395cf4536915790d2",
+    "wp/outils/demo/c24-mutations.py": "88bd9e389bb2fbf583d53fb8495bfc2868fa1e446071fcb675010f63a1660fcf",
+    "wp/outils/demo/c24-recette.py": "d35c55d92893595f2046e534c5e5322ee226431f40fda790eb11febc19b4f1f7",
+    "wp/outils/demo/c24-recovery-plan.py": "00372e4848a6302755e450eb7030da20ef1d869edb8a1039a8d2b35e9d26ad7f",
+    "wp/outils/demo/c24-recovery.py": "052b5767c37b6d9961fef03372f47fb2a7b44565336d3d2683e6c2ef7466e7d7",
+    "wp/outils/demo/c24-seed.py": "a3fdf8b567dbca7fb59ed98795fc3b713dcc1e421679f1e38ec81bdf116cdadd",
+    "wp/outils/demo/c24.py": "8e74adf4c6efbafb81e5c796f84d84f16d527c0202ed093999c00709a0854622",
+    "wp/plugins/imagine-site/Personnalisation.php": "9de27a41ecbb4c85c84faa85984dfa4ee291583f9fa7c71246b88a16afa6e24e",
+    "wp/plugins/imagine-site/PersonnalisationConfidentialite.php": "4b101d16b0931950730168dbe785e3a7e0f2013b22833be659c52eb3128477b4",
+    "wp/plugins/imagine-site/PersonnalisationReglages.php": "0f1ff2428f5c57a546d650be25fde4b9f4252488acd76ef6559669d2e891d266",
+    "wp/plugins/imagine-site/PersonnalisationRegles.php": "100fea3d108327455d050f15114dc225fbc8dbb09ab64e166945db5c43a174cc",
+    "wp/tests/demo/c24-http.py": "cb807ff8a5ceb981cac3c4819966dd0039ddaab1026de8cfc7b96d0311209265",
+    "wp/tests/demo/c24-mutations.php": "fbe2ae5f9031d61c449a3e266f8a4c6e667dfcbbb9614b8ca2bc9cf8b9d3ccb5",
+    "wp/tests/demo/c24-observer.php": "de098d2d5f35dd5f4f13e648ac3536fd85979531fbdd97a6c642c3d570306b44",
+    "wp/tests/demo/c24-rules.php": "a8ba1d8e0c6a9bc62d602d0b6cdbdced33ed96af3b8b17692650b90c680c8f35",
+    "wp/tests/demo/c24-runtime.php": "a2534f0418bea00e6a042e10ce874a329dc522d3a39dcdbba170d4d12de18094"
+  },
+  "normal_receipts": [
+    "livraison-partielle-rules-V2",
+    "livraison-partielle-runtime-V2",
+    "http-metier-final-V2",
+    "mutations-qualifiees-normal-V2"
+  ],
+  "positive_checks": 110,
+  "mutations": [
+    {
+      "receipt": "livraison-partielle-mutation-sansmail-V2",
+      "required_failure": "sansmail_rubrique_presente_sans_case"
+    },
+    {
+      "receipt": "livraison-partielle-mutation-listener-V2",
+      "required_failure": "accroche_sans_ecouteur"
+    },
+    {
+      "receipt": "livraison-partielle-mutation-mail-V2",
+      "required_failure": "aucun_mail_tente"
+    },
+    {
+      "receipt": "livraison-partielle-mutation-http-V2",
+      "required_failure": "aucun_http_tente"
+    },
+    {
+      "receipt": "livraison-partielle-mutation-export-empty-V2",
+      "required_failure": "export_reponses_consentement_resultat"
+    },
+    {
+      "receipt": "livraison-partielle-mutation-export-other-V2",
+      "required_failure": "export_tiers_absent"
+    },
+    {
+      "receipt": "livraison-partielle-mutation-erase-noop-V2",
+      "required_failure": "effacement_resultat_absence_deux_metas"
+    },
+    {
+      "receipt": "mutations-qualifiees-id-question-V2",
+      "required_failure": "question_reservee_refusee"
+    },
+    {
+      "receipt": "mutations-qualifiees-id-choix-V2",
+      "required_failure": "choix_reserve_refuse"
+    },
+    {
+      "receipt": "mutations-qualifiees-consentement-V2",
+      "required_failure": "sans_consentement_ferme"
+    },
+    {
+      "receipt": "mutations-qualifiees-newsletter-V2",
+      "required_failure": "sans_newsletter_ferme"
+    },
+    {
+      "receipt": "mutations-qualifiees-email-V2",
+      "required_failure": "sans_email_ferme"
+    }
+  ],
+  "mutation_count": 12,
+  "reused_checks": 64,
+  "fresh_checks": 46,
+  "readback": "readback-final-V2",
+  "bootstrap_contract": "require_once __DIR__ . '/PersonnalisationRegles.php';\nrequire_once __DIR__ . '/Personnalisation.php';\nrequire_once __DIR__ . '/PersonnalisationReglages.php';\nrequire_once __DIR__ . '/PersonnalisationConfidentialite.php';\nPersonnalisation::register();\nPersonnalisationReglages::register();\nPersonnalisationConfidentialite::register();\n\n"
+}

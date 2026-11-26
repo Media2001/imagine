@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-26T19:00:16.192611+00:00",
+  "scope": "imagine-test-demo",
+  "result": "PASS",
+  "green": {
+    "result": "PASS",
+    "checks": 185,
+    "positive_checks": 110,
+    "detected_mutations": 12,
+    "PRET_eligible": true,
+    "historical_initial_snapshot_restored": false
+  },
+  "green_exit": 0,
+  "mutation_positive_count_exit": 1,
+  "mutation_failure": {
+    "result": "FAIL",
+    "checks": 125,
+    "error": "total nominal"
+  },
+  "manifest_sha256": "9005e677a0238e9830acfb3f4f2c7288efef325561b1ca2706b14456dedd0e55",
+  "verifier_sha256": "b4933758509f2470d9dc4c35f269bd180062f95d1a0b863a1442e5a5c0d1d298"
+}

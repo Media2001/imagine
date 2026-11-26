@@ -1,0 +1,36 @@
+{
+  "at": "2026-11-26T18:59:46.255517+00:00",
+  "scope": "imagine-test-demo",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "checks": {
+    "snapshot_prive_intact": true,
+    "baseline_metier_preservee": true,
+    "etat_natif_preserve": true,
+    "sources_produit_installees_exactes": true,
+    "bootstrap_contrat_C24": true,
+    "observateur_absent": true
+  },
+  "failures": [],
+  "baseline": "recovered-new-explicit",
+  "historical_initial_snapshot_restored": false,
+  "private_snapshot": {
+    "file": "c24-http-7eb59556a5ce4fd5a13af17f8d83e526/before.json",
+    "sha256": "1230b42a420f258f6b57ef34821555a16bdb830c841714e6df912c110f908b2f",
+    "retained": true
+  },
+  "remote_product_sources": {
+    "plugins/imagine-site/PersonnalisationRegles.php": "100fea3d108327455d050f15114dc225fbc8dbb09ab64e166945db5c43a174cc",
+    "plugins/imagine-site/Personnalisation.php": "9de27a41ecbb4c85c84faa85984dfa4ee291583f9fa7c71246b88a16afa6e24e",
+    "plugins/imagine-site/PersonnalisationReglages.php": "0f1ff2428f5c57a546d650be25fde4b9f4252488acd76ef6559669d2e891d266",
+    "plugins/imagine-site/PersonnalisationConfidentialite.php": "4b101d16b0931950730168dbe785e3a7e0f2013b22833be659c52eb3128477b4"
+  }
+}
