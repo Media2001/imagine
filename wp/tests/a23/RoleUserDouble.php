@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-// The native class name is the boundary being doubled, not application code.
-// phpcs:ignore Squiz.Classes.ValidClassName.NotCamelCaps -- WordPress API compatibility.
-final class WP_User
+namespace Imagine\ReaderAccountsRoleTest;
+
+// Aliased to the native WP_User boundary only in the separate role-probe process.
+final class RoleUserDouble
 {
     public array $roles;
     public array $allcaps;

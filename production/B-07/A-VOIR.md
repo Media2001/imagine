@@ -1,5 +1,7 @@
 # B-07 — À voir sur la seule démonstration
 
+**Corrections fusion21h41 appliquées le 26 novembre 2026.** Preuves courantes ci-dessous ; le rendu initial et ses reçus restent conservés sous leurs noms historiques.
+
 ## Adresses
 
 Base : `http://192.168.129.32:8085` — `imagine-test-demo`, entièrement fictif.
@@ -9,7 +11,7 @@ Base : `http://192.168.129.32:8085` — `imagine-test-demo`, entièrement fictif
 - `/evenements/demo-events-2/` : sortie de numéro, 11 décembre 2026 à 18 h 30 ; même inscription gratuite. Le titre fictif d'origine B-00 est conservé.
 - `/evenements/b07-partenaire-fictif/` : partenaire, 15 décembre 2026 à 18 h 30 ; étiquette « Partenariat », lien commercial `rel="sponsored noopener noreferrer"`, aucun formulaire. Ne pas suivre le lien fictif pour la recette : il sort du site.
 - `/evenements/b07-rencontre-passee/` : rencontre du 1er novembre 2026 ; mention « inscriptions closes », aucun formulaire, POST direct refusé également.
-- Administration : `/wp-admin/edit.php?post_type=imagine_evenement`, boîte « Événement » pour type/date/heure/lieu/lien partenaire ; sous-menu « Inscriptions aux événements » (`/wp-admin/edit.php?post_type=imagine_inscription`). Après recette, la liste est vide : les inscriptions d'essai sont retirées.
+- Administration : `/wp-admin/edit.php?post_type=imagine_evenement`, boîte « Événement » pour type/date/heure/lieu/lien partenaire ; une saisie de type/date/heure invalide y porte une alerte explicite. Sous-menu « Inscriptions aux événements » (`/wp-admin/edit.php?post_type=imagine_inscription`). Après recette, la liste est vide : les inscriptions d'essai sont retirées.
 
 Le JSON-LD se lit dans le source de chaque fiche : titre, début avec fuseau horaire du site, lieu et description correspondent au contenu affiché. Aucun prix, billet ou quota fabriqué. Squelette B-01 conservé, sans CSS ajouté. Validation visuelle de Ced attendue.
 
@@ -23,17 +25,17 @@ Le même événement et la même adresse donnent une seule inscription, sous exc
 
 ## Preuves finales
 
-- `STANDARD.md` : dix lignes et sources officielles du gratuit ; décision de raccord natif, sans installer Event Tickets / Plus ni The Events Calendar.
-- `regles-V2.json` : règles pures.
-- `adaptateur-livraison-V2.json` : types, champs, droits, callbacks, fermeture REST et export de liste, mutations témoins.
-- `recette-livraison-V2.json` : vrais GET/POST, absence de formulaire et refus direct passé/partenaire, doublon, admin, RGPD, JSON-LD et mutations des réponses réellement reçues.
-- `confidentialite-V2.json` : inscription native puis export/effacement, passage du filtre C-21, vraie erreur de lecture SQL provoquée/supprimée, données conservées jusqu'au rejeu réussi.
-- `regression-articles-corrigee-V2.json` : article, REST, flux, recherche et oEmbed ; inverse abonné, refus anonyme/compte sans droit/coopérateur.
-- `readback-final-V2.json` : sources réellement installées, deux événements B-00 intacts, deux seules nouvelles fixtures, inscriptions et observateur retirés, état métier exact depuis la première recette.
-- `preparer-image-final.log`, `regression-livraison.log` : image préparée après les tests ajoutés, suite générale verte incluant `AgendaReglesTest`.
-- `manifest.json`, `verifier.py` : contrôle hors réseau des sources B-07 et preuves ; bootstrap partagé contrôlé par son seul bloc, pas par son empreinte entière.
+- `correction2141-horslive-final.log` : **9 tests PHPUnit, 159 assertions**, dont 7 nouveaux tests sur les vrais adaptateurs et gabarits à bouchons WP. Type/date/heure invalides, borne de fermeture, doublon, R1, R2, R4, partenaire passé, i18n et alerte admin. Aucun WordPress live chargé.
+- `correction2141-mutant-*.log`, `correction2141-mutations-sources.json` : **6 mutations de sources jetables exécutées**, toutes détectées : R1, R2, double exécution du contenu, R4, formulaire interdit, alerte retirée. Ce ne sont pas des mutations de réponses en mémoire.
+- `correction2141-recette-finale-V2.json` : **26 contrôles de vrais parcours HTTP/WP** : corps partenaire commercial, contre-exemple rencontre, shortcode rendu une fois et description balisée exactement égale au corps affiché, partenaire passé avec label/lien, POST refusé, doublon, admin, saisie invalide. Deux témoins changent réellement la métadonnée : retour à l'agenda et apparition du formulaire en devenant rencontre. Fixtures retirées ensuite.
+- `correction2141-privacy-V2.json` : **18 contrôles natifs**, erreur SQL réelle aux pages 1 et 2, `WP_Error`, reprise de la même page ; **121 inscriptions** exportées en 50/50/21 sans omission ni doublon, puis effacées. Le filtre C-21 est conservé.
+- `correction2141-compat-privacy-V2.json` : ancien chemin de recette confidentialité adapté à `WP_Error`, rejoué vert (9 contrôles).
+- `correction2141-readback-V2.json` : 6 contrôles indépendants, sources installées exactes, événements/métadonnées et état métier pré-installation exacts, réglages exacts, inscriptions et observateur absents.
+- `correction2141-preparer-image.log`, `correction2141-suite-finale.log` : image préparée ; commande canonique **1 135 tests, 35 709 assertions, zéro échec/erreur/ignoré**, avec les deux classes Agenda dans son JUnit ; 18 outils / 417 contrôles verts.
+- `manifest-correction2141.json`, `verifier.py` : contrôle hors réseau courant. Le fichier partagé `functions.php` est contrôlé par son **seul filtre autorisé**, le bootstrap par le seul bloc B07 ; aucun autre lot épinglé.
+- `STANDARD.md` reste la justification initiale du raccord gratuit ; aucun ajout d'extension ou de billetterie.
 
-**Rien ne part** : zéro email et zéro transport HTTP externe déclenché. Le reçu distingue les 17 tentatives HTTP d'infrastructure WordPress/extensions, toutes arrêtées par la garde existante, des appels de l'agenda (zéro) et des transports (zéro). L'observateur ne bloque rien : il observe les protections déjà présentes. Son contrôle positif demande un mail et une URL fictifs, arrêtés avant transport, puis remet les compteurs à zéro avant le parcours.
+**Rien ne part** : zéro email et zéro transport HTTP externe déclenché. Le reçu final distingue les **19 tentatives HTTP d'infrastructure** WordPress/extensions, toutes arrêtées par la garde existante, des appels de l'agenda (zéro) et des transports (zéro). L'observateur ne bloque rien ; son contrôle positif est arrêté par les protections existantes, puis ses compteurs sont remis à zéro.
 
 Les préimages et sessions sont en scratch privé hors dépôt, écrites et relues avant mutation/session ; seuls les noms opaques et empreintes figurent dans les reçus. L'état métier a été relu exact ; sessions, caches et activité temporaire ne sont pas une restauration octet pour octet (arbitrage du 26 novembre 2026).
 
@@ -43,18 +45,27 @@ Depuis `C:\Users\Ced\imagine`, choisir un **nom de reçu neuf** (les reçus exis
 
 ```text
 python production/B-07/verifier.py
-python wp/outils/demo/b07.py rules regles-rejeu-neuf-V2
-python wp/outils/demo/b07.py runtime adaptateur-rejeu-neuf-V2
-python wp/outils/demo/b07.py runtime privacy-rejeu-neuf-V2 privacy
-python wp/outils/demo/b07-recette.py recette-rejeu-neuf-V2
-python wp/outils/demo/b07-regression.py articles-rejeu-neuf-V2
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
+python -B wp/outils/demo/b07-horslive.py preuve-horslive-neuve.log
+python -B wp/outils/demo/b07-horslive.py preuve-mutant-neuve.log r4
 ```
 
-La recette refuse une inscription préexistante sur ses adresses témoins plutôt que de la retirer. Le script `b07-recovery.py` est un inverse **historique**, pas une commande de rejeu : voir les notes d'incident ci-dessous.
+La dernière commande doit échouer avec le seul test R4 attendu : c'est le témoin source, pas une livraison rouge. Les autres mutations disponibles sont `r1`, `r2`, `double-contenu`, `formulaire`, `alerte`.
+
+Recettes applicatives **réservées à la seule démonstration gardée**, non nécessaires au rejeu horslive du relecteur :
+
+```text
+python -B wp/outils/demo/b07-corrections.py privacy privacy-nom-neuf-V2
+python -B wp/outils/demo/b07-corrections.py recipe recette-nom-neuf-V2
+```
+
+La recette confidentialité refuse une inscription préexistante sur son adresse témoin. La recette HTTP crée ses propres événements éphémères et ne retire que leurs identifiants ; les cas partenaire passé/shortcode/saisie invalide sont retirés après preuve et ne sont pas de nouvelles pages permanentes à ouvrir. Le script `b07-recovery.py` est un inverse **historique**, pas une commande de rejeu : voir les notes d'incident ci-dessous.
 
 ## Écarts conservés, non rebaptisés
+
+Le premier parcours des corrections est conservé rouge (`correction2141-recette-V2.json`) : tous ses contrôles fonctionnels passent, mais la première visite de l'éditeur natif a créé le post `wp_global_styles` du thème. Création exacte retirée, état métier initial relu exact (`correction2141-restauration-style-V2.json`). Le harnais photographie maintenant ces posts avant toute session et inverse seulement sa création. Le rejeu final est vert. Pas de chasse aux sessions, caches ou verrous, conformément à l'arbitrage de 19 h.
+
+Les anciens reçus sans préfixe `correction2141` et `manifest.json` restent **historiques** ; leurs mutations de réponses ne sont plus la preuve canonique de clôture. `A-VOIR-historique-avant-correction2141.md`, `RAPPORT-historique-avant-correction2141.md`, `verifier-historique-avant-correction2141.py` et l'ancien PRET renommé les accompagnent. Un premier vert R2 a signalé des avertissements du parseur DOM de test sur HTML5 ; reçu conservé, parseur corrigé, vert sans avertissement rejoué.
 
 Le premier parcours a terminé ses inverses de données mais n'a pas pu supprimer son observateur sous `www-data` (répertoire MU non inscriptible). Retrait exact effectué par le transport propriétaire après vérification d'empreinte, puis absence relue. Une préférence UI native créée à la première visite admin (`meta-box-order_product`) a été retirée sur sa préimage d'absence ; état métier initial relu exact (`recuperation-interface-V2.json`). Le harnais fait désormais ces deux inverses.
 

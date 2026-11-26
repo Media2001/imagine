@@ -1,0 +1,37 @@
+{
+  "encoding": "cp1252",
+  "python": "3.11.15 (main, Jun 23 2026, 15:20:37) [MSC v.1944 64 bit (AMD64)]",
+  "exit": 0,
+  "result": {
+    "scope": "B-07-correction2141",
+    "status": "PASS",
+    "total": 99,
+    "failures": [],
+    "controls_by_receipt": {
+      "correction2141-installation-V2.json": 3,
+      "correction2141-privacy-V2.json": 18,
+      "correction2141-recette-finale-V2.json": 26,
+      "correction2141-compat-privacy-V2.json": 9,
+      "correction2141-readback-V2.json": 6
+    },
+    "horslive": {
+      "tests": 9,
+      "assertions": 159
+    },
+    "source_mutants_detected": 6,
+    "global_suite": {
+      "tests": 1135,
+      "assertions": 35709,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "tools": {
+        "tools": 18,
+        "checks": 417,
+        "failures": 0,
+        "excluded": []
+      },
+      "pass": true
+    }
+  }
+}

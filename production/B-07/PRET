@@ -1,0 +1,11 @@
+B-07 — corrections fusion21h41 prêtes à relire — 26/11/2026 22 h 31 CET.
+
+Huit instructions appliquées. A-VOIR.md et RAPPORT.md courants.
+Gate horslive : python production/B-07/verifier.py — PASS, 99 contrôles, UTF-8 et cp1252.
+Paquet canonique : manifest-correction2141.json ; anciens reçus conservés, non canoniques.
+PHPUnit Agenda : 9 tests, 159 assertions ; 6 mutants de sources exécutés et détectés.
+Image préparée ; rejeu canonique : 1135 tests, 35709 assertions, 0 échec/erreur/ignoré.
+Outils : 18 outils, 417 contrôles, 0 échec.
+Vrais parcours HTTP/WP : 26 contrôles ; confidentialité native : 18, dont erreur/reprise et 121 inscriptions paginées ; compatibilité : 9 ; readback : 6.
+État métier initial exact, événements/métadonnées/réglages préservés ; inscriptions d'essai et observateur retirés ; aucun transport sortant.
+Seul site : imagine-test-demo. Validation visuelle de Ced attendue ; aucun GO réel ni mise en ligne.

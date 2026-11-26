@@ -7,6 +7,7 @@ namespace {
     require __DIR__ . '/RoleRuntimeDouble.php';
     require __DIR__ . '/RoleUserDouble.php';
     require __DIR__ . '/RoleDatabaseDouble.php';
+    class_alias(\Imagine\ReaderAccountsRoleTest\RoleUserDouble::class, 'WP_User');
     define('ARRAY_A', 'ARRAY_A');
 
     function wp_roles(): object
@@ -51,7 +52,7 @@ namespace Imagine\ReaderAccountsRoleTest {
 
     try {
         foreach (['classic', 'hpos'] as $storage) {
-            $GLOBALS['wpdb'] = new \A23RoleDatabaseDouble();
+            $GLOBALS['wpdb'] = new A23RoleDatabaseDouble();
             $GLOBALS['wpdb']->storage = $storage;
             $GLOBALS['a23RoleUsers'] = [];
             $GLOBALS['a23RoleRegistry'] = (object) ['roles' => [

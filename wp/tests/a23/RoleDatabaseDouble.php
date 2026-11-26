@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Imagine\ReaderAccountsRoleTest;
+
 final class A23RoleDatabaseDouble
 {
     public string $prefix = 'wp_';
