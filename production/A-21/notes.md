@@ -1,5 +1,7 @@
 # A-21 — corrections R1 à R4, candidat enfant pour finalisation parent
 
+**Checkpoint A22 : les résultats ci-dessous sont historiques.** Le gardien est maintenant commun ; nouvelle matrice `a21-shared-final-02` en cours. Ancien PRET retiré ; anciennes gates invalidées pour ces sources. Le paquet sera remplacé après retour réel, pas rescellé avec ses anciens instantanés. Voir `production/A-22/notes.md` pour la reprise.
+
 - **Fait** : sorties PHP supervisées jusqu'à la fin, publication différée, dépendances courantes scellées, option magasin directe documentée, tests IP/IPv6.
 - **Prêt à relire** : dernier paquet vert unique `C:/Users/Ced/imagine/production/A-21/preuves/final` ; aucun `PRET` écrit ni modifié par l'enfant.
 - **À arbitrer par Ced** : rien ; défauts techniques de la fusion appliqués, aucune action sur le réel.

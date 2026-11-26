@@ -1,6 +1,6 @@
-# A-20 — correction B1 vérifiée, finalisation parent requise
+# A-20 — gardien commun A22 intégré, nouvelles matrices en cours
 
-L'ancien état « prêt à relire » du 26 novembre 2026 est remplacé : correction du superviseur et nouveau paquet candidat. Les anciennes preuves et le PRET antérieur sont retirés vers le scratch de travail, hors du dépôt.
+L'ancien candidat à deux gardiens séparés est invalidé par les sources communes A22. Aucun PRET. Les résultats détaillés plus bas concernent la remise précédente ; ils ne prouvent pas encore les dernières sources. Les matrices neuves sont en cours et leur nouveau paquet sera publié seulement après leurs retours réels.
 
 **Image commune, rejeu global et dépôt éventuel de PRET restent au parent.** Ne pas interpréter les anciennes gates comme couvrant le code corrigé. Aucune préparation d'image commune lancée par cet enfant, aucun T-02 ni fichier partagé modifié.
 

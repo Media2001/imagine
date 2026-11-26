@@ -24,10 +24,12 @@ def runtime(label, case, mutation=''):
     except ValueError:
         data = {'failures':['runtime_output_invalid'], 'stdout':p['stdout']}
     data.update(exit=p['code'], stderr=p['stderr'], state_preserved=before==c22.state(), own_options_exact=prior==c22.wp(own_options), source_sha256=hashlib.sha256(source.read_bytes()).hexdigest())
-    c22.save(label, data)
-    print(json.dumps(data, ensure_ascii=False))
+    if label:
+        c22.save(label, data)
+        print(json.dumps(data, ensure_ascii=False))
     assert not data['failures'] and not data['exit'] and not data['stderr'] and data['state_preserved'] and data['own_options_exact']
+    return data
 
 
 if __name__ == '__main__':
-    runtime(sys.argv[1], sys.argv[2])
+    runtime(sys.argv[1], sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else '')

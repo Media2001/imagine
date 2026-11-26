@@ -2,7 +2,7 @@
 
 ## Le standard WordPress, en dix lignes
 
-1. WordPress conserve l'empreinte dans `users.user_pass`, pas le mot de passe en clair [S1, code installé].
+1. WordPress conserve l'empreinte dans `users.user_pass`, pas le mot de passe en clair [S2, code installé].
 2. Le standard historique de WordPress 2.5 à 6.7 utilise phpass ; son préfixe usuel est `$P$` [S2].
 3. Depuis WordPress 6.8, le choix par défaut est bcrypt, avec un prétraitement SHA-384 et le préfixe `$wp` [S2, S3].
 4. Le code installé du banc 7.0.9 contient ces branches ; son empreinte de source et les tests statiques sont dans `standard.json` [code installé].
@@ -19,6 +19,10 @@ Sources officielles consultées le 26 novembre 2026 (pas un engagement sur une e
 - S2 : https://make.wordpress.org/core/2025/02/17/wordpress-6-8-will-use-bcrypt-for-password-hashing/
 - S3 : https://developer.wordpress.org/reference/functions/wp_hash_password/
 - Code installé : `wp-includes/pluggable.php`, `wp-includes/class-phpass.php`, `wp-includes/version.php` dans le seul banc fictif ; contrôle statique, sans tentative de mot de passe.
+
+La rubrique descriptive ancienne « More Information » de S3 parle encore de
+phpass ; les dix lignes ci-dessus retiennent le code affiché, son changelog et la
+note Core S2, pas ce paragraphe historique.
 
 ## Parcours opérateur
 
@@ -80,6 +84,13 @@ Aucun flux PHP brut n'est persisté. Le gardien est celui d'A-22
   champs. La marque existante peut être posée dès la neutralisation seule : on
   reste prudent. Restent utiles le nombre de lecteurs, de lecteurs avec abonnement
   vivant et de lecteurs sans historique commercial. L'import n'a pas été modifié.
+- Les quatre filtres natifs `pre_as_*` empêchent de recréer des tâches Action
+  Scheduler effacées par la neutralisation. Ils sont préinitialisés suivant le
+  mécanisme natif de `WP_Hook`, avant le chargement des extensions ; aucun fichier
+  partagé n'est modifié. Leurs sources installées sont scellées par `standard.json`.
+  Le SQL READ ONLY et Landlock restent les barrières de fond, y compris pour les
+  accès directs. Les autres inventaires peuvent avoir besoin du même raccord :
+  besoin signalé au parent, pas appliqué dans leurs lots.
 - Les caches/fichiers de remplacement ou liens symboliques sont refusés avant
   exécution ; ils se traitent sur la copie par l'opérateur, jamais sur la source.
   Les erreurs d'extension ne sont jamais recopiées. Aucune activation, correction,

@@ -13,15 +13,46 @@ spec=importlib.util.spec_from_file_location('a22_matrix',HERE/'matrix.py')
 m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 
 
-def green(data):
-    if data.get('exit_code')!=0:return False
+EXPECTED={'A02':(17,120,7),'A03':(10,87,9),'A10':(10,187,7),'A11':(19,290,7),
+          'A12':(15,124,8),'A14':(8,58,8),'A15':(14,78,7),'A16':(23,78,7),
+          'A17':(42,66,7),'A18':(37,100,7),'A19':(9,108,7)}
+
+
+def unique(pairs):
+    result={}
+    for key,value in pairs:
+        if key in result:raise ValueError('A22_DUPLICATE_RECEIPT_KEY')
+        result[key]=value
+    return result
+
+
+def green(data,legacy=False):
+    if not (type(data.get('exit_code')) is int and data['exit_code']==0):
+        if not (legacy and set(data)=={'checks'}):return False
     rows=[]
     for key in ['tests','checks']:
         if key in data:
-            if not isinstance(data[key],list) or not data[key]:return False
-            rows+=data[key]
-    return bool(rows) and all(isinstance(r,dict) and
-        (r.get('status')=='PASS' if 'status' in r else r.get('ok') is True) for r in rows)
+            if key=='tests' and isinstance(data[key],dict) and data[key]:
+                rows += [{'ok':value} for value in data[key].values()]
+            elif isinstance(data[key],list) and data[key]:rows+=data[key]
+            else:return False
+    def passed(row):
+        if not isinstance(row,dict):return False
+        verdicts=[]
+        if 'status' in row:verdicts.append(row['status']=='PASS')
+        if 'ok' in row:verdicts.append(row['ok'] is True)
+        return bool(verdicts) and all(verdicts)
+    return bool(rows) and all(passed(row) for row in rows)
+
+
+def case_names(data):
+    names=[]
+    for key in ['checks','tests']:
+        value=data.get(key,[])
+        if isinstance(value,dict):names.extend(value)
+        elif isinstance(value,list):names.extend(row.get('check') for row in value)
+        else:return []
+    return names if all(isinstance(name,str) and name for name in names) else []
 
 
 def hashes(folder):
@@ -31,7 +62,7 @@ def hashes(folder):
 
 def verify(packet,parent_proof=None):
     rows=[];counts={}
-    load=lambda p:json.loads(p.read_text(encoding='utf-8'))
+    load=lambda p:json.loads(p.read_text(encoding='utf-8'),object_pairs_hook=unique)
     def check(name,ok):rows.append({'check':name,'status':'PASS' if ok else 'FAIL'})
     source=load(packet/'sources.json')
     check('exact_current_executed_sources',source==m.sources())
@@ -47,7 +78,10 @@ def verify(packet,parent_proof=None):
         for lot in m.LOTS:
             base=folder/lot
             for name in ['unit','result','runner']:
-                d=load(base/(name+'.json'));check(console+':'+lot+':'+name+':green',green(d))
+                d=load(base/(name+'.json'))
+                names=case_names(d);total=EXPECTED[lot][['unit','result','runner'].index(name)]
+                check(console+':'+lot+':'+name+':green',green(d,legacy=lot=='A02' and name=='unit')
+                      and len(names)==total and len(set(names))==total)
                 counts[console+':'+lot+':'+name]=len(d.get('checks',[]))+len(d.get('tests',[]))
             runner=load(base/'runner.json')
             cleanup=[r for r in runner['checks'] if any(x in r.get('check','') for x in ['cleanup','sources_unchanged','sources_stable','protected_sources','accepted_sources','dependencies_stable'])]

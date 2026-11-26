@@ -112,6 +112,18 @@ try {
         $checks['preferences_temoin_presentes'] = metadata_exists('user', $id, N::META)
             && N::preferences($id) === $historic;
         $exporters = apply_filters('wp_privacy_personal_data_exporters', []);
+        if (($GLOBALS['imagine_c22_mutation'] ?? '') === 'export_omit') {
+            $actual = $exporters['imagine-site']['callback'];
+            $exporters['imagine-site']['callback'] = static function (...$args) use ($actual) {
+                $r = call_user_func($actual, ...$args);
+                if (is_array($r)) {
+                    foreach ($r['data'] as &$item) {
+                        $item['data'] = array_values(array_filter($item['data'], static fn ($f) => $f['name'] !== N::META));
+                    }
+                }
+                return $r;
+            };
+        }
         $exported = [];
         for ($p = 1; $p <= 20; $p++) {
             $r = call_user_func($exporters['imagine-site']['callback'], 'c22-correction@example.org', $p);
@@ -125,6 +137,11 @@ try {
         }
         $checks['export_callbacks_preferences_historiques_exactes'] = $r['done'] && $exported === [$historic];
         $erasers = apply_filters('wp_privacy_personal_data_erasers', []);
+        if (($GLOBALS['imagine_c22_mutation'] ?? '') === 'erase_noop') {
+            $erasers['imagine-site']['callback'] = static fn () => [
+                'items_removed' => true, 'items_retained' => false, 'messages' => [], 'done' => true,
+            ];
+        }
         $r = call_user_func($erasers['imagine-site']['callback'], 'c22-correction@example.org');
         wp_cache_delete($id, 'user_meta');
         $checks['effacement_callbacks_preferences_absentes'] = $r['items_removed'] && !$r['items_retained']

@@ -21,6 +21,14 @@ class ContractTest(unittest.TestCase):
         self.assertTrue(v.green({'exit_code':0,'checks':[{'ok':True}]}))
         self.assertFalse(v.green({'exit_code':0,'checks':[]}))
 
+    def test_legacy_receipt_shapes_are_explicit_and_complete(self):
+        v=load(ROOT/'wp/tests/a22/verify.py','legacy_verify_test')
+        self.assertTrue(v.green({'exit_code':0,'tests':{'legacy_case':True}}))
+        self.assertFalse(v.green({'exit_code':0,'tests':{'legacy_case':False},'checks':[{'check':'new','status':'PASS'}]}))
+        old={'checks':[{'check':'old','status':'PASS'}]}
+        self.assertFalse(v.green(old))
+        self.assertTrue(v.green(old,legacy=True))
+
     def test_documented_commands_are_exact_source_lines(self):
         docs=json.loads((ROOT/'wp/tests/a22/documented.json').read_text(encoding='utf-8'))
         for tool,command in docs.items():

@@ -1,0 +1,2 @@
+Complément A-23 (comptes des lecteurs, lecture seule) : python3 wp/outils/bascule/a23/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/comptes-date
+Familles au préfixe seul, adresses et identifiants comptés sans aucune valeur ; groupes <5 fondus dans autres, six blocs inconnus après neutralisation ; définitions, standard WordPress et reprise : wp/outils/bascule/a23/README.md ; gardien commun A-22 obligatoire, aucune décision de reconnexion.

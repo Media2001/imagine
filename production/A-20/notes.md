@@ -1,5 +1,7 @@
 # A-20 — B1 corrigé, candidat vérifié sans PRET
 
+**Checkpoint A22 : les résultats ci-dessous sont historiques.** Le gardien est maintenant commun à tous les inventaires ; nouvelles matrices `a20-shared-final-02` en cours, aucun PRET. Le paquet précédent reste à remplacer après retour réel, pas de recyclage de ses empreintes. Voir `production/A-22/notes.md` pour la reprise.
+
 1. **Fait** : inventaire natif en lecture seule des récurrences enregistrées, par produit/variation, état, rythme, montant et pays ; seuil de confidentialité de cinq, aucune correspondance ni anomalie proposée.
 2. **Prêt à relire** : candidat dans `production/A-20/preuves/final/`, vérificateur à code 0 ; **pas de PRET** déposé par cet enfant.
 3. **À valider par Ced** : rien pour ce lot fictif ; grille et correspondance restent les décisions d'Imagine, pas celles de cet outil.

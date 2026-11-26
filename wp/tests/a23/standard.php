@@ -26,9 +26,20 @@ $checks = [
         $phpass
     ) === 1,
 ];
+$checks['native_preinitialised_hooks'] = str_contains($hooks, 'function build_preinitialized_hooks(')
+    && str_contains($plugin, 'WP_Hook::build_preinitialized_hooks( $wp_filter )');
+foreach (
+    ['pre_as_enqueue_async_action', 'pre_as_schedule_single_action',
+    'pre_as_schedule_recurring_action', 'pre_as_schedule_cron_action'] as $hook
+) {
+    $checks['native_short_circuit:' . $hook] = str_contains($scheduler, "apply_filters( '" . $hook . "', null,");
+}
 $report = ['wordpress' => $m[1] ?? null, 'source_sha256' => [
     'wp-includes/pluggable.php' => hash('sha256', $source),
     'wp-includes/class-phpass.php' => hash('sha256', $phpass),
+    'wp-includes/class-wp-hook.php' => hash('sha256', $hooks),
+    'wp-includes/plugin.php' => hash('sha256', $plugin),
+    'woocommerce/packages/action-scheduler/functions.php' => hash('sha256', $scheduler),
     'wp-includes/version.php' => hash('sha256', $version)],
     'checks' => array_map(static fn(string $key, bool $ok): array => [
         'check' => $key, 'status' => $ok ? 'PASS' : 'FAIL'

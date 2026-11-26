@@ -26,6 +26,9 @@ def run(label):
     uid=ids['A-PAPIER']; other=ids['A-SEPA4']
     meta_sql='global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->usermeta} WHERE meta_key=\''+META+'\' OR (meta_key=\'_woocommerce_tracks_anon_id\' AND user_id='+str(uid)+') ORDER BY umeta_id",ARRAY_A));'
     old_meta=c22.wp(meta_sql)
+    reserve_sql='global $wpdb;echo wp_json_encode($wpdb->get_results("SELECT * FROM {$wpdb->options} WHERE option_name LIKE \'imagine_newsletters_reserve_%\' ORDER BY option_id",ARRAY_A));'
+    old_reserves=c22.wp(reserve_sql)
+    fourth='quatrieme-c22-'+hashlib.sha256(label.encode()).hexdigest()[:12]
     checks,blocked,old,observations={},[],None,[]
     observer='mu-plugins/imagine-c22-observer.php'
     assert c22.hashes([observer])[observer] is None, 'Observer preexists'
@@ -90,21 +93,34 @@ def run(label):
                 admin=context(browser,'E-ADMIN');adm=admin.new_page();visit(adm,'/wp-admin/admin.php?page=imagine-reglages')
                 form=adm.locator('form[action="options.php"]')
                 checks['C10_champs_meme_formulaire']=form.locator('#imagine-newsletters-reglages').count()==1 and form.locator('input[name=_wpnonce]').count()==1
+                checks['C10_section_sous_bouton_inchangee']=form.evaluate('(f)=>{const b=f.querySelector("[type=submit]"),s=f.querySelector("#imagine-newsletters-reglages");return !!(b&&s&&(b.compareDocumentPosition(s)&Node.DOCUMENT_POSITION_FOLLOWING));}')
                 names=form.locator('[name]').evaluate_all('(xs)=>[...new Set(xs.map(x=>x.name.split("[")[0]).filter(x=>x.startsWith("imagine_")))]')
                 old=rows(names)
                 checks['defaut_creation_ferme']=adm.locator('#imagine-newsletters-creation').input_value()=='non'
-                for key,val in {'id':'quatrieme-fictive','titre':'Quatrième newsletter fictive','presentation':'Cette quatrième lettre est temporaire.'}.items():
+                for key,val in {'id':fourth,'titre':'Quatrième newsletter fictive','presentation':'Cette quatrième lettre est temporaire.'}.items():
                     adm.locator('#imagine-newsletter-3-'+key).fill(val)
                 with adm.expect_navigation(wait_until='networkidle'):form.evaluate('(f)=>f.requestSubmit()')
                 checks['quatrieme_enregistree_C10']=len(c22.wp('echo wp_json_encode(get_option("'+CAT+'"));'))==4
                 page.reload(wait_until='networkidle');visit(page,account_path)
-                checks['quatrieme_compte_case']=page.locator('#mes-newsletters input[value=quatrieme-fictive]').count()==1
+                fourth_box=page.locator('#mes-newsletters input[value='+fourth+']')
+                checks['quatrieme_compte_case']=fourth_box.count()==1
+                fourth_box.check();save_form(page)
+                fourth_history=prefs(uid)[fourth]
+                checks['quatrieme_consentement_lecteur_reel']=fourth_history['choix'] is True and fourth_history['origine']=='lecteur'
                 visit(ap,'/nos-newsletters/')
-                checks['quatrieme_page_publique']=ap.locator('[data-newsletter=quatrieme-fictive]').count()==1
+                checks['quatrieme_page_publique']=ap.locator('[data-newsletter='+fourth+']').count()==1
                 adm.locator('#imagine-newsletter-3-id').fill('')
                 with adm.expect_navigation(wait_until='networkidle'):adm.locator('form[action="options.php"]').evaluate('(f)=>f.requestSubmit()')
                 visit(page,account_path);visit(ap,'/nos-newsletters/')
                 checks['retrait_quatrieme_partout']=page.locator('#mes-newsletters input[type=checkbox]').count()==3 and ap.locator('[data-newsletter]').count()==3
+                for key,val in {'id':fourth,'titre':'Nouvelle lettre recyclée interdite','presentation':'Ne doit jamais reprendre le choix historique.'}.items():
+                    adm.locator('#imagine-newsletter-3-'+key).fill(val)
+                with adm.expect_navigation(wait_until='networkidle'):adm.locator('form[action="options.php"]').evaluate('(f)=>f.requestSubmit()')
+                checks['C10_recyclage_refuse_erreur_visible']=adm.locator('.settings-error.error').count()>0 and len(c22.wp('echo wp_json_encode(get_option("'+CAT+'"));'))==3
+                visit(page,account_path);visit(ap,'/nos-newsletters/')
+                checks['recyclage_compte_sans_case_ni_choix_reaffecte']=page.locator('#mes-newsletters input[type=checkbox]').count()==3 and page.locator('#mes-newsletters input:checked').count()==0 and page.get_by_text('Nouvelle lettre recyclée interdite',exact=True).count()==0
+                checks['recyclage_page_sans_nouvelle_lettre']=ap.locator('[data-newsletter]').count()==3 and ap.locator('[data-newsletter='+fourth+']').count()==0
+                checks['historique_retire_exact_HTTP']=prefs(uid)[fourth]==fourth_history
                 adm.locator('#imagine-newsletters-creation').select_option('oui')
                 with adm.expect_navigation(wait_until='networkidle'):adm.locator('form[action="options.php"]').evaluate('(f)=>f.requestSubmit()')
                 checks['C10_creation_oui_persiste']=c22.wp('echo wp_json_encode(get_option("'+AUTO+'"));')=='oui'
@@ -124,6 +140,8 @@ def run(label):
         if old is not None:
             c22.wp('global $wpdb;foreach('+c22.php_json(old)+' as $n=>$r){$wpdb->delete($wpdb->options,["option_name"=>$n]);if($r!==null)$wpdb->insert($wpdb->options,$r);}wp_cache_flush();echo "true";')
             checks['C10_restauration_lignes_et_absences']=rows(list(old))==old
+        c22.wp('global $wpdb;$wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE \'imagine_newsletters_reserve_%\'");foreach('+c22.php_json(old_reserves)+' as $r){$wpdb->insert($wpdb->options,$r);}wp_cache_flush();echo "true";')
+        checks['reserves_restaurees_lignes_exactes']=c22.wp(reserve_sql)==old_reserves
         observations=c22.wp('global $wpdb;$out=[];foreach($wpdb->get_results("SELECT option_name,option_value FROM {$wpdb->options} WHERE option_name LIKE \'imagine_c22_observation_%\'",ARRAY_A) as $r){$out[$r["option_name"]]=maybe_unserialize($r["option_value"]);}echo wp_json_encode($out);')
         c22.wp('global $wpdb;foreach('+c22.php_json(list(observations))+' as $n)$wpdb->delete($wpdb->options,["option_name"=>$n]);echo "true";')
         c22.remove_observer()
