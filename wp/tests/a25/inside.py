@@ -197,10 +197,10 @@ if (getenv('A25_CONFINED') === '1') {
         ('display_early_exit', "echo 'A25_EXIT_PRIVATE_CANARY'; exit(0);", 'A25_PROCESS_OUTPUT_INVALID', True),
         ('silent_early_exit', 'exit(0);', 'A25_PROCESS_OUTPUT_INVALID', False),
         ('shutdown_stdout', "register_shutdown_function(function () { fwrite(STDOUT, 'A25_SHUTDOWN_PRIVATE_CANARY'); });", 'A25_PROCESS_OUTPUT_INVALID', True),
-        ('shutdown_stderr', "register_shutdown_function(function () { fwrite(STDERR, 'A25_SHUTDOWN_PRIVATE_CANARY'); });", 'A25_PROCESS_OUTPUT_INVALID', False),
-        ('shutdown_display', "register_shutdown_function(function () { echo 'A25_SHUTDOWN_PRIVATE_CANARY'; });", 'A25_PROCESS_OUTPUT_INVALID', False),
+        ('shutdown_stderr', "register_shutdown_function(function () { fwrite(STDERR, 'A25_SHUTDOWN_PRIVATE_CANARY'); });", 'A25_PROCESS_OUTPUT_INVALID', True),
+        ('shutdown_display', "register_shutdown_function(function () { echo 'A25_SHUTDOWN_PRIVATE_CANARY'; });", 'A25_PROCESS_OUTPUT_INVALID', True),
         ('invalid_utf8', 'fwrite(STDERR, chr(255));', 'A25_PROCESS_OUTPUT_INVALID', False),
-        ('oversize_output', "fwrite(STDOUT, str_repeat('A25_PRIVATE_CANARY', 8192));", 'A25_PROCESS_OUTPUT_INVALID', False),
+        ('oversize_output', "fwrite(STDOUT, str_repeat('A25_PRIVATE_CANARY', 8192));", 'A25_PROCESS_OUTPUT_INVALID', True),
         ('plugin_exception', "throw new RuntimeException('A25_PERSON_PATH_PRIVATE_CANARY');", 'A25_INVENTORY_FAILED', False),
         ('forged_success', 'fwrite(STDOUT, "A25_OK visiteurs.json visiteurs.md\\n"); exit(0);', 'A25_REPORT_INVALID', False),
         ('shutdown_invalid_json', "register_shutdown_function(function () { " + target + " file_put_contents($dir.'/visiteurs.json', '{'); });", 'A25_REPORT_INVALID', False),
@@ -325,6 +325,21 @@ if (getenv('A25_CONFINED') === '1') {
     for suffix, value in [('before', absent_before), ('after', absent_after)]:
         (OUT / (storage + '-absent-db-' + suffix + '.json')).write_text(json.dumps(value), encoding='utf-8')
     b.check(storage + ':absent_tables_files_identical', absent_before == absent_after and absent_files == b.files(site))
+    b.sql(db, 'CREATE TABLE wp_a25_nodate_entries (id int PRIMARY KEY,form_id int,fields longtext) ENGINE=InnoDB')
+    b.sql(db, "INSERT INTO wp_a25_nodate_entries VALUES (1,1,'opaque'),(2,1,'opaque'),(3,1,'opaque'),(4,1,'opaque'),(5,1,'opaque')")
+    nodate_before, nodate_files = b.fingerprint(db), b.files(site)
+    nodate_audit = OUT / (storage + '-nodate-audit')
+    b.check(storage + ':nodate_audit', b.audit(site, nodate_audit).returncode == 0)
+    nodate_out = OUT / (storage + '-nodate')
+    q = inventory(site, nodate_out, nodate_audit / 'audit.json')
+    b.check(storage + ':nodate_confined_success', q.returncode == 0 and q.stderr == '')
+    nodate = json.loads((nodate_out / 'visiteurs.json').read_text(encoding='utf-8'))
+    b.check(storage + ':nodate_closed_zero_not_invented_year', nodate['counts']['forms'] == {
+        'groups': [{'year': 0, 'state': 'autre', 'count': 5}], 'autres': 2})
+    nodate_after = b.fingerprint(db)
+    for suffix, value in [('before', nodate_before), ('after', nodate_after)]:
+        (OUT / (storage + '-nodate-db-' + suffix + '.json')).write_text(json.dumps(value), encoding='utf-8')
+    b.check(storage + ':nodate_tables_files_identical', nodate_before == nodate_after and nodate_files == b.files(site))
     b.check(storage + ':all_output_artifacts_clean', not any(b'CANARY' in f.read_bytes() for f in OUT.rglob('*') if f.is_file()))
 
 

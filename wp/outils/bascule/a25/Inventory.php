@@ -99,7 +99,7 @@ final class Inventory
                 $other++;
             }
             $expr = $date ? "COALESCE(YEAR(`{$date}`),0)" : '0';
-            $buckets = self::select("SELECT {$expr} AS year,COUNT(*) AS count FROM `{$table}` GROUP BY {$expr}");
+            $buckets = self::select("SELECT {$expr} AS year,COUNT(*) AS count FROM `{$table}` GROUP BY 1");
             foreach ($buckets as $count) {
                 $forms[] = ['year' => (int) $count['year'], 'state' => $known['name'] ?? 'autre',
                     'count' => (int) $count['count']];

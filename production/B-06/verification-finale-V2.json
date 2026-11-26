@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-26T16:32:03.350913+00:00",
+  "scope": "imagine-test-demo",
+  "exit": 0,
+  "result": {
+    "result": "VERIFIED",
+    "B06_checks": 165,
+    "mutations": 11,
+    "regression_tests": 1123,
+    "regression_assertions": 34569,
+    "tool_checks": 306,
+    "pages": 5,
+    "P_COOP_retained": true,
+    "closure": "Claude/Ced uniquement"
+  },
+  "PRET_sha256": "297e667560824d72a8a9464e4483a78415c2737940d9b9da0cbec18a0c353d84",
+  "A_VOIR_sha256": "2282ffe034e8c56a5cbca56769e6e2d9a24cba80ca449ff020c34b80e5a42786"
+}

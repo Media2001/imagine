@@ -71,13 +71,17 @@ def verify(packet, sealed=True, require_shared=False):
                 'neutralised_all_tables_files_identical', 'five_native_seed', 'five_audit', 'five_confined_success',
                 'five_native_year_state_utc', 'five_native_form_year', 'five_native_guests_year',
                 'five_tables_files_identical', 'absent_audit', 'absent_confined_success',
-                'absent_known_extension_explicit', 'absent_tables_files_identical', 'all_output_artifacts_clean']
+                'absent_known_extension_explicit', 'absent_tables_files_identical',
+                'nodate_audit', 'nodate_confined_success', 'nodate_closed_zero_not_invented_year',
+                'nodate_tables_files_identical', 'all_output_artifacts_clean']
     required += ['guard:' + key for key in ('exists', 'site', 'repo', 'ancestor', 'root')]
     required += ['symlink_closed:' + key for key in ('False', 'True')]
     required += ['closed_dropin:' + str(i) for i in range(6)]
     required += ['config_closed:' + key for key in ('define', 'const')]
     required += [kind + ':' + key for key in CHANNELS for kind in ('closed_channel', 'no_retained_payload')]
-    required += ['mutation_without_guard_detected:' + key for key in ('direct_stdout', 'direct_stderr', 'display_early_exit', 'shutdown_stdout')]
+    required += ['mutation_without_guard_detected:' + key for key in (
+        'direct_stdout', 'direct_stderr', 'display_early_exit', 'shutdown_stdout',
+        'shutdown_stderr', 'shutdown_display', 'oversize_output')]
     for console in ('utf8', 'cp1252'):
         base, folder = packet / console, packet / console / 'native'
         environment = read(base / 'environment.json')
@@ -106,12 +110,12 @@ def verify(packet, sealed=True, require_shared=False):
                        'wp_options', 'wp_actionscheduler_actions', 'wp_actionscheduler_logs'}.issubset(before['tables']))
             files = read(folder / (storage + '-files.json'))
             check(prefix + ':files_identical', files['before'] == files['after'])
-            for variant in ('neutralised', 'five', 'absent'):
+            for variant in ('neutralised', 'five', 'absent', 'nodate'):
                 check(prefix + ':' + variant + '_tables_identical',
                       read(folder / (storage + '-' + variant + '-db-before.json'))
                       == read(folder / (storage + '-' + variant + '-db-after.json')))
             for suffix, audit_suffix in [('visitors', 'audit'), ('neutralised', 'neutralised-audit'),
-                                         ('five', 'five-audit'), ('absent', 'absent-audit')]:
+                                         ('five', 'five-audit'), ('absent', 'absent-audit'), ('nodate', 'nodate-audit')]:
                 check(prefix + ':' + suffix + '_projection', report.complete_report(
                     folder / (storage + '-' + suffix), folder / (storage + '-' + audit_suffix + '/audit.json')))
             nominal = folder / (storage + '-visitors/visiteurs.json')

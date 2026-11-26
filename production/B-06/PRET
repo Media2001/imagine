@@ -1,0 +1,7 @@
+B-06 — PRET technique à relire, pas clos.
+Preuve courante : livraison-V2.json — 165 contrôles verts, 11 mutations détectées.
+Vérificateur : python -B wp/tests/demo/b06-verifier.py livraison-V2 (code 0).
+Image préparée et régression finale : 1123 tests, 34569 assertions, 306 contrôles d’outils, 0 échec.
+A-VOIR.md contient les URLs et les questions fermées pour Imagine.
+P-COOP conserve seul l’attribut posé par l’écran ; autres comptes/options/actions restaurés et relus.
+Claude clôt le code ; Ced valide le visuel. Aucun accord sur le réel.

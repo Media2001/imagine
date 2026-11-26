@@ -1,0 +1,96 @@
+{
+  "at": "2026-11-26T16:28:58.111689+00:00",
+  "scope": "imagine-test-demo",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "sources": {
+    "wp/outils/demo/b06-http.py": "bbe3eeb41bd182526932feeab1cd8bbd83338df6e021ce0fd9dc7b823c6f83d5",
+    "wp/outils/demo/b06-recette.py": "65bf1c92d92710391010524ac024d5e7275b8d35229c29d156781608e66747ed",
+    "wp/outils/demo/b06-seed.php": "031e77c989f1f7a3a7e5a2c094177916e9aa10ac21e60a82f289a9be25e7b63c",
+    "wp/outils/demo/b06.py": "d148e4c8886d2f4f8defa5f94103528bf5eeedd224531c8044b3a2499dc65b84",
+    "wp/plugins/imagine-site/Cooperateurs.php": "b6866dc220ce2339819264c05fea81a9aff865db8559d699df7e5284f5d6313d",
+    "wp/plugins/imagine-site/CooperateursRegles.php": "5548fcf0fcc07cf9dbdb1d3f3c58af30b7f9e0b5f90b04125f674b0b1f10a8ca",
+    "wp/plugins/imagine-site/README-B06.md": "60b79ddbdaf3b6c964c4c40d2406467b64f7ce2380968daab89153dd378575eb",
+    "wp/tests/demo/b06-rules.php": "25901cbc68f899982a1f6bd955014865544d97e5ffdc9528725211b73495c72f",
+    "wp/tests/demo/b06-runtime.php": "e94f412f2a7313114a50d6af475195b1a0d5f843268047c8229b1ec350013639",
+    "wp/tests/demo/b06-space.php": "2fe61c8e54495335ae1566cbafbd86a2bf582c2fbc8176832ed4956b9af2b3d4",
+    "wp/tests/demo/b06-verifier.py": "ff1f6934112a664f033c5514aba0bf40037b9a6b887d648a584beee28cb96676"
+  },
+  "closed_sources": {
+    "plugins/imagine-site/Confidentialite.php": "39b4aa84a3bb565683d914073748b08eaf500f1d1fc8e42b03ee0e79dea450e5",
+    "plugins/imagine-site/Paywall.php": "36cd92a29c942a4f210b6fad36eb75b5604e72dd69dcee115fac4ef2220c3d6f"
+  },
+  "bootstrap_contract": true,
+  "normal_receipts": [
+    "livraison-rules-V2",
+    "livraison-attribute-V2",
+    "livraison-privacy-V2",
+    "livraison-space-V2",
+    "livraison-http-V2"
+  ],
+  "mutation_receipts": [
+    {
+      "receipt": "livraison-mutation-page-V2",
+      "required_failure": "anonyme_page_sans_contenu"
+    },
+    {
+      "receipt": "livraison-mutation-rest-V2",
+      "required_failure": "anonyme_rest_sans_contenu"
+    },
+    {
+      "receipt": "livraison-mutation-search-V2",
+      "required_failure": "anonyme_recherche_exclut_espace"
+    },
+    {
+      "receipt": "livraison-mutation-feed-V2",
+      "required_failure": "anonyme_flux_exclut_espace"
+    },
+    {
+      "receipt": "livraison-mutation-sitemap-V2",
+      "required_failure": "sitemap_fournisseur_natif_espace_absent"
+    },
+    {
+      "receipt": "livraison-mutation-edition-V2",
+      "required_failure": "ecran_edition_non_coop_interdit"
+    },
+    {
+      "receipt": "livraison-mutation-erase-noop-V2",
+      "required_failure": "effacement_natif_attribut_absent"
+    },
+    {
+      "receipt": "livraison-mutation-export-other-V2",
+      "required_failure": "export_autre_personne_absente"
+    },
+    {
+      "receipt": "livraison-mutation-mail-V2",
+      "required_failure": "aucun_mail_tente"
+    },
+    {
+      "receipt": "livraison-mutation-http-V2",
+      "required_failure": "aucun_http_tente"
+    },
+    {
+      "receipt": "livraison-mutation-listener-V2",
+      "required_failure": "accroche_nommee_sans_ecouteur"
+    }
+  ],
+  "total": 165,
+  "failures": [],
+  "mutation_count": 11,
+  "result": "VERIFIED",
+  "sources_remote": {
+    "plugins/imagine-site/CooperateursRegles.php": "5548fcf0fcc07cf9dbdb1d3f3c58af30b7f9e0b5f90b04125f674b0b1f10a8ca",
+    "plugins/imagine-site/Cooperateurs.php": "b6866dc220ce2339819264c05fea81a9aff865db8559d699df7e5284f5d6313d",
+    "plugins/imagine-site/imagine-site.php": "66c1298193e110e0377b61d793e37c69a2f4e3b007e04fa5c6e8456b3badc88b"
+  },
+  "native_cases_restored": true,
+  "exception": "P-COOP garde son attribut, posé et relu par écran natif ; autres comptes/options/actions restaurés exactement."
+}

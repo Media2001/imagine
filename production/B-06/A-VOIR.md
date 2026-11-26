@@ -19,7 +19,7 @@ Site exclusivement fictif : **http://192.168.129.32:8085**. Pas de CoopHub, serv
 
 ## Preuves et limites
 
-- Reçu de livraison attendu pour la vérification finale : `livraison-V2.json` et ses sous-reçus `livraison-*-V2.json` ; les reçus rouges/historiques restent distincts et ne valent pas acceptation.
+- Reçu courant : `livraison-V2.json` et ses sous-reçus `livraison-*-V2.json` : **165 contrôles verts**, **11 mutations détectées** ; recettes réelles et vérificateur à code 0. Régression générale : **1 123 tests, 34 569 assertions**, plus **306 contrôles d’outils**, sans échec. Image préparée après les nouveaux tests ; PSR12 du code produit sans erreur bloquante. Les reçus rouges/historiques restent distincts et ne valent pas acceptation.
 - Étanchéité : pages, REST unitaire/collection/recherche, flux, recherche interne et fournisseur sitemap natif. Témoins positifs, puis mutations qui rendent les contrôles rouges ; aucune absence déduite d’une surface inexistante.
 - **Le site est volontairement noindex** : la route HTTP sitemap est 404 native. La preuve de filtrage des URLs passe aussi par le vrai fournisseur `WP_Sitemaps_Posts::get_url_list()`, avec une page publique présente et une mutation révélant les pages réservées. Le réglage noindex n’a pas été ouvert pour les besoins du test.
 - Le texte témoin de la lettre de missions est retiré ; les **cinq pages sont vides** après la recette. Les vrais événements d’audit B06 restent. Les fixtures transactionnelles sont rollbackées.
