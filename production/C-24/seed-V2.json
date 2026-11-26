@@ -1,0 +1,67 @@
+{
+  "at": "2026-11-26T17:39:10.595623+00:00",
+  "scope": "imagine-test-demo",
+  "questions": [
+    {
+      "id": "situation-fictive",
+      "titre": "Situation entièrement fictive",
+      "multiple": false,
+      "choix": [
+        {
+          "id": "reveur-fictif",
+          "titre": "Rêveur de nuages fictif"
+        },
+        {
+          "id": "explorateur-fictif",
+          "titre": "Explorateur de lunes fictif"
+        }
+      ]
+    },
+    {
+      "id": "interets-fictifs",
+      "titre": "Centres d’intérêt entièrement fictifs",
+      "multiple": true,
+      "choix": [
+        {
+          "id": "jardins-lunaires-fictifs",
+          "titre": "Jardins lunaires fictifs"
+        },
+        {
+          "id": "cerfs-volants-fictifs",
+          "titre": "Cerfs-volants sous-marins fictifs"
+        }
+      ]
+    },
+    {
+      "id": "age-fictif",
+      "titre": "Tranche d’âge entièrement fictive",
+      "multiple": false,
+      "choix": [
+        {
+          "id": "age-cent-lunes-fictif",
+          "titre": "De 100 à 199 lunes fictives"
+        },
+        {
+          "id": "age-deux-cents-lunes-fictif",
+          "titre": "200 lunes fictives et plus"
+        }
+      ]
+    },
+    {
+      "id": "localite-fictive",
+      "titre": "Localité entièrement fictive",
+      "multiple": false,
+      "choix": [
+        {
+          "id": "village-nuages-fictif",
+          "titre": "Village des nuages fictif"
+        },
+        {
+          "id": "ile-lucioles-fictive",
+          "titre": "Île des lucioles fictive"
+        }
+      ]
+    }
+  ],
+  "profiles_preserved": true
+}
