@@ -1,0 +1,33 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T23:52:37.405529+00:00",
+  "sources": {
+    "wp/outils/demo/c25-finaliser.py": "5bedd103c6f6560d2f0d3420200c26b922a24d104859b2ac2815e5164f5c746c",
+    "wp/outils/demo/c25-mutations.py": "f864dc2fb1a35ad34bd89fcf4902308ec611d13f4b01018ddda5670d9cc069a9",
+    "wp/outils/demo/c25-recette.py": "644a2fdd0e4dc1e03f07313e0e5c903310fdf7c152c4069fc6d47e7c452d93ba",
+    "wp/outils/demo/c25-settings.py": "e1c71d83079cebce88bfef469932ef8c24c06f57cec8fa59e5c92f4a363a65f4",
+    "wp/outils/demo/c25.py": "f4315d9dbab2cdf7d443573258e1e3c9cb77741b848656dfb97b9780f4670b50",
+    "wp/plugins/imagine-site/Retractation.php": "61ab822800af0ff950fdcb2ef4b48d7c0465df73c62b6eb035ac729bbf602045",
+    "wp/plugins/imagine-site/RetractationConfidentialite.php": "0089745076ed8797862f6abef47c49274d19dd17f2cfa21376f5de6a99995af8",
+    "wp/plugins/imagine-site/RetractationReglages.php": "5f3435dafe6a55f9d92bd5c63a2cf3e44a21ec681a9af2b8cd7472ef44cfb573",
+    "wp/plugins/imagine-site/RetractationRegles.php": "2bd47e957ade4d39b83210a0adc754c4efe6c4948e0772b64fcb2f337c2632e5",
+    "wp/plugins/imagine-site/tests/RetractationAdapterTest.php": "c0f3cde6b2cf529722d2192c087a0a0a6a9b392b99dea3ed01ec6d8a22703a61",
+    "wp/plugins/imagine-site/tests/RetractationReglesTest.php": "15cb0c61ade78ab8873cdfe147b58e7518d789e8ea27abb39e1815518799d9f3",
+    "wp/plugins/imagine-site/tests/RetractationWPStubs.php": "e6f014a0b58b4375547505af38e2f2a871bff4497f75d580ea28356c14b15a0f",
+    "wp/tests/demo/c25-horslive.php": "342ef0fae0925f1c134990bb706d3ddc5186856874fa588271922e14a966c244",
+    "wp/tests/demo/c25-observer.php": "288af609e45ff7bdc20c748abeec6af07f66beeec137b119170b7c7b8f5063a0",
+    "wp/tests/demo/c25-runtime.php": "8e8413498149c6efbef414baf58e214180c4225cf344b2ff9ca42181424c05e8"
+  },
+  "exit": 1,
+  "junit": {
+    "name": "/tmp/t01/plugins/imagine-site/phpunit.xml",
+    "tests": "10",
+    "assertions": "170",
+    "errors": "0",
+    "failures": "1",
+    "skipped": "0",
+    "time": "0.028391"
+  },
+  "log": "mutations-corrections002-V2-http.log",
+  "log_sha256": "d02cd4cc60bc985c56c100a07ae2b7a63762f924ca738c9387c47ea27607b26f"
+}

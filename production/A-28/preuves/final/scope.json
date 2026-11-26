@@ -13,6 +13,13 @@
   "out_of_scope_added": [],
   "concurrent_owner_changes": [
     {
+      "file": "wp/outils/demo/c25-finaliser.py",
+      "owner": "voie2",
+      "qualification": "declared_separate_owner_root",
+      "before_sha256": "a0d3e293b9cfcf603750f7834747b6f21e2d1c9593b8c5b02a0ec80d7495e021",
+      "after_sha256": "5bedd103c6f6560d2f0d3420200c26b922a24d104859b2ac2815e5164f5c746c"
+    },
+    {
       "file": "wp/outils/demo/c25-mutations.py",
       "owner": "voie2",
       "qualification": "declared_separate_owner_root",
@@ -24,7 +31,7 @@
       "owner": "voie2",
       "qualification": "declared_separate_owner_root",
       "before_sha256": "63a499559ffc076015f7060eb4da8443dc746958ed551b1ca188f09a6e79f981",
-      "after_sha256": "6ba9b54014817e58eba5fa1b211fabdebdae5c04be8faa6713cc2a3538879072"
+      "after_sha256": "644a2fdd0e4dc1e03f07313e0e5c903310fdf7c152c4069fc6d47e7c452d93ba"
     },
     {
       "file": "wp/outils/demo/c25.py",
@@ -53,6 +60,20 @@
       "qualification": "declared_separate_owner_root",
       "before_sha256": "e8b98201118ac8b13e0fc47c6736f07137f608cc22e3f13b621d5b166b01a649",
       "after_sha256": "288af609e45ff7bdc20c748abeec6af07f66beeec137b119170b7c7b8f5063a0"
+    },
+    {
+      "file": "wp/tests/demo/c25-runtime.php",
+      "owner": "voie2",
+      "qualification": "declared_separate_owner_root",
+      "before_sha256": "14b186c2966c608ecdda6b8e0652f3c104f4be6e6b042df75e491c40d55eb0e6",
+      "after_sha256": "8e8413498149c6efbef414baf58e214180c4225cf344b2ff9ca42181424c05e8"
+    },
+    {
+      "file": "wp/outils/demo/c25-settings.py",
+      "owner": "voie2",
+      "qualification": "declared_separate_owner_root",
+      "before_sha256": null,
+      "after_sha256": "e1c71d83079cebce88bfef469932ef8c24c06f57cec8fa59e5c92f4a363a65f4"
     },
     {
       "file": "wp/outils/demo/c26-preparer.py",
@@ -102,5 +123,5 @@
   "common_guardian_unchanged": true,
   "common_guardian_sha256": "c913c79206b6e7b54b8ecb42284952bf5a82d2d9075639f98eddf5479efade97",
   "old_packets_A23_A27_preserved": true,
-  "measured_utc": "2026-11-26T23:42:07.612439+00:00"
+  "measured_utc": "2026-11-26T23:52:31.019959+00:00"
 }

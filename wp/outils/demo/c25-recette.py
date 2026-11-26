@@ -126,6 +126,9 @@ def run(label):
         outcome.update({'checks': checks, 'native': native, 'native_exit': result['code'], 'native_stderr': result['stderr'], 'http_statuses': statuses, 'observer_counts': c25.wp('echo wp_json_encode(get_option("imagine_c25_observations"));')})
         assert result['code'] == 0 and not result['stderr'] and not native['failures'], native
         assert all(checks.values()), checks
+    except Exception as error:
+        outcome['error'] = type(error).__name__ + ': ' + str(error)
+        raise
     finally:
         raw = private_path.read_bytes()
         assert hashlib.sha256(raw).hexdigest() == durable['sha256']

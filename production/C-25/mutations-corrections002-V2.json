@@ -1,0 +1,154 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T23:52:38.891011+00:00",
+  "sources": {
+    "Retractation.php": "61ab822800af0ff950fdcb2ef4b48d7c0465df73c62b6eb035ac729bbf602045",
+    "RetractationConfidentialite.php": "0089745076ed8797862f6abef47c49274d19dd17f2cfa21376f5de6a99995af8",
+    "RetractationReglages.php": "5f3435dafe6a55f9d92bd5c63a2cf3e44a21ec681a9af2b8cd7472ef44cfb573",
+    "RetractationRegles.php": "2bd47e957ade4d39b83210a0adc754c4efe6c4948e0772b64fcb2f337c2632e5"
+  },
+  "mutations": [
+    {
+      "mutation": "antislash",
+      "exit": 1,
+      "required_failure": "testAntislashWordPressReluEtExporteSansPerte",
+      "failures": [
+        "testAntislashWordPressReluEtExporteSansPerte"
+      ],
+      "log": "mutations-corrections002-V2-antislash.log"
+    },
+    {
+      "mutation": "journal-reglages",
+      "exit": 1,
+      "required_failure": "testReglagesJournalAjoutModificationEtRollbackPreimage",
+      "failures": [
+        "testReglagesJournalAjoutModificationEtRollbackPreimage"
+      ],
+      "log": "mutations-corrections002-V2-journal-reglages.log"
+    },
+    {
+      "mutation": "rollback-reglages",
+      "exit": 1,
+      "required_failure": "testReglagesJournalAjoutModificationEtRollbackPreimage",
+      "failures": [
+        "testReglagesJournalAjoutModificationEtRollbackPreimage"
+      ],
+      "log": "mutations-corrections002-V2-rollback-reglages.log"
+    },
+    {
+      "mutation": "preimage-reglages",
+      "exit": 1,
+      "required_failure": "testReglagesJournalAjoutModificationEtRollbackPreimage",
+      "failures": [
+        "testReglagesJournalAjoutModificationEtRollbackPreimage"
+      ],
+      "log": "mutations-corrections002-V2-preimage-reglages.log"
+    },
+    {
+      "mutation": "delai",
+      "exit": 1,
+      "required_failure": "testDelaiEtOriginesAvecBornesEtFermeturePrudente",
+      "failures": [
+        "testRefusHorsDelaiTitulaireConfirmationEtVerrou",
+        "testRaccordsEntreeAdministrationEtDateManuelle",
+        "testDelaiEtOriginesAvecBornesEtFermeturePrudente"
+      ],
+      "log": "mutations-corrections002-V2-delai.log"
+    },
+    {
+      "mutation": "proprietaire",
+      "exit": 1,
+      "required_failure": "testRefusHorsDelaiTitulaireConfirmationEtVerrou",
+      "failures": [
+        "testRefusHorsDelaiTitulaireConfirmationEtVerrou"
+      ],
+      "log": "mutations-corrections002-V2-proprietaire.log"
+    },
+    {
+      "mutation": "confirmation",
+      "exit": 1,
+      "required_failure": "testRefusHorsDelaiTitulaireConfirmationEtVerrou",
+      "failures": [
+        "testRefusHorsDelaiTitulaireConfirmationEtVerrou"
+      ],
+      "log": "mutations-corrections002-V2-confirmation.log"
+    },
+    {
+      "mutation": "doublon",
+      "exit": 1,
+      "required_failure": "testDemandeSeulePersistanteEtRejeuSansAucunEffet",
+      "failures": [
+        "testConfidentialiteExportReprisePaginationEtEffacementSansTiers",
+        "testDemandeSeulePersistanteEtRejeuSansAucunEffet"
+      ],
+      "log": "mutations-corrections002-V2-doublon.log"
+    },
+    {
+      "mutation": "export",
+      "exit": 1,
+      "required_failure": "testConfidentialiteExportReprisePaginationEtEffacementSansTiers",
+      "failures": [
+        "testAntislashWordPressReluEtExporteSansPerte",
+        "testConfidentialiteExportReprisePaginationEtEffacementSansTiers"
+      ],
+      "log": "mutations-corrections002-V2-export.log"
+    },
+    {
+      "mutation": "effacement",
+      "exit": 1,
+      "required_failure": "testConfidentialiteExportReprisePaginationEtEffacementSansTiers",
+      "failures": [
+        "testConfidentialiteExportReprisePaginationEtEffacementSansTiers"
+      ],
+      "log": "mutations-corrections002-V2-effacement.log"
+    },
+    {
+      "mutation": "export-tiers",
+      "exit": 1,
+      "required_failure": "testConfidentialiteExportReprisePaginationEtEffacementSansTiers",
+      "failures": [
+        "testConfidentialiteExportReprisePaginationEtEffacementSansTiers"
+      ],
+      "log": "mutations-corrections002-V2-export-tiers.log"
+    },
+    {
+      "mutation": "nonce",
+      "exit": 1,
+      "required_failure": "testDeuxEtapesAbandonConfirmationEtOrigineManuelle",
+      "failures": [
+        "testDeuxEtapesAbandonConfirmationEtOrigineManuelle"
+      ],
+      "log": "mutations-corrections002-V2-nonce.log"
+    },
+    {
+      "mutation": "mail",
+      "exit": 1,
+      "required_failure": "testDemandeSeulePersistanteEtRejeuSansAucunEffet",
+      "failures": [
+        "testDemandeSeulePersistanteEtRejeuSansAucunEffet"
+      ],
+      "log": "mutations-corrections002-V2-mail.log"
+    },
+    {
+      "mutation": "http",
+      "exit": 1,
+      "required_failure": "testDemandeSeulePersistanteEtRejeuSansAucunEffet",
+      "failures": [
+        "testDemandeSeulePersistanteEtRejeuSansAucunEffet"
+      ],
+      "log": "mutations-corrections002-V2-http.log"
+    },
+    {
+      "mutation": "financier",
+      "exit": 1,
+      "required_failure": "testDemandeSeulePersistanteEtRejeuSansAucunEffet",
+      "failures": [
+        "testRaccordsEntreeAdministrationEtDateManuelle",
+        "testDemandeSeulePersistanteEtRejeuSansAucunEffet"
+      ],
+      "log": "mutations-corrections002-V2-financier.log"
+    }
+  ],
+  "total": 15,
+  "all_detected": true
+}

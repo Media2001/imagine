@@ -1,0 +1,37 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T23:49:18.618806+00:00",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "original_snapshot_sha256": "6a9d82b20c84e99d028508c3f1454884f40ea7df3a1ef93dd5ba0cc266d2740e",
+  "business_preserved": true,
+  "exact": {
+    "users": true,
+    "usermeta": true,
+    "posts": true,
+    "postmeta": true,
+    "comments": true,
+    "commentmeta": true,
+    "wc_orders": true,
+    "wc_orders_meta": true,
+    "wc_order_addresses": true,
+    "wc_order_operational_data": true,
+    "woocommerce_order_items": true,
+    "woocommerce_order_itemmeta": true,
+    "actionscheduler_actions": false,
+    "actionscheduler_logs": false,
+    "actionscheduler_groups": true,
+    "actionscheduler_claims": true,
+    "business_options": true
+  },
+  "recovery_only": true,
+  "cause": "Le premier inverse de reprise ne voyait pas auth dans locals() ; inverse admin explicite depuis la même préimage. Aucun état inventé."
+}

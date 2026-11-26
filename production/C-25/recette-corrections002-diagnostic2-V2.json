@@ -1,0 +1,276 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T23:51:05.762029+00:00",
+  "during_difference_paths": [
+    "/native/native_fingerprints/posts/sha256",
+    "/native/native_fingerprints/usermeta/sha256",
+    "/native/native_fingerprints/usermeta/count"
+  ],
+  "during_meta_changed_keys": [
+    "_wcs_subscription_ids_cache",
+    "session_tokens",
+    "wc_last_active"
+  ],
+  "settings_HTTP": {
+    "created": {
+      "value": {
+        "jours": 14,
+        "origine": "paiement"
+      },
+      "events": [
+        {
+          "quand_utc": "2026-11-26T23:50:46Z",
+          "qui_id": 1,
+          "qui_login": "admin",
+          "option": "imagine_retractation_reglages",
+          "avant": null,
+          "apres": {
+            "jours": 14,
+            "origine": "paiement"
+          }
+        }
+      ]
+    },
+    "modified": {
+      "value": {
+        "jours": 1,
+        "origine": "manuelle"
+      },
+      "events": [
+        {
+          "quand_utc": "2026-11-26T23:50:46Z",
+          "qui_id": 1,
+          "qui_login": "admin",
+          "option": "imagine_retractation_reglages",
+          "avant": null,
+          "apres": {
+            "jours": 14,
+            "origine": "paiement"
+          }
+        },
+        {
+          "quand_utc": "2026-11-26T23:50:48Z",
+          "qui_id": 1,
+          "qui_login": "admin",
+          "option": "imagine_retractation_reglages",
+          "avant": {
+            "jours": 14,
+            "origine": "paiement"
+          },
+          "apres": {
+            "jours": 1,
+            "origine": "manuelle"
+          }
+        }
+      ]
+    },
+    "final": {
+      "value": {
+        "jours": 14,
+        "origine": "paiement"
+      },
+      "events": [
+        {
+          "quand_utc": "2026-11-26T23:50:46Z",
+          "qui_id": 1,
+          "qui_login": "admin",
+          "option": "imagine_retractation_reglages",
+          "avant": null,
+          "apres": {
+            "jours": 14,
+            "origine": "paiement"
+          }
+        },
+        {
+          "quand_utc": "2026-11-26T23:50:48Z",
+          "qui_id": 1,
+          "qui_login": "admin",
+          "option": "imagine_retractation_reglages",
+          "avant": {
+            "jours": 14,
+            "origine": "paiement"
+          },
+          "apres": {
+            "jours": 1,
+            "origine": "manuelle"
+          }
+        },
+        {
+          "quand_utc": "2026-11-26T23:50:51Z",
+          "qui_id": 1,
+          "qui_login": "admin",
+          "option": "imagine_retractation_reglages",
+          "avant": {
+            "jours": 1,
+            "origine": "manuelle"
+          },
+          "apres": {
+            "jours": 14,
+            "origine": "paiement"
+          }
+        }
+      ]
+    },
+    "fixture_group_restricted_to_C25": true
+  },
+  "checks": {
+    "observateurs_positifs_non_vacuite": true,
+    "acces_temoin_positif": true,
+    "HTTP_etape1_positive": true,
+    "HTTP_etape2_explicite": true,
+    "HTTP_abandon_ne_persiste_rien": true,
+    "HTTP_nonce_etape1_pas_confirmation": true,
+    "HTTP_concurrence_deux_accuses": true,
+    "HTTP_accuse_retrouve_GET": true,
+    "HTTP_compte_tiers_refuse": true,
+    "HTTP_POST_autrui_refuse": true,
+    "acces_moteur_C06_inchanges": true,
+    "HTTP_commande_abonnements_acces_actions_inchanges": true,
+    "HTTP_hors_delai_sans_formulaire": true,
+    "HTTP_hors_delai_POST_signe_refuse": true,
+    "HTTP_admin_liste_native": true,
+    "HTTP_C10_deux_champs_dans_formulaire": true,
+    "options_creation_panne_preimage_absente_relue": true,
+    "options_creation_journal_avant_apres_auteur_UTC": true,
+    "options_modification_journal_2_reglages": true,
+    "options_modification_panne_preimage_exacte_relue": true,
+    "options_journal_affiche_C10": true,
+    "options_reprise_apres_panne": true,
+    "options_deux_pannes_SQL_reelles": true
+  },
+  "native": {
+    "total": 34,
+    "checks": {
+      "default_14_paiement": true,
+      "http_accuse_persistant": true,
+      "une_note_par_commande": true,
+      "note_native_privee": true,
+      "journal_C10_present": true,
+      "rejeu_montre_premiere": true,
+      "tiers_refuse": true,
+      "ancien_refuse_POST": true,
+      "sub_sans_parent_fermee": true,
+      "manuel_un_jour_ouvert": true,
+      "abonnement_lie_commande": true,
+      "sub_cible_tiers_refuse": true,
+      "abandon_etape1_sans_note": true,
+      "journal_panne_pas_succes": true,
+      "journal_panne_note_annulee": true,
+      "sub_demande_sur_commande_initiale": true,
+      "sub_et_commande_meme_accuse": true,
+      "export_positif_motif": true,
+      "export_tiers_absent": true,
+      "export_SQL_erreur_pas_page_vide": true,
+      "erase_SQL_incomplet": true,
+      "export_reprise_page_preservee": true,
+      "effacement_note_et_motif": true,
+      "journal_depersonnalise": true,
+      "effacement_tiers_preserve": true,
+      "export_et_eraser_inscrits": true,
+      "manuel_ancien_ferme": true,
+      "manuel_ancien_POST_refuse": true,
+      "manuel_date_absente_fermee": true,
+      "reglage_30_valide": true,
+      "motif_HTTP_relu": true,
+      "motif_HTTP_meta_WP_exacte": true,
+      "motif_HTTP_export_C21_registre_natif_exact": true,
+      "aucune_sortie_ni_mutation_financiere_C25": true
+    },
+    "failures": []
+  },
+  "native_exit": 0,
+  "native_stderr": "",
+  "http_statuses": [
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200
+  ],
+  "observer_counts": {
+    "ambiance_http": 85,
+    "settings_SQL_refus": 2
+  },
+  "settings_journals_removed": [
+    "imagine_reglages_journal_8d159748f70042eb93e9d96846ca70c4",
+    "imagine_reglages_journal_f868e237eef14872a03d6f74c47399b4",
+    "imagine_reglages_journal_44f31ea237ee407a960e25268d8739b7",
+    "imagine_reglages_journal_b32a16cd9bde47cf97eec47e255104b4",
+    "imagine_reglages_journal_d1c33838aaf8450ea9dd2ed74da4e060"
+  ],
+  "sources": {
+    "wp/outils/demo/c25-finaliser.py": "593387cef9d20305fd3faed080a727ae0c09c247ec2429128a927933845cf33b",
+    "wp/outils/demo/c25-mutations.py": "f864dc2fb1a35ad34bd89fcf4902308ec611d13f4b01018ddda5670d9cc069a9",
+    "wp/outils/demo/c25-recette.py": "644a2fdd0e4dc1e03f07313e0e5c903310fdf7c152c4069fc6d47e7c452d93ba",
+    "wp/outils/demo/c25-settings.py": "e1c71d83079cebce88bfef469932ef8c24c06f57cec8fa59e5c92f4a363a65f4",
+    "wp/outils/demo/c25.py": "f4315d9dbab2cdf7d443573258e1e3c9cb77741b848656dfb97b9780f4670b50",
+    "wp/plugins/imagine-site/Retractation.php": "61ab822800af0ff950fdcb2ef4b48d7c0465df73c62b6eb035ac729bbf602045",
+    "wp/plugins/imagine-site/RetractationConfidentialite.php": "0089745076ed8797862f6abef47c49274d19dd17f2cfa21376f5de6a99995af8",
+    "wp/plugins/imagine-site/RetractationReglages.php": "5f3435dafe6a55f9d92bd5c63a2cf3e44a21ec681a9af2b8cd7472ef44cfb573",
+    "wp/plugins/imagine-site/RetractationRegles.php": "2bd47e957ade4d39b83210a0adc754c4efe6c4948e0772b64fcb2f337c2632e5",
+    "wp/plugins/imagine-site/tests/RetractationAdapterTest.php": "c0f3cde6b2cf529722d2192c087a0a0a6a9b392b99dea3ed01ec6d8a22703a61",
+    "wp/plugins/imagine-site/tests/RetractationReglesTest.php": "15cb0c61ade78ab8873cdfe147b58e7518d789e8ea27abb39e1815518799d9f3",
+    "wp/plugins/imagine-site/tests/RetractationWPStubs.php": "e6f014a0b58b4375547505af38e2f2a871bff4497f75d580ea28356c14b15a0f",
+    "wp/tests/demo/c25-horslive.php": "342ef0fae0925f1c134990bb706d3ddc5186856874fa588271922e14a966c244",
+    "wp/tests/demo/c25-observer.php": "288af609e45ff7bdc20c748abeec6af07f66beeec137b119170b7c7b8f5063a0",
+    "wp/tests/demo/c25-runtime.php": "8e8413498149c6efbef414baf58e214180c4225cf344b2ff9ca42181424c05e8"
+  },
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "private_snapshot": {
+    "file": "c25-private-5104gf78/snapshot.json",
+    "sha256": "a36e5be16695c15e024573c4438d4259ccbb34ebe976df2e114774f490454c60",
+    "private": true
+  },
+  "restoration": {
+    "notes_absentes": true,
+    "demandes_absentes": true,
+    "reglage_absent": true
+  },
+  "tests_removed": {
+    "mu-plugins/c25-observer.php": true,
+    "imagine-demo-build/c25-runtime.php": true
+  },
+  "business_preserved": true,
+  "exact_rows_preserved": {
+    "users": true,
+    "usermeta": true,
+    "posts": true,
+    "postmeta": true,
+    "comments": true,
+    "commentmeta": true,
+    "wc_orders": true,
+    "wc_orders_meta": true,
+    "wc_order_addresses": true,
+    "wc_order_operational_data": true,
+    "woocommerce_order_items": true,
+    "woocommerce_order_itemmeta": true,
+    "business_options": true
+  }
+}

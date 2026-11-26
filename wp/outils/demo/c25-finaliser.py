@@ -23,6 +23,16 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def readme_contract():
+    text = (c25.ROOT / 'wp/plugins/imagine-site/README.md').read_text(encoding='utf-8')
+    marker = '## C-25 — rétractation, demande seule'
+    assert text.count(marker) == 1
+    section = marker + text.split(marker, 1)[1].split('\n## ', 1)[0]
+    for required in ['wp_slash($record)', 'added_option', 'updated_option', 'avant/après', 'UTC', '1–365', 'delete_user', 'panne SQL persistante', 'wp_die', 'c25-recette.py', 'c25.py local', 'preparer-image.ps1', 'rejouer.ps1', 'hors réseau', 'imagine-test-demo']:
+        assert required in section, required
+    return hashlib.sha256(section.encode()).hexdigest()
+
+
 def gates():
     sources = c25.sources()
     receipts = {key: read(name) for key, name in NAMES.items()}
@@ -57,6 +67,13 @@ def gates():
         assert row['required_failure'] in failed
     native = receipts['native']
     assert all(native['checks'].values()) and not native['native']['failures']
+    assert not native.get('error')
+    for name in ['options_creation_panne_preimage_absente_relue', 'options_creation_journal_avant_apres_auteur_UTC', 'options_modification_journal_2_reglages', 'options_modification_panne_preimage_exacte_relue', 'options_deux_pannes_SQL_reelles']:
+        assert native['checks'][name] is True
+    for name in ['motif_HTTP_relu', 'motif_HTTP_meta_WP_exacte', 'motif_HTTP_export_C21_registre_natif_exact', 'journal_panne_note_annulee']:
+        assert native['native']['checks'][name] is True
+    assert native['settings_HTTP']['fixture_group_restricted_to_C25'] is True
+    readme_contract()
     assert native['native']['total'] == len(native['native']['checks']) and all(native['native']['checks'].values())
     assert native['native_exit'] == 0 and native['native_stderr'] == ''
     assert all(native['restoration'].values()) and native['business_preserved']
@@ -85,7 +102,8 @@ def sceller():
             'mutations_detected': len(receipts['mutations']['mutations']),
             'http_checks': len(native['checks']), 'native_checks': native['native']['total'],
             'integration_checks': len(native['checks']) + native['native']['total'],
-            'readback': state, 'business_restored': True, 'blockers': [], 'visual_validation_pending': True}
+            'readback': state, 'business_restored': True, 'blockers': [], 'visual_validation_pending': True,
+            'readme_C25_sha256': readme_contract()}
     c25.save('livraison-corrections002-V2', data)
     print(json.dumps({k: data[k] for k in ['result', 'canonical', 'regression', 'mutations_detected', 'integration_checks', 'business_restored', 'blockers']}, ensure_ascii=False))
 
@@ -94,6 +112,7 @@ def verifier():
     sources, receipts, regression = gates()
     final = read('livraison-corrections002-V2')
     assert final['result'] == 'PASS' and final['sources'] == sources and final['blockers'] == []
+    assert final['readme_C25_sha256'] == readme_contract()
     for key in ['receipts', 'docs']:
         for name, expected in final[key].items():
             assert digest(c25.PROOF / name) == expected, name
