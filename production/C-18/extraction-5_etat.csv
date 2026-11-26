@@ -1,0 +1,5 @@
+abonnement_id,compte_id,prenom,nom,email,destinataire,rue,complement,code_postal,ville,pays,formule,mode_paiement,etat,echeance_utc
+79,4,,,imagine-c08-grace@example.org,,,,,,,,,"En délai de grâce","2027-01-01 00:00:00"
+104,14,"Personnage Fictif",A-GRACE,a-grace@example.org,"Personnage Fictif A-GRACE","1 rue Imaginaire",,1000,"Ville Fictive",BE,"C09 — Abonnement de fixture sans paiement (pas une offre)",,"En délai de grâce","2026-12-25 18:01:50"
+243,33,,,,"'=Personnage Fictif C13 BE","13 rue Imaginaire",,1000,"'@Ville Fictive",BE,,,"En délai de grâce","2027-11-01 00:00:00"
+244,34,,,c13-postal-fr@example.org,"'=Personnage Fictif C13 FR","13 rue Imaginaire",,75000,"'@Ville Fictive",FR,,,"En délai de grâce","2027-11-01 00:00:00"

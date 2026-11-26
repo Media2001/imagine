@@ -1,0 +1,2 @@
+abonnement_id,compte_id,prenom,nom,email,destinataire,rue,complement,code_postal,ville,pays,formule,mode_paiement,etat,echeance_utc
+107,15,"Personnage Fictif",A-SUSP,a-susp@example.org,"Personnage Fictif A-SUSP","1 rue Imaginaire",,1000,"Ville Fictive",BE,"C09 — Abonnement de fixture sans paiement (pas une offre)",,Suspendu,"2026-12-25 18:01:50"

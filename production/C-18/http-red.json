@@ -1,0 +1,9 @@
+{
+  "checks": {
+    "page_referent_native": false
+  },
+  "total": 1,
+  "failures": [
+    "page_referent_native"
+  ]
+}

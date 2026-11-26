@@ -71,6 +71,11 @@ require_once __DIR__ . '/Justificatifs.php';
 JustificatifsReglages::register();
 Justificatifs::register();
 
+require_once __DIR__ . '/ExtractionsRegles.php';
+require_once __DIR__ . '/ExtractionsNatives.php';
+require_once __DIR__ . '/ExtractionsAdmin.php';
+ExtractionsAdmin::register();
+
 require_once __DIR__ . '/MonCompte.php';
 MonCompte::register();
 

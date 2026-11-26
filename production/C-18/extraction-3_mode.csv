@@ -1,0 +1,2 @@
+abonnement_id,compte_id,prenom,nom,email,destinataire,rue,complement,code_postal,ville,pays,formule,mode_paiement,etat,echeance_utc
+101,13,"Personnage Fictif",A-PAPIER,a-papier@example.org,"Personnage Fictif A-PAPIER","1 rue Imaginaire",,1000,"Ville Fictive",BE,"C09 FICTIF — normal-4 — pas une offre Imagine",imagine_papier,Actif,"2026-11-25 19:01:50"
