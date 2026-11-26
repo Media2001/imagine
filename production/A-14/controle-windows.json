@@ -2,7 +2,7 @@
   {
     "console": "utf-8",
     "exit_code": 0,
-    "result": {
+    "verification": {
       "exit_code": 0,
       "checks": [
         {
@@ -34,11 +34,19 @@
           "status": "PASS"
         },
         {
+          "check": "classic_fusion_required_cases",
+          "status": "PASS"
+        },
+        {
           "check": "classic_all_tables_equal",
           "status": "PASS"
         },
         {
           "check": "classic_counts_partition",
+          "status": "PASS"
+        },
+        {
+          "check": "hpos_fusion_required_cases",
           "status": "PASS"
         },
         {
@@ -63,7 +71,7 @@
   {
     "console": "cp1252",
     "exit_code": 0,
-    "result": {
+    "verification": {
       "exit_code": 0,
       "checks": [
         {
@@ -95,11 +103,19 @@
           "status": "PASS"
         },
         {
+          "check": "classic_fusion_required_cases",
+          "status": "PASS"
+        },
+        {
           "check": "classic_all_tables_equal",
           "status": "PASS"
         },
         {
           "check": "classic_counts_partition",
+          "status": "PASS"
+        },
+        {
+          "check": "hpos_fusion_required_cases",
           "status": "PASS"
         },
         {

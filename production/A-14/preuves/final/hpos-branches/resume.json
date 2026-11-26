@@ -1,0 +1,19 @@
+{
+    "schema": "imagine-a14-v1",
+    "read_only": true,
+    "storage": "hpos",
+    "audit_sha256": "82dc1c2e306bb0b7ed8568dd7b3959ba3d442a09ce025dc6149fa9c8dafb1af0",
+    "counts": {
+        "contacts_total": 3,
+        "contacts_with_account": 2,
+        "contacts_without_account": 1,
+        "ambiguous_contact_lines": 0,
+        "accounts_without_contact": 10,
+        "accounts_unmatchable": 1,
+        "invalid_contact_lines": 0,
+        "duplicate_contact_lines": 0,
+        "unsubscribed_contacts": 0,
+        "blocked_contacts": 0
+    },
+    "anomalies": []
+}

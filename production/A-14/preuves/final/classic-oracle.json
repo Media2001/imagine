@@ -4,6 +4,11 @@
     "bob": false,
     "carol": false
   },
-  "accounts": 14,
+  "accounts": 15,
+  "branches": {
+    "pending_cancel": true,
+    "alice_active_count": 2,
+    "reserved_domain_marker": false
+  },
   "hpos": false
 }

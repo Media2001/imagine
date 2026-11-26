@@ -1,0 +1,11 @@
+{
+  "url": "https://raw.githubusercontent.com/Automattic/woocommerce-subscriptions-core/trunk/includes/wcs-user-functions.php",
+  "http_status": 200,
+  "sha256": "cc05e4ae026cb699b8d434758e2731f1992300cd1b178e9796dde8f545438ea9",
+  "bytes": 15295,
+  "functions": [
+    "wcs_get_users_subscriptions",
+    "wcs_user_has_subscription"
+  ],
+  "scope": "Documentation publique Automattic examinee; API native disponible, SQL conserve par decision explicite."
+}

@@ -102,6 +102,11 @@
       }
     },
     {
+      "check": "classic:french_summary_and_source_line_convention",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:every_anomaly_correct_line",
       "status": "PASS",
       "detail": null
@@ -118,6 +123,21 @@
     },
     {
       "check": "classic:permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:pending_cancel_explicitly_not_active",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:reserved_domain_without_marker_excluded",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:two_active_subscriptions_one_account",
       "status": "PASS",
       "detail": null
     },
@@ -171,8 +191,8 @@
       "status": "PASS",
       "detail": {
         "tables": 55,
-        "before": "a1135e13fcd9120d6b175b603a5afb7830374ef02856e0752379e85a4e1c8062",
-        "after": "a1135e13fcd9120d6b175b603a5afb7830374ef02856e0752379e85a4e1c8062"
+        "before": "6a66a0448b05df5f70a587f8d3b73edad9e3a45c6dc47147091fd3d005cc8630",
+        "after": "6a66a0448b05df5f70a587f8d3b73edad9e3a45c6dc47147091fd3d005cc8630"
       }
     },
     {
@@ -239,6 +259,11 @@
       }
     },
     {
+      "check": "hpos:french_summary_and_source_line_convention",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "hpos:every_anomaly_correct_line",
       "status": "PASS",
       "detail": null
@@ -255,6 +280,21 @@
     },
     {
       "check": "hpos:permissions",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:pending_cancel_explicitly_not_active",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:reserved_domain_without_marker_excluded",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:two_active_subscriptions_one_account",
       "status": "PASS",
       "detail": null
     },
@@ -308,8 +348,8 @@
       "status": "PASS",
       "detail": {
         "tables": 55,
-        "before": "51a227a0d1d57422e6662d3091580e6925eaae4548d916904ccd139f9751470b",
-        "after": "51a227a0d1d57422e6662d3091580e6925eaae4548d916904ccd139f9751470b"
+        "before": "249b9ce1305eeb2548ab3c2a1f0e2c93d2a65c8037410fb22a5c34a5f5b1452f",
+        "after": "249b9ce1305eeb2548ab3c2a1f0e2c93d2a65c8037410fb22a5c34a5f5b1452f"
       }
     },
     {

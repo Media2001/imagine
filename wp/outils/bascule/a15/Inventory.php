@@ -30,8 +30,24 @@ final class Inventory
             $value = (string) $settings[$key];
             return !($emptyFallback && $value === '') && $value !== $default;
         };
-        $subject = $changed('subject', (string) $email->get_default_subject(), true);
-        $content = $changed('heading', (string) $email->get_default_heading(), true);
+        $subject = false;
+        $content = false;
+        foreach ($fields as $key => $field) {
+            if (!preg_match('/\A(subject|heading)(?:_[a-zA-Z0-9_]+)?\z/D', (string) $key, $kind)) {
+                continue;
+            }
+            $method = 'get_default_' . $key;
+            $default = $field['placeholder'] ?? $field['default'] ?? '';
+            if (in_array($key, ['subject', 'heading'], true) && method_exists($email, $method)) {
+                $default = $email->$method();
+            }
+            $modified = $changed($key, (string) $default, true);
+            if ($kind[1] === 'subject') {
+                $subject = $subject || $modified;
+            } else {
+                $content = $content || $modified;
+            }
+        }
         foreach (['body', 'additional_content', 'preheader'] as $key) {
             if (isset($fields[$key]) || array_key_exists($key, $settings)) {
                 $method = 'get_default_' . $key;
@@ -39,9 +55,26 @@ final class Inventory
                 $content = $content || $changed($key, (string) $default);
             }
         }
+        $list = static function (mixed $value): array {
+            if (!is_scalar($value) && $value !== null) {
+                throw new \RuntimeException('A15_SETTINGS_SHAPE');
+            }
+            $parts = preg_split('/[,;\r\n]+/', (string) $value);
+            $parts = array_values(array_unique(array_filter(array_map(
+                static fn(string $item): string => strtolower(preg_replace('/\s+/', '', $item)),
+                $parts
+            ), static fn(string $item): bool => $item !== '')));
+            sort($parts, SORT_STRING);
+            return $parts;
+        };
         $recipient = false;
         foreach (['recipient', 'cc', 'bcc'] as $key) {
-            $recipient = $recipient || (isset($settings[$key]) && trim((string) $settings[$key]) !== '');
+            if (!array_key_exists($key, $settings)) {
+                continue;
+            }
+            $configured = $list($settings[$key]);
+            $default = $list($fields[$key]['default'] ?? '');
+            $recipient = $recipient || ($configured !== [] && $configured !== $default);
         }
         if (!preg_match('/\A[a-zA-Z0-9_-]{1,120}\z/D', (string) $email->id)) {
             throw new \RuntimeException('A15_EMAIL_ID_UNSAFE');

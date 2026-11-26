@@ -36,6 +36,11 @@ if (is_file('/subject/a15/Inventory.php')) {
             return [
                 'subject' => ['default' => ''], 'heading' => ['default' => ''],
                 'body' => ['default' => 'Native default'],
+                'subject_full' => ['default' => '', 'placeholder' => 'Full subject default'],
+                'subject_partial' => ['default' => '', 'placeholder' => 'Partial subject default'],
+                'subject_paid' => ['default' => '', 'placeholder' => 'Paid subject default'],
+                'heading_partial' => ['default' => '', 'placeholder' => 'Partial heading default'],
+                'recipient' => ['default' => 'admin@example.org,second@example.org'],
             ];
         }
         public function get_default_subject(): string
@@ -77,6 +82,26 @@ if (is_file('/subject/a15/Inventory.php')) {
     $check('address_in_title_masked', !str_contains(json_encode($r, JSON_THROW_ON_ERROR), '@'));
     $check('absent_settings_not_custom', $r['subject_customised'] === false
         && $r['content_customised'] === false && $r['recipient_customised'] === false);
+    $email->settings = ['subject_partial' => 'A15_VARIANT_PRIVATE_CANARY',
+        'heading_partial' => 'A15_HEADING_PRIVATE_CANARY'];
+    $r = \Imagine\EmailInventory\Inventory::shape($email, 'fixture');
+    $check('declared_variants_only_modified', $r['subject_customised'] === true && $r['content_customised'] === true);
+    $email->settings = ['subject_partial' => 'Partial subject default',
+        'heading_partial' => 'Partial heading default', 'subject_paid' => 'Paid subject default'];
+    $r = \Imagine\EmailInventory\Inventory::shape($email, 'fixture');
+    $check('declared_variants_own_defaults', !$r['subject_customised'] && !$r['content_customised']);
+    $email->settings = ['subject_full' => '', 'heading_partial' => '', 'subject_paid' => ''];
+    $r = \Imagine\EmailInventory\Inventory::shape($email, 'fixture');
+    $check('declared_empty_variants_native_fallback', !$r['subject_customised'] && !$r['content_customised']);
+    $email->settings = ['recipient' => ' SECOND@example.org ; admin@example.org '];
+    $r = \Imagine\EmailInventory\Inventory::shape($email, 'fixture');
+    $check('saved_default_recipient_list_not_custom', $r['recipient_customised'] === false);
+    $email->settings['recipient'] = 'different@example.org';
+    $r = \Imagine\EmailInventory\Inventory::shape($email, 'fixture');
+    $check('different_recipient_custom', $r['recipient_customised'] === true);
+    $email->settings = ['recipient' => 'admin@example.org,second@example.org', 'cc' => 'extra@example.org'];
+    $r = \Imagine\EmailInventory\Inventory::shape($email, 'fixture');
+    $check('cc_addition_separate_from_default_recipient', $r['recipient_customised'] === true);
     $email->block_email_editor_enabled = true;
     $refused = false;
     try {

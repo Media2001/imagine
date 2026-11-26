@@ -33,7 +33,7 @@
         "-B",
         "wp/tests/a14/run.py",
         "--output",
-        "C:\\Users\\Ced\\AppData\\Local\\Temp\\a14-matrix-0516\\utf8"
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a14-matrix-corrections0615\\utf8"
       ],
       "environment": {
         "PYTHONIOENCODING": "utf-8",
@@ -75,7 +75,7 @@
         "-B",
         "wp/tests/a14/run.py",
         "--output",
-        "C:\\Users\\Ced\\AppData\\Local\\Temp\\a14-matrix-0516\\cp1252"
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a14-matrix-corrections0615\\cp1252"
       ],
       "environment": {
         "PYTHONIOENCODING": "cp1252",
@@ -90,7 +90,7 @@
         "-B",
         "wp/tests/a14/style.py",
         "--output",
-        "C:\\Users\\Ced\\AppData\\Local\\Temp\\a14-matrix-0516\\style"
+        "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a14-matrix-corrections0615\\style"
       ],
       "environment": {
         "PYTHONIOENCODING": "cp1252",
