@@ -1,0 +1,31 @@
+{
+  "at": "2026-11-26T20:26:25.929998+00:00",
+  "scope": "imagine-test-demo",
+  "mutation": "id-question",
+  "mutation_replacements": 1,
+  "mutated_source_sha256": "c0ca6b7a6f7fdfe1c3e5ff92eb666b2fc37ffe820a7fa07b9bc8d38f8d42ad76",
+  "total": 8,
+  "checks": {
+    "temoin_catalogue_present": true,
+    "question_reservee_refusee": false,
+    "choix_reserve_refuse": true,
+    "temoin_newsletter_present": true,
+    "temoin_conjonction_ouvre": true,
+    "sans_consentement_ferme": true,
+    "sans_newsletter_ferme": true,
+    "sans_email_ferme": true
+  },
+  "failures": [
+    "question_reservee_refusee"
+  ],
+  "exit": 1,
+  "stderr": "",
+  "state_preserved": true,
+  "all_business_rows_preserved": true,
+  "private_snapshot": {
+    "file": "b06-private-b6xqrpfz/snapshot.json",
+    "sha256": "a879ed77ea9e32863f48dafbbd30f6abbccaf84580c6cd97421903aadb8f81fe",
+    "private": true
+  },
+  "source_sha256": "fbe2ae5f9031d61c449a3e266f8a4c6e667dfcbbb9614b8ca2bc9cf8b9d3ccb5"
+}

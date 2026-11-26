@@ -78,6 +78,12 @@ try {
         $now=gmdate('Y-m-d\TH:i:s\Z');$answers=[$old[0]['id']=>['choix'=>['fusion-choix-c24-a'],'date_utc'=>$now]];
         update_user_meta($id,P::META,$answers);update_user_meta($id,P::CONSENTEMENT,['accord'=>true,'date_utc'=>$now]);
         $nl=Imagine\Site\Newsletters::catalogue();$checks['newsletter_active_presente']=count($nl)>0;
+        delete_user_meta($id,Imagine\Site\Newsletters::META);
+        update_option('imagine_newsletters_creation','oui',false);
+        Imagine\Site\Newsletters::creation($id);
+        $created=Imagine\Site\Newsletters::preferences($id);
+        $checks['vraie_creation_newsletter_defaut']=count(array_filter($created,static fn($p)=>($p['choix']??null)===true && ($p['origine']??null)==='defaut_creation'))===1;
+        $checks['vraie_creation_defaut_projection_fermee']=$projection::attributsConnecteur($id)===[];
         foreach (['defaut_creation','inconnue','', 'lecteur'] as $origin) {
             update_user_meta($id,Imagine\Site\Newsletters::META,[$nl[0]['id']=>['choix'=>true,'date_utc'=>$now,'origine'=>$origin]]);
             $checks['origine_'.($origin?:'absente')]= $projection::attributsConnecteur($id)===($origin==='lecteur'?$answers:[]);

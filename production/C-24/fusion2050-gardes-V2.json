@@ -1,0 +1,42 @@
+{
+  "at": "2026-11-26T20:27:14.922877+00:00",
+  "scope": "imagine-test-demo",
+  "identity": {
+    "site": "imagine-test-demo",
+    "url": "http://192.168.129.32:8085",
+    "guards": {
+      "mail": true,
+      "http": true,
+      "paiements": true
+    },
+    "offline_sha256": "7cfbf73be8549439f1f2b041945ad590903ea860a288373259ca72a477f88bb9"
+  },
+  "receipts": [
+    {
+      "receipt": "fusion2050-gardes-normal-V2",
+      "required_failure": null
+    },
+    {
+      "receipt": "fusion2050-gardes-id-question-V2",
+      "required_failure": "question_reservee_refusee"
+    },
+    {
+      "receipt": "fusion2050-gardes-id-choix-V2",
+      "required_failure": "choix_reserve_refuse"
+    },
+    {
+      "receipt": "fusion2050-gardes-consentement-V2",
+      "required_failure": "sans_consentement_ferme"
+    },
+    {
+      "receipt": "fusion2050-gardes-newsletter-V2",
+      "required_failure": "sans_newsletter_ferme"
+    },
+    {
+      "receipt": "fusion2050-gardes-email-V2",
+      "required_failure": "sans_email_ferme"
+    }
+  ],
+  "mutations": 5,
+  "result": "PASS"
+}
