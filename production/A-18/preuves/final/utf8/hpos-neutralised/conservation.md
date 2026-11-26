@@ -52,9 +52,9 @@ Comptes uniquement ; aucune valeur ni decision de suppression.
             "reading_denied": null
         }
     ],
-    "count_basis": "Une valeur stockee compte au plus une fois par forme ; une cle est separee par portee.",
+    "count_basis": "Valeurs physiquement conservees dans les deux magasins presents, actif ou inactif ; une ligne compte au plus une fois par forme, separee par portee, magasin et cle. storage indique seulement le magasin actif ; store=commun pour comptes et options.",
     "server_rules": "Presence observee par nom technique ferme ; lecture effectivement interdite inconnue sans ouvrir les fichiers ni lire la configuration serveur.",
     "token_basis": "References par passerelle et type ; jamais des numeros de carte ou IBAN.",
-    "audit_sha256": "10fee28189c8a16c8f308a1cfc866557bcd103da5aed51f2327482dbcd09b2ac"
+    "audit_sha256": "2cf601869017ce6462c9a29a17e14a63960133b1b466a7af992b2f72f743d99d"
 }
 ```

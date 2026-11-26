@@ -7,6 +7,7 @@
         "groups": [
             {
                 "scope": "account",
+                "store": "commun",
                 "key": "_a18_card",
                 "iban": 0,
                 "card": 1,
@@ -14,6 +15,31 @@
             },
             {
                 "scope": "account",
+                "store": "commun",
+                "key": "_a18_r2_card",
+                "iban": 0,
+                "card": 1,
+                "national": 0
+            },
+            {
+                "scope": "account",
+                "store": "commun",
+                "key": "_a18_r2_rr",
+                "iban": 0,
+                "card": 0,
+                "national": 1
+            },
+            {
+                "scope": "account",
+                "store": "commun",
+                "key": "_a18_r3_card",
+                "iban": 0,
+                "card": 1,
+                "national": 0
+            },
+            {
+                "scope": "account",
+                "store": "commun",
                 "key": "_a18_rr",
                 "iban": 0,
                 "card": 0,
@@ -21,20 +47,63 @@
             },
             {
                 "scope": "option",
+                "store": "commun",
                 "key": "a18_bank_setting",
                 "iban": 1,
                 "card": 0,
                 "national": 0
             },
             {
+                "scope": "option",
+                "store": "commun",
+                "key": "a18_r3_bank_setting",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            },
+            {
                 "scope": "order",
+                "store": "classique",
+                "key": "_a18_inactive_bank",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            },
+            {
+                "scope": "order",
+                "store": "classique",
+                "key": "_a18_shared_bank",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            },
+            {
+                "scope": "order",
+                "store": "hpos",
                 "key": "_a18_bank",
                 "iban": 1,
                 "card": 0,
                 "national": 0
             },
             {
+                "scope": "order",
+                "store": "hpos",
+                "key": "_a18_shared_bank",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            },
+            {
                 "scope": "subscription",
+                "store": "classique",
+                "key": "_a18_inactive_bank",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            },
+            {
+                "scope": "subscription",
+                "store": "hpos",
                 "key": "_a18_bank",
                 "iban": 1,
                 "card": 0,
@@ -83,8 +152,8 @@
             "reading_denied": null
         }
     ],
-    "count_basis": "Une valeur stockee compte au plus une fois par forme ; une cle est separee par portee.",
+    "count_basis": "Valeurs physiquement conservees dans les deux magasins presents, actif ou inactif ; une ligne compte au plus une fois par forme, separee par portee, magasin et cle. storage indique seulement le magasin actif ; store=commun pour comptes et options.",
     "server_rules": "Presence observee par nom technique ferme ; lecture effectivement interdite inconnue sans ouvrir les fichiers ni lire la configuration serveur.",
     "token_basis": "References par passerelle et type ; jamais des numeros de carte ou IBAN.",
-    "audit_sha256": "e2d1d06869873efa991de90c3d5e73a86ac433400ce4d296c5e175af040a2a6c"
+    "audit_sha256": "7a6a1e9ec663d599f43851c3eed0cb81440ed5c80eccb7bb8ab11f5f6776fdbe"
 }

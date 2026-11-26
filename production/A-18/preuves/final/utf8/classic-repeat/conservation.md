@@ -12,6 +12,7 @@ Comptes uniquement ; aucune valeur ni decision de suppression.
         "groups": [
             {
                 "scope": "account",
+                "store": "commun",
                 "key": "_a18_card",
                 "iban": 0,
                 "card": 1,
@@ -19,6 +20,31 @@ Comptes uniquement ; aucune valeur ni decision de suppression.
             },
             {
                 "scope": "account",
+                "store": "commun",
+                "key": "_a18_r2_card",
+                "iban": 0,
+                "card": 1,
+                "national": 0
+            },
+            {
+                "scope": "account",
+                "store": "commun",
+                "key": "_a18_r2_rr",
+                "iban": 0,
+                "card": 0,
+                "national": 1
+            },
+            {
+                "scope": "account",
+                "store": "commun",
+                "key": "_a18_r3_card",
+                "iban": 0,
+                "card": 1,
+                "national": 0
+            },
+            {
+                "scope": "account",
+                "store": "commun",
                 "key": "_a18_rr",
                 "iban": 0,
                 "card": 0,
@@ -26,13 +52,55 @@ Comptes uniquement ; aucune valeur ni decision de suppression.
             },
             {
                 "scope": "option",
+                "store": "commun",
                 "key": "a18_bank_setting",
                 "iban": 1,
                 "card": 0,
                 "national": 0
             },
             {
+                "scope": "option",
+                "store": "commun",
+                "key": "a18_r3_bank_setting",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            },
+            {
                 "scope": "order",
+                "store": "classique",
+                "key": "_a18_bank",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            },
+            {
+                "scope": "order",
+                "store": "classique",
+                "key": "_a18_shared_bank",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            },
+            {
+                "scope": "order",
+                "store": "hpos",
+                "key": "_a18_inactive_bank",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            },
+            {
+                "scope": "order",
+                "store": "hpos",
+                "key": "_a18_shared_bank",
+                "iban": 1,
+                "card": 0,
+                "national": 0
+            },
+            {
+                "scope": "subscription",
+                "store": "classique",
                 "key": "_a18_bank",
                 "iban": 1,
                 "card": 0,
@@ -40,7 +108,8 @@ Comptes uniquement ; aucune valeur ni decision de suppression.
             },
             {
                 "scope": "subscription",
-                "key": "_a18_bank",
+                "store": "hpos",
+                "key": "_a18_inactive_bank",
                 "iban": 1,
                 "card": 0,
                 "national": 0
@@ -88,9 +157,9 @@ Comptes uniquement ; aucune valeur ni decision de suppression.
             "reading_denied": null
         }
     ],
-    "count_basis": "Une valeur stockee compte au plus une fois par forme ; une cle est separee par portee.",
+    "count_basis": "Valeurs physiquement conservees dans les deux magasins presents, actif ou inactif ; une ligne compte au plus une fois par forme, separee par portee, magasin et cle. storage indique seulement le magasin actif ; store=commun pour comptes et options.",
     "server_rules": "Presence observee par nom technique ferme ; lecture effectivement interdite inconnue sans ouvrir les fichiers ni lire la configuration serveur.",
     "token_basis": "References par passerelle et type ; jamais des numeros de carte ou IBAN.",
-    "audit_sha256": "b156b4c2271c076d78c0cd42c2136cbdcf6c0a82acfcd41a2118eeb87feabe60"
+    "audit_sha256": "fb09cb028ef344ee9c6b686d58b3e328f1ee31bd1ebd97c450aaad58522fab50"
 }
 ```

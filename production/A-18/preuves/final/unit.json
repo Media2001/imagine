@@ -13,6 +13,14 @@
             "status": "PASS"
         },
         {
+            "check": "national_11_digits_not_a_card",
+            "status": "PASS"
+        },
+        {
+            "check": "independent_forms_same_row_count_once_each",
+            "status": "PASS"
+        },
+        {
             "check": "embedded_serialized_counted_once_per_form",
             "status": "PASS"
         },
@@ -34,6 +42,106 @@
         },
         {
             "check": "unsafe_key_masked_no_value_output",
+            "status": "PASS"
+        },
+        {
+            "check": "r3_iban_scan_to_groups_multiple_spaces",
+            "status": "PASS"
+        },
+        {
+            "check": "r3_card_scan_to_groups_multiple_spaces",
+            "status": "PASS"
+        },
+        {
+            "check": "r3_iban_scan_to_groups_line_feed",
+            "status": "PASS"
+        },
+        {
+            "check": "r3_card_scan_to_groups_line_feed",
+            "status": "PASS"
+        },
+        {
+            "check": "r3_iban_scan_to_groups_tabs",
+            "status": "PASS"
+        },
+        {
+            "check": "r3_card_scan_to_groups_tabs",
+            "status": "PASS"
+        },
+        {
+            "check": "r3_iban_scan_to_groups_crlf",
+            "status": "PASS"
+        },
+        {
+            "check": "r3_card_scan_to_groups_crlf",
+            "status": "PASS"
+        },
+        {
+            "check": "r3_iban_scan_to_groups_nbsp",
+            "status": "PASS"
+        },
+        {
+            "check": "r3_card_scan_to_groups_nbsp",
+            "status": "PASS"
+        },
+        {
+            "check": "r3_iban_scan_to_groups_narrow_nbsp",
+            "status": "PASS"
+        },
+        {
+            "check": "r3_card_scan_to_groups_narrow_nbsp",
+            "status": "PASS"
+        },
+        {
+            "check": "r2_card_trailing_digits",
+            "status": "PASS"
+        },
+        {
+            "check": "r2_card_leading_digits",
+            "status": "PASS"
+        },
+        {
+            "check": "r2_card_both_sides",
+            "status": "PASS"
+        },
+        {
+            "check": "r2_register_trailing_year",
+            "status": "PASS"
+        },
+        {
+            "check": "r2_register_leading_year",
+            "status": "PASS"
+        },
+        {
+            "check": "r2_register_both_sides",
+            "status": "PASS"
+        },
+        {
+            "check": "r2_no_arbitrary_fragment_card_contiguous_suffix",
+            "status": "PASS"
+        },
+        {
+            "check": "r2_no_arbitrary_fragment_card_contiguous_prefix",
+            "status": "PASS"
+        },
+        {
+            "check": "r2_no_arbitrary_fragment_register_contiguous_suffix",
+            "status": "PASS"
+        },
+        {
+            "check": "r2_no_arbitrary_fragment_register_contiguous_prefix",
+            "status": "PASS"
+        },
+        {
+            "check": "r2_no_arbitrary_fragment_card_attached_letters",
+            "status": "PASS"
+        },
+        {
+            "check": "r2_no_arbitrary_fragment_register_attached_letters",
+            "status": "PASS"
+        },
+        {
+            "check": "memo_iban_registry_single_load",
             "status": "PASS"
         },
         {

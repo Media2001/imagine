@@ -1,111 +1,93 @@
 {
   "exit_code": 0,
-  "rows": [
+  "probes": [
     {
-      "console": "utf8",
-      "environment": {
-        "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
-        "version": "3.14.7 (main, Sep  1 2026, 14:17:30) [MSC v.1944 64 bit (AMD64)]",
-        "platform": "win32",
-        "stdout": "utf-8",
-        "stderr": "utf-8",
-        "locale": "cp1252",
-        "preferred": "utf-8",
-        "utf8_mode": 1,
-        "PYTHONIOENCODING": "utf-8"
-      },
+      "console": "cp1252",
       "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+        "C:\\Python314\\python.exe",
         "-B",
-        "wp/tests/a18/test_launcher.py"
+        "-c",
+        "import json,locale,sys; print(json.dumps({'platform':sys.platform,'executable':sys.executable,'version':sys.version,'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode}))"
       ],
-      "exit_code": 0,
-      "log": "utf8-launcher-tests.log"
+      "exit_code": 0
     },
     {
       "console": "utf8",
-      "environment": {
-        "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
-        "version": "3.14.7 (main, Sep  1 2026, 14:17:30) [MSC v.1944 64 bit (AMD64)]",
-        "platform": "win32",
-        "stdout": "utf-8",
-        "stderr": "utf-8",
-        "locale": "cp1252",
-        "preferred": "utf-8",
-        "utf8_mode": 1,
-        "PYTHONIOENCODING": "utf-8"
-      },
       "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
+        "C:\\Python314\\python.exe",
         "-B",
-        "wp/tests/a18/run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a18-final-owned-py3147-20261126-v2\\utf8"
+        "-c",
+        "import json,locale,sys; print(json.dumps({'platform':sys.platform,'executable':sys.executable,'version':sys.version,'stdout':sys.stdout.encoding,'stderr':sys.stderr.encoding,'locale':locale.getencoding(),'preferred':locale.getpreferredencoding(False),'utf8_mode':sys.flags.utf8_mode}))"
       ],
-      "exit_code": 0,
-      "log": "utf8-runner.log"
-    },
-    {
-      "console": "cp1252",
-      "environment": {
-        "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
-        "version": "3.14.7 (main, Sep  1 2026, 14:17:30) [MSC v.1944 64 bit (AMD64)]",
-        "platform": "win32",
-        "stdout": "cp1252",
-        "stderr": "cp1252",
-        "locale": "cp1252",
-        "preferred": "cp1252",
-        "utf8_mode": 0,
-        "PYTHONIOENCODING": "cp1252"
-      },
-      "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
-        "-B",
-        "wp/tests/a18/test_launcher.py"
-      ],
-      "exit_code": 0,
-      "log": "cp1252-launcher-tests.log"
-    },
-    {
-      "console": "cp1252",
-      "environment": {
-        "executable": "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
-        "version": "3.14.7 (main, Sep  1 2026, 14:17:30) [MSC v.1944 64 bit (AMD64)]",
-        "platform": "win32",
-        "stdout": "cp1252",
-        "stderr": "cp1252",
-        "locale": "cp1252",
-        "preferred": "cp1252",
-        "utf8_mode": 0,
-        "PYTHONIOENCODING": "cp1252"
-      },
-      "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
-        "-B",
-        "wp/tests/a18/run.py",
-        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a18-final-owned-py3147-20261126-v2\\cp1252"
-      ],
-      "exit_code": 0,
-      "log": "cp1252-runner.log"
+      "exit_code": 0
     }
   ],
-  "style": {
-    "command": [
-      "C:\\Users\\Ced\\AppData\\Local\\hermes\\tools\\python-3.14.7+20260901-win32-x64\\python.exe",
-      "-B",
-      "wp/tests/a18/style.py",
-      "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a18-final-owned-py3147-20261126-v2\\style"
-    ],
-    "exit_code": 0
-  },
-  "preparation": {
-    "command": [
-      "powershell.exe",
-      "-NoProfile",
-      "-ExecutionPolicy",
-      "Bypass",
-      "-File",
-      "wp/tests/preparer-image.ps1"
-    ],
-    "exit_code": 0
-  }
+  "rows": [
+    {
+      "console": "cp1252",
+      "suite": "launcher",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\a18\\test_launcher.py"
+      ],
+      "environment": {
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "subprocess_decoder": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "console": "cp1252",
+      "suite": "native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\a18\\run.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a18-corrections-20261126-101833\\matrix-final-v2\\cp1252-run"
+      ],
+      "environment": {
+        "PYTHONIOENCODING": "cp1252",
+        "PYTHONUTF8": "0",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "subprocess_decoder": "cp1252",
+      "exit_code": 0
+    },
+    {
+      "console": "utf8",
+      "suite": "launcher",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\a18\\test_launcher.py"
+      ],
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "subprocess_decoder": "utf-8",
+      "exit_code": 0
+    },
+    {
+      "console": "utf8",
+      "suite": "native",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "C:\\Users\\Ced\\imagine\\wp\\tests\\a18\\run.py",
+        "--output=C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a18-corrections-20261126-101833\\matrix-final-v2\\utf8"
+      ],
+      "environment": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "subprocess_decoder": "utf-8",
+      "exit_code": 0
+    }
+  ]
 }

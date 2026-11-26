@@ -1,11 +1,17 @@
 {
   "exit_code": 0,
+  "mode": "candidate_without_parent_gate",
+  "pending_gates": [
+    "parent_preparer_image",
+    "parent_independent_verification"
+  ],
+  "check_count": 36,
   "counts": {
-    "cp1252:unit": 10,
-    "cp1252:result": 84,
+    "cp1252:unit": 37,
+    "cp1252:result": 100,
     "cp1252:runner": 7,
-    "utf8:unit": 10,
-    "utf8:result": 84,
+    "utf8:unit": 37,
+    "utf8:result": 100,
     "utf8:runner": 7
   },
   "checks": [
@@ -27,6 +33,10 @@
     },
     {
       "check": "cp1252:executed_source_snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:required_unit_regressions",
       "status": "PASS"
     },
     {
@@ -78,6 +88,10 @@
       "status": "PASS"
     },
     {
+      "check": "utf8:required_unit_regressions",
+      "status": "PASS"
+    },
+    {
       "check": "utf8:classic:required_native_cases",
       "status": "PASS"
     },
@@ -114,7 +128,7 @@
       "status": "PASS"
     },
     {
-      "check": "preparer_image_actual_exit",
+      "check": "candidate_parent_gate_explicitly_pending",
       "status": "PASS"
     },
     {

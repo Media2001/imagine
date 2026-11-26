@@ -1,0 +1,10 @@
+{
+  "status": "pending_parent",
+  "not_a_pret": true,
+  "pending": [
+    "wp/tests/preparer-image.ps1 after final A18/A19 sources",
+    "parent independent verification and resealing"
+  ],
+  "executed_here": false,
+  "legacy_preparation_receipt_retained": false
+}

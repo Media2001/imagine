@@ -61,6 +61,26 @@
       "detail": null
     },
     {
+      "check": "classic:r1_inactive_store:order",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:r1_inactive_store:subscription",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:r1_physical_rows_not_logical_dedup",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:r1_closed_store_labels",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "classic:exact_group:account:_a18_card",
       "status": "PASS",
       "detail": null
@@ -82,6 +102,26 @@
     },
     {
       "check": "classic:exact_group:option:a18_bank_setting",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:r2_card:scan_to_groups",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:r2_register:scan_to_groups",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:r3_card:scan_to_groups",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "classic:r3_iban:scan_to_groups",
       "status": "PASS",
       "detail": null
     },
@@ -265,6 +305,26 @@
       "detail": null
     },
     {
+      "check": "hpos:r1_inactive_store:order",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:r1_inactive_store:subscription",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:r1_physical_rows_not_logical_dedup",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:r1_closed_store_labels",
+      "status": "PASS",
+      "detail": null
+    },
+    {
       "check": "hpos:exact_group:account:_a18_card",
       "status": "PASS",
       "detail": null
@@ -286,6 +346,26 @@
     },
     {
       "check": "hpos:exact_group:option:a18_bank_setting",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:r2_card:scan_to_groups",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:r2_register:scan_to_groups",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:r3_card:scan_to_groups",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "check": "hpos:r3_iban:scan_to_groups",
       "status": "PASS",
       "detail": null
     },

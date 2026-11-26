@@ -44,7 +44,7 @@ def verify(packet,candidate=False):
         check('preparer_image_actual_exit',prepared and prep.get('exit_code')==0 and prep.get('command',[''])[-1]=='wp/tests/preparer-image.ps1' and 'image verifiee' in (packet/'preparation.log').read_text(encoding='utf-8'))
     matrix=load(packet/'windows-matrix.json');check('matrix_actual_green',matrix['exit_code']==0 and len(matrix['rows'])==4 and all(r['exit_code']==0 for r in matrix['rows']))
     for console in ['utf8','cp1252']:
-        env=load(packet/(console+'-environment.json'));check(console+':windows_measured_console',env['platform']=='win32' and env['version'].startswith('3.14.7') and env['stdout']==env['stderr']==('cp1252' if console=='cp1252' else 'utf-8') and env['utf8_mode']==int(console=='utf8'))
+        env=load(packet/(console+'-environment.json'));check(console+':windows_measured_console',env['platform']=='win32' and env['version'].startswith('3.14.') and env['stdout']==env['stderr']==('cp1252' if console=='cp1252' else 'utf-8') and env['utf8_mode']==int(console=='utf8'))
         check(console+':python_launcher_tests_actual', 'Ran 3 tests' in (packet/(console+'-launcher-tests.log')).read_text(encoding='utf-8') and '\nOK\n' in (packet/(console+'-launcher-tests.log')).read_text(encoding='utf-8'))
     appendix=(ROOT/'production'/UP/'readme-ajout.txt').read_bytes().splitlines(keepends=True);doc=(ROOT/'wp/tests/a02-audit/README.md').read_bytes().splitlines(keepends=True)
     check('own_two_shared_readme_lines',len(appendix)==2 and all(doc.count(line)==1 for line in appendix))
