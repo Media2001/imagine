@@ -1,5 +1,5 @@
 """A19 real native stores and explicit-link oracle; synthetic and disconnected."""
-import importlib.util,json,re,sys
+import datetime,importlib.util,json,re,sys
 from pathlib import Path
 sys.dont_write_bytecode=True
 spec=importlib.util.spec_from_file_location('fixture','/opt/a02/inside.py');b=importlib.util.module_from_spec(spec);spec.loader.exec_module(b)
@@ -9,8 +9,9 @@ def check(name,ok,detail=None):
     return original(name,ok,detail)
 b.check=check
 OUT=Path('/report')
-def inventory(site,out,audit,*extra):
-    return b.cmd(['python3','/subject/a19/confine.py','--wp-path='+str(site),'--output='+str(out),'--audit='+str(audit),'--as-of=2026-11-26T00:00:00Z',*extra],check=False)
+def inventory(site,out,audit,*extra,as_of='2026-11-26T00:00:00Z'):
+    clock=[] if as_of is None else ['--as-of='+as_of]
+    return b.cmd(['python3','/subject/a19/confine.py','--wp-path='+str(site),'--output='+str(out),'--audit='+str(audit),*clock,*extra],check=False)
 def run_storage(storage):
     site,db,_=b.install(storage);(OUT/(storage+'-seed.json')).unlink()
     cfg=(site/'wp-config.php').read_text();writable=cfg.replace("define('DB_USER', 'a02_"+storage+"')","define('DB_USER', 'root')").split("\nfile_put_contents('/scratch/a02-bootstrap-trap'")[0]
@@ -63,6 +64,20 @@ if (getenv('A19_CONFINED') === '1') {
     b.check(storage+':no_account_subscription_order_identifiers_names_paths',not re.search(r'CANARY|@|/scratch|DB_PASSWORD|"(?:user|customer|subscription_id|order_id|id)"',payload))
     b.check(storage+':private_output_permissions',dest.stat().st_mode&0o777==0o700 and all(x.stat().st_mode&0o777==0o600 for x in dest.iterdir()))
     repeat=OUT/(storage+'-repeat');p=inventory(site,repeat,audit/'audit.json');b.check(storage+':replay_identical',p.returncode==0 and {x.name:x.read_bytes() for x in repeat.iterdir()}=={x.name:x.read_bytes() for x in dest.iterdir()})
+    b.check(storage+':explicit_clock_retained',d['as_of_utc']=='2026-11-26T00:00:00Z')
+    default_out=OUT/(storage+'-default-clock')
+    start=datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0)
+    default=inventory(site,default_out,audit/'audit.json',as_of=None)
+    end=datetime.datetime.now(datetime.timezone.utc)
+    b.check(storage+':three_paths_without_date_native',default.returncode==0 and default.stdout=='' and default.stderr=='' and default_out.is_dir())
+    if default.returncode==0:
+        default_data=json.loads((default_out/'coherence.json').read_text())
+        instant=datetime.datetime.strptime(default_data['as_of_utc'],'%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=datetime.timezone.utc)
+        b.check(storage+':default_clock_is_current_utc',start<=instant<=end)
+        frozen=OUT/(storage+'-default-frozen');again=inventory(site,frozen,audit/'audit.json',as_of=default_data['as_of_utc'])
+        b.check(storage+':default_clock_single_frozen_reference',again.returncode==0 and default_data['counts']==v and {x.name:x.read_bytes() for x in frozen.iterdir()}=={x.name:x.read_bytes() for x in default_out.iterdir()})
+    repeated=OUT/(storage+'-repeated-clock');bad=inventory(site,repeated,audit/'audit.json','--as-of=2026-11-27T00:00:00Z')
+    b.check(storage+':repeated_clock_refused',bad.returncode==1 and bad.stdout=='' and bad.stderr=='A19_USAGE\n' and not repeated.exists())
     for label,path in [('exists',dest),('site',site/'forbidden'),('repo',Path('/subject/forbidden')),('ancestor',site.parent/'forbidden'),('root',Path('/forbidden'))]:
         bad=inventory(site,path,audit/'audit.json');b.check(storage+':guard:'+label,bad.returncode==1 and (path==dest or not path.exists()))
     raw=b.cmd(['php','/subject/a19/inventorier-coherence','--wp-path='+str(site),'--output=/report/'+storage+'-raw','--audit='+str(audit/'audit.json')],check=False)
