@@ -1,0 +1,15 @@
+{
+  "checks": {
+    "reset_document_test_supprime": true,
+    "reset_deux_profils": true,
+    "prix_commandes_abonnements_droits_options_PDF_preserves": true,
+    "reserve_C09_action8103_inchangee": true,
+    "un_seul_fichier_apres_reset": true
+  },
+  "total": 5,
+  "failures": [],
+  "evidence": {},
+  "remaining_private_files": [
+    "c17-b99988082f9d74565ee06faf7c13c9ac.bin"
+  ]
+}

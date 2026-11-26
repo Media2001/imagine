@@ -1,0 +1,14 @@
+{
+  "P-SOL-ATT": {
+    "categorie": "à préciser",
+    "decision": "en_attente",
+    "blob": "b99988082f9d74565ee06faf7c13c9ac"
+  },
+  "P-SOL-OK": {
+    "categorie": "à préciser",
+    "decision": "valide",
+    "date_decision": "2026-11-26T00:02:14Z",
+    "fin": "2027-01-10",
+    "operateur": "fixture-c09-fictive"
+  }
+}
