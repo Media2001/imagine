@@ -1,0 +1,31 @@
+{
+  "scope": "imagine-test-demo",
+  "at": "2026-11-26T21:47:49.226604+00:00",
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "wp/tests/rejouer.ps1"
+  ],
+  "exit": 0,
+  "log": "regression-V2.log",
+  "log_sha256": "a3c4fa5b7679806c9e9a24542df01f5681370bc728c12663819384fbf2b2cb08",
+  "results": [
+    {
+      "tests": 1142,
+      "assertions": 35837,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "tools": {
+        "tools": 18,
+        "checks": 417,
+        "failures": 0,
+        "excluded": []
+      },
+      "pass": true
+    }
+  ]
+}

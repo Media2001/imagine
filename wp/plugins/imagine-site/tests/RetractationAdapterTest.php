@@ -73,6 +73,72 @@ final class RetractationAdapterTest extends TestCase
         self::assertIsArray(Retractation::demander(10, 7, 'confirmer', 'Reprise'));
     }
 
+    public function testConfidentialiteExportReprisePaginationEtEffacementSansTiers(): void
+    {
+        self::assertTrue(class_exists(\Imagine\Site\RetractationConfidentialite::class), 'Confidentialité C25 absente');
+        $privacy = \Imagine\Site\RetractationConfidentialite::class;
+        self::assertIsArray(Retractation::demander(10, 7, 'confirmer', 'Motif secret fictif'));
+        self::assertIsArray(Retractation::demander(11, 8, 'confirmer', 'Motif tiers fictif'));
+        $all = $privacy::lignes();
+        self::assertCount(2, $all, 'Témoin positif avant les absences');
+        $export = $privacy::exporter('fictif@example.org');
+        self::assertCount(1, $export['data']);
+        self::assertStringContainsString('Motif secret fictif', json_encode($export));
+        self::assertStringNotContainsString('Motif tiers fictif', json_encode($export));
+        $GLOBALS['wpdb']->fail = true;
+        self::assertInstanceOf(\WP_Error::class, $privacy::exporter('fictif@example.org', 1));
+        self::assertFalse($privacy::effacer('fictif@example.org')['done']);
+        $GLOBALS['wpdb']->fail = false;
+        self::assertCount(1, $privacy::exporter('fictif@example.org', 1)['data']);
+        for ($i = 100; $i < 221; $i++) {
+            $row = ['commande' => $i, 'compte' => 7, 'date' => '2030-01-01T00:00:00Z', 'raison' => 'Pagination fictive', 'note' => $i];
+            $GLOBALS['retract_notes'][$i] = ['comment_ID' => $i];
+            $GLOBALS['retract_meta'][$i] = $row;
+            $GLOBALS['retract_options'][Retractation::JOURNAL . $i] = ['qui_id' => 7, 'qui_login' => 'fictif', 'apres' => ['commande' => $i, 'note' => $i, 'date' => $row['date']]];
+        }
+        $ids = [];
+        for ($page = 1; $page <= 3; $page++) {
+            $part = $privacy::exporter('fictif@example.org', $page);
+            self::assertSame($page === 3, $part['done']);
+            self::assertCount($page === 3 ? 22 : 50, $part['data']);
+            $ids = [...$ids, ...array_column($part['data'], 'item_id')];
+        }
+        self::assertCount(122, array_unique($ids));
+        $GLOBALS['retract_fail_delete'] = true;
+        self::assertFalse($privacy::effacer('fictif@example.org')['done']);
+        $GLOBALS['retract_fail_delete'] = false;
+        for ($page = 1; $page <= 3; $page++) {
+            $result = $privacy::effacer('fictif@example.org', $page);
+        }
+        self::assertTrue($result['done']);
+        self::assertSame([], $privacy::exporter('fictif@example.org')['data']);
+        self::assertCount(1, $privacy::exporter('tiers@example.org')['data']);
+        self::assertStringNotContainsString('Motif secret fictif', json_encode($GLOBALS['retract_meta']));
+        self::assertSame(0, $GLOBALS['retract_options'][Retractation::JOURNAL . 10]['qui_id']);
+        self::assertSame(0, $GLOBALS['retract_options'][Retractation::JOURNAL . 10]['apres']['note']);
+        self::assertIsArray(Retractation::demander(10, 7, 'confirmer', 'Rejeu après effacement'));
+        self::assertCount(1, $GLOBALS['retract_notes'], 'La trace dépersonnalisée empêche le rejeu');
+    }
+
+    public function testReglagesC10EtDateManuelleConservatrice(): void
+    {
+        self::assertTrue(class_exists(\Imagine\Site\RetractationReglages::class), 'Réglages C25 absents');
+        $settings = \Imagine\Site\RetractationReglages::class;
+        self::assertSame(['jours' => 14, 'origine' => 'paiement'], Retractation::configuration());
+        foreach (['paiement', 'manuelle'] as $origin) {
+            self::assertSame(['jours' => 30, 'origine' => $origin], $settings::nettoyer(['jours' => '30', 'origine' => $origin]));
+        }
+        foreach ([[], ['jours' => '0', 'origine' => 'paiement'], ['jours' => '14', 'origine' => 'inconnue']] as $bad) {
+            self::assertSame(Retractation::configuration(), $settings::nettoyer($bad));
+        }
+        $html = $settings::champs();
+        self::assertStringContainsString('name="imagine_retractation_reglages[jours]"', $html);
+        self::assertStringContainsString('name="imagine_retractation_reglages[origine]"', $html);
+        self::assertNull(Retractation::dateManuelle('2030-02-30'));
+        self::assertNull(Retractation::dateManuelle('texte'));
+        self::assertSame(strtotime('2030-01-03 UTC'), Retractation::dateManuelle('2030-01-03'));
+    }
+
     public function testDemandeSeulePersistanteEtRejeuSansAucunEffet(): void
     {
         self::assertTrue(class_exists(Retractation::class), 'Adaptateur C25 absent');

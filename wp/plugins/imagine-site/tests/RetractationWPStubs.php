@@ -119,6 +119,7 @@ namespace {
     function wp_unslash(mixed $value): mixed { return $value; }
     function admin_url(string $path = ''): string { return '/wp-admin/' . $path; }
     function current_user_can(string $cap): bool { return true; }
+    function add_settings_error(mixed ...$args): void {}
     function selected(mixed $current, mixed $value, bool $echo = true): string { return $current === $value ? ' selected' : ''; }
 }
 namespace Imagine\Site {

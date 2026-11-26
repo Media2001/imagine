@@ -60,8 +60,42 @@ def identity(label):
     save(label, {'identity': b06.guard(), 'versions': wp('global $wpdb;echo wp_json_encode(["wc"=>WC_VERSION,"db"=>$wpdb->db_version()]);')})
 
 
+def deploy(label):
+    identity = b06.guard()
+    bootstrap = 'plugins/imagine-site/imagine-site.php'
+    local_source = (ROOT / 'wp' / bootstrap).read_text(encoding='utf-8')
+    old = wp('$out=[];foreach(' + php(NAMES + [bootstrap]) + ' as $n){$p=WP_CONTENT_DIR."/".$n;$out[$n]=is_file($p)?file_get_contents($p):null;}echo wp_json_encode($out);')
+    assert old[bootstrap] in [local_source, local_source.replace(BLOCK, '')], 'Bootstrap distant divergent'
+    before = b06.state()
+    durable = private(label, {'files': old, 'database': snapshot(), 'business': before})
+    for name in NAMES:
+        assert old[name] is None or old[name] == (ROOT / 'wp' / name).read_text(encoding='utf-8'), 'Dérive C25'
+        b06.profils.b00.upload(name, (ROOT / 'wp' / name).read_bytes())
+    parsed = wp('$out=[];foreach(' + php(NAMES) + ' as $n){token_get_all(file_get_contents(WP_CONTENT_DIR."/".$n),TOKEN_PARSE);$out[$n]=true;}echo wp_json_encode($out);')
+    assert all(parsed.values())
+    assert wp('echo wp_json_encode(file_get_contents(WP_CONTENT_DIR."/' + bootstrap + '"));') == old[bootstrap]
+    b06.profils.b00.upload(bootstrap, (ROOT / 'wp' / bootstrap).read_bytes())
+    actual = b06.hashes(NAMES + [bootstrap])
+    assert actual == {n: hashlib.sha256((ROOT / 'wp' / n).read_bytes()).hexdigest() for n in NAMES + [bootstrap]}
+    assert before == b06.state()
+    save(label, {'identity': identity, 'private_snapshot': durable, 'readback': actual, 'business_preserved': True})
+
+
+def gates(kind, label):
+    script = {'prepare': 'wp/tests/preparer-image.ps1', 'regression': 'wp/tests/rejouer.ps1'}[kind]
+    cmd = ['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', script]
+    path = PROOF / (label + '.log')
+    assert not path.exists()
+    result = subprocess.run(cmd, cwd=ROOT, capture_output=True, encoding='utf-8', errors='replace')
+    text = result.stdout + result.stderr
+    path.write_text(text, encoding='utf-8')
+    print(text[-2000:])
+    save(label, {'command': cmd, 'exit': result.returncode, 'log': path.name, 'log_sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'results': [json.loads(line[11:]) for line in text.splitlines() if line.startswith('T01_RESULT ')]})
+    assert result.returncode == 0
+
+
 if __name__ == '__main__':
-    assert sys.argv[1] in ['local', 'identity']
+    assert sys.argv[1] in ['local', 'identity', 'deploy', 'gates']
     result = globals()[sys.argv[1]](*sys.argv[2:])
     if isinstance(result, int):
         raise SystemExit(result)

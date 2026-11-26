@@ -119,6 +119,15 @@ require_once __DIR__ . '/AgendaConfidentialite.php';
 Agenda::register();
 AgendaConfidentialite::register();
 
+// C25 — demande seule, sans effet financier ni accès.
+require_once __DIR__ . '/RetractationRegles.php';
+require_once __DIR__ . '/Retractation.php';
+require_once __DIR__ . '/RetractationReglages.php';
+require_once __DIR__ . '/RetractationConfidentialite.php';
+Retractation::register();
+RetractationReglages::register();
+RetractationConfidentialite::register();
+
 add_action('init', static function (): void {
     foreach ([
         'imagine_numero' => [__('Numéros fictifs', 'imagine-site'), 'numeros'],
