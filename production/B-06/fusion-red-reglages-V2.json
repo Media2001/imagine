@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-26T18:11:04.562054+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "deux_reglages_exposes": false
+  },
+  "total": 1,
+  "failures": [
+    "deux_reglages_exposes"
+  ],
+  "exit": 1,
+  "stderr": "",
+  "state_preserved": true,
+  "source_sha256": "0ba28358b37b67be25bc8aecc30ecc93e1011f8f8d41dd78874b6f679abeb761",
+  "private_snapshot": {
+    "file": "b06-private-pbst7w3y/snapshot.json",
+    "sha256": "89a930ab6c137525e26f32e320f97e15a76c4a91168089c63e3c60a90b4d69a0",
+    "private": true
+  }
+}

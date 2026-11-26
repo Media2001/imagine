@@ -65,7 +65,7 @@ def deploy(label):
 
 def runtime(label, case='attribute', mutation=''):
     guard()
-    filename = 'b06-space.php' if case == 'space' else 'b06-runtime.php'
+    filename = 'b06-space.php' if case == 'space' else ('b06-settings.php' if case == 'settings' else 'b06-runtime.php')
     target = 'imagine-demo-build/' + filename
     source = ROOT/'wp/tests/demo'/filename
     profils.b00.upload(target, source.read_bytes())

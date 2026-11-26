@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-26T18:08:42.023664+00:00",
+  "scope": "imagine-test-demo",
+  "case": "attribute",
+  "mutation": "",
+  "checks": {
+    "fixture_reelle": true,
+    "fiche_native_nonce": true,
+    "attribut_source_date": true,
+    "audit_ajout": true,
+    "sans_faux_changement": true,
+    "coop_lit": true,
+    "compte_natif_statut_source": true,
+    "auto_refus": true,
+    "nonce_refus": true,
+    "refus_sans_effet": true,
+    "journal_en_echec_refuse": true,
+    "journal_en_echec_restaure_statut": true,
+    "retrait_audite": true,
+    "retrait_referme": true,
+    "compte_retrait_sans_source_date": true,
+    "fiche_retrait_sans_source_date": true,
+    "accroche_nommee_sans_ecouteur": true,
+    "aucun_mail_tente": true,
+    "aucun_http_tente": true
+  },
+  "total": 19,
+  "failures": [],
+  "exit": 0,
+  "stderr": "",
+  "state_preserved": true,
+  "source_sha256": "798367bea4eb4b08dcbcfe397eb60b437eef66a59192b1ae7a14c163baffea88",
+  "private_snapshot": {
+    "file": "b06-private-meaq2u8l/snapshot.json",
+    "sha256": "d556fe2e70797a66083989cb544f4eeeb79f10c68732cec4e6b0df44c86cbc48",
+    "private": true
+  }
+}

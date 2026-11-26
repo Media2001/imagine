@@ -85,3 +85,13 @@ A22 — gardien commun : les inventaires chargeant WordPress retiennent les deux
 Complément A-23 (comptes des lecteurs, lecture seule) : python3 wp/outils/bascule/a23/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/comptes-date
 
 Familles au préfixe seul, adresses et identifiants comptés sans aucune valeur ; groupes <5 fondus dans autres, six blocs inconnus après neutralisation ; définitions, standard WordPress et reprise : wp/outils/bascule/a23/README.md ; gardien commun A-22 obligatoire, aucune décision de reconnexion.
+
+A22 — les anciens inventaires dirigent `error_log` vers `/dev/null`, seul périphérique autorisé en écriture hors sortie privée ; aucun journal ni autre chemin extérieur n’est rendu inscriptible.
+
+Adresses d’expédition (A-24) : `python3 wp/outils/bascule/a24/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/expedition-date` ; comptes seuls, classique/HPOS, lanceur confiné et gardien commun A-22 ; détails : `wp/outils/bascule/a24/README.md`.
+
+Après neutralisation, les comptes d’adresses effacées valent « inconnu après neutralisation » ; restent lisibles les effectifs, pays et liens de compte ; aucun repli facturation→livraison ni correction postale.
+
+A-25 — Visiteurs : `python3 wp/outils/bascule/a25/confine.py --wp-path=/copie-verifiee --audit=/hors-web/audit-date/audit.json --output=/hors-web/visiteurs-date` ; lecture seule via le gardien A-22, nombres par année et état, cellules de moins de cinq fondues dans autres, aucun texte ni adresse ni identifiant.
+
+A-25 — Attention : les messages de formulaires peuvent rester en clair après import ; email/IP des commentaires et nombres de formulaires deviennent « inconnu après neutralisation ». Adaptateur fermé Fluent Forms, tables candidates inconnues sous autre (couverture bornée) ; aucune suppression ni durée fixée. Voir `wp/outils/bascule/a25/README.md`.

@@ -10,9 +10,36 @@ final class Cooperateurs
     public const META = 'imagine_cooperateur';
     public const PAGE = 'imagine_cooperateurs_page';
     public const ACCROCHE = 'imagine_cooperateur_modifie';
+    public const ROLES_ATTRIBUT = 'imagine_cooperateurs_roles_attribut';
+    public const ROLES_LECTURE = 'imagine_cooperateurs_roles_lecture';
+    private const ROLES = ['administrator', 'editor', 'shop_manager'];
+    private static bool $restaurationReglages = false;
 
     public static function register(): void
     {
+        add_action('admin_init', [self::class, 'reglages'], 45);
+        add_action('admin_menu', static function (): void {
+            global $wp_filter;
+            $hook = get_plugin_page_hookname('imagine-reglages', 'imagine');
+            foreach (($wp_filter[$hook]->callbacks ?? []) as $priority => $callbacks) {
+                foreach ($callbacks as $callback) {
+                    $fn = $callback['function'];
+                    remove_action($hook, $fn, $priority);
+                    add_action($hook, static function () use ($fn): void {
+                        ob_start();
+                        $fn();
+                        $html = ob_get_clean();
+                        $end = strpos($html, '</form>');
+                        if ($end !== false && preg_match('/value=[\'"]imagine_reglages[\'"]/', $html)) {
+                            $html = substr_replace($html, self::champsReglages(), $end, 0);
+                        }
+                        echo $html;
+                    }, $priority);
+                }
+            }
+        }, 160);
+        add_action('updated_option', [self::class, 'journalReglages'], 20, 3);
+        add_action('added_option', static fn ($key, $new) => self::journalReglages($key, null, $new), 20, 2);
         add_action('show_user_profile', [self::class, 'fiche']);
         add_action('edit_user_profile', [self::class, 'fiche']);
         foreach (['personal_options_update', 'edit_user_profile_update'] as $hook) {
@@ -66,9 +93,89 @@ final class Cooperateurs
         }, 4);
     }
 
+    public static function reglages(): void
+    {
+        foreach ([self::ROLES_ATTRIBUT, self::ROLES_LECTURE] as $key) {
+            register_setting(\Imagine\Pilotage\Administration\Reglages::GROUPE, $key, [
+                'type' => 'array', 'default' => ['administrator'], 'show_in_rest' => false,
+                'sanitize_callback' => static fn ($value) => self::nettoyerRoles($value, $key),
+            ]);
+        }
+    }
+
+    private static function rolesValides(mixed $value): bool
+    {
+        return is_array($value) && array_is_list($value)
+            && count($value) === count(array_unique($value, SORT_REGULAR))
+            && count(array_filter($value, static fn ($role) => is_string($role) && in_array($role, self::ROLES, true))) === count($value);
+    }
+
+    public static function roles(string $key): array
+    {
+        $value = get_option($key, ['administrator']);
+        return self::rolesValides($value) ? $value : [];
+    }
+
+    public static function nettoyerRoles(mixed $value, string $key): array
+    {
+        if (is_array($value) && array_is_list($value) && ($value[0] ?? null) === '') {
+            array_shift($value); // Témoin HTML : aucun rôle coché = fermeture explicite.
+        }
+        if ($value === null) {
+            return self::roles($key); // Formulaire antérieur : ne pas effacer un réglage absent.
+        }
+        if (!current_user_can('manage_options') || !in_array('administrator', wp_get_current_user()->roles, true)
+            || !self::rolesValides($value)) {
+            add_settings_error($key, 'imagine_cooperateurs_roles_refuses', __('Rôles coopérateurs invalides ou modification non autorisée : réglage conservé.', 'imagine-site'));
+            return self::roles($key);
+        }
+        return $value;
+    }
+
+    public static function champsReglages(): string
+    {
+        $html = '<section id="imagine-cooperateurs-reglages"><h2>' . esc_html__('Espace coopérateurs', 'imagine-site') . '</h2><p>'
+            . esc_html__('Deux règles distinctes, provisoires. Défaut : Administrateur seul. Aucune ne donne accès aux articles. Sans case cochée, aucun rôle dérogatoire.', 'imagine-site') . '</p>';
+        foreach ([self::ROLES_ATTRIBUT => __('Rôles autorisés à poser ou retirer le statut', 'imagine-site'),
+            self::ROLES_LECTURE => __('Rôles autorisés à lire l’espace sans statut', 'imagine-site')] as $key => $label) {
+            $html .= '<fieldset><legend>' . esc_html($label) . '</legend><input type="hidden" name="' . esc_attr($key) . '[]" value="">';
+            foreach (['administrator' => __('Administrateur', 'imagine-site'), 'editor' => __('Éditeur', 'imagine-site'),
+                'shop_manager' => __('Gestionnaire de boutique', 'imagine-site')] as $role => $title) {
+                $html .= '<label><input type="checkbox" name="' . esc_attr($key) . '[]" value="' . esc_attr($role) . '"'
+                    . checked(in_array($role, self::roles($key), true), true, false) . '> ' . esc_html($title) . '</label> ';
+            }
+            $html .= '</fieldset>';
+        }
+        return $html . '</section>';
+    }
+
+    public static function journalReglages(string $key, mixed $old, mixed $new): void
+    {
+        if (self::$restaurationReglages || $old === $new || !in_array($key, [self::ROLES_ATTRIBUT, self::ROLES_LECTURE], true)) {
+            return;
+        }
+        $user = wp_get_current_user();
+        $journal = \Imagine\Pilotage\Administration\Reglages::JOURNAL . str_replace('-', '', wp_generate_uuid4());
+        $event = ['quand_utc' => gmdate('Y-m-d\TH:i:s\Z'), 'qui_id' => $user->ID,
+            'qui_login' => $user->user_login, 'option' => $key, 'avant' => $old, 'apres' => $new];
+        if (add_option($journal, $event, '', false) && get_option($journal) === $event) {
+            return;
+        }
+        self::$restaurationReglages = true;
+        try {
+            $old === null ? delete_option($key) : update_option($key, $old, false);
+            if (get_option($key, null) !== $old) {
+                throw new \RuntimeException('Restauration des rôles coopérateurs impossible.');
+            }
+        } finally {
+            self::$restaurationReglages = false;
+        }
+        add_settings_error($key, 'imagine_cooperateurs_journal', __('Journal indisponible : rôles coopérateurs inchangés.', 'imagine-site'));
+    }
+
     public static function administration(): bool
     {
-        return CooperateursRegles::administration(wp_get_current_user()->roles);
+        return CooperateursRegles::administration(wp_get_current_user()->roles, self::roles(self::ROLES_ATTRIBUT));
     }
 
     public static function autorise(): bool
@@ -76,7 +183,8 @@ final class Cooperateurs
         return CooperateursRegles::lecture(
             get_user_meta(get_current_user_id(), self::META, true),
             wp_get_current_user()->roles,
-            is_user_logged_in()
+            is_user_logged_in(),
+            self::roles(self::ROLES_LECTURE)
         );
     }
 
@@ -271,7 +379,8 @@ final class Cooperateurs
                 self::reserve($id) && !CooperateursRegles::lecture(
                     get_user_meta($userId, self::META, true),
                     $u ? $u->roles : [],
-                    $userId > 0
+                    $userId > 0,
+                    self::roles(self::ROLES_LECTURE)
                 )
             ) {
                 return ['do_not_allow'];
