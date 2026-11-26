@@ -18,6 +18,8 @@ final class Justificatifs
             add_action('admin_post_nopriv_imagine_justificatif_' . $action, [self::class, $action]);
         }
         add_action('imagine_compte_justificatif', [self::class, 'compte']);
+        // delete_user précède la disparition du titulaire exigé par verrou().
+        add_action('delete_user', [self::class, 'supprimerCompte'], 0);
         add_action('template_redirect', [self::class, 'servir'], -101);
         add_action('admin_menu', static function (): void {
             add_submenu_page(
@@ -105,6 +107,27 @@ final class Justificatifs
         clearstatcache(true, $path);
         if (file_exists($path) || is_link($path)) {
             throw new \RuntimeException('Document encore présent.');
+        }
+    }
+
+    public static function supprimerCompte(int $user): void
+    {
+        try {
+            self::verrou($user, static function () use ($user): void {
+                // Ne jamais perdre la référence si le retrait physique échoue.
+                self::supprimerFichier(self::etat($user));
+                delete_option(self::PREFIX . $user);
+                wp_cache_delete(self::PREFIX . $user, 'options');
+                if (get_option(self::PREFIX . $user, null) !== null) {
+                    throw new \RuntimeException('Référence documentaire encore présente.');
+                }
+            });
+        } catch (\Throwable) {
+            wp_die(
+                esc_html__('Suppression du compte refusée : nettoyage du justificatif impossible. La référence est conservée ; réessayez après correction du stockage.', 'imagine-site'),
+                '',
+                ['response' => 409]
+            );
         }
     }
 

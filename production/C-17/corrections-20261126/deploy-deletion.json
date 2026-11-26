@@ -1,0 +1,38 @@
+{
+  "sha256_before": "4662725ec61fc3f74e7a776896e1183ccc0ade3867acccd5f317f6ebffeb7e5e",
+  "sha256_readback": "454a651e8d0d7d185ce8976d0686dd276a9c38ce5812faa4763564b8b2a3a36a",
+  "native_preserved": true,
+  "action8793_before": {
+    "action_id": "8793",
+    "hook": "woocommerce_scheduled_subscription_payment",
+    "status": "pending",
+    "scheduled_date_gmt": "2026-11-26 02:13:28",
+    "scheduled_date_local": "2026-11-26 03:13:28",
+    "priority": "1",
+    "args": "{\"subscription_id\":101}",
+    "schedule": "O:30:\"ActionScheduler_SimpleSchedule\":2:{s:22:\"\u0000*\u0000scheduled_timestamp\";i:1795659208;s:41:\"\u0000ActionScheduler_SimpleSchedule\u0000timestamp\";i:1795659208;}",
+    "group_id": "6",
+    "attempts": "0",
+    "last_attempt_gmt": "0000-00-00 00:00:00",
+    "last_attempt_local": "0000-00-00 00:00:00",
+    "claim_id": "0",
+    "extended_args": null
+  },
+  "action8793_after": {
+    "action_id": "8793",
+    "hook": "woocommerce_scheduled_subscription_payment",
+    "status": "pending",
+    "scheduled_date_gmt": "2026-11-26 02:13:28",
+    "scheduled_date_local": "2026-11-26 03:13:28",
+    "priority": "1",
+    "args": "{\"subscription_id\":101}",
+    "schedule": "O:30:\"ActionScheduler_SimpleSchedule\":2:{s:22:\"\u0000*\u0000scheduled_timestamp\";i:1795659208;s:41:\"\u0000ActionScheduler_SimpleSchedule\u0000timestamp\";i:1795659208;}",
+    "group_id": "6",
+    "attempts": "0",
+    "last_attempt_gmt": "0000-00-00 00:00:00",
+    "last_attempt_local": "0000-00-00 00:00:00",
+    "claim_id": "0",
+    "extended_args": null
+  },
+  "failures": []
+}

@@ -1,0 +1,108 @@
+{
+  "checks": {
+    "en_attente_compte_supprime_nativement": true,
+    "en_attente_option_supprimee": false,
+    "en_attente_fichier_absent": false,
+    "en_attente_fixture_nettoyee": true,
+    "valide_compte_supprime_nativement": true,
+    "valide_option_supprimee": false,
+    "valide_fichier_absent": true,
+    "valide_fixture_nettoyee": true,
+    "refuse_compte_supprime_nativement": true,
+    "refuse_option_supprimee": false,
+    "refuse_fichier_absent": true,
+    "refuse_fixture_nettoyee": true,
+    "suppression_physique_impossible_erreur_explicite": false,
+    "echec_physique_compte_option_reference_conserves": false,
+    "obstacle_fixture_nettoyee": true,
+    "etat_natif_preserve": true,
+    "action8793_exacte_preservee": true
+  },
+  "total": 17,
+  "failures": [
+    "en_attente_option_supprimee",
+    "en_attente_fichier_absent",
+    "valide_option_supprimee",
+    "refuse_option_supprimee",
+    "suppression_physique_impossible_erreur_explicite",
+    "echec_physique_compte_option_reference_conserves"
+  ],
+  "evidence": [
+    {
+      "state": "en_attente",
+      "user": 98,
+      "result": {
+        "deleted": true,
+        "error": null
+      },
+      "readback": {
+        "account_exists": false,
+        "option": {
+          "categorie": "à préciser",
+          "decision": "en_attente",
+          "blob": "fdf8d8550219f5ccd9557747fd49ca79"
+        },
+        "file_or_directory": true,
+        "backup": false
+      }
+    },
+    {
+      "state": "valide",
+      "user": 99,
+      "result": {
+        "deleted": true,
+        "error": null
+      },
+      "readback": {
+        "account_exists": false,
+        "option": {
+          "categorie": "à préciser",
+          "decision": "valide",
+          "date_decision": "2026-11-26T03:24:11Z",
+          "fin": "2026-11-26",
+          "operateur": "e-abo"
+        },
+        "file_or_directory": false,
+        "backup": false
+      }
+    },
+    {
+      "state": "refuse",
+      "user": 100,
+      "result": {
+        "deleted": true,
+        "error": null
+      },
+      "readback": {
+        "account_exists": false,
+        "option": {
+          "categorie": "à préciser",
+          "decision": "refuse",
+          "date_decision": "2026-11-26T03:24:18Z",
+          "fin": "",
+          "operateur": "e-abo"
+        },
+        "file_or_directory": false,
+        "backup": false
+      }
+    },
+    {
+      "state": "obstacle",
+      "user": 101,
+      "result": {
+        "deleted": true,
+        "error": null
+      },
+      "readback": {
+        "account_exists": false,
+        "option": {
+          "categorie": "à préciser",
+          "decision": "en_attente",
+          "blob": "9260f6678c372c24b4da76830e3241a8"
+        },
+        "file_or_directory": true,
+        "backup": true
+      }
+    }
+  ]
+}
