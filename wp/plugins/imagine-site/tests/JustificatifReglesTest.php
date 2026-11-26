@@ -90,7 +90,10 @@ final class JustificatifReglesTest extends TestCase
         self::assertTrue(class_exists(JustificatifRegles::class), 'Règles C17 absentes');
         $result = JustificatifRegles::decider(['decision' => 'en_attente', 'categorie' => 'à préciser',
             'blob' => str_repeat('a', 32)], 'valide', '2027-01-31', 'e-abo', '2026-11-26T00:00:00Z');
-        self::assertSame(['categorie' => 'à préciser', 'decision' => 'valide',
-            'date_decision' => '2026-11-26T00:00:00Z', 'fin' => '2027-01-31', 'operateur' => 'e-abo'], $result);
+        self::assertSame(['categorie' => 'à préciser', 'decision' => 'valide', 'fin' => '2027-01-31'], $result);
+        $refused = JustificatifRegles::decider(['decision' => 'en_attente', 'categorie' => 'à préciser',
+            'blob' => str_repeat('a', 32), 'date_decision' => 'ancienne', 'operateur' => 'ancien'],
+            'refuse', '', 'e-abo', '2026-11-26T00:00:00Z');
+        self::assertSame(['categorie' => 'à préciser', 'decision' => 'refuse', 'fin' => ''], $refused);
     }
 }

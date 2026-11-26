@@ -68,7 +68,7 @@ def main(argv=None):
     env={**os.environ,'A14_CONFINED':'1'}
     args=['php','-d','display_errors=0','-d','log_errors=0','-d','disable_functions=mail,exec,shell_exec,system,passthru,popen,proc_open,pcntl_exec',str(HERE/'command.php')]
     args.extend(k+'='+options[k] for k in ('--wp-path','--output','--audit'))
-    result=subprocess.run(args,input=json.dumps(rows),text=True,capture_output=True,env=env,timeout=240)
+    result=subprocess.run(args,input=json.dumps(rows),text=True,encoding='utf-8',capture_output=True,env={**env,'PYTHONIOENCODING':'utf-8','PYTHONUTF8':'1'},timeout=240)
     # Never forward untrusted bootstrap output or raw exception messages.
     if result.returncode:
         diagnostic=result.stderr if re.fullmatch(r'A(?:14|12|11|02)_[A-Z_]+(?: \{[^\n]*\})?\n',result.stderr) else 'A14_COMMAND_FAILED\n'

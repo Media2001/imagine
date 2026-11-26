@@ -38,6 +38,8 @@ def raw(path,client):
     return r.code,{k.lower():v for k,v in r.headers.items()},r.read()
 def stored(uid):
     return c17.wp('$s=Imagine\\Site\\Justificatifs::etat('+str(uid)+');$p=isset($s["blob"])?Imagine\\Site\\Justificatifs::chemin($s):null;echo wp_json_encode(["state"=>$s,"path"=>$p,"exists"=>$p?is_file($p):false,"sha256"=>$p&&is_file($p)?hash_file("sha256",$p):null]);')
+def audit(uid):
+    return c17.wp('global $wpdb;$key=Imagine\\Site\\Justificatifs::PREFIX.'+str(uid)+';$rows=$wpdb->get_col($wpdb->prepare("SELECT option_value FROM {$wpdb->options} WHERE option_name LIKE %s ORDER BY option_id DESC",$wpdb->esc_like(Imagine\\Pilotage\\Administration\\Reglages::JOURNAL)."%"));$out=[];foreach($rows as $row){$v=maybe_unserialize($row);if(($v["option"]??"")===$key)$out[]=$v;}echo wp_json_encode($out);')
 def absent(path):
     return c17.wp('$p='+json.dumps(path)+';clearstatcache(true,$p);echo wp_json_encode(!file_exists($p)&&!is_link($p));')
 def file_url(text):
@@ -96,13 +98,21 @@ def run(label='http-final'):
         s,_,data=raw(newurl,owner);checks['PNG_lecture_hash']=s==200 and hashlib.sha256(data).hexdigest()==b['sha256']
         s,_,_=decision(abo,q);valid=stored(uid);evidence['validation']=valid
         checks['valider_supprime_disque']=s==200 and absent(b['path']) and not valid['exists']
-        checks['decision_champs_minimaux']=set(valid['state'])=={'categorie','decision','date_decision','fin','operateur'} and valid['state']['operateur']=='e-abo' and valid['state']['decision']=='valide'
+        checks['decision_champs_minimaux']=valid['state']=={'categorie':'à préciser','decision':'valide','fin':'2027-12-31'}
+        valid_audit=audit(uid);evidence['validation_journal_C10']=valid_audit[:1]
+        checks['validation_journal_C10_date_operateur']=bool(valid_audit) and valid_audit[0]['apres']==valid['state'] and valid_audit[0]['qui_login']=='e-abo' and bool(re.fullmatch(r'\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ',valid_audit[0]['quand_utc']))
+        checks['validation_journal_sans_reference_document']=bool(valid_audit) and set(valid_audit[0]['avant'])=={'categorie','decision','fin'}
         checks['compte_valide_fin']='Validé jusqu’au 2027-12-31' in form(owner)
         s,_,_=h.fetch(newurl,abo);checks['URL_validee_fermee_referent']=s==404
         s,_,_=decision(abo,q);checks['decision_rejeu_refuse']=s==409 and stored(uid)==valid
         upload(owner,form(owner),pdf);refused_source=stored(uid)
         s,_,_=decision(abo,form(abo,uid),{'decision':'refuse'});refused=stored(uid);evidence['refus']=refused
         checks['refuser_supprime_disque']=s==200 and absent(refused_source['path']) and not refused['exists'] and refused['state']['decision']=='refuse' and refused['state']['fin']==''
+        checks['refus_exactement_trois_champs']=refused['state']=={'categorie':'à préciser','decision':'refuse','fin':''}
+        refused_audit=audit(uid);evidence['refus_journal_C10']=refused_audit[:1]
+        checks['refus_journal_C10_date_operateur']=bool(refused_audit) and refused_audit[0]['apres']==refused['state'] and refused_audit[0]['qui_login']=='e-abo' and bool(re.fullmatch(r'\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ',refused_audit[0]['quand_utc']))
+        s,_,audit_page=h.fetch('/wp-admin/admin.php?page=imagine-reglages',h.login(accounts['E-ADMIN']))
+        checks['journal_visible_C10_natif']=s==200 and 'imagine_justificatif_'+str(uid) in audit_page and 'e-abo' in audit_page and bool(refused_audit) and refused_audit[0]['quand_utc'] in audit_page
         checks['compte_refuse']='Refusé' in form(owner)
         s,_,page=h.fetch(ADMIN,abo);checks['decision_retire_file']='data-imagine-justificatif-titulaire="'+str(uid)+'"' not in page
     finally:
