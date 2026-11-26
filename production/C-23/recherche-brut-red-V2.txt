@@ -1,0 +1,15 @@
+test_recherche_reflechie_n_est_pas_fuite (__main__.ContractTest.test_recherche_reflechie_n_est_pas_fuite) ... ERROR
+
+======================================================================
+ERROR: test_recherche_reflechie_n_est_pas_fuite (__main__.ContractTest.test_recherche_reflechie_n_est_pas_fuite)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 275, in test_recherche_reflechie_n_est_pas_fuite
+    self.assertFalse(m.assess(200,m.search_results_body(body,'secret'),['secret'])['leak'])
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: search_results_body() takes 1 positional argument but 2 were given
+
+----------------------------------------------------------------------
+Ran 1 test in 0.059s
+
+FAILED (errors=1)

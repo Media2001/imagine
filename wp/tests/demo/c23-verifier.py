@@ -21,53 +21,76 @@ def business_original_exact(state, *receipts):
     return all(r.get('native_before_sha256') == r.get('native_after_sha256') == expected for r in receipts)
 
 
-def verify():
-    final=read('livraison.json')
-    restoration=read('livraison-restauration.json')
-    red=read('mutation-publics-complets.json')
-    red_restore=read('mutation-publics-complets-restauration.json')
-    fixture=read('inventaire-source.json')
+def matrix_checks(core, record, fixture, only_b06=False):
+    routes = core.cooperator_routes(fixture) if only_b06 else core.build_routes(fixture)
+    rows, publics = record['results'], core.audience_order(fixture)
+    return {
+        'nonempty': bool(rows) and bool(routes) and bool(publics),
+        'counts': record['total'] == len(rows) and record['routes'] == len(routes),
+        'audiences': record['publics'] == publics,
+        'complete': all(sum(x['name']==r['name'] and x['public']==p for x in rows)==1 for r in routes for p in publics),
+        'unique': len({(r['name'],r['public']) for r in rows}) == len(rows),
+        'no_leaks': record['leaks'] == sum(bool(r['leak']) for r in rows) == 0,
+        'no_failures': record['failures'] == sum(not r['ok'] for r in rows) == 0,
+        'fixture_bound': record['fixture_sha256'] == hashlib.sha256(json.dumps(fixture,sort_keys=True).encode()).hexdigest(),
+    }
+
+
+def verify(label='livraison-V2', b06_label='b06-livraison-V2', mutation_label='mutation-V2'):
+    import re
+    checks, details = {}, {}
     spec=importlib.util.spec_from_file_location('c23_delivery',ROOT/'wp/outils/demo/c23.py')
     core=importlib.util.module_from_spec(spec);spec.loader.exec_module(core)
-    checks={}
-    checks['scope_exact']=all(r.get('scope')=='imagine-test-demo' for r in [final,restoration,red,red_restore,fixture])
-    checks['last_command_exit_0']=restoration['command_exit']==0
-    checks['count_exact']=final['total']==len(final['results'])
-    checks['leaks_exact_zero']=final['leaks']==sum(bool(r['leak']) for r in final['results'])==0
-    checks['failures_exact_zero']=final['failures']==sum(not r['ok'] for r in final['results'])==0
-    expected=core.build_routes(fixture)
-    checks['route_count_exact']=final['routes']==len(expected)
-    checks['audience_count_exact']=final['publics']==core.audience_order(fixture)
-    checks['matrix_complete']=all(sum(r['name']==route['name'] and r['public']==public for r in final['results'])==1 for route in expected for public in final['publics'])
-    checks['matrix_pairs_unique']=len({(r['name'],r['public']) for r in final['results']})==len(final['results'])
-    checks['final_stdout_summary_exact']=final['summary'] in (PROOF/'livraison.txt').read_text(encoding='utf-8')
-    checks['source_current']=final['command_sha256']==hashlib.sha256((ROOT/'wp/outils/demo/c23.py').read_bytes()).hexdigest()
-    checks['red_source_current']=red['command_sha256']==final['command_sha256']
-    checks['fixture_bound']=final['fixture_sha256']==hashlib.sha256(json.dumps(fixture,sort_keys=True).encode()).hexdigest()
-    checks['restoration_exact']=all(restoration[k] is True for k in ['metadata_restored_exactly','profiles_and_scheduled_actions_restored_exactly','business_unchanged_during_GETs'])
-    checks['red_restoration_exact']=all(red_restore[k] is True for k in ['metadata_restored_exactly','profiles_and_scheduled_actions_restored_exactly','mutation_red_detected'])
-    checks['schedule_exact']=restoration['schedule_before']==restoration['schedule_after']==red_restore['schedule_before']==red_restore['schedule_after']
-    baseline = read('baseline-V2.json')['state'] if (PROOF/'baseline-V2.json').is_file() else {}
-    checks['business_original_exact']=business_original_exact(baseline, restoration, red_restore)
-    checks['red_detected']=red_restore['command_exit']==1 and red['leaks']>0 and any(r['name']=='article' and r['public']=='anonyme' and r['leak'] for r in red['results'])
-    checks['inverse_article_pdf']=all(any(r['name']==name and r['public']=='abonne-actif' and r['ok'] and r['witnesses_found']>0 for r in final['results']) for name in ['inverse-article','inverse-pdf','inverse-C08'])
-    checks['C14_owned_allowed_other_denied']=any(r['name']=='pdf-inventorie-11-endpoint' and r['public']=='acheteur-autre-numero' and r['ok'] and r['witnesses_found']>0 for r in final['results']) and any(r['name']=='pdf-telechargement' and r['public']=='acheteur-autre-numero' and r['ok'] and not r['witnesses_found'] for r in final['results'])
-    source_checks={}
-    for receipt in [restoration,red_restore]:
-        for name,expected_sha in receipt['sources_sha256'].items():
-            if name.startswith('wp/outils/demo/c23') or name.startswith('wp/tests/demo/c23'):
-                source_checks[name]=source_checks.get(name,True) and hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==expected_sha
-            else:
-                source_checks[name]=False
-    checks['all_recorded_own_sources_current']=all(source_checks.values())
+    current=hashlib.sha256((ROOT/'wp/outils/demo/c23.py').read_bytes()).hexdigest()
+    for name, role in [(label,'delivery'),(b06_label,'B06'),(mutation_label,'mutation')]:
+        if not re.fullmatch('[a-zA-Z0-9-]+',name):
+            raise ValueError('Nom de reçu refusé')
+        try:
+            record, restoration, fixture = read(name+'.json'), read(name+'-restauration.json'), read(name+'-inventaire.json')
+            checks[role+'_scope'] = all(x.get('scope')=='imagine-test-demo' for x in [record,restoration,fixture])
+            checks[role+'_source'] = record['command_sha256']==current
+            sources=restoration.get('sources_sha256',{})
+            checks[role+'_all_sources'] = bool(sources) and all(
+                (p.startswith('wp/outils/demo/c23') or p.startswith('wp/tests/demo/c23'))
+                and hashlib.sha256((ROOT/p).read_bytes()).hexdigest()==sha for p,sha in sources.items())
+            checks[role+'_restoration'] = all(restoration.get(k) is True for k in [
+                'metadata_restored_exactly','profiles_and_scheduled_actions_restored_exactly',
+                'business_unchanged_during_GETs','cooperator_pages_restored_exactly'])
+            checks[role+'_native_derived'] = business_original_exact(read(name+'-etat.json')['state'],restoration)
+            checks[role+'_schedule'] = restoration['schedule_before']==restoration['schedule_after']
+            checks[role+'_summary'] = record['summary'] in (PROOF/(name+'.txt')).read_text(encoding='utf-8')
+            details[role] = {k:record[k] for k in ['total','leaks','failures','summary','coverage']}
+            if role=='delivery':
+                checks['delivery_prerequisites'] = not bool(record.get('prerequisite'))
+                checks['delivery_exit'] = restoration['command_exit']==0
+                checks['delivery_nonempty'] = bool(record['results'])
+                if record.get('prerequisite'):
+                    details['prerequisite']=record['prerequisite']
+                    continue
+                checks['delivery_full_scope'] = record['coverage']=='livraison'
+            if role=='mutation':
+                checks['mutation_red'] = restoration.get('mutation_red_detected') is True and restoration['command_exit']==1 and record['leaks']>0 and any(
+                    r['name']=='article' and r['public']=='anonyme' and r['leak'] for r in record['results'])
+                continue
+            checks.update({role+'_'+k:v for k,v in matrix_checks(core,record,fixture,role=='B06').items()})
+            if role=='B06':
+                checks['B06_explicit_scope'] = record['coverage']=='B06-only' and restoration['command_exit']==0
+                checks['B06_inverse_nonempty'] = all(any(r['name']=='b06-'+str(p['id'])+'-'+kind and r['public']=='profil-p-coop' and r['ok'] and r['witnesses_found']>0 for r in record['results']) for p in fixture['cooperator_pages'] for kind in ['html','rest','rest-route','collection','embed','recherche','flux'])
+        except (OSError,KeyError,ValueError,TypeError) as error:
+            checks[role+'_receipt_complete']=False
+            details[role+'_error']=type(error).__name__
     tree=ast.parse((ROOT/'wp/outils/demo/c23.py').read_text(encoding='utf-8'))
     methods=[k.value.value for n in ast.walk(tree) if isinstance(n,ast.Call) for k in n.keywords if k.arg=='method' and isinstance(k.value,ast.Constant)]
-    checks['main_GET_only']=methods==['GET'] and not any(isinstance(n,ast.alias) and n.name in ['subprocess','profils','construire','b05'] for n in ast.walk(tree))
+    checks['main_GET_only']=methods==['GET'] and not any(isinstance(n,ast.alias) and n.name in ['subprocess','profils','construire','b05','b06'] for n in ast.walk(tree))
     checks['no_session_dump']=not any('wordpress_logged_in_' in p.read_text(encoding='utf-8',errors='replace') or 'X-WP-Nonce' in p.read_text(encoding='utf-8',errors='replace') for p in PROOF.glob('*.json'))
-    checks['image_prepared']=read('image-preparation.json')['exit']==0 and 'T01 IMAGE READY' in (PROOF/'image-preparation.txt').read_text(encoding='utf-8',errors='replace')
-    checks['unit_tests_both_encodings']=all(read('tests-finaux.json')[key]['exit']==0 for key in ['utf8','cp1252'])
-    result={'scope':'imagine-test-demo','checks':checks,'total':len(checks),'failures':[k for k,v in checks.items() if v is not True],
-            'last_matrix':{k:final[k] for k in ['total','leaks','failures','routes','publics','summary']},'mutation':{'total':red['total'],'leaks':red['leaks'],'exit':red_restore['command_exit']}}
+    for key,filename in [('tests','tests-finaux-V2.json'),('image','image-preparation-V2.json')]:
+        try:
+            value=read(filename)
+            checks[key]=all(value[k]['exit']==0 for k in ['utf8','cp1252']) if key=='tests' else value['exit']==0 and 'T01 IMAGE READY' in (PROOF/'image-preparation-V2.txt').read_text(encoding='utf-8')
+        except (OSError,KeyError,ValueError):
+            checks[key]=False
+    result={'scope':'imagine-test-demo','checks':checks,'total':len(checks),
+            'failures':[k for k,v in checks.items() if v is not True],'details':details}
     print(json.dumps(result,ensure_ascii=True,indent=2))
     return not result['failures']
 

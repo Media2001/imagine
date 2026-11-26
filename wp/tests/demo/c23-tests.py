@@ -135,6 +135,18 @@ class VerifierTest(unittest.TestCase):
         self.assertEqual(value['scope'], 'imagine-test-demo')
         self.assertGreater(value['total'], 0)
 
+    def test_matrice_vide_total_et_case_manquante_refuses(self):
+        import copy, json, hashlib
+        m, core, f = load_verifier(), load(), CooperatorsTest().fixture()
+        routes, publics = core.cooperator_routes(f), core.audience_order(f)
+        rows = [dict(name=r['name'],public=p,ok=True,leak=False) for r in routes for p in publics]
+        record = dict(results=rows,total=len(rows),routes=len(routes),publics=publics,leaks=0,failures=0,
+                      fixture_sha256=hashlib.sha256(json.dumps(f,sort_keys=True).encode()).hexdigest())
+        self.assertTrue(all(m.matrix_checks(core,record,f,True).values()))
+        for key, replacement, rejected in [('results',[],'nonempty'),('results',rows[:-1],'complete'),('total',len(rows)+1,'counts')]:
+            mutated = dict(record, **{key:replacement})
+            self.assertFalse(m.matrix_checks(core,mutated,f,True)[rejected])
+
     def test_sha_etat_derive_accepte_evolution_legitime_refuse_derive(self):
         import hashlib, json
         m = load_verifier()
@@ -171,6 +183,16 @@ class CooperatorsTest(unittest.TestCase):
             with self.subTest(count=len(pages)):
                 with self.assertRaisesRegex(ValueError, 'B06'):
                     m.cooperator_routes(dict(f, cooperator_pages=pages))
+
+    def test_embed_natif_expurge_et_flux_de_pages_pas_commentaires(self):
+        m, f = load(), self.fixture()
+        route = next(r for r in m.cooperator_routes(f) if r['cooperator_kind']=='embed')
+        body = ('<h1>'+route['present']+'</h1><div class="wp-embed-excerpt"></div>').encode()
+        self.assertTrue(m.assess_cooperator(route,(200,{},body),False)['ok'])
+        for r in m.cooperator_routes(f):
+            if r['cooperator_kind']=='flux':
+                self.assertNotIn('page_id=',r['path'])
+                self.assertIn('post_type=page',r['path'])
 
     def test_controle_B06_reel_non_vide_mutation_par_sortie(self):
         import json
@@ -261,10 +283,15 @@ class ContractTest(unittest.TestCase):
     def test_recherche_reflechie_n_est_pas_fuite(self):
         m=load()
         self.assertTrue(callable(getattr(m,'search_results_body',None)), 'Extraction réelle des résultats à construire')
-        body=b'<title>secret</title><main><h1>Recherche secret</h1><form>secret</form><p>Aucun resultat</p></main>'
-        self.assertFalse(m.assess(200,m.search_results_body(body),['secret'])['leak'])
+        body=b'<title>Recherche : secret</title><main><h1>Recherche : secret</h1><form><input type="search" name="s" value="secret"></form><p>Aucun resultat</p></main>'
+        self.assertFalse(m.assess(200,m.search_results_body(body,'secret'),['secret'])['leak'])
         leaking=body.replace(b'Aucun resultat',b'<li data-imagine-id="42">secret</li>')
-        self.assertTrue(m.assess(200,m.search_results_body(leaking),['secret'])['leak'])
+        self.assertTrue(m.assess(200,m.search_results_body(leaking,'secret'),['secret'])['leak'])
+        for extra in [b'<meta property="og:description" content="secret">', b'<!-- secret -->', b'<div data-x="secret"></div>']:
+            with self.subTest(extra=extra):
+                # Aucun bout de réponse hors <main>, attribut de formulaire, ni commentaire supprimé.
+                self.assertTrue(m.assess(200,m.search_results_body(extra+body,'secret'),['secret'])['leak'])
+                self.assertTrue(m.assess(200,m.search_results_body(body.replace(b'</form>',extra+b'</form>'),'secret'),['secret'])['leak'])
     def test_faux_sitemap_html_et_archive_vide_refuses(self):
         m=load()
         for kind in ['sitemap','cards','rest-item','rest-list','rest-error','oembed','empty-search','feed','sharing','pdf-denied','admin-denied']:

@@ -44,11 +44,29 @@ def assess(status, body, witnesses, present=None, expected=(200,), positive=Fals
             'leak': bool(found) and not positive, 'witnesses_found': len(found), 'surface_present': exists}
 
 
-def search_results_body(body):
-    main=re.search(rb'<main\b[^>]*>(.*?)</main>',body,re.S|re.I)
-    if not main:
+def search_results_body(body, term='CONTENU_FICTIF_RESERVE_DEMO-2026-T4_1'):
+    if not re.search(rb'<main\b[^>]*>.*?</main>',body,re.S|re.I):
         raise ValueError('Recherche sans résultat inspectable')
-    return re.sub(rb'<form\b.*?</form>|<h1\b.*?</h1>',b'',main.group(1),flags=re.S|re.I)
+    token = term.encode('utf-8')
+    # Conserver la réponse ENTIERE. Seules les positions natives de réflexion
+    # du terme sont masquées ; ni balise complète, ni formulaire, ni tête effacés.
+    def heading(match):
+        return match[1]+match[2].replace(token,b'[terme recherche]')+match[3]
+    body = re.sub(rb'(<(?:title|h1)\b[^>]*>)([^<]*(?:Recherche|recherche)[^<]*)(</(?:title|h1)>)',heading,body)
+    def input_tag(match):
+        tag = match[0]
+        if re.search(rb'\btype=[\"\']search[\"\']',tag) and re.search(rb'\bname=[\"\']s[\"\']',tag):
+            tag = re.sub(rb'(\bvalue=[\"\'])'+re.escape(token)+rb'([\"\'])',rb'\1[terme recherche]\2',tag)
+        return tag
+    body = re.sub(rb'<input\b[^>]*>',input_tag,body,flags=re.I)
+    def feed_link(match):
+        tag = match[0]
+        expected = (BASE+'/search/'+term+'/feed/rss2/').encode()
+        if b'application/rss+xml' in tag and expected in tag:
+            tag = tag.replace(expected,expected.replace(token,b'[terme-recherche]'))
+            tag = re.sub(rb'(\btitle=[\"\'])([^\"\']*)([\"\'])',lambda m:m[1]+m[2].replace(token,b'[terme recherche]')+m[3],tag)
+        return tag
+    return re.sub(rb'<link\b[^>]*>',feed_link,body,flags=re.I)
 
 
 def validate_path(path):
@@ -131,7 +149,7 @@ def cooperator_routes(f):
                 'oembed':'/wp-json/oembed/1.0/embed?'+urlencode({'url':BASE+p['path']}),
                 'embed':p['path']+'embed/',
                 'recherche':'/?'+urlencode({'s':p['title'],'post_type':'page'}),
-                'flux':'/?'+urlencode({'feed':'rss2','post_type':'page','page_id':p['id']})}
+                'flux':'/?'+urlencode({'feed':'rss2','post_type':'page','posts_per_rss':100})}
         for kind, path in urls.items():
             routes.append(dict(name='b06-'+str(p['id'])+'-'+kind,path=path,present=p['title'],
                                statuses=[200],cooperator_page=p['id'],cooperator_kind=kind,
@@ -162,6 +180,8 @@ def assess_cooperator(route, response, allowed):
         exists = '<rss' in text and '<channel>' in text
     elif kind == 'recherche':
         exists = '<main' in text and ('Aucun r' in text if not allowed else marker in text)
+    elif kind == 'embed':
+        exists = canonical(route['present']) in canonical(body) and ('wp-embed-excerpt' in text or 'data-imagine-cooperateurs-refus' in text)
     else:
         exists = canonical(route['present']) in canonical(body) and (allowed or 'data-imagine-cooperateurs-refus' in text)
     verdict['surface_present'] = bool(exists)

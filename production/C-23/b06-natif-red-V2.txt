@@ -1,0 +1,14 @@
+test_embed_natif_expurge_et_flux_de_pages_pas_commentaires (__main__.CooperatorsTest.test_embed_natif_expurge_et_flux_de_pages_pas_commentaires) ... FAIL
+
+======================================================================
+FAIL: test_embed_natif_expurge_et_flux_de_pages_pas_commentaires (__main__.CooperatorsTest.test_embed_natif_expurge_et_flux_de_pages_pas_commentaires)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 179, in test_embed_natif_expurge_et_flux_de_pages_pas_commentaires
+    self.assertTrue(m.assess_cooperator(route,(200,{},body),False)['ok'])
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 1 test in 0.052s
+
+FAILED (failures=1)
