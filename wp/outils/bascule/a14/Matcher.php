@@ -72,7 +72,10 @@ final class Matcher
             }
         }
         usort($anomalies, static fn(array $a, array $b): int => $a['line'] <=> $b['line']);
-        $ambiguous = count(array_filter($anomalies, static fn(array $row): bool => $row['reason'] === 'Plusieurs comptes pour cette adresse'));
+        $ambiguous = count(array_filter(
+            $anomalies,
+            static fn(array $row): bool => $row['reason'] === 'Plusieurs comptes pour cette adresse'
+        ));
         return [
             'counts' => [
                 'contacts_total' => count($contacts), 'contacts_with_account' => count($matched),

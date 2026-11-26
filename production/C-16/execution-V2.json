@@ -1,10 +1,10 @@
 {
-  "started_at": "2026-11-26T02:41:31.154952+00:00",
+  "started_at": "2026-11-26T02:51:37.827782+00:00",
   "steps": [
     {
       "name": "preparer-image-V2",
-      "started_at": "2026-11-26T02:41:31.154952+00:00",
-      "finished_at": "2026-11-26T02:41:34.159796+00:00",
+      "started_at": "2026-11-26T02:51:37.827782+00:00",
+      "finished_at": "2026-11-26T02:51:40.844732+00:00",
       "exit": 0,
       "command": [
         "powershell.exe",
@@ -17,8 +17,8 @@
     },
     {
       "name": "deployment-V2",
-      "started_at": "2026-11-26T02:41:34.159796+00:00",
-      "finished_at": "2026-11-26T02:42:04.091579+00:00",
+      "started_at": "2026-11-26T02:51:40.844732+00:00",
+      "finished_at": "2026-11-26T02:52:11.160532+00:00",
       "exit": 0,
       "command": [
         "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
@@ -28,8 +28,8 @@
     },
     {
       "name": "unit-focused-V2",
-      "started_at": "2026-11-26T02:42:04.091579+00:00",
-      "finished_at": "2026-11-26T02:42:05.746340+00:00",
+      "started_at": "2026-11-26T02:52:11.160532+00:00",
+      "finished_at": "2026-11-26T02:52:13.147873+00:00",
       "exit": 0,
       "command": [
         "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
@@ -40,48 +40,14 @@
     },
     {
       "name": "unit-root-V2",
-      "started_at": "2026-11-26T02:42:05.746340+00:00",
-      "finished_at": "2026-11-26T02:42:09.663025+00:00",
+      "started_at": "2026-11-26T02:52:13.147873+00:00",
+      "finished_at": "2026-11-26T02:52:17.270547+00:00",
       "exit": 0,
       "command": [
         "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
         "wp/outils/demo/c16-unit.py",
         "unit-root-V2",
         "--root"
-      ]
-    },
-    {
-      "name": "http-base-V2",
-      "started_at": "2026-11-26T02:42:09.663025+00:00",
-      "finished_at": "2026-11-26T02:43:05.830157+00:00",
-      "exit": 0,
-      "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
-        "wp/tests/demo/c16-baseline-V2.py"
-      ]
-    },
-    {
-      "name": "http-corrections-V2",
-      "started_at": "2026-11-26T02:43:05.830157+00:00",
-      "finished_at": "2026-11-26T02:44:26.504114+00:00",
-      "exit": 0,
-      "command": [
-        "C:\\Users\\Ced\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\python.exe",
-        "wp/tests/demo/c16-corrections-http.py"
-      ]
-    },
-    {
-      "name": "rejouer-t01-V2",
-      "started_at": "2026-11-26T02:44:26.504114+00:00",
-      "finished_at": "2026-11-26T02:44:31.950350+00:00",
-      "exit": 0,
-      "command": [
-        "powershell.exe",
-        "-NoProfile",
-        "-ExecutionPolicy",
-        "Bypass",
-        "-File",
-        "wp/tests/rejouer.ps1"
       ]
     }
   ],

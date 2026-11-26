@@ -90,5 +90,5 @@ if (getenv('A14_CONFINED') === '1') {
 b.run_storage=storage_run
 if __name__=='__main__':
     for p in [*Path('/checkout/wp/outils/bascule/a14').glob('*.php'),*Path('/opt/a14').glob('*.php')]:
-        b.check('lint:'+p.name,b.cmd(['php','-l',str(p)],check=False).returncode==0)
+        b.check('a14_lint:'+p.name,b.cmd(['php','-l',str(p)],check=False).returncode==0)
     sys.exit(b.main())

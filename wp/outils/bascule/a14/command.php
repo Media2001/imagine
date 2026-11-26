@@ -70,7 +70,10 @@ try {
     $result = Matcher::build($contacts, $native['accounts']);
     $matched = $result['matched'];
     unset($result['matched']);
-    $result = ['schema' => 'imagine-a14-v1', 'read_only' => true, 'storage' => $native['storage'], 'audit_sha256' => hash_file('sha256', $audit)] + $result;
+    $result = [
+        'schema' => 'imagine-a14-v1', 'read_only' => true, 'storage' => $native['storage'],
+        'audit_sha256' => hash_file('sha256', $audit),
+    ] + $result;
     $summary = "# Rapprochement fictif — lecture seule\n\nAucune réinscription ; coopérateur et tarif inconnus.\n";
     foreach ($result['counts'] as $name => $count) {
         $summary .= $name . ' : ' . $count . "\n";
@@ -82,7 +85,11 @@ try {
     if (!mkdir($out, 0700)) {
         throw new \RuntimeException('A14_OUTPUT_CREATE');
     }
-    foreach (['resume.json' => json_encode($result, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR) . "\n", 'resume.md' => $summary, 'rapproches.csv' => $csv] as $name => $text) {
+    $outputs = [
+        'resume.json' => json_encode($result, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR) . "\n",
+        'resume.md' => $summary, 'rapproches.csv' => $csv,
+    ];
+    foreach ($outputs as $name => $text) {
         $f = fopen($out . '/' . $name, 'xb');
         if (!$f || !chmod($out . '/' . $name, 0600) || fwrite($f, $text) !== strlen($text)) {
             throw new \RuntimeException('A14_OUTPUT_WRITE');
@@ -99,6 +106,8 @@ try {
         ob_end_clean();
     }
     $code = preg_match('/\AA(?:14|12|11|02)_[A-Z_]+\z/D', $error->getMessage()) ? $error->getMessage() : 'A14_FAILED';
-    fwrite(STDERR, class_exists(\Imagine\PublicAddresses\Runtime::class) ? \Imagine\PublicAddresses\Runtime::refusalMessage($error, $code) . "\n" : $code . "\n");
+    $message = class_exists(\Imagine\PublicAddresses\Runtime::class)
+        ? \Imagine\PublicAddresses\Runtime::refusalMessage($error, $code) : $code;
+    fwrite(STDERR, $message . "\n");
     exit(1);
 }

@@ -1,65 +1,52 @@
-# C-16 — À voir
+# C-16 — À voir, corrections V2
 
-**C-16 prêt à relire techniquement : `PRET` déposé. T01 canonique corrigé ; réserve C09 historique explicitement conservée.** Ce n’est ni une validation visuelle, ni un GO sur des données/paiements réels. C17 et C18 ne sont pas traités.
+**26 novembre 2026 : prêt à relire techniquement, gates frais verts, sans réserve historique C09.** Ni clôture, ni validation visuelle de Ced, ni GO sur le réel.
 
-## Compte et adresse
+## Compte, adresses et parcours
 
-Sur le seul site `imagine-test-demo`, se connecter comme **E-ABO**, login `e-abo` (ou **E-ADMIN**, `e-admin`). Les identifiants C09 sont dans le fichier privé `C:\Users\Ced\.imagine-demo\identifiants.json`, jamais dans les preuves.
+Sur **imagine-test-demo seulement**, compte fictif **E-ABO** (`e-abo`) ou **E-ADMIN** (`e-admin`). Identifiants dans le fichier privé C09, jamais dans les preuves.
 
-Ouvrir **Imagine → Commande pour un client** :
+- **Imagine → Commande pour un client** : `http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-commandes`
+- **Imagine → Échéances → Virements à valider** : `http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-echeances&vue=virements`
+- **Imagine → Réglages**, administrateur : `http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-reglages`
 
-`http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-commandes`
+1. Rechercher un compte par nom, email ou localité ; ou saisir un nouveau client fictif en `@example.org`, éventuellement **Sans email**. Une adresse déjà connue reprend le compte existant sans réécrire ses coordonnées. Vente directe reste un bouton distinct.
+2. Choisir le produit fictif C09 **normal-1**, une adresse fictive et **Virement** ou **Mandat papier**. Exemple : `16 rue Imaginaire`, `1000`, `Localite O'Fictif V2`, `BE`. Les prix sont ceux des fixtures, pas une offre Imagine. Aucun compte ni objet commercial avant confirmation.
+3. Confirmer : commande et souscription natives **pending**, sans paiement ni adhésion. Deux confirmations simultanées reprennent le même ID. Une interruption après persistance de `commence` laisse toute reprise fermée ; relire les objets natifs avant une nouvelle saisie.
 
-1. **Client** : rechercher `V-INSCRIT`, `v-inscrit@example.org` ou `Ville Fictive` ; sélectionner le compte. Ou saisir un nom manifestement fictif et une adresse en `@example.org`, ou cocher **Sans email**. **Vente directe** choisit le compte générique fictif en un clic. Une adresse déjà connue reprend le compte existant sans changer son nom/adresse. La création est différée à la confirmation, pour ne laisser aucun compte abandonné.
-2. **Commande** : choisir **C09 FICTIF — normal-1 — pas une offre Imagine** (120 EUR de fixture, pas un tarif Imagine), conserver/saisir une adresse fictive (`16 rue Imaginaire`, `1000`, `Ville Fictive`, `BE`), puis **Virement** ou **Mandat papier**. Un produit simple C14 lié à un numéro est également disponible. Sans identité : adresse facultative. Pas de taxe/port Imagine inventé, pas de quantité/prix libre.
-3. **Confirmation** : récapitulatif, case obligatoire, **Créer la commande en attente**. Le résultat reste dans ce troisième écran. Il donne l’ID natif ; un double envoi reprend le même ID, pas une seconde commande. Aucune commande ni compte n’existe avant cette confirmation.
+Le nouveau compte reçoit par défaut prénom, nom et adresses natives billing/shipping à la confirmation : la recherche ultérieure par localité le retrouve, avec ou sans email. **Jamais de réécriture d'un compte préexistant**, même si son email est saisi comme « nouveau ».
 
-Puis ouvrir **Imagine → Échéances → Virements à valider** :
+**Décision à défaut / question Imagine** : initialiser l'adresse du nouveau compte ? Réglage C10 `imagine_commande_adresse_nouveau=oui|non`, **oui** prudent par défaut ; `non` garde l'adresse sur commande/souscription seulement, et l'UI annonce l'absence de recherche par localité pour ce nouveau compte. Les deux valeurs ont été enregistrées par le vrai formulaire Settings API et relues. Bibliothèque close C10 inchangée.
 
-`http://192.168.129.32:8085/wp-admin/admin.php?page=imagine-echeances&vue=virements`
+La souscription par virement apparaît dans C15. **Ne pas cliquer « Paiement reçu » pour cette recette.** Les commandes à l'unité restent hors de cette vue selon C15 ; leur règlement n'est pas reprouvé par C16. Don, pack, offert et groupé restent des emplacements nommés.
 
-La commande d’abonnement par virement apparaît, liée à une souscription native `pending`. **Ne pas cliquer Paiement reçu pour cette recette C16.** Le lot n’exécute aucun paiement ni activation d’accès. Les commandes à l’unité restent hors de cette vue selon le périmètre C15 actuel ; les mandats n’ont ni référence bancaire fabriquée ni prélèvement exécuté.
+Sans email : marqueur unique `imagine_sans_email=1`, adresse technique `@sans-email.imagine.invalid`. Le filtre individuel refuse tout le message pour un destinataire TO/CC/BCC marqué ou `.invalid`, même mélangé à un normal. Coupe-circuit global conservé, aucun email émis, pas de Brevo ni de délivrabilité réelle annoncés prouvés. Décision C06 fermée, sans droit ni adhésion.
 
-Le nouveau compte sans email porte `imagine_sans_email=1`, adresse interne `@sans-email.imagine.invalid`. C’est le marqueur déjà employé par la fixture C13 ; A-SANSMAIL C09, qui n’en portait aucun au départ, le reçoit désormais dans le seed sans changer son adresse historique. Le filtre individuel WP refuse les destinataires TO/CC/BCC marqués, en plus du coupe-circuit global. Aucun raccord Brevo externe n’est annoncé prouvé. La décision réelle C06 du nouveau compte reste `complet=false`, `motif=sans_droit`, `bloc=abonnement` ; aucune adhésion n’est créée.
+## Preuves actuelles
 
-Don, pack, abonnement offert et abonnement groupé ne sont que des emplacements nommés. Aucun réglage métier inventé ni changement des bibliothèques closes/C10. Les trois écrans sont un squelette natif, pas une maquette validée par Ced.
+Dans `production/C-16/` :
+
+| Preuve | Résultat |
+|---|---|
+| `red-concurrence-V2.json` | Défaut reproduit : deux connexions synchronisées avant GET_LOCK, deux commandes et deux souscriptions natives distinctes |
+| `http-corrections-V2.json` | 23 contrôles verts : même ID sous concurrence, un seul couple natif, interruption/reprises fermées, adresses et préexistants, vrais GET par nom complet et localité apostrophés, réglage/restauration exacte |
+| `http-base-V2.json` | 70 contrôles verts : cinq souscriptions, numéro sans souscription, sécurité, accès fermé et reset ciblé |
+| `unit-focused-V2.json` | 15 tests / 38 assertions, dont 8 cas SansEmail avec deux lectures WordPress doublées ; aucun transport d'envoi |
+| `unit-root-V2.json` | 113 tests / 579 assertions, hors réseau, conteneur supprimé et absence vérifiée |
+| `preparer-image-V2.log`, `rejouer-t01-V2.log` | Préparation réellement exécutée ; T01 **1 077 tests / 34 327 assertions**, zéro échec, erreur ou ignoré |
+| `installation-V2.json`, `final-V2.json` | Quatre classes C16 et reset relus après écriture ; contrat courant C16/C17/C18/C19 présent, aucun bootstrap/seed partagé réécrit |
+| `c09-final-V2.json`, `final-V2.json` | **382/382**, A-PAPIER **#101**, action **#8793 pending**, état exact conservé avant/après ; aucune replanification ni exécution de file |
+
+Le reset supprime **seulement les objets/comptes/brouillons C16**. Inventaires natifs finaux vides ; sonde temporaire retirée et absence relue. Aucun reset des profils C09 ou de leurs actions. Le formulaire C10 matérialise des défauts absents de C12/C17 : la recette restitue leur absence exacte et relit, en gardant les journaux append-only (`settings-restauration-V2.json`, relevés avant/après dans la preuve HTTP). Aucun changement de code d'un autre lot nécessaire.
 
 ## Rejouer depuis la racine
 
 ```powershell
-# Relecture courante, sans paiement ni reset global :
-python wp/tests/demo/c16-gates.py                # exit 0 : C16 recevable, réserve C09 affichée
-python wp/tests/demo/c16-gates.py --strict-global # exit 2 : C09 conserve son échec historique
-python production/B-04/sceller-portabilite.py --check
-
-# Pour rejouer les tests (enregistrer de nouveaux reçus sans effacer les anciens) :
-python wp/outils/demo/c16-unit.py unit-gates
-python wp/outils/demo/b04-unit.py portabilite-c16
-python wp/tests/demo/c16-http.py http-gates
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/preparer-image.ps1
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File wp/tests/rejouer.ps1
+python wp/tests/demo/c16-verifier-V2.py --prepare --deploy --canonical
+python wp/tests/demo/c16-gates-V2.py --strict-global
 ```
 
-Les commandes de qualification ont été réellement exécutées ; leurs sorties sont conservées dans les fichiers `*-gates*` ci-dessous. `c16-etat.py`, les anciens `*-final*` et `final-before-gates.json` documentent l'arrêt précédent, **pas l'état courant**. Le déploiement C16 est déjà relu identique : ne pas le relancer pour regarder les écrans.
+La première commande déploie seulement C16 sur la démo existante, teste, nettoie et vérifie. La seconde relit sans mutation commerciale : **exit 0**, sans échec C09 imposé. Ne pas exécuter en parallèle d'une autre recette mutante. Comparaison standard en dix lignes et sources officielles : `natif.md`.
 
-Le runner HTTP utilise les outils/identifiants privés existants de B00/C09/C12. Il crée puis supprime ses objets **pending**, par l’extension C16 du reset C09 (`c16-reset.php`), également incluse par le seed C09 avant son prévol. Il ne relance pas le reset global des profils : C09/C12/C14 sont préservés. Un objet payé/modifié/étranger fait refuser le nettoyage, pas une suppression aveugle. Les relevés postaux append-only sont conservés. Ne pas lancer de seed global pour simplement montrer ces écrans.
+Les reçus sans suffixe V2, `final.json`, `c16-etat.py` et l'ancien `c16-gates.py` sont **historiques**, pas les gates actuels. La réserve C09 est levée par la consigne 1 et `production/C-09/papier-restauration-V2.json` ; ne pas réintroduire #8103 comme gate rouge. La dérive ancienne de `c09-seed.php` venait de l'ajout C17, pas de C16. Anciens A-VOIR/PRET conservés sous `*-historique-V1.*`. C20/C21 non traités.
 
-## Preuves et état exact
-
-Tout est dans `production/C-16/` :
-
-- `natif.md` : dix lignes de comparaison avec le parcours standard, sources officielles consultées.
-- `installation.json` : SHA-256 relus des fichiers réellement déployés, cible fixe, aucune installation commerciale ni téléversement du thème.
-- `unit-gates.json` : **6 tests C16, 14 assertions**, PHPUnit réel hors réseau, conteneur supprimé et absence vérifiée.
-- `../B-04/unit-portabilite-c16.json` et JUnit associés : **76 tests racine / 481 assertions**, **7 tests C12 / 63 assertions** ; **4 tests B04 / 91 assertions** (sous-ensemble de la racine, ne pas additionner). Tous réussis. C16 est aussi inclus dans la racine.
-- `http-gates.json` : **70 contrôles, zéro échec** : cinq souscriptions (existant, nouveau, sans email, email connu, vente directe), un achat de numéro sans souscription, refus de droits/nonces/saisie, reprise sans doublon et reset. Lectures natives : `native-*.json`, décision fermée : `acces-sansmail.json`.
-- `reset.json`, `final.json` : **11 objets natifs et 3 comptes C16 supprimés**, inventaires finaux vides ; nombre de comptes, manifeste C09 et état C12 restaurés. Les six commandes temporaires du rejeu courant étaient **2625, 2627, 2629, 2631, 2633, 2635**. Les cinq souscriptions liées ont aussi été retirées.
-- `red-regles.json`, `red-http.json` : RED avant implémentation. Les échecs historiques et le rapport de 00 h 29 restent conservés, sans réécriture.
-- `preparer-image-gates.log` : préparation réelle après correction du test B04, exit 0, image vérifiée ; ni édition de T01 ni dépendance commerciale.
-
-### Les deux gates : correction et classement explicite
-
-1. **T01 réellement vert : exit 0, 1 040 tests / 34 229 assertions, 0 échec, 0 erreur, 0 ignoré** (`rejouer-t01-gates-final.log`). RED reproduit avant correction dans `rejouer-t01-gates-red.log`. Seul changement B04 : `wp/plugins/imagine-site/tests/b04-status-fixture.php` lit d'abord le thème frère du checkout puis, si absent du paquet copié, le vrai thème au montage en lecture seule `/repo/wp` documenté par le runner. Si les deux manquent : exception. **Aucune assertion ni test supprimé** ; le mapping livré et l'absence de hooks restent testés, **55 assertions** pour ce test. Aucun changement de thème, de runner T01 ou de bibliothèque close. Nouveau sceau B04 : `../B-04/verification-portabilite-c16.json`, preuves natives antérieures conservées et empreintes relues, sans rejouer leur matrice.
-2. **C09 ne devient pas tout vert : 381/382 contrôles réussis**, même échec `A-PAPIER:action_native_planifiee_ou_absente_selon_statut` (`c09-non-regression-gates.json`). Diagnostic natif : action **8103**, prévue pour le **25 novembre 2026 à 19:01:50 UTC**, **annulée le 25 novembre à 20:38:22 UTC** ; elle n'a donc pas été « consommée naturellement ». L'installation C16 enregistrée est postérieure, à **23:18:01 UTC**. L'abonnement #101 et l'action sont identiques avant/après le nouveau parcours HTTP C16 et au readback final (`gates-c09-diagnostic.json`, `gates-c09-after-http.json`, `gates-c09-final-readback.json`). Le calendrier C09 crée A-PAPIER à +1 h ; la restauration C15 des anciennes dates est une explication cohérente, **pas une attribution prouvée de l'annulation**. L'API WCS installée ne recrée pas une action pour une date passée. Aucun seed global, changement de #101, exécution de file ou replanification arbitraire n'a été fait.
-
-**Décision technique à défaut** : le défaut historique de fixture C09 est classé hors C16, non bloquant pour sa réception ciblée ; il reste visible, non corrigé et doit être traité dans une consigne dédiée. `c16-gates.py` ne tolère que cet état précisément documenté et inchangé ; toute autre régression refuse le lot. Le mode `--strict-global` retourne toujours **2**, avec `global_all_green=false`. `PRET` signifie seulement **C16 prêt à relire techniquement**, pas « tous les lots verts », ni clôture ni validation visuelle de Ced.

@@ -24,6 +24,8 @@ def verify(packet):
         d=json.loads((packet/(name+'.json')).read_text())
         check(name+'_green',d['exit_code']==0 and bool(d['checks']) and all(c['status']=='PASS' for c in d['checks']))
         if name=='runner':check('native_runner_required',d['mode']=='native' and any(x['check']=='cleanup_exact_owned_runner' for x in d['checks']))
+    style=json.loads((packet/'style/style.json').read_text())
+    check('strict_psr12_after_last_write',style['exit_code']==0 and style['phpcs_exit']==0 and style['totals']['errors']==style['totals']['warnings']==0 and style['sources']==sources)
     prep=json.loads((packet/'preparation.json').read_text())
     check('preparer_image_really_ran',prep['exit_code']==0 and prep['command'][-1]=='wp/tests/preparer-image.ps1' and 'image verifiee' in (packet/'preparation.log').read_text(encoding='utf-8'))
     for storage in ['classic','hpos']:
