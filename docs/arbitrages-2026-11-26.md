@@ -393,3 +393,74 @@ Lu : le rapport de 17 h 06 (voie 1), ceux de 17 h 33, 18 h 18 et 19 h (voie 2), 
 
 - **Voie 1** : portes et `PRET` d'A-20, A-21, A-22, puis A-23, A-24, A-25. Deux lots de plus : A-26 (ce que le site charge chez des tiers : mesure, pixels, contenus intégrés, comptés ; §4.4) et A-27 (les moyens de paiement enregistrés, par passerelle et par type, comptés ; §4.3, §3.6).
 - **Voie 2** : corrections de B-06, fin de C-23, fin de C-24, puis B-07. Deux lots de plus : C-25 (rétractation en ligne en deux étapes, §3.7 : une demande enregistrée, aucun effet automatique, délai et point de départ en réglages) et B-08 (« Soutenir » et « Notre coopérative », §3.12 : pages vides aux intitulés du cahier des charges, don éteint, prise de parts par lien).
+
+# Passage automatique de 22 h
+
+Lu : le rapport de 19 h 21 (voie 1), ceux de 19 h 44, 20 h 01, 20 h 27, 21 h 07 et 21 h 58 (voie 2), les vérifications d'A-20, A-21, A-22, T-02, B-06 et C-23, les fusions d'A-23, A-24, A-25, C-24 et B-07, les notes de correction d'A-23, A-24 et A-25, la réception d'A-27. Aucun accord donné sur le réel.
+
+## A-20 et A-21 — clos
+
+- Chacun a reçu sa propre vérification après le gel des sources de 19 h 21 : code du lot inchangé depuis 17 h 38, seuls le gardien commun et la liste des dépendances ont bougé, paquet refait sur le gardien final, canal « fichier » couvert (25 contrôles de canaux, dont quatre sur le fichier). Les deux vérificateurs ont rejoué `rejouer.ps1` : 1 126 tests, 0 échec. Verdict : prêt pour la clôture.
+- À 19 h j'avais lié leur clôture à celle d'A-22, pour une raison précise : leur vérification était antérieure à leur dernier code. Cette raison est tombée, je les clos sans attendre A-22. Si le gardien change encore, le circuit les revérifie de lui-même.
+- Réserve écrite, la même que pour les lots précédents : la matrice native (classique et HPOS, conteneur) n'a été rejouée que par Hermès.
+
+## A-22 — corrections vérifiées, pas clos : il manque une preuve indépendante
+
+- Les cinq instructions de code sont appliquées et le vérificateur a rejoué lui-même 25 tests Python verts (codes de refus historiques, empreintes d'A-03, contenu des rapports, cinquième canari). Rien n'est à corriger.
+- Son verdict n'est pas « prêt » : il remonte que l'instruction 6 n'a été exécutée par personne d'indépendant. À 19 h j'avais écrit ce qui vaut revalidation : les portes du parent après le gel, puis, par le vérificateur, `rejouer.ps1` et le vérificateur de paquet. État : portes du parent faites à 19 h 21 ; `rejouer.ps1` rejoué au vert sur ces sources par trois vérificateurs (T-02, A-20, A-21) ; **le vérificateur de paquet d'A-22 n'a été lancé par aucun relecteur** (sa session refuse une commande avec argument ; celui d'A-21 a eu le même refus).
+- Je ne clos pas sur un critère que j'ai posé et qui n'est pas rempli, et je ne l'assouplis pas pour ce lot-là : c'est le gardien de tous les outils d'inventaire. J'ai tenté le vérificateur depuis une copie du dépôt : il refuse, parce que les journaux du paquet (`*.log`) ne sont pas versionnés ; il ne se rejoue donc que sur le NUC.
+- Deux façons de lever le point, toutes deux à Ced : lancer une fois la commande (une minute, sans Docker), ou l'ajouter aux commandes autorisées des relecteurs. Je n'élargis pas moi-même une permission sur sa machine. Écrit dans `ETAT.md`.
+- Rien n'attend derrière : Hermès continue, et aucun outil ne tourne sur le réel.
+
+## T-02 — reste clos
+
+- Vérification complémentaire : aucun code touché depuis la clôture, seuls les pointeurs de preuve ont suivi les portes de 19 h 21. Le décompte passe à 16 outils et 311 contrôles parce que la découverte automatique a pris A-23, A-24 et A-25. Le vérificateur a cette fois rejoué la suite lui-même : la réserve de 19 h est levée.
+
+## A-23, A-24, A-25 — à corriger, corrections faites, portes attendues
+
+- Verdicts de fusion retenus. A-23 : l'exclusion des comptes de gestion suivait les capacités effectives, pas la règle d'A-17 que le mode d'emploi annonce ; alignement sur A-17, et refus fermé d'un rôle de gestion au nom non conforme. A-24 : « à la casse et aux espaces près » veut dire en les ignorant ; le code faisait l'inverse et le test gravait l'erreur ; ce n'est pas une question métier. A-25 : une table de messages dont `submission_id` est la clé primaire était écartée, donc sous-comptée ; dans le doute, « couverture indéterminée », jamais zéro.
+- Défauts techniques des fusions confirmés : pour A-23, la neutralisation reste détectée par la marque de l'import (dépendance écrite) ; pour A-24, espacements retirés et casse repliée pour la seule comparaison, données brutes intactes, accents et ponctuation significatifs ; les erreurs Windows d'un relecteur sont traitées comme un prérequis d'environnement (dossier temporaire maîtrisé), écrit au mode d'emploi ; pour A-25, l'avertissement sur l'import est étiqueté « permanent, non mesuré sur la copie ».
+- Hermès dit les trois séries appliquées, `PRET` retirés, anciens paquets gardés comme historiques : restent la matrice native et les portes du parent. Le bon réflexe est tenu : un ancien paquet vert ne qualifie pas un code corrigé.
+- A-23, collisions comptées contre tous les comptes, administration comprise : question rangée pour Imagine, défaut « oui ».
+
+## A-25 — l'alerte sur l'import : exacte, plus étroite qu'elle n'en a l'air, et à fermer
+
+- Ce qui est prouvé : sur le banc, avec la décision `garder` posée sur une table de messages, les messages restent en clair après neutralisation et anonymisation. Les tables inconnues ne reçoivent aucune transformation automatique.
+- Ce que j'ai relu : la politique du parcours que Ced lance (`wp/outils/staging-court/politique-tables.json`) vide par défaut toute table hors catalogue. Une table de messages n'y survit donc que si un fichier de décisions dit `garder`.
+- Ce qui n'est pas prouvé : le sort des messages rangés ailleurs que dans une table à eux (certaines extensions les rangent comme des contenus, dans la table des articles).
+- Tranché : la doctrine veut qu'un agent n'entre que sur une copie anonymisée et vérifiée ; un message de formulaire est un texte libre écrit par un visiteur, il ne s'anonymise pas colonne par colonne, il se vide. Lot A-28 : le prouver par le vrai parcours, sur archives fictives, puis faire refuser par l'étape de vérification une copie où il en reste. A-01 reste clos pour tout le reste ; les commandes de Ced ne changent pas.
+- En attendant, une consigne simple pour Ced, dans `ETAT.md` : ne jamais écrire `garder` sur une table de formulaires.
+
+## B-06 — code clos
+
+- Cinq instructions appliquées et testées : deux réglages de rôle distincts (64 combinaisons, aucune n'ouvre un article), lecture du journal en échec déclarée incomplète, règle pure dans la suite rejouable, source et date affichées seulement si le statut est posé, collection REST contrôlée avec sa mutation.
+- Réserve du vérificateur (il n'a pas pu rejouer la suite) : levée de fait, le relecteur de C-24 a rejoué ensuite toute la suite, règle de B-06 comprise (1 128 tests, 0 échec).
+- Sa seconde remarque (le commit mêle d'autres lots) tient à la synchronisation commune, pas au lot : la clôture ne vaut que pour les fichiers de B-06.
+- Reste à Ced : la validation visuelle, et la présentation de la date du statut (brute, en temps universel).
+
+## C-23 — code clos sur son périmètre ; la couverture des pages coopérateurs passe en relecture avec C-26
+
+- Les six instructions sont appliquées, le vérificateur a lancé lui-même le vérificateur de paquet (74 contrôles) : livraison normale sans fuite sur la découverte fermée, mutation rouge, cas « épuisé » prouvé à part et réglage remis.
+- Il remonte un point de méthode, pas un défaut : la couverture des pages de B-06 (environ 400 lignes, 503 contrôles) est entrée pendant le tour de correction, sans les deux relectures. C'est une question de preuve, donc à moi.
+- Tranché : le lot se clôt sur ce qui a été relu deux fois et vérifié. La couverture des pages coopérateurs reste en place (elle va dans le sens du brief et elle est verte), mais **elle ne compte pas comme prouvée** tant qu'elle n'a pas ses deux relectures : elles viendront avec C-26, qui étend le test aux sorties ajoutées depuis et nomme ces fichiers dans son périmètre. Raison : c'est le choix prudent du vérificateur, sans relecture hors circuit ni lot bloqué.
+- Dépendance dure à `TMPDIR` dans un test : à corriger dans C-26.
+
+## C-24 — à corriger, corrections faites, vérification attendue
+
+- Verdict de fusion retenu. Deux importants, dans des chemins sans test : la restauration après un échec du journal ne restaurait rien (elle repassait l'ancien état par un validateur qui le refusait) ; une inscription à la newsletter créée par défaut valait « inscrit » pour la transmission. Hermès dit les cinq instructions appliquées à 21 h 58, `PRET` redéposé.
+- Défaut technique confirmé : seule une inscription choisie par le lecteur ouvre la transmission ; une origine par défaut ou inconnue la ferme. La lecture de « inscrit à au moins une newsletter » est rangée pour Imagine.
+
+## B-07 — rendu, à corriger
+
+- Verdict de fusion retenu, huit instructions, aucun bloquant : un lien saisi dans le texte d'un événement partenaire doit être déclaré commercial (règle de B-05) ; le balisage part du texte affiché, pas du texte brut ; un export qui échoue à lire ne se déclare pas complet ; l'adaptateur a une preuve rejouable hors du site.
+- Pas de garde contre les inscriptions en masse sur la démonstration : confirmé, le brief demande une inscription simple. À reprendre avant toute ouverture au public ; reporté aux écarts.
+
+## Style PSR-12 du code de la voie 2 — dette écrite, pas de reprise maintenant
+
+- Deux fusions (C-24, B-07) relèvent des instructions condensées sur une ligne dans `imagine-site` et le thème. La doctrine demande PSR-12 : la règle reste, et les outils de la voie 1 la contrôlent déjà.
+- On ne reformate ni lot par lot, ni maintenant : un passage d'ensemble changerait l'empreinte de tous les fichiers des lots code clos qui attendent l'œil de Ced, et périmerait leurs reçus. Un seul passage mécanique, sans changement de comportement, au gel du code avant la préproduction.
+
+## Files
+
+- **Voie 1** : matrices et portes d'A-23, A-24, A-25 ; fin d'A-26 et d'A-27. Deux lots de plus : A-28 (les messages de formulaires ne survivent pas à l'import ; doctrine §3) et A-29 (ce que le site fait tout seul : tâches planifiées, comptées ; §4.3, pour choisir le moment de la bascule).
+- **Voie 2** : corrections de B-07, puis C-25 et B-08. Un lot de plus : C-26 (le test d'étanchéité suit les sorties ajoutées depuis C-23, et met en relecture la couverture des pages coopérateurs ; §4.4).
