@@ -14,6 +14,13 @@ def read(name):
     return json.loads((PROOF/name).read_text(encoding='utf-8'))
 
 
+def business_original_exact(state, *receipts):
+    if not state or not receipts:
+        return False
+    expected = hashlib.sha256(json.dumps(state, sort_keys=True).encode()).hexdigest()
+    return all(r.get('native_before_sha256') == r.get('native_after_sha256') == expected for r in receipts)
+
+
 def verify():
     final=read('livraison.json')
     restoration=read('livraison-restauration.json')
@@ -40,7 +47,8 @@ def verify():
     checks['restoration_exact']=all(restoration[k] is True for k in ['metadata_restored_exactly','profiles_and_scheduled_actions_restored_exactly','business_unchanged_during_GETs'])
     checks['red_restoration_exact']=all(red_restore[k] is True for k in ['metadata_restored_exactly','profiles_and_scheduled_actions_restored_exactly','mutation_red_detected'])
     checks['schedule_exact']=restoration['schedule_before']==restoration['schedule_after']==red_restore['schedule_before']==red_restore['schedule_after']
-    checks['business_original_exact']=restoration['native_before_sha256']==restoration['native_after_sha256']==red_restore['native_before_sha256']==red_restore['native_after_sha256']=='4d81b43e4958a067678b12bfe1fbf6d57f83dcd382f92404a457e5850a935351'
+    baseline = read('baseline-V2.json')['state'] if (PROOF/'baseline-V2.json').is_file() else {}
+    checks['business_original_exact']=business_original_exact(baseline, restoration, red_restore)
     checks['red_detected']=red_restore['command_exit']==1 and red['leaks']>0 and any(r['name']=='article' and r['public']=='anonyme' and r['leak'] for r in red['results'])
     checks['inverse_article_pdf']=all(any(r['name']==name and r['public']=='abonne-actif' and r['ok'] and r['witnesses_found']>0 for r in final['results']) for name in ['inverse-article','inverse-pdf','inverse-C08'])
     checks['C14_owned_allowed_other_denied']=any(r['name']=='pdf-inventorie-11-endpoint' and r['public']=='acheteur-autre-numero' and r['ok'] and r['witnesses_found']>0 for r in final['results']) and any(r['name']=='pdf-telechargement' and r['public']=='acheteur-autre-numero' and r['ok'] and not r['witnesses_found'] for r in final['results'])
@@ -60,8 +68,7 @@ def verify():
     checks['unit_tests_both_encodings']=all(read('tests-finaux.json')[key]['exit']==0 for key in ['utf8','cp1252'])
     result={'scope':'imagine-test-demo','checks':checks,'total':len(checks),'failures':[k for k,v in checks.items() if v is not True],
             'last_matrix':{k:final[k] for k in ['total','leaks','failures','routes','publics','summary']},'mutation':{'total':red['total'],'leaks':red['leaks'],'exit':red_restore['command_exit']}}
-    (PROOF/'verification.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
-    print('C23 PAQUET :',len(checks)-len(result['failures']),'/',len(checks),'; échecs :',result['failures'])
+    print(json.dumps(result,ensure_ascii=True,indent=2))
     return not result['failures']
 
 

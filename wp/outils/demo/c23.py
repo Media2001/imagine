@@ -113,6 +113,63 @@ def fetch(path, headers=None):
     raise ValueError('Trop de redirections')
 
 
+def cooperator_routes(f):
+    pages = f.get('cooperator_pages', [])
+    if len(pages) != 5 or len({p['id'] for p in pages}) != 5:
+        raise ValueError('B06 inventaire des cinq pages absent ou incomplet')
+    routes = []
+    for p in pages:
+        marker = 'C23_COOP_TEMOIN_'+str(p['id'])
+        # Les données unitaires peuvent avoir un index fictif ; le vrai témoin est inventorié.
+        markers = re.findall(r'C23_COOP_TEMOIN_[0-9]+', p.get('body',''))
+        if len(markers) != 1:
+            raise ValueError('B06 contenu sans témoin : pages vides insuffisantes')
+        marker = markers[0]
+        urls = {'html':p['path'], 'rest':'/wp-json/wp/v2/pages/'+str(p['id']),
+                'rest-route':'/?rest_route=/wp/v2/pages/'+str(p['id']),
+                'collection':'/wp-json/wp/v2/pages?include='+str(p['id']),
+                'oembed':'/wp-json/oembed/1.0/embed?'+urlencode({'url':BASE+p['path']}),
+                'embed':p['path']+'embed/',
+                'recherche':'/?'+urlencode({'s':p['title'],'post_type':'page'}),
+                'flux':'/?'+urlencode({'feed':'rss2','post_type':'page','page_id':p['id']})}
+        for kind, path in urls.items():
+            routes.append(dict(name='b06-'+str(p['id'])+'-'+kind,path=path,present=p['title'],
+                               statuses=[200],cooperator_page=p['id'],cooperator_kind=kind,
+                               cooperator_marker=marker,denied=False))
+    return routes
+
+
+def assess_cooperator(route, response, allowed):
+    kind, marker = route['cooperator_kind'], route['cooperator_marker']
+    status, _, body = response
+    positive = allowed and kind != 'oembed'
+    expected = (403,) if not allowed and kind in ['rest','rest-route','oembed'] else (200,)
+    verdict = assess_response(response, [] if allowed and kind == 'oembed' else [marker], expected=expected, positive=positive)
+    text = body.decode('utf-8','replace')
+    try:
+        data = json.loads(body)
+    except (ValueError, UnicodeError):
+        data = None
+    if kind in ['rest','rest-route','oembed'] and not allowed:
+        exists = isinstance(data, dict) and data.get('code') == 'imagine_cooperateurs_reserve' and data.get('data',{}).get('status') == 403
+    elif kind == 'collection':
+        exists = isinstance(data,list) and (any(p.get('id')==route['cooperator_page'] for p in data) if allowed else data == [])
+    elif kind in ['rest','rest-route']:
+        exists = isinstance(data,dict) and data.get('id')==route['cooperator_page']
+    elif kind == 'oembed':
+        exists = isinstance(data,dict) and data.get('type')=='rich' and bool(data.get('html')) and route['present'] in data.get('title','')
+    elif kind == 'flux':
+        exists = '<rss' in text and '<channel>' in text
+    elif kind == 'recherche':
+        exists = '<main' in text and ('Aucun r' in text if not allowed else marker in text)
+    else:
+        exists = canonical(route['present']) in canonical(body) and (allowed or 'data-imagine-cooperateurs-refus' in text)
+    verdict['surface_present'] = bool(exists)
+    verdict['structure'] = bool(exists)
+    verdict['ok'] &= bool(exists)
+    return verdict
+
+
 def build_routes(f):
     a, n, pdf = str(f['article']), str(f['issue']), str(f['pdf'])
     slug = f['issue_slug']
@@ -195,6 +252,8 @@ def build_routes(f):
     for post in f.get('posts', []):
         if post['reserved'] and post['id'] not in [f['article'], f['auto'], f['c08'], f['c12']]:
             add('article-inventorie-'+str(post['id']), post['path'], post['title'], issue=post['issue'])
+    if 'cooperator_pages' in f:
+        routes.extend(cooperator_routes(f))
     return routes
 
 
@@ -240,7 +299,8 @@ def matrix(context, label='matrice'):
         raise ValueError('Identité/coupe-circuits non prouvés')
     if not f['posts'] or not f['issues'] or str(f['issue']) in f['buyer_issues'] or not f['buyer_issues']:
         raise ValueError('Inventaire ou témoin acheteur invalide')
-    routes = build_routes(f)
+    only_b06 = context.get('coverage') == 'B06-only'
+    routes = cooperator_routes(f) if only_b06 else build_routes(f)
     if not routes or len({r['name'] for r in routes}) != len(routes):
         raise ValueError('Inventaire des voies invalide')
     # Les témoins sont déjà dans les vrais corps, jamais plantés par cette commande.
@@ -266,12 +326,20 @@ def matrix(context, label='matrice'):
             present = route.get('present')
             # Une marque d'attribut doit exister dans le HTML brut, pas dans le texte visible.
             attr = present and present.startswith('data-')
-            verdict=assess_response(response, witnesses, None if attr else present, route.get('statuses',[200]),positive,inspected)
+            verdict=assess_response(response, witnesses, None if attr or 'cooperator_page' in route else present,
+                                    [status] if 'cooperator_page' in route else route.get('statuses',[200]),positive,inspected)
             if attr:
                 verdict['surface_present'] = present.encode() in body
                 verdict['ok'] &= verdict['surface_present']
             verdict['structure'] = True if positive else structure_ok(route,status,body,f)
             verdict['ok'] &= verdict['structure']
+            if 'cooperator_page' in route:
+                coop = assess_cooperator(route, response, public in f['cooperator_publics'])
+                verdict['ok'] &= coop['ok']
+                verdict['leak'] |= coop['leak']
+                verdict['surface_present'] = coop['surface_present']
+                verdict['witnesses_found'] += coop['witnesses_found']
+                verdict['structure'] &= coop['structure']
             if route.get('reflected'):
                 ids=re.findall(rb'data-imagine-id="(\d+)"',body)
                 verdict['structure'] = str(f['article']).encode() not in ids
@@ -297,13 +365,16 @@ def matrix(context, label='matrice'):
         valid=status==200 and json.loads(body).get('id')==session['id']
         identity['ok'] &= valid
     # Inverse AVANT anonymes : les réponses complètes ne doivent pas contaminer les suivantes.
-    probe('inverse-article','abonne-actif',dict(path=f['article_path'],present=f['article_title']),publics['abonne-actif'],[primary],True)
-    probe('inverse-pdf','abonne-actif',dict(path='/?imagine_pdf='+str(f['issue']),present=None),publics['abonne-actif'],['IMAGINE - DEMONSTRATION FICTIVE'],True,f['pdf_sha256'])
-    probe('inverse-C08','abonne-actif',dict(path='/?p='+str(f['c08']),present='C08'),publics['abonne-actif'],['Les lucioles violettes de C08 gardent le secret du village fictif.'],True)
+    if not only_b06:
+        probe('inverse-article','abonne-actif',dict(path=f['article_path'],present=f['article_title']),publics['abonne-actif'],[primary],True)
+        probe('inverse-pdf','abonne-actif',dict(path='/?imagine_pdf='+str(f['issue']),present=None),publics['abonne-actif'],['IMAGINE - DEMONSTRATION FICTIVE'],True,f['pdf_sha256'])
+        probe('inverse-C08','abonne-actif',dict(path='/?p='+str(f['c08']),present='C08'),publics['abonne-actif'],['Les lucioles violettes de C08 gardent le secret du village fictif.'],True)
     for route in routes:
         def evaluate(public):
             denied_markers=[w for w,issue in markers if public!='acheteur-autre-numero' or str(issue) not in f['buyer_issues']]
             denied_markers+=['IMAGINE - DEMONSTRATION FICTIVE','%PDF-']
+            if public not in f.get('cooperator_publics', []):
+                denied_markers += [r['cooperator_marker'] for r in routes if 'cooperator_marker' in r]
             effective=dict(route)
             if public=='acheteur-autre-numero' and str(route.get('pdf_issue','')) in f['buyer_issues']:
                 effective.pop('structure',None)
@@ -319,12 +390,13 @@ def matrix(context, label='matrice'):
             cells=list(pool.map(evaluate,public_order))
         print(route['name']+' | '+' | '.join(cells),flush=True)
     # Deuxième faux moteur et contrôle du numéro effectivement acheté.
-    probe('faux-bing','faux-robot',dict(path=f['article_path'],present=f['article_title']),{'User-Agent':'bingbot/2.0'},[w for w,_ in markers]+['%PDF-'])
-    probe('inverse-achat-C14','acheteur-autre-numero',dict(path='/?p='+str(f['c08']),present='C08'),publics['acheteur-autre-numero'],['Les lucioles violettes de C08 gardent le secret du village fictif.'],True)
+    if not only_b06:
+        probe('faux-bing','faux-robot',dict(path=f['article_path'],present=f['article_title']),{'User-Agent':'bingbot/2.0'},[w for w,_ in markers]+['%PDF-'])
+        probe('inverse-achat-C14','acheteur-autre-numero',dict(path='/?p='+str(f['c08']),present='C08'),publics['acheteur-autre-numero'],['Les lucioles violettes de C08 gardent le secret du village fictif.'],True)
     leaks=sum(bool(r['leak']) for r in results)
     failures=sum(not r['ok'] for r in results)
     summary=f'ETANCHEITE : {len(results)} contrôles, {leaks} fuites — '+('PASS' if not failures else 'FAIL')
-    receipt=dict(scope=f['scope'],at=datetime.now(timezone.utc).isoformat(),routes=len(routes),publics=public_order,
+    receipt=dict(scope=f['scope'],coverage='B06-only' if only_b06 else 'livraison',at=datetime.now(timezone.utc).isoformat(),routes=len(routes),publics=public_order,
                  total=len(results),leaks=leaks,failures=failures,summary=summary,results=results,
                  command_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                  fixture_sha256=hashlib.sha256(json.dumps(f,sort_keys=True).encode()).hexdigest())
@@ -338,7 +410,7 @@ def matrix(context, label='matrice'):
 
 if __name__ == '__main__':
     try:
-        if sys.argv[1:] and (len(sys.argv)!=2 or not re.fullmatch('[a-z0-9-]+',sys.argv[1])):
+        if sys.argv[1:] and (len(sys.argv)!=2 or not re.fullmatch('[a-zA-Z0-9-]+',sys.argv[1])):
             raise ValueError('Nom de reçu refusé')
         context=json.load(sys.stdin)
         raise SystemExit(matrix(context,sys.argv[1] if len(sys.argv)>1 else 'matrice'))

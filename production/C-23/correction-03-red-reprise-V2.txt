@@ -1,0 +1,23 @@
+test_preparation_normale_ne_recrit_aucune_politique (__main__.DiscoveryTest.test_preparation_normale_ne_recrit_aucune_politique) ... FAIL
+test_prerequis_incompatible_refuse_avant_session (__main__.DiscoveryTest.test_prerequis_incompatible_refuse_avant_session) ... FAIL
+
+======================================================================
+FAIL: test_preparation_normale_ne_recrit_aucune_politique (__main__.DiscoveryTest.test_preparation_normale_ne_recrit_aucune_politique)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 101, in test_preparation_normale_ne_recrit_aucune_politique
+    self.assertEqual(len(calls), 1)
+AssertionError: 2 != 1
+
+======================================================================
+FAIL: test_prerequis_incompatible_refuse_avant_session (__main__.DiscoveryTest.test_prerequis_incompatible_refuse_avant_session)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 114, in test_prerequis_incompatible_refuse_avant_session
+    with self.assertRaisesRegex(ValueError, 'découverte'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.090s
+
+FAILED (failures=2)

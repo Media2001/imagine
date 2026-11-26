@@ -1,0 +1,406 @@
+test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) ... 
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-900-html') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-900-rest') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-900-rest-route') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-900-collection') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-900-oembed') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-900-embed') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-900-recherche') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-900-flux') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-901-html') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-901-rest') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-901-rest-route') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-901-collection') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-901-oembed') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-901-embed') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-901-recherche') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-901-flux') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-902-html') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-902-rest') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-902-rest-route') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-902-collection') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-902-oembed') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-902-embed') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-902-recherche') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-902-flux') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-903-html') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-903-rest') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-903-rest-route') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-903-collection') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-903-oembed') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-903-embed') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-903-recherche') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-903-flux') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-904-html') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-904-rest') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-904-rest-route') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-904-collection') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-904-oembed') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-904-embed') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-904-recherche') ... ERROR
+  test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-904-flux') ... ERROR
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-900-html')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-900-rest')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-900-rest-route')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-900-collection')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-900-oembed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-900-embed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-900-recherche')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-900-flux')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-901-html')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-901-rest')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-901-rest-route')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-901-collection')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-901-oembed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-901-embed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-901-recherche')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-901-flux')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-902-html')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-902-rest')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-902-rest-route')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-902-collection')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-902-oembed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-902-embed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-902-recherche')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-902-flux')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-903-html')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-903-rest')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-903-rest-route')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-903-collection')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-903-oembed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-903-embed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-903-recherche')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-903-flux')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-904-html')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-904-rest')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-904-rest-route')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-904-collection')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-904-oembed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-904-embed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-904-recherche')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+======================================================================
+ERROR: test_controle_B06_reel_non_vide_mutation_par_sortie (__main__.CooperatorsTest.test_controle_B06_reel_non_vide_mutation_par_sortie) (route='b06-904-flux')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 197, in test_controle_B06_reel_non_vide_mutation_par_sortie
+    result = m.assess_cooperator(route,(status,{},body),False)
+             ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'assess_cooperator'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.060s
+
+FAILED (errors=40)

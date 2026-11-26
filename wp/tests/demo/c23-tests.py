@@ -108,11 +108,113 @@ class DiscoveryTest(unittest.TestCase):
         for policy in [{'ouverture':'fermee','forme':'articles','nombre':2,'numeros':[]},
                        {'ouverture':'premiere_lecture','forme':'articles','nombre':3,'numeros':['11']}]:
             f = {'discovery_policy':policy, 'discovery_relecture':'fermee',
+                 'users':{'V-INSCRIT':1,'V-DEC-FIN':2,'P-NUMERO':3,'A-CARTE':4},
                  'discovery':{'reglages':{'ouverture':'premiere_lecture','forme':'articles','nombre':2,'numeros':['11']},'articles':[1,2]}}
             with patch.object(m, 'wp') as native:
                 with self.assertRaisesRegex(ValueError, 'découverte'):
                     m.prepare(f)
                 native.assert_not_called()
+
+def load_verifier():
+    spec = importlib.util.spec_from_file_location('c23_verifier_tests', Path(__file__).with_name('c23-verifier.py'))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+class VerifierTest(unittest.TestCase):
+    def test_sortie_json_sans_ecriture(self):
+        from unittest.mock import patch
+        from contextlib import redirect_stdout
+        import io, json
+        m = load_verifier()
+        output = io.StringIO()
+        with patch.object(Path, 'write_text', side_effect=AssertionError('écriture interdite')), redirect_stdout(output):
+            m.verify()
+        value = json.loads(output.getvalue())
+        self.assertEqual(value['scope'], 'imagine-test-demo')
+        self.assertGreater(value['total'], 0)
+
+    def test_sha_etat_derive_accepte_evolution_legitime_refuse_derive(self):
+        import hashlib, json
+        m = load_verifier()
+        for state in [{'fictif':'version-1'}, {'fictif':'version-2'}]:
+            sha = hashlib.sha256(json.dumps(state, sort_keys=True).encode()).hexdigest()
+            receipt = {'native_before_sha256':sha, 'native_after_sha256':sha}
+            self.assertTrue(m.business_original_exact(state, receipt, receipt))
+            self.assertFalse(m.business_original_exact(state, receipt, dict(receipt, native_after_sha256='0'*64)))
+        self.assertFalse(m.business_original_exact({}, {}, {}))
+
+class CooperatorsTest(unittest.TestCase):
+    def fixture(self):
+        import json
+        f = json.loads((SOURCE.parents[3]/'production/C-23/inventaire-source.json').read_text(encoding='utf-8'))
+        f['cooperator_pages'] = [{'id':900+i,'path':'/espace-cooperateurs/p'+str(i)+'/',
+                                  'title':'Page fictive '+str(i),'body':'C23_COOP_TEMOIN_'+str(i)} for i in range(5)]
+        f['cooperator_publics'] = ['profil-p-coop']
+        return f
+
+    def test_cinq_pages_reellement_inventoriees_et_sorties_ajoutees(self):
+        m, f = load(), self.fixture()
+        rows = m.cooperator_routes(f)
+        self.assertEqual(len({r['cooperator_page'] for r in rows}), 5)
+        for page in f['cooperator_pages']:
+            names = [r['name'] for r in rows if r['cooperator_page']==page['id']]
+            for suffix in ['html','rest','rest-route','collection','oembed','embed','recherche','flux']:
+                self.assertIn('b06-'+str(page['id'])+'-'+suffix, names)
+        all_names = [r['name'] for r in m.build_routes(f)]
+        self.assertTrue(all(r['name'] in all_names for r in rows))
+
+    def test_pages_vides_ou_absentes_ne_prouvent_pas_absence(self):
+        m, f = load(), self.fixture()
+        for pages in [[], f['cooperator_pages'][:4], [dict(p, body='') for p in f['cooperator_pages']]]:
+            with self.subTest(count=len(pages)):
+                with self.assertRaisesRegex(ValueError, 'B06'):
+                    m.cooperator_routes(dict(f, cooperator_pages=pages))
+
+    def test_controle_B06_reel_non_vide_mutation_par_sortie(self):
+        import json
+        m, f = load(), self.fixture()
+        for route in m.cooperator_routes(f):
+            marker, kind = route['cooperator_marker'], route['cooperator_kind']
+            if kind in ['rest','rest-route','oembed']:
+                body = json.dumps({'code':'imagine_cooperateurs_reserve','data':{'status':403}}).encode()
+                status = 403
+                leaking = body[:-1]+b',"leak":"'+marker.encode()+b'"}'
+            elif kind == 'collection':
+                body, status = b'[]', 200
+                leaking = json.dumps([{'id':route['cooperator_page'],'content':marker}]).encode()
+            elif kind == 'flux':
+                body, status = b'<rss><channel><title>Pages</title></channel></rss>', 200
+                leaking = body.replace(b'</channel>',b'<item>'+marker.encode()+b'</item></channel>')
+            elif kind == 'recherche':
+                body, status = b'<main><h1>Recherche</h1><p>Aucun resultat</p></main>', 200
+                leaking = body.replace(b'</main>',marker.encode()+b'</main>')
+            else:
+                body, status = ('<h1>'+route['present']+'</h1><p data-imagine-cooperateurs-refus>Reserve</p>').encode(), 200
+                leaking = body+b'<!-- '+marker.encode()+b' -->'
+            with self.subTest(route=route['name']):
+                result = m.assess_cooperator(route,(status,{},body),False)
+                self.assertTrue(result['surface_present'])
+                self.assertTrue(result['ok'])
+                red = m.assess_cooperator(route,(status,{},leaking),False)
+                self.assertTrue(red['leak'])
+                self.assertFalse(red['ok'])
+                self.assertFalse(m.assess_cooperator(route,(status,{},b''),False)['ok'])
+
+    def test_mutation_par_voie_B06_surface_presente_et_inverse(self):
+        m, f = load(), self.fixture()
+        for route in m.cooperator_routes(f):
+            marker = 'C23_COOP_TEMOIN_'+str(route['cooperator_page']-900)
+            # Corps synthétique pour isoler chaque contrôle ; le HTTP natif est une recette séparée.
+            clean = b'<h1>Page fictive</h1><p>surface publique valide</p>'
+            self.assertTrue(m.assess(200,clean,[marker],present='Page fictive')['ok'])
+            red = m.assess(200,clean+b'<!-- '+marker.encode()+b' -->',[marker],present='Page fictive')
+            self.assertTrue(red['surface_present'])
+            self.assertTrue(red['leak'])
+            self.assertFalse(red['ok'])
+            self.assertTrue(m.assess(200,clean+marker.encode(),[marker],positive=True)['ok'])
+            self.assertFalse(m.assess(200,clean,[marker],positive=True)['ok'])
 
 class ContractTest(unittest.TestCase):
     def test_voie_absente_ne_passe_pas_a_vide(self):

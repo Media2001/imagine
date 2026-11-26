@@ -1,0 +1,18 @@
+{
+  "suite": "A25-sealed-verification-windows",
+  "rows": [
+    {
+      "console": "utf-8",
+      "exit_code": 0,
+      "checks": 90,
+      "stdout_sha256": "f2ce991ecb56d684c3f7311c440a4718157b08514bb8e16fd77c1866fd04d752"
+    },
+    {
+      "console": "cp1252",
+      "exit_code": 0,
+      "checks": 90,
+      "stdout_sha256": "f2ce991ecb56d684c3f7311c440a4718157b08514bb8e16fd77c1866fd04d752"
+    }
+  ],
+  "exit_code": 0
+}

@@ -1,0 +1,56 @@
+test_cinq_pages_reellement_inventoriees_et_sorties_ajoutees (__main__.CooperatorsTest.test_cinq_pages_reellement_inventoriees_et_sorties_ajoutees) ... ERROR
+test_mutation_par_voie_B06_surface_presente_et_inverse (__main__.CooperatorsTest.test_mutation_par_voie_B06_surface_presente_et_inverse) ... ERROR
+test_pages_vides_ou_absentes_ne_prouvent_pas_absence (__main__.CooperatorsTest.test_pages_vides_ou_absentes_ne_prouvent_pas_absence) ... 
+  test_pages_vides_ou_absentes_ne_prouvent_pas_absence (__main__.CooperatorsTest.test_pages_vides_ou_absentes_ne_prouvent_pas_absence) (count=0) ... ERROR
+  test_pages_vides_ou_absentes_ne_prouvent_pas_absence (__main__.CooperatorsTest.test_pages_vides_ou_absentes_ne_prouvent_pas_absence) (count=4) ... ERROR
+  test_pages_vides_ou_absentes_ne_prouvent_pas_absence (__main__.CooperatorsTest.test_pages_vides_ou_absentes_ne_prouvent_pas_absence) (count=5) ... ERROR
+
+======================================================================
+ERROR: test_cinq_pages_reellement_inventoriees_et_sorties_ajoutees (__main__.CooperatorsTest.test_cinq_pages_reellement_inventoriees_et_sorties_ajoutees)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 159, in test_cinq_pages_reellement_inventoriees_et_sorties_ajoutees
+    rows = m.cooperator_routes(f)
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'cooperator_routes'
+
+======================================================================
+ERROR: test_mutation_par_voie_B06_surface_presente_et_inverse (__main__.CooperatorsTest.test_mutation_par_voie_B06_surface_presente_et_inverse)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 177, in test_mutation_par_voie_B06_surface_presente_et_inverse
+    for route in m.cooperator_routes(f):
+                 ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'cooperator_routes'
+
+======================================================================
+ERROR: test_pages_vides_ou_absentes_ne_prouvent_pas_absence (__main__.CooperatorsTest.test_pages_vides_ou_absentes_ne_prouvent_pas_absence) (count=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 173, in test_pages_vides_ou_absentes_ne_prouvent_pas_absence
+    m.cooperator_routes(dict(f, cooperator_pages=pages))
+    ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'cooperator_routes'
+
+======================================================================
+ERROR: test_pages_vides_ou_absentes_ne_prouvent_pas_absence (__main__.CooperatorsTest.test_pages_vides_ou_absentes_ne_prouvent_pas_absence) (count=4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 173, in test_pages_vides_ou_absentes_ne_prouvent_pas_absence
+    m.cooperator_routes(dict(f, cooperator_pages=pages))
+    ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'cooperator_routes'
+
+======================================================================
+ERROR: test_pages_vides_ou_absentes_ne_prouvent_pas_absence (__main__.CooperatorsTest.test_pages_vides_ou_absentes_ne_prouvent_pas_absence) (count=5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Ced\imagine\wp\tests\demo\c23-tests.py", line 173, in test_pages_vides_ou_absentes_ne_prouvent_pas_absence
+    m.cooperator_routes(dict(f, cooperator_pages=pages))
+    ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'c23' has no attribute 'cooperator_routes'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.063s
+
+FAILED (errors=5)

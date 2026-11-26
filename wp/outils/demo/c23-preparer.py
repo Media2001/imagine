@@ -63,11 +63,25 @@ foreach(['imagine_decouverte_reglages','imagine_decouverte_relecture'] as $key){
 echo 'true';''')
 
 
+def validate_discovery(f):
+    policy, exhausted = f.get('discovery_policy', {}), f.get('discovery')
+    if policy.get('ouverture') != 'premiere_lecture' or not policy.get('numeros'):
+        raise ValueError('Prérequis découverte incompatible : politique livrée fermée ou sans numéro ; aucun réglage forcé')
+    if not exhausted or exhausted.get('reglages') != policy:
+        raise ValueError('Prérequis découverte incompatible : personnage à préparer durablement selon les réglages livrés')
+    if policy.get('forme') != 'articles' or len(exhausted.get('articles', [])) < policy.get('nombre', 1):
+        raise ValueError('Prérequis découverte incompatible : personnage non épuisé en articles')
+    if f.get('discovery_relecture') != 'fermee':
+        raise ValueError('Prérequis découverte incompatible : relecture livrée non fermée ; aucun réglage forcé')
+
+
 def prepare(f):
-    exhausted = f['discovery']
-    assert exhausted and len(exhausted['articles']) == exhausted['reglages']['nombre']
-    # Seul réglage provisoire : politique EXISTANTE du personnage épuisé de C09.
-    wp('update_option("imagine_decouverte_reglages",'+php(exhausted['reglages'])+');update_option("imagine_decouverte_relecture","fermee");echo "true";')
+    validate_discovery(f)
+    return create_sessions(f)
+
+
+def create_sessions(f):
+    # Authentification seule, également utilisée par la recette B06 séparée.
     mapping = {'connecte-sans-abonnement':'V-INSCRIT','decouverte-epuisee':'V-DEC-FIN',
                'acheteur-autre-numero':'P-NUMERO','abonne-actif':'A-CARTE'}
     mapping.update(f.get('additional_publics',{}))
