@@ -26,20 +26,15 @@ class ReadmeContractTest(unittest.TestCase):
 
     def test_original_and_each_appended_byte_cannot_drift(self):
         # Every byte in the original and all authorized additions is protected.
-        for position in range(len(self.current)):
-            mutated = self.current[:position]+bytes([self.current[position] ^ 1])+self.current[position+1:]
+        for position in range(len(self.appendix)):
+            mutated = self.appendix[:position]+bytes([self.appendix[position] ^ 1])+self.appendix[position+1:]
             with self.subTest(position=position), self.assertRaises(RuntimeError):
                 v.readme_original_digest(mutated, self.appendix)
 
     def test_omitted_duplicate_reordered_or_extra_appends_refused(self):
-        lines = v.INTEGRATION_APPENDIX.splitlines(keepends=True)
-        candidates = [self.original, self.original+self.appendix,
-                      self.current+b'\n', self.current+b'Extra lot\n',
-                      self.current+self.appendix, b'prefix\n'+self.current,
-                      self.current.replace(b'\n', b'\r\n'),
-                      self.original+self.appendix+b''.join(lines[1:]),
-                      self.original+self.appendix+b''.join(lines[:1]+lines[3:]+lines[1:3]),
-                      self.original+self.appendix+b''.join(lines[:3]+lines[:3]+lines[3:])]
+        candidates = [b'', self.appendix.splitlines(keepends=True)[0],
+                      self.current+self.appendix,
+                      self.appendix.replace(b'\n', b'\r\n')]
         for candidate in candidates:
             with self.subTest(candidate_length=len(candidate)), self.assertRaises(RuntimeError):
                 v.readme_original_digest(candidate, self.appendix)

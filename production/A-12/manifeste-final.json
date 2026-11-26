@@ -66,8 +66,8 @@
       "bytes": 16869
     },
     "wp/outils/bascule/a12/README.md": {
-      "sha256": "c1eb78792b1391936ceb48573b4fdb42bb6dda7713e575f360cc3e41f2a86791",
-      "bytes": 7611
+      "sha256": "482f19bd7ea4991fa629d893399353297d20edeb2da330b6963a67e3b192d619",
+      "bytes": 7657
     },
     "wp/outils/bascule/a12/Registry.php": {
       "sha256": "ea9f653e7a66e5267f93bd40a2c87d77e26dbf9bdd9a45c763fd1d38172dd530",
@@ -186,8 +186,8 @@
       "bytes": 1681
     },
     "production/A-12/preuves/final/sources.json": {
-      "sha256": "9795590cad15f24cd20f3287aa57a6cf39577393e256ba5f6b44972941578d0d",
-      "bytes": 1753
+      "sha256": "d2966a37287898ccbd0567a7e409b57df3471c49ab0584f84b0771c704aeb9ab",
+      "bytes": 1751
     },
     "production/A-12/preuves/final/unit.json": {
       "sha256": "18448b9df08919d66334fc20c75b52e31ddfe093b03809b60f3faafa90eb7743",
@@ -282,8 +282,8 @@
       "bytes": 618
     },
     "production/A-12/preuves/final/style/style.json": {
-      "sha256": "8fdc3c885d6a00ac859403105fe50dfdb2d0d74bb0aae9f5be2e280c6de8deff",
-      "bytes": 3248
+      "sha256": "f67e97e1af86c557a5ee5cdf1312b5e2a5754c9cc7a96768d8a887c1f71b376a",
+      "bytes": 3246
     }
   },
   "excluded_dynamic": [

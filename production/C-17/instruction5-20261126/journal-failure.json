@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-26T04:26:57.033346+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "journal_indisponible_refus_explicite": true,
+    "option_restauree_pas_de_fausse_decision": true,
+    "compte_indisponible_sans_lien_mort": true,
+    "ancien_formulaire_HTTP_refuse": true,
+    "reset_deux_profils": true,
+    "native_exact": true
+  },
+  "total": 6,
+  "failures": [],
+  "injection": "process-local namespaced add_option; real C10 hook, WP option rollback, disk deletion and stale HTTP form"
+}

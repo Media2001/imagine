@@ -1,0 +1,39 @@
+<?php
+
+declare(strict_types=1);
+
+$checks = [];
+$check = static function (string $name, bool $ok) use (&$checks): void {
+    $checks[] = ['check' => $name, 'status' => $ok ? 'PASS' : 'FAIL'];
+};
+$check('mapping_implementation_present', is_file('/subject/a16/Mapping.php'));
+if (is_file('/subject/a16/Mapping.php')) {
+    require '/subject/a16/Mapping.php';
+    $mapping = ['version' => 1, 'numero_type' => 'a16_numero', 'article_type' => 'a16_article',
+        'liaison' => ['source' => 'postmeta', 'cle' => '_a16_numero_id'],
+        'thematique' => 'a16_theme', 'pdf_cle' => '_a16_pdf_id', 'date_cle' => 'post_date_gmt'];
+    $check('explicit_operator_mapping_accepted', \Imagine\IssueInventory\Mapping::validate($mapping) === $mapping);
+    foreach (['version', 'thematique', 'liaison'] as $key) {
+        $bad = $mapping;
+        unset($bad[$key]);
+        try {
+            \Imagine\IssueInventory\Mapping::validate($bad);
+            $refused = false;
+        } catch (RuntimeException $error) {
+            $refused = $error->getMessage() === 'A16_MAPPING_INVALID';
+        }
+        $check('missing_mapping_field:' . $key, $refused);
+    }
+    $bad = $mapping;
+    $bad['liaison']['source'] = 'guess';
+    try {
+        \Imagine\IssueInventory\Mapping::validate($bad);
+        $refused = false;
+    } catch (RuntimeException $error) {
+        $refused = $error->getMessage() === 'A16_MAPPING_INVALID';
+    }
+    $check('never_guess_links', $refused);
+}
+$exit = in_array('FAIL', array_column($checks, 'status'), true) ? 1 : 0;
+file_put_contents('/report/unit.json', json_encode(['exit_code' => $exit, 'checks' => $checks], JSON_PRETTY_PRINT));
+exit($exit);

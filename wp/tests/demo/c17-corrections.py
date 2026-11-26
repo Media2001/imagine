@@ -148,7 +148,7 @@ def boundaries(label):
         status,_,_ = t.decision(abo,t.form(abo,uid),{'fin':today})
         decided = t.stored(uid)
         checks['date_fin_aujourdhui_acceptee_HTTP'] = status == 200 and decided['state']['decision'] == 'valide' and decided['state']['fin'] == today and t.absent(stored['path'])
-        checks['cinq_champs_conserves_sans_arbitrage_RGPD'] = set(decided['state']) == {'categorie','decision','date_decision','fin','operateur'}
+        checks['trois_champs_selon_arbitrage_4h30'] = set(decided['state']) == {'categorie','decision','fin'}
         evidence = {'today_UTC':today, 'exact_max_size':len(pdf), 'decision_readback':decided}
     finally:
         t.c17.reset()
@@ -206,10 +206,10 @@ def all_gates(label):
     checks['fixtures_nettoyees_un_fichier_C09_seul'] = cleanup['fixtures']==0 and cleanup['files']==['c17-'+state['att']['blob']+'.bin'] and state['ok']['decision']=='valide'
     source_paths = [current_source,ROOT/'wp/tests/demo/b02-runtime.php',Path(__file__),ROOT/'wp/tests/demo/c17-faults.py',ROOT/'wp/plugins/imagine-site/tests/JustificatifReglesTest.php'] + sorted((ROOT/'wp/plugins/imagine-site/tests/fixtures').glob('c17-fictif.*'))
     source_hashes = {p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in source_paths}
-    return save(label, {'at':datetime.now(timezone.utc).isoformat(),'scope':'imagine-test-demo','status':'PRET_TECHNIQUE_ATTENTE_ARBITRAGE_RGPD' if all(checks.values()) else 'ECHEC',
+    return save(label, {'at':datetime.now(timezone.utc).isoformat(),'scope':'imagine-test-demo','status':'PRET_TECHNIQUE_ARBITRAGE_4H30_APPLIQUE' if all(checks.values()) else 'ECHEC',
         'checks':checks,'total':len(checks),'failures':[k for k,v in checks.items() if v is not True], 'receipts':receipts,'sha256_Justificatifs_readback':actual,'source_sha256':source_hashes,'shared_sha256_before':shared,'shared_sha256_after':shared_after,
         'action8793_before':planned,'action8793_after':after_action,'final_documentary_state':state,'cleanup':cleanup,
-        'RGPD':'non arbitre; modele cinq champs conserve; aucune trace audit supplementaire', 'C18_treated':False,'C21_treated':False})
+        'RGPD':'arbitre A-FAIRE-2 4h30; dossier trois champs; date et operateur journal C10', 'C18_treated':False,'C21_treated':False})
 
 def seal(label):
     from datetime import datetime, timezone
@@ -242,9 +242,9 @@ def seal(label):
     remote = t.c17.wp('$out=[];foreach(json_decode(' + json.dumps(json.dumps(list(result['shared_sha256_after']))) + ',true) as $n){$out[$n]=hash_file("sha256",WP_CONTENT_DIR."/".$n);}echo wp_json_encode($out);')
     assert remote == result['shared_sha256_after']
     assert t.c17.state() == json.loads((PROOF/'after-final.json').read_text())['native']
-    return save(label,{'at':datetime.now(timezone.utc).isoformat(),'scope':'imagine-test-demo','status':'PRET_TECHNIQUE_ATTENTE_ARBITRAGE_RGPD','receipts':receipts,'canonical_T01':canonical,'native_C09':{'total':382,'failures':[]},
+    return save(label,{'at':datetime.now(timezone.utc).isoformat(),'scope':'imagine-test-demo','status':'PRET_TECHNIQUE_ARBITRAGE_4H30_APPLIQUE','receipts':receipts,'canonical_T01':canonical,'native_C09':{'total':382,'failures':[]},
         'source_sha256':result['source_sha256'],'sha256_readback_Justificatifs':readback,'shared_sha256_successor_preserved':remote,'action8793_exactly_preserved':True,
-        'RGPD_question5':'ATTENTE_CED_SANS_ARBITRAGE; cinq champs inchanges; aucun audit invente','failures':[]})
+        'RGPD_question5':'RESOLUE_CONSIGNE_4H30; trois champs et journal C10','failures':[]})
 
 if __name__ == '__main__':
     t.c17.profils.guard('imagine-test-demo')
