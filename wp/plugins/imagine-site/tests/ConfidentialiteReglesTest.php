@@ -31,8 +31,10 @@ final class ConfidentialiteReglesTest extends TestCase
         self::assertNotNull($out);
         self::assertStringContainsString('paused', json_encode($out));
         self::assertStringNotContainsString('AUTRE', json_encode($out));
-        self::assertSame([['user_id' => 4, 'membership_id' => 81, 'etat' => 'active']],
-            ConfidentialiteRegles::retirerPostal($event, 3)['donnees']['relation_native']);
+        self::assertSame(
+            [['user_id' => 4, 'membership_id' => 81, 'etat' => 'active']],
+            ConfidentialiteRegles::retirerPostal($event, 3)['donnees']['relation_native']
+        );
     }
 
     public function testCadeauEffaceAussiAdresseDuBeneficiaire(): void

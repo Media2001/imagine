@@ -97,9 +97,12 @@ final class Confidentialite
     }
 
     /** Valeurs techniques .invalid neutralisées dans tous les exports, même les champs natifs. */
-    private static function texte(mixed $value): string
+    private static function texte(mixed $value, string $privateEmail = ''): string
     {
         $text = is_scalar($value) || $value === null ? (string) $value : wp_json_encode($value, JSON_UNESCAPED_UNICODE);
+        if ($privateEmail !== '') {
+            $text = str_ireplace($privateEmail, '[sans adresse électronique]', $text);
+        }
         return preg_replace(
             '/[a-z0-9.!#$%&\x27*+\/=?^_`{|}~-]+@[a-z0-9.-]+\.invalid\b/i',
             '[sans adresse électronique]',
@@ -119,6 +122,7 @@ final class Confidentialite
         if (!is_array($response) || !isset($response['data']) || !is_array($response['data'])) {
             return $response;
         }
+        $privateEmail = self::adressePrivee($email) ? $email : '';
         foreach ($response['data'] as &$row) {
             $row['data'] = array_values(array_filter($row['data'], static fn ($f): bool => !preg_match(
                 '/password|mot de passe|token|jeton|payment.*(?:method|reference)|moyen de paiement|transaction'
@@ -126,7 +130,7 @@ final class Confidentialite
                 (string) ($f['name'] ?? '')
             )));
             foreach ($row['data'] as &$field) {
-                $field['value'] = self::texte($field['value']);
+                $field['value'] = self::texte($field['value'], $privateEmail);
             }
             unset($field);
         }
@@ -138,16 +142,20 @@ final class Confidentialite
     public static function filtrerArchive(string $archive, string $url, string $html, int $request, string $json): void
     {
         $zip = new \ZipArchive();
+        $opened = false;
+        $email = (string) (wp_get_user_request($request)->email ?? '');
+        $privateEmail = self::adressePrivee($email) ? $email : '';
         try {
             if ($zip->open($archive) !== true) {
                 throw new \RuntimeException('Archive indisponible.');
             }
+            $opened = true;
             foreach (['index.html' => $html, 'export.json' => $json] as $member => $path) {
                 $bytes = file_get_contents($path);
                 if (!is_string($bytes)) {
                     throw new \RuntimeException('Rapport indisponible.');
                 }
-                $filtered = self::texte($bytes);
+                $filtered = self::texte($bytes, $privateEmail);
                 if (
                     $filtered !== $bytes
                     && (!$zip->addFromString($member, $filtered)
@@ -159,8 +167,11 @@ final class Confidentialite
             if (!$zip->close()) {
                 throw new \RuntimeException('Archive non enregistrée.');
             }
+            $opened = false;
         } catch (\Throwable $e) {
-            @$zip->close();
+            if ($opened) {
+                $zip->close();
+            }
             wp_delete_file($archive);
             wp_delete_file($html);
             wp_delete_file($json);
@@ -181,11 +192,13 @@ final class Confidentialite
         if ($numbers) {
             $fields[] = ['name' => __('Imagine — numéros achetés', 'imagine-site'), 'value' => implode(', ', $numbers)];
         }
-        foreach ([
+        foreach (
+            [
             '_imagine_envoi_bloc_debut' => 'Début de bloc postal',
             '_imagine_acces_grace_debut' => 'Début de grâce',
             '_imagine_acces_grace_fin' => 'Fin de grâce',
-        ] as $key => $name) {
+            ] as $key => $name
+        ) {
             $v = $order->get_meta($key);
             if ($v !== '') {
                 $fields[] = ['name' => __($name, 'imagine-site'), 'value' => self::texte($v)];
@@ -210,6 +223,13 @@ final class Confidentialite
             throw new \RuntimeException('Lecture de confidentialité indisponible.');
         }
         return $rows;
+    }
+
+    private static function adressePrivee(string $email): bool
+    {
+        $user = self::user($email);
+        return str_ends_with(strtolower($email), '.invalid')
+            || ($user && get_user_meta($user->ID, SansEmail::META, true) === '1');
     }
 
     private static function audit(array $row, int $id): bool
@@ -338,7 +358,8 @@ final class Confidentialite
                 }
                 $pairs = [];
                 foreach ($fields as $name => $value) {
-                    $pairs[] = ['name' => (string) $name, 'value' => self::texte($value)];
+                    $privateEmail = self::adressePrivee($email) ? $email : '';
+                    $pairs[] = ['name' => (string) $name, 'value' => self::texte($value, $privateEmail)];
                 }
                 $data[] = ['group_id' => 'imagine-' . $kind, 'group_label' => __('Imagine — ', 'imagine-site') . $kind,
                     'item_id' => 'imagine-' . hash('sha256', $row['key']), 'data' => $pairs];

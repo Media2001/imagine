@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-26T06:23:52.178269+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "sans_email_marque_meme_hors_invalid": false,
+    "notes_et_jetons_retires": true,
+    "reponse_invalide_preservee_pour_erreur_native": true,
+    "email_non_marque_conserve": true
+  },
+  "total": 4,
+  "failures": [
+    "sans_email_marque_meme_hors_invalid"
+  ]
+}

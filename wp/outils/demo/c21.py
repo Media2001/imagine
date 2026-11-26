@@ -56,11 +56,47 @@ def deploy(label):
     assert native == c19.c18.state(), 'State drift during code-only install'
     return save(label, {'source_readback': readback, 'native_preserved': True, 'registration': fixture('registration')})
 
+def security(label):
+    before = c19.c18.state()
+    source = ROOT / 'wp/tests/demo/c21-security.php'
+    name = 'imagine-demo-build/c21-security.php'
+    c19.c18.c17.profils.b00.upload(name, source.read_bytes())
+    assert hashes([name])[name] == hashlib.sha256(source.read_bytes()).hexdigest()
+    result = wp('require WP_CONTENT_DIR."/imagine-demo-build/c21-security.php";')
+    result['checks'].update(wp(r'''echo wp_json_encode([
+        'mail_coupe'=>apply_filters('pre_wp_mail',null,['to'=>['fictif@example.org']])===false,
+        'HTTP_externe_coupe'=>is_wp_error(apply_filters('pre_http_request',false,[],'https://example.org/')),
+        'passerelles_coupees'=>apply_filters('woocommerce_available_payment_gateways',[])===[],
+        'fixture_absente'=>get_option('imagine_c21_fixture',null)===null && !get_user_by('login','imagine-c21-fictif')
+    ]);'''))
+    result['checks']['native_inchange'] = before == c19.c18.state()
+    result['total'] = len(result['checks'])
+    result['failures'] = [k for k,v in result['checks'].items() if v is not True]
+    save(label, result)
+    assert not result['failures']
+    return result
+
+
+def regressions(label):
+    paths = ['c20-regressions.php', 'c20-native.php', 'c08-runtime.php', 'c13-runtime.php', 'c09-runtime.php']
+    names = ['imagine-demo-build/' + p for p in paths]
+    actual = hashes(names)
+    assert actual == {n: hashlib.sha256((ROOT / 'wp/tests/demo' / p).read_bytes()).hexdigest() for n, p in zip(names, paths)}
+    before = c19.c18.state()
+    native = wp('require WP_CONTENT_DIR."/imagine-demo-build/c20-regressions.php";')
+    c09 = wp('require WP_CONTENT_DIR."/imagine-demo-build/c09-runtime.php";')
+    after = c19.c18.state()
+    assert before == after, 'Native readback drift'
+    assert all(not r['failures'] and r['all_tables_rollback_exact'] and r['total'] == len(r['checks']) for r in native.values())
+    assert c09['total'] == len(c09['checks']) == 382 and not c09['failures'] and all(c09['checks'].values())
+    return save(label, {'native': native, 'C09': c09, 'state_preserved': True, 'sources_readback': actual})
+
+
 if __name__ == '__main__':
     c19.c18.c17.profils.guard('imagine-test-demo')
     mode = sys.argv[1]
     label = sys.argv[2] if len(sys.argv) > 2 else mode
-    if mode in ('baseline', 'deploy'):
+    if mode in ('baseline', 'deploy', 'regressions'):
         globals()[mode](label)
     else:
         save(label, {'phase': mode, 'result': fixture(mode)})
