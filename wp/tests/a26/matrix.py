@@ -23,6 +23,7 @@ def python_summary(text, returncode):
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--output', required=True, type=Path)
+    ap.add_argument('--python-only', action='store_true', help='No native calls; not an acceptance packet')
     a = ap.parse_args()
     if sys.platform != 'win32':
         raise RuntimeError('A26_WINDOWS_REQUIRED')
@@ -53,18 +54,22 @@ def main():
         (folder / 'environment.json').write_text(json.dumps(json.loads(p.stdout.decode(encoding)), indent=2) + '\n', encoding='utf-8')
         execute([sys.executable, '-B', '-m', 'unittest', 'discover', '-s', 'wp/tests/a26', '-p', 'test_*.py', '-v'],
                 env, encoding, folder / 'python-tests.log')
-        execute([sys.executable, '-B', 'wp/tests/a26/run.py', '--output=' + str(folder / 'native')],
-                env, encoding, folder / 'runner-console.log')
+        if not a.python_only:
+            execute([sys.executable, '-B', 'wp/tests/a26/run.py', '--output=' + str(folder / 'native')],
+                    env, encoding, folder / 'runner-console.log')
     env = {**os.environ, 'PYTHONIOENCODING': 'utf-8', 'PYTHONUTF8': '1', 'PYTHONDONTWRITEBYTECODE': '1'}
-    execute([sys.executable, '-B', 'wp/tests/a26/style.py', '--output=' + str(out / 'style')],
-            env, 'utf-8', out / 'style-console.log')
+    if not a.python_only:
+        execute([sys.executable, '-B', 'wp/tests/a26/style.py', '--output=' + str(out / 'style')],
+                env, 'utf-8', out / 'style-console.log')
     spec = importlib.util.spec_from_file_location('a26_runner', HERE / 'run.py')
     runner = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(runner)
     (out / 'sources.json').write_text(json.dumps(runner.manifest(runner.OWN), indent=2) + '\n', encoding='utf-8')
     (out / 'candidate.json').write_text(json.dumps({'status': 'CANDIDAT_GATE_PARENT', 'readiness_claimed': False,
                                                   'parent_preparation': 'pending', 'parent_global_T01': 'pending'}, indent=2) + '\n', encoding='utf-8')
-    result = {'rows': rows, 'exit_code': int(any(row['exit_code'] != 0 or row.get('all_pass') is False for row in rows))}
+    (out / 'dependencies.json').write_text(json.dumps(runner.manifest(runner.DEPS), indent=2) + '\n', encoding='utf-8')
+    result = {'rows': rows, 'native_executed': not a.python_only,
+              'exit_code': int(any(row['exit_code'] != 0 or row.get('all_pass') is False for row in rows))}
     (out / 'windows-matrix.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
     print(json.dumps(result, indent=2))
     return result['exit_code']

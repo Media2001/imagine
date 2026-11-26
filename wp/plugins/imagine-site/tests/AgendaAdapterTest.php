@@ -28,6 +28,91 @@ final class AgendaAdapterTest extends TestCase
         require dirname(__DIR__, 3) . '/themes/imagine/functions.php';
     }
 
+    public function testExportErreurArreteEtRepriseNeSauteAucunePage(): void
+    {
+        $GLOBALS['agenda_meta'][1]['imagine_type'] = 'rencontre';
+        self::assertTrue(Agenda::inscrire(1, 'Fictif export', 'export@example.org', false));
+        $GLOBALS['wpdb']->fail = true;
+        $failed = AgendaConfidentialite::exporter('export@example.org', 1);
+        self::assertInstanceOf(\WP_Error::class, $failed, 'Une erreur arrête la pagination native.');
+        $GLOBALS['wpdb']->fail = false;
+        $retry = AgendaConfidentialite::exporter('export@example.org', 1);
+        self::assertTrue($retry['done']);
+        self::assertCount(1, $retry['data']);
+        self::assertSame('imagine-agenda-2', $retry['data'][0]['item_id']);
+        for ($i = 0; $i < 120; $i++) {
+            wp_insert_post(['post_type' => Agenda::INSCRIPTION, 'post_status' => 'private', 'post_parent' => 1,
+                'meta_input' => ['imagine_agenda_email' => 'export@example.org', 'imagine_agenda_nom' => 'Fictif pagination']]);
+        }
+        $items = [];
+        for ($page = 1; $page <= 3; $page++) {
+            $part = AgendaConfidentialite::exporter('export@example.org', $page);
+            self::assertSame($page === 3, $part['done']);
+            self::assertCount($page === 3 ? 21 : 50, $part['data']);
+            $items = array_merge($items, array_column($part['data'], 'item_id'));
+        }
+        self::assertSame(array_map(static fn ($id) => 'imagine-agenda-' . $id, range(2, 122)), $items);
+        self::assertCount(121, array_unique($items));
+    }
+
+    public function testProjectionFicheSchemaExecuteLeContenuUneSeuleFois(): void
+    {
+        $GLOBALS['agenda_posts'][1]->post_content = '<div id="agenda-temoin">[agenda_test]</div>';
+        $calls = 0;
+        add_filter('the_content', static function (string $html) use (&$calls): string {
+            $calls++;
+            return str_replace('[agenda_test]', '<strong>Texte rendu &amp; visible ' . $calls . '</strong>', $html);
+        }, 11);
+        ob_start();
+        require dirname(__DIR__, 3) . '/themes/imagine/single-imagine_evenement.php';
+        $html = ob_get_clean();
+        self::assertSame(1, $calls, 'Un shortcode à effet ne doit pas être exécuté deux fois.');
+        self::assertStringNotContainsString('[agenda_test]', $html);
+        preg_match('~<script type="application/ld\\+json">(.*?)</script>~s', $html, $match);
+        $schema = json_decode($match[1], true, flags: JSON_THROW_ON_ERROR);
+        $dom = new \DOMDocument(); $dom->loadHTML('<?xml encoding="UTF-8">' . $html, LIBXML_NOERROR | LIBXML_NOWARNING);
+        self::assertSame($dom->getElementById('agenda-temoin')->textContent, $schema['description']);
+        self::assertSame('Texte rendu & visible 1', $schema['description']);
+    }
+
+    public function testPartenairePasseConserveSonLienSansInscription(): void
+    {
+        $GLOBALS['agenda_meta'][1]['imagine_date'] = '2020-01-01';
+        ob_start();
+        require dirname(__DIR__, 3) . '/themes/imagine/single-imagine_evenement.php';
+        $html = ob_get_clean();
+        self::assertStringContainsString('id="evenement-1"', $html);
+        self::assertStringContainsString('Partenariat', $html);
+        self::assertStringContainsString('href="https://partner.example.org/" rel="sponsored noopener noreferrer"', $html);
+        self::assertStringNotContainsString('inscriptions closes', $html);
+        self::assertStringNotContainsString('imagine-agenda-inscription', $html);
+        self::assertFalse(Agenda::ouvert(1));
+        self::assertFalse(Agenda::inscrire(1, 'Fictif', 'partenaire@example.org', false));
+        self::assertCount(1, $GLOBALS['agenda_posts']);
+    }
+
+    public function testLibellesLitterauxEtDomainesDesGabarits(): void
+    {
+        self::assertTrue(is_callable([Agenda::class, 'libellesTypes']), 'Présentation extractible des types manquante.');
+        self::assertSame(Agenda::TYPES, Agenda::libellesTypes());
+        foreach ([dirname(__DIR__) . '/Agenda.php', dirname(__DIR__) . '/AgendaConfidentialite.php'] as $path) {
+            $tokens = token_get_all(file_get_contents($path));
+            foreach ($tokens as $i => $token) {
+                if (!is_array($token) || $token[0] !== T_STRING || !in_array($token[1], ['__', 'esc_html__', 'esc_html_e'], true)) { continue; }
+                $j = $i + 1;
+                while ($tokens[$j] !== '(') { $j++; }
+                do { $j++; } while (is_array($tokens[$j]) && $tokens[$j][0] === T_WHITESPACE);
+                self::assertIsArray($tokens[$j]);
+                self::assertSame(T_CONSTANT_ENCAPSED_STRING, $tokens[$j][0], $path . ': traduction extractible');
+            }
+        }
+        foreach (['single', 'archive'] as $name) {
+            $source = file_get_contents(dirname(__DIR__, 3) . '/themes/imagine/' . $name . '-imagine_evenement.php');
+            self::assertStringNotContainsString("'imagine-site'", $source);
+            self::assertStringNotContainsString("=== 'partenaire' ?", $source);
+        }
+    }
+
     public function testLiensDuCorpsPartenaireEtContreExemples(): void
     {
         $content = '<a href="https://outside.example.org/" rel="nofollow">Externe</a>'

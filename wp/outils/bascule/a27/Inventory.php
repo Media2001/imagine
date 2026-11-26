@@ -7,12 +7,9 @@ namespace Imagine\SavedPayments;
 final class Inventory
 {
     private const REFERENCES = [
-        'stripe' => ['_stripe_source_id', '_stripe_payment_method_id'],
-        'stripe_sepa' => ['_stripe_source_id', '_stripe_payment_method_id'],
-        'woocommerce_payments' => ['_payment_method_id'],
+        'stripe' => ['_stripe_source_id', '_stripe_card_id'],
+        'stripe_sepa' => ['_stripe_source_id', '_stripe_card_id'],
         'paypal' => ['_paypal_subscription_id'],
-        'ppec_paypal' => ['_ppec_billing_agreement_id'],
-        'ppcp-gateway' => ['_ppcp_billing_agreement_id'],
     ];
 
     private static function select(string $sql): array
@@ -67,7 +64,12 @@ final class Inventory
                 $gateway = $sub->get_payment_method('edit');
                 $meta = [];
                 foreach (self::REFERENCES[$gateway] ?? [] as $key) {
-                    $meta[$key] = $sub->get_meta($key, true, 'edit');
+                    $value = $sub->get_meta($key, true, 'edit');
+                    if ($value !== '') {
+                        // Stripe reads source first, with the legacy card key as fallback.
+                        $meta[$key] = $value;
+                        break;
+                    }
                 }
                 $subscriptions[] = ['user' => (int) $sub->get_customer_id('edit'),
                     'status' => $sub->get_status('edit'), 'gateway' => $gateway,

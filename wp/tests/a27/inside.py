@@ -8,6 +8,7 @@ import shlex
 import shutil
 import subprocess
 import sys
+import tempfile
 
 sys.dont_write_bytecode = True
 spec = importlib.util.spec_from_file_location('a02_fixture', '/opt/a02/inside.py')
@@ -160,6 +161,11 @@ if (getenv('A27_CONFINED') === '1') {
         ('shutdown_extra_file', "register_shutdown_function(function(){" + target + " file_put_contents($dir.'/extra.txt','A27_FILE_PRIVATE_CANARY');});", 'A27_REPORT_INVALID'),
         ('shutdown_partial', "register_shutdown_function(function(){" + target + " unlink($dir.'/paiements.md');});", 'A27_REPORT_INVALID'),
     ]
+    fence_spec = importlib.util.spec_from_file_location('a27_native_fence', '/subject/a12/confine.py')
+    fence = importlib.util.module_from_spec(fence_spec)
+    fence_spec.loader.exec_module(fence)
+    witnesses = {'direct_stdout', 'direct_stderr', 'display_exit', 'shutdown_stdout', 'shutdown_stderr',
+                 'shutdown_display', 'oversize', 'shutdown_json_canary', 'shutdown_markdown', 'shutdown_extra_file'}
     try:
         for label, statement, want in cases:
             mu.write_text("<?php if (getenv('A27_CONFINED') === '1') {" + statement + '}\n' + base_mu[5:], encoding='utf-8')
@@ -168,6 +174,23 @@ if (getenv('A27_CONFINED') === '1') {
             b.check(storage + ':closed_channel_' + label, (p.returncode, p.stdout, p.stderr) == (1, '', want + '\n') and not out.exists())
             b.check(storage + ':discarded_channel_' + label, not list(OUT.glob('.a27-private-*'))
                     and not any(b'CANARY' in f.read_bytes() for f in OUT.rglob('*') if f.is_file()))
+            if label in witnesses:
+                # Deliberately omit the stream/publication guardian only in this
+                # disposable fixture. Observe raw evidence in RAM, then destroy it.
+                with tempfile.TemporaryDirectory(prefix='a27-witness-', dir='/scratch') as temporary:
+                    stage = Path(temporary)
+                    (stage / 'audit').mkdir()
+                    shutil.copyfile(audit, stage / 'audit/audit.json')
+                    command = ['php', '-d', 'display_errors=0', '-d', 'log_errors=0', '-d',
+                               'disable_functions=mail,exec,shell_exec,system,passthru,popen,proc_open,pcntl_exec',
+                               '/subject/a27/inventorier-paiements', '--wp-path=' + str(site),
+                               '--audit=' + str(stage / 'audit/audit.json'), '--output=' + str(stage / 'result')]
+                    witness = subprocess.run(command, capture_output=True, timeout=120,
+                                             env={**os.environ, 'A27_CONFINED': '1'},
+                                             preexec_fn=lambda: fence.confine(stage))
+                    observed = b'CANARY' in witness.stdout + witness.stderr or any(
+                        b'CANARY' in f.read_bytes() for f in (stage / 'result').rglob('*') if f.is_file())
+                    b.check(storage + ':mutation_witness_' + label, observed)
     finally:
         mu.write_text(base_mu, encoding='utf-8')
     bad = OUT / (storage + '-bad-audit')
@@ -214,6 +237,8 @@ if (getenv('A27_CONFINED') === '1') {
         b.check(storage + ':neutral_all_unknown_no_useful_number', data['neutralisation'] == UNKNOWN
                 and data['counts'] == dict.fromkeys(['automatic', 'cards', 'relations'], UNKNOWN))
         n_after = b.fingerprint(clone)
+        n_final_files = b.files(site)
+        (OUT / (storage + '-neutral-files.json')).write_text(json.dumps({'before': n_files, 'after': n_final_files}), encoding='utf-8')
         for suffix, value in [('before', n_before), ('after', n_after)]:
             (OUT / (storage + '-neutral-db-' + suffix + '.json')).write_text(json.dumps(value), encoding='utf-8')
         b.check(storage + ':neutral_db_files_unchanged', n_before == n_after and n_files == b.files(site))
@@ -239,6 +264,8 @@ if (getenv('A27_CONFINED') === '1') {
                                  {'gateway': 'stripe', 'metric': 'tokens_without_living_subscription', 'count': 5}], 'autres': 0}}
     b.check(storage + ':five_exact_gateway_type_expiry_relations', data['counts'] == expected_five)
     five_after = b.fingerprint(db)
+    five_final_files = b.files(site)
+    (OUT / (storage + '-five-files.json')).write_text(json.dumps({'before': five_files, 'after': five_final_files}), encoding='utf-8')
     for suffix, value in [('before', five_before), ('after', five_after)]:
         (OUT / (storage + '-five-db-' + suffix + '.json')).write_text(json.dumps(value), encoding='utf-8')
     b.check(storage + ':five_db_files_unchanged', five_before == five_after and five_files == b.files(site))

@@ -19,10 +19,10 @@ final class AgendaConfidentialite
         }, 130);
     }
 
-    public static function exporter(string $email, int $page = 1): array
+    public static function exporter(string $email, int $page = 1): array|\WP_Error
     {
         $ids = is_email($email) ? Agenda::inscriptions($email) : [];
-        if ($ids === null) { return ['data' => [], 'done' => false]; }
+        if ($ids === null) { return new \WP_Error('imagine_agenda_export_lecture', __('Lecture des inscriptions impossible : réessayez cette page.', 'imagine-site')); }
         $data = [];
         foreach (array_slice($ids, (max(1, $page) - 1) * 50, 50) as $id) {
             $p = get_post($id);

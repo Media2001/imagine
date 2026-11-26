@@ -76,13 +76,22 @@ final class Agenda
         return $groups;
     }
 
-    public static function schema(int $id): array
+    /** Une projection par rendu : ne jamais réexécuter un shortcode pour le JSON-LD. */
+    public static function projection(int $id): array
+    {
+        $post = get_post($id);
+        $html = $post ? str_replace(']]>', ']]&gt;', apply_filters('the_content', get_the_content(null, false, $post))) : '';
+        return ['html' => $html, 'description' => trim(html_entity_decode(wp_strip_all_tags($html), ENT_QUOTES | ENT_HTML5, 'UTF-8'))];
+    }
+
+    public static function schema(int $id, ?array $projection = null): array
     {
         $e = self::evenement($id);
         if (!$e) { return []; }
+        $projection ??= self::projection($id);
         return ['@context' => 'https://schema.org', '@type' => 'Event', 'name' => $e['nom'],
             'startDate' => $e['iso'], 'location' => ['@type' => 'Place', 'name' => $e['lieu']],
-            'description' => $e['description'], 'url' => get_permalink($id)];
+            'description' => $projection['description'], 'url' => get_permalink($id)];
     }
 
     /** Même résultat et même redirection pour une création et son rejeu. */
