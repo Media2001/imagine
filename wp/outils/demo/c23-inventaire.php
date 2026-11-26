@@ -30,7 +30,9 @@ $out = ['scope' => 'imagine-test-demo', 'base' => home_url(), 'article' => $arti
     'term_path' => $local(get_term_link($terms[0])), 'posts' => [], 'issues' => [], 'partners' => [],
     'users' => [], 'guards' => ['mail' => true, 'network' => true, 'payments' => true],
     'discovery' => get_option('imagine_decouverte_compte_' . $c09['users']['V-DEC-FIN']),
-    'discovery_policy' => Imagine\Site\Decouverte::reglages(), 'discovery_relecture' => get_option('imagine_decouverte_relecture', 'fermee')];
+    'discovery_policy' => Imagine\Site\Decouverte::reglages(), 'discovery_relecture' => get_option('imagine_decouverte_relecture', 'fermee'),
+    'account_path' => $local(wc_get_page_permalink('myaccount')),
+    'sitemap_enabled' => wp_sitemaps_get_server()->sitemaps_enabled()];
 foreach (get_posts(['post_type' => 'post', 'post_status' => 'publish', 'numberposts' => -1]) as $post) {
     $out['posts'][] = ['id' => $post->ID, 'slug' => $post->post_name, 'title' => $post->post_title,
         'path' => $local(get_permalink($post->ID)), 'issue' => (int) get_post_meta($post->ID, 'imagine_numero_id', true),

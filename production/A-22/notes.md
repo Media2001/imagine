@@ -49,4 +49,10 @@ Préparation globale, T01 global et PRET réservés au parent ; non exécutés p
 - Cette dernière correction de vérificateur exige une nouvelle photographie propre : **seule `a22-matrix-final-03` est candidate à la livraison A22**. `a22-matrix-final-02` restera un intermédiaire scratch, même si ses banques sont vertes. A20/A21 ne dépendent pas de ce vérificateur A22 et leurs instantanés courants restent vérifiables.
 - Le harnais de style commun est livré et a été réellement rejoué à son chemin final : `production/A-22/style.py`, reçu `a22-style-final-06`, code 0, trois fichiers PHP, zéro erreur/avertissement, sources exactes avant/après et suppression du conteneur exact relue. A21 et les banques A22 continuent leur matrice ; aucun résultat futur n’est revendiqué ici.
 
+## Checkpoint — deux frontières d’arguments restaurées, nouvelle sélection de preuves
+
+La revue du passage par un dossier privé a trouvé deux validations à faire **avant** la substitution : un `--wp-path=` vide d’A12 ne doit pas devenir le dossier courant, et un nom final A20 invalide ne doit pas être masqué par le nom privé `result`. Deux tests réels ont d’abord échoué (codes observés `A12_AUDIT_GUARD` / `A20_CONFINEMENT_FAILED` au lieu des refus d’argument), puis sont verts après une garde de valeur et une garde de basename. Aucun compte, format de rapport ou paramètre nominal changé. Treize tests Python A22 sont verts en UTF-8 ; toutes les sous-commandes fixent leur encodage.
+
+Ces **deux lignes applicatives** changent les dépendances : les paquets A20/A21 de matrice 02 et A22 de matrices 02/03 sont désormais historiques, non rescellables sur les nouvelles sources. Leurs FINALISATION portent le checkpoint ; PRET reste absent. Les nouvelles matrices complètes sont réellement lancées : **`a22-matrix-final-04`, `a20-shared-final-03`, `a21-shared-final-03`**. Seules celles-ci seront publiées si leurs retours réels sont verts. Style A21 `a21-shared-style-final-03` déjà vert ; style commun `a22-style-final-06` reste exact, ses trois fichiers PHP étant inchangés. Aucun gate parent exécuté.
+
 

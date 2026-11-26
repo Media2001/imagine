@@ -39,6 +39,19 @@ class ContractTest(unittest.TestCase):
         for path in ['//example.org/', 'https://example.org/', '/\\\\example.org/', '/x\r\nCookie: secret']:
             with self.assertRaises(ValueError):
                 m.validate_path(path)
+    def test_cdata_ne_masque_jamais_temoin(self):
+        self.assertTrue(load().assess(200,b'<title><![CDATA[secret]]></title>',['secret'])['leak'])
+    def test_recherche_reflechie_n_est_pas_fuite(self):
+        m=load()
+        self.assertTrue(callable(getattr(m,'search_results_body',None)), 'Extraction réelle des résultats à construire')
+        body=b'<title>secret</title><main><h1>Recherche secret</h1><form>secret</form><p>Aucun resultat</p></main>'
+        self.assertFalse(m.assess(200,m.search_results_body(body),['secret'])['leak'])
+        leaking=body.replace(b'Aucun resultat',b'<li data-imagine-id="42">secret</li>')
+        self.assertTrue(m.assess(200,m.search_results_body(leaking),['secret'])['leak'])
+    def test_faux_sitemap_html_et_archive_vide_refuses(self):
+        m=load()
+        for kind in ['sitemap','cards','rest-item','rest-list','rest-error','oembed','empty-search','feed','sharing','pdf-denied','admin-denied']:
+            self.assertFalse(m.structure_ok({'structure':kind,'name':'archives'},200,b'<html><p>Tout va bien</p></html>',{'article':42}),kind)
     def test_catalogue_routes_non_vide_et_complet(self):
         m = load()
         self.assertTrue(callable(getattr(m, 'build_routes', None)), 'Inventaire des voies à construire')

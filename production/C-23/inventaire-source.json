@@ -382,6 +382,8 @@
     ]
   },
   "discovery_relecture": "fermee",
+  "account_path": "/my-account/",
+  "sitemap_enabled": false,
   "buyer_issues": [
     "11"
   ],

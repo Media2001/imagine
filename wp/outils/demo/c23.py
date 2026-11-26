@@ -22,7 +22,9 @@ def canonical(text):
         text = json.dumps(json.loads(text), ensure_ascii=False)
     except (ValueError, TypeError):
         pass
-    text = html.unescape(re.sub(r'<[^>]*>', '', text))
+    text = text.replace('<![CDATA[','').replace(']]>','')
+    text = html.unescape(text)
+    text = html.unescape(re.sub(r'<[^>]*>', ' ', text))
     return ' '.join(unicodedata.normalize('NFC', text).split())
 
 def assess(status, body, witnesses, present=None, expected=(200,), positive=False):
@@ -32,6 +34,13 @@ def assess(status, body, witnesses, present=None, expected=(200,), positive=Fals
     errors = any(x in text for x in ('Fatal error', 'Uncaught Error', 'critical error', 'Warning:'))
     return {'ok': status in expected and exists and not errors and (bool(found) if positive else not found),
             'leak': bool(found) and not positive, 'witnesses_found': len(found), 'surface_present': exists}
+
+
+def search_results_body(body):
+    main=re.search(rb'<main\b[^>]*>(.*?)</main>',body,re.S|re.I)
+    if not main:
+        raise ValueError('Recherche sans résultat inspectable')
+    return re.sub(rb'<form\b.*?</form>|<h1\b.*?</h1>',b'',main.group(1),flags=re.S|re.I)
 
 
 def validate_path(path):
@@ -70,11 +79,11 @@ def build_routes(f):
         routes.append(dict(name=name,path=path,present=present,denied=denied,statuses=list(statuses),**kw))
     title = f.get('article_title', slug)
     add('article', f['article_path'], title)
-    add('accueil', '/', title, structure='cards')
+    add('accueil', '/', 'C08', structure='cards')
     add('numero', f['issue_path'], title, structure='cards')
     add('kiosque', '/numeros/', f.get('issue_title','Numéro fictif 4'), structure='cards')
     add('thematique', f['term_path'], title, structure='cards')
-    add('archives', f['posts_archive'], title, structure='cards')
+    add('archives', f['posts_archive'], title, structure='archive')
     add('rest-contenu', '/wp-json/wp/v2/posts/'+a, title, structure='rest-item')
     add('rest-collection', '/wp-json/wp/v2/posts?include='+a+'&_embed=1', title, structure='rest-list')
     add('rest-champs', '/wp-json/wp/v2/posts/'+a+'?_fields=id,content,excerpt', str(f['article']), structure='rest-item')
@@ -84,12 +93,12 @@ def build_routes(f):
     add('rest-revisions', '/wp-json/wp/v2/posts/'+a+'/revisions', denied=True, statuses=(401,403), structure='rest-error')
     add('rest-edition', '/wp-json/wp/v2/posts/'+a+'?context=edit', denied=True, statuses=(401,403), structure='rest-error')
     for feed in ['rss2','rss','atom','rdf']:
-        add(feed, '/?feed='+feed+'&posts_per_rss=100', title, structure='feed')
-    add('flux-article', '/?feed=rss2&p='+a, title, structure='feed')
+        add(feed, '/?feed='+feed+'&posts_per_rss=100', f['article_path'], structure='feed')
+    add('flux-article', '/?feed=rss2&post_type=post&include='+a, f['article_path'], structure='feed')
     add('oembed', '/wp-json/oembed/1.0/embed?'+urlencode({'url':BASE+f['article_path']}), title, structure='oembed')
     add('embed', f['article_path']+'embed/', title)
     add('recherche', '/?'+urlencode({'s':slug}), title, structure='cards')
-    add('recherche-corps', '/?'+urlencode({'s':'CONTENU_FICTIF_RESERVE_DEMO-2026-T4_1'}), 'Recherche', reflected=True)
+    add('recherche-corps', '/?'+urlencode({'s':'CONTENU_FICTIF_RESERVE_DEMO-2026-T4_1'}), 'Aucun résultat', reflected=True)
     add('rest-recherche-corps', '/wp-json/wp/v2/search?search=CONTENU_FICTIF_RESERVE_DEMO-2026-T4_1', '[]', structure='empty-search')
     add('rest-posts-corps', '/wp-json/wp/v2/posts?search=CONTENU_FICTIF_RESERVE_DEMO-2026-T4_1', '[]', structure='empty-search')
     add('partage', f['article_path'], title, structure='sharing')
@@ -101,11 +110,15 @@ def build_routes(f):
     add('amp-inactif', f['article_path']+'?amp=1', title)
     add('prefetch', f['article_path'], title, extra={'Sec-Purpose':'prefetch'})
     add('conditionnelle', f['article_path'], title, extra={'If-None-Match':'"c23"','If-Modified-Since':'Tue, 01 Jan 2030 00:00:00 GMT'})
-    add('sitemap', '/wp-sitemap.xml', 'wp-sitemap-posts-post-1.xml', structure='sitemap')
-    add('sitemap-articles', '/wp-sitemap-posts-post-1.xml', f['article_path'], structure='sitemap')
-    add('sitemap-numeros', '/wp-sitemap-posts-imagine_numero-1.xml', f['issue_path'], structure='sitemap')
+    if f.get('sitemap_enabled',True):
+        add('sitemap', '/wp-sitemap.xml', 'wp-sitemap-posts-post-1.xml', structure='sitemap')
+        add('sitemap-articles', '/wp-sitemap-posts-post-1.xml', f['article_path'], structure='sitemap')
+        add('sitemap-numeros', '/wp-sitemap-posts-imagine_numero-1.xml', f['issue_path'], structure='sitemap')
+    else:
+        for name,path in [('sitemap','/wp-sitemap.xml'),('sitemap-articles','/wp-sitemap-posts-post-1.xml'),('sitemap-numeros','/wp-sitemap-posts-imagine_numero-1.xml')]:
+            add(name,path,denied=True,statuses=(404,),native_disabled=True)
     add('sitemap-pdf', '/wp-sitemap-posts-attachment-1.xml', denied=True, statuses=(404,))
-    add('pdf-telechargement', '/?imagine_pdf='+n, 'data-imagine-pdf-bloc=', structure='pdf-denied')
+    add('pdf-telechargement', '/?imagine_pdf='+n, f.get('issue_title','Numéro fictif 4'), structure='pdf-denied')
     add('pdf-direct', '/wp-content/uploads/imagine-demo/'+slug+'.pdf', denied=True, statuses=(403,404))
     add('pdf-ancienne-source', '/wp-content/imagine-demo-build/assets/'+slug+'.pdf', denied=True, statuses=(403,404))
     add('pdf-piece-jointe', '/?attachment_id='+pdf, denied=True, statuses=(404,))
@@ -118,7 +131,7 @@ def build_routes(f):
     for partner in f['partners']:
         add('partenaire-'+str(partner['id']), partner['path'], partner['title'])
     add('newsletters', '/nos-newsletters/', 'newsletters')
-    add('mon-compte', '/mon-compte/', 'Mon compte')
+    add('mon-compte', f.get('account_path','/mon-compte/'), 'Mon compte')
     # Toutes les nouvelles entrées d'administration/export depuis C08 : lecture GET
     # sans les nonces, sans jamais déclencher une exportation/effacement/gel.
     for page in ['imagine-reglages','imagine-liste-envoi','imagine-echeances','imagine-commande-client',
@@ -136,11 +149,14 @@ def structure_ok(route, status, body, f):
     kind = route.get('structure')
     text = body.decode('utf-8','replace')
     if kind == 'pdf-denied':
-        return b'data-imagine-pdf-bloc=' in body and b'%PDF-' not in body
+        return b'%PDF-' not in body and (b'data-imagine-pdf-bloc=' in body or b'imagine-contents-list' in body and b'data-imagine-pdf-download' not in body)
     if kind == 'sharing':
         return all(x in text for x in ['og:description','twitter:description','application/ld+json','isAccessibleForFree'])
     if kind == 'cards':
         return bool(re.search(r'<a\b[^>]*href=',text)) and ('data-imagine-id=' in text or route['name'] in ['kiosque','partenaires','numero'])
+    if kind == 'archive':
+        main=re.search(r'<main\b[^>]*>(.*?)</main>',text,re.S)
+        return bool(main and re.search(r'<h2><a href=',main.group(1)))
     if kind == 'feed':
         return ('<item' in text or '<entry' in text) and '<html' not in text[:100]
     if kind == 'sitemap':
@@ -189,7 +205,7 @@ def matrix(context, label='matrice'):
             inspected=body
             if route.get('reflected'):
                 # La recherche réaffiche légitimement le terme ; inspecter les cartes et leurs IDs.
-                inspected=re.sub(rb'<form\b.*?</form>|<h1\b.*?</h1>',b'',body,flags=re.S)
+                inspected=search_results_body(body)
             present = route.get('present')
             # Une marque d'attribut doit exister dans le HTML brut, pas dans le texte visible.
             attr = present and present.startswith('data-')
