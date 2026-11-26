@@ -24,6 +24,6 @@ try {
         ob_end_clean();
     }
     $message = preg_match('/\AA(?:11|02)_[A-Z0-9_]+\z/D', $error->getMessage()) ? $error->getMessage() : 'A11_FAILED';
-    fwrite(STDERR, $message . "\n");
+    fwrite(STDERR, Imagine\PublicAddresses\Runtime::refusalMessage($error, $message) . "\n");
     exit(1);
 }

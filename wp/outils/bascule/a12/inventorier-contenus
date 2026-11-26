@@ -35,6 +35,6 @@ try {
     $code = $exception instanceof \RuntimeException
         && preg_match('/\AA(?:12|11|02)_[A-Z_]+\z/D', $exception->getMessage())
         ? $exception->getMessage() : 'A12_INVENTORY_FAILED';
-    fwrite(STDERR, $code . "\n");
+    fwrite(STDERR, (class_exists(\Imagine\PublicAddresses\Runtime::class) ? \Imagine\PublicAddresses\Runtime::refusalMessage($exception, $code) : $code) . "\n");
     exit(1);
 }

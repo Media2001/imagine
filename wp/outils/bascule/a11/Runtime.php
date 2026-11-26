@@ -4,9 +4,39 @@ declare(strict_types=1);
 
 namespace Imagine\PublicAddresses;
 
+final class RuntimeRefusal extends \RuntimeException
+{
+    public function __construct(string $code, public readonly array $details)
+    {
+        parent::__construct($code);
+    }
+}
+
 final class Runtime
 {
     public static array $guards = ['http' => 0, 'mail' => 0, 'scheduled' => 0];
+
+    public static function refusalMessage(\Throwable $error, string $code): string
+    {
+        return $code . ($error instanceof RuntimeRefusal ? ' ' . json_encode($error->details, JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_SUBSTITUTE | JSON_THROW_ON_ERROR) : '');
+    }
+
+    public static function validateConfiguration(string $source): void
+    {
+        $known = explode(' ', 'DB_NAME DB_USER DB_PASSWORD DB_HOST DB_CHARSET DB_COLLATE ABSPATH AUTH_KEY SECURE_AUTH_KEY LOGGED_IN_KEY NONCE_KEY AUTH_SALT SECURE_AUTH_SALT LOGGED_IN_SALT NONCE_SALT WP_DEBUG WP_DEBUG_LOG WP_DEBUG_DISPLAY WP_ENVIRONMENT_TYPE WP_HTTP_BLOCK_EXTERNAL DISABLE_WP_CRON AUTOMATIC_UPDATER_DISABLED WP_AUTO_UPDATE_CORE DISALLOW_FILE_MODS DISALLOW_FILE_EDIT WP_MEMORY_LIMIT WP_MAX_MEMORY_LIMIT WP_CACHE WP_POST_REVISIONS AUTOSAVE_INTERVAL EMPTY_TRASH_DAYS');
+        $tokens = array_values(array_filter(token_get_all($source), static fn ($token): bool => !is_array($token) || !in_array($token[0], [T_WHITESPACE, T_COMMENT, T_DOC_COMMENT], true)));
+        foreach ($tokens as $index => $token) {
+            if (!is_array($token) || !in_array($token[0], [T_STRING, T_NAME_FULLY_QUALIFIED, T_NAME_QUALIFIED], true)
+                || strtolower(ltrim($token[1], '\\')) !== 'define' || ($tokens[$index + 1] ?? '') !== '(') {
+                continue;
+            }
+            $name = $tokens[$index + 2] ?? null;
+            $constant = is_array($name) && $name[0] === T_CONSTANT_ENCAPSED_STRING ? substr($name[1], 1, -1) : '';
+            if (!in_array($constant, $known, true)) {
+                throw new RuntimeRefusal('A11_CONFIG_OVERRIDE_UNSUPPORTED', ['constant' => preg_match('/^[A-Z_][A-Z0-9_]{0,100}$/D', $constant) ? $constant : '[non litterale]']);
+            }
+        }
+    }
 
     public static function boot(string $site): void
     {
@@ -16,17 +46,15 @@ final class Runtime
         }
         $source = file_get_contents($file);
         $config = \Imagine\Audit\Audit::config($source);
-        if (preg_match('/[\'\"](?:MULTISITE|SUBDOMAIN_INSTALL|WP_HOME|WP_SITEURL|WP_CONTENT_DIR|WP_PLUGIN_DIR|CUSTOM_USER_TABLE|CUSTOM_USER_META_TABLE)[\'\"]\s*,/', $source)) {
-            throw new \RuntimeException('A11_CONFIG_OVERRIDE_UNSUPPORTED');
-        }
+        self::validateConfiguration($source);
         foreach (['db.php', 'object-cache.php', 'advanced-cache.php', 'sunrise.php'] as $dropin) {
             if (file_exists($site . '/wp-content/' . $dropin) || is_link($site . '/wp-content/' . $dropin)) {
-                throw new \RuntimeException('A11_DROPIN_UNSUPPORTED');
+                throw new RuntimeRefusal('A11_DROPIN_UNSUPPORTED', ['file' => 'wp-content/' . $dropin]);
             }
         }
         foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($site, \FilesystemIterator::SKIP_DOTS), \RecursiveIteratorIterator::SELF_FIRST) as $path) {
             if ($path->isLink()) {
-                throw new \RuntimeException('A11_SYMLINK_UNSUPPORTED');
+                throw new RuntimeRefusal('A11_SYMLINK_UNSUPPORTED', ['file' => substr($path->getPathname(), strlen($site) + 1)]);
             }
         }
         define('ABSPATH', $site . '/');

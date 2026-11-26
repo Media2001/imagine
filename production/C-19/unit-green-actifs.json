@@ -1,0 +1,11 @@
+{
+  "exit": 0,
+  "removed": true,
+  "selection": "TableauBordReglesTest",
+  "image": "sha256:7f75bd127fe6ef3672a87e012c5170691e38463406cac4e8c57b67ef41198c75",
+  "stdout": "PHPUnit 11.5.58 by Sebastian Bergmann and contributors.\n\nRuntime:       PHP 8.2.33\nConfiguration: /repo/wp/plugins/imagine-site/phpunit.xml\n\n.                                                                   1 / 1 (100%)\n\nTime: 00:00.065, Memory: 10.00 MB\n\nOK (1 test, 4 assertions)\n\nC16_JUNIT\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<testsuites>\n  <testsuite name=\"/repo/wp/plugins/imagine-site/phpunit.xml\" tests=\"1\" assertions=\"4\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.062775\">\n    <testsuite name=\"Site-C11-C13\" tests=\"1\" assertions=\"4\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.062775\">\n      <testsuite name=\"Imagine\\Site\\Tests\\TableauBordReglesTest\" file=\"/repo/wp/plugins/imagine-site/tests/TableauBordReglesTest.php\" tests=\"1\" assertions=\"4\" errors=\"0\" failures=\"0\" skipped=\"0\" time=\"0.062775\">\n        <testcase name=\"testActiveNumbersReuseExtractionStateAndNeverInferBlankMethod\" file=\"/repo/wp/plugins/imagine-site/tests/TableauBordReglesTest.php\" line=\"12\" class=\"Imagine\\Site\\Tests\\TableauBordReglesTest\" classname=\"Imagine.Site.Tests.TableauBordReglesTest\" assertions=\"4\" time=\"0.062775\"/>\n      </testsuite>\n    </testsuite>\n  </testsuite>\n</testsuites>\n",
+  "stderr": "",
+  "network": "none",
+  "tests": 1,
+  "assertions": 4
+}

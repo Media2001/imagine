@@ -27,6 +27,10 @@ final class ReadOnlyDb extends \wpdb
             $this->last_error = 'A11_WRITE_FORBIDDEN';
             return false;
         }
-        return parent::query($query);
+        $result = parent::query($query);
+        if ($this->fenced && $result === false) {
+            throw new \RuntimeException('A11_READ_FAILED');
+        }
+        return $result;
     }
 }

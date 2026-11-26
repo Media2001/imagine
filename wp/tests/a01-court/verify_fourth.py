@@ -44,11 +44,13 @@ def main():
     assert all(command['exit']==0 for command in units['commands'])
     log=(args.units.parent/'tests.log').read_text(encoding='utf-8')
     match=re.search(r'Ran (\d+) tests? in ',log)
-    assert match and log.rstrip().endswith('OK')
+    ending=re.search(r'\nOK(?: \(skipped=(\d+)\))?\s*$',log)
+    assert match and ending
+    skipped=int(ending[1] or 0)
     for text in (json.dumps(acceptance),json.dumps(units)):
         assert 'FICTION_PRIVATE@example.org' not in text and 'Duplicate entry' not in text
     print(json.dumps({'verified':True,'acceptance':str(args.acceptance),'units':str(args.units),
-          'unit_tests':int(match[1]),'runtime_checks':len(required),'database_bytes':inside['database_bytes'],
+          'unit_tests':int(match[1]),'unit_skipped':skipped,'runtime_checks':len(required),'database_bytes':inside['database_bytes'],
           'validation_seconds':inside['validation_seconds'],'retained_import_seconds':inside['checks']['retained_large_database_import']['elapsed_seconds'],
           'database_cli_seconds':cli['elapsed_seconds'],'native_three_phases':True,'all_owned_runners_removed':True,
           'real_archive_accessed':False,'publication_or_real_go':False},indent=2))

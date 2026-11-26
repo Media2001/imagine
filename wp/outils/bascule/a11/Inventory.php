@@ -56,8 +56,14 @@ final class Inventory
         $types = array_filter($types, static fn ($t): bool => is_post_type_viewable($t));
         foreach ($types as $type) {
             $ids = $wpdb->get_col($wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE post_type = %s ORDER BY ID", $type->name));
+            if ($wpdb->last_error !== '' || !is_array($ids)) {
+                throw new \RuntimeException('A11_POSTS_FAILED');
+            }
             foreach ($ids as $id) {
                 $post = get_post((int) $id);
+                if (!$post instanceof \WP_Post) {
+                    throw new \RuntimeException('A11_POST_READ_FAILED');
+                }
                 if (in_array($post->post_status, ['draft', 'auto-draft', 'private'], true)) {
                     $excluded[$post->post_status === 'auto-draft' ? 'draft' : $post->post_status]++;
                     continue;
@@ -92,7 +98,7 @@ final class Inventory
                         'product' => 'produit',
                         default => 'article',
                     };
-                    // Same type scope as native WP user sitemaps: no page/attachment-only authors.
+                    // All public types except pages/attachments, including types without author support.
                     if ($post->post_type !== 'page' && $post->post_author) {
                         $authors[(int) $post->post_author] = true;
                     }
