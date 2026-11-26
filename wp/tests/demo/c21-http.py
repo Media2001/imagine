@@ -52,7 +52,7 @@ def run(label):
     c21.c19.c18.c17.profils.guard('imagine-test-demo')
     checks = {}; observation = {}
     schedule_before = business_schedule()
-    baseline = json.loads((c21.PROOF / 'baseline.json').read_text(encoding='utf-8'))['native']
+    baseline = c21.c19.c18.state()  # Successeurs autorisés : comparer l'état courant, jamais restaurer C09.
     accounts = json.loads((Path.home() / '.imagine-demo/identifiants.json').read_text(encoding='utf-8'))['c09_accounts']
     admin = h.login(accounts['E-ADMIN']); reader = h.login(accounts['A-CARTE'])
     fixture = c21.wp('echo wp_json_encode(get_option("imagine_c21_fixture",null));')
