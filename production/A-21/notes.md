@@ -2,20 +2,20 @@
 
 ## Résultat courant — remplace les preuves antérieures
 
-Nouveau paquet unique `production/A-21/preuves/final`, entièrement issu de `a21-shared-final-02` après les dernières sources communes ; matrice réelle à **code 0**, six commandes vertes. Style rejoué dans `a21-shared-style-final-02` : zéro erreur/avertissement, syntaxe PHP verte. Windows `C:/Python314/python.exe`, **3.14.6**, cp1252 puis UTF-8 mesurés, encodage enfant et scratch explicitement fixés.
+Nouveau paquet unique `production/A-21/preuves/final`, entièrement issu de `a21-shared-final-04` après les dernières sources communes et la restauration des refus d’arguments avant staging ; matrice réelle à **code 0**, six commandes vertes. Style rejoué dans `a21-shared-style-final-04` : zéro erreur/avertissement, syntaxe PHP verte. Windows `C:/Python314/python.exe`, **3.14.6**, cp1252 puis UTF-8 mesurés, encodage enfant et scratch explicitement fixés.
 
 Par console : **12 tests Python, 18 assertions PHP pures, 172 contrôles natifs classique+HPOS et 8 contrôles runner**, plus **21 contrôles additionnels du gardien commun**, tous PASS. Deux vraies mutations retirent le gardien uniquement dans les copies Docker : le canari sort alors effectivement ; aucun octet brut du témoin n’est écrit dans un reçu. Le finaliseur est à code **0** ; le vérificateur livré a réellement exécuté **49 contrôles PASS**, code **0**, dans chacune des deux consoles. Six sondes de miroir jetable passent aussi : PRET futur accepté seulement dans le miroir, corruption et omission rescellée refusées, dérive du gardien refusée, restauration verte ; reçus racine `candidate-verification.json` et `verification-probes.json`.
 
 Un seul lecteur des pipes, `wp/outils/bascule/stream_guard.py`, partagé avec A20 et les lots clos. Validation canonique JSON/Markdown, projection fermée, hash de l’audit, publication différée et confinement enfant conservés. Comptes d’inactivité disjoints, lecture directe de l’option magasin et trois tests IP/IPv6 conservés. Les dépendances réellement exécutées incluent désormais le gardien, son pont, sa liste fermée et le banc additionnel ; elles sont comparées aux sources courantes à chaque vérification. Le contrat des deux lignes A21 du README partagé et la ligne d’option directe ajoutée par le parent sont préservés ; aucune empreinte entière du README.
 
-Ancien paquet, anciennes gates et reçus racine conservés hors dépôt dans `C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-superseded-a21`. Ancien PRET retiré avant travail ; aucun nouveau PRET. Préparation de l’image commune, rejeu global T01 et décision finale réservés au parent, **non exécutés par cet enfant**. Le vérificateur fonctionne aussi après PRET et accepte `--parent-proof` optionnel (sources exactes et vrais reçus préparation/T01). Aucun ancien reçu d’exécution rescellé sur les nouvelles sources.
+Anciens paquets, anciennes gates et reçus racine conservés hors dépôt dans `C:/Users/Ced/AppData/Local/hermes/cache/scratch/a22-superseded-a21` et `a22-superseded-candidate02-a21`. Ancien PRET retiré avant travail ; aucun nouveau PRET. Préparation de l’image commune, rejeu global T01 et décision finale réservés au parent, **non exécutés par cet enfant**. Le vérificateur fonctionne aussi après PRET et accepte `--parent-proof` optionnel (sources exactes et vrais reçus préparation/T01). Aucun ancien reçu d’exécution rescellé sur les nouvelles sources.
 
 Commandes réellement exécutées :
 
 ```text
-C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-shared-final-02
-C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/style.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-shared-style-final-02
-C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/finalise.py --matrix=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-shared-final-02 --style=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-shared-style-final-02
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-shared-final-04
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/style.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-shared-style-final-04
+C:/Python314/python.exe -B C:/Users/Ced/imagine/wp/tests/a21/finalise.py --matrix=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-shared-final-04 --style=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a21-shared-style-final-04
 ```
 
 Pour rejouer, choisir des noms de sorties **neufs**. Les environnements, commandes, noms exacts des conteneurs et suppressions relues figurent dans le paquet. Les rejeux des lots clos appartiennent seulement à A22 ; aucun de leurs paquets n’est modifié. Aucun réel, archive Imagine, compte, Novamira, Git, déploiement, verrou, README partagé, T02 ou A23 touché.
@@ -28,7 +28,7 @@ Pour rejouer, choisir des noms de sorties **neufs**. Les environnements, command
 - **Bloqué** : rien sur le périmètre enfant. Les anciens `FINALISATION.md`, `verification.json`, `manifest.json` racine et `PRET` concernent la remise antérieure : le parent les remplace après ses nouveaux gates ; ils ne prouvent pas ces corrections.
 - **Ensuite** : parent : delta exact `readme-delta.txt`, préparation globale, rejeu T-01, puis marqueurs finaux. Aucune dépendance partagée, T-02, verrou, autre voie ni rapport commun modifié.
 
-## Résultats exécutés
+### Résultats antérieurs — historique
 
 Paquet final unique : `production/A-21/preuves/final`. Pour chacune des consoles Windows **cp1252** et **UTF-8** : **18 assertions PHP pures, 172 contrôles natifs (classique + HPOS), 8 contrôles runner**, plus **12 tests Python**, tous verts. Ce ne sont pas des tests PHPUnit. PSR-12 strict et syntaxe : huit fichiers PHP, **0 erreur, 0 avertissement** ; conteneur exact supprimé et absence relue. Inclusion pure rejouée dans chaque runner : 18 assertions, aucune API native, aucune sortie parasite ni modification des rapports.
 
@@ -50,7 +50,7 @@ La capture stricte a découvert des `error_log()` natifs d'Action Scheduler sur 
 
 **Vérification indépendante réellement exécutée** : 14 sondes vertes sur copie jetable ; copie complète verte, six dérives de dépendances refusées, annexe étrangère acceptée, ligne A-21 absente/dupliquée/CRLF refusée, cas shutdown obligatoire retiré refusé même après rescellement, restauration verte. Un mutant qui neutralise seulement les trois scellements de dépendances laisse réellement passer la dérive A-11 (faux vert reproduit, journal rouge uniquement au scratch) ; le vérificateur courant la refuse sur les trois contrôles attendus.
 
-## Décisions prises à défaut et limites
+### Décisions prises à défaut et limites
 
 - Les sujets standards sont une liste fermée issue du code installé ; les sujets libres et actions personnalisées sont regroupés sous `unknown`, plutôt que de laisser sortir un nom pouvant porter une identité. Pas de regroupement détaillé de ces sujets non standards.
 - « Domaine du site » signifie hôte exact, sans DNS ; schéma/port/chemin ignorés, casse/point final normalisés ; un sous-domaine distinct est extérieur. URL douteuse = inconnue, jamais exposée.
@@ -58,7 +58,7 @@ La capture stricte a découvert des `error_log()` natifs d'Action Scheduler sur 
 - Marque de neutralisation existante conservée : aucun changement de l'import et aucune reconstruction historique. Schémas anciens, multisite, configuration dynamique, caches/pare-feu et liens non compatibles restent refusés.
 - Aucune archive, donnée réelle, instance Imagine, opération Git, Novamira, autre voie ni déploiement. Ni `preparer-image.ps1` ni T-01 global lancés ; qualification de production 6.9.1 non prétendue.
 
-## Fichiers et rejeu
+### Fichiers et rejeu
 
 Sources : `C:/Users/Ced/imagine/wp/outils/bascule/a21/` et `C:/Users/Ced/imagine/wp/tests/a21/`. Documentation et paquet : `C:/Users/Ced/imagine/production/A-21/`. Aucune écriture hors de ces trois périmètres dans le dépôt. Le README commun est réservé au parent ; `readme-delta.txt` fournit l'ajout exact sans changer les deux lignes de `readme-ajout.txt`, donc sans changer le contrat ni les instantanés. `unit.php` reste pur et autodécouvrable par T-02 ; `pure-include.php` est seulement sa sonde autonome dans le conteneur.
 

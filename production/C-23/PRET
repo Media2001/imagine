@@ -1,0 +1,15 @@
+C-23 — prêt pour relecture technique, 26 novembre 2026.
+
+Commande visiteur : python -B wp/outils/demo/c23.py livraison
+Préparation/restauration séparée et rejeu : PYTHONIOENCODING=utf-8 python -B wp/outils/demo/c23-preparer.py --label livraison
+Tests : PYTHONIOENCODING=utf-8 python -B wp/tests/demo/c23-tests.py
+Vérification du paquet : PYTHONIOENCODING=utf-8 python -B wp/tests/demo/c23-verifier.py
+
+Dernier rejeu : 1 432 contrôles, 0 fuite, PASS, code 0.
+101 voies × 14 publics et 18 contrôles supplémentaires.
+Mutation réelle : 1 432 contrôles, 177 fuites, FAIL, code 1 ; restauration exacte relue ; dernier rejeu vert postérieur.
+12 tests dans chacun des contextes UTF-8/cp1252 ; 25 contrôles de paquet ; 382 contrôles C-09 sans échec.
+Image wp/tests/preparer-image.ps1 reconstruite et vérifiée, code 0.
+
+Limites et incident de récupération d’un ancien rejeu interrompu : lire A-VOIR.md, INVENTAIRE.md, INCIDENTS.md.
+Ce PRET ne vaut ni preuve de robots vérifiés/cache d’hébergement ni accord sur le réel ou déploiement.

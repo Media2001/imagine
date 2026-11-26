@@ -1,0 +1,9 @@
+{
+  "scope": "copie jetable locale, aucun appel au site",
+  "checks": {
+    "total_falsifie_refuse": true,
+    "matrice_vide_refusee": true,
+    "restauration_fausse_refusee": true
+  },
+  "total": 3
+}
