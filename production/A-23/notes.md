@@ -5,13 +5,15 @@ site existant, archive de production, compte externe ni voie 2 touché.
 
 ## Frontière A-22
 
-Au premier contrôle, `production/A-22/notes.md` est absent. A-23 attend le gardien
-commun pour publier ses sorties ; **aucun gardien bis ne sera écrit dans A-23**.
-Le lanceur A-23 aura trois arguments (`--wp-path`, `--audit`, `--output`), un
-marqueur de succès fixe `A23_OK comptes.json comptes.md`, un validateur fermé du
-paquet, et les mêmes barrières A-11/A-12. Tant que le seam commun n'est pas
-présent, refus fermé `A23_SUPERVISOR_UNAVAILABLE`. Intégration parent à la
-frontière si nécessaire. Notes à actualiser après lecture du contrat A-22.
+`production/A-22/notes.md` a été relu aux frontières. Le seam désormais présent
+est utilisé directement : `stream_guard.py::supervise` et `closed_refusal`.
+Aucun gardien bis dans A-23. Trois arguments, marqueur fixe
+`A23_OK comptes.json comptes.md` et validateur fermé des deux fichiers. Seul
+l'enfant PHP reçoit les droits Landlock du dossier privé ; aucune publication
+avant code de fin et EOF des deux flux. Le seam absent reste un refus fermé testé.
+Les dépendances sont scellées séparément : si A-22 change après le dernier
+rejeu, le parent doit rejouer la matrice avant son PRET, sans recycler l'ancien
+paquet. Préparation/T01 globaux et PRET sont réservés au parent.
 
 ## Décisions prudentes
 
@@ -44,6 +46,42 @@ ces lignes ; la création de l'administrateur technique est exclue du périmètr
 
 ## État de preuve
 
-TDD préfixes/seuil puis agrégats : RED réel dans les conteneurs jetables propres
-A-23, puis GREEN réel ; essais intermédiaires uniquement en scratch. Matrice
-finale et canaris natifs encore à produire. Aucun accord de bascule réelle.
+TDD réel : préfixes/seuil puis agrégats, lanceur, schéma public, vérificateur,
+inclusion pure sans écriture et garde de planification, RED puis GREEN. Les
+essais intermédiaires sont uniquement en scratch. Le seul paquet à livrer est
+`preuves/final` ; son vérificateur dérive les comptes réellement observés et
+refuse les reçus vides, mixtes `checks`/`tests`, dupliqués ou rouges. Le README
+est rejoué avec ses seuls trois arguments, chemins fictifs substitués seulement.
+
+Les deux magasins ont déjà passé 160 contrôles natifs, dont les canaris sur
+chaque canal et quatre mutations sans gardien par magasin (octets uniquement
+en mémoire). Des bases fictives clonées ont traversé le vrai neutraliseur puis
+l'anonymiseur : les trois champs ont changé pour chaque compte initial. Les
+nombres utiles restent 32 lecteurs, 20 portant un contrat vivant et 3 sans
+historique (ce dernier petit groupe est fondu). Empreintes de toutes les tables
+identiques avant/après, variantes neutralisées comprises. Aucun mot de passe
+n'est essayé ; aucune notification ni compte n'est modifié par l'outil.
+
+La matrice finale utilise `C:/Python314/python.exe` (version et encodages
+mesurés dans ses `environment.json`), pas le Python du PATH (3.11.15 utilisé
+seulement pour les premiers essais). UTF-8 et cp1252 sont deux contextes complets.
+PSR-12 strict et contrôle statique des sources WordPress sont dans le paquet.
+Les dix lignes de standard citent trois sources officielles effectivement lues ;
+la prose historique phpass de « More Information » est distinguée du code et
+du changelog. Aucun verdict de reconnexion n'est rendu.
+
+## Besoin transversal relevé, autres lots laissés intacts
+
+Après le vrai import, Action Scheduler tente de recréer des tâches effacées ;
+`ActionFactory` écrit explicitement une erreur d'enqueue sur STDERR quand le
+SQL READ ONLY refuse l'écriture. Le gardien refuse correctement cette sortie :
+il ne faut ni la cacher ni affaiblir la barrière. A-23 préinitialise les quatre
+filtres natifs `pre_as_*` à 0 avant `Runtime::boot`, selon le mécanisme natif de
+`WP_Hook::build_preinitialized_hooks`. Les quatre API sont réellement essayées
+par une extension fictive ; leurs sources installées sont scellées dans
+`standard.json`. Cela peut être utile aux autres inventaires sur copie
+neutralisée : laissé au parent, aucun changement au Runtime, au gardien ou aux
+autres lots. Ce raccord local ne modifie pas l'import.
+
+Delta partagé séparé : `readme-ajout.txt`, non appliqué. Reprise et vérification :
+`FINALISATION.md`. Aucun PRET ni accord de bascule réelle.

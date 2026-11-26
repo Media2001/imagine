@@ -1,0 +1,90 @@
+{
+  "tool": "A20",
+  "checks": [
+    {
+      "check": "classic:A20:channels:direct_stdout",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:A20:channels:direct_stderr",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:A20:channels:echo_exit",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:A20:channels:silent_exit",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:A20:channels:shutdown_stdout",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:A20:channels:shutdown_stderr",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:A20:channels:shutdown_echo",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:A20:channel_site_restored",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:A20:mutation_without_guard_leaks",
+      "status": "PASS"
+    },
+    {
+      "check": "classic:A20:guard_restored",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:A20:channels:direct_stdout",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:A20:channels:direct_stderr",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:A20:channels:echo_exit",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:A20:channels:silent_exit",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:A20:channels:shutdown_stdout",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:A20:channels:shutdown_stderr",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:A20:channels:shutdown_echo",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:A20:channel_site_restored",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:A20:mutation_without_guard_leaks",
+      "status": "PASS"
+    },
+    {
+      "check": "hpos:A20:guard_restored",
+      "status": "PASS"
+    },
+    {
+      "check": "two_native_storage_boundaries",
+      "status": "PASS"
+    }
+  ],
+  "exit_code": 0
+}

@@ -105,8 +105,8 @@ conteneurs jetables A-23, sans montage, réseau, port ou privilège. Nettoyage p
 nom exact, vérification du label puis de l'absence.
 
 ```sh
-PYTHONIOENCODING=utf-8 PYTHONUTF8=1 python -B wp/tests/a23/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a23-reprise
-python -B wp/tests/a23/verify.py
+PYTHONIOENCODING=utf-8 PYTHONUTF8=1 C:/Python314/python.exe -B wp/tests/a23/matrix.py --output=C:/Users/Ced/AppData/Local/hermes/cache/scratch/a23-reprise
+C:/Python314/python.exe -B wp/tests/a23/verify.py
 ```
 
 Le dossier de reprise doit être nouveau. Un rejeu ne remplace pas implicitement

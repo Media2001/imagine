@@ -73,8 +73,10 @@ try {
     $n = Analysis::analyse($rows, true);
     foreach (['readers', 'live_readers'] as $scope) {
         foreach (['families', 'emails', 'logins'] as $key) {
-            $check('neutralisation_unknown:' . $scope . ':' . $key,
-                $n[$scope][$key] === 'inconnu après neutralisation');
+            $check(
+                'neutralisation_unknown:' . $scope . ':' . $key,
+                $n[$scope][$key] === 'inconnu après neutralisation'
+            );
         }
         $check('neutralisation_preserves_count:' . $scope, $n[$scope]['accounts'] === $a[$scope]['accounts']);
     }

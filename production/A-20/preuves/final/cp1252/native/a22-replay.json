@@ -1,0 +1,14 @@
+{
+  "lot": "A20",
+  "runner": "wp/tests/a20/run.py",
+  "runner_sha256": "338148f674ed1171dfebc09fb59dac08e6b4012bc537c774678412686cc7bbb2",
+  "native_calls": [
+    [
+      "exec",
+      "imagine-a20-prices-72b2d901c372",
+      "python3",
+      "/opt/a20/inside.py"
+    ]
+  ],
+  "exit_code": 0
+}

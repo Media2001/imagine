@@ -100,5 +100,5 @@
         }
     },
     "scope": "Magasin natif faisant autorite ; totaux recurrents enregistres, pas prelevements garantis ; aucune correspondance de tarif.",
-    "audit_sha256": "6cfeba2a1b4fbd4010435b687c9c681979c7d1fa77ef700c438aabc0fffe1a19"
+    "audit_sha256": "1533d6faf2772417114b67e6e7636b607fc62001d31588763788be561003b0c1"
 }
