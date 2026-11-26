@@ -74,6 +74,9 @@ Issues des lots, au 26/11 à 10 h (chacune est un réglage au défaut prudent, a
 | À la création d'un compte, le lecteur est-il inscrit d'office à la newsletter principale (§3.10), et par quel consentement explicite ? | Non : aucune case cochée tant que le lecteur ne l'a pas fait lui-même | Réglage fermé « inscrire par défaut à la principale », dans l'écran de réglages (C-22) |
 | Quand le souscripteur d'un abonnement groupé ou l'offrant d'un abonnement offert fait effacer ses données, que devient le groupe ou le cadeau du côté de l'administration (nouveau gestionnaire, appel à renouvellement) ? | Les bénéficiaires gardent leur adresse, leurs droits et leur numéro ; rien d'autre n'est changé | Pas de réglage : règle de l'effacement, les tiers sont préservés (C-21) |
 | Dans l'inventaire des abonnements du site actuel, faut-il distinguer « moyen de paiement absent » de « passerelle dont on ne sait pas lire le moyen », ou tout compter comme « sans moyen enregistré » ? | Distinguer : on ne déclare pas absent ce qu'on ne sait pas lire | Pas de réglage : présentation de l'inventaire (A-19) |
+| Qui peut poser ou retirer le statut de coopérateur sur un compte : le seul rôle Administrateur, ou aussi un autre rôle (à nommer) ? | Administrateur seul | Réglage des rôles autorisés, dans l'écran de réglages (B-06) |
+| Qui peut lire l'espace coopérateurs sans être coopérateur (rédaction, gestionnaires) ? | Administrateur seul ; les autres rôles sont refusés | Réglage des rôles autorisés, dans l'écran de réglages (B-06) |
+| Dans le formulaire de personnalisation, la localité est-elle un texte libre ou un choix dans une liste fermée ? | Liste fermée : un texte libre deviendrait tel quel une étiquette | Les questions et leurs choix sont un réglage (C-24) |
 
 Rappel de règle, sans question : un abonnement actif dans l'administration mais **sans paiement validé** ne figure pas dans la liste d'envoi.
 

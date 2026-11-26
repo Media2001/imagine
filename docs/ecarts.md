@@ -75,3 +75,9 @@ Toute demande hors cahier des charges, toute contradiction interne au cahier des
 - **C-23 · plans de site.** Ils sont fermés sur la démonstration : le test vérifie leur fermeture, pas leur contenu. À reprendre quand le référenceur les fera ouvrir.
 - **A-22 · le brief sous-estimait le périmètre.** Le brief citait A-12 et A-15 à A-19 « au moins » ; l'inventaire d'Hermès ajoute A-03, A-11 et A-14, qui chargent aussi le WordPress du site. A-02 et A-10 n'en chargent rien.
 
+
+## 26 novembre 2026, 19 h — lots A-22, A-24, C-23
+
+- **A-22 · le brief ne visait que les flux.** Ses quatre canaris écrivaient sur les sorties du processus ; aucun n'altérait un fichier de rapport avant sa publication. La fusion l'a vu. Le canari par canal compte désormais un cinquième canal, le fichier.
+- **A-24 · les adresses ne se lisent pas sur une copie neutralisée.** L'import efface les champs d'adresse sauf le pays : restent les effectifs et la répartition par pays ; le reste vaut « inconnu après neutralisation ». L'état réel des adresses de livraison (§3.13) ne peut se lire que sur la source, hors agents : décision de Ced.
+- **C-23 · le public « découverte épuisée » n'existe pas sur l'état livré.** La découverte est livrée fermée (défaut de C-12, question 5 ouverte chez Imagine). Le test de livraison contrôle alors ce personnage comme un compte sans droit ; le cas « épuisé » se prouve dans une recette à part, réglage remis ensuite. À revoir quand l'accès découverte sera arrêté.
