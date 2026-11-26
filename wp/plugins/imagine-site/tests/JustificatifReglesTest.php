@@ -32,8 +32,13 @@ final class JustificatifReglesTest extends TestCase
 
     public function testRefusalKeepsNoEndDateOrBlob(): void
     {
-        $r = JustificatifRegles::decider(['decision' => 'en_attente', 'categorie' => 'à préciser', 'blob' => 'secret'],
-            'refuse', 'non utilisé', 'e-abo', '2026-11-26T00:00:00Z');
+        $r = JustificatifRegles::decider(
+            ['decision' => 'en_attente', 'categorie' => 'à préciser', 'blob' => 'secret'],
+            'refuse',
+            'non utilisé',
+            'e-abo',
+            '2026-11-26T00:00:00Z'
+        );
         self::assertSame('', $r['fin']);
         self::assertArrayNotHasKey('blob', $r);
     }

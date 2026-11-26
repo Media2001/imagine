@@ -68,9 +68,17 @@ final class JustificatifsReglages
             return;
         }
         $u = wp_get_current_user();
-        if (add_option(\Imagine\Pilotage\Administration\Reglages::JOURNAL . str_replace('-', '', wp_generate_uuid4()),
-            ['quand_utc' => gmdate('Y-m-d\TH:i:s\Z'), 'qui_id' => $u->ID, 'qui_login' => $u->ID ? $u->user_login : 'systeme',
-                'option' => $key, 'avant' => $old, 'apres' => $new], '', false)) {
+        if (
+            add_option(
+                \Imagine\Pilotage\Administration\Reglages::JOURNAL . str_replace('-', '', wp_generate_uuid4()),
+                ['quand_utc' => gmdate('Y-m-d\TH:i:s\Z'), 'qui_id' => $u->ID, 'qui_login' => $u->ID ? $u->user_login : 'systeme',
+                'option' => $key,
+                'avant' => $old,
+                'apres' => $new],
+                '',
+                false
+            )
+        ) {
             return;
         }
         self::$restoring = true;

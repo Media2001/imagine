@@ -30,4 +30,6 @@ def run(label='unit-final',selection='JustificatifReglesTest'):
         PROOF.mkdir(parents=True,exist_ok=True)
         (PROOF/(label+'.json')).write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
     return result['exit']
-if __name__=='__main__':sys.exit(run(sys.argv[1] if len(sys.argv)>1 else 'unit-final',sys.argv[2] if len(sys.argv)>2 else 'JustificatifReglesTest'))
+if __name__=='__main__':
+    selection=sys.argv[2] if len(sys.argv)>2 else 'JustificatifReglesTest'
+    sys.exit(run(sys.argv[1] if len(sys.argv)>1 else 'unit-final','' if selection=='--root' else selection))

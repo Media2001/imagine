@@ -25,9 +25,9 @@ def run():
         restored=disk('if(is_dir($p)&&!is_link($p)&&is_file($b)){if(!rmdir($p)||!rename($b,$p))throw new RuntimeException("Probe restoration failed");}echo wp_json_encode(is_file($p)&&!file_exists($b)?hash_file("sha256",$p):false);')
         checks['disque_exactement_restaure']=restored==source['sha256']
     try:
-        q=t.form(abo,uid)
+        q=t.form(abo,uid);q2=t.form(abo2,uid)
         with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
-            futures=[pool.submit(t.decision,client,q) for client in [abo,abo2]]
+            futures=[pool.submit(t.decision,client,text) for client,text in [(abo,q),(abo2,q2)]]
             statuses=[f.result()[0] for f in futures]
         checks['decision_concurrente_une_seule_reussite']=sorted(statuses)==[200,409]
         checks['decision_concurrente_disque_supprime']=t.absent(path) and t.stored(uid)['state']['decision']=='valide'

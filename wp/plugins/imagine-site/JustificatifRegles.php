@@ -17,8 +17,10 @@ final class JustificatifRegles
         }
         $out = [];
         foreach ($rows as $row) {
-            if (!is_string($row) || trim($row) === '' || strlen($row) > 100
-                || preg_match('/[<>\x00-\x1f]/', $row)) {
+            if (
+                !is_string($row) || trim($row) === '' || strlen($row) > 100
+                || preg_match('/[<>\x00-\x1f]/', $row)
+            ) {
                 throw new \InvalidArgumentException('Catégorie invalide.');
             }
             $out[] = trim($row);
@@ -40,9 +42,11 @@ final class JustificatifRegles
             throw new \InvalidArgumentException('Fichier vide, trop volumineux ou exécutable.');
         }
         $mime = (new \finfo(FILEINFO_MIME_TYPE))->buffer($bytes);
-        if ($mime === 'application/pdf' && str_starts_with($bytes, '%PDF-')
+        if (
+            $mime === 'application/pdf' && str_starts_with($bytes, '%PDF-')
             && str_contains(substr($bytes, -2048), '%%EOF')
-            && !preg_match('~/JavaScript\b|/JS\b|/Launch\b|/EmbeddedFile\b|/OpenAction\b|/AA\b~i', $bytes)) {
+            && !preg_match('~/JavaScript\b|/JS\b|/Launch\b|/EmbeddedFile\b|/OpenAction\b|/AA\b~i', $bytes)
+        ) {
             return $mime;
         }
         if (in_array($mime, ['image/jpeg', 'image/png'], true)) {
@@ -56,8 +60,10 @@ final class JustificatifRegles
 
     public static function decider(array $pending, string $decision, string $fin, string $operateur, string $quand): array
     {
-        if (($pending['decision'] ?? '') !== 'en_attente' || !in_array($decision, ['valide', 'refuse'], true)
-            || $operateur === '') {
+        if (
+            ($pending['decision'] ?? '') !== 'en_attente' || !in_array($decision, ['valide', 'refuse'], true)
+            || $operateur === ''
+        ) {
             throw new \InvalidArgumentException('Décision documentaire invalide.');
         }
         if ($decision === 'valide') {

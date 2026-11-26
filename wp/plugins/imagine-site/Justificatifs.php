@@ -20,8 +20,14 @@ final class Justificatifs
         add_action('imagine_compte_justificatif', [self::class, 'compte']);
         add_action('template_redirect', [self::class, 'servir'], -101);
         add_action('admin_menu', static function (): void {
-            add_submenu_page('imagine', __('Justificatifs solidaires', 'imagine-site'),
-                __('Justificatifs solidaires', 'imagine-site'), self::CAP, self::PAGE, [self::class, 'page']);
+            add_submenu_page(
+                'imagine',
+                __('Justificatifs solidaires', 'imagine-site'),
+                __('Justificatifs solidaires', 'imagine-site'),
+                self::CAP,
+                self::PAGE,
+                [self::class, 'page']
+            );
         }, 120);
         add_filter('woocommerce_prevent_admin_access', static function (bool $prevent): bool {
             global $pagenow;
@@ -170,9 +176,11 @@ final class Justificatifs
         self::requete('deposer');
         try {
             $file = $_FILES['justificatif'] ?? null;
-            if (!is_array($file) || ($file['error'] ?? -1) !== UPLOAD_ERR_OK
+            if (
+                !is_array($file) || ($file['error'] ?? -1) !== UPLOAD_ERR_OK
                 || !is_string($file['tmp_name'] ?? null) || !is_uploaded_file($file['tmp_name'])
-                || filesize($file['tmp_name']) > JustificatifRegles::MAX) {
+                || filesize($file['tmp_name']) > JustificatifRegles::MAX
+            ) {
                 throw new \InvalidArgumentException('Fichier manquant ou trop volumineux (5 Mio maximum).');
             }
             $bytes = file_get_contents($file['tmp_name']);
@@ -200,8 +208,13 @@ final class Justificatifs
                 if (!hash_equals(self::version($old), self::texte($_POST, 'version'))) {
                     throw new \RuntimeException('Document remplacé ou décision déjà prise.');
                 }
-                $new = JustificatifRegles::decider($old, self::texte($_POST, 'decision'),
-                    self::texte($_POST, 'fin'), wp_get_current_user()->user_login, gmdate('Y-m-d\TH:i:s\Z'));
+                $new = JustificatifRegles::decider(
+                    $old,
+                    self::texte($_POST, 'decision'),
+                    self::texte($_POST, 'fin'),
+                    wp_get_current_user()->user_login,
+                    gmdate('Y-m-d\TH:i:s\Z')
+                );
                 self::supprimerFichier($old);
                 self::enregistrer((int) $id, $new);
             });
@@ -237,11 +250,13 @@ final class Justificatifs
         try {
             self::verrou((int) $id, static function () use ($id): void {
                 $state = self::etat((int) $id);
-                if (($state['decision'] ?? '') !== 'en_attente' || !is_string($state['blob'] ?? null)
-                    || !hash_equals($state['blob'], self::texte($_GET, 'version'))) {
+                if (
+                    ($state['decision'] ?? '') !== 'en_attente' || !is_string($state['blob'] ?? null)
+                    || !hash_equals($state['blob'], self::texte($_GET, 'version'))
+                ) {
                     throw new \RuntimeException('Document indisponible.');
                 }
-                $bytes = @file_get_contents(self::chemin($state));
+                $bytes = @file_get_contents(self::chemin($state), false, null, 0, JustificatifRegles::MAX + 1);
                 if (!is_string($bytes)) {
                     throw new \RuntimeException('Document absent.');
                 }
@@ -301,7 +316,9 @@ final class Justificatifs
         $page = max(1, (int) ($_GET['paged'] ?? 1));
         $names = $wpdb->get_col($wpdb->prepare(
             "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s AND option_value LIKE %s ORDER BY option_id LIMIT 21 OFFSET %d",
-            $wpdb->esc_like(self::PREFIX) . '%', '%s:8:"decision";s:10:"en_attente";%', ($page - 1) * 20
+            $wpdb->esc_like(self::PREFIX) . '%',
+            '%s:8:"decision";s:10:"en_attente";%',
+            ($page - 1) * 20
         ));
         $more = count($names) > 20;
         echo '<div class="wrap" data-imagine-file-justificatifs><h1>' . esc_html__('Justificatifs solidaires — en attente', 'imagine-site') . '</h1><p>'
