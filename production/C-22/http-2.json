@@ -1,0 +1,61 @@
+{
+  "at": "2026-11-26T07:49:36.500712+00:00",
+  "scope": "imagine-test-demo",
+  "checks": {
+    "public_trois_presentations": true,
+    "anonyme_emplacement_sans_formulaire": true,
+    "compte_prive_no_store": true,
+    "trois_cases_initiales_fermees": true,
+    "pas_de_date_inventee": true,
+    "cocher_persistant_date": true,
+    "rechargement_case_et_date": true,
+    "autre_utilisateur_HTTP403": true,
+    "nonce_invalide_HTTP403": true,
+    "decocher_recharger_date": true,
+    "lien_connecte_preferences": true,
+    "lien_arrive_preferences": true,
+    "sansmail_phrase_sans_rubrique": true,
+    "sansmail_page_sans_choix": true,
+    "C10_champs_meme_formulaire": true,
+    "defaut_creation_ferme": true,
+    "quatrieme_enregistree_C10": true,
+    "quatrieme_compte_case": true,
+    "quatrieme_page_publique": true,
+    "retrait_quatrieme_partout": true,
+    "C10_creation_oui_persiste": true,
+    "C10_creation_non_persiste": true,
+    "C10_ne_reinscrit_pas_existant": true,
+    "C10_nonce_invalide_refuse": true,
+    "C10_restauration_lignes_et_absences": true,
+    "preferences_restaurees_octets_exacts": true,
+    "profils_et_action_metier_exacts": false,
+    "requete_navigateur_hors_demo_absente": false,
+    "observation_serveur_presente": true,
+    "aucun_mail_tente_HTTP": true,
+    "aucun_appel_exterieur_tente_HTTP": false,
+    "instrumentation_retiree": true
+  },
+  "total": 32,
+  "failures": [
+    "profils_et_action_metier_exacts",
+    "requete_navigateur_hors_demo_absente",
+    "aucun_appel_exterieur_tente_HTTP"
+  ],
+  "observed_requests": 34,
+  "mail_attempts": 0,
+  "http_attempts": 45,
+  "outside_demo_blocked": [
+    "https://secure.gravatar.com/avatar/bd25992cf05fd751d035283b38aa8d121bb3d541dd8906110e31d79e7eff512b",
+    "https://secure.gravatar.com/avatar/bd25992cf05fd751d035283b38aa8d121bb3d541dd8906110e31d79e7eff512b",
+    "https://secure.gravatar.com/avatar/bd25992cf05fd751d035283b38aa8d121bb3d541dd8906110e31d79e7eff512b",
+    "https://secure.gravatar.com/avatar/bd25992cf05fd751d035283b38aa8d121bb3d541dd8906110e31d79e7eff512b",
+    "https://secure.gravatar.com/avatar/bd25992cf05fd751d035283b38aa8d121bb3d541dd8906110e31d79e7eff512b"
+  ],
+  "captures": [
+    "nos-newsletters.png",
+    "mes-newsletters.png",
+    "sans-email.png",
+    "reglages-newsletters.png"
+  ],
+  "visual_approval": false
+}

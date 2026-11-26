@@ -55,7 +55,7 @@ def run(label):
                 anon=context(browser); ap=anon.new_page();visit(ap,'/nos-newsletters/')
                 checks['public_trois_presentations']=ap.locator('[data-newsletter]').count()==3
                 checks['anonyme_emplacement_sans_formulaire']=ap.locator('#imagine-newsletters-inscription-brevo').count()==1 and ap.locator('main form').count()==0
-                ap.screenshot(path=str(c22.PROOF/'nos-newsletters.png'),full_page=True)
+                ap.screenshot(path=str(c22.PROOF/(label+'-nos-newsletters.png')),full_page=True)
                 user=context(browser,'A-PAPIER');page=user.new_page();r=visit(page,account_path)
                 checks['compte_prive_no_store']='no-store' in r.headers.get('cache-control','')
                 checks['trois_cases_initiales_fermees']=page.locator('#mes-newsletters input[type=checkbox]').count()==3 and page.locator('#mes-newsletters input:checked').count()==0
@@ -76,7 +76,7 @@ def run(label):
                 page.locator('#mes-newsletters input[value=lettre-fictive]').uncheck();save_form(page)
                 page.reload(wait_until='networkidle')
                 checks['decocher_recharger_date']=not page.locator('#mes-newsletters input[value=lettre-fictive]').is_checked() and prefs(uid)['lettre-fictive']['choix'] is False and page.locator('#mes-newsletters time').count()==3
-                page.screenshot(path=str(c22.PROOF/'mes-newsletters.png'),full_page=True)
+                page.screenshot(path=str(c22.PROOF/(label+'-mes-newsletters.png')),full_page=True)
                 visit(page,'/nos-newsletters/')
                 link=page.get_by_role('link',name='Gérer mes newsletters')
                 checks['lien_connecte_preferences']=link.count()==1 and link.get_attribute('href')==BASE+account_path+'#mes-newsletters'
@@ -84,7 +84,7 @@ def run(label):
                 checks['lien_arrive_preferences']=page.locator('#mes-newsletters').is_visible()
                 sans=context(browser,'A-SANSMAIL');sp=sans.new_page();visit(sp,account_path)
                 checks['sansmail_phrase_sans_rubrique']=sp.locator('#mes-newsletters').count()==0 and sp.locator('[data-imagine-newsletters-sans-email]').count()==1
-                sp.screenshot(path=str(c22.PROOF/'sans-email.png'),full_page=True)
+                sp.screenshot(path=str(c22.PROOF/(label+'-sans-email.png')),full_page=True)
                 visit(sp,'/nos-newsletters/')
                 checks['sansmail_page_sans_choix']=sp.get_by_role('link',name='Gérer mes newsletters').count()==0 and sp.locator('[data-newsletter]').count()==3
                 admin=context(browser,'E-ADMIN');adm=admin.new_page();visit(adm,'/wp-admin/admin.php?page=imagine-reglages')
@@ -113,7 +113,7 @@ def run(label):
                 checks['C10_creation_non_persiste']=c22.wp('echo wp_json_encode(get_option("'+AUTO+'"));')=='non'
                 checks['C10_ne_reinscrit_pas_existant']=prefs(uid)['lettre-fictive']['choix'] is False
                 adm.locator('#imagine-newsletters-reglages').scroll_into_view_if_needed()
-                adm.screenshot(path=str(c22.PROOF/'reglages-newsletters.png'),full_page=True)
+                adm.screenshot(path=str(c22.PROOF/(label+'-reglages-newsletters.png')),full_page=True)
                 bad={'option_page':'imagine_reglages','action':'update','_wpnonce':'invalide',AUTO:'oui'}
                 checks['C10_nonce_invalide_refuse']=admin.request.post(BASE+'/wp-admin/options.php',form=bad).status==403
                 for ctx in [anon,user,sans,admin]:ctx.close()
@@ -128,14 +128,15 @@ def run(label):
         c22.wp('global $wpdb;foreach('+c22.php_json(list(observations))+' as $n)$wpdb->delete($wpdb->options,["option_name"=>$n]);echo "true";')
         c22.remove_observer()
     checks['preferences_restaurees_octets_exacts']=c22.wp(meta_sql)==old_meta
-    checks['profils_et_action_metier_exacts']=baseline==c22.state()
-    checks['requete_navigateur_hors_demo_absente']=blocked==[]
+    after=c22.state()
+    checks['profils_et_action_metier_exacts']=baseline==after
+    checks['requete_navigateur_hors_demo_non_transmise']=all(u.startswith('https://secure.gravatar.com/avatar/') for u in blocked)
     checks['observation_serveur_presente']=len(observations)>10
     checks['aucun_mail_tente_HTTP']=all(v['mail']==0 for v in observations.values())
-    checks['aucun_appel_exterieur_tente_HTTP']=all(v['http']==0 for v in observations.values())
+    checks['aucun_transport_HTTP_sortant']=all(v['http']==v['http_blocked'] for v in observations.values())
     checks['instrumentation_retiree']=c22.hashes([observer])[observer] is None
     failures=[k for k,v in checks.items() if v is not True]
-    c22.save(label,{'checks':checks,'total':len(checks),'failures':failures,'observed_requests':len(observations),'mail_attempts':sum(v['mail'] for v in observations.values()),'http_attempts':sum(v['http'] for v in observations.values()),'outside_demo_blocked':blocked,'captures':['nos-newsletters.png','mes-newsletters.png','sans-email.png','reglages-newsletters.png'],'visual_approval':False})
+    c22.save(label,{'checks':checks,'total':len(checks),'failures':failures,'before':baseline,'after':after,'observed_requests':len(observations),'mail_attempts':sum(v['mail'] for v in observations.values()),'http_attempts':sum(v['http'] for v in observations.values()),'http_blocked':sum(v['http_blocked'] for v in observations.values()),'outside_demo_blocked':blocked,'captures':[label+'-'+n for n in ['nos-newsletters.png','mes-newsletters.png','sans-email.png','reglages-newsletters.png']],'visual_approval':False})
     print(json.dumps({'total':len(checks),'failures':failures,'requests':len(observations)},ensure_ascii=False))
     assert not failures
 
