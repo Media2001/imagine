@@ -55,6 +55,9 @@ def main():
         (out/'unit.log').write_text(unit.stdout+unit.stderr,encoding='utf-8')
         b.call(['cp',name+':/report/unit.json',b.local(out/'unit.json')])
         check('unit_return',unit.returncode==0,{'exit_code':unit.returncode})
+        reader=b.call(['exec',name,'python3','/opt/a14/test_input.py'],check=False)
+        (out/'input.log').write_text(reader.stdout+reader.stderr,encoding='utf-8')
+        check('input_return',reader.returncode==0,{'exit_code':reader.returncode})
         if not args.unit_only:
             for filename in ['inside.py','seed.php','fingerprint.php','unit.php','readonly-probe.php']:
                 b.call(['cp',b.local(ROOT/'wp/tests/a02-audit'/filename),name+':/opt/a02/'+filename])

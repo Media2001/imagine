@@ -123,8 +123,8 @@ final class CommandeAdmin
             self::stocker($draft);
             return $draft;
         }
-        $draft = self::draft($token);
         if ($action === 'preparer') {
+            $draft = self::draft($token);
             if ($draft['etape'] !== 2) {
                 throw new \LogicException('Ordre des écrans invalide.');
             }
@@ -151,6 +151,12 @@ final class CommandeAdmin
             throw new \RuntimeException('Brouillon en cours.');
         }
         try {
+            // Aucune lecture avant GET_LOCK : le concurrent a pu finaliser pendant l'attente.
+            // Le brouillon avec expiration est non autoloadé ; invalider ses deux caches natifs.
+            $key = self::key($token);
+            wp_cache_delete($key, 'transient');
+            wp_cache_delete('_transient_' . $key, 'options');
+            wp_cache_delete('_transient_timeout_' . $key, 'options');
             $draft = self::draft($token);
             if (isset($draft['resultat'])) {
                 return $draft; // Double-clic / retour navigateur : même commande.

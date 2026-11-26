@@ -7,6 +7,7 @@ import json
 import re
 import sys
 import threading
+import subprocess
 from urllib.parse import urlencode
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'outils/demo'))
@@ -36,7 +37,10 @@ def run(label='http-corrections-V2', selection='all'):
         s,_,third = post(second, dict(address,c16_action='preparer',produit=str(native['product']),paiement='bacs'))
         assert s == 200 and 'data-imagine-etape="3"' in third
         return third
+    def owned_fs(command):
+        subprocess.run(['wsl.exe','-d','Ubuntu','--','docker','exec','--user','root','wp-imagine-test-demo','sh','-c',command],check=True,capture_output=True)
     def configure(third, mode):
+        owned_fs('mkdir -p /var/www/html/wp-content/imagine-demo-build/c16-recette-v2 && chown www-data:www-data /var/www/html/wp-content/imagine-demo-build/c16-recette-v2 && chmod 700 /var/www/html/wp-content/imagine-demo-build/c16-recette-v2')
         config = {'token':form(third)['token'], 'uid':native['uid'], 'mode':mode}
         c16.wp('$p=WP_CONTENT_DIR."/imagine-demo-build/c16-recette-v2";if(!is_dir($p))mkdir($p,0700);foreach(glob($p."/*") as $f)unlink($f);update_option("imagine_c16_recette_v2",json_decode('+json.dumps(json.dumps(config))+',true),false);echo "true";')
         assert c16.wp('echo wp_json_encode(get_option("imagine_c16_recette_v2"));') == config
@@ -49,7 +53,8 @@ def run(label='http-corrections-V2', selection='all'):
             third = draft({'mode':'existant','client':str(native['customer'])})
             configure(third,'concurrence')
             # Separate authenticated clients; both wait server-side immediately before GET_LOCK.
-            clients = [h.login(accounts['E-ABO']) for _ in range(2)]
+            jar = next(handler.cookiejar for handler in operator.handlers if isinstance(handler,h.HTTPCookieProcessor))
+            clients = [h.build_opener(h.DemoRedirect(),h.HTTPCookieProcessor(jar)) for _ in range(2)]
             barrier = threading.Barrier(2)
             def confirm(client):
                 barrier.wait(timeout=10)
@@ -109,7 +114,8 @@ def run(label='http-corrections-V2', selection='all'):
     finally:
         c16.wp(('delete_option("imagine_commande_adresse_nouveau");' if policy_before is None else 'update_option("imagine_commande_adresse_nouveau",'+json.dumps(policy_before)+',false);')+'echo "true";')
         checks['reglage_restaure_exactement']=c16.wp('echo wp_json_encode(get_option("imagine_commande_adresse_nouveau",null));')==policy_before
-        c16.wp('delete_option("imagine_c16_recette_v2");$p=WP_CONTENT_DIR."/mu-plugins/imagine-c16-recette-v2.php";if(is_file($p))unlink($p);$d=WP_CONTENT_DIR."/imagine-demo-build/c16-recette-v2";foreach(glob($d."/*")?:[] as $f)unlink($f);if(is_dir($d))rmdir($d);echo "true";')
+        c16.wp('delete_option("imagine_c16_recette_v2");echo "true";')
+        owned_fs('rm -f /var/www/html/wp-content/mu-plugins/imagine-c16-recette-v2.php; if [ -d /var/www/html/wp-content/imagine-demo-build/c16-recette-v2 ]; then rm -f /var/www/html/wp-content/imagine-demo-build/c16-recette-v2/arrive-* /var/www/html/wp-content/imagine-demo-build/c16-recette-v2/interruption; rmdir /var/www/html/wp-content/imagine-demo-build/c16-recette-v2; fi')
         checks['sonde_temporaire_supprimee_reread']=c16.wp('echo wp_json_encode(!file_exists(WP_CONTENT_DIR."/mu-plugins/imagine-c16-recette-v2.php")&&!file_exists(WP_CONTENT_DIR."/imagine-demo-build/c16-recette-v2")&&get_option("imagine_c16_recette_v2",null)===null);')
         reset=c16.wp('require WP_CONTENT_DIR."/imagine-demo-build/c16-reset.php";echo wp_json_encode(imagine_c16_reset());')
         c16.save('reset-corrections-V2',reset)

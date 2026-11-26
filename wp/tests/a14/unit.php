@@ -37,6 +37,14 @@ if ($available) {
         ['line' => 5, 'reason' => 'Adresse électronique invalide'],
     ]);
     $check('invalid_not_counted_as_unmatched', $more['counts']['contacts_without_account'] === 2);
+    $ambiguous = \Imagine\Contacts\Matcher::build(
+        [['line' => 2, 'email' => 'shared@example.org', 'status' => 'inscrit']],
+        [
+            ['email' => 'shared@example.org', 'active' => true, 'technical' => false],
+            ['email' => ' SHARED @example.org', 'active' => false, 'technical' => false],
+        ]
+    );
+    $check('ambiguous_accounts_never_pick_first', $ambiguous['matched'] === [] && ($ambiguous['counts']['ambiguous_contact_lines'] ?? 0) === 1);
 }
 $exit = in_array('FAIL', array_column($checks, 'status'), true) ? 1 : 0;
 file_put_contents('/report/unit.json', json_encode(['exit_code' => $exit, 'checks' => $checks], JSON_PRETTY_PRINT));

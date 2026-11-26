@@ -46,6 +46,10 @@ final class Matcher
             $groups[$email][] = $contact['line'];
             if (isset($index[$email])) {
                 $seen[$email] = true;
+                if (count($index[$email]) !== 1) {
+                    $anomalies[] = ['line' => $contact['line'], 'reason' => 'Plusieurs comptes pour cette adresse'];
+                    continue;
+                }
                 $matched[] = [
                     'line' => $contact['line'], 'active_subscription' => $index[$email][0]['active'],
                     'status' => $contact['status'], 'cooperateur' => '', 'tarif' => '',
@@ -68,10 +72,12 @@ final class Matcher
             }
         }
         usort($anomalies, static fn(array $a, array $b): int => $a['line'] <=> $b['line']);
+        $ambiguous = count(array_filter($anomalies, static fn(array $row): bool => $row['reason'] === 'Plusieurs comptes pour cette adresse'));
         return [
             'counts' => [
                 'contacts_total' => count($contacts), 'contacts_with_account' => count($matched),
-                'contacts_without_account' => count($contacts) - $invalid - count($matched),
+                'contacts_without_account' => count($contacts) - $invalid - count($matched) - $ambiguous,
+                'ambiguous_contact_lines' => $ambiguous,
                 'accounts_without_contact' => $without, 'accounts_unmatchable' => $unmatchable,
                 'invalid_contact_lines' => $invalid, 'duplicate_contact_lines' => $duplicateLines,
                 'unsubscribed_contacts' => $statuses['desinscrit'], 'blocked_contacts' => $statuses['bloque'],
