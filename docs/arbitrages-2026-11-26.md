@@ -290,3 +290,46 @@ Une relecture dit conforme, l'autre à corriger (un reçu qui porterait à la fo
 
 - **Voie 1**, arrêtée file vide à 12 h 15 ; les fusions d'A-20 et d'A-21 sont arrivées à 12 h 53 et 13 h 08. En tête : A-20 et A-21 (avec le gardien commun). Puis deux lots : A-22 (le gardien pour tous les outils d'inventaire) et A-23 (les comptes des abonnés : familles d'empreintes de mots de passe, adresses vides ou en double, comptés, pour la promesse du §4.3 « identifiant et mot de passe conservés sauf impossibilité »).
 - **Voie 2**, silencieuse depuis 10 h 05 alors que sa file a du travail depuis 10 h 30. Je ne peux pas savoir pourquoi d'ici ; signalé à Ced. File inchangée sur le fond : B-05, puis C-22 (corrections), C-23, B-06. Pas de nouveau brief : elle a plus d'un lot devant elle.
+
+# Passage automatique de 16 h
+
+Lu : les rapports de 14 h 43, 15 h 20 et 16 h 19 (voie 2), les vérifications de B-05 et de C-22, la fusion de T-02, les notes de production de T-02, A-20, A-21, A-22, A-23 et C-23. Aucun rapport de la voie 1 depuis 12 h 15, mais son travail est dans le dépôt. Aucun accord donné sur le réel.
+
+## B-05 — code clos
+
+- Sept instructions appliquées et vérifiées. Seuls les liens internes certains échappent à la déclaration commerciale ; toute destination douteuse la reçoit : c'est le défaut demandé.
+- L'écart d'empreinte du fichier d'amorçage partagé est requalifié et non « réparé » : B-05 ne contrôle que son propre bloc, par contrat. Conforme à la règle des fichiers partagés.
+- Réserve du vérificateur, acceptée comme pour les lots précédents : il n'a rejoué ni Docker ni la démonstration (droits de sa session) ; il a rejoué le vérificateur hors réseau, qui lie les reçus au code relu.
+- La distinction graphique de l'étiquette « Partenariat » n'est pas une question de code : au designer.
+
+## C-22 — code clos
+
+- Trois instructions appliquées et vérifiées. Un identifiant de lettre déjà employé est réservé, y compris quand le compte qui le portait est effacé : la réserve ne contient aucune donnée personnelle.
+- Le vérificateur du lot contrôle désormais le comportement de l'export et de l'effacement, plus l'écriture d'un fichier partagé ; deux mutations témoins.
+- Un reçu rouge intermédiaire est conservé à côté du rejeu vert (un sélecteur de test périmé) : accepté, rien n'est rebaptisé.
+- La question visuelle (section sous le bouton « Enregistrer ») reste à Ced ; la question du consentement à la création du compte est déjà rangée pour Imagine.
+
+## C-23 — rendu, relecture attendue
+
+- Pas d'arbitrage avant la relecture. Trois choses notées pour elle : la préparation des sessions hors de la commande visiteur est le bon découpage (la commande certifiée ne fait que lire) ; la récupération après le délai dépassé ne prouve pas l'état octet pour octet des anciennes sessions, Hermès le dit, et ce sont des personnages fictifs ; le script de récupération ne fait pas partie du rejeu.
+- Plans de site fermés sur la démonstration : le test vérifie leur fermeture. Le jour où ils s'ouvrent (référenceur), les quatre lignes de la matrice devront chercher les témoins. À rappeler dans le lot qui les ouvrira.
+- B-06 ajoutera ses pages à la matrice : le test de livraison suit ce qu'on construit.
+
+## T-02 — corrigé, les trois défauts techniques de la fusion confirmés
+
+- Le harnais de tests reste dans l'espace global, en entier ; un alignement sur `Imagine\` serait une reprise à part, pas un correctif de T-02. Raison : c'est de l'outillage jetable en conteneur, pas du code livré.
+- La découverte se limite aux `unit.php` : c'est le périmètre du brief.
+- Aucun levier de mutation dans `rejouer.ps1` : le cas rouge se prouve par le paquet. Raison : ne pas élargir la seule commande que les relecteurs ont le droit de lancer.
+
+## A-20, A-21, A-22, A-23 — ordre des `PRET`
+
+- T-02 se rend sans attendre A-22. A-20, A-21 et A-22 se rendent ensemble, sur les mêmes sources : ils partagent le gardien. A-23 ensuite, rejoué si le gardien a bougé. Raison : un `PRET` posé sur un outil avant que le gardien soit figé serait à refaire.
+- A-22, `error_log` vers le périphérique de rejet avec le seul droit d'écriture correspondant : accepté en principe (ce qui est jeté ne sort pas, et un journal natif de planification ne doit pas rendre l'outil inutilisable), à condition que le mode d'emploi le dise et qu'un test prouve qu'aucun autre chemin n'est inscriptible. Les relecteurs jugeront.
+- A-22, les refus historiques des lots clos gardent leurs codes : confirmé.
+- A-02 et A-10 ne chargent pas le WordPress du site (lecture par requêtes seules) : hors du gardien, leurs suites sont rejouées quand même. Acquis.
+
+## Files
+
+- **Voie 1** : A-22 en cours, A-23 construit. Deux lots de plus : A-24 (adresses d'expédition des abonnements vivants, §3.13) et A-25 (ce que le site garde sur ses visiteurs, §4.4).
+- **Voie 2** : B-06 en cours. Deux lots de plus : C-24 (formulaire de personnalisation, §3.7 et §3.10 ; les questions sont un réglage puisqu'elles ne sont pas arrêtées) et B-07 (agenda, §3.11, sans billetterie : la licence n'est pas confirmée).
+
