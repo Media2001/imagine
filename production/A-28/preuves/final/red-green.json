@@ -1,0 +1,69 @@
+{
+  "experiments_kept_outside_repository": true,
+  "receipts": [
+    {
+      "handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-work\\red-unit\\runner.json",
+      "sha256": "16d734679c15e8b2c22b4bc895d4fa9ccd711a8b25ea0443e87b6ed73605ea05",
+      "observed_command_exits": [
+        1
+      ],
+      "expected_exit": 1,
+      "status": "FAIL",
+      "cleanup": {
+        "name": "imagine-test-a28-b4ba0cfcb85f",
+        "absent": true
+      }
+    },
+    {
+      "handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-work\\red-native-boundary\\runner.json",
+      "sha256": "d9dc7278bb93c44ea43667565170a9b281ff52798ab7d8ca72807111168d2fd8",
+      "observed_command_exits": [
+        1
+      ],
+      "expected_exit": 1,
+      "status": "FAIL",
+      "cleanup": {
+        "name": "imagine-test-a28-23630f81f203",
+        "absent": true
+      }
+    },
+    {
+      "handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-work\\red-nonform-regression\\runner.json",
+      "sha256": "76425dc4036a46507fc9515dc6f2ac4d64952d2d3a0c2bd12dd366380e6db8d0",
+      "observed_command_exits": [
+        1
+      ],
+      "expected_exit": 1,
+      "status": "FAIL",
+      "cleanup": {
+        "name": "imagine-test-a28-c5384b613c5f",
+        "absent": true
+      }
+    },
+    {
+      "handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-work\\green-unit\\runner.json",
+      "sha256": "509945561f34fe5adde6553dfb4555e5e9429194bbe3aca94dc05fb9d3600dfc",
+      "observed_command_exits": [
+        0
+      ],
+      "expected_exit": 0,
+      "status": "PASS",
+      "cleanup": {
+        "name": "imagine-test-a28-8fc61d465538",
+        "absent": true
+      }
+    },
+    {
+      "handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-work\\red-policy.stderr.log",
+      "sha256": "f127735a384e3af13cb87676eef675cc6715478d9eb5e6385f1bacbf8867511c",
+      "contains_real_assertion_failure": true
+    },
+    {
+      "handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-work\\red-verifier.stderr.log",
+      "sha256": "fc58df1b425b847c019547d88d51845b346d15e2f0240b1d3f494089704caef3",
+      "contains_real_assertion_failure": true
+    }
+  ],
+  "final_green_and_real_mutation_witnesses": "native/native.json",
+  "before_correction": "before/native.json"
+}

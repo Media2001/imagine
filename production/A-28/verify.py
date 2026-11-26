@@ -101,13 +101,16 @@ def runner_contract(base, root, baseline=False):
             need(hashlib.sha256((base / (command['key'] + '.' + stream + '.log')).read_bytes()).hexdigest() == command[stream + '_sha256'], 'RUNNER_LOG')
     if not baseline:
         need({c['key'] for c in row['commands']} == {'native', 'a01-python', 'a01-data', 'a01-test_database_policy',
-             'a01-test_diagnostics', 'a01-test_native_file_policy', 'unit', 'lint'}, 'RUNNER_COMMANDS')
+             'a01-test_diagnostics', 'a01-test_native_file_policy', 'unit', 'lint', 'nonform-differential'}, 'RUNNER_COMMANDS')
         for rel, digest in row['source_manifest'].items():
             need(hashlib.sha256((root / rel).read_bytes()).hexdigest() == digest, 'RUNNER_SOURCE_DRIFT')
         pure = load(base / 'unit.json')
         need(pure['exit_code'] == 0 and pure['checks'] and all(c['status'] == 'PASS' for c in pure['checks']), 'PURE_TESTS')
         a01 = load(base / 'a01-data.json')
         need(a01['ok'] is True and a01['cases'] == 9 and a01['assertions'] > 0, 'A01_DATA')
+        differential = load(base / 'nonform-differential.json')
+        need(differential['status'] == 'PASS' and differential['exact_nonform_tables_and_report_and_historical_refusals'] is True
+             and differential['only_report_addition'] == {'form_message_residues': 0}, 'NONFORM_DIFF')
     return row
 
 
@@ -157,11 +160,15 @@ def verify(root=ROOT):
     runner_contract(packet / 'before', root, baseline=True)
     native_contract(load(packet / 'before/native.json'), baseline=True)
     runner_contract(packet / 'native', root)
+    reference = load(packet / 'native/runner.json')['reference_manifest']
+    historical = load(packet / 'before/runner.json')['source_manifest']
+    need(all(reference[name] == historical['wp/outils/staging/' + name] for name in ('lib.php', 'command.php')), 'REFERENCE_SOURCE')
     native_contract(load(packet / 'native/native.json'))
     gates_contract(packet / 'gates', root)
     scope = load(packet / 'scope.json')
     need(scope['out_of_scope_changed'] == [] and scope['out_of_scope_added'] == [] and scope['ced_commands_unchanged'] is True
-         and scope['readme_exact_three_lines'] is True and scope['common_guardian_unchanged'] is True, 'SCOPE_DRIFT')
+         and scope['readme_exact_three_lines'] is True and scope['common_guardian_unchanged'] is True
+         and scope['old_packets_A23_A27_preserved'] is True, 'SCOPE_DRIFT')
     return {'lot': 'A-28', 'status': 'PASS', 'exit': 0, 'packet': PACKET.as_posix(),
             'native_cases': 8, 'baseline_cases': 6, 'residue_mutations': 16, 'pret_present': (base / 'PRET').is_file()}
 

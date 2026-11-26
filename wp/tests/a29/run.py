@@ -83,11 +83,11 @@ def main():
     try:
         image = json.loads(b.call(['image', 'inspect', b.IMAGE]).stdout)[0]
         assert not image['Config'].get('Volumes') and not image['Config'].get('ExposedPorts')
+        created = True  # A failed create can still leave an exact owned object.
         b.call(['create', '--name', name, '--label', b.LABEL + '=' + name, '--network', 'none',
                 '--no-healthcheck', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges',
                 '--pids-limit', '256', '--memory', '1536m', '--cpus', '2', '--log-driver', 'none',
                 '--pull', 'never', '--entrypoint', 'sleep', b.IMAGE, 'infinity'])
-        created = True
         check('isolation_before', True, b.validate(json.loads(b.call(['inspect', name]).stdout)[0], name))
         b.call(['start', name])
         b.call(['exec', name, 'mkdir', '-p', '/subject/a29', '/opt/a29', '/opt/a02', '/report'])

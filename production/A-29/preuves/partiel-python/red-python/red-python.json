@@ -1,0 +1,171 @@
+{
+  "scope": "python_closed_schema_mutation_only",
+  "readiness_claimed": false,
+  "rows": [
+    {
+      "console": "utf-8",
+      "phase": "baseline-green",
+      "exit_code": 0,
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a29",
+        "-p",
+        "test_report.py",
+        "-k",
+        "test_k5_and_closed_family",
+        "-v"
+      ],
+      "log": "utf-8-baseline-green.log",
+      "log_sha256": "41e11d8b8397db92469d734bf5a244d8c8511f6b9abd599e7e00b382efb6e5c8"
+    },
+    {
+      "console": "utf-8",
+      "phase": "mutation-red",
+      "exit_code": 1,
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a29",
+        "-p",
+        "test_report.py",
+        "-k",
+        "test_k5_and_closed_family",
+        "-v"
+      ],
+      "log": "utf-8-mutation-red.log",
+      "log_sha256": "65ecc501ef8cde2dd1f266e55afe74f4ed9bf529cc6dcabe8023b26fdbdcfc92"
+    },
+    {
+      "console": "utf-8",
+      "phase": "restored-green",
+      "exit_code": 0,
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a29",
+        "-p",
+        "test_report.py",
+        "-k",
+        "test_k5_and_closed_family",
+        "-v"
+      ],
+      "log": "utf-8-restored-green.log",
+      "log_sha256": "41e11d8b8397db92469d734bf5a244d8c8511f6b9abd599e7e00b382efb6e5c8"
+    },
+    {
+      "console": "cp1252",
+      "phase": "baseline-green",
+      "exit_code": 0,
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a29",
+        "-p",
+        "test_report.py",
+        "-k",
+        "test_k5_and_closed_family",
+        "-v"
+      ],
+      "log": "cp1252-baseline-green.log",
+      "log_sha256": "8977a8bec90e39f6611048fc9b5339047dbab60cac08dfd931c02c731bab725f"
+    },
+    {
+      "console": "cp1252",
+      "phase": "mutation-red",
+      "exit_code": 1,
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a29",
+        "-p",
+        "test_report.py",
+        "-k",
+        "test_k5_and_closed_family",
+        "-v"
+      ],
+      "log": "cp1252-mutation-red.log",
+      "log_sha256": "f761166a410c79b165da1fa10f19dc43d8f0d640da462f1a0c5ea5577ac1ba3f"
+    },
+    {
+      "console": "cp1252",
+      "phase": "restored-green",
+      "exit_code": 0,
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a29",
+        "-p",
+        "test_report.py",
+        "-k",
+        "test_k5_and_closed_family",
+        "-v"
+      ],
+      "log": "cp1252-restored-green.log",
+      "log_sha256": "9879b027d7b914c8d44eda9ec658c2012350c19c12c7ea2fe461810e05e7305c"
+    }
+  ],
+  "checks": [
+    {
+      "check": "utf-8:baseline-green",
+      "status": "PASS"
+    },
+    {
+      "check": "utf-8:mutation-red",
+      "status": "PASS"
+    },
+    {
+      "check": "utf-8:restored-green",
+      "status": "PASS"
+    },
+    {
+      "check": "utf-8:exact_restore",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:baseline-green",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:mutation-red",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:restored-green",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:exact_restore",
+      "status": "PASS"
+    },
+    {
+      "check": "repository_unchanged",
+      "status": "PASS"
+    }
+  ],
+  "exit_code": 0
+}

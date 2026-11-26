@@ -63,12 +63,27 @@ def main():
         pairs = [(p, 'opt/a28/' + p.name) for p in Path(__file__).parent.iterdir() if p.suffix in ('.py', '.php')]
         pairs += [(p, 'checkout/' + p.relative_to(ROOT).as_posix()) for p in (ROOT / 'wp/tests/a01-court').iterdir() if p.suffix in ('.py', '.php')]
         pairs += [(p, 'checkout/' + p.relative_to(ROOT).as_posix()) for p in (ROOT / 'wp/outils/staging-court').iterdir() if p.suffix in ('.py', '.php', '.json')]
-        pairs += [(ROOT/'wp/outils/staging-wp-integration/worker/worker.py', 'checkout/wp/outils/staging-court/legacy_importer.py')]
+        pairs += [(ROOT/'wp/outils/staging-wp-integration/worker/worker.py', 'checkout/wp/outils/staging-court/legacy_importer.py'),
+                  (ROOT/'wp/outils/staging-wp-integration/worker/worker.py', 'checkout/wp/outils/staging-wp-integration/worker/worker.py')]
+        pairs += [(ROOT/'wp/tests/staging-data/fixtures.php', 'opt/fixtures.php')]
         for path in ('publication-23nov/52170a14f7a7/result.json', 'publication-22nov/a6ca179f2442/result.json', 'publication-22nov/79cef0705045/result.json'):
             p = ROOT / 'production/A-01' / path
             pairs.append((p, 'checkout/' + p.relative_to(ROOT).as_posix()))
         # The fixed staging payload list is the deployed contract; new dependencies must be there, not hidden here.
         manifest.update(transfer(name, pairs))
+        reference = io.BytesIO()
+        receipt['reference_manifest'] = {}
+        with tarfile.open(fileobj=reference, mode='w') as tar:
+            for file in publish.offline_runner.SUBJECT:
+                source = ROOT / 'wp/outils/staging' / file
+                if file in ('lib.php', 'command.php'):
+                    source = Path('C:/Users/Ced/AppData/Local/hermes/cache/scratch/a28-work/original/wp/outils/staging') / file
+                raw = source.read_bytes()
+                receipt['reference_manifest'][file] = hashlib.sha256(raw).hexdigest()
+                info = tarfile.TarInfo('reference/' + file)
+                info.size = len(raw)
+                tar.addfile(info, io.BytesIO(raw))
+        publish.call(['exec', '-i', name, 'tar', '-xf', '-', '-C', '/'], reference.getvalue())
 
         def run(key, argv, copy=None):
             p = publish.call(['exec', '-e', 'PYTHONDONTWRITEBYTECODE=1', '-e', 'PYTHONIOENCODING=utf-8', name] + argv, check=False, timeout=1800)
@@ -95,10 +110,14 @@ def main():
                 run('a01-data', ['env', 'PHP_BIN=/usr/bin/php', 'IMAGINE_TEST_SCRATCH=/scratch/a01-unit', 'python3',
                                  '/checkout/wp/tests/staging-data/verify.py', '--output', '/report/a01-data.json'], '/report/a01-data.json')
                 for f in ('test_database_policy.php', 'test_diagnostics.php', 'test_native_file_policy.php'):
-                    run('a01-' + f[:-4], ['php', '/checkout/wp/tests/a01-court/' + f])
+                    if f == 'test_diagnostics.php':
+                        run('a01-' + f[:-4], ['python3', '/opt/a28/diagnostics_fixture.py'], '/report/a01-diagnostics.json')
+                    else:
+                        run('a01-' + f[:-4], ['php', '/checkout/wp/tests/a01-court/' + f])
                 if (Path(__file__).parent / 'unit.php').is_file():
                     run('unit', ['php', '/opt/a28/unit.php'], '/report/unit.json')
                 run('lint', ['python3', '/opt/a28/lint.py'], '/report/a28-lint.json')
+                run('nonform-differential', ['python3', '/opt/a28/nonform.py'], '/report/nonform.json')
         receipt['isolation_after'] = publish.offline_isolation(name)
         receipt['sources_unchanged'] = all(hashlib.sha256((ROOT / rel).read_bytes()).hexdigest() == digest for rel, digest in manifest.items())
         assert receipt['sources_unchanged']

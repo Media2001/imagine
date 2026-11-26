@@ -1,0 +1,95 @@
+{
+  "scope": "python_only",
+  "readiness_claimed": false,
+  "counts": {
+    "utf8:python": 42,
+    "cp1252:python": 42
+  },
+  "checks": [
+    {
+      "check": "exact_current_sources",
+      "status": "PASS"
+    },
+    {
+      "check": "exact_current_dependencies",
+      "status": "PASS"
+    },
+    {
+      "check": "no_pret_claim",
+      "status": "PASS"
+    },
+    {
+      "check": "red_python_pointer",
+      "status": "PASS"
+    },
+    {
+      "check": "real_python_red_green_both_consoles",
+      "status": "PASS"
+    },
+    {
+      "check": "python_witness_utf-8_baseline-green",
+      "status": "PASS"
+    },
+    {
+      "check": "python_witness_utf-8_mutation-red",
+      "status": "PASS"
+    },
+    {
+      "check": "python_witness_utf-8_restored-green",
+      "status": "PASS"
+    },
+    {
+      "check": "python_witness_cp1252_baseline-green",
+      "status": "PASS"
+    },
+    {
+      "check": "python_witness_cp1252_mutation-red",
+      "status": "PASS"
+    },
+    {
+      "check": "python_witness_cp1252_restored-green",
+      "status": "PASS"
+    },
+    {
+      "check": "matrix_scope",
+      "status": "PASS"
+    },
+    {
+      "check": "exact_command_matrix",
+      "status": "PASS"
+    },
+    {
+      "check": "all_commands_pass",
+      "status": "PASS"
+    },
+    {
+      "check": "bound_log_python_utf-8",
+      "status": "PASS"
+    },
+    {
+      "check": "bound_log_python_cp1252",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:real_windows_console",
+      "status": "PASS"
+    },
+    {
+      "check": "utf8:real_python_tests",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:real_windows_console",
+      "status": "PASS"
+    },
+    {
+      "check": "cp1252:real_python_tests",
+      "status": "PASS"
+    },
+    {
+      "check": "no_retained_private_canary",
+      "status": "PASS"
+    }
+  ],
+  "exit_code": 0
+}

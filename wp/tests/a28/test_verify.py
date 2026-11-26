@@ -26,7 +26,7 @@ class VerifierControls(unittest.TestCase):
     def runner_fixture(self, root):
         iso = {'network': 'none', 'mounts': [], 'ports': [], 'privileged': False, 'no_new_privileges': True, 'cap_drop': ['ALL']}
         keys = ['native', 'a01-python', 'a01-data', 'a01-test_database_policy', 'a01-test_diagnostics',
-                'a01-test_native_file_policy', 'unit', 'lint']
+                'a01-test_native_file_policy', 'unit', 'lint', 'nonform-differential']
         commands = []
         empty = hashlib.sha256(b'').hexdigest()
         for key in keys:
@@ -42,6 +42,9 @@ class VerifierControls(unittest.TestCase):
         (root / 'runner.json').write_text(json.dumps(data), encoding='utf-8')
         (root / 'unit.json').write_text(json.dumps({'exit_code': 0, 'checks': [{'status': 'PASS'}]}), encoding='utf-8')
         (root / 'a01-data.json').write_text(json.dumps({'ok': True, 'cases': 9, 'assertions': 1}), encoding='utf-8')
+        (root / 'nonform-differential.json').write_text(json.dumps({'status': 'PASS',
+            'exact_nonform_tables_and_report_and_historical_refusals': True,
+            'only_report_addition': {'form_message_residues': 0}}), encoding='utf-8')
         return data
 
     def test_current_sources_required_not_just_passing_logs(self):

@@ -1,0 +1,34 @@
+{
+  "sources": [
+    {
+      "url": "https://raw.githubusercontent.com/rocklobster-in/flamingo/master/readme.txt",
+      "sha256": "9915c3253402ef0e3f005843cf38e8b45396ad2c59a312c4ad60e2bdf17bbd05",
+      "bytes": 2187,
+      "retrieved_utc": "2026-11-26T22:49:18.787525+00:00",
+      "scratch_handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-work\\flamingo-readme.txt"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/rocklobster-in/flamingo/master/includes/class-inbound-message.php",
+      "sha256": "2a5e9ae55017efbe27ab7e0b04c5c1e64b2e4f3184c43090997c10e19ed50682",
+      "bytes": 11916,
+      "retrieved_utc": "2026-11-26T22:48:35.351000+00:00",
+      "scratch_handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-work\\flamingo-inbound.txt"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/rocklobster-in/flamingo/master/includes/class-contact.php",
+      "sha256": "bc2c1c4ad6339dfaf62aec171c6cf40bce63a27401ab290f9e4f71c60faaf1af",
+      "bytes": 6397,
+      "retrieved_utc": "2026-11-26T22:48:35.672062+00:00",
+      "scratch_handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-work\\flamingo-contact.txt"
+    },
+    {
+      "url": "https://developers.fluentforms.com/database/",
+      "sha256": "9ebcbdff45f9e4166d254480433bb53e80a83362310b96deddcf57e9fdfc4016",
+      "bytes": 53553,
+      "retrieved_utc": "2026-11-26T22:48:34.904816+00:00",
+      "scratch_handle": "C:\\Users\\Ced\\AppData\\Local\\hermes\\cache\\scratch\\a28-work\\fluent.html"
+    }
+  ],
+  "standard": "standard.md",
+  "cf7_direct_page": "WAF interstitial rejected; official publisher README used instead"
+}

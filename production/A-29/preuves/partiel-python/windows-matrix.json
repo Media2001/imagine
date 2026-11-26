@@ -1,0 +1,51 @@
+{
+  "scope": "python_only",
+  "readiness_claimed": false,
+  "sources_stable": true,
+  "rows": [
+    {
+      "kind": "python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a29",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "console": "utf-8",
+      "exit_code": 0,
+      "log": "utf8/python-tests.log",
+      "log_sha256": "7380ec31e52f28998e47cf097541296aa9a53036b013c889d3582ca0b4ca7560",
+      "tests_run": 42,
+      "all_pass": true
+    },
+    {
+      "kind": "python",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "wp/tests/a29",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "console": "cp1252",
+      "exit_code": 0,
+      "log": "cp1252/python-tests.log",
+      "log_sha256": "1cd9a94ed4d0b9a3b31b135014e319f4cb9c5e9e83ff0d1399d33ee4dbd64c45",
+      "tests_run": 42,
+      "all_pass": true
+    }
+  ],
+  "red_python": "red-python/red-python.json",
+  "exit_code": 0
+}

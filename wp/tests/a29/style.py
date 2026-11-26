@@ -37,10 +37,10 @@ def main():
         image = json.loads(b.call(['image', 'inspect', 'imagine-tests-t01:1']).stdout)[0]
         assert image['Config']['Labels'].get('org.imagine.t01-image') == '1'
         assert not image['Config'].get('Volumes') and not image['Config'].get('ExposedPorts')
+        created = True  # Inspect ownership even if create reports an error.
         b.call(['create', '--name', name, '--label', b.LABEL + '=' + name, '--network', 'none',
                 '--no-healthcheck', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges',
                 '--pull', 'never', '--entrypoint', 'sleep', image['Id'], 'infinity'])
-        created = True
         b.validate(json.loads(b.call(['inspect', name]).stdout)[0], name)
         check('isolation_before', True)
         b.call(['start', name])
